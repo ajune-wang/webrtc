@@ -181,7 +181,7 @@ void JsepTransportController::SetNeedsIceRestartFlag() {
 
 bool JsepTransportController::NeedsIceRestart(
     const std::string& transport_name) const {
-  const cricket::JsepTransport2* transport =
+  const cricket::JsepTransport* transport =
       GetJsepTransportByName(transport_name);
   if (!transport) {
     return false;
@@ -196,7 +196,7 @@ rtc::Optional<rtc::SSLRole> JsepTransportController::GetDtlsRole(
         RTC_FROM_HERE, [&] { return GetDtlsRole(mid); });
   }
 
-  const cricket::JsepTransport2* t = GetJsepTransportForMid(mid);
+  const cricket::JsepTransport* t = GetJsepTransportForMid(mid);
   if (!t) {
     return rtc::Optional<rtc::SSLRole>();
   }
@@ -237,7 +237,7 @@ JsepTransportController::GetLocalCertificate(
         RTC_FROM_HERE, [&] { return GetLocalCertificate(transport_name); });
   }
 
-  const cricket::JsepTransport2* t = GetJsepTransportByName(transport_name);
+  const cricket::JsepTransport* t = GetJsepTransportByName(transport_name);
   if (!t) {
     return nullptr;
   }
@@ -329,7 +329,7 @@ RTCError JsepTransportController::RemoveRemoteCandidates(
   for (const auto& kv : candidates_by_transport_name) {
     const std::string& transport_name = kv.first;
     const cricket::Candidates& candidates = kv.second;
-    cricket::JsepTransport2* jsep_transport =
+    cricket::JsepTransport* jsep_transport =
         GetJsepTransportByName(transport_name);
     if (!jsep_transport) {
       RTC_LOG(LS_WARNING)
@@ -355,7 +355,7 @@ bool JsepTransportController::GetStats(const std::string& transport_name,
         RTC_FROM_HERE, [=] { return GetStats(transport_name, stats); });
   }
 
-  cricket::JsepTransport2* transport = GetJsepTransportByName(transport_name);
+  cricket::JsepTransport* transport = GetJsepTransportByName(transport_name);
   if (!transport) {
     return false;
   }
@@ -467,14 +467,11 @@ JsepTransportController::CreateDtlsSrtpTransport(
     cricket::DtlsTransportInternal* rtp_dtls_transport,
     cricket::DtlsTransportInternal* rtcp_dtls_transport) {
   RTC_DCHECK(network_thread_->IsCurrent());
-  auto srtp_transport =
-      rtc::MakeUnique<webrtc::SrtpTransport>(rtcp_dtls_transport == nullptr);
+  auto dtls_srtp_transport = rtc::MakeUnique<webrtc::DtlsSrtpTransport>(
+      rtcp_dtls_transport == nullptr);
   if (config_.enable_external_auth) {
-    srtp_transport->EnableExternalAuth();
+    dtls_srtp_transport->EnableExternalAuth();
   }
-
-  auto dtls_srtp_transport =
-      rtc::MakeUnique<webrtc::DtlsSrtpTransport>(std::move(srtp_transport));
 
   dtls_srtp_transport->SetDtlsTransports(rtp_dtls_transport,
                                          rtcp_dtls_transport);
@@ -607,7 +604,7 @@ RTCError JsepTransportController::ApplyDescription_n(
     int rtp_abs_sendtime_extn_id =
         GetRtpAbsSendTimeHeaderExtensionId(content_info);
 
-    cricket::JsepTransport2* transport =
+    cricket::JsepTransport* transport =
         GetJsepTransportForMid(content_info.name);
     RTC_DCHECK(transport);
 
@@ -682,7 +679,7 @@ void JsepTransportController::HandleRejectedContent(
     const cricket::ContentInfo& content_info) {
   // If the content is rejected, let the
   // BaseChannel/SctpTransport change the RtpTransport/DtlsTransport first,
-  // then destroy the cricket::JsepTransport2.
+  // then destroy the cricket::JsepTransport.
   if (content_info.type == cricket::MediaProtocolType::kRtp) {
     SignalRtpTransportChanged(content_info.name, nullptr);
   } else {
@@ -714,7 +711,7 @@ void JsepTransportController::HandleBundledContent(
     const cricket::ContentInfo& content_info) {
   // If the content is bundled, let the
   // BaseChannel/SctpTransport change the RtpTransport/DtlsTransport first,
-  // then destroy the cricket::JsepTransport2.
+  // then destroy the cricket::JsepTransport.
   if (content_info.type == cricket::MediaProtocolType::kRtp) {
     auto rtp_transport =
         jsep_transports_by_name_[*bundled_mid()]->rtp_transport();
@@ -830,7 +827,7 @@ int JsepTransportController::GetRtpAbsSendTimeHeaderExtensionId(
   return send_time_extension ? send_time_extension->id : -1;
 }
 
-const cricket::JsepTransport2* JsepTransportController::GetJsepTransportForMid(
+const cricket::JsepTransport* JsepTransportController::GetJsepTransportForMid(
     const std::string& mid) const {
   auto target_mid = mid;
   if (IsBundled(mid)) {
@@ -840,7 +837,7 @@ const cricket::JsepTransport2* JsepTransportController::GetJsepTransportForMid(
   return (it == jsep_transports_by_name_.end()) ? nullptr : it->second.get();
 }
 
-cricket::JsepTransport2* JsepTransportController::GetJsepTransportForMid(
+cricket::JsepTransport* JsepTransportController::GetJsepTransportForMid(
     const std::string& mid) {
   auto target_mid = mid;
   if (IsBundled(mid)) {
@@ -850,13 +847,13 @@ cricket::JsepTransport2* JsepTransportController::GetJsepTransportForMid(
   return (it == jsep_transports_by_name_.end()) ? nullptr : it->second.get();
 }
 
-const cricket::JsepTransport2* JsepTransportController::GetJsepTransportByName(
+const cricket::JsepTransport* JsepTransportController::GetJsepTransportByName(
     const std::string& transport_name) const {
   auto it = jsep_transports_by_name_.find(transport_name);
   return (it == jsep_transports_by_name_.end()) ? nullptr : it->second.get();
 }
 
-cricket::JsepTransport2* JsepTransportController::GetJsepTransportByName(
+cricket::JsepTransport* JsepTransportController::GetJsepTransportByName(
     const std::string& transport_name) {
   auto it = jsep_transports_by_name_.find(transport_name);
   return (it == jsep_transports_by_name_.end()) ? nullptr : it->second.get();
@@ -866,7 +863,7 @@ RTCError JsepTransportController::MaybeCreateJsepTransport(
     const std::string& mid,
     const cricket::ContentInfo& content_info) {
   RTC_DCHECK(network_thread_->IsCurrent());
-  cricket::JsepTransport2* transport = GetJsepTransportForMid(mid);
+  cricket::JsepTransport* transport = GetJsepTransportForMid(mid);
   if (transport) {
     return RTCError::OK();
   }
@@ -902,8 +899,8 @@ RTCError JsepTransportController::MaybeCreateJsepTransport(
                                                   rtcp_dtls_transport.get());
   }
 
-  std::unique_ptr<cricket::JsepTransport2> jsep_transport =
-      rtc::MakeUnique<cricket::JsepTransport2>(
+  std::unique_ptr<cricket::JsepTransport> jsep_transport =
+      rtc::MakeUnique<cricket::JsepTransport>(
           mid, certificate_, std::move(unencrypted_rtp_transport),
           std::move(sdes_transport), std::move(dtls_srtp_transport),
           std::move(rtp_dtls_transport), std::move(rtcp_dtls_transport));
@@ -936,7 +933,7 @@ void JsepTransportController::SetIceRole_n(cricket::IceRole ice_role) {
 }
 
 cricket::IceRole JsepTransportController::DetermineIceRole(
-    cricket::JsepTransport2* jsep_transport,
+    cricket::JsepTransport* jsep_transport,
     const cricket::TransportInfo& transport_info,
     SdpType type,
     bool local) {

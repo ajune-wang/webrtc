@@ -25,7 +25,7 @@
 #include "p2p/base/transportfactoryinterface.h"
 #include "pc/channel.h"
 #include "pc/dtlssrtptransport.h"
-#include "pc/jseptransport2.h"
+#include "pc/jseptransport.h"
 #include "pc/rtptransport.h"
 #include "pc/srtptransport.h"
 #include "rtc_base/asyncinvoker.h"
@@ -216,15 +216,15 @@ class JsepTransportController : public sigslot::has_slots<>,
   // destroyed because of BUNDLE, it would return the transport which other
   // transports are bundled on (In current implementation, it is the first
   // content in the BUNDLE group).
-  const cricket::JsepTransport2* GetJsepTransportForMid(
+  const cricket::JsepTransport* GetJsepTransportForMid(
       const std::string& mid) const;
-  cricket::JsepTransport2* GetJsepTransportForMid(const std::string& mid);
+  cricket::JsepTransport* GetJsepTransportForMid(const std::string& mid);
 
   // Get the JsepTransport without considering the BUNDLE group. Return nullptr
   // if the JsepTransport is destroyed.
-  const cricket::JsepTransport2* GetJsepTransportByName(
+  const cricket::JsepTransport* GetJsepTransportByName(
       const std::string& transport_name) const;
-  cricket::JsepTransport2* GetJsepTransportByName(
+  cricket::JsepTransport* GetJsepTransportByName(
       const std::string& transport_name);
 
   RTCError MaybeCreateJsepTransport(const std::string& mid,
@@ -235,7 +235,7 @@ class JsepTransportController : public sigslot::has_slots<>,
   void SetIceRole_n(cricket::IceRole ice_role);
 
   cricket::IceRole DetermineIceRole(
-      cricket::JsepTransport2* jsep_transport,
+      cricket::JsepTransport* jsep_transport,
       const cricket::TransportInfo& transport_info,
       SdpType type,
       bool local);
@@ -282,7 +282,7 @@ class JsepTransportController : public sigslot::has_slots<>,
   rtc::Thread* const network_thread_ = nullptr;
   cricket::PortAllocator* const port_allocator_ = nullptr;
 
-  std::map<std::string, std::unique_ptr<cricket::JsepTransport2>>
+  std::map<std::string, std::unique_ptr<cricket::JsepTransport>>
       jsep_transports_by_name_;
 
   // Aggregate state for Transports.

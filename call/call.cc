@@ -169,7 +169,8 @@ class Call : public webrtc::Call,
              public PacketReceiver,
              public RecoveredPacketReceiver,
              public TargetTransferRateObserver,
-             public BitrateAllocator::LimitObserver {
+             public BitrateAllocator::LimitObserver,
+             public CallStatsObserver {
  public:
   Call(const Call::Config& config,
        std::unique_ptr<RtpTransportControllerSendInterface> transport_send);
@@ -237,6 +238,9 @@ class Call : public webrtc::Call,
                                  uint32_t max_padding_bitrate_bps,
                                  uint32_t total_bitrate_bps,
                                  bool has_packet_feedback) override;
+
+  // Implements CallStatsObserver.
+  void OnRttUpdate(int64_t avg_rtt_ms, int64_t max_rtt_ms) override;
 
  private:
   DeliveryStatus DeliverRtcp(MediaType media_type, const uint8_t* packet,
@@ -368,6 +372,12 @@ class Call : public webrtc::Call,
 
   const std::unique_ptr<SendDelayStats> video_send_delay_stats_;
   const int64_t start_ms_;
+
+  // TODO(tommi): We shouldn't need this once GetStats is made async and
+  // OnRttUpdate() is called on the |worker_queue_|.
+  rtc::CriticalSection rtt_crit_;
+  int64_t avg_rtt_ms_;
+
   // TODO(perkj): |worker_queue_| is supposed to replace
   // |module_process_thread_|.
   // |worker_queue| is defined last to ensure all pending tasks are cancelled
@@ -442,12 +452,16 @@ Call::Call(const Call::Config& config,
       receive_time_calculator_(ReceiveTimeCalculator::CreateFromFieldTrial()),
       video_send_delay_stats_(new SendDelayStats(clock_)),
       start_ms_(clock_->TimeInMilliseconds()),
+      avg_rtt_ms_(-1),
       worker_queue_("call_worker_queue") {
   RTC_DCHECK(config.event_log != nullptr);
   transport_send->RegisterTargetTransferRateObserver(this);
   transport_send_ = std::move(transport_send);
 
   call_stats_.reset(new CallStats(clock_, &worker_queue_));
+  // TODO(tommi): Look into narrowing the scope of these callbacks. If there's
+  // nothing going on, we shouldn't need them.
+  call_stats_->RegisterStatsObserver(this);
   call_stats_->RegisterStatsObserver(&receive_side_cc_);
   call_stats_->RegisterStatsObserver(transport_send_->GetCallStatsObserver());
 
@@ -470,6 +484,7 @@ Call::~Call() {
       receive_side_cc_.GetRemoteBitrateEstimator(true));
   module_process_thread_->DeRegisterModule(&receive_side_cc_);
   module_process_thread_->Stop();
+  call_stats_->DeregisterStatsObserver(this);
   call_stats_->DeregisterStatsObserver(&receive_side_cc_);
   call_stats_->DeregisterStatsObserver(transport_send_->GetCallStatsObserver());
 
@@ -930,7 +945,11 @@ Call::Stats Call::GetStats() const {
         aggregate_network_up_ ? transport_send_->GetPacerQueuingDelayMs() : 0;
   }
 
-  stats.rtt_ms = call_stats_->LastProcessedRtt();
+  {
+    rtc::CritScope lock(&rtt_crit_);
+    stats.rtt_ms = avg_rtt_ms_;
+  }
+
   {
     rtc::CritScope cs(&bitrate_crit_);
     stats.max_padding_bitrate_bps = configured_max_padding_bitrate_bps_;
@@ -1118,6 +1137,11 @@ void Call::OnAllocationLimitsChanged(uint32_t min_send_bitrate_bps,
   rtc::CritScope lock(&bitrate_crit_);
   min_allocated_send_bitrate_bps_ = min_send_bitrate_bps;
   configured_max_padding_bitrate_bps_ = max_padding_bitrate_bps;
+}
+
+void Call::OnRttUpdate(int64_t avg_rtt_ms, int64_t max_rtt_ms) {
+  rtc::CritScope lock(&rtt_crit_);
+  avg_rtt_ms_ = avg_rtt_ms;
 }
 
 void Call::ConfigureSync(const std::string& sync_group) {

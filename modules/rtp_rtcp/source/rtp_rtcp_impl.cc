@@ -31,6 +31,26 @@ const int64_t kRtpRtcpMaxIdleTimeProcessMs = 5;
 const int64_t kRtpRtcpRttProcessTimeMs = 1000;
 const int64_t kRtpRtcpBitrateProcessTimeMs = 10;
 const int64_t kDefaultExpectedRetransmissionTimeMs = 125;
+
+std::unique_ptr<RTPSender> OptionallyCreateRtpSender(
+    const RtpRtcp::Configuration& configuration) {
+  if (configuration.receiver_only)
+    return std::unique_ptr<RTPSender>();
+  return std::unique_ptr<RTPSender>(
+      new RTPSender(configuration.audio, configuration.clock,
+                    configuration.outgoing_transport,
+                    configuration.paced_sender, configuration.flexfec_sender,
+                    configuration.transport_sequence_number_allocator,
+                    configuration.transport_feedback_callback,
+                    configuration.send_bitrate_observer,
+                    configuration.send_frame_count_observer,
+                    configuration.send_side_delay_observer,
+                    configuration.event_log, configuration.send_packet_observer,
+                    configuration.retransmission_rate_limiter,
+                    configuration.overhead_observer,
+                    configuration.populate_network2_timestamp));
+}
+
 }  // namespace
 
 RTPExtensionType StringToRtpExtensionType(const std::string& extension) {
@@ -80,7 +100,8 @@ int32_t RtpRtcp::SetFecParameters(const FecProtectionParams* delta_params,
 }
 
 ModuleRtpRtcpImpl::ModuleRtpRtcpImpl(const Configuration& configuration)
-    : rtcp_sender_(configuration.audio,
+    : rtp_sender_(OptionallyCreateRtpSender(configuration)),
+      rtcp_sender_(configuration.audio,
                    configuration.clock,
                    configuration.receive_statistics,
                    configuration.rtcp_packet_type_counter_observer,
@@ -111,20 +132,7 @@ ModuleRtpRtcpImpl::ModuleRtpRtcpImpl(const Configuration& configuration)
       remote_bitrate_(configuration.remote_bitrate_estimator),
       rtt_stats_(configuration.rtt_stats),
       rtt_ms_(0) {
-  if (!configuration.receiver_only) {
-    rtp_sender_.reset(new RTPSender(
-        configuration.audio, configuration.clock,
-        configuration.outgoing_transport, configuration.paced_sender,
-        configuration.flexfec_sender,
-        configuration.transport_sequence_number_allocator,
-        configuration.transport_feedback_callback,
-        configuration.send_bitrate_observer,
-        configuration.send_frame_count_observer,
-        configuration.send_side_delay_observer, configuration.event_log,
-        configuration.send_packet_observer,
-        configuration.retransmission_rate_limiter,
-        configuration.overhead_observer,
-        configuration.populate_network2_timestamp));
+  if (rtp_sender_) {
     // Make sure rtcp sender use same timestamp offset as rtp sender.
     rtcp_sender_.SetTimestampOffset(rtp_sender_->TimestampOffset());
 
@@ -134,6 +142,9 @@ ModuleRtpRtcpImpl::ModuleRtpRtcpImpl(const Configuration& configuration)
     }
   }
 
+  if (rtt_stats_)
+    rtt_stats_->RegisterStatsObserver(this);
+
   // Set default packet size limit.
   // TODO(nisse): Kind-of duplicates
   // webrtc::VideoSendStream::Config::Rtp::kDefaultMaxPacketSize.
@@ -141,7 +152,10 @@ ModuleRtpRtcpImpl::ModuleRtpRtcpImpl(const Configuration& configuration)
   SetMaxRtpPacketSize(IP_PACKET_SIZE - kTcpOverIpv4HeaderSize);
 }
 
-ModuleRtpRtcpImpl::~ModuleRtpRtcpImpl() = default;
+ModuleRtpRtcpImpl::~ModuleRtpRtcpImpl() {
+  if (rtt_stats_)
+    rtt_stats_->DeregisterStatsObserver(this);
+}
 
 // Returns the number of milliseconds until the module want a worker thread
 // to call Process.
@@ -179,6 +193,7 @@ void ModuleRtpRtcpImpl::Process() {
   }
 
   bool process_rtt = now >= last_rtt_process_time_ + kRtpRtcpRttProcessTimeMs;
+
   if (rtcp_sender_.Sending()) {
     // Process RTT if we have received a report block and we haven't
     // processed RTT for at least |kRtpRtcpRttProcessTimeMs| milliseconds.
@@ -228,17 +243,10 @@ void ModuleRtpRtcpImpl::Process() {
     }
   }
 
-  // Get processed rtt.
   if (process_rtt) {
     last_rtt_process_time_ = now;
     next_process_time_ = std::min(
         next_process_time_, last_rtt_process_time_ + kRtpRtcpRttProcessTimeMs);
-    if (rtt_stats_) {
-      // Make sure we have a valid RTT before setting.
-      int64_t last_rtt = rtt_stats_->LastProcessedRtt();
-      if (last_rtt >= 0)
-        set_rtt_ms(last_rtt);
-    }
   }
 
   if (rtcp_sender_.TimeToSendRTCPReport())
@@ -905,11 +913,14 @@ void ModuleRtpRtcpImpl::SetRtcpReceiverSsrcs(uint32_t main_ssrc) {
   rtcp_receiver_.SetSsrcs(main_ssrc, ssrcs);
 }
 
-void ModuleRtpRtcpImpl::set_rtt_ms(int64_t rtt_ms) {
-  rtc::CritScope cs(&critical_section_rtt_);
-  rtt_ms_ = rtt_ms;
+void ModuleRtpRtcpImpl::OnRttUpdate(int64_t avg_rtt_ms, int64_t max_rtt_ms) {
+  {
+    rtc::CritScope cs(&critical_section_rtt_);
+    rtt_ms_ = avg_rtt_ms;
+  }
+
   if (rtp_sender_)
-    rtp_sender_->SetRtt(rtt_ms);
+    rtp_sender_->SetRtt(avg_rtt_ms);
 }
 
 int64_t ModuleRtpRtcpImpl::rtt_ms() const {

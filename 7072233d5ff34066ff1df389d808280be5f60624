@@ -22,6 +22,30 @@
       "revId": "7072233d5ff34066ff1df389d808280be5f60624",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90ca62bc_0acc9309",
+        "filename": "modules/video_coding/codecs/vp9/svc_rate_allocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-04-02T20:16:10Z",
+      "side": 1,
+      "message": "Added two comments, general comment on rate distribution between temporal layers and comment on middle/high layer rate distribution in case of three temporal layers. Please take a look.",
+      "parentUuid": "55ab785b_44f8bfd3",
+      "range": {
+        "startLine": 98,
+        "startChar": 4,
+        "endLine": 98,
+        "endChar": 35
+      },
+      "revId": "7072233d5ff34066ff1df389d808280be5f60624",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -317,7 +317,12 @@ void UDPPort::GetStunStats(rtc::Optional<StunStats>* stats) {
 }
 
 void UDPPort::set_stun_keepalive_delay(const rtc::Optional<int>& delay) {
-  stun_keepalive_delay_ = delay.value_or(STUN_KEEPALIVE_INTERVAL);
+  int new_delay = delay.value_or(STUN_KEEPALIVE_INTERVAL);
+  if (new_delay < stun_keepalive_delay_ && !requests_.empty()) {
+    requests_.Clear();
+    SendStunBindingRequests();
+  }
+  stun_keepalive_delay_ = new_delay;
 }
 
 void UDPPort::OnLocalAddressReady(rtc::AsyncPacketSocket* socket,

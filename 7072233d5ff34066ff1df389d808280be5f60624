@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "55ab785b_44f8bfd3",
+        "filename": "modules/video_coding/codecs/vp9/svc_rate_allocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 6680
+      },
+      "writtenOn": "2018-04-02T16:27:15Z",
+      "side": 1,
+      "message": "Consider adding a comment to call attention to the fact that the temporal rate allocation ordering differs from the spatial rate allocation order.  For example, \"The allocation of rate to temporal layers differs from that of spatial layers due to the fact that the number of frames increases monotonically with increasing temporal layer.\"",
+      "range": {
+        "startLine": 98,
+        "startChar": 4,
+        "endLine": 98,
+        "endChar": 35
+      },
+      "revId": "7072233d5ff34066ff1df389d808280be5f60624",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

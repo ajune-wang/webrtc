@@ -71,7 +71,6 @@ struct StreamParams {
   bool operator==(const StreamParams& other) const {
     return (groupid == other.groupid && id == other.id &&
             ssrcs == other.ssrcs && ssrc_groups == other.ssrc_groups &&
-            type == other.type && display == other.display &&
             cname == other.cname && sync_label == other.sync_label);
   }
   bool operator!=(const StreamParams &other) const {
@@ -160,10 +159,6 @@ struct StreamParams {
   std::string id;
   std::vector<uint32_t> ssrcs;         // All SSRCs for this source
   std::vector<SsrcGroup> ssrc_groups;  // e.g. FID, FEC, SIM
-  // Examples: "camera", "screencast"
-  std::string type;
-  // Friendly name describing stream
-  std::string display;
   std::string cname;  // RTCP CNAME
   // TODO(shampson): Move callers to |stream_ids()| and make private.
   std::string sync_label;  // Friendly name of cname.

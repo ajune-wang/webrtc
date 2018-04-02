@@ -99,8 +99,8 @@
 }
 
 - (void)appClient:(ARDAppClient *)client
-    didCreateLocalCapturer:(RTCCameraVideoCapturer *)localCapturer {
-  _videoCallView.localVideoView.captureSession = localCapturer.captureSession;
+    didCreateLocalCapturer:(ARDARVideoCapturer *)localCapturer {
+  //_videoCallView.localVideoView.captureSession = localCapturer.captureSession;
   ARDSettingsModel *settingsModel = [[ARDSettingsModel alloc] init];
   _captureController =
       [[ARDCaptureController alloc] initWithCapturer:localCapturer settings:settingsModel];
@@ -150,7 +150,7 @@
 - (void)videoCallViewDidSwitchCamera:(ARDVideoCallView *)view {
   // TODO(tkchin): Rate limit this so you can't tap continously on it.
   // Probably through an animation.
-  [_captureController switchCamera];
+  //[_captureController switchCamera];
 }
 
 - (void)videoCallViewDidChangeRoute:(ARDVideoCallView *)view {

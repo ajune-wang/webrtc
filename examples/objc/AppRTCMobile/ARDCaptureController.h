@@ -8,17 +8,16 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include <WebRTC/RTCCameraVideoCapturer.h>
+#include "ARDARVideoCapturer.h"
 
 @class ARDSettingsModel;
 
 // Controls the camera. Handles starting the capture, switching cameras etc.
 @interface ARDCaptureController : NSObject
 
-- (instancetype)initWithCapturer:(RTCCameraVideoCapturer *)capturer
+- (instancetype)initWithCapturer:(ARDARVideoCapturer *)capturer
                         settings:(ARDSettingsModel *)settings;
 - (void)startCapture;
 - (void)stopCapture;
-- (void)switchCamera;
 
 @end

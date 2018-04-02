@@ -1,0 +1,174 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2912b350_b4044f39",
+        "filename": "pc/channel.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-02T21:45:25Z",
+      "side": 1,
+      "message": "Don\u0027t we need to add SSRCs to the demuxer criteria somewhere, in order to demux by SSRC when there are multiple media sections of the same type (and no MID header extension negotiated)?\n\nThat would be a good PeerConnection integration test to add.",
+      "revId": "4fd68ce4338d68af05db136ef7c0f7bd4a4e3ed2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d035cb5_8570052a",
+        "filename": "pc/channel.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-02T21:45:25Z",
+      "side": 1,
+      "message": "This DCHECK could be hit if a description is set with two m\u003d sections with conflicting criteria, which are later bundled. This is the issue I was referring to here: https://webrtc-review.googlesource.com/c/src/+/61360/14/pc/channel.cc#136\n\nSomehow this error should be propagated back to the SLD/SRD call. It\u0027s a corner case admittedly, but I\u0027d say it\u0027s worth at least one PeerConnection test.",
+      "revId": "4fd68ce4338d68af05db136ef7c0f7bd4a4e3ed2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90acb731_fcbcdde1",
+        "filename": "pc/channel.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-02T21:45:25Z",
+      "side": 1,
+      "message": "Should be safe to do this above the Invoke, to avoid blocking a thread when not necessary (assuming SetRtpTransport is only called from one thread)",
+      "revId": "4fd68ce4338d68af05db136ef7c0f7bd4a4e3ed2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "49f0b106_35267e39",
+        "filename": "pc/channel.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-02T21:45:25Z",
+      "side": 1,
+      "message": "\"rtp_transport_ \u0026\u0026\" is still needed here, to be safe",
+      "revId": "4fd68ce4338d68af05db136ef7c0f7bd4a4e3ed2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0aa0fbfe_980ccde3",
+        "filename": "pc/channel_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1180,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-02T21:45:25Z",
+      "side": 1,
+      "message": "This is relying on the fact that \"SetRemoteContent\" will clear the \"SSRC-\u003esink\" mappings, which isn\u0027t really guaranteed; it\u0027s just a consequence of the current implementation. This test could break if we later replaced the \"RemoveSink/AddSink\" with an \"UpdateSink\".\n\nSo I think it would actually be preferable to use different SSRCs like you had originally. Or send the packets with pl_type2 before sending them with pl_type1.",
+      "revId": "4fd68ce4338d68af05db136ef7c0f7bd4a4e3ed2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c393f2ad_d7bba08e",
+        "filename": "pc/dtlssrtptransport.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-02T21:45:25Z",
+      "side": 1,
+      "message": "Can\u0027t DtlsSrtpTransport just rely on SrtpTransport to fire the signal?",
+      "revId": "4fd68ce4338d68af05db136ef7c0f7bd4a4e3ed2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1853f33_c00f1895",
+        "filename": "pc/peerconnection_integrationtest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 2187,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-02T21:45:25Z",
+      "side": 1,
+      "message": "Should be able to enable this test in unified plan mode if SSRC-based demuxing works (related to comment in channel.cc).",
+      "revId": "4fd68ce4338d68af05db136ef7c0f7bd4a4e3ed2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7c36071_f600dbf8",
+        "filename": "pc/rtptransport.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-02T21:45:25Z",
+      "side": 1,
+      "message": "Should do:\n\n  if (!IsRtpPacket(data, len)) {\n    return false;\n  }\n\nLike BundleFilter currently does, to avoid processing SCTP packets here and getting the \"failed to parse\" warning.",
+      "revId": "4fd68ce4338d68af05db136ef7c0f7bd4a4e3ed2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4539686f_0ef951ab",
+        "filename": "pc/rtptransportinternal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-02T21:45:25Z",
+      "side": 1,
+      "message": "This note would be more applicable where UpdateRtpHeaderExtensionMap is called, rather than here.\n\nAs a sidenote, it\u0027s not ideal that there are now four methods now that deal with header extensions:\n\nUpdateRtpHeaderExtensionMap\nUpdateSendEncryptedHeaderExtensionIds\nUpdateRecvEncryptedHeaderExtensionIds\nCacheRtpAbsSendTimeHeaderExtension\n\nCan you add a TODO to merge them? Or get rid of all of them, by adding header extensions to RtpTransportParameters and switching to calling \"SetParameters\"? I think that\u0027s what we\u0027d want to do eventually.",
+      "revId": "4fd68ce4338d68af05db136ef7c0f7bd4a4e3ed2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f2df926_7ef52c17",
+        "filename": "pc/rtptransporttestutil.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-02T21:45:25Z",
+      "side": 1,
+      "message": "Was this just used for debugging?",
+      "revId": "4fd68ce4338d68af05db136ef7c0f7bd4a4e3ed2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

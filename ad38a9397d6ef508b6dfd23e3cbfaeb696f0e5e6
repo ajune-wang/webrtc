@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "0265f067_992c130b",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 602,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-04-02T23:32:06Z",
+      "side": 1,
+      "message": "Code-review-ception: I think you forgot the \"]\" in your code there.\n\nSGTM on the change.",
+      "parentUuid": "86cfa8af_921f20ae",
+      "revId": "ad38a9397d6ef508b6dfd23e3cbfaeb696f0e5e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "46c5c1b2_2c28fc7c",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 4
@@ -33,6 +51,24 @@
       "revId": "ad38a9397d6ef508b6dfd23e3cbfaeb696f0e5e6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa7e59da_4a2f1da1",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1517,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-04-02T23:32:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "46c5c1b2_2c28fc7c",
+      "revId": "ad38a9397d6ef508b6dfd23e3cbfaeb696f0e5e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

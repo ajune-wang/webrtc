@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "86cfa8af_921f20ae",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 602,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-04-02T23:00:18Z",
+      "side": 1,
+      "message": "How about just printing something like streams\u003d[a,b,c]? That would be a bit simpler.\n\nExample code:\n\nstd::string output \u003d \"streams\u003d[\";\nconst char* separator \u003d \"\";\nfor (const auto\u0026 stream_id : stream_ids) {\n  output.append(separator).append(stream_id);\n  separator \u003d \", \";\n}\nreturn output",
+      "revId": "ad38a9397d6ef508b6dfd23e3cbfaeb696f0e5e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46c5c1b2_2c28fc7c",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1517,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-04-02T23:00:18Z",
+      "side": 1,
+      "message": "Maybe add a log message here?",
+      "revId": "ad38a9397d6ef508b6dfd23e3cbfaeb696f0e5e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -774,6 +774,7 @@ void Port::SendBindingResponse(StunMessage* request,
   rtc::ByteBufferWriter buf;
   response.Write(&buf);
   rtc::PacketOptions options(DefaultDscpValue());
+  options.packet_type = rtc::PacketType::kIceConnectivityCheck;
   auto err = SendTo(buf.Data(), buf.Length(), addr, options, false);
   if (err < 0) {
     RTC_LOG(LS_ERROR) << ToString()
@@ -1159,6 +1160,7 @@ int Connection::receiving_timeout() const {
 void Connection::OnSendStunPacket(const void* data, size_t size,
                                   StunRequest* req) {
   rtc::PacketOptions options(port_->DefaultDscpValue());
+  options.packet_type = rtc::PacketType::kIceConnectivityCheck;
   auto err = port_->SendTo(
       data, size, remote_candidate_.address(), options, false);
   if (err < 0) {

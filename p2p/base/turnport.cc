@@ -794,6 +794,7 @@ void TurnPort::OnSendStunPacket(const void* data, size_t size,
                                 StunRequest* request) {
   RTC_DCHECK(connected());
   rtc::PacketOptions options(DefaultDscpValue());
+  options.packet_type = rtc::PacketType::kTurnKeepalive;
   if (Send(data, size, options) < 0) {
     RTC_LOG(LS_ERROR) << ToString()
                       << ": Failed to send TURN message, error: "

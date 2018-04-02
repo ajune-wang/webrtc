@@ -297,7 +297,9 @@ int AsyncTCPSocket::Send(const void *pv, size_t cb,
     return res;
   }
 
-  rtc::SentPacket sent_packet(options.packet_id, rtc::TimeMillis());
+  rtc::SentPacket sent_packet(
+      options.packet_id, rtc::TimeMillis(),
+      GenerateSentPacketInfo(options.packet_type, cb, *this));
   SignalSentPacket(this, sent_packet);
 
   // We claim to have sent the whole thing, even if we only sent partial

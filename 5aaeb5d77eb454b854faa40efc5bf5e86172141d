@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "38a12a43_6a47951f",
+        "filename": "p2p/base/stunport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-02T23:56:34Z",
+      "side": 1,
+      "message": "I am wondering if this side effect can be buggy.",
+      "range": {
+        "startLine": 322,
+        "startChar": 4,
+        "endLine": 322,
+        "endChar": 22
+      },
+      "revId": "5aaeb5d77eb454b854faa40efc5bf5e86172141d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

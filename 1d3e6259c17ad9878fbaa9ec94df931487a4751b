@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2832e934_dac26422",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 829,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-04-02T23:17:44Z",
+      "side": 1,
+      "message": "I think the packet options here also need a type added.",
+      "range": {
+        "startLine": 828,
+        "startChar": 49,
+        "endLine": 829,
+        "endChar": 0
+      },
+      "revId": "1d3e6259c17ad9878fbaa9ec94df931487a4751b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11de638e_7b3cdb2a",
+        "filename": "rtc_base/socket.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-04-02T23:17:44Z",
+      "side": 1,
+      "message": "These aren\u0027t necessarily just keepalives, are they?  I think they could also be things like TURN allocation requests or initial STUN binding messages.\n\nI would lean toward a more general name.  I\u0027d recommend kStunMessage and kTurnMessage since the RFCs for STUN and TURN mostly refer to STUN or TURN packets as \"STUN messages\" and \"TURN messages\".",
+      "range": {
+        "startLine": 130,
+        "startChar": 2,
+        "endLine": 131,
+        "endChar": 17
+      },
+      "revId": "1d3e6259c17ad9878fbaa9ec94df931487a4751b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "609853d0_685f4a36",
+        "filename": "rtc_base/socket.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-04-02T23:17:44Z",
+      "side": 1,
+      "message": "Is there enough data here to tell the overhead?  For example, I can\u0027t tell if this is UDP or TCP from just the socket addresses, or a media packet encapsulated in a TURN data indication.\n\nI can always subtract the size media sent from the total packet size to see the per-packet overhead, but that doesn\u0027t necessarily tell me where the overhead came from.",
+      "range": {
+        "startLine": 136,
+        "startChar": 27,
+        "endLine": 136,
+        "endChar": 0
+      },
+      "revId": "1d3e6259c17ad9878fbaa9ec94df931487a4751b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40f3ddf7_4d55af33",
+        "filename": "rtc_base/socket.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-04-02T23:17:44Z",
+      "side": 1,
+      "message": "Is this enough to uniquely identify which local candidate we used?  If so, I can get the rest of the data I need out of that.  However, my sense is that it\u0027s not.  Couldn\u0027t we have separate candidates for HOST, STUN, and TURN that all share the same local_socket_address?  And couldn\u0027t we also have UDP, TCP, and TLS TURN candidates that use the same local_socket_address?",
+      "range": {
+        "startLine": 137,
+        "startChar": 37,
+        "endLine": 137,
+        "endChar": 0
+      },
+      "revId": "1d3e6259c17ad9878fbaa9ec94df931487a4751b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

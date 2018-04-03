@@ -23,8 +23,6 @@ rtc_source_set("adaptive_digital") {
     "adaptive_digital_gain_applier.h",
     "adaptive_mode_level_estimator.cc",
     "adaptive_mode_level_estimator.h",
-    "noise_level_estimator.cc",
-    "noise_level_estimator.h",
     "saturation_protector.cc",
     "saturation_protector.h",
   ]
@@ -33,6 +31,7 @@ rtc_source_set("adaptive_digital") {
 
   deps = [
     ":common",
+    ":noise_level_estimator",
     "..:aec_core",
     "..:apm_logging",
     "..:audio_frame_view",
@@ -81,6 +80,30 @@ rtc_source_set("common") {
   deps = [
     "../../../rtc_base:rtc_base_approved",
   ]
+}
+
+rtc_source_set("noise_level_estimator") {
+  sources = [
+    "biquad_filter.cc",
+    "biquad_filter.h",
+    "down_sampler.cc",
+    "down_sampler.h",
+    "noise_level_estimator.cc",
+    "noise_level_estimator.h",
+    "noise_spectrum_estimator.cc",
+    "noise_spectrum_estimator.h",
+    "signal_classifier.cc",
+    "signal_classifier.h",
+  ]
+  deps = [
+    "..:aec_core",
+    "..:apm_logging",
+    "../../../api:array_view",
+    "../../../rtc_base:checks",
+    "../../../rtc_base:macromagic",
+  ]
+
+  configs += [ "..:apm_debug_dump" ]
 }
 
 rtc_source_set("test_utils") {

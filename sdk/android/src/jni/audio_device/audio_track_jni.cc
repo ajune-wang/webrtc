@@ -80,6 +80,10 @@ int32_t AudioTrackJni::InitPlayout() {
   return 0;
 }
 
+bool AudioTrackJni::PlayoutIsInitialized() const {
+  return initialized_;
+}
+
 int32_t AudioTrackJni::StartPlayout() {
   RTC_LOG(INFO) << "StartPlayout";
   RTC_DCHECK(thread_checker_.CalledOnValidThread());
@@ -115,6 +119,10 @@ int32_t AudioTrackJni::StopPlayout() {
   playing_ = false;
   direct_buffer_address_ = nullptr;
   return 0;
+}
+
+bool AudioTrackJni::Playing() const {
+  return playing_;
 }
 
 bool AudioTrackJni::SpeakerVolumeIsAvailable() {

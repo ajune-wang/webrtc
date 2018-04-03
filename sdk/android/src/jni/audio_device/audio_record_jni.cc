@@ -115,6 +115,10 @@ int32_t AudioRecordJni::InitRecording() {
   return 0;
 }
 
+bool AudioRecordJni::RecordingIsInitialized() const {
+  return initialized_;
+}
+
 int32_t AudioRecordJni::StartRecording() {
   RTC_LOG(INFO) << "StartRecording";
   RTC_DCHECK(thread_checker_.CalledOnValidThread());
@@ -151,6 +155,10 @@ int32_t AudioRecordJni::StopRecording() {
   recording_ = false;
   direct_buffer_address_ = nullptr;
   return 0;
+}
+
+bool AudioRecordJni::Recording() const {
+  return recording_;
 }
 
 void AudioRecordJni::AttachAudioBuffer(AudioDeviceBuffer* audioBuffer) {

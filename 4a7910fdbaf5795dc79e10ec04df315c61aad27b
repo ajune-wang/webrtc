@@ -1,0 +1,705 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "75bd38e5_63a777ff",
+        "filename": "modules/audio_processing/agc2/adaptive_digital_gain_applier.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-03T11:33:02Z",
+      "side": 1,
+      "message": "const",
+      "range": {
+        "startLine": 26,
+        "startChar": 20,
+        "endLine": 26,
+        "endChar": 25
+      },
+      "revId": "4a7910fdbaf5795dc79e10ec04df315c61aad27b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7caabd85_f568c0eb",
+        "filename": "modules/audio_processing/agc2/adaptive_digital_gain_applier.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-03T11:33:02Z",
+      "side": 1,
+      "message": "Not sure about the convention in WebRTC, but as per style guide this should be the last argument (I assume target_gain and input_noise_level_dbfs const).",
+      "range": {
+        "startLine": 46,
+        "startChar": 23,
+        "endLine": 46,
+        "endChar": 53
+      },
+      "revId": "4a7910fdbaf5795dc79e10ec04df315c61aad27b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2215f9bd_4cfc5844",
+        "filename": "modules/audio_processing/agc2/adaptive_digital_gain_applier.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-03T11:33:02Z",
+      "side": 1,
+      "message": "const (also for the previous arg)",
+      "range": {
+        "startLine": 48,
+        "startChar": 23,
+        "endLine": 48,
+        "endChar": 28
+      },
+      "revId": "4a7910fdbaf5795dc79e10ec04df315c61aad27b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b7c8348a_5f5bffa1",
+        "filename": "modules/audio_processing/agc2/adaptive_digital_gain_applier.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-03T11:33:02Z",
+      "side": 1,
+      "message": "I find error-prone that LimitGainByNoise() assumes that attenuation is not permitted. I think a better design is to enforce that in AdaptiveDigitalGainApplier. If we ever need to allow attenuation, we need to also remove 0.f as lower bound.\n\nInstead of using SafeClamp, I would just use std::min(target_gain, std::max(noise_headroom_db, 0.f)). WDYT?",
+      "range": {
+        "startLine": 51,
+        "startChar": 44,
+        "endLine": 51,
+        "endChar": 47
+      },
+      "revId": "4a7910fdbaf5795dc79e10ec04df315c61aad27b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "deee4435_411387d5",
+        "filename": "modules/audio_processing/agc2/adaptive_digital_gain_applier.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-03T11:33:02Z",
+      "side": 1,
+      "message": "const",
+      "range": {
+        "startLine": 57,
+        "startChar": 35,
+        "endLine": 57,
+        "endChar": 40
+      },
+      "revId": "4a7910fdbaf5795dc79e10ec04df315c61aad27b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d637cef0_56dd02ea",
+        "filename": "modules/audio_processing/agc2/adaptive_digital_gain_applier.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-03T11:33:02Z",
+      "side": 1,
+      "message": "const",
+      "range": {
+        "startLine": 58,
+        "startChar": 35,
+        "endLine": 58,
+        "endChar": 40
+      },
+      "revId": "4a7910fdbaf5795dc79e10ec04df315c61aad27b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "343e06de_8b22280d",
+        "filename": "modules/audio_processing/agc2/adaptive_digital_gain_applier.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-03T11:33:02Z",
+      "side": 1,
+      "message": "gain_increase_allowed",
+      "range": {
+        "startLine": 59,
+        "startChar": 41,
+        "endLine": 59,
+        "endChar": 63
+      },
+      "revId": "4a7910fdbaf5795dc79e10ec04df315c61aad27b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29d6d2b7_7a785e87",
+        "filename": "modules/audio_processing/agc2/adaptive_digital_gain_applier.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-03T11:33:02Z",
+      "side": 1,
+      "message": "const bool\n      ^ (not float!)",
+      "range": {
+        "startLine": 59,
+        "startChar": 35,
+        "endLine": 59,
+        "endChar": 40
+      },
+      "revId": "4a7910fdbaf5795dc79e10ec04df315c61aad27b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b0609c57_56f4ff34",
+        "filename": "modules/audio_processing/agc2/adaptive_digital_gain_applier.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-03T11:33:02Z",
+      "side": 1,
+      "message": "GainCloseToOne",
+      "range": {
+        "startLine": 71,
+        "startChar": 5,
+        "endLine": 71,
+        "endChar": 15
+      },
+      "revId": "4a7910fdbaf5795dc79e10ec04df315c61aad27b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6354cce_812f789a",
+        "filename": "modules/audio_processing/agc2/adaptive_digital_gain_applier.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-03T11:33:02Z",
+      "side": 1,
+      "message": "inline?",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 4
+      },
+      "revId": "4a7910fdbaf5795dc79e10ec04df315c61aad27b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55582e1d_994a239e",
+        "filename": "modules/audio_processing/agc2/adaptive_digital_gain_applier.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-03T11:33:02Z",
+      "side": 1,
+      "message": "const",
+      "range": {
+        "startLine": 76,
+        "startChar": 26,
+        "endLine": 76,
+        "endChar": 31
+      },
+      "revId": "4a7910fdbaf5795dc79e10ec04df315c61aad27b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7fb4c420_03b1e3fc",
+        "filename": "modules/audio_processing/agc2/adaptive_digital_gain_applier.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-03T11:33:02Z",
+      "side": 1,
+      "message": "I guess this is a linear (non db) gain; name the variable accordingly (consistent with last_gain_linear)",
+      "range": {
+        "startLine": 77,
+        "startChar": 32,
+        "endLine": 77,
+        "endChar": 52
+      },
+      "revId": "4a7910fdbaf5795dc79e10ec04df315c61aad27b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41a5b144_651792d6",
+        "filename": "modules/audio_processing/agc2/adaptive_digital_gain_applier.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-03T11:33:02Z",
+      "side": 1,
+      "message": "const",
+      "range": {
+        "startLine": 77,
+        "startChar": 26,
+        "endLine": 77,
+        "endChar": 31
+      },
+      "revId": "4a7910fdbaf5795dc79e10ec04df315c61aad27b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3eb10eeb_23527370",
+        "filename": "modules/audio_processing/agc2/adaptive_digital_gain_applier.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-03T11:33:02Z",
+      "side": 1,
+      "message": "const",
+      "range": {
+        "startLine": 124,
+        "startChar": 2,
+        "endLine": 124,
+        "endChar": 7
+      },
+      "revId": "4a7910fdbaf5795dc79e10ec04df315c61aad27b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0988161_f692ba8b",
+        "filename": "modules/audio_processing/agc2/adaptive_digital_gain_applier.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-03T11:33:02Z",
+      "side": 1,
+      "message": "First, as discussed offline, add a TODO since at some point we will end up using the new VAD which always outputs one probability for every 10 ms frame.\n\nThen, just a general thought about using multiple VAD results for the time being.\nUsing a soft-OR logic may not be safe for an AGC in general, although for preventing changes during non-speech parts it can be fine. For sure, I would not update the speech level estimation if just one VAD says there is speech - better being conservative.\nBriefly, consider switching to soft-AND logic to set |gain_change_up_allowed_| below.",
+      "range": {
+        "startLine": 130,
+        "startChar": 33,
+        "endLine": 131,
+        "endChar": 57
+      },
+      "revId": "4a7910fdbaf5795dc79e10ec04df315c61aad27b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5a96e6f_c29a2ed2",
+        "filename": "modules/audio_processing/agc2/adaptive_digital_gain_applier.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-03T11:33:02Z",
+      "side": 1,
+      "message": "variable\n    ^",
+      "range": {
+        "startLine": 40,
+        "startChar": 35,
+        "endLine": 40,
+        "endChar": 42
+      },
+      "revId": "4a7910fdbaf5795dc79e10ec04df315c61aad27b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "766b28dc_0733ce41",
+        "filename": "modules/audio_processing/agc2/adaptive_digital_gain_applier.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-03T11:33:02Z",
+      "side": 1,
+      "message": "maybe |gain_increase_allowed_|?\n\nAlso, I\u0027m not sure the comment helps. if you accept |gain_increase_allowed_|, I would find that self-explanatory.",
+      "range": {
+        "startLine": 42,
+        "startChar": 7,
+        "endLine": 42,
+        "endChar": 30
+      },
+      "revId": "4a7910fdbaf5795dc79e10ec04df315c61aad27b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ca20ea9_5af05e80",
+        "filename": "modules/audio_processing/agc2/adaptive_digital_gain_applier_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-03T11:33:02Z",
+      "side": 1,
+      "message": "The names are tied to the usage, which i don\u0027t find immediate however.\nI would add a comment explaining that these values are used in place of estimated noise levels.\n\nAlso, kHighNoiseDbfs -\u003e kWithNoiseDbfs (since there is no low noise level - so it\u0027s just with vs without)",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 39
+      },
+      "revId": "4a7910fdbaf5795dc79e10ec04df315c61aad27b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c07688d_96e8655f",
+        "filename": "modules/audio_processing/agc2/adaptive_digital_gain_applier_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-03T11:33:02Z",
+      "side": 1,
+      "message": "Is this trivially destructible? I guess so, but if not, don\u0027t define as constexpr here, but in each test function where it\u0027s used.",
+      "range": {
+        "startLine": 44,
+        "startChar": 44,
+        "endLine": 44,
+        "endChar": 54
+      },
+      "revId": "4a7910fdbaf5795dc79e10ec04df315c61aad27b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba1f84ac_08ffadbc",
+        "filename": "modules/audio_processing/agc2/adaptive_digital_gain_applier_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-03T11:33:02Z",
+      "side": 1,
+      "message": "Didn\u0027t we call this DbfsToLinear for the fixed digital? Or is it sth else?",
+      "range": {
+        "startLine": 69,
+        "startChar": 28,
+        "endLine": 69,
+        "endChar": 37
+      },
+      "revId": "4a7910fdbaf5795dc79e10ec04df315c61aad27b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a574b3df_6f6fd61e",
+        "filename": "modules/audio_processing/agc2/adaptive_digital_gain_applier_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-03T11:33:02Z",
+      "side": 1,
+      "message": "I wonder if switching to relative error gives more insights on which precision is achieved. But the comparison is in the linear scale (not dBFS), so 0.1 absolute error seems perfectly fine.",
+      "range": {
+        "startLine": 84,
+        "startChar": 51,
+        "endLine": 84,
+        "endChar": 55
+      },
+      "revId": "4a7910fdbaf5795dc79e10ec04df315c61aad27b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "66b91713_a867c749",
+        "filename": "modules/audio_processing/agc2/adaptive_digital_gain_applier_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-03T11:33:02Z",
+      "side": 1,
+      "message": "Add dBFS suffix. Also, I\u0027m not sure constants defined in a function should be named as k... using camel case (that might only apply to file constants). If so, initial_level_dbfs is fine (and fix all the other constants in the test functions).",
+      "range": {
+        "startLine": 94,
+        "startChar": 18,
+        "endLine": 94,
+        "endChar": 31
+      },
+      "revId": "4a7910fdbaf5795dc79e10ec04df315c61aad27b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "798e3d78_18c3da57",
+        "filename": "modules/audio_processing/agc2/adaptive_digital_gain_applier_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-03T11:33:02Z",
+      "side": 1,
+      "message": "Add SCOPED_TRACE(i); above",
+      "revId": "4a7910fdbaf5795dc79e10ec04df315c61aad27b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0db3bfe1_2007c55b",
+        "filename": "modules/audio_processing/agc2/adaptive_digital_gain_applier_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-03T11:33:02Z",
+      "side": 1,
+      "message": "Nice test!",
+      "range": {
+        "startLine": 109,
+        "startChar": 4,
+        "endLine": 110,
+        "endChar": 40
+      },
+      "revId": "4a7910fdbaf5795dc79e10ec04df315c61aad27b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2c1fcf9e_5faa358c",
+        "filename": "modules/audio_processing/agc2/adaptive_digital_gain_applier_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-03T11:33:02Z",
+      "side": 1,
+      "message": "The whole loop seems the same as the above one except for the initial level.\nConsider defining a function to remove duplicated code (either in the anon NS or in this test method if not exploited elsewhere).",
+      "range": {
+        "startLine": 115,
+        "startChar": 2,
+        "endLine": 115,
+        "endChar": 47
+      },
+      "revId": "4a7910fdbaf5795dc79e10ec04df315c61aad27b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f2bb26f_3ff47afe",
+        "filename": "modules/audio_processing/agc2/adaptive_digital_gain_applier_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-03T11:33:02Z",
+      "side": 1,
+      "message": "Add SCOPED_TRACE(i); above",
+      "revId": "4a7910fdbaf5795dc79e10ec04df315c61aad27b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d643022_fa4c80a3",
+        "filename": "modules/audio_processing/agc2/adaptive_digital_gain_applier_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-03T11:33:02Z",
+      "side": 1,
+      "message": "Why? Round-off or failing at bounding the adaptation rate?",
+      "range": {
+        "startLine": 123,
+        "startChar": 38,
+        "endLine": 123,
+        "endChar": 46
+      },
+      "revId": "4a7910fdbaf5795dc79e10ec04df315c61aad27b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f403c759_c790bb5b",
+        "filename": "modules/audio_processing/agc2/adaptive_digital_gain_applier_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-03T11:33:02Z",
+      "side": 1,
+      "message": "Why? (similar to one of my previous comments)",
+      "range": {
+        "startLine": 151,
+        "startChar": 54,
+        "endLine": 151,
+        "endChar": 59
+      },
+      "revId": "4a7910fdbaf5795dc79e10ec04df315c61aad27b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "277879cf_f46e7ea5",
+        "filename": "modules/audio_processing/agc2/adaptive_digital_gain_applier_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-03T11:33:02Z",
+      "side": 1,
+      "message": "add ASSERT_GT comparing to the maximum output noise level; we must guarantee that kHighNoiseDbfs triggers the noise capping behavior",
+      "range": {
+        "startLine": 165,
+        "startChar": 23,
+        "endLine": 165,
+        "endChar": 37
+      },
+      "revId": "4a7910fdbaf5795dc79e10ec04df315c61aad27b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b572eff5_d39d64e8",
+        "filename": "modules/audio_processing/agc2/agc2_common.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-03T11:33:02Z",
+      "side": 1,
+      "message": "I would start with a higher value, say -20 dBFS, to limit the impact of the noise capping step. That could hide other AGC behaviors and make the adaptation ineffective. Once we\u0027re happy with the other params, then we could lower it a bit. Maybe add a TODO.",
+      "range": {
+        "startLine": 38,
+        "startChar": 37,
+        "endLine": 38,
+        "endChar": 40
+      },
+      "revId": "4a7910fdbaf5795dc79e10ec04df315c61aad27b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b655247_fb46f0b8",
+        "filename": "modules/audio_processing/agc2/agc2_common.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-03T11:33:02Z",
+      "side": 1,
+      "message": "\"target gain reduction\" is a better wording since attenuation must not be done at all in AGC",
+      "range": {
+        "startLine": 42,
+        "startChar": 24,
+        "endLine": 42,
+        "endChar": 35
+      },
+      "revId": "4a7910fdbaf5795dc79e10ec04df315c61aad27b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

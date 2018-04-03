@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "bbf5b683_abee5a13",
+        "filename": "modules/video_coding/codecs/vp9/svc_rate_allocator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-04-03T08:06:03Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b7a7c21e_3a5a589c",
+      "range": {
+        "startLine": 98,
+        "startChar": 7,
+        "endLine": 100,
+        "endChar": 31
+      },
+      "revId": "27f6fb7ad2bad9f4ab72dd579bab14a059acf1f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ef62009b_04780460",
         "filename": "modules/video_coding/codecs/vp9/svc_rate_allocator.cc",
         "patchSetId": 4
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "40543997_f0577cbb",
+        "filename": "modules/video_coding/codecs/vp9/svc_rate_allocator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-04-03T08:06:03Z",
+      "side": 1,
+      "message": "This comment is related to 3 temporal layers case. I agree that this might not be obvious just from location of the comment. I added clarification.",
+      "parentUuid": "ef62009b_04780460",
+      "range": {
+        "startLine": 108,
+        "startChar": 9,
+        "endLine": 109,
+        "endChar": 65
+      },
+      "revId": "27f6fb7ad2bad9f4ab72dd579bab14a059acf1f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "70c8ef14_d0d923e7",
         "filename": "modules/video_coding/codecs/vp9/svc_rate_allocator.cc",
         "patchSetId": 4
@@ -68,6 +116,30 @@
       "revId": "27f6fb7ad2bad9f4ab72dd579bab14a059acf1f1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6ccf78f_0d9f50b2",
+        "filename": "modules/video_coding/codecs/vp9/svc_rate_allocator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-04-03T08:06:03Z",
+      "side": 1,
+      "message": "Fixed. Thanks.",
+      "parentUuid": "70c8ef14_d0d923e7",
+      "range": {
+        "startLine": 111,
+        "startChar": 59,
+        "endLine": 111,
+        "endChar": 66
+      },
+      "revId": "27f6fb7ad2bad9f4ab72dd579bab14a059acf1f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

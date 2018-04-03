@@ -126,8 +126,6 @@ class SocketAddress {
   // Parses hostname:port and [hostname]:port.
   bool FromString(const std::string& str);
 
-  friend std::ostream& operator<<(std::ostream& os, const SocketAddress& addr);
-
   // Determines whether this represents a missing / any IP address.
   // That is, 0.0.0.0 or ::.
   // Hostname and/or port may be set.

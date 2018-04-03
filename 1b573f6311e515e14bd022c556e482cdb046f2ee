@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "36a1a222_17886677",
+        "filename": "sdk/android/api/org/webrtc/JavaI420Buffer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-04-03T15:11:35Z",
+      "side": 1,
+      "message": "Would it be worth making a small helper class that encapsulates this? Like this:\n\nclass RefCountedObject {\n  private final AtomicInteger refCount \u003d new AtomicInteger(1);\n  private final Runnable releaseCallback;\n \n  RefCountedObject(Runnable releaseCallback) {\n    this.releaseCallback \u003d releaseCallback;\n  }\n\n  @Override\n  public void retain() {\n    refCount.incrementAndGet();\n  }\n\n  @Override\n  public void release() {\n    if (refCount.decrementAndGet() \u003d\u003d 0 \u0026\u0026 releaseCallback !\u003d null) {\n      releaseCallback.run();\n    }\n  }\n}",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 39
+      },
+      "revId": "1b573f6311e515e14bd022c556e482cdb046f2ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

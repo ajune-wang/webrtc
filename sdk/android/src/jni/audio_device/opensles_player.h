@@ -23,7 +23,6 @@
 #include "rtc_base/thread_checker.h"
 #include "sdk/android/src/jni/audio_device/audio_common.h"
 #include "sdk/android/src/jni/audio_device/audio_device_module.h"
-#include "sdk/android/src/jni/audio_device/audio_manager.h"
 #include "sdk/android/src/jni/audio_device/opensles_common.h"
 
 namespace webrtc {
@@ -60,7 +59,7 @@ class OpenSLESPlayer : public AudioOutput {
   // TODO(henrika): perhaps set this value dynamically based on OS version.
   static const int kNumOfOpenSLESBuffers = 2;
 
-  OpenSLESPlayer(AudioManager* audio_manager,
+  OpenSLESPlayer(const AudioParameters& audio_parameters,
                  std::unique_ptr<OpenSLEngineManager> engine_manager);
   ~OpenSLESPlayer() override;
 
@@ -126,8 +125,6 @@ class OpenSLESPlayer : public AudioOutput {
   // Detached during construction of this object.
   rtc::ThreadChecker thread_checker_opensles_;
 
-  // Contains audio parameters provided to this class at construction by the
-  // AudioManager.
   const AudioParameters audio_parameters_;
 
   // Raw pointer handle provided to us in AttachAudioBuffer(). Owned by the

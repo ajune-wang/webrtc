@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d36059e2_196161cc",
+        "filename": "modules/audio_processing/agc2/agc2_common.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2018-04-03T15:06:54Z",
+      "side": 1,
+      "message": "Why is this a float? Doesn\u0027t a size_t or int make more sense here?",
+      "range": {
+        "startLine": 43,
+        "startChar": 10,
+        "endLine": 43,
+        "endChar": 15
+      },
+      "revId": "e97a65ce0e3798f6e3cf29ad5d1f291e29019d3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf6dca60_1386ff8d",
+        "filename": "modules/audio_processing/agc2/agc2_common.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2018-04-03T15:06:54Z",
+      "side": 1,
+      "message": "If these comments are important, please write some text to explain them.",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 52
+      },
+      "revId": "e97a65ce0e3798f6e3cf29ad5d1f291e29019d3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c30a3364_f37f4e36",
+        "filename": "modules/audio_processing/agc2/saturation_protector.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2018-04-03T15:06:54Z",
+      "side": 1,
+      "message": "If you want to keep this as a float, this should be 0.f",
+      "range": {
+        "startLine": 35,
+        "startChar": 34,
+        "endLine": 35,
+        "endChar": 35
+      },
+      "revId": "e97a65ce0e3798f6e3cf29ad5d1f291e29019d3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8cfa9e75_e3845b09",
+        "filename": "modules/audio_processing/agc2/saturation_protector.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2018-04-03T15:06:54Z",
+      "side": 1,
+      "message": "It looks like kPeakEnveloperBufferSize is only used to set the sizes of various arrays and to compare it to elements_in_buffer_, which is a size_t, so I think it makes sense for kPeakEnveloperBufferSize to be a size_t as well.",
+      "range": {
+        "startLine": 36,
+        "startChar": 52,
+        "endLine": 36,
+        "endChar": 76
+      },
+      "revId": "e97a65ce0e3798f6e3cf29ad5d1f291e29019d3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7029bda3_dada079f",
+        "filename": "modules/audio_processing/agc2/saturation_protector.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2018-04-03T15:06:54Z",
+      "side": 1,
+      "message": "1.f",
+      "range": {
+        "startLine": 70,
+        "startChar": 36,
+        "endLine": 70,
+        "endChar": 37
+      },
+      "revId": "e97a65ce0e3798f6e3cf29ad5d1f291e29019d3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f2c94a8_96b0a118",
+        "filename": "modules/audio_processing/agc2/saturation_protector.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2018-04-03T15:06:54Z",
+      "side": 1,
+      "message": "It looks like this class is only used within the SaturationProtector class, so I think it should be in the private section (unless you plan to use it elsewhere?).",
+      "range": {
+        "startLine": 26,
+        "startChar": 2,
+        "endLine": 26,
+        "endChar": 21
+      },
+      "revId": "e97a65ce0e3798f6e3cf29ad5d1f291e29019d3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39fb9b1f_e434bb0b",
+        "filename": "modules/audio_processing/agc2/saturation_protector.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2018-04-03T15:06:54Z",
+      "side": 1,
+      "message": "It\u0027s a little awkward that this variable is a float, while we add a size_t to it on every iteration (kFrameDurationMs). It looks to me like all the values that are used are integers, so I think it makes sense to change this to size_t as well.",
+      "range": {
+        "startLine": 34,
+        "startChar": 4,
+        "endLine": 34,
+        "endChar": 9
+      },
+      "revId": "e97a65ce0e3798f6e3cf29ad5d1f291e29019d3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1a28bed_d9f1d175",
+        "filename": "modules/audio_processing/agc2/saturation_protector_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2018-04-03T15:06:54Z",
+      "side": 1,
+      "message": "I don\u0027t think this is true, since it\u0027s passed as a const ref.",
+      "range": {
+        "startLine": 28,
+        "startChar": 50,
+        "endLine": 28,
+        "endChar": 60
+      },
+      "revId": "e97a65ce0e3798f6e3cf29ad5d1f291e29019d3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

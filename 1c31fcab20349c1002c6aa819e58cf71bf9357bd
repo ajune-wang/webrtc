@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7f1bc9a5_5b545a9b",
+        "filename": "modules/video_coding/codecs/vp9/svc_rate_allocator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-04-04T08:17:35Z",
+      "side": 1,
+      "message": "Should this be a CHECK? Maybe it\u0027s better with DCHECK, and then accept incorrect results for num_temporal_layers \u003e 3, than a full-blown crash?",
+      "range": {
+        "startLine": 107,
+        "startChar": 10,
+        "endLine": 107,
+        "endChar": 15
+      },
+      "revId": "1c31fcab20349c1002c6aa819e58cf71bf9357bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8327b961_62292f71",
+        "filename": "video/video_send_stream_tests.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 2451,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-04-04T08:17:35Z",
+      "side": 1,
+      "message": "Is this needed, or more of a clean-up?",
+      "range": {
+        "startLine": 2451,
+        "startChar": 67,
+        "endLine": 2451,
+        "endChar": 71
+      },
+      "revId": "1c31fcab20349c1002c6aa819e58cf71bf9357bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

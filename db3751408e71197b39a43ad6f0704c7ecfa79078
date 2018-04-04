@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3974a751_45a947c6",
+        "filename": "modules/rtp_rtcp/source/rtp_format_vp9_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-04-04T09:47:23Z",
+      "side": 1,
+      "message": "Fixed. Thanks.",
+      "parentUuid": "8a0422c9_8696b872",
+      "range": {
+        "startLine": 502,
+        "startChar": 21,
+        "endLine": 502,
+        "endChar": 32
+      },
+      "revId": "db3751408e71197b39a43ad6f0704c7ecfa79078",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "12566840_e41df1b9",
         "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "db3751408e71197b39a43ad6f0704c7ecfa79078",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b46dc7f_d1c27c81",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 719,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-04-04T09:47:23Z",
+      "side": 1,
+      "message": "You are right, this is not needed anymore. Removed.",
+      "parentUuid": "12566840_e41df1b9",
+      "range": {
+        "startLine": 719,
+        "startChar": 2,
+        "endLine": 719,
+        "endChar": 35
+      },
+      "revId": "db3751408e71197b39a43ad6f0704c7ecfa79078",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

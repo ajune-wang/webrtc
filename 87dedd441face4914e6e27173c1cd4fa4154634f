@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3a45f5e4_8beb91fc",
+        "filename": "modules/audio_processing/agc2/agc2_testing_common.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-04-04T12:34:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "add3775b_ff06ba42",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 36
+      },
+      "revId": "87dedd441face4914e6e27173c1cd4fa4154634f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "72424bf0_ca435640",
         "filename": "modules/audio_processing/agc2/agc2_testing_common.h",
         "patchSetId": 5
@@ -36,6 +60,30 @@
       "writtenOn": "2018-04-04T09:16:57Z",
       "side": 1,
       "message": "Nit: Maybe DCHECK(rate \u003e frequency), just in case.",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 70
+      },
+      "revId": "87dedd441face4914e6e27173c1cd4fa4154634f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9b98b8a4_f78dd9b4",
+        "filename": "modules/audio_processing/agc2/agc2_testing_common.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-04-04T12:34:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "72424bf0_ca435640",
       "range": {
         "startLine": 57,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "fb487d6c_32d9d6a5",
+        "filename": "modules/audio_processing/agc2/down_sampler.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-04-04T12:34:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "19e000aa_b44430d1",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 66
+      },
+      "revId": "87dedd441face4914e6e27173c1cd4fa4154634f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ea7d624d_3f239fb2",
         "filename": "modules/audio_processing/agc2/noise_level_estimator.cc",
         "patchSetId": 5
@@ -91,6 +163,30 @@
       "revId": "87dedd441face4914e6e27173c1cd4fa4154634f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9baf6432_9c7c03a5",
+        "filename": "modules/audio_processing/agc2/noise_level_estimator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-04-04T12:34:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ea7d624d_3f239fb2",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 58
+      },
+      "revId": "87dedd441face4914e6e27173c1cd4fa4154634f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "fec7b4c1_9cba2905",
+        "filename": "modules/audio_processing/agc2/noise_level_estimator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-04-04T12:34:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3ce2d756_1a9006cd",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 66,
+        "endChar": 25
+      },
+      "revId": "87dedd441face4914e6e27173c1cd4fa4154634f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c6eb1a63_1ba1f1d3",
         "filename": "modules/audio_processing/agc2/noise_level_estimator.cc",
         "patchSetId": 5
@@ -137,6 +257,30 @@
       "revId": "87dedd441face4914e6e27173c1cd4fa4154634f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ffb1dc78_19cf6026",
+        "filename": "modules/audio_processing/agc2/noise_level_estimator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-04-04T12:34:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c6eb1a63_1ba1f1d3",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 0
+      },
+      "revId": "87dedd441face4914e6e27173c1cd4fa4154634f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "a0a439bc_23de0ac5",
+        "filename": "modules/audio_processing/agc2/noise_level_estimator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-04-04T12:34:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8e7a9a11_64599fa7",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 69
+      },
+      "revId": "87dedd441face4914e6e27173c1cd4fa4154634f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3b8d91d1_3cd8301f",
         "filename": "modules/audio_processing/agc2/noise_level_estimator.h",
         "patchSetId": 5
@@ -174,6 +342,30 @@
       "writtenOn": "2018-04-04T09:16:57Z",
       "side": 1,
       "message": "Nit: I can\u0027t tell why some of these variables are given default member initializers and some aren\u0027t. Is there a pattern?",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 33
+      },
+      "revId": "87dedd441face4914e6e27173c1cd4fa4154634f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e9c89912_98d4470b",
+        "filename": "modules/audio_processing/agc2/noise_level_estimator.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-04-04T12:34:32Z",
+      "side": 1,
+      "message": "Everything is set in \u0027Initialize\u0027. I removed the initializers for consistency.",
+      "parentUuid": "3b8d91d1_3cd8301f",
       "range": {
         "startLine": 31,
         "startChar": 0,
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "e32a5c25_cb37b1ff",
+        "filename": "modules/audio_processing/agc2/noise_level_estimator_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-04-04T12:34:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7933ba54_4e585972",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 1
+      },
+      "revId": "87dedd441face4914e6e27173c1cd4fa4154634f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6354b56e_ff8d7e4c",
         "filename": "modules/audio_processing/agc2/signal_classifier_unittest.cc",
         "patchSetId": 5
@@ -229,6 +445,30 @@
       "revId": "87dedd441face4914e6e27173c1cd4fa4154634f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf843473_d174dff4",
+        "filename": "modules/audio_processing/agc2/signal_classifier_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-04-04T12:34:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6354b56e_ff8d7e4c",
+      "range": {
+        "startLine": 48,
+        "startChar": 6,
+        "endLine": 48,
+        "endChar": 20
+      },
+      "revId": "87dedd441face4914e6e27173c1cd4fa4154634f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -255,6 +495,30 @@
     },
     {
       "key": {
+        "uuid": "03d93415_6bd44260",
+        "filename": "modules/audio_processing/agc2/signal_classifier_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-04-04T12:34:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "570d6524_324055ac",
+      "range": {
+        "startLine": 54,
+        "startChar": 3,
+        "endLine": 54,
+        "endChar": 9
+      },
+      "revId": "87dedd441face4914e6e27173c1cd4fa4154634f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c382f218_082ba9a6",
         "filename": "modules/audio_processing/agc2/signal_classifier_unittest.cc",
         "patchSetId": 5
@@ -275,6 +539,30 @@
       "revId": "87dedd441face4914e6e27173c1cd4fa4154634f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46016e72_cfccca6e",
+        "filename": "modules/audio_processing/agc2/signal_classifier_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-04-04T12:34:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c382f218_082ba9a6",
+      "range": {
+        "startLine": 56,
+        "startChar": 47,
+        "endLine": 56,
+        "endChar": 58
+      },
+      "revId": "87dedd441face4914e6e27173c1cd4fa4154634f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

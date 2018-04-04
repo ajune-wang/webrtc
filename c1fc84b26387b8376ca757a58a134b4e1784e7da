@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b72c3155_d74a6162",
+        "filename": "sdk/android/src/java/org/webrtc/audio/WebRtcAudioManager.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-04-04T14:49:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "07206b98_dc7c7973",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 64
+      },
+      "revId": "c1fc84b26387b8376ca757a58a134b4e1784e7da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e7e232c5_55b15851",
         "filename": "sdk/android/src/java/org/webrtc/audio/WebRtcAudioManager.java",
         "patchSetId": 13
@@ -45,6 +69,30 @@
       "revId": "c1fc84b26387b8376ca757a58a134b4e1784e7da",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3180e592_285f685e",
+        "filename": "sdk/android/src/java/org/webrtc/audio/WebRtcAudioManager.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-04-04T14:49:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e7e232c5_55b15851",
+      "range": {
+        "startLine": 64,
+        "startChar": 2,
+        "endLine": 64,
+        "endChar": 59
+      },
+      "revId": "c1fc84b26387b8376ca757a58a134b4e1784e7da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "143fc1bb_066cadad",
+        "filename": "sdk/android/src/java/org/webrtc/audio/WebRtcAudioManager.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-04-04T14:49:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e0f8a8a9_98b6e245",
+      "range": {
+        "startLine": 70,
+        "startChar": 2,
+        "endLine": 71,
+        "endChar": 58
+      },
+      "revId": "c1fc84b26387b8376ca757a58a134b4e1784e7da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f73441be_e05c1925",
         "filename": "sdk/android/src/java/org/webrtc/audio/WebRtcAudioManager.java",
         "patchSetId": 13
@@ -91,6 +163,30 @@
       "revId": "c1fc84b26387b8376ca757a58a134b4e1784e7da",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42c5a3b1_43c0bb82",
+        "filename": "sdk/android/src/java/org/webrtc/audio/WebRtcAudioManager.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-04-04T14:49:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f73441be_e05c1925",
+      "range": {
+        "startLine": 105,
+        "startChar": 24,
+        "endLine": 105,
+        "endChar": 30
+      },
+      "revId": "c1fc84b26387b8376ca757a58a134b4e1784e7da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "a07deba0_9f889379",
+        "filename": "sdk/android/src/jni/audio_device/audio_device_module.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-04-04T14:49:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "95f119cb_e0b03bbe",
+      "range": {
+        "startLine": 42,
+        "startChar": 3,
+        "endLine": 50,
+        "endChar": 62
+      },
+      "revId": "c1fc84b26387b8376ca757a58a134b4e1784e7da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "efb0b1d3_2a72c7d0",
         "filename": "sdk/android/src/jni/audio_device/audio_track_jni.h",
         "patchSetId": 13
@@ -137,6 +257,30 @@
       "revId": "c1fc84b26387b8376ca757a58a134b4e1784e7da",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c52cb77f_d730c69f",
+        "filename": "sdk/android/src/jni/audio_device/audio_track_jni.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-04-04T14:49:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "efb0b1d3_2a72c7d0",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 64
+      },
+      "revId": "c1fc84b26387b8376ca757a58a134b4e1784e7da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "5ad7b821_e23352f1",
+        "filename": "sdk/android/src/jni/audio_device/audio_track_jni.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-04-04T14:49:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "90914d7a_3ab95eb3",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 67
+      },
+      "revId": "c1fc84b26387b8376ca757a58a134b4e1784e7da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f51f19fc_6bbdbcf2",
         "filename": "sdk/android/src/jni/audio_device/opensles_player.h",
         "patchSetId": 13
@@ -186,6 +354,54 @@
     },
     {
       "key": {
+        "uuid": "eba1989b_4bd387cc",
+        "filename": "sdk/android/src/jni/audio_device/opensles_player.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-04-04T14:49:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f51f19fc_6bbdbcf2",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 64
+      },
+      "revId": "c1fc84b26387b8376ca757a58a134b4e1784e7da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "92fbc12a_e43c237a",
+        "filename": "sdk/android/src/jni/audio_device/opensles_player.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-04-04T14:49:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f51f19fc_6bbdbcf2",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 64
+      },
+      "revId": "c1fc84b26387b8376ca757a58a134b4e1784e7da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cf96064d_3a166960",
         "filename": "sdk/android/src/jni/audio_device/opensles_recorder.h",
         "patchSetId": 13
@@ -206,6 +422,30 @@
       "revId": "c1fc84b26387b8376ca757a58a134b4e1784e7da",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e84960f5_ed3f224a",
+        "filename": "sdk/android/src/jni/audio_device/opensles_recorder.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-04-04T14:49:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf96064d_3a166960",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 64
+      },
+      "revId": "c1fc84b26387b8376ca757a58a134b4e1784e7da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

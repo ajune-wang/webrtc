@@ -1,0 +1,280 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "add3775b_ff06ba42",
+        "filename": "modules/audio_processing/agc2/agc2_testing_common.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-04-04T09:16:57Z",
+      "side": 1,
+      "message": "Nit:\nIs there no pi the STL?\nPi is anyhow 3.141592653589..., so should probably round to 3.1415926536.",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 36
+      },
+      "revId": "87dedd441face4914e6e27173c1cd4fa4154634f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "72424bf0_ca435640",
+        "filename": "modules/audio_processing/agc2/agc2_testing_common.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-04-04T09:16:57Z",
+      "side": 1,
+      "message": "Nit: Maybe DCHECK(rate \u003e frequency), just in case.",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 70
+      },
+      "revId": "87dedd441face4914e6e27173c1cd4fa4154634f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "19e000aa_b44430d1",
+        "filename": "modules/audio_processing/agc2/down_sampler.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-04-04T09:16:57Z",
+      "side": 1,
+      "message": "Intended?",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 66
+      },
+      "revId": "87dedd441face4914e6e27173c1cd4fa4154634f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea7d624d_3f239fb2",
+        "filename": "modules/audio_processing/agc2/noise_level_estimator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-04-04T09:16:57Z",
+      "side": 1,
+      "message": "I think std::sqrt is both faster and makes it clearer what we\u0027re doing.",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 58
+      },
+      "revId": "87dedd441face4914e6e27173c1cd4fa4154634f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ce2d756_1a9006cd",
+        "filename": "modules/audio_processing/agc2/noise_level_estimator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-04-04T09:16:57Z",
+      "side": 1,
+      "message": "To dBFS.",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 66,
+        "endChar": 25
+      },
+      "revId": "87dedd441face4914e6e27173c1cd4fa4154634f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6eb1a63_1ba1f1d3",
+        "filename": "modules/audio_processing/agc2/noise_level_estimator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-04-04T09:16:57Z",
+      "side": 1,
+      "message": "frame_energy should never be \u003c 0, and the computation lives in this file. Maybe DCHECK instead of failing silently.",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 0
+      },
+      "revId": "87dedd441face4914e6e27173c1cd4fa4154634f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e7a9a11_64599fa7",
+        "filename": "modules/audio_processing/agc2/noise_level_estimator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-04-04T09:16:57Z",
+      "side": 1,
+      "message": "To dBFS.",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 69
+      },
+      "revId": "87dedd441face4914e6e27173c1cd4fa4154634f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b8d91d1_3cd8301f",
+        "filename": "modules/audio_processing/agc2/noise_level_estimator.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-04-04T09:16:57Z",
+      "side": 1,
+      "message": "Nit: I can\u0027t tell why some of these variables are given default member initializers and some aren\u0027t. Is there a pattern?",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 33
+      },
+      "revId": "87dedd441face4914e6e27173c1cd4fa4154634f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7933ba54_4e585972",
+        "filename": "modules/audio_processing/agc2/noise_level_estimator_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-04-04T09:16:57Z",
+      "side": 1,
+      "message": "See comments in signal_classifier_unittest.cc",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 1
+      },
+      "revId": "87dedd441face4914e6e27173c1cd4fa4154634f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6354b56e_ff8d7e4c",
+        "filename": "modules/audio_processing/agc2/signal_classifier_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-04-04T09:16:57Z",
+      "side": 1,
+      "message": "WhiteNoiseGenerator",
+      "range": {
+        "startLine": 48,
+        "startChar": 6,
+        "endLine": 48,
+        "endChar": 20
+      },
+      "revId": "87dedd441face4914e6e27173c1cd4fa4154634f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "570d6524_324055ac",
+        "filename": "modules/audio_processing/agc2/signal_classifier_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-04-04T09:16:57Z",
+      "side": 1,
+      "message": "White noise is stationary. Lots of random noise can be non-stationary.",
+      "range": {
+        "startLine": 54,
+        "startChar": 3,
+        "endLine": 54,
+        "endChar": 9
+      },
+      "revId": "87dedd441face4914e6e27173c1cd4fa4154634f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c382f218_082ba9a6",
+        "filename": "modules/audio_processing/agc2/signal_classifier_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-04-04T09:16:57Z",
+      "side": 1,
+      "message": "WhiteNoise",
+      "range": {
+        "startLine": 56,
+        "startChar": 47,
+        "endLine": 56,
+        "endChar": 58
+      },
+      "revId": "87dedd441face4914e6e27173c1cd4fa4154634f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

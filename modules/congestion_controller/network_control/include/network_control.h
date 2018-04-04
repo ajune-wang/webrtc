@@ -28,19 +28,6 @@ class TargetTransferRateObserver {
   virtual ~TargetTransferRateObserver() = default;
 };
 
-// NetworkControllerObserver is an interface implemented by observers of network
-// controllers. It contains declarations of the possible configuration messages
-// that can be sent from a network controller implementation.
-class NetworkControllerObserver : public TargetTransferRateObserver {
- public:
-  // Called when congestion window configutation is changed.
-  virtual void OnCongestionWindow(CongestionWindow) = 0;
-  // Called when pacer configuration has changed.
-  virtual void OnPacerConfig(PacerConfig) = 0;
-  // Called to indicate that a new probe should be sent.
-  virtual void OnProbeClusterConfig(ProbeClusterConfig) = 0;
-};
-
 // Configuration sent to factory create function. The parameters here are
 // optional to use for a network controller implementation.
 struct NetworkControllerConfig {
@@ -87,6 +74,7 @@ class NetworkControllerInterface {
   virtual void OnTransportLossReport(TransportLossReport) = 0;
   // Called with per packet feedback regarding receive time.
   virtual void OnTransportPacketsFeedback(TransportPacketsFeedback) = 0;
+  virtual NetworkControlUpdate PopPendingUpdate() = 0;
 };
 
 // NetworkControllerFactoryInterface is an interface for creating a network
@@ -97,7 +85,6 @@ class NetworkControllerFactoryInterface {
   // Used to create a new network controller, requires an observer to be
   // provided to handle callbacks.
   virtual NetworkControllerInterface::uptr Create(
-      NetworkControllerObserver* observer,
       NetworkControllerConfig config) = 0;
   // Returns the interval by which the network controller expects
   // OnProcessInterval calls.

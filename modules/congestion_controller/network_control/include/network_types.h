@@ -63,6 +63,7 @@ struct SentPacket {
 };
 
 struct PacerQueueUpdate {
+  Timestamp at_time;
   TimeDelta expected_queue_time;
 };
 
@@ -158,6 +159,16 @@ struct TargetTransferRate {
   DataRate target_rate;
   // The estimate on which the target rate is based on.
   NetworkEstimate network_estimate;
+};
+
+struct NetworkControlUpdate {
+  NetworkControlUpdate();
+  NetworkControlUpdate(const NetworkControlUpdate&);
+  ~NetworkControlUpdate();
+  rtc::Optional<PacerConfig> pacer_config;
+  std::vector<ProbeClusterConfig> probe_cluster_configs;
+  rtc::Optional<TargetTransferRate> target_rate;
+  rtc::Optional<CongestionWindow> congestion_window;
 };
 
 // Process control

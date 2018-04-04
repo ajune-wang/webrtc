@@ -132,16 +132,16 @@ static std::unique_ptr<rtc::QueuedTask> NewPeriodicTask(Closure&& closure,
 }  // namespace
 
 namespace send_side_cc_internal {
-class ControlHandler : public NetworkControllerObserver {
+class ControlHandler {
  public:
   ControlHandler(NetworkChangedObserver* observer,
                  PacerController* pacer_controller,
                  const Clock* clock);
 
-  void OnCongestionWindow(CongestionWindow window) override;
-  void OnPacerConfig(PacerConfig config) override;
-  void OnProbeClusterConfig(ProbeClusterConfig config) override;
-  void OnTargetTransferRate(TargetTransferRate target_rate) override;
+  void OnCongestionWindow(CongestionWindow window);
+  void OnPacerConfig(PacerConfig config);
+  void OnProbeClusterConfig(ProbeClusterConfig config);
+  void OnTargetTransferRate(TargetTransferRate target_rate);
 
   void OnNetworkAvailability(NetworkAvailability msg);
   void OnPacerQueueUpdate(PacerQueueUpdate msg);
@@ -319,7 +319,6 @@ SendSideCongestionController::SendSideCongestionController(
   task_queue_ptr_ = task_queue_.get();
   initial_config_.constraints =
       ConvertConstraints(min_bitrate_bps, max_bitrate_bps, clock_);
-  initial_config_.stream_based_config = StreamsConfig();
   RTC_DCHECK(start_bitrate_bps > 0);
   initial_config_.starting_bandwidth = DataRate::bps(start_bitrate_bps);
 }
@@ -345,8 +344,7 @@ void SendSideCongestionController::MaybeCreateControllers() {
   control_handler_ = MakeUnique<send_side_cc_internal::ControlHandler>(
       observer_, pacer_controller_.get(), clock_);
 
-  controller_ =
-      controller_factory_->Create(control_handler_.get(), initial_config_);
+  controller_ = controller_factory_->Create(initial_config_);
   UpdateStreamsConfig();
   StartProcessPeriodicTasks();
 }
@@ -388,6 +386,7 @@ void SendSideCongestionController::SetBweBitrates(int min_bitrate_bps,
     RTC_DCHECK_RUN_ON(task_queue_ptr_);
     if (controller_) {
       controller_->OnTargetRateConstraints(constraints);
+      PostControllerUpdates();
     } else {
       initial_config_.constraints = constraints;
       if (start_bitrate_bps > 0)
@@ -431,6 +430,7 @@ void SendSideCongestionController::OnNetworkRouteChanged(
   task_queue_->PostTask([this, msg]() {
     RTC_DCHECK_RUN_ON(task_queue_ptr_);
     controller_->OnNetworkRouteChange(msg);
+    PostControllerUpdates();
     pacer_controller_->OnNetworkRouteChange(msg);
   });
 }
@@ -475,6 +475,7 @@ void SendSideCongestionController::UpdateStreamsConfig() {
   streams_config_.at_time = Timestamp::ms(clock_->TimeInMilliseconds());
   if (controller_)
     controller_->OnStreamsConfig(streams_config_);
+  PostControllerUpdates();
 }
 
 TransportFeedbackObserver*
@@ -519,6 +520,7 @@ void SendSideCongestionController::OnSentPacket(
       RTC_DCHECK_RUN_ON(task_queue_ptr_);
       if (controller_)
         controller_->OnSentPacket(msg);
+      PostControllerUpdates();
     });
   }
 }
@@ -534,6 +536,7 @@ void SendSideCongestionController::OnRttUpdate(int64_t avg_rtt_ms,
     RTC_DCHECK_RUN_ON(task_queue_ptr_);
     if (controller_)
       controller_->OnRoundTripTimeUpdate(report);
+    PostControllerUpdates();
   });
 }
 
@@ -569,6 +572,7 @@ void SendSideCongestionController::UpdateControllerWithTimeInterval() {
     ProcessInterval msg;
     msg.at_time = Timestamp::ms(clock_->TimeInMilliseconds());
     controller_->OnProcessInterval(msg);
+    PostControllerUpdates();
   }
 }
 
@@ -617,6 +621,7 @@ void SendSideCongestionController::OnTransportFeedback(
       RTC_DCHECK_RUN_ON(task_queue_ptr_);
       if (controller_)
         controller_->OnTransportPacketsFeedback(msg);
+      PostControllerUpdates();
     });
   }
 }
@@ -629,6 +634,20 @@ void SendSideCongestionController::MaybeUpdateOutstandingData() {
     RTC_DCHECK_RUN_ON(task_queue_ptr_);
     pacer_controller_->OnOutstandingData(msg);
   });
+}
+
+void SendSideCongestionController::PostControllerUpdates() {
+  if (!controller_)
+    return;
+  NetworkControlUpdate update = controller_->PopPendingUpdate();
+  if (update.congestion_window)
+    control_handler_->OnCongestionWindow(*update.congestion_window);
+  if (update.pacer_config)
+    control_handler_->OnPacerConfig(*update.pacer_config);
+  for (const auto& probe : update.probe_cluster_configs)
+    control_handler_->OnProbeClusterConfig(probe);
+  if (update.target_rate)
+    control_handler_->OnTargetTransferRate(*update.target_rate);
 }
 
 std::vector<PacketFeedback>
@@ -675,6 +694,7 @@ void SendSideCongestionController::OnReceivedEstimatedBitrate(
     RTC_DCHECK_RUN_ON(task_queue_ptr_);
     if (controller_)
       controller_->OnRemoteBitrateReport(msg);
+    PostControllerUpdates();
   });
 }
 
@@ -695,6 +715,7 @@ void SendSideCongestionController::OnReceivedRtcpReceiverReport(
     report.smoothed = false;
     if (controller_)
       controller_->OnRoundTripTimeUpdate(report);
+    PostControllerUpdates();
   });
 }
 
@@ -739,6 +760,7 @@ void SendSideCongestionController::OnReceivedRtcpReceiverReportBlocks(
   msg.end_time = now;
   if (controller_)
     controller_->OnTransportLossReport(msg);
+  PostControllerUpdates();
   last_report_block_time_ = now;
 }
 }  // namespace webrtc_cc

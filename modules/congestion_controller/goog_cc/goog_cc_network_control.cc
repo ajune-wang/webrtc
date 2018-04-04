@@ -103,12 +103,9 @@ std::vector<PacketFeedback> ReceivedPacketsFeedbackAsRtp(
 
 }  // namespace
 
-GoogCcNetworkController::GoogCcNetworkController(
-    RtcEventLog* event_log,
-    NetworkControllerObserver* observer,
-    NetworkControllerConfig config)
+GoogCcNetworkController::GoogCcNetworkController(RtcEventLog* event_log,
+                                                 NetworkControllerConfig config)
     : event_log_(event_log),
-      observer_(observer),
       probe_controller_(new ProbeController()),
       bandwidth_estimation_(
           rtc::MakeUnique<SendSideBandwidthEstimation>(event_log_)),
@@ -136,7 +133,6 @@ GoogCcNetworkController::~GoogCcNetworkController() {}
 
 void GoogCcNetworkController::OnNetworkAvailability(NetworkAvailability msg) {
   probe_controller_->OnNetworkAvailability(msg);
-  PostPendingProbes();
 }
 
 void GoogCcNetworkController::OnNetworkRouteChange(NetworkRouteChange msg) {
@@ -199,7 +195,6 @@ void GoogCcNetworkController::OnStreamsConfig(StreamsConfig msg) {
     probe_controller_->OnMaxTotalAllocatedBitrate(
         msg.max_total_allocated_bitrate->bps(), msg.at_time.ms());
     max_total_allocated_bitrate_ = *msg.max_total_allocated_bitrate;
-    PostPendingProbes();
   }
   bool pacing_changed = false;
   if (msg.pacing_factor && *msg.pacing_factor != pacing_factor_) {
@@ -306,8 +301,14 @@ void GoogCcNetworkController::OnTransportPacketsFeedback(
     probe_controller_->SetAlrStartTimeMs(alr_start_time);
     probe_controller_->RequestProbe(report.feedback_time.ms());
   }
-  PostPendingProbes();
   MaybeUpdateCongestionWindow();
+}
+
+NetworkControlUpdate GoogCcNetworkController::PopPendingUpdate() {
+  NetworkControlUpdate pending_update = std::move(pending_update_);
+  pending_update_ = NetworkControlUpdate();
+  pending_update.probe_cluster_configs = probe_controller_->PopPendingProbes();
+  return pending_update;
 }
 
 void GoogCcNetworkController::MaybeUpdateCongestionWindow() {
@@ -326,7 +327,7 @@ void GoogCcNetworkController::MaybeUpdateCongestionWindow() {
   CongestionWindow msg;
   msg.enabled = true;
   msg.data_window = std::max(kMinCwnd, data_window);
-  observer_->OnCongestionWindow(msg);
+  pending_update_.congestion_window = msg;
   RTC_LOG(LS_INFO) << "Feedback rtt: " << *min_feedback_rtt_ms_
                    << " Bitrate: " << last_estimate_->bandwidth.bps();
 }
@@ -352,7 +353,6 @@ void GoogCcNetworkController::MaybeTriggerOnNetworkChanged(Timestamp at_time) {
     last_estimate_ = new_estimate;
     OnNetworkEstimate(new_estimate);
   }
-  PostPendingProbes();
 }
 
 bool GoogCcNetworkController::GetNetworkParameters(
@@ -399,7 +399,7 @@ void GoogCcNetworkController::OnNetworkEstimate(NetworkEstimate estimate) {
   // for legacy reasons includes target rate constraints.
   target_rate.target_rate = estimate.bandwidth;
   target_rate.network_estimate = estimate;
-  observer_->OnTargetTransferRate(target_rate);
+  pending_update_.target_rate = target_rate;
 }
 
 void GoogCcNetworkController::UpdatePacingRates(Timestamp at_time) {
@@ -414,14 +414,7 @@ void GoogCcNetworkController::UpdatePacingRates(Timestamp at_time) {
   msg.time_window = TimeDelta::s(1);
   msg.data_window = pacing_rate * msg.time_window;
   msg.pad_window = padding_rate * msg.time_window;
-  observer_->OnPacerConfig(msg);
-}
-
-void GoogCcNetworkController::PostPendingProbes() {
-  for (const ProbeClusterConfig& probe :
-       probe_controller_->PopPendingProbes()) {
-    observer_->OnProbeClusterConfig(probe);
-  }
+  pending_update_.pacer_config = msg;
 }
 
 }  // namespace webrtc_cc

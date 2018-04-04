@@ -32,7 +32,6 @@ namespace webrtc_cc {
 class GoogCcNetworkController : public NetworkControllerInterface {
  public:
   GoogCcNetworkController(RtcEventLog* event_log,
-                          NetworkControllerObserver* observer,
                           NetworkControllerConfig config);
   ~GoogCcNetworkController() override;
 
@@ -47,6 +46,7 @@ class GoogCcNetworkController : public NetworkControllerInterface {
   void OnTargetRateConstraints(TargetRateConstraints msg) override;
   void OnTransportLossReport(TransportLossReport msg) override;
   void OnTransportPacketsFeedback(TransportPacketsFeedback msg) override;
+  NetworkControlUpdate PopPendingUpdate() override;
 
  private:
   void UpdateBitrateConstraints(TargetRateConstraints constraints,
@@ -60,10 +60,7 @@ class GoogCcNetworkController : public NetworkControllerInterface {
   void OnNetworkEstimate(NetworkEstimate msg);
   void UpdatePacingRates(Timestamp at_time);
 
-  void PostPendingProbes();
-
   RtcEventLog* const event_log_;
-  NetworkControllerObserver* const observer_;
 
   const std::unique_ptr<ProbeController> probe_controller_;
 
@@ -90,6 +87,8 @@ class GoogCcNetworkController : public NetworkControllerInterface {
   bool in_cwnd_experiment_;
   int64_t accepted_queue_ms_;
   bool previously_in_alr = false;
+
+  NetworkControlUpdate pending_update_;
 
   RTC_DISALLOW_IMPLICIT_CONSTRUCTORS(GoogCcNetworkController);
 };

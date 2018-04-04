@@ -103,13 +103,10 @@ std::vector<PacketFeedback> ReceivedPacketsFeedbackAsRtp(
 
 }  // namespace
 
-GoogCcNetworkController::GoogCcNetworkController(
-    RtcEventLog* event_log,
-    NetworkControllerObserver* observer,
-    NetworkControllerConfig config)
+GoogCcNetworkController::GoogCcNetworkController(RtcEventLog* event_log,
+                                                 NetworkControllerConfig config)
     : event_log_(event_log),
-      observer_(observer),
-      probe_controller_(new ProbeController(observer_)),
+      probe_controller_(new ProbeController()),
       bandwidth_estimation_(
           rtc::MakeUnique<SendSideBandwidthEstimation>(event_log_)),
       alr_detector_(rtc::MakeUnique<AlrDetector>()),
@@ -307,6 +304,13 @@ void GoogCcNetworkController::OnTransportPacketsFeedback(
   MaybeUpdateCongestionWindow();
 }
 
+NetworkControlUpdate GoogCcNetworkController::PopPendingUpdate() {
+  NetworkControlUpdate pending_update = std::move(pending_update_);
+  pending_update_ = NetworkControlUpdate();
+  pending_update.probe_cluster_configs = probe_controller_->PopPendingProbes();
+  return pending_update;
+}
+
 void GoogCcNetworkController::MaybeUpdateCongestionWindow() {
   if (!in_cwnd_experiment_)
     return;
@@ -323,7 +327,7 @@ void GoogCcNetworkController::MaybeUpdateCongestionWindow() {
   CongestionWindow msg;
   msg.enabled = true;
   msg.data_window = std::max(kMinCwnd, data_window);
-  observer_->OnCongestionWindow(msg);
+  pending_update_.congestion_window = msg;
   RTC_LOG(LS_INFO) << "Feedback rtt: " << *min_feedback_rtt_ms_
                    << " Bitrate: " << last_estimate_->bandwidth.bps();
 }
@@ -395,7 +399,7 @@ void GoogCcNetworkController::OnNetworkEstimate(NetworkEstimate estimate) {
   // for legacy reasons includes target rate constraints.
   target_rate.target_rate = estimate.bandwidth;
   target_rate.network_estimate = estimate;
-  observer_->OnTargetTransferRate(target_rate);
+  pending_update_.target_rate = target_rate;
 }
 
 void GoogCcNetworkController::UpdatePacingRates(Timestamp at_time) {
@@ -410,7 +414,7 @@ void GoogCcNetworkController::UpdatePacingRates(Timestamp at_time) {
   msg.time_window = TimeDelta::s(1);
   msg.data_window = pacing_rate * msg.time_window;
   msg.pad_window = padding_rate * msg.time_window;
-  observer_->OnPacerConfig(msg);
+  pending_update_.pacer_config = msg;
 }
 
 }  // namespace webrtc_cc

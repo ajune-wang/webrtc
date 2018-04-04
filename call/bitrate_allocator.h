@@ -21,6 +21,7 @@
 
 #include "rtc_base/bitrateallocationstrategy.h"
 #include "rtc_base/sequenced_task_checker.h"
+#include "rtc_base/synchronization/async_invoke.h"
 
 namespace webrtc {
 
@@ -55,7 +56,8 @@ class BitrateAllocator {
     virtual void OnAllocationLimitsChanged(uint32_t min_send_bitrate_bps,
                                            uint32_t max_padding_bitrate_bps,
                                            uint32_t total_bitrate_bps,
-                                           bool has_packet_feedback) = 0;
+                                           bool has_packet_feedback,
+                                           rtc::InvokeDoneBlocker blocker) = 0;
 
    protected:
     virtual ~LimitObserver() {}
@@ -86,15 +88,17 @@ class BitrateAllocator {
   // within the scope of this method with the current rtt, fraction_loss and
   // available bitrate and that the bitrate in OnBitrateUpdated will be zero if
   // the |observer| is currently not allowed to send data.
-  void AddObserver(BitrateAllocatorObserver* observer,
-                   uint32_t min_bitrate_bps,
-                   uint32_t max_bitrate_bps,
-                   uint32_t pad_up_bitrate_bps,
-                   bool enforce_min_bitrate,
-                   std::string track_id,
-                   double bitrate_priority,
-                   // TODO(srte): Remove default when callers have been fixed.
-                   bool has_packet_feedback = false);
+  void AddObserver(
+      BitrateAllocatorObserver* observer,
+      uint32_t min_bitrate_bps,
+      uint32_t max_bitrate_bps,
+      uint32_t pad_up_bitrate_bps,
+      bool enforce_min_bitrate,
+      std::string track_id,
+      double bitrate_priority,
+      // TODO(srte): Remove default when callers have been fixed.
+      bool has_packet_feedback = false,
+      rtc::InvokeDoneBlocker blocker = rtc::InvokeDoneBlocker::NonBlocking());
 
   // Removes a previously added observer, but will not trigger a new bitrate
   // allocation.
@@ -150,7 +154,7 @@ class BitrateAllocator {
 
   // Calculates the minimum requested send bitrate and max padding bitrate and
   // calls LimitObserver::OnAllocationLimitsChanged.
-  void UpdateAllocationLimits();
+  void UpdateAllocationLimits(rtc::InvokeDoneBlocker blocker);
 
   typedef std::vector<ObserverConfig> ObserverConfigs;
   ObserverConfigs::iterator FindObserverConfig(

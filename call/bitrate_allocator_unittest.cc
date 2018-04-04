@@ -28,7 +28,8 @@ class LimitObserverWrapper : public BitrateAllocator::LimitObserver {
   void OnAllocationLimitsChanged(uint32_t min_send_bitrate_bps,
                                  uint32_t max_padding_bitrate_bps,
                                  uint32_t total_bitrate_bps,
-                                 bool has_packet_feedback) override {
+                                 bool has_packet_feedback,
+                                 rtc::InvokeDoneBlocker blocker) override {
     OnAllocationLimitsChanged(min_send_bitrate_bps, max_padding_bitrate_bps,
                               total_bitrate_bps);
   }

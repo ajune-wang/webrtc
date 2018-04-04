@@ -236,7 +236,8 @@ class Call : public webrtc::Call,
   void OnAllocationLimitsChanged(uint32_t min_send_bitrate_bps,
                                  uint32_t max_padding_bitrate_bps,
                                  uint32_t total_bitrate_bps,
-                                 bool has_packet_feedback) override;
+                                 bool has_packet_feedback,
+                                 rtc::InvokeDoneBlocker blocker) override;
 
  private:
   DeliveryStatus DeliverRtcp(MediaType media_type, const uint8_t* packet,
@@ -256,6 +257,7 @@ class Call : public webrtc::Call,
   void UpdateReceiveHistograms();
   void UpdateHistograms();
   void UpdateAggregateNetworkState();
+  void UpdateAggregateNetworkState(rtc::InvokeDoneBlocker blocker);
 
   Clock* const clock_;
 
@@ -715,7 +717,6 @@ webrtc::VideoSendStream* Call::CreateVideoSendStream(
   // the call has already started.
   // Copy ssrcs from |config| since |config| is moved.
   std::vector<uint32_t> ssrcs = config.rtp.ssrcs;
-
   VideoSendStream* send_stream = new VideoSendStream(
       num_cpu_cores_, module_process_thread_.get(), &worker_queue_,
       call_stats_.get(), transport_send_.get(), bitrate_allocator_.get(),
@@ -733,7 +734,7 @@ webrtc::VideoSendStream* Call::CreateVideoSendStream(
     video_send_streams_.insert(send_stream);
   }
   send_stream->SignalNetworkState(video_network_state_);
-  UpdateAggregateNetworkState();
+  UpdateAggregateNetworkState(rtc::AutoWaiter().CreateBlocker());
 
   return send_stream;
 }
@@ -777,8 +778,8 @@ void Call::DestroyVideoSendStream(webrtc::VideoSendStream* send_stream) {
 
   VideoSendStream::RtpStateMap rtp_states;
   VideoSendStream::RtpPayloadStateMap rtp_payload_states;
-  send_stream_impl->StopPermanentlyAndGetRtpStates(&rtp_states,
-                                                   &rtp_payload_states);
+  send_stream_impl->StopPermanentlyAndGetRtpStates(
+      &rtp_states, &rtp_payload_states, rtc::AutoWaiter().CreateBlocker());
   for (const auto& kv : rtp_states) {
     suspended_video_send_ssrcs_[kv.first] = kv.second;
   }
@@ -786,7 +787,7 @@ void Call::DestroyVideoSendStream(webrtc::VideoSendStream* send_stream) {
     suspended_video_payload_states_[kv.first] = kv.second;
   }
 
-  UpdateAggregateNetworkState();
+  UpdateAggregateNetworkState(rtc::AutoWaiter().CreateBlocker());
   delete send_stream_impl;
 }
 
@@ -1019,6 +1020,10 @@ void Call::OnTransportOverheadChanged(MediaType media,
 }
 
 void Call::UpdateAggregateNetworkState() {
+  UpdateAggregateNetworkState(rtc::InvokeDoneBlocker::NonBlocking());
+}
+
+void Call::UpdateAggregateNetworkState(rtc::InvokeDoneBlocker blocker) {
   RTC_DCHECK_CALLED_SEQUENTIALLY(&configuration_sequence_checker_);
 
   bool have_audio = false;
@@ -1048,7 +1053,9 @@ void Call::UpdateAggregateNetworkState() {
     rtc::CritScope cs(&aggregate_network_up_crit_);
     aggregate_network_up_ = aggregate_network_up;
   }
-  transport_send_->OnNetworkAvailability(aggregate_network_up);
+
+  transport_send_->OnNetworkAvailability(aggregate_network_up,
+                                         std::move(blocker));
 }
 
 void Call::OnSentPacket(const rtc::SentPacket& sent_packet) {
@@ -1113,9 +1120,11 @@ void Call::OnTargetTransferRate(TargetTransferRate msg) {
 void Call::OnAllocationLimitsChanged(uint32_t min_send_bitrate_bps,
                                      uint32_t max_padding_bitrate_bps,
                                      uint32_t total_bitrate_bps,
-                                     bool has_packet_feedback) {
-  transport_send_->SetAllocatedSendBitrateLimits(
-      min_send_bitrate_bps, max_padding_bitrate_bps, total_bitrate_bps);
+                                     bool has_packet_feedback,
+                                     rtc::InvokeDoneBlocker blocker) {
+  transport_send_->SetAllocatedSendBitrateLimits(min_send_bitrate_bps,
+                                                 max_padding_bitrate_bps,
+                                                 total_bitrate_bps, blocker);
   transport_send_->SetPerPacketFeedbackAvailable(has_packet_feedback);
   rtc::CritScope lock(&bitrate_crit_);
   min_allocated_send_bitrate_bps_ = min_send_bitrate_bps;

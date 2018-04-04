@@ -21,6 +21,7 @@
 namespace rtc {
 struct SentPacket;
 struct NetworkRoute;
+class InvokeDoneBlocker;
 }  // namespace rtc
 namespace webrtc {
 
@@ -77,9 +78,11 @@ class RtpTransportControllerSendInterface {
   // bitrate the send streams request for padding. This can be higher than the
   // current network estimate and tells the PacedSender how much it should max
   // pad unless there is real packets to send.
-  virtual void SetAllocatedSendBitrateLimits(int min_send_bitrate_bps,
-                                             int max_padding_bitrate_bps,
-                                             int total_bitrate_bps) = 0;
+  virtual void SetAllocatedSendBitrateLimits(
+      int min_send_bitrate_bps,
+      int max_padding_bitrate_bps,
+      int total_bitrate_bps,
+      rtc::InvokeDoneBlocker blocker) = 0;
 
   virtual void SetPacingFactor(float pacing_factor) = 0;
   virtual void SetQueueTimeLimit(int limit_ms) = 0;
@@ -95,7 +98,8 @@ class RtpTransportControllerSendInterface {
   virtual void OnNetworkRouteChanged(
       const std::string& transport_name,
       const rtc::NetworkRoute& network_route) = 0;
-  virtual void OnNetworkAvailability(bool network_available) = 0;
+  virtual void OnNetworkAvailability(bool network_available,
+                                     rtc::InvokeDoneBlocker blocker) = 0;
   virtual RtcpBandwidthObserver* GetBandwidthObserver() = 0;
   virtual int64_t GetPacerQueuingDelayMs() const = 0;
   virtual int64_t GetFirstPacketTimeMs() const = 0;

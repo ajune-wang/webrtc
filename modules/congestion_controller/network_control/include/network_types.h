@@ -15,6 +15,7 @@
 #include "modules/congestion_controller/network_control/include/network_units.h"
 #include "modules/include/module_common_types.h"
 #include "rtc_base/constructormagic.h"
+#include "rtc_base/synchronization/async_invoke.h"
 
 namespace webrtc {
 
@@ -63,6 +64,7 @@ struct SentPacket {
 };
 
 struct PacerQueueUpdate {
+  Timestamp at_time;
   TimeDelta expected_queue_time;
 };
 
@@ -158,6 +160,17 @@ struct TargetTransferRate {
   DataRate target_rate;
   // The estimate on which the target rate is based on.
   NetworkEstimate network_estimate;
+  rtc::InvokeDoneBlocker blocker;
+};
+
+struct NetworkControlUpdate {
+  NetworkControlUpdate();
+  NetworkControlUpdate(const NetworkControlUpdate&);
+  ~NetworkControlUpdate();
+  rtc::Optional<PacerConfig> pacer_config;
+  std::vector<ProbeClusterConfig> probe_cluster_configs;
+  rtc::Optional<TargetTransferRate> target_rate;
+  rtc::Optional<CongestionWindow> congestion_window;
 };
 
 // Process control

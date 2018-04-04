@@ -70,14 +70,17 @@ class SendSideCongestionController
 
   void SetAllocatedSendBitrateLimits(int64_t min_send_bitrate_bps,
                                      int64_t max_padding_bitrate_bps,
-                                     int64_t max_total_bitrate_bps) override;
+                                     int64_t max_total_bitrate_bps,
+                                     rtc::InvokeDoneBlocker blocker) override;
 
   // Resets the BWE state. Note the first argument is the bitrate_bps.
   void OnNetworkRouteChanged(const rtc::NetworkRoute& network_route,
                              int bitrate_bps,
                              int min_bitrate_bps,
                              int max_bitrate_bps) override;
-  void SignalNetworkState(NetworkState state) override;
+  void SignalNetworkState(NetworkState state);
+  void SignalNetworkState(NetworkState state,
+                          rtc::InvokeDoneBlocker blocker) override;
 
   // Deprecated: Is updated by OnNetworkRouteChanged
   RTC_DEPRECATED virtual void SetTransportOverhead(

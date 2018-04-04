@@ -20,6 +20,7 @@
 #include "rtc_base/networkroute.h"
 #include "rtc_base/rate_limiter.h"
 #include "rtc_base/socket.h"
+#include "rtc_base/synchronization/async_invoke.h"
 #include "test/gmock.h"
 
 namespace webrtc {
@@ -31,7 +32,8 @@ class MockRtpTransportControllerSend
   MOCK_METHOD0(transport_feedback_observer, TransportFeedbackObserver*());
   MOCK_METHOD0(packet_sender, RtpPacketSender*());
   MOCK_CONST_METHOD0(keepalive_config, RtpKeepAliveConfig&());
-  MOCK_METHOD3(SetAllocatedSendBitrateLimits, void(int, int, int));
+  MOCK_METHOD4(SetAllocatedSendBitrateLimits,
+               void(int, int, int, rtc::InvokeDoneBlocker));
   MOCK_METHOD1(SetPacingFactor, void(float));
   MOCK_METHOD1(SetQueueTimeLimit, void(int));
   MOCK_METHOD0(GetCallStatsObserver, CallStatsObserver*());
@@ -41,7 +43,7 @@ class MockRtpTransportControllerSend
                void(TargetTransferRateObserver*));
   MOCK_METHOD2(OnNetworkRouteChanged,
                void(const std::string&, const rtc::NetworkRoute&));
-  MOCK_METHOD1(OnNetworkAvailability, void(bool));
+  MOCK_METHOD2(OnNetworkAvailability, void(bool, rtc::InvokeDoneBlocker));
   MOCK_METHOD0(GetBandwidthObserver, RtcpBandwidthObserver*());
   MOCK_CONST_METHOD0(GetPacerQueuingDelayMs, int64_t());
   MOCK_CONST_METHOD0(GetFirstPacketTimeMs, int64_t());

@@ -46,6 +46,7 @@ rtc_static_library("congestion_controller") {
     "../..:webrtc_common",
     "../../rtc_base:checks",
     "../../rtc_base:rate_limiter",
+    "../../rtc_base/synchronization:async_invoke",
     "../../system_wrappers",
     "../../system_wrappers:field_trial_api",
     "../../system_wrappers:metrics_api",

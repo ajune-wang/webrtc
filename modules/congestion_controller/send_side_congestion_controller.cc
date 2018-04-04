@@ -193,7 +193,8 @@ void SendSideCongestionController::SetBweBitrates(int min_bitrate_bps,
 void SendSideCongestionController::SetAllocatedSendBitrateLimits(
     int64_t min_send_bitrate_bps,
     int64_t max_padding_bitrate_bps,
-    int64_t max_total_bitrate_bps) {
+    int64_t max_total_bitrate_bps,
+    rtc::InvokeDoneBlocker blocker) {
   pacer_->SetSendBitrateLimits(min_send_bitrate_bps, max_padding_bitrate_bps);
   probe_controller_->OnMaxTotalAllocatedBitrate(max_total_bitrate_bps);
 }
@@ -281,6 +282,12 @@ void SendSideCongestionController::SignalNetworkState(NetworkState state) {
   }
   probe_controller_->OnNetworkStateChanged(state);
   MaybeTriggerOnNetworkChanged();
+}
+
+void SendSideCongestionController::SignalNetworkState(
+    NetworkState state,
+    rtc::InvokeDoneBlocker blocker) {
+  SignalNetworkState(state);
 }
 
 void SendSideCongestionController::SetTransportOverhead(

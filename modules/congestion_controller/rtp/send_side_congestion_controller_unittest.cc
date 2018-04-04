@@ -54,6 +54,10 @@ class SendSideCongestionControllerForTest
     SendSideCongestionController::PostPeriodicTasksForTest();
     SendSideCongestionController::WaitOnTasksForTest();
   }
+  void DoSignalNetworkState(NetworkState state) {
+    SendSideCongestionController::SignalNetworkState(
+        state, rtc::InvokeDoneBlocker::NonBlocking());
+  }
 };
 }  // namespace
 
@@ -80,9 +84,12 @@ class SendSideCongestionControllerTest : public ::testing::Test {
         5 * kInitialBitrateBps));
     controller_->DisablePeriodicTasks();
     controller_->RegisterNetworkObserver(&observer_);
-    controller_->SignalNetworkState(NetworkState::kNetworkUp);
+    rtc::InvokeWaiter waiter;
+    controller_->SignalNetworkState(NetworkState::kNetworkUp,
+                                    waiter.CreateBlocker());
+    waiter.Wait();
     bandwidth_observer_ = controller_->GetBandwidthObserver();
-    controller_->WaitOnTasks();
+
     testing::Mock::VerifyAndClearExpectations(pacer_.get());
     testing::Mock::VerifyAndClearExpectations(&observer_);
   }
@@ -99,7 +106,7 @@ class SendSideCongestionControllerTest : public ::testing::Test {
         5 * kInitialBitrateBps));
     controller_->DisablePeriodicTasks();
     controller_->RegisterNetworkObserver(&target_bitrate_observer_);
-    controller_->SignalNetworkState(NetworkState::kNetworkUp);
+    controller_->DoSignalNetworkState(NetworkState::kNetworkUp);
   }
 
   void OnSentPacket(const PacketFeedback& packet_feedback) {
@@ -232,15 +239,15 @@ TEST_F(SendSideCongestionControllerTest, OnSendQueueFullAndEstimateChange) {
 
 TEST_F(SendSideCongestionControllerTest, SignalNetworkState) {
   EXPECT_CALL(observer_, OnNetworkChanged(0, _, _, _));
-  controller_->SignalNetworkState(kNetworkDown);
+  controller_->DoSignalNetworkState(kNetworkDown);
   controller_->WaitOnTasks();
 
   EXPECT_CALL(observer_, OnNetworkChanged(kInitialBitrateBps, _, _, _));
-  controller_->SignalNetworkState(kNetworkUp);
+  controller_->DoSignalNetworkState(kNetworkUp);
   controller_->WaitOnTasks();
 
   EXPECT_CALL(observer_, OnNetworkChanged(0, _, _, _));
-  controller_->SignalNetworkState(kNetworkDown);
+  controller_->DoSignalNetworkState(kNetworkDown);
 }
 
 TEST_F(SendSideCongestionControllerTest, OnNetworkRouteChanged) {
@@ -321,11 +328,11 @@ TEST_F(SendSideCongestionControllerTest,
   controller_->Process();
 
   // Queue is full and network is down. Expect no bitrate change.
-  controller_->SignalNetworkState(kNetworkDown);
+  controller_->DoSignalNetworkState(kNetworkDown);
   controller_->Process();
 
   // Queue is full but network is up. Expect no bitrate change.
-  controller_->SignalNetworkState(kNetworkUp);
+  controller_->DoSignalNetworkState(kNetworkUp);
   controller_->Process();
 
   // Receive new estimate but let the queue still be full.

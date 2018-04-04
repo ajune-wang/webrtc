@@ -200,7 +200,9 @@ class BitrateEstimatorTest : public test::CallTest {
 
     ~Stream() {
       EXPECT_FALSE(is_sending_receiving_);
+      rtc::InvokeWaiter waiter;
       test_->sender_call_->DestroyVideoSendStream(send_stream_);
+      waiter.Wait();
       frame_generator_capturer_.reset(nullptr);
       send_stream_ = nullptr;
       if (video_receive_stream_) {

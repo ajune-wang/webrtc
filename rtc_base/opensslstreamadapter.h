@@ -19,10 +19,7 @@
 #include "rtc_base/opensslidentity.h"
 #include "rtc_base/sslstreamadapter.h"
 
-typedef struct ssl_st SSL;
-typedef struct ssl_ctx_st SSL_CTX;
-typedef struct ssl_cipher_st SSL_CIPHER;
-typedef struct x509_store_ctx_st X509_STORE_CTX;
+#include <openssl/ossl_typ.h>
 
 namespace rtc {
 

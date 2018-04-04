@@ -49,6 +49,7 @@ class RtpTransportControllerSend final
   // Implements RtpTransportControllerSendInterface
   PacketRouter* packet_router() override;
 
+  SendTransportObserver* send_transport_observer() override;
   TransportFeedbackObserver* transport_feedback_observer() override;
   RtpPacketSender* packet_sender() override;
   const RtpKeepAliveConfig& keepalive_config() const override;

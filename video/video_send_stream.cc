@@ -74,6 +74,7 @@ std::vector<RtpRtcp*> CreateRtpRtcpModules(
   configuration.outgoing_transport = config.send_transport;
   configuration.intra_frame_callback = intra_frame_callback;
   configuration.bandwidth_callback = bandwidth_callback;
+  configuration.send_transport_observer = transport->send_transport_observer();
   configuration.transport_feedback_callback =
       transport->transport_feedback_observer();
   configuration.rtt_stats = rtt_stats;

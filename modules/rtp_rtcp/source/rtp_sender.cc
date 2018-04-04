@@ -101,7 +101,7 @@ RTPSender::RTPSender(
     RtpPacketSender* paced_sender,
     FlexfecSender* flexfec_sender,
     TransportSequenceNumberAllocator* sequence_number_allocator,
-    TransportFeedbackObserver* transport_feedback_observer,
+    SendTransportObserver* send_transport_observer,
     BitrateStatisticsObserver* bitrate_callback,
     FrameCountObserver* frame_count_observer,
     SendSideDelayObserver* send_side_delay_observer,
@@ -119,7 +119,7 @@ RTPSender::RTPSender(
       video_(audio ? nullptr : new RTPSenderVideo(clock, this, flexfec_sender)),
       paced_sender_(paced_sender),
       transport_sequence_number_allocator_(sequence_number_allocator),
-      transport_feedback_observer_(transport_feedback_observer),
+      send_transport_observer_(send_transport_observer),
       last_capture_time_ms_sent_(0),
       transport_(transport),
       sending_media_(true),                   // Default to sending media.
@@ -1373,9 +1373,9 @@ void RTPSender::AddPacketToTransportFeedback(
     packet_size = packet.size();
   }
 
-  if (transport_feedback_observer_) {
-    transport_feedback_observer_->AddPacket(SSRC(), packet_id, packet_size,
-                                            pacing_info);
+  if (send_transport_observer_) {
+    send_transport_observer_->OnNewPacket(SSRC(), packet.SequenceNumber(),
+                                          packet_id, packet_size, pacing_info);
   }
 }
 

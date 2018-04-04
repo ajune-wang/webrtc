@@ -34,6 +34,7 @@ class RateLimiter;
 class RtcpBandwidthObserver;
 class RtpPacketSender;
 struct RtpKeepAliveConfig;
+class SendTransportObserver;
 class TransportFeedbackObserver;
 
 // An RtpTransportController should own everything related to the RTP
@@ -63,6 +64,7 @@ class RtpTransportControllerSendInterface {
  public:
   virtual ~RtpTransportControllerSendInterface() {}
   virtual PacketRouter* packet_router() = 0;
+  virtual SendTransportObserver* send_transport_observer() = 0;
   virtual TransportFeedbackObserver* transport_feedback_observer() = 0;
 
   virtual RtpPacketSender* packet_sender() = 0;

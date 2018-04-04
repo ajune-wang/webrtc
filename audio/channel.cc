@@ -94,11 +94,20 @@ class RtcEventLogProxy final : public webrtc::RtcEventLog {
   RTC_DISALLOW_COPY_AND_ASSIGN(RtcEventLogProxy);
 };
 
-class TransportFeedbackProxy : public TransportFeedbackObserver {
+class TransportFeedbackProxy : public SendTransportObserver,
+                               public TransportFeedbackObserver {
  public:
-  TransportFeedbackProxy() : feedback_observer_(nullptr) {
+  TransportFeedbackProxy()
+      : send_transport_observer_(nullptr), feedback_observer_(nullptr) {
     pacer_thread_.DetachFromThread();
     network_thread_.DetachFromThread();
+  }
+
+  void SetSendTransportObserver(
+      SendTransportObserver* send_transport_observer) {
+    RTC_DCHECK(thread_checker_.CalledOnValidThread());
+    rtc::CritScope lock(&crit_);
+    send_transport_observer_ = send_transport_observer;
   }
 
   void SetTransportFeedbackObserver(
@@ -108,17 +117,21 @@ class TransportFeedbackProxy : public TransportFeedbackObserver {
     feedback_observer_ = feedback_observer;
   }
 
-  // Implements TransportFeedbackObserver.
-  void AddPacket(uint32_t ssrc,
-                 uint16_t sequence_number,
-                 size_t length,
-                 const PacedPacketInfo& pacing_info) override {
+  // Implement SendTransportObserver.
+  void OnNewPacket(uint32_t ssrc,
+                   uint16_t rtp_sequence_number,
+                   uint16_t tw_sequence_number,
+                   size_t length,
+                   const PacedPacketInfo& pacing_info) override {
     RTC_DCHECK(pacer_thread_.CalledOnValidThread());
     rtc::CritScope lock(&crit_);
-    if (feedback_observer_)
-      feedback_observer_->AddPacket(ssrc, sequence_number, length, pacing_info);
+    if (send_transport_observer_) {
+      send_transport_observer_->OnNewPacket(
+          ssrc, rtp_sequence_number, tw_sequence_number, length, pacing_info);
+    }
   }
 
+  // Implements TransportFeedbackObserver.
   void OnTransportFeedback(const rtcp::TransportFeedback& feedback) override {
     RTC_DCHECK(network_thread_.CalledOnValidThread());
     rtc::CritScope lock(&crit_);
@@ -131,6 +144,7 @@ class TransportFeedbackProxy : public TransportFeedbackObserver {
   rtc::ThreadChecker thread_checker_;
   rtc::ThreadChecker pacer_thread_;
   rtc::ThreadChecker network_thread_;
+  SendTransportObserver* send_transport_observer_ RTC_GUARDED_BY(&crit_);
   TransportFeedbackObserver* feedback_observer_ RTC_GUARDED_BY(&crit_);
 };
 
@@ -587,6 +601,7 @@ Channel::Channel(ProcessThread* module_process_thread,
     configuration.paced_sender = rtp_packet_sender_proxy_.get();
     configuration.transport_sequence_number_allocator =
         seq_num_allocator_proxy_.get();
+    configuration.send_transport_observer = feedback_observer_proxy_.get();
     configuration.transport_feedback_callback = feedback_observer_proxy_.get();
   }
   configuration.event_log = &(*event_log_proxy_);
@@ -1064,15 +1079,19 @@ void Channel::RegisterSenderCongestionControlObjects(
     RtpTransportControllerSendInterface* transport,
     RtcpBandwidthObserver* bandwidth_observer) {
   RtpPacketSender* rtp_packet_sender = transport->packet_sender();
+  SendTransportObserver* send_transport_observer =
+      transport->send_transport_observer();
   TransportFeedbackObserver* transport_feedback_observer =
       transport->transport_feedback_observer();
   PacketRouter* packet_router = transport->packet_router();
 
   RTC_DCHECK(rtp_packet_sender);
+  RTC_DCHECK(send_transport_observer);
   RTC_DCHECK(transport_feedback_observer);
   RTC_DCHECK(packet_router);
   RTC_DCHECK(!packet_router_);
   rtcp_observer_->SetBandwidthObserver(bandwidth_observer);
+  feedback_observer_proxy_->SetSendTransportObserver(send_transport_observer);
   feedback_observer_proxy_->SetTransportFeedbackObserver(
       transport_feedback_observer);
   seq_num_allocator_proxy_->SetSequenceNumberAllocator(packet_router);
@@ -1097,6 +1116,7 @@ void Channel::ResetSenderCongestionControlObjects() {
   _rtpRtcpModule->SetStorePacketsStatus(false, 600);
   rtcp_observer_->SetBandwidthObserver(nullptr);
   feedback_observer_proxy_->SetTransportFeedbackObserver(nullptr);
+  feedback_observer_proxy_->SetSendTransportObserver(nullptr);
   seq_num_allocator_proxy_->SetSequenceNumberAllocator(nullptr);
   packet_router_->RemoveSendRtpModule(_rtpRtcpModule.get());
   packet_router_ = nullptr;

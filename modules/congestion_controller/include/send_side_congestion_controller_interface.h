@@ -37,6 +37,7 @@ class RtcEventLog;
 
 class SendSideCongestionControllerInterface : public CallStatsObserver,
                                               public Module,
+                                              public SendTransportObserver,
                                               public TransportFeedbackObserver {
  public:
   SendSideCongestionControllerInterface() = default;

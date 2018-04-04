@@ -100,6 +100,10 @@ PacketRouter* RtpTransportControllerSend::packet_router() {
   return &packet_router_;
 }
 
+SendTransportObserver* RtpTransportControllerSend::send_transport_observer() {
+  return send_side_cc_.get();
+}
+
 TransportFeedbackObserver*
 RtpTransportControllerSend::transport_feedback_observer() {
   return send_side_cc_.get();

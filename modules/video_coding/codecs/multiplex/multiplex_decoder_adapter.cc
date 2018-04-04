@@ -90,13 +90,10 @@ MultiplexDecoderAdapter::~MultiplexDecoderAdapter() {
 
 int32_t MultiplexDecoderAdapter::InitDecode(const VideoCodec* codec_settings,
                                             int32_t number_of_cores) {
-  RTC_DCHECK_EQ(kVideoCodecMultiplex, codec_settings->codecType);
-  VideoCodec settings = *codec_settings;
-  settings.codecType = PayloadStringToCodecType(associated_format_.name);
   for (size_t i = 0; i < kAlphaCodecStreams; ++i) {
     std::unique_ptr<VideoDecoder> decoder =
         factory_->CreateVideoDecoder(associated_format_);
-    const int32_t rv = decoder->InitDecode(&settings, number_of_cores);
+    const int32_t rv = decoder->InitDecode(nullptr, number_of_cores);
     if (rv)
       return rv;
     adapter_callbacks_.emplace_back(

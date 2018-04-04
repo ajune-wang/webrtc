@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8d1875f3_06403f43",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 829,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-04T00:34:58Z",
+      "side": 1,
+      "message": "Thanks for spotting this!",
+      "parentUuid": "2832e934_dac26422",
+      "range": {
+        "startLine": 828,
+        "startChar": 49,
+        "endLine": 829,
+        "endChar": 0
+      },
+      "revId": "1d3e6259c17ad9878fbaa9ec94df931487a4751b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "11de638e_7b3cdb2a",
         "filename": "rtc_base/socket.h",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "e5a4eda5_ae377b6d",
+        "filename": "rtc_base/socket.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-04T00:34:58Z",
+      "side": 1,
+      "message": "Sure, theses names are misleading indeed. Fixed.",
+      "parentUuid": "11de638e_7b3cdb2a",
+      "range": {
+        "startLine": 130,
+        "startChar": 2,
+        "endLine": 131,
+        "endChar": 17
+      },
+      "revId": "1d3e6259c17ad9878fbaa9ec94df931487a4751b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "609853d0_685f4a36",
         "filename": "rtc_base/socket.h",
         "patchSetId": 1
@@ -59,6 +107,30 @@
       "writtenOn": "2018-04-02T23:17:44Z",
       "side": 1,
       "message": "Is there enough data here to tell the overhead?  For example, I can\u0027t tell if this is UDP or TCP from just the socket addresses, or a media packet encapsulated in a TURN data indication.\n\nI can always subtract the size media sent from the total packet size to see the per-packet overhead, but that doesn\u0027t necessarily tell me where the overhead came from.",
+      "range": {
+        "startLine": 136,
+        "startChar": 27,
+        "endLine": 136,
+        "endChar": 0
+      },
+      "revId": "1d3e6259c17ad9878fbaa9ec94df931487a4751b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19650ecd_bba4ae00",
+        "filename": "rtc_base/socket.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-04T00:34:58Z",
+      "side": 1,
+      "message": "In addition to the TURN overhead, I have added port-level information including protocol, port type and network info. The network info is serialized to a string and I am debating with myself if we would like to include a copy of the Network object or a serialized representation is good enough.",
+      "parentUuid": "609853d0_685f4a36",
       "range": {
         "startLine": 136,
         "startChar": 27,

@@ -77,7 +77,7 @@ class RTCPReceiver {
            uint32_t* rtcp_arrival_time_frac,
            uint32_t* rtcp_timestamp) const;
 
-  bool LastReceivedXrReferenceTimeInfo(rtcp::ReceiveTimeInfo* info) const;
+  std::vector<rtcp::ReceiveTimeInfo> LastReceivedXrReferenceTimeInfo() const;
 
   // Get rtt.
   int32_t RTT(uint32_t remote_ssrc,
@@ -115,6 +115,7 @@ class RTCPReceiver {
  private:
   struct PacketInformation;
   struct TmmbrInformation;
+  struct RrtrInformation;
   struct ReportBlockWithRtt;
   struct LastFirStatus;
   // RTCP report blocks mapped by remote SSRC.
@@ -226,10 +227,9 @@ class RTCPReceiver {
   // When did we receive the last send report.
   NtpTime last_received_sr_ntp_ RTC_GUARDED_BY(rtcp_receiver_lock_);
 
-  // Received XR receive time report.
-  rtcp::ReceiveTimeInfo remote_time_info_;
-  // Time when the report was received.
-  NtpTime last_received_xr_ntp_;
+  // Mapped by remote ssrc.
+  std::map<uint32_t, RrtrInformation> received_rrtrs_
+      RTC_GUARDED_BY(rtcp_receiver_lock_);
   // Estimated rtt, zero when there is no valid estimate.
   bool xr_rrtr_status_ RTC_GUARDED_BY(rtcp_receiver_lock_);
   int64_t xr_rr_rtt_ms_;

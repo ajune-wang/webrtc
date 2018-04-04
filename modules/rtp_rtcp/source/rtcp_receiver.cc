@@ -86,6 +86,14 @@ struct RTCPReceiver::TmmbrInformation {
   std::map<uint32_t, TimedTmmbrItem> tmmbr;
 };
 
+// Structure for storing received RRTR RTCP messages (RFC3611, section 4.4).
+struct RTCPReceiver::RrtrInformation {
+  // Received NTP timestamp.
+  uint32_t last_rr_ntp;
+  // NTP time when the report was received.
+  uint32_t last_rr_receive_time_ntp;
+};
+
 struct RTCPReceiver::ReportBlockWithRtt {
   RTCPReportBlock report_block;
 
@@ -251,22 +259,16 @@ bool RTCPReceiver::NTP(uint32_t* received_ntp_secs,
   return true;
 }
 
-bool RTCPReceiver::LastReceivedXrReferenceTimeInfo(
-    rtcp::ReceiveTimeInfo* info) const {
-  RTC_DCHECK(info);
+std::vector<rtcp::ReceiveTimeInfo>
+RTCPReceiver::LastReceivedXrReferenceTimeInfo() const {
   rtc::CritScope lock(&rtcp_receiver_lock_);
-  if (!last_received_xr_ntp_.Valid())
-    return false;
-
-  info->ssrc = remote_time_info_.ssrc;
-  info->last_rr = remote_time_info_.last_rr;
-
-  // Get the delay since last received report (RFC 3611).
-  uint32_t receive_time_ntp = CompactNtp(last_received_xr_ntp_);
+  std::vector<rtcp::ReceiveTimeInfo> last_xr_rtis;
   uint32_t now_ntp = CompactNtp(clock_->CurrentNtpTime());
-
-  info->delay_since_last_rr = now_ntp - receive_time_ntp;
-  return true;
+  for (const auto& rrtr : received_rrtrs_) {
+    last_xr_rtis.emplace_back(rrtr.first, rrtr.second.last_rr_ntp,
+                              now_ntp - rrtr.second.last_rr_receive_time_ntp);
+  }
+  return last_xr_rtis;
 }
 
 // We can get multiple receive reports when we receive the report from a CE.
@@ -673,6 +675,7 @@ void RTCPReceiver::HandleBye(const CommonHeader& rtcp_block) {
 
   last_fir_.erase(bye.sender_ssrc());
   received_cnames_.erase(bye.sender_ssrc());
+  received_rrtrs_.erase(bye.sender_ssrc());
   xr_rr_rtt_ms_ = 0;
 }
 
@@ -698,9 +701,10 @@ void RTCPReceiver::HandleXr(const CommonHeader& rtcp_block,
 
 void RTCPReceiver::HandleXrReceiveReferenceTime(uint32_t sender_ssrc,
                                                 const rtcp::Rrtr& rrtr) {
-  remote_time_info_.ssrc = sender_ssrc;
-  remote_time_info_.last_rr = CompactNtp(rrtr.ntp());
-  last_received_xr_ntp_ = clock_->CurrentNtpTime();
+  RrtrInformation rrtr_info;
+  rrtr_info.last_rr_ntp = CompactNtp(rrtr.ntp());
+  rrtr_info.last_rr_receive_time_ntp = CompactNtp(clock_->CurrentNtpTime());
+  received_rrtrs_[sender_ssrc] = rrtr_info;
 }
 
 void RTCPReceiver::HandleXrDlrrReportBlock(const rtcp::ReceiveTimeInfo& rti) {

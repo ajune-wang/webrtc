@@ -495,8 +495,6 @@ AudioDeviceWindowsCore::AudioDeviceWindowsCore()
   _playChannelsPrioList[0] = 2;  // stereo is prio 1
   _playChannelsPrioList[1] = 1;  // mono is prio 2
 
-  HRESULT hr;
-
   // We know that this API will work since it has already been verified in
   // CoreAudioIsSupported, hence no need to check for errors here as well.
 
@@ -508,11 +506,15 @@ AudioDeviceWindowsCore::AudioDeviceWindowsCore()
                    reinterpret_cast<void**>(&_ptrEnumerator));
   assert(NULL != _ptrEnumerator);
 
+#if defined(AUDIO_DEVICE_ENABLE_BUILT_IN_WIN_AEC)
   // DMO initialization for built-in WASAPI AEC.
   {
+    // The IID_IMediaObject object encapsulates several DSPs related to voice
+    // capture.
     IMediaObject* ptrDMO = NULL;
-    hr = CoCreateInstance(CLSID_CWMAudioAEC, NULL, CLSCTX_INPROC_SERVER,
-                          IID_IMediaObject, reinterpret_cast<void**>(&ptrDMO));
+    HRESULT hr =
+        CoCreateInstance(CLSID_CWMAudioAEC, NULL, CLSCTX_INPROC_SERVER,
+                         IID_IMediaObject, reinterpret_cast<void**>(&ptrDMO));
     if (FAILED(hr) || ptrDMO == NULL) {
       // Since we check that _dmo is non-NULL in EnableBuiltInAEC(), the
       // feature is prevented from being enabled.
@@ -522,6 +524,13 @@ AudioDeviceWindowsCore::AudioDeviceWindowsCore()
     _dmo = ptrDMO;
     SAFE_RELEASE(ptrDMO);
   }
+#else
+  // BuiltInAECIsAvailable() will return false in this mode and the user will
+  // not be able to enable the built-in AEC.
+  RTC_LOG(LS_WARNING) << "Built-in AEC is disabled by default";
+  RTC_DCHECK(!_dmo);
+  RTC_DCHECK(!_builtInAecEnabled);
+#endif  // defined(AUDIO_DEVICE_ENABLE_BUILT_IN_WIN_AEC)
 }
 
 // ----------------------------------------------------------------------------
@@ -2634,10 +2643,6 @@ int32_t AudioDeviceWindowsCore::PlayoutDelay(uint16_t& delayMS) const {
   return 0;
 }
 
-bool AudioDeviceWindowsCore::BuiltInAECIsAvailable() const {
-  return _dmo != nullptr;
-}
-
 // ----------------------------------------------------------------------------
 //  Playing
 // ----------------------------------------------------------------------------
@@ -3383,7 +3388,18 @@ Exit:
   return (DWORD)hr;
 }
 
+bool AudioDeviceWindowsCore::BuiltInAECIsAvailable() const {
+  // Returns false for these two cases:
+  // 1) GN build flag 'rtc_enable_native_win_aec' is set to false (default).
+  // 2) GN build flag 'rtc_enable_native_win_aec' is set to true but we failed
+  //    to create create the "AEC object" in the constructor.
+  const bool built_in_aec_is_available = (_dmo != nullptr);
+  RTC_LOG(INFO) << "BuiltInAECIsAvailable: " << built_in_aec_is_available;
+  return built_in_aec_is_available;
+}
+
 int32_t AudioDeviceWindowsCore::EnableBuiltInAEC(bool enable) {
+#if defined(AUDIO_DEVICE_ENABLE_BUILT_IN_WIN_AEC)
   if (_recIsInitialized) {
     RTC_LOG(LS_ERROR)
         << "Attempt to set Windows AEC with recording already initialized";
@@ -3398,6 +3414,10 @@ int32_t AudioDeviceWindowsCore::EnableBuiltInAEC(bool enable) {
 
   _builtInAecEnabled = enable;
   return 0;
+#else
+  RTC_LOG(LS_WARNING) << "Built-in AEC is not supported";
+  return -1;
+#endif
 }
 
 int AudioDeviceWindowsCore::SetDMOProperties() {

@@ -20,6 +20,10 @@ typedef NS_ENUM(NSInteger, RTCDispatcherQueueType) {
   RTCDispatcherTypeCaptureSession,
   // Used for operations on AVAudioSession.
   RTCDispatcherTypeAudioSession,
+
+  RTCDispatcherTypeProcess,
+  RTCDispatcherTypeProcess2,
+  RTCDispatcherTypePostProcess,
 };
 
 /** Dispatcher that asynchronously dispatches blocks to a specific

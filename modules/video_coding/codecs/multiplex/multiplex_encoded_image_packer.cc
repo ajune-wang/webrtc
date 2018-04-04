@@ -15,6 +15,7 @@
 #include "modules/rtp_rtcp/source/byte_io.h"
 
 namespace webrtc {
+    
 int PackHeader(uint8_t* buffer, MultiplexImageHeader header) {
   int offset = 0;
   ByteWriter<uint8_t>::WriteBigEndian(buffer + offset, header.component_count);
@@ -143,6 +144,7 @@ EncodedImage MultiplexEncodedImagePacker::PackAndRelease(
         EncodedImage::GetBufferPaddingBytes(images[i].codec_type);
     frame_header.bitstream_length =
         static_cast<uint32_t>(images[i].encoded_image._length + padding);
+
     bitstream_offset += frame_header.bitstream_length;
 
     frame_header.codec_type = images[i].codec_type;
@@ -217,9 +219,11 @@ MultiplexImage MultiplexEncodedImagePacker::Unpack(
     encoded_image._frameType = frame_headers[i].frame_type;
     encoded_image._size =
         static_cast<size_t>(frame_headers[i].bitstream_length);
+
     const size_t padding =
         EncodedImage::GetBufferPaddingBytes(image_component.codec_type);
     encoded_image._length = encoded_image._size - padding;
+
     encoded_image._buffer =
         combined_image._buffer + frame_headers[i].bitstream_offset;
 

@@ -42,6 +42,8 @@ RTC_EXPORT
 @property(nonatomic, assign) int32_t timeStamp;
 
 @property(nonatomic, readonly) id<RTCVideoFrameBuffer> buffer;
+@property(nonatomic, readonly) id<RTCVideoFrameBuffer> depth_buffer;
+@property(nonatomic, readonly) NSTimeInterval time_used;
 
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)new NS_UNAVAILABLE;
@@ -75,6 +77,10 @@ RTC_EXPORT
                       rotation:(RTCVideoRotation)rotation
                    timeStampNs:(int64_t)timeStampNs;
 
+- (instancetype)initWithBuffer:(id<RTCVideoFrameBuffer>)frameBuffer
+               withDepthBuffer:(id<RTCVideoFrameBuffer>)depthBuffer
+                      rotation:(RTCVideoRotation)rotation
+                   timeStampNs:(int64_t)timeStampNs;
 /** Return a frame that is guaranteed to be I420, i.e. it is possible to access
  *  the YUV data on it.
  */

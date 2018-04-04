@@ -13,6 +13,7 @@
 #import "WebRTC/RTCVideoFrame.h"
 #import "WebRTC/RTCVideoFrameBuffer.h"
 
+#include "rtc_base/logging.h"
 #include "api/video/i420_buffer.h"
 #include "sdk/objc/Framework/Native/src/objc_frame_buffer.h"
 
@@ -42,7 +43,8 @@ void ObjcVideoTrackSource::OnCapturedFrame(RTCVideoFrame* frame) {
   }
 
   rtc::scoped_refptr<VideoFrameBuffer> buffer;
-  if (adapted_width == frame.width && adapted_height == frame.height) {
+  rtc::scoped_refptr<VideoFrameBuffer> depth_buffer;
+  /*if (adapted_width == frame.width && adapted_height == frame.height) {
     // No adaption - optimized path.
     buffer = new rtc::RefCountedObject<ObjCFrameBuffer>(frame.buffer);
   } else if ([frame.buffer isKindOfClass:[RTCCVPixelBuffer class]]) {
@@ -59,19 +61,33 @@ void ObjcVideoTrackSource::OnCapturedFrame(RTCVideoFrame* frame) {
   } else {
     // Adapted I420 frame.
     // TODO(magjed): Optimize this I420 path.
-    rtc::scoped_refptr<I420Buffer> i420_buffer = I420Buffer::Create(adapted_width, adapted_height);
-    buffer = new rtc::RefCountedObject<ObjCFrameBuffer>(frame.buffer);
-    i420_buffer->CropAndScaleFrom(*buffer->ToI420(), crop_x, crop_y, crop_width, crop_height);
-    buffer = i420_buffer;
-  }
+   
+  }*/
+
+    if (false) { // truncate alpha channel
+        rtc::scoped_refptr<I420Buffer> i420_buffer = I420Buffer::Create(adapted_width, adapted_height);
+        buffer = new rtc::RefCountedObject<ObjCFrameBuffer>(frame.buffer);
+        i420_buffer->CropAndScaleFrom(*buffer->ToI420(), crop_x, crop_y, crop_width, crop_height);
+        buffer = i420_buffer;
+
+    } else {
+
+      rtc::scoped_refptr<I420ABuffer> i420a_buffer = I420ABuffer::Create(adapted_width, adapted_height);
+      buffer = new rtc::RefCountedObject<ObjCFrameBuffer>(frame.buffer);
+      depth_buffer = new rtc::RefCountedObject<ObjCFrameBuffer>(frame.depth_buffer);
+      i420a_buffer->CropAndScaleFrom(*buffer->ToI420(), crop_x, crop_y, crop_width, crop_height);
+      rtc::scoped_refptr<I420BufferInterface> depth_i420 = depth_buffer->ToI420();
+      i420a_buffer->CropAndScaleFromYAsA(*depth_i420, crop_x, crop_y, crop_width, crop_height);
+      buffer = i420a_buffer;
+    }
 
   // Applying rotation is only supported for legacy reasons and performance is
   // not critical here.
   webrtc::VideoRotation rotation = static_cast<webrtc::VideoRotation>(frame.rotation);
-  if (apply_rotation() && rotation != kVideoRotation_0) {
+  /*if (apply_rotation() && rotation != kVideoRotation_0) {
     buffer = I420Buffer::Rotate(*buffer->ToI420(), rotation);
     rotation = kVideoRotation_0;
-  }
+  }*/
 
   OnFrame(webrtc::VideoFrame(buffer, rotation, translated_timestamp_us));
 }

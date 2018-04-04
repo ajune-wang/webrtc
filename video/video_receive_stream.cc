@@ -61,7 +61,7 @@ VideoCodec CreateDecoderVideoCodec(const VideoReceiveStream::Decoder& decoder) {
         H264::ParseSdpProfileLevelId(decoder.codec_params)->profile;
   } else if (codec.codecType == kVideoCodecMultiplex) {
     VideoReceiveStream::Decoder associated_decoder = decoder;
-    associated_decoder.payload_name = CodecTypeToPayloadString(kVideoCodecVP9);
+    associated_decoder.payload_name = CodecTypeToPayloadString(kVideoCodecH264);
     VideoCodec associated_codec = CreateDecoderVideoCodec(associated_decoder);
     associated_codec.codecType = kVideoCodecMultiplex;
     return associated_codec;

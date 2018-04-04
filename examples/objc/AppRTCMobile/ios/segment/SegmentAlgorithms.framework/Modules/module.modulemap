@@ -1,0 +1,6 @@
+framework module SegmentAlgorithms {
+  umbrella header "SegmentAlgorithms.h"
+
+  export *
+  module * { export * }
+}

@@ -261,7 +261,7 @@ class Call : public webrtc::Call,
 
   const int num_cpu_cores_;
   const std::unique_ptr<ProcessThread> module_process_thread_;
-  const std::unique_ptr<CallStats> call_stats_;
+  std::unique_ptr<CallStats> call_stats_;
   const std::unique_ptr<BitrateAllocator> bitrate_allocator_;
   Call::Config config_;
   rtc::SequencedTaskChecker configuration_sequence_checker_;
@@ -420,7 +420,6 @@ Call::Call(const Call::Config& config,
     : clock_(Clock::GetRealTimeClock()),
       num_cpu_cores_(CpuInfo::DetectNumberOfCores()),
       module_process_thread_(ProcessThread::Create("ModuleProcessThread")),
-      call_stats_(new CallStats(clock_, module_process_thread_.get())),
       bitrate_allocator_(new BitrateAllocator(this)),
       config_(config),
       audio_network_state_(kNetworkDown),
@@ -448,12 +447,12 @@ Call::Call(const Call::Config& config,
   transport_send->RegisterTargetTransferRateObserver(this);
   transport_send_ = std::move(transport_send);
 
+  call_stats_.reset(new CallStats(clock_, &worker_queue_));
   call_stats_->RegisterStatsObserver(&receive_side_cc_);
   call_stats_->RegisterStatsObserver(transport_send_->GetCallStatsObserver());
 
   module_process_thread_->RegisterModule(
       receive_side_cc_.GetRemoteBitrateEstimator(true), RTC_FROM_HERE);
-  module_process_thread_->RegisterModule(call_stats_.get(), RTC_FROM_HERE);
   module_process_thread_->RegisterModule(&receive_side_cc_, RTC_FROM_HERE);
   module_process_thread_->Start();
 }
@@ -470,7 +469,6 @@ Call::~Call() {
   module_process_thread_->DeRegisterModule(
       receive_side_cc_.GetRemoteBitrateEstimator(true));
   module_process_thread_->DeRegisterModule(&receive_side_cc_);
-  module_process_thread_->DeRegisterModule(call_stats_.get());
   module_process_thread_->Stop();
   call_stats_->DeregisterStatsObserver(&receive_side_cc_);
   call_stats_->DeregisterStatsObserver(transport_send_->GetCallStatsObserver());

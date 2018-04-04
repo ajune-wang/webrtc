@@ -21,7 +21,6 @@
 #include "call/video_send_stream.h"
 #include "common_video/libyuv/include/webrtc_libyuv.h"
 #include "rtc_base/criticalsection.h"
-#include "rtc_base/event.h"
 #include "rtc_base/task_queue.h"
 #include "video/encoder_rtcp_feedback.h"
 #include "video/send_delay_stats.h"
@@ -98,7 +97,8 @@ class VideoSendStream : public webrtc::VideoSendStream {
                                    size_t byte_limit) override;
 
   void StopPermanentlyAndGetRtpStates(RtpStateMap* rtp_state_map,
-                                      RtpPayloadStateMap* payload_state_map);
+                                      RtpPayloadStateMap* payload_state_map,
+                                      rtc::InvokeDoneBlocker blocker);
 
   void SetTransportOverhead(size_t transport_overhead_per_packet);
 
@@ -112,7 +112,6 @@ class VideoSendStream : public webrtc::VideoSendStream {
 
   rtc::ThreadChecker thread_checker_;
   rtc::TaskQueue* const worker_queue_;
-  rtc::Event thread_sync_event_;
 
   SendStatisticsProxy stats_proxy_;
   const VideoSendStream::Config config_;

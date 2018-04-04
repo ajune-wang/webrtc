@@ -334,8 +334,9 @@ class VideoSendStreamImpl : public webrtc::BitrateAllocatorObserver,
 
   void SignalNetworkState(NetworkState state);
   bool DeliverRtcp(const uint8_t* packet, size_t length);
-  void UpdateActiveSimulcastLayers(const std::vector<bool> active_layers);
-  void Start();
+  void UpdateActiveSimulcastLayers(const std::vector<bool> active_layers,
+                                   rtc::InvokeDoneBlocker blocker);
+  void Start(rtc::InvokeDoneBlocker blocker);
   void Stop();
 
   VideoSendStream::RtpStateMap GetRtpStates() const;
@@ -387,7 +388,7 @@ class VideoSendStreamImpl : public webrtc::BitrateAllocatorObserver,
   void OnBitrateAllocationUpdated(const BitrateAllocation& allocation) override;
 
   // Starts monitoring and sends a keyframe.
-  void StartupVideoSendStream();
+  void StartupVideoSendStream(rtc::InvokeDoneBlocker blocker);
   // Removes the bitrate observer, stops monitoring and notifies the video
   // encoder of the bitrate update.
   void StopVideoSendStream();
@@ -528,7 +529,6 @@ VideoSendStream::VideoSendStream(
     std::unique_ptr<FecController> fec_controller,
     RateLimiter* retransmission_limiter)
     : worker_queue_(worker_queue),
-      thread_sync_event_(false /* manual_reset */, false),
       stats_proxy_(Clock::GetRealTimeClock(),
                    config,
                    encoder_config.content_type),
@@ -540,27 +540,30 @@ VideoSendStream::VideoSendStream(
       config_.pre_encode_callback,
       rtc::MakeUnique<OveruseFrameDetector>(
           GetCpuOveruseOptions(config_), &stats_proxy_));
-  // TODO(srte): Initialization should not be done posted on a task queue.
-  // Note that the posted task must not outlive this scope since the closure
-  // references local variables.
-  worker_queue_->PostTask(rtc::NewClosure(
-      [this, call_stats, transport, bitrate_allocator, send_delay_stats,
-       event_log, &suspended_ssrcs, &encoder_config, &suspended_payload_states,
-       &fec_controller, retransmission_limiter]() {
-        send_stream_.reset(new VideoSendStreamImpl(
-            &stats_proxy_, worker_queue_, call_stats, transport,
-            bitrate_allocator, send_delay_stats, video_stream_encoder_.get(),
-            event_log, &config_, encoder_config.max_bitrate_bps,
-            encoder_config.bitrate_priority, suspended_ssrcs,
-            suspended_payload_states, encoder_config.content_type,
-            std::move(fec_controller), retransmission_limiter));
-      },
-      [this]() { thread_sync_event_.Set(); }));
-
+  rtc::InvokeWaiter waiter;
+  {
+    rtc::InvokeDoneBlocker blocker = waiter.CreateBlocker();
+    // TODO(srte): Initialization should not be done posted on a task queue.
+    // Note that the posted task must not outlive this scope since the closure
+    // references local variables.
+    worker_queue_->PostTask([this, call_stats, transport, bitrate_allocator,
+                             send_delay_stats, event_log, &suspended_ssrcs,
+                             &encoder_config, &suspended_payload_states,
+                             &fec_controller, retransmission_limiter,
+                             blocker]() {
+      send_stream_.reset(new VideoSendStreamImpl(
+          &stats_proxy_, worker_queue_, call_stats, transport,
+          bitrate_allocator, send_delay_stats, video_stream_encoder_.get(),
+          event_log, &config_, encoder_config.max_bitrate_bps,
+          encoder_config.bitrate_priority, suspended_ssrcs,
+          suspended_payload_states, encoder_config.content_type,
+          std::move(fec_controller), retransmission_limiter));
+    });
+  }
   // Wait for ConstructionTask to complete so that |send_stream_| can be used.
   // |module_process_thread| must be registered and deregistered on the thread
   // it was created on.
-  thread_sync_event_.Wait(rtc::Event::kForever);
+  waiter.Wait();
   send_stream_->RegisterProcessThread(module_process_thread);
   // TODO(sprang): Enable this also for regular video calls if it works well.
   if (encoder_config.content_type == VideoEncoderConfig::ContentType::kScreen) {
@@ -580,28 +583,33 @@ void VideoSendStream::UpdateActiveSimulcastLayers(
     const std::vector<bool> active_layers) {
   RTC_DCHECK_RUN_ON(&thread_checker_);
   RTC_LOG(LS_INFO) << "VideoSendStream::UpdateActiveSimulcastLayers";
-  VideoSendStreamImpl* send_stream = send_stream_.get();
-  worker_queue_->PostTask([this, send_stream, active_layers] {
-    send_stream->UpdateActiveSimulcastLayers(active_layers);
-    thread_sync_event_.Set();
-  });
 
-  thread_sync_event_.Wait(rtc::Event::kForever);
+  rtc::InvokeWaiter waiter;
+  {
+    rtc::InvokeDoneBlocker blocker = waiter.CreateBlocker();
+    VideoSendStreamImpl* send_stream = send_stream_.get();
+    worker_queue_->PostTask([send_stream, active_layers, blocker] {
+      send_stream->UpdateActiveSimulcastLayers(active_layers,
+                                               std::move(blocker));
+    });
+  }
+  waiter.Wait();
 }
 
 void VideoSendStream::Start() {
   RTC_DCHECK_RUN_ON(&thread_checker_);
   RTC_LOG(LS_INFO) << "VideoSendStream::Start";
-  VideoSendStreamImpl* send_stream = send_stream_.get();
-  worker_queue_->PostTask([this, send_stream] {
-    send_stream->Start();
-    thread_sync_event_.Set();
-  });
-
+  rtc::InvokeWaiter waiter;
+  {
+    rtc::InvokeDoneBlocker blocker = waiter.CreateBlocker();
+    VideoSendStreamImpl* send_stream = send_stream_.get();
+    worker_queue_->PostTask(
+        [send_stream, blocker] { send_stream->Start(std::move(blocker)); });
+  }
   // It is expected that after VideoSendStream::Start has been called, incoming
   // frames are not dropped in VideoStreamEncoder. To ensure this, Start has to
   // be synchronized.
-  thread_sync_event_.Wait(rtc::Event::kForever);
+  waiter.Wait();
 }
 
 void VideoSendStream::Stop() {
@@ -649,18 +657,17 @@ void VideoSendStream::SignalNetworkState(NetworkState state) {
 
 void VideoSendStream::StopPermanentlyAndGetRtpStates(
     VideoSendStream::RtpStateMap* rtp_state_map,
-    VideoSendStream::RtpPayloadStateMap* payload_state_map) {
+    VideoSendStream::RtpPayloadStateMap* payload_state_map,
+    rtc::InvokeDoneBlocker blocker) {
   RTC_DCHECK_RUN_ON(&thread_checker_);
   video_stream_encoder_->Stop();
   send_stream_->DeRegisterProcessThread();
-  worker_queue_->PostTask([this, rtp_state_map, payload_state_map]() {
+  worker_queue_->PostTask([this, rtp_state_map, payload_state_map, blocker]() {
     send_stream_->Stop();
     *rtp_state_map = send_stream_->GetRtpStates();
     *payload_state_map = send_stream_->GetRtpPayloadStates();
     send_stream_.reset();
-    thread_sync_event_.Set();
   });
-  thread_sync_event_.Wait(rtc::Event::kForever);
 }
 
 void VideoSendStream::SetTransportOverhead(
@@ -916,7 +923,8 @@ bool VideoSendStreamImpl::DeliverRtcp(const uint8_t* packet, size_t length) {
 }
 
 void VideoSendStreamImpl::UpdateActiveSimulcastLayers(
-    const std::vector<bool> active_layers) {
+    const std::vector<bool> active_layers,
+    rtc::InvokeDoneBlocker blocker) {
   RTC_DCHECK_RUN_ON(worker_queue_);
   RTC_DCHECK_EQ(rtp_rtcp_modules_.size(), active_layers.size());
   RTC_LOG(LS_INFO) << "VideoSendStream::UpdateActiveSimulcastLayers";
@@ -927,26 +935,28 @@ void VideoSendStreamImpl::UpdateActiveSimulcastLayers(
     StopVideoSendStream();
   } else if (payload_router_.IsActive() && !previously_active) {
     // Payload router switched from inactive to active.
-    StartupVideoSendStream();
+    StartupVideoSendStream(std::move(blocker));
   }
 }
 
-void VideoSendStreamImpl::Start() {
+void VideoSendStreamImpl::Start(rtc::InvokeDoneBlocker blocker) {
   RTC_DCHECK_RUN_ON(worker_queue_);
   RTC_LOG(LS_INFO) << "VideoSendStream::Start";
   if (payload_router_.IsActive())
     return;
   TRACE_EVENT_INSTANT0("webrtc", "VideoSendStream::Start");
   payload_router_.SetActive(true);
-  StartupVideoSendStream();
+  StartupVideoSendStream(std::move(blocker));
 }
 
-void VideoSendStreamImpl::StartupVideoSendStream() {
+void VideoSendStreamImpl::StartupVideoSendStream(
+    rtc::InvokeDoneBlocker blocker) {
   RTC_DCHECK_RUN_ON(worker_queue_);
   bitrate_allocator_->AddObserver(
       this, encoder_min_bitrate_bps_, encoder_max_bitrate_bps_,
       max_padding_bitrate_, !config_->suspend_below_min_bitrate,
-      config_->track_id, encoder_bitrate_priority_, has_packet_feedback_);
+      config_->track_id, encoder_bitrate_priority_, has_packet_feedback_,
+      std::move(blocker));
   // Start monitoring encoder activity.
   {
     rtc::CritScope lock(&encoder_activity_crit_sect_);

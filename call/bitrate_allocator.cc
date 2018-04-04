@@ -138,7 +138,7 @@ void BitrateAllocator::OnNetworkChanged(uint32_t target_bitrate_bps,
       config.media_ratio = MediaRatio(allocated_bitrate, protection_bitrate);
     config.allocated_bitrate_bps = allocated_bitrate;
   }
-  UpdateAllocationLimits();
+  UpdateAllocationLimits(rtc::InvokeDoneBlocker::NonBlocking());
 }
 
 void BitrateAllocator::AddObserver(BitrateAllocatorObserver* observer,
@@ -148,7 +148,8 @@ void BitrateAllocator::AddObserver(BitrateAllocatorObserver* observer,
                                    bool enforce_min_bitrate,
                                    std::string track_id,
                                    double bitrate_priority,
-                                   bool has_packet_feedback) {
+                                   bool has_packet_feedback,
+                                   rtc::InvokeDoneBlocker blocker) {
   RTC_DCHECK_CALLED_SEQUENTIALLY(&sequenced_checker_);
   RTC_DCHECK_GT(bitrate_priority, 0);
   RTC_DCHECK(std::isnormal(bitrate_priority));
@@ -188,10 +189,10 @@ void BitrateAllocator::AddObserver(BitrateAllocatorObserver* observer,
     observer->OnBitrateUpdated(0, last_fraction_loss_, last_rtt_,
                                last_bwe_period_ms_);
   }
-  UpdateAllocationLimits();
+  UpdateAllocationLimits(blocker);
 }
 
-void BitrateAllocator::UpdateAllocationLimits() {
+void BitrateAllocator::UpdateAllocationLimits(rtc::InvokeDoneBlocker blocker) {
   RTC_DCHECK_CALLED_SEQUENTIALLY(&sequenced_checker_);
   uint32_t total_requested_padding_bitrate = 0;
   uint32_t total_requested_min_bitrate = 0;
@@ -231,7 +232,7 @@ void BitrateAllocator::UpdateAllocationLimits() {
                    << total_requested_max_bitrate << "bps";
   limit_observer_->OnAllocationLimitsChanged(
       total_requested_min_bitrate, total_requested_padding_bitrate,
-      total_requested_max_bitrate, has_packet_feedback);
+      total_requested_max_bitrate, has_packet_feedback, blocker);
 }
 
 void BitrateAllocator::RemoveObserver(BitrateAllocatorObserver* observer) {
@@ -242,7 +243,7 @@ void BitrateAllocator::RemoveObserver(BitrateAllocatorObserver* observer) {
     bitrate_observer_configs_.erase(it);
   }
 
-  UpdateAllocationLimits();
+  UpdateAllocationLimits(rtc::InvokeDoneBlocker::NonBlocking());
 }
 
 int BitrateAllocator::GetStartBitrate(BitrateAllocatorObserver* observer) {

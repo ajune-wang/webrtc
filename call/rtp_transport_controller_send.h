@@ -55,7 +55,8 @@ class RtpTransportControllerSend final
 
   void SetAllocatedSendBitrateLimits(int min_send_bitrate_bps,
                                      int max_padding_bitrate_bps,
-                                     int max_total_bitrate_bps) override;
+                                     int max_total_bitrate_bps,
+                                     rtc::InvokeDoneBlocker blocker) override;
 
   void SetKeepAliveConfig(const RtpKeepAliveConfig& config);
   void SetPacingFactor(float pacing_factor) override;
@@ -69,7 +70,8 @@ class RtpTransportControllerSend final
       TargetTransferRateObserver* observer) override;
   void OnNetworkRouteChanged(const std::string& transport_name,
                              const rtc::NetworkRoute& network_route) override;
-  void OnNetworkAvailability(bool network_available) override;
+  void OnNetworkAvailability(bool network_available,
+                             rtc::InvokeDoneBlocker blocker) override;
   RtcpBandwidthObserver* GetBandwidthObserver() override;
   int64_t GetPacerQueuingDelayMs() const override;
   int64_t GetFirstPacketTimeMs() const override;
@@ -91,6 +93,7 @@ class RtpTransportControllerSend final
   const std::unique_ptr<ProcessThread> process_thread_;
   rtc::CriticalSection observer_crit_;
   TargetTransferRateObserver* observer_ RTC_GUARDED_BY(observer_crit_);
+  const bool task_queue_cc_;
   // Caches send_side_cc_.get(), to avoid racing with destructor.
   // Note that this is declared before send_side_cc_ to ensure that it is not
   // invalidated until no more tasks can be running on the send_side_cc_ task

@@ -57,20 +57,25 @@ RtpTransportControllerSend::RtpTransportControllerSend(
       bitrate_configurator_(bitrate_config),
       process_thread_(ProcessThread::Create("SendControllerThread")),
       observer_(nullptr),
+      task_queue_cc_(TaskQueueExperimentEnabled()),
       send_side_cc_(CreateController(clock,
                                      event_log,
                                      &pacer_,
                                      bitrate_config,
-                                     TaskQueueExperimentEnabled())) {
+                                     task_queue_cc_)) {
   send_side_cc_ptr_ = send_side_cc_.get();
   process_thread_->RegisterModule(&pacer_, RTC_FROM_HERE);
-  process_thread_->RegisterModule(send_side_cc_.get(), RTC_FROM_HERE);
+  if (!task_queue_cc_) {
+    process_thread_->RegisterModule(send_side_cc_.get(), RTC_FROM_HERE);
+  }
   process_thread_->Start();
 }
 
 RtpTransportControllerSend::~RtpTransportControllerSend() {
   process_thread_->Stop();
-  process_thread_->DeRegisterModule(send_side_cc_.get());
+  if (!task_queue_cc_) {
+    process_thread_->DeRegisterModule(send_side_cc_.get());
+  }
   process_thread_->DeRegisterModule(&pacer_);
 }
 
@@ -116,9 +121,11 @@ const RtpKeepAliveConfig& RtpTransportControllerSend::keepalive_config() const {
 void RtpTransportControllerSend::SetAllocatedSendBitrateLimits(
     int min_send_bitrate_bps,
     int max_padding_bitrate_bps,
-    int max_total_bitrate_bps) {
+    int max_total_bitrate_bps,
+    rtc::InvokeDoneBlocker blocker) {
   send_side_cc_->SetAllocatedSendBitrateLimits(
-      min_send_bitrate_bps, max_padding_bitrate_bps, max_total_bitrate_bps);
+      min_send_bitrate_bps, max_padding_bitrate_bps, max_total_bitrate_bps,
+      std::move(blocker));
 }
 
 void RtpTransportControllerSend::SetKeepAliveConfig(
@@ -145,12 +152,19 @@ void RtpTransportControllerSend::DeRegisterPacketFeedbackObserver(
 
 void RtpTransportControllerSend::RegisterTargetTransferRateObserver(
     TargetTransferRateObserver* observer) {
-  {
-    rtc::CritScope cs(&observer_crit_);
-    RTC_DCHECK(observer_ == nullptr);
-    observer_ = observer;
+  if (!task_queue_cc_) {
+    {
+      rtc::CritScope cs(&observer_crit_);
+      RTC_DCHECK(observer_ == nullptr);
+      observer_ = observer;
+    }
+    send_side_cc_->RegisterNetworkObserver(this);
+  } else {
+    auto* task_queue_cc =
+        reinterpret_cast<webrtc_cc::SendSideCongestionController*>(
+            send_side_cc_ptr_);
+    task_queue_cc->RegisterTargetTransferRateObserver(observer);
   }
-  send_side_cc_->RegisterNetworkObserver(this);
 }
 void RtpTransportControllerSend::OnNetworkRouteChanged(
     const std::string& transport_name,
@@ -191,9 +205,11 @@ void RtpTransportControllerSend::OnNetworkRouteChanged(
         bitrate_config.min_bitrate_bps, bitrate_config.max_bitrate_bps);
   }
 }
-void RtpTransportControllerSend::OnNetworkAvailability(bool network_available) {
-  send_side_cc_->SignalNetworkState(network_available ? kNetworkUp
-                                                      : kNetworkDown);
+void RtpTransportControllerSend::OnNetworkAvailability(
+    bool network_available,
+    rtc::InvokeDoneBlocker blocker) {
+  send_side_cc_->SignalNetworkState(
+      network_available ? kNetworkUp : kNetworkDown, std::move(blocker));
 }
 RtcpBandwidthObserver* RtpTransportControllerSend::GetBandwidthObserver() {
   return send_side_cc_->GetBandwidthObserver();

@@ -24,6 +24,7 @@ rtc_static_library("network_control") {
     "../../../api:optional",
     "../../../rtc_base:checks",
     "../../../rtc_base:rtc_base_approved",
+    "../../../rtc_base/synchronization:async_invoke",
   ]
 }
 

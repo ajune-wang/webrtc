@@ -78,6 +78,7 @@ class SendSideCongestionController
   // try to break this circular chain of references, and make the observer a
   // construction time constant.
   void RegisterNetworkObserver(NetworkChangedObserver* observer) override;
+  void RegisterTargetTransferRateObserver(TargetTransferRateObserver* observer);
 
   void SetBweBitrates(int min_bitrate_bps,
                       int start_bitrate_bps,
@@ -85,14 +86,16 @@ class SendSideCongestionController
 
   void SetAllocatedSendBitrateLimits(int64_t min_send_bitrate_bps,
                                      int64_t max_padding_bitrate_bps,
-                                     int64_t max_total_bitrate_bps) override;
+                                     int64_t max_total_bitrate_bps,
+                                     rtc::InvokeDoneBlocker blocker) override;
 
   // Resets the BWE state. Note the first argument is the bitrate_bps.
   void OnNetworkRouteChanged(const rtc::NetworkRoute& network_route,
                              int bitrate_bps,
                              int min_bitrate_bps,
                              int max_bitrate_bps) override;
-  void SignalNetworkState(NetworkState state) override;
+  void SignalNetworkState(NetworkState state,
+                          rtc::InvokeDoneBlocker blocker) override;
 
   RtcpBandwidthObserver* GetBandwidthObserver() override;
 
@@ -149,12 +152,16 @@ class SendSideCongestionController
   void UpdatePacerQueue() RTC_RUN_ON(task_queue_ptr_);
 
   void UpdateStreamsConfig() RTC_RUN_ON(task_queue_ptr_);
+  void UpdateStreamsConfig(rtc::InvokeDoneBlocker blocker)
+      RTC_RUN_ON(task_queue_ptr_);
   void MaybeUpdateOutstandingData();
   void OnReceivedRtcpReceiverReportBlocks(const ReportBlockList& report_blocks,
                                           int64_t now_ms)
       RTC_RUN_ON(task_queue_ptr_);
 
   void PostControllerUpdates() RTC_RUN_ON(task_queue_ptr_);
+  void PostControllerUpdates(rtc::InvokeDoneBlocker blocker)
+      RTC_RUN_ON(task_queue_ptr_);
 
   const Clock* const clock_;
   // PacedSender is thread safe and doesn't need protection here.
@@ -179,7 +186,7 @@ class SendSideCongestionController
       RTC_GUARDED_BY(task_queue_ptr_);
   Timestamp last_report_block_time_ RTC_GUARDED_BY(task_queue_ptr_);
 
-  NetworkChangedObserver* observer_ RTC_GUARDED_BY(task_queue_ptr_);
+  TargetTransferRateObserver* observer_ RTC_GUARDED_BY(task_queue_ptr_);
   NetworkControllerConfig initial_config_ RTC_GUARDED_BY(task_queue_ptr_);
   StreamsConfig streams_config_ RTC_GUARDED_BY(task_queue_ptr_);
 

@@ -36,3 +36,36 @@ rtc_source_set("rw_lock_wrapper") {
     ]
   }
 }
+
+rtc_source_set("async_invoke") {
+  sources = [
+    "async_invoke.cc",
+    "async_invoke.h",
+  ]
+  deps = [
+    "..:atomicops",
+    "..:checks",
+    "..:logging",
+    "..:macromagic",
+    "..:ptr_util",
+    "..:rtc_event",
+    "..:rtc_task_queue",
+  ]
+}
+
+if (rtc_include_tests) {
+  rtc_source_set("async_invoke_unittests") {
+    testonly = true
+
+    sources = [
+      "async_invoke_unittest.cc",
+    ]
+    deps = [
+      ":async_invoke",
+      "..:rtc_base_tests_main",
+      "..:rtc_base_tests_utils",
+      "..:rtc_task_queue",
+      "../../test:test_support",
+    ]
+  }
+}

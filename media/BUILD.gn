@@ -358,6 +358,7 @@ rtc_static_library("rtc_audio_video") {
     "../rtc_base:rtc_base",
     "../rtc_base:rtc_task_queue",
     "../rtc_base:stringutils",
+    "../rtc_base/synchronization:async_invoke",
     "../system_wrappers",
     "../system_wrappers:field_trial_api",
     "../system_wrappers:metrics_api",

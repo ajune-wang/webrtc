@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "89fd663f_a1da2a0f",
+        "filename": "modules/audio_processing/agc2/agc2_common.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-04-04T12:16:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d36059e2_196161cc",
+      "range": {
+        "startLine": 43,
+        "startChar": 10,
+        "endLine": 43,
+        "endChar": 15
+      },
+      "revId": "e97a65ce0e3798f6e3cf29ad5d1f291e29019d3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cf6dca60_1386ff8d",
         "filename": "modules/audio_processing/agc2/agc2_common.h",
         "patchSetId": 6
@@ -45,6 +69,30 @@
       "revId": "e97a65ce0e3798f6e3cf29ad5d1f291e29019d3d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "684c0c6b_73296e4e",
+        "filename": "modules/audio_processing/agc2/agc2_common.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-04-04T12:16:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf6dca60_1386ff8d",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 52
+      },
+      "revId": "e97a65ce0e3798f6e3cf29ad5d1f291e29019d3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "59882ba0_851dfa92",
+        "filename": "modules/audio_processing/agc2/saturation_protector.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-04-04T12:16:30Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c30a3364_f37f4e36",
+      "range": {
+        "startLine": 35,
+        "startChar": 34,
+        "endLine": 35,
+        "endChar": 35
+      },
+      "revId": "e97a65ce0e3798f6e3cf29ad5d1f291e29019d3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8cfa9e75_e3845b09",
         "filename": "modules/audio_processing/agc2/saturation_protector.cc",
         "patchSetId": 6
@@ -91,6 +163,30 @@
       "revId": "e97a65ce0e3798f6e3cf29ad5d1f291e29019d3d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47078d96_d38e683c",
+        "filename": "modules/audio_processing/agc2/saturation_protector.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-04-04T12:16:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8cfa9e75_e3845b09",
+      "range": {
+        "startLine": 36,
+        "startChar": 52,
+        "endLine": 36,
+        "endChar": 76
+      },
+      "revId": "e97a65ce0e3798f6e3cf29ad5d1f291e29019d3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "cfefd0dc_f494cb31",
+        "filename": "modules/audio_processing/agc2/saturation_protector.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-04-04T12:16:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7029bda3_dada079f",
+      "range": {
+        "startLine": 70,
+        "startChar": 36,
+        "endLine": 70,
+        "endChar": 37
+      },
+      "revId": "e97a65ce0e3798f6e3cf29ad5d1f291e29019d3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1f2c94a8_96b0a118",
         "filename": "modules/audio_processing/agc2/saturation_protector.h",
         "patchSetId": 6
@@ -137,6 +257,30 @@
       "revId": "e97a65ce0e3798f6e3cf29ad5d1f291e29019d3d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b0e97c76_d6415fb2",
+        "filename": "modules/audio_processing/agc2/saturation_protector.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-04-04T12:16:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1f2c94a8_96b0a118",
+      "range": {
+        "startLine": 26,
+        "startChar": 2,
+        "endLine": 26,
+        "endChar": 21
+      },
+      "revId": "e97a65ce0e3798f6e3cf29ad5d1f291e29019d3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "d19b0128_eb99ff56",
+        "filename": "modules/audio_processing/agc2/saturation_protector.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-04-04T12:16:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "39fb9b1f_e434bb0b",
+      "range": {
+        "startLine": 34,
+        "startChar": 4,
+        "endLine": 34,
+        "endChar": 9
+      },
+      "revId": "e97a65ce0e3798f6e3cf29ad5d1f291e29019d3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a1a28bed_d9f1d175",
         "filename": "modules/audio_processing/agc2/saturation_protector_unittest.cc",
         "patchSetId": 6
@@ -183,6 +351,30 @@
       "revId": "e97a65ce0e3798f6e3cf29ad5d1f291e29019d3d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "512b155d_8bf39beb",
+        "filename": "modules/audio_processing/agc2/saturation_protector_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-04-04T12:16:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a1a28bed_d9f1d175",
+      "range": {
+        "startLine": 28,
+        "startChar": 50,
+        "endLine": 28,
+        "endChar": 60
+      },
+      "revId": "e97a65ce0e3798f6e3cf29ad5d1f291e29019d3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

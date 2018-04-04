@@ -60,6 +60,8 @@ class GoogCcNetworkController : public NetworkControllerInterface {
   void OnNetworkEstimate(NetworkEstimate msg);
   void UpdatePacingRates(Timestamp at_time);
 
+  void PostPendingProbes();
+
   RtcEventLog* const event_log_;
   NetworkControllerObserver* const observer_;
 

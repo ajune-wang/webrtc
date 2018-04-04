@@ -109,7 +109,7 @@ GoogCcNetworkController::GoogCcNetworkController(
     NetworkControllerConfig config)
     : event_log_(event_log),
       observer_(observer),
-      probe_controller_(new ProbeController(observer_)),
+      probe_controller_(new ProbeController()),
       bandwidth_estimation_(
           rtc::MakeUnique<SendSideBandwidthEstimation>(event_log_)),
       alr_detector_(rtc::MakeUnique<AlrDetector>()),
@@ -136,6 +136,7 @@ GoogCcNetworkController::~GoogCcNetworkController() {}
 
 void GoogCcNetworkController::OnNetworkAvailability(NetworkAvailability msg) {
   probe_controller_->OnNetworkAvailability(msg);
+  PostPendingProbes();
 }
 
 void GoogCcNetworkController::OnNetworkRouteChange(NetworkRouteChange msg) {
@@ -198,6 +199,7 @@ void GoogCcNetworkController::OnStreamsConfig(StreamsConfig msg) {
     probe_controller_->OnMaxTotalAllocatedBitrate(
         msg.max_total_allocated_bitrate->bps(), msg.at_time.ms());
     max_total_allocated_bitrate_ = *msg.max_total_allocated_bitrate;
+    PostPendingProbes();
   }
   bool pacing_changed = false;
   if (msg.pacing_factor && *msg.pacing_factor != pacing_factor_) {
@@ -304,6 +306,7 @@ void GoogCcNetworkController::OnTransportPacketsFeedback(
     probe_controller_->SetAlrStartTimeMs(alr_start_time);
     probe_controller_->RequestProbe(report.feedback_time.ms());
   }
+  PostPendingProbes();
   MaybeUpdateCongestionWindow();
 }
 
@@ -349,6 +352,7 @@ void GoogCcNetworkController::MaybeTriggerOnNetworkChanged(Timestamp at_time) {
     last_estimate_ = new_estimate;
     OnNetworkEstimate(new_estimate);
   }
+  PostPendingProbes();
 }
 
 bool GoogCcNetworkController::GetNetworkParameters(
@@ -411,6 +415,13 @@ void GoogCcNetworkController::UpdatePacingRates(Timestamp at_time) {
   msg.data_window = pacing_rate * msg.time_window;
   msg.pad_window = padding_rate * msg.time_window;
   observer_->OnPacerConfig(msg);
+}
+
+void GoogCcNetworkController::PostPendingProbes() {
+  for (const ProbeClusterConfig& probe :
+       probe_controller_->PopPendingProbes()) {
+    observer_->OnProbeClusterConfig(probe);
+  }
 }
 
 }  // namespace webrtc_cc

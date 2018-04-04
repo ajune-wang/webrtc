@@ -795,6 +795,8 @@ void TurnPort::OnSendStunPacket(const void* data, size_t size,
                                 StunRequest* request) {
   RTC_DCHECK(connected());
   rtc::PacketOptions options(DefaultDscpValue());
+  options.packet_type = rtc::PacketType::kTurnMessage;
+  LogPortInformationInPacketOptions(&options);
   if (Send(data, size, options) < 0) {
     RTC_LOG(LS_ERROR) << ToString()
                       << ": Failed to send TURN message, error: "
@@ -1717,7 +1719,9 @@ int TurnEntry::Send(const void* data, size_t size, bool payload,
     buf.WriteUInt16(static_cast<uint16_t>(size));
     buf.WriteBytes(reinterpret_cast<const char*>(data), size);
   }
-  return port_->Send(buf.Data(), buf.Length(), options);
+  rtc::PacketOptions modified_options(options);
+  modified_options.turn_overhead_bytes = buf.Length() - size;
+  return port_->Send(buf.Data(), buf.Length(), modified_options);
 }
 
 void TurnEntry::OnCreatePermissionSuccess() {

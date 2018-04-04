@@ -774,6 +774,8 @@ void Port::SendBindingResponse(StunMessage* request,
   rtc::ByteBufferWriter buf;
   response.Write(&buf);
   rtc::PacketOptions options(DefaultDscpValue());
+  options.packet_type = rtc::PacketType::kIceConnectivityCheck;
+  LogPortInformationInPacketOptions(&options);
   auto err = SendTo(buf.Data(), buf.Length(), addr, options, false);
   if (err < 0) {
     RTC_LOG(LS_ERROR) << ToString()
@@ -825,6 +827,8 @@ void Port::SendBindingErrorResponse(StunMessage* request,
   rtc::ByteBufferWriter buf;
   response.Write(&buf);
   rtc::PacketOptions options(DefaultDscpValue());
+  options.packet_type = rtc::PacketType::kIceConnectivityCheck;
+  LogPortInformationInPacketOptions(&options);
   SendTo(buf.Data(), buf.Length(), addr, options, false);
   RTC_LOG(LS_INFO) << ToString()
                    << ": Sending STUN binding error: reason=" << reason
@@ -924,6 +928,12 @@ void Port::Destroy() {
 
 const std::string Port::username_fragment() const {
   return ice_username_fragment_;
+}
+
+void Port::LogPortInformationInPacketOptions(rtc::PacketOptions* options) {
+  options->protocol = ProtoToString(GetProtocol());
+  options->port_type = Type();
+  options->network = Network()->ToString();
 }
 
 // A ConnectionRequest is a simple STUN ping used to determine writability.
@@ -1159,6 +1169,8 @@ int Connection::receiving_timeout() const {
 void Connection::OnSendStunPacket(const void* data, size_t size,
                                   StunRequest* req) {
   rtc::PacketOptions options(port_->DefaultDscpValue());
+  options.packet_type = rtc::PacketType::kIceConnectivityCheck;
+  port_->LogPortInformationInPacketOptions(&options);
   auto err = port_->SendTo(
       data, size, remote_candidate_.address(), options, false);
   if (err < 0) {

@@ -201,6 +201,7 @@ class WebRtcVoiceMediaChannel final : public VoiceMediaChannel,
     rtc::CopyOnWriteBuffer packet(data, len, kMaxRtpPacketLen);
     rtc::PacketOptions rtc_options;
     rtc_options.packet_id = options.packet_id;
+    rtc_options.packet_type = rtc::PacketType::kMedia;
     return VoiceMediaChannel::SendPacket(&packet, rtc_options);
   }
 

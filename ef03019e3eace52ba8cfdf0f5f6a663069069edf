@@ -2,6 +2,74 @@
   "comments": [
     {
       "key": {
+        "uuid": "2cd2e31c_cb610171",
+        "filename": "media/base/rtpdataengine.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-04T20:33:27Z",
+      "side": 1,
+      "message": "Maybe \"kData\" would be a useful distinction?",
+      "revId": "ef03019e3eace52ba8cfdf0f5f6a663069069edf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7b7c02d_ed8a6591",
+        "filename": "media/engine/webrtcvoiceengine.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-04T20:33:27Z",
+      "side": 1,
+      "message": "packet_type not set here?",
+      "revId": "ef03019e3eace52ba8cfdf0f5f6a663069069edf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6cbf25ab_3c63f4a1",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1212,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-04T20:33:27Z",
+      "side": 1,
+      "message": "Couldn\u0027t this be done in the implementation of Port::SendTo? Then there would be no need for LogPortInformationInPacketOptions to be public.",
+      "revId": "ef03019e3eace52ba8cfdf0f5f6a663069069edf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20a1530e_3e9606f3",
+        "filename": "p2p/base/port.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-04T20:33:27Z",
+      "side": 1,
+      "message": "nit: This can be const, and I\u0027d suggest renaming to \"CopyPortInformationToPacketOptions\"",
+      "revId": "ef03019e3eace52ba8cfdf0f5f6a663069069edf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1f54c1bf_6e1e7524",
         "filename": "rtc_base/asyncpacketsocket.h",
         "patchSetId": 4
@@ -48,6 +116,54 @@
     },
     {
       "key": {
+        "uuid": "558f02ee_b12e7e5e",
+        "filename": "rtc_base/asyncpacketsocket.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-04T20:33:27Z",
+      "side": 1,
+      "message": "I considered this but wasn\u0027t sure if it would be convenient enough for you to use. If it is, let\u0027s go with that; it provides more information. Could add a remote candidate ID too for when it\u0027s applicable.",
+      "parentUuid": "3bdbb365_4153b7aa",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 23
+      },
+      "revId": "ef03019e3eace52ba8cfdf0f5f6a663069069edf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dddb4a5b_048d5471",
+        "filename": "rtc_base/asyncpacketsocket.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-04T20:33:27Z",
+      "side": 1,
+      "message": "Any reason not to just use an enum?",
+      "parentUuid": "1f54c1bf_6e1e7524",
+      "range": {
+        "startLine": 48,
+        "startChar": 23,
+        "endLine": 48,
+        "endChar": 0
+      },
+      "revId": "ef03019e3eace52ba8cfdf0f5f6a663069069edf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "62e2744f_9ea94c30",
         "filename": "rtc_base/asyncpacketsocket.h",
         "patchSetId": 4
@@ -59,6 +175,30 @@
       "writtenOn": "2018-04-04T17:55:24Z",
       "side": 1,
       "message": "I think it\u0027s worth a comment about what values this can take.  It\u0027s these constants, right?\n\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/p2p/base/port.h?l\u003d48\u0026rcl\u003d8058fbbd6bc09dd64b87a479d4028a0d8a2fed5b",
+      "range": {
+        "startLine": 49,
+        "startChar": 24,
+        "endLine": 49,
+        "endChar": 0
+      },
+      "revId": "ef03019e3eace52ba8cfdf0f5f6a663069069edf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4d83645_6699359a",
+        "filename": "rtc_base/asyncpacketsocket.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-04T20:33:27Z",
+      "side": 1,
+      "message": "I\u0027d suggest leaving this off; you already know whether it\u0027s a TURN packet from other fields, and I don\u0027t imagine you care whether a packet is sent from a prflx candidate or not?",
+      "parentUuid": "62e2744f_9ea94c30",
       "range": {
         "startLine": 49,
         "startChar": 24,
@@ -111,6 +251,23 @@
         "endLine": 51,
         "endChar": 0
       },
+      "revId": "ef03019e3eace52ba8cfdf0f5f6a663069069edf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d07359f_48ddf7fe",
+        "filename": "rtc_base/socket.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-04T20:33:27Z",
+      "side": 1,
+      "message": "Why not add the fields directly to SentPacket?",
       "revId": "ef03019e3eace52ba8cfdf0f5f6a663069069edf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

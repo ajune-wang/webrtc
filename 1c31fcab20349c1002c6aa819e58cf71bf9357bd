@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "bcc3b362_e0e6c3bd",
+        "filename": "modules/video_coding/codecs/vp9/svc_rate_allocator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-04-04T09:23:01Z",
+      "side": 1,
+      "message": "I would prefer to have CHECK here. I don\u0027t know if downstream code can handle unexpected layering.",
+      "parentUuid": "7f1bc9a5_5b545a9b",
+      "range": {
+        "startLine": 107,
+        "startChar": 10,
+        "endLine": 107,
+        "endChar": 15
+      },
+      "revId": "1c31fcab20349c1002c6aa819e58cf71bf9357bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8327b961_62292f71",
         "filename": "video/video_send_stream_tests.cc",
         "patchSetId": 6
@@ -45,6 +69,30 @@
       "revId": "1c31fcab20349c1002c6aa819e58cf71bf9357bd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "075b5db6_e30c2a4f",
+        "filename": "video/video_send_stream_tests.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 2451,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-04-04T09:23:01Z",
+      "side": 1,
+      "message": "This is needed. SVC rate allocator, that was added recently, can\u0027t handle more than 3 temporal layers.",
+      "parentUuid": "8327b961_62292f71",
+      "range": {
+        "startLine": 2451,
+        "startChar": 67,
+        "endLine": 2451,
+        "endChar": 71
+      },
+      "revId": "1c31fcab20349c1002c6aa819e58cf71bf9357bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

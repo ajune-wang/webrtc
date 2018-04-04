@@ -287,10 +287,12 @@ class Optional final {
     return m1.has_value_ && m2.has_value_ ? m1.value_ == m2.value_
                                           : m1.has_value_ == m2.has_value_;
   }
-  friend bool operator==(const Optional& opt, const T& value) {
+  template<typename U>
+  friend bool operator==(const Optional& opt, const U& value) {
     return opt.has_value_ && opt.value_ == value;
   }
-  friend bool operator==(const T& value, const Optional& opt) {
+  template<typename U>
+  friend bool operator==(const U& value, const Optional& opt) {
     return opt.has_value_ && value == opt.value_;
   }
 
@@ -306,10 +308,12 @@ class Optional final {
     return m1.has_value_ && m2.has_value_ ? m1.value_ != m2.value_
                                           : m1.has_value_ != m2.has_value_;
   }
-  friend bool operator!=(const Optional& opt, const T& value) {
+  template<typename U>
+  friend bool operator!=(const Optional& opt, const U& value) {
     return !opt.has_value_ || opt.value_ != value;
   }
-  friend bool operator!=(const T& value, const Optional& opt) {
+  template<typename U>
+  friend bool operator!=(const U& value, const Optional& opt) {
     return !opt.has_value_ || value != opt.value_;
   }
 

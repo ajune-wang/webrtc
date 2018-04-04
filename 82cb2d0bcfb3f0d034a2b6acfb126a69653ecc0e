@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "77db94dc_2333ffa6",
+        "filename": "sdk/android/src/jni/audio_device/audio_device_module.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-04-04T14:57:36Z",
+      "side": 1,
+      "message": "It would be nice to write a line or two about what this class is/does before explaining the threading.",
+      "range": {
+        "startLine": 42,
+        "startChar": 3,
+        "endLine": 44,
+        "endChar": 79
+      },
+      "revId": "82cb2d0bcfb3f0d034a2b6acfb126a69653ecc0e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa22bd3a_c82a98af",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-04-04T17:46:35Z",
+      "side": 1,
+      "message": "Consider using checked_cast instead.",
+      "range": {
+        "startLine": 420,
+        "startChar": 31,
+        "endLine": 420,
+        "endChar": 42
+      },
+      "revId": "da388b4d899720a738cc362c0a9eec10533e4ff4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

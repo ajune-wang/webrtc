@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "f0988df0_1df2c978",
+        "filename": "pc/channel.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-04-04T21:26:52Z",
+      "side": 1,
+      "message": "The ssrcs could be added when updating the remote streams. The PeerConnectionIntergrationTest.EndToEndCallWithTwoVideoTracks exercised this case which is re-enabled.",
+      "parentUuid": "2912b350_b4044f39",
+      "revId": "4fd68ce4338d68af05db136ef7c0f7bd4a4e3ed2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6d035cb5_8570052a",
         "filename": "pc/channel.cc",
         "patchSetId": 7
@@ -30,6 +48,24 @@
       "writtenOn": "2018-04-02T21:45:25Z",
       "side": 1,
       "message": "This DCHECK could be hit if a description is set with two m\u003d sections with conflicting criteria, which are later bundled. This is the issue I was referring to here: https://webrtc-review.googlesource.com/c/src/+/61360/14/pc/channel.cc#136\n\nSomehow this error should be propagated back to the SLD/SRD call. It\u0027s a corner case admittedly, but I\u0027d say it\u0027s worth at least one PeerConnection test.",
+      "revId": "4fd68ce4338d68af05db136ef7c0f7bd4a4e3ed2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94ee84b1_2454f0b6",
+        "filename": "pc/channel.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-04-04T21:26:52Z",
+      "side": 1,
+      "message": "To propagate the return value, I think let the peerconnection implements a JsepTransportController::Obeserver is a relatively clean solution.",
+      "parentUuid": "6d035cb5_8570052a",
       "revId": "4fd68ce4338d68af05db136ef7c0f7bd4a4e3ed2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "5c3b345a_a090e757",
+        "filename": "pc/channel.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-04-04T21:26:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "90acb731_fcbcdde1",
+      "revId": "4fd68ce4338d68af05db136ef7c0f7bd4a4e3ed2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "49f0b106_35267e39",
         "filename": "pc/channel.h",
         "patchSetId": 7
@@ -67,6 +121,24 @@
       "revId": "4fd68ce4338d68af05db136ef7c0f7bd4a4e3ed2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15cd6db2_60ccd5cd",
+        "filename": "pc/channel.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-04-04T21:26:52Z",
+      "side": 1,
+      "message": "Oh, right. I missed this when rebasing. Done.",
+      "parentUuid": "49f0b106_35267e39",
+      "revId": "4fd68ce4338d68af05db136ef7c0f7bd4a4e3ed2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "725c4f60_42f161b1",
+        "filename": "pc/channel_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1180,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-04-04T21:26:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0aa0fbfe_980ccde3",
+      "revId": "4fd68ce4338d68af05db136ef7c0f7bd4a4e3ed2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c393f2ad_d7bba08e",
         "filename": "pc/dtlssrtptransport.cc",
         "patchSetId": 7
@@ -101,6 +191,24 @@
       "revId": "4fd68ce4338d68af05db136ef7c0f7bd4a4e3ed2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d85b6bbf_df56aaed",
+        "filename": "pc/dtlssrtptransport.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-04-04T21:26:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c393f2ad_d7bba08e",
+      "revId": "4fd68ce4338d68af05db136ef7c0f7bd4a4e3ed2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "29821d20_f60f5c83",
+        "filename": "pc/peerconnection_integrationtest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 2187,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-04-04T21:26:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a1853f33_c00f1895",
+      "revId": "4fd68ce4338d68af05db136ef7c0f7bd4a4e3ed2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c7c36071_f600dbf8",
         "filename": "pc/rtptransport.cc",
         "patchSetId": 7
@@ -135,6 +261,24 @@
       "revId": "4fd68ce4338d68af05db136ef7c0f7bd4a4e3ed2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0654927_071b58df",
+        "filename": "pc/rtptransport.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-04-04T21:26:52Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "c7c36071_f600dbf8",
+      "revId": "4fd68ce4338d68af05db136ef7c0f7bd4a4e3ed2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -155,6 +299,24 @@
     },
     {
       "key": {
+        "uuid": "391c0310_9a8e2f61",
+        "filename": "pc/rtptransportinternal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-04-04T21:26:52Z",
+      "side": 1,
+      "message": "The comment is moved.\n\nTo merge those methods, we can update the header extension map in JsepTransportController/JsepTransport where other methods are called.\nI guess we can do it in a separate CL.",
+      "parentUuid": "4539686f_0ef951ab",
+      "revId": "4fd68ce4338d68af05db136ef7c0f7bd4a4e3ed2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3f2df926_7ef52c17",
         "filename": "pc/rtptransporttestutil.h",
         "patchSetId": 7
@@ -169,6 +331,24 @@
       "revId": "4fd68ce4338d68af05db136ef7c0f7bd4a4e3ed2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81820b96_a5921960",
+        "filename": "pc/rtptransporttestutil.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-04-04T21:26:52Z",
+      "side": 1,
+      "message": "Yes, this could be removed. Done.",
+      "parentUuid": "3f2df926_7ef52c17",
+      "revId": "4fd68ce4338d68af05db136ef7c0f7bd4a4e3ed2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

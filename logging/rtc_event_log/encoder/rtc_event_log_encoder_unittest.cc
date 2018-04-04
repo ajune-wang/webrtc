@@ -417,7 +417,7 @@ TEST_P(RtcEventLogEncoderTest, RtcEventProbeResultFailure) {
 
 TEST_P(RtcEventLogEncoderTest, RtcEventProbeResultSuccess) {
   const int id = RandomPositiveInt();
-  const int bitrate_bps = RandomBitrate();
+  const unsigned int bitrate_bps = RandomBitrate();
 
   auto event = rtc::MakeUnique<RtcEventProbeResultSuccess>(id, bitrate_bps);
   const int64_t timestamp_us = event->timestamp_us_;

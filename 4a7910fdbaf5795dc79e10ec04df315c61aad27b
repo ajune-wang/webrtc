@@ -1341,6 +1341,30 @@
     },
     {
       "key": {
+        "uuid": "a25c9b05_d63a21f6",
+        "filename": "modules/audio_processing/agc2/adaptive_digital_gain_applier_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-04-04T15:45:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bfaed60a_d79098af",
+      "range": {
+        "startLine": 165,
+        "startChar": 23,
+        "endLine": 165,
+        "endChar": 37
+      },
+      "revId": "4a7910fdbaf5795dc79e10ec04df315c61aad27b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b572eff5_d39d64e8",
         "filename": "modules/audio_processing/agc2/agc2_common.h",
         "patchSetId": 3

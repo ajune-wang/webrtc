@@ -25,7 +25,7 @@
 #include "p2p/base/transportfactoryinterface.h"
 #include "pc/channel.h"
 #include "pc/dtlssrtptransport.h"
-#include "pc/jseptransport2.h"
+#include "pc/jseptransport.h"
 #include "pc/rtptransport.h"
 #include "pc/srtptransport.h"
 #include "rtc_base/asyncinvoker.h"
@@ -44,6 +44,20 @@ namespace webrtc {
 class JsepTransportController : public sigslot::has_slots<>,
                                 public rtc::MessageHandler {
  public:
+  // Used when the RtpTransport/DtlsTransport of the m= section is changed
+  // because that section is rejected or the BUNDLE is enabled.
+  class Observer {
+   public:
+    virtual ~Observer() {}
+
+    virtual bool OnRtpTransportChanged(const std::string& mid,
+                                       RtpTransportInternal* rtp_transport) = 0;
+
+    virtual bool OnDtlsTransportChanged(
+        const std::string& mid,
+        cricket::DtlsTransportInternal* dtls_transport) = 0;
+  };
+
   struct Config {
     // If |redetermine_role_on_ice_restart| is true, ICE role is redetermined
     // upon setting a local transport description that indicates an ICE
@@ -61,6 +75,7 @@ class JsepTransportController : public sigslot::has_slots<>,
     bool enable_external_auth = false;
     // Used to inject the ICE/DTLS transports created externally.
     cricket::TransportFactoryInterface* external_transport_factory = nullptr;
+    Observer* transport_observer = nullptr;
   };
 
   // The ICE related events are signaled on the |signaling_thread|.
@@ -136,8 +151,8 @@ class JsepTransportController : public sigslot::has_slots<>,
   void SetMetricsObserver(webrtc::MetricsObserverInterface* metrics_observer);
 
   bool initial_offerer() const { return initial_offerer_ && *initial_offerer_; }
-  // All of these signals are fired on the signaling thread.
 
+  // All of these signals are fired on the signaling thread.
   // If any transport failed => failed,
   // Else if all completed => completed,
   // Else if all connected => connected,
@@ -158,19 +173,6 @@ class JsepTransportController : public sigslot::has_slots<>,
 
   sigslot::signal1<rtc::SSLHandshakeError> SignalDtlsHandshakeError;
 
-  // This will be fired when BUNDLE is enabled, the PeerConnection will handle
-  // the signal and set the RtpTransport for the BaseChannel.
-  // The first argument is the MID and the second is the new RtpTransport.
-  // Before firing this signal, the previous RtpTransport must no longer be
-  // referenced.
-  sigslot::signal2<const std::string&, RtpTransportInternal*>
-      SignalRtpTransportChanged;
-
-  // SCTP version of the signal above. PeerConnection will set a new
-  // DtlsTransport for the SctpTransport.
-  sigslot::signal2<const std::string&, cricket::DtlsTransportInternal*>
-      SignalDtlsTransportChanged;
-
  private:
   void OnMessage(rtc::Message* pmsg) override;
 
@@ -180,8 +182,8 @@ class JsepTransportController : public sigslot::has_slots<>,
   RTCError ValidateBundleGroup(const cricket::SessionDescription* description);
   RTCError ValidateContent(const cricket::ContentInfo& content_info);
 
-  void HandleRejectedContent(const cricket::ContentInfo& content_info);
-  void HandleBundledContent(const cricket::ContentInfo& content_info);
+  bool HandleRejectedContent(const cricket::ContentInfo& content_info);
+  bool HandleBundledContent(const cricket::ContentInfo& content_info);
 
   cricket::JsepTransportDescription CreateJsepTransportDescription(
       cricket::ContentInfo content_info,
@@ -216,15 +218,15 @@ class JsepTransportController : public sigslot::has_slots<>,
   // destroyed because of BUNDLE, it would return the transport which other
   // transports are bundled on (In current implementation, it is the first
   // content in the BUNDLE group).
-  const cricket::JsepTransport2* GetJsepTransportForMid(
+  const cricket::JsepTransport* GetJsepTransportForMid(
       const std::string& mid) const;
-  cricket::JsepTransport2* GetJsepTransportForMid(const std::string& mid);
+  cricket::JsepTransport* GetJsepTransportForMid(const std::string& mid);
 
   // Get the JsepTransport without considering the BUNDLE group. Return nullptr
   // if the JsepTransport is destroyed.
-  const cricket::JsepTransport2* GetJsepTransportByName(
+  const cricket::JsepTransport* GetJsepTransportByName(
       const std::string& transport_name) const;
-  cricket::JsepTransport2* GetJsepTransportByName(
+  cricket::JsepTransport* GetJsepTransportByName(
       const std::string& transport_name);
 
   RTCError MaybeCreateJsepTransport(const std::string& mid,
@@ -235,7 +237,7 @@ class JsepTransportController : public sigslot::has_slots<>,
   void SetIceRole_n(cricket::IceRole ice_role);
 
   cricket::IceRole DetermineIceRole(
-      cricket::JsepTransport2* jsep_transport,
+      cricket::JsepTransport* jsep_transport,
       const cricket::TransportInfo& transport_info,
       SdpType type,
       bool local);
@@ -282,7 +284,7 @@ class JsepTransportController : public sigslot::has_slots<>,
   rtc::Thread* const network_thread_ = nullptr;
   cricket::PortAllocator* const port_allocator_ = nullptr;
 
-  std::map<std::string, std::unique_ptr<cricket::JsepTransport2>>
+  std::map<std::string, std::unique_ptr<cricket::JsepTransport>>
       jsep_transports_by_name_;
 
   // Aggregate state for Transports.

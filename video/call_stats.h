@@ -36,27 +36,18 @@ class CallStats : public RtcpRttStats {
   CallStats(Clock* clock,
             rtc::TaskQueue* task_queue,
             int64_t update_interval = kDefaultUpdateIntervalMs);
-  ~CallStats();
+  ~CallStats() override;
 
   // Registers/deregisters a new observer to receive statistics updates.
   // Must be called from the construction thread.
-  void RegisterStatsObserver(CallStatsObserver* observer);
+  void RegisterStatsObserver(CallStatsObserver* observer) override;
 
   // TODO(tommi): The semantics of this method are currently that the object
   // can be deleted straight after DeregisterStatsObserver has completed.
   // This is not ideal since it requires synchronization between threads
   // (RegisterStatsObserver can complete asynchronously).
   // Figure out a way to make this function non blocking.
-  void DeregisterStatsObserver(CallStatsObserver* observer);
-
-  // Expose |LastProcessedRtt()| from RtcpRttStats to the public interface, as
-  // it is the part of the API that is needed by direct users of CallStats.
-  // TODO(tommi): Threading or lifetime guarantees are not explicit in how
-  // CallStats is used as RtcpRttStats or how pointers are cached in a
-  // few different places (distributed via Call). It would be good to clarify
-  // from what thread/TQ calls to OnRttUpdate and LastProcessedRtt need to be
-  // allowed.
-  int64_t LastProcessedRtt() const override;
+  void DeregisterStatsObserver(CallStatsObserver* observer) override;
 
   // Exposed for tests to test histogram support.
   // Must be called on the task queue.
@@ -82,20 +73,17 @@ class CallStats : public RtcpRttStats {
   // running, and from the construction thread.
   void UpdateHistograms();
 
+  void RegisterStatsObserverOnTQ(CallStatsObserver* observer);
+  void DeregisterStatsObserverOnTQ(CallStatsObserver* observer);
+
   Clock* const clock_;
   const int64_t update_interval_;
 
   // The last RTT in the statistics update (zero if there is no valid estimate).
   int64_t max_rtt_ms_ RTC_GUARDED_BY(task_queue_checker_);
 
-  // Accessed from random threads (seemingly). Consider atomic.
-  // |avg_rtt_ms_| is allowed to be read on the process thread without a lock.
-  // |avg_rtt_ms_lock_| must be held elsewhere for reading.
-  // |avg_rtt_ms_lock_| must be held on the process thread for writing.
-  int64_t avg_rtt_ms_;
-
-  // Protects |avg_rtt_ms_|.
-  rtc::CriticalSection avg_rtt_ms_lock_;
+  // Calculated on an interval.
+  int64_t avg_rtt_ms_ RTC_GUARDED_BY(task_queue_checker_);
 
   // |sum_avg_rtt_ms_|, |num_avg_rtt_| and |time_of_first_rtt_ms_| are only used
   // on the ProcessThread when running. When the Process Thread is not running,

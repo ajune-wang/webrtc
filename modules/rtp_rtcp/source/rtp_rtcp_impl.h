@@ -29,7 +29,9 @@
 
 namespace webrtc {
 
-class ModuleRtpRtcpImpl : public RtpRtcp, public RTCPReceiver::ModuleRtpRtcp {
+class ModuleRtpRtcpImpl : public RtpRtcp,
+                          public RTCPReceiver::ModuleRtpRtcp,
+                          public CallStatsObserver {
  public:
   explicit ModuleRtpRtcpImpl(const RtpRtcp::Configuration& configuration);
   ~ModuleRtpRtcpImpl() override;
@@ -314,12 +316,14 @@ class ModuleRtpRtcpImpl : public RtpRtcp, public RTCPReceiver::ModuleRtpRtcp {
   int64_t RtcpReportInterval();
   void SetRtcpReceiverSsrcs(uint32_t main_ssrc);
 
-  void set_rtt_ms(int64_t rtt_ms);
+  // CallStatsObserver.
+  void OnRttUpdate(int64_t avg_rtt_ms, int64_t max_rtt_ms) override;
+
   int64_t rtt_ms() const;
 
   bool TimeToSendFullNackList(int64_t now) const;
 
-  std::unique_ptr<RTPSender> rtp_sender_;
+  std::unique_ptr<RTPSender> const rtp_sender_;
   RTCPSender rtcp_sender_;
   RTCPReceiver rtcp_receiver_;
 

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "84877c21_3ba5f592",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-04-04T11:22:18Z",
+      "side": 1,
+      "message": "codec_settings doesn\u0027t refer to anything that is actually changed in this CL, so maybe change the description.",
+      "range": {
+        "startLine": 7,
+        "startChar": 15,
+        "endLine": 7,
+        "endChar": 29
+      },
+      "revId": "670e1142a401f80b6e7846f140587096ba7faf52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

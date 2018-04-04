@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "87009c45_f4afb56a",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-04-04T12:17:05Z",
+      "side": 1,
+      "message": "I am not sure if we should continue to call these _jni since they should be standalone native modules, I think we should move to only call glue code _jni.",
+      "range": {
+        "startLine": 168,
+        "startChar": 16,
+        "endLine": 168,
+        "endChar": 37
+      },
+      "revId": "e2be7ee2e84a34ee530833b758ec2b4833425ffb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "555169fb_97a4790b",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 654,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-04-04T12:17:05Z",
+      "side": 1,
+      "message": "Isn\u0027t this dependency already pulled in by java_audio_device_jni?",
+      "range": {
+        "startLine": 654,
+        "startChar": 4,
+        "endLine": 654,
+        "endChar": 29
+      },
+      "revId": "e2be7ee2e84a34ee530833b758ec2b4833425ffb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2684274_51666aa3",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 658,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-04-04T12:17:05Z",
+      "side": 1,
+      "message": "Is it possible to move this dependency to audio_jni?",
+      "range": {
+        "startLine": 658,
+        "startChar": 4,
+        "endLine": 658,
+        "endChar": 29
+      },
+      "revId": "e2be7ee2e84a34ee530833b758ec2b4833425ffb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1f54c1bf_6e1e7524",
+        "filename": "rtc_base/asyncpacketsocket.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-04-04T17:55:24Z",
+      "side": 1,
+      "message": "Probably worth a comment on what values this can take.  I\u0027d assume it\u0027s \"UDP\", \"TCP\", or \"TLS\", but if there are particular constants for those, it\u0027s worth pointing them out.",
+      "range": {
+        "startLine": 48,
+        "startChar": 23,
+        "endLine": 48,
+        "endChar": 0
+      },
+      "revId": "ef03019e3eace52ba8cfdf0f5f6a663069069edf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3bdbb365_4153b7aa",
+        "filename": "rtc_base/asyncpacketsocket.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-04-04T17:55:24Z",
+      "side": 1,
+      "message": "I wonder if it would be more general to just expose the Candidate::id instead of protocol, port type, and network separately.  I already keep a map of IDs to remote candidates, I could do the same for local candidates and look up whatever information I need.",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 23
+      },
+      "revId": "ef03019e3eace52ba8cfdf0f5f6a663069069edf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62e2744f_9ea94c30",
+        "filename": "rtc_base/asyncpacketsocket.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-04-04T17:55:24Z",
+      "side": 1,
+      "message": "I think it\u0027s worth a comment about what values this can take.  It\u0027s these constants, right?\n\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/p2p/base/port.h?l\u003d48\u0026rcl\u003d8058fbbd6bc09dd64b87a479d4028a0d8a2fed5b",
+      "range": {
+        "startLine": 49,
+        "startChar": 24,
+        "endLine": 49,
+        "endChar": 0
+      },
+      "revId": "ef03019e3eace52ba8cfdf0f5f6a663069069edf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0390c536_04eebb14",
+        "filename": "rtc_base/asyncpacketsocket.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-04-04T17:55:24Z",
+      "side": 1,
+      "message": "Could we use the network id instead of the ToString() value here?  The id is the value that actually appears in Candidates.  I think it would be more useful to callers, because it would make it easier to programmatically locate the full Network object or candidates using that network.",
+      "range": {
+        "startLine": 50,
+        "startChar": 22,
+        "endLine": 50,
+        "endChar": 0
+      },
+      "revId": "ef03019e3eace52ba8cfdf0f5f6a663069069edf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5db677a_6eb45e78",
+        "filename": "rtc_base/asyncpacketsocket.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-04-04T17:55:24Z",
+      "side": 1,
+      "message": "Is this actually useful?  I didn\u0027t see it used anywhere.\n\nI would rather know the total size that we actually sent, anyway.  For media packets, callers can track what they sent themselves and use the packet_id to retrieve it.",
+      "range": {
+        "startLine": 51,
+        "startChar": 74,
+        "endLine": 51,
+        "endChar": 0
+      },
+      "revId": "ef03019e3eace52ba8cfdf0f5f6a663069069edf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

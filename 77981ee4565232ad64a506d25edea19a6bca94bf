@@ -16,6 +16,24 @@
       "revId": "77981ee4565232ad64a506d25edea19a6bca94bf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5bbf003e_bb99fb1a",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-04-04T15:10:18Z",
+      "side": 1,
+      "message": "Done.\nswitched to proper uint64_t and added explicit static_cast from int RandomBitrate().",
+      "parentUuid": "c13dc42c_71455a85",
+      "revId": "77981ee4565232ad64a506d25edea19a6bca94bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

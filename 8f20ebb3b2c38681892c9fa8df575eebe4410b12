@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ee5e5fa6_5ef4ab1b",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/PeerConnectionClient.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-04-04T09:30:20Z",
+      "side": 1,
+      "message": "If we still want to log this, we should not call it a field trial anymore.",
+      "range": {
+        "startLine": 432,
+        "startChar": 4,
+        "endLine": 434,
+        "endChar": 5
+      },
+      "revId": "8f20ebb3b2c38681892c9fa8df575eebe4410b12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "07206b98_dc7c7973",
+        "filename": "sdk/android/src/java/org/webrtc/audio/WebRtcAudioManager.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-04-04T09:30:20Z",
+      "side": 1,
+      "message": "Stale, should be rewritten.",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 64
+      },
+      "revId": "c1fc84b26387b8376ca757a58a134b4e1784e7da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7e232c5_55b15851",
+        "filename": "sdk/android/src/java/org/webrtc/audio/WebRtcAudioManager.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-04-04T09:30:20Z",
+      "side": 1,
+      "message": "This is adequately explained by the method name.",
+      "range": {
+        "startLine": 64,
+        "startChar": 2,
+        "endLine": 64,
+        "endChar": 59
+      },
+      "revId": "c1fc84b26387b8376ca757a58a134b4e1784e7da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0f8a8a9_98b6e245",
+        "filename": "sdk/android/src/java/org/webrtc/audio/WebRtcAudioManager.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-04-04T09:30:20Z",
+      "side": 1,
+      "message": "This doesn\u0027t seem relevant anymore.",
+      "range": {
+        "startLine": 70,
+        "startChar": 2,
+        "endLine": 71,
+        "endChar": 58
+      },
+      "revId": "c1fc84b26387b8376ca757a58a134b4e1784e7da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f73441be_e05c1925",
+        "filename": "sdk/android/src/java/org/webrtc/audio/WebRtcAudioManager.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-04-04T09:30:20Z",
+      "side": 1,
+      "message": "input/output",
+      "range": {
+        "startLine": 105,
+        "startChar": 24,
+        "endLine": 105,
+        "endChar": 30
+      },
+      "revId": "c1fc84b26387b8376ca757a58a134b4e1784e7da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95f119cb_e0b03bbe",
+        "filename": "sdk/android/src/jni/audio_device/audio_device_module.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-04-04T09:30:20Z",
+      "side": 1,
+      "message": "Update this, probably similar to audio_record_jni:\n// An instance can be created on any thread, but must then be used on one and\n// the same thread. All public methods must also be called on the same thread. A\n// thread checker will RTC_DCHECK if any method is called on an invalid thread.",
+      "range": {
+        "startLine": 42,
+        "startChar": 3,
+        "endLine": 50,
+        "endChar": 62
+      },
+      "revId": "c1fc84b26387b8376ca757a58a134b4e1784e7da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "efb0b1d3_2a72c7d0",
+        "filename": "sdk/android/src/jni/audio_device/audio_track_jni.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-04-04T09:30:20Z",
+      "side": 1,
+      "message": "Update this.\n// An instance can be created on any thread, but must then be used on one and\n// the same thread. All public methods must also be called on the same thread. A\n// thread checker will RTC_DCHECK if any method is called on an invalid thread.",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 64
+      },
+      "revId": "c1fc84b26387b8376ca757a58a134b4e1784e7da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90914d7a_3ab95eb3",
+        "filename": "sdk/android/src/jni/audio_device/audio_track_jni.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-04-04T09:30:20Z",
+      "side": 1,
+      "message": "// This class uses AttachCurrentThreadIfNeeded to attach to a Java VM if needed.\n// Additional thread checking guarantees that no other (possibly non attached)\n// thread is used.",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 67
+      },
+      "revId": "c1fc84b26387b8376ca757a58a134b4e1784e7da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f51f19fc_6bbdbcf2",
+        "filename": "sdk/android/src/jni/audio_device/opensles_player.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-04-04T09:30:20Z",
+      "side": 1,
+      "message": "// An instance can be created on any thread, but must then be used on one and\n// the same thread. All public methods must also be called on the same thread. A\n// thread checker will RTC_DCHECK if any method is called on an invalid thread.",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 64
+      },
+      "revId": "c1fc84b26387b8376ca757a58a134b4e1784e7da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf96064d_3a166960",
+        "filename": "sdk/android/src/jni/audio_device/opensles_recorder.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-04-04T09:30:20Z",
+      "side": 1,
+      "message": "// An instance can be created on any thread, but must then be used on one and\n// the same thread. All public methods must also be called on the same thread. A\n// thread checker will RTC_DCHECK if any method is called on an invalid thread.",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 64
+      },
+      "revId": "c1fc84b26387b8376ca757a58a134b4e1784e7da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

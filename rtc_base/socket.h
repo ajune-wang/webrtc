@@ -123,13 +123,37 @@ inline bool IsBlockingError(int e) {
   return (e == EWOULDBLOCK) || (e == EAGAIN) || (e == EINPROGRESS);
 }
 
+enum class PacketType {
+  kUnspecified,
+  kMedia,
+  kIceConnectivityCheck,
+  kStunMessage,
+  kTurnMessage,
+};
+
+struct PacketInfo {
+  PacketInfo();
+  PacketInfo(const PacketInfo& info);
+  ~PacketInfo();
+
+  PacketType packet_type;
+  std::string protocol;
+  std::string port_type;
+  std::string network;
+  size_t packet_size_bytes;
+  size_t turn_overhead_bytes;
+  SocketAddress local_socket_address;
+  SocketAddress remote_socket_address;
+};
+
 struct SentPacket {
-  SentPacket() : packet_id(-1), send_time_ms(-1) {}
-  SentPacket(int packet_id, int64_t send_time_ms)
-      : packet_id(packet_id), send_time_ms(send_time_ms) {}
+  SentPacket();
+  SentPacket(int packet_id, int64_t send_time_ms);
+  SentPacket(int packet_id, int64_t send_time_ms, const rtc::PacketInfo& info);
 
   int packet_id;
   int64_t send_time_ms;
+  rtc::PacketInfo info;
 };
 
 // General interface for the socket implementations of various networks.  The

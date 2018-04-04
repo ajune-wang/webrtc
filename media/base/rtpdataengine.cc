@@ -327,7 +327,9 @@ bool RtpDataMediaChannel::SendData(
                       << ", timestamp=" << header.timestamp
                       << ", len=" << payload.size();
 
-  MediaChannel::SendPacket(&packet, rtc::PacketOptions());
+  rtc::PacketOptions options;
+  options.packet_type = rtc::PacketType::kMedia;
+  MediaChannel::SendPacket(&packet, options);
   send_limiter_->Use(packet_len, now);
   if (result) {
     *result = SDR_SUCCESS;

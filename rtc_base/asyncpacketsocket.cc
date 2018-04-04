@@ -18,12 +18,35 @@ PacketTimeUpdateParams::PacketTimeUpdateParams()
       srtp_packet_index(-1) {
 }
 
+PacketTimeUpdateParams::PacketTimeUpdateParams(
+    const PacketTimeUpdateParams& other) = default;
+
 PacketTimeUpdateParams::~PacketTimeUpdateParams() = default;
+
+PacketOptions::PacketOptions() : dscp(DSCP_NO_CHANGE), packet_id(-1) {}
+PacketOptions::PacketOptions(DiffServCodePoint dscp)
+    : dscp(dscp), packet_id(-1) {}
+PacketOptions::PacketOptions(const PacketOptions& other) = default;
+PacketOptions::~PacketOptions() = default;
 
 AsyncPacketSocket::AsyncPacketSocket() {
 }
 
 AsyncPacketSocket::~AsyncPacketSocket() {
+}
+
+rtc::PacketInfo GenerateSentPacketInfo(const PacketOptions& options,
+                                       size_t packet_size_bytes,
+                                       const AsyncPacketSocket& socket_from) {
+  PacketInfo info;
+  info.packet_type = options.packet_type;
+  info.protocol = options.protocol;
+  info.port_type = options.port_type;
+  info.network = options.network;
+  info.packet_size_bytes = packet_size_bytes;
+  info.local_socket_address = socket_from.GetLocalAddress();
+  info.remote_socket_address = socket_from.GetRemoteAddress();
+  return info;
 }
 
 };  // namespace rtc

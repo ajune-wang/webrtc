@@ -55,7 +55,7 @@ class RTPSender {
             // to PacedSender instead.
             FlexfecSender* flexfec_sender,
             TransportSequenceNumberAllocator* sequence_number_allocator,
-            TransportFeedbackObserver* transport_feedback_callback,
+            SendTransportObserver* send_transport_observer,
             BitrateStatisticsObserver* bitrate_callback,
             FrameCountObserver* frame_count_observer,
             SendSideDelayObserver* send_side_delay_observer,
@@ -271,7 +271,7 @@ class RTPSender {
 
   RtpPacketSender* const paced_sender_;
   TransportSequenceNumberAllocator* const transport_sequence_number_allocator_;
-  TransportFeedbackObserver* const transport_feedback_observer_;
+  SendTransportObserver* const send_transport_observer_;
   int64_t last_capture_time_ms_sent_;
   rtc::CriticalSection send_critsect_;
 

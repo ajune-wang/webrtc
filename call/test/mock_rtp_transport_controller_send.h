@@ -28,6 +28,7 @@ class MockRtpTransportControllerSend
     : public RtpTransportControllerSendInterface {
  public:
   MOCK_METHOD0(packet_router, PacketRouter*());
+  MOCK_METHOD0(send_transport_observer, SendTransportObserver*());
   MOCK_METHOD0(transport_feedback_observer, TransportFeedbackObserver*());
   MOCK_METHOD0(packet_sender, RtpPacketSender*());
   MOCK_CONST_METHOD0(keepalive_config, RtpKeepAliveConfig&());

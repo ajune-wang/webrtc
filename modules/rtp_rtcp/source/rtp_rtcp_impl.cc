@@ -117,7 +117,7 @@ ModuleRtpRtcpImpl::ModuleRtpRtcpImpl(const Configuration& configuration)
         configuration.outgoing_transport, configuration.paced_sender,
         configuration.flexfec_sender,
         configuration.transport_sequence_number_allocator,
-        configuration.transport_feedback_callback,
+        configuration.send_transport_observer,
         configuration.send_bitrate_observer,
         configuration.send_frame_count_observer,
         configuration.send_side_delay_observer, configuration.event_log,

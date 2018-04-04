@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0b7ca61c_bdea9627",
+        "filename": "p2p/client/basicportallocator.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-04T17:11:13Z",
+      "side": 1,
+      "message": "FYI, an alternative to subclassing MessageData and implementing OnMessage directly is using AsyncInvoker. Often this can result in more readable code/less boilerplate.",
+      "revId": "090a76591b11e86e97e6bc4ee69e104f4fec7825",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

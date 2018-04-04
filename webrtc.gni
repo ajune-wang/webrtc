@@ -81,13 +81,6 @@ declare_args() {
   # Enable to use the Mozilla internal settings.
   build_with_mozilla = false
 
-  # Enable use of Android AAudio which requires Android SDK 26 or above and
-  # NDK r16 or above.
-  rtc_enable_android_aaudio = false
-
-  # TODO(henrika): can this flag be removed?
-  rtc_enable_android_opensl = false
-
   # Link-Time Optimizations.
   # Executes code generation at link-time instead of compile-time.
   # https://gcc.gnu.org/wiki/LinkTimeOptimization
@@ -132,6 +125,16 @@ declare_args() {
   # audio samples from NetEQ, a sinus tone will be generated and replace the
   # real audio samples.
   rtc_audio_device_plays_sinus_tone = false
+
+  # Enable use of Android AAudio which requires Android SDK 26 or above and
+  # NDK r16 or above.
+  rtc_enable_android_aaudio = false
+
+  # TODO(henrika): can this flag be removed?
+  rtc_enable_android_opensl = false
+
+  # Disable support of built-in AEC on Windows by default.
+  rtc_enable_native_win_aec = false
 
   # When set to true, test targets will declare the files needed to run memcheck
   # as data dependencies. This is to enable memcheck execution on swarming bots.

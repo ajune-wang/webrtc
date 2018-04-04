@@ -104,7 +104,7 @@ SimpleStringBuilder& SimpleStringBuilder::Append(const char* str,
       rtc::strcpyn(&buffer_[size_], buffer_.size() - size_, str, length);
   size_ += chars_added;
   RTC_DCHECK_EQ(chars_added, length == SIZE_UNKNOWN ? std::strlen(str) : length)
-      << "Buffer size was insufficient";
+      << "Buffer size " << size_ << " was insufficient [" << this->str() << "]";
   RTC_DCHECK(IsConsistent());
   return *this;
 }

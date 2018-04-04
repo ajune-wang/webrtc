@@ -1317,6 +1317,30 @@
     },
     {
       "key": {
+        "uuid": "bfaed60a_d79098af",
+        "filename": "modules/audio_processing/agc2/adaptive_digital_gain_applier_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-04T13:55:07Z",
+      "side": 1,
+      "message": "What I mean is that |kWithNoiseDbfs| may not be loud enough to trigger the behavior you want to reproduce. Hence, I would add ASSERT_GT(kWithNoiseDbfs, kMaxNoiseLevelDbfs);\nIf that passes, then the test does what we want.\n\nI usually do this to make sure that the unit test does what I want and, if I change parameters, the test remains valid. Even better option:\nASSERT_GT(kWithNoiseDbfs, kMaxNoiseLevelDbfs) \u003c\u003c \"kWithNoiseDbfs is too low\";\nIn this way, when parameters change, we know how to fix :)",
+      "parentUuid": "3b37c7cb_eced67eb",
+      "range": {
+        "startLine": 165,
+        "startChar": 23,
+        "endLine": 165,
+        "endChar": 37
+      },
+      "revId": "4a7910fdbaf5795dc79e10ec04df315c61aad27b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b572eff5_d39d64e8",
         "filename": "modules/audio_processing/agc2/agc2_common.h",
         "patchSetId": 3

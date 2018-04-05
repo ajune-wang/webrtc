@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "081c1f32_f9857262",
+        "filename": "modules/rtp_rtcp/include/rtp_rtcp_defines.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-04-05T07:38:57Z",
+      "side": 1,
+      "message": "I like dumb names, what about NewPacketObserver?\n\nOr possibly:\nstruct PendingPacket { ... };\nclass PendingPacketObserver {...\nvoid OnPendingPacket(PendingPacket pending_packet)\n};",
+      "range": {
+        "startLine": 395,
+        "startChar": 6,
+        "endLine": 395,
+        "endChar": 27
+      },
+      "revId": "228545ce7557b1cd8984e3b2045d47721c2e6705",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d150ed0_f8860ec8",
+        "filename": "modules/rtp_rtcp/include/rtp_rtcp_defines.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 404,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-04-05T07:38:57Z",
+      "side": 1,
+      "message": "How about transport_sequence_number? transport_wide_sequence_number wouldn\u0027t be terrible either.\n\nIf you want to change characters transport_wide_seq_num is probably easier to guess for the uninitiated.",
+      "range": {
+        "startLine": 404,
+        "startChar": 36,
+        "endLine": 404,
+        "endChar": 54
+      },
+      "revId": "228545ce7557b1cd8984e3b2045d47721c2e6705",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2fea09e_1473fa90",
+        "filename": "modules/rtp_rtcp/include/rtp_rtcp_defines.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-04-05T07:38:57Z",
+      "side": 1,
+      "message": "Maybe this would fit nicely in a struct?",
+      "range": {
+        "startLine": 402,
+        "startChar": 27,
+        "endLine": 406,
+        "endChar": 61
+      },
+      "revId": "228545ce7557b1cd8984e3b2045d47721c2e6705",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

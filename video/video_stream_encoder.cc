@@ -44,11 +44,11 @@ const int kMaxFramerateFps = 120;
 // to try and achieve desired bitrate.
 const int kMaxInitialFramedrop = 4;
 
-uint32_t MaximumFrameSizeForBitrate(uint32_t kbps) {
-  if (kbps > 0) {
-    if (kbps < 300 /* qvga */) {
+uint32_t MaximumFrameSizeForBitrate(uint64_t bps) {
+  if (bps > 0) {
+    if (bps < 300000 /* qvga */) {
       return 320 * 240;
-    } else if (kbps < 500 /* vga */) {
+    } else if (bps < 500000 /* vga */) {
       return 640 * 480;
     }
   }
@@ -642,7 +642,7 @@ void VideoStreamEncoder::OnFrame(const VideoFrame& video_frame) {
             posted_frames_waiting_for_encode_.fetch_sub(1);
         RTC_DCHECK_GT(posted_frames_waiting_for_encode, 0);
         if (posted_frames_waiting_for_encode == 1) {
-          EncodeVideoFrame(incoming_frame, post_time_us);
+          MaybeEncodeVideoFrame(incoming_frame, post_time_us);
         } else {
           // There is a newer frame in flight. Do not encode this frame.
           RTC_LOG(LS_VERBOSE)
@@ -693,9 +693,17 @@ void VideoStreamEncoder::TraceFrameDropEnd() {
   encoder_paused_and_dropped_frame_ = false;
 }
 
-void VideoStreamEncoder::EncodeVideoFrame(const VideoFrame& video_frame,
-                                          int64_t time_when_posted_us) {
+void VideoStreamEncoder::MaybeEncodeVideoFrame(const VideoFrame& video_frame,
+                                               int64_t time_when_posted_us) {
   RTC_DCHECK_RUN_ON(&encoder_queue_);
+
+  if (EncoderPaused()) {
+    if (pending_frame_)
+      TraceFrameDropStart();
+    pending_frame_ = video_frame;
+    pending_frame_post_time_us_ = time_when_posted_us;
+    return;
+  }
 
   if (pre_encode_callback_)
     pre_encode_callback_->OnFrame(video_frame);
@@ -714,7 +722,7 @@ void VideoStreamEncoder::EncodeVideoFrame(const VideoFrame& video_frame,
 
   if (initial_rampup_ < kMaxInitialFramedrop &&
       video_frame.size() >
-          MaximumFrameSizeForBitrate(encoder_start_bitrate_bps_ / 1000)) {
+          MaximumFrameSizeForBitrate(encoder_start_bitrate_bps_)) {
     RTC_LOG(LS_INFO) << "Dropping frame. Too large for target bitrate.";
     int count = GetConstAdaptCounter().ResolutionCount(kQuality);
     AdaptDown(kQuality);
@@ -722,9 +730,19 @@ void VideoStreamEncoder::EncodeVideoFrame(const VideoFrame& video_frame,
       stats_proxy_->OnInitialQualityResolutionAdaptDown();
     }
     ++initial_rampup_;
+    pending_frame_ = video_frame;
+    pending_frame_post_time_us_ = time_when_posted_us;
     return;
   }
   initial_rampup_ = kMaxInitialFramedrop;
+  pending_frame_.reset();
+  EncodeVideoFrame(video_frame, time_when_posted_us);
+}
+
+void VideoStreamEncoder::EncodeVideoFrame(const VideoFrame& video_frame,
+                                          int64_t time_when_posted_us) {
+  RTC_DCHECK_RUN_ON(&encoder_queue_);
+  TraceFrameDropEnd();
 
   int64_t now_ms = clock_->TimeInMilliseconds();
   if (pending_encoder_reconfiguration_) {
@@ -737,12 +755,6 @@ void VideoStreamEncoder::EncodeVideoFrame(const VideoFrame& video_frame,
                                           bitrate_observer_);
     last_parameters_update_ms_.emplace(now_ms);
   }
-
-  if (EncoderPaused()) {
-    TraceFrameDropStart();
-    return;
-  }
-  TraceFrameDropEnd();
 
   VideoFrame out_frame(video_frame);
   // Crop frame if needed.
@@ -871,6 +883,17 @@ void VideoStreamEncoder::OnBitrateUpdated(uint32_t bitrate_bps,
     RTC_LOG(LS_INFO) << "Video suspend state changed to: "
                      << (video_is_suspended ? "suspended" : "not suspended");
     stats_proxy_->OnSuspendChange(video_is_suspended);
+  }
+  if (video_suspension_changed && !video_is_suspended && pending_frame_) {
+    if (initial_rampup_ >= kMaxInitialFramedrop ||
+        pending_frame_->size() <=
+            MaximumFrameSizeForBitrate(encoder_start_bitrate_bps_)) {
+      const int64_t kPendingFrameTimeoutUs = 200000;
+      if (rtc::TimeMicros() - pending_frame_post_time_us_ <
+          kPendingFrameTimeoutUs)
+        EncodeVideoFrame(*pending_frame_, pending_frame_post_time_us_);
+      pending_frame_.reset();
+    }
   }
 }
 

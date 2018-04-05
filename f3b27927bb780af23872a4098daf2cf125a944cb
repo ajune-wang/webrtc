@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "747218fc_5724745b",
+        "filename": "modules/desktop_capture/win/window_capture_utils.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 5348
+      },
+      "writtenOn": "2018-04-05T21:02:17Z",
+      "side": 1,
+      "message": "No need to duplicate the IsWindows10OrLater check here. The fact that IsWindowOnCurrentVirtualDesktop is not supported prior to Win10 is an implementation detail; this call-site should only care whether or not |virtual_desktop_manager_| is null.",
+      "range": {
+        "startLine": 174,
+        "startChar": 11,
+        "endLine": 174,
+        "endChar": 29
+      },
+      "revId": "f3b27927bb780af23872a4098daf2cf125a944cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74d13373_c41213ed",
+        "filename": "modules/desktop_capture/window_capturer_win.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 5348
+      },
+      "writtenOn": "2018-04-05T21:02:17Z",
+      "side": 1,
+      "message": "This test is getting more complex and it\u0027s duplicated in several places. Would it make sense to create a helper method that checks the following?\n\n      IsIconic(window_) ||\n      !IsWindowVisible(window_) ||\n      !com_method_helper_.IsWindowOnCurrentDesktop(window_)\n\nMaybe put it into ComMethodHelper (though you can probably come up with a better name for it in that case).",
+      "range": {
+        "startLine": 237,
+        "startChar": 34,
+        "endLine": 238,
+        "endChar": 0
+      },
+      "revId": "f3b27927bb780af23872a4098daf2cf125a944cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

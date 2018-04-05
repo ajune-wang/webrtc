@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "75d43321_65f16ceb",
+        "filename": "rtc_base/sanitizer.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-04-05T11:33:04Z",
+      "side": 1,
+      "message": "bugs.webrtc.org/8762",
+      "range": {
+        "startLine": 113,
+        "startChar": 8,
+        "endLine": 113,
+        "endChar": 14
+      },
+      "revId": "47d1e2b0837ea9555824559c00aecb7ffe040a7d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c411e048_9a31eaf3",
+        "filename": "rtc_base/sanitizer.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-04-05T11:33:04Z",
+      "side": 1,
+      "message": "Please put this one in a private namespace, e.g. sanitizer_impl.",
+      "revId": "47d1e2b0837ea9555824559c00aecb7ffe040a7d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ace6740d_ec23a1fd",
+        "filename": "rtc_base/sanitizer.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-04-05T11:33:04Z",
+      "side": 1,
+      "message": "You need to add () to make it a function call. Non-null function pointers are always true...",
+      "revId": "47d1e2b0837ea9555824559c00aecb7ffe040a7d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6febd229_a33c1ba2",
+        "filename": "rtc_base/sanitizer_unittest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-04-05T11:33:04Z",
+      "side": 1,
+      "message": "Bug format again.",
+      "range": {
+        "startLine": 13,
+        "startChar": 8,
+        "endLine": 13,
+        "endChar": 14
+      },
+      "revId": "47d1e2b0837ea9555824559c00aecb7ffe040a7d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e6f68c8_6c669b02",
+        "filename": "rtc_base/sanitizer_unittest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-04-05T11:33:04Z",
+      "side": 1,
+      "message": "You can easily define a not trivially copy constructible class without std::vector:\n\n  struct Baz {\n    Baz(const Baz\u0026);\n  };\n\nOr a not trivially destructible class:\n\n  struct Woz {\n    ~Woz();\n  };\n\nNon-assignable:\n\n  struct Jobs {\n    Jobs\u0026 operator\u003d(const Jobs\u0026) \u003d delete;\n  };\n\nNot trivially assignable:\n\n  struct Taxes {\n    Taxes\u0026 operator\u003d(const Taxes\u0026);\n  };\n\nBecause these methods are implicitly defined by the compiler sometimes, it\u0027s probably best to type out all three:\n\n  // TriviallyCopyable except for having a nontrivial copy constructor.\n  struct Death {\n    Death(const Death\u0026);\n    ~Death() \u003d default;\n    Death\u0026 operator\u003d(const Death\u0026) \u003d default;\n  };\n\n  // TriviallyCopyable except for not being trivially destructible.\n  struct Metal {\n    Metal(const Metal\u0026) \u003d default;\n    ~Metal();\n    Metal\u0026 operator\u003d(const Metal\u0026) \u003d delete;\n  };\n\netc.",
+      "revId": "47d1e2b0837ea9555824559c00aecb7ffe040a7d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

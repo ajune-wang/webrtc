@@ -47,13 +47,22 @@ class BasicPortAllocator : public PortAllocator {
 
   // Set to kDefaultNetworkIgnoreMask by default.
   void SetNetworkIgnoreMask(int network_ignore_mask) override;
-  int network_ignore_mask() const { return network_ignore_mask_; }
+  int network_ignore_mask() const {
+    RTC_DCHECK(network_thread_checker_.CalledOnValidThread());
+    return network_ignore_mask_;
+  }
 
-  rtc::NetworkManager* network_manager() const { return network_manager_; }
+  rtc::NetworkManager* network_manager() const {
+    RTC_DCHECK(network_thread_checker_.CalledOnValidThread());
+    return network_manager_;
+  }
 
   // If socket_factory() is set to NULL each PortAllocatorSession
   // creates its own socket factory.
-  rtc::PacketSocketFactory* socket_factory() { return socket_factory_; }
+  rtc::PacketSocketFactory* socket_factory() {
+    RTC_DCHECK(network_thread_checker_.CalledOnValidThread());
+    return socket_factory_;
+  }
 
   PortAllocatorSession* CreateSessionInternal(
       const std::string& content_name,
@@ -65,6 +74,7 @@ class BasicPortAllocator : public PortAllocator {
   void AddTurnServer(const RelayServerConfig& turn_server);
 
   RelayPortFactoryInterface* relay_port_factory() {
+    RTC_DCHECK(network_thread_checker_.CalledOnValidThread());
     return relay_port_factory_;
   }
 

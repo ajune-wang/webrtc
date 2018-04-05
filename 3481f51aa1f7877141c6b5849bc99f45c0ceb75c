@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "b0851897_00b6bcd8",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-04-05T11:46:44Z",
+      "side": 1,
+      "message": "In the next CL ( https://webrtc-review.googlesource.com/c/src/+/66882 ) all the PostPendingProbes calls are removed. Here I tried to keep things as equivalent as possible.\n\nOnProcessInterval is called with 25 ms intervals, is that often enough for the probe controller?",
+      "parentUuid": "3e2a8a75_adedf83a",
+      "revId": "3481f51aa1f7877141c6b5849bc99f45c0ceb75c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f55e406e_b3891da7",
         "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "3481f51aa1f7877141c6b5849bc99f45c0ceb75c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f92dfc4_ed75ff46",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-04-05T11:46:44Z",
+      "side": 1,
+      "message": "Not in MaybeUpdateCongestionWindow, maybe you are thinking of MaybeTriggerOnNetworkChanged?",
+      "parentUuid": "f55e406e_b3891da7",
+      "revId": "3481f51aa1f7877141c6b5849bc99f45c0ceb75c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

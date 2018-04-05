@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ced829f5_843603a4",
+        "filename": "test/fpe_observer.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-05T13:13:43Z",
+      "side": 1,
+      "message": "Good point. Thanks.",
+      "parentUuid": "3cb6655d_91f8e58f",
+      "range": {
+        "startLine": 36,
+        "startChar": 17,
+        "endLine": 36,
+        "endChar": 35
+      },
+      "revId": "1c7caeb2496b33c1cbe80234ee0c95ac7262e312",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ece823cf_39b53bed",
         "filename": "test/fpe_observer_unittest.cc",
         "patchSetId": 8
@@ -72,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "04182105_f2be4c40",
+        "filename": "test/fpe_observer_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-05T13:13:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b6665ad5_3fd7aea5",
+      "range": {
+        "startLine": 28,
+        "startChar": 8,
+        "endLine": 28,
+        "endChar": 14
+      },
+      "revId": "1c7caeb2496b33c1cbe80234ee0c95ac7262e312",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c8428edb_8486bc40",
         "filename": "test/fpe_observer_unittest.cc",
         "patchSetId": 8
@@ -95,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "c24121c5_8817928b",
+        "filename": "test/fpe_observer_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-05T13:13:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c8428edb_8486bc40",
+      "range": {
+        "startLine": 40,
+        "startChar": 6,
+        "endLine": 40,
+        "endChar": 9
+      },
+      "revId": "1c7caeb2496b33c1cbe80234ee0c95ac7262e312",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b02db339_c21c50c3",
         "filename": "test/fpe_observer_unittest.cc",
         "patchSetId": 8
@@ -106,6 +178,24 @@
       "writtenOn": "2018-02-28T19:03:28Z",
       "side": 1,
       "message": "How about std::numeric_limits\u003cdouble\u003e::max() * 2.0? (I haven\u0027t been able to test this myself---what clang command-line flags do I need to switch on floating-point exceptions?)",
+      "revId": "1c7caeb2496b33c1cbe80234ee0c95ac7262e312",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7776096_3d66ae64",
+        "filename": "test/fpe_observer_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-05T13:13:43Z",
+      "side": 1,
+      "message": "I\u0027m using that to trigger FE_OVERFLOW; the expression must only trigger FE_INEXACT. I will try more options.",
+      "parentUuid": "b02db339_c21c50c3",
       "revId": "1c7caeb2496b33c1cbe80234ee0c95ac7262e312",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -207,6 +297,30 @@
     },
     {
       "key": {
+        "uuid": "00cfb75d_9994a705",
+        "filename": "test/fpe_observer_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-05T13:13:43Z",
+      "side": 1,
+      "message": "Sorry for the lack of clarity.\n\nThe main tests in this file are CheckNoFalsePositives and CheckNoFalseNegatives.\nI wrote DISABLED_CheckTestConstants to validate the stuff defined in the anon NS - if invalid, then the aforementioned unit tests won\u0027t do the job they are supposed to do.\n\nChange: I renamed to FloatingPointExceptionObserverTest and activated DISABLED_CheckTestConstants (useful to check the behavior on different architectures).",
+      "parentUuid": "cce900ba_384b49a3",
+      "range": {
+        "startLine": 75,
+        "startChar": 5,
+        "endLine": 75,
+        "endChar": 35
+      },
+      "revId": "1c7caeb2496b33c1cbe80234ee0c95ac7262e312",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "059a5ab9_bf28b8b9",
         "filename": "test/fpe_observer_unittest.cc",
         "patchSetId": 8
@@ -239,6 +353,24 @@
       "revId": "1c7caeb2496b33c1cbe80234ee0c95ac7262e312",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9df293d_0aeed334",
+        "filename": "test/fpe_observer_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-05T13:13:43Z",
+      "side": 1,
+      "message": "Let me describe the use case to motivate why we can\u0027t fail at compile time nor at runtime.\n\nImagine that you write a UT for float Foo::Bar() which performs floating point operations from which no exceptions are expected. Then you write a test\n\nTEST(FooTest, CheckBarResult) {\n  Foo foo;\n  ...\n  {\n    FloatingPointExceptionObserver fpe;\n\n    EXPECT_LT(3.14f, foo.Bar());\n  }\n}\n\nThe unit test code is the same regardless of whether NDEBUG.\nI don\u0027t think the client code should be responsible for checking NDEBUG; FloatingPointExceptionObserver should just do nothing when NDEBUG.\n\nSo both a compile time and a runtime error would cause all the *_rel trybots to fail.\n\nI would remove the warning and expect that those using FloatingPointExceptionObserver know that they should expect failures (when exceptions occur) only in debug mode.",
+      "parentUuid": "34f616a8_197f6abd",
+      "revId": "1c7caeb2496b33c1cbe80234ee0c95ac7262e312",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

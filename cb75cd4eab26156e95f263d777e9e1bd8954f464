@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "d81d8ad9_6dd41605",
+        "filename": "test/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-05T13:13:43Z",
+      "side": 1,
+      "message": "Sorry, I misinterpreted *. I moved the target below within if(rtc_include_tests) and removed the visibility attr.",
+      "parentUuid": "93604703_28bf5abe",
+      "revId": "cb75cd4eab26156e95f263d777e9e1bd8954f464",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bbb569e3_83cfd995",
         "filename": "test/fpe_observer.h",
         "patchSetId": 4

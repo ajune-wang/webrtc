@@ -52,6 +52,8 @@ class VideoStreamDecoderImpl : public VideoStreamDecoder,
   static void DecodeLoop(void* ptr);
   DecodeResult DecodeNextFrame(int max_wait_time_ms, bool keyframe_required);
 
+  rtc::Optional<int64_t> GetDecodeStartTime(int64_t frame_timestamp) const;
+
   // Implements DecodedImageCallback interface
   int32_t Decoded(VideoFrame& decodedImage) override;
   int32_t Decoded(VideoFrame& decodedImage, int64_t decode_time_ms) override;

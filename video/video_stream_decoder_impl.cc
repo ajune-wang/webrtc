@@ -211,4 +211,68 @@ VideoStreamDecoderImpl::DecodeResult VideoStreamDecoderImpl::DecodeNextFrame(
   return kNoFrame;
 }
 
+rtc::Optional<int64_t> VideoStreamDecoderImpl::GetDecodeStartTime(
+    int64_t frame_timestamp) const {
+  RTC_DCHECK_RUN_ON(&bookkeeping_queue_);
+
+  int start_time_index = next_start_time_index_;
+  for (int i = 0; i < kDecodeTimeMemory; ++i) {
+    start_time_index = Subtract<kDecodeTimeMemory>(start_time_index, 1);
+
+    if (decode_start_time_[start_time_index].first == frame_timestamp)
+      return decode_start_time_[start_time_index].second;
+  }
+
+  return rtc::nullopt;
+}
+
+// VideoDecoder::DecodedImageCallback
+int32_t VideoStreamDecoderImpl::Decoded(VideoFrame& decoded_image) {
+  Decoded(decoded_image, rtc::nullopt, rtc::nullopt);
+  return WEBRTC_VIDEO_CODEC_OK;
+}
+
+// VideoDecoder::DecodedImageCallback
+int32_t VideoStreamDecoderImpl::Decoded(VideoFrame& decoded_image,
+                                        int64_t decode_time_ms) {
+  Decoded(decoded_image, decode_time_ms, rtc::nullopt);
+  return WEBRTC_VIDEO_CODEC_OK;
+}
+
+// VideoDecoder::DecodedImageCallback
+void VideoStreamDecoderImpl::Decoded(VideoFrame& decoded_image,
+                                     rtc::Optional<int32_t> decode_time_ms,
+                                     rtc::Optional<uint8_t> qp) {
+  int64_t decode_stop_time_ms = rtc::TimeMillis();
+
+  bookkeeping_queue_.PostTask([this, decode_stop_time_ms, decoded_image,
+                               decode_time_ms, qp] {
+    RTC_DCHECK_RUN_ON(&bookkeeping_queue_);
+
+    rtc::Optional<int> casted_qp;
+    if (qp)
+      casted_qp.emplace(*qp);
+
+    rtc::Optional<int> casted_decode_time_ms;
+    if (decode_time_ms) {
+      casted_decode_time_ms.emplace(*decode_time_ms);
+    } else {
+      rtc::Optional<int64_t> decode_start_time_ms =
+          GetDecodeStartTime(decoded_image.timestamp());
+
+      if (decode_start_time_ms) {
+        casted_decode_time_ms.emplace(decode_stop_time_ms -
+                                      *decode_start_time_ms);
+      }
+    }
+
+    if (casted_decode_time_ms) {
+      timing_.StopDecodeTimer(0, *casted_decode_time_ms, decode_stop_time_ms,
+                              decoded_image.timestamp_us() / 1000);
+    }
+
+    callbacks_->OnDecodedFrame(decoded_image, casted_decode_time_ms, casted_qp);
+  });
+}
+
 }  // namespace webrtc

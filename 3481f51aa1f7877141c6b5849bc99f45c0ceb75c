@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3e2a8a75_adedf83a",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-04-05T11:35:20Z",
+      "side": 1,
+      "message": "Is this something similar to Module::Process? Can we rely on this function being called frequently? If so, I think you should only call PostPendingProbes from here.\n\nI get that you need to call PostPendingProbes frequently, but I don\u0027t like that we have sprinkled polls throughout the code.",
+      "revId": "3481f51aa1f7877141c6b5849bc99f45c0ceb75c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f55e406e_b3891da7",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-04-05T11:35:20Z",
+      "side": 1,
+      "message": "PostPendingProbes is called in MaybeUpdateCongestionWindow, so you can skip the PostPendingProbe call here.",
+      "revId": "3481f51aa1f7877141c6b5849bc99f45c0ceb75c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "513b30de_60078b6a",
+        "filename": "modules/congestion_controller/goog_cc/probe_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-04-05T11:35:20Z",
+      "side": 1,
+      "message": "Use swap instead of copy, and then you can skip the clear() on the line below.",
+      "revId": "3481f51aa1f7877141c6b5849bc99f45c0ceb75c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

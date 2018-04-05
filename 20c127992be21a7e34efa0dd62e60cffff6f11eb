@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "736c52d0_093be004",
+        "filename": "rtc_base/openssladapter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-05T20:18:27Z",
+      "side": 1,
+      "message": "For WebRTC, we decided that compile time isn\u0027t a big enough concern to deviate from the Google style guidance on forward declarations; see https://cs.chromium.org/chromium/src/third_party/webrtc/style-guide.md?l\u003d124\u0026rcl\u003d4c9b3c840df3baf5145d73ecb994ba24b87908c7",
+      "parentUuid": "203feb83_bbd48db1",
+      "revId": "20c127992be21a7e34efa0dd62e60cffff6f11eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c862bf79_d3c651d0",
         "filename": "rtc_base/openssladapter.h",
         "patchSetId": 2
@@ -107,6 +125,24 @@
     },
     {
       "key": {
+        "uuid": "c2afc4d2_4a536586",
+        "filename": "rtc_base/openssladapter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-05T20:18:27Z",
+      "side": 1,
+      "message": "As long as nothing tries to call the method the linker won\u0027t complain. But as long as you\u0027re here, might as well remove it.",
+      "parentUuid": "be64220f_93b1f441",
+      "revId": "20c127992be21a7e34efa0dd62e60cffff6f11eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bc9f3f91_6c9f476a",
         "filename": "rtc_base/openssladapter.h",
         "patchSetId": 2
@@ -136,6 +172,24 @@
       "side": 1,
       "message": "It hides the actual use of OpenSSLSessionCache and allows it to be just included in the C++ file.",
       "parentUuid": "bc9f3f91_6c9f476a",
+      "revId": "20c127992be21a7e34efa0dd62e60cffff6f11eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "217e867c_f2d89c49",
+        "filename": "rtc_base/openssladapter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-05T20:18:27Z",
+      "side": 1,
+      "message": "If this is just to speed up compile time, I\u0027d say it isn\u0027t necessary. We already have so many layers of indirection in this codebase, I\u0027m reluctant to add more unless there\u0027s a good reason.",
+      "parentUuid": "b4585b57_b0190704",
       "revId": "20c127992be21a7e34efa0dd62e60cffff6f11eb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

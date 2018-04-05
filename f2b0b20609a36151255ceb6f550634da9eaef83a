@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5c11a5ea_99ef4a6c",
+        "filename": "media/base/rtputils.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-04-05T02:53:34Z",
+      "side": 1,
+      "message": "Good point. Actually the call side casts size_t to int which is not right. I got lazy and did a copy/paste here.",
+      "parentUuid": "eb374aa6_0b2c02d1",
+      "revId": "f2b0b20609a36151255ceb6f550634da9eaef83a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0e881cda_d815411a",
         "filename": "pc/channel.cc",
         "patchSetId": 10
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "b08ea023_70392fbe",
+        "filename": "pc/channel.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-04-05T02:53:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0e881cda_d815411a",
+      "range": {
+        "startLine": 204,
+        "startChar": 24,
+        "endLine": 204,
+        "endChar": 25
+      },
+      "revId": "f2b0b20609a36151255ceb6f550634da9eaef83a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c9b3d867_83c3b87d",
         "filename": "pc/channel.cc",
         "patchSetId": 10
@@ -53,6 +95,30 @@
       "writtenOn": "2018-04-04T23:01:51Z",
       "side": 1,
       "message": "Readability: Use numeric_limits\u003cint64_t\u003e::max() instead of relying on an overflow.",
+      "range": {
+        "startLine": 459,
+        "startChar": 24,
+        "endLine": 459,
+        "endChar": 25
+      },
+      "revId": "f2b0b20609a36151255ceb6f550634da9eaef83a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d74497e1_44df9018",
+        "filename": "pc/channel.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-04-05T02:53:34Z",
+      "side": 1,
+      "message": "-1 means \"unset\" for upper layer (mediaengine and call object). \nI guess a better way to do it is using rtc::Optional. But it seems a bit overkill here.",
+      "parentUuid": "c9b3d867_83c3b87d",
       "range": {
         "startLine": 459,
         "startChar": 24,
@@ -82,6 +148,24 @@
     },
     {
       "key": {
+        "uuid": "0cf4de84_404c0b1d",
+        "filename": "pc/channel.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-04-05T02:53:34Z",
+      "side": 1,
+      "message": "The arrival_time_ms is calculated from packet_time. What I did here is just recovering the timestamp and the possibility of overflow here is very low I think. I\u0027m not so sure what is a better way to do multiplication here though.",
+      "parentUuid": "b72a7ee6_ae3cd128",
+      "revId": "f2b0b20609a36151255ceb6f550634da9eaef83a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2c440e52_e35b6df4",
         "filename": "pc/srtptransport.cc",
         "patchSetId": 10
@@ -96,6 +180,24 @@
       "revId": "f2b0b20609a36151255ceb6f550634da9eaef83a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a95f0ae_1ae1738e",
+        "filename": "pc/srtptransport.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-04-05T02:53:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2c440e52_e35b6df4",
+      "revId": "f2b0b20609a36151255ceb6f550634da9eaef83a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -116,6 +218,24 @@
     },
     {
       "key": {
+        "uuid": "e5b1cfec_ba20b6c0",
+        "filename": "pc/srtptransport.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-04-05T02:53:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f2eb6163_8f709441",
+      "revId": "f2b0b20609a36151255ceb6f550634da9eaef83a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "66ddaa06_0c0ebc18",
         "filename": "pc/srtptransport.cc",
         "patchSetId": 10
@@ -130,6 +250,24 @@
       "revId": "f2b0b20609a36151255ceb6f550634da9eaef83a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74611e93_f3148079",
+        "filename": "pc/srtptransport.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-04-05T02:53:34Z",
+      "side": 1,
+      "message": "Oh, I don\u0027t even know WebRTC has this checked_cast. Thanks for pointing it out.",
+      "parentUuid": "66ddaa06_0c0ebc18",
+      "revId": "f2b0b20609a36151255ceb6f550634da9eaef83a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -150,6 +288,24 @@
     },
     {
       "key": {
+        "uuid": "0fb668f5_d7433320",
+        "filename": "pc/srtptransport.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-04-05T02:53:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7b3febd3_17e82123",
+      "revId": "f2b0b20609a36151255ceb6f550634da9eaef83a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6d17d2b9_99d7c4ba",
         "filename": "pc/srtptransport.cc",
         "patchSetId": 10
@@ -164,6 +320,24 @@
       "revId": "f2b0b20609a36151255ceb6f550634da9eaef83a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef1e2401_025aec5d",
+        "filename": "pc/srtptransport.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-04-05T02:53:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6d17d2b9_99d7c4ba",
+      "revId": "f2b0b20609a36151255ceb6f550634da9eaef83a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -184,6 +358,24 @@
     },
     {
       "key": {
+        "uuid": "9cdcbbf3_12c4c249",
+        "filename": "pc/srtptransport.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-04-05T02:53:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c1bbd324_909da4a4",
+      "revId": "f2b0b20609a36151255ceb6f550634da9eaef83a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b47e95ee_a9fc5503",
         "filename": "pc/srtptransport.h",
         "patchSetId": 10
@@ -198,6 +390,24 @@
       "revId": "f2b0b20609a36151255ceb6f550634da9eaef83a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "169c8a94_39d772e6",
+        "filename": "pc/srtptransport.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-04-05T02:53:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b47e95ee_a9fc5503",
+      "revId": "f2b0b20609a36151255ceb6f550634da9eaef83a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

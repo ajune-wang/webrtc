@@ -58,7 +58,6 @@ class VideoDecoderSoftwareFallbackWrapper : public VideoDecoder {
   } decoder_type_;
   std::unique_ptr<VideoDecoder> hw_decoder_;
 
-  VideoCodec codec_settings_;
   int32_t number_of_cores_;
   const std::unique_ptr<VideoDecoder> fallback_decoder_;
   const std::string fallback_implementation_name_;

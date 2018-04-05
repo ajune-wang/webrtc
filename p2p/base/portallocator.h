@@ -22,6 +22,7 @@
 #include "rtc_base/proxyinfo.h"
 #include "rtc_base/sigslot.h"
 #include "rtc_base/thread.h"
+#include "rtc_base/thread_checker.h"
 
 namespace webrtc {
 class MetricsObserverInterface;
@@ -360,14 +361,23 @@ class PortAllocator : public sigslot::has_slots<> {
                         const rtc::Optional<int>&
                             stun_candidate_keepalive_interval = rtc::nullopt);
 
-  const ServerAddresses& stun_servers() const { return stun_servers_; }
+  const ServerAddresses& stun_servers() const {
+    RTC_DCHECK(thread_checker_.CalledOnValidThread());
+    return stun_servers_;
+  }
 
   const std::vector<RelayServerConfig>& turn_servers() const {
+    RTC_DCHECK(thread_checker_.CalledOnValidThread());
     return turn_servers_;
   }
 
-  int candidate_pool_size() const { return candidate_pool_size_; }
+  int candidate_pool_size() const {
+    RTC_DCHECK(thread_checker_.CalledOnValidThread());
+    return candidate_pool_size_;
+  }
+
   const rtc::Optional<int>& stun_candidate_keepalive_interval() const {
+    RTC_DCHECK(thread_checker_.CalledOnValidThread());
     return stun_candidate_keepalive_interval_;
   }
 
@@ -410,23 +420,48 @@ class PortAllocator : public sigslot::has_slots<> {
   // Discard any remaining pooled sessions.
   void DiscardCandidatePool();
 
-  uint32_t flags() const { return flags_; }
-  void set_flags(uint32_t flags) { flags_ = flags; }
+  uint32_t flags() const {
+    RTC_DCHECK(thread_checker_.CalledOnValidThread());
+    return flags_;
+  }
+
+  void set_flags(uint32_t flags) {
+    RTC_DCHECK(thread_checker_.CalledOnValidThread());
+    flags_ = flags;
+  }
 
   // These three methods are deprecated. If connections need to go through a
   // proxy, the application should create a BasicPortAllocator given a custom
   // PacketSocketFactory that creates proxy sockets.
-  const std::string& user_agent() const { return agent_; }
-  const rtc::ProxyInfo& proxy() const { return proxy_; }
+  const std::string& user_agent() const {
+    RTC_DCHECK(thread_checker_.CalledOnValidThread());
+    return agent_;
+  }
+
+  const rtc::ProxyInfo& proxy() const {
+    RTC_DCHECK(thread_checker_.CalledOnValidThread());
+    return proxy_;
+  }
+
   void set_proxy(const std::string& agent, const rtc::ProxyInfo& proxy) {
+    RTC_DCHECK(thread_checker_.CalledOnValidThread());
     agent_ = agent;
     proxy_ = proxy;
   }
 
   // Gets/Sets the port range to use when choosing client ports.
-  int min_port() const { return min_port_; }
-  int max_port() const { return max_port_; }
+  int min_port() const {
+    RTC_DCHECK(thread_checker_.CalledOnValidThread());
+    return min_port_;
+  }
+
+  int max_port() const {
+    RTC_DCHECK(thread_checker_.CalledOnValidThread());
+    return max_port_;
+  }
+
   bool SetPortRange(int min_port, int max_port) {
+    RTC_DCHECK(thread_checker_.CalledOnValidThread());
     if (min_port > max_port) {
       return false;
     }
@@ -444,8 +479,15 @@ class PortAllocator : public sigslot::has_slots<> {
   // ICE down. We should work on making our ICE logic smarter (for example,
   // prioritizing pinging connections that are most likely to work) so that
   // every network interface can be used without impacting ICE's speed.
-  void set_max_ipv6_networks(int networks) { max_ipv6_networks_ = networks; }
-  int max_ipv6_networks() { return max_ipv6_networks_; }
+  void set_max_ipv6_networks(int networks) {
+    RTC_DCHECK(thread_checker_.CalledOnValidThread());
+    max_ipv6_networks_ = networks;
+  }
+
+  int max_ipv6_networks() {
+    RTC_DCHECK(thread_checker_.CalledOnValidThread());
+    return max_ipv6_networks_;
+  }
 
   // Delay between different candidate gathering phases (UDP, TURN, TCP).
   // Defaults to 1 second, but PeerConnection sets it to 50ms.
@@ -453,30 +495,58 @@ class PortAllocator : public sigslot::has_slots<> {
   // STUN transactions at once, but that's already happening if you configure
   // multiple STUN servers or have multiple network interfaces. We should
   // implement some global pacing logic instead if that's our goal.
-  uint32_t step_delay() const { return step_delay_; }
-  void set_step_delay(uint32_t delay) { step_delay_ = delay; }
+  uint32_t step_delay() const {
+    RTC_DCHECK(thread_checker_.CalledOnValidThread());
+    return step_delay_;
+  }
 
-  bool allow_tcp_listen() const { return allow_tcp_listen_; }
+  void set_step_delay(uint32_t delay) {
+    RTC_DCHECK(thread_checker_.CalledOnValidThread());
+    step_delay_ = delay;
+  }
+
+  bool allow_tcp_listen() const {
+    RTC_DCHECK(thread_checker_.CalledOnValidThread());
+    return allow_tcp_listen_;
+  }
+
   void set_allow_tcp_listen(bool allow_tcp_listen) {
+    RTC_DCHECK(thread_checker_.CalledOnValidThread());
     allow_tcp_listen_ = allow_tcp_listen;
   }
 
-  uint32_t candidate_filter() { return candidate_filter_; }
+  uint32_t candidate_filter() {
+    RTC_DCHECK(thread_checker_.CalledOnValidThread());
+    return candidate_filter_;
+  }
+
   void set_candidate_filter(uint32_t filter) {
+    RTC_DCHECK(thread_checker_.CalledOnValidThread());
     candidate_filter_ = filter;
   }
 
-  bool prune_turn_ports() const { return prune_turn_ports_; }
+  bool prune_turn_ports() const {
+    RTC_DCHECK(thread_checker_.CalledOnValidThread());
+    return prune_turn_ports_;
+  }
 
   // Gets/Sets the Origin value used for WebRTC STUN requests.
-  const std::string& origin() const { return origin_; }
-  void set_origin(const std::string& origin) { origin_ = origin; }
+  const std::string& origin() const {
+    RTC_DCHECK(thread_checker_.CalledOnValidThread());
+    return origin_;
+  }
+
+  void set_origin(const std::string& origin) {
+    RTC_DCHECK(thread_checker_.CalledOnValidThread());
+    origin_ = origin;
+  }
 
   void SetMetricsObserver(webrtc::MetricsObserverInterface* observer) {
     metrics_observer_ = observer;
   }
 
   webrtc::TurnCustomizer* turn_customizer() {
+    RTC_DCHECK(thread_checker_.CalledOnValidThread());
     return turn_customizer_;
   }
 
@@ -513,6 +583,7 @@ class PortAllocator : public sigslot::has_slots<> {
   bool allow_tcp_listen_;
   uint32_t candidate_filter_;
   std::string origin_;
+  rtc::ThreadChecker thread_checker_;
 
  private:
   ServerAddresses stun_servers_;

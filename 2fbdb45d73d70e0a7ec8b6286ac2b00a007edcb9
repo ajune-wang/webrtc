@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a02fb28b_dec53fb3",
+        "filename": "p2p/base/portallocator.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-05T22:02:41Z",
+      "side": 1,
+      "message": "I\u0027m realizing now that chromium\u0027s \"P2PPortAllocator\" calls some methods besides the constructor on a different thread: https://cs.chromium.org/chromium/src/content/renderer/p2p/port_allocator.cc?type\u003dcs\u0026l\u003d45\n\nSo either chromium needs to be changed, or the rule could be changed to \"getters/setters safe to call from another thread until Initialize is called\"...",
+      "revId": "2fbdb45d73d70e0a7ec8b6286ac2b00a007edcb9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "139c467d_c8bb7287",
+        "filename": "p2p/base/portallocator.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 545,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-05T22:02:41Z",
+      "side": 1,
+      "message": "Should be able to add the DCHECK here too",
+      "revId": "2fbdb45d73d70e0a7ec8b6286ac2b00a007edcb9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d39c4eec_84513c5f",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-05T22:02:41Z",
+      "side": 1,
+      "message": "Thread check here too?",
+      "revId": "2fbdb45d73d70e0a7ec8b6286ac2b00a007edcb9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ababeb7_77d6ca37",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1988,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-05T22:02:41Z",
+      "side": 1,
+      "message": "I think we can just get rid of FreezeCandidatePool, since this logic is already implemented in SetConfiguration at the PeerConnection level: https://cs.chromium.org/chromium/src/third_party/webrtc/pc/peerconnection.cc?l\u003d2824\u0026rcl\u003d4c9b3c840df3baf5145d73ecb994ba24b87908c7",
+      "revId": "2fbdb45d73d70e0a7ec8b6286ac2b00a007edcb9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84dc24ba_c7adca45",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 3003,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-05T22:02:41Z",
+      "side": 1,
+      "message": "It would be ideal if all the network thread hops could be combined into one.\n\nNote that JsepTransportController::SetMetricsObserver will already do the thread hop, and it has a pointer to the PortAllocator, so this code could just be moved there. Or you could invoke a \"PeerConnection::SetMetricsObserver_n\" method that does all this if you think leaving the code in PeerConnection would be cleaner (since it owns the PortAllocator).",
+      "revId": "2fbdb45d73d70e0a7ec8b6286ac2b00a007edcb9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

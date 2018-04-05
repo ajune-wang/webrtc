@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1658636b_5b39a287",
+        "filename": "modules/congestion_controller/network_control/include/network_control.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-04-05T12:13:38Z",
+      "side": 1,
+      "message": "It\u0027s good with a name indicating that\u0027s it\u0027s a destructive operation, non an idempotent getter method. But \"pop\" makes me associate to stacks. Maybe the more explicit \"GetAndResetSomething\", which is used in at least a few other places?",
+      "range": {
+        "startLine": 77,
+        "startChar": 31,
+        "endLine": 77,
+        "endChar": 47
+      },
+      "revId": "af3b650e5eb482b38fad992c4b50269590a1dc21",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a28e9a8_5b2df770",
+        "filename": "modules/congestion_controller/network_control/include/network_types.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-04-05T12:13:38Z",
+      "side": 1,
+      "message": "Might deserve a comment.",
+      "range": {
+        "startLine": 164,
+        "startChar": 7,
+        "endLine": 164,
+        "endChar": 27
+      },
+      "revId": "af3b650e5eb482b38fad992c4b50269590a1dc21",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0e06693_12684175",
+        "filename": "modules/congestion_controller/rtp/send_side_congestion_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 639,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-04-05T12:13:38Z",
+      "side": 1,
+      "message": "I\u0027d like to understand if this means that we\u0027re moving from events fired when things change, to polling. But I imagin this method is called more or less immediately for any events that might change the |controller_| state?",
+      "range": {
+        "startLine": 639,
+        "startChar": 35,
+        "endLine": 639,
+        "endChar": 56
+      },
+      "revId": "af3b650e5eb482b38fad992c4b50269590a1dc21",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

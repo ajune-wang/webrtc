@@ -1325,4 +1325,41 @@ TEST_F(JsepTransportControllerTest, ApplyNonRtcpMuxAnswerWhenMuxingRequired) {
                    .ok());
 }
 
+TEST_F(JsepTransportControllerTest, BundleOnSecondMediaSection) {
+  JsepTransportController::Config config;
+  config.bundle_policy = PeerConnectionInterface::kBundlePolicyMaxBundle;
+  CreateJsepTransportController(config);
+  cricket::ContentGroup bundle_group(cricket::GROUP_TYPE_BUNDLE);
+  // Bundle on the video section which is not the first one in the media section
+  // list.
+  bundle_group.AddContentName(kVideoMid1);
+  bundle_group.AddContentName(kAudioMid1);
+
+  auto local_offer = rtc::MakeUnique<cricket::SessionDescription>();
+  AddAudioSection(local_offer.get(), kAudioMid1, kIceUfrag1, kIcePwd1,
+                  cricket::ICEMODE_FULL, cricket::CONNECTIONROLE_ACTPASS,
+                  nullptr);
+  AddVideoSection(local_offer.get(), kVideoMid1, kIceUfrag2, kIcePwd2,
+                  cricket::ICEMODE_FULL, cricket::CONNECTIONROLE_ACTPASS,
+                  nullptr);
+
+  auto remote_answer = rtc::MakeUnique<cricket::SessionDescription>();
+  AddAudioSection(remote_answer.get(), kAudioMid1, kIceUfrag1, kIcePwd1,
+                  cricket::ICEMODE_FULL, cricket::CONNECTIONROLE_PASSIVE,
+                  nullptr);
+  AddVideoSection(remote_answer.get(), kVideoMid1, kIceUfrag2, kIcePwd2,
+                  cricket::ICEMODE_FULL, cricket::CONNECTIONROLE_PASSIVE,
+                  nullptr);
+
+  local_offer->AddGroup(bundle_group);
+  remote_answer->AddGroup(bundle_group);
+
+  EXPECT_TRUE(transport_controller_
+                  ->SetLocalDescription(SdpType::kOffer, local_offer.get())
+                  .ok());
+  EXPECT_TRUE(transport_controller_
+                  ->SetRemoteDescription(SdpType::kAnswer, remote_answer.get())
+                  .ok());
+}
+
 }  // namespace webrtc

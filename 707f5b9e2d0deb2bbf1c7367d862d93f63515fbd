@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e7bddb51_f2b98664",
+        "filename": "rtc_base/sanitizer_unittest.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-04-05T17:47:01Z",
+      "side": 1,
+      "message": "You don\u0027t actually have to put these in a TEST. static_assert can be placed almost anywhere, not just in a function body.",
+      "revId": "707f5b9e2d0deb2bbf1c7367d862d93f63515fbd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

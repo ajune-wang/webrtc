@@ -198,6 +198,24 @@
       "revId": "47d1e2b0837ea9555824559c00aecb7ffe040a7d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8721e5d9_1e33e4b0",
+        "filename": "rtc_base/sanitizer_unittest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-04-05T17:47:01Z",
+      "side": 1,
+      "message": "It\u0027s still an interesting case, because IsTriviallyCopyable has code to handle this case (not copy assignable). I\u0027d say you should probably handle the entire Cartesian product: copy constructor(trivial, nontrivial) x copy assignment(trivial, nontrivial, deleted) x destructor(trivial, nontrivial). It\u0027s 12 cases.",
+      "parentUuid": "18a68041_a0accca1",
+      "revId": "47d1e2b0837ea9555824559c00aecb7ffe040a7d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

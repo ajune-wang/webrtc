@@ -712,16 +712,16 @@ void JsepTransportController::HandleRejectedContent(
 
 void JsepTransportController::HandleBundledContent(
     const cricket::ContentInfo& content_info) {
+  auto jsep_transport = GetJsepTransportByName(*bundled_mid());
+  RTC_DCHECK(jsep_transport);
   // If the content is bundled, let the
   // BaseChannel/SctpTransport change the RtpTransport/DtlsTransport first,
   // then destroy the cricket::JsepTransport2.
   if (content_info.type == cricket::MediaProtocolType::kRtp) {
-    auto rtp_transport =
-        jsep_transports_by_name_[*bundled_mid()]->rtp_transport();
+    auto rtp_transport = jsep_transport->rtp_transport();
     SignalRtpTransportChanged(content_info.name, rtp_transport);
   } else {
-    auto dtls_transport =
-        jsep_transports_by_name_[*bundled_mid()]->rtp_dtls_transport();
+    auto dtls_transport = jsep_transport->rtp_dtls_transport();
     SignalDtlsTransportChanged(content_info.name, dtls_transport);
   }
   MaybeDestroyJsepTransport(content_info.name);

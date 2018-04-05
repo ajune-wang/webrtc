@@ -1983,7 +1983,9 @@ void PeerConnection::SetLocalDescription(
   // According to JSEP, after setLocalDescription, changing the candidate pool
   // size is not allowed, and changing the set of ICE servers will not result
   // in new candidates being gathered.
-  port_allocator_->FreezeCandidatePool();
+  network_thread()->Invoke<void>(
+      RTC_FROM_HERE, rtc::Bind(&cricket::PortAllocator::FreezeCandidatePool,
+                               port_allocator_.get()));
 
   // MaybeStartGathering needs to be called after posting
   // MSG_SET_SESSIONDESCRIPTION_SUCCESS, so that we don't signal any candidates
@@ -2993,8 +2995,13 @@ void PeerConnection::RegisterUMAObserver(UMAObserver* observer) {
 
   // Send information about IPv4/IPv6 status.
   if (uma_observer_) {
-    port_allocator_->SetMetricsObserver(uma_observer_);
-    if (port_allocator_->flags() & cricket::PORTALLOCATOR_ENABLE_IPV6) {
+    network_thread()->Invoke<void>(
+        RTC_FROM_HERE, rtc::Bind(&cricket::PortAllocator::SetMetricsObserver,
+                                 port_allocator_.get(), uma_observer_));
+    uint32_t flags = network_thread()->Invoke<uint32_t>(
+        RTC_FROM_HERE,
+        rtc::Bind(&cricket::PortAllocator::flags, port_allocator_.get()));
+    if (flags & cricket::PORTALLOCATOR_ENABLE_IPV6) {
       uma_observer_->IncrementEnumCounter(
           kEnumCounterAddressFamily, kPeerConnection_IPv6,
           kPeerConnectionAddressFamilyCounter_Max);
@@ -5067,7 +5074,10 @@ rtc::Optional<std::string> PeerConnection::sctp_transport_name() const {
 
 cricket::CandidateStatsList PeerConnection::GetPooledCandidateStats() const {
   cricket::CandidateStatsList candidate_states_list;
-  port_allocator_->GetCandidateStatsFromPooledSessions(&candidate_states_list);
+  network_thread()->Invoke<void>(
+      RTC_FROM_HERE,
+      rtc::Bind(&cricket::PortAllocator::GetCandidateStatsFromPooledSessions,
+                port_allocator_.get(), &candidate_states_list));
   return candidate_states_list;
 }
 

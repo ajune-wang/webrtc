@@ -49,7 +49,7 @@ ScopedVideoDecoder::ScopedVideoDecoder(WebRtcVideoDecoderFactory* factory,
 
 int32_t ScopedVideoDecoder::InitDecode(const webrtc::VideoCodec* codec_settings,
                                        int32_t number_of_cores) {
-  return decoder_->InitDecode(codec_settings, number_of_cores);
+  return decoder_->InitDecode(nullptr, number_of_cores);
 }
 
 int32_t ScopedVideoDecoder::RegisterDecodeCompleteCallback(

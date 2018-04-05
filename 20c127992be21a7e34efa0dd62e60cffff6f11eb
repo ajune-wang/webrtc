@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e859bf39_197cdef2",
+        "filename": "rtc_base/openssladapter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1070,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-05T18:26:15Z",
+      "side": 1,
+      "message": "nit: TODO comments typically use a colon instead of a hyphen",
+      "revId": "20c127992be21a7e34efa0dd62e60cffff6f11eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab595e4f_704c8525",
+        "filename": "rtc_base/openssladapter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-05T18:26:15Z",
+      "side": 1,
+      "message": "Any reason not to just include opensslsessioncache.h here?",
+      "revId": "20c127992be21a7e34efa0dd62e60cffff6f11eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c862bf79_d3c651d0",
+        "filename": "rtc_base/openssladapter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-05T18:26:15Z",
+      "side": 1,
+      "message": "Doesn\u0027t look like this is implemented.",
+      "revId": "20c127992be21a7e34efa0dd62e60cffff6f11eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc9f3f91_6c9f476a",
+        "filename": "rtc_base/openssladapter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-05T18:26:15Z",
+      "side": 1,
+      "message": "What advantage does the PIMPL pattern provide here?",
+      "revId": "20c127992be21a7e34efa0dd62e60cffff6f11eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de95f23e_1eb9ea97",
+        "filename": "rtc_base/opensslsessioncache.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-05T18:26:15Z",
+      "side": 1,
+      "message": "\"changed\"",
+      "revId": "20c127992be21a7e34efa0dd62e60cffff6f11eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "879793da_898b2a07",
+        "filename": "rtc_base/opensslsessioncache_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-05T18:26:15Z",
+      "side": 1,
+      "message": "nit: Don\u0027t need to prefix each test name with \"Verify\"",
+      "revId": "20c127992be21a7e34efa0dd62e60cffff6f11eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

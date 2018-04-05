@@ -1,0 +1,157 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0d4359eb_2abd84d8",
+        "filename": "pc/channel.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-05T17:44:57Z",
+      "side": 1,
+      "message": "Why does this happen? Oh, because Deinit is called by ~BaseChannel? Can that be removed?",
+      "revId": "3385b48acfe4ba83f044f40f630bed8a29f30c19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50237966_1d17dd43",
+        "filename": "pc/channel.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 472,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-05T17:44:57Z",
+      "side": 1,
+      "message": "Would be a good idea to add rtc::ThreadChecker to RtpTransport so that we don\u0027t accidentally introduce races (could be done in separate CL)",
+      "revId": "3385b48acfe4ba83f044f40f630bed8a29f30c19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46453c49_a91b019e",
+        "filename": "pc/channel.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 670,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-05T17:44:57Z",
+      "side": 1,
+      "message": "Need to add all SSRCs, not just first one.\n\nAlso, it may be simpler to just clear demuxer_criteria_.ssrcs before going through this loop and then add them all from scratch.",
+      "revId": "3385b48acfe4ba83f044f40f630bed8a29f30c19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31c95012_c1b87bda",
+        "filename": "pc/channel.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 863,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-05T17:44:57Z",
+      "side": 1,
+      "message": "Just realized, shouldn\u0027t this be in SetLocalContent? Local \u003d parameters for receiving, remote \u003d parameters for sending.",
+      "revId": "3385b48acfe4ba83f044f40f630bed8a29f30c19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8adefc7_4bf27510",
+        "filename": "pc/dtlssrtptransport.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-05T17:44:57Z",
+      "side": 1,
+      "message": "Why was the !IsDtlsWritable condition added?",
+      "revId": "3385b48acfe4ba83f044f40f630bed8a29f30c19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b33a374_3e91d827",
+        "filename": "pc/dtlssrtptransport.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-05T17:44:57Z",
+      "side": 1,
+      "message": "Won\u0027t this already happen inside SetRtpParams? In which case it can remain a private method for SrtpTransport",
+      "revId": "3385b48acfe4ba83f044f40f630bed8a29f30c19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8b8ca7c_c3b9d901",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 694,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-05T17:44:57Z",
+      "side": 1,
+      "message": "Calling OnRtpTransportChanged with a null pointer *should* always succeed, right? If so, could just DCHECK the return value here.",
+      "revId": "3385b48acfe4ba83f044f40f630bed8a29f30c19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d34207b4_5a6b7d50",
+        "filename": "pc/jseptransportcontroller.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-05T17:44:57Z",
+      "side": 1,
+      "message": "Can you add a brief comment mentioning what the return value means? For example: \"Returns true if media associated with |mid| was successfully set up to be demultiplexed on |rtp_transport|. Could return false if two bundled m\u003d sections use the same SSRC, for example.\"",
+      "revId": "3385b48acfe4ba83f044f40f630bed8a29f30c19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f70d2b61_40809a67",
+        "filename": "pc/jseptransportcontroller.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-05T17:44:57Z",
+      "side": 1,
+      "message": "Since this can\u0027t fail it doesn\u0027t really need a bool return.",
+      "revId": "3385b48acfe4ba83f044f40f630bed8a29f30c19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

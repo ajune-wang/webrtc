@@ -163,6 +163,30 @@
     },
     {
       "key": {
+        "uuid": "3695cd33_42b8dad7",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 936,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-04-05T22:48:36Z",
+      "side": 1,
+      "message": "I discussed both options with Taylor on my design proposal, and we concluded that it\u0027s easier (and probably better) to append metadata to the existing SignalSentPacket and keep one way of signaling sent packets instead of two.\n\nI think it makes sense to have a unified source of information for both BWE and stats.  It\u0027ll ensure that the stats reflect exactly what BWE saw.",
+      "parentUuid": "56567098_b6e664c7",
+      "range": {
+        "startLine": 936,
+        "startChar": 43,
+        "endLine": 936,
+        "endChar": 0
+      },
+      "revId": "ef03019e3eace52ba8cfdf0f5f6a663069069edf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "20a1530e_3e9606f3",
         "filename": "p2p/base/port.h",
         "patchSetId": 4
@@ -315,6 +339,54 @@
     },
     {
       "key": {
+        "uuid": "fef878b3_a63de572",
+        "filename": "rtc_base/asyncpacketsocket.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-04-05T22:48:36Z",
+      "side": 1,
+      "message": "An enum would be better, if you have one. :)",
+      "parentUuid": "dddb4a5b_048d5471",
+      "range": {
+        "startLine": 48,
+        "startChar": 23,
+        "endLine": 48,
+        "endChar": 0
+      },
+      "revId": "ef03019e3eace52ba8cfdf0f5f6a663069069edf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94c244ba_c77fa78e",
+        "filename": "rtc_base/asyncpacketsocket.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-04-05T22:48:36Z",
+      "side": 1,
+      "message": "Qingsi pointed out to me that it\u0027s not actually feasible to add a candidate id to every packet.  Things like STUN/TURN messages are not tied to a particular candidate, as those ports may be shared by multiple candidates.  We\u0027d need to fill in candidate information at an even higher level, which doesn\u0027t seem necessary.\n\nI think I would rather have the information that is pertinent to every packet, and not bloat it with options that are only sometimes meaningful.\n\nI think what\u0027s relevant is the particular network path, which is determined by the source and destination socket addresses in the SentPacket.  That should be enough to distinguish which bits of traffic can interfere with each other.\n\nI would like a way to identify the network interface for each packet, so that I can look up the rtc::Network and gather additional information from that, if I find it necessary.  That\u0027s why I also want the network id, below.  But I suppose it should be possible to identify the network interface from the local socket address, too, in which case we could probably leave that out as well.",
+      "parentUuid": "558f02ee_b12e7e5e",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 23
+      },
+      "revId": "ef03019e3eace52ba8cfdf0f5f6a663069069edf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "62e2744f_9ea94c30",
         "filename": "rtc_base/asyncpacketsocket.h",
         "patchSetId": 4
@@ -350,6 +422,30 @@
       "side": 1,
       "message": "I\u0027d suggest leaving this off; you already know whether it\u0027s a TURN packet from other fields, and I don\u0027t imagine you care whether a packet is sent from a prflx candidate or not?",
       "parentUuid": "62e2744f_9ea94c30",
+      "range": {
+        "startLine": 49,
+        "startChar": 24,
+        "endLine": 49,
+        "endChar": 0
+      },
+      "revId": "ef03019e3eace52ba8cfdf0f5f6a663069069edf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f458228_8ac96b89",
+        "filename": "rtc_base/asyncpacketsocket.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-04-05T22:48:36Z",
+      "side": 1,
+      "message": "Yeah, I don\u0027t think I really care about this unless it lets me determine overheads more accurately.  But the TURN overhead already has its own field, so I don\u0027t think I\u0027ll need this.",
+      "parentUuid": "c4d83645_6699359a",
       "range": {
         "startLine": 49,
         "startChar": 24,

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3e182de6_38322c06",
+        "filename": "modules/video_coding/codecs/test/videoprocessor.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-04-05T11:56:17Z",
+      "side": 0,
+      "message": "Nice to get rid of this!",
+      "range": {
+        "startLine": 230,
+        "startChar": 2,
+        "endLine": 231,
+        "endChar": 40
+      },
+      "revId": "db3751408e71197b39a43ad6f0704c7ecfa79078",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

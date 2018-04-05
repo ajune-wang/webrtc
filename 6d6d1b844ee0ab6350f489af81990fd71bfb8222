@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a5a8b912_3bcb0767",
+        "filename": "webrtc.gni",
+        "patchSetId": 8
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-04-05T19:27:21Z",
+      "side": 1,
+      "message": "Can be good idea to add \"GTEST_HAS_ABSL\u003d1\" define.\ngtest is absl-aware.\nWith above defined added it adds support to absl types, e.g. become aware how to nicely print absl::optional\nhttps://cs.chromium.org/chromium/src/third_party/googletest/src/googletest/include/gtest/gtest-printers.h?l\u003d766",
+      "range": {
+        "startLine": 301,
+        "startChar": 25,
+        "endLine": 301,
+        "endChar": 0
+      },
+      "revId": "6d6d1b844ee0ab6350f489af81990fd71bfb8222",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

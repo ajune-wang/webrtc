@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "319d9462_c544cd62",
+        "filename": "media/base/streamparams.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-04-05T17:36:52Z",
+      "side": 1,
+      "message": "Merge adjacent string literals? But on the other hand, maybe best to keep this CL focused.",
+      "revId": "7b98b099486d2006d0f98f4348b338283e2af4bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

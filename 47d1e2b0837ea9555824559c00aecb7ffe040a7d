@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a09056fb_7e31f2bf",
+        "filename": "rtc_base/sanitizer.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-05T14:13:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "75d43321_65f16ceb",
+      "range": {
+        "startLine": 113,
+        "startChar": 8,
+        "endLine": 113,
+        "endChar": 14
+      },
+      "revId": "47d1e2b0837ea9555824559c00aecb7ffe040a7d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c411e048_9a31eaf3",
         "filename": "rtc_base/sanitizer.h",
         "patchSetId": 12
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "bf18c86a_45196b95",
+        "filename": "rtc_base/sanitizer.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-05T14:13:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c411e048_9a31eaf3",
+      "revId": "47d1e2b0837ea9555824559c00aecb7ffe040a7d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ace6740d_ec23a1fd",
         "filename": "rtc_base/sanitizer.h",
         "patchSetId": 12
@@ -56,6 +98,24 @@
       "revId": "47d1e2b0837ea9555824559c00aecb7ffe040a7d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5b7319e_491d4fe0",
+        "filename": "rtc_base/sanitizer.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-05T14:13:07Z",
+      "side": 1,
+      "message": "Good catch. I\u0027d done that in the unit test, but not here.",
+      "parentUuid": "ace6740d_ec23a1fd",
+      "revId": "47d1e2b0837ea9555824559c00aecb7ffe040a7d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -82,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "f3c0a2ff_74ebe390",
+        "filename": "rtc_base/sanitizer_unittest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-05T14:13:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6febd229_a33c1ba2",
+      "range": {
+        "startLine": 13,
+        "startChar": 8,
+        "endLine": 13,
+        "endChar": 14
+      },
+      "revId": "47d1e2b0837ea9555824559c00aecb7ffe040a7d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0e6f68c8_6c669b02",
         "filename": "rtc_base/sanitizer_unittest.cc",
         "patchSetId": 12
@@ -96,6 +180,24 @@
       "revId": "47d1e2b0837ea9555824559c00aecb7ffe040a7d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18a68041_a0accca1",
+        "filename": "rtc_base/sanitizer_unittest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-05T14:13:07Z",
+      "side": 1,
+      "message": "Thanks.\n\nstruct Qux {\n  Qux(const Qux\u0026) \u003d default;\n  Qux\u0026 operator\u003d(const Qux\u0026) \u003d delete;  // Non copy assignable.\n  ~Qux() \u003d default;\n};\n\nThis is trivially copyable (I also checked using std::is_trivially_copyable).\nHence, I\u0027ve ignored that case.",
+      "parentUuid": "0e6f68c8_6c669b02",
+      "revId": "47d1e2b0837ea9555824559c00aecb7ffe040a7d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -90,6 +90,24 @@
     },
     {
       "key": {
+        "uuid": "d15f8c03_68de2ad2",
+        "filename": "rtc_base/openssladapter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2018-04-05T20:30:50Z",
+      "side": 1,
+      "message": "Sure, happy to follow the style guide if that is the guidance.",
+      "parentUuid": "736c52d0_093be004",
+      "revId": "20c127992be21a7e34efa0dd62e60cffff6f11eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c862bf79_d3c651d0",
         "filename": "rtc_base/openssladapter.h",
         "patchSetId": 2
@@ -143,6 +161,24 @@
     },
     {
       "key": {
+        "uuid": "a3281094_4d5cc7dc",
+        "filename": "rtc_base/openssladapter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2018-04-05T20:30:50Z",
+      "side": 1,
+      "message": "Yeah this makes sense.",
+      "parentUuid": "c2afc4d2_4a536586",
+      "revId": "20c127992be21a7e34efa0dd62e60cffff6f11eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bc9f3f91_6c9f476a",
         "filename": "rtc_base/openssladapter.h",
         "patchSetId": 2
@@ -190,6 +226,24 @@
       "side": 1,
       "message": "If this is just to speed up compile time, I\u0027d say it isn\u0027t necessary. We already have so many layers of indirection in this codebase, I\u0027m reluctant to add more unless there\u0027s a good reason.",
       "parentUuid": "b4585b57_b0190704",
+      "revId": "20c127992be21a7e34efa0dd62e60cffff6f11eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94f64878_d5d8083c",
+        "filename": "rtc_base/openssladapter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2018-04-05T20:30:50Z",
+      "side": 1,
+      "message": "Sure, I am fine with that. I am not used to the luxury of distributed builds :D",
+      "parentUuid": "217e867c_f2d89c49",
       "revId": "20c127992be21a7e34efa0dd62e60cffff6f11eb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

@@ -239,5 +239,4 @@ bool ReadWavHeader(ReadableWav* readable,
                             *bytes_per_sample, *num_samples);
 }
 
-
 }  // namespace webrtc

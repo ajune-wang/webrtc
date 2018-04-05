@@ -1,0 +1,153 @@
+/*
+ *  Copyright (c) 2018 The WebRTC project authors. All Rights Reserved.
+ *
+ *  Use of this source code is governed by a BSD-style license
+ *  that can be found in the LICENSE file in the root of the source
+ *  tree. An additional intellectual property rights grant can be found
+ *  in the file PATENTS.  All contributing project authors may
+ *  be found in the AUTHORS file in the root of the source tree.
+ */
+
+#ifndef COMMON_AUDIO_RNN_VAD_TEST_UTILS_H_
+#define COMMON_AUDIO_RNN_VAD_TEST_UTILS_H_
+
+#include <algorithm>
+#include <cfenv>
+#include <cmath>
+#include <fstream>
+#include <memory>
+#include <string>
+#include <utility>
+#include <vector>
+
+#include "api/array_view.h"
+#include "rtc_base/checks.h"
+
+namespace webrtc {
+namespace test {
+
+// Parameters for bit exactness tests.
+constexpr size_t kSampleRate48kHz = 48000;
+constexpr size_t kFrameSize10ms48kHz = 480;
+constexpr size_t kFrameSize20ms48kHz = 960;
+#if 1  // kiss fft
+constexpr size_t kFftLenght20ms48kHz = 960;
+#else
+constexpr size_t kFftLenght20ms48kHz = 1024;
+#endif
+constexpr size_t kFftNumCoeffs20ms48kHz = kFftLenght20ms48kHz / 2 + 1;
+
+// Compute the relative error given |expected| and |computed|.
+inline float ComputeRelativeError(const float expected, const float computed) {
+  return (expected == computed)  // Useful when both are 0.
+             ? 0.f
+             : std::fabs(expected - computed) /
+                   std::max(std::fabs(expected), std::fabs(computed));
+}
+
+// Fail if any pair of two equally sized rtc::ArrayView<float> views has an
+// absolute error above a given threshold.
+void ExpectNearAbsolute(rtc::ArrayView<const float> expected,
+                        rtc::ArrayView<const float> computed,
+                        const float tolerance);
+
+// Fail if any pair of two equally sized rtc::ArrayView<float> views has a
+// relative error above a given threshold.
+void ExpectNearRelative(rtc::ArrayView<const float> expected,
+                        rtc::ArrayView<const float> computed,
+                        const float tolerance);
+
+// Reader for binary files consisting of an arbitrary long sequence of elements
+// having type T. It is possible to read and cast to another type D at once.
+template <typename T, typename D = T>
+class BinaryFileReader {
+ public:
+  explicit BinaryFileReader(const std::string& file_path,
+                            const size_t chunk_size = 1)
+      : is_(file_path, std::ios::binary | std::ios::ate),
+        data_length_(is_.tellg() / sizeof(T)),
+        chunk_size_(chunk_size) {
+    RTC_CHECK_LT(0, chunk_size_);
+    RTC_CHECK(is_);
+    SeekBeginning();
+    buf_.resize(chunk_size_);
+  }
+  BinaryFileReader(const BinaryFileReader&) = delete;
+  BinaryFileReader& operator=(const BinaryFileReader&) = delete;
+  ~BinaryFileReader() = default;
+  size_t data_length() const { return data_length_; }
+  bool ReadValue(D* dst) {
+    if (std::is_same<T, D>::value) {
+      is_.read(reinterpret_cast<char*>(dst), sizeof(T));
+    } else {
+      T v;
+      is_.read(reinterpret_cast<char*>(&v), sizeof(T));
+      *dst = static_cast<D>(v);
+    }
+    return is_.gcount() == sizeof(T);
+  }
+  bool ReadChunk(rtc::ArrayView<D> dst) {
+    RTC_DCHECK_EQ(chunk_size_, dst.size());
+    const std::streamsize bytes_to_read = chunk_size_ * sizeof(T);
+    if (std::is_same<T, D>::value) {
+      is_.read(reinterpret_cast<char*>(dst.data()), bytes_to_read);
+    } else {
+      is_.read(reinterpret_cast<char*>(buf_.data()), bytes_to_read);
+      std::transform(buf_.begin(), buf_.end(), dst.begin(),
+                     [](const T& v) -> D { return static_cast<D>(v); });
+    }
+    return is_.gcount() == bytes_to_read;
+  }
+  void SeekForward(size_t items) { is_.seekg(items * sizeof(T), is_.cur); }
+  void SeekBeginning() { is_.seekg(0, is_.beg); }
+
+ private:
+  std::ifstream is_;
+  const size_t data_length_;
+  const size_t chunk_size_;
+  std::vector<T> buf_;
+};
+
+// Factories for resource file readers; the functions below return a pair where
+// the first item is a reader unique pointer and the second the number of chunks
+// that can be read from the file.
+// Instance a reader for the PCM samples (chunks size: |frame_length|).
+std::pair<std::unique_ptr<BinaryFileReader<int16_t, float>>, const size_t>
+CreatePcmSamplesReader(const size_t frame_length);
+std::pair<std::unique_ptr<BinaryFileReader<float>>, const size_t>
+CreatePreprocessedSamplesReader();
+// Instance a reader for the LP residual coefficients.
+std::pair<std::unique_ptr<BinaryFileReader<float>>, const size_t>
+CreateLpResidualReader();
+// Instance a reader for the FFT coefficients.
+std::pair<std::unique_ptr<BinaryFileReader<float>>, const size_t>
+CreateFftCoeffsReader(bool after_hpf = true);
+// Instance a reader for the band energy coefficients.
+std::pair<std::unique_ptr<BinaryFileReader<float>>, const size_t>
+CreateBandEnergyCoeffsReader();
+// Instance a reader for the spectral coefficients.
+std::pair<std::unique_ptr<BinaryFileReader<float>>, const size_t>
+CreateSpectralCoeffsReader();
+// Instance a reader for the spectral coefficients average.
+std::pair<std::unique_ptr<BinaryFileReader<float>>, const size_t>
+CreateSpectralCoeffsAvgReader();
+// Instance a reader for the spectral coefficients first derivative.
+std::pair<std::unique_ptr<BinaryFileReader<float>>, const size_t>
+CreateSpectralCoeffsDelta1Reader();
+// Instance a reader for the spectral coefficients second derivative.
+std::pair<std::unique_ptr<BinaryFileReader<float>>, const size_t>
+CreateSpectralCoeffsDelta2Reader();
+// Instance a reader for the spectral variability.
+std::pair<std::unique_ptr<BinaryFileReader<float>>, const size_t>
+CreateSpectralVariabilityReader();
+// Instance a reader for the feature matrix.
+std::pair<std::unique_ptr<BinaryFileReader<float>>, const size_t>
+CreateFeatureMatrixReader();
+// Instance a reader for the VAD probabilities.
+std::pair<std::unique_ptr<BinaryFileReader<float>>, const size_t>
+CreateVadProbsReader();
+
+}  // namespace test
+}  // namespace webrtc
+
+#endif  // COMMON_AUDIO_RNN_VAD_TEST_UTILS_H_

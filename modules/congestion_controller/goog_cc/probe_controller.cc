@@ -289,8 +289,8 @@ void ProbeController::Process(int64_t at_time_ms) {
 std::vector<ProbeClusterConfig> ProbeController::GetAndResetPendingProbes() {
   if (pending_probes_.empty())
     return std::vector<ProbeClusterConfig>();
-  std::vector<ProbeClusterConfig> pending_probes = pending_probes_;
-  pending_probes_.clear();
+  std::vector<ProbeClusterConfig> pending_probes;
+  pending_probes_.swap(pending_probes);
   return pending_probes;
 }
 

@@ -11,7 +11,11 @@
 #ifndef RTC_BASE_SANITIZER_H_
 #define RTC_BASE_SANITIZER_H_
 
-#include <stddef.h>  // for size_t
+#include <stddef.h>  // For size_t.
+
+#ifdef __cplusplus
+#include <type_traits>
+#endif
 
 #if defined(__has_feature)
 #if __has_feature(address_sanitizer)
@@ -104,6 +108,23 @@ inline void AsanUnpoison(const T& mem) {
 template <typename T>
 inline void MsanMarkUninitialized(const T& mem) {
   rtc_MsanMarkUninitialized(mem.data(), sizeof(mem.data()[0]), mem.size());
+}
+
+// TODO(b/8762): Replace with std::is_trivially_copyable when it becomes
+// available in downstream projects.
+template <typename T>
+constexpr bool IsTriviallyCopyable() {
+  return std::is_trivially_copy_constructible<T>::value &&
+         (std::is_trivially_copy_assignable<T>::value ||
+          !std::is_copy_assignable<T>::value) &&
+         std::is_trivially_destructible<T>::value;
+}
+
+template <typename T>
+inline T MsanUninitialized(T t) {
+  static_assert(IsTriviallyCopyable<T>, "");
+  rtc_MsanMarkUninitialized(&t, sizeof(T), 1);
+  return t;
 }
 
 template <typename T>

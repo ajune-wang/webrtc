@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "b8a192aa_0b75cb84",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-04-05T14:30:18Z",
+      "side": 1,
+      "message": "I would say it is enough PostPendingProbes, but it is not enough for ProbeController::Process. For example, probing is done in a 15 ms window, and in that window the packets have to be paced out.",
+      "parentUuid": "b0851897_00b6bcd8",
+      "revId": "3481f51aa1f7877141c6b5849bc99f45c0ceb75c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f55e406e_b3891da7",
         "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
         "patchSetId": 1
@@ -66,6 +84,24 @@
       "side": 1,
       "message": "Not in MaybeUpdateCongestionWindow, maybe you are thinking of MaybeTriggerOnNetworkChanged?",
       "parentUuid": "f55e406e_b3891da7",
+      "revId": "3481f51aa1f7877141c6b5849bc99f45c0ceb75c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c8305f5a_d3a80ea9",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-04-05T14:30:18Z",
+      "side": 1,
+      "message": "Oops, yes, I was thinking of MaybeTriggerOnNetworkChanged :)",
+      "parentUuid": "9f92dfc4_ed75ff46",
       "revId": "3481f51aa1f7877141c6b5849bc99f45c0ceb75c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

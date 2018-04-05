@@ -433,7 +433,6 @@ struct VideoCodecVP8 {
   bool automaticResizeOn;
   bool frameDroppingOn;
   int keyFrameInterval;
-  TemporalLayersFactory* tl_factory;
 };
 
 // VP9 specific.

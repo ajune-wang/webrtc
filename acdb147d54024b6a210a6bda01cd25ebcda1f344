@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "67b11b87_d334e9b8",
+        "filename": "sdk/objc/Framework/Classes/Metal/RTCMTLVideoView.m",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2018-04-05T09:12:36Z",
+      "side": 1,
+      "message": "I guess `self.videoFrame` could still potentially be set from outside while this code is running? Maybe the code between checking the self.videoFrame type and sending it to the selected renderer should be synchronized.",
+      "revId": "acdb147d54024b6a210a6bda01cd25ebcda1f344",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

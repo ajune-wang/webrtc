@@ -659,6 +659,44 @@ TEST_P(PeerConnectionBundleTest, BundleOnFirstMidInAnswer) {
   EXPECT_EQ(caller->voice_rtp_transport(), caller->video_rtp_transport());
 }
 
+// This tests that changing the pre-negotiated BUNDLE tag is not supported.
+TEST_P(PeerConnectionBundleTest, RejectDescriptionChangingBundleTag) {
+  RTCConfiguration config;
+  config.bundle_policy = BundlePolicy::kBundlePolicyMaxBundle;
+  auto caller = CreatePeerConnectionWithAudioVideo(config);
+  auto callee = CreatePeerConnectionWithAudioVideo(config);
+
+  RTCOfferAnswerOptions options;
+  options.use_rtp_mux = true;
+  auto offer = caller->CreateOfferAndSetAsLocal(options);
+
+  // Create a new bundle-group with different bundled_mid.
+  auto* old_bundle_group =
+      offer->description()->GetGroupByName(cricket::GROUP_TYPE_BUNDLE);
+  std::string first_mid = old_bundle_group->content_names()[0];
+  std::string second_mid = old_bundle_group->content_names()[1];
+  cricket::ContentGroup new_bundle_group(cricket::GROUP_TYPE_BUNDLE);
+  new_bundle_group.AddContentName(second_mid);
+
+  auto re_offer = CloneSessionDescription(offer.get());
+  callee->SetRemoteDescription(std::move(offer));
+  auto answer = callee->CreateAnswer(options);
+  // Reject the first MID.
+  answer->description()->contents()[0].rejected = true;
+  // Remove the first MID from the bundle group.
+  answer->description()->RemoveGroupByName(cricket::GROUP_TYPE_BUNDLE);
+  answer->description()->AddGroup(new_bundle_group);
+  // The answer is expected to be rejected.
+  EXPECT_FALSE(caller->SetRemoteDescription(std::move(answer)));
+
+  // Do the same thing for re-offer.
+  re_offer->description()->contents()[0].rejected = true;
+  re_offer->description()->RemoveGroupByName(cricket::GROUP_TYPE_BUNDLE);
+  re_offer->description()->AddGroup(new_bundle_group);
+  // The re-offer is expected to be rejected.
+  EXPECT_FALSE(caller->SetLocalDescription(std::move(re_offer)));
+}
+
 INSTANTIATE_TEST_CASE_P(PeerConnectionBundleTest,
                         PeerConnectionBundleTest,
                         Values(SdpSemantics::kPlanB,

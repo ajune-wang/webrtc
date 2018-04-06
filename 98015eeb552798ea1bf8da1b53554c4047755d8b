@@ -22,6 +22,30 @@
       "revId": "98015eeb552798ea1bf8da1b53554c4047755d8b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14d778eb_daf25ba9",
+        "filename": "test/fpe_observer_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-06T08:38:08Z",
+      "side": 1,
+      "message": "Thanks. I\u0027ve found the Mac specific flag which is FE_UNNORMAL. Fixed as you suggest.",
+      "parentUuid": "b8ff2258_59a0aab1",
+      "range": {
+        "startLine": 88,
+        "startChar": 2,
+        "endLine": 88,
+        "endChar": 52
+      },
+      "revId": "98015eeb552798ea1bf8da1b53554c4047755d8b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

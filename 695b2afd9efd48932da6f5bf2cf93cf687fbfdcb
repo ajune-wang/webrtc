@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "0dc0b878_59337b42",
+        "filename": "sdk/objc/Framework/Classes/Metal/RTCMTLNV12Renderer.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-04-06T07:31:05Z",
+      "side": 1,
+      "message": "The thinking with adding the DCHECK is to make sure that never happens. If I add a check immediately after the assertion it kind of renders the assertion pointless, no?",
+      "parentUuid": "e11e76eb_38dee94c",
+      "range": {
+        "startLine": 89,
+        "startChar": 66,
+        "endLine": 89,
+        "endChar": 67
+      },
+      "revId": "695b2afd9efd48932da6f5bf2cf93cf687fbfdcb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fe459bd3_f242fd3a",
         "filename": "sdk/objc/Framework/Classes/Metal/RTCMTLVideoView.m",
         "patchSetId": 2
@@ -39,6 +63,24 @@
       "revId": "695b2afd9efd48932da6f5bf2cf93cf687fbfdcb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2f971e9_07d0a8be",
+        "filename": "sdk/objc/Framework/Classes/Metal/RTCMTLVideoView.m",
+        "patchSetId": 2
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-04-06T07:31:05Z",
+      "side": 1,
+      "message": "Yes, that\u0027s almost certainly what is happening. The two methods are called from different threads.",
+      "parentUuid": "fe459bd3_f242fd3a",
+      "revId": "695b2afd9efd48932da6f5bf2cf93cf687fbfdcb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

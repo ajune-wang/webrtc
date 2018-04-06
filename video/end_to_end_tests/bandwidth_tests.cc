@@ -292,7 +292,8 @@ TEST_P(BandwidthEndToEndTest, ReportsSetEncoderRates) {
         VideoSendStream::Config* send_config,
         std::vector<VideoReceiveStream::Config>* receive_configs,
         VideoEncoderConfig* encoder_config) override {
-      send_config->encoder_settings.encoder = this;
+      // TODO(nisse): XXX = this;
+      send_config->encoder_settings.encoder_factory = nullptr;
       RTC_DCHECK_EQ(1, encoder_config->number_of_streams);
     }
 

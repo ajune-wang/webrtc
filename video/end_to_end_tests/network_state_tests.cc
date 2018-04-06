@@ -77,12 +77,13 @@ void NetworkStateEndToEndTest::VerifyNewVideoSendStreamsRespectNetworkState(
     MediaType network_to_bring_up,
     VideoEncoder* encoder,
     Transport* transport) {
-  task_queue_.SendTask([this, network_to_bring_up, encoder, transport]() {
+  task_queue_.SendTask([this, network_to_bring_up,  transport]() {
     CreateSenderCall(Call::Config(event_log_.get()));
     sender_call_->SignalChannelNetworkState(network_to_bring_up, kNetworkUp);
 
     CreateSendConfig(1, 0, 0, transport);
-    video_send_config_.encoder_settings.encoder = encoder;
+    // TODO(nisse): XXX = encoder;
+    video_send_config_.encoder_settings.encoder_factory = nullptr;
     CreateVideoStreams();
     CreateFrameGeneratorCapturer(kDefaultFramerate, kDefaultWidth,
                                  kDefaultHeight);
@@ -197,7 +198,8 @@ TEST_F(NetworkStateEndToEndTest, RespectsNetworkState) {
         VideoSendStream::Config* send_config,
         std::vector<VideoReceiveStream::Config>* receive_configs,
         VideoEncoderConfig* encoder_config) override {
-      send_config->encoder_settings.encoder = this;
+      // TODO(nisse): XXX = this;
+      send_config->encoder_settings.encoder_factory = nullptr;
     }
 
     void PerformTest() override {

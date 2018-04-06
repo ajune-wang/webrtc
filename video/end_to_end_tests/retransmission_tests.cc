@@ -437,7 +437,8 @@ void RetransmissionEndToEndTest::DecodesRetransmittedFrame(bool enable_rtx,
       // Configure encoding and decoding with VP8, since generic packetization
       // doesn't support FEC with NACK.
       RTC_DCHECK_EQ(1, (*receive_configs)[0].decoders.size());
-      send_config->encoder_settings.encoder = encoder_.get();
+      // TODO(nisse): XXX = encoder.get();
+      send_config->encoder_settings.encoder_factory = nullptr;
       send_config->rtp.payload_name = "VP8";
       encoder_config->codec_type = kVideoCodecVP8;
       (*receive_configs)[0].decoders[0].payload_name = "VP8";

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "88e493a1_7dd0f229",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 725,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-04-06T09:39:02Z",
+      "side": 1,
+      "message": "Can we change MaximumFrameSizeForBitrate() into a helper method covering this entire if statement? Seems this is the only place it\u0027s used, and now we have a duplication of the kMaxInitalFrameDrop logic which isn\u0027t entirely straightforward.",
+      "range": {
+        "startLine": 725,
+        "startChar": 10,
+        "endLine": 725,
+        "endChar": 36
+      },
+      "revId": "ebf8a94957061d17a2abae3fb3ec39a20d2b5684",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

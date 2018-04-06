@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6a9bca64_a228354b",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 643,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-06T17:58:14Z",
+      "side": 1,
+      "message": "Even with this case prevented, there are still other things that will cause a crash. For example:\n\nOffer 1 (with max-bundle):\n\na\u003dgroup:BUNDLE audio video data\nm\u003daudio 9\n...\nm\u003dvideo 9\n...\nm\u003dapplication 9\n...\n\nOffer 2:\n\na\u003dgroup:BUNDLE audio video\nm\u003daudio 0\n...\nm\u003dvideo 0\n...\nm\u003dapplication 9\n...\n\nAs soon as \"bundle_group_ \u003d new_bundle_group\" happens, we forget about everything in the previous bundle group, and as a result don\u0027t fire signals for those MIDs. Something needs to be done to more robustly handle a bundle group being changed. At minimum, ensuring that all appropriate callbacks are invoked before destroying a transport.\n\nI have some general ideas how this could be done, so if you need ideas let\u0027s chat.\n\nSome other things I noticed which we should also fix:\n\n* We allow the answer to contain a BUNDLE group that\u0027s not a subset of the offered group. That should be an error.\n* We allow a BUNDLE group to contain a MID that no m\u003d section has, which should also be an error.\n* If an answer removes an m\u003d section from an established BUNDLE group, we create a JsepTransport for it... Only offers should be able to create new transports. An answer shouldn\u0027t be able to remove an m\u003d section from an established group without rejecting it.",
+      "revId": "22fe8443d7ea08d640d4fabd4d4e92ad0c85a408",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

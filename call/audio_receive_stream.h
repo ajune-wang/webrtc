@@ -68,6 +68,8 @@ class AudioReceiveStream {
     int32_t decoding_plc_cng = 0;
     int32_t decoding_muted_output = 0;
     int64_t capture_start_ntp_time_ms = 0;
+    Stats();
+    ~Stats();
   };
 
   struct Config {
@@ -94,6 +96,9 @@ class AudioReceiveStream {
 
       // RTP header extensions used for the received stream.
       std::vector<RtpExtension> extensions;
+
+      Rtp();
+      ~Rtp();
     } rtp;
 
     Transport* rtcp_send_transport = nullptr;
@@ -113,6 +118,9 @@ class AudioReceiveStream {
     rtc::scoped_refptr<AudioDecoderFactory> decoder_factory;
 
     rtc::Optional<AudioCodecPairId> codec_pair_id;
+
+    Config();
+    ~Config();
   };
 
   // Reconfigure the stream according to the Configuration.

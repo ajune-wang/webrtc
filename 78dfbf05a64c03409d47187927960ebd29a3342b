@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f9eebea4_18dc76ad",
+        "filename": "modules/congestion_controller/rtp/send_side_congestion_controller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 641,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-04-06T07:56:43Z",
+      "side": 1,
+      "message": "Is this all use of |control_handler_|? Could consider making it an observer of NetworkControlUpdate instead (for another cl, I guess). It\u0027s a bit unclear to me what the \"control handler\" represents, but I guess it\u0027s the \"actuator\" part of the congestion control system?",
+      "range": {
+        "startLine": 631,
+        "startChar": 0,
+        "endLine": 641,
+        "endChar": 1
+      },
+      "revId": "78dfbf05a64c03409d47187927960ebd29a3342b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

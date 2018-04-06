@@ -22,6 +22,30 @@
       "revId": "1b573f6311e515e14bd022c556e482cdb046f2ee",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6a7bcf4_cd9ff3bb",
+        "filename": "sdk/android/api/org/webrtc/JavaI420Buffer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-04-06T14:10:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "36a1a222_17886677",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 39
+      },
+      "revId": "1b573f6311e515e14bd022c556e482cdb046f2ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

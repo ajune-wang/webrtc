@@ -109,6 +109,7 @@ BasicPortAllocator::BasicPortAllocator(
   SetConfiguration(ServerAddresses(), std::vector<RelayServerConfig>(),
                    0, false, customizer);
   Construct();
+  thread_checker_.DetachFromThread();
 }
 
 BasicPortAllocator::BasicPortAllocator(
@@ -118,6 +119,7 @@ BasicPortAllocator::BasicPortAllocator(
   RTC_DCHECK(relay_port_factory_ != nullptr);
   RTC_DCHECK(network_manager_ != nullptr);
   Construct();
+  thread_checker_.DetachFromThread();
 }
 
 BasicPortAllocator::BasicPortAllocator(
@@ -131,6 +133,7 @@ BasicPortAllocator::BasicPortAllocator(
   SetConfiguration(stun_servers, std::vector<RelayServerConfig>(), 0, false,
                    nullptr);
   Construct();
+  thread_checker_.DetachFromThread();
 }
 
 BasicPortAllocator::BasicPortAllocator(
@@ -161,6 +164,7 @@ BasicPortAllocator::BasicPortAllocator(
 
   SetConfiguration(stun_servers, turn_servers, 0, false, nullptr);
   Construct();
+  thread_checker_.DetachFromThread();
 }
 
 void BasicPortAllocator::Construct() {
@@ -186,6 +190,7 @@ void BasicPortAllocator::OnIceRegathering(PortAllocatorSession* session,
 }
 
 BasicPortAllocator::~BasicPortAllocator() {
+  CheckRunOnValidThread();
   // Our created port allocator sessions depend on us, so destroy our remaining
   // pooled sessions before anything else.
   DiscardCandidatePool();
@@ -195,12 +200,14 @@ void BasicPortAllocator::SetNetworkIgnoreMask(int network_ignore_mask) {
   // TODO(phoglund): implement support for other types than loopback.
   // See https://code.google.com/p/webrtc/issues/detail?id=4288.
   // Then remove set_network_ignore_list from NetworkManager.
+  CheckRunOnValidThreadIfInitialized();
   network_ignore_mask_ = network_ignore_mask;
 }
 
 PortAllocatorSession* BasicPortAllocator::CreateSessionInternal(
     const std::string& content_name, int component,
     const std::string& ice_ufrag, const std::string& ice_pwd) {
+  CheckRunOnValidThread();
   PortAllocatorSession* session = new BasicPortAllocatorSession(
       this, content_name, component, ice_ufrag, ice_pwd);
   session->SignalIceRegathering.connect(this,
@@ -209,6 +216,7 @@ PortAllocatorSession* BasicPortAllocator::CreateSessionInternal(
 }
 
 void BasicPortAllocator::AddTurnServer(const RelayServerConfig& turn_server) {
+  CheckRunOnValidThread();
   std::vector<RelayServerConfig> new_turn_servers = turn_servers();
   new_turn_servers.push_back(turn_server);
   SetConfiguration(stun_servers(), new_turn_servers, candidate_pool_size(),

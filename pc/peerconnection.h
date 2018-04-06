@@ -669,6 +669,8 @@ class PeerConnection : public PeerConnectionInternal,
   // Returns RTCError::OK() if there are no issues.
   RTCError ValidateConfiguration(const RTCConfiguration& config) const;
 
+  void SetMetricsObserver_n(UMAObserver* observer);
+
   cricket::ChannelManager* channel_manager() const;
   MetricsObserverInterface* metrics_observer() const;
 

@@ -455,11 +455,8 @@ void VideoRtpSender::SetVideoSend() {
       options.is_screencast = true;
       break;
   }
-  // |track_->enabled()| hops to the signaling thread, so call it before we hop
-  // to the worker thread or else it will deadlock.
-  bool track_enabled = track_->enabled();
   bool success = worker_thread_->Invoke<bool>(RTC_FROM_HERE, [&] {
-    return media_channel_->SetVideoSend(ssrc_, track_enabled, &options, track_);
+      return media_channel_->SetVideoSend(ssrc_, &options, track_);
   });
   RTC_DCHECK(success);
 }
@@ -475,7 +472,7 @@ void VideoRtpSender::ClearVideoSend() {
   // This the normal case when the underlying media channel has already been
   // deleted.
   worker_thread_->Invoke<bool>(RTC_FROM_HERE, [&] {
-    return media_channel_->SetVideoSend(ssrc_, false, nullptr, nullptr);
+    return media_channel_->SetVideoSend(ssrc_, nullptr, nullptr);
   });
 }
 

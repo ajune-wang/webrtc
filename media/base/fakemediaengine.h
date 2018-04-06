@@ -178,6 +178,7 @@ template <class Base> class RtpHelper : public Base {
     return false;
   }
 
+  // TODO(nisse): Delete.
   bool IsStreamMuted(uint32_t ssrc) const {
     bool ret = muted_streams_.find(ssrc) != muted_streams_.end();
     // If |ssrc = 0| check if the first send stream is muted.
@@ -577,13 +578,9 @@ class FakeVideoMediaChannel : public RtpHelper<VideoMediaChannel> {
   bool SetSend(bool send) override { return set_sending(send); }
   bool SetVideoSend(
       uint32_t ssrc,
-      bool enable,
       const VideoOptions* options,
       rtc::VideoSourceInterface<webrtc::VideoFrame>* source) override {
-    if (!RtpHelper<VideoMediaChannel>::MuteStream(ssrc, !enable)) {
-      return false;
-    }
-    if (enable && options) {
+    if (options) {
       if (!SetOptions(*options)) {
         return false;
       }

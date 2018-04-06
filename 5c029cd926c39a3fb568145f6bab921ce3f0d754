@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "6378119d_06705b55",
+        "filename": "api/video/video_frame_marking.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-04-06T11:26:16Z",
+      "side": 1,
+      "message": "tl0_pic_idx? to align with CodecSpecificInfoH264",
+      "range": {
+        "startLine": 24,
+        "startChar": 10,
+        "endLine": 24,
+        "endChar": 23
+      },
+      "revId": "5c029cd926c39a3fb568145f6bab921ce3f0d754",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b08c63b1_b88262bc",
         "filename": "modules/rtp_rtcp/source/rtp_header_extensions.cc",
         "patchSetId": 2
@@ -13,6 +36,75 @@
       "writtenOn": "2018-03-15T14:05:15Z",
       "side": 1,
       "message": "Frame markings for non scalable streams are not supported\n\nCheck https://codereview.webrtc.org/2954503002/patch/180001/190008 for supporting it",
+      "revId": "5c029cd926c39a3fb568145f6bab921ce3f0d754",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c59b194_ceb81964",
+        "filename": "modules/video_coding/codecs/h264/h264_encoder_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-04-06T11:26:16Z",
+      "side": 1,
+      "message": "frame tid tl0sync_limit_ idr tl0_sync\n0     0   0              1   1\n1     2   100            0   1\n2     1   2              0   1\n3     2   1              0   0\n4     0   2              0   0\n5     2   100            0   1  \u003c--- this is only correct if encoder doesn\u0027t use multireference.\n\nIs encoder configured to use only previous reference frame for prediction?",
+      "range": {
+        "startLine": 415,
+        "startChar": 0,
+        "endLine": 418,
+        "endChar": 46
+      },
+      "revId": "5c029cd926c39a3fb568145f6bab921ce3f0d754",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31663aa7_0582d19f",
+        "filename": "modules/video_coding/include/video_codec_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-04-06T11:26:16Z",
+      "side": 1,
+      "message": "rename to base_layer_sync?",
+      "range": {
+        "startLine": 77,
+        "startChar": 7,
+        "endLine": 77,
+        "endChar": 15
+      },
+      "revId": "5c029cd926c39a3fb568145f6bab921ce3f0d754",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c485a054_129fafda",
+        "filename": "modules/video_coding/rtp_frame_reference_finder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 599,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-04-06T11:26:16Z",
+      "side": 1,
+      "message": "Please add unit test for this func.",
+      "range": {
+        "startLine": 599,
+        "startChar": 64,
+        "endLine": 599,
+        "endChar": 79
+      },
       "revId": "5c029cd926c39a3fb568145f6bab921ce3f0d754",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

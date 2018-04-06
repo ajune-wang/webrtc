@@ -1324,5 +1324,4 @@ TEST_F(JsepTransportControllerTest, ApplyNonRtcpMuxAnswerWhenMuxingRequired) {
                    ->SetRemoteDescription(SdpType::kAnswer, remote_answer.get())
                    .ok());
 }
-
 }  // namespace webrtc

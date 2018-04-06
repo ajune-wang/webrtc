@@ -297,7 +297,7 @@ void PictureIdTest::SetupEncoder(VideoEncoder* encoder,
   observer_.reset(
       new PictureIdObserver(PayloadNameToRtpVideoCodecType(payload_name)));
 
-  task_queue_.SendTask([this, &encoder, payload_name]() {
+  task_queue_.SendTask([this, payload_name]() {
     Call::Config config(event_log_.get());
     CreateCalls(config, config);
 
@@ -307,7 +307,8 @@ void PictureIdTest::SetupEncoder(VideoEncoder* encoder,
         FakeNetworkPipe::Config()));
 
     CreateSendConfig(kNumSimulcastStreams, 0, 0, send_transport_.get());
-    video_send_config_.encoder_settings.encoder = encoder;
+    // TODO(nisse): XXX = encoder;
+    video_send_config_.encoder_settings.encoder_factory = nullptr;
     video_send_config_.rtp.payload_name = payload_name;
     video_encoder_config_.codec_type = PayloadStringToCodecType(payload_name);
     video_encoder_config_.video_stream_factory =

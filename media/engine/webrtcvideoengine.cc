@@ -1660,8 +1660,6 @@ WebRtcVideoChannel::WebRtcVideoSendStream::~WebRtcVideoSendStream() {
   if (stream_ != NULL) {
     call_->DestroyVideoSendStream(stream_);
   }
-  // Release |allocated_encoder_|.
-  allocated_encoder_.reset();
 }
 
 bool WebRtcVideoChannel::WebRtcVideoSendStream::SetVideoSend(
@@ -1737,26 +1735,6 @@ void WebRtcVideoChannel::WebRtcVideoSendStream::SetCodec(
   parameters_.encoder_config = CreateVideoEncoderConfig(codec_settings.codec);
   RTC_DCHECK_GT(parameters_.encoder_config.number_of_streams, 0);
 
-  const webrtc::SdpVideoFormat format(codec_settings.codec.name,
-                                      codec_settings.codec.params);
-
-  // We can't overwrite |allocated_encoder_| immediately, because we
-  // need to release it after the RecreateWebRtcStream() call.
-  std::unique_ptr<webrtc::VideoEncoder> new_encoder =
-      // TODO(nisse): Leave to VideoStreamEncoder.
-      parameters_.config.encoder_settings.encoder_factory->CreateVideoEncoder(
-          format);
-
-  parameters_.config.encoder_settings.encoder = new_encoder.get();
-
-  const webrtc::VideoEncoderFactory::CodecInfo info =
-      parameters_.config.encoder_settings.encoder_factory->QueryVideoEncoder(
-          format);
-  parameters_.config.encoder_settings.full_overuse_time =
-      info.is_hardware_accelerated;
-  parameters_.config.encoder_settings.internal_source =
-      info.has_internal_source;
-
   parameters_.config.rtp.payload_name = codec_settings.codec.name;
   parameters_.config.rtp.payload_type = codec_settings.codec.id;
   parameters_.config.rtp.ulpfec = codec_settings.ulpfec;
@@ -1782,7 +1760,6 @@ void WebRtcVideoChannel::WebRtcVideoSendStream::SetCodec(
 
   RTC_LOG(LS_INFO) << "RecreateWebRtcStream (send) because of SetCodec.";
   RecreateWebRtcStream();
-  allocated_encoder_ = std::move(new_encoder);
 }
 
 void WebRtcVideoChannel::WebRtcVideoSendStream::SetSendParameters(
@@ -1811,14 +1788,6 @@ void WebRtcVideoChannel::WebRtcVideoSendStream::SetSendParameters(
     parameters_.conference_mode = *params.conference_mode;
   }
 
-  // Set codecs and options.
-  if (params.codec) {
-    SetCodec(*params.codec);
-    recreate_stream = false;  // SetCodec has already recreated the stream.
-  } else if (params.conference_mode && parameters_.codec_settings) {
-    SetCodec(*parameters_.codec_settings);
-    recreate_stream = false;  // SetCodec has already recreated the stream.
-  }
   if (recreate_stream) {
     RTC_LOG(LS_INFO)
         << "RecreateWebRtcStream (send) because of SetSendParameters";
@@ -1915,7 +1884,8 @@ WebRtcVideoChannel::WebRtcVideoSendStream::CreateVideoEncoderConfig(
   RTC_DCHECK_RUN_ON(&thread_checker_);
   webrtc::VideoEncoderConfig encoder_config;
   encoder_config.codec_type = webrtc::PayloadStringToCodecType(codec.name);
-
+  encoder_config.video_format =
+      webrtc::SdpVideoFormat(codec.name, codec.params);
   bool is_screencast = parameters_.options.is_screencast.value_or(false);
   if (is_screencast) {
     encoder_config.min_transmit_bitrate_bps =

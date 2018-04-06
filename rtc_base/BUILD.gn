@@ -1180,7 +1180,9 @@ if (rtc_include_tests) {
 
   rtc_source_set("rtc_base_approved_unittests") {
     testonly = true
-
+    if (is_msan) {
+      cflags = [ "-fsanitize=memory" ]
+    }
     sources = [
       "atomicops_unittest.cc",
       "base64_unittest.cc",
@@ -1213,6 +1215,7 @@ if (rtc_include_tests) {
       "rate_statistics_unittest.cc",
       "ratetracker_unittest.cc",
       "refcountedobject_unittest.cc",
+      "sanitizer_unittest.cc",
       "string_to_number_unittest.cc",
       "stringencode_unittest.cc",
       "stringize_macros_unittest.cc",
@@ -1236,6 +1239,7 @@ if (rtc_include_tests) {
       ":rtc_task_queue",
       ":safe_compare",
       ":safe_minmax",
+      ":sanitizer",
       ":stringutils",
       "../api:array_view",
       "../system_wrappers:system_wrappers",

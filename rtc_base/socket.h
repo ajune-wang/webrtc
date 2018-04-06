@@ -123,13 +123,57 @@ inline bool IsBlockingError(int e) {
   return (e == EWOULDBLOCK) || (e == EAGAIN) || (e == EINPROGRESS);
 }
 
+enum class PacketType {
+  kUnknown,
+  kAudio,
+  kVideo,
+  kData,
+  kIceConnectivityCheck,
+  kIceConnectivityCheckResponse,
+  kStunMessage,
+  kTurnMessage,
+};
+
+enum class PacketInfoProtocolType {
+  kUnknown,
+  kUdp,
+  kTcp,
+  kSsltcp,
+  kTls,
+};
+
+enum class PacketInfoPortType {
+  kUnknown,
+  kLocal,
+  kStun,
+  kPrflx,
+  kRelay,
+};
+
+struct PacketInfo {
+  PacketInfo();
+  PacketInfo(const PacketInfo& info);
+  ~PacketInfo();
+
+  PacketType packet_type;
+  PacketInfoProtocolType protocol;
+  PacketInfoPortType port_type;
+  // A unique id assigned by the network manager.
+  uint16_t network_id;
+  size_t packet_size_bytes;
+  size_t turn_overhead_bytes;
+  SocketAddress local_socket_address;
+  SocketAddress remote_socket_address;
+};
+
 struct SentPacket {
-  SentPacket() : packet_id(-1), send_time_ms(-1) {}
-  SentPacket(int packet_id, int64_t send_time_ms)
-      : packet_id(packet_id), send_time_ms(send_time_ms) {}
+  SentPacket();
+  SentPacket(int packet_id, int64_t send_time_ms);
+  SentPacket(int packet_id, int64_t send_time_ms, const rtc::PacketInfo& info);
 
   int packet_id;
   int64_t send_time_ms;
+  rtc::PacketInfo info;
 };
 
 // General interface for the socket implementations of various networks.  The

@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "faa9d746_f3139152",
+        "filename": "pc/channel.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-04-06T18:03:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d4359eb_2abd84d8",
+      "revId": "3385b48acfe4ba83f044f40f630bed8a29f30c19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "50237966_1d17dd43",
         "filename": "pc/channel.cc",
         "patchSetId": 12
@@ -33,6 +51,24 @@
       "revId": "3385b48acfe4ba83f044f40f630bed8a29f30c19",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "edc8c6f9_bf9b00ae",
+        "filename": "pc/channel.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 472,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-04-06T18:03:18Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "50237966_1d17dd43",
+      "revId": "3385b48acfe4ba83f044f40f630bed8a29f30c19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "7a583bc0_f48afe99",
+        "filename": "pc/channel.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 670,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-04-06T18:03:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "46453c49_a91b019e",
+      "revId": "3385b48acfe4ba83f044f40f630bed8a29f30c19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "31c95012_c1b87bda",
         "filename": "pc/channel.cc",
         "patchSetId": 12
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "5a05e6ba_94d1693d",
+        "filename": "pc/channel.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 863,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-04-06T18:03:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "31c95012_c1b87bda",
+      "revId": "3385b48acfe4ba83f044f40f630bed8a29f30c19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a8adefc7_4bf27510",
         "filename": "pc/dtlssrtptransport.cc",
         "patchSetId": 12
@@ -81,6 +153,24 @@
       "writtenOn": "2018-04-05T17:44:57Z",
       "side": 1,
       "message": "Why was the !IsDtlsWritable condition added?",
+      "revId": "3385b48acfe4ba83f044f40f630bed8a29f30c19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53e87c77_9b031d8f",
+        "filename": "pc/dtlssrtptransport.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-04-06T18:03:18Z",
+      "side": 1,
+      "message": "IsDtlsWritable() means DtlsHandshakeCompleted + remote finger print is verified.\n\nMaybe we don\u0027t even need DtlsHandshakeCompleted. What do you think? It might delay setting up.",
+      "parentUuid": "a8adefc7_4bf27510",
       "revId": "3385b48acfe4ba83f044f40f630bed8a29f30c19",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -104,6 +194,24 @@
     },
     {
       "key": {
+        "uuid": "e98e9027_b9897afb",
+        "filename": "pc/dtlssrtptransport.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-04-06T18:03:18Z",
+      "side": 1,
+      "message": "Yes, I don\u0027t know what I was thinking before. Done.",
+      "parentUuid": "3b33a374_3e91d827",
+      "revId": "3385b48acfe4ba83f044f40f630bed8a29f30c19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e8b8ca7c_c3b9d901",
         "filename": "pc/jseptransportcontroller.cc",
         "patchSetId": 12
@@ -118,6 +226,24 @@
       "revId": "3385b48acfe4ba83f044f40f630bed8a29f30c19",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0b83eb0_3dc1acc4",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 694,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-04-06T18:03:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e8b8ca7c_c3b9d901",
+      "revId": "3385b48acfe4ba83f044f40f630bed8a29f30c19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -138,6 +264,24 @@
     },
     {
       "key": {
+        "uuid": "360018bf_6df85655",
+        "filename": "pc/jseptransportcontroller.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-04-06T18:03:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d34207b4_5a6b7d50",
+      "revId": "3385b48acfe4ba83f044f40f630bed8a29f30c19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f70d2b61_40809a67",
         "filename": "pc/jseptransportcontroller.h",
         "patchSetId": 12
@@ -152,6 +296,24 @@
       "revId": "3385b48acfe4ba83f044f40f630bed8a29f30c19",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d37556df_8e380a41",
+        "filename": "pc/jseptransportcontroller.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-04-06T18:03:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f70d2b61_40809a67",
+      "revId": "3385b48acfe4ba83f044f40f630bed8a29f30c19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

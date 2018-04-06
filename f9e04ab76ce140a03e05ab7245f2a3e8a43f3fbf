@@ -22,6 +22,30 @@
       "revId": "f9e04ab76ce140a03e05ab7245f2a3e8a43f3fbf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96a8d747_f285806d",
+        "filename": "modules/congestion_controller/rtp/send_side_congestion_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-04-06T09:56:00Z",
+      "side": 1,
+      "message": "I hope I can be excused for getting a little confused about this type of code...\n\nIn the case that Stop is called on the task queue in question, I now see there\u0027s no PostTask, and the setting of the flag is fully synchronous. So no race there.",
+      "parentUuid": "19d0dabf_701290ba",
+      "range": {
+        "startLine": 136,
+        "startChar": 6,
+        "endLine": 136,
+        "endChar": 48
+      },
+      "revId": "f9e04ab76ce140a03e05ab7245f2a3e8a43f3fbf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

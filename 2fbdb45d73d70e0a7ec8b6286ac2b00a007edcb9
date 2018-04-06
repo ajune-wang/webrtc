@@ -142,6 +142,24 @@
     },
     {
       "key": {
+        "uuid": "dddd4c2d_b4e0855b",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1988,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-06T18:41:47Z",
+      "side": 1,
+      "message": "Sorry, I was wrong about this. SetConfiguration doesn\u0027t take care of the second part of the comment, \"changing the set of ICE servers will not result in new candidates being gathered\". Note this early return: https://cs.chromium.org/chromium/src/third_party/webrtc/p2p/base/portallocator.cc?l\u003d133\u0026rcl\u003d3ab5c40f72ef640a4decfe16d5787bf7da990473\n\nI don\u0027t like doing a thread hop just to satisfy a thread check, though... How about this: PeerConnection can store \"candidate_pool_frozen_\" and pass it as an argument into PortAllocator::SetConfiguration?",
+      "parentUuid": "ad1995ba_d1c5e5f7",
+      "revId": "2fbdb45d73d70e0a7ec8b6286ac2b00a007edcb9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "84dc24ba_c7adca45",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 4
@@ -171,6 +189,24 @@
       "side": 1,
       "message": "Our current code assumes the methods of the metric observer are on the same thread as the peer connection, and RegisterUMAObserver is called after the peer connection is created and the port allocator initialized. We can save one thread hop by moving PortAllocator::SetMetricsObserver to JsepTransportController::SetMetricsObserver, but it feels awkward to bundle the thread hopping of that getter of flags somewhere else. What do you think?",
       "parentUuid": "84dc24ba_c7adca45",
+      "revId": "2fbdb45d73d70e0a7ec8b6286ac2b00a007edcb9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c474457_03482dd1",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 3003,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-06T18:41:47Z",
+      "side": 1,
+      "message": "If it feels awkward to move these \"IncrementEnumCounter\"s to JsepTransportController::SetMetricsObserver or PeerConnection::SetMetricsObserver_n, another option would be doing it from a lambda.",
+      "parentUuid": "f2730469_00cb8aad",
       "revId": "2fbdb45d73d70e0a7ec8b6286ac2b00a007edcb9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

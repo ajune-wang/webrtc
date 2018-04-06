@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "77141fe9_762175be",
+        "filename": "p2p/base/portallocator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-06T18:41:47Z",
+      "side": 1,
+      "message": "CheckRunOnValidThreadIfInitialized here?",
+      "revId": "6e824d0840e63a88039e383a6d30cc91916517dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08c35e0b_535868ed",
+        "filename": "p2p/base/portallocator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-06T18:41:47Z",
+      "side": 1,
+      "message": "Would also make sense to RTC_DCHECK initialized here, and in other methods that deal with sessions.\n\nMaybe change \"CheckRunOnValidThread\" to \"CheckRunOnValidThreadAndInitialized\", doing \"RTC_DCHECK(initialized_ \u0026\u0026 thread_checker_.CalledOnValidThread());\"",
+      "revId": "6e824d0840e63a88039e383a6d30cc91916517dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2a66cee_8f23528d",
+        "filename": "p2p/base/portallocator.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-06T18:41:47Z",
+      "side": 1,
+      "message": "The grammar sounds off here. I\u0027d suggest changing to something like:\n\n\"Every method of PortAllocator (including the destructor) must be called on the same thread after Initialize is called.\n\nThis allows a PortAllocator to be constructed and configured on one thread before being initialized and actually used on a different thread.\"",
+      "revId": "6e824d0840e63a88039e383a6d30cc91916517dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "199ff9d1_157fada9",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-06T18:41:47Z",
+      "side": 1,
+      "message": "IfInitialized?",
+      "revId": "6e824d0840e63a88039e383a6d30cc91916517dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d214f917_8157436a",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-06T18:41:47Z",
+      "side": 1,
+      "message": "Would make sense to do \"if (initialized_)\" here. Especially if DiscardCandidatePool adds a \"DCHECK(initialized_)\".",
+      "revId": "6e824d0840e63a88039e383a6d30cc91916517dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

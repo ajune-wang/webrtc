@@ -138,7 +138,7 @@ class TransportFeedback : public Rtpfb {
 
   uint16_t base_seq_no_;
   uint16_t num_seq_no_;
-  int32_t base_time_ticks_;
+  uint32_t base_time_ticks_;
   uint8_t feedback_seq_;
 
   int64_t last_timestamp_us_;

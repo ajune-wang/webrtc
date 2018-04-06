@@ -367,7 +367,7 @@ bool TransportFeedback::Parse(const CommonHeader& packet) {
 
   base_seq_no_ = ByteReader<uint16_t>::ReadBigEndian(&payload[8]);
   uint16_t status_count = ByteReader<uint16_t>::ReadBigEndian(&payload[10]);
-  base_time_ticks_ = ByteReader<int32_t, 3>::ReadBigEndian(&payload[12]);
+  base_time_ticks_ = ByteReader<uint32_t, 3>::ReadBigEndian(&payload[12]);
   feedback_seq_ = payload[15];
   Clear();
   size_t index = 16;
@@ -545,7 +545,7 @@ bool TransportFeedback::Create(uint8_t* packet,
   ByteWriter<uint16_t>::WriteBigEndian(&packet[*position], num_seq_no_);
   *position += 2;
 
-  ByteWriter<int32_t, 3>::WriteBigEndian(&packet[*position], base_time_ticks_);
+  ByteWriter<uint32_t, 3>::WriteBigEndian(&packet[*position], base_time_ticks_);
   *position += 3;
 
   packet[(*position)++] = feedback_seq_;

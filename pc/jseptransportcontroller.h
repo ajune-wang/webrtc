@@ -177,7 +177,9 @@ class JsepTransportController : public sigslot::has_slots<>,
   RTCError ApplyDescription_n(bool local,
                               SdpType type,
                               const cricket::SessionDescription* description);
-  RTCError ValidateBundleGroup(const cricket::SessionDescription* description);
+  RTCError ValidateAndMaybeUpdateBundleGroup(
+      SdpType type,
+      const cricket::SessionDescription* description);
   RTCError ValidateContent(const cricket::ContentInfo& content_info);
 
   void HandleRejectedContent(const cricket::ContentInfo& content_info);

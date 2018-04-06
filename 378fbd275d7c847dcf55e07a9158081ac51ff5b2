@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "35afc8ac_c08dfe30",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-06T16:15:10Z",
+      "side": 1,
+      "message": "I suggest adding a description underneath like: \"This argument was previously used to implement track muting (black frames) in the video engine, but that now happens in the VideoTrack/VideoBroadcaster upstream.\"",
+      "revId": "378fbd275d7c847dcf55e07a9158081ac51ff5b2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20f19ab4_e47f3197",
+        "filename": "pc/rtpsender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-06T16:15:10Z",
+      "side": 1,
+      "message": "If track_-\u003eenabled() no longer matters here, no longer need to store cached_track_enabled_ and check whether it changed.",
+      "revId": "378fbd275d7c847dcf55e07a9158081ac51ff5b2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

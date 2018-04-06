@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f5bb7651_b7624796",
+        "filename": "modules/desktop_capture/win/window_capture_utils.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 6175
+      },
+      "writtenOn": "2018-04-06T21:04:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "747218fc_5724745b",
+      "range": {
+        "startLine": 174,
+        "startChar": 11,
+        "endLine": 174,
+        "endChar": 29
+      },
+      "revId": "f3b27927bb780af23872a4098daf2cf125a944cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "74d13373_c41213ed",
         "filename": "modules/desktop_capture/window_capturer_win.cc",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "f3b27927bb780af23872a4098daf2cf125a944cb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15eba884_1e2f6b26",
+        "filename": "modules/desktop_capture/window_capturer_win.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 6175
+      },
+      "writtenOn": "2018-04-06T21:04:55Z",
+      "side": 1,
+      "message": "Done\n\nAnd combined the AeroChecker into the new one.",
+      "parentUuid": "74d13373_c41213ed",
+      "range": {
+        "startLine": 237,
+        "startChar": 34,
+        "endLine": 238,
+        "endChar": 0
+      },
+      "revId": "f3b27927bb780af23872a4098daf2cf125a944cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

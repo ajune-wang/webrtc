@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "022428b5_9d67d03e",
+        "filename": "rtc_base/sanitizer_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-04-06T12:59:28Z",
+      "side": 1,
+      "message": "Excellent! But you can remove \"Baz\" everywhere.",
+      "revId": "265a75b9799bfd5d27b292381d281abd1c2da0d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

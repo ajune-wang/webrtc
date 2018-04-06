@@ -117,7 +117,11 @@ class VideoSendStream : public webrtc::VideoSendStream {
   SendStatisticsProxy stats_proxy_;
   const VideoSendStream::Config config_;
   const VideoEncoderConfig::ContentType content_type_;
-  std::unique_ptr<VideoSendStreamImpl> send_stream_;
+  // Used to access send stream from other threads.
+  // TODO(srte): Remove |send_stream_ptr_| when it's not used anymore.
+  VideoSendStreamImpl* send_stream_ptr_;
+  std::unique_ptr<VideoSendStreamImpl> send_stream_
+      RTC_GUARDED_BY(worker_queue_);
   std::unique_ptr<VideoStreamEncoder> video_stream_encoder_;
 };
 

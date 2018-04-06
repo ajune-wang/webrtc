@@ -22,6 +22,30 @@
       "revId": "da388b4d899720a738cc362c0a9eec10533e4ff4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "138466e2_5c12dfed",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-04-06T16:40:35Z",
+      "side": 1,
+      "message": "Done, specially that this test file already include safe_conversions",
+      "parentUuid": "fa22bd3a_c82a98af",
+      "range": {
+        "startLine": 420,
+        "startChar": 31,
+        "endLine": 420,
+        "endChar": 42
+      },
+      "revId": "da388b4d899720a738cc362c0a9eec10533e4ff4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

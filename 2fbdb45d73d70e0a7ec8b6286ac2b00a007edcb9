@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "2d0f23a7_5f7c13c9",
+        "filename": "p2p/base/portallocator.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-06T01:13:00Z",
+      "side": 1,
+      "message": "Done. It feels a reasonable compromise after our discussion. CheckRunOnValidThreadIfInitialized() is added for thread checking for methods that can be safely called on a different thread before Initialize().",
+      "parentUuid": "a02fb28b_dec53fb3",
+      "revId": "2fbdb45d73d70e0a7ec8b6286ac2b00a007edcb9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "139c467d_c8bb7287",
         "filename": "p2p/base/portallocator.h",
         "patchSetId": 4
@@ -33,6 +51,24 @@
       "revId": "2fbdb45d73d70e0a7ec8b6286ac2b00a007edcb9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61a15bc3_233f23c2",
+        "filename": "p2p/base/portallocator.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 545,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-06T01:13:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "139c467d_c8bb7287",
+      "revId": "2fbdb45d73d70e0a7ec8b6286ac2b00a007edcb9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "c404dc26_9cf23f4b",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-06T01:13:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d39c4eec_84513c5f",
+      "revId": "2fbdb45d73d70e0a7ec8b6286ac2b00a007edcb9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0ababeb7_77d6ca37",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 4
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "ad1995ba_d1c5e5f7",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1988,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-06T01:13:00Z",
+      "side": 1,
+      "message": "Ack. Also moved the comment to SetConfiguration.",
+      "parentUuid": "0ababeb7_77d6ca37",
+      "revId": "2fbdb45d73d70e0a7ec8b6286ac2b00a007edcb9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "84dc24ba_c7adca45",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 4
@@ -81,6 +153,24 @@
       "writtenOn": "2018-04-05T22:02:41Z",
       "side": 1,
       "message": "It would be ideal if all the network thread hops could be combined into one.\n\nNote that JsepTransportController::SetMetricsObserver will already do the thread hop, and it has a pointer to the PortAllocator, so this code could just be moved there. Or you could invoke a \"PeerConnection::SetMetricsObserver_n\" method that does all this if you think leaving the code in PeerConnection would be cleaner (since it owns the PortAllocator).",
+      "revId": "2fbdb45d73d70e0a7ec8b6286ac2b00a007edcb9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2730469_00cb8aad",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 3003,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-06T01:13:00Z",
+      "side": 1,
+      "message": "Our current code assumes the methods of the metric observer are on the same thread as the peer connection, and RegisterUMAObserver is called after the peer connection is created and the port allocator initialized. We can save one thread hop by moving PortAllocator::SetMetricsObserver to JsepTransportController::SetMetricsObserver, but it feels awkward to bundle the thread hopping of that getter of flags somewhere else. What do you think?",
+      "parentUuid": "84dc24ba_c7adca45",
       "revId": "2fbdb45d73d70e0a7ec8b6286ac2b00a007edcb9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

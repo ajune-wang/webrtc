@@ -102,7 +102,8 @@ TEST_P(FecEndToEndTest, ReceivesUlpfec) {
         VideoEncoderConfig* encoder_config) override {
       // Use VP8 instead of FAKE, since the latter does not have PictureID
       // in the packetization headers.
-      send_config->encoder_settings.encoder = encoder_.get();
+      // TODO(nisse): XXX Create factory.
+      send_config->encoder_settings.encoder_factory = nullptr;
       send_config->rtp.payload_name = "VP8";
       send_config->rtp.payload_type = kVideoSendPayloadType;
       encoder_config->codec_type = kVideoCodecVP8;
@@ -452,7 +453,8 @@ TEST_P(FecEndToEndTest, ReceivedUlpfecPacketsNotNacked) {
       send_config->rtp.ulpfec.red_payload_type = kRedPayloadType;
       send_config->rtp.ulpfec.ulpfec_payload_type = kUlpfecPayloadType;
       // Set codec to VP8, otherwise NACK/FEC hybrid will be disabled.
-      send_config->encoder_settings.encoder = encoder_.get();
+      // TODO(nisse): XXX Create factory.
+      send_config->encoder_settings.encoder_factory = nullptr;
       send_config->rtp.payload_name = "VP8";
       send_config->rtp.payload_type = kFakeVideoSendPayloadType;
       encoder_config->codec_type = kVideoCodecVP8;

@@ -99,10 +99,11 @@ bool IsFramerateScalingEnabled(
 // out). This should effectively turn off CPU adaptations for systems that
 // remotely cope with the load right now.
 CpuOveruseOptions GetCpuOveruseOptions(
-    const VideoSendStream::Config::EncoderSettings& settings) {
+    const VideoSendStream::Config::EncoderSettings& settings,
+    bool full_overuse_time) {
   CpuOveruseOptions options;
 
-  if (settings.full_overuse_time) {
+  if (full_overuse_time) {
     options.low_encode_usage_threshold_percent = 150;
     options.high_encode_usage_threshold_percent = 200;
   }
@@ -394,6 +395,7 @@ VideoStreamEncoder::VideoStreamEncoder(
       pre_encode_callback_(pre_encode_callback),
       max_framerate_(-1),
       pending_encoder_reconfiguration_(false),
+      pending_encoder_creation_(false),
       encoder_start_bitrate_bps_(0),
       max_data_payload_length_(0),
       nack_enabled_(false),
@@ -413,13 +415,6 @@ VideoStreamEncoder::VideoStreamEncoder(
       encoder_queue_("EncoderQueue") {
   RTC_DCHECK(stats_proxy);
   RTC_DCHECK(overuse_detector_);
-  encoder_queue_.PostTask([this] {
-    RTC_DCHECK_RUN_ON(&encoder_queue_);
-    overuse_detector_->StartCheckForOveruse(GetCpuOveruseOptions(settings_),
-                                            this);
-    video_sender_.RegisterExternalEncoder(
-        settings_.encoder, settings_.internal_source);
-  });
 }
 
 VideoStreamEncoder::~VideoStreamEncoder() {
@@ -532,6 +527,8 @@ void VideoStreamEncoder::ConfigureEncoderOnTaskQueue(
 
   max_data_payload_length_ = max_data_payload_length;
   nack_enabled_ = nack_enabled;
+  pending_encoder_creation_ =
+      (!encoder_ || encoder_config_.video_format != config.video_format);
   encoder_config_ = std::move(config);
   pending_encoder_reconfiguration_ = true;
 
@@ -540,9 +537,6 @@ void VideoStreamEncoder::ConfigureEncoderOnTaskQueue(
   // deferred until the next frame to minimize the number of reconfigurations.
   // The codec configuration depends on incoming video frame size.
   if (last_frame_info_) {
-    ReconfigureEncoder();
-  } else if (settings_.internal_source) {
-    last_frame_info_ = VideoFrameInfo(176, 144, false);
     ReconfigureEncoder();
   }
 }
@@ -584,6 +578,28 @@ void VideoStreamEncoder::ReconfigureEncoder() {
   max_framerate_ = codec.maxFramerate;
   RTC_DCHECK_LE(max_framerate_, kMaxFramerateFps);
 
+  // Keep the same encoder, as long as the video_format is unchanged.
+  if (pending_encoder_creation_) {
+    pending_encoder_creation_ = false;
+    encoder_ = settings_.encoder_factory->CreateVideoEncoder(
+        encoder_config_.video_format);
+    // TODO(nisse): What to do if creating the encoder fails? Crash,
+    // or just discard incoming frames?
+    RTC_CHECK(encoder_);
+    const webrtc::VideoEncoderFactory::CodecInfo info =
+        settings_.encoder_factory->QueryVideoEncoder(
+            encoder_config_.video_format);
+
+    overuse_detector_->StopCheckForOveruse();
+    overuse_detector_->StartCheckForOveruse(
+        GetCpuOveruseOptions(settings_, info.is_hardware_accelerated),
+        this);
+
+    video_sender_.RegisterExternalEncoder(
+        encoder_.get(), info.has_internal_source);
+  }
+  // RegisterSendCodec implies an unconditional call to
+  // encoder_->InitEncode().
   bool success = video_sender_.RegisterSendCodec(
                      &codec, number_of_cores_,
                      static_cast<uint32_t>(max_data_payload_length_)) == VCM_OK;
@@ -625,6 +641,7 @@ void VideoStreamEncoder::ReconfigureEncoder() {
 
 void VideoStreamEncoder::ConfigureQualityScaler() {
   RTC_DCHECK_RUN_ON(&encoder_queue_);
+#if 0
   const auto scaling_settings = settings_.encoder->GetScalingSettings();
   const bool quality_scaling_allowed =
       IsResolutionScalingEnabled(degradation_preference_) &&
@@ -647,6 +664,7 @@ void VideoStreamEncoder::ConfigureQualityScaler() {
 
   stats_proxy_->SetAdaptationStats(GetActiveCounts(kCpu),
                                    GetActiveCounts(kQuality));
+#endif
 }
 
 void VideoStreamEncoder::OnFrame(const VideoFrame& video_frame) {
@@ -964,6 +982,7 @@ void VideoStreamEncoder::AdaptDown(AdaptReason reason) {
     }
     case VideoSendStream::DegradationPreference::kMaintainFramerate: {
       // Scale down resolution.
+#if 0
       bool min_pixels_reached = false;
       if (!source_proxy_->RequestResolutionLowerThan(
               adaptation_request.input_pixel_count_,
@@ -973,6 +992,7 @@ void VideoStreamEncoder::AdaptDown(AdaptReason reason) {
           stats_proxy_->OnMinPixelLimitReached();
         return;
       }
+#endif
       GetAdaptCounter().IncrementResolution(reason);
       break;
     }

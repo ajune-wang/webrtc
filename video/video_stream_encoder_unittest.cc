@@ -281,7 +281,8 @@ class VideoStreamEncoderTest : public ::testing::Test {
   void SetUp() override {
     metrics::Reset();
     video_send_config_ = VideoSendStream::Config(nullptr);
-    video_send_config_.encoder_settings.encoder = &fake_encoder_;
+    // TODO(nisse): XXX = &fake_encoder_;
+    video_send_config_.encoder_settings.encoder_factory = nullptr;
     video_send_config_.rtp.payload_name = "FAKE";
     video_send_config_.rtp.payload_type = 125;
 

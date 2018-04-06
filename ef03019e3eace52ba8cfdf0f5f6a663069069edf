@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "b16dd3a9_abe37253",
+        "filename": "media/base/rtpdataengine.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-06T21:59:22Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2cd2e31c_cb610171",
+      "revId": "ef03019e3eace52ba8cfdf0f5f6a663069069edf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7c31f9bc_96fb707e",
         "filename": "media/engine/webrtcvideoengine.cc",
         "patchSetId": 4
@@ -30,6 +48,30 @@
       "writtenOn": "2018-04-05T20:00:46Z",
       "side": 1,
       "message": "It seems like you could push this further down, like in MediaChannel::DoSendPacket or RtpTransport::SendPacket or perhaps even further down into DtlsTransport to IceTransport or Port.  All packets from any of those should be of this type (except for the TURN/STUN/check that IceTransport should know about).",
+      "range": {
+        "startLine": 1564,
+        "startChar": 56,
+        "endLine": 1565,
+        "endChar": 0
+      },
+      "revId": "ef03019e3eace52ba8cfdf0f5f6a663069069edf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e4fd326_0478e21a",
+        "filename": "media/engine/webrtcvideoengine.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1565,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-06T21:59:22Z",
+      "side": 1,
+      "message": "Do you think slicing kMedia or kData further to kAudio/kVideo/kData can be useful? Logging at these source sites would give us finer categories. I was originally thinking about this in case we want to add more types. I made the change with more types in the new patch. Let me know what you think.",
+      "parentUuid": "7c31f9bc_96fb707e",
       "range": {
         "startLine": 1564,
         "startChar": 56,
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "40d83fb3_41f032a6",
+        "filename": "media/engine/webrtcvoiceengine.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-06T21:59:22Z",
+      "side": 1,
+      "message": "My mistake. Thanks for spotting this!",
+      "parentUuid": "c7b7c02d_ed8a6591",
+      "revId": "ef03019e3eace52ba8cfdf0f5f6a663069069edf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0b087dc7_0bb9fbf4",
         "filename": "media/sctp/sctptransport.cc",
         "patchSetId": 4
@@ -70,6 +130,30 @@
       "writtenOn": "2018-04-05T20:00:46Z",
       "side": 1,
       "message": "It seems like this should be taken care of by the DtlsTransport underneath, which is always data (not ICE/STUN/TURN), or perhaps even further down into IceTransport or Port.",
+      "range": {
+        "startLine": 923,
+        "startChar": 44,
+        "endLine": 924,
+        "endChar": 0
+      },
+      "revId": "ef03019e3eace52ba8cfdf0f5f6a663069069edf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e660f2b_b3541238",
+        "filename": "media/sctp/sctptransport.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 924,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-06T21:59:22Z",
+      "side": 1,
+      "message": "Similar to my other reply, I am wondering if we want three buckets of kAudio/kVideo/kData in the traffic breakdown. I made the change with these types in the new patch.",
+      "parentUuid": "0b087dc7_0bb9fbf4",
       "range": {
         "startLine": 923,
         "startChar": 44,
@@ -117,6 +201,24 @@
     },
     {
       "key": {
+        "uuid": "dc3e1632_0510c7f0",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1212,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-06T21:59:22Z",
+      "side": 1,
+      "message": "I was trying to also cover TCPConnection, where it is wired to the packet socket directly. Once in the packet socket level, some port information is lost. Should I handled TCPConnection separately or am I missing the point?",
+      "parentUuid": "6cbf25ab_3c63f4a1",
+      "revId": "ef03019e3eace52ba8cfdf0f5f6a663069069edf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e56c04b9_e26e0ca1",
         "filename": "p2p/base/port.cc",
         "patchSetId": 4
@@ -137,6 +239,30 @@
       "revId": "ef03019e3eace52ba8cfdf0f5f6a663069069edf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6d9839e_bd3e4aae",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 830,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-06T21:59:22Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e56c04b9_e26e0ca1",
+      "range": {
+        "startLine": 830,
+        "startChar": 63,
+        "endLine": 830,
+        "endChar": 0
+      },
+      "revId": "ef03019e3eace52ba8cfdf0f5f6a663069069edf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -219,6 +345,24 @@
       "revId": "ef03019e3eace52ba8cfdf0f5f6a663069069edf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f294e6e_414bedda",
+        "filename": "p2p/base/port.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-06T21:59:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "20a1530e_3e9606f3",
+      "revId": "ef03019e3eace52ba8cfdf0f5f6a663069069edf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -481,6 +625,30 @@
     },
     {
       "key": {
+        "uuid": "ca606811_22e487c0",
+        "filename": "rtc_base/asyncpacketsocket.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-06T21:59:22Z",
+      "side": 1,
+      "message": "Changed to the network id assigned by the network manager.",
+      "parentUuid": "0390c536_04eebb14",
+      "range": {
+        "startLine": 50,
+        "startChar": 22,
+        "endLine": 50,
+        "endChar": 0
+      },
+      "revId": "ef03019e3eace52ba8cfdf0f5f6a663069069edf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a5db677a_6eb45e78",
         "filename": "rtc_base/asyncpacketsocket.h",
         "patchSetId": 4
@@ -501,6 +669,30 @@
       "revId": "ef03019e3eace52ba8cfdf0f5f6a663069069edf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75765552_15db1b39",
+        "filename": "rtc_base/asyncpacketsocket.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-06T21:59:22Z",
+      "side": 1,
+      "message": "Removed after clean-up.",
+      "parentUuid": "a5db677a_6eb45e78",
+      "range": {
+        "startLine": 51,
+        "startChar": 74,
+        "endLine": 51,
+        "endChar": 0
+      },
+      "revId": "ef03019e3eace52ba8cfdf0f5f6a663069069edf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -555,6 +747,24 @@
       "writtenOn": "2018-04-05T20:00:46Z",
       "side": 1,
       "message": "That\u0027s what I was wondering...\n\nOn the other hand, we have two different purposes here, one for BWE and one for stats.  I could imagine having two different signals for the different uses (as I mentioned above, I think that for the stats, it would be easier to have the Ports and IceTransports fire rather than sockets underneath).",
+      "parentUuid": "6d07359f_48ddf7fe",
+      "revId": "ef03019e3eace52ba8cfdf0f5f6a663069069edf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7477a3d3_cc7189a5",
+        "filename": "rtc_base/socket.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-06T21:59:22Z",
+      "side": 1,
+      "message": "After the discussion in the design doc, PacketInfo is now contained in both PacketOptions as a packet travels down the stack to accumulate the stats and SentPacket that we signal from the bottom.",
       "parentUuid": "6d07359f_48ddf7fe",
       "revId": "ef03019e3eace52ba8cfdf0f5f6a663069069edf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

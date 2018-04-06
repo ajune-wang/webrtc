@@ -16,6 +16,24 @@
       "revId": "707f5b9e2d0deb2bbf1c7367d862d93f63515fbd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "960ab576_686e1da5",
+        "filename": "rtc_base/sanitizer_unittest.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-06T12:44:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e7bddb51_f2b98664",
+      "revId": "707f5b9e2d0deb2bbf1c7367d862d93f63515fbd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

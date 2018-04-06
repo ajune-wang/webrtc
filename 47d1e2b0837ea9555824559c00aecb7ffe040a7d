@@ -216,6 +216,24 @@
       "revId": "47d1e2b0837ea9555824559c00aecb7ffe040a7d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "71a273b4_28567dbc",
+        "filename": "rtc_base/sanitizer_unittest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-06T12:44:24Z",
+      "side": 1,
+      "message": "Ok. I used the script below and corrected the expected result in each static_assert and separated the two trivially copyable cases from the others.\n\nfrom itertools import product\n\nTRIVIAL \u003d \u0027 \u003d default\u0027\nNON_TRIVIAL \u003d \u0027\u0027\nDELETED \u003d \u0027 \u003d delete\u0027\n\nNAMES \u003d {\n    TRIVIAL: \u0027Tr\u0027,\n    NON_TRIVIAL: \u0027Nt\u0027,\n    DELETED: \u0027De\u0027,\n}\n\ndef CopyCtor(class_name, status):\n  return \u0027{0}(const {0}\u0026){1};\u0027.format(class_name, status)\n\n\ndef CopyAssign(class_name, status):  \n  return \u0027{0}\u0026 operator\u003d(const {0}\u0026){1};\u0027.format(class_name, status)\n\n\ndef Dtor(class_name, status):\n  return \u0027~{0}(){1};\u0027.format(class_name, status)\n\n\nfor (ctor, cpy, dtor) in product(\n    [TRIVIAL, NON_TRIVIAL],\n    [TRIVIAL, NON_TRIVIAL, DELETED],\n    [TRIVIAL, NON_TRIVIAL]\n):\n  class_name \u003d \u0027Baz{}{}{}\u0027.format(NAMES[ctor], NAMES[cpy], NAMES[dtor])\n  print(\u0027struct {} {{\u0027.format(class_name))\n  print(\u0027  \u0027 + CopyCtor(class_name, ctor))\n  print(\u0027  \u0027 + CopyAssign(class_name, cpy))\n  print(\u0027  \u0027 + Dtor(class_name, dtor))\n  print(\u0027};\u0027)\n  print(\u0027static_assert(!sanitizer_impl::IsTriviallyCopyable\u003c{}\u003e(), \"\");\u0027.format(\n      class_name));\n  print(\u0027\u0027)",
+      "parentUuid": "8721e5d9_1e33e4b0",
+      "revId": "47d1e2b0837ea9555824559c00aecb7ffe040a7d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

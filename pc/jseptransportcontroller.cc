@@ -543,17 +543,8 @@ RTCError JsepTransportController::ApplyDescription_n(
     remote_desc_ = description;
   }
 
-  if (ShouldUpdateBundleGroup(type, description)) {
-    if (!description->HasGroup(cricket::GROUP_TYPE_BUNDLE)) {
-      return RTCError(RTCErrorType::INVALID_PARAMETER,
-                      "max-bundle is used but no bundle group found.");
-    } else {
-      bundle_group_ = *description->GetGroupByName(cricket::GROUP_TYPE_BUNDLE);
-    }
-  }
-
   RTCError error;
-  error = ValidateBundleGroup(description);
+  error = ValidateAndMaybeUpdateBundleGroup(type, description);
   if (!error.ok()) {
     return error;
   }
@@ -633,9 +624,26 @@ RTCError JsepTransportController::ApplyDescription_n(
   return RTCError::OK();
 }
 
-RTCError JsepTransportController::ValidateBundleGroup(
+RTCError JsepTransportController::ValidateAndMaybeUpdateBundleGroup(
+    SdpType type,
     const cricket::SessionDescription* description) {
   RTC_DCHECK(description);
+  if (ShouldUpdateBundleGroup(type, description)) {
+    if (!description->HasGroup(cricket::GROUP_TYPE_BUNDLE)) {
+      return RTCError(RTCErrorType::INVALID_PARAMETER,
+                      "max-bundle is used but no bundle group found.");
+    }
+
+    cricket::ContentGroup new_bundle_group =
+        *description->GetGroupByName(cricket::GROUP_TYPE_BUNDLE);
+    std::string new_bundled_mid = *new_bundle_group.FirstContentName();
+    if (bundled_mid() && *bundled_mid() != new_bundled_mid) {
+      return RTCError(RTCErrorType::UNSUPPORTED_OPERATION,
+                      "Changing the negotiated BUNDLE-tag is not supported.");
+    }
+
+    bundle_group_ = new_bundle_group;
+  }
 
   if (!bundled_mid()) {
     return RTCError::OK();
@@ -712,16 +720,16 @@ void JsepTransportController::HandleRejectedContent(
 
 void JsepTransportController::HandleBundledContent(
     const cricket::ContentInfo& content_info) {
+  auto jsep_transport = GetJsepTransportByName(*bundled_mid());
+  RTC_DCHECK(jsep_transport);
   // If the content is bundled, let the
   // BaseChannel/SctpTransport change the RtpTransport/DtlsTransport first,
   // then destroy the cricket::JsepTransport2.
   if (content_info.type == cricket::MediaProtocolType::kRtp) {
-    auto rtp_transport =
-        jsep_transports_by_name_[*bundled_mid()]->rtp_transport();
+    auto rtp_transport = jsep_transport->rtp_transport();
     SignalRtpTransportChanged(content_info.name, rtp_transport);
   } else {
-    auto dtls_transport =
-        jsep_transports_by_name_[*bundled_mid()]->rtp_dtls_transport();
+    auto dtls_transport = jsep_transport->rtp_dtls_transport();
     SignalDtlsTransportChanged(content_info.name, dtls_transport);
   }
   MaybeDestroyJsepTransport(content_info.name);
@@ -911,7 +919,6 @@ RTCError JsepTransportController::MaybeCreateJsepTransport(
       this, &JsepTransportController::UpdateAggregateStates_n);
   jsep_transports_by_name_[mid] = std::move(jsep_transport);
   UpdateAggregateStates_n();
-
   return RTCError::OK();
 }
 

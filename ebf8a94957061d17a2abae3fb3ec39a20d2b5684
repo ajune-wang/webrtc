@@ -22,6 +22,30 @@
       "revId": "ebf8a94957061d17a2abae3fb3ec39a20d2b5684",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d5f779f_91975b6b",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 725,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-04-06T11:26:58Z",
+      "side": 1,
+      "message": "Moved condition to DropDueToSize method, WDYT?",
+      "parentUuid": "88e493a1_7dd0f229",
+      "range": {
+        "startLine": 725,
+        "startChar": 10,
+        "endLine": 725,
+        "endChar": 36
+      },
+      "revId": "ebf8a94957061d17a2abae3fb3ec39a20d2b5684",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

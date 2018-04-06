@@ -121,6 +121,30 @@
     },
     {
       "key": {
+        "uuid": "8300a201_d6c9d025",
+        "filename": "sdk/objc/Framework/Classes/Metal/RTCMTLNV12Renderer.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5590
+      },
+      "writtenOn": "2018-04-06T15:49:37Z",
+      "side": 1,
+      "message": "What is the scenario that it would fail?\nIs it ok to ignore the wrong frame?\nWe have some places where we ignore the frame and don\u0027t render if it\u0027s the wrong frame.buffer without asserting.\nIn this particular type of assert, I haven\u0027t seen it caught in dev. Only in prod.",
+      "parentUuid": "aec1b9f5_e0c9c82e",
+      "range": {
+        "startLine": 89,
+        "startChar": 66,
+        "endLine": 89,
+        "endChar": 67
+      },
+      "revId": "695b2afd9efd48932da6f5bf2cf93cf687fbfdcb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fe459bd3_f242fd3a",
         "filename": "sdk/objc/Framework/Classes/Metal/RTCMTLVideoView.m",
         "patchSetId": 2

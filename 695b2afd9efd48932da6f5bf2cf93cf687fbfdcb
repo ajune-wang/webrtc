@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "d054dd8c_085341b4",
+        "filename": "sdk/objc/Framework/Classes/Metal/RTCMTLNV12Renderer.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 6077
+      },
+      "writtenOn": "2018-04-06T13:34:06Z",
+      "side": 1,
+      "message": "I think that\u0027s a good thing. If we crash then we will know that something is wrong, otherwise we just silently fail and drop the frame.",
+      "parentUuid": "87e68c36_7d4c64d0",
+      "range": {
+        "startLine": 89,
+        "startChar": 66,
+        "endLine": 89,
+        "endChar": 67
+      },
+      "revId": "695b2afd9efd48932da6f5bf2cf93cf687fbfdcb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fe459bd3_f242fd3a",
         "filename": "sdk/objc/Framework/Classes/Metal/RTCMTLVideoView.m",
         "patchSetId": 2

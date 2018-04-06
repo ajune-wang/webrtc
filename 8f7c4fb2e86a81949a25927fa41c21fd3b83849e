@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ac3de31_4034ff36",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-04-06T13:59:10Z",
+      "side": 1,
+      "message": "NTP time (webrtc::NtpTime) is 64 bit.\nis it compact ntp time?",
+      "range": {
+        "startLine": 91,
+        "startChar": 28,
+        "endLine": 91,
+        "endChar": 0
+      },
+      "revId": "8f7c4fb2e86a81949a25927fa41c21fd3b83849e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ddbde43_65de422e",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-04-06T13:59:10Z",
+      "side": 1,
+      "message": "may be explain 1st parameter:\n_back(/*ssrc\u003d*/rrtr.first, ...",
+      "range": {
+        "startLine": 268,
+        "startChar": 30,
+        "endLine": 268,
+        "endChar": 40
+      },
+      "revId": "8f7c4fb2e86a81949a25927fa41c21fd3b83849e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ef93ffee_f09e3a66",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 708,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-04-06T13:59:10Z",
+      "side": 1,
+      "message": "no timeout, no cleanup rather than on incoming bye packet, no check of sender_ssrc.\nThat looks dangerous (malicious client can easily make this map grow unbound).\n\nOne solution might be to accept only sender_ssrc \u003d remote_ssrc(s).\nAnother solution - clear received_rrtrs_ every time dlrr is produced.",
+      "range": {
+        "startLine": 707,
+        "startChar": 43,
+        "endLine": 708,
+        "endChar": 0
+      },
+      "revId": "8f7c4fb2e86a81949a25927fa41c21fd3b83849e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb21d88a_ba1574e9",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 623,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-04-06T13:59:10Z",
+      "side": 1,
+      "message": "avoid \u0027_\u0027 in test names\nhttps://github.com/google/googletest/blob/master/googletest/docs/FAQ.md#why-should-not-test-case-names-and-test-names-contain-underscore",
+      "range": {
+        "startLine": 623,
+        "startChar": 40,
+        "endLine": 623,
+        "endChar": 41
+      },
+      "revId": "8f7c4fb2e86a81949a25927fa41c21fd3b83849e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb3c8d04_5d24c447",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 723,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-04-06T13:59:10Z",
+      "side": 1,
+      "message": "in webrtc time/duration in ms normally uses int64_t",
+      "range": {
+        "startLine": 723,
+        "startChar": 8,
+        "endLine": 723,
+        "endChar": 16
+      },
+      "revId": "8f7c4fb2e86a81949a25927fa41c21fd3b83849e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3760d9b1_cc810933",
+        "filename": "modules/rtp_rtcp/source/rtcp_sender.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 650,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-04-06T13:59:10Z",
+      "side": 1,
+      "message": "what would happen if number of rtis is so large, extended report become too long to fit into single rtcp_packet?",
+      "revId": "8f7c4fb2e86a81949a25927fa41c21fd3b83849e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c2f36da_d7e714b2",
+        "filename": "modules/rtp_rtcp/source/rtcp_sender.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-04-06T13:59:10Z",
+      "side": 1,
+      "message": "put destructor after (copy) constructor\nhttps://google.github.io/styleguide/cppguide.html#Declaration_Order",
+      "range": {
+        "startLine": 62,
+        "startChar": 21,
+        "endLine": 62,
+        "endChar": 0
+      },
+      "revId": "8f7c4fb2e86a81949a25927fa41c21fd3b83849e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

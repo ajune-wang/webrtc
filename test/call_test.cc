@@ -193,7 +193,8 @@ void CallTest::CreateVideoSendConfig(VideoSendStream::Config* video_config,
                                      Transport* send_transport) {
   RTC_DCHECK_LE(num_video_streams + num_used_ssrcs, kNumSsrcs);
   *video_config = VideoSendStream::Config(send_transport);
-  video_config->encoder_settings.encoder = &fake_encoder_;
+  // TODO(nisse): XXX = &fake_encoder_;
+  video_config->encoder_settings.encoder_factory = nullptr;
   video_config->rtp.payload_name = "FAKE";
   video_config->rtp.payload_type = kFakeVideoSendPayloadType;
   video_config->rtp.extensions.push_back(

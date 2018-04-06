@@ -27,7 +27,7 @@ class MockVideoStreamEncoder : public VideoStreamEncoder {
       : VideoStreamEncoder(
             1,
             send_stats_proxy,
-            VideoSendStream::Config::EncoderSettings(nullptr),
+            VideoSendStream::Config::EncoderSettings(),
             nullptr,
             rtc::MakeUnique<OveruseFrameDetector>(nullptr)) {}
   ~MockVideoStreamEncoder() { Stop(); }

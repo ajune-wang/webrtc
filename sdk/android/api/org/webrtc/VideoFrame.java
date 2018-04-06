@@ -27,8 +27,8 @@ import javax.annotation.Nullable;
  * WebRTC software encoders.
  */
 @JNINamespace("webrtc::jni")
-public class VideoFrame {
-  public interface Buffer {
+public class VideoFrame implements RefCounted {
+  public interface Buffer extends RefCounted {
     /**
      * Resolution of the buffer in pixels.
      */
@@ -42,12 +42,10 @@ public class VideoFrame {
      */
     @CalledByNative("Buffer") I420Buffer toI420();
 
-    /**
-     * Reference counting is needed since a video buffer can be shared between multiple VideoSinks,
-     * and the buffer needs to be returned to the VideoSource as soon as all references are gone.
-     */
-    @CalledByNative("Buffer") void retain();
-    @CalledByNative("Buffer") void release();
+    // Reference counting is needed since a video buffer can be shared between multiple VideoSinks,
+    // and the buffer needs to be returned to the VideoSource as soon as all references are gone.
+    @Override @CalledByNative("Buffer") void retain();
+    @Override @CalledByNative("Buffer") void release();
 
     /**
      * Crops a region defined by |cropx|, |cropY|, |cropWidth| and |cropHeight|. Scales it to size
@@ -171,13 +169,12 @@ public class VideoFrame {
     return buffer.getWidth();
   }
 
-  /**
-   * Reference counting of the underlying buffer.
-   */
+  @Override
   public void retain() {
     buffer.retain();
   }
 
+  @Override
   @CalledByNative
   public void release() {
     buffer.release();

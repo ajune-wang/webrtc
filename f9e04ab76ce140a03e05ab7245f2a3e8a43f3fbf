@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "19d0dabf_701290ba",
+        "filename": "modules/congestion_controller/rtp/send_side_congestion_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-04-06T09:42:28Z",
+      "side": 1,
+      "message": "Maybe point out that this is an asynchronous Stop. In general, it\u0027s not safe to call Stop and then destroy data the periodic task depends on. It\u0027s safe in the special case that Stop is called on the TaskQueue in question, under the assumption that a task posted with PostTask is guaranteed to run before all pending delayed tasks.\n\nI think we should require and document that assumption, but I\u0027m not entirely sure all existing implementations do. With an implementation which moves a delayed tasks to the queue for plain tasks as the deadline is passed may, we might have a delayed task ahead of the Stop task.\n\nPossible test case: \n\n  Post delayed tasks D1 with a delay of 1s, \n  Post delayed task  D2 with a delay of 1.1s (then it should be scheduled after D2)\n  Post a task T1 which sleeps for 2s. \n  In the Run method of task D1, post a task T2.\n  Check which task gets run next, T2 or D2.\n\nWe\u0027d like T2 to always go first. Potential problem case is if the implementation, after T1 is complete, reads the clock and moves *all* tasks which are due to run onto the queue of un-delayed tasks. Then both D1 and D2 gets on that queue, D1 is run, which posts T2, which then gets behind D2 on the queue.",
+      "range": {
+        "startLine": 136,
+        "startChar": 6,
+        "endLine": 136,
+        "endChar": 48
+      },
+      "revId": "f9e04ab76ce140a03e05ab7245f2a3e8a43f3fbf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

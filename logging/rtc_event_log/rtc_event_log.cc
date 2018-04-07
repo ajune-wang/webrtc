@@ -12,6 +12,8 @@
 
 namespace webrtc {
 
+const size_t RtcEventLog::Factory::kUnlimitedConcurrentFiles = 0;
+
 bool RtcEventLogNullImpl::StartLogging(
     std::unique_ptr<RtcEventLogOutput> output,
     int64_t output_period_ms) {

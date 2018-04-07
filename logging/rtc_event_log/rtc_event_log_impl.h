@@ -26,8 +26,31 @@ namespace webrtc {
 
 class RtcEventLogImpl final : public RtcEventLog {
  public:
+  class Factory : public RtcEventLog::Factory {
+   public:
+    Factory(EncodingType encoding_type, size_t max_concurrent_logs);
+    virtual ~Factory();
+
+    std::unique_ptr<RtcEventLog> Create(
+        std::unique_ptr<rtc::TaskQueue> task_queue) override;
+
+    // Objects produced by this factory report back to it when destroyed.
+    void OnDestruction();
+
+   private:
+    const EncodingType encoding_type_;
+
+    const size_t max_concurrent_logs_;
+    size_t num_current_logs_;
+
+    rtc::SequencedTaskChecker sequence_checker_;
+  };
+
+  // TODO(bugs.webrtc.org/9046): Restrict visibility after updating all projects
+  // to use a factory.
   RtcEventLogImpl(std::unique_ptr<RtcEventLogEncoder> event_encoder,
-                  std::unique_ptr<rtc::TaskQueue> task_queue);
+                  std::unique_ptr<rtc::TaskQueue> task_queue,
+                  Factory* owning_factory);
 
   ~RtcEventLogImpl() override;
 
@@ -76,6 +99,10 @@ class RtcEventLogImpl final : public RtcEventLog {
   int64_t output_period_ms_ RTC_GUARDED_BY(*task_queue_);
   int64_t last_output_ms_ RTC_GUARDED_BY(*task_queue_);
   bool output_scheduled_ RTC_GUARDED_BY(*task_queue_);
+
+  // If produced by a factory, informs it when destructed.
+  // TODO(bugs.webrtc.org/9046): Only support creation via factory.
+  Factory* const owning_factory_;
 
   // Since we are posting tasks bound to |this|,  it is critical that the event
   // log and it's members outlive the |task_queue_|. Keep the "task_queue_|

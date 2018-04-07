@@ -39,7 +39,8 @@ constexpr size_t kMaxEventsInConfigHistory = 1000;
 
 // Observe a limit on the number of concurrent logs, so as not to run into
 // OS-imposed limits on open files and/or threads/task-queues.
-// TODO(eladalon): Known issue - there's a race over |rtc_event_log_count|.
+// TODO(bugs.webrtc.org/9046): Remove this after updating all projects
+// that rely on construction through anything but the factory.
 std::atomic<int> rtc_event_log_count(0);
 
 // TODO(eladalon): This class exists because C++11 doesn't allow transferring a
@@ -62,8 +63,6 @@ class ResourceOwningTask final : public rtc::QueuedTask {
   std::function<void(std::unique_ptr<T>)> handler_;
 };
 
-}  // namespace
-
 std::unique_ptr<RtcEventLogEncoder> CreateEncoder(
     RtcEventLog::EncodingType type) {
   switch (type) {
@@ -77,9 +76,44 @@ std::unique_ptr<RtcEventLogEncoder> CreateEncoder(
   }
 }
 
+}  // namespace
+
+RtcEventLogImpl::Factory::Factory(EncodingType encoding_type,
+                                  size_t max_concurrent_logs)
+    : encoding_type_(encoding_type),
+      max_concurrent_logs_(max_concurrent_logs),
+      num_current_logs_(0) {}
+
+RtcEventLogImpl::Factory::~Factory() {
+  RTC_DCHECK_CALLED_SEQUENTIALLY(&sequence_checker_);
+  RTC_DCHECK_EQ(num_current_logs_, 0)
+      << "Must destroy all constructed objects before their factory.";
+}
+
+std::unique_ptr<RtcEventLog> RtcEventLogImpl::Factory::Create(
+    std::unique_ptr<rtc::TaskQueue> task_queue) {
+  RTC_DCHECK_CALLED_SEQUENTIALLY(&sequence_checker_);
+
+  if (max_concurrent_logs_ != kUnlimitedConcurrentFiles &&
+      max_concurrent_logs_ <= num_current_logs_) {
+    return nullptr;
+  }
+
+  ++num_current_logs_;
+  return rtc::MakeUnique<RtcEventLogImpl>(CreateEncoder(encoding_type_),
+                                          std::move(task_queue), this);
+}
+
+void RtcEventLogImpl::Factory::OnDestruction() {
+  RTC_DCHECK_CALLED_SEQUENTIALLY(&sequence_checker_);
+  RTC_DCHECK_GT(num_current_logs_, 0);
+  --num_current_logs_;
+}
+
 RtcEventLogImpl::RtcEventLogImpl(
     std::unique_ptr<RtcEventLogEncoder> event_encoder,
-    std::unique_ptr<rtc::TaskQueue> task_queue)
+    std::unique_ptr<rtc::TaskQueue> task_queue,
+    Factory* owning_factory)
     : max_size_bytes_(std::numeric_limits<decltype(max_size_bytes_)>::max()),
       written_bytes_(0),
       event_encoder_(std::move(event_encoder)),
@@ -87,9 +121,14 @@ RtcEventLogImpl::RtcEventLogImpl(
       output_period_ms_(kImmediateOutput),
       last_output_ms_(rtc::TimeMillis()),
       output_scheduled_(false),
+      owning_factory_(owning_factory),  // TODO: !!! Either this, or register
+                                        // for destruction notification as an
+                                        // observer.
       task_queue_(std::move(task_queue)) {
   RTC_DCHECK(task_queue_);
 }
+
+// TODO: !!! Unit tests for number of concurrent logs.
 
 RtcEventLogImpl::~RtcEventLogImpl() {
   RTC_DCHECK_CALLED_SEQUENTIALLY(&owner_sequence_checker_);
@@ -97,8 +136,14 @@ RtcEventLogImpl::~RtcEventLogImpl() {
   // If we're logging to the output, this will stop that. Blocking function.
   StopLogging();
 
-  int count = std::atomic_fetch_sub(&rtc_event_log_count, 1) - 1;
-  RTC_DCHECK_GE(count, 0);
+  if (owning_factory_) {
+    owning_factory_->OnDestruction();
+  } else {
+    // TODO(bugs.webrtc.org/9046): Remove this after updating all
+    // projects that rely on construction through anything but the factory.
+    int count = std::atomic_fetch_sub(&rtc_event_log_count, 1) - 1;
+    RTC_DCHECK_GE(count, 0);
+  }
 }
 
 bool RtcEventLogImpl::StartLogging(std::unique_ptr<RtcEventLogOutput> output,
@@ -300,6 +345,8 @@ std::unique_ptr<RtcEventLog> RtcEventLog::Create(EncodingType encoding_type) {
                 rtc::MakeUnique<rtc::TaskQueue>("rtc_event_log"));
 }
 
+// TODO(bugs.webrtc.org/9046): Remove this after updating all projects
+// that rely on construction through anything but the factory.
 std::unique_ptr<RtcEventLog> RtcEventLog::Create(
     EncodingType encoding_type,
     std::unique_ptr<rtc::TaskQueue> task_queue) {
@@ -315,7 +362,7 @@ std::unique_ptr<RtcEventLog> RtcEventLog::Create(
   }
   auto encoder = CreateEncoder(encoding_type);
   return rtc::MakeUnique<RtcEventLogImpl>(std::move(encoder),
-                                          std::move(task_queue));
+                                          std::move(task_queue), nullptr);
 #else
   return CreateNull();
 #endif  // ENABLE_RTC_EVENT_LOG

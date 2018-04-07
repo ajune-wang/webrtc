@@ -209,6 +209,7 @@ rtc_static_library("rtc_event_log_impl_base") {
     "rtc_event_log/rtc_event_log_factory.cc",
     "rtc_event_log/rtc_event_log_factory.h",
     "rtc_event_log/rtc_event_log_impl.cc",
+    "rtc_event_log/rtc_event_log_impl.h",
   ]
 
   defines = []

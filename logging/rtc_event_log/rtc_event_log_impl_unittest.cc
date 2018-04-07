@@ -8,16 +8,3 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "logging/rtc_event_log/rtc_event_log.h"
-
-namespace webrtc {
-
-const size_t RtcEventLog::Factory::kUnlimitedConcurrentFiles = 0;
-
-bool RtcEventLogNullImpl::StartLogging(
-    std::unique_ptr<RtcEventLogOutput> output,
-    int64_t output_period_ms) {
-  return false;
-}
-
-}  // namespace webrtc

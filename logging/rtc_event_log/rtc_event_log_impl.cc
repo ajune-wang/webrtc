@@ -81,6 +81,28 @@ std::unique_ptr<RtcEventLogEncoder> CreateEncoder(
 
 class RtcEventLogImpl final : public RtcEventLog {
  public:
+  class Factory : public RtcEventLog::Factory {
+   public:
+    Factory(EncodingType encoding_type, size_t max_concurrent_logs);
+    virtual ~Factory();
+
+    std::unique_ptr<RtcEventLog> Create(
+        std::unique_ptr<rtc::TaskQueue> task_queue) override;
+
+    // Objects produced by this factory report back to it when destroyed.
+    // TODO: !!! Should not be public.
+    void OnDestruction();
+
+   private:
+    const EncodingType encoding_type_;
+
+    const size_t max_concurrent_logs_;
+    size_t num_current_logs_;
+
+    rtc::SequencedTaskChecker sequence_checker_;
+  };
+
+  // TODO: !!! This should not be public.
   RtcEventLogImpl(std::unique_ptr<RtcEventLogEncoder> event_encoder,
                   std::unique_ptr<rtc::TaskQueue> task_queue);
 
@@ -132,6 +154,10 @@ class RtcEventLogImpl final : public RtcEventLog {
   int64_t last_output_ms_ RTC_GUARDED_BY(*task_queue_);
   bool output_scheduled_ RTC_GUARDED_BY(*task_queue_);
 
+  // If produced by a factory, informs it when destructed.
+  // TODO(bugs.webrtc.org/9046): Only support creation via factory.
+  Factory* const owning_factory_;
+
   // Since we are posting tasks bound to |this|,  it is critical that the event
   // log and it's members outlive the |task_queue_|. Keep the "task_queue_|
   // last to ensure it destructs first, or else tasks living on the queue might
@@ -140,6 +166,41 @@ class RtcEventLogImpl final : public RtcEventLog {
 
   RTC_DISALLOW_COPY_AND_ASSIGN(RtcEventLogImpl);
 };
+
+RtcEventLogImpl::Factory::Factory(EncodingType encoding_type,
+                                  size_t max_concurrent_logs)
+    : encoding_type_(encoding_type),
+      max_concurrent_logs_(max_concurrent_logs),
+      num_current_logs_(0) {}
+
+RtcEventLogImpl::Factory::~Factory() {
+  RTC_DCHECK_CALLED_SEQUENTIALLY(&sequence_checker_);
+}
+
+// TODO: !!! Exact type of return type?
+std::unique_ptr<RtcEventLog> RtcEventLogImpl::Factory::Create(
+    std::unique_ptr<rtc::TaskQueue> task_queue) {
+  RTC_DCHECK_CALLED_SEQUENTIALLY(&sequence_checker_);
+
+  if (num_current_logs_ >= max_concurrent_logs_) {
+    return nullptr;
+  }
+
+  // TODO: !!! Consider.
+  // if (!task_queue) {
+
+  // }
+
+  ++num_current_logs_;
+  return rtc::MakeUnique<RtcEventLogImpl>(CreateEncoder(encoding_type_),
+                                          std::move(task_queue));
+}
+
+void RtcEventLogImpl::Factory::OnDestruction() {
+  RTC_DCHECK_CALLED_SEQUENTIALLY(&sequence_checker_);
+  RTC_DCHECK_GT(num_current_logs_, 0);
+  --num_current_logs_;
+}
 
 RtcEventLogImpl::RtcEventLogImpl(
     std::unique_ptr<RtcEventLogEncoder> event_encoder,
@@ -151,6 +212,7 @@ RtcEventLogImpl::RtcEventLogImpl(
       output_period_ms_(kImmediateOutput),
       last_output_ms_(rtc::TimeMillis()),
       output_scheduled_(false),
+      owning_factory_(nullptr),  // TODO: !!!
       task_queue_(std::move(task_queue)) {
   RTC_DCHECK(task_queue_);
 }
@@ -161,6 +223,11 @@ RtcEventLogImpl::~RtcEventLogImpl() {
   // If we're logging to the output, this will stop that. Blocking function.
   StopLogging();
 
+  if (owning_factory_) {
+    owning_factory_->OnDestruction();
+  }
+
+  // TODO: !!!
   int count = std::atomic_fetch_sub(&rtc_event_log_count, 1) - 1;
   RTC_DCHECK_GE(count, 0);
 }

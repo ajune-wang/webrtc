@@ -33,17 +33,32 @@ class RtcEventLog {
   // 2. Get rid of the legacy encoding, allowing us to get rid of this enum.
   enum class EncodingType { Legacy };
 
+  // Dispenses RtcEventLog objects. Subclasses can tie this down to a specific
+  // encoding (legacy vs. new), or make it maintain a limit on the number of
+  // RtcEvetLog objects.
+  class Factory {
+   public:
+    virtual ~Factory() = default;
+
+    virtual std::unique_ptr<RtcEventLog> Create(
+        std::unique_ptr<rtc::TaskQueue> task_queue) = 0;
+  };
+
   virtual ~RtcEventLog() {}
 
+  // TODO(bugs.webrtc.org/9046): Remove this, in favor of using a factory.
   // Factory method to create an RtcEventLog object.
   static std::unique_ptr<RtcEventLog> Create(EncodingType encoding_type);
 
+  // TODO(bugs.webrtc.org/9046): Remove this, in favor of using a factory.
   // Factory method to create an RtcEventLog object which uses the given
   // rtc::TaskQueue for emitting output.
   static std::unique_ptr<RtcEventLog> Create(
       EncodingType encoding_type,
       std::unique_ptr<rtc::TaskQueue> task_queue);
 
+  // TODO(bugs.webrtc.org/9046): Remove this, in favor of using a factory.
+  // TODO: !!! I might actually be able to remove this right away.
   // Create an RtcEventLog object that does nothing.
   static std::unique_ptr<RtcEventLog> CreateNull();
 

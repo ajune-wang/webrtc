@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5949ae6b_f8198e14",
+        "filename": "p2p/base/portallocator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-07T00:00:36Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "77141fe9_762175be",
+      "revId": "6e824d0840e63a88039e383a6d30cc91916517dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "08c35e0b_535868ed",
         "filename": "p2p/base/portallocator.cc",
         "patchSetId": 6
@@ -33,6 +51,24 @@
       "revId": "6e824d0840e63a88039e383a6d30cc91916517dc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54d43013_624e5fd0",
+        "filename": "p2p/base/portallocator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-07T00:00:36Z",
+      "side": 1,
+      "message": "Good idea. This would enforce the invocation of Initialize and make a strict distinction on what thread methods can be called on before and after Initialize.",
+      "parentUuid": "08c35e0b_535868ed",
+      "revId": "6e824d0840e63a88039e383a6d30cc91916517dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "68ef873b_faaedaf2",
+        "filename": "p2p/base/portallocator.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-07T00:00:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b2a66cee_8f23528d",
+      "revId": "6e824d0840e63a88039e383a6d30cc91916517dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "199ff9d1_157fada9",
         "filename": "p2p/client/basicportallocator.cc",
         "patchSetId": 6
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "85a31f87_962975d1",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-07T00:00:36Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "199ff9d1_157fada9",
+      "revId": "6e824d0840e63a88039e383a6d30cc91916517dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d214f917_8157436a",
         "filename": "p2p/client/basicportallocator.cc",
         "patchSetId": 6
@@ -84,6 +156,24 @@
       "revId": "6e824d0840e63a88039e383a6d30cc91916517dc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b8f941f_ec8c6416",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-07T00:00:36Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d214f917_8157436a",
+      "revId": "6e824d0840e63a88039e383a6d30cc91916517dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -659,6 +659,73 @@ TEST_P(PeerConnectionBundleTest, BundleOnFirstMidInAnswer) {
   EXPECT_EQ(caller->voice_rtp_transport(), caller->video_rtp_transport());
 }
 
+// This tests that changing the pre-negotiated BUNDLE tag is not supported.
+TEST_P(PeerConnectionBundleTest, RejectDescriptionChangingBundleTag) {
+  RTCConfiguration config;
+  config.bundle_policy = BundlePolicy::kBundlePolicyMaxBundle;
+  auto caller = CreatePeerConnectionWithAudioVideo(config);
+  auto callee = CreatePeerConnectionWithAudioVideo(config);
+
+  RTCOfferAnswerOptions options;
+  options.use_rtp_mux = true;
+  auto offer = caller->CreateOfferAndSetAsLocal(options);
+
+  // Create a new bundle-group with different bundled_mid.
+  auto* old_bundle_group =
+      offer->description()->GetGroupByName(cricket::GROUP_TYPE_BUNDLE);
+  std::string first_mid = old_bundle_group->content_names()[0];
+  std::string second_mid = old_bundle_group->content_names()[1];
+  cricket::ContentGroup new_bundle_group(cricket::GROUP_TYPE_BUNDLE);
+  new_bundle_group.AddContentName(second_mid);
+
+  auto re_offer = CloneSessionDescription(offer.get());
+  callee->SetRemoteDescription(std::move(offer));
+  auto answer = callee->CreateAnswer(options);
+  // Reject the first MID.
+  answer->description()->contents()[0].rejected = true;
+  // Remove the first MID from the bundle group.
+  answer->description()->RemoveGroupByName(cricket::GROUP_TYPE_BUNDLE);
+  answer->description()->AddGroup(new_bundle_group);
+  // The answer is expected to be rejected.
+  EXPECT_FALSE(caller->SetRemoteDescription(std::move(answer)));
+
+  // Do the same thing for re-offer.
+  re_offer->description()->contents()[0].rejected = true;
+  re_offer->description()->RemoveGroupByName(cricket::GROUP_TYPE_BUNDLE);
+  re_offer->description()->AddGroup(new_bundle_group);
+  // The re-offer is expected to be rejected.
+  EXPECT_FALSE(caller->SetLocalDescription(std::move(re_offer)));
+}
+
+// This tests that removing contents from BUNDLE group and reject the whole
+// BUNDLE group could work.
+TEST_P(PeerConnectionBundleTest, RemovingContentAndRejectBundleGroup) {
+  RTCConfiguration config;
+  config.bundle_policy = BundlePolicy::kBundlePolicyMaxBundle;
+  auto caller = CreatePeerConnectionWithAudioVideo(config);
+  caller->CreateDataChannel("dc");
+
+  auto offer = caller->CreateOfferAndSetAsLocal();
+  auto re_offer = CloneSessionDescription(offer.get());
+
+  // Removing the second MID from the BUNDLE group.
+  auto* old_bundle_group =
+      offer->description()->GetGroupByName(cricket::GROUP_TYPE_BUNDLE);
+  std::string first_mid = old_bundle_group->content_names()[0];
+  std::string third_mid = old_bundle_group->content_names()[2];
+  cricket::ContentGroup new_bundle_group(cricket::GROUP_TYPE_BUNDLE);
+  new_bundle_group.AddContentName(first_mid);
+  new_bundle_group.AddContentName(third_mid);
+
+  // Reject the entire new bundle group.
+  re_offer->description()->contents()[0].rejected = true;
+  re_offer->description()->contents()[2].rejected = true;
+  re_offer->description()->RemoveGroupByName(cricket::GROUP_TYPE_BUNDLE);
+  re_offer->description()->AddGroup(new_bundle_group);
+
+  EXPECT_TRUE(caller->SetLocalDescription(std::move(re_offer)));
+}
+
 INSTANTIATE_TEST_CASE_P(PeerConnectionBundleTest,
                         PeerConnectionBundleTest,
                         Values(SdpSemantics::kPlanB,

@@ -177,7 +177,10 @@ class JsepTransportController : public sigslot::has_slots<>,
   RTCError ApplyDescription_n(bool local,
                               SdpType type,
                               const cricket::SessionDescription* description);
-  RTCError ValidateBundleGroup(const cricket::SessionDescription* description);
+  RTCError ValidateAndMaybeUpdateBundleGroup(
+      bool local,
+      SdpType type,
+      const cricket::SessionDescription* description);
   RTCError ValidateContent(const cricket::ContentInfo& content_info);
 
   void HandleRejectedContent(const cricket::ContentInfo& content_info);
@@ -227,8 +230,7 @@ class JsepTransportController : public sigslot::has_slots<>,
   cricket::JsepTransport2* GetJsepTransportByName(
       const std::string& transport_name);
 
-  RTCError MaybeCreateJsepTransport(const std::string& mid,
-                                    const cricket::ContentInfo& content_info);
+  RTCError MaybeCreateJsepTransport(const cricket::ContentInfo& content_info);
   void MaybeDestroyJsepTransport(const std::string& mid);
   void DestroyAllJsepTransports_n();
 

@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cea063e3_082cc7c1",
+        "filename": "video/video_stream_decoder_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-04-09T10:50:30Z",
+      "side": 1,
+      "message": "Add unit suffix on |frame_timestamp|, and comment on purpose and the unit of the returned value.",
+      "range": {
+        "startLine": 214,
+        "startChar": 0,
+        "endLine": 215,
+        "endChar": 34
+      },
+      "revId": "28260288552a93eeab6e8b06602917da4b443484",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30c3cddd_2c3e9000",
+        "filename": "video/video_stream_decoder_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-04-09T10:50:30Z",
+      "side": 1,
+      "message": "Side note: I\u0027m not so fond of this mod_ops abstraction. It would be safer with a circular buffer abstraction, without an explicit size in the index calculations. Add and Subtract are a bit too generic names. Allowed range for second input is unclear.",
+      "range": {
+        "startLine": 220,
+        "startChar": 23,
+        "endLine": 220,
+        "endChar": 50
+      },
+      "revId": "28260288552a93eeab6e8b06602917da4b443484",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62206eda_cd44db47",
+        "filename": "video/video_stream_decoder_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-04-09T10:50:30Z",
+      "side": 1,
+      "message": "Any reason we can\u0027t use timestamp_us() and get better accuracy?\n\nWhat is the decode time ultimately used for? Just stats, or can we somehow signal detect that decode times get too large and signal the sender?",
+      "range": {
+        "startLine": 261,
+        "startChar": 43,
+        "endLine": 261,
+        "endChar": 54
+      },
+      "revId": "28260288552a93eeab6e8b06602917da4b443484",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -965,7 +965,12 @@ TEST_P(PeerConnectionMediaTest, AnswerHasSameMidsAsOffer) {
   auto caller = CreatePeerConnectionWithAudioVideo();
   auto callee = CreatePeerConnectionWithAudioVideo();
 
-  auto offer = caller->CreateOffer();
+  // Disable BUNDLE so that we don't have to rename the content in the BUNDLE
+  // group.
+  RTCOfferAnswerOptions options;
+  options.use_rtp_mux = false;
+
+  auto offer = caller->CreateOffer(options);
   RenameContent(offer->description(), cricket::MEDIA_TYPE_AUDIO, kAudioMid);
   RenameContent(offer->description(), cricket::MEDIA_TYPE_VIDEO, kVideoMid);
   ASSERT_TRUE(callee->SetRemoteDescription(std::move(offer)));
@@ -986,7 +991,12 @@ TEST_P(PeerConnectionMediaTest, ReOfferHasSameMidsAsFirstOffer) {
   auto caller = CreatePeerConnectionWithAudioVideo();
   auto callee = CreatePeerConnectionWithAudioVideo();
 
-  auto offer = caller->CreateOffer();
+  // Disable BUNDLE so that we don't have to rename the content in the BUNDLE
+  // group.
+  RTCOfferAnswerOptions options;
+  options.use_rtp_mux = false;
+
+  auto offer = caller->CreateOffer(options);
   RenameContent(offer->description(), cricket::MEDIA_TYPE_AUDIO, kAudioMid);
   RenameContent(offer->description(), cricket::MEDIA_TYPE_VIDEO, kVideoMid);
   ASSERT_TRUE(callee->SetRemoteDescription(std::move(offer)));

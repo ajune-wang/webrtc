@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "758696c7_1cf14553",
+        "filename": "call/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-04-09T12:26:59Z",
+      "side": 1,
+      "message": "Yes.",
+      "parentUuid": "032f2b8e_b2483415",
+      "revId": "567345e9df9dab20689d7d72ff4c41b291792fe9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3da1a349_a264df4b",
         "filename": "call/audio_receive_stream.h",
         "patchSetId": 4
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "0df1c2d7_5fa50e81",
+        "filename": "call/audio_receive_stream.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-04-09T12:26:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3da1a349_a264df4b",
+      "revId": "567345e9df9dab20689d7d72ff4c41b291792fe9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a0d5ec3e_e671df84",
         "filename": "call/audio_state.h",
         "patchSetId": 4
@@ -47,6 +83,24 @@
       "writtenOn": "2018-04-09T10:54:43Z",
       "side": 1,
       "message": "Why did you add these includes? Was audio_state.h already using stuff from these headers, and relying on audio_mixer.h to including them?",
+      "revId": "567345e9df9dab20689d7d72ff4c41b291792fe9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd634cae_3d3de98d",
+        "filename": "call/audio_state.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-04-09T12:26:59Z",
+      "side": 1,
+      "message": "These types are used in the Config struct. It seems that when no constructor was defined, we got away with just forward declaring them, but explicitly defining the constructor means they need to be included. Otherwise we get \"member access into incomplete type\". This appears to be something particular to the scoped_refptr.",
+      "parentUuid": "a0d5ec3e_e671df84",
       "revId": "567345e9df9dab20689d7d72ff4c41b291792fe9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "d7af04a3_aa58eaed",
+        "filename": "media/base/streamparams.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-04-09T12:26:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "420b4429_f309a940",
+      "revId": "567345e9df9dab20689d7d72ff4c41b291792fe9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4e6fa2e8_8b19b671",
         "filename": "media/base/streamparams.h",
         "patchSetId": 4
@@ -84,6 +156,24 @@
       "revId": "567345e9df9dab20689d7d72ff4c41b291792fe9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4937c381_aed6dd11",
+        "filename": "media/base/streamparams.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-04-09T12:26:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4e6fa2e8_8b19b671",
+      "revId": "567345e9df9dab20689d7d72ff4c41b291792fe9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

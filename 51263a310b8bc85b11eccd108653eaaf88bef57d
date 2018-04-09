@@ -22,6 +22,30 @@
       "revId": "51263a310b8bc85b11eccd108653eaaf88bef57d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c41911ea_1cdab31d",
+        "filename": "sdk/android/api/org/webrtc/VideoFrame.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-04-09T14:58:45Z",
+      "side": 1,
+      "message": "These are now overrides so they have documentation at the interface level. The comments also was not really related to explaining what the method does.",
+      "parentUuid": "376d4dba_7e72c479",
+      "range": {
+        "startLine": 45,
+        "startChar": 5,
+        "endLine": 45,
+        "endChar": 6
+      },
+      "revId": "51263a310b8bc85b11eccd108653eaaf88bef57d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

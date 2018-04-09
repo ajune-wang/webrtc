@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "032f2b8e_b2483415",
+        "filename": "call/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-04-09T10:54:43Z",
+      "side": 1,
+      "message": "I\u0027m guessing this comes from the two new #includes you added?",
+      "revId": "567345e9df9dab20689d7d72ff4c41b291792fe9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3da1a349_a264df4b",
+        "filename": "call/audio_receive_stream.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-04-09T10:54:43Z",
+      "side": 1,
+      "message": "These should go before the data members; see https://google.github.io/styleguide/cppguide.html#Declaration_Order.\n\n(Several more cases of this below.)",
+      "revId": "567345e9df9dab20689d7d72ff4c41b291792fe9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0d5ec3e_e671df84",
+        "filename": "call/audio_state.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-04-09T10:54:43Z",
+      "side": 1,
+      "message": "Why did you add these includes? Was audio_state.h already using stuff from these headers, and relying on audio_mixer.h to including them?",
+      "revId": "567345e9df9dab20689d7d72ff4c41b291792fe9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "420b4429_f309a940",
+        "filename": "media/base/streamparams.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-04-09T10:54:43Z",
+      "side": 1,
+      "message": "The members of this struct are much cheaper to move than to copy, so consider providing a move constructor as well.",
+      "revId": "567345e9df9dab20689d7d72ff4c41b291792fe9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e6fa2e8_8b19b671",
+        "filename": "media/base/streamparams.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-04-09T10:54:43Z",
+      "side": 1,
+      "message": "Here too.",
+      "revId": "567345e9df9dab20689d7d72ff4c41b291792fe9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

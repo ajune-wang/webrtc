@@ -526,6 +526,8 @@ void UDPPort::MaybeSetPortCompleteOrError() {
 void UDPPort::OnSendPacket(const void* data, size_t size, StunRequest* req) {
   StunBindingRequest* sreq = static_cast<StunBindingRequest*>(req);
   rtc::PacketOptions options(DefaultDscpValue());
+  options.info_signaled_after_sent.packet_type = rtc::PacketType::kStunMessage;
+  CopyPortInformationToPacketInfo(&options.info_signaled_after_sent);
   if (socket_->SendTo(data, size, sreq->server_addr(), options) < 0) {
     RTC_LOG_ERR_EX(LERROR, socket_->GetError()) << "sendto";
   }

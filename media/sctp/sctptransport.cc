@@ -919,8 +919,10 @@ void SctpTransport::OnPacketFromSctpToNetwork(
   }
 
   // Bon voyage.
-  transport_->SendPacket(buffer.data<char>(), buffer.size(),
-                         rtc::PacketOptions(), PF_NORMAL);
+  rtc::PacketOptions options;
+  options.info_signaled_after_sent.packet_type = rtc::PacketType::kData;
+  transport_->SendPacket(buffer.data<char>(), buffer.size(), options,
+                         PF_NORMAL);
 }
 
 void SctpTransport::OnInboundPacketFromSctpToTransport(

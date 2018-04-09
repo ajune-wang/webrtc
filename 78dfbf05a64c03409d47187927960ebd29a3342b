@@ -22,6 +22,30 @@
       "revId": "78dfbf05a64c03409d47187927960ebd29a3342b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a57a34ef_16dd4478",
+        "filename": "modules/congestion_controller/rtp/send_side_congestion_controller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 641,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-04-09T08:52:02Z",
+      "side": 1,
+      "message": "Yes, the idea was to keep the communication graph clear SSCC-\u003eController-\u003eControlHandler, with the changes in this CL it actually might make less sense. I\u0027ll look to see for potential cleanup here for future CLs.",
+      "parentUuid": "f9eebea4_18dc76ad",
+      "range": {
+        "startLine": 631,
+        "startChar": 0,
+        "endLine": 641,
+        "endChar": 1
+      },
+      "revId": "78dfbf05a64c03409d47187927960ebd29a3342b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

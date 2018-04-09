@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "6862f649_bc213748",
+        "filename": "rtc_base/asyncudpsocket.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-09T21:41:02Z",
+      "side": 1,
+      "message": "Ah, sure! Thanks.",
+      "parentUuid": "395a7880_9723ca14",
+      "revId": "1306482d5bb9a360b166eab381cf2e378ce2e0d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d2a757c3_0d7facf6",
         "filename": "rtc_base/socket.h",
         "patchSetId": 5
@@ -30,6 +48,30 @@
       "writtenOn": "2018-04-09T17:48:06Z",
       "side": 1,
       "message": "In my use case, we don\u0027t know the difference between Audio, Video, and Data at the moment we send the packet.  It\u0027s buried in an encrypted payload, and it may carry more than one of these (or none).\n\nMost likely, I will have to use kData for all media packets and generate the breakdown of contents outside ICE.",
+      "range": {
+        "startLine": 128,
+        "startChar": 0,
+        "endLine": 130,
+        "endChar": 8
+      },
+      "revId": "1306482d5bb9a360b166eab381cf2e378ce2e0d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4b3c2fc_b14e7ce8",
+        "filename": "rtc_base/socket.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-09T21:41:02Z",
+      "side": 1,
+      "message": "Ack. I\u0027d also like to hear Peter and Taylor\u0027s opinion if this is even necessary in our use case.",
+      "parentUuid": "d2a757c3_0d7facf6",
       "range": {
         "startLine": 128,
         "startChar": 0,

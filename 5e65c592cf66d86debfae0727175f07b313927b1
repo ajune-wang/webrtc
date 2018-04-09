@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "d1c4f910_f71630f8",
+        "filename": "p2p/base/portallocator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-04-09T21:47:05Z",
+      "side": 1,
+      "message": "Yeah, that\u0027s what I meant by \"I think it works\".  If it\u0027s the running convention, that\u0027s fine.  Maybe just add a comment saying something like \"We can do this in a DCHECK because we only ever check it in a DCHECK elsewhere.\"",
+      "parentUuid": "60c5f936_19bf8889",
+      "range": {
+        "startLine": 115,
+        "startChar": 52,
+        "endLine": 115,
+        "endChar": 0
+      },
+      "revId": "5e65c592cf66d86debfae0727175f07b313927b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "be5eda31_7086c5c0",
         "filename": "p2p/base/portallocator.cc",
         "patchSetId": 7
@@ -178,6 +202,30 @@
       "side": 1,
       "message": "Yeah, ideally that was the design by the original comment I guess. We have several violation in PeerConnection now, mostly the getters/setters. We can fix all of them but some of them do add awkward thread hopping in the code and potentially longer latency in some methods on the signaling thread. I think Taylor made a point that it does not feel necessary to hop the thread especially when we configure the PortAllocator before using it. What do you think?",
       "parentUuid": "e687166e_db15c7b4",
+      "range": {
+        "startLine": 342,
+        "startChar": 0,
+        "endLine": 343,
+        "endChar": 0
+      },
+      "revId": "5e65c592cf66d86debfae0727175f07b313927b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab360059_bd2bbaba",
+        "filename": "p2p/base/portallocator.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-04-09T21:47:05Z",
+      "side": 1,
+      "message": "I think configuring before Initialize() is fine.  That makes Initialize() have a purpose, and you improved comment will make that clear.",
+      "parentUuid": "1218cecf_6de9b257",
       "range": {
         "startLine": 342,
         "startChar": 0,

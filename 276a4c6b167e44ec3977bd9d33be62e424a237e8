@@ -1,0 +1,191 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6da3d24a_67d1b13e",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 632,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-09T22:23:59Z",
+      "side": 1,
+      "message": "Isn\u0027t this the same as \"new_bundle_group\"? Also, prefer not using \"auto\" unless it helps readability. In this case the type name isn\u0027t long, and it would be nice to have it.",
+      "revId": "276a4c6b167e44ec3977bd9d33be62e424a237e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf02f937_2a6d70d4",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 641,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-09T22:23:59Z",
+      "side": 1,
+      "message": "Log string should end with \": \" since content_name is printed at the end",
+      "revId": "276a4c6b167e44ec3977bd9d33be62e424a237e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88b46c79_6f0489c5",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 659,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-09T22:23:59Z",
+      "side": 1,
+      "message": "I\u0027d suggest \"contains a MID that was not in the offered group.\"",
+      "revId": "276a4c6b167e44ec3977bd9d33be62e424a237e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "459663f8_c6b0625a",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 674,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-09T22:23:59Z",
+      "side": 1,
+      "message": "I\u0027d suggest \"Answer cannot remove m\u003d section \u003cname\u003e from already-established BUNDLE group.\"",
+      "revId": "276a4c6b167e44ec3977bd9d33be62e424a237e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3bc19268_33126790",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 685,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-09T22:23:59Z",
+      "side": 1,
+      "message": "nit: It\u0027s not obvious that \"ShouldUpdateBundleGroup \u0026\u0026 !description-\u003eHasGroup\" means \"max-bundle used\" (until you look inside ShouldUpdateBundleGroup).\n\nJust to improve readability, I\u0027d suggest moving the error outside the ShouldUpdateBundleGroup \"if\" condition, doing:\n\n  if (config_.bundle_policy \u003d\u003d PeerConnectionInterface::kBundlePolicyMaxBundle\n      \u0026\u0026 !description-\u003eHasGroup(cricket::GROUP_TYPE_BUNDLE)) {\n    return RTCError(RTCErrorType::INVALID_PARAMETER,\n                      \"max-bundle is used but no bundle group found.\");\n  }",
+      "revId": "276a4c6b167e44ec3977bd9d33be62e424a237e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51c337f9_96506c6c",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 754,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-09T22:23:59Z",
+      "side": 1,
+      "message": "Again, I don\u0027t think auto improves readability here.",
+      "revId": "276a4c6b167e44ec3977bd9d33be62e424a237e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c01e317_b301e525",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 980,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-09T22:23:59Z",
+      "side": 1,
+      "message": "These new signals take care of when an offer (in max-bundle mode) removes an m\u003d section from a bundle group. I guess in non max-bundle mode, you would just hit an error when applying the answer? Not ideal, but we can fix that later.\n\nHowever, one case that still appears problematic:\n\nInitial offer:\n\na\u003dgroup:BUNDLE audio video\nm\u003daudio 9 ...\nm\u003dvideo 9 ...\n\nSubsequent offer:\n\na\u003dgroup:BUNDLE audio\nm\u003daudio 0 ...\nm\u003dvideo 0 ...\n\nThe order of things happening will be:\n\n1. SignalRtpTransportChanged(\"audio\", nullptr)\n2. Audio transport destroyed\n3. Audio BaseChannel destroyed\n4. Video BaseChannel destroyed\n\nIn between #2 and #4, video packets could be sent, causing the destroyed transport to be dereferenced.\n\nI *think* this is the only problematic scenario remaining. However, even with that fixed, it would be nice if this code were designed with some added assurance that dereferencing a destroyed RtpTransport can never happen. Like what the reference counting provided before.\n\n\n\nFor example, suppose there was a map of MID to transport:\n\n  std::map\u003cstd::string, JsepTransport*\u003e mid_to_transport_;\n\nAnd suppose this map were only modified in one method, like:\n\n  void JsepTransportController::SetTransportForMid(const std::string\u0026 mid, JsepTransport* t) {\n    if (mid_to_transport_[mid] !\u003d t) {\n      mid_to_transport_[mid] \u003d t;\n      SignalRtpTransportChanged(mid, t-\u003ertp_transport());\n      SignalDtlsTransportChanged(mid, t-\u003ertp_dlts_transport());\n    }\n  }\n\nAnd suppose transports are only destroyed from a method that verifies nothing\u0027s referencing it:\n\n  void JsepTransportController::MaybeDestroyJsepTransport(JsepTransport* t) {\n    for (const auto\u0026 kv : mid_to_transport_) {\n      if (kv.second \u003d\u003d t) return;\n    }\n    delete t;\n  }\n\nWith this design, even if there are bugs in processing bundle groups, you can be assured that a transport won\u0027t be destroyed until nothing is referencing it.\n\nThis is just an example, I\u0027m sure there are better ways. Possibly we should go back to reference counting... My point is just that, ideally, the code should be designed in a way that it would be very difficult to introduce a crash or security bug without noticing.",
+      "revId": "276a4c6b167e44ec3977bd9d33be62e424a237e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ec83dac_42a8c175",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 990,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-09T22:23:59Z",
+      "side": 1,
+      "message": "Remember to remove before landing (or did you mean to leave this?)",
+      "revId": "276a4c6b167e44ec3977bd9d33be62e424a237e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1856c809_aa687922",
+        "filename": "pc/jseptransportcontroller_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1408,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-09T22:23:59Z",
+      "side": 1,
+      "message": "Would prefer these as PeerConnection-level tests (in peerconnection_bundle_unittest), so that they won\u0027t have to be rewritten if this code is refactored again.\n\nThough, since you\u0027ve already written these versions, it doesn\u0027t hurt to leave them as well and have tests at two levels.",
+      "revId": "276a4c6b167e44ec3977bd9d33be62e424a237e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "574b384d_1ae71c56",
+        "filename": "pc/peerconnection_bundle_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 701,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-09T22:23:59Z",
+      "side": 1,
+      "message": "Since this is a pretty specific test case, may want to mention that it\u0027s a regression test for https://bugs.chromium.org/p/chromium/issues/detail?id\u003d827917",
+      "revId": "276a4c6b167e44ec3977bd9d33be62e424a237e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c66fe5d6_60920d00",
+        "filename": "pc/peerconnection_media_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 969,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-09T22:23:59Z",
+      "side": 1,
+      "message": "nit: could just add that functionality to RenameContent",
+      "revId": "276a4c6b167e44ec3977bd9d33be62e424a237e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

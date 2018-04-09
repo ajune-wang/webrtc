@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d48ce2ae_3a371941",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-04-09T06:48:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "35afc8ac_c08dfe30",
+      "revId": "378fbd275d7c847dcf55e07a9158081ac51ff5b2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "20f19ab4_e47f3197",
         "filename": "pc/rtpsender.cc",
         "patchSetId": 2
@@ -33,6 +51,24 @@
       "revId": "378fbd275d7c847dcf55e07a9158081ac51ff5b2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75bb5150_206f2514",
+        "filename": "pc/rtpsender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-04-09T06:48:09Z",
+      "side": 1,
+      "message": "Done, deleted the cached_track_enabled_ member.",
+      "parentUuid": "20f19ab4_e47f3197",
+      "revId": "378fbd275d7c847dcf55e07a9158081ac51ff5b2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -297,7 +297,8 @@ TEST_F(StatsEndToEndTest, GetStats) {
 
       // Use a delayed encoder to make sure we see CpuOveruseMetrics stats that
       // are non-zero.
-      send_config->encoder_settings.encoder = &encoder_;
+      // TODO(nisse): XXX = &encoder;
+      send_config->encoder_settings.encoder_factory = nullptr;
     }
 
     size_t GetNumVideoStreams() const override { return kNumSimulcastStreams; }

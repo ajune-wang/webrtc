@@ -107,6 +107,24 @@
     },
     {
       "key": {
+        "uuid": "3c3d667e_f7bce027",
+        "filename": "call/audio_state.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-04-09T13:20:28Z",
+      "side": 1,
+      "message": "Interesting. Then yes, adding those #includes is the right thing to do.",
+      "parentUuid": "dd634cae_3d3de98d",
+      "revId": "567345e9df9dab20689d7d72ff4c41b291792fe9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "420b4429_f309a940",
         "filename": "media/base/streamparams.h",
         "patchSetId": 4

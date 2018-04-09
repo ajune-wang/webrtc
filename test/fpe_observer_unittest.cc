@@ -85,10 +85,7 @@ TEST(FloatingPointExceptionObserverTest, CheckTestConstants) {
     all_flags |= v.first;
   }
 #ifdef WEBRTC_MAC
-#ifndef FE_UNNORMAL
-#define FE_UNNORMAL 2
-#endif
-  all_flags |= FE_UNNORMAL;  // Non standard OS specific flag.
+  all_flags += 2;  // Non standard OS specific flag.
 #endif
   ASSERT_EQ(FE_ALL_EXCEPT, all_flags);
 #endif

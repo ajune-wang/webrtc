@@ -477,14 +477,6 @@ rtc_static_library("media_jni") {
     "../../modules/audio_device:audio_device",
     "../../modules/audio_processing:audio_processing",
   ]
-
-  if (is_clang) {
-    # Suppress warnings from the Chromium Clang plugin (bugs.webrtc.org/163).
-    suppressed_configs += [
-      "//build/config/clang:extra_warnings",
-      "//build/config/clang:find_bad_constructs",
-    ]
-  }
 }
 
 rtc_static_library("null_media_jni") {

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "60c5f936_19bf8889",
+        "filename": "p2p/base/portallocator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-09T20:53:17Z",
+      "side": 1,
+      "message": "I am not sure if we have a convention of doing thread checking that I need to follow. This pattern is used in other parts in the codebase (also RTC_DCHECK_RUN_ON). I agree it feels a bit odd to put a call like CalledOnValidThread that has side effect in DCHECK. If we only rely on DCHECK to catch the wrong threading, the result would be the same though. Let me know what you think.",
+      "parentUuid": "92932d9b_31712577",
+      "range": {
+        "startLine": 115,
+        "startChar": 52,
+        "endLine": 115,
+        "endChar": 0
+      },
+      "revId": "5e65c592cf66d86debfae0727175f07b313927b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "be5eda31_7086c5c0",
         "filename": "p2p/base/portallocator.cc",
         "patchSetId": 7
@@ -36,6 +60,30 @@
       "writtenOn": "2018-04-09T18:02:33Z",
       "side": 1,
       "message": "Why do we need to check initialized_ twice here?",
+      "range": {
+        "startLine": 242,
+        "startChar": 27,
+        "endLine": 242,
+        "endChar": 0
+      },
+      "revId": "5e65c592cf66d86debfae0727175f07b313927b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d7d593d_ba482630",
+        "filename": "p2p/base/portallocator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-09T20:53:17Z",
+      "side": 1,
+      "message": "Sorry that I missed this line in my clean-up. Will remove it in my next patch.",
+      "parentUuid": "be5eda31_7086c5c0",
       "range": {
         "startLine": 242,
         "startChar": 27,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "2a899bdb_23019ad4",
+        "filename": "p2p/base/portallocator.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-09T20:53:17Z",
+      "side": 1,
+      "message": "I think the idea Taylor discussed with me is that we allow methods to be called on different threads before initialized, to allow getter/setter in configuration, and also to be compatible with some existing practice we have in the codebase. Once Initialize is called, particularly in InitializePortAllocator_n in PeerConnection, we enforce the thread restriction on the WebRTC land. I should have rewritten this comment and how about \"This must be called on the PortAllocator\u0027s thread after finishing constructing and configuring the PortAllocator subclasses\"?",
+      "parentUuid": "13a7ba6c_a538423c",
+      "range": {
+        "startLine": 340,
+        "startChar": 70,
+        "endLine": 341,
+        "endChar": 0
+      },
+      "revId": "5e65c592cf66d86debfae0727175f07b313927b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e687166e_db15c7b4",
         "filename": "p2p/base/portallocator.h",
         "patchSetId": 7
@@ -82,6 +154,30 @@
       "writtenOn": "2018-04-09T18:02:33Z",
       "side": 1,
       "message": "The alternative is to not require calling Initialize() and instead just have the rule be \"all methods must be called from the same thread\" (the first call to any method locks onto the given thread).  Did we consider that?  Then we don\u0027t need all the Initialize() calls everywhere.",
+      "range": {
+        "startLine": 342,
+        "startChar": 0,
+        "endLine": 343,
+        "endChar": 0
+      },
+      "revId": "5e65c592cf66d86debfae0727175f07b313927b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1218cecf_6de9b257",
+        "filename": "p2p/base/portallocator.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-09T20:53:17Z",
+      "side": 1,
+      "message": "Yeah, ideally that was the design by the original comment I guess. We have several violation in PeerConnection now, mostly the getters/setters. We can fix all of them but some of them do add awkward thread hopping in the code and potentially longer latency in some methods on the signaling thread. I think Taylor made a point that it does not feel necessary to hop the thread especially when we configure the PortAllocator before using it. What do you think?",
+      "parentUuid": "e687166e_db15c7b4",
       "range": {
         "startLine": 342,
         "startChar": 0,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "e49e7ffc_1370cc91",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-09T20:53:17Z",
+      "side": 1,
+      "message": "Ack. Will do if we decide the pattern of thread checking with Initialize is what we need.",
+      "parentUuid": "3bd14780_70b47a1f",
+      "range": {
+        "startLine": 112,
+        "startChar": 37,
+        "endLine": 113,
+        "endChar": 0
+      },
+      "revId": "5e65c592cf66d86debfae0727175f07b313927b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d0f63407_f6f6623a",
         "filename": "p2p/client/basicportallocator.cc",
         "patchSetId": 7
@@ -128,6 +248,30 @@
       "writtenOn": "2018-04-09T18:02:33Z",
       "side": 1,
       "message": "All it does is clear a vector.  Isn\u0027t this harmless if !initialized_? (in other words, I think you don\u0027t need the \"if\" here).",
+      "range": {
+        "startLine": 197,
+        "startChar": 27,
+        "endLine": 197,
+        "endChar": 0
+      },
+      "revId": "5e65c592cf66d86debfae0727175f07b313927b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb26d687_44be3939",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-09T20:53:17Z",
+      "side": 1,
+      "message": "DiscardCandidatePool is checked for whether initialized as well, but the destructor is not, say destroying a PortAllocator before using it. I was thinking about whether we consider discarding a pool legitimate if the PortAllocator is not initialized, and decided to go for CheckRunOnValidThreadAndInitialized instead of CheckRunOnValidThreadIfInitialized. We can change the check rule for DiscardCandidatePool and remove this if.",
+      "parentUuid": "d0f63407_f6f6623a",
       "range": {
         "startLine": 197,
         "startChar": 27,

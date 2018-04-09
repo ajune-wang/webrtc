@@ -169,6 +169,30 @@
     },
     {
       "key": {
+        "uuid": "997c5313_65bdafa6",
+        "filename": "sdk/objc/Framework/Classes/Metal/RTCMTLNV12Renderer.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5600
+      },
+      "writtenOn": "2018-04-09T17:04:55Z",
+      "side": 1,
+      "message": "my 2c - we already know that the issue is that the wrong type of RTCVideoFrame is being passed in, resulting in a crash. The assert is only there afaik to help us find the code path that causes this to happen while actually developing (but we would know it anyway in debugger when crash occurs later in the method). I don\u0027t actually know what immediate benefit this gives us besides doco-by-assert, thread safety isn\u0027t actually improved here.\n\nHow are we planning to narrow down how a bad frame ended up in this renderer?",
+      "parentUuid": "c2cf6b66_bdc7dd8d",
+      "range": {
+        "startLine": 89,
+        "startChar": 66,
+        "endLine": 89,
+        "endChar": 67
+      },
+      "revId": "695b2afd9efd48932da6f5bf2cf93cf687fbfdcb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fe459bd3_f242fd3a",
         "filename": "sdk/objc/Framework/Classes/Metal/RTCMTLVideoView.m",
         "patchSetId": 2

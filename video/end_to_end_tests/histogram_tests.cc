@@ -88,7 +88,8 @@ void HistogramTest::VerifyHistogramStats(bool use_rtx,
       if (use_fec_) {
         send_config->rtp.ulpfec.ulpfec_payload_type = kUlpfecPayloadType;
         send_config->rtp.ulpfec.red_payload_type = kRedPayloadType;
-        send_config->encoder_settings.encoder = vp8_encoder_.get();
+        // TODO(nisse): XXX Create encoder factory for vp8.
+        send_config->encoder_settings.encoder_factory = nullptr;
         send_config->rtp.payload_name = "VP8";
         encoder_config->codec_type = kVideoCodecVP8;
         (*receive_configs)[0].decoders[0].payload_name = "VP8";

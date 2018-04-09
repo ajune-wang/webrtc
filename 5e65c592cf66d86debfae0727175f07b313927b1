@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "92932d9b_31712577",
+        "filename": "p2p/base/portallocator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-04-09T18:02:33Z",
+      "side": 1,
+      "message": "I think it works that we only attach to the thread on debug builds, but it feels kind of weird.  Should we put the call here outside of the DCHECK and then put the result in a DCHECK?",
+      "range": {
+        "startLine": 115,
+        "startChar": 52,
+        "endLine": 115,
+        "endChar": 0
+      },
+      "revId": "5e65c592cf66d86debfae0727175f07b313927b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be5eda31_7086c5c0",
+        "filename": "p2p/base/portallocator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-04-09T18:02:33Z",
+      "side": 1,
+      "message": "Why do we need to check initialized_ twice here?",
+      "range": {
+        "startLine": 242,
+        "startChar": 27,
+        "endLine": 242,
+        "endChar": 0
+      },
+      "revId": "5e65c592cf66d86debfae0727175f07b313927b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "13a7ba6c_a538423c",
+        "filename": "p2p/base/portallocator.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-04-09T18:02:33Z",
+      "side": 1,
+      "message": "This is no longer a \"should be called\", but a \"must be called\", right?",
+      "range": {
+        "startLine": 340,
+        "startChar": 70,
+        "endLine": 341,
+        "endChar": 0
+      },
+      "revId": "5e65c592cf66d86debfae0727175f07b313927b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e687166e_db15c7b4",
+        "filename": "p2p/base/portallocator.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-04-09T18:02:33Z",
+      "side": 1,
+      "message": "The alternative is to not require calling Initialize() and instead just have the rule be \"all methods must be called from the same thread\" (the first call to any method locks onto the given thread).  Did we consider that?  Then we don\u0027t need all the Initialize() calls everywhere.",
+      "range": {
+        "startLine": 342,
+        "startChar": 0,
+        "endLine": 343,
+        "endChar": 0
+      },
+      "revId": "5e65c592cf66d86debfae0727175f07b313927b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3bd14780_70b47a1f",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-04-09T18:02:33Z",
+      "side": 1,
+      "message": "These places where we do this could use a comment explaining why, even if simple, like (\"will be attached by Initialize()).",
+      "range": {
+        "startLine": 112,
+        "startChar": 37,
+        "endLine": 113,
+        "endChar": 0
+      },
+      "revId": "5e65c592cf66d86debfae0727175f07b313927b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0f63407_f6f6623a",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-04-09T18:02:33Z",
+      "side": 1,
+      "message": "All it does is clear a vector.  Isn\u0027t this harmless if !initialized_? (in other words, I think you don\u0027t need the \"if\" here).",
+      "range": {
+        "startLine": 197,
+        "startChar": 27,
+        "endLine": 197,
+        "endChar": 0
+      },
+      "revId": "5e65c592cf66d86debfae0727175f07b313927b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

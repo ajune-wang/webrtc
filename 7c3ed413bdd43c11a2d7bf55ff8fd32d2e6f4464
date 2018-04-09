@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ae32d6d4_4ec9308a",
+        "filename": "pc/channel.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 676,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-09T21:14:53Z",
+      "side": 1,
+      "message": "Would \"demuxer_criteria_.ssrs.insert(it-\u003essrcs.begin(), it-\u003essrcs.end());\" work?",
+      "revId": "7c3ed413bdd43c11a2d7bf55ff8fd32d2e6f4464",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c084d93_ceefb153",
+        "filename": "pc/dtlssrtptransport.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-09T21:14:53Z",
+      "side": 1,
+      "message": "We still want DtlsHandshakeCompleted here. Suppose the DTLS handshake is done and fingerprint is verified, but the ICE layer is temporarily unwritable; we still want to update the encrypted extension IDs in that case.",
+      "revId": "7c3ed413bdd43c11a2d7bf55ff8fd32d2e6f4464",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

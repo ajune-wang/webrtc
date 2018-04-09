@@ -7,7 +7,7 @@
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
  */
-#include "modules/congestion_controller/network_control/include/network_units_to_string.h"
+#include "modules/congestion_controller/network_control/units/units_to_string.h"
 #include "rtc_base/strings/string_builder.h"
 
 namespace webrtc {

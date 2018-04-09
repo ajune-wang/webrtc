@@ -1,0 +1,19 @@
+/*
+ *  Copyright (c) 2018 The WebRTC project authors. All Rights Reserved.
+ *
+ *  Use of this source code is governed by a BSD-style license
+ *  that can be found in the LICENSE file in the root of the source
+ *  tree. An additional intellectual property rights grant can be found
+ *  in the file PATENTS.  All contributing project authors may
+ *  be found in the AUTHORS file in the root of the source tree.
+ */
+
+#include "modules/congestion_controller/network_control/units/time_delta.h"
+#include <cmath>
+
+namespace webrtc {
+TimeDelta TimeDelta::operator*(double scalar) const {
+  return TimeDelta::us(std::round(us() * scalar));
+}
+
+}  // namespace webrtc

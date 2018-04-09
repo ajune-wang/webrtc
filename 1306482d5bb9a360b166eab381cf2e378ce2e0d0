@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "395a7880_9723ca14",
+        "filename": "rtc_base/asyncudpsocket.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-04-09T17:48:06Z",
+      "side": 1,
+      "message": "For SendTo(), shouldn\u0027t we put |addr| in the packet_info_to_signal instead of the remote address that CopySocketInformationToPacketInfo puts there?",
+      "revId": "1306482d5bb9a360b166eab381cf2e378ce2e0d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2a757c3_0d7facf6",
+        "filename": "rtc_base/socket.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-04-09T17:48:06Z",
+      "side": 1,
+      "message": "In my use case, we don\u0027t know the difference between Audio, Video, and Data at the moment we send the packet.  It\u0027s buried in an encrypted payload, and it may carry more than one of these (or none).\n\nMost likely, I will have to use kData for all media packets and generate the breakdown of contents outside ICE.",
+      "range": {
+        "startLine": 128,
+        "startChar": 0,
+        "endLine": 130,
+        "endChar": 8
+      },
+      "revId": "1306482d5bb9a360b166eab381cf2e378ce2e0d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

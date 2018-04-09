@@ -226,6 +226,8 @@ void SuppressionGain::LowerBandGain(
   const bool saturated_echo = aec_state.SaturatedEcho();
   const bool saturating_echo_path = aec_state.SaturatingEchoPath();
   const bool linear_echo_estimate = aec_state.UsableLinearEstimate();
+  const size_t num_no_echo_blocks =
+      aec_state.UseStationaryProperties() ? aec_state.NumNonAudibleBlocks() : 0;
 
   // Count the number of blocks since saturation.
   no_saturation_counter_ = saturated_echo ? 0 : no_saturation_counter_ + 1;
@@ -280,7 +282,9 @@ void SuppressionGain::LowerBandGain(
   AdjustNonConvergedFrequencies(gain);
 
   // Update the allowed maximum gain increase.
-  UpdateGainIncrease(low_noise_render, linear_echo_estimate, echo, *gain);
+
+  UpdateGainIncrease(low_noise_render, linear_echo_estimate, num_no_echo_blocks,
+                     echo, *gain);
 
   // Adjust gain dynamics.
   const float gain_bound =
@@ -353,6 +357,7 @@ void SuppressionGain::SetInitialState(bool state) {
 void SuppressionGain::UpdateGainIncrease(
     bool low_noise_render,
     bool linear_echo_estimate,
+    size_t num_no_echo_blocks,
     const std::array<float, kFftLengthBy2Plus1>& echo,
     const std::array<float, kFftLengthBy2Plus1>& new_gain) {
   float max_inc;
@@ -423,6 +428,22 @@ void SuppressionGain::UpdateGainIncrease(
     rate_dec = p.saturation.rate_dec;
     min_inc = p.saturation.min_inc;
     min_dec = p.saturation.min_dec;
+  }
+
+  if (num_no_echo_blocks > 4) {
+    max_inc = 8;
+    max_dec = 8;
+    rate_inc = 2;
+    rate_dec = 2;
+    min_inc = 2;
+    min_dec = 2;
+  } else if (num_no_echo_blocks > 2) {
+    max_inc = 6;
+    max_dec = 6;
+    rate_inc = 2;
+    rate_dec = 2;
+    min_inc = 2;
+    min_dec = 2;
   }
 
   for (size_t k = 0; k < new_gain.size(); ++k) {

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fffa7527_0f2e0bcc",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 6977
+      },
+      "writtenOn": "2018-04-09T11:38:21Z",
+      "side": 1,
+      "message": "Yes. Added a comment and changed the name.",
+      "parentUuid": "9ac3de31_4034ff36",
+      "range": {
+        "startLine": 91,
+        "startChar": 28,
+        "endLine": 91,
+        "endChar": 0
+      },
+      "revId": "8f7c4fb2e86a81949a25927fa41c21fd3b83849e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1ddbde43_65de422e",
         "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
         "patchSetId": 5
@@ -36,6 +60,30 @@
       "writtenOn": "2018-04-06T13:59:10Z",
       "side": 1,
       "message": "may be explain 1st parameter:\n_back(/*ssrc\u003d*/rrtr.first, ...",
+      "range": {
+        "startLine": 268,
+        "startChar": 30,
+        "endLine": 268,
+        "endChar": 40
+      },
+      "revId": "8f7c4fb2e86a81949a25927fa41c21fd3b83849e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "eb27e06f_aaa83038",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 6977
+      },
+      "writtenOn": "2018-04-09T11:38:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1ddbde43_65de422e",
       "range": {
         "startLine": 268,
         "startChar": 30,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "9deabe63_1406007b",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 708,
+      "author": {
+        "id": 6977
+      },
+      "writtenOn": "2018-04-09T11:38:21Z",
+      "side": 1,
+      "message": "I do not see any check for received TMMBN either. An entry is added to tmmbr_infos_ and marked as ready_to_delete only when BYE is received.\n\nIf I understand correctly, remote_ssrc is updated only when we receive an RTP packet from a new ssrc so using it to filter out RRTR would defeat the purpose of this CL since we want to enable receiver-only to estimate RTT.\n\nOne sanity check we could do is to check received_cnames_ to see if we received SDES, according to RFC 3550 section 6.2.1: \"New entries MAY be considered not valid until multiple packets carrying the new SSRC have been received (see Appendix A.1), or until an SDES RTCP packet containing a CNAME for that SSRC has been received.\". And as you suggested clearing entries from received_rrtrs_ when we send DLRR. What do you think?",
+      "parentUuid": "ef93ffee_f09e3a66",
+      "range": {
+        "startLine": 707,
+        "startChar": 43,
+        "endLine": 708,
+        "endChar": 0
+      },
+      "revId": "8f7c4fb2e86a81949a25927fa41c21fd3b83849e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fb21d88a_ba1574e9",
         "filename": "modules/rtp_rtcp/source/rtcp_receiver_unittest.cc",
         "patchSetId": 5
@@ -91,6 +163,30 @@
       "revId": "8f7c4fb2e86a81949a25927fa41c21fd3b83849e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a70cdc98_2855337e",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 623,
+      "author": {
+        "id": 6977
+      },
+      "writtenOn": "2018-04-09T11:38:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fb21d88a_ba1574e9",
+      "range": {
+        "startLine": 623,
+        "startChar": 40,
+        "endLine": 623,
+        "endChar": 41
+      },
+      "revId": "8f7c4fb2e86a81949a25927fa41c21fd3b83849e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "7629517a_9c556381",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 723,
+      "author": {
+        "id": 6977
+      },
+      "writtenOn": "2018-04-09T11:38:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eb3c8d04_5d24c447",
+      "range": {
+        "startLine": 723,
+        "startChar": 8,
+        "endLine": 723,
+        "endChar": 16
+      },
+      "revId": "8f7c4fb2e86a81949a25927fa41c21fd3b83849e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3760d9b1_cc810933",
         "filename": "modules/rtp_rtcp/source/rtcp_sender.cc",
         "patchSetId": 5
@@ -128,6 +248,24 @@
       "writtenOn": "2018-04-06T13:59:10Z",
       "side": 1,
       "message": "what would happen if number of rtis is so large, extended report become too long to fit into single rtcp_packet?",
+      "revId": "8f7c4fb2e86a81949a25927fa41c21fd3b83849e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44f66b04_df229105",
+        "filename": "modules/rtp_rtcp/source/rtcp_sender.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 650,
+      "author": {
+        "id": 6977
+      },
+      "writtenOn": "2018-04-09T11:38:21Z",
+      "side": 1,
+      "message": "The number of DLRR blocks in XR should probably be limited to some sane value similar to the way the number of report blocks is limited in SR. We also need to make sure that we respond to all the receivers at some point by maintaining some sort of a queue depending on if we will delete RTI when we send out DLRR or not.",
+      "parentUuid": "3760d9b1_cc810933",
       "revId": "8f7c4fb2e86a81949a25927fa41c21fd3b83849e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -154,6 +292,30 @@
       "revId": "8f7c4fb2e86a81949a25927fa41c21fd3b83849e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b60b7c17_76b7f789",
+        "filename": "modules/rtp_rtcp/source/rtcp_sender.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 6977
+      },
+      "writtenOn": "2018-04-09T11:38:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0c2f36da_d7e714b2",
+      "range": {
+        "startLine": 62,
+        "startChar": 21,
+        "endLine": 62,
+        "endChar": 0
+      },
+      "revId": "8f7c4fb2e86a81949a25927fa41c21fd3b83849e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

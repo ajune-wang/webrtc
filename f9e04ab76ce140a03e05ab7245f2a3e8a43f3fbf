@@ -2,6 +2,63 @@
   "comments": [
     {
       "key": {
+        "uuid": "2e60561c_f721cd83",
+        "filename": "modules/congestion_controller/rtp/send_side_congestion_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-04-09T01:00:05Z",
+      "side": 1,
+      "message": "Clarify what \"this\" means?",
+      "range": {
+        "startLine": 105,
+        "startChar": 25,
+        "endLine": 105,
+        "endChar": 29
+      },
+      "revId": "f9e04ab76ce140a03e05ab7245f2a3e8a43f3fbf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3134596_23621f74",
+        "filename": "modules/congestion_controller/rtp/send_side_congestion_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-04-09T01:00:05Z",
+      "side": 1,
+      "message": "This tiny little class is the only thing that needs to be moved out of the unnamed namespace, right?",
+      "revId": "f9e04ab76ce140a03e05ab7245f2a3e8a43f3fbf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e72cbfce_d51ac978",
+        "filename": "modules/congestion_controller/rtp/send_side_congestion_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-04-09T01:00:05Z",
+      "side": 1,
+      "message": "final?",
+      "revId": "f9e04ab76ce140a03e05ab7245f2a3e8a43f3fbf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "19d0dabf_701290ba",
         "filename": "modules/congestion_controller/rtp/send_side_congestion_controller.cc",
         "patchSetId": 1
@@ -43,6 +100,46 @@
         "endLine": 136,
         "endChar": 48
       },
+      "revId": "f9e04ab76ce140a03e05ab7245f2a3e8a43f3fbf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "839bdf9a_1a49f5c6",
+        "filename": "modules/congestion_controller/rtp/send_side_congestion_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-04-09T01:00:05Z",
+      "side": 1,
+      "message": "auto?",
+      "range": {
+        "startLine": 152,
+        "startChar": 2,
+        "endLine": 152,
+        "endChar": 31
+      },
+      "revId": "f9e04ab76ce140a03e05ab7245f2a3e8a43f3fbf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5ff9795_e53acf29",
+        "filename": "modules/congestion_controller/rtp/send_side_congestion_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 588,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-04-09T01:00:05Z",
+      "side": 1,
+      "message": "Comment here that Stop() isn\u0027t synchronous, but that it\u0027s guaranteed to occur before the first invocation of the new controller task started below?",
       "revId": "f9e04ab76ce140a03e05ab7245f2a3e8a43f3fbf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

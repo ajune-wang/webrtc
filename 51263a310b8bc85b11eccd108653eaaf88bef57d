@@ -46,6 +46,30 @@
       "revId": "51263a310b8bc85b11eccd108653eaaf88bef57d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e733ee4c_ea3aea47",
+        "filename": "sdk/android/api/org/webrtc/VideoFrame.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-04-09T15:31:57Z",
+      "side": 1,
+      "message": "Move this comment to the Buffer class then.",
+      "parentUuid": "c41911ea_1cdab31d",
+      "range": {
+        "startLine": 45,
+        "startChar": 5,
+        "endLine": 45,
+        "endChar": 6
+      },
+      "revId": "51263a310b8bc85b11eccd108653eaaf88bef57d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

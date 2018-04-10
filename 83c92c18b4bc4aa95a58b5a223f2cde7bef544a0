@@ -22,6 +22,30 @@
       "revId": "83c92c18b4bc4aa95a58b5a223f2cde7bef544a0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be14a0c5_33c9b560",
+        "filename": "api/optional.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5444
+      },
+      "writtenOn": "2018-04-10T09:29:49Z",
+      "side": 1,
+      "message": "Then FunctionThatDoesNothing() in optional.h would need to cast away that const since it returns a T*.\n\nOr I suppose we could return a \"const T*\" from that. Let me try it..",
+      "parentUuid": "894fc922_262010b9",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 5
+      },
+      "revId": "83c92c18b4bc4aa95a58b5a223f2cde7bef544a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

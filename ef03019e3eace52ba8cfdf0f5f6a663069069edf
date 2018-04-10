@@ -219,6 +219,24 @@
     },
     {
       "key": {
+        "uuid": "918ab4af_463858e2",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1212,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-10T15:17:25Z",
+      "side": 1,
+      "message": "Handling in TCPConnection separately makes sense. It\u0027s friends with TCPPort so it could access LogPortInformationInPacketOptions even if private.\n\nThis doesn\u0027t make a big difference. It just seems more intuitive to me that the class that knows about the metadata is the one that adds it.",
+      "parentUuid": "dc3e1632_0510c7f0",
+      "revId": "ef03019e3eace52ba8cfdf0f5f6a663069069edf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e56c04b9_e26e0ca1",
         "filename": "p2p/base/port.cc",
         "patchSetId": 4

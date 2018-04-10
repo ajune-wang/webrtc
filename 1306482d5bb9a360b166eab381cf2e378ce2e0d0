@@ -81,6 +81,30 @@
       "revId": "1306482d5bb9a360b166eab381cf2e378ce2e0d0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f72ed85c_e650c60b",
+        "filename": "rtc_base/socket.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-10T15:17:25Z",
+      "side": 1,
+      "message": "If Bjorn won\u0027t be able to distinguish between media types anyway, we can just go with kMedia. Currently he\u0027s the only one who will be using this, right?",
+      "parentUuid": "d4b3c2fc_b14e7ce8",
+      "range": {
+        "startLine": 128,
+        "startChar": 0,
+        "endLine": 130,
+        "endChar": 8
+      },
+      "revId": "1306482d5bb9a360b166eab381cf2e378ce2e0d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

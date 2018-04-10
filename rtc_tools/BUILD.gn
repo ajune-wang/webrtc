@@ -290,6 +290,7 @@ if (rtc_include_tests) {
     }
 
     deps = [
+      "../api/audio:audio_frame_api",
       "../modules:module_api",
       "../modules/audio_processing",
       "../modules/audio_processing/vad",

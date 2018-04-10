@@ -521,6 +521,7 @@ rtc_source_set("test_common") {
     "constants.h",
     "drifting_clock.cc",
     "drifting_clock.h",
+    "encoder_proxy_factory.h",
     "encoder_settings.cc",
     "encoder_settings.h",
     "fake_decoder.cc",

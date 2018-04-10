@@ -461,6 +461,7 @@ if (rtc_include_tests) {
       "../system_wrappers:cpu_features_api",
       "../test:fileutils",
       "../test:test_main",
+      "rnn_vad:unittest",
       "//testing/gtest",
     ]
 

@@ -16,6 +16,24 @@
       "revId": "36841c73dbb5d8a6109f73a71a1619bbccab998a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12b8c749_edb7118e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-04-10T22:44:23Z",
+      "side": 1,
+      "message": "Yes, it is to inform developers. Updated the commit message.",
+      "parentUuid": "92ea569b_d8837819",
+      "revId": "36841c73dbb5d8a6109f73a71a1619bbccab998a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

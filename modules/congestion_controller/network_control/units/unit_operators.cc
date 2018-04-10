@@ -8,43 +8,11 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "modules/congestion_controller/network_control/include/network_units.h"
-#include <cmath>
+#include "modules/congestion_controller/network_control/units/unit_operators.h"
+
+#include <limits>
 
 namespace webrtc {
-TimeDelta TimeDelta::operator*(double scalar) const {
-  return TimeDelta::us(std::round(us() * scalar));
-}
-
-DataSize DataSize::operator*(double scalar) const {
-  return DataSize::bytes(std::round(bytes() * scalar));
-}
-double TimeDelta::SecondsAsDouble() const {
-  if (IsPlusInfinity()) {
-    return std::numeric_limits<double>::infinity();
-  } else if (IsMinusInfinity()) {
-    return -std::numeric_limits<double>::infinity();
-  } else if (!IsInitialized()) {
-    return std::numeric_limits<double>::signaling_NaN();
-  } else {
-    return us() * 1e-6;
-  }
-}
-
-double Timestamp::SecondsAsDouble() const {
-  if (IsInfinite()) {
-    return std::numeric_limits<double>::infinity();
-  } else if (!IsInitialized()) {
-    return std::numeric_limits<double>::signaling_NaN();
-  } else {
-    return us() * 1e-6;
-  }
-}
-
-DataRate DataRate::operator*(double scalar) const {
-  return DataRate::bytes_per_second(std::round(bytes_per_second() * scalar));
-}
-
 DataRate operator/(const DataSize& size, const TimeDelta& duration) {
   RTC_DCHECK(size.bytes() < std::numeric_limits<int64_t>::max() / 1000000)
       << "size is too large, size: " << size.bytes() << " is not less than "
@@ -63,12 +31,11 @@ TimeDelta operator/(const DataSize& size, const DataRate& rate) {
 
 DataSize operator*(const DataRate& rate, const TimeDelta& duration) {
   auto micro_bytes = rate.bytes_per_second() * duration.us();
-  auto bytes = units_internal::DivideAndRound(micro_bytes, 1000000);
+  auto bytes = data_size_impl::DivideAndRound(micro_bytes, 1000000);
   return DataSize::bytes(bytes);
 }
 
 DataSize operator*(const TimeDelta& duration, const DataRate& rate) {
   return rate * duration;
 }
-
 }  // namespace webrtc

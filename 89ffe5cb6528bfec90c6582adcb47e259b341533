@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "522d82cd_1ea34f73",
+        "filename": "video/video_stream_decoder_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-04-10T14:14:49Z",
+      "side": 1,
+      "message": "Needs to be mutable in order to set_timestamp_us.",
+      "revId": "89ffe5cb6528bfec90c6582adcb47e259b341533",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9df576bb_e508c1e9",
+        "filename": "video/video_stream_decoder_impl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-04-10T14:14:49Z",
+      "side": 1,
+      "message": "As I was looking around at the different timestamps in VideoFrame and found that we have to save/set the render time as well.",
+      "revId": "89ffe5cb6528bfec90c6582adcb47e259b341533",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

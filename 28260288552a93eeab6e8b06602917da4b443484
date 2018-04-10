@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "a6e0198c_c0b5acaf",
+        "filename": "video/video_stream_decoder_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-04-10T14:14:49Z",
+      "side": 1,
+      "message": "A circular buffer would not help avoid the problem of manually keeping track of the index since we don\u0027t use the timestamp to index.",
+      "parentUuid": "30c3cddd_2c3e9000",
+      "range": {
+        "startLine": 220,
+        "startChar": 23,
+        "endLine": 220,
+        "endChar": 50
+      },
+      "revId": "28260288552a93eeab6e8b06602917da4b443484",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "62206eda_cd44db47",
         "filename": "video/video_stream_decoder_impl.cc",
         "patchSetId": 1
@@ -59,6 +83,30 @@
       "writtenOn": "2018-04-09T10:50:30Z",
       "side": 1,
       "message": "Any reason we can\u0027t use timestamp_us() and get better accuracy?\n\nWhat is the decode time ultimately used for? Just stats, or can we somehow signal detect that decode times get too large and signal the sender?",
+      "range": {
+        "startLine": 261,
+        "startChar": 43,
+        "endLine": 261,
+        "endChar": 54
+      },
+      "revId": "28260288552a93eeab6e8b06602917da4b443484",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1f08149_960e62a9",
+        "filename": "video/video_stream_decoder_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-04-10T14:14:49Z",
+      "side": 1,
+      "message": "Currently timestamp() is the capture timestmap and timestamp_us() is the render timestamp.",
+      "parentUuid": "62206eda_cd44db47",
       "range": {
         "startLine": 261,
         "startChar": 43,

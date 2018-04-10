@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e5c42e81_13ac3071",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 727,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-04-10T12:28:33Z",
+      "side": 1,
+      "message": "The two tests InitialFrameDropOffWithMaintainResolutionPreference and InitialFrameDropOffWhenEncoderDisabledScaling puzzle me. \n\nWhy do they pass? I\u0027d expect that this method would need to also check that quality_scaler_ is non-null and that IsResolutionScalingEnabled(degradation_preferences_) is true.",
+      "range": {
+        "startLine": 726,
+        "startChar": 0,
+        "endLine": 727,
+        "endChar": 0
+      },
+      "revId": "73995fbc4a6e92454a46f658427143b7c6e5a36c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c72d32d9_1566139c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-04-10T21:37:35Z",
+      "side": 1,
+      "message": "SendTransportController might go away entirely. For the TransportFeedbackObserver I want to refactor it to be more easily usable by other components.",
+      "parentUuid": "7ee86bfc_2525f725",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 58
+      },
+      "revId": "856c44fb0bb8136399013c6c42b4cad77fc39103",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a7e515b8_9b69c92d",
         "filename": "call/rtp_transport_controller_send.h",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2018-04-10T14:59:38Z",
       "side": 1,
       "message": "It worries me a bit that this increases the number of observer getters in this class, when I\u0027d prefer to go in the other direction. We have plans on moving all RTP related stuff in here. Is this no longer need once that is done?",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 0
+      },
+      "revId": "856c44fb0bb8136399013c6c42b4cad77fc39103",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9b9d32f_8014b5d2",
+        "filename": "call/rtp_transport_controller_send.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-04-10T21:37:35Z",
+      "side": 1,
+      "message": "NewPacketObserver is that part of the old interface that listens to RtpSender; when a new packet is created/sent we capture the transport wide sequence number, plus some pacing and other stuff.\nI think this one could be more tightly integrated, for instance into RtpPacketSender.\n\nThe TransportFeedbackObserver, after this change, only contains the callback from RtcpReceiver, when a new TransportFeeback message has been received.\n\nAnyway, these two methods operate in completely different directions. I was about to create (yet another) implementation where only one of the directions was of interest, so one of the methods would have an RTC_NOT_REACHED. That indicated the interface really was about two different thing. \n\nWe have yet another similar interface that\u0027s using the TransportFeedback for recoverable fec rate, and I wanted to use it in rtp packet history. My intention is to remove one of those interfaces and make other use cases more straight forward.\n\nAnyway, first intended step was to split the two use cases and then move on to clean them up separately.",
+      "parentUuid": "a7e515b8_9b69c92d",
       "range": {
         "startLine": 52,
         "startChar": 0,

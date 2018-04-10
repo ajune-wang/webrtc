@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7ee86bfc_2525f725",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-04-10T14:59:38Z",
+      "side": 1,
+      "message": "How likely is that, and when?",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 58
+      },
+      "revId": "856c44fb0bb8136399013c6c42b4cad77fc39103",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7e515b8_9b69c92d",
+        "filename": "call/rtp_transport_controller_send.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-04-10T14:59:38Z",
+      "side": 1,
+      "message": "It worries me a bit that this increases the number of observer getters in this class, when I\u0027d prefer to go in the other direction. We have plans on moving all RTP related stuff in here. Is this no longer need once that is done?",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 0
+      },
+      "revId": "856c44fb0bb8136399013c6c42b4cad77fc39103",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

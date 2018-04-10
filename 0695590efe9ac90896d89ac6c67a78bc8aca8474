@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f4346dd3_52d4e183",
+        "filename": "call/bitrate_estimator_tests.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-04-10T12:22:17Z",
+      "side": 1,
+      "message": "Yep, a lot of the tests need to be fixed; I commented out some random stuff to get it to at least compile.",
+      "parentUuid": "bebb012d_dee4b90a",
+      "range": {
+        "startLine": 119,
+        "startChar": 22,
+        "endLine": 119,
+        "endChar": 25
+      },
+      "revId": "0695590efe9ac90896d89ac6c67a78bc8aca8474",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5a7b376d_b6c9c62f",
         "filename": "media/engine/webrtcvideoengine_unittest.cc",
         "patchSetId": 18
@@ -36,6 +60,30 @@
       "writtenOn": "2018-04-10T10:56:53Z",
       "side": 1,
       "message": "Intend to re-enable one FakeEncoderFactory is in place?",
+      "range": {
+        "startLine": 495,
+        "startChar": 0,
+        "endLine": 500,
+        "endChar": 6
+      },
+      "revId": "0695590efe9ac90896d89ac6c67a78bc8aca8474",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89319fc5_d1eae05a",
+        "filename": "media/engine/webrtcvideoengine_unittest.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-04-10T12:22:17Z",
+      "side": 1,
+      "message": "Not sure what to do about this. I delete encoder_settings.full_overuse_time, instead, VSE configures the OveruseFrameDetector directly based on encoder_factory-\u003eQueryVideoEncoder(...).is_hardware_accelerated.\n\nLonger term, I want to pass per-frame info to the cpu load estimator saying not only what the encode time was, but also what kind of resource (main cpu or other hardware) was consumed by the encoding.",
+      "parentUuid": "5a7b376d_b6c9c62f",
       "range": {
         "startLine": 495,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "2f0ed527_e1cca831",
+        "filename": "video/video_quality_test.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 1395,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-04-10T12:22:17Z",
+      "side": 1,
+      "message": "Where\u0027s the corresponding logic in the non-test code?",
+      "parentUuid": "13942050_cd3ab874",
+      "range": {
+        "startLine": 1394,
+        "startChar": 65,
+        "endLine": 1395,
+        "endChar": 0
+      },
+      "revId": "0695590efe9ac90896d89ac6c67a78bc8aca8474",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0ef6f09d_f479e595",
         "filename": "video/video_stream_encoder.cc",
         "patchSetId": 18
@@ -82,6 +154,30 @@
       "writtenOn": "2018-04-10T10:56:53Z",
       "side": 1,
       "message": "I don\u0027t get this change from ConfigureQualityScaler() to stats_proxy_-\u003eSetAdaptationsStats()\nMaybe a comment?",
+      "range": {
+        "startLine": 419,
+        "startChar": 64,
+        "endLine": 419,
+        "endChar": 0
+      },
+      "revId": "0695590efe9ac90896d89ac6c67a78bc8aca8474",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60e0fc9a_ba792817",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-04-10T12:22:17Z",
+      "side": 1,
+      "message": "It\u0027s related to the SwitchingSourceKeepsCpuAdaptation test. If we have kMaintainFramerate, and have adapted down so that stats_proxy-\u003eGetStats().cpu_limited_resolution is true, and then call vse-\u003eSetSource(..., kDegradationDisabled), the test expects that .cpu_limited_resolution becomes false right away.\n\nConfigureQualityScaler was moved later, until encoder is created, because it depends on encoder_-\u003eGetScalingSettings(). ConfigureQualityScaler in turn calls SetAdaptationStats(), which is why the test passed before this change.",
+      "parentUuid": "0ef6f09d_f479e595",
       "range": {
         "startLine": 419,
         "startChar": 64,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "0d83f142_dddc8924",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 586,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-04-10T12:22:17Z",
+      "side": 1,
+      "message": "I\u0027ll do, if it turns out to be useful in the other tests.",
+      "parentUuid": "ba161eb9_a9941d29",
+      "range": {
+        "startLine": 586,
+        "startChar": 57,
+        "endLine": 586,
+        "endChar": 0
+      },
+      "revId": "0695590efe9ac90896d89ac6c67a78bc8aca8474",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "60313608_cd6380f7",
         "filename": "video/video_stream_encoder_unittest.cc",
         "patchSetId": 18
@@ -137,6 +257,30 @@
       "revId": "0695590efe9ac90896d89ac6c67a78bc8aca8474",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86badc8a_9fafa1ab",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 600,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-04-10T12:22:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "60313608_cd6380f7",
+      "range": {
+        "startLine": 600,
+        "startChar": 5,
+        "endLine": 600,
+        "endChar": 0
+      },
+      "revId": "0695590efe9ac90896d89ac6c67a78bc8aca8474",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "bb2151da_e26391f0",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 603,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-04-10T12:22:17Z",
+      "side": 1,
+      "message": "In this test, yes. Some tests calls CreateVideoEncoder on the factory multiple times, but will use only one EncoderProxy at a time.\n\nI considered letting the factory create and hand out TestEncoder objects directly, without any proxy, and also keep a raw pointer to the most recently created one for access by the tests. That would in some ways be cleaner, but I think this way of doing it is a smaller change, which is important for a cl which already is a bit too large for its own good.",
+      "parentUuid": "70d952c5_545ddf95",
+      "range": {
+        "startLine": 603,
+        "startChar": 53,
+        "endLine": 603,
+        "endChar": 0
+      },
+      "revId": "0695590efe9ac90896d89ac6c67a78bc8aca8474",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "817b1e8c_b13c4d53",
         "filename": "video/video_stream_encoder_unittest.cc",
         "patchSetId": 18
@@ -177,6 +345,24 @@
       "revId": "0695590efe9ac90896d89ac6c67a78bc8aca8474",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f001acc6_9bd4d042",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 645,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-04-10T12:22:17Z",
+      "side": 1,
+      "message": "Done, here and below.",
+      "parentUuid": "817b1e8c_b13c4d53",
+      "revId": "0695590efe9ac90896d89ac6c67a78bc8aca8474",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

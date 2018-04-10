@@ -16,16 +16,23 @@
 #include <algorithm>
 #include <fstream>
 #include <istream>
+#include <limits>
 #include <map>
 #include <utility>
 
+#include "api/rtp_headers.h"
+#include "api/rtpparameters.h"
 #include "logging/rtc_event_log/rtc_event_log.h"
 #include "modules/audio_coding/audio_network_adaptor/include/audio_network_adaptor.h"
 #include "modules/remote_bitrate_estimator/include/bwe_defines.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
+#include "modules/rtp_rtcp/source/byte_io.h"
+#include "modules/rtp_rtcp/source/rtp_header_extensions.h"
+#include "modules/rtp_rtcp/source/rtp_utility.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/protobuf_utils.h"
+#include "rtc_base/ptr_util.h"
 
 namespace webrtc {
 
@@ -200,6 +207,31 @@ IceCandidatePairEventType GetRuntimeIceCandidatePairEventType(
   return IceCandidatePairEventType::kCheckSent;
 }
 
+// Return default values for header extensions, to use on streams without stored
+// mapping data. Currently this only applies to audio streams, since the mapping
+// is not stored in the event log.
+// TODO(ivoc): Remove this once this mapping is stored in the event log for
+//             audio streams. Tracking bug: webrtc:6399
+webrtc::RtpHeaderExtensionMap GetDefaultHeaderExtensionMap() {
+  webrtc::RtpHeaderExtensionMap default_map;
+  default_map.Register<AudioLevel>(webrtc::RtpExtension::kAudioLevelDefaultId);
+  default_map.Register<TransmissionOffset>(
+      webrtc::RtpExtension::kTimestampOffsetDefaultId);
+  default_map.Register<AbsoluteSendTime>(
+      webrtc::RtpExtension::kAbsSendTimeDefaultId);
+  default_map.Register<VideoOrientation>(
+      webrtc::RtpExtension::kVideoRotationDefaultId);
+  default_map.Register<VideoContentTypeExtension>(
+      webrtc::RtpExtension::kVideoContentTypeDefaultId);
+  default_map.Register<VideoTimingExtension>(
+      webrtc::RtpExtension::kVideoTimingDefaultId);
+  default_map.Register<TransportSequenceNumber>(
+      webrtc::RtpExtension::kTransportSequenceNumberDefaultId);
+  default_map.Register<PlayoutDelayLimits>(
+      webrtc::RtpExtension::kPlayoutDelayDefaultId);
+  return default_map;
+}
+
 std::pair<uint64_t, bool> ParseVarInt(std::istream& stream) {
   uint64_t varint = 0;
   for (size_t bytes_read = 0; bytes_read < 10; ++bytes_read) {
@@ -237,6 +269,64 @@ void GetHeaderExtensions(
 
 }  // namespace
 
+ParsedRtcEventLog::ParsedRtcEventLog(
+    UnconfiguredHeaderExtensions parse_unconfigured_header_extensions)
+    : parse_unconfigured_header_extensions_(
+          parse_unconfigured_header_extensions) {
+  Clear();
+}
+
+void ParsedRtcEventLog::Clear() {
+  events_.clear();
+  default_extension_map_ = GetDefaultHeaderExtensionMap();
+
+  incoming_rtx_ssrcs_.clear();
+  incoming_video_ssrcs_.clear();
+  incoming_audio_ssrcs_.clear();
+  outgoing_rtx_ssrcs_.clear();
+  outgoing_video_ssrcs_.clear();
+  outgoing_audio_ssrcs_.clear();
+
+  incoming_rtp_packets_.clear();
+  outgoing_rtp_packets_.clear();
+  incoming_rtcp_packets_.clear();
+  outgoing_rtcp_packets_.clear();
+  incoming_rr_.clear();
+  outgoing_rr_.clear();
+  incoming_sr_.clear();
+  outgoing_sr_.clear();
+  incoming_nack_.clear();
+  outgoing_nack_.clear();
+  incoming_remb_.clear();
+  outgoing_remb_.clear();
+  incoming_transport_feedback_.clear();
+  outgoing_transport_feedback_.clear();
+  start_log_events_.clear();
+  stop_log_events_.clear();
+  audio_playout_events_.clear();
+  audio_network_adaptation_events_.clear();
+  bwe_probe_cluster_created_events_.clear();
+  bwe_probe_result_events_.clear();
+  bwe_delay_updates_.clear();
+  bwe_loss_updates_.clear();
+  alr_state_events_.clear();
+  ice_candidate_pair_configs_.clear();
+  ice_candidate_pair_events_.clear();
+  audio_recv_configs_.clear();
+  audio_send_configs_.clear();
+  video_recv_configs_.clear();
+  video_send_configs_.clear();
+
+  memset(last_incoming_rtcp_packet_, 0, IP_PACKET_SIZE);
+  last_incoming_rtcp_packet_length_ = 0;
+
+  first_timestamp_ = std::numeric_limits<int64_t>::max();
+  last_timestamp_ = std::numeric_limits<int64_t>::min();
+
+  incoming_rtp_extensions_maps_.clear();
+  outgoing_rtp_extensions_maps_.clear();
+}
+
 bool ParsedRtcEventLog::ParseFile(const std::string& filename) {
   std::ifstream file(filename, std::ios_base::in | std::ios_base::binary);
   if (!file.good() || !file.is_open()) {
@@ -253,7 +343,7 @@ bool ParsedRtcEventLog::ParseString(const std::string& s) {
 }
 
 bool ParsedRtcEventLog::ParseStream(std::istream& stream) {
-  events_.clear();
+  Clear();
   const size_t kMaxEventSize = (1u << 16) - 1;
   std::vector<char> tmp_buffer(kMaxEventSize);
   uint64_t tag;
@@ -266,13 +356,7 @@ bool ParsedRtcEventLog::ParseStream(std::istream& stream) {
     // Check whether we have reached end of file.
     stream.peek();
     if (stream.eof()) {
-      // Process all extensions maps for faster look-up later.
-      for (auto& event_stream : streams_) {
-        rtp_extensions_maps_[StreamId(event_stream.ssrc,
-                                      event_stream.direction)] =
-            &event_stream.rtp_extensions_map;
-      }
-      return true;
+      break;
     }
 
     // Read the next message tag. The tag number is defined as
@@ -315,53 +399,254 @@ bool ParsedRtcEventLog::ParseStream(std::istream& stream) {
       return false;
     }
 
-    EventType type = GetRuntimeEventType(event.type());
-    switch (type) {
-      case VIDEO_RECEIVER_CONFIG_EVENT: {
-        rtclog::StreamConfig config = GetVideoReceiveConfig(event);
-        streams_.emplace_back(config.remote_ssrc, MediaType::VIDEO,
-                              kIncomingPacket,
-                              RtpHeaderExtensionMap(config.rtp_extensions));
-        streams_.emplace_back(config.local_ssrc, MediaType::VIDEO,
-                              kOutgoingPacket,
-                              RtpHeaderExtensionMap(config.rtp_extensions));
-        break;
-      }
-      case VIDEO_SENDER_CONFIG_EVENT: {
-        std::vector<rtclog::StreamConfig> configs = GetVideoSendConfig(event);
-        for (size_t i = 0; i < configs.size(); i++) {
-          streams_.emplace_back(
-              configs[i].local_ssrc, MediaType::VIDEO, kOutgoingPacket,
-              RtpHeaderExtensionMap(configs[i].rtp_extensions));
-
-          streams_.emplace_back(
-              configs[i].rtx_ssrc, MediaType::VIDEO, kOutgoingPacket,
-              RtpHeaderExtensionMap(configs[i].rtp_extensions));
-        }
-        break;
-      }
-      case AUDIO_RECEIVER_CONFIG_EVENT: {
-        rtclog::StreamConfig config = GetAudioReceiveConfig(event);
-        streams_.emplace_back(config.remote_ssrc, MediaType::AUDIO,
-                              kIncomingPacket,
-                              RtpHeaderExtensionMap(config.rtp_extensions));
-        streams_.emplace_back(config.local_ssrc, MediaType::AUDIO,
-                              kOutgoingPacket,
-                              RtpHeaderExtensionMap(config.rtp_extensions));
-        break;
-      }
-      case AUDIO_SENDER_CONFIG_EVENT: {
-        rtclog::StreamConfig config = GetAudioSendConfig(event);
-        streams_.emplace_back(config.local_ssrc, MediaType::AUDIO,
-                              kOutgoingPacket,
-                              RtpHeaderExtensionMap(config.rtp_extensions));
-        break;
-      }
-      default:
-        break;
-    }
+    StoreParsedEvent(event);
 
     events_.push_back(event);
+  }
+
+  // Build PacketViews for RTP packets
+  for (const auto& kv : incoming_rtp_packets_) {
+    RtpPacketView view(kv.second.data(), kv.second.size(),
+                       sizeof(LoggedRtpPacketIncoming));
+    incoming_rtp_packet_views_.insert(std::make_pair(kv.first, view));
+  }
+  for (const auto& kv : outgoing_rtp_packets_) {
+    RtpPacketView view(kv.second.data(), kv.second.size(),
+                       sizeof(LoggedRtpPacketOutgoing));
+    outgoing_rtp_packet_views_.insert(std::make_pair(kv.first, view));
+  }
+
+  return true;
+}
+
+void ParsedRtcEventLog::StoreParsedEvent(const rtclog::Event& event) {
+  if (event.type() != rtclog::Event::VIDEO_RECEIVER_CONFIG_EVENT &&
+      event.type() != rtclog::Event::VIDEO_SENDER_CONFIG_EVENT &&
+      event.type() != rtclog::Event::AUDIO_RECEIVER_CONFIG_EVENT &&
+      event.type() != rtclog::Event::AUDIO_SENDER_CONFIG_EVENT &&
+      event.type() != rtclog::Event::LOG_START &&
+      event.type() != rtclog::Event::LOG_END) {
+    RTC_CHECK(event.has_timestamp_us());
+    int64_t timestamp = event.timestamp_us();
+    first_timestamp_ = std::min(first_timestamp_, timestamp);
+    last_timestamp_ = std::max(last_timestamp_, timestamp);
+  }
+
+  switch (event.type()) {
+    case rtclog::Event::VIDEO_RECEIVER_CONFIG_EVENT: {
+      rtclog::StreamConfig config = GetVideoReceiveConfig(event);
+      video_recv_configs_.emplace_back(GetTimestamp(event), config);
+      incoming_rtp_extensions_maps_[config.remote_ssrc] =
+          RtpHeaderExtensionMap(config.rtp_extensions);
+      // TODO(terelius): I don't understand the reason for configuring header
+      // extensions for the local SSRC. I think it should be removed, but for
+      // now I want to preserve the previous functionality.
+      incoming_rtp_extensions_maps_[config.local_ssrc] =
+          RtpHeaderExtensionMap(config.rtp_extensions);
+      incoming_video_ssrcs_.insert(config.remote_ssrc);
+      incoming_video_ssrcs_.insert(config.rtx_ssrc);
+      incoming_rtx_ssrcs_.insert(config.rtx_ssrc);
+      break;
+    }
+    case rtclog::Event::VIDEO_SENDER_CONFIG_EVENT: {
+      std::vector<rtclog::StreamConfig> configs = GetVideoSendConfig(event);
+      video_send_configs_.emplace_back(GetTimestamp(event), configs);
+      for (const auto& config : configs) {
+        outgoing_rtp_extensions_maps_[config.local_ssrc] =
+            RtpHeaderExtensionMap(config.rtp_extensions);
+        outgoing_rtp_extensions_maps_[config.rtx_ssrc] =
+            RtpHeaderExtensionMap(config.rtp_extensions);
+        outgoing_video_ssrcs_.insert(config.local_ssrc);
+        outgoing_video_ssrcs_.insert(config.rtx_ssrc);
+        outgoing_rtx_ssrcs_.insert(config.rtx_ssrc);
+      }
+      break;
+    }
+    case rtclog::Event::AUDIO_RECEIVER_CONFIG_EVENT: {
+      rtclog::StreamConfig config = GetAudioReceiveConfig(event);
+      audio_recv_configs_.emplace_back(GetTimestamp(event), config);
+      incoming_rtp_extensions_maps_[config.remote_ssrc] =
+          RtpHeaderExtensionMap(config.rtp_extensions);
+      incoming_rtp_extensions_maps_[config.local_ssrc] =
+          RtpHeaderExtensionMap(config.rtp_extensions);
+      incoming_audio_ssrcs_.insert(config.remote_ssrc);
+      break;
+    }
+    case rtclog::Event::AUDIO_SENDER_CONFIG_EVENT: {
+      rtclog::StreamConfig config = GetAudioSendConfig(event);
+      audio_send_configs_.emplace_back(GetTimestamp(event), config);
+      outgoing_rtp_extensions_maps_[config.local_ssrc] =
+          RtpHeaderExtensionMap(config.rtp_extensions);
+      outgoing_audio_ssrcs_.insert(config.local_ssrc);
+      break;
+    }
+    case rtclog::Event::RTP_EVENT: {
+      PacketDirection direction;
+      uint8_t header[IP_PACKET_SIZE];
+      size_t header_length;
+      size_t total_length;
+      const RtpHeaderExtensionMap* extension_map = GetRtpHeader(
+          event, &direction, header, &header_length, &total_length, nullptr);
+      RtpUtility::RtpHeaderParser rtp_parser(header, header_length);
+      RTPHeader parsed_header;
+      if (extension_map != nullptr) {
+        rtp_parser.Parse(&parsed_header, extension_map);
+      } else {
+        // Use the default extension map.
+        // TODO(ivoc): Once configuration of audio streams is stored in the
+        //             event log, this can be removed.
+        //             Tracking bug: webrtc:6399
+        rtp_parser.Parse(&parsed_header, &default_extension_map_);
+      }
+      RTC_CHECK(event.has_timestamp_us());
+      uint64_t timestamp = event.timestamp_us();
+      if (direction == kIncomingPacket) {
+        incoming_rtp_packets_[parsed_header.ssrc].push_back(
+            LoggedRtpPacketIncoming(timestamp, parsed_header, total_length));
+      } else {
+        outgoing_rtp_packets_[parsed_header.ssrc].push_back(
+            LoggedRtpPacketOutgoing(timestamp, parsed_header, total_length));
+      }
+      break;
+    }
+    case rtclog::Event::RTCP_EVENT: {
+      PacketDirection direction;
+      uint8_t packet[IP_PACKET_SIZE];
+      size_t total_length;
+      GetRtcpPacket(event, &direction, packet, &total_length);
+      uint64_t timestamp = GetTimestamp(event);
+      RTC_CHECK_LE(total_length, IP_PACKET_SIZE);
+      if (direction == kIncomingPacket) {
+        // Currently incoming RTCP packets are logged twice, both for audio and
+        // video. Only act on one of them. Compare against the previous parsed
+        // incoming RTCP packet.
+        if (total_length == last_incoming_rtcp_packet_length_ &&
+            memcmp(last_incoming_rtcp_packet_, packet, total_length) == 0)
+          break;
+        incoming_rtcp_packets_.push_back(
+            LoggedRtcpPacketIncoming(timestamp, packet, total_length));
+        last_incoming_rtcp_packet_length_ = total_length;
+        memcpy(last_incoming_rtcp_packet_, packet, total_length);
+      } else {
+        outgoing_rtcp_packets_.push_back(
+            LoggedRtcpPacketOutgoing(timestamp, packet, total_length));
+      }
+      rtcp::CommonHeader header;
+      const uint8_t* packet_end = packet + total_length;
+      for (const uint8_t* block = packet; block < packet_end;
+           block = header.NextPacket()) {
+        RTC_CHECK(header.Parse(block, packet_end - block));
+        if (header.type() == rtcp::TransportFeedback::kPacketType &&
+            header.fmt() == rtcp::TransportFeedback::kFeedbackMessageType) {
+          if (direction == kIncomingPacket) {
+            incoming_transport_feedback_.emplace_back();
+            LoggedRtcpPacketTransportFeedback& parsed_block =
+                incoming_transport_feedback_.back();
+            parsed_block.timestamp = GetTimestamp(event);
+            if (!parsed_block.transport_feedback.Parse(header))
+              incoming_transport_feedback_.pop_back();
+          } else {
+            outgoing_transport_feedback_.emplace_back();
+            LoggedRtcpPacketTransportFeedback& parsed_block =
+                outgoing_transport_feedback_.back();
+            parsed_block.timestamp = GetTimestamp(event);
+            if (!parsed_block.transport_feedback.Parse(header))
+              outgoing_transport_feedback_.pop_back();
+          }
+        } else if (header.type() == rtcp::SenderReport::kPacketType) {
+          LoggedRtcpPacketSenderReport parsed_block;
+          parsed_block.timestamp = GetTimestamp(event);
+          if (parsed_block.sr.Parse(header)) {
+            if (direction == kIncomingPacket)
+              incoming_sr_.push_back(std::move(parsed_block));
+            else
+              outgoing_sr_.push_back(std::move(parsed_block));
+          }
+        } else if (header.type() == rtcp::ReceiverReport::kPacketType) {
+          LoggedRtcpPacketReceiverReport parsed_block;
+          parsed_block.timestamp = GetTimestamp(event);
+          if (parsed_block.rr.Parse(header)) {
+            if (direction == kIncomingPacket)
+              incoming_rr_.push_back(std::move(parsed_block));
+            else
+              outgoing_rr_.push_back(std::move(parsed_block));
+          }
+        } else if (header.type() == rtcp::Remb::kPacketType &&
+                   header.fmt() == rtcp::Remb::kFeedbackMessageType) {
+          LoggedRtcpPacketRemb parsed_block;
+          parsed_block.timestamp = GetTimestamp(event);
+          if (parsed_block.remb.Parse(header)) {
+            if (direction == kIncomingPacket)
+              incoming_remb_.push_back(std::move(parsed_block));
+            else
+              outgoing_remb_.push_back(std::move(parsed_block));
+          }
+        } else if (header.type() == rtcp::Nack::kPacketType &&
+                   header.fmt() == rtcp::Nack::kFeedbackMessageType) {
+          LoggedRtcpPacketNack parsed_block;
+          parsed_block.timestamp = GetTimestamp(event);
+          if (parsed_block.nack.Parse(header)) {
+            if (direction == kIncomingPacket)
+              incoming_nack_.push_back(std::move(parsed_block));
+            else
+              outgoing_nack_.push_back(std::move(parsed_block));
+          }
+        }
+      }
+      break;
+    }
+    case ParsedRtcEventLog::LOG_START: {
+      start_log_events_.push_back(LoggedStartEvent(GetTimestamp(event)));
+      break;
+    }
+    case ParsedRtcEventLog::LOG_END: {
+      stop_log_events_.push_back(LoggedStopEvent(GetTimestamp(event)));
+      break;
+    }
+    case ParsedRtcEventLog::AUDIO_PLAYOUT_EVENT: {
+      LoggedAudioPlayoutEvent playout_event = GetAudioPlayout(event);
+      audio_playout_events_[playout_event.ssrc].push_back(
+          playout_event.timestamp);
+      break;
+    }
+    case ParsedRtcEventLog::LOSS_BASED_BWE_UPDATE: {
+      bwe_loss_updates_.push_back(GetLossBasedBweUpdate(event));
+      break;
+    }
+    case ParsedRtcEventLog::DELAY_BASED_BWE_UPDATE: {
+      bwe_delay_updates_.push_back(GetDelayBasedBweUpdate(event));
+      break;
+    }
+    case ParsedRtcEventLog::AUDIO_NETWORK_ADAPTATION_EVENT: {
+      LoggedAudioNetworkAdaptationEvent ana_event =
+          GetAudioNetworkAdaptation(event);
+      audio_network_adaptation_events_.push_back(ana_event);
+      break;
+    }
+    case ParsedRtcEventLog::BWE_PROBE_CLUSTER_CREATED_EVENT: {
+      bwe_probe_cluster_created_events_.push_back(
+          GetBweProbeClusterCreated(event));
+      break;
+    }
+    case ParsedRtcEventLog::BWE_PROBE_RESULT_EVENT: {
+      bwe_probe_result_events_.push_back(GetBweProbeResult(event));
+      break;
+    }
+    case ParsedRtcEventLog::ALR_STATE_EVENT: {
+      alr_state_events_.push_back(GetAlrState(event));
+      break;
+    }
+    case ParsedRtcEventLog::ICE_CANDIDATE_PAIR_CONFIG: {
+      ice_candidate_pair_configs_.push_back(GetIceCandidatePairConfig(event));
+      break;
+    }
+    case ParsedRtcEventLog::ICE_CANDIDATE_PAIR_EVENT: {
+      ice_candidate_pair_events_.push_back(GetIceCandidatePairEvent(event));
+      break;
+    }
+    case ParsedRtcEventLog::UNKNOWN_EVENT: {
+      break;
+    }
   }
 }
 
@@ -372,6 +657,10 @@ size_t ParsedRtcEventLog::GetNumberOfEvents() const {
 int64_t ParsedRtcEventLog::GetTimestamp(size_t index) const {
   RTC_CHECK_LT(index, GetNumberOfEvents());
   const rtclog::Event& event = events_[index];
+  return GetTimestamp(event);
+}
+
+int64_t ParsedRtcEventLog::GetTimestamp(const rtclog::Event& event) const {
   RTC_CHECK(event.has_timestamp_us());
   return event.timestamp_us();
 }
@@ -385,7 +674,7 @@ ParsedRtcEventLog::EventType ParsedRtcEventLog::GetEventType(
 }
 
 // The header must have space for at least IP_PACKET_SIZE bytes.
-webrtc::RtpHeaderExtensionMap* ParsedRtcEventLog::GetRtpHeader(
+const webrtc::RtpHeaderExtensionMap* ParsedRtcEventLog::GetRtpHeader(
     size_t index,
     PacketDirection* incoming,
     uint8_t* header,
@@ -394,6 +683,17 @@ webrtc::RtpHeaderExtensionMap* ParsedRtcEventLog::GetRtpHeader(
     int* probe_cluster_id) const {
   RTC_CHECK_LT(index, GetNumberOfEvents());
   const rtclog::Event& event = events_[index];
+  return GetRtpHeader(event, incoming, header, header_length, total_length,
+                      probe_cluster_id);
+}
+
+const webrtc::RtpHeaderExtensionMap* ParsedRtcEventLog::GetRtpHeader(
+    const rtclog::Event& event,
+    PacketDirection* incoming,
+    uint8_t* header,
+    size_t* header_length,
+    size_t* total_length,
+    int* probe_cluster_id) const {
   RTC_CHECK(event.has_type());
   RTC_CHECK_EQ(event.type(), rtclog::Event::RTP_EVENT);
   RTC_CHECK(event.has_rtp_packet());
@@ -413,6 +713,14 @@ webrtc::RtpHeaderExtensionMap* ParsedRtcEventLog::GetRtpHeader(
   if (header_length != nullptr) {
     *header_length = rtp_packet.header().size();
   }
+  if (probe_cluster_id != nullptr) {
+    if (rtp_packet.has_probe_cluster_id()) {
+      *probe_cluster_id = rtp_packet.probe_cluster_id();
+      RTC_CHECK_NE(*probe_cluster_id, PacedPacketInfo::kNotAProbe);
+    } else {
+      *probe_cluster_id = PacedPacketInfo::kNotAProbe;
+    }
+  }
   // Get header contents.
   if (header != nullptr) {
     const size_t kMinRtpHeaderSize = 12;
@@ -421,19 +729,19 @@ webrtc::RtpHeaderExtensionMap* ParsedRtcEventLog::GetRtpHeader(
                  static_cast<size_t>(IP_PACKET_SIZE));
     memcpy(header, rtp_packet.header().data(), rtp_packet.header().size());
     uint32_t ssrc = ByteReader<uint32_t>::ReadBigEndian(header + 8);
-    StreamId stream_id(
-        ssrc, rtp_packet.incoming() ? kIncomingPacket : kOutgoingPacket);
-    auto it = rtp_extensions_maps_.find(stream_id);
-    if (it != rtp_extensions_maps_.end()) {
-      return it->second;
+    auto& extensions_maps = rtp_packet.incoming()
+                                ? incoming_rtp_extensions_maps_
+                                : outgoing_rtp_extensions_maps_;
+    auto it = extensions_maps.find(ssrc);
+    if (it != extensions_maps.end()) {
+      return &(it->second);
     }
-  }
-  if (probe_cluster_id != nullptr) {
-    if (rtp_packet.has_probe_cluster_id()) {
-      *probe_cluster_id = rtp_packet.probe_cluster_id();
-      RTC_CHECK_NE(*probe_cluster_id, PacedPacketInfo::kNotAProbe);
-    } else {
-      *probe_cluster_id = PacedPacketInfo::kNotAProbe;
+    if (parse_unconfigured_header_extensions_ ==
+        UnconfiguredHeaderExtensions::kAttemptWebrtcDefaultConfig) {
+      RTC_LOG(LS_WARNING) << "Using default header extension map for SSRC "
+                          << ssrc;
+      extensions_maps.insert(std::make_pair(ssrc, default_extension_map_));
+      return &default_extension_map_;
     }
   }
   return nullptr;
@@ -446,6 +754,13 @@ void ParsedRtcEventLog::GetRtcpPacket(size_t index,
                                       size_t* length) const {
   RTC_CHECK_LT(index, GetNumberOfEvents());
   const rtclog::Event& event = events_[index];
+  GetRtcpPacket(event, incoming, packet, length);
+}
+
+void ParsedRtcEventLog::GetRtcpPacket(const rtclog::Event& event,
+                                      PacketDirection* incoming,
+                                      uint8_t* packet,
+                                      size_t* length) const {
   RTC_CHECK(event.has_type());
   RTC_CHECK_EQ(event.type(), rtclog::Event::RTCP_EVENT);
   RTC_CHECK(event.has_rtcp_packet());
@@ -626,55 +941,67 @@ rtclog::StreamConfig ParsedRtcEventLog::GetAudioSendConfig(
   return config;
 }
 
-void ParsedRtcEventLog::GetAudioPlayout(size_t index, uint32_t* ssrc) const {
+LoggedAudioPlayoutEvent ParsedRtcEventLog::GetAudioPlayout(size_t index) const {
   RTC_CHECK_LT(index, GetNumberOfEvents());
   const rtclog::Event& event = events_[index];
+  return GetAudioPlayout(event);
+}
+
+LoggedAudioPlayoutEvent ParsedRtcEventLog::GetAudioPlayout(
+    const rtclog::Event& event) const {
   RTC_CHECK(event.has_type());
   RTC_CHECK_EQ(event.type(), rtclog::Event::AUDIO_PLAYOUT_EVENT);
   RTC_CHECK(event.has_audio_playout_event());
-  const rtclog::AudioPlayoutEvent& loss_event = event.audio_playout_event();
-  RTC_CHECK(loss_event.has_local_ssrc());
-  if (ssrc != nullptr) {
-    *ssrc = loss_event.local_ssrc();
-  }
+  const rtclog::AudioPlayoutEvent& playout_event = event.audio_playout_event();
+  LoggedAudioPlayoutEvent res;
+  res.timestamp = GetTimestamp(event);
+  RTC_CHECK(playout_event.has_local_ssrc());
+  res.ssrc = playout_event.local_ssrc();
+  return res;
 }
 
-void ParsedRtcEventLog::GetLossBasedBweUpdate(size_t index,
-                                              int32_t* bitrate_bps,
-                                              uint8_t* fraction_loss,
-                                              int32_t* total_packets) const {
+LoggedBweLossBasedUpdate ParsedRtcEventLog::GetLossBasedBweUpdate(
+    size_t index) const {
   RTC_CHECK_LT(index, GetNumberOfEvents());
   const rtclog::Event& event = events_[index];
+  return GetLossBasedBweUpdate(event);
+}
+
+LoggedBweLossBasedUpdate ParsedRtcEventLog::GetLossBasedBweUpdate(
+    const rtclog::Event& event) const {
   RTC_CHECK(event.has_type());
   RTC_CHECK_EQ(event.type(), rtclog::Event::LOSS_BASED_BWE_UPDATE);
   RTC_CHECK(event.has_loss_based_bwe_update());
   const rtclog::LossBasedBweUpdate& loss_event = event.loss_based_bwe_update();
+
+  LoggedBweLossBasedUpdate bwe_update;
+  bwe_update.timestamp = GetTimestamp(event);
   RTC_CHECK(loss_event.has_bitrate_bps());
-  if (bitrate_bps != nullptr) {
-    *bitrate_bps = loss_event.bitrate_bps();
-  }
+  bwe_update.new_bitrate = loss_event.bitrate_bps();
   RTC_CHECK(loss_event.has_fraction_loss());
-  if (fraction_loss != nullptr) {
-    *fraction_loss = loss_event.fraction_loss();
-  }
+  bwe_update.fraction_lost = loss_event.fraction_loss();
   RTC_CHECK(loss_event.has_total_packets());
-  if (total_packets != nullptr) {
-    *total_packets = loss_event.total_packets();
-  }
+  bwe_update.expected_packets = loss_event.total_packets();
+  return bwe_update;
 }
 
-ParsedRtcEventLog::BweDelayBasedUpdate
-ParsedRtcEventLog::GetDelayBasedBweUpdate(size_t index) const {
+LoggedBweDelayBasedUpdate ParsedRtcEventLog::GetDelayBasedBweUpdate(
+    size_t index) const {
   RTC_CHECK_LT(index, GetNumberOfEvents());
   const rtclog::Event& event = events_[index];
+  return GetDelayBasedBweUpdate(event);
+}
+
+LoggedBweDelayBasedUpdate ParsedRtcEventLog::GetDelayBasedBweUpdate(
+    const rtclog::Event& event) const {
   RTC_CHECK(event.has_type());
   RTC_CHECK_EQ(event.type(), rtclog::Event::DELAY_BASED_BWE_UPDATE);
   RTC_CHECK(event.has_delay_based_bwe_update());
   const rtclog::DelayBasedBweUpdate& delay_event =
       event.delay_based_bwe_update();
 
-  BweDelayBasedUpdate res;
-  res.timestamp = GetTimestamp(index);
+  LoggedBweDelayBasedUpdate res;
+  res.timestamp = GetTimestamp(event);
   RTC_CHECK(delay_event.has_bitrate_bps());
   res.bitrate_bps = delay_event.bitrate_bps();
   RTC_CHECK(delay_event.has_detector_state());
@@ -682,41 +1009,54 @@ ParsedRtcEventLog::GetDelayBasedBweUpdate(size_t index) const {
   return res;
 }
 
-void ParsedRtcEventLog::GetAudioNetworkAdaptation(
-    size_t index,
-    AudioEncoderRuntimeConfig* config) const {
+LoggedAudioNetworkAdaptationEvent ParsedRtcEventLog::GetAudioNetworkAdaptation(
+    size_t index) const {
   RTC_CHECK_LT(index, GetNumberOfEvents());
   const rtclog::Event& event = events_[index];
+  return GetAudioNetworkAdaptation(event);
+}
+
+LoggedAudioNetworkAdaptationEvent ParsedRtcEventLog::GetAudioNetworkAdaptation(
+    const rtclog::Event& event) const {
   RTC_CHECK(event.has_type());
   RTC_CHECK_EQ(event.type(), rtclog::Event::AUDIO_NETWORK_ADAPTATION_EVENT);
   RTC_CHECK(event.has_audio_network_adaptation());
   const rtclog::AudioNetworkAdaptation& ana_event =
       event.audio_network_adaptation();
+
+  LoggedAudioNetworkAdaptationEvent res;
+  res.timestamp = GetTimestamp(event);
   if (ana_event.has_bitrate_bps())
-    config->bitrate_bps = ana_event.bitrate_bps();
+    res.config.bitrate_bps = ana_event.bitrate_bps();
   if (ana_event.has_enable_fec())
-    config->enable_fec = ana_event.enable_fec();
+    res.config.enable_fec = ana_event.enable_fec();
   if (ana_event.has_enable_dtx())
-    config->enable_dtx = ana_event.enable_dtx();
+    res.config.enable_dtx = ana_event.enable_dtx();
   if (ana_event.has_frame_length_ms())
-    config->frame_length_ms = ana_event.frame_length_ms();
+    res.config.frame_length_ms = ana_event.frame_length_ms();
   if (ana_event.has_num_channels())
-    config->num_channels = ana_event.num_channels();
+    res.config.num_channels = ana_event.num_channels();
   if (ana_event.has_uplink_packet_loss_fraction())
-    config->uplink_packet_loss_fraction =
+    res.config.uplink_packet_loss_fraction =
         ana_event.uplink_packet_loss_fraction();
+  return res;
 }
 
-ParsedRtcEventLog::BweProbeClusterCreatedEvent
-ParsedRtcEventLog::GetBweProbeClusterCreated(size_t index) const {
+LoggedBweProbeClusterCreatedEvent ParsedRtcEventLog::GetBweProbeClusterCreated(
+    size_t index) const {
   RTC_CHECK_LT(index, GetNumberOfEvents());
   const rtclog::Event& event = events_[index];
+  return GetBweProbeClusterCreated(event);
+}
+
+LoggedBweProbeClusterCreatedEvent ParsedRtcEventLog::GetBweProbeClusterCreated(
+    const rtclog::Event& event) const {
   RTC_CHECK(event.has_type());
   RTC_CHECK_EQ(event.type(), rtclog::Event::BWE_PROBE_CLUSTER_CREATED_EVENT);
   RTC_CHECK(event.has_probe_cluster());
   const rtclog::BweProbeCluster& pcc_event = event.probe_cluster();
-  BweProbeClusterCreatedEvent res;
-  res.timestamp = GetTimestamp(index);
+  LoggedBweProbeClusterCreatedEvent res;
+  res.timestamp = GetTimestamp(event);
   RTC_CHECK(pcc_event.has_id());
   res.id = pcc_event.id();
   RTC_CHECK(pcc_event.has_bitrate_bps());
@@ -728,16 +1068,21 @@ ParsedRtcEventLog::GetBweProbeClusterCreated(size_t index) const {
   return res;
 }
 
-ParsedRtcEventLog::BweProbeResultEvent ParsedRtcEventLog::GetBweProbeResult(
+LoggedBweProbeResultEvent ParsedRtcEventLog::GetBweProbeResult(
     size_t index) const {
   RTC_CHECK_LT(index, GetNumberOfEvents());
   const rtclog::Event& event = events_[index];
+  return GetBweProbeResult(event);
+}
+
+LoggedBweProbeResultEvent ParsedRtcEventLog::GetBweProbeResult(
+    const rtclog::Event& event) const {
   RTC_CHECK(event.has_type());
   RTC_CHECK_EQ(event.type(), rtclog::Event::BWE_PROBE_RESULT_EVENT);
   RTC_CHECK(event.has_probe_result());
   const rtclog::BweProbeResult& pr_event = event.probe_result();
-  BweProbeResultEvent res;
-  res.timestamp = GetTimestamp(index);
+  LoggedBweProbeResultEvent res;
+  res.timestamp = GetTimestamp(event);
   RTC_CHECK(pr_event.has_id());
   res.id = pr_event.id();
 
@@ -760,32 +1105,41 @@ ParsedRtcEventLog::BweProbeResultEvent ParsedRtcEventLog::GetBweProbeResult(
   return res;
 }
 
-ParsedRtcEventLog::AlrStateEvent ParsedRtcEventLog::GetAlrState(
-    size_t index) const {
+LoggedAlrStateEvent ParsedRtcEventLog::GetAlrState(size_t index) const {
   RTC_CHECK_LT(index, GetNumberOfEvents());
   const rtclog::Event& event = events_[index];
+  return GetAlrState(event);
+}
+
+LoggedAlrStateEvent ParsedRtcEventLog::GetAlrState(
+    const rtclog::Event& event) const {
   RTC_CHECK(event.has_type());
   RTC_CHECK_EQ(event.type(), rtclog::Event::ALR_STATE_EVENT);
   RTC_CHECK(event.has_alr_state());
   const rtclog::AlrState& alr_event = event.alr_state();
-  AlrStateEvent res;
-  res.timestamp = GetTimestamp(index);
+  LoggedAlrStateEvent res;
+  res.timestamp = GetTimestamp(event);
   RTC_CHECK(alr_event.has_in_alr());
   res.in_alr = alr_event.in_alr();
 
   return res;
 }
 
-ParsedRtcEventLog::IceCandidatePairConfig
-ParsedRtcEventLog::GetIceCandidatePairConfig(size_t index) const {
+LoggedIceCandidatePairConfig ParsedRtcEventLog::GetIceCandidatePairConfig(
+    size_t index) const {
   RTC_CHECK_LT(index, GetNumberOfEvents());
   const rtclog::Event& rtc_event = events_[index];
+  return GetIceCandidatePairConfig(rtc_event);
+}
+
+LoggedIceCandidatePairConfig ParsedRtcEventLog::GetIceCandidatePairConfig(
+    const rtclog::Event& rtc_event) const {
   RTC_CHECK(rtc_event.has_type());
   RTC_CHECK_EQ(rtc_event.type(), rtclog::Event::ICE_CANDIDATE_PAIR_CONFIG);
-  IceCandidatePairConfig res;
+  LoggedIceCandidatePairConfig res;
   const rtclog::IceCandidatePairConfig& config =
       rtc_event.ice_candidate_pair_config();
-  res.timestamp = GetTimestamp(index);
+  res.timestamp = GetTimestamp(rtc_event);
   RTC_CHECK(config.has_config_type());
   res.type = GetRuntimeIceCandidatePairConfigType(config.config_type());
   RTC_CHECK(config.has_candidate_pair_id());
@@ -814,16 +1168,21 @@ ParsedRtcEventLog::GetIceCandidatePairConfig(size_t index) const {
   return res;
 }
 
-ParsedRtcEventLog::IceCandidatePairEvent
-ParsedRtcEventLog::GetIceCandidatePairEvent(size_t index) const {
+LoggedIceCandidatePairEvent ParsedRtcEventLog::GetIceCandidatePairEvent(
+    size_t index) const {
   RTC_CHECK_LT(index, GetNumberOfEvents());
   const rtclog::Event& rtc_event = events_[index];
+  return GetIceCandidatePairEvent(rtc_event);
+}
+
+LoggedIceCandidatePairEvent ParsedRtcEventLog::GetIceCandidatePairEvent(
+    const rtclog::Event& rtc_event) const {
   RTC_CHECK(rtc_event.has_type());
   RTC_CHECK_EQ(rtc_event.type(), rtclog::Event::ICE_CANDIDATE_PAIR_EVENT);
-  IceCandidatePairEvent res;
+  LoggedIceCandidatePairEvent res;
   const rtclog::IceCandidatePairEvent& event =
       rtc_event.ice_candidate_pair_event();
-  res.timestamp = GetTimestamp(index);
+  res.timestamp = GetTimestamp(rtc_event);
   RTC_CHECK(event.has_event_type());
   res.type = GetRuntimeIceCandidatePairEventType(event.event_type());
   RTC_CHECK(event.has_candidate_pair_id());
@@ -836,10 +1195,26 @@ ParsedRtcEventLog::GetIceCandidatePairEvent(size_t index) const {
 ParsedRtcEventLog::MediaType ParsedRtcEventLog::GetMediaType(
     uint32_t ssrc,
     PacketDirection direction) const {
-  for (auto rit = streams_.rbegin(); rit != streams_.rend(); ++rit) {
-    if (rit->ssrc == ssrc && rit->direction == direction)
-      return rit->media_type;
+  if (direction == kIncomingPacket) {
+    if (std::find(incoming_video_ssrcs_.begin(), incoming_video_ssrcs_.end(),
+                  ssrc) != incoming_video_ssrcs_.end()) {
+      return MediaType::VIDEO;
+    }
+    if (std::find(incoming_audio_ssrcs_.begin(), incoming_audio_ssrcs_.end(),
+                  ssrc) != incoming_audio_ssrcs_.end()) {
+      return MediaType::AUDIO;
+    }
+  } else {
+    if (std::find(outgoing_video_ssrcs_.begin(), outgoing_video_ssrcs_.end(),
+                  ssrc) != outgoing_video_ssrcs_.end()) {
+      return MediaType::VIDEO;
+    }
+    if (std::find(outgoing_audio_ssrcs_.begin(), outgoing_audio_ssrcs_.end(),
+                  ssrc) != outgoing_audio_ssrcs_.end()) {
+      return MediaType::AUDIO;
+    }
   }
   return MediaType::ANY;
 }
+
 }  // namespace webrtc

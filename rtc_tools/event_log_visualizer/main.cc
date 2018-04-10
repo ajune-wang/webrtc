@@ -218,31 +218,34 @@ int main(int argc, char* argv[]) {
               << std::endl;
   }
 
-  webrtc::plotting::EventLogAnalyzer analyzer(parsed_log);
-  std::unique_ptr<webrtc::plotting::PlotCollection> collection(
-      new webrtc::plotting::PythonPlotCollection());
+  webrtc::EventLogAnalyzer analyzer(parsed_log);
+  std::unique_ptr<webrtc::PlotCollection> collection(
+      new webrtc::PythonPlotCollection());
 
   if (FLAG_plot_incoming_packet_sizes) {
-    analyzer.CreatePacketGraph(webrtc::PacketDirection::kIncomingPacket,
+    analyzer.CreatePacketGraph(webrtc::kIncomingPacket,
                                collection->AppendNewPlot());
   }
   if (FLAG_plot_outgoing_packet_sizes) {
-    analyzer.CreatePacketGraph(webrtc::PacketDirection::kOutgoingPacket,
+    analyzer.CreatePacketGraph(webrtc::kOutgoingPacket,
                                collection->AppendNewPlot());
   }
   if (FLAG_plot_incoming_packet_count) {
-    analyzer.CreateAccumulatedPacketsGraph(
-        webrtc::PacketDirection::kIncomingPacket, collection->AppendNewPlot());
+    analyzer.CreateAccumulatedPacketsGraph(webrtc::kIncomingPacket,
+                                           collection->AppendNewPlot());
   }
   if (FLAG_plot_outgoing_packet_count) {
-    analyzer.CreateAccumulatedPacketsGraph(
-        webrtc::PacketDirection::kOutgoingPacket, collection->AppendNewPlot());
+    analyzer.CreateAccumulatedPacketsGraph(webrtc::kOutgoingPacket,
+                                           collection->AppendNewPlot());
   }
   if (FLAG_plot_audio_playout) {
     analyzer.CreatePlayoutGraph(collection->AppendNewPlot());
   }
   if (FLAG_plot_audio_level) {
-    analyzer.CreateAudioLevelGraph(collection->AppendNewPlot());
+    analyzer.CreateAudioLevelGraph(webrtc::kIncomingPacket,
+                                   collection->AppendNewPlot());
+    analyzer.CreateAudioLevelGraph(webrtc::kOutgoingPacket,
+                                   collection->AppendNewPlot());
   }
   if (FLAG_plot_incoming_sequence_number_delta) {
     analyzer.CreateSequenceNumberGraph(collection->AppendNewPlot());
@@ -257,23 +260,19 @@ int main(int argc, char* argv[]) {
     analyzer.CreateIncomingPacketLossGraph(collection->AppendNewPlot());
   }
   if (FLAG_plot_incoming_bitrate) {
-    analyzer.CreateTotalBitrateGraph(webrtc::PacketDirection::kIncomingPacket,
-                                     collection->AppendNewPlot(),
-                                     FLAG_show_detector_state,
-                                     FLAG_show_alr_state);
+    analyzer.CreateTotalIncomingBitrateGraph(collection->AppendNewPlot());
   }
   if (FLAG_plot_outgoing_bitrate) {
-    analyzer.CreateTotalBitrateGraph(webrtc::PacketDirection::kOutgoingPacket,
-                                     collection->AppendNewPlot(),
-                                     FLAG_show_detector_state,
-                                     FLAG_show_alr_state);
+    analyzer.CreateTotalOutgoingBitrateGraph(collection->AppendNewPlot(),
+                                             FLAG_show_detector_state,
+                                             FLAG_show_alr_state);
   }
   if (FLAG_plot_incoming_stream_bitrate) {
-    analyzer.CreateStreamBitrateGraph(webrtc::PacketDirection::kIncomingPacket,
+    analyzer.CreateStreamBitrateGraph(webrtc::kIncomingPacket,
                                       collection->AppendNewPlot());
   }
   if (FLAG_plot_outgoing_stream_bitrate) {
-    analyzer.CreateStreamBitrateGraph(webrtc::PacketDirection::kOutgoingPacket,
+    analyzer.CreateStreamBitrateGraph(webrtc::kOutgoingPacket,
                                       collection->AppendNewPlot());
   }
   if (FLAG_plot_simulated_receiveside_bwe) {
@@ -289,7 +288,10 @@ int main(int argc, char* argv[]) {
     analyzer.CreateFractionLossGraph(collection->AppendNewPlot());
   }
   if (FLAG_plot_timestamps) {
-    analyzer.CreateTimestampGraph(collection->AppendNewPlot());
+    analyzer.CreateTimestampGraph(webrtc::kIncomingPacket,
+                                  collection->AppendNewPlot());
+    analyzer.CreateTimestampGraph(webrtc::kOutgoingPacket,
+                                  collection->AppendNewPlot());
   }
   if (FLAG_plot_pacer_delay) {
     analyzer.CreatePacerDelayGraph(collection->AppendNewPlot());

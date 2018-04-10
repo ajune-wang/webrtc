@@ -750,17 +750,16 @@ TEST(RtcEventLogTest, CircularBufferKeepsMostRecentEvents) {
   for (size_t i = 1; i < parsed_log.GetNumberOfEvents() - 1; i++) {
     EXPECT_EQ(parsed_log.GetEventType(i),
               ParsedRtcEventLog::EventType::AUDIO_PLAYOUT_EVENT);
-    uint32_t ssrc;
-    parsed_log.GetAudioPlayout(i, &ssrc);
-    int64_t timestamp = parsed_log.GetTimestamp(i);
-    EXPECT_LT(ssrc, kNumEvents);
-    EXPECT_EQ(static_cast<int64_t>(kStartTime + 10000 * ssrc), timestamp);
+    LoggedAudioPlayoutEvent playout_event = parsed_log.GetAudioPlayout(i);
+    EXPECT_LT(playout_event.ssrc, kNumEvents);
+    EXPECT_EQ(static_cast<int64_t>(kStartTime + 10000 * playout_event.ssrc),
+              playout_event.timestamp);
     if (last_ssrc)
-      EXPECT_EQ(ssrc, *last_ssrc + 1);
+      EXPECT_EQ(playout_event.ssrc, *last_ssrc + 1);
     if (last_timestamp)
-      EXPECT_EQ(timestamp, *last_timestamp + 10000);
-    last_ssrc = ssrc;
-    last_timestamp = timestamp;
+      EXPECT_EQ(playout_event.timestamp, *last_timestamp + 10000);
+    last_ssrc = playout_event.ssrc;
+    last_timestamp = playout_event.timestamp;
   }
   RtcEventLogTestHelper::VerifyLogEndEvent(parsed_log,
                                            parsed_log.GetNumberOfEvents() - 1);

@@ -33,12 +33,12 @@ namespace optional_internal {
 // This is a non-inlined function. The optimizer can't see inside it.  It
 // prevents the compiler from generating optimized code that reads value_ even
 // if it is unset. Although safe, this causes memory sanitizers to complain.
-void* FunctionThatDoesNothingImpl(void*);
+void* FunctionThatDoesNothingImpl(const void*);
 
 template <typename T>
 inline T* FunctionThatDoesNothing(T* x) {
   return reinterpret_cast<T*>(
-      FunctionThatDoesNothingImpl(reinterpret_cast<void*>(x)));
+      FunctionThatDoesNothingImpl(reinterpret_cast<const void*>(x)));
 }
 
 #else

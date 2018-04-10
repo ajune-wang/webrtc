@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0e4afeb6_e60cebbc",
+        "filename": "modules/congestion_controller/network_control/units/data_rate.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-04-10T12:10:01Z",
+      "side": 1,
+      "message": "nit: Drop plural \u0027s\u0027. Same below.",
+      "range": {
+        "startLine": 22,
+        "startChar": 68,
+        "endLine": 22,
+        "endChar": 69
+      },
+      "revId": "421bd754425c0c6468856ea62bd5356e27dae7a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e353f24b_fcb47ef8",
+        "filename": "modules/congestion_controller/network_control/units/unit_operators_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-04-10T12:10:01Z",
+      "side": 1,
+      "message": "nit: Please test the reverse orde of the operands too.",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 59
+      },
+      "revId": "421bd754425c0c6468856ea62bd5356e27dae7a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7cb949c8_e9708290",
+        "filename": "modules/congestion_controller/network_control/units/units_to_string.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-04-10T12:10:01Z",
+      "side": 1,
+      "message": "Merge ToString methods into the .h/.cc file for each respective unit?",
+      "range": {
+        "startLine": 21,
+        "startChar": 12,
+        "endLine": 21,
+        "endChar": 20
+      },
+      "revId": "421bd754425c0c6468856ea62bd5356e27dae7a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

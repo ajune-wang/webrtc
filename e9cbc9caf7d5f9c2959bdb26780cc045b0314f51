@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "0f7a5d69_1d8113e1",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-10T22:23:12Z",
+      "side": 1,
+      "message": "Ack. We have the initialized_ checked in SetConfiguration first in the later patches, and this detachment can be safely removed.",
+      "parentUuid": "2698deca_5efda6a9",
+      "revId": "e9cbc9caf7d5f9c2959bdb26780cc045b0314f51",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8747b68d_8e82f0a7",
         "filename": "pc/peerconnectioninterface_unittest.cc",
         "patchSetId": 9
@@ -33,6 +51,24 @@
       "revId": "e9cbc9caf7d5f9c2959bdb26780cc045b0314f51",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5ce4913_926343a6",
+        "filename": "pc/peerconnectioninterface_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1420,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-10T22:23:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8747b68d_8e82f0a7",
+      "revId": "e9cbc9caf7d5f9c2959bdb26780cc045b0314f51",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

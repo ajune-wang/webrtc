@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "bca0474b_2efc6e25",
+        "filename": "api/optional.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5444
+      },
+      "writtenOn": "2018-04-10T10:36:54Z",
+      "side": 1,
+      "message": "It should work for pointers to non-const. Adding const in the cast below is fine, it\u0027s removing it that\u0027s problematic.",
+      "parentUuid": "6337b439_72643b36",
+      "range": {
+        "startLine": 39,
+        "startChar": 40,
+        "endLine": 39,
+        "endChar": 41
+      },
+      "revId": "bdc460ee902d705f9da265f6a139982a468dc687",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "76a69069_7a13f870",
         "filename": "api/optional.h",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2018-04-10T10:28:48Z",
       "side": 1,
       "message": "\"inline const\" here too, like on line 39?",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 12
+      },
+      "revId": "bdc460ee902d705f9da265f6a139982a468dc687",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fbb84f38_99336204",
+        "filename": "api/optional.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5444
+      },
+      "writtenOn": "2018-04-10T10:36:54Z",
+      "side": 1,
+      "message": "Oops, will fix.",
+      "parentUuid": "76a69069_7a13f870",
       "range": {
         "startLine": 47,
         "startChar": 0,

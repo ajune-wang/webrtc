@@ -160,6 +160,24 @@
     },
     {
       "key": {
+        "uuid": "f31fb5cb_f827bab1",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1988,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-10T16:39:19Z",
+      "side": 1,
+      "message": "This still needs to be addressed.",
+      "parentUuid": "dddd4c2d_b4e0855b",
+      "revId": "2fbdb45d73d70e0a7ec8b6286ac2b00a007edcb9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "84dc24ba_c7adca45",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 4
@@ -207,6 +225,24 @@
       "side": 1,
       "message": "If it feels awkward to move these \"IncrementEnumCounter\"s to JsepTransportController::SetMetricsObserver or PeerConnection::SetMetricsObserver_n, another option would be doing it from a lambda.",
       "parentUuid": "f2730469_00cb8aad",
+      "revId": "2fbdb45d73d70e0a7ec8b6286ac2b00a007edcb9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d2dc3c8_f73efb00",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 3003,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-10T16:39:19Z",
+      "side": 1,
+      "message": "Would still prefer if this were addressed before landing.",
+      "parentUuid": "4c474457_03482dd1",
       "revId": "2fbdb45d73d70e0a7ec8b6286ac2b00a007edcb9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

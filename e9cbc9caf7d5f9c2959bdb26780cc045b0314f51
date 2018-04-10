@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2698deca_5efda6a9",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-10T16:39:19Z",
+      "side": 1,
+      "message": "nit: Since the base class\u0027s constructor does this (and it\u0027s what directly owns the thread checker), it\u0027s not needed in these constructors.",
+      "revId": "e9cbc9caf7d5f9c2959bdb26780cc045b0314f51",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8747b68d_8e82f0a7",
+        "filename": "pc/peerconnectioninterface_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1420,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-10T16:39:19Z",
+      "side": 1,
+      "message": "Since the added DCHECKs enforce this test\u0027s requirements, and it doesn\u0027t have any assertions left, it could just be deleted.",
+      "revId": "e9cbc9caf7d5f9c2959bdb26780cc045b0314f51",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

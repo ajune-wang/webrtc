@@ -103,10 +103,12 @@ class SendSideCongestionControllerTest : public ::testing::Test {
   }
 
   void OnSentPacket(const PacketFeedback& packet_feedback) {
-    constexpr uint32_t ssrc = 0;
-    controller_->AddPacket(ssrc, packet_feedback.sequence_number,
-                           packet_feedback.payload_size,
-                           packet_feedback.pacing_info);
+    PacketInfo packet_info;
+    packet_info.ssrc = 0;
+    packet_info.transport_sequence_number = packet_feedback.sequence_number;
+    packet_info.length = packet_feedback.payload_size;
+    packet_info.pacing_info = packet_feedback.pacing_info;
+    controller_->OnNewPacket(packet_info);
     controller_->OnSentPacket(rtc::SentPacket(packet_feedback.sequence_number,
                                               packet_feedback.send_time_ms));
   }

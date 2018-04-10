@@ -331,17 +331,15 @@ void SendSideCongestionController::Process() {
   MaybeTriggerOnNetworkChanged();
 }
 
-void SendSideCongestionController::AddPacket(
-    uint32_t ssrc,
-    uint16_t sequence_number,
-    size_t length,
-    const PacedPacketInfo& pacing_info) {
+void SendSideCongestionController::OnNewPacket(const PacketInfo& packet_info) {
+  size_t length = packet_info.length;
   if (send_side_bwe_with_overhead_) {
     rtc::CritScope cs(&bwe_lock_);
     length += transport_overhead_bytes_per_packet_;
   }
-  transport_feedback_adapter_.AddPacket(ssrc, sequence_number, length,
-                                        pacing_info);
+  transport_feedback_adapter_.AddPacket(packet_info.ssrc,
+                                        packet_info.transport_sequence_number,
+                                        length, packet_info.pacing_info);
 }
 
 void SendSideCongestionController::OnTransportFeedback(

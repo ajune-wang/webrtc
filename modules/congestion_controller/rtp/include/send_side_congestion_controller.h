@@ -118,10 +118,7 @@ class SendSideCongestionController
   void Process() override;
 
   // Implements TransportFeedbackObserver.
-  void AddPacket(uint32_t ssrc,
-                 uint16_t sequence_number,
-                 size_t length,
-                 const PacedPacketInfo& pacing_info) override;
+  void OnNewPacket(const PacketInfo& packet_info) override;
   void OnTransportFeedback(const rtcp::TransportFeedback& feedback) override;
 
   std::vector<PacketFeedback> GetTransportFeedbackVector() const;

@@ -358,6 +358,8 @@ struct PacketFeedback {
            payload_size == rhs.payload_size && pacing_info == rhs.pacing_info;
   }
 
+  // TODO(sprang): Replace applicable members with a PacketInfo.
+
   // Time corresponding to when this object was created.
   int64_t creation_time_ms;
   // Time corresponding to when the packet was received. Timestamped with the
@@ -390,16 +392,31 @@ class PacketFeedbackComparator {
   }
 };
 
+struct PacketInfo {
+  uint32_t ssrc;
+  uint16_t rtp_sequence_number;
+  uint16_t transport_sequence_number;
+  size_t length;
+  PacedPacketInfo pacing_info;
+};
+
+// Interface capturing meta-data about packets being sent with transport
+// feedback enabled.
+class NewPacketObserver {
+ public:
+  NewPacketObserver() = default;
+  virtual ~NewPacketObserver() = default;
+
+  // Note that both RTP sequence number and transport wide sequence numbers are
+  // included.
+  virtual void OnNewPacket(const PacketInfo& packet_info) = 0;
+};
+
+// Interface capturing TransportFeedback messages sent back from a receiver.
 class TransportFeedbackObserver {
  public:
   TransportFeedbackObserver() {}
   virtual ~TransportFeedbackObserver() {}
-
-  // Note: Transport-wide sequence number as sequence number.
-  virtual void AddPacket(uint32_t ssrc,
-                         uint16_t sequence_number,
-                         size_t length,
-                         const PacedPacketInfo& pacing_info) = 0;
 
   virtual void OnTransportFeedback(const rtcp::TransportFeedback& feedback) = 0;
 };

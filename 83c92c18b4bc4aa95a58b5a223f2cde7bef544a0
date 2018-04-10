@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "894fc922_262010b9",
+        "filename": "api/optional.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-04-10T09:27:44Z",
+      "side": 1,
+      "message": "Change the return value too to const void*, so that you don\u0027t have to const_cast?",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 5
+      },
+      "revId": "83c92c18b4bc4aa95a58b5a223f2cde7bef544a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

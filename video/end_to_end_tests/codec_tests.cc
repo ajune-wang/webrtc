@@ -69,7 +69,8 @@ class CodecObserver : public test::EndToEndTest,
       std::vector<VideoReceiveStream::Config>* receive_configs,
       VideoEncoderConfig* encoder_config) override {
     encoder_config->codec_type = PayloadStringToCodecType(payload_name_);
-    send_config->encoder_settings.encoder = encoder_.get();
+    // TODO(nisse): XXX = encoder.get();
+    send_config->encoder_settings.encoder_factory = nullptr;
     send_config->rtp.payload_name = payload_name_;
     send_config->rtp.payload_type = test::CallTest::kVideoSendPayloadType;
 

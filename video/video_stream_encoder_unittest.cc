@@ -272,6 +272,7 @@ class VideoStreamEncoderTest : public ::testing::Test {
         codec_height_(240),
         max_framerate_(30),
         fake_encoder_(),
+        encoder_factory_(&fake_encoder_),
         stats_proxy_(new MockableSendStatisticsProxy(
             Clock::GetRealTimeClock(),
             video_send_config_,
@@ -281,7 +282,7 @@ class VideoStreamEncoderTest : public ::testing::Test {
   void SetUp() override {
     metrics::Reset();
     video_send_config_ = VideoSendStream::Config(nullptr);
-    video_send_config_.encoder_settings.encoder = &fake_encoder_;
+    video_send_config_.encoder_settings.encoder_factory = &encoder_factory_;
     video_send_config_.rtp.payload_name = "FAKE";
     video_send_config_.rtp.payload_type = 125;
 
@@ -582,6 +583,69 @@ class VideoStreamEncoderTest : public ::testing::Test {
     bool force_init_encode_failed_ RTC_GUARDED_BY(local_crit_sect_) = false;
   };
 
+  class EncoderProxyFactory : public VideoEncoderFactory {
+   public:
+    explicit EncoderProxyFactory(VideoEncoder* encoder) : encoder_(encoder) {}
+
+    // Unused by tests.
+    std::vector<SdpVideoFormat> GetSupportedFormats() const override {
+      RTC_NOTREACHED();
+    }
+
+    CodecInfo QueryVideoEncoder(const SdpVideoFormat& format) const override {
+      CodecInfo codec_info;
+      codec_info.is_hardware_accelerated = false;
+      codec_info.has_internal_source = false;
+      return codec_info;
+    }
+    std::unique_ptr<VideoEncoder> CreateVideoEncoder(
+        const SdpVideoFormat& format) override {
+      return rtc::MakeUnique<EncoderProxy>(encoder_);
+    }
+
+   private:
+    // Wrapper class, since CreateVideoEncoder needs to surrender
+    // ownership to the object it returns.
+    class EncoderProxy : public VideoEncoder {
+     public:
+      explicit EncoderProxy(VideoEncoder* encoder) : encoder_(encoder) {}
+
+     private:
+      int32_t Encode(const VideoFrame& input_image,
+                     const CodecSpecificInfo* codec_specific_info,
+                     const std::vector<FrameType>* frame_types) override {
+        return encoder_->Encode(input_image, codec_specific_info, frame_types);
+      }
+      int32_t InitEncode(const VideoCodec* config,
+                         int32_t number_of_cores,
+                         size_t max_payload_size) override {
+        return encoder_->InitEncode(config, number_of_cores, max_payload_size);
+      }
+      VideoEncoder::ScalingSettings GetScalingSettings() const override {
+        return encoder_->GetScalingSettings();
+      }
+      int32_t RegisterEncodeCompleteCallback(
+          EncodedImageCallback* callback) override {
+        return encoder_->RegisterEncodeCompleteCallback(callback);
+      }
+      int32_t Release() override { return encoder_->Release(); }
+      int32_t SetChannelParameters(uint32_t packet_loss, int64_t rtt) override {
+        return encoder_->SetChannelParameters(packet_loss, rtt);
+      }
+      int32_t SetRateAllocation(const BitrateAllocation& rate_allocation,
+                                uint32_t framerate) override {
+        return encoder_->SetRateAllocation(rate_allocation, framerate);
+      }
+      const char* ImplementationName() const override {
+        return encoder_->ImplementationName();
+      }
+
+      VideoEncoder* encoder_;
+    };
+
+    VideoEncoder* encoder_;
+  };
+
   class TestSink : public VideoStreamEncoder::EncoderSink {
    public:
     explicit TestSink(TestEncoder* test_encoder)
@@ -683,6 +747,7 @@ class VideoStreamEncoderTest : public ::testing::Test {
   int codec_height_;
   int max_framerate_;
   TestEncoder fake_encoder_;
+  EncoderProxyFactory encoder_factory_;
   std::unique_ptr<MockableSendStatisticsProxy> stats_proxy_;
   TestSink sink_;
   AdaptingFrameForwarder video_source_;
@@ -1434,9 +1499,14 @@ TEST_F(VideoStreamEncoderTest,
 
   // Set source with adaptation still enabled but quality scaler is off.
   fake_encoder_.SetQualityScaling(false);
-  video_stream_encoder_->SetSource(
-      &video_source_,
-      VideoSendStream::DegradationPreference::kMaintainFramerate);
+
+  VideoEncoderConfig video_encoder_config;
+  test::FillEncoderConfiguration(kVideoCodecVP8, 1, &video_encoder_config);
+  // Make format different, to force recreation of encoder.
+  video_encoder_config.video_format.parameters["foo"] = "foo";
+  video_stream_encoder_->ConfigureEncoder(std::move(video_encoder_config),
+                                          kMaxPayloadLength,
+                                          true /* nack_enabled */);
 
   video_source_.IncomingCapturedFrame(CreateFrame(4, kWidth, kHeight));
   WaitForEncodedFrame(4);

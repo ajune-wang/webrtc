@@ -492,10 +492,12 @@ void WebRtcVideoEngineTest::TestExtendedEncoderOveruse(
   parameters.codecs.push_back(GetEngineCodec("VP8"));
   EXPECT_TRUE(channel->SetSendParameters(parameters));
   EXPECT_TRUE(channel->SetSend(true));
+#if 0
   FakeVideoSendStream* stream = fake_call->GetVideoSendStreams()[0];
 
   EXPECT_EQ(use_external_encoder,
             stream->GetConfig().encoder_settings.full_overuse_time);
+#endif
   // Remove stream previously added to free the external encoder instance.
   EXPECT_TRUE(channel->RemoveSendStream(kSsrc));
 }
@@ -666,16 +668,29 @@ TEST_F(WebRtcVideoEngineTest, UsesSimulcastAdapterForVp8Factories) {
 TEST_F(WebRtcVideoEngineTest, ChannelWithExternalH264CanChangeToInternalVp8) {
   encoder_factory_->AddSupportedVideoCodecType("H264");
 
+  // Set capturer.
+  FakeVideoCapturerWithTaskQueue capturer;
+  EXPECT_EQ(cricket::CS_RUNNING,
+            capturer.Start(capturer.GetSupportedFormats()->front()));
+
   std::unique_ptr<VideoMediaChannel> channel(SetUpForExternalEncoderFactory());
 
   EXPECT_TRUE(
       channel->AddSendStream(cricket::StreamParams::CreateLegacy(kSsrc)));
-  ASSERT_EQ(1u, encoder_factory_->encoders().size());
+  EXPECT_TRUE(channel->SetVideoSend(kSsrc, nullptr, &capturer));
+  // Sending one frame will have allocate the encoder.
+  EXPECT_TRUE(capturer.CaptureFrame());
+
+  ASSERT_EQ_WAIT(1u, encoder_factory_->encoders().size(), kTimeout);
 
   cricket::VideoSendParameters parameters;
   parameters.codecs.push_back(GetEngineCodec("VP8"));
   EXPECT_TRUE(channel->SetSendParameters(parameters));
-  ASSERT_EQ(0u, encoder_factory_->encoders().size());
+
+  // Sending one frame will switch encoder.
+  EXPECT_TRUE(capturer.CaptureFrame());
+
+  EXPECT_EQ_WAIT(0u, encoder_factory_->encoders().size(), kTimeout);
 }
 
 TEST_F(WebRtcVideoEngineTest,
@@ -743,7 +758,6 @@ TEST_F(WebRtcVideoEngineTest,
 
   EXPECT_TRUE(
       channel->AddSendStream(cricket::StreamParams::CreateLegacy(kSsrc)));
-  ASSERT_EQ(1u, encoder_factory_->encoders().size());
 
   // Send a frame of 720p. This should trigger a "real" encoder initialization.
   cricket::VideoFormat format(
@@ -752,6 +766,8 @@ TEST_F(WebRtcVideoEngineTest,
   EXPECT_TRUE(channel->SetVideoSend(kSsrc, nullptr, &capturer));
   EXPECT_EQ(cricket::CS_RUNNING, capturer.Start(format));
   EXPECT_TRUE(capturer.CaptureFrame());
+  ASSERT_TRUE(encoder_factory_->WaitForCreatedVideoEncoders(1));
+  ASSERT_EQ(1u, encoder_factory_->encoders().size());
   ASSERT_TRUE(encoder_factory_->encoders()[0]->WaitForInitEncode());
   EXPECT_EQ(webrtc::kVideoCodecH264,
             encoder_factory_->encoders()[0]->GetCodecSettings().codecType);
@@ -778,6 +794,7 @@ TEST_F(WebRtcVideoEngineTest, SimulcastDisabledForH264) {
   EXPECT_EQ(cricket::CS_RUNNING, capturer.Start(format));
   EXPECT_TRUE(capturer.CaptureFrame());
 
+  ASSERT_TRUE(encoder_factory_->WaitForCreatedVideoEncoders(1));
   ASSERT_EQ(1u, encoder_factory_->encoders().size());
   FakeWebRtcVideoEncoder* encoder = encoder_factory_->encoders()[0];
   ASSERT_TRUE(encoder_factory_->encoders()[0]->WaitForInitEncode());
@@ -966,8 +983,12 @@ TEST(WebRtcVideoEngineNewVideoCodecFactoryTest, Vp8) {
   EXPECT_CALL(*encoder_factory, QueryVideoEncoder(format))
       .WillRepeatedly(testing::Return(codec_info));
   FakeWebRtcVideoEncoder* const encoder = new FakeWebRtcVideoEncoder();
+  rtc::Event encoder_created(false, false);
   EXPECT_CALL(*encoder_factory, CreateVideoEncoderProxy(format))
-      .WillOnce(testing::Return(encoder));
+      .WillOnce(
+          ::testing::DoAll(::testing::InvokeWithoutArgs(
+                               [&encoder_created]() { encoder_created.Set(); }),
+                           ::testing::Return(encoder)));
 
   // Mock decoder creation. |engine| take ownership of the decoder.
   FakeWebRtcVideoDecoder* const decoder = new FakeWebRtcVideoDecoder();
@@ -990,6 +1011,15 @@ TEST(WebRtcVideoEngineNewVideoCodecFactoryTest, Vp8) {
   EXPECT_TRUE(
       send_channel->AddSendStream(StreamParams::CreateLegacy(send_ssrc)));
   EXPECT_TRUE(send_channel->SetSend(true));
+
+  // Set capturer.
+  FakeVideoCapturerWithTaskQueue capturer;
+  EXPECT_EQ(cricket::CS_RUNNING,
+            capturer.Start(capturer.GetSupportedFormats()->front()));
+  EXPECT_TRUE(send_channel->SetVideoSend(send_ssrc, nullptr, &capturer));
+  // Sending one frame will have allocate the encoder.
+  EXPECT_TRUE(capturer.CaptureFrame());
+  encoder_created.Wait(kTimeout);
 
   // Create recv channel.
   const int recv_ssrc = 321;

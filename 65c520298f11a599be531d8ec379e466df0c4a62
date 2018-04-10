@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9eb298fe_9fc612ca",
+        "filename": "rtc_base/openssladapter.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 917,
+      "author": {
+        "id": 6630
+      },
+      "writtenOn": "2018-04-10T14:37:22Z",
+      "side": 1,
+      "message": "Please add logging here",
+      "range": {
+        "startLine": 917,
+        "startChar": 1,
+        "endLine": 917,
+        "endChar": 2
+      },
+      "revId": "65c520298f11a599be531d8ec379e466df0c4a62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "228e57f7_815a37f0",
+        "filename": "rtc_base/openssladapter.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 973,
+      "author": {
+        "id": 6630
+      },
+      "writtenOn": "2018-04-10T14:37:22Z",
+      "side": 1,
+      "message": "So this should only be used if WEBRTC_DISABLE_BUILT_IN_SSL_ROOT_CERTIFICATES not defined, otherwise this cert loader will be empty? should we wrap this line with\n#ifndef WEBRTC_DISABLE_BUILT_IN_SSL_ROOT_CERTIFICATES , and keep it null otherwise ?",
+      "range": {
+        "startLine": 973,
+        "startChar": 0,
+        "endLine": 973,
+        "endChar": 66
+      },
+      "revId": "65c520298f11a599be531d8ec379e466df0c4a62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d78adbbe_2609ef25",
+        "filename": "rtc_base/opensslcertificate.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 6630
+      },
+      "writtenOn": "2018-04-10T14:37:22Z",
+      "side": 1,
+      "message": "Please add // NOT OWNED",
+      "range": {
+        "startLine": 73,
+        "startChar": 8,
+        "endLine": 73,
+        "endChar": 13
+      },
+      "revId": "65c520298f11a599be531d8ec379e466df0c4a62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5366496_54258ce5",
+        "filename": "rtc_base/opensslcertificate.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 6630
+      },
+      "writtenOn": "2018-04-10T14:37:22Z",
+      "side": 1,
+      "message": "Disable copy and assign",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 5
+      },
+      "revId": "65c520298f11a599be531d8ec379e466df0c4a62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

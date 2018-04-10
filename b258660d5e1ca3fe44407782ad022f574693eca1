@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b0debf3c_371807ad",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-04-10T10:33:38Z",
+      "side": 1,
+      "message": "nit: Remove extra newline",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 0
+      },
+      "revId": "b258660d5e1ca3fe44407782ad022f574693eca1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23f991d0_25e26a21",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 902,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-04-10T10:33:38Z",
+      "side": 1,
+      "message": "nit: formatting",
+      "range": {
+        "startLine": 901,
+        "startChar": 36,
+        "endLine": 902,
+        "endChar": 0
+      },
+      "revId": "b258660d5e1ca3fe44407782ad022f574693eca1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

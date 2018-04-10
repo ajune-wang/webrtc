@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "35bf78f7_8f27016b",
+        "filename": "modules/audio_coding/neteq/expand_uma_logger.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-04-10T13:12:31Z",
+      "side": 1,
+      "message": "... and it is only available for test code. I\u0027ll stick to the int for now.",
+      "parentUuid": "aef474fd_79abb7db",
+      "range": {
+        "startLine": 18,
+        "startChar": 4,
+        "endLine": 18,
+        "endChar": 7
+      },
+      "revId": "22b09c98c6cd772c934ced2fdde398c8890074f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "27f0078a_84525788",
         "filename": "modules/audio_coding/neteq/expand_uma_logger.cc",
         "patchSetId": 2

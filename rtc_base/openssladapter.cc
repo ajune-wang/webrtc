@@ -23,13 +23,10 @@
 #include <openssl/x509v3.h>
 #include "rtc_base/openssl.h"
 
-#include "rtc_base/arraysize.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/numerics/safe_conversions.h"
-#include "rtc_base/opensslcommon.h"
-#include "rtc_base/ptr_util.h"
-#include "rtc_base/sslroots.h"
+#include "rtc_base/opensslutility.h"
 #include "rtc_base/stringencode.h"
 #include "rtc_base/stringutils.h"
 #include "rtc_base/thread.h"
@@ -205,6 +202,7 @@ OpenSSLAdapter::OpenSSLAdapter(AsyncSocket* socket,
                                OpenSSLSessionCache* ssl_session_cache)
     : SSLAdapter(socket),
       ssl_session_cache_(ssl_session_cache),
+      ssl_root_cert_loader_(new OpenSSLBuiltinRootCertLoader()),
       state_(SSL_NONE),
       role_(SSL_CLIENT),
       ssl_read_needs_write_(false),
@@ -246,6 +244,12 @@ void OpenSSLAdapter::SetMode(SSLMode mode) {
   RTC_DCHECK(!ssl_ctx_);
   RTC_DCHECK(state_ == SSL_NONE);
   ssl_mode_ = mode;
+}
+
+void OpenSSLAdapter::SetRootCertLoader(
+    std::unique_ptr<SSLRootCertLoader> ssl_root_cert_loader) {
+  RTC_DCHECK(!ssl_ctx_);
+  ssl_root_cert_loader_ = std::move(ssl_root_cert_loader);
 }
 
 void OpenSSLAdapter::SetIdentity(SSLIdentity* identity) {
@@ -305,8 +309,9 @@ int OpenSSLAdapter::BeginSSL() {
   // need to create one, and specify |false| to disable session caching.
   if (ssl_session_cache_ == nullptr) {
     RTC_DCHECK(!ssl_ctx_);
-    ssl_ctx_ = CreateContext(ssl_mode_, false);
+    ssl_ctx_ = CreateContext(ssl_mode_, false, ssl_root_cert_loader_.get());
   }
+
   if (!ssl_ctx_) {
     err = -1;
     goto ssl_error;
@@ -884,28 +889,10 @@ int OpenSSLAdapter::NewSSLSessionCallback(SSL* ssl, SSL_SESSION* session) {
   return 1;  // We've taken ownership of the session; OpenSSL shouldn't free it.
 }
 
-bool OpenSSLAdapter::ConfigureTrustedRootCertificates(SSL_CTX* ctx) {
-  // Add the root cert that we care about to the SSL context
-  int count_of_added_certs = 0;
-  for (size_t i = 0; i < arraysize(kSSLCertCertificateList); i++) {
-    const unsigned char* cert_buffer = kSSLCertCertificateList[i];
-    size_t cert_buffer_len = kSSLCertCertificateSizeList[i];
-    X509* cert =
-        d2i_X509(nullptr, &cert_buffer, checked_cast<long>(cert_buffer_len));
-    if (cert) {
-      int return_value = X509_STORE_add_cert(SSL_CTX_get_cert_store(ctx), cert);
-      if (return_value == 0) {
-        RTC_LOG(LS_WARNING) << "Unable to add certificate.";
-      } else {
-        count_of_added_certs++;
-      }
-      X509_free(cert);
-    }
-  }
-  return count_of_added_certs > 0;
-}
-
-SSL_CTX* OpenSSLAdapter::CreateContext(SSLMode mode, bool enable_cache) {
+SSL_CTX* OpenSSLAdapter::CreateContext(
+    SSLMode mode,
+    bool enable_cache,
+    SSLRootCertLoader* ssl_root_cert_loader) {
   // Use (D)TLS 1.2.
   // Note: BoringSSL supports a range of versions by setting max/min version
   // (Default V1.0 to V1.2). However (D)TLSv1_2_client_method functions used
@@ -924,7 +911,10 @@ SSL_CTX* OpenSSLAdapter::CreateContext(SSLMode mode, bool enable_cache) {
                         << "(error=" << error << ')';
     return nullptr;
   }
-  if (!ConfigureTrustedRootCertificates(ctx)) {
+
+  // Attempt to load the root certificates into the trust store, this will
+  // define the set of SSL Roots we accept TLS connections from.
+  if (!openssl::LoadSSLRootCertsIntoTrustStore(ctx, ssl_root_cert_loader)) {
     SSL_CTX_free(ctx);
     return nullptr;
   }
@@ -979,7 +969,9 @@ std::string TransformAlpnProtocols(
 // OpenSSLAdapterFactory
 //////////////////////////////////////////////////////////////////////
 
-OpenSSLAdapterFactory::OpenSSLAdapterFactory() = default;
+OpenSSLAdapterFactory::OpenSSLAdapterFactory()
+    : ssl_root_cert_loader_(new OpenSSLBuiltinRootCertLoader()) {}
+
 OpenSSLAdapterFactory::~OpenSSLAdapterFactory() = default;
 
 void OpenSSLAdapterFactory::SetMode(SSLMode mode) {
@@ -987,10 +979,16 @@ void OpenSSLAdapterFactory::SetMode(SSLMode mode) {
   ssl_mode_ = mode;
 }
 
+void OpenSSLAdapterFactory::SetRootCertLoader(
+    std::unique_ptr<SSLRootCertLoader> ssl_root_cert_loader) {
+  RTC_DCHECK(!ssl_session_cache_);
+  ssl_root_cert_loader_ = std::move(ssl_root_cert_loader);
+}
+
 OpenSSLAdapter* OpenSSLAdapterFactory::CreateAdapter(AsyncSocket* socket) {
   if (ssl_session_cache_ == nullptr) {
-    SSL_CTX* ssl_ctx =
-        OpenSSLAdapter::CreateContext(ssl_mode_, /* enable_cache = */ true);
+    SSL_CTX* ssl_ctx = OpenSSLAdapter::CreateContext(
+        ssl_mode_, true, ssl_root_cert_loader_.get());
     if (ssl_ctx == nullptr) {
       return nullptr;
     }

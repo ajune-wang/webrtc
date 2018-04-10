@@ -21,8 +21,10 @@
 #include "rtc_base/buffer.h"
 #include "rtc_base/messagehandler.h"
 #include "rtc_base/messagequeue.h"
+#include "rtc_base/opensslcertificate.h"
 #include "rtc_base/opensslidentity.h"
 #include "rtc_base/opensslsessioncache.h"
+#include "rtc_base/ptr_util.h"
 #include "rtc_base/ssladapter.h"
 
 namespace rtc {
@@ -32,6 +34,12 @@ class OpenSSLAdapter : public SSLAdapter, public MessageHandler {
   static bool InitializeSSL(VerificationCallback callback);
   static bool CleanupSSL();
 
+  // Creating an OpenSSLAdapter requires a socket to bind to, an optional
+  // sesission cache if you wish to improve performance by caching sessions for
+  // hostnames you have previously connected to and an optional
+  // OpenSSLRootCertificateLoader which is responsible for setting which root
+  // certificates are trusted by the adapter. The cache and loader are
+  // effectively immutable after construction.
   explicit OpenSSLAdapter(AsyncSocket* socket,
                           OpenSSLSessionCache* ssl_session_cache = nullptr);
   ~OpenSSLAdapter() override;
@@ -39,8 +47,8 @@ class OpenSSLAdapter : public SSLAdapter, public MessageHandler {
   void SetIgnoreBadCert(bool ignore) override;
   void SetAlpnProtocols(const std::vector<std::string>& protos) override;
   void SetEllipticCurves(const std::vector<std::string>& curves) override;
-
   void SetMode(SSLMode mode) override;
+  void SetRootCertLoader(std::unique_ptr<SSLRootCertLoader> loader) override;
   void SetIdentity(SSLIdentity* identity) override;
   void SetRole(SSLRole role) override;
   AsyncSocket* Accept(SocketAddress* paddr) override;
@@ -64,7 +72,9 @@ class OpenSSLAdapter : public SSLAdapter, public MessageHandler {
   // OpenSSLAdapterFactory will call this method to create its own internal
   // SSL_CTX, and OpenSSLAdapter will also call this when used without a
   // factory.
-  static SSL_CTX* CreateContext(SSLMode mode, bool enable_cache);
+  static SSL_CTX* CreateContext(SSLMode mode,
+                                bool enable_cache,
+                                SSLRootCertLoader* ssl_root_cert_loader);
 
  protected:
   void OnConnectEvent(AsyncSocket* socket) override;
@@ -105,11 +115,14 @@ class OpenSSLAdapter : public SSLAdapter, public MessageHandler {
   // to allow its SSL_SESSION* to be cached for later resumption.
   static int NewSSLSessionCallback(SSL* ssl, SSL_SESSION* session);
 
-  static bool ConfigureTrustedRootCertificates(SSL_CTX* ctx);
-
-  // Parent object that maintains shared state.
-  // Can be null if state sharing is not needed.
+  // Parent object that maintains shared state. Can be null if state sharing
+  // is not needed.
   OpenSSLSessionCache* ssl_session_cache_ = nullptr;
+
+  // Holds the loader that will provide the SSLCertChain used to populate the
+  // SSL Trust Store with the set of Trusted SSL Root Certificates that SSL
+  // Adapters created with this factory will accept TLS connections from.
+  std::unique_ptr<SSLRootCertLoader> ssl_root_cert_loader_;
 
   SSLState state_;
   std::unique_ptr<OpenSSLIdentity> identity_;
@@ -156,6 +169,11 @@ class OpenSSLAdapterFactory : public SSLAdapterFactory {
   // the first adapter is created with the factory. If it is called after it
   // will DCHECK.
   void SetMode(SSLMode mode) override;
+  // Set a custom certificate loader to be passed down to each instance created
+  // with this factory. This should only ever be set before the first call to
+  // the factory and cannot be changed after the fact.
+  void SetRootCertLoader(
+      std::unique_ptr<SSLRootCertLoader> cert_loader) override;
   // Constructs a new socket using the shared OpenSSLSessionCache. This means
   // existing SSLSessions already in the cache will be reused instead of
   // re-created for improved performance.
@@ -166,6 +184,10 @@ class OpenSSLAdapterFactory : public SSLAdapterFactory {
   SSLMode ssl_mode_ = SSL_MODE_TLS;
   // Holds a cache of existing SSL Sessions.
   std::unique_ptr<OpenSSLSessionCache> ssl_session_cache_;
+  // Holds the loader that will provide the SSLCertChain used to populate the
+  // SSL Trust Store with the set of Trusted SSL Root Certificates that SSL
+  // Adapters created with this factory will accept TLS connections from.
+  std::unique_ptr<SSLRootCertLoader> ssl_root_cert_loader_;
   // TODO(benwright): Remove this when context is moved to OpenSSLCommon.
   // Hold a friend class to the OpenSSLAdapter to retrieve the context.
   friend class OpenSSLAdapter;

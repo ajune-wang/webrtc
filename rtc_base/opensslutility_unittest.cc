@@ -8,7 +8,9 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+#include <memory>
 #include <string>
+#include <utility>
 #include <vector>
 
 #if defined(WEBRTC_POSIX)
@@ -29,8 +31,9 @@
 #include "rtc_base/gunit.h"
 #include "rtc_base/numerics/safe_conversions.h"
 #include "rtc_base/openssl.h"
-#include "rtc_base/opensslcommon.h"
-#include "rtc_base/sslroots.h"
+#include "rtc_base/opensslcertificate.h"
+#include "rtc_base/opensslutility.h"
+#include "rtc_base/sslcertificate.h"
 #include "test/gmock.h"
 
 namespace rtc {
@@ -91,14 +94,26 @@ const unsigned char kFakeSSLCertificate[] = {
     0x9E, 0x02, 0x8B, 0xFE, 0xC3, 0xFD, 0x5D, 0x15, 0x02, 0xE1, 0x78, 0xAC,
     0x9A, 0xAE, 0xFC, 0xC7, 0x48, 0xC6, 0x48, 0x6B};
 
+// Simple mock for the loader.
+class MockRootCertLoader : public SSLRootCertLoader {
+ public:
+  MOCK_METHOD0(Load, SSLCertChain());
+};
+
+// Simply returns the fake certificate in an X509 format.
+X509* GetFakeCertificate() {
+  const unsigned char* cert_buffer = kFakeSSLCertificate;
+  size_t cert_buffer_len = arraysize(kFakeSSLCertificate);
+  X509* fake_certificate = d2i_X509(
+      nullptr, &cert_buffer, checked_cast<long>(cert_buffer_len));  // NOLINT
+  return fake_certificate;
+}
+
 // Simple testing helper method to create a fake SSL_SESSION with a testing
 // peer connection set.
 SSL_SESSION* CreateSSLSessionWithFakePeerCertificate(SSL_CTX* ssl_ctx) {
   SSL_SESSION* ssl_session = SSL_SESSION_new(ssl_ctx);
-  const unsigned char* cert_buffer = kFakeSSLCertificate;
-  size_t cert_buffer_len = arraysize(kFakeSSLCertificate);
-  X509* ssl_peer_certificate = d2i_X509(
-      nullptr, &cert_buffer, checked_cast<long>(cert_buffer_len));  // NOLINT
+  X509* ssl_peer_certificate = GetFakeCertificate();
   EXPECT_NE(ssl_peer_certificate, nullptr);
 #ifdef OPENSSL_IS_BORINGSSL
   ssl_session->x509_peer = ssl_peer_certificate;
@@ -107,9 +122,10 @@ SSL_SESSION* CreateSSLSessionWithFakePeerCertificate(SSL_CTX* ssl_ctx) {
 #endif
   return ssl_session;
 }
+
 }  // namespace
 
-TEST(OpenSSLCommonTest, VerifyPeerCertMatchesHostFailsOnNoPeerCertificate) {
+TEST(OpenSSLUtilityTest, PeerCertMatchesHostFailsOnNoPeerCertificate) {
   SSL_CTX* ssl_ctx = SSL_CTX_new(DTLSv1_2_client_method());
   SSL* ssl = SSL_new(ssl_ctx);
 
@@ -119,7 +135,7 @@ TEST(OpenSSLCommonTest, VerifyPeerCertMatchesHostFailsOnNoPeerCertificate) {
   SSL_CTX_free(ssl_ctx);
 }
 
-TEST(OpenSSLCommonTest, VerifyPeerCertMatchesHostSucceedsOnCorrectHostname) {
+TEST(OpenSSLUtilityTest, PeerCertMatchesHostSucceedsOnCorrectHostname) {
   SSL_CTX* ssl_ctx = SSL_CTX_new(DTLSv1_2_client_method());
   SSL* ssl = SSL_new(ssl_ctx);
   SSL_SESSION* ssl_session = CreateSSLSessionWithFakePeerCertificate(ssl_ctx);
@@ -134,7 +150,7 @@ TEST(OpenSSLCommonTest, VerifyPeerCertMatchesHostSucceedsOnCorrectHostname) {
   SSL_CTX_free(ssl_ctx);
 }
 
-TEST(OpenSSLCommonTest, VerifyPeerCertMatchesHostFailsOnInvalidHostname) {
+TEST(OpenSSLUtilityTest, PeerCertMatchesHostFailsOnInvalidHostname) {
   SSL_CTX* ssl_ctx = SSL_CTX_new(DTLSv1_2_client_method());
   SSL* ssl = SSL_new(ssl_ctx);
   SSL_SESSION* ssl_session = CreateSSLSessionWithFakePeerCertificate(ssl_ctx);
@@ -145,6 +161,79 @@ TEST(OpenSSLCommonTest, VerifyPeerCertMatchesHostFailsOnInvalidHostname) {
   EXPECT_FALSE(openssl::VerifyPeerCertMatchesHost(ssl, "webrtc.org"));
 
   SSL_SESSION_free(ssl_session);
+  SSL_free(ssl);
+  SSL_CTX_free(ssl_ctx);
+}
+
+TEST(OpenSSLUtilityTest, LoadSSLRootCertsIntoTrustStoreFailsOnNoLoader) {
+  SSL_CTX* ssl_ctx = SSL_CTX_new(DTLSv1_2_client_method());
+  SSL* ssl = SSL_new(ssl_ctx);
+
+  EXPECT_FALSE(openssl::LoadSSLRootCertsIntoTrustStore(ssl_ctx, nullptr));
+
+  SSL_free(ssl);
+  SSL_CTX_free(ssl_ctx);
+}
+
+TEST(OpenSSLUtilityTest, LoadSSLRootCertsIntoTrustStoreFailsOnNoCertificates) {
+  SSL_CTX* ssl_ctx = SSL_CTX_new(DTLSv1_2_client_method());
+  SSL* ssl = SSL_new(ssl_ctx);
+
+  MockRootCertLoader mock_loader;
+  ON_CALL(mock_loader, Load()).WillByDefault(testing::Invoke([]() {
+    std::vector<std::unique_ptr<SSLCertificate>> ssl_certs;
+    return SSLCertChain(std::move(ssl_certs));
+  }));
+  EXPECT_CALL(mock_loader, Load()).Times(1);
+
+  EXPECT_FALSE(openssl::LoadSSLRootCertsIntoTrustStore(ssl_ctx, &mock_loader));
+
+  SSL_free(ssl);
+  SSL_CTX_free(ssl_ctx);
+}
+
+TEST(OpenSSLUtilityTest, LoadSSLRootCertsIntoTrustStoreFailsOnNoCertAdded) {
+  SSL_CTX* ssl_ctx = SSL_CTX_new(DTLSv1_2_client_method());
+  SSL* ssl = SSL_new(ssl_ctx);
+
+  MockRootCertLoader mock_loader;
+  ON_CALL(mock_loader, Load()).WillByDefault(testing::Invoke([]() {
+    std::vector<std::unique_ptr<SSLCertificate>> ssl_certs;
+    X509* fake_cert = GetFakeCertificate();
+    ssl_certs.emplace_back(new OpenSSLCertificate(fake_cert));
+    // OpenSSLCert uprefs the certificate.
+    X509_free(fake_cert);
+    return SSLCertChain(std::move(ssl_certs));
+  }));
+
+  EXPECT_CALL(mock_loader, Load()).Times(1);
+  EXPECT_TRUE(openssl::LoadSSLRootCertsIntoTrustStore(ssl_ctx, &mock_loader));
+
+  // Second call should fail as everything has already been added to the
+  // trust store.
+  EXPECT_CALL(mock_loader, Load()).Times(1);
+  EXPECT_FALSE(openssl::LoadSSLRootCertsIntoTrustStore(ssl_ctx, &mock_loader));
+
+  SSL_free(ssl);
+  SSL_CTX_free(ssl_ctx);
+}
+
+TEST(OpenSSLUtilityTest, LoadSSLRootCertsIntoTrustStoreSucceedsWithCert) {
+  SSL_CTX* ssl_ctx = SSL_CTX_new(DTLSv1_2_client_method());
+  SSL* ssl = SSL_new(ssl_ctx);
+
+  MockRootCertLoader mock_loader;
+  ON_CALL(mock_loader, Load()).WillByDefault(testing::Invoke([]() {
+    std::vector<std::unique_ptr<SSLCertificate>> ssl_certs;
+    X509* fake_cert = GetFakeCertificate();
+    ssl_certs.emplace_back(new OpenSSLCertificate(fake_cert));
+    // OpenSSLCert uprefs the certificate.
+    X509_free(fake_cert);
+    return SSLCertChain(std::move(ssl_certs));
+  }));
+  EXPECT_CALL(mock_loader, Load()).Times(1);
+
+  EXPECT_TRUE(openssl::LoadSSLRootCertsIntoTrustStore(ssl_ctx, &mock_loader));
   SSL_free(ssl);
   SSL_CTX_free(ssl_ctx);
 }

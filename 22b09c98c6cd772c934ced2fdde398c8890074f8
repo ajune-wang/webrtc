@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6a7cd092_d29c78d2",
+        "filename": "modules/audio_coding/neteq/expand_uma_logger.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 6822
+      },
+      "writtenOn": "2018-04-10T03:06:52Z",
+      "side": 1,
+      "message": "Could this be something like a TimeDelta? Is there a concept like that in WebRTC-land?",
+      "range": {
+        "startLine": 18,
+        "startChar": 4,
+        "endLine": 18,
+        "endChar": 7
+      },
+      "revId": "22b09c98c6cd772c934ced2fdde398c8890074f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a5d391f_6eebd25a",
+        "filename": "modules/audio_coding/neteq/expand_uma_logger.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 6822
+      },
+      "writtenOn": "2018-04-10T03:06:52Z",
+      "side": 1,
+      "message": "I believe that this macro works just like the Chromium ones do, and must be called with a runtime-constant name. I think you want \"RTC_HISTOGRAM_PERCENTAGE_SPARSE\"... though that macro is really poorly named, as it\u0027s not actually a sparse histogram, it\u0027s just a slower implementation for a regular enumerated histogram. It would be great if WebRTC could either use the code from Chromium //base, or at least duplicate it more closely.",
+      "range": {
+        "startLine": 62,
+        "startChar": 2,
+        "endLine": 62,
+        "endChar": 26
+      },
+      "revId": "22b09c98c6cd772c934ced2fdde398c8890074f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

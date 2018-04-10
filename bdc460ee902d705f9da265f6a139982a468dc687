@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "47b95ea6_9cc77b84",
+        "filename": "api/optional.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-04-10T10:44:00Z",
+      "side": 1,
+      "message": "Have a look at line 280, where we call it---that method is const, so value_ will be const. So we\u0027ll only ever call FunctionThatDoesNothing with a const pointer.\n\nIf that hadn\u0027t been the case, we\u0027d have had to either make two versions, one const void* to const void* and one void* to void*, or use const_cast to make a single void* to const void* version like in your first patch set.\n\nAnyway, I see that you\u0027ve triggered the commit queue already, so no need to go back and fix this minor issue.",
+      "parentUuid": "bca0474b_2efc6e25",
+      "range": {
+        "startLine": 39,
+        "startChar": 40,
+        "endLine": 39,
+        "endChar": 41
+      },
+      "revId": "bdc460ee902d705f9da265f6a139982a468dc687",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "76a69069_7a13f870",
         "filename": "api/optional.h",
         "patchSetId": 2

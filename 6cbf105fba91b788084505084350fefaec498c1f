@@ -16,6 +16,24 @@
       "revId": "6cbf105fba91b788084505084350fefaec498c1f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bfe5efb3_bf06173e",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 908,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-04-10T21:42:09Z",
+      "side": 1,
+      "message": "I think it\u0027s better to use\n  mid_to_transport_.find(mid)\nsince []operator would insert element to the map if the key doesn\u0027t exist.",
+      "parentUuid": "0ff13677_3d6f3d5c",
+      "revId": "6cbf105fba91b788084505084350fefaec498c1f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

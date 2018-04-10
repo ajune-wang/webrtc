@@ -738,7 +738,8 @@ TEST_F(CallPerfTest, MAYBE_KeepsHighBitrateWhenReconfiguringSender) {
         VideoSendStream::Config* send_config,
         std::vector<VideoReceiveStream::Config>* receive_configs,
         VideoEncoderConfig* encoder_config) override {
-      send_config->encoder_settings.encoder = this;
+      // TODO(nisse): XXX Create factory returning |this|.
+      send_config->encoder_settings.encoder_factory = nullptr;
       encoder_config->max_bitrate_bps = 2 * kReconfigureThresholdKbps * 1000;
       encoder_config->video_stream_factory =
           new rtc::RefCountedObject<VideoStreamFactory>();

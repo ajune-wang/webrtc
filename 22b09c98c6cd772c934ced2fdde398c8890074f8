@@ -25,6 +25,52 @@
     },
     {
       "key": {
+        "uuid": "27f0078a_84525788",
+        "filename": "modules/audio_coding/neteq/expand_uma_logger.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2018-04-10T09:11:32Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be a const ref? It\u0027s also stored as a const ref in the class.",
+      "range": {
+        "startLine": 26,
+        "startChar": 48,
+        "endLine": 26,
+        "endChar": 49
+      },
+      "revId": "22b09c98c6cd772c934ced2fdde398c8890074f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78d0b296_fedfa832",
+        "filename": "modules/audio_coding/neteq/expand_uma_logger.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2018-04-10T09:11:32Z",
+      "side": 1,
+      "message": "Should we add a log message here?",
+      "range": {
+        "startLine": 38,
+        "startChar": 7,
+        "endLine": 38,
+        "endChar": 21
+      },
+      "revId": "22b09c98c6cd772c934ced2fdde398c8890074f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0a5d391f_6eebd25a",
         "filename": "modules/audio_coding/neteq/expand_uma_logger.cc",
         "patchSetId": 2
@@ -41,6 +87,75 @@
         "startChar": 2,
         "endLine": 62,
         "endChar": 26
+      },
+      "revId": "22b09c98c6cd772c934ced2fdde398c8890074f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "713180b8_17c3ce08",
+        "filename": "modules/audio_coding/neteq/expand_uma_logger.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2018-04-10T09:11:32Z",
+      "side": 1,
+      "message": "caller",
+      "range": {
+        "startLine": 22,
+        "startChar": 73,
+        "endLine": 22,
+        "endChar": 80
+      },
+      "revId": "22b09c98c6cd772c934ced2fdde398c8890074f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff561287_be9e9347",
+        "filename": "modules/audio_coding/neteq/expand_uma_logger.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2018-04-10T09:11:32Z",
+      "side": 1,
+      "message": "counter",
+      "range": {
+        "startLine": 35,
+        "startChar": 57,
+        "endLine": 35,
+        "endChar": 64
+      },
+      "revId": "22b09c98c6cd772c934ced2fdde398c8890074f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a2d9baa_49f124fc",
+        "filename": "modules/audio_coding/neteq/neteq_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2018-04-10T09:11:32Z",
+      "side": 1,
+      "message": "10 seconds seems a bit long. This will cause the data to be smoothed, because short expansion bursts will get watered down by the rest of the 10s period. Do you think that will be an issue?",
+      "range": {
+        "startLine": 111,
+        "startChar": 25,
+        "endLine": 111,
+        "endChar": 30
       },
       "revId": "22b09c98c6cd772c934ced2fdde398c8890074f8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

@@ -16,6 +16,24 @@
       "revId": "fd350d74ee059e3a14efb99610b5e83853fca48b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ea2f6ff_1a8df9f3",
+        "filename": "pc/jseptransportcontroller_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1056,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-04-10T17:16:04Z",
+      "side": 0,
+      "message": "Changed it to\nEXPECT_EQ(transport2, it-\u003esecond);",
+      "parentUuid": "fb7b9138_0131f7dc",
+      "revId": "fd350d74ee059e3a14efb99610b5e83853fca48b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

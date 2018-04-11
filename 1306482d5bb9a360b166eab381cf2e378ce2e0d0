@@ -105,6 +105,30 @@
       "revId": "1306482d5bb9a360b166eab381cf2e378ce2e0d0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc2eb5ee_9cbb78f2",
+        "filename": "rtc_base/socket.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-11T00:31:07Z",
+      "side": 1,
+      "message": "I think so. Merged the three types to kData. Peter mentioned in an earlier comment that the ICE spec changed \"media\" to \"data\".",
+      "parentUuid": "f72ed85c_e650c60b",
+      "range": {
+        "startLine": 128,
+        "startChar": 0,
+        "endLine": 130,
+        "endChar": 8
+      },
+      "revId": "1306482d5bb9a360b166eab381cf2e378ce2e0d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

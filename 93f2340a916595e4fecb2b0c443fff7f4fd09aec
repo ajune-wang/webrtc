@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "664f86e1_1f78c643",
+        "filename": "rtc_base/asyncpacketsocket.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-11T00:31:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b9c844a8_2e412470",
+      "revId": "93f2340a916595e4fecb2b0c443fff7f4fd09aec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "529ab2dc_2213b25d",
         "filename": "rtc_base/asynctcpsocket.cc",
         "patchSetId": 6
@@ -33,6 +51,24 @@
       "revId": "93f2340a916595e4fecb2b0c443fff7f4fd09aec",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb474e56_1e1173bb",
+        "filename": "rtc_base/asynctcpsocket.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-11T00:31:07Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "529ab2dc_2213b25d",
+      "revId": "93f2340a916595e4fecb2b0c443fff7f4fd09aec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "7c8cb9c2_1d84f35e",
+        "filename": "rtc_base/socket.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-11T00:31:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "29c1d189_f5011653",
+      "revId": "93f2340a916595e4fecb2b0c443fff7f4fd09aec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5049e437_d2a87778",
         "filename": "rtc_base/socket.h",
         "patchSetId": 6
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "e4150ee8_f711c367",
+        "filename": "rtc_base/socket.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-11T00:31:07Z",
+      "side": 1,
+      "message": "Ack. Removed.",
+      "parentUuid": "5049e437_d2a87778",
+      "revId": "93f2340a916595e4fecb2b0c443fff7f4fd09aec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "18e232f2_fe03461c",
         "filename": "rtc_base/socket.h",
         "patchSetId": 6
@@ -84,6 +156,24 @@
       "revId": "93f2340a916595e4fecb2b0c443fff7f4fd09aec",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2eb1fc04_f4047d64",
+        "filename": "rtc_base/socket.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-11T00:31:07Z",
+      "side": 1,
+      "message": "Not quite valid but allowed when the integer overflows. Sure, rtc::Optional is a better way to go.",
+      "parentUuid": "18e232f2_fe03461c",
+      "revId": "93f2340a916595e4fecb2b0c443fff7f4fd09aec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

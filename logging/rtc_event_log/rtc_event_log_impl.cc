@@ -41,10 +41,12 @@ constexpr size_t kMaxEventsInHistory = 10000;
 // to prevent an attack via unreasonable memory use.
 constexpr size_t kMaxEventsInConfigHistory = 1000;
 
+#ifdef WEBRTC_ANDROID
 // Observe a limit on the number of concurrent logs, so as not to run into
 // OS-imposed limits on open files and/or threads/task-queues.
 // TODO(eladalon): Known issue - there's a race over |rtc_event_log_count|.
 std::atomic<int> rtc_event_log_count(0);
+#endif  // WEBRTC_ANDROID
 
 // TODO(eladalon): This class exists because C++11 doesn't allow transferring a
 // unique_ptr to a lambda (a copy constructor is required). We should get
@@ -160,9 +162,10 @@ RtcEventLogImpl::~RtcEventLogImpl() {
 
   // If we're logging to the output, this will stop that. Blocking function.
   StopLogging();
-
+#ifdef WEBRTC_ANDROID
   int count = std::atomic_fetch_sub(&rtc_event_log_count, 1) - 1;
   RTC_DCHECK_GE(count, 0);
+#endif  // WEBRTC_ANDROID
 }
 
 bool RtcEventLogImpl::StartLogging(std::unique_ptr<RtcEventLogOutput> output,
@@ -370,6 +373,7 @@ std::unique_ptr<RtcEventLog> RtcEventLog::Create(
     EncodingType encoding_type,
     std::unique_ptr<rtc::TaskQueue> task_queue) {
 #ifdef ENABLE_RTC_EVENT_LOG
+#ifdef WEBRTC_ANDROID
   // TODO(eladalon): Known issue - there's a race over |rtc_event_log_count|.
   constexpr int kMaxLogCount = 5;
   int count = 1 + std::atomic_fetch_add(&rtc_event_log_count, 1);
@@ -379,6 +383,7 @@ std::unique_ptr<RtcEventLog> RtcEventLog::Create(
     std::atomic_fetch_sub(&rtc_event_log_count, 1);
     return CreateNull();
   }
+#endif  // WEBRTC_ANDROID
   auto encoder = CreateEncoder(encoding_type);
   return rtc::MakeUnique<RtcEventLogImpl>(std::move(encoder),
                                           std::move(task_queue));

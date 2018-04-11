@@ -772,4 +772,13 @@ INSTANTIATE_TEST_CASE_P(
     ::testing::Combine(::testing::Values(1234567, 7654321),
                        ::testing::Values(RtcEventLog::kImmediateOutput, 1, 5)));
 
+TEST(RtcEventLogTest, LargeNumberOfRtcEventLogObjectsMayBeCreated) {
+  constexpr size_t kEventLogCount = 1000;
+  std::vector<std::unique_ptr<RtcEventLog>> logs;
+  logs.reserve(kEventLogCount);
+  for (size_t i = 0; i < 1000; ++i) {
+    logs.push_back(RtcEventLog::Create(RtcEventLog::EncodingType::Legacy));
+  }
+}
+
 }  // namespace webrtc

@@ -22,7 +22,6 @@
 #include "modules/desktop_capture/desktop_region.h"
 #include "modules/desktop_capture/mac/desktop_configuration.h"
 #include "modules/desktop_capture/mac/desktop_configuration_monitor.h"
-#include "modules/desktop_capture/mac/desktop_frame_provider.h"
 #include "modules/desktop_capture/screen_capture_frame_queue.h"
 #include "modules/desktop_capture/screen_capturer_helper.h"
 #include "modules/desktop_capture/shared_desktop_frame.h"
@@ -34,10 +33,9 @@ class DisplayStreamManager;
 // A class to perform video frame capturing for mac.
 class ScreenCapturerMac final : public DesktopCapturer {
  public:
-  ScreenCapturerMac(
+  explicit ScreenCapturerMac(
       rtc::scoped_refptr<DesktopConfigurationMonitor> desktop_config_monitor,
-      bool detect_updated_region,
-      bool allow_iosurface);
+      bool detect_updated_region);
   ~ScreenCapturerMac() override;
 
   // TODO(julien.isorce): Remove Init() or make it private.
@@ -60,11 +58,9 @@ class ScreenCapturerMac final : public DesktopCapturer {
   bool RegisterRefreshAndMoveHandlers();
   void UnregisterRefreshAndMoveHandlers();
 
-  void ScreenRefresh(CGDirectDisplayID display_id,
-                     CGRectCount count,
+  void ScreenRefresh(CGRectCount count,
                      const CGRect* rect_array,
-                     DesktopVector display_origin,
-                     IOSurfaceRef io_surface);
+                     DesktopVector display_origin);
   void ReleaseBuffers();
 
   std::unique_ptr<DesktopFrame> CreateFrame();
@@ -104,9 +100,6 @@ class ScreenCapturerMac final : public DesktopCapturer {
   // A self-owned object that will destroy itself after ScreenCapturerMac and
   // all display streams have been destroyed..
   DisplayStreamManager* display_stream_manager_;
-
-  // Container holding latest state of the snapshot per displays.
-  DesktopFrameProvider desktop_frame_provider_;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(ScreenCapturerMac);
 };

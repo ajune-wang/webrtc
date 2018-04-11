@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "70e2e3d0_44a0b17b",
+        "filename": "sdk/android/api/org/webrtc/GlTextureFrameBuffer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-04-11T12:08:45Z",
+      "side": 1,
+      "message": "Note: Hopefully no-one calls these methods before calling setSize.\n\nMaybe we should add a small comment that these are only valid after setSize?",
+      "range": {
+        "startLine": 100,
+        "startChar": 13,
+        "endLine": 100,
+        "endChar": 29
+      },
+      "revId": "07561ea698dd6dee381a2fa2a3e26b160f9014bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

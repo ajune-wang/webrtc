@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f58f8b64_deddc698",
+        "filename": "p2p/base/p2ptransportchannel_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 689,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-11T22:18:54Z",
+      "side": 1,
+      "message": "Also \"EXPECT_FALSE(info.local_socket_address.IsNil())\"?",
+      "revId": "d4463f2bc77b36c2de3765b8c06a592ad3abbac5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -11,7 +11,12 @@
 #ifndef RTC_BASE_SSLADAPTER_H_
 #define RTC_BASE_SSLADAPTER_H_
 
+#include <memory>
+#include <string>
+#include <vector>
+
 #include "rtc_base/asyncsocket.h"
+#include "rtc_base/sslcertificate.h"
 #include "rtc_base/sslstreamadapter.h"
 
 namespace rtc {
@@ -26,8 +31,16 @@ class SSLAdapter;
 class SSLAdapterFactory {
  public:
   virtual ~SSLAdapterFactory() {}
+
   // Specifies whether TLS or DTLS is to be used for the SSL adapters.
   virtual void SetMode(SSLMode mode) = 0;
+
+  // Specifies a SSL Root Certificate Loader for use with the SSL Adapter. You
+  // won't need to set this unless you are specifically trying to provide your
+  // own root certificates.
+  virtual void SetRootCertLoader(
+      std::unique_ptr<SSLRootCertLoader> ssl_root_cert_loader) = 0;
+
   // Creates a new SSL adapter, but from a shared context.
   virtual SSLAdapter* CreateAdapter(AsyncSocket* socket) = 0;
 
@@ -54,6 +67,12 @@ class SSLAdapter : public AsyncSocketAdapter {
 
   // Do DTLS or TLS (default is TLS, if unspecified)
   virtual void SetMode(SSLMode mode) = 0;
+
+  // Specifies a SSL Root Certificate Loader for use with the SSL Adapter. You
+  // won't need to set this unless you are specifically trying to provide your
+  // own root certificates.
+  virtual void SetRootCertLoader(
+      std::unique_ptr<SSLRootCertLoader> ssl_root_cert_loader) = 0;
 
   // Set the certificate this socket will present to incoming clients.
   virtual void SetIdentity(SSLIdentity* identity) = 0;

@@ -8,7 +8,9 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "rtc_base/opensslcommon.h"
+#include "rtc_base/opensslutility.h"
+
+#include <memory>
 
 #if defined(WEBRTC_POSIX)
 #include <unistd.h>
@@ -27,6 +29,7 @@
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/openssl.h"
+#include "rtc_base/opensslcertificate.h"
 
 namespace rtc {
 namespace openssl {
@@ -89,6 +92,58 @@ bool VerifyPeerCertMatchesHost(SSL* ssl, const std::string& host) {
       X509_check_host(certificate, host.c_str(), host.size(), 0, nullptr) == 1;
   X509_free(certificate);
   return is_valid_cert_name;
+}
+
+void LogSSLErrors(const std::string& prefix) {
+  char error_buf[200];
+  unsigned long err;  // NOLINT
+
+  while ((err = ERR_get_error()) != 0) {
+    ERR_error_string_n(err, error_buf, sizeof(error_buf));
+    RTC_LOG(LS_ERROR) << prefix << ": " << error_buf << "\n";
+  }
+}
+
+bool LoadSSLRootCertsIntoTrustStore(SSL_CTX* ssl_ctx,
+                                    SSLRootCertLoader* loader) {
+  // Validate we have some way to load the root certificates.
+  if (loader == nullptr) {
+    RTC_LOG(LS_WARNING) << "SSL_CTX creation failed: No SSLRootCertLoader";
+    return false;
+  }
+
+  // Load the root certificates using the provided certificate loader.
+  const SSLCertChain root_certificates(loader->Load());
+  size_t num_root_certs = root_certificates.GetSize();
+
+  if (num_root_certs == 0) {
+    RTC_LOG(LS_WARNING) << "SSL_CTX creation failed: No certificates loaded";
+    return false;
+  }
+
+  // Iterate over the root certificates and add them to the OpenSSL trust store.
+  size_t valid_certificates_added = 0;
+  for (size_t i = 0; i < num_root_certs; i++) {
+    // TODO(benwright) Find a generic high performant way to convert this
+    // without casting.
+    const OpenSSLCertificate& root_cert =
+        static_cast<const OpenSSLCertificate&>(root_certificates.Get(i));
+    if (X509_STORE_add_cert(SSL_CTX_get_cert_store(ssl_ctx),
+                            root_cert.x509()) == 0) {
+      RTC_LOG(LS_WARNING) << "Unable to add root certificate.";
+    } else {
+      valid_certificates_added++;
+    }
+  }
+
+  // Validate we added at least one certificate.
+  if (valid_certificates_added == 0) {
+    RTC_LOG(LS_WARNING)
+        << "SSL_CTX creation failed: No valid root certificates";
+    return false;
+  }
+
+  return true;
 }
 
 }  // namespace openssl

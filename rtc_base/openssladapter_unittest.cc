@@ -12,10 +12,43 @@
 #include <string>
 #include <vector>
 
+#include "rtc_base/asyncsocket.h"
 #include "rtc_base/gunit.h"
 #include "rtc_base/openssladapter.h"
+#include "rtc_base/ptr_util.h"
+#include "test/gmock.h"
 
 namespace rtc {
+namespace {
+
+class MockAsyncSocket : public AsyncSocket {
+ public:
+  MOCK_METHOD1(Accept, AsyncSocket*(SocketAddress*));
+  MOCK_CONST_METHOD0(GetLocalAddress, SocketAddress());
+  MOCK_CONST_METHOD0(GetRemoteAddress, SocketAddress());
+  MOCK_METHOD1(Bind, int(const SocketAddress&));
+  MOCK_METHOD1(Connect, int(const SocketAddress&));
+  MOCK_METHOD2(Send, int(const void*, size_t));
+  MOCK_METHOD3(SendTo, int(const void*, size_t, const SocketAddress&));
+  MOCK_METHOD3(Recv, int(void*, size_t, int64_t*));
+  MOCK_METHOD4(RecvFrom, int(void*, size_t, SocketAddress*, int64_t*));
+  MOCK_METHOD1(Listen, int(int));
+  MOCK_METHOD0(Close, int());
+  MOCK_CONST_METHOD0(GetError, int());
+  MOCK_METHOD1(SetError, void(int));
+  MOCK_CONST_METHOD0(GetState, ConnState());
+  MOCK_METHOD2(GetOption, int(Option, int*));
+  MOCK_METHOD2(SetOption, int(Option, int));
+};
+
+class MockRootCertLoader : public SSLRootCertLoader {
+ public:
+  MOCK_METHOD0(Load, SSLCertChain());
+};
+
+}  // namespace
+
+using ::testing::Return;
 
 TEST(OpenSSLAdapterTest, TestTransformAlpnProtocols) {
   EXPECT_EQ("", TransformAlpnProtocols(std::vector<std::string>()));
@@ -36,6 +69,37 @@ TEST(OpenSSLAdapterTest, TestTransformAlpnProtocols) {
   alpn_protos.push_back("http/1.1");
   expected_response << static_cast<char>(8) << "http/1.1";
   EXPECT_EQ(expected_response.str(), TransformAlpnProtocols(alpn_protos));
+}
+
+TEST(OpenSSLAdapterTest, TestBeginSSLBeforeConnection) {
+  AsyncSocket* async_socket = new MockAsyncSocket();
+  OpenSSLAdapter adapter(async_socket);
+  EXPECT_EQ(adapter.StartSSL("webrtc.org", false), 0);
+}
+
+TEST(OpenSSLAdapterFactoryTest, CreateSingleOpenSSLAdapter) {
+  OpenSSLAdapterFactory adapter_factory;
+  AsyncSocket* async_socket = new MockAsyncSocket();
+  auto simple_adapter =
+      MakeUnique<OpenSSLAdapter>(adapter_factory.CreateAdapter(async_socket));
+  EXPECT_NE(simple_adapter, nullptr);
+}
+
+TEST(OpenSSLAdapterFactoryTest, CreateWorksWithCustomBuilder) {
+  MockRootCertLoader* mock_loader = new MockRootCertLoader();
+  ON_CALL(*mock_loader, Load()).WillByDefault(testing::Invoke([]() {
+    std::vector<std::unique_ptr<SSLCertificate>> ssl_certs;
+    return SSLCertChain(std::move(ssl_certs));
+  }));
+  EXPECT_CALL(*mock_loader, Load()).Times(1);
+  auto root_cert_loader = std::unique_ptr<SSLRootCertLoader>(mock_loader);
+
+  OpenSSLAdapterFactory adapter_factory;
+  adapter_factory.SetRootCertLoader(std::move(root_cert_loader));
+  auto async_socket = std::unique_ptr<AsyncSocket>(new MockAsyncSocket());
+  auto simple_adapter = MakeUnique<OpenSSLAdapter>(
+      adapter_factory.CreateAdapter(async_socket.get()));
+  EXPECT_NE(simple_adapter, nullptr);
 }
 
 }  // namespace rtc

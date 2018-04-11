@@ -22,6 +22,30 @@
       "revId": "8c33c9281da0f3b84bd43ae90cf058e490ff9bd6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eaaa81c7_96c0bde9",
+        "filename": "modules/audio_coding/neteq/tools/neteq_rtpplay.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 5619
+      },
+      "writtenOn": "2018-04-11T18:07:01Z",
+      "side": 1,
+      "message": "I did not test if such case may happen, this logic is for the case there is a new concealment event without voice concealed samples.",
+      "parentUuid": "683f5377_1552c0b1",
+      "range": {
+        "startLine": 374,
+        "startChar": 0,
+        "endLine": 375,
+        "endChar": 52
+      },
+      "revId": "8c33c9281da0f3b84bd43ae90cf058e490ff9bd6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

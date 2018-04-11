@@ -43,7 +43,6 @@
 #include "modules/audio_processing/residual_echo_detector.h"
 #include "modules/audio_processing/transient/transient_suppressor.h"
 #include "modules/audio_processing/voice_detection_impl.h"
-#include "modules/include/module_common_types.h"
 #include "rtc_base/atomicops.h"
 #include "rtc_base/system/file_wrapper.h"
 #include "system_wrappers/include/metrics.h"

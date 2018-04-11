@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "99fa0dc7_4885cc54",
+        "filename": "rtc_base/openssladapter.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 917,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2018-04-11T18:12:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9eb298fe_9fc612ca",
+      "range": {
+        "startLine": 917,
+        "startChar": 1,
+        "endLine": 917,
+        "endChar": 2
+      },
+      "revId": "65c520298f11a599be531d8ec379e466df0c4a62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "228e57f7_815a37f0",
         "filename": "rtc_base/openssladapter.cc",
         "patchSetId": 8
@@ -36,6 +60,30 @@
       "writtenOn": "2018-04-10T14:37:22Z",
       "side": 1,
       "message": "So this should only be used if WEBRTC_DISABLE_BUILT_IN_SSL_ROOT_CERTIFICATES not defined, otherwise this cert loader will be empty? should we wrap this line with\n#ifndef WEBRTC_DISABLE_BUILT_IN_SSL_ROOT_CERTIFICATES , and keep it null otherwise ?",
+      "range": {
+        "startLine": 973,
+        "startChar": 0,
+        "endLine": 973,
+        "endChar": 66
+      },
+      "revId": "65c520298f11a599be531d8ec379e466df0c4a62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8605769c_a9ea9e7c",
+        "filename": "rtc_base/openssladapter.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 973,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2018-04-11T18:12:29Z",
+      "side": 1,
+      "message": "The goal with this approach is that the default will always just allocate the builtin root certificate loader until you overwrite it. It has a small memory penalty due to the heap allocation however it is functionally correct even when the we disable the certificates by providing an implementation that an empty SSLCertChain which will fail if a context is created if not overwritten with a new loader as it is invalid to have no root certificates.\n\nI can change it to nullptr though it would add some cluttered ifdefs to the file. I think it is a trade-off between a slight performance improvement and readability here. Let me know your thoughts.",
+      "parentUuid": "228e57f7_815a37f0",
       "range": {
         "startLine": 973,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "aebbc9d3_3b153335",
+        "filename": "rtc_base/opensslcertificate.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2018-04-11T18:12:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d78adbbe_2609ef25",
+      "range": {
+        "startLine": 73,
+        "startChar": 8,
+        "endLine": 73,
+        "endChar": 13
+      },
+      "revId": "65c520298f11a599be531d8ec379e466df0c4a62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c5366496_54258ce5",
         "filename": "rtc_base/opensslcertificate.h",
         "patchSetId": 8
@@ -91,6 +163,30 @@
       "revId": "65c520298f11a599be531d8ec379e466df0c4a62",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4422ff05_b93bafdb",
+        "filename": "rtc_base/opensslcertificate.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2018-04-11T18:12:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c5366496_54258ce5",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 5
+      },
+      "revId": "65c520298f11a599be531d8ec379e466df0c4a62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

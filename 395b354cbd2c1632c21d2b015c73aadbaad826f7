@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9b986e8e_484e614e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-04-11T14:41:01Z",
+      "side": 1,
+      "message": "I\u0027m not sure \"screws\" is the appropriate word here.\n\nBesides that, explanation is very clear now.",
+      "range": {
+        "startLine": 11,
+        "startChar": 16,
+        "endLine": 11,
+        "endChar": 22
+      },
+      "revId": "395b354cbd2c1632c21d2b015c73aadbaad826f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14f9632f_7a038212",
+        "filename": "modules/video_coding/codecs/vp8/screenshare_layers.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-04-11T14:41:01Z",
+      "side": 1,
+      "message": "Prefer writing this without the |\u003d operator, as \n\n  if (... || ... || ...)\n    bitrate_updated_ \u003d true;\n\nThen it\u0027s easier to see where in the code the flag can be set or cleared.",
+      "range": {
+        "startLine": 224,
+        "startChar": 3,
+        "endLine": 227,
+        "endChar": 65
+      },
+      "revId": "395b354cbd2c1632c21d2b015c73aadbaad826f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

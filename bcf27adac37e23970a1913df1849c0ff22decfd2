@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a31dfc1_8b9b5f39",
+        "filename": "modules/audio_processing/apm_message.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-11T10:27:16Z",
+      "side": 1,
+      "message": "Please change this comment to be more verbose. As it is now, it basically just restates the class name which makes it redundant.",
+      "range": {
+        "startLine": 16,
+        "startChar": 7,
+        "endLine": 16,
+        "endChar": 14
+      },
+      "revId": "bcf27adac37e23970a1913df1849c0ff22decfd2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b27f3fdc_fe0e6945",
+        "filename": "modules/audio_processing/apm_message.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-11T10:27:16Z",
+      "side": 1,
+      "message": "I think this comment can be removed.",
+      "range": {
+        "startLine": 18,
+        "startChar": 5,
+        "endLine": 18,
+        "endChar": 34
+      },
+      "revId": "bcf27adac37e23970a1913df1849c0ff22decfd2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25fde976_a1261922",
+        "filename": "modules/audio_processing/apm_message.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-11T10:27:16Z",
+      "side": 1,
+      "message": "Why is this needed? If we only pass the enum there should be no need to have that element.",
+      "range": {
+        "startLine": 20,
+        "startChar": 5,
+        "endLine": 20,
+        "endChar": 34
+      },
+      "revId": "bcf27adac37e23970a1913df1849c0ff22decfd2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a652b17e_d8f549c3",
+        "filename": "modules/audio_processing/apm_message.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-11T10:27:16Z",
+      "side": 1,
+      "message": "I think it would make sense to avoid having a scheme where entries cannot be removed. Until we have a strong case for that that is needed, I think we should instead allow removal of elements.",
+      "range": {
+        "startLine": 21,
+        "startChar": 25,
+        "endLine": 21,
+        "endChar": 36
+      },
+      "revId": "bcf27adac37e23970a1913df1849c0ff22decfd2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d94f37a5_b8fe1807",
+        "filename": "modules/audio_processing/apm_message.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-11T10:27:16Z",
+      "side": 1,
+      "message": "I don\u0027t think we should use this annotation in the naming. I\u0027d instead prefer a comment for each enum element. That comment is anyway needed to describe the message/message payload being passed.",
+      "range": {
+        "startLine": 22,
+        "startChar": 39,
+        "endLine": 22,
+        "endChar": 47
+      },
+      "revId": "bcf27adac37e23970a1913df1849c0ff22decfd2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2a42f45_c2f2be33",
+        "filename": "modules/audio_processing/apm_message.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-11T10:27:16Z",
+      "side": 1,
+      "message": "Please use the enum class instead.\n\nThe style guide (https://google.github.io/styleguide/cppguide.html#Enumerator_Names) allows for both macro style naming and constant style naming.\nHowever, since all of APM (at least audio_processing.h) uses the constant style naming, I definitely think we should use that scheme here as well.",
+      "range": {
+        "startLine": 26,
+        "startChar": 2,
+        "endLine": 26,
+        "endChar": 6
+      },
+      "revId": "bcf27adac37e23970a1913df1849c0ff22decfd2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94ee76db_22458283",
+        "filename": "modules/audio_processing/apm_message.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-11T10:27:16Z",
+      "side": 1,
+      "message": "Extend to \"Message payload\"?",
+      "range": {
+        "startLine": 30,
+        "startChar": 5,
+        "endLine": 30,
+        "endChar": 12
+      },
+      "revId": "bcf27adac37e23970a1913df1849c0ff22decfd2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

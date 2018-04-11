@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "683f5377_1552c0b1",
+        "filename": "modules/audio_coding/neteq/tools/neteq_rtpplay.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-04-11T16:00:00Z",
+      "side": 1,
+      "message": "is it possible that a concealment event corresponds to both 0 concealed samples and 0 voice concealed samples? if true, is it better to avoid increment in lifetime_stat.concealment_events (in neteq stats calculator) on that situation?",
+      "range": {
+        "startLine": 374,
+        "startChar": 0,
+        "endLine": 375,
+        "endChar": 52
+      },
+      "revId": "8c33c9281da0f3b84bd43ae90cf058e490ff9bd6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

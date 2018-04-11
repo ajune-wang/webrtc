@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ebf6f41_a9ba78a1",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-04-11T19:26:57Z",
+      "side": 1,
+      "message": "...",
+      "range": {
+        "startLine": 121,
+        "startChar": 1,
+        "endLine": 125,
+        "endChar": 0
+      },
+      "revId": "393f11a3e9aa8d022976b86d15ae506a66e245b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "008edbfa_b53bc43d",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-04-11T19:26:57Z",
+      "side": 1,
+      "message": "This got me confused, as i though it would be an iterable of rtp packets, maybe it could be named incoming_rtp_packet_vectors?",
+      "range": {
+        "startLine": 408,
+        "startChar": 24,
+        "endLine": 408,
+        "endChar": 45
+      },
+      "revId": "63e94ca4151bd4705e97e3b2a87f3e0938bf8cf7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b6c6f30_f242aef1",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-04-11T19:26:57Z",
+      "side": 1,
+      "message": "This constructor could be made private and friend shared, right?",
+      "range": {
+        "startLine": 233,
+        "startChar": 2,
+        "endLine": 233,
+        "endChar": 16
+      },
+      "revId": "63e94ca4151bd4705e97e3b2a87f3e0938bf8cf7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7116f6a6_5564273a",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-04-11T19:26:57Z",
+      "side": 1,
+      "message": "Is the non-const version used, is there a use case for it or could it be removed to simplify the code?",
+      "range": {
+        "startLine": 233,
+        "startChar": 17,
+        "endLine": 233,
+        "endChar": 66
+      },
+      "revId": "63e94ca4151bd4705e97e3b2a87f3e0938bf8cf7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01b982eb_ef9f44a4",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-04-11T19:26:57Z",
+      "side": 1,
+      "message": "...",
+      "range": {
+        "startLine": 302,
+        "startChar": 0,
+        "endLine": 307,
+        "endChar": 6
+      },
+      "revId": "63e94ca4151bd4705e97e3b2a87f3e0938bf8cf7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "056067ce_63e3a912",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-04-11T19:26:57Z",
+      "side": 1,
+      "message": "...",
+      "range": {
+        "startLine": 314,
+        "startChar": 0,
+        "endLine": 315,
+        "endChar": 33
+      },
+      "revId": "63e94ca4151bd4705e97e3b2a87f3e0938bf8cf7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b903c85_1aa51f10",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-04-11T19:26:57Z",
+      "side": 1,
+      "message": "Consider how much value this adds compared to just repeating the long form where it\u0027s used, which might provide information to the reader. (The fact that it\u0027s a view of LoggedRtpPackets). In some places where context provides this information auto could be used to reduce the typing.",
+      "range": {
+        "startLine": 336,
+        "startChar": 6,
+        "endLine": 336,
+        "endChar": 19
+      },
+      "revId": "63e94ca4151bd4705e97e3b2a87f3e0938bf8cf7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e14e909c_c5a0e244",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1426,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-04-11T19:26:57Z",
+      "side": 1,
+      "message": "Maybe it\u0027d make sense to have a parametric version of the specific variants as well, maybe only a parametric one since they have the same return type?",
+      "range": {
+        "startLine": 1424,
+        "startChar": 1,
+        "endLine": 1426,
+        "endChar": 79
+      },
+      "revId": "63e94ca4151bd4705e97e3b2a87f3e0938bf8cf7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1dfa355a_00a42406",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1909,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-04-11T19:26:57Z",
+      "side": 1,
+      "message": "Could this be made a separate side effect free function taking  a RtpPacketView and returning a tuple of alert vectors?",
+      "range": {
+        "startLine": 1909,
+        "startChar": 23,
+        "endLine": 1909,
+        "endChar": 44
+      },
+      "revId": "63e94ca4151bd4705e97e3b2a87f3e0938bf8cf7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

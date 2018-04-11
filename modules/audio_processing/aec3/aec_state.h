@@ -22,6 +22,7 @@
 #include "api/optional.h"
 #include "modules/audio_processing/aec3/aec3_common.h"
 #include "modules/audio_processing/aec3/delay_estimate.h"
+#include "modules/audio_processing/aec3/echo_audibility.h"
 #include "modules/audio_processing/aec3/echo_path_variability.h"
 #include "modules/audio_processing/aec3/erl_estimator.h"
 #include "modules/audio_processing/aec3/erle_estimator.h"
@@ -52,6 +53,23 @@ class AecState {
 
   // Returns whether the render signal is currently active.
   bool ActiveRender() const { return blocks_with_active_render_ > 200; }
+
+  // Returns the appropriate scaling of the residual echo to match the
+  // audibility.
+  const std::array<float, kFftLengthBy2Plus1>& GetResidualEchoScaling() const {
+    return echo_audibility_.GetResidualEchoScaling();
+  }
+
+  // Returns the number of upcoming non-audible echo blocks.
+  size_t NumNonAudibleBlocks() const {
+    return echo_audibility_.NumNonAudibleBlocks();
+  }
+
+  // Returns whether the stationary properties of the signals are used in the
+  // aec.
+  bool UseStationaryProperties() const {
+    return config_.echo_audibility.use_stationary_properties;
+  }
 
   // Returns the ERLE.
   const std::array<float, kFftLengthBy2Plus1>& Erle() const {
@@ -175,6 +193,7 @@ class AecState {
   bool external_delay_seen_ = false;
   size_t converged_filter_count_ = 0;
   bool finite_erl_ = false;
+  EchoAudibility echo_audibility_;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(AecState);
 };

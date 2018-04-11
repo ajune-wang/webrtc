@@ -84,6 +84,7 @@ struct EchoCanceller3Config {
   struct EchoAudibility {
     float low_render_limit = 4 * 64.f;
     float normal_render_limit = 64.f;
+    bool use_stationary_properties = true;
   } echo_audibility;
 
   struct RenderLevels {

@@ -133,6 +133,17 @@ void ResidualEchoEstimator::Estimate(
     }
   }
 
+  if (aec_state.UseStationaryProperties()) {
+    // Scale the echo according to echo audibility.
+    auto residualScaling = aec_state.GetResidualEchoScaling();
+    for (size_t k = 0; k < residualScaling.size(); ++k) {
+      (*R2)[k] *= residualScaling[k];
+      if (residualScaling[k] == 0.f) {
+        R2_hold_counter_[k] = 0.f;  // JVP check the use of this
+      }
+    }
+  }
+
   // If the echo is deemed inaudible, set the residual echo to zero.
   if (aec_state.TransparentMode()) {
     R2->fill(0.f);

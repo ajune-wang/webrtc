@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b1319a1d_50d3dd07",
+        "filename": "DEPS",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-04-12T07:12:14Z",
+      "side": 1,
+      "message": "It does sound like you\u0027re replacing third_party/android_tools with third_party/android_sdk, so shouldn\u0027t you remove this and all other mentions of android_tools? Or are there still things in there we need? See also lines 751-771 in this file.",
+      "range": {
+        "startLine": 95,
+        "startChar": 2,
+        "endLine": 98,
+        "endChar": 4
+      },
+      "revId": "2bb9a2a9105011e65f9d6bbdbf400a60df6834bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -2,6 +2,75 @@
   "comments": [
     {
       "key": {
+        "uuid": "ab668227_7bd14d60",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1943,
+      "author": {
+        "id": 5252
+      },
+      "writtenOn": "2018-04-12T14:21:53Z",
+      "side": 1,
+      "message": "Why is the agc2 things moved? That is not really related to the pre_amplifier, right?",
+      "range": {
+        "startLine": 1943,
+        "startChar": 13,
+        "endLine": 1943,
+        "endChar": 37
+      },
+      "revId": "7255b6e97b37a3fb54ee79662b7ee43c1a30c40e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc2a8190_18a2f1fd",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 5252
+      },
+      "writtenOn": "2018-04-12T14:21:53Z",
+      "side": 1,
+      "message": "This is the settings for the module so this does not really do the amplification\nI\u0027d rather phrase it similar to what was done for AGC2. I.e.,\nEnables the pre-amplifier which amplifies the capture signal before any other processing is done.",
+      "range": {
+        "startLine": 273,
+        "startChar": 25,
+        "endLine": 273,
+        "endChar": 31
+      },
+      "revId": "7255b6e97b37a3fb54ee79662b7ee43c1a30c40e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ad4d0a9_a3fb908e",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 5252
+      },
+      "writtenOn": "2018-04-12T14:21:53Z",
+      "side": 1,
+      "message": "Why is the default gain not 1.f?",
+      "range": {
+        "startLine": 276,
+        "startChar": 32,
+        "endLine": 276,
+        "endChar": 33
+      },
+      "revId": "7255b6e97b37a3fb54ee79662b7ee43c1a30c40e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8590df1b_ede4d013",
         "filename": "modules/audio_processing/test/audioproc_float_impl.cc",
         "patchSetId": 4

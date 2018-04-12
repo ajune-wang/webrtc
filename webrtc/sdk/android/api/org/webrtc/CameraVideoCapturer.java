@@ -10,8 +10,6 @@
 
 package org.webrtc;
 
-import javax.annotation.Nullable;
-
 /**
  * Base interface for camera1 and camera2 implementations. Extends VideoCapturer with a
  * switchCamera() function. Also provides subinterfaces for handling camera events, and a helper

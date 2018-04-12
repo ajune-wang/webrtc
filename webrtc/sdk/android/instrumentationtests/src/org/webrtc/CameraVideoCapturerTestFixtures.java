@@ -15,16 +15,10 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import android.annotation.TargetApi;
 import android.content.Context;
-import android.media.CamcorderProfile;
-import android.os.Environment;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
-import javax.annotation.Nullable;
 import org.chromium.base.test.BaseJUnit4ClassRunner;
 import org.junit.runner.RunWith;
 import org.webrtc.CameraEnumerationAndroid.CaptureFormat;
@@ -38,8 +32,8 @@ class CameraVideoCapturerTestFixtures {
   static final int DEFAULT_FPS = 15;
 
   static private class RendererCallbacks implements VideoRenderer.Callbacks {
-    private final Object frameLock = new Object();
     private int framesRendered = 0;
+    private Object frameLock = 0;
     private int width = 0;
     private int height = 0;
 
@@ -69,10 +63,7 @@ class CameraVideoCapturerTestFixtures {
     public int waitForNextFrameToRender() throws InterruptedException {
       Logging.d(TAG, "Waiting for the next frame to render");
       synchronized (frameLock) {
-        final int framesRenderedStart = framesRendered;
-        while (framesRendered == framesRenderedStart) {
-          frameLock.wait();
-        }
+        frameLock.wait();
         return framesRendered;
       }
     }
@@ -103,10 +94,12 @@ class CameraVideoCapturerTestFixtures {
 
   static private class FakeCapturerObserver implements CameraVideoCapturer.CapturerObserver {
     private int framesCaptured = 0;
-    private @Nullable VideoFrame videoFrame;
+    private int frameSize = 0;
+    private int frameWidth = 0;
+    private int frameHeight = 0;
     final private Object frameLock = new Object();
     final private Object capturerStartLock = new Object();
-    private Boolean capturerStartResult;
+    private boolean capturerStartResult = false;
     final private List<Long> timestamps = new ArrayList<Long>();
 
     @Override
@@ -125,15 +118,26 @@ class CameraVideoCapturerTestFixtures {
     }
 
     @Override
-    public void onFrameCaptured(VideoFrame frame) {
+    public void onByteBufferFrameCaptured(
+        byte[] frame, int width, int height, int rotation, long timeStamp) {
       synchronized (frameLock) {
         ++framesCaptured;
-        if (videoFrame != null) {
-          videoFrame.release();
-        }
-        videoFrame = frame;
-        videoFrame.retain();
-        timestamps.add(videoFrame.getTimestampNs());
+        frameSize = frame.length;
+        frameWidth = width;
+        frameHeight = height;
+        timestamps.add(timeStamp);
+        frameLock.notify();
+      }
+    }
+    @Override
+    public void onTextureFrameCaptured(int width, int height, int oesTextureId,
+        float[] transformMatrix, int rotation, long timeStamp) {
+      synchronized (frameLock) {
+        ++framesCaptured;
+        frameWidth = width;
+        frameHeight = height;
+        frameSize = 0;
+        timestamps.add(timeStamp);
         frameLock.notify();
       }
     }
@@ -141,9 +145,7 @@ class CameraVideoCapturerTestFixtures {
     public boolean waitForCapturerToStart() throws InterruptedException {
       Logging.d(TAG, "Waiting for the capturer to start");
       synchronized (capturerStartLock) {
-        while (capturerStartResult == null) {
-          capturerStartLock.wait();
-        }
+        capturerStartLock.wait();
         return capturerStartResult;
       }
     }
@@ -151,32 +153,26 @@ class CameraVideoCapturerTestFixtures {
     public int waitForNextCapturedFrame() throws InterruptedException {
       Logging.d(TAG, "Waiting for the next captured frame");
       synchronized (frameLock) {
-        final int framesCapturedStart = framesCaptured;
-        while (framesCaptured == framesCapturedStart) {
-          frameLock.wait();
-        }
+        frameLock.wait();
         return framesCaptured;
+      }
+    }
+
+    int frameSize() {
+      synchronized (frameLock) {
+        return frameSize;
       }
     }
 
     int frameWidth() {
       synchronized (frameLock) {
-        return videoFrame.getBuffer().getWidth();
+        return frameWidth;
       }
     }
 
     int frameHeight() {
       synchronized (frameLock) {
-        return videoFrame.getBuffer().getHeight();
-      }
-    }
-
-    void releaseFrame() {
-      synchronized (frameLock) {
-        if (videoFrame != null) {
-          videoFrame.release();
-          videoFrame = null;
-        }
+        return frameHeight;
       }
     }
 
@@ -192,9 +188,9 @@ class CameraVideoCapturerTestFixtures {
   static class CameraEvents implements CameraVideoCapturer.CameraEventsHandler {
     public boolean onCameraOpeningCalled;
     public boolean onFirstFrameAvailableCalled;
-    private final Object onCameraFreezedLock = new Object();
+    public final Object onCameraFreezedLock = new Object();
     private String onCameraFreezedDescription;
-    private final Object cameraClosedLock = new Object();
+    public final Object cameraClosedLock = new Object();
     private boolean cameraClosed = true;
 
     @Override
@@ -238,9 +234,7 @@ class CameraVideoCapturerTestFixtures {
     public String waitForCameraFreezed() throws InterruptedException {
       Logging.d(TAG, "Waiting for the camera to freeze");
       synchronized (onCameraFreezedLock) {
-        while (onCameraFreezedDescription == null) {
-          onCameraFreezedLock.wait();
-        }
+        onCameraFreezedLock.wait();
         return onCameraFreezedDescription;
       }
     }
@@ -290,7 +284,7 @@ class CameraVideoCapturerTestFixtures {
       return cameraEnumerator.createCapturer(name, eventsHandler);
     }
 
-    public @Nullable String getNameOfFrontFacingDevice() {
+    public String getNameOfFrontFacingDevice() {
       for (String deviceName : cameraEnumerator.getDeviceNames()) {
         if (cameraEnumerator.isFrontFacing(deviceName)) {
           return deviceName;
@@ -300,7 +294,7 @@ class CameraVideoCapturerTestFixtures {
       return null;
     }
 
-    public @Nullable String getNameOfBackFacingDevice() {
+    public String getNameOfBackFacingDevice() {
       for (String deviceName : cameraEnumerator.getDeviceNames()) {
         if (cameraEnumerator.isBackFacing(deviceName)) {
           return deviceName;
@@ -332,9 +326,7 @@ class CameraVideoCapturerTestFixtures {
   private TestObjectFactory testObjectFactory;
 
   CameraVideoCapturerTestFixtures(TestObjectFactory testObjectFactory) {
-    PeerConnectionFactory.initialize(
-        PeerConnectionFactory.InitializationOptions.builder(testObjectFactory.getAppContext())
-            .createInitializationOptions());
+    PeerConnectionFactory.initializeAndroidGlobals(testObjectFactory.getAppContext(), true);
 
     this.peerConnectionFactory = new PeerConnectionFactory(null /* options */);
     this.testObjectFactory = testObjectFactory;
@@ -381,7 +373,7 @@ class CameraVideoCapturerTestFixtures {
     instance.capturer.stopCapture();
     instance.cameraEvents.waitForCameraClosed();
     instance.capturer.dispose();
-    instance.observer.releaseFrame();
+    instance.surfaceTextureHelper.returnTextureFrame();
     instance.surfaceTextureHelper.dispose();
   }
 
@@ -528,7 +520,7 @@ class CameraVideoCapturerTestFixtures {
     // Make sure camera is started and then stop it.
     assertTrue(capturerInstance.observer.waitForCapturerToStart());
     capturerInstance.capturer.stopCapture();
-    capturerInstance.observer.releaseFrame();
+    capturerInstance.surfaceTextureHelper.returnTextureFrame();
 
     // We can't change |capturer| at this point, but we should not crash.
     capturerInstance.capturer.switchCamera(null /* switchEventsHandler */);
@@ -573,13 +565,18 @@ class CameraVideoCapturerTestFixtures {
               && capturerInstance.observer.frameHeight() == capturerInstance.format.width);
       if (!identicalResolution && !flippedResolution) {
         fail("Wrong resolution, got: " + capturerInstance.observer.frameWidth() + "x"
-            + capturerInstance.observer.frameHeight() + " expected: "
-            + capturerInstance.format.width + "x" + capturerInstance.format.height + " or "
-            + capturerInstance.format.height + "x" + capturerInstance.format.width);
+            + capturerInstance.observer.frameHeight()
+            + " expected: " + capturerInstance.format.width + "x" + capturerInstance.format.height
+            + " or " + capturerInstance.format.height + "x" + capturerInstance.format.width);
       }
 
+      if (testObjectFactory.isCapturingToTexture()) {
+        assertEquals(0, capturerInstance.observer.frameSize());
+      } else {
+        assertTrue(capturerInstance.format.frameSize() <= capturerInstance.observer.frameSize());
+      }
       capturerInstance.capturer.stopCapture();
-      capturerInstance.observer.releaseFrame();
+      capturerInstance.surfaceTextureHelper.returnTextureFrame();
     }
     disposeCapturer(capturerInstance);
   }
@@ -596,7 +593,7 @@ class CameraVideoCapturerTestFixtures {
 
     startCapture(capturerInstance, 1);
     capturerInstance.observer.waitForCapturerToStart();
-    capturerInstance.observer.releaseFrame();
+    capturerInstance.surfaceTextureHelper.returnTextureFrame();
 
     capturerInstance.observer.waitForNextCapturedFrame();
     capturerInstance.capturer.stopCapture();

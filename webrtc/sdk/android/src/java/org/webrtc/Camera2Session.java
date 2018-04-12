@@ -12,7 +12,6 @@ package org.webrtc;
 
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.graphics.Matrix;
 import android.graphics.SurfaceTexture;
 import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraCaptureSession;
@@ -23,7 +22,6 @@ import android.hardware.camera2.CameraMetadata;
 import android.hardware.camera2.CaptureFailure;
 import android.hardware.camera2.CaptureRequest;
 import android.os.Handler;
-import javax.annotation.Nullable;
 import android.util.Range;
 import android.view.Surface;
 import android.view.WindowManager;
@@ -64,11 +62,11 @@ class Camera2Session implements CameraSession {
   private CaptureFormat captureFormat;
 
   // Initialized when camera opens
-  @Nullable private CameraDevice cameraDevice;
-  @Nullable private Surface surface;
+  private CameraDevice cameraDevice;
+  private Surface surface;
 
   // Initialized when capture session is created
-  @Nullable private CameraCaptureSession captureSession;
+  private CameraCaptureSession captureSession;
 
   // State
   private SessionState state = SessionState.RUNNING;
@@ -216,12 +214,8 @@ class Camera2Session implements CameraSession {
               transformMatrix =
                   RendererCommon.rotateTextureMatrix(transformMatrix, -cameraOrientation);
 
-              VideoFrame.Buffer buffer = surfaceTextureHelper.createTextureBuffer(
-                  captureFormat.width, captureFormat.height,
-                  RendererCommon.convertMatrixToAndroidGraphicsMatrix(transformMatrix));
-              final VideoFrame frame = new VideoFrame(buffer, rotation, timestampNs);
-              events.onFrameCaptured(Camera2Session.this, frame);
-              frame.release();
+              events.onTextureFrameCaptured(Camera2Session.this, captureFormat.width,
+                  captureFormat.height, oesTextureId, transformMatrix, rotation, timestampNs);
             }
           });
       Logging.d(TAG, "Camera device successfully started.");
@@ -276,7 +270,7 @@ class Camera2Session implements CameraSession {
     }
   }
 
-  private static class CameraCaptureCallback extends CameraCaptureSession.CaptureCallback {
+  private class CameraCaptureCallback extends CameraCaptureSession.CaptureCallback {
     @Override
     public void onCaptureFailed(
         CameraCaptureSession session, CaptureRequest request, CaptureFailure failure) {

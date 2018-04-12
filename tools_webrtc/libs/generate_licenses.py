@@ -22,7 +22,7 @@ import subprocess
 
 
 LIB_TO_LICENSES_DICT = {
-    'android_tools': ['third_party/android_tools/LICENSE'],
+    'android_sdk': ['third_party/android_sdk/LICENSE'],
     'auto': ['third_party/auto/src/LICENSE.txt'],
     'bazel': ['third_party/bazel/LICENSE'],
     'boringssl': ['third_party/boringssl/src/LICENSE'],

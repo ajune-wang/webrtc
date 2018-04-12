@@ -37,7 +37,7 @@ CallTest::CallTest()
       video_send_stream_(nullptr),
       audio_send_config_(nullptr),
       audio_send_stream_(nullptr),
-      fake_encoder_(clock_),
+      fake_encoder_factory_(clock_),
       num_video_streams_(1),
       num_audio_streams_(0),
       num_flexfec_streams_(0),
@@ -193,7 +193,7 @@ void CallTest::CreateVideoSendConfig(VideoSendStream::Config* video_config,
                                      Transport* send_transport) {
   RTC_DCHECK_LE(num_video_streams + num_used_ssrcs, kNumSsrcs);
   *video_config = VideoSendStream::Config(send_transport);
-  video_config->encoder_settings.encoder = &fake_encoder_;
+  video_config->encoder_settings.encoder_factory = &fake_encoder_factory_;
   video_config->rtp.payload_name = "FAKE";
   video_config->rtp.payload_type = kFakeVideoSendPayloadType;
   video_config->rtp.extensions.push_back(

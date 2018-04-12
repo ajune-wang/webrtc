@@ -13,7 +13,6 @@ package org.webrtc;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
-import javax.annotation.Nullable;
 import java.util.Arrays;
 
 @SuppressWarnings("deprecation")
@@ -30,16 +29,15 @@ abstract class CameraCapturer implements CameraVideoCapturer {
   private final static int OPEN_CAMERA_TIMEOUT = 10000;
 
   private final CameraEnumerator cameraEnumerator;
-  @Nullable private final CameraEventsHandler eventsHandler;
+  private final CameraEventsHandler eventsHandler;
   private final Handler uiThreadHandler;
 
-  @Nullable
   private final CameraSession.CreateSessionCallback createSessionCallback =
       new CameraSession.CreateSessionCallback() {
         @Override
         public void onDone(CameraSession session) {
           checkIsOnCameraThread();
-          Logging.d(TAG, "Create session done. Switch state: " + switchState);
+          Logging.d(TAG, "Create session done");
           uiThreadHandler.removeCallbacks(openCameraTimeoutRunnable);
           synchronized (stateLock) {
             capturerObserver.onCapturerStarted(true /* success */);
@@ -90,13 +88,13 @@ abstract class CameraCapturer implements CameraVideoCapturer {
               }
             } else {
               Logging.w(TAG, "Opening camera failed, retry: " + error);
+
               createSessionInternal(OPEN_CAMERA_DELAY_MS);
             }
           }
         }
       };
 
-  @Nullable
   private final CameraSession.Events cameraSessionEventsHandler = new CameraSession.Events() {
     @Override
     public void onCameraOpening() {
@@ -149,11 +147,12 @@ abstract class CameraCapturer implements CameraVideoCapturer {
     }
 
     @Override
-    public void onFrameCaptured(CameraSession session, VideoFrame frame) {
+    public void onByteBufferFrameCaptured(
+        CameraSession session, byte[] data, int width, int height, int rotation, long timestamp) {
       checkIsOnCameraThread();
       synchronized (stateLock) {
         if (session != currentSession) {
-          Logging.w(TAG, "onTextureFrameCaptured from another session.");
+          Logging.w(TAG, "onByteBufferFrameCaptured from another session.");
           return;
         }
         if (!firstFrameObserved) {
@@ -161,7 +160,27 @@ abstract class CameraCapturer implements CameraVideoCapturer {
           firstFrameObserved = true;
         }
         cameraStatistics.addFrame();
-        capturerObserver.onFrameCaptured(frame);
+        capturerObserver.onByteBufferFrameCaptured(data, width, height, rotation, timestamp);
+      }
+    }
+
+    @Override
+    public void onTextureFrameCaptured(CameraSession session, int width, int height,
+        int oesTextureId, float[] transformMatrix, int rotation, long timestamp) {
+      checkIsOnCameraThread();
+      synchronized (stateLock) {
+        if (session != currentSession) {
+          Logging.w(TAG, "onTextureFrameCaptured from another session.");
+          surfaceHelper.returnTextureFrame();
+          return;
+        }
+        if (!firstFrameObserved) {
+          eventsHandler.onFirstFrameAvailable();
+          firstFrameObserved = true;
+        }
+        cameraStatistics.addFrame();
+        capturerObserver.onTextureFrameCaptured(
+            width, height, oesTextureId, transformMatrix, rotation, timestamp);
       }
     }
   };
@@ -175,27 +194,27 @@ abstract class CameraCapturer implements CameraVideoCapturer {
 
   // Initialized on initialize
   // -------------------------
-  @Nullable private Handler cameraThreadHandler;
+  private Handler cameraThreadHandler;
   private Context applicationContext;
   private CapturerObserver capturerObserver;
-  @Nullable private SurfaceTextureHelper surfaceHelper;
+  private SurfaceTextureHelper surfaceHelper;
 
   private final Object stateLock = new Object();
   private boolean sessionOpening; /* guarded by stateLock */
-  @Nullable private CameraSession currentSession; /* guarded by stateLock */
+  private CameraSession currentSession; /* guarded by stateLock */
   private String cameraName; /* guarded by stateLock */
   private int width; /* guarded by stateLock */
   private int height; /* guarded by stateLock */
   private int framerate; /* guarded by stateLock */
   private int openAttemptsRemaining; /* guarded by stateLock */
   private SwitchState switchState = SwitchState.IDLE; /* guarded by stateLock */
-  @Nullable private CameraSwitchHandler switchEventsHandler; /* guarded by stateLock */
+  private CameraSwitchHandler switchEventsHandler; /* guarded by stateLock */
   // Valid from onDone call until stopCapture, otherwise null.
-  @Nullable private CameraStatistics cameraStatistics; /* guarded by stateLock */
+  private CameraStatistics cameraStatistics; /* guarded by stateLock */
   private boolean firstFrameObserved; /* guarded by stateLock */
 
-  public CameraCapturer(String cameraName, @Nullable CameraEventsHandler eventsHandler,
-      CameraEnumerator cameraEnumerator) {
+  public CameraCapturer(
+      String cameraName, CameraEventsHandler eventsHandler, CameraEnumerator cameraEnumerator) {
     if (eventsHandler == null) {
       eventsHandler = new CameraEventsHandler() {
         @Override
@@ -230,8 +249,8 @@ abstract class CameraCapturer implements CameraVideoCapturer {
   }
 
   @Override
-  public void initialize(@Nullable SurfaceTextureHelper surfaceTextureHelper,
-      Context applicationContext, CapturerObserver capturerObserver) {
+  public void initialize(SurfaceTextureHelper surfaceTextureHelper, Context applicationContext,
+      CapturerObserver capturerObserver) {
     this.applicationContext = applicationContext;
     this.capturerObserver = capturerObserver;
     this.surfaceHelper = surfaceTextureHelper;
@@ -280,13 +299,7 @@ abstract class CameraCapturer implements CameraVideoCapturer {
     synchronized (stateLock) {
       while (sessionOpening) {
         Logging.d(TAG, "Stop capture: Waiting for session to open");
-        try {
-          stateLock.wait();
-        } catch (InterruptedException e) {
-          Logging.w(TAG, "Stop capture interrupted while waiting for the session to open.");
-          Thread.currentThread().interrupt();
-          return;
-        }
+        ThreadUtils.waitUninterruptibly(stateLock);
       }
 
       if (currentSession != null) {
@@ -357,15 +370,7 @@ abstract class CameraCapturer implements CameraVideoCapturer {
     }
   }
 
-  private void reportCameraSwitchError(
-      String error, @Nullable CameraSwitchHandler switchEventsHandler) {
-    Logging.e(TAG, error);
-    if (switchEventsHandler != null) {
-      switchEventsHandler.onCameraSwitchError(error);
-    }
-  }
-
-  private void switchCameraInternal(@Nullable final CameraSwitchHandler switchEventsHandler) {
+  private void switchCameraInternal(final CameraSwitchHandler switchEventsHandler) {
     Logging.d(TAG, "switchCamera internal");
 
     final String[] deviceNames = cameraEnumerator.getDeviceNames();
@@ -379,11 +384,18 @@ abstract class CameraCapturer implements CameraVideoCapturer {
 
     synchronized (stateLock) {
       if (switchState != SwitchState.IDLE) {
-        reportCameraSwitchError("Camera switch already in progress.", switchEventsHandler);
+        Logging.d(TAG, "switchCamera switchInProgress");
+        if (switchEventsHandler != null) {
+          switchEventsHandler.onCameraSwitchError("Camera switch already in progress.");
+        }
         return;
       }
+
       if (!sessionOpening && currentSession == null) {
-        reportCameraSwitchError("switchCamera: camera is not running.", switchEventsHandler);
+        Logging.d(TAG, "switchCamera: No session open");
+        if (switchEventsHandler != null) {
+          switchEventsHandler.onCameraSwitchError("Camera is not running.");
+        }
         return;
       }
 

@@ -46,6 +46,30 @@
       "revId": "8c33c9281da0f3b84bd43ae90cf058e490ff9bd6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "552635f5_a23201e9",
+        "filename": "modules/audio_coding/neteq/tools/neteq_rtpplay.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-04-12T07:04:49Z",
+      "side": 1,
+      "message": "Then a related question: why do we count only for voice concealment events in |concealment_events_|?",
+      "parentUuid": "eaaa81c7_96c0bde9",
+      "range": {
+        "startLine": 374,
+        "startChar": 0,
+        "endLine": 375,
+        "endChar": 52
+      },
+      "revId": "8c33c9281da0f3b84bd43ae90cf058e490ff9bd6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

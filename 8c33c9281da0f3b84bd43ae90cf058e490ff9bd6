@@ -70,6 +70,30 @@
       "revId": "8c33c9281da0f3b84bd43ae90cf058e490ff9bd6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6bddf274_6e2b7ca8",
+        "filename": "modules/audio_coding/neteq/tools/neteq_rtpplay.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-04-12T07:21:10Z",
+      "side": 1,
+      "message": "A comment to my earlier question. I found example when both concealed samples and voice concealed samples are 0, while concealment event counter increments. Find the rtc event log of such example in https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d9136\u0026desc\u003d2\n\nI wonder if this is an intended behavior. Henrik, can you comment on this?",
+      "parentUuid": "552635f5_a23201e9",
+      "range": {
+        "startLine": 374,
+        "startChar": 0,
+        "endLine": 375,
+        "endChar": 52
+      },
+      "revId": "8c33c9281da0f3b84bd43ae90cf058e490ff9bd6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

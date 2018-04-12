@@ -21,6 +21,34 @@
 
 namespace webrtc {
 
+namespace {
+
+// TODO(nisse): Move elsewhere, and use in more tests?
+// An encoder factory producing VP8 encoders only.
+class Vp8EncoderFactory : public VideoEncoderFactory {
+ public:
+  Vp8EncoderFactory() = default;
+
+  // Unused by tests.
+  std::vector<SdpVideoFormat> GetSupportedFormats() const override {
+    RTC_NOTREACHED();
+  }
+
+  CodecInfo QueryVideoEncoder(const SdpVideoFormat& format) const override {
+    CodecInfo codec_info;
+    codec_info.is_hardware_accelerated = false;
+    codec_info.has_internal_source = false;
+    return codec_info;
+  }
+
+  std::unique_ptr<VideoEncoder> CreateVideoEncoder(
+      const SdpVideoFormat& format) override {
+    return VP8Encoder::Create();
+  }
+};
+
+}  // namespace
+
 MultiStreamTester::MultiStreamTester(
     test::SingleThreadedTaskQueueForTesting* task_queue)
     : task_queue_(task_queue) {
@@ -48,7 +76,7 @@ void MultiStreamTester::RunTest() {
   VideoReceiveStream* receive_streams[kNumStreams];
   test::FrameGeneratorCapturer* frame_generators[kNumStreams];
   std::vector<std::unique_ptr<VideoDecoder>> allocated_decoders;
-  std::unique_ptr<VideoEncoder> encoders[kNumStreams];
+  Vp8EncoderFactory encoder_factory;
 
   task_queue_->SendTask([&]() {
     sender_call = rtc::WrapUnique(Call::Create(config));
@@ -61,9 +89,6 @@ void MultiStreamTester::RunTest() {
     sender_transport->SetReceiver(receiver_call->Receiver());
     receiver_transport->SetReceiver(sender_call->Receiver());
 
-    for (size_t i = 0; i < kNumStreams; ++i)
-      encoders[i] = VP8Encoder::Create();
-
     for (size_t i = 0; i < kNumStreams; ++i) {
       uint32_t ssrc = codec_settings[i].ssrc;
       int width = codec_settings[i].width;
@@ -71,7 +96,7 @@ void MultiStreamTester::RunTest() {
 
       VideoSendStream::Config send_config(sender_transport.get());
       send_config.rtp.ssrcs.push_back(ssrc);
-      send_config.encoder_settings.encoder = encoders[i].get();
+      send_config.encoder_settings.encoder_factory = &encoder_factory;
       send_config.rtp.payload_name = "VP8";
       send_config.rtp.payload_type = kVideoPayloadType;
       VideoEncoderConfig encoder_config;

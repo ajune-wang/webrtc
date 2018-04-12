@@ -21,6 +21,7 @@
 #include "rtc_base/logging.h"
 #include "system_wrappers/include/metrics_default.h"
 #include "system_wrappers/include/sleep.h"
+#include "test/encoder_proxy_factory.h"
 #include "test/encoder_settings.h"
 #include "test/fake_encoder.h"
 #include "test/frame_generator.h"
@@ -272,6 +273,7 @@ class VideoStreamEncoderTest : public ::testing::Test {
         codec_height_(240),
         max_framerate_(30),
         fake_encoder_(),
+        encoder_factory_(&fake_encoder_),
         stats_proxy_(new MockableSendStatisticsProxy(
             Clock::GetRealTimeClock(),
             video_send_config_,
@@ -281,7 +283,7 @@ class VideoStreamEncoderTest : public ::testing::Test {
   void SetUp() override {
     metrics::Reset();
     video_send_config_ = VideoSendStream::Config(nullptr);
-    video_send_config_.encoder_settings.encoder = &fake_encoder_;
+    video_send_config_.encoder_settings.encoder_factory = &encoder_factory_;
     video_send_config_.rtp.payload_name = "FAKE";
     video_send_config_.rtp.payload_type = 125;
 
@@ -683,6 +685,7 @@ class VideoStreamEncoderTest : public ::testing::Test {
   int codec_height_;
   int max_framerate_;
   TestEncoder fake_encoder_;
+  test::EncoderProxyFactory encoder_factory_;
   std::unique_ptr<MockableSendStatisticsProxy> stats_proxy_;
   TestSink sink_;
   AdaptingFrameForwarder video_source_;
@@ -1434,9 +1437,14 @@ TEST_F(VideoStreamEncoderTest,
 
   // Set source with adaptation still enabled but quality scaler is off.
   fake_encoder_.SetQualityScaling(false);
-  video_stream_encoder_->SetSource(
-      &video_source_,
-      VideoSendStream::DegradationPreference::kMaintainFramerate);
+
+  VideoEncoderConfig video_encoder_config;
+  test::FillEncoderConfiguration(kVideoCodecVP8, 1, &video_encoder_config);
+  // Make format different, to force recreation of encoder.
+  video_encoder_config.video_format.parameters["foo"] = "foo";
+  video_stream_encoder_->ConfigureEncoder(std::move(video_encoder_config),
+                                          kMaxPayloadLength,
+                                          true /* nack_enabled */);
 
   video_source_.IncomingCapturedFrame(CreateFrame(4, kWidth, kHeight));
   WaitForEncodedFrame(4);
@@ -2511,6 +2519,14 @@ TEST_F(VideoStreamEncoderTest, InitialFrameDropOffWhenEncoderDisabledScaling) {
   const int kWidth = 640;
   const int kHeight = 360;
   fake_encoder_.SetQualityScaling(false);
+
+  VideoEncoderConfig video_encoder_config;
+  test::FillEncoderConfiguration(kVideoCodecVP8, 1, &video_encoder_config);
+  // Make format different, to force recreation of encoder.
+  video_encoder_config.video_format.parameters["foo"] = "foo";
+  video_stream_encoder_->ConfigureEncoder(std::move(video_encoder_config),
+                                          kMaxPayloadLength,
+                                          true /* nack_enabled */);
   video_stream_encoder_->OnBitrateUpdated(kLowTargetBitrateBps, 0, 0);
 
   // Force quality scaler reconfiguration by resetting the source.

@@ -716,6 +716,8 @@ void AudioProcessingImpl::ApplyConfig(const AudioProcessing::Config& config) {
   private_submodules_->gain_controller2->ApplyConfig(config_.gain_controller2);
   RTC_LOG(LS_INFO) << "Gain Controller 2 activated: "
                    << config_.gain_controller2.enabled;
+  RTC_LOG(LS_INFO) << "Pre-amplifier activated: "
+                   << config_.pre_amplifier.enabled;
 }
 
 void AudioProcessingImpl::SetExtraOptions(const webrtc::Config& config) {

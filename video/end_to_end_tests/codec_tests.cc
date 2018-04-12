@@ -16,6 +16,7 @@
 #include "modules/video_coding/codecs/vp8/include/vp8.h"
 #include "modules/video_coding/codecs/vp9/include/vp9.h"
 #include "test/call_test.h"
+#include "test/encoder_proxy_factory.h"
 #include "test/encoder_settings.h"
 #include "test/field_trial.h"
 #include "test/gtest.h"
@@ -56,6 +57,7 @@ class CodecObserver : public test::EndToEndTest,
         expected_rotation_(rotation_to_test),
         payload_name_(payload_name),
         encoder_(std::move(encoder)),
+        encoder_factory_(encoder_.get()),
         decoder_(std::move(decoder)),
         frame_counter_(0) {}
 
@@ -69,7 +71,7 @@ class CodecObserver : public test::EndToEndTest,
       std::vector<VideoReceiveStream::Config>* receive_configs,
       VideoEncoderConfig* encoder_config) override {
     encoder_config->codec_type = PayloadStringToCodecType(payload_name_);
-    send_config->encoder_settings.encoder = encoder_.get();
+    send_config->encoder_settings.encoder_factory = &encoder_factory_;
     send_config->rtp.payload_name = payload_name_;
     send_config->rtp.payload_type = test::CallTest::kVideoSendPayloadType;
 
@@ -98,6 +100,7 @@ class CodecObserver : public test::EndToEndTest,
   VideoRotation expected_rotation_;
   std::string payload_name_;
   std::unique_ptr<webrtc::VideoEncoder> encoder_;
+  test::EncoderProxyFactory encoder_factory_;
   std::unique_ptr<webrtc::VideoDecoder> decoder_;
   int frame_counter_;
 };

@@ -22,6 +22,30 @@
       "revId": "7255b6e97b37a3fb54ee79662b7ee43c1a30c40e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3f155b0_24405cce",
+        "filename": "modules/audio_processing/test/audioproc_float_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-04-12T14:08:01Z",
+      "side": 1,
+      "message": "That\u0027s intentional: if you set \u0027pre_amplifier_enabled\u0027, it should modify the signal in a visible way. Same for new default value of \u0027agc2_fixed_gain_db\u0027.",
+      "parentUuid": "8590df1b_ede4d013",
+      "range": {
+        "startLine": 157,
+        "startChar": 13,
+        "endLine": 157,
+        "endChar": 16
+      },
+      "revId": "7255b6e97b37a3fb54ee79662b7ee43c1a30c40e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

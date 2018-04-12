@@ -716,6 +716,8 @@ void AudioProcessingImpl::ApplyConfig(const AudioProcessing::Config& config) {
   private_submodules_->gain_controller2->ApplyConfig(config_.gain_controller2);
   RTC_LOG(LS_INFO) << "Gain Controller 2 activated: "
                    << config_.gain_controller2.enabled;
+  RTC_LOG(LS_INFO) << "Pre-amplifier activated: "
+                   << config_.pre_amplifier.enabled;
 }
 
 void AudioProcessingImpl::SetExtraOptions(const webrtc::Config& config) {
@@ -1900,9 +1902,6 @@ void AudioProcessingImpl::WriteAecDumpConfigMessage(bool forced) {
   if (capture_nonlocked_.echo_controller_enabled) {
     experiments_description += "EchoController;";
   }
-  if (config_.gain_controller2.enabled) {
-    experiments_description += "GainController2;";
-  }
 
   InternalAPMConfig apm_config;
 
@@ -1941,6 +1940,12 @@ void AudioProcessingImpl::WriteAecDumpConfigMessage(bool forced) {
   apm_config.intelligibility_enhancer_enabled =
       capture_nonlocked_.intelligibility_enabled;
   apm_config.experiments_description = experiments_description;
+  apm_config.gain_controller2_enabled = config_.gain_controller2.enabled;
+  apm_config.gain_controller2_fixed_gain_db =
+      config_.gain_controller2.fixed_gain_db;
+  apm_config.pre_amplifier_enabled = config_.pre_amplifier.enabled;
+  apm_config.pre_amplifier_fixed_gain_factor =
+      config_.pre_amplifier.fixed_gain_factor;
 
   if (!forced && apm_config == apm_config_for_aec_dump_) {
     return;

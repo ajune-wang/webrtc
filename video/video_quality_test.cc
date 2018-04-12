@@ -25,6 +25,7 @@
 #include "modules/rtp_rtcp/source/rtp_utility.h"
 #include "modules/video_coding/codecs/h264/include/h264.h"
 #include "modules/video_coding/codecs/multiplex/include/multiplex_encoder_adapter.h"
+#include "modules/video_coding/codecs/vp8/include/vp8.h"
 #include "modules/video_coding/codecs/vp8/include/vp8_common_types.h"
 #include "modules/video_coding/codecs/vp9/include/vp9.h"
 #include "rtc_base/cpu_time.h"
@@ -1353,7 +1354,6 @@ void VideoQualityTest::SetupVideo(Transport* send_transport,
   CreateMatchingAudioAndFecConfigs(recv_transport);
   video_receive_configs_.clear();
   video_send_configs_.clear();
-  video_encoders_.clear();
   video_encoder_configs_.clear();
   allocated_decoders_.clear();
   bool decode_all_receive_streams = true;
@@ -1362,7 +1362,6 @@ void VideoQualityTest::SetupVideo(Transport* send_transport,
   video_encoder_configs_.resize(num_video_streams_);
   for (size_t video_idx = 0; video_idx < num_video_streams_; ++video_idx) {
     video_send_configs_.push_back(VideoSendStream::Config(send_transport));
-    video_encoders_.push_back(nullptr);
     video_encoder_configs_.push_back(VideoEncoderConfig());
     num_video_substreams = params_.ss[video_idx].streams.size();
     RTC_CHECK_GT(num_video_substreams, 0);
@@ -1371,10 +1370,11 @@ void VideoQualityTest::SetupVideo(Transport* send_transport,
 
     int payload_type;
     if (params_.video[video_idx].codec == "H264") {
-      video_encoders_[video_idx] =
-          H264Encoder::Create(cricket::VideoCodec("H264"));
       payload_type = kPayloadTypeH264;
     } else if (params_.video[video_idx].codec == "VP8") {
+#if 0
+      // TODO(nisse): VideoStreamEncoder should create the
+      // SimulcastEncoderAdapter for us.
       if (params_.screenshare[video_idx].enabled &&
           params_.ss[video_idx].streams.size() > 1) {
         // Simulcast screenshare needs a simulcast encoder adapter to work,
@@ -1385,20 +1385,24 @@ void VideoQualityTest::SetupVideo(Transport* send_transport,
       } else {
         video_encoders_[video_idx] = VP8Encoder::Create();
       }
+#endif
       payload_type = kPayloadTypeVP8;
     } else if (params_.video[video_idx].codec == "VP9") {
-      video_encoders_[video_idx] = VP9Encoder::Create();
       payload_type = kPayloadTypeVP9;
     } else if (params_.video[video_idx].codec == "multiplex") {
+#if 0
+      // TODO(nisse): No idea what this is and how to support it.
       video_encoders_[video_idx] = rtc::MakeUnique<MultiplexEncoderAdapter>(
           new InternalEncoderFactory(), SdpVideoFormat(cricket::kVp9CodecName));
+#endif
       payload_type = kPayloadTypeVP9;
     } else {
       RTC_NOTREACHED() << "Codec not supported!";
       return;
     }
-    video_send_configs_[video_idx].encoder_settings.encoder =
-        video_encoders_[video_idx].get();
+    video_send_configs_[video_idx].encoder_settings.encoder_factory =
+        &video_encoder_factory_;
+
     video_send_configs_[video_idx].rtp.payload_name =
         params_.video[video_idx].codec;
     video_send_configs_[video_idx].rtp.payload_type = payload_type;
@@ -1422,6 +1426,9 @@ void VideoQualityTest::SetupVideo(Transport* send_transport,
                      test::kVideoContentTypeExtensionId));
     video_send_configs_[video_idx].rtp.extensions.push_back(RtpExtension(
         RtpExtension::kVideoTimingUri, test::kVideoTimingExtensionId));
+
+    video_encoder_configs_[video_idx].video_format.name =
+        params_.video[video_idx].codec;
 
     video_encoder_configs_[video_idx].codec_type =
         PayloadStringToCodecType(params_.video[video_idx].codec);
@@ -1613,8 +1620,8 @@ void VideoQualityTest::SetupThumbnails(Transport* send_transport,
     // sender_call.
     VideoSendStream::Config thumbnail_send_config(recv_transport);
     thumbnail_send_config.rtp.ssrcs.push_back(kThumbnailSendSsrcStart + i);
-    thumbnail_send_config.encoder_settings.encoder =
-        thumbnail_encoders_.back().get();
+    // TODO(nisse): XXX = thumbnail_encoders_.back().get();
+    thumbnail_send_config.encoder_settings.encoder_factory = nullptr;
     thumbnail_send_config.rtp.payload_name = params_.video[0].codec;
     thumbnail_send_config.rtp.payload_type = kPayloadTypeVP8;
     thumbnail_send_config.rtp.nack.rtp_history_ms = kNackRtpHistoryMs;

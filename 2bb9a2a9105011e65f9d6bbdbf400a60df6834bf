@@ -22,6 +22,30 @@
       "revId": "2bb9a2a9105011e65f9d6bbdbf400a60df6834bf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f8ac59a_058ecbe2",
+        "filename": "DEPS",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5304
+      },
+      "writtenOn": "2018-04-12T23:09:31Z",
+      "side": 1,
+      "message": "You are right, the hooks of deps \u0027src/third_party/android_tools\u0027 with below can be removed as android_sdk/ would replace it. I was just intended to remain it here until new sdk deps is proved to be working well. \n\nBut since this CL also migrates android sdk paths in webrtc files, yeah I think it is fine to remove the android_tools in this CL.",
+      "parentUuid": "b1319a1d_50d3dd07",
+      "range": {
+        "startLine": 95,
+        "startChar": 2,
+        "endLine": 98,
+        "endChar": 4
+      },
+      "revId": "2bb9a2a9105011e65f9d6bbdbf400a60df6834bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

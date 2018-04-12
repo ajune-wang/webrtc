@@ -20,6 +20,7 @@
 #include "modules/audio_coding/codecs/audio_format_conversion.h"
 #include "modules/audio_coding/include/audio_coding_module.h"
 #include "modules/audio_coding/test/utility.h"
+#include "modules/include/module_common_types.h"
 #include "test/gtest.h"
 #include "test/testsupport/fileutils.h"
 

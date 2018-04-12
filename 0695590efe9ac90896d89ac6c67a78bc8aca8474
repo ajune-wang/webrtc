@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "3e6c7ceb_34fdb423",
+        "filename": "media/engine/webrtcvideoengine_unittest.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-04-12T15:00:48Z",
+      "side": 1,
+      "message": "I don\u0027t quite understand the \"use_external_encoder\" flag, in this case, does external imply hardware? \n\nStill unclear how to adapt this test, possibly one could inject a VideoEncoderFactory setting the hardware flag to true or false, and use a fake or mock OveruseFrameDetector to see if that flag is translated as expected.\n\nBut then the test belongs in video_stream_encoder_unittest.cc, not here.",
+      "parentUuid": "89319fc5_d1eae05a",
+      "range": {
+        "startLine": 495,
+        "startChar": 0,
+        "endLine": 500,
+        "endChar": 6
+      },
+      "revId": "0695590efe9ac90896d89ac6c67a78bc8aca8474",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "13942050_cd3ab874",
         "filename": "video/video_quality_test.cc",
         "patchSetId": 18
@@ -131,6 +155,30 @@
       "side": 1,
       "message": "Where\u0027s the corresponding logic in the non-test code?",
       "parentUuid": "13942050_cd3ab874",
+      "range": {
+        "startLine": 1394,
+        "startChar": 65,
+        "endLine": 1395,
+        "endChar": 0
+      },
+      "revId": "0695590efe9ac90896d89ac6c67a78bc8aca8474",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f2ce45e_6db4d00c",
+        "filename": "video/video_quality_test.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 1395,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-04-12T15:00:48Z",
+      "side": 1,
+      "message": "I think we definitely need a VideoEncoderFactory that supports all the codecs used here.\n\nA bit unclear how to deal with simulcast, but maybe that could be part of the factory too, if well tell it all it needs to know about it.",
+      "parentUuid": "2f0ed527_e1cca831",
       "range": {
         "startLine": 1394,
         "startChar": 65,

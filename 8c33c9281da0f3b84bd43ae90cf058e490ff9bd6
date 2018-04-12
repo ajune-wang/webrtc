@@ -118,6 +118,30 @@
       "revId": "8c33c9281da0f3b84bd43ae90cf058e490ff9bd6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b35f579a_51692a30",
+        "filename": "modules/audio_coding/neteq/tools/neteq_rtpplay.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-04-12T09:10:06Z",
+      "side": 1,
+      "message": "I have a few issues with this code in general. I do not think it captures the concealment events correctly. \n\nFirst, measuring the time_from_previous_event_end_ms using time_now_ms leads to strange effects, since time_now_ms is the wall-clock time of GetAudio events. GetAudio events often come in bursts, in particular on mobile phones. The effect will be that concealment events that are 20 or 30 ms apart in the signal waveform may be logged as just a few (or even zero) ms apart in this test code.\n\nNext, I think you are measuring the event lengths (in samples) wrong. Let me use an example. Consider two distinct concealment events, each of multiple GetAudio calls\u0027 duration. It could look like this:\n\nEvent A: concealment samples generated: 800 + 400 + 750.\nEvent B: concealment samples generated: 200 + 800 + 950.\n\nSince you are sampling voice_concealed_samples after the first GetAudio call of a new event, I think the reporting will be wrong. Event A in this case will be reported as having 400 + 750 + 200 samples; that is, the reporting interval is one off.\n\nFinally, there is a bit of uncertainty in the increments of the concealment sample counters in the lifetime_stats. Since at the end of an expand period, there might be a merge, which can in fact eat up some of the concealed samples generated, we have to subtract from the counter sometimes. However, we didn\u0027t want to subtract from the counter, since clients wouldn\u0027t expect it to decrease. So instead we have a mechanism for remembering a \"debt\" and subtracting it the next time concealment samples are generated. This will mean that some concealment events are not reported exactly correct anyway. This is what can cause a new event to report zero samples concealed, I believe.\n\nPlease, take a new look at my suggested re-implementation of this code: https://webrtc-review.googlesource.com/c/src/+/64740. I find it easier to understand, but you might disagree.\n\nFor the purpose of unblocking the tool, I can live with this CL too.",
+      "parentUuid": "ce485d5b_80542ce9",
+      "range": {
+        "startLine": 374,
+        "startChar": 0,
+        "endLine": 375,
+        "endChar": 52
+      },
+      "revId": "8c33c9281da0f3b84bd43ae90cf058e490ff9bd6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

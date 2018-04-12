@@ -444,6 +444,8 @@ void AecDumpBasedSimulator::HandleMessage(
       }
     }
 
+    // TODO(aleloi) write stuff!
+
     if (msg.has_ns_enabled() || settings_.use_ns) {
       bool enable = settings_.use_ns ? *settings_.use_ns : msg.ns_enabled();
       RTC_CHECK_EQ(AudioProcessing::kNoError,
@@ -462,6 +464,22 @@ void AecDumpBasedSimulator::HandleMessage(
       if (settings_.use_verbose_logging) {
         std::cout << " ns_level: " << level << std::endl;
       }
+    }
+
+    if (msg.has_gain_controller2_enabled() || settings_.use_agc2) {
+      const bool enable = settings_.use_agc2 ? *settings_.use_agc2
+                                             : msg.gain_controller2_enabled();
+      apm_config.gain_controller2.enabled = enable;
+      apm_config.gain_controller2.fixed_gain_db = settings_.agc2_fixed_gain_db;
+    }
+
+    if (msg.has_pre_amplifier_enabled() || settings_.use_agc2) {
+      const bool enable = settings_.use_pre_amplifier
+                              ? *settings_.use_pre_amplifier
+                              : msg.pre_amplifier_enabled();
+      apm_config.pre_amplifier.enabled = enable;
+      apm_config.pre_amplifier.fixed_gain_factor =
+          settings_.pre_amplifier_gain_factor;
     }
 
     if (settings_.use_verbose_logging && msg.has_experiments_description() &&

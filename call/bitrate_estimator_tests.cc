@@ -21,7 +21,7 @@
 #include "test/direct_transport.h"
 #include "test/encoder_settings.h"
 #include "test/fake_decoder.h"
-#include "test/fake_encoder.h"
+#include "test/fake_encoder_factory.h"
 #include "test/frame_generator_capturer.h"
 #include "test/gtest.h"
 
@@ -97,7 +97,9 @@ static const int kASTExtensionId = 5;
 
 class BitrateEstimatorTest : public test::CallTest {
  public:
-  BitrateEstimatorTest() : receive_config_(nullptr) {}
+  BitrateEstimatorTest()
+      : fake_encoder_factory_(Clock::GetRealTimeClock()),
+        receive_config_(nullptr) {}
 
   virtual ~BitrateEstimatorTest() { EXPECT_TRUE(streams_.empty()); }
 
@@ -116,8 +118,8 @@ class BitrateEstimatorTest : public test::CallTest {
 
       video_send_config_ = VideoSendStream::Config(send_transport_.get());
       video_send_config_.rtp.ssrcs.push_back(kVideoSendSsrcs[0]);
-      // Encoders will be set separately per stream.
-      video_send_config_.encoder_settings.encoder = nullptr;
+      video_send_config_.encoder_settings.encoder_factory =
+          &fake_encoder_factory_;
       video_send_config_.rtp.payload_name = "FAKE";
       video_send_config_.rtp.payload_type = kFakeVideoSendPayloadType;
       test::FillEncoderConfiguration(kVideoCodecVP8, 1, &video_encoder_config_);
@@ -162,10 +164,8 @@ class BitrateEstimatorTest : public test::CallTest {
           is_sending_receiving_(false),
           send_stream_(nullptr),
           frame_generator_capturer_(),
-          fake_encoder_(Clock::GetRealTimeClock()),
           fake_decoder_() {
       test_->video_send_config_.rtp.ssrcs[0]++;
-      test_->video_send_config_.encoder_settings.encoder = &fake_encoder_;
       send_stream_ = test_->sender_call_->CreateVideoSendStream(
           test_->video_send_config_.Copy(),
           test_->video_encoder_config_.Copy());
@@ -223,10 +223,10 @@ class BitrateEstimatorTest : public test::CallTest {
     VideoSendStream* send_stream_;
     VideoReceiveStream* video_receive_stream_;
     std::unique_ptr<test::FrameGeneratorCapturer> frame_generator_capturer_;
-    test::FakeEncoder fake_encoder_;
     test::FakeDecoder fake_decoder_;
   };
 
+  test::FakeEncoderFactory fake_encoder_factory_;
   LogObserver receiver_log_;
   std::unique_ptr<test::DirectTransport> send_transport_;
   std::unique_ptr<test::DirectTransport> receive_transport_;

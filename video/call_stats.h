@@ -18,6 +18,8 @@
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 #include "rtc_base/constructormagic.h"
 #include "rtc_base/criticalsection.h"
+#include "rtc_base/sequenced_task_checker.h"
+#include "rtc_base/task_queue.h"
 #include "rtc_base/thread_checker.h"
 #include "system_wrappers/include/clock.h"
 
@@ -26,17 +28,25 @@ namespace webrtc {
 class CallStatsObserver;
 
 // CallStats keeps track of statistics for a call.
-class CallStats : public Module, public RtcpRttStats {
+class CallStats : public RtcpRttStats {
  public:
   // Time interval for updating the observers.
-  static constexpr int64_t kUpdateIntervalMs = 1000;
+  static constexpr int64_t kDefaultUpdateIntervalMs = 1000;
 
-  CallStats(Clock* clock, ProcessThread* process_thread);
+  CallStats(Clock* clock,
+            rtc::TaskQueue* task_queue,
+            int64_t update_interval = kDefaultUpdateIntervalMs);
   ~CallStats();
 
   // Registers/deregisters a new observer to receive statistics updates.
   // Must be called from the construction thread.
   void RegisterStatsObserver(CallStatsObserver* observer);
+
+  // TODO(tommi): The semantics of this method are currently that the object
+  // can be deleted straight after DeregisterStatsObserver has completed.
+  // This is not ideal since it requires synchronization between threads
+  // (RegisterStatsObserver can complete asynchronously).
+  // Figure out a way to make this function non blocking.
   void DeregisterStatsObserver(CallStatsObserver* observer);
 
   // Expose |LastProcessedRtt()| from RtcpRttStats to the public interface, as
@@ -49,7 +59,10 @@ class CallStats : public Module, public RtcpRttStats {
   int64_t LastProcessedRtt() const override;
 
   // Exposed for tests to test histogram support.
+  // Must be called on the task queue.
+  // TODO(tommi): Make these protected and move to test-only subclass.
   void UpdateHistogramsForTest() { UpdateHistograms(); }
+  void ProcessForTest() { Process(); }
 
   // Helper struct keeping track of the time a rtt value is reported.
   struct RttTime {
@@ -63,25 +76,17 @@ class CallStats : public Module, public RtcpRttStats {
   // RtcpRttStats implementation.
   void OnRttUpdate(int64_t rtt) override;
 
-  // Implements Module, to use the process thread.
-  int64_t TimeUntilNextProcess() override;
-  void Process() override;
-
-  // TODO(tommi): Use this to know when we're attached to the process thread?
-  // Alternatively, inject that pointer via the ctor since the call_stats
-  // test code, isn't using a processthread atm.
-  void ProcessThreadAttached(ProcessThread* process_thread) override;
+  void Process();
 
   // This method must only be called when the process thread is not
   // running, and from the construction thread.
   void UpdateHistograms();
 
   Clock* const clock_;
+  const int64_t update_interval_;
 
-  // The last time 'Process' resulted in statistic update.
-  int64_t last_process_time_ RTC_GUARDED_BY(process_thread_checker_);
   // The last RTT in the statistics update (zero if there is no valid estimate).
-  int64_t max_rtt_ms_ RTC_GUARDED_BY(process_thread_checker_);
+  int64_t max_rtt_ms_ RTC_GUARDED_BY(task_queue_checker_);
 
   // Accessed from random threads (seemingly). Consider atomic.
   // |avg_rtt_ms_| is allowed to be read on the process thread without a lock.
@@ -96,24 +101,22 @@ class CallStats : public Module, public RtcpRttStats {
   // on the ProcessThread when running. When the Process Thread is not running,
   // (and only then) they can be used in UpdateHistograms(), usually called from
   // the dtor.
-  int64_t sum_avg_rtt_ms_ RTC_GUARDED_BY(process_thread_checker_);
-  int64_t num_avg_rtt_ RTC_GUARDED_BY(process_thread_checker_);
-  int64_t time_of_first_rtt_ms_ RTC_GUARDED_BY(process_thread_checker_);
+  int64_t sum_avg_rtt_ms_ RTC_GUARDED_BY(task_queue_checker_);
+  int64_t num_avg_rtt_ RTC_GUARDED_BY(task_queue_checker_);
+  int64_t time_of_first_rtt_ms_ RTC_GUARDED_BY(task_queue_checker_);
 
   // All Rtt reports within valid time interval, oldest first.
-  std::list<RttTime> reports_ RTC_GUARDED_BY(process_thread_checker_);
+  std::list<RttTime> reports_ RTC_GUARDED_BY(task_queue_checker_);
 
   // Observers getting stats reports.
-  // When attached to ProcessThread, this is read-only. In order to allow
-  // modification, we detach from the process thread while the observer
-  // list is updated, to avoid races. This allows us to not require a lock
-  // for the observers_ list, which makes the most common case lock free.
-  std::list<CallStatsObserver*> observers_;
+  std::list<CallStatsObserver*> observers_ RTC_GUARDED_BY(task_queue_checker_);
 
   rtc::ThreadChecker construction_thread_checker_;
-  rtc::ThreadChecker process_thread_checker_;
-  ProcessThread* const process_thread_;
-  bool process_thread_running_ RTC_GUARDED_BY(construction_thread_checker_);
+  rtc::SequencedTaskChecker task_queue_checker_;
+  rtc::TaskQueue* const task_queue_;
+
+  class DelayedTask;
+  DelayedTask* delayed_task_ RTC_GUARDED_BY(task_queue_checker_);
 
   RTC_DISALLOW_COPY_AND_ASSIGN(CallStats);
 };

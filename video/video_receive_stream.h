@@ -118,6 +118,7 @@ class VideoReceiveStream : public webrtc::VideoReceiveStream,
 
   rtc::SequencedTaskChecker worker_sequence_checker_;
   rtc::SequencedTaskChecker module_process_sequence_checker_;
+  rtc::SequencedTaskChecker task_queue_sequence_checker_;
 
   TransportAdapter transport_adapter_;
   const VideoReceiveStream::Config config_;

@@ -202,6 +202,7 @@ class VideoReceiver : public Module {
   rtc::ThreadChecker construction_thread_checker_;
   rtc::ThreadChecker decoder_thread_checker_;
   rtc::ThreadChecker module_thread_checker_;
+  rtc::SequencedTaskChecker worker_queue_checker_;
   Clock* const clock_;
   rtc::CriticalSection process_crit_;
   VCMTiming* _timing;

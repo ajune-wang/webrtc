@@ -689,6 +689,7 @@ bool PeerConnectionInterface::RTCConfiguration::operator==(
     rtc::Optional<int> ice_unwritable_min_checks;
     rtc::Optional<int> stun_candidate_keepalive_interval;
     rtc::Optional<rtc::IntervalRange> ice_regather_interval_range;
+    rtc::SSLCertificateVerifier* tls_cert_verifier;
     webrtc::TurnCustomizer* turn_customizer;
     SdpSemantics sdp_semantics;
     rtc::Optional<rtc::AdapterType> network_preference;
@@ -736,6 +737,7 @@ bool PeerConnectionInterface::RTCConfiguration::operator==(
          stun_candidate_keepalive_interval ==
              o.stun_candidate_keepalive_interval &&
          ice_regather_interval_range == o.ice_regather_interval_range &&
+         tls_cert_verifier == o.tls_cert_verifier &&
          turn_customizer == o.turn_customizer &&
          sdp_semantics == o.sdp_semantics &&
          network_preference == o.network_preference;
@@ -2848,6 +2850,7 @@ bool PeerConnection::SetConfiguration(const RTCConfiguration& configuration,
       configuration.ice_unwritable_min_checks;
   modified_config.stun_candidate_keepalive_interval =
       configuration.stun_candidate_keepalive_interval;
+  modified_config.tls_cert_verifier = configuration.tls_cert_verifier;
   modified_config.turn_customizer = configuration.turn_customizer;
   modified_config.network_preference = configuration.network_preference;
   if (configuration != modified_config) {
@@ -2876,6 +2879,14 @@ bool PeerConnection::SetConfiguration(const RTCConfiguration& configuration,
   if (parse_error != RTCErrorType::NONE) {
     return SafeSetError(parse_error, error);
   }
+
+  // Update the TLS Certificate Verifier for all injected turn servers.
+  if (modified_config.tls_cert_verifier != nullptr) {
+    for (auto& turn_server : turn_servers) {
+      turn_server.tls_cert_verifier = modified_config.tls_cert_verifier;
+    }
+  }
+  // Call this last since it may create pooled allocator sessions using the
 
   // In theory this shouldn't fail.
   if (!network_thread()->Invoke<bool>(
@@ -4657,6 +4668,11 @@ bool PeerConnection::InitializePortAllocator_n(
       ConvertIceTransportTypeToCandidateFilter(configuration.type));
   port_allocator_->set_max_ipv6_networks(configuration.max_ipv6_networks);
 
+  if (configuration.tls_cert_verifier != nullptr) {
+    for (auto& turn_server : turn_servers) {
+      turn_server.tls_cert_verifier = configuration.tls_cert_verifier;
+    }
+  }
   // Call this last since it may create pooled allocator sessions using the
   // properties set above.
   port_allocator_->SetConfiguration(

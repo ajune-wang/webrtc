@@ -233,6 +233,7 @@ TurnPort::TurnPort(rtc::Thread* thread,
                    const std::string& origin,
                    const std::vector<std::string>& tls_alpn_protocols,
                    const std::vector<std::string>& tls_elliptic_curves,
+                   rtc::SSLCertificateVerifier* tls_cert_verifier,
                    webrtc::TurnCustomizer* customizer)
     : Port(thread,
            RELAY_PORT_TYPE,
@@ -245,6 +246,7 @@ TurnPort::TurnPort(rtc::Thread* thread,
       server_address_(server_address),
       tls_alpn_protocols_(tls_alpn_protocols),
       tls_elliptic_curves_(tls_elliptic_curves),
+      tls_cert_verifier_(tls_cert_verifier),
       credentials_(credentials),
       socket_(NULL),
       resolver_(NULL),
@@ -374,6 +376,7 @@ bool TurnPort::CreateTurnClientSocket() {
     tcp_options.opts = opts;
     tcp_options.tls_alpn_protocols = tls_alpn_protocols_;
     tcp_options.tls_elliptic_curves = tls_elliptic_curves_;
+    tcp_options.tls_cert_verifier = tls_cert_verifier_;
     socket_ = socket_factory()->CreateClientTcpSocket(
         rtc::SocketAddress(Network()->GetBestIP(), 0), server_address_.address,
         proxy(), user_agent(), tcp_options);

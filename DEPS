@@ -56,7 +56,7 @@ deps = {
   'src/testing':
     Var('chromium_git') + '/chromium/src/testing' + '@' + '07a38f83e9c05fdaa1ab39eedabf081962b26e62',
   'src/third_party':
-    Var('chromium_git') + '/chromium/src/third_party' + '@' + '451409c9c57cdf9806ed958a449596bbce27293e',
+    Var('chromium_git') + '/chromium/src/third_party' + '@' + '837f927e9ec33968b024a4ccf73d31561fb66948',
   'src/third_party/android_ndk': {
       'url': Var('chromium_git') + '/android_ndk.git' + '@' + '635bc380968a76f6948fee65f80a0b28db53ae81',
       'condition': 'checkout_android',
@@ -719,6 +719,8 @@ include_rules = [
   "+rtc_base",
   "+test",
   "+rtc_tools",
+  # third_party dependencies:
+  "+absl/types/optional.h",
 ]
 
 # The below rules will be removed when webrtc:4243 is fixed.

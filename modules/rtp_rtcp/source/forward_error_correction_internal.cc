@@ -146,9 +146,53 @@ PacketMaskTable::PacketMaskTable(FecMaskType fec_mask_type,
 
 PacketMaskTable::~PacketMaskTable() = default;
 
-rtc::ArrayView<const uint8_t> PacketMaskTable::LookUp(int media_packet_index,
-                                                      int fec_index) const {
-  return LookUpInFecTable(table_, media_packet_index, fec_index);
+rtc::ArrayView<const uint8_t> PacketMaskTable::LookUp(int num_media_packets,
+                                                      int num_fec_packets) {
+  if (num_media_packets <= 12) {
+    return LookUpInFecTable(table_, num_media_packets - 1, num_fec_packets - 1);
+  }
+  int mask_length = PacketMaskSize(num_media_packets);  // num_media_packets / 8
+                                                        // + (num_media_packets
+                                                        // % 8 != 0);
+  fec_packet_mask_ = new uint8_t[num_fec_packets * mask_length];
+  for (int row = 0; row < num_fec_packets; row++) {
+    for (int col = 0; col < mask_length; col++) {
+      fec_packet_mask_[row * mask_length + col] =
+          ((col * 8) % num_fec_packets == row && (col * 8) < num_media_packets
+               ? 0x80
+               : 0x00) |
+          ((col * 8 + 1) % num_fec_packets == row &&
+                   (col * 8 + 1) < num_media_packets
+               ? 0x40
+               : 0x00) |
+          ((col * 8 + 2) % num_fec_packets == row &&
+                   (col * 8 + 2) < num_media_packets
+               ? 0x20
+               : 0x00) |
+          ((col * 8 + 3) % num_fec_packets == row &&
+                   (col * 8 + 3) < num_media_packets
+               ? 0x10
+               : 0x00) |
+          ((col * 8 + 4) % num_fec_packets == row &&
+                   (col * 8 + 4) < num_media_packets
+               ? 0x08
+               : 0x00) |
+          ((col * 8 + 5) % num_fec_packets == row &&
+                   (col * 8 + 5) < num_media_packets
+               ? 0x04
+               : 0x00) |
+          ((col * 8 + 6) % num_fec_packets == row &&
+                   (col * 8 + 6) < num_media_packets
+               ? 0x02
+               : 0x00) |
+          ((col * 8 + 7) % num_fec_packets == row &&
+                   (col * 8 + 7) < num_media_packets
+               ? 0x01
+               : 0x00);
+    }
+  }
+  return {&fec_packet_mask_[0],
+          static_cast<size_t>(num_fec_packets * mask_length)};
 }
 
 // If |num_media_packets| is larger than the maximum allowed by |fec_mask_type|
@@ -176,7 +220,7 @@ void RemainingPacketProtection(int num_media_packets,
                                int num_mask_bytes,
                                ProtectionMode mode,
                                uint8_t* packet_mask,
-                               const PacketMaskTable& mask_table) {
+                               PacketMaskTable* mask_table) {
   if (mode == kModeNoOverlap) {
     // sub_mask21
 
@@ -184,8 +228,8 @@ void RemainingPacketProtection(int num_media_packets,
         PacketMaskSize(num_media_packets - num_fec_for_imp_packets);
 
     auto end_row = (num_fec_for_imp_packets + num_fec_remaining);
-    rtc::ArrayView<const uint8_t> packet_mask_sub_21 = mask_table.LookUp(
-        num_media_packets - num_fec_for_imp_packets - 1, num_fec_remaining - 1);
+    rtc::ArrayView<const uint8_t> packet_mask_sub_21 = mask_table->LookUp(
+        num_media_packets - num_fec_for_imp_packets, num_fec_remaining);
 
     ShiftFitSubMask(num_mask_bytes, res_mask_bytes, num_fec_for_imp_packets,
                     end_row, &packet_mask_sub_21[0], packet_mask);
@@ -193,7 +237,7 @@ void RemainingPacketProtection(int num_media_packets,
   } else if (mode == kModeOverlap || mode == kModeBiasFirstPacket) {
     // sub_mask22
     rtc::ArrayView<const uint8_t> packet_mask_sub_22 =
-        mask_table.LookUp(num_media_packets - 1, num_fec_remaining - 1);
+        mask_table->LookUp(num_media_packets, num_fec_remaining);
 
     FitSubMask(num_mask_bytes, num_mask_bytes, num_fec_remaining,
                &packet_mask_sub_22[0],
@@ -215,12 +259,12 @@ void ImportantPacketProtection(int num_fec_for_imp_packets,
                                int num_imp_packets,
                                int num_mask_bytes,
                                uint8_t* packet_mask,
-                               const PacketMaskTable& mask_table) {
+                               PacketMaskTable* mask_table) {
   const int num_imp_mask_bytes = PacketMaskSize(num_imp_packets);
 
   // Get sub_mask1 from table
   rtc::ArrayView<const uint8_t> packet_mask_sub_1 =
-      mask_table.LookUp(num_imp_packets - 1, num_fec_for_imp_packets - 1);
+      mask_table->LookUp(num_imp_packets, num_fec_for_imp_packets);
 
   FitSubMask(num_mask_bytes, num_imp_mask_bytes, num_fec_for_imp_packets,
              &packet_mask_sub_1[0], packet_mask);
@@ -300,7 +344,7 @@ void UnequalProtectionMask(int num_media_packets,
                            int num_imp_packets,
                            int num_mask_bytes,
                            uint8_t* packet_mask,
-                           const PacketMaskTable& mask_table) {
+                           PacketMaskTable* mask_table) {
   // Set Protection type and allocation
   // TODO(marpan): test/update for best mode and some combinations thereof.
 
@@ -392,7 +436,7 @@ void GeneratePacketMasks(int num_media_packets,
                          int num_fec_packets,
                          int num_imp_packets,
                          bool use_unequal_protection,
-                         const PacketMaskTable& mask_table,
+                         PacketMaskTable* mask_table,
                          uint8_t* packet_mask) {
   RTC_DCHECK_GT(num_media_packets, 0);
   RTC_DCHECK_GT(num_fec_packets, 0);
@@ -408,7 +452,7 @@ void GeneratePacketMasks(int num_media_packets,
     // Mask = (k,n-k), with protection factor = (n-k)/k,
     // where k = num_media_packets, n=total#packets, (n-k)=num_fec_packets.
     rtc::ArrayView<const uint8_t> mask =
-        mask_table.LookUp(num_media_packets - 1, num_fec_packets - 1);
+        mask_table->LookUp(num_media_packets, num_fec_packets);
     memcpy(packet_mask, &mask[0], mask.size());
   } else {  // UEP case
     UnequalProtectionMask(num_media_packets, num_fec_packets, num_imp_packets,

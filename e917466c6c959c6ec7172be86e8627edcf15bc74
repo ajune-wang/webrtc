@@ -1,0 +1,153 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fc188f3c_f10adf34",
+        "filename": "test/encoder_proxy_factory.h",
+        "patchSetId": 38
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-04-13T08:58:27Z",
+      "side": 1,
+      "message": "final?",
+      "range": {
+        "startLine": 27,
+        "startChar": 25,
+        "endLine": 27,
+        "endChar": 26
+      },
+      "revId": "e917466c6c959c6ec7172be86e8627edcf15bc74",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47aceb14_228fa17e",
+        "filename": "test/encoder_proxy_factory.h",
+        "patchSetId": 38
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-04-13T08:58:27Z",
+      "side": 1,
+      "message": "final?",
+      "range": {
+        "startLine": 56,
+        "startChar": 20,
+        "endLine": 56,
+        "endChar": 21
+      },
+      "revId": "e917466c6c959c6ec7172be86e8627edcf15bc74",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3133071d_4c6d256a",
+        "filename": "test/function_video_encoder_factory.h",
+        "patchSetId": 38
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-04-13T08:58:27Z",
+      "side": 1,
+      "message": "final?",
+      "range": {
+        "startLine": 25,
+        "startChar": 33,
+        "endLine": 25,
+        "endChar": 34
+      },
+      "revId": "e917466c6c959c6ec7172be86e8627edcf15bc74",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "524722fd_4f690d6b",
+        "filename": "test/function_video_encoder_factory.h",
+        "patchSetId": 38
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-04-13T08:58:27Z",
+      "side": 1,
+      "message": "std::move here? Also, prefer to initialize data members in the member initializer list (since then they\u0027ll be copy constructed, as opposed to default-constructed and subsequently assigned to).",
+      "range": {
+        "startLine": 29,
+        "startChar": 14,
+        "endLine": 29,
+        "endChar": 20
+      },
+      "revId": "e917466c6c959c6ec7172be86e8627edcf15bc74",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2250bb34_c097f3a2",
+        "filename": "test/function_video_encoder_factory.h",
+        "patchSetId": 38
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-04-13T08:58:27Z",
+      "side": 1,
+      "message": "/*format*/, since you don\u0027t use it? (Once more below.)",
+      "range": {
+        "startLine": 40,
+        "startChar": 52,
+        "endLine": 40,
+        "endChar": 58
+      },
+      "revId": "e917466c6c959c6ec7172be86e8627edcf15bc74",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e103209_17c85ad7",
+        "filename": "test/function_video_encoder_factory.h",
+        "patchSetId": 38
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-04-13T08:58:27Z",
+      "side": 1,
+      "message": "Make this one const? It should work, since std::function\u0027s operator() is const.",
+      "revId": "e917466c6c959c6ec7172be86e8627edcf15bc74",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac5b0209_d6a717cf",
+        "filename": "test/function_video_encoder_factory.h",
+        "patchSetId": 38
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-04-13T08:58:27Z",
+      "side": 1,
+      "message": "And this one too? It\u0027ll be a bit harder to initialize that way, but something like\n\n  []{\n    CodecInfo ci;\n    codec_info_.is_hardware_accelerated \u003d false;\n    codec_info_.has_internal_source \u003d false;\n    return ci;\n  }()\n\nought to do it.\n\nThis is the part where we sigh longingly and look forward to C++20: http://en.cppreference.com/w/cpp/language/aggregate_initialization",
+      "revId": "e917466c6c959c6ec7172be86e8627edcf15bc74",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

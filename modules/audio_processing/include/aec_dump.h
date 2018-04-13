@@ -51,6 +51,10 @@ struct InternalAPMConfig {
   bool transient_suppression_enabled = false;
   bool intelligibility_enhancer_enabled = false;
   bool noise_robust_agc_enabled = false;
+  bool gain_controller2_enabled = false;
+  float gain_controller2_fixed_gain_db = 0.f;
+  bool pre_amplifier_enabled = false;
+  float pre_amplifier_fixed_gain_factor = 0.f;
   std::string experiments_description = "";
 };
 

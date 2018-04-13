@@ -13,11 +13,14 @@
 
 #include <jni.h>
 
+#include <memory>
+
 #include "common_video/include/i420_buffer_pool.h"
 #include "common_video/libyuv/include/webrtc_libyuv.h"
 #include "media/base/adaptedvideotracksource.h"
 #include "rtc_base/asyncinvoker.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/task_queue.h"
 #include "rtc_base/thread_checker.h"
 #include "rtc_base/timestampaligner.h"
 #include "sdk/android/src/jni/surfacetexturehelper.h"
@@ -73,6 +76,10 @@ class AndroidVideoTrackSource : public rtc::AdaptedVideoTrackSource {
   rtc::scoped_refptr<SurfaceTextureHelper> surface_texture_helper();
 
  private:
+  void OnFrame(const webrtc::VideoFrame& frame);
+  void OnDiscardedFrame();
+
+  std::unique_ptr<rtc::TaskQueue> task_queue_;
   rtc::Thread* signaling_thread_;
   rtc::AsyncInvoker invoker_;
   rtc::ThreadChecker camera_thread_checker_;

@@ -37,7 +37,7 @@ class VideoSourceBase : public VideoSourceInterface<webrtc::VideoFrame> {
   };
   SinkPair* FindSinkPair(const VideoSinkInterface<webrtc::VideoFrame>* sink);
 
-  const std::vector<SinkPair>& sink_pairs() const { return sinks_; }
+  const std::vector<SinkPair>& sink_pairs() const;
   ThreadChecker thread_checker_;
 
  private:

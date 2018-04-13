@@ -57,6 +57,10 @@ void AdaptedVideoTrackSource::OnFrame(const webrtc::VideoFrame& frame) {
   }
 }
 
+void AdaptedVideoTrackSource::OnDiscardedFrame() {
+  broadcaster_.OnDiscardedFrame();
+}
+
 void AdaptedVideoTrackSource::AddOrUpdateSink(
     rtc::VideoSinkInterface<webrtc::VideoFrame>* sink,
     const rtc::VideoSinkWants& wants) {
@@ -93,11 +97,14 @@ bool AdaptedVideoTrackSource::AdaptFrame(int width,
                                          int* crop_width,
                                          int* crop_height,
                                          int* crop_x,
-                                         int* crop_y) {
+                                         int* crop_y,
+                                         bool* drop_frame) {
   {
     rtc::CritScope lock(&stats_crit_);
     stats_ = Stats{width, height};
   }
+
+  *drop_frame = false;
 
   if (!broadcaster_.frame_wanted()) {
     return false;
@@ -106,8 +113,8 @@ bool AdaptedVideoTrackSource::AdaptFrame(int width,
   if (!video_adapter_.AdaptFrameResolution(
           width, height, time_us * rtc::kNumNanosecsPerMicrosec,
           crop_width, crop_height, out_width, out_height)) {
-    broadcaster_.OnDiscardedFrame();
     // VideoAdapter dropped the frame.
+    *drop_frame = true;
     return false;
   }
 

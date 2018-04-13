@@ -56,4 +56,10 @@ VideoSourceBase::SinkPair* VideoSourceBase::FindSinkPair(
   return nullptr;
 }
 
+const std::vector<VideoSourceBase::SinkPair>& VideoSourceBase::sink_pairs()
+    const {
+  // RTC_DCHECK(thread_checker_.CalledOnValidThread());
+  return sinks_;
+}
+
 }  // namespace rtc

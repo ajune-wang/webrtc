@@ -33,7 +33,7 @@ RTC_EXPORT
 
 @property(nonatomic, assign) BOOL enableAes128Sha1_32CryptoCipher;
 
-- (instancetype)init NS_DESIGNATED_INITIALIZER;
+- (instancetype)init;
 
 @end
 

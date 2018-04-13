@@ -23,6 +23,13 @@ void setNetworkBit(webrtc::PeerConnectionFactoryInterface::Options* options,
     options->network_ignore_mask &= ~type;
   }
 }
+
+void readNetworkBit(const webrtc::PeerConnectionFactoryInterface::Options& options,
+                    rtc::AdapterType type,
+                    BOOL* ignore) {
+  *ignore = (options.network_ignore_mask & type) ? YES : NO;
+}
+
 }  // namespace
 
 @implementation RTCPeerConnectionFactoryOptions
@@ -37,7 +44,26 @@ void setNetworkBit(webrtc::PeerConnectionFactoryInterface::Options* options,
 @synthesize enableAes128Sha1_32CryptoCipher = _enableAes128Sha1_32CryptoCipher;
 
 - (instancetype)init {
-  return [super init];
+  // Copy defaults.
+  webrtc::PeerConnectionFactoryInterface::Options options;
+  return [self initWithNativeOptions:options];
+}
+
+- (instancetype)initWithNativeOptions:
+    (const webrtc::PeerConnectionFactoryInterface::Options &)options {
+  if (self = [super init]) {
+    _disableEncryption = options.disable_encryption;
+    _disableNetworkMonitor = options.disable_network_monitor;
+
+    readNetworkBit(options, rtc::ADAPTER_TYPE_LOOPBACK, &_ignoreLoopbackNetworkAdapter);
+    readNetworkBit(options, rtc::ADAPTER_TYPE_VPN, &_ignoreVPNNetworkAdapter);
+    readNetworkBit(options, rtc::ADAPTER_TYPE_CELLULAR, &_ignoreCellularNetworkAdapter);
+    readNetworkBit(options, rtc::ADAPTER_TYPE_WIFI, &_ignoreWiFiNetworkAdapter);
+    readNetworkBit(options, rtc::ADAPTER_TYPE_ETHERNET, &_ignoreEthernetNetworkAdapter);
+
+    _enableAes128Sha1_32CryptoCipher = options.crypto_options.enable_aes128_sha1_32_crypto_cipher;
+  }
+  return self;
 }
 
 - (webrtc::PeerConnectionFactoryInterface::Options)nativeOptions {

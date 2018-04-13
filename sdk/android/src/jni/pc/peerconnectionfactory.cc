@@ -68,6 +68,22 @@ JavaToNativePeerConnectionFactoryOptions(JNIEnv* jni,
 }
 }  // namespace
 
+static void JNI_PeerConnectionFactory_InitializeDefaults(
+    JNIEnv* jni,
+    const JavaParamRef<jclass>& options) {
+  PeerConnectionFactoryInterface::Options native_options;
+
+  Java_Options_setNetworkIgnoreMask(jni, options,
+                                    native_options.network_ignore_mask);
+  Java_Options_setDisableEncryption(jni, options,
+                                    native_options.disable_encryption);
+  Java_Options_setDisableNetworkMonitor(jni, options,
+                                        native_options.disable_network_monitor);
+  Java_Options_setEnableAes128Sha1_32CryptoCipher(
+      jni, options,
+      native_options.crypto_options.enable_aes128_sha1_32_crypto_cipher);
+}
+
 // Note: Some of the video-specific PeerConnectionFactory methods are
 // implemented in "video.cc". This is done so that if an application
 // doesn't need video support, it can just link with "null_video.cc"

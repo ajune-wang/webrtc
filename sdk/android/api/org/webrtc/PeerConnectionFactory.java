@@ -111,9 +111,19 @@ public class PeerConnectionFactory {
     public boolean disableNetworkMonitor;
     public boolean enableAes128Sha1_32CryptoCipher;
 
+    public Options() {
+      // Initialize based on default values of equivalent C++ struct.
+      nativeInitializeDefaults();
+    }
+
     @CalledByNative("Options")
     int getNetworkIgnoreMask() {
       return networkIgnoreMask;
+    }
+
+    @CalledByNative("Options")
+    void setNetworkIgnoreMask(int value) {
+      networkIgnoreMask = value;
     }
 
     @CalledByNative("Options")
@@ -122,14 +132,31 @@ public class PeerConnectionFactory {
     }
 
     @CalledByNative("Options")
+    void setDisableEncryption(boolean value) {
+      disableEncryption = value;
+    }
+
+    @CalledByNative("Options")
     boolean getDisableNetworkMonitor() {
       return disableNetworkMonitor;
+    }
+
+    @CalledByNative("Options")
+    void setDisableNetworkMonitor(boolean value) {
+      disableNetworkMonitor = value;
     }
 
     @CalledByNative("Options")
     boolean getEnableAes128Sha1_32CryptoCipher() {
       return enableAes128Sha1_32CryptoCipher;
     }
+
+    @CalledByNative("Options")
+    void setEnableAes128Sha1_32CryptoCipher(boolean value) {
+      enableAes128Sha1_32CryptoCipher = value;
+    }
+
+    private static native void nativeInitializeDefaults();
   }
 
   public static class Builder {

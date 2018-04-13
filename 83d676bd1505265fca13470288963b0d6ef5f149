@@ -16,6 +16,24 @@
       "revId": "83d676bd1505265fca13470288963b0d6ef5f149",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "312c5713_1f16b176",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1903,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-04-13T09:10:41Z",
+      "side": 0,
+      "message": "I added fields in the protobuf instead. This way, the gain controller setting is preserved when audioproc_f replays an AecDump.",
+      "parentUuid": "8a7b1c47_3451b807",
+      "revId": "83d676bd1505265fca13470288963b0d6ef5f149",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b065afc3_40d6630e",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1943,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-04-13T09:10:41Z",
+      "side": 1,
+      "message": "They are not related. I thought it was wrong that the pre-amplifier had a protobuf setting, and GainController2 did not.",
+      "parentUuid": "ab668227_7bd14d60",
+      "range": {
+        "startLine": 1943,
+        "startChar": 13,
+        "endLine": 1943,
+        "endChar": 37
+      },
+      "revId": "7255b6e97b37a3fb54ee79662b7ee43c1a30c40e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dc2a8190_18a2f1fd",
         "filename": "modules/audio_processing/include/audio_processing.h",
         "patchSetId": 4
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "510cb6c2_02a42420",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-04-13T09:10:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dc2a8190_18a2f1fd",
+      "range": {
+        "startLine": 273,
+        "startChar": 25,
+        "endLine": 273,
+        "endChar": 31
+      },
+      "revId": "7255b6e97b37a3fb54ee79662b7ee43c1a30c40e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8ad4d0a9_a3fb908e",
         "filename": "modules/audio_processing/include/audio_processing.h",
         "patchSetId": 4
@@ -59,6 +107,30 @@
       "writtenOn": "2018-04-12T14:21:53Z",
       "side": 1,
       "message": "Why is the default gain not 1.f?",
+      "range": {
+        "startLine": 276,
+        "startChar": 32,
+        "endLine": 276,
+        "endChar": 33
+      },
+      "revId": "7255b6e97b37a3fb54ee79662b7ee43c1a30c40e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df82adc6_2803785d",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-04-13T09:10:41Z",
+      "side": 1,
+      "message": "Here is my reasoning: by default PreAmplifier is disabled. A user makes an active choice enabling it. Then they probably don\u0027t want a gain of 1.f. I wanted something to change when \u0027enabled\u0027 is flipped.\n\nI\u0027m less convinced now. Maybe we should change it to 10.f, because that\u0027s certainly wrong, and obviously \u0027does something\u0027?",
+      "parentUuid": "8ad4d0a9_a3fb908e",
       "range": {
         "startLine": 276,
         "startChar": 32,

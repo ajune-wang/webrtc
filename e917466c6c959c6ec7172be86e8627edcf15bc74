@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "560b9dd4_172fef5d",
+        "filename": "test/encoder_proxy_factory.h",
+        "patchSetId": 38
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-04-13T12:21:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc188f3c_f10adf34",
+      "range": {
+        "startLine": 27,
+        "startChar": 25,
+        "endLine": 27,
+        "endChar": 26
+      },
+      "revId": "e917466c6c959c6ec7172be86e8627edcf15bc74",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "47aceb14_228fa17e",
         "filename": "test/encoder_proxy_factory.h",
         "patchSetId": 38
@@ -45,6 +69,30 @@
       "revId": "e917466c6c959c6ec7172be86e8627edcf15bc74",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d542a92_0e0a2de5",
+        "filename": "test/encoder_proxy_factory.h",
+        "patchSetId": 38
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-04-13T12:21:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "47aceb14_228fa17e",
+      "range": {
+        "startLine": 56,
+        "startChar": 20,
+        "endLine": 56,
+        "endChar": 21
+      },
+      "revId": "e917466c6c959c6ec7172be86e8627edcf15bc74",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "e8568174_c885da46",
+        "filename": "test/function_video_encoder_factory.h",
+        "patchSetId": 38
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-04-13T12:21:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3133071d_4c6d256a",
+      "range": {
+        "startLine": 25,
+        "startChar": 33,
+        "endLine": 25,
+        "endChar": 34
+      },
+      "revId": "e917466c6c959c6ec7172be86e8627edcf15bc74",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "524722fd_4f690d6b",
         "filename": "test/function_video_encoder_factory.h",
         "patchSetId": 38
@@ -91,6 +163,30 @@
       "revId": "e917466c6c959c6ec7172be86e8627edcf15bc74",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d13b8e11_a5224f29",
+        "filename": "test/function_video_encoder_factory.h",
+        "patchSetId": 38
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-04-13T12:21:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "524722fd_4f690d6b",
+      "range": {
+        "startLine": 29,
+        "startChar": 14,
+        "endLine": 29,
+        "endChar": 20
+      },
+      "revId": "e917466c6c959c6ec7172be86e8627edcf15bc74",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -134,6 +230,24 @@
     },
     {
       "key": {
+        "uuid": "12a57a35_eff23e45",
+        "filename": "test/function_video_encoder_factory.h",
+        "patchSetId": 38
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-04-13T12:21:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9e103209_17c85ad7",
+      "revId": "e917466c6c959c6ec7172be86e8627edcf15bc74",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ac5b0209_d6a717cf",
         "filename": "test/function_video_encoder_factory.h",
         "patchSetId": 38
@@ -145,6 +259,24 @@
       "writtenOn": "2018-04-13T08:58:27Z",
       "side": 1,
       "message": "And this one too? It\u0027ll be a bit harder to initialize that way, but something like\n\n  []{\n    CodecInfo ci;\n    codec_info_.is_hardware_accelerated \u003d false;\n    codec_info_.has_internal_source \u003d false;\n    return ci;\n  }()\n\nought to do it.\n\nThis is the part where we sigh longingly and look forward to C++20: http://en.cppreference.com/w/cpp/language/aggregate_initialization",
+      "revId": "e917466c6c959c6ec7172be86e8627edcf15bc74",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a28c06b_4d759550",
+        "filename": "test/function_video_encoder_factory.h",
+        "patchSetId": 38
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-04-13T12:21:42Z",
+      "side": 1,
+      "message": "To me, two lines in the constructor body seems to be less hassle.\n\nI\u0027m adding the missing private:, then it should be fairly clear that the only assignment is in the constructor.",
+      "parentUuid": "ac5b0209_d6a717cf",
       "revId": "e917466c6c959c6ec7172be86e8627edcf15bc74",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

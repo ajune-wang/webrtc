@@ -1135,8 +1135,13 @@ void Connection::set_write_state(WriteState value) {
 }
 
 void Connection::UpdateReceiving(int64_t now) {
-  bool receiving =
-      last_received() > 0 && now <= last_received() + receiving_timeout();
+  bool receiving;
+  if (last_ping_sent() < last_ping_response_received()) {
+    receiving = true;
+  } else {
+    receiving =
+        last_received() > 0 && now <= last_received() + receiving_timeout();
+  }
   if (receiving_ == receiving) {
     return;
   }

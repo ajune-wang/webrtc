@@ -1,0 +1,130 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "42aa4e4b_a3657e72",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-04-13T16:48:06Z",
+      "side": 1,
+      "message": "may be rename to something more descriptive (what does rr mean?)\ne.g.\nuint32_t sent_remote_mid_ntp_time;\nuint32_t received_local_mid_ntp_time;",
+      "range": {
+        "startLine": 103,
+        "startChar": 11,
+        "endLine": 103,
+        "endChar": 18
+      },
+      "revId": "4b8afcb3790212d29d9ecf56a8efec7ebbddc21a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6466ea6b_177d3ddd",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 735,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-04-13T16:48:06Z",
+      "side": 1,
+      "message": "is there a test that covers this line?",
+      "range": {
+        "startLine": 735,
+        "startChar": 76,
+        "endLine": 735,
+        "endChar": 0
+      },
+      "revId": "4b8afcb3790212d29d9ecf56a8efec7ebbddc21a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c9521a3_8b5485dd",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 913,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-04-13T16:48:06Z",
+      "side": 1,
+      "message": "https://testing.googleblog.com/2014/10/testing-on-toilet-writing-descriptive.html\nMay be something like\nReceivedRrtrFromSameSsrcUpdatesLastReceiveTime",
+      "range": {
+        "startLine": 913,
+        "startChar": 25,
+        "endLine": 913,
+        "endChar": 66
+      },
+      "revId": "4b8afcb3790212d29d9ecf56a8efec7ebbddc21a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2794636e_5664feb3",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 935,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-04-13T16:48:06Z",
+      "side": 1,
+      "message": "and this one something like\nStoresLastReceivedRrtrPerSsrc",
+      "range": {
+        "startLine": 935,
+        "startChar": 25,
+        "endLine": 935,
+        "endChar": 73
+      },
+      "revId": "4b8afcb3790212d29d9ecf56a8efec7ebbddc21a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4cb1631_896fbb48",
+        "filename": "modules/rtp_rtcp/source/rtcp_sender.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 651,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-04-13T16:48:06Z",
+      "side": 1,
+      "message": "may be \nbool added \u003d xr-\u003eAddDlrrItem(rti);\nRTC_DCHECK(added);\n\n[but do not try to collapse into RTC_DCHECK(xr-\u003eAddDllrItem(rti)); ]",
+      "revId": "4b8afcb3790212d29d9ecf56a8efec7ebbddc21a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c00abdfa_a890d371",
+        "filename": "modules/rtp_rtcp/source/rtcp_sender.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-04-13T16:48:06Z",
+      "side": 1,
+      "message": "add also a default move constructor: this struct is returned and vector is faster to move than to copy.",
+      "revId": "4b8afcb3790212d29d9ecf56a8efec7ebbddc21a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -34,6 +34,24 @@
       "revId": "83d676bd1505265fca13470288963b0d6ef5f149",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d39319f9_538fad21",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1903,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-13T13:36:38Z",
+      "side": 0,
+      "message": "Is that really needed? The gain controller is not a standard component yet. Since the protobuf values are sticky, I think it is better to add as little as possible.",
+      "parentUuid": "312c5713_1f16b176",
+      "revId": "83d676bd1505265fca13470288963b0d6ef5f149",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

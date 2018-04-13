@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "bb71667f_34866163",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1943,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-13T13:36:38Z",
+      "side": 1,
+      "message": "I think it is quite different. We should add as little as possible to the protobuf. The pre-amplifier gain is definitely needed but I\u0027m not at all convinced that AGC2 state is needed.",
+      "parentUuid": "b065afc3_40d6630e",
+      "range": {
+        "startLine": 1943,
+        "startChar": 13,
+        "endLine": 1943,
+        "endChar": 37
+      },
+      "revId": "7255b6e97b37a3fb54ee79662b7ee43c1a30c40e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dc2a8190_18a2f1fd",
         "filename": "modules/audio_processing/include/audio_processing.h",
         "patchSetId": 4

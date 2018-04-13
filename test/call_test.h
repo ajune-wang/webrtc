@@ -23,7 +23,6 @@
 #include "test/fake_videorenderer.h"
 #include "test/frame_generator_capturer.h"
 #include "test/rtp_rtcp_observer.h"
-#include "test/single_threaded_task_queue.h"
 
 namespace webrtc {
 namespace test {
@@ -147,7 +146,7 @@ class CallTest : public ::testing::Test {
   rtc::scoped_refptr<AudioEncoderFactory> audio_encoder_factory_;
   test::FakeVideoRenderer fake_renderer_;
 
-  SingleThreadedTaskQueueForTesting task_queue_;
+  rtc::test::TaskQueueForTest task_queue_;
 
  private:
   rtc::scoped_refptr<AudioProcessing> apm_send_;
@@ -182,10 +181,10 @@ class BaseTest : public RtpRtcpObserver {
   virtual void OnCallsCreated(Call* sender_call, Call* receiver_call);
 
   virtual test::PacketTransport* CreateSendTransport(
-      SingleThreadedTaskQueueForTesting* task_queue,
+      rtc::test::TaskQueueForTest* task_queue,
       Call* sender_call);
   virtual test::PacketTransport* CreateReceiveTransport(
-      SingleThreadedTaskQueueForTesting* task_queue);
+      rtc::test::TaskQueueForTest* task_queue);
 
   virtual void ModifyVideoConfigs(
       VideoSendStream::Config* send_config,

@@ -31,6 +31,7 @@
 #include "modules/rtp_rtcp/include/rtp_rtcp.h"
 #include "rtc_base/criticalsection.h"
 #include "rtc_base/event.h"
+#include "rtc_base/sequenced_task_checker.h"
 #include "rtc_base/task_queue.h"
 #include "rtc_base/thread_checker.h"
 
@@ -400,7 +401,7 @@ class Channel
   std::unique_ptr<RtpPacketSenderProxy> rtp_packet_sender_proxy_;
   std::unique_ptr<RateLimiter> retransmission_rate_limiter_;
 
-  rtc::ThreadChecker construction_thread_;
+  rtc::SequencedTaskChecker construction_sequence_;
 
   const bool use_twcc_plr_for_ana_;
 

@@ -320,6 +320,7 @@ if (rtc_include_tests) {
   }
 
   rtc_test("test_support_unittests") {
+    testonly = true
     deps = [
       ":fileutils",
       ":floating_point_except_observer",
@@ -333,7 +334,7 @@ if (rtc_include_tests) {
       "../api:video_frame_api_i420",
       "../modules/rtp_rtcp:rtp_rtcp",
       "../rtc_base:rtc_base_approved",
-      "../test:single_threaded_task_queue",
+      "../rtc_base:rtc_task_queue_for_test",
       "//testing/gtest",
     ]
     sources = [
@@ -341,7 +342,6 @@ if (rtc_include_tests) {
       "frame_generator_unittest.cc",
       "rtp_file_reader_unittest.cc",
       "rtp_file_writer_unittest.cc",
-      "single_threaded_task_queue_unittest.cc",
       "testsupport/always_passing_unittest.cc",
       "testsupport/perf_test_unittest.cc",
       "testsupport/test_artifacts_unittest.cc",
@@ -490,24 +490,12 @@ rtc_source_set("direct_transport") {
     "../call:call_interfaces",
     "../modules/rtp_rtcp",
     "../rtc_base:rtc_base_approved",
+    "../rtc_base:rtc_task_queue_api",
     "../rtc_base:sequenced_task_checker",
     "../system_wrappers",
   ]
   public_deps = [
-    ":single_threaded_task_queue",
     "../call:fake_network",
-  ]
-}
-
-rtc_source_set("single_threaded_task_queue") {
-  testonly = true
-  sources = [
-    "single_threaded_task_queue.cc",
-    "single_threaded_task_queue.h",
-  ]
-  deps = [
-    "../rtc_base:checks",
-    "../rtc_base:rtc_base_approved",
   ]
 }
 
@@ -594,6 +582,7 @@ rtc_source_set("test_common") {
     "../rtc_base:checks",
     "../rtc_base:rtc_base_approved",
     "../rtc_base:rtc_task_queue",
+    "../rtc_base:rtc_task_queue_for_test",
     "../rtc_base:sequenced_task_checker",
     "../system_wrappers",
     "../system_wrappers:field_trial_api",

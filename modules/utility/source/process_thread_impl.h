@@ -19,7 +19,7 @@
 #include "rtc_base/criticalsection.h"
 #include "rtc_base/location.h"
 #include "rtc_base/platform_thread.h"
-#include "rtc_base/thread_checker.h"
+#include "rtc_base/sequenced_task_checker.h"
 #include "system_wrappers/include/event_wrapper.h"
 #include "typedefs.h"  // NOLINT(build/include)
 
@@ -72,7 +72,7 @@ class ProcessThreadImpl : public ProcessThread {
   // So be careful with changing the layout.
   rtc::CriticalSection lock_;  // Used to guard modules_, tasks_ and stop_.
 
-  rtc::ThreadChecker thread_checker_;
+  rtc::SequencedTaskChecker sequence_checker_;
   const std::unique_ptr<EventWrapper> wake_up_;
   // TODO(pbos): Remove unique_ptr and stop recreating the thread.
   std::unique_ptr<rtc::PlatformThread> thread_;

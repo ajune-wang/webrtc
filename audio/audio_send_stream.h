@@ -22,6 +22,7 @@
 #include "modules/rtp_rtcp/include/rtp_rtcp.h"
 #include "rtc_base/constructormagic.h"
 #include "rtc_base/race_checker.h"
+#include "rtc_base/sequenced_task_checker.h"
 #include "rtc_base/thread_checker.h"
 
 namespace webrtc {
@@ -125,7 +126,7 @@ class AudioSendStream final : public webrtc::AudioSendStream,
 
   void RegisterCngPayloadType(int payload_type, int clockrate_hz);
 
-  rtc::ThreadChecker worker_thread_checker_;
+  rtc::SequencedTaskChecker worker_thread_checker_;
   rtc::ThreadChecker pacer_thread_checker_;
   rtc::RaceChecker audio_capture_race_checker_;
   rtc::TaskQueue* worker_queue_;

@@ -21,7 +21,7 @@
 #include "call/rtp_packet_sink_interface.h"
 #include "call/syncable.h"
 #include "rtc_base/constructormagic.h"
-#include "rtc_base/thread_checker.h"
+#include "rtc_base/sequenced_task_checker.h"
 
 namespace webrtc {
 class PacketRouter;
@@ -97,8 +97,8 @@ class AudioReceiveStream final : public webrtc::AudioReceiveStream,
 
   AudioState* audio_state() const;
 
-  rtc::ThreadChecker worker_thread_checker_;
-  rtc::ThreadChecker module_process_thread_checker_;
+  rtc::SequencedTaskChecker worker_thread_checker_;
+  rtc::SequencedTaskChecker module_process_thread_checker_;
   webrtc::AudioReceiveStream::Config config_;
   rtc::scoped_refptr<webrtc::AudioState> audio_state_;
   std::unique_ptr<voe::ChannelProxy> channel_proxy_;

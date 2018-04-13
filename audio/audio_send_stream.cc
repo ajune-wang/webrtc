@@ -153,7 +153,7 @@ AudioSendStream::AudioSendStream(
 }
 
 AudioSendStream::~AudioSendStream() {
-  RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
+  RTC_DCHECK(worker_thread_checker_.CalledSequentially());
   RTC_LOG(LS_INFO) << "~AudioSendStream: " << config_.rtp.ssrc;
   RTC_DCHECK(!sending_);
   transport_->DeRegisterPacketFeedbackObserver(this);
@@ -167,13 +167,13 @@ AudioSendStream::~AudioSendStream() {
 }
 
 const webrtc::AudioSendStream::Config& AudioSendStream::GetConfig() const {
-  RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
+  RTC_DCHECK(worker_thread_checker_.CalledSequentially());
   return config_;
 }
 
 void AudioSendStream::Reconfigure(
     const webrtc::AudioSendStream::Config& new_config) {
-  RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
+  RTC_DCHECK(worker_thread_checker_.CalledSequentially());
   ConfigureStream(this, new_config, false);
 }
 
@@ -281,7 +281,7 @@ void AudioSendStream::ConfigureStream(
 }
 
 void AudioSendStream::Start() {
-  RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
+  RTC_DCHECK(worker_thread_checker_.CalledSequentially());
   if (sending_) {
     return;
   }
@@ -304,7 +304,7 @@ void AudioSendStream::Start() {
 }
 
 void AudioSendStream::Stop() {
-  RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
+  RTC_DCHECK(worker_thread_checker_.CalledSequentially());
   if (!sending_) {
     return;
   }
@@ -323,14 +323,14 @@ void AudioSendStream::SendAudioData(std::unique_ptr<AudioFrame> audio_frame) {
 bool AudioSendStream::SendTelephoneEvent(int payload_type,
                                          int payload_frequency, int event,
                                          int duration_ms) {
-  RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
+  RTC_DCHECK(worker_thread_checker_.CalledSequentially());
   return channel_proxy_->SetSendTelephoneEventPayloadType(payload_type,
                                                           payload_frequency) &&
          channel_proxy_->SendTelephoneEventOutband(event, duration_ms);
 }
 
 void AudioSendStream::SetMuted(bool muted) {
-  RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
+  RTC_DCHECK(worker_thread_checker_.CalledSequentially());
   channel_proxy_->SetInputMute(muted);
 }
 
@@ -340,7 +340,7 @@ webrtc::AudioSendStream::Stats AudioSendStream::GetStats() const {
 
 webrtc::AudioSendStream::Stats AudioSendStream::GetStats(
     bool has_remote_tracks) const {
-  RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
+  RTC_DCHECK(worker_thread_checker_.CalledSequentially());
   webrtc::AudioSendStream::Stats stats;
   stats.local_ssrc = config_.rtp.ssrc;
 
@@ -389,14 +389,14 @@ webrtc::AudioSendStream::Stats AudioSendStream::GetStats(
 }
 
 void AudioSendStream::SignalNetworkState(NetworkState state) {
-  RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
+  RTC_DCHECK(worker_thread_checker_.CalledSequentially());
 }
 
 bool AudioSendStream::DeliverRtcp(const uint8_t* packet, size_t length) {
   // TODO(solenberg): Tests call this function on a network thread, libjingle
   // calls on the worker thread. We should move towards always using a network
   // thread. Then this check can be enabled.
-  // RTC_DCHECK(!worker_thread_checker_.CalledOnValidThread());
+  // RTC_DCHECK(!worker_thread_checker_.CalledSequentially());
   return channel_proxy_->ReceivedRTCPPacket(packet, length);
 }
 
@@ -439,7 +439,7 @@ void AudioSendStream::OnPacketAdded(uint32_t ssrc, uint16_t seq_num) {
 
 void AudioSendStream::OnPacketFeedbackVector(
     const std::vector<PacketFeedback>& packet_feedback_vector) {
-  RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
+  RTC_DCHECK(worker_thread_checker_.CalledSequentially());
   rtc::Optional<float> plr;
   rtc::Optional<float> rplr;
   {
@@ -460,7 +460,7 @@ void AudioSendStream::OnPacketFeedbackVector(
 }
 
 void AudioSendStream::SetTransportOverhead(int transport_overhead_per_packet) {
-  RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
+  RTC_DCHECK(worker_thread_checker_.CalledSequentially());
   channel_proxy_->SetTransportOverhead(transport_overhead_per_packet);
 }
 
@@ -489,7 +489,7 @@ const internal::AudioState* AudioSendStream::audio_state() const {
 
 void AudioSendStream::StoreEncoderProperties(int sample_rate_hz,
                                              size_t num_channels) {
-  RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
+  RTC_DCHECK(worker_thread_checker_.CalledSequentially());
   encoder_sample_rate_hz_ = sample_rate_hz;
   encoder_num_channels_ = num_channels;
   if (sending_) {
@@ -698,7 +698,7 @@ void AudioSendStream::ConfigureBitrateObserver(int min_bitrate_bps,
                                                int max_bitrate_bps,
                                                double bitrate_priority,
                                                bool has_packet_feedback) {
-  RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
+  RTC_DCHECK(worker_thread_checker_.CalledSequentially());
   RTC_DCHECK_GE(max_bitrate_bps, min_bitrate_bps);
   rtc::Event thread_sync_event(false /* manual_reset */, false);
   worker_queue_->PostTask([&] {
@@ -717,7 +717,7 @@ void AudioSendStream::ConfigureBitrateObserver(int min_bitrate_bps,
 }
 
 void AudioSendStream::RemoveBitrateObserver() {
-  RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
+  RTC_DCHECK(worker_thread_checker_.CalledSequentially());
   rtc::Event thread_sync_event(false /* manual_reset */, false);
   worker_queue_->PostTask([this, &thread_sync_event] {
     bitrate_allocator_->RemoveObserver(this);

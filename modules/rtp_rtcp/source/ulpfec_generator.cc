@@ -159,9 +159,10 @@ int UlpfecGenerator::AddRtpPacketAndGenerateFec(const uint8_t* data_buffer,
   // (1) the excess overhead (actual overhead - requested/target overhead) is
   // less than |kMaxExcessOverhead|, and
   // (2) at least |min_num_media_packets_| media packets is reached.
-  if (complete_frame &&
-      (num_protected_frames_ == params_.max_fec_frames ||
-       (ExcessOverheadBelowMax() && MinimumMediaPacketsReached()))) {
+  if (media_packets_.size() >= kUlpfecMaxMediaPackets ||
+      (complete_frame &&
+       (num_protected_frames_ == params_.max_fec_frames ||
+        (ExcessOverheadBelowMax() && MinimumMediaPacketsReached())))) {
     // We are not using Unequal Protection feature of the parity erasure code.
     constexpr int kNumImportantPackets = 0;
     constexpr bool kUseUnequalProtection = false;

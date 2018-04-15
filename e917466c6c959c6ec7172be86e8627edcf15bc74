@@ -213,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "9b682032_50c27cf3",
+        "filename": "test/function_video_encoder_factory.h",
+        "patchSetId": 38
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-04-15T23:43:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2250bb34_c097f3a2",
+      "range": {
+        "startLine": 40,
+        "startChar": 52,
+        "endLine": 40,
+        "endChar": 58
+      },
+      "revId": "e917466c6c959c6ec7172be86e8627edcf15bc74",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9e103209_17c85ad7",
         "filename": "test/function_video_encoder_factory.h",
         "patchSetId": 38
@@ -280,6 +304,24 @@
       "revId": "e917466c6c959c6ec7172be86e8627edcf15bc74",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f04574d3_c8573479",
+        "filename": "test/function_video_encoder_factory.h",
+        "patchSetId": 38
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-04-15T23:43:44Z",
+      "side": 1,
+      "message": "Oh, it\u0027s certainly less hassle, at least short term. I was more concerned with readability; tagging variables with `const` is *really* helpful for readers---enough to pay for a fair amount of surface warts (so long as they really are just on the surface, but that\u0027s the case here).\n\nThat said, this is not a large or complicated class, so I\u0027m fine with your choice. Especially since the variables are now private---I really should have caught that one...",
+      "parentUuid": "8a28c06b_4d759550",
+      "revId": "e917466c6c959c6ec7172be86e8627edcf15bc74",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

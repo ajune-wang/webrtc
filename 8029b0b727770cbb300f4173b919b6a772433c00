@@ -22,6 +22,30 @@
       "revId": "8029b0b727770cbb300f4173b919b6a772433c00",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab3c6f6d_f972c4d8",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1142,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-16T23:48:09Z",
+      "side": 1,
+      "message": "This rule is to recognize candidate pairs with the latest ping acknowledged as receiving, particularly the backup candidate pairs. Otherwise, when the selected candidate pair is not receiving, the transport would likely also find the backup candidate pair is not receiving either and does not perform a switching. I have added a comment block to the source.",
+      "parentUuid": "8877b608_e05f6b34",
+      "range": {
+        "startLine": 1142,
+        "startChar": 4,
+        "endLine": 1142,
+        "endChar": 13
+      },
+      "revId": "8029b0b727770cbb300f4173b919b6a772433c00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e4335021_87992ee4",
+        "filename": "modules/audio_processing/include/aec_dump.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-16T11:14:08Z",
+      "side": 1,
+      "message": "Is the default value for this important? i.e., will it ever be used?\n\nIf it can be used at some point, we should use a valid value such as 1.f instead as the default value.",
+      "range": {
+        "startLine": 54,
+        "startChar": 43,
+        "endLine": 54,
+        "endChar": 44
+      },
+      "revId": "70bc3ec98592b941302439a116f4e8be358f9148",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec9362d0_419532f4",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-16T11:14:08Z",
+      "side": 1,
+      "message": "The default value for the fixed_gain_factor should be 1.",
+      "range": {
+        "startLine": 277,
+        "startChar": 31,
+        "endLine": 277,
+        "endChar": 32
+      },
+      "revId": "70bc3ec98592b941302439a116f4e8be358f9148",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f540fa50_25d52b3b",
+        "filename": "modules/audio_processing/test/audioproc_float_impl.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-16T11:14:08Z",
+      "side": 1,
+      "message": "The default value should be 1.f",
+      "revId": "70bc3ec98592b941302439a116f4e8be358f9148",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

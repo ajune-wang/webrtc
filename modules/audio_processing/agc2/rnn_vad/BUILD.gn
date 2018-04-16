@@ -17,6 +17,7 @@ group("rnn_vad") {
 rtc_static_library("lib") {
   sources = [
     "common.h",
+    "ring_buffer.h",
     "sequence_buffer.h",
     "to_be_removed.cc",  # Temporarily needed to avoid trybot failures.
     "to_be_removed.h",
@@ -31,6 +32,7 @@ if (rtc_include_tests) {
   rtc_source_set("unittests") {
     testonly = true
     sources = [
+      "ring_buffer_unittest.cc",
       "sequence_buffer_unittest.cc",
     ]
     deps = [

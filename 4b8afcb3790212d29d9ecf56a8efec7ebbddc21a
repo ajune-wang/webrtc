@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "82139826_4b0cbbe1",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 6977
+      },
+      "writtenOn": "2018-04-16T08:21:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "42aa4e4b_a3657e72",
+      "range": {
+        "startLine": 103,
+        "startChar": 11,
+        "endLine": 103,
+        "endChar": 18
+      },
+      "revId": "4b8afcb3790212d29d9ecf56a8efec7ebbddc21a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6466ea6b_177d3ddd",
         "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
         "patchSetId": 10
@@ -45,6 +69,30 @@
       "revId": "4b8afcb3790212d29d9ecf56a8efec7ebbddc21a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1f1b6ea_36f5b66c",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 735,
+      "author": {
+        "id": 6977
+      },
+      "writtenOn": "2018-04-16T08:21:48Z",
+      "side": 1,
+      "message": "Yes, ConsumeReceivedXrReferenceTimeInfoUpdated, or now ReceivedRrtrFromSameSsrcUpdatesReceivedRemoteTime.",
+      "parentUuid": "6466ea6b_177d3ddd",
+      "range": {
+        "startLine": 735,
+        "startChar": 76,
+        "endLine": 735,
+        "endChar": 0
+      },
+      "revId": "4b8afcb3790212d29d9ecf56a8efec7ebbddc21a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "3f8ac8de_ce3f48ca",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 913,
+      "author": {
+        "id": 6977
+      },
+      "writtenOn": "2018-04-16T08:21:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8c9521a3_8b5485dd",
+      "range": {
+        "startLine": 913,
+        "startChar": 25,
+        "endLine": 913,
+        "endChar": 66
+      },
+      "revId": "4b8afcb3790212d29d9ecf56a8efec7ebbddc21a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2794636e_5664feb3",
         "filename": "modules/rtp_rtcp/source/rtcp_receiver_unittest.cc",
         "patchSetId": 10
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "d07424e3_5676f888",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 935,
+      "author": {
+        "id": 6977
+      },
+      "writtenOn": "2018-04-16T08:21:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2794636e_5664feb3",
+      "range": {
+        "startLine": 935,
+        "startChar": 25,
+        "endLine": 935,
+        "endChar": 73
+      },
+      "revId": "4b8afcb3790212d29d9ecf56a8efec7ebbddc21a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b4cb1631_896fbb48",
         "filename": "modules/rtp_rtcp/source/rtcp_sender.cc",
         "patchSetId": 10
@@ -105,6 +201,24 @@
       "writtenOn": "2018-04-13T16:48:06Z",
       "side": 1,
       "message": "may be \nbool added \u003d xr-\u003eAddDlrrItem(rti);\nRTC_DCHECK(added);\n\n[but do not try to collapse into RTC_DCHECK(xr-\u003eAddDllrItem(rti)); ]",
+      "revId": "4b8afcb3790212d29d9ecf56a8efec7ebbddc21a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8d9660ad_e623d84e",
+        "filename": "modules/rtp_rtcp/source/rtcp_sender.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 651,
+      "author": {
+        "id": 6977
+      },
+      "writtenOn": "2018-04-16T08:21:48Z",
+      "side": 1,
+      "message": "Not sure if it is worth checking and aborting? It is not done for receiver/sender reports either.",
+      "parentUuid": "b4cb1631_896fbb48",
       "revId": "4b8afcb3790212d29d9ecf56a8efec7ebbddc21a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
@@ -125,6 +239,24 @@
       "revId": "4b8afcb3790212d29d9ecf56a8efec7ebbddc21a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc1b53ed_bede04af",
+        "filename": "modules/rtp_rtcp/source/rtcp_sender.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 6977
+      },
+      "writtenOn": "2018-04-16T08:21:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c00abdfa_a890d371",
+      "revId": "4b8afcb3790212d29d9ecf56a8efec7ebbddc21a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

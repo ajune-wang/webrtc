@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8877b608_e05f6b34",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1142,
+      "author": {
+        "id": 6252
+      },
+      "writtenOn": "2018-04-16T23:12:40Z",
+      "side": 1,
+      "message": "You could just write it as receiving \u003d (last_ping...) || (last_received....).\nMaybe add some comments to explain it?",
+      "range": {
+        "startLine": 1142,
+        "startChar": 4,
+        "endLine": 1142,
+        "endChar": 13
+      },
+      "revId": "8029b0b727770cbb300f4173b919b6a772433c00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

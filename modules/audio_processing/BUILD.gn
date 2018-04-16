@@ -29,6 +29,8 @@ config("apm_debug_dump") {
 
 rtc_static_library("audio_processing") {
   visibility = [ "*" ]
+
+  #assert_no_deps = poison_audio_codecs  # TODO(bugs.webrtc.org/8396): Re-enable
   configs += [ ":apm_debug_dump" ]
   sources = [
     "aec/aec_resampler.cc",

@@ -588,3 +588,46 @@ if (is_android) {
     }
   }
 }
+
+###############################################################################
+# "Poisonous" targets
+#
+# Don't misspell targets in these lists---there'll be no error
+# message. The poisoning will just silently have no effect.
+
+poison_audio_codecs = [
+  webrtc_root + "api/audio_codecs/L16:audio_decoder_L16",
+  webrtc_root + "api/audio_codecs/L16:audio_encoder_L16",
+  webrtc_root + "api/audio_codecs/g711:audio_decoder_g711",
+  webrtc_root + "api/audio_codecs/g711:audio_encoder_g711",
+  webrtc_root + "api/audio_codecs/g722:audio_decoder_g722",
+  webrtc_root + "api/audio_codecs/g722:audio_encoder_g722",
+  webrtc_root + "api/audio_codecs/ilbc:audio_decoder_ilbc",
+  webrtc_root + "api/audio_codecs/ilbc:audio_encoder_ilbc",
+  webrtc_root + "api/audio_codecs/isac:audio_decoder_isac",
+  webrtc_root + "api/audio_codecs/isac:audio_decoder_isac_fix",
+  webrtc_root + "api/audio_codecs/isac:audio_decoder_isac_float",
+  webrtc_root + "api/audio_codecs/isac:audio_encoder_isac",
+  webrtc_root + "api/audio_codecs/isac:audio_encoder_isac_fix",
+  webrtc_root + "api/audio_codecs/isac:audio_encoder_isac_float",
+  webrtc_root + "api/audio_codecs/opus:audio_decoder_opus",
+  webrtc_root + "api/audio_codecs/opus:audio_encoder_opus",
+  webrtc_root + "modules/audio_coding:g711",
+  webrtc_root + "modules/audio_coding:g711_c",
+  webrtc_root + "modules/audio_coding:g722",
+  webrtc_root + "modules/audio_coding:g722_c",
+  webrtc_root + "modules/audio_coding:ilbc",
+  webrtc_root + "modules/audio_coding:ilbc_c",
+  webrtc_root + "modules/audio_coding:isac",
+  webrtc_root + "modules/audio_coding:isac_c",
+  webrtc_root + "modules/audio_coding:isac_common",
+  webrtc_root + "modules/audio_coding:isac_fix",
+  webrtc_root + "modules/audio_coding:isac_fix_c",
+  webrtc_root + "modules/audio_coding:isac_fix_c_arm_asm",
+  webrtc_root + "modules/audio_coding:isac_fix_common",
+  webrtc_root + "modules/audio_coding:isac_neon",
+  webrtc_root + "modules/audio_coding:pcm16b",
+  webrtc_root + "modules/audio_coding:pcm16b_c",
+  webrtc_root + "modules/audio_coding:webrtc_opus",
+  webrtc_root + "modules/audio_coding:webrtc_opus_c",
+]

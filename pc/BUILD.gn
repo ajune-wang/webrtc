@@ -27,6 +27,8 @@ config("rtc_pc_config") {
 
 rtc_static_library("rtc_pc_base") {
   visibility = [ "*" ]
+
+  #assert_no_deps = poison_audio_codecs  # TODO(bugs.webrtc.org/8396): Re-enable
   defines = []
   sources = [
     "audiomonitor.h",
@@ -102,6 +104,8 @@ rtc_static_library("rtc_pc_base") {
 
 rtc_source_set("rtc_pc") {
   visibility = [ "*" ]
+
+  #assert_no_deps = poison_audio_codecs  # TODO(bugs.webrtc.org/8396): Re-enable
   deps = [
     ":rtc_pc_base",
     "../media:rtc_audio_video",
@@ -119,6 +123,8 @@ config("libjingle_peerconnection_warnings_config") {
 
 rtc_static_library("peerconnection") {
   visibility = [ "*" ]
+
+  #assert_no_deps = poison_audio_codecs  # TODO(bugs.webrtc.org/8396): Re-enable
   cflags = []
   sources = [
     "audiotrack.cc",
@@ -250,6 +256,8 @@ rtc_static_library("create_pc_factory") {
 
 rtc_source_set("libjingle_peerconnection") {
   visibility = [ "*" ]
+
+  #assert_no_deps = poison_audio_codecs  # TODO(bugs.webrtc.org/8396): Re-enable
   deps = [
     ":create_pc_factory",
     ":peerconnection",

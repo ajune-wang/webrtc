@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "68eb5db8_cda05a6d",
+        "filename": "modules/audio_processing/include/aec_dump.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-04-16T11:52:48Z",
+      "side": 1,
+      "message": "Changed!\n\nThe defaults are not expected to be used. I don\u0027t like them. If they are removed, we need a 20-parameter constructor instead. Otherwise, there is a compiler error, I think.",
+      "parentUuid": "e4335021_87992ee4",
+      "range": {
+        "startLine": 54,
+        "startChar": 43,
+        "endLine": 54,
+        "endChar": 44
+      },
+      "revId": "70bc3ec98592b941302439a116f4e8be358f9148",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ec9362d0_419532f4",
         "filename": "modules/audio_processing/include/audio_processing.h",
         "patchSetId": 7
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "01bd3324_3a7041bf",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-04-16T11:52:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ec9362d0_419532f4",
+      "range": {
+        "startLine": 277,
+        "startChar": 31,
+        "endLine": 277,
+        "endChar": 32
+      },
+      "revId": "70bc3ec98592b941302439a116f4e8be358f9148",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f540fa50_25d52b3b",
         "filename": "modules/audio_processing/test/audioproc_float_impl.cc",
         "patchSetId": 7
@@ -62,6 +110,24 @@
       "revId": "70bc3ec98592b941302439a116f4e8be358f9148",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02c2cc0f_6d4230d6",
+        "filename": "modules/audio_processing/test/audioproc_float_impl.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-04-16T11:52:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f540fa50_25d52b3b",
+      "revId": "70bc3ec98592b941302439a116f4e8be358f9148",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

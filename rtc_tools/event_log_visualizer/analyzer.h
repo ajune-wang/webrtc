@@ -20,6 +20,7 @@
 
 #include "logging/rtc_event_log/rtc_event_log_parser.h"
 #include "modules/audio_coding/audio_network_adaptor/include/audio_network_adaptor.h"
+#include "modules/audio_coding/neteq/tools/neteq_stats_getter.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 #include "modules/rtp_rtcp/source/rtcp_packet.h"
 #include "rtc_base/function_view.h"
@@ -62,6 +63,26 @@ struct AudioNetworkAdaptationEvent {
 
 class EventLogAnalyzer {
  public:
+  class StreamId {
+   public:
+    StreamId(uint32_t ssrc, webrtc::PacketDirection direction)
+        : ssrc_(ssrc), direction_(direction) {}
+    bool operator<(const StreamId& other) const {
+      return std::tie(ssrc_, direction_) <
+             std::tie(other.ssrc_, other.direction_);
+    }
+    bool operator==(const StreamId& other) const {
+      return std::tie(ssrc_, direction_) ==
+             std::tie(other.ssrc_, other.direction_);
+    }
+    uint32_t GetSsrc() const { return ssrc_; }
+    webrtc::PacketDirection GetDirection() const { return direction_; }
+
+   private:
+    uint32_t ssrc_;
+    webrtc::PacketDirection direction_;
+  };
+
   // The EventLogAnalyzer keeps a reference to the ParsedRtcEventLog for the
   // duration of its lifetime. The ParsedRtcEventLog must not be destroyed or
   // modified while the EventLogAnalyzer is being used.
@@ -105,10 +126,13 @@ class EventLogAnalyzer {
   void CreateAudioEncoderEnableFecGraph(Plot* plot);
   void CreateAudioEncoderEnableDtxGraph(Plot* plot);
   void CreateAudioEncoderNumChannelsGraph(Plot* plot);
-  void CreateAudioJitterBufferGraph(const std::string& replacement_file_name,
-                                    int file_sample_rate_hz,
-                                    Plot* plot);
-
+  std::map<StreamId, std::unique_ptr<test::NetEqStatsGetter>> SimulateNetEq(
+      const std::string& replacement_file_name,
+      int file_sample_rate_hz) const;
+  void CreateAudioJitterBufferGraph(
+      const std::map<StreamId, std::unique_ptr<test::NetEqStatsGetter>>&
+          neteq_stats_getters,
+      Plot* plot) const;
   void CreateIceCandidatePairConfigGraph(Plot* plot);
   void CreateIceConnectivityCheckGraph(Plot* plot);
 
@@ -120,26 +144,6 @@ class EventLogAnalyzer {
   void PrintNotifications(FILE* file);
 
  private:
-  class StreamId {
-   public:
-    StreamId(uint32_t ssrc, webrtc::PacketDirection direction)
-        : ssrc_(ssrc), direction_(direction) {}
-    bool operator<(const StreamId& other) const {
-      return std::tie(ssrc_, direction_) <
-             std::tie(other.ssrc_, other.direction_);
-    }
-    bool operator==(const StreamId& other) const {
-      return std::tie(ssrc_, direction_) ==
-             std::tie(other.ssrc_, other.direction_);
-    }
-    uint32_t GetSsrc() const { return ssrc_; }
-    webrtc::PacketDirection GetDirection() const { return direction_; }
-
-   private:
-    uint32_t ssrc_;
-    webrtc::PacketDirection direction_;
-  };
-
   template <typename T>
   void CreateAccumulatedPacketsTimeSeries(
       PacketDirection desired_direction,

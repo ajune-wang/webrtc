@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "23055595_05e77ff2",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-04-16T08:43:05Z",
+      "side": 1,
+      "message": "I have to make this public to enable two new functions.",
+      "range": {
+        "startLine": 66,
+        "startChar": 8,
+        "endLine": 66,
+        "endChar": 16
+      },
+      "revId": "ed6f0a9c62209253377c51f2ed5ca0e6a1a2ef44",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -23,14 +23,12 @@ using ::testing::_;
 namespace webrtc {
 // Emulating old interface for test suite compatibility.
 // TODO(srte): Update tests to reflect new interface.
-class LimitObserverWrapper : public BitrateAllocator::LimitObserver {
+class LimitObserverWrapper : public AllocatedStreamsObserver {
  public:
-  void OnAllocationLimitsChanged(uint32_t min_send_bitrate_bps,
-                                 uint32_t max_padding_bitrate_bps,
-                                 uint32_t total_bitrate_bps,
-                                 bool has_packet_feedback) override {
-    OnAllocationLimitsChanged(min_send_bitrate_bps, max_padding_bitrate_bps,
-                              total_bitrate_bps);
+  void OnAllocatedStreamsChanged(const AllocatedStreamsInfo& streams) override {
+    OnAllocationLimitsChanged(streams.total_min_bitrate_bps,
+                              streams.total_padding_bitrate_bps,
+                              streams.total_max_bitrate_bps);
   }
   virtual void OnAllocationLimitsChanged(uint32_t min_send_bitrate_bps,
                                          uint32_t max_padding_bitrate_bps,

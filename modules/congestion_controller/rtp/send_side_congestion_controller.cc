@@ -20,6 +20,7 @@
 #include "modules/remote_bitrate_estimator/include/bwe_defines.h"
 #include "rtc_base/bind.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/experiments/alr_experiment.h"
 #include "rtc_base/experiments/congestion_controller_experiment.h"
 #include "rtc_base/format_macros.h"
 #include "rtc_base/logging.h"
@@ -458,6 +459,43 @@ void SendSideCongestionController::SetAllocatedSendBitrateLimits(
   });
 }
 
+void SendSideCongestionController::SetAllocatedStreamsInfo(
+    bool has_packet_feedback,
+    bool has_audio,
+    bool has_video,
+    bool has_screenshare) {
+  task_queue_->PostTask([this, has_packet_feedback]() {
+    RTC_DCHECK_RUN_ON(task_queue_ptr_);
+    packet_feedback_available_ = has_packet_feedback;
+    MaybeRecreateControllers();
+  });
+
+  if (has_video || has_screenshare) {
+    RTC_CHECK(AlrExperimentSettings::MaxOneFieldTrialEnabled());
+    rtc::Optional<AlrExperimentSettings> alr_settings;
+    if (has_screenshare) {
+      alr_settings = AlrExperimentSettings::CreateFromFieldTrial(
+          AlrExperimentSettings::kScreenshareProbingBweExperimentName);
+    } else if (has_video) {
+      alr_settings = AlrExperimentSettings::CreateFromFieldTrial(
+          AlrExperimentSettings::kStrictPacingAndProbingExperimentName);
+    }
+    if (alr_settings) {
+      EnablePeriodicAlrProbing(true);
+      SetPacingFactor(alr_settings->pacing_factor);
+      pacer_->SetQueueTimeLimit(alr_settings->max_paced_queue_time);
+    } else {
+      EnablePeriodicAlrProbing(false);
+      SetPacingFactor(PacedSender::kDefaultPaceMultiplier);
+      pacer_->SetQueueTimeLimit(PacedSender::kMaxQueueLengthMs);
+    }
+  } else if (has_audio) {
+    // Probing in application limited region is only used in combination with
+    // feedback packets.
+    EnablePeriodicAlrProbing(has_packet_feedback);
+  }
+}
+
 // TODO(holmer): Split this up and use SetBweBitrates in combination with
 // OnNetworkRouteChanged.
 void SendSideCongestionController::OnNetworkRouteChanged(
@@ -510,15 +548,6 @@ bool SendSideCongestionController::AvailableBandwidth(
 
 RtcpBandwidthObserver* SendSideCongestionController::GetBandwidthObserver() {
   return this;
-}
-
-void SendSideCongestionController::SetPerPacketFeedbackAvailable(
-    bool available) {
-  task_queue_->PostTask([this, available]() {
-    RTC_DCHECK_RUN_ON(task_queue_ptr_);
-    packet_feedback_available_ = available;
-    MaybeRecreateControllers();
-  });
 }
 
 void SendSideCongestionController::EnablePeriodicAlrProbing(bool enable) {

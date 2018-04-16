@@ -13,6 +13,7 @@
 
 #include <string>
 
+#include "call/bitrate_allocator.h"
 #include "call/bitrate_constraints.h"
 #include "call/rtp_transport_controller_send_interface.h"
 #include "modules/congestion_controller/include/network_changed_observer.h"
@@ -31,8 +32,7 @@ class MockRtpTransportControllerSend
   MOCK_METHOD0(transport_feedback_observer, TransportFeedbackObserver*());
   MOCK_METHOD0(packet_sender, RtpPacketSender*());
   MOCK_CONST_METHOD0(keepalive_config, RtpKeepAliveConfig&());
-  MOCK_METHOD3(SetAllocatedSendBitrateLimits, void(int, int, int));
-  MOCK_METHOD1(SetPacingFactor, void(float));
+  MOCK_METHOD1(OnAllocatedStreamsChanged, void(const AllocatedStreamsInfo&));
   MOCK_METHOD1(SetQueueTimeLimit, void(int));
   MOCK_METHOD0(GetCallStatsObserver, CallStatsObserver*());
   MOCK_METHOD1(RegisterPacketFeedbackObserver, void(PacketFeedbackObserver*));
@@ -45,7 +45,6 @@ class MockRtpTransportControllerSend
   MOCK_METHOD0(GetBandwidthObserver, RtcpBandwidthObserver*());
   MOCK_CONST_METHOD0(GetPacerQueuingDelayMs, int64_t());
   MOCK_CONST_METHOD0(GetFirstPacketTimeMs, int64_t());
-  MOCK_METHOD1(SetPerPacketFeedbackAvailable, void(bool));
   MOCK_METHOD1(EnablePeriodicAlrProbing, void(bool));
   MOCK_METHOD1(OnSentPacket, void(const rtc::SentPacket&));
   MOCK_METHOD1(SetSdpBitrateParameters, void(const BitrateConstraints&));

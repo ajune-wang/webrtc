@@ -30,7 +30,6 @@
 #include "modules/video_coding/fec_controller_default.h"
 #include "modules/video_coding/utility/ivf_file_writer.h"
 #include "rtc_base/checks.h"
-#include "rtc_base/experiments/alr_experiment.h"
 #include "rtc_base/file.h"
 #include "rtc_base/location.h"
 #include "rtc_base/logging.h"
@@ -329,8 +328,6 @@ class VideoSendStreamImpl : public webrtc::BitrateAllocatorObserver,
 
   void SetTransportOverhead(size_t transport_overhead_per_packet);
 
-  rtc::Optional<float> configured_pacing_factor_;
-
   // From PacketFeedbackObserver.
   void OnPacketAdded(uint32_t ssrc, uint16_t seq_num) override;
   void OnPacketFeedbackVector(
@@ -379,6 +376,7 @@ class VideoSendStreamImpl : public webrtc::BitrateAllocatorObserver,
   void ConfigureSsrcs();
   void SignalEncoderTimedOut();
   void SignalEncoderActive();
+  void RegisterAsBitrateObserver();
 
   const bool send_side_bwe_with_overhead_;
 
@@ -412,6 +410,7 @@ class VideoSendStreamImpl : public webrtc::BitrateAllocatorObserver,
   uint32_t encoder_target_rate_bps_;
   double encoder_bitrate_priority_;
   bool has_packet_feedback_;
+  const VideoEncoderConfig::ContentType content_type_;
 
   VideoStreamEncoder* const video_stream_encoder_;
   EncoderRtcpFeedback encoder_feedback_;
@@ -613,10 +612,6 @@ VideoSendStream::Stats VideoSendStream::GetStats() {
   return stats_proxy_.GetStats();
 }
 
-rtc::Optional<float> VideoSendStream::GetPacingFactorOverride() const {
-  return send_stream_->configured_pacing_factor_;
-}
-
 void VideoSendStream::SignalNetworkState(NetworkState state) {
   RTC_DCHECK_RUN_ON(&thread_checker_);
   VideoSendStreamImpl* send_stream = send_stream_.get();
@@ -695,6 +690,7 @@ VideoSendStreamImpl::VideoSendStreamImpl(
       encoder_target_rate_bps_(0),
       encoder_bitrate_priority_(initial_encoder_bitrate_priority),
       has_packet_feedback_(false),
+      content_type_(content_type),
       video_stream_encoder_(video_stream_encoder),
       encoder_feedback_(Clock::GetRealTimeClock(),
                         config_->rtp.ssrcs,
@@ -746,31 +742,10 @@ VideoSendStreamImpl::VideoSendStreamImpl(
     encoder_max_bitrate_bps_ = kFallbackMaxBitrateBps;
   }
 
-  RTC_CHECK(AlrExperimentSettings::MaxOneFieldTrialEnabled());
   // If send-side BWE is enabled, check if we should apply updated probing and
   // pacing settings.
   if (TransportSeqNumExtensionConfigured(*config_)) {
     has_packet_feedback_ = true;
-
-    rtc::Optional<AlrExperimentSettings> alr_settings;
-    if (content_type == VideoEncoderConfig::ContentType::kScreen) {
-      alr_settings = AlrExperimentSettings::CreateFromFieldTrial(
-          AlrExperimentSettings::kScreenshareProbingBweExperimentName);
-    } else {
-      alr_settings = AlrExperimentSettings::CreateFromFieldTrial(
-          AlrExperimentSettings::kStrictPacingAndProbingExperimentName);
-    }
-    if (alr_settings) {
-      transport->EnablePeriodicAlrProbing(true);
-      transport->SetPacingFactor(alr_settings->pacing_factor);
-      configured_pacing_factor_ = alr_settings->pacing_factor;
-      transport->SetQueueTimeLimit(alr_settings->max_paced_queue_time);
-    } else {
-      transport->EnablePeriodicAlrProbing(false);
-      transport->SetPacingFactor(PacedSender::kDefaultPaceMultiplier);
-      configured_pacing_factor_ = PacedSender::kDefaultPaceMultiplier;
-      transport->SetQueueTimeLimit(PacedSender::kMaxQueueLengthMs);
-    }
   }
 
   if (config_->periodic_alr_bandwidth_probing) {
@@ -913,10 +888,7 @@ void VideoSendStreamImpl::Start() {
 
 void VideoSendStreamImpl::StartupVideoSendStream() {
   RTC_DCHECK_RUN_ON(worker_queue_);
-  bitrate_allocator_->AddObserver(
-      this, encoder_min_bitrate_bps_, encoder_max_bitrate_bps_,
-      max_padding_bitrate_, !config_->suspend_below_min_bitrate,
-      config_->track_id, encoder_bitrate_priority_, has_packet_feedback_);
+  RegisterAsBitrateObserver();
   // Start monitoring encoder activity.
   {
     rtc::CritScope lock(&encoder_activity_crit_sect_);
@@ -970,10 +942,23 @@ void VideoSendStreamImpl::OnBitrateAllocationUpdated(
 void VideoSendStreamImpl::SignalEncoderActive() {
   RTC_DCHECK_RUN_ON(worker_queue_);
   RTC_LOG(LS_INFO) << "SignalEncoderActive, Encoder is active.";
+  RegisterAsBitrateObserver();
+}
+
+void VideoSendStreamImpl::RegisterAsBitrateObserver() {
+  BitrateAllocator::MediaContentType media_content_type =
+      BitrateAllocator::MediaContentType::kUnknown;
+  if (content_type_ == VideoEncoderConfig::ContentType::kScreen) {
+    media_content_type = BitrateAllocator::MediaContentType::kScreen;
+  } else {
+    media_content_type = BitrateAllocator::MediaContentType::kVideo;
+  }
+
   bitrate_allocator_->AddObserver(
       this, encoder_min_bitrate_bps_, encoder_max_bitrate_bps_,
       max_padding_bitrate_, !config_->suspend_below_min_bitrate,
-      config_->track_id, encoder_bitrate_priority_, has_packet_feedback_);
+      config_->track_id, encoder_bitrate_priority_, has_packet_feedback_,
+      media_content_type);
 }
 
 void VideoSendStreamImpl::OnEncoderConfigurationChanged(
@@ -1027,10 +1012,7 @@ void VideoSendStreamImpl::OnEncoderConfigurationChanged(
   if (payload_router_.IsActive()) {
     // The send stream is started already. Update the allocator with new bitrate
     // limits.
-    bitrate_allocator_->AddObserver(
-        this, encoder_min_bitrate_bps_, encoder_max_bitrate_bps_,
-        max_padding_bitrate_, !config_->suspend_below_min_bitrate,
-        config_->track_id, encoder_bitrate_priority_, has_packet_feedback_);
+    RegisterAsBitrateObserver();
   }
 }
 

@@ -52,6 +52,10 @@ class SendSideCongestionControllerInterface : public CallStatsObserver,
   virtual void SetAllocatedSendBitrateLimits(int64_t min_send_bitrate_bps,
                                              int64_t max_padding_bitrate_bps,
                                              int64_t max_total_bitrate_bps) = 0;
+  virtual void SetAllocatedStreamsInfo(bool has_packet_feedback,
+                                       bool has_audio,
+                                       bool has_video,
+                                       bool has_screenshare) = 0;
   virtual void OnNetworkRouteChanged(const rtc::NetworkRoute& network_route,
                                      int bitrate_bps,
                                      int min_bitrate_bps,
@@ -60,7 +64,6 @@ class SendSideCongestionControllerInterface : public CallStatsObserver,
   virtual RtcpBandwidthObserver* GetBandwidthObserver() = 0;
   virtual bool AvailableBandwidth(uint32_t* bandwidth) const = 0;
   virtual TransportFeedbackObserver* GetTransportFeedbackObserver() = 0;
-  virtual void SetPerPacketFeedbackAvailable(bool available) = 0;
   virtual void EnablePeriodicAlrProbing(bool enable) = 0;
   virtual void OnSentPacket(const rtc::SentPacket& sent_packet) = 0;
   virtual void SetPacingFactor(float pacing_factor) = 0;

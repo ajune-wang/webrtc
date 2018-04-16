@@ -170,7 +170,7 @@ class Call : public webrtc::Call,
              public PacketReceiver,
              public RecoveredPacketReceiver,
              public TargetTransferRateObserver,
-             public BitrateAllocator::LimitObserver {
+             public AllocatedStreamsObserver {
  public:
   Call(const Call::Config& config,
        std::unique_ptr<RtpTransportControllerSendInterface> transport_send);
@@ -234,10 +234,7 @@ class Call : public webrtc::Call,
   void OnTargetTransferRate(TargetTransferRate msg) override;
 
   // Implements BitrateAllocator::LimitObserver.
-  void OnAllocationLimitsChanged(uint32_t min_send_bitrate_bps,
-                                 uint32_t max_padding_bitrate_bps,
-                                 uint32_t total_bitrate_bps,
-                                 bool has_packet_feedback) override;
+  void OnAllocatedStreamsChanged(const AllocatedStreamsInfo& streams) override;
 
  private:
   DeliveryStatus DeliverRtcp(MediaType media_type, const uint8_t* packet,
@@ -1112,16 +1109,11 @@ void Call::OnTargetTransferRate(TargetTransferRate msg) {
   pacer_bitrate_kbps_counter_.Add(pacer_bitrate_bps / 1000);
 }
 
-void Call::OnAllocationLimitsChanged(uint32_t min_send_bitrate_bps,
-                                     uint32_t max_padding_bitrate_bps,
-                                     uint32_t total_bitrate_bps,
-                                     bool has_packet_feedback) {
-  transport_send_->SetAllocatedSendBitrateLimits(
-      min_send_bitrate_bps, max_padding_bitrate_bps, total_bitrate_bps);
-  transport_send_->SetPerPacketFeedbackAvailable(has_packet_feedback);
+void Call::OnAllocatedStreamsChanged(const AllocatedStreamsInfo& streams) {
+  transport_send_->OnAllocatedStreamsChanged(streams);
   rtc::CritScope lock(&bitrate_crit_);
-  min_allocated_send_bitrate_bps_ = min_send_bitrate_bps;
-  configured_max_padding_bitrate_bps_ = max_padding_bitrate_bps;
+  min_allocated_send_bitrate_bps_ = streams.total_min_bitrate_bps;
+  configured_max_padding_bitrate_bps_ = streams.total_padding_bitrate_bps;
 }
 
 void Call::ConfigureSync(const std::string& sync_group) {

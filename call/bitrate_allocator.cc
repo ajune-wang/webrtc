@@ -48,8 +48,8 @@ double MediaRatio(uint32_t allocated_bitrate, uint32_t protection_bitrate) {
 }
 }  // namespace
 
-BitrateAllocator::BitrateAllocator(LimitObserver* limit_observer)
-    : limit_observer_(limit_observer),
+BitrateAllocator::BitrateAllocator(AllocatedStreamsObserver* streams_observer)
+    : streams_observer_(streams_observer),
       last_bitrate_bps_(0),
       last_non_zero_bitrate_bps_(kDefaultBitrateBps),
       last_fraction_loss_(0),
@@ -148,7 +148,8 @@ void BitrateAllocator::AddObserver(BitrateAllocatorObserver* observer,
                                    bool enforce_min_bitrate,
                                    std::string track_id,
                                    double bitrate_priority,
-                                   bool has_packet_feedback) {
+                                   bool has_packet_feedback,
+                                   MediaContentType content_type) {
   RTC_DCHECK_CALLED_SEQUENTIALLY(&sequenced_checker_);
   RTC_DCHECK_GT(bitrate_priority, 0);
   RTC_DCHECK(std::isnormal(bitrate_priority));
@@ -161,10 +162,13 @@ void BitrateAllocator::AddObserver(BitrateAllocatorObserver* observer,
     it->pad_up_bitrate_bps = pad_up_bitrate_bps;
     it->enforce_min_bitrate = enforce_min_bitrate;
     it->bitrate_priority = bitrate_priority;
+    it->has_packet_feedback = has_packet_feedback;
+    it->content_type = content_type;
   } else {
-    bitrate_observer_configs_.push_back(ObserverConfig(
-        observer, min_bitrate_bps, max_bitrate_bps, pad_up_bitrate_bps,
-        enforce_min_bitrate, track_id, bitrate_priority, has_packet_feedback));
+    bitrate_observer_configs_.push_back(
+        ObserverConfig(observer, min_bitrate_bps, max_bitrate_bps,
+                       pad_up_bitrate_bps, enforce_min_bitrate, track_id,
+                       bitrate_priority, has_packet_feedback, content_type));
   }
 
   ObserverAllocation allocation;
@@ -193,45 +197,54 @@ void BitrateAllocator::AddObserver(BitrateAllocatorObserver* observer,
 
 void BitrateAllocator::UpdateAllocationLimits() {
   RTC_DCHECK_CALLED_SEQUENTIALLY(&sequenced_checker_);
-  uint32_t total_requested_padding_bitrate = 0;
-  uint32_t total_requested_min_bitrate = 0;
-  uint32_t total_requested_max_bitrate = 0;
-  bool has_packet_feedback = false;
+  AllocatedStreamsInfo info;
   for (const auto& config : bitrate_observer_configs_) {
     uint32_t stream_padding = config.pad_up_bitrate_bps;
     if (config.enforce_min_bitrate) {
-      total_requested_min_bitrate += config.min_bitrate_bps;
+      info.total_min_bitrate_bps += config.min_bitrate_bps;
     } else if (config.allocated_bitrate_bps == 0) {
       stream_padding =
           std::max(config.MinBitrateWithHysteresis(), stream_padding);
     }
-    total_requested_padding_bitrate += stream_padding;
-    total_requested_max_bitrate += config.max_bitrate_bps;
+    info.total_padding_bitrate_bps += stream_padding;
+    info.total_max_bitrate_bps += config.max_bitrate_bps;
     if (config.allocated_bitrate_bps > 0 && config.has_packet_feedback)
-      has_packet_feedback = true;
+      info.has_packet_feedback = true;
+    switch (config.content_type) {
+      case MediaContentType::kAudio:
+        info.has_audio = true;
+        break;
+      case MediaContentType::kVideo:
+        info.has_video = true;
+        break;
+      case MediaContentType::kScreen:
+        info.has_screenshare = true;
+        break;
+      case MediaContentType::kUnknown:
+        break;
+    }
   }
 
-  if (total_requested_padding_bitrate == total_requested_padding_bitrate_ &&
-      total_requested_min_bitrate == total_requested_min_bitrate_ &&
-      total_requested_max_bitrate == total_requested_max_bitrate_ &&
-      has_packet_feedback == has_packet_feedback_) {
+  if (info.total_padding_bitrate_bps == total_requested_padding_bitrate_ &&
+      info.total_min_bitrate_bps == total_requested_min_bitrate_ &&
+      info.total_max_bitrate_bps == total_requested_max_bitrate_ &&
+      info.has_packet_feedback == has_packet_feedback_) {
     return;
   }
 
-  total_requested_min_bitrate_ = total_requested_min_bitrate;
-  total_requested_padding_bitrate_ = total_requested_padding_bitrate;
-  total_requested_max_bitrate_ = total_requested_max_bitrate;
-  has_packet_feedback_ = has_packet_feedback;
+  total_requested_min_bitrate_ = info.total_min_bitrate_bps;
+  total_requested_padding_bitrate_ = info.total_padding_bitrate_bps;
+  total_requested_max_bitrate_ = info.total_max_bitrate_bps;
+  has_packet_feedback_ = info.has_packet_feedback;
 
   RTC_LOG(LS_INFO) << "UpdateAllocationLimits : total_requested_min_bitrate: "
-                   << total_requested_min_bitrate
+                   << total_requested_min_bitrate_
                    << "bps, total_requested_padding_bitrate: "
-                   << total_requested_padding_bitrate
+                   << total_requested_padding_bitrate_
                    << "bps, total_requested_max_bitrate: "
-                   << total_requested_max_bitrate << "bps";
-  limit_observer_->OnAllocationLimitsChanged(
-      total_requested_min_bitrate, total_requested_padding_bitrate,
-      total_requested_max_bitrate, has_packet_feedback);
+                   << total_requested_max_bitrate_ << "bps";
+
+  streams_observer_->OnAllocatedStreamsChanged(info);
 }
 
 void BitrateAllocator::RemoveObserver(BitrateAllocatorObserver* observer) {

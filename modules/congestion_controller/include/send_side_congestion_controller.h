@@ -72,6 +72,11 @@ class SendSideCongestionController
                                      int64_t max_padding_bitrate_bps,
                                      int64_t max_total_bitrate_bps) override;
 
+  void SetAllocatedStreamsInfo(bool has_packet_feedback,
+                               bool has_audio,
+                               bool has_video,
+                               bool has_screenshare) override;
+
   // Resets the BWE state. Note the first argument is the bitrate_bps.
   void OnNetworkRouteChanged(const rtc::NetworkRoute& network_route,
                              int bitrate_bps,
@@ -97,7 +102,6 @@ class SendSideCongestionController
 
   RTC_DEPRECATED virtual RateLimiter* GetRetransmissionRateLimiter();
 
-  void SetPerPacketFeedbackAvailable(bool available) override;
   void EnablePeriodicAlrProbing(bool enable) override;
 
   void OnSentPacket(const rtc::SentPacket& sent_packet) override;

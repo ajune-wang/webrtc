@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "610e4339_069fb271",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-04-16T12:36:10Z",
+      "side": 1,
+      "message": "First drawback: It\u0027s easy to miss tagging targets that \"obviously\" don\u0027t depend on audio codecs. Like this one.",
+      "revId": "773d53b8e505c4e4cda7cdb47c00777e0242a171",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eea1f724_0a24de76",
+        "filename": "webrtc.gni",
+        "patchSetId": 1
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-04-16T12:36:10Z",
+      "side": 1,
+      "message": "Second drawback: GN doesn\u0027t complain if this list names targets that don\u0027t exist, so unless the human editing this list is careful to double-check everything, mistakes are likely to creep in, resulting in targets that should be poisonous and look like they\u0027re poisonous without in fact being poisonous.",
+      "revId": "773d53b8e505c4e4cda7cdb47c00777e0242a171",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

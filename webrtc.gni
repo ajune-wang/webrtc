@@ -183,12 +183,13 @@ declare_args() {
     rtc_build_libevent = !build_with_mozilla
   }
 
-  if (!is_ios && (current_cpu != "arm" || arm_version >= 7) &&
-      current_cpu != "mips64el" && !build_with_mozilla) {
-    rtc_use_openmax_dl = true
-  } else {
-    rtc_use_openmax_dl = false
-  }
+  # if (!is_ios && (current_cpu != "arm" || arm_version >= 7) &&
+  #     current_cpu != "mips64el" && !build_with_mozilla) {
+  #   rtc_use_openmax_dl = true
+  # } else {
+  rtc_use_openmax_dl = false
+
+  # }
 
   # Build sources requiring GTK. NOTICE: This is not present in Chrome OS
   # build environments, even if available for Chromium builds.

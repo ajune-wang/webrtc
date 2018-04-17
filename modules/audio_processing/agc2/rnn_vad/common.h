@@ -24,6 +24,26 @@ constexpr size_t kPitchMaxPeriod24kHz = 384;  // 0.016 s (62.5 Hz).
 constexpr size_t kBufSize24kHz = kPitchMaxPeriod24kHz + kFrameSize20ms24kHz;
 static_assert((kBufSize24kHz & 1) == 0, "The buffer size must be .");
 
+// Define a higher minimum pitch period for the initial search. This is used to
+// avoid searching for very short periods, for which a refinement step is
+// responsible.
+constexpr size_t kPitchMinPeriod24kHzPitchSearch = 3 * kPitchMinPeriod24kHz;
+static_assert(kPitchMinPeriod24kHz < kPitchMinPeriod24kHzPitchSearch, "");
+static_assert(kPitchMinPeriod24kHzPitchSearch < kPitchMaxPeriod24kHz, "");
+
+// 12 kHz analysis.
+constexpr size_t kSampleRate12kHz = 12000;
+constexpr size_t kFrameSize10ms12kHz = 120;
+constexpr size_t kFrameSize20ms12kHz = 240;
+constexpr size_t kBufSize12kHz = kBufSize24kHz / 2;
+constexpr size_t kPitchMinPeriod12kHzPitchSearch =
+    kPitchMinPeriod24kHzPitchSearch / 2;
+constexpr size_t kPitchMaxPeriod12kHz = kPitchMaxPeriod24kHz / 2;
+
+// 48 kHz constants.
+constexpr size_t kPitchMinPeriod48kHz = kPitchMinPeriod24kHz * 2;
+constexpr size_t kPitchMaxPeriod48kHz = kPitchMaxPeriod24kHz * 2;
+
 }  // namespace rnn_vad
 }  // namespace webrtc
 

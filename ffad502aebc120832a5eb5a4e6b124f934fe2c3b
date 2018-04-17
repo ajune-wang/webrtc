@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ffe91f51_b1804fcd",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 739,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-04-17T11:18:01Z",
+      "side": 1,
+      "message": "Else call pending_frame_.reset() to ensure we don\u0027t keep any old frames if the capturer switches from delivering memory frames to delivering native frames?",
+      "range": {
+        "startLine": 739,
+        "startChar": 4,
+        "endLine": 739,
+        "endChar": 5
+      },
+      "revId": "ffad502aebc120832a5eb5a4e6b124f934fe2c3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06f91301_7914c544",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 765,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-04-17T11:18:01Z",
+      "side": 1,
+      "message": "pending_frame_.reset()?",
+      "range": {
+        "startLine": 765,
+        "startChar": 6,
+        "endLine": 765,
+        "endChar": 28
+      },
+      "revId": "ffad502aebc120832a5eb5a4e6b124f934fe2c3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

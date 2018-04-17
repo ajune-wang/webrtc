@@ -394,11 +394,6 @@ public class CallActivity extends Activity implements AppRTCClient.SignalingEven
       }, runTimeMs);
     }
 
-    if (loopback) {
-      PeerConnectionFactory.Options options = new PeerConnectionFactory.Options();
-      options.networkIgnoreMask = 0;
-      peerConnectionClient.setPeerConnectionFactoryOptions(options);
-    }
     peerConnectionClient.createPeerConnectionFactory(peerConnectionParameters, CallActivity.this);
 
     if (screencaptureEnabled) {

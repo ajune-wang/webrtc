@@ -136,8 +136,6 @@ public class PeerConnectionClient {
   @Nullable
   private PeerConnection peerConnection;
   @Nullable
-  PeerConnectionFactory.Options options = null;
-  @Nullable
   private AudioSource audioSource;
   @Nullable
   private VideoSource videoSource;
@@ -333,10 +331,6 @@ public class PeerConnectionClient {
     this.appContext = appContext;
   }
 
-  public void setPeerConnectionFactoryOptions(PeerConnectionFactory.Options options) {
-    this.options = options;
-  }
-
   public void createPeerConnectionFactory(
       final PeerConnectionParameters peerConnectionParameters, final PeerConnectionEvents events) {
     this.peerConnectionParameters = peerConnectionParameters;
@@ -497,10 +491,12 @@ public class PeerConnectionClient {
         ? createLegacyAudioDevice()
         : createJavaAudioDevice();
 
-    // Create peer connection factory.
-    if (options != null) {
-      Log.d(TAG, "Factory networkIgnoreMask option: " + options.networkIgnoreMask);
+    PeerConnectionFactory.Options options = new PeerConnectionFactory.Options();
+    if (peerConnectionParameters.loopback) {
+      options.networkIgnoreMask = 0;
+      Log.d(TAG, "Loopback call, setting networkIgnoreMask to 0");
     }
+
     final boolean enableH264HighProfile =
         VIDEO_CODEC_H264_HIGH.equals(peerConnectionParameters.videoCodec);
     final VideoEncoderFactory encoderFactory;
@@ -864,7 +860,6 @@ public class PeerConnectionClient {
       factory.dispose();
       factory = null;
     }
-    options = null;
     rootEglBase.release();
     Log.d(TAG, "Closing peer connection done.");
     events.onPeerConnectionClosed();

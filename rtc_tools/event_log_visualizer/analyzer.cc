@@ -1945,7 +1945,7 @@ namespace {
 // Creates a NetEq test object and all necessary input and output helpers. Runs
 // the test and returns the NetEqDelayAnalyzer object that was used to
 // instrument the test.
-std::unique_ptr<test::NetEqDelayAnalyzer> CreateNetEqTestAndRun(
+std::unique_ptr<test::NetEqStatsGetter> CreateNetEqTestAndRun(
     const std::vector<LoggedRtpPacket>* packet_stream,
     const std::vector<uint64_t>* output_events_us,
     rtc::Optional<uint64_t> end_time_us,
@@ -1983,26 +1983,26 @@ std::unique_ptr<test::NetEqDelayAnalyzer> CreateNetEqTestAndRun(
 
   std::unique_ptr<test::NetEqDelayAnalyzer> delay_cb(
       new test::NetEqDelayAnalyzer);
+  std::unique_ptr<test::NetEqStatsGetter> neteq_stats_getter(
+      new test::NetEqStatsGetter(std::move(delay_cb)));
   test::DefaultNetEqTestErrorCallback error_cb;
   test::NetEqTest::Callbacks callbacks;
   callbacks.error_callback = &error_cb;
-  callbacks.post_insert_packet = delay_cb.get();
-  callbacks.get_audio_callback = delay_cb.get();
+  callbacks.post_insert_packet = neteq_stats_getter->delay_analyzer();
+  callbacks.get_audio_callback = neteq_stats_getter.get();
 
   test::NetEqTest test(config, codecs, ext_codecs, std::move(input),
                        std::move(output), callbacks);
   test.Run();
-  return delay_cb;
+  return neteq_stats_getter;
 }
 }  // namespace
 
-// Plots the jitter buffer delay profile. This will plot only for the first
-// incoming audio SSRC. If the stream contains more than one incoming audio
-// SSRC, all but the first will be ignored.
-void EventLogAnalyzer::CreateAudioJitterBufferGraph(
-    const std::string& replacement_file_name,
-    int file_sample_rate_hz,
-    Plot* plot) {
+std::map<EventLogAnalyzer::StreamId, std::unique_ptr<test::NetEqStatsGetter>>
+EventLogAnalyzer::SimulateNetEq(const std::string& replacement_file_name,
+                                int file_sample_rate_hz) const {
+  std::map<StreamId, std::unique_ptr<test::NetEqStatsGetter>> neteq_stats;
+
   const auto& incoming_audio_kv = std::find_if(
       rtp_packets_.begin(), rtp_packets_.end(),
       [this](std::pair<StreamId, std::vector<LoggedRtpPacket>> kv) {
@@ -2011,7 +2011,7 @@ void EventLogAnalyzer::CreateAudioJitterBufferGraph(
       });
   if (incoming_audio_kv == rtp_packets_.end()) {
     // No incoming audio stream found.
-    return;
+    return neteq_stats;
   }
 
   const uint32_t ssrc = incoming_audio_kv->first.GetSsrc();
@@ -2029,18 +2029,33 @@ void EventLogAnalyzer::CreateAudioJitterBufferGraph(
           ? rtc::nullopt
           : rtc::Optional<uint64_t>(log_segments_.front().second);
 
-  auto delay_cb = CreateNetEqTestAndRun(
+  neteq_stats[incoming_audio_kv->first] = CreateNetEqTestAndRun(
       &incoming_audio_kv->second, &output_events_it->second, end_time_us,
       replacement_file_name, file_sample_rate_hz);
+
+  return neteq_stats;
+}
+
+// Plots the jitter buffer delay profile. This will plot only for the first
+// incoming audio SSRC. If the stream contains more than one incoming audio
+// SSRC, all but the first will be ignored.
+void EventLogAnalyzer::CreateAudioJitterBufferGraph(
+    const std::map<EventLogAnalyzer::StreamId,
+                   std::unique_ptr<test::NetEqStatsGetter>>& neteq_stats,
+    Plot* plot) const {
+  if (neteq_stats.size() < 1)
+    return;
+
+  const StreamId stream_id = neteq_stats.begin()->first;
 
   std::vector<float> send_times_s;
   std::vector<float> arrival_delay_ms;
   std::vector<float> corrected_arrival_delay_ms;
   std::vector<rtc::Optional<float>> playout_delay_ms;
   std::vector<rtc::Optional<float>> target_delay_ms;
-  delay_cb->CreateGraphs(&send_times_s, &arrival_delay_ms,
-                         &corrected_arrival_delay_ms, &playout_delay_ms,
-                         &target_delay_ms);
+  neteq_stats.at(stream_id)->delay_analyzer()->CreateGraphs(
+      &send_times_s, &arrival_delay_ms, &corrected_arrival_delay_ms,
+      &playout_delay_ms, &target_delay_ms);
   RTC_DCHECK_EQ(send_times_s.size(), arrival_delay_ms.size());
   RTC_DCHECK_EQ(send_times_s.size(), corrected_arrival_delay_ms.size());
   RTC_DCHECK_EQ(send_times_s.size(), playout_delay_ms.size());
@@ -2052,7 +2067,6 @@ void EventLogAnalyzer::CreateAudioJitterBufferGraph(
   std::map<StreamId, TimeSeries> time_series_target_time;
   float min_y_axis = 0.f;
   float max_y_axis = 0.f;
-  const StreamId stream_id = incoming_audio_kv->first;
   for (size_t i = 0; i < send_times_s.size(); ++i) {
     time_series_packet_arrival[stream_id].points.emplace_back(
         TimeSeriesPoint(send_times_s[i], arrival_delay_ms[i]));

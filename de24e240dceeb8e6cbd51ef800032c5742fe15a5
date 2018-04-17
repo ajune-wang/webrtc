@@ -22,6 +22,30 @@
       "revId": "de24e240dceeb8e6cbd51ef800032c5742fe15a5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa432248_0f1a9be3",
+        "filename": "examples/peerconnection/client/conductor.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-04-17T00:58:07Z",
+      "side": 1,
+      "message": "In this example senders are only ever added in AddTracks() and never removed. So GetSenders() should be an accurate view of what is currently sending. In general this might not be the case, but actually most applications only ever add tracks and rarely remove them too. I\u0027ll have a note in the migration guide about the direction behavior though.",
+      "parentUuid": "331fc11c_baac944f",
+      "range": {
+        "startLine": 100,
+        "startChar": 24,
+        "endLine": 100,
+        "endChar": 34
+      },
+      "revId": "de24e240dceeb8e6cbd51ef800032c5742fe15a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

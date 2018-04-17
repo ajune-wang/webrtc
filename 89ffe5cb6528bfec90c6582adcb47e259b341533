@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "16c6dea7_94d196ed",
+        "filename": "video/video_stream_decoder_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-04-17T11:17:48Z",
+      "side": 1,
+      "message": "\u003e Yes, it\u0027s an extra copy. Using mutable in this case removes const qualification from parameters captured by copy, which I need in order to call set_timestamp_us.\n\nIt\u0027s just that I don\u0027t see any const qualifications. Confusing.\n \n\u003e \u003e If possible, it\u0027s even better if you don\u0027t need to name this temporary object, but instead construct it where it is used, as the argument to OnDecodedFrame.\n\u003e \n\u003e After decoding I need to set the render timestamp, but not the rtp timestamp.\n\nNice. Then you could replace the set_timestamp_us by this, at the end of the method:\n\ncallbacks_-\u003eOnDecodedFrame(VideoFrame(decoded_image.video_frame_buffer(), \n                                      decoded_image.rotation(), \n                                      frame_info-\u003erender_time_us),\n                           casted_decode_time_ms, casted_qp);\n\nwithout any destructive operations.",
+      "parentUuid": "5b4c3da9_1c6174fb",
+      "revId": "89ffe5cb6528bfec90c6582adcb47e259b341533",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9df576bb_e508c1e9",
         "filename": "video/video_stream_decoder_impl.h",
         "patchSetId": 2

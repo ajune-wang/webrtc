@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "96023bb5_56de69ea",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-17T18:30:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "165463be_11bbfa68",
+      "revId": "d0eb0a4081e9f6fefa72f21c69949d2b50cf070a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e7d234af_41563b58",
         "filename": "rtc_base/asyncudpsocket.cc",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2018-04-17T13:30:52Z",
       "side": 1,
       "message": "What does AsyncUDPSocket::Send put in the remote_socket_address?  0.0.0.0?\n\nOn that note, where does Send actually send the packet?\n\nThis seems ok, since I don\u0027t see any better way to do it.",
+      "revId": "d0eb0a4081e9f6fefa72f21c69949d2b50cf070a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "861fb226_5d14fc4b",
+        "filename": "rtc_base/asyncudpsocket.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-17T18:30:25Z",
+      "side": 1,
+      "message": "AsyncUDPSocket is created with an underlying AsyncSocket, which can contain a \"connected\" socket that has the destination socket configured (e.g, a platform UDP socket configured with ::connect, or possibly a connected TCP socket I think, weird though). This preset destination socket will be the one filled in remote_socket_address and the place where Send actually sends the packet. I think in our codebase, an example of this usage is in virtualsocket_unittest, where an AsyncUDPSocket is created with a VirtualSocket, where the latter is connected to a remote socket bound to kIPv4AnyAddress (aka 0.0.0.0).",
+      "parentUuid": "e7d234af_41563b58",
       "revId": "d0eb0a4081e9f6fefa72f21c69949d2b50cf070a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

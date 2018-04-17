@@ -46,6 +46,29 @@
       "revId": "de24e240dceeb8e6cbd51ef800032c5742fe15a5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9dfc5a9e_8d1e2ae6",
+        "filename": "examples/peerconnection/client/conductor.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-04-17T12:19:27Z",
+      "side": 1,
+      "message": "In general, prefer rtc::ArrayView\u003cconst T\u003e over const std::vector\u003cT\u003e\u0026 as a function argument. It\u0027s just as cheap, but more flexible for callers.",
+      "range": {
+        "startLine": 71,
+        "startChar": 6,
+        "endLine": 71,
+        "endChar": 23
+      },
+      "revId": "de24e240dceeb8e6cbd51ef800032c5742fe15a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -46,6 +46,30 @@
       "revId": "9a0ba7640089c065f544ca55b0d231956bff5e7b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a830874_0a4df82f",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 736,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-04-17T14:02:39Z",
+      "side": 1,
+      "message": "I think this is too much overhead for mobile devices.",
+      "parentUuid": "a92ca98f_9df0aa97",
+      "range": {
+        "startLine": 735,
+        "startChar": 0,
+        "endLine": 736,
+        "endChar": 39
+      },
+      "revId": "9a0ba7640089c065f544ca55b0d231956bff5e7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

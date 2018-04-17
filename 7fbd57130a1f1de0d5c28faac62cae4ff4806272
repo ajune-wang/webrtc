@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "db7129d7_b35aa098",
+        "filename": "modules/audio_processing/agc2/rnn_vad/symmetric_matrix_buffer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-17T08:56:07Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d505e883_a90f6949",
+      "range": {
+        "startLine": 37,
+        "startChar": 2,
+        "endLine": 38,
+        "endChar": 74
+      },
+      "revId": "7fbd57130a1f1de0d5c28faac62cae4ff4806272",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0aa5fb6b_3c13156b",
         "filename": "modules/audio_processing/agc2/rnn_vad/symmetric_matrix_buffer.h",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "7fbd57130a1f1de0d5c28faac62cae4ff4806272",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37403a76_98eaf0f1",
+        "filename": "modules/audio_processing/agc2/rnn_vad/symmetric_matrix_buffer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-17T08:56:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0aa5fb6b_3c13156b",
+      "range": {
+        "startLine": 40,
+        "startChar": 5,
+        "endLine": 40,
+        "endChar": 8
+      },
+      "revId": "7fbd57130a1f1de0d5c28faac62cae4ff4806272",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "650c1bf6_e9ce16e7",
+        "filename": "modules/audio_processing/agc2/rnn_vad/symmetric_matrix_buffer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-17T08:56:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1808f01a_149c25be",
+      "range": {
+        "startLine": 46,
+        "startChar": 5,
+        "endLine": 46,
+        "endChar": 9
+      },
+      "revId": "7fbd57130a1f1de0d5c28faac62cae4ff4806272",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a176b376_ee23fe0b",
         "filename": "modules/audio_processing/agc2/rnn_vad/symmetric_matrix_buffer.h",
         "patchSetId": 1
@@ -91,6 +163,30 @@
       "revId": "7fbd57130a1f1de0d5c28faac62cae4ff4806272",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63a386df_f03a9072",
+        "filename": "modules/audio_processing/agc2/rnn_vad/symmetric_matrix_buffer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-17T08:56:07Z",
+      "side": 1,
+      "message": "Good catch!",
+      "parentUuid": "a176b376_ee23fe0b",
+      "range": {
+        "startLine": 53,
+        "startChar": 47,
+        "endLine": 53,
+        "endChar": 60
+      },
+      "revId": "7fbd57130a1f1de0d5c28faac62cae4ff4806272",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "96a9909f_3c1af22d",
+        "filename": "modules/audio_processing/agc2/rnn_vad/symmetric_matrix_buffer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-17T08:56:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b99e3aed_6b3f7789",
+      "range": {
+        "startLine": 58,
+        "startChar": 12,
+        "endLine": 58,
+        "endChar": 15
+      },
+      "revId": "7fbd57130a1f1de0d5c28faac62cae4ff4806272",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "33c18ecd_eff6cdf5",
         "filename": "modules/audio_processing/agc2/rnn_vad/symmetric_matrix_buffer.h",
         "patchSetId": 1
@@ -137,6 +257,30 @@
       "revId": "7fbd57130a1f1de0d5c28faac62cae4ff4806272",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a99b071_fb1565b9",
+        "filename": "modules/audio_processing/agc2/rnn_vad/symmetric_matrix_buffer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-17T08:56:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "33c18ecd_eff6cdf5",
+      "range": {
+        "startLine": 64,
+        "startChar": 5,
+        "endLine": 65,
+        "endChar": 47
+      },
+      "revId": "7fbd57130a1f1de0d5c28faac62cae4ff4806272",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -186,6 +330,54 @@
     },
     {
       "key": {
+        "uuid": "cd1ea09a_1a7d0f53",
+        "filename": "modules/audio_processing/agc2/rnn_vad/symmetric_matrix_buffer_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-17T08:56:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d0e73477_2ef55cf5",
+      "range": {
+        "startLine": 33,
+        "startChar": 69,
+        "endLine": 33,
+        "endChar": 74
+      },
+      "revId": "7fbd57130a1f1de0d5c28faac62cae4ff4806272",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3234b2d7_a4b3c694",
+        "filename": "modules/audio_processing/agc2/rnn_vad/symmetric_matrix_buffer_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-17T08:56:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1e4fa300_302f881d",
+      "range": {
+        "startLine": 33,
+        "startChar": 43,
+        "endLine": 33,
+        "endChar": 59
+      },
+      "revId": "7fbd57130a1f1de0d5c28faac62cae4ff4806272",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5cef5af4_2f871a19",
         "filename": "modules/audio_processing/agc2/rnn_vad/symmetric_matrix_buffer_unittest.cc",
         "patchSetId": 1
@@ -206,6 +398,30 @@
       "revId": "7fbd57130a1f1de0d5c28faac62cae4ff4806272",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c53f7301_133982d7",
+        "filename": "modules/audio_processing/agc2/rnn_vad/symmetric_matrix_buffer_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-17T08:56:07Z",
+      "side": 1,
+      "message": "Name changed but I would prefer that the type remains int otherwise I have to pollute the code below with several static_cast\u003cint\u003e(...).",
+      "parentUuid": "5cef5af4_2f871a19",
+      "range": {
+        "startLine": 56,
+        "startChar": 12,
+        "endLine": 56,
+        "endChar": 15
+      },
+      "revId": "7fbd57130a1f1de0d5c28faac62cae4ff4806272",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -232,6 +448,30 @@
     },
     {
       "key": {
+        "uuid": "f34cd9d0_963e9533",
+        "filename": "modules/audio_processing/agc2/rnn_vad/symmetric_matrix_buffer_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-17T08:56:07Z",
+      "side": 1,
+      "message": "I am used to use ASSERT_* to check those pre-conditions that guarantee that the test triggers the intended behavior and EXPECT_* to check if the triggered behavior generates the expected result. What I like is that the test stops immediately if it is not doing its job.",
+      "parentUuid": "bda36fd2_262840e9",
+      "range": {
+        "startLine": 67,
+        "startChar": 4,
+        "endLine": 67,
+        "endChar": 10
+      },
+      "revId": "7fbd57130a1f1de0d5c28faac62cae4ff4806272",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1fac4dee_f0608d2d",
         "filename": "modules/audio_processing/agc2/rnn_vad/symmetric_matrix_buffer_unittest.cc",
         "patchSetId": 1
@@ -255,6 +495,30 @@
     },
     {
       "key": {
+        "uuid": "e49d5e17_c001ae35",
+        "filename": "modules/audio_processing/agc2/rnn_vad/symmetric_matrix_buffer_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-17T08:56:07Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "1fac4dee_f0608d2d",
+      "range": {
+        "startLine": 75,
+        "startChar": 6,
+        "endLine": 75,
+        "endChar": 15
+      },
+      "revId": "7fbd57130a1f1de0d5c28faac62cae4ff4806272",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d3a89a0f_2b8e8640",
         "filename": "modules/audio_processing/agc2/rnn_vad/symmetric_matrix_buffer_unittest.cc",
         "patchSetId": 1
@@ -275,6 +539,30 @@
       "revId": "7fbd57130a1f1de0d5c28faac62cae4ff4806272",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "510419a2_9e3b4593",
+        "filename": "modules/audio_processing/agc2/rnn_vad/symmetric_matrix_buffer_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-17T08:56:07Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d3a89a0f_2b8e8640",
+      "range": {
+        "startLine": 90,
+        "startChar": 8,
+        "endLine": 90,
+        "endChar": 17
+      },
+      "revId": "7fbd57130a1f1de0d5c28faac62cae4ff4806272",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

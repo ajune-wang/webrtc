@@ -108,6 +108,7 @@
 #include "rtc_base/rtccertificate.h"
 #include "rtc_base/rtccertificategenerator.h"
 #include "rtc_base/socketaddress.h"
+#include "rtc_base/sslcertificate.h"
 #include "rtc_base/sslstreamadapter.h"
 
 namespace rtc {
@@ -528,6 +529,12 @@ class PeerConnectionInterface : public rtc::RefCountInterface {
     // starting a new ICE generation. The regathering happens continuously with
     // interval specified in milliseconds by the uniform distribution [a, b].
     rtc::Optional<rtc::IntervalRange> ice_regather_interval_range;
+
+    // Optional SSLCertificateVerifier
+    // Allowers the caller to override all SSL Peer Certificate verification.
+    // The object passed in must remain vaild until PeerConnection::Close() is
+    // called.
+    rtc::SSLCertificateVerifier* tls_cert_verifier = nullptr;
 
     // Optional TurnCustomizer.
     // With this class one can modify outgoing TURN messages.

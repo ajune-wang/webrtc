@@ -73,6 +73,86 @@
     },
     {
       "key": {
+        "uuid": "ee9091e1_29181f0a",
+        "filename": "examples/peerconnection/client/conductor.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2018-04-17T19:45:33Z",
+      "side": 1,
+      "message": "wohoo!",
+      "range": {
+        "startLine": 117,
+        "startChar": 47,
+        "endLine": 117,
+        "endChar": 59
+      },
+      "revId": "de24e240dceeb8e6cbd51ef800032c5742fe15a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee4c9f67_33a3f146",
+        "filename": "examples/peerconnection/client/conductor.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2018-04-17T19:45:33Z",
+      "side": 1,
+      "message": "nit: might want to remove the \u0027else\u0027 since the previous scope always returns.",
+      "range": {
+        "startLine": 298,
+        "startChar": 3,
+        "endLine": 298,
+        "endChar": 4
+      },
+      "revId": "de24e240dceeb8e6cbd51ef800032c5742fe15a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88df9d85_13309469",
+        "filename": "examples/peerconnection/client/conductor.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2018-04-17T19:45:33Z",
+      "side": 1,
+      "message": "...and this return statement isn\u0027t necessary.",
+      "revId": "de24e240dceeb8e6cbd51ef800032c5742fe15a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43db9431_9051fb7d",
+        "filename": "examples/peerconnection/client/conductor.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2018-04-17T19:45:33Z",
+      "side": 1,
+      "message": "can you fix the indent here along the way?",
+      "revId": "de24e240dceeb8e6cbd51ef800032c5742fe15a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9dfc5a9e_8d1e2ae6",
         "filename": "examples/peerconnection/client/conductor.h",
         "patchSetId": 1
@@ -108,6 +188,30 @@
       "side": 1,
       "message": "Good point. This is an override though so we have to stick with std::vector.",
       "parentUuid": "9dfc5a9e_8d1e2ae6",
+      "range": {
+        "startLine": 71,
+        "startChar": 6,
+        "endLine": 71,
+        "endChar": 23
+      },
+      "revId": "de24e240dceeb8e6cbd51ef800032c5742fe15a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "79a70f5d_9fedcf0d",
+        "filename": "examples/peerconnection/client/conductor.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2018-04-17T19:45:33Z",
+      "side": 1,
+      "message": "ack. I\u0027ll echo though that seeing vector\u003c\u003e explicitly in the abstract interface feels somewhat strange to me (and completely ooc for this CL I realize :D). I guess pointing to char[] vs std::string could be the obvious thing to do for precedence.",
+      "parentUuid": "7e4bb113_f5086ebd",
       "range": {
         "startLine": 71,
         "startChar": 6,

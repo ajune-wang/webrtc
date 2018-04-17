@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6d673369_d0df48fa",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1139,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-17T15:38:54Z",
+      "side": 1,
+      "message": "Sorry for taking so long to look at this (I\u0027ve been behind in code reviews), but it doesn\u0027t appear it will solve the problem. As soon as a backup candidate pair sends a ping, the state will briefly go to \"not receiving\" (next time it\u0027s updated) because last_ping_sent() will become greater than last_ping_response_received().\n\nAlso: what about a test?",
+      "revId": "f82644c9c744d53b611b5f6900fc7f7036790262",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

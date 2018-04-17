@@ -328,12 +328,11 @@ class Call : public webrtc::Call,
   using RtpStateMap = std::map<uint32_t, RtpState>;
   RtpStateMap suspended_audio_send_ssrcs_
       RTC_GUARDED_BY(configuration_sequence_checker_);
-  RtpStateMap suspended_video_send_ssrcs_
-      RTC_GUARDED_BY(configuration_sequence_checker_);
+  RtpStateMap suspended_video_send_ssrcs_ RTC_GUARDED_BY(worker_queue_);
 
   using RtpPayloadStateMap = std::map<uint32_t, RtpPayloadState>;
   RtpPayloadStateMap suspended_video_payload_states_
-      RTC_GUARDED_BY(configuration_sequence_checker_);
+      RTC_GUARDED_BY(worker_queue_);
 
   webrtc::RtcEventLog* event_log_;
 
@@ -722,8 +721,8 @@ webrtc::VideoSendStream* Call::CreateVideoSendStream(
       num_cpu_cores_, module_process_thread_.get(), &worker_queue_,
       call_stats_.get(), transport_send_.get(), bitrate_allocator_.get(),
       video_send_delay_stats_.get(), event_log_, std::move(config),
-      std::move(encoder_config), suspended_video_send_ssrcs_,
-      suspended_video_payload_states_, std::move(fec_controller),
+      std::move(encoder_config), &suspended_video_send_ssrcs_,
+      &suspended_video_payload_states_, std::move(fec_controller),
       &retransmission_rate_limiter_);
 
   {
@@ -777,16 +776,8 @@ void Call::DestroyVideoSendStream(webrtc::VideoSendStream* send_stream) {
   }
   RTC_CHECK(send_stream_impl != nullptr);
 
-  VideoSendStream::RtpStateMap rtp_states;
-  VideoSendStream::RtpPayloadStateMap rtp_payload_states;
-  send_stream_impl->StopPermanentlyAndGetRtpStates(&rtp_states,
-                                                   &rtp_payload_states);
-  for (const auto& kv : rtp_states) {
-    suspended_video_send_ssrcs_[kv.first] = kv.second;
-  }
-  for (const auto& kv : rtp_payload_states) {
-    suspended_video_payload_states_[kv.first] = kv.second;
-  }
+  send_stream_impl->StopPermanentlyAndGetRtpStates(
+      &suspended_video_send_ssrcs_, &suspended_video_payload_states_);
 
   UpdateAggregateNetworkState();
   delete send_stream_impl;

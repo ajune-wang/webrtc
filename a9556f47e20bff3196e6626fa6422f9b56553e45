@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bb7603d5_250c09a1",
+        "filename": "sdk/android/api/org/webrtc/PeerConnectionFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-04-17T10:26:06Z",
+      "side": 1,
+      "message": "This is currently a static function that takes no arguments, so it can\u0027t set any values on this object. I would change it to:\nprivate static native void nativeInitializeDefaults(Options options);\nand move it out of this nested class to the rest of the native functions in the general PeerConnectionFactory scope, due to limitations with the JNI generation that you have encountered.",
+      "range": {
+        "startLine": 159,
+        "startChar": 31,
+        "endLine": 159,
+        "endChar": 58
+      },
+      "revId": "a9556f47e20bff3196e6626fa6422f9b56553e45",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

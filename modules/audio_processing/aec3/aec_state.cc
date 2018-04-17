@@ -19,6 +19,7 @@
 #include "modules/audio_processing/logging/apm_data_dumper.h"
 #include "rtc_base/atomicops.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/logging.h"
 
 namespace webrtc {
 namespace {
@@ -55,6 +56,7 @@ void AecState::HandleEchoPathChange(
     const EchoPathVariability& echo_path_variability) {
   const auto full_reset = [&]() {
     filter_analyzer_.Reset();
+    clock_drift_detector_.Reset();
     blocks_since_last_saturation_ = 0;
     usable_linear_estimate_ = false;
     capture_signal_saturation_ = false;
@@ -102,6 +104,7 @@ void AecState::Update(
     const std::vector<float>& adaptive_filter_impulse_response,
     bool converged_filter,
     bool diverged_filter,
+    bool significant_echo_removal,
     const RenderBuffer& render_buffer,
     const std::array<float, kFftLengthBy2Plus1>& E2_main,
     const std::array<float, kFftLengthBy2Plus1>& Y2,
@@ -127,6 +130,15 @@ void AecState::Update(
   blocks_with_active_render_ += active_render_block ? 1 : 0;
   blocks_with_proper_filter_adaptation_ +=
       active_render_block && !SaturatedCapture() ? 1 : 0;
+
+  // Analyze the signal for clock-drift.
+  if (significant_echo_removal) {
+    clock_drift_detector_.Analyze(capture_block_counter_,
+                                  adaptive_filter_impulse_response);
+    if (clock_drift_detector_.DriftDetected()) {
+      RTC_LOG(LS_WARNING) << "Clock drift detected";
+    }
+  }
 
   // Update the limit on the echo suppression after an echo path change to avoid
   // an initial echo burst.

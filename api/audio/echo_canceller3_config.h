@@ -67,7 +67,7 @@ struct EchoCanceller3Config {
     float hf = 2.f;
     float default_len = 0.f;
     bool echo_can_saturate = true;
-    bool bounded_erl = false;
+    bool bounded_erl = true;
   } ep_strength;
 
   struct Mask {
@@ -118,7 +118,7 @@ struct EchoCanceller3Config {
       int full_gain_blocks = 312;
     } gain_rampup;
 
-    bool has_clock_drift = false;
+    bool has_clock_drift = true;
   } echo_removal_control;
 
   struct EchoModel {

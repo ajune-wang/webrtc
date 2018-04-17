@@ -196,7 +196,8 @@ void EchoRemoverImpl::ProcessCapture(
   aec_state_.Update(external_delay, subtractor_.FilterFrequencyResponse(),
                     subtractor_.FilterImpulseResponse(),
                     subtractor_.ConvergedFilter(), subtractor_.DivergedFilter(),
-                    *render_buffer, E2_main, Y2, subtractor_output.s_main);
+                    subtractor_.SignificantEchoRemoval(), *render_buffer,
+                    E2_main, Y2, subtractor_output.s_main);
 
   // Choose the linear output.
   data_dumper_->DumpWav("aec3_output_linear2", kBlockSize, &e_main[0],

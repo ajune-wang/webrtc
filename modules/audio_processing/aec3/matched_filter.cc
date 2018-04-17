@@ -100,7 +100,8 @@ void MatchedFilterCore_NEON(size_t x_start_index,
     // Update the matched filter estimate in an NLMS manner.
     if (x2_sum > x2_sum_threshold && !saturation) {
       RTC_DCHECK_LT(0.f, x2_sum);
-      const float alpha = 0.7f * e / x2_sum;
+      const float alpha =
+          0.1f * e / x2_sum;  // const float alpha = 0.7f * e / x2_sum;
       const float32x4_t alpha_128 = vmovq_n_f32(alpha);
 
       // filter = filter + 0.7 * (y - filter * x) / x * x.
@@ -215,7 +216,8 @@ void MatchedFilterCore_SSE2(size_t x_start_index,
     // Update the matched filter estimate in an NLMS manner.
     if (x2_sum > x2_sum_threshold && !saturation) {
       RTC_DCHECK_LT(0.f, x2_sum);
-      const float alpha = 0.7f * e / x2_sum;
+      const float alpha =
+          0.1f * e / x2_sum;  // const float alpha = 0.7f * e / x2_sum;
       const __m128 alpha_128 = _mm_set1_ps(alpha);
 
       // filter = filter + 0.7 * (y - filter * x) / x * x.
@@ -286,7 +288,8 @@ void MatchedFilterCore(size_t x_start_index,
     // Update the matched filter estimate in an NLMS manner.
     if (x2_sum > x2_sum_threshold && !saturation) {
       RTC_DCHECK_LT(0.f, x2_sum);
-      const float alpha = 0.7f * e / x2_sum;
+      const float alpha =
+          0.1f * e / x2_sum;  // const float alpha = 0.7f * e / x2_sum;
 
       // filter = filter + 0.7 * (y - filter * x) / x * x.
       size_t x_index = x_start_index;

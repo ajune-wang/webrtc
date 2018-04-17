@@ -16,6 +16,13 @@ namespace rnn_vad {
 
 constexpr size_t kSampleRate24kHz = 24000;
 constexpr size_t kFrameSize10ms24kHz = 240;
+constexpr size_t kFrameSize20ms24kHz = 480;
+
+// Pitch analysis params.
+constexpr size_t kPitchMinPeriod24kHz = 30;   // 0.00125 s (800 Hz).
+constexpr size_t kPitchMaxPeriod24kHz = 384;  // 0.016 s (62.5 Hz).
+constexpr size_t kBufSize24kHz = kPitchMaxPeriod24kHz + kFrameSize20ms24kHz;
+static_assert((kBufSize24kHz & 1) == 0, "The buffer size must be .");
 
 }  // namespace rnn_vad
 }  // namespace webrtc

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8b6b0e4d_7d933a6e",
+        "filename": "modules/rtp_rtcp/source/forward_error_correction_internal.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-04-17T12:11:50Z",
+      "side": 1,
+      "message": "Can we avoid to allocate this dynamically? Perhaps by allocating a large enough array as a member?",
+      "range": {
+        "startLine": 157,
+        "startChar": 0,
+        "endLine": 157,
+        "endChar": 64
+      },
+      "revId": "0c68e799db7511deaa20cf7ba41f2db7c68774b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7349e55d_6d2d6005",
+        "filename": "modules/rtp_rtcp/source/forward_error_correction_internal.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-04-17T12:11:50Z",
+      "side": 1,
+      "message": "Would be good to describe what\u0027s going on here in a comment as it\u0027s non-trivial code.",
+      "range": {
+        "startLine": 158,
+        "startChar": 0,
+        "endLine": 158,
+        "endChar": 51
+      },
+      "revId": "0c68e799db7511deaa20cf7ba41f2db7c68774b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

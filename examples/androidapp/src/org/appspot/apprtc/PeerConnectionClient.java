@@ -136,8 +136,6 @@ public class PeerConnectionClient {
   @Nullable
   private PeerConnection peerConnection;
   @Nullable
-  PeerConnectionFactory.Options options = null;
-  @Nullable
   private AudioSource audioSource;
   @Nullable
   private VideoSource videoSource;
@@ -146,7 +144,7 @@ public class PeerConnectionClient {
   private String preferredVideoCodec;
   private boolean videoCapturerStopped;
   private boolean isError;
-  private Timer statsTimer;
+  private final Timer statsTimer = new Timer();
   @Nullable
   private VideoSink localRender;
   @Nullable
@@ -157,23 +155,20 @@ public class PeerConnectionClient {
   private int videoFps;
   private MediaConstraints audioConstraints;
   private MediaConstraints sdpMediaConstraints;
-  private PeerConnectionParameters peerConnectionParameters;
+  private final PeerConnectionParameters peerConnectionParameters;
   // Queued remote ICE candidates are consumed only after both local and
   // remote descriptions are set. Similarly local ICE candidates are sent to
   // remote peer after both local and remote description are set.
   @Nullable
   private List<IceCandidate> queuedRemoteCandidates;
-  @Nullable
-  private PeerConnectionEvents events;
+  private final PeerConnectionEvents events;
   private boolean isInitiator;
   @Nullable
   private SessionDescription localSdp; // either offer or answer SDP
   @Nullable
-  private MediaStream mediaStream;
-  @Nullable
   private VideoCapturer videoCapturer;
   // enableVideo is set to true if video should be rendered and sent.
-  private boolean renderVideo;
+  private boolean renderVideo = true;
   @Nullable
   private VideoTrack localVideoTrack;
   @Nullable
@@ -181,12 +176,12 @@ public class PeerConnectionClient {
   @Nullable
   private RtpSender localVideoSender;
   // enableAudio is set to true if audio should be sent.
-  private boolean enableAudio;
+  private boolean enableAudio = true;
   @Nullable
   private AudioTrack localAudioTrack;
   @Nullable
   private DataChannel dataChannel;
-  private boolean dataChannelEnabled;
+  private final boolean dataChannelEnabled;
   // Enable RtcEventLog.
   @Nullable
   private RtcEventLog rtcEventLog;
@@ -325,48 +320,62 @@ public class PeerConnectionClient {
     void onPeerConnectionError(final String description);
   }
 
-  public PeerConnectionClient(Context appContext) {
+  private static String getFieldTrials(PeerConnectionParameters peerConnectionParameters) {
+    String fieldTrials = "";
+    if (peerConnectionParameters.videoFlexfecEnabled) {
+      fieldTrials += VIDEO_FLEXFEC_FIELDTRIAL;
+      Log.d(TAG, "Enable FlexFEC field trial.");
+    }
+    fieldTrials += VIDEO_VP8_INTEL_HW_ENCODER_FIELDTRIAL;
+    if (peerConnectionParameters.disableWebRtcAGCAndHPF) {
+      fieldTrials += DISABLE_WEBRTC_AGC_FIELDTRIAL;
+      Log.d(TAG, "Disable WebRTC AGC field trial.");
+    }
+    if (VIDEO_CODEC_H264_HIGH.equals(peerConnectionParameters.videoCodec)) {
+      // TODO(magjed): Strip High from SDP when selecting Baseline instead of using field trial.
+      fieldTrials += VIDEO_H264_HIGH_PROFILE_FIELDTRIAL;
+    }
+    return fieldTrials;
+  }
+
+  /**
+   * Create a PeerConnectionClient with the specified parameters. PeerConnectionClient takes
+   * ownership of |eglBase|.
+   */
+  public PeerConnectionClient(Context appContext, EglBase eglBase,
+      PeerConnectionParameters peerConnectionParameters, PeerConnectionEvents events) {
     if (appContext == null) {
       throw new NullPointerException("The application context is null");
     }
-    rootEglBase = EglBase.create();
+    this.rootEglBase = eglBase;
     this.appContext = appContext;
-  }
-
-  public void setPeerConnectionFactoryOptions(PeerConnectionFactory.Options options) {
-    this.options = options;
-  }
-
-  public void createPeerConnectionFactory(
-      final PeerConnectionParameters peerConnectionParameters, final PeerConnectionEvents events) {
-    this.peerConnectionParameters = peerConnectionParameters;
     this.events = events;
-    videoCallEnabled = peerConnectionParameters.videoCallEnabled;
-    dataChannelEnabled = peerConnectionParameters.dataChannelParameters != null;
-    // Reset variables to initial states.
-    factory = null;
-    peerConnection = null;
-    preferIsac = false;
-    videoCapturerStopped = false;
-    isError = false;
-    queuedRemoteCandidates = null;
-    localSdp = null; // either offer or answer SDP
-    mediaStream = null;
-    videoCapturer = null;
-    renderVideo = true;
-    localVideoTrack = null;
-    remoteVideoTrack = null;
-    localVideoSender = null;
-    enableAudio = true;
-    localAudioTrack = null;
-    statsTimer = new Timer();
+    this.peerConnectionParameters = peerConnectionParameters;
+    this.dataChannelEnabled = peerConnectionParameters.dataChannelParameters != null;
+    this.videoCallEnabled = peerConnectionParameters.videoCallEnabled;
 
-    executor.execute(new Runnable() {
-      @Override
-      public void run() {
-        createPeerConnectionFactoryInternal();
-      }
+    final String fieldTrials = getFieldTrials(peerConnectionParameters);
+    executor.execute(() -> {
+      Log.d(TAG,
+          "Initialize WebRTC. Field trials: " + fieldTrials + " Enable video HW acceleration: "
+              + peerConnectionParameters.videoCodecHwAcceleration);
+      PeerConnectionFactory.initialize(
+          PeerConnectionFactory.InitializationOptions.builder(appContext)
+              .setFieldTrials(fieldTrials)
+              .setEnableVideoHwAcceleration(peerConnectionParameters.videoCodecHwAcceleration)
+              .setEnableInternalTracer(true)
+              .createInitializationOptions());
     });
+  }
+
+  /**
+   * This function should only be called once.
+   */
+  public void createPeerConnectionFactory(PeerConnectionFactory.Options options) {
+    if (factory != null) {
+      throw new IllegalStateException("PeerConnectionFactory has already been constructed");
+    }
+    executor.execute(() -> createPeerConnectionFactoryInternal(options));
   }
 
   public void createPeerConnection(final VideoSink localRender,
@@ -415,23 +424,8 @@ public class PeerConnectionClient {
     return videoCallEnabled;
   }
 
-  private void createPeerConnectionFactoryInternal() {
+  private void createPeerConnectionFactoryInternal(PeerConnectionFactory.Options options) {
     isError = false;
-
-    // Initialize field trials.
-    String fieldTrials = "";
-    if (peerConnectionParameters.videoFlexfecEnabled) {
-      fieldTrials += VIDEO_FLEXFEC_FIELDTRIAL;
-      Log.d(TAG, "Enable FlexFEC field trial.");
-    }
-    fieldTrials += VIDEO_VP8_INTEL_HW_ENCODER_FIELDTRIAL;
-    if (peerConnectionParameters.disableWebRtcAGCAndHPF) {
-      fieldTrials += DISABLE_WEBRTC_AGC_FIELDTRIAL;
-      Log.d(TAG, "Disable WebRTC AGC field trial.");
-    }
-    if (!peerConnectionParameters.useLegacyAudioDevice) {
-      Log.d(TAG, "Enable WebRTC external Android audio device field trial.");
-    }
 
     // Check preferred video codec.
     preferredVideoCodec = VIDEO_CODEC_VP8;
@@ -447,8 +441,6 @@ public class PeerConnectionClient {
           preferredVideoCodec = VIDEO_CODEC_H264;
           break;
         case VIDEO_CODEC_H264_HIGH:
-          // TODO(magjed): Strip High from SDP when selecting Baseline instead of using field trial.
-          fieldTrials += VIDEO_H264_HIGH_PROFILE_FIELDTRIAL;
           preferredVideoCodec = VIDEO_CODEC_H264;
           break;
         default:
@@ -457,16 +449,6 @@ public class PeerConnectionClient {
     }
     Log.d(TAG, "Preferred video codec: " + preferredVideoCodec);
 
-    // Initialize WebRTC
-    Log.d(TAG,
-        "Initialize WebRTC. Field trials: " + fieldTrials + " Enable video HW acceleration: "
-            + peerConnectionParameters.videoCodecHwAcceleration);
-    PeerConnectionFactory.initialize(
-        PeerConnectionFactory.InitializationOptions.builder(appContext)
-            .setFieldTrials(fieldTrials)
-            .setEnableVideoHwAcceleration(peerConnectionParameters.videoCodecHwAcceleration)
-            .setEnableInternalTracer(true)
-            .createInitializationOptions());
     if (peerConnectionParameters.tracing) {
       PeerConnectionFactory.startInternalTracingCapture(
           Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator
@@ -864,21 +846,15 @@ public class PeerConnectionClient {
       factory.dispose();
       factory = null;
     }
-    options = null;
     rootEglBase.release();
     Log.d(TAG, "Closing peer connection done.");
     events.onPeerConnectionClosed();
     PeerConnectionFactory.stopInternalTracingCapture();
     PeerConnectionFactory.shutdownInternalTracer();
-    events = null;
   }
 
   public boolean isHDVideo() {
     return videoCallEnabled && videoWidth * videoHeight >= 1280 * 720;
-  }
-
-  public EglBase.Context getRenderContext() {
-    return rootEglBase.getEglBaseContext();
   }
 
   @SuppressWarnings("deprecation") // TODO(sakal): getStats is deprecated.

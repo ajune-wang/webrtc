@@ -35,6 +35,7 @@
 
 @implementation RTCMTLVideoView
 
+@synthesize delegate = _delegate;
 @synthesize rendererI420 = _rendererI420;
 @synthesize rendererNV12 = _rendererNV12;
 @synthesize metalView = _metalView;
@@ -90,7 +91,7 @@
   if (_metalView) {
     _metalView.delegate = self;
     [self addSubview:_metalView];
-    _metalView.contentMode = UIViewContentModeScaleAspectFit;
+    _metalView.contentMode = UIViewContentModeScaleAspectFill;
   }
 }
 
@@ -138,6 +139,9 @@
 
 - (void)setSize:(CGSize)size {
   self.metalView.drawableSize = size;
+  dispatch_async(dispatch_get_main_queue(), ^{
+    [self.delegate videoView:self didChangeVideoSize:size];
+  });
 }
 
 - (void)renderFrame:(nullable RTCVideoFrame *)frame {

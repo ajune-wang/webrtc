@@ -506,13 +506,11 @@ VideoSendStream::VideoSendStream(
     std::unique_ptr<FecController> fec_controller,
     RateLimiter* retransmission_limiter)
     : worker_queue_(worker_queue),
-      thread_sync_event_(false /* manual_reset */, false),
       stats_proxy_(Clock::GetRealTimeClock(),
                    config,
                    encoder_config.content_type),
       config_(std::move(config)),
-      content_type_(encoder_config.content_type),
-      send_stream_ptr_(nullptr) {
+      content_type_(encoder_config.content_type) {
   video_stream_encoder_ = rtc::MakeUnique<VideoStreamEncoder>(
       num_cpu_cores, &stats_proxy_,
       config_.encoder_settings,
@@ -529,7 +527,16 @@ VideoSendStream::VideoSendStream(
           suspended_payload_states, encoder_config.content_type,
           std::move(fec_controller), retransmission_limiter));
       this_->send_stream_ptr_ = this_->send_stream_.get();
-      this_->thread_sync_event_.Set();
+      this_->send_stream_->RegisterProcessThread(module_process_thread);
+      // TODO(sprang): Enable this also for regular video calls if it works
+      // well.
+      if (encoder_config.content_type ==
+          VideoEncoderConfig::ContentType::kScreen) {
+        // Only signal target bitrate for screenshare streams, for now.
+        this_->video_stream_encoder_->SetBitrateObserver(
+            this_->send_stream_.get());
+      }
+      this_->ReconfigureVideoEncoder(std::move(encoder_config));
     }
     VideoSendStream* this_;
     ProcessThread* module_process_thread;
@@ -550,18 +557,9 @@ VideoSendStream::VideoSendStream(
   worker_queue_->PostTask(ConstructionTask{
       this, module_process_thread, worker_queue, call_stats, transport,
       bitrate_allocator, send_delay_stats, video_stream_encoder_.get(),
-      event_log, &encoder_config, suspended_ssrcs, suspended_payload_states,
-      std::move(fec_controller), retransmission_limiter});
-
-  thread_sync_event_.Wait(rtc::Event::kForever);
-  send_stream_ptr_->RegisterProcessThread(module_process_thread);
-  // TODO(sprang): Enable this also for regular video calls if it works well.
-  if (encoder_config.content_type == VideoEncoderConfig::ContentType::kScreen) {
-    // Only signal target bitrate for screenshare streams, for now.
-    video_stream_encoder_->SetBitrateObserver(send_stream_ptr_);
-  }
-
-  ReconfigureVideoEncoder(std::move(encoder_config));
+      event_log, std::move(encoder_config), suspended_ssrcs,
+      suspended_payload_states, std::move(fec_controller),
+      retransmission_limiter});
 }
 
 VideoSendStream::~VideoSendStream() {
@@ -576,10 +574,7 @@ void VideoSendStream::UpdateActiveSimulcastLayers(
   worker_queue_->PostTask([this, active_layers] {
     RTC_DCHECK_RUN_ON(worker_queue_);
     send_stream_->UpdateActiveSimulcastLayers(active_layers);
-    thread_sync_event_.Set();
   });
-
-  thread_sync_event_.Wait(rtc::Event::kForever);
 }
 
 void VideoSendStream::Start() {
@@ -588,13 +583,7 @@ void VideoSendStream::Start() {
   worker_queue_->PostTask([this] {
     RTC_DCHECK_RUN_ON(worker_queue_);
     send_stream_->Start();
-    thread_sync_event_.Set();
   });
-
-  // It is expected that after VideoSendStream::Start has been called, incoming
-  // frames are not dropped in VideoStreamEncoder. To ensure this, Start has to
-  // be synchronized.
-  thread_sync_event_.Wait(rtc::Event::kForever);
 }
 
 void VideoSendStream::Stop() {
@@ -656,9 +645,9 @@ void VideoSendStream::StopPermanentlyAndGetRtpStates(
     VideoSendStream::RtpPayloadStateMap* payload_state_map) {
   RTC_DCHECK_RUN_ON(&thread_checker_);
   video_stream_encoder_->Stop();
-  send_stream_ptr_->DeRegisterProcessThread();
   worker_queue_->PostTask([this, rtp_state_map, payload_state_map]() {
     RTC_DCHECK_RUN_ON(worker_queue_);
+    send_stream_->DeRegisterProcessThread();
     send_stream_->Stop();
 
     VideoSendStream::RtpStateMap rtp_states = send_stream_->GetRtpStates();
@@ -673,9 +662,7 @@ void VideoSendStream::StopPermanentlyAndGetRtpStates(
     }
     send_stream_.reset();
     send_stream_ptr_ = nullptr;
-    thread_sync_event_.Set();
   });
-  thread_sync_event_.Wait(rtc::Event::kForever);
 }
 
 void VideoSendStream::SetTransportOverhead(
@@ -890,18 +877,23 @@ VideoSendStreamImpl::VideoSendStreamImpl(
 
 void VideoSendStreamImpl::RegisterProcessThread(
     ProcessThread* module_process_thread) {
-  RTC_DCHECK_RUN_ON(&module_process_thread_checker_);
-  RTC_DCHECK(!module_process_thread_);
-  module_process_thread_ = module_process_thread;
+  module_process_thread->PostTask(
+      rtc::NewClosure([this, module_process_thread]() {
+        RTC_DCHECK_RUN_ON(&module_process_thread_checker_);
+        RTC_DCHECK(!module_process_thread_);
+        module_process_thread_ = module_process_thread;
 
-  for (RtpRtcp* rtp_rtcp : rtp_rtcp_modules_)
-    module_process_thread_->RegisterModule(rtp_rtcp, RTC_FROM_HERE);
+        for (RtpRtcp* rtp_rtcp : rtp_rtcp_modules_)
+          module_process_thread_->RegisterModule(rtp_rtcp, RTC_FROM_HERE);
+      }));
 }
 
 void VideoSendStreamImpl::DeRegisterProcessThread() {
-  RTC_DCHECK_RUN_ON(&module_process_thread_checker_);
-  for (RtpRtcp* rtp_rtcp : rtp_rtcp_modules_)
-    module_process_thread_->DeRegisterModule(rtp_rtcp);
+  module_process_thread_->PostTask(rtc::NewClosure([this]() {
+    RTC_DCHECK_RUN_ON(&module_process_thread_checker_);
+    for (RtpRtcp* rtp_rtcp : rtp_rtcp_modules_)
+      module_process_thread_->DeRegisterModule(rtp_rtcp);
+  }));
 }
 
 VideoSendStreamImpl::~VideoSendStreamImpl() {

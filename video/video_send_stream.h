@@ -112,7 +112,6 @@ class VideoSendStream : public webrtc::VideoSendStream {
 
   rtc::ThreadChecker thread_checker_;
   rtc::TaskQueue* const worker_queue_;
-  rtc::Event thread_sync_event_;
 
   SendStatisticsProxy stats_proxy_;
   const VideoSendStream::Config config_;

@@ -472,6 +472,16 @@ Call::~Call() {
       receive_side_cc_.GetRemoteBitrateEstimator(true));
   module_process_thread_->DeRegisterModule(&receive_side_cc_);
   module_process_thread_->DeRegisterModule(call_stats_.get());
+
+  // Wait on worker queue and process thread to ensure that posted video send
+  // stream destruction tasks has been executed.
+  rtc::Event done(false, false);
+  worker_queue_.PostTask([&done] { done.Set(); });
+  done.Wait(rtc::Event::kForever);
+
+  module_process_thread_->PostTask(rtc::NewClosure([&done] { done.Set(); }));
+  done.Wait(rtc::Event::kForever);
+
   module_process_thread_->Stop();
   call_stats_->DeregisterStatsObserver(&receive_side_cc_);
   call_stats_->DeregisterStatsObserver(transport_send_->GetCallStatsObserver());
@@ -778,9 +788,12 @@ void Call::DestroyVideoSendStream(webrtc::VideoSendStream* send_stream) {
 
   send_stream_impl->StopPermanentlyAndGetRtpStates(
       &suspended_video_send_ssrcs_, &suspended_video_payload_states_);
+  worker_queue_.PostTask([this, send_stream_impl]() {
+    module_process_thread_->PostTask(
+        rtc::NewClosure([send_stream_impl]() { delete send_stream_impl; }));
+  });
 
   UpdateAggregateNetworkState();
-  delete send_stream_impl;
 }
 
 webrtc::VideoReceiveStream* Call::CreateVideoReceiveStream(

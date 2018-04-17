@@ -22,6 +22,30 @@
       "revId": "9a0ba7640089c065f544ca55b0d231956bff5e7b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a92ca98f_9df0aa97",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 736,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-04-17T13:34:54Z",
+      "side": 1,
+      "message": "It would add the overhead of copying every frame in paused state. If that is an OK overhead to have, I think that actually would be preferable, as it maintains the functionality. WDYT?",
+      "parentUuid": "44a2fb49_cb63f42d",
+      "range": {
+        "startLine": 735,
+        "startChar": 0,
+        "endLine": 736,
+        "endChar": 39
+      },
+      "revId": "9a0ba7640089c065f544ca55b0d231956bff5e7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -312,7 +312,7 @@ int main(int argc, char* argv[]) {
   if (FLAG_plot_audio_encoder_num_channels) {
     analyzer.CreateAudioEncoderNumChannelsGraph(collection->AppendNewPlot());
   }
-  if (FLAG_plot_audio_jitter_buffer) {
+  if (FLAG_plot_audio_jitter_buffer || 1) {
     std::string wav_path;
     if (FLAG_wav_filename[0] != '\0') {
       wav_path = FLAG_wav_filename;
@@ -321,8 +321,14 @@ int main(int argc, char* argv[]) {
           "audio_processing/conversational_speech/EN_script2_F_sp2_B1", "wav");
     }
     auto neteq_stats = analyzer.SimulateNetEq(wav_path, 48000);
-    analyzer.CreateAudioJitterBufferGraph(neteq_stats,
+    if (FLAG_plot_audio_jitter_buffer) {
+      analyzer.CreateAudioJitterBufferGraph(neteq_stats,
+                                            collection->AppendNewPlot());
+    }
+    if (1) {
+      analyzer.CreateAudioExpandRateGraph(neteq_stats,
                                           collection->AppendNewPlot());
+    }
   }
 
   if (FLAG_plot_ice_candidate_pair_config) {

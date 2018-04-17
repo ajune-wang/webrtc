@@ -133,6 +133,10 @@ class EventLogAnalyzer {
       const std::map<StreamId, std::unique_ptr<test::NetEqStatsGetter>>&
           neteq_stats_getters,
       Plot* plot) const;
+  void CreateAudioExpandRateGraph(
+      const std::map<StreamId, std::unique_ptr<test::NetEqStatsGetter>>&
+          neteq_stats_getters,
+      Plot* plot) const;
   void CreateIceCandidatePairConfigGraph(Plot* plot);
   void CreateIceConnectivityCheckGraph(Plot* plot);
 

@@ -1878,6 +1878,15 @@ class NetEqStreamInput : public test::NetEqInput {
     RTC_DCHECK(output_events_us);
   }
 
+  inline int64_t TimeStampToPacketTime(uint64_t timestamp) const {
+    // Convert from us to ms.
+    return rtc::checked_cast<int64_t>(timestamp / 1000);
+  }
+
+  static inline uint64_t PacketTimeToTimeStamp(int64_t packet_time) {
+    return packet_time * 1000;
+  }
+
   rtc::Optional<int64_t> NextPacketTime() const override {
     if (packet_stream_it_ == packet_stream_.end()) {
       return rtc::nullopt;
@@ -1885,8 +1894,7 @@ class NetEqStreamInput : public test::NetEqInput {
     if (end_time_us_ && packet_stream_it_->timestamp > *end_time_us_) {
       return rtc::nullopt;
     }
-    // Convert from us to ms.
-    return packet_stream_it_->timestamp / 1000;
+    return TimeStampToPacketTime(packet_stream_it_->timestamp);
   }
 
   rtc::Optional<int64_t> NextOutputEventTime() const override {
@@ -1896,8 +1904,7 @@ class NetEqStreamInput : public test::NetEqInput {
     if (end_time_us_ && *output_events_us_it_ > *end_time_us_) {
       return rtc::nullopt;
     }
-    // Convert from us to ms.
-    return rtc::checked_cast<int64_t>(*output_events_us_it_ / 1000);
+    return TimeStampToPacketTime(*output_events_us_it_);
   }
 
   std::unique_ptr<PacketData> PopPacket() override {
@@ -1906,8 +1913,7 @@ class NetEqStreamInput : public test::NetEqInput {
     }
     std::unique_ptr<PacketData> packet_data(new PacketData());
     packet_data->header = packet_stream_it_->header;
-    // Convert from us to ms.
-    packet_data->time_ms = packet_stream_it_->timestamp / 1000.0;
+    packet_data->time_ms = TimeStampToPacketTime(packet_stream_it_->timestamp);
 
     // This is a header-only "dummy" packet. Set the payload to all zeros, with
     // length according to the virtual length.
@@ -2115,6 +2121,49 @@ void EventLogAnalyzer::CreateAudioJitterBufferGraph(
   plot->SetYAxis(min_y_axis, max_y_axis, "Relative delay (ms)", kBottomMargin,
                  kTopMargin);
   plot->SetTitle("NetEq timing");
+}
+
+// Plots the expand rate profile. This will plot only for the first
+// incoming audio SSRC. If the stream contains more than one incoming audio
+// SSRC, all but the first will be ignored.
+void EventLogAnalyzer::CreateAudioExpandRateGraph(
+    const std::map<EventLogAnalyzer::StreamId,
+                   std::unique_ptr<test::NetEqStatsGetter>>& neteq_stats,
+    Plot* plot) const {
+  if (neteq_stats.size() < 1)
+    return;
+
+  const StreamId stream_id = neteq_stats.begin()->first;
+  auto stats = neteq_stats.at(stream_id)->stats();
+
+  std::map<StreamId, TimeSeries> time_series_expand_rate;
+
+  float min_y_axis = 0.f;
+  float max_y_axis = 0.f;
+  for (size_t i = 0; i < stats.size(); ++i) {
+    const float time =
+        ToCallTime(NetEqStreamInput::PacketTimeToTimeStamp(stats[i].first));
+    const float expand_rate = stats[i].second.expand_rate / 16384.f;
+    time_series_expand_rate[stream_id].points.emplace_back(
+        TimeSeriesPoint(time, expand_rate));
+    min_y_axis = std::min(min_y_axis, expand_rate);
+    max_y_axis = std::max(max_y_axis, expand_rate);
+  }
+
+  // This code is adapted for a single stream. The creation of the streams above
+  // guarantee that no more than one steam is included. If multiple streams are
+  // to be plotted, they should likely be given distinct labels below.
+  RTC_DCHECK_EQ(time_series_expand_rate.size(), 1);
+  for (auto& series : time_series_expand_rate) {
+    series.second.label = "Expand rate";
+    series.second.line_style = LineStyle::kLine;
+    plot->AppendTimeSeries(std::move(series.second));
+  }
+
+  plot->SetXAxis(0, call_duration_s_, "Time (s)", kLeftMargin, kRightMargin);
+  plot->SetYAxis(min_y_axis, max_y_axis, "Expand rate", kBottomMargin,
+                 kTopMargin);
+  plot->SetTitle("Expand rate");
 }
 
 void EventLogAnalyzer::CreateIceCandidatePairConfigGraph(Plot* plot) {

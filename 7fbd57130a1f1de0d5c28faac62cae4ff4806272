@@ -425,6 +425,30 @@
     },
     {
       "key": {
+        "uuid": "aecdf3ed_fe7c8e6e",
+        "filename": "modules/audio_processing/agc2/rnn_vad/symmetric_matrix_buffer_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-04-17T09:54:26Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c53f7301_133982d7",
+      "range": {
+        "startLine": 56,
+        "startChar": 12,
+        "endLine": 56,
+        "endChar": 15
+      },
+      "revId": "7fbd57130a1f1de0d5c28faac62cae4ff4806272",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bda36fd2_262840e9",
         "filename": "modules/audio_processing/agc2/rnn_vad/symmetric_matrix_buffer_unittest.cc",
         "patchSetId": 1
@@ -460,6 +484,30 @@
       "side": 1,
       "message": "I am used to use ASSERT_* to check those pre-conditions that guarantee that the test triggers the intended behavior and EXPECT_* to check if the triggered behavior generates the expected result. What I like is that the test stops immediately if it is not doing its job.",
       "parentUuid": "bda36fd2_262840e9",
+      "range": {
+        "startLine": 67,
+        "startChar": 4,
+        "endLine": 67,
+        "endChar": 10
+      },
+      "revId": "7fbd57130a1f1de0d5c28faac62cae4ff4806272",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "88c74714_b0f16685",
+        "filename": "modules/audio_processing/agc2/rnn_vad/symmetric_matrix_buffer_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-04-17T09:54:26Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f34cd9d0_963e9533",
       "range": {
         "startLine": 67,
         "startChar": 4,

@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "b83964d0_0a3a0f11",
+        "filename": "modules/audio_processing/agc2/rnn_vad/symmetric_matrix_buffer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-04-17T09:54:26Z",
+      "side": 1,
+      "message": "You might get away with simply using 0u instead of the static_cast.",
+      "range": {
+        "startLine": 59,
+        "startChar": 20,
+        "endLine": 59,
+        "endChar": 42
+      },
+      "revId": "cce42273026114fd41fd671852fd8f11d6f25f61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0f10ceda_e0baf066",
         "filename": "modules/audio_processing/agc2/rnn_vad/symmetric_matrix_buffer_unittest.cc",
         "patchSetId": 3

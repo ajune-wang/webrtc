@@ -22,6 +22,30 @@
       "revId": "63062a837531073e2e9ccc9dde61c5852b2e7cc5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a04c7d8_029824cf",
+        "filename": "modules/audio_processing/agc2/rnn_vad/ring_buffer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-17T11:46:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2de3d43c_ed71ea10",
+      "range": {
+        "startLine": 47,
+        "startChar": 17,
+        "endLine": 47,
+        "endChar": 24
+      },
+      "revId": "63062a837531073e2e9ccc9dde61c5852b2e7cc5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

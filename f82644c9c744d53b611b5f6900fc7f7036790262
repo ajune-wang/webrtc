@@ -52,6 +52,24 @@
       "revId": "f82644c9c744d53b611b5f6900fc7f7036790262",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e38c317_a48f497c",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1139,
+      "author": {
+        "id": 6252
+      },
+      "writtenOn": "2018-04-17T22:52:48Z",
+      "side": 1,
+      "message": "We kept the receiving state to have a higher priority than network type/preference to allow fast switching between Wifi/Cellular.",
+      "parentUuid": "e3949f98_04d0155e",
+      "revId": "f82644c9c744d53b611b5f6900fc7f7036790262",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

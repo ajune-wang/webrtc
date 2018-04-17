@@ -158,7 +158,7 @@ public class VideoRenderer {
      * Convert the frame to VideoFrame. It is no longer safe to use the I420Frame after calling
      * this.
      */
-    VideoFrame toVideoFrame() {
+    public VideoFrame toVideoFrame() {
       final VideoFrame.Buffer buffer;
       if (backingBuffer != null) {
         // We were construted from a VideoFrame.Buffer, just return it.

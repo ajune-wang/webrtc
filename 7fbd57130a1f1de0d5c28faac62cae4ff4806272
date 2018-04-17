@@ -1,0 +1,280 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d505e883_a90f6949",
+        "filename": "modules/audio_processing/agc2/rnn_vad/symmetric_matrix_buffer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-04-17T07:43:45Z",
+      "side": 1,
+      "message": "You can use RTC_DISALLOW_COPY_AND_ASSIGN() from rtc_base/constructormagic.h for this.",
+      "range": {
+        "startLine": 37,
+        "startChar": 2,
+        "endLine": 38,
+        "endChar": 74
+      },
+      "revId": "7fbd57130a1f1de0d5c28faac62cae4ff4806272",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0aa5fb6b_3c13156b",
+        "filename": "modules/audio_processing/agc2/rnn_vad/symmetric_matrix_buffer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-04-17T07:43:45Z",
+      "side": 1,
+      "message": "Nit: Sets ...\nFunction declaration comments should be descriptive (\"Opens the file\") rather than imperative (\"Open the file\"). https://google.github.io/styleguide/cppguide.html#Function_Comments",
+      "range": {
+        "startLine": 40,
+        "startChar": 5,
+        "endLine": 40,
+        "endChar": 8
+      },
+      "revId": "7fbd57130a1f1de0d5c28faac62cae4ff4806272",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1808f01a_149c25be",
+        "filename": "modules/audio_processing/agc2/rnn_vad/symmetric_matrix_buffer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-04-17T07:43:45Z",
+      "side": 1,
+      "message": "Pushes ...",
+      "range": {
+        "startLine": 46,
+        "startChar": 5,
+        "endLine": 46,
+        "endChar": 9
+      },
+      "revId": "7fbd57130a1f1de0d5c28faac62cae4ff4806272",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a176b376_ee23fe0b",
+        "filename": "modules/audio_processing/agc2/rnn_vad/symmetric_matrix_buffer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-04-17T07:43:45Z",
+      "side": 1,
+      "message": "Since the full storage is a matrix of size (S-1)x(S-1), I think you are in fact moving a sub-matrix of size (S-2)x(S-2). Or am I mistaken?",
+      "range": {
+        "startLine": 53,
+        "startChar": 47,
+        "endLine": 53,
+        "endChar": 60
+      },
+      "revId": "7fbd57130a1f1de0d5c28faac62cae4ff4806272",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b99e3aed_6b3f7789",
+        "filename": "modules/audio_processing/agc2/rnn_vad/symmetric_matrix_buffer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-04-17T07:43:45Z",
+      "side": 1,
+      "message": "Indices should be size_t.",
+      "range": {
+        "startLine": 58,
+        "startChar": 12,
+        "endLine": 58,
+        "endChar": 15
+      },
+      "revId": "7fbd57130a1f1de0d5c28faac62cae4ff4806272",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33c18ecd_eff6cdf5",
+        "filename": "modules/audio_processing/agc2/rnn_vad/symmetric_matrix_buffer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-04-17T07:43:45Z",
+      "side": 1,
+      "message": "Add in the comment what the legal values for delay1 and delay2 are.",
+      "range": {
+        "startLine": 64,
+        "startChar": 5,
+        "endLine": 65,
+        "endChar": 47
+      },
+      "revId": "7fbd57130a1f1de0d5c28faac62cae4ff4806272",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0e73477_2ef55cf5",
+        "filename": "modules/audio_processing/agc2/rnn_vad/symmetric_matrix_buffer_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-04-17T07:43:45Z",
+      "side": 1,
+      "message": "which -\u003e with",
+      "range": {
+        "startLine": 33,
+        "startChar": 69,
+        "endLine": 33,
+        "endChar": 74
+      },
+      "revId": "7fbd57130a1f1de0d5c28faac62cae4ff4806272",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e4fa300_302f881d",
+        "filename": "modules/audio_processing/agc2/rnn_vad/symmetric_matrix_buffer_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-04-17T07:43:45Z",
+      "side": 1,
+      "message": "does not contain -\u003e contains\nBecause this function returns true when a pair with either value equal to |value| exists.",
+      "range": {
+        "startLine": 33,
+        "startChar": 43,
+        "endLine": 33,
+        "endChar": 59
+      },
+      "revId": "7fbd57130a1f1de0d5c28faac62cae4ff4806272",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5cef5af4_2f871a19",
+        "filename": "modules/audio_processing/agc2/rnn_vad/symmetric_matrix_buffer_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-04-17T07:43:45Z",
+      "side": 1,
+      "message": "size_t\nAnd you could name it kRingBufSize to make it clear that it is a compile-time constant.",
+      "range": {
+        "startLine": 56,
+        "startChar": 12,
+        "endLine": 56,
+        "endChar": 15
+      },
+      "revId": "7fbd57130a1f1de0d5c28faac62cae4ff4806272",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bda36fd2_262840e9",
+        "filename": "modules/audio_processing/agc2/rnn_vad/symmetric_matrix_buffer_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-04-17T07:43:45Z",
+      "side": 1,
+      "message": "I think you can use an EXPECT_EQ here. The test won\u0027t crash if you continue beyond this point, even if this value is wrong.",
+      "range": {
+        "startLine": 67,
+        "startChar": 4,
+        "endLine": 67,
+        "endChar": 10
+      },
+      "revId": "7fbd57130a1f1de0d5c28faac62cae4ff4806272",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1fac4dee_f0608d2d",
+        "filename": "modules/audio_processing/agc2/rnn_vad/symmetric_matrix_buffer_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-04-17T07:43:45Z",
+      "side": 1,
+      "message": "EXPECT_EQ",
+      "range": {
+        "startLine": 75,
+        "startChar": 6,
+        "endLine": 75,
+        "endChar": 15
+      },
+      "revId": "7fbd57130a1f1de0d5c28faac62cae4ff4806272",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3a89a0f_2b8e8640",
+        "filename": "modules/audio_processing/agc2/rnn_vad/symmetric_matrix_buffer_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-04-17T07:43:45Z",
+      "side": 1,
+      "message": "EXPECT_LE",
+      "range": {
+        "startLine": 90,
+        "startChar": 8,
+        "endLine": 90,
+        "endChar": 17
+      },
+      "revId": "7fbd57130a1f1de0d5c28faac62cae4ff4806272",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

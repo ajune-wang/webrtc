@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "5b4c3da9_1c6174fb",
+        "filename": "video/video_stream_decoder_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-04-17T11:08:32Z",
+      "side": 1,
+      "message": "\u003e This is a bit confusing. First, decoded_image is passed as a non-const reference argument to this method, something which is strongly discouraged.\n\nI agree, but this is how DecodedImageCallback API is defined (in video_decoder.h).\n\n\u003e Then it\u0027s captured by value in the lambda, which I imagine implies an extra copy? I\u0027d prefer to not even have to know what mutable means when attached to a lambda, or why it makes the compiler happier...\n\nYes, it\u0027s an extra copy. Using mutable in this case removes const qualification from parameters captured by copy, which I need in order to call set_timestamp_us.\n\n\u003e In any case, VideoFrame is a small and cheap object (with a refcounted pointer to the heavier VideoFrameBuffer). I would recommend not calling set_timestamp_us on the input VideoFrame, but instead simply create another instance,\n\u003e \n\u003e VideoFrame another(decoded_image.video_frame_buffer(), decoded_image.rotation(), frame_info-\u003erender_time_ms * 1000);\n\u003e \n\u003e And if you *really* need rtp time downstream, copy it with \n\u003e \n\u003e   another.set_timestamp(decoded_image.timestamp());\n\u003e \n\u003e If possible, it\u0027s even better if you don\u0027t need to name this temporary object, but instead construct it where it is used, as the argument to OnDecodedFrame.\n\nAfter decoding I need to set the render timestamp, but not the rtp timestamp.",
+      "parentUuid": "76e77c5a_a6133988",
+      "revId": "89ffe5cb6528bfec90c6582adcb47e259b341533",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9df576bb_e508c1e9",
         "filename": "video/video_stream_decoder_impl.h",
         "patchSetId": 2
@@ -66,6 +84,24 @@
       "side": 1,
       "message": "Can you name it timestamp_us, for consistency with VideoFrame? And maybe timestamp_rtp or timestamp_90kHz for the rtp timestamp?",
       "parentUuid": "9df576bb_e508c1e9",
+      "revId": "89ffe5cb6528bfec90c6582adcb47e259b341533",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "619c623e_2f411a17",
+        "filename": "video/video_stream_decoder_impl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-04-17T11:08:32Z",
+      "side": 1,
+      "message": "We don\u0027t really care what type of clock we use, it is simply the timestamp of the frame we are interested in.\n\nLooking at video_frame.h it is not clear that timestamp_us is the render timestamp of the frame (even though that is how we use it). Changed from render_time_ms to render_time_us.",
+      "parentUuid": "a5e39a69_f262577c",
       "revId": "89ffe5cb6528bfec90c6582adcb47e259b341533",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

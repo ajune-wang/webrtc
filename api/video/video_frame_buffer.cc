@@ -14,6 +14,10 @@
 
 namespace webrtc {
 
+rtc::scoped_refptr<I420BufferInterface> VideoFrameBuffer::MaskI420(){
+  return nullptr;
+}
+
 rtc::scoped_refptr<I420BufferInterface> VideoFrameBuffer::GetI420() {
   RTC_CHECK(type() == Type::kI420);
   return static_cast<I420BufferInterface*>(this);

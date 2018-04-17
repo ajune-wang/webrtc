@@ -62,7 +62,7 @@ class VideoFrameBuffer : public rtc::RefCountInterface {
   // provide a fallback to I420 for compatibility with e.g. the internal WebRTC
   // software encoders.
   virtual rtc::scoped_refptr<I420BufferInterface> ToI420() = 0;
-
+  virtual rtc::scoped_refptr<I420BufferInterface> MaskI420();
   // These functions should only be called if type() is of the correct type.
   // Calling with a different type will result in a crash.
   // TODO(magjed): Return raw pointers for GetI420 once deprecated interface is

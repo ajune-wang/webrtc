@@ -22,6 +22,9 @@
 #include "modules/video_coding/include/video_codec_interface.h"
 #include "rtc_base/criticalsection.h"
 
+#include "media/base/mediaconstants.h"
+#include "modules/video_coding/codecs/vp8/temporal_layers.h"
+
 namespace webrtc {
 
 enum AlphaCodecStream {
@@ -50,6 +53,7 @@ class MultiplexEncoderAdapter : public VideoEncoder {
                         uint32_t new_framerate) override;
   int Release() override;
   const char* ImplementationName() const override;
+  bool SupportsNativeHandle() const override;
 
   EncodedImageCallback::Result OnEncodedImage(
       AlphaCodecStream stream_idx,
@@ -62,8 +66,10 @@ class MultiplexEncoderAdapter : public VideoEncoder {
   class AdapterEncodedImageCallback;
 
   VideoEncoderFactory* const factory_;
-  const SdpVideoFormat associated_format_;
+  std::unique_ptr<VideoEncoderFactory> internal_factory_;
+  SdpVideoFormat associated_format_;
   std::vector<std::unique_ptr<VideoEncoder>> encoders_;
+  VideoEncoderFactory::CodecInfo associated_codec_info_;
   std::vector<std::unique_ptr<AdapterEncodedImageCallback>> adapter_callbacks_;
   EncodedImageCallback* encoded_complete_callback_;
 
@@ -72,6 +78,7 @@ class MultiplexEncoderAdapter : public VideoEncoder {
 
   uint16_t picture_index_ = 0;
   std::vector<uint8_t> multiplex_dummy_planes_;
+  std::unique_ptr<TemporalLayersFactory> tl_factory_;
 
   int key_frame_interval_;
   EncodedImage combined_image_;

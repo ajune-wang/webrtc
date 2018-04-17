@@ -18,6 +18,9 @@
 #include "rtc_base/keep_ref_until_done.h"
 #include "rtc_base/logging.h"
 
+#include "media/engine/internaldecoderfactory.h"
+#include "media/base/mediaconstants.h"
+
 namespace {
 void KeepBufferRefs(rtc::scoped_refptr<webrtc::VideoFrameBuffer>,
                     rtc::scoped_refptr<webrtc::VideoFrameBuffer>) {}
@@ -82,7 +85,9 @@ struct MultiplexDecoderAdapter::DecodedImageData {
 MultiplexDecoderAdapter::MultiplexDecoderAdapter(
     VideoDecoderFactory* factory,
     const SdpVideoFormat& associated_format)
-    : factory_(factory), associated_format_(associated_format) {}
+    : factory_(factory), associated_format_(associated_format) {
+  internal_factory_.reset(new InternalDecoderFactory());
+}
 
 MultiplexDecoderAdapter::~MultiplexDecoderAdapter() {
   Release();
@@ -91,19 +96,39 @@ MultiplexDecoderAdapter::~MultiplexDecoderAdapter() {
 int32_t MultiplexDecoderAdapter::InitDecode(const VideoCodec* codec_settings,
                                             int32_t number_of_cores) {
   RTC_DCHECK_EQ(kVideoCodecMultiplex, codec_settings->codecType);
-  VideoCodec settings = *codec_settings;
-  settings.codecType = PayloadStringToCodecType(associated_format_.name);
+  VideoCodec settings[2];
+  settings[0] = *codec_settings;
+  settings[0].codecType = PayloadStringToCodecType(associated_format_.name);
+  settings[1] = settings[0];
+  settings[1].codecType = kVideoCodecVP8;
+
+  VideoDecoderFactory* fac = true?(internal_factory_.get()):(factory_);
+
   for (size_t i = 0; i < kAlphaCodecStreams; ++i) {
-    std::unique_ptr<VideoDecoder> decoder =
-        factory_->CreateVideoDecoder(associated_format_);
-    const int32_t rv = decoder->InitDecode(&settings, number_of_cores);
-    if (rv)
-      return rv;
-    adapter_callbacks_.emplace_back(
-        new MultiplexDecoderAdapter::AdapterDecodedImageCallback(
-            this, static_cast<AlphaCodecStream>(i)));
-    decoder->RegisterDecodeCompleteCallback(adapter_callbacks_.back().get());
-    decoders_.emplace_back(std::move(decoder));
+    if (i==0) {
+      std::unique_ptr<VideoDecoder> decoder =
+          factory_->CreateVideoDecoder(associated_format_);
+      const int32_t rv = decoder->InitDecode(&settings[i], number_of_cores);
+      if (rv)
+        return rv;
+      adapter_callbacks_.emplace_back(
+          new MultiplexDecoderAdapter::AdapterDecodedImageCallback(
+              this, static_cast<AlphaCodecStream>(i)));
+      decoder->RegisterDecodeCompleteCallback(adapter_callbacks_.back().get());
+      decoders_.emplace_back(std::move(decoder));
+    }
+    else {
+      std::unique_ptr<VideoDecoder> decoder =
+          fac->CreateVideoDecoder(SdpVideoFormat(cricket::kVp8CodecName));
+      const int32_t rv = decoder->InitDecode(&settings[i], number_of_cores);
+      if (rv)
+        return rv;
+      adapter_callbacks_.emplace_back(
+          new MultiplexDecoderAdapter::AdapterDecodedImageCallback(
+              this, static_cast<AlphaCodecStream>(i)));
+      decoder->RegisterDecodeCompleteCallback(adapter_callbacks_.back().get());
+      decoders_.emplace_back(std::move(decoder));
+    }
   }
   return WEBRTC_VIDEO_CODEC_OK;
 }
@@ -124,13 +149,19 @@ int32_t MultiplexDecoderAdapter::Decode(
                           std::forward_as_tuple(input_image._timeStamp),
                           std::forward_as_tuple(kAXXStream));
   }
+
   int32_t rv = 0;
-  for (size_t i = 0; i < image.image_components.size(); i++) {
-    rv = decoders_[image.image_components[i].component_index]->Decode(
-        image.image_components[i].encoded_image, missing_frames, nullptr,
-        nullptr, render_time_ms);
-    if (rv != WEBRTC_VIDEO_CODEC_OK)
-      return rv;
+  RTC_LOG(LS_ERROR)<<"QiangChen: decode component_count = "<<(int)(image.component_count);
+  for (int stream_type = kAXXStream; stream_type>=kYUVStream; stream_type--) {
+    for (size_t i = 0; i < image.image_components.size(); i++) {
+      if (image.image_components[i].component_index == stream_type) {
+        rv = decoders_[stream_type]->Decode(
+            image.image_components[i].encoded_image, missing_frames, nullptr,
+            nullptr, render_time_ms);
+      }
+      if (rv != WEBRTC_VIDEO_CODEC_OK)
+        return rv;
+    }
   }
   return rv;
 }
@@ -177,10 +208,16 @@ void MultiplexDecoderAdapter::Decoded(AlphaCodecStream stream_idx,
   }
   RTC_DCHECK(decoded_data_.find(decoded_image->timestamp()) ==
              decoded_data_.end());
+
+  rtc::scoped_refptr<I420BufferInterface> i420_buffer = decoded_image->video_frame_buffer()->ToI420();
+
+  VideoFrame i420_frame(i420_buffer, decoded_image->timestamp(),
+                        0 /* render_time_ms */, decoded_image->rotation());
+
   decoded_data_.emplace(
       std::piecewise_construct,
       std::forward_as_tuple(decoded_image->timestamp()),
-      std::forward_as_tuple(stream_idx, *decoded_image, decode_time_ms, qp));
+      std::forward_as_tuple(stream_idx, i420_frame, decode_time_ms, qp));
 }
 
 void MultiplexDecoderAdapter::MergeAlphaImages(

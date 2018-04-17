@@ -287,7 +287,8 @@ public class YuvConverter {
     // Y'UV444 to RGB888, see
     // https://en.wikipedia.org/wiki/YUV#Y.27UV444_to_RGB888_conversion.
     // We use the ITU-R coefficients for U and V */
-    GLES20.glUniform4f(coeffsLoc, 0.299f, 0.587f, 0.114f, 0.0f);
+    //GLES20.glUniform4f(coeffsLoc, 0.299f, 0.587f, 0.114f, 0.0f);
+    GLES20.glUniform4f(coeffsLoc, 1f, 0f, 0f, 0.0f);
     GLES20.glDrawArrays(GLES20.GL_TRIANGLE_STRIP, 0, 4);
 
     // Draw U

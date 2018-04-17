@@ -799,6 +799,7 @@ rtc_android_library("libjingle_peerconnection_java") {
     "src/java/org/webrtc/JNINamespace.java",
     "src/java/org/webrtc/Camera1Session.java",
     "src/java/org/webrtc/Camera2Session.java",
+    "../../examples/androidapp/src/org/appspot/apprtc/AIMatter.java",
     "src/java/org/webrtc/CameraCapturer.java",
     "src/java/org/webrtc/CameraSession.java",
     "src/java/org/webrtc/WebRtcClassLoader.java",

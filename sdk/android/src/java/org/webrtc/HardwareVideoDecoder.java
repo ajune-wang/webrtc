@@ -252,6 +252,9 @@ class HardwareVideoDecoder
     int index;
     try {
       index = codec.dequeueInputBuffer(DEQUEUE_INPUT_TIMEOUT_US);
+      if (index >=0) {
+        Logging.e(TAG, "dequeueInputBuffer");
+      }
     } catch (IllegalStateException e) {
       Logging.e(TAG, "dequeueInputBuffer failed", e);
       return VideoCodecStatus.ERROR;
@@ -281,6 +284,7 @@ class HardwareVideoDecoder
     try {
       codec.queueInputBuffer(index, 0 /* offset */, size,
           TimeUnit.NANOSECONDS.toMicros(frame.captureTimeNs), 0 /* flags */);
+      Logging.e(TAG, "enqueueInputBuffer");
     } catch (IllegalStateException e) {
       Logging.e(TAG, "queueInputBuffer failed", e);
       frameInfos.pollLast();

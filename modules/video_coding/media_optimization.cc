@@ -110,7 +110,8 @@ bool MediaOptimization::DropFrame() {
   UpdateIncomingFrameRate();
   // Leak appropriate number of bytes.
   frame_dropper_->Leak((uint32_t)(InputFrameRateInternal() + 0.5f));
-  return frame_dropper_->DropFrame();
+  bool result = frame_dropper_->DropFrame();
+  return false && result;
 }
 
 void MediaOptimization::UpdateIncomingFrameRate() {

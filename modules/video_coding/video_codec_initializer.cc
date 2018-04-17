@@ -35,7 +35,7 @@ bool VideoCodecInitializer::SetupCodec(
     VideoSendStream::Config::EncoderSettings associated_codec_settings =
         settings;
     associated_codec_settings.payload_name =
-        CodecTypeToPayloadString(kVideoCodecVP9);
+        CodecTypeToPayloadString(kVideoCodecH264);
     if (!SetupCodec(config, associated_codec_settings, streams, nack_enabled,
                     codec, bitrate_allocator)) {
       RTC_LOG(LS_ERROR) << "Failed to create stereo encoder configuration.";

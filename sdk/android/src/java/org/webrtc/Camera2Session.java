@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import org.webrtc.CameraEnumerationAndroid.CaptureFormat;
+import org.appspot.apprtc.AIMatter;
 
 @TargetApi(21)
 class Camera2Session implements CameraSession {
@@ -77,6 +78,8 @@ class Camera2Session implements CameraSession {
 
   // Used only for stats. Only used on the camera thread.
   private final long constructionTimeNs; // Construction time of this class.
+  
+  private AIMatter segmenter;
 
   private class CameraStateCallback extends CameraDevice.StateCallback {
     private String getErrorDescription(int errorCode) {
@@ -225,8 +228,17 @@ class Camera2Session implements CameraSession {
               // Undo camera orientation - we report it as rotation instead.
               transformMatrix =
                   RendererCommon.rotateTextureMatrix(transformMatrix, -cameraOrientation);
-
+              
+              int[] mask_texture = new int[3];
+              if (segmenter == null) {
+                segmenter = new AIMatter(applicationContext.getAssets(), "video.eaf");
+              } else {
+                segmenter.Segment(oesTextureId, captureFormat.width, captureFormat.height,
+                    getDeviceOrientation(), 0, mask_texture);
+              }
+              
               VideoFrame.Buffer buffer = surfaceTextureHelper.createTextureBuffer(
+                  mask_texture[0], VideoFrame.TextureBuffer.Type.RGB,
                   captureFormat.width, captureFormat.height,
                   RendererCommon.convertMatrixToAndroidGraphicsMatrix(transformMatrix));
               final VideoFrame frame = new VideoFrame(buffer, rotation, timestampNs);

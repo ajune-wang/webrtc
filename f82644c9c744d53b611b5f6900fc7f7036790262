@@ -34,6 +34,24 @@
       "revId": "f82644c9c744d53b611b5f6900fc7f7036790262",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3949f98_04d0155e",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1139,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-17T22:42:14Z",
+      "side": 1,
+      "message": "You\u0027re right, but 0 probability of a false alarm is better than rtt/X, and I don\u0027t think it would be hard to accomplish.\n\nThough, if this is being done for the \"networkPreference\" use case, maybe a better solution would be to make the network preference higher priority (above the receiving state)? That would avoid changing the meaning of \"receiving\", which may have some undesirable effect we haven\u0027t considered. honghaiz@ would probably know better than me.",
+      "parentUuid": "fd2ca145_010b668b",
+      "revId": "f82644c9c744d53b611b5f6900fc7f7036790262",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

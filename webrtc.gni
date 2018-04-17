@@ -31,6 +31,9 @@ if (is_ios) {
 }
 
 declare_args() {
+  # Disable statically compiling WebRTC roots into the binary?
+  rtc_disable_builtin_ssl_root_certificates = false
+
   # Include the iLBC audio codec?
   rtc_include_ilbc = true
 

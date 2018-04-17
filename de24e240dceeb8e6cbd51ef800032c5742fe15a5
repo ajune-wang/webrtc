@@ -119,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "6c2b2e45_4f9b0cb6",
+        "filename": "examples/peerconnection/client/conductor.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-04-17T19:53:23Z",
+      "side": 1,
+      "message": "I\u0027ll leave the if/else and just remove the extra returns.",
+      "parentUuid": "ee4c9f67_33a3f146",
+      "range": {
+        "startLine": 298,
+        "startChar": 3,
+        "endLine": 298,
+        "endChar": 4
+      },
+      "revId": "de24e240dceeb8e6cbd51ef800032c5742fe15a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "88df9d85_13309469",
         "filename": "examples/peerconnection/client/conductor.cc",
         "patchSetId": 1
@@ -136,6 +160,24 @@
     },
     {
       "key": {
+        "uuid": "e588ec02_78d255d7",
+        "filename": "examples/peerconnection/client/conductor.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-04-17T19:53:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "88df9d85_13309469",
+      "revId": "de24e240dceeb8e6cbd51ef800032c5742fe15a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "43db9431_9051fb7d",
         "filename": "examples/peerconnection/client/conductor.cc",
         "patchSetId": 1
@@ -150,6 +192,24 @@
       "revId": "de24e240dceeb8e6cbd51ef800032c5742fe15a5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d95cdf87_6fdcf7b2",
+        "filename": "examples/peerconnection/client/conductor.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-04-17T19:53:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "43db9431_9051fb7d",
+      "revId": "de24e240dceeb8e6cbd51ef800032c5742fe15a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

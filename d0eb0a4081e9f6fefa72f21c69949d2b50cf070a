@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "165463be_11bbfa68",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-17T16:28:13Z",
+      "side": 1,
+      "message": "nit: Try to fit message on one line.",
+      "revId": "d0eb0a4081e9f6fefa72f21c69949d2b50cf070a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e7d234af_41563b58",
         "filename": "rtc_base/asyncudpsocket.cc",
         "patchSetId": 1

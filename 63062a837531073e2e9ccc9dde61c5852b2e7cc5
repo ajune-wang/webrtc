@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2de3d43c_ed71ea10",
+        "filename": "modules/audio_processing/agc2/rnn_vad/ring_buffer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-04-17T09:42:27Z",
+      "side": 1,
+      "message": "Since we know \u0027S\u0027, we can return an ArrayView\u003cconst T, S\u003e here.",
+      "range": {
+        "startLine": 47,
+        "startChar": 17,
+        "endLine": 47,
+        "endChar": 24
+      },
+      "revId": "63062a837531073e2e9ccc9dde61c5852b2e7cc5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -19,6 +19,7 @@ rtc_static_library("lib") {
     "common.h",
     "ring_buffer.h",
     "sequence_buffer.h",
+    "symmetric_matrix_buffer.h",
     "to_be_removed.cc",  # Temporarily needed to avoid trybot failures.
     "to_be_removed.h",
   ]
@@ -34,6 +35,7 @@ if (rtc_include_tests) {
     sources = [
       "ring_buffer_unittest.cc",
       "sequence_buffer_unittest.cc",
+      "symmetric_matrix_buffer_unittest.cc",
     ]
     deps = [
       ":lib",

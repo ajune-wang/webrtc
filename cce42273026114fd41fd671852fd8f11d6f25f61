@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0f10ceda_e0baf066",
+        "filename": "modules/audio_processing/agc2/rnn_vad/symmetric_matrix_buffer_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-04-17T09:37:17Z",
+      "side": 1,
+      "message": "new_comparisons",
+      "range": {
+        "startLine": 70,
+        "startChar": 43,
+        "endLine": 70,
+        "endChar": 57
+      },
+      "revId": "cce42273026114fd41fd671852fd8f11d6f25f61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

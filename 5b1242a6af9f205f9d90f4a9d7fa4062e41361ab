@@ -22,6 +22,30 @@
       "revId": "5b1242a6af9f205f9d90f4a9d7fa4062e41361ab",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f0da932_53278b4c",
+        "filename": "sdk/objc/Framework/Classes/Video/RTCI420Buffer.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 7029
+      },
+      "writtenOn": "2018-04-17T20:48:13Z",
+      "side": 1,
+      "message": "I was wondering - this is an objective-c api -- would you rather have a caller do the casting \"(const uint8_t *) [[yuv u] bytes]\"? In objective-c you are unlikely to have a pointer to the const uint8_t to begin with, right? (I might be making some incorrect assumptions here), so this felt like a more natural fit to the objective c interfaces.\n\nCan you give me examples of the consistency? Where do we currently accept (const uint8_t *)?",
+      "parentUuid": "8895279f_0ad5b593",
+      "range": {
+        "startLine": 35,
+        "startChar": 40,
+        "endLine": 35,
+        "endChar": 45
+      },
+      "revId": "5b1242a6af9f205f9d90f4a9d7fa4062e41361ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

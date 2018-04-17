@@ -731,8 +731,15 @@ void VideoStreamEncoder::MaybeEncodeVideoFrame(const VideoFrame& video_frame,
       stats_proxy_->OnInitialQualityResolutionAdaptDown();
     }
     ++initial_rampup_;
-    pending_frame_ = video_frame;
-    pending_frame_post_time_us_ = time_when_posted_us;
+    // Storing references to a native buffer risks blocking frame capture.
+    if (video_frame.video_frame_buffer()->type() !=
+        VideoFrameBuffer::Type::kNative) {
+      pending_frame_ = video_frame;
+      pending_frame_post_time_us_ = time_when_posted_us;
+    } else {
+      // Ensure that any previously stored frame is dropped.
+      pending_frame_.reset();
+    }
     return;
   }
   initial_rampup_ = kMaxInitialFramedrop;
@@ -750,10 +757,18 @@ void VideoStreamEncoder::MaybeEncodeVideoFrame(const VideoFrame& video_frame,
   }
 
   if (EncoderPaused()) {
-    if (pending_frame_)
+    // Storing references to a native buffer risks blocking frame capture.
+    if (video_frame.video_frame_buffer()->type() !=
+        VideoFrameBuffer::Type::kNative) {
+      if (pending_frame_)
+        TraceFrameDropStart();
+      pending_frame_ = video_frame;
+      pending_frame_post_time_us_ = time_when_posted_us;
+    } else {
+      // Ensure that any previously stored frame is dropped.
+      pending_frame_.reset();
       TraceFrameDropStart();
-    pending_frame_ = video_frame;
-    pending_frame_post_time_us_ = time_when_posted_us;
+    }
     return;
   }
 

@@ -93,6 +93,30 @@
       "revId": "de24e240dceeb8e6cbd51ef800032c5742fe15a5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e4bb113_f5086ebd",
+        "filename": "examples/peerconnection/client/conductor.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-04-17T16:59:51Z",
+      "side": 1,
+      "message": "Good point. This is an override though so we have to stick with std::vector.",
+      "parentUuid": "9dfc5a9e_8d1e2ae6",
+      "range": {
+        "startLine": 71,
+        "startChar": 6,
+        "endLine": 71,
+        "endChar": 23
+      },
+      "revId": "de24e240dceeb8e6cbd51ef800032c5742fe15a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

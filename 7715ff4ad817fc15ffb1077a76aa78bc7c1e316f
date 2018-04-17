@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fb013aaa_a0b8435d",
+        "filename": "modules/audio_processing/agc2/rnn_vad/symmetric_matrix_buffer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-17T09:03:39Z",
+      "side": 1,
+      "message": "std::memcpy is not defined with overlap between src and dst; memmove is what should be used in this case (caught by asan trybots)",
+      "range": {
+        "startLine": 55,
+        "startChar": 9,
+        "endLine": 55,
+        "endChar": 16
+      },
+      "revId": "7715ff4ad817fc15ffb1077a76aa78bc7c1e316f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

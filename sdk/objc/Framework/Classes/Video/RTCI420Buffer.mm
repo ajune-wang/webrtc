@@ -32,6 +32,26 @@
 
 - (instancetype)initWithWidth:(int)width
                        height:(int)height
+                        dataY:(NSData *)dataY
+                        dataU:(NSData *)dataU
+                        dataV:(NSData *)dataV {
+  if (self = [super init]) {
+    rtc::scoped_refptr<webrtc::I420Buffer> buffer =
+        webrtc::I420Buffer::Copy(width,
+                                 height,
+                                 (const uint8_t *)[dataY bytes],
+                                 width,
+                                 (const uint8_t *)[dataU bytes],
+                                 width / 2,
+                                 (const uint8_t *)[dataV bytes],
+                                 width / 2);
+    _i420Buffer = buffer;
+  }
+  return self;
+}
+
+- (instancetype)initWithWidth:(int)width
+                       height:(int)height
                       strideY:(int)strideY
                       strideU:(int)strideU
                       strideV:(int)strideV {

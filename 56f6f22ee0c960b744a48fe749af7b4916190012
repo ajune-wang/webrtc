@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6a0f1b54_a15003cb",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/PeerConnectionClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-04-17T12:58:18Z",
+      "side": 1,
+      "message": "nit: Can you group the final parameters together?",
+      "range": {
+        "startLine": 147,
+        "startChar": 2,
+        "endLine": 147,
+        "endChar": 15
+      },
+      "revId": "56f6f22ee0c960b744a48fe749af7b4916190012",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9db19a9_54c4276b",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/PeerConnectionClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-04-17T12:58:18Z",
+      "side": 1,
+      "message": "nit: Usually private static methods are at the end because they are not the most relevant when reading the code.",
+      "range": {
+        "startLine": 323,
+        "startChar": 2,
+        "endLine": 323,
+        "endChar": 17
+      },
+      "revId": "56f6f22ee0c960b744a48fe749af7b4916190012",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3353ac3a_74d68665",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/PeerConnectionClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-04-17T12:58:18Z",
+      "side": 1,
+      "message": "nit: Also check other parameters for nullness for consistency?",
+      "range": {
+        "startLine": 347,
+        "startChar": 8,
+        "endLine": 347,
+        "endChar": 26
+      },
+      "revId": "56f6f22ee0c960b744a48fe749af7b4916190012",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a191808_98763a81",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/PeerConnectionClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-04-17T12:58:18Z",
+      "side": 1,
+      "message": "Does this state have to be copied?",
+      "range": {
+        "startLine": 355,
+        "startChar": 4,
+        "endLine": 355,
+        "endChar": 25
+      },
+      "revId": "56f6f22ee0c960b744a48fe749af7b4916190012",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

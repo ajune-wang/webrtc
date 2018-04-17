@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e0068295_f6407f91",
+        "filename": "examples/peerconnection/client/conductor.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-04-17T00:35:55Z",
+      "side": 0,
+      "message": "Do we wanna check that GetSenders() isn\u0027t empty here?",
+      "range": {
+        "startLine": 465,
+        "startChar": 17,
+        "endLine": 465,
+        "endChar": 32
+      },
+      "revId": "e8c92dcac136a2664cbb0774e0c6e4689b0e9fee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "331fc11c_baac944f",
+        "filename": "examples/peerconnection/client/conductor.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-04-17T00:35:55Z",
+      "side": 1,
+      "message": "hbos@ mentioned in that doc that this returns all senders (whether active or not). I think this still works in the case of a removed track because it will just call AddTrack below with a null track, but what about the case with a stopped transceiver? I could be wrong, but it seems like for this case a sender would still be returned here and we would call AddTrack even though the transceiver and sender were stopped. I don\u0027t think we\u0027re hitting that case necessarily, but since this is an example it would probably be good to demonstrate the difference between local_streams() and GetSenders() - even if it\u0027s just a comment :).",
+      "range": {
+        "startLine": 100,
+        "startChar": 24,
+        "endLine": 100,
+        "endChar": 34
+      },
+      "revId": "de24e240dceeb8e6cbd51ef800032c5742fe15a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

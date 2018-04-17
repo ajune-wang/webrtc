@@ -16,6 +16,24 @@
       "revId": "f82644c9c744d53b611b5f6900fc7f7036790262",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd2ca145_010b668b",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1139,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-17T18:52:26Z",
+      "side": 1,
+      "message": "I agree there will still be an 1-RTT period that the backup candidate pair turns to \"not receiving\". Assuming the backup ping interval is X seconds and a network switching request happens uniformly and randomly on the timeline, we would have the probability that a network switching request happens and finds this backup candidate pair is \"not receiving\" is about rtt/X. For use cases when the backup candidate pair has indeed good connection, this probability is very low to give a false alarm on the receiving state, given X is typically very large for battery preservation. That was my thought on the problem. What do you think?\n\nSure, I should have added a test for this behavioral change, and will follow up with a CL. Thanks!",
+      "parentUuid": "6d673369_d0df48fa",
+      "revId": "f82644c9c744d53b611b5f6900fc7f7036790262",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

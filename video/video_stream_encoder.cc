@@ -28,6 +28,7 @@
 #include "rtc_base/system/fallthrough.h"
 #include "rtc_base/timeutils.h"
 #include "rtc_base/trace_event.h"
+#include "system_wrappers/include/field_trial.h"
 #include "video/overuse_frame_detector.h"
 #include "video/send_statistics_proxy.h"
 
@@ -46,6 +47,8 @@ const int64_t kPendingFrameTimeoutMs = 1000;
 // The maximum number of frames to drop at beginning of stream
 // to try and achieve desired bitrate.
 const int kMaxInitialFramedrop = 4;
+
+const char kQualityScalingFieldTrial[] = "WebRTC-Video-QualityScaling";
 
 // Initial limits for kBalanced degradation preference.
 int MinFps(int pixels) {
@@ -105,6 +108,50 @@ CpuOveruseOptions GetCpuOveruseOptions(
   return options;
 }
 
+rtc::Optional<VideoEncoder::QpThresholds> GetThresholdsFromFieldTrial(
+    VideoCodecType codec_type,
+    bool* reset_initial_rampup) {
+  std::string group =
+      webrtc::field_trial::FindFullName(kQualityScalingFieldTrial);
+  if (group.empty())
+    return rtc::Optional<VideoEncoder::QpThresholds>();
+
+  int vp8_low, vp8_high, vp9_low, vp9_high, h264_low, h264_high;
+  int drop, reset;
+  float a1, a2;
+  if (sscanf(group.c_str(), "Enabled-%d,%d,%d,%d,%d,%d,%f,%f,%d,%d", &vp8_low,
+             &vp8_high, &vp9_low, &vp9_high, &h264_low, &h264_high, &a1, &a2,
+             &drop, &reset) != 10) {
+    RTC_LOG(LS_WARNING) << "Invalid number of quality scaler parameters.";
+    return rtc::Optional<VideoEncoder::QpThresholds>();
+  }
+  *reset_initial_rampup = reset > 0;
+
+  if (vp8_low < 1 || vp8_high < vp8_low || vp9_low < 1 || vp9_high < vp9_low ||
+      h264_low < 1 || h264_high < h264_low) {
+    RTC_LOG(LS_WARNING) << "Invalid QP value provided.";
+    return rtc::Optional<VideoEncoder::QpThresholds>();
+  }
+
+  int low;
+  int high;
+  if (codec_type == kVideoCodecH264) {
+    low = h264_low;
+    high = h264_high;
+  } else if (codec_type == kVideoCodecVP8) {
+    low = vp8_low;
+    high = vp8_high;
+  } else if (codec_type == kVideoCodecVP9) {
+    low = vp9_low;
+    high = vp9_high;
+  } else {
+    return rtc::Optional<VideoEncoder::QpThresholds>();
+  }
+
+  RTC_LOG(LS_INFO) << "Using qp thresholds: low: " << low << ", high: " << high;
+  return rtc::Optional<VideoEncoder::QpThresholds>(
+      VideoEncoder::QpThresholds(low, high));
+}
 }  //  namespace
 
 // VideoSourceProxy is responsible ensuring thread safety between calls to
@@ -329,6 +376,8 @@ VideoStreamEncoder::VideoStreamEncoder(
     : shutdown_event_(true /* manual_reset */, false),
       number_of_cores_(number_of_cores),
       initial_rampup_(0),
+      quality_scaling_experiment_enabled_(
+          webrtc::field_trial::IsEnabled(kQualityScalingFieldTrial)),
       source_proxy_(new VideoSourceProxy(this)),
       sink_(nullptr),
       settings_(settings),
@@ -579,10 +628,20 @@ void VideoStreamEncoder::ConfigureQualityScaler() {
       // Quality scaler has not already been configured.
       // Drop frames and scale down until desired quality is achieved.
 
+      // Use experimental thresholds if available.
+      rtc::Optional<VideoEncoder::QpThresholds> experimental_thresholds;
+      if (quality_scaling_experiment_enabled_) {
+        bool reset_initial_rampup = false;
+        experimental_thresholds = GetThresholdsFromFieldTrial(
+            encoder_config_.codec_type, &reset_initial_rampup);
+        if (reset_initial_rampup)
+          initial_rampup_ = 0;
+      }
       // Since the interface is non-public, MakeUnique can't do this upcast.
       AdaptationObserverInterface* observer = this;
       quality_scaler_ = rtc::MakeUnique<QualityScaler>(
-          observer, *(scaling_settings.thresholds));
+          observer, experimental_thresholds ? *experimental_thresholds
+                                            : *(scaling_settings.thresholds));
     }
   } else {
     quality_scaler_.reset(nullptr);
@@ -853,11 +912,16 @@ void VideoStreamEncoder::OnDroppedFrame(DropReason reason) {
       encoder_queue_.PostTask([this] {
         RTC_DCHECK_RUN_ON(&encoder_queue_);
         if (quality_scaler_)
-          quality_scaler_->ReportDroppedFrame();
+          quality_scaler_->ReportDroppedFrameByMediaOpt();
       });
       break;
     case DropReason::kDroppedByEncoder:
       stats_proxy_->OnFrameDroppedByEncoder();
+      encoder_queue_.PostTask([this] {
+        RTC_DCHECK_RUN_ON(&encoder_queue_);
+        if (quality_scaler_)
+          quality_scaler_->ReportDroppedFrameByEncoder();
+      });
       break;
   }
 }

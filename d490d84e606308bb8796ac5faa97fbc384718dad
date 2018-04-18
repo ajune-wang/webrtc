@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7dbaf8b4_31d68301",
+        "filename": "tools_webrtc/autoroller/roll_deps.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-04-18T09:45:44Z",
+      "side": 1,
+      "message": "This structure feels a bit weird. I think I would like to see something like this pseudocode:\n\nif is_cipd_dep:\n  ...\n  result[path] \u003d CipdDepsEntry(...)\nelse:\n  ...\n  result[path] \u003d DepsEntry(path, url, revision)\n\nIt\u0027s currently\n\nif is_dict:\n  if is_cipd:\n    result[path] \u003d CipdDepsEntry(...)\n    continue\n  deps_url \u003d ...\n  if no path yet:\n    result[path] \u003d DepsEntry(path, url, revision)\n\nwhich mixes cipd deps into the processing for non-cipd deps.",
+      "range": {
+        "startLine": 214,
+        "startChar": 6,
+        "endLine": 223,
+        "endChar": 53
+      },
+      "revId": "d490d84e606308bb8796ac5faa97fbc384718dad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4707073_b4195707",
+        "filename": "tools_webrtc/autoroller/roll_deps.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-04-18T09:45:44Z",
+      "side": 1,
+      "message": "_StripSubstring?",
+      "range": {
+        "startLine": 231,
+        "startChar": 4,
+        "endLine": 231,
+        "endChar": 20
+      },
+      "revId": "d490d84e606308bb8796ac5faa97fbc384718dad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec6c85bc_595f9b28",
+        "filename": "tools_webrtc/autoroller/roll_deps.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-04-18T09:45:44Z",
+      "side": 1,
+      "message": "Perhaps pull this into a helper function and do\n\nif cr_deps_entry:\n  changed_cipd_package \u003d _MaybeRollCipdPackage(...)\n  if changed_cipd_package:\n    result.append(changed_cipd_package)\n  continue",
+      "range": {
+        "startLine": 259,
+        "startChar": 6,
+        "endLine": 273,
+        "endChar": 16
+      },
+      "revId": "d490d84e606308bb8796ac5faa97fbc384718dad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

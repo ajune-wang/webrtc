@@ -46,6 +46,47 @@
       "revId": "5b1242a6af9f205f9d90f4a9d7fa4062e41361ab",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a37bbb8_0da29f02",
+        "filename": "sdk/objc/Framework/Classes/Video/RTCI420Buffer.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2018-04-18T11:09:31Z",
+      "side": 1,
+      "message": "It would be consistent with the dataY, dataU, dataV getter methods on this class. This is a pretty thin wrapper around the underlying C++ implementation, and I think this class would be likely to be used from a more low-level context where you\u0027re dealing with C pointers, so I also think accepting uint8_t* makes sense.",
+      "parentUuid": "8f0da932_53278b4c",
+      "range": {
+        "startLine": 35,
+        "startChar": 40,
+        "endLine": 35,
+        "endChar": 45
+      },
+      "revId": "5b1242a6af9f205f9d90f4a9d7fa4062e41361ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cdab7240_86a2ae63",
+        "filename": "sdk/objc/Framework/Classes/Video/RTCI420Buffer.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2018-04-18T11:09:31Z",
+      "side": 1,
+      "message": "The convention is that chroma plane strides are rounded up in case of odd luma stride, so do `(width + 1) / 2` to make sure we round up in this case.",
+      "revId": "5b1242a6af9f205f9d90f4a9d7fa4062e41361ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

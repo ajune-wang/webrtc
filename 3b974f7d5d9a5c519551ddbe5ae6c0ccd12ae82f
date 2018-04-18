@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6fc311ba_993585ac",
+        "filename": "sdk/objc/Framework/Headers/WebRTC/RTCVideoRenderer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-04-18T08:23:09Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e8b8e0c3_5410c45f",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 34
+      },
+      "revId": "3b974f7d5d9a5c519551ddbe5ae6c0ccd12ae82f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "add14656_bbdcb1bb",
         "filename": "sdk/objc/Framework/Headers/WebRTC/RTCVideoRenderer.h",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "3b974f7d5d9a5c519551ddbe5ae6c0ccd12ae82f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48d90019_4ce87044",
+        "filename": "sdk/objc/Framework/Headers/WebRTC/RTCVideoRenderer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-04-18T08:23:09Z",
+      "side": 1,
+      "message": "Renamed this to RTCVideoViewDelegate as that name is more descriptive.",
+      "parentUuid": "add14656_bbdcb1bb",
+      "range": {
+        "startLine": 36,
+        "startChar": 8,
+        "endLine": 36,
+        "endChar": 17
+      },
+      "revId": "3b974f7d5d9a5c519551ddbe5ae6c0ccd12ae82f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

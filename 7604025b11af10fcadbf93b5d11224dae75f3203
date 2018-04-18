@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c3631be7_33854144",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 491,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-04-18T13:55:35Z",
+      "side": 1,
+      "message": "I\u0027ve tried this change in my chromium tree. It makes the remoting_unittests pass.",
+      "range": {
+        "startLine": 488,
+        "startChar": 2,
+        "endLine": 491,
+        "endChar": 25
+      },
+      "revId": "7604025b11af10fcadbf93b5d11224dae75f3203",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

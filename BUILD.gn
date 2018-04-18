@@ -383,6 +383,7 @@ rtc_static_library("webrtc_common") {
   deps = [
     ":typedefs",
     "api:array_view",
+    "api:bitrate_allocation",
     "api:optional",
     "rtc_base:checks",
     "rtc_base:deprecation",

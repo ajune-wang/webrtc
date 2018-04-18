@@ -319,7 +319,16 @@ void UDPPort::GetStunStats(rtc::Optional<StunStats>* stats) {
 }
 
 void UDPPort::set_stun_keepalive_delay(const rtc::Optional<int>& delay) {
-  stun_keepalive_delay_ = delay.value_or(STUN_KEEPALIVE_INTERVAL);
+  int new_delay = delay.value_or(STUN_KEEPALIVE_INTERVAL);
+  // We send a STUN keepalive ping immediately if we reduce the ping interval.
+  // Otherwise, the new interval will only be effective until the next scheduled
+  // STUN ping using the previous interval. This side effect can be undesirable
+  // when the reconfiguration is expected to be effective immediately.
+  if (new_delay < stun_keepalive_delay_ && !requests_.empty()) {
+    requests_.Clear();
+    SendStunBindingRequests();
+  }
+  stun_keepalive_delay_ = new_delay;
 }
 
 void UDPPort::OnLocalAddressReady(rtc::AsyncPacketSocket* socket,

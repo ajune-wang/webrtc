@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b9a31df4_1a8073b1",
+        "filename": "modules/audio_processing/agc2/rnn_vad/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-18T15:50:07Z",
+      "side": 1,
+      "message": "Thanks. I agreed with Alex on having a final CL to polish the build file (see https://webrtc-review.googlesource.com/c/src/+/70202/6/modules/audio_processing/agc2/rnn_vad/BUILD.gn#17). I took note of it, I think it\u0027s better to polish when all the targets are added (so that we look at the whole build file and have the information to optimize names).",
+      "parentUuid": "c7201561_49940e49",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 19
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "80e0a1d7_4a575917",
         "filename": "modules/audio_processing/agc2/rnn_vad/common.h",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e865a719_fd9ea3db",
+        "filename": "modules/audio_processing/agc2/rnn_vad/common.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-18T15:50:07Z",
+      "side": 1,
+      "message": "It is used in several places. In general I\u0027m quite explicit with var names on which sample rate is being used at each step since there are steps which work at different rates.",
+      "parentUuid": "80e0a1d7_4a575917",
+      "range": {
+        "startLine": 17,
+        "startChar": 17,
+        "endLine": 17,
+        "endChar": 33
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "39838c1e_450862a0",
+        "filename": "modules/audio_processing/agc2/rnn_vad/common.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-18T15:50:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8790daba_fc2901f0",
+      "range": {
+        "startLine": 18,
+        "startChar": 39,
+        "endLine": 18,
+        "endChar": 42
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "497b2382_4baf7370",
         "filename": "modules/audio_processing/agc2/rnn_vad/common.h",
         "patchSetId": 2
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "f707fb2c_c4b7c47d",
+        "filename": "modules/audio_processing/agc2/rnn_vad/common.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-18T15:50:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "497b2382_4baf7370",
+      "range": {
+        "startLine": 19,
+        "startChar": 39,
+        "endLine": 19,
+        "endChar": 42
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "200254ae_481edb90",
         "filename": "modules/audio_processing/agc2/rnn_vad/common.h",
         "patchSetId": 2
@@ -108,6 +204,24 @@
       "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "821e0782_b70528d0",
+        "filename": "modules/audio_processing/agc2/rnn_vad/common.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-18T15:50:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "200254ae_481edb90",
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -134,6 +248,30 @@
     },
     {
       "key": {
+        "uuid": "9aec8a9f_3f8f5f6e",
+        "filename": "modules/audio_processing/agc2/rnn_vad/common.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-18T15:50:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "86f3df1a_de1c16d6",
+      "range": {
+        "startLine": 23,
+        "startChar": 40,
+        "endLine": 23,
+        "endChar": 43
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6f6994e7_7cc16493",
         "filename": "modules/audio_processing/agc2/rnn_vad/common.h",
         "patchSetId": 2
@@ -154,6 +292,30 @@
       "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c868b3ab_ce08ddfa",
+        "filename": "modules/audio_processing/agc2/rnn_vad/common.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-18T15:50:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6f6994e7_7cc16493",
+      "range": {
+        "startLine": 25,
+        "startChar": 41,
+        "endLine": 25,
+        "endChar": 69
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -180,6 +342,30 @@
     },
     {
       "key": {
+        "uuid": "ed531d26_471bd4ce",
+        "filename": "modules/audio_processing/agc2/rnn_vad/common.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-18T15:50:07Z",
+      "side": 1,
+      "message": "Same as for 24k (yes).",
+      "parentUuid": "bc8f101a_525670ab",
+      "range": {
+        "startLine": 35,
+        "startChar": 17,
+        "endLine": 35,
+        "endChar": 33
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4023c35f_af2641d4",
         "filename": "modules/audio_processing/agc2/rnn_vad/common.h",
         "patchSetId": 2
@@ -203,6 +389,30 @@
     },
     {
       "key": {
+        "uuid": "c8958e3e_3c9c23c7",
+        "filename": "modules/audio_processing/agc2/rnn_vad/common.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-18T15:50:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4023c35f_af2641d4",
+      "range": {
+        "startLine": 36,
+        "startChar": 39,
+        "endLine": 36,
+        "endChar": 42
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2bf2817a_1eb5003c",
         "filename": "modules/audio_processing/agc2/rnn_vad/common.h",
         "patchSetId": 2
@@ -223,6 +433,30 @@
       "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "13988616_0654866b",
+        "filename": "modules/audio_processing/agc2/rnn_vad/common.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-18T15:50:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2bf2817a_1eb5003c",
+      "range": {
+        "startLine": 37,
+        "startChar": 39,
+        "endLine": 37,
+        "endChar": 42
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -272,6 +506,54 @@
     },
     {
       "key": {
+        "uuid": "32182552_86ce1c42",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-18T15:50:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2f63e56c_d82b4760",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 6
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c795357e_4fc8b283",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-18T15:50:07Z",
+      "side": 1,
+      "message": "I isolated that because this is the type of code which is prone to off-by-1 errors.\nEven if it\u0027s just a subtraction, to me calling the function makes clear that we\u0027re switching from a lag to an inverted one. Maybe it\u0027s just a personal expectation, but I think the reader sees explicitly that a conversion is taking place. WDYT?",
+      "parentUuid": "e866526a_b27d7c15",
+      "range": {
+        "startLine": 26,
+        "startChar": 14,
+        "endLine": 26,
+        "endChar": 28
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8342aa45_b02f129e",
         "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
         "patchSetId": 2
@@ -295,6 +577,30 @@
     },
     {
       "key": {
+        "uuid": "2ce1613a_7721947b",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-18T15:50:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8342aa45_b02f129e",
+      "range": {
+        "startLine": 27,
+        "startChar": 9,
+        "endLine": 27,
+        "endChar": 29
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a6936dc6_e6ff5095",
         "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
         "patchSetId": 2
@@ -306,6 +612,30 @@
       "writtenOn": "2018-04-18T09:04:13Z",
       "side": 1,
       "message": "This method consists of 5 DCHECKS and an inner product. I\u0027d consider not using a separate method for this and instead replace the method calls with the inner product as that would decrease codesize and make it more clear what the code actually does. I don\u0027t think abstracting the inner product into a separate method makes the code easier to read.",
+      "range": {
+        "startLine": 31,
+        "startChar": 13,
+        "endLine": 31,
+        "endChar": 40
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3c8a550_b62c5401",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-18T15:50:07Z",
+      "side": 1,
+      "message": "The added value here is in the arguments of std::inner_product. The function is called 9 times meaning that we would need to duplicate 9 times the logic that determines how an auto-correlation coefficient is computed. For release builds, the DCHECKS are ignored and the compiler inlines the function (verified via flame graphs). As for GetInvertedLag, I prefer to keep the function. WDYT?",
+      "parentUuid": "a6936dc6_e6ff5095",
       "range": {
         "startLine": 31,
         "startChar": 13,
@@ -341,6 +671,30 @@
     },
     {
       "key": {
+        "uuid": "d2f5bba6_9d16ef65",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-18T15:50:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "184cd728_eef4e2dd",
+      "range": {
+        "startLine": 34,
+        "startChar": 2,
+        "endLine": 34,
+        "endChar": 15
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e091342e_a1e65cb4",
         "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
         "patchSetId": 2
@@ -361,6 +715,30 @@
       "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e53b390f_749cb564",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-18T15:50:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e091342e_a1e65cb4",
+      "range": {
+        "startLine": 36,
+        "startChar": 20,
+        "endLine": 36,
+        "endChar": 36
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -387,6 +765,30 @@
     },
     {
       "key": {
+        "uuid": "359cc199_b4dab485",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-18T15:50:07Z",
+      "side": 1,
+      "message": "Changed into \u003d\u003d, I usually add those kind of checks for extra safety (against type changes), but yes in this case it can\u0027t be negative.",
+      "parentUuid": "60323fb7_8c170d44",
+      "range": {
+        "startLine": 71,
+        "startChar": 6,
+        "endLine": 71,
+        "endChar": 13
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4f644c3d_6286b57e",
         "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
         "patchSetId": 2
@@ -410,6 +812,30 @@
     },
     {
       "key": {
+        "uuid": "bf8382c9_1a2d8358",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-18T15:50:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4f644c3d_6286b57e",
+      "range": {
+        "startLine": 97,
+        "startChar": 18,
+        "endLine": 97,
+        "endChar": 23
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b382b604_308ce687",
         "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
         "patchSetId": 2
@@ -424,6 +850,24 @@
       "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf67dcf1_c22ced09",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-18T15:50:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b382b604_308ce687",
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -450,6 +894,30 @@
     },
     {
       "key": {
+        "uuid": "0e672a6f_747ceda4",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-18T15:50:07Z",
+      "side": 1,
+      "message": "Sorry for the bed name, it was a left over from a previous state of the code in which I had other decimation functions. The function is now part of rnn_vad::impl namespace which is not for the public API so no need to take extra action on your second comment",
+      "parentUuid": "753d0599_33897abc",
+      "range": {
+        "startLine": 108,
+        "startChar": 5,
+        "endLine": 108,
+        "endChar": 35
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "47e6baec_7fc64fbc",
         "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
         "patchSetId": 2
@@ -470,6 +938,30 @@
       "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b83674a5_dae849fb",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-18T15:50:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "47e6baec_7fc64fbc",
+      "range": {
+        "startLine": 116,
+        "startChar": 39,
+        "endLine": 116,
+        "endChar": 41
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -496,6 +988,30 @@
     },
     {
       "key": {
+        "uuid": "c2db83fb_d3ab2b41",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-18T15:50:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3f8dfc0e_f225831a",
+      "range": {
+        "startLine": 134,
+        "startChar": 27,
+        "endLine": 134,
+        "endChar": 30
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "480bdb0d_e43464d8",
         "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
         "patchSetId": 2
@@ -516,6 +1032,30 @@
       "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b3fedf8_aa35e6e2",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-18T15:50:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "480bdb0d_e43464d8",
+      "range": {
+        "startLine": 156,
+        "startChar": 18,
+        "endLine": 156,
+        "endChar": 64
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -542,6 +1082,30 @@
     },
     {
       "key": {
+        "uuid": "52836f53_1c324965",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-18T15:50:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3818ebd8_9b14e933",
+      "range": {
+        "startLine": 157,
+        "startChar": 38,
+        "endLine": 157,
+        "endChar": 62
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dbb178c2_e280b89d",
         "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
         "patchSetId": 2
@@ -562,6 +1126,30 @@
       "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a02f74c_160a8a2d",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-18T15:50:07Z",
+      "side": 1,
+      "message": "Thanks for your comment. I chose better names and improved the comments.",
+      "parentUuid": "dbb178c2_e280b89d",
+      "range": {
+        "startLine": 181,
+        "startChar": 9,
+        "endLine": 181,
+        "endChar": 23
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -588,6 +1176,30 @@
     },
     {
       "key": {
+        "uuid": "22dd0b20_52b88ed5",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-18T15:50:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c3020fa0_003a0a68",
+      "range": {
+        "startLine": 186,
+        "startChar": 17,
+        "endLine": 186,
+        "endChar": 18
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5c5b3aee_81dc8a4c",
         "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
         "patchSetId": 2
@@ -611,6 +1223,30 @@
     },
     {
       "key": {
+        "uuid": "e643a9a7_ba084703",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-18T15:50:07Z",
+      "side": 1,
+      "message": "I\u0027ve done for two reasons: (i) it makes the logic more explicit and (ii) the solution you propose requires static_cast\u003cint\u003e() which only add clutter. Note that there is a substraction between size_t involved and the lambda maps to int. Feel free to suggest an alternative option.",
+      "parentUuid": "5c5b3aee_81dc8a4c",
+      "range": {
+        "startLine": 239,
+        "startChar": 8,
+        "endLine": 239,
+        "endChar": 19
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a114741c_08d8b865",
         "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
         "patchSetId": 2
@@ -625,6 +1261,24 @@
       "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0821da1_fcd8cecd",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-18T15:50:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a114741c_08d8b865",
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -651,6 +1305,30 @@
     },
     {
       "key": {
+        "uuid": "bda279e4_4b63567e",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-18T15:50:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "73b5c1b2_a1b50682",
+      "range": {
+        "startLine": 268,
+        "startChar": 5,
+        "endLine": 268,
+        "endChar": 10
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "45f13d43_5acfb795",
         "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
         "patchSetId": 2
@@ -671,6 +1349,30 @@
       "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2edf0a18_55f568ff",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-18T15:50:07Z",
+      "side": 1,
+      "message": "good catch, thanks!",
+      "parentUuid": "45f13d43_5acfb795",
+      "range": {
+        "startLine": 270,
+        "startChar": 37,
+        "endLine": 270,
+        "endChar": 46
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -697,6 +1399,30 @@
     },
     {
       "key": {
+        "uuid": "eee3ad2e_17d1c977",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-18T15:50:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b9d0204d_71cd124f",
+      "range": {
+        "startLine": 274,
+        "startChar": 21,
+        "endLine": 274,
+        "endChar": 23
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7858383f_9dcfc412",
         "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
         "patchSetId": 2
@@ -720,6 +1446,30 @@
     },
     {
       "key": {
+        "uuid": "ae60bf44_a5ea78ca",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-18T15:50:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7858383f_9dcfc412",
+      "range": {
+        "startLine": 275,
+        "startChar": 14,
+        "endLine": 275,
+        "endChar": 15
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ee959c2b_6aab216c",
         "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
         "patchSetId": 2
@@ -734,6 +1484,24 @@
       "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b60e3bf_b74429ee",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-18T15:50:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ee959c2b_6aab216c",
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -760,6 +1528,30 @@
     },
     {
       "key": {
+        "uuid": "cf2d6a66_f88ddf11",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-18T15:50:07Z",
+      "side": 1,
+      "message": "Sorry for the poor choice of var names. I think now it\u0027s improved and it\u0027s clear what happens.",
+      "parentUuid": "0d90de74_f1949eb7",
+      "range": {
+        "startLine": 290,
+        "startChar": 15,
+        "endLine": 290,
+        "endChar": 17
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8e88a605_418a1ea7",
         "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
         "patchSetId": 2
@@ -774,6 +1566,24 @@
       "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cfaeeeb4_dd85dc40",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-18T15:50:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8e88a605_418a1ea7",
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -800,6 +1610,30 @@
     },
     {
       "key": {
+        "uuid": "fa06ad93_451e1bed",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-18T15:50:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a71a2ee_682c76c3",
+      "range": {
+        "startLine": 331,
+        "startChar": 5,
+        "endLine": 331,
+        "endChar": 7
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "27407775_93867c33",
         "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
         "patchSetId": 2
@@ -820,6 +1654,30 @@
       "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4eb459ab_0e801f37",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-18T15:50:07Z",
+      "side": 1,
+      "message": "If I run git cl format, the code is formatted as it is in this PS. I tried adding \"// NOLINT\", but polluting 3 lines looks worse. I stopped fighting with git cl format and left as it is.",
+      "parentUuid": "27407775_93867c33",
+      "range": {
+        "startLine": 332,
+        "startChar": 11,
+        "endLine": 332,
+        "endChar": 14
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -846,6 +1704,30 @@
     },
     {
       "key": {
+        "uuid": "894db094_c9ceacd2",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-18T15:50:07Z",
+      "side": 1,
+      "message": "No",
+      "parentUuid": "085b7441_194a406a",
+      "range": {
+        "startLine": 346,
+        "startChar": 2,
+        "endLine": 346,
+        "endChar": 32
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "390aed43_17f473a7",
         "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
         "patchSetId": 2
@@ -860,6 +1742,24 @@
       "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae09db15_e53951d2",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-18T15:50:07Z",
+      "side": 1,
+      "message": "Done. Note that the return type is std::array\u003csize_t, 2\u003e, hence inv_lag is a size_t.",
+      "parentUuid": "390aed43_17f473a7",
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -886,6 +1786,30 @@
     },
     {
       "key": {
+        "uuid": "43a723ef_dc11630d",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-18T15:50:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "793d067b_48e11bcb",
+      "range": {
+        "startLine": 360,
+        "startChar": 65,
+        "endLine": 360,
+        "endChar": 67
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6473dd28_16838296",
         "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
         "patchSetId": 2
@@ -906,6 +1830,30 @@
       "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0fe4e9db_d9b45a38",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-18T15:50:07Z",
+      "side": 1,
+      "message": "inv_lag is size_t",
+      "parentUuid": "6473dd28_16838296",
+      "range": {
+        "startLine": 361,
+        "startChar": 15,
+        "endLine": 361,
+        "endChar": 16
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -932,6 +1880,30 @@
     },
     {
       "key": {
+        "uuid": "fae467fe_17bf2e5f",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-18T15:50:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c21aac24_28e1827e",
+      "range": {
+        "startLine": 362,
+        "startChar": 8,
+        "endLine": 362,
+        "endChar": 12
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ef21ddec_e0f58db3",
         "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
         "patchSetId": 2
@@ -946,6 +1918,24 @@
       "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc14a4a8_d29094ad",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-18T15:50:07Z",
+      "side": 1,
+      "message": "You missed that :) But let me move the DCHECK 1 line down so it\u0027s not missed.",
+      "parentUuid": "ef21ddec_e0f58db3",
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -972,6 +1962,30 @@
     },
     {
       "key": {
+        "uuid": "407beea6_62fef97f",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-18T15:50:07Z",
+      "side": 1,
+      "message": "As documented in the style guide (https://google.github.io/styleguide/cppguide.html#Namespaces), this is the convention when adding implementation details in a header file (to keep stuff internal and not part of the API).\n\nSee for instance https://cs.chromium.org/chromium/src/third_party/webrtc/api/array_view.h?l\u003d85",
+      "parentUuid": "33e859a6_0623db3b",
+      "range": {
+        "startLine": 21,
+        "startChar": 10,
+        "endLine": 21,
+        "endChar": 14
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "079aa83f_f67292e6",
         "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.h",
         "patchSetId": 2
@@ -986,6 +2000,24 @@
       "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63d2d42c_0b1ff711",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-18T15:50:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "079aa83f_f67292e6",
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -1029,6 +2061,30 @@
     },
     {
       "key": {
+        "uuid": "499d5387_efc923c1",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-18T15:50:07Z",
+      "side": 1,
+      "message": "Done, but haven\u0027t added much on the pitch gain which is implicitly defined in CheckLowerPitchPeriodsAndComputePitchGain() (see the pitch_gain lambda function).",
+      "parentUuid": "e023db85_e484dcac",
+      "range": {
+        "startLine": 94,
+        "startChar": 7,
+        "endLine": 94,
+        "endChar": 16
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9c459679_da227f2b",
         "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.h",
         "patchSetId": 2
@@ -1043,6 +2099,24 @@
       "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b6731dd_ee2101fd",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-18T15:50:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9c459679_da227f2b",
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -1069,6 +2143,30 @@
     },
     {
       "key": {
+        "uuid": "3c3773a2_64c44ee3",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-18T15:50:07Z",
+      "side": 1,
+      "message": "Thanks! You\u0027re right, what matters is just PitchSearch. Instead of adding another file, I added a nested namespace named impl so that it is clear that those functions are not part of the API and they still remain visible for testing.",
+      "parentUuid": "039912e6_9d1daca7",
+      "range": {
+        "startLine": 110,
+        "startChar": 10,
+        "endLine": 110,
+        "endChar": 21
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0da0c6b1_6e8da53e",
         "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_unittest.cc",
         "patchSetId": 2
@@ -1089,6 +2187,30 @@
       "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c371d46e_1ff818ac",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-18T15:50:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0da0c6b1_6e8da53e",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 27
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

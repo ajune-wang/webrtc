@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6da5f5fa_2d9ff71d",
+        "filename": "modules/congestion_controller/send_side_congestion_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2018-04-18T11:17:59Z",
+      "side": 1,
+      "message": "No way to avoid this copy-paste from the same function in /rtp?",
+      "range": {
+        "startLine": 203,
+        "startChar": 5,
+        "endLine": 203,
+        "endChar": 59
+      },
+      "revId": "5f2191b15ee4b420186ca42e985aa081f217fd4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

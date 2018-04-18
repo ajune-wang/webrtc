@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "26c692f7_906ecb07",
+        "filename": "modules/congestion_controller/rtp/send_side_congestion_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2018-04-18T08:01:27Z",
+      "side": 1,
+      "message": "Consider if all 4 combinations of these on/off gives valid behavior. Also, is name right: WebRTC-CongestionWindowPushback or WebRTC-CongestionWindowPushbackOnly?",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 73
+      },
+      "revId": "6357e971aad519c85b639af088c53f2ee1fcca64",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1cf5750a_14b894db",
+        "filename": "modules/congestion_controller/rtp/send_side_congestion_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2018-04-18T08:01:27Z",
+      "side": 1,
+      "message": "Difference in pattern between these two. Suggest making them similar.",
+      "range": {
+        "startLine": 208,
+        "startChar": 0,
+        "endLine": 210,
+        "endChar": 64
+      },
+      "revId": "6357e971aad519c85b639af088c53f2ee1fcca64",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb6ddb10_dfe50a0d",
+        "filename": "modules/congestion_controller/rtp/send_side_congestion_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2018-04-18T08:01:27Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be the other way around. On high outstanding bytes we get low fill ratio, and thus no reduction of encoding rate.",
+      "range": {
+        "startLine": 277,
+        "startChar": 3,
+        "endLine": 278,
+        "endChar": 50
+      },
+      "revId": "6357e971aad519c85b639af088c53f2ee1fcca64",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88c275c4_e4be82d4",
+        "filename": "modules/congestion_controller/rtp/send_side_congestion_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2018-04-18T08:01:27Z",
+      "side": 1,
+      "message": "Maybe these constants should be configurable? (Optional: depends on the tradition in WebRTC, but I would make it so that they all have defaults, that can then be overridden.",
+      "range": {
+        "startLine": 279,
+        "startChar": 3,
+        "endLine": 286,
+        "endChar": 5
+      },
+      "revId": "6357e971aad519c85b639af088c53f2ee1fcca64",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

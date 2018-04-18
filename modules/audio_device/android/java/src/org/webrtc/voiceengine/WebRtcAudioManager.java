@@ -40,7 +40,7 @@ public class WebRtcAudioManager {
 
   // TODO(bugs.webrtc.org/8914): disabled by default until AAudio support has
   // been completed. Goal is to always return false on Android O MR1 and higher.
-  private static final boolean blacklistDeviceForAAudioUsage = true;
+  private static final boolean blacklistDeviceForAAudioUsage = false;
 
   // Use mono as default for both audio directions.
   private static boolean useStereoOutput = false;

@@ -227,6 +227,15 @@ rtc::Optional<rtc::AdapterType> JavaToNativeNetworkPreference(
   if (enum_name == "VPN")
     return rtc::ADAPTER_TYPE_VPN;
 
+  if (enum_name == "VPN_ETHERNET")
+    return rtc::ADAPTER_TYPE_VPN_ETHERNET;
+
+  if (enum_name == "VPN_WIFI")
+    return rtc::ADAPTER_TYPE_VPN_WIFI;
+
+  if (enum_name == "VPN_CELLULAR")
+    return rtc::ADAPTER_TYPE_VPN_CELLULAR;
+
   if (enum_name == "LOOPBACK")
     return rtc::ADAPTER_TYPE_LOOPBACK;
 

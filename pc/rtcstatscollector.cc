@@ -153,6 +153,9 @@ const char* NetworkAdapterTypeToStatsType(rtc::AdapterType type) {
     case rtc::ADAPTER_TYPE_WIFI:
       return RTCNetworkType::kWifi;
     case rtc::ADAPTER_TYPE_VPN:
+    case rtc::ADAPTER_TYPE_VPN_ETHERNET:
+    case rtc::ADAPTER_TYPE_VPN_WIFI:
+    case rtc::ADAPTER_TYPE_VPN_CELLULAR:
       return RTCNetworkType::kVpn;
     case rtc::ADAPTER_TYPE_UNKNOWN:
     case rtc::ADAPTER_TYPE_LOOPBACK:

@@ -103,6 +103,12 @@ std::string AdapterTypeToString(AdapterType type) {
       return "Cellular";
     case ADAPTER_TYPE_VPN:
       return "VPN";
+    case ADAPTER_TYPE_VPN_ETHERNET:
+      return "VPN_ETHERNET";
+    case ADAPTER_TYPE_VPN_WIFI:
+      return "VPN_WIFI";
+    case ADAPTER_TYPE_VPN_CELLULAR:
+      return "VPN_CELLULAR";
     case ADAPTER_TYPE_LOOPBACK:
       return "Loopback";
     default:

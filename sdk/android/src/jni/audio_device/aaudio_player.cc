@@ -208,9 +208,11 @@ aaudio_data_callback_result_t AAudioPlayer::OnDataCallback(void* audio_data,
   if (aaudio_.frames_written() < 50 * aaudio_.frames_per_burst()) {
     memset(audio_data, 0, num_bytes);
   } else {
+    /*
     fine_audio_buffer_->GetPlayoutData(
         rtc::ArrayView<int8_t>(static_cast<int8_t*>(audio_data), num_bytes),
         static_cast<int>(latency_millis_ + 0.5));
+    */
   }
 
   // TODO(henrika): possibly add trace here to be included in systrace.

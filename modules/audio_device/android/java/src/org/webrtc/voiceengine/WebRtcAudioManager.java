@@ -40,7 +40,7 @@ public class WebRtcAudioManager {
 
   // TODO(bugs.webrtc.org/8914): disabled by default until AAudio support has
   // been completed. Goal is to always return false on Android O MR1 and higher.
-  private static final boolean blacklistDeviceForAAudioUsage = true;
+  private static final boolean blacklistDeviceForAAudioUsage = false;
 
   // Use mono as default for both audio directions.
   private static boolean useStereoOutput = false;
@@ -79,6 +79,8 @@ public class WebRtcAudioManager {
   // TODO(bugs.webrtc.org/8491): Remove NoSynchronizedMethodCheck suppression.
   @SuppressWarnings("NoSynchronizedMethodCheck")
   public static synchronized boolean getStereoOutput() {
+    // TODO(henrika): HACK!
+    // return true;
     return useStereoOutput;
   }
 
@@ -274,10 +276,13 @@ public class WebRtcAudioManager {
   // AAudio is supported on Androio Oreo MR1 (API 27) and higher.
   // TODO(bugs.webrtc.org/8914): currently disabled by default.
   private boolean isAAudioSupported() {
+    return false;
+    /*
     if (blacklistDeviceForAAudioUsage) {
       Logging.w(TAG, "AAudio support is currently disabled on all devices!");
     }
     return !blacklistDeviceForAAudioUsage && WebRtcAudioUtils.runningOnOreoMR1OrHigher();
+    */
   }
 
   // Returns the native output sample rate for this device's output stream.

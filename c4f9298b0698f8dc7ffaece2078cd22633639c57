@@ -25,6 +25,23 @@
     },
     {
       "key": {
+        "uuid": "471b1e32_ebe4b465",
+        "filename": "modules/audio_processing/agc2/rnn_vad/lp_residual.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-04-18T12:49:47Z",
+      "side": 1,
+      "message": "We could change the name to be more explicit on what this function is doing. It looks like that function is computing and postprocessing the lpc coefficient, maybe a name like ComputeAndPostprocessLpcCoefficients.",
+      "revId": "c4f9298b0698f8dc7ffaece2078cd22633639c57",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3b11a36c_1b00ae8b",
         "filename": "modules/audio_processing/agc2/rnn_vad/lp_residual.cc",
         "patchSetId": 4
@@ -42,6 +59,40 @@
         "endLine": 84,
         "endChar": 15
       },
+      "revId": "c4f9298b0698f8dc7ffaece2078cd22633639c57",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1388c8e5_c039db2c",
+        "filename": "modules/audio_processing/agc2/rnn_vad/lp_residual.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-04-18T12:49:47Z",
+      "side": 1,
+      "message": "I do not fully understand why this step is needed. I would not even call it smoothing. It might be good to evaluate how important is this step for the pitch estimation.",
+      "revId": "c4f9298b0698f8dc7ffaece2078cd22633639c57",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98ae27d2_0b2801d9",
+        "filename": "modules/audio_processing/agc2/rnn_vad/lp_residual.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-04-18T12:49:47Z",
+      "side": 1,
+      "message": "same comment as the previous one. I am not fully sure what is the purpose of this code and how much is affecting our later pitch estimation.",
       "revId": "c4f9298b0698f8dc7ffaece2078cd22633639c57",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -111,6 +162,23 @@
         "endLine": 122,
         "endChar": 21
       },
+      "revId": "c4f9298b0698f8dc7ffaece2078cd22633639c57",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "587b79b8_366d1b51",
+        "filename": "modules/audio_processing/agc2/rnn_vad/lp_residual.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-04-18T12:49:47Z",
+      "side": 1,
+      "message": "This function seems to be computing a version of the lpc coeffients tailor to the pitch estimation algorithm. We should change the comment to reflect that.",
       "revId": "c4f9298b0698f8dc7ffaece2078cd22633639c57",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c56c9b49_b25f3800",
+        "filename": "modules/audio_processing/agc2/rnn_vad/lp_residual.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-04-18T12:30:32Z",
+      "side": 1,
+      "message": "The inner product is taken over arrays of different lengths. Are the results normalized some how later?",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 17
+      },
+      "revId": "c4f9298b0698f8dc7ffaece2078cd22633639c57",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b11a36c_1b00ae8b",
+        "filename": "modules/audio_processing/agc2/rnn_vad/lp_residual.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-04-18T12:30:32Z",
+      "side": 1,
+      "message": "Please use \u0027std::fill\u0027 here",
+      "range": {
+        "startLine": 84,
+        "startChar": 3,
+        "endLine": 84,
+        "endChar": 15
+      },
+      "revId": "c4f9298b0698f8dc7ffaece2078cd22633639c57",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e8d46a5_c52476d6",
+        "filename": "modules/audio_processing/agc2/rnn_vad/lp_residual.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-04-18T12:30:32Z",
+      "side": 1,
+      "message": "The first 4 values of \u0027y\u0027 will be influenced by the zeros in \u0027input_chunk\u0027. Is that a problem? Maybe \u0027input_chunk\u0027 should be reused between frames to keep the old values?",
+      "range": {
+        "startLine": 118,
+        "startChar": 14,
+        "endLine": 118,
+        "endChar": 24
+      },
+      "revId": "c4f9298b0698f8dc7ffaece2078cd22633639c57",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dce5ccdc_572c7529",
+        "filename": "modules/audio_processing/agc2/rnn_vad/lp_residual.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-04-18T12:30:32Z",
+      "side": 1,
+      "message": "const",
+      "range": {
+        "startLine": 120,
+        "startChar": 4,
+        "endLine": 120,
+        "endChar": 9
+      },
+      "revId": "c4f9298b0698f8dc7ffaece2078cd22633639c57",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a0820a2_a7a8b169",
+        "filename": "modules/audio_processing/agc2/rnn_vad/lp_residual.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-04-18T12:30:32Z",
+      "side": 1,
+      "message": "How difficult would it be to flip the filter instead? Then the extra \u0027input_chunk\u0027 array would not be needed.",
+      "range": {
+        "startLine": 122,
+        "startChar": 7,
+        "endLine": 122,
+        "endChar": 21
+      },
+      "revId": "c4f9298b0698f8dc7ffaece2078cd22633639c57",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df5c76f8_fb48c097",
+        "filename": "modules/audio_processing/agc2/rnn_vad/lp_residual_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-04-18T12:30:32Z",
+      "side": 1,
+      "message": "chromium -\u003e webrtc. Above and below as well.",
+      "range": {
+        "startLine": 46,
+        "startChar": 21,
+        "endLine": 46,
+        "endChar": 29
+      },
+      "revId": "c4f9298b0698f8dc7ffaece2078cd22633639c57",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f74b9221_23c7e2aa",
+        "filename": "modules/audio_processing/agc2/rnn_vad/lp_residual_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-04-18T12:30:32Z",
+      "side": 1,
+      "message": "Why remove?",
+      "range": {
+        "startLine": 46,
+        "startChar": 41,
+        "endLine": 46,
+        "endChar": 52
+      },
+      "revId": "c4f9298b0698f8dc7ffaece2078cd22633639c57",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f4ad2cc_a8d108e6",
+        "filename": "modules/audio_processing/agc2/rnn_vad/test_utils.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-04-18T12:30:32Z",
+      "side": 1,
+      "message": "Are all of these needed?",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 16
+      },
+      "revId": "c4f9298b0698f8dc7ffaece2078cd22633639c57",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

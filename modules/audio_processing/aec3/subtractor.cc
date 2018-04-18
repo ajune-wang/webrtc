@@ -169,6 +169,7 @@ void Subtractor::Process(const RenderBuffer& render_buffer,
   main_filter_once_converged_ =
       main_filter_once_converged_ || main_filter_converged_;
   main_filter_diverged_ = e2_main > 1.5f * y2 && y2 > 30.f * 30.f * kBlockSize;
+  main_filter_significant_echo_removal_ = e2_main < 0.7f * y2;
 
   // Compute spectra for future use.
   E_shadow.Spectrum(optimization_, output->E2_shadow);

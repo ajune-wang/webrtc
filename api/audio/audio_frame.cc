@@ -10,10 +10,19 @@
 
 #include "api/audio/audio_frame.h"
 
+#include <memory>
+
 #include "rtc_base/checks.h"
 #include "rtc_base/timeutils.h"
 
 namespace webrtc {
+namespace {
+std::unique_ptr<int16_t[]> AllocateMutedAudio() {
+  std::unique_ptr<int16_t[]> ret(new int16_t[AudioFrame::kMaxDataSizeSamples]);
+  memset(&ret[0], 0, AudioFrame::kMaxDataSizeSamples * sizeof(int16_t));
+  return ret;
+}
+}
 
 AudioFrame::AudioFrame() {
   // Visual Studio doesn't like this in the class definition.
@@ -118,9 +127,8 @@ bool AudioFrame::muted() const { return muted_; }
 
 // static
 const int16_t* AudioFrame::empty_data() {
-  static const int16_t kEmptyData[kMaxDataSizeSamples] = {0};
-  static_assert(sizeof(kEmptyData) == kMaxDataSizeBytes, "kMaxDataSizeBytes");
-  return kEmptyData;
+  static std::unique_ptr<int16_t[]> null_data = AllocateMutedAudio();
+  return &null_data[0];
 }
 
 }  // namespace webrtc

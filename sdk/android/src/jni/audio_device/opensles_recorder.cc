@@ -385,12 +385,14 @@ void OpenSLESRecorder::ReadBufferQueue() {
   // since there is no support to turn off built-in EC in combination with
   // OpenSL ES anyhow. Hence, as is, the WebRTC based AEC (which would use
   // these estimates) will never be active.
+  /*
   const size_t size_in_bytes =
       static_cast<size_t>(audio_parameters_.GetBytesPerBuffer());
   const int8_t* data =
       static_cast<const int8_t*>(audio_buffers_[buffer_index_].get());
   fine_audio_buffer_->DeliverRecordedData(
       rtc::ArrayView<const int8_t>(data, size_in_bytes), 25);
+  */
   // Enqueue the utilized audio buffer and use if for recording again.
   EnqueueAudioBuffer();
 }

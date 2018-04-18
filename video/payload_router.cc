@@ -266,7 +266,7 @@ EncodedImageCallback::Result PayloadRouter::OnEncodedImage(
 }
 
 void PayloadRouter::OnBitrateAllocationUpdated(
-    const BitrateAllocation& bitrate) {
+    const VideoBitrateAllocation& bitrate) {
   rtc::CritScope lock(&crit_);
   if (IsActive()) {
     if (rtp_modules_.size() == 1) {
@@ -283,7 +283,7 @@ void PayloadRouter::OnBitrateAllocationUpdated(
           continue;
         }
 
-        BitrateAllocation layer_bitrate;
+        VideoBitrateAllocation layer_bitrate;
         for (int tl = 0; tl < kMaxTemporalStreams; ++tl) {
           if (bitrate.HasBitrate(si, tl))
             layer_bitrate.SetBitrate(0, tl, bitrate.GetBitrate(si, tl));

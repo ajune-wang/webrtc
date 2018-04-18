@@ -181,7 +181,7 @@ static NSUInteger const kBottomViewHeight = 200;
 
 #pragma mark - RTCNSGLVideoViewDelegate
 
-- (void)videoView:(RTCNSGLVideoView*)videoView
+- (void)videoView:(id<RTCVideoRenderer>)videoView
     didChangeVideoSize:(NSSize)size {
   if (videoView == _remoteVideoView) {
     _remoteVideoSize = size;

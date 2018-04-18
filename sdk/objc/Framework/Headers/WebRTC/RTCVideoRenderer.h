@@ -18,15 +18,25 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @class RTCVideoFrame;
+@protocol RTCVideoViewDelegate;
 
 RTC_EXPORT
 @protocol RTCVideoRenderer <NSObject>
+
+@property(nonatomic, weak) id<RTCVideoViewDelegate> delegate;
 
 /** The size of the frame. */
 - (void)setSize:(CGSize)size;
 
 /** The frame to be displayed. */
 - (void)renderFrame:(nullable RTCVideoFrame *)frame;
+
+@end
+
+RTC_EXPORT
+@protocol RTCVideoViewDelegate
+
+- (void)videoView:(id<RTCVideoRenderer>)videoView didChangeVideoSize:(CGSize)size;
 
 @end
 

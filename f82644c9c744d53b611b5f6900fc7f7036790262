@@ -70,6 +70,24 @@
       "revId": "f82644c9c744d53b611b5f6900fc7f7036790262",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e76f96e_6b64313f",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1139,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-18T21:05:48Z",
+      "side": 1,
+      "message": "I was referring to this field, which overrides default preference: https://cs.chromium.org/chromium/src/third_party/webrtc/api/peerconnectioninterface.h?l\u003d542\u0026rcl\u003d8619e8a3d785937158a29a11bcbb08f03fda75b7\n\nI believe the issue this CL was addressing is \"SetConfiguration\" with a preference of \"cell\" not immediately changing the selected pair, even though the cell pair was working, because it wasn\u0027t flagged as receiving.",
+      "parentUuid": "3e38c317_a48f497c",
+      "revId": "f82644c9c744d53b611b5f6900fc7f7036790262",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

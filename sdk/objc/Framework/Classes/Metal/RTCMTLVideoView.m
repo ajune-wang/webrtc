@@ -35,6 +35,7 @@
 
 @implementation RTCMTLVideoView
 
+@synthesize delegate = _delegate;
 @synthesize rendererI420 = _rendererI420;
 @synthesize rendererNV12 = _rendererNV12;
 @synthesize metalView = _metalView;
@@ -138,6 +139,9 @@
 
 - (void)setSize:(CGSize)size {
   self.metalView.drawableSize = size;
+  dispatch_async(dispatch_get_main_queue(), ^{
+    [self.delegate videoView:self didChangeVideoSize:size];
+  });
 }
 
 - (void)renderFrame:(nullable RTCVideoFrame *)frame {

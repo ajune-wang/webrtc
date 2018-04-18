@@ -2038,6 +2038,24 @@
     },
     {
       "key": {
+        "uuid": "f6f9a800_5df6764c",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-18T15:51:46Z",
+      "side": 1,
+      "message": "Now using \"namespace impl {  // Internal, not part of the API.\" to make clear what belongs to the API.",
+      "parentUuid": "4b50d726_95870ded",
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e023db85_e484dcac",
         "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.h",
         "patchSetId": 2

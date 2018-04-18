@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3cfc5d0f_c80b2579",
+        "filename": "modules/congestion_controller/rtp/send_side_congestion_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2018-04-18T10:45:54Z",
+      "side": 1,
+      "message": "I think it is logically like this, maybe put in a comment:\nPacerPushbackExperiment: build-up in pacer due to CWIN and/or data spikes reduces video allocations.\nCongestionWindowPushback: pacer is oblivious to congestion window. CWIN impacts video allocs directly.\nBoth: same as CongestionWindowPushback.",
+      "parentUuid": "26c692f7_906ecb07",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 73
+      },
+      "revId": "6357e971aad519c85b639af088c53f2ee1fcca64",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1cf5750a_14b894db",
         "filename": "modules/congestion_controller/rtp/send_side_congestion_controller.cc",
         "patchSetId": 1

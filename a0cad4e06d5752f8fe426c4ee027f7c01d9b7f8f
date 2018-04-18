@@ -1,0 +1,1094 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c7201561_49940e49",
+        "filename": "modules/audio_processing/agc2/rnn_vad/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-18T09:04:13Z",
+      "side": 1,
+      "message": "The naming of the source set is a bit ambiguous since has a specific meaning in the build process, and I don\u0027t think that this is intended to go into a separate lib.\n\nPlease change it to something more descriptive.",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 19
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80e0a1d7_4a575917",
+        "filename": "modules/audio_processing/agc2/rnn_vad/common.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-18T09:04:13Z",
+      "side": 1,
+      "message": "Does this need to be a named constant?",
+      "range": {
+        "startLine": 17,
+        "startChar": 17,
+        "endLine": 17,
+        "endChar": 33
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8790daba_fc2901f0",
+        "filename": "modules/audio_processing/agc2/rnn_vad/common.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-18T09:04:13Z",
+      "side": 1,
+      "message": "240 -\u003e kSampleRate24kHz / 100",
+      "range": {
+        "startLine": 18,
+        "startChar": 39,
+        "endLine": 18,
+        "endChar": 42
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "497b2382_4baf7370",
+        "filename": "modules/audio_processing/agc2/rnn_vad/common.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-18T09:04:13Z",
+      "side": 1,
+      "message": "480 -\u003e  kSampleRate24kHz / 50",
+      "range": {
+        "startLine": 19,
+        "startChar": 39,
+        "endLine": 19,
+        "endChar": 42
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "200254ae_481edb90",
+        "filename": "modules/audio_processing/agc2/rnn_vad/common.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-18T09:04:13Z",
+      "side": 1,
+      "message": "30 -\u003e kSampleRate24kHz / 800",
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86f3df1a_de1c16d6",
+        "filename": "modules/audio_processing/agc2/rnn_vad/common.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-18T09:04:13Z",
+      "side": 1,
+      "message": "384 -\u003e kSampleRate24kHz / 62.5",
+      "range": {
+        "startLine": 23,
+        "startChar": 40,
+        "endLine": 23,
+        "endChar": 43
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f6994e7_7cc16493",
+        "filename": "modules/audio_processing/agc2/rnn_vad/common.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-18T09:04:13Z",
+      "side": 1,
+      "message": "This comment is not properly finished.",
+      "range": {
+        "startLine": 25,
+        "startChar": 41,
+        "endLine": 25,
+        "endChar": 69
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc8f101a_525670ab",
+        "filename": "modules/audio_processing/agc2/rnn_vad/common.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-18T09:04:13Z",
+      "side": 1,
+      "message": "Does this need to be a named constant?",
+      "range": {
+        "startLine": 35,
+        "startChar": 17,
+        "endLine": 35,
+        "endChar": 33
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4023c35f_af2641d4",
+        "filename": "modules/audio_processing/agc2/rnn_vad/common.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-18T09:04:13Z",
+      "side": 1,
+      "message": "120 -\u003e kSampleRate12kHz / 100",
+      "range": {
+        "startLine": 36,
+        "startChar": 39,
+        "endLine": 36,
+        "endChar": 42
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2bf2817a_1eb5003c",
+        "filename": "modules/audio_processing/agc2/rnn_vad/common.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-18T09:04:13Z",
+      "side": 1,
+      "message": "240 -\u003e kSampleRate12kHz / 50",
+      "range": {
+        "startLine": 37,
+        "startChar": 39,
+        "endLine": 37,
+        "endChar": 42
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e866526a_b27d7c15",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-18T09:04:13Z",
+      "side": 1,
+      "message": "This method abstracts a subtraction into a separate method call. Looking at where it is used, the method call is used together with kPitchMaxPeriod24kHz. I think using a separate method for this reduces the readability of the code and also makes the code longer.",
+      "range": {
+        "startLine": 26,
+        "startChar": 14,
+        "endLine": 26,
+        "endChar": 28
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f63e56c_d82b4760",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-18T09:04:13Z",
+      "side": 1,
+      "message": "The inline keyword does not really add anything for C++. The compiler will anyway inline this method, and the inline keyword does anyway not at all guarantee inlining,",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 6
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8342aa45_b02f129e",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-18T09:04:13Z",
+      "side": 1,
+      "message": "Is there any guarantee that kPitchMaxPeriod24kHz \u003e lag? if it is not, this will wrap. Please add a DCHECK for ensuring that does not happen.",
+      "range": {
+        "startLine": 27,
+        "startChar": 9,
+        "endLine": 27,
+        "endChar": 29
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6936dc6_e6ff5095",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-18T09:04:13Z",
+      "side": 1,
+      "message": "This method consists of 5 DCHECKS and an inner product. I\u0027d consider not using a separate method for this and instead replace the method calls with the inner product as that would decrease codesize and make it more clear what the code actually does. I don\u0027t think abstracting the inner product into a separate method makes the code easier to read.",
+      "range": {
+        "startLine": 31,
+        "startChar": 13,
+        "endLine": 31,
+        "endChar": 40
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "184cd728_eef4e2dd",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-18T09:04:13Z",
+      "side": 1,
+      "message": "Does this check add anything? since inv_lag is unsigned it can never fail.",
+      "range": {
+        "startLine": 34,
+        "startChar": 2,
+        "endLine": 34,
+        "endChar": 15
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e091342e_a1e65cb4",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-18T09:04:13Z",
+      "side": 1,
+      "message": "Does this check add anything? since max_pitch_period is unsigned it can never fail.",
+      "range": {
+        "startLine": 36,
+        "startChar": 20,
+        "endLine": 36,
+        "endChar": 36
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60323fb7_8c170d44",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-18T09:04:13Z",
+      "side": 1,
+      "message": "Since inv_lag is size_t, it can never be less than zero. Please doublecheck the statement and at least change the inequality to check for zero only.",
+      "range": {
+        "startLine": 71,
+        "startChar": 6,
+        "endLine": 71,
+        "endChar": 13
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f644c3d_6286b57e",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-18T09:04:13Z",
+      "side": 1,
+      "message": "Why are the two first included if they are not used. Looking at the use of kSubHarmonicMultipliers it is only used twice:\n-Being indexed by 2\n-representing a loop limit.\n\nRemoving these two unused elements can easily be compensated for in that code.",
+      "range": {
+        "startLine": 97,
+        "startChar": 18,
+        "endLine": 97,
+        "endChar": 23
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b382b604_308ce687",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-18T09:04:13Z",
+      "side": 1,
+      "message": "If the first two are not, used, why are they included?\n\nLooking at the usage of kInitialPitchPeriodThresholds it is only used on line 130 with index k. I\u0027d suggest that the first two are dropped and that kInitialPitchPeriodThresholds is instead indexed k-2.",
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "753d0599_33897abc",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-18T09:04:13Z",
+      "side": 1,
+      "message": "3 comments:\n-Typo Aliasign -\u003eAliasing\n-Is the method used outside of the pitch search code? \n-The name is a bit confusing. I would just call it decimation and skip the part about anti-aliasing filter.",
+      "range": {
+        "startLine": 108,
+        "startChar": 5,
+        "endLine": 108,
+        "endChar": 35
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47e6baec_7fc64fbc",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-18T09:04:13Z",
+      "side": 1,
+      "message": "As below, since so many nondescriptive variable names are used, please provide a comment that describe the maths behind what is done.",
+      "range": {
+        "startLine": 116,
+        "startChar": 39,
+        "endLine": 116,
+        "endChar": 41
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f8dfc0e_f225831a",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-18T09:04:13Z",
+      "side": 1,
+      "message": "0.5 -\u003e 0.5f",
+      "range": {
+        "startLine": 134,
+        "startChar": 27,
+        "endLine": 134,
+        "endChar": 30
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "480bdb0d_e43464d8",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-18T09:04:13Z",
+      "side": 1,
+      "message": "Please add a DCHECK to ensure that \nkPitchMaxPeriod24kHz + kFrameSize20ms24kHz \u003e\u003d i",
+      "range": {
+        "startLine": 156,
+        "startChar": 18,
+        "endLine": 156,
+        "endChar": 64
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3818ebd8_9b14e933",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-18T09:04:13Z",
+      "side": 1,
+      "message": "Please add a DCHECK that kPitchMaxPeriod24kHz \u003e\u003d i",
+      "range": {
+        "startLine": 157,
+        "startChar": 38,
+        "endLine": 157,
+        "endChar": 62
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dbb178c2_e280b89d",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-18T09:04:13Z",
+      "side": 1,
+      "message": "I think the usage of the PitchCandidate struct is a bit confusing. Maybe a naming will make it more clear but there is nothing in the struct that at a first glance relates to pitch.\n\nIs there some way of changing the struct, or the usage thereof to make the code more readable?",
+      "range": {
+        "startLine": 181,
+        "startChar": 9,
+        "endLine": 181,
+        "endChar": 23
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3020fa0_003a0a68",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-18T09:04:13Z",
+      "side": 1,
+      "message": "The style guide (https://google.github.io/styleguide/cppguide.html#Operator_Overloading) allows overloading if the meaning is obvious.\n\nTo me, this operator is not at all obvious. For instance, why is not inv_lag included in the comparison?\n\nI\u0027d suggest adding a method that does the comparison instead, and name that method in a way that describes what is done.",
+      "range": {
+        "startLine": 186,
+        "startChar": 17,
+        "endLine": 186,
+        "endChar": 18
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c5b3aee_81dc8a4c",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-18T09:04:13Z",
+      "side": 1,
+      "message": "Since the lambda is so simple, it is used only in one line and omitting the lambda will make that line shorter, I\u0027d suggest removing the lambda as\n-it will reduce the number of lines by 1\n-I think it will make the statement clearer.",
+      "range": {
+        "startLine": 239,
+        "startChar": 8,
+        "endLine": 239,
+        "endChar": 19
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a114741c_08d8b865",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-18T09:04:13Z",
+      "side": 1,
+      "message": "On line 181 another PitchCandidate struct is declared, but that significantly differs from this declaration. Please use different names since having two different declarations with the same name in the same source file is confusing.",
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73b5c1b2_a1b50682",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-18T09:04:13Z",
+      "side": 1,
+      "message": "Init-\u003einitialization (since it is so short anyway).",
+      "range": {
+        "startLine": 268,
+        "startChar": 5,
+        "endLine": 268,
+        "endChar": 10
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45f13d43_5acfb795",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-18T09:04:13Z",
+      "side": 1,
+      "message": "Why are there curly braces around pitch_buf?",
+      "range": {
+        "startLine": 270,
+        "startChar": 37,
+        "endLine": 270,
+        "endChar": 46
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9d0204d_71cd124f",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-18T09:04:13Z",
+      "side": 1,
+      "message": "This lambda is only used in two places. I\u0027d rather prefer for xx to be a parameter to it instead of placing it in the scope of the lambda. That would not increase the number of lines but have the advantage of making pitch gain a proper function.",
+      "range": {
+        "startLine": 274,
+        "startChar": 21,
+        "endLine": 274,
+        "endChar": 23
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7858383f_9dcfc412",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-18T09:04:13Z",
+      "side": 1,
+      "message": "Please add a DCHECK that the denominator is \u003e\u003d 0",
+      "range": {
+        "startLine": 275,
+        "startChar": 14,
+        "endLine": 275,
+        "endChar": 15
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee959c2b_6aab216c",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-18T09:04:13Z",
+      "side": 1,
+      "message": "Please move the declaration of the lambda closer to where it is used (to line 295).",
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d90de74_f1949eb7",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-18T09:04:13Z",
+      "side": 1,
+      "message": "There are quite many variables with nondescriptive naming, e.g., g0, t0, t1, g1_b, xy_t1, etc.\n\nWould it be possible to clarify their meaning in a comment containing the underlying maths?",
+      "range": {
+        "startLine": 290,
+        "startChar": 15,
+        "endLine": 290,
+        "endChar": 17
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e88a605_418a1ea7",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-18T09:04:13Z",
+      "side": 1,
+      "message": "Please add a constructor or a setter to PitchCandidate instead of assigning the fields one by one.",
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a71a2ee_682c76c3",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-18T09:04:13Z",
+      "side": 1,
+      "message": "Nit: Const-ing variables add a bit of security against errors but does also make the code more verbose. In this case, I\u0027d definitely skip the const on line 335 but also on 331.",
+      "range": {
+        "startLine": 331,
+        "startChar": 5,
+        "endLine": 331,
+        "endChar": 7
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27407775_93867c33",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-18T09:04:13Z",
+      "side": 1,
+      "message": "Please simplify this statement by making it a multi-liner.",
+      "range": {
+        "startLine": 332,
+        "startChar": 11,
+        "endLine": 332,
+        "endChar": 14
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "085b7441_194a406a",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-18T09:04:13Z",
+      "side": 1,
+      "message": "Are the methods used here inside PitchSearch also used in other compilation units?",
+      "range": {
+        "startLine": 346,
+        "startChar": 2,
+        "endLine": 346,
+        "endChar": 32
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "390aed43_17f473a7",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-18T09:04:13Z",
+      "side": 1,
+      "message": "I\u0027d prefer to not having an auto for pitch_candidates_inv_lags and instead spell out the type (std::array\u003csize_t, 2\u003e). That would make the for-loop on line 360 and the multiplication on line 361 more readable.\n\nAs it is now, I needed to go to line 176 to be able to tell that inv_lag was a float which means that the usage of auto here reduces readability.",
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "793d067b_48e11bcb",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-18T09:04:13Z",
+      "side": 1,
+      "message": "This comment seem not to match what is done on line 362. Please clarify why the comment mentions a conversion from 12 to 24 kHz while the following code mentions 48 kHz.",
+      "range": {
+        "startLine": 360,
+        "startChar": 65,
+        "endLine": 360,
+        "endChar": 67
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6473dd28_16838296",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-18T09:04:13Z",
+      "side": 1,
+      "message": "2.f",
+      "range": {
+        "startLine": 361,
+        "startChar": 15,
+        "endLine": 361,
+        "endChar": 16
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c21aac24_28e1827e",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-18T09:04:13Z",
+      "side": 1,
+      "message": "The style guide allows auto when it increases the readability. In this case pitch_inv_lag_48kHz  is a size_t and I think replacing the size_t with an auto does reduce the readability.",
+      "range": {
+        "startLine": 362,
+        "startChar": 8,
+        "endLine": 362,
+        "endChar": 12
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef21ddec_e0f58db3",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-18T09:04:13Z",
+      "side": 1,
+      "message": "Please add a DCHECK to make sure that kPitchMaxPeriod48kHz \u003e pitch_inv_lag_48kHz",
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33e859a6_0623db3b",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-18T09:04:13Z",
+      "side": 1,
+      "message": "What does this namespace mean? Is it needed on top of rnn_vad? Please make the name more descriptive.",
+      "range": {
+        "startLine": 21,
+        "startChar": 10,
+        "endLine": 21,
+        "endChar": 14
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "079aa83f_f67292e6",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-18T09:04:13Z",
+      "side": 1,
+      "message": "Instead of (or in addition to) describing the meaning of the parameters in the comment I\u0027d prefer more descriptive parameter names. e.g. t1 could be named pitch_period.\n\nIf the code in the method then becomes to verbose, it is then better to abbreviate the parameters with shorter-named reference variables within the implementation of the method.",
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b50d726_95870ded",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-18T09:04:13Z",
+      "side": 1,
+      "message": "For the methods which are intended only for testing, I think it would make sense to add a comment for that.",
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e023db85_e484dcac",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-18T09:04:13Z",
+      "side": 1,
+      "message": "Please add a comment describing the struct PitchInfo. For instance, while the meaning of the pitch period is fairly clear, the meaning of the pitch gain is less obvious.",
+      "range": {
+        "startLine": 94,
+        "startChar": 7,
+        "endLine": 94,
+        "endChar": 16
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c459679_da227f2b",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-18T09:04:13Z",
+      "side": 1,
+      "message": "at -\u003e for",
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "039912e6_9d1daca7",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-18T09:04:13Z",
+      "side": 1,
+      "message": "I  don\u0027t see the full context in this CL but I have a feeling that the PitchSearch method is the only one that is intended to be used of these methods. Is that correct? Are the other methods only used in the unittests?\ne\nIn that case, I think it would be better to move the other methods to a separate .h/.cc file that is only used internally in pitch_search.cc as well as in the unittests. \nThat would more clearly signal the intended usage of PitchSearch and would simplify the use of the code.",
+      "range": {
+        "startLine": 110,
+        "startChar": 10,
+        "endLine": 110,
+        "endChar": 21
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0da0c6b1_6e8da53e",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-18T09:04:13Z",
+      "side": 1,
+      "message": "Instead of adding all of these using statements, would it be possible to scope this in the rnn_vad namespace instead?",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 27
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

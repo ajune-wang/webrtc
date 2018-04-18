@@ -378,12 +378,15 @@ class Network {
   uint16_t GetCost() const {
     switch (type_) {
       case rtc::ADAPTER_TYPE_ETHERNET:
+      case rtc::ADAPTER_TYPE_VPN_ETHERNET:
       case rtc::ADAPTER_TYPE_LOOPBACK:
         return kNetworkCostMin;
       case rtc::ADAPTER_TYPE_WIFI:
+      case rtc::ADAPTER_TYPE_VPN_WIFI:
       case rtc::ADAPTER_TYPE_VPN:
         return kNetworkCostLow;
       case rtc::ADAPTER_TYPE_CELLULAR:
+      case rtc::ADAPTER_TYPE_VPN_CELLULAR:
         return kNetworkCostHigh;
       default:
         return kNetworkCostUnknown;

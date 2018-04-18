@@ -103,8 +103,11 @@ public class PeerConnectionFactory {
     static final int ADAPTER_TYPE_ETHERNET = 1 << 0;
     static final int ADAPTER_TYPE_WIFI = 1 << 1;
     static final int ADAPTER_TYPE_CELLULAR = 1 << 2;
-    static final int ADAPTER_TYPE_VPN = 1 << 3;
-    static final int ADAPTER_TYPE_LOOPBACK = 1 << 4;
+    static final int ADAPTER_TYPE_VPN = 1 << 3; // Legacy VPN type for backward compability.
+    static final int ADAPTER_TYPE_VPN_ETHERNET = 1 << 4;
+    static final int ADAPTER_TYPE_VPN_WIFI = 1 << 5;
+    static final int ADAPTER_TYPE_VPN_CELLULAR = 1 << 6;
+    static final int ADAPTER_TYPE_LOOPBACK = 1 << 7;
 
     public int networkIgnoreMask;
     public boolean disableEncryption;

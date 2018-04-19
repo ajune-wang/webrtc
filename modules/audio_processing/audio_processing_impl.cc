@@ -384,8 +384,8 @@ AudioProcessingImpl::AudioProcessingImpl(
     NonlinearBeamformer* beamformer)
     : data_dumper_(
           new ApmDataDumper(rtc::AtomicOps::Increment(&instance_count_))),
-      runtime_settings_(new SwapQueue<RuntimeSetting>(100)),
-      runtime_settings_enqueuer_(runtime_settings_.get()),
+      runtime_settings_(100),
+      runtime_settings_enqueuer_(&runtime_settings_),
       high_pass_filter_impl_(new HighPassFilterImpl(this)),
       echo_control_factory_(std::move(echo_control_factory)),
       submodule_states_(!!capture_post_processor, !!render_pre_processor),
@@ -915,8 +915,7 @@ int AudioProcessingImpl::ProcessStream(const float* const* src,
 
 void AudioProcessingImpl::HandleRuntimeSettings() {
   RuntimeSetting setting;
-  while (runtime_settings_->Remove(&setting)) {
-    RTC_DCHECK(setting.type() != RuntimeSetting::Type::kNotSpecified);
+  while (runtime_settings_.Remove(&setting)) {
     switch (setting.type()) {
       case RuntimeSetting::Type::kCapturePreGain:
         if (config_.pre_amplifier.enabled) {
@@ -926,7 +925,7 @@ void AudioProcessingImpl::HandleRuntimeSettings() {
         }
         // TODO(bugs.chromium.org/9138): Log setting handling by Aec Dump.
         break;
-      default:
+      case RuntimeSetting::Type::kNotSpecified:
         RTC_NOTREACHED();
         break;
     }

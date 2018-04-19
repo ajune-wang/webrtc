@@ -51,6 +51,24 @@
       "revId": "3f599d98a9b278ceffb181b2cc12d24c623b62c9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3cce89f_64f86570",
+        "filename": "sdk/objc/Framework/Headers/WebRTC/RTCVideoRenderer.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-04-19T14:49:56Z",
+      "side": 1,
+      "message": "Nope! But it used to be... \n\nDeleted.",
+      "parentUuid": "1dd996c8_f2441ce7",
+      "revId": "3f599d98a9b278ceffb181b2cc12d24c623b62c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -671,6 +671,30 @@
     },
     {
       "key": {
+        "uuid": "30a51917_bc1260b7",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-19T13:31:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4354638a_5044a181",
+      "range": {
+        "startLine": 32,
+        "startChar": 41,
+        "endLine": 32,
+        "endChar": 46
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "184cd728_eef4e2dd",
         "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
         "patchSetId": 2
@@ -739,6 +763,30 @@
       "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bdb6cac3_f364335b",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-19T13:31:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d60b7c78_340574ba",
+      "range": {
+        "startLine": 34,
+        "startChar": 2,
+        "endLine": 34,
+        "endChar": 15
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -813,6 +861,30 @@
     },
     {
       "key": {
+        "uuid": "26b8735a_4a810cc1",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-19T13:31:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f67dab11_3deaaa5c",
+      "range": {
+        "startLine": 36,
+        "startChar": 20,
+        "endLine": 36,
+        "endChar": 36
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e65f6da7_8fdc62ab",
         "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
         "patchSetId": 2
@@ -836,6 +908,30 @@
     },
     {
       "key": {
+        "uuid": "6fa68b48_c36ba736",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-19T13:31:55Z",
+      "side": 1,
+      "message": "I expect that switching from DCHECK to CHECK would slow things down a lot. And this part is already a bottleneck. I will leave DCHECK.",
+      "parentUuid": "e65f6da7_8fdc62ab",
+      "range": {
+        "startLine": 38,
+        "startChar": 2,
+        "endLine": 38,
+        "endChar": 15
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9bc609df_ebfea43d",
         "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
         "patchSetId": 2
@@ -856,6 +952,30 @@
       "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4c91247_94094f44",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-19T13:31:55Z",
+      "side": 1,
+      "message": "Great that you pointed this is out. However, here the same number of samples is always used. If this should be clear from the code, let me know and I will add a comment. Probably the description of the pitch buffer in pitch_search.h is not sufficient (or just too far from the code).",
+      "parentUuid": "9bc609df_ebfea43d",
+      "range": {
+        "startLine": 40,
+        "startChar": 14,
+        "endLine": 40,
+        "endChar": 27
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -929,6 +1049,30 @@
     },
     {
       "key": {
+        "uuid": "ba387944_539acc19",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-19T13:31:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "edf9582f_1d75fbdc",
+      "range": {
+        "startLine": 79,
+        "startChar": 30,
+        "endLine": 79,
+        "endChar": 31
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c9682b0d_932c662d",
         "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
         "patchSetId": 2
@@ -940,6 +1084,30 @@
       "writtenOn": "2018-04-18T20:29:51Z",
       "side": 1,
       "message": "I actually cannot follow this well.",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 95,
+        "endChar": 73
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "698cd85b_c3c0c8fb",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-19T13:31:55Z",
+      "side": 1,
+      "message": "Let\u0027s discuss offline and think of how I can improve this part.",
+      "parentUuid": "c9682b0d_932c662d",
       "range": {
         "startLine": 88,
         "startChar": 0,
@@ -1104,6 +1272,30 @@
     },
     {
       "key": {
+        "uuid": "a07a3d29_9c974c7a",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-19T13:31:55Z",
+      "side": 1,
+      "message": "because the array view has a compile time known size here, so we can fail earlier using a static assert instead of failing at runtime",
+      "parentUuid": "e30f62a3_234c1435",
+      "range": {
+        "startLine": 111,
+        "startChar": 2,
+        "endLine": 111,
+        "endChar": 15
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "47e6baec_7fc64fbc",
         "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
         "patchSetId": 2
@@ -1171,6 +1363,30 @@
       "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "13357216_c916ac32",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-19T13:31:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc8a3f2d_5a3c879e",
+      "range": {
+        "startLine": 126,
+        "startChar": 37,
+        "endLine": 126,
+        "endChar": 41
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -1338,6 +1554,30 @@
     },
     {
       "key": {
+        "uuid": "58df9ce1_b63d6669",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-19T13:31:55Z",
+      "side": 1,
+      "message": "Good catch! But I think it\u0027s ok:\n- the updates \"yy -\u003d old\" and \"yy +\u003d new\" may lead to a small negative yy value because of round-off\n- when that happens, the result stored in yy_values is corrected using std::max\n- (maybe) the overall sliding window process would accumulate more error if we apply the correction to yy directly\n\nWDYT?",
+      "parentUuid": "a9c00d90_9806742f",
+      "range": {
+        "startLine": 160,
+        "startChar": 4,
+        "endLine": 160,
+        "endChar": 13
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fe8119ad_c92747f1",
         "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
         "patchSetId": 2
@@ -1358,6 +1598,30 @@
       "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "336e54c8_ad3b529b",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-19T13:31:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fe8119ad_c92747f1",
+      "range": {
+        "startLine": 171,
+        "startChar": 65,
+        "endLine": 171,
+        "endChar": 0
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -1478,6 +1742,30 @@
     },
     {
       "key": {
+        "uuid": "39129b8c_f3620251",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-19T13:31:55Z",
+      "side": 1,
+      "message": "removed since it is the sum of x[i]*x[i] which always adds positive terms and hence can\u0027t be negative",
+      "parentUuid": "09da6f0e_3429106b",
+      "range": {
+        "startLine": 199,
+        "startChar": 2,
+        "endLine": 199,
+        "endChar": 15
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f5c5eac3_55febd7e",
         "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
         "patchSetId": 2
@@ -1501,6 +1789,30 @@
     },
     {
       "key": {
+        "uuid": "6c36848e_2618fea1",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-19T13:31:55Z",
+      "side": 1,
+      "message": "Right!",
+      "parentUuid": "f5c5eac3_55febd7e",
+      "range": {
+        "startLine": 202,
+        "startChar": 2,
+        "endLine": 202,
+        "endChar": 16
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "248a550a_9c305636",
         "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
         "patchSetId": 2
@@ -1521,6 +1833,30 @@
       "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c78ea56_ab11624c",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-19T13:31:55Z",
+      "side": 1,
+      "message": "Good catch!",
+      "parentUuid": "248a550a_9c305636",
+      "range": {
+        "startLine": 224,
+        "startChar": 18,
+        "endLine": 224,
+        "endChar": 19
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -1594,6 +1930,30 @@
     },
     {
       "key": {
+        "uuid": "ec922636_f77c83bc",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-19T13:31:55Z",
+      "side": 1,
+      "message": "yet another good catch, not needed because anyway FindBestPitchPeriods would ignore the corresponding inverted lag",
+      "parentUuid": "1ac01bf7_d9e66a44",
+      "range": {
+        "startLine": 241,
+        "startChar": 15,
+        "endLine": 241,
+        "endChar": 18
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a114741c_08d8b865",
         "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
         "patchSetId": 2
@@ -1644,6 +2004,24 @@
       "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aac064b2_d44f9c7f",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-19T13:31:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e64ddcb5_6c1137e5",
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -1855,6 +2233,30 @@
       "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7645bc97_8db40d61",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-19T13:31:55Z",
+      "side": 1,
+      "message": "xy it\u0027s the cross-correlation, xx and yy the auto-correlations which are used for normalization; 1 is used to avoid div-by-0",
+      "parentUuid": "a046a59f_235e5dcb",
+      "range": {
+        "startLine": 275,
+        "startChar": 0,
+        "endLine": 275,
+        "endChar": 41
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -2265,6 +2667,30 @@
       "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "468a0afb_7bdd8000",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-19T13:31:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f49a83a3_bd04bf4a",
+      "range": {
+        "startLine": 361,
+        "startChar": 4,
+        "endLine": 361,
+        "endChar": 11
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

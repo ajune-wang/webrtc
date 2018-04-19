@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4bb47a47_82d523fc",
+        "filename": "api/video_bitrate_allocation.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-04-19T11:59:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc3051e1_a18ccac7",
+      "range": {
+        "startLine": 32,
+        "startChar": 2,
+        "endLine": 32,
+        "endChar": 10
+      },
+      "revId": "e4c0b9a111c156df467c93f9008ef415c955de8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "611f51e4_eadda9eb",
         "filename": "api/video_bitrate_allocation.cc",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2018-04-19T10:23:30Z",
       "side": 1,
       "message": "dchecked_cast?",
+      "range": {
+        "startLine": 40,
+        "startChar": 9,
+        "endLine": 40,
+        "endChar": 20
+      },
+      "revId": "e4c0b9a111c156df467c93f9008ef415c955de8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f2cc037_d81a96f0",
+        "filename": "api/video_bitrate_allocation.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-04-19T11:59:55Z",
+      "side": 1,
+      "message": "That\u0027s actually a little tricky, got into dependency cycle. Since we actually check the range two lines above maybe we can omit that?\n\nERROR Dependency cycle:\n  //rtc_base:rtc_base_approved -\u003e\n  //rtc_base:rtc_base_approved_generic -\u003e\n  //:webrtc_common -\u003e\nninja: error: rebuilding \u0027build.ninja\u0027: subcommand failed\n  //api:video_bitrate_allocation -\u003e\n  //rtc_base:rtc_base_approved",
+      "parentUuid": "611f51e4_eadda9eb",
       "range": {
         "startLine": 40,
         "startChar": 9,

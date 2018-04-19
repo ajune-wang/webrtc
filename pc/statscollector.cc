@@ -427,6 +427,9 @@ const char* AdapterTypeToStatsType(rtc::AdapterType type) {
     case rtc::ADAPTER_TYPE_CELLULAR:
       return STATSREPORT_ADAPTER_TYPE_WWAN;
     case rtc::ADAPTER_TYPE_VPN:
+    case rtc::ADAPTER_TYPE_VPN_ETHERNET:
+    case rtc::ADAPTER_TYPE_VPN_WIFI:
+    case rtc::ADAPTER_TYPE_VPN_CELLULAR:
       return STATSREPORT_ADAPTER_TYPE_VPN;
     case rtc::ADAPTER_TYPE_LOOPBACK:
       return STATSREPORT_ADAPTER_TYPE_LOOPBACK;

@@ -315,7 +315,10 @@ public class PeerConnection {
     ETHERNET,
     WIFI,
     CELLULAR,
-    VPN,
+    VPN, // Legacy VPN type for backward compability.
+    VPN_ETHERNET,
+    VPN_WIFI,
+    VPN_CELLULAR,
     LOOPBACK,
   }
 

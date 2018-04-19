@@ -27,8 +27,16 @@ enum AdapterType {
   ADAPTER_TYPE_ETHERNET = 1 << 0,
   ADAPTER_TYPE_WIFI = 1 << 1,
   ADAPTER_TYPE_CELLULAR = 1 << 2,
+  // Legacy VPN type for backward compability. It is also used in queries of the
+  // adapter type based on the name of the (virtual) network interface (e.g.
+  // GetAdapterTypeFromName in network.cc), in which case we cannot retrieve the
+  // type of the underlying network interface.
   ADAPTER_TYPE_VPN = 1 << 3,
-  ADAPTER_TYPE_LOOPBACK = 1 << 4
+  // VPN types with an explicit type of the underlying network interface.
+  ADAPTER_TYPE_VPN_ETHERNET = 1 << 4,
+  ADAPTER_TYPE_VPN_WIFI = 1 << 5,
+  ADAPTER_TYPE_VPN_CELLULAR = 1 << 6,
+  ADAPTER_TYPE_LOOPBACK = 1 << 7
 };
 
 }  // namespace rtc

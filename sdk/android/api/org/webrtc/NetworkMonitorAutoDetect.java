@@ -55,6 +55,10 @@ public class NetworkMonitorAutoDetect extends BroadcastReceiver {
     CONNECTION_2G,
     CONNECTION_UNKNOWN_CELLULAR,
     CONNECTION_BLUETOOTH,
+    CONNECTION_VPN_ETHERNET,
+    CONNECTION_VPN_WIFI,
+    CONNECTION_VPN_CELLULAR,
+    CONNECTION_VPN_UNKNOWN,
     CONNECTION_NONE
   }
 
@@ -222,7 +226,16 @@ public class NetworkMonitorAutoDetect extends BroadcastReceiver {
       if (connectivityManager == null) {
         return new NetworkState(false, -1, -1);
       }
-      return getNetworkState(connectivityManager.getNetworkInfo(network));
+      NetworkState networkState = getNetworkState(connectivityManager.getNetworkInfo(network));
+      // NetworkInfo.getType() does not return TYPE_VPN if the underlying network interface is used
+      // for VPN. We need to query the capability of an interface to determine whether the network
+      // provided is a VPN.
+      if (connectivityManager.getNetworkCapabilities(network).hasTransport(
+              NetworkCapabilities.TRANSPORT_VPN)) {
+        networkState = new NetworkState(networkState.isConnected(), ConnectivityManager.TYPE_VPN,
+            networkState.getNetworkSubType());
+      }
+      return networkState;
     }
 
     /**
@@ -322,18 +335,32 @@ public class NetworkMonitorAutoDetect extends BroadcastReceiver {
       }
 
       NetworkState networkState = getNetworkState(network);
-      if (networkState.connected && networkState.getNetworkType() == ConnectivityManager.TYPE_VPN) {
-        // If a VPN network is in place, we can find the underlying network type via querying the
-        // active network info thanks to
-        // https://android.googlesource.com/platform/frameworks/base/+/d6a7980d
-        networkState = getNetworkState();
-      }
       ConnectionType connectionType = getConnectionType(networkState);
       if (connectionType == ConnectionType.CONNECTION_NONE) {
         // This may not be an error. The OS may signal a network event with connection type
         // NONE when the network disconnects.
         Logging.d(TAG, "Network " + network.toString() + " is disconnected");
         return null;
+      }
+
+      if (connectionType == ConnectionType.CONNECTION_VPN_UNKNOWN) {
+        // If a VPN network is in place, we can find the underlying network type via querying the
+        // active network info thanks to
+        // https://android.googlesource.com/platform/frameworks/base/+/d6a7980d
+        NetworkState physicalNetworkState = getNetworkState();
+        // We rewrite the underlying network type to a VPN-prefix network type to annotate this
+        // interface is used for VPN.
+        switch (physicalNetworkState.type) {
+          case ConnectivityManager.TYPE_ETHERNET:
+            connectionType = ConnectionType.CONNECTION_VPN_ETHERNET;
+            break;
+          case ConnectivityManager.TYPE_WIFI:
+            connectionType = ConnectionType.CONNECTION_VPN_WIFI;
+            break;
+          case ConnectivityManager.TYPE_MOBILE:
+            connectionType = ConnectionType.CONNECTION_VPN_CELLULAR;
+            break;
+        }
       }
 
       // Some android device may return a CONNECTION_UNKNOWN_CELLULAR or CONNECTION_UNKNOWN type,
@@ -721,6 +748,8 @@ public class NetworkMonitorAutoDetect extends BroadcastReceiver {
           default:
             return ConnectionType.CONNECTION_UNKNOWN_CELLULAR;
         }
+      case ConnectivityManager.TYPE_VPN:
+        return ConnectionType.CONNECTION_VPN_UNKNOWN;
       default:
         return ConnectionType.CONNECTION_UNKNOWN;
     }

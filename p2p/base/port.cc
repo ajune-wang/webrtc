@@ -107,7 +107,10 @@ webrtc::IceCandidateNetworkType ConvertNetworkType(rtc::AdapterType type) {
     return webrtc::IceCandidateNetworkType::kLoopback;
   } else if (type == rtc::ADAPTER_TYPE_WIFI) {
     return webrtc::IceCandidateNetworkType::kWifi;
-  } else if (type == rtc::ADAPTER_TYPE_VPN) {
+  } else if (type == rtc::ADAPTER_TYPE_VPN ||
+             type == rtc::ADAPTER_TYPE_VPN_ETHERNET ||
+             type == rtc::ADAPTER_TYPE_VPN_WIFI ||
+             type == rtc::ADAPTER_TYPE_VPN_CELLULAR) {
     return webrtc::IceCandidateNetworkType::kVpn;
   } else if (type == rtc::ADAPTER_TYPE_CELLULAR) {
     return webrtc::IceCandidateNetworkType::kCellular;

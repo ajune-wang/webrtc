@@ -60,6 +60,18 @@ static NetworkType GetNetworkTypeFromJava(
   if (enum_name == "CONNECTION_BLUETOOTH") {
     return NetworkType::NETWORK_BLUETOOTH;
   }
+  if (enum_name == "CONNECTION_VPN_ETHERNET") {
+    return NetworkType::NETWORK_VPN_ETHERNET;
+  }
+  if (enum_name == "CONNECTION_VPN_WIFI") {
+    return NetworkType::NETWORK_VPN_WIFI;
+  }
+  if (enum_name == "CONNECTION_VPN_CELLULAR") {
+    return NetworkType::NETWORK_VPN_CELLULAR;
+  }
+  if (enum_name == "CONNECTION_VPN_UNKNOWN") {
+    return NetworkType::NETWORK_VPN_UNKNOWN;
+  }
   if (enum_name == "CONNECTION_NONE") {
     return NetworkType::NETWORK_NONE;
   }
@@ -79,6 +91,12 @@ static rtc::AdapterType AdapterTypeFromNetworkType(NetworkType network_type) {
     case NETWORK_3G:
     case NETWORK_2G:
     case NETWORK_UNKNOWN_CELLULAR:
+      return rtc::ADAPTER_TYPE_CELLULAR;
+    case NETWORK_VPN_ETHERNET:
+      return rtc::ADAPTER_TYPE_ETHERNET;
+    case NETWORK_VPN_WIFI:
+      return rtc::ADAPTER_TYPE_WIFI;
+    case NETWORK_VPN_CELLULAR:
       return rtc::ADAPTER_TYPE_CELLULAR;
     case NETWORK_BLUETOOTH:
       // There is no corresponding mapping for bluetooth networks.

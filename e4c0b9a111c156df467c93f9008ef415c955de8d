@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a26fcad5_2988c62b",
+        "filename": "api/video_bitrate_allocation.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-04-19T07:31:22Z",
+      "side": 1,
+      "message": "Needs a comment on overall purpose of the class.\n\nAlso clarify unit used, (I guess everything is is bits per second here?)",
+      "range": {
+        "startLine": 26,
+        "startChar": 6,
+        "endLine": 26,
+        "endChar": 28
+      },
+      "revId": "e4c0b9a111c156df467c93f9008ef415c955de8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc3e9b1c_f59dcf19",
+        "filename": "api/video_bitrate_allocation.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-04-19T07:31:22Z",
+      "side": 1,
+      "message": "Where is this used? If applications aren\u0027t expected to use it, consider if we could remove it from the api.",
+      "range": {
+        "startLine": 31,
+        "startChar": 7,
+        "endLine": 31,
+        "endChar": 17
+      },
+      "revId": "e4c0b9a111c156df467c93f9008ef415c955de8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2b5ed36_da799076",
+        "filename": "api/video_bitrate_allocation.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-04-19T07:31:22Z",
+      "side": 1,
+      "message": "Do we really need both these methods?",
+      "range": {
+        "startLine": 57,
+        "startChar": 2,
+        "endLine": 58,
+        "endChar": 33
+      },
+      "revId": "e4c0b9a111c156df467c93f9008ef415c955de8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30eaf772_c0df8393",
+        "filename": "api/video_bitrate_allocation.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-04-19T07:31:22Z",
+      "side": 1,
+      "message": "Do we really need comparison operators? There seems to be one use:\n\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/modules/video_coding/generic_encoder.cc?type\u003dcs\u0026sq\u003dpackage:chromium\u0026l\u003d108",
+      "range": {
+        "startLine": 63,
+        "startChar": 2,
+        "endLine": 68,
+        "endChar": 3
+      },
+      "revId": "e4c0b9a111c156df467c93f9008ef415c955de8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d26f54c_3a21557a",
+        "filename": "api/video_bitrate_allocation.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-04-19T07:31:22Z",
+      "side": 1,
+      "message": "Can this be removed from the interface?",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 0
+      },
+      "revId": "e4c0b9a111c156df467c93f9008ef415c955de8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bff21de9_94653672",
+        "filename": "api/video_bitrate_allocation.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-04-19T07:31:22Z",
+      "side": 1,
+      "message": "Leave this in common_types.h instead, since that\u0027s what old code is using?",
+      "range": {
+        "startLine": 79,
+        "startChar": 1,
+        "endLine": 80,
+        "endChar": 49
+      },
+      "revId": "e4c0b9a111c156df467c93f9008ef415c955de8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1ac8a06_b272bb73",
+        "filename": "common_types.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-04-19T07:31:22Z",
+      "side": 1,
+      "message": "I take it this should only be for the transition, and a TODO about deleting this?",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 41
+      },
+      "revId": "e4c0b9a111c156df467c93f9008ef415c955de8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

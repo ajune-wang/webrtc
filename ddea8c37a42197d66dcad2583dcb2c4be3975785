@@ -22,6 +22,30 @@
       "revId": "ddea8c37a42197d66dcad2583dcb2c4be3975785",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "207900fe_a2d478a5",
+        "filename": "api/video/video_bitrate_allocation.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-04-19T13:54:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d5368514_77db9b42",
+      "range": {
+        "startLine": 114,
+        "startChar": 0,
+        "endLine": 118,
+        "endChar": 21
+      },
+      "revId": "ddea8c37a42197d66dcad2583dcb2c4be3975785",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

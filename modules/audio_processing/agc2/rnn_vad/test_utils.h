@@ -23,6 +23,7 @@
 #include "rtc_base/checks.h"
 
 namespace webrtc {
+namespace rnn_vad {
 namespace test {
 
 constexpr float kFloatMin = std::numeric_limits<float>::min();
@@ -97,6 +98,7 @@ std::pair<std::unique_ptr<BinaryFileReader<float>>, const size_t>
 CreateLpResidualAndPitchPeriodGainReader();
 
 }  // namespace test
+}  // namespace rnn_vad
 }  // namespace webrtc
 
 #endif  // MODULES_AUDIO_PROCESSING_AGC2_RNN_VAD_TEST_UTILS_H_

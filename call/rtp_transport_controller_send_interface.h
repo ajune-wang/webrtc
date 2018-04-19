@@ -24,6 +24,7 @@ struct NetworkRoute;
 }  // namespace rtc
 namespace webrtc {
 
+struct AllocatedStreamsInfo;
 class CallStatsObserver;
 class TargetTransferRateObserver;
 class Module;
@@ -68,7 +69,7 @@ class RtpTransportControllerSendInterface {
   virtual RtpPacketSender* packet_sender() = 0;
   virtual const RtpKeepAliveConfig& keepalive_config() const = 0;
 
-  // SetAllocatedSendBitrateLimits sets bitrates limits imposed by send codec
+  // OnAllocatedStreamsChanged sets bitrates limits imposed by send codec
   // settings.
   // |min_send_bitrate_bps| is the total minimum send bitrate required by all
   // sending streams.  This is the minimum bitrate the PacedSender will use.
@@ -77,12 +78,8 @@ class RtpTransportControllerSendInterface {
   // bitrate the send streams request for padding. This can be higher than the
   // current network estimate and tells the PacedSender how much it should max
   // pad unless there is real packets to send.
-  virtual void SetAllocatedSendBitrateLimits(int min_send_bitrate_bps,
-                                             int max_padding_bitrate_bps,
-                                             int total_bitrate_bps) = 0;
-
-  virtual void SetPacingFactor(float pacing_factor) = 0;
-  virtual void SetQueueTimeLimit(int limit_ms) = 0;
+  virtual void OnAllocatedStreamsChanged(
+      const AllocatedStreamsInfo& streams) = 0;
 
   virtual CallStatsObserver* GetCallStatsObserver() = 0;
 
@@ -101,7 +98,6 @@ class RtpTransportControllerSendInterface {
   virtual int64_t GetFirstPacketTimeMs() const = 0;
   virtual void EnablePeriodicAlrProbing(bool enable) = 0;
   virtual void OnSentPacket(const rtc::SentPacket& sent_packet) = 0;
-  virtual void SetPerPacketFeedbackAvailable(bool available) = 0;
 
   virtual void SetSdpBitrateParameters(
       const BitrateConstraints& constraints) = 0;

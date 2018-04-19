@@ -53,13 +53,9 @@ class RtpTransportControllerSend final
   RtpPacketSender* packet_sender() override;
   const RtpKeepAliveConfig& keepalive_config() const override;
 
-  void SetAllocatedSendBitrateLimits(int min_send_bitrate_bps,
-                                     int max_padding_bitrate_bps,
-                                     int max_total_bitrate_bps) override;
+  void OnAllocatedStreamsChanged(const AllocatedStreamsInfo& streams) override;
 
   void SetKeepAliveConfig(const RtpKeepAliveConfig& config);
-  void SetPacingFactor(float pacing_factor) override;
-  void SetQueueTimeLimit(int limit_ms) override;
   CallStatsObserver* GetCallStatsObserver() override;
   void RegisterPacketFeedbackObserver(
       PacketFeedbackObserver* observer) override;
@@ -73,7 +69,6 @@ class RtpTransportControllerSend final
   RtcpBandwidthObserver* GetBandwidthObserver() override;
   int64_t GetPacerQueuingDelayMs() const override;
   int64_t GetFirstPacketTimeMs() const override;
-  void SetPerPacketFeedbackAvailable(bool available) override;
   void EnablePeriodicAlrProbing(bool enable) override;
   void OnSentPacket(const rtc::SentPacket& sent_packet) override;
 

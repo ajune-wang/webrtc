@@ -178,10 +178,6 @@ VideoSendStream::Stats VideoSendStream::GetStats() {
   return stats_proxy_.GetStats();
 }
 
-rtc::Optional<float> VideoSendStream::GetPacingFactorOverride() const {
-  return send_stream_->configured_pacing_factor_;
-}
-
 void VideoSendStream::SignalNetworkState(NetworkState state) {
   RTC_DCHECK_RUN_ON(&thread_checker_);
   VideoSendStreamImpl* send_stream = send_stream_.get();

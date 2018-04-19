@@ -283,9 +283,9 @@ VideoSendStreamImpl::VideoSendStreamImpl(
     rtc::TaskQueue* worker_queue,
     CallStats* call_stats,
     RtpTransportControllerSendInterface* transport,
-    BitrateAllocator* bitrate_allocator,
+    BitrateAllocatorInterface* bitrate_allocator,
     SendDelayStats* send_delay_stats,
-    VideoStreamEncoder* video_stream_encoder,
+    VideoStreamEncoderInterface* video_stream_encoder,
     RtcEventLog* event_log,
     const VideoSendStream::Config* config,
     int initial_encoder_max_bitrate,
@@ -444,7 +444,6 @@ VideoSendStreamImpl::VideoSendStreamImpl(
     transport_->RegisterPacketFeedbackObserver(this);
   }
 
-  RTC_DCHECK(config_->encoder_settings.encoder);
   RTC_DCHECK_GE(config_->rtp.payload_type, 0);
   RTC_DCHECK_LE(config_->rtp.payload_type, 127);
 

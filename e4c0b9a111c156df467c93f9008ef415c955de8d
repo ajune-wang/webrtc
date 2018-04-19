@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "14470472_9f3b92ec",
+        "filename": "api/video_bitrate_allocation.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-04-19T13:31:46Z",
+      "side": 1,
+      "message": "Ah right, there\u0027s a safe_conversion target. I just looked something else that included rtc_base_approved and copied that...",
+      "parentUuid": "ab91224e_0dbf3c40",
+      "range": {
+        "startLine": 40,
+        "startChar": 9,
+        "endLine": 40,
+        "endChar": 20
+      },
+      "revId": "e4c0b9a111c156df467c93f9008ef415c955de8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9c8fe119_efc6190c",
         "filename": "api/video_bitrate_allocation.cc",
         "patchSetId": 4
@@ -190,6 +214,24 @@
       "side": 1,
       "message": "You\u0027ll have to provide backing storage in the .cc file, but that\u0027s it.",
       "parentUuid": "363ffa72_b9f3d393",
+      "revId": "e4c0b9a111c156df467c93f9008ef415c955de8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73b91108_d6c12c40",
+        "filename": "api/video_bitrate_allocation.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-04-19T13:31:46Z",
+      "side": 1,
+      "message": "I\u0027m note sure how to do that. If in the header I do:\nconstexpr int kMaxSimulcastStreams \u003d 4;\n\nthen adding \"constexpr int kMaxSimulcastStreams;\" will cause the compiler to complain about redefinition.\nAnd I can\u0027t just declare in there and then define it in the cc...",
+      "parentUuid": "c97f2e97_2a30bb66",
       "revId": "e4c0b9a111c156df467c93f9008ef415c955de8d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

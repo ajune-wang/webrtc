@@ -22,6 +22,30 @@
       "revId": "cbaa254641d67bbbdb8b4e6fed899bb7e6cf34da",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c32255d7_8ba0c187",
+        "filename": "video/video_send_stream.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 539,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-04-19T09:57:02Z",
+      "side": 0,
+      "message": "Yes, it should be kept. I added back a new formulation of the todo.",
+      "parentUuid": "434e125f_a662bfc3",
+      "range": {
+        "startLine": 537,
+        "startChar": 0,
+        "endLine": 539,
+        "endChar": 23
+      },
+      "revId": "cbaa254641d67bbbdb8b4e6fed899bb7e6cf34da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "baf6bc44_64160783",
+        "filename": "video/video_send_stream.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 557,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-04-19T09:57:02Z",
+      "side": 1,
+      "message": "My thinking is that it should be done by posting a task to the process thread (which has a task queue like interface). I have that as a separate CL to keep changes small.",
+      "parentUuid": "736caa96_26fd6816",
+      "range": {
+        "startLine": 557,
+        "startChar": 2,
+        "endLine": 557,
+        "endChar": 65
+      },
+      "revId": "4ce9136f1f2c2a1d2360330b3d9003db06196c55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fa2ddb18_0fbed99e",
         "filename": "video/video_send_stream.cc",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "4ce9136f1f2c2a1d2360330b3d9003db06196c55",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "913ba8ed_8e8e35c9",
+        "filename": "video/video_send_stream.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 634,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-04-19T09:57:02Z",
+      "side": 1,
+      "message": "Yes indeed, this is deleted in another CL that I have now rebased on.",
+      "parentUuid": "fa2ddb18_0fbed99e",
+      "range": {
+        "startLine": 634,
+        "startChar": 38,
+        "endLine": 634,
+        "endChar": 61
+      },
+      "revId": "4ce9136f1f2c2a1d2360330b3d9003db06196c55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -310,6 +310,24 @@
     },
     {
       "key": {
+        "uuid": "f6738ed0_2803c566",
+        "filename": "api/video_bitrate_allocation.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-04-19T14:53:37Z",
+      "side": 1,
+      "message": "Done.\nBut this time I wanted size_t instead of int, but there\u0027s again a bunch of usages that assumes int, mostly a bunch of for loops triggering signed/unsigned comparison warnings. So I\u0027ll keep it explicitly int for now.\n\nConsidering creating a constants class somewhere in api/video and moving these and a few others there in a later cl.",
+      "parentUuid": "00dcf01e_7a664159",
+      "revId": "e4c0b9a111c156df467c93f9008ef415c955de8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a26fcad5_2988c62b",
         "filename": "api/video_bitrate_allocation.h",
         "patchSetId": 4

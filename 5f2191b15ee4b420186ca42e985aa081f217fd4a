@@ -22,6 +22,30 @@
       "revId": "5f2191b15ee4b420186ca42e985aa081f217fd4a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6d298e4_de68eec8",
+        "filename": "modules/congestion_controller/send_side_congestion_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-04-19T07:49:37Z",
+      "side": 1,
+      "message": "The plan is to remove this version of SSCC entirely, so not sure it would be worth the effort.",
+      "parentUuid": "6da5f5fa_2d9ff71d",
+      "range": {
+        "startLine": 203,
+        "startChar": 5,
+        "endLine": 203,
+        "endChar": 59
+      },
+      "revId": "5f2191b15ee4b420186ca42e985aa081f217fd4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

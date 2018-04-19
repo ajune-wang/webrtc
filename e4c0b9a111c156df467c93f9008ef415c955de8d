@@ -256,6 +256,24 @@
     },
     {
       "key": {
+        "uuid": "8b746c3f_d168abd7",
+        "filename": "api/video_bitrate_allocation.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-04-19T14:07:04Z",
+      "side": 1,
+      "message": "Maybe you could move them inside the class, and add a\n\nusing kMaxSimulcastStreams \u003d VideoBitrateAllocation::kMaxSimulcastStreams;\n\nin common_types.h, for temporary backwards compatibility?",
+      "parentUuid": "a453e297_c55994fc",
+      "revId": "e4c0b9a111c156df467c93f9008ef415c955de8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a26fcad5_2988c62b",
         "filename": "api/video_bitrate_allocation.h",
         "patchSetId": 4

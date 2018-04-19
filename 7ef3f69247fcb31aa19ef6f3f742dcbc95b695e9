@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "202ba0e6_d5303541",
+        "filename": "examples/objc/AppRTCMobile/ARDSettingsModel.m",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-04-19T14:26:25Z",
+      "side": 1,
+      "message": "One declaration per line, or just inline it adnd use .firstObject instead of width",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 72
+      },
+      "revId": "7ef3f69247fcb31aa19ef6f3f742dcbc95b695e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -29,13 +29,12 @@ namespace webrtc {
 bool VideoCodecInitializer::SetupCodec(
     const VideoEncoderConfig& config,
     const std::vector<VideoStream>& streams,
-    bool nack_enabled,
     VideoCodec* codec,
     std::unique_ptr<VideoBitrateAllocator>* bitrate_allocator) {
   if (config.codec_type == kVideoCodecMultiplex) {
     VideoEncoderConfig associated_config = config.Copy();
     associated_config.codec_type = kVideoCodecVP9;
-    if (!SetupCodec(associated_config, streams, nack_enabled, codec,
+    if (!SetupCodec(associated_config, streams, codec,
                     bitrate_allocator)) {
       RTC_LOG(LS_ERROR) << "Failed to create stereo encoder configuration.";
       return false;
@@ -45,7 +44,7 @@ bool VideoCodecInitializer::SetupCodec(
   }
 
   *codec =
-      VideoEncoderConfigToVideoCodec(config, streams, nack_enabled);
+      VideoEncoderConfigToVideoCodec(config, streams);
   *bitrate_allocator = CreateBitrateAllocator(*codec);
 
   return true;
@@ -73,8 +72,7 @@ VideoCodecInitializer::CreateBitrateAllocator(const VideoCodec& codec) {
 // TODO(sprang): Split this up and separate the codec specific parts.
 VideoCodec VideoCodecInitializer::VideoEncoderConfigToVideoCodec(
     const VideoEncoderConfig& config,
-    const std::vector<VideoStream>& streams,
-    bool nack_enabled) {
+    const std::vector<VideoStream>& streams) {
   static const int kEncoderMinBitrateKbps = 30;
   RTC_DCHECK(!streams.empty());
   RTC_DCHECK_GE(config.min_transmit_bitrate_bps, 0);
@@ -183,9 +181,9 @@ VideoCodec VideoCodecInitializer::VideoEncoderConfigToVideoCodec(
       RTC_DCHECK_LE(video_codec.VP8()->numberOfTemporalLayers,
                     kMaxTemporalStreams);
 
-      if (nack_enabled && video_codec.VP8()->numberOfTemporalLayers == 1) {
+      if (video_codec.VP8()->numberOfTemporalLayers == 1) {
         RTC_LOG(LS_INFO)
-            << "No temporal layers and nack enabled -> resilience off";
+            << "No temporal layers -> resilience off";
         video_codec.VP8()->resilience = kResilienceOff;
       }
       break;
@@ -250,9 +248,9 @@ VideoCodec VideoCodecInitializer::VideoEncoderConfigToVideoCodec(
                       kMaxTemporalStreams);
       }
 
-      if (nack_enabled && video_codec.VP9()->numberOfTemporalLayers == 1 &&
+      if (video_codec.VP9()->numberOfTemporalLayers == 1 &&
           video_codec.VP9()->numberOfSpatialLayers == 1) {
-        RTC_LOG(LS_INFO) << "No temporal or spatial layers and nack enabled -> "
+        RTC_LOG(LS_INFO) << "No temporal or spatial layers -> "
                          << "resilience off";
         video_codec.VP9()->resilienceOn = false;
       }

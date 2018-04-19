@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "736caa96_26fd6816",
+        "filename": "video/video_send_stream.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 557,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-04-19T08:43:36Z",
+      "side": 1,
+      "message": "This calls is very alien to the new model. They\u0027re for the rtp modules, it seems, so a lot of work remains befoer we can remove these.",
+      "range": {
+        "startLine": 557,
+        "startChar": 2,
+        "endLine": 557,
+        "endChar": 65
+      },
+      "revId": "4ce9136f1f2c2a1d2360330b3d9003db06196c55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa2ddb18_0fbed99e",
+        "filename": "video/video_send_stream.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 634,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-04-19T08:43:36Z",
+      "side": 1,
+      "message": "This method is declared private, and not used in this file as far as I can see. But with some kind of reference from the tests. This is a bit confusing. Can it be deleted?",
+      "range": {
+        "startLine": 634,
+        "startChar": 38,
+        "endLine": 634,
+        "endChar": 61
+      },
+      "revId": "4ce9136f1f2c2a1d2360330b3d9003db06196c55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

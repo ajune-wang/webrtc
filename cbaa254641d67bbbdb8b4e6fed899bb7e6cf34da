@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "434e125f_a662bfc3",
+        "filename": "video/video_send_stream.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 539,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-04-19T08:43:36Z",
+      "side": 0,
+      "message": "Doesn\u0027t this comment (any maybe the above TODO) still apply after this change?",
+      "range": {
+        "startLine": 537,
+        "startChar": 0,
+        "endLine": 539,
+        "endChar": 23
+      },
+      "revId": "cbaa254641d67bbbdb8b4e6fed899bb7e6cf34da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

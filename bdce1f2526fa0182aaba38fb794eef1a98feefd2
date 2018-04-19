@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9907842f_d4668e25",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-04-19T07:45:35Z",
+      "side": 1,
+      "message": "Could the message be reformulated? Maybe:\n\nDon\u0027t restart probing during a probe.\n\nThis ensures that the probe controller does not start probing when stream configuration changes if we currently are waiting for the results of a previous probe.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 79
+      },
+      "revId": "bdce1f2526fa0182aaba38fb794eef1a98feefd2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

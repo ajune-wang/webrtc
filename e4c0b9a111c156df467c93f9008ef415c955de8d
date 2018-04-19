@@ -292,6 +292,24 @@
     },
     {
       "key": {
+        "uuid": "00dcf01e_7a664159",
+        "filename": "api/video_bitrate_allocation.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-04-19T14:40:50Z",
+      "side": 1,
+      "message": "Right---irritatingly, there doesn\u0027t seem to be a way to declare a namespace scope constexpr variable without defining it. Even though it can be done with a static class variable, as Danil showed.\n\nSo just keep using the enum hack (until we get C++17 and can use inline constexpr). But you may want to specify the type explicitly, since otherwise it\u0027s implementation-defined:\n\n  enum : size_t { kFoo \u003d 4711 };\n\nIn particular, the compiler decides if you get a signed type or not, and MSVC seems have some sort of bug that causes it to pick `int` as the type even when it\u0027s too small: https://godbolt.org/g/z3tJek",
+      "parentUuid": "a453e297_c55994fc",
+      "revId": "e4c0b9a111c156df467c93f9008ef415c955de8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a26fcad5_2988c62b",
         "filename": "api/video_bitrate_allocation.h",
         "patchSetId": 4

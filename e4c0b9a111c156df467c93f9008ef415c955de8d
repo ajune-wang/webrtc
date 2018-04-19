@@ -88,6 +88,24 @@
     },
     {
       "key": {
+        "uuid": "363ffa72_b9f3d393",
+        "filename": "api/video_bitrate_allocation.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-04-19T11:47:29Z",
+      "side": 1,
+      "message": "Right, these were just moved from common_types (and will be moved back). Is there any risk changing the type? I vaguely remember someone having trouble with that api surface.",
+      "parentUuid": "32789d15_f552d65f",
+      "revId": "e4c0b9a111c156df467c93f9008ef415c955de8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a26fcad5_2988c62b",
         "filename": "api/video_bitrate_allocation.h",
         "patchSetId": 4
@@ -108,6 +126,30 @@
       "revId": "e4c0b9a111c156df467c93f9008ef415c955de8d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc4a7d11_c68596a0",
+        "filename": "api/video_bitrate_allocation.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-04-19T11:47:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a26fcad5_2988c62b",
+      "range": {
+        "startLine": 26,
+        "startChar": 6,
+        "endLine": 26,
+        "endChar": 28
+      },
+      "revId": "e4c0b9a111c156df467c93f9008ef415c955de8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -134,6 +176,30 @@
     },
     {
       "key": {
+        "uuid": "6eca4d83_00fb63b8",
+        "filename": "api/video_bitrate_allocation.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-04-19T11:47:29Z",
+      "side": 1,
+      "message": "It\u0027s set to std::numeric_limits\u003cuint32_t\u003e::max(), then we\u0027d have to include \u003climits\u003e here. Is that ok?",
+      "parentUuid": "be2dda64_a1d6e965",
+      "range": {
+        "startLine": 28,
+        "startChar": 9,
+        "endLine": 28,
+        "endChar": 14
+      },
+      "revId": "e4c0b9a111c156df467c93f9008ef415c955de8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dc3e9b1c_f59dcf19",
         "filename": "api/video_bitrate_allocation.h",
         "patchSetId": 4
@@ -154,6 +220,30 @@
       "revId": "e4c0b9a111c156df467c93f9008ef415c955de8d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61df4b3f_af97e74a",
+        "filename": "api/video_bitrate_allocation.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-04-19T11:47:29Z",
+      "side": 1,
+      "message": "This is the only was to set the bitrates.",
+      "parentUuid": "dc3e9b1c_f59dcf19",
+      "range": {
+        "startLine": 31,
+        "startChar": 7,
+        "endLine": 31,
+        "endChar": 17
+      },
+      "revId": "e4c0b9a111c156df467c93f9008ef415c955de8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -180,6 +270,30 @@
     },
     {
       "key": {
+        "uuid": "4b6a24cc_a162ad10",
+        "filename": "api/video_bitrate_allocation.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-04-19T11:47:29Z",
+      "side": 1,
+      "message": "These are both used in many places. Unfortunately also already in downstream projects.",
+      "parentUuid": "c2b5ed36_da799076",
+      "range": {
+        "startLine": 57,
+        "startChar": 2,
+        "endLine": 58,
+        "endChar": 33
+      },
+      "revId": "e4c0b9a111c156df467c93f9008ef415c955de8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "30eaf772_c0df8393",
         "filename": "api/video_bitrate_allocation.h",
         "patchSetId": 4
@@ -200,6 +314,30 @@
       "revId": "e4c0b9a111c156df467c93f9008ef415c955de8d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e147e26_569c8c62",
+        "filename": "api/video_bitrate_allocation.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-04-19T11:47:29Z",
+      "side": 1,
+      "message": "True, I\u0027ll move this functionality there are stop using memcmp.\nNow can also void including both \u003cstring.h\u003e and \u003cstring\u003e ...",
+      "parentUuid": "30eaf772_c0df8393",
+      "range": {
+        "startLine": 63,
+        "startChar": 2,
+        "endLine": 68,
+        "endChar": 3
+      },
+      "revId": "e4c0b9a111c156df467c93f9008ef415c955de8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -226,6 +364,30 @@
     },
     {
       "key": {
+        "uuid": "683c2368_28593c45",
+        "filename": "api/video_bitrate_allocation.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-04-19T11:47:29Z",
+      "side": 1,
+      "message": "There\u0027s pending code that uses it, externally as well, in logging. It has been rewritten be a bit cheaper so I\u0027ll remove the comment and let people use common sense.",
+      "parentUuid": "8d26f54c_3a21557a",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 0
+      },
+      "revId": "e4c0b9a111c156df467c93f9008ef415c955de8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4e639fd5_796e5851",
         "filename": "api/video_bitrate_allocation.h",
         "patchSetId": 4
@@ -237,6 +399,24 @@
       "writtenOn": "2018-04-19T10:23:30Z",
       "side": 1,
       "message": "Can these be signed instead? https://google.github.io/styleguide/cppguide.html#Integer_Types",
+      "revId": "e4c0b9a111c156df467c93f9008ef415c955de8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "459fd2b8_39a2bb83",
+        "filename": "api/video_bitrate_allocation.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-04-19T11:47:29Z",
+      "side": 1,
+      "message": "The problem is that this will clash with a lot of places in the video stack. The VideoCodec, TemporalLayers, etc all use uint32_t. This already very large CL will grow a lot more and have potential functional differences as well...",
+      "parentUuid": "4e639fd5_796e5851",
       "revId": "e4c0b9a111c156df467c93f9008ef415c955de8d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -266,6 +446,30 @@
     },
     {
       "key": {
+        "uuid": "69900adf_1855f2ab",
+        "filename": "api/video_bitrate_allocation.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-04-19T11:47:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bff21de9_94653672",
+      "range": {
+        "startLine": 79,
+        "startChar": 1,
+        "endLine": 80,
+        "endChar": 49
+      },
+      "revId": "e4c0b9a111c156df467c93f9008ef415c955de8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e1ac8a06_b272bb73",
         "filename": "common_types.h",
         "patchSetId": 4
@@ -286,6 +490,30 @@
       "revId": "e4c0b9a111c156df467c93f9008ef415c955de8d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2a2e808_73935c8a",
+        "filename": "common_types.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-04-19T11:47:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e1ac8a06_b272bb73",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 41
+      },
+      "revId": "e4c0b9a111c156df467c93f9008ef415c955de8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

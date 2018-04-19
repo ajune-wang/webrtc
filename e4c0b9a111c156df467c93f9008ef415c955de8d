@@ -2,6 +2,92 @@
   "comments": [
     {
       "key": {
+        "uuid": "bc3051e1_a18ccac7",
+        "filename": "api/video_bitrate_allocation.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-04-19T10:23:30Z",
+      "side": 1,
+      "message": "int64_t? https://google.github.io/styleguide/cppguide.html#Integer_Types",
+      "range": {
+        "startLine": 32,
+        "startChar": 2,
+        "endLine": 32,
+        "endChar": 10
+      },
+      "revId": "e4c0b9a111c156df467c93f9008ef415c955de8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "611f51e4_eadda9eb",
+        "filename": "api/video_bitrate_allocation.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-04-19T10:23:30Z",
+      "side": 1,
+      "message": "dchecked_cast?",
+      "range": {
+        "startLine": 40,
+        "startChar": 9,
+        "endLine": 40,
+        "endChar": 20
+      },
+      "revId": "e4c0b9a111c156df467c93f9008ef415c955de8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c8fe119_efc6190c",
+        "filename": "api/video_bitrate_allocation.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-04-19T10:23:30Z",
+      "side": 1,
+      "message": "signed?",
+      "range": {
+        "startLine": 81,
+        "startChar": 2,
+        "endLine": 81,
+        "endChar": 10
+      },
+      "revId": "e4c0b9a111c156df467c93f9008ef415c955de8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32789d15_f552d65f",
+        "filename": "api/video_bitrate_allocation.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-04-19T10:23:30Z",
+      "side": 1,
+      "message": "Consider changing these to constexpr int.",
+      "revId": "e4c0b9a111c156df467c93f9008ef415c955de8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a26fcad5_2988c62b",
         "filename": "api/video_bitrate_allocation.h",
         "patchSetId": 4
@@ -18,6 +104,29 @@
         "startChar": 6,
         "endLine": 26,
         "endChar": 28
+      },
+      "revId": "e4c0b9a111c156df467c93f9008ef415c955de8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be2dda64_a1d6e965",
+        "filename": "api/video_bitrate_allocation.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-04-19T10:23:30Z",
+      "side": 1,
+      "message": "constexpr?",
+      "range": {
+        "startLine": 28,
+        "startChar": 9,
+        "endLine": 28,
+        "endChar": 14
       },
       "revId": "e4c0b9a111c156df467c93f9008ef415c955de8d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
@@ -111,6 +220,23 @@
         "endLine": 72,
         "endChar": 0
       },
+      "revId": "e4c0b9a111c156df467c93f9008ef415c955de8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e639fd5_796e5851",
+        "filename": "api/video_bitrate_allocation.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-04-19T10:23:30Z",
+      "side": 1,
+      "message": "Can these be signed instead? https://google.github.io/styleguide/cppguide.html#Integer_Types",
       "revId": "e4c0b9a111c156df467c93f9008ef415c955de8d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

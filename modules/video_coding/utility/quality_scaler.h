@@ -11,6 +11,7 @@
 #ifndef MODULES_VIDEO_CODING_UTILITY_QUALITY_SCALER_H_
 #define MODULES_VIDEO_CODING_UTILITY_QUALITY_SCALER_H_
 
+#include <memory>
 #include <utility>
 
 #include "api/optional.h"
@@ -49,10 +50,17 @@ class QualityScaler {
   QualityScaler(AdaptationObserverInterface* observer,
                 VideoEncoder::QpThresholds thresholds);
   virtual ~QualityScaler();
-  // Should be called each time the encoder drops a frame
-  void ReportDroppedFrame();
+  // Should be called each time a frame is dropped at encoding.
+  void ReportDroppedFrameByMediaOpt();
+  void ReportDroppedFrameByEncoder();
   // Inform the QualityScaler of the last seen QP.
   void ReportQP(int qp);
+
+  struct Params {
+    float alpha_high = 0.9995f;  // Used by |qp_smoother_high_|, checks qp high.
+    float alpha_low = 0.9999f;   // Used by |qp_smoother_low_|, checks qp low.
+    bool use_all_drop_reasons = false;
+  };
 
   // The following members declared protected for testing purposes
  protected:
@@ -62,6 +70,7 @@ class QualityScaler {
 
  private:
   class CheckQPTask;
+  class QpSmoother;
   void CheckQP();
   void ClearSamples();
   void ReportQPLow();
@@ -75,9 +84,17 @@ class QualityScaler {
   const int64_t sampling_period_ms_;
   bool fast_rampup_ RTC_GUARDED_BY(&task_checker_);
   MovingAverage average_qp_ RTC_GUARDED_BY(&task_checker_);
-  MovingAverage framedrop_percent_ RTC_GUARDED_BY(&task_checker_);
+  MovingAverage framedrop_percent_media_opt_ RTC_GUARDED_BY(&task_checker_);
+  MovingAverage framedrop_percent_all_ RTC_GUARDED_BY(&task_checker_);
 
   VideoEncoder::QpThresholds thresholds_ RTC_GUARDED_BY(&task_checker_);
+
+  // Used by kQualityScalingFieldTrial.
+  const bool experiment_enabled_;
+  Params params_ RTC_GUARDED_BY(&task_checker_);
+  std::unique_ptr<QpSmoother> qp_smoother_high_ RTC_GUARDED_BY(&task_checker_);
+  std::unique_ptr<QpSmoother> qp_smoother_low_ RTC_GUARDED_BY(&task_checker_);
+  bool observed_enough_frames_ RTC_GUARDED_BY(&task_checker_);
 };
 }  // namespace webrtc
 

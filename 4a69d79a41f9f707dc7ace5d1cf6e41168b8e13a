@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "889ecb9b_057a5222",
+        "filename": "api/video/video_bitrate_allocation.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-04-19T12:15:42Z",
+      "side": 1,
+      "message": "Could this be an array of rtc::Optional\u003cuint32_t\u003e. Then the has_bitrate_ array is no longer needed.",
+      "range": {
+        "startLine": 79,
+        "startChar": 11,
+        "endLine": 79,
+        "endChar": 20
+      },
+      "revId": "4a69d79a41f9f707dc7ace5d1cf6e41168b8e13a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

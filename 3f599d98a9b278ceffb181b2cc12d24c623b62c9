@@ -34,6 +34,23 @@
       "revId": "3f599d98a9b278ceffb181b2cc12d24c623b62c9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1dd996c8_f2441ce7",
+        "filename": "sdk/objc/Framework/Headers/WebRTC/RTCVideoRenderer.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2018-04-19T14:40:46Z",
+      "side": 1,
+      "message": "Is it necessary to forward declare this here?",
+      "revId": "3f599d98a9b278ceffb181b2cc12d24c623b62c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

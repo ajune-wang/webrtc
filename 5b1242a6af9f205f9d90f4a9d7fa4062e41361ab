@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "d776ec56_1ac74066",
+        "filename": "sdk/objc/Framework/Classes/Video/RTCI420Buffer.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5600
+      },
+      "writtenOn": "2018-04-19T16:29:01Z",
+      "side": 1,
+      "message": "Even from an ObjC API standpoint, it is more consistent to use 8byte pointer in video APIs because of AVFoundation, where we get most of our frames. In the general case you\u0027d be right, it\u0027d be easier to manipulate data using NSData/NSMutableData; but this is somewhat of a special case.\n\nhttps://developer.apple.com/documentation/corevideo/1457115-cvpixelbuffergetbaseaddress?language\u003dobjc",
+      "parentUuid": "0a37bbb8_0da29f02",
+      "range": {
+        "startLine": 35,
+        "startChar": 40,
+        "endLine": 35,
+        "endChar": 45
+      },
+      "revId": "5b1242a6af9f205f9d90f4a9d7fa4062e41361ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cdab7240_86a2ae63",
         "filename": "sdk/objc/Framework/Classes/Video/RTCI420Buffer.mm",
         "patchSetId": 1

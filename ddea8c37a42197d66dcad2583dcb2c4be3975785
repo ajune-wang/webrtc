@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d5368514_77db9b42",
+        "filename": "api/video/video_bitrate_allocation.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-04-19T13:48:03Z",
+      "side": 1,
+      "message": "Simplify to direct comparison of the optionals, \n\n  if (bitrates_[si][ti] !\u003d other.bitrates_[si][ti])\n    return false;\n\n?",
+      "range": {
+        "startLine": 114,
+        "startChar": 0,
+        "endLine": 118,
+        "endChar": 21
+      },
+      "revId": "ddea8c37a42197d66dcad2583dcb2c4be3975785",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

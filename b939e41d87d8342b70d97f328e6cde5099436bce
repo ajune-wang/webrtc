@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9e86c593_eeedc251",
+        "filename": "modules/rtp_rtcp/source/rtp_format_vp9_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 571,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-04-19T13:17:21Z",
+      "side": 1,
+      "message": "Agree. But all packetizer tests have such prefix. Probably \"Test\" means \"Test writing/parsing\". I would prefer to keep it for consistency for now. Later we can remove it everywhere in one CL.",
+      "parentUuid": "548fb46d_73e2d2d1",
+      "range": {
+        "startLine": 571,
+        "startChar": 29,
+        "endLine": 571,
+        "endChar": 33
+      },
+      "revId": "b939e41d87d8342b70d97f328e6cde5099436bce",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7e5e498d_b567ddb9",
         "filename": "modules/video_coding/codecs/vp9/include/vp9_globals.h",
         "patchSetId": 3
@@ -39,6 +63,24 @@
       "revId": "b939e41d87d8342b70d97f328e6cde5099436bce",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d070e2e_7b77941d",
+        "filename": "modules/video_coding/codecs/vp9/include/vp9_globals.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-04-19T13:17:21Z",
+      "side": 1,
+      "message": "Since we are using reserved bit we have to provide backward compatibility with old senders which always set this bit to zero. This is why I decided to use such name. All names you suggested won\u0027t work. But if you know other suitable name without negation please suggest.",
+      "parentUuid": "7e5e498d_b567ddb9",
+      "revId": "b939e41d87d8342b70d97f328e6cde5099436bce",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -274,6 +274,24 @@
     },
     {
       "key": {
+        "uuid": "f1ea21a6_55e98c85",
+        "filename": "api/video_bitrate_allocation.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-04-19T14:30:14Z",
+      "side": 1,
+      "message": "I really don\u0027t want to move those constants into this file at all, so moving them into the class seems counterproductive.\nThey\u0027re only here since I don\u0027t want to have this file and common_types.h include each other...\n\nI don\u0027t think we have a good place for video-related constants that should be public right now?",
+      "parentUuid": "8b746c3f_d168abd7",
+      "revId": "e4c0b9a111c156df467c93f9008ef415c955de8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a26fcad5_2988c62b",
         "filename": "api/video_bitrate_allocation.h",
         "patchSetId": 4

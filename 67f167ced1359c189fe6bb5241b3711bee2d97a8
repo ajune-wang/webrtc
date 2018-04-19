@@ -22,6 +22,30 @@
       "revId": "67f167ced1359c189fe6bb5241b3711bee2d97a8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "775d5fed_64757e2e",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-19T17:43:54Z",
+      "side": 1,
+      "message": "Yes, this is a bug. Thanks for spotting it!",
+      "parentUuid": "1f124984_005ff7ce",
+      "range": {
+        "startLine": 113,
+        "startChar": 13,
+        "endLine": 113,
+        "endChar": 47
+      },
+      "revId": "67f167ced1359c189fe6bb5241b3711bee2d97a8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

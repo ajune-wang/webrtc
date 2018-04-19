@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9e1d2e87_f389dccc",
+        "filename": "modules/audio_device/android/aaudio_player.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-04-19T11:10:40Z",
+      "side": 1,
+      "message": "If you use rtc::MakeArrayView here, you won\u0027t have to mention int16_t twice.",
+      "revId": "ada991e2c2c0fabac92299545fadd44aa848e041",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48b047da_fdb52358",
+        "filename": "modules/audio_device/android/aaudio_recorder.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-04-19T11:10:40Z",
+      "side": 1,
+      "message": "rtc::MakeArrayView?",
+      "revId": "ada991e2c2c0fabac92299545fadd44aa848e041",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0ff503c_03d434a3",
+        "filename": "modules/audio_device/fine_audio_buffer.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-04-19T11:10:40Z",
+      "side": 1,
+      "message": "Side note: This (and the memmove down on line 88) can\u0027t have overlapping source and destination regions, can they? In that case, they could be memcpy instead of memmove.",
+      "range": {
+        "startLine": 68,
+        "startChar": 2,
+        "endLine": 68,
+        "endChar": 9
+      },
+      "revId": "ada991e2c2c0fabac92299545fadd44aa848e041",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ed923fe0_7dce673b",
+        "filename": "sdk/android/src/jni/audio_device/aaudio_player.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-04-19T11:10:40Z",
+      "side": 1,
+      "message": "rtc::MakeArrayView?",
+      "revId": "ada991e2c2c0fabac92299545fadd44aa848e041",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

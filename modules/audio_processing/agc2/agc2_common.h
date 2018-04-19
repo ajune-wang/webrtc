@@ -68,7 +68,7 @@ constexpr float kSaturationProtectorDecayConstant = 0.9997697679981565f;
 // 10 ** (-1/20 * subframe_duration / kDecayMs).
 // |subframe_duration| is |kFrameDurationMs / kSubFramesInFrame|.
 // kDecayMs is defined in agc2_testing_common.h
-constexpr float kDecayFilterConstant = 0.9998848773724686f;
+constexpr float kDecayFilterConstant = 0.99878773724686f;
 
 // Number of interpolation points for each region of the limiter.
 // These values have been tuned to limit the interpolated gain curve error given

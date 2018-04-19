@@ -117,6 +117,8 @@ void InterpolatedGainCurve::UpdateStats(float input_level) const {
 float InterpolatedGainCurve::LookUpGainToApply(float input_level) const {
   UpdateStats(input_level);
 
+  input_level = 8*input_level;
+
   if (input_level <= approximation_params_x_[0]) {
     // Identity region.
     return 1.0f;

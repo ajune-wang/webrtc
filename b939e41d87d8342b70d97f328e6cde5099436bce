@@ -99,6 +99,24 @@
       "revId": "b939e41d87d8342b70d97f328e6cde5099436bce",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "11d730da_8084ca44",
+        "filename": "modules/video_coding/codecs/vp9/include/vp9_globals.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-04-19T13:53:49Z",
+      "side": 1,
+      "message": "I think it would be really big confusion if we define value 0 for bit as true/set. Additional code will be needed to handle this which will make things more bugs prone.",
+      "parentUuid": "d86a880f_71a438be",
+      "revId": "b939e41d87d8342b70d97f328e6cde5099436bce",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

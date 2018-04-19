@@ -16,6 +16,24 @@
       "revId": "31ef5f0d1bea4fb23f6e7f063c658a5ba56b9851",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f82b348_17f34bdf",
+        "filename": "modules/rtp_rtcp/source/forward_error_correction_internal.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2018-04-19T12:40:08Z",
+      "side": 0,
+      "message": "these DCHECKs are moved up to PacketMaskTable::LookUp().",
+      "parentUuid": "5fe4127d_cc7c7489",
+      "revId": "31ef5f0d1bea4fb23f6e7f063c658a5ba56b9851",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

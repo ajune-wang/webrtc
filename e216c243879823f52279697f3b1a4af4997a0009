@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "623b4899_d6053d86",
+        "filename": "api/audio/audio_frame.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-04-19T12:35:29Z",
+      "side": 1,
+      "message": "This is a non-trivially-destructible global variable, and the style guide says \"Objects with static storage duration are forbidden unless they are trivially destructible.\" [https://google.github.io/styleguide/cppguide.html#Static_and_Global_Variables]\n\nWouldn\u0027t it be better to just leak the buffer? E.g.\n\nconst int16_t* AudioFrame::empty_data() {\n  static const int16_t* const zeros \u003d new int16_t[kMaxDataSizeSamples]();\n  return zeros;\n}",
+      "revId": "e216c243879823f52279697f3b1a4af4997a0009",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

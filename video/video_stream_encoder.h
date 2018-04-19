@@ -39,18 +39,8 @@ namespace webrtc {
 class SendStatisticsProxy;
 class VideoBitrateAllocationObserver;
 
-// VideoStreamEncoder represent a video encoder that accepts raw video frames as
-// input and produces an encoded bit stream.
-// Usage:
-//  Instantiate.
-//  Call SetSink.
-//  Call SetSource.
-//  Call ConfigureEncoder with the codec settings.
-//  Call Stop() when done.
-class VideoStreamEncoder : public rtc::VideoSinkInterface<VideoFrame>,
-                           private EncodedImageCallback,
-                           // Protected only to provide access to tests.
-                           protected AdaptationObserverInterface {
+// Interface used for testing with mocks.
+class VideoStreamEncoderInterface : public rtc::VideoSinkInterface<VideoFrame> {
  public:
   // Interface for receiving encoded video frames and notifications about
   // configuration changes.
@@ -60,7 +50,29 @@ class VideoStreamEncoder : public rtc::VideoSinkInterface<VideoFrame>,
         std::vector<VideoStream> streams,
         int min_transmit_bitrate_bps) = 0;
   };
+  virtual void SendKeyFrame() = 0;
+  virtual void SetStartBitrate(int start_bitrate_bps) = 0;
+  virtual void SetSink(EncoderSink* sink, bool rotation_applied) = 0;
+  virtual void OnBitrateUpdated(uint32_t bitrate_bps,
+                                uint8_t fraction_lost,
+                                int64_t round_trip_time_ms) = 0;
 
+ protected:
+  ~VideoStreamEncoderInterface() = default;
+};
+// VideoStreamEncoder represent a video encoder that accepts raw video frames as
+// input and produces an encoded bit stream.
+// Usage:
+//  Instantiate.
+//  Call SetSink.
+//  Call SetSource.
+//  Call ConfigureEncoder with the codec settings.
+//  Call Stop() when done.
+class VideoStreamEncoder : public VideoStreamEncoderInterface,
+                           private EncodedImageCallback,
+                           // Protected only to provide access to tests.
+                           protected AdaptationObserverInterface {
+ public:
   // Number of resolution and framerate reductions (-1: disabled).
   struct AdaptCounts {
     int resolution = 0;
@@ -84,10 +96,10 @@ class VideoStreamEncoder : public rtc::VideoSinkInterface<VideoFrame>,
   // Sets the |sink| that gets the encoded frames. |rotation_applied| means
   // that the source must support rotation. Only set |rotation_applied| if the
   // remote side does not support the rotation extension.
-  void SetSink(EncoderSink* sink, bool rotation_applied);
+  void SetSink(EncoderSink* sink, bool rotation_applied) override;
 
   // TODO(perkj): Can we remove VideoCodec.startBitrate ?
-  void SetStartBitrate(int start_bitrate_bps);
+  void SetStartBitrate(int start_bitrate_bps) override;
 
   void SetBitrateObserver(VideoBitrateAllocationObserver* bitrate_observer);
 
@@ -99,12 +111,11 @@ class VideoStreamEncoder : public rtc::VideoSinkInterface<VideoFrame>,
   // guaranteed that no encoded frames will be delivered to the sink.
   void Stop();
 
-  // virtual to test EncoderRtcpFeedback with mocks.
-  virtual void SendKeyFrame();
+  void SendKeyFrame() override;
 
   void OnBitrateUpdated(uint32_t bitrate_bps,
                         uint8_t fraction_lost,
-                        int64_t round_trip_time_ms);
+                        int64_t round_trip_time_ms) override;
 
  protected:
   // Used for testing. For example the |ScalingObserverInterface| methods must

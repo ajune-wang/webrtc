@@ -238,6 +238,24 @@
     },
     {
       "key": {
+        "uuid": "a453e297_c55994fc",
+        "filename": "api/video_bitrate_allocation.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-04-19T13:54:21Z",
+      "side": 1,
+      "message": "you may want to check http://go/totw/140#within-a-header-file-beware\ndo this constants have to be at namespace level. If yes, is there any place where you take an address of the constant?\n\ndefining in .cc works when constant is inside class, not namespace.\n.h\nclass VideoBitrateAllocation {\n  static constexpr int kMaxSimulcastStreams \u003d 4;\n}\n.cc\nconstexpr VideoBitrateAllocation::kMaxSimulcastStreams;",
+      "parentUuid": "73b91108_d6c12c40",
+      "revId": "e4c0b9a111c156df467c93f9008ef415c955de8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a26fcad5_2988c62b",
         "filename": "api/video_bitrate_allocation.h",
         "patchSetId": 4

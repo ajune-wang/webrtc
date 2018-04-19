@@ -37,6 +37,15 @@ void ExpectNearAbsolute(rtc::ArrayView<const float> expected,
   }
 }
 
+std::pair<std::unique_ptr<BinaryFileReader<int16_t, float>>, const size_t>
+CreatePcmSamplesReader(const size_t frame_length) {
+  auto ptr = rtc::MakeUnique<BinaryFileReader<int16_t, float>>(
+      ResourcePath("audio_processing/agc2/rnn_vad/samples", "pcm"),
+      frame_length);
+  // The last incomplete frame is ignored.
+  return {std::move(ptr), ptr->data_length() / frame_length};
+}
+
 ReaderPairType CreatePitchBuffer24kHzReader() {
   auto ptr = rtc::MakeUnique<BinaryFileReader<float>>(
       ResourcePath("audio_processing/agc2/rnn_vad/pitch_buf_24k", "dat"), 864);

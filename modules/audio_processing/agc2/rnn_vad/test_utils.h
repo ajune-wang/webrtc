@@ -88,6 +88,10 @@ class BinaryFileReader {
 // the first item is a reader unique pointer and the second the number of chunks
 // that can be read from the file.
 
+// Creates a reader for the 48 kHz PCM samples (chunks size: |frame_length|).
+std::pair<std::unique_ptr<BinaryFileReader<int16_t, float>>, const size_t>
+CreatePcmSamplesReader(const size_t frame_length);
+
 // Creates a reader for the pitch buffer content at 24 kHz.
 std::pair<std::unique_ptr<BinaryFileReader<float>>, const size_t>
 CreatePitchBuffer24kHzReader();

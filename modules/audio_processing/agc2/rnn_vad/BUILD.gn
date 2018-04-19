@@ -16,6 +16,8 @@ group("rnn_vad") {
 
 source_set("lib") {
   sources = [
+    "biquad.cc",
+    "biquad.h",
     "common.h",
     "lp_residual.cc",
     "lp_residual.h",
@@ -52,6 +54,7 @@ if (rtc_include_tests) {
     data = [
       "../../../../resources/audio_processing/agc2/rnn_vad/pitch_buf_24k.dat",
       "../../../../resources/audio_processing/agc2/rnn_vad/pitch_lp_res.dat",
+      "../../../../resources/audio_processing/agc2/rnn_vad/samples.pcm",
     ]
   }
 
@@ -68,6 +71,7 @@ if (rtc_include_tests) {
   rtc_source_set("unittests") {
     testonly = true
     sources = [
+      "biquad_unittest.cc",
       "lp_residual_unittest.cc",
       "pitch_search_unittest.cc",
       "ring_buffer_unittest.cc",

@@ -9,6 +9,7 @@
  */
 #include <utility>
 
+#include "call/bitrate_allocator.h"
 #include "call/rtp_transport_controller_send.h"
 #include "modules/congestion_controller/include/send_side_congestion_controller.h"
 #include "modules/congestion_controller/rtp/include/send_side_congestion_controller.h"
@@ -115,23 +116,19 @@ const RtpKeepAliveConfig& RtpTransportControllerSend::keepalive_config() const {
   return keepalive_;
 }
 
-void RtpTransportControllerSend::SetAllocatedSendBitrateLimits(
-    int min_send_bitrate_bps,
-    int max_padding_bitrate_bps,
-    int max_total_bitrate_bps) {
+void RtpTransportControllerSend::OnAllocatedStreamsChanged(
+    const AllocatedStreamsInfo& streams) {
   send_side_cc_->SetAllocatedSendBitrateLimits(
-      min_send_bitrate_bps, max_padding_bitrate_bps, max_total_bitrate_bps);
+      streams.total_min_bitrate_bps, streams.total_padding_bitrate_bps,
+      streams.total_max_bitrate_bps);
+  send_side_cc_->SetAllocatedStreamsInfo(streams.has_packet_feedback,
+                                         streams.has_audio, streams.has_video,
+                                         streams.has_screenshare);
 }
 
 void RtpTransportControllerSend::SetKeepAliveConfig(
     const RtpKeepAliveConfig& config) {
   keepalive_ = config;
-}
-void RtpTransportControllerSend::SetPacingFactor(float pacing_factor) {
-  send_side_cc_->SetPacingFactor(pacing_factor);
-}
-void RtpTransportControllerSend::SetQueueTimeLimit(int limit_ms) {
-  pacer_.SetQueueTimeLimit(limit_ms);
 }
 CallStatsObserver* RtpTransportControllerSend::GetCallStatsObserver() {
   return send_side_cc_.get();
@@ -206,9 +203,7 @@ int64_t RtpTransportControllerSend::GetPacerQueuingDelayMs() const {
 int64_t RtpTransportControllerSend::GetFirstPacketTimeMs() const {
   return pacer_.FirstSentPacketTimeMs();
 }
-void RtpTransportControllerSend::SetPerPacketFeedbackAvailable(bool available) {
-  send_side_cc_->SetPerPacketFeedbackAvailable(available);
-}
+
 void RtpTransportControllerSend::EnablePeriodicAlrProbing(bool enable) {
   send_side_cc_->EnablePeriodicAlrProbing(enable);
 }

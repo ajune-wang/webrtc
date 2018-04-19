@@ -88,8 +88,6 @@ class VideoSendStreamImpl : public webrtc::BitrateAllocatorObserver,
 
   void SetTransportOverhead(size_t transport_overhead_per_packet);
 
-  rtc::Optional<float> configured_pacing_factor_;
-
   // From PacketFeedbackObserver.
   void OnPacketAdded(uint32_t ssrc, uint16_t seq_num) override;
   void OnPacketFeedbackVector(
@@ -138,6 +136,7 @@ class VideoSendStreamImpl : public webrtc::BitrateAllocatorObserver,
   void ConfigureSsrcs();
   void SignalEncoderTimedOut();
   void SignalEncoderActive();
+  void RegisterAsBitrateObserver();
 
   const bool send_side_bwe_with_overhead_;
 
@@ -171,6 +170,7 @@ class VideoSendStreamImpl : public webrtc::BitrateAllocatorObserver,
   uint32_t encoder_target_rate_bps_;
   double encoder_bitrate_priority_;
   bool has_packet_feedback_;
+  const VideoEncoderConfig::ContentType content_type_;
 
   VideoStreamEncoderInterface* const video_stream_encoder_;
   EncoderRtcpFeedback encoder_feedback_;

@@ -252,10 +252,6 @@ void AudioSendStream::ConfigureStream(
     if (has_transport_sequence_number) {
       channel_proxy->EnableSendTransportSequenceNumber(
           new_ids.transport_sequence_number);
-      // Probing in application limited region is only used in combination with
-      // send side congestion control, wich depends on feedback packets which
-      // requires transport sequence numbers to be enabled.
-      stream->transport_->EnablePeriodicAlrProbing(true);
       bandwidth_observer = stream->transport_->GetBandwidthObserver();
     }
 
@@ -712,7 +708,8 @@ void AudioSendStream::ConfigureBitrateObserver(int min_bitrate_bps,
         this, MediaStreamAllocationConfig{
                   static_cast<uint32_t>(min_bitrate_bps),
                   static_cast<uint32_t>(max_bitrate_bps), 0, true,
-                  config_.track_id, bitrate_priority, has_packet_feedback});
+                  config_.track_id, bitrate_priority, has_packet_feedback,
+                  MediaStreamAllocationConfig::MediaContentType::kAudio});
     thread_sync_event.Set();
   });
   thread_sync_event.Wait(rtc::Event::kForever);

@@ -39,7 +39,14 @@ NS_ASSUME_NONNULL_BEGIN
   NSArray<NSArray<NSNumber *> *> *sortedResolutions =
       [[resolutions allObjects] sortedArrayUsingComparator:^NSComparisonResult(
                                     NSArray<NSNumber *> *obj1, NSArray<NSNumber *> *obj2) {
-        return obj1.firstObject > obj2.firstObject;
+        NSNumber *width1 = obj1.firstObject, *height1 = obj1.lastObject;
+        NSNumber *width2 = obj2.firstObject, *height2 = obj2.lastObject;
+
+        NSComparisonResult cmp = [width1 compare:width2];
+        if (cmp != NSOrderedSame) {
+          return cmp;
+        }
+        return [height1 compare:height2];
       }];
 
   NSMutableArray<NSString *> *resolutionStrings = [[NSMutableArray<NSString *> alloc] init];

@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "ab91224e_0dbf3c40",
+        "filename": "api/video_bitrate_allocation.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-04-19T12:56:16Z",
+      "side": 1,
+      "message": "Hmm. This file is in api:video_bitrate_allocation; how did adding a dependency on rtc_base:safe_conversions to that target cause that dependency cycle?",
+      "parentUuid": "2f2cc037_d81a96f0",
+      "range": {
+        "startLine": 40,
+        "startChar": 9,
+        "endLine": 40,
+        "endChar": 20
+      },
+      "revId": "e4c0b9a111c156df467c93f9008ef415c955de8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9c8fe119_efc6190c",
         "filename": "api/video_bitrate_allocation.cc",
         "patchSetId": 4
@@ -148,6 +172,24 @@
       "side": 1,
       "message": "Right, these were just moved from common_types (and will be moved back). Is there any risk changing the type? I vaguely remember someone having trouble with that api surface.",
       "parentUuid": "32789d15_f552d65f",
+      "revId": "e4c0b9a111c156df467c93f9008ef415c955de8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c97f2e97_2a30bb66",
+        "filename": "api/video_bitrate_allocation.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-04-19T12:56:16Z",
+      "side": 1,
+      "message": "You\u0027ll have to provide backing storage in the .cc file, but that\u0027s it.",
+      "parentUuid": "363ffa72_b9f3d393",
       "revId": "e4c0b9a111c156df467c93f9008ef415c955de8d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -468,6 +510,24 @@
       "revId": "e4c0b9a111c156df467c93f9008ef415c955de8d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f017c74_b0364bc2",
+        "filename": "api/video_bitrate_allocation.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-04-19T12:56:16Z",
+      "side": 1,
+      "message": "I was afraid of that. :-/ Well, it\u0027s worth keeping in mind for the future at least.",
+      "parentUuid": "459fd2b8_39a2bb83",
+      "revId": "e4c0b9a111c156df467c93f9008ef415c955de8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

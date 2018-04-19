@@ -81,6 +81,24 @@
       "revId": "b939e41d87d8342b70d97f328e6cde5099436bce",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d86a880f_71a438be",
+        "filename": "modules/video_coding/codecs/vp9/include/vp9_globals.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-04-19T13:28:35Z",
+      "side": 1,
+      "message": "My suggestion to use name without double negation, but when reading/writing the bit, 0 would mean true (should be relayed) and 1 would mean false (unneeded).\nThere is still a bit confusion that 0 mean true, but I think it would smaller, localized.",
+      "parentUuid": "0d070e2e_7b77941d",
+      "revId": "b939e41d87d8342b70d97f328e6cde5099436bce",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

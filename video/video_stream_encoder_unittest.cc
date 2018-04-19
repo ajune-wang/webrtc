@@ -302,11 +302,10 @@ class VideoStreamEncoderTest : public ::testing::Test {
     max_framerate_ = streams[0].max_framerate;
     fake_clock_.SetTimeMicros(1234);
 
-    ConfigureEncoder(std::move(video_encoder_config), true /* nack_enabled */);
+    ConfigureEncoder(std::move(video_encoder_config));
   }
 
-  void ConfigureEncoder(VideoEncoderConfig video_encoder_config,
-                        bool nack_enabled) {
+  void ConfigureEncoder(VideoEncoderConfig video_encoder_config) {
     if (video_stream_encoder_)
       video_stream_encoder_->Stop();
     video_stream_encoder_.reset(new VideoStreamEncoderUnderTest(
@@ -317,7 +316,7 @@ class VideoStreamEncoderTest : public ::testing::Test {
         VideoSendStream::DegradationPreference::kMaintainFramerate);
     video_stream_encoder_->SetStartBitrate(kTargetBitrateBps);
     video_stream_encoder_->ConfigureEncoder(std::move(video_encoder_config),
-                                            kMaxPayloadLength, nack_enabled);
+                                            kMaxPayloadLength);
     video_stream_encoder_->WaitUntilTaskQueueIsIdle();
   }
 
@@ -325,7 +324,6 @@ class VideoStreamEncoderTest : public ::testing::Test {
                     size_t num_streams,
                     size_t num_temporal_layers,
                     unsigned char num_spatial_layers,
-                    bool nack_enabled,
                     bool screenshare) {
     video_send_config_.rtp.payload_name = payload_name;
 
@@ -346,7 +344,7 @@ class VideoStreamEncoderTest : public ::testing::Test {
           new rtc::RefCountedObject<
               VideoEncoderConfig::Vp9EncoderSpecificSettings>(vp9_settings);
     }
-    ConfigureEncoder(std::move(video_encoder_config), nack_enabled);
+    ConfigureEncoder(std::move(video_encoder_config));
   }
 
   VideoFrame CreateFrame(int64_t ntp_time_ms,
@@ -801,8 +799,7 @@ TEST_F(VideoStreamEncoderTest,
   test::FillEncoderConfiguration(kVideoCodecVP8, 1, &video_encoder_config);
   video_encoder_config.min_transmit_bitrate_bps = 9999;
   video_stream_encoder_->ConfigureEncoder(std::move(video_encoder_config),
-                                          kMaxPayloadLength,
-                                          true /* nack_enabled */);
+                                          kMaxPayloadLength);
 
   // Capture a frame and wait for it to synchronize with the encoder thread.
   video_source_.IncomingCapturedFrame(CreateFrame(2, nullptr));
@@ -837,11 +834,10 @@ TEST_F(VideoStreamEncoderTest, FrameResolutionChangeReconfigureEncoder) {
   video_stream_encoder_->Stop();
 }
 
-TEST_F(VideoStreamEncoderTest, Vp8ResilienceIsOffFor1S1TLWithNackEnabled) {
-  const bool kNackEnabled = true;
+TEST_F(VideoStreamEncoderTest, Vp8ResilienceIsOffFor1S1TL) {
   const size_t kNumStreams = 1;
   const size_t kNumTl = 1;
-  ResetEncoder("VP8", kNumStreams, kNumTl, kNumSlDummy, kNackEnabled, false);
+  ResetEncoder("VP8", kNumStreams, kNumTl, kNumSlDummy, false);
   video_stream_encoder_->OnBitrateUpdated(kTargetBitrateBps, 0, 0);
 
   // Capture a frame and wait for it to synchronize with the encoder thread.
@@ -857,11 +853,10 @@ TEST_F(VideoStreamEncoderTest, Vp8ResilienceIsOffFor1S1TLWithNackEnabled) {
   video_stream_encoder_->Stop();
 }
 
-TEST_F(VideoStreamEncoderTest, Vp8ResilienceIsOffFor2S1TlWithNackEnabled) {
-  const bool kNackEnabled = true;
+TEST_F(VideoStreamEncoderTest, Vp8ResilienceIsOffFor2S1Tl) {
   const size_t kNumStreams = 2;
   const size_t kNumTl = 1;
-  ResetEncoder("VP8", kNumStreams, kNumTl, kNumSlDummy, kNackEnabled, false);
+  ResetEncoder("VP8", kNumStreams, kNumTl, kNumSlDummy, false);
   video_stream_encoder_->OnBitrateUpdated(kTargetBitrateBps, 0, 0);
 
   // Capture a frame and wait for it to synchronize with the encoder thread.
@@ -877,31 +872,10 @@ TEST_F(VideoStreamEncoderTest, Vp8ResilienceIsOffFor2S1TlWithNackEnabled) {
   video_stream_encoder_->Stop();
 }
 
-TEST_F(VideoStreamEncoderTest, Vp8ResilienceIsOnFor1S1TLWithNackDisabled) {
-  const bool kNackEnabled = false;
-  const size_t kNumStreams = 1;
-  const size_t kNumTl = 1;
-  ResetEncoder("VP8", kNumStreams, kNumTl, kNumSlDummy, kNackEnabled, false);
-  video_stream_encoder_->OnBitrateUpdated(kTargetBitrateBps, 0, 0);
-
-  // Capture a frame and wait for it to synchronize with the encoder thread.
-  video_source_.IncomingCapturedFrame(CreateFrame(1, nullptr));
-  WaitForEncodedFrame(1);
-  // The encoder have been configured once when the first frame is received.
-  EXPECT_EQ(1, sink_.number_of_reconfigurations());
-  EXPECT_EQ(kVideoCodecVP8, fake_encoder_.codec_config().codecType);
-  EXPECT_EQ(kNumStreams, fake_encoder_.codec_config().numberOfSimulcastStreams);
-  EXPECT_EQ(kNumTl, fake_encoder_.codec_config().VP8()->numberOfTemporalLayers);
-  // Resilience is on for no temporal layers with nack off.
-  EXPECT_EQ(kResilientStream, fake_encoder_.codec_config().VP8()->resilience);
-  video_stream_encoder_->Stop();
-}
-
-TEST_F(VideoStreamEncoderTest, Vp8ResilienceIsOnFor1S2TlWithNackEnabled) {
-  const bool kNackEnabled = true;
+TEST_F(VideoStreamEncoderTest, Vp8ResilienceIsOnFor1S2Tl) {
   const size_t kNumStreams = 1;
   const size_t kNumTl = 2;
-  ResetEncoder("VP8", kNumStreams, kNumTl, kNumSlDummy, kNackEnabled, false);
+  ResetEncoder("VP8", kNumStreams, kNumTl, kNumSlDummy, false);
   video_stream_encoder_->OnBitrateUpdated(kTargetBitrateBps, 0, 0);
 
   // Capture a frame and wait for it to synchronize with the encoder thread.
@@ -917,12 +891,11 @@ TEST_F(VideoStreamEncoderTest, Vp8ResilienceIsOnFor1S2TlWithNackEnabled) {
   video_stream_encoder_->Stop();
 }
 
-TEST_F(VideoStreamEncoderTest, Vp9ResilienceIsOffFor1SL1TLWithNackEnabled) {
-  const bool kNackEnabled = true;
+TEST_F(VideoStreamEncoderTest, Vp9ResilienceIsOffFor1SL1TL) {
   const size_t kNumStreams = 1;
   const size_t kNumTl = 1;
   const unsigned char kNumSl = 1;
-  ResetEncoder("VP9", kNumStreams, kNumTl, kNumSl, kNackEnabled, false);
+  ResetEncoder("VP9", kNumStreams, kNumTl, kNumSl, false);
   video_stream_encoder_->OnBitrateUpdated(kTargetBitrateBps, 0, 0);
 
   // Capture a frame and wait for it to synchronize with the encoder thread.
@@ -939,36 +912,13 @@ TEST_F(VideoStreamEncoderTest, Vp9ResilienceIsOffFor1SL1TLWithNackEnabled) {
   video_stream_encoder_->Stop();
 }
 
-TEST_F(VideoStreamEncoderTest, Vp9ResilienceIsOnFor1SL1TLWithNackDisabled) {
-  const bool kNackEnabled = false;
-  const size_t kNumStreams = 1;
-  const size_t kNumTl = 1;
-  const unsigned char kNumSl = 1;
-  ResetEncoder("VP9", kNumStreams, kNumTl, kNumSl, kNackEnabled, false);
-  video_stream_encoder_->OnBitrateUpdated(kTargetBitrateBps, 0, 0);
-
-  // Capture a frame and wait for it to synchronize with the encoder thread.
-  video_source_.IncomingCapturedFrame(CreateFrame(1, nullptr));
-  sink_.WaitForEncodedFrame(1);
-  // The encoder have been configured once when the first frame is received.
-  EXPECT_EQ(1, sink_.number_of_reconfigurations());
-  EXPECT_EQ(kVideoCodecVP9, fake_encoder_.codec_config().codecType);
-  EXPECT_EQ(kNumStreams, fake_encoder_.codec_config().numberOfSimulcastStreams);
-  EXPECT_EQ(kNumTl, fake_encoder_.codec_config().VP9()->numberOfTemporalLayers);
-  EXPECT_EQ(kNumSl, fake_encoder_.codec_config().VP9()->numberOfSpatialLayers);
-  // Resilience is on if nack is off.
-  EXPECT_TRUE(fake_encoder_.codec_config().VP9()->resilienceOn);
-  video_stream_encoder_->Stop();
-}
-
-TEST_F(VideoStreamEncoderTest, Vp9ResilienceIsOnFor2SL1TLWithNackEnabled) {
-  const bool kNackEnabled = true;
+TEST_F(VideoStreamEncoderTest, Vp9ResilienceIsOnFor2SL1TL) {
   const size_t kNumStreams = 1;
   const size_t kNumTl = 1;
   const unsigned char kNumSl = 2;
   const int kFrameWidth = kMinVp9SpatialLayerWidth << (kNumSl - 1);
   const int kFrameHeight = kMinVp9SpatialLayerHeight << (kNumSl - 1);
-  ResetEncoder("VP9", kNumStreams, kNumTl, kNumSl, kNackEnabled, false);
+  ResetEncoder("VP9", kNumStreams, kNumTl, kNumSl, false);
   video_stream_encoder_->OnBitrateUpdated(kTargetBitrateBps, 0, 0);
 
   // Capture a frame and wait for it to synchronize with the encoder thread.
@@ -986,12 +936,11 @@ TEST_F(VideoStreamEncoderTest, Vp9ResilienceIsOnFor2SL1TLWithNackEnabled) {
   video_stream_encoder_->Stop();
 }
 
-TEST_F(VideoStreamEncoderTest, Vp9ResilienceIsOnFor1SL2TLWithNackEnabled) {
-  const bool kNackEnabled = true;
+TEST_F(VideoStreamEncoderTest, Vp9ResilienceIsOnFor1SL2TL) {
   const size_t kNumStreams = 1;
   const size_t kNumTl = 2;
   const unsigned char kNumSl = 1;
-  ResetEncoder("VP9", kNumStreams, kNumTl, kNumSl, kNackEnabled, false);
+  ResetEncoder("VP9", kNumStreams, kNumTl, kNumSl, false);
   video_stream_encoder_->OnBitrateUpdated(kTargetBitrateBps, 0, 0);
 
   // Capture a frame and wait for it to synchronize with the encoder thread.
@@ -1450,8 +1399,7 @@ TEST_F(VideoStreamEncoderTest,
   // Make format different, to force recreation of encoder.
   video_encoder_config.video_format.parameters["foo"] = "foo";
   video_stream_encoder_->ConfigureEncoder(std::move(video_encoder_config),
-                                          kMaxPayloadLength,
-                                          true /* nack_enabled */);
+                                          kMaxPayloadLength);
 
   video_source_.IncomingCapturedFrame(CreateFrame(4, kWidth, kHeight));
   WaitForEncodedFrame(4);
@@ -2308,7 +2256,7 @@ TEST_F(VideoStreamEncoderTest, OveruseDetectorUpdatedOnReconfigureAndAdaption) {
   video_encoder_config.video_stream_factory =
       new rtc::RefCountedObject<VideoStreamFactory>(1, kFramerate);
   video_stream_encoder_->ConfigureEncoder(std::move(video_encoder_config),
-                                          kMaxPayloadLength, false);
+                                          kMaxPayloadLength);
   video_stream_encoder_->WaitUntilTaskQueueIsIdle();
 
   // Detector should be updated with fps limit from codec config.
@@ -2361,7 +2309,7 @@ TEST_F(VideoStreamEncoderTest,
       new rtc::RefCountedObject<VideoStreamFactory>(1, kLowFramerate);
   source.IncomingCapturedFrame(CreateFrame(1, kFrameWidth, kFrameHeight));
   video_stream_encoder_->ConfigureEncoder(std::move(video_encoder_config),
-                                          kMaxPayloadLength, false);
+                                          kMaxPayloadLength);
   video_stream_encoder_->WaitUntilTaskQueueIsIdle();
 
   EXPECT_EQ(
@@ -2384,7 +2332,7 @@ TEST_F(VideoStreamEncoderTest,
       new rtc::RefCountedObject<VideoStreamFactory>(1, kHighFramerate);
   source.IncomingCapturedFrame(CreateFrame(1, kFrameWidth, kFrameHeight));
   video_stream_encoder_->ConfigureEncoder(std::move(video_encoder_config),
-                                          kMaxPayloadLength, false);
+                                          kMaxPayloadLength);
   video_stream_encoder_->WaitUntilTaskQueueIsIdle();
 
   EXPECT_EQ(
@@ -2424,7 +2372,7 @@ TEST_F(VideoStreamEncoderTest,
       new rtc::RefCountedObject<VideoStreamFactory>(1, kFramerate);
   source.IncomingCapturedFrame(CreateFrame(1, kFrameWidth, kFrameHeight));
   video_stream_encoder_->ConfigureEncoder(std::move(video_encoder_config),
-                                          kMaxPayloadLength, false);
+                                          kMaxPayloadLength);
   video_stream_encoder_->WaitUntilTaskQueueIsIdle();
 
   EXPECT_EQ(
@@ -2532,8 +2480,7 @@ TEST_F(VideoStreamEncoderTest, InitialFrameDropOffWhenEncoderDisabledScaling) {
   // Make format different, to force recreation of encoder.
   video_encoder_config.video_format.parameters["foo"] = "foo";
   video_stream_encoder_->ConfigureEncoder(std::move(video_encoder_config),
-                                          kMaxPayloadLength,
-                                          true /* nack_enabled */);
+                                          kMaxPayloadLength);
   video_stream_encoder_->OnBitrateUpdated(kLowTargetBitrateBps, 0, 0);
 
   // Force quality scaler reconfiguration by resetting the source.
@@ -2613,7 +2560,7 @@ TEST_F(VideoStreamEncoderTest,
 TEST_F(VideoStreamEncoderTest, FailingInitEncodeDoesntCauseCrash) {
   fake_encoder_.ForceInitEncodeFailure(true);
   video_stream_encoder_->OnBitrateUpdated(kTargetBitrateBps, 0, 0);
-  ResetEncoder("VP8", 2, 1, 1, true, false);
+  ResetEncoder("VP8", 2, 1, 1, false);
   const int kFrameWidth = 1280;
   const int kFrameHeight = 720;
   video_source_.IncomingCapturedFrame(
@@ -2759,7 +2706,7 @@ TEST_F(VideoStreamEncoderTest, DoesntAdaptDownPastMinFramerate) {
 
   // Reconfigure encoder with two temporal layers and screensharing, which will
   // disable frame dropping and make testing easier.
-  ResetEncoder("VP8", 1, 2, 1, true, true);
+  ResetEncoder("VP8", 1, 2, 1, true);
 
   video_stream_encoder_->OnBitrateUpdated(kTargetBitrateBps, 0, 0);
   video_stream_encoder_->SetSource(
@@ -3225,7 +3172,7 @@ TEST_F(VideoStreamEncoderTest, AcceptsFullHdAdaptedDownSimulcastFrames) {
   video_encoder_config.video_stream_factory =
       new rtc::RefCountedObject<CroppingVideoStreamFactory>(1, kFramerate);
   video_stream_encoder_->ConfigureEncoder(std::move(video_encoder_config),
-                                          kMaxPayloadLength, false);
+                                          kMaxPayloadLength);
   video_stream_encoder_->WaitUntilTaskQueueIsIdle();
 
   video_source_.set_adaptation_enabled(true);

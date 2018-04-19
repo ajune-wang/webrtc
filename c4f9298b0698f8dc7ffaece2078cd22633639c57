@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "92278f55_4f88cf5c",
+        "filename": "modules/audio_processing/agc2/rnn_vad/lp_residual.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-19T12:20:08Z",
+      "side": 1,
+      "message": "Good point! No normalization is done, probably not necessary since |max_lag| is only 5.",
+      "parentUuid": "c56c9b49_b25f3800",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 17
+      },
+      "revId": "c4f9298b0698f8dc7ffaece2078cd22633639c57",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "471b1e32_ebe4b465",
         "filename": "modules/audio_processing/agc2/rnn_vad/lp_residual.cc",
         "patchSetId": 4
@@ -39,6 +63,24 @@
       "revId": "c4f9298b0698f8dc7ffaece2078cd22633639c57",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec4febf1_5976b903",
+        "filename": "modules/audio_processing/agc2/rnn_vad/lp_residual.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-19T12:20:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "471b1e32_ebe4b465",
+      "revId": "c4f9298b0698f8dc7ffaece2078cd22633639c57",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "a7853d35_a1170d4d",
+        "filename": "modules/audio_processing/agc2/rnn_vad/lp_residual.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-19T12:20:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b11a36c_1b00ae8b",
+      "range": {
+        "startLine": 84,
+        "startChar": 3,
+        "endLine": 84,
+        "endChar": 15
+      },
+      "revId": "c4f9298b0698f8dc7ffaece2078cd22633639c57",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1388c8e5_c039db2c",
         "filename": "modules/audio_processing/agc2/rnn_vad/lp_residual.cc",
         "patchSetId": 4
@@ -82,6 +148,24 @@
     },
     {
       "key": {
+        "uuid": "eee835e6_f63e6015",
+        "filename": "modules/audio_processing/agc2/rnn_vad/lp_residual.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-19T12:20:08Z",
+      "side": 1,
+      "message": "As per offline discussion, leaving as it is but took note of your comment for future versions.",
+      "parentUuid": "1388c8e5_c039db2c",
+      "revId": "c4f9298b0698f8dc7ffaece2078cd22633639c57",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "98ae27d2_0b2801d9",
         "filename": "modules/audio_processing/agc2/rnn_vad/lp_residual.cc",
         "patchSetId": 4
@@ -96,6 +180,24 @@
       "revId": "c4f9298b0698f8dc7ffaece2078cd22633639c57",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95ab4812_7123d54f",
+        "filename": "modules/audio_processing/agc2/rnn_vad/lp_residual.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-19T12:20:08Z",
+      "side": 1,
+      "message": "thanks! same as above",
+      "parentUuid": "98ae27d2_0b2801d9",
+      "revId": "c4f9298b0698f8dc7ffaece2078cd22633639c57",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -122,6 +224,30 @@
     },
     {
       "key": {
+        "uuid": "f6a57c68_916114a9",
+        "filename": "modules/audio_processing/agc2/rnn_vad/lp_residual.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-19T12:20:08Z",
+      "side": 1,
+      "message": "Once again, good point. I think it\u0027s ok since the LP residual is computed on the whole pitch buffer which corresponds to 36 ms frames with 16 ms overlap (+ 10 ms data added for every frame).",
+      "parentUuid": "5e8d46a5_c52476d6",
+      "range": {
+        "startLine": 118,
+        "startChar": 14,
+        "endLine": 118,
+        "endChar": 24
+      },
+      "revId": "c4f9298b0698f8dc7ffaece2078cd22633639c57",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dce5ccdc_572c7529",
         "filename": "modules/audio_processing/agc2/rnn_vad/lp_residual.cc",
         "patchSetId": 4
@@ -142,6 +268,30 @@
       "revId": "c4f9298b0698f8dc7ffaece2078cd22633639c57",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b645bfcd_f68521d0",
+        "filename": "modules/audio_processing/agc2/rnn_vad/lp_residual.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-19T12:20:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dce5ccdc_572c7529",
+      "range": {
+        "startLine": 120,
+        "startChar": 4,
+        "endLine": 120,
+        "endChar": 9
+      },
+      "revId": "c4f9298b0698f8dc7ffaece2078cd22633639c57",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -168,6 +318,30 @@
     },
     {
       "key": {
+        "uuid": "e95438a9_c9741015",
+        "filename": "modules/audio_processing/agc2/rnn_vad/lp_residual.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-19T12:20:08Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2a0820a2_a7a8b169",
+      "range": {
+        "startLine": 122,
+        "startChar": 7,
+        "endLine": 122,
+        "endChar": 21
+      },
+      "revId": "c4f9298b0698f8dc7ffaece2078cd22633639c57",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "587b79b8_366d1b51",
         "filename": "modules/audio_processing/agc2/rnn_vad/lp_residual.h",
         "patchSetId": 4
@@ -182,6 +356,24 @@
       "revId": "c4f9298b0698f8dc7ffaece2078cd22633639c57",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24b2f1a0_939fdcad",
+        "filename": "modules/audio_processing/agc2/rnn_vad/lp_residual.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-19T12:20:08Z",
+      "side": 1,
+      "message": "Actually this comment is not good at all since it partially describes what is done in ComputeCrossCorrelation() instead. I fixed that and, as you suggest, mention that it is tailored for the pitch search part.",
+      "parentUuid": "587b79b8_366d1b51",
+      "revId": "c4f9298b0698f8dc7ffaece2078cd22633639c57",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -231,6 +423,54 @@
     },
     {
       "key": {
+        "uuid": "512f77e7_8f08778c",
+        "filename": "modules/audio_processing/agc2/rnn_vad/lp_residual_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-19T12:20:08Z",
+      "side": 1,
+      "message": "Until the whole code lands, these bit-exactness tests are needed to check that addressing the comments doesn\u0027t break the RNN part of the VAD. However, these tests would only be a burden for the trybots and when changing the signal processing part they won\u0027t be valid anymore.",
+      "parentUuid": "f74b9221_23c7e2aa",
+      "range": {
+        "startLine": 46,
+        "startChar": 41,
+        "endLine": 46,
+        "endChar": 52
+      },
+      "revId": "c4f9298b0698f8dc7ffaece2078cd22633639c57",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a1f0d12a_5b572be8",
+        "filename": "modules/audio_processing/agc2/rnn_vad/lp_residual_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-19T12:20:08Z",
+      "side": 1,
+      "message": "Good catch, fixed everywhere.",
+      "parentUuid": "df5c76f8_fb48c097",
+      "range": {
+        "startLine": 46,
+        "startChar": 21,
+        "endLine": 46,
+        "endChar": 29
+      },
+      "revId": "c4f9298b0698f8dc7ffaece2078cd22633639c57",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8f4ad2cc_a8d108e6",
         "filename": "modules/audio_processing/agc2/rnn_vad/test_utils.h",
         "patchSetId": 4
@@ -251,6 +491,30 @@
       "revId": "c4f9298b0698f8dc7ffaece2078cd22633639c57",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6dab28b0_5f060d39",
+        "filename": "modules/audio_processing/agc2/rnn_vad/test_utils.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-19T12:20:08Z",
+      "side": 1,
+      "message": "Thanks! Some are indeed unnecessary and others can be added in the coming CLs.",
+      "parentUuid": "8f4ad2cc_a8d108e6",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 16
+      },
+      "revId": "c4f9298b0698f8dc7ffaece2078cd22633639c57",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

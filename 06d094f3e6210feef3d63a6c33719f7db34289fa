@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bb4d65fc_d6e74d21",
+        "filename": "sdk/objc/Framework/Headers/WebRTC/RTCVideoRenderer.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5600
+      },
+      "writtenOn": "2018-04-19T17:44:08Z",
+      "side": 1,
+      "message": "nit: kindof UIView instead? This delegate seems to have nothing to do with video renderer",
+      "range": {
+        "startLine": 36,
+        "startChar": 22,
+        "endLine": 36,
+        "endChar": 38
+      },
+      "revId": "06d094f3e6210feef3d63a6c33719f7db34289fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

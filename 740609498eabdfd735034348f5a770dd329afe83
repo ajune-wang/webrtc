@@ -1,0 +1,245 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6f4e5bd8_52252f5f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-04-19T07:59:24Z",
+      "side": 1,
+      "message": "Can we add a tracking bug for this work?",
+      "revId": "740609498eabdfd735034348f5a770dd329afe83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03665b28_e02c5c37",
+        "filename": "modules/video_coding/utility/quality_scaler.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-04-19T07:59:24Z",
+      "side": 1,
+      "message": "Maybe just return the struct instead?",
+      "range": {
+        "startLine": 44,
+        "startChar": 55,
+        "endLine": 44,
+        "endChar": 56
+      },
+      "revId": "740609498eabdfd735034348f5a770dd329afe83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0d724fa_09a2b51a",
+        "filename": "modules/video_coding/utility/quality_scaler.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-04-19T07:59:24Z",
+      "side": 1,
+      "message": "const",
+      "range": {
+        "startLine": 45,
+        "startChar": 2,
+        "endLine": 45,
+        "endChar": 13
+      },
+      "revId": "740609498eabdfd735034348f5a770dd329afe83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5d2ab2b_0602153f",
+        "filename": "modules/video_coding/utility/quality_scaler.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-04-19T07:59:24Z",
+      "side": 1,
+      "message": "Add generic_low, generic_high.",
+      "revId": "740609498eabdfd735034348f5a770dd329afe83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d1289bb_78f8337b",
+        "filename": "modules/video_coding/utility/quality_scaler.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-04-19T07:59:24Z",
+      "side": 1,
+      "message": "Add a comment describing this?",
+      "range": {
+        "startLine": 62,
+        "startChar": 9,
+        "endLine": 62,
+        "endChar": 29
+      },
+      "revId": "740609498eabdfd735034348f5a770dd329afe83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a963ea4_90232766",
+        "filename": "modules/video_coding/utility/quality_scaler.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-04-19T07:59:24Z",
+      "side": 1,
+      "message": "For consistency, it would be nice to rename all of the other classes and methods to say \"Qp\" instead of \"QP. Sometime later maybe :)",
+      "range": {
+        "startLine": 72,
+        "startChar": 13,
+        "endLine": 72,
+        "endChar": 15
+      },
+      "revId": "740609498eabdfd735034348f5a770dd329afe83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e886c498_5207b5cd",
+        "filename": "modules/video_coding/utility/quality_scaler_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-04-19T07:59:24Z",
+      "side": 1,
+      "message": "Nice trick!",
+      "range": {
+        "startLine": 178,
+        "startChar": 34,
+        "endLine": 178,
+        "endChar": 53
+      },
+      "revId": "740609498eabdfd735034348f5a770dd329afe83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5e3950d2_5895f482",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-04-19T07:59:24Z",
+      "side": 1,
+      "message": "WDYT of centralizing the readout of the field trial somewhere? To minimize the risk that we read it out differently in different places.\n\nMaybe something similar to the examples here: https://cs.chromium.org/chromium/src/third_party/webrtc/rtc_base/experiments/",
+      "range": {
+        "startLine": 51,
+        "startChar": 11,
+        "endLine": 51,
+        "endChar": 71
+      },
+      "revId": "740609498eabdfd735034348f5a770dd329afe83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ce9d145_7cef4a19",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-04-19T07:59:24Z",
+      "side": 1,
+      "message": "See comment above.",
+      "range": {
+        "startLine": 111,
+        "startChar": 42,
+        "endLine": 111,
+        "endChar": 71
+      },
+      "revId": "740609498eabdfd735034348f5a770dd329afe83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8bb34659_fc4dc445",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-04-19T07:59:24Z",
+      "side": 1,
+      "message": "Check the upper bound too?",
+      "range": {
+        "startLine": 127,
+        "startChar": 21,
+        "endLine": 127,
+        "endChar": 29
+      },
+      "revId": "740609498eabdfd735034348f5a770dd329afe83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e95813cf_05915ed0",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-04-19T07:59:24Z",
+      "side": 1,
+      "message": "I think we should have a fallback for kVideoCodecGeneric here.\n\nFor kVideoCodecUnknown, we can return a default QpThresholds instead.",
+      "range": {
+        "startLine": 144,
+        "startChar": 4,
+        "endLine": 144,
+        "endChar": 10
+      },
+      "revId": "740609498eabdfd735034348f5a770dd329afe83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "548fb46d_73e2d2d1",
+        "filename": "modules/rtp_rtcp/source/rtp_format_vp9_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 571,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-04-19T12:42:56Z",
+      "side": 1,
+      "message": "no need to prefix test name with \u0027Test\u0027. Test suite already has such suffix",
+      "range": {
+        "startLine": 571,
+        "startChar": 29,
+        "endLine": 571,
+        "endChar": 33
+      },
+      "revId": "b939e41d87d8342b70d97f328e6cde5099436bce",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e5e498d_b567ddb9",
+        "filename": "modules/video_coding/codecs/vp9/include/vp9_globals.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-04-19T12:42:56Z",
+      "side": 1,
+      "message": "It might be better to avoid double-negation as source of confusion and bugs.\nMay be one of\nmight_be_used_for_inter_layer_prediction \u003d true;\nused_for_inter_layer_prediction \u003d true;\ndependency_for_higher_spatial_layer \u003d true;",
+      "revId": "b939e41d87d8342b70d97f328e6cde5099436bce",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

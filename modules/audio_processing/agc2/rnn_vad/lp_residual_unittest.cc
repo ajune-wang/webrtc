@@ -19,13 +19,8 @@
 #include "test/gtest.h"
 
 namespace webrtc {
+namespace rnn_vad {
 namespace test {
-
-using rnn_vad::ComputeAndPostProcessLpcCoefficients;
-using rnn_vad::ComputeLpResidual;
-using rnn_vad::kBufSize24kHz;
-using rnn_vad::kFrameSize10ms24kHz;
-using rnn_vad::kNumLpcCoefficients;
 
 TEST(RnnVadTest, LpResidualOfEmptyFrame) {
   // TODO(https://bugs.webrtc.org/8948): Add when the issue is fixed.
@@ -91,4 +86,5 @@ TEST(RnnVadTest, LpResidualPipelineBitExactness) {
 }
 
 }  // namespace test
+}  // namespace rnn_vad
 }  // namespace webrtc

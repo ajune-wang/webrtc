@@ -17,8 +17,13 @@ group("rnn_vad") {
 source_set("lib") {
   sources = [
     "common.h",
+    "lp_residual.cc",
+    "lp_residual.h",
+    "pitch_search.cc",
+    "pitch_search.h",
     "ring_buffer.h",
     "sequence_buffer.h",
+    "symmetric_matrix_buffer.h",
   ]
   deps = [
     "../../../../api:array_view",
@@ -27,14 +32,52 @@ source_set("lib") {
 }
 
 if (rtc_include_tests) {
+  source_set("lib_test") {
+    testonly = true
+    sources = [
+      "test_utils.cc",
+      "test_utils.h",
+    ]
+    deps = [
+      "../../../../api:array_view",
+      "../../../../rtc_base:checks",
+      "../../../../rtc_base:ptr_util",
+      "../../../../test:fileutils",
+      "../../../../test:test_support",
+    ]
+  }
+
+  group("unittest_data") {
+    testonly = true
+    data = [
+      "../../../../resources/audio_processing/agc2/rnn_vad/pitch_buf_24k.dat",
+      "../../../../resources/audio_processing/agc2/rnn_vad/pitch_lp_res.dat",
+    ]
+  }
+
+  if (is_ios) {
+    bundle_data("unittests_bundle_data") {
+      testonly = true
+      sources = ":unittest_data"
+      outputs = [
+        "{{bundle_resources_dir}}/{{source_file_part}}",
+      ]
+    }
+  }
+
   rtc_source_set("unittests") {
     testonly = true
     sources = [
+      "lp_residual_unittest.cc",
+      "pitch_search_unittest.cc",
       "ring_buffer_unittest.cc",
       "sequence_buffer_unittest.cc",
+      "symmetric_matrix_buffer_unittest.cc",
     ]
     deps = [
       ":lib",
+      ":lib_test",
+      ":unittest_data",
       "../../../../api:array_view",
       "../../../../test:test_support",
     ]
@@ -52,5 +95,9 @@ if (rtc_include_tests) {
       "../../../../rtc_base:rtc_base_approved",
       "../../../../test:test_support",
     ]
+
+    if (is_ios) {
+      deps += [ ":unittests_bundle_data" ]
+    }
   }
 }

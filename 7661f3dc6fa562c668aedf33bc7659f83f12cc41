@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "764349a8_bd0254e7",
+        "filename": "call/fake_network_pipe.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-04-20T11:19:24Z",
+      "side": 1,
+      "message": "I removed the function as it provided little value. An opposite function would provide less value (it\u0027s just a multiplication)\n\nWe do use 1000 as an inline constant in many places, and it makes sense since it\u0027s short and the meaning generally is obvious from context, I don\u0027t think this should cause a confusion.",
+      "parentUuid": "f8b6686a_ccb3e93d",
+      "range": {
+        "startLine": 35,
+        "startChar": 8,
+        "endLine": 35,
+        "endChar": 14
+      },
+      "revId": "7661f3dc6fa562c668aedf33bc7659f83f12cc41",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a31c4ec_4ba51851",
         "filename": "call/fake_network_pipe.cc",
         "patchSetId": 6
@@ -45,6 +69,30 @@
       "revId": "7661f3dc6fa562c668aedf33bc7659f83f12cc41",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2582c60_f00b8170",
+        "filename": "call/fake_network_pipe.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-04-20T11:19:24Z",
+      "side": 1,
+      "message": "Yes, it doesn\u0027t explicitly say what unit it is. I\u0027d change the name, but there are dependencies on it. This is planed to change in later CLs, it might make sense to change the name at a later time.",
+      "parentUuid": "9a31c4ec_4ba51851",
+      "range": {
+        "startLine": 221,
+        "startChar": 52,
+        "endLine": 221,
+        "endChar": 64
+      },
+      "revId": "7661f3dc6fa562c668aedf33bc7659f83f12cc41",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "77965a48_407b673b",
+        "filename": "call/fake_network_pipe.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-04-20T11:19:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9f2d1833_68637b4e",
+      "range": {
+        "startLine": 244,
+        "startChar": 26,
+        "endLine": 245,
+        "endChar": 63
+      },
+      "revId": "7661f3dc6fa562c668aedf33bc7659f83f12cc41",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "beaff5ae_af59423c",
         "filename": "call/fake_network_pipe.cc",
         "patchSetId": 6
@@ -91,6 +163,30 @@
       "revId": "7661f3dc6fa562c668aedf33bc7659f83f12cc41",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0473c830_3c53b9a9",
+        "filename": "call/fake_network_pipe.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-04-20T11:19:24Z",
+      "side": 1,
+      "message": "Returns double.",
+      "parentUuid": "beaff5ae_af59423c",
+      "range": {
+        "startLine": 303,
+        "startChar": 12,
+        "endLine": 305,
+        "endChar": 17
+      },
+      "revId": "7661f3dc6fa562c668aedf33bc7659f83f12cc41",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "0727a4f2_dcf409ed",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-20T07:30:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "22dc26b3_0c0b3471",
+      "range": {
+        "startLine": 9,
+        "startChar": 44,
+        "endLine": 9,
+        "endChar": 50
+      },
+      "revId": "a28b3813fe063aaf1955fd3531c66a80d246ba79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "33b9bda7_76957171",
         "filename": "modules/audio_processing/audio_processing_impl.h",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "a28b3813fe063aaf1955fd3531c66a80d246ba79",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df728950_eefa47ef",
+        "filename": "modules/audio_processing/audio_processing_impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-20T07:30:12Z",
+      "side": 1,
+      "message": "I checked again the style guide and now I agree with you.\nThe motivation for having a ref is that we don\u0027t accept null pointers - i.e., it\u0027s not optional to have swap queue.",
+      "parentUuid": "33b9bda7_76957171",
+      "range": {
+        "startLine": 164,
+        "startChar": 4,
+        "endLine": 164,
+        "endChar": 55
+      },
+      "revId": "a28b3813fe063aaf1955fd3531c66a80d246ba79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

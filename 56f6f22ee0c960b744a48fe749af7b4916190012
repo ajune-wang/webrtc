@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "4aa943c9_ed043288",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/PeerConnectionClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-04-20T10:38:28Z",
+      "side": 1,
+      "message": "The checker is enabled but it doesn\u0027t all cases so it isn\u0027t wrong to have these checks in place. I don\u0027t care either way but there should be consistency because right now it looks like only appContext can\u0027t be null.",
+      "parentUuid": "f9825e5d_5d60dfa9",
+      "range": {
+        "startLine": 347,
+        "startChar": 8,
+        "endLine": 347,
+        "endChar": 26
+      },
+      "revId": "56f6f22ee0c960b744a48fe749af7b4916190012",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8a191808_98763a81",
         "filename": "examples/androidapp/src/org/appspot/apprtc/PeerConnectionClient.java",
         "patchSetId": 3

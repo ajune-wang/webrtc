@@ -79,6 +79,7 @@ TEST(SuppressionGain, BasicGainComputation) {
     aec_state.Update(delay_estimate, subtractor.FilterFrequencyResponse(),
                      subtractor.FilterImpulseResponse(),
                      subtractor.ConvergedFilter(), subtractor.DivergedFilter(),
+                     subtractor.SignificantEchoRemoval(),
                      *render_delay_buffer->GetRenderBuffer(), E2, Y2, s);
   }
 
@@ -86,6 +87,7 @@ TEST(SuppressionGain, BasicGainComputation) {
     aec_state.Update(delay_estimate, subtractor.FilterFrequencyResponse(),
                      subtractor.FilterImpulseResponse(),
                      subtractor.ConvergedFilter(), subtractor.DivergedFilter(),
+                     subtractor.SignificantEchoRemoval(),
                      *render_delay_buffer->GetRenderBuffer(), E2, Y2, s);
     suppression_gain.GetGain(E2, R2, N2, analyzer, aec_state, x,
                              &high_bands_gain, &g);
@@ -102,6 +104,7 @@ TEST(SuppressionGain, BasicGainComputation) {
     aec_state.Update(delay_estimate, subtractor.FilterFrequencyResponse(),
                      subtractor.FilterImpulseResponse(),
                      subtractor.ConvergedFilter(), subtractor.DivergedFilter(),
+                     subtractor.SignificantEchoRemoval(),
                      *render_delay_buffer->GetRenderBuffer(), E2, Y2, s);
     suppression_gain.GetGain(E2, R2, N2, analyzer, aec_state, x,
                              &high_bands_gain, &g);

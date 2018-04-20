@@ -13,6 +13,7 @@
 #include "common_audio/real_fourier_ooura.h"
 #include "common_audio/signal_processing/include/signal_processing_library.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/logging.h"
 
 #ifdef RTC_USE_OPENMAX_DL
 #include "common_audio/real_fourier_openmax.h"
@@ -26,8 +27,12 @@ const size_t RealFourier::kFftBufferAlignment = 32;
 
 std::unique_ptr<RealFourier> RealFourier::Create(int fft_order) {
 #if defined(RTC_USE_OPENMAX_DL)
+  // #warning "Using RealFourierOpenmax."
+  RTC_LOG(LS_INFO) << "Using RealFourierOpenmax.";
   return std::unique_ptr<RealFourier>(new RealFourierOpenmax(fft_order));
 #else
+#warning "Using RealFourierOoura."
+  RTC_LOG(LS_INFO) << "Using RealFourierOoura.";
   return std::unique_ptr<RealFourier>(new RealFourierOoura(fft_order));
 #endif
 }

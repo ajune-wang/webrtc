@@ -56,6 +56,10 @@ TEST(RealFourierStaticsTest, ComplexLengthComputation) {
   EXPECT_EQ(65U, RealFourier::ComplexLength(7));
 }
 
+TEST(RealFourierStaticsTest, Create) {
+  auto real_fourier = RealFourier::Create(8);
+}
+
 template <typename T>
 class RealFourierTest : public ::testing::Test {
  protected:

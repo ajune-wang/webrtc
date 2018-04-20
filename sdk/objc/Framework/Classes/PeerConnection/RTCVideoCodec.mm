@@ -14,13 +14,293 @@
 #import "RTCVideoCodec+Private.h"
 #import "WebRTC/RTCVideoCodecFactory.h"
 
+#if defined(WEBRTC_IOS)
+#import "WebRTC/UIDevice+RTCDevice.h"
+#endif
+
+#include "media/base/h264_profile_level_id.h"
 #include "media/base/mediaconstants.h"
+
+NSString *RTCMaxSupportedProfileLevelConstrainedHigh();
+NSString *RTCMaxSupportedProfileLevelConstrainedBaseline();
 
 NSString *const kRTCVideoCodecVp8Name = @(cricket::kVp8CodecName);
 NSString *const kRTCVideoCodecVp9Name = @(cricket::kVp9CodecName);
 NSString *const kRTCVideoCodecH264Name = @(cricket::kH264CodecName);
+
 NSString *const kRTCLevel31ConstrainedHigh = @"640c1f";
 NSString *const kRTCLevel31ConstrainedBaseline = @"42e01f";
+NSString *const kRTCMaxSupportedConstrainedHigh = RTCMaxSupportedProfileLevelConstrainedHigh();
+NSString *const kRTCMaxSupportedConstrainedBaseline =
+    RTCMaxSupportedProfileLevelConstrainedBaseline();
+
+NSString *RTCMaxSupportedProfileLevelConstrainedBaseline() {
+  rtc::Optional<webrtc::H264::Level> level;
+#if defined(WEBRTC_IOS)
+  switch ([UIDevice deviceType]) {
+    case RTCDeviceTypeIPhoneX:
+    case RTCDeviceTypeIPhone8Plus:
+    case RTCDeviceTypeIPhone8:
+      // iPhone 8 spec https://support.apple.com/kb/SP767
+      // iPhone 8+ spec https://support.apple.com/kb/SP768
+      // iPhone X https://support.apple.com/kb/SP770
+      level = webrtc::H264::kLevel5_2;
+      break;
+
+    case RTCDeviceTypeIPhone7Plus:
+    case RTCDeviceTypeIPhone7:
+      // iPhone 7 spec https://support.apple.com/kb/SP743
+      // iPhone 7+ spec https://support.apple.com/kb/SP744
+      level = webrtc::H264::kLevel5_1;
+      break;
+
+    case RTCDeviceTypeIPhone5SGSM:
+    case RTCDeviceTypeIPhone5SGSM_CDMA:
+    case RTCDeviceTypeIPhone6SPlus:
+    case RTCDeviceTypeIPhone6S:
+    case RTCDeviceTypeIPhone6Plus:
+    case RTCDeviceTypeIPhone6:
+      // iPhone 5 spec https://support.apple.com/kb/sp685
+      // iPhone 6 spec https://support.apple.com/kb/SP705
+      // iPhone 6+ spec https://support.apple.com/kb/SP706
+      // iPhone 6S spec https://support.apple.com/kb/SP726
+      // iPhone 6S+ spec https://support.apple.com/kb/SP727
+      level = webrtc::H264::kLevel4_2;
+      break;
+
+    case RTCDeviceTypeIPhone5GSM:
+    case RTCDeviceTypeIPhone5GSM_CDMA:
+    case RTCDeviceTypeIPhone5CGSM:
+    case RTCDeviceTypeIPhone5CGSM_CDMA:
+    case RTCDeviceTypeIPhone4S:
+      // iPhone 4S spec https://support.apple.com/kb/SP643
+      // iPhone 5 spec https://support.apple.com/kb/SP655
+      // iPhone 5c spec https://support.apple.com/kb/sp684
+      level = webrtc::H264::kLevel4_1;
+      break;
+
+    case RTCDeviceTypeIPhone4Verizon:
+    case RTCDeviceTypeIPhone4:
+      // iPhone 4 spec https://support.apple.com/kb/SP587
+      level = webrtc::H264::kLevel3_1;
+      break;
+
+    case RTCDeviceTypeIPhone3GS:
+      // iPhone 3GS spec https://support.apple.com/kb/SP565
+      level = webrtc::H264::kLevel3;
+      break;
+
+    case RTCDeviceTypeIPhone3G:
+    case RTCDeviceTypeIPhone1G:
+      RTC_NOTREACHED();
+      break;
+
+    case RTCDeviceTypeIPodTouch1G:
+    case RTCDeviceTypeIPodTouch2G:
+    case RTCDeviceTypeIPodTouch3G:
+      // iPod touch 1st gen https://support.apple.com/kb/SP3
+      // iPod touch 2nd gen https://support.apple.com/kb/SP496
+      // iPod touch 3rd gen https://support.apple.com/kb/SP570
+      level = webrtc::H264::kLevel3;
+      break;
+
+    case RTCDeviceTypeIPodTouch4G:
+    case RTCDeviceTypeIPodTouch5G:
+      // iPod touch 4th gen https://support.apple.com/kb/sp594
+      // iPod touch 5th gen https://support.apple.com/kb/sp657
+      level = webrtc::H264::kLevel3_1;
+      break;
+
+    case RTCDeviceTypeIPodTouch6G:
+      // iPod touch 6th gen https://support.apple.com/kb/SP720
+      level = webrtc::H264::kLevel4_1;
+      break;
+
+    case RTCDeviceTypeIPad:
+      // iPad spec https://support.apple.com/kb/sp580
+      level = webrtc::H264::kLevel3_1;
+      break;
+
+    case RTCDeviceTypeIPad2Wifi:
+    case RTCDeviceTypeIPad2GSM:
+    case RTCDeviceTypeIPad2CDMA:
+    case RTCDeviceTypeIPad2Wifi2:
+    case RTCDeviceTypeIPadMiniWifi:
+    case RTCDeviceTypeIPadMiniGSM:
+    case RTCDeviceTypeIPadMiniGSM_CDMA:
+    case RTCDeviceTypeIPad3Wifi:
+    case RTCDeviceTypeIPad3GSM_CDMA:
+    case RTCDeviceTypeIPad3GSM:
+    case RTCDeviceTypeIPad4Wifi:
+    case RTCDeviceTypeIPad4GSM:
+    case RTCDeviceTypeIPad4GSM_CDMA:
+      // iPad 2 spec https://support.apple.com/kb/sp622
+      // iPad mini spec https://support.apple.com/kb/sp661
+      // iPad 3 spec https://support.apple.com/kb/sp647
+      // iPad 4 spec https://support.apple.com/kb/sp662
+      level = webrtc::H264::kLevel4_1;
+      break;
+
+    case RTCDeviceTypeIPadMini2GWifi:
+    case RTCDeviceTypeIPadMini2GCellular:
+    case RTCDeviceTypeIPadAirWifi:
+    case RTCDeviceTypeIPadAirCellular:
+      // iPad Air https://support.apple.com/kb/sp692
+      // iPad mini 2 https://support.apple.com/kb/sp693
+      level = webrtc::H264::kLevel4_2;
+      break;
+
+    case RTCDeviceTypeSimulatori386:
+    case RTCDeviceTypeSimulatorx86_64:
+    case RTCDeviceTypeUnknown:
+    default:
+      break;
+  }
+#endif
+  if (level) {
+    auto profileString = webrtc::H264::ProfileLevelIdToString(
+        webrtc::H264::ProfileLevelId(webrtc::H264::kProfileConstrainedBaseline, *level));
+    if (profileString) {
+      return [NSString stringForStdString:*profileString];
+    }
+  }
+
+  return kRTCLevel31ConstrainedBaseline;
+}
+
+NSString *RTCMaxSupportedProfileLevelConstrainedHigh() {
+  rtc::Optional<webrtc::H264::Level> level;
+#if defined(WEBRTC_IOS)
+  switch ([UIDevice deviceType]) {
+    case RTCDeviceTypeIPhoneX:
+    case RTCDeviceTypeIPhone8Plus:
+    case RTCDeviceTypeIPhone8:
+      // iPhone 8 spec https://support.apple.com/kb/SP767
+      // iPhone 8+ spec https://support.apple.com/kb/SP768
+      // iPhone X https://support.apple.com/kb/SP770
+      level = webrtc::H264::kLevel5_2;
+      break;
+
+    case RTCDeviceTypeIPhone7Plus:
+    case RTCDeviceTypeIPhone7:
+      // iPhone 7 spec https://support.apple.com/kb/SP743
+      // iPhone 7+ spec https://support.apple.com/kb/SP744
+      level = webrtc::H264::kLevel5_1;
+      break;
+
+    case RTCDeviceTypeIPhone5SGSM:
+    case RTCDeviceTypeIPhone5SGSM_CDMA:
+    case RTCDeviceTypeIPhone6SPlus:
+    case RTCDeviceTypeIPhone6S:
+    case RTCDeviceTypeIPhone6Plus:
+    case RTCDeviceTypeIPhone6:
+      // iPhone 5 spec https://support.apple.com/kb/sp685
+      // iPhone 6 spec https://support.apple.com/kb/SP705
+      // iPhone 6+ spec https://support.apple.com/kb/SP706
+      // iPhone 6S spec https://support.apple.com/kb/SP726
+      // iPhone 6S+ spec https://support.apple.com/kb/SP727
+      level = webrtc::H264::kLevel4_2;
+      break;
+
+    case RTCDeviceTypeIPhone5GSM:
+    case RTCDeviceTypeIPhone5GSM_CDMA:
+    case RTCDeviceTypeIPhone5CGSM:
+    case RTCDeviceTypeIPhone5CGSM_CDMA:
+    case RTCDeviceTypeIPhone4S:
+      // iPhone 4S spec https://support.apple.com/kb/SP643
+      // iPhone 5 spec https://support.apple.com/kb/SP655
+      // iPhone 5c spec https://support.apple.com/kb/sp684
+      level = webrtc::H264::kLevel4_1;
+      break;
+
+    case RTCDeviceTypeIPhone4Verizon:
+    case RTCDeviceTypeIPhone4:
+      // iPhone 4 spec https://support.apple.com/kb/SP587
+      level = rtc::nullopt;
+      break;
+
+    case RTCDeviceTypeIPhone3GS:
+      // iPhone 3GS spec https://support.apple.com/kb/SP565
+      level = rtc::nullopt;
+      break;
+
+    case RTCDeviceTypeIPhone3G:
+    case RTCDeviceTypeIPhone1G:
+      RTC_NOTREACHED();
+      break;
+
+    case RTCDeviceTypeIPodTouch1G:
+    case RTCDeviceTypeIPodTouch2G:
+    case RTCDeviceTypeIPodTouch3G:
+      // iPod touch 1st gen https://support.apple.com/kb/SP3
+      // iPod touch 2nd gen https://support.apple.com/kb/SP496
+      // iPod touch 3rd gen https://support.apple.com/kb/SP570
+      level = rtc::nullopt;
+      break;
+
+    case RTCDeviceTypeIPodTouch4G:
+    case RTCDeviceTypeIPodTouch5G:
+      // iPod touch 4th gen https://support.apple.com/kb/sp594
+      // iPod touch 5th gen https://support.apple.com/kb/sp657
+      level = rtc::nullopt;
+      break;
+
+    case RTCDeviceTypeIPodTouch6G:
+      // iPod touch 6th gen https://support.apple.com/kb/SP720
+      level = rtc::nullopt;
+      break;
+
+    case RTCDeviceTypeIPad:
+      // iPad spec https://support.apple.com/kb/sp580
+      level = rtc::nullopt;
+      break;
+
+    case RTCDeviceTypeIPad2Wifi:
+    case RTCDeviceTypeIPad2GSM:
+    case RTCDeviceTypeIPad2CDMA:
+    case RTCDeviceTypeIPad2Wifi2:
+    case RTCDeviceTypeIPadMiniWifi:
+    case RTCDeviceTypeIPadMiniGSM:
+    case RTCDeviceTypeIPadMiniGSM_CDMA:
+    case RTCDeviceTypeIPad3Wifi:
+    case RTCDeviceTypeIPad3GSM_CDMA:
+    case RTCDeviceTypeIPad3GSM:
+    case RTCDeviceTypeIPad4Wifi:
+    case RTCDeviceTypeIPad4GSM:
+    case RTCDeviceTypeIPad4GSM_CDMA:
+      // iPad 2 spec https://support.apple.com/kb/sp622
+      // iPad mini spec https://support.apple.com/kb/sp661
+      // iPad 3 spec https://support.apple.com/kb/sp647
+      // iPad 4 spec https://support.apple.com/kb/sp662
+      level = webrtc::H264::kLevel4_1;
+      break;
+
+    case RTCDeviceTypeIPadMini2GWifi:
+    case RTCDeviceTypeIPadMini2GCellular:
+    case RTCDeviceTypeIPadAirWifi:
+    case RTCDeviceTypeIPadAirCellular:
+      // iPad Air https://support.apple.com/kb/sp692
+      // iPad mini 2 https://support.apple.com/kb/sp693
+      level = webrtc::H264::kLevel4_2;
+      break;
+
+    case RTCDeviceTypeSimulatori386:
+    case RTCDeviceTypeSimulatorx86_64:
+    case RTCDeviceTypeUnknown:
+    default:
+      break;
+  }
+#endif
+  if (level) {
+    auto profileString = webrtc::H264::ProfileLevelIdToString(
+        webrtc::H264::ProfileLevelId(webrtc::H264::kProfileConstrainedHigh, *level));
+    if (profileString) {
+      return [NSString stringForStdString:*profileString];
+    }
+  }
+
+  return kRTCLevel31ConstrainedHigh;
+}
 
 @implementation RTCVideoCodecInfo
 

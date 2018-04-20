@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f8b6686a_ccb3e93d",
+        "filename": "call/fake_network_pipe.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-04-20T08:38:43Z",
+      "side": 1,
+      "message": "It looks like you\u0027d have more use for the opposite function.\n\nStyle in much other webrtc code is to not write out the constant 1000, but instead use rtc::kNumMicrosecsPerMillisec, from rtc_base/timeutils.h. Not particularly pretty, but you may want to consider consistency.",
+      "range": {
+        "startLine": 35,
+        "startChar": 8,
+        "endLine": 35,
+        "endChar": 14
+      },
+      "revId": "7661f3dc6fa562c668aedf33bc7659f83f12cc41",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a31c4ec_4ba51851",
+        "filename": "call/fake_network_pipe.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-04-20T08:38:43Z",
+      "side": 1,
+      "message": "You\u0027re implicitly changing the unit of arrival_time()? Not entirely obvious from this patch how that works.",
+      "range": {
+        "startLine": 221,
+        "startChar": 52,
+        "endLine": 221,
+        "endChar": 64
+      },
+      "revId": "7661f3dc6fa562c668aedf33bc7659f83f12cc41",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f2d1833_68637b4e",
+        "filename": "call/fake_network_pipe.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-04-20T08:38:43Z",
+      "side": 1,
+      "message": "You might get better precision with only a single division, total_packet_delay_us / (1000 * sent_packets_). Or use floats, so we don\u0027t need to care about truncation-to-int of intermediate values.",
+      "range": {
+        "startLine": 244,
+        "startChar": 26,
+        "endLine": 245,
+        "endChar": 63
+      },
+      "revId": "7661f3dc6fa562c668aedf33bc7659f83f12cc41",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "beaff5ae_af59423c",
+        "filename": "call/fake_network_pipe.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-04-20T08:38:43Z",
+      "side": 1,
+      "message": "Does random_.Gaussian produce ints or floats? If ints, you\u0027d get much better precision of you scale the distribution parameters rather than the output.",
+      "range": {
+        "startLine": 303,
+        "startChar": 12,
+        "endLine": 305,
+        "endChar": 17
+      },
+      "revId": "7661f3dc6fa562c668aedf33bc7659f83f12cc41",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9424e2e4_7befe832",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2018-04-20T09:04:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6f4e5bd8_52252f5f",
+      "revId": "740609498eabdfd735034348f5a770dd329afe83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "03665b28_e02c5c37",
         "filename": "modules/video_coding/utility/quality_scaler.cc",
         "patchSetId": 5
@@ -30,6 +48,30 @@
       "writtenOn": "2018-04-19T07:59:24Z",
       "side": 1,
       "message": "Maybe just return the struct instead?",
+      "range": {
+        "startLine": 44,
+        "startChar": 55,
+        "endLine": 44,
+        "endChar": 56
+      },
+      "revId": "740609498eabdfd735034348f5a770dd329afe83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "17762b13_5bb84719",
+        "filename": "modules/video_coding/utility/quality_scaler.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2018-04-20T09:04:17Z",
+      "side": 1,
+      "message": "Done. GetConfig() in QualityScalingExperiment.",
+      "parentUuid": "03665b28_e02c5c37",
       "range": {
         "startLine": 44,
         "startChar": 55,
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "d2fd0911_f9569bd1",
+        "filename": "modules/video_coding/utility/quality_scaler.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2018-04-20T09:04:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f0d724fa_09a2b51a",
+      "range": {
+        "startLine": 45,
+        "startChar": 2,
+        "endLine": 45,
+        "endChar": 13
+      },
+      "revId": "740609498eabdfd735034348f5a770dd329afe83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b5d2ab2b_0602153f",
         "filename": "modules/video_coding/utility/quality_scaler.cc",
         "patchSetId": 5
@@ -79,6 +145,24 @@
       "revId": "740609498eabdfd735034348f5a770dd329afe83",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0eba79d_2507f0b9",
+        "filename": "modules/video_coding/utility/quality_scaler.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2018-04-20T09:04:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b5d2ab2b_0602153f",
+      "revId": "740609498eabdfd735034348f5a770dd329afe83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -105,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "07b23399_d9f8603b",
+        "filename": "modules/video_coding/utility/quality_scaler.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2018-04-20T09:04:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5d1289bb_78f8337b",
+      "range": {
+        "startLine": 62,
+        "startChar": 9,
+        "endLine": 62,
+        "endChar": 29
+      },
+      "revId": "740609498eabdfd735034348f5a770dd329afe83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6a963ea4_90232766",
         "filename": "modules/video_coding/utility/quality_scaler.h",
         "patchSetId": 5
@@ -116,6 +224,30 @@
       "writtenOn": "2018-04-19T07:59:24Z",
       "side": 1,
       "message": "For consistency, it would be nice to rename all of the other classes and methods to say \"Qp\" instead of \"QP. Sometime later maybe :)",
+      "range": {
+        "startLine": 72,
+        "startChar": 13,
+        "endLine": 72,
+        "endChar": 15
+      },
+      "revId": "740609498eabdfd735034348f5a770dd329afe83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63f950ba_eb8417b7",
+        "filename": "modules/video_coding/utility/quality_scaler.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2018-04-20T09:04:17Z",
+      "side": 1,
+      "message": "Yes will do in a separate CL.",
+      "parentUuid": "6a963ea4_90232766",
       "range": {
         "startLine": 72,
         "startChar": 13,
@@ -174,6 +306,30 @@
     },
     {
       "key": {
+        "uuid": "6d21d0cd_6947c523",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2018-04-20T09:04:17Z",
+      "side": 1,
+      "message": "Added a class QualityScalingExperiment.",
+      "parentUuid": "5e3950d2_5895f482",
+      "range": {
+        "startLine": 51,
+        "startChar": 11,
+        "endLine": 51,
+        "endChar": 71
+      },
+      "revId": "740609498eabdfd735034348f5a770dd329afe83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8ce9d145_7cef4a19",
         "filename": "video/video_stream_encoder.cc",
         "patchSetId": 5
@@ -194,6 +350,30 @@
       "revId": "740609498eabdfd735034348f5a770dd329afe83",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0fc140fe_11e364bf",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2018-04-20T09:04:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8ce9d145_7cef4a19",
+      "range": {
+        "startLine": 111,
+        "startChar": 42,
+        "endLine": 111,
+        "endChar": 71
+      },
+      "revId": "740609498eabdfd735034348f5a770dd329afe83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -220,6 +400,30 @@
     },
     {
       "key": {
+        "uuid": "8abafecb_650b9c67",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2018-04-20T09:04:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8bb34659_fc4dc445",
+      "range": {
+        "startLine": 127,
+        "startChar": 21,
+        "endLine": 127,
+        "endChar": 29
+      },
+      "revId": "740609498eabdfd735034348f5a770dd329afe83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e95813cf_05915ed0",
         "filename": "video/video_stream_encoder.cc",
         "patchSetId": 5
@@ -231,6 +435,30 @@
       "writtenOn": "2018-04-19T07:59:24Z",
       "side": 1,
       "message": "I think we should have a fallback for kVideoCodecGeneric here.\n\nFor kVideoCodecUnknown, we can return a default QpThresholds instead.",
+      "range": {
+        "startLine": 144,
+        "startChar": 4,
+        "endLine": 144,
+        "endChar": 10
+      },
+      "revId": "740609498eabdfd735034348f5a770dd329afe83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab1c1aa0_e5374b39",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2018-04-20T09:04:17Z",
+      "side": 1,
+      "message": "Added kVideoCodecGeneric.",
+      "parentUuid": "e95813cf_05915ed0",
       "range": {
         "startLine": 144,
         "startChar": 4,

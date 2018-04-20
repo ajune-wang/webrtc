@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a81aa6c4_1cf64af7",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/PeerConnectionClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-04-20T09:19:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6a0f1b54_a15003cb",
+      "range": {
+        "startLine": 147,
+        "startChar": 2,
+        "endLine": 147,
+        "endChar": 15
+      },
+      "revId": "56f6f22ee0c960b744a48fe749af7b4916190012",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c9db19a9_54c4276b",
         "filename": "examples/androidapp/src/org/appspot/apprtc/PeerConnectionClient.java",
         "patchSetId": 3
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "cb267c1b_f546088c",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/PeerConnectionClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-04-20T09:19:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c9db19a9_54c4276b",
+      "range": {
+        "startLine": 323,
+        "startChar": 2,
+        "endLine": 323,
+        "endChar": 17
+      },
+      "revId": "56f6f22ee0c960b744a48fe749af7b4916190012",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3353ac3a_74d68665",
         "filename": "examples/androidapp/src/org/appspot/apprtc/PeerConnectionClient.java",
         "patchSetId": 3
@@ -59,6 +107,30 @@
       "writtenOn": "2018-04-17T12:58:18Z",
       "side": 1,
       "message": "nit: Also check other parameters for nullness for consistency?",
+      "range": {
+        "startLine": 347,
+        "startChar": 8,
+        "endLine": 347,
+        "endChar": 26
+      },
+      "revId": "56f6f22ee0c960b744a48fe749af7b4916190012",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9825e5d_5d60dfa9",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/PeerConnectionClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-04-20T09:19:52Z",
+      "side": 1,
+      "message": "Or should we rather remove this check? Is the null checker enabled for this target?",
+      "parentUuid": "3353ac3a_74d68665",
       "range": {
         "startLine": 347,
         "startChar": 8,
@@ -91,6 +163,30 @@
       "revId": "56f6f22ee0c960b744a48fe749af7b4916190012",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e55cd40_ae984e5c",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/PeerConnectionClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-04-20T09:19:52Z",
+      "side": 1,
+      "message": "Done, but required more changes/cleanups.",
+      "parentUuid": "8a191808_98763a81",
+      "range": {
+        "startLine": 355,
+        "startChar": 4,
+        "endLine": 355,
+        "endChar": 25
+      },
+      "revId": "56f6f22ee0c960b744a48fe749af7b4916190012",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -22,6 +22,30 @@
       "revId": "8b4056ad01a77c6f9f25eed1e2274ab3b69c2ae7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06370b75_02bd1b51",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 709,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-04-20T14:00:43Z",
+      "side": 1,
+      "message": "It would be safer, but since it would change the behavior from before (implicit cast) there is a risk of breaking downstream code. I think it would be better to do that as a small separate CL that is easy to revert.",
+      "parentUuid": "36fbb4af_f0674eb1",
+      "range": {
+        "startLine": 709,
+        "startChar": 18,
+        "endLine": 709,
+        "endChar": 29
+      },
+      "revId": "8b4056ad01a77c6f9f25eed1e2274ab3b69c2ae7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -48,6 +48,7 @@
     @"iPod3,1": @(RTCDeviceTypeIPodTouch3G),
     @"iPod4,1": @(RTCDeviceTypeIPodTouch4G),
     @"iPod5,1": @(RTCDeviceTypeIPodTouch5G),
+    @"iPod7,1": @(RTCDeviceTypeIPodTouch6G),
     @"iPad1,1": @(RTCDeviceTypeIPad),
     @"iPad2,1": @(RTCDeviceTypeIPad2Wifi),
     @"iPad2,2": @(RTCDeviceTypeIPad2GSM),

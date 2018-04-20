@@ -38,6 +38,7 @@ typedef NS_ENUM(NSInteger, RTCDeviceType) {
   RTCDeviceTypeIPodTouch3G,
   RTCDeviceTypeIPodTouch4G,
   RTCDeviceTypeIPodTouch5G,
+  RTCDeviceTypeIPodTouch6G,
   RTCDeviceTypeIPad,
   RTCDeviceTypeIPad2Wifi,
   RTCDeviceTypeIPad2GSM,

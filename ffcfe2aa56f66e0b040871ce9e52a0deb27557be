@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d2972cb4_55dcb789",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-04-20T09:21:02Z",
+      "side": 1,
+      "message": "can you shuffle a bit and put impl together?",
+      "range": {
+        "startLine": 106,
+        "startChar": 10,
+        "endLine": 106,
+        "endChar": 51
+      },
+      "revId": "ffcfe2aa56f66e0b040871ce9e52a0deb27557be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e02d5662_7f874c4f",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-04-20T09:21:02Z",
+      "side": 1,
+      "message": "rename to match the new names?",
+      "range": {
+        "startLine": 358,
+        "startChar": 19,
+        "endLine": 358,
+        "endChar": 22
+      },
+      "revId": "ffcfe2aa56f66e0b040871ce9e52a0deb27557be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8878ff4_c931937d",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-04-20T09:21:02Z",
+      "side": 1,
+      "message": "scope this too, as in other tests?",
+      "range": {
+        "startLine": 461,
+        "startChar": 2,
+        "endLine": 461,
+        "endChar": 3
+      },
+      "revId": "ffcfe2aa56f66e0b040871ce9e52a0deb27557be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f51f7174_36263993",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 514,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-04-20T09:21:02Z",
+      "side": 1,
+      "message": "wrong link: https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d9076\n\nor maybe webrtc:9076 for short?",
+      "range": {
+        "startLine": 514,
+        "startChar": 8,
+        "endLine": 514,
+        "endChar": 38
+      },
+      "revId": "ffcfe2aa56f66e0b040871ce9e52a0deb27557be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

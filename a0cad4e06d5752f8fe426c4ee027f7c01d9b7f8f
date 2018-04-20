@@ -932,6 +932,30 @@
     },
     {
       "key": {
+        "uuid": "cb4ec761_d500bc48",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-04-20T09:21:02Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "6fa68b48_c36ba736",
+      "range": {
+        "startLine": 38,
+        "startChar": 2,
+        "endLine": 38,
+        "endChar": 15
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9bc609df_ebfea43d",
         "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
         "patchSetId": 2
@@ -967,6 +991,30 @@
       "side": 1,
       "message": "Great that you pointed this is out. However, here the same number of samples is always used. If this should be clear from the code, let me know and I will add a comment. Probably the description of the pitch buffer in pitch_search.h is not sufficient (or just too far from the code).",
       "parentUuid": "9bc609df_ebfea43d",
+      "range": {
+        "startLine": 40,
+        "startChar": 14,
+        "endLine": 40,
+        "endChar": 27
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e63526fe_28f9b0a5",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-04-20T09:21:02Z",
+      "side": 1,
+      "message": "My fault. Apologies",
+      "parentUuid": "f4c91247_94094f44",
       "range": {
         "startLine": 40,
         "startChar": 14,
@@ -1108,6 +1156,30 @@
       "side": 1,
       "message": "Let\u0027s discuss offline and think of how I can improve this part.",
       "parentUuid": "c9682b0d_932c662d",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 95,
+        "endChar": 73
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95873ef1_3ddcda7f",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-04-20T09:21:02Z",
+      "side": 1,
+      "message": "let\u0027s discuss offline.",
+      "parentUuid": "698cd85b_c3c0c8fb",
       "range": {
         "startLine": 88,
         "startChar": 0,
@@ -1284,6 +1356,30 @@
       "side": 1,
       "message": "because the array view has a compile time known size here, so we can fail earlier using a static assert instead of failing at runtime",
       "parentUuid": "e30f62a3_234c1435",
+      "range": {
+        "startLine": 111,
+        "startChar": 2,
+        "endLine": 111,
+        "endChar": 15
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ba4c3c2_2d8e247b",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-04-20T09:21:02Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a07a3d29_9c974c7a",
       "range": {
         "startLine": 111,
         "startChar": 2,
@@ -1566,6 +1662,30 @@
       "side": 1,
       "message": "Good catch! But I think it\u0027s ok:\n- the updates \"yy -\u003d old\" and \"yy +\u003d new\" may lead to a small negative yy value because of round-off\n- when that happens, the result stored in yy_values is corrected using std::max\n- (maybe) the overall sliding window process would accumulate more error if we apply the correction to yy directly\n\nWDYT?",
       "parentUuid": "a9c00d90_9806742f",
+      "range": {
+        "startLine": 160,
+        "startChar": 4,
+        "endLine": 160,
+        "endChar": 13
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66c6aaf3_2db81c46",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-04-20T09:21:02Z",
+      "side": 1,
+      "message": "As you mentioned, we can prevent error from propagation.",
+      "parentUuid": "58df9ce1_b63d6669",
       "range": {
         "startLine": 160,
         "startChar": 4,
@@ -2260,6 +2380,30 @@
     },
     {
       "key": {
+        "uuid": "6a416398_3e6fef61",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-04-20T09:21:02Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7645bc97_8db40d61",
+      "range": {
+        "startLine": 275,
+        "startChar": 0,
+        "endLine": 275,
+        "endChar": 41
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ee959c2b_6aab216c",
         "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
         "patchSetId": 2
@@ -2811,6 +2955,30 @@
       "side": 1,
       "message": "As documented in the style guide (https://google.github.io/styleguide/cppguide.html#Namespaces), this is the convention when adding implementation details in a header file (to keep stuff internal and not part of the API).\n\nSee for instance https://cs.chromium.org/chromium/src/third_party/webrtc/api/array_view.h?l\u003d85",
       "parentUuid": "33e859a6_0623db3b",
+      "range": {
+        "startLine": 21,
+        "startChar": 10,
+        "endLine": 21,
+        "endChar": 14
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fdcdbdc6_a8eb2cae",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-04-20T09:21:02Z",
+      "side": 1,
+      "message": "Not sure that the style guide and the array_view case have the same purpose as yours.",
+      "parentUuid": "407beea6_62fef97f",
       "range": {
         "startLine": 21,
         "startChar": 10,

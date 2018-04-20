@@ -149,19 +149,19 @@ class AudioProcessingImpl : public AudioProcessing {
   std::unique_ptr<ApmDataDumper> data_dumper_;
   static int instance_count_;
 
-  std::unique_ptr<SwapQueue<RuntimeSetting>> runtime_settings_;
+  SwapQueue<RuntimeSetting> runtime_settings_;
 
   // Class providing thread-safe message pipe functionality for
   // |runtime_settings_|.
   class RuntimeSettingEnqueuer {
    public:
     explicit RuntimeSettingEnqueuer(
-        SwapQueue<RuntimeSetting>* runtime_settings);
+        SwapQueue<RuntimeSetting>& runtime_settings);
     ~RuntimeSettingEnqueuer();
     void Enqueue(RuntimeSetting setting);
 
    private:
-    SwapQueue<RuntimeSetting>* runtime_settings_;
+    SwapQueue<RuntimeSetting>& runtime_settings_;
   } runtime_settings_enqueuer_;
 
   // Submodule interface implementations.

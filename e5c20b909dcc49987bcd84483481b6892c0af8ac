@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2c32a352_206be7cb",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-04-20T08:21:55Z",
+      "side": 1,
+      "message": "Note that this is different from the local variable num_temporal_layers, since the latter may hold number of simulcast streams.\n\nCan we write any unit tests for this logic?",
+      "range": {
+        "startLine": 445,
+        "startChar": 7,
+        "endLine": 445,
+        "endChar": 41
+      },
+      "revId": "e5c20b909dcc49987bcd84483481b6892c0af8ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "671655d1_eb7a519e",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 671,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-04-20T08:21:55Z",
+      "side": 1,
+      "message": "It looks like this is called at the end of InitEncode, so configurations_[0] should be reliable here?",
+      "range": {
+        "startLine": 671,
+        "startChar": 25,
+        "endLine": 671,
+        "endChar": 43
+      },
+      "revId": "e5c20b909dcc49987bcd84483481b6892c0af8ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7a95620_719be63e",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-04-20T08:21:55Z",
+      "side": 1,
+      "message": "It looks like we allow numberOfTemporalLAyers \u003d\u003d 0 below, but are less forgiving for numberOfSpatialLayers.",
+      "range": {
+        "startLine": 268,
+        "startChar": 2,
+        "endLine": 268,
+        "endChar": 40
+      },
+      "revId": "e5c20b909dcc49987bcd84483481b6892c0af8ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d2118a9_0f2a18fd",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-04-20T08:21:55Z",
+      "side": 1,
+      "message": "Likewise, can we write any unit test for this? Or detect errors is some higher-level test?",
+      "range": {
+        "startLine": 293,
+        "startChar": 0,
+        "endLine": 294,
+        "endChar": 68
+      },
+      "revId": "e5c20b909dcc49987bcd84483481b6892c0af8ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

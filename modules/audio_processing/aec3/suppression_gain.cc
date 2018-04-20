@@ -215,11 +215,17 @@ void MaskingPower(const EchoCanceller3Config& config,
                   const std::array<float, kFftLengthBy2Plus1>& gain,
                   std::array<float, kFftLengthBy2Plus1>* masker) {
   // Apply masking over time.
-  float masking_factor = config.gain_mask.temporal_masking_lf;
-  auto limit = config.gain_mask.temporal_masking_lf_bands;
+  float masking_factor = 0.99f;
+  size_t limit = 2;
   std::transform(
       comfort_noise.begin(), comfort_noise.begin() + limit, last_masker.begin(),
       masker->begin(),
+      [masking_factor](float a, float b) { return a + masking_factor * b; });
+  masking_factor = config.gain_mask.temporal_masking_lf;
+  limit = config.gain_mask.temporal_masking_lf_bands;
+  std::transform(
+      comfort_noise.begin()+2, comfort_noise.begin() + limit, last_masker.begin()+2,
+      masker->begin()+2,
       [masking_factor](float a, float b) { return a + masking_factor * b; });
   masking_factor = config.gain_mask.temporal_masking_hf;
   std::transform(

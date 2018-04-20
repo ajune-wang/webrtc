@@ -21,6 +21,7 @@
 #include "api/audio/echo_canceller3_config.h"
 #include "api/optional.h"
 #include "modules/audio_processing/aec3/aec3_common.h"
+#include "modules/audio_processing/aec3/clock_drift_detector.h"
 #include "modules/audio_processing/aec3/delay_estimate.h"
 #include "modules/audio_processing/aec3/echo_path_variability.h"
 #include "modules/audio_processing/aec3/erl_estimator.h"
@@ -115,6 +116,7 @@ class AecState {
               const std::vector<float>& adaptive_filter_impulse_response,
               bool converged_filter,
               bool diverged_filter,
+              bool significant_echo_removal_,
               const RenderBuffer& render_buffer,
               const std::array<float, kFftLengthBy2Plus1>& E2_main,
               const std::array<float, kFftLengthBy2Plus1>& Y2,
@@ -172,6 +174,7 @@ class AecState {
   size_t converged_filter_count_ = 0;
   bool finite_erl_ = false;
   size_t active_blocks_since_converged_filter_ = 0;
+  ClockDriftDetector clock_drift_detector_;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(AecState);
 };

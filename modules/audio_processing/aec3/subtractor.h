@@ -71,6 +71,10 @@ class Subtractor {
 
   bool DivergedFilter() const { return main_filter_diverged_; }
 
+  bool SignificantEchoRemoval() const {
+    return main_filter_significant_echo_removal_;
+  }
+
   void DumpFilters() {
     main_filter_.DumpFilter("aec3_subtractor_H_main", "aec3_subtractor_h_main");
     shadow_filter_.DumpFilter("aec3_subtractor_H_shadow",
@@ -87,6 +91,7 @@ class Subtractor {
   MainFilterUpdateGain G_main_;
   ShadowFilterUpdateGain G_shadow_;
   bool main_filter_converged_ = false;
+  bool main_filter_significant_echo_removal_ = false;
   bool main_filter_once_converged_ = false;
   bool shadow_filter_converged_ = false;
   bool main_filter_diverged_ = false;

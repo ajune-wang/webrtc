@@ -50,7 +50,7 @@ TEST(AecState, NormalUsage) {
 
   // Verify that linear AEC usability is false when the filter is diverged.
   state.Update(delay_estimate, diverged_filter_frequency_response,
-               impulse_response, true, false,
+               impulse_response, true, false, true,
                *render_delay_buffer->GetRenderBuffer(), E2_main, Y2, s);
   EXPECT_FALSE(state.UsableLinearEstimate());
 
@@ -59,7 +59,7 @@ TEST(AecState, NormalUsage) {
   for (int k = 0; k < 3000; ++k) {
     render_delay_buffer->Insert(x);
     state.Update(delay_estimate, converged_filter_frequency_response,
-                 impulse_response, true, false,
+                 impulse_response, true, false, true,
                  *render_delay_buffer->GetRenderBuffer(), E2_main, Y2, s);
   }
   EXPECT_TRUE(state.UsableLinearEstimate());
@@ -69,7 +69,7 @@ TEST(AecState, NormalUsage) {
   state.HandleEchoPathChange(EchoPathVariability(
       true, EchoPathVariability::DelayAdjustment::kNone, false));
   state.Update(delay_estimate, converged_filter_frequency_response,
-               impulse_response, true, false,
+               impulse_response, true, false, true,
                *render_delay_buffer->GetRenderBuffer(), E2_main, Y2, s);
   EXPECT_FALSE(state.UsableLinearEstimate());
 
@@ -79,14 +79,14 @@ TEST(AecState, NormalUsage) {
   state.HandleEchoPathChange(EchoPathVariability(
       true, EchoPathVariability::DelayAdjustment::kNewDetectedDelay, false));
   state.Update(delay_estimate, converged_filter_frequency_response,
-               impulse_response, true, false,
+               impulse_response, true, false, true,
                *render_delay_buffer->GetRenderBuffer(), E2_main, Y2, s);
   EXPECT_FALSE(state.ActiveRender());
 
   for (int k = 0; k < 1000; ++k) {
     render_delay_buffer->Insert(x);
     state.Update(delay_estimate, converged_filter_frequency_response,
-                 impulse_response, true, false,
+                 impulse_response, true, false, true,
                  *render_delay_buffer->GetRenderBuffer(), E2_main, Y2, s);
   }
   EXPECT_TRUE(state.ActiveRender());
@@ -109,7 +109,7 @@ TEST(AecState, NormalUsage) {
   Y2.fill(10.f * 10000.f * 10000.f);
   for (size_t k = 0; k < 1000; ++k) {
     state.Update(delay_estimate, converged_filter_frequency_response,
-                 impulse_response, true, false,
+                 impulse_response, true, false, true,
                  *render_delay_buffer->GetRenderBuffer(), E2_main, Y2, s);
   }
 
@@ -126,7 +126,7 @@ TEST(AecState, NormalUsage) {
   Y2.fill(10.f * E2_main[0]);
   for (size_t k = 0; k < 1000; ++k) {
     state.Update(delay_estimate, converged_filter_frequency_response,
-                 impulse_response, true, false,
+                 impulse_response, true, false, true,
                  *render_delay_buffer->GetRenderBuffer(), E2_main, Y2, s);
   }
   ASSERT_TRUE(state.UsableLinearEstimate());
@@ -147,7 +147,7 @@ TEST(AecState, NormalUsage) {
   Y2.fill(5.f * E2_main[0]);
   for (size_t k = 0; k < 1000; ++k) {
     state.Update(delay_estimate, converged_filter_frequency_response,
-                 impulse_response, true, false,
+                 impulse_response, true, false, true,
                  *render_delay_buffer->GetRenderBuffer(), E2_main, Y2, s);
   }
 
@@ -199,8 +199,8 @@ TEST(AecState, ConvergedFilterDelay) {
 
     state.HandleEchoPathChange(echo_path_variability);
     state.Update(delay_estimate, frequency_response, impulse_response, true,
-                 false, *render_delay_buffer->GetRenderBuffer(), E2_main, Y2,
-                 s);
+                 false, true, *render_delay_buffer->GetRenderBuffer(), E2_main,
+                 Y2, s);
   }
 }
 

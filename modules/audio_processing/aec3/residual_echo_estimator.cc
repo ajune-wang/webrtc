@@ -49,10 +49,10 @@ void ResidualEchoEstimator::Estimate(
     // Computes the spectral power over the blocks surrounding the delay.
     size_t window_start = std::max(
         0, aec_state.FilterDelayBlocks() -
-               static_cast<int>(config_.echo_model.render_pre_window_size));
+               0*static_cast<int>(config_.echo_model.render_pre_window_size));
     size_t window_end =
         aec_state.FilterDelayBlocks() +
-        static_cast<int>(config_.echo_model.render_post_window_size);
+        0*static_cast<int>(config_.echo_model.render_post_window_size);
     EchoGeneratingPower(render_buffer, window_start, window_end, &X2);
 
     // Subtract the stationary noise power to avoid stationary noise causing
@@ -125,12 +125,9 @@ void ResidualEchoEstimator::NonLinearEstimate(
 
     // Compute the residual echo by holding a maximum echo powers and an echo
     // fading corresponding to a room with an RT60 value of about 50 ms.
-    (*R2)[k] =
-        R2_hold_counter_[k] < config_.echo_model.nonlinear_hold
-            ? std::max((*R2)[k], R2_old_[k])
-            : std::min(
-                  (*R2)[k] + R2_old_[k] * config_.echo_model.nonlinear_release,
-                  Y2[k]);
+    (*R2)[k] = std::min(
+        (*R2)[k] + R2_old_[k] * config_.echo_model.nonlinear_release,
+        Y2[k]);
   }
 }
 

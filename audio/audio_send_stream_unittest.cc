@@ -73,13 +73,9 @@ const AudioCodecSpec kCodecSpecs[] = {
     {kOpusFormat, {48000, 1, 32000, 6000, 510000}},
     {kG722Format, {16000, 1, 64000}}};
 
-class MockLimitObserver : public BitrateAllocator::LimitObserver {
+class MockLimitObserver : public AllocatedStreamsObserver {
  public:
-  MOCK_METHOD4(OnAllocationLimitsChanged,
-               void(uint32_t min_send_bitrate_bps,
-                    uint32_t max_padding_bitrate_bps,
-                    uint32_t total_bitrate_bps,
-                    bool has_packet_feedback));
+  MOCK_METHOD1(OnAllocatedStreamsChanged, void(const AllocatedStreamsInfo&));
 };
 
 std::unique_ptr<MockAudioEncoder> SetupAudioEncoderMock(

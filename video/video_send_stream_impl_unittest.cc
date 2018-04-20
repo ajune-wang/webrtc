@@ -14,7 +14,6 @@
 #include "call/test/mock_rtp_transport_controller_send.h"
 #include "logging/rtc_event_log/rtc_event_log.h"
 #include "modules/video_coding/fec_controller_default.h"
-#include "rtc_base/experiments/alr_experiment.h"
 #include "rtc_base/task_queue_for_test.h"
 #include "test/field_trial.h"
 #include "test/gmock.h"
@@ -35,14 +34,6 @@ using testing::_;
 
 constexpr int64_t kDefaultInitialBitrateBps = 333000;
 const double kDefaultBitratePriority = 0.5;
-
-const float kAlrProbingExperimentPaceMultiplier = 1.0f;
-std::string GetAlrProbingExperimentString() {
-  return std::string(
-             AlrExperimentSettings::kScreenshareProbingBweExperimentName) +
-         "/1.0,2875,80,40,-60,3/";
-}
-
 }  // namespace
 
 class VideoSendStreamImplTest : public ::testing::Test {
@@ -130,8 +121,9 @@ TEST_F(VideoSendStreamImplTest, RegistersAsBitrateObserverOnStart) {
   });
 }
 
-TEST_F(VideoSendStreamImplTest, ReportFeedbackAvailability) {
+TEST_F(VideoSendStreamImplTest, ReportsFeedbackAvailability) {
   test_queue_.SendTask([this] {
+    // Indicates that feedback is used:
     config_.rtp.extensions.emplace_back(
         RtpExtension::kTransportSequenceNumberUri,
         RtpExtension::kTransportSequenceNumberDefaultId);
@@ -139,9 +131,10 @@ TEST_F(VideoSendStreamImplTest, ReportFeedbackAvailability) {
     auto vss_impl = CreateVideoSendStreamImpl(
         kDefaultInitialBitrateBps, kDefaultBitratePriority,
         VideoEncoderConfig::ContentType::kRealtimeVideo);
+
     EXPECT_CALL(bitrate_allocator_, AddObserver(vss_impl.get(), _))
         .WillOnce(Invoke(
-            [&](BitrateAllocatorObserver*, MediaStreamAllocationConfig config) {
+            [](BitrateAllocatorObserver*, MediaStreamAllocationConfig config) {
               EXPECT_EQ(config.has_packet_feedback, true);
             }));
     vss_impl->Start();
@@ -150,31 +143,55 @@ TEST_F(VideoSendStreamImplTest, ReportFeedbackAvailability) {
   });
 }
 
-TEST_F(VideoSendStreamImplTest, SetsScreensharePacingFactorWithFeedback) {
-  test::ScopedFieldTrials alr_experiment(GetAlrProbingExperimentString());
-
+TEST_F(VideoSendStreamImplTest, ReportsFeedbackMissing) {
   test_queue_.SendTask([this] {
-    config_.rtp.extensions.emplace_back(
-        RtpExtension::kTransportSequenceNumberUri,
-        RtpExtension::kTransportSequenceNumberDefaultId);
-    EXPECT_CALL(transport_controller_,
-                SetPacingFactor(kAlrProbingExperimentPaceMultiplier))
-        .Times(1);
+    // This ensures that we have not feedback:
+    config_.rtp.extensions.clear();
+
+    auto vss_impl = CreateVideoSendStreamImpl(
+        kDefaultInitialBitrateBps, kDefaultBitratePriority,
+        VideoEncoderConfig::ContentType::kRealtimeVideo);
+
+    EXPECT_CALL(bitrate_allocator_, AddObserver(vss_impl.get(), _))
+        .WillOnce(Invoke(
+            [](BitrateAllocatorObserver*, MediaStreamAllocationConfig config) {
+              EXPECT_EQ(config.has_packet_feedback, false);
+            }));
+    vss_impl->Start();
+    EXPECT_CALL(bitrate_allocator_, RemoveObserver(vss_impl.get())).Times(1);
+    vss_impl->Stop();
+  });
+}
+
+TEST_F(VideoSendStreamImplTest, ReportsScreenshareContent) {
+  test_queue_.SendTask([this] {
     auto vss_impl = CreateVideoSendStreamImpl(
         kDefaultInitialBitrateBps, kDefaultBitratePriority,
         VideoEncoderConfig::ContentType::kScreen);
+
+    EXPECT_CALL(bitrate_allocator_, AddObserver(vss_impl.get(), _))
+        .WillOnce(Invoke(
+            [](BitrateAllocatorObserver*, MediaStreamAllocationConfig config) {
+              EXPECT_EQ(config.content_type,
+                        MediaStreamAllocationConfig::MediaContentType::kScreen);
+            }));
     vss_impl->Start();
     vss_impl->Stop();
   });
 }
 
-TEST_F(VideoSendStreamImplTest, DoesNotSetPacingFactorWithoutFeedback) {
-  test::ScopedFieldTrials alr_experiment(GetAlrProbingExperimentString());
+TEST_F(VideoSendStreamImplTest, ReportsVideoContent) {
   test_queue_.SendTask([this] {
-    EXPECT_CALL(transport_controller_, SetPacingFactor(_)).Times(0);
     auto vss_impl = CreateVideoSendStreamImpl(
         kDefaultInitialBitrateBps, kDefaultBitratePriority,
-        VideoEncoderConfig::ContentType::kScreen);
+        VideoEncoderConfig::ContentType::kRealtimeVideo);
+
+    EXPECT_CALL(bitrate_allocator_, AddObserver(vss_impl.get(), _))
+        .WillOnce(Invoke(
+            [](BitrateAllocatorObserver*, MediaStreamAllocationConfig config) {
+              EXPECT_EQ(config.content_type,
+                        MediaStreamAllocationConfig::MediaContentType::kVideo);
+            }));
     vss_impl->Start();
     vss_impl->Stop();
   });

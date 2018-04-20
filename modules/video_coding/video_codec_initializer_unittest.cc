@@ -258,20 +258,6 @@ TEST_F(VideoCodecInitializerTest, Vp9SvcDefaultLayering) {
   EXPECT_EQ(codec_out_.VP9()->numberOfTemporalLayers, 3u);
 }
 
-TEST_F(VideoCodecInitializerTest, Vp9SvcAdjustedLayering) {
-  SetUpFor(VideoCodecType::kVideoCodecVP9, 3, 3, false);
-  VideoStream stream = DefaultStream();
-  stream.num_temporal_layers = 3;
-  // Set resolution which is only enough to produce 2 spatial layers.
-  stream.width = kMinVp9SpatialLayerWidth * 2;
-  stream.height = kMinVp9SpatialLayerHeight * 2;
-
-  streams_.push_back(stream);
-
-  EXPECT_TRUE(InitializeCodec());
-  EXPECT_EQ(codec_out_.VP9()->numberOfSpatialLayers, 2u);
-}
-
 TEST_F(VideoCodecInitializerTest,
        Vp9SingleSpatialLayerMaxBitrateIsEqualToCodecMaxBitrate) {
   SetUpFor(VideoCodecType::kVideoCodecVP9, 1, 3, false);

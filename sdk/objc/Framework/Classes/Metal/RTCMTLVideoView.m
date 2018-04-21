@@ -106,6 +106,7 @@
 - (void)layoutSubviews {
   [super layoutSubviews];
   _metalView.frame = self.bounds;
+  self.metalView.drawableSize = self.bounds.size;
 }
 
 #pragma mark - MTKViewDelegate methods

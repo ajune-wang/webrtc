@@ -75,6 +75,7 @@ class SuppressionGain {
   LowNoiseRenderDetector low_render_detector_;
   bool initial_state_ = true;
   int initial_state_change_counter_ = 0;
+
   RTC_DISALLOW_COPY_AND_ASSIGN(SuppressionGain);
 };
 

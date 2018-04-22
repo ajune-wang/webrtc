@@ -18,6 +18,7 @@
 #include "api/array_view.h"
 #include "modules/audio_processing/aec3/aec3_common.h"
 #include "modules/audio_processing/aec3/aec_state.h"
+#include "modules/audio_processing/aec3/coherence_gain.h"
 #include "modules/audio_processing/aec3/comfort_noise_generator.h"
 #include "modules/audio_processing/aec3/echo_path_variability.h"
 #include "modules/audio_processing/aec3/echo_remover_metrics.h"
@@ -92,7 +93,7 @@ class EchoRemoverImpl final : public EchoRemover {
   AecState aec_state_;
   EchoRemoverMetrics metrics_;
   bool initial_state_ = true;
-
+  CoherenceGain coherence_gain_;
   RTC_DISALLOW_COPY_AND_ASSIGN(EchoRemoverImpl);
 };
 
@@ -112,7 +113,8 @@ EchoRemoverImpl::EchoRemoverImpl(const EchoCanceller3Config& config,
       suppression_filter_(sample_rate_hz_),
       render_signal_analyzer_(config_),
       residual_echo_estimator_(config_),
-      aec_state_(config_) {
+      aec_state_(config_),
+      coherence_gain_(sample_rate_hz) {
   RTC_DCHECK(ValidFullBandRate(sample_rate_hz));
 }
 
@@ -162,6 +164,7 @@ void EchoRemoverImpl::ProcessCapture(
   std::array<float, kFftLengthBy2Plus1> R2;
   std::array<float, kFftLengthBy2Plus1> S2_linear;
   std::array<float, kFftLengthBy2Plus1> G;
+  std::array<float, kFftLengthBy2Plus1> G_coherence;
   float high_bands_gain;
   FftData Y;
   FftData comfort_noise;
@@ -198,6 +201,10 @@ void EchoRemoverImpl::ProcessCapture(
                     subtractor_.ConvergedFilter(), subtractor_.DivergedFilter(),
                     *render_buffer, E2_main, Y2, subtractor_output.s_main);
 
+  const std::vector<float>& x_aligned =
+      render_buffer->Block(-aec_state_.FilterDelayBlocks())[0];
+  coherence_gain_.ComputeGain(x_aligned, y0, e_main, G_coherence);
+
   // Choose the linear output.
   data_dumper_->DumpWav("aec3_output_linear2", kBlockSize, &e_main[0],
                         LowestBandRate(sample_rate_hz_), 1);
@@ -220,6 +227,9 @@ void EchoRemoverImpl::ProcessCapture(
   suppression_gain_.GetGain(E2, R2, cng_.NoiseSpectrum(),
                             render_signal_analyzer_, aec_state_, x,
                             &high_bands_gain, &G);
+  for (size_t k = 0; k < 5; ++k)
+    G[k] = std::max(G[k], G_coherence[k]);
+
   suppression_filter_.ApplyGain(comfort_noise, high_band_comfort_noise, G,
                                 high_bands_gain, y);
 

@@ -18,6 +18,7 @@
 #include "api/array_view.h"
 #include "modules/audio_processing/aec3/aec3_common.h"
 #include "modules/audio_processing/aec3/aec_state.h"
+#include "modules/audio_processing/aec3/coherence_gain.h"
 #include "modules/audio_processing/aec3/comfort_noise_generator.h"
 #include "modules/audio_processing/aec3/echo_path_variability.h"
 #include "modules/audio_processing/aec3/echo_remover_metrics.h"
@@ -92,6 +93,10 @@ class EchoRemoverImpl final : public EchoRemover {
   AecState aec_state_;
   EchoRemoverMetrics metrics_;
   bool initial_state_ = true;
+  CoherenceGain coherence_gain_;
+  std::array<float, kFftLengthBy2> e_old_;
+  std::array<float, kFftLengthBy2> x_old_;
+  std::array<float, kFftLengthBy2> y_old_;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(EchoRemoverImpl);
 };
@@ -112,8 +117,12 @@ EchoRemoverImpl::EchoRemoverImpl(const EchoCanceller3Config& config,
       suppression_filter_(sample_rate_hz_),
       render_signal_analyzer_(config_),
       residual_echo_estimator_(config_),
-      aec_state_(config_) {
+      aec_state_(config_),
+      coherence_gain_(sample_rate_hz, 5) {
   RTC_DCHECK(ValidFullBandRate(sample_rate_hz));
+  e_old_.fill(0.f);;
+  x_old_.fill(0.f);
+  y_old_.fill(0.f);
 }
 
 EchoRemoverImpl::~EchoRemoverImpl() = default;
@@ -162,8 +171,11 @@ void EchoRemoverImpl::ProcessCapture(
   std::array<float, kFftLengthBy2Plus1> R2;
   std::array<float, kFftLengthBy2Plus1> S2_linear;
   std::array<float, kFftLengthBy2Plus1> G;
+  std::array<float, kFftLengthBy2Plus1> G_coherence;
   float high_bands_gain;
   FftData Y;
+  FftData E;
+  FftData X;
   FftData comfort_noise;
   FftData high_band_comfort_noise;
   SubtractorOutput subtractor_output;
@@ -198,6 +210,20 @@ void EchoRemoverImpl::ProcessCapture(
                     subtractor_.ConvergedFilter(), subtractor_.DivergedFilter(),
                     *render_buffer, E2_main, Y2, subtractor_output.s_main);
 
+  // Compute spectra.
+  const std::vector<float>& x_aligned =
+      render_buffer->Block(-aec_state_.FilterDelayBlocks())[0];
+  fft_.PaddedFft(x_aligned, x_old_,  Aec3Fft::Window::kSqrtHanning, &X);
+  std::copy(x_aligned.begin(), x_aligned.end(), x_old_.begin());
+  fft_.PaddedFft(y0, y_old_,  Aec3Fft::Window::kSqrtHanning, &Y);
+  std::copy(y0.begin(), y0.end(), y_old_.begin());
+
+
+  fft_.PaddedFft(e_main, e_old_,  Aec3Fft::Window::kSqrtHanning, &E);
+  std::copy(e_main.begin(), e_main.end(), e_old_.begin());
+
+  coherence_gain_.ComputeGain(x_aligned, y0, e_main, X,E,Y,G_coherence);
+
   // Choose the linear output.
   data_dumper_->DumpWav("aec3_output_linear2", kBlockSize, &e_main[0],
                         LowestBandRate(sample_rate_hz_), 1);
@@ -220,6 +246,9 @@ void EchoRemoverImpl::ProcessCapture(
   suppression_gain_.GetGain(E2, R2, cng_.NoiseSpectrum(),
                             render_signal_analyzer_, aec_state_, x,
                             &high_bands_gain, &G);
+  for (size_t k = 0; k < 5; ++k)
+    G[k] = std::max(G[k], G_coherence[k]);
+
   suppression_filter_.ApplyGain(comfort_noise, high_band_comfort_noise, G,
                                 high_bands_gain, y);
 

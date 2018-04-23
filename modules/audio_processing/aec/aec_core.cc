@@ -1117,7 +1117,7 @@ static void FormSuppressionGain(AecCore* aec,
       // TODO(peah): Using quicksort now, but a selection algorithm may be
       // preferred.
       memcpy(hNlPref, &hNl[minPrefBand], sizeof(float) * prefBandSize);
-      qsort(hNlPref, prefBandSize, sizeof(float), CmpFloat);
+      std::qsort(hNlPref, prefBandSize, sizeof(float), CmpFloat);
       hNlFb = hNlPref[static_cast<int>(floor(prefBandQuant *
                                              (prefBandSize - 1)))];
       hNlFbLow = hNlPref[static_cast<int>(floor(prefBandQuantLow *

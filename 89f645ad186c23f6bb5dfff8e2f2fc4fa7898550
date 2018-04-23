@@ -22,6 +22,30 @@
       "revId": "89f645ad186c23f6bb5dfff8e2f2fc4fa7898550",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7def18c_2344e804",
+        "filename": "sdk/android/src/jni/androidmediadecoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-04-23T09:29:32Z",
+      "side": 0,
+      "message": "Right, added the dispose() call back in the corresponding place in MediaCodecVideoDecoder.",
+      "parentUuid": "a1f5ec91_608f7f00",
+      "range": {
+        "startLine": 115,
+        "startChar": 2,
+        "endLine": 115,
+        "endChar": 67
+      },
+      "revId": "89f645ad186c23f6bb5dfff8e2f2fc4fa7898550",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

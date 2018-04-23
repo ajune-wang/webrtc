@@ -514,8 +514,8 @@ EventLogAnalyzer::EventLogAnalyzer(const ParsedRtcEventLog& log)
         }
         uint64_t timestamp = parsed_log_.GetTimestamp(i);
         StreamId stream(parsed_header.ssrc, direction);
-        rtp_packets_[stream].push_back(
-            LoggedRtpPacket(timestamp, parsed_header, total_length));
+        rtp_packets_[stream].push_back(LoggedRtpPacket(
+            timestamp, parsed_header, header_length, total_length));
         break;
       }
       case ParsedRtcEventLog::RTCP_EVENT: {
@@ -1917,7 +1917,8 @@ class NetEqStreamInput : public test::NetEqInput {
 
     // This is a header-only "dummy" packet. Set the payload to all zeros, with
     // length according to the virtual length.
-    packet_data->payload.SetSize(packet_stream_it_->total_length);
+    packet_data->payload.SetSize(packet_stream_it_->total_length -
+                                 packet_stream_it_->header_length);
     std::fill_n(packet_data->payload.data(), packet_data->payload.size(), 0);
 
     ++packet_stream_it_;
@@ -2009,35 +2010,28 @@ EventLogAnalyzer::SimulateNetEq(const std::string& replacement_file_name,
                                 int file_sample_rate_hz) const {
   std::map<StreamId, std::unique_ptr<test::NetEqStatsGetter>> neteq_stats;
 
-  const auto& incoming_audio_kv = std::find_if(
-      rtp_packets_.begin(), rtp_packets_.end(),
-      [this](std::pair<StreamId, std::vector<LoggedRtpPacket>> kv) {
-        return kv.first.GetDirection() == kIncomingPacket &&
-               this->IsAudioSsrc(kv.first);
-      });
-  if (incoming_audio_kv == rtp_packets_.end()) {
-    // No incoming audio stream found.
-    return neteq_stats;
+  for (const auto& kv : rtp_packets_) {
+    const auto& ssrc = kv.first;
+    if (ssrc.GetDirection() != kIncomingPacket || !IsAudioSsrc(ssrc)) {
+      continue;
+    }
+    std::map<uint32_t, std::vector<uint64_t>>::const_iterator output_events_it =
+        audio_playout_events_.find(ssrc.GetSsrc());
+    if (output_events_it == audio_playout_events_.end()) {
+      // Could not find output events with SSRC matching the input audio stream.
+      // Using the first available stream of output events.
+      output_events_it = audio_playout_events_.cbegin();
+    }
+
+    rtc::Optional<uint64_t> end_time_us =
+        log_segments_.empty()
+            ? rtc::nullopt
+            : rtc::Optional<uint64_t>(log_segments_.front().second);
+
+    neteq_stats[ssrc] = CreateNetEqTestAndRun(
+        &kv.second, &output_events_it->second, end_time_us,
+        replacement_file_name, file_sample_rate_hz);
   }
-
-  const uint32_t ssrc = incoming_audio_kv->first.GetSsrc();
-
-  std::map<uint32_t, std::vector<uint64_t>>::const_iterator output_events_it =
-      audio_playout_events_.find(ssrc);
-  if (output_events_it == audio_playout_events_.end()) {
-    // Could not find output events with SSRC matching the input audio stream.
-    // Using the first available stream of output events.
-    output_events_it = audio_playout_events_.cbegin();
-  }
-
-  rtc::Optional<uint64_t> end_time_us =
-      log_segments_.empty()
-          ? rtc::nullopt
-          : rtc::Optional<uint64_t>(log_segments_.front().second);
-
-  neteq_stats[incoming_audio_kv->first] = CreateNetEqTestAndRun(
-      &incoming_audio_kv->second, &output_events_it->second, end_time_us,
-      replacement_file_name, file_sample_rate_hz);
 
   return neteq_stats;
 }
@@ -2120,50 +2114,45 @@ void EventLogAnalyzer::CreateAudioJitterBufferGraph(
   plot->SetXAxis(0, call_duration_s_, "Time (s)", kLeftMargin, kRightMargin);
   plot->SetYAxis(min_y_axis, max_y_axis, "Relative delay (ms)", kBottomMargin,
                  kTopMargin);
-  plot->SetTitle("NetEq timing");
+  plot->SetTitle("NetEq timing for " + GetStreamName(stream_id));
 }
 
-// Plots the expand rate profile. This will plot only for the first
-// incoming audio SSRC. If the stream contains more than one incoming audio
-// SSRC, all but the first will be ignored.
-void EventLogAnalyzer::CreateAudioExpandRateGraph(
+void EventLogAnalyzer::CreateNetEqStatsGraph(
     const std::map<EventLogAnalyzer::StreamId,
                    std::unique_ptr<test::NetEqStatsGetter>>& neteq_stats,
+    rtc::FunctionView<float(const NetEqNetworkStatistics&)> stats_extractor,
+    const std::string& plot_name,
     Plot* plot) const {
   if (neteq_stats.size() < 1)
     return;
 
-  const StreamId stream_id = neteq_stats.begin()->first;
-  auto stats = neteq_stats.at(stream_id)->stats();
+  std::map<StreamId, TimeSeries> time_series;
+  float min_y_axis = std::numeric_limits<float>::max();
+  float max_y_axis = std::numeric_limits<float>::min();
 
-  std::map<StreamId, TimeSeries> time_series_expand_rate;
+  for (const auto& st : neteq_stats) {
+    const StreamId& stream_id = st.first;
+    const auto& stats = st.second->stats();
 
-  float min_y_axis = 0.f;
-  float max_y_axis = 0.f;
-  for (size_t i = 0; i < stats.size(); ++i) {
-    const float time =
-        ToCallTime(NetEqStreamInput::PacketTimeToTimeStamp(stats[i].first));
-    const float expand_rate = stats[i].second.expand_rate / 16384.f;
-    time_series_expand_rate[stream_id].points.emplace_back(
-        TimeSeriesPoint(time, expand_rate));
-    min_y_axis = std::min(min_y_axis, expand_rate);
-    max_y_axis = std::max(max_y_axis, expand_rate);
+    for (size_t i = 0; i < stats.size(); ++i) {
+      const float time =
+          ToCallTime(NetEqStreamInput::PacketTimeToTimeStamp(stats[i].first));
+      const float value = stats_extractor(stats[i].second);
+      time_series[stream_id].points.emplace_back(TimeSeriesPoint(time, value));
+      min_y_axis = std::min(min_y_axis, value);
+      max_y_axis = std::max(max_y_axis, value);
+    }
   }
 
-  // This code is adapted for a single stream. The creation of the streams above
-  // guarantee that no more than one steam is included. If multiple streams are
-  // to be plotted, they should likely be given distinct labels below.
-  RTC_DCHECK_EQ(time_series_expand_rate.size(), 1);
-  for (auto& series : time_series_expand_rate) {
-    series.second.label = "Expand rate";
+  for (auto& series : time_series) {
+    series.second.label = GetStreamName(series.first);
     series.second.line_style = LineStyle::kLine;
     plot->AppendTimeSeries(std::move(series.second));
   }
 
   plot->SetXAxis(0, call_duration_s_, "Time (s)", kLeftMargin, kRightMargin);
-  plot->SetYAxis(min_y_axis, max_y_axis, "Expand rate", kBottomMargin,
-                 kTopMargin);
-  plot->SetTitle("Expand rate");
+  plot->SetYAxis(min_y_axis, max_y_axis, plot_name, kBottomMargin, kTopMargin);
+  plot->SetTitle(plot_name);
 }
 
 void EventLogAnalyzer::CreateIceCandidatePairConfigGraph(Plot* plot) {

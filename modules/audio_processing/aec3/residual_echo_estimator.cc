@@ -116,6 +116,7 @@ void ResidualEchoEstimator::Estimate(
                         std::max(0, aec_state.FilterDelayBlocks() - 1),
                         aec_state.FilterDelayBlocks() + 3, &X2);
 
+    // JVP look if this is competing/completing the stationarity estimator
     // Subtract the stationary noise power to avoid stationary noise causing
     // excessive echo suppression.
     std::transform(
@@ -130,6 +131,18 @@ void ResidualEchoEstimator::Estimate(
       AddEchoReverb(*R2, aec_state.SaturatedEcho(),
                     config_.filter.main.length_blocks, aec_state.ReverbDecay(),
                     R2);
+    }
+  }
+
+  if (aec_state.UseStationaryProperties()) {
+    // Scale the echo according to echo audibility.
+
+    for (size_t k = 0; k < (*R2).size(); ++k) {
+      float residualScaling = aec_state.GetResidualEchoScaling(k);
+      (*R2)[k] *= residualScaling;
+      if (residualScaling == 0.f) {
+        R2_hold_counter_[k] = 0.f;  // JVP check the use of this
+      }
     }
   }
 

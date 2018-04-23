@@ -280,6 +280,7 @@ void SuppressionGain::LowerBandGain(
   AdjustNonConvergedFrequencies(gain);
 
   // Update the allowed maximum gain increase.
+
   UpdateGainIncrease(low_noise_render, linear_echo_estimate, echo, *gain);
 
   // Adjust gain dynamics.

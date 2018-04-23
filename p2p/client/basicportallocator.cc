@@ -11,6 +11,7 @@
 #include "p2p/client/basicportallocator.h"
 
 #include <algorithm>
+#include <map>
 #include <set>
 #include <string>
 #include <vector>
@@ -31,6 +32,15 @@ using rtc::CreateRandomId;
 
 namespace {
 
+// The maximum number of retries we perform for port allocation when there
+// exists at least one type of ports that is not successfully created after
+// iterating an allocation sequence. The failure of allocation may be due to
+// infeasible configuration or low-level errors like socket binding failures. We
+// only retry the port allocation when the previous failure is not caused by
+// configuration.
+const int kPortAllocationRetryLimit = 3;
+const int kPortAllocationRetryIntervalMs = 50;
+
 enum {
   MSG_CONFIG_START,
   MSG_CONFIG_READY,
@@ -40,11 +50,12 @@ enum {
   MSG_CONFIG_STOP,
 };
 
-const int PHASE_UDP = 0;
-const int PHASE_RELAY = 1;
-const int PHASE_TCP = 2;
-
-const int kNumPhases = 3;
+enum {
+  kPhaseUdp = 0,
+  kPhaseRelay,
+  kPhaseTcp,
+  kNumPhases,
+};
 
 // Gets protocol priority: UDP > TCP > SSLTCP == TLS.
 int GetProtocolPriority(cricket::ProtocolType protocol) {
@@ -1135,6 +1146,58 @@ void BasicPortAllocatorSession::PrunePortsAndRemoveCandidates(
   }
 }
 
+AllocationProgress::AllocationProgress() {
+  Reset();
+}
+
+AllocationProgress::~AllocationProgress() = default;
+
+void AllocationProgress::Reset() {
+  tried_creation_with_feasible_config_ = false;
+  created_valid_port_ = false;
+  pending_retry_by_phase_.resize(kNumPhases, false);
+}
+
+void AllocationProgress::Update(cricket::PortAllocationResult result) {
+  switch (result) {
+    case cricket::PortAllocationResult::SUCCESS:
+      created_valid_port_ = true;
+      break;
+    case cricket::PortAllocationResult::FAILURE_CREATION_ERROR:
+      tried_creation_with_feasible_config_ = true;
+      break;
+    default:
+      break;
+  }
+}
+
+void AllocationProgress::UpdateByPhase(cricket::PortAllocationResult result,
+                                       int phase) {
+  Update(result);
+  pending_retry_by_phase_[phase] =
+      (result == cricket::PortAllocationResult::FAILURE_CREATION_ERROR);
+  if (!pending_retry_by_phase_[phase]) {
+    switch (phase) {
+      case kPhaseUdp:
+        disable_retry_flags_ |=
+            (PORTALLOCATOR_DISABLE_UDP & PORTALLOCATOR_DISABLE_STUN);
+        break;
+      case kPhaseRelay:
+        disable_retry_flags_ |= PORTALLOCATOR_DISABLE_RELAY;
+        break;
+      case kPhaseTcp:
+        disable_retry_flags_ |= PORTALLOCATOR_DISABLE_TCP;
+        break;
+    }
+  }
+}
+
+bool AllocationProgress::HasPendingRetryByPhase() {
+  return std::any_of(pending_retry_by_phase_.begin(),
+                     pending_retry_by_phase_.end(),
+                     [](bool phase_need_retry) { return phase_need_retry; });
+}
+
 // AllocationSequence
 
 AllocationSequence::AllocationSequence(BasicPortAllocatorSession* session,
@@ -1145,11 +1208,11 @@ AllocationSequence::AllocationSequence(BasicPortAllocatorSession* session,
       network_(network),
       config_(config),
       state_(kInit),
+      initial_flags_(flags),
       flags_(flags),
       udp_socket_(),
       udp_port_(NULL),
-      phase_(0) {
-}
+      phase_(0) {}
 
 void AllocationSequence::Init() {
   if (IsFlagSet(PORTALLOCATOR_ENABLE_SHARED_SOCKET)) {
@@ -1263,17 +1326,17 @@ void AllocationSequence::OnMessage(rtc::Message* msg) {
                    << ": Allocation Phase=" << PHASE_NAMES[phase_];
 
   switch (phase_) {
-    case PHASE_UDP:
-      CreateUDPPorts();
-      CreateStunPorts();
+    case kPhaseUdp:
+      progress_.UpdateByPhase(CreateUDPPorts(), phase_);
+      progress_.UpdateByPhase(CreateStunPorts(), phase_);
       break;
 
-    case PHASE_RELAY:
-      CreateRelayPorts();
+    case kPhaseRelay:
+      progress_.UpdateByPhase(CreateRelayPorts(), phase_);
       break;
 
-    case PHASE_TCP:
-      CreateTCPPorts();
+    case kPhaseTcp:
+      progress_.UpdateByPhase(CreateTCPPorts(), phase_);
       state_ = kCompleted;
       break;
 
@@ -1287,17 +1350,14 @@ void AllocationSequence::OnMessage(rtc::Message* msg) {
                                             session_->allocator()->step_delay(),
                                             this, MSG_ALLOCATION_PHASE);
   } else {
-    // If all phases in AllocationSequence are completed, no allocation
-    // steps needed further. Canceling  pending signal.
-    session_->network_thread()->Clear(this, MSG_ALLOCATION_PHASE);
-    SignalPortAllocationComplete(this);
+    MaybeRetryPortAllocation();
   }
 }
 
-void AllocationSequence::CreateUDPPorts() {
+PortAllocationResult AllocationSequence::CreateUDPPorts() {
   if (IsFlagSet(PORTALLOCATOR_DISABLE_UDP)) {
     RTC_LOG(LS_VERBOSE) << "AllocationSequence: UDP ports disabled, skipping.";
-    return;
+    return PortAllocationResult::FAILURE_INFEASIBLE_CONFIG;
   }
 
   // TODO(mallinath) - Remove UDPPort creating socket after shared socket
@@ -1320,32 +1380,32 @@ void AllocationSequence::CreateUDPPorts() {
         session_->allocator()->stun_candidate_keepalive_interval());
   }
 
-  if (port) {
-    // If shared socket is enabled, STUN candidate will be allocated by the
-    // UDPPort.
-    if (IsFlagSet(PORTALLOCATOR_ENABLE_SHARED_SOCKET)) {
-      udp_port_ = port;
-      port->SignalDestroyed.connect(this, &AllocationSequence::OnPortDestroyed);
+  if (!port) {
+    return PortAllocationResult::FAILURE_CREATION_ERROR;
+  }
+  // If shared socket is enabled, STUN candidate will be allocated by the
+  // UDPPort.
+  if (IsFlagSet(PORTALLOCATOR_ENABLE_SHARED_SOCKET)) {
+    udp_port_ = port;
+    port->SignalDestroyed.connect(this, &AllocationSequence::OnPortDestroyed);
 
-      // If STUN is not disabled, setting stun server address to port.
-      if (!IsFlagSet(PORTALLOCATOR_DISABLE_STUN)) {
-        if (config_ && !config_->StunServers().empty()) {
-          RTC_LOG(LS_INFO)
-              << "AllocationSequence: UDPPort will be handling the "
-                 "STUN candidate generation.";
-          port->set_server_addresses(config_->StunServers());
-        }
+    // If STUN is not disabled, setting stun server address to port.
+    if (!IsFlagSet(PORTALLOCATOR_DISABLE_STUN)) {
+      if (config_ && !config_->StunServers().empty()) {
+        RTC_LOG(LS_INFO) << "AllocationSequence: UDPPort will be handling the "
+                            "STUN candidate generation.";
+        port->set_server_addresses(config_->StunServers());
       }
     }
-
-    session_->AddAllocatedPort(port, this, true);
   }
+  session_->AddAllocatedPort(port, this, true);
+  return PortAllocationResult::SUCCESS;
 }
 
-void AllocationSequence::CreateTCPPorts() {
+PortAllocationResult AllocationSequence::CreateTCPPorts() {
   if (IsFlagSet(PORTALLOCATOR_DISABLE_TCP)) {
     RTC_LOG(LS_VERBOSE) << "AllocationSequence: TCP ports disabled, skipping.";
-    return;
+    return PortAllocationResult::FAILURE_INFEASIBLE_CONFIG;
   }
 
   Port* port = TCPPort::Create(
@@ -1353,27 +1413,29 @@ void AllocationSequence::CreateTCPPorts() {
       session_->allocator()->min_port(), session_->allocator()->max_port(),
       session_->username(), session_->password(),
       session_->allocator()->allow_tcp_listen());
-  if (port) {
-    session_->AddAllocatedPort(port, this, true);
-    // Since TCPPort is not created using shared socket, |port| will not be
-    // added to the dequeue.
+  if (!port) {
+    return PortAllocationResult::FAILURE_CREATION_ERROR;
   }
+  session_->AddAllocatedPort(port, this, true);
+  // Since TCPPort is not created using shared socket, |port| will not be
+  // added to the dequeue.
+  return PortAllocationResult::SUCCESS;
 }
 
-void AllocationSequence::CreateStunPorts() {
+PortAllocationResult AllocationSequence::CreateStunPorts() {
   if (IsFlagSet(PORTALLOCATOR_DISABLE_STUN)) {
     RTC_LOG(LS_VERBOSE) << "AllocationSequence: STUN ports disabled, skipping.";
-    return;
+    return PortAllocationResult::FAILURE_INFEASIBLE_CONFIG;
   }
 
   if (IsFlagSet(PORTALLOCATOR_ENABLE_SHARED_SOCKET)) {
-    return;
+    return PortAllocationResult::FAILURE_INFEASIBLE_CONFIG;
   }
 
   if (!(config_ && !config_->StunServers().empty())) {
     RTC_LOG(LS_WARNING)
         << "AllocationSequence: No STUN server configured, skipping.";
-    return;
+    return PortAllocationResult::FAILURE_INFEASIBLE_CONFIG;
   }
 
   StunPort* port = StunPort::Create(
@@ -1382,18 +1444,20 @@ void AllocationSequence::CreateStunPorts() {
       session_->username(), session_->password(), config_->StunServers(),
       session_->allocator()->origin(),
       session_->allocator()->stun_candidate_keepalive_interval());
-  if (port) {
-    session_->AddAllocatedPort(port, this, true);
-    // Since StunPort is not created using shared socket, |port| will not be
-    // added to the dequeue.
+  if (!port) {
+    return PortAllocationResult::FAILURE_CREATION_ERROR;
   }
+  session_->AddAllocatedPort(port, this, true);
+  // Since StunPort is not created using shared socket, |port| will not be
+  // added to the dequeue.
+  return PortAllocationResult::SUCCESS;
 }
 
-void AllocationSequence::CreateRelayPorts() {
+PortAllocationResult AllocationSequence::CreateRelayPorts() {
   if (IsFlagSet(PORTALLOCATOR_DISABLE_RELAY)) {
     RTC_LOG(LS_VERBOSE)
         << "AllocationSequence: Relay ports disabled, skipping.";
-    return;
+    return PortAllocationResult::FAILURE_INFEASIBLE_CONFIG;
   }
 
   // If BasicPortAllocatorSession::OnAllocate left relay ports enabled then we
@@ -1403,51 +1467,64 @@ void AllocationSequence::CreateRelayPorts() {
   if (!(config_ && !config_->relays.empty())) {
     RTC_LOG(LS_WARNING)
         << "AllocationSequence: No relay server configured, skipping.";
-    return;
+    return PortAllocationResult::FAILURE_INFEASIBLE_CONFIG;
   }
 
+  AllocationProgress allocation_progress_;
   for (RelayServerConfig& relay : config_->relays) {
     if (relay.type == RELAY_GTURN) {
-      CreateGturnPort(relay);
+      allocation_progress_.Update(CreateGturnPort(relay));
     } else if (relay.type == RELAY_TURN) {
-      CreateTurnPort(relay);
+      allocation_progress_.Update(CreateTurnPort(relay));
     } else {
       RTC_NOTREACHED();
     }
   }
+  if (!allocation_progress_.tried_creation_with_feasible_config()) {
+    return PortAllocationResult::FAILURE_INFEASIBLE_CONFIG;
+  }
+  if (!allocation_progress_.created_valid_port()) {
+    return PortAllocationResult::FAILURE_CREATION_ERROR;
+  }
+  return PortAllocationResult::SUCCESS;
 }
 
-void AllocationSequence::CreateGturnPort(const RelayServerConfig& config) {
+PortAllocationResult AllocationSequence::CreateGturnPort(
+    const RelayServerConfig& config) {
   // TODO(mallinath) - Rename RelayPort to GTurnPort.
   RelayPort* port = RelayPort::Create(
       session_->network_thread(), session_->socket_factory(), network_,
       session_->allocator()->min_port(), session_->allocator()->max_port(),
       config_->username, config_->password);
-  if (port) {
-    // Since RelayPort is not created using shared socket, |port| will not be
-    // added to the dequeue.
-    // Note: We must add the allocated port before we add addresses because
-    //       the latter will create candidates that need name and preference
-    //       settings.  However, we also can't prepare the address (normally
-    //       done by AddAllocatedPort) until we have these addresses.  So we
-    //       wait to do that until below.
-    session_->AddAllocatedPort(port, this, false);
-
-    // Add the addresses of this protocol.
-    PortList::const_iterator relay_port;
-    for (relay_port = config.ports.begin();
-         relay_port != config.ports.end();
-         ++relay_port) {
-      port->AddServerAddress(*relay_port);
-      port->AddExternalAddress(*relay_port);
-    }
-    // Start fetching an address for this port.
-    port->PrepareAddress();
+  if (!port) {
+    return PortAllocationResult::FAILURE_CREATION_ERROR;
   }
+  // Since RelayPort is not created using shared socket, |port| will not be
+  // added to the dequeue.
+  // Note: We must add the allocated port before we add addresses because
+  //       the latter will create candidates that need name and preference
+  //       settings.  However, we also can't prepare the address (normally
+  //       done by AddAllocatedPort) until we have these addresses.  So we
+  //       wait to do that until below.
+  session_->AddAllocatedPort(port, this, false);
+
+  // Add the addresses of this protocol.
+  PortList::const_iterator relay_port;
+  for (relay_port = config.ports.begin(); relay_port != config.ports.end();
+       ++relay_port) {
+    port->AddServerAddress(*relay_port);
+    port->AddExternalAddress(*relay_port);
+  }
+  // Start fetching an address for this port.
+  port->PrepareAddress();
+  return PortAllocationResult::SUCCESS;
 }
 
-void AllocationSequence::CreateTurnPort(const RelayServerConfig& config) {
+PortAllocationResult AllocationSequence::CreateTurnPort(
+    const RelayServerConfig& config) {
   PortList::const_iterator relay_port;
+  bool tried_creation_with_feasible_config = false;
+  bool created_valid_port = false;
   for (relay_port = config.ports.begin();
        relay_port != config.ports.end(); ++relay_port) {
     // Skip UDP connections to relay servers if it's disallowed.
@@ -1467,6 +1544,8 @@ void AllocationSequence::CreateTurnPort(const RelayServerConfig& config) {
           << " Local address: " << network_->GetBestIP().ToString();
       continue;
     }
+
+    tried_creation_with_feasible_config = true;
 
     CreateRelayPortArgs args;
     args.network_thread = session_->network_thread();
@@ -1515,7 +1594,43 @@ void AllocationSequence::CreateTurnPort(const RelayServerConfig& config) {
     }
     RTC_DCHECK(port != NULL);
     session_->AddAllocatedPort(port.release(), this, true);
+    created_valid_port = true;
   }
+  if (!tried_creation_with_feasible_config) {
+    return PortAllocationResult::FAILURE_INFEASIBLE_CONFIG;
+  }
+  if (!created_valid_port) {
+    return PortAllocationResult::FAILURE_CREATION_ERROR;
+  }
+  return PortAllocationResult::SUCCESS;
+}
+
+void AllocationSequence::MaybeRetryPortAllocation() {
+  RTC_DCHECK(rtc::Thread::Current() == session_->network_thread());
+  // We may retry the port allocation if there is no valid port allocated and
+  // not all allocation failures are due to configuration.
+  if (progress_.HasPendingRetryByPhase() &&
+      port_allocation_retries_ < kPortAllocationRetryLimit) {
+    ++port_allocation_retries_;
+    RTC_LOG(INFO) << network_->ToString() << ": Retry port allocation, retry = "
+                  << port_allocation_retries_;
+    phase_ = 0;
+    state_ = kRunning;
+    flags_ |= progress_.disable_retry_flags();
+    // Each round along the allocation sequence takes a period as multiples of
+    // step_delay(), e.g. 4 * |kMinimumStepDelay| = 200ms. We do not have to
+    // wait too long for the retry.
+    session_->network_thread()->PostDelayed(RTC_FROM_HERE,
+                                            kPortAllocationRetryIntervalMs,
+                                            this, MSG_ALLOCATION_PHASE);
+    return;
+  }
+  port_allocation_retries_ = 0;
+  // If all phases in AllocationSequence are completed, no allocation
+  // steps needed further. Canceling pending signal.
+  session_->network_thread()->Clear(this, MSG_ALLOCATION_PHASE);
+  flags_ = initial_flags_;
+  SignalPortAllocationComplete(this);
 }
 
 void AllocationSequence::OnReadPacket(

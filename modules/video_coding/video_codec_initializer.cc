@@ -174,44 +174,45 @@ VideoCodec VideoCodecInitializer::VideoEncoderConfigToVideoCodec(
     case kVideoCodecVP8: {
       if (!config.encoder_specific_settings) {
         *video_codec.VP8() = VideoEncoder::GetDefaultVp8Settings();
-      }
 
-      video_codec.VP8()->numberOfTemporalLayers = static_cast<unsigned char>(
-          streams.back().num_temporal_layers.value_or(
-              video_codec.VP8()->numberOfTemporalLayers));
+        video_codec.VP8()->numberOfTemporalLayers = static_cast<unsigned char>(
+            streams.back().num_temporal_layers.value_or(
+                video_codec.VP8()->numberOfTemporalLayers));
+
+        if (nack_enabled && video_codec.VP8()->numberOfTemporalLayers == 1) {
+          RTC_LOG(LS_INFO)
+              << "No temporal layers and nack enabled -> resilience off";
+          video_codec.VP8()->resilience = kResilienceOff;
+        }
+      }
       RTC_DCHECK_GE(video_codec.VP8()->numberOfTemporalLayers, 1);
       RTC_DCHECK_LE(video_codec.VP8()->numberOfTemporalLayers,
                     kMaxTemporalStreams);
-
-      if (nack_enabled && video_codec.VP8()->numberOfTemporalLayers == 1) {
-        RTC_LOG(LS_INFO)
-            << "No temporal layers and nack enabled -> resilience off";
-        video_codec.VP8()->resilience = kResilienceOff;
-      }
       break;
     }
     case kVideoCodecVP9: {
       if (!config.encoder_specific_settings) {
         *video_codec.VP9() = VideoEncoder::GetDefaultVp9Settings();
-      }
 
-      video_codec.VP9()->numberOfTemporalLayers = static_cast<unsigned char>(
-          streams.back().num_temporal_layers.value_or(
-              video_codec.VP9()->numberOfTemporalLayers));
+        video_codec.VP9()->numberOfTemporalLayers = static_cast<unsigned char>(
+            streams.back().num_temporal_layers.value_or(
+                video_codec.VP9()->numberOfTemporalLayers));
+      }
       RTC_DCHECK_GE(video_codec.VP9()->numberOfTemporalLayers, 1);
       RTC_DCHECK_LE(video_codec.VP9()->numberOfTemporalLayers,
                     kMaxTemporalStreams);
 
       if (video_codec.mode == kScreensharing &&
           config.encoder_specific_settings) {
-        video_codec.VP9()->flexibleMode = true;
+        if (!config.encoder_specific_settings)
+          video_codec.VP9()->flexibleMode = true;
         // For now VP9 screensharing use 1 temporal and 2 spatial layers.
         RTC_DCHECK_EQ(1, video_codec.VP9()->numberOfTemporalLayers);
         RTC_DCHECK_EQ(2, video_codec.VP9()->numberOfSpatialLayers);
       } else {
         RTC_DCHECK(config.spatial_layers.empty() ||
                    config.spatial_layers.size() ==
-                       video_codec.VP9()->numberOfSpatialLayers);
+                   video_codec.VP9()->numberOfSpatialLayers);
 
         std::vector<SpatialLayer> spatial_layers;
         if (!config.spatial_layers.empty()) {
@@ -236,25 +237,32 @@ VideoCodec VideoCodecInitializer::VideoEncoderConfigToVideoCodec(
           video_codec.spatialLayers[i] = spatial_layers[i];
         }
 
-        // Update layering settings.
-        video_codec.VP9()->numberOfSpatialLayers =
-            static_cast<unsigned char>(spatial_layers.size());
-        RTC_DCHECK_GE(video_codec.VP9()->numberOfSpatialLayers, 1);
-        RTC_DCHECK_LE(video_codec.VP9()->numberOfSpatialLayers,
-                      kMaxSpatialLayers);
+        if (config.encoder_specific_settings) {
+          RTC_DCHECK_EQ(video_codec.VP9()->numberOfSpatialLayers,
+                        spatial_layers.size());
+        } else {
+          // Update layering settings.
+          video_codec.VP9()->numberOfSpatialLayers =
+              static_cast<unsigned char>(spatial_layers.size());
+          RTC_DCHECK_GE(video_codec.VP9()->numberOfSpatialLayers, 1);
+          RTC_DCHECK_LE(video_codec.VP9()->numberOfSpatialLayers,
+                        kMaxSpatialLayers);
 
-        video_codec.VP9()->numberOfTemporalLayers = static_cast<unsigned char>(
-            spatial_layers.back().numberOfTemporalLayers);
-        RTC_DCHECK_GE(video_codec.VP9()->numberOfTemporalLayers, 1);
-        RTC_DCHECK_LE(video_codec.VP9()->numberOfTemporalLayers,
-                      kMaxTemporalStreams);
-      }
+          video_codec.VP9()->numberOfTemporalLayers =
+              static_cast<unsigned char>(
+                  spatial_layers.back().numberOfTemporalLayers);
+          RTC_DCHECK_GE(video_codec.VP9()->numberOfTemporalLayers, 1);
+          RTC_DCHECK_LE(video_codec.VP9()->numberOfTemporalLayers,
+                        kMaxTemporalStreams);
+        }
 
-      if (nack_enabled && video_codec.VP9()->numberOfTemporalLayers == 1 &&
-          video_codec.VP9()->numberOfSpatialLayers == 1) {
-        RTC_LOG(LS_INFO) << "No temporal or spatial layers and nack enabled -> "
-                         << "resilience off";
-        video_codec.VP9()->resilienceOn = false;
+        if (nack_enabled && video_codec.VP9()->numberOfTemporalLayers == 1 &&
+            video_codec.VP9()->numberOfSpatialLayers == 1) {
+          RTC_LOG(LS_INFO)
+              << "No temporal or spatial layers and nack enabled -> "
+              << "resilience off";
+          video_codec.VP9()->resilienceOn = false;
+        }
       }
       break;
     }

@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a30e7521_9b5f4727",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-23T23:07:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "123af83e_4ed6c531",
+      "revId": "8bffba015d112546647551654d23c9c2032e9049",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c3b9374a_e17b3c8b",
         "filename": "p2p/client/basicportallocator.cc",
         "patchSetId": 3
@@ -59,6 +77,48 @@
     },
     {
       "key": {
+        "uuid": "b0c3a73a_43bbc303",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-23T23:07:00Z",
+      "side": 1,
+      "message": "From a few logs for calls where this issue was reproduced, it looks like the network interface would be ready around 100-200ms after the initial port allocation. Our current implementation using the allocation sequence takes ~200ms for one iteration. I was betting the 3 rounds of retriss would probably suffice. But yeah, it is a good idea to be more conservation given the case is rare. Btw, we can only reproduce on a N6P phone after a number of internal tests.",
+      "parentUuid": "30ad9e54_9b9229f8",
+      "range": {
+        "startLine": 42,
+        "startChar": 53,
+        "endLine": 42,
+        "endChar": 0
+      },
+      "revId": "8bffba015d112546647551654d23c9c2032e9049",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "697d32e2_d4915e69",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-23T23:07:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c3b9374a_e17b3c8b",
+      "revId": "8bffba015d112546647551654d23c9c2032e9049",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6b7d07c2_3156130c",
         "filename": "p2p/client/basicportallocator.cc",
         "patchSetId": 3
@@ -82,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "10732f20_e2c51eae",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1267,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-23T23:07:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6b7d07c2_3156130c",
+      "range": {
+        "startLine": 1266,
+        "startChar": 60,
+        "endLine": 1267,
+        "endChar": 0
+      },
+      "revId": "8bffba015d112546647551654d23c9c2032e9049",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "43aadb6e_91a51d13",
         "filename": "p2p/client/basicportallocator.cc",
         "patchSetId": 3
@@ -102,6 +186,30 @@
       "revId": "8bffba015d112546647551654d23c9c2032e9049",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f2b84e3_4f8edb40",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1293,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-23T23:07:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "43aadb6e_91a51d13",
+      "range": {
+        "startLine": 1293,
+        "startChar": 61,
+        "endLine": 1293,
+        "endChar": 65
+      },
+      "revId": "8bffba015d112546647551654d23c9c2032e9049",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -140,6 +248,24 @@
     },
     {
       "key": {
+        "uuid": "e230d28f_f37a86f9",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1296,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-23T23:07:00Z",
+      "side": 1,
+      "message": "I have rewritten how retry is performed, and retry is done per port type now. This hopefully covers the common use cases when we rely on udp sockets. The bug reports related to what this CL is fixing have the common pattern where the shared udp socket failed to bind, which was attempted at the first place, and the following per-port udp socket also failed in binding. I mentioned in a comment below where Taylor pointed out the issue of shared udp socket failure, that it seems we tolerate that failure in design by falling back to per-port udp socket. We can also make the shared udp socket initialization reliable to improve the robustness if we want to enforce the shared design, which is the default.",
+      "parentUuid": "c6b75246_e5afa01e",
+      "revId": "8bffba015d112546647551654d23c9c2032e9049",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1b7328e9_2fd10939",
         "filename": "p2p/client/basicportallocator.cc",
         "patchSetId": 3
@@ -157,6 +283,24 @@
     },
     {
       "key": {
+        "uuid": "3066e2b5_49fb993e",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1302,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-23T23:07:00Z",
+      "side": 1,
+      "message": "Good point. Done with ToString. LOG_J got removed in a CL we reviewed.",
+      "parentUuid": "1b7328e9_2fd10939",
+      "revId": "8bffba015d112546647551654d23c9c2032e9049",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0b99c7c7_42a2119d",
         "filename": "p2p/client/basicportallocator.cc",
         "patchSetId": 3
@@ -168,6 +312,24 @@
       "writtenOn": "2018-03-22T22:05:36Z",
       "side": 1,
       "message": "What if udp_socket_ is null? Something to keep in mind is that PORTALLOCATOR_ENABLE_SHARED_SOCKET is the default everywhere; https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d8283",
+      "revId": "8bffba015d112546647551654d23c9c2032e9049",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42bd7512_d44a25af",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1335,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-23T23:07:00Z",
+      "side": 1,
+      "message": "From logs for cases where the racing condition was reproduced, the creation of udp_socket_ did failure as well in Init in the first place. Though the else block takes care of this failure and the retry is supposedly to make the creation below reliable, I am wondering if it is the intended behavior from the design point of view. We can also retry in Init, but it seems the current implementation is aware of that and decides to move on.",
+      "parentUuid": "0b99c7c7_42a2119d",
       "revId": "8bffba015d112546647551654d23c9c2032e9049",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -197,6 +359,30 @@
     },
     {
       "key": {
+        "uuid": "332632eb_e6ee3994",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1369,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-23T23:07:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "78ca7e03_1c6d0324",
+      "range": {
+        "startLine": 1368,
+        "startChar": 54,
+        "endLine": 1369,
+        "endChar": 0
+      },
+      "revId": "8bffba015d112546647551654d23c9c2032e9049",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2f3378c8_0a43c799",
         "filename": "p2p/client/basicportallocator.cc",
         "patchSetId": 3
@@ -217,6 +403,30 @@
       "revId": "8bffba015d112546647551654d23c9c2032e9049",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85da064c_f3b8f671",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1445,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-23T23:07:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2f3378c8_0a43c799",
+      "range": {
+        "startLine": 1444,
+        "startChar": 64,
+        "endLine": 1445,
+        "endChar": 0
+      },
+      "revId": "8bffba015d112546647551654d23c9c2032e9049",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -243,6 +453,30 @@
     },
     {
       "key": {
+        "uuid": "d7d5d71e_f33c0dc1",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1569,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-23T23:07:00Z",
+      "side": 1,
+      "message": "Added in the comments to the definition of PortAllocationResult.",
+      "parentUuid": "fa2eb833_f43172d9",
+      "range": {
+        "startLine": 1568,
+        "startChar": 41,
+        "endLine": 1569,
+        "endChar": 0
+      },
+      "revId": "8bffba015d112546647551654d23c9c2032e9049",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "81085483_b272681e",
         "filename": "p2p/client/basicportallocator.cc",
         "patchSetId": 3
@@ -266,6 +500,30 @@
     },
     {
       "key": {
+        "uuid": "e13d6ab2_14214571",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1574,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-23T23:07:00Z",
+      "side": 1,
+      "message": "Ack. Changed the same block above as well.",
+      "parentUuid": "81085483_b272681e",
+      "range": {
+        "startLine": 1573,
+        "startChar": 57,
+        "endLine": 1574,
+        "endChar": 0
+      },
+      "revId": "8bffba015d112546647551654d23c9c2032e9049",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a96890b4_0c714400",
         "filename": "p2p/client/basicportallocator.h",
         "patchSetId": 3
@@ -286,6 +544,30 @@
       "revId": "8bffba015d112546647551654d23c9c2032e9049",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b5bb0a1_25cee860",
+        "filename": "p2p/client/basicportallocator.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-23T23:07:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a96890b4_0c714400",
+      "range": {
+        "startLine": 311,
+        "startChar": 25,
+        "endLine": 311,
+        "endChar": 0
+      },
+      "revId": "8bffba015d112546647551654d23c9c2032e9049",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

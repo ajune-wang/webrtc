@@ -1,0 +1,429 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bbca0cdc_d23ae6aa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-23T23:30:36Z",
+      "side": 1,
+      "message": "nit: Try to fit message on one line",
+      "revId": "b1c3292b24d5d69980e166657da7f2d65a0f4fbf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b0c89e3c_52fdc5c4",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 533,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-23T23:30:36Z",
+      "side": 1,
+      "message": "nit: I think this line could be removed.",
+      "revId": "b1c3292b24d5d69980e166657da7f2d65a0f4fbf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9fb51472_fb972967",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 535,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-23T23:30:36Z",
+      "side": 1,
+      "message": "nit: \"vaild\"",
+      "revId": "b1c3292b24d5d69980e166657da7f2d65a0f4fbf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91861975_9375684c",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 537,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-23T23:30:36Z",
+      "side": 1,
+      "message": "I\u0027m not sure if RTCConfiguration is the right place for this. I feel it was somewhat the wrong choice for TurnCustomizer (which I\u0027ve been meaning to fix). From discussions with other WebRTC API owners, it seems like we generally prefer injecting dependencies wrapped by unique_ptr, to make for a \"safer\" API, where you don\u0027t need to worry about whether the PeerConnection is still using something before deleting it. But RTCConfiguration doesn\u0027t lend itself well to this, due to the whole \"get/modify/set\" pattern.\n\nWhich I guess would mean it should be passed into CreatePeerConnection, along with the PortAllocator and RTCCertificateGeneratorInterface. It somewhat makes sense that \"cert verifier\" would go with \"cert generator\".\n\nIt may be a good time to introduce a \"PeerConnectionConfig\"/\"PeerConnectionDependencies\" struct, so that we can add new CreatePeerConnection arguments without adding a new overload of CreatePeerConnection every time. Meaning something like:\n\nstruct PeerConnectionDependencies {\n  std::unique_ptr\u003ccricket::PortAllocator\u003e allocator;\n  std::unique_ptr\u003crtc::RTCCertificateGeneratorInterface\u003e cert_generator;\n  std::unique_ptr\u003crtc::SSLCertificateVerifier\u003e tls_cert_verifier;\n  PeerConnectionObserver* observer;\n};\n\nThis bug is related: https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d7913",
+      "revId": "b1c3292b24d5d69980e166657da7f2d65a0f4fbf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79998124_b5e47eae",
+        "filename": "pc/peerconnection_integrationtest.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 3902,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-23T23:30:36Z",
+      "side": 1,
+      "message": "May want to leave a note about why \"88.88.88.0\" needs to be be passed in.",
+      "revId": "b1c3292b24d5d69980e166657da7f2d65a0f4fbf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "413a4291_e407c059",
+        "filename": "pc/peerconnection_integrationtest.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 3905,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-23T23:30:36Z",
+      "side": 1,
+      "message": "nit: For boolean parameters whose meaning is ambiguous, we commonly do either:\n\nbool ignore_bad_certs \u003d true;\ncricket::TestTurnServer turn_server(\n     network_thread(), turn_server_internal_address,\n     turn_server_external_address, cricket::PROTO_TLS, ignore_bad_certs, \"88.88.88.0\");\n\nOr:\n\ncricket::TestTurnServer turn_server(\n     network_thread(), turn_server_internal_address,\n     turn_server_external_address, cricket::PROTO_TLS, /*ignore_bad_certs\u003d*/true, \"88.88.88.0\");\n\nI personally prefer the latter.",
+      "revId": "b1c3292b24d5d69980e166657da7f2d65a0f4fbf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f8e7d42_a6d810b8",
+        "filename": "pc/peerconnection_integrationtest.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 3911,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-23T23:30:36Z",
+      "side": 1,
+      "message": "May help to leave comment mentioning how setting |type| to kRelay forces a connection through the TURN server.",
+      "revId": "b1c3292b24d5d69980e166657da7f2d65a0f4fbf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16f8c9b0_4e805530",
+        "filename": "pc/peerconnection_integrationtest.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 3936,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-23T23:30:36Z",
+      "side": 1,
+      "message": "To add a bit more peace of mind, could test that when the verification callback fails, the PeerConnection will fail, and when the verification succeeds the connection succeeds.",
+      "revId": "b1c3292b24d5d69980e166657da7f2d65a0f4fbf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8754b884_616c5ba7",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 13
+      },
+      "lineNbr": 888,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-23T23:30:36Z",
+      "side": 1,
+      "message": "nit: To avoid double negatives, we generally prefer \"enable\" variables that default to \"true\" as opposed to \"disable\" variables that default to \"false\".",
+      "revId": "b1c3292b24d5d69980e166657da7f2d65a0f4fbf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab5b85bd_3896939f",
+        "filename": "rtc_base/openssladapter.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-23T23:30:36Z",
+      "side": 1,
+      "message": "Used for debugging?",
+      "revId": "b1c3292b24d5d69980e166657da7f2d65a0f4fbf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "232c7176_e9c29c38",
+        "filename": "rtc_base/openssladapter.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 870,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-23T23:30:36Z",
+      "side": 1,
+      "message": "Log something for failure?",
+      "revId": "b1c3292b24d5d69980e166657da7f2d65a0f4fbf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f33f14cf_3080ea8d",
+        "filename": "rtc_base/openssladapter.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 995,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-23T23:30:36Z",
+      "side": 1,
+      "message": "Used for debugging?",
+      "revId": "b1c3292b24d5d69980e166657da7f2d65a0f4fbf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aff103e6_48f99c96",
+        "filename": "rtc_base/openssladapter.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-23T23:30:36Z",
+      "side": 1,
+      "message": "\"cache and verifier\"?",
+      "revId": "b1c3292b24d5d69980e166657da7f2d65a0f4fbf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b21087ee_ac337f25",
+        "filename": "rtc_base/openssladapter.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-23T23:30:36Z",
+      "side": 1,
+      "message": "If it\u0027s effectively immutable, what about SetCertVerifier?",
+      "revId": "b1c3292b24d5d69980e166657da7f2d65a0f4fbf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e270d349_7041f404",
+        "filename": "rtc_base/openssladapter.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-23T23:30:36Z",
+      "side": 1,
+      "message": "Is \"NOT OWNER\" a standard type of comment? I don\u0027t see it elsewhere in webrtc. Generally in our codebase, a raw pointer implies \"not owned\" since we use smart pointers in any other case",
+      "revId": "b1c3292b24d5d69980e166657da7f2d65a0f4fbf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec00cce5_bcbfdcd7",
+        "filename": "rtc_base/openssladapter.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-23T23:30:36Z",
+      "side": 1,
+      "message": "Should update this comment.",
+      "revId": "b1c3292b24d5d69980e166657da7f2d65a0f4fbf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0027bca1_2c8a1b18",
+        "filename": "rtc_base/openssladapter_unittest.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-23T23:30:36Z",
+      "side": 1,
+      "message": "A brief comment summarizing what each test is meant to be testing would be helpful.",
+      "revId": "b1c3292b24d5d69980e166657da7f2d65a0f4fbf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f6cc6ad_58ca59c5",
+        "filename": "rtc_base/openssladapter_unittest.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-23T23:30:36Z",
+      "side": 1,
+      "message": "CustomVerifier?",
+      "revId": "b1c3292b24d5d69980e166657da7f2d65a0f4fbf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0aaace7c_952a0592",
+        "filename": "rtc_base/opensslcertificate.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-23T23:30:36Z",
+      "side": 1,
+      "message": "I assume the code here is just being moved?",
+      "revId": "b1c3292b24d5d69980e166657da7f2d65a0f4fbf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b599c798_7cf2a547",
+        "filename": "rtc_base/opensslcertificate.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-23T23:30:36Z",
+      "side": 1,
+      "message": "nit: I know this is an existing comment, but it\u0027s not clear what it means; the constructor adds a reference to |x509| so the caller and OpenSSLCertificate share ownership.",
+      "revId": "b1c3292b24d5d69980e166657da7f2d65a0f4fbf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12563e1a_9b7f82e0",
+        "filename": "rtc_base/ssladapter.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-23T23:30:36Z",
+      "side": 1,
+      "message": "nit: Doesn\u0027t appear used in this header",
+      "revId": "b1c3292b24d5d69980e166657da7f2d65a0f4fbf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d0b12ec_9b209b52",
+        "filename": "rtc_base/sslcertificate.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-23T23:30:36Z",
+      "side": 1,
+      "message": "nit: I know it\u0027s an old comment but it\u0027s not clear what it\u0027s referring to. This class is used for more than just SSLStreamAdapter.",
+      "revId": "b1c3292b24d5d69980e166657da7f2d65a0f4fbf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95dc45be_a66fa085",
+        "filename": "rtc_base/sslcertificate.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-23T23:30:36Z",
+      "side": 1,
+      "message": "I think this circular dependency is gone since we got rid of SSLCertificate::GetChain",
+      "revId": "b1c3292b24d5d69980e166657da7f2d65a0f4fbf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1e94e41_0a996dc8",
+        "filename": "rtc_base/sslidentity.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-23T23:30:36Z",
+      "side": 1,
+      "message": "Doesn\u0027t appear to be public",
+      "revId": "b1c3292b24d5d69980e166657da7f2d65a0f4fbf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eacb71c1_bf79595b",
+        "filename": "rtc_base/testcertificateverifier.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-23T23:30:36Z",
+      "side": 1,
+      "message": "marked \"override\" instead of \"virtual\"?",
+      "revId": "b1c3292b24d5d69980e166657da7f2d65a0f4fbf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

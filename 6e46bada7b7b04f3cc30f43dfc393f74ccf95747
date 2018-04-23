@@ -22,6 +22,30 @@
       "revId": "6e46bada7b7b04f3cc30f43dfc393f74ccf95747",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6577b7d1_66b7dd81",
+        "filename": "api/video/video_bitrate_allocation.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-04-23T10:21:52Z",
+      "side": 1,
+      "message": "Agreed, these need to be consolidated and moved to a new home.\nI\u0027ll try to clean that up in combination with fixing includes of common_types that really want this class instead.",
+      "parentUuid": "080a92c9_19332ad8",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 39
+      },
+      "revId": "6e46bada7b7b04f3cc30f43dfc393f74ccf95747",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

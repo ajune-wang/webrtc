@@ -45,7 +45,7 @@ class StreamStatistician {
   virtual void GetReceiveStreamDataCounters(
       StreamDataCounters* data_counters) const = 0;
 
-  virtual uint32_t BitrateReceived() const = 0;
+  virtual uint32_t BitrateReceived() = 0;
 
   // Returns true if the packet with RTP header |header| is likely to be a
   // retransmitted packet, false otherwise.

@@ -68,11 +68,11 @@ class RTPSender {
 
   void ProcessBitrate();
 
-  uint16_t ActualSendBitrateKbit() const;
+  uint16_t ActualSendBitrateKbit();
 
   uint32_t VideoBitrateSent() const;
   uint32_t FecOverheadRate() const;
-  uint32_t NackOverheadRate() const;
+  uint32_t NackOverheadRate();
 
   int32_t RegisterPayload(const char* payload_name,
                           const int8_t payload_type,
@@ -201,7 +201,7 @@ class RTPSender {
   void RegisterRtpStatisticsCallback(StreamDataCountersCallback* callback);
   StreamDataCountersCallback* GetRtpStatisticsCallback() const;
 
-  uint32_t BitrateSent() const;
+  uint32_t BitrateSent();
 
   void SetRtpState(const RtpState& rtp_state);
   RtpState GetRtpState() const;

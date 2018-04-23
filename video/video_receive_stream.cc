@@ -261,7 +261,7 @@ void VideoReceiveStream::Stop() {
   transport_adapter_.Disable();
 }
 
-VideoReceiveStream::Stats VideoReceiveStream::GetStats() const {
+VideoReceiveStream::Stats VideoReceiveStream::GetStats() {
   return stats_proxy_.GetStats();
 }
 

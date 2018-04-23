@@ -543,7 +543,7 @@ void ReceiveStatisticsProxy::UpdateFramerate(int64_t now_ms) const {
   stats_.network_frame_rate = static_cast<int>(framerate);
 }
 
-VideoReceiveStream::Stats ReceiveStatisticsProxy::GetStats() const {
+VideoReceiveStream::Stats ReceiveStatisticsProxy::GetStats() {
   rtc::CritScope lock(&crit_);
   // Get current frame rates here, as only updating them on new frames prevents
   // us from ever correctly displaying frame rate of 0.

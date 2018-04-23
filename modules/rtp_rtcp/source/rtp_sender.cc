@@ -200,7 +200,7 @@ rtc::ArrayView<const RtpExtensionSize> RTPSender::VideoExtensionSizes() {
                             arraysize(kVideoExtensionSizes));
 }
 
-uint16_t RTPSender::ActualSendBitrateKbit() const {
+uint16_t RTPSender::ActualSendBitrateKbit() {
   rtc::CritScope cs(&statistics_crit_);
   return static_cast<uint16_t>(
       total_bitrate_sent_.Rate(clock_->TimeInMilliseconds()).value_or(0) /
@@ -221,7 +221,7 @@ uint32_t RTPSender::FecOverheadRate() const {
   return 0;
 }
 
-uint32_t RTPSender::NackOverheadRate() const {
+uint32_t RTPSender::NackOverheadRate() {
   rtc::CritScope cs(&statistics_crit_);
   return nack_bitrate_sent_.Rate(clock_->TimeInMilliseconds()).value_or(0);
 }
@@ -1284,7 +1284,7 @@ StreamDataCountersCallback* RTPSender::GetRtpStatisticsCallback() const {
   return rtp_stats_callback_;
 }
 
-uint32_t RTPSender::BitrateSent() const {
+uint32_t RTPSender::BitrateSent() {
   rtc::CritScope cs(&statistics_crit_);
   return total_bitrate_sent_.Rate(clock_->TimeInMilliseconds()).value_or(0);
 }

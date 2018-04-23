@@ -231,7 +231,7 @@ class VideoReceiveStream {
   virtual void Stop() = 0;
 
   // TODO(pbos): Add info on currently-received codec to Stats.
-  virtual Stats GetStats() const = 0;
+  virtual Stats GetStats() = 0;
 
   // Takes ownership of the file, is responsible for closing it later.
   // Calling this method will close and finalize any current log.

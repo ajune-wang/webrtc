@@ -72,8 +72,8 @@ class RTPSenderVideo {
   // FlexFEC.
   rtc::Optional<uint32_t> FlexfecSsrc() const;
 
-  uint32_t VideoBitrateSent() const;
-  uint32_t FecOverheadRate() const;
+  uint32_t VideoBitrateSent();
+  uint32_t FecOverheadRate();
 
   int SelectiveRetransmissions() const;
   void SetSelectiveRetransmissions(uint8_t settings);

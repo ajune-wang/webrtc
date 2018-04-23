@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "2435b7af_ce684fa2",
+        "filename": "modules/audio_processing/agc2/rnn_vad/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-23T22:09:31Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b9a31df4_1a8073b1",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 19
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "80e0a1d7_4a575917",
         "filename": "modules/audio_processing/agc2/rnn_vad/common.h",
         "patchSetId": 2
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "It is used in several places. In general I\u0027m quite explicit with var names on which sample rate is being used at each step since there are steps which work at different rates.",
       "parentUuid": "80e0a1d7_4a575917",
+      "range": {
+        "startLine": 17,
+        "startChar": 17,
+        "endLine": 17,
+        "endChar": 33
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "04f2454c_863f65df",
+        "filename": "modules/audio_processing/agc2/rnn_vad/common.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-23T22:09:31Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e865a719_fd9ea3db",
       "range": {
         "startLine": 17,
         "startChar": 17,
@@ -554,6 +602,30 @@
     },
     {
       "key": {
+        "uuid": "ad278e11_a5f89d19",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-23T22:09:31Z",
+      "side": 1,
+      "message": "I\u0027ll have another look at the revised code. My current feeling is that it increases the risk of errors as it decreases the readability, but I\u0027ll add a comment in the latest patchset for that in that case.",
+      "parentUuid": "c795357e_4fc8b283",
+      "range": {
+        "startLine": 26,
+        "startChar": 14,
+        "endLine": 26,
+        "endChar": 28
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8342aa45_b02f129e",
         "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
         "patchSetId": 2
@@ -636,6 +708,30 @@
       "side": 1,
       "message": "The added value here is in the arguments of std::inner_product. The function is called 9 times meaning that we would need to duplicate 9 times the logic that determines how an auto-correlation coefficient is computed. For release builds, the DCHECKS are ignored and the compiler inlines the function (verified via flame graphs). As for GetInvertedLag, I prefer to keep the function. WDYT?",
       "parentUuid": "a6936dc6_e6ff5095",
+      "range": {
+        "startLine": 31,
+        "startChar": 13,
+        "endLine": 31,
+        "endChar": 40
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46c9e78f_b9e0506c",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-23T22:09:31Z",
+      "side": 1,
+      "message": "To clarify, I\u0027m not at all concerned about the complexity of this as this method will be inlined. What I meant more was that removing it would decrease the size of the code, which increases the readability. Furthermore, I think that not abstracting the inner product in a separate method also increases the readability.\nI\u0027ll look at the new patchset and add comments there.",
+      "parentUuid": "a3c8a550_b62c5401",
       "range": {
         "startLine": 31,
         "startChar": 13,
@@ -1062,6 +1158,30 @@
       "side": 1,
       "message": "Changed into \u003d\u003d, I usually add those kind of checks for extra safety (against type changes), but yes in this case it can\u0027t be negative.",
       "parentUuid": "60323fb7_8c170d44",
+      "range": {
+        "startLine": 71,
+        "startChar": 6,
+        "endLine": 71,
+        "endChar": 13
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e46ff785_21f16226",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-23T22:09:31Z",
+      "side": 1,
+      "message": "I agree. Adding the \u003c gives the impression to the reader of the code that it actually can be negative, so in such cases it is better to skip that.",
+      "parentUuid": "359cc199_b4dab485",
       "range": {
         "startLine": 71,
         "startChar": 6,
@@ -2075,6 +2195,30 @@
     },
     {
       "key": {
+        "uuid": "48b4d4ce_d0f9cfc6",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-23T22:09:31Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e643a9a7_ba084703",
+      "range": {
+        "startLine": 239,
+        "startChar": 8,
+        "endLine": 239,
+        "endChar": 19
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1ac01bf7_d9e66a44",
         "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
         "patchSetId": 2
@@ -2663,6 +2807,30 @@
     },
     {
       "key": {
+        "uuid": "9b4cfaa4_71afe1a4",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-23T22:09:31Z",
+      "side": 1,
+      "message": "What I meant was that instead of having one single statement that produces a an output stored in a const, I think it would be better to split it into several smaller statements. As it is now, it is a bit hard to see what is done and I think that it could perhaps be simpler to read if was done in several steps.",
+      "parentUuid": "4eb459ab_0e801f37",
+      "range": {
+        "startLine": 332,
+        "startChar": 11,
+        "endLine": 332,
+        "endChar": 14
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "085b7441_194a406a",
         "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
         "patchSetId": 2
@@ -2968,6 +3136,24 @@
     },
     {
       "key": {
+        "uuid": "21129786_980cb0a0",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-23T22:09:31Z",
+      "side": 1,
+      "message": "True :-) Good!",
+      "parentUuid": "cc14a4a8_d29094ad",
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "33e859a6_0623db3b",
         "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.h",
         "patchSetId": 2
@@ -3027,6 +3213,30 @@
       "side": 1,
       "message": "Not sure that the style guide and the array_view case have the same purpose as yours.",
       "parentUuid": "407beea6_62fef97f",
+      "range": {
+        "startLine": 21,
+        "startChar": 10,
+        "endLine": 21,
+        "endChar": 14
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da3e3522_a82818c1",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-23T22:09:31Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "fdcdbdc6_a8eb2cae",
       "range": {
         "startLine": 21,
         "startChar": 10,
@@ -3156,6 +3366,30 @@
     },
     {
       "key": {
+        "uuid": "7a321068_cfa6595a",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-23T22:09:31Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "499d5387_efc923c1",
+      "range": {
+        "startLine": 94,
+        "startChar": 7,
+        "endLine": 94,
+        "endChar": 16
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9c459679_da227f2b",
         "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.h",
         "patchSetId": 2
@@ -3226,6 +3460,30 @@
       "side": 1,
       "message": "Thanks! You\u0027re right, what matters is just PitchSearch. Instead of adding another file, I added a nested namespace named impl so that it is clear that those functions are not part of the API and they still remain visible for testing.",
       "parentUuid": "039912e6_9d1daca7",
+      "range": {
+        "startLine": 110,
+        "startChar": 10,
+        "endLine": 110,
+        "endChar": 21
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "73c5b4f5_e89db66a",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-23T22:09:31Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "3c3773a2_64c44ee3",
       "range": {
         "startLine": 110,
         "startChar": 10,

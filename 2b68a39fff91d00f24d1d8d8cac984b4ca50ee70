@@ -22,6 +22,30 @@
       "revId": "2b68a39fff91d00f24d1d8d8cac984b4ca50ee70",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8db48b1f_5337f785",
+        "filename": "sdk/objc/Framework/Classes/Metal/RTCMTLVideoView.m",
+        "patchSetId": 6
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 5590
+      },
+      "writtenOn": "2018-04-23T14:06:34Z",
+      "side": 1,
+      "message": "The problem is that the delegate\u0027s didChangeVideoSize could resize the view to match the video size (portrait or landscape), which causes layoutSubviews to change the metalView\u0027s frame.\nsetSize doesn\u0027t get called again as the video\u0027s size hasn\u0027t change.\nWe just need to make sure when the view\u0027s frame is changed, the drawable size is set correctly.",
+      "parentUuid": "6f25647b_072c5e5a",
+      "range": {
+        "startLine": 159,
+        "startChar": 17,
+        "endLine": 159,
+        "endChar": 29
+      },
+      "revId": "2b68a39fff91d00f24d1d8d8cac984b4ca50ee70",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -14,7 +14,7 @@ package org.webrtc;
  * Java wrapper of native AndroidVideoTrackSource.
  */
 @JNINamespace("webrtc::jni")
-public class VideoSource extends MediaSource {
+public class VideoSource extends MediaSource implements VideoCapturer.CapturerObserver {
   public VideoSource(long nativeSource) {
     super(nativeSource);
   }
@@ -29,5 +29,25 @@ public class VideoSource extends MediaSource {
     nativeAdaptOutputFormat(nativeSource, width, height, fps);
   }
 
+  @Override
+  public void onCapturerStarted(boolean success) {
+    nativeCapturerStarted(nativeSource, success);
+  }
+
+  @Override
+  public void onCapturerStopped() {
+    nativeCapturerStopped(nativeSource);
+  }
+
+  @Override
+  public void onFrameCaptured(VideoFrame frame) {
+    nativeOnFrameCaptured(nativeSource, frame.getBuffer().getWidth(), frame.getBuffer().getHeight(),
+        frame.getRotation(), frame.getTimestampNs(), frame.getBuffer());
+  }
+
   private static native void nativeAdaptOutputFormat(long source, int width, int height, int fps);
+  private static native void nativeCapturerStarted(long source, boolean success);
+  private static native void nativeCapturerStopped(long source);
+  private static native void nativeOnFrameCaptured(
+      long source, int width, int height, int rotation, long timestampNs, VideoFrame.Buffer frame);
 }

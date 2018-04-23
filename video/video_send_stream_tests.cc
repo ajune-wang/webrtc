@@ -2629,6 +2629,8 @@ VideoCodecConfigObserver<VideoCodecH264>::GetEncoderSpecificSettings() const {
 template <>
 void VideoCodecConfigObserver<VideoCodecVP8>::InitCodecSpecifics() {
   encoder_settings_ = VideoEncoder::GetDefaultVp8Settings();
+  encoder_settings_.numberOfTemporalLayers =
+      kVideoCodecConfigObserverNumberOfTemporalLayers;
 }
 
 template <>
@@ -2644,13 +2646,7 @@ void VideoCodecConfigObserver<VideoCodecVP8>::VerifyCodecSpecifics(
               config.simulcastStream[i].numberOfTemporalLayers);
   }
 
-  // Set expected temporal layers as they should have been set when
-  // reconfiguring the encoder and not match the set config.
-  VideoCodecVP8 encoder_settings = encoder_settings_;
-  encoder_settings.numberOfTemporalLayers =
-      kVideoCodecConfigObserverNumberOfTemporalLayers;
-  EXPECT_EQ(
-      0, memcmp(&config.VP8(), &encoder_settings, sizeof(encoder_settings_)));
+  EXPECT_EQ(config.VP8(), encoder_settings_);
 }
 
 template <>

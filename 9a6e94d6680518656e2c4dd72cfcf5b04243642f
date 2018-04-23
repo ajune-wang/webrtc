@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2926a933_293c43ad",
+        "filename": "sdk/android/api/org/webrtc/PeerConnectionFactory.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-04-23T15:29:24Z",
+      "side": 1,
+      "message": "nit: Have you looked into if we really need this?",
+      "range": {
+        "startLine": 353,
+        "startChar": 39,
+        "endLine": 353,
+        "endChar": 59
+      },
+      "revId": "9a6e94d6680518656e2c4dd72cfcf5b04243642f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4bb25ffa_dbbd6851",
+        "filename": "sdk/android/api/org/webrtc/VideoSource.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-04-23T15:29:24Z",
+      "side": 1,
+      "message": "Hmm, we could also hide this and add a method createCapturerObserver or getCapturerObserver. I am not sure which I prefer so if you prefer this, that is fine.",
+      "range": {
+        "startLine": 17,
+        "startChar": 45,
+        "endLine": 17,
+        "endChar": 86
+      },
+      "revId": "9a6e94d6680518656e2c4dd72cfcf5b04243642f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

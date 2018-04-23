@@ -22,6 +22,30 @@
       "revId": "7e65ee9f3a50cb27204342a32f2709ab46b11d6d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "686341cb_c3804f13",
+        "filename": "call/fake_network_pipe.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-04-23T11:15:40Z",
+      "side": 1,
+      "message": "Rounding shouldn\u0027t matter here, so simplified this.",
+      "parentUuid": "c56cf4d1_34d92db5",
+      "range": {
+        "startLine": 240,
+        "startChar": 52,
+        "endLine": 240,
+        "endChar": 55
+      },
+      "revId": "7e65ee9f3a50cb27204342a32f2709ab46b11d6d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

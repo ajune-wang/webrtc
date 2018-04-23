@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aad3490e_e9f4fad3",
+        "filename": "rtc_base/experiments/quality_scaling_experiment.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-04-23T07:43:47Z",
+      "side": 1,
+      "message": "Is there a reason to not use \"\" here?",
+      "range": {
+        "startLine": 13,
+        "startChar": 9,
+        "endLine": 13,
+        "endChar": 25
+      },
+      "revId": "a473ac8969dab122ce33c4cdcde55225982dbc1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

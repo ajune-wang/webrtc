@@ -112,9 +112,7 @@ DEFINE_bool(plot_audio_encoder_dtx, false, "Plot the audio encoder DTX.");
 DEFINE_bool(plot_audio_encoder_num_channels,
             false,
             "Plot the audio encoder number of channels.");
-DEFINE_bool(plot_audio_jitter_buffer,
-            false,
-            "Plot the audio jitter buffer delay profile.");
+DEFINE_bool(plot_neteq_stats, false, "Plot the NetEq statistics.");
 DEFINE_bool(plot_ice_candidate_pair_config,
             false,
             "Plot the ICE candidate pair config events.");
@@ -312,7 +310,7 @@ int main(int argc, char* argv[]) {
   if (FLAG_plot_audio_encoder_num_channels) {
     analyzer.CreateAudioEncoderNumChannelsGraph(collection->AppendNewPlot());
   }
-  if (FLAG_plot_audio_jitter_buffer || 1) {
+  if (FLAG_plot_neteq_stats) {
     std::string wav_path;
     if (FLAG_wav_filename[0] != '\0') {
       wav_path = FLAG_wav_filename;
@@ -321,14 +319,32 @@ int main(int argc, char* argv[]) {
           "audio_processing/conversational_speech/EN_script2_F_sp2_B1", "wav");
     }
     auto neteq_stats = analyzer.SimulateNetEq(wav_path, 48000);
-    if (FLAG_plot_audio_jitter_buffer) {
-      analyzer.CreateAudioJitterBufferGraph(neteq_stats,
-                                            collection->AppendNewPlot());
-    }
-    if (1) {
-      analyzer.CreateAudioExpandRateGraph(neteq_stats,
+    analyzer.CreateAudioJitterBufferGraph(neteq_stats,
                                           collection->AppendNewPlot());
-    }
+    analyzer.CreateNetEqStatsGraph(
+        neteq_stats,
+        [](const webrtc::NetEqNetworkStatistics& stats) {
+          return stats.expand_rate / 16384.f;
+        },
+        "Expand rate", collection->AppendNewPlot());
+    analyzer.CreateNetEqStatsGraph(
+        neteq_stats,
+        [](const webrtc::NetEqNetworkStatistics& stats) {
+          return stats.speech_expand_rate / 16384.f;
+        },
+        "Speech expand rate", collection->AppendNewPlot());
+    analyzer.CreateNetEqStatsGraph(
+        neteq_stats,
+        [](const webrtc::NetEqNetworkStatistics& stats) {
+          return stats.accelerate_rate / 16384.f;
+        },
+        "Accelerate rate", collection->AppendNewPlot());
+    analyzer.CreateNetEqStatsGraph(
+        neteq_stats,
+        [](const webrtc::NetEqNetworkStatistics& stats) {
+          return stats.packet_loss_rate / 16384.f;
+        },
+        "Packet loss rate", collection->AppendNewPlot());
   }
 
   if (FLAG_plot_ice_candidate_pair_config) {
@@ -375,7 +391,7 @@ void SetAllPlotFlags(bool setting) {
   FLAG_plot_audio_encoder_fec = setting;
   FLAG_plot_audio_encoder_dtx = setting;
   FLAG_plot_audio_encoder_num_channels = setting;
-  FLAG_plot_audio_jitter_buffer = setting;
+  FLAG_plot_neteq_stats = setting;
   FLAG_plot_ice_candidate_pair_config = setting;
   FLAG_plot_ice_connectivity_check = setting;
 }

@@ -63,7 +63,7 @@ int FakeDecodeFromFile::DecodeInternal(const uint8_t* encoded,
 
   uint32_t original_payload_size_bytes =
       ByteReader<uint32_t>::ReadLittleEndian(&encoded[8]);
-  if (original_payload_size_bytes == 1) {
+  if (IsCngPacket(original_payload_size_bytes)) {
     // This is a comfort noise payload.
     RTC_DCHECK_GT(last_decoded_length_, 0);
     std::fill_n(decoded, last_decoded_length_, 0);
@@ -96,6 +96,10 @@ void FakeDecodeFromFile::PrepareEncoded(uint32_t timestamp,
                                           rtc::checked_cast<uint32_t>(samples));
   ByteWriter<uint32_t>::WriteLittleEndian(
       &encoded[8], rtc::checked_cast<uint32_t>(original_payload_size_bytes));
+}
+
+bool FakeDecodeFromFile::IsCngPacket(size_t payload_size_bytes) {
+  return payload_size_bytes == 1;
 }
 
 }  // namespace test

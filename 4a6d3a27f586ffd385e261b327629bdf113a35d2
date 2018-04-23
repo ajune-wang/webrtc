@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1549b06f_9825760a",
+        "filename": "modules/video_coding/video_codec_initializer.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-04-23T10:58:15Z",
+      "side": 1,
+      "message": "This doesn\u0027t look right. SVC layering is decided by GetSvcConfig(). numberOfSpatialLayers/numberOfTemporalLayers should be updated based on result of GetSvcConfig() call.",
+      "range": {
+        "startLine": 238,
+        "startChar": 8,
+        "endLine": 241,
+        "endChar": 16
+      },
+      "revId": "4a6d3a27f586ffd385e261b327629bdf113a35d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

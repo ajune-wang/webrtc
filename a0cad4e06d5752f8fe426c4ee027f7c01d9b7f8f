@@ -1192,6 +1192,30 @@
     },
     {
       "key": {
+        "uuid": "17435b44_e61ad525",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-23T16:13:02Z",
+      "side": 1,
+      "message": "Discussed offline.",
+      "parentUuid": "95873ef1_3ddcda7f",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 95,
+        "endChar": 73
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4f644c3d_6286b57e",
         "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
         "patchSetId": 2
@@ -1695,6 +1719,30 @@
       "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed5be4bc_ddf22388",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-23T16:13:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "66c6aaf3_2db81c46",
+      "range": {
+        "startLine": 160,
+        "startChar": 4,
+        "endLine": 160,
+        "endChar": 13
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

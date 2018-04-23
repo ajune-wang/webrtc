@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "08fed381_e5a9a81c",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-23T16:13:02Z",
+      "side": 1,
+      "message": "Done, but to avoid circ deps I had to add a new header file.\n\nWhich is even a better solution because, when the rest of the VAD lands, I will only need to include pitch_search_common.h in the feature extractor header and pitch_search.h in the feature extractor cc file.",
+      "parentUuid": "d2972cb4_55dcb789",
+      "range": {
+        "startLine": 106,
+        "startChar": 10,
+        "endLine": 106,
+        "endChar": 51
+      },
+      "revId": "ffcfe2aa56f66e0b040871ce9e52a0deb27557be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e02d5662_7f874c4f",
         "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_unittest.cc",
         "patchSetId": 6
@@ -45,6 +69,30 @@
       "revId": "ffcfe2aa56f66e0b040871ce9e52a0deb27557be",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "59fd3873_530f0bbf",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-23T16:13:02Z",
+      "side": 1,
+      "message": "Right. Actually I should also switch to TEST_P.",
+      "parentUuid": "e02d5662_7f874c4f",
+      "range": {
+        "startLine": 358,
+        "startChar": 19,
+        "endLine": 358,
+        "endChar": 22
+      },
+      "revId": "ffcfe2aa56f66e0b040871ce9e52a0deb27557be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "556ebf36_b560c588",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-23T16:13:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a8878ff4_c931937d",
+      "range": {
+        "startLine": 461,
+        "startChar": 2,
+        "endLine": 461,
+        "endChar": 3
+      },
+      "revId": "ffcfe2aa56f66e0b040871ce9e52a0deb27557be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f51f7174_36263993",
         "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_unittest.cc",
         "patchSetId": 6
@@ -91,6 +163,30 @@
       "revId": "ffcfe2aa56f66e0b040871ce9e52a0deb27557be",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30da0ce5_0c1f06ae",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 514,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-23T16:13:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f51f7174_36263993",
+      "range": {
+        "startLine": 514,
+        "startChar": 8,
+        "endLine": 514,
+        "endChar": 38
+      },
+      "revId": "ffcfe2aa56f66e0b040871ce9e52a0deb27557be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

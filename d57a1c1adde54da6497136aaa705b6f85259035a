@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f8fdeea7_95bf23e4",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/MediaCodecVideoEncoderTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-04-23T13:43:55Z",
+      "side": 1,
+      "message": "Why is this broken?\n\nSince this is deprecated code, I don\u0027t think there is much sense in keeping this commented. I think it should be fixed now or removed completely.",
+      "range": {
+        "startLine": 125,
+        "startChar": 2,
+        "endLine": 125,
+        "endChar": 45
+      },
+      "revId": "d57a1c1adde54da6497136aaa705b6f85259035a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4f42b58_f2a49b91",
+        "filename": "sdk/android/src/jni/videoframedrawer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-04-23T13:43:55Z",
+      "side": 1,
+      "message": "Remove?",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 3
+      },
+      "revId": "d57a1c1adde54da6497136aaa705b6f85259035a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30115e36_6db24efa",
+        "filename": "sdk/android/src/jni/videoframedrawer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-04-23T13:43:55Z",
+      "side": 1,
+      "message": "This file is deprecated. Instead depend on sdk/android/native_api/jni/scoped_java_ref.h?",
+      "range": {
+        "startLine": 16,
+        "startChar": 10,
+        "endLine": 16,
+        "endChar": 43
+      },
+      "revId": "d57a1c1adde54da6497136aaa705b6f85259035a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

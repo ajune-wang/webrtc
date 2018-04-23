@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "af4544f2_fd40ec92",
+        "filename": "sdk/android/api/org/webrtc/PeerConnectionFactory.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-04-23T16:27:30Z",
+      "side": 1,
+      "message": "It\u0027s part of the C++ VideoTrackSourceInterface, and I think it will affect some encoding settings in the C++ layer. It has a TODO:\n// TODO(perkj): Remove these once all known applications have moved to\n// explicitly setting suitable parameters for screencasts and don\u0027t need this\n// implicit behavior.\nbut since this hasn\u0027t been completed, it feels easiest to force Java clients to continue to provide all information that the C++ interface asks for.",
+      "parentUuid": "2926a933_293c43ad",
+      "range": {
+        "startLine": 353,
+        "startChar": 39,
+        "endLine": 353,
+        "endChar": 59
+      },
+      "revId": "9a6e94d6680518656e2c4dd72cfcf5b04243642f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4bb25ffa_dbbd6851",
         "filename": "sdk/android/api/org/webrtc/VideoSource.java",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "9a6e94d6680518656e2c4dd72cfcf5b04243642f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "358b7486_cf43cdec",
+        "filename": "sdk/android/api/org/webrtc/VideoSource.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-04-23T16:27:30Z",
+      "side": 1,
+      "message": "This is the simplest and most transparent solution and I\u0027m happy to go with it. The only problem is if we are too transparent and realize in the future that we want to refactor the class in such a way that we can\u0027t directly implement the observer interface and need to hide behind a getCapturerObserver(). I don\u0027t see why we would need it and would like to go for the simplest solution right now.",
+      "parentUuid": "4bb25ffa_dbbd6851",
+      "range": {
+        "startLine": 17,
+        "startChar": 45,
+        "endLine": 17,
+        "endChar": 86
+      },
+      "revId": "9a6e94d6680518656e2c4dd72cfcf5b04243642f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

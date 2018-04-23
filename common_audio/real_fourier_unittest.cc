@@ -73,7 +73,8 @@ class RealFourierTest : public ::testing::Test {
 };
 
 using FftTypes = ::testing::Types<
-#if defined(RTC_USE_OPENMAX_DL)
+// TODO(http://bugs.webrtc.org/9071): Required by downstream projects.
+#if 0
     RealFourierOpenmax,
 #endif
     RealFourierOoura>;

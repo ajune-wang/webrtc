@@ -14,7 +14,8 @@
 #include "common_audio/signal_processing/include/signal_processing_library.h"
 #include "rtc_base/checks.h"
 
-#ifdef RTC_USE_OPENMAX_DL
+// TODO(http://bugs.webrtc.org/9071): Required by downstream projects.
+#if 0
 #include "common_audio/real_fourier_openmax.h"
 #endif
 
@@ -25,7 +26,8 @@ using std::complex;
 const size_t RealFourier::kFftBufferAlignment = 32;
 
 std::unique_ptr<RealFourier> RealFourier::Create(int fft_order) {
-#if defined(RTC_USE_OPENMAX_DL)
+// TODO(http://bugs.webrtc.org/9071): Required by downstream projects.
+#if 0
   return std::unique_ptr<RealFourier>(new RealFourierOpenmax(fft_order));
 #else
   return std::unique_ptr<RealFourier>(new RealFourierOoura(fft_order));

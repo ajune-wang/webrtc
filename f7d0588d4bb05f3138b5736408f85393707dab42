@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b529b80d_38de80ae",
+        "filename": "common_audio/real_fourier_openmax.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-23T09:56:46Z",
+      "side": 1,
+      "message": "I had to be a bit more aggressive because in some downstream projects the RTC_USE_OPENMAX_DL flag is always true.",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 5
+      },
+      "revId": "f7d0588d4bb05f3138b5736408f85393707dab42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

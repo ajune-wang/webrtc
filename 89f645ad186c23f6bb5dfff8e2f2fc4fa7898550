@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a1f5ec91_608f7f00",
+        "filename": "sdk/android/src/jni/androidmediadecoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-04-23T08:09:28Z",
+      "side": 0,
+      "message": "Previously dispose was called when this object was destroyed, I don\u0027t see any call to surfaceTextureHelper.dispose()?",
+      "range": {
+        "startLine": 115,
+        "startChar": 2,
+        "endLine": 115,
+        "endChar": 67
+      },
+      "revId": "89f645ad186c23f6bb5dfff8e2f2fc4fa7898550",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

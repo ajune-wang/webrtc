@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f6018ca5_79c6f6dd",
+        "filename": "modules/video_coding/codecs/vp9/svc_config_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-04-23T07:29:31Z",
+      "side": 1,
+      "message": "Harmonize naming with test below.",
+      "range": {
+        "startLine": 20,
+        "startChar": 15,
+        "endLine": 20,
+        "endChar": 42
+      },
+      "revId": "52cad999e8de65ca4a37f306158b0326cf591ac7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14c12dae_3add58ce",
+        "filename": "modules/video_coding/codecs/vp9/svc_config_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-04-23T07:29:31Z",
+      "side": 1,
+      "message": "EXPECT_EQ?",
+      "range": {
+        "startLine": 27,
+        "startChar": 2,
+        "endLine": 27,
+        "endChar": 14
+      },
+      "revId": "52cad999e8de65ca4a37f306158b0326cf591ac7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28208965_c4b3d7c6",
+        "filename": "modules/video_coding/codecs/vp9/svc_config_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-04-23T07:29:31Z",
+      "side": 1,
+      "message": "Same here.",
+      "revId": "52cad999e8de65ca4a37f306158b0326cf591ac7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

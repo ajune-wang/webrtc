@@ -712,7 +712,6 @@ public class MediaCodecVideoDecoder {
           renderedBuffer = null;
         }
       }
-      surfaceTextureHelper.dispose();
     }
   }
 

@@ -8,6 +8,13 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+// TODO(http://bugs.webrtc.org/9071): Required by downstream projects.
+#ifdef RTC_USE_OPENMAX_DL
+#undef RTC_USE_OPENMAX_DL
+#endif  // RTC_USE_OPENMAX_DL
+
+#ifdef RTC_USE_OPENMAX_DL
+
 #include "common_audio/real_fourier_openmax.h"
 
 #include <cstdlib>
@@ -67,3 +74,4 @@ void RealFourierOpenmax::Inverse(const complex<float>* src, float* dest) const {
 
 }  // namespace webrtc
 
+#endif  // 0

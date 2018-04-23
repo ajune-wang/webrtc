@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "54a53769_2588fb47",
+        "filename": "modules/audio_processing/agc2/adaptive_digital_gain_applier.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-23T14:05:40Z",
+      "side": 1,
+      "message": "Great that you haven\u0027t forgotten this!!",
+      "range": {
+        "startLine": 71,
+        "startChar": 27,
+        "endLine": 71,
+        "endChar": 51
+      },
+      "revId": "237440b4b084c848cde7badad25f91ded63fab88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9f6b3de5_406c96e7",
+        "filename": "modules/audio_processing/agc2/adaptive_digital_gain_applier.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-23T14:05:40Z",
+      "side": 1,
+      "message": "Great to have a constant for this.",
+      "range": {
+        "startLine": 34,
+        "startChar": 24,
+        "endLine": 34,
+        "endChar": 53
+      },
+      "revId": "237440b4b084c848cde7badad25f91ded63fab88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

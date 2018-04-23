@@ -341,6 +341,8 @@ class VideoStreamEncoderTest : public ::testing::Test {
                     : VideoEncoderConfig::ContentType::kRealtimeVideo;
     if (payload_name == "VP9") {
       VideoCodecVP9 vp9_settings = VideoEncoder::GetDefaultVp9Settings();
+      vp9_settings.numberOfTemporalLayers =
+          static_cast<unsigned char>(num_temporal_layers);
       vp9_settings.numberOfSpatialLayers = num_spatial_layers;
       video_encoder_config.encoder_specific_settings =
           new rtc::RefCountedObject<

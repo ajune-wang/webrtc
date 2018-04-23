@@ -28,6 +28,7 @@ class SuppressionFilter {
                  const FftData& comfort_noise_high_bands,
                  const std::array<float, kFftLengthBy2Plus1>& suppression_gain,
                  float high_bands_gain,
+                 const FftData& E_lowest_band,
                  std::vector<std::vector<float>>* e);
 
  private:

@@ -13,7 +13,7 @@
 #include <math.h>
 #include <algorithm>
 #include <cstring>
-#include <functional>
+ #include <functional>
 #include <numeric>
 
 #include "modules/audio_processing/utility/ooura_fft.h"
@@ -76,10 +76,12 @@ void SuppressionFilter::ApplyGain(
     const FftData& comfort_noise_high_band,
     const std::array<float, kFftLengthBy2Plus1>& suppression_gain,
     float high_bands_gain,
+    const FftData& E_lowest_band,
     std::vector<std::vector<float>>* e) {
   RTC_DCHECK(e);
   RTC_DCHECK_EQ(e->size(), NumBandsForRate(sample_rate_hz_));
-  FftData E;
+  FftData E = E_lowest_band;
+  //FftData E;
   std::array<float, kFftLength> e_extended;
   constexpr float kIfftNormalization = 2.f / kFftLength;
 
@@ -91,7 +93,8 @@ void SuppressionFilter::ApplyGain(
                  std::begin(kSqrtHanning) + kFftLengthBy2,
                  e_extended.begin() + kFftLengthBy2, std::multiplies<float>());
   std::copy((*e)[0].begin(), (*e)[0].end(), e_input_old_.begin());
-  fft_.Fft(&e_extended, &E);
+  //fft_.Fft(&e_extended, &E);
+
 
   // Apply gain.
   std::transform(suppression_gain.begin(), suppression_gain.end(), E.re.begin(),

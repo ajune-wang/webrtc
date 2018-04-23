@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "080a92c9_19332ad8",
+        "filename": "api/video/video_bitrate_allocation.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-04-23T08:59:54Z",
+      "side": 1,
+      "message": "Ok for this cl, since it\u0027s basically unchanged.\n\nBut I\u0027d prefer to not have top-level constants like these; it would be better to have them live with the class which has the limitation. I also note that we have a competing definition for one of them:\n\nmedia/engine/webrtcvideoengine.cc:  const size_t kMaxSpatialLayers \u003d 3;",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 39
+      },
+      "revId": "6e46bada7b7b04f3cc30f43dfc393f74ccf95747",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -315,6 +315,48 @@ struct PortConfiguration : public rtc::MessageData {
 class UDPPort;
 class TurnPort;
 
+enum class PortAllocationResult {
+  // When allocating a list of ports of the same type using different configs,
+  // e.g. relay ports with configs of different relay servers, the allocation
+  // result is considered SUCCESS if at least one port is successfully allocated
+  // with one config.
+  SUCCESS,
+  // Port allocation failed because of configuration, e.g. the type of ports to
+  // allocate is disabled, or no valid STUN/TURN server in the config for
+  // STUN/TURN ports.
+  FAILURE_INFEASIBLE_CONFIG,
+  // Port allocation failed with a valid config. It can be caused by
+  // initialization errors, e.g. socket binding errors.
+  FAILURE_CREATION_ERROR,
+};
+
+// Track the progress along a sequence of port allocation.
+class AllocationProgress {
+ public:
+  AllocationProgress();
+  ~AllocationProgress();
+
+  void Reset();
+  void Update(cricket::PortAllocationResult result);
+  void UpdateByPhase(cricket::PortAllocationResult result, int phase);
+  bool HasPendingRetryByPhase();
+  bool PhaseHasPendingRetry(int phase) {
+    return pending_retry_by_phase_[phase];
+  }
+
+  bool tried_creation_with_feasible_config() const {
+    return tried_creation_with_feasible_config_;
+  }
+  bool created_valid_port() const { return created_valid_port_; }
+  uint32_t disable_retry_flags() const { return disable_retry_flags_; }
+
+ private:
+  bool tried_creation_with_feasible_config_;
+  bool created_valid_port_;
+  std::vector<bool> pending_retry_by_phase_;
+  uint32_t disable_retry_flags_;
+};
+
 // Performs the allocation of ports, in a sequenced (timed) manner, for a given
 // network and IP address.
 class AllocationSequence : public rtc::MessageHandler,
@@ -367,17 +409,19 @@ class AllocationSequence : public rtc::MessageHandler,
 
  protected:
   // For testing.
-  void CreateTurnPort(const RelayServerConfig& config);
+  PortAllocationResult CreateTurnPort(const RelayServerConfig& config);
 
  private:
   typedef std::vector<ProtocolType> ProtocolList;
 
   bool IsFlagSet(uint32_t flag) { return ((flags_ & flag) != 0); }
-  void CreateUDPPorts();
-  void CreateTCPPorts();
-  void CreateStunPorts();
-  void CreateRelayPorts();
-  void CreateGturnPort(const RelayServerConfig& config);
+  PortAllocationResult CreateUDPPorts();
+  PortAllocationResult CreateTCPPorts();
+  PortAllocationResult CreateStunPorts();
+  PortAllocationResult CreateRelayPorts();
+  PortAllocationResult CreateGturnPort(const RelayServerConfig& config);
+
+  void MaybeRetryPortAllocation();
 
   void OnReadPacket(rtc::AsyncPacketSocket* socket,
                     const char* data,
@@ -394,13 +438,21 @@ class AllocationSequence : public rtc::MessageHandler,
   rtc::IPAddress previous_best_ip_;
   PortConfiguration* config_;
   State state_;
+  // These are the flags set by the port allocator and is used to initialize the
+  // flags below in the first round of allocation along the sequence.
+  uint32_t initial_flags_;
+  // Theses flags are used in the actual process of allocation including any
+  // retry. The flags may change in retries to avoid allocating ports that are
+  // ready.
   uint32_t flags_;
+  AllocationProgress progress_;
   ProtocolList protocols_;
   std::unique_ptr<rtc::AsyncPacketSocket> udp_socket_;
   // There will be only one udp port per AllocationSequence.
   UDPPort* udp_port_;
   std::vector<Port*> relay_ports_;
   int phase_;
+  int port_allocation_retries_ = 0;
 };
 
 }  // namespace cricket

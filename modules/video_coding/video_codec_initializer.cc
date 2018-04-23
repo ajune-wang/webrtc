@@ -71,6 +71,13 @@ VideoCodecInitializer::CreateBitrateAllocator(const VideoCodec& codec) {
 }
 
 // TODO(sprang): Split this up and separate the codec specific parts.
+// TODO(nisse): The intention is that if
+// config.encoder_specific_settings is provided by the caller, those
+// settings should be used unmodified. For VP9, we have the case that
+// we call GetSvcConfig; in this case we still have to update
+// numberOfSpatialLayers and numberOfTemporalLayers accordingly. To
+// fix this, we need to move responsibility for Svc setup to the
+// caller and require that config.spatial_layers is set.
 VideoCodec VideoCodecInitializer::VideoEncoderConfigToVideoCodec(
     const VideoEncoderConfig& config,
     const std::vector<VideoStream>& streams,
@@ -174,44 +181,43 @@ VideoCodec VideoCodecInitializer::VideoEncoderConfigToVideoCodec(
     case kVideoCodecVP8: {
       if (!config.encoder_specific_settings) {
         *video_codec.VP8() = VideoEncoder::GetDefaultVp8Settings();
-      }
 
-      video_codec.VP8()->numberOfTemporalLayers = static_cast<unsigned char>(
-          streams.back().num_temporal_layers.value_or(
-              video_codec.VP8()->numberOfTemporalLayers));
+        video_codec.VP8()->numberOfTemporalLayers = static_cast<unsigned char>(
+            streams.back().num_temporal_layers.value_or(
+                video_codec.VP8()->numberOfTemporalLayers));
+
+        if (nack_enabled && video_codec.VP8()->numberOfTemporalLayers == 1) {
+          RTC_LOG(LS_INFO)
+              << "No temporal layers and nack enabled -> resilience off";
+          video_codec.VP8()->resilience = kResilienceOff;
+        }
+      }
       RTC_DCHECK_GE(video_codec.VP8()->numberOfTemporalLayers, 1);
       RTC_DCHECK_LE(video_codec.VP8()->numberOfTemporalLayers,
                     kMaxTemporalStreams);
-
-      if (nack_enabled && video_codec.VP8()->numberOfTemporalLayers == 1) {
-        RTC_LOG(LS_INFO)
-            << "No temporal layers and nack enabled -> resilience off";
-        video_codec.VP8()->resilience = kResilienceOff;
-      }
       break;
     }
     case kVideoCodecVP9: {
       if (!config.encoder_specific_settings) {
         *video_codec.VP9() = VideoEncoder::GetDefaultVp9Settings();
-      }
 
-      video_codec.VP9()->numberOfTemporalLayers = static_cast<unsigned char>(
-          streams.back().num_temporal_layers.value_or(
-              video_codec.VP9()->numberOfTemporalLayers));
+        video_codec.VP9()->numberOfTemporalLayers = static_cast<unsigned char>(
+            streams.back().num_temporal_layers.value_or(
+                video_codec.VP9()->numberOfTemporalLayers));
+      }
       RTC_DCHECK_GE(video_codec.VP9()->numberOfTemporalLayers, 1);
       RTC_DCHECK_LE(video_codec.VP9()->numberOfTemporalLayers,
                     kMaxTemporalStreams);
 
       if (video_codec.mode == kScreensharing &&
           config.encoder_specific_settings) {
-        video_codec.VP9()->flexibleMode = true;
         // For now VP9 screensharing use 1 temporal and 2 spatial layers.
         RTC_DCHECK_EQ(1, video_codec.VP9()->numberOfTemporalLayers);
         RTC_DCHECK_EQ(2, video_codec.VP9()->numberOfSpatialLayers);
       } else {
         RTC_DCHECK(config.spatial_layers.empty() ||
                    config.spatial_layers.size() ==
-                       video_codec.VP9()->numberOfSpatialLayers);
+                   video_codec.VP9()->numberOfSpatialLayers);
 
         std::vector<SpatialLayer> spatial_layers;
         if (!config.spatial_layers.empty()) {
@@ -229,32 +235,38 @@ VideoCodec VideoCodecInitializer::VideoEncoderConfigToVideoCodec(
             spatial_layers.back().minBitrate = video_codec.minBitrate;
             spatial_layers.back().maxBitrate = video_codec.maxBitrate;
           }
+          // Update layering settings.
+          video_codec.VP9()->numberOfSpatialLayers =
+              static_cast<unsigned char>(spatial_layers.size());
+          video_codec.VP9()->numberOfTemporalLayers =
+              static_cast<unsigned char>(
+                  spatial_layers.back().numberOfTemporalLayers);
         }
 
         RTC_DCHECK(!spatial_layers.empty());
         for (size_t i = 0; i < spatial_layers.size(); ++i) {
           video_codec.spatialLayers[i] = spatial_layers[i];
         }
-
-        // Update layering settings.
-        video_codec.VP9()->numberOfSpatialLayers =
-            static_cast<unsigned char>(spatial_layers.size());
-        RTC_DCHECK_GE(video_codec.VP9()->numberOfSpatialLayers, 1);
-        RTC_DCHECK_LE(video_codec.VP9()->numberOfSpatialLayers,
-                      kMaxSpatialLayers);
-
-        video_codec.VP9()->numberOfTemporalLayers = static_cast<unsigned char>(
-            spatial_layers.back().numberOfTemporalLayers);
-        RTC_DCHECK_GE(video_codec.VP9()->numberOfTemporalLayers, 1);
-        RTC_DCHECK_LE(video_codec.VP9()->numberOfTemporalLayers,
-                      kMaxTemporalStreams);
       }
+      // Sanity check layering settings.
+      RTC_DCHECK_GE(video_codec.VP9()->numberOfSpatialLayers, 1);
+      RTC_DCHECK_LE(video_codec.VP9()->numberOfSpatialLayers,
+                    kMaxSpatialLayers);
+      RTC_DCHECK_EQ(video_codec.VP9()->numberOfSpatialLayers,
+                    spatial_layers.size());
 
-      if (nack_enabled && video_codec.VP9()->numberOfTemporalLayers == 1 &&
-          video_codec.VP9()->numberOfSpatialLayers == 1) {
-        RTC_LOG(LS_INFO) << "No temporal or spatial layers and nack enabled -> "
-                         << "resilience off";
-        video_codec.VP9()->resilienceOn = false;
+      RTC_DCHECK_GE(video_codec.VP9()->numberOfTemporalLayers, 1);
+      RTC_DCHECK_LE(video_codec.VP9()->numberOfTemporalLayers,
+                    kMaxTemporalStreams);
+
+      if (!config.encoder_specific_settings) {
+        if (nack_enabled && video_codec.VP9()->numberOfTemporalLayers == 1 &&
+            video_codec.VP9()->numberOfSpatialLayers == 1) {
+          RTC_LOG(LS_INFO)
+              << "No temporal or spatial layers and nack enabled -> "
+              << "resilience off";
+          video_codec.VP9()->resilienceOn = false;
+        }
       }
       break;
     }

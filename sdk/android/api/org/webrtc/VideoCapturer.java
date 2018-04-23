@@ -23,21 +23,6 @@ public interface VideoCapturer {
     void onCapturerStopped();
 
     // Delivers a captured frame. Called on a Java thread owned by VideoCapturer.
-    @Deprecated
-    default void onByteBufferFrameCaptured(
-        byte[] data, int width, int height, int rotation, long timeStamp) {
-      throw new UnsupportedOperationException("Deprecated and not implemented.");
-    }
-
-    // Delivers a captured frame in a texture with id |oesTextureId|. Called on a Java thread
-    // owned by VideoCapturer.
-    @Deprecated
-    default void onTextureFrameCaptured(int width, int height, int oesTextureId,
-        float[] transformMatrix, int rotation, long timestamp) {
-      throw new UnsupportedOperationException("Deprecated and not implemented.");
-    }
-
-    // Delivers a captured frame. Called on a Java thread owned by VideoCapturer.
     void onFrameCaptured(VideoFrame frame);
   }
 
@@ -46,8 +31,8 @@ public interface VideoCapturer {
    * capture observer. It will be called only once and before any startCapture() request. The
    * camera thread is guaranteed to be valid until dispose() is called. If the VideoCapturer wants
    * to deliver texture frames, it should do this by rendering on the SurfaceTexture in
-   * |surfaceTextureHelper|, register itself as a listener, and forward the texture frames to
-   * CapturerObserver.onTextureFrameCaptured().
+   * |surfaceTextureHelper|, register itself as a listener, and forward the frames to
+   * CapturerObserver.onFrameCaptured().
    */
   void initialize(SurfaceTextureHelper surfaceTextureHelper, Context applicationContext,
       CapturerObserver capturerObserver);

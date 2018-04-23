@@ -22,6 +22,30 @@
       "revId": "4a6d3a27f586ffd385e261b327629bdf113a35d2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d5e987f_4fd63297",
+        "filename": "modules/video_coding/video_codec_initializer.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-04-23T11:43:18Z",
+      "side": 1,
+      "message": "Fixed. But I\u0027d really prefer to move GetSvcConfig to the caller, and let this function be a plain translator.",
+      "parentUuid": "1549b06f_9825760a",
+      "range": {
+        "startLine": 238,
+        "startChar": 8,
+        "endLine": 241,
+        "endChar": 16
+      },
+      "revId": "4a6d3a27f586ffd385e261b327629bdf113a35d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

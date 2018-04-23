@@ -2813,6 +2813,12 @@ bool PeerConnection::SetConfiguration(const RTCConfiguration& configuration,
                                       RTCError* error) {
   TRACE_EVENT0("webrtc", "PeerConnection::SetConfiguration");
 
+  if (IsClosed()) {
+    RTC_LOG(LS_ERROR)
+        << "Can't set configuration after PeerConnection is closed.";
+    return SafeSetError(RTCErrorType::INVALID_STATE, error);
+  }
+
   // According to JSEP, after setLocalDescription, changing the candidate pool
   // size is not allowed, and changing the set of ICE servers will not result
   // in new candidates being gathered.

@@ -60,6 +60,8 @@ class FakeDecodeFromFile : public AudioDecoder {
                              rtc::ArrayView<uint8_t> encoded);
 
  private:
+  virtual bool IsCngPacket(size_t payload_size_bytes);
+
   std::unique_ptr<InputAudioFile> input_;
   rtc::Optional<uint32_t> next_timestamp_from_input_;
   const int sample_rate_hz_;

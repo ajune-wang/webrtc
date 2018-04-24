@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "29a201fc_dc6f2b12",
+        "filename": "rtc_base/experiments/quality_scaling_experiment.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2018-04-24T15:06:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6cfcd141_6bf6251c",
+      "revId": "9c2f8c5621c9b491a71cae13d56156e98562cc1b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fc697087_42b88a33",
         "filename": "rtc_base/experiments/quality_scaling_experiment_unittest.cc",
         "patchSetId": 13
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "883c49a1_3926d72f",
+        "filename": "rtc_base/experiments/quality_scaling_experiment_unittest.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2018-04-24T15:06:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc697087_42b88a33",
+      "range": {
+        "startLine": 53,
+        "startChar": 2,
+        "endLine": 53,
+        "endChar": 46
+      },
+      "revId": "9c2f8c5621c9b491a71cae13d56156e98562cc1b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "85826230_7050092c",
         "filename": "rtc_base/experiments/quality_scaling_experiment_unittest.cc",
         "patchSetId": 13
@@ -53,6 +95,24 @@
       "writtenOn": "2018-04-24T13:38:08Z",
       "side": 1,
       "message": "Do we ever get these strings from the network? If yes, is there any reason we shouldn\u0027t have a fuzzer test?",
+      "revId": "9c2f8c5621c9b491a71cae13d56156e98562cc1b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7fce1311_f71af618",
+        "filename": "rtc_base/experiments/quality_scaling_experiment_unittest.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2018-04-24T15:06:03Z",
+      "side": 1,
+      "message": "No should not be from the network.",
+      "parentUuid": "85826230_7050092c",
       "revId": "9c2f8c5621c9b491a71cae13d56156e98562cc1b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

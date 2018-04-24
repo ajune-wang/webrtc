@@ -45,6 +45,30 @@
       "revId": "442a4f10db348ad705fbab6c806663b1553851ac",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b1dfce0_839d1363",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1151,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-04-24T10:40:40Z",
+      "side": 1,
+      "message": "I could, but I plan to make a separate CL removing all use of _us, so in this CL I just replaced all instances of timestamp_us by log_time_us(). (I don\u0027t want to change to log_time_ms everywhere in this CL since the rounding changes the generated graphs.)",
+      "parentUuid": "7fdbb21c_e7f72b6d",
+      "range": {
+        "startLine": 1151,
+        "startChar": 18,
+        "endLine": 1151,
+        "endChar": 47
+      },
+      "revId": "442a4f10db348ad705fbab6c806663b1553851ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

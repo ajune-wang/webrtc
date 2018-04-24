@@ -269,7 +269,6 @@ generate_jni("generated_video_jni") {
     "api/org/webrtc/EncodedImage.java",
     "api/org/webrtc/MediaCodecVideoDecoder.java",
     "api/org/webrtc/MediaCodecVideoEncoder.java",
-    "api/org/webrtc/SurfaceTextureHelper.java",
     "api/org/webrtc/VideoCodecInfo.java",
     "api/org/webrtc/VideoCodecStatus.java",
     "api/org/webrtc/VideoDecoder.java",
@@ -285,10 +284,8 @@ generate_jni("generated_video_jni") {
     "api/org/webrtc/VideoSource.java",
     "api/org/webrtc/VideoTrack.java",
     "api/org/webrtc/YuvHelper.java",
-    "src/java/org/webrtc/AndroidVideoTrackSourceObserver.java",
     "src/java/org/webrtc/EglBase14.java",
     "src/java/org/webrtc/NV12Buffer.java",
-    "src/java/org/webrtc/NV21Buffer.java",
     "src/java/org/webrtc/VideoDecoderWrapper.java",
     "src/java/org/webrtc/VideoEncoderWrapper.java",
     "src/java/org/webrtc/WrappedNativeI420Buffer.java",
@@ -313,10 +310,7 @@ rtc_static_library("video_jni") {
     "src/jni/encodedimage.h",
     "src/jni/jni_generator_helper.h",
     "src/jni/nv12buffer.cc",
-    "src/jni/nv21buffer.cc",
     "src/jni/pc/video.cc",
-    "src/jni/surfacetexturehelper.cc",
-    "src/jni/surfacetexturehelper.h",
     "src/jni/video_renderer.cc",
     "src/jni/videocodecinfo.cc",
     "src/jni/videocodecinfo.h",
@@ -377,6 +371,7 @@ rtc_static_library("video_jni") {
     ":base_jni",
     ":generated_video_jni",
     ":native_api_jni",
+    ":nv21buffer_jni",
     "../..:webrtc_common",
     "../../api:libjingle_peerconnection_api",
     "../../api:video_frame_api",
@@ -838,7 +833,6 @@ rtc_android_library("video_java") {
     "api/org/webrtc/VideoDecoderFallback.java",
     "api/org/webrtc/VideoEncoderFallback.java",
     "api/org/webrtc/VideoFrameDrawer.java",
-    "src/java/org/webrtc/AndroidVideoTrackSourceObserver.java",
     "src/java/org/webrtc/VideoDecoderWrapper.java",
     "src/java/org/webrtc/VideoEncoderWrapper.java",
     "src/java/org/webrtc/WrappedNativeI420Buffer.java",
@@ -850,6 +844,37 @@ rtc_android_library("video_java") {
     ":base_java",
     ":video_api_java",
     "//rtc_base:base_java",
+  ]
+}
+
+# TODO(bugs.webrtc.org/9181): Merge NV21Buffer target with camera target once
+# onByteBufferFrameCaptured() is gone.
+rtc_android_library("nv21buffer_java") {
+  java_files = [ "src/java/org/webrtc/NV21Buffer.java" ]
+
+  deps = [
+    ":video_api_java",
+  ]
+}
+
+generate_jni("generated_nv21buffer_jni") {
+  sources = [
+    "src/java/org/webrtc/NV21Buffer.java",
+  ]
+  jni_package = ""
+  jni_generator_include = "//sdk/android/src/jni/jni_generator_helper.h"
+}
+
+rtc_static_library("nv21buffer_jni") {
+  sources = [
+    "src/jni/nv21buffer.cc",
+  ]
+
+  deps = [
+    ":generated_nv21buffer_jni",
+    "../../common_video:common_video",
+    "../../rtc_base:checks",
+    "//third_party/libyuv",
   ]
 }
 
@@ -866,11 +891,11 @@ rtc_android_library("camera_java") {
     "src/java/org/webrtc/Camera2Session.java",
     "src/java/org/webrtc/CameraCapturer.java",
     "src/java/org/webrtc/CameraSession.java",
-    "src/java/org/webrtc/NV21Buffer.java",
   ]
 
   deps = [
     ":base_java",
+    ":nv21buffer_java",
     ":video_api_java",
     ":video_java",
     "//rtc_base:base_java",
@@ -1007,6 +1032,7 @@ rtc_android_library("peerconnection_java") {
   deps = [
     ":audio_api_java",
     ":base_java",
+    ":nv21buffer_java",
     ":video_api_java",
     ":video_java",  # TODO(sakal): Remove dependency.
     "//modules/audio_device:audio_device_java",

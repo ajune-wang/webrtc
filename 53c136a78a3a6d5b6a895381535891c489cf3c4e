@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "89ccfb95_4a6ac1ba",
+        "filename": "rtc_base/asyncpacketsocket.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-04-24T22:56:14Z",
+      "side": 1,
+      "message": "nit: need to edit this comment to document that it is effectively 16-bit when used with webrtc::PacketOptions in RTP",
+      "range": {
+        "startLine": 45,
+        "startChar": 30,
+        "endLine": 45,
+        "endChar": 37
+      },
+      "revId": "53c136a78a3a6d5b6a895381535891c489cf3c4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

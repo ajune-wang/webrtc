@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "ebb4ccb6_daa1af10",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-04-24T12:41:32Z",
+      "side": 1,
+      "message": "\u003e The problem with that is that it requires the congestion controller to expose an API for configuring ALR probing behavior, which is an internal implementation detail that doesn\u0027t make sense in the context of a generic congestion controller.\n\nMaybe it will make sense if we just think about it differently. A send stream can tell the congestion controller whether or not the stream thinks it is likely to (temporarily) be application limited. That\u0027s a hint that can be useful to any congestion controller, and the experiment can control whether or not the stream tells the truth.\n\nAnd I think even an interface like \"EnableExperimentX\" (assuming we can delete it when the experiment is over) is preferable over another screencast flag.",
+      "parentUuid": "ce94adc0_96a5e59b",
+      "range": {
+        "startLine": 61,
+        "startChar": 2,
+        "endLine": 61,
+        "endChar": 68
+      },
+      "revId": "51464c238f1c3b51a1f30e0d1bdab0964ab86eb7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0bae2a4b_65d8f156",
         "filename": "call/bitrate_allocator.h",
         "patchSetId": 4

@@ -1,0 +1,192 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "73aea070_59e9cc2d",
+        "filename": "modules/audio_processing/agc2/rnn_vad/biquad.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-24T06:10:32Z",
+      "side": 1,
+      "message": "Please make this a const Config\u0026 to avoid an extra copy.",
+      "range": {
+        "startLine": 18,
+        "startChar": 33,
+        "endLine": 18,
+        "endChar": 39
+      },
+      "revId": "9d740f9ad0a9273d88459e3181e1589aae535a0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42ab7d7b_1886e184",
+        "filename": "modules/audio_processing/agc2/rnn_vad/biquad.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-24T06:10:32Z",
+      "side": 1,
+      "message": "Is really double precision needed?",
+      "revId": "9d740f9ad0a9273d88459e3181e1589aae535a0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80900748_5862aeb8",
+        "filename": "modules/audio_processing/agc2/rnn_vad/biquad.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-24T06:10:32Z",
+      "side": 1,
+      "message": "Please skip the _ in the parameter name suffixes",
+      "revId": "9d740f9ad0a9273d88459e3181e1589aae535a0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8486e180_a797d6b5",
+        "filename": "modules/audio_processing/agc2/rnn_vad/biquad.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-24T06:10:32Z",
+      "side": 1,
+      "message": "Please skip the _ in the parameter name suffixes",
+      "revId": "9d740f9ad0a9273d88459e3181e1589aae535a0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89ac4ebe_70922282",
+        "filename": "modules/audio_processing/agc2/rnn_vad/biquad.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-24T06:10:32Z",
+      "side": 1,
+      "message": "If possible, it would be nicer to use the macros in rtc_base/constructormagic.h to delete these constructors.",
+      "revId": "9d740f9ad0a9273d88459e3181e1589aae535a0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d4fe8b1_37fbbae5",
+        "filename": "modules/audio_processing/agc2/rnn_vad/biquad.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-24T06:10:32Z",
+      "side": 1,
+      "message": "What is the intended use of the SetState method?",
+      "revId": "9d740f9ad0a9273d88459e3181e1589aae535a0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73c6a843_e1e9f015",
+        "filename": "modules/audio_processing/agc2/rnn_vad/biquad.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-24T06:10:32Z",
+      "side": 1,
+      "message": "Please add a more thorough description to what this config does, either in the comment or by making the name of the constant more descriptive.\n\nSince a biquad filter seems like a good candidate for making a shared/common component that can be reused in other WebRTC code, it would make sense not to include any biquad configs into this file and instead put them elsewhere.",
+      "range": {
+        "startLine": 59,
+        "startChar": 27,
+        "endLine": 59,
+        "endChar": 42
+      },
+      "revId": "9d740f9ad0a9273d88459e3181e1589aae535a0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2e4e9d3_29e89adb",
+        "filename": "modules/audio_processing/agc2/rnn_vad/biquad_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-24T06:10:32Z",
+      "side": 1,
+      "message": "Suggestion: it would be nice not to use a testcase of 48 kHz for this test as the reference data becomes so long. For the same reason it would make sense to limit the test to be done on less than 10 ms of data. For checking the bitexactness of this, I\u0027d think it is sufficient to verify the output of only a few values.\n\nInstead of the long bitexactness test it would be nice to have a simple spec-test that verifies that the desired effect of the biquad filter is achieved.",
+      "revId": "9d740f9ad0a9273d88459e3181e1589aae535a0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5fb7ff95_1a51f184",
+        "filename": "modules/audio_processing/agc2/rnn_vad/biquad_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-24T06:10:32Z",
+      "side": 1,
+      "message": "If this config is only used herein, I\u0027d suggest moving it from the biquad header file to here.",
+      "range": {
+        "startLine": 141,
+        "startChar": 19,
+        "endLine": 141,
+        "endChar": 34
+      },
+      "revId": "9d740f9ad0a9273d88459e3181e1589aae535a0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "232a2df5_fce3eb57",
+        "filename": "modules/audio_processing/agc2/rnn_vad/biquad_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-24T06:10:32Z",
+      "side": 1,
+      "message": "My suggestion is to remove the curly braces that achieve local scope.\nThe only effect of that is that samples_filtered is not visible in the second region, but since that is anyway not used there, and since the test cases is so short, I think there is nothing to gain by the local scope that outweights the cost in readability that is introduced.",
+      "revId": "9d740f9ad0a9273d88459e3181e1589aae535a0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

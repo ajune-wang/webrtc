@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "044ad2b9_2db7f265",
+        "filename": "modules/video_coding/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 480,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-04-24T13:56:03Z",
+      "side": 1,
+      "message": "Should any other target besides these two be poisonous? E.g. the _helpers, and libvpx?",
+      "revId": "5e6cd21513bde26a849f52d72e1ce77cdebb85ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "165b8d81_76a1b623",
+        "filename": "webrtc.gni",
+        "patchSetId": 2
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-04-24T13:56:03Z",
+      "side": 1,
+      "message": "If it\u0027s only software video codecs, would \"software_video_codecs\" be a better name? Or \"sw_video_codecs\"?",
+      "revId": "5e6cd21513bde26a849f52d72e1ce77cdebb85ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

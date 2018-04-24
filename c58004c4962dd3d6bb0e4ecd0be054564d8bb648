@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c86744a7_cfe56f66",
+        "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCVideoCodec.mm",
+        "patchSetId": 6
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-04-24T11:20:57Z",
+      "side": 1,
+      "message": "May I suggest moving this table to UIDevice+RTCDevice and adding a helper method to get the supported profile/level.",
+      "range": {
+        "startLine": 49,
+        "startChar": 8,
+        "endLine": 49,
+        "endChar": 33
+      },
+      "revId": "c58004c4962dd3d6bb0e4ecd0be054564d8bb648",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce5e0162_6b469aed",
+        "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCVideoCodec.mm",
+        "patchSetId": 6
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-04-24T11:20:57Z",
+      "side": 1,
+      "message": "prefer std::find with a predicate",
+      "range": {
+        "startLine": 113,
+        "startChar": 6,
+        "endLine": 113,
+        "endChar": 7
+      },
+      "revId": "c58004c4962dd3d6bb0e4ecd0be054564d8bb648",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec4287d9_02b2321f",
+        "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCVideoCodec.mm",
+        "patchSetId": 6
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-04-24T11:20:57Z",
+      "side": 1,
+      "message": "No need for RTC-prefix as this is in an anonymous namespace.",
+      "range": {
+        "startLine": 122,
+        "startChar": 10,
+        "endLine": 122,
+        "endChar": 40
+      },
+      "revId": "c58004c4962dd3d6bb0e4ecd0be054564d8bb648",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e21fe53c_ee4ba091",
+        "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCVideoCodec.mm",
+        "patchSetId": 6
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-04-24T11:20:57Z",
+      "side": 1,
+      "message": "please use explicit type as it\u0027s not obvious from the rhs what the return type is.",
+      "range": {
+        "startLine": 123,
+        "startChar": 8,
+        "endLine": 123,
+        "endChar": 12
+      },
+      "revId": "c58004c4962dd3d6bb0e4ecd0be054564d8bb648",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8925b49e_a0f72cee",
+        "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCVideoCodec.mm",
+        "patchSetId": 6
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-04-24T11:20:57Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 125,
+        "startChar": 10,
+        "endLine": 125,
+        "endChar": 14
+      },
+      "revId": "c58004c4962dd3d6bb0e4ecd0be054564d8bb648",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

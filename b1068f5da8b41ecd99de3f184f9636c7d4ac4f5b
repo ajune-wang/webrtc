@@ -16,6 +16,23 @@
       "revId": "b1068f5da8b41ecd99de3f184f9636c7d4ac4f5b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83d3e499_84903f4e",
+        "filename": "pc/peerconnection_integrationtest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 3925,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-24T22:50:34Z",
+      "side": 1,
+      "message": "nit: We typically use \"EXPECT\" to indicate that an assertion is the main thing the test is testing, using \"ASSERT\" to cause the test to abort early when it wouldn\u0027t make sense to continue. See: https://stackoverflow.com/questions/2565299/using-assert-and-expect-in-googletest",
+      "revId": "b1068f5da8b41ecd99de3f184f9636c7d4ac4f5b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

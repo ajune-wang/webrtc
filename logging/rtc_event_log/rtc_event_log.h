@@ -21,8 +21,6 @@
 
 namespace webrtc {
 
-enum PacketDirection { kIncomingPacket = 0, kOutgoingPacket };
-
 class RtcEventLog {
  public:
   enum : size_t { kUnlimitedOutput = 0 };

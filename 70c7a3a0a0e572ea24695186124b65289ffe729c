@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ce504644_71c6e586",
+        "filename": "api/video_codecs/BUILD.gn",
+        "patchSetId": 7
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-04-24T10:52:00Z",
+      "side": 1,
+      "message": "This shouldn\u0027t be needed for video?",
+      "range": {
+        "startLine": 41,
+        "startChar": 2,
+        "endLine": 41,
+        "endChar": 74
+      },
+      "revId": "70c7a3a0a0e572ea24695186124b65289ffe729c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7ef98ec_05adb129",
+        "filename": "api/video_codecs/BUILD.gn",
+        "patchSetId": 7
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-04-24T10:52:00Z",
+      "side": 1,
+      "message": "This shouldn\u0027t be needed for video?",
+      "range": {
+        "startLine": 56,
+        "startChar": 2,
+        "endLine": 56,
+        "endChar": 74
+      },
+      "revId": "70c7a3a0a0e572ea24695186124b65289ffe729c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef206e79_84c4e44a",
+        "filename": "api/video_codecs/BUILD.gn",
+        "patchSetId": 7
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-04-24T10:52:00Z",
+      "side": 1,
+      "message": "Out of curiosity, what file is causing this? I would prefer to fix it if possible.",
+      "range": {
+        "startLine": 70,
+        "startChar": 4,
+        "endLine": 70,
+        "endChar": 77
+      },
+      "revId": "70c7a3a0a0e572ea24695186124b65289ffe729c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b502cc0f_d9dd87f1",
+        "filename": "examples/peerconnection/client/conductor.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-04-24T10:52:00Z",
+      "side": 1,
+      "message": "Can you add inline comments to comment what these literals represent?",
+      "range": {
+        "startLine": 80,
+        "startChar": 6,
+        "endLine": 80,
+        "endChar": 13
+      },
+      "revId": "70c7a3a0a0e572ea24695186124b65289ffe729c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2f13039_98763d5e",
+        "filename": "media/engine/fakewebrtcvideoengine.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-04-24T10:52:00Z",
+      "side": 1,
+      "message": "Since this is a Fake decoder factory, do we need to use the real internal one? I understand you are just maintaining the current behavior and that this is how it works today. Would it be possible to add VP8 and H264 as AddSupportedVideoCodecType() in the ctor instead and not rely on the real factory?",
+      "range": {
+        "startLine": 83,
+        "startChar": 6,
+        "endLine": 83,
+        "endChar": 69
+      },
+      "revId": "70c7a3a0a0e572ea24695186124b65289ffe729c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

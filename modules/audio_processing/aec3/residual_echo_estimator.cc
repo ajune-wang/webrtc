@@ -55,6 +55,7 @@ void ResidualEchoEstimator::Estimate(
         static_cast<int>(config_.echo_model.render_post_window_size);
     EchoGeneratingPower(render_buffer, window_start, window_end, &X2);
 
+    // JVP look if this is competing/completing the stationarity estimator
     // Subtract the stationary noise power to avoid stationary noise causing
     // excessive echo suppression.
     std::transform(X2.begin(), X2.end(), X2_noise_floor_.begin(), X2.begin(),
@@ -73,6 +74,18 @@ void ResidualEchoEstimator::Estimate(
 
     AddEchoReverb(*R2, config_.filter.main.length_blocks,
                   aec_state.ReverbDecay(), R2);
+  }
+
+  if (aec_state.UseStationaryProperties()) {
+    // Scale the echo according to echo audibility.
+
+    for (size_t k = 0; k < (*R2).size(); ++k) {
+      float residualScaling = aec_state.GetResidualEchoScaling(k);
+      (*R2)[k] *= residualScaling;
+      if (residualScaling == 0.f) {
+        R2_hold_counter_[k] = 0.f;  // JVP check the use of this
+      }
+    }
   }
 
   // If the echo is deemed inaudible, set the residual echo to zero.

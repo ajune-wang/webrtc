@@ -333,6 +333,12 @@ void SuppressionGain::LowerBandGain(
   UpdateGainIncrease(low_noise_render, linear_echo_estimate, saturated_echo,
                      weighted_echo, *gain);
 
+  // Adjust gain dynamics.
+  const float gain_bound =
+      std::max(0.001f, *std::min_element(gain->begin(), gain->end()) * 10000.f);
+  std::for_each(gain->begin(), gain->end(),
+                [gain_bound](float& a) { a = std::min(a, gain_bound); });
+
   // Store data required for the gain computation of the next block.
   std::copy(weighted_echo.begin(), weighted_echo.end(), last_echo_.begin());
   std::copy(gain->begin(), gain->end(), last_gain_.begin());
@@ -398,7 +404,14 @@ void SuppressionGain::SetInitialState(bool state) {
 void SuppressionGain::UpdateGainIncrease(
     bool low_noise_render,
     bool linear_echo_estimate,
+<<<<<<< HEAD
+<<<<<<< HEAD
     bool saturated_echo,
+=======
+    size_t num_no_echo_blocks,
+>>>>>>> Update of the functionality for determining echo audibility
+=======
+>>>>>>> AEC3: Audibility: removing unused code from the prototype
     const std::array<float, kFftLengthBy2Plus1>& echo,
     const std::array<float, kFftLengthBy2Plus1>& new_gain) {
   float max_inc;

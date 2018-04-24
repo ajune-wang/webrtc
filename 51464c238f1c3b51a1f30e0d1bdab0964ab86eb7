@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ce94adc0_96a5e59b",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-04-24T12:30:55Z",
+      "side": 1,
+      "message": "The problem with that is that it requires the congestion controller to expose an API for configuring ALR probing behavior, which is an internal implementation detail that doesn\u0027t make sense in the context of a generic congestion controller.\n\nWe could try to replace the Screenhare/Video  distinction with something relating to the behavior directly (kConstantRateVideo, kVariableRateVideo) if we think that improves readability,",
+      "parentUuid": "e2ba940a_73fd971b",
+      "range": {
+        "startLine": 61,
+        "startChar": 2,
+        "endLine": 61,
+        "endChar": 68
+      },
+      "revId": "51464c238f1c3b51a1f30e0d1bdab0964ab86eb7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0bae2a4b_65d8f156",
         "filename": "call/bitrate_allocator.h",
         "patchSetId": 4

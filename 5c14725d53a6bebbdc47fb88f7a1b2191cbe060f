@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "650adc41_48196cef",
+        "filename": "sdk/objc/Framework/Classes/Metal/RTCMTLVideoView.m",
+        "patchSetId": 7
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 5600
+      },
+      "writtenOn": "2018-04-24T06:01:16Z",
+      "side": 1,
+      "message": "This is being set from a potentially different queue than it is read.",
+      "range": {
+        "startLine": 160,
+        "startChar": 2,
+        "endLine": 160,
+        "endChar": 17
+      },
+      "revId": "5c14725d53a6bebbdc47fb88f7a1b2191cbe060f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

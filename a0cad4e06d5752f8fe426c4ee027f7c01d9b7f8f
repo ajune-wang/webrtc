@@ -626,6 +626,30 @@
     },
     {
       "key": {
+        "uuid": "4f8023a8_3cb215f9",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-24T15:34:43Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ad278e11_a5f89d19",
+      "range": {
+        "startLine": 26,
+        "startChar": 14,
+        "endLine": 26,
+        "endChar": 28
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8342aa45_b02f129e",
         "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
         "patchSetId": 2
@@ -741,6 +765,30 @@
       "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "597743ab_9052da06",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-24T15:34:43Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "46c9e78f_b9e0506c",
+      "range": {
+        "startLine": 31,
+        "startChar": 13,
+        "endLine": 31,
+        "endChar": 40
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -2819,6 +2867,30 @@
       "side": 1,
       "message": "What I meant was that instead of having one single statement that produces a an output stored in a const, I think it would be better to split it into several smaller statements. As it is now, it is a bit hard to see what is done and I think that it could perhaps be simpler to read if was done in several steps.",
       "parentUuid": "4eb459ab_0e801f37",
+      "range": {
+        "startLine": 332,
+        "startChar": 11,
+        "endLine": 332,
+        "endChar": 14
+      },
+      "revId": "a0cad4e06d5752f8fe426c4ee027f7c01d9b7f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8abd41d5_ee3ed0a1",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-24T15:34:43Z",
+      "side": 1,
+      "message": "Ok sorry, now I get it. Changed!",
+      "parentUuid": "9b4cfaa4_71afe1a4",
       "range": {
         "startLine": 332,
         "startChar": 11,

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5cfdbe9e_c948c433",
+        "filename": "modules/audio_processing/agc2/rnn_vad/rnn.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-24T15:33:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "16d94505_19a069e9",
+      "range": {
+        "startLine": 67,
+        "startChar": 2,
+        "endLine": 67,
+        "endChar": 14
+      },
+      "revId": "dc697ef867bde918bbf21bcdb5bf378eede51e76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "60db3700_ab4febf6",
         "filename": "modules/audio_processing/agc2/rnn_vad/rnn.cc",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "dc697ef867bde918bbf21bcdb5bf378eede51e76",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83751122_e3735dcf",
+        "filename": "modules/audio_processing/agc2/rnn_vad/rnn.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-24T15:33:43Z",
+      "side": 1,
+      "message": "Thanks for this suggestion. To address this I have to reshape weights_ in //third_party/rnnoise first. Note however that this network is relatively small, with the largest fully connected layer with 42x24\u003d1008 weights. Each weight is a byte, hence the whole matrix gets about 1k. For an L1 cache of 32kB, we may expect that the whole matrix is loaded.\n\nThe change you suggest would require a benchmark. For now, I would prefer to stick to the reference implementation and when time allows we investigate which structure of the network weights leads to the best performance across-platforms. I added a TODO for that (similarly as done elsewhere in this VAD).",
+      "parentUuid": "60db3700_ab4febf6",
+      "range": {
+        "startLine": 88,
+        "startChar": 31,
+        "endLine": 88,
+        "endChar": 61
+      },
+      "revId": "dc697ef867bde918bbf21bcdb5bf378eede51e76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "5b897438_eecfae6d",
+        "filename": "modules/audio_processing/agc2/rnn_vad/rnn.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-24T15:33:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bfee0780_1b4eb608",
+      "range": {
+        "startLine": 42,
+        "startChar": 22,
+        "endLine": 42,
+        "endChar": 69
+      },
+      "revId": "dc697ef867bde918bbf21bcdb5bf378eede51e76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "859280c8_81acc018",
         "filename": "modules/audio_processing/agc2/rnn_vad/rnn.h",
         "patchSetId": 2
@@ -91,6 +163,30 @@
       "revId": "dc697ef867bde918bbf21bcdb5bf378eede51e76",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c6cad41_31617cbf",
+        "filename": "modules/audio_processing/agc2/rnn_vad/rnn.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-24T15:33:43Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "859280c8_81acc018",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 70
+      },
+      "revId": "dc697ef867bde918bbf21bcdb5bf378eede51e76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "ae3959cc_0fd3eb65",
+        "filename": "modules/audio_processing/agc2/rnn_vad/rnn.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-24T15:33:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "36cefdec_bf29e3c3",
+      "range": {
+        "startLine": 57,
+        "startChar": 2,
+        "endLine": 57,
+        "endChar": 29
+      },
+      "revId": "dc697ef867bde918bbf21bcdb5bf378eede51e76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ada3ab5e_3c993924",
         "filename": "modules/audio_processing/agc2/rnn_vad/rnn.h",
         "patchSetId": 2
@@ -137,6 +257,30 @@
       "revId": "dc697ef867bde918bbf21bcdb5bf378eede51e76",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0405bd09_bc34cdc7",
+        "filename": "modules/audio_processing/agc2/rnn_vad/rnn.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-24T15:33:43Z",
+      "side": 1,
+      "message": "Sorry, I want to avoid dynamic allocation. Comment fixed.",
+      "parentUuid": "ada3ab5e_3c993924",
+      "range": {
+        "startLine": 59,
+        "startChar": 4,
+        "endLine": 59,
+        "endChar": 53
+      },
+      "revId": "dc697ef867bde918bbf21bcdb5bf378eede51e76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

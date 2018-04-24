@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "81da7a9a_2df19818",
+        "filename": "modules/audio_processing/aec3/coherence_gain.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2018-04-24T09:07:06Z",
+      "side": 1,
+      "message": "Avoid c-cast",
+      "revId": "e938f64f628b0a63d2c39e1384df880ff90c817e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

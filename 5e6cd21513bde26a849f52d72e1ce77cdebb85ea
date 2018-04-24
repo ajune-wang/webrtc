@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "848161cf_0d2c4a25",
+        "filename": "modules/video_coding/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 480,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2018-04-24T14:39:39Z",
+      "side": 1,
+      "message": "The _helpers targets only contain the stuff that does not depend on libvpx, so they are safe to use without pulling in the software codec implementations (could theoretically be used with a hardware VP8/9 implementation). If we can mark libvpx itself to be poisonous that would be nice, that is basically what I\u0027m trying to do here. But we don\u0027t have a normal \"deps\" from these targets to libvpx so I\u0027m not sure how that works.",
+      "parentUuid": "044ad2b9_2db7f265",
+      "revId": "5e6cd21513bde26a849f52d72e1ce77cdebb85ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "165b8d81_76a1b623",
         "filename": "webrtc.gni",
         "patchSetId": 2
@@ -33,6 +51,24 @@
       "revId": "5e6cd21513bde26a849f52d72e1ce77cdebb85ea",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53f7aacf_8bbc4a82",
+        "filename": "webrtc.gni",
+        "patchSetId": 2
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2018-04-24T14:39:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "165b8d81_76a1b623",
+      "revId": "5e6cd21513bde26a849f52d72e1ce77cdebb85ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

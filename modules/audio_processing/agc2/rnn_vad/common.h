@@ -46,6 +46,8 @@ constexpr size_t kFrameSize10ms48kHz = kSampleRate48kHz / 100;
 constexpr size_t kPitchMinPeriod48kHz = kPitchMinPeriod24kHz * 2;
 constexpr size_t kPitchMaxPeriod48kHz = kPitchMaxPeriod24kHz * 2;
 
+constexpr size_t kFeatureVectorSize = 42;
+
 }  // namespace rnn_vad
 }  // namespace webrtc
 

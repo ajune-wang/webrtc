@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9d5efd47_e05cf7d3",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-04-24T08:26:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "008edbfa_b53bc43d",
+      "range": {
+        "startLine": 408,
+        "startChar": 24,
+        "endLine": 408,
+        "endChar": 45
+      },
+      "revId": "63e94ca4151bd4705e97e3b2a87f3e0938bf8cf7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1b6c6f30_f242aef1",
         "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
         "patchSetId": 5
@@ -71,6 +95,54 @@
     },
     {
       "key": {
+        "uuid": "dee304f5_00752209",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-04-24T08:26:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1b6c6f30_f242aef1",
+      "range": {
+        "startLine": 233,
+        "startChar": 2,
+        "endLine": 233,
+        "endChar": 16
+      },
+      "revId": "63e94ca4151bd4705e97e3b2a87f3e0938bf8cf7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8111d57f_0bd02c3d",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-04-24T08:26:50Z",
+      "side": 1,
+      "message": "Only the const version is used right now. However, there is no particular reason for this and I would find it very surprising if an iterator only worked for const objects. I prefer to keep this.",
+      "parentUuid": "7116f6a6_5564273a",
+      "range": {
+        "startLine": 233,
+        "startChar": 17,
+        "endLine": 233,
+        "endChar": 66
+      },
+      "revId": "63e94ca4151bd4705e97e3b2a87f3e0938bf8cf7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "01b982eb_ef9f44a4",
         "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
         "patchSetId": 5
@@ -91,6 +163,30 @@
       "revId": "63e94ca4151bd4705e97e3b2a87f3e0938bf8cf7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06ab4ff6_092c7231",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-04-24T08:26:50Z",
+      "side": 1,
+      "message": "Thanks for pointing this out. I filled in the implementation to make the PacketView compatible with the std::vector interface.",
+      "parentUuid": "01b982eb_ef9f44a4",
+      "range": {
+        "startLine": 302,
+        "startChar": 0,
+        "endLine": 307,
+        "endChar": 6
+      },
+      "revId": "63e94ca4151bd4705e97e3b2a87f3e0938bf8cf7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "28e1765d_98950e6f",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-04-24T08:26:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "056067ce_63e3a912",
+      "range": {
+        "startLine": 314,
+        "startChar": 0,
+        "endLine": 315,
+        "endChar": 33
+      },
+      "revId": "63e94ca4151bd4705e97e3b2a87f3e0938bf8cf7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7b903c85_1aa51f10",
         "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
         "patchSetId": 5
@@ -137,6 +257,30 @@
       "revId": "63e94ca4151bd4705e97e3b2a87f3e0938bf8cf7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "574ec5b3_60f10906",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-04-24T08:26:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7b903c85_1aa51f10",
+      "range": {
+        "startLine": 336,
+        "startChar": 6,
+        "endLine": 336,
+        "endChar": 19
+      },
+      "revId": "63e94ca4151bd4705e97e3b2a87f3e0938bf8cf7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "65acc592_11d6948b",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1426,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-04-24T08:26:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e14e909c_c5a0e244",
+      "range": {
+        "startLine": 1424,
+        "startChar": 1,
+        "endLine": 1426,
+        "endChar": 79
+      },
+      "revId": "63e94ca4151bd4705e97e3b2a87f3e0938bf8cf7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1dfa355a_00a42406",
         "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
         "patchSetId": 5
@@ -174,6 +342,30 @@
       "writtenOn": "2018-04-11T19:26:57Z",
       "side": 1,
       "message": "Could this be made a separate side effect free function taking  a RtpPacketView and returning a tuple of alert vectors?",
+      "range": {
+        "startLine": 1909,
+        "startChar": 23,
+        "endLine": 1909,
+        "endChar": 44
+      },
+      "revId": "63e94ca4151bd4705e97e3b2a87f3e0938bf8cf7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7867461e_296cb2c5",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1909,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-04-24T08:26:50Z",
+      "side": 1,
+      "message": "It could be done. but the code relies on several members; log_segments_, rtp_packets(...), ToCallTime(...), Alert_SeqNumJump(...), Alert_CaptureTimeJump(...). The function would have to take 4 or 5 arguments and return two lists which would then have to be processed in the calling code. I don\u0027t think it would improve readability.",
+      "parentUuid": "1dfa355a_00a42406",
       "range": {
         "startLine": 1909,
         "startChar": 23,

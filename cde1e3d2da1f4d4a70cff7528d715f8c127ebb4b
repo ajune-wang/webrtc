@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e93293fa_3a44baa7",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 2818,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-04-24T16:46:43Z",
+      "side": 1,
+      "message": "Do you want to have the same syntax as what you did below?\n\n\"SetConfiguration: PeerConnection is closed.\"",
+      "range": {
+        "startLine": 2818,
+        "startChar": 12,
+        "endLine": 2818,
+        "endChar": 66
+      },
+      "revId": "cde1e3d2da1f4d4a70cff7528d715f8c127ebb4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

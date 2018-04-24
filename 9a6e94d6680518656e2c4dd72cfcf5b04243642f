@@ -93,6 +93,30 @@
       "revId": "9a6e94d6680518656e2c4dd72cfcf5b04243642f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7e4a4fa0_adabb641",
+        "filename": "sdk/android/api/org/webrtc/VideoSource.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-04-24T11:51:09Z",
+      "side": 1,
+      "message": "Actually, I ended up putting it behind a getCapturerObserver() method.",
+      "parentUuid": "358b7486_cf43cdec",
+      "range": {
+        "startLine": 17,
+        "startChar": 45,
+        "endLine": 17,
+        "endChar": 86
+      },
+      "revId": "9a6e94d6680518656e2c4dd72cfcf5b04243642f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

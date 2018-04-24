@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "016f0c07_0bb2626b",
+        "filename": "api/video_codecs/BUILD.gn",
+        "patchSetId": 7
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2018-04-24T11:41:52Z",
+      "side": 1,
+      "message": "No it shouldn\u0027t, that\u0027s what the TODO is for :) `media:rtc_internal_video_codecs` has this allow_poison and it is transitive. So when that target is cleared of the poison these will be too.",
+      "parentUuid": "ce504644_71c6e586",
+      "range": {
+        "startLine": 41,
+        "startChar": 2,
+        "endLine": 41,
+        "endChar": 74
+      },
+      "revId": "70c7a3a0a0e572ea24695186124b65289ffe729c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d7ef98ec_05adb129",
         "filename": "api/video_codecs/BUILD.gn",
         "patchSetId": 7
@@ -45,6 +69,30 @@
       "revId": "70c7a3a0a0e572ea24695186124b65289ffe729c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e3d2401_f7249af1",
+        "filename": "api/video_codecs/BUILD.gn",
+        "patchSetId": 7
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2018-04-24T11:41:52Z",
+      "side": 1,
+      "message": "See above.",
+      "parentUuid": "d7ef98ec_05adb129",
+      "range": {
+        "startLine": 56,
+        "startChar": 2,
+        "endLine": 56,
+        "endChar": 74
+      },
+      "revId": "70c7a3a0a0e572ea24695186124b65289ffe729c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "82c3be0b_3e03d249",
+        "filename": "api/video_codecs/BUILD.gn",
+        "patchSetId": 7
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2018-04-24T11:41:52Z",
+      "side": 1,
+      "message": "It was just marking an overridden destructor in `media/engine/vp8_encoder_simulcast_proxy.h`, fixed.",
+      "parentUuid": "ef206e79_84c4e44a",
+      "range": {
+        "startLine": 70,
+        "startChar": 4,
+        "endLine": 70,
+        "endChar": 77
+      },
+      "revId": "70c7a3a0a0e572ea24695186124b65289ffe729c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b502cc0f_d9dd87f1",
         "filename": "examples/peerconnection/client/conductor.cc",
         "patchSetId": 7
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "a6ac3634_3c27dbae",
+        "filename": "examples/peerconnection/client/conductor.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2018-04-24T11:41:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b502cc0f_d9dd87f1",
+      "range": {
+        "startLine": 80,
+        "startChar": 6,
+        "endLine": 80,
+        "endChar": 13
+      },
+      "revId": "70c7a3a0a0e572ea24695186124b65289ffe729c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a2f13039_98763d5e",
         "filename": "media/engine/fakewebrtcvideoengine.cc",
         "patchSetId": 7
@@ -105,6 +201,30 @@
       "writtenOn": "2018-04-24T10:52:00Z",
       "side": 1,
       "message": "Since this is a Fake decoder factory, do we need to use the real internal one? I understand you are just maintaining the current behavior and that this is how it works today. Would it be possible to add VP8 and H264 as AddSupportedVideoCodecType() in the ctor instead and not rely on the real factory?",
+      "range": {
+        "startLine": 83,
+        "startChar": 6,
+        "endLine": 83,
+        "endChar": 69
+      },
+      "revId": "70c7a3a0a0e572ea24695186124b65289ffe729c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75ea776a_8655d8b7",
+        "filename": "media/engine/fakewebrtcvideoengine.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2018-04-24T11:41:52Z",
+      "side": 1,
+      "message": "I tried this, but the current test suite relies on this behaviour (making sure the number of created decoders counter is not incremented when an internal decoder should have been created etc). This is kind of redundant now since we don\u0027t handle internal and external decoders differently, so it\u0027s really just testing this fake decoder factory class. Do you think I should address that in this CL (rewriting/removing any affected tests) or save it for a follow-up?",
+      "parentUuid": "a2f13039_98763d5e",
       "range": {
         "startLine": 83,
         "startChar": 6,

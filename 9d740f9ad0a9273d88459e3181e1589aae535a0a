@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "242ca26a_e10124ed",
+        "filename": "modules/audio_processing/agc2/rnn_vad/biquad.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-24T08:52:12Z",
+      "side": 1,
+      "message": "This objects are cheap to copy (5 floats) and with this iface I can pass {} even if the ctor is explicit. Would you still recommend to pass a const ref?",
+      "parentUuid": "73aea070_59e9cc2d",
+      "range": {
+        "startLine": 18,
+        "startChar": 33,
+        "endLine": 18,
+        "endChar": 39
+      },
+      "revId": "9d740f9ad0a9273d88459e3181e1589aae535a0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "42ab7d7b_1886e184",
         "filename": "modules/audio_processing/agc2/rnn_vad/biquad.cc",
         "patchSetId": 2
@@ -36,6 +60,24 @@
       "writtenOn": "2018-04-24T06:10:32Z",
       "side": 1,
       "message": "Is really double precision needed?",
+      "revId": "9d740f9ad0a9273d88459e3181e1589aae535a0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27b63612_defb0e3d",
+        "filename": "modules/audio_processing/agc2/rnn_vad/biquad.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-24T08:52:12Z",
+      "side": 1,
+      "message": "Without casts, the bit exactness test used to compare to the reference code obviously fails.\nBut currently the high-pass filter is disabled, so removing the casts (and the bit exactness test) is a viable option.\n\nThe question is what is best for a transposed direct form II implementation of a bi-quad.\nI\u0027ve found some recommendations on how to implement these filters; as far as I understand such a cast affects both accuracy and stability. Let\u0027s discuss offline.",
+      "parentUuid": "42ab7d7b_1886e184",
       "revId": "9d740f9ad0a9273d88459e3181e1589aae535a0a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "74008945_85acb8be",
+        "filename": "modules/audio_processing/agc2/rnn_vad/biquad.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-24T08:52:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "80900748_5862aeb8",
+      "revId": "9d740f9ad0a9273d88459e3181e1589aae535a0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8486e180_a797d6b5",
         "filename": "modules/audio_processing/agc2/rnn_vad/biquad.h",
         "patchSetId": 2
@@ -73,6 +133,24 @@
       "revId": "9d740f9ad0a9273d88459e3181e1589aae535a0a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f03f8ead_5dbd1f12",
+        "filename": "modules/audio_processing/agc2/rnn_vad/biquad.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-24T08:52:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8486e180_a797d6b5",
+      "revId": "9d740f9ad0a9273d88459e3181e1589aae535a0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -93,6 +171,24 @@
     },
     {
       "key": {
+        "uuid": "840208dd_72b2ad1e",
+        "filename": "modules/audio_processing/agc2/rnn_vad/biquad.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-24T08:52:12Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "89ac4ebe_70922282",
+      "revId": "9d740f9ad0a9273d88459e3181e1589aae535a0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4d4fe8b1_37fbbae5",
         "filename": "modules/audio_processing/agc2/rnn_vad/biquad.h",
         "patchSetId": 2
@@ -104,6 +200,24 @@
       "writtenOn": "2018-04-24T06:10:32Z",
       "side": 1,
       "message": "What is the intended use of the SetState method?",
+      "revId": "9d740f9ad0a9273d88459e3181e1589aae535a0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4750ce22_3f62d3f3",
+        "filename": "modules/audio_processing/agc2/rnn_vad/biquad.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-24T08:52:12Z",
+      "side": 1,
+      "message": "Only used for unit tests. Shall I make it private and friend with the unit test class?",
+      "parentUuid": "4d4fe8b1_37fbbae5",
       "revId": "9d740f9ad0a9273d88459e3181e1589aae535a0a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -133,6 +247,30 @@
     },
     {
       "key": {
+        "uuid": "5fb1d333_ce983ff2",
+        "filename": "modules/audio_processing/agc2/rnn_vad/biquad.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-24T08:52:12Z",
+      "side": 1,
+      "message": "Sorry, that was a left over. Now moved to biquad_unittest.cc.",
+      "parentUuid": "73c6a843_e1e9f015",
+      "range": {
+        "startLine": 59,
+        "startChar": 27,
+        "endLine": 59,
+        "endChar": 42
+      },
+      "revId": "9d740f9ad0a9273d88459e3181e1589aae535a0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a2e4e9d3_29e89adb",
         "filename": "modules/audio_processing/agc2/rnn_vad/biquad_unittest.cc",
         "patchSetId": 2
@@ -147,6 +285,24 @@
       "revId": "9d740f9ad0a9273d88459e3181e1589aae535a0a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca98196a_96cc4c67",
+        "filename": "modules/audio_processing/agc2/rnn_vad/biquad_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-24T08:52:12Z",
+      "side": 1,
+      "message": "Right. I added a TODO to remove this test once the whole VAD lands.\nKeeping this until then helps me with addressing comments without breaking the RNN.\nThere are a lot of tests like this which would be too much for the trybots.",
+      "parentUuid": "a2e4e9d3_29e89adb",
+      "revId": "9d740f9ad0a9273d88459e3181e1589aae535a0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -173,6 +329,30 @@
     },
     {
       "key": {
+        "uuid": "968a761a_e7eaa6a3",
+        "filename": "modules/audio_processing/agc2/rnn_vad/biquad_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-24T08:52:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5fb7ff95_1a51f184",
+      "range": {
+        "startLine": 141,
+        "startChar": 19,
+        "endLine": 141,
+        "endChar": 34
+      },
+      "revId": "9d740f9ad0a9273d88459e3181e1589aae535a0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "232a2df5_fce3eb57",
         "filename": "modules/audio_processing/agc2/rnn_vad/biquad_unittest.cc",
         "patchSetId": 2
@@ -187,6 +367,24 @@
       "revId": "9d740f9ad0a9273d88459e3181e1589aae535a0a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e989abb3_9ac880c6",
+        "filename": "modules/audio_processing/agc2/rnn_vad/biquad_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-24T08:52:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "232a2df5_fce3eb57",
+      "revId": "9d740f9ad0a9273d88459e3181e1589aae535a0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

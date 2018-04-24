@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e2ba940a_73fd971b",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-04-24T11:49:24Z",
+      "side": 1,
+      "message": "This classification seems somewhat arbitrary. I really don\u0027t want to have even more special cases for screenshare.\n\nIn this case, it is used only for configuration of experiments? I\u0027d prefer if we could at least confine screenshare flags to video-specific code. I think VideoSendStream already has VideoContentType, which could be use to configure ALR, taking experiment flags into account.",
+      "range": {
+        "startLine": 61,
+        "startChar": 2,
+        "endLine": 61,
+        "endChar": 68
+      },
+      "revId": "51464c238f1c3b51a1f30e0d1bdab0964ab86eb7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0bae2a4b_65d8f156",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-04-24T11:49:24Z",
+      "side": 1,
+      "message": "It\u0027s a bit difficult to get an overview of the changes. Could you do the rename LimitObserver --\u003e AllocatedStreamsObserver in a preparatory cl?",
+      "range": {
+        "startLine": 106,
+        "startChar": 6,
+        "endLine": 106,
+        "endChar": 30
+      },
+      "revId": "51464c238f1c3b51a1f30e0d1bdab0964ab86eb7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

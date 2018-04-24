@@ -15,6 +15,27 @@ package org.webrtc;
  */
 @JNINamespace("webrtc::jni")
 public class VideoSource extends MediaSource {
+  private class NativeCapturerObserver implements VideoCapturer.CapturerObserver {
+    @Override
+    public void onCapturerStarted(boolean success) {
+      nativeCapturerStarted(nativeSource, success);
+    }
+
+    @Override
+    public void onCapturerStopped() {
+      nativeCapturerStopped(nativeSource);
+    }
+
+    @Override
+    public void onFrameCaptured(VideoFrame frame) {
+      nativeOnFrameCaptured(nativeSource, frame.getBuffer().getWidth(),
+          frame.getBuffer().getHeight(), frame.getRotation(), frame.getTimestampNs(),
+          frame.getBuffer());
+    }
+  }
+
+  private final VideoCapturer.CapturerObserver capturerObserver = new NativeCapturerObserver();
+
   public VideoSource(long nativeSource) {
     super(nativeSource);
   }
@@ -29,5 +50,13 @@ public class VideoSource extends MediaSource {
     nativeAdaptOutputFormat(nativeSource, width, height, fps);
   }
 
+  public VideoCapturer.CapturerObserver getCapturerObserver() {
+    return capturerObserver;
+  }
+
   private static native void nativeAdaptOutputFormat(long source, int width, int height, int fps);
+  private static native void nativeCapturerStarted(long source, boolean success);
+  private static native void nativeCapturerStopped(long source);
+  private static native void nativeOnFrameCaptured(
+      long source, int width, int height, int rotation, long timestampNs, VideoFrame.Buffer frame);
 }

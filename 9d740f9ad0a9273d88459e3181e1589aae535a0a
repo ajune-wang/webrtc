@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "464e052f_e177dc01",
+        "filename": "modules/audio_processing/agc2/rnn_vad/biquad.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-24T11:16:08Z",
+      "side": 1,
+      "message": "Good point. No, then let\u0027s keep it.",
+      "parentUuid": "242ca26a_e10124ed",
+      "range": {
+        "startLine": 18,
+        "startChar": 33,
+        "endLine": 18,
+        "endChar": 39
+      },
+      "revId": "9d740f9ad0a9273d88459e3181e1589aae535a0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "42ab7d7b_1886e184",
         "filename": "modules/audio_processing/agc2/rnn_vad/biquad.cc",
         "patchSetId": 2
@@ -78,6 +102,24 @@
       "side": 1,
       "message": "Without casts, the bit exactness test used to compare to the reference code obviously fails.\nBut currently the high-pass filter is disabled, so removing the casts (and the bit exactness test) is a viable option.\n\nThe question is what is best for a transposed direct form II implementation of a bi-quad.\nI\u0027ve found some recommendations on how to implement these filters; as far as I understand such a cast affects both accuracy and stability. Let\u0027s discuss offline.",
       "parentUuid": "42ab7d7b_1886e184",
+      "revId": "9d740f9ad0a9273d88459e3181e1589aae535a0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d476e99_8d009684",
+        "filename": "modules/audio_processing/agc2/rnn_vad/biquad.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-24T11:16:08Z",
+      "side": 1,
+      "message": "Sounds good.",
+      "parentUuid": "27b63612_defb0e3d",
       "revId": "9d740f9ad0a9273d88459e3181e1589aae535a0a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -224,6 +266,24 @@
     },
     {
       "key": {
+        "uuid": "64b0e54a_f999455b",
+        "filename": "modules/audio_processing/agc2/rnn_vad/biquad.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-24T11:16:08Z",
+      "side": 1,
+      "message": "I don\u0027t think it is needed for the tests. It is used in the bitexactness test but since you have so many datapoints in that already specifying the initial state with SetState does not add anything for the test.\n\nFurthermore, since it is not used like that in practice, it is actually better to do the unittests with the default initialization (with zero state) as that will really test how it is done in the production code.\n\nTo summarize: I think you should remove this.",
+      "parentUuid": "4750ce22_3f62d3f3",
+      "revId": "9d740f9ad0a9273d88459e3181e1589aae535a0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "73c6a843_e1e9f015",
         "filename": "modules/audio_processing/agc2/rnn_vad/biquad.h",
         "patchSetId": 2
@@ -271,6 +331,30 @@
     },
     {
       "key": {
+        "uuid": "6252d3ea_236a3a86",
+        "filename": "modules/audio_processing/agc2/rnn_vad/biquad.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-24T11:16:08Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5fb1d333_ce983ff2",
+      "range": {
+        "startLine": 59,
+        "startChar": 27,
+        "endLine": 59,
+        "endChar": 42
+      },
+      "revId": "9d740f9ad0a9273d88459e3181e1589aae535a0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a2e4e9d3_29e89adb",
         "filename": "modules/audio_processing/agc2/rnn_vad/biquad_unittest.cc",
         "patchSetId": 2
@@ -300,6 +384,24 @@
       "side": 1,
       "message": "Right. I added a TODO to remove this test once the whole VAD lands.\nKeeping this until then helps me with addressing comments without breaking the RNN.\nThere are a lot of tests like this which would be too much for the trybots.",
       "parentUuid": "a2e4e9d3_29e89adb",
+      "revId": "9d740f9ad0a9273d88459e3181e1589aae535a0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a1fc5b60_8f0d5328",
+        "filename": "modules/audio_processing/agc2/rnn_vad/biquad_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-24T11:16:08Z",
+      "side": 1,
+      "message": "The concern is not for the trybot but instead rather for the codesize and the ability to maintain them.",
+      "parentUuid": "ca98196a_96cc4c67",
       "revId": "9d740f9ad0a9273d88459e3181e1589aae535a0a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

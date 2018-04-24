@@ -34,6 +34,13 @@ void ExpectNearAbsolute(rtc::ArrayView<const float> expected,
                         rtc::ArrayView<const float> computed,
                         float tolerance);
 
+// Fail for every pair from two equally sized rtc::ArrayView<float> views such
+// that their relative error is above a given threshold. If the expected value
+// of a pair is 0, the tolerance is used to check the absolute error.
+void ExpectNearRelative(rtc::ArrayView<const float> expected,
+                        rtc::ArrayView<const float> computed,
+                        const float tolerance);
+
 // Reader for binary files consisting of an arbitrary long sequence of elements
 // having type T. It is possible to read and cast to another type D at once.
 template <typename T, typename D = T>
@@ -87,6 +94,10 @@ class BinaryFileReader {
 // Factories for resource file readers; the functions below return a pair where
 // the first item is a reader unique pointer and the second the number of chunks
 // that can be read from the file.
+
+// Creates a reader for the 48 kHz PCM samples (chunks size: |frame_length|).
+std::pair<std::unique_ptr<BinaryFileReader<int16_t, float>>, const size_t>
+CreatePcmSamplesReader(const size_t frame_length);
 
 // Creates a reader for the pitch buffer content at 24 kHz.
 std::pair<std::unique_ptr<BinaryFileReader<float>>, const size_t>

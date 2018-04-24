@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "613bda37_5ed003ad",
+        "filename": "modules/audio_processing/agc2/rnn_vad/biquad.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-24T13:52:19Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "464e052f_e177dc01",
+      "range": {
+        "startLine": 18,
+        "startChar": 33,
+        "endLine": 18,
+        "endChar": 39
+      },
+      "revId": "9d740f9ad0a9273d88459e3181e1589aae535a0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "42ab7d7b_1886e184",
         "filename": "modules/audio_processing/agc2/rnn_vad/biquad.cc",
         "patchSetId": 2
@@ -123,6 +147,24 @@
       "revId": "9d740f9ad0a9273d88459e3181e1589aae535a0a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ddda9f1_115e3937",
+        "filename": "modules/audio_processing/agc2/rnn_vad/biquad.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-24T13:52:19Z",
+      "side": 1,
+      "message": "Cast removed. I\u0027m now comparing to scipy.signal and regardless of whether I use the cast to double the tolerance to let the UT pass remains the same - i.e., cannot lower it when casting.",
+      "parentUuid": "4d476e99_8d009684",
+      "revId": "9d740f9ad0a9273d88459e3181e1589aae535a0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -284,6 +326,24 @@
     },
     {
       "key": {
+        "uuid": "d36b94c7_d795b318",
+        "filename": "modules/audio_processing/agc2/rnn_vad/biquad.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-24T13:52:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "64b0e54a_f999455b",
+      "revId": "9d740f9ad0a9273d88459e3181e1589aae535a0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "73c6a843_e1e9f015",
         "filename": "modules/audio_processing/agc2/rnn_vad/biquad.h",
         "patchSetId": 2
@@ -402,6 +462,24 @@
       "side": 1,
       "message": "The concern is not for the trybot but instead rather for the codesize and the ability to maintain them.",
       "parentUuid": "ca98196a_96cc4c67",
+      "revId": "9d740f9ad0a9273d88459e3181e1589aae535a0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "57a91f18_829dac2b",
+        "filename": "modules/audio_processing/agc2/rnn_vad/biquad_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-24T13:52:19Z",
+      "side": 1,
+      "message": "Let\u0027s do this: since I also removed SetState(), we simplify this test as per your initial suggestion. This also gives us freedom to change the bi-quad impl and remove the cast if we want that. I\u0027m now comparing to Python scipy.signal.",
+      "parentUuid": "a1fc5b60_8f0d5328",
       "revId": "9d740f9ad0a9273d88459e3181e1589aae535a0a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

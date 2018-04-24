@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "96f0872e_8c9623bc",
+        "filename": "modules/audio_processing/agc2/rnn_vad/test_utils.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-24T13:52:19Z",
+      "side": 1,
+      "message": "Would you mind if I leave this method here even if not used anymore? It was used in the previous PS in the bi-quad unit test that is now more lightweight. I can leave it because it will be used in the next CLs to land the RNN VAD.",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 100,
+        "endChar": 50
+      },
+      "revId": "c7fa5aeea0d6cc97f6d70a06c21cabf909b68b1e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

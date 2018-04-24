@@ -1,0 +1,303 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "788115ac_1293fcbe",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-04-24T12:21:49Z",
+      "side": 1,
+      "message": "The functions in \u0027pitch_search_internal\u0027 produce output by modifying audio in ArrayViews. Some of the functions (like this one) are only used once. I think changing the signature to \n\n\u0027std::array\u003c...\u003e auto_corr \u003d ComputePitchAutoCorrelation(...)\u0027\n\nreads easier. We don\u0027t need the generality of ArrayView, and all ArrayViews point to arrays. I suggest making this change where possible.",
+      "range": {
+        "startLine": 32,
+        "startChar": 2,
+        "endLine": 32,
+        "endChar": 29
+      },
+      "revId": "08b9e6c2f459b36bf4d721eb296659238207ce0e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce9103a3_7ced1299",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-04-24T12:21:49Z",
+      "side": 1,
+      "message": "Are we sure \u0027lag-1\u0027, \u0027lag+1\u0027 doesn\u0027t violate DCHECKs in ComputeAutoCorrelationCoeff?",
+      "range": {
+        "startLine": 49,
+        "startChar": 32,
+        "endLine": 49,
+        "endChar": 39
+      },
+      "revId": "08b9e6c2f459b36bf4d721eb296659238207ce0e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "beca0038_d2934bfc",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-04-24T12:21:49Z",
+      "side": 1,
+      "message": "remove \u0027as\u0027",
+      "range": {
+        "startLine": 65,
+        "startChar": 51,
+        "endLine": 65,
+        "endChar": 53
+      },
+      "revId": "08b9e6c2f459b36bf4d721eb296659238207ce0e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "386fec4e_83662a1a",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-04-24T12:21:49Z",
+      "side": 1,
+      "message": "First we find a 24khz period. Then we refine it to 48khz. Then we divide it by 2 in CheckLowerPitchPeriodsAndComputePitchGain. Does the refinement do anything?",
+      "range": {
+        "startLine": 85,
+        "startChar": 9,
+        "endLine": 85,
+        "endChar": 29
+      },
+      "revId": "08b9e6c2f459b36bf4d721eb296659238207ce0e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ab10ee2_0dcf8e68",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-04-24T12:21:49Z",
+      "side": 1,
+      "message": "There is a \u0027Tip of the Week\u0027 #138 about \u0027used for\u0027 comments. Do you think it applies? \n\nAlso, I did not understand the description until reading the code. I didn\u0027t understand that we look at BOTH periods T/(idx+2) and T*array[idx]/(idx+2).",
+      "range": {
+        "startLine": 88,
+        "startChar": 23,
+        "endLine": 88,
+        "endChar": 30
+      },
+      "revId": "08b9e6c2f459b36bf4d721eb296659238207ce0e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f810d4f_c465f382",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-04-24T12:21:49Z",
+      "side": 1,
+      "message": "The input is the pitch buffer, which is the LP residual, right? Which is audio convolved with a short FIR filter. It\u0027s still audio. This downsampling introduces aliasing. Do you know if it has any effect? And what would change if we have less aliasing here? I listened to the LP residual and it does have plenty of energy in the upper frequencies. \n\nMaybe try averaging \u0027dst[i] \u003d (src[2*i] + src[2*i+1])/2\u0027 ?",
+      "range": {
+        "startLine": 106,
+        "startChar": 5,
+        "endLine": 106,
+        "endChar": 15
+      },
+      "revId": "08b9e6c2f459b36bf4d721eb296659238207ce0e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f5ca7d5_7d4590f0",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-04-24T12:21:49Z",
+      "side": 1,
+      "message": "Maybe \u0027const size_t t1 \u003d ...\u0027 instead? Do the values change? Why references?",
+      "range": {
+        "startLine": 120,
+        "startChar": 5,
+        "endLine": 124,
+        "endChar": 7
+      },
+      "revId": "08b9e6c2f459b36bf4d721eb296659238207ce0e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92c7263f_0a9de473",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-04-24T12:21:49Z",
+      "side": 1,
+      "message": "I think this is the inner loop which takes most of the time. The RNN-vad is a little slow. Would it be possible to gain something by computing auto-correlation with FFTs here?\n\nOr use vector instructions. With Godbolt I found that Clang does loop out-rolling when computing the inner product. But it only uses 4 bytes of 32-byte registers.",
+      "range": {
+        "startLine": 184,
+        "startChar": 8,
+        "endLine": 184,
+        "endChar": 35
+      },
+      "revId": "08b9e6c2f459b36bf4d721eb296659238207ce0e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79a69376_ac4a1f81",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-04-24T12:21:49Z",
+      "side": 1,
+      "message": "This is only done once, and should therefore be much faster than ComputeAutoCorrelationCoeff. I don\u0027t think we should prioritize optimizing this inner product.",
+      "range": {
+        "startLine": 210,
+        "startChar": 33,
+        "endLine": 210,
+        "endChar": 67
+      },
+      "revId": "08b9e6c2f459b36bf4d721eb296659238207ce0e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85e82771_4d2e6fed",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-04-24T12:21:49Z",
+      "side": 1,
+      "message": "Maybe specify that it\u0027s measured in 24khz samples?",
+      "range": {
+        "startLine": 283,
+        "startChar": 11,
+        "endLine": 283,
+        "endChar": 17
+      },
+      "revId": "08b9e6c2f459b36bf4d721eb296659238207ce0e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7924b54_65d02e9b",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-04-24T12:21:49Z",
+      "side": 1,
+      "message": "const auto. Here and in \u0027alternative_period\u0027",
+      "range": {
+        "startLine": 298,
+        "startChar": 2,
+        "endLine": 298,
+        "endChar": 6
+      },
+      "revId": "08b9e6c2f459b36bf4d721eb296659238207ce0e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "466f1811_18f294e8",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-04-24T12:21:49Z",
+      "side": 1,
+      "message": "We spent time choosing the best 48khz period from the 24khz period. Now lose precision dividing it by 2. Did we gain something by refining the 48khz period?",
+      "range": {
+        "startLine": 305,
+        "startChar": 36,
+        "endLine": 305,
+        "endChar": 45
+      },
+      "revId": "08b9e6c2f459b36bf4d721eb296659238207ce0e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d1d9330_8c8d25bb",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-04-24T12:21:49Z",
+      "side": 1,
+      "message": "I was confused by what is what here. Can you add a comment or give \u0027t\u0027 a descriptive name? E.g. \u0027period_24khz\u0027?\n\nAlso can you write the return type? Add \u0027 -\u003e size_t\u0027",
+      "range": {
+        "startLine": 316,
+        "startChar": 38,
+        "endLine": 316,
+        "endChar": 39
+      },
+      "revId": "08b9e6c2f459b36bf4d721eb296659238207ce0e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

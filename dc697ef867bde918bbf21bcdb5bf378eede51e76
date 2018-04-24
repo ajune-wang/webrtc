@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "16d94505_19a069e9",
+        "filename": "modules/audio_processing/agc2/rnn_vad/rnn.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2018-04-24T12:19:57Z",
+      "side": 1,
+      "message": "Isn\u0027t a DCHECK good enough here and below, since these are constants?",
+      "range": {
+        "startLine": 67,
+        "startChar": 2,
+        "endLine": 67,
+        "endChar": 14
+      },
+      "revId": "dc697ef867bde918bbf21bcdb5bf378eede51e76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60db3700_ab4febf6",
+        "filename": "modules/audio_processing/agc2/rnn_vad/rnn.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2018-04-24T12:19:57Z",
+      "side": 1,
+      "message": "I think this loop would be more efficient if weights_ was transposed, then we would read the values in adjacent memory locations in this loop (instead of making big jumps). Now we are making big jumps, which causes cache misses. The same applies to various loops below.",
+      "range": {
+        "startLine": 88,
+        "startChar": 31,
+        "endLine": 88,
+        "endChar": 61
+      },
+      "revId": "dc697ef867bde918bbf21bcdb5bf378eede51e76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bfee0780_1b4eb608",
+        "filename": "modules/audio_processing/agc2/rnn_vad/rnn.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2018-04-24T12:19:57Z",
+      "side": 1,
+      "message": "I think old-fashioned function pointers are more efficient than std::function. You could consider switching to those, since I don\u0027t think you need any of the special features of std::function in this case. (same for GratedRecurrentLayer)",
+      "range": {
+        "startLine": 42,
+        "startChar": 22,
+        "endLine": 42,
+        "endChar": 69
+      },
+      "revId": "dc697ef867bde918bbf21bcdb5bf378eede51e76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "859280c8_81acc018",
+        "filename": "modules/audio_processing/agc2/rnn_vad/rnn.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2018-04-24T12:19:57Z",
+      "side": 1,
+      "message": "There is a macro to do this: RTC_DISALLOW_COPY_AND_ASSIGN, so I suggest to use that instead (same for classes below).",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 70
+      },
+      "revId": "dc697ef867bde918bbf21bcdb5bf378eede51e76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36cefdec_bf29e3c3",
+        "filename": "modules/audio_processing/agc2/rnn_vad/rnn.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2018-04-24T12:19:57Z",
+      "side": 1,
+      "message": "This can be const as well, right? (same for GratedRecurrentLayer)",
+      "range": {
+        "startLine": 57,
+        "startChar": 2,
+        "endLine": 57,
+        "endChar": 29
+      },
+      "revId": "dc697ef867bde918bbf21bcdb5bf378eede51e76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ada3ab5e_3c993924",
+        "filename": "modules/audio_processing/agc2/rnn_vad/rnn.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2018-04-24T12:19:57Z",
+      "side": 1,
+      "message": "I\u0027m not sure I understand how over-allocation is more efficient. Can you explain?",
+      "range": {
+        "startLine": 59,
+        "startChar": 4,
+        "endLine": 59,
+        "endChar": 53
+      },
+      "revId": "dc697ef867bde918bbf21bcdb5bf378eede51e76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

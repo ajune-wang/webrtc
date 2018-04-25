@@ -10,6 +10,8 @@
 
 #include "modules/audio_processing/agc2/rnn_vad/test_utils.h"
 
+#include <cmath>
+
 #include "rtc_base/checks.h"
 #include "rtc_base/ptr_util.h"
 #include "test/gtest.h"
@@ -35,6 +37,35 @@ void ExpectNearAbsolute(rtc::ArrayView<const float> expected,
     SCOPED_TRACE(i);
     EXPECT_NEAR(expected[i], computed[i], tolerance);
   }
+}
+
+void ExpectNearRelative(rtc::ArrayView<const float> expected,
+                        rtc::ArrayView<const float> computed,
+                        const float tolerance) {
+  // The relative error is undefined when the expected value is 0.
+  // When that happens, check the absolute error instead. |safe_den| is used
+  // below to implement such logic.
+  auto safe_den = [](float x) { return (x == 0.f) ? 1.f : std::fabs(x); };
+  ASSERT_EQ(expected.size(), computed.size());
+  for (size_t i = 0; i < expected.size(); ++i) {
+    const float abs_diff = std::fabs(expected[i] - computed[i]);
+    // No failure when the values are equal.
+    if (abs_diff == 0.f)
+      continue;
+    SCOPED_TRACE(i);
+    SCOPED_TRACE(expected[i]);
+    SCOPED_TRACE(computed[i]);
+    EXPECT_LE(abs_diff / safe_den(expected[i]), tolerance);
+  }
+}
+
+std::pair<std::unique_ptr<BinaryFileReader<int16_t, float>>, const size_t>
+CreatePcmSamplesReader(const size_t frame_length) {
+  auto ptr = rtc::MakeUnique<BinaryFileReader<int16_t, float>>(
+      ResourcePath("audio_processing/agc2/rnn_vad/samples", "pcm"),
+      frame_length);
+  // The last incomplete frame is ignored.
+  return {std::move(ptr), ptr->data_length() / frame_length};
 }
 
 ReaderPairType CreatePitchBuffer24kHzReader() {

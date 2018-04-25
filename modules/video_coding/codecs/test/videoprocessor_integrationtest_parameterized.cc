@@ -10,6 +10,7 @@
 
 #include "modules/video_coding/codecs/test/videoprocessor_integrationtest.h"
 
+#include "api/test/create_videoprocessor_integrationtest_fixture.h"
 #include "test/testsupport/fileutils.h"
 
 namespace webrtc {
@@ -43,27 +44,29 @@ const int kNumFrames = 30;
 
 // Tests for plotting statistics from logs.
 class VideoProcessorIntegrationTestParameterized
-    : public VideoProcessorIntegrationTest,
+    : public ::testing::Test,
       public ::testing::WithParamInterface<
           ::testing::tuple<size_t, VideoCodecType, bool>> {
  protected:
   VideoProcessorIntegrationTestParameterized()
       : bitrate_(::testing::get<0>(GetParam())),
         codec_type_(::testing::get<1>(GetParam())),
-        hw_codec_(::testing::get<2>(GetParam())) {}
+        hw_codec_(::testing::get<2>(GetParam())) {
+    fixture_ = CreateVideoProcessorIntegrationTestFixture();
+  }
   ~VideoProcessorIntegrationTestParameterized() override = default;
 
   void RunTest(size_t width,
                size_t height,
                size_t framerate,
                const std::string& filename) {
-    config_.filename = filename;
-    config_.filepath = ResourcePath(filename, "yuv");
-    config_.use_single_core = kUseSingleCore;
-    config_.measure_cpu = kMeasureCpu;
-    config_.hw_encoder = hw_codec_;
-    config_.hw_decoder = hw_codec_;
-    config_.num_frames = kNumFrames;
+    fixture_->config.filename = filename;
+    fixture_->config.filepath = ResourcePath(filename, "yuv");
+    fixture_->config.use_single_core = kUseSingleCore;
+    fixture_->config.measure_cpu = kMeasureCpu;
+    fixture_->config.hw_encoder = hw_codec_;
+    fixture_->config.hw_decoder = hw_codec_;
+    fixture_->config.num_frames = kNumFrames;
 
     const size_t num_simulcast_streams =
         codec_type_ == kVideoCodecVP8 ? kNumSpatialLayers : 1;
@@ -71,18 +74,18 @@ class VideoProcessorIntegrationTestParameterized
         codec_type_ == kVideoCodecVP9 ? kNumSpatialLayers : 1;
 
     const std::string codec_name = CodecTypeToPayloadString(codec_type_);
-    config_.SetCodecSettings(codec_name, num_simulcast_streams,
-                             num_spatial_layers, kNumTemporalLayers,
-                             kDenoisingOn, kFrameDropperOn, kSpatialResizeOn,
-                             width, height);
+    fixture_->config.SetCodecSettings(codec_name, num_simulcast_streams,
+                                      num_spatial_layers, kNumTemporalLayers,
+                                      kDenoisingOn, kFrameDropperOn,
+                                      kSpatialResizeOn, width, height);
 
     std::vector<RateProfile> rate_profiles = {
         {bitrate_, framerate, kNumFrames}};
 
-    ProcessFramesAndMaybeVerify(rate_profiles, nullptr, nullptr, nullptr,
-                                &kVisualizationParams);
+    fixture_->ProcessFramesAndMaybeVerify(rate_profiles, nullptr, nullptr,
+                                          nullptr, &kVisualizationParams);
   }
-
+  std::unique_ptr<VideoProcessorIntegrationTestFixtureInterface> fixture_;
   const size_t bitrate_;
   const VideoCodecType codec_type_;
   const bool hw_codec_;

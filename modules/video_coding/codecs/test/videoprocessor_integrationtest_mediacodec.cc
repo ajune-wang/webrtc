@@ -14,6 +14,7 @@
 #include <tuple>
 #include <vector>
 
+#include "api/test/create_videoprocessor_integrationtest_fixture.h"
 #include "common_types.h"  // NOLINT(build/include)
 #include "media/base/mediaconstants.h"
 #include "test/field_trial.h"
@@ -27,21 +28,22 @@ const int kForemanNumFrames = 300;
 const int kForemanFramerateFps = 30;
 }  // namespace
 
-class VideoProcessorIntegrationTestMediaCodec
-    : public VideoProcessorIntegrationTest {
+class VideoProcessorIntegrationTestMediaCodec : public ::testing::Test {
  protected:
   VideoProcessorIntegrationTestMediaCodec() {
-    config_.filename = "foreman_cif";
-    config_.filepath = ResourcePath(config_.filename, "yuv");
-    config_.num_frames = kForemanNumFrames;
-    config_.hw_encoder = true;
-    config_.hw_decoder = true;
+    fixture_ = CreateVideoProcessorIntegrationTestFixture();
+    fixture_->config.filename = "foreman_cif";
+    fixture_->config.filepath = ResourcePath(fixture_->config.filename, "yuv");
+    fixture_->config.num_frames = kForemanNumFrames;
+    fixture_->config.hw_encoder = true;
+    fixture_->config.hw_decoder = true;
   }
+  std::unique_ptr<VideoProcessorIntegrationTestFixtureInterface> fixture_;
 };
 
 TEST_F(VideoProcessorIntegrationTestMediaCodec, ForemanCif500kbpsVp8) {
-  config_.SetCodecSettings(cricket::kVp8CodecName, 1, 1, 1, false, false, false,
-                           352, 288);
+  fixture_->config.SetCodecSettings(cricket::kVp8CodecName, 1, 1, 1, false,
+                                    false, false, 352, 288);
 
   std::vector<RateProfile> rate_profiles = {
       {500, kForemanFramerateFps, kForemanNumFrames}};
@@ -54,14 +56,16 @@ TEST_F(VideoProcessorIntegrationTestMediaCodec, ForemanCif500kbpsVp8) {
 
   std::vector<QualityThresholds> quality_thresholds = {{36, 31, 0.92, 0.86}};
 
-  ProcessFramesAndMaybeVerify(rate_profiles, &rc_thresholds,
-                              &quality_thresholds, nullptr, nullptr);
+  fixture_->ProcessFramesAndMaybeVerify(rate_profiles, &rc_thresholds,
+                                        &quality_thresholds, nullptr, nullptr);
 }
 
 TEST_F(VideoProcessorIntegrationTestMediaCodec, ForemanCif500kbpsH264CBP) {
-  config_.encoded_frame_checker = &h264_keyframe_checker_;
-  config_.SetCodecSettings(cricket::kH264CodecName, 1, 1, 1, false, false,
-                           false, 352, 288);
+  const auto frame_checker =
+      rtc::MakeUnique<VideoProcessorIntegrationTest::H264KeyframeChecker>();
+  fixture_->config.encoded_frame_checker = frame_checker.get();
+  fixture_->config.SetCodecSettings(cricket::kH264CodecName, 1, 1, 1, false,
+                                    false, false, 352, 288);
 
   std::vector<RateProfile> rate_profiles = {
       {500, kForemanFramerateFps, kForemanNumFrames}};
@@ -74,8 +78,8 @@ TEST_F(VideoProcessorIntegrationTestMediaCodec, ForemanCif500kbpsH264CBP) {
 
   std::vector<QualityThresholds> quality_thresholds = {{36, 31, 0.92, 0.86}};
 
-  ProcessFramesAndMaybeVerify(rate_profiles, &rc_thresholds,
-                              &quality_thresholds, nullptr, nullptr);
+  fixture_->ProcessFramesAndMaybeVerify(rate_profiles, &rc_thresholds,
+                                        &quality_thresholds, nullptr, nullptr);
 }
 
 // TODO(brandtr): Enable this test when we have trybots/buildbots with
@@ -83,11 +87,13 @@ TEST_F(VideoProcessorIntegrationTestMediaCodec, ForemanCif500kbpsH264CBP) {
 TEST_F(VideoProcessorIntegrationTestMediaCodec,
        DISABLED_ForemanCif500kbpsH264CHP) {
   ScopedFieldTrials override_field_trials("WebRTC-H264HighProfile/Enabled/");
+  const auto frame_checker =
+      rtc::MakeUnique<VideoProcessorIntegrationTest::H264KeyframeChecker>();
 
-  config_.h264_codec_settings.profile = H264::kProfileConstrainedHigh;
-  config_.encoded_frame_checker = &h264_keyframe_checker_;
-  config_.SetCodecSettings(cricket::kH264CodecName, 1, 1, 1, false, false,
-                           false, 352, 288);
+  fixture_->config.h264_codec_settings.profile = H264::kProfileConstrainedHigh;
+  fixture_->config.encoded_frame_checker = frame_checker.get();
+  fixture_->config.SetCodecSettings(cricket::kH264CodecName, 1, 1, 1, false,
+                                    false, false, 352, 288);
 
   std::vector<RateProfile> rate_profiles = {
       {500, kForemanFramerateFps, kForemanNumFrames}};
@@ -100,8 +106,8 @@ TEST_F(VideoProcessorIntegrationTestMediaCodec,
 
   std::vector<QualityThresholds> quality_thresholds = {{37, 35, 0.93, 0.91}};
 
-  ProcessFramesAndMaybeVerify(rate_profiles, &rc_thresholds,
-                              &quality_thresholds, nullptr, nullptr);
+  fixture_->ProcessFramesAndMaybeVerify(rate_profiles, &rc_thresholds,
+                                        &quality_thresholds, nullptr, nullptr);
 }
 
 TEST_F(VideoProcessorIntegrationTestMediaCodec, ForemanMixedRes100kbpsVp8H264) {
@@ -119,14 +125,16 @@ TEST_F(VideoProcessorIntegrationTestMediaCodec, ForemanMixedRes100kbpsVp8H264) {
     for (const auto& resolution : resolutions) {
       const int width = std::get<0>(resolution);
       const int height = std::get<1>(resolution);
-      config_.filename = std::string("foreman_") + std::to_string(width) + "x" +
-                         std::to_string(height);
-      config_.filepath = ResourcePath(config_.filename, "yuv");
-      config_.num_frames = kNumFrames;
-      config_.SetCodecSettings(codec, 1, 1, 1, false, false, false,
-                               width, height);
+      fixture_->config.filename = std::string("foreman_") +
+                                  std::to_string(width) + "x" +
+                                  std::to_string(height);
+      fixture_->config.filepath =
+          ResourcePath(fixture_->config.filename, "yuv");
+      fixture_->config.num_frames = kNumFrames;
+      fixture_->config.SetCodecSettings(codec, 1, 1, 1, false, false, false,
+                                        width, height);
 
-      ProcessFramesAndMaybeVerify(
+      fixture_->ProcessFramesAndMaybeVerify(
           rate_profiles, nullptr /* rc_thresholds */, &quality_thresholds,
           nullptr /* bs_thresholds */, nullptr /* visualization_params */);
     }

@@ -12,6 +12,7 @@
 
 #include <vector>
 
+#include "api/test/create_videoprocessor_integrationtest_fixture.h"
 #include "media/base/mediaconstants.h"
 #include "modules/video_coding/codecs/test/objc_codec_factory_helper.h"
 #include "test/field_trial.h"
@@ -24,37 +25,24 @@ namespace {
 const int kForemanNumFrames = 300;
 }  // namespace
 
-class VideoProcessorIntegrationTestVideoToolbox
-    : public VideoProcessorIntegrationTest {
+class VideoProcessorIntegrationTestVideoToolbox : public testing::Test {
  protected:
   VideoProcessorIntegrationTestVideoToolbox() {
-    config_.filename = "foreman_cif";
-    config_.filepath = ResourcePath(config_.filename, "yuv");
-    config_.num_frames = kForemanNumFrames;
-    config_.hw_encoder = true;
-    config_.hw_decoder = true;
-    config_.encoded_frame_checker = &h264_keyframe_checker_;
+    auto decoder_factory = CreateObjCDecoderFactory();
+    auto encoder_factory = CreateObjCEncoderFactory();
+    fixture_ = CreateVideoProcessorIntegrationTestFixture(
+        std::move(decoder_factory), std::move(encoder_factory));
+    frame_checker_ =
+        rtc::MakeUnique<VideoProcessorIntegrationTest::H264KeyframeChecker>();
+    fixture_->config.filename = "foreman_cif";
+    fixture_->config.filepath = ResourcePath(fixture_->config.filename, "yuv");
+    fixture_->config.num_frames = kForemanNumFrames;
+    fixture_->config.hw_encoder = true;
+    fixture_->config.hw_decoder = true;
+    fixture_->config.encoded_frame_checker = frame_checker_.get();
   }
-
-  std::unique_ptr<VideoDecoderFactory> CreateDecoderFactory() override {
-    if (config_.hw_decoder) {
-      EXPECT_EQ(kVideoCodecH264, config_.codec_settings.codecType)
-          << "iOS HW codecs only support H264.";
-      return CreateObjCDecoderFactory();
-    }
-    RTC_NOTREACHED() << "Only support HW decoder on iOS.";
-    return nullptr;
-  }
-
-  std::unique_ptr<VideoEncoderFactory> CreateEncoderFactory() override {
-    if (config_.hw_encoder) {
-      EXPECT_EQ(kVideoCodecH264, config_.codec_settings.codecType)
-          << "iOS HW codecs only support H264.";
-      return CreateObjCEncoderFactory();
-    }
-    RTC_NOTREACHED() << "Only support HW encoder on iOS.";
-    return nullptr;
-  }
+  std::unique_ptr<VideoProcessorIntegrationTestFixtureInterface> fixture_;
+  std::unique_ptr<TestConfig::EncodedFrameChecker> frame_checker_;
 };
 
 // TODO(webrtc:9099): Disabled until the issue is fixed.
@@ -69,31 +57,31 @@ class VideoProcessorIntegrationTestVideoToolbox
 // longer in use.
 MAYBE_TEST_F(VideoProcessorIntegrationTestVideoToolbox,
        ForemanCif500kbpsH264CBP) {
-  config_.SetCodecSettings(cricket::kH264CodecName, 1, 1, 1, false, false,
-                           false, 352, 288);
+  fixture_->config.SetCodecSettings(cricket::kH264CodecName, 1, 1, 1, false,
+                                    false, false, 352, 288);
 
   std::vector<RateProfile> rate_profiles = {{500, 30, kForemanNumFrames}};
 
   std::vector<QualityThresholds> quality_thresholds = {{33, 29, 0.9, 0.82}};
 
-  ProcessFramesAndMaybeVerify(rate_profiles, nullptr,
-                              &quality_thresholds, nullptr, nullptr);
+  fixture_->ProcessFramesAndMaybeVerify(rate_profiles, nullptr,
+                                        &quality_thresholds, nullptr, nullptr);
 }
 
 MAYBE_TEST_F(VideoProcessorIntegrationTestVideoToolbox,
        ForemanCif500kbpsH264CHP) {
   ScopedFieldTrials override_field_trials("WebRTC-H264HighProfile/Enabled/");
 
-  config_.h264_codec_settings.profile = H264::kProfileConstrainedHigh;
-  config_.SetCodecSettings(cricket::kH264CodecName, 1, 1, 1, false, false,
-                           false, 352, 288);
+  fixture_->config.h264_codec_settings.profile = H264::kProfileConstrainedHigh;
+  fixture_->config.SetCodecSettings(cricket::kH264CodecName, 1, 1, 1, false,
+                                    false, false, 352, 288);
 
   std::vector<RateProfile> rate_profiles = {{500, 30, kForemanNumFrames}};
 
   std::vector<QualityThresholds> quality_thresholds = {{33, 30, 0.91, 0.83}};
 
-  ProcessFramesAndMaybeVerify(rate_profiles, nullptr,
-                              &quality_thresholds, nullptr, nullptr);
+  fixture_->ProcessFramesAndMaybeVerify(rate_profiles, nullptr,
+                                        &quality_thresholds, nullptr, nullptr);
 }
 
 }  // namespace test

@@ -1,0 +1,191 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b78a8278_9c476296",
+        "filename": "rtc_base/network_constants.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-25T02:32:28Z",
+      "side": 1,
+      "message": "Can you add a comment reminding us of that this needs to be kept in sync with PeerConnection.java/PeerConnectionFactory.java?",
+      "revId": "ab297a2d175cca82f3bd82c90477895fa45157be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e42df43e_153adff8",
+        "filename": "rtc_base/network_constants.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-25T02:32:28Z",
+      "side": 1,
+      "message": "\"Legacy VPN type for backward compatibility\" may give the wrong impression, since there are still situations where this type is returned. I would just say \"ADAPTER_TYPE_VPN may be returned if the underlying physical adapter type is not known,\" leaving it fairly general.",
+      "revId": "ab297a2d175cca82f3bd82c90477895fa45157be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7319968_b9dc40d4",
+        "filename": "rtc_base/network_constants.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-25T02:32:28Z",
+      "side": 1,
+      "message": "Given that this is already a bitmask... Another option would be using \"ADAPTER_TYPE_VPN | ADAPTER_TYPE_WIFI\" to indicate \"VPN over Wi-Fi\", instead of adding new enum values. All the code that does \"switch (type)\" would need to be updated. But it needs to be updated anyway to handle the new possible values.\n\nThough that has at least one disadvantage... A nice thing about switch(type) is that we\u0027ll get a compile warning (treated as an error) if we add a new enum value that a switch statement doesn\u0027t handle.",
+      "revId": "ab297a2d175cca82f3bd82c90477895fa45157be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4dec3ba3_13cf60db",
+        "filename": "rtc_base/network_constants.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-25T02:32:28Z",
+      "side": 1,
+      "message": "Something we should think carefully about is how this affects the \"network_ignore_mask\". If an application is currently setting the mask to ADAPTER_TYPE_CELLULAR, does it want to ignore VPNs that go over cell as well?\n\nIf so, we should either implicitly turn a mask of \"ADAPTER_TYPE_CELLULAR\" to \"ADAPTER_TYPE_CELLULAR | ADAPTER_TYPE_VPN_CELLULAR\", or make an announcement and tell everyone they need to do that.\n\nSimilar consideration applies to network_preference, though there should be fewer users of that since it was introduced so recently.",
+      "revId": "ab297a2d175cca82f3bd82c90477895fa45157be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d60148a2_7add879f",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-25T02:32:28Z",
+      "side": 1,
+      "message": "Instead of adding new enum values here, would it be simpler to add a \"boolean isVpn\" to NetworkInformation?",
+      "revId": "ab297a2d175cca82f3bd82c90477895fa45157be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20b5f588_380870e2",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-25T02:32:28Z",
+      "side": 1,
+      "message": "How did you find out about this? Is it documented anywhere or did you investigate the Android source?\n\nIt sounds like there are at least some circumstances where TYPE_VPN is returned. The code below that\u0027s being deleted/moved implies that \"getNetworkInfo(network)\" may return TYPE_VPN while \"getActiveNetworkInfo\" will not.",
+      "revId": "ab297a2d175cca82f3bd82c90477895fa45157be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8749a3f2_0db6bc89",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-25T02:32:28Z",
+      "side": 1,
+      "message": "What about \"networkState.connected\", from the deleted code? getNetworkState() gets the state of the \"active\" network. So if networkToInfo(network) is called for a non-active network, this code will end up getting the state of the wrong network, correct?",
+      "revId": "ab297a2d175cca82f3bd82c90477895fa45157be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27ca5eb8_9eb9e37f",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-25T02:32:28Z",
+      "side": 1,
+      "message": "So, if getNetworkInfo(network) originally returned TYPE_WIFI, we\u0027d overwrite it with TYPE_VPN, then later call getNetworkInfo again to recover TYPE_WIFI? This is a tad confusing. How about calling connectivityManager.getNetworkCapabilities in this method (networkToInfo), avoiding overwriting TYPE_WIFI in the first place?",
+      "revId": "ab297a2d175cca82f3bd82c90477895fa45157be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73fd1dd9_0e0d76fb",
+        "filename": "sdk/android/api/org/webrtc/PeerConnection.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-25T02:32:28Z",
+      "side": 1,
+      "message": "See other comment regarding \"Legacy VPN type\"",
+      "revId": "ab297a2d175cca82f3bd82c90477895fa45157be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4a8cfbf_45f7027d",
+        "filename": "sdk/android/api/org/webrtc/PeerConnectionFactory.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-25T02:32:28Z",
+      "side": 1,
+      "message": "Here too",
+      "revId": "ab297a2d175cca82f3bd82c90477895fa45157be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f9d83e8_491e5114",
+        "filename": "sdk/android/src/jni/androidnetworkmonitor.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-25T02:32:28Z",
+      "side": 1,
+      "message": "ADAPTER_TYPE_VPN_ETHERNET? Or is this intentional?",
+      "revId": "ab297a2d175cca82f3bd82c90477895fa45157be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -157,6 +157,7 @@ if (rtc_include_tests) {
       "../modules/video_coding:webrtc_vp9",
       "../rtc_base:rtc_base_approved",
       "../rtc_base:rtc_base_tests_utils",
+      "../rtc_base:rtc_task_queue_for_test",
       "../system_wrappers",
       "../test:fileutils",
       "../test:perf_test",
@@ -183,6 +184,7 @@ if (rtc_include_tests) {
     deps = [
       ":video_quality_test",
       "../modules/pacing:pacing",
+      "../rtc_base:rtc_task_queue_for_test",
       "../rtc_base/experiments:alr_experiment",
       "../test:field_trial",
       "../test:test_common",
@@ -206,6 +208,7 @@ if (rtc_include_tests) {
     deps = [
       ":video_quality_test",
       "../rtc_base:rtc_base_approved",
+      "../rtc_base:rtc_task_queue_for_test",
       "../system_wrappers:field_trial_default",
       "../system_wrappers:metrics_default",
       "../system_wrappers:runtime_enabled_features_default",
@@ -232,6 +235,7 @@ if (rtc_include_tests) {
     deps = [
       ":video_quality_test",
       "../rtc_base:rtc_base_approved",
+      "../rtc_base:rtc_task_queue_for_test",
       "../system_wrappers:field_trial_default",
       "../system_wrappers:metrics_default",
       "../system_wrappers:runtime_enabled_features_default",
@@ -257,6 +261,7 @@ if (rtc_include_tests) {
     deps = [
       ":video_quality_test",
       "../rtc_base:rtc_base_approved",
+      "../rtc_base:rtc_task_queue_for_test",
       "../system_wrappers:field_trial_default",
       "../system_wrappers:metrics_default",
       "../system_wrappers:runtime_enabled_features_default",
@@ -289,6 +294,7 @@ if (rtc_include_tests) {
       "../modules/rtp_rtcp",
       "../rtc_base:checks",
       "../rtc_base:rtc_base_approved",
+      "../rtc_base:rtc_task_queue_for_test",
       "../system_wrappers",
       "../system_wrappers:metrics_default",
       "../system_wrappers:runtime_enabled_features_default",

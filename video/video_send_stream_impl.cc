@@ -340,7 +340,7 @@ VideoSendStreamImpl::VideoSendStreamImpl(
   RTC_DCHECK_RUN_ON(worker_queue_);
   RTC_LOG(LS_INFO) << "VideoSendStreamInternal: " << config_->ToString();
   weak_ptr_ = weak_ptr_factory_.GetWeakPtr();
-  module_process_thread_checker_.DetachFromThread();
+  module_process_thread_checker_.Detach();
 
   RTC_DCHECK(!config_->rtp.ssrcs.empty());
   RTC_DCHECK(call_stats_);

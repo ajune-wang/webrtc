@@ -516,7 +516,7 @@ class UlpfecObserver : public test::EndToEndTest {
   }
 
   test::PacketTransport* CreateSendTransport(
-      test::SingleThreadedTaskQueueForTesting* task_queue,
+      rtc::test::TaskQueueForTest* task_queue,
       Call* sender_call) override {
     // At low RTT (< kLowRttNackMs) -> NACK only, no FEC.
     // Configure some network delay.
@@ -703,7 +703,7 @@ class FlexfecObserver : public test::EndToEndTest {
   }
 
   test::PacketTransport* CreateSendTransport(
-      test::SingleThreadedTaskQueueForTesting* task_queue,
+      rtc::test::TaskQueueForTest* task_queue,
       Call* sender_call) override {
     // At low RTT (< kLowRttNackMs) -> NACK only, no FEC.
     // Therefore we need some network delay.
@@ -1453,7 +1453,7 @@ TEST_F(VideoSendStreamTest, PaddingIsPrimarilyRetransmissions) {
     }
 
     test::PacketTransport* CreateSendTransport(
-        test::SingleThreadedTaskQueueForTesting* task_queue,
+        rtc::test::TaskQueueForTest* task_queue,
         Call* sender_call) override {
       const int kNetworkDelayMs = 50;
       FakeNetworkPipe::Config config;
@@ -1592,8 +1592,7 @@ TEST_F(VideoSendStreamTest, ChangingNetworkRoute) {
   static const uint8_t kExtensionId = test::kTransportSequenceNumberExtensionId;
   class ChangingNetworkRouteTest : public test::EndToEndTest {
    public:
-    explicit ChangingNetworkRouteTest(
-        test::SingleThreadedTaskQueueForTesting* task_queue)
+    explicit ChangingNetworkRouteTest(rtc::test::TaskQueueForTest* task_queue)
         : EndToEndTest(test::CallTest::kDefaultTimeoutMs),
           task_queue_(task_queue),
           call_(nullptr) {
@@ -1665,7 +1664,7 @@ TEST_F(VideoSendStreamTest, ChangingNetworkRoute) {
     }
 
    private:
-    test::SingleThreadedTaskQueueForTesting* const task_queue_;
+    rtc::test::TaskQueueForTest* const task_queue_;
     Call* call_;
   } test(&task_queue_);
 
@@ -1676,7 +1675,7 @@ TEST_F(VideoSendStreamTest, ChangingTransportOverhead) {
   class ChangingTransportOverheadTest : public test::EndToEndTest {
    public:
     explicit ChangingTransportOverheadTest(
-        test::SingleThreadedTaskQueueForTesting* task_queue)
+        rtc::test::TaskQueueForTest* task_queue)
         : EndToEndTest(test::CallTest::kDefaultTimeoutMs),
           task_queue_(task_queue),
           call_(nullptr),
@@ -1727,7 +1726,7 @@ TEST_F(VideoSendStreamTest, ChangingTransportOverhead) {
     }
 
    private:
-    test::SingleThreadedTaskQueueForTesting* const task_queue_;
+    rtc::test::TaskQueueForTest* const task_queue_;
     Call* call_;
     rtc::CriticalSection lock_;
     int packets_sent_ RTC_GUARDED_BY(lock_);
@@ -2308,8 +2307,7 @@ VideoFrame CreateVideoFrame(int width, int height, uint8_t data) {
 TEST_F(VideoSendStreamTest, EncoderIsProperlyInitializedAndDestroyed) {
   class EncoderStateObserver : public test::SendTest, public VideoEncoder {
    public:
-    explicit EncoderStateObserver(
-        test::SingleThreadedTaskQueueForTesting* task_queue)
+    explicit EncoderStateObserver(rtc::test::TaskQueueForTest* task_queue)
         : SendTest(kDefaultTimeoutMs),
           task_queue_(task_queue),
           stream_(nullptr),
@@ -2415,7 +2413,7 @@ TEST_F(VideoSendStreamTest, EncoderIsProperlyInitializedAndDestroyed) {
       EXPECT_TRUE(Wait()) << "Timed out while waiting for Encode.";
     }
 
-    test::SingleThreadedTaskQueueForTesting* const task_queue_;
+    rtc::test::TaskQueueForTest* const task_queue_;
     rtc::CriticalSection crit_;
     VideoSendStream* stream_;
     bool initialized_ RTC_GUARDED_BY(crit_);
@@ -2837,7 +2835,7 @@ TEST_F(VideoSendStreamTest, ReconfigureBitratesSetsEncoderBitratesCorrectly) {
                                           public test::FakeEncoder {
    public:
     explicit EncoderBitrateThresholdObserver(
-        test::SingleThreadedTaskQueueForTesting* task_queue)
+        rtc::test::TaskQueueForTest* task_queue)
         : SendTest(kDefaultTimeoutMs),
           FakeEncoder(Clock::GetRealTimeClock()),
           task_queue_(task_queue),
@@ -2991,7 +2989,7 @@ TEST_F(VideoSendStreamTest, ReconfigureBitratesSetsEncoderBitratesCorrectly) {
       WaitForSetRates(kIncreasedStartBitrateKbps);
     }
 
-    test::SingleThreadedTaskQueueForTesting* const task_queue_;
+    rtc::test::TaskQueueForTest* const task_queue_;
     rtc::Event init_encode_event_;
     rtc::Event bitrate_changed_event_;
     rtc::CriticalSection crit_;
@@ -3647,7 +3645,7 @@ TEST_F(VideoSendStreamTest, RemoveOverheadFromBandwidth) {
                                           public test::FakeEncoder {
    public:
     explicit RemoveOverheadFromBandwidthTest(
-        test::SingleThreadedTaskQueueForTesting* task_queue)
+        rtc::test::TaskQueueForTest* task_queue)
         : EndToEndTest(test::CallTest::kDefaultTimeoutMs),
           FakeEncoder(Clock::GetRealTimeClock()),
           task_queue_(task_queue),
@@ -3714,8 +3712,8 @@ TEST_F(VideoSendStreamTest, RemoveOverheadFromBandwidth) {
     }
 
    private:
-    test::SingleThreadedTaskQueueForTesting* const task_queue_;
     test::EncoderProxyFactory encoder_factory_;
+    rtc::test::TaskQueueForTest* const task_queue_;
     Call* call_;
     rtc::CriticalSection crit_;
     uint32_t max_bitrate_bps_ RTC_GUARDED_BY(&crit_);

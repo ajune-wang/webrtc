@@ -139,7 +139,7 @@ TEST_P(RetransmissionEndToEndTest, ReceivesNackAndRetransmitsAudio) {
     size_t GetNumAudioStreams() const override { return 1; }
 
     test::PacketTransport* CreateReceiveTransport(
-        test::SingleThreadedTaskQueueForTesting* task_queue) override {
+        rtc::test::TaskQueueForTest* task_queue) override {
       test::PacketTransport* receive_transport = new test::PacketTransport(
           task_queue, nullptr, this, test::PacketTransport::kReceiver,
           payload_type_map_, FakeNetworkPipe::Config());
@@ -200,8 +200,7 @@ TEST_P(RetransmissionEndToEndTest,
        StopSendingKeyframeRequestsForInactiveStream) {
   class KeyframeRequestObserver : public test::EndToEndTest {
    public:
-    explicit KeyframeRequestObserver(
-        test::SingleThreadedTaskQueueForTesting* task_queue)
+    explicit KeyframeRequestObserver(rtc::test::TaskQueueForTest* task_queue)
         : clock_(Clock::GetRealTimeClock()), task_queue_(task_queue) {}
 
     void OnVideoStreamsCreated(
@@ -233,7 +232,7 @@ TEST_P(RetransmissionEndToEndTest,
     Clock* clock_;
     VideoSendStream* send_stream_;
     VideoReceiveStream* receive_stream_;
-    test::SingleThreadedTaskQueueForTesting* const task_queue_;
+    rtc::test::TaskQueueForTest* const task_queue_;
   } test(&task_queue_);
 
   RunBaseTest(&test);

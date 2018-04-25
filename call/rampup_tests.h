@@ -85,7 +85,7 @@ class RampUpTester : public test::EndToEndTest {
       VideoSendStream* send_stream,
       const std::vector<VideoReceiveStream*>& receive_streams) override;
   test::PacketTransport* CreateSendTransport(
-      test::SingleThreadedTaskQueueForTesting* task_queue,
+      rtc::test::TaskQueueForTest* task_queue,
       Call* sender_call) override;
   void ModifyVideoConfigs(
       VideoSendStream::Config* send_config,

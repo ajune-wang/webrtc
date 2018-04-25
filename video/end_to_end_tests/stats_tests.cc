@@ -229,7 +229,7 @@ TEST_F(StatsEndToEndTest, GetStats) {
     }
 
     test::PacketTransport* CreateSendTransport(
-        test::SingleThreadedTaskQueueForTesting* task_queue,
+        rtc::test::TaskQueueForTest* task_queue,
         Call* sender_call) override {
       FakeNetworkPipe::Config network_config;
       network_config.loss_percent = 5;

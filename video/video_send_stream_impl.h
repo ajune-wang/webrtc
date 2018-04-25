@@ -147,7 +147,7 @@ class VideoSendStreamImpl : public webrtc::BitrateAllocatorObserver,
 
   std::unique_ptr<FecController> fec_controller_;
   ProcessThread* module_process_thread_;
-  rtc::ThreadChecker module_process_thread_checker_;
+  rtc::SequencedTaskChecker module_process_thread_checker_;
   rtc::TaskQueue* const worker_queue_;
 
   rtc::CriticalSection encoder_activity_crit_sect_;

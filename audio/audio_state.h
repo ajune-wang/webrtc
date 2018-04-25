@@ -21,6 +21,7 @@
 #include "rtc_base/constructormagic.h"
 #include "rtc_base/criticalsection.h"
 #include "rtc_base/refcount.h"
+#include "rtc_base/sequenced_task_checker.h"
 #include "rtc_base/thread_checker.h"
 
 namespace webrtc {
@@ -70,7 +71,7 @@ class AudioState final : public webrtc::AudioState {
 
   void UpdateAudioTransportWithSendingStreams();
 
-  rtc::ThreadChecker thread_checker_;
+  rtc::SequencedTaskChecker thread_checker_;
   rtc::ThreadChecker process_thread_checker_;
   const webrtc::AudioState::Config config_;
   bool recording_enabled_ = true;

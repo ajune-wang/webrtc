@@ -1,0 +1,1016 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "26c12578_cf5ed2bd",
+        "filename": "api/audio/echo_canceller3_config.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-25T07:17:25Z",
+      "side": 1,
+      "message": "Should this be on by default?",
+      "revId": "d33066f550eb7c106aef9ffac31689d5e6d32799",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d27240b1_55c0c626",
+        "filename": "modules/audio_processing/aec3/aec_state.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-25T07:17:25Z",
+      "side": 1,
+      "message": "Since this method is called within a loop inside the residual_echo_estimator, and the computations to produce the output of GetResidualEchoScaling(band) are non-trivial I think it would make sense to let this method return a reference to an array or an arrayview that contains the scaling for each band. That would make that loop much less complex.\n\nThis would probably require caching the residual echo scaling in an array on the state but I think that is prefferrable to using a loop calling several layers of functions.",
+      "revId": "d33066f550eb7c106aef9ffac31689d5e6d32799",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9670ab42_59d4070c",
+        "filename": "modules/audio_processing/aec3/aec_state.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-25T07:17:25Z",
+      "side": 1,
+      "message": "An alternative to having this method would be to always have GetResidualEchoScaling return 1 when config_.echo_audibility.use_stationary_properties is false.",
+      "revId": "d33066f550eb7c106aef9ffac31689d5e6d32799",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a71518b9_6456b2cd",
+        "filename": "modules/audio_processing/aec3/echo_audibility.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-25T07:17:25Z",
+      "side": 1,
+      "message": "Nit: This can be changed to\nfor (size_t k \u003d 0; k \u003c\u003d num_lookahead; ++k) {",
+      "range": {
+        "startLine": 39,
+        "startChar": 24,
+        "endLine": 39,
+        "endChar": 25
+      },
+      "revId": "d33066f550eb7c106aef9ffac31689d5e6d32799",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "379f1ce7_1a9af69d",
+        "filename": "modules/audio_processing/aec3/residual_echo_estimator.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-25T07:17:25Z",
+      "side": 1,
+      "message": "TODO(devicentepena@google.com) -\u003e TODO(devicentepena)",
+      "range": {
+        "startLine": 58,
+        "startChar": 7,
+        "endLine": 58,
+        "endChar": 37
+      },
+      "revId": "d33066f550eb7c106aef9ffac31689d5e6d32799",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a410887e_1ffb3c75",
+        "filename": "modules/audio_processing/aec3/residual_echo_estimator.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-25T07:17:25Z",
+      "side": 1,
+      "message": "\"the stationarity estimator\" -\u003e \"with the stationarity estimator.\"",
+      "range": {
+        "startLine": 59,
+        "startChar": 7,
+        "endLine": 59,
+        "endChar": 33
+      },
+      "revId": "d33066f550eb7c106aef9ffac31689d5e6d32799",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "acef871d_48c0b20a",
+        "filename": "modules/audio_processing/aec3/residual_echo_estimator.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-25T07:17:25Z",
+      "side": 1,
+      "message": "It would be nice not to check UseStationaryProperties() and always multiply with the scaling regardless of the output of UseStationaryProperties(). That would work if the scaling is set to 1.f whenever UseStationaryProperties() is false.\n\nWDYT?",
+      "revId": "d33066f550eb7c106aef9ffac31689d5e6d32799",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31ca3077_5d21bcab",
+        "filename": "modules/audio_processing/aec3/residual_echo_estimator.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-25T07:17:25Z",
+      "side": 1,
+      "message": "(*R2).size(); -\u003e R2-\u003esize();",
+      "revId": "d33066f550eb7c106aef9ffac31689d5e6d32799",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "365cf6e9_2d2b50a1",
+        "filename": "modules/audio_processing/aec3/residual_echo_estimator.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-25T07:17:25Z",
+      "side": 1,
+      "message": "This is a fairly complex loop as GetResidualEchoScaling contains several layers of method calls, each containing non-trivial logic. Those may be inlined but I would not be confident that they always will be.\n\nA suggestion instead is to have GetResidualEchoScaling return an arrayview, or a reference to an array, containing the residualecho scalings. That can then be used efficiently inside this loop.",
+      "revId": "d33066f550eb7c106aef9ffac31689d5e6d32799",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94b0c809_57951faf",
+        "filename": "modules/audio_processing/aec3/residual_echo_estimator.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-25T07:17:25Z",
+      "side": 1,
+      "message": "0.f -\u003e 0",
+      "range": {
+        "startLine": 87,
+        "startChar": 30,
+        "endLine": 87,
+        "endChar": 33
+      },
+      "revId": "d33066f550eb7c106aef9ffac31689d5e6d32799",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a77e49f_990c72f9",
+        "filename": "modules/audio_processing/aec3/stationarity_estimator.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-25T07:17:25Z",
+      "side": 1,
+      "message": "Intended empty space?",
+      "revId": "d33066f550eb7c106aef9ffac31689d5e6d32799",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d91ec620_d3708b02",
+        "filename": "modules/audio_processing/aec3/stationarity_estimator.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-25T07:17:25Z",
+      "side": 1,
+      "message": "Please put the methods implementations in the same order as they are in the header file.",
+      "revId": "d33066f550eb7c106aef9ffac31689d5e6d32799",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4069c59_cc2eea3a",
+        "filename": "modules/audio_processing/aec3/stationarity_estimator.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-25T07:17:25Z",
+      "side": 1,
+      "message": "I think it should be possible to move this from the class into being a constant in the anonymous namespace.",
+      "range": {
+        "startLine": 39,
+        "startChar": 40,
+        "endLine": 39,
+        "endChar": 56
+      },
+      "revId": "d33066f550eb7c106aef9ffac31689d5e6d32799",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37caa3df_3b0cb173",
+        "filename": "modules/audio_processing/aec3/stationarity_estimator.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-25T07:17:25Z",
+      "side": 1,
+      "message": "if (buffer_.IsBlockNumberAlreadyUpdated(block_number) \u003d\u003d false)\n-\u003e\nif (!buffer_.IsBlockNumberAlreadyUpdated(block_number))",
+      "range": {
+        "startLine": 58,
+        "startChar": 2,
+        "endLine": 58,
+        "endChar": 65
+      },
+      "revId": "d33066f550eb7c106aef9ffac31689d5e6d32799",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6813bb5_e44241ea",
+        "filename": "modules/audio_processing/aec3/stationarity_estimator.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-25T07:17:25Z",
+      "side": 1,
+      "message": "This will dynamically allocate the idx_lookahead during non-setup time which is something that should be avoided.\n\nPlease change to using a fix-sized array allocated on the stack, or use a pre-allocated vector on the state.",
+      "revId": "d33066f550eb7c106aef9ffac31689d5e6d32799",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff044695_fc845ac9",
+        "filename": "modules/audio_processing/aec3/stationarity_estimator.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-25T07:17:25Z",
+      "side": 1,
+      "message": "As above",
+      "revId": "d33066f550eb7c106aef9ffac31689d5e6d32799",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d3f6571_c5604849",
+        "filename": "modules/audio_processing/aec3/stationarity_estimator.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-25T07:17:25Z",
+      "side": 1,
+      "message": "if (b \u003d\u003d false)\n-\u003e\n if (!b)",
+      "range": {
+        "startLine": 93,
+        "startChar": 3,
+        "endLine": 93,
+        "endChar": 19
+      },
+      "revId": "d33066f550eb7c106aef9ffac31689d5e6d32799",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc809983_f60b3b80",
+        "filename": "modules/audio_processing/aec3/stationarity_estimator.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-25T07:17:25Z",
+      "side": 1,
+      "message": "if (stationary_flag_[k] \u003d\u003d false)\n-\u003e\nif (!stationary_flag_[k])",
+      "range": {
+        "startLine": 102,
+        "startChar": 4,
+        "endLine": 102,
+        "endChar": 37
+      },
+      "revId": "d33066f550eb7c106aef9ffac31689d5e6d32799",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68135c3a_8a0a0a4e",
+        "filename": "modules/audio_processing/aec3/stationarity_estimator.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-25T07:17:25Z",
+      "side": 1,
+      "message": "Please change the name of the variable k to something more descriptive, or explain it in a comment.",
+      "range": {
+        "startLine": 113,
+        "startChar": 11,
+        "endLine": 113,
+        "endChar": 12
+      },
+      "revId": "d33066f550eb7c106aef9ffac31689d5e6d32799",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9df7ed46_14173156",
+        "filename": "modules/audio_processing/aec3/stationarity_estimator.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-25T07:17:25Z",
+      "side": 1,
+      "message": "What about changing\nfor (auto it \u003d idx_lookahead.cbegin(); it !\u003d idx_lookahead.end(); ++it) {\n    acumPower +\u003d buffer_.GetPowerBand(*it, k);\n  }\n  for (auto it \u003d idx_lookback.cbegin(); it !\u003d idx_lookback.cend(); ++it) {\n    acumPower +\u003d buffer_.GetPowerBand(*it, k);\n  }\n\nto\n\nfor (auto slot : idx_lookahead) {\n    acumPower +\u003d buffer_.GetPowerBand(slot, k);\n  }\n for (auto slot : idx_lookback) {   \n    acumPower +\u003d buffer_.GetPowerBand(*it, k);\n  }\n\nI think that loop variant is much more readable than using iterators.",
+      "revId": "d33066f550eb7c106aef9ffac31689d5e6d32799",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a94585e_08f8de59",
+        "filename": "modules/audio_processing/aec3/stationarity_estimator.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-25T07:17:25Z",
+      "side": 1,
+      "message": "Please add an RTC_DCHECK_LT(0.f, noise);",
+      "range": {
+        "startLine": 125,
+        "startChar": 8,
+        "endLine": 125,
+        "endChar": 13
+      },
+      "revId": "d33066f550eb7c106aef9ffac31689d5e6d32799",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0f0b422_c486fdbe",
+        "filename": "modules/audio_processing/aec3/stationarity_estimator.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-25T07:17:25Z",
+      "side": 1,
+      "message": "Please change\n  bool stationary \u003d ((acumPower / noise) \u003c kThrStationarity);\nto \n  bool stationary \u003d acumPower \u003c kThrStationarity * noise;\n\nas that will save a division.",
+      "revId": "d33066f550eb7c106aef9ffac31689d5e6d32799",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3792cae8_856c4826",
+        "filename": "modules/audio_processing/aec3/stationarity_estimator.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-25T07:17:25Z",
+      "side": 1,
+      "message": "Please remove the static_cast\u003cfloat\u003e(). It is not needed since this is already a float.",
+      "range": {
+        "startLine": 128,
+        "startChar": 24,
+        "endLine": 128,
+        "endChar": 43
+      },
+      "revId": "d33066f550eb7c106aef9ffac31689d5e6d32799",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0848d449_5b394e5d",
+        "filename": "modules/audio_processing/aec3/stationarity_estimator.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-25T07:17:25Z",
+      "side": 1,
+      "message": "A DCHECK is needed to ensure that there is no division by zero.",
+      "revId": "d33066f550eb7c106aef9ffac31689d5e6d32799",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8031f26c_bad25d78",
+        "filename": "modules/audio_processing/aec3/stationarity_estimator.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-25T07:17:25Z",
+      "side": 1,
+      "message": "I\u0027d suggest using a rtc::ArrayView\u003cfloat\u003e for idx_lookahead since the code will look much nicer with that.\nFurthermore, that construct ensures/promises the caller that idx_lookahead is not resized within this method.",
+      "range": {
+        "startLine": 133,
+        "startChar": 25,
+        "endLine": 133,
+        "endChar": 38
+      },
+      "revId": "d33066f550eb7c106aef9ffac31689d5e6d32799",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e4ba64a_2fc29a50",
+        "filename": "modules/audio_processing/aec3/stationarity_estimator.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-25T07:17:25Z",
+      "side": 1,
+      "message": "Suggestion:\nnum_back -\u003e num_lookback_blocks",
+      "range": {
+        "startLine": 140,
+        "startChar": 9,
+        "endLine": 140,
+        "endChar": 17
+      },
+      "revId": "d33066f550eb7c106aef9ffac31689d5e6d32799",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4fca77a5_c68ad4ad",
+        "filename": "modules/audio_processing/aec3/stationarity_estimator.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-25T07:17:25Z",
+      "side": 1,
+      "message": "The cost of the push_back operation can be quite significant is a reallocation is required.\n\nIt is fine to do it in non-setup time if one can ensure that no reallocation is required (enforce a sufficient reserved space).",
+      "revId": "d33066f550eb7c106aef9ffac31689d5e6d32799",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e46d80f3_d18ba215",
+        "filename": "modules/audio_processing/aec3/stationarity_estimator.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-25T07:17:25Z",
+      "side": 1,
+      "message": "(kFftLengthBy2Plus1 - 1)\n-\u003e\nkFftLengthBy2Plus1 - 1",
+      "range": {
+        "startLine": 163,
+        "startChar": 25,
+        "endLine": 163,
+        "endChar": 49
+      },
+      "revId": "d33066f550eb7c106aef9ffac31689d5e6d32799",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2eacb2e_acb628c3",
+        "filename": "modules/audio_processing/aec3/stationarity_estimator.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-25T07:17:25Z",
+      "side": 1,
+      "message": "Since these constants are used only here, and since this file is fairly long, I think the code readability would benefit from moving these constants to be declared within this method.",
+      "range": {
+        "startLine": 189,
+        "startChar": 11,
+        "endLine": 189,
+        "endChar": 17
+      },
+      "revId": "d33066f550eb7c106aef9ffac31689d5e6d32799",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52263d70_1fcb9f2a",
+        "filename": "modules/audio_processing/aec3/stationarity_estimator.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-25T07:17:25Z",
+      "side": 1,
+      "message": "(power_band_noise / power_band)\n-\u003e\npower_band_noise / power_band",
+      "revId": "d33066f550eb7c106aef9ffac31689d5e6d32799",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3bad37f_68ecc16b",
+        "filename": "modules/audio_processing/aec3/stationarity_estimator.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-25T07:17:25Z",
+      "side": 1,
+      "message": "Is there anything that ensures that power_band is not zero?\n\nPlease add a DCHECK to ensure that no division by zero occurs.",
+      "range": {
+        "startLine": 202,
+        "startChar": 50,
+        "endLine": 202,
+        "endChar": 60
+      },
+      "revId": "d33066f550eb7c106aef9ffac31689d5e6d32799",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73f8e4c1_74134949",
+        "filename": "modules/audio_processing/aec3/stationarity_estimator.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-25T07:17:25Z",
+      "side": 1,
+      "message": "alpha_inc \u003d alpha_inc * 0.1f;\n-\u003e\n alpha_inc *\u003d 0.1f;",
+      "revId": "d33066f550eb7c106aef9ffac31689d5e6d32799",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7490555_b70e6059",
+        "filename": "modules/audio_processing/aec3/stationarity_estimator.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-25T07:17:25Z",
+      "side": 1,
+      "message": "Please remove line 219 and change this to\nfloat alpha \u003d GetAlpha();",
+      "range": {
+        "startLine": 223,
+        "startChar": 2,
+        "endLine": 223,
+        "endChar": 21
+      },
+      "revId": "d33066f550eb7c106aef9ffac31689d5e6d32799",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3785b53e_06c05d3a",
+        "filename": "modules/audio_processing/aec3/stationarity_estimator.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-25T07:17:25Z",
+      "side": 1,
+      "message": "This looks wrong. In\n(1 / kNBlocksAverageInitPhase) * spectrum[k];\n(1 / kNBlocksAverageInitPhase) should always be zero since that is an integer division.",
+      "range": {
+        "startLine": 226,
+        "startChar": 28,
+        "endLine": 226,
+        "endChar": 73
+      },
+      "revId": "d33066f550eb7c106aef9ffac31689d5e6d32799",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d090aff_bf89f23d",
+        "filename": "modules/audio_processing/aec3/stationarity_estimator.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-25T07:17:25Z",
+      "side": 1,
+      "message": "since block_number_ is a size_t, this assignment will wrap. Is that intended?",
+      "range": {
+        "startLine": 234,
+        "startChar": 74,
+        "endLine": 234,
+        "endChar": 76
+      },
+      "revId": "d33066f550eb7c106aef9ffac31689d5e6d32799",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d22acc2_f2d21200",
+        "filename": "modules/audio_processing/aec3/stationarity_estimator.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-25T07:17:25Z",
+      "side": 1,
+      "message": "return (slots_[slot_number].GetBlockNumber() \u003d\u003d block_number);\n-\u003e\nreturn slots_[slot_number].GetBlockNumber() \u003d\u003d block_number;",
+      "revId": "d33066f550eb7c106aef9ffac31689d5e6d32799",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0838859_cc3e995e",
+        "filename": "modules/audio_processing/aec3/stationarity_estimator.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-25T07:17:25Z",
+      "side": 1,
+      "message": "Would it be possible to drop the \"Ahead\" part of the name for this method and the method IsBandStationaryAhead?\n\nI guess that the meaning is that a lookahead is used? I think it is a bit misleading though as the flags/return values actually refer to the current frame (and not for the lookahead), which also the method comments state.",
+      "range": {
+        "startLine": 38,
+        "startChar": 7,
+        "endLine": 38,
+        "endChar": 34
+      },
+      "revId": "d33066f550eb7c106aef9ffac31689d5e6d32799",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0701bfae_63bf64d1",
+        "filename": "modules/audio_processing/aec3/stationarity_estimator.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-25T07:17:25Z",
+      "side": 1,
+      "message": "The extra parenthesis are not needed:\n(hangover_[k] \u003d\u003d 0) -\u003e hangover_[k] \u003d\u003d 0",
+      "range": {
+        "startLine": 43,
+        "startChar": 35,
+        "endLine": 43,
+        "endChar": 55
+      },
+      "revId": "d33066f550eb7c106aef9ffac31689d5e6d32799",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97d43e43_08dda137",
+        "filename": "modules/audio_processing/aec3/stationarity_estimator.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-25T07:17:25Z",
+      "side": 1,
+      "message": "neighbour -\u003e neighbouring\n\n?",
+      "range": {
+        "startLine": 73,
+        "startChar": 51,
+        "endLine": 73,
+        "endChar": 60
+      },
+      "revId": "d33066f550eb7c106aef9ffac31689d5e6d32799",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31eb5e1f_bbb7a505",
+        "filename": "modules/audio_processing/aec3/stationarity_estimator.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-25T07:17:25Z",
+      "side": 1,
+      "message": "stationary -\u003e stationarity\n\n?",
+      "range": {
+        "startLine": 73,
+        "startChar": 16,
+        "endLine": 73,
+        "endChar": 26
+      },
+      "revId": "d33066f550eb7c106aef9ffac31689d5e6d32799",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da7fa921_a6495cb9",
+        "filename": "modules/audio_processing/aec3/stationarity_estimator.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-25T07:17:25Z",
+      "side": 1,
+      "message": "I think the change below should work.\n rtc::ArrayView\u003cconst float\u003e(noise_spectrum_) -\u003e noise_spectrum_",
+      "range": {
+        "startLine": 89,
+        "startChar": 12,
+        "endLine": 89,
+        "endChar": 57
+      },
+      "revId": "d33066f550eb7c106aef9ffac31689d5e6d32799",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7fc6550e_70dc54bc",
+        "filename": "modules/audio_processing/aec3/stationarity_estimator.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-25T07:17:25Z",
+      "side": 1,
+      "message": "Suggestion, since the band part is stated in the parameter name:\nPowerBand -\u003e Power",
+      "range": {
+        "startLine": 93,
+        "startChar": 10,
+        "endLine": 93,
+        "endChar": 19
+      },
+      "revId": "d33066f550eb7c106aef9ffac31689d5e6d32799",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "606782cf_34f2a5b8",
+        "filename": "modules/audio_processing/aec3/stationarity_estimator.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-25T07:17:25Z",
+      "side": 1,
+      "message": "Since this is more specific than a general circular buffer, please add a comment about what it is, etc.",
+      "revId": "d33066f550eb7c106aef9ffac31689d5e6d32799",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61dc77f8_27326ab6",
+        "filename": "modules/audio_processing/aec3/stationarity_estimator.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-25T07:17:25Z",
+      "side": 1,
+      "message": "Please put kCircularBufferSize as private.",
+      "revId": "d33066f550eb7c106aef9ffac31689d5e6d32799",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf146927_9e60f33f",
+        "filename": "modules/audio_processing/aec3/stationarity_estimator.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-25T07:17:25Z",
+      "side": 1,
+      "message": "I really like this circular buffer indexing.\n\nI prerequisite for it to work is, however, that kCircularBufferSize is a power of 2, right?\nWould it be possible to put a static assert to ensure that is true?",
+      "revId": "d33066f550eb7c106aef9ffac31689d5e6d32799",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c863cc54_df097f4b",
+        "filename": "modules/audio_processing/aec3/stationarity_estimator.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-25T07:17:25Z",
+      "side": 1,
+      "message": "Since the class name is so generic, please add a comment that describe what the class is used for.\n\nFurthermore, since the class is so simple, having 2 data members and all methods being setters and getters of these, I\u0027d suggest to instead make this a struct with public members. \n\nThat will produce fewer lines of code and I think the readability will benefit from that.\n\nI.e.\n\nstruct Element {\n      size_t block_number;\n      std::array\u003cfloat, kFftLengthBy2Plus1\u003e power_spectrum;\n }",
+      "revId": "d33066f550eb7c106aef9ffac31689d5e6d32799",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e25a772_ebdc81d4",
+        "filename": "modules/audio_processing/aec3/stationarity_estimator.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-25T07:17:25Z",
+      "side": 1,
+      "message": "I\u0027m not really sure about the role of the block_number in Element, but would it be possible to instead of having\n std::array\u003cElement, kCircularBufferSize\u003e slots_;\nuse\n std::array\u003cstd::array\u003cfloat, kFftLengthBy2Plus1\u003e, kCircularBufferSize\u003e power_spectra_;\n\nI think that may also simplify the usage of slots_ in the .cc file.",
+      "revId": "d33066f550eb7c106aef9ffac31689d5e6d32799",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c96d218f_036457b9",
+        "filename": "modules/audio_processing/aec3/stationarity_estimator.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-25T07:17:25Z",
+      "side": 1,
+      "message": "hangover_\n-\u003e\nhangovers_\n\n(since there are many of them in the array).",
+      "range": {
+        "startLine": 149,
+        "startChar": 38,
+        "endLine": 149,
+        "endChar": 47
+      },
+      "revId": "d33066f550eb7c106aef9ffac31689d5e6d32799",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "212a8035_1a692531",
+        "filename": "modules/audio_processing/aec3/stationarity_estimator.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-25T07:17:25Z",
+      "side": 1,
+      "message": "stationary_flag_\n-\u003e\nstationary_flags_\n\nAlso, would stationarity_flags better suit what is flagged?\n\n\n(since there are many of them in the array).",
+      "range": {
+        "startLine": 150,
+        "startChar": 39,
+        "endLine": 150,
+        "endChar": 55
+      },
+      "revId": "d33066f550eb7c106aef9ffac31689d5e6d32799",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a37705e9_ee49aa83",
+        "filename": "modules/audio_processing/aec3/stationarity_estimator.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-25T07:17:25Z",
+      "side": 1,
+      "message": "The style guide is strict on the ordering of the public and private sections (https://google.github.io/styleguide/cppguide.html#Declaration_Order)\n\nIf this is to be used inside the class, please move it to the other public section and remove this public section.\n\nHowever, as it does not seem to be used from within the class, I\u0027d suggest putting it inside the anonymous namespace in the .cc file.",
+      "revId": "d33066f550eb7c106aef9ffac31689d5e6d32799",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

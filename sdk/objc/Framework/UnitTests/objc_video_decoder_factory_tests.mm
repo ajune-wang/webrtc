@@ -26,7 +26,6 @@ id<RTCVideoDecoderFactory> CreateDecoderFactoryReturning(int return_code) {
   OCMStub([decoderMock startDecodeWithNumberOfCores:1]).andReturn(return_code);
   OCMStub([decoderMock decode:[OCMArg any]
                     missingFrames:NO
-              fragmentationHeader:[OCMArg any]
                 codecSpecificInfo:[OCMArg any]
                      renderTimeMs:0])
       .andReturn(return_code);
@@ -73,22 +72,20 @@ TEST(ObjCVideoDecoderFactoryTest, DecodeReturnsOKOnSuccess) {
   webrtc::VideoDecoder *decoder = GetObjCDecoder(CreateOKDecoderFactory());
 
   webrtc::EncodedImage encoded_image;
-  webrtc::RTPFragmentationHeader header;
   webrtc::CodecSpecificInfo info;
   info.codecType = webrtc::kVideoCodecH264;
 
-  EXPECT_EQ(decoder->Decode(encoded_image, false, &header, &info, 0), WEBRTC_VIDEO_CODEC_OK);
+  EXPECT_EQ(decoder->Decode(encoded_image, false, nullptr, &info, 0), WEBRTC_VIDEO_CODEC_OK);
 }
 
 TEST(ObjCVideoDecoderFactoryTest, DecodeReturnsErrorOnFail) {
   webrtc::VideoDecoder *decoder = GetObjCDecoder(CreateErrorDecoderFactory());
 
   webrtc::EncodedImage encoded_image;
-  webrtc::RTPFragmentationHeader header;
   webrtc::CodecSpecificInfo info;
   info.codecType = webrtc::kVideoCodecH264;
 
-  EXPECT_EQ(decoder->Decode(encoded_image, false, &header, &info, 0), WEBRTC_VIDEO_CODEC_ERROR);
+  EXPECT_EQ(decoder->Decode(encoded_image, false, nullptr, &info, 0), WEBRTC_VIDEO_CODEC_ERROR);
 }
 
 TEST(ObjCVideoDecoderFactoryTest, ReleaseDecodeReturnsOKOnSuccess) {

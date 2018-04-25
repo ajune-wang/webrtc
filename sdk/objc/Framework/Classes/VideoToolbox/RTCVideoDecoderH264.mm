@@ -103,7 +103,6 @@ void decompressionOutputCallback(void *decoderRef,
 
 - (NSInteger)decode:(RTCEncodedImage *)inputImage
           missingFrames:(BOOL)missingFrames
-    fragmentationHeader:(RTCRtpFragmentationHeader *)fragmentationHeader
       codecSpecificInfo:(nullable id<RTCCodecSpecificInfo>)info
            renderTimeMs:(int64_t)renderTimeMs {
   RTC_DCHECK(inputImage.buffer);

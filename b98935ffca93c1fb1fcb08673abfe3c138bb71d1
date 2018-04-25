@@ -22,6 +22,30 @@
       "revId": "b98935ffca93c1fb1fcb08673abfe3c138bb71d1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90a320d2_01100e3a",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-04-25T12:32:39Z",
+      "side": 1,
+      "message": "I think so; it\u0027s good to have a reminder close to the implementation that it\u0027s not a normal method. Using a // static comment is a convention used in at least some other places (142 matches for git grep \u0027^// static$\u0027).",
+      "parentUuid": "f1cf45fa_aeb97797",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 9
+      },
+      "revId": "b98935ffca93c1fb1fcb08673abfe3c138bb71d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

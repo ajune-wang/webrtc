@@ -391,22 +391,11 @@ bool WebRtcVoiceEngine::ApplyOptions(const AudioOptions& options_in) {
 #endif
 
 #if defined(WEBRTC_IOS) || defined(WEBRTC_ANDROID)
-  // Turn off the gain control if specified by the field trial.
-  // The purpose of the field trial is to reduce the amount of resampling
-  // performed inside the audio processing module on mobile platforms by
-  // whenever possible turning off the fixed AGC mode and the high-pass filter.
-  // (https://bugs.chromium.org/p/webrtc/issues/detail?id=6181).
-  if (webrtc::field_trial::IsEnabled(
-          "WebRTC-Audio-MinimizeResamplingOnMobile")) {
-    options.auto_gain_control = false;
-    RTC_LOG(LS_INFO) << "Disable AGC according to field trial.";
-    if (!(options.noise_suppression.value_or(false) ||
-          options.echo_cancellation.value_or(false))) {
-      // If possible, turn off the high-pass filter.
-      RTC_LOG(LS_INFO)
-          << "Disable high-pass filter in response to field trial.";
-      options.highpass_filter = false;
-    }
+  options.auto_gain_control = false;
+  if (!(options.noise_suppression.value_or(false) ||
+        options.echo_cancellation.value_or(false))) {
+    // If possible, turn off the high-pass filter.
+    options.highpass_filter = false;
   }
 #endif
 

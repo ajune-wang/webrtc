@@ -12,6 +12,7 @@
 
 #include <vector>
 
+#include "api/test/create_videoprocessor_integrationtest_fixture.h"
 #include "media/base/mediaconstants.h"
 #include "test/testsupport/fileutils.h"
 
@@ -27,24 +28,28 @@ const int kCifHeight = 288;
 const int kNumFrames = 100;
 }  // namespace
 
-class VideoProcessorIntegrationTestOpenH264
-    : public VideoProcessorIntegrationTest {
+class VideoProcessorIntegrationTestOpenH264 : public ::testing::Test {
  protected:
   VideoProcessorIntegrationTestOpenH264() {
-    config_.filename = "foreman_cif";
-    config_.filepath = ResourcePath(config_.filename, "yuv");
-    config_.num_frames = kNumFrames;
+    fixture_ = CreateVideoProcessorIntegrationTestFixture();
+    frame_checker_ =
+        rtc::MakeUnique<VideoProcessorIntegrationTest::H264KeyframeChecker>();
+    fixture_->config.filename = "foreman_cif";
+    fixture_->config.filepath = ResourcePath(fixture_->config.filename, "yuv");
+    fixture_->config.num_frames = kNumFrames;
     // Only allow encoder/decoder to use single core, for predictability.
-    config_.use_single_core = true;
-    config_.hw_encoder = false;
-    config_.hw_decoder = false;
-    config_.encoded_frame_checker = &h264_keyframe_checker_;
+    fixture_->config.use_single_core = true;
+    fixture_->config.hw_encoder = false;
+    fixture_->config.hw_decoder = false;
+    fixture_->config.encoded_frame_checker = frame_checker_.get();
   }
+  std::unique_ptr<VideoProcessorIntegrationTestFixtureInterface> fixture_;
+  std::unique_ptr<TestConfig::EncodedFrameChecker> frame_checker_;
 };
 
 TEST_F(VideoProcessorIntegrationTestOpenH264, ConstantHighBitrate) {
-  config_.SetCodecSettings(cricket::kH264CodecName, 1, 1, 1, false, true, false,
-                           kCifWidth, kCifHeight);
+  fixture_->config.SetCodecSettings(cricket::kH264CodecName, 1, 1, 1, false,
+                                    true, false, kCifWidth, kCifHeight);
 
   std::vector<RateProfile> rate_profiles = {{500, 30, kNumFrames}};
 
@@ -53,18 +58,18 @@ TEST_F(VideoProcessorIntegrationTestOpenH264, ConstantHighBitrate) {
 
   std::vector<QualityThresholds> quality_thresholds = {{37, 35, 0.93, 0.91}};
 
-  ProcessFramesAndMaybeVerify(rate_profiles, &rc_thresholds,
-                              &quality_thresholds, nullptr, nullptr);
+  fixture_->ProcessFramesAndMaybeVerify(rate_profiles, &rc_thresholds,
+                                        &quality_thresholds, nullptr, nullptr);
 }
 
 // H264: Enable SingleNalUnit packetization mode. Encoder should split
 // large frames into multiple slices and limit length of NAL units.
 TEST_F(VideoProcessorIntegrationTestOpenH264, SingleNalUnit) {
-  config_.h264_codec_settings.packetization_mode =
+  fixture_->config.h264_codec_settings.packetization_mode =
       H264PacketizationMode::SingleNalUnit;
-  config_.max_payload_size_bytes = 500;
-  config_.SetCodecSettings(cricket::kH264CodecName, 1, 1, 1, false, true, false,
-                           kCifWidth, kCifHeight);
+  fixture_->config.max_payload_size_bytes = 500;
+  fixture_->config.SetCodecSettings(cricket::kH264CodecName, 1, 1, 1, false,
+                                    true, false, kCifWidth, kCifHeight);
 
   std::vector<RateProfile> rate_profiles = {{500, 30, kNumFrames}};
 
@@ -73,10 +78,11 @@ TEST_F(VideoProcessorIntegrationTestOpenH264, SingleNalUnit) {
 
   std::vector<QualityThresholds> quality_thresholds = {{37, 35, 0.93, 0.91}};
 
-  BitstreamThresholds bs_thresholds = {config_.max_payload_size_bytes};
+  BitstreamThresholds bs_thresholds = {fixture_->config.max_payload_size_bytes};
 
-  ProcessFramesAndMaybeVerify(rate_profiles, &rc_thresholds,
-                              &quality_thresholds, &bs_thresholds, nullptr);
+  fixture_->ProcessFramesAndMaybeVerify(rate_profiles, &rc_thresholds,
+                                        &quality_thresholds, &bs_thresholds,
+                                        nullptr);
 }
 
 #endif  // defined(WEBRTC_USE_H264)

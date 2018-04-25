@@ -831,6 +831,16 @@ void ModuleRtpRtcpImpl::BitrateSent(uint32_t* total_rate,
   *nack_rate = rtp_sender_->NackOverheadRate();
 }
 
+void ModuleRtpRtcpImpl::GetSendBitrates(uint32_t* total_rate,
+                                        uint32_t* video_rate,
+                                        uint32_t* fec_rate,
+                                        uint32_t* nack_rate) {
+  *total_rate = rtp_sender_->BitrateSent();
+  *video_rate = rtp_sender_->VideoBitrateSent();
+  *fec_rate = rtp_sender_->FecOverheadRate();
+  *nack_rate = rtp_sender_->NackOverheadRate();
+}
+
 void ModuleRtpRtcpImpl::OnRequestSendReport() {
   SendRTCP(kRtcpSr);
 }

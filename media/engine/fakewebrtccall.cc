@@ -326,7 +326,7 @@ void FakeVideoReceiveStream::InjectFrame(const webrtc::VideoFrame& frame) {
   config_.renderer->OnFrame(frame);
 }
 
-webrtc::VideoReceiveStream::Stats FakeVideoReceiveStream::GetStats() const {
+webrtc::VideoReceiveStream::Stats FakeVideoReceiveStream::GetStats() {
   return stats_;
 }
 

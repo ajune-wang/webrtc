@@ -214,10 +214,18 @@ class RtpRtcp : public Module, public RtcpFeedbackSenderInterface {
   virtual bool SendingMedia() const = 0;
 
   // Returns current bitrate in Kbit/s.
-  virtual void BitrateSent(uint32_t* total_rate,
-                           uint32_t* video_rate,
-                           uint32_t* fec_rate,
-                           uint32_t* nack_rate) const = 0;
+  // Deprecated, use GetSendBitrates instead.
+  RTC_DEPRECATED virtual void BitrateSent(uint32_t* total_rate,
+                                          uint32_t* video_rate,
+                                          uint32_t* fec_rate,
+                                          uint32_t* nack_rate) const = 0;
+
+  // Returns current bitrates in Kbit/s.
+  // TODO(srte): Remove default implementation when safe to do so.
+  virtual void GetSendBitrates(uint32_t* total_rate,
+                               uint32_t* video_rate,
+                               uint32_t* fec_rate,
+                               uint32_t* nack_rate) {}
 
   // Used by the codec module to deliver a video or audio frame for
   // packetization.

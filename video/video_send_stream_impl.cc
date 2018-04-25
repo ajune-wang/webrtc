@@ -961,8 +961,8 @@ int VideoSendStreamImpl::ProtectionRequest(
     uint32_t module_fec_rate = 0;
     uint32_t module_nack_rate = 0;
     rtp_rtcp->SetFecParameters(*delta_params, *key_params);
-    rtp_rtcp->BitrateSent(&not_used, &module_video_rate, &module_fec_rate,
-                          &module_nack_rate);
+    rtp_rtcp->GetSendBitrates(&not_used, &module_video_rate, &module_fec_rate,
+                              &module_nack_rate);
     *sent_video_rate_bps += module_video_rate;
     *sent_nack_rate_bps += module_nack_rate;
     *sent_fec_rate_bps += module_fec_rate;

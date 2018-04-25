@@ -435,12 +435,12 @@ bool RTPSenderVideo::SendVideo(RtpVideoCodecTypes video_type,
   return true;
 }
 
-uint32_t RTPSenderVideo::VideoBitrateSent() const {
+uint32_t RTPSenderVideo::VideoBitrateSent() {
   rtc::CritScope cs(&stats_crit_);
   return video_bitrate_.Rate(clock_->TimeInMilliseconds()).value_or(0);
 }
 
-uint32_t RTPSenderVideo::FecOverheadRate() const {
+uint32_t RTPSenderVideo::FecOverheadRate() {
   rtc::CritScope cs(&stats_crit_);
   return fec_bitrate_.Rate(clock_->TimeInMilliseconds()).value_or(0);
 }

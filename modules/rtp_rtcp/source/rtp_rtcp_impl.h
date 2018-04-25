@@ -276,10 +276,14 @@ class ModuleRtpRtcpImpl : public RtpRtcp, public RTCPReceiver::ModuleRtpRtcp {
 
   std::vector<rtcp::TmmbItem> BoundingSet(bool* tmmbr_owner);
 
-  void BitrateSent(uint32_t* total_rate,
-                   uint32_t* video_rate,
-                   uint32_t* fec_rate,
-                   uint32_t* nackRate) const override;
+  void RTC_DEPRECATED BitrateSent(uint32_t* total_rate,
+                                  uint32_t* video_rate,
+                                  uint32_t* fec_rate,
+                                  uint32_t* nackRate) const override;
+  void GetSendBitrates(uint32_t* total_rate,
+                       uint32_t* video_rate,
+                       uint32_t* fec_rate,
+                       uint32_t* nackRate) override;
 
   void RegisterSendChannelRtpStatisticsCallback(
       StreamDataCountersCallback* callback) override;

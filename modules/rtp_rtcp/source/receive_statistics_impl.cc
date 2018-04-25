@@ -295,7 +295,7 @@ void StreamStatisticianImpl::GetReceiveStreamDataCounters(
   *data_counters = receive_counters_;
 }
 
-uint32_t StreamStatisticianImpl::BitrateReceived() const {
+uint32_t StreamStatisticianImpl::BitrateReceived() {
   rtc::CritScope cs(&stream_lock_);
   return incoming_bitrate_.Rate(clock_->TimeInMilliseconds()).value_or(0);
 }

@@ -85,6 +85,11 @@ class MockRtpRtcp : public RtpRtcp {
                           uint32_t* video_rate,
                           uint32_t* fec_rate,
                           uint32_t* nack_rate));
+  MOCK_METHOD4(GetSendBitrates,
+               void(uint32_t* total_rate,
+                    uint32_t* video_rate,
+                    uint32_t* fec_rate,
+                    uint32_t* nack_rate));
   MOCK_CONST_METHOD1(EstimatedReceiveBandwidth,
                      int(uint32_t* available_bandwidth));
   MOCK_METHOD9(SendOutgoingData,

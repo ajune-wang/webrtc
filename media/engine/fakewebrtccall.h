@@ -215,7 +215,7 @@ class FakeVideoReceiveStream final : public webrtc::VideoReceiveStream {
   void Start() override;
   void Stop() override;
 
-  webrtc::VideoReceiveStream::Stats GetStats() const override;
+  webrtc::VideoReceiveStream::Stats GetStats() override;
 
   webrtc::VideoReceiveStream::Config config_;
   bool receiving_;

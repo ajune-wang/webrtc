@@ -61,10 +61,8 @@ void RateStatistics::Update(size_t count, int64_t now_ms) {
   ++num_samples_;
 }
 
-rtc::Optional<uint32_t> RateStatistics::Rate(int64_t now_ms) const {
-  // Yeah, this const_cast ain't pretty, but the alternative is to declare most
-  // of the members as mutable...
-  const_cast<RateStatistics*>(this)->EraseOld(now_ms);
+rtc::Optional<uint32_t> RateStatistics::Rate(int64_t now_ms) {
+  EraseOld(now_ms);
 
   // If window is a single bucket or there is only one sample in a data set that
   // has not grown to the full window size, treat this as rate unavailable.

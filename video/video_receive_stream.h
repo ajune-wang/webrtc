@@ -71,7 +71,7 @@ class VideoReceiveStream : public webrtc::VideoReceiveStream,
   void Start() override;
   void Stop() override;
 
-  webrtc::VideoReceiveStream::Stats GetStats() const override;
+  webrtc::VideoReceiveStream::Stats GetStats() override;
 
   // Takes ownership of the file, is responsible for closing it later.
   // Calling this method will close and finalize any current log.

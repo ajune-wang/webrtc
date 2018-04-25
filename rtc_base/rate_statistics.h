@@ -36,13 +36,12 @@ class RateStatistics {
   // Update rate with a new data point, moving averaging window as needed.
   void Update(size_t count, int64_t now_ms);
 
-  // Note that despite this being a const method, it still updates the internal
-  // state (moves averaging window), but it doesn't make any alterations that
-  // are observable from the other methods, as long as supplied timestamps are
-  // from a monotonic clock. Ie, it doesn't matter if this call moves the
-  // window, since any subsequent call to Update or Rate would still have moved
-  // the window as much or more.
-  rtc::Optional<uint32_t> Rate(int64_t now_ms) const;
+  // Note that this updates the internal state (moves averaging window). However
+  // it doesn't make any alterations that are observable from the other methods,
+  // as long as supplied timestamps are from a monotonic clock. Ie, it doesn't
+  // matter if this call moves the window, since any subsequent call to Update
+  // or Rate would still have moved the window as much or more.
+  rtc::Optional<uint32_t> Rate(int64_t now_ms);
 
   // Update the size of the averaging window. The maximum allowed value for
   // window_size_ms is max_window_size_ms as supplied in the constructor.

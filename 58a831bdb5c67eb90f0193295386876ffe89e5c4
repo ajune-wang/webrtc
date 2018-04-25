@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "463a7e11_d00b6f2a",
+        "filename": "sdk/objc/Framework/Classes/Audio/RTCAudioSession.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 938,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-04-25T08:35:59Z",
+      "side": 1,
+      "message": "I know this is copied from above but I prefer to keep as few c++-isms as possible in ObjC classes. Please use `for (id delegate in self.delegates) {...}`",
+      "revId": "58a831bdb5c67eb90f0193295386876ffe89e5c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

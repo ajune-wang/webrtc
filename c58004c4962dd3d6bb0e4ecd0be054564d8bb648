@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7493b53c_cf4c2075",
+        "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCVideoCodec.mm",
+        "patchSetId": 6
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2018-04-25T18:06:08Z",
+      "side": 1,
+      "message": "Since UIDevice+RTCDevice is something exposed into client SDK and is also compiled as part of `common_objc` GN target, and I used \"low-level\" type - ProfileLevelId, I\u0027d rather moved to this table to \"private to SDK\" file UIDevice+H264Profile. It does not exposed as part of SDK and it moved close to UIDevice+RTCDevice. But if you think this should be done differently - I don\u0027t mind updating implementation to match what you\u0027d prefer.",
+      "parentUuid": "c86744a7_cfe56f66",
+      "range": {
+        "startLine": 49,
+        "startChar": 8,
+        "endLine": 49,
+        "endChar": 33
+      },
+      "revId": "c58004c4962dd3d6bb0e4ecd0be054564d8bb648",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ce5e0162_6b469aed",
         "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCVideoCodec.mm",
         "patchSetId": 6
@@ -45,6 +69,30 @@
       "revId": "c58004c4962dd3d6bb0e4ecd0be054564d8bb648",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c279dbca_f31d694f",
+        "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCVideoCodec.mm",
+        "patchSetId": 6
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2018-04-25T18:06:08Z",
+      "side": 1,
+      "message": "replaced witch std::find_if",
+      "parentUuid": "ce5e0162_6b469aed",
+      "range": {
+        "startLine": 113,
+        "startChar": 6,
+        "endLine": 113,
+        "endChar": 7
+      },
+      "revId": "c58004c4962dd3d6bb0e4ecd0be054564d8bb648",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "5c078348_98173a29",
+        "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCVideoCodec.mm",
+        "patchSetId": 6
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2018-04-25T18:06:08Z",
+      "side": 1,
+      "message": "Removed prefix",
+      "parentUuid": "ec4287d9_02b2321f",
+      "range": {
+        "startLine": 122,
+        "startChar": 10,
+        "endLine": 122,
+        "endChar": 40
+      },
+      "revId": "c58004c4962dd3d6bb0e4ecd0be054564d8bb648",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e21fe53c_ee4ba091",
         "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCVideoCodec.mm",
         "patchSetId": 6
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "bf9e95e7_1041a4ff",
+        "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCVideoCodec.mm",
+        "patchSetId": 6
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2018-04-25T18:06:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e21fe53c_ee4ba091",
+      "range": {
+        "startLine": 123,
+        "startChar": 8,
+        "endLine": 123,
+        "endChar": 12
+      },
+      "revId": "c58004c4962dd3d6bb0e4ecd0be054564d8bb648",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8925b49e_a0f72cee",
         "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCVideoCodec.mm",
         "patchSetId": 6
@@ -114,6 +210,30 @@
       "revId": "c58004c4962dd3d6bb0e4ecd0be054564d8bb648",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51c17abe_5082720c",
+        "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCVideoCodec.mm",
+        "patchSetId": 6
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2018-04-25T18:06:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8925b49e_a0f72cee",
+      "range": {
+        "startLine": 125,
+        "startChar": 10,
+        "endLine": 125,
+        "endChar": 14
+      },
+      "revId": "c58004c4962dd3d6bb0e4ecd0be054564d8bb648",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

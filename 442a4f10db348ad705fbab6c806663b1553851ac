@@ -69,6 +69,30 @@
       "revId": "442a4f10db348ad705fbab6c806663b1553851ac",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b771af59_e1870f4c",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1151,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-04-25T07:20:04Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "1b1dfce0_839d1363",
+      "range": {
+        "startLine": 1151,
+        "startChar": 18,
+        "endLine": 1151,
+        "endChar": 47
+      },
+      "revId": "442a4f10db348ad705fbab6c806663b1553851ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -90,7 +90,7 @@ void ComputeAndPostProcessLpcCoefficients(
       {auto_corr.data(), auto_corr.size()},
       {lpc_coeffs_pre.data(), lpc_coeffs_pre.size()});
   // LPC coefficients post-processing.
-  // TODO(https://bugs.webrtc.org/9076): Consider removing these steps.
+  // TODO(bugs.webrtc.org/9076): Consider removing these steps.
   {
     float c = 1.f;
     for (size_t i = 0; i < kNumLpcCoefficients - 1; ++i) {

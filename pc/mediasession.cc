@@ -571,11 +571,12 @@ static void PruneCryptos(const CryptoParamsVec& filter,
   if (!target_cryptos) {
     return;
   }
-  target_cryptos->erase(std::remove_if(target_cryptos->begin(),
-                                       target_cryptos->end(),
-                                       bind2nd(ptr_fun(CryptoNotFound),
-                                               &filter)),
-                        target_cryptos->end());
+  target_cryptos->erase(
+      std::remove_if(target_cryptos->begin(), target_cryptos->end(),
+                     [&filter](const CryptoParams& crypto) {
+                       return CryptoNotFound(crypto, &filter);
+                     }),
+      target_cryptos->end());
 }
 
 bool IsRtpProtocol(const std::string& protocol) {

@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "1eadb9f8_eade7216",
+        "filename": "modules/audio_processing/agc2/rnn_vad/lp_residual.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-25T09:34:52Z",
+      "side": 1,
+      "message": "I don\u0027t think the scoping of the code adds either code readability or security.\n\nThe only gain here is that the variable name c can be reused.\n\nThe cost is that 4 lines are added and that the same method contains two variables of the name c which have different meanings.\n\nI\u0027d rather prefer that different variable names are used for these code blocks, and that the scoping is dropped.",
+      "range": {
+        "startLine": 94,
+        "startChar": 2,
+        "endLine": 94,
+        "endChar": 3
+      },
+      "revId": "08b9e6c2f459b36bf4d721eb296659238207ce0e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "788115ac_1293fcbe",
         "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
         "patchSetId": 12

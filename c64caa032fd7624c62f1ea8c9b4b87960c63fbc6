@@ -1,0 +1,239 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "68f29b42_80755435",
+        "filename": "modules/audio_processing/agc2/rnn_vad/common.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-25T09:34:52Z",
+      "side": 1,
+      "message": "Nit: What about changing to  kMinPitchPeriod24kHzPitchSearch since the order of the contained words matches that of a sentence?\n\n(also applies elsewhere below)",
+      "revId": "c64caa032fd7624c62f1ea8c9b4b87960c63fbc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "09b58cff_7303377a",
+        "filename": "modules/audio_processing/agc2/rnn_vad/lp_residual_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-25T09:34:52Z",
+      "side": 1,
+      "message": "What is the reason for the braces defining a nested scope?\n\nSince the code contained only consists of a single loop with its own scope, the scope does not add anything.\n\nI would suggest instead to place a blank line on line 63 and remove the brace at line 85. That would make the code shorter.",
+      "range": {
+        "startLine": 63,
+        "startChar": 2,
+        "endLine": 63,
+        "endChar": 3
+      },
+      "revId": "c64caa032fd7624c62f1ea8c9b4b87960c63fbc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "283238d9_0f516a3f",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-25T09:34:52Z",
+      "side": 1,
+      "message": "I don\u0027t really see the point in putting a separate namespace around the methods in pitch_search_internal.h. What is the purpose of that? What problem does it solve?\n\nIf that is discarded, the lines 17-22 can be removed.",
+      "range": {
+        "startLine": 17,
+        "startChar": 6,
+        "endLine": 17,
+        "endChar": 27
+      },
+      "revId": "c64caa032fd7624c62f1ea8c9b4b87960c63fbc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac7691ca_67789f4e",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-25T09:34:52Z",
+      "side": 1,
+      "message": "The boilerplate code for using the ArrayView with a  size specified during compile time is quite significant. Would it be possible to instead define these methods as taking an std::array of a fixed size as input instead?\nThe methods in pitch_search.h are anyway only used herein so I don\u0027t see that we miss that much generality in practice by doing so.\n\nAnother alternative is to use an arrayview of a non-compile time size check and then instead if needed DCHECK on that to make sure that it is correct.",
+      "range": {
+        "startLine": 29,
+        "startChar": 14,
+        "endLine": 29,
+        "endChar": 33
+      },
+      "revId": "c64caa032fd7624c62f1ea8c9b4b87960c63fbc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "699e7810_657366da",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-25T09:34:52Z",
+      "side": 1,
+      "message": "Nit: Search for pitch at 12 kHz.",
+      "range": {
+        "startLine": 35,
+        "startChar": 11,
+        "endLine": 35,
+        "endChar": 12
+      },
+      "revId": "c64caa032fd7624c62f1ea8c9b4b87960c63fbc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63760e24_ad420f25",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-25T09:34:52Z",
+      "side": 1,
+      "message": "You could use a for-each loop:\nfor (auto\u0026 p : pitch_candidates_inv_lags) {\n p*\u003d2;\n}",
+      "revId": "c64caa032fd7624c62f1ea8c9b4b87960c63fbc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47499788_1647068e",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-25T09:34:52Z",
+      "side": 1,
+      "message": "Since this method is the main include file for the PitchSearch functionality, PitchInfo is needed by the user of the PitchSearch and the implementation is of PitchInfo is needed to be known by the user of PitchSearch I definitely think that the PitchInfo struct should be placed here and not in pitch_search_common.h. \n\nPlease move that to this file so that the API is self-contained.",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 9
+      },
+      "revId": "c64caa032fd7624c62f1ea8c9b4b87960c63fbc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9aabe83e_e5547f70",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_common.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-25T09:34:52Z",
+      "side": 1,
+      "message": "As commented elsewhere, please move this struct to the main header file for the pitch search. I don\u0027t think putting it in a separate file simplifies the code or the usage of the feature.",
+      "range": {
+        "startLine": 19,
+        "startChar": 7,
+        "endLine": 19,
+        "endChar": 16
+      },
+      "revId": "c64caa032fd7624c62f1ea8c9b4b87960c63fbc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e4652ef_0770ee2b",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-25T09:34:52Z",
+      "side": 1,
+      "message": "I now see your point about putting this in a separate method.",
+      "range": {
+        "startLine": 32,
+        "startChar": 6,
+        "endLine": 32,
+        "endChar": 33
+      },
+      "revId": "c64caa032fd7624c62f1ea8c9b4b87960c63fbc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ddebd7a_9bd52a86",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-25T09:34:52Z",
+      "side": 1,
+      "message": "Alternative\nfor (size_t i \u003d 0, j\u003d0; i \u003c dst.size(); ++i,j+\u003d2)\n    dst[i] \u003d src[j];\n\nThat would avoid the multiplications.",
+      "revId": "c64caa032fd7624c62f1ea8c9b4b87960c63fbc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "126d90ff_343d8af0",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-25T09:34:52Z",
+      "side": 1,
+      "message": "What is the reason for this namespace? I don\u0027t think adding specific namespace around these methods solves any problem. The only use for it would be if there is a name clash within rnn_vad but that I then think should instead be solved by changing the naming.",
+      "range": {
+        "startLine": 22,
+        "startChar": 10,
+        "endLine": 22,
+        "endChar": 31
+      },
+      "revId": "c64caa032fd7624c62f1ea8c9b4b87960c63fbc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

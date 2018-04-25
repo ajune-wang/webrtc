@@ -22,6 +22,30 @@
       "revId": "8628f5bb7c7f5bd0373567095af08cebe8bb7f8d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c6411cab_0a6f8c67",
+        "filename": "modules/audio_processing/gain_controller2_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-04-25T13:12:29Z",
+      "side": 0,
+      "message": "I changed how the gain controller works by adding the initial gain. Now, gain_controller2 applies an adaptive gain of 8db by default. The adaptive GC is currently always on. Therefore this would fail.",
+      "parentUuid": "b4f2503a_56e81232",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 0
+      },
+      "revId": "8628f5bb7c7f5bd0373567095af08cebe8bb7f8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

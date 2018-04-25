@@ -241,9 +241,8 @@ void EchoRemoverImpl::ProcessCapture(
   const auto& Y_fft = aec_state_.UseLinearFilterOutput() ? E : Y;
 
   // Compute and apply the suppression gain.
-  suppression_gain_.GetGain(E2, R2, cng_.NoiseSpectrum(), E, X, Y,
-                            render_signal_analyzer_, aec_state_, x,
-                            &high_bands_gain, &G);
+  suppression_gain_.GetGain(E2, R2, cng_.NoiseSpectrum(), E, X, Y, aec_state_,
+                            x, &high_bands_gain, &G);
 
   suppression_filter_.ApplyGain(comfort_noise, high_band_comfort_noise, G,
                                 high_bands_gain, Y_fft, y);

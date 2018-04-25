@@ -91,25 +91,25 @@ void VideoProcessorIntegrationTest::H264KeyframeChecker::CheckEncodedFrame(
 
 class VideoProcessorIntegrationTest::CpuProcessTime final {
  public:
-  explicit CpuProcessTime(const TestConfig& config) : config_(config) {}
+  explicit CpuProcessTime(const TestConfig& config) : config(config) {}
   ~CpuProcessTime() {}
 
   void Start() {
-    if (config_.measure_cpu) {
+    if (config.measure_cpu) {
       cpu_time_ -= rtc::GetProcessCpuTimeNanos();
       wallclock_time_ -= rtc::SystemTimeNanos();
     }
   }
   void Stop() {
-    if (config_.measure_cpu) {
+    if (config.measure_cpu) {
       cpu_time_ += rtc::GetProcessCpuTimeNanos();
       wallclock_time_ += rtc::SystemTimeNanos();
     }
   }
   void Print() const {
-    if (config_.measure_cpu) {
+    if (config.measure_cpu) {
       printf("cpu_usage_percent: %f\n",
-             GetUsagePercent() / config_.NumberOfCores());
+             GetUsagePercent() / config.NumberOfCores());
       printf("\n");
     }
   }
@@ -119,12 +119,24 @@ class VideoProcessorIntegrationTest::CpuProcessTime final {
     return static_cast<double>(cpu_time_) / wallclock_time_ * 100.0;
   }
 
-  const TestConfig config_;
+  const TestConfig config;
   int64_t cpu_time_ = 0;
   int64_t wallclock_time_ = 0;
 };
 
 VideoProcessorIntegrationTest::VideoProcessorIntegrationTest() {
+#if defined(WEBRTC_ANDROID)
+  InitializeAndroidObjects();
+#endif
+  decoder_factory_ = CreateDecoderFactory();
+  encoder_factory_ = CreateEncoderFactory();
+}
+
+VideoProcessorIntegrationTest::VideoProcessorIntegrationTest(
+    std::unique_ptr<VideoDecoderFactory> decoderFactory,
+    std::unique_ptr<VideoEncoderFactory> encoderFactory)
+    : decoder_factory_(std::move(decoderFactory)),
+      encoder_factory_(std::move(encoderFactory)) {
 #if defined(WEBRTC_ANDROID)
   InitializeAndroidObjects();
 #endif
@@ -170,7 +182,7 @@ void VideoProcessorIntegrationTest::ProcessAllFrames(
 
   cpu_process_time_->Start();
 
-  for (size_t frame_number = 0; frame_number < config_.num_frames;
+  for (size_t frame_number = 0; frame_number < config.num_frames;
        ++frame_number) {
     if (frame_number ==
         rate_profiles[rate_update_index].frame_index_rate_update) {
@@ -185,7 +197,7 @@ void VideoProcessorIntegrationTest::ProcessAllFrames(
 
     task_queue->PostTask([this] { processor_->ProcessFrame(); });
 
-    if (RunEncodeInRealTime(config_)) {
+    if (RunEncodeInRealTime(config)) {
       // Roughly pace the frames.
       const size_t frame_duration_ms =
           rtc::kNumMillisecsPerSec / rate_profiles[rate_update_index].input_fps;
@@ -199,7 +211,7 @@ void VideoProcessorIntegrationTest::ProcessAllFrames(
 
   // Give the VideoProcessor pipeline some time to process the last frame,
   // and then release the codecs.
-  if (config_.IsAsyncCodec()) {
+  if (config.IsAsyncCodec()) {
     SleepMs(1 * rtc::kNumMillisecsPerSec);
   }
 
@@ -222,13 +234,13 @@ void VideoProcessorIntegrationTest::AnalyzeAllFrames(
     RTC_CHECK(last_frame_num >= first_frame_num);
 
     std::vector<VideoStatistics> layer_stats =
-        stats_.SliceAndCalcLayerVideoStatistic(first_frame_num, last_frame_num);
+        stats.SliceAndCalcLayerVideoStatistic(first_frame_num, last_frame_num);
     printf("==> Receive stats\n");
     for (const auto& layer_stat : layer_stats) {
       printf("%s\n\n", layer_stat.ToString("recv_").c_str());
     }
 
-    VideoStatistics send_stat = stats_.SliceAndCalcAggregatedVideoStatistic(
+    VideoStatistics send_stat = stats.SliceAndCalcAggregatedVideoStatistic(
         first_frame_num, last_frame_num);
     printf("==> Send stats\n");
     printf("%s\n", send_stat.ToString("send_").c_str());
@@ -244,8 +256,8 @@ void VideoProcessorIntegrationTest::AnalyzeAllFrames(
                          rate_profiles[rate_update_idx].input_fps);
   }
 
-  if (config_.print_frame_level_stats) {
-    stats_.PrintFrameStatistics();
+  if (config.print_frame_level_stats) {
+    stats.PrintFrameStatistics();
   }
 
   cpu_process_time_->Print();
@@ -298,7 +310,7 @@ void VideoProcessorIntegrationTest::VerifyVideoStatistic(
 
 std::unique_ptr<VideoDecoderFactory>
 VideoProcessorIntegrationTest::CreateDecoderFactory() {
-  if (config_.hw_decoder) {
+  if (config.hw_decoder) {
 #if defined(WEBRTC_ANDROID)
     return CreateAndroidDecoderFactory();
 #else
@@ -312,7 +324,7 @@ VideoProcessorIntegrationTest::CreateDecoderFactory() {
 
 std::unique_ptr<VideoEncoderFactory>
 VideoProcessorIntegrationTest::CreateEncoderFactory() {
-  if (config_.hw_encoder) {
+  if (config.hw_encoder) {
 #if defined(WEBRTC_ANDROID)
     return CreateAndroidEncoderFactory();
 #else
@@ -325,11 +337,8 @@ VideoProcessorIntegrationTest::CreateEncoderFactory() {
 }
 
 void VideoProcessorIntegrationTest::CreateEncoderAndDecoder() {
-  encoder_factory_ = CreateEncoderFactory();
-  std::unique_ptr<VideoDecoderFactory> decoder_factory = CreateDecoderFactory();
-
-  const SdpVideoFormat format = config_.ToSdpVideoFormat();
-  if (config_.simulcast_adapted_encoder) {
+  const SdpVideoFormat format = config.ToSdpVideoFormat();
+  if (config.simulcast_adapted_encoder) {
     EXPECT_EQ("VP8", format.name);
     encoder_.reset(new SimulcastEncoderAdapter(encoder_factory_.get()));
   } else {
@@ -337,22 +346,22 @@ void VideoProcessorIntegrationTest::CreateEncoderAndDecoder() {
   }
 
   const size_t num_simulcast_or_spatial_layers = std::max(
-      config_.NumberOfSimulcastStreams(), config_.NumberOfSpatialLayers());
+      config.NumberOfSimulcastStreams(), config.NumberOfSpatialLayers());
 
   for (size_t i = 0; i < num_simulcast_or_spatial_layers; ++i) {
     decoders_.push_back(std::unique_ptr<VideoDecoder>(
-        decoder_factory->CreateVideoDecoder(format)));
+        decoder_factory_->CreateVideoDecoder(format)));
   }
 
-  if (config_.sw_fallback_encoder) {
-    EXPECT_FALSE(config_.simulcast_adapted_encoder)
+  if (config.sw_fallback_encoder) {
+    EXPECT_FALSE(config.simulcast_adapted_encoder)
         << "SimulcastEncoderAdapter and VideoEncoderSoftwareFallbackWrapper "
            "are not jointly supported.";
     encoder_ = rtc::MakeUnique<VideoEncoderSoftwareFallbackWrapper>(
         InternalEncoderFactory().CreateVideoEncoder(format),
         std::move(encoder_));
   }
-  if (config_.sw_fallback_decoder) {
+  if (config.sw_fallback_decoder) {
     for (auto& decoder : decoders_) {
       decoder = rtc::MakeUnique<VideoDecoderSoftwareFallbackWrapper>(
           InternalDecoderFactory().CreateVideoDecoder(format),
@@ -370,7 +379,6 @@ void VideoProcessorIntegrationTest::CreateEncoderAndDecoder() {
 void VideoProcessorIntegrationTest::DestroyEncoderAndDecoder() {
   decoders_.clear();
   encoder_.reset();
-  encoder_factory_.reset();
 }
 
 void VideoProcessorIntegrationTest::SetUpAndInitObjects(
@@ -380,25 +388,25 @@ void VideoProcessorIntegrationTest::SetUpAndInitObjects(
     const VisualizationParams* visualization_params) {
   CreateEncoderAndDecoder();
 
-  config_.codec_settings.minBitrate = 0;
-  config_.codec_settings.startBitrate = initial_bitrate_kbps;
-  config_.codec_settings.maxFramerate = initial_framerate_fps;
+  config.codec_settings.minBitrate = 0;
+  config.codec_settings.startBitrate = initial_bitrate_kbps;
+  config.codec_settings.maxFramerate = initial_framerate_fps;
 
   // Create file objects for quality analysis.
   source_frame_reader_.reset(
-      new YuvFrameReaderImpl(config_.filepath, config_.codec_settings.width,
-                             config_.codec_settings.height));
+      new YuvFrameReaderImpl(config.filepath, config.codec_settings.width,
+                             config.codec_settings.height));
   EXPECT_TRUE(source_frame_reader_->Init());
 
   const size_t num_simulcast_or_spatial_layers = std::max(
-      config_.NumberOfSimulcastStreams(), config_.NumberOfSpatialLayers());
+      config.NumberOfSimulcastStreams(), config.NumberOfSpatialLayers());
 
   if (visualization_params) {
     for (size_t simulcast_svc_idx = 0;
          simulcast_svc_idx < num_simulcast_or_spatial_layers;
          ++simulcast_svc_idx) {
       const std::string output_filename_base =
-          OutputPath() + config_.FilenameWithParams() + "_" +
+          OutputPath() + config.FilenameWithParams() + "_" +
           std::to_string(simulcast_svc_idx);
 
       if (visualization_params->save_encoded_ivf) {
@@ -410,8 +418,8 @@ void VideoProcessorIntegrationTest::SetUpAndInitObjects(
 
       if (visualization_params->save_decoded_y4m) {
         FrameWriter* decoded_frame_writer = new Y4mFrameWriterImpl(
-            output_filename_base + ".y4m", config_.codec_settings.width,
-            config_.codec_settings.height, initial_framerate_fps);
+            output_filename_base + ".y4m", config.codec_settings.width,
+            config.codec_settings.height, initial_framerate_fps);
         EXPECT_TRUE(decoded_frame_writer->Init());
         decoded_frame_writers_.push_back(
             std::unique_ptr<FrameWriter>(decoded_frame_writer));
@@ -419,15 +427,14 @@ void VideoProcessorIntegrationTest::SetUpAndInitObjects(
     }
   }
 
-  stats_.Clear();
+  stats.Clear();
 
-  cpu_process_time_.reset(new CpuProcessTime(config_));
+  cpu_process_time_.reset(new CpuProcessTime(config));
 
   rtc::Event sync_event(false, false);
   task_queue->PostTask([this, &sync_event]() {
     processor_ = rtc::MakeUnique<VideoProcessor>(
-        encoder_.get(), &decoders_, source_frame_reader_.get(), config_,
-        &stats_,
+        encoder_.get(), &decoders_, source_frame_reader_.get(), config, &stats,
         encoded_frame_writers_.empty() ? nullptr : &encoded_frame_writers_,
         decoded_frame_writers_.empty() ? nullptr : &decoded_frame_writers_);
     sync_event.Set();
@@ -461,7 +468,7 @@ void VideoProcessorIntegrationTest::ReleaseAndCloseObjects(
 void VideoProcessorIntegrationTest::PrintSettings(
     rtc::TaskQueue* task_queue) const {
   printf("==> TestConfig\n");
-  printf("%s\n", config_.ToString().c_str());
+  printf("%s\n", config.ToString().c_str());
 
   printf("==> Codec names\n");
   std::string encoder_name;
@@ -476,7 +483,7 @@ void VideoProcessorIntegrationTest::PrintSettings(
   printf("enc_impl_name: %s\n", encoder_name.c_str());
   printf("dec_impl_name: %s\n", decoder_name.c_str());
   if (encoder_name == decoder_name) {
-    printf("codec_impl_name: %s_%s\n", config_.CodecName().c_str(),
+    printf("codec_impl_name: %s_%s\n", config.CodecName().c_str(),
            encoder_name.c_str());
   }
   printf("\n");

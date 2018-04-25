@@ -17,11 +17,11 @@
 #include <string>
 #include <vector>
 
+#include "api/test/videoprocessor_integrationtest_fixture.h"
 #include "api/video_codecs/video_decoder_factory.h"
 #include "api/video_codecs/video_encoder_factory.h"
 #include "common_types.h"  // NOLINT(build/include)
 #include "common_video/h264/h264_common.h"
-#include "modules/video_coding/codecs/test/stats.h"
 #include "modules/video_coding/codecs/test/test_config.h"
 #include "modules/video_coding/codecs/test/videoprocessor.h"
 #include "modules/video_coding/utility/ivf_file_writer.h"
@@ -32,56 +32,25 @@
 namespace webrtc {
 namespace test {
 
-// Rates for the encoder and the frame number when to change profile.
-struct RateProfile {
-  size_t target_kbps;
-  size_t input_fps;
-  size_t frame_index_rate_update;
-};
-
-struct RateControlThresholds {
-  double max_avg_bitrate_mismatch_percent;
-  double max_time_to_reach_target_bitrate_sec;
-  // TODO(ssilkin): Use absolute threshold for framerate.
-  double max_avg_framerate_mismatch_percent;
-  double max_avg_buffer_level_sec;
-  double max_max_key_frame_delay_sec;
-  double max_max_delta_frame_delay_sec;
-  size_t max_num_spatial_resizes;
-  size_t max_num_key_frames;
-};
-
-struct QualityThresholds {
-  double min_avg_psnr;
-  double min_min_psnr;
-  double min_avg_ssim;
-  double min_min_ssim;
-};
-
-struct BitstreamThresholds {
-  size_t max_max_nalu_size_bytes;
-};
-
-// Should video files be saved persistently to disk for post-run visualization?
-struct VisualizationParams {
-  bool save_encoded_ivf;
-  bool save_decoded_y4m;
-};
-
 // Integration test for video processor. It does rate control and frame quality
 // analysis using frame statistics collected by video processor and logs the
 // results. If thresholds are specified it checks that corresponding metrics
 // are in desirable range.
-class VideoProcessorIntegrationTest : public testing::Test {
- protected:
+class VideoProcessorIntegrationTest
+    : public VideoProcessorIntegrationTestFixtureInterface {
   // Verifies that all H.264 keyframes contain SPS/PPS/IDR NALUs.
+ public:
   class H264KeyframeChecker : public TestConfig::EncodedFrameChecker {
    public:
     void CheckEncodedFrame(webrtc::VideoCodecType codec,
                            const EncodedImage& encoded_frame) const override;
   };
 
+ public:
   VideoProcessorIntegrationTest();
+  VideoProcessorIntegrationTest(
+      std::unique_ptr<VideoDecoderFactory> decoderFactory,
+      std::unique_ptr<VideoEncoderFactory> encoderFactory);
   ~VideoProcessorIntegrationTest() override;
 
   void ProcessFramesAndMaybeVerify(
@@ -89,20 +58,7 @@ class VideoProcessorIntegrationTest : public testing::Test {
       const std::vector<RateControlThresholds>* rc_thresholds,
       const std::vector<QualityThresholds>* quality_thresholds,
       const BitstreamThresholds* bs_thresholds,
-      const VisualizationParams* visualization_params);
-
-  // Config.
-  TestConfig config_;
-
-  Stats stats_;
-
-  // Can be used by all H.264 tests.
-  const H264KeyframeChecker h264_keyframe_checker_;
-
- protected:
-  // Overwrite in subclasses for custom codec factories.
-  virtual std::unique_ptr<VideoDecoderFactory> CreateDecoderFactory();
-  virtual std::unique_ptr<VideoEncoderFactory> CreateEncoderFactory();
+      const VisualizationParams* visualization_params) override;
 
  private:
   class CpuProcessTime;
@@ -131,8 +87,11 @@ class VideoProcessorIntegrationTest : public testing::Test {
                             float input_framerate_fps);
 
   void PrintSettings(rtc::TaskQueue* task_queue) const;
+  std::unique_ptr<VideoDecoderFactory> CreateDecoderFactory();
+  std::unique_ptr<VideoEncoderFactory> CreateEncoderFactory();
 
   // Codecs.
+  std::unique_ptr<VideoDecoderFactory> decoder_factory_;
   std::unique_ptr<VideoEncoderFactory> encoder_factory_;
   std::unique_ptr<VideoEncoder> encoder_;
   VideoProcessor::VideoDecoderList decoders_;

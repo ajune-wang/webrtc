@@ -22,6 +22,30 @@
       "revId": "c50c7973e74bc2865e02f7beafebc43fdcaf3f25",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55145492_3ace5abc",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-25T12:33:00Z",
+      "side": 1,
+      "message": "In another CL for the RNN VAD I got (and addressed) this comment:\n\nFunction declaration comments should be descriptive (\"Opens the file\") rather than imperative (\"Open the file\"). https://google.github.io/styleguide/cppguide.html#Function_Comments\n\nI will fix the imperative.",
+      "parentUuid": "375efba7_5f757569",
+      "range": {
+        "startLine": 104,
+        "startChar": 3,
+        "endLine": 104,
+        "endChar": 10
+      },
+      "revId": "c50c7973e74bc2865e02f7beafebc43fdcaf3f25",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

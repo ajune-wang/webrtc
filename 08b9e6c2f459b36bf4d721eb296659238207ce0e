@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "7c7014e9_0c3188e0",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-25T12:33:00Z",
+      "side": 1,
+      "message": "True, a return value reads easier. But that would involve a copy of the returned array, isn\u0027t it?\n\nNote that those functions are called (at least) once per frame and almost everywhere in the RNN VAD we have results that can be written in a variable already defined by or visible to the caller - because we have class members adding state (e.g., pitch buffer) or a local variable that goes though a number of modification steps.\n\nI followed this style assuming that returning std::array is less efficient than passing a non-const array view for the output.",
+      "parentUuid": "788115ac_1293fcbe",
+      "range": {
+        "startLine": 32,
+        "startChar": 2,
+        "endLine": 32,
+        "endChar": 29
+      },
+      "revId": "08b9e6c2f459b36bf4d721eb296659238207ce0e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ce9103a3_7ced1299",
         "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
         "patchSetId": 12
@@ -68,6 +92,30 @@
       "revId": "08b9e6c2f459b36bf4d721eb296659238207ce0e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "023f4f68_5c0b08d2",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-25T12:33:00Z",
+      "side": 1,
+      "message": "Great catch! Actually I should check if lag \u003d\u003d 0 || lag \u003d\u003d kPitchMaxPeriod24kHz because in this case the pseudo-interpolation cannot be applied (no left/right adjacent points to use). Thanks!\n\nAnd this made me realize that we can do better by having only one function instead of keeping both PitchPseudoInterpolationInvLag() and PitchPseudoInterpolationLag() - they actually do the same thing, but with a different interface.",
+      "parentUuid": "ce9103a3_7ced1299",
+      "range": {
+        "startLine": 49,
+        "startChar": 32,
+        "endLine": 49,
+        "endChar": 39
+      },
+      "revId": "08b9e6c2f459b36bf4d721eb296659238207ce0e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -94,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "9b3b364f_a398c243",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-25T12:33:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "beca0038_d2934bfc",
+      "range": {
+        "startLine": 65,
+        "startChar": 51,
+        "endLine": 65,
+        "endChar": 53
+      },
+      "revId": "08b9e6c2f459b36bf4d721eb296659238207ce0e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "386fec4e_83662a1a",
         "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
         "patchSetId": 12
@@ -114,6 +186,30 @@
       "revId": "08b9e6c2f459b36bf4d721eb296659238207ce0e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae0406c3_1e95a662",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-25T12:33:00Z",
+      "side": 1,
+      "message": "Thanks for asking.\n\nLet me summarize the steps starting from PitchSearch():\n- initial pitch estimated at 12 kHz using a narrower pitch period range\n- 2 pitch period candidates are found and doubled to switch to 24 kHz\n- RefinePitchPeriod48kHz() is called\n  * it computes the auto correlation for neighboring pitch periods *at 24 kHz* (note that in the initial search, 12 kHz was used)\n  * 2 pitch period candidates are found at 24 kHz\n  * pseudo-interpolation is applied to the best candidate\n  * a 48 kHz pitch period estimation is returned\n- CheckLowerPitchPeriodsAndComputePitchGain() is called\n  * the pitch period range is now extended\n  * the pitch search is done at 24 kHz\n  * pseudo interpolation is once again applied\n  * the final 48 kHz pitch period estimation is returned\n\nAs for \"2 * inv_lag - offset\". Note that offset can be either -1, 0 or +1. \"2 * inv_lag\" maps from 24k to 48k and then we use offset. This is different from \"2 * (inv_lag + offset)\", which would have no effect. In this way, we can refine the pitch period estimation of 1 sample at 48k.\n\nLet me know if it still doesn\u0027t make sense to you.",
+      "parentUuid": "386fec4e_83662a1a",
+      "range": {
+        "startLine": 85,
+        "startChar": 9,
+        "endLine": 85,
+        "endChar": 29
+      },
+      "revId": "08b9e6c2f459b36bf4d721eb296659238207ce0e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -140,6 +236,30 @@
     },
     {
       "key": {
+        "uuid": "28785672_11b50c87",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-25T12:33:00Z",
+      "side": 1,
+      "message": "Thanks! \n\nAs for totw #138, I agree with it when the comment is for a method.\nThis is a const array in the anon NS, and especially for this array I can hardly think of a description that does not mention how its values are used. Also, note that most of the words are spent describing how the array values are found (or at least this is what I wanted to achieve).\n\nRegarding the whole comment.\nUnfortunately it\u0027s hard to explain the role of this vector in a single comment.\nI did my best, but I\u0027ll be happy to rephrase differently (suggestions accepted!)\n\nTo understand this the best way is using a piece of paper and trying to find the values in this vector from scratch. It\u0027s not hard, drawing helps. I didn\u0027t want to further pollute this library with ACSII art, but I\u0027ll be happy to do that if asked.\n\nProposed solution: discuss offline. I\u0027ll be happy to explain so that you could help me finding a better formulation for the description of this vector.",
+      "parentUuid": "7ab10ee2_0dcf8e68",
+      "range": {
+        "startLine": 88,
+        "startChar": 23,
+        "endLine": 88,
+        "endChar": 30
+      },
+      "revId": "08b9e6c2f459b36bf4d721eb296659238207ce0e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1f810d4f_c465f382",
         "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
         "patchSetId": 12
@@ -160,6 +280,30 @@
       "revId": "08b9e6c2f459b36bf4d721eb296659238207ce0e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52c6c22c_122c5674",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-25T12:33:00Z",
+      "side": 1,
+      "message": "True. This downsampling suffers from full aliasing.\nHowever, keep in mind that we\u0027re looking for pitch in the [62.5, 800] Hz interval; my guess is that aliasing has limited side-effects. ButI haven\u0027t verified this and in the future we might want to do this differently. I added a TODO.",
+      "parentUuid": "1f810d4f_c465f382",
+      "range": {
+        "startLine": 106,
+        "startChar": 5,
+        "endLine": 106,
+        "endChar": 15
+      },
+      "revId": "08b9e6c2f459b36bf4d721eb296659238207ce0e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -186,6 +330,30 @@
     },
     {
       "key": {
+        "uuid": "2a7b0b5b_f3f8b344",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-25T12:33:00Z",
+      "side": 1,
+      "message": "Const added.\n\nAs per Per\u0027s suggestion, those are just local aliases to avoid clutter in the definition while using self-explanatory arg names.",
+      "parentUuid": "2f5ca7d5_7d4590f0",
+      "range": {
+        "startLine": 120,
+        "startChar": 5,
+        "endLine": 124,
+        "endChar": 7
+      },
+      "revId": "08b9e6c2f459b36bf4d721eb296659238207ce0e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "92c7263f_0a9de473",
         "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
         "patchSetId": 12
@@ -206,6 +374,30 @@
       "revId": "08b9e6c2f459b36bf4d721eb296659238207ce0e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4c698c0_c7a21a28",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-25T12:33:00Z",
+      "side": 1,
+      "message": "Absolutely. I added a TODO for finding more efficient alternatives.\nThanks for pointing that out.",
+      "parentUuid": "92c7263f_0a9de473",
+      "range": {
+        "startLine": 184,
+        "startChar": 8,
+        "endLine": 184,
+        "endChar": 35
+      },
+      "revId": "08b9e6c2f459b36bf4d721eb296659238207ce0e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -232,6 +424,30 @@
     },
     {
       "key": {
+        "uuid": "5472ee3c_56210b18",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-25T12:33:00Z",
+      "side": 1,
+      "message": "Right, that\u0027s why I used \"maybe\".",
+      "parentUuid": "79a69376_ac4a1f81",
+      "range": {
+        "startLine": 210,
+        "startChar": 33,
+        "endLine": 210,
+        "endChar": 67
+      },
+      "revId": "08b9e6c2f459b36bf4d721eb296659238207ce0e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "85e82771_4d2e6fed",
         "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
         "patchSetId": 12
@@ -252,6 +468,30 @@
       "revId": "08b9e6c2f459b36bf4d721eb296659238207ce0e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "13e7d419_044c1762",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-25T12:33:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "85e82771_4d2e6fed",
+      "range": {
+        "startLine": 283,
+        "startChar": 11,
+        "endLine": 283,
+        "endChar": 17
+      },
+      "revId": "08b9e6c2f459b36bf4d721eb296659238207ce0e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -278,6 +518,30 @@
     },
     {
       "key": {
+        "uuid": "8b09369c_2a162f90",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-25T12:33:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a7924b54_65d02e9b",
+      "range": {
+        "startLine": 298,
+        "startChar": 2,
+        "endLine": 298,
+        "endChar": 6
+      },
+      "revId": "08b9e6c2f459b36bf4d721eb296659238207ce0e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "466f1811_18f294e8",
         "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
         "patchSetId": 12
@@ -301,6 +565,30 @@
     },
     {
       "key": {
+        "uuid": "974c1fe7_f215761a",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-25T12:33:00Z",
+      "side": 1,
+      "message": "Thanks for this question, which is related to that of line 85.\n\nOne main difference between our implementation and the original one is that we perform the spectral analysis at 24 kHz instead of 48 kHz. So, you\u0027re actually right: pseudo interpolation is not really needed. That will become clear when I add the spectral features extractor.\n\nThe 48 kHz estimated pitch is only used as feature for the RNN and for bit-exactness in pitch_search_unittest.cc. Luckily, pseudo-interpolation is really cheap, but we could consider removing it and to keep the estimated pitch compatible with the RNN, we just double it.\n\nSolution: I added a TODO (see line 47 of the new PS) and review all the TODOs I\u0027ve been adding once everything lands.",
+      "parentUuid": "466f1811_18f294e8",
+      "range": {
+        "startLine": 305,
+        "startChar": 36,
+        "endLine": 305,
+        "endChar": 45
+      },
+      "revId": "08b9e6c2f459b36bf4d721eb296659238207ce0e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9d1d9330_8c8d25bb",
         "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
         "patchSetId": 12
@@ -321,6 +609,30 @@
       "revId": "08b9e6c2f459b36bf4d721eb296659238207ce0e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1b954e5_f0226f5a",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-25T12:33:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9d1d9330_8c8d25bb",
+      "range": {
+        "startLine": 316,
+        "startChar": 38,
+        "endLine": 316,
+        "endChar": 39
+      },
+      "revId": "08b9e6c2f459b36bf4d721eb296659238207ce0e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

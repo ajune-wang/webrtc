@@ -36,7 +36,6 @@ class SuppressionGain {
       const FftData& linear_aec_fft,
       const FftData& render_fft,
       const FftData& capture_fft,
-      const RenderSignalAnalyzer& render_signal_analyzer,
       const AecState& aec_state,
       const std::vector<std::vector<float>>& render,
       float* high_bands_gain,
@@ -47,7 +46,6 @@ class SuppressionGain {
 
  private:
   void LowerBandGain(bool stationary_with_low_power,
-                     const rtc::Optional<int>& narrow_peak_band,
                      const AecState& aec_state,
                      const std::array<float, kFftLengthBy2Plus1>& nearend,
                      const std::array<float, kFftLengthBy2Plus1>& echo,

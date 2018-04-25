@@ -38,10 +38,7 @@ rtc_static_library("encoded_frame") {
 
 rtc_static_library("video_coding") {
   visibility = [ "*" ]
-  allow_poison = [
-    "audio_codecs",  # TODO(bugs.webrtc.org/8396): Remove.
-    "software_video_codecs",  # TODO(bugs.webrtc.org/7925): Remove.
-  ]
+  allow_poison = [ "audio_codecs" ]  # TODO(bugs.webrtc.org/8396): Remove.
   deps = []
 
   sources = [
@@ -122,20 +119,11 @@ rtc_static_library("video_coding") {
     suppressed_configs += [ "//build/config/clang:find_bad_constructs" ]
   }
 
-  if (rtc_use_builtin_sw_codecs) {
-    deps += [
-      ":webrtc_i420",
-      ":webrtc_vp8",
-      ":webrtc_vp9",
-    ]
-  }
-
   deps += [
     ":codec_globals_headers",
     ":encoded_frame",
     ":video_codec_interface",
     ":video_coding_utility",
-    ":webrtc_h264",
     ":webrtc_vp8_helpers",
     ":webrtc_vp9_helpers",
     "..:module_api",

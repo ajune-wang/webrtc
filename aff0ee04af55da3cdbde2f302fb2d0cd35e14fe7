@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "c55ca4cd_d773d042",
+        "filename": "sdk/objc/Framework/Native/src/objc_video_decoder_factory.mm",
+        "patchSetId": 3
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2018-04-25T13:31:38Z",
+      "side": 1,
+      "message": "The new selector is @selector(decode:missingFrames:codecSpecificInfo:renderTimeMs:)",
+      "revId": "aff0ee04af55da3cdbde2f302fb2d0cd35e14fe7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3b6f07bb_bf05f334",
         "filename": "sdk/objc/Framework/UnitTests/objc_video_decoder_factory_tests.mm",
         "patchSetId": 3

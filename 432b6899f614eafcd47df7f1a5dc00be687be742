@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "041bb1c3_62c302b2",
+        "filename": "api/video_codecs/builtin_video_encoder_factory.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-25T22:35:33Z",
+      "side": 1,
+      "message": "I don\u0027t have a strong opinion about this, but based on previous discussions and the \"slim and modular\" design doc, I thought the implementation of factory methods was going to live outside of api/? That\u0027s what we did with CreatePeerConnectionFactory. Though apparently not CreateBuiltinAudioDecoderFactory. Looking for someone else to chime in here.",
+      "revId": "432b6899f614eafcd47df7f1a5dc00be687be742",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ebb8a2bd_a3e00c88",
+        "filename": "pc/peerconnection_integrationtest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 611,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-25T22:35:33Z",
+      "side": 1,
+      "message": "This fake factory isn\u0027t actually used unless EnableVideoDecoderFactory is called, which only one (disabled) test does.\n\nThis previously was making use of the fact that if you pass in an \"external\" factory, the \"internal\" factory will still be used as a backup. Assuming that functionality will be going away soon (meaning, what you pass into CreatePeerConnectionFactory is all you get), don\u0027t we need some \"combination internal + external factory\" helper class to bridge the gap?\n\nOh, I see... FakeWebRtcVideoDecoderFactory now does that itself. That\u0027s surprising to me, though; I wouldn\u0027t expect a \"fake factory\" to create a \"real\" instance if it can\u0027t create a fake.\n\nHow about adding a \"CombinedWebRtcVideoDecoderFactory\" helper class, that takes \"software\" and \"hardware\" factories as input? It looks like this is what \"EncoderAdapter\"/\"DecoderAdapter\" currently do (also handling the \"software fallback\" and \"simulcast adapter\" part).\n\nBeyond this test, I imagine any application that\u0027s currently injecting an \"external factory\" would want to use that helper class as well, to get the same behavior it\u0027s used to getting. Meaning if they\u0027re currently doing:\n\nCreatePeerConnectionFactory(\n    ...,\n    new MyHardwareEncoderFactory(),\n    ...);\n\nThey can switch to:\n\nCreatePeerConnectionFactory(\n    ...,\n    rtc::MakeUnique\u003cCombinedWebRtcVideoEncoderFactory\u003e(\n        webrtc::CreateBuiltinVideoEncoderFactory(),\n        rtc::MakeUnique\u003cMyHardwareEncoderFactory\u003e()),\n    ...);",
+      "revId": "432b6899f614eafcd47df7f1a5dc00be687be742",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

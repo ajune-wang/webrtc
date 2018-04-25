@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "81ed017b_cd3b456f",
+        "filename": "cr-buildbucket.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5533
+      },
+      "writtenOn": "2018-04-25T00:01:39Z",
+      "side": 1,
+      "message": "up to you, but i\u0027d embed READER all part directly into tryserver and waterfall acl_sets, and then delete \"default\" with buildbot.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 1
+      },
+      "revId": "d513dbbad532651d52e0fe0ae0d243626d5f1322",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19dc2bb6_671b0240",
+        "filename": "cr-buildbucket.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 5533
+      },
+      "writtenOn": "2018-04-25T00:01:39Z",
+      "side": 1,
+      "message": "change this to much faster and better cipd-based recipe delivered right on bot:\nCopy from https://chromium.googlesource.com/chromium/src/+/master/infra/config/global/cr-buildbucket.cfg#408",
+      "range": {
+        "startLine": 196,
+        "startChar": 8,
+        "endLine": 196,
+        "endChar": 80
+      },
+      "revId": "d513dbbad532651d52e0fe0ae0d243626d5f1322",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69e3cdfb_3d6bb0ae",
+        "filename": "cr-buildbucket.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 5533
+      },
+      "writtenOn": "2018-04-25T00:01:39Z",
+      "side": 1,
+      "message": "this is redundant now.",
+      "range": {
+        "startLine": 200,
+        "startChar": 8,
+        "endLine": 200,
+        "endChar": 73
+      },
+      "revId": "d513dbbad532651d52e0fe0ae0d243626d5f1322",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f96d4323_445d2a1a",
+        "filename": "cr-buildbucket.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 5533
+      },
+      "writtenOn": "2018-04-25T00:01:39Z",
+      "side": 1,
+      "message": "change this to much faster and better cipd-based recipe delivered right on bot:\nCopy from https://chromium.googlesource.com/chromium/src/+/master/infra/config/global/cr-buildbucket.cfg#408",
+      "range": {
+        "startLine": 348,
+        "startChar": 8,
+        "endLine": 348,
+        "endChar": 80
+      },
+      "revId": "d513dbbad532651d52e0fe0ae0d243626d5f1322",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43a3862c_d3d5eaee",
+        "filename": "cr-buildbucket.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 5533
+      },
+      "writtenOn": "2018-04-25T00:01:39Z",
+      "side": 1,
+      "message": "why do you want to opt-out? This isn\u0027t in prod yet, so no need to opt-out :) Better remove this line completely, which will means git, gsutil will use anonymous access.\nThem, see what breaks, then fix it with service account.",
+      "revId": "d513dbbad532651d52e0fe0ae0d243626d5f1322",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

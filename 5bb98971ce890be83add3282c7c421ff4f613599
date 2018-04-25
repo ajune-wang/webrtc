@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bcdf3b7e_0ee31aba",
+        "filename": "sdk/objc/Framework/Headers/WebRTC/RTCVideoCodec.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2018-04-25T12:48:44Z",
+      "side": 0,
+      "message": "Yes, we need to keep this for backwards compatibility. You can follow the example of the `startDecodeWithNumberOfCores:` replacing `startDecodeWithSettings:numberOfCores:` in this same protocol, i.e. marking the old one as deprecated and adding the new method as an optional protocol method to begin with.",
+      "revId": "5bb98971ce890be83add3282c7c421ff4f613599",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

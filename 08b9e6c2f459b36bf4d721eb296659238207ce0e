@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e5eb7871_3ae120f1",
+        "filename": "modules/audio_processing/agc2/rnn_vad/lp_residual.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-25T14:17:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1eadb9f8_eade7216",
+      "range": {
+        "startLine": 94,
+        "startChar": 2,
+        "endLine": 94,
+        "endChar": 3
+      },
+      "revId": "08b9e6c2f459b36bf4d721eb296659238207ce0e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "788115ac_1293fcbe",
         "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
         "patchSetId": 12

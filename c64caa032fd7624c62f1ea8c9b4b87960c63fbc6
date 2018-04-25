@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "610ff51d_6ae4fcf5",
+        "filename": "modules/audio_processing/agc2/rnn_vad/common.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-25T14:17:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "68f29b42_80755435",
+      "revId": "c64caa032fd7624c62f1ea8c9b4b87960c63fbc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "09b58cff_7303377a",
         "filename": "modules/audio_processing/agc2/rnn_vad/lp_residual_unittest.cc",
         "patchSetId": 10
@@ -39,6 +57,30 @@
       "revId": "c64caa032fd7624c62f1ea8c9b4b87960c63fbc6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1de11da2_6ccc608e",
+        "filename": "modules/audio_processing/agc2/rnn_vad/lp_residual_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-25T14:17:31Z",
+      "side": 1,
+      "message": "It is needed by FloatingPointExceptionObserver fpe_observer, which has been disabled due to bugs.webrtc.org/8948. Scoping makes sure that ctor and dtor are called at the right time. This pattern is used in all the unit tests; it makes clear when the FPE observer is active.",
+      "parentUuid": "09b58cff_7303377a",
+      "range": {
+        "startLine": 63,
+        "startChar": 2,
+        "endLine": 63,
+        "endChar": 3
+      },
+      "revId": "c64caa032fd7624c62f1ea8c9b4b87960c63fbc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "4f9ef4e4_93ab02d6",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-25T14:17:31Z",
+      "side": 1,
+      "message": "It communicates that the stuff in here is not part of the pitch search API. This is also done by having pitch_search_internal.h/.cc; in addition, the namespace makes more visible that non-API functions are called.",
+      "parentUuid": "283238d9_0f516a3f",
+      "range": {
+        "startLine": 17,
+        "startChar": 6,
+        "endLine": 17,
+        "endChar": 27
+      },
+      "revId": "c64caa032fd7624c62f1ea8c9b4b87960c63fbc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ac7691ca_67789f4e",
         "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
         "patchSetId": 10
@@ -76,6 +142,30 @@
       "writtenOn": "2018-04-25T09:34:52Z",
       "side": 1,
       "message": "The boilerplate code for using the ArrayView with a  size specified during compile time is quite significant. Would it be possible to instead define these methods as taking an std::array of a fixed size as input instead?\nThe methods in pitch_search.h are anyway only used herein so I don\u0027t see that we miss that much generality in practice by doing so.\n\nAnother alternative is to use an arrayview of a non-compile time size check and then instead if needed DCHECK on that to make sure that it is correct.",
+      "range": {
+        "startLine": 29,
+        "startChar": 14,
+        "endLine": 29,
+        "endChar": 33
+      },
+      "revId": "c64caa032fd7624c62f1ea8c9b4b87960c63fbc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac3d63a9_d18eb906",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-25T14:17:31Z",
+      "side": 1,
+      "message": "Thanks for this comment.\n\nTrue, the price to pay is boilerplate, but I think the advantages are worth it. Namely, by using ArrayView with sizes known at compile time we get:\n- detailed compilation errors pin pointing the source of the problem (e.g., invalid parameters)\n- compile time optimizations\n- we can ignore implementation details (e.g., we can switch to aligned and dynamically allocated vectors without changing the API)\n- ArrayView objects are cheap to copy\n\nAnother option is to switch to templates, for which we could add a size_t S parameter allowing us to only use S instead something.size().\n\nWDYT?",
+      "parentUuid": "ac7691ca_67789f4e",
       "range": {
         "startLine": 29,
         "startChar": 14,
@@ -111,6 +201,30 @@
     },
     {
       "key": {
+        "uuid": "b6f2489d_1813fe8f",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-25T14:17:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "699e7810_657366da",
+      "range": {
+        "startLine": 35,
+        "startChar": 11,
+        "endLine": 35,
+        "endChar": 12
+      },
+      "revId": "c64caa032fd7624c62f1ea8c9b4b87960c63fbc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "63760e24_ad420f25",
         "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
         "patchSetId": 10
@@ -125,6 +239,24 @@
       "revId": "c64caa032fd7624c62f1ea8c9b4b87960c63fbc6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d0ae147_2b3ff088",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-25T14:17:31Z",
+      "side": 1,
+      "message": "duplicate comment conflicting with a request from Minyue to switch from ref to the current version",
+      "parentUuid": "63760e24_ad420f25",
+      "revId": "c64caa032fd7624c62f1ea8c9b4b87960c63fbc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -151,6 +283,30 @@
     },
     {
       "key": {
+        "uuid": "ddb2ac9a_8d13f061",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-25T14:17:31Z",
+      "side": 1,
+      "message": "Adding it here leads to a circular dep because then pitch_search_internal must include this header (which is including pitch_search_internal).\n\nAlso, having pitch_search_common is also good when I will add the feature extractor since its header will only need to include pitch_search_common while pitch_search.h will be included from the .cc file.",
+      "parentUuid": "47499788_1647068e",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 9
+      },
+      "revId": "c64caa032fd7624c62f1ea8c9b4b87960c63fbc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9aabe83e_e5547f70",
         "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_common.h",
         "patchSetId": 10
@@ -171,6 +327,30 @@
       "revId": "c64caa032fd7624c62f1ea8c9b4b87960c63fbc6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cadada25_ca6de757",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_common.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-25T14:17:31Z",
+      "side": 1,
+      "message": "this avoids circular dependency",
+      "parentUuid": "9aabe83e_e5547f70",
+      "range": {
+        "startLine": 19,
+        "startChar": 7,
+        "endLine": 19,
+        "endChar": 16
+      },
+      "revId": "c64caa032fd7624c62f1ea8c9b4b87960c63fbc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -197,6 +377,30 @@
     },
     {
       "key": {
+        "uuid": "3cf71917_addeb425",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-25T14:17:31Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0e4652ef_0770ee2b",
+      "range": {
+        "startLine": 32,
+        "startChar": 6,
+        "endLine": 32,
+        "endChar": 33
+      },
+      "revId": "c64caa032fd7624c62f1ea8c9b4b87960c63fbc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4ddebd7a_9bd52a86",
         "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
         "patchSetId": 10
@@ -211,6 +415,42 @@
       "revId": "c64caa032fd7624c62f1ea8c9b4b87960c63fbc6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "def10b93_f7544b4a",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-25T14:17:31Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "4ddebd7a_9bd52a86",
+      "revId": "c64caa032fd7624c62f1ea8c9b4b87960c63fbc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "17fb2016_deeb34d4",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-25T14:17:31Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "4ddebd7a_9bd52a86",
+      "revId": "c64caa032fd7624c62f1ea8c9b4b87960c63fbc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -234,6 +474,30 @@
       "revId": "c64caa032fd7624c62f1ea8c9b4b87960c63fbc6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3c0047e_a06fc53a",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-25T14:17:31Z",
+      "side": 1,
+      "message": "I think this is a duplicate comment, I answered in another file.\nI will double check when I reply and my comment is not included I will fix and reply again.",
+      "parentUuid": "126d90ff_343d8af0",
+      "range": {
+        "startLine": 22,
+        "startChar": 10,
+        "endLine": 22,
+        "endChar": 31
+      },
+      "revId": "c64caa032fd7624c62f1ea8c9b4b87960c63fbc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "1584659e_b882e9bb",
+        "filename": "modules/audio_processing/agc2/rnn_vad/rnn.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-25T15:56:17Z",
+      "side": 1,
+      "message": "Good point. I was also wondering if storing the weights as floats helps.\nI should check what the compiler does here, but I guess they\u0027re left as int8, type that was chosen to reduce the binary size.",
+      "parentUuid": "3f646a6b_9027b710",
+      "range": {
+        "startLine": 88,
+        "startChar": 31,
+        "endLine": 88,
+        "endChar": 61
+      },
+      "revId": "dc697ef867bde918bbf21bcdb5bf378eede51e76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bfee0780_1b4eb608",
         "filename": "modules/audio_processing/agc2/rnn_vad/rnn.h",
         "patchSetId": 2
@@ -320,6 +344,30 @@
       "side": 1,
       "message": "I guess it\u0027s fine to keep it like this, but another option would be to use a template argument to set the size of the array, then you would not need to over-allocate. Also possible is to use a vector and set the size immediately (i.e. std::vector\u003cfloat\u003e output_ \u003d std::vector\u003cfloat\u003e(kFullyConnectedLayersMaxUnits); )",
       "parentUuid": "0405bd09_bc34cdc7",
+      "range": {
+        "startLine": 59,
+        "startChar": 4,
+        "endLine": 59,
+        "endChar": 53
+      },
+      "revId": "dc697ef867bde918bbf21bcdb5bf378eede51e76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7c4af925_6b96a4a9",
+        "filename": "modules/audio_processing/agc2/rnn_vad/rnn.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-25T15:56:17Z",
+      "side": 1,
+      "message": "Right, templates are another option although for the FC layer it would lead to binary size increase. Since the network is small and the over-allocation is only used for the output layer, I would avoid templates.",
+      "parentUuid": "3d7a5314_886856ae",
       "range": {
         "startLine": 59,
         "startChar": 4,

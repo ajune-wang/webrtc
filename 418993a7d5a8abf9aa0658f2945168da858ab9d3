@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "11529091_e2498d83",
+        "filename": "modules/audio_processing/aec3/suppression_gain.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-25T11:17:33Z",
+      "side": 1,
+      "message": "It should be possible to also remove the include for this, right?",
+      "range": {
+        "startLine": 21,
+        "startChar": 40,
+        "endLine": 21,
+        "endChar": 62
+      },
+      "revId": "418993a7d5a8abf9aa0658f2945168da858ab9d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

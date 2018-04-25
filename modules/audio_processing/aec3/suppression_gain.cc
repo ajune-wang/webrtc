@@ -26,21 +26,6 @@
 namespace webrtc {
 namespace {
 
-// Reduce gain to avoid narrow band echo leakage.
-void NarrowBandAttenuation(int narrow_bin,
-                           const std::array<float, kFftLengthBy2Plus1>& nearend,
-                           const std::array<float, kFftLengthBy2Plus1>& echo,
-                           std::array<float, kFftLengthBy2Plus1>* gain) {
-  // TODO(peah): Verify that the condition below is not too conservative.
-  if (10.f * echo[narrow_bin] > nearend[narrow_bin]) {
-    const int upper_bin =
-        std::min(narrow_bin + 6, static_cast<int>(kFftLengthBy2Plus1 - 1));
-    for (int k = std::max(0, narrow_bin - 6); k <= upper_bin; ++k) {
-      (*gain)[k] = std::min((*gain)[k], 0.001f);
-    }
-  }
-}
-
 // Adjust the gains according to the presence of known external filters.
 void AdjustForExternalFilters(std::array<float, kFftLengthBy2Plus1>* gain) {
   // Limit the low frequency gains to avoid the impact of the high-pass filter
@@ -61,18 +46,12 @@ void AdjustForExternalFilters(std::array<float, kFftLengthBy2Plus1>* gain) {
 
 // Computes the gain to apply for the bands beyond the first band.
 float UpperBandsGain(
-    const rtc::Optional<int>& narrow_peak_band,
     bool saturated_echo,
     const std::vector<std::vector<float>>& render,
     const std::array<float, kFftLengthBy2Plus1>& low_band_gain) {
   RTC_DCHECK_LT(0, render.size());
   if (render.size() == 1) {
     return 1.f;
-  }
-
-  if (narrow_peak_band &&
-      (*narrow_peak_band > static_cast<int>(kFftLengthBy2Plus1 - 10))) {
-    return 0.001f;
   }
 
   constexpr size_t kLowBandGainLimit = kFftLengthBy2 / 2;
@@ -271,7 +250,6 @@ void AdjustNonConvergedFrequencies(
 // TODO(peah): Add further optimizations, in particular for the divisions.
 void SuppressionGain::LowerBandGain(
     bool low_noise_render,
-    const rtc::Optional<int>& narrow_peak_band,
     const AecState& aec_state,
     const std::array<float, kFftLengthBy2Plus1>& nearend,
     const std::array<float, kFftLengthBy2Plus1>& echo,
@@ -321,9 +299,6 @@ void SuppressionGain::LowerBandGain(
                         linear_echo_estimate, nearend, weighted_echo, masker,
                         min_gain, max_gain, one_by_weighted_echo, gain);
     AdjustForExternalFilters(gain);
-    if (narrow_peak_band) {
-      NarrowBandAttenuation(*narrow_peak_band, nearend, weighted_echo, gain);
-    }
   }
 
   // Adjust the gain for frequencies which have not yet converged.
@@ -377,10 +352,8 @@ void SuppressionGain::GetGain(
 
   // Compute gain for the lower band.
   bool low_noise_render = low_render_detector_.Detect(render);
-  const rtc::Optional<int> narrow_peak_band =
-      render_signal_analyzer.NarrowPeakBand();
-  LowerBandGain(low_noise_render, narrow_peak_band, aec_state, nearend_spectrum,
-                echo_spectrum, comfort_noise_spectrum, low_band_gain);
+  LowerBandGain(low_noise_render, aec_state, nearend_spectrum, echo_spectrum,
+                comfort_noise_spectrum, low_band_gain);
 
   const float gain_upper_bound = aec_state.SuppressionGainLimit();
   if (gain_upper_bound < 1.f) {
@@ -390,8 +363,8 @@ void SuppressionGain::GetGain(
   }
 
   // Compute the gain for the upper bands.
-  *high_bands_gain = UpperBandsGain(narrow_peak_band, aec_state.SaturatedEcho(),
-                                    render, *low_band_gain);
+  *high_bands_gain =
+      UpperBandsGain(aec_state.SaturatedEcho(), render, *low_band_gain);
 
   // Adjust the gain for bands where the coherence indicates not echo.
   if (config_.suppressor.bands_with_reliable_coherence > 0) {

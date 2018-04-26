@@ -82,6 +82,7 @@ VideoSendStream::VideoSendStream(
   video_stream_encoder_ = rtc::MakeUnique<VideoStreamEncoder>(
       num_cpu_cores, &stats_proxy_,
       config_.encoder_settings,
+      bitrate_allocator->GetStartBitrate(),
       config_.pre_encode_callback,
       rtc::MakeUnique<OveruseFrameDetector>(&stats_proxy_));
   // TODO(srte): Initialization should not be done posted on a task queue.

@@ -98,6 +98,7 @@ class VideoStreamEncoderUnderTest : public VideoStreamEncoder {
             1 /* number_of_cores */,
             stats_proxy,
             settings,
+            kTargetBitrateBps, /* start_bitrate_bps */
             nullptr /* pre_encode_callback */,
             std::unique_ptr<OveruseFrameDetector>(
                 overuse_detector_proxy_ = new CpuOveruseDetectorProxy(
@@ -314,7 +315,6 @@ class VideoStreamEncoderTest : public ::testing::Test {
     video_stream_encoder_->SetSource(
         &video_source_,
         VideoSendStream::DegradationPreference::kMaintainFramerate);
-    video_stream_encoder_->SetStartBitrate(kTargetBitrateBps);
     video_stream_encoder_->ConfigureEncoder(std::move(video_encoder_config),
                                             kMaxPayloadLength, nack_enabled);
     video_stream_encoder_->WaitUntilTaskQueueIsIdle();

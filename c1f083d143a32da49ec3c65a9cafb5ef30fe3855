@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9faf61a7_b596f7b2",
+        "filename": "sdk/objc/Framework/Headers/WebRTC/RTCVideoCodec.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 6077
+      },
+      "writtenOn": "2018-04-26T12:13:59Z",
+      "side": 0,
+      "message": "These constants are being used in an upstream project. We will have to keep them around for now.",
+      "range": {
+        "startLine": 22,
+        "startChar": 34,
+        "endLine": 22,
+        "endChar": 64
+      },
+      "revId": "c1f083d143a32da49ec3c65a9cafb5ef30fe3855",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

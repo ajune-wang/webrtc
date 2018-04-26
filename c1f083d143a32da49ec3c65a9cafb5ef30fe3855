@@ -22,6 +22,30 @@
       "revId": "c1f083d143a32da49ec3c65a9cafb5ef30fe3855",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61e74f17_db031616",
+        "filename": "sdk/objc/Framework/Headers/WebRTC/RTCVideoCodec.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2018-04-26T12:43:33Z",
+      "side": 0,
+      "message": "I\u0027ve restored these constants and renamed constants I\u0027ve introduced, since they are visible to SDK users I think new names are more meaningful to SDK user.",
+      "parentUuid": "9faf61a7_b596f7b2",
+      "range": {
+        "startLine": 22,
+        "startChar": 34,
+        "endLine": 22,
+        "endChar": 64
+      },
+      "revId": "c1f083d143a32da49ec3c65a9cafb5ef30fe3855",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

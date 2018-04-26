@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dcf45d22_713af763",
+        "filename": "modules/audio_processing/agc2/rnn_vad/biquad.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-26T08:53:35Z",
+      "side": 1,
+      "message": "Please skip the parenthesis around the latter part unless that is there to enforce any certain order of the expression evaluation.",
+      "range": {
+        "startLine": 34,
+        "startChar": 28,
+        "endLine": 34,
+        "endChar": 66
+      },
+      "revId": "a773b7a18fa75413dbae302d9e88205b9e66bcd7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec74ead3_5422f26c",
+        "filename": "modules/audio_processing/agc2/rnn_vad/biquad.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-26T08:53:35Z",
+      "side": 1,
+      "message": "Please remove the surrounding parenthesis.",
+      "range": {
+        "startLine": 35,
+        "startChar": 16,
+        "endLine": 35,
+        "endChar": 54
+      },
+      "revId": "a773b7a18fa75413dbae302d9e88205b9e66bcd7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aaf6ebe6_0e4b0303",
+        "filename": "modules/audio_processing/agc2/rnn_vad/biquad_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-26T08:53:35Z",
+      "side": 1,
+      "message": "Looking at the implementation of ExpectNearRelative I think an accuracy of 1e-4f is way too low.\n\nMy guess is that the reason for that low accuracy is that you use the lfilter implementation as a reference, right?\n\nI think it makes sense to use lfilter as a reference when doing the development, but once the code is decided you should use the C++ code as the reference instead and produce the test vectors based on that.\n\nWith the current approach for producing test vectors, the test is much less narrow than it can be.",
+      "range": {
+        "startLine": 78,
+        "startChar": 4,
+        "endLine": 78,
+        "endChar": 22
+      },
+      "revId": "a773b7a18fa75413dbae302d9e88205b9e66bcd7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39786f72_460691ae",
+        "filename": "modules/audio_processing/agc2/rnn_vad/common.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-26T08:53:35Z",
+      "side": 1,
+      "message": "These changes seem very unrelated to the biquad changes.",
+      "range": {
+        "startLine": 43,
+        "startChar": 17,
+        "endLine": 43,
+        "endChar": 33
+      },
+      "revId": "a773b7a18fa75413dbae302d9e88205b9e66bcd7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "311b4e93_ca3d8e60",
+        "filename": "modules/audio_processing/agc2/rnn_vad/test_utils.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-26T08:53:35Z",
+      "side": 1,
+      "message": "Please see my comment in the biquad unittest. If after addressing that, the gtest EXPECT_NEAR macro is sufficient for this, please use that instead of this method.",
+      "range": {
+        "startLine": 42,
+        "startChar": 5,
+        "endLine": 42,
+        "endChar": 23
+      },
+      "revId": "a773b7a18fa75413dbae302d9e88205b9e66bcd7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

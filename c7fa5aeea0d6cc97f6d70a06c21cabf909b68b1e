@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "b64cdb51_2c061c02",
+        "filename": "modules/audio_processing/agc2/rnn_vad/biquad.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-26T08:53:35Z",
+      "side": 1,
+      "message": "Please remove the extra parenthesis",
+      "range": {
+        "startLine": 35,
+        "startChar": 16,
+        "endLine": 35,
+        "endChar": 53
+      },
+      "revId": "c7fa5aeea0d6cc97f6d70a06c21cabf909b68b1e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "96f0872e_8c9623bc",
         "filename": "modules/audio_processing/agc2/rnn_vad/test_utils.h",
         "patchSetId": 4
@@ -13,6 +36,30 @@
       "writtenOn": "2018-04-24T13:52:19Z",
       "side": 1,
       "message": "Would you mind if I leave this method here even if not used anymore? It was used in the previous PS in the bi-quad unit test that is now more lightweight. I can leave it because it will be used in the next CLs to land the RNN VAD.",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 100,
+        "endChar": 50
+      },
+      "revId": "c7fa5aeea0d6cc97f6d70a06c21cabf909b68b1e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "18ebfcc7_00c7621c",
+        "filename": "modules/audio_processing/agc2/rnn_vad/test_utils.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-26T08:53:35Z",
+      "side": 1,
+      "message": "Sounds good!",
+      "parentUuid": "96f0872e_8c9623bc",
       "range": {
         "startLine": 98,
         "startChar": 0,

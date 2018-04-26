@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "510ca24e_7d73e3c3",
+        "filename": "call/video_send_stream.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-04-26T15:35:57Z",
+      "side": 1,
+      "message": "Is there any use case for exposing this, or could it be made a const, so as not to invite adding usages of the parameter?",
+      "range": {
+        "startLine": 123,
+        "startChar": 10,
+        "endLine": 123,
+        "endChar": 27
+      },
+      "revId": "cee70b8e9054fa24b56202905c8d8740764e8275",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

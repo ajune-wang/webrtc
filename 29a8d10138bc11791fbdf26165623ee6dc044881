@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "36f0baf9_4143442d",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-04-26T15:35:57Z",
+      "side": 0,
+      "message": "Removing this means that we\u0027ll have a change in behavior right? Currently, if we add streams in paused state, we will assign starting bitrate based on this calculation as the last bitrate/stream count. After the change they will all get a starting bitrate of 300 kbps.\n\nIn effect this could mean that we don\u0027t signal the requirement to reduce resolution to the capturer until we resume the stream. This means that we could either end up not adapting down when bw \u003c 300kbps or adapting down even though we shouldn\u0027t if the bw \u003e\u003d 500kbps. Right?\n\nI think it might be worth mentioning something about the expected changes in behavior in the commit message to make triaging easier if it causes issues in downstream projects.",
+      "range": {
+        "startLine": 244,
+        "startChar": 22,
+        "endLine": 244,
+        "endChar": 37
+      },
+      "revId": "29a8d10138bc11791fbdf26165623ee6dc044881",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

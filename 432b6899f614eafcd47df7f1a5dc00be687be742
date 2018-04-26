@@ -51,6 +51,24 @@
       "revId": "432b6899f614eafcd47df7f1a5dc00be687be742",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a64adb1_69b1f590",
+        "filename": "pc/peerconnection_integrationtest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 611,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2018-04-26T08:58:50Z",
+      "side": 1,
+      "message": "Yes you\u0027re completely right. The webrtcvideoengine_unittest.cc use the FakeWebRtcVideoDecoderFactory as an \"external\" factory in the old sense, relying on the fact that the built-in software codecs are appended to the codec factory somewhere on the way after passing the factory to the VideoEngine constructor. Since we now use the new VideoEngine constructor that takes webrtc::VideoDecoderFactory instead of cricket::WebRtcVideoDecoderFactory, we no longer wrap our factories in the adapters, and what we pass in is all we get. To make all the tests pass, I moved this functionality to FakeWebRtcVideoDecoderFactory. So these tests no longer actually test the behaviour of the video engine, but of these fake factories, which is obviously bad (see previous discussion in this CL with magjed). I plan on making a follow-up CL that removes the internal factories from the FakeWebRtcVideoDecoderFactory and changes any tests that rely on this functionality. But I wanted to keep the changes to the tests small in this CL to keep it manageable.\n\nFor clients who want to inject their own codec implementations we generally expect them to create their own video codec factory implementations as well (which makes it up to the client which software codecs they want to support, how to prioritize the codecs, whether they want to wrap encoders in software fallback wrappers, etc). The CombinedWebRtcVideoEncoderFactory sounds like a nice idea for migrating though, not sure how common this case is in the wild? Maybe it can be in its own CL as well?",
+      "parentUuid": "ebb8a2bd_a3e00c88",
+      "revId": "432b6899f614eafcd47df7f1a5dc00be687be742",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

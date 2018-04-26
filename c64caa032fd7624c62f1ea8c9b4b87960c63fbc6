@@ -226,6 +226,30 @@
     },
     {
       "key": {
+        "uuid": "06eca43f_9507b08c",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-26T11:40:16Z",
+      "side": 1,
+      "message": "What I listed above are the advantages of using ArrayView; I haven\u0027t proposed other alternatives and my strong preference is not to change - not a personal preference, but because of the advantages I listed.\n\nI mark as solved and bring this up in my reply to move the discussion to the new PS if needed.",
+      "parentUuid": "85c56d42_51013c88",
+      "range": {
+        "startLine": 29,
+        "startChar": 14,
+        "endLine": 29,
+        "endChar": 33
+      },
+      "revId": "c64caa032fd7624c62f1ea8c9b4b87960c63fbc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "699e7810_657366da",
         "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
         "patchSetId": 10
@@ -603,6 +627,30 @@
       "side": 1,
       "message": "I added a comment on that in the other file.\n\nI don\u0027t see any benefits of having file-specific namespaces beyond avoiding name clashes.",
       "parentUuid": "f3c0047e_a06fc53a",
+      "range": {
+        "startLine": 22,
+        "startChar": 10,
+        "endLine": 22,
+        "endChar": 31
+      },
+      "revId": "c64caa032fd7624c62f1ea8c9b4b87960c63fbc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da9667fd_ed4cf9a0",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-26T11:40:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b4c0ccf2_78b0348a",
       "range": {
         "startLine": 22,
         "startChar": 10,

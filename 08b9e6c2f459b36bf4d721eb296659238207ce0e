@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "bc173542_be2e14d5",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-26T11:40:16Z",
+      "side": 1,
+      "message": "No follow up on this comment. Marking as resolved.",
+      "parentUuid": "7c7014e9_0c3188e0",
+      "range": {
+        "startLine": 32,
+        "startChar": 2,
+        "endLine": 32,
+        "endChar": 29
+      },
+      "revId": "08b9e6c2f459b36bf4d721eb296659238207ce0e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ce9103a3_7ced1299",
         "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
         "patchSetId": 12

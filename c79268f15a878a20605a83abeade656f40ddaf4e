@@ -22,6 +22,30 @@
       "revId": "c79268f15a878a20605a83abeade656f40ddaf4e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6995649_33e8005b",
+        "filename": "pc/mediasession.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 7072
+      },
+      "writtenOn": "2018-04-26T08:39:30Z",
+      "side": 0,
+      "message": "It\u0027s from a complicated ADL rule.\nCryptoNotFound has CryptoParamsVec as a parameter, which is a std::vector, and that bring `std` namespace to ptr_fun lookup.\nAlso, the return type of bind2nd is in `std` namespace and that brings the name to bind2nd lookup.",
+      "parentUuid": "791692b8_805e0342",
+      "range": {
+        "startLine": 576,
+        "startChar": 39,
+        "endLine": 576,
+        "endChar": 46
+      },
+      "revId": "c79268f15a878a20605a83abeade656f40ddaf4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

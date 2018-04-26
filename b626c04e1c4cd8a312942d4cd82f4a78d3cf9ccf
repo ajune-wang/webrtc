@@ -22,6 +22,30 @@
       "revId": "b626c04e1c4cd8a312942d4cd82f4a78d3cf9ccf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4789a99_d99c7ed5",
+        "filename": "pc/mediasession.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 577,
+      "author": {
+        "id": 7072
+      },
+      "writtenOn": "2018-04-26T08:39:30Z",
+      "side": 1,
+      "message": "OK, done.",
+      "parentUuid": "7debe3aa_af27ff45",
+      "range": {
+        "startLine": 577,
+        "startChar": 30,
+        "endLine": 577,
+        "endChar": 44
+      },
+      "revId": "b626c04e1c4cd8a312942d4cd82f4a78d3cf9ccf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

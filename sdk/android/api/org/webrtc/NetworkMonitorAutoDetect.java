@@ -55,6 +55,7 @@ public class NetworkMonitorAutoDetect extends BroadcastReceiver {
     CONNECTION_2G,
     CONNECTION_UNKNOWN_CELLULAR,
     CONNECTION_BLUETOOTH,
+    CONNECTION_VPN,
     CONNECTION_NONE
   }
 
@@ -74,12 +75,15 @@ public class NetworkMonitorAutoDetect extends BroadcastReceiver {
   public static class NetworkInformation {
     public final String name;
     public final ConnectionType type;
+    // Used to specify the underlying network type if the type is CONNECTION_VPN.
+    public final ConnectionType underlyingTypeForVpn;
     public final long handle;
     public final IPAddress[] ipAddresses;
-    public NetworkInformation(
-        String name, ConnectionType type, long handle, IPAddress[] addresses) {
+    public NetworkInformation(String name, ConnectionType type, ConnectionType underlyingTypeForVpn,
+        long handle, IPAddress[] addresses) {
       this.name = name;
       this.type = type;
+      this.underlyingTypeForVpn = underlyingTypeForVpn;
       this.handle = handle;
       this.ipAddresses = addresses;
     }
@@ -92,6 +96,11 @@ public class NetworkMonitorAutoDetect extends BroadcastReceiver {
     @CalledByNative("NetworkInformation")
     private ConnectionType getConnectionType() {
       return type;
+    }
+
+    @CalledByNative("NetworkInformation")
+    private ConnectionType getUnderlyingConnectionTypeForVpn() {
+      return underlyingTypeForVpn;
     }
 
     @CalledByNative("NetworkInformation")
@@ -113,11 +122,18 @@ public class NetworkMonitorAutoDetect extends BroadcastReceiver {
     // Defined from NetworkInfo.subtype, which is one of the TelephonyManager.NETWORK_TYPE_XXXs.
     // Will be useful to find the maximum bandwidth.
     private final int subtype;
+    // When the type is TYPE_VPN, the following two fields specify the similar type and subtype as
+    // above for the underlying network that is used by the VPN.
+    private final int underlyingNetworkTypeForVpn;
+    private final int underlyingNetworkSubtypeForVpn;
 
-    public NetworkState(boolean connected, int type, int subtype) {
+    public NetworkState(boolean connected, int type, int subtype, int underlyingNetworkTypeForVpn,
+        int underlyingNetworkSubtypeForVpn) {
       this.connected = connected;
       this.type = type;
       this.subtype = subtype;
+      this.underlyingNetworkTypeForVpn = underlyingNetworkTypeForVpn;
+      this.underlyingNetworkSubtypeForVpn = underlyingNetworkSubtypeForVpn;
     }
 
     public boolean isConnected() {
@@ -130,6 +146,14 @@ public class NetworkMonitorAutoDetect extends BroadcastReceiver {
 
     public int getNetworkSubType() {
       return subtype;
+    }
+
+    public int getUnderlyingNetworkTypeForVpn() {
+      return underlyingNetworkTypeForVpn;
+    }
+
+    public int getUnderlyingNetworkSubtypeForVpn() {
+      return underlyingNetworkSubtypeForVpn;
     }
   }
   /**
@@ -208,7 +232,7 @@ public class NetworkMonitorAutoDetect extends BroadcastReceiver {
      */
     NetworkState getNetworkState() {
       if (connectivityManager == null) {
-        return new NetworkState(false, -1, -1);
+        return new NetworkState(false, -1, -1, -1, -1);
       }
       return getNetworkState(connectivityManager.getActiveNetworkInfo());
     }
@@ -220,19 +244,37 @@ public class NetworkMonitorAutoDetect extends BroadcastReceiver {
     @SuppressLint("NewApi")
     NetworkState getNetworkState(Network network) {
       if (connectivityManager == null) {
-        return new NetworkState(false, -1, -1);
+        return new NetworkState(false, -1, -1, -1, -1);
       }
-      return getNetworkState(connectivityManager.getNetworkInfo(network));
+      NetworkState networkState = getNetworkState(connectivityManager.getNetworkInfo(network));
+      // To reliably detect a VPN network interface, we need to query the capability of an
+      // interface.
+      if (connectivityManager.getNetworkCapabilities(network).hasTransport(
+              NetworkCapabilities.TRANSPORT_VPN)) {
+        // If a VPN network is in place, we can find the underlying network type via querying the
+        // active network info thanks to
+        // https://android.googlesource.com/platform/frameworks/base/+/d6a7980d
+        //
+        // If the VPN network is not connected, the underlying network type and subtype will both be
+        // -1.
+        NetworkState underlyingNetworkState = getNetworkState();
+        networkState = new NetworkState(networkState.isConnected(), ConnectivityManager.TYPE_VPN,
+            -1, underlyingNetworkState.getNetworkType(),
+            underlyingNetworkState.getNetworkSubType());
+      }
+      return networkState;
     }
 
     /**
-     * Returns connection type and status information gleaned from networkInfo.
+     * Returns connection type and status information gleaned from networkInfo. Note that to obtain
+     * the complete information about a VPN including the type of the underlying network, one should
+     * use the above method getNetworkState with a Network object.
      */
-    NetworkState getNetworkState(@Nullable NetworkInfo networkInfo) {
+    private NetworkState getNetworkState(@Nullable NetworkInfo networkInfo) {
       if (networkInfo == null || !networkInfo.isConnected()) {
-        return new NetworkState(false, -1, -1);
+        return new NetworkState(false, -1, -1, -1, -1);
       }
-      return new NetworkState(true, networkInfo.getType(), networkInfo.getSubtype());
+      return new NetworkState(true, networkInfo.getType(), networkInfo.getSubtype(), -1, -1);
     }
 
     /**
@@ -322,12 +364,6 @@ public class NetworkMonitorAutoDetect extends BroadcastReceiver {
       }
 
       NetworkState networkState = getNetworkState(network);
-      if (networkState.connected && networkState.getNetworkType() == ConnectivityManager.TYPE_VPN) {
-        // If a VPN network is in place, we can find the underlying network type via querying the
-        // active network info thanks to
-        // https://android.googlesource.com/platform/frameworks/base/+/d6a7980d
-        networkState = getNetworkState();
-      }
       ConnectionType connectionType = getConnectionType(networkState);
       if (connectionType == ConnectionType.CONNECTION_NONE) {
         // This may not be an error. The OS may signal a network event with connection type
@@ -345,9 +381,15 @@ public class NetworkMonitorAutoDetect extends BroadcastReceiver {
                 + networkState.getNetworkSubType());
       }
 
-      NetworkInformation networkInformation =
-          new NetworkInformation(linkProperties.getInterfaceName(), connectionType,
-              networkToNetId(network), getIPAddresses(linkProperties));
+      ConnectionType underlyingConnectionTypeForVpn = ConnectionType.CONNECTION_NONE;
+      if (connectionType == ConnectionType.CONNECTION_VPN) {
+        Logging.d(TAG, "Network " + network.toString() + " is used for VPN.");
+        underlyingConnectionTypeForVpn = getUnderlyingConnectionTypeForVpn(networkState);
+      }
+
+      NetworkInformation networkInformation = new NetworkInformation(
+          linkProperties.getInterfaceName(), connectionType, underlyingConnectionTypeForVpn,
+          networkToNetId(network), getIPAddresses(linkProperties));
       return networkInformation;
     }
 
@@ -504,11 +546,8 @@ public class NetworkMonitorAutoDetect extends BroadcastReceiver {
       }
 
       wifiP2pNetworkInfo =
-          new NetworkInformation(
-              wifiP2pGroup.getInterface(),
-              ConnectionType.CONNECTION_WIFI,
-              WIFI_P2P_NETWORK_HANDLE,
-              ipAddresses);
+          new NetworkInformation(wifiP2pGroup.getInterface(), ConnectionType.CONNECTION_WIFI,
+              ConnectionType.CONNECTION_NONE, WIFI_P2P_NETWORK_HANDLE, ipAddresses);
       observer.onNetworkConnect(wifiP2pNetworkInfo);
     }
 
@@ -683,12 +722,13 @@ public class NetworkMonitorAutoDetect extends BroadcastReceiver {
     return connectivityManagerDelegate.getDefaultNetId();
   }
 
-  public static ConnectionType getConnectionType(NetworkState networkState) {
-    if (!networkState.isConnected()) {
+  private static ConnectionType getConnectionType(
+      boolean isConnected, int networkType, int networkSubtype) {
+    if (!isConnected) {
       return ConnectionType.CONNECTION_NONE;
     }
 
-    switch (networkState.getNetworkType()) {
+    switch (networkType) {
       case ConnectivityManager.TYPE_ETHERNET:
         return ConnectionType.CONNECTION_ETHERNET;
       case ConnectivityManager.TYPE_WIFI:
@@ -699,7 +739,7 @@ public class NetworkMonitorAutoDetect extends BroadcastReceiver {
         return ConnectionType.CONNECTION_BLUETOOTH;
       case ConnectivityManager.TYPE_MOBILE:
         // Use information from TelephonyManager to classify the connection.
-        switch (networkState.getNetworkSubType()) {
+        switch (networkSubtype) {
           case TelephonyManager.NETWORK_TYPE_GPRS:
           case TelephonyManager.NETWORK_TYPE_EDGE:
           case TelephonyManager.NETWORK_TYPE_CDMA:
@@ -721,9 +761,26 @@ public class NetworkMonitorAutoDetect extends BroadcastReceiver {
           default:
             return ConnectionType.CONNECTION_UNKNOWN_CELLULAR;
         }
+      case ConnectivityManager.TYPE_VPN:
+        return ConnectionType.CONNECTION_VPN;
       default:
         return ConnectionType.CONNECTION_UNKNOWN;
     }
+  }
+
+  public static ConnectionType getConnectionType(NetworkState networkState) {
+    return getConnectionType(networkState.isConnected(), networkState.getNetworkType(),
+        networkState.getNetworkSubType());
+  }
+
+  private static ConnectionType getUnderlyingConnectionTypeForVpn(NetworkState networkState) {
+    if (networkState.getNetworkType() != ConnectivityManager.TYPE_VPN) {
+      Logging.e(TAG, "This network is not a VPN.");
+      return ConnectionType.CONNECTION_NONE;
+    }
+    return getConnectionType(networkState.isConnected(),
+        networkState.getUnderlyingNetworkTypeForVpn(),
+        networkState.getUnderlyingNetworkSubtypeForVpn());
   }
 
   private String getWifiSSID(NetworkState networkState) {

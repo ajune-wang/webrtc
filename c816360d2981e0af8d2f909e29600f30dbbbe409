@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cfcb3214_5eedb471",
+        "filename": "sdk/BUILD.gn",
+        "patchSetId": 8
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-04-26T10:58:08Z",
+      "side": 1,
+      "message": "These files should preferably live in the Video folder, rather than Common.",
+      "range": {
+        "startLine": 378,
+        "startChar": 16,
+        "endLine": 378,
+        "endChar": 25
+      },
+      "revId": "c816360d2981e0af8d2f909e29600f30dbbbe409",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a367865_433bc635",
+        "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCVideoCodec.mm",
+        "patchSetId": 8
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-04-26T10:58:08Z",
+      "side": 1,
+      "message": "nit: this is not needed.",
+      "range": {
+        "startLine": 47,
+        "startChar": 37,
+        "endLine": 47,
+        "endChar": 38
+      },
+      "revId": "c816360d2981e0af8d2f909e29600f30dbbbe409",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

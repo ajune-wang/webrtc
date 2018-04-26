@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cd18b623_6c0d013d",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-04-26T11:11:05Z",
+      "side": 1,
+      "message": "This is used to be an immutable class, can you try to keep this property?",
+      "range": {
+        "startLine": 90,
+        "startChar": 16,
+        "endLine": 90,
+        "endChar": 49
+      },
+      "revId": "22c8b187ae457a690b46d7f91ccad7ff28efe71f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c781e142_dfed990f",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-04-26T11:11:05Z",
+      "side": 1,
+      "message": "Same here, this used to be an immutable class, I would like to keep it that way.",
+      "range": {
+        "startLine": 151,
+        "startChar": 16,
+        "endLine": 151,
+        "endChar": 46
+      },
+      "revId": "22c8b187ae457a690b46d7f91ccad7ff28efe71f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c722eb45_f4277d2e",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 787,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-04-26T11:11:05Z",
+      "side": 1,
+      "message": "Does this have to be public?",
+      "range": {
+        "startLine": 787,
+        "startChar": 2,
+        "endLine": 787,
+        "endChar": 9
+      },
+      "revId": "22c8b187ae457a690b46d7f91ccad7ff28efe71f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

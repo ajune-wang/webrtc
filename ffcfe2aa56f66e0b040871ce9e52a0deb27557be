@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "28947a02_b3879d9b",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-26T08:41:10Z",
+      "side": 1,
+      "message": "I still think it would be good with a DCHECK for it just in case, as yy is computed quite far from this code and it is hard for the reader to immediately see that this condition is fulfilled.",
+      "parentUuid": "3fad7224_1a4f7a46",
+      "range": {
+        "startLine": 363,
+        "startChar": 52,
+        "endLine": 363,
+        "endChar": 76
+      },
+      "revId": "ffcfe2aa56f66e0b040871ce9e52a0deb27557be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f93c791e_31931f58",
         "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
         "patchSetId": 6
@@ -131,6 +155,30 @@
       "side": 1,
       "message": "It used to be like you propose but Minyue asked to switch to the current version (see https://webrtc-review.googlesource.com/c/src/+/70382/2/modules/audio_processing/agc2/rnn_vad/pitch_search.cc#361).\n\nBoth are fine for me. I fixed as resolved, feel free to chime in and loop in Minyue.",
       "parentUuid": "f93c791e_31931f58",
+      "range": {
+        "startLine": 394,
+        "startChar": 2,
+        "endLine": 395,
+        "endChar": 38
+      },
+      "revId": "ffcfe2aa56f66e0b040871ce9e52a0deb27557be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ef73b663_c59722bc",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-26T08:41:10Z",
+      "side": 1,
+      "message": "Either way is fine. \n(there is actually an example in the style guide (https://google.github.io/styleguide/cppguide.html#auto) which does this so there is nothing there that prevents that).",
+      "parentUuid": "57114f3d_2d5d98fe",
       "range": {
         "startLine": 394,
         "startChar": 2,

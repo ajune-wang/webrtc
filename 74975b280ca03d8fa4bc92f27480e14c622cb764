@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "7d0b1569_b5c882a0",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-26T08:41:10Z",
+      "side": 1,
+      "message": "Nit: I\u0027d skip the const here since it does not really serve any purpose. There is only a return statement (excluding the DCHECK) after this.",
+      "range": {
+        "startLine": 47,
+        "startChar": 2,
+        "endLine": 47,
+        "endChar": 7
+      },
+      "revId": "74975b280ca03d8fa4bc92f27480e14c622cb764",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0f29d48_f4dc139d",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_common.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-26T08:41:10Z",
+      "side": 1,
+      "message": "if you are not immediately planning to put more things into this file, it could make sense to name it pitch_info.h",
+      "range": {
+        "startLine": 19,
+        "startChar": 7,
+        "endLine": 19,
+        "endChar": 16
+      },
+      "revId": "74975b280ca03d8fa4bc92f27480e14c622cb764",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "72a03b55_dfe5cc21",
         "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
         "patchSetId": 14
@@ -18,6 +64,98 @@
         "startChar": 42,
         "endLine": 114,
         "endChar": 50
+      },
+      "revId": "74975b280ca03d8fa4bc92f27480e14c622cb764",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe03ae30_12887021",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-26T08:41:10Z",
+      "side": 1,
+      "message": "This DCHECK is not sufficient to protect line 330.\n\nI\u0027d suggest changing it to\nRTC_DCHECK_GT(-1.f, xx * yy);\nto avoid taking the square root of a negative number.",
+      "range": {
+        "startLine": 329,
+        "startChar": 3,
+        "endLine": 329,
+        "endChar": 33
+      },
+      "revId": "74975b280ca03d8fa4bc92f27480e14c622cb764",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a0e4d3e_88f31bfb",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-26T08:41:10Z",
+      "side": 1,
+      "message": "Nit: With the long variable and method names, this code is quite verbose and take a lot of horizontal space. Considering that I\u0027d propose skipping the const modifiers as they take up more space (and the code protection they add is limited).",
+      "range": {
+        "startLine": 370,
+        "startChar": 4,
+        "endLine": 370,
+        "endChar": 9
+      },
+      "revId": "74975b280ca03d8fa4bc92f27480e14c622cb764",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2934fa6_f775e0ec",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-26T08:41:10Z",
+      "side": 1,
+      "message": "Nit: It could make sense to put a static assert that these don\u0027t wrap (since the operations are unsigned)",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 0
+      },
+      "revId": "74975b280ca03d8fa4bc92f27480e14c622cb764",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3dfd109d_65e09bb1",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-26T08:41:10Z",
+      "side": 1,
+      "message": "Return -\u003e Returns",
+      "range": {
+        "startLine": 92,
+        "startChar": 67,
+        "endLine": 92,
+        "endChar": 73
       },
       "revId": "74975b280ca03d8fa4bc92f27480e14c622cb764",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

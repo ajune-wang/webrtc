@@ -131,6 +131,30 @@
     },
     {
       "key": {
+        "uuid": "64e1ce42_659e9b58",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-26T08:41:10Z",
+      "side": 1,
+      "message": "There are two aspects of that.\nFor the use of this method:\nSince this is the file that specifies the pitch search API, I don\u0027t see that there is any need to specify that these methods don\u0027t belong to the API.\n\nFor the use in other files:\nHaving a separate namespace does not really add that much as it does not prevent the user to use the methods. To me, the name of the include file pitch_search_internal.h is sufficient to specify that it is not part of the API.",
+      "parentUuid": "4f9ef4e4_93ab02d6",
+      "range": {
+        "startLine": 17,
+        "startChar": 6,
+        "endLine": 17,
+        "endChar": 27
+      },
+      "revId": "c64caa032fd7624c62f1ea8c9b4b87960c63fbc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ac7691ca_67789f4e",
         "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
         "patchSetId": 10
@@ -166,6 +190,30 @@
       "side": 1,
       "message": "Thanks for this comment.\n\nTrue, the price to pay is boilerplate, but I think the advantages are worth it. Namely, by using ArrayView with sizes known at compile time we get:\n- detailed compilation errors pin pointing the source of the problem (e.g., invalid parameters)\n- compile time optimizations\n- we can ignore implementation details (e.g., we can switch to aligned and dynamically allocated vectors without changing the API)\n- ArrayView objects are cheap to copy\n\nAnother option is to switch to templates, for which we could add a size_t S parameter allowing us to only use S instead something.size().\n\nWDYT?",
       "parentUuid": "ac7691ca_67789f4e",
+      "range": {
+        "startLine": 29,
+        "startChar": 14,
+        "endLine": 29,
+        "endChar": 33
+      },
+      "revId": "c64caa032fd7624c62f1ea8c9b4b87960c63fbc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85c56d42_51013c88",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-26T08:41:10Z",
+      "side": 1,
+      "message": "All of those are fine apart from the template approach. Templates are hard to read, get right and tend to increase the binary size so I think it makes sense to avoid using those as much as possible.",
+      "parentUuid": "ac3d63a9_d18eb906",
       "range": {
         "startLine": 29,
         "startChar": 14,
@@ -260,6 +308,24 @@
     },
     {
       "key": {
+        "uuid": "f834efa6_72df2886",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-26T08:41:10Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "1d0ae147_2b3ff088",
+      "revId": "c64caa032fd7624c62f1ea8c9b4b87960c63fbc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "47499788_1647068e",
         "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.h",
         "patchSetId": 10
@@ -295,6 +361,30 @@
       "side": 1,
       "message": "Adding it here leads to a circular dep because then pitch_search_internal must include this header (which is including pitch_search_internal).\n\nAlso, having pitch_search_common is also good when I will add the feature extractor since its header will only need to include pitch_search_common while pitch_search.h will be included from the .cc file.",
       "parentUuid": "47499788_1647068e",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 9
+      },
+      "revId": "c64caa032fd7624c62f1ea8c9b4b87960c63fbc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "971d5879_b7e6b20a",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-26T08:41:10Z",
+      "side": 1,
+      "message": "Good point! I did not think of the circular dependency.",
+      "parentUuid": "ddb2ac9a_8d13f061",
       "range": {
         "startLine": 23,
         "startChar": 0,
@@ -489,6 +579,30 @@
       "side": 1,
       "message": "I think this is a duplicate comment, I answered in another file.\nI will double check when I reply and my comment is not included I will fix and reply again.",
       "parentUuid": "126d90ff_343d8af0",
+      "range": {
+        "startLine": 22,
+        "startChar": 10,
+        "endLine": 22,
+        "endChar": 31
+      },
+      "revId": "c64caa032fd7624c62f1ea8c9b4b87960c63fbc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b4c0ccf2_78b0348a",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-26T08:41:10Z",
+      "side": 1,
+      "message": "I added a comment on that in the other file.\n\nI don\u0027t see any benefits of having file-specific namespaces beyond avoiding name clashes.",
+      "parentUuid": "f3c0047e_a06fc53a",
       "range": {
         "startLine": 22,
         "startChar": 10,

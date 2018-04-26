@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "2383ad6f_cd566255",
+        "filename": "rtc_base/network_constants.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-26T01:02:01Z",
+      "side": 1,
+      "message": "This file is reverted after the CL is rewritten in the new patches. The underlying type of a VPN network is stored explicitly by Network now.",
+      "parentUuid": "b78a8278_9c476296",
+      "revId": "ab297a2d175cca82f3bd82c90477895fa45157be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e42df43e_153adff8",
         "filename": "rtc_base/network_constants.h",
         "patchSetId": 3
@@ -33,6 +51,24 @@
       "revId": "ab297a2d175cca82f3bd82c90477895fa45157be",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3233c39d_0e533609",
+        "filename": "rtc_base/network_constants.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-26T01:02:01Z",
+      "side": 1,
+      "message": "Done as in the above comment.",
+      "parentUuid": "e42df43e_153adff8",
+      "revId": "ab297a2d175cca82f3bd82c90477895fa45157be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "9457fc17_8eed2d9d",
+        "filename": "rtc_base/network_constants.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-26T01:02:01Z",
+      "side": 1,
+      "message": "Done as in the above comment.",
+      "parentUuid": "e7319968_b9dc40d4",
+      "revId": "ab297a2d175cca82f3bd82c90477895fa45157be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4dec3ba3_13cf60db",
         "filename": "rtc_base/network_constants.h",
         "patchSetId": 3
@@ -64,6 +118,24 @@
       "writtenOn": "2018-04-25T02:32:28Z",
       "side": 1,
       "message": "Something we should think carefully about is how this affects the \"network_ignore_mask\". If an application is currently setting the mask to ADAPTER_TYPE_CELLULAR, does it want to ignore VPNs that go over cell as well?\n\nIf so, we should either implicitly turn a mask of \"ADAPTER_TYPE_CELLULAR\" to \"ADAPTER_TYPE_CELLULAR | ADAPTER_TYPE_VPN_CELLULAR\", or make an announcement and tell everyone they need to do that.\n\nSimilar consideration applies to network_preference, though there should be fewer users of that since it was introduced so recently.",
+      "revId": "ab297a2d175cca82f3bd82c90477895fa45157be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f86b726_1ddd0216",
+        "filename": "rtc_base/network_constants.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-26T01:02:01Z",
+      "side": 1,
+      "message": "This is a remaining issue after rewriting the CL. I am still not certain what semantics we want to define for network_ignore_mask or network_preference. If we intend to define these for physical network interfaces, no matter whether they bear a VPN, a bit more logic should be added to this CL to cover the VPN case; otherwise VPN is treated as an independent interface like seen/reported by the OS.",
+      "parentUuid": "4dec3ba3_13cf60db",
       "revId": "ab297a2d175cca82f3bd82c90477895fa45157be",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "2980ee30_2144c936",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-26T01:02:01Z",
+      "side": 1,
+      "message": "NetworkState and NetworkInformation now have the underlying network type/subtype for VPN, resembling some of the APIs we have seen in the Android source.",
+      "parentUuid": "d60148a2_7add879f",
+      "revId": "ab297a2d175cca82f3bd82c90477895fa45157be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "20b5f588_380870e2",
         "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
         "patchSetId": 3
@@ -101,6 +191,24 @@
       "revId": "ab297a2d175cca82f3bd82c90477895fa45157be",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1b9212b_5d51f718",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-26T01:02:01Z",
+      "side": 1,
+      "message": "I was wrong in this statement like detailed in my last reply. I am sorry for the confusion.",
+      "parentUuid": "20b5f588_380870e2",
+      "revId": "ab297a2d175cca82f3bd82c90477895fa45157be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "0e014aad_71a5a332",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-26T01:02:01Z",
+      "side": 1,
+      "message": "Thanks for pointing this out. When disconnected, the query for the active network would propagate the null and eventually in the new patch it would give CONNECTION_NONE if not connected.",
+      "parentUuid": "8749a3f2_0db6bc89",
+      "revId": "ab297a2d175cca82f3bd82c90477895fa45157be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "27ca5eb8_9eb9e37f",
         "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
         "patchSetId": 3
@@ -135,6 +261,24 @@
       "revId": "ab297a2d175cca82f3bd82c90477895fa45157be",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "189cc1dc_d72bcbb1",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-26T01:02:01Z",
+      "side": 1,
+      "message": "Sure, I think the new patch handles this more clearly. The underlying network type is stored separately.",
+      "parentUuid": "27ca5eb8_9eb9e37f",
+      "revId": "ab297a2d175cca82f3bd82c90477895fa45157be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -155,6 +299,24 @@
     },
     {
       "key": {
+        "uuid": "9a153ff5_9f28932d",
+        "filename": "sdk/android/api/org/webrtc/PeerConnection.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-26T01:02:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "73fd1dd9_0e0d76fb",
+      "revId": "ab297a2d175cca82f3bd82c90477895fa45157be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c4a8cfbf_45f7027d",
         "filename": "sdk/android/api/org/webrtc/PeerConnectionFactory.java",
         "patchSetId": 3
@@ -172,6 +334,24 @@
     },
     {
       "key": {
+        "uuid": "5ab44eb0_fb8b8281",
+        "filename": "sdk/android/api/org/webrtc/PeerConnectionFactory.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-26T01:02:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4a8cfbf_45f7027d",
+      "revId": "ab297a2d175cca82f3bd82c90477895fa45157be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6f9d83e8_491e5114",
         "filename": "sdk/android/src/jni/androidnetworkmonitor.cc",
         "patchSetId": 3
@@ -186,6 +366,24 @@
       "revId": "ab297a2d175cca82f3bd82c90477895fa45157be",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3452b9d8_8982e7de",
+        "filename": "sdk/android/src/jni/androidnetworkmonitor.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-26T01:02:01Z",
+      "side": 1,
+      "message": "Reverted in the new patch. This was a mistake. I confused myself when thinking about mapping the types so that they have the correct network cost, though I had actually set the correct costs for VPN_XXX types. Thanks for spotting this.",
+      "parentUuid": "6f9d83e8_491e5114",
+      "revId": "ab297a2d175cca82f3bd82c90477895fa45157be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

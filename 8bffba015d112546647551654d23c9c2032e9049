@@ -336,6 +336,24 @@
     },
     {
       "key": {
+        "uuid": "c0c6da52_b401745f",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1335,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-26T20:29:52Z",
+      "side": 1,
+      "message": "Ah, I didn\u0027t notice the \"\u0026\u0026 udp_socket_\". Falling back to \"non shared socket\" mode is better than nothing, but not ideal. I\u0027d like to get rid of the \"non shared socket\" code, so it would be be preferable to not depend on it any more than we already do.",
+      "parentUuid": "42bd7512_d44a25af",
+      "revId": "8bffba015d112546647551654d23c9c2032e9049",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "78ca7e03_1c6d0324",
         "filename": "p2p/client/basicportallocator.cc",
         "patchSetId": 3

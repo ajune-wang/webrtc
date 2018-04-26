@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "31f17e0b_63eea9eb",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1164,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-26T20:29:52Z",
+      "side": 1,
+      "message": "tried_creation_with_feasible_config_ \u003d true?",
+      "revId": "ffbd7bf4b91d71f4a7f3146e13bb3ee5e2515558",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f69a3702_a2db2b8d",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1184,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-26T20:29:52Z",
+      "side": 1,
+      "message": "Meant \"|\"?",
+      "revId": "ffbd7bf4b91d71f4a7f3146e13bb3ee5e2515558",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0a43433_51f7bc3a",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1332,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-26T20:29:52Z",
+      "side": 1,
+      "message": "Since shared socket mode is always enabled, CreateStunPorts will always overwrite the results of CreateUDPPorts with FAILURE_INFEASIBLE_CONFIG.",
+      "revId": "ffbd7bf4b91d71f4a7f3146e13bb3ee5e2515558",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "080f5b2c_a24a9ba5",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1634,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-26T20:29:52Z",
+      "side": 1,
+      "message": "It\u0027s not clear from the name \"MaybeRetryPortAllocation\" that this method will also reset the flags and call SignalPortAllocationComplete.",
+      "revId": "ffbd7bf4b91d71f4a7f3146e13bb3ee5e2515558",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81e07659_ff8693e7",
+        "filename": "p2p/client/basicportallocator.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-26T20:29:52Z",
+      "side": 1,
+      "message": "Could use more documentation.",
+      "revId": "ffbd7bf4b91d71f4a7f3146e13bb3ee5e2515558",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "816de5e8_a198fb68",
+        "filename": "p2p/client/basicportallocator.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-26T20:29:52Z",
+      "side": 1,
+      "message": "nit: \"ByPhase\" implies that the method takes a phase as input (like the method below).",
+      "revId": "ffbd7bf4b91d71f4a7f3146e13bb3ee5e2515558",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f11b3a0_42ae5627",
+        "filename": "p2p/client/basicportallocator.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-26T20:29:52Z",
+      "side": 1,
+      "message": "nit: Our style is to put default values in the header.",
+      "revId": "ffbd7bf4b91d71f4a7f3146e13bb3ee5e2515558",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

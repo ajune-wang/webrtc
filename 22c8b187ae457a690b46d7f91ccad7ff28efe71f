@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "00b129c5_fd7567ed",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-26T22:14:38Z",
+      "side": 1,
+      "message": "Done. Refactored the code to pass the info in the constructor.",
+      "parentUuid": "cd18b623_6c0d013d",
+      "range": {
+        "startLine": 90,
+        "startChar": 16,
+        "endLine": 90,
+        "endChar": 49
+      },
+      "revId": "22c8b187ae457a690b46d7f91ccad7ff28efe71f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c781e142_dfed990f",
         "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
         "patchSetId": 6
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "24104bea_57d63f59",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-26T22:14:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c781e142_dfed990f",
+      "range": {
+        "startLine": 151,
+        "startChar": 16,
+        "endLine": 151,
+        "endChar": 46
+      },
+      "revId": "22c8b187ae457a690b46d7f91ccad7ff28efe71f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c722eb45_f4277d2e",
         "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
         "patchSetId": 6
@@ -68,6 +116,30 @@
       "revId": "22c8b187ae457a690b46d7f91ccad7ff28efe71f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2fa53d79_5440b449",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 787,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-26T22:14:38Z",
+      "side": 1,
+      "message": "Done. Changed to private.",
+      "parentUuid": "c722eb45_f4277d2e",
+      "range": {
+        "startLine": 787,
+        "startChar": 2,
+        "endLine": 787,
+        "endChar": 9
+      },
+      "revId": "22c8b187ae457a690b46d7f91ccad7ff28efe71f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

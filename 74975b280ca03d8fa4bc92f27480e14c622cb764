@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "72a03b55_dfe5cc21",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-04-26T08:26:32Z",
+      "side": 1,
+      "message": "I think two facts should be more emphasized.\n1. we use this other validation pitch period to calculate pitch gain\n2. we use only one validation pitch period for each harmonic\n\nI tried to reword this a bit on my understanding. Please check and merge into yours if it makes sense.\n\n// The values have been found as follows. Given the initial pitch period T, we\n// examine whether one of its harmonics is the true fundamental frequency. We consider\n// T/k with k in {2, ..., 15}. For each of these harmonics, in addition to the pitch gain of\n// itself, we choose one multiple of its pitch period, n*T/k, to validate it (by averaging their // pitch gains). The multiplier n is chosen so that n*T/k is used only one time over all k.\n// The array can be generate in Python as follows:",
+      "range": {
+        "startLine": 108,
+        "startChar": 42,
+        "endLine": 114,
+        "endChar": 50
+      },
+      "revId": "74975b280ca03d8fa4bc92f27480e14c622cb764",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6ce7cfa8_f93142fd",
+        "filename": "media/engine/webrtcvoiceengine.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2018-04-26T07:41:04Z",
+      "side": 1,
+      "message": "Could you add some more text here explaining why it is OK to turn it off here.\nBy \"If possible\", I assume you mean \"given the conditions above\", or? In any case, it is not clear to me why the HP filter should be turned off here.",
+      "range": {
+        "startLine": 397,
+        "startChar": 4,
+        "endLine": 397,
+        "endChar": 5
+      },
+      "revId": "7eba44195165ddaecfff1863df4d21fa11241f80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

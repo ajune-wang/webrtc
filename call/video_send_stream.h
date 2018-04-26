@@ -119,6 +119,9 @@ class VideoSendStream {
       // cpu adaptation.
       bool experiment_cpu_load_estimator = false;
 
+      // TODO(nisse): Of questionable value, consider deleting.
+      int start_bitrate_bps = 300000;
+
       // Ownership stays with WebrtcVideoEngine (delegated from PeerConnection).
       VideoEncoderFactory* encoder_factory = nullptr;
     } encoder_settings;

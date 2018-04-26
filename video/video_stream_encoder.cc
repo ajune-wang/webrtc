@@ -342,7 +342,7 @@ VideoStreamEncoder::VideoStreamEncoder(
       max_framerate_(-1),
       pending_encoder_reconfiguration_(false),
       pending_encoder_creation_(false),
-      encoder_start_bitrate_bps_(0),
+      encoder_start_bitrate_bps_(settings.start_bitrate_bps),
       max_data_payload_length_(0),
       nack_enabled_(false),
       last_observed_bitrate_bps_(0),
@@ -437,13 +437,6 @@ void VideoStreamEncoder::SetSink(EncoderSink* sink, bool rotation_applied) {
   encoder_queue_.PostTask([this, sink] {
     RTC_DCHECK_RUN_ON(&encoder_queue_);
     sink_ = sink;
-  });
-}
-
-void VideoStreamEncoder::SetStartBitrate(int start_bitrate_bps) {
-  encoder_queue_.PostTask([this, start_bitrate_bps] {
-    RTC_DCHECK_RUN_ON(&encoder_queue_);
-    encoder_start_bitrate_bps_ = start_bitrate_bps;
   });
 }
 

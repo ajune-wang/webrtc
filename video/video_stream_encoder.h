@@ -54,7 +54,6 @@ class VideoStreamEncoderInterface : public rtc::VideoSinkInterface<VideoFrame> {
       const VideoSendStream::DegradationPreference& degradation_preference) = 0;
   virtual void SetSink(EncoderSink* sink, bool rotation_applied) = 0;
 
-  virtual void SetStartBitrate(int start_bitrate_bps) = 0;
   virtual void SendKeyFrame() = 0;
   virtual void OnBitrateUpdated(uint32_t bitrate_bps,
                                 uint8_t fraction_lost,
@@ -107,9 +106,6 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
   // that the source must support rotation. Only set |rotation_applied| if the
   // remote side does not support the rotation extension.
   void SetSink(EncoderSink* sink, bool rotation_applied) override;
-
-  // TODO(perkj): Can we remove VideoCodec.startBitrate ?
-  void SetStartBitrate(int start_bitrate_bps) override;
 
   void SetBitrateObserver(
       VideoBitrateAllocationObserver* bitrate_observer) override;

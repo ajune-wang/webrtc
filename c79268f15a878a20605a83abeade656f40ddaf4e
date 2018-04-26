@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "791692b8_805e0342",
+        "filename": "pc/mediasession.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-04-26T06:55:13Z",
+      "side": 0,
+      "message": "Why could these be used unqualified, i.e., not std::bind2nd? If there\u0027s some hidden \"using namespace std\" somewhere, it would be good to take that out.",
+      "range": {
+        "startLine": 576,
+        "startChar": 39,
+        "endLine": 576,
+        "endChar": 46
+      },
+      "revId": "c79268f15a878a20605a83abeade656f40ddaf4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

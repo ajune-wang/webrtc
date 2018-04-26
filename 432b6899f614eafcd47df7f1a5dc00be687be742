@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "f2d09d6a_f3e11135",
+        "filename": "api/video_codecs/builtin_video_encoder_factory.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-04-26T08:30:43Z",
+      "side": 1,
+      "message": "My position is basically this: (1) If users should call the factory function, it should be declared somewhere in api/. (2) Because https://chromium.googlesource.com/external/webrtc/+/HEAD/style-guide.md#h-cc-pairs, the factory function\u0027s definition will also be in api/. (3) However, it\u0027s nice to not have tons of implementation lines in .cc files in api/, so it can be nice to just have a stub implementation that calls a real implementation that\u0027s outside api/.\n\nThe \"slim and modular\" part of the equation is handled by making sure that only users, not other parts of WebRTC, depend on the factory function\u0027s target (and thus transitively on the perhaps large implementation behind it). The \"poison\" thing I announced recently can help with that; in short, you would tag the large implementation target(s) as poisonous, and then ensure that pretty much no other target except the factory function in api/ has to be made immune to the poison.",
+      "parentUuid": "041bb1c3_62c302b2",
+      "revId": "432b6899f614eafcd47df7f1a5dc00be687be742",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ebb8a2bd_a3e00c88",
         "filename": "pc/peerconnection_integrationtest.cc",
         "patchSetId": 8

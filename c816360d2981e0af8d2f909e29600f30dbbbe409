@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ecb9f07e_757dc0de",
+        "filename": "sdk/BUILD.gn",
+        "patchSetId": 8
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2018-04-26T11:10:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cfcb3214_5eedb471",
+      "range": {
+        "startLine": 378,
+        "startChar": 16,
+        "endLine": 378,
+        "endChar": 25
+      },
+      "revId": "c816360d2981e0af8d2f909e29600f30dbbbe409",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a367865_433bc635",
         "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCVideoCodec.mm",
         "patchSetId": 8
@@ -36,6 +60,30 @@
       "writtenOn": "2018-04-26T10:58:08Z",
       "side": 1,
       "message": "nit: this is not needed.",
+      "range": {
+        "startLine": 47,
+        "startChar": 37,
+        "endLine": 47,
+        "endChar": 38
+      },
+      "revId": "c816360d2981e0af8d2f909e29600f30dbbbe409",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23bba709_00c01346",
+        "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCVideoCodec.mm",
+        "patchSetId": 8
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2018-04-26T11:10:56Z",
+      "side": 1,
+      "message": "Removed \u0026 here and two lines above.",
+      "parentUuid": "7a367865_433bc635",
       "range": {
         "startLine": 47,
         "startChar": 37,

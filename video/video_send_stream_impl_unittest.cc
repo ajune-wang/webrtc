@@ -72,7 +72,7 @@ class VideoSendStreamImplTest : public ::testing::Test {
       int initial_encoder_max_bitrate,
       double initial_encoder_bitrate_priority,
       VideoEncoderConfig::ContentType content_type) {
-    EXPECT_CALL(bitrate_allocator_, GetStartBitrate(_))
+    EXPECT_CALL(bitrate_allocator_, GetStartBitrate())
         .WillOnce(Return(123000));
     std::map<uint32_t, RtpState> suspended_ssrcs;
     std::map<uint32_t, RtpPayloadState> suspended_payload_states;

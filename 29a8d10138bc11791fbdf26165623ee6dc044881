@@ -22,6 +22,30 @@
       "revId": "29a8d10138bc11791fbdf26165623ee6dc044881",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1a0a8be_ad16d451",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-04-27T06:49:20Z",
+      "side": 0,
+      "message": "Agree, I\u0027ll try to formulating something.\n\nDo you think it *only* affects paused streams? E.g., if we add three streams up-front, with the old code I think they\u0027d get start bitrates of 300 kbps, 150 kps and 100kbps, while after the change they\u0027ll all get 300 kbps. Does non-pause make this not matter (because VideoStreamEncoder::OnBitrateUpdated willbe called very soon after)?",
+      "parentUuid": "36f0baf9_4143442d",
+      "range": {
+        "startLine": 244,
+        "startChar": 22,
+        "endLine": 244,
+        "endChar": 37
+      },
+      "revId": "29a8d10138bc11791fbdf26165623ee6dc044881",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

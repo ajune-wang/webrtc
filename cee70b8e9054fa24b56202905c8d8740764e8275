@@ -22,6 +22,30 @@
       "revId": "cee70b8e9054fa24b56202905c8d8740764e8275",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3b0af07_297687af",
+        "filename": "call/video_send_stream.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-04-27T06:49:20Z",
+      "side": 1,
+      "message": "I think there are potential usecases. E.g, an application may want to set a large start bitrate based on history available to the app, then that should be communicated to the initial state of both VideoStreamEncoder and the bandwidth estimator.\n\nBut since we have no immediate plans to use this setting, we could delete it and make it an internal constant in VideoStreamEncoder instead.",
+      "parentUuid": "510ca24e_7d73e3c3",
+      "range": {
+        "startLine": 123,
+        "startChar": 10,
+        "endLine": 123,
+        "endChar": 27
+      },
+      "revId": "cee70b8e9054fa24b56202905c8d8740764e8275",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

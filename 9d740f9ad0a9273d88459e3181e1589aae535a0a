@@ -273,6 +273,24 @@
     },
     {
       "key": {
+        "uuid": "b05b726f_2c49fb66",
+        "filename": "modules/audio_processing/agc2/rnn_vad/biquad.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-04-27T06:02:25Z",
+      "side": 1,
+      "message": "FYI: constructormagic.h is about to be deprecated. The preferred way is to \u003ddelete the unwanted constructors.",
+      "parentUuid": "840208dd_72b2ad1e",
+      "revId": "9d740f9ad0a9273d88459e3181e1589aae535a0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4d4fe8b1_37fbbae5",
         "filename": "modules/audio_processing/agc2/rnn_vad/biquad.h",
         "patchSetId": 2

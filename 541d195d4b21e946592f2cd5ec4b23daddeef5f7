@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f699dcec_c487d128",
+        "filename": "rtc_base/fakeclock.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-04-27T09:26:06Z",
+      "side": 0,
+      "message": "Non-test code using us resolution.",
+      "range": {
+        "startLine": 41,
+        "startChar": 32,
+        "endLine": 41,
+        "endChar": 48
+      },
+      "revId": "541d195d4b21e946592f2cd5ec4b23daddeef5f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5758e7a9_9727f3a0",
+        "filename": "rtc_base/virtualsocketserver.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 653,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-04-27T09:26:06Z",
+      "side": 0,
+      "message": "Non-test code using ms resolution.",
+      "range": {
+        "startLine": 653,
+        "startChar": 6,
+        "endLine": 653,
+        "endChar": 68
+      },
+      "revId": "541d195d4b21e946592f2cd5ec4b23daddeef5f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

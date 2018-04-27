@@ -46,6 +46,30 @@
       "revId": "cee70b8e9054fa24b56202905c8d8740764e8275",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a2dca45_c7a23d68",
+        "filename": "call/video_send_stream.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-04-27T08:14:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3b0af07_297687af",
+      "range": {
+        "startLine": 123,
+        "startChar": 10,
+        "endLine": 123,
+        "endChar": 27
+      },
+      "revId": "cee70b8e9054fa24b56202905c8d8740764e8275",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "79d3cffe_e71b568e",
+        "filename": "rtc_base/network.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-27T16:12:32Z",
+      "side": 1,
+      "message": "The cost of VPN is computed in GetCost using underlying_type_for_vpn_, which may not be ADAPTER_TYPE_UNKNOWN that gives kNetworkCostUnknown.",
+      "parentUuid": "dbf2847b_0b60ea05",
+      "revId": "29b9ac0211dccb9e69acce91fe47102d6a34b321",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ee37cadf_da14ab79",
         "filename": "rtc_base/network.cc",
         "patchSetId": 7
@@ -33,6 +51,24 @@
       "revId": "29b9ac0211dccb9e69acce91fe47102d6a34b321",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6522f5a0_33ccd99a",
+        "filename": "rtc_base/network.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-27T16:12:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ee37cadf_da14ab79",
+      "revId": "29b9ac0211dccb9e69acce91fe47102d6a34b321",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "d5f1562c_9fe747fe",
+        "filename": "rtc_base/network.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-27T16:12:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7439fd4f_b99c3346",
+      "revId": "29b9ac0211dccb9e69acce91fe47102d6a34b321",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a7440de_358e3fdc",
         "filename": "rtc_base/network.h",
         "patchSetId": 7
@@ -67,6 +121,24 @@
       "revId": "29b9ac0211dccb9e69acce91fe47102d6a34b321",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21849968_caa2d76d",
+        "filename": "rtc_base/network.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-27T16:12:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3a7440de_358e3fdc",
+      "revId": "29b9ac0211dccb9e69acce91fe47102d6a34b321",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "b4e83d96_313543e9",
+        "filename": "rtc_base/network.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-27T16:12:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cceed409_690a3f5e",
+      "revId": "29b9ac0211dccb9e69acce91fe47102d6a34b321",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2cc81e7d_102fd70a",
         "filename": "rtc_base/network.h",
         "patchSetId": 7
@@ -104,6 +194,24 @@
     },
     {
       "key": {
+        "uuid": "65dfc4aa_9abcb1a7",
+        "filename": "rtc_base/network.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-27T16:12:32Z",
+      "side": 1,
+      "message": "Done. Also removed the initialization in the ctor.",
+      "parentUuid": "2cc81e7d_102fd70a",
+      "revId": "29b9ac0211dccb9e69acce91fe47102d6a34b321",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6f76b0bb_b65c8241",
         "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
         "patchSetId": 7
@@ -115,6 +223,24 @@
       "writtenOn": "2018-04-27T01:15:07Z",
       "side": 1,
       "message": "I\u0027m still confused about this. In the cases where we need to call getNetworkCapabilities, isn\u0027t networkState already the underlying network state?\n\nI expected the code to look something like this:\n\n  NetworkInfo networkInfo \u003d connectivityManager.getNetworkInfo(network);\n\n  // Sometimes, when getNetworkInfo is called for a VPN, it returns the info from\n  // the underlying network, and we need to call getNetworkCapabilities to tell if it\u0027s a VPN.\n  if (networkInfo.getType() !\u003d TYPE_VPN \u0026\u0026 \n      connectivityManager.getNetworkCapabilities(network).hasTransport(\n          NetworkCapabilities.TRANSPORT_VPN)) {\n    return new NetworkState(networkInfo.isConnected(), ConnectivityManager.TYPE_VPN, -1, \n                            networkInfo.getType(), networkInfo.getSubtype());\n  }\n\n  // When getNetworkInfo does return TYPE_VPN, we can try calling getActiveNetworkInfo\n  // to get information from the underlying network (if the VPN in question is active).\n  // For some reason, getActiveNetworkInfo() and getNetworkInfo(getActiveNetwork()) can\n  // behave differently.\n  if (networkInfo.getType \u003d\u003d TYPE_VPN \u0026\u0026 network \u003d\u003d connectivityManager.getActiveNetwork()) {\n    NetworkInfo underlyingNetworkInfo \u003d connectivityManager.getActiveNetworkInfo();\n    return new NetworkState(networkInfo.isConnected(), ConnectivityManager.TYPE_VPN, -1, \n                            underlyingNetworkInfo.getType(),\n                            underlyingNetworkInfo.getSubtype());\n  }\n\n  return getNetworkState(networkInfo);",
+      "revId": "29b9ac0211dccb9e69acce91fe47102d6a34b321",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19f9267a_e1facb27",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-27T16:12:32Z",
+      "side": 1,
+      "message": "I see your point, and I find if we place this method in a standalone context it may be easier to understand the difference between the patch and the above snippet. Let |networkInfo| be as in the above snippet. I think we can break the scenario to the following cases:\n\n1. |network| is not a VPN, and getNetworkState(networkInfo) should be returned. This is handled when skipping both \"if\" blocks above.\n2. |network| is a VPN (having VPN capability), and |networkInfo| contains the info for the underlying network (not of type TYPE_VPN). It could be reasonable to return a NetworkState constructed from |networkInfo| whether |network| is the active interface supporting this VPN or not. This is the case in the first \"if\" block in the above snippet.\n3) |network| is a VPN and |networkInfo| is of type TYPE_VPN. It could be reasonable to return the NetworkState of the active network that supports the VPN via getActiveNetworkInfo(). The caveat is the active network may not be related to the VPN if it is possible that a VPN is restricted to an interface, say WiFi, and when WiFi is turned off the VPN service is off as well. If this is not the case, in the second \"if\" block above, we may not need network \u003d\u003d connectivityManager.getActiveNetwork(). Note that networkInfo has no trace of the underlying network type if networkInfo.getType() \u003d\u003d TYPE_VPN, and that is why getNetworkState(networkInfo) always fills -1 for the underlying type and subtype in this patch.\n\nThe original patch did not handling 2 but always went for 3, which I agree does not seem correct after breaking down the cases.\n\nWhat do you think?",
+      "parentUuid": "6f76b0bb_b65c8241",
       "revId": "29b9ac0211dccb9e69acce91fe47102d6a34b321",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -138,6 +264,24 @@
     },
     {
       "key": {
+        "uuid": "4b7237ad_300f8801",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-27T16:12:32Z",
+      "side": 1,
+      "message": "Removed after refactoring for the comment below.",
+      "parentUuid": "f4e3f1af_1969dc9f",
+      "revId": "29b9ac0211dccb9e69acce91fe47102d6a34b321",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "95b535e9_64a3b334",
         "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
         "patchSetId": 7
@@ -155,6 +299,24 @@
     },
     {
       "key": {
+        "uuid": "1b4791e9_93fcdfcd",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 778,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-27T16:12:32Z",
+      "side": 1,
+      "message": "I got the same feeling this class is overwhelming by helpers and overloads. Removed the above two.",
+      "parentUuid": "95b535e9_64a3b334",
+      "revId": "29b9ac0211dccb9e69acce91fe47102d6a34b321",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6c7219c5_c236db75",
         "filename": "sdk/android/src/jni/androidnetworkmonitor.cc",
         "patchSetId": 7
@@ -169,6 +331,24 @@
       "revId": "29b9ac0211dccb9e69acce91fe47102d6a34b321",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10e52460_2685484b",
+        "filename": "sdk/android/src/jni/androidnetworkmonitor.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-27T16:12:32Z",
+      "side": 1,
+      "message": "Good point. The unknown case can actually be the primary scenario. Removed.",
+      "parentUuid": "6c7219c5_c236db75",
+      "revId": "29b9ac0211dccb9e69acce91fe47102d6a34b321",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

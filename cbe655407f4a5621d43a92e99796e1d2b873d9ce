@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "e9894afe_f2308fbf",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-27T19:44:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "77ab2cca_aecce871",
+      "revId": "cbe655407f4a5621d43a92e99796e1d2b873d9ce",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "57818d88_a588ac96",
         "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
         "patchSetId": 8
@@ -33,6 +51,24 @@
       "revId": "cbe655407f4a5621d43a92e99796e1d2b873d9ce",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38d6b124_9b843b7a",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-27T19:44:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "57818d88_a588ac96",
+      "revId": "cbe655407f4a5621d43a92e99796e1d2b873d9ce",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -335,6 +335,24 @@
     },
     {
       "key": {
+        "uuid": "3627fa6e_5f428594",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 778,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-27T19:44:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c6943356_858ce517",
+      "revId": "29b9ac0211dccb9e69acce91fe47102d6a34b321",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6c7219c5_c236db75",
         "filename": "sdk/android/src/jni/androidnetworkmonitor.cc",
         "patchSetId": 7

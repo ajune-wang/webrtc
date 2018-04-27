@@ -261,6 +261,23 @@
     },
     {
       "key": {
+        "uuid": "894cb61b_f5a8c096",
+        "filename": "modules/audio_processing/aec3/render_buffer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-27T13:02:11Z",
+      "side": 1,
+      "message": "Please change this to instead return a const ref.",
+      "revId": "089f1af09a26470435ae1538fa41989a509b44e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "871c0f94_ebea2ec1",
         "filename": "modules/audio_processing/aec3/stationarity_estimator.cc",
         "patchSetId": 2
@@ -587,6 +604,23 @@
       "revId": "089f1af09a26470435ae1538fa41989a509b44e7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "881ae090_0da38f7e",
+        "filename": "modules/audio_processing/aec3/stationarity_estimator.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-27T13:02:11Z",
+      "side": 1,
+      "message": "Please change the name to something more descriptive.",
+      "revId": "089f1af09a26470435ae1538fa41989a509b44e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

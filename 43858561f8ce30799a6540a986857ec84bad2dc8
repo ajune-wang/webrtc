@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8169b6af_e7901384",
+        "filename": "modules/audio_processing/aec3/render_buffer.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-27T13:02:11Z",
+      "side": 1,
+      "message": "Please change this to return a const VectorBuffer\u0026",
+      "range": {
+        "startLine": 105,
+        "startChar": 2,
+        "endLine": 105,
+        "endChar": 22
+      },
+      "revId": "43858561f8ce30799a6540a986857ec84bad2dc8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5cdd399_9cfe43ec",
+        "filename": "modules/audio_processing/aec3/stationarity_estimator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-27T13:02:11Z",
+      "side": 1,
+      "message": "This loops is a bit confusing (but works). \n\nWhat about:\nindexes[0] \u003d idx;\nfor (size_t k \u003d 1; k \u003c indexes.size(); ++k) {\n   indexes[k] \u003d spectrum_buffer-\u003eDecIndex(indexes[k-1]);\n}\n\nor\n\nfor (size_t k \u003d 0; k \u003c indexes.size(); ++k, idx \u003d spectrum_buffer-\u003eDecIndex(idx)) {\n   indexes[k] \u003d idx;\n}\n\n\nI think those more clearly shows what is done.",
+      "range": {
+        "startLine": 70,
+        "startChar": 2,
+        "endLine": 73,
+        "endChar": 3
+      },
+      "revId": "43858561f8ce30799a6540a986857ec84bad2dc8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34271c92_43502c8c",
+        "filename": "modules/audio_processing/aec3/stationarity_estimator.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-27T13:02:11Z",
+      "side": 1,
+      "message": "Would it be possible to name this constant to something more descriptive?",
+      "range": {
+        "startLine": 49,
+        "startChar": 23,
+        "endLine": 49,
+        "endChar": 38
+      },
+      "revId": "43858561f8ce30799a6540a986857ec84bad2dc8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf0718ac_8cc62f08",
+        "filename": "modules/audio_processing/aec3/stationarity_estimator.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-27T13:02:11Z",
+      "side": 1,
+      "message": "Please change this to \nconst VectorBuffer\u0026 const spectrum_buffer\nas that is more safe than using a pointer",
+      "revId": "43858561f8ce30799a6540a986857ec84bad2dc8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff19f829_bb351420",
+        "filename": "modules/audio_processing/aec3/stationarity_estimator.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-27T13:02:11Z",
+      "side": 1,
+      "message": "Please move 105 and 106 to before 102.\n\nThe reason for that is that since those purely concern offline debug mode code it is nice to have them first in the initializer list and the variable list so that they don\u0027t move the focus from the production code.",
+      "range": {
+        "startLine": 105,
+        "startChar": 2,
+        "endLine": 106,
+        "endChar": 46
+      },
+      "revId": "43858561f8ce30799a6540a986857ec84bad2dc8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

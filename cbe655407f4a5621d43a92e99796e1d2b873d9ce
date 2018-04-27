@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "77ab2cca_aecce871",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-27T17:50:26Z",
+      "side": 1,
+      "message": "As discussed, I think we still want the \"is active network\" check here. If there\u0027s a VPN configured to use network A, but the active network is not the VPN, but network B, this code would return B as the underlying network for the VPN, which would be incorrect.",
+      "revId": "cbe655407f4a5621d43a92e99796e1d2b873d9ce",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57818d88_a588ac96",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-27T17:50:26Z",
+      "side": 1,
+      "message": "As discussed, probably want to check \"if (underlyingActiveNetworkInfo.getType() !\u003d TYPE_VPN)\", so we don\u0027t return a NetworkState with both the \"type\" and \"underlying type\" set to TYPE_VPN.",
+      "revId": "cbe655407f4a5621d43a92e99796e1d2b873d9ce",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

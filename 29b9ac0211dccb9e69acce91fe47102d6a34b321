@@ -317,6 +317,24 @@
     },
     {
       "key": {
+        "uuid": "c6943356_858ce517",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 778,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-27T17:50:26Z",
+      "side": 1,
+      "message": "Actually... It looks like I was wrong about it only being called in one place, I must have been getting mixed up with another method. getConnectionType(NetworkState networkState) is called in a few places, so I\u0027d suggest adding it back; sorry for misleading you...",
+      "parentUuid": "1b4791e9_93fcdfcd",
+      "revId": "29b9ac0211dccb9e69acce91fe47102d6a34b321",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6c7219c5_c236db75",
         "filename": "sdk/android/src/jni/androidnetworkmonitor.cc",
         "patchSetId": 7

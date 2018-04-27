@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ed0845ef_f3ed6d2c",
+        "filename": "modules/audio_processing/aec3/echo_audibility.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-04-27T08:51:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fe80a0ee_fd960b33",
+      "range": {
+        "startLine": 58,
+        "startChar": 5,
+        "endLine": 58,
+        "endChar": 11
+      },
+      "revId": "089f1af09a26470435ae1538fa41989a509b44e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c25000a0_ee64d15d",
         "filename": "modules/audio_processing/aec3/echo_audibility.h",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "392c8388_43891df1",
+        "filename": "modules/audio_processing/aec3/echo_audibility.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-04-27T08:51:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c25000a0_ee64d15d",
+      "range": {
+        "startLine": 62,
+        "startChar": 5,
+        "endLine": 62,
+        "endChar": 11
+      },
+      "revId": "089f1af09a26470435ae1538fa41989a509b44e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ee64874_f977b336",
         "filename": "modules/audio_processing/aec3/render_buffer.h",
         "patchSetId": 2
@@ -59,6 +107,30 @@
       "writtenOn": "2018-04-27T06:20:38Z",
       "side": 1,
       "message": "int -\u003e size_t is usually the correct thing to do for counters and indices.",
+      "range": {
+        "startLine": 49,
+        "startChar": 46,
+        "endLine": 49,
+        "endChar": 49
+      },
+      "revId": "089f1af09a26470435ae1538fa41989a509b44e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "975c7f83_bf06be55",
+        "filename": "modules/audio_processing/aec3/render_buffer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-04-27T08:51:44Z",
+      "side": 1,
+      "message": "Thanks for the suggestion. Those indexes then get propagated to the VectorBuffer class that are using integers as integers and, in general, the current code is using integers for the subclasses. Maybe we should consider another cl for changing all those indexes to size_t and properly verify that none of those classes are using negative values.",
+      "parentUuid": "9ee64874_f977b336",
       "range": {
         "startLine": 49,
         "startChar": 46,
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "d2678d54_a61f1aa5",
+        "filename": "modules/audio_processing/aec3/render_buffer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-04-27T08:51:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1d0eeb75_426bbe24",
+      "range": {
+        "startLine": 68,
+        "startChar": 5,
+        "endLine": 68,
+        "endChar": 10
+      },
+      "revId": "089f1af09a26470435ae1538fa41989a509b44e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "87dcad28_ad936899",
         "filename": "modules/audio_processing/aec3/render_buffer.h",
         "patchSetId": 2
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "50d814b1_91612181",
+        "filename": "modules/audio_processing/aec3/render_buffer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-04-27T08:51:44Z",
+      "side": 1,
+      "message": "Please, see my previous comment for not doing the change in this cl.",
+      "parentUuid": "87dcad28_ad936899",
+      "range": {
+        "startLine": 69,
+        "startChar": 26,
+        "endLine": 69,
+        "endChar": 47
+      },
+      "revId": "089f1af09a26470435ae1538fa41989a509b44e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "871c0f94_ebea2ec1",
         "filename": "modules/audio_processing/aec3/stationarity_estimator.cc",
         "patchSetId": 2
@@ -128,6 +248,30 @@
       "writtenOn": "2018-04-27T06:20:38Z",
       "side": 1,
       "message": "These look like indices and counters. Should probably by size_t.",
+      "range": {
+        "startLine": 55,
+        "startChar": 4,
+        "endLine": 56,
+        "endChar": 21
+      },
+      "revId": "089f1af09a26470435ae1538fa41989a509b44e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c579031_dcc86620",
+        "filename": "modules/audio_processing/aec3/stationarity_estimator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-04-27T08:51:44Z",
+      "side": 1,
+      "message": "Please, see my previous comment for not doing the change in this cl.",
+      "parentUuid": "871c0f94_ebea2ec1",
       "range": {
         "startLine": 55,
         "startChar": 4,
@@ -186,6 +330,54 @@
     },
     {
       "key": {
+        "uuid": "7c7f5687_40ada742",
+        "filename": "modules/audio_processing/aec3/stationarity_estimator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-04-27T08:51:44Z",
+      "side": 1,
+      "message": "I changed the type of the kLongWindowSize constant to be consistent with the rest of the code.",
+      "parentUuid": "2b213f6d_a08bba7c",
+      "range": {
+        "startLine": 57,
+        "startChar": 54,
+        "endLine": 57,
+        "endChar": 59
+      },
+      "revId": "089f1af09a26470435ae1538fa41989a509b44e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2805610e_23768e07",
+        "filename": "modules/audio_processing/aec3/stationarity_estimator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-04-27T08:51:44Z",
+      "side": 1,
+      "message": "Please, see my previous comment for not doing the change in this cl.",
+      "parentUuid": "f3fa5a60_ce4d52ee",
+      "range": {
+        "startLine": 57,
+        "startChar": 2,
+        "endLine": 57,
+        "endChar": 5
+      },
+      "revId": "089f1af09a26470435ae1538fa41989a509b44e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "efa566d0_cf7452cd",
         "filename": "modules/audio_processing/aec3/stationarity_estimator.cc",
         "patchSetId": 2
@@ -206,6 +398,30 @@
       "revId": "089f1af09a26470435ae1538fa41989a509b44e7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9abc43f3_ab2b47a7",
+        "filename": "modules/audio_processing/aec3/stationarity_estimator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-04-27T08:51:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "efa566d0_cf7452cd",
+      "range": {
+        "startLine": 58,
+        "startChar": 6,
+        "endLine": 58,
+        "endChar": 15
+      },
+      "revId": "089f1af09a26470435ae1538fa41989a509b44e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -232,6 +448,30 @@
     },
     {
       "key": {
+        "uuid": "a1923f85_cadaba28",
+        "filename": "modules/audio_processing/aec3/stationarity_estimator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-04-27T08:51:44Z",
+      "side": 1,
+      "message": "I changed the type for avoiding the cast.",
+      "parentUuid": "a04f91ef_232326fa",
+      "range": {
+        "startLine": 60,
+        "startChar": 30,
+        "endLine": 60,
+        "endChar": 35
+      },
+      "revId": "089f1af09a26470435ae1538fa41989a509b44e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bf9d5656_88374009",
         "filename": "modules/audio_processing/aec3/stationarity_estimator.cc",
         "patchSetId": 2
@@ -255,6 +495,30 @@
     },
     {
       "key": {
+        "uuid": "a947cfa8_487c561b",
+        "filename": "modules/audio_processing/aec3/stationarity_estimator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-04-27T08:51:44Z",
+      "side": 1,
+      "message": "I added the comment. I also make the indexes_ array a local array to this function. I think it is much clearer now that the only function that needs that information is the EstimateBandStationarity one (plus no need to keep it in the state).",
+      "parentUuid": "bf9d5656_88374009",
+      "range": {
+        "startLine": 65,
+        "startChar": 2,
+        "endLine": 65,
+        "endChar": 30
+      },
+      "revId": "089f1af09a26470435ae1538fa41989a509b44e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "10a0c0f9_eef97351",
         "filename": "modules/audio_processing/aec3/stationarity_estimator.cc",
         "patchSetId": 2
@@ -275,6 +539,30 @@
       "revId": "089f1af09a26470435ae1538fa41989a509b44e7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "09b9e50d_e34cff2b",
+        "filename": "modules/audio_processing/aec3/stationarity_estimator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-04-27T08:51:44Z",
+      "side": 1,
+      "message": "Ups, thanks for pointing it out.",
+      "parentUuid": "10a0c0f9_eef97351",
+      "range": {
+        "startLine": 84,
+        "startChar": 8,
+        "endLine": 84,
+        "endChar": 17
+      },
+      "revId": "089f1af09a26470435ae1538fa41989a509b44e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

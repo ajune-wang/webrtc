@@ -142,6 +142,24 @@
     },
     {
       "key": {
+        "uuid": "4e6319bb_9e236e66",
+        "filename": "rtc_base/network_constants.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-27T01:15:07Z",
+      "side": 1,
+      "message": "Actually, I think it should be acceptable to treat \"VPN\" as a standalone type, since that\u0027s the way it\u0027s worked until now (on the platforms that actually did return ADAPTER_TYPE_VPN).\n\nBut we probably will want to revisit this at some point.",
+      "parentUuid": "3f86b726_1ddd0216",
+      "revId": "ab297a2d175cca82f3bd82c90477895fa45157be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d60148a2_7add879f",
         "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
         "patchSetId": 3

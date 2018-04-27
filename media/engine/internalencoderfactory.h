@@ -20,12 +20,18 @@ namespace webrtc {
 
 class InternalEncoderFactory : public VideoEncoderFactory {
  public:
+  InternalEncoderFactory();
+  ~InternalEncoderFactory() override;
+
   std::vector<SdpVideoFormat> GetSupportedFormats() const override;
 
   CodecInfo QueryVideoEncoder(const SdpVideoFormat& format) const override;
 
   std::unique_ptr<VideoEncoder> CreateVideoEncoder(
       const SdpVideoFormat& format) override;
+
+ private:
+  const std::unique_ptr<VideoEncoderFactory> default_encoder_factory_;
 };
 
 }  // namespace webrtc

@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "b7592690_9b634904",
+        "filename": "rtc_base/openssladapter.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 973,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2018-04-27T23:48:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8605769c_a9ea9e7c",
+      "range": {
+        "startLine": 973,
+        "startChar": 0,
+        "endLine": 973,
+        "endChar": 66
+      },
+      "revId": "65c520298f11a599be531d8ec379e466df0c4a62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d78adbbe_2609ef25",
         "filename": "rtc_base/opensslcertificate.h",
         "patchSetId": 8

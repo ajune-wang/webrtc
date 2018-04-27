@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.webrtc.NetworkMonitorAutoDetect.ConnectionType;
 import org.webrtc.NetworkMonitorAutoDetect.NetworkInformation;
+import org.webrtc.NetworkMonitorAutoDetect.NetworkState;
 
 /**
  * Borrowed from Chromium's
@@ -91,8 +92,10 @@ public class NetworkMonitor {
       if (autoDetect == null) {
         autoDetect = createAutoDetect(applicationContext);
       }
+      NetworkState currentNetworkState = autoDetect.getCurrentNetworkState();
       currentConnectionType =
-          NetworkMonitorAutoDetect.getConnectionType(autoDetect.getCurrentNetworkState());
+          NetworkMonitorAutoDetect.getConnectionType(currentNetworkState.isConnected(),
+              currentNetworkState.getNetworkType(), currentNetworkState.getNetworkSubType());
     }
   }
 

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aca079a1_1d3649aa",
+        "filename": "sdk/android/api/org/webrtc/VideoCapturer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-04-27T14:21:45Z",
+      "side": 1,
+      "message": "nit: Can you update |someCode| -\u003e {@code someCode}",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 46
+      },
+      "revId": "f855233ff37bc6b2cc87c7113753d329ea5d2dab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

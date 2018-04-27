@@ -46,6 +46,30 @@
       "revId": "29a8d10138bc11791fbdf26165623ee6dc044881",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0c3d500_df47c6ed",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-04-27T07:38:24Z",
+      "side": 0,
+      "message": "Yes, it affects on start as well since the transport is started in a paused state. Although, this depends on how the rest is implemented. With the non-TQ version of SSCC, what should happen is that when the first stream is added, bitrate allocator will get a bitrate from SSCC. With the async SSCC, this is subject to a race condition and it depends on whether the callback from SSCC or the addition of the second stream happens first.",
+      "parentUuid": "c1a0a8be_ad16d451",
+      "range": {
+        "startLine": 244,
+        "startChar": 22,
+        "endLine": 244,
+        "endChar": 37
+      },
+      "revId": "29a8d10138bc11791fbdf26165623ee6dc044881",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -702,6 +702,56 @@ hooks = [
                'download'
     ],
   },
+  {
+      # Copy required dependencies from special folder on linux
+      'name': 'Third party cleanup',
+      'pattern': '.',
+      'condition': 'checkout_linux and not checkout_android',
+      'action': ['python',
+                 'src/deps_copy_hook.py',
+                 '--platform', 'linux',
+      ],
+    },
+    {
+      # Copy required dependencies from special folder on android
+      'name': 'Third party cleanup',
+      'pattern': '.',
+      'condition': 'checkout_android',
+      'action': ['python',
+                 'src/deps_copy_hook.py',
+                 '--platform', 'android',
+      ],
+    },
+    {
+      # Copy required dependencies from special folder on mac
+      'name': 'Third party cleanup',
+      'pattern': '.',
+      'condition': 'checkout_mac',
+      'action': ['python',
+                 'src/deps_copy_hook.py',
+                 '--platform', 'mac',
+      ],
+    },
+    {
+      # Copy required dependencies from special folder on ios
+      'name': 'Third party cleanup',
+      'pattern': '.',
+      'condition': 'checkout_ios',
+      'action': ['python',
+                 'src/deps_copy_hook.py',
+                 '--platform', 'ios',
+      ],
+    },
+    {
+      # Copy required dependencies from special folder on win
+      'name': 'Third party cleanup',
+      'pattern': '.',
+      'condition': 'checkout_win',
+      'action': ['python',
+                 'src/deps_copy_hook.py',
+                 '--platform', 'win',
+      ],
+    },
 ]
 
 recursedeps = [

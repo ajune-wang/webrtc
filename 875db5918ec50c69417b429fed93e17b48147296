@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b1e3263e_42e04d36",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal_unittest.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-27T05:43:09Z",
+      "side": 1,
+      "message": "It is ok as it is now, but when the testdata are this long, I think it is preferable to put the into binary files instead of putting them in the source files.",
+      "revId": "875db5918ec50c69417b429fed93e17b48147296",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb56763b_2de6cddd",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal_unittest.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-27T05:43:09Z",
+      "side": 1,
+      "message": "All of this data is stored in a float array, but the constants are not specified as floats. It may be fine with the specified precision though.",
+      "range": {
+        "startLine": 27,
+        "startChar": 5,
+        "endLine": 27,
+        "endChar": 17
+      },
+      "revId": "875db5918ec50c69417b429fed93e17b48147296",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

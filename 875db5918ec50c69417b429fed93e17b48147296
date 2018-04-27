@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "883f769c_5e30b7cb",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal_unittest.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-27T08:58:18Z",
+      "side": 1,
+      "message": "Right, TODO added. I will go through all these TODO I\u0027ve been adding with a few final polishing CLs.",
+      "parentUuid": "b1e3263e_42e04d36",
+      "revId": "875db5918ec50c69417b429fed93e17b48147296",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bb56763b_2de6cddd",
         "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal_unittest.cc",
         "patchSetId": 17
@@ -39,6 +57,30 @@
       "revId": "875db5918ec50c69417b429fed93e17b48147296",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4808af1_106c2ef0",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal_unittest.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-04-27T08:58:18Z",
+      "side": 1,
+      "message": "Fixed",
+      "parentUuid": "bb56763b_2de6cddd",
+      "range": {
+        "startLine": 27,
+        "startChar": 5,
+        "endLine": 27,
+        "endChar": 17
+      },
+      "revId": "875db5918ec50c69417b429fed93e17b48147296",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -1,0 +1,280 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fe80a0ee_fd960b33",
+        "filename": "modules/audio_processing/aec3/echo_audibility.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-04-27T06:20:38Z",
+      "side": 1,
+      "message": "Nit: Update -\u003e Updates\nhttps://google.github.io/styleguide/cppguide.html#Function_Comments:\n\"comments should be descriptive (\"Opens the file\") rather than imperative (\"Open the file\")\"",
+      "range": {
+        "startLine": 58,
+        "startChar": 5,
+        "endLine": 58,
+        "endChar": 11
+      },
+      "revId": "089f1af09a26470435ae1538fa41989a509b44e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c25000a0_ee64d15d",
+        "filename": "modules/audio_processing/aec3/echo_audibility.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-04-27T06:20:38Z",
+      "side": 1,
+      "message": "Update -\u003e Updates",
+      "range": {
+        "startLine": 62,
+        "startChar": 5,
+        "endLine": 62,
+        "endChar": 11
+      },
+      "revId": "089f1af09a26470435ae1538fa41989a509b44e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ee64874_f977b336",
+        "filename": "modules/audio_processing/aec3/render_buffer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-04-27T06:20:38Z",
+      "side": 1,
+      "message": "int -\u003e size_t is usually the correct thing to do for counters and indices.",
+      "range": {
+        "startLine": 49,
+        "startChar": 46,
+        "endLine": 49,
+        "endChar": 49
+      },
+      "revId": "089f1af09a26470435ae1538fa41989a509b44e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d0eeb75_426bbe24",
+        "filename": "modules/audio_processing/aec3/render_buffer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-04-27T06:20:38Z",
+      "side": 1,
+      "message": "Nit: Apply -\u003e Applies, return -\u003e returns",
+      "range": {
+        "startLine": 68,
+        "startChar": 5,
+        "endLine": 68,
+        "endChar": 10
+      },
+      "revId": "089f1af09a26470435ae1538fa41989a509b44e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87dcad28_ad936899",
+        "filename": "modules/audio_processing/aec3/render_buffer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-04-27T06:20:38Z",
+      "side": 1,
+      "message": "Again, int -\u003e size_t is usually the correct thing to do for counters and indices.",
+      "range": {
+        "startLine": 69,
+        "startChar": 26,
+        "endLine": 69,
+        "endChar": 47
+      },
+      "revId": "089f1af09a26470435ae1538fa41989a509b44e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "871c0f94_ebea2ec1",
+        "filename": "modules/audio_processing/aec3/stationarity_estimator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-04-27T06:20:38Z",
+      "side": 1,
+      "message": "These look like indices and counters. Should probably by size_t.",
+      "range": {
+        "startLine": 55,
+        "startChar": 4,
+        "endLine": 56,
+        "endChar": 21
+      },
+      "revId": "089f1af09a26470435ae1538fa41989a509b44e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b213f6d_a08bba7c",
+        "filename": "modules/audio_processing/aec3/stationarity_estimator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-04-27T06:20:38Z",
+      "side": 1,
+      "message": "Use static_cast in C++ code.",
+      "range": {
+        "startLine": 57,
+        "startChar": 54,
+        "endLine": 57,
+        "endChar": 59
+      },
+      "revId": "089f1af09a26470435ae1538fa41989a509b44e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3fa5a60_ce4d52ee",
+        "filename": "modules/audio_processing/aec3/stationarity_estimator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-04-27T06:20:38Z",
+      "side": 1,
+      "message": "It looks to me that all the int variables you are creating in this function are indices, which can never be negative. If that is true, I would suggest using size_t instead, and save yourself the casts.",
+      "range": {
+        "startLine": 57,
+        "startChar": 2,
+        "endLine": 57,
+        "endChar": 5
+      },
+      "revId": "089f1af09a26470435ae1538fa41989a509b44e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "efa566d0_cf7452cd",
+        "filename": "modules/audio_processing/aec3/stationarity_estimator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-04-27T06:20:38Z",
+      "side": 1,
+      "message": "You don\u0027t need the special variable for the starting index. I think the code will be equally readable if you simply declare and use idx from here.",
+      "range": {
+        "startLine": 58,
+        "startChar": 6,
+        "endLine": 58,
+        "endChar": 15
+      },
+      "revId": "089f1af09a26470435ae1538fa41989a509b44e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a04f91ef_232326fa",
+        "filename": "modules/audio_processing/aec3/stationarity_estimator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-04-27T06:20:38Z",
+      "side": 1,
+      "message": "static cast",
+      "range": {
+        "startLine": 60,
+        "startChar": 30,
+        "endLine": 60,
+        "endChar": 35
+      },
+      "revId": "089f1af09a26470435ae1538fa41989a509b44e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf9d5656_88374009",
+        "filename": "modules/audio_processing/aec3/stationarity_estimator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-04-27T06:20:38Z",
+      "side": 1,
+      "message": "A comment about what this for loop does would be nice.",
+      "range": {
+        "startLine": 65,
+        "startChar": 2,
+        "endLine": 65,
+        "endChar": 30
+      },
+      "revId": "089f1af09a26470435ae1538fa41989a509b44e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10a0c0f9_eef97351",
+        "filename": "modules/audio_processing/aec3/stationarity_estimator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-04-27T06:20:38Z",
+      "side": 1,
+      "message": "Bonus points for fixing naming style violation: acumPower -\u003e acum_power",
+      "range": {
+        "startLine": 84,
+        "startChar": 8,
+        "endLine": 84,
+        "endChar": 17
+      },
+      "revId": "089f1af09a26470435ae1538fa41989a509b44e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "76483472_822f2382",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-27T20:14:39Z",
+      "side": 1,
+      "message": "A high level summary of what\u0027s changing would be helpful. For example:\n\n\"Previously, native Android applications would classify VPNs as either type \"ADAPTER_TYPE_UNKNOWN\", or the type of the currently active network (which we assume the VPN is using). Now, they\u0027ll be classified as \"ADAPTER_TYPE_VPN\" whenever possible, separately storing the underlying network type (if the VPN tells us) and using that to prioritize ICE candidates.\n\nThis allows ADAPTER_TYPE_VPN to be used in networkIgnoreMask, to ignore VPNs when gathering ICE candidates.\"",
+      "revId": "a9ea332f0e6ebd32b3a49d5da506b3e935db36b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "149f5a4c_a295f1ec",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-04-27T20:14:39Z",
+      "side": 1,
+      "message": "I still feel like it would be difficult for someone new to this code to understand what\u0027s going on by reading these comments. It be helpful to have a summary the undocumented behavior of getNetworkInfo/getActiveNetworkInfo regarding VPNs, explaining *why* we need to do all this.",
+      "revId": "a9ea332f0e6ebd32b3a49d5da506b3e935db36b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

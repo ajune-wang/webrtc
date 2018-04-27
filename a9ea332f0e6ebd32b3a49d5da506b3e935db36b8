@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d436336a_13b76d10",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-27T21:25:57Z",
+      "side": 1,
+      "message": "Very helpful summary. Merged in the message.",
+      "parentUuid": "76483472_822f2382",
+      "revId": "a9ea332f0e6ebd32b3a49d5da506b3e935db36b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "149f5a4c_a295f1ec",
         "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
         "patchSetId": 10
@@ -33,6 +51,24 @@
       "revId": "a9ea332f0e6ebd32b3a49d5da506b3e935db36b8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f26a3d5_feb3503e",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-04-27T21:25:57Z",
+      "side": 1,
+      "message": "I found we may need a discussion to agree on the wording of the description, depending on how we understand the android sources. I will land the behavioral change first with the following draft summary. We can follow up with a CL to change the description of VPN related code in this file after a discussion.\n\n\"The general logic of handling a VPN in this method is as follows. getNetworkInfo will return the info of the network with the same id as in |network| when it is registered via ConnectivityManager.registerNetworkAgent in Android. |networkInfo| may or may not indicate the type TYPE_VPN if |network| is a VPN. To reliably detect the VPN interface, we need to query the network capability as below in the case when networkInfo.getType() is not TYPE_VPN. On the other hand when networkInfo.getType() is TYPE_VPN, the only solution so far to obtain the underlying network information is to query the active network interface. However, the active network interface may not be used for the VPN, for  example, if the VPN is restricted to WiFi by the implementation but the WiFi interface is currently turned off and the active interface is the Cell. Using directly the result from getActiveNetworkInfo may thus give the wrong interface information, and one should note that getActiveNetworkInfo would return the default network interface if the VPN does not specify its underlying networks in the implementation. Therefore, we need further compare |network| to the active network. If they are not the same network, we will have to fall back to report an unknown network.\"",
+      "parentUuid": "149f5a4c_a295f1ec",
+      "revId": "a9ea332f0e6ebd32b3a49d5da506b3e935db36b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

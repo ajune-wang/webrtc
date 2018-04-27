@@ -2361,8 +2361,11 @@ RTCError PeerConnection::ApplyRemoteDescription(
 
   if (IsUnifiedPlan()) {
     std::vector<rtc::scoped_refptr<RtpTransceiverInterface>>
-        receiving_transceivers;
+        now_receiving_transceivers;
+    std::vector<rtc::scoped_refptr<RtpTransceiverInterface>>
+        no_longer_receiving_transceivers;
     std::vector<rtc::scoped_refptr<MediaStreamInterface>> added_streams;
+    std::vector<rtc::scoped_refptr<MediaStreamInterface>> removed_streams;
     for (auto transceiver : transceivers_) {
       const ContentInfo* content =
           FindMediaSectionForTransceiver(transceiver, remote_description());
@@ -2402,7 +2405,7 @@ RTCError PeerConnection::ApplyRemoteDescription(
           media_streams.push_back(stream);
         }
         transceiver->internal()->receiver_internal()->SetStreams(media_streams);
-        receiving_transceivers.push_back(transceiver);
+        now_receiving_transceivers.push_back(transceiver);
       }
       // If direction is sendonly or inactive, and transceiver's current
       // direction is neither sendonly nor inactive, process the removal of a
@@ -2412,7 +2415,19 @@ RTCError PeerConnection::ApplyRemoteDescription(
            RtpTransceiverDirectionHasRecv(*transceiver->current_direction()))) {
         RTC_LOG(LS_INFO) << "Processing the removal of a track for MID="
                          << content->name;
+        std::vector<rtc::scoped_refptr<MediaStreamInterface>> media_streams =
+            transceiver->internal()->receiver_internal()->streams();
+
         transceiver->internal()->receiver_internal()->SetStreams({});
+        no_longer_receiving_transceivers.push_back(transceiver);
+        // Remove any streams that no longer have tracks.
+        for (auto stream : media_streams) {
+          if (stream->GetAudioTracks().empty() &&
+              stream->GetVideoTracks().empty()) {
+            remote_streams_->RemoveStream(stream);
+            removed_streams.push_back(stream);
+          }
+        }
       }
       if (type == SdpType::kPrAnswer || type == SdpType::kAnswer) {
         transceiver->internal()->set_current_direction(local_direction);
@@ -2434,7 +2449,7 @@ RTCError PeerConnection::ApplyRemoteDescription(
       }
     }
     // Once all processing has finished, fire off callbacks.
-    for (auto transceiver : receiving_transceivers) {
+    for (auto transceiver : now_receiving_transceivers) {
       stats_->AddTrack(transceiver->receiver()->track());
       observer_->OnTrack(transceiver);
       observer_->OnAddTrack(transceiver->receiver(),
@@ -2442,6 +2457,12 @@ RTCError PeerConnection::ApplyRemoteDescription(
     }
     for (auto stream : added_streams) {
       observer_->OnAddStream(stream);
+    }
+    for (auto transceiver : no_longer_receiving_transceivers) {
+      observer_->OnRemoveTrack(transceiver->receiver());
+    }
+    for (auto stream : removed_streams) {
+      observer_->OnRemoveStream(stream);
     }
   }
 

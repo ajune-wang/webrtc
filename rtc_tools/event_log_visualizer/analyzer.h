@@ -19,11 +19,16 @@
 #include <vector>
 
 #include "logging/rtc_event_log/rtc_event_log_parser_new.h"
+#include "modules/audio_coding/neteq/tools/neteq_stats_getter.h"
 #include "rtc_base/strings/string_builder.h"
 #include "rtc_tools/event_log_visualizer/plot_base.h"
 #include "rtc_tools/event_log_visualizer/triage_notifications.h"
 
 namespace webrtc {
+
+namespace test {
+class NetEqStatsGetter;
+}
 
 class EventLogAnalyzer {
  public:
@@ -70,10 +75,13 @@ class EventLogAnalyzer {
   void CreateAudioEncoderEnableFecGraph(Plot* plot);
   void CreateAudioEncoderEnableDtxGraph(Plot* plot);
   void CreateAudioEncoderNumChannelsGraph(Plot* plot);
-  void CreateAudioJitterBufferGraph(const std::string& replacement_file_name,
-                                    int file_sample_rate_hz,
-                                    Plot* plot);
-
+  std::map<uint32_t, std::unique_ptr<test::NetEqStatsGetter>> SimulateNetEq(
+      const std::string& replacement_file_name,
+      int file_sample_rate_hz) const;
+  void CreateAudioJitterBufferGraph(
+      const std::map<uint32_t, std::unique_ptr<test::NetEqStatsGetter>>&
+          neteq_stats_getters,
+      Plot* plot) const;
   void CreateIceCandidatePairConfigGraph(Plot* plot);
   void CreateIceConnectivityCheckGraph(Plot* plot);
 

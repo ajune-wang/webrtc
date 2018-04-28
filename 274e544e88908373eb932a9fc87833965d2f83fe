@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3b699123_dad64249",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1575,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-04-28T19:49:40Z",
+      "side": 1,
+      "message": "you may argue that the introduction of this method is irrelevant to this CL. My thought is that, I need to have a function to change \\emph{packet time to log time}, so as to align Neteq stats graph with other graphs. This function better belongs together with the place where \\emph{log time is converted to packet time}, i.e., in class NetEqStreamInput. So I would introduce both LogTimeToPacketTime and PacketTimeToLogTime in this class.",
+      "range": {
+        "startLine": 1575,
+        "startChar": 17,
+        "endLine": 1575,
+        "endChar": 36
+      },
+      "revId": "274e544e88908373eb932a9fc87833965d2f83fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

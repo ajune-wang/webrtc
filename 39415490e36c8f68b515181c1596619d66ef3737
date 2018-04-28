@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8cfa3419_9747dd64",
+        "filename": "modules/audio_coding/neteq/tools/neteq_input.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-04-28T19:49:40Z",
+      "side": 1,
+      "message": "This is to unify the conversion of us to me, i.e., devision of 1000 in integer domain.",
+      "range": {
+        "startLine": 35,
+        "startChar": 4,
+        "endLine": 35,
+        "endChar": 11
+      },
+      "revId": "39415490e36c8f68b515181c1596619d66ef3737",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

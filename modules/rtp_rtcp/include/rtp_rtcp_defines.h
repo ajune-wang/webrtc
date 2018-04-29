@@ -429,10 +429,13 @@ class PacketFeedbackObserver {
 class RtcpRttStats {
  public:
   virtual void OnRttUpdate(int64_t rtt) = 0;
+  virtual void RegisterStatsObserver(CallStatsObserver* observer) = 0;
+  virtual void DeregisterStatsObserver(CallStatsObserver* observer) = 0;
 
-  virtual int64_t LastProcessedRtt() const = 0;
-
-  virtual ~RtcpRttStats() {}
+ protected:
+  // Protected since the object should not be deleted via the RtcpRttStats
+  // interface.
+  virtual ~RtcpRttStats() = default;
 };
 
 // Null object version of RtpFeedback.

@@ -115,71 +115,47 @@ void CallStats::Process() {
   RTC_DCHECK_RUN_ON(&task_queue_checker_);
   int64_t now = clock_->TimeInMilliseconds();
 
-  int64_t avg_rtt_ms = avg_rtt_ms_;
   RemoveOldReports(now, &reports_);
   max_rtt_ms_ = GetMaxRttMs(reports_);
-  avg_rtt_ms = GetNewAvgRttMs(reports_, avg_rtt_ms);
-  {
-    rtc::CritScope lock(&avg_rtt_ms_lock_);
-    avg_rtt_ms_ = avg_rtt_ms;
-  }
+  avg_rtt_ms_ = GetNewAvgRttMs(reports_, avg_rtt_ms_);
 
   // If there is a valid rtt, update all observers with the max rtt.
   if (max_rtt_ms_ >= 0) {
-    RTC_DCHECK_GE(avg_rtt_ms, 0);
+    RTC_DCHECK_GE(avg_rtt_ms_, 0);
     for (CallStatsObserver* observer : observers_)
-      observer->OnRttUpdate(avg_rtt_ms, max_rtt_ms_);
+      observer->OnRttUpdate(avg_rtt_ms_, max_rtt_ms_);
     // Sum for Histogram of average RTT reported over the entire call.
-    sum_avg_rtt_ms_ += avg_rtt_ms;
+    sum_avg_rtt_ms_ += avg_rtt_ms_;
     ++num_avg_rtt_;
   }
 }
 
 void CallStats::RegisterStatsObserver(CallStatsObserver* observer) {
-  RTC_DCHECK_RUN_ON(&construction_thread_checker_);
-  task_queue_->PostTask([this, observer]() {
-    RTC_DCHECK_RUN_ON(&task_queue_checker_);
-    auto it = std::find(observers_.begin(), observers_.end(), observer);
-    if (it == observers_.end())
-      observers_.push_back(observer);
+  // In most cases this function is called on the construction thread, in the
+  // case of e.g. ModuleRtpRtcpImpl, it runs on call_worker_queue
+  if (task_queue_->IsCurrent()) {
+    RegisterStatsObserverOnTQ(observer);
+    return;
+  }
 
-    if (!delayed_task_) {
-      delayed_task_ =
-          new DelayedTask(this, rtc::NewClosure([this]() { Process(); }));
-      task_queue_->PostDelayedTask(
-          std::unique_ptr<rtc::QueuedTask>(delayed_task_), update_interval_);
-    }
-  });
+  RTC_DCHECK_RUN_ON(&construction_thread_checker_);
+  task_queue_->PostTask(
+      [this, observer]() { RegisterStatsObserverOnTQ(observer); });
 }
 
 void CallStats::DeregisterStatsObserver(CallStatsObserver* observer) {
+  if (task_queue_->IsCurrent()) {
+    DeregisterStatsObserverOnTQ(observer);
+    return;
+  }
+
   RTC_DCHECK_RUN_ON(&construction_thread_checker_);
   rtc::Event event(false, false);
   task_queue_->PostTask([this, observer, &event]() {
-    RTC_DCHECK_RUN_ON(&task_queue_checker_);
-    observers_.remove(observer);
-    if (observers_.empty()) {
-      if (delayed_task_) {
-        // TODO(tommi): This has the side effet that |avg_rtt_ms_| won't
-        // get updated. Is that polling design necessary?
-        delayed_task_->Stop();
-        delayed_task_ = nullptr;
-      }
-      UpdateHistograms();
-    }
+    DeregisterStatsObserverOnTQ(observer);
     event.Set();
   });
   event.Wait(rtc::Event::kForever);
-}
-
-int64_t CallStats::LastProcessedRtt() const {
-  // TODO(tommi): Is this method needed? RtcpRttStats provides this value
-  // asynchronously, does it also need to provide it synchronously?
-  // TODO(tommi): Check if this method is always called on the task queue.
-  rtc::CritScope cs(&avg_rtt_ms_lock_);
-  // TODO(tommi): This value only gets updated as long as there are observers
-  // attached. Consider removing LastProcessedRtt from the interface.
-  return avg_rtt_ms_;
 }
 
 void CallStats::OnRttUpdate(int64_t rtt) {
@@ -207,6 +183,35 @@ void CallStats::UpdateHistograms() {
     RTC_HISTOGRAM_COUNTS_10000(
         "WebRTC.Video.AverageRoundTripTimeInMilliseconds", avg_rtt_ms);
   }
+}
+
+void CallStats::RegisterStatsObserverOnTQ(CallStatsObserver* observer) {
+  RTC_DCHECK_RUN_ON(&task_queue_checker_);
+  auto it = std::find(observers_.begin(), observers_.end(), observer);
+  if (it == observers_.end())
+    observers_.push_back(observer);
+
+  if (!delayed_task_) {
+    delayed_task_ =
+        new DelayedTask(this, rtc::NewClosure([this]() { Process(); }));
+    task_queue_->PostDelayedTask(
+        std::unique_ptr<rtc::QueuedTask>(delayed_task_), update_interval_);
+  }
+}
+
+void CallStats::DeregisterStatsObserverOnTQ(CallStatsObserver* observer) {
+  RTC_DCHECK_RUN_ON(&task_queue_checker_);
+  observers_.remove(observer);
+  if (!observers_.empty())
+    return;
+
+  if (delayed_task_) {
+    // TODO(tommi): This has the side effet that |avg_rtt_ms_| won't
+    // get updated. Is that polling design necessary?
+    delayed_task_->Stop();
+    delayed_task_ = nullptr;
+  }
+  UpdateHistograms();
 }
 
 }  // namespace webrtc

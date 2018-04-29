@@ -66,12 +66,10 @@ TEST_F(CallStatsTest, AddAndTriggerCallback) {
 
   RtcpRttStats* rtcp_rtt_stats = &call_stats;
   call_stats.RegisterStatsObserver(&stats_observer);
-  EXPECT_EQ(-1, rtcp_rtt_stats->LastProcessedRtt());
 
   rtcp_rtt_stats->OnRttUpdate(kRtt);
 
   EXPECT_TRUE(event.Wait(1000));
-  EXPECT_EQ(kRtt, rtcp_rtt_stats->LastProcessedRtt());
 
   call_stats.DeregisterStatsObserver(&stats_observer);
 }
@@ -236,31 +234,6 @@ TEST_F(CallStatsTest, ChangeRtt) {
 
   // Trigger the first rtt value and set off the chain of callbacks.
   rtcp_rtt_stats->OnRttUpdate(kFirstRtt);  // Reported at T0 (0ms).
-  EXPECT_TRUE(event.Wait(1000));
-
-  call_stats.DeregisterStatsObserver(&stats_observer);
-}
-
-TEST_F(CallStatsTest, LastProcessedRtt) {
-  static constexpr const int64_t kInterval = 1;
-  CallStats call_stats{&fake_clock_, task_queue_.get(), kInterval};
-  rtc::Event event(false, false);
-  MockStatsObserver stats_observer;
-  call_stats.RegisterStatsObserver(&stats_observer);
-  RtcpRttStats* rtcp_rtt_stats = &call_stats;
-
-  static constexpr const int64_t kExpectedRtt = 123;
-
-  EXPECT_CALL(stats_observer, OnRttUpdate(_, _))
-      .Times(1)
-      .WillOnce(WithArg<0>(Invoke([rtcp_rtt_stats, &event](int64_t rtt) {
-        EXPECT_EQ(kExpectedRtt, rtcp_rtt_stats->LastProcessedRtt());
-        EXPECT_EQ(kExpectedRtt, rtt);
-        event.Set();
-      })));
-
-  fake_clock_.AdvanceTimeMilliseconds(kInterval);
-  rtcp_rtt_stats->OnRttUpdate(kExpectedRtt);
   EXPECT_TRUE(event.Wait(1000));
 
   call_stats.DeregisterStatsObserver(&stats_observer);

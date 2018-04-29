@@ -22,6 +22,8 @@ class MockRtcpRttStats : public RtcpRttStats {
   ~MockRtcpRttStats();
 
   MOCK_METHOD1(OnRttUpdate, void(int64_t rtt));
+  MOCK_METHOD1(RegisterStatsObserver, void(CallStatsObserver* observer));
+  MOCK_METHOD1(DeregisterStatsObserver, void(CallStatsObserver* observer));
   MOCK_CONST_METHOD0(LastProcessedRtt, int64_t());
 };
 }  // namespace webrtc

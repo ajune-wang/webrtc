@@ -52,6 +52,7 @@ VideoReceiver::VideoReceiver(Clock* clock,
       _keyRequestTimer(500, clock_) {
   decoder_thread_checker_.DetachFromThread();
   module_thread_checker_.DetachFromThread();
+  worker_queue_checker_.Detach();
 }
 
 VideoReceiver::~VideoReceiver() {
@@ -135,7 +136,7 @@ int64_t VideoReceiver::TimeUntilNextProcess() {
 }
 
 int32_t VideoReceiver::SetReceiveChannelParameters(int64_t rtt) {
-  RTC_DCHECK_RUN_ON(&module_thread_checker_);
+  RTC_DCHECK_RUN_ON(&worker_queue_checker_);
   _receiver.UpdateRtt(rtt);
   return 0;
 }

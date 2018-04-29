@@ -53,8 +53,7 @@ class VideoSendStreamImplTest : public ::testing::Test {
         send_delay_stats_(&clock_),
         retransmission_limiter_(&clock_, 1000),
         test_queue_("test_queue"),
-        process_thread_(ProcessThread::Create("test_thread")),
-        call_stats_(&clock_, process_thread_.get()),
+        call_stats_(&clock_, &test_queue_),
         stats_proxy_(&clock_,
                      config_,
                      VideoEncoderConfig::ContentType::kRealtimeVideo) {
@@ -98,7 +97,6 @@ class VideoSendStreamImplTest : public ::testing::Test {
   SendDelayStats send_delay_stats_;
   RateLimiter retransmission_limiter_;
   rtc::test::TaskQueueForTest test_queue_;
-  std::unique_ptr<ProcessThread> process_thread_;
   CallStats call_stats_;
   SendStatisticsProxy stats_proxy_;
   PacketRouter packet_router_;

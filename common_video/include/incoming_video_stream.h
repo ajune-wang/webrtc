@@ -14,6 +14,7 @@
 #include "api/videosinkinterface.h"
 #include "common_video/video_render_frames.h"
 #include "rtc_base/race_checker.h"
+#include "rtc_base/sequenced_task_checker.h"
 #include "rtc_base/task_queue.h"
 
 namespace webrtc {
@@ -31,7 +32,7 @@ class IncomingVideoStream : public rtc::VideoSinkInterface<VideoFrame> {
   // Fwd decl of a QueuedTask implementation for carrying frames over to the TQ.
   class NewFrameTask;
 
-  rtc::ThreadChecker main_thread_checker_;
+  rtc::SequencedTaskChecker main_sequence_checker_;
   rtc::RaceChecker decoder_race_checker_;
 
   VideoRenderFrames render_buffers_;  // Only touched on the TaskQueue.

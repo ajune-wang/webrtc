@@ -121,9 +121,8 @@ TEST_P(ProbingEndToEndTest, TriggerMidCallProbing) {
 
   class TriggerMidCallProbingTest : public ProbingTest {
    public:
-    TriggerMidCallProbingTest(
-        test::SingleThreadedTaskQueueForTesting* task_queue,
-        bool* success)
+    TriggerMidCallProbingTest(rtc::test::TaskQueueForTest* task_queue,
+                              bool* success)
         : ProbingTest(300000), success_(success), task_queue_(task_queue) {}
 
     void PerformTest() override {
@@ -174,7 +173,7 @@ TEST_P(ProbingEndToEndTest, TriggerMidCallProbing) {
    private:
     const int kTimeoutMs = 5000;
     bool* const success_;
-    test::SingleThreadedTaskQueueForTesting* const task_queue_;
+    rtc::test::TaskQueueForTest* const task_queue_;
   };
 
   bool success = false;
@@ -199,8 +198,7 @@ TEST_P(ProbingEndToEndTest, ProbeOnVideoEncoderReconfiguration) {
 
   class ReconfigureTest : public ProbingTest {
    public:
-    ReconfigureTest(test::SingleThreadedTaskQueueForTesting* task_queue,
-                    bool* success)
+    ReconfigureTest(rtc::test::TaskQueueForTest* task_queue, bool* success)
         : ProbingTest(50000), task_queue_(task_queue), success_(success) {}
 
     void ModifyVideoConfigs(
@@ -222,7 +220,7 @@ TEST_P(ProbingEndToEndTest, ProbeOnVideoEncoderReconfiguration) {
     }
 
     test::PacketTransport* CreateSendTransport(
-        test::SingleThreadedTaskQueueForTesting* task_queue,
+        rtc::test::TaskQueueForTest* task_queue,
         Call* sender_call) override {
       send_transport_ = new test::PacketTransport(
           task_queue, sender_call, this, test::PacketTransport::kSender,
@@ -285,7 +283,7 @@ TEST_P(ProbingEndToEndTest, ProbeOnVideoEncoderReconfiguration) {
 
    private:
     const int kTimeoutMs = 3000;
-    test::SingleThreadedTaskQueueForTesting* const task_queue_;
+    rtc::test::TaskQueueForTest* const task_queue_;
     bool* const success_;
     test::PacketTransport* send_transport_;
     VideoSendStream* send_stream_;

@@ -166,7 +166,7 @@ TEST_P(BandwidthEndToEndTest, RembWithSendSideBwe) {
     ~BweObserver() {}
 
     test::PacketTransport* CreateReceiveTransport(
-        test::SingleThreadedTaskQueueForTesting* task_queue) override {
+        rtc::test::TaskQueueForTest* task_queue) override {
       receive_transport_ = new test::PacketTransport(
           task_queue, nullptr, this, test::PacketTransport::kReceiver,
           payload_type_map_, FakeNetworkPipe::Config());
@@ -276,8 +276,7 @@ TEST_P(BandwidthEndToEndTest, ReportsSetEncoderRates) {
   class EncoderRateStatsTest : public test::EndToEndTest,
                                public test::FakeEncoder {
    public:
-    explicit EncoderRateStatsTest(
-        test::SingleThreadedTaskQueueForTesting* task_queue)
+    explicit EncoderRateStatsTest(rtc::test::TaskQueueForTest* task_queue)
         : EndToEndTest(kDefaultTimeoutMs),
           FakeEncoder(Clock::GetRealTimeClock()),
           task_queue_(task_queue),
@@ -350,7 +349,7 @@ TEST_P(BandwidthEndToEndTest, ReportsSetEncoderRates) {
     }
 
    private:
-    test::SingleThreadedTaskQueueForTesting* const task_queue_;
+    rtc::test::TaskQueueForTest* const task_queue_;
     rtc::CriticalSection crit_;
     VideoSendStream* send_stream_;
     test::EncoderProxyFactory encoder_factory_;

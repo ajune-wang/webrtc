@@ -54,7 +54,6 @@ size_t CalculateMaxHeaderSize(const VideoSendStream::Config::Rtp& config) {
 
 namespace internal {
 
-
 VideoSendStream::VideoSendStream(
     int num_cpu_cores,
     ProcessThread* module_process_thread,

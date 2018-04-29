@@ -21,7 +21,7 @@ namespace webrtc {
 namespace test {
 
 LayerFilteringTransport::LayerFilteringTransport(
-    SingleThreadedTaskQueueForTesting* task_queue,
+    rtc::test::TaskQueueForTest* task_queue,
     const FakeNetworkPipe::Config& config,
     Call* send_call,
     uint8_t vp8_video_payload_type,
@@ -41,7 +41,7 @@ LayerFilteringTransport::LayerFilteringTransport(
       ssrc_to_filter_max_(ssrc_to_filter_max) {}
 
 LayerFilteringTransport::LayerFilteringTransport(
-    SingleThreadedTaskQueueForTesting* task_queue,
+    rtc::test::TaskQueueForTest* task_queue,
     std::unique_ptr<FakeNetworkPipe> pipe,
     Call* send_call,
     uint8_t vp8_video_payload_type,
@@ -60,7 +60,7 @@ LayerFilteringTransport::LayerFilteringTransport(
       ssrc_to_filter_max_(ssrc_to_filter_max) {}
 
 LayerFilteringTransport::LayerFilteringTransport(
-    SingleThreadedTaskQueueForTesting* task_queue,
+    rtc::test::TaskQueueForTest* task_queue,
     const FakeNetworkPipe::Config& config,
     Call* send_call,
     uint8_t vp8_video_payload_type,
@@ -78,7 +78,7 @@ LayerFilteringTransport::LayerFilteringTransport(
       ssrc_to_filter_max_(0xFFFFFFFF) {}
 
 LayerFilteringTransport::LayerFilteringTransport(
-    SingleThreadedTaskQueueForTesting* task_queue,
+    rtc::test::TaskQueueForTest* task_queue,
     std::unique_ptr<FakeNetworkPipe> pipe,
     Call* send_call,
     uint8_t vp8_video_payload_type,

@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ff632158_5abd61e2",
+        "filename": "sdk/objc/Framework/Classes/Metal/RTCMTLRGBRenderer.mm",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2018-04-30T09:25:58Z",
+      "side": 1,
+      "message": "This macro could be moved to the RTCMTLRenderer+Private.h maybe?",
+      "revId": "a2ac45b0e6b6bdd0c45d1957dd849bd0759adeae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12b11d9d_8d4c79e1",
+        "filename": "sdk/objc/Framework/Classes/Metal/RTCMTLRGBRenderer.mm",
+        "patchSetId": 5
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2018-04-30T09:25:58Z",
+      "side": 1,
+      "message": "Can this not use true/false values?",
+      "revId": "a2ac45b0e6b6bdd0c45d1957dd849bd0759adeae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c50709a_80a512d7",
+        "filename": "sdk/objc/Framework/Classes/Metal/RTCMTLRGBRenderer.mm",
+        "patchSetId": 5
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2018-04-30T09:25:58Z",
+      "side": 1,
+      "message": "Maybe this method can return YES/NO based on success also.",
+      "range": {
+        "startLine": 71,
+        "startChar": 10,
+        "endLine": 71,
+        "endChar": 32
+      },
+      "revId": "a2ac45b0e6b6bdd0c45d1957dd849bd0759adeae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "407b4dcc_833cf385",
+        "filename": "sdk/objc/Framework/Classes/Metal/RTCMTLRenderer.mm",
+        "patchSetId": 5
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2018-04-30T09:25:58Z",
+      "side": 1,
+      "message": "Do we always want this? Can it be made shorter by using a regex, or does that just add boilerplate?",
+      "revId": "a2ac45b0e6b6bdd0c45d1957dd849bd0759adeae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

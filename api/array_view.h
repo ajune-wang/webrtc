@@ -14,6 +14,7 @@
 #include <algorithm>
 #include <type_traits>
 
+#include "absl/types/span.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/type_traits.h"
 
@@ -92,7 +93,6 @@ enum : std::ptrdiff_t { kArrayViewVarSize = -4711 };
 template <typename T, std::ptrdiff_t Size>
 class ArrayViewBase {
   static_assert(Size > 0, "ArrayView size must be variable or non-negative");
-
  public:
   ArrayViewBase(T* data, size_t size) : data_(data) {}
 

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "01e95238_f9e690a8",
+        "filename": "modules/congestion_controller/network_control/units/data_rate.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-04-30T13:05:34Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5adeb2ba_226e70e0",
+      "range": {
+        "startLine": 40,
+        "startChar": 16,
+        "endLine": 41,
+        "endChar": 12
+      },
+      "revId": "a08e34cea0a780cf5509b8e28cecdea43ef03d23",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a82401d9_b4ea52f9",
         "filename": "modules/congestion_controller/network_control/units/data_size.h",
         "patchSetId": 1
@@ -39,6 +63,24 @@
       "revId": "a08e34cea0a780cf5509b8e28cecdea43ef03d23",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "449f58aa_685d6680",
+        "filename": "modules/congestion_controller/network_control/units/data_size.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-04-30T13:05:34Z",
+      "side": 1,
+      "message": "No, bytes. This follows the convention that we measure sizes in bytes in the code base. Using bits would not make much sense. For the DataRate class it makes sense to use bits, because we usually measure data rates in bits per second, for historical reasons. It\u0027s not an optimal state of things. It probably would make more sense to always measure in bytes, bytes/second (or bits, bits/second), but I think changing the standard here is a bit outside the scope.",
+      "parentUuid": "a82401d9_b4ea52f9",
+      "revId": "a08e34cea0a780cf5509b8e28cecdea43ef03d23",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

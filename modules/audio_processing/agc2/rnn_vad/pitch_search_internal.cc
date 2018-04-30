@@ -16,6 +16,7 @@
 #include <utility>
 
 #include "modules/audio_processing/agc2/rnn_vad/common.h"
+#include "modules/audio_processing/agc2/rnn_vad/pitch_correlation.h"
 #include "rtc_base/checks.h"
 
 namespace webrtc {
@@ -205,18 +206,56 @@ void ComputeSlidingFrameSquareEnergies(
   }
 }
 
-// TODO(bugs.webrtc.org/9076): Optimize using FFT and/or vectorization.
 void ComputePitchAutoCorrelation(
     rtc::ArrayView<const float, kBufSize12kHz> pitch_buf,
     size_t max_pitch_period,
-    rtc::ArrayView<float, kNumInvertedLags12kHz> auto_corr) {
+    rtc::ArrayView<float, kNumInvertedLags12kHz> auto_corr,
+    webrtc::RealFourierOoura* ooura_fft) {
   RTC_DCHECK_GT(max_pitch_period, auto_corr.size());
   RTC_DCHECK_LT(max_pitch_period, pitch_buf.size());
-  // Compute auto-correlation coefficients.
-  for (size_t inv_lag = 0; inv_lag < auto_corr.size(); ++inv_lag) {
-    auto_corr[inv_lag] =
-        ComputeAutoCorrelationCoeff(pitch_buf, inv_lag, max_pitch_period);
+
+  constexpr size_t time_domain_fft_length = 512;
+  constexpr size_t freq_domain_fft_length = time_domain_fft_length / 2 + 1;
+
+  RTC_DCHECK_EQ(RealFourier::FftLength(ooura_fft->order()),
+                time_domain_fft_length);
+
+  // Cross-correlation of y_i=pitch_buf[i:i+convolution_length] and
+  // x=pitch_buf[-convolution_length:] is equivalent to convolution of
+  // y_i and reversed(x). New notation: h=reversed(x), x=y.
+  std::array<float, time_domain_fft_length> h{};
+  std::array<float, time_domain_fft_length> x{};
+
+  const size_t convolution_length = kBufSize12kHz - max_pitch_period;
+
+  // h[0:convolution_length] is reversed pitch_buf[-convolution_length:].
+  std::reverse_copy(pitch_buf.end() - convolution_length, pitch_buf.end(),
+                    h.begin());
+
+  // x is pitch_buf[:kNumInvertedLags12kHz + convolution_length]
+  std::copy(pitch_buf.begin(),
+            pitch_buf.begin() + kNumInvertedLags12kHz + convolution_length,
+            x.begin());
+
+  // Shift to frequency domain.
+  std::array<std::complex<float>, freq_domain_fft_length> X{};
+  std::array<std::complex<float>, freq_domain_fft_length> H{};
+  ooura_fft->Forward(&x[0], &X[0]);
+  ooura_fft->Forward(&h[0], &H[0]);
+
+  // Convolve in frequency domain.
+  for (size_t i = 0; i < X.size(); ++i) {
+    X[i] *= H[i];
   }
+
+  // Shift back to time domain.
+  std::array<float, time_domain_fft_length> x_conv_h;
+  ooura_fft->Inverse(&X[0], &x_conv_h[0]);
+
+  // Collect the result.
+  std::copy(x_conv_h.begin() + convolution_length - 1,
+            x_conv_h.begin() + convolution_length + kNumInvertedLags12kHz - 1,
+            auto_corr.begin());
 }
 
 std::array<size_t, 2> FindBestPitchPeriods(

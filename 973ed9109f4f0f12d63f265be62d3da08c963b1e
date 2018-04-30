@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3d921528_eba05e21",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2364,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-04-30T17:43:12Z",
+      "side": 1,
+      "message": "nit: Would new_receiving_transceivers be more accurate?",
+      "range": {
+        "startLine": 2364,
+        "startChar": 8,
+        "endLine": 2364,
+        "endChar": 34
+      },
+      "revId": "973ed9109f4f0f12d63f265be62d3da08c963b1e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28d30aee_30427d69",
+        "filename": "pc/peerconnection_rtp_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-04-30T17:43:12Z",
+      "side": 1,
+      "message": "Worth testing streams size 0 with SdpSemantics::kUnifiedPlan?",
+      "range": {
+        "startLine": 156,
+        "startChar": 3,
+        "endLine": 156,
+        "endChar": 0
+      },
+      "revId": "973ed9109f4f0f12d63f265be62d3da08c963b1e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf2607a8_b90ab765",
+        "filename": "pc/peerconnection_rtp_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-04-30T17:43:12Z",
+      "side": 1,
+      "message": "nice catch here.",
+      "range": {
+        "startLine": 181,
+        "startChar": 2,
+        "endLine": 182,
+        "endChar": 73
+      },
+      "revId": "973ed9109f4f0f12d63f265be62d3da08c963b1e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "afb22cb3_a248cdea",
+        "filename": "pc/peerconnection_rtp_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-04-30T17:43:12Z",
+      "side": 1,
+      "message": "I noticed that OnRemoveStream() isn\u0027t really being tested here, and in the the test above. Do we want to test this by checking observer()-\u003eremote_streams()?",
+      "range": {
+        "startLine": 238,
+        "startChar": 32,
+        "endLine": 238,
+        "endChar": 52
+      },
+      "revId": "973ed9109f4f0f12d63f265be62d3da08c963b1e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65f76fe3_0b51df70",
+        "filename": "pc/peerconnection_rtp_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-04-30T17:43:12Z",
+      "side": 1,
+      "message": "nit: I think this function and the next should be updated to be called \"AddTrack...\" as opposed to AddSender, since we aren\u0027t calling AddSender() anymore. Same with RemoveSender.",
+      "range": {
+        "startLine": 387,
+        "startChar": 30,
+        "endLine": 387,
+        "endChar": 64
+      },
+      "revId": "973ed9109f4f0f12d63f265be62d3da08c963b1e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2580bec_55c0bd51",
+        "filename": "pc/peerconnection_rtp_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-04-30T17:43:12Z",
+      "side": 1,
+      "message": "Again here, is it worth testing streams equal to size 0 for the unified plan case?",
+      "range": {
+        "startLine": 403,
+        "startChar": 3,
+        "endLine": 403,
+        "endChar": 0
+      },
+      "revId": "973ed9109f4f0f12d63f265be62d3da08c963b1e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c3835e7_b31b8d3d",
+        "filename": "pc/peerconnection_rtp_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 427,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-04-30T17:43:12Z",
+      "side": 1,
+      "message": "You replaced \"callee-\u003eSetRemoteDescription(caller-\u003eCreateOfferAndSetAsLocal())\" with \"caller-\u003eExchangeOfferAnswerWith(callee.get())\"\n\nThere\u0027s lots of other places you could do this as well, but I\u0027m going to leave this up to you.",
+      "range": {
+        "startLine": 427,
+        "startChar": 22,
+        "endLine": 427,
+        "endChar": 45
+      },
+      "revId": "973ed9109f4f0f12d63f265be62d3da08c963b1e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37d9365e_7f362724",
+        "filename": "pc/peerconnection_rtp_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-04-30T17:43:12Z",
+      "side": 1,
+      "message": "nit: receiver",
+      "range": {
+        "startLine": 465,
+        "startChar": 23,
+        "endLine": 465,
+        "endChar": 30
+      },
+      "revId": "973ed9109f4f0f12d63f265be62d3da08c963b1e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

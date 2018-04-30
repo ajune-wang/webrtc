@@ -16,6 +16,24 @@
       "revId": "0df67cd397b686846ce74acb9455801fdc66ec6d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0362d3f_de9a902c",
+        "filename": "modules/audio_processing/aec3/render_buffer.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-04-30T07:41:10Z",
+      "side": 1,
+      "message": "I agree, I am doing similar changes in the cl 73200, if you do not mind I will do those changes on that cl.",
+      "parentUuid": "175ab97f_abc599d1",
+      "revId": "0df67cd397b686846ce74acb9455801fdc66ec6d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

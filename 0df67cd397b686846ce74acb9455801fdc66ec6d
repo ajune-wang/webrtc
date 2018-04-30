@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "175ab97f_abc599d1",
+        "filename": "modules/audio_processing/aec3/render_buffer.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-04-30T06:55:29Z",
+      "side": 1,
+      "message": "This looks great!\nHowever, for consistency it would make sense to also use the method on 105 to avoid the methods on 102, 69 and 49. I.e., GetSpectrumBuffer() partly makes them redundant and since I think having two ways of accessing the information in spectrum_buffer_ is confusing I\u0027d rather change those to only have one way.",
+      "revId": "0df67cd397b686846ce74acb9455801fdc66ec6d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

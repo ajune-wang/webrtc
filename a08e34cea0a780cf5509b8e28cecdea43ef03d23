@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5adeb2ba_226e70e0",
+        "filename": "modules/congestion_controller/network_control/units/data_rate.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-04-30T12:34:03Z",
+      "side": 1,
+      "message": "It\u0027s arguably misleading to list this as the only reason, since it also has rounding/precision implications.",
+      "range": {
+        "startLine": 40,
+        "startChar": 16,
+        "endLine": 41,
+        "endChar": 12
+      },
+      "revId": "a08e34cea0a780cf5509b8e28cecdea43ef03d23",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a82401d9_b4ea52f9",
+        "filename": "modules/congestion_controller/network_control/units/data_size.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-04-30T12:34:03Z",
+      "side": 1,
+      "message": "Isn\u0027t it a count of bits? Specifically, an integer number of bits?",
+      "revId": "a08e34cea0a780cf5509b8e28cecdea43ef03d23",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

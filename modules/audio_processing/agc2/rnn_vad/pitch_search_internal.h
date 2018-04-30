@@ -14,6 +14,7 @@
 #include <array>
 
 #include "api/array_view.h"
+#include "common_audio/real_fourier_ooura.h"
 #include "modules/audio_processing/agc2/rnn_vad/common.h"
 #include "modules/audio_processing/agc2/rnn_vad/pitch_info.h"
 
@@ -70,7 +71,8 @@ void ComputeSlidingFrameSquareEnergies(
 void ComputePitchAutoCorrelation(
     rtc::ArrayView<const float, kBufSize12kHz> pitch_buf,
     size_t max_pitch_period,
-    rtc::ArrayView<float, kNumInvertedLags12kHz> auto_corr);
+    rtc::ArrayView<float, kNumInvertedLags12kHz> auto_corr,
+    webrtc::RealFourierOoura* ooura_fft);
 
 // Given the auto-correlation coefficients stored according to
 // ComputePitchAutoCorrelation() (i.e., using inverted lags), returns the best

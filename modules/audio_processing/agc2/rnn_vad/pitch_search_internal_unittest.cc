@@ -9,6 +9,7 @@
  */
 
 #include "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.h"
+#include "common_audio/real_fourier_ooura.h"
 
 #include <array>
 #include <tuple>
@@ -415,14 +416,41 @@ TEST(RnnVadTest, ComputePitchAutoCorrelationBitExactness) {
   {
     // TODO(bugs.webrtc.org/8948): Add when the issue is fixed.
     // FloatingPointExceptionObserver fpe_observer;
-
+    RealFourierOoura ooura_fft(9);
     ComputePitchAutoCorrelation(
         {pitch_buf_decimated.data(), pitch_buf_decimated.size()},
-        kMaxPitch12kHz, {computed_output.data(), computed_output.size()});
+        kMaxPitch12kHz, {computed_output.data(), computed_output.size()},
+        &ooura_fft);
   }
   ExpectNearAbsolute(
       {kPitchBufferAutoCorrCoeffs.data(), kPitchBufferAutoCorrCoeffs.size()},
       {computed_output.data(), computed_output.size()}, 3e-3f);
+}
+
+TEST(RnnVadTest, ComputePitchAutoCorrelationTest) {
+  std::array<float, kBufSize12kHz> pitch_buf_decimated;
+  for (auto& x : pitch_buf_decimated) {
+    x = 1.f;
+  }
+
+  std::array<float, kPitchBufferAutoCorrCoeffs.size()> computed_output;
+  {
+    // TODO(bugs.webrtc.org/8948): Add when the issue is fixed.
+    // FloatingPointExceptionObserver fpe_observer;
+
+    RealFourierOoura ooura_fft(9);
+    ComputePitchAutoCorrelation(
+        {pitch_buf_decimated.data(), pitch_buf_decimated.size()},
+        kMaxPitch12kHz, {computed_output.data(), computed_output.size()},
+        &ooura_fft);
+  }
+
+  std::array<float, kPitchBufferAutoCorrCoeffs.size()> expected_output;
+  for (auto& x : expected_output) {
+    x = kBufSize12kHz - kMaxPitch12kHz;
+  }
+  ExpectNearAbsolute({expected_output.data(), expected_output.size()},
+                     {computed_output.data(), computed_output.size()}, 3e-3f);
 }
 
 TEST(RnnVadTest, FindBestPitchPeriodsBitExactness) {

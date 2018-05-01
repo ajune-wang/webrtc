@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "b6898fc7_0c5908c4",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-05-01T23:32:51Z",
+      "side": 1,
+      "message": "Not on the current call sites. I added the annotation and checks in case we have new call sites in the future. Will remove them before landing if they do not seem necessary.",
+      "parentUuid": "52ad67cd_30d15f77",
+      "revId": "966ad00c3ae3c7e409a1bfdd310b701348aed9f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e7622e75_081fee57",
         "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
         "patchSetId": 2
@@ -33,6 +51,24 @@
       "revId": "966ad00c3ae3c7e409a1bfdd310b701348aed9f3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "707f4dd2_8f18a0db",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-05-01T23:32:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e7622e75_081fee57",
+      "revId": "966ad00c3ae3c7e409a1bfdd310b701348aed9f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

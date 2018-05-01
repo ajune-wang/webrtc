@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d2f4aa5f_da28430d",
+        "filename": "p2p/base/packetsocketfactory.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-01T22:24:57Z",
+      "side": 1,
+      "message": "Could use a comment.",
+      "revId": "d3d3d77948cb8d8ab2ad4edee15490307fc97ee6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e5e6669_d794dbf8",
+        "filename": "p2p/base/packetsocketfactory.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-01T22:24:57Z",
+      "side": 1,
+      "message": "\u003d nullptr",
+      "revId": "d3d3d77948cb8d8ab2ad4edee15490307fc97ee6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a46713fb_e140eafb",
+        "filename": "pc/peerconnection_integrationtest.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 3992,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-01T22:24:57Z",
+      "side": 1,
+      "message": "Can you add:\n\n// TODO(bugs.webrtc.org/9219): When IceConnectionState is implemented properly, should be\n// able to just wait for a state of \"failed\" instead of waiting a fixed 10 seconds.\n\n(I hoped we could do this already, but found we couldn\u0027t and filed the bug)",
+      "revId": "d3d3d77948cb8d8ab2ad4edee15490307fc97ee6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

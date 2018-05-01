@@ -142,6 +142,24 @@
     },
     {
       "key": {
+        "uuid": "75fe78d3_72028632",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 537,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-01T22:24:57Z",
+      "side": 1,
+      "message": "That would make sense, since it would only be used there.",
+      "parentUuid": "ac000764_aa4b32d9",
+      "revId": "b1c3292b24d5d69980e166657da7f2d65a0f4fbf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "79998124_b5e47eae",
         "filename": "pc/peerconnection_integrationtest.cc",
         "patchSetId": 13
@@ -314,6 +332,24 @@
       "revId": "b1c3292b24d5d69980e166657da7f2d65a0f4fbf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5c814d5e_8997b2cd",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 13
+      },
+      "lineNbr": 888,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-01T22:24:57Z",
+      "side": 1,
+      "message": "nit: This also applies to \"WEBRTC_DISABLE_BUILT_IN_SSL_ROOT_CERTIFICATES\". Would prefer \"#ifdef WEBRTC_ENALBE\" over \"#ifndef WEBRTC_DISABLE\".",
+      "parentUuid": "6a0f3d36_c876c68b",
+      "revId": "b1c3292b24d5d69980e166657da7f2d65a0f4fbf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     },
     {
       "key": {
@@ -524,6 +560,24 @@
       "revId": "b1c3292b24d5d69980e166657da7f2d65a0f4fbf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5223754b_16b708b9",
+        "filename": "rtc_base/openssladapter.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-01T22:24:57Z",
+      "side": 1,
+      "message": "It looks like you replaced \"NOT OWNER\" with \"not owned\"? My point was that neither is necessary since it\u0027s implied.",
+      "parentUuid": "ec06a514_dad79af0",
+      "revId": "b1c3292b24d5d69980e166657da7f2d65a0f4fbf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     },
     {
       "key": {

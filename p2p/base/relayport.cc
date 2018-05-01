@@ -208,15 +208,7 @@ RelayPort::~RelayPort() {
 }
 
 void RelayPort::AddServerAddress(const ProtocolAddress& addr) {
-  // Since HTTP proxies usually only allow 443,
-  // let's up the priority on PROTO_SSLTCP
-  if (addr.proto == PROTO_SSLTCP &&
-      (proxy().type == rtc::PROXY_HTTPS ||
-       proxy().type == rtc::PROXY_UNKNOWN)) {
-    server_addr_.push_front(addr);
-  } else {
-    server_addr_.push_back(addr);
-  }
+  server_addr_.push_back(addr);
 }
 
 void RelayPort::AddExternalAddress(const ProtocolAddress& addr) {
@@ -509,7 +501,7 @@ void RelayEntry::Connect() {
                    : 0;
     socket = port_->socket_factory()->CreateClientTcpSocket(
         rtc::SocketAddress(port_->Network()->GetBestIP(), 0), ra->address,
-        port_->proxy(), port_->user_agent(), opts);
+        rtc::ProxyInfo(), /*user_agent=*/"", opts);
   } else {
     RTC_LOG(LS_WARNING) << "Unknown protocol: " << ra->proto;
   }

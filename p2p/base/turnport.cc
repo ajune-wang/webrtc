@@ -376,7 +376,7 @@ bool TurnPort::CreateTurnClientSocket() {
     tcp_options.tls_elliptic_curves = tls_elliptic_curves_;
     socket_ = socket_factory()->CreateClientTcpSocket(
         rtc::SocketAddress(Network()->GetBestIP(), 0), server_address_.address,
-        proxy(), user_agent(), tcp_options);
+        rtc::ProxyInfo(), /*user_agent=*/"", tcp_options);
   }
 
   if (!socket_) {

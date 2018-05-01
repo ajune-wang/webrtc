@@ -328,14 +328,6 @@ class Port : public PortInterface, public rtc::MessageHandler,
                                 int error_code,
                                 const std::string& reason) override;
 
-  void set_proxy(const std::string& user_agent,
-                 const rtc::ProxyInfo& proxy) {
-    user_agent_ = user_agent;
-    proxy_ = proxy;
-  }
-  const std::string& user_agent() { return user_agent_; }
-  const rtc::ProxyInfo& proxy() { return proxy_; }
-
   void EnablePortPackets() override;
 
   // Called if the port has no connections and is no longer useful.
@@ -484,9 +476,6 @@ class Port : public PortInterface, public rtc::MessageHandler,
   IceRole ice_role_;
   uint64_t tiebreaker_;
   bool shared_socket_;
-  // Information to use when going through a proxy.
-  std::string user_agent_;
-  rtc::ProxyInfo proxy_;
 
   // A virtual cost perceived by the user, usually based on the network type
   // (WiFi. vs. Cellular). It takes precedence over the priority when

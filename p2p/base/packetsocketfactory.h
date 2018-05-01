@@ -58,8 +58,7 @@ class PacketSocketFactory {
       uint16_t max_port,
       int opts) = 0;
 
-  // TODO(deadbeef): |proxy_info| and |user_agent| should be set
-  // per-factory and not when socket is created.
+  // TODO(steveanton): Remove |proxy_info| and |user_agent|.
   virtual AsyncPacketSocket* CreateClientTcpSocket(
       const SocketAddress& local_address,
       const SocketAddress& remote_address,
@@ -67,8 +66,7 @@ class PacketSocketFactory {
       const std::string& user_agent,
       int opts) = 0;
 
-  // TODO(deadbeef): |proxy_info|, |user_agent| and |tcp_options| should
-  // be set per-factory and not when socket is created.
+  // TODO(steveanton): Remove |proxy_info| and |user_agent|.
   // TODO(deadbeef): Implement this method in all subclasses (namely those in
   // Chromium), make pure virtual, and remove the old CreateClientTcpSocket.
   virtual AsyncPacketSocket* CreateClientTcpSocket(

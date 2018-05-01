@@ -554,8 +554,7 @@ void TCPConnection::CreateOutgoingTcpSocket() {
                  : 0;
   socket_.reset(port()->socket_factory()->CreateClientTcpSocket(
       rtc::SocketAddress(port()->Network()->GetBestIP(), 0),
-      remote_candidate().address(), port()->proxy(), port()->user_agent(),
-      opts));
+      remote_candidate().address(), rtc::ProxyInfo(), /*user_agent=*/"", opts));
   if (socket_) {
     RTC_LOG(LS_VERBOSE) << ToString()
                         << ": Connecting from "

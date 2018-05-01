@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "52ad67cd_30d15f77",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-01T23:06:04Z",
+      "side": 1,
+      "message": "Is getNetworkState(null) or networkToInfo(null) ever actually called? From what I can tell it doesn\u0027t seem possible.",
+      "revId": "966ad00c3ae3c7e409a1bfdd310b701348aed9f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7622e75_081fee57",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-01T23:06:04Z",
+      "side": 1,
+      "message": "nit: \"Invalid network X to retrieve its information\" sounds grammatically odd; how about \"Couldn\u0027t retrieve information from network X\" or just \"ConnectivityManager.getNetworkInfo returned null for network X\"",
+      "revId": "966ad00c3ae3c7e409a1bfdd310b701348aed9f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

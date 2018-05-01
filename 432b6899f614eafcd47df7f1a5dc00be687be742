@@ -69,6 +69,24 @@
       "revId": "432b6899f614eafcd47df7f1a5dc00be687be742",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f08b1662_11488109",
+        "filename": "pc/peerconnection_integrationtest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 611,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-01T18:04:29Z",
+      "side": 1,
+      "message": "\u003e I plan on making a follow-up CL that removes the internal factories from the FakeWebRtcVideoDecoderFactory and changes any tests that rely on this functionality. But I wanted to keep the changes to the tests small in this CL to keep it manageable.\n\nOk; in that case can you add a TODO in FakeWebRtcVideoDecoderFactory?\n\n\u003e For clients who want to inject their own codec implementations we generally expect them to create their own video codec factory implementations as well (which makes it up to the client which software codecs they want to support, how to prioritize the codecs, whether they want to wrap encoders in software fallback wrappers, etc).\n\nIn my opinion, the documentation in the code doesn\u0027t make this clear enough. There are comments that say things like \"these video factories represents all video codecs\", but it\u0027s not obvious that this also means you don\u0027t get simulcast support or software fallback like the previous CreatePeerConnectionFactory method provides. I\u0027d recommend adding more comments to explain the differences.",
+      "parentUuid": "9a64adb1_69b1f590",
+      "revId": "432b6899f614eafcd47df7f1a5dc00be687be742",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

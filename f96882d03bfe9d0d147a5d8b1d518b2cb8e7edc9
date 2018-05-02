@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "890791db_2a0ca422",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1233,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2018-05-02T19:35:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2012b6e9_07d6aafb",
+      "range": {
+        "startLine": 1232,
+        "startChar": 63,
+        "endLine": 1233,
+        "endChar": 68
+      },
+      "revId": "f96882d03bfe9d0d147a5d8b1d518b2cb8e7edc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bc38fffe_87e62319",
         "filename": "pc/peerconnectionfactory.cc",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "f96882d03bfe9d0d147a5d8b1d518b2cb8e7edc9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5584c0e_9ad8c6d2",
+        "filename": "pc/peerconnectionfactory.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2018-05-02T19:35:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc38fffe_87e62319",
+      "range": {
+        "startLine": 283,
+        "startChar": 34,
+        "endLine": 283,
+        "endChar": 40
+      },
+      "revId": "f96882d03bfe9d0d147a5d8b1d518b2cb8e7edc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "6912dcf0_84f318c6",
+        "filename": "pc/peerconnectionfactory.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2018-05-02T19:35:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "835d82dc_58db8853",
+      "range": {
+        "startLine": 284,
+        "startChar": 4,
+        "endLine": 284,
+        "endChar": 38
+      },
+      "revId": "f96882d03bfe9d0d147a5d8b1d518b2cb8e7edc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b6f42714_44d3d1f9",
         "filename": "pc/peerconnectionfactory.cc",
         "patchSetId": 1
@@ -82,6 +154,24 @@
       "writtenOn": "2018-05-02T19:13:33Z",
       "side": 1,
       "message": "Can this be done in the present CL?",
+      "revId": "f96882d03bfe9d0d147a5d8b1d518b2cb8e7edc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35a7bb83_06f29797",
+        "filename": "pc/peerconnectionfactory.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2018-05-02T19:35:25Z",
+      "side": 1,
+      "message": "Just due to time allocation reasons I would like to contribute the interface change now and the deeper pluming in a later CL.",
+      "parentUuid": "b6f42714_44d3d1f9",
       "revId": "f96882d03bfe9d0d147a5d8b1d518b2cb8e7edc9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

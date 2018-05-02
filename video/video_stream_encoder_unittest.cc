@@ -314,7 +314,6 @@ class VideoStreamEncoderTest : public ::testing::Test {
     video_stream_encoder_->SetSource(
         &video_source_,
         VideoSendStream::DegradationPreference::kMaintainFramerate);
-    video_stream_encoder_->SetStartBitrate(kTargetBitrateBps);
     video_stream_encoder_->ConfigureEncoder(std::move(video_encoder_config),
                                             kMaxPayloadLength, nack_enabled);
     video_stream_encoder_->WaitUntilTaskQueueIsIdle();

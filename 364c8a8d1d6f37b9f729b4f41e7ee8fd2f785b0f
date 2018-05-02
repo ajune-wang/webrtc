@@ -1,0 +1,642 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d84a501e_75919b8a",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-05-02T11:26:28Z",
+      "side": 1,
+      "message": "rtc::FunctionView?",
+      "range": {
+        "startLine": 27,
+        "startChar": 4,
+        "endLine": 27,
+        "endChar": 32
+      },
+      "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d77b1b5e_9aea7793",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-05-02T11:26:28Z",
+      "side": 1,
+      "message": "remove const",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 36
+      },
+      "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aec0d8fb_0e1c5254",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-05-02T11:26:28Z",
+      "side": 1,
+      "message": "Let me try to understand this.\n\nThe reason for *2.f is because the loop above got half contribution. right?\n\nDoes it get half contribution on \"coefficients.size() - 1\"-th term, or any last term?",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 59
+      },
+      "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66fb83e9_0bf6e136",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-05-02T11:26:28Z",
+      "side": 1,
+      "message": "sample_rate_hz?",
+      "range": {
+        "startLine": 67,
+        "startChar": 17,
+        "endLine": 67,
+        "endChar": 28
+      },
+      "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ff7f238_a43cc658",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-05-02T11:26:28Z",
+      "side": 1,
+      "message": "remove const, const",
+      "range": {
+        "startLine": 67,
+        "startChar": 4,
+        "endLine": 67,
+        "endChar": 9
+      },
+      "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "051cd319_c00b2d7a",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-05-02T11:26:28Z",
+      "side": 1,
+      "message": "frame_size_samples?",
+      "range": {
+        "startLine": 68,
+        "startChar": 17,
+        "endLine": 68,
+        "endChar": 27
+      },
+      "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "154840bf_8232eaaa",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-05-02T11:26:28Z",
+      "side": 1,
+      "message": "indices",
+      "range": {
+        "startLine": 69,
+        "startChar": 32,
+        "endLine": 69,
+        "endChar": 39
+      },
+      "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f650a68_67902818",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-05-02T11:26:28Z",
+      "side": 1,
+      "message": "It looks like ComputeBandCoefficients() is only used here.",
+      "range": {
+        "startLine": 85,
+        "startChar": 2,
+        "endLine": 85,
+        "endChar": 25
+      },
+      "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa4b83a5_052114c0",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-05-02T11:26:28Z",
+      "side": 1,
+      "message": "what does follow mean?",
+      "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8da756c6_9dbde427",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-05-02T11:26:28Z",
+      "side": 1,
+      "message": "should float be enough?",
+      "range": {
+        "startLine": 106,
+        "startChar": 8,
+        "endLine": 106,
+        "endChar": 14
+      },
+      "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91eaeb14_9bd697c5",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-05-02T11:26:28Z",
+      "side": 1,
+      "message": "0.5f",
+      "range": {
+        "startLine": 109,
+        "startChar": 51,
+        "endLine": 109,
+        "endChar": 54
+      },
+      "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ecd0cc8b_9fa4dbdb",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-05-02T11:26:28Z",
+      "side": 1,
+      "message": "dct_scaling_factor",
+      "range": {
+        "startLine": 117,
+        "startChar": 28,
+        "endLine": 117,
+        "endChar": 47
+      },
+      "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7875c2bf_108678eb",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-05-02T11:26:28Z",
+      "side": 1,
+      "message": "can we fill out outside the loop?",
+      "range": {
+        "startLine": 123,
+        "startChar": 0,
+        "endLine": 123,
+        "endChar": 17
+      },
+      "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec820396_90e99d70",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-05-02T11:26:28Z",
+      "side": 1,
+      "message": "it seems unneeded",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 21
+      },
+      "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb9ed3e4_82464a43",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-05-02T11:26:28Z",
+      "side": 1,
+      "message": "I think sample_rate should have a unit. sample_rate_hz?",
+      "range": {
+        "startLine": 27,
+        "startChar": 17,
+        "endLine": 27,
+        "endChar": 28
+      },
+      "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "641e1120_90e2bcba",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-05-02T11:26:28Z",
+      "side": 1,
+      "message": "I think frame_size should have a unit. frame_size_samples or frame_size_ms",
+      "range": {
+        "startLine": 28,
+        "startChar": 17,
+        "endLine": 28,
+        "endChar": 27
+      },
+      "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c11064d6_0416969c",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-05-02T11:26:28Z",
+      "side": 1,
+      "message": "indices",
+      "range": {
+        "startLine": 30,
+        "startChar": 68,
+        "endLine": 30,
+        "endChar": 75
+      },
+      "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b8e7747_c2f0bdd7",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-05-02T11:26:28Z",
+      "side": 1,
+      "message": "dct_scaling_factor",
+      "range": {
+        "startLine": 53,
+        "startChar": 28,
+        "endLine": 53,
+        "endChar": 47
+      },
+      "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b01bf43_2f7f5796",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-05-02T11:26:28Z",
+      "side": 1,
+      "message": "s/Init/Initialize/g",
+      "range": {
+        "startLine": 33,
+        "startChar": 5,
+        "endLine": 33,
+        "endChar": 9
+      },
+      "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "534495f7_636e62ed",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-05-02T11:26:28Z",
+      "side": 1,
+      "message": "do we need these extra {}s?",
+      "range": {
+        "startLine": 131,
+        "startChar": 24,
+        "endLine": 131,
+        "endChar": 39
+      },
+      "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "014cb628_ecac5529",
+        "filename": "modules/audio_processing/agc2/rnn_vad/test_utils.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-05-02T11:26:28Z",
+      "side": 1,
+      "message": "I wonder what Absolute means?",
+      "range": {
+        "startLine": 39,
+        "startChar": 5,
+        "endLine": 39,
+        "endChar": 23
+      },
+      "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d76201d_4c78e9fd",
+        "filename": "modules/audio_processing/agc2/rnn_vad/test_utils.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-05-02T11:26:28Z",
+      "side": 1,
+      "message": "kFftPoints",
+      "range": {
+        "startLine": 66,
+        "startChar": 19,
+        "endLine": 66,
+        "endChar": 33
+      },
+      "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fadb2c8d_8f6cca7a",
+        "filename": "modules/audio_processing/agc2/rnn_vad/test_utils.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-05-02T11:26:28Z",
+      "side": 1,
+      "message": "kRowSize",
+      "range": {
+        "startLine": 67,
+        "startChar": 19,
+        "endLine": 67,
+        "endChar": 27
+      },
+      "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b7a14cf_e17bdc28",
+        "filename": "modules/audio_processing/agc2/rnn_vad/test_utils.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-05-02T11:26:28Z",
+      "side": 1,
+      "message": "constexpr size_t kNumBands \u003d 22;",
+      "range": {
+        "startLine": 77,
+        "startChar": 6,
+        "endLine": 77,
+        "endChar": 8
+      },
+      "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8528ba96_7c7b2ded",
+        "filename": "modules/audio_processing/agc2/rnn_vad/test_utils.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-05-02T11:26:28Z",
+      "side": 1,
+      "message": "kNumBands",
+      "range": {
+        "startLine": 79,
+        "startChar": 71,
+        "endLine": 79,
+        "endChar": 73
+      },
+      "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61b000fa_74d23910",
+        "filename": "modules/audio_processing/agc2/rnn_vad/test_utils.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-05-02T11:26:28Z",
+      "side": 1,
+      "message": "constexpr size_t kNumFeatures \u003d 42;",
+      "range": {
+        "startLine": 85,
+        "startChar": 6,
+        "endLine": 85,
+        "endChar": 8
+      },
+      "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a999620e_093ffead",
+        "filename": "modules/audio_processing/agc2/rnn_vad/test_utils.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-05-02T11:26:28Z",
+      "side": 1,
+      "message": "remove (42)",
+      "range": {
+        "startLine": 86,
+        "startChar": 15,
+        "endLine": 86,
+        "endChar": 17
+      },
+      "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2cb1c6fc_0a65f9db",
+        "filename": "modules/audio_processing/agc2/rnn_vad/test_utils.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-05-02T11:26:28Z",
+      "side": 1,
+      "message": "kNumFeatures + 1",
+      "range": {
+        "startLine": 88,
+        "startChar": 71,
+        "endLine": 88,
+        "endChar": 73
+      },
+      "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

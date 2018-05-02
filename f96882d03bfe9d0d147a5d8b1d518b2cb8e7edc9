@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2012b6e9_07d6aafb",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1233,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-02T19:13:33Z",
+      "side": 1,
+      "message": "Superfluous. This is already documented with PeerConnectionDependencies, and the compiler will remind anyone who forgets.",
+      "range": {
+        "startLine": 1232,
+        "startChar": 63,
+        "endLine": 1233,
+        "endChar": 68
+      },
+      "revId": "f96882d03bfe9d0d147a5d8b1d518b2cb8e7edc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc38fffe_87e62319",
+        "filename": "pc/peerconnectionfactory.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-02T19:13:33Z",
+      "side": 1,
+      "message": "Unnecessary, and inconsistent since you don\u0027t call .get() down on line 287.",
+      "range": {
+        "startLine": 283,
+        "startChar": 34,
+        "endLine": 283,
+        "endChar": 40
+      },
+      "revId": "f96882d03bfe9d0d147a5d8b1d518b2cb8e7edc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "835d82dc_58db8853",
+        "filename": "pc/peerconnectionfactory.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-02T19:13:33Z",
+      "side": 1,
+      "message": "Please avoid using `new` directly. It\u0027s safer to do\n\n  dependencies.cert_generator \u003d rtc::MakeUnique\u003crtc::RTCCertificateGenerator\u003e(...);",
+      "range": {
+        "startLine": 284,
+        "startChar": 4,
+        "endLine": 284,
+        "endChar": 38
+      },
+      "revId": "f96882d03bfe9d0d147a5d8b1d518b2cb8e7edc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6f42714_44d3d1f9",
+        "filename": "pc/peerconnectionfactory.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-02T19:13:33Z",
+      "side": 1,
+      "message": "Can this be done in the present CL?",
+      "revId": "f96882d03bfe9d0d147a5d8b1d518b2cb8e7edc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -107,6 +107,24 @@
     },
     {
       "key": {
+        "uuid": "e573d174_5a7591f8",
+        "filename": "modules/video_coding/codecs/test/videoprocessor_integrationtest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-02T18:34:18Z",
+      "side": 1,
+      "message": "It doesn\u0027t need to make the distinction, because class data members are never public: https://google.github.io/styleguide/cppguide.html#Access_Control",
+      "parentUuid": "912b79a6_423801f0",
+      "revId": "83fd5328fb3d9fb29002cbc2897b7e3eb120d90a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a846e184_525a91ec",
         "filename": "modules/video_coding/codecs/test/videoprocessor_integrationtest.h",
         "patchSetId": 6

@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3c51a6b2_238fee03",
+        "filename": "modules/video_coding/rtp_frame_reference_finder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-05-02T13:13:40Z",
+      "side": 1,
+      "message": "Is the value of this expression different after the above emplace? If not, it might be clearer to assign frame members before the layer_info_ update?",
+      "range": {
+        "startLine": 315,
+        "startChar": 27,
+        "endLine": 315,
+        "endChar": 48
+      },
+      "revId": "10c9d97100b1cfe129c1b000666c3ffdd200f21d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7646b992_a3a6c23d",
+        "filename": "modules/video_coding/rtp_frame_reference_finder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-05-02T13:13:40Z",
+      "side": 1,
+      "message": "|new_info| is a somwhet poor name. Do you really need to name the value, or could you write\n\ngof_info_.emplace(codec_header.tl0_pic_idx, GofInfo(...));\n\nAnd similarly for the other new_info below.",
+      "range": {
+        "startLine": 451,
+        "startChar": 14,
+        "endLine": 451,
+        "endChar": 22
+      },
+      "revId": "10c9d97100b1cfe129c1b000666c3ffdd200f21d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ae994f3_b2b02abc",
+        "filename": "modules/video_coding/rtp_frame_reference_finder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-05-02T13:13:40Z",
+      "side": 1,
+      "message": "|info| was initialized to nullptr above, can it still be null here? If yes, this use looks invalid. If no, can you delete the initialization, to let compiler and analysis tools check that it *is* assigned on all code paths leading here?\n\nAnd besides nullptr, is info ever assigned anything else but \u0026gof_info_it-\u003esecond? If not, maybe you don\u0027t need the variable (but you\u0027d still need either a check for info \u003d\u003d nullptr or gof_info_it \u003d\u003d gof_info_.end()).",
+      "range": {
+        "startLine": 491,
+        "startChar": 0,
+        "endLine": 496,
+        "endChar": 18
+      },
+      "revId": "10c9d97100b1cfe129c1b000666c3ffdd200f21d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

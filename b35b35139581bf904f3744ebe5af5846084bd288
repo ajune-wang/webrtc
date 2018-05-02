@@ -46,6 +46,30 @@
       "revId": "b35b35139581bf904f3744ebe5af5846084bd288",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2361b34_eec5076d",
+        "filename": "modules/video_coding/rtp_frame_reference_finder.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 438,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-05-02T14:43:08Z",
+      "side": 1,
+      "message": "Sure, it\u0027s fine to name intermediate values, if you can find good names for them (|new_foo| isn\u0027t so good, imo).\n\nconst auto it \u003d gof_info.emplace(...).first;\ninfo \u003d \u0026it-\u003esecond;\n\nmight be a reasonable compromise.\n\nBut my main point with this comment was to make the iterator variables more local, so that they can be const and assign once (and then it\u0027s also fine to use shorter names for them, if you like).",
+      "parentUuid": "411e7144_faa02e61",
+      "range": {
+        "startLine": 438,
+        "startChar": 4,
+        "endLine": 438,
+        "endChar": 39
+      },
+      "revId": "b35b35139581bf904f3744ebe5af5846084bd288",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

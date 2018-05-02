@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "87c38cac_6d31e55e",
+        "filename": "modules/video_coding/codecs/test/videoprocessor.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-05-02T08:47:32Z",
+      "side": 1,
+      "message": "Merge these two if clauses?",
+      "range": {
+        "startLine": 430,
+        "startChar": 4,
+        "endLine": 430,
+        "endChar": 7
+      },
+      "revId": "09f14b1481139fdc94e81b17df746b5d376fa83c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

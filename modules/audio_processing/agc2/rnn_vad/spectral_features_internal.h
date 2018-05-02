@@ -12,7 +12,6 @@
 #define MODULES_AUDIO_PROCESSING_AGC2_RNN_VAD_SPECTRAL_FEATURES_INTERNAL_H_
 
 #include <array>
-#include <cmath>
 #include <complex>
 #include <functional>
 
@@ -27,6 +26,17 @@ std::array<size_t, kNumBands> ComputeBandBoundaryIndexes(
     const size_t sample_rate,
     const size_t frame_size);
 
+// Iterates through frequency bands and computes coefficients via |functor| for
+// triangular bands with peak response at each band boundary. |functor| returns
+// a floating point value for the FFT coefficient having index equal to the
+// argument passed to |functor|; that argument is in the range {0, ...
+// |max_freq_bin_index| - 1}.
+void ComputeBandCoefficients(
+    std::function<float(size_t)> functor,
+    rtc::ArrayView<const size_t, kNumBands> band_boundaries,
+    const size_t max_freq_bin_index,
+    rtc::ArrayView<float, kNumBands> coefficients);
+
 // Given an array of FFT coefficients and a vector of band boundary indexes,
 // computes band energy coefficients.
 void ComputeBandEnergies(
@@ -39,9 +49,6 @@ void ComputeLogBandEnergiesCoefficients(
     rtc::ArrayView<const float, kNumBands> band_energy_coeffs,
     rtc::ArrayView<float, kNumBands> log_band_energy_coeffs);
 
-// DCT scaling factor.
-const float kDctScalingFactor = std::sqrt(2.f / kNumBands);
-
 // Creates a DCT table for arrays having size equal to |kNumBands|.
 std::array<float, kNumBands * kNumBands> ComputeDctTable();
 
@@ -50,7 +57,6 @@ std::array<float, kNumBands * kNumBands> ComputeDctTable();
 // order to only compute the first DCT coefficients.
 void ComputeDct(rtc::ArrayView<const float, kNumBands> in,
                 rtc::ArrayView<const float, kNumBands * kNumBands> dct_table,
-                const float dct_scaling_factor_,
                 rtc::ArrayView<float> out);
 
 }  // namespace rnn_vad

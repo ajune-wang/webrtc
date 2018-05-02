@@ -11,6 +11,7 @@
 #include "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.h"
 
 #include <algorithm>
+#include <cmath>
 
 #include "rtc_base/checks.h"
 
@@ -18,11 +19,20 @@ namespace webrtc {
 namespace rnn_vad {
 namespace {
 
-// Iterates through frequency bands and computes coefficients via |functor| for
-// triangular bands with peak response at each band boundary. |functor| returns
-// a floating point value for the FFT coefficient having index equal to the
-// argument passed to |functor|; that argument is in the range {0, ...
-// |max_freq_bin_index| - 1}.
+// DCT scaling factor.
+const float kDctScalingFactor = std::sqrt(2.f / kNumBands);
+
+}  // namespace
+
+std::array<size_t, kNumBands> ComputeBandBoundaryIndexes(
+    const size_t sample_rate,
+    const size_t frame_size) {
+  std::array<size_t, kNumBands> indexes;
+  for (size_t i = 0; i < kNumBands; ++i)
+    indexes[i] = kBandFrequencyBoundaries[i] * frame_size / sample_rate;
+  return indexes;
+}
+
 void ComputeBandCoefficients(
     std::function<float(size_t)> functor,
     rtc::ArrayView<const size_t, kNumBands> band_boundaries,
@@ -61,27 +71,14 @@ void ComputeBandCoefficients(
   // (*): "size_t i" must be declared before the main loop.
 }
 
-}  // namespace
-
-std::array<size_t, kNumBands> ComputeBandBoundaryIndexes(
-    const size_t sample_rate,
-    const size_t frame_size) {
-  std::array<size_t, kNumBands> indexes;
-  for (size_t i = 0; i < kNumBands; ++i)
-    indexes[i] = kBandFrequencyBoundaries[i] * frame_size / sample_rate;
-  return indexes;
-}
-
 void ComputeBandEnergies(
     rtc::ArrayView<const std::complex<float>> fft_coeffs,
     rtc::ArrayView<const size_t, kNumBands> band_boundaries,
     rtc::ArrayView<float, kNumBands> band_energies) {
   RTC_DCHECK_EQ(band_boundaries.size(), band_energies.size());
-  auto functor = [fft_coeffs](const size_t freq_bin_index) {
+  auto functor = [fft_coeffs](const size_t freq_bin_index) -> float {
     return std::norm(fft_coeffs[freq_bin_index]);
   };
-  // TODO(bugs.webrtc.org/9076): If ComputeBandCoefficients() is only used here
-  // remove it and move its code here.
   ComputeBandCoefficients(functor, band_boundaries, fft_coeffs.size() - 1,
                           band_energies);
 }
@@ -114,7 +111,6 @@ std::array<float, kNumBands * kNumBands> ComputeDctTable() {
 
 void ComputeDct(rtc::ArrayView<const float, kNumBands> in,
                 rtc::ArrayView<const float, kNumBands * kNumBands> dct_table,
-                const float dct_scaling_factor_,
                 rtc::ArrayView<float> out) {
   RTC_DCHECK_NE(in.data(), out.data()) << "In-place DCT is not supported.";
   RTC_DCHECK_LE(1, out.size());
@@ -123,7 +119,7 @@ void ComputeDct(rtc::ArrayView<const float, kNumBands> in,
     out[i] = 0.f;
     for (size_t j = 0; j < in.size(); ++j)
       out[i] += in[j] * dct_table[j * in.size() + i];
-    out[i] *= dct_scaling_factor_;
+    out[i] *= kDctScalingFactor;
   }
 }
 

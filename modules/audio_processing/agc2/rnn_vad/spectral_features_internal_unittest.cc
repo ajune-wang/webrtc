@@ -126,7 +126,7 @@ TEST(RnnVadTest, ComputeDctBitExactness) {
     // FloatingPointExceptionObserver fpe_observer;
 
     ComputeDct({input.data(), input.size()},
-               {dct_table.data(), dct_table.size()}, kDctScalingFactor,
+               {dct_table.data(), dct_table.size()},
                {computed_output.data(), computed_output.size()});
     ExpectNearAbsolute({expected_output}, {computed_output}, 1e-5f);
   }

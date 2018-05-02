@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "ec5fa6ed_4b8913ae",
+        "filename": "cr-buildbucket.cfg",
+        "patchSetId": 3
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2018-05-02T07:37:20Z",
+      "side": 1,
+      "message": "I read somewhere that LUCI can continue build numbers from buildbot to keep old logs working. It could also be related to migration app. Or it could be neither of those things, but I\u0027d keep this for a while longer anyway.",
+      "parentUuid": "78e00fc6_32c4e66d",
+      "range": {
+        "startLine": 347,
+        "startChar": 0,
+        "endLine": 348,
+        "endChar": 46
+      },
+      "revId": "3ea75305423f4068518b57974192469b5fca3727",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1539570c_bb8c0bed",
         "filename": "cr-buildbucket.cfg",
         "patchSetId": 3

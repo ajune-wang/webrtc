@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "66159ce5_4e6f8dd5",
+        "filename": "sdk/objc/Framework/Classes/Metal/RTCMTLRGBRenderer.mm",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5670
+      },
+      "writtenOn": "2018-05-02T12:18:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ff632158_5abd61e2",
+      "revId": "a2ac45b0e6b6bdd0c45d1957dd849bd0759adeae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "12b11d9d_8d4c79e1",
         "filename": "sdk/objc/Framework/Classes/Metal/RTCMTLRGBRenderer.mm",
         "patchSetId": 5
@@ -33,6 +51,24 @@
       "revId": "a2ac45b0e6b6bdd0c45d1957dd849bd0759adeae",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8684e13_25b0f4e6",
+        "filename": "sdk/objc/Framework/Classes/Metal/RTCMTLRGBRenderer.mm",
+        "patchSetId": 5
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5670
+      },
+      "writtenOn": "2018-05-02T12:18:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "12b11d9d_8d4c79e1",
+      "revId": "a2ac45b0e6b6bdd0c45d1957dd849bd0759adeae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -59,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "4056e8a5_979e2ab0",
+        "filename": "sdk/objc/Framework/Classes/Metal/RTCMTLRGBRenderer.mm",
+        "patchSetId": 5
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5670
+      },
+      "writtenOn": "2018-05-02T12:18:55Z",
+      "side": 1,
+      "message": "Yes. Also updated the NV12 renderer.",
+      "parentUuid": "7c50709a_80a512d7",
+      "range": {
+        "startLine": 71,
+        "startChar": 10,
+        "endLine": 71,
+        "endChar": 32
+      },
+      "revId": "a2ac45b0e6b6bdd0c45d1957dd849bd0759adeae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "407b4dcc_833cf385",
         "filename": "sdk/objc/Framework/Classes/Metal/RTCMTLRenderer.mm",
         "patchSetId": 5
@@ -73,6 +133,24 @@
       "revId": "a2ac45b0e6b6bdd0c45d1957dd849bd0759adeae",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec40ebd8_dea9f1c7",
+        "filename": "sdk/objc/Framework/Classes/Metal/RTCMTLRenderer.mm",
+        "patchSetId": 5
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5670
+      },
+      "writtenOn": "2018-05-02T12:18:55Z",
+      "side": 1,
+      "message": "I\u0027ve wrapped it in #if !defined(NDEBUG). There\u0027s no good way of doing this without it turning convoluted.\nI\u0027d like to keep the shaders separate and pre-compiled but that\u0027s for another CL.",
+      "parentUuid": "407b4dcc_833cf385",
+      "revId": "a2ac45b0e6b6bdd0c45d1957dd849bd0759adeae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

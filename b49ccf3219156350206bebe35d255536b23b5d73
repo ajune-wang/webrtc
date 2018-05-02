@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7199a5c9_96d9d6d9",
+        "filename": "rtc_base/java/src/org/webrtc/Logging.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-05-02T13:14:40Z",
+      "side": 1,
+      "message": "Can the native logger and fallback logger be implemented using the Loggable interface? It would be cool if this function could just be:\npublic static void log(Severity severity, String tag, String message) {\n  if (loggable !\u003d null) {\n    loggable.onLogMessage(message, severity, tag);\n  }\n}",
+      "range": {
+        "startLine": 104,
+        "startChar": 0,
+        "endLine": 126,
+        "endChar": 52
+      },
+      "revId": "b49ccf3219156350206bebe35d255536b23b5d73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "580d5b9e_8358662a",
+        "filename": "rtc_base/logging.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-05-02T13:14:40Z",
+      "side": 1,
+      "message": "Remove",
+      "range": {
+        "startLine": 26,
+        "startChar": 32,
+        "endLine": 26,
+        "endChar": 43
+      },
+      "revId": "b49ccf3219156350206bebe35d255536b23b5d73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f62034ff_e17d5062",
+        "filename": "sdk/android/api/org/webrtc/PeerConnectionFactory.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-05-02T13:14:40Z",
+      "side": 1,
+      "message": "Is the logging severity something we should make customizable in the setInjectableLogger() method?",
+      "range": {
+        "startLine": 213,
+        "startChar": 61,
+        "endLine": 213,
+        "endChar": 95
+      },
+      "revId": "b49ccf3219156350206bebe35d255536b23b5d73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ba9d135_5c63501e",
+        "filename": "sdk/android/src/java/org/webrtc/JNILogging.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-05-02T13:14:40Z",
+      "side": 1,
+      "message": "I think you can skip this class and work directly against the Loggable interface if you annotate onLogMessage with @CalledByNative.",
+      "range": {
+        "startLine": 24,
+        "startChar": 2,
+        "endLine": 24,
+        "endChar": 17
+      },
+      "revId": "b49ccf3219156350206bebe35d255536b23b5d73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56f0ee71_ade163ef",
+        "filename": "sdk/android/src/jni/pc/jni_logsink.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-05-02T13:14:40Z",
+      "side": 1,
+      "message": "Store this as a local variable in OnLogMessage instead.",
+      "range": {
+        "startLine": 33,
+        "startChar": 2,
+        "endLine": 33,
+        "endChar": 15
+      },
+      "revId": "b49ccf3219156350206bebe35d255536b23b5d73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

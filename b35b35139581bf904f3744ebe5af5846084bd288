@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6261724d_38c7557b",
+        "filename": "modules/video_coding/rtp_frame_reference_finder.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 438,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-05-02T14:08:59Z",
+      "side": 1,
+      "message": "This initialization is also redundant, right?\n\nI think it would be clearer to write the first block as\n\nconst auto it \u003d gof_info_.find(codec_header.tl0_pic_idx);\nif (it \u003d\u003d gof_info_.end()...) return kStash;\ninfo \u003d \u0026it-\u003esecond;\n\nand in the second block as\n\ninfo \u003d \u0026gof_info.emplace(...).first-\u003esecond;\n\n(or maybe go via a a |const auto it| here too, if the .first-\u003esecond looks too unreadable).\n\nAnd similarly for other gof_info_it variables below: Local and assign-once variables make the code easier to follow.",
+      "range": {
+        "startLine": 438,
+        "startChar": 4,
+        "endLine": 438,
+        "endChar": 39
+      },
+      "revId": "b35b35139581bf904f3744ebe5af5846084bd288",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

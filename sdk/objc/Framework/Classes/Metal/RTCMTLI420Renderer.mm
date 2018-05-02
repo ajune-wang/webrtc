@@ -19,8 +19,6 @@
 
 #import "RTCMTLRenderer+Private.h"
 
-#define MTL_STRINGIFY(s) @ #s
-
 static NSString *const shaderSource = MTL_STRINGIFY(
     using namespace metal; typedef struct {
       packed_float2 position;

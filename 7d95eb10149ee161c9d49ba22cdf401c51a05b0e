@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "22fd466d_137997de",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-02T20:37:17Z",
+      "side": 1,
+      "message": "Its purpose is more to avoid creating new CreatePeerConnection overloads; \"safe, simple dependency injection\" was already possible before.",
+      "revId": "7d95eb10149ee161c9d49ba22cdf401c51a05b0e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ecd0302_da183301",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-02T20:37:17Z",
+      "side": 1,
+      "message": "I think this description may be hard to follow without context. Here are some changes I\u0027d suggest:\n\nCurrently CreatePeerConnection takes 3 parameters. This is going to expand to four with a new change. Every time a new parameter is added, we need to deprecate the old method, switch clients to the new one, update fake/mock classes and tests, and so on, which is a cumbersome process.\n\nTo address this, this CL introduces a PeerConnectionDependencies structure to encapsulate all mandatory and optional dependencies (where a dependency is defined as non trivial\nexecutable code that an API user may want to provide to the native API). This allows adding a new injectable dependency by simply adding a new field to the struct, avoiding the hassle described above.\n\nYou may think we could use RTCConfiguration for this. But since RTCConfiguration is both passed in and out of the PeerConnection (using GetConfiguration/SetConfiguration), it can\u0027t carry unique_ptrs. And we don\u0027t want to inject dependencies via raw pointers, since this could lead to lifetime management bugs, where the dependency is deleted before the PeerConnection is done using it.",
+      "revId": "7d95eb10149ee161c9d49ba22cdf401c51a05b0e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07e0020a_8a492539",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-02T20:37:17Z",
+      "side": 1,
+      "message": "Can remove this.",
+      "revId": "7d95eb10149ee161c9d49ba22cdf401c51a05b0e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc943711_9455ec3a",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 1164,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-02T20:37:17Z",
+      "side": 1,
+      "message": "Since the observer is required, would probably be a good idea for the constructor to take it.",
+      "revId": "7d95eb10149ee161c9d49ba22cdf401c51a05b0e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

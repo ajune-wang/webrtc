@@ -749,7 +749,8 @@ TEST_F(FullStackTest, VP9SVC_3SL_Low) {
 #define MAYBE_SimulcastFullHdOveruse SimulcastFullHdOveruse
 #endif
 
-TEST_F(FullStackTest, MAYBE_SimulcastFullHdOveruse) {
+// TODO(bugs.webrtc.org/9220): Fix flakiness and re-enable this test.
+TEST_F(FullStackTest, DISABLED_MAYBE_SimulcastFullHdOveruse) {
   VideoQualityTest::Params simulcast;
   simulcast.call.send_side_bwe = true;
   simulcast.video[0] = {true,    1920,    1080,  30,    800000,

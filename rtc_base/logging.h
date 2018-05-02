@@ -116,7 +116,13 @@ class LogSink {
  public:
   LogSink() {}
   virtual ~LogSink() {}
+#if defined(WEBRTC_ANDROID)
+  virtual void OnLogMessage(const std::string& msg,
+                            LoggingSeverity severity,
+                            const char* tag) = 0;
+#else
   virtual void OnLogMessage(const std::string& message) = 0;
+#endif
 };
 
 class LogMessage {

@@ -30,9 +30,17 @@ class LogSinkImpl
   explicit LogSinkImpl(P* p) : Base(p) {}
 
  private:
+#if defined(WEBRTC_ANDROID)
+  void OnLogMessage(const std::string& message,
+                    rtc::LoggingSeverity severity,
+                    const char* tag) override{
+#else
   void OnLogMessage(const std::string& message) override {
-    static_cast<Base*>(this)->WriteAll(
-        message.data(), message.size(), nullptr, nullptr);
+#endif
+      static_cast<Base*>(this)->WriteAll(message.data(),
+                                         message.size(),
+                                         nullptr,
+                                         nullptr);
   }
 };
 

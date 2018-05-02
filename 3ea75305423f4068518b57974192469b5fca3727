@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4edca2aa_9d853b15",
+        "filename": "cr-buildbucket.cfg",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-05-02T07:34:15Z",
+      "side": 1,
+      "message": "I first thought \"waterfall\" was an antiquated term, but it appears the global cr-buildbucket.cfg is using it so it\u0027s good to be consistent with them.",
+      "range": {
+        "startLine": 35,
+        "startChar": 9,
+        "endLine": 35,
+        "endChar": 18
+      },
+      "revId": "3ea75305423f4068518b57974192469b5fca3727",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "78e00fc6_32c4e66d",
+        "filename": "cr-buildbucket.cfg",
+        "patchSetId": 3
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-05-02T07:34:15Z",
+      "side": 1,
+      "message": "I have no idea why this one is needed, so let\u0027s try to get rid of this one ASAP after we get some green builders.",
+      "range": {
+        "startLine": 347,
+        "startChar": 0,
+        "endLine": 348,
+        "endChar": 46
+      },
+      "revId": "3ea75305423f4068518b57974192469b5fca3727",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1539570c_bb8c0bed",
+        "filename": "cr-buildbucket.cfg",
+        "patchSetId": 3
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-05-02T07:34:15Z",
+      "side": 1,
+      "message": "Yeah, they need to create the service account for us so I\u0027ll ask in the bug...",
+      "range": {
+        "startLine": 350,
+        "startChar": 6,
+        "endLine": 350,
+        "endChar": 33
+      },
+      "revId": "3ea75305423f4068518b57974192469b5fca3727",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

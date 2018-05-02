@@ -743,13 +743,14 @@ TEST_F(FullStackTest, VP9SVC_3SL_Low) {
 #endif  // !defined(RTC_DISABLE_VP9)
 
 // Android bots can't handle FullHD, so disable the test.
-#if defined(WEBRTC_ANDROID)
+// TODO(bugs.webrtc.org/9220): Investigate source of flakiness on Mac.
+#if defined(WEBRTC_ANDROID) || defined(WEBRTC_MAC)
 #define MAYBE_SimulcastFullHdOveruse DISABLED_SimulcastFullHdOveruse
 #else
 #define MAYBE_SimulcastFullHdOveruse SimulcastFullHdOveruse
 #endif
 
-TEST_F(FullStackTest, MAYBE_SimulcastFullHdOveruse) {
+TEST_F(FullStackTest, DISABLED_MAYBE_SimulcastFullHdOveruse) {
   VideoQualityTest::Params simulcast;
   simulcast.call.send_side_bwe = true;
   simulcast.video[0] = {true,    1920,    1080,  30,    800000,

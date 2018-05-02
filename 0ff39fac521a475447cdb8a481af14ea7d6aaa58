@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "05c87149_3f34c614",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2421,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-02T19:44:15Z",
+      "side": 1,
+      "message": "nit: Would it be worth adding a comment mentioning that SetStreams will remove the receiver\u0027s track from its stream(s)? May be obvious but I forgot.",
+      "revId": "0ff39fac521a475447cdb8a481af14ea7d6aaa58",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8e8ebee_c77b0f9c",
+        "filename": "pc/peerconnection_rtp_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-02T19:44:15Z",
+      "side": 1,
+      "message": "I assume this is necessary because we check against \"current_direction\", which isn\u0027t set until an answer is applied?\n\nIt still would be valuable to have an \"apply two offers without an answer\" test, to ensure we don\u0027t change the behavior unintentionally. Maybe two tests; one that doesn\u0027t remove the track in between (expecting two track events) and one that does (expecting no track removal events).\n\nThough this behavior breaks the AddTrack/OnTrack/RemoveTrack/OnRemoveTrack symmetry, so I\u0027d also suggest adding a TODO and linking a bug. Even if the JS API has this oddity, the native API doesn\u0027t have to.\n\nNote that last time this came up, I filed https://github.com/w3c/webrtc-pc/issues/1729\n\nBut it was closed since people didn\u0027t think it was a big enough problem...",
+      "revId": "0ff39fac521a475447cdb8a481af14ea7d6aaa58",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

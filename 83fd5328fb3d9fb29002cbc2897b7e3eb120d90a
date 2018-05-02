@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "166deb2a_d250ecba",
+        "filename": "api/test/videoprocessor_integrationtest_fixture.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-05-02T12:57:08Z",
+      "side": 1,
+      "message": "Agree. I\u0027ll send another CL to move those.",
+      "parentUuid": "cda3e33b_758913f6",
+      "revId": "83fd5328fb3d9fb29002cbc2897b7e3eb120d90a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "096bd42f_432478e2",
         "filename": "api/test/videoprocessor_integrationtest_fixture.h",
         "patchSetId": 6
@@ -33,6 +51,24 @@
       "revId": "83fd5328fb3d9fb29002cbc2897b7e3eb120d90a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d84a3533_437ffde6",
+        "filename": "api/test/videoprocessor_integrationtest_fixture.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-05-02T12:57:08Z",
+      "side": 1,
+      "message": "Yes, I agree.\n\nI was trying to keep the changes from the original as small as possible, but I will make the changes you suggest. This CL is pretty big anyway!",
+      "parentUuid": "096bd42f_432478e2",
+      "revId": "83fd5328fb3d9fb29002cbc2897b7e3eb120d90a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "912b79a6_423801f0",
+        "filename": "modules/video_coding/codecs/test/videoprocessor_integrationtest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-05-02T12:57:08Z",
+      "side": 1,
+      "message": "From checking the style guide again I see that I was probably wrong to do this. I figured when a member is public it should be named like a struct data member. I considered a trailing underscore to represent a private  member. \n\nThe style guide does not make this distinction however, and just says that class members should always have a trailing _.",
+      "parentUuid": "c5ea077d_e1fefc7a",
+      "revId": "83fd5328fb3d9fb29002cbc2897b7e3eb120d90a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a846e184_525a91ec",
         "filename": "modules/video_coding/codecs/test/videoprocessor_integrationtest.h",
         "patchSetId": 6
@@ -67,6 +121,24 @@
       "revId": "83fd5328fb3d9fb29002cbc2897b7e3eb120d90a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03945e1c_8c7325bb",
+        "filename": "modules/video_coding/codecs/test/videoprocessor_integrationtest.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-05-02T12:57:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a846e184_525a91ec",
+      "revId": "83fd5328fb3d9fb29002cbc2897b7e3eb120d90a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -158,6 +230,24 @@
     },
     {
       "key": {
+        "uuid": "d917942d_829ede4d",
+        "filename": "modules/video_coding/codecs/test/videoprocessor_integrationtest_libvpx.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-05-02T12:57:08Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0f713cb6_2c3aea35",
+      "revId": "83fd5328fb3d9fb29002cbc2897b7e3eb120d90a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f111b43c_75b9fdae",
         "filename": "modules/video_coding/codecs/test/videoprocessor_integrationtest_libvpx.cc",
         "patchSetId": 6
@@ -219,6 +309,24 @@
       "revId": "83fd5328fb3d9fb29002cbc2897b7e3eb120d90a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7243e9fa_18135993",
+        "filename": "modules/video_coding/codecs/test/videoprocessor_integrationtest_mediacodec.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-05-02T12:57:08Z",
+      "side": 1,
+      "message": "That change is made in a follow-up CL. see https://webrtc-review.googlesource.com/c/src/+/73241",
+      "parentUuid": "db90a11c_879bcc78",
+      "revId": "83fd5328fb3d9fb29002cbc2897b7e3eb120d90a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

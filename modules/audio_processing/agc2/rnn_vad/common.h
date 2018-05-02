@@ -22,6 +22,7 @@ constexpr size_t kFrameSize20ms24kHz = kFrameSize10ms24kHz * 2;
 constexpr size_t kMinPitch24kHz = kSampleRate24kHz / 800;   // 0.00125 s.
 constexpr size_t kMaxPitch24kHz = kSampleRate24kHz / 62.5;  // 0.016 s.
 constexpr size_t kBufSize24kHz = kMaxPitch24kHz + kFrameSize20ms24kHz;
+constexpr int kAutoCorrelationFftOrder = 9;  // Length-512 FFT.
 static_assert((kBufSize24kHz & 1) == 0, "The buffer size must be even.");
 
 // Define a higher minimum pitch period for the initial search. This is used to

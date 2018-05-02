@@ -124,7 +124,20 @@ class VideoProcessorIntegrationTest::CpuProcessTime final {
   int64_t wallclock_time_ = 0;
 };
 
-VideoProcessorIntegrationTest::VideoProcessorIntegrationTest() {
+VideoProcessorIntegrationTest::VideoProcessorIntegrationTest(TestConfig config)
+    : config_(config) {
+#if defined(WEBRTC_ANDROID)
+  InitializeAndroidObjects();
+#endif
+}
+
+VideoProcessorIntegrationTest::VideoProcessorIntegrationTest(
+    TestConfig config,
+    std::unique_ptr<VideoDecoderFactory> decoderFactory,
+    std::unique_ptr<VideoEncoderFactory> encoderFactory)
+    : decoder_factory_(std::move(decoderFactory)),
+      encoder_factory_(std::move(encoderFactory)),
+      config_(config) {
 #if defined(WEBRTC_ANDROID)
   InitializeAndroidObjects();
 #endif
@@ -325,10 +338,11 @@ VideoProcessorIntegrationTest::CreateEncoderFactory() {
 }
 
 void VideoProcessorIntegrationTest::CreateEncoderAndDecoder() {
-  encoder_factory_ = CreateEncoderFactory();
-  std::unique_ptr<VideoDecoderFactory> decoder_factory = CreateDecoderFactory();
-
   const SdpVideoFormat format = config_.ToSdpVideoFormat();
+  if (!decoder_factory_)
+    decoder_factory_ = CreateDecoderFactory();
+  if (!encoder_factory_)
+    encoder_factory_ = CreateEncoderFactory();
   if (config_.simulcast_adapted_encoder) {
     EXPECT_EQ("VP8", format.name);
     encoder_.reset(new SimulcastEncoderAdapter(encoder_factory_.get()));
@@ -341,7 +355,7 @@ void VideoProcessorIntegrationTest::CreateEncoderAndDecoder() {
 
   for (size_t i = 0; i < num_simulcast_or_spatial_layers; ++i) {
     decoders_.push_back(std::unique_ptr<VideoDecoder>(
-        decoder_factory->CreateVideoDecoder(format)));
+        decoder_factory_->CreateVideoDecoder(format)));
   }
 
   if (config_.sw_fallback_encoder) {
@@ -370,7 +384,10 @@ void VideoProcessorIntegrationTest::CreateEncoderAndDecoder() {
 void VideoProcessorIntegrationTest::DestroyEncoderAndDecoder() {
   decoders_.clear();
   encoder_.reset();
-  encoder_factory_.reset();
+}
+
+Stats VideoProcessorIntegrationTest::GetStats() {
+  return stats_;
 }
 
 void VideoProcessorIntegrationTest::SetUpAndInitObjects(

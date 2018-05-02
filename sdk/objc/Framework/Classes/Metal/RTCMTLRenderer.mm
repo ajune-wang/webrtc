@@ -140,8 +140,17 @@ static const NSInteger kMaxInflightBuffers = 1;
   // Load metal library from source.
   NSError *libraryError = nil;
 
+  NSString *shaderSource = [self shaderSource];
+
+#if !defined(NDEBUG)
+  // Format the shader source to aid debugging.
+  shaderSource = [shaderSource stringByReplacingOccurrencesOfString:@";" withString:@";\n"];
+  shaderSource = [shaderSource stringByReplacingOccurrencesOfString:@"{" withString:@"{\n"];
+  shaderSource = [shaderSource stringByReplacingOccurrencesOfString:@"}" withString:@"}\n"];
+#endif
+
   id<MTLLibrary> sourceLibrary =
-      [_device newLibraryWithSource:[self shaderSource] options:NULL error:&libraryError];
+      [_device newLibraryWithSource:shaderSource options:NULL error:&libraryError];
 
   if (libraryError) {
     RTCLogError(@"Metal: Library with source failed\n%@", libraryError);

@@ -23,6 +23,7 @@
 #include <CoreServices/CoreServices.h>
 #elif defined(WEBRTC_ANDROID)
 #include <android/log.h>
+//#include "sdk/android/src/jni/jni_helpers.h"
 // Android has a 1024 limit on log inputs. We use 60 chars as an
 // approx for the header/tag portion.
 // See android/system/core/liblog/logd_write.c
@@ -215,7 +216,11 @@ LogMessage::~LogMessage() {
   CritScope cs(&g_log_crit);
   for (auto& kv : streams_) {
     if (severity_ >= kv.second) {
+#if defined(WEBRTC_ANDROID)
+      kv.first->OnLogMessage(str, severity_, tag_);
+#else
       kv.first->OnLogMessage(str);
+#endif
     }
   }
 }

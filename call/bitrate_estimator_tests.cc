@@ -46,7 +46,13 @@ class LogObserver {
    public:
     Callback() : done_(false, false) {}
 
+#if defined(WEBRTC_ANDROID)
+    void OnLogMessage(const std::string& message,
+                      rtc::LoggingSeverity severity,
+                      const char* tag) override {
+#else
     void OnLogMessage(const std::string& message) override {
+#endif
       rtc::CritScope lock(&crit_sect_);
       // Ignore log lines that are due to missing AST extensions, these are
       // logged when we switch back from AST to TOF until the wrapping bitrate

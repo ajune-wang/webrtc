@@ -30,6 +30,7 @@
 #include "sdk/android/src/jni/pc/androidnetworkmonitor.h"
 #include "sdk/android/src/jni/pc/audio.h"
 #include "sdk/android/src/jni/pc/icecandidate.h"
+#include "sdk/android/src/jni/pc/jni_logsink.h"
 #include "sdk/android/src/jni/pc/media.h"
 #include "sdk/android/src/jni/pc/ownedfactoryandthreads.h"
 #include "sdk/android/src/jni/pc/peerconnection.h"
@@ -523,6 +524,16 @@ static jlong JNI_PeerConnectionFactory_GetNativePeerConnectionFactory(
     const JavaParamRef<jclass>&,
     jlong native_factory) {
   return jlongFromPointer(factoryFromJava(native_factory));
+}
+
+static void JNI_PeerConnectionFactory_InjectLoggable(
+    JNIEnv* jni,
+    const JavaParamRef<jclass>&,
+    const JavaParamRef<jobject>& j_logging,
+    jint nativeSeverity) {
+  rtc::LogMessage::AddLogToStream(
+      new JNILogSink(jni, j_logging),
+      static_cast<rtc::LoggingSeverity>(nativeSeverity));
 }
 
 }  // namespace jni

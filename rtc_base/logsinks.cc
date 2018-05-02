@@ -35,7 +35,13 @@ FileRotatingLogSink::FileRotatingLogSink(FileRotatingStream* stream)
 FileRotatingLogSink::~FileRotatingLogSink() {
 }
 
+#if defined(WEBRTC_ANDROID)
+void FileRotatingLogSink::OnLogMessage(const std::string& message,
+                                       LoggingSeverity severity,
+                                       const char* tag) {
+#else
 void FileRotatingLogSink::OnLogMessage(const std::string& message) {
+#endif
   if (stream_->GetState() != SS_OPEN) {
     std::cerr << "Init() must be called before adding this sink." << std::endl;
     return;

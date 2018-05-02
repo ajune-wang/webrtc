@@ -34,7 +34,13 @@ class FileRotatingLogSink : public LogSink {
 
   // Writes the message to the current file. It will spill over to the next
   // file if needed.
+#if defined(WEBRTC_ANDROID)
+  void OnLogMessage(const std::string& message,
+                    LoggingSeverity severity,
+                    const char* tag) override;
+#else
   void OnLogMessage(const std::string& message) override;
+#endif
 
   // Deletes any existing files in the directory and creates a new log file.
   virtual bool Init();

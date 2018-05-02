@@ -2,6 +2,74 @@
   "comments": [
     {
       "key": {
+        "uuid": "cda3e33b_758913f6",
+        "filename": "api/test/videoprocessor_integrationtest_fixture.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-05-02T09:01:14Z",
+      "side": 1,
+      "message": "Stats and TestConfig should be part of the API as well, or the parts we need in the test fixture broken out and included in both places. The goal is that things in api/ only depend on things in api/.\n\n(But it is fine to me if you want to fix it in a follow-up.)",
+      "revId": "83fd5328fb3d9fb29002cbc2897b7e3eb120d90a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "096bd42f_432478e2",
+        "filename": "api/test/videoprocessor_integrationtest_fixture.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-05-02T09:01:14Z",
+      "side": 1,
+      "message": "An interface shouldn\u0027t contain state. Also, exposing the config like this provides the client/implementation with no guarantee about how it is used. What happens if the config state is changed midway through the test? What changes to the config are acceptable? -\u003e Test matrix explosion.\n\nCan the config go in the Create() method(s)?\nCan we add a GetStats() on the interface, or even better, return the stats from ProcessFramesAnd...()?",
+      "revId": "83fd5328fb3d9fb29002cbc2897b7e3eb120d90a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5ea077d_e1fefc7a",
+        "filename": "modules/video_coding/codecs/test/videoprocessor_integrationtest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-05-02T09:01:14Z",
+      "side": 1,
+      "message": "Why is this changed? If you changed it to kConfig that\u0027d to my knowledge be inline with the C++ style guide (https://google.github.io/styleguide/cppguide.html). Personally I\u0027d have just kept the trailing \u0027_\u0027. Please educate me!",
+      "revId": "83fd5328fb3d9fb29002cbc2897b7e3eb120d90a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a846e184_525a91ec",
+        "filename": "modules/video_coding/codecs/test/videoprocessor_integrationtest.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-05-02T09:01:14Z",
+      "side": 1,
+      "message": "decoder_factory",
+      "revId": "83fd5328fb3d9fb29002cbc2897b7e3eb120d90a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "aacc775d_2c31cc1c",
         "filename": "modules/video_coding/codecs/test/videoprocessor_integrationtest_libvpx.cc",
         "patchSetId": 6
@@ -73,6 +141,23 @@
     },
     {
       "key": {
+        "uuid": "0f713cb6_2c3aea35",
+        "filename": "modules/video_coding/codecs/test/videoprocessor_integrationtest_libvpx.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-05-02T09:01:14Z",
+      "side": 1,
+      "message": "If the config was sent to the create method above, the encoder and decoder factories could go there as well. Plus there would be no ambiguity about the state.",
+      "revId": "83fd5328fb3d9fb29002cbc2897b7e3eb120d90a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f111b43c_75b9fdae",
         "filename": "modules/video_coding/codecs/test/videoprocessor_integrationtest_libvpx.cc",
         "patchSetId": 6
@@ -117,6 +202,23 @@
       "revId": "83fd5328fb3d9fb29002cbc2897b7e3eb120d90a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "db90a11c_879bcc78",
+        "filename": "modules/video_coding/codecs/test/videoprocessor_integrationtest_mediacodec.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-05-02T09:01:14Z",
+      "side": 1,
+      "message": "This test fixture could be removed and replaced with a function which provides a default test config for these tests, then each TEST_F is changed to a TEST and calls the function + Create...() to set up the VideoProcessorIntegrationTestFixture.\n\nThat would be easier to follow IMO.",
+      "revId": "83fd5328fb3d9fb29002cbc2897b7e3eb120d90a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

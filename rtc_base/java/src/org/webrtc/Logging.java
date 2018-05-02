@@ -15,6 +15,7 @@ import java.io.StringWriter;
 import java.util.EnumSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.webrtc.Loggable;
 
 /**
  * Java wrapper for WebRTC logging. Logging defaults to java.util.logging.Logger, but will switch to
@@ -31,10 +32,16 @@ public class Logging {
   private static final Logger fallbackLogger = createFallbackLogger();
   private static volatile boolean loggingEnabled;
 
+  private static Loggable loggable;
+
   private static Logger createFallbackLogger() {
     final Logger fallbackLogger = Logger.getLogger("org.webrtc.Logging");
     fallbackLogger.setLevel(Level.ALL);
     return fallbackLogger;
+  }
+
+  static void injectLoggable(Loggable injectedLoggable) {
+    loggable = injectedLoggable;
   }
 
   // TODO(solenberg): Remove once dependent projects updated.
@@ -88,6 +95,13 @@ public class Logging {
   }
 
   public static void log(Severity severity, String tag, String message) {
+    // Override when injected loggable is available.
+    if (loggable != null) {
+      loggable.onLogMessage(message, severity, tag);
+      return;
+    }
+
+    // Standard path.
     if (loggingEnabled) {
       nativeLog(severity.ordinal(), tag, message);
       return;

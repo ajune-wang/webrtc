@@ -22,6 +22,122 @@
       "revId": "39415490e36c8f68b515181c1596619d66ef3737",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e054dd4e_dcf02ce9",
+        "filename": "modules/audio_coding/neteq/tools/neteq_input.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-05-02T11:00:42Z",
+      "side": 1,
+      "message": "Sounds good to me. FYI, we\u0027re moving towards only storing millisecond resolution in the log.",
+      "parentUuid": "8cfa3419_9747dd64",
+      "range": {
+        "startLine": 35,
+        "startChar": 4,
+        "endLine": 35,
+        "endChar": 11
+      },
+      "revId": "39415490e36c8f68b515181c1596619d66ef3737",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ad5fae6_d7886a14",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1575,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-05-02T11:00:42Z",
+      "side": 1,
+      "message": "I think we have changed all timestamps to int64_t. If you find anything that is still uint64_t, please let me know.\n\nIs there a strong reason for decoupling the log time from the packet time type? I.e. do you expect to do a more complicated mapping in the future? Otherwise, I\u0027d prefer an explicit division/multiplication.",
+      "range": {
+        "startLine": 1575,
+        "startChar": 37,
+        "endLine": 1575,
+        "endChar": 45
+      },
+      "revId": "39415490e36c8f68b515181c1596619d66ef3737",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f02ae895_24c8a361",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1843,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-05-02T11:00:42Z",
+      "side": 1,
+      "message": "I\u0027d prefer to just multiply by 1000 here, unless there is a reason for decoupling.",
+      "range": {
+        "startLine": 1843,
+        "startChar": 39,
+        "endLine": 1843,
+        "endChar": 58
+      },
+      "revId": "39415490e36c8f68b515181c1596619d66ef3737",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f444c02_33bcac05",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1858,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-05-02T11:00:42Z",
+      "side": 1,
+      "message": "SetSuggestedYAxis() computes the min and max for you.",
+      "range": {
+        "startLine": 1858,
+        "startChar": 8,
+        "endLine": 1858,
+        "endChar": 16
+      },
+      "revId": "39415490e36c8f68b515181c1596619d66ef3737",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "588867ab_ba47861d",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1858,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-05-02T11:00:42Z",
+      "side": 1,
+      "message": "Could the stats series be empty? If there are no y-values, I think the reversed y-axis limits might cause an exception in python. (Not sure about this though.)",
+      "range": {
+        "startLine": 1858,
+        "startChar": 0,
+        "endLine": 1858,
+        "endChar": 79
+      },
+      "revId": "39415490e36c8f68b515181c1596619d66ef3737",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

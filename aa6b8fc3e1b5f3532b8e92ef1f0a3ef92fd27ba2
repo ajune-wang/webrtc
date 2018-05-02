@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "568cbeb4_d21c7c3e",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1583,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-05-02T11:00:42Z",
+      "side": 0,
+      "message": "Consider using the log_time_ms() which does the division for you.",
+      "range": {
+        "startLine": 1583,
+        "startChar": 34,
+        "endLine": 1583,
+        "endChar": 45
+      },
+      "revId": "aa6b8fc3e1b5f3532b8e92ef1f0a3ef92fd27ba2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

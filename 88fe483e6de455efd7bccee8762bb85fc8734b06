@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "21c42d26_df2ef871",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-05-03T16:36:13Z",
+      "side": 1,
+      "message": "Thanks for this feedback.\n\nI wanted to modify |ring_buf| and |sym_matrix_buf| in one place because the latter depends on the former. But now I realize that moving ring_buf-\u003ePush outside as you suggest it\u0027s better and allows to find a better name for the remaining part.",
+      "parentUuid": "62bcc99d_661ea3e8",
+      "range": {
+        "startLine": 27,
+        "startChar": 5,
+        "endLine": 27,
+        "endChar": 45
+      },
+      "revId": "88fe483e6de455efd7bccee8762bb85fc8734b06",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "870affe5_076bfcd9",
         "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.cc",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "88fe483e6de455efd7bccee8762bb85fc8734b06",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be71c240_03398388",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-05-03T16:36:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "870affe5_076bfcd9",
+      "range": {
+        "startLine": 84,
+        "startChar": 19,
+        "endLine": 84,
+        "endChar": 24
+      },
+      "revId": "88fe483e6de455efd7bccee8762bb85fc8734b06",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "476eba2c_ff78b426",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-05-03T16:36:13Z",
+      "side": 1,
+      "message": "not for this argument since the function needs an ArrayView with size known at compile time",
+      "parentUuid": "7358aa1b_40e6ab97",
+      "range": {
+        "startLine": 89,
+        "startChar": 25,
+        "endLine": 89,
+        "endChar": 75
+      },
+      "revId": "88fe483e6de455efd7bccee8762bb85fc8734b06",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3adfcd16_4ca9f9af",
         "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.cc",
         "patchSetId": 1
@@ -91,6 +163,30 @@
       "revId": "88fe483e6de455efd7bccee8762bb85fc8734b06",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68d9617a_7496025a",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-05-03T16:36:13Z",
+      "side": 1,
+      "message": "These constants come from the training dataset and the goal is to have 0 mean unit variance normalization.",
+      "parentUuid": "3adfcd16_4ca9f9af",
+      "range": {
+        "startLine": 104,
+        "startChar": 44,
+        "endLine": 104,
+        "endChar": 46
+      },
+      "revId": "88fe483e6de455efd7bccee8762bb85fc8734b06",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "62d8e29c_6f545401",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-05-03T16:36:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ebf58dbe_a14d22a3",
+      "range": {
+        "startLine": 148,
+        "startChar": 7,
+        "endLine": 148,
+        "endChar": 14
+      },
+      "revId": "88fe483e6de455efd7bccee8762bb85fc8734b06",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9f77620a_85717ed5",
         "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.cc",
         "patchSetId": 1
@@ -137,6 +257,30 @@
       "revId": "88fe483e6de455efd7bccee8762bb85fc8734b06",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b08e5084_defcf315",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-05-03T16:36:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9f77620a_85717ed5",
+      "range": {
+        "startLine": 169,
+        "startChar": 27,
+        "endLine": 169,
+        "endChar": 30
+      },
+      "revId": "88fe483e6de455efd7bccee8762bb85fc8734b06",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "dc9ef2f4_adde16d9",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-05-03T16:36:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3c35dac9_4dfd87d3",
+      "range": {
+        "startLine": 177,
+        "startChar": 21,
+        "endLine": 177,
+        "endChar": 26
+      },
+      "revId": "88fe483e6de455efd7bccee8762bb85fc8734b06",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "10cf1713_7d9874de",
         "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.cc",
         "patchSetId": 1
@@ -183,6 +351,30 @@
       "revId": "88fe483e6de455efd7bccee8762bb85fc8734b06",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eded6d57_83302953",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-05-03T16:36:13Z",
+      "side": 1,
+      "message": "once again normalization",
+      "parentUuid": "10cf1713_7d9874de",
+      "range": {
+        "startLine": 186,
+        "startChar": 55,
+        "endLine": 186,
+        "endChar": 61
+      },
+      "revId": "88fe483e6de455efd7bccee8762bb85fc8734b06",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "c56d671f_45dfd5b9",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-05-03T16:36:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c2f37fe6_b05bab2f",
+      "range": {
+        "startLine": 43,
+        "startChar": 2,
+        "endLine": 43,
+        "endChar": 48
+      },
+      "revId": "88fe483e6de455efd7bccee8762bb85fc8734b06",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "81bd6473_fdfa99e3",
         "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.h",
         "patchSetId": 1
@@ -232,6 +448,30 @@
     },
     {
       "key": {
+        "uuid": "adfe2b2b_0545a3d6",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-05-03T16:36:13Z",
+      "side": 1,
+      "message": "Thanks for this comment! Also done for lagged_frame_fft_",
+      "parentUuid": "81bd6473_fdfa99e3",
+      "range": {
+        "startLine": 64,
+        "startChar": 2,
+        "endLine": 64,
+        "endChar": 54
+      },
+      "revId": "88fe483e6de455efd7bccee8762bb85fc8734b06",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "278ecf90_accbdafb",
         "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.h",
         "patchSetId": 1
@@ -243,6 +483,30 @@
       "writtenOn": "2018-05-03T13:11:03Z",
       "side": 1,
       "message": "I don\u0027t think size_t is needed here. size_t can be either 32-bit or 64-bit, depending on the platform, and is typically used for sizes of arrays or indices into arrays. However, I think using 64 bit variables here is a bit wasteful.",
+      "range": {
+        "startLine": 68,
+        "startChar": 19,
+        "endLine": 68,
+        "endChar": 25
+      },
+      "revId": "88fe483e6de455efd7bccee8762bb85fc8734b06",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7584ddac_b36c5822",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-05-03T16:36:13Z",
+      "side": 1,
+      "message": "Good point, but |kNumBands| is small (22), so in this case I would accept size_t. In general, the problem I see with avoiding size_t is that alternatives, in particular signed types, cannot be compared to, for example, container sizes directly; in fact, different types often require \"static_assert\"s that add clutter in the code.\n\nPlus, from https://google.github.io/styleguide/cppguide.html#Integer_Types I read: \"You should not use the unsigned integer types such as uint32_t, unless there is a valid reason such as representing a bit pattern rather than a number, or you need defined overflow modulo 2^N.\"\n\nWDYT? Do you have any alternative in mind?",
+      "parentUuid": "278ecf90_accbdafb",
       "range": {
         "startLine": 68,
         "startChar": 19,
@@ -278,6 +542,30 @@
     },
     {
       "key": {
+        "uuid": "bfbbe4af_01ee59c2",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-05-03T16:36:13Z",
+      "side": 1,
+      "message": "I could just pre-compute the table and store it, but it would take a lot of space since the table has 484 floating point values that shouldn\u0027t be rounded off.\nAnother solution would be declaring ComputeDctTable() constexpr, but unfortunately we cannot because it uses cos().\nAlso, connected to your comment about preferring std::vector over std::array for longer arrays, I think it\u0027s better if we keep ComputeDctTable() instead of hard-coding the table and then switching to std::vector.\n\nWDYT?",
+      "parentUuid": "659a1aa7_3bbd1418",
+      "range": {
+        "startLine": 68,
+        "startChar": 2,
+        "endLine": 69,
+        "endChar": 60
+      },
+      "revId": "88fe483e6de455efd7bccee8762bb85fc8734b06",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b1e96ee6_f42fa468",
         "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_unittest.cc",
         "patchSetId": 1
@@ -298,6 +586,30 @@
       "revId": "88fe483e6de455efd7bccee8762bb85fc8734b06",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "507cfe51_7b3b5594",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-05-03T16:36:13Z",
+      "side": 1,
+      "message": "I wanted to make more explicit when we have silence and when not, that\u0027s why I used std::fill at the beginning of the code block 66-72",
+      "parentUuid": "b1e96ee6_f42fa468",
+      "range": {
+        "startLine": 56,
+        "startChar": 41,
+        "endLine": 56,
+        "endChar": 48
+      },
+      "revId": "88fe483e6de455efd7bccee8762bb85fc8734b06",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -87,6 +87,24 @@
       "revId": "432b6899f614eafcd47df7f1a5dc00be687be742",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cbad0f55_1bb6dc29",
+        "filename": "pc/peerconnection_integrationtest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 611,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2018-05-03T07:52:34Z",
+      "side": 1,
+      "message": "Added TODOs and added a comment about simulcast support in the BuiltinVideoEncoderFactory (which it does support, just not software fallback, since all the built-in codecs are software). So when passing these in, it should behave identically to the old constructor when no external codec was provided.",
+      "parentUuid": "f08b1662_11488109",
+      "revId": "432b6899f614eafcd47df7f1a5dc00be687be742",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

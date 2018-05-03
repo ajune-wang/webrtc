@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6415ae2b_1dcc0ddb",
+        "filename": "rtc_base/network.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-05-03T23:15:04Z",
+      "side": 1,
+      "message": "I am wondering if this can be risky to misclassify non-loopback interfaces.",
+      "range": {
+        "startLine": 180,
+        "startChar": 6,
+        "endLine": 180,
+        "endChar": 36
+      },
+      "revId": "2bbe16bf117415d1347835f3e576cc6a84f51a3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

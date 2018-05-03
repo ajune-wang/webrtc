@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "08e44d78_eecd162b",
+        "filename": "cr-buildbucket.cfg",
+        "patchSetId": 3
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 5533
+      },
+      "writtenOn": "2018-05-03T02:06:00Z",
+      "side": 0,
+      "message": "do you not intend to use luci-migration app?\nit\u0027s not necessary for migration, but it\u0027s useful if you want to synchronize (bbot,luci) at the very moment of migration.",
+      "range": {
+        "startLine": 343,
+        "startChar": 6,
+        "endLine": 343,
+        "endChar": 55
+      },
+      "revId": "d4ec5be2ed480973852bb4d16f23a2f7a8504643",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

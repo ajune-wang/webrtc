@@ -450,6 +450,30 @@
     },
     {
       "key": {
+        "uuid": "66028b5b_e95e9193",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-05-03T18:08:50Z",
+      "side": 1,
+      "message": "See my comment here as well",
+      "parentUuid": "d98e9e6b_946c421d",
+      "range": {
+        "startLine": 85,
+        "startChar": 2,
+        "endLine": 85,
+        "endChar": 25
+      },
+      "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa4b83a5_052114c0",
         "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
         "patchSetId": 1

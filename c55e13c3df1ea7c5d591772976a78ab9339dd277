@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1f92c645_607e8194",
+        "filename": "common_audio/real_fourier_ooura.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-05-03T13:33:07Z",
+      "side": 1,
+      "message": "Wasn\u0027t me, it was the Chromium Style plugin.",
+      "parentUuid": "86171aac_43901621",
+      "revId": "c55e13c3df1ea7c5d591772976a78ab9339dd277",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "35bf1adc_674e1eef",
         "filename": "modules/audio_processing/agc2/rnn_vad/common.h",
         "patchSetId": 8
@@ -33,6 +51,24 @@
       "revId": "c55e13c3df1ea7c5d591772976a78ab9339dd277",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d0ebd34_4db2b662",
+        "filename": "modules/audio_processing/agc2/rnn_vad/common.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-05-03T13:33:07Z",
+      "side": 1,
+      "message": "You are right. Moved to \u0027internal\u0027.",
+      "parentUuid": "35bf1adc_674e1eef",
+      "revId": "c55e13c3df1ea7c5d591772976a78ab9339dd277",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -59,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "e2b1f4e1_138213a4",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-05-03T13:33:07Z",
+      "side": 1,
+      "message": "Absolutely! Done.",
+      "parentUuid": "1a3d52df_5f3c6ae9",
+      "range": {
+        "startLine": 212,
+        "startChar": 25,
+        "endLine": 212,
+        "endChar": 28
+      },
+      "revId": "c55e13c3df1ea7c5d591772976a78ab9339dd277",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ce53b3be_9105716c",
         "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
         "patchSetId": 8
@@ -82,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "64ddb1a3_a3f468ef",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-05-03T13:33:07Z",
+      "side": 1,
+      "message": "You are right, simple numbers in .cc files is bad. Fixed now, I think!",
+      "parentUuid": "ce53b3be_9105716c",
+      "range": {
+        "startLine": 216,
+        "startChar": 44,
+        "endLine": 216,
+        "endChar": 47
+      },
+      "revId": "c55e13c3df1ea7c5d591772976a78ab9339dd277",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cd568f7a_bb7b8c47",
         "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
         "patchSetId": 8
@@ -93,6 +177,30 @@
       "writtenOn": "2018-05-02T13:38:32Z",
       "side": 1,
       "message": "if you address my previous comment, then you can just check fft-\u003eorder() against kAutoCorrelationFftOrder; maybe you could also add a TODO indicating to move this DCHECK where the FFT is constructed (or move it into a factory method if add one)",
+      "range": {
+        "startLine": 219,
+        "startChar": 2,
+        "endLine": 219,
+        "endChar": 15
+      },
+      "revId": "c55e13c3df1ea7c5d591772976a78ab9339dd277",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f24c6854_51f7b0e6",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-05-03T13:33:07Z",
+      "side": 1,
+      "message": "Since we get an FFT pointer from currently-unknown-where, I think we should keep all required checks here where it\u0027s used. And possibly add a few more.\nBut we can add checks to where the FFT-object is constructed as well.",
+      "parentUuid": "cd568f7a_bb7b8c47",
       "range": {
         "startLine": 219,
         "startChar": 2,
@@ -128,6 +236,30 @@
     },
     {
       "key": {
+        "uuid": "379acfbc_f2ba9c0e",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-05-03T13:33:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "12d90689_0e5de367",
+      "range": {
+        "startLine": 233,
+        "startChar": 63,
+        "endLine": 233,
+        "endChar": 64
+      },
+      "revId": "c55e13c3df1ea7c5d591772976a78ab9339dd277",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8cb14e2a_666a11cf",
         "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
         "patchSetId": 8
@@ -148,6 +280,30 @@
       "revId": "c55e13c3df1ea7c5d591772976a78ab9339dd277",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f799b2be_80789367",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-05-03T13:33:07Z",
+      "side": 1,
+      "message": "Not with the current constants. We copy the first 387 elements of the 432 element buffer into x.",
+      "parentUuid": "8cb14e2a_666a11cf",
+      "range": {
+        "startLine": 235,
+        "startChar": 12,
+        "endLine": 235,
+        "endChar": 74
+      },
+      "revId": "c55e13c3df1ea7c5d591772976a78ab9339dd277",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -174,6 +330,30 @@
     },
     {
       "key": {
+        "uuid": "29a464f5_434cf171",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-05-03T13:33:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3393d80_d68405bc",
+      "range": {
+        "startLine": 431,
+        "startChar": 17,
+        "endLine": 431,
+        "endChar": 48
+      },
+      "revId": "c55e13c3df1ea7c5d591772976a78ab9339dd277",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "21f636e4_30a4d069",
         "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal_unittest.cc",
         "patchSetId": 8
@@ -194,6 +374,30 @@
       "revId": "c55e13c3df1ea7c5d591772976a78ab9339dd277",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a562d07c_8c2e7fa0",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-05-03T13:33:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "21f636e4_30a4d069",
+      "range": {
+        "startLine": 432,
+        "startChar": 35,
+        "endLine": 432,
+        "endChar": 54
+      },
+      "revId": "c55e13c3df1ea7c5d591772976a78ab9339dd277",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -220,6 +424,30 @@
     },
     {
       "key": {
+        "uuid": "779fb042_47979b32",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-05-03T13:33:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2ae45f48_724cdd37",
+      "range": {
+        "startLine": 433,
+        "startChar": 2,
+        "endLine": 435,
+        "endChar": 3
+      },
+      "revId": "c55e13c3df1ea7c5d591772976a78ab9339dd277",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "168df109_a0ab60af",
         "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal_unittest.cc",
         "patchSetId": 8
@@ -231,6 +459,30 @@
       "writtenOn": "2018-05-02T13:38:32Z",
       "side": 1,
       "message": "How is this test valuable? Why not feeding a pure sinusoidal at known frequency to check that the auto-correlation values have a corresponding peak?",
+      "range": {
+        "startLine": 454,
+        "startChar": 2,
+        "endLine": 454,
+        "endChar": 20
+      },
+      "revId": "c55e13c3df1ea7c5d591772976a78ab9339dd277",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d9da8bc7_2cde596c",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-05-03T13:33:07Z",
+      "side": 1,
+      "message": "It helped me debug all the off-by-one and scaling errors. In that sense it was very valuable. It has simple input where the output is simple to generate. A test with a sine curve would be longer and more complex.",
+      "parentUuid": "168df109_a0ab60af",
       "range": {
         "startLine": 454,
         "startChar": 2,

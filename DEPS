@@ -702,6 +702,76 @@ hooks = [
                'download'
     ],
   },
+  {
+    # Remove unnecessary dependencies from third_party on linux
+    'name': 'Third party cleanup',
+    'pattern': '.',
+    'condition': '(checkout_linux and not checkout_android) and (not checkout_mac and not checkout_ios)',
+    'action': ['python',
+               'src/deps_clear_hook.py',
+               '--platform', 'linux',
+               '--verbose',
+    ],
+  },
+  {
+    # Remove unnecessary dependencies from third_party on android
+    'name': 'Third party cleanup',
+    'pattern': '.',
+    'condition': '(checkout_android and not checkout_mac) and not checkout_ios',
+    'action': ['python',
+               'src/deps_clear_hook.py',
+               '--platform', 'android',
+               '--verbose',
+    ],
+  },
+  {
+    # Remove unnecessary dependencies from third_party on mac
+    'name': 'Third party cleanup',
+    'pattern': '.',
+    'condition': 'checkout_mac and not checkout_android',
+    'action': ['python',
+               'src/deps_clear_hook.py',
+               '--platform', 'mac',
+               '--verbose',
+    ],
+  },
+  {
+    # Remove unnecessary dependencies from third_party on ios
+    'name': 'Third party cleanup',
+    'pattern': '.',
+    'condition': 'checkout_ios and not checkout_android',
+    'action': ['python',
+               'src/deps_clear_hook.py',
+               '--platform', 'ios',
+               '--verbose',
+    ],
+  },
+  {
+    # Remove unnecessary dependencies from third_party on win
+    'name': 'Third party cleanup',
+    'pattern': '.',
+    'condition': '(checkout_win and not checkout_android) and (not checkout_mac and not checkout_ios)',
+    'action': ['python',
+               'src/deps_clear_hook.py',
+               '--platform', 'win',
+               '--verbose',
+    ],
+  },
+  {
+    # Remove unnecessary dependencies from third_party on win
+    'name': 'Third party cleanup',
+    'pattern': '.',
+    'condition': '((checkout_linux and checkout_android) and (checkout_mac or checkout_ios)) and checkout_win',
+    'action': ['python',
+               'src/deps_clear_hook.py',
+               '--platform', 'linux',
+               '--platform', 'android',
+               '--platform', 'mac',
+               '--platform', 'ios',
+               '--platform', 'win',
+               '--verbose',
+    ],
+  },
 ]
 
 recursedeps = [

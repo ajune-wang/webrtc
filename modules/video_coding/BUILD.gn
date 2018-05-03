@@ -674,6 +674,43 @@ if (rtc_include_tests) {
     }
   }
 
+  rtc_source_set("videoprocessor_integrationtest_impl") {
+    testonly = true
+    sources = [
+      "codecs/test/videoprocessor_integrationtest_fixture_impl.cc",
+      "codecs/test/videoprocessor_integrationtest_fixture_impl.h",
+    ]
+    deps = [
+      ":video_codec_interface",
+      ":video_codecs_test_framework",
+      ":video_coding",
+      ":video_coding_utility",
+      ":webrtc_multiplex",
+      ":webrtc_vp8_helpers",
+      ":webrtc_vp9_helpers",
+      "../..:webrtc_common",
+      "../../api:videoprocessor_integrationtest_fixture_api",
+      "../../api/video_codecs:video_codecs_api",
+      "../../common_video",
+      "../../media:rtc_internal_video_codecs",
+      "../../media:rtc_software_fallback_wrappers",
+      "../../rtc_base:checks",
+      "../../rtc_base:rtc_base",
+      "../../rtc_base:rtc_base_tests_utils",
+      "../../system_wrappers",
+      "../../test:fileutils",
+      "../../test:test_support",
+      "../../test:video_test_support",
+    ]
+    if (!build_with_chromium && is_clang) {
+      # Suppress warnings from the Chromium Clang plugin (bugs.webrtc.org/163).
+      suppressed_configs += [ "//build/config/clang:find_bad_constructs" ]
+    }
+    if (is_android) {
+      deps += [ ":android_codec_factory_helper" ]
+    }
+  }
+
   rtc_source_set("video_coding_modules_tests") {
     testonly = true
 
@@ -681,8 +718,6 @@ if (rtc_include_tests) {
       "codecs/h264/test/h264_impl_unittest.cc",
       "codecs/multiplex/test/multiplex_adapter_unittest.cc",
       "codecs/test/video_encoder_decoder_instantiation_tests.cc",
-      "codecs/test/videoprocessor_integrationtest.cc",
-      "codecs/test/videoprocessor_integrationtest.h",
       "codecs/test/videoprocessor_integrationtest_libvpx.cc",
       "codecs/test/videoprocessor_integrationtest_openh264.cc",
       "codecs/test/videoprocessor_integrationtest_parameterized.cc",
@@ -691,36 +726,28 @@ if (rtc_include_tests) {
     ]
 
     deps = [
-      ":video_codec_interface",
       ":video_codecs_test_framework",
-      ":video_coding",
       ":video_coding_utility",
+      ":videoprocessor_integrationtest_impl",
       ":webrtc_h264",
       ":webrtc_multiplex",
       ":webrtc_vp8_helpers",
       ":webrtc_vp9",
       ":webrtc_vp9_helpers",
       "../..:webrtc_common",
+      "../../api:create_videoprocessor_integrationtest_fixture_api",
       "../../api:mock_video_codec_factory",
       "../../api:optional",
-      "../../api:video_frame_api",
       "../../api:video_frame_api_i420",
+      "../../api:videoprocessor_integrationtest_fixture_api",
       "../../api/video_codecs:video_codecs_api",
       "../../common_video",
-      "../../media:rtc_audio_video",
       "../../media:rtc_h264_profile_id",
-      "../../media:rtc_internal_video_codecs",
       "../../media:rtc_media_base",
-      "../../media:rtc_software_fallback_wrappers",
-      "../../rtc_base:checks",
       "../../rtc_base:rtc_base",
-      "../../rtc_base:rtc_base_tests_utils",
-      "../../system_wrappers",
       "../../test:fileutils",
       "../../test:test_support",
       "../../test:video_test_common",
-      "../../test:video_test_support",
-      "../video_capture",
     ]
 
     data = video_coding_modules_tests_resources

@@ -1,0 +1,153 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c00ccca4_e1f0d4e7",
+        "filename": "api/test/create_videoprocessor_integrationtest_fixture.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-05-03T15:54:22Z",
+      "side": 1,
+      "message": "phoglund, solenberg: What are the rules on making changes to files in api/test? I can\u0027t find any guidance in https://webrtc.googlesource.com/src/+/HEAD/native-api.md.\n\nWe will probably not makes to the interface very often, but we do often make changes to TestConfig and Stats. I don\u0027t want to be slowed down by having to send out a PSA for such changes. Can api/test be exempt from any PSA requirements?",
+      "revId": "9c77a63a91228c489a7357c063d479f97aba8e3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66a168ce_840d8c14",
+        "filename": "api/test/videoprocessor_integrationtest_fixture.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-05-03T15:54:22Z",
+      "side": 1,
+      "message": "Since this is going into api/, I think we should take the opportunity to clean up the related names. Me and ssilkin@ would like to call this VideoCodecTest, and then the suffixes can be as proposed in this CL.",
+      "range": {
+        "startLine": 59,
+        "startChar": 6,
+        "endLine": 59,
+        "endChar": 31
+      },
+      "revId": "9c77a63a91228c489a7357c063d479f97aba8e3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70d47ebe_cb5e06fd",
+        "filename": "api/test/videoprocessor_integrationtest_fixture.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-05-03T15:54:22Z",
+      "side": 1,
+      "message": "... and we would like to call this RunTest.",
+      "range": {
+        "startLine": 63,
+        "startChar": 15,
+        "endLine": 63,
+        "endChar": 42
+      },
+      "revId": "9c77a63a91228c489a7357c063d479f97aba8e3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84bb3f74_5b0323d5",
+        "filename": "modules/video_coding/codecs/test/videoprocessor_integrationtest_fixture_impl.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-05-03T15:54:22Z",
+      "side": 1,
+      "message": "decoder_factory",
+      "range": {
+        "startLine": 138,
+        "startChar": 45,
+        "endLine": 138,
+        "endChar": 59
+      },
+      "revId": "9c77a63a91228c489a7357c063d479f97aba8e3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9a6f358_093df1ac",
+        "filename": "modules/video_coding/codecs/test/videoprocessor_integrationtest_fixture_impl.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-05-03T15:54:22Z",
+      "side": 1,
+      "message": "encoder_factory",
+      "revId": "9c77a63a91228c489a7357c063d479f97aba8e3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "483369d8_e899a8cd",
+        "filename": "modules/video_coding/codecs/test/videoprocessor_integrationtest_libvpx.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-05-03T15:54:22Z",
+      "side": 1,
+      "message": "Does this function, and the one below, need to be static when they live in an anonymous namespace?",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 6
+      },
+      "revId": "9c77a63a91228c489a7357c063d479f97aba8e3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3022a4f8_886b7df9",
+        "filename": "modules/video_coding/codecs/test/videoprocessor_integrationtest_videotoolbox.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-05-03T15:54:22Z",
+      "side": 1,
+      "message": "We can remove this and rely on the internally instantiated factories instead. This is consistent with the MediaCodec tests.",
+      "range": {
+        "startLine": 37,
+        "startChar": 2,
+        "endLine": 38,
+        "endChar": 52
+      },
+      "revId": "9c77a63a91228c489a7357c063d479f97aba8e3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

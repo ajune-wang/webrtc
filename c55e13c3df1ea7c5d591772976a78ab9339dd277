@@ -213,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "6c8504c6_ec2fc81b",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-05-03T13:43:38Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f24c6854_51f7b0e6",
+      "range": {
+        "startLine": 219,
+        "startChar": 2,
+        "endLine": 219,
+        "endChar": 15
+      },
+      "revId": "c55e13c3df1ea7c5d591772976a78ab9339dd277",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "12d90689_0e5de367",
         "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
         "patchSetId": 8
@@ -295,6 +319,30 @@
       "side": 1,
       "message": "Not with the current constants. We copy the first 387 elements of the 432 element buffer into x.",
       "parentUuid": "8cb14e2a_666a11cf",
+      "range": {
+        "startLine": 235,
+        "startChar": 12,
+        "endLine": 235,
+        "endChar": 74
+      },
+      "revId": "c55e13c3df1ea7c5d591772976a78ab9339dd277",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "97cf8be2_36adad97",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-05-03T13:43:38Z",
+      "side": 1,
+      "message": "Right, now I get this. The confusion is caused by the way I initially named some constants. I will try to improve in a separate CL.",
+      "parentUuid": "f799b2be_80789367",
       "range": {
         "startLine": 235,
         "startChar": 12,
@@ -492,6 +540,30 @@
       "revId": "c55e13c3df1ea7c5d591772976a78ab9339dd277",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b278828b_26483c1b",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-05-03T13:43:38Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d9da8bc7_2cde596c",
+      "range": {
+        "startLine": 454,
+        "startChar": 2,
+        "endLine": 454,
+        "endChar": 20
+      },
+      "revId": "c55e13c3df1ea7c5d591772976a78ab9339dd277",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

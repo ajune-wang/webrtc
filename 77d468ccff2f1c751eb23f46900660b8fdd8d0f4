@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9dcfc261_df9e3f0d",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-05-03T13:43:38Z",
+      "side": 1,
+      "message": "Ouch this is my code and now that I read it again I think it\u0027s error prone.\nSorry for that, it might have caused you confusion :(\nI will let you land your CL and then fix here.",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 80
+      },
+      "revId": "77d468ccff2f1c751eb23f46900660b8fdd8d0f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a6a48710_94760aed",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-05-03T13:43:38Z",
+      "side": 1,
+      "message": "Oh right, no need for a constexpr function for a power of 2 (shame on me)",
+      "range": {
+        "startLine": 32,
+        "startChar": 14,
+        "endLine": 32,
+        "endChar": 43
+      },
+      "revId": "77d468ccff2f1c751eb23f46900660b8fdd8d0f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

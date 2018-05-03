@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5681d726_d52782db",
+        "filename": "api/test/create_videoprocessor_integrationtest_fixture.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-05-03T17:45:15Z",
+      "side": 1,
+      "message": "Changes won\u0027t be a problem unless they risk breaking clients, so if you\u0027re just adding a field, a PSA shouldn\u0027t be necessary.\n\nIn this case I think we should leave a comment that this file is WIP and not to be trusted, then go on and land this CL and iterate (TestConfig should be moved into api/ e.g.) and remove the comment once we feel the test framework is complete enough to be properly supported. We\u0027ve done it like that before.\n\nIf the PSA based process to warn downstream clients about breaking changes is too heavy, propose (in a different forum) how it should be changed.",
+      "parentUuid": "c00ccca4_e1f0d4e7",
+      "revId": "9c77a63a91228c489a7357c063d479f97aba8e3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "66a168ce_840d8c14",
         "filename": "api/test/videoprocessor_integrationtest_fixture.h",
         "patchSetId": 13
@@ -30,6 +48,30 @@
       "writtenOn": "2018-05-03T15:54:22Z",
       "side": 1,
       "message": "Since this is going into api/, I think we should take the opportunity to clean up the related names. Me and ssilkin@ would like to call this VideoCodecTest, and then the suffixes can be as proposed in this CL.",
+      "range": {
+        "startLine": 59,
+        "startChar": 6,
+        "endLine": 59,
+        "endChar": 31
+      },
+      "revId": "9c77a63a91228c489a7357c063d479f97aba8e3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96a26a56_ee868c85",
+        "filename": "api/test/videoprocessor_integrationtest_fixture.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-05-03T17:45:15Z",
+      "side": 1,
+      "message": "+1\n\nNote that per the style guide, \"Interface\" is optional too and it is not generally used as a suffix in the WebRTC codebase.",
+      "parentUuid": "66a168ce_840d8c14",
       "range": {
         "startLine": 59,
         "startChar": 6,
@@ -128,6 +170,30 @@
     },
     {
       "key": {
+        "uuid": "d2876b69_fa0a7cf7",
+        "filename": "modules/video_coding/codecs/test/videoprocessor_integrationtest_libvpx.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-05-03T17:45:15Z",
+      "side": 1,
+      "message": "no",
+      "parentUuid": "483369d8_e899a8cd",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 6
+      },
+      "revId": "9c77a63a91228c489a7357c063d479f97aba8e3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3022a4f8_886b7df9",
         "filename": "modules/video_coding/codecs/test/videoprocessor_integrationtest_videotoolbox.cc",
         "patchSetId": 13
@@ -139,6 +205,30 @@
       "writtenOn": "2018-05-03T15:54:22Z",
       "side": 1,
       "message": "We can remove this and rely on the internally instantiated factories instead. This is consistent with the MediaCodec tests.",
+      "range": {
+        "startLine": 37,
+        "startChar": 2,
+        "endLine": 38,
+        "endChar": 52
+      },
+      "revId": "9c77a63a91228c489a7357c063d479f97aba8e3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b7a167c_7dc18b28",
+        "filename": "modules/video_coding/codecs/test/videoprocessor_integrationtest_videotoolbox.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-05-03T17:45:15Z",
+      "side": 1,
+      "message": "I\u0027d propose that the factories instead go in the test config, to remove as much configuration logic as possible from the test itself.",
+      "parentUuid": "3022a4f8_886b7df9",
       "range": {
         "startLine": 37,
         "startChar": 2,

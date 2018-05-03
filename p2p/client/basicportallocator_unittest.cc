@@ -2206,4 +2206,30 @@ TEST_F(BasicPortAllocatorTest,
                                             expected_stun_keepalive_interval);
 }
 
+TEST_F(BasicPortAllocatorTest,
+       EthernetIsNotFilteredOutWhenUsingLessCostlyNetworksWithVpn) {
+  AddInterface(kClientAddr, "eth0");
+  AddInterface(kClientAddr2, "tap0");
+  allocator_.reset(new BasicPortAllocator(&network_manager_));
+  allocator_->set_step_delay(kMinimumStepDelay);
+  allocator_->set_flags(PORTALLOCATOR_DISABLE_COSTLY_NETWORKS |
+                        PORTALLOCATOR_DISABLE_RELAY |
+                        PORTALLOCATOR_DISABLE_TCP);
+  ServerAddresses stun_servers;
+  stun_servers.insert(kStunAddr);
+  allocator_->SetConfiguration(
+      stun_servers, {} /* TURN servers */,
+      0 /* pool size, do not get ports in a pooled session */, false);
+  allocator_->Initialize();
+  EXPECT_TRUE(CreateSession(ICE_CANDIDATE_COMPONENT_RTP));
+  session_->StartGettingPorts();
+  ASSERT_TRUE_SIMULATED_WAIT(candidate_allocation_done_,
+                             kDefaultAllocationTimeout, fake_clock);
+  // The VPN tap0 network should be filtered out as a costly network, and we
+  // should have a UDP port and a STUN port from the Ethernet eth0.
+  ASSERT_EQ(2U, ports_.size());
+  EXPECT_EQ(ports_[0]->Network()->name(), "eth0");
+  EXPECT_EQ(ports_[1]->Network()->name(), "eth0");
+}
+
 }  // namespace cricket

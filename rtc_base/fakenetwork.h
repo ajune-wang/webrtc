@@ -41,7 +41,7 @@ class FakeNetworkManager : public NetworkManagerBase,
   }
 
   void AddInterface(const SocketAddress& iface, const std::string& if_name) {
-    AddInterface(iface, if_name, ADAPTER_TYPE_UNKNOWN);
+    AddInterface(iface, if_name, GetAdapterTypeFromName(if_name.c_str()));
   }
 
   void AddInterface(const SocketAddress& iface,

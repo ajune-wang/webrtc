@@ -296,6 +296,11 @@ public class PeerConnectionTest {
       expectedTracksAdded--;
     }
 
+    @Override
+    // TODO(bugs.webrtc.org/8491): Remove NoSynchronizedMethodCheck suppression.
+    @SuppressWarnings("NoSynchronizedMethodCheck")
+    public synchronized void onTrack(RtpTransceiver transceiver) {}
+
     // TODO(bugs.webrtc.org/8491): Remove NoSynchronizedMethodCheck suppression.
     @SuppressWarnings("NoSynchronizedMethodCheck")
     public synchronized void expectMessage(ByteBuffer expectedBuffer, boolean expectedBinary) {

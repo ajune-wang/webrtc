@@ -109,6 +109,13 @@ public class PeerConnection {
      * setRemoteDescription.
      */
     @CalledByNative("Observer") void onAddTrack(RtpReceiver receiver, MediaStream[] mediaStreams);
+
+    /**
+     * Triggered when the signaling from SetRemoteDescription indicates that a transceiver
+     * will be receiviing media from a remote endpoint. This is only called if UNIFIED_PLAN
+     * semantics are specified.
+     */
+    @CalledByNative("Observer") void onTrack(RtpTransceiver transceiver);
   }
 
   /** Java version of PeerConnectionInterface.IceServer. */

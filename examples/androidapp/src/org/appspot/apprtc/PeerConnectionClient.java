@@ -1320,6 +1320,8 @@ public class PeerConnectionClient {
 
     @Override
     public void onAddTrack(final RtpReceiver receiver, final MediaStream[] mediaStreams) {}
+
+    @Override public void onTrack(RtpTransceiver transceiver){};
   }
 
   // Implementation detail: handle offer creation/signaling and answer setting,

@@ -22,6 +22,30 @@
       "revId": "d4ec5be2ed480973852bb4d16f23a2f7a8504643",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ccbb8c67_e9793b1b",
+        "filename": "cr-buildbucket.cfg",
+        "patchSetId": 3
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2018-05-03T05:56:39Z",
+      "side": 0,
+      "message": "Oh, thanks for catching this. I\u0027ll undo the change. I actually added this line recently but then reset the state to an older commit.",
+      "parentUuid": "08e44d78_eecd162b",
+      "range": {
+        "startLine": 343,
+        "startChar": 6,
+        "endLine": 343,
+        "endChar": 55
+      },
+      "revId": "d4ec5be2ed480973852bb4d16f23a2f7a8504643",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -171,7 +171,22 @@ std::string MakeNetworkKey(const std::string& name, const IPAddress& prefix,
   return ost.str();
 }
 
+// A cautious note that this method may not provide an accurate adapter type
+// based on the string matching. Incorrect type of adapters can affect the
+// result of the downstream network filtering, see e.g.
+// BasicPortAllocatorSession::GetNetworks when
+// PORTALLOCATOR_DISABLE_COSTLY_NETWORKS is turned on.
 AdapterType GetAdapterTypeFromName(const char* network_name) {
+  if (strncmp(network_name, "lo", 2) == 0) {
+    // Note that we have a more robust way to determine if a network interface
+    // is a loopback interface by checking the flag IFF_LOOPBACK in ifa_flags of
+    // an ifaddr struct. See ConvertIfAddrs in this file.
+    return ADAPTER_TYPE_LOOPBACK;
+  }
+  if (strncmp(network_name, "eth", 3) == 0) {
+    return ADAPTER_TYPE_ETHERNET;
+  }
+
   if (strncmp(network_name, "ipsec", 5) == 0 ||
       strncmp(network_name, "tun", 3) == 0 ||
       strncmp(network_name, "utun", 4) == 0 ||

@@ -201,7 +201,7 @@ public class NetworkMonitorAutoDetect extends BroadcastReceiver {
 
     private void onNetworkChanged(Network network) {
       NetworkInformation networkInformation = connectivityManagerDelegate.networkToInfo(network);
-      if (networkInformation != null) {
+      if (networkInformation != null && connectivityManagerDelegate.isNetworkConnected(network)) {
         observer.onNetworkConnect(networkInformation);
       }
     }
@@ -224,6 +224,21 @@ public class NetworkMonitorAutoDetect extends BroadcastReceiver {
     ConnectivityManagerDelegate() {
       // All the methods below should be overridden.
       connectivityManager = null;
+    }
+
+    @SuppressLint("NewApi")
+    public boolean isNetworkConnected(@Nullable Network network) {
+      if (network == null || connectivityManager == null) {
+        return false;
+      }
+      NetworkInfo networkInfo = connectivityManager.getNetworkInfo(network);
+      if (networkInfo == null) {
+        Logging.w(TAG,
+            "Couldn't retrieve information from network " + network.toString()
+                + "; network considered disconnected");
+        return false;
+      }
+      return networkInfo.getState() == NetworkInfo.State.CONNECTED;
     }
 
     /**

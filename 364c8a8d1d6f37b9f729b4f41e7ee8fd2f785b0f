@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "bc6e939b_64d01ee3",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-05-03T11:57:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d84a501e_75919b8a",
+      "range": {
+        "startLine": 27,
+        "startChar": 4,
+        "endLine": 27,
+        "endChar": 32
+      },
+      "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d77b1b5e_9aea7793",
         "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "e9b39387_0039651b",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-05-03T11:57:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d77b1b5e_9aea7793",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 36
+      },
+      "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aec0d8fb_0e1c5254",
         "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
         "patchSetId": 1
@@ -68,6 +116,30 @@
       "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1184f0f_50a6268a",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-05-03T11:57:14Z",
+      "side": 1,
+      "message": "Right. Any last term gets half contribution, so the change I propose is more correct than the current version because it works at any sample rate. For now, I don\u0027t want to change this; I prefer to land the whole VAD and then make sure that the proposed fix doesn\u0027t break the RNN.",
+      "parentUuid": "aec0d8fb_0e1c5254",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 59
+      },
+      "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +189,54 @@
     },
     {
       "key": {
+        "uuid": "0160de13_a079a12f",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-05-03T11:57:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "66fb83e9_0bf6e136",
+      "range": {
+        "startLine": 67,
+        "startChar": 17,
+        "endLine": 67,
+        "endChar": 28
+      },
+      "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1978c6fe_83012eb3",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-05-03T11:57:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1ff7f238_a43cc658",
+      "range": {
+        "startLine": 67,
+        "startChar": 4,
+        "endLine": 67,
+        "endChar": 9
+      },
+      "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "051cd319_c00b2d7a",
         "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
         "patchSetId": 1
@@ -137,6 +257,30 @@
       "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4010a731_f888a0ed",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-05-03T11:57:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "051cd319_c00b2d7a",
+      "range": {
+        "startLine": 68,
+        "startChar": 17,
+        "endLine": 68,
+        "endChar": 27
+      },
+      "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "e9b5af71_7dd9358f",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-05-03T11:57:14Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "154840bf_8232eaaa",
+      "range": {
+        "startLine": 69,
+        "startChar": 32,
+        "endLine": 69,
+        "endChar": 39
+      },
+      "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5f650a68_67902818",
         "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
         "patchSetId": 1
@@ -186,6 +354,30 @@
     },
     {
       "key": {
+        "uuid": "120f5800_3fddcff9",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-05-03T11:57:14Z",
+      "side": 1,
+      "message": "Sorry, I forgot to comment this line for you.\n\nTrue for now. See my next CL: https://webrtc-review.googlesource.com/c/src/+/73760/1/modules/audio_processing/agc2/rnn_vad/spectral_features.cc#154",
+      "parentUuid": "5f650a68_67902818",
+      "range": {
+        "startLine": 85,
+        "startChar": 2,
+        "endLine": 85,
+        "endChar": 25
+      },
+      "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa4b83a5_052114c0",
         "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
         "patchSetId": 1
@@ -200,6 +392,24 @@
       "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91e090e2_a053f964",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-05-03T11:57:14Z",
+      "side": 1,
+      "message": "Explained offline.",
+      "parentUuid": "fa4b83a5_052114c0",
+      "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -226,6 +436,30 @@
     },
     {
       "key": {
+        "uuid": "76ea89b2_321c02dc",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-05-03T11:57:14Z",
+      "side": 1,
+      "message": "Unfortunately not. Note that this is computed only once and the DCT table stores float.",
+      "parentUuid": "8da756c6_9dbde427",
+      "range": {
+        "startLine": 106,
+        "startChar": 8,
+        "endLine": 106,
+        "endChar": 14
+      },
+      "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "91eaeb14_9bd697c5",
         "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
         "patchSetId": 1
@@ -246,6 +480,30 @@
       "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "313f1a4c_bdcfaef0",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-05-03T11:57:14Z",
+      "side": 1,
+      "message": "Double is what we need.",
+      "parentUuid": "91eaeb14_9bd697c5",
+      "range": {
+        "startLine": 109,
+        "startChar": 51,
+        "endLine": 109,
+        "endChar": 54
+      },
+      "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -272,6 +530,30 @@
     },
     {
       "key": {
+        "uuid": "eda7c3ab_648a9514",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-05-03T11:57:14Z",
+      "side": 1,
+      "message": "arg removed",
+      "parentUuid": "ecd0cc8b_9fa4dbdb",
+      "range": {
+        "startLine": 117,
+        "startChar": 28,
+        "endLine": 117,
+        "endChar": 47
+      },
+      "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7875c2bf_108678eb",
         "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
         "patchSetId": 1
@@ -292,6 +574,30 @@
       "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e37e810_8d6ec70d",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-05-03T11:57:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7875c2bf_108678eb",
+      "range": {
+        "startLine": 123,
+        "startChar": 0,
+        "endLine": 123,
+        "endChar": 17
+      },
+      "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -318,6 +624,30 @@
     },
     {
       "key": {
+        "uuid": "1acddf0f_dd5717c1",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-05-03T11:57:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ec820396_90e99d70",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 21
+      },
+      "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bb9ed3e4_82464a43",
         "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.h",
         "patchSetId": 1
@@ -338,6 +668,30 @@
       "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "703a4b4e_86eca4cf",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-05-03T11:57:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bb9ed3e4_82464a43",
+      "range": {
+        "startLine": 27,
+        "startChar": 17,
+        "endLine": 27,
+        "endChar": 28
+      },
+      "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -364,6 +718,30 @@
     },
     {
       "key": {
+        "uuid": "6d28c272_280cc8d9",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-05-03T11:57:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "641e1120_90e2bcba",
+      "range": {
+        "startLine": 28,
+        "startChar": 17,
+        "endLine": 28,
+        "endChar": 27
+      },
+      "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c11064d6_0416969c",
         "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.h",
         "patchSetId": 1
@@ -384,6 +762,30 @@
       "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "527820c1_a17b33b7",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-05-03T11:57:14Z",
+      "side": 1,
+      "message": "http://www.worldwidewords.org/qa/qa-ind2.htm :)",
+      "parentUuid": "c11064d6_0416969c",
+      "range": {
+        "startLine": 30,
+        "startChar": 68,
+        "endLine": 30,
+        "endChar": 75
+      },
+      "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -410,6 +812,30 @@
     },
     {
       "key": {
+        "uuid": "83395af5_8ef9a82a",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-05-03T11:57:14Z",
+      "side": 1,
+      "message": "Removed, now defining kDctScalingFactor in the anon ns in the .cc file.",
+      "parentUuid": "5b8e7747_c2f0bdd7",
+      "range": {
+        "startLine": 53,
+        "startChar": 28,
+        "endLine": 53,
+        "endChar": 47
+      },
+      "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6b01bf43_2f7f5796",
         "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal_unittest.cc",
         "patchSetId": 1
@@ -430,6 +856,30 @@
       "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd54b6e1_8e7acc40",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-05-03T11:57:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6b01bf43_2f7f5796",
+      "range": {
+        "startLine": 33,
+        "startChar": 5,
+        "endLine": 33,
+        "endChar": 9
+      },
+      "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -456,6 +906,30 @@
     },
     {
       "key": {
+        "uuid": "10306e17_2e4219dc",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-05-03T11:57:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "534495f7_636e62ed",
+      "range": {
+        "startLine": 131,
+        "startChar": 24,
+        "endLine": 131,
+        "endChar": 39
+      },
+      "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "014cb628_ecac5529",
         "filename": "modules/audio_processing/agc2/rnn_vad/test_utils.cc",
         "patchSetId": 1
@@ -467,6 +941,30 @@
       "writtenOn": "2018-05-02T11:26:28Z",
       "side": 1,
       "message": "I wonder what Absolute means?",
+      "range": {
+        "startLine": 39,
+        "startChar": 5,
+        "endLine": 39,
+        "endChar": 23
+      },
+      "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33775ef8_b525f468",
+        "filename": "modules/audio_processing/agc2/rnn_vad/test_utils.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-05-03T11:57:14Z",
+      "side": 1,
+      "message": "In test_utils.h you can read:\n\n// Fails for every pair from two equally sized rtc::ArrayView\u003cfloat\u003e views such\n// that their absolute error is above a given threshold.\n\nIs it sufficient? If you look at the signature we have expected and computed arrays plus tolerance. I didn\u0027t want to pick a long name, but if you think it\u0027s not immediately clear we cna think of an alternative naming. Note that I added that because in one of the coming CLs I will add ExpectNearRelative which checks the relative error",
+      "parentUuid": "014cb628_ecac5529",
       "range": {
         "startLine": 39,
         "startChar": 5,
@@ -502,6 +1000,30 @@
     },
     {
       "key": {
+        "uuid": "ac31a3d2_0d406a87",
+        "filename": "modules/audio_processing/agc2/rnn_vad/test_utils.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-05-03T11:57:14Z",
+      "side": 1,
+      "message": "If I interpret the style guide correctly, it\u0027s optional because |num_fft_points| is not static and global.\n\nhttps://google.github.io/styleguide/cppguide.html#Constant_Names says:\n\n\"All such variables with static storage duration (i.e. statics and globals, see Storage Duration for details) should be named this way. This convention is optional for variables of other storage classes, e.g. automatic variables, otherwise the usual variable naming rules apply.\"",
+      "parentUuid": "5d76201d_4c78e9fd",
+      "range": {
+        "startLine": 66,
+        "startChar": 19,
+        "endLine": 66,
+        "endChar": 33
+      },
+      "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fadb2c8d_8f6cca7a",
         "filename": "modules/audio_processing/agc2/rnn_vad/test_utils.cc",
         "patchSetId": 1
@@ -522,6 +1044,30 @@
       "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc2ce128_81a26399",
+        "filename": "modules/audio_processing/agc2/rnn_vad/test_utils.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-05-03T11:57:14Z",
+      "side": 1,
+      "message": "same as above",
+      "parentUuid": "fadb2c8d_8f6cca7a",
+      "range": {
+        "startLine": 67,
+        "startChar": 19,
+        "endLine": 67,
+        "endChar": 27
+      },
+      "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -548,6 +1094,30 @@
     },
     {
       "key": {
+        "uuid": "c351e053_6509d91c",
+        "filename": "modules/audio_processing/agc2/rnn_vad/test_utils.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-05-03T11:57:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4b7a14cf_e17bdc28",
+      "range": {
+        "startLine": 77,
+        "startChar": 6,
+        "endLine": 77,
+        "endChar": 8
+      },
+      "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8528ba96_7c7b2ded",
         "filename": "modules/audio_processing/agc2/rnn_vad/test_utils.cc",
         "patchSetId": 1
@@ -568,6 +1138,30 @@
       "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c12afd2a_4965aa98",
+        "filename": "modules/audio_processing/agc2/rnn_vad/test_utils.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-05-03T11:57:14Z",
+      "side": 1,
+      "message": "same as above",
+      "parentUuid": "8528ba96_7c7b2ded",
+      "range": {
+        "startLine": 79,
+        "startChar": 71,
+        "endLine": 79,
+        "endChar": 73
+      },
+      "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -594,6 +1188,30 @@
     },
     {
       "key": {
+        "uuid": "ff444e77_46434c17",
+        "filename": "modules/audio_processing/agc2/rnn_vad/test_utils.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-05-03T11:57:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "61b000fa_74d23910",
+      "range": {
+        "startLine": 85,
+        "startChar": 6,
+        "endLine": 85,
+        "endChar": 8
+      },
+      "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a999620e_093ffead",
         "filename": "modules/audio_processing/agc2/rnn_vad/test_utils.cc",
         "patchSetId": 1
@@ -617,6 +1235,30 @@
     },
     {
       "key": {
+        "uuid": "60f9111c_9f67b87f",
+        "filename": "modules/audio_processing/agc2/rnn_vad/test_utils.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-05-03T11:57:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a999620e_093ffead",
+      "range": {
+        "startLine": 86,
+        "startChar": 15,
+        "endLine": 86,
+        "endChar": 17
+      },
+      "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2cb1c6fc_0a65f9db",
         "filename": "modules/audio_processing/agc2/rnn_vad/test_utils.cc",
         "patchSetId": 1
@@ -637,6 +1279,30 @@
       "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "edd90bea_504af6da",
+        "filename": "modules/audio_processing/agc2/rnn_vad/test_utils.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-05-03T11:57:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2cb1c6fc_0a65f9db",
+      "range": {
+        "startLine": 88,
+        "startChar": 71,
+        "endLine": 88,
+        "endChar": 73
+      },
+      "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

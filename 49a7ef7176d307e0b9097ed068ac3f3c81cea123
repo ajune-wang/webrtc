@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fc4e9a01_2967bd4b",
+        "filename": "modules/video_coding/rtp_frame_reference_finder.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 450,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-05-03T13:58:10Z",
+      "side": 1,
+      "message": "const auto, please.",
+      "range": {
+        "startLine": 450,
+        "startChar": 4,
+        "endLine": 450,
+        "endChar": 8
+      },
+      "revId": "49a7ef7176d307e0b9097ed068ac3f3c81cea123",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f189e7c5_6bb1dd5b",
+        "filename": "modules/video_coding/rtp_frame_reference_finder.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 468,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-05-03T13:58:10Z",
+      "side": 1,
+      "message": "I\u0027d still prefer two const single-assignment variables to hold the iterators (from find here, and from emplace below). Even if that means you\u0027d have to assign info in one more place. But if you prefer this way, I won\u0027t insist.",
+      "range": {
+        "startLine": 468,
+        "startChar": 9,
+        "endLine": 468,
+        "endChar": 20
+      },
+      "revId": "49a7ef7176d307e0b9097ed068ac3f3c81cea123",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

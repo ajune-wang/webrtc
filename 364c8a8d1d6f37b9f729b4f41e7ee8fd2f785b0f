@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "10651b4f_6b858dc3",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-05-03T14:48:54Z",
+      "side": 1,
+      "message": "Then try merge 58/59 into this todo.\n\n  // TODO(bugs.webrtc.org/9076): Replace the line above with \"coefficients[i] *\u003d 2.f\" (*).\n  // The first and the last bands only got half contribution in the loop above. We now\n  // assume that the last band is always |kNumBands| - 1.\n  // (*): \"size_t i\" must be declared before the main loop.",
+      "parentUuid": "d1184f0f_50a6268a",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 59
+      },
+      "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "66fb83e9_0bf6e136",
         "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
         "patchSetId": 1
@@ -378,6 +402,30 @@
     },
     {
       "key": {
+        "uuid": "d98e9e6b_946c421d",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-05-03T14:48:54Z",
+      "side": 1,
+      "message": "Then we may remove this TODO I think, or if you have a plan to make ComputeBandCoefficients() only one time already?",
+      "parentUuid": "120f5800_3fddcff9",
+      "range": {
+        "startLine": 85,
+        "startChar": 2,
+        "endLine": 85,
+        "endChar": 25
+      },
+      "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa4b83a5_052114c0",
         "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
         "patchSetId": 1
@@ -407,6 +455,24 @@
       "side": 1,
       "message": "Explained offline.",
       "parentUuid": "fa4b83a5_052114c0",
+      "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0f3c2a8e_b352f6b1",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-05-03T14:48:54Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "91e090e2_a053f964",
       "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
@@ -495,6 +561,30 @@
       "side": 1,
       "message": "Double is what we need.",
       "parentUuid": "91eaeb14_9bd697c5",
+      "range": {
+        "startLine": 109,
+        "startChar": 51,
+        "endLine": 109,
+        "endChar": 54
+      },
+      "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d0641de3_03a722aa",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-05-03T14:48:54Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "313f1a4c_bdcfaef0",
       "range": {
         "startLine": 109,
         "startChar": 51,
@@ -789,6 +879,30 @@
     },
     {
       "key": {
+        "uuid": "02ef1787_372325e6",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-05-03T14:48:54Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "527820c1_a17b33b7",
+      "range": {
+        "startLine": 30,
+        "startChar": 68,
+        "endLine": 30,
+        "endChar": 75
+      },
+      "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5b8e7747_c2f0bdd7",
         "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.h",
         "patchSetId": 1
@@ -1012,6 +1126,30 @@
       "side": 1,
       "message": "If I interpret the style guide correctly, it\u0027s optional because |num_fft_points| is not static and global.\n\nhttps://google.github.io/styleguide/cppguide.html#Constant_Names says:\n\n\"All such variables with static storage duration (i.e. statics and globals, see Storage Duration for details) should be named this way. This convention is optional for variables of other storage classes, e.g. automatic variables, otherwise the usual variable naming rules apply.\"",
       "parentUuid": "5d76201d_4c78e9fd",
+      "range": {
+        "startLine": 66,
+        "startChar": 19,
+        "endLine": 66,
+        "endChar": 33
+      },
+      "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fecd1b69_7612f673",
+        "filename": "modules/audio_processing/agc2/rnn_vad/test_utils.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-05-03T14:48:54Z",
+      "side": 1,
+      "message": "Although I prefer kCamelCase in this circumstance, I agree that it is optional.",
+      "parentUuid": "ac31a3d2_0d406a87",
       "range": {
         "startLine": 66,
         "startChar": 19,

@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a8de16ec_ee5c1dbc",
+        "filename": "modules/video_coding/codecs/test/videoprocessor_integrationtest_libvpx.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-05-03T12:03:24Z",
+      "side": 1,
+      "message": "I thought of this, but that implies no more copying TestConfig around. It\u0027s a big change to fix it so that it\u0027s passed as a reference in all cases, and in practice just moves the lifetime-management problem um to the TestConfig.",
+      "parentUuid": "e9829c99_75c5527e",
+      "revId": "ad02c0e663a1876a3c7761166ea8601f9b8726d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "af29a979_aefe610d",
         "filename": "modules/video_coding/codecs/test/videoprocessor_integrationtest_mediacodec.cc",
         "patchSetId": 12
@@ -33,6 +51,24 @@
       "revId": "ad02c0e663a1876a3c7761166ea8601f9b8726d8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07c75acd_d0d96020",
+        "filename": "modules/video_coding/codecs/test/videoprocessor_integrationtest_mediacodec.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-05-03T12:03:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "af29a979_aefe610d",
+      "revId": "ad02c0e663a1876a3c7761166ea8601f9b8726d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

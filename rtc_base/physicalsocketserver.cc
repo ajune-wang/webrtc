@@ -1248,16 +1248,6 @@ void PhysicalSocketServer::WakeUp() {
   signal_wakeup_->Signal();
 }
 
-Socket* PhysicalSocketServer::CreateSocket(int family, int type) {
-  PhysicalSocket* socket = new PhysicalSocket(this);
-  if (socket->Create(family, type)) {
-    return socket;
-  } else {
-    delete socket;
-    return nullptr;
-  }
-}
-
 AsyncSocket* PhysicalSocketServer::CreateAsyncSocket(int family, int type) {
   SocketDispatcher* dispatcher = new SocketDispatcher(this);
   if (dispatcher->Create(family, type)) {

@@ -529,7 +529,7 @@ class TurnPortTest : public testing::Test,
 
     // Make a socket and bind it to the local port, to make extra sure no
     // packet is sent to this address.
-    std::unique_ptr<rtc::Socket> loopback_socket(ss_->CreateSocket(
+    std::unique_ptr<rtc::AsyncSocket> loopback_socket(ss_->CreateAsyncSocket(
         AF_INET, protocol_type == PROTO_UDP ? SOCK_DGRAM : SOCK_STREAM));
     ASSERT_NE(nullptr, loopback_socket.get());
     ASSERT_EQ(0, loopback_socket->Bind(loopback_address));

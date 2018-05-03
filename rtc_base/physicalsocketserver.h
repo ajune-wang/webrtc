@@ -67,7 +67,6 @@ class PhysicalSocketServer : public SocketServer {
   ~PhysicalSocketServer() override;
 
   // SocketFactory:
-  Socket* CreateSocket(int family, int type) override;
   AsyncSocket* CreateAsyncSocket(int family, int type) override;
 
   // Internal Factory for Accept (virtual so it can be overwritten in tests).

@@ -68,7 +68,6 @@ class FirewallSocketServer : public SocketServer {
   void SetUnbindableIps(const std::vector<rtc::IPAddress>& unbindable_ips);
   bool IsBindableIp(const rtc::IPAddress& ip);
 
-  Socket* CreateSocket(int family, int type) override;
   AsyncSocket* CreateAsyncSocket(int family, int type) override;
 
   void SetMessageQueue(MessageQueue* queue) override;

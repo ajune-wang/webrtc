@@ -335,10 +335,6 @@ NATSocketFactory::NATSocketFactory(SocketFactory* factory,
       nat_tcp_addr_(nat_tcp_addr) {
 }
 
-Socket* NATSocketFactory::CreateSocket(int family, int type) {
-  return new NATSocket(this, family, type);
-}
-
 AsyncSocket* NATSocketFactory::CreateAsyncSocket(int family, int type) {
   return new NATSocket(this, family, type);
 }
@@ -374,10 +370,6 @@ NATSocketServer::Translator* NATSocketServer::AddTranslator(
 void NATSocketServer::RemoveTranslator(
     const SocketAddress& ext_ip) {
   nats_.Remove(ext_ip);
-}
-
-Socket* NATSocketServer::CreateSocket(int family, int type) {
-  return new NATSocket(this, family, type);
 }
 
 AsyncSocket* NATSocketServer::CreateAsyncSocket(int family, int type) {

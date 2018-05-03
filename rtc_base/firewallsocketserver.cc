@@ -196,10 +196,6 @@ bool FirewallSocketServer::IsBindableIp(const rtc::IPAddress& ip) {
          unbindable_ips_.end();
 }
 
-Socket* FirewallSocketServer::CreateSocket(int family, int type) {
-  return WrapSocket(server_->CreateAsyncSocket(family, type), type);
-}
-
 AsyncSocket* FirewallSocketServer::CreateAsyncSocket(int family, int type) {
   return WrapSocket(server_->CreateAsyncSocket(family, type), type);
 }

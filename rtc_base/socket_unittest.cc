@@ -1017,8 +1017,8 @@ void SocketTest::GetSetOptionsInternal(const IPAddress& loopback) {
 }
 
 void SocketTest::SocketRecvTimestamp(const IPAddress& loopback) {
-  std::unique_ptr<Socket> socket(
-      ss_->CreateSocket(loopback.family(), SOCK_DGRAM));
+  std::unique_ptr<AsyncSocket> socket(
+      ss_->CreateAsyncSocket(loopback.family(), SOCK_DGRAM));
   EXPECT_EQ(0, socket->Bind(SocketAddress(loopback, 0)));
   SocketAddress address = socket->GetLocalAddress();
 

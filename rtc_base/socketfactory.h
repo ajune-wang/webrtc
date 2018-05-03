@@ -20,13 +20,17 @@ class SocketFactory {
 public:
   virtual ~SocketFactory() {}
 
-  // Returns a new socket for blocking communication.  The type can be
-  // SOCK_DGRAM and SOCK_STREAM.
-  virtual Socket* CreateSocket(int family, int type) = 0;
+  // TODO(bugs.webrtc.org/9237): Remove once AsyncSocket has merged into Socket.
+  virtual Socket* CreateSocket(int family, int type);
   // Returns a new socket for nonblocking communication.  The type can be
   // SOCK_DGRAM and SOCK_STREAM.
   virtual AsyncSocket* CreateAsyncSocket(int family, int type) = 0;
 };
+
+inline Socket* SocketFactory::CreateSocket(int family, int type) {
+  RTC_NOTREACHED();
+  return nullptr;
+}
 
 } // namespace rtc
 

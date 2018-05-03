@@ -167,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "9078ec60_1ce92918",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-05-03T15:13:48Z",
+      "side": 1,
+      "message": "Oh, I think I know what you mean. I started the comment at L58 with \"Fix\" which looks like a TODO thing, but my intention was to describe what was done in there. Anyway, I\u0027ll follow your suggestion.",
+      "parentUuid": "10651b4f_6b858dc3",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 59
+      },
+      "revId": "364c8a8d1d6f37b9f729b4f41e7ee8fd2f785b0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "66fb83e9_0bf6e136",
         "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
         "patchSetId": 1

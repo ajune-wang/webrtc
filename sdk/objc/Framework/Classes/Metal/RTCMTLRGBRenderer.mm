@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 The WebRTC Project Authors. All rights reserved.
+ *  Copyright 2018 The WebRTC Project Authors. All rights reserved.
  *
  *  Use of this source code is governed by a BSD-style license
  *  that can be found in the LICENSE file in the root of the source
@@ -8,7 +8,7 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#import "RTCMTLNV12Renderer.h"
+#import "RTCMTLRGBRenderer.h"
 
 #import <Metal/Metal.h>
 #import <MetalKit/MetalKit.h>
@@ -31,38 +31,38 @@ static NSString *const shaderSource = MTL_STRINGIFY(
     typedef struct {
       float4 position[[position]];
       float2 texcoord;
-    } Varyings;
+    } VertexIO;
 
-    vertex Varyings vertexPassthrough(device Vertex * verticies[[buffer(0)]],
-                                      unsigned int vid[[vertex_id]]) {
-      Varyings out;
+    vertex VertexIO vertexPassthrough(device Vertex * verticies[[buffer(0)]],
+                                      uint vid[[vertex_id]]) {
+      VertexIO out;
       device Vertex &v = verticies[vid];
       out.position = float4(float2(v.position), 0.0, 1.0);
       out.texcoord = v.texcoord;
       return out;
     }
 
-    // Receiving YCrCb textures.
     fragment half4 fragmentColorConversion(
-        Varyings in[[stage_in]], texture2d<float, access::sample> textureY[[texture(0)]],
-        texture2d<float, access::sample> textureCbCr[[texture(1)]]) {
+        VertexIO in[[stage_in]], texture2d<half, access::sample> texture[[texture(0)]],
+                                           constant bool &isARGB[[buffer(0)]]) {
       constexpr sampler s(address::clamp_to_edge, filter::linear);
-      float y;
-      float2 uv;
-      y = textureY.sample(s, in.texcoord).r;
-      uv = textureCbCr.sample(s, in.texcoord).rg - float2(0.5, 0.5);
 
-      // Conversion for YUV to rgb from http://www.fourcc.org/fccyvrgb.php
-      float4 out = float4(y + 1.403 * uv.y, y - 0.344 * uv.x - 0.714 * uv.y, y + 1.770 * uv.x, 1.0);
+      half4 out = texture.sample(s, in.texcoord);
+      if (isARGB) {
+        out = half4(out.g, out.b, out.a, out.r);
+      }
 
-      return half4(out);
+      return out;
     });
 
-@implementation RTCMTLNV12Renderer {
+@implementation RTCMTLRGBRenderer {
   // Textures.
   CVMetalTextureCacheRef _textureCache;
-  id<MTLTexture> _yTexture;
-  id<MTLTexture> _CrCbTexture;
+  id<MTLTexture> _texture;
+
+  // Uniforms.
+  bool _isARGB;
+  id<MTLBuffer> _uniformsBuffer;
 }
 
 - (BOOL)addRenderingDestination:(__kindof MTKView *)view {
@@ -92,48 +92,47 @@ static NSString *const shaderSource = MTL_STRINGIFY(
   [super setupTexturesForFrame:frame];
   CVPixelBufferRef pixelBuffer = ((RTCCVPixelBuffer *)frame.buffer).pixelBuffer;
 
-  id<MTLTexture> lumaTexture = nil;
-  id<MTLTexture> chromaTexture = nil;
+  id<MTLTexture> texture = nil;
   CVMetalTextureRef outTexture = nullptr;
 
-  // Luma (y) texture.
-  int lumaWidth = CVPixelBufferGetWidthOfPlane(pixelBuffer, 0);
-  int lumaHeight = CVPixelBufferGetHeightOfPlane(pixelBuffer, 0);
+  int width = CVPixelBufferGetWidth(pixelBuffer);
+  int height = CVPixelBufferGetHeight(pixelBuffer);
+  OSType pixelFormat = CVPixelBufferGetPixelFormatType(pixelBuffer);
 
-  int indexPlane = 0;
+  MTLPixelFormat mtlPixelFormat;
+  if (pixelFormat == kCVPixelFormatType_32BGRA) {
+    mtlPixelFormat = MTLPixelFormatBGRA8Unorm;
+    _isARGB = false;
+  } else if (pixelFormat == kCVPixelFormatType_32ARGB) {
+    mtlPixelFormat = MTLPixelFormatRGBA8Unorm;
+    _isARGB = true;
+  } else {
+    return NO;
+  }
+
   CVReturn result = CVMetalTextureCacheCreateTextureFromImage(
-      kCFAllocatorDefault, _textureCache, pixelBuffer, nil, MTLPixelFormatR8Unorm, lumaWidth,
-      lumaHeight, indexPlane, &outTexture);
-
+                kCFAllocatorDefault, _textureCache, pixelBuffer, nil, mtlPixelFormat,
+                width, height, 0, &outTexture);
   if (result == kCVReturnSuccess) {
-    lumaTexture = CVMetalTextureGetTexture(outTexture);
-  }
-
-  // Same as CFRelease except it can be passed NULL without crashing.
-  CVBufferRelease(outTexture);
-  outTexture = nullptr;
-
-  // Chroma (CrCb) texture.
-  indexPlane = 1;
-  result = CVMetalTextureCacheCreateTextureFromImage(
-      kCFAllocatorDefault, _textureCache, pixelBuffer, nil, MTLPixelFormatRG8Unorm, lumaWidth / 2,
-      lumaHeight / 2, indexPlane, &outTexture);
-  if (result == kCVReturnSuccess) {
-    chromaTexture = CVMetalTextureGetTexture(outTexture);
+    texture =  CVMetalTextureGetTexture(outTexture);
   }
   CVBufferRelease(outTexture);
 
-  if (lumaTexture != nil && chromaTexture != nil) {
-    _yTexture = lumaTexture;
-    _CrCbTexture = chromaTexture;
+  if (texture != nil) {
+    _texture = texture;
+    _uniformsBuffer =
+        [[self currentMetalDevice] newBufferWithBytes:&_isARGB
+                                               length:sizeof(_isARGB)
+                                              options:MTLResourceCPUCacheModeDefaultCache];
     return YES;
   }
+
   return NO;
 }
 
 - (void)uploadTexturesToRenderEncoder:(id<MTLRenderCommandEncoder>)renderEncoder {
-  [renderEncoder setFragmentTexture:_yTexture atIndex:0];
-  [renderEncoder setFragmentTexture:_CrCbTexture atIndex:1];
+  [renderEncoder setFragmentTexture:_texture atIndex:0];
+  [renderEncoder setFragmentBuffer:_uniformsBuffer offset:0 atIndex:0];
 }
 
 - (void)dealloc {
@@ -141,4 +140,5 @@ static NSString *const shaderSource = MTL_STRINGIFY(
     CFRelease(_textureCache);
   }
 }
+
 @end

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "33bf65b1_e71d4df9",
+        "filename": "sdk/android/api/org/webrtc/PeerConnection.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-05-03T08:48:10Z",
+      "side": 1,
+      "message": "nit: receiving",
+      "range": {
+        "startLine": 115,
+        "startChar": 15,
+        "endLine": 115,
+        "endChar": 25
+      },
+      "revId": "4d9696c2c5783a8c7eb10c98e7e41817c160b18c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f8fcd30_1cc46f7d",
+        "filename": "sdk/android/src/jni/pc/peerconnection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-05-03T08:48:10Z",
+      "side": 1,
+      "message": "Do you think this will be flexible enough in the future? Do clients always want to keep all tracks around for the whole lifetime of the PeerConnection? I wonder if we should actually implement reference counting for RtpTranceivers since they are stored in rtc::scoped_refptr in C++.",
+      "range": {
+        "startLine": 340,
+        "startChar": 0,
+        "endLine": 342,
+        "endChar": 57
+      },
+      "revId": "4d9696c2c5783a8c7eb10c98e7e41817c160b18c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

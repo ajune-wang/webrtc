@@ -48,6 +48,121 @@
     },
     {
       "key": {
+        "uuid": "f3d2cb90_8c453448",
+        "filename": "sdk/objc/Framework/Classes/Metal/RTCMTLRGBRenderer.mm",
+        "patchSetId": 6
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-05-03T09:58:57Z",
+      "side": 1,
+      "message": "This looks like a candidate for ScopedCFRefType! Then we can get rid of the dealloc override.",
+      "range": {
+        "startLine": 58,
+        "startChar": 25,
+        "endLine": 58,
+        "endChar": 38
+      },
+      "revId": "c46a7886b13a98efdae6bf953cc1c7230755ca04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ccd0b236_bc6ad19c",
+        "filename": "sdk/objc/Framework/Classes/Metal/RTCMTLRGBRenderer.mm",
+        "patchSetId": 6
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-05-03T09:58:57Z",
+      "side": 1,
+      "message": "nit: this is not a uniform. Move above comment. Actually, comment is not very useful.",
+      "range": {
+        "startLine": 62,
+        "startChar": 7,
+        "endLine": 62,
+        "endChar": 14
+      },
+      "revId": "c46a7886b13a98efdae6bf953cc1c7230755ca04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5475662_012792f2",
+        "filename": "sdk/objc/Framework/Classes/Metal/RTCMTLRGBRenderer.mm",
+        "patchSetId": 6
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-05-03T09:58:57Z",
+      "side": 1,
+      "message": "Can we find a better name for this variable? It\u0027s very unclear what the difference between texture and outTexture is.",
+      "range": {
+        "startLine": 94,
+        "startChar": 20,
+        "endLine": 94,
+        "endChar": 30
+      },
+      "revId": "c46a7886b13a98efdae6bf953cc1c7230755ca04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a6720a3_c0e24d21",
+        "filename": "sdk/objc/Framework/Classes/Metal/RTCMTLRGBRenderer.mm",
+        "patchSetId": 6
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-05-03T09:58:57Z",
+      "side": 1,
+      "message": "This seems like it could be a local var instead of an ivar.",
+      "range": {
+        "startLine": 103,
+        "startChar": 4,
+        "endLine": 103,
+        "endChar": 11
+      },
+      "revId": "c46a7886b13a98efdae6bf953cc1c7230755ca04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57c39f15_ce80ebc5",
+        "filename": "sdk/objc/Framework/Classes/Metal/RTCMTLRGBRenderer.mm",
+        "patchSetId": 6
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-05-03T09:58:57Z",
+      "side": 1,
+      "message": "Add an RTC_NOTREACHED to help with debugging.",
+      "range": {
+        "startLine": 108,
+        "startChar": 13,
+        "endLine": 108,
+        "endChar": 14
+      },
+      "revId": "c46a7886b13a98efdae6bf953cc1c7230755ca04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "97b4f448_e1872ec0",
         "filename": "sdk/objc/Framework/Classes/Metal/RTCMTLRenderer.mm",
         "patchSetId": 6

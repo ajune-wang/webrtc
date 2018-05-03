@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f70e99db_4e1c87c7",
+        "filename": "sdk/objc/Framework/Classes/Metal/RTCMTLRGBRenderer.mm",
+        "patchSetId": 6
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-05-03T06:45:02Z",
+      "side": 1,
+      "message": "Can you mark this file and the header as forked from the NV12 renderer for smoother diffing?",
+      "range": {
+        "startLine": 1,
+        "startChar": 2,
+        "endLine": 1,
+        "endChar": 0
+      },
+      "revId": "c46a7886b13a98efdae6bf953cc1c7230755ca04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3109c813_dcf1158e",
+        "filename": "sdk/objc/Framework/Classes/Metal/RTCMTLRGBRenderer.mm",
+        "patchSetId": 6
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-05-03T06:45:02Z",
+      "side": 1,
+      "message": "nit: newline?",
+      "range": {
+        "startLine": 24,
+        "startChar": 26,
+        "endLine": 24,
+        "endChar": 27
+      },
+      "revId": "c46a7886b13a98efdae6bf953cc1c7230755ca04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97b4f448_e1872ec0",
+        "filename": "sdk/objc/Framework/Classes/Metal/RTCMTLRenderer.mm",
+        "patchSetId": 6
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-05-03T06:45:02Z",
+      "side": 1,
+      "message": "I\u0027m not too sure about leaving this in. Feels dirty to have code that\u0027s only there to support debugging in XCode. Hopefully we should not have to do this very often.",
+      "range": {
+        "startLine": 150,
+        "startChar": 1,
+        "endLine": 150,
+        "endChar": 6
+      },
+      "revId": "c46a7886b13a98efdae6bf953cc1c7230755ca04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

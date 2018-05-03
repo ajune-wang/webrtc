@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5db5f10e_fc2d618f",
+        "filename": "sdk/objc/Framework/Classes/Metal/RTCMTLRGBRenderer.mm",
+        "patchSetId": 6
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5670
+      },
+      "writtenOn": "2018-05-03T12:04:14Z",
+      "side": 1,
+      "message": "Not really possible.",
+      "parentUuid": "f70e99db_4e1c87c7",
+      "range": {
+        "startLine": 1,
+        "startChar": 2,
+        "endLine": 1,
+        "endChar": 0
+      },
+      "revId": "c46a7886b13a98efdae6bf953cc1c7230755ca04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3109c813_dcf1158e",
         "filename": "sdk/objc/Framework/Classes/Metal/RTCMTLRGBRenderer.mm",
         "patchSetId": 6
@@ -45,6 +69,30 @@
       "revId": "c46a7886b13a98efdae6bf953cc1c7230755ca04",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54e344cb_18d2dba0",
+        "filename": "sdk/objc/Framework/Classes/Metal/RTCMTLRGBRenderer.mm",
+        "patchSetId": 6
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5670
+      },
+      "writtenOn": "2018-05-03T12:04:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3109c813_dcf1158e",
+      "range": {
+        "startLine": 24,
+        "startChar": 26,
+        "endLine": 24,
+        "endChar": 27
+      },
+      "revId": "c46a7886b13a98efdae6bf953cc1c7230755ca04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "bc0c1e2d_b82d2b1d",
+        "filename": "sdk/objc/Framework/Classes/Metal/RTCMTLRGBRenderer.mm",
+        "patchSetId": 6
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5670
+      },
+      "writtenOn": "2018-05-03T12:04:14Z",
+      "side": 1,
+      "message": "To be honest, I don\u0027t think ScopedCFTypeRef adds a lot of value here. I\u0027d rather keep this file (and the NV12 renderer) away from c++ as it tends to spread.",
+      "parentUuid": "f3d2cb90_8c453448",
+      "range": {
+        "startLine": 58,
+        "startChar": 25,
+        "endLine": 58,
+        "endChar": 38
+      },
+      "revId": "c46a7886b13a98efdae6bf953cc1c7230755ca04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ccd0b236_bc6ad19c",
         "filename": "sdk/objc/Framework/Classes/Metal/RTCMTLRGBRenderer.mm",
         "patchSetId": 6
@@ -91,6 +163,30 @@
       "revId": "c46a7886b13a98efdae6bf953cc1c7230755ca04",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37ddb3eb_c2d9fb2c",
+        "filename": "sdk/objc/Framework/Classes/Metal/RTCMTLRGBRenderer.mm",
+        "patchSetId": 6
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5670
+      },
+      "writtenOn": "2018-05-03T12:04:14Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ccd0b236_bc6ad19c",
+      "range": {
+        "startLine": 62,
+        "startChar": 7,
+        "endLine": 62,
+        "endChar": 14
+      },
+      "revId": "c46a7886b13a98efdae6bf953cc1c7230755ca04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "c1e425f1_a4051e5e",
+        "filename": "sdk/objc/Framework/Classes/Metal/RTCMTLRGBRenderer.mm",
+        "patchSetId": 6
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5670
+      },
+      "writtenOn": "2018-05-03T12:04:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e5475662_012792f2",
+      "range": {
+        "startLine": 94,
+        "startChar": 20,
+        "endLine": 94,
+        "endChar": 30
+      },
+      "revId": "c46a7886b13a98efdae6bf953cc1c7230755ca04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a6720a3_c0e24d21",
         "filename": "sdk/objc/Framework/Classes/Metal/RTCMTLRGBRenderer.mm",
         "patchSetId": 6
@@ -137,6 +257,30 @@
       "revId": "c46a7886b13a98efdae6bf953cc1c7230755ca04",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4d0cb11_5aa98d12",
+        "filename": "sdk/objc/Framework/Classes/Metal/RTCMTLRGBRenderer.mm",
+        "patchSetId": 6
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5670
+      },
+      "writtenOn": "2018-05-03T12:04:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a6720a3_c0e24d21",
+      "range": {
+        "startLine": 103,
+        "startChar": 4,
+        "endLine": 103,
+        "endChar": 11
+      },
+      "revId": "c46a7886b13a98efdae6bf953cc1c7230755ca04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "d2263be7_a2e16f57",
+        "filename": "sdk/objc/Framework/Classes/Metal/RTCMTLRGBRenderer.mm",
+        "patchSetId": 6
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5670
+      },
+      "writtenOn": "2018-05-03T12:04:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "57c39f15_ce80ebc5",
+      "range": {
+        "startLine": 108,
+        "startChar": 13,
+        "endLine": 108,
+        "endChar": 14
+      },
+      "revId": "c46a7886b13a98efdae6bf953cc1c7230755ca04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "97b4f448_e1872ec0",
         "filename": "sdk/objc/Framework/Classes/Metal/RTCMTLRenderer.mm",
         "patchSetId": 6
@@ -183,6 +351,30 @@
       "revId": "c46a7886b13a98efdae6bf953cc1c7230755ca04",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5230826d_c5f025cb",
+        "filename": "sdk/objc/Framework/Classes/Metal/RTCMTLRenderer.mm",
+        "patchSetId": 6
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 5670
+      },
+      "writtenOn": "2018-05-03T12:04:14Z",
+      "side": 1,
+      "message": "Fair enough :)",
+      "parentUuid": "97b4f448_e1872ec0",
+      "range": {
+        "startLine": 150,
+        "startChar": 1,
+        "endLine": 150,
+        "endChar": 6
+      },
+      "revId": "c46a7886b13a98efdae6bf953cc1c7230755ca04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

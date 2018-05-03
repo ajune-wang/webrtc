@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e9829c99_75c5527e",
+        "filename": "modules/video_coding/codecs/test/videoprocessor_integrationtest_libvpx.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-05-03T11:10:15Z",
+      "side": 1,
+      "message": "note: if the TestConfig contained a unique_ptr to the frame checker, there\u0027d be less lines to write, and less ambiguity about the ownership.",
+      "revId": "ad02c0e663a1876a3c7761166ea8601f9b8726d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af29a979_aefe610d",
+        "filename": "modules/video_coding/codecs/test/videoprocessor_integrationtest_mediacodec.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-05-03T11:10:15Z",
+      "side": 1,
+      "message": "nit: move include, here and for the other tests",
+      "revId": "ad02c0e663a1876a3c7761166ea8601f9b8726d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -8,7 +8,7 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "modules/video_coding/codecs/test/videoprocessor_integrationtest.h"
+#include "modules/video_coding/codecs/test/videoprocessor_integrationtest_fixture_impl.h"
 
 #include <algorithm>
 #include <memory>
@@ -55,9 +55,9 @@ bool RunEncodeInRealTime(const TestConfig& config) {
 
 }  // namespace
 
-void VideoProcessorIntegrationTest::H264KeyframeChecker::CheckEncodedFrame(
-    webrtc::VideoCodecType codec,
-    const EncodedImage& encoded_frame) const {
+void VideoProcessorIntegrationTestFixtureImpl::H264KeyframeChecker::
+    CheckEncodedFrame(webrtc::VideoCodecType codec,
+                      const EncodedImage& encoded_frame) const {
   EXPECT_EQ(kVideoCodecH264, codec);
   bool contains_sps = false;
   bool contains_pps = false;
@@ -89,7 +89,7 @@ void VideoProcessorIntegrationTest::H264KeyframeChecker::CheckEncodedFrame(
   }
 }
 
-class VideoProcessorIntegrationTest::CpuProcessTime final {
+class VideoProcessorIntegrationTestFixtureImpl::CpuProcessTime final {
  public:
   explicit CpuProcessTime(const TestConfig& config) : config_(config) {}
   ~CpuProcessTime() {}
@@ -124,16 +124,32 @@ class VideoProcessorIntegrationTest::CpuProcessTime final {
   int64_t wallclock_time_ = 0;
 };
 
-VideoProcessorIntegrationTest::VideoProcessorIntegrationTest() {
+VideoProcessorIntegrationTestFixtureImpl::
+    VideoProcessorIntegrationTestFixtureImpl(TestConfig config)
+    : config_(config) {
 #if defined(WEBRTC_ANDROID)
   InitializeAndroidObjects();
 #endif
 }
 
-VideoProcessorIntegrationTest::~VideoProcessorIntegrationTest() = default;
+VideoProcessorIntegrationTestFixtureImpl::
+    VideoProcessorIntegrationTestFixtureImpl(
+        TestConfig config,
+        std::unique_ptr<VideoDecoderFactory> decoderFactory,
+        std::unique_ptr<VideoEncoderFactory> encoderFactory)
+    : decoder_factory_(std::move(decoderFactory)),
+      encoder_factory_(std::move(encoderFactory)),
+      config_(config) {
+#if defined(WEBRTC_ANDROID)
+  InitializeAndroidObjects();
+#endif
+}
+
+VideoProcessorIntegrationTestFixtureImpl::
+    ~VideoProcessorIntegrationTestFixtureImpl() = default;
 
 // Processes all frames in the clip and verifies the result.
-void VideoProcessorIntegrationTest::ProcessFramesAndMaybeVerify(
+void VideoProcessorIntegrationTestFixtureImpl::ProcessFramesAndMaybeVerify(
     const std::vector<RateProfile>& rate_profiles,
     const std::vector<RateControlThresholds>* rc_thresholds,
     const std::vector<QualityThresholds>* quality_thresholds,
@@ -156,7 +172,7 @@ void VideoProcessorIntegrationTest::ProcessFramesAndMaybeVerify(
                    bs_thresholds);
 }
 
-void VideoProcessorIntegrationTest::ProcessAllFrames(
+void VideoProcessorIntegrationTestFixtureImpl::ProcessAllFrames(
     rtc::TaskQueue* task_queue,
     const std::vector<RateProfile>& rate_profiles) {
   // Process all frames.
@@ -206,7 +222,7 @@ void VideoProcessorIntegrationTest::ProcessAllFrames(
   cpu_process_time_->Stop();
 }
 
-void VideoProcessorIntegrationTest::AnalyzeAllFrames(
+void VideoProcessorIntegrationTestFixtureImpl::AnalyzeAllFrames(
     const std::vector<RateProfile>& rate_profiles,
     const std::vector<RateControlThresholds>* rc_thresholds,
     const std::vector<QualityThresholds>* quality_thresholds,
@@ -252,7 +268,7 @@ void VideoProcessorIntegrationTest::AnalyzeAllFrames(
   printf("\n");
 }
 
-void VideoProcessorIntegrationTest::VerifyVideoStatistic(
+void VideoProcessorIntegrationTestFixtureImpl::VerifyVideoStatistic(
     const VideoStatistics& video_stat,
     const RateControlThresholds* rc_thresholds,
     const QualityThresholds* quality_thresholds,
@@ -297,7 +313,7 @@ void VideoProcessorIntegrationTest::VerifyVideoStatistic(
 }
 
 std::unique_ptr<VideoDecoderFactory>
-VideoProcessorIntegrationTest::CreateDecoderFactory() {
+VideoProcessorIntegrationTestFixtureImpl::CreateDecoderFactory() {
   if (config_.hw_decoder) {
 #if defined(WEBRTC_ANDROID)
     return CreateAndroidDecoderFactory();
@@ -311,7 +327,7 @@ VideoProcessorIntegrationTest::CreateDecoderFactory() {
 }
 
 std::unique_ptr<VideoEncoderFactory>
-VideoProcessorIntegrationTest::CreateEncoderFactory() {
+VideoProcessorIntegrationTestFixtureImpl::CreateEncoderFactory() {
   if (config_.hw_encoder) {
 #if defined(WEBRTC_ANDROID)
     return CreateAndroidEncoderFactory();
@@ -324,11 +340,12 @@ VideoProcessorIntegrationTest::CreateEncoderFactory() {
   }
 }
 
-void VideoProcessorIntegrationTest::CreateEncoderAndDecoder() {
-  encoder_factory_ = CreateEncoderFactory();
-  std::unique_ptr<VideoDecoderFactory> decoder_factory = CreateDecoderFactory();
-
+void VideoProcessorIntegrationTestFixtureImpl::CreateEncoderAndDecoder() {
   const SdpVideoFormat format = config_.ToSdpVideoFormat();
+  if (!decoder_factory_)
+    decoder_factory_ = CreateDecoderFactory();
+  if (!encoder_factory_)
+    encoder_factory_ = CreateEncoderFactory();
   if (config_.simulcast_adapted_encoder) {
     EXPECT_EQ("VP8", format.name);
     encoder_.reset(new SimulcastEncoderAdapter(encoder_factory_.get()));
@@ -341,7 +358,7 @@ void VideoProcessorIntegrationTest::CreateEncoderAndDecoder() {
 
   for (size_t i = 0; i < num_simulcast_or_spatial_layers; ++i) {
     decoders_.push_back(std::unique_ptr<VideoDecoder>(
-        decoder_factory->CreateVideoDecoder(format)));
+        decoder_factory_->CreateVideoDecoder(format)));
   }
 
   if (config_.sw_fallback_encoder) {
@@ -367,13 +384,16 @@ void VideoProcessorIntegrationTest::CreateEncoderAndDecoder() {
   }
 }
 
-void VideoProcessorIntegrationTest::DestroyEncoderAndDecoder() {
+void VideoProcessorIntegrationTestFixtureImpl::DestroyEncoderAndDecoder() {
   decoders_.clear();
   encoder_.reset();
-  encoder_factory_.reset();
 }
 
-void VideoProcessorIntegrationTest::SetUpAndInitObjects(
+Stats VideoProcessorIntegrationTestFixtureImpl::GetStats() {
+  return stats_;
+}
+
+void VideoProcessorIntegrationTestFixtureImpl::SetUpAndInitObjects(
     rtc::TaskQueue* task_queue,
     int initial_bitrate_kbps,
     int initial_framerate_fps,
@@ -437,7 +457,7 @@ void VideoProcessorIntegrationTest::SetUpAndInitObjects(
   sync_event.Wait(rtc::Event::kForever);
 }
 
-void VideoProcessorIntegrationTest::ReleaseAndCloseObjects(
+void VideoProcessorIntegrationTestFixtureImpl::ReleaseAndCloseObjects(
     rtc::TaskQueue* task_queue) {
   rtc::Event sync_event(false, false);
   task_queue->PostTask([this, &sync_event]() {
@@ -462,7 +482,7 @@ void VideoProcessorIntegrationTest::ReleaseAndCloseObjects(
   decoded_frame_writers_.clear();
 }
 
-void VideoProcessorIntegrationTest::PrintSettings(
+void VideoProcessorIntegrationTestFixtureImpl::PrintSettings(
     rtc::TaskQueue* task_queue) const {
   printf("==> TestConfig\n");
   printf("%s\n", config_.ToString().c_str());

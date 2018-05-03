@@ -1,0 +1,303 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "62bcc99d_661ea3e8",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2018-05-03T13:11:03Z",
+      "side": 1,
+      "message": "I\u0027m not a big fan of this name, it is really long, and it\u0027s still not really clear to me what the function does :-)\nA suggestion is to move the call to \u0027ring_buf-\u003ePush\u0027 out of the function (so the caller has to call it himself), that way the function does one thing and can have a simpler name.",
+      "range": {
+        "startLine": 27,
+        "startChar": 5,
+        "endLine": 27,
+        "endChar": 45
+      },
+      "revId": "88fe483e6de455efd7bccee8762bb85fc8734b06",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "870affe5_076bfcd9",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2018-05-03T13:11:03Z",
+      "side": 1,
+      "message": "I think it would be good to make a constexpr for this in the anonymous namespace.",
+      "range": {
+        "startLine": 84,
+        "startChar": 19,
+        "endLine": 84,
+        "endChar": 24
+      },
+      "revId": "88fe483e6de455efd7bccee8762bb85fc8734b06",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7358aa1b_40e6ab97",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2018-05-03T13:11:03Z",
+      "side": 1,
+      "message": "Is this really needed? Doesn\u0027t band_boundaries_ get automatically converted to an ArrayView? (same pattern is used below several times)",
+      "range": {
+        "startLine": 89,
+        "startChar": 25,
+        "endLine": 89,
+        "endChar": 75
+      },
+      "revId": "88fe483e6de455efd7bccee8762bb85fc8734b06",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3adfcd16_4ca9f9af",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2018-05-03T13:11:03Z",
+      "side": 1,
+      "message": "How does this normalization work? A comment to explain would be helpful.",
+      "range": {
+        "startLine": 104,
+        "startChar": 44,
+        "endLine": 104,
+        "endChar": 46
+      },
+      "revId": "88fe483e6de455efd7bccee8762bb85fc8734b06",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ebf58dbe_a14d22a3",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2018-05-03T13:11:03Z",
+      "side": 1,
+      "message": "I would prefer a more descriptive name, maybe something like \u0027square_abs\u0027?",
+      "range": {
+        "startLine": 148,
+        "startChar": 7,
+        "endLine": 148,
+        "endChar": 14
+      },
+      "revId": "88fe483e6de455efd7bccee8762bb85fc8734b06",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f77620a_85717ed5",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2018-05-03T13:11:03Z",
+      "side": 1,
+      "message": "Please comment how this normalization works (and where the numbers come from)",
+      "range": {
+        "startLine": 169,
+        "startChar": 27,
+        "endLine": 169,
+        "endChar": 30
+      },
+      "revId": "88fe483e6de455efd7bccee8762bb85fc8734b06",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c35dac9_4dfd87d3",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2018-05-03T13:11:03Z",
+      "side": 1,
+      "message": "I think std::numeric_limits\u003cfloat\u003e::max() would be nicer here.",
+      "range": {
+        "startLine": 177,
+        "startChar": 21,
+        "endLine": 177,
+        "endChar": 26
+      },
+      "revId": "88fe483e6de455efd7bccee8762bb85fc8734b06",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10cf1713_7d9874de",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2018-05-03T13:11:03Z",
+      "side": 1,
+      "message": "Why is this needed? Comment please.",
+      "range": {
+        "startLine": 186,
+        "startChar": 55,
+        "endLine": 186,
+        "endChar": 61
+      },
+      "revId": "88fe483e6de455efd7bccee8762bb85fc8734b06",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2f37fe6_b05bab2f",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2018-05-03T13:11:03Z",
+      "side": 1,
+      "message": "This is already checked in common.h, and I think it makes more sense there.",
+      "range": {
+        "startLine": 43,
+        "startChar": 2,
+        "endLine": 43,
+        "endChar": 48
+      },
+      "revId": "88fe483e6de455efd7bccee8762bb85fc8734b06",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81bd6473_fdfa99e3",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2018-05-03T13:11:03Z",
+      "side": 1,
+      "message": "I think it would be better to store the FFT buffers in vectors. The data in std::array ends up on the stack, which is fine for small arrays, but this array is about 4kB, which is rather significant.",
+      "range": {
+        "startLine": 64,
+        "startChar": 2,
+        "endLine": 64,
+        "endChar": 54
+      },
+      "revId": "88fe483e6de455efd7bccee8762bb85fc8734b06",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "278ecf90_accbdafb",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2018-05-03T13:11:03Z",
+      "side": 1,
+      "message": "I don\u0027t think size_t is needed here. size_t can be either 32-bit or 64-bit, depending on the platform, and is typically used for sizes of arrays or indices into arrays. However, I think using 64 bit variables here is a bit wasteful.",
+      "range": {
+        "startLine": 68,
+        "startChar": 19,
+        "endLine": 68,
+        "endChar": 25
+      },
+      "revId": "88fe483e6de455efd7bccee8762bb85fc8734b06",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "659a1aa7_3bbd1418",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2018-05-03T13:11:03Z",
+      "side": 1,
+      "message": "Can these be constexpr?",
+      "range": {
+        "startLine": 68,
+        "startChar": 2,
+        "endLine": 69,
+        "endChar": 60
+      },
+      "revId": "88fe483e6de455efd7bccee8762bb85fc8734b06",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1e96ee6_f42fa468",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2018-05-03T13:11:03Z",
+      "side": 1,
+      "message": "To zero initialize this array you could use: samples{};",
+      "range": {
+        "startLine": 56,
+        "startChar": 41,
+        "endLine": 56,
+        "endChar": 48
+      },
+      "revId": "88fe483e6de455efd7bccee8762bb85fc8734b06",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

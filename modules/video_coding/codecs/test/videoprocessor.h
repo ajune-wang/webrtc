@@ -16,10 +16,10 @@
 #include <string>
 #include <vector>
 
+#include "api/test/stats.h"
+#include "api/test/test_config.h"
 #include "api/video/video_frame.h"
 #include "common_video/include/video_bitrate_allocator.h"
-#include "modules/video_coding/codecs/test/stats.h"
-#include "modules/video_coding/codecs/test/test_config.h"
 #include "modules/video_coding/utility/ivf_file_writer.h"
 #include "rtc_base/buffer.h"
 #include "rtc_base/constructormagic.h"

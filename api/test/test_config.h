@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_VIDEO_CODING_CODECS_TEST_TEST_CONFIG_H_
-#define MODULES_VIDEO_CODING_CODECS_TEST_TEST_CONFIG_H_
+#ifndef API_TEST_TEST_CONFIG_H_
+#define API_TEST_TEST_CONFIG_H_
 
 #include <string>
 #include <vector>
@@ -30,6 +30,8 @@ struct TestConfig {
     virtual void CheckEncodedFrame(webrtc::VideoCodecType codec,
                                    const EncodedImage& encoded_frame) const = 0;
   };
+
+  TestConfig();
 
   void SetCodecSettings(std::string codec_name,
                         size_t num_simulcast_streams,
@@ -112,4 +114,4 @@ struct TestConfig {
 }  // namespace test
 }  // namespace webrtc
 
-#endif  // MODULES_VIDEO_CODING_CODECS_TEST_TEST_CONFIG_H_
+#endif  // API_TEST_TEST_CONFIG_H_

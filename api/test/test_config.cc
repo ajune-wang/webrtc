@@ -8,9 +8,7 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "modules/video_coding/codecs/test/test_config.h"
-
-#include <sstream>
+#include "api/test/test_config.h"
 
 #include "media/base/h264_profile_level_id.h"
 #include "media/base/mediaconstants.h"
@@ -18,6 +16,7 @@
 #include "modules/video_coding/codecs/vp9/svc_config.h"
 #include "modules/video_coding/include/video_codec_interface.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/strings/string_builder.h"
 #include "system_wrappers/include/cpu_info.h"
 #include "test/video_codec_settings.h"
 
@@ -64,7 +63,8 @@ void ConfigureSvc(VideoCodec* codec_settings) {
 }
 
 std::string CodecSpecificToString(const VideoCodec& codec) {
-  std::stringstream ss;
+  char buf[1024];
+  rtc::SimpleStringBuilder ss(buf);
   switch (codec.codecType) {
     case kVideoCodecVP8:
       ss << "complexity: " << codec.VP8().complexity;
@@ -101,6 +101,8 @@ std::string CodecSpecificToString(const VideoCodec& codec) {
 }
 
 }  // namespace
+
+TestConfig::TestConfig() = default;
 
 void TestConfig::SetCodecSettings(std::string codec_name,
                                   size_t num_simulcast_streams,

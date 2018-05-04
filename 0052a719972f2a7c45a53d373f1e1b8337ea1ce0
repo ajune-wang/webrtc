@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "696a028a_a02023b7",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 756,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-05-04T12:10:31Z",
+      "side": 1,
+      "message": "Are these guaranteed to be initialized here?",
+      "range": {
+        "startLine": 756,
+        "startChar": 46,
+        "endLine": 756,
+        "endChar": 75
+      },
+      "revId": "0052a719972f2a7c45a53d373f1e1b8337ea1ce0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

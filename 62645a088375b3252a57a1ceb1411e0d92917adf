@@ -22,6 +22,30 @@
       "revId": "62645a088375b3252a57a1ceb1411e0d92917adf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad351beb_88fdf0e6",
+        "filename": "luci-milo.cfg",
+        "patchSetId": 4
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2018-05-04T11:03:58Z",
+      "side": 1,
+      "message": "Hi Sergiy,\nThanks for the comment. I\u0027m mostly aware of what V8 is doing, because I was modelling this after your milo config. I didn\u0027t fully understand what having 2 builders in the same place means, so thanks for the explanation.\n\nHowever, I think the approach of flipping one builder at a time may be more confusing, especially for non-infra devs. Perhaps we will be able to pull off a swifter migration strategy (flip everything around the same time).\nBut I may still rethink this and take your suggested approach.\n\nAlso a nice bonus of the approach I took is that by switching between two tabs I get a comparison view for free.\nhttps://ci.chromium.org/p/webrtc/g/client.webrtc/console\nhttps://ci.chromium.org/p/webrtc/g/ci/console (seems broken at the moment but whatever)",
+      "parentUuid": "1a64e393_0ee655f7",
+      "range": {
+        "startLine": 219,
+        "startChar": 9,
+        "endLine": 219,
+        "endChar": 24
+      },
+      "revId": "62645a088375b3252a57a1ceb1411e0d92917adf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

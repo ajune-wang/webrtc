@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "04851ae1_387a78b7",
+        "filename": "api/test/create_videoprocessor_integrationtest_fixture.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-05-04T07:56:40Z",
+      "side": 1,
+      "message": "Ok, that sounds like a good approach to me.",
+      "parentUuid": "5681d726_d52782db",
+      "revId": "9c77a63a91228c489a7357c063d479f97aba8e3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "66a168ce_840d8c14",
         "filename": "api/test/videoprocessor_integrationtest_fixture.h",
         "patchSetId": 13
@@ -238,6 +256,30 @@
       "revId": "9c77a63a91228c489a7357c063d479f97aba8e3b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "880652d4_3841d253",
+        "filename": "modules/video_coding/codecs/test/videoprocessor_integrationtest_videotoolbox.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-05-04T07:56:40Z",
+      "side": 1,
+      "message": "Agree. Relatedly, WDYT about moving the thresholds to the TestConfig as well?\n\nIn order to keep the velocity up, I\u0027m fine with making these changes in followups.",
+      "parentUuid": "6b7a167c_7dc18b28",
+      "range": {
+        "startLine": 37,
+        "startChar": 2,
+        "endLine": 38,
+        "endChar": 52
+      },
+      "revId": "9c77a63a91228c489a7357c063d479f97aba8e3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

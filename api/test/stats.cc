@@ -8,7 +8,7 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "modules/video_coding/codecs/test/stats.h"
+#include "api/test/stats.h"
 
 #include <algorithm>
 #include <cmath>
@@ -48,6 +48,9 @@ std::string FrameStatistics::ToString() const {
   ss << " target_bitrate_kbps " << target_bitrate_kbps;
   return ss.str();
 }
+
+VideoStatistics::VideoStatistics() = default;
+VideoStatistics::VideoStatistics(const VideoStatistics&) = default;
 
 std::string VideoStatistics::ToString(std::string prefix) const {
   std::stringstream ss;
@@ -90,6 +93,15 @@ std::string VideoStatistics::ToString(std::string prefix) const {
   ss << "\n" << prefix << "max_nalu_size_bytes: " << max_nalu_size_bytes;
   return ss.str();
 }
+
+FrameStatistics::FrameStatistics(size_t frame_number, size_t rtp_timestamp)
+    : frame_number(frame_number), rtp_timestamp(rtp_timestamp) {}
+
+FrameStatistics::FrameStatistics(const FrameStatistics& rhs) = default;
+
+Stats::Stats() = default;
+
+Stats::~Stats() = default;
 
 FrameStatistics* Stats::AddFrame(size_t timestamp, size_t layer_idx) {
   RTC_DCHECK(rtp_timestamp_to_frame_num_[layer_idx].find(timestamp) ==

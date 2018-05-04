@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_VIDEO_CODING_CODECS_TEST_STATS_H_
-#define MODULES_VIDEO_CODING_CODECS_TEST_STATS_H_
+#ifndef API_TEST_STATS_H_
+#define API_TEST_STATS_H_
 
 #include <map>
 #include <string>
@@ -22,8 +22,8 @@ namespace test {
 
 // Statistics for one processed frame.
 struct FrameStatistics {
-  FrameStatistics(size_t frame_number, size_t rtp_timestamp)
-      : frame_number(frame_number), rtp_timestamp(rtp_timestamp) {}
+  FrameStatistics(size_t frame_number, size_t rtp_timestamp);
+  FrameStatistics(const FrameStatistics& rhs);
 
   std::string ToString() const;
 
@@ -68,6 +68,9 @@ struct FrameStatistics {
 };
 
 struct VideoStatistics {
+  VideoStatistics();
+  VideoStatistics(const VideoStatistics&);
+
   std::string ToString(std::string prefix) const;
 
   size_t target_bitrate_kbps = 0;
@@ -114,8 +117,8 @@ struct VideoStatistics {
 // Statistics for a sequence of processed frames. This class is not thread safe.
 class Stats {
  public:
-  Stats() = default;
-  ~Stats() = default;
+  Stats();
+  ~Stats();
 
   // Creates a FrameStatistics for the next frame to be processed.
   FrameStatistics* AddFrame(size_t timestamp, size_t spatial_idx);
@@ -168,4 +171,4 @@ class Stats {
 }  // namespace test
 }  // namespace webrtc
 
-#endif  // MODULES_VIDEO_CODING_CODECS_TEST_STATS_H_
+#endif  // API_TEST_STATS_H_

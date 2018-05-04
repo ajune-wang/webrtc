@@ -13,9 +13,9 @@
 
 #include <vector>
 
+#include "api/test/stats.h"
 #include "api/video_codecs/video_decoder_factory.h"
 #include "api/video_codecs/video_encoder_factory.h"
-#include "modules/video_coding/codecs/test/stats.h"
 
 namespace webrtc {
 namespace test {

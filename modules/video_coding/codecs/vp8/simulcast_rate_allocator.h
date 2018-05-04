@@ -17,8 +17,8 @@
 #include <memory>
 #include <vector>
 
+#include "api/video/video_bitrate_allocator.h"
 #include "api/video_codecs/video_encoder.h"
-#include "common_video/include/video_bitrate_allocator.h"
 #include "modules/video_coding/codecs/vp8/temporal_layers.h"
 #include "rtc_base/constructormagic.h"
 

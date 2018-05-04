@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d6337e06_906c33a0",
+        "filename": "modules/audio_processing/aec3/suppression_gain.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2018-05-04T09:31:27Z",
+      "side": 1,
+      "message": "Makes sense. As I would like to continue refining MaskingPower I will put the std::copy on top of the function and return.",
+      "parentUuid": "2038190d_d86d95fe",
+      "revId": "b27ae6f8149649eb40205100d99504d6d909d596",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2ca6292c_f1177582",
         "filename": "modules/audio_processing/aec3/suppression_gain.cc",
         "patchSetId": 3
@@ -33,6 +51,24 @@
       "revId": "b27ae6f8149649eb40205100d99504d6d909d596",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82043c67_9b8268ea",
+        "filename": "modules/audio_processing/aec3/suppression_gain.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2018-05-04T09:31:27Z",
+      "side": 1,
+      "message": "Good point.",
+      "parentUuid": "2ca6292c_f1177582",
+      "revId": "b27ae6f8149649eb40205100d99504d6d909d596",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "9ecaad2d_336b710c",
+        "filename": "modules/audio_processing/aec3/suppression_gain.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2018-05-04T09:31:27Z",
+      "side": 1,
+      "message": "Fixed.",
+      "parentUuid": "533a4b74_0d5e0266",
+      "revId": "b27ae6f8149649eb40205100d99504d6d909d596",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0b198be2_97c54f2a",
         "filename": "modules/audio_processing/aec3/suppression_gain.cc",
         "patchSetId": 3
@@ -67,6 +121,24 @@
       "revId": "b27ae6f8149649eb40205100d99504d6d909d596",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a42401d_5ea7e630",
+        "filename": "modules/audio_processing/aec3/suppression_gain.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2018-05-04T09:31:27Z",
+      "side": 1,
+      "message": "Fixed.",
+      "parentUuid": "0b198be2_97c54f2a",
+      "revId": "b27ae6f8149649eb40205100d99504d6d909d596",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

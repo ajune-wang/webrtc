@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "c020eb58_c93a54a5",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-05-04T12:48:37Z",
+      "side": 1,
+      "message": "The initial state is that there are no streams, therefore the total allocatable bitrate is zero, this is updated when streams are added.",
+      "parentUuid": "75b4bd6e_5675c0f8",
+      "revId": "3fd6116f884c66c427aa296c7837fa5eb4f17be3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3c270cce_d0af8cd6",
         "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
         "patchSetId": 3
@@ -30,6 +48,30 @@
       "writtenOn": "2018-05-04T12:07:05Z",
       "side": 1,
       "message": "Is it important to check for Infinity, or could we just use msg.constraints.min_data_rate.value_or(...) ?",
+      "range": {
+        "startLine": 144,
+        "startChar": 28,
+        "endLine": 144,
+        "endChar": 43
+      },
+      "revId": "3fd6116f884c66c427aa296c7837fa5eb4f17be3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a074b2e9_eb83c584",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-05-04T12:48:37Z",
+      "side": 1,
+      "message": "Can\u0027t use value_or, since that would return a DataRate, which can\u0027t be negative. That\u0027s why the helper exists, making it not check for infinity just for the min value seems like unnecessary work?",
+      "parentUuid": "3c270cce_d0af8cd6",
       "range": {
         "startLine": 144,
         "startChar": 28,
@@ -62,6 +104,30 @@
       "revId": "3fd6116f884c66c427aa296c7837fa5eb4f17be3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dfafe3bd_a0ccef31",
+        "filename": "modules/congestion_controller/network_control/include/network_types.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-05-04T12:48:37Z",
+      "side": 1,
+      "message": "It would crash, users of the struct should always set data_window and time_window explicitly.",
+      "parentUuid": "fabb2a73_e510e66f",
+      "range": {
+        "startLine": 139,
+        "startChar": 25,
+        "endLine": 139,
+        "endChar": 33
+      },
+      "revId": "3fd6116f884c66c427aa296c7837fa5eb4f17be3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

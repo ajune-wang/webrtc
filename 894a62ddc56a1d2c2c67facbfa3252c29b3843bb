@@ -46,6 +46,30 @@
       "revId": "894a62ddc56a1d2c2c67facbfa3252c29b3843bb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4930cffc_4cf7ac1c",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1740,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-05-04T07:26:29Z",
+      "side": 1,
+      "message": "Oh! Now I see. I got confused by all the \u003c\u003e\nYou could issue a \n using StatsGetterMap \u003d std::map\u003c....\u003e;",
+      "parentUuid": "79a7d5ae_aae91a2d",
+      "range": {
+        "startLine": 1740,
+        "startChar": 19,
+        "endLine": 1740,
+        "endChar": 60
+      },
+      "revId": "894a62ddc56a1d2c2c67facbfa3252c29b3843bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

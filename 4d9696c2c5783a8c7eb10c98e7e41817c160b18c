@@ -141,6 +141,30 @@
       "revId": "4d9696c2c5783a8c7eb10c98e7e41817c160b18c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "516f3116_03add4c0",
+        "filename": "sdk/android/src/jni/pc/peerconnection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-05-04T18:39:52Z",
+      "side": 1,
+      "message": "To clarify, I meant the tracks can be removed from the receiver and the direction can change with a renegotiation (the transceiver object remains).",
+      "parentUuid": "9f310aa9_79d7fd8a",
+      "range": {
+        "startLine": 340,
+        "startChar": 0,
+        "endLine": 342,
+        "endChar": 57
+      },
+      "revId": "4d9696c2c5783a8c7eb10c98e7e41817c160b18c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "c1be2add_10706b55",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-05-04T21:01:19Z",
+      "side": 1,
+      "message": "I think you are right. I checked the Android source and networkInfo.isConnected is implemented by the same logic. I start to wonder there might be other reasons why we have that bug. The reason I started to spot this place is the socket binding failure happened before a state change notified by Android as \"from CONNECTING to CONNECTED\", and that made me to suspect our onNetworkConnect was fired prematurely. I will talk to the QA to see if we can have stable reproducing of this bug.\n\nI confused myself when going through networkToInfo. Will add comments that networkToInfo handles disconnected networks to avoid confusion in the future. Thanks for pointing this out!",
+      "parentUuid": "9160e320_d85ad401",
+      "revId": "b7957014ecbb60bcee3fe6d6d2389d84d2fef244",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8d36b0cd_c12e74e6",
         "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
         "patchSetId": 1

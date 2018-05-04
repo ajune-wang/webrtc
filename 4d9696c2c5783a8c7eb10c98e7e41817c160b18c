@@ -117,6 +117,30 @@
       "revId": "4d9696c2c5783a8c7eb10c98e7e41817c160b18c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f310aa9_79d7fd8a",
+        "filename": "sdk/android/src/jni/pc/peerconnection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-05-04T18:37:41Z",
+      "side": 1,
+      "message": "The RefCounted interface is very cool, I didn\u0027t know about it. Although, I think in this case it makes the API more of pain for the client to use and the gains aren\u0027t necessarily worth it. In Unified Plan transceivers aren\u0027t removed until the PeerConnection desctructor is called. The tracks would be removed from the underlying receiver object and the transceiver direction would change. So we wouldn\u0027t be keeping unnecessary transceivers around. I think it\u0027s best to keep it as is. WDYT?",
+      "parentUuid": "68de3bf7_42dd1e24",
+      "range": {
+        "startLine": 340,
+        "startChar": 0,
+        "endLine": 342,
+        "endChar": 57
+      },
+      "revId": "4d9696c2c5783a8c7eb10c98e7e41817c160b18c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -58,6 +58,7 @@
 #include "rtc_base/basictypes.h"
 #include "rtc_base/constructormagic.h"
 #include "rtc_base/deprecation.h"
+#include "rtc_base/system/no_inline.h"
 #include "rtc_base/thread_annotations.h"
 
 #if !defined(NDEBUG) || defined(DLOG_ALWAYS_ON)
@@ -142,6 +143,16 @@ class LogMessage {
   ~LogMessage();
 
   static bool Loggable(LoggingSeverity sev);
+
+  // Same as the above, but using a template argument instead of a function
+  // argument. (When the logging severity is statically known, passing it as a
+  // template argument instead of as a function argument saves space at the
+  // call site.)
+  template <LoggingSeverity S>
+  RTC_NO_INLINE static bool Loggable() {
+    return Loggable(S);
+  }
+
   std::ostream& stream();
 
   // Returns the time at which this function was called for the first time.
@@ -264,19 +275,18 @@ class LogMessageVoidify {
 };
 
 #define RTC_LOG_SEVERITY_PRECONDITION(sev) \
-  !(rtc::LogMessage::Loggable(sev)) \
-    ? (void) 0 \
-    : rtc::LogMessageVoidify() &
-
-#define RTC_LOG(sev) \
-  RTC_LOG_SEVERITY_PRECONDITION(rtc::sev) \
-    rtc::LogMessage(__FILE__, __LINE__, rtc::sev).stream()
+  !(rtc::LogMessage::Loggable<rtc::sev>()) ? (void)0 : rtc::LogMessageVoidify()&
+#define RTC_LOG(sev)                 \
+  RTC_LOG_SEVERITY_PRECONDITION(sev) \
+  rtc::LogMessage(__FILE__, __LINE__, rtc::sev).stream()
 
 // The _V version is for when a variable is passed in.  It doesn't do the
 // namespace concatenation.
-#define RTC_LOG_V(sev) \
-  RTC_LOG_SEVERITY_PRECONDITION(sev) \
-    rtc::LogMessage(__FILE__, __LINE__, sev).stream()
+#define RTC_LOG_SEVERITY_PRECONDITION_V(sev) \
+  !(rtc::LogMessage::Loggable(sev)) ? (void)0 : rtc::LogMessageVoidify()&
+#define RTC_LOG_V(sev)                 \
+  RTC_LOG_SEVERITY_PRECONDITION_V(sev) \
+  rtc::LogMessage(__FILE__, __LINE__, sev).stream()
 
 // The _F version prefixes the message with the current function name.
 #if (defined(__GNUC__) && !defined(NDEBUG)) || defined(WANT_PRETTY_LOG_F)
@@ -297,11 +307,11 @@ inline bool LogCheckLevel(LoggingSeverity sev) {
   return (LogMessage::GetMinLogSeverity() <= sev);
 }
 
-#define RTC_LOG_E(sev, ctx, err, ...) \
-  RTC_LOG_SEVERITY_PRECONDITION(rtc::sev) \
-    rtc::LogMessage(__FILE__, __LINE__, rtc::sev, \
-                    rtc::ERRCTX_ ## ctx, err , ##__VA_ARGS__)   \
-        .stream()
+#define RTC_LOG_E(sev, ctx, err, ...)                                   \
+  RTC_LOG_SEVERITY_PRECONDITION(sev)                                    \
+  rtc::LogMessage(__FILE__, __LINE__, rtc::sev, rtc::ERRCTX_##ctx, err, \
+                  ##__VA_ARGS__)                                        \
+      .stream()
 
 #define RTC_LOG_T(sev) RTC_LOG(sev) << this << ": "
 
@@ -337,13 +347,13 @@ namespace internal {
 inline const char* AdaptString(const char* str) { return str; }
 inline const char* AdaptString(const std::string& str) { return str.c_str(); }
 }  // namespace internal
-#define RTC_LOG_TAG(sev, tag)        \
-  RTC_LOG_SEVERITY_PRECONDITION(sev) \
+#define RTC_LOG_TAG(sev, tag)          \
+  RTC_LOG_SEVERITY_PRECONDITION_V(sev) \
   rtc::LogMessage(nullptr, 0, sev, rtc::internal::AdaptString(tag)).stream()
 #else
 // DEPRECATED. This macro is only intended for Android.
-#define RTC_LOG_TAG(sev, tag)        \
-  RTC_LOG_SEVERITY_PRECONDITION(sev) \
+#define RTC_LOG_TAG(sev, tag)          \
+  RTC_LOG_SEVERITY_PRECONDITION_V(sev) \
   rtc::LogMessage(nullptr, 0, sev).stream()
 #endif
 

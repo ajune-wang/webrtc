@@ -46,6 +46,30 @@
       "revId": "62645a088375b3252a57a1ceb1411e0d92917adf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f5c75c62_80b0e749",
+        "filename": "luci-milo.cfg",
+        "patchSetId": 4
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 7122
+      },
+      "writtenOn": "2018-05-04T11:35:19Z",
+      "side": 1,
+      "message": "For comparison purposes we use a separate comparison console, but it requires adding builders there manually: https://ci.chromium.org/p/v8/g/side-by-side/console, therefore there is a clear advantage to your comparison approach. Perhaps I\u0027ll add a similar LUCI-only view for us.\n\nAs for flipping one builder at a time - this worked fine for V8 tryserver: LUCI builds should mostly look like Buildbot builds and developers don\u0027t really notice. However, should someone need to check a historic build from the console, developers would need need to know when the migration actually happened and which console they need to use to look up an actual non-experimental build. This becomes especially important if you flip a builder back and force several times (e.g. when testing a builder with significant side effects that can not be tested in experimental mode).\n\nMigrating all at once is nice, but may break a lot of things at the same time increasing overall downtime for developers. We chose iterative approach, but it may not be necessary for your infra.",
+      "parentUuid": "ad351beb_88fdf0e6",
+      "range": {
+        "startLine": 219,
+        "startChar": 9,
+        "endLine": 219,
+        "endChar": 24
+      },
+      "revId": "62645a088375b3252a57a1ceb1411e0d92917adf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

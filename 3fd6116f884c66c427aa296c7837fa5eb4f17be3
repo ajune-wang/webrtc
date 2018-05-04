@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "75b4bd6e_5675c0f8",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-05-04T12:07:05Z",
+      "side": 1,
+      "message": "Is this really a reasonable start value? Wouldn\u0027t positive infinity be better if no max has been configured?",
+      "revId": "3fd6116f884c66c427aa296c7837fa5eb4f17be3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c270cce_d0af8cd6",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-05-04T12:07:05Z",
+      "side": 1,
+      "message": "Is it important to check for Infinity, or could we just use msg.constraints.min_data_rate.value_or(...) ?",
+      "range": {
+        "startLine": 144,
+        "startChar": 28,
+        "endLine": 144,
+        "endChar": 43
+      },
+      "revId": "3fd6116f884c66c427aa296c7837fa5eb4f17be3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fabb2a73_e510e66f",
+        "filename": "modules/congestion_controller/network_control/include/network_types.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-05-04T12:07:05Z",
+      "side": 1,
+      "message": "What data_rate() will this result in? 1?",
+      "range": {
+        "startLine": 139,
+        "startChar": 25,
+        "endLine": 139,
+        "endChar": 33
+      },
+      "revId": "3fd6116f884c66c427aa296c7837fa5eb4f17be3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

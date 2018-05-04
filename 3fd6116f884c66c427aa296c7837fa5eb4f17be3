@@ -84,6 +84,30 @@
     },
     {
       "key": {
+        "uuid": "9ac00ca1_639c7a61",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-05-04T12:56:14Z",
+      "side": 1,
+      "message": "Ack. If the helper is needed anyway then I don\u0027t mind checking for infinity.",
+      "parentUuid": "a074b2e9_eb83c584",
+      "range": {
+        "startLine": 144,
+        "startChar": 28,
+        "endLine": 144,
+        "endChar": 43
+      },
+      "revId": "3fd6116f884c66c427aa296c7837fa5eb4f17be3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fabb2a73_e510e66f",
         "filename": "modules/congestion_controller/network_control/include/network_types.h",
         "patchSetId": 3
@@ -119,6 +143,30 @@
       "side": 1,
       "message": "It would crash, users of the struct should always set data_window and time_window explicitly.",
       "parentUuid": "fabb2a73_e510e66f",
+      "range": {
+        "startLine": 139,
+        "startChar": 25,
+        "endLine": 139,
+        "endChar": 33
+      },
+      "revId": "3fd6116f884c66c427aa296c7837fa5eb4f17be3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2e2ec090_05f2459e",
+        "filename": "modules/congestion_controller/network_control/include/network_types.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-05-04T12:56:14Z",
+      "side": 1,
+      "message": "Because of RTC_DCHECK_LE(size.bytes(), kMaxBeforeConversion) in data_rate_impl::Microbits?",
+      "parentUuid": "dfafe3bd_a0ccef31",
       "range": {
         "startLine": 139,
         "startChar": 25,

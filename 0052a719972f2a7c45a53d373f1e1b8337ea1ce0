@@ -22,6 +22,30 @@
       "revId": "0052a719972f2a7c45a53d373f1e1b8337ea1ce0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b8a71ab_a1d95c60",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 756,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-05-04T12:35:21Z",
+      "side": 1,
+      "message": "If OnSentPacket is called before OnTransportFeedback, added a log error and a DCHECK to ensure this.",
+      "parentUuid": "696a028a_a02023b7",
+      "range": {
+        "startLine": 756,
+        "startChar": 46,
+        "endLine": 756,
+        "endChar": 75
+      },
+      "revId": "0052a719972f2a7c45a53d373f1e1b8337ea1ce0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

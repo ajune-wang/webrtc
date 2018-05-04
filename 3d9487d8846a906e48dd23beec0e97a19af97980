@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "45590ff9_2ff2d7a7",
+        "filename": "api/video/video_stream_encoder_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-05-04T10:40:33Z",
+      "side": 1,
+      "message": "Initial comment on naming: do we generally want to have \"Interface\" in the name for interfaces, or not? solenberg noted that it is optional, and often not used, here: https://webrtc-review.googlesource.com/c/src/+/72481/13/api/test/videoprocessor_integrationtest_fixture.h#59",
+      "range": {
+        "startLine": 27,
+        "startChar": 24,
+        "endLine": 27,
+        "endChar": 33
+      },
+      "revId": "3d9487d8846a906e48dd23beec0e97a19af97980",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bc0ef4c9_87d4420b",
         "filename": "api/video/video_stream_encoder_interface.h",
         "patchSetId": 1

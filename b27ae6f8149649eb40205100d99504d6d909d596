@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2038190d_d86d95fe",
+        "filename": "modules/audio_processing/aec3/suppression_gain.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-05-04T07:31:23Z",
+      "side": 1,
+      "message": "What about putting this if-statement around lines 334 and 354 and not call MaskingPower at all if and instead only do the std:copy if enable_transparency_improvements is false?\n\nThat would save a lot of computations and I think more clearly show what code is bypassed when enable_transparency_improvements is true.",
+      "revId": "b27ae6f8149649eb40205100d99504d6d909d596",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ca6292c_f1177582",
+        "filename": "modules/audio_processing/aec3/suppression_gain.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-05-04T07:31:23Z",
+      "side": 1,
+      "message": "Suggestion: It would be nice to decouple the for loop with the if-statements as much as possible\nWhat about\nif (!saturated_echo) {\n  for (size_t k \u003d 0; k \u003c nearend.size(); ++k) {\n    const float denom \u003d std::min(nearend[k], weighted_echo[k]);\n    min_gain[k] \u003d denom \u003e 0.f ? min_echo_power / denom : 1.f;\n    min_gain[k] \u003d std::min(min_gain[k], 1.f);\n  }\n  if (enable_transparency_improvements_) {\n    for (size_t k \u003d 0; k \u003c 6; ++k) {\n      if (last_nearend_[k] \u003e last_echo_[k])\n        min_gain[k] \u003d\n            std::min(1.f, std::max(min_gain[k],\n                     last_gain_[k] * config_.gain_updates.max_dec_factor_lf));\n    }\n  }\n}",
+      "revId": "b27ae6f8149649eb40205100d99504d6d909d596",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "533a4b74_0d5e0266",
+        "filename": "modules/audio_processing/aec3/suppression_gain.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-05-04T07:31:23Z",
+      "side": 1,
+      "message": "I think it would be a good with a comment in the code why this is done.",
+      "revId": "b27ae6f8149649eb40205100d99504d6d909d596",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b198be2_97c54f2a",
+        "filename": "modules/audio_processing/aec3/suppression_gain.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-05-04T07:31:23Z",
+      "side": 1,
+      "message": "It is maybe fine as the compiler can optimize it away, but it feels wrong to have this if-statement inside the loop.\n\nWhat about splitting 317 to 326 into two loops? One for enable_transparency_improvements_\u003d\u003dtrue and one for enable_transparency_improvements_\u003d\u003dfalse\n\nAs it is now, the max/min operation on line 318 seems very redundant in comparison to the one on line 323.",
+      "revId": "b27ae6f8149649eb40205100d99504d6d909d596",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

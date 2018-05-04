@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bc0ef4c9_87d4420b",
+        "filename": "api/video/video_stream_encoder_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-05-04T10:40:05Z",
+      "side": 1,
+      "message": "Please add good descriptions of all methods.",
+      "range": {
+        "startLine": 52,
+        "startChar": 26,
+        "endLine": 52,
+        "endChar": 0
+      },
+      "revId": "3d9487d8846a906e48dd23beec0e97a19af97980",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

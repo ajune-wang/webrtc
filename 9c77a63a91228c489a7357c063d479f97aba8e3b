@@ -418,6 +418,30 @@
       "revId": "9c77a63a91228c489a7357c063d479f97aba8e3b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e68492c4_0508fbb3",
+        "filename": "modules/video_coding/codecs/test/videoprocessor_integrationtest_videotoolbox.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-05-04T09:06:43Z",
+      "side": 1,
+      "message": "Right, I remember that now.\n\nIs the problem with the ownership that the TestConfig has to be moved instead of copied?",
+      "parentUuid": "0d00ebc4_ea367986",
+      "range": {
+        "startLine": 37,
+        "startChar": 2,
+        "endLine": 38,
+        "endChar": 52
+      },
+      "revId": "9c77a63a91228c489a7357c063d479f97aba8e3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -102,6 +102,30 @@
     },
     {
       "key": {
+        "uuid": "542d0e00_e13172a0",
+        "filename": "api/test/videoprocessor_integrationtest_fixture.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-05-04T08:59:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "96a26a56_ee868c85",
+      "range": {
+        "startLine": 59,
+        "startChar": 6,
+        "endLine": 59,
+        "endChar": 31
+      },
+      "revId": "9c77a63a91228c489a7357c063d479f97aba8e3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "70d47ebe_cb5e06fd",
         "filename": "api/test/videoprocessor_integrationtest_fixture.h",
         "patchSetId": 13
@@ -122,6 +146,30 @@
       "revId": "9c77a63a91228c489a7357c063d479f97aba8e3b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f21f6c66_ca409240",
+        "filename": "api/test/videoprocessor_integrationtest_fixture.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-05-04T08:59:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "70d47ebe_cb5e06fd",
+      "range": {
+        "startLine": 63,
+        "startChar": 15,
+        "endLine": 63,
+        "endChar": 42
+      },
+      "revId": "9c77a63a91228c489a7357c063d479f97aba8e3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -148,6 +196,30 @@
     },
     {
       "key": {
+        "uuid": "b98aca23_03d8fb5b",
+        "filename": "modules/video_coding/codecs/test/videoprocessor_integrationtest_fixture_impl.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-05-04T08:59:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "84bb3f74_5b0323d5",
+      "range": {
+        "startLine": 138,
+        "startChar": 45,
+        "endLine": 138,
+        "endChar": 59
+      },
+      "revId": "9c77a63a91228c489a7357c063d479f97aba8e3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e9a6f358_093df1ac",
         "filename": "modules/video_coding/codecs/test/videoprocessor_integrationtest_fixture_impl.cc",
         "patchSetId": 13
@@ -162,6 +234,24 @@
       "revId": "9c77a63a91228c489a7357c063d479f97aba8e3b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b60cc304_baa6c2ed",
+        "filename": "modules/video_coding/codecs/test/videoprocessor_integrationtest_fixture_impl.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-05-04T08:59:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e9a6f358_093df1ac",
+      "revId": "9c77a63a91228c489a7357c063d479f97aba8e3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -209,6 +299,30 @@
       "revId": "9c77a63a91228c489a7357c063d479f97aba8e3b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3737822e_b4b5511d",
+        "filename": "modules/video_coding/codecs/test/videoprocessor_integrationtest_libvpx.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-05-04T08:59:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d2876b69_fa0a7cf7",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 6
+      },
+      "revId": "9c77a63a91228c489a7357c063d479f97aba8e3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -271,6 +385,30 @@
       "side": 1,
       "message": "Agree. Relatedly, WDYT about moving the thresholds to the TestConfig as well?\n\nIn order to keep the velocity up, I\u0027m fine with making these changes in followups.",
       "parentUuid": "6b7a167c_7dc18b28",
+      "range": {
+        "startLine": 37,
+        "startChar": 2,
+        "endLine": 38,
+        "endChar": 52
+      },
+      "revId": "9c77a63a91228c489a7357c063d479f97aba8e3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0d00ebc4_ea367986",
+        "filename": "modules/video_coding/codecs/test/videoprocessor_integrationtest_videotoolbox.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-05-04T08:59:56Z",
+      "side": 1,
+      "message": "As part of an earlier refactoring I moved the ObjC factories out of the test so they are no longer instantiated internally. I think this is cleaner as it avoids some #defines and more clearly groups together the codecs under test.\n\nThat said, I would be fine with moving this to the test config as well, though that\u0027s going to be slightly annoying for ownership-management reasons.",
+      "parentUuid": "880652d4_3841d253",
       "range": {
         "startLine": 37,
         "startChar": 2,

@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "6412455b_f021903f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-05-04T07:04:23Z",
+      "side": 1,
+      "message": "In the future, you can file a bug at bugs.webrtc.org, and then refer to it like this:\n\nBug: webrtc:1234.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 15
+      },
+      "revId": "698ef4ccf99512ed814f832509d35cde9ed46fb9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d410b1c_fec264f7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-05-04T07:04:23Z",
+      "side": 1,
+      "message": "This is clear from the code, so no need to mention it here.",
+      "range": {
+        "startLine": 10,
+        "startChar": 239,
+        "endLine": 10,
+        "endChar": 301
+      },
+      "revId": "698ef4ccf99512ed814f832509d35cde9ed46fb9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ea549b6d_ad573362",
         "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
         "patchSetId": 4

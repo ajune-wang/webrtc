@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "8173eece_32d6724f",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1577,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-05-04T14:06:37Z",
+      "side": 1,
+      "message": "I would like Björn to answer this. In particular, in the new patch set, I removed this calculation and sat comfortably on the existing millisecond output.",
+      "parentUuid": "826930a2_98d65331",
+      "range": {
+        "startLine": 1577,
+        "startChar": 38,
+        "endLine": 1577,
+        "endChar": 54
+      },
+      "revId": "274e544e88908373eb932a9fc87833965d2f83fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3a3af6df_dadbdaba",
         "filename": "rtc_tools/event_log_visualizer/analyzer.h",
         "patchSetId": 6

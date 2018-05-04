@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "4cb3d30d_6f358a62",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1575,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-05-04T14:06:37Z",
+      "side": 1,
+      "message": "this function is now removed",
+      "parentUuid": "0ad5fae6_d7886a14",
+      "range": {
+        "startLine": 1575,
+        "startChar": 37,
+        "endLine": 1575,
+        "endChar": 45
+      },
+      "revId": "39415490e36c8f68b515181c1596619d66ef3737",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f02ae895_24c8a361",
         "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
         "patchSetId": 5
@@ -83,6 +107,30 @@
       "writtenOn": "2018-05-02T11:00:42Z",
       "side": 1,
       "message": "I\u0027d prefer to just multiply by 1000 here, unless there is a reason for decoupling.",
+      "range": {
+        "startLine": 1843,
+        "startChar": 39,
+        "endLine": 1843,
+        "endChar": 58
+      },
+      "revId": "39415490e36c8f68b515181c1596619d66ef3737",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8e88d56_2688b9ed",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1843,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-05-04T14:06:37Z",
+      "side": 1,
+      "message": "I only wanted to let it read nicer. Anyways, I removed it in the new patch set.",
+      "parentUuid": "f02ae895_24c8a361",
       "range": {
         "startLine": 1843,
         "startChar": 39,
@@ -129,6 +177,54 @@
       "writtenOn": "2018-05-02T11:00:42Z",
       "side": 1,
       "message": "Could the stats series be empty? If there are no y-values, I think the reversed y-axis limits might cause an exception in python. (Not sure about this though.)",
+      "range": {
+        "startLine": 1858,
+        "startChar": 0,
+        "endLine": 1858,
+        "endChar": 79
+      },
+      "revId": "39415490e36c8f68b515181c1596619d66ef3737",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d61cbd5f_925381ea",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1858,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-05-04T14:06:37Z",
+      "side": 1,
+      "message": "True. But how should I choose between SetYAxis and SetSuggestedYAxis? I learned to use SetYAxis from line 1819, and thought it was good since I have a bit more control.",
+      "parentUuid": "4f444c02_33bcac05",
+      "range": {
+        "startLine": 1858,
+        "startChar": 8,
+        "endLine": 1858,
+        "endChar": 16
+      },
+      "revId": "39415490e36c8f68b515181c1596619d66ef3737",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2fecf5c_2743f1f4",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1858,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-05-04T14:06:37Z",
+      "side": 1,
+      "message": "good point. I tried it, and it basically flipped the y-axis.",
+      "parentUuid": "588867ab_ba47861d",
       "range": {
         "startLine": 1858,
         "startChar": 0,

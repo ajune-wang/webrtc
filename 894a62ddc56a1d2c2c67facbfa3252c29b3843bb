@@ -22,6 +22,30 @@
       "revId": "894a62ddc56a1d2c2c67facbfa3252c29b3843bb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79a7d5ae_aae91a2d",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1740,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-05-04T07:21:39Z",
+      "side": 1,
+      "message": "no, it is ref to a map. I agree that the way it is formatted might be confusing, but I have no better option.",
+      "parentUuid": "9809cf5a_c3b4bb17",
+      "range": {
+        "startLine": 1740,
+        "startChar": 19,
+        "endLine": 1740,
+        "endChar": 60
+      },
+      "revId": "894a62ddc56a1d2c2c67facbfa3252c29b3843bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

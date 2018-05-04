@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "75f4f0b8_899a7612",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 756,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-05-04T12:39:25Z",
+      "side": 1,
+      "message": "Apply same check to aggregation_epoch_bytes_?",
+      "range": {
+        "startLine": 756,
+        "startChar": 4,
+        "endLine": 756,
+        "endChar": 58
+      },
+      "revId": "893e4e489bf0ada3441ea33808667e328d8e859a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "18140f30_9d8fe0e1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-04T16:40:39Z",
+      "side": 1,
+      "message": "This is probably worth filing a bug so it will be listed in release notes.",
+      "revId": "b7957014ecbb60bcee3fe6d6d2389d84d2fef244",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9160e320_d85ad401",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-04T16:40:39Z",
+      "side": 1,
+      "message": "If NetworkInfo.isConnected() is false, then getConnectionType will return CONNECTION_NONE, and networkToInfo will return null: https://cs.chromium.org/chromium/src/third_party/webrtc/sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java?l\u003d411\u0026rcl\u003d9d96e923169dc237b056f3e2b432a6759155bf2d\n\nSo, isn\u0027t this already covered by \"networkInformation !\u003d null\"? If you still have the device that reproduces this issue, did you verify that this fixes it? If so I wonder why. Is there a difference between \"networkInfo.getState() \u003d\u003d NetworkInfo.State.CONNECTED\" and \"networkInfo.isConnected()\"?",
+      "revId": "b7957014ecbb60bcee3fe6d6d2389d84d2fef244",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d36b0cd_c12e74e6",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-04T16:40:39Z",
+      "side": 1,
+      "message": "nit: Don\u0027t need @Nullable",
+      "revId": "b7957014ecbb60bcee3fe6d6d2389d84d2fef244",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

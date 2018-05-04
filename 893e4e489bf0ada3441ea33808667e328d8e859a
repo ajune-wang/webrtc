@@ -22,6 +22,30 @@
       "revId": "893e4e489bf0ada3441ea33808667e328d8e859a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc22bd7d_affe75ae",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 756,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-05-04T12:56:37Z",
+      "side": 1,
+      "message": "Even, better, checked the original source code, and it should be safe to initialize this to Zero. It doesn\u0027t have to be an optional. Thanks for querying!",
+      "parentUuid": "75f4f0b8_899a7612",
+      "range": {
+        "startLine": 756,
+        "startChar": 4,
+        "endLine": 756,
+        "endChar": 58
+      },
+      "revId": "893e4e489bf0ada3441ea33808667e328d8e859a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

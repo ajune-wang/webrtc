@@ -25,6 +25,98 @@
     },
     {
       "key": {
+        "uuid": "bf707125_92439715",
+        "filename": "api/video/video_stream_encoder_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-05-04T12:59:46Z",
+      "side": 1,
+      "message": "Is there a reason why we can\u0027t have the start bitrate go into a regular OnBitrateUpdated call?",
+      "range": {
+        "startLine": 42,
+        "startChar": 15,
+        "endLine": 42,
+        "endChar": 30
+      },
+      "revId": "3d9487d8846a906e48dd23beec0e97a19af97980",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d98808f3_89d3b514",
+        "filename": "api/video/video_stream_encoder_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-05-04T12:59:46Z",
+      "side": 1,
+      "message": "For HW codecs wrapped by a SimulcastEncoderAdapter, I think we should be able to generate keyframes independently on different simulcast layers. Do we want to allow that in the API here?",
+      "range": {
+        "startLine": 43,
+        "startChar": 15,
+        "endLine": 43,
+        "endChar": 27
+      },
+      "revId": "3d9487d8846a906e48dd23beec0e97a19af97980",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5d8143c_b9d8b961",
+        "filename": "api/video/video_stream_encoder_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-05-04T12:59:46Z",
+      "side": 1,
+      "message": "Looks like the Chromoting encoding system is using these... :/",
+      "range": {
+        "startLine": 45,
+        "startChar": 32,
+        "endLine": 46,
+        "endChar": 58
+      },
+      "revId": "3d9487d8846a906e48dd23beec0e97a19af97980",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d42215ee_65af993a",
+        "filename": "api/video/video_stream_encoder_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-05-04T12:59:46Z",
+      "side": 1,
+      "message": "SetBitrateAllocationObserver?",
+      "range": {
+        "startLine": 48,
+        "startChar": 15,
+        "endLine": 48,
+        "endChar": 33
+      },
+      "revId": "3d9487d8846a906e48dd23beec0e97a19af97980",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bc0ef4c9_87d4420b",
         "filename": "api/video/video_stream_encoder_interface.h",
         "patchSetId": 1

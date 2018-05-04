@@ -446,28 +446,6 @@ int32_t VideoReceiver::Delay() const {
   return _timing->TargetVideoDelay();
 }
 
-// Only used by VCMRobustnessTest.
-int VideoReceiver::SetReceiverRobustnessMode(
-    VideoCodingModule::ReceiverRobustness robustnessMode,
-    VCMDecodeErrorMode decode_error_mode) {
-  RTC_DCHECK_RUN_ON(&construction_thread_checker_);
-  RTC_DCHECK(!IsDecoderThreadRunning());
-  switch (robustnessMode) {
-    case VideoCodingModule::kNone:
-      _receiver.SetNackMode(kNoNack, -1, -1);
-      break;
-    case VideoCodingModule::kHardNack:
-      // Always wait for retransmissions (except when decoding with errors).
-      _receiver.SetNackMode(kNack, -1, -1);
-      break;
-    default:
-      RTC_NOTREACHED();
-      return VCM_PARAMETER_ERROR;
-  }
-  _receiver.SetDecodeErrorMode(decode_error_mode);
-  return VCM_OK;
-}
-
 void VideoReceiver::SetDecodeErrorMode(VCMDecodeErrorMode decode_error_mode) {
   RTC_DCHECK_RUN_ON(&construction_thread_checker_);
   RTC_DCHECK(!IsDecoderThreadRunning());

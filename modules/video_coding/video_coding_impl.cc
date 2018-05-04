@@ -190,11 +190,6 @@ class VideoCodingModuleImpl : public VideoCodingModule {
     return receiver_.IncomingPacket(incomingPayload, payloadLength, rtpInfo);
   }
 
-  int SetReceiverRobustnessMode(ReceiverRobustness robustnessMode,
-                                VCMDecodeErrorMode errorMode) override {
-    return receiver_.SetReceiverRobustnessMode(robustnessMode, errorMode);
-  }
-
   void SetNackSettings(size_t max_nack_list_size,
                        int max_packet_age_to_nack,
                        int max_incomplete_time_ms) override {

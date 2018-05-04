@@ -160,11 +160,6 @@ class VideoReceiver : public Module {
   int32_t SetRenderDelay(uint32_t timeMS);
   int32_t Delay() const;
 
-  // DEPRECATED.
-  int SetReceiverRobustnessMode(
-      VideoCodingModule::ReceiverRobustness robustnessMode,
-      VCMDecodeErrorMode errorMode);
-
   void SetNackSettings(size_t max_nack_list_size,
                        int max_packet_age_to_nack,
                        int max_incomplete_time_ms);

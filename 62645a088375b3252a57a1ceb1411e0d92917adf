@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a64e393_0ee655f7",
+        "filename": "luci-milo.cfg",
+        "patchSetId": 4
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 7122
+      },
+      "writtenOn": "2018-05-04T08:56:47Z",
+      "side": 1,
+      "message": "You can use single console to view both buildbot and LUCI builds and have Milo merge them in smart way: it will always display a build that is not experimental, so when you flip the toggle in the migration app, the list of builds will contain mix of buildbot/luci builds. See for example how we do it in V8: https://chromium.googlesource.com/v8/v8/+/5d38ea037b3cb3070d42cd1ef68f9d297f15afad/luci-milo.cfg#90",
+      "range": {
+        "startLine": 219,
+        "startChar": 9,
+        "endLine": 219,
+        "endChar": 24
+      },
+      "revId": "62645a088375b3252a57a1ceb1411e0d92917adf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

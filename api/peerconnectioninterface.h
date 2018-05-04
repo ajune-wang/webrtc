@@ -108,6 +108,7 @@
 #include "rtc_base/rtccertificate.h"
 #include "rtc_base/rtccertificategenerator.h"
 #include "rtc_base/socketaddress.h"
+#include "rtc_base/sslcertificate.h"
 #include "rtc_base/sslstreamadapter.h"
 
 namespace rtc {
@@ -1175,6 +1176,7 @@ struct PeerConnectionDependencies final {
   // Optional dependencies
   std::unique_ptr<cricket::PortAllocator> allocator;
   std::unique_ptr<rtc::RTCCertificateGeneratorInterface> cert_generator;
+  std::unique_ptr<rtc::SSLCertificateVerifier> tls_cert_verifier;
 };
 
 // PeerConnectionFactoryInterface is the factory interface used for creating

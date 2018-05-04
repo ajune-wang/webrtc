@@ -22,6 +22,108 @@
       "revId": "1cc405bd422c9e7559886e3f0f144c5feca02f76",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de469c93_61c9f36a",
+        "filename": "modules/video_coding/codecs/test/videocodec_test_fixture_impl.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-05-04T09:20:14Z",
+      "side": 1,
+      "message": "Add a TODO() that H264KeyframeChecker should be moved out of the impl. The tests using it should keep shared utilities to themselves and the test framework be agnostic to codec type.",
+      "revId": "1cc405bd422c9e7559886e3f0f144c5feca02f76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25acbe4f_102d9dd1",
+        "filename": "modules/video_coding/codecs/test/videocodec_test_fixture_impl.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-05-04T09:20:14Z",
+      "side": 1,
+      "message": "remove?",
+      "revId": "1cc405bd422c9e7559886e3f0f144c5feca02f76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b79f887b_380c96ba",
+        "filename": "modules/video_coding/codecs/test/videocodec_test_fixture_impl.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-05-04T09:20:14Z",
+      "side": 1,
+      "message": "remove?",
+      "revId": "1cc405bd422c9e7559886e3f0f144c5feca02f76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14c2ff6d_74706d90",
+        "filename": "modules/video_coding/codecs/test/videocodec_test_fixture_impl.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-05-04T09:20:14Z",
+      "side": 1,
+      "message": "rename the impl class as well",
+      "revId": "1cc405bd422c9e7559886e3f0f144c5feca02f76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0474037_14ba8c05",
+        "filename": "modules/video_coding/codecs/test/videocodec_test_libvpx.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-05-04T09:20:14Z",
+      "side": 1,
+      "message": "don\u0027t really need the impl?",
+      "revId": "1cc405bd422c9e7559886e3f0f144c5feca02f76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20f2e1ac_2b6cd7f5",
+        "filename": "modules/video_coding/codecs/test/videocodec_test_parameterized.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-05-04T09:20:14Z",
+      "side": 1,
+      "message": "No need?",
+      "revId": "1cc405bd422c9e7559886e3f0f144c5feca02f76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

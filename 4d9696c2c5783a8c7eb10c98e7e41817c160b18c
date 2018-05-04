@@ -93,6 +93,30 @@
       "revId": "4d9696c2c5783a8c7eb10c98e7e41817c160b18c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68de3bf7_42dd1e24",
+        "filename": "sdk/android/src/jni/pc/peerconnection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-05-04T12:35:14Z",
+      "side": 1,
+      "message": "My idea was to implement RefCounted interface. Then if the client wants to keep RtpTranceiver they have to explicitly call retain() in the method. Otherwise, it is released when the method returns. When the client is done with a tranceiver, they have to call release() if they have retained it.\n\nIt is of course a little more work for the clients because they have to remember to call release manually if they have retained the object. But isn\u0027t it possible that a PeerConnection is renegotiated with fewer tracks? With this implementation we would keep unnecessary tranceivers around?",
+      "parentUuid": "9728a2a8_4cc72369",
+      "range": {
+        "startLine": 340,
+        "startChar": 0,
+        "endLine": 342,
+        "endChar": 57
+      },
+      "revId": "4d9696c2c5783a8c7eb10c98e7e41817c160b18c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

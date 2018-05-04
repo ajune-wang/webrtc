@@ -1572,6 +1572,16 @@ class NetEqStreamInput : public test::NetEqInput {
     RTC_DCHECK(output_events_us);
   }
 
+  inline int64_t LogTimeToPacketTime(uint64_t timestamp) const {
+    // Convert from us to ms.
+    return rtc::checked_cast<int64_t>(timestamp / 1000);
+  }
+
+  static inline uint64_t PacketTimeToLogTime(int64_t packet_time) {
+    // Convert from ms to us.
+    return rtc::checked_cast<int64_t>(packet_time * 1000);
+  }
+
   rtc::Optional<int64_t> NextPacketTime() const override {
     if (packet_stream_it_ == packet_stream_.end()) {
       return rtc::nullopt;
@@ -1579,8 +1589,7 @@ class NetEqStreamInput : public test::NetEqInput {
     if (end_time_us_ && packet_stream_it_->rtp.log_time_us() > *end_time_us_) {
       return rtc::nullopt;
     }
-    // Convert from us to ms.
-    return packet_stream_it_->rtp.log_time_us() / 1000;
+    return LogTimeToPacketTime(packet_stream_it_->rtp.log_time_us());
   }
 
   rtc::Optional<int64_t> NextOutputEventTime() const override {
@@ -1590,8 +1599,7 @@ class NetEqStreamInput : public test::NetEqInput {
     if (end_time_us_ && *output_events_us_it_ > *end_time_us_) {
       return rtc::nullopt;
     }
-    // Convert from us to ms.
-    return rtc::checked_cast<int64_t>(*output_events_us_it_ / 1000);
+    return LogTimeToPacketTime(*output_events_us_it_);
   }
 
   std::unique_ptr<PacketData> PopPacket() override {
@@ -1600,8 +1608,8 @@ class NetEqStreamInput : public test::NetEqInput {
     }
     std::unique_ptr<PacketData> packet_data(new PacketData());
     packet_data->header = packet_stream_it_->rtp.header;
-    // Convert from us to ms.
-    packet_data->time_ms = packet_stream_it_->rtp.log_time_us() / 1000.0;
+    packet_data->time_ms =
+        LogTimeToPacketTime(packet_stream_it_->rtp.log_time_us());
 
     // This is a header-only "dummy" packet. Set the payload to all zeros, with
     // length according to the virtual length.
@@ -1698,36 +1706,36 @@ EventLogAnalyzer::NetEqStatsGetterMap EventLogAnalyzer::SimulateNetEq(
     int file_sample_rate_hz) const {
   NetEqStatsGetterMap neteq_stats;
 
-  const std::vector<LoggedRtpPacketIncoming>* audio_packets = nullptr;
-  uint32_t ssrc;
   for (const auto& stream : parsed_log_.incoming_rtp_packets_by_ssrc()) {
-    if (IsAudioSsrc(kIncomingPacket, stream.ssrc)) {
-      audio_packets = &stream.incoming_packets;
-      ssrc = stream.ssrc;
-      break;
+    const uint32_t ssrc = stream.ssrc;
+    if (!IsAudioSsrc(kIncomingPacket, ssrc))
+      continue;
+    const std::vector<LoggedRtpPacketIncoming>* audio_packets =
+        &stream.incoming_packets;
+    if (audio_packets == nullptr) {
+      // No incoming audio stream found.
+      continue;
     }
-  }
-  if (audio_packets == nullptr) {
-    // No incoming audio stream found.
-    return neteq_stats;
-  }
 
-  std::map<uint32_t, std::vector<int64_t>>::const_iterator output_events_it =
-      parsed_log_.audio_playout_events().find(ssrc);
-  if (output_events_it == parsed_log_.audio_playout_events().end()) {
-    // Could not find output events with SSRC matching the input audio stream.
-    // Using the first available stream of output events.
-    output_events_it = parsed_log_.audio_playout_events().cbegin();
+    RTC_DCHECK(neteq_stats.find(ssrc) == neteq_stats.end());
+
+    std::map<uint32_t, std::vector<int64_t>>::const_iterator output_events_it =
+        parsed_log_.audio_playout_events().find(ssrc);
+    if (output_events_it == parsed_log_.audio_playout_events().end()) {
+      // Could not find output events with SSRC matching the input audio stream.
+      // Using the first available stream of output events.
+      output_events_it = parsed_log_.audio_playout_events().cbegin();
+    }
+
+    rtc::Optional<int64_t> end_time_us =
+        log_segments_.empty()
+            ? rtc::nullopt
+            : rtc::Optional<int64_t>(log_segments_.front().second);
+
+    neteq_stats[ssrc] = CreateNetEqTestAndRun(
+        audio_packets, &output_events_it->second, end_time_us,
+        replacement_file_name, file_sample_rate_hz);
   }
-
-  rtc::Optional<int64_t> end_time_us =
-      log_segments_.empty()
-          ? rtc::nullopt
-          : rtc::Optional<int64_t>(log_segments_.front().second);
-
-  neteq_stats[ssrc] = CreateNetEqTestAndRun(
-      audio_packets, &output_events_it->second, end_time_us,
-      replacement_file_name, file_sample_rate_hz);
 
   return neteq_stats;
 }
@@ -1809,7 +1817,44 @@ void EventLogAnalyzer::CreateAudioJitterBufferGraph(
   plot->SetXAxis(0, call_duration_s_, "Time (s)", kLeftMargin, kRightMargin);
   plot->SetYAxis(min_y_axis, max_y_axis, "Relative delay (ms)", kBottomMargin,
                  kTopMargin);
-  plot->SetTitle("NetEq timing");
+  plot->SetTitle("NetEq timing for " + GetStreamName(kIncomingPacket, ssrc));
+}
+
+void EventLogAnalyzer::CreateNetEqStatsGraph(
+    const NetEqStatsGetterMap& neteq_stats,
+    rtc::FunctionView<float(const NetEqNetworkStatistics&)> stats_extractor,
+    const std::string& plot_name,
+    Plot* plot) const {
+  if (neteq_stats.size() < 1)
+    return;
+
+  std::map<uint32_t, TimeSeries> time_series;
+  float min_y_axis = std::numeric_limits<float>::max();
+  float max_y_axis = std::numeric_limits<float>::min();
+
+  for (const auto& st : neteq_stats) {
+    const uint32_t ssrc = st.first;
+    const auto& stats = st.second->stats();
+
+    for (size_t i = 0; i < stats.size(); ++i) {
+      const float time =
+          ToCallTime(NetEqStreamInput::PacketTimeToLogTime(stats[i].first));
+      const float value = stats_extractor(stats[i].second);
+      time_series[ssrc].points.emplace_back(TimeSeriesPoint(time, value));
+      min_y_axis = std::min(min_y_axis, value);
+      max_y_axis = std::max(max_y_axis, value);
+    }
+  }
+
+  for (auto& series : time_series) {
+    series.second.label = GetStreamName(kIncomingPacket, series.first);
+    series.second.line_style = LineStyle::kLine;
+    plot->AppendTimeSeries(std::move(series.second));
+  }
+
+  plot->SetXAxis(0, call_duration_s_, "Time (s)", kLeftMargin, kRightMargin);
+  plot->SetYAxis(min_y_axis, max_y_axis, plot_name, kBottomMargin, kTopMargin);
+  plot->SetTitle(plot_name);
 }
 
 void EventLogAnalyzer::CreateIceCandidatePairConfigGraph(Plot* plot) {

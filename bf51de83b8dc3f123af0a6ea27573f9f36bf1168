@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6a2a2b53_d31a6cb8",
+        "filename": "modules/audio_processing/aec3/render_delay_buffer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2018-05-04T14:47:25Z",
+      "side": 0,
+      "message": "Removing this log line as it could be misleading. Let\u0027s talk before adding it back.",
+      "revId": "bf51de83b8dc3f123af0a6ea27573f9f36bf1168",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

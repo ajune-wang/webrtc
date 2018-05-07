@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6afbcdf7_3d4e3626",
+        "filename": "test/fuzzers/frame_buffer2_fuzzer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-05-07T11:35:01Z",
+      "side": 1,
+      "message": "Add a comment, and mention the truncation behavior at the end of the data.",
+      "range": {
+        "startLine": 20,
+        "startChar": 7,
+        "endLine": 20,
+        "endChar": 17
+      },
+      "revId": "660f2c862cbf89b509b7976974e1179422b39fea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8c64fab_af6c2c79",
+        "filename": "test/fuzzers/frame_buffer2_fuzzer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-05-07T11:35:01Z",
+      "side": 1,
+      "message": "Shouldn\u0027t be needed, memcpy accepts a void* argument (unless the C++ version departs from plain C).",
+      "range": {
+        "startLine": 24,
+        "startChar": 4,
+        "endLine": 24,
+        "endChar": 60
+      },
+      "revId": "660f2c862cbf89b509b7976974e1179422b39fea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6cc5e2e2_e608b4f1",
+        "filename": "test/fuzzers/frame_buffer2_fuzzer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-05-07T11:35:01Z",
+      "side": 1,
+      "message": "Odd to update both |offset_| and |size_|. I would expect to either\n\n1. Have |data_| and |size_| be construction time constants, representing the original input data, and update only |offset_| as the data is processed.\n\n2. Initialize |data_| and |size_| at construction time, update as data is processed, so that they always represent the not-yet-processed input data. And |offset_| then isn\u0027t needed.",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 22
+      },
+      "revId": "660f2c862cbf89b509b7976974e1179422b39fea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7cf768d_847c848e",
+        "filename": "test/fuzzers/frame_buffer2_fuzzer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-05-07T11:35:01Z",
+      "side": 1,
+      "message": "Can have one more const, since you\u0027re not updating the ptr.\n\nAlternatively, consider if the code gets simpler if you update the data_ ptr as you read the data, and delete the |offset_| member.",
+      "range": {
+        "startLine": 49,
+        "startChar": 2,
+        "endLine": 49,
+        "endChar": 23
+      },
+      "revId": "660f2c862cbf89b509b7976974e1179422b39fea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -18,7 +18,7 @@ namespace webrtc {
 namespace jni {
 
 JNI_FUNCTION_DECLARATION(void,
-                         Logging_nativeEnableLogToDebugOutput,
+                         NativeLogger_nativeEnableLogToDebugOutput,
                          JNIEnv* jni,
                          jclass,
                          jint nativeSeverity) {
@@ -43,7 +43,21 @@ JNI_FUNCTION_DECLARATION(void,
 }
 
 JNI_FUNCTION_DECLARATION(void,
-                         Logging_nativeLog,
+                         NativeLogger_nativeEnableLogThreads,
+                         JNIEnv* jni,
+                         jclass) {
+  rtc::LogMessage::LogThreads(true);
+}
+
+JNI_FUNCTION_DECLARATION(void,
+                         NativeLogger_nativeEnableLogTimeStamps,
+                         JNIEnv* jni,
+                         jclass) {
+  rtc::LogMessage::LogTimestamps(true);
+}
+
+JNI_FUNCTION_DECLARATION(void,
+                         NativeLogger_nativeLog,
                          JNIEnv* jni,
                          jclass,
                          jint j_severity,

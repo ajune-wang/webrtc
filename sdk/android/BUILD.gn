@@ -45,6 +45,14 @@ generate_jni("generated_base_jni") {
   jni_generator_include = "//sdk/android/src/jni/jni_generator_helper.h"
 }
 
+generate_jni("generated_logging_jni") {
+  sources = [
+    "src/java/org/webrtc/JNILogging.java",
+  ]
+  jni_package = ""
+  jni_generator_include = "//sdk/android/src/jni/jni_generator_helper.h"
+}
+
 generate_jar_jni("generated_external_classes_jni") {
   classes = [
     "java/lang/Integer.class",
@@ -510,6 +518,21 @@ generate_jni("generated_peerconnection_jni") {
   jni_generator_include = "//sdk/android/src/jni/jni_generator_helper.h"
 }
 
+rtc_static_library("logging_jni") {
+  visibility = [ "*" ]
+  sources = [
+    "src/jni/pc/logging/logsink.cc",
+    "src/jni/pc/logging/logsink.h",
+  ]
+
+  deps = [
+    ":base_jni",
+    ":generated_logging_jni",
+    ":native_api_jni",
+    "../../rtc_base:rtc_base",
+  ]
+}
+
 rtc_static_library("peerconnection_jni") {
   # Do not depend on this target externally unless you absolute have to. It is
   # made public because we don't have a proper NDK yet. Header APIs here are not
@@ -584,6 +607,7 @@ rtc_static_library("peerconnection_jni") {
     ":base_jni",
     ":generated_external_classes_jni",
     ":generated_peerconnection_jni",
+    ":logging_jni",
     ":native_api_jni",
     "../..:webrtc_common",
     "../../api:libjingle_peerconnection_api",
@@ -960,6 +984,15 @@ rtc_android_library("hwcodecs_java") {
   }
 }
 
+rtc_android_library("logging_java") {
+  java_files = [ "src/java/org/webrtc/JNILogging.java" ]
+
+  deps = [
+    ":base_java",
+    "//rtc_base:base_java",
+  ]
+}
+
 rtc_android_library("peerconnection_java") {
   java_files = [
     "api/org/webrtc/audio/LegacyAudioDeviceModule.java",
@@ -1003,6 +1036,7 @@ rtc_android_library("peerconnection_java") {
   deps = [
     ":audio_api_java",
     ":base_java",
+    ":logging_java",
     ":video_api_java",
     ":video_java",  # TODO(sakal): Remove dependency.
     "//modules/audio_device:audio_device_java",

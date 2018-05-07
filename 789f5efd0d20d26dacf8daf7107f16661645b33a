@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a717311e_f6a6e5c9",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 879,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-05-07T13:26:13Z",
+      "side": 1,
+      "message": "I modified this to make audio_playout_events_ in synergy to other *_events_.\n\nDon\u0027t hesitate to say no if you think it is bad idea.",
+      "range": {
+        "startLine": 879,
+        "startChar": 6,
+        "endLine": 879,
+        "endChar": 27
+      },
+      "revId": "789f5efd0d20d26dacf8daf7107f16661645b33a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "af41819a_3f88ef00",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-05-07T12:34:00Z",
+      "side": 1,
+      "message": "I don\u0027t understand this. We *are* RtpTransportControllerSend, and it\u0027s unclear to me what the suggested change is.",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 41
+      },
+      "revId": "c4a92d929c6349f7f880402b56f9c82a7dd4c3e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3254203e_fa337bc4",
+        "filename": "modules/congestion_controller/rtp/send_side_congestion_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-05-07T12:34:00Z",
+      "side": 1,
+      "message": "So this is the main change, the plan that RtpTransportControllerSend should own a tq shared with the congestion controller (and maybe others of its subcomponents)?",
+      "range": {
+        "startLine": 308,
+        "startChar": 4,
+        "endLine": 308,
+        "endChar": 31
+      },
+      "revId": "c4a92d929c6349f7f880402b56f9c82a7dd4c3e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "442d4dc7_5881d1b7",
+        "filename": "modules/congestion_controller/rtp/send_side_congestion_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-05-07T12:34:00Z",
+      "side": 1,
+      "message": "\u003d default; ?",
+      "range": {
+        "startLine": 384,
+        "startChar": 62,
+        "endLine": 384,
+        "endChar": 64
+      },
+      "revId": "c4a92d929c6349f7f880402b56f9c82a7dd4c3e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

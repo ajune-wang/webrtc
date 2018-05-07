@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b7523aca_1e0e276e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-07T21:46:18Z",
+      "side": 1,
+      "message": "nit: It\u0027s actually P2PTransportChannel that posts messages (to an rtc::Thread), and consumes them (by subclassing MessageHandler).",
+      "revId": "7e32985ee3838b34c8abbf4b719fc48d039627bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76e0f26a_07f4832d",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1292,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-07T21:46:18Z",
+      "side": 1,
+      "message": "nit: Would make sense to rename these to just \"CheckAndPing\", \"RegatherOnFailedNetworks\" and \"RegatherOnAllNetworks\"",
+      "revId": "7e32985ee3838b34c8abbf4b719fc48d039627bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

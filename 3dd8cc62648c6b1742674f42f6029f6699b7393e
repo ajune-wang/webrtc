@@ -22,6 +22,30 @@
       "revId": "3dd8cc62648c6b1742674f42f6029f6699b7393e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cfbafd2e_a61d2f92",
+        "filename": "sdk/android/api/org/webrtc/PeerConnection.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-05-07T16:29:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d46c15bd_10001ad0",
+      "range": {
+        "startLine": 116,
+        "startChar": 31,
+        "endLine": 116,
+        "endChar": 0
+      },
+      "revId": "3dd8cc62648c6b1742674f42f6029f6699b7393e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

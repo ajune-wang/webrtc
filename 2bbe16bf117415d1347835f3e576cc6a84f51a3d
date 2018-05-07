@@ -2,6 +2,142 @@
   "comments": [
     {
       "key": {
+        "uuid": "7928643c_ff70b1f6",
+        "filename": "p2p/client/basicportallocator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2208,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-07T20:34:48Z",
+      "side": 1,
+      "message": "nit: Add brief comment summarizing what this is meant to test",
+      "revId": "2bbe16bf117415d1347835f3e576cc6a84f51a3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de3c2ac4_15afc41a",
+        "filename": "p2p/client/basicportallocator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2210,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-07T20:34:48Z",
+      "side": 1,
+      "message": "nit: Put with other \"disable costly networks\" tests",
+      "revId": "2bbe16bf117415d1347835f3e576cc6a84f51a3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "985909b5_9bf59b6d",
+        "filename": "p2p/client/basicportallocator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2211,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-07T20:34:48Z",
+      "side": 1,
+      "message": "\"rtc::ADAPTER_TYPE_ETHERNET\"",
+      "revId": "2bbe16bf117415d1347835f3e576cc6a84f51a3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd751a27_d2149032",
+        "filename": "p2p/client/basicportallocator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2212,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-07T20:34:48Z",
+      "side": 1,
+      "message": "\"rtc::AdAPTER_TYPE_VPN\"",
+      "revId": "2bbe16bf117415d1347835f3e576cc6a84f51a3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01b68cfb_d61ba2c9",
+        "filename": "p2p/client/basicportallocator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2213,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-07T20:34:48Z",
+      "side": 1,
+      "message": "Why does the BasicPortAllocator need to be reconstructed?",
+      "revId": "2bbe16bf117415d1347835f3e576cc6a84f51a3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5a2f598_666ab0d4",
+        "filename": "p2p/client/basicportallocator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2222,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-07T20:34:48Z",
+      "side": 1,
+      "message": "Does this test need a STUN server?",
+      "revId": "2bbe16bf117415d1347835f3e576cc6a84f51a3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e27e93a8_c636aada",
+        "filename": "p2p/client/basicportallocator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2224,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-07T20:34:48Z",
+      "side": 1,
+      "message": "ASSERT_TRUE, since the test will crash if this isn\u0027t true",
+      "revId": "2bbe16bf117415d1347835f3e576cc6a84f51a3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb0b006a_387c1009",
+        "filename": "rtc_base/fakenetwork.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-07T20:34:48Z",
+      "side": 1,
+      "message": "I don\u0027t think this is a good idea, since it means the \"fake\" class is now partially dependent on the \"real\" implementation.\n\nIf a test cares about the interface type, it should just call the AddInterface overload that takes it as an argument; that way the test setup is made more explicit.",
+      "revId": "2bbe16bf117415d1347835f3e576cc6a84f51a3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6415ae2b_1dcc0ddb",
         "filename": "rtc_base/network.cc",
         "patchSetId": 3
@@ -19,6 +155,64 @@
         "endLine": 180,
         "endChar": 36
       },
+      "revId": "2bbe16bf117415d1347835f3e576cc6a84f51a3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a6d97fa_5b066b25",
+        "filename": "rtc_base/network.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-07T20:34:48Z",
+      "side": 1,
+      "message": "Instead of matching anything that begins with \"foo\", we could explicitly match strings with a \"foo\u003cnumber\u003e\" format; that could reduce misclassifications",
+      "parentUuid": "6415ae2b_1dcc0ddb",
+      "range": {
+        "startLine": 180,
+        "startChar": 6,
+        "endLine": 180,
+        "endChar": 36
+      },
+      "revId": "2bbe16bf117415d1347835f3e576cc6a84f51a3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b466d47_be487fb8",
+        "filename": "rtc_base/network.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-07T20:34:48Z",
+      "side": 1,
+      "message": "Are there cases where this doesn\u0027t work? I don\u0027t recall ever seeing a loopback interface classified as \"unknown\".",
+      "revId": "2bbe16bf117415d1347835f3e576cc6a84f51a3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82880fee_93102677",
+        "filename": "rtc_base/network.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-07T20:34:48Z",
+      "side": 1,
+      "message": "Would make sense to update TestGetAdapterTypeFromNameMatching.",
       "revId": "2bbe16bf117415d1347835f3e576cc6a84f51a3d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

@@ -40,6 +40,7 @@ CPPLINT_BLACKLIST = [
   'test',
   'tools_webrtc',
   'voice_engine',
+  'third_party',
 ]
 
 # These filters will always be removed, even if the caller specifies a filter
@@ -744,8 +745,11 @@ def CommonChecks(input_api, output_api):
   objc_filter_list = (r'.+\.m$', r'.+\.mm$', r'.+objc\/.+\.h$')
   # Skip long-lines check for DEPS and GN files.
   build_file_filter_list = (r'.+\.gn$', r'.+\.gni$', 'DEPS')
+  # Also we will skip most checks for third_party directory
+  third_party_filter_list = (r'^third_party[\\\/].+',)
   eighty_char_sources = lambda x: input_api.FilterSourceFile(x,
-      black_list=build_file_filter_list + objc_filter_list)
+      black_list=build_file_filter_list + objc_filter_list +
+                 third_party_filter_list)
   hundred_char_sources = lambda x: input_api.FilterSourceFile(x,
       white_list=objc_filter_list)
   results.extend(input_api.canned_checks.CheckLongLines(
@@ -754,14 +758,16 @@ def CommonChecks(input_api, output_api):
       input_api, output_api, maxlen=100,
       source_file_filter=hundred_char_sources))
 
+  non_third_party_sources = lambda x: input_api.FilterSourceFile(x,
+      black_list=third_party_filter_list)
   results.extend(input_api.canned_checks.CheckChangeHasNoTabs(
-      input_api, output_api))
+      input_api, output_api, source_file_filter=non_third_party_sources))
   results.extend(input_api.canned_checks.CheckChangeHasNoStrayWhitespace(
-      input_api, output_api))
+      input_api, output_api, source_file_filter=non_third_party_sources))
   results.extend(input_api.canned_checks.CheckAuthorizedAuthor(
       input_api, output_api))
   results.extend(input_api.canned_checks.CheckChangeTodoHasOwner(
-      input_api, output_api))
+      input_api, output_api, source_file_filter=non_third_party_sources))
   results.extend(CheckNativeApiHeaderChanges(input_api, output_api))
   results.extend(CheckNoIOStreamInHeaders(input_api, output_api))
   results.extend(CheckNoPragmaOnce(input_api, output_api))

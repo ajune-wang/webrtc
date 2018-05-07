@@ -40,6 +40,7 @@ CPPLINT_BLACKLIST = [
   'test',
   'tools_webrtc',
   'voice_engine',
+  'third_party',
 ]
 
 # These filters will always be removed, even if the caller specifies a filter

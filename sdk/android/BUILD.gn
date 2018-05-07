@@ -1157,6 +1157,7 @@ rtc_static_library("native_api_jni") {
   public = [
     "native_api/jni/class_loader.h",
     "native_api/jni/java_types.h",
+    "native_api/jni/jni_int_wrapper.h",
     "native_api/jni/jvm.h",
     "native_api/jni/scoped_java_ref.h",
   ]

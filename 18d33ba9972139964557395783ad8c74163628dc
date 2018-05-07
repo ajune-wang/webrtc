@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "b40c8693_6bdf8c7a",
+        "filename": "sdk/android/native_api/jni/jni_int_wrapper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-07T16:18:53Z",
+      "side": 1,
+      "message": "Because this is a non-explicit one-argument constructor that isn\u0027t a copy or move constructor?",
+      "parentUuid": "5a991448_8ecf2083",
+      "range": {
+        "startLine": 36,
+        "startChar": 42,
+        "endLine": 36,
+        "endChar": 48
+      },
+      "revId": "18d33ba9972139964557395783ad8c74163628dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5568cc3b_3cd73a95",
         "filename": "sdk/android/native_api/jni/jni_int_wrapper.h",
         "patchSetId": 2
@@ -71,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "060326be_429f7e54",
+        "filename": "sdk/android/native_api/jni/jni_int_wrapper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-07T16:18:53Z",
+      "side": 1,
+      "message": "+1. That should work (and can be in the `public` section).",
+      "parentUuid": "5568cc3b_3cd73a95",
+      "range": {
+        "startLine": 46,
+        "startChar": 26,
+        "endLine": 46,
+        "endChar": 55
+      },
+      "revId": "18d33ba9972139964557395783ad8c74163628dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9964bc64_1e7b8c01",
         "filename": "sdk/android/native_api/jni/jni_int_wrapper.h",
         "patchSetId": 2
@@ -82,6 +130,30 @@
       "writtenOn": "2018-05-07T14:39:43Z",
       "side": 1,
       "message": "I think this can be const",
+      "range": {
+        "startLine": 49,
+        "startChar": 2,
+        "endLine": 49,
+        "endChar": 6
+      },
+      "revId": "18d33ba9972139964557395783ad8c74163628dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7c399c2_fd6b85aa",
+        "filename": "sdk/android/native_api/jni/jni_int_wrapper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-07T16:18:53Z",
+      "side": 1,
+      "message": "That would make this class non-assignable. Is that OK?",
+      "parentUuid": "9964bc64_1e7b8c01",
       "range": {
         "startLine": 49,
         "startChar": 2,

@@ -22,6 +22,30 @@
       "revId": "789f5efd0d20d26dacf8daf7107f16661645b33a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c7e9537_a71e711d",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 879,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-05-07T14:57:53Z",
+      "side": 1,
+      "message": "I originally wanted to avoid this since it duplicates the SSRC for every event (and the log files can be fairly large already). It might be good solution during a transition period though, so I\u0027m ok with it.",
+      "parentUuid": "a717311e_f6a6e5c9",
+      "range": {
+        "startLine": 879,
+        "startChar": 6,
+        "endLine": 879,
+        "endChar": 27
+      },
+      "revId": "789f5efd0d20d26dacf8daf7107f16661645b33a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

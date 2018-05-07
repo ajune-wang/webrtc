@@ -13,13 +13,16 @@ package org.webrtc;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.EnumSet;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.webrtc.Loggable;
 
 /**
- * Java wrapper for WebRTC logging. Logging defaults to java.util.logging.Logger, but will switch to
- * native logging (rtc::LogMessage) if one of the following static functions are called from the
- * app:
+ * Java wrapper for WebRTC logging. Logging defaults to java.util.logging.Logger, but a custom
+ * logger implementing the Loggable interface can be injected along with a Severity. All subsequent
+ * log messages will then be redirected to the injected Loggable, except those with a severity lower
+ * than the specified severity, which will be discarded.
+ *
+ * The following legacy methods will remain available for a time, but it is recommended to create
+ * a NativeLogging object, call enableLogThreads/TimeStaps on it and inject it.
  * - Logging.enableLogThreads
  * - Logging.enableLogTimeStamps
  * - Logging.enableLogToDebugOutput
@@ -28,13 +31,14 @@ import java.util.logging.Logger;
  * PeerConnectionFactory.initialize.
  */
 public class Logging {
-  private static final Logger fallbackLogger = createFallbackLogger();
-  private static volatile boolean loggingEnabled;
+  private static Loggable loggable = new FallbackLogger();
+  private static Severity loggableSeverity = Severity.LS_SENSITIVE;
 
-  private static Logger createFallbackLogger() {
-    final Logger fallbackLogger = Logger.getLogger("org.webrtc.Logging");
-    fallbackLogger.setLevel(Level.ALL);
-    return fallbackLogger;
+  static void injectLoggable(Loggable injectedLoggable, Severity severity) {
+    if (injectedLoggable != null) {
+      loggable = injectedLoggable;
+      loggableSeverity = severity;
+    }
   }
 
   // TODO(solenberg): Remove once dependent projects updated.
@@ -83,33 +87,16 @@ public class Logging {
   // TODO(bugs.webrtc.org/8491): Remove NoSynchronizedMethodCheck suppression.
   @SuppressWarnings("NoSynchronizedMethodCheck")
   public static synchronized void enableLogToDebugOutput(Severity severity) {
-    nativeEnableLogToDebugOutput(severity.ordinal());
-    loggingEnabled = true;
+    loggable = new NativeLogger(severity);
+    loggableSeverity = severity;
   }
 
   public static void log(Severity severity, String tag, String message) {
-    if (loggingEnabled) {
-      nativeLog(severity.ordinal(), tag, message);
+    // Filter log messages below loggableSeverity.
+    if (severity.ordinal() < loggableSeverity.ordinal()) {
       return;
     }
-
-    // Fallback to system log.
-    Level level;
-    switch (severity) {
-      case LS_ERROR:
-        level = Level.SEVERE;
-        break;
-      case LS_WARNING:
-        level = Level.WARNING;
-        break;
-      case LS_INFO:
-        level = Level.INFO;
-        break;
-      default:
-        level = Level.FINE;
-        break;
-    }
-    fallbackLogger.log(level, tag + ": " + message);
+    loggable.onLogMessage(message, severity, tag);
   }
 
   public static void d(String tag, String message) {
@@ -151,8 +138,6 @@ public class Logging {
     return sw.toString();
   }
 
-  private static native void nativeEnableLogToDebugOutput(int nativeSeverity);
   private static native void nativeEnableLogThreads();
   private static native void nativeEnableLogTimeStamps();
-  private static native void nativeLog(int severity, String tag, String message);
 }

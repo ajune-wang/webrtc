@@ -31,8 +31,8 @@ class LogSinkImpl
 
  private:
   void OnLogMessage(const std::string& message) override {
-    static_cast<Base*>(this)->WriteAll(
-        message.data(), message.size(), nullptr, nullptr);
+    static_cast<Base*>(this)->WriteAll(message.data(), message.size(), nullptr,
+                                       nullptr);
   }
 };
 

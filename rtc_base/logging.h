@@ -116,6 +116,9 @@ class LogSink {
  public:
   LogSink() {}
   virtual ~LogSink() {}
+  virtual void OnLogMessage(const std::string& msg,
+                            LoggingSeverity severity,
+                            const char* tag);
   virtual void OnLogMessage(const std::string& message) = 0;
 };
 
@@ -221,8 +224,9 @@ class LogMessage {
   LoggingSeverity severity_;
 
 #if defined(WEBRTC_ANDROID)
-  // The Android debug output tag.
+  // The default Android debug output tag.
   const char* tag_ = "libjingle";
+  const char* filename_tag_ = "libjingle";
 #endif
 
   // String data generated in the constructor, that should be appended to

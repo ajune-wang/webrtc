@@ -80,6 +80,11 @@ std::ostream& GetNoopStream() {
 CriticalSection g_log_crit;
 }  // namespace
 
+void LogSink::OnLogMessage(const std::string& msg,
+                           LoggingSeverity severity,
+                           const char* tag) {
+  OnLogMessage(msg);
+}
 
 /////////////////////////////////////////////////////////////////////////////
 // LogMessage
@@ -123,8 +128,12 @@ LogMessage::LogMessage(const char* file,
     print_stream_ << "[" << std::dec << id << "] ";
   }
 
-  if (file != nullptr)
+  if (file != nullptr) {
     print_stream_ << "(" << FilenameFromPath(file)  << ":" << line << "): ";
+#if defined(WEBRTC_ANDROID)
+    filename_tag_ = FilenameFromPath(file);
+#endif
+  }
 
   if (err_ctx != ERRCTX_NONE) {
     char tmp_buf[1024];
@@ -215,7 +224,11 @@ LogMessage::~LogMessage() {
   CritScope cs(&g_log_crit);
   for (auto& kv : streams_) {
     if (severity_ >= kv.second) {
+#if defined(WEBRTC_ANDROID)
+      kv.first->OnLogMessage(str, severity_, filename_tag_);
+#else
       kv.first->OnLogMessage(str);
+#endif
     }
   }
 }

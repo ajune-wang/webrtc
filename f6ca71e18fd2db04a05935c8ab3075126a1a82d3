@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "33bfd384_09221172",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-05-07T08:39:35Z",
+      "side": 1,
+      "message": "I believe now might be a good time to create a api/test/BUILD.gn, but I can do that after this CL and move this into it.",
+      "range": {
+        "startLine": 391,
+        "startChar": 2,
+        "endLine": 417,
+        "endChar": 3
+      },
+      "revId": "f6ca71e18fd2db04a05935c8ab3075126a1a82d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

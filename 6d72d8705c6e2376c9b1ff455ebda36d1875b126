@@ -22,6 +22,30 @@
       "revId": "6d72d8705c6e2376c9b1ff455ebda36d1875b126",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53554bf8_299bb4cd",
+        "filename": "modules/video_coding/rtp_frame_reference_finder.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-05-07T09:19:07Z",
+      "side": 1,
+      "message": "The old comment is not true anymore.",
+      "parentUuid": "caac49c1_8e775c63",
+      "range": {
+        "startLine": 476,
+        "startChar": 4,
+        "endLine": 476,
+        "endChar": 41
+      },
+      "revId": "6d72d8705c6e2376c9b1ff455ebda36d1875b126",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

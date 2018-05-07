@@ -1,0 +1,257 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e5c05105_873253e6",
+        "filename": "rtc_base/java/src/org/webrtc/Logging.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-05-07T11:17:16Z",
+      "side": 1,
+      "message": "Mark them as deprecated? Also \"NativeLogging\" -\u003e \"NativeLogger\"? Should we make \"NativeLogger\" a public class then?",
+      "range": {
+        "startLine": 24,
+        "startChar": 37,
+        "endLine": 24,
+        "endChar": 64
+      },
+      "revId": "306d0fda27d57183aa01c96cb9b1694c596a95f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "255b1f7f_e3033579",
+        "filename": "rtc_base/java/src/org/webrtc/NativeLogger.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-05-07T11:17:16Z",
+      "side": 1,
+      "message": "It is confusing to me how this class should be used. It needs to be injected in the initialization options but it uses native code in the constructor so it can\u0027t be constructed before initialize is called.",
+      "range": {
+        "startLine": 15,
+        "startChar": 6,
+        "endLine": 15,
+        "endChar": 18
+      },
+      "revId": "306d0fda27d57183aa01c96cb9b1694c596a95f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d351618_4dff20f9",
+        "filename": "rtc_base/logging.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-05-07T11:17:16Z",
+      "side": 1,
+      "message": "I think filename gets added to the log twice now for Android. Once in tag and once in the log message, maybe there is some way to avoid this?\n\nWe could just set tag to the filename if it is not specified and concat it to the log string in OnLogMessage. The performance of this is slightly worse though (one extra string copy). It would be possible for clients to remove this inefficiency by implementing OnLogMessage with tag directly, so maybe it is okay?",
+      "range": {
+        "startLine": 132,
+        "startChar": 45,
+        "endLine": 132,
+        "endChar": 49
+      },
+      "revId": "306d0fda27d57183aa01c96cb9b1694c596a95f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d25b856_84bbd76d",
+        "filename": "rtc_base/logging.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-05-07T11:17:16Z",
+      "side": 1,
+      "message": "I wonder if we should replace filename_tag with tag instead of concatenating it to the string.",
+      "range": {
+        "startLine": 189,
+        "startChar": 4,
+        "endLine": 189,
+        "endChar": 33
+      },
+      "revId": "306d0fda27d57183aa01c96cb9b1694c596a95f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e8f7c50_c1258ab9",
+        "filename": "rtc_base/logging.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-05-07T11:17:16Z",
+      "side": 1,
+      "message": "Can we always call this version?",
+      "range": {
+        "startLine": 228,
+        "startChar": 16,
+        "endLine": 228,
+        "endChar": 28
+      },
+      "revId": "306d0fda27d57183aa01c96cb9b1694c596a95f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ae3a646_9d4c8042",
+        "filename": "rtc_base/logging_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-05-07T11:17:16Z",
+      "side": 1,
+      "message": "nit: Revert this file?",
+      "range": {
+        "startLine": 35,
+        "startChar": 48,
+        "endLine": 36,
+        "endChar": 0
+      },
+      "revId": "306d0fda27d57183aa01c96cb9b1694c596a95f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f743133_59875f58",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 5
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-05-07T11:17:16Z",
+      "side": 1,
+      "message": "Why is this needed?",
+      "range": {
+        "startLine": 106,
+        "startChar": 6,
+        "endLine": 106,
+        "endChar": 27
+      },
+      "revId": "306d0fda27d57183aa01c96cb9b1694c596a95f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b314f743_db5abfcd",
+        "filename": "sdk/android/api/org/webrtc/PeerConnectionFactory.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-05-07T11:17:16Z",
+      "side": 1,
+      "message": "Call nativeDeleteLoggable if loggable is null?",
+      "range": {
+        "startLine": 220,
+        "startChar": 6,
+        "endLine": 220,
+        "endChar": 26
+      },
+      "revId": "306d0fda27d57183aa01c96cb9b1694c596a95f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce179ac9_f2d50e7b",
+        "filename": "sdk/android/api/org/webrtc/PeerConnectionFactory.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-05-07T11:17:16Z",
+      "side": 1,
+      "message": "I don\u0027t think it is correct to delete the loggable when PCF is disposed, there might be multiple PCFs.",
+      "range": {
+        "startLine": 442,
+        "startChar": 4,
+        "endLine": 442,
+        "endChar": 27
+      },
+      "revId": "306d0fda27d57183aa01c96cb9b1694c596a95f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9cae4c3d_aea6f7ab",
+        "filename": "sdk/android/src/jni/pc/logging/logsink.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-05-07T11:17:16Z",
+      "side": 1,
+      "message": "I think it would be more useful to call RTC_NOTREACHED here if we are just going to log information that is not useful.",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 45
+      },
+      "revId": "306d0fda27d57183aa01c96cb9b1694c596a95f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e19aef2_2873c723",
+        "filename": "sdk/android/src/jni/pc/peerconnectionfactory.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 541,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-05-07T11:17:16Z",
+      "side": 1,
+      "message": "jni_log_sink \u003d rtc::MakeUnique",
+      "range": {
+        "startLine": 541,
+        "startChar": 2,
+        "endLine": 541,
+        "endChar": 53
+      },
+      "revId": "306d0fda27d57183aa01c96cb9b1694c596a95f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

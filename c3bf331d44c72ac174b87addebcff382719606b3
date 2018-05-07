@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f0cc1e86_0408a277",
+        "filename": "test/fuzzers/frame_buffer2_fuzzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-05-07T10:52:16Z",
+      "side": 1,
+      "message": "I\u0027ll use memcpy instead.",
+      "parentUuid": "356a44f8_b51f4efd",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 54
+      },
+      "revId": "c3bf331d44c72ac174b87addebcff382719606b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "57629ef4_41dbefe4",
         "filename": "test/fuzzers/frame_buffer2_fuzzer.cc",
         "patchSetId": 1
@@ -59,6 +83,30 @@
       "writtenOn": "2018-05-07T09:16:09Z",
       "side": 1,
       "message": "Don\u0027t we want to see what happens if we pass in an incorrect value here?",
+      "range": {
+        "startLine": 58,
+        "startChar": 66,
+        "endLine": 58,
+        "endChar": 70
+      },
+      "revId": "c3bf331d44c72ac174b87addebcff382719606b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "145164ac_a2268afb",
+        "filename": "test/fuzzers/frame_buffer2_fuzzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-05-07T10:52:16Z",
+      "side": 1,
+      "message": "Removing the constraint here is ok.",
+      "parentUuid": "61e04e2e_565aa94b",
       "range": {
         "startLine": 58,
         "startChar": 66,
@@ -117,6 +165,54 @@
     },
     {
       "key": {
+        "uuid": "4ca06624_b4b0eac2",
+        "filename": "test/fuzzers/frame_buffer2_fuzzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-05-07T10:52:16Z",
+      "side": 1,
+      "message": "Using video_coding::EncodedFrame::kMaxFrameReferences instead.",
+      "parentUuid": "a6b97702_b550f079",
+      "range": {
+        "startLine": 60,
+        "startChar": 70,
+        "endLine": 60,
+        "endChar": 71
+      },
+      "revId": "c3bf331d44c72ac174b87addebcff382719606b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2b5b93b_23ae1865",
+        "filename": "test/fuzzers/frame_buffer2_fuzzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-05-07T10:52:16Z",
+      "side": 1,
+      "message": "If we remove it we would write oob in the loop below.",
+      "parentUuid": "589647b5_f75edcc2",
+      "range": {
+        "startLine": 60,
+        "startChar": 29,
+        "endLine": 60,
+        "endChar": 72
+      },
+      "revId": "c3bf331d44c72ac174b87addebcff382719606b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "52c5cc74_65d31098",
         "filename": "test/fuzzers/frame_buffer2_fuzzer.cc",
         "patchSetId": 1
@@ -154,6 +250,30 @@
       "range": {
         "startLine": 73,
         "startChar": 8,
+        "endLine": 73,
+        "endChar": 66
+      },
+      "revId": "c3bf331d44c72ac174b87addebcff382719606b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee91b642_229ce847",
+        "filename": "test/fuzzers/frame_buffer2_fuzzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-05-07T10:52:16Z",
+      "side": 1,
+      "message": "Updated the fuzzer to use the updated version of NextFrame.",
+      "parentUuid": "52c5cc74_65d31098",
+      "range": {
+        "startLine": 73,
+        "startChar": 6,
         "endLine": 73,
         "endChar": 66
       },

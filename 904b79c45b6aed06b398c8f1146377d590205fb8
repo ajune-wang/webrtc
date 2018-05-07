@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1ea2ac08_6db27a17",
+        "filename": "test/fuzzers/rtp_frame_reference_finder_fuzzer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-05-07T11:00:36Z",
+      "side": 1,
+      "message": "Not really. We already have a fuzzer for the packet buffer.",
+      "parentUuid": "b0f59fb3_09088981",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 62
+      },
+      "revId": "904b79c45b6aed06b398c8f1146377d590205fb8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d0d721f7_a1066df7",
         "filename": "test/fuzzers/rtp_frame_reference_finder_fuzzer.cc",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2018-05-07T09:27:10Z",
       "side": 1,
       "message": "Fuzz this?",
+      "range": {
+        "startLine": 76,
+        "startChar": 24,
+        "endLine": 76,
+        "endChar": 28
+      },
+      "revId": "904b79c45b6aed06b398c8f1146377d590205fb8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bde028e7_7691f452",
+        "filename": "test/fuzzers/rtp_frame_reference_finder_fuzzer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-05-07T11:00:36Z",
+      "side": 1,
+      "message": "The marker bit is not used by the RtpFrameReferenceFinder, but it is DCHECKed in RtpFrameObject constructor.",
+      "parentUuid": "d0d721f7_a1066df7",
       "range": {
         "startLine": 76,
         "startChar": 24,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "bbf19e4b_28fdafcc",
+        "filename": "test/fuzzers/rtp_frame_reference_finder_fuzzer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-05-07T11:00:36Z",
+      "side": 1,
+      "message": "Only used in the RtpFrameObject constructor, not used by the RtpFrameReferenceFinder.",
+      "parentUuid": "7f09509f_c9053e45",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 16
+      },
+      "revId": "904b79c45b6aed06b398c8f1146377d590205fb8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5d6c74ef_9ee1e6ae",
         "filename": "test/fuzzers/rtp_frame_reference_finder_fuzzer.cc",
         "patchSetId": 3
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "e272017f_861df234",
+        "filename": "test/fuzzers/rtp_frame_reference_finder_fuzzer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-05-07T11:00:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5d6c74ef_9ee1e6ae",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 40
+      },
+      "revId": "904b79c45b6aed06b398c8f1146377d590205fb8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "40e60aab_307bf44a",
         "filename": "test/fuzzers/rtp_frame_reference_finder_fuzzer.cc",
         "patchSetId": 3
@@ -114,6 +210,30 @@
       "revId": "904b79c45b6aed06b398c8f1146377d590205fb8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0820c1e2_b0e3be49",
+        "filename": "test/fuzzers/rtp_frame_reference_finder_fuzzer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-05-07T11:00:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "40e60aab_307bf44a",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 90,
+        "endChar": 21
+      },
+      "revId": "904b79c45b6aed06b398c8f1146377d590205fb8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

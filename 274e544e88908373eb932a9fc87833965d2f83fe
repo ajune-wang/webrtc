@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "772056ad_d19c248c",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 637,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-05-07T12:26:51Z",
+      "side": 1,
+      "message": "I\u0027d prefer not to measure time differently for different events. I think it will be easier make a separate CL that only changes the resolution to ms, but changes it for all events.\n\nChanging the parser output for audio playouts will in particular mean that we can\u0027t move the unit-tests to the new parser API until we\u0027ve changed resolution for all events (unless we do some special hack for the audio playouts).",
+      "range": {
+        "startLine": 637,
+        "startChar": 10,
+        "endLine": 637,
+        "endChar": 23
+      },
+      "revId": "274e544e88908373eb932a9fc87833965d2f83fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3b699123_dad64249",
         "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
         "patchSetId": 6
@@ -84,6 +107,30 @@
       "side": 1,
       "message": "Ack",
       "parentUuid": "8173eece_32d6724f",
+      "range": {
+        "startLine": 1577,
+        "startChar": 38,
+        "endLine": 1577,
+        "endChar": 54
+      },
+      "revId": "274e544e88908373eb932a9fc87833965d2f83fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "394b6d3c_33227c31",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1577,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-05-07T12:26:51Z",
+      "side": 1,
+      "message": "Fwiw, I don\u0027t think the rounding matters much here.",
+      "parentUuid": "f9074c64_8a870f20",
       "range": {
         "startLine": 1577,
         "startChar": 38,

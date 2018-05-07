@@ -5,6 +5,7 @@ niklas.enbom@webrtc.org
 stefan@webrtc.org
 tina.legrand@webrtc.org
 tommi@webrtc.org
+lemur@webrtc.org
 per-file .gitignore=*
 per-file .gn=phoglund@webrtc.org
 per-file *.gn=phoglund@webrtc.org

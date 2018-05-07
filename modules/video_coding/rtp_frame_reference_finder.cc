@@ -412,7 +412,11 @@ RtpFrameReferenceFinder::FrameDecision RtpFrameReferenceFinder::ManageFrameVp9(
     return ManageFrameGeneric(std::move(frame), codec_header.picture_id);
   }
 
-  frame->id.spatial_layer = codec_header.spatial_idx;
+  // TODO(webrtc:9249): Ignore spatial index to make it possible to decode
+  // delta frames of high spatial layers when inter-layer prediction is enabled
+  // only for key pictures.
+  // frame->id.spatial_layer = codec_header.spatial_idx;
+  frame->id.spatial_layer = 0;
   frame->inter_layer_predicted = codec_header.inter_layer_predicted;
   frame->id.picture_id = codec_header.picture_id % kPicIdLength;
 

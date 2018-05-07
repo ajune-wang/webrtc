@@ -48,6 +48,29 @@
     },
     {
       "key": {
+        "uuid": "61e04e2e_565aa94b",
+        "filename": "test/fuzzers/frame_buffer2_fuzzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-05-07T09:16:09Z",
+      "side": 1,
+      "message": "Don\u0027t we want to see what happens if we pass in an incorrect value here?",
+      "range": {
+        "startLine": 58,
+        "startChar": 66,
+        "endLine": 58,
+        "endChar": 70
+      },
+      "revId": "c3bf331d44c72ac174b87addebcff382719606b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a6b97702_b550f079",
         "filename": "test/fuzzers/frame_buffer2_fuzzer.cc",
         "patchSetId": 1
@@ -71,6 +94,29 @@
     },
     {
       "key": {
+        "uuid": "589647b5_f75edcc2",
+        "filename": "test/fuzzers/frame_buffer2_fuzzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-05-07T09:16:09Z",
+      "side": 1,
+      "message": "Same here I think",
+      "range": {
+        "startLine": 60,
+        "startChar": 29,
+        "endLine": 60,
+        "endChar": 72
+      },
+      "revId": "c3bf331d44c72ac174b87addebcff382719606b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "52c5cc74_65d31098",
         "filename": "test/fuzzers/frame_buffer2_fuzzer.cc",
         "patchSetId": 1
@@ -85,6 +131,29 @@
       "range": {
         "startLine": 73,
         "startChar": 6,
+        "endLine": 73,
+        "endChar": 66
+      },
+      "revId": "c3bf331d44c72ac174b87addebcff382719606b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d17ff542_bc2fa039",
+        "filename": "test/fuzzers/frame_buffer2_fuzzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-05-07T09:16:09Z",
+      "side": 1,
+      "message": "Possibly here?",
+      "range": {
+        "startLine": 73,
+        "startChar": 8,
         "endLine": 73,
         "endChar": 66
       },

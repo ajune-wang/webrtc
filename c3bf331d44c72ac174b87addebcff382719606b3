@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "356a44f8_b51f4efd",
+        "filename": "test/fuzzers/frame_buffer2_fuzzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-05-07T09:02:08Z",
+      "side": 1,
+      "message": "This is not portable, since you read larger-than-char integers from an possibly unaligned address. Works fine on x86, but not in general. The simplest portable way of doing it is reading one uint8_t at a time in a loop and shift values together (which will also give you endian-independent code, not sure whether or not that matters here).",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 54
+      },
+      "revId": "c3bf331d44c72ac174b87addebcff382719606b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57629ef4_41dbefe4",
+        "filename": "test/fuzzers/frame_buffer2_fuzzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-05-07T09:02:08Z",
+      "side": 1,
+      "message": "Maybe change to % 8, for consistency with below operation.",
+      "range": {
+        "startLine": 58,
+        "startChar": 67,
+        "endLine": 58,
+        "endChar": 70
+      },
+      "revId": "c3bf331d44c72ac174b87addebcff382719606b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6b97702_b550f079",
+        "filename": "test/fuzzers/frame_buffer2_fuzzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-05-07T09:02:08Z",
+      "side": 1,
+      "message": "Is there any symbolic constant you can use?",
+      "range": {
+        "startLine": 60,
+        "startChar": 70,
+        "endLine": 60,
+        "endChar": 71
+      },
+      "revId": "c3bf331d44c72ac174b87addebcff382719606b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52c5cc74_65d31098",
+        "filename": "test/fuzzers/frame_buffer2_fuzzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-05-07T09:02:08Z",
+      "side": 1,
+      "message": "Can you comment on the choice of range for wait time?",
+      "range": {
+        "startLine": 73,
+        "startChar": 6,
+        "endLine": 73,
+        "endChar": 66
+      },
+      "revId": "c3bf331d44c72ac174b87addebcff382719606b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

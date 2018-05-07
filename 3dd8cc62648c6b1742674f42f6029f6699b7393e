@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d46c15bd_10001ad0",
+        "filename": "sdk/android/api/org/webrtc/PeerConnection.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-05-07T09:25:18Z",
+      "side": 1,
+      "message": "nit: Add a comment that the transceiver will be disposed automatically",
+      "range": {
+        "startLine": 116,
+        "startChar": 31,
+        "endLine": 116,
+        "endChar": 0
+      },
+      "revId": "3dd8cc62648c6b1742674f42f6029f6699b7393e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

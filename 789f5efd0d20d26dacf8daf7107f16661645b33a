@@ -46,6 +46,30 @@
       "revId": "789f5efd0d20d26dacf8daf7107f16661645b33a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f6bfdf8_e3208f3a",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 879,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-05-07T16:23:56Z",
+      "side": 1,
+      "message": "I also feel uncomfortable with the duplication of ssrc in the structure, maybe a vector\u003cLoggedAudioPlayoutEvent\u003e is good enough. However, since the only all cases of audio playout events requires to categorize them by ssrc, we\u0027d allow a bit space redundancy for a better computational efficiency.",
+      "parentUuid": "7c7e9537_a71e711d",
+      "range": {
+        "startLine": 879,
+        "startChar": 6,
+        "endLine": 879,
+        "endChar": 27
+      },
+      "revId": "789f5efd0d20d26dacf8daf7107f16661645b33a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

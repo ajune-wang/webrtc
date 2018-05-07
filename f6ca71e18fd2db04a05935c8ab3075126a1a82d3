@@ -22,6 +22,57 @@
       "revId": "f6ca71e18fd2db04a05935c8ab3075126a1a82d3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3b75512d_64ec73e4",
+        "filename": "api/test/stats.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-05-07T12:22:23Z",
+      "side": 1,
+      "message": "Let\u0027s not create another of these dump-all-types-here include files we have in the legacy library (e.g. module_common_types.h). If these types are specific to the video test fixture, add them as nested classes. If they are to be reused in multiple video related test fixtures, put them in e.g. video_test_tests.h so at least audio and video types are separated.",
+      "revId": "f6ca71e18fd2db04a05935c8ab3075126a1a82d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "285127f1_89f2a311",
+        "filename": "api/test/stats.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-05-07T12:22:23Z",
+      "side": 1,
+      "message": "Now that we\u0027re putting this in api/, let\u0027s change this name. \"Stats\" is too generic for this class.",
+      "revId": "f6ca71e18fd2db04a05935c8ab3075126a1a82d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7eb227a7_10650e20",
+        "filename": "api/test/test_config.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-05-07T12:22:23Z",
+      "side": 1,
+      "message": "This name is way too generic as well. Since it is used to configure the VideoCodecTestFixture, it seems it should be a nested class?\n\nSee e.g. call/video_receive_stream.h for an example of a class where config and stats structs are nested types.",
+      "revId": "f6ca71e18fd2db04a05935c8ab3075126a1a82d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

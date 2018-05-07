@@ -163,6 +163,30 @@
       "revId": "18d33ba9972139964557395783ad8c74163628dc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "264a0aa7_36071ec2",
+        "filename": "sdk/android/native_api/jni/jni_int_wrapper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-05-07T16:24:20Z",
+      "side": 1,
+      "message": "Didn\u0027t think of this, too much Java :P\n\nAnyway, I think it might still be okay since this class is only used as a function argument.",
+      "parentUuid": "d7c399c2_fd6b85aa",
+      "range": {
+        "startLine": 49,
+        "startChar": 2,
+        "endLine": 49,
+        "endChar": 6
+      },
+      "revId": "18d33ba9972139964557395783ad8c74163628dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

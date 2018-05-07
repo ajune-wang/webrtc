@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "94d0e4a4_4e8d1db3",
+        "filename": "examples/objc/AppRTCMobile/ios/ARDMainView.m",
+        "patchSetId": 4
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2018-05-07T07:38:17Z",
+      "side": 1,
+      "message": "Why not keep Roboto here as well if we\u0027re using it for _roomText.font? I think a distinctive font gives the app some modicum of soul.",
+      "revId": "d2e424e885c52ad2c74bb1bc075ac3a898ff5ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4506a8bd_b818c4a6",
+        "filename": "examples/objc/AppRTCMobile/ios/ARDMainView.m",
+        "patchSetId": 4
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2018-05-07T07:38:17Z",
+      "side": 1,
+      "message": "Red button seems destructive. Maybe use a less loaded UI color.",
+      "revId": "d2e424e885c52ad2c74bb1bc075ac3a898ff5ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

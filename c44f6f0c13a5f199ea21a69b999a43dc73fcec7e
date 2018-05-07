@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d90119ce_a17b7bd7",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-05-07T12:08:32Z",
+      "side": 1,
+      "message": "This change is not really needed in this CL. It is leftover from original CL which included testing of flexible mode for normal video (where encoder, not wrapper, controls temporal layering).\nI removed this change.",
+      "parentUuid": "d14801f9_eef47557",
+      "range": {
+        "startLine": 349,
+        "startChar": 27,
+        "endLine": 349,
+        "endChar": 33
+      },
+      "revId": "c44f6f0c13a5f199ea21a69b999a43dc73fcec7e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f01400be_5a99a7be",
         "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "c44f6f0c13a5f199ea21a69b999a43dc73fcec7e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8178b2b7_acae9c9f",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 703,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-05-07T12:08:32Z",
+      "side": 1,
+      "message": "Right. It should be enough to assume that only previous frame is used for prediction in that case. But lets do this in next CL which will enable flexible mode (currently flexible mode is only allowed in screen sharing where SVC is always enabled).",
+      "parentUuid": "f01400be_5a99a7be",
+      "range": {
+        "startLine": 703,
+        "startChar": 10,
+        "endLine": 703,
+        "endChar": 0
+      },
+      "revId": "c44f6f0c13a5f199ea21a69b999a43dc73fcec7e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "db1b95ef_ef6591f3",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 977,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-05-07T12:08:32Z",
+      "side": 1,
+      "message": "We don\u0027t need all this logic since now we can obtain information about reference frames from encoder.\nI\u0027m going to remove this and other code related to legacy screen sharing mode soon (added TODO in vp9_impl.h).",
+      "parentUuid": "31f8a884_a027389a",
+      "range": {
+        "startLine": 976,
+        "startChar": 0,
+        "endLine": 977,
+        "endChar": 70
+      },
+      "revId": "c44f6f0c13a5f199ea21a69b999a43dc73fcec7e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2ed35a38_175a6d52",
         "filename": "modules/video_coding/codecs/vp9/vp9_impl.h",
         "patchSetId": 2
@@ -91,6 +163,30 @@
       "revId": "c44f6f0c13a5f199ea21a69b999a43dc73fcec7e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32be5311_fd74104f",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-05-07T12:08:32Z",
+      "side": 1,
+      "message": "Indeed. Fixed.",
+      "parentUuid": "2ed35a38_175a6d52",
+      "range": {
+        "startLine": 112,
+        "startChar": 5,
+        "endLine": 112,
+        "endChar": 7
+      },
+      "revId": "c44f6f0c13a5f199ea21a69b999a43dc73fcec7e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -89,11 +89,9 @@ void NetEqReplacementInput::ReplacePacket() {
   uint32_t input_frame_size_timestamps = last_frame_size_timestamps_;
   const uint32_t timestamp_diff =
       next_hdr->timestamp - packet_->header.timestamp;
-  if (next_hdr->sequenceNumber == packet_->header.sequenceNumber + 1 &&
-      timestamp_diff <= 120 * 48) {
-    // Packets are in order and the timestamp diff is less than 5760 samples.
-    // Accept the timestamp diff as a valid frame size.
-    input_frame_size_timestamps = timestamp_diff;
+  if (next_hdr->sequenceNumber == packet_->header.sequenceNumber + 1) {
+    // We know that in Hangout calls, the maximum packet size is 20ms.
+    input_frame_size_timestamps = std::min(timestamp_diff, 20 * 48u);
     last_frame_size_timestamps_ = input_frame_size_timestamps;
   }
   RTC_DCHECK_LE(input_frame_size_timestamps, 120 * 48);

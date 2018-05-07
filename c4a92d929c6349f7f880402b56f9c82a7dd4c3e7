@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b1d85c86_b42694b2",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-05-07T12:42:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "af41819a_3f88ef00",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 41
+      },
+      "revId": "c4a92d929c6349f7f880402b56f9c82a7dd4c3e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3254203e_fa337bc4",
         "filename": "modules/congestion_controller/rtp/send_side_congestion_controller.cc",
         "patchSetId": 3
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "2620b476_b7a0f7c1",
+        "filename": "modules/congestion_controller/rtp/send_side_congestion_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-05-07T12:42:57Z",
+      "side": 1,
+      "message": "The main change is that SSCC no longer has it\u0027s own TQ, this reduces the risk issues due to posting between TQs. BitrateAllocator and the transport specific parts of VideoSendStream/AudioSendStream are already using this task queue.",
+      "parentUuid": "3254203e_fa337bc4",
+      "range": {
+        "startLine": 308,
+        "startChar": 4,
+        "endLine": 308,
+        "endChar": 31
+      },
+      "revId": "c4a92d929c6349f7f880402b56f9c82a7dd4c3e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "442d4dc7_5881d1b7",
         "filename": "modules/congestion_controller/rtp/send_side_congestion_controller.cc",
         "patchSetId": 3
@@ -68,6 +116,30 @@
       "revId": "c4a92d929c6349f7f880402b56f9c82a7dd4c3e7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "318d1bfe_4bef6889",
+        "filename": "modules/congestion_controller/rtp/send_side_congestion_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-05-07T12:42:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "442d4dc7_5881d1b7",
+      "range": {
+        "startLine": 384,
+        "startChar": 62,
+        "endLine": 384,
+        "endChar": 64
+      },
+      "revId": "c4a92d929c6349f7f880402b56f9c82a7dd4c3e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

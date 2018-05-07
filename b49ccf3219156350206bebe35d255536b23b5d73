@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2b8a325d_4160f1e6",
+        "filename": "rtc_base/java/src/org/webrtc/Logging.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-05-07T08:29:50Z",
+      "side": 1,
+      "message": "Done. The nullcheck can even be removed by ensuring loggable is never null.",
+      "parentUuid": "7199a5c9_96d9d6d9",
+      "range": {
+        "startLine": 104,
+        "startChar": 0,
+        "endLine": 126,
+        "endChar": 52
+      },
+      "revId": "b49ccf3219156350206bebe35d255536b23b5d73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "580d5b9e_8358662a",
         "filename": "rtc_base/logging.cc",
         "patchSetId": 4
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "52ceb76e_1bdad6ce",
+        "filename": "rtc_base/logging.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-05-07T08:29:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "580d5b9e_8358662a",
+      "range": {
+        "startLine": 26,
+        "startChar": 32,
+        "endLine": 26,
+        "endChar": 43
+      },
+      "revId": "b49ccf3219156350206bebe35d255536b23b5d73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5465755d_01f51b69",
         "filename": "sdk/android/BUILD.gn",
         "patchSetId": 4
@@ -68,6 +116,30 @@
       "revId": "b49ccf3219156350206bebe35d255536b23b5d73",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15d6ea1d_aa2316db",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 539,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-05-07T08:29:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5465755d_01f51b69",
+      "range": {
+        "startLine": 539,
+        "startChar": 16,
+        "endLine": 539,
+        "endChar": 20
+      },
+      "revId": "b49ccf3219156350206bebe35d255536b23b5d73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -118,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "f7598af9_45fa77f4",
+        "filename": "sdk/android/api/org/webrtc/PeerConnectionFactory.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-05-07T08:29:50Z",
+      "side": 1,
+      "message": "Done, for the case of a single logger. We could look into multiple loggers after this CL is done.",
+      "parentUuid": "d6df913d_456fe604",
+      "range": {
+        "startLine": 213,
+        "startChar": 61,
+        "endLine": 213,
+        "endChar": 95
+      },
+      "revId": "b49ccf3219156350206bebe35d255536b23b5d73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8ba9d135_5c63501e",
         "filename": "sdk/android/src/java/org/webrtc/JNILogging.java",
         "patchSetId": 4
@@ -138,6 +234,30 @@
       "revId": "b49ccf3219156350206bebe35d255536b23b5d73",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88595c4e_1c46c713",
+        "filename": "sdk/android/src/java/org/webrtc/JNILogging.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-05-07T08:29:50Z",
+      "side": 1,
+      "message": "This causes some dependency issues. Loggable and Logging depend on each other and should be in the same target, but to have JNI work directly against the Loggable interface it would need to be in sdk/android, while Logging is in rtc_base. \n\nMoving Severity from Logging to Loggable would break that dependency, but there is also CalledByNative which is in base_java which depends on rtc_base, so that would have to be solved as well.\n\nIt would be easiest to keep JNILogging around until we can move rtc_base to sdk/android.",
+      "parentUuid": "8ba9d135_5c63501e",
+      "range": {
+        "startLine": 24,
+        "startChar": 2,
+        "endLine": 24,
+        "endChar": 17
+      },
+      "revId": "b49ccf3219156350206bebe35d255536b23b5d73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -164,6 +284,30 @@
     },
     {
       "key": {
+        "uuid": "2602d38f_8df71e9d",
+        "filename": "sdk/android/src/jni/pc/jni_logsink.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-05-07T08:29:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "56f0ee71_ade163ef",
+      "range": {
+        "startLine": 33,
+        "startChar": 2,
+        "endLine": 33,
+        "endChar": 15
+      },
+      "revId": "b49ccf3219156350206bebe35d255536b23b5d73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e2fa55e9_d74e0657",
         "filename": "sdk/android/src/jni/pc/peerconnectionfactory.cc",
         "patchSetId": 4
@@ -184,6 +328,30 @@
       "revId": "b49ccf3219156350206bebe35d255536b23b5d73",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d898d2a2_aa575746",
+        "filename": "sdk/android/src/jni/pc/peerconnectionfactory.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 535,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-05-07T08:29:50Z",
+      "side": 1,
+      "message": "Done. Agreed, this was a temporary solution. I\u0027m not sure about keeping a static pointer to the logsink here, but it\u0027s easier than keeping track of it in Java.",
+      "parentUuid": "e2fa55e9_d74e0657",
+      "range": {
+        "startLine": 535,
+        "startChar": 6,
+        "endLine": 535,
+        "endChar": 20
+      },
+      "revId": "b49ccf3219156350206bebe35d255536b23b5d73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

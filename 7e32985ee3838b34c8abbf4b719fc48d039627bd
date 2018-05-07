@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "57de55ec_df59e5dc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-05-07T23:24:17Z",
+      "side": 1,
+      "message": "The description is rewritten.",
+      "parentUuid": "b7523aca_1e0e276e",
+      "revId": "7e32985ee3838b34c8abbf4b719fc48d039627bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "76e0f26a_07f4832d",
         "filename": "p2p/base/p2ptransportchannel.cc",
         "patchSetId": 4
@@ -33,6 +51,24 @@
       "revId": "7e32985ee3838b34c8abbf4b719fc48d039627bd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8170a31_4d3bf904",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1292,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-05-07T23:24:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "76e0f26a_07f4832d",
+      "revId": "7e32985ee3838b34c8abbf4b719fc48d039627bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

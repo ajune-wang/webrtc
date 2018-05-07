@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "01364ed1_baa35e02",
+        "filename": "api/video/video_stream_encoder_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-05-07T09:21:37Z",
+      "side": 1,
+      "message": "This interface class was recently introduced by Sebastian, mainly to simplify tests and mocking.\n\nThe implementation class will also be exposed in some way in the api, although I\u0027m not sure if the class should be declared in some api/ header, or only a Create function.\n\nThe name VideoStreamEncoder is currently taken by the implementation class. And in recent code, I think FooInterface + Foo is more common than Foo + FooImpl.",
+      "parentUuid": "45590ff9_2ff2d7a7",
+      "range": {
+        "startLine": 27,
+        "startChar": 24,
+        "endLine": 27,
+        "endChar": 33
+      },
+      "revId": "3d9487d8846a906e48dd23beec0e97a19af97980",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bf707125_92439715",
         "filename": "api/video/video_stream_encoder_interface.h",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "26e9f634_f7b85785",
+        "filename": "api/video/video_stream_encoder_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-05-07T09:21:37Z",
+      "side": 1,
+      "message": "Timing is slightly different. I hope to be able to delete this, with or without introducing a corresponding construction time setting. But a bit tricky.",
+      "parentUuid": "bf707125_92439715",
+      "range": {
+        "startLine": 42,
+        "startChar": 15,
+        "endLine": 42,
+        "endChar": 30
+      },
+      "revId": "3d9487d8846a906e48dd23beec0e97a19af97980",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d98808f3_89d3b514",
         "filename": "api/video/video_stream_encoder_interface.h",
         "patchSetId": 1
@@ -59,6 +107,30 @@
       "writtenOn": "2018-05-04T12:59:46Z",
       "side": 1,
       "message": "For HW codecs wrapped by a SimulcastEncoderAdapter, I think we should be able to generate keyframes independently on different simulcast layers. Do we want to allow that in the API here?",
+      "range": {
+        "startLine": 43,
+        "startChar": 15,
+        "endLine": 43,
+        "endChar": 27
+      },
+      "revId": "3d9487d8846a906e48dd23beec0e97a19af97980",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0aaf1620_0d04b7be",
+        "filename": "api/video/video_stream_encoder_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-05-07T09:21:37Z",
+      "side": 1,
+      "message": "I think we should extend the api when we need this. There used to be a similar method OnReceivedIntraFrameRequest with an index argument. But since it wasn\u0027t wired up to actually do anything different from SendKeyFrame, I deleted this unused functionality in cl https://webrtc-review.googlesource.com/54300.",
+      "parentUuid": "d98808f3_89d3b514",
       "range": {
         "startLine": 43,
         "startChar": 15,

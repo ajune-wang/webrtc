@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d14801f9_eef47557",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-05-07T11:04:31Z",
+      "side": 1,
+      "message": "Was this intended to be a functional change?",
+      "range": {
+        "startLine": 349,
+        "startChar": 27,
+        "endLine": 349,
+        "endChar": 33
+      },
+      "revId": "c44f6f0c13a5f199ea21a69b999a43dc73fcec7e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f01400be_5a99a7be",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 703,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-05-07T11:04:31Z",
+      "side": 1,
+      "message": "I guess it may still be possible to do flexible mode without SVC if we assume that all reference pictures are in use for each frame?",
+      "range": {
+        "startLine": 703,
+        "startChar": 10,
+        "endLine": 703,
+        "endChar": 0
+      },
+      "revId": "c44f6f0c13a5f199ea21a69b999a43dc73fcec7e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31f8a884_a027389a",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 977,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-05-07T11:04:31Z",
+      "side": 1,
+      "message": "Is this only valid for SVC? Otherwise it\u0027s not clear to me why we can\u0027t use this information?",
+      "range": {
+        "startLine": 976,
+        "startChar": 0,
+        "endLine": 977,
+        "endChar": 70
+      },
+      "revId": "c44f6f0c13a5f199ea21a69b999a43dc73fcec7e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ed35a38_175a6d52",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-05-07T11:04:31Z",
+      "side": 1,
+      "message": "This looks wrong",
+      "range": {
+        "startLine": 112,
+        "startChar": 5,
+        "endLine": 112,
+        "endChar": 7
+      },
+      "revId": "c44f6f0c13a5f199ea21a69b999a43dc73fcec7e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

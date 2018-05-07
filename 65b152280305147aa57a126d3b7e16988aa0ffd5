@@ -118,6 +118,30 @@
       "revId": "65b152280305147aa57a126d3b7e16988aa0ffd5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3b80a06c_a3a2101f",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1720,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-07T16:21:22Z",
+      "side": 1,
+      "message": "Yes. Just\n\n  #define minute first\n\nin a central .h file and you\u0027re set!",
+      "parentUuid": "6ba555ad_d8acd615",
+      "range": {
+        "startLine": 1720,
+        "startChar": 65,
+        "endLine": 1720,
+        "endChar": 72
+      },
+      "revId": "65b152280305147aa57a126d3b7e16988aa0ffd5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

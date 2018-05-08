@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f0ddbb33_1f79216d",
+        "filename": "test/fuzzers/audio_encoder_opus_fuzzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-08T19:07:37Z",
+      "side": 1,
+      "message": "To avoid having to think about truncating division, you could instead test\n\n  input_aligned.size() * sizeof(int16_t) \u003e\u003d byte_array.size() * sizeof(uint8_t)\n\nAlso, why not use \u003d\u003d instead of \u003e\u003d? The while condition seems to imply equality, and if you don\u0027t have equality, input_aligned will have junk at the end.",
+      "revId": "3c4f9a75365aa2128f2fe9e985e53deab3a1e08b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69a21569_7fd79eeb",
+        "filename": "test/fuzzers/audio_encoder_opus_fuzzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-08T19:07:37Z",
+      "side": 1,
+      "message": "Put this function in an unnamed namespace?",
+      "revId": "3c4f9a75365aa2128f2fe9e985e53deab3a1e08b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e59457a1_0b8b8831",
+        "filename": "test/fuzzers/audio_encoder_opus_fuzzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-08T19:07:37Z",
+      "side": 1,
+      "message": "Please use the public API instead (webrtc::AudioEncoderOpus); it shouldn\u0027t be too much of a bother.",
+      "revId": "3c4f9a75365aa2128f2fe9e985e53deab3a1e08b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

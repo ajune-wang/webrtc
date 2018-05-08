@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "3a62d59c_400ab004",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 1160,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-08T09:06:47Z",
+      "side": 1,
+      "message": "Yes, `sources` is the set of private files, and `public` is the set of public files (and no file needs to be listed in both places). But as a special case, if `public` is empty and `sources` is not, the files in `sources` become public---this is how we do things in most places in WebRTC.",
+      "parentUuid": "eafbacfa_9e121532",
+      "range": {
+        "startLine": 1160,
+        "startChar": 4,
+        "endLine": 1160,
+        "endChar": 39
+      },
+      "revId": "18d33ba9972139964557395783ad8c74163628dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a991448_8ecf2083",
         "filename": "sdk/android/native_api/jni/jni_int_wrapper.h",
         "patchSetId": 2

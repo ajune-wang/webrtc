@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "eafbacfa_9e121532",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 1160,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-05-08T08:51:14Z",
+      "side": 1,
+      "message": "It\u0027s the opposite, they only need to be added to public. I removed the other public headers from the sources list.",
+      "parentUuid": "061624a3_b1578aa7",
+      "range": {
+        "startLine": 1160,
+        "startChar": 4,
+        "endLine": 1160,
+        "endChar": 39
+      },
+      "revId": "18d33ba9972139964557395783ad8c74163628dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a991448_8ecf2083",
         "filename": "sdk/android/native_api/jni/jni_int_wrapper.h",
         "patchSetId": 2
@@ -72,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "03dcb678_c07ba9c1",
+        "filename": "sdk/android/native_api/jni/jni_int_wrapper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-05-08T08:51:14Z",
+      "side": 1,
+      "message": "Yes, it\u0027s implicit and it needs to be for this purpose. Clients are not expected to see or create JniIntWrapper, it\u0027s an implicit layer to stop them from converting non-int32_t to Java ints.",
+      "parentUuid": "b40c8693_6bdf8c7a",
+      "range": {
+        "startLine": 36,
+        "startChar": 42,
+        "endLine": 36,
+        "endChar": 48
+      },
+      "revId": "18d33ba9972139964557395783ad8c74163628dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5568cc3b_3cd73a95",
         "filename": "sdk/android/native_api/jni/jni_int_wrapper.h",
         "patchSetId": 2
@@ -116,6 +164,30 @@
       "revId": "18d33ba9972139964557395783ad8c74163628dc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3df962e5_b6615453",
+        "filename": "sdk/android/native_api/jni/jni_int_wrapper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-05-08T08:51:14Z",
+      "side": 1,
+      "message": "Thanks, much better.",
+      "parentUuid": "060326be_429f7e54",
+      "range": {
+        "startLine": 46,
+        "startChar": 26,
+        "endLine": 46,
+        "endChar": 55
+      },
+      "revId": "18d33ba9972139964557395783ad8c74163628dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -187,6 +259,30 @@
       "revId": "18d33ba9972139964557395783ad8c74163628dc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11744bf4_04a8a856",
+        "filename": "sdk/android/native_api/jni/jni_int_wrapper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-05-08T08:51:14Z",
+      "side": 1,
+      "message": "Yes, it worked, I\u0027ll make it const.",
+      "parentUuid": "264a0aa7_36071ec2",
+      "range": {
+        "startLine": 49,
+        "startChar": 2,
+        "endLine": 49,
+        "endChar": 6
+      },
+      "revId": "18d33ba9972139964557395783ad8c74163628dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

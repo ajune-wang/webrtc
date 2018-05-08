@@ -16,10 +16,11 @@
 #include <string>
 #include <vector>
 
+#include "api/test/videocodec_test_fixture.h"
+#include "api/test/videocodec_test_stats.h"
 #include "api/video/video_frame.h"
 #include "common_video/include/video_bitrate_allocator.h"
-#include "modules/video_coding/codecs/test/stats.h"
-#include "modules/video_coding/codecs/test/test_config.h"
+#include "modules/video_coding/include/video_codec_interface.h"
 #include "modules/video_coding/utility/ivf_file_writer.h"
 #include "rtc_base/buffer.h"
 #include "rtc_base/constructormagic.h"
@@ -30,6 +31,8 @@
 
 namespace webrtc {
 namespace test {
+
+using TestConfig = VideoCodecTestFixture::TestConfig;
 
 // Handles encoding/decoding of video using the VideoEncoder/VideoDecoder
 // interfaces. This is done in a sequential manner in order to be able to
@@ -46,7 +49,7 @@ class VideoProcessor {
                  VideoDecoderList* decoders,
                  FrameReader* input_frame_reader,
                  const TestConfig& config,
-                 Stats* stats,
+                 VideoCodecTestStats* stats,
                  IvfFileWriterList* encoded_frame_writers,
                  FrameWriterList* decoded_frame_writers);
   ~VideoProcessor();
@@ -182,7 +185,7 @@ class VideoProcessor {
   // Test input/output.
   TestConfig config_ RTC_GUARDED_BY(sequence_checker_);
   const size_t num_simulcast_or_spatial_layers_;
-  Stats* const stats_;
+  VideoCodecTestStats* const stats_;
 
   // Codecs.
   webrtc::VideoEncoder* const encoder_;

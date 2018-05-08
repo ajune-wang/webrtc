@@ -84,6 +84,24 @@
     },
     {
       "key": {
+        "uuid": "17921bb7_00462059",
+        "filename": "api/video/video_stream_encoder_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-05-08T11:08:20Z",
+      "side": 1,
+      "message": "It means that you can\u0027t destruct the object using a pointer to the interface. For classes where the owner is expected to have a reference to a specific implementation, this protects against owning it in a generic way. Not important though, so if it makes people confused it might help to just declare it virtual.",
+      "parentUuid": "34d3950d_b9acc721",
+      "revId": "dc98f79b4c5c44e64eb6747466e6ceb35837286f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e84acf81_dac570c7",
         "filename": "api/video/video_stream_encoder_interface.h",
         "patchSetId": 2

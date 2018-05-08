@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "98c2f39e_bde4a020",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-05-08T11:08:20Z",
+      "side": 1,
+      "message": "Should it? The content would only be this target, right? Changeing it later would incur some extra work downstream right?",
+      "parentUuid": "f1137e1e_a6609c64",
+      "range": {
+        "startLine": 270,
+        "startChar": 16,
+        "endLine": 270,
+        "endChar": 36
+      },
+      "revId": "cb5fca4e859acce50f367f877a582ce5ab95667e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "74f464c8_e5782e39",
         "filename": "api/BUILD.gn",
         "patchSetId": 3
@@ -269,6 +293,30 @@
       "revId": "cb5fca4e859acce50f367f877a582ce5ab95667e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51c5f621_b8efc3a8",
+        "filename": "video/video_stream_encoder.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-05-08T11:08:20Z",
+      "side": 1,
+      "message": "The tricky part, I guess, is that a video send stream both observes the alloocated bitrate for it and delivers allocated bitrates. Where the former is a per stream bitrate distribution and the latter is a per video layer distribution. The fact that these two processes have such similar naming made me very confused when I first dealt with the code.\n\nFixing this seems a bit out of scope for this CL though, so marking as resolved.",
+      "parentUuid": "2bd2c39c_8db3f94f",
+      "range": {
+        "startLine": 77,
+        "startChar": 7,
+        "endLine": 77,
+        "endChar": 35
+      },
+      "revId": "cb5fca4e859acce50f367f877a582ce5ab95667e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

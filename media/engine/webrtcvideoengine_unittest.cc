@@ -17,6 +17,8 @@
 #include "api/rtpparameters.h"
 #include "api/test/mock_video_decoder_factory.h"
 #include "api/test/mock_video_encoder_factory.h"
+#include "api/video_codecs/builtin_video_decoder_factory.h"
+#include "api/video_codecs/builtin_video_encoder_factory.h"
 #include "api/video_codecs/sdp_video_format.h"
 #include "api/video_codecs/video_decoder_factory.h"
 #include "api/video_codecs/video_encoder.h"
@@ -233,21 +235,6 @@ class WebRtcVideoEngineTest : public ::testing::Test {
   VideoCodec default_codec_;
   std::map<int, int> default_apt_rtx_types_;
 };
-
-TEST_F(WebRtcVideoEngineTest, AnnouncesVp9AccordingToBuildFlags) {
-  bool claims_vp9_support = false;
-  for (const cricket::VideoCodec& codec : engine_.codecs()) {
-    if (codec.name == "VP9") {
-      claims_vp9_support = true;
-      break;
-    }
-  }
-#if defined(RTC_DISABLE_VP9)
-  EXPECT_FALSE(claims_vp9_support);
-#else
-  EXPECT_TRUE(claims_vp9_support);
-#endif  // defined(RTC_DISABLE_VP9)
-}
 
 TEST_F(WebRtcVideoEngineTest, DefaultRtxCodecHasAssociatedPayloadTypeSet) {
   std::vector<VideoCodec> engine_codecs = engine_.codecs();
@@ -1139,10 +1126,8 @@ class WebRtcVideoChannelBaseTest : public testing::Test {
  protected:
   WebRtcVideoChannelBaseTest()
       : call_(webrtc::Call::Create(webrtc::Call::Config(&event_log_))),
-        engine_(std::unique_ptr<cricket::FakeWebRtcVideoEncoderFactory>(
-                    new cricket::FakeWebRtcVideoEncoderFactory()),
-                std::unique_ptr<cricket::FakeWebRtcVideoDecoderFactory>(
-                    new cricket::FakeWebRtcVideoDecoderFactory())) {}
+        engine_(webrtc::CreateBuiltinVideoEncoderFactory(),
+                webrtc::CreateBuiltinVideoDecoderFactory()) {}
 
   virtual void SetUp() {
     cricket::MediaConfig media_config;

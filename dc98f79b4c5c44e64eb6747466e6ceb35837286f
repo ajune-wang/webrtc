@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "0a616219_6ed7fd74",
+        "filename": "api/DEPS",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-05-08T08:02:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "be2c2c64_b043d65a",
+      "range": {
+        "startLine": 29,
+        "startChar": 29,
+        "endLine": 29,
+        "endChar": 40
+      },
+      "revId": "dc98f79b4c5c44e64eb6747466e6ceb35837286f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "09245ab3_53b7ab36",
         "filename": "api/video/video_stream_encoder_interface.h",
         "patchSetId": 2
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "34d3950d_b9acc721",
+        "filename": "api/video/video_stream_encoder_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-05-08T08:02:00Z",
+      "side": 1,
+      "message": "Probably should have. Sebastian, did you have a good reason for doing the destructor in this way (protected and non-virtual)?",
+      "parentUuid": "09245ab3_53b7ab36",
+      "revId": "dc98f79b4c5c44e64eb6747466e6ceb35837286f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e84acf81_dac570c7",
         "filename": "api/video/video_stream_encoder_interface.h",
         "patchSetId": 2
@@ -53,6 +95,30 @@
       "writtenOn": "2018-05-08T07:22:53Z",
       "side": 1,
       "message": "May want to expand on this a bit, e.g., bitrate \u003d 0 means pause encoding, etc.",
+      "range": {
+        "startLine": 69,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 53
+      },
+      "revId": "dc98f79b4c5c44e64eb6747466e6ceb35837286f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fee448ce_e4364e8d",
+        "filename": "api/video/video_stream_encoder_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-05-08T08:02:00Z",
+      "side": 1,
+      "message": "Added a comment on bitrate \u003d\u003d 0 and pause. What can we say about fraction_lost and roundtrip_time_ms? They\u0027re passed down to the vcm::VideoSender class, but I don\u0027t really know what they are used for.",
+      "parentUuid": "e84acf81_dac570c7",
       "range": {
         "startLine": 69,
         "startChar": 0,

@@ -23,5 +23,8 @@ specific_include_rules = {
   ".*\.cc": [
     "+modules/audio_coding",
     "+modules/audio_processing",
+    "+modules/rtp_rtcp",
+    "+modules/video_coding",
+    "+system_wrappers",
   ],
 }

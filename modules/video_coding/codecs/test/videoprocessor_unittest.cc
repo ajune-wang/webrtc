@@ -10,6 +10,7 @@
 
 #include <memory>
 
+#include "api/test/videocodec_test_fixture.h"
 #include "api/video/i420_buffer.h"
 #include "common_types.h"  // NOLINT(build/include)
 #include "media/base/mediaconstants.h"
@@ -95,7 +96,7 @@ class VideoProcessorTest : public testing::Test {
   MockVideoDecoder* decoder_mock_;
   std::vector<std::unique_ptr<VideoDecoder>> decoders_;
   MockFrameReader frame_reader_mock_;
-  Stats stats_;
+  VideoCodecTestStats stats_;
   std::unique_ptr<VideoProcessor> video_processor_;
 };
 

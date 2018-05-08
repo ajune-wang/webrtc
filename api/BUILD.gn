@@ -382,7 +382,34 @@ if (rtc_include_tests) {
       "test/videocodec_test_fixture.h",
     ]
     deps = [
-      "../modules/video_coding:video_codecs_test_framework",
+      ":videocodec_test_config_api",
+      "../modules/video_coding:video_codec_interface",
+      "video_codecs:video_codecs_api",
+    ]
+  }
+
+  rtc_source_set("videocodec_test_config_api") {
+    visibility = [ "*" ]
+    testonly = true
+    sources = [
+      "test/videocodec_test_stats.cc",
+      "test/videocodec_test_stats.h",
+    ]
+    deps = [
+      "../:webrtc_common",
+      "../media:rtc_audio_video",
+      "../media:rtc_h264_profile_id",
+      "../media:rtc_media_base",
+      "../modules/rtp_rtcp:rtp_rtcp_format",
+      "../modules/video_coding:codec_globals_headers",
+      "../modules/video_coding:video_codec_interface",
+      "../modules/video_coding:webrtc_vp8_helpers",
+      "../modules/video_coding:webrtc_vp9_helpers",
+      "../rtc_base:checks",
+      "../rtc_base:stringutils",
+      "../system_wrappers",
+      "../test:test_common",
+      "../test:video_test_common",
       "video_codecs:video_codecs_api",
     ]
   }
@@ -395,6 +422,7 @@ if (rtc_include_tests) {
       "test/create_videocodec_test_fixture.h",
     ]
     deps = [
+      ":videocodec_test_config_api",
       ":videocodec_test_fixture_api",
       "../modules/video_coding:video_codecs_test_framework",
       "../modules/video_coding:videocodec_test_impl",

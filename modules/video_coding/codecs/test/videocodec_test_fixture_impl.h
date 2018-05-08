@@ -16,12 +16,11 @@
 #include <vector>
 
 #include "api/test/videocodec_test_fixture.h"
+#include "api/test/videocodec_test_stats.h"
 #include "api/video_codecs/video_decoder_factory.h"
 #include "api/video_codecs/video_encoder_factory.h"
 #include "common_types.h"  // NOLINT(build/include)
 #include "common_video/h264/h264_common.h"
-#include "modules/video_coding/codecs/test/stats.h"
-#include "modules/video_coding/codecs/test/test_config.h"
 #include "modules/video_coding/codecs/test/videoprocessor.h"
 #include "modules/video_coding/utility/ivf_file_writer.h"
 #include "test/testsupport/frame_reader.h"
@@ -30,6 +29,9 @@
 namespace webrtc {
 namespace test {
 
+using FrameStatistics = VideoCodecTestStats::FrameStatistics;
+using VideoStatistics = VideoCodecTestStats::VideoStatistics;
+
 // Integration test for video processor. It does rate control and frame quality
 // analysis using frame statistics collected by video processor and logs the
 // results. If thresholds are specified it checks that corresponding metrics
@@ -37,7 +39,7 @@ namespace test {
 class VideoCodecTestFixtureImpl : public VideoCodecTestFixture {
   // Verifies that all H.264 keyframes contain SPS/PPS/IDR NALUs.
  public:
-  class H264KeyframeChecker : public TestConfig::EncodedFrameChecker {
+  class H264KeyframeChecker : public EncodedFrameChecker {
    public:
     void CheckEncodedFrame(webrtc::VideoCodecType codec,
                            const EncodedImage& encoded_frame) const override;
@@ -56,7 +58,7 @@ class VideoCodecTestFixtureImpl : public VideoCodecTestFixture {
                const BitstreamThresholds* bs_thresholds,
                const VisualizationParams* visualization_params) override;
 
-  Stats GetStats() override;
+  VideoCodecTestStats GetStats() override;
 
  private:
   class CpuProcessTime;
@@ -96,7 +98,7 @@ class VideoCodecTestFixtureImpl : public VideoCodecTestFixture {
 
   // Helper objects.
   TestConfig config_;
-  Stats stats_;
+  VideoCodecTestStats stats_;
   std::unique_ptr<FrameReader> source_frame_reader_;
   VideoProcessor::IvfFileWriterList encoded_frame_writers_;
   VideoProcessor::FrameWriterList decoded_frame_writers_;

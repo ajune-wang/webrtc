@@ -22,6 +22,30 @@
       "revId": "042704aac91080434b12db8dc390b6fc94dfaaa5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "964f0479_72c8978e",
+        "filename": "sdk/android/src/jni/pc/logging.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-05-08T13:44:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "984571cd_5bf55c2d",
+      "range": {
+        "startLine": 46,
+        "startChar": 25,
+        "endLine": 46,
+        "endChar": 37
+      },
+      "revId": "042704aac91080434b12db8dc390b6fc94dfaaa5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -402,6 +402,30 @@
     },
     {
       "key": {
+        "uuid": "2572e46a_981bd3d8",
+        "filename": "sdk/android/api/org/webrtc/PeerConnectionFactory.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-05-08T13:44:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "35b8ea10_9528eb34",
+      "range": {
+        "startLine": 220,
+        "startChar": 6,
+        "endLine": 220,
+        "endChar": 26
+      },
+      "revId": "306d0fda27d57183aa01c96cb9b1694c596a95f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ce179ac9_f2d50e7b",
         "filename": "sdk/android/api/org/webrtc/PeerConnectionFactory.java",
         "patchSetId": 5
@@ -470,6 +494,30 @@
       "revId": "306d0fda27d57183aa01c96cb9b1694c596a95f2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "574b8552_5f4b8e92",
+        "filename": "sdk/android/api/org/webrtc/PeerConnectionFactory.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-05-08T13:44:50Z",
+      "side": 1,
+      "message": "It\u0027s probably fine to just leave it in that case.",
+      "parentUuid": "a150c871_0a06401c",
+      "range": {
+        "startLine": 442,
+        "startChar": 4,
+        "endLine": 442,
+        "endChar": 27
+      },
+      "revId": "306d0fda27d57183aa01c96cb9b1694c596a95f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "345b1991_d55be736",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 7
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-05-08T14:19:24Z",
+      "side": 1,
+      "message": "nit: I know the order of stuff in this file is already kind of a mess. But I think we should try to put related targets next to each other. i.e. logging_java, generated_logging_jni, logging_jni",
+      "range": {
+        "startLine": 48,
+        "startChar": 14,
+        "endLine": 48,
+        "endChar": 35
+      },
+      "revId": "c016b2b60ec20695aca18fc486d7d2a0b021cafc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "131eec2d_a71a3d2d",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 7
+      },
+      "lineNbr": 560,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-05-08T14:19:24Z",
+      "side": 1,
+      "message": "This is JNI for Java code in rtc_base. I find it a bit problematic that is is under sdk/android/. I think we should probably move this and logging.cc under rtc_base as well as long as the Java code is there.",
+      "range": {
+        "startLine": 560,
+        "startChar": 4,
+        "endLine": 560,
+        "endChar": 34
+      },
+      "revId": "c016b2b60ec20695aca18fc486d7d2a0b021cafc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dccd7f0d_42b39763",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 7
+      },
+      "lineNbr": 988,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-05-08T14:19:24Z",
+      "side": 1,
+      "message": "This needs to added to libwebrtc as well to include it in the AAR.",
+      "range": {
+        "startLine": 988,
+        "startChar": 21,
+        "endLine": 988,
+        "endChar": 33
+      },
+      "revId": "c016b2b60ec20695aca18fc486d7d2a0b021cafc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

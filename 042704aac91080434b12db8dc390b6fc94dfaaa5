@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "984571cd_5bf55c2d",
+        "filename": "sdk/android/src/jni/pc/logging.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-05-08T08:51:31Z",
+      "side": 1,
+      "message": "Can you move NativeLogger JNI methods to their own file?",
+      "range": {
+        "startLine": 46,
+        "startChar": 25,
+        "endLine": 46,
+        "endChar": 37
+      },
+      "revId": "042704aac91080434b12db8dc390b6fc94dfaaa5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

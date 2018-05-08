@@ -42,6 +42,24 @@
     },
     {
       "key": {
+        "uuid": "93f152e4_1a1976bb",
+        "filename": "api/test/stats.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-05-08T08:33:26Z",
+      "side": 1,
+      "message": "What do you think about keeping Stats as a separate class but renaming it to VideoCodecTestStats, and nesting FrameStatistics and VideoStatistics in that class?\n\nThe reason being that this is not actually that related to the test fixture, but rather the implementation of it, so it seems weird to nest it there.",
+      "parentUuid": "3b75512d_64ec73e4",
+      "revId": "f6ca71e18fd2db04a05935c8ab3075126a1a82d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "285127f1_89f2a311",
         "filename": "api/test/stats.h",
         "patchSetId": 2
@@ -59,6 +77,24 @@
     },
     {
       "key": {
+        "uuid": "5728abe2_fb607df5",
+        "filename": "api/test/stats.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-05-08T08:33:26Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "285127f1_89f2a311",
+      "revId": "f6ca71e18fd2db04a05935c8ab3075126a1a82d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7eb227a7_10650e20",
         "filename": "api/test/test_config.h",
         "patchSetId": 2
@@ -73,6 +109,24 @@
       "revId": "f6ca71e18fd2db04a05935c8ab3075126a1a82d3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f76b0855_d5627491",
+        "filename": "api/test/test_config.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-05-08T08:33:26Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7eb227a7_10650e20",
+      "revId": "f6ca71e18fd2db04a05935c8ab3075126a1a82d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f1137e1e_a6609c64",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-05-08T09:26:40Z",
+      "side": 1,
+      "message": "Makes sense, but I think creation of api/video/BUILD should be a separate cl. Do you think it is important enough that I should do it soon?",
+      "parentUuid": "2c5e0084_54f15754",
+      "range": {
+        "startLine": 270,
+        "startChar": 16,
+        "endLine": 270,
+        "endChar": 36
+      },
+      "revId": "cb5fca4e859acce50f367f877a582ce5ab95667e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "74f464c8_e5782e39",
         "filename": "api/BUILD.gn",
         "patchSetId": 3
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "895b49e9_2f1828ca",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-05-08T09:26:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "74f464c8_e5782e39",
+      "range": {
+        "startLine": 278,
+        "startChar": 5,
+        "endLine": 278,
+        "endChar": 12
+      },
+      "revId": "cb5fca4e859acce50f367f877a582ce5ab95667e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b5c46b3c_748bb201",
         "filename": "api/DEPS",
         "patchSetId": 3
@@ -59,6 +107,30 @@
       "writtenOn": "2018-05-08T08:41:41Z",
       "side": 1,
       "message": "Seems regretful to add dependencies on non-api. Would it be possible to move the required dependencies in a preparation CL?",
+      "range": {
+        "startLine": 28,
+        "startChar": 3,
+        "endLine": 30,
+        "endChar": 39
+      },
+      "revId": "cb5fca4e859acce50f367f877a582ce5ab95667e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1afcbcaa_bb5390a9",
+        "filename": "api/DEPS",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-05-08T09:26:40Z",
+      "side": 1,
+      "message": "video_config.h could perhaps be moved here as is, it has a dependency on VideoCodec and related structs which is a bit ugly but nothing we can fix easily.\n\nvideo_send_stream.h is needed only for DegradationSettings, which also should be moved to api/, but preferably as a separat cl.\n\nI have no strong preference on the order we do these things.",
+      "parentUuid": "b5c46b3c_748bb201",
       "range": {
         "startLine": 28,
         "startChar": 3,
@@ -88,6 +160,24 @@
     },
     {
       "key": {
+        "uuid": "4908eac3_1ccb8c21",
+        "filename": "api/video/video_stream_encoder_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-05-08T09:26:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "736203ad_de3a31a5",
+      "revId": "cb5fca4e859acce50f367f877a582ce5ab95667e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0c76d26b_c31e0176",
         "filename": "api/video/video_stream_encoder_interface.h",
         "patchSetId": 3
@@ -111,6 +201,30 @@
     },
     {
       "key": {
+        "uuid": "a06b1c88_afee418f",
+        "filename": "api/video/video_stream_encoder_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-05-08T09:26:40Z",
+      "side": 1,
+      "message": "Good question. Probably because the packet size originates from transport machinery, while VideoEncoderConfig originates in the codec negotiation. There\u0027s surely opportunities for cleanup.",
+      "parentUuid": "0c76d26b_c31e0176",
+      "range": {
+        "startLine": 81,
+        "startChar": 6,
+        "endLine": 81,
+        "endChar": 29
+      },
+      "revId": "cb5fca4e859acce50f367f877a582ce5ab95667e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2ea9c6d0_1a7ad194",
         "filename": "video/video_stream_encoder.h",
         "patchSetId": 3
@@ -122,6 +236,30 @@
       "writtenOn": "2018-05-08T08:41:41Z",
       "side": 1,
       "message": "I think it\u0027s good to make this more descriptive. Maybe it\u0027d make sense to add \"Video\" as well, to more clearly disambiguate with observers of BitrateAllocator? Or possibly SetLayerBitrateObserver since we are, afaik, talking about video layers here, and not just any video stream (It won\u0027t be used to allocate rate between camera capture and screen capture)\n\nMight make sense as a separate CL.",
+      "range": {
+        "startLine": 77,
+        "startChar": 7,
+        "endLine": 77,
+        "endChar": 35
+      },
+      "revId": "cb5fca4e859acce50f367f877a582ce5ab95667e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2bd2c39c_8db3f94f",
+        "filename": "video/video_stream_encoder.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-05-08T09:26:40Z",
+      "side": 1,
+      "message": "There\u0027s a brief comment for this method, in the interface class. Do you want to add more there?\n\nI could rename it to SetVideoBitrateAllocationObserver, to match the type name, but I think Video can be implied for all methods of this class, and the longer name is getting a bit unwieldy.",
+      "parentUuid": "2ea9c6d0_1a7ad194",
       "range": {
         "startLine": 77,
         "startChar": 7,

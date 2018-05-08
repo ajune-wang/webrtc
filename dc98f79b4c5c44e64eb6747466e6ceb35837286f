@@ -2,6 +2,46 @@
   "comments": [
     {
       "key": {
+        "uuid": "be2c2c64_b043d65a",
+        "filename": "api/DEPS",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-08T07:43:50Z",
+      "side": 1,
+      "message": "grammar",
+      "range": {
+        "startLine": 29,
+        "startChar": 29,
+        "endLine": 29,
+        "endChar": 40
+      },
+      "revId": "dc98f79b4c5c44e64eb6747466e6ceb35837286f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "09245ab3_53b7ab36",
+        "filename": "api/video/video_stream_encoder_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-08T07:43:50Z",
+      "side": 1,
+      "message": "Virtual destructor for this interface?",
+      "revId": "dc98f79b4c5c44e64eb6747466e6ceb35837286f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e84acf81_dac570c7",
         "filename": "api/video/video_stream_encoder_interface.h",
         "patchSetId": 2
@@ -19,6 +59,23 @@
         "endLine": 70,
         "endChar": 53
       },
+      "revId": "dc98f79b4c5c44e64eb6747466e6ceb35837286f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1a2ebe6_696403c3",
+        "filename": "api/video/video_stream_encoder_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-08T07:43:50Z",
+      "side": 1,
+      "message": "Why is the destructor not public?",
       "revId": "dc98f79b4c5c44e64eb6747466e6ceb35837286f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

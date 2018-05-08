@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "0888c4ea_36f03ffe",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-05-08T13:08:32Z",
+      "side": 1,
+      "message": "If you think it\u0027s better changing it later than having it inconsistent I guess it makes sense to not add the file with this CL.",
+      "parentUuid": "34078a3b_164e8795",
+      "range": {
+        "startLine": 270,
+        "startChar": 16,
+        "endLine": 270,
+        "endChar": 36
+      },
+      "revId": "cb5fca4e859acce50f367f877a582ce5ab95667e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "74f464c8_e5782e39",
         "filename": "api/BUILD.gn",
         "patchSetId": 3
@@ -191,6 +215,30 @@
     },
     {
       "key": {
+        "uuid": "ec247979_53670b2d",
+        "filename": "api/DEPS",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-05-08T13:08:32Z",
+      "side": 1,
+      "message": "As I see it, moving something to API is also inviting downstream projects to use anything exported by those headers. (If nothing else, because build systems will generally allow them to) Therefore it\u0027s preferable to avoid dependencies on things outside api, but rather move things to api in order of dependencies. In general it\u0027s also preferable to finish imminent refactoring work before, rather than after the move.\n\nThe opposite order is probably ok if the changes are close enough that downstream projects does not start depending on them, but I\u0027m not sure I can see any advantage to doing it that way. The risk is that the followup works takes longer than expected.",
+      "parentUuid": "1afcbcaa_bb5390a9",
+      "range": {
+        "startLine": 28,
+        "startChar": 3,
+        "endLine": 30,
+        "endChar": 39
+      },
+      "revId": "cb5fca4e859acce50f367f877a582ce5ab95667e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "736203ad_de3a31a5",
         "filename": "api/video/video_stream_encoder_interface.h",
         "patchSetId": 3
@@ -270,6 +318,30 @@
       "revId": "cb5fca4e859acce50f367f877a582ce5ab95667e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f44b0556_7244bba9",
+        "filename": "api/video/video_stream_encoder_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-05-08T13:08:32Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a06b1c88_afee418f",
+      "range": {
+        "startLine": 81,
+        "startChar": 6,
+        "endLine": 81,
+        "endChar": 29
+      },
+      "revId": "cb5fca4e859acce50f367f877a582ce5ab95667e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

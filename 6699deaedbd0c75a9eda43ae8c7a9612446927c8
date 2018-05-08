@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9dd61c66_11c5964a",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 2881,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-08T19:31:32Z",
+      "side": 1,
+      "message": "using the?",
+      "revId": "6699deaedbd0c75a9eda43ae8c7a9612446927c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c934d34_1d4963fb",
+        "filename": "pc/peerconnection_integrationtest.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 1204,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-08T19:31:32Z",
+      "side": 1,
+      "message": "nit: Since this is passed in default-constructed, could just do:\n\n    caller_ \u003d CreatePeerConnectionWrapper(\"Caller\", nullptr, nullptr, nullptr,\n                                          webrtc::PeerConnectionDependencies(nullptr));",
+      "revId": "6699deaedbd0c75a9eda43ae8c7a9612446927c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33b42748_392379b7",
+        "filename": "pc/peerconnection_integrationtest.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 3971,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-08T19:31:32Z",
+      "side": 1,
+      "message": "Are these tests still planned? The tests I see added only verify that \"CreateAdapter\" returns something.",
+      "revId": "6699deaedbd0c75a9eda43ae8c7a9612446927c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c51112df_4d67afab",
+        "filename": "rtc_base/openssladapter.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 854,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-08T19:31:32Z",
+      "side": 1,
+      "message": "nit: This may be logged when stream-\u003essl_cert_verifier_ is null, which would be misleading.",
+      "revId": "6699deaedbd0c75a9eda43ae8c7a9612446927c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

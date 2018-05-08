@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e84acf81_dac570c7",
+        "filename": "api/video/video_stream_encoder_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-05-08T07:22:53Z",
+      "side": 1,
+      "message": "May want to expand on this a bit, e.g., bitrate \u003d 0 means pause encoding, etc.",
+      "range": {
+        "startLine": 69,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 53
+      },
+      "revId": "dc98f79b4c5c44e64eb6747466e6ceb35837286f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

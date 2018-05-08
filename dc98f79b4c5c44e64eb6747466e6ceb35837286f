@@ -102,6 +102,24 @@
     },
     {
       "key": {
+        "uuid": "a1a4ca91_a330e142",
+        "filename": "api/video/video_stream_encoder_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-05-08T11:35:04Z",
+      "side": 1,
+      "message": "Hmm, now I realize that maybe we\u0027re talking about two distinct classes. Karl, was your comment intended for VideoStreamEncoderInterface or EncoderSink?\n\nFor EncoderSink, no destructor is declared at all. Not sure what that implies. The base class defines a virtual destructor. I kind-of agree that one shouldn\u0027t own objects via this interface, less sure if it\u0027s a good idea to have the compiler enforce that.\n\nBut for VideoStreamEncoderInterface, I think that should have a public and virtual destructor as usual for interface classes?",
+      "parentUuid": "17921bb7_00462059",
+      "revId": "dc98f79b4c5c44e64eb6747466e6ceb35837286f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e84acf81_dac570c7",
         "filename": "api/video/video_stream_encoder_interface.h",
         "patchSetId": 2

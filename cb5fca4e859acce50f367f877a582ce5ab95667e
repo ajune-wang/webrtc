@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "34078a3b_164e8795",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-05-08T11:35:04Z",
+      "side": 1,
+      "message": "For consistency, I think api/video/BUILD.gn, if it exists, should define *all* targets involving files in that subdirectory, i.e., also video_frame_api, video_frame_api_i420, encoded_frame_api, video_stream_decoder, and video_stream_decoder_create.\n\nAnd moving video_frame_api also involved moving videosinkinterface.h and videosourceinterface.h.\n\nSo it\u0027s a bit messy. But if we really want to move these things around, I think you\u0027re right that it\u0027s going to be more painful the longer we postpone it.",
+      "parentUuid": "98c2f39e_bde4a020",
+      "range": {
+        "startLine": 270,
+        "startChar": 16,
+        "endLine": 270,
+        "endChar": 36
+      },
+      "revId": "cb5fca4e859acce50f367f877a582ce5ab95667e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "74f464c8_e5782e39",
         "filename": "api/BUILD.gn",
         "patchSetId": 3

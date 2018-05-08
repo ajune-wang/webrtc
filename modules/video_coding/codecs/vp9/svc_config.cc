@@ -45,14 +45,19 @@ std::vector<SpatialLayer> GetSvcConfig(size_t input_width,
     spatial_layer.height = input_height >> (num_spatial_layers - sl_idx - 1);
     spatial_layer.numberOfTemporalLayers = num_temporal_layers;
 
-    // minBitrate and maxBitrate formulas were derived to fit VP9
-    // subjective-quality data for bit rate below which video quality is
-    // unacceptable and above which additional bits do not provide benefit.
+    // minBitrate and maxBitrate formulas were derived from
+    // subjective-quality data to determing bit rates below which video
+    // quality is unacceptable and above which additional bits do not provide
+    // benefit. The formulas express rate in units of kbps.
     // TODO(ssilkin): Add to the comment PSNR/SSIM we get at encoding certain
     // video to min/max bitrate specified by those formulas.
     const size_t num_pixels = spatial_layer.width * spatial_layer.height;
-    spatial_layer.minBitrate =
-        static_cast<int>(360 * std::sqrt(num_pixels) / 1000);
+    const int kMinVP9SVCVideoBitRateKbps = 60;  // lowest video rate in kbps
+    int min_bit_rate =
+        static_cast<int>((600. * std::sqrt(num_pixels) - 95000.) / 1000.);
+    min_bit_rate = (min_bit_rate < kMinVP9SVCVideoBitRateKbps) ?
+        kMinVP9SVCVideoBitRateKbps : min_bit_rate;
+    spatial_layer.minBitrate = min_bit_rate;
     spatial_layer.maxBitrate =
         static_cast<int>((1.5 * num_pixels + 75 * 1000) / 1000);
     spatial_layer.targetBitrate =

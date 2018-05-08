@@ -18,9 +18,11 @@
 #include <vector>
 
 #include "api/video/video_rotation.h"
+#include "api/video/video_stream_encoder_interface.h"
 #include "api/video_codecs/video_encoder.h"
 #include "api/videosinkinterface.h"
 #include "call/call.h"
+#include "call/video_send_stream.h"
 #include "common_types.h"  // NOLINT(build/include)
 #include "common_video/include/video_bitrate_allocator.h"
 #include "modules/video_coding/include/video_coding_defines.h"
@@ -32,43 +34,11 @@
 #include "rtc_base/task_queue.h"
 #include "typedefs.h"  // NOLINT(build/include)
 #include "video/overuse_frame_detector.h"
-#include "call/video_send_stream.h"
 
 namespace webrtc {
 
 class SendStatisticsProxy;
-class VideoBitrateAllocationObserver;
 
-class VideoStreamEncoderInterface : public rtc::VideoSinkInterface<VideoFrame> {
- public:
-  // Interface for receiving encoded video frames and notifications about
-  // configuration changes.
-  class EncoderSink : public EncodedImageCallback {
-   public:
-    virtual void OnEncoderConfigurationChanged(
-        std::vector<VideoStream> streams,
-        int min_transmit_bitrate_bps) = 0;
-  };
-  virtual void SetSource(
-      rtc::VideoSourceInterface<VideoFrame>* source,
-      const VideoSendStream::DegradationPreference& degradation_preference) = 0;
-  virtual void SetSink(EncoderSink* sink, bool rotation_applied) = 0;
-
-  virtual void SetStartBitrate(int start_bitrate_bps) = 0;
-  virtual void SendKeyFrame() = 0;
-  virtual void OnBitrateUpdated(uint32_t bitrate_bps,
-                                uint8_t fraction_lost,
-                                int64_t round_trip_time_ms) = 0;
-
-  virtual void SetBitrateObserver(
-      VideoBitrateAllocationObserver* bitrate_observer) = 0;
-  virtual void ConfigureEncoder(VideoEncoderConfig config,
-                                size_t max_data_payload_length) = 0;
-  virtual void Stop() = 0;
-
- protected:
-  ~VideoStreamEncoderInterface() = default;
-};
 // VideoStreamEncoder represent a video encoder that accepts raw video frames as
 // input and produces an encoded bit stream.
 // Usage:
@@ -95,22 +65,16 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
                      std::unique_ptr<OveruseFrameDetector> overuse_detector);
   ~VideoStreamEncoder();
 
-  // Sets the source that will provide I420 video frames.
-  // |degradation_preference| control whether or not resolution or frame rate
-  // may be reduced.
   void SetSource(rtc::VideoSourceInterface<VideoFrame>* source,
                  const VideoSendStream::DegradationPreference&
                      degradation_preference) override;
 
-  // Sets the |sink| that gets the encoded frames. |rotation_applied| means
-  // that the source must support rotation. Only set |rotation_applied| if the
-  // remote side does not support the rotation extension.
   void SetSink(EncoderSink* sink, bool rotation_applied) override;
 
   // TODO(perkj): Can we remove VideoCodec.startBitrate ?
   void SetStartBitrate(int start_bitrate_bps) override;
 
-  void SetBitrateObserver(
+  void SetBitrateAllocationObserver(
       VideoBitrateAllocationObserver* bitrate_observer) override;
 
   void ConfigureEncoder(VideoEncoderConfig config,

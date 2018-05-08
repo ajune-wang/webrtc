@@ -87,8 +87,6 @@ rtc_static_library("libjingle_peerconnection_api") {
     "turncustomizer.h",
     "umametrics.cc",
     "umametrics.h",
-    "videosourceinterface.cc",
-    "videosourceinterface.h",
     "videosourceproxy.h",
   ]
 
@@ -232,9 +230,12 @@ rtc_source_set("video_frame_api") {
     "video/video_timing.cc",
     "video/video_timing.h",
     "videosinkinterface.h",
+    "videosourceinterface.cc",
+    "videosourceinterface.h",
   ]
 
   deps = [
+    ":optional",
     "../rtc_base:checks",
     "../rtc_base:rtc_base_approved",
   ]
@@ -263,6 +264,19 @@ rtc_source_set("video_stream_decoder") {
     ":optional",
     ":video_frame_api",
     "../api/video_codecs:video_codecs_api",
+  ]
+}
+
+rtc_source_set("video_stream_encoder") {
+  visibility = [ "*" ]
+  sources = [
+    "video/video_stream_encoder_interface.h",
+  ]
+
+  deps = [
+    ":video_frame_api",
+    "../call:video_stream_api",
+    "video_codecs:video_codecs_api",
   ]
 }
 

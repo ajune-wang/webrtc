@@ -155,6 +155,30 @@
     },
     {
       "key": {
+        "uuid": "782fe49e_c3910ee9",
+        "filename": "api/video/video_stream_encoder_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-05-08T09:49:46Z",
+      "side": 1,
+      "message": "I think it\u0027s also related to the MediaOptimization class, which I\u0027m yet fairly clueless about.\n\nAnything we need to write a comment about here?",
+      "parentUuid": "2ee3218b_74e089ff",
+      "range": {
+        "startLine": 69,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 53
+      },
+      "revId": "dc98f79b4c5c44e64eb6747466e6ceb35837286f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a696e3b2_c6420148",
         "filename": "api/video/video_stream_encoder_interface.h",
         "patchSetId": 2
@@ -166,6 +190,30 @@
       "writtenOn": "2018-05-08T09:40:06Z",
       "side": 1,
       "message": "What\u0027s the plan for VideoEncoderConfig? I guess it has to move to api/ as well? Is it in good shape?",
+      "range": {
+        "startLine": 82,
+        "startChar": 32,
+        "endLine": 82,
+        "endChar": 50
+      },
+      "revId": "dc98f79b4c5c44e64eb6747466e6ceb35837286f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6aa63a2b_f0d57bee",
+        "filename": "api/video/video_stream_encoder_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-05-08T09:49:46Z",
+      "side": 1,
+      "message": "It should move to api/. Not in that good shape. It has codec type + SdpVideoFormat, a VideoStreamFactoryInterface*, a vector of simulcast streams (which I guess is good, if we want to handle that in VidoStreamEncoder), and finally some wrapping over VideoCodecVP8 and friends, which looks like a halfway refactoring to get away from VideoCodec.",
+      "parentUuid": "a696e3b2_c6420148",
       "range": {
         "startLine": 82,
         "startChar": 32,

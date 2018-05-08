@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "51e7d0e7_27a55a98",
+        "filename": "modules/video_coding/rtp_frame_reference_finder_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1253,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-05-08T06:55:04Z",
+      "side": 0,
+      "message": "Ref frame finder never receives spatial layers as separate frames.",
+      "range": {
+        "startLine": 1253,
+        "startChar": 39,
+        "endLine": 1253,
+        "endChar": 49
+      },
+      "revId": "0c4f7beb25ad062e17b1cd26d5e0e3c40ab00f5c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1d2429c3_b65a9779",
+        "filename": "modules/video_coding/rtp_frame_reference_finder_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1292,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-05-08T06:55:04Z",
+      "side": 0,
+      "message": "Same here.",
+      "range": {
+        "startLine": 1292,
+        "startChar": 45,
+        "endLine": 1292,
+        "endChar": 49
+      },
+      "revId": "0c4f7beb25ad062e17b1cd26d5e0e3c40ab00f5c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

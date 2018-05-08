@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "03517883_6a5f4eee",
+        "filename": "p2p/client/basicportallocator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2208,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-05-08T00:56:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7928643c_ff70b1f6",
+      "revId": "2bbe16bf117415d1347835f3e576cc6a84f51a3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "de3c2ac4_15afc41a",
         "filename": "p2p/client/basicportallocator_unittest.cc",
         "patchSetId": 3
@@ -33,6 +51,24 @@
       "revId": "2bbe16bf117415d1347835f3e576cc6a84f51a3d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b4e6d14_8138904e",
+        "filename": "p2p/client/basicportallocator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2210,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-05-08T00:56:56Z",
+      "side": 1,
+      "message": "Done. Also renamed the test to be consistent with the others.",
+      "parentUuid": "de3c2ac4_15afc41a",
+      "revId": "2bbe16bf117415d1347835f3e576cc6a84f51a3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "c69a6f7a_58cc694f",
+        "filename": "p2p/client/basicportallocator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2211,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-05-08T00:56:56Z",
+      "side": 1,
+      "message": "Sure. Now that TestGetAdapterTypeFromNameMatching is updated to cover rtc::GetAdapterTypeFromName, we can decouple the test of the costly network filtering part. This test was intended to check the code path from type inference via rtc::GetAdapterTypeFromName (the original changes in the fake network manager) to filtering of costly networks, and I think the current tests at different layers are much better. Thanks for the comments.",
+      "parentUuid": "985909b5_9bf59b6d",
+      "revId": "2bbe16bf117415d1347835f3e576cc6a84f51a3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bd751a27_d2149032",
         "filename": "p2p/client/basicportallocator_unittest.cc",
         "patchSetId": 3
@@ -67,6 +121,24 @@
       "revId": "2bbe16bf117415d1347835f3e576cc6a84f51a3d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "452796e8_aec38062",
+        "filename": "p2p/client/basicportallocator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2212,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-05-08T00:56:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd751a27_d2149032",
+      "revId": "2bbe16bf117415d1347835f3e576cc6a84f51a3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "7b281a50_d9434b97",
+        "filename": "p2p/client/basicportallocator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2213,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-05-08T00:56:56Z",
+      "side": 1,
+      "message": "I was trying to start a clean slate and set the exact config. Removed after confirming it is unnecessary.",
+      "parentUuid": "01b68cfb_d61ba2c9",
+      "revId": "2bbe16bf117415d1347835f3e576cc6a84f51a3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d5a2f598_666ab0d4",
         "filename": "p2p/client/basicportallocator_unittest.cc",
         "patchSetId": 3
@@ -98,6 +188,24 @@
       "writtenOn": "2018-05-07T20:34:48Z",
       "side": 1,
       "message": "Does this test need a STUN server?",
+      "revId": "2bbe16bf117415d1347835f3e576cc6a84f51a3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae500c03_8a4a78f0",
+        "filename": "p2p/client/basicportallocator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2222,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-05-08T00:56:56Z",
+      "side": 1,
+      "message": "No, but I was wondering if getting 2 ports can be less likely to pass by coincidence than getting 1 port, given that I had reconstructed the allocator. The default test base has configured a STUN server, and using the existing allocator the same result follows. Let me know if I actually need to explicitly remove the STUN server now to make the test clearer.",
+      "parentUuid": "d5a2f598_666ab0d4",
       "revId": "2bbe16bf117415d1347835f3e576cc6a84f51a3d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "38f32b64_44cc3fee",
+        "filename": "p2p/client/basicportallocator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2224,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-05-08T00:56:56Z",
+      "side": 1,
+      "message": "Done. Edited other places as well.",
+      "parentUuid": "e27e93a8_c636aada",
+      "revId": "2bbe16bf117415d1347835f3e576cc6a84f51a3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fb0b006a_387c1009",
         "filename": "rtc_base/fakenetwork.h",
         "patchSetId": 3
@@ -135,6 +261,24 @@
       "revId": "2bbe16bf117415d1347835f3e576cc6a84f51a3d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87e7006b_66325091",
+        "filename": "rtc_base/fakenetwork.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-05-08T00:56:56Z",
+      "side": 1,
+      "message": "Makes a lot of sense to me. Reverted. See the other file for the change.",
+      "parentUuid": "fb0b006a_387c1009",
+      "revId": "2bbe16bf117415d1347835f3e576cc6a84f51a3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -185,6 +329,30 @@
     },
     {
       "key": {
+        "uuid": "15f8f107_ddae02ae",
+        "filename": "rtc_base/network.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-05-08T00:56:56Z",
+      "side": 1,
+      "message": "Done. Also refactored the rest of the name matching.",
+      "parentUuid": "2a6d97fa_5b066b25",
+      "range": {
+        "startLine": 180,
+        "startChar": 6,
+        "endLine": 180,
+        "endChar": 36
+      },
+      "revId": "2bbe16bf117415d1347835f3e576cc6a84f51a3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1b466d47_be487fb8",
         "filename": "rtc_base/network.cc",
         "patchSetId": 3
@@ -196,6 +364,24 @@
       "writtenOn": "2018-05-07T20:34:48Z",
       "side": 1,
       "message": "Are there cases where this doesn\u0027t work? I don\u0027t recall ever seeing a loopback interface classified as \"unknown\".",
+      "revId": "2bbe16bf117415d1347835f3e576cc6a84f51a3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69e7a864_e421511c",
+        "filename": "rtc_base/network.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-05-08T00:56:56Z",
+      "side": 1,
+      "message": "I cannot recall either, and I think the flag IFF_LOOPBACK should have taken care of the case. The mapping of loopback was added here for the sake of completeness of this method.",
+      "parentUuid": "1b466d47_be487fb8",
       "revId": "2bbe16bf117415d1347835f3e576cc6a84f51a3d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -216,6 +402,24 @@
       "revId": "2bbe16bf117415d1347835f3e576cc6a84f51a3d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7835895_8258727b",
+        "filename": "rtc_base/network.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-05-08T00:56:56Z",
+      "side": 1,
+      "message": "Sure, I wasn\u0027t aware of that test. Done.",
+      "parentUuid": "82880fee_93102677",
+      "revId": "2bbe16bf117415d1347835f3e576cc6a84f51a3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

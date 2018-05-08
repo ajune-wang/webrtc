@@ -131,6 +131,53 @@
     },
     {
       "key": {
+        "uuid": "2ee3218b_74e089ff",
+        "filename": "api/video/video_stream_encoder_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-05-08T09:40:06Z",
+      "side": 1,
+      "message": "fraction_lost and roundtrip_time_ms is disregarded by most encoders. The one exception I have found is the Chromoting encoder, which does it\u0027s own bandwidth estimation internally...",
+      "parentUuid": "fee448ce_e4364e8d",
+      "range": {
+        "startLine": 69,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 53
+      },
+      "revId": "dc98f79b4c5c44e64eb6747466e6ceb35837286f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a696e3b2_c6420148",
+        "filename": "api/video/video_stream_encoder_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-05-08T09:40:06Z",
+      "side": 1,
+      "message": "What\u0027s the plan for VideoEncoderConfig? I guess it has to move to api/ as well? Is it in good shape?",
+      "range": {
+        "startLine": 82,
+        "startChar": 32,
+        "endLine": 82,
+        "endChar": 50
+      },
+      "revId": "dc98f79b4c5c44e64eb6747466e6ceb35837286f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c1a2ebe6_696403c3",
         "filename": "api/video/video_stream_encoder_interface.h",
         "patchSetId": 2

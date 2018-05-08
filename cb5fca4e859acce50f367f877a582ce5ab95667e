@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2c5e0084_54f15754",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-05-08T08:41:41Z",
+      "side": 1,
+      "message": "Maybe this should be in api/video/BUILD.gn?",
+      "range": {
+        "startLine": 270,
+        "startChar": 16,
+        "endLine": 270,
+        "endChar": 36
+      },
+      "revId": "cb5fca4e859acce50f367f877a582ce5ab95667e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74f464c8_e5782e39",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-05-08T08:41:41Z",
+      "side": 1,
+      "message": "Not needed.",
+      "range": {
+        "startLine": 278,
+        "startChar": 5,
+        "endLine": 278,
+        "endChar": 12
+      },
+      "revId": "cb5fca4e859acce50f367f877a582ce5ab95667e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5c46b3c_748bb201",
+        "filename": "api/DEPS",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-05-08T08:41:41Z",
+      "side": 1,
+      "message": "Seems regretful to add dependencies on non-api. Would it be possible to move the required dependencies in a preparation CL?",
+      "range": {
+        "startLine": 28,
+        "startChar": 3,
+        "endLine": 30,
+        "endChar": 39
+      },
+      "revId": "cb5fca4e859acce50f367f877a582ce5ab95667e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "736203ad_de3a31a5",
+        "filename": "api/video/video_stream_encoder_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-05-08T08:41:41Z",
+      "side": 1,
+      "message": "I think there should be a comment explaining the role and usage of the class here. From the perspective of API users.",
+      "revId": "cb5fca4e859acce50f367f877a582ce5ab95667e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c76d26b_c31e0176",
+        "filename": "api/video/video_stream_encoder_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-05-08T08:41:41Z",
+      "side": 1,
+      "message": "Why isn\u0027t this part of the config?",
+      "range": {
+        "startLine": 81,
+        "startChar": 6,
+        "endLine": 81,
+        "endChar": 29
+      },
+      "revId": "cb5fca4e859acce50f367f877a582ce5ab95667e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ea9c6d0_1a7ad194",
+        "filename": "video/video_stream_encoder.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-05-08T08:41:41Z",
+      "side": 1,
+      "message": "I think it\u0027s good to make this more descriptive. Maybe it\u0027d make sense to add \"Video\" as well, to more clearly disambiguate with observers of BitrateAllocator? Or possibly SetLayerBitrateObserver since we are, afaik, talking about video layers here, and not just any video stream (It won\u0027t be used to allocate rate between camera capture and screen capture)\n\nMight make sense as a separate CL.",
+      "range": {
+        "startLine": 77,
+        "startChar": 7,
+        "endLine": 77,
+        "endChar": 35
+      },
+      "revId": "cb5fca4e859acce50f367f877a582ce5ab95667e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

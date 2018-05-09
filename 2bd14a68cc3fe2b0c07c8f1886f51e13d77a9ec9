@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "6eb8f248_95f044d1",
+        "filename": "modules/video_coding/codecs/vp9/svc_config.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 6680
+      },
+      "writtenOn": "2018-05-09T16:02:00Z",
+      "side": 1,
+      "message": "Moving the variable, kMinVP9SVCVideoBitRateKbps, is a good idea.  It seems that moving it to vp9_globals.h would be consistent with the definitions of other similar variables (e.g., kMinVp9SpatialLayerWidth and kMinVp9SpatialLayerHeight).",
+      "parentUuid": "98608718_01a222c1",
+      "range": {
+        "startLine": 55,
+        "startChar": 14,
+        "endLine": 55,
+        "endChar": 40
+      },
+      "revId": "2bd14a68cc3fe2b0c07c8f1886f51e13d77a9ec9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ff36ef83_ea4811e2",
         "filename": "modules/video_coding/codecs/vp9/svc_config.cc",
         "patchSetId": 1

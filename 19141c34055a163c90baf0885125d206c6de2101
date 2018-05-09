@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "cc41c2df_e9e67ebc",
+        "filename": "modules/audio_processing/agc2/rnn_vad/common.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-05-09T11:41:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "592944f5_aa324d04",
+      "range": {
+        "startLine": 59,
+        "startChar": 40,
+        "endLine": 59,
+        "endChar": 51
+      },
+      "revId": "19141c34055a163c90baf0885125d206c6de2101",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aafd199e_e446e752",
         "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2018-05-04T09:02:11Z",
       "side": 1,
       "message": "I thought arrays were always better if the size is known. And that stack is in most cases better than heap, because the program doesn\u0027t have to follow a pointer.",
+      "range": {
+        "startLine": 17,
+        "startChar": 34,
+        "endLine": 17,
+        "endChar": 57
+      },
+      "revId": "19141c34055a163c90baf0885125d206c6de2101",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "41a24f1d_b218523f",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-05-09T11:41:50Z",
+      "side": 1,
+      "message": "We had a short discussion offline, but also have a look at https://github.com/abseil/abseil-cpp/blob/master/absl/container/fixed_array.h#L19",
+      "parentUuid": "aafd199e_e446e752",
       "range": {
         "startLine": 17,
         "startChar": 34,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "157e70a8_02916642",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-05-09T11:41:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9603ce67_6ce6201b",
+      "range": {
+        "startLine": 83,
+        "startChar": 2,
+        "endLine": 83,
+        "endChar": 7
+      },
+      "revId": "19141c34055a163c90baf0885125d206c6de2101",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0390596a_b71b654f",
         "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.cc",
         "patchSetId": 3
@@ -91,6 +163,30 @@
       "revId": "19141c34055a163c90baf0885125d206c6de2101",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e40a652_352ebcb4",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-05-09T11:41:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0390596a_b71b654f",
+      "range": {
+        "startLine": 116,
+        "startChar": 7,
+        "endLine": 116,
+        "endChar": 13
+      },
+      "revId": "19141c34055a163c90baf0885125d206c6de2101",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "a66b6460_80945d94",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-05-09T11:41:50Z",
+      "side": 1,
+      "message": "Very good suggestion! Thanks!\nI struggled while deciding between adding SpectralFeaturesView or SpectralFeatures.\nI opted for the first to avoid unnecessary copies of the spectral features into the RNN VAD feature vector. Feel free to suggest alternative options.",
+      "parentUuid": "eae03677_de4ef8db",
+      "range": {
+        "startLine": 40,
+        "startChar": 5,
+        "endLine": 40,
+        "endChar": 12
+      },
+      "revId": "19141c34055a163c90baf0885125d206c6de2101",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cafaad98_e51f8d74",
         "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.h",
         "patchSetId": 3
@@ -137,6 +257,30 @@
       "revId": "19141c34055a163c90baf0885125d206c6de2101",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7290cab_9a826457",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-05-09T11:41:50Z",
+      "side": 1,
+      "message": "This is rather large and there is also lagged_frame_fft_, so better avoid std::array to reduce the stack size.\nAlso, in the future this type might be replaced with another one (e.g., aligned memory vector) tied to the specific FFT that is being used.",
+      "parentUuid": "cafaad98_e51f8d74",
+      "range": {
+        "startLine": 64,
+        "startChar": 7,
+        "endLine": 64,
+        "endChar": 13
+      },
+      "revId": "19141c34055a163c90baf0885125d206c6de2101",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

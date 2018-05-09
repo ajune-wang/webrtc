@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "98608718_01a222c1",
+        "filename": "modules/video_coding/codecs/vp9/svc_config.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-05-09T06:42:14Z",
+      "side": 1,
+      "message": "Move to anonymous namespace (see how kSpatialLayeringRateScalingFactor in declared in svc_rate_allocator.cc).",
+      "range": {
+        "startLine": 55,
+        "startChar": 14,
+        "endLine": 55,
+        "endChar": 40
+      },
+      "revId": "2bd14a68cc3fe2b0c07c8f1886f51e13d77a9ec9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33133bd9_12fae606",
+        "filename": "modules/video_coding/codecs/vp9/svc_config.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-05-09T06:42:14Z",
+      "side": 1,
+      "message": "search \"Bitrate\": 5954\nsearch \"BitRate\": 115\n\"Bitrate\" would be more consistent with the rest of codebase.",
+      "range": {
+        "startLine": 55,
+        "startChar": 29,
+        "endLine": 55,
+        "endChar": 36
+      },
+      "revId": "2bd14a68cc3fe2b0c07c8f1886f51e13d77a9ec9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff36ef83_ea4811e2",
+        "filename": "modules/video_coding/codecs/vp9/svc_config.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-05-09T06:42:14Z",
+      "side": 1,
+      "message": "spatial_layer.minBitrate \u003d std::max(min_bit_rate, kMinVP9SVCVideoBitRateKbps);",
+      "range": {
+        "startLine": 58,
+        "startChar": 4,
+        "endLine": 60,
+        "endChar": 44
+      },
+      "revId": "2bd14a68cc3fe2b0c07c8f1886f51e13d77a9ec9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85d14d6f_2684827d",
+        "filename": "modules/video_coding/codecs/vp9/svc_config.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-05-09T06:42:14Z",
+      "side": 1,
+      "message": "search \"bitrate\": 9786\nsearch \"bit_rate\": 95\n\"bitrate\" would be more consistent with the rest of codebase.",
+      "range": {
+        "startLine": 60,
+        "startChar": 35,
+        "endLine": 60,
+        "endChar": 43
+      },
+      "revId": "2bd14a68cc3fe2b0c07c8f1886f51e13d77a9ec9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

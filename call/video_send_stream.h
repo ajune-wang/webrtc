@@ -21,6 +21,7 @@
 #include "api/rtp_headers.h"
 #include "api/videosinkinterface.h"
 #include "api/videosourceinterface.h"
+#include "api/video/video_degradation_preference.h"
 #include "api/video_codecs/video_encoder_factory.h"
 #include "call/rtp_config.h"
 #include "call/video_config.h"
@@ -266,22 +267,7 @@ class VideoSendStream {
   // When a stream is stopped, it can't receive, process or deliver packets.
   virtual void Stop() = 0;
 
-  // Based on the spec in
-  // https://w3c.github.io/webrtc-pc/#idl-def-rtcdegradationpreference.
-  // These options are enforced on a best-effort basis. For instance, all of
-  // these options may suffer some frame drops in order to avoid queuing.
-  // TODO(sprang): Look into possibility of more strictly enforcing the
-  // maintain-framerate option.
-  enum class DegradationPreference {
-    // Don't take any actions based on over-utilization signals.
-    kDegradationDisabled,
-    // On over-use, request lower frame rate, possibly causing frame drops.
-    kMaintainResolution,
-    // On over-use, request lower resolution, possibly causing down-scaling.
-    kMaintainFramerate,
-    // Try to strike a "pleasing" balance between frame rate or resolution.
-    kBalanced,
-  };
+  using DegradationPreference = VideoDegradationPreference;
 
   virtual void SetSource(
       rtc::VideoSourceInterface<webrtc::VideoFrame>* source,

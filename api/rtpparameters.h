@@ -66,6 +66,8 @@ enum class DtxStatus {
   ENABLED,
 };
 
+// TODO(nisse): Deprecated, use VideoDegradationPreference instead,
+// declared in api/video/video_degradation_preference.h.
 enum class DegradationPreference {
   MAINTAIN_FRAMERATE,
   MAINTAIN_RESOLUTION,

@@ -49,7 +49,6 @@ class SimulcastRateAllocatorTest : public ::testing::TestWithParam<bool> {
   SimulcastRateAllocatorTest() {
     memset(&codec_, 0, sizeof(VideoCodec));
     codec_.minBitrate = kMinBitrateKbps;
-    codec_.targetBitrate = kTargetBitrateKbps;
     codec_.maxBitrate = kMaxBitrateKbps;
     codec_.active = true;
     CreateAllocator();
@@ -514,7 +513,6 @@ class ScreenshareRateAllocationTest : public SimulcastRateAllocatorTest {
       codec_.simulcastStream[0].active = active;
     } else {
       codec_.numberOfSimulcastStreams = 0;
-      codec_.targetBitrate = kTargetBitrateKbps;
       codec_.VP8()->numberOfTemporalLayers = 2;
       codec_.active = active;
     }

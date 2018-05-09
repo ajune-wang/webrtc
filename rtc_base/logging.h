@@ -58,7 +58,7 @@
 #include "rtc_base/basictypes.h"
 #include "rtc_base/constructormagic.h"
 #include "rtc_base/deprecation.h"
-#include "rtc_base/system/no_inline.h"
+#include "rtc_base/system/inline.h"
 #include "rtc_base/thread_annotations.h"
 
 #if !defined(NDEBUG) || defined(DLOG_ALWAYS_ON)
@@ -119,6 +119,212 @@ class LogSink {
   virtual ~LogSink() {}
   virtual void OnLogMessage(const std::string& message) = 0;
 };
+
+namespace webrtc_logging_impl {
+
+class LogMetadata {
+ public:
+  LogMetadata(const char* file, int line, LoggingSeverity severity)
+      : file_(file),
+        line_and_sev_(static_cast<uint32_t>(line) << 3 | severity) {}
+  const char* File() const { return file_; }
+  int Line() const { return line_and_sev_ >> 3; }
+  LoggingSeverity Severity() const {
+    return static_cast<LoggingSeverity>(line_and_sev_ & 0x7);
+  }
+
+ private:
+  // We need this constructor in order for this class to be trivial, which is
+  // necessary since we want to use it as a variadic argument.
+  LogMetadata() = default;
+
+  const char* file_;
+  uint32_t line_and_sev_;
+};
+static_assert(std::is_trivial<LogMetadata>::value, "");
+
+struct LogMetadataErr {
+  LogMetadata meta;
+  LogErrorContext err_ctx;
+  int err;
+};
+
+#ifdef WEBRTC_ANDROID
+struct LogMetadataTag {
+  LoggingSeverity severity;
+  const char* tag;
+};
+#endif
+
+enum class LogArgType : int8_t {
+  kEnd = 0,
+  kInt,
+  kLong,
+  kLongLong,
+  kUInt,
+  kULong,
+  kULongLong,
+  kDouble,
+  kLongDouble,
+  kCharP,
+  kStdString,
+  // TODO(kwiberg): Add absl::StringView.
+  kVoidP,
+  kLogMetadata,
+  kLogMetadataErr,
+#ifdef WEBRTC_ANDROID
+  kLogMetadataTag,
+#endif
+};
+
+// Wrapper for log arguments. Only ever make values of this type with the
+// MakeVal() functions.
+template <LogArgType N, typename T>
+struct Val {
+  static constexpr LogArgType Type() { return N; }
+  T val;
+};
+
+inline Val<LogArgType::kInt, int> MakeVal(int x) {
+  return {x};
+}
+inline Val<LogArgType::kLong, long> MakeVal(long x) {
+  return {x};
+}
+inline Val<LogArgType::kLongLong, long long> MakeVal(long long x) {
+  return {x};
+}
+inline Val<LogArgType::kUInt, unsigned int> MakeVal(unsigned int x) {
+  return {x};
+}
+inline Val<LogArgType::kULong, unsigned long> MakeVal(unsigned long x) {
+  return {x};
+}
+inline Val<LogArgType::kULongLong, unsigned long long> MakeVal(
+    unsigned long long x) {
+  return {x};
+}
+
+inline Val<LogArgType::kDouble, double> MakeVal(double x) {
+  return {x};
+}
+inline Val<LogArgType::kLongDouble, long double> MakeVal(long double x) {
+  return {x};
+}
+
+inline Val<LogArgType::kCharP, const char*> MakeVal(const char* x) {
+  return {x};
+}
+inline Val<LogArgType::kStdString, const std::string*> MakeVal(
+    const std::string& x) {
+  return {&x};
+}
+// TODO(kwiberg): Add absl::string_view
+
+inline Val<LogArgType::kVoidP, const void*> MakeVal(const void* x) {
+  return {x};
+}
+
+inline Val<LogArgType::kLogMetadata, LogMetadata> MakeVal(
+    const LogMetadata& x) {
+  return {x};
+}
+inline Val<LogArgType::kLogMetadataErr, LogMetadataErr> MakeVal(
+    const LogMetadataErr& x) {
+  return {x};
+}
+
+#ifdef WEBRTC_ANDROID
+inline Val<LogArgType::kLogMetadataTag, LogMetadataTag> MakeVal(
+    const LogMetadataTag& x) {
+  return {x};
+}
+#endif
+
+void Log(const LogArgType* fmt, ...);
+
+// Ephemeral type that represents the result of the logging << operator.
+template <typename... Ts>
+class LogStreamer;
+
+// Base case: Before the first << argument.
+template <>
+class LogStreamer<> final {
+ public:
+  template <
+      typename U,
+      typename std::enable_if<std::is_arithmetic<U>::value>::type* = nullptr>
+  RTC_FORCE_INLINE LogStreamer<decltype(MakeVal(std::declval<U>()))> operator<<(
+      U arg) const {
+    return LogStreamer<decltype(MakeVal(std::declval<U>()))>(MakeVal(arg),
+                                                             this);
+  }
+
+  template <
+      typename U,
+      typename std::enable_if<!std::is_arithmetic<U>::value>::type* = nullptr>
+  RTC_FORCE_INLINE LogStreamer<decltype(MakeVal(std::declval<U>()))> operator<<(
+      const U& arg) const {
+    return LogStreamer<decltype(MakeVal(std::declval<U>()))>(MakeVal(arg),
+                                                             this);
+  }
+
+  template <typename... Us>
+  RTC_FORCE_INLINE static void Call(const Us&... args) {
+    static constexpr LogArgType t[] = {Us::Type()..., LogArgType::kEnd};
+    Log(t, args.val...);
+  }
+};
+
+// Inductive case: We've already seen at least one << argument. The most recent
+// one had type `T`, and the earlier ones had types `Ts`.
+template <typename T, typename... Ts>
+class LogStreamer<T, Ts...> final {
+ public:
+  RTC_FORCE_INLINE LogStreamer(T arg, const LogStreamer<Ts...>* prior)
+      : arg_(arg), prior_(prior) {}
+
+  template <
+      typename U,
+      typename std::enable_if<std::is_arithmetic<U>::value>::type* = nullptr>
+  RTC_FORCE_INLINE LogStreamer<decltype(MakeVal(std::declval<U>())), T, Ts...>
+  operator<<(U arg) const {
+    return LogStreamer<decltype(MakeVal(std::declval<U>())), T, Ts...>(
+        MakeVal(arg), this);
+  }
+
+  template <
+      typename U,
+      typename std::enable_if<!std::is_arithmetic<U>::value>::type* = nullptr>
+  RTC_FORCE_INLINE LogStreamer<decltype(MakeVal(std::declval<U>())), T, Ts...>
+  operator<<(const U& arg) const {
+    return LogStreamer<decltype(MakeVal(std::declval<U>())), T, Ts...>(
+        MakeVal(arg), this);
+  }
+
+  template <typename... Us>
+  RTC_FORCE_INLINE void Call(const Us&... args) const {
+    prior_->Call(arg_, args...);
+  }
+
+ private:
+  // The most recent argument.
+  T arg_;
+
+  // Earlier arguments.
+  const LogStreamer<Ts...>* prior_;
+};
+
+class LogCall final {
+ public:
+  // This can be any binary operator with precedence lower than <<.
+  template <typename... Ts>
+  RTC_FORCE_INLINE void operator&(const LogStreamer<Ts...>& streamer) {
+    streamer.Call();
+  }
+};
+
+}  // namespace webrtc_logging_impl
 
 class LogMessage {
  public:
@@ -269,39 +475,25 @@ class LogMessage {
 // Logging Helpers
 //////////////////////////////////////////////////////////////////////
 
-// The following non-obvious technique for implementation of a
-// conditional log stream was stolen from google3/base/logging.h.
+// DEPRECATED.
+#define RTC_LOG_SEVERITY_PRECONDITION(sev)                                   \
+  for (bool do_log = rtc::LogMessage::Loggable(sev); do_log; do_log = false) \
+  rtc::webrtc_logging_impl::LogCall()&
 
-// This class is used to explicitly ignore values in the conditional
-// logging macros.  This avoids compiler warnings like "value computed
-// is not used" and "statement has no effect".
+#define RTC_LOG(sev)                                                   \
+  for (bool do_log = rtc::LogMessage::Loggable<rtc::sev>(); do_log;    \
+       do_log = false)                                                 \
+  rtc::webrtc_logging_impl::LogCall() &                                \
+      rtc::webrtc_logging_impl::LogStreamer<>()                        \
+          << rtc::webrtc_logging_impl::LogMetadata(__FILE__, __LINE__, \
+                                                   rtc::sev)
 
-class LogMessageVoidify {
- public:
-  LogMessageVoidify() { }
-  // This has to be an operator with a precedence lower than << but
-  // higher than ?:
-  void operator&(std::ostream&) { }
-};
-
-#define RTC_LOG_SEVERITY_PRECONDITION(sev) \
-  !(rtc::LogMessage::Loggable(sev)) \
-    ? (void) 0 \
-    : rtc::LogMessageVoidify() &
-
-#define RTC_LOG_SEVERITY_PRECONDITION_C(sev) \
-  !(rtc::LogMessage::Loggable<rtc::sev>()) ? (void)0 : rtc::LogMessageVoidify()&
-#define RTC_LOG(sev)                                                        \
-  RTC_LOG_SEVERITY_PRECONDITION_C(sev)                                      \
-  rtc::LogMessage(__FILE__, __LINE__,                                       \
-                  std::integral_constant<rtc::LoggingSeverity, rtc::sev>()) \
-      .stream()
-
-// The _V version is for when a variable is passed in.  It doesn't do the
-// namespace concatenation.
-#define RTC_LOG_V(sev) \
-  RTC_LOG_SEVERITY_PRECONDITION(sev) \
-    rtc::LogMessage(__FILE__, __LINE__, sev).stream()
+// The _V version is for when a variable is passed in.
+#define RTC_LOG_V(sev)                                                       \
+  for (bool do_log = rtc::LogMessage::Loggable(sev); do_log; do_log = false) \
+  rtc::webrtc_logging_impl::LogCall() &                                      \
+      rtc::webrtc_logging_impl::LogStreamer<>()                              \
+          << rtc::webrtc_logging_impl::LogMetadata(__FILE__, __LINE__, sev)
 
 // The _F version prefixes the message with the current function name.
 #if (defined(__GNUC__) && !defined(NDEBUG)) || defined(WANT_PRETTY_LOG_F)
@@ -322,11 +514,14 @@ inline bool LogCheckLevel(LoggingSeverity sev) {
   return (LogMessage::GetMinLogSeverity() <= sev);
 }
 
-#define RTC_LOG_E(sev, ctx, err, ...)                                   \
-  RTC_LOG_SEVERITY_PRECONDITION_C(sev)                                  \
-  rtc::LogMessage(__FILE__, __LINE__, rtc::sev, rtc::ERRCTX_##ctx, err, \
-                  ##__VA_ARGS__)                                        \
-      .stream()
+#define RTC_LOG_E(sev, ctx, err)                                    \
+  for (bool do_log = rtc::LogMessage::Loggable<rtc::sev>(); do_log; \
+       do_log = false)                                              \
+    rtc::webrtc_logging_impl::LogCall() &                           \
+        rtc::webrtc_logging_impl::LogStreamer<>()                   \
+            << rtc::webrtc_logging_impl::LogMetadataErr {           \
+      {__FILE__, __LINE__, rtc::sev}, rtc::ERRCTX_##ctx, (err)      \
+    }
 
 #define RTC_LOG_T(sev) RTC_LOG(sev) << this << ": "
 
@@ -356,20 +551,27 @@ inline bool LogCheckLevel(LoggingSeverity sev) {
   RTC_LOG_ERRNO(sev)
 #endif  // WEBRTC_WIN
 
-#if defined(WEBRTC_ANDROID)
-namespace internal {
-// Inline adapters provided for backwards compatibility for downstream projects.
+#ifdef WEBRTC_ANDROID
+
+namespace webrtc_logging_impl {
+// TODO(kwiberg): Replace these with absl::string_view.
 inline const char* AdaptString(const char* str) { return str; }
 inline const char* AdaptString(const std::string& str) { return str.c_str(); }
-}  // namespace internal
-#define RTC_LOG_TAG(sev, tag)        \
-  RTC_LOG_SEVERITY_PRECONDITION(sev) \
-  rtc::LogMessage(nullptr, 0, sev, rtc::internal::AdaptString(tag)).stream()
+}  // namespace webrtc_logging_impl
+
+#define RTC_LOG_TAG(sev, tag)                                                \
+  for (bool do_log = rtc::LogMessage::Loggable(sev); do_log; do_log = false) \
+    rtc::webrtc_logging_impl::LogCall() &                                    \
+        rtc::webrtc_logging_impl::LogStreamer<>()                            \
+            << rtc::webrtc_logging_impl::LogMetadataTag {                    \
+      sev, rtc::webrtc_logging_impl::AdaptString(tag)                        \
+    }
+
 #else
+
 // DEPRECATED. This macro is only intended for Android.
-#define RTC_LOG_TAG(sev, tag)        \
-  RTC_LOG_SEVERITY_PRECONDITION(sev) \
-  rtc::LogMessage(nullptr, 0, sev).stream()
+#define RTC_LOG_TAG(sev, tag) RTC_LOG_V(sev)
+
 #endif
 
 // The RTC_DLOG macros are equivalent to their RTC_LOG counterparts except that
@@ -379,11 +581,11 @@ inline const char* AdaptString(const std::string& str) { return str.c_str(); }
 #define RTC_DLOG_V(sev) RTC_LOG_V(sev)
 #define RTC_DLOG_F(sev) RTC_LOG_F(sev)
 #else
-#define RTC_DLOG_EAT_STREAM_PARAMS(sev) \
-  (true ? true : ((void)(sev), true))   \
-      ? static_cast<void>(0)            \
-      : rtc::LogMessageVoidify() &      \
-            rtc::LogMessage(__FILE__, __LINE__, sev).stream()
+#define RTC_DLOG_EAT_STREAM_PARAMS(sev)             \
+  for (bool do_log = false; do_log; do_log = false) \
+  rtc::webrtc_logging_impl::LogCall() &             \
+      rtc::webrtc_logging_impl::LogStreamer<>()     \
+          << rtc::webrtc_logging_impl::LogMetadata(__FILE__, __LINE__, sev)
 #define RTC_DLOG(sev) RTC_DLOG_EAT_STREAM_PARAMS(rtc::sev)
 #define RTC_DLOG_V(sev) RTC_DLOG_EAT_STREAM_PARAMS(sev)
 #define RTC_DLOG_F(sev) RTC_DLOG_EAT_STREAM_PARAMS(rtc::sev)

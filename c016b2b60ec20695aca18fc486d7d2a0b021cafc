@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "978a9d9b_9b29b230",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 7
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-05-09T11:43:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "345b1991_d55be736",
+      "range": {
+        "startLine": 48,
+        "startChar": 14,
+        "endLine": 48,
+        "endChar": 35
+      },
+      "revId": "c016b2b60ec20695aca18fc486d7d2a0b021cafc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "131eec2d_a71a3d2d",
         "filename": "sdk/android/BUILD.gn",
         "patchSetId": 7
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "5dad2fd1_dc13d32d",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 7
+      },
+      "lineNbr": 560,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-05-09T11:43:28Z",
+      "side": 1,
+      "message": "That would create more of the dependency issues we\u0027ve been trying to avoid, since these files depend on sdk/android. Rather than work on solving it I think we should keep them here, as we will be moving the Java code here soon.",
+      "parentUuid": "131eec2d_a71a3d2d",
+      "range": {
+        "startLine": 560,
+        "startChar": 4,
+        "endLine": 560,
+        "endChar": 34
+      },
+      "revId": "c016b2b60ec20695aca18fc486d7d2a0b021cafc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dccd7f0d_42b39763",
         "filename": "sdk/android/BUILD.gn",
         "patchSetId": 7
@@ -68,6 +116,30 @@
       "revId": "c016b2b60ec20695aca18fc486d7d2a0b021cafc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7741d448_29899086",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 7
+      },
+      "lineNbr": 988,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-05-09T11:43:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dccd7f0d_42b39763",
+      "range": {
+        "startLine": 988,
+        "startChar": 21,
+        "endLine": 988,
+        "endChar": 33
+      },
+      "revId": "c016b2b60ec20695aca18fc486d7d2a0b021cafc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

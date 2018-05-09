@@ -62,6 +62,7 @@ rtc_static_library("video") {
     "../api:libjingle_peerconnection_api",
     "../api:optional",
     "../api:transport_api",
+    "../api:video_bitrate_allocation",
     "../api:video_frame_api",
     "../api:video_frame_api_i420",
     "../api/video_codecs:video_codecs_api",

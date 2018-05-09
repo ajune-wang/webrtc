@@ -11,7 +11,8 @@
 #ifndef MODULES_VIDEO_CODING_UTILITY_DEFAULT_VIDEO_BITRATE_ALLOCATOR_H_
 #define MODULES_VIDEO_CODING_UTILITY_DEFAULT_VIDEO_BITRATE_ALLOCATOR_H_
 
-#include "common_video/include/video_bitrate_allocator.h"
+#include "api/video/video_bitrate_allocator.h"
+#include "common_types.h"
 
 namespace webrtc {
 

@@ -15,7 +15,8 @@
 
 #include <vector>
 
-#include "common_video/include/video_bitrate_allocator.h"
+#include "api/video/video_bitrate_allocator.h"
+#include "common_types.h"
 
 namespace webrtc {
 

@@ -348,6 +348,7 @@ rtc_source_set("video_bitrate_allocation") {
   sources = [
     "video/video_bitrate_allocation.cc",
     "video/video_bitrate_allocation.h",
+    "video/video_bitrate_allocator.h",
   ]
   deps = [
     ":optional",

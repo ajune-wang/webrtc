@@ -31,6 +31,10 @@ struct EchoCanceller3Config {
     size_t skew_hysteresis_blocks = 1;
   } delay;
 
+  struct ExternalDelay {
+    size_t headroom = 2;
+  } external_delay;
+
   struct Filter {
     struct MainConfiguration {
       size_t length_blocks;

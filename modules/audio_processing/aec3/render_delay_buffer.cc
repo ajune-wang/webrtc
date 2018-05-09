@@ -30,9 +30,9 @@
 namespace webrtc {
 namespace {
 
-bool EnableZeroExternalDelayHeadroom() {
+bool EnableExternalDelayHeadroom() {
   return !field_trial::IsEnabled(
-      "WebRTC-Aec3ZeroExternalDelayHeadroomKillSwitch");
+      "WebRTC-Aec3UseExternalDelayHeadroomKillSwitch");
 }
 
 class RenderDelayBufferImpl final : public RenderDelayBuffer {
@@ -63,7 +63,7 @@ class RenderDelayBufferImpl final : public RenderDelayBuffer {
   std::unique_ptr<ApmDataDumper> data_dumper_;
   const Aec3Optimization optimization_;
   const EchoCanceller3Config config_;
-  const bool use_zero_external_delay_headroom_;
+  const bool use_external_delay_headroom_;
   const int sub_block_size_;
   MatrixBuffer blocks_;
   VectorBuffer spectra_;
@@ -168,7 +168,7 @@ RenderDelayBufferImpl::RenderDelayBufferImpl(const EchoCanceller3Config& config,
           new ApmDataDumper(rtc::AtomicOps::Increment(&instance_count_))),
       optimization_(DetectOptimization()),
       config_(config),
-      use_zero_external_delay_headroom_(EnableZeroExternalDelayHeadroom()),
+      use_external_delay_headroom_(EnableExternalDelayHeadroom()),
       sub_block_size_(
           static_cast<int>(config.delay.down_sampling_factor > 0
                                ? kBlockSize / config.delay.down_sampling_factor
@@ -211,13 +211,9 @@ void RenderDelayBufferImpl::Reset() {
 
   // Check for any external audio buffer delay and whether it is feasible.
   if (external_audio_buffer_delay_) {
-    const size_t headroom = use_zero_external_delay_headroom_ ? 0 : 2;
-    size_t external_delay_to_set = 0;
-    if (*external_audio_buffer_delay_ < headroom) {
-      external_delay_to_set = 0;
-    } else {
-      external_delay_to_set = *external_audio_buffer_delay_ - headroom;
-    }
+    const size_t headroom =
+        use_external_delay_headroom_ ? config_.external_delay.headroom : 0;
+    size_t external_delay_to_set = *external_audio_buffer_delay_ + headroom;
 
     external_delay_to_set = std::min(external_delay_to_set, MaxDelay());
 
@@ -380,8 +376,8 @@ void RenderDelayBufferImpl::SetAudioBufferDelay(size_t delay_ms) {
         << " ms.";
   }
 
-  // Convert delay from milliseconds to blocks (rounded down).
-  external_audio_buffer_delay_ = delay_ms / 4;
+  // Convert delay from milliseconds to blocks (rounded up).
+  external_audio_buffer_delay_ = (delay_ms + 3) / 4;
 }
 
 // Maps the externally computed delay to the delay used internally.

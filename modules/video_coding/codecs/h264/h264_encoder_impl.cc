@@ -239,10 +239,7 @@ int32_t H264EncoderImpl::InitEncode(const VideoCodec* codec_settings,
 
   // Codec_settings uses kbits/second; encoder uses bits/second.
   max_bps_ = codec_settings->maxBitrate * 1000;
-  if (codec_settings->targetBitrate == 0)
-    target_bps_ = codec_settings->startBitrate * 1000;
-  else
-    target_bps_ = codec_settings->targetBitrate * 1000;
+  target_bps_ = codec_settings->startBitrate * 1000;
 
   SEncParamExt encoder_params = CreateEncoderParams();
 

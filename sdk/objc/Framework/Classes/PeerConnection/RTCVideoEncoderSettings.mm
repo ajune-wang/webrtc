@@ -22,7 +22,6 @@
 @synthesize startBitrate = _startBitrate;
 @synthesize maxBitrate = _maxBitrate;
 @synthesize minBitrate = _minBitrate;
-@synthesize targetBitrate = _targetBitrate;
 @synthesize maxFramerate = _maxFramerate;
 @synthesize qpMax = _qpMax;
 @synthesize mode = _mode;
@@ -38,7 +37,6 @@
       _startBitrate = videoCodec->startBitrate;
       _maxBitrate = videoCodec->maxBitrate;
       _minBitrate = videoCodec->minBitrate;
-      _targetBitrate = videoCodec->targetBitrate;
       _maxFramerate = videoCodec->maxFramerate;
       _qpMax = videoCodec->qpMax;
       _mode = (RTCVideoCodecMode)videoCodec->mode;
@@ -55,7 +53,6 @@
   videoCodec.startBitrate = _startBitrate;
   videoCodec.maxBitrate = _maxBitrate;
   videoCodec.minBitrate = _minBitrate;
-  videoCodec.targetBitrate = _targetBitrate;
   videoCodec.maxBitrate = _maxBitrate;
   videoCodec.qpMax = _qpMax;
   videoCodec.mode = (webrtc::VideoCodecMode)_mode;

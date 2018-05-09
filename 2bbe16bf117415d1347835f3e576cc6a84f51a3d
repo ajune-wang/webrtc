@@ -212,6 +212,24 @@
     },
     {
       "key": {
+        "uuid": "45b34532_af082eda",
+        "filename": "p2p/client/basicportallocator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2222,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-09T23:08:40Z",
+      "side": 1,
+      "message": "Don\u0027t worry about explicitly removing the STUN server; it just doesn\u0027t need to be explicitly added, since it\u0027s not really relevant to the test.",
+      "parentUuid": "ae500c03_8a4a78f0",
+      "revId": "2bbe16bf117415d1347835f3e576cc6a84f51a3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e27e93a8_c636aada",
         "filename": "p2p/client/basicportallocator_unittest.cc",
         "patchSetId": 3
@@ -385,6 +403,24 @@
       "revId": "2bbe16bf117415d1347835f3e576cc6a84f51a3d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "05dd5631_4c07d438",
+        "filename": "rtc_base/network.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-09T23:08:40Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "69e7a864_e421511c",
+      "revId": "2bbe16bf117415d1347835f3e576cc6a84f51a3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

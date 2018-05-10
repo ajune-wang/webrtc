@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "59f4b553_787c1f75",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-10T20:21:17Z",
+      "side": 1,
+      "message": "nit: Would prefer if this message were more detailed; someone without context may not understand what\u0027s going on here (\"Why does it no longer need to depend on internal factories? Why was it in the first place?\"). Could give an explanation like:\n\nPreviously, constructing a PeerConnection or WebRtcVideoEngine with fake encoder/decoder factories would result in the real, built-in factories also being used. In https://webrtc-review.googlesource.com/c/src/+/71162, this changed, so to temporarily allow tests to continue working exactly the same as before, the fake factories started encapsulating the real factories. This CL removes that behavior and updates the tests accordingly...",
+      "revId": "afb073fc2b705b0b898ab7b8778b663603bfd3a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14e4768c_fe1f6f13",
+        "filename": "media/engine/fakewebrtcvideoengine.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-10T20:21:17Z",
+      "side": 1,
+      "message": "nit: I think it would be better if this were empty by default, requiring tests to explicitly add the formats it wants the fake factory to advertise support for and thus making the test assumptions more explicit.",
+      "revId": "afb073fc2b705b0b898ab7b8778b663603bfd3a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "493849b6_c8617287",
+        "filename": "media/engine/webrtcvideoengine_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-10T20:21:17Z",
+      "side": 1,
+      "message": "At some point, the references to \"external\"/\"internal\" factories in this file should be removed, since now there\u0027s just one factory. For example, \"SetUpForExternalEncoderFactory\" is really now just \"SetSendParamsWithAllSupportedCodecs\"",
+      "revId": "afb073fc2b705b0b898ab7b8778b663603bfd3a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

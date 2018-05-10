@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a2cb8477_718f1960",
+        "filename": "sdk/BUILD.gn",
+        "patchSetId": 5
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-05-10T08:49:27Z",
+      "side": 1,
+      "message": "We only need one of these. Put all the targets into the top is_ios block",
+      "range": {
+        "startLine": 123,
+        "startChar": 8,
+        "endLine": 123,
+        "endChar": 14
+      },
+      "revId": "400074b03b95f639060af3d4901f572b08b00139",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

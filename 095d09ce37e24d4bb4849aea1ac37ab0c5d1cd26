@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1f465d6a_9ffd870b",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-10T20:42:49Z",
+      "side": 1,
+      "message": "Why does this need to be in its own source set?",
+      "revId": "095d09ce37e24d4bb4849aea1ac37ab0c5d1cd26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d570403_45900cd6",
+        "filename": "api/rtpparameters.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-10T20:42:49Z",
+      "side": 1,
+      "message": "Not clear what it means to \"use VideoDegradationPreference instead\" since there\u0027s no API point where you can use it.\n\nAlso: How do you plan to replace it? I can imagine doing something like:\n\nenum class VideoDegradationPreference {\n  // Don\u0027t take any actions based on over-utilization signals.\n  kDegradationDisabled \u003d 0,\n  // On over-use, request lower frame rate, possibly causing frame drops.\n  kMaintainResolution,\n  // On over-use, request lower resolution, possibly causing down-scaling.\n  kMaintainFramerate,\n  // Try to strike a \"pleasing\" balance between frame rate or resolution.\n  kBalanced,\n\n  // TODO(nisse): Remove these obsolete names once chromium is updated.\n  MAINTAIN_FRAMERATE \u003d kMaintainFrmerate,\n  MAINTAIN_RESOLUTION \u003d kMaintainResolution,\n  BALANCED \u003d kBalanced\n};\n\n// TODO(nisse): Remove this once chromium is updated.\nusing DegradationPreference \u003d VideoDegradationPreference;",
+      "revId": "095d09ce37e24d4bb4849aea1ac37ab0c5d1cd26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d43a0837_15316320",
+        "filename": "call/video_send_stream.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-10T20:42:49Z",
+      "side": 1,
+      "message": "Could \"VideoSendStream::DegradationPreference\" just be replaced by \"VideoDegradationPreference\" everywhere?",
+      "revId": "095d09ce37e24d4bb4849aea1ac37ab0c5d1cd26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

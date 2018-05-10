@@ -345,11 +345,10 @@ int VP9EncoderImpl::InitEncode(const VideoCodec* inst,
   // TODO(asapersson): Check configuration of temporal switch up and increase
   // pattern length.
   is_flexible_mode_ = inst->VP9().flexibleMode;
-  if (is_flexible_mode_) {
+  if (is_flexible_mode_ && codec_.mode == kScreensharing) {
     config_->temporal_layering_mode = VP9E_TEMPORAL_LAYERING_MODE_BYPASS;
     config_->ts_number_layers = num_temporal_layers_;
-    if (codec_.mode == kScreensharing)
-      spatial_layer_->ConfigureBitrate(inst->startBitrate, 0);
+    spatial_layer_->ConfigureBitrate(inst->startBitrate, 0);
   } else if (num_temporal_layers_ == 1) {
     gof_.SetGofInfoVP9(kTemporalStructureMode1);
     config_->temporal_layering_mode = VP9E_TEMPORAL_LAYERING_MODE_NOLAYERING;
@@ -584,27 +583,20 @@ int VP9EncoderImpl::Encode(const VideoFrame& input_image,
     flags = VPX_EFLAG_FORCE_KF;
   }
 
-  if (is_flexible_mode_) {
-    SuperFrameRefSettings settings;
+  if (is_flexible_mode_ && codec_.mode == kScreensharing) {
+    SuperFrameRefSettings settings = spatial_layer_->GetSuperFrameSettings(
+        input_image.timestamp(), force_key_frame_);
 
-    // These structs are copied when calling vpx_codec_control,
-    // therefore it is ok for them to go out of scope.
-    vpx_svc_ref_frame_config enc_layer_conf;
+    vpx_svc_ref_frame_config enc_layer_conf = GenerateRefsAndFlags(settings);
     vpx_svc_layer_id layer_id;
-
-    if (codec_.mode == kRealtimeVideo) {
-      // Real time video not yet implemented in flexible mode.
-      RTC_NOTREACHED();
-    } else {
-      settings = spatial_layer_->GetSuperFrameSettings(input_image.timestamp(),
-                                                       force_key_frame_);
-    }
-    enc_layer_conf = GenerateRefsAndFlags(settings);
     layer_id.temporal_layer_id = 0;
     layer_id.spatial_layer_id = settings.start_layer;
+
     vpx_codec_control(encoder_, VP9E_SET_SVC_LAYER_ID, &layer_id);
     vpx_codec_control(encoder_, VP9E_SET_SVC_REF_FRAME_CONFIG, &enc_layer_conf);
-  } else if (codec_.mode == kRealtimeVideo && num_spatial_layers_ > 1) {
+  }
+
+  if (!is_flexible_mode_ && num_spatial_layers_ > 1) {
     // In RTP non-flexible mode, frame dropping of individual layers in a
     // superframe leads to incorrect reference picture ID values in the
     // RTP header. Dropping the entire superframe if the base is dropped

@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2934b8fe_238b24d2",
+        "filename": "rtc_base/java/src/org/webrtc/FallbackLogger.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-05-11T11:13:39Z",
+      "side": 1,
+      "message": "nit: Add an empty line before package statement for consistency.",
+      "revId": "958d23d561ed8abd3c1cc4081fe21f9739199d4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ebf371de_4dae1d89",
+        "filename": "rtc_base/java/src/org/webrtc/NativeLogger.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-05-11T11:13:39Z",
+      "side": 1,
+      "message": "nit: empty line",
+      "revId": "958d23d561ed8abd3c1cc4081fe21f9739199d4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12def48d_979ea21c",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 8
+      },
+      "lineNbr": 533,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-05-11T11:13:39Z",
+      "side": 1,
+      "message": "nit: If we define this as its own module, it means we want to be able to use it without PeerConnection API. Therefore, I don\u0027t think it belongs under pc/.",
+      "range": {
+        "startLine": 533,
+        "startChar": 13,
+        "endLine": 533,
+        "endChar": 16
+      },
+      "revId": "958d23d561ed8abd3c1cc4081fe21f9739199d4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2ee0ea9_1e795d49",
+        "filename": "sdk/android/src/jni/pc/native_logger.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-05-11T11:13:39Z",
+      "side": 1,
+      "message": "nit: snake case is used in C++",
+      "range": {
+        "startLine": 24,
+        "startChar": 30,
+        "endLine": 24,
+        "endChar": 44
+      },
+      "revId": "958d23d561ed8abd3c1cc4081fe21f9739199d4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06381c4a_b10323ce",
+        "filename": "sdk/android/src/jni/pc/native_logger.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-05-11T11:13:39Z",
+      "side": 1,
+      "message": "The purpose of this if statement is a bit unclear, could you add a comment?",
+      "range": {
+        "startLine": 25,
+        "startChar": 2,
+        "endLine": 25,
+        "endChar": 4
+      },
+      "revId": "958d23d561ed8abd3c1cc4081fe21f9739199d4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

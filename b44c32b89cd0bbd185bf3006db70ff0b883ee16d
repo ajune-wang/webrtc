@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fe6cd7b3_b7d25f7a",
+        "filename": "modules/video_coding/codecs/vp9/include/vp9_globals.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-05-11T07:19:19Z",
+      "side": 1,
+      "message": "No sure it is good idea to declare it here. It is unlikely this constant will be ever used outside of svc_config.cc. Also, we should use https://en.wikipedia.org/wiki/Camel_case.",
+      "range": {
+        "startLine": 35,
+        "startChar": 10,
+        "endLine": 35,
+        "endChar": 31
+      },
+      "revId": "b44c32b89cd0bbd185bf3006db70ff0b883ee16d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8223c81_9b361961",
+        "filename": "modules/video_coding/codecs/vp9/svc_config.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-05-11T07:19:19Z",
+      "side": 1,
+      "message": "const size_t num_pixels..\nint min_bitrate..\n\nDissonance. Better to use or not use const for both. I vote for const since this var is not supposed to be changed.",
+      "range": {
+        "startLine": 55,
+        "startChar": 4,
+        "endLine": 56,
+        "endChar": 21
+      },
+      "revId": "b44c32b89cd0bbd185bf3006db70ff0b883ee16d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

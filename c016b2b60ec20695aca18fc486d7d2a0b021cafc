@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "1354fe11_070d5f37",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 7
+      },
+      "lineNbr": 560,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-05-11T11:16:36Z",
+      "side": 1,
+      "message": "In this case, I think it makes sense to move it to base_jni because the files will be probably moved to base_java.",
+      "parentUuid": "5dad2fd1_dc13d32d",
+      "range": {
+        "startLine": 560,
+        "startChar": 4,
+        "endLine": 560,
+        "endChar": 34
+      },
+      "revId": "c016b2b60ec20695aca18fc486d7d2a0b021cafc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dccd7f0d_42b39763",
         "filename": "sdk/android/BUILD.gn",
         "patchSetId": 7

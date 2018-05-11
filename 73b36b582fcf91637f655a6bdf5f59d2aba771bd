@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cdbfdf0a_fce6161a",
+        "filename": "modules/audio_coding/neteq/tools/neteq_rtpplay.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-05-11T14:55:59Z",
+      "side": 0,
+      "message": "removed this class since it does not make sense to me to use this class when PacketSource can do it for us.",
+      "range": {
+        "startLine": 229,
+        "startChar": 1,
+        "endLine": 229,
+        "endChar": 2
+      },
+      "revId": "73b36b582fcf91637f655a6bdf5f59d2aba771bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

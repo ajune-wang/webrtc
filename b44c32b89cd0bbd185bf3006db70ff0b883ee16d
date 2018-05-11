@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4a98317e_d4adc575",
+        "filename": "modules/video_coding/codecs/vp9/include/vp9_globals.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 6680
+      },
+      "writtenOn": "2018-05-11T20:02:13Z",
+      "side": 1,
+      "message": "We discussed using variable kMinVideoBitrateBps, which is used for VP8, in lieu of kMinVP9SVCBitrateKbps; however, the variable is not in the dependency of this file. Rather than modifying dependencies, the variable was moved from vp9_globals.h to svc_config.h. Further, as suggested, the variable name was changed to kMinVP9SvcBitrateKbps to be more consistent with the rest of the codebase. Finally, the value was set to 30 kbps to avoid regression from VP8 where at very low bit rates, VP8 would code video, but VP9 would not.",
+      "parentUuid": "fe6cd7b3_b7d25f7a",
+      "range": {
+        "startLine": 35,
+        "startChar": 10,
+        "endLine": 35,
+        "endChar": 31
+      },
+      "revId": "b44c32b89cd0bbd185bf3006db70ff0b883ee16d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f8223c81_9b361961",
         "filename": "modules/video_coding/codecs/vp9/svc_config.cc",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "b44c32b89cd0bbd185bf3006db70ff0b883ee16d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "59c46387_607d3819",
+        "filename": "modules/video_coding/codecs/vp9/svc_config.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 6680
+      },
+      "writtenOn": "2018-05-11T20:02:13Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "f8223c81_9b361961",
+      "range": {
+        "startLine": 55,
+        "startChar": 4,
+        "endLine": 56,
+        "endChar": 21
+      },
+      "revId": "b44c32b89cd0bbd185bf3006db70ff0b883ee16d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

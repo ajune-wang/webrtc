@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1ea16f91_4918b7bf",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-05-11T06:36:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bfb41dab_f7bfbed6",
+      "range": {
+        "startLine": 311,
+        "startChar": 6,
+        "endLine": 311,
+        "endChar": 59
+      },
+      "revId": "2e66a58140211c83aacb5ea8cba822a151514663",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "39e18522_1b2da2dc",
         "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "2e66a58140211c83aacb5ea8cba822a151514663",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b24bd82d_7789b76b",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 713,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-05-11T06:36:03Z",
+      "side": 1,
+      "message": "changed it such that FillReferenceIndices() is called only is flexible mode is enabled.",
+      "parentUuid": "39e18522_1b2da2dc",
+      "range": {
+        "startLine": 713,
+        "startChar": 4,
+        "endLine": 713,
+        "endChar": 32
+      },
+      "revId": "2e66a58140211c83aacb5ea8cba822a151514663",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "378768db_7f46a89c",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 716,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-05-11T06:36:03Z",
+      "side": 1,
+      "message": "Removed L693-5. That comment is not relevant anymore (packetizer sets marker bit based on end_of_picture bit). But there is DCHECK RtpPacketizerVp9::NextPacket() which uses num_spatial_layers. I.e. we need to set it even if ss_data_available is not set.",
+      "parentUuid": "097a096f_9d6182bc",
+      "range": {
+        "startLine": 716,
+        "startChar": 2,
+        "endLine": 716,
+        "endChar": 53
+      },
+      "revId": "2e66a58140211c83aacb5ea8cba822a151514663",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8fc83543_a46ebc84",
         "filename": "modules/video_coding/codecs/vp9/vp9_impl.h",
         "patchSetId": 3
@@ -91,6 +163,30 @@
       "revId": "2e66a58140211c83aacb5ea8cba822a151514663",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf28a38c_d2eb5d15",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-05-11T06:36:03Z",
+      "side": 1,
+      "message": "Done. Thanks.",
+      "parentUuid": "8fc83543_a46ebc84",
+      "range": {
+        "startLine": 85,
+        "startChar": 43,
+        "endLine": 85,
+        "endChar": 54
+      },
+      "revId": "2e66a58140211c83aacb5ea8cba822a151514663",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

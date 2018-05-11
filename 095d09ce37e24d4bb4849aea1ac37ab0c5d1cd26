@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5cb1f22f_75ddbf3f",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-05-11T07:12:06Z",
+      "side": 1,
+      "message": "Maybe not. Would you prefer it in some existing target (which?), or should I create a video_stream_encoder target right away that includes it?\n\nI think this will be used\n\n* In api surface, including creation of VideoStreamEncoder.\n\n* In the implementation of VideoStreamEncoder.\n\n* In internal classes like VideoSendStream, which configure the VideoStreamEncoder.\n\n* In application code, e.g., current use in Chrome, which may pass them in to some top-level webrtc apis.\n\nIt\u0027s a bit unclear which of these will have direct dependencies on each other, which was why maiking it a separate leaf target seemed easiest.",
+      "parentUuid": "1f465d6a_9ffd870b",
+      "revId": "095d09ce37e24d4bb4849aea1ac37ab0c5d1cd26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3d570403_45900cd6",
         "filename": "api/rtpparameters.h",
         "patchSetId": 2
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "9a77d36b_7fb133e2",
+        "filename": "api/rtpparameters.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-05-11T07:12:06Z",
+      "side": 1,
+      "message": "\u003e Not clear what it means to \"use VideoDegradationPreference instead\" since there\u0027s no API point where you can use it.\n\nAlso, I\u0027m a bit confused about the use of the old enum. I see that is is part of RtpParameters, where it was added a year ago, and it is assigned by Chrome. But not used in the implementation, as far as I can find. While the new (which isn\u0027t really new, just moved from call/video_send_stream.h and renamed) is used in VideoStreamEncoder.\n\n\u003e Also: How do you plan to replace it? I can imagine doing something like:\n\nOnly external use I found is in Chrome. So my plan was to land the new enum, change Chrome to use the new one, and then delete the old one. And now I\u0027m getting unsure about how to wire it up in Chrome to really have effect, i.e., reach VideoStreamEncoder.",
+      "parentUuid": "3d570403_45900cd6",
+      "revId": "095d09ce37e24d4bb4849aea1ac37ab0c5d1cd26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d43a0837_15316320",
         "filename": "call/video_send_stream.h",
         "patchSetId": 2
@@ -47,6 +83,24 @@
       "writtenOn": "2018-05-10T20:42:49Z",
       "side": 1,
       "message": "Could \"VideoSendStream::DegradationPreference\" just be replaced by \"VideoDegradationPreference\" everywhere?",
+      "revId": "095d09ce37e24d4bb4849aea1ac37ab0c5d1cd26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90458fd1_d7891d99",
+        "filename": "call/video_send_stream.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-05-11T07:12:06Z",
+      "side": 1,
+      "message": "I can try doing that right away if you prefer. I was thinking of landing the new name first, update any affected downstream applications, and finally delete all old names.",
+      "parentUuid": "d43a0837_15316320",
       "revId": "095d09ce37e24d4bb4849aea1ac37ab0c5d1cd26",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

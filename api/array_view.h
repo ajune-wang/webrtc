@@ -169,13 +169,20 @@ class ArrayView final : public impl::ArrayViewBase<T, Size> {
     RTC_DCHECK_EQ(0, size);
   }
 
-  // Construct an ArrayView from an array.
+  // Construct an ArrayView with fixed size from a C-style array.
   template <typename U, size_t N>
   ArrayView(U (&array)[N])  // NOLINT
       : ArrayView(array, N) {
     static_assert(Size == N || Size == impl::kArrayViewVarSize,
                   "Array size must match ArrayView size");
   }
+
+  // Construct an ArrayView with fixed size from an std::array instance.
+  template <typename U,
+            size_t N,
+            typename std::enable_if<Size != impl::kArrayViewVarSize &&
+                                    Size == N>::type* = nullptr>
+  explicit ArrayView(std::array<U, N>& u) : ArrayView(u.data(), u.size()) {}
 
   // (Only if size is fixed.) Construct an ArrayView from any type U that has a
   // static constexpr size() method whose return value is equal to Size, and a
@@ -190,6 +197,9 @@ class ArrayView final : public impl::ArrayViewBase<T, Size> {
                               HasDataAndSize<U, T>::value>::type* = nullptr>
   ArrayView(U& u)  // NOLINT
       : ArrayView(u.data(), u.size()) {
+    // TODO(alessiob): Use std::tuple_size<std::array<..., ...>>::value
+    // depending on whether U is an std::array instead of defining the previous
+    // template.
     static_assert(U::size() == Size, "Sizes must match exactly");
   }
 

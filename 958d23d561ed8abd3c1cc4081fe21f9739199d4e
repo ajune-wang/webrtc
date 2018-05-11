@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "4df38fee_5462a6fb",
+        "filename": "rtc_base/java/src/org/webrtc/FallbackLogger.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-05-11T12:58:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2934b8fe_238b24d2",
+      "revId": "958d23d561ed8abd3c1cc4081fe21f9739199d4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ebf371de_4dae1d89",
         "filename": "rtc_base/java/src/org/webrtc/NativeLogger.java",
         "patchSetId": 8
@@ -33,6 +51,24 @@
       "revId": "958d23d561ed8abd3c1cc4081fe21f9739199d4e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e74dd673_2ba2be41",
+        "filename": "rtc_base/java/src/org/webrtc/NativeLogger.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-05-11T12:58:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ebf371de_4dae1d89",
+      "revId": "958d23d561ed8abd3c1cc4081fe21f9739199d4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -59,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "2aeb4f22_e43d48b8",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 8
+      },
+      "lineNbr": 533,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-05-11T12:58:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "12def48d_979ea21c",
+      "range": {
+        "startLine": 533,
+        "startChar": 13,
+        "endLine": 533,
+        "endChar": 16
+      },
+      "revId": "958d23d561ed8abd3c1cc4081fe21f9739199d4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f2ee0ea9_1e795d49",
         "filename": "sdk/android/src/jni/pc/native_logger.cc",
         "patchSetId": 8
@@ -82,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "07610ff6_6fa2a87b",
+        "filename": "sdk/android/src/jni/pc/native_logger.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-05-11T12:58:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f2ee0ea9_1e795d49",
+      "range": {
+        "startLine": 24,
+        "startChar": 30,
+        "endLine": 24,
+        "endChar": 44
+      },
+      "revId": "958d23d561ed8abd3c1cc4081fe21f9739199d4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "06381c4a_b10323ce",
         "filename": "sdk/android/src/jni/pc/native_logger.cc",
         "patchSetId": 8
@@ -102,6 +186,30 @@
       "revId": "958d23d561ed8abd3c1cc4081fe21f9739199d4e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5e200c9_f9a4220f",
+        "filename": "sdk/android/src/jni/pc/native_logger.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-05-11T12:58:57Z",
+      "side": 1,
+      "message": "I only moved this code, but it looks like this is just checking that the int is a valid enum. Added a comment.",
+      "parentUuid": "06381c4a_b10323ce",
+      "range": {
+        "startLine": 25,
+        "startChar": 2,
+        "endLine": 25,
+        "endChar": 4
+      },
+      "revId": "958d23d561ed8abd3c1cc4081fe21f9739199d4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

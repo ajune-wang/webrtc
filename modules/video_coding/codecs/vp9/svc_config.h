@@ -16,6 +16,8 @@
 
 namespace webrtc {
 
+const int kMinVP9SvcBitrateKbps = 30;  // lowest VP9 video rate in kbps
+
 std::vector<SpatialLayer> GetSvcConfig(size_t input_width,
                                        size_t input_height,
                                        size_t num_spatial_layers,

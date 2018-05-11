@@ -16,6 +16,24 @@
       "revId": "f4eb6df972cc1acb146f741d7f16af8b05341470",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2855c88d_91b5a312",
+        "filename": "pc/peerconnection_integrationtest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-05-11T08:46:22Z",
+      "side": 1,
+      "message": "Fixed, using the new Stop method.",
+      "parentUuid": "cde6cb86_c132a384",
+      "revId": "f4eb6df972cc1acb146f741d7f16af8b05341470",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

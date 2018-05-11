@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a8647e59_cd858fe3",
+        "filename": "api/array_view.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-11T20:24:46Z",
+      "side": 1,
+      "message": "This isn\u0027t correct. The ArrayView must either have the same fixed size as the array, or variable size.",
+      "range": {
+        "startLine": 172,
+        "startChar": 28,
+        "endLine": 172,
+        "endChar": 44
+      },
+      "revId": "fd59a6e5c7948e64d4ecec5620302a831aa8495c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a18f461b_02f1e9a0",
+        "filename": "api/array_view.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-11T20:24:46Z",
+      "side": 1,
+      "message": "Use the \"(Only if size is fixed.)\" phrase from the other comments? Also, point to the constructor that gets used when creating a variable-sized ArrayView from a std::array?",
+      "revId": "fd59a6e5c7948e64d4ecec5620302a831aa8495c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8e32a4d_700bc409",
+        "filename": "api/array_view.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-11T20:24:46Z",
+      "side": 1,
+      "message": "Why is this constructor explicit, when all the others aren\u0027t?",
+      "range": {
+        "startLine": 185,
+        "startChar": 2,
+        "endLine": 185,
+        "endChar": 10
+      },
+      "revId": "fd59a6e5c7948e64d4ecec5620302a831aa8495c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

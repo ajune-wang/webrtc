@@ -24,7 +24,6 @@ enum PreservedErrno {
 #include <stdio.h>
 
 #include <memory>
-#include <sstream>
 
 #include "media/base/codec.h"
 #include "media/base/mediaconstants.h"
@@ -36,6 +35,7 @@ enum PreservedErrno {
 #include "rtc_base/helpers.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/numerics/safe_conversions.h"
+#include "rtc_base/strings/string_builder.h"
 #include "rtc_base/thread_checker.h"
 #include "rtc_base/trace_event.h"
 #include "usrsctplib/usrsctp.h"
@@ -76,7 +76,8 @@ typedef std::set<uint32_t> StreamSet;
 
 // Returns a comma-separated, human-readable list of the stream IDs in 's'
 std::string ListStreams(const StreamSet& s) {
-  std::stringstream result;
+  char buf[1024];
+  rtc::SimpleStringStream result(buf);
   bool first = true;
   for (StreamSet::const_iterator it = s.begin(); it != s.end(); ++it) {
     if (!first) {
@@ -92,7 +93,8 @@ std::string ListStreams(const StreamSet& s) {
 // Returns a pipe-separated, human-readable list of the SCTP_STREAM_RESET
 // flags in 'flags'
 std::string ListFlags(int flags) {
-  std::stringstream result;
+  char buf[1024];
+  rtc::SimpleStringBuilder result(buf);
   bool first = true;
 // Skip past the first 12 chars (strlen("SCTP_STREAM_"))
 #define MAKEFLAG(X) \
@@ -120,7 +122,8 @@ std::string ListFlags(int flags) {
 // Returns a comma-separated, human-readable list of the integers in 'array'.
 // All 'num_elems' of them.
 std::string ListArray(const uint16_t* array, int num_elems) {
-  std::stringstream result;
+  char buf[1024];
+  rtc::SimpleStringBuilder result(buf);
   for (int i = 0; i < num_elems; ++i) {
     if (i) {
       result << ", " << array[i];

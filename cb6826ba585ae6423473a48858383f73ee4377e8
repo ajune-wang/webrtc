@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8b64957d_9a37212b",
+        "filename": "modules/video_coding/codecs/vp9/svc_config.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 6680
+      },
+      "writtenOn": "2018-05-14T19:23:20Z",
+      "side": 1,
+      "message": "Consider naming this function \"ConfigureSvcRealtimeVideo()\" for consistency with the name of the codec_.mode to which it is associated (i.e., kRealtimeVideo).",
+      "range": {
+        "startLine": 50,
+        "startChar": 38,
+        "endLine": 50,
+        "endChar": 49
+      },
+      "revId": "cb6826ba585ae6423473a48858383f73ee4377e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7dcf4a94_05f6dbd4",
+        "filename": "modules/video_coding/codecs/vp9/svc_config.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 6680
+      },
+      "writtenOn": "2018-05-14T19:23:20Z",
+      "side": 1,
+      "message": "Change to size_t for consistency.",
+      "range": {
+        "startLine": 81,
+        "startChar": 20,
+        "endLine": 81,
+        "endChar": 23
+      },
+      "revId": "cb6826ba585ae6423473a48858383f73ee4377e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b0bace78_d2f6b4a0",
+        "filename": "modules/video_coding/codecs/vp9/svc_rate_allocator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 6680
+      },
+      "writtenOn": "2018-05-14T19:23:20Z",
+      "side": 1,
+      "message": "This works because currently there are only two different codec modes (i.e., kScreen and kRealtimeVideo).  If a third mode is added (e.g., kRealtimeVideo2 for handling video from a second camera input), this structure will break.  Consider explicitly testing codec_mode for screen share.",
+      "range": {
+        "startLine": 45,
+        "startChar": 4,
+        "endLine": 45,
+        "endChar": 10
+      },
+      "revId": "cb6826ba585ae6423473a48858383f73ee4377e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "000e14bc_f5956577",
+        "filename": "modules/video_coding/codecs/vp9/svc_rate_allocator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 6680
+      },
+      "writtenOn": "2018-05-14T19:23:20Z",
+      "side": 1,
+      "message": "It is my understanding that left_bitrate_bps represents bit rate that is left over after allocating bit rate to a lower spatial layer.  Consider renaming the variable left_over_bitrate_bps.",
+      "range": {
+        "startLine": 143,
+        "startChar": 9,
+        "endLine": 143,
+        "endChar": 13
+      },
+      "revId": "cb6826ba585ae6423473a48858383f73ee4377e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "49fb33d4_37333f2f",
+        "filename": "modules/video_coding/codecs/vp9/svc_rate_allocator.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 6680
+      },
+      "writtenOn": "2018-05-14T19:23:20Z",
+      "side": 1,
+      "message": "Consider the function name GetAllocationRealtimeVideo() for consistency with the name of the associated codec_.mode (i.e., kRealtimeVideo).",
+      "range": {
+        "startLine": 31,
+        "startChar": 38,
+        "endLine": 31,
+        "endChar": 44
+      },
+      "revId": "cb6826ba585ae6423473a48858383f73ee4377e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

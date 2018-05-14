@@ -244,6 +244,18 @@ bool P2PTransportChannel::ShouldSwitchSelectedConnection(
   return new_connection->rtt() <= selected_connection_->rtt() - kMinImprovement;
 }
 
+bool P2PTransportChannel::MaybeRegatherOnAllNetworks() {
+  if (!config_.gather_autonomously()) {
+    return false;
+  }
+  if (regather_controller_->ShouldRegatherOnAllNetworks()) {
+    RTC_LOG(INFO) << "Start autonomous regathering of local candidates.";
+    regather_controller_->ScheduleRegatheringOnAllNetworks(0, false);
+    return true;
+  }
+  return false;
+}
+
 bool P2PTransportChannel::MaybeSwitchSelectedConnection(
     Connection* new_connection,
     const std::string& reason) {
@@ -755,11 +767,11 @@ void P2PTransportChannel::OnCandidatesReady(
 void P2PTransportChannel::OnCandidatesAllocationDone(
     PortAllocatorSession* session) {
   RTC_DCHECK(network_thread_ == rtc::Thread::Current());
-  if (config_.gather_continually()) {
+  if (!config_.gather_once()) {
     RTC_LOG(LS_INFO) << "P2PTransportChannel: " << transport_name()
                      << ", component " << component()
-                     << " gathering complete, but using continual "
-                        "gathering so not changing gathering state.";
+                     << " gathering complete, but using continual or "
+                        "autonomous gathering so not changing gathering state.";
     return;
   }
   gathering_state_ = kIceGatheringComplete;
@@ -1665,6 +1677,12 @@ void P2PTransportChannel::SwitchSelectedConnection(Connection* conn) {
   if (selected_connection_) {
     ++nomination_;
     selected_connection_->set_selected(true);
+    if (!selected_connection_->weak()) {
+      ++num_continual_switchings_to_weak_candidate_pairs_;
+    } else {
+      num_continual_switchings_to_weak_candidate_pairs_ = 0;
+    }
+    MaybeRegatherOnAllNetworks();
     if (old_selected_connection) {
       RTC_LOG(LS_INFO) << ToString()
                        << ": Previous selected connection: "
@@ -1781,7 +1799,7 @@ void P2PTransportChannel::MaybeStopPortAllocatorSessions() {
     }
     // If gathering continually, keep the last session running so that
     // it can gather candidates if the networks change.
-    if (config_.gather_continually() && session == allocator_sessions_.back()) {
+    if (!config_.gather_once() && session == allocator_sessions_.back()) {
       session->ClearGettingPorts();
     } else {
       session->StopGettingPorts();
@@ -2172,7 +2190,7 @@ void P2PTransportChannel::OnCandidatesRemoved(
   // Do not signal candidate removals if continual gathering is not enabled, or
   // if this is not the last session because an ICE restart would have signaled
   // the remote side to remove all candidates in previous sessions.
-  if (!config_.gather_continually() || session != allocator_session()) {
+  if (config_.gather_once() || session != allocator_session()) {
     return;
   }
 
@@ -2186,6 +2204,16 @@ void P2PTransportChannel::OnCandidatesRemoved(
 
 bool P2PTransportChannel::HasClearedAllocatorSession() const {
   return !allocator_sessions_.empty() && allocator_session()->IsCleared();
+}
+
+bool P2PTransportChannel::TooManyWeakSelectedCandidatePairs() const {
+  return num_continual_switchings_to_weak_candidate_pairs_ >
+         kMinNumSwitchingsToWeakCandidatePairsBeforeRegathering;
+}
+
+bool P2PTransportChannel::TooLargePingRttOverSelectedCandidatePair() const {
+  return selected_connection_->rtt() >
+         kMinRttMsOverSelectedCandidatePairBeforeRegathering;
 }
 
 void P2PTransportChannel::PruneAllPorts() {

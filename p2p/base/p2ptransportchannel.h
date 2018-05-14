@@ -151,6 +151,8 @@ class P2PTransportChannel : public IceTransportInternal {
   const std::vector<Connection*>& connections() const { return connections_; }
 
   bool HasClearedAllocatorSession() const;
+  bool TooManyWeakSelectedCandidatePairs() const;
+  bool TooLargePingRttOverSelectedCandidatePair() const;
   // Public for unit tests.
   PortAllocatorSession* allocator_session() const {
     return allocator_sessions_.back().get();
@@ -305,6 +307,9 @@ class P2PTransportChannel : public IceTransportInternal {
   bool ShouldSwitchSelectedConnection(
       Connection* new_connection,
       bool* missed_receiving_unchanged_threshold) const;
+  // Returns if we should start regathering of new local candidates, and signal
+  // them to the remote endpoint.
+  bool MaybeRegatherOnAllNetworks();
   // Returns true if the new_connection is selected for transmission.
   bool MaybeSwitchSelectedConnection(Connection* new_connection,
                                      const std::string& reason);
@@ -399,6 +404,7 @@ class P2PTransportChannel : public IceTransportInternal {
   IceConfig config_;
   int last_sent_packet_id_ = -1;  // -1 indicates no packet was sent before.
   bool started_pinging_ = false;
+  int num_continual_switchings_to_weak_candidate_pairs_ = 0;
   // The value put in the "nomination" attribute for the next nominated
   // connection. A zero-value indicates the connection will not be nominated.
   uint32_t nomination_ = 0;

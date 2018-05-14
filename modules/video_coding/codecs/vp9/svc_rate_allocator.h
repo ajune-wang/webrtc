@@ -28,6 +28,8 @@ class SvcRateAllocator : public VideoBitrateAllocator {
   uint32_t GetPreferredBitrateBps(uint32_t framerate_fps) override;
 
  private:
+  VideoBitrateAllocation GetAllocationNormalVideo(uint32_t total_bitrate_bps);
+  VideoBitrateAllocation GetAllocationScreenSharing(uint32_t total_bitrate_bps);
   std::vector<size_t> SplitBitrate(size_t num_layers,
                                    size_t total_bitrate,
                                    float rate_scaling_factor);

@@ -12,7 +12,6 @@
 
 #include "api/test/create_videocodec_test_fixture.h"
 #include "media/base/mediaconstants.h"
-#include "modules/video_coding/codecs/test/test_config.h"
 #include "modules/video_coding/utility/vp8_header_parser.h"
 #include "modules/video_coding/utility/vp9_uncompressed_header_parser.h"
 #include "rtc_base/ptr_util.h"
@@ -21,6 +20,10 @@
 
 namespace webrtc {
 namespace test {
+
+using FrameStatistics = VideoCodecTestStats::FrameStatistics;
+using VideoStatistics = VideoCodecTestStats::VideoStatistics;
+using TestConfig = VideoCodecTestFixture::TestConfig;
 
 namespace {
 // Codec settings.
@@ -35,7 +38,7 @@ const size_t kBitrateRdPerfKbps[] = {100,  200,  300,  400,  500,  600,
                                      1800, 2000, 2200, 2500};
 const size_t kNumFirstFramesToSkipAtRdPerfAnalysis = 60;
 
-class QpFrameChecker : public TestConfig::EncodedFrameChecker {
+class QpFrameChecker : public VideoCodecTestFixture::EncodedFrameChecker {
  public:
   void CheckEncodedFrame(webrtc::VideoCodecType codec,
                          const EncodedImage& encoded_frame) const override {

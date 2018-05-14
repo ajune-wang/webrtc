@@ -8,7 +8,7 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "modules/video_coding/codecs/test/stats.h"
+#include "api/test/videocodec_test_stats.h"
 
 #include <algorithm>
 #include <cmath>
@@ -21,11 +21,14 @@
 namespace webrtc {
 namespace test {
 
+using FrameStatistics = VideoCodecTestStats::FrameStatistics;
+using VideoStatistics = VideoCodecTestStats::VideoStatistics;
+
 namespace {
 const int kMaxBitrateMismatchPercent = 20;
 }
 
-std::string FrameStatistics::ToString() const {
+std::string VideoCodecTestStats::FrameStatistics::ToString() const {
   std::stringstream ss;
   ss << "frame_number " << frame_number;
   ss << " decoded_width " << decoded_width;
@@ -49,7 +52,12 @@ std::string FrameStatistics::ToString() const {
   return ss.str();
 }
 
-std::string VideoStatistics::ToString(std::string prefix) const {
+VideoCodecTestStats::VideoStatistics::VideoStatistics() = default;
+VideoCodecTestStats::VideoStatistics::VideoStatistics(const VideoStatistics&) =
+    default;
+
+std::string VideoCodecTestStats::VideoStatistics::ToString(
+    std::string prefix) const {
   std::stringstream ss;
   ss << prefix << "target_bitrate_kbps: " << target_bitrate_kbps;
   ss << "\n" << prefix << "input_framerate_fps: " << input_framerate_fps;
@@ -91,7 +99,19 @@ std::string VideoStatistics::ToString(std::string prefix) const {
   return ss.str();
 }
 
-FrameStatistics* Stats::AddFrame(size_t timestamp, size_t layer_idx) {
+VideoCodecTestStats::FrameStatistics::FrameStatistics(size_t frame_number,
+                                                      size_t rtp_timestamp)
+    : frame_number(frame_number), rtp_timestamp(rtp_timestamp) {}
+
+VideoCodecTestStats::FrameStatistics::FrameStatistics(
+    const FrameStatistics& rhs) = default;
+
+VideoCodecTestStats::VideoCodecTestStats() = default;
+
+VideoCodecTestStats::~VideoCodecTestStats() = default;
+
+FrameStatistics* VideoCodecTestStats::AddFrame(size_t timestamp,
+                                               size_t layer_idx) {
   RTC_DCHECK(rtp_timestamp_to_frame_num_[layer_idx].find(timestamp) ==
              rtp_timestamp_to_frame_num_[layer_idx].end());
   const size_t frame_num = layer_stats_[layer_idx].size();
@@ -100,22 +120,23 @@ FrameStatistics* Stats::AddFrame(size_t timestamp, size_t layer_idx) {
   return &layer_stats_[layer_idx].back();
 }
 
-FrameStatistics* Stats::GetFrame(size_t frame_num, size_t layer_idx) {
+FrameStatistics* VideoCodecTestStats::GetFrame(size_t frame_num,
+                                               size_t layer_idx) {
   RTC_CHECK_LT(frame_num, layer_stats_[layer_idx].size());
   return &layer_stats_[layer_idx][frame_num];
 }
 
-FrameStatistics* Stats::GetFrameWithTimestamp(size_t timestamp,
-                                              size_t layer_idx) {
+FrameStatistics* VideoCodecTestStats::GetFrameWithTimestamp(size_t timestamp,
+                                                            size_t layer_idx) {
   RTC_DCHECK(rtp_timestamp_to_frame_num_[layer_idx].find(timestamp) !=
              rtp_timestamp_to_frame_num_[layer_idx].end());
 
   return GetFrame(rtp_timestamp_to_frame_num_[layer_idx][timestamp], layer_idx);
 }
 
-std::vector<VideoStatistics> Stats::SliceAndCalcLayerVideoStatistic(
-    size_t first_frame_num,
-    size_t last_frame_num) {
+std::vector<VideoStatistics>
+VideoCodecTestStats::SliceAndCalcLayerVideoStatistic(size_t first_frame_num,
+                                                     size_t last_frame_num) {
   std::vector<VideoStatistics> layer_stats;
 
   size_t num_spatial_layers = 0;
@@ -138,7 +159,7 @@ std::vector<VideoStatistics> Stats::SliceAndCalcLayerVideoStatistic(
   return layer_stats;
 }
 
-VideoStatistics Stats::SliceAndCalcAggregatedVideoStatistic(
+VideoStatistics VideoCodecTestStats::SliceAndCalcAggregatedVideoStatistic(
     size_t first_frame_num,
     size_t last_frame_num) {
   size_t num_spatial_layers = 0;
@@ -153,7 +174,7 @@ VideoStatistics Stats::SliceAndCalcAggregatedVideoStatistic(
                                     num_temporal_layers - 1, true);
 }
 
-void Stats::PrintFrameStatistics() {
+void VideoCodecTestStats::PrintFrameStatistics() {
   for (size_t frame_num = 0; frame_num < layer_stats_[0].size(); ++frame_num) {
     for (const auto& it : layer_stats_) {
       const FrameStatistics& frame_stat = it.second[frame_num];
@@ -162,16 +183,16 @@ void Stats::PrintFrameStatistics() {
   }
 }
 
-size_t Stats::Size(size_t spatial_idx) {
+size_t VideoCodecTestStats::Size(size_t spatial_idx) {
   return layer_stats_[spatial_idx].size();
 }
 
-void Stats::Clear() {
+void VideoCodecTestStats::Clear() {
   layer_stats_.clear();
   rtp_timestamp_to_frame_num_.clear();
 }
 
-FrameStatistics Stats::AggregateFrameStatistic(
+FrameStatistics VideoCodecTestStats::AggregateFrameStatistic(
     size_t frame_num,
     size_t spatial_idx,
     bool aggregate_independent_layers) {
@@ -190,11 +211,12 @@ FrameStatistics Stats::AggregateFrameStatistic(
   return frame_stat;
 }
 
-size_t Stats::CalcLayerTargetBitrateKbps(size_t first_frame_num,
-                                         size_t last_frame_num,
-                                         size_t spatial_idx,
-                                         size_t temporal_idx,
-                                         bool aggregate_independent_layers) {
+size_t VideoCodecTestStats::CalcLayerTargetBitrateKbps(
+    size_t first_frame_num,
+    size_t last_frame_num,
+    size_t spatial_idx,
+    size_t temporal_idx,
+    bool aggregate_independent_layers) {
   size_t target_bitrate_kbps = 0;
 
   // We don't know if superframe includes all required spatial layers because
@@ -216,7 +238,7 @@ size_t Stats::CalcLayerTargetBitrateKbps(size_t first_frame_num,
   return target_bitrate_kbps;
 }
 
-VideoStatistics Stats::SliceAndCalcVideoStatistic(
+VideoStatistics VideoCodecTestStats::SliceAndCalcVideoStatistic(
     size_t first_frame_num,
     size_t last_frame_num,
     size_t spatial_idx,
@@ -380,10 +402,11 @@ VideoStatistics Stats::SliceAndCalcVideoStatistic(
   return video_stat;
 }
 
-void Stats::GetNumberOfEncodedLayers(size_t first_frame_num,
-                                     size_t last_frame_num,
-                                     size_t* num_encoded_spatial_layers,
-                                     size_t* num_encoded_temporal_layers) {
+void VideoCodecTestStats::GetNumberOfEncodedLayers(
+    size_t first_frame_num,
+    size_t last_frame_num,
+    size_t* num_encoded_spatial_layers,
+    size_t* num_encoded_temporal_layers) {
   *num_encoded_spatial_layers = 0;
   *num_encoded_temporal_layers = 0;
 

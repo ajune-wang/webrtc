@@ -32,8 +32,10 @@
 namespace webrtc {
 namespace test {
 
-namespace {
+using FrameStatistics = VideoCodecTestStats::FrameStatistics;
+using VideoStatistics = VideoCodecTestStats::VideoStatistics;
 
+namespace {
 const int kMsToRtpTimestamp = kVideoPayloadTypeFrequency / 1000;
 const int kMaxBufferedInputFrames = 10;
 
@@ -157,7 +159,7 @@ VideoProcessor::VideoProcessor(webrtc::VideoEncoder* encoder,
                                VideoDecoderList* decoders,
                                FrameReader* input_frame_reader,
                                const TestConfig& config,
-                               Stats* stats,
+                               VideoCodecTestStats* stats,
                                IvfFileWriterList* encoded_frame_writers,
                                FrameWriterList* decoded_frame_writers)
     : config_(config),

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "06fb220d_1df468fe",
+        "filename": "modules/video_coding/codecs/vp9/svc_config.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-05-14T06:51:53Z",
+      "side": 1,
+      "message": "Since this const is only used in svc_config.cc we should move it to that file. Do not forget to wrap it into anonymous namespace. See how kSpatialLayeringRateScalingFactor is declared in https://cs.chromium.org/chromium/src/third_party/webrtc/modules/video_coding/codecs/vp9/svc_rate_allocator.cc?q\u003dsvc_rate\u0026sq\u003dpackage:chromium\u0026l\u003d1\n\nAlso, kMinVp.. (\"p\" in lowcase).",
+      "range": {
+        "startLine": 19,
+        "startChar": 10,
+        "endLine": 19,
+        "endChar": 31
+      },
+      "revId": "d6f3b881e1ce0d43027e17f1cf7560484887f8c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

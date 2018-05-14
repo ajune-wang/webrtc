@@ -128,6 +128,30 @@
       "revId": "fd59a6e5c7948e64d4ecec5620302a831aa8495c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0f4c3e0_90fa70e4",
+        "filename": "api/array_view.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-14T10:37:08Z",
+      "side": 1,
+      "message": "All the constructors are non-explicit on purpose, but I don\u0027t know if they predate the presubmit check or not. They do seem to be tagged with //NOLINT.",
+      "parentUuid": "530f94c7_30f24f47",
+      "range": {
+        "startLine": 185,
+        "startChar": 2,
+        "endLine": 185,
+        "endChar": 10
+      },
+      "revId": "fd59a6e5c7948e64d4ecec5620302a831aa8495c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

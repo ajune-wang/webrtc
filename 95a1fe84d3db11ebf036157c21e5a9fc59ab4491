@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "67b5340c_bf176632",
+        "filename": "api/array_view.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-14T10:37:08Z",
+      "side": 1,
+      "message": "This condition is redundant.",
+      "range": {
+        "startLine": 185,
+        "startChar": 36,
+        "endLine": 185,
+        "endChar": 70
+      },
+      "revId": "95a1fe84d3db11ebf036157c21e5a9fc59ab4491",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "afc9a180_6cd25669",
+        "filename": "api/array_view.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-14T10:37:08Z",
+      "side": 1,
+      "message": "Please remove this, and add a //NOLINT.",
+      "range": {
+        "startLine": 187,
+        "startChar": 2,
+        "endLine": 187,
+        "endChar": 10
+      },
+      "revId": "95a1fe84d3db11ebf036157c21e5a9fc59ab4491",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7de7821a_19143504",
+        "filename": "api/array_view_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-14T10:37:08Z",
+      "side": 1,
+      "message": "You should be able to use a static_assert here, since size() is static constexpr for fixed-size ArrayViews.",
+      "range": {
+        "startLine": 190,
+        "startChar": 2,
+        "endLine": 190,
+        "endChar": 11
+      },
+      "revId": "95a1fe84d3db11ebf036157c21e5a9fc59ab4491",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

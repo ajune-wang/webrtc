@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "657f71e8_83b03148",
+        "filename": "test/layer_filtering_transport.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-05-14T17:44:23Z",
+      "side": 1,
+      "message": "Changed:\nhigh_temporal_layer -\u003e higher_temporal_layer\nhigh_spatial_layer -\u003e higher_spatial_layer\nnon_ref_base_spatial_layer -\u003e lower_non_ref_spatial_layer",
+      "parentUuid": "f5f91e69_b37f9782",
+      "range": {
+        "startLine": 153,
+        "startChar": 19,
+        "endLine": 153,
+        "endChar": 24
+      },
+      "revId": "0d064ec8d3729fa4074f4fba2ac4b0fa7da786e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "941547fa_a0c37341",
         "filename": "test/layer_filtering_transport.cc",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "0d064ec8d3729fa4074f4fba2ac4b0fa7da786e0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f3a39e4_895bcdcb",
+        "filename": "test/layer_filtering_transport.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-05-14T17:44:23Z",
+      "side": 1,
+      "message": "Added comment:\n// Filter out non-reference lower spatial layers since they are not\n// needed for decoding of target spatial layer.",
+      "parentUuid": "941547fa_a0c37341",
+      "range": {
+        "startLine": 164,
+        "startChar": 0,
+        "endLine": 166,
+        "endChar": 41
+      },
+      "revId": "0d064ec8d3729fa4074f4fba2ac4b0fa7da786e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

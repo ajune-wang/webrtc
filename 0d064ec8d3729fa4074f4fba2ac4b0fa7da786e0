@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f5f91e69_b37f9782",
+        "filename": "test/layer_filtering_transport.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-05-14T17:30:59Z",
+      "side": 1,
+      "message": "higher_ here and below?",
+      "range": {
+        "startLine": 153,
+        "startChar": 19,
+        "endLine": 153,
+        "endChar": 24
+      },
+      "revId": "0d064ec8d3729fa4074f4fba2ac4b0fa7da786e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "941547fa_a0c37341",
+        "filename": "test/layer_filtering_transport.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-05-14T17:30:59Z",
+      "side": 1,
+      "message": "Please add a comment what this means. Is it a spatial or temporal layer that we can\u0027t switch up to because it has dependencies on higher layers than we\u0027re currently decoding? Or is it simply filtering out all layers that we don\u0027t want to render? Why then do we remove base layer frames?",
+      "range": {
+        "startLine": 164,
+        "startChar": 0,
+        "endLine": 166,
+        "endChar": 41
+      },
+      "revId": "0d064ec8d3729fa4074f4fba2ac4b0fa7da786e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

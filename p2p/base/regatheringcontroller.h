@@ -11,6 +11,8 @@
 #ifndef P2P_BASE_REGATHERINGCONTROLLER_H_
 #define P2P_BASE_REGATHERINGCONTROLLER_H_
 
+#include "api/optional.h"
+#include "p2p/base/p2pconstants.h"
 #include "rtc_base/asyncinvoker.h"
 #include "rtc_base/messagehandler.h"
 #include "rtc_base/random.h"
@@ -35,6 +37,7 @@ class RegatheringControllerInterface {
   virtual void ScheduleRegatheringOnFailedNetworks(int delay_ms,
                                                    bool repeated) = 0;
   virtual void CancelScheduledRegathering() = 0;
+  virtual bool ShouldRegatherOnAllNetworks() = 0;
   virtual int regather_on_all_networks_interval() = 0;
   virtual int regather_on_failed_networks_interval() = 0;
 };
@@ -51,9 +54,16 @@ class BasicRegatheringController : public RegatheringControllerInterface {
   void ScheduleRegatheringOnFailedNetworks(int delay_ms,
                                            bool repeated) override;
   void CancelScheduledRegathering() override;
+  bool ShouldRegatherOnAllNetworks() override;
   int regather_on_all_networks_interval() override;
   int regather_on_failed_networks_interval() override;
+
   rtc::Thread* thread() const { return thread_; }
+
+  int min_regathering_interval_ms_or_default() const {
+    return min_regathering_interval_ms_.value_or(
+        cricket::kMinRegatheringIntervalMs);
+  }
 
  private:
   // Samples a delay from the uniform distribution defined by the
@@ -69,6 +79,10 @@ class BasicRegatheringController : public RegatheringControllerInterface {
   rtc::AsyncInvoker invoker_;
   // Used to generate random intervals for regather_all_networks_interval_range.
   Random rand_;
+  //
+  rtc::Optional<int> min_regathering_interval_ms_;
+  // Last time in milliseconds a round of regathering is done.
+  int last_regathering_ms_ = 0;
 };
 
 }  // namespace webrtc

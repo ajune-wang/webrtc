@@ -84,8 +84,20 @@ extern const int REGATHER_ON_FAILED_NETWORKS_INTERVAL;
 extern const int CONNECTION_WRITE_CONNECT_TIMEOUT;
 // Default vaule of IceConfig.ice_unwritable_min_checks.
 extern const uint32_t CONNECTION_WRITE_CONNECT_FAILURES;
-// Default value of IceConfig.stun_keepalive_interval;
+// Default value of IceConfig.stun_keepalive_interval.
 extern const int STUN_KEEPALIVE_INTERVAL;
+
+// TODO(qingsi): Change the naming style of other constants to kConstantInUnit.
+//
+// Default value of the minimum interval in milliseconds of regathering local
+// candidates.
+extern const int kMinRegatheringIntervalMs;
+// The minimum number of consecutive switching to unwritable candidate pairs
+// above which a regathering of local candidate pairs can be scheduled.
+extern const int kMinNumSwitchingsToWeakCandidatePairsBeforeRegathering;
+// The minimum RTT of connectivity checks over the selected candidate pair above
+// which a regathering of local candidate pairs can be scheduled.
+extern const int kMinRttMsOverSelectedCandidatePairBeforeRegathering;
 
 // The following constants are used at the candidate pair level to determine the
 // state of a candidate pair.

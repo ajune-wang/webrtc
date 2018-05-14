@@ -201,6 +201,31 @@
                             libyuvPixelFormat);
       break;
     }
+    case kCVPixelFormatType_DepthFloat32: {
+      const float* depth_data =
+          static_cast<const float*>(CVPixelBufferGetBaseAddressOfPlane(_pixelBuffer, 0));
+      for (int y = 0; y < [self height]; y++) {
+        for (int x = 0; x < [self width]; x++) {
+          int index = y * [self width] + x;
+          i420Buffer.mutableDataY[y * i420Buffer.strideY + x] = depth_data[index] < 0.5 ?
+              255 :
+              depth_data[index] > 2 ? 0 : static_cast<uint8_t>(340 - 170 * depth_data[index]);
+        }
+      }
+      break;
+    }
+      case kCVPixelFormatType_OneComponent8:{
+          const uint8_t* depth_data =
+          static_cast<const uint8_t*>(CVPixelBufferGetBaseAddressOfPlane(_pixelBuffer, 0));
+          memcpy(i420Buffer.mutableDataY, depth_data, [self height]*[self width]);
+          //for (int y = 0; y < [self height]; y++) {
+          //    for (int x = 0; x < [self width]; x++) {
+          //        int index = y * [self width] + x;
+          //        i420Buffer.mutableDataY[y * i420Buffer.strideY + x] = depth_data[index];
+          //    }
+          //}
+          break;
+      }
     default: { RTC_NOTREACHED() << "Unsupported pixel format."; }
   }
 

@@ -48,6 +48,9 @@
 #include "media/engine/webrtcmediaengine.h"  // nogncheck
 #include "rtc_base/ptr_util.h"
 
+#include "media/engine/internaldecoderfactory.h"
+#include "media/engine/multiplexcodecfactory.h"
+
 @implementation RTCPeerConnectionFactory {
   std::unique_ptr<rtc::Thread> _networkThread;
   std::unique_ptr<rtc::Thread> _workerThread;
@@ -91,16 +94,24 @@
 #else
   std::unique_ptr<webrtc::VideoEncoderFactory> native_encoder_factory;
   std::unique_ptr<webrtc::VideoDecoderFactory> native_decoder_factory;
+  std::unique_ptr<webrtc::VideoEncoderFactory> multiplex_native_encoder_factory;
+  std::unique_ptr<webrtc::VideoDecoderFactory> multiplex_native_decoder_factory;
   if (encoderFactory) {
-    native_encoder_factory = webrtc::ObjCToNativeVideoEncoderFactory(encoderFactory);
+    native_encoder_factory.reset(new webrtc::ObjCVideoEncoderFactory(encoderFactory));
+    multiplex_native_encoder_factory.reset(
+        new webrtc::MultiplexEncoderFactory(std::move(native_encoder_factory)));
   }
   if (decoderFactory) {
-    native_decoder_factory = webrtc::ObjCToNativeVideoDecoderFactory(decoderFactory);
+    native_decoder_factory.reset(new webrtc::ObjCVideoDecoderFactory(decoderFactory));
+    // native_decoder_factory.reset(new webrtc::InternalDecoderFactory());
+    multiplex_native_decoder_factory.reset(
+        new webrtc::MultiplexDecoderFactory(std::move(native_decoder_factory)));
+
   }
   return [self initWithNativeAudioEncoderFactory:webrtc::CreateBuiltinAudioEncoderFactory()
                        nativeAudioDecoderFactory:webrtc::CreateBuiltinAudioDecoderFactory()
-                       nativeVideoEncoderFactory:std::move(native_encoder_factory)
-                       nativeVideoDecoderFactory:std::move(native_decoder_factory)
+                       nativeVideoEncoderFactory:std::move(multiplex_native_encoder_factory)
+                       nativeVideoDecoderFactory:std::move(multiplex_native_decoder_factory)
                                audioDeviceModule:nullptr
                            audioProcessingModule:nullptr];
 #endif

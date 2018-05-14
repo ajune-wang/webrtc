@@ -15,6 +15,7 @@
 #include "common_video/include/video_frame.h"
 #include "common_video/include/video_frame_buffer.h"
 #include "common_video/libyuv/include/webrtc_libyuv.h"
+#include "media/base/mediaconstants.h"
 #include "rtc_base/keep_ref_until_done.h"
 #include "rtc_base/logging.h"
 
@@ -40,7 +41,9 @@ class MultiplexDecoderAdapter::AdapterDecodedImageCallback
     adapter_->Decoded(stream_idx_, &decoded_image, decode_time_ms, qp);
   }
   int32_t Decoded(VideoFrame& decoded_image) override {
-    RTC_NOTREACHED();
+      if (!adapter_)
+          return WEBRTC_VIDEO_CODEC_OK;
+      adapter_->Decoded(stream_idx_, &decoded_image, rtc::Optional<int32_t>(), rtc::Optional<uint8_t>());
     return WEBRTC_VIDEO_CODEC_OK;
   }
   int32_t Decoded(VideoFrame& decoded_image, int64_t decode_time_ms) override {
@@ -91,12 +94,15 @@ MultiplexDecoderAdapter::~MultiplexDecoderAdapter() {
 int32_t MultiplexDecoderAdapter::InitDecode(const VideoCodec* codec_settings,
                                             int32_t number_of_cores) {
   RTC_DCHECK_EQ(kVideoCodecMultiplex, codec_settings->codecType);
-  VideoCodec settings = *codec_settings;
-  settings.codecType = PayloadStringToCodecType(associated_format_.name);
+    VideoCodec settings[2];
+    settings[0] = *codec_settings;
+  settings[0].codecType = PayloadStringToCodecType(associated_format_.name);
+    settings[1] = settings[0];
+    settings[1].codecType = kVideoCodecVP8;
   for (size_t i = 0; i < kAlphaCodecStreams; ++i) {
     std::unique_ptr<VideoDecoder> decoder =
-        factory_->CreateVideoDecoder(associated_format_);
-    const int32_t rv = decoder->InitDecode(&settings, number_of_cores);
+      factory_->CreateVideoDecoder(i==0?associated_format_:SdpVideoFormat(cricket::kVp8CodecName));
+    const int32_t rv = decoder->InitDecode(&settings[i], number_of_cores);
     if (rv)
       return rv;
     adapter_callbacks_.emplace_back(

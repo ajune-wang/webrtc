@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cb004b52_9a806e39",
+        "filename": "modules/congestion_controller/rtp/send_time_history.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-05-14T14:58:51Z",
+      "side": 1,
+      "message": "Since insertion and removal are now different calls, maybe we should add a check that history is bounded?",
+      "range": {
+        "startLine": 28,
+        "startChar": 11,
+        "endLine": 28,
+        "endChar": 17
+      },
+      "revId": "b81badb57a8505c96f8fe60958ec9ff69a59120f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77420430_434afa92",
+        "filename": "modules/congestion_controller/rtp/send_time_history.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-05-14T14:58:51Z",
+      "side": 1,
+      "message": "Is it useful to call this with different values? Otherwise, maybe it should be passed into the constructor.",
+      "range": {
+        "startLine": 31,
+        "startChar": 40,
+        "endLine": 31,
+        "endChar": 53
+      },
+      "revId": "b81badb57a8505c96f8fe60958ec9ff69a59120f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea8ed6c4_6be29eba",
+        "filename": "modules/congestion_controller/rtp/send_time_history.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-05-14T14:58:51Z",
+      "side": 1,
+      "message": "nit: It is not clear to me that older_than_ms refers to an absolute time rather than a time delta. How about e.g. begin_history_ms or earliest_creation_time_ms?",
+      "revId": "b81badb57a8505c96f8fe60958ec9ff69a59120f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

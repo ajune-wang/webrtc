@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e6962a5b_de021efc",
+        "filename": "api/array_view.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-05-14T08:30:22Z",
+      "side": 1,
+      "message": "Sorry, leftover of another change I wanted to add similar to that for std::array.",
+      "parentUuid": "a8647e59_cd858fe3",
+      "range": {
+        "startLine": 172,
+        "startChar": 28,
+        "endLine": 172,
+        "endChar": 44
+      },
+      "revId": "fd59a6e5c7948e64d4ecec5620302a831aa8495c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a18f461b_02f1e9a0",
         "filename": "api/array_view.h",
         "patchSetId": 1
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "ff9ad99b_c7db16e0",
+        "filename": "api/array_view.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-05-14T08:30:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a18f461b_02f1e9a0",
+      "revId": "fd59a6e5c7948e64d4ecec5620302a831aa8495c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e8e32a4d_700bc409",
         "filename": "api/array_view.h",
         "patchSetId": 1
@@ -53,6 +95,30 @@
       "writtenOn": "2018-05-11T20:24:46Z",
       "side": 1,
       "message": "Why is this constructor explicit, when all the others aren\u0027t?",
+      "range": {
+        "startLine": 185,
+        "startChar": 2,
+        "endLine": 185,
+        "endChar": 10
+      },
+      "revId": "fd59a6e5c7948e64d4ecec5620302a831aa8495c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "530f94c7_30f24f47",
+        "filename": "api/array_view.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-05-14T08:30:22Z",
+      "side": 1,
+      "message": "Ctors with a single arg must be explicit (presubmit fails if not done). I guess the other ctors were written when such a constraint was not in place and presubmit only looks at the changes. Shall I make the whole file consistent?",
+      "parentUuid": "e8e32a4d_700bc409",
       "range": {
         "startLine": 185,
         "startChar": 2,

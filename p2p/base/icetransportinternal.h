@@ -52,6 +52,8 @@ enum ContinualGatheringPolicy {
   GATHER_ONCE = 0,
   // The most recent port allocator session will keep on running.
   GATHER_CONTINUALLY,
+  // Autonomous regathering.
+  GATHER_AUTO,
 };
 
 // ICE Nomination mode.
@@ -74,10 +76,6 @@ struct IceConfig {
   rtc::Optional<int> backup_connection_ping_interval;
 
   ContinualGatheringPolicy continual_gathering_policy = GATHER_ONCE;
-
-  bool gather_continually() const {
-    return continual_gathering_policy == GATHER_CONTINUALLY;
-  }
 
   // Whether we should prioritize Relay/Relay candidate when nothing
   // is writable yet.
@@ -152,6 +150,14 @@ struct IceConfig {
             int regather_on_failed_networks_interval_ms,
             int receiving_switching_delay_ms);
   ~IceConfig();
+
+  bool gather_once() const { return continual_gathering_policy == GATHER_ONCE; }
+  bool gather_continually() const {
+    return continual_gathering_policy == GATHER_CONTINUALLY;
+  }
+  bool gather_autonomously() const {
+    return continual_gathering_policy == GATHER_AUTO;
+  }
 
   // Helper getters for parameters with implementation-specific default value.
   // By convention, parameters with default value are represented by

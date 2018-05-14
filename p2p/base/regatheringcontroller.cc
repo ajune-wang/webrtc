@@ -11,6 +11,7 @@
 #include "p2p/base/regatheringcontroller.h"
 
 #include "p2p/base/p2ptransportchannel.h"
+#include "rtc_base/timeutils.h"
 
 namespace webrtc {
 
@@ -42,6 +43,7 @@ void BasicRegatheringController::RegatherOnAllNetworks(
     bool repeated,
     rtc::Optional<int> next_schedule_delay_ms) {
   if (ice_transport_->HasClearedAllocatorSession()) {
+    last_regathering_ms_ = rtc::TimeMillis();
     ice_transport_->allocator_session()->RegatherOnAllNetworks();
   }
   if (repeated) {
@@ -72,6 +74,7 @@ void BasicRegatheringController::RegatherOnFailedNetworks(
   // running or stopped). It is only possible to enter this state when we gather
   // continually, so there is an implicit check on continual gathering here.
   if (ice_transport_->HasClearedAllocatorSession()) {
+    last_regathering_ms_ = rtc::TimeMillis();
     ice_transport_->allocator_session()->RegatherOnFailedNetworks();
   }
   if (repeated) {
@@ -82,6 +85,18 @@ void BasicRegatheringController::RegatherOnFailedNetworks(
 
 void BasicRegatheringController::CancelScheduledRegathering() {
   invoker_.Clear();
+}
+
+bool BasicRegatheringController::ShouldRegatherOnAllNetworks() {
+  if (rtc::TimeMillis() <
+      last_regathering_ms_ + min_regathering_interval_ms_or_default()) {
+    return false;
+  }
+  if (ice_transport_->TooManyWeakSelectedCandidatePairs() ||
+      ice_transport_->TooLargePingRttOverSelectedCandidatePair()) {
+    return true;
+  }
+  return false;
 }
 
 int BasicRegatheringController::regather_on_all_networks_interval() {

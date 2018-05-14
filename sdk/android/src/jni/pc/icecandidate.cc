@@ -187,6 +187,9 @@ JavaToNativeContinualGatheringPolicy(
   if (enum_name == "GATHER_CONTINUALLY")
     return PeerConnectionInterface::GATHER_CONTINUALLY;
 
+  if (enum_name == "GATHER_AUTO")
+    return PeerConnectionInterface::GATHER_AUTO;
+
   RTC_CHECK(false) << "Unexpected ContinualGatheringPolicy enum name "
                    << enum_name;
   return PeerConnectionInterface::GATHER_ONCE;

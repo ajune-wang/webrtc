@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5b8c5673_560fb80c",
+        "filename": "modules/video_coding/codecs/vp9/svc_config.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-05-14T13:53:44Z",
+      "side": 1,
+      "message": "No. Fixed.",
+      "parentUuid": "4b992522_27307448",
+      "range": {
+        "startLine": 24,
+        "startChar": 13,
+        "endLine": 24,
+        "endChar": 46
+      },
+      "revId": "75926837da3c8f002a7d6616b8e3f4da6d652077",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "78219155_99165e3b",
         "filename": "modules/video_coding/codecs/vp9/svc_config.cc",
         "patchSetId": 3
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "0dee4658_121f067b",
+        "filename": "modules/video_coding/codecs/vp9/svc_config.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-05-14T13:53:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "78219155_99165e3b",
+      "range": {
+        "startLine": 32,
+        "startChar": 43,
+        "endLine": 32,
+        "endChar": 0
+      },
+      "revId": "75926837da3c8f002a7d6616b8e3f4da6d652077",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "906318d8_0e73bf5d",
         "filename": "modules/video_coding/codecs/vp9/svc_rate_allocator.cc",
         "patchSetId": 3
@@ -59,6 +107,30 @@
       "writtenOn": "2018-05-14T12:17:58Z",
       "side": 1,
       "message": "This break and the one a few lines down break different loops, which confused me at first.\nCan we change an outer one to something like\n\ndo {\n--num_spatial_layers;\n\n...\n\n} while (num_spatial_layers \u003e 1 \u0026\u0026 !enough_bitrate);",
+      "range": {
+        "startLine": 90,
+        "startChar": 8,
+        "endLine": 90,
+        "endChar": 13
+      },
+      "revId": "75926837da3c8f002a7d6616b8e3f4da6d652077",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d80580f0_d4a34bc5",
+        "filename": "modules/video_coding/codecs/vp9/svc_rate_allocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-05-14T13:53:44Z",
+      "side": 1,
+      "message": "Then we will need to compensate for --num_spatial_layers. Or move --num_spatial_layers to while{} where it won\u0027t be a real condition because num_spatial_layers \u003e 1 will be there as well.\nAlso, if we want to use while{!enough_bitrate...} then we have to declate enough_bitrate outside of the loop.\n\nI don\u0027t think do/while{} will look better here. At least above solutions don\u0027t look better than current one.",
+      "parentUuid": "906318d8_0e73bf5d",
       "range": {
         "startLine": 90,
         "startChar": 8,

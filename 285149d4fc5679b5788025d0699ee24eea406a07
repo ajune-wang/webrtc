@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bb052fe3_59e6b06e",
+        "filename": "api/video_codecs/test/builtin_video_encoder_factory_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-05-14T07:16:53Z",
+      "side": 1,
+      "message": "I prefer to not use a fixture for this simple test, e.g. replace TEST_F with TEST and move the webrtc::CreateBuiltinVideoEncoderFactory() call into the test itself.",
+      "range": {
+        "startLine": 20,
+        "startChar": 6,
+        "endLine": 20,
+        "endChar": 36
+      },
+      "revId": "285149d4fc5679b5788025d0699ee24eea406a07",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

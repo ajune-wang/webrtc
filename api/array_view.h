@@ -169,13 +169,22 @@ class ArrayView final : public impl::ArrayViewBase<T, Size> {
     RTC_DCHECK_EQ(0, size);
   }
 
-  // Construct an ArrayView from an array.
+  // Construct an ArrayView from a C-style array.
   template <typename U, size_t N>
   ArrayView(U (&array)[N])  // NOLINT
       : ArrayView(array, N) {
     static_assert(Size == N || Size == impl::kArrayViewVarSize,
                   "Array size must match ArrayView size");
   }
+
+  // (Only if size is fixed.) Construct an ArrayView with fixed size from an
+  // std::array instance. For an ArrayView with variable size, the used ctor is
+  // ArrayView(U& u) instead - i.e., the next one.
+  template <typename U,
+            size_t N,
+            typename std::enable_if<Size != impl::kArrayViewVarSize &&
+                                    Size == N>::type* = nullptr>
+  explicit ArrayView(std::array<U, N>& u) : ArrayView(u.data(), u.size()) {}
 
   // (Only if size is fixed.) Construct an ArrayView from any type U that has a
   // static constexpr size() method whose return value is equal to Size, and a

@@ -152,6 +152,30 @@
       "revId": "fd59a6e5c7948e64d4ecec5620302a831aa8495c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63343325_62ee9e16",
+        "filename": "api/array_view.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-05-14T15:33:52Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "c0f4c3e0_90fa70e4",
+      "range": {
+        "startLine": 185,
+        "startChar": 2,
+        "endLine": 185,
+        "endChar": 10
+      },
+      "revId": "fd59a6e5c7948e64d4ecec5620302a831aa8495c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

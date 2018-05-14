@@ -71,6 +71,13 @@ rtc_source_set("video_bitrate_allocation") {
   ]
 }
 
+rtc_source_set("video_degradation_preference") {
+  visibility = [ "*" ]
+  sources = [
+    "video_degradation_preference.h",
+  ]
+}
+
 rtc_source_set("video_stream_decoder") {
   visibility = [ "*" ]
   sources = [

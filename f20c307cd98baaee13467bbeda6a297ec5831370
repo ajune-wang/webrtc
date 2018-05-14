@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b67fbafc_777a65ce",
+        "filename": "modules/congestion_controller/bbr/packet_number_indexed_queue.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-05-14T15:22:54Z",
+      "side": 1,
+      "message": "Could this be replaced by a map\u003cint64_t, T\u003e?",
+      "range": {
+        "startLine": 47,
+        "startChar": 6,
+        "endLine": 47,
+        "endChar": 30
+      },
+      "revId": "f20c307cd98baaee13467bbeda6a297ec5831370",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5c98b36_5e6cec87",
+        "filename": "modules/congestion_controller/bbr/packet_number_indexed_queue_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-05-14T15:22:54Z",
+      "side": 1,
+      "message": "Merge Chromium attribution with the WebRTC attribution above?",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 29
+      },
+      "revId": "f20c307cd98baaee13467bbeda6a297ec5831370",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

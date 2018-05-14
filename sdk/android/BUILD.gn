@@ -42,6 +42,7 @@ generate_jni("generated_base_jni") {
     "src/java/org/webrtc/JniCommon.java",
   ]
   jni_package = ""
+  namespace = "webrtc::jni"
   jni_generator_include = "//sdk/android/src/jni/jni_generator_helper.h"
 }
 
@@ -252,6 +253,7 @@ generate_jni("generated_audio_device_module_base_jni") {
     "src/java/org/webrtc/audio/WebRtcAudioManager.java",
   ]
   jni_package = ""
+  namespace = "webrtc::jni"
   jni_generator_include = "//sdk/android/src/jni/jni_generator_helper.h"
 }
 
@@ -261,6 +263,7 @@ generate_jni("generated_java_audio_device_module_native_jni") {
     "src/java/org/webrtc/audio/WebRtcAudioTrack.java",
   ]
   jni_package = ""
+  namespace = "webrtc::jni"
   jni_generator_include = "//sdk/android/src/jni/jni_generator_helper.h"
 }
 
@@ -296,6 +299,7 @@ generate_jni("generated_video_jni") {
     sources += [ "api/org/webrtc/HardwareVideoEncoderFactory.java" ]  # TODO(andersc): This currently depends on SoftwareVideoEncoderFactory
   }
   jni_package = ""
+  namespace = "webrtc::jni"
   jni_generator_include = "//sdk/android/src/jni/jni_generator_helper.h"
 }
 
@@ -414,6 +418,7 @@ generate_jni("generated_vp8_jni") {
   ]
 
   jni_package = ""
+  namespace = "webrtc::jni"
   jni_generator_include = "//sdk/android/src/jni/jni_generator_helper.h"
 }
 
@@ -436,6 +441,7 @@ generate_jni("generated_vp9_jni") {
   ]
 
   jni_package = ""
+  namespace = "webrtc::jni"
   jni_generator_include = "//sdk/android/src/jni/jni_generator_helper.h"
 }
 
@@ -505,6 +511,7 @@ generate_jni("generated_peerconnection_jni") {
     "api/org/webrtc/TurnCustomizer.java",
   ]
   jni_package = ""
+  namespace = "webrtc::jni"
   jni_generator_include = "//sdk/android/src/jni/jni_generator_helper.h"
 }
 
@@ -624,6 +631,7 @@ generate_jni("generated_metrics_jni") {
     "api/org/webrtc/Metrics.java",
   ]
   jni_package = ""
+  namespace = "webrtc::jni"
   jni_generator_include = "//sdk/android/src/jni/jni_generator_helper.h"
 }
 
@@ -730,7 +738,6 @@ rtc_android_library("base_java") {
     "src/java/org/webrtc/Histogram.java",
     "src/java/org/webrtc/JniCommon.java",
     "src/java/org/webrtc/JniHelper.java",
-    "src/java/org/webrtc/JNINamespace.java",
     "src/java/org/webrtc/NativeClassQualifiedName.java",
     "src/java/org/webrtc/RefCountDelegate.java",
     "src/java/org/webrtc/WebRtcClassLoader.java",
@@ -823,6 +830,7 @@ generate_jni("generated_java_audio_jni") {
     "api/org/webrtc/audio/JavaAudioDeviceModule.java",
   ]
   jni_package = ""
+  namespace = "webrtc::jni"
   jni_generator_include = "//sdk/android/src/jni/jni_generator_helper.h"
 }
 
@@ -1133,6 +1141,7 @@ generate_jni("generated_native_api_jni") {
     "src/java/org/webrtc/WebRtcClassLoader.java",
   ]
   jni_package = ""
+  namespace = "webrtc::jni"
   jni_generator_include = "//sdk/android/src/jni/jni_generator_helper.h"
 }
 
@@ -1247,6 +1256,7 @@ generate_jni("generated_native_unittests_jni") {
     "native_unittests/org/webrtc/PeerConnectionFactoryInitializationHelper.java",
   ]
   jni_package = ""
+  namespace = "webrtc::jni"
   jni_generator_include = "//sdk/android/src/jni/jni_generator_helper.h"
 }
 

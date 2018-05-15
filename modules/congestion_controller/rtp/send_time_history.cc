@@ -15,30 +15,27 @@
 
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 #include "rtc_base/checks.h"
-#include "system_wrappers/include/clock.h"
 
 namespace webrtc {
 namespace webrtc_cc {
 
-SendTimeHistory::SendTimeHistory(const Clock* clock,
-                                 int64_t packet_age_limit_ms)
-    : clock_(clock), packet_age_limit_ms_(packet_age_limit_ms) {}
+SendTimeHistory::SendTimeHistory() = default;
 
-SendTimeHistory::~SendTimeHistory() {}
+SendTimeHistory::~SendTimeHistory() = default;
 
-void SendTimeHistory::AddAndRemoveOld(const PacketFeedback& packet) {
-  int64_t now_ms = clock_->TimeInMilliseconds();
-  // Remove old.
+void SendTimeHistory::AddPacket(const PacketFeedback& packet) {
+  int64_t unwrapped_seq_num = seq_num_unwrapper_.Unwrap(packet.sequence_number);
+  PacketFeedback packet_copy = packet;
+  packet_copy.long_sequence_number = unwrapped_seq_num;
+  history_.insert(std::make_pair(unwrapped_seq_num, packet_copy));
+}
+
+void SendTimeHistory::RemoveOld(int64_t older_than_ms) {
   while (!history_.empty() &&
-         now_ms - history_.begin()->second.creation_time_ms >
-             packet_age_limit_ms_) {
+         history_.begin()->second.creation_time_ms < older_than_ms) {
     // TODO(sprang): Warn if erasing (too many) old items?
     history_.erase(history_.begin());
   }
-
-  // Add new.
-  int64_t unwrapped_seq_num = seq_num_unwrapper_.Unwrap(packet.sequence_number);
-  history_.insert(std::make_pair(unwrapped_seq_num, packet));
 }
 
 bool SendTimeHistory::OnSentPacket(uint16_t sequence_number,

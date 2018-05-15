@@ -13,13 +13,15 @@
 
 #include <string>
 
-#include "common_types.h"  // NOLINT(build/include)
+#include "api/rtp_headers.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 #include "rtc_base/task_queue.h"
+#include "system_wrappers/include/ntp_time.h"
 
 namespace webrtc {
 class ReceiveStatisticsProvider;
 class Transport;
+class VideoBitrateAllocation;
 
 // Interface to watch incoming rtcp packets by media (rtp) receiver.
 class MediaReceiverRtcpObserver {

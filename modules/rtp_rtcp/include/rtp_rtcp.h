@@ -34,6 +34,7 @@ class RemoteBitrateEstimator;
 class RtcEventLog;
 class RtpReceiver;
 class Transport;
+class VideoBitrateAllocation;
 class VideoBitrateAllocationObserver;
 
 RTPExtensionType StringToRtpExtensionType(const std::string& extension);

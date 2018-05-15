@@ -414,12 +414,15 @@ def UpdateDepsFile(deps_filename, rev_update, changed_deps):
 
 
 def _LoadThirdPartyDepsAndFiles(filename):
-  third_party_deps = {}
+  third_party_deps = []
   with open(filename, 'rb') as f:
     deps_content = f.read()
-    global_scope = {}
-    exec (deps_content, global_scope, third_party_deps)
-  return third_party_deps.get('DEPS', [])
+    for line in deps_content.split('\n'):
+      line = line.strip()
+      if len(line) == 0 or line.startswith('#'):
+        continue
+      third_party_deps.append(line)
+  return third_party_deps
 
 
 def UpdateThirdPartyDeps(new_rev, dest_dir, source_dir,
@@ -613,10 +616,12 @@ def main():
   logging.debug('Commit message:\n%s', commit_msg)
 
   _CreateRollBranch(opts.dry_run)
+  third_party_chromium_deps_list = os.path.join(
+      CHECKOUT_SRC_DIR, 'THIRD_PARTY_CHROMIUM_DEPS')
   UpdateThirdPartyDeps(rev_update.new_third_party_rev,
                        os.path.join(CHECKOUT_SRC_DIR, 'third_party'),
                        cr_3p_repo,
-                       os.path.join(CHECKOUT_SRC_DIR, 'THIRD_PARTY_DEPS'))
+                       third_party_chromium_deps_list)
   UpdateDepsFile(deps_filename, rev_update, changed_deps)
   if _IsTreeClean():
     logging.info("No DEPS changes detected, skipping CL creation.")

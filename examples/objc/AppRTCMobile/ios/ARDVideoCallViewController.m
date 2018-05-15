@@ -99,7 +99,7 @@
 }
 
 - (void)appClient:(ARDAppClient *)client
-    didCreateLocalCapturer:(RTCCameraVideoCapturer *)localCapturer {
+    didCreateLocalCapturer:(ARDARVideoCapturer *)localCapturer {
   _videoCallView.localVideoView.captureSession = localCapturer.captureSession;
   ARDSettingsModel *settingsModel = [[ARDSettingsModel alloc] init];
   _captureController =

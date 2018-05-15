@@ -30,7 +30,7 @@ bool IsMultiplexCodec(const cricket::VideoCodec& codec) {
 
 namespace webrtc {
 
-constexpr const char* kMultiplexAssociatedCodecName = cricket::kVp9CodecName;
+constexpr const char* kMultiplexAssociatedCodecName = cricket::kH264CodecName;
 
 MultiplexEncoderFactory::MultiplexEncoderFactory(
     std::unique_ptr<VideoEncoderFactory> factory)

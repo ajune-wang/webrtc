@@ -56,7 +56,7 @@ static CGFloat const kStatusBarHeight = 20;
     [self addSubview:_localVideoView];
 
     _statsView = [[ARDStatsView alloc] initWithFrame:CGRectZero];
-    _statsView.hidden = YES;
+    _statsView.hidden = NO;
     [self addSubview:_statsView];
 
     _routeChangeButton = [UIButton buttonWithType:UIButtonTypeCustom];

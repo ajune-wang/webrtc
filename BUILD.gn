@@ -86,7 +86,7 @@ if (!build_with_chromium) {
 # target_defaults and direct_dependent_settings.
 config("common_inherited_config") {
   defines = []
-  cflags = []
+  cflags = [ "-Wno-deprecated-declarations" ]
   ldflags = []
   if (build_with_mozilla) {
     defines += [ "WEBRTC_MOZILLA_BUILD" ]

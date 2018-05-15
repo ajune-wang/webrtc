@@ -22,6 +22,30 @@
       "revId": "7673939c591e4e6d877cff1e553111b181095e2e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da7241fa_a8b3ab8c",
+        "filename": "modules/congestion_controller/rtp/send_time_history.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-05-15T06:54:27Z",
+      "side": 1,
+      "message": "Thanks! That is an error due to rebasing, the copy is what should be used below. Fixed.",
+      "parentUuid": "a6d286ad_c34d1bb5",
+      "range": {
+        "startLine": 42,
+        "startChar": 2,
+        "endLine": 42,
+        "endChar": 13
+      },
+      "revId": "7673939c591e4e6d877cff1e553111b181095e2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

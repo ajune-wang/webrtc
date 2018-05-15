@@ -41,13 +41,14 @@ VideoBitrateAllocation SvcRateAllocator::GetAllocation(
     bitrate_allocation.SetBitrate(0, 0, total_bitrate_bps);
     return bitrate_allocation;
   } else if (codec_.mode == kRealtimeVideo) {
-    return GetAllocationNormalVideo(total_bitrate_bps);
+    return GetAllocationRealtimeVideo(total_bitrate_bps);
   } else {
+    RTC_DCHECK_EQ(codec_.mode, kScreensharing);
     return GetAllocationScreenSharing(total_bitrate_bps);
   }
 }
 
-VideoBitrateAllocation SvcRateAllocator::GetAllocationNormalVideo(
+VideoBitrateAllocation SvcRateAllocator::GetAllocationRealtimeVideo(
     uint32_t total_bitrate_bps) const {
   size_t num_spatial_layers = codec_.VP9().numberOfSpatialLayers;
   RTC_CHECK(num_spatial_layers > 0);

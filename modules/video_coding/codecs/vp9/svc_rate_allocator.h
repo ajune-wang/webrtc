@@ -28,7 +28,7 @@ class SvcRateAllocator : public VideoBitrateAllocator {
   uint32_t GetPreferredBitrateBps(uint32_t framerate_fps) override;
 
  private:
-  VideoBitrateAllocation GetAllocationNormalVideo(
+  VideoBitrateAllocation GetAllocationRealtimeVideo(
       uint32_t total_bitrate_bps) const;
   VideoBitrateAllocation GetAllocationScreenSharing(
       uint32_t total_bitrate_bps) const;

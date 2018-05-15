@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d2045dfc_90ab958b",
+        "filename": "modules/rtp_rtcp/include/rtp_rtcp.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-05-15T14:02:31Z",
+      "side": 1,
+      "message": "instead of forward declaration prefer to #include the \"api/video/video_bitrate_allocation.h\"\nhttps://chromium.googlesource.com/external/webrtc/+/HEAD/style-guide.md#forward-declarations",
+      "revId": "456927a3c8ba81ea48c28f78131c0c80f135fafa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35bef4bd_a36e5af9",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_config.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-05-15T14:02:31Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 24,
+        "startChar": 29,
+        "endLine": 25,
+        "endChar": 0
+      },
+      "revId": "456927a3c8ba81ea48c28f78131c0c80f135fafa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

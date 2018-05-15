@@ -327,7 +327,7 @@ HRESULT CaptureInputPin::SetMatchingMediaType(
   return S_OK;
 }
 //  ----------------------------------------------------------------------------
-CaptureSinkFilter::CaptureSinkFilter(IN TCHAR* tszName,
+CaptureSinkFilter::CaptureSinkFilter(const IN TCHAR* tszName,
                                      IN LPUNKNOWN punk,
                                      OUT HRESULT* phr,
                                      VideoCaptureExternal& captureObserver)

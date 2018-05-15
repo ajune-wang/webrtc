@@ -10,6 +10,7 @@
 
 #include "media/engine/fakewebrtcvideoengine.h"
 
+#include "api/video/video_bitrate_allocation.h"
 #include "media/base/codec.h"
 #include "media/engine/simulcast_encoder_adapter.h"
 #include "media/engine/webrtcvideodecoderfactory.h"

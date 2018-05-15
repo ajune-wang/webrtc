@@ -18,6 +18,7 @@
 #include <utility>
 #include <vector>
 
+#include "api/video/video_bitrate_allocation.h"
 #include "media/engine/webrtcvideoencoderfactory.h"
 #include "modules/video_coding/codecs/vp8/include/vp8.h"
 #include "rtc_base/atomicops.h"

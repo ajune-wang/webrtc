@@ -10,7 +10,7 @@ vars = {
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
   'webrtc_git': 'https://webrtc.googlesource.com',
-  'chromium_revision': 'ddace756be8170a976bdf1b6c8779dfe2d5c47b6',
+  'chromium_revision': '2ebc174f76e39335d9ca86224bed7be3e8cfc061',
   'boringssl_git': 'https://boringssl.googlesource.com',
   # Three lines of non-changing comments so that
   # the commit queue can handle CLs rolling swarming_client
@@ -43,7 +43,7 @@ vars = {
   # Three lines of non-changing comments so that
   # the commit queue can handle CLs rolling Chromium third_party
   # and whatever else without interference from each other.
-  'chromium_third_party_revision': '15aad43d8b3cd8e38549e345ec6fbef42b3968bd',
+  'chromium_third_party_revision': '4f950e54182172f950490b440ed8cb89e638875a',
 }
 deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
@@ -175,7 +175,7 @@ deps = {
   'src/third_party/yasm/source/patched-yasm':
     Var('chromium_git') + '/chromium/deps/yasm/patched-yasm.git' + '@' + 'b98114e18d8b9b84586b10d24353ab8616d4c5fc',
   'src/tools':
-    Var('chromium_git') + '/chromium/src/tools' + '@' + '083aa0e99cee185b679aa800e38ec19d0505918e',
+    Var('chromium_git') + '/chromium/src/tools' + '@' + 'f3a4f95aea4c4387ff423455a5bc82f100aef369',
   'src/tools/gyp':
     Var('chromium_git') + '/external/gyp.git' + '@' + 'd61a9397e668fa9843c4aa7da9e79460fe590bfb',
   'src/tools/swarming_client':

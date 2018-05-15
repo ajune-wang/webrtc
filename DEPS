@@ -10,7 +10,7 @@ vars = {
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
   'webrtc_git': 'https://webrtc.googlesource.com',
-  'chromium_revision': 'a7f5d9dfeaa43c7590116661db96c22e6767821f',
+  'chromium_revision': '68559631d2b1b7c11448e0e18a95f712662fa69b',
   'boringssl_git': 'https://boringssl.googlesource.com',
   # Three lines of non-changing comments so that
   # the commit queue can handle CLs rolling swarming_client
@@ -27,7 +27,7 @@ vars = {
   # Three lines of non-changing comments so that
   # the commit queue can handle CLs rolling catapult
   # and whatever else without interference from each other.
-  'catapult_revision': 'dd13313c34d34127722d3bab7c2b4f372329c544',
+  'catapult_revision': '075ca3000abfdd522bd4faf668cae4b7c820dd64',
   # Three lines of non-changing comments so that
   # the commit queue can handle CLs rolling libFuzzer
   # and whatever else without interference from each other.
@@ -43,7 +43,7 @@ vars = {
   # Three lines of non-changing comments so that
   # the commit queue can handle CLs rolling Chromium third_party
   # and whatever else without interference from each other.
-  'chromium_third_party_revision': '31b8b368404f16225d3a0d78d4cb41a5277824ca',
+  'chromium_third_party_revision': '4baf96148bcb8323dd58299444519c6c92cb4a5c',
 }
 deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
@@ -65,7 +65,7 @@ deps = {
     'condition': 'checkout_ios',
   },
   'src/testing':
-    Var('chromium_git') + '/chromium/src/testing' + '@' + '32c183fef6609ca061a8d29fd79898608ebc5427',
+    Var('chromium_git') + '/chromium/src/testing' + '@' + 'bfb20b1a58e8bf8290640c3128e53998cc9e8bc6',
   # This entry is used for chromium third_party rolling into webrtc third_party only.
   'src/third_party_chromium': {
       'url': Var('chromium_git') + '/chromium/src/third_party' + '@' + Var('chromium_third_party_revision'),

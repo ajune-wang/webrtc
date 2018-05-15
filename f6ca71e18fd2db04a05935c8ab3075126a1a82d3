@@ -60,6 +60,24 @@
     },
     {
       "key": {
+        "uuid": "8423332a_66745982",
+        "filename": "api/test/stats.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-05-15T10:57:56Z",
+      "side": 1,
+      "message": "In this case, we have an interface for the fixture not to implement polymorphism, but to hide the implementation. There\u0027s a 1-1 mapping. So I don\u0027t think that tight coupling between the stats and the fixture impl is stranger than the coupling between the config and the fixture impl.\n\nIdeally, I\u0027d like the classes exposed in the API to only contain the things that are useful for *clients* of the API, not e.g. internal utilities used to interpret the information in the object, or to populate its fields. The best stats and config objects are PODs - \"dead\" classes which do not contain any logic - as opposed to the fixture, which is \"live\" and as a result we use a pimpl.",
+      "parentUuid": "93f152e4_1a1976bb",
+      "revId": "f6ca71e18fd2db04a05935c8ab3075126a1a82d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "285127f1_89f2a311",
         "filename": "api/test/stats.h",
         "patchSetId": 2

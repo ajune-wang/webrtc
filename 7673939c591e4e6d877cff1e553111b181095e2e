@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a6d286ad_c34d1bb5",
+        "filename": "modules/congestion_controller/rtp/send_time_history.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-05-15T06:22:49Z",
+      "side": 1,
+      "message": "Looks like this is unused?",
+      "range": {
+        "startLine": 42,
+        "startChar": 2,
+        "endLine": 42,
+        "endChar": 13
+      },
+      "revId": "7673939c591e4e6d877cff1e553111b181095e2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

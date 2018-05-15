@@ -10,7 +10,7 @@ vars = {
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
   'webrtc_git': 'https://webrtc.googlesource.com',
-  'chromium_revision': 'a7f5d9dfeaa43c7590116661db96c22e6767821f',
+  'chromium_revision': 'c141cd5d0b573b49db27b8f6f7e0e4b9487ff8af',
   'boringssl_git': 'https://boringssl.googlesource.com',
   # Three lines of non-changing comments so that
   # the commit queue can handle CLs rolling swarming_client
@@ -27,7 +27,7 @@ vars = {
   # Three lines of non-changing comments so that
   # the commit queue can handle CLs rolling catapult
   # and whatever else without interference from each other.
-  'catapult_revision': 'dd13313c34d34127722d3bab7c2b4f372329c544',
+  'catapult_revision': '075ca3000abfdd522bd4faf668cae4b7c820dd64',
   # Three lines of non-changing comments so that
   # the commit queue can handle CLs rolling libFuzzer
   # and whatever else without interference from each other.
@@ -43,7 +43,7 @@ vars = {
   # Three lines of non-changing comments so that
   # the commit queue can handle CLs rolling Chromium third_party
   # and whatever else without interference from each other.
-  'chromium_third_party_revision': '31b8b368404f16225d3a0d78d4cb41a5277824ca',
+  'chromium_third_party_revision': '8d50f941a4003b56a4689bf67cc060e96d9966c8',
 }
 deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency

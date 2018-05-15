@@ -24,4 +24,11 @@ specific_include_rules = {
     "+modules/audio_coding",
     "+modules/audio_processing",
   ],
+
+  # Declarations needed for configuration of a VideoStreamEncoder
+  # should be moved to api/. See https://bugs.webrtc.org/8830.
+  "video_stream_encoder_interface.h": [
+    "+call/video_config.h",
+    "+call/video_send_stream.h",
+  ],
 }

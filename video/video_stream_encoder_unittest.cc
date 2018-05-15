@@ -2068,7 +2068,7 @@ TEST_F(VideoStreamEncoderTest,
 
 TEST_F(VideoStreamEncoderTest, CallsBitrateObserver) {
   MockBitrateObserver bitrate_observer;
-  video_stream_encoder_->SetBitrateObserver(&bitrate_observer);
+  video_stream_encoder_->SetBitrateAllocationObserver(&bitrate_observer);
 
   const int kDefaultFps = 30;
   const VideoBitrateAllocation expected_bitrate =
@@ -3123,7 +3123,7 @@ TEST_F(VideoStreamEncoderTest, DoesNotUpdateBitrateAllocationWhenSuspended) {
   const int kTargetBitrateBps = 1000000;
 
   MockBitrateObserver bitrate_observer;
-  video_stream_encoder_->SetBitrateObserver(&bitrate_observer);
+  video_stream_encoder_->SetBitrateAllocationObserver(&bitrate_observer);
 
   EXPECT_CALL(bitrate_observer, OnBitrateAllocationUpdated(_)).Times(1);
   // Initial bitrate update.

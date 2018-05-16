@@ -137,7 +137,7 @@ class BitrateEstimatorTest : public test::CallTest {
   virtual void TearDown() {
     task_queue_.SendTask([this]() {
       std::for_each(streams_.begin(), streams_.end(),
-                    std::mem_fun(&Stream::StopSending));
+                    [](Stream* stream) { stream->StopSending(); });
 
       while (!streams_.empty()) {
         delete streams_.back();

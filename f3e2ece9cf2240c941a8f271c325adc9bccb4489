@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ca4972d3_5a055a36",
+        "filename": "DEPS",
+        "patchSetId": 1
+      },
+      "lineNbr": 738,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-05-16T12:17:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd2879b3_cd25161c",
+      "revId": "f3e2ece9cf2240c941a8f271c325adc9bccb4489",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "93f019c3_8d87b1e7",
         "filename": "api/optional.h",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2018-05-16T12:06:33Z",
       "side": 1,
       "message": "Post bug about getting rid of this backwards compat header, and add a TODO for that bug here?",
+      "revId": "f3e2ece9cf2240c941a8f271c325adc9bccb4489",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0939f90_f1450afd",
+        "filename": "api/optional.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-05-16T12:17:01Z",
+      "side": 1,
+      "message": "Added TODO to BUILD.gn to remove the \"optional\" build target",
+      "parentUuid": "93f019c3_8d87b1e7",
       "revId": "f3e2ece9cf2240c941a8f271c325adc9bccb4489",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -50,6 +86,24 @@
       "revId": "f3e2ece9cf2240c941a8f271c325adc9bccb4489",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a87e57c_a704e4a7",
+        "filename": "api/optional_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-05-16T12:17:01Z",
+      "side": 1,
+      "message": "there are tests for absl::optional, but we currently do not run them on our bots.\nI\u0027ve added TODO to keep optional_unittests until we do.",
+      "parentUuid": "81585348_ffbc9771",
+      "revId": "f3e2ece9cf2240c941a8f271c325adc9bccb4489",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

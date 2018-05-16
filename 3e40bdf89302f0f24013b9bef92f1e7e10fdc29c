@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2800b937_f9751f67",
+        "filename": "api/test/create_videocodec_test_fixture.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-05-16T13:50:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c23f3640_d9cff133",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 53
+      },
+      "revId": "3e40bdf89302f0f24013b9bef92f1e7e10fdc29c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8f369be5_6e907bf5",
         "filename": "api/test/videocodec_test_fixture.h",
         "patchSetId": 5
@@ -39,6 +63,24 @@
       "revId": "3e40bdf89302f0f24013b9bef92f1e7e10fdc29c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e20b8ffa_4e84d750",
+        "filename": "api/test/videocodec_test_fixture.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-05-16T13:50:47Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8f369be5_6e907bf5",
+      "revId": "3e40bdf89302f0f24013b9bef92f1e7e10fdc29c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "e35ac78a_78caa227",
+        "filename": "api/test/videocodec_test_fixture.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-05-16T13:50:47Z",
+      "side": 1,
+      "message": "They are also used in videoprocessor.cc and could be used in tests. These are generally convenience accessors, and I think it makes sense to keep them here.",
+      "parentUuid": "c914584e_0a7d6660",
+      "range": {
+        "startLine": 81,
+        "startChar": 11,
+        "endLine": 81,
+        "endChar": 24
+      },
+      "revId": "3e40bdf89302f0f24013b9bef92f1e7e10fdc29c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0aee7ee9_e5f1dac7",
         "filename": "api/test/videocodec_test_fixture.h",
         "patchSetId": 5
@@ -79,6 +145,24 @@
       "revId": "3e40bdf89302f0f24013b9bef92f1e7e10fdc29c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b258293_ccedb88d",
+        "filename": "api/test/videocodec_test_fixture.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-05-16T13:50:47Z",
+      "side": 1,
+      "message": "Removed some that were a bit unrelated, but many of these are \"computed properties\" and I think logically belong here.",
+      "parentUuid": "0aee7ee9_e5f1dac7",
+      "revId": "3e40bdf89302f0f24013b9bef92f1e7e10fdc29c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -99,6 +183,24 @@
     },
     {
       "key": {
+        "uuid": "5a5d8eb8_bfbad969",
+        "filename": "api/test/videocodec_test_stats.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-05-16T13:50:47Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a5afc341_3c1efd91",
+      "revId": "3e40bdf89302f0f24013b9bef92f1e7e10fdc29c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8cb8a73c_771b667c",
         "filename": "modules/video_coding/codecs/test/videocodec_test_fixture_impl.h",
         "patchSetId": 5
@@ -113,6 +215,24 @@
       "revId": "3e40bdf89302f0f24013b9bef92f1e7e10fdc29c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd63c2b9_9dc98390",
+        "filename": "modules/video_coding/codecs/test/videocodec_test_fixture_impl.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-05-16T13:50:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8cb8a73c_771b667c",
+      "revId": "3e40bdf89302f0f24013b9bef92f1e7e10fdc29c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

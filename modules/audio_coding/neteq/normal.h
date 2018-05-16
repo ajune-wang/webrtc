@@ -57,7 +57,6 @@ class Normal {
   // a pointer to the mute factor in the NetEqImpl class.
   int Process(const int16_t* input, size_t length,
               Modes last_mode,
-              int16_t* external_mute_factor_array,
               AudioMultiVector* output);
 
  private:

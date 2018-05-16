@@ -20,8 +20,7 @@
 #include "api/video_codecs/video_encoder_factory.h"
 #include "common_types.h"  // NOLINT(build/include)
 #include "common_video/h264/h264_common.h"
-#include "modules/video_coding/codecs/test/stats.h"
-#include "modules/video_coding/codecs/test/test_config.h"
+#include "modules/video_coding/codecs/test/videocodec_test_stats_impl.h"
 #include "modules/video_coding/codecs/test/videoprocessor.h"
 #include "modules/video_coding/utility/ivf_file_writer.h"
 #include "rtc_base/task_queue_for_test.h"
@@ -38,7 +37,7 @@ namespace test {
 class VideoCodecTestFixtureImpl : public VideoCodecTestFixture {
   // Verifies that all H.264 keyframes contain SPS/PPS/IDR NALUs.
  public:
-  class H264KeyframeChecker : public TestConfig::EncodedFrameChecker {
+  class H264KeyframeChecker : public EncodedFrameChecker {
    public:
     void CheckEncodedFrame(webrtc::VideoCodecType codec,
                            const EncodedImage& encoded_frame) const override;
@@ -57,7 +56,7 @@ class VideoCodecTestFixtureImpl : public VideoCodecTestFixture {
                const BitstreamThresholds* bs_thresholds,
                const VisualizationParams* visualization_params) override;
 
-  Stats GetStats() override;
+  VideoCodecTestStatsImpl GetStats();
 
  private:
   class CpuProcessTime;
@@ -78,12 +77,13 @@ class VideoCodecTestFixtureImpl : public VideoCodecTestFixture {
       const std::vector<QualityThresholds>* quality_thresholds,
       const BitstreamThresholds* bs_thresholds);
 
-  void VerifyVideoStatistic(const VideoStatistics& video_stat,
-                            const RateControlThresholds* rc_thresholds,
-                            const QualityThresholds* quality_thresholds,
-                            const BitstreamThresholds* bs_thresholds,
-                            size_t target_bitrate_kbps,
-                            float input_framerate_fps);
+  void VerifyVideoStatistic(
+      const VideoCodecTestStats::VideoStatistics& video_stat,
+      const RateControlThresholds* rc_thresholds,
+      const QualityThresholds* quality_thresholds,
+      const BitstreamThresholds* bs_thresholds,
+      size_t target_bitrate_kbps,
+      float input_framerate_fps);
 
   void PrintSettings(rtc::test::TaskQueueForTest* task_queue) const;
   std::unique_ptr<VideoDecoderFactory> CreateDecoderFactory();
@@ -97,7 +97,7 @@ class VideoCodecTestFixtureImpl : public VideoCodecTestFixture {
 
   // Helper objects.
   TestConfig config_;
-  Stats stats_;
+  VideoCodecTestStatsImpl stats_;
   std::unique_ptr<FrameReader> source_frame_reader_;
   VideoProcessor::IvfFileWriterList encoded_frame_writers_;
   VideoProcessor::FrameWriterList decoded_frame_writers_;

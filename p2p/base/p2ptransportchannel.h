@@ -33,6 +33,7 @@
 #include "logging/rtc_event_log/icelogger.h"
 #include "p2p/base/candidatepairinterface.h"
 #include "p2p/base/icetransportinternal.h"
+#include "p2p/base/icetransportstats.h"
 #include "p2p/base/p2pconstants.h"
 #include "p2p/base/portallocator.h"
 #include "p2p/base/portinterface.h"
@@ -118,6 +119,7 @@ class P2PTransportChannel : public IceTransportInternal {
   int SetOption(rtc::Socket::Option opt, int value) override;
   bool GetOption(rtc::Socket::Option opt, int* value) override;
   int GetError() override;
+  webrtc::IceTransportStats GetTransportStats();
   bool GetStats(std::vector<ConnectionInfo>* candidate_pair_stats_list,
                 std::vector<CandidateStats>* candidate_stats_list) override;
   rtc::Optional<int> GetRttEstimate() override;
@@ -311,6 +313,9 @@ class P2PTransportChannel : public IceTransportInternal {
   bool ShouldSwitchSelectedConnection(
       Connection* new_connection,
       bool* missed_receiving_unchanged_threshold) const;
+  // Returns if we should start regathering of new local candidates, and signal
+  // them to the remote endpoint.
+  bool MaybeRegatherOnAllNetworks();
   // Returns true if the new_connection is selected for transmission.
   bool MaybeSwitchSelectedConnection(Connection* new_connection,
                                      const std::string& reason);
@@ -405,6 +410,7 @@ class P2PTransportChannel : public IceTransportInternal {
   IceConfig config_;
   int last_sent_packet_id_ = -1;  // -1 indicates no packet was sent before.
   bool started_pinging_ = false;
+  int num_continual_switchings_to_weak_candidate_pairs_ = 0;
   // The value put in the "nomination" attribute for the next nominated
   // connection. A zero-value indicates the connection will not be nominated.
   uint32_t nomination_ = 0;

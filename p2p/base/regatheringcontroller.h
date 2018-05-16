@@ -11,6 +11,7 @@
 #ifndef P2P_BASE_REGATHERINGCONTROLLER_H_
 #define P2P_BASE_REGATHERINGCONTROLLER_H_
 
+#include "p2p/base/icetransportstats.h"
 #include "p2p/base/portallocator.h"
 #include "rtc_base/asyncinvoker.h"
 #include "rtc_base/random.h"
@@ -41,8 +42,14 @@ class BasicRegatheringController {
   void ScheduleRegatheringOnFailedNetworks(int delay_ms, bool repeated);
   // Cancels scheduled regathering on all networks.
   void CancelScheduledRegathering();
+  bool ShouldRegatherOnAllNetworks(const webrtc::IceTransportStats& stats);
   void set_allocator_session(cricket::PortAllocatorSession* allocator_session) {
     allocator_session_ = allocator_session;
+  }
+
+  int min_regathering_interval_ms_or_default() const {
+    return min_regathering_interval_ms_.value_or(
+        cricket::kMinRegatheringIntervalMs);
   }
 
  private:
@@ -58,11 +65,20 @@ class BasicRegatheringController {
   // Samples a delay from the uniform distribution in the given range.
   int SampleRegatherAllNetworksInterval(const rtc::IntervalRange& range);
 
+  bool TooManyWeakSelectedCandidatePairs(
+      const webrtc::IceTransportStats& stats) const;
+  bool TooLargePingRttOverSelectedCandidatePair(
+      const webrtc::IceTransportStats& stats) const;
+
   cricket::PortAllocatorSession* allocator_session_ = nullptr;
   rtc::Thread* thread_;
   rtc::AsyncInvoker invoker_;
   // Used to generate random intervals for regather_all_networks_interval_range.
   Random rand_;
+  //
+  rtc::Optional<int> min_regathering_interval_ms_;
+  // Last time in milliseconds a round of regathering is done.
+  int last_regathering_ms_ = 0;
 };
 
 }  // namespace webrtc

@@ -85,6 +85,31 @@ void BasicRegatheringController::CancelScheduledRegathering() {
   invoker_.Clear();
 }
 
+bool BasicRegatheringController::TooManyWeakSelectedCandidatePairs(
+    const webrtc::IceTransportStats& stats) const {
+  return stats.num_continual_switchings_to_weak_candidate_pairs >
+         cricket::kMinNumSwitchingsToWeakCandidatePairsBeforeRegathering;
+}
+
+bool BasicRegatheringController::TooLargePingRttOverSelectedCandidatePair(
+    const webrtc::IceTransportStats& stats) const {
+  return stats.selected_candidate_pair_connectivity_check_rtt_ms >
+         cricket::kMinRttMsOverSelectedCandidatePairBeforeRegathering;
+}
+
+bool BasicRegatheringController::ShouldRegatherOnAllNetworks(
+    const webrtc::IceTransportStats& stats) {
+  if (rtc::TimeMillis() <
+      last_regathering_ms_ + min_regathering_interval_ms_or_default()) {
+    return false;
+  }
+  if (TooManyWeakSelectedCandidatePairs(stats) ||
+      TooLargePingRttOverSelectedCandidatePair(stats)) {
+    return true;
+  }
+  return false;
+}
+
 int BasicRegatheringController::SampleRegatherAllNetworksInterval(
     const rtc::IntervalRange& range) {
   return rand_.Rand(range.min(), range.max());

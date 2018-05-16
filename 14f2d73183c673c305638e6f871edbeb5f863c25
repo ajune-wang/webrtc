@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "66c713f6_313fc7a2",
+        "filename": "THIRD_PARTY_WEBRTC_DEPS.json",
+        "patchSetId": 5
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-05-16T12:11:30Z",
+      "side": 1,
+      "message": "This file contains list of third party dependencies owned by WebRTC directly, e.g. they\u0027re not from Chromium\u0027s third party (those are tracked in THIRD_PARTY_CHROMIUM_DEPS.json).",
+      "range": {
+        "startLine": 3,
+        "startChar": 4,
+        "endLine": 3,
+        "endChar": 61
+      },
+      "revId": "14f2d73183c673c305638e6f871edbeb5f863c25",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6057bca_8a391030",
+        "filename": "tools_webrtc/autoroller/checkin_chromium_dep.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-05-16T12:11:30Z",
+      "side": 1,
+      "message": "2018",
+      "range": {
+        "startLine": 2,
+        "startChar": 16,
+        "endLine": 2,
+        "endChar": 20
+      },
+      "revId": "14f2d73183c673c305638e6f871edbeb5f863c25",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3d9e421_75b71b56",
+        "filename": "tools_webrtc/autoroller/checkin_chromium_dep.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-05-16T12:11:30Z",
+      "side": 1,
+      "message": "A reader of this code will likely just want to know how to use the script, so add some usage information and an example:\n\n\"Suppose you want to add third_party/xyz from Chromium\u0027s third_party. Run this:\npython checkin_chromium_dep.py -d xyz\n\nThe script will copy in the dependency from Chromium\u0027s third party at the right revision and ensure the dep will get updated automatically when it changes later in Chromium.\"",
+      "range": {
+        "startLine": 11,
+        "startChar": 3,
+        "endLine": 11,
+        "endChar": 77
+      },
+      "revId": "14f2d73183c673c305638e6f871edbeb5f863c25",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "975b6e5a_c777bb3d",
+        "filename": "tools_webrtc/autoroller/checkin_chromium_dep.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-05-16T12:11:30Z",
+      "side": 1,
+      "message": "finish adding the dependency.",
+      "range": {
+        "startLine": 162,
+        "startChar": 31,
+        "endLine": 162,
+        "endChar": 67
+      },
+      "revId": "14f2d73183c673c305638e6f871edbeb5f863c25",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1aa477df_029da862",
+        "filename": "tools_webrtc/autoroller/checkin_chromium_dep.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-05-16T12:11:30Z",
+      "side": 1,
+      "message": "Please add some tests. You can either write unit tests for the functions in this file or a bigger integration test. You will need to somehow stub out the chromium third_party git repo though: the test should not depend on what\u0027s actually in third_party. Maybe use mock.patch and replace CheckoutRequiredDependency with something that creates a small git repo with third_party/xyz, third_party/foo, third_party/bar. This means we don\u0027t test CheckoutRequiredDependency which is unfortunate but we test everything else at least.\n\nOr even better: would it be possible to just check in tools_webrtc/testdata/fake_git_repo and point to it through a file:// URL rather than https://chromium.googlesource.com/chromium/src/third_party? In that case you can construct a git repo and run this entire script for a few interesting scenarios. I think an integration test is better than unit tests here, provided you manage to solve the test git repo problem.",
+      "range": {
+        "startLine": 186,
+        "startChar": 0,
+        "endLine": 186,
+        "endChar": 11
+      },
+      "revId": "14f2d73183c673c305638e6f871edbeb5f863c25",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1518fa47_2ec59e47",
+        "filename": "tools_webrtc/autoroller/checkin_chromium_dep.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-05-16T12:11:30Z",
+      "side": 1,
+      "message": "This configurability seems unnecessary. Remove?",
+      "range": {
+        "startLine": 190,
+        "startChar": 2,
+        "endLine": 192,
+        "endChar": 59
+      },
+      "revId": "14f2d73183c673c305638e6f871edbeb5f863c25",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

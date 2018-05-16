@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6174a8da_0cd74c4d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-16T20:32:15Z",
+      "side": 1,
+      "message": "Add brief description?",
+      "revId": "a3427108b019c2291dd8bdead43a57a91036f44b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94909f1c_40828a95",
+        "filename": "pc/test/fakeperiodicvideotracksource.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-16T20:32:15Z",
+      "side": 1,
+      "message": "Add brief comment summarizing this class?",
+      "revId": "a3427108b019c2291dd8bdead43a57a91036f44b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d0a0b02_08877f19",
+        "filename": "pc/test/fakeperiodicvideotracksource.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-16T20:32:15Z",
+      "side": 1,
+      "message": "This seems like something that could easily change later.",
+      "revId": "a3427108b019c2291dd8bdead43a57a91036f44b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c0019da_cb3968c0",
+        "filename": "pc/test/fakeperiodicvideotracksource.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-16T20:32:15Z",
+      "side": 1,
+      "message": "I don\u0027t quite understand... Before, the destruction order was:\n\nFakePeriodicVideoSource::Stop\nVideoTrackSource::OnSourceDestroyed\nFakePeriodicVideoSource::~FakePeriodicVideoSource\nVideoTrackSource::~VideoTrackSource\n\nAnd now it\u0027s just:\n\nFakePeriodicVideoSource::~FakePeriodicVideoSource\nVideoTrackSource::~VideoTrackSource\n\nSo this seems like a step backwards in terms of safety, even if it\u0027s currently safe. If the VideoTrackSource constructor or destructor tries to dereference source_ it will blow up (or at least result in undefined behavior). I thought that\u0027s what the code you previously added was trying to avoid?",
+      "revId": "a3427108b019c2291dd8bdead43a57a91036f44b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

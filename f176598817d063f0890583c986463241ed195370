@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aa97cd1e_5543b590",
+        "filename": "video/video_stream_encoder.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-05-16T06:49:05Z",
+      "side": 1,
+      "message": "Comments on includes are usually not that useful or accurate, but maybe in this case it\u0027s motivated with a comment that the include is for DegradationPreferences, to make it clearer that we don\u0027t intend to depend on anything specific to RTP transport.",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 0
+      },
+      "revId": "f176598817d063f0890583c986463241ed195370",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5edc00f2_a68a6c63",
+        "filename": "video/video_stream_encoder.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-05-16T06:49:05Z",
+      "side": 1,
+      "message": "Is this include still needed?",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 35
+      },
+      "revId": "f176598817d063f0890583c986463241ed195370",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

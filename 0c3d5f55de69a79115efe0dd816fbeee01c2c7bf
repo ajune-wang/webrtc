@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fc02f8ae_53a869be",
+        "filename": "rtc_base/java/src/org/webrtc/Logging.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-05-16T16:26:50Z",
+      "side": 1,
+      "message": "I\u0027m not certain we want to do that, since we wouldn\u0027t know which severity to use.",
+      "parentUuid": "be9b91ad_56200e95",
+      "range": {
+        "startLine": 89,
+        "startChar": 4,
+        "endLine": 89,
+        "endChar": 42
+      },
+      "revId": "0c3d5f55de69a79115efe0dd816fbeee01c2c7bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "23ff697a_16c93bf9",
         "filename": "rtc_base/java/src/org/webrtc/NativeLogger.java",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "1c18961c_7a83432b",
+        "filename": "rtc_base/java/src/org/webrtc/NativeLogger.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-05-16T16:26:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "23ff697a_16c93bf9",
+      "range": {
+        "startLine": 18,
+        "startChar": 4,
+        "endLine": 18,
+        "endChar": 53
+      },
+      "revId": "0c3d5f55de69a79115efe0dd816fbeee01c2c7bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8aad1822_86075865",
         "filename": "sdk/android/api/org/webrtc/PeerConnectionFactory.java",
         "patchSetId": 2
@@ -68,6 +116,30 @@
       "revId": "0c3d5f55de69a79115efe0dd816fbeee01c2c7bf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da8c0a78_b7472f49",
+        "filename": "sdk/android/api/org/webrtc/PeerConnectionFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-05-16T16:26:50Z",
+      "side": 1,
+      "message": "I solved this by reverting the \"internal Loggables\" NativeLogger and FallbackLogger, and letting Logging work as before when nothing is injected. Now it will just log to the first available option in the order Loggable - Native - Fallback.\n\nIt would be nice to have the native logging as an option in the builder, but this would mean a pretty major API change that I would rather not introduce at this point. I guess we could start slowly by allowing activating native logging from the builder as well as from the static method.",
+      "parentUuid": "8aad1822_86075865",
+      "range": {
+        "startLine": 105,
+        "startChar": 10,
+        "endLine": 105,
+        "endChar": 30
+      },
+      "revId": "0c3d5f55de69a79115efe0dd816fbeee01c2c7bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

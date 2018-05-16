@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bd2879b3_cd25161c",
+        "filename": "DEPS",
+        "patchSetId": 1
+      },
+      "lineNbr": 738,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-16T12:06:33Z",
+      "side": 1,
+      "message": "Blank line before this line?",
+      "revId": "f3e2ece9cf2240c941a8f271c325adc9bccb4489",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93f019c3_8d87b1e7",
+        "filename": "api/optional.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-16T12:06:33Z",
+      "side": 1,
+      "message": "Post bug about getting rid of this backwards compat header, and add a TODO for that bug here?",
+      "revId": "f3e2ece9cf2240c941a8f271c325adc9bccb4489",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81585348_ffbc9771",
+        "filename": "api/optional_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-16T12:06:33Z",
+      "side": 1,
+      "message": "It\u0027s nice that the unit tests broke as little as they did, but I don\u0027t think we need to keep them. Abseil has unit tests for absl::optional, right?",
+      "revId": "f3e2ece9cf2240c941a8f271c325adc9bccb4489",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

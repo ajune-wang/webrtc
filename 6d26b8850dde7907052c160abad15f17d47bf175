@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "74800514_6958ce9d",
+        "filename": "sdk/android/src/java/org/webrtc/NativeCapturerObserver.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-05-16T15:19:38Z",
+      "side": 1,
+      "message": "I don\u0027t know how this actually should be done but usually when we fork code, we don\u0027t update the year.",
+      "parentUuid": "62adaff6_ec9903b5",
+      "range": {
+        "startLine": 2,
+        "startChar": 18,
+        "endLine": 2,
+        "endChar": 22
+      },
+      "revId": "6d26b8850dde7907052c160abad15f17d47bf175",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "de2fd4a7_d4b432c3",
         "filename": "sdk/android/src/jni/videosource.cc",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "6d26b8850dde7907052c160abad15f17d47bf175",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a5bb67c_5852bc23",
+        "filename": "sdk/android/src/jni/videosource.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-05-16T15:19:38Z",
+      "side": 1,
+      "message": "ditto",
+      "parentUuid": "de2fd4a7_d4b432c3",
+      "range": {
+        "startLine": 2,
+        "startChar": 21,
+        "endLine": 2,
+        "endChar": 22
+      },
+      "revId": "6d26b8850dde7907052c160abad15f17d47bf175",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

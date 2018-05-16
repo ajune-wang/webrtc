@@ -10,7 +10,7 @@ vars = {
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
   'webrtc_git': 'https://webrtc.googlesource.com',
-  'chromium_revision': 'c92ed252174bc9b9ece9d11a83852f4ab8765575',
+  'chromium_revision': 'bd3afeb02abdef655457ada0c1f87b58cb06f805',
   'boringssl_git': 'https://boringssl.googlesource.com',
   # Three lines of non-changing comments so that
   # the commit queue can handle CLs rolling swarming_client
@@ -43,7 +43,7 @@ vars = {
   # Three lines of non-changing comments so that
   # the commit queue can handle CLs rolling Chromium third_party
   # and whatever else without interference from each other.
-  'chromium_third_party_revision': '51c08cf9af330cc4173d8e37974e49074431d5f4',
+  'chromium_third_party_revision': '72b2ecc175c3638e15fa8e92d72cb6ec2cb89103',
 }
 deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
@@ -65,7 +65,7 @@ deps = {
     'condition': 'checkout_ios',
   },
   'src/testing':
-    Var('chromium_git') + '/chromium/src/testing' + '@' + 'f5b31b58c69ca3bbcfe81d8c2028063931f6681e',
+    Var('chromium_git') + '/chromium/src/testing' + '@' + '8975dfb7743ee497abb5eedcfb6470bd747f372e',
   # This entry is used for chromium third_party rolling into webrtc third_party only.
   'src/third_party_chromium': {
       'url': Var('chromium_git') + '/chromium/src/third_party' + '@' + Var('chromium_third_party_revision'),
@@ -175,7 +175,7 @@ deps = {
   'src/third_party/yasm/source/patched-yasm':
     Var('chromium_git') + '/chromium/deps/yasm/patched-yasm.git' + '@' + 'b98114e18d8b9b84586b10d24353ab8616d4c5fc',
   'src/tools':
-    Var('chromium_git') + '/chromium/src/tools' + '@' + 'e0247206293ec06cc0aee950384e13721cd55d86',
+    Var('chromium_git') + '/chromium/src/tools' + '@' + '2d1cc2d2001dfae1b7d14bb2a5b0d65f51ef4dc0',
   'src/tools/gyp':
     Var('chromium_git') + '/external/gyp.git' + '@' + 'd61a9397e668fa9843c4aa7da9e79460fe590bfb',
   'src/tools/swarming_client':

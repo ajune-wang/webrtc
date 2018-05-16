@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8d7ec6bf_e98caf78",
+        "filename": "THIRD_PARTY_WEBRTC_DEPS.json",
+        "patchSetId": 5
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2018-05-16T14:27:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "66c713f6_313fc7a2",
+      "range": {
+        "startLine": 3,
+        "startChar": 4,
+        "endLine": 3,
+        "endChar": 61
+      },
+      "revId": "14f2d73183c673c305638e6f871edbeb5f863c25",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c6057bca_8a391030",
         "filename": "tools_webrtc/autoroller/checkin_chromium_dep.py",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "14f2d73183c673c305638e6f871edbeb5f863c25",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd2aa70f_9f8f1204",
+        "filename": "tools_webrtc/autoroller/checkin_chromium_dep.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2018-05-16T14:27:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c6057bca_8a391030",
+      "range": {
+        "startLine": 2,
+        "startChar": 16,
+        "endLine": 2,
+        "endChar": 20
+      },
+      "revId": "14f2d73183c673c305638e6f871edbeb5f863c25",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "15f93a8a_c7fb8063",
+        "filename": "tools_webrtc/autoroller/checkin_chromium_dep.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2018-05-16T14:27:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a3d9e421_75b71b56",
+      "range": {
+        "startLine": 11,
+        "startChar": 3,
+        "endLine": 11,
+        "endChar": 77
+      },
+      "revId": "14f2d73183c673c305638e6f871edbeb5f863c25",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "975b6e5a_c777bb3d",
         "filename": "tools_webrtc/autoroller/checkin_chromium_dep.py",
         "patchSetId": 5
@@ -91,6 +163,30 @@
       "revId": "14f2d73183c673c305638e6f871edbeb5f863c25",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0bc2f2fb_830199d4",
+        "filename": "tools_webrtc/autoroller/checkin_chromium_dep.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2018-05-16T14:27:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "975b6e5a_c777bb3d",
+      "range": {
+        "startLine": 162,
+        "startChar": 31,
+        "endLine": 162,
+        "endChar": 67
+      },
+      "revId": "14f2d73183c673c305638e6f871edbeb5f863c25",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "b39679d2_bdcc7ccd",
+        "filename": "tools_webrtc/autoroller/checkin_chromium_dep.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2018-05-16T14:27:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1aa477df_029da862",
+      "range": {
+        "startLine": 186,
+        "startChar": 0,
+        "endLine": 186,
+        "endChar": 11
+      },
+      "revId": "14f2d73183c673c305638e6f871edbeb5f863c25",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1518fa47_2ec59e47",
         "filename": "tools_webrtc/autoroller/checkin_chromium_dep.py",
         "patchSetId": 5
@@ -137,6 +257,30 @@
       "revId": "14f2d73183c673c305638e6f871edbeb5f863c25",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67754396_158c0793",
+        "filename": "tools_webrtc/autoroller/checkin_chromium_dep.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2018-05-16T14:27:02Z",
+      "side": 1,
+      "message": "Is is useful when you want debug this script.",
+      "parentUuid": "1518fa47_2ec59e47",
+      "range": {
+        "startLine": 190,
+        "startChar": 2,
+        "endLine": 192,
+        "endChar": 59
+      },
+      "revId": "14f2d73183c673c305638e6f871edbeb5f863c25",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

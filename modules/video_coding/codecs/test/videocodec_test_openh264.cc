@@ -20,6 +20,7 @@ namespace webrtc {
 namespace test {
 
 #if defined(WEBRTC_USE_H264)
+using TestConfig = VideoCodecTestFixture::TestConfig;
 
 namespace {
 // Codec settings.

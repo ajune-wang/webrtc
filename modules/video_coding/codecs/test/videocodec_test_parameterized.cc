@@ -15,6 +15,8 @@
 namespace webrtc {
 namespace test {
 
+using TestConfig = VideoCodecTestFixture::TestConfig;
+
 namespace {
 
 // Loop variables.

@@ -20,6 +20,8 @@
 namespace webrtc {
 namespace test {
 
+using TestConfig = VideoCodecTestFixture::TestConfig;
+
 namespace {
 const int kForemanNumFrames = 300;
 

@@ -10,9 +10,8 @@
 
 #include <vector>
 
-#include "api/test/create_videocodec_test_fixture.h"
 #include "media/base/mediaconstants.h"
-#include "modules/video_coding/codecs/test/test_config.h"
+#include "modules/video_coding/codecs/test/videocodec_test_fixture_impl.h"
 #include "modules/video_coding/utility/vp8_header_parser.h"
 #include "modules/video_coding/utility/vp9_uncompressed_header_parser.h"
 #include "rtc_base/ptr_util.h"
@@ -21,6 +20,9 @@
 
 namespace webrtc {
 namespace test {
+
+using VideoStatistics = VideoCodecTestStats::VideoStatistics;
+using TestConfig = VideoCodecTestFixture::TestConfig;
 
 namespace {
 // Codec settings.
@@ -35,7 +37,7 @@ const size_t kBitrateRdPerfKbps[] = {100,  200,  300,  400,  500,  600,
                                      1800, 2000, 2200, 2500};
 const size_t kNumFirstFramesToSkipAtRdPerfAnalysis = 60;
 
-class QpFrameChecker : public TestConfig::EncodedFrameChecker {
+class QpFrameChecker : public VideoCodecTestFixture::EncodedFrameChecker {
  public:
   void CheckEncodedFrame(webrtc::VideoCodecType codec,
                          const EncodedImage& encoded_frame) const override {
@@ -99,7 +101,7 @@ TEST(VideoProcessorIntegrationTestLibvpx, HighBitrateVP9) {
   config.num_frames = kNumFramesShort;
   const auto frame_checker = rtc::MakeUnique<QpFrameChecker>();
   config.encoded_frame_checker = frame_checker.get();
-  auto fixture = CreateVideoCodecTestFixture(config);
+  auto fixture = rtc::MakeUnique<VideoCodecTestFixtureImpl>(config);
 
   std::vector<RateProfile> rate_profiles = {{500, 30, kNumFramesShort}};
 
@@ -118,7 +120,7 @@ TEST(VideoProcessorIntegrationTestLibvpx, ChangeBitrateVP9) {
                           kCifWidth, kCifHeight);
   const auto frame_checker = rtc::MakeUnique<QpFrameChecker>();
   config.encoded_frame_checker = frame_checker.get();
-  auto fixture = CreateVideoCodecTestFixture(config);
+  auto fixture = rtc::MakeUnique<VideoCodecTestFixtureImpl>(config);
 
   std::vector<RateProfile> rate_profiles = {
       {200, 30, 100},  // target_kbps, input_fps, frame_index_rate_update
@@ -143,7 +145,7 @@ TEST(VideoProcessorIntegrationTestLibvpx, ChangeFramerateVP9) {
                           kCifWidth, kCifHeight);
   const auto frame_checker = rtc::MakeUnique<QpFrameChecker>();
   config.encoded_frame_checker = frame_checker.get();
-  auto fixture = CreateVideoCodecTestFixture(config);
+  auto fixture = rtc::MakeUnique<VideoCodecTestFixtureImpl>(config);
 
   std::vector<RateProfile> rate_profiles = {
       {100, 24, 100},  // target_kbps, input_fps, frame_index_rate_update
@@ -171,7 +173,7 @@ TEST(VideoProcessorIntegrationTestLibvpx, DenoiserOnVP9) {
   config.num_frames = kNumFramesShort;
   const auto frame_checker = rtc::MakeUnique<QpFrameChecker>();
   config.encoded_frame_checker = frame_checker.get();
-  auto fixture = CreateVideoCodecTestFixture(config);
+  auto fixture = rtc::MakeUnique<VideoCodecTestFixtureImpl>(config);
 
   std::vector<RateProfile> rate_profiles = {{500, 30, kNumFramesShort}};
 
@@ -190,7 +192,7 @@ TEST(VideoProcessorIntegrationTestLibvpx, VeryLowBitrateVP9) {
                           kCifWidth, kCifHeight);
   const auto frame_checker = rtc::MakeUnique<QpFrameChecker>();
   config.encoded_frame_checker = frame_checker.get();
-  auto fixture = CreateVideoCodecTestFixture(config);
+  auto fixture = rtc::MakeUnique<VideoCodecTestFixtureImpl>(config);
 
   std::vector<RateProfile> rate_profiles = {{50, 30, kNumFramesLong}};
 
@@ -215,7 +217,7 @@ TEST(VideoProcessorIntegrationTestLibvpx, HighBitrateVP8) {
   config.num_frames = kNumFramesShort;
   const auto frame_checker = rtc::MakeUnique<QpFrameChecker>();
   config.encoded_frame_checker = frame_checker.get();
-  auto fixture = CreateVideoCodecTestFixture(config);
+  auto fixture = rtc::MakeUnique<VideoCodecTestFixtureImpl>(config);
 
   std::vector<RateProfile> rate_profiles = {{500, 30, kNumFramesShort}};
 
@@ -254,7 +256,7 @@ TEST(VideoProcessorIntegrationTestLibvpx, MAYBE_ChangeBitrateVP8) {
                           kCifWidth, kCifHeight);
   const auto frame_checker = rtc::MakeUnique<QpFrameChecker>();
   config.encoded_frame_checker = frame_checker.get();
-  auto fixture = CreateVideoCodecTestFixture(config);
+  auto fixture = rtc::MakeUnique<VideoCodecTestFixtureImpl>(config);
 
   std::vector<RateProfile> rate_profiles = {
       {200, 30, 100},  // target_kbps, input_fps, frame_index_rate_update
@@ -289,7 +291,7 @@ TEST(VideoProcessorIntegrationTestLibvpx, MAYBE_ChangeFramerateVP8) {
                           kCifWidth, kCifHeight);
   const auto frame_checker = rtc::MakeUnique<QpFrameChecker>();
   config.encoded_frame_checker = frame_checker.get();
-  auto fixture = CreateVideoCodecTestFixture(config);
+  auto fixture = rtc::MakeUnique<VideoCodecTestFixtureImpl>(config);
 
   std::vector<RateProfile> rate_profiles = {
       {80, 24, 100},  // target_kbps, input_fps, frame_index_rate_update
@@ -330,7 +332,7 @@ TEST(VideoProcessorIntegrationTestLibvpx, MAYBE_TemporalLayersVP8) {
                           kCifWidth, kCifHeight);
   const auto frame_checker = rtc::MakeUnique<QpFrameChecker>();
   config.encoded_frame_checker = frame_checker.get();
-  auto fixture = CreateVideoCodecTestFixture(config);
+  auto fixture = rtc::MakeUnique<VideoCodecTestFixtureImpl>(config);
 
   std::vector<RateProfile> rate_profiles = {{200, 30, 150},
                                             {400, 30, kNumFramesLong}};
@@ -369,7 +371,7 @@ TEST(VideoProcessorIntegrationTestLibvpx, MAYBE_MultiresVP8) {
                           1280, 720);
   const auto frame_checker = rtc::MakeUnique<QpFrameChecker>();
   config.encoded_frame_checker = frame_checker.get();
-  auto fixture = CreateVideoCodecTestFixture(config);
+  auto fixture = rtc::MakeUnique<VideoCodecTestFixtureImpl>(config);
 
   std::vector<RateProfile> rate_profiles = {{1500, 30, config.num_frames}};
 
@@ -397,7 +399,7 @@ TEST(VideoProcessorIntegrationTestLibvpx, MAYBE_SimulcastVP8) {
                           1280, 720);
   const auto frame_checker = rtc::MakeUnique<QpFrameChecker>();
   config.encoded_frame_checker = frame_checker.get();
-  auto fixture = CreateVideoCodecTestFixture(config);
+  auto fixture = rtc::MakeUnique<VideoCodecTestFixtureImpl>(config);
 
   std::vector<RateProfile> rate_profiles = {{1500, 30, config.num_frames}};
 
@@ -424,7 +426,7 @@ TEST(VideoProcessorIntegrationTestLibvpx, MAYBE_SvcVP9) {
                           1280, 720);
   const auto frame_checker = rtc::MakeUnique<QpFrameChecker>();
   config.encoded_frame_checker = frame_checker.get();
-  auto fixture = CreateVideoCodecTestFixture(config);
+  auto fixture = rtc::MakeUnique<VideoCodecTestFixtureImpl>(config);
 
   std::vector<RateProfile> rate_profiles = {{1500, 30, config.num_frames}};
 
@@ -446,7 +448,7 @@ TEST(VideoProcessorIntegrationTestLibvpx, DISABLED_MultiresVP8RdPerf) {
                           1280, 720);
   const auto frame_checker = rtc::MakeUnique<QpFrameChecker>();
   config.encoded_frame_checker = frame_checker.get();
-  auto fixture = CreateVideoCodecTestFixture(config);
+  auto fixture = rtc::MakeUnique<VideoCodecTestFixtureImpl>(config);
 
   std::map<size_t, std::vector<VideoStatistics>> rd_stats;
   for (size_t bitrate_kbps : kBitrateRdPerfKbps) {
@@ -473,7 +475,7 @@ TEST(VideoProcessorIntegrationTestLibvpx, DISABLED_SvcVP9RdPerf) {
                           1280, 720);
   const auto frame_checker = rtc::MakeUnique<QpFrameChecker>();
   config.encoded_frame_checker = frame_checker.get();
-  auto fixture = CreateVideoCodecTestFixture(config);
+  auto fixture = rtc::MakeUnique<VideoCodecTestFixtureImpl>(config);
 
   std::map<size_t, std::vector<VideoStatistics>> rd_stats;
   for (size_t bitrate_kbps : kBitrateRdPerfKbps) {

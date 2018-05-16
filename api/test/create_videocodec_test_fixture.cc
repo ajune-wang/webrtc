@@ -20,6 +20,8 @@
 namespace webrtc {
 namespace test {
 
+using TestConfig = VideoCodecTestFixture::TestConfig;
+
 std::unique_ptr<VideoCodecTestFixture>
 CreateVideoCodecTestFixture(const TestConfig& config) {
   return rtc::MakeUnique<VideoCodecTestFixtureImpl>(config);

@@ -22,6 +22,30 @@
       "revId": "bd6f82182ef158f384f4f51b1f1f51604cd8ffec",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "397b5f24_ce13da1e",
+        "filename": "BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-05-16T09:46:22Z",
+      "side": 1,
+      "message": "+1. \n\nAlso, do we have reason to believe any of the remedies in the TODO will happen soon? Otherwise I\u0027d remove it.",
+      "parentUuid": "ef4658d5_8218a719",
+      "range": {
+        "startLine": 267,
+        "startChar": 13,
+        "endLine": 267,
+        "endChar": 14
+      },
+      "revId": "bd6f82182ef158f384f4f51b1f1f51604cd8ffec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

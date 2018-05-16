@@ -331,6 +331,13 @@ int VP9EncoderImpl::InitEncode(const VideoCodec* inst,
   config_->rc_buf_initial_sz = 500;
   config_->rc_buf_optimal_sz = 600;
   config_->rc_buf_sz = 1000;
+  if (codec_.mode == kScreensharing) {
+    // Relax buffer constraints for screen sharing. Prefer quality over latency.
+    config_->rc_buf_initial_sz *= 2;
+    config_->rc_buf_optimal_sz *= 2;
+    config_->rc_buf_sz *= 2;
+  }
+
   // Set the maximum target size of any key-frame.
   rc_max_intra_target_ = MaxIntraTarget(config_->rc_buf_optimal_sz);
   if (inst->VP9().keyFrameInterval > 0) {

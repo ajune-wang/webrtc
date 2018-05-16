@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "be9b91ad_56200e95",
+        "filename": "rtc_base/java/src/org/webrtc/Logging.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-05-16T15:05:16Z",
+      "side": 1,
+      "message": "I think we should do this in PeerConnectionFactory.initialize if injectable logger was not set.",
+      "range": {
+        "startLine": 89,
+        "startChar": 4,
+        "endLine": 89,
+        "endChar": 42
+      },
+      "revId": "0c3d5f55de69a79115efe0dd816fbeee01c2c7bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23ff697a_16c93bf9",
+        "filename": "rtc_base/java/src/org/webrtc/NativeLogger.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-05-16T15:05:16Z",
+      "side": 1,
+      "message": "On further thought I think we should call this from enableLogToDebugOutput in Logging.java. NativeLogger should only be responsible for redirecting Java log to native log.",
+      "range": {
+        "startLine": 18,
+        "startChar": 4,
+        "endLine": 18,
+        "endChar": 53
+      },
+      "revId": "0c3d5f55de69a79115efe0dd816fbeee01c2c7bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8aad1822_86075865",
+        "filename": "sdk/android/api/org/webrtc/PeerConnectionFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-05-16T15:05:16Z",
+      "side": 1,
+      "message": "This feels wrong and is not possible because native code has not been loaded yet.\n\nI think the logging is actually one of two options we need to represent in the builder:\n1. Native logging - in this case no JNILogging should be constructed and NativeLogger should be set for Logging.java\n2. Injectable logging - in this case we need to construct JNILogging and the logger needs to be injected to Logging.java\n\nI think we might need to add an enum to represent this difference.\n\nNativeLogger is fundamentally different from injectable loggers because if it was passed to JNILogging this would cause an infinite loop.",
+      "range": {
+        "startLine": 105,
+        "startChar": 10,
+        "endLine": 105,
+        "endChar": 30
+      },
+      "revId": "0c3d5f55de69a79115efe0dd816fbeee01c2c7bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -211,6 +211,14 @@ class VideoCodingModule : public Module {
                                        int32_t numberOfCores,
                                        bool requireKeyFrame = false) = 0;
 
+  // Register an external decoder object.
+  //
+  // Input:
+  //      - externalDecoder : Decoder object to be used for decoding frames.
+  //      - payloadType     : The payload type which this decoder is bound to.
+  virtual void RegisterExternalDecoder(VideoDecoder* externalDecoder,
+                                       uint8_t payloadType) = 0;
+
   // Register a receive callback. Will be called whenever there is a new frame
   // ready
   // for rendering.

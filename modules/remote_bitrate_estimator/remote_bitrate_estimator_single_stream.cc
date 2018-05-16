@@ -250,7 +250,7 @@ AimdRateControl* RemoteBitrateEstimatorSingleStream::GetRemoteRate() {
 
 void RemoteBitrateEstimatorSingleStream::SetMinBitrate(int min_bitrate_bps) {
   rtc::CritScope cs(&crit_sect_);
-  remote_rate_->SetMinBitrate(min_bitrate_bps);
+  remote_rate_->SetBitrateConstraints(min_bitrate_bps, -1);
 }
 
 }  // namespace webrtc

@@ -412,6 +412,6 @@ void RemoteBitrateEstimatorAbsSendTime::SetMinBitrate(int min_bitrate_bps) {
   // Called from both the configuration thread and the network thread. Shouldn't
   // be called from the network thread in the future.
   rtc::CritScope lock(&crit_);
-  remote_rate_.SetMinBitrate(min_bitrate_bps);
+  remote_rate_.SetBitrateConstraints(min_bitrate_bps, -1);
 }
 }  // namespace webrtc

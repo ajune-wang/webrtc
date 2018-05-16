@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "62adaff6_ec9903b5",
+        "filename": "sdk/android/src/java/org/webrtc/NativeCapturerObserver.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-05-16T15:18:25Z",
+      "side": 1,
+      "message": "Update year",
+      "range": {
+        "startLine": 2,
+        "startChar": 18,
+        "endLine": 2,
+        "endChar": 22
+      },
+      "revId": "6d26b8850dde7907052c160abad15f17d47bf175",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de2fd4a7_d4b432c3",
+        "filename": "sdk/android/src/jni/videosource.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-05-16T15:18:25Z",
+      "side": 1,
+      "message": "Update year",
+      "range": {
+        "startLine": 2,
+        "startChar": 21,
+        "endLine": 2,
+        "endChar": 22
+      },
+      "revId": "6d26b8850dde7907052c160abad15f17d47bf175",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

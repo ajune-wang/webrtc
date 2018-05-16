@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "bdf70f57_24124f43",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-16T01:24:21Z",
+      "side": 1,
+      "message": "I don\u0027t understand why we can\u0027t put everything in one big \"video_api\" target (excluding factory methods, \"TODO: fix circular dependency\" things, and \"shouldn\u0027t really be in API\" things). Fewer source sets means fewer dependencies to list out.\n\nIt doesn\u0027t even really need to go in its own header, it could go in rtpparameters.h with the rest of the enums that go in RtpParameters.",
+      "parentUuid": "5cb1f22f_75ddbf3f",
+      "revId": "095d09ce37e24d4bb4849aea1ac37ab0c5d1cd26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3d570403_45900cd6",
         "filename": "api/rtpparameters.h",
         "patchSetId": 2
@@ -66,6 +84,24 @@
       "side": 1,
       "message": "\u003e Not clear what it means to \"use VideoDegradationPreference instead\" since there\u0027s no API point where you can use it.\n\nAlso, I\u0027m a bit confused about the use of the old enum. I see that is is part of RtpParameters, where it was added a year ago, and it is assigned by Chrome. But not used in the implementation, as far as I can find. While the new (which isn\u0027t really new, just moved from call/video_send_stream.h and renamed) is used in VideoStreamEncoder.\n\n\u003e Also: How do you plan to replace it? I can imagine doing something like:\n\nOnly external use I found is in Chrome. So my plan was to land the new enum, change Chrome to use the new one, and then delete the old one. And now I\u0027m getting unsure about how to wire it up in Chrome to really have effect, i.e., reach VideoStreamEncoder.",
       "parentUuid": "3d570403_45900cd6",
+      "revId": "095d09ce37e24d4bb4849aea1ac37ab0c5d1cd26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52b17e0b_ea55f085",
+        "filename": "api/rtpparameters.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-16T01:24:21Z",
+      "side": 1,
+      "message": "\u003e Also, I\u0027m a bit confused about the use of the old enum\n\nIt was added here with \"TODO: Implement\", along with the rest of the the spec\u0027d RTCRtpParameters dictionary. With the assumption that when implemented, it would replace VideoSendStream::DegradationPreference.\n\nBefore that happened, Florent added the code in chromium to convert between JS dictionary and C++ RtpParameters struct.\n\n\u003e So my plan was to land the new enum, change Chrome to use the new one, and then delete the old one.\n\nHow can you change Chrome to use the new one when there\u0027s no place to use it, given that RtpParameters still uses DegradationPreference and not VideoDegradationPreference? That was my point.",
+      "parentUuid": "9a77d36b_7fb133e2",
       "revId": "095d09ce37e24d4bb4849aea1ac37ab0c5d1cd26",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -104,6 +140,24 @@
       "revId": "095d09ce37e24d4bb4849aea1ac37ab0c5d1cd26",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3556aab3_01a7388c",
+        "filename": "call/video_send_stream.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-16T01:24:21Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "90458fd1_d7891d99",
+      "revId": "095d09ce37e24d4bb4849aea1ac37ab0c5d1cd26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

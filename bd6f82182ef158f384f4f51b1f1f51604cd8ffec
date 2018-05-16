@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ef4658d5_8218a719",
+        "filename": "BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-05-16T09:25:57Z",
+      "side": 1,
+      "message": "shouldn\u0027t it be \u0027+\u003d\u0027 instead of \u0027\u003d\u0027?",
+      "range": {
+        "startLine": 267,
+        "startChar": 13,
+        "endLine": 267,
+        "endChar": 14
+      },
+      "revId": "bd6f82182ef158f384f4f51b1f1f51604cd8ffec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

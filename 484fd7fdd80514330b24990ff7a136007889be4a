@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ea55acf4_28669154",
+        "filename": "modules/audio_coding/neteq/normal.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-05-16T19:40:37Z",
+      "side": 1,
+      "message": "update comment",
+      "range": {
+        "startLine": 68,
+        "startChar": 8,
+        "endLine": 68,
+        "endChar": 9
+      },
+      "revId": "484fd7fdd80514330b24990ff7a136007889be4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a9eba47_7aa85312",
+        "filename": "modules/audio_coding/neteq/normal.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-05-16T19:40:37Z",
+      "side": 1,
+      "message": "maybe refactor this party a bit:\n\nint local_mute_factor \u003d 16384;  // 1.0 in Q14.\nif ((energy !\u003d 0) \u0026\u0026\n    (energy \u003e background_noise_.Energy(channel_ix))) {\n  ...\n  local_mute_factor \u003d std::min(local_mute_factor, WebRtcSpl_SqrtFloor(ratio \u003c\u003c 14));\n}\nmute_factor \u003d std::min\u003cint16_t\u003e(mute_factor, local_mute_factor));",
+      "range": {
+        "startLine": 92,
+        "startChar": 0,
+        "endLine": 109,
+        "endChar": 7
+      },
+      "revId": "484fd7fdd80514330b24990ff7a136007889be4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93f76c4a_7ff7f22d",
+        "filename": "modules/audio_coding/neteq/normal.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-05-16T19:40:37Z",
+      "side": 1,
+      "message": "is this still correct?",
+      "range": {
+        "startLine": 111,
+        "startChar": 7,
+        "endLine": 111,
+        "endChar": 80
+      },
+      "revId": "484fd7fdd80514330b24990ff7a136007889be4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42c4ea07_5f991635",
+        "filename": "modules/audio_coding/neteq/normal.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-05-16T19:40:37Z",
+      "side": 1,
+      "message": "maybe remove 112 and put\n\nconst int increment \u003d std::max(64 / fs_mult, back_to_fullscale_inc);",
+      "range": {
+        "startLine": 115,
+        "startChar": 0,
+        "endLine": 117,
+        "endChar": 7
+      },
+      "revId": "484fd7fdd80514330b24990ff7a136007889be4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

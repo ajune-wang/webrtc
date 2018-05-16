@@ -46,6 +46,30 @@
       "revId": "bd6f82182ef158f384f4f51b1f1f51604cd8ffec",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "644158fa_111e97b1",
+        "filename": "BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-05-16T09:52:28Z",
+      "side": 1,
+      "message": "Done, thanks.\n\nYes, Danil is looking into upstreaming a fix.",
+      "parentUuid": "397b5f24_ce13da1e",
+      "range": {
+        "startLine": 267,
+        "startChar": 13,
+        "endLine": 267,
+        "endChar": 14
+      },
+      "revId": "bd6f82182ef158f384f4f51b1f1f51604cd8ffec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

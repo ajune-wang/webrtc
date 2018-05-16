@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6b4da77b_30a417dd",
+        "filename": "examples/androidnativeapi/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-05-16T15:29:55Z",
+      "side": 1,
+      "message": "Is this used?",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 47
+      },
+      "revId": "b7e10d51b2a26deeb49d6c742741452494fd7903",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ce878410_e6052a68",
+        "filename": "modules/congestion_controller/bbr/bandwidth_sampler.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-05-16T11:34:32Z",
+      "side": 1,
+      "message": "Not sure it is useful to have TODO\u0027s assigned to people outside the team.",
+      "range": {
+        "startLine": 150,
+        "startChar": 6,
+        "endLine": 150,
+        "endChar": 18
+      },
+      "revId": "00984822f3861293e86cf29e916fc7f795f5e9c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ed68027_26b5202f",
+        "filename": "modules/congestion_controller/bbr/bandwidth_sampler.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-05-16T11:34:32Z",
+      "side": 1,
+      "message": "Remove?",
+      "range": {
+        "startLine": 135,
+        "startChar": 37,
+        "endLine": 135,
+        "endChar": 39
+      },
+      "revId": "00984822f3861293e86cf29e916fc7f795f5e9c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4bba4c58_a97980ae",
+        "filename": "modules/congestion_controller/bbr/bandwidth_sampler.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-05-16T11:34:32Z",
+      "side": 1,
+      "message": "I assume this means that result.bandwidth \u003d DataRate::Zero(), It doesn\u0027t return a DataRate.",
+      "range": {
+        "startLine": 144,
+        "startChar": 22,
+        "endLine": 144,
+        "endChar": 33
+      },
+      "revId": "00984822f3861293e86cf29e916fc7f795f5e9c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e2f3189_8b52f5c5",
+        "filename": "modules/congestion_controller/bbr/bandwidth_sampler_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-05-16T11:34:32Z",
+      "side": 1,
+      "message": "If the test doesn\u0027t work for other packet sizes, then I think the assert should be enabled. Otherwise, I think the commented code should be removed.",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 0
+      },
+      "revId": "00984822f3861293e86cf29e916fc7f795f5e9c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

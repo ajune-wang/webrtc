@@ -71,6 +71,14 @@ class AecState {
     return erle_estimator_.Erle();
   }
 
+  // Returns any uncertainty in the ERLE estimate.
+  rtc::Optional<float> ErleUncertainty() const {
+    if (use_erle_onset_uncertainty_ && strong_render_onset_) {
+      return 4.f;
+    }
+    return rtc::nullopt;
+  }
+
   // Returns the time-domain ERLE.
   float ErleTimeDomain() const { return erle_estimator_.ErleTimeDomain(); }
 
@@ -135,14 +143,15 @@ class AecState {
 
  private:
   void UpdateReverb(const std::vector<float>& impulse_response);
-  bool DetectActiveRender(rtc::ArrayView<const float> x) const;
   void UpdateSuppressorGainLimit(bool render_activity);
   bool DetectEchoSaturation(rtc::ArrayView<const float> x,
                             float echo_path_gain);
 
   static int instance_count_;
   std::unique_ptr<ApmDataDumper> data_dumper_;
+  const EchoCanceller3Config config_;
   const bool allow_transparent_mode_;
+  const bool use_erle_onset_uncertainty_;
   ErlEstimator erl_estimator_;
   ErleEstimator erle_estimator_;
   size_t capture_block_counter_ = 0;
@@ -166,7 +175,6 @@ class AecState {
   bool found_end_of_reverb_decay_ = false;
   bool main_filter_is_adapting_ = true;
   std::array<float, kMaxAdaptiveFilterLength> block_energies_;
-  const EchoCanceller3Config config_;
   std::vector<float> max_render_;
   float reverb_decay_ = fabsf(config_.ep_strength.default_len);
   bool filter_has_had_time_to_converge_ = false;
@@ -187,6 +195,9 @@ class AecState {
   bool finite_erl_ = false;
   size_t active_blocks_since_converged_filter_ = 0;
   EchoAudibility echo_audibility_;
+  size_t strong_render_onset_counter_ = 0;
+  bool strong_render_onset_ = true;
+  size_t blocks_since_convergence_for_strong_render_ = 0;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(AecState);
 };

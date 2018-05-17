@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "af47db3b_1e944443",
+        "filename": "modules/pacing/packet_router.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-05-17T09:26:48Z",
+      "side": 1,
+      "message": "Can the BWE extension be unset somehow? If not we should DCHECK(last_send_module_-\u003eHasBweExtensions()) to make sure we didn\u0027t select an incorrect module in TimeToSendPacket.",
+      "revId": "60f4a2f35af812c2a0ab5664213fc46d1de12022",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37260dc0_bafe3bd4",
+        "filename": "modules/pacing/packet_router.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-05-17T09:26:48Z",
+      "side": 1,
+      "message": "you might want to add an else case where you set |last_send_module_| to nullptr.",
+      "revId": "60f4a2f35af812c2a0ab5664213fc46d1de12022",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -70,6 +70,30 @@
       "revId": "f4a87a7ebb13ea68be17e63f7d8957593c2cbca5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7959c2e1_caba501b",
+        "filename": "call/bitrate_estimator_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 7224
+      },
+      "writtenOn": "2018-05-17T13:00:32Z",
+      "side": 1,
+      "message": "I agree that the following loop can be merged into this loop. Since this method is tearing down of gtest\u0027s test fixture, I think the order of streams calling `StopSending()` is not so related to the test itself. I\u0027ll merge these loops into one.",
+      "parentUuid": "2e60f910_98a14a80",
+      "range": {
+        "startLine": 139,
+        "startChar": 0,
+        "endLine": 140,
+        "endChar": 0
+      },
+      "revId": "f4a87a7ebb13ea68be17e63f7d8957593c2cbca5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

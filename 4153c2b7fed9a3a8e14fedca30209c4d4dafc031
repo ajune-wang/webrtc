@@ -33,6 +33,24 @@
       "revId": "4153c2b7fed9a3a8e14fedca30209c4d4dafc031",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1dcd2b55_e77f7b06",
+        "filename": "test/fuzzers/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 455,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-05-17T15:03:15Z",
+      "side": 1,
+      "message": "It\u0027s a helper target for \u0027:audio_processing_configs_fuzzer\u0027. Don\u0027t remember why the targets are split.",
+      "parentUuid": "363fe24e_7d28315d",
+      "revId": "4153c2b7fed9a3a8e14fedca30209c4d4dafc031",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

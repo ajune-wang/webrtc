@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "3c95eece_091104ca",
+        "filename": "test/fuzzers/frame_buffer2_fuzzer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-05-17T10:44:52Z",
+      "side": 1,
+      "message": "I need to cast in order to do pointer arithmetic on line 31.",
+      "parentUuid": "b8c64fab_af6c2c79",
+      "range": {
+        "startLine": 24,
+        "startChar": 4,
+        "endLine": 24,
+        "endChar": 60
+      },
+      "revId": "660f2c862cbf89b509b7976974e1179422b39fea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6cc5e2e2_e608b4f1",
         "filename": "test/fuzzers/frame_buffer2_fuzzer.cc",
         "patchSetId": 5
@@ -71,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "c0c17f31_0f714007",
+        "filename": "test/fuzzers/frame_buffer2_fuzzer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-05-17T10:44:52Z",
+      "side": 1,
+      "message": "Note that we update the function argument |size| and not the member |size_|. Maybe I can use a better name.",
+      "parentUuid": "6cc5e2e2_e608b4f1",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 22
+      },
+      "revId": "660f2c862cbf89b509b7976974e1179422b39fea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c7cf768d_847c848e",
         "filename": "test/fuzzers/frame_buffer2_fuzzer.cc",
         "patchSetId": 5
@@ -82,6 +130,30 @@
       "writtenOn": "2018-05-07T11:35:01Z",
       "side": 1,
       "message": "Can have one more const, since you\u0027re not updating the ptr.\n\nAlternatively, consider if the code gets simpler if you update the data_ ptr as you read the data, and delete the |offset_| member.",
+      "range": {
+        "startLine": 49,
+        "startChar": 2,
+        "endLine": 49,
+        "endChar": 23
+      },
+      "revId": "660f2c862cbf89b509b7976974e1179422b39fea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14b9bd28_efb72f01",
+        "filename": "test/fuzzers/frame_buffer2_fuzzer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-05-17T10:44:52Z",
+      "side": 1,
+      "message": "Added another const",
+      "parentUuid": "c7cf768d_847c848e",
       "range": {
         "startLine": 49,
         "startChar": 2,

@@ -110,10 +110,9 @@ def _ForcePythonInterpreter(cmd):
 
 
 def Main(argv):
-  if IsWebCamRunning():
-    return 0
-  if not StartWebCam():
-    return 1
+  if not IsWebCamRunning():
+    if not StartWebCam():
+      return 1
 
   if argv:
     return subprocess.call(_ForcePythonInterpreter(argv))

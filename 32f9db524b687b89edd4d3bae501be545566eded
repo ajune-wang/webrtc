@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "609ccab1_9677e532",
+        "filename": "api/video/BUILD.gn",
+        "patchSetId": 9
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-05-17T12:45:48Z",
+      "side": 1,
+      "message": "I don\u0027t quite like this dependency. I don\u0027t think the PeerConnection api and the VideoStreamEncoder should depend on each other, in either direction. Both need DegradationPreferences. To solve that, we\u0027d need to move either DegradationPreferences, or all of rtpparameters.h, to its own target. Any other options?",
+      "range": {
+        "startLine": 116,
+        "startChar": 0,
+        "endLine": 116,
+        "endChar": 38
+      },
+      "revId": "32f9db524b687b89edd4d3bae501be545566eded",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ed5dbf90_a14c60fd",
+        "filename": "modules/pacing/packet_router.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-05-17T10:48:39Z",
+      "side": 1,
+      "message": "Hmm... looks like there is a mix of if with and without {} in this file. If you feel like it you could make the style consistent before submitting.",
+      "revId": "2a38b35ebd2b186b4eb3d0bfe8e96234fdb85e5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

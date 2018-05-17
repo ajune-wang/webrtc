@@ -239,4 +239,10 @@ TEST(LogTest, Perf) {
                    << " total bytes logged: " << str.size();
 }
 
+TEST(LogTest, Perf2) {
+  for (int i = 0; i < 5000000; ++i) {
+    RTC_LOG(LS_INFO) << "This is iteration " << i << " of the loop";
+  }
+}
+
 }  // namespace rtc

@@ -46,6 +46,30 @@
       "revId": "f4a87a7ebb13ea68be17e63f7d8957593c2cbca5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e60f910_98a14a80",
+        "filename": "call/bitrate_estimator_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-05-17T12:46:20Z",
+      "side": 1,
+      "message": "You mean something like\n\nfor (auto stream : streams_) stream-\u003eStopSending();\n\nI agree that would be more readable.\n\nCould maybe also merge with the loop below (even if that uses the opposite loop order).",
+      "parentUuid": "48bf90c9_0ce832c8",
+      "range": {
+        "startLine": 139,
+        "startChar": 0,
+        "endLine": 140,
+        "endChar": 0
+      },
+      "revId": "f4a87a7ebb13ea68be17e63f7d8957593c2cbca5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

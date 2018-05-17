@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1856163d_950a760f",
+        "filename": "tools_webrtc/autoroller/unittests/checkin_chromium_dep_test.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-05-17T06:36:39Z",
+      "side": 1,
+      "message": "Copy-pasted? Remove.",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 3
+      },
+      "revId": "ffdcf4464568c4fe2b5e3e450db6d2d7b2455e4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28827719_5029b808",
+        "filename": "tools_webrtc/autoroller/unittests/checkin_chromium_dep_test.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-05-17T06:36:39Z",
+      "side": 1,
+      "message": "This comment is unnecessary, the code reads quite well",
+      "range": {
+        "startLine": 56,
+        "startChar": 4,
+        "endLine": 56,
+        "endChar": 47
+      },
+      "revId": "ffdcf4464568c4fe2b5e3e450db6d2d7b2455e4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80f613ab_7ebb5337",
+        "filename": "tools_webrtc/autoroller/unittests/checkin_chromium_dep_test.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-05-17T06:36:39Z",
+      "side": 1,
+      "message": "Same here",
+      "range": {
+        "startLine": 59,
+        "startChar": 4,
+        "endLine": 59,
+        "endChar": 34
+      },
+      "revId": "ffdcf4464568c4fe2b5e3e450db6d2d7b2455e4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fdb62214_387453bf",
+        "filename": "tools_webrtc/autoroller/unittests/checkin_chromium_dep_test.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-05-17T06:36:39Z",
+      "side": 1,
+      "message": "You could have added some tests for the error cases as well, but this is fine - it covers the most important things.",
+      "range": {
+        "startLine": 94,
+        "startChar": 2,
+        "endLine": 94,
+        "endChar": 24
+      },
+      "revId": "ffdcf4464568c4fe2b5e3e450db6d2d7b2455e4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

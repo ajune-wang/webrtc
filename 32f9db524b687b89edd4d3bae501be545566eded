@@ -22,6 +22,30 @@
       "revId": "32f9db524b687b89edd4d3bae501be545566eded",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "393068ee_302e25bc",
+        "filename": "api/video/BUILD.gn",
+        "patchSetId": 9
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-05-17T15:51:59Z",
+      "side": 1,
+      "message": "Moving common structures to separate targets seems like a common and correct thing to do, why do you want to avoid it?",
+      "parentUuid": "609ccab1_9677e532",
+      "range": {
+        "startLine": 116,
+        "startChar": 0,
+        "endLine": 116,
+        "endChar": 38
+      },
+      "revId": "32f9db524b687b89edd4d3bae501be545566eded",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bbfbfeb2_9b90b73d",
+        "filename": "test/fuzzers/data_reader.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-05-17T13:52:27Z",
+      "side": 1,
+      "message": "Is it possible to use FuzzDataHelper instead?",
+      "range": {
+        "startLine": 21,
+        "startChar": 6,
+        "endLine": 21,
+        "endChar": 16
+      },
+      "revId": "8499802f80a6d062e2e1645f71c3b3e76bc9c830",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

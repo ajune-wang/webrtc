@@ -22,6 +22,30 @@
       "revId": "b7e10d51b2a26deeb49d6c742741452494fd7903",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "adc4bf8f_779fdd7f",
+        "filename": "examples/androidnativeapi/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-05-17T07:44:03Z",
+      "side": 1,
+      "message": "Yes it actually is. It is unrelated to the changes in this CL though. The demo application was broken on master (probably broken during the injectable audio device refactoring).\n\nThe error I got was:\n05-17 09:43:25.546  5990  5990 E rtc     : #\n05-17 09:43:25.546  5990  5990 E rtc     : # Fatal error in ../../modules/utility/source/helpers_android.cc, line 70\n05-17 09:43:25.546  5990  5990 E rtc     : # last system error: 88\n05-17 09:43:25.546  5990  5990 E rtc     : # Check failed: !jni-\u003eExceptionCheck()\n05-17 09:43:25.546  5990  5990 E rtc     : # Error during FindClass: org/webrtc/voiceengine/BuildInfo\n05-17 09:43:25.546  5990  5990 E rtc     : #",
+      "parentUuid": "6b4da77b_30a417dd",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 47
+      },
+      "revId": "b7e10d51b2a26deeb49d6c742741452494fd7903",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

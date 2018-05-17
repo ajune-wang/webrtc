@@ -984,7 +984,7 @@ class AcmReceiverBitExactnessOldApi : public ::testing::Test {
 #if (defined(WEBRTC_CODEC_ISAC) || defined(WEBRTC_CODEC_ISACFX)) && \
     defined(WEBRTC_CODEC_ILBC)
 TEST_F(AcmReceiverBitExactnessOldApi, 8kHzOutput) {
-  Run(8000, PlatformChecksum("2adede965c6f87de7142c51552111d08",
+  Run(8000, PlatformChecksum("7294941b62293e143d6d6c84955923fd",
                              "028c0fc414b1c9ab7e582dccdf381e98",
                              "36c95170c1393d4b765d1c17b61ef977",
                              "4598140b5e4f7ee66c5adad609e65a3e",
@@ -992,7 +992,7 @@ TEST_F(AcmReceiverBitExactnessOldApi, 8kHzOutput) {
 }
 
 TEST_F(AcmReceiverBitExactnessOldApi, 16kHzOutput) {
-  Run(16000, PlatformChecksum("c2550a3db7632de409e8db0093df1c12",
+  Run(16000, PlatformChecksum("de8143dd3cc23241f1e1d5cf14e04b8a",
                               "edd31f4b6665cd5b9041fb93f2316594",
                               "22128bca51650cb61c80bed63b595603",
                               "f2aad418af974a3b1694d5ae5cc2c3c7",
@@ -1000,7 +1000,7 @@ TEST_F(AcmReceiverBitExactnessOldApi, 16kHzOutput) {
 }
 
 TEST_F(AcmReceiverBitExactnessOldApi, 32kHzOutput) {
-  Run(32000, PlatformChecksum("85e28d7950132d56f90b099c90f82153",
+  Run(32000, PlatformChecksum("521d336237bdcc9ab44050e9da8917fc",
                               "7b903f5c89997f271b405e63c245ef45",
                               "8b8fc6c6fd1dcdcfb3dd90e1ce597f10",
                               "100869c8dcde51346c2073e52a272d98",
@@ -1008,7 +1008,7 @@ TEST_F(AcmReceiverBitExactnessOldApi, 32kHzOutput) {
 }
 
 TEST_F(AcmReceiverBitExactnessOldApi, 48kHzOutput) {
-  Run(48000, PlatformChecksum("ab611510e8fd6d5210a23cc04d3f0e8e",
+  Run(48000, PlatformChecksum("5955e31373828969de7fb308fb58a84e",
                               "d8609bc9b495d81f29779344c68bcc47",
                               "ec5ebb90cda0ea5bb89e79d698af65de",
                               "bd44bf97e7899186532f91235cef444d",
@@ -1094,7 +1094,7 @@ TEST_F(AcmReceiverBitExactnessOldApi, 48kHzOutputExternalDecoder) {
 
   rtc::scoped_refptr<rtc::RefCountedObject<ADFactory>> factory(
       new rtc::RefCountedObject<ADFactory>);
-  Run(48000, PlatformChecksum("ab611510e8fd6d5210a23cc04d3f0e8e",
+  Run(48000, PlatformChecksum("5955e31373828969de7fb308fb58a84e",
                               "d8609bc9b495d81f29779344c68bcc47",
                               "ec5ebb90cda0ea5bb89e79d698af65de",
                               "bd44bf97e7899186532f91235cef444d",

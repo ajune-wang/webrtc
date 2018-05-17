@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "48bf90c9_0ce832c8",
+        "filename": "call/bitrate_estimator_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-05-17T11:57:45Z",
+      "side": 1,
+      "message": "It is not clear to me what benefit we get from std::for_each here.\nWouldn\u0027t a range-based for-loop be simpler and more direct while also avoiding lambdas (and std::mem_fun)?",
+      "range": {
+        "startLine": 139,
+        "startChar": 0,
+        "endLine": 140,
+        "endChar": 0
+      },
+      "revId": "f4a87a7ebb13ea68be17e63f7d8957593c2cbca5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

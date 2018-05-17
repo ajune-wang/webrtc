@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "17d44d2b_f2b188c7",
+        "filename": "test/fuzzers/frame_buffer2_fuzzer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-05-17T11:27:19Z",
+      "side": 1,
+      "message": "oops, done",
+      "parentUuid": "50913d4c_ca71c7c7",
+      "range": {
+        "startLine": 20,
+        "startChar": 7,
+        "endLine": 20,
+        "endChar": 17
+      },
+      "revId": "660f2c862cbf89b509b7976974e1179422b39fea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b8c64fab_af6c2c79",
         "filename": "test/fuzzers/frame_buffer2_fuzzer.cc",
         "patchSetId": 5
@@ -108,6 +132,30 @@
       "side": 1,
       "message": "I see. You could do a memset(destination, 0, size) up front. Then you\u0027d zero a larger area than really needed, but might be worth it to make the code simpler and eliminate the cast and the extra local variable.",
       "parentUuid": "3c95eece_091104ca",
+      "range": {
+        "startLine": 24,
+        "startChar": 4,
+        "endLine": 24,
+        "endChar": 60
+      },
+      "revId": "660f2c862cbf89b509b7976974e1179422b39fea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "359bc3ec_3b6f4487",
+        "filename": "test/fuzzers/frame_buffer2_fuzzer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-05-17T11:27:19Z",
+      "side": 1,
+      "message": "This made things much cleaner.",
+      "parentUuid": "e22bcfe1_ebafa5f1",
       "range": {
         "startLine": 24,
         "startChar": 4,
@@ -188,6 +236,30 @@
       "revId": "660f2c862cbf89b509b7976974e1179422b39fea",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "716ee3ab_dbb52d54",
+        "filename": "test/fuzzers/frame_buffer2_fuzzer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-05-17T11:27:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dd8fe1fc_7fdc6a65",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 22
+      },
+      "revId": "660f2c862cbf89b509b7976974e1179422b39fea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

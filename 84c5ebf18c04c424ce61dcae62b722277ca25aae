@@ -16,6 +16,24 @@
       "revId": "84c5ebf18c04c424ce61dcae62b722277ca25aae",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29d0a8da_9bc9052a",
+        "filename": "test/fuzzers/frame_buffer2_fuzzer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-05-17T11:27:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bfb943bc_b28f9ded",
+      "revId": "84c5ebf18c04c424ce61dcae62b722277ca25aae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -22,6 +22,30 @@
       "revId": "1400f0799839a8616795b868244bbb218a4ccd0a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b39222f_fd58054d",
+        "filename": "tools_webrtc/ensure_webcam_is_running.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2018-05-17T14:16:38Z",
+      "side": 1,
+      "message": "Done.\n\nThough it was OK because\nhttps://docs.python.org/2/library/sys.html#sys.exit \u003e None is equivalent to passing zero",
+      "parentUuid": "8eaf0f9a_3c29e148",
+      "range": {
+        "startLine": 113,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 14
+      },
+      "revId": "1400f0799839a8616795b868244bbb218a4ccd0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

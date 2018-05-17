@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bfb943bc_b28f9ded",
+        "filename": "test/fuzzers/frame_buffer2_fuzzer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-05-17T10:59:29Z",
+      "side": 1,
+      "message": "Remove empty line",
+      "revId": "84c5ebf18c04c424ce61dcae62b722277ca25aae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

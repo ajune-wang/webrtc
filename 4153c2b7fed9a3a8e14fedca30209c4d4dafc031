@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5e419a72_b72c5134",
+        "filename": "test/fuzzers/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-05-17T14:48:19Z",
+      "side": 1,
+      "message": "I just moved this higher up in the BUILD file to make it more visible.",
+      "revId": "4153c2b7fed9a3a8e14fedca30209c4d4dafc031",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "363fe24e_7d28315d",
+        "filename": "test/fuzzers/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 455,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-05-17T14:48:19Z",
+      "side": 1,
+      "message": "Why is this target an rtc_static_library and not a webrtc_fuzzer_test?",
+      "revId": "4153c2b7fed9a3a8e14fedca30209c4d4dafc031",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

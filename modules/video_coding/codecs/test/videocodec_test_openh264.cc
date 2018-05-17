@@ -19,6 +19,8 @@
 namespace webrtc {
 namespace test {
 
+using TestConfig = VideoCodecTestFixture::TestConfig;
+
 namespace {
 // Codec settings.
 const int kCifWidth = 352;

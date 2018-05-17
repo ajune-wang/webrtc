@@ -26,8 +26,8 @@ namespace {
 const int kForemanNumFrames = 300;
 const int kForemanFramerateFps = 30;
 
-TestConfig CreateTestConfig() {
-  TestConfig config;
+VideoCodecTestFixture::TestConfig CreateTestConfig() {
+  VideoCodecTestFixture::TestConfig config;
   config.filename = "foreman_cif";
   config.filepath = ResourcePath(config.filename, "yuv");
   config.num_frames = kForemanNumFrames;

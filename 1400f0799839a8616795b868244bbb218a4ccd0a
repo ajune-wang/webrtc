@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8eaf0f9a_3c29e148",
+        "filename": "tools_webrtc/ensure_webcam_is_running.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-05-17T14:13:08Z",
+      "side": 1,
+      "message": "Should we explicitly return 0 if everything is OK?\n\n```\n  if not IsWebCamRunning():\n    if not StartWebCam():\n      return 1\n  return 0\n```",
+      "range": {
+        "startLine": 113,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 14
+      },
+      "revId": "1400f0799839a8616795b868244bbb218a4ccd0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

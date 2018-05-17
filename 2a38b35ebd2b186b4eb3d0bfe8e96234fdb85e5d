@@ -16,6 +16,24 @@
       "revId": "2a38b35ebd2b186b4eb3d0bfe8e96234fdb85e5d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bda398a7_d5eaedc1",
+        "filename": "modules/pacing/packet_router.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-05-17T11:44:53Z",
+      "side": 1,
+      "message": "Done.\nMost common was to use braces for single-line so did that everywhere.",
+      "parentUuid": "ed5dbf90_a14c60fd",
+      "revId": "2a38b35ebd2b186b4eb3d0bfe8e96234fdb85e5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

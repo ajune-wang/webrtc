@@ -282,7 +282,7 @@ class AudioProcessing : public rtc::RefCountInterface {
     // AGC. This functionality is currently only partially
     // implemented.
     struct GainController2 {
-      bool enabled = false;
+      bool enabled = true;
       float fixed_gain_db = 0.f;
     } gain_controller2;
 

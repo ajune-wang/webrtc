@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "707e6ced_8dbcffc1",
+        "filename": "modules/pacing/packet_router.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-05-17T09:43:04Z",
+      "side": 1,
+      "message": "From an rtp module standpoint, yes it can be deregistered mid flight.\nI can\u0027t find one usage in the code where that actually happens though. I think changing this to a dcheck would be good enough.\nActually, we can probably omit the SendingMedia check too, since we know it sent media recently, and should it have been disabled since that, the TimeToSendPadding() call will just return 0.",
+      "parentUuid": "af47db3b_1e944443",
+      "revId": "60f4a2f35af812c2a0ab5664213fc46d1de12022",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "37260dc0_bafe3bd4",
         "filename": "modules/pacing/packet_router.cc",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2018-05-17T09:26:48Z",
       "side": 1,
       "message": "you might want to add an else case where you set |last_send_module_| to nullptr.",
+      "revId": "60f4a2f35af812c2a0ab5664213fc46d1de12022",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f94510c4_7fbe7444",
+        "filename": "modules/pacing/packet_router.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-05-17T09:43:04Z",
+      "side": 1,
+      "message": "With the two checks above gone, I don\u0027t think that\u0027s needed?\nIf it\u0027s in a bad state we\u0027ll just fall through to the loop below, and it will be reset on the next media packet which should be soon...",
+      "parentUuid": "37260dc0_bafe3bd4",
       "revId": "60f4a2f35af812c2a0ab5664213fc46d1de12022",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

@@ -22,6 +22,30 @@
       "revId": "596f4b1242793e19409d9cefcef57b2e642e4e62",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb3b0342_ceb1a756",
+        "filename": "call/bitrate_estimator_tests.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 7224
+      },
+      "writtenOn": "2018-05-17T13:19:36Z",
+      "side": 1,
+      "message": "Right, that\u0027s nice! I would like to have a separate patch for that.",
+      "parentUuid": "e020ce4e_725ba8b9",
+      "range": {
+        "startLine": 141,
+        "startChar": 8,
+        "endLine": 141,
+        "endChar": 22
+      },
+      "revId": "596f4b1242793e19409d9cefcef57b2e642e4e62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

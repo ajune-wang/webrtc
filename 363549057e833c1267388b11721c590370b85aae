@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "de1e4b8b_81d5ea40",
+        "filename": "modules/audio_coding/neteq/merge.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-05-17T07:50:48Z",
+      "side": 1,
+      "message": "const int16_r new_mute_factor \u003d std::min(16384, SignalScaling(...));",
+      "range": {
+        "startLine": 75,
+        "startChar": 12,
+        "endLine": 75,
+        "endChar": 27
+      },
+      "revId": "363549057e833c1267388b11721c590370b85aae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6883202_fb8ce8eb",
+        "filename": "modules/audio_coding/neteq/merge.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-05-17T07:50:48Z",
+      "side": 1,
+      "message": "const int16_t mute_factor \u003d std::min(16384, expand_-\u003eMuteFactor(channel));",
+      "range": {
+        "startLine": 101,
+        "startChar": 0,
+        "endLine": 105,
+        "endChar": 5
+      },
+      "revId": "363549057e833c1267388b11721c590370b85aae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b02117e8_493d6b98",
+        "filename": "modules/audio_coding/neteq/merge.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-05-17T07:50:48Z",
+      "side": 1,
+      "message": "// or as fast as it takes to come back to full gain within the frame\n     // length.",
+      "range": {
+        "startLine": 107,
+        "startChar": 7,
+        "endLine": 107,
+        "endChar": 8
+      },
+      "revId": "363549057e833c1267388b11721c590370b85aae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "142e5a01_c8ef25a3",
+        "filename": "modules/audio_coding/neteq/merge.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-05-17T07:50:48Z",
+      "side": 1,
+      "message": "move 109 after 110 and change it to\n\nconst int increment \u003d std::max(back_to_fullscale_inc, 4194 / fs_mult_);",
+      "range": {
+        "startLine": 110,
+        "startChar": 16,
+        "endLine": 110,
+        "endChar": 37
+      },
+      "revId": "363549057e833c1267388b11721c590370b85aae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

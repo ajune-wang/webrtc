@@ -12,6 +12,8 @@ import("//testing/libfuzzer/fuzzer_test.gni")
 
 rtc_static_library("webrtc_fuzzer_main") {
   sources = [
+    "data_reader.cc",
+    "data_reader.h",
     "webrtc_fuzzer_main.cc",
   ]
   deps = [
@@ -189,7 +191,7 @@ webrtc_fuzzer_test("packet_buffer_fuzzer") {
     "../../modules/video_coding/",
     "../../system_wrappers",
   ]
-  libfuzzer_options = [ "max_len=2000" ]
+  libfuzzer_options = [ "max_len=200000" ]
 }
 
 webrtc_fuzzer_test("rtcp_receiver_fuzzer") {

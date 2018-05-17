@@ -22,6 +22,30 @@
       "revId": "f4a87a7ebb13ea68be17e63f7d8957593c2cbca5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5938bdea_e57f9fa3",
+        "filename": "call/bitrate_estimator_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 7224
+      },
+      "writtenOn": "2018-05-17T12:43:02Z",
+      "side": 1,
+      "message": "Yeah, range-based-for is simpler, I think it is better approach.\nI\u0027ll upload a updated patch by replacing this with range-based-for.",
+      "parentUuid": "48bf90c9_0ce832c8",
+      "range": {
+        "startLine": 139,
+        "startChar": 0,
+        "endLine": 140,
+        "endChar": 0
+      },
+      "revId": "f4a87a7ebb13ea68be17e63f7d8957593c2cbca5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

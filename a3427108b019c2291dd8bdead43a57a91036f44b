@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "22a05b93_1beac6f6",
+        "filename": "pc/test/fakeperiodicvideotracksource.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-05-17T07:20:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "94909f1c_40828a95",
+      "revId": "a3427108b019c2291dd8bdead43a57a91036f44b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7d0a0b02_08877f19",
         "filename": "pc/test/fakeperiodicvideotracksource.h",
         "patchSetId": 1
@@ -53,6 +71,24 @@
     },
     {
       "key": {
+        "uuid": "656ae4f7_b0596efa",
+        "filename": "pc/test/fakeperiodicvideotracksource.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-05-17T07:20:05Z",
+      "side": 1,
+      "message": "The source is used only by the methods AddOrUpdateSink, and RemoveSink.\nI see no reason why it would need to access it from the constructor.\n\nI\u0027d prefer relying on that, over adding a SetSource method.",
+      "parentUuid": "7d0a0b02_08877f19",
+      "revId": "a3427108b019c2291dd8bdead43a57a91036f44b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8c0019da_cb3968c0",
         "filename": "pc/test/fakeperiodicvideotracksource.h",
         "patchSetId": 1
@@ -64,6 +100,24 @@
       "writtenOn": "2018-05-16T20:32:15Z",
       "side": 1,
       "message": "I don\u0027t quite understand... Before, the destruction order was:\n\nFakePeriodicVideoSource::Stop\nVideoTrackSource::OnSourceDestroyed\nFakePeriodicVideoSource::~FakePeriodicVideoSource\nVideoTrackSource::~VideoTrackSource\n\nAnd now it\u0027s just:\n\nFakePeriodicVideoSource::~FakePeriodicVideoSource\nVideoTrackSource::~VideoTrackSource\n\nSo this seems like a step backwards in terms of safety, even if it\u0027s currently safe. If the VideoTrackSource constructor or destructor tries to dereference source_ it will blow up (or at least result in undefined behavior). I thought that\u0027s what the code you previously added was trying to avoid?",
+      "revId": "a3427108b019c2291dd8bdead43a57a91036f44b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "804dd034_424a08ce",
+        "filename": "pc/test/fakeperiodicvideotracksource.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-05-17T07:20:05Z",
+      "side": 1,
+      "message": "\u003e I don\u0027t quite understand... Before, the destruction order was:\n\u003e \n\u003e FakePeriodicVideoSource::Stop\n\u003e VideoTrackSource::OnSourceDestroyed\n\u003e FakePeriodicVideoSource::~FakePeriodicVideoSource\n\nAnd here, arbitrary delay due to other threads holding references to the reference counted VideoTrackSource, and possibly calling AddOrUpdateSink or RemoveSink.\n\n\u003e VideoTrackSource::~VideoTrackSource\n\nIn the actual test, I think there really was a call to RemoveSink in between, and then we have two potential races: The most obvious is calling RemoveSink on the underlying VideoSource after it has been destroyed. That\u0027s addressed by OnSourceDestroyed, but that introduces the second potential race: OnSourceDestroyed turns RemoveSink into a nop, and then we might call OnFrame on the sink after RemoveSink has returned. Which is why I introduced the Stop method.\n\n\u003e So this seems like a step backwards in terms of safety, even if it\u0027s currently safe. If the VideoTrackSource constructor or destructor tries to dereference source_ it will blow up (or at least result in undefined behavior). I thought that\u0027s what the code you previously added was trying to avoid?\n\nNo, the problem isn\u0027t access to source_ from the destructor, but from some other thread holding a reference and calling RemoveSink.\n\nWith the new class, by the time the destructor runs, we know that there are no more references to the VideoTrackSource, and in particular, there can be no more calls to AddOrUpdateSink or RemoveSink. It gets simpler because we have the same lifetime of both the VideoSource and the VideoTrackSource.\n\nAn alternative would be to change VideoTrackSource to take over ownership of the VideoSource (via unique_ptr), but I haven\u0027t investigated the implications. I thought it was simpler to change the test code only.\n\nBut thinking about it, maybe the right solution really is to change VideoTrackSource to take a std::unique_ptr\u003crtc::VideoSourceInterface\u003cVidoeFrame\u003e\u003e. That would follow the general rules about injection that we discussed a while ago: Never inject raw pointers into reference counted objects. Tests could safely access the VideoSource via raw pointer if needed, as long as they keep a reference to the VideoTrackSource. Drawback is that any production code that needs direct access to the source, e.g., to access camera settings, would need to do the same.",
+      "parentUuid": "8c0019da_cb3968c0",
       "revId": "a3427108b019c2291dd8bdead43a57a91036f44b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

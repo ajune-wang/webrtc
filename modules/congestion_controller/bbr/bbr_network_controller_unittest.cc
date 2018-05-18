@@ -114,9 +114,7 @@ TEST_F(BbrNetworkControllerTest, SendsConfigurationOnNetworkRouteChanged) {
   EXPECT_TRUE(update.congestion_window.has_value());
 }
 
-// Bandwidth estimation is updated when feedbacks are received.
-// Feedbacks which show an increasing delay cause the estimation to be reduced.
-TEST_F(BbrNetworkControllerTest, UpdatesTargetSendRate) {
+TEST_F(BbrNetworkControllerTest, UpdatesTargetSendRateAndEstimate) {
   BbrNetworkControllerFactory factory;
   webrtc::test::NetworkControllerTester tester(&factory,
                                                InitialConfig(60, 0, 600));
@@ -125,28 +123,103 @@ TEST_F(BbrNetworkControllerTest, UpdatesTargetSendRate) {
   tester.RunSimulation(TimeDelta::seconds(5), TimeDelta::ms(10),
                        DataRate::kbps(300), TimeDelta::ms(100),
                        packet_producer);
+
   EXPECT_GE(tester.GetState().target_rate->target_rate,
             DataRate::kbps(300) * kMinDataRateFactor);
   EXPECT_LE(tester.GetState().target_rate->target_rate,
             DataRate::kbps(300) * kMaxDataRateFactor);
 
+  EXPECT_GE(tester.GetState().target_rate->network_estimate.bandwidth,
+            DataRate::kbps(300) * kMinDataRateFactor);
+  EXPECT_LE(tester.GetState().target_rate->network_estimate.bandwidth,
+            DataRate::kbps(300) * kMaxDataRateFactor);
+
+  RTC_DLOG(LS_INFO) << "Changing bitrate to 500 kbps\n\n";
+
   tester.RunSimulation(TimeDelta::seconds(30), TimeDelta::ms(10),
                        DataRate::kbps(500), TimeDelta::ms(100),
                        packet_producer);
+
   EXPECT_GE(tester.GetState().target_rate->target_rate,
             DataRate::kbps(500) * kMinDataRateFactor);
   EXPECT_LE(tester.GetState().target_rate->target_rate,
             DataRate::kbps(500) * kMaxDataRateFactor);
 
-  tester.RunSimulation(TimeDelta::seconds(30), TimeDelta::ms(10),
-                       DataRate::kbps(100), TimeDelta::ms(200),
+  EXPECT_GE(tester.GetState().target_rate->network_estimate.bandwidth,
+            DataRate::kbps(500) * kMinDataRateFactor);
+  EXPECT_LE(tester.GetState().target_rate->network_estimate.bandwidth,
+            DataRate::kbps(500) * kMaxDataRateFactor);
+
+  RTC_DLOG(LS_INFO) << "Changing bitrate to 100 kbps\n\n";
+
+  tester.RunSimulation(TimeDelta::seconds(100), TimeDelta::ms(10),
+                       DataRate::kbps(100), TimeDelta::ms(100),
                        packet_producer);
+
   EXPECT_GE(tester.GetState().target_rate->target_rate,
             DataRate::kbps(100) * kMinDataRateFactor);
   EXPECT_LE(tester.GetState().target_rate->target_rate,
             DataRate::kbps(100) * kMaxDataRateFactor);
+
+  EXPECT_GE(tester.GetState().target_rate->network_estimate.bandwidth,
+            DataRate::kbps(100) * kMinDataRateFactor);
+  EXPECT_LE(tester.GetState().target_rate->network_estimate.bandwidth,
+            DataRate::kbps(100) * kMaxDataRateFactor);
 }
 
+TEST_F(BbrNetworkControllerTest, HandlesBitrateDrop) {
+  BbrNetworkControllerFactory factory;
+  webrtc::test::NetworkControllerTester tester(&factory,
+                                               InitialConfig(300, 30, 500));
+  auto packet_producer = &webrtc::test::SimpleTargetRateProducer::ProduceNext;
+
+  tester.RunSimulation(TimeDelta::seconds(13), TimeDelta::ms(10),
+                       DataRate::kbps(300), TimeDelta::ms(100),
+                       packet_producer);
+  EXPECT_GE(tester.GetState().target_rate->network_estimate.bandwidth,
+            DataRate::kbps(300) * kMinDataRateFactor);
+  EXPECT_LE(tester.GetState().target_rate->network_estimate.bandwidth,
+            DataRate::kbps(300) * kMaxDataRateFactor);
+
+  RTC_DLOG(LS_INFO) << "Changing bitrate to 100 kbps\n\n";
+
+  tester.RunSimulation(TimeDelta::seconds(20), TimeDelta::ms(10),
+                       DataRate::kbps(100), TimeDelta::ms(100),
+                       packet_producer);
+  EXPECT_GE(tester.GetState().target_rate->network_estimate.bandwidth,
+            DataRate::kbps(100) * kMinDataRateFactor);
+  EXPECT_LE(tester.GetState().target_rate->network_estimate.bandwidth,
+            DataRate::kbps(100) * kMaxDataRateFactor);
+}
+
+TEST_F(BbrNetworkControllerTest, HandlesLowRate) {
+  BbrNetworkControllerFactory factory;
+  webrtc::test::NetworkControllerTester tester(&factory,
+                                               InitialConfig(300, 30, 500));
+  auto packet_producer = &webrtc::test::SimpleTargetRateProducer::ProduceNext;
+
+  tester.RunSimulation(TimeDelta::seconds(10), TimeDelta::ms(10),
+                       DataRate::kbps(50), TimeDelta::ms(100), packet_producer);
+  EXPECT_GE(tester.GetState().target_rate->network_estimate.bandwidth,
+            DataRate::kbps(50) * kMinDataRateFactor);
+  EXPECT_LE(tester.GetState().target_rate->network_estimate.bandwidth,
+            DataRate::kbps(50) * kMaxDataRateFactor);
+}
+
+TEST_F(BbrNetworkControllerTest, HandlesHighRate) {
+  BbrNetworkControllerFactory factory;
+  webrtc::test::NetworkControllerTester tester(&factory,
+                                               InitialConfig(300, 30, 1000));
+  auto packet_producer = &webrtc::test::SimpleTargetRateProducer::ProduceNext;
+
+  tester.RunSimulation(TimeDelta::seconds(2), TimeDelta::ms(10),
+                       DataRate::kbps(500), TimeDelta::ms(100),
+                       packet_producer);
+  EXPECT_GE(tester.GetState().target_rate->network_estimate.bandwidth,
+            DataRate::kbps(500) * kMinDataRateFactor);
+  EXPECT_LE(tester.GetState().target_rate->network_estimate.bandwidth,
+            DataRate::kbps(500) * kMaxDataRateFactor);
+}
 }  // namespace test
 }  // namespace bbr
 }  // namespace webrtc

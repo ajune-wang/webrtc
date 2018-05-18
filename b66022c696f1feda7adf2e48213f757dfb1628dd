@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "400184a5_4dc532b4",
+        "filename": "modules/video_coding/codecs/test/videocodec_test_libvpx.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-05-18T09:23:06Z",
+      "side": 1,
+      "message": "Why is this change needed? It\u0027d be preferable if internal tests live by the same rules as external tests and only use the public interface of the fixture.",
+      "revId": "b66022c696f1feda7adf2e48213f757dfb1628dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

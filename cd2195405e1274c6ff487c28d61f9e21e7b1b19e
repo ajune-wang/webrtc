@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "7874b3a6_bf00ac0c",
+        "filename": "api/DEPS",
+        "patchSetId": 9
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-05-18T09:23:06Z",
+      "side": 1,
+      "message": "why are rtp_rtcp and system_wrappers needed? None of the .cc files you\u0027ve added in api include them, afaict.",
+      "revId": "cd2195405e1274c6ff487c28d61f9e21e7b1b19e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ebc69feb_912ca346",
         "filename": "api/test/videocodec_test_fixture.h",
         "patchSetId": 9
@@ -46,6 +63,104 @@
       "revId": "cd2195405e1274c6ff487c28d61f9e21e7b1b19e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2af58096_29497280",
+        "filename": "api/test/videocodec_test_fixture.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-05-18T09:23:06Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "ebc69feb_912ca346",
+      "range": {
+        "startLine": 69,
+        "startChar": 9,
+        "endLine": 69,
+        "endChar": 19
+      },
+      "revId": "cd2195405e1274c6ff487c28d61f9e21e7b1b19e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86aab038_ad8f1d27",
+        "filename": "api/test/videocodec_test_stats.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-05-18T09:23:06Z",
+      "side": 1,
+      "message": "Is this only needed for webrtc::FrameType? is it possible to move frametype to somewhere in api/ instead. It\u0027s a shame we\u0027re pulling in so many deps when this class contains almost just basic types.",
+      "revId": "cd2195405e1274c6ff487c28d61f9e21e7b1b19e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2728dfa2_f99c01c9",
+        "filename": "modules/video_coding/codecs/test/test_config_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-05-18T09:23:06Z",
+      "side": 1,
+      "message": "I think this file should be renamed to videocodec_test_fixture_config_unittest.cc, or move the test cases into videocodec_test_fixture_unittest.cc",
+      "revId": "cd2195405e1274c6ff487c28d61f9e21e7b1b19e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "379d1be1_c6c980b0",
+        "filename": "modules/video_coding/codecs/test/videocodec_test_fixture_impl.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-05-18T09:23:06Z",
+      "side": 1,
+      "message": "Why do we need to return the impl?",
+      "revId": "cd2195405e1274c6ff487c28d61f9e21e7b1b19e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e0f351d_ec9e4bcd",
+        "filename": "modules/video_coding/codecs/test/videocodec_test_libvpx.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-05-18T09:23:06Z",
+      "side": 1,
+      "message": "Can we avoid using the Impl here?",
+      "range": {
+        "startLine": 104,
+        "startChar": 33,
+        "endLine": 104,
+        "endChar": 58
+      },
+      "revId": "cd2195405e1274c6ff487c28d61f9e21e7b1b19e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

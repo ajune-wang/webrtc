@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "81828f7b_e4498f2f",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-05-18T15:27:05Z",
+      "side": 0,
+      "message": "Removed from here because it is in BbrControllerConfig?",
+      "range": {
+        "startLine": 356,
+        "startChar": 0,
+        "endLine": 356,
+        "endChar": 37
+      },
+      "revId": "ed20a230c872763b7a1e1ecfef5cc8a27cdee1b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

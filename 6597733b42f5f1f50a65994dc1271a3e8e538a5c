@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "19abafc5_2b83e96c",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-05-18T15:27:05Z",
+      "side": 1,
+      "message": "I\u0027d prefer an explicit type here.",
+      "range": {
+        "startLine": 412,
+        "startChar": 2,
+        "endLine": 412,
+        "endChar": 6
+      },
+      "revId": "6597733b42f5f1f50a65994dc1271a3e8e538a5c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d15a37d_e25bcaa8",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 415,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-05-18T15:27:05Z",
+      "side": 1,
+      "message": "I\u0027d prefer an explicit type.",
+      "range": {
+        "startLine": 415,
+        "startChar": 2,
+        "endLine": 415,
+        "endChar": 6
+      },
+      "revId": "6597733b42f5f1f50a65994dc1271a3e8e538a5c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "055a740c_7c7416fe",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-05-18T15:27:05Z",
+      "side": 1,
+      "message": "Is this some numerical packet ID? Please document in the comment.",
+      "range": {
+        "startLine": 189,
+        "startChar": 38,
+        "endLine": 189,
+        "endChar": 55
+      },
+      "revId": "6597733b42f5f1f50a65994dc1271a3e8e538a5c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03f125af_6639f893",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-05-18T15:27:05Z",
+      "side": 1,
+      "message": "Incorrect replace? :)",
+      "range": {
+        "startLine": 222,
+        "startChar": 31,
+        "endLine": 222,
+        "endChar": 44
+      },
+      "revId": "6597733b42f5f1f50a65994dc1271a3e8e538a5c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

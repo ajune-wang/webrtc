@@ -22,6 +22,30 @@
       "revId": "5bb0a54e231315b7cd5e4460ad4fde0e65527c43",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4fa9983_6ee30158",
+        "filename": "media/engine/simulcast.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-05-18T09:52:49Z",
+      "side": 1,
+      "message": "It IS vp8 specific. VP9 doesn\u0027t use this.\nYes, we should move it - but I\u0027d like to be able to experiment with this in M68.",
+      "parentUuid": "7cceb98c_f6f3b7a5",
+      "range": {
+        "startLine": 18,
+        "startChar": 31,
+        "endLine": 18,
+        "endChar": 37
+      },
+      "revId": "5bb0a54e231315b7cd5e4460ad4fde0e65527c43",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

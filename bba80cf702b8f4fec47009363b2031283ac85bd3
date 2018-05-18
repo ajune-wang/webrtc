@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ada238f4_3ebca9a3",
+        "filename": "rtc_base/numerics/sample_counter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-05-18T14:07:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1838913b_0f63b6f3",
+      "revId": "bba80cf702b8f4fec47009363b2031283ac85bd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bb37ecd3_accc9d19",
         "filename": "rtc_base/numerics/sample_counter.cc",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "bba80cf702b8f4fec47009363b2031283ac85bd3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83a57227_ca8f4a95",
+        "filename": "rtc_base/numerics/sample_counter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-05-18T14:07:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bb37ecd3_accc9d19",
+      "revId": "bba80cf702b8f4fec47009363b2031283ac85bd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -59,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "92c052b8_445f7b8d",
+        "filename": "rtc_base/numerics/sample_counter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-05-18T14:07:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e7f1a99f_94808f02",
+      "range": {
+        "startLine": 20,
+        "startChar": 18,
+        "endLine": 20,
+        "endChar": 33
+      },
+      "revId": "bba80cf702b8f4fec47009363b2031283ac85bd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "20b98161_d1c20210",
         "filename": "rtc_base/numerics/sample_counter.cc",
         "patchSetId": 1
@@ -82,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "2e9a15f6_ace85eb8",
+        "filename": "rtc_base/numerics/sample_counter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-05-18T14:07:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "20b98161_d1c20210",
+      "range": {
+        "startLine": 23,
+        "startChar": 4,
+        "endLine": 23,
+        "endChar": 25
+      },
+      "revId": "bba80cf702b8f4fec47009363b2031283ac85bd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "91e9e4cb_8453ee87",
         "filename": "rtc_base/numerics/sample_counter.cc",
         "patchSetId": 1
@@ -96,6 +180,24 @@
       "revId": "bba80cf702b8f4fec47009363b2031283ac85bd3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "217bc299_0da47613",
+        "filename": "rtc_base/numerics/sample_counter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-05-18T14:07:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "91e9e4cb_8453ee87",
+      "revId": "bba80cf702b8f4fec47009363b2031283ac85bd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -122,6 +224,30 @@
     },
     {
       "key": {
+        "uuid": "c32adab1_7fd6cc25",
+        "filename": "rtc_base/numerics/sample_counter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-05-18T14:07:48Z",
+      "side": 1,
+      "message": "It\u0027s explicit check against division by zero in case min_required_samples is 0. num_samples_ can\u0027t be negative, but if it were, it won\u0027t cause division by zero crash.",
+      "parentUuid": "86880c0b_e1e9b4df",
+      "range": {
+        "startLine": 36,
+        "startChar": 58,
+        "endLine": 36,
+        "endChar": 62
+      },
+      "revId": "bba80cf702b8f4fec47009363b2031283ac85bd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "478bec2e_ff0cfc6c",
         "filename": "rtc_base/numerics/sample_counter.cc",
         "patchSetId": 1
@@ -145,6 +271,30 @@
     },
     {
       "key": {
+        "uuid": "2b8310f4_84b9647e",
+        "filename": "rtc_base/numerics/sample_counter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-05-18T14:07:48Z",
+      "side": 1,
+      "message": "Average of int\u0027s, can\u0027t ever overflow.",
+      "parentUuid": "478bec2e_ff0cfc6c",
+      "range": {
+        "startLine": 38,
+        "startChar": 9,
+        "endLine": 38,
+        "endChar": 20
+      },
+      "revId": "bba80cf702b8f4fec47009363b2031283ac85bd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "71ec4398_dbad3ca0",
         "filename": "rtc_base/numerics/sample_counter.h",
         "patchSetId": 1
@@ -159,6 +309,24 @@
       "revId": "bba80cf702b8f4fec47009363b2031283ac85bd3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bbd69b0d_e4605bb3",
+        "filename": "rtc_base/numerics/sample_counter.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-05-18T14:07:48Z",
+      "side": 1,
+      "message": "Doing otherwise results in:\nerror: [chromium-style] Complex destructor has an inline body.\n\nRemoving the destructor rises:\nerror: [chromium-style] Complex class/struct needs an explicit out-of-line destructor.",
+      "parentUuid": "71ec4398_dbad3ca0",
+      "revId": "bba80cf702b8f4fec47009363b2031283ac85bd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -185,6 +353,30 @@
     },
     {
       "key": {
+        "uuid": "4c2e3870_101a0454",
+        "filename": "rtc_base/numerics/sample_counter.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-05-18T14:07:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fef78137_4202e471",
+      "range": {
+        "startLine": 26,
+        "startChar": 5,
+        "endLine": 26,
+        "endChar": 15
+      },
+      "revId": "bba80cf702b8f4fec47009363b2031283ac85bd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e21bd4c6_b37a60a5",
         "filename": "rtc_base/numerics/sample_counter.h",
         "patchSetId": 1
@@ -205,6 +397,30 @@
       "revId": "bba80cf702b8f4fec47009363b2031283ac85bd3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed8e558e_0c16139a",
+        "filename": "rtc_base/numerics/sample_counter.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-05-18T14:07:48Z",
+      "side": 1,
+      "message": "It\u0027s more clear in the using code to explicitly reset it instead.",
+      "parentUuid": "e21bd4c6_b37a60a5",
+      "range": {
+        "startLine": 32,
+        "startChar": 7,
+        "endLine": 32,
+        "endChar": 15
+      },
+      "revId": "bba80cf702b8f4fec47009363b2031283ac85bd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

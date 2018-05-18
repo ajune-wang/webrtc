@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a0f02c47_e87006a1",
+        "filename": "rtc_base/numerics/sample_counter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-18T22:54:31Z",
+      "side": 1,
+      "message": "\u003ddefault is better in general.",
+      "range": {
+        "startLine": 18,
+        "startChar": 31,
+        "endLine": 18,
+        "endChar": 33
+      },
+      "revId": "d1b27df6d1e6ffe7b53f653698873b48d29b7d0e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11445a4b_164c3b46",
+        "filename": "rtc_base/numerics/sample_counter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-18T22:54:31Z",
+      "side": 1,
+      "message": "RTC_DCHECK_LE would give a better error message.",
+      "revId": "d1b27df6d1e6ffe7b53f653698873b48d29b7d0e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b100ccfc_540cc545",
+        "filename": "rtc_base/numerics/sample_counter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-18T22:54:31Z",
+      "side": 1,
+      "message": "You should do int64_t{sample} instead, since you can.",
+      "range": {
+        "startLine": 24,
+        "startChar": 18,
+        "endLine": 24,
+        "endChar": 46
+      },
+      "revId": "d1b27df6d1e6ffe7b53f653698873b48d29b7d0e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7516383_301887e3",
+        "filename": "rtc_base/numerics/sample_counter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-18T22:54:31Z",
+      "side": 1,
+      "message": "rtc::nullopt...",
+      "range": {
+        "startLine": 48,
+        "startChar": 11,
+        "endLine": 48,
+        "endChar": 13
+      },
+      "revId": "d1b27df6d1e6ffe7b53f653698873b48d29b7d0e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f930c012_15153f11",
+        "filename": "rtc_base/numerics/sample_counter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-18T22:54:31Z",
+      "side": 1,
+      "message": "Just max_.",
+      "range": {
+        "startLine": 62,
+        "startChar": 9,
+        "endLine": 62,
+        "endChar": 26
+      },
+      "revId": "d1b27df6d1e6ffe7b53f653698873b48d29b7d0e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88ed3aa8_9c7bb144",
+        "filename": "rtc_base/numerics/sample_counter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-18T22:54:31Z",
+      "side": 1,
+      "message": "You can replace these four lines with\n\n  *this \u003d {};\n\nThat way, you can\u0027t forget to reset anything, and can\u0027t reset to the wrong value.",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 15
+      },
+      "revId": "d1b27df6d1e6ffe7b53f653698873b48d29b7d0e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa3b067e_5e24126a",
+        "filename": "rtc_base/numerics/sample_counter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-18T22:54:31Z",
+      "side": 1,
+      "message": "Variance, now.",
+      "range": {
+        "startLine": 18,
+        "startChar": 65,
+        "endLine": 18,
+        "endChar": 74
+      },
+      "revId": "d1b27df6d1e6ffe7b53f653698873b48d29b7d0e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

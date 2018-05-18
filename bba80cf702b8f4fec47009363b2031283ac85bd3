@@ -248,6 +248,30 @@
     },
     {
       "key": {
+        "uuid": "b0a903d2_79829397",
+        "filename": "rtc_base/numerics/sample_counter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-18T22:54:31Z",
+      "side": 1,
+      "message": "Would it make sense to DCHECK that min_required_samples is \u003e\u003d1 ?",
+      "parentUuid": "c32adab1_7fd6cc25",
+      "range": {
+        "startLine": 36,
+        "startChar": 58,
+        "endLine": 36,
+        "endChar": 62
+      },
+      "revId": "bba80cf702b8f4fec47009363b2031283ac85bd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "478bec2e_ff0cfc6c",
         "filename": "rtc_base/numerics/sample_counter.cc",
         "patchSetId": 1
@@ -295,6 +319,30 @@
     },
     {
       "key": {
+        "uuid": "50081601_c35fa132",
+        "filename": "rtc_base/numerics/sample_counter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-18T22:54:31Z",
+      "side": 1,
+      "message": "Exactly. [d]checked_cast is a promise from you that the cast will not ever overflow. static_cast, on the other hand, yields an implementation-defined result in case of signed overflow, so it\u0027s more difficult for readers to know what you meant.",
+      "parentUuid": "2b8310f4_84b9647e",
+      "range": {
+        "startLine": 38,
+        "startChar": 9,
+        "endLine": 38,
+        "endChar": 20
+      },
+      "revId": "bba80cf702b8f4fec47009363b2031283ac85bd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "71ec4398_dbad3ca0",
         "filename": "rtc_base/numerics/sample_counter.h",
         "patchSetId": 1
@@ -324,6 +372,24 @@
       "side": 1,
       "message": "Doing otherwise results in:\nerror: [chromium-style] Complex destructor has an inline body.\n\nRemoving the destructor rises:\nerror: [chromium-style] Complex class/struct needs an explicit out-of-line destructor.",
       "parentUuid": "71ec4398_dbad3ca0",
+      "revId": "bba80cf702b8f4fec47009363b2031283ac85bd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "afb6b402_5b285309",
+        "filename": "rtc_base/numerics/sample_counter.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-18T22:54:31Z",
+      "side": 1,
+      "message": "Ah. rtc::~Optional\u003cT\u003e is nontrivial even when ~T is trivial. I believe absl::optional doesn\u0027t have this limitation, but OK for now I guess.",
+      "parentUuid": "bbd69b0d_e4605bb3",
       "revId": "bba80cf702b8f4fec47009363b2031283ac85bd3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

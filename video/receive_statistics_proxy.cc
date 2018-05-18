@@ -816,38 +816,6 @@ void ReceiveStatisticsProxy::OnStreamInactive() {
   last_decoded_frame_time_ms_.reset();
 }
 
-void ReceiveStatisticsProxy::SampleCounter::Add(int sample) {
-  sum += sample;
-  ++num_samples;
-  if (!max || sample > *max) {
-    max.emplace(sample);
-  }
-}
-
-void ReceiveStatisticsProxy::SampleCounter::Add(const SampleCounter& other) {
-  sum += other.sum;
-  num_samples += other.num_samples;
-  if (other.max && (!max || *max < *other.max))
-    max = other.max;
-}
-
-int ReceiveStatisticsProxy::SampleCounter::Avg(
-    int64_t min_required_samples) const {
-  if (num_samples < min_required_samples || num_samples == 0)
-    return -1;
-  return static_cast<int>(sum / num_samples);
-}
-
-int ReceiveStatisticsProxy::SampleCounter::Max() const {
-  return max.value_or(-1);
-}
-
-void ReceiveStatisticsProxy::SampleCounter::Reset() {
-  num_samples = 0;
-  sum = 0;
-  max.reset();
-}
-
 void ReceiveStatisticsProxy::OnRttUpdate(int64_t avg_rtt_ms,
                                          int64_t max_rtt_ms) {
   rtc::CritScope lock(&crit_);

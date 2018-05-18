@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4464c0a9_e7e4b2b1",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-05-18T15:28:48Z",
+      "side": 1,
+      "message": "I don\u0027t understand the purpose of this.",
+      "range": {
+        "startLine": 215,
+        "startChar": 0,
+        "endLine": 216,
+        "endChar": 0
+      },
+      "revId": "3685d147ba904ac8bfe5973787945baa6dff9cca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

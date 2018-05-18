@@ -142,4 +142,9 @@
     "timeout": 3600,  # 1 hour
     "type": "raw",
   },
+  "webrtc_perf_tests_quick": {
+    "label": "//:webrtc_perf_tests",
+    "type": "non_parallel_console_test_launcher",
+    "args": ["--force_fieldtrials=WebRTC-QuickPerfTest/Enabled/"],
+  },
 }

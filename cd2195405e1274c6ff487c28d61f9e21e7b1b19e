@@ -22,6 +22,30 @@
       "revId": "cd2195405e1274c6ff487c28d61f9e21e7b1b19e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "363bb834_f8fa5cd7",
+        "filename": "api/test/videocodec_test_fixture.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-05-18T09:14:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ebc69feb_912ca346",
+      "range": {
+        "startLine": 69,
+        "startChar": 9,
+        "endLine": 69,
+        "endChar": 19
+      },
+      "revId": "cd2195405e1274c6ff487c28d61f9e21e7b1b19e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

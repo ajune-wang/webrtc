@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f0cd49e8_2fbe031f",
+        "filename": "pc/peerconnection_integrationtest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-18T18:01:51Z",
+      "side": 0,
+      "message": "nit: This comment is still relevant; someone reading this code may wonder \"why does the test need to set this\"",
+      "revId": "8dd4db49e2b9fab1a851c779235a555ee2c0d351",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

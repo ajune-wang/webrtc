@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d3984f13_f194bb67",
+        "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCPeerConnectionFactory.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-18T18:01:51Z",
+      "side": 1,
+      "message": "Is this going to be replaced next?",
+      "revId": "6bb0813ea7cd822d83682127a69f7b66e2cfd769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

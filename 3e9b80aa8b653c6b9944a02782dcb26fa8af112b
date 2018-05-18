@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "292ad03e_cfb0482f",
+        "filename": "sdk/android/api/org/webrtc/PeerConnectionFactory.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-05-18T09:11:17Z",
+      "side": 1,
+      "message": "I think we should put the logic back for removing the injected loggable if loggable is null. It should work now since native logging is not an injected loggable anymore.",
+      "range": {
+        "startLine": 223,
+        "startChar": 4,
+        "endLine": 223,
+        "endChar": 5
+      },
+      "revId": "3e9b80aa8b653c6b9944a02782dcb26fa8af112b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

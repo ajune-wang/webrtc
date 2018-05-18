@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ebc69feb_912ca346",
+        "filename": "api/test/videocodec_test_fixture.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-05-18T08:34:10Z",
+      "side": 1,
+      "message": "This is more of a nit, but how about calling this Config, so that the FQN becomes VideoCodecTestFixture::Config ?",
+      "range": {
+        "startLine": 69,
+        "startChar": 9,
+        "endLine": 69,
+        "endChar": 19
+      },
+      "revId": "cd2195405e1274c6ff487c28d61f9e21e7b1b19e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2b349c94_826d3783",
+        "filename": "api/test/videocodec_test_fixture.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-05-18T08:34:10Z",
+      "side": 0,
+      "message": "Can we either keep this, or have RunTest return a VideoCodecStats? Without getting the VideoCodecStats, I don\u0027t see a way for downstream clients to do performance testing using this fixture.",
+      "range": {
+        "startLine": 68,
+        "startChar": 2,
+        "endLine": 68,
+        "endChar": 31
+      },
+      "revId": "e7659df12f994545a76628498b8ee0a2d14330b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

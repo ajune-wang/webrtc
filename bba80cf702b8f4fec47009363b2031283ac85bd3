@@ -1,0 +1,210 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1838913b_0f63b6f3",
+        "filename": "rtc_base/numerics/sample_counter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-18T12:45:31Z",
+      "side": 1,
+      "message": "You don\u0027t initialize sum_squared_.\n\nSuggestion: Use default member initializers in the .h file instead. That makes it easier to see what\u0027s happening.",
+      "revId": "bba80cf702b8f4fec47009363b2031283ac85bd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb37ecd3_accc9d19",
+        "filename": "rtc_base/numerics/sample_counter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-18T12:45:31Z",
+      "side": 1,
+      "message": "DCHECK that there is no overflow? (Even more important on the next line, but do it here too for consistency.)",
+      "revId": "bba80cf702b8f4fec47009363b2031283ac85bd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7f1a99f_94808f02",
+        "filename": "rtc_base/numerics/sample_counter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-18T12:45:31Z",
+      "side": 1,
+      "message": "This is an int * int -\u003e int multiplication, so it could overflow. Do it in int64_t instead.",
+      "range": {
+        "startLine": 20,
+        "startChar": 18,
+        "endLine": 20,
+        "endChar": 33
+      },
+      "revId": "bba80cf702b8f4fec47009363b2031283ac85bd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20b98161_d1c20210",
+        "filename": "rtc_base/numerics/sample_counter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-18T12:45:31Z",
+      "side": 1,
+      "message": "max_ \u003d sample;\n\nwill work too.",
+      "range": {
+        "startLine": 23,
+        "startChar": 4,
+        "endLine": 23,
+        "endChar": 25
+      },
+      "revId": "bba80cf702b8f4fec47009363b2031283ac85bd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91e9e4cb_8453ee87",
+        "filename": "rtc_base/numerics/sample_counter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-18T12:45:31Z",
+      "side": 1,
+      "message": "DCHECK for overflow here too?",
+      "revId": "bba80cf702b8f4fec47009363b2031283ac85bd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86880c0b_e1e9b4df",
+        "filename": "rtc_base/numerics/sample_counter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-18T12:45:31Z",
+      "side": 1,
+      "message": "num_samples_ is signed, so\n\n  \u003c 1\n\n?",
+      "range": {
+        "startLine": 36,
+        "startChar": 58,
+        "endLine": 36,
+        "endChar": 62
+      },
+      "revId": "bba80cf702b8f4fec47009363b2031283ac85bd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "478bec2e_ff0cfc6c",
+        "filename": "rtc_base/numerics/sample_counter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-18T12:45:31Z",
+      "side": 1,
+      "message": "This can supposedly not overflow, so dchecked_cast?",
+      "range": {
+        "startLine": 38,
+        "startChar": 9,
+        "endLine": 38,
+        "endChar": 20
+      },
+      "revId": "bba80cf702b8f4fec47009363b2031283ac85bd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71ec4398_dbad3ca0",
+        "filename": "rtc_base/numerics/sample_counter.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-18T12:45:31Z",
+      "side": 1,
+      "message": "Do you need a non-inlined destructor? This class looks like it would otherwise be trivially destructible.",
+      "revId": "bba80cf702b8f4fec47009363b2031283ac85bd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fef78137_4202e471",
+        "filename": "rtc_base/numerics/sample_counter.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-18T12:45:31Z",
+      "side": 1,
+      "message": "Use rtc::Optional instead.",
+      "range": {
+        "startLine": 26,
+        "startChar": 5,
+        "endLine": 26,
+        "endChar": 15
+      },
+      "revId": "bba80cf702b8f4fec47009363b2031283ac85bd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e21bd4c6_b37a60a5",
+        "filename": "rtc_base/numerics/sample_counter.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-18T12:45:31Z",
+      "side": 1,
+      "message": "Do you need this one? You could just as easily reset by assigning a new SampleCounter.",
+      "range": {
+        "startLine": 32,
+        "startChar": 7,
+        "endLine": 32,
+        "endChar": 15
+      },
+      "revId": "bba80cf702b8f4fec47009363b2031283ac85bd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

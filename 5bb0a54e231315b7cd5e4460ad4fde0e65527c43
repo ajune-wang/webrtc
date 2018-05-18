@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7cceb98c_f6f3b7a5",
+        "filename": "media/engine/simulcast.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2018-05-18T09:35:27Z",
+      "side": 1,
+      "message": "This deps seems a bit weird. Now SimulcastFormat is VP8 specific.",
+      "range": {
+        "startLine": 18,
+        "startChar": 31,
+        "endLine": 18,
+        "endChar": 37
+      },
+      "revId": "5bb0a54e231315b7cd5e4460ad4fde0e65527c43",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

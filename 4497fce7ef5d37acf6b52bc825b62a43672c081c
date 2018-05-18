@@ -22,6 +22,30 @@
       "revId": "4497fce7ef5d37acf6b52bc825b62a43672c081c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1675b22e_40af606d",
+        "filename": "api/transport/network_types.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-05-18T08:33:06Z",
+      "side": 1,
+      "message": "It currently will use the transport sequence number but unwrapped.\n\nIf we want to keep track of audio packets where we lack transport sequence numbers by default, we will have to generate some new sequence for this.\n\nSo, in conclusion, it\u0027s a new number meant specifically for use for tracking packet identity by the congestion controller.",
+      "parentUuid": "d967f8a6_d02c86d0",
+      "range": {
+        "startLine": 91,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 0
+      },
+      "revId": "4497fce7ef5d37acf6b52bc825b62a43672c081c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

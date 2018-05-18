@@ -89,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "18084873_074bc185",
+        "filename": "pc/test/fakeperiodicvideotracksource.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-18T17:57:41Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "656ae4f7_b0596efa",
+      "revId": "a3427108b019c2291dd8bdead43a57a91036f44b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8c0019da_cb3968c0",
         "filename": "pc/test/fakeperiodicvideotracksource.h",
         "patchSetId": 1
@@ -121,6 +139,24 @@
       "revId": "a3427108b019c2291dd8bdead43a57a91036f44b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98f2a611_912ec212",
+        "filename": "pc/test/fakeperiodicvideotracksource.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-18T17:57:41Z",
+      "side": 1,
+      "message": "\u003e No, the problem isn\u0027t access to source_ from the destructor, but from some other thread holding a reference and calling RemoveSink.\n\nAh, that\u0027s what I was missing; I understand now. Probably worth calling this out in the CL description.\n\n\u003e But thinking about it, maybe the right solution really is to change VideoTrackSource to take a std::unique_ptr\u003crtc::VideoSourceInterface\u003cVidoeFrame\u003e\u003e\n\nProbably, but that can happen later.",
+      "parentUuid": "804dd034_424a08ce",
+      "revId": "a3427108b019c2291dd8bdead43a57a91036f44b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

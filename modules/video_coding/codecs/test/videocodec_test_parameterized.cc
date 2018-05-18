@@ -15,6 +15,8 @@
 namespace webrtc {
 namespace test {
 
+using Config = VideoCodecTestFixture::Config;
+
 namespace {
 
 // Loop variables.
@@ -55,7 +57,7 @@ class VideoCodecTestParameterized
                size_t height,
                size_t framerate,
                const std::string& filename) {
-    TestConfig config;
+    Config config;
     config.filename = filename;
     config.filepath = ResourcePath(filename, "yuv");
     config.use_single_core = kUseSingleCore;

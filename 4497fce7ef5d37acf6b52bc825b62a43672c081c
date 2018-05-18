@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d967f8a6_d02c86d0",
+        "filename": "api/transport/network_types.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-05-18T06:55:51Z",
+      "side": 1,
+      "message": "Will this be the normal transport sequence number, or are you adding some new number here?",
+      "range": {
+        "startLine": 91,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 0
+      },
+      "revId": "4497fce7ef5d37acf6b52bc825b62a43672c081c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

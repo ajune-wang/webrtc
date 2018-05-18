@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6489f19d_9f925a44",
+        "filename": "rtc_base/logging.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2018-05-18T15:56:51Z",
+      "side": 1,
+      "message": "Should we support short/unsigned short as well?",
+      "range": {
+        "startLine": 164,
+        "startChar": 0,
+        "endLine": 165,
+        "endChar": 8
+      },
+      "revId": "ba18891509e63e1a868c64590efe34489fb1a3ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c326c13_0d7178f7",
+        "filename": "rtc_base/logging.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2018-05-18T15:56:51Z",
+      "side": 1,
+      "message": "What is the effect of assigning the nullptr?",
+      "range": {
+        "startLine": 271,
+        "startChar": 57,
+        "endLine": 271,
+        "endChar": 66
+      },
+      "revId": "ba18891509e63e1a868c64590efe34489fb1a3ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22f7f413_902ba29f",
+        "filename": "rtc_base/logging.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 525,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2018-05-18T15:56:51Z",
+      "side": 1,
+      "message": "Are there other users of LOG_SEVERITY_PRECONDITION?",
+      "range": {
+        "startLine": 525,
+        "startChar": 0,
+        "endLine": 525,
+        "endChar": 44
+      },
+      "revId": "ba18891509e63e1a868c64590efe34489fb1a3ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "280fa0c2_1db024ff",
+        "filename": "rtc_base/logging.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 532,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2018-05-18T15:56:51Z",
+      "side": 1,
+      "message": "Have you checked how much space we\u0027d save by replacing this this check with an early return in Log()? It should be less valuable now that we can avoid creating the entire log message.",
+      "range": {
+        "startLine": 531,
+        "startChar": 2,
+        "endLine": 532,
+        "endChar": 22
+      },
+      "revId": "ba18891509e63e1a868c64590efe34489fb1a3ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87177d50_8835bac8",
+        "filename": "rtc_base/logging.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 631,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2018-05-18T15:56:51Z",
+      "side": 1,
+      "message": "would for (;false;) work here?",
+      "range": {
+        "startLine": 631,
+        "startChar": 2,
+        "endLine": 631,
+        "endChar": 51
+      },
+      "revId": "ba18891509e63e1a868c64590efe34489fb1a3ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4a8ad42_223a29a5",
+        "filename": "rtc_base/logging.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 634,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2018-05-18T15:56:51Z",
+      "side": 1,
+      "message": "Can\u0027t we remove everything but the LogStreamer?",
+      "range": {
+        "startLine": 632,
+        "startChar": 2,
+        "endLine": 634,
+        "endChar": 75
+      },
+      "revId": "ba18891509e63e1a868c64590efe34489fb1a3ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

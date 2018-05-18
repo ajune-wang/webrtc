@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a2925c90_ae7bb1a5",
+        "filename": "rtc_base/logging.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-18T23:18:28Z",
+      "side": 1,
+      "message": "There\u0027s no point, just as there\u0027s no point supporting float, because smaller types are promoted to int and double: http://en.cppreference.com/w/cpp/language/variadic_arguments.",
+      "parentUuid": "6489f19d_9f925a44",
+      "range": {
+        "startLine": 164,
+        "startChar": 0,
+        "endLine": 165,
+        "endChar": 8
+      },
+      "revId": "ba18891509e63e1a868c64590efe34489fb1a3ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2c326c13_0d7178f7",
         "filename": "rtc_base/logging.h",
         "patchSetId": 16
@@ -45,6 +69,30 @@
       "revId": "ba18891509e63e1a868c64590efe34489fb1a3ae",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99af7238_21477cd9",
+        "filename": "rtc_base/logging.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-18T23:18:28Z",
+      "side": 1,
+      "message": "enable_if\u003cfalse\u003e doesn\u0027t have a `type` member, so SFINAE will remove us from the overload set.\n \nenable_if\u003ctrue\u003e::type is void, so this becomes the same as void* \u003d nullptr; that is, an unnamed template argument of type void* with default value nullptr. Completely useless, except as a way to force a SFINAE error if the condition is false.",
+      "parentUuid": "2c326c13_0d7178f7",
+      "range": {
+        "startLine": 271,
+        "startChar": 57,
+        "endLine": 271,
+        "endChar": 66
+      },
+      "revId": "ba18891509e63e1a868c64590efe34489fb1a3ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "3cbc2103_7d9e5411",
+        "filename": "rtc_base/logging.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 525,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-18T23:18:28Z",
+      "side": 1,
+      "message": "Yes---not in our tree, but elsewhere. We break them if we remove it without warning.",
+      "parentUuid": "22f7f413_902ba29f",
+      "range": {
+        "startLine": 525,
+        "startChar": 0,
+        "endLine": 525,
+        "endChar": 44
+      },
+      "revId": "ba18891509e63e1a868c64590efe34489fb1a3ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "280fa0c2_1db024ff",
         "filename": "rtc_base/logging.h",
         "patchSetId": 16
@@ -91,6 +163,30 @@
       "revId": "ba18891509e63e1a868c64590efe34489fb1a3ae",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a19a4227_7254090c",
+        "filename": "rtc_base/logging.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 532,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-18T23:18:28Z",
+      "side": 1,
+      "message": "No, I haven\u0027t. You\u0027re welcome to try in a follow-up CL, but I suspect performance will suffer.",
+      "parentUuid": "280fa0c2_1db024ff",
+      "range": {
+        "startLine": 531,
+        "startChar": 2,
+        "endLine": 532,
+        "endChar": 22
+      },
+      "revId": "ba18891509e63e1a868c64590efe34489fb1a3ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "719e1ea1_c5bdf795",
+        "filename": "rtc_base/logging.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 631,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-18T23:18:28Z",
+      "side": 1,
+      "message": "Yes. Or `while(false)`.",
+      "parentUuid": "87177d50_8835bac8",
+      "range": {
+        "startLine": 631,
+        "startChar": 2,
+        "endLine": 631,
+        "endChar": 51
+      },
+      "revId": "ba18891509e63e1a868c64590efe34489fb1a3ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f4a8ad42_223a29a5",
         "filename": "rtc_base/logging.h",
         "patchSetId": 16
@@ -137,6 +257,30 @@
       "revId": "ba18891509e63e1a868c64590efe34489fb1a3ae",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "675f382f_058ad2af",
+        "filename": "rtc_base/logging.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 634,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-18T23:18:28Z",
+      "side": 1,
+      "message": "It looks like we can.",
+      "parentUuid": "f4a8ad42_223a29a5",
+      "range": {
+        "startLine": 632,
+        "startChar": 2,
+        "endLine": 634,
+        "endChar": 75
+      },
+      "revId": "ba18891509e63e1a868c64590efe34489fb1a3ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

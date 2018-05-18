@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b7881a17_5a8246dd",
+        "filename": "modules/congestion_controller/rtp/send_time_history.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-05-18T06:47:02Z",
+      "side": 1,
+      "message": "I see nothing in this CL actually calling RemoveOld?",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 0
+      },
+      "revId": "15c976891e2fb77dff7127134c4aeea622403601",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -417,6 +417,8 @@ rtc_source_set("rtc_base_approved_generic") {
     "numerics/histogram_percentile_counter.h",
     "numerics/mod_ops.h",
     "numerics/moving_max_counter.h",
+    "numerics/sample_counter.cc",
+    "numerics/sample_counter.h",
     "onetimeevent.h",
     "pathutils.cc",
     "pathutils.h",

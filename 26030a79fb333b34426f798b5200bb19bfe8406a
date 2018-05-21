@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "43c18c36_e16106ca",
+        "filename": "rtc_base/annotations.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-05-21T18:54:49Z",
+      "side": 1,
+      "message": "File name seems very generic. It would be nice with either a more specific name, or move\nall macros expanding to __attribute__ or _pragma to one place. (Main drawback of collecting them all together is that we expose too much if one or two of them needs to be exposed via api/).",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 31
+      },
+      "revId": "26030a79fb333b34426f798b5200bb19bfe8406a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f4e369e_461d102b",
+        "filename": "rtc_base/arch.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-05-21T18:54:49Z",
+      "side": 1,
+      "message": "Moving wholesale to a new file is god progress. But I wonder how much of this is actually used. Endian-detection could be moved to byteorder.h which should be the only direct user.\n\nAnd maybe we could use compiler predefines like __BYTE_ORDER__, to avoid enumerating all supported archs?",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 62
+      },
+      "revId": "26030a79fb333b34426f798b5200bb19bfe8406a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

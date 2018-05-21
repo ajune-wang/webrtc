@@ -53,7 +53,6 @@ class MetaBuildWrapper(object):
     self.platform = sys.platform
     self.sep = os.sep
     self.args = argparse.Namespace()
-    self.configs = {}
     self.masters = {}
     self.mixins = {}
 
@@ -80,8 +79,6 @@ class MetaBuildWrapper(object):
                         help='builder name to look up config from')
       subp.add_argument('-m', '--master',
                         help='master name to look up config from')
-      subp.add_argument('-c', '--config',
-                        help='configuration to analyze')
       subp.add_argument('--phase',
                         help='optional phase name (used when builders '
                              'do multiple compiles with different '
@@ -251,12 +248,12 @@ class MetaBuildWrapper(object):
           continue
 
         if isinstance(config, dict):
-          args = {k: self.FlattenConfig(v)['gn_args']
+          args = {k: self.FlattenMixins(v)['gn_args']
                   for k, v in config.items()}
-        elif config.startswith('//'):
+        elif isinstance(config, str) and config.startswith('//'):
           args = config
         else:
-          args = self.FlattenConfig(config)['gn_args']
+          args = self.FlattenMixins(config)['gn_args']
           if 'error' in args:
             continue
 
@@ -371,40 +368,23 @@ class MetaBuildWrapper(object):
     # Read the file to make sure it parses.
     self.ReadConfigFile()
 
-    # Build a list of all of the configs referenced by builders.
-    all_configs = {}
-    for master in self.masters:
-      for config in self.masters[master].values():
-        if isinstance(config, dict):
-          for c in config.values():
-            all_configs[c] = master
-        else:
-          all_configs[config] = master
-
-    # Check that every referenced args file or config actually exists.
-    for config, loc in all_configs.items():
-      if config.startswith('//'):
-        if not self.Exists(self.ToAbsPath(config)):
-          errs.append('Unknown args file "%s" referenced from "%s".' %
-                      (config, loc))
-      elif not config in self.configs:
-        errs.append('Unknown config "%s" referenced from "%s".' %
-                    (config, loc))
-
-    # Check that every actual config is actually referenced.
-    for config in self.configs:
-      if not config in all_configs:
-        errs.append('Unused config "%s".' % config)
-
     # Figure out the whole list of mixins, and check that every mixin
     # listed by a config or another mixin actually exists.
     referenced_mixins = set()
-    for config, mixins in self.configs.items():
-      for mixin in mixins:
-        if not mixin in self.mixins:
-          errs.append('Unknown mixin "%s" referenced by config "%s".' %
-                      (mixin, config))
-        referenced_mixins.add(mixin)
+
+    # Build a list of all of the mixins referenced by builders.
+    # Check that every referenced args file or config actually exists.
+    for master in self.masters:
+      for config in self.masters[master].values():
+        if isinstance(config, str) and config.startswith('//'):
+          if not self.Exists(self.ToAbsPath(config)):
+            errs.append('Unknown args file "%s" referenced from "%s".' %
+                        (config, master))
+        elif isinstance(config, dict):
+          for c in config.values():
+            referenced_mixins.update(c)
+        else:
+          referenced_mixins.update(config)
 
     for mixin in self.mixins:
       for sub_mixin in self.mixins[mixin].get('mixins', []):
@@ -430,7 +410,7 @@ class MetaBuildWrapper(object):
     build_dir = self.args.path[0]
 
     vals = self.DefaultVals()
-    if self.args.builder or self.args.master or self.args.config:
+    if self.args.builder or self.args.master:
       vals = self.Lookup()
       # Re-run gn gen in order to ensure the config is consistent with the
       # build dir.
@@ -467,16 +447,13 @@ class MetaBuildWrapper(object):
     if not vals:
       self.ReadConfigFile()
       config = self.ConfigFromArgs()
-      if config.startswith('//'):
+      if isinstance(config, str) and config.startswith('//'):
         if not self.Exists(self.ToAbsPath(config)):
           raise MBErr('args file "%s" not found' % config)
         vals = self.DefaultVals()
         vals['args_file'] = config
       else:
-        if not config in self.configs:
-          raise MBErr('Config "%s" not found in %s' %
-                      (config, self.args.config_file))
-        vals = self.FlattenConfig(config)
+        vals = self.FlattenMixins(config)
     return vals
 
   def ReadIOSBotConfig(self):
@@ -504,7 +481,6 @@ class MetaBuildWrapper(object):
       raise MBErr('Failed to parse config file "%s": %s' %
                  (self.args.config_file, e))
 
-    self.configs = contents['configs']
     self.masters = contents['masters']
     self.mixins = contents['mixins']
 
@@ -519,13 +495,6 @@ class MetaBuildWrapper(object):
           'Failed to parse isolate map file "%s": %s' % (isolate_map, e))
 
   def ConfigFromArgs(self):
-    if self.args.config:
-      if self.args.master or self.args.builder:
-        raise MBErr('Can not specific both -c/--config and -m/--master or '
-                    '-b/--builder')
-
-      return self.args.config
-
     if not self.args.master or not self.args.builder:
       raise MBErr('Must specify either -c/--config or '
                   '(-m/--master and -b/--builder)')
@@ -554,14 +523,6 @@ class MetaBuildWrapper(object):
                   (self.args.builder, self.args.master))
     return config
 
-  def FlattenConfig(self, config):
-    mixins = self.configs[config]
-    vals = self.DefaultVals()
-
-    visited = []
-    self.FlattenMixins(mixins, vals, visited)
-    return vals
-
   def DefaultVals(self):
     return {
       'args_file': '',
@@ -569,7 +530,12 @@ class MetaBuildWrapper(object):
       'gn_args': '',
     }
 
-  def FlattenMixins(self, mixins, vals, visited):
+  def FlattenMixins(self, mixins, vals=None, visited=None):
+    if vals is None:
+      vals = self.DefaultVals()
+    if visited is None:
+      visited = []
+
     for m in mixins:
       if m not in self.mixins:
         raise MBErr('Unknown mixin "%s"' % m)

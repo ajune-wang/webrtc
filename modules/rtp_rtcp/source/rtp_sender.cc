@@ -811,6 +811,12 @@ bool RTPSender::PrepareAndSendPacket(std::unique_ptr<RtpPacketToSend> packet,
   }
 
   PacketOptions options;
+  if (is_retransmit) {
+    options.retransmission =
+        PacketOptions::RetransmissionStatus::kRetransmission;
+  } else if (send_over_rtx) {
+    options.retransmission = PacketOptions::RetransmissionStatus::kRtx;
+  }
   if (UpdateTransportSequenceNumber(packet_to_send, &options.packet_id)) {
     AddPacketToTransportFeedback(options.packet_id, *packet_to_send,
                                  pacing_info);

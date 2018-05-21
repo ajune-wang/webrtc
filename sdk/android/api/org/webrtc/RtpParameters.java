@@ -118,7 +118,32 @@ public class RtpParameters {
     }
   }
 
+  public static class Rtcp {
+    // The Canonical Name used by RTCP
+    public String cname;
+    // Whether reduced size RTCP is configured or compound RTCP
+    public boolean reducedSize;
+
+    @CalledByNative("Rtcp")
+    Rtcp(String cname, boolean reducedSize) {
+      this.cname = cname;
+      this.reducedSize = reducedSize;
+    }
+
+    @CalledByNative("Rtcp")
+    String getCname() {
+      return cname;
+    }
+
+    @CalledByNative("Rtcp")
+    boolean getReducedSize() {
+      return reducedSize;
+    }
+  }
+
   public final String transactionId;
+
+  public final Rtcp rtcp;
 
   public final List<Encoding> encodings;
   // Codec parameters can't currently be changed between getParameters and
@@ -127,8 +152,9 @@ public class RtpParameters {
   public final List<Codec> codecs;
 
   @CalledByNative
-  RtpParameters(String transactionId, List<Encoding> encodings, List<Codec> codecs) {
+  RtpParameters(String transactionId, Rtcp rtcp, List<Encoding> encodings, List<Codec> codecs) {
     this.transactionId = transactionId;
+    this.rtcp = rtcp;
     this.encodings = encodings;
     this.codecs = codecs;
   }
@@ -136,6 +162,11 @@ public class RtpParameters {
   @CalledByNative
   String getTransactionId() {
     return transactionId;
+  }
+
+  @CalledByNative
+  Rtcp getRtcp() {
+    return rtcp;
   }
 
   @CalledByNative

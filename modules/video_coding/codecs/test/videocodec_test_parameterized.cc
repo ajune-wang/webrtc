@@ -73,7 +73,7 @@ class VideoCodecTestParameterized
     config.SetCodecSettings(codec_name, num_simulcast_streams,
                             num_spatial_layers, kNumTemporalLayers,
                             kDenoisingOn, kFrameDropperOn, kSpatialResizeOn,
-                            width, height);
+                            false, width, height);
 
     std::vector<RateProfile> rate_profiles = {
         {bitrate_, framerate, kNumFrames}};

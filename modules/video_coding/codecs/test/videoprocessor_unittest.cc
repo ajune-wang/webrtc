@@ -43,7 +43,7 @@ class VideoProcessorTest : public testing::Test {
  protected:
   VideoProcessorTest() : q_("VP queue") {
     config_.SetCodecSettings(cricket::kVp8CodecName, 1, 1, 1, false, false,
-                             false, kWidth, kHeight);
+                             false, false, kWidth, kHeight);
 
     decoder_mock_ = new MockVideoDecoder();
     decoders_.push_back(std::unique_ptr<VideoDecoder>(decoder_mock_));

@@ -40,7 +40,7 @@ TestConfig CreateTestConfig() {
 TEST(VideoCodecTestMediaCodec, ForemanCif500kbpsVp8) {
   auto config = CreateTestConfig();
   config.SetCodecSettings(cricket::kVp8CodecName, 1, 1, 1, false, false, false,
-                          352, 288);
+                          false, 352, 288);
   auto fixture = CreateVideoCodecTestFixture(config);
 
   std::vector<RateProfile> rate_profiles = {
@@ -64,7 +64,7 @@ TEST(VideoCodecTestMediaCodec, ForemanCif500kbpsH264CBP) {
       VideoCodecTestFixtureImpl::H264KeyframeChecker>();
   config.encoded_frame_checker = frame_checker.get();
   config.SetCodecSettings(cricket::kH264CodecName, 1, 1, 1, false, false, false,
-                          352, 288);
+                          false, 352, 288);
   auto fixture = CreateVideoCodecTestFixture(config);
 
   std::vector<RateProfile> rate_profiles = {
@@ -92,7 +92,7 @@ TEST(VideoCodecTestMediaCodec, DISABLED_ForemanCif500kbpsH264CHP) {
   config.h264_codec_settings.profile = H264::kProfileConstrainedHigh;
   config.encoded_frame_checker = frame_checker.get();
   config.SetCodecSettings(cricket::kH264CodecName, 1, 1, 1, false, false, false,
-                          352, 288);
+                          false, 352, 288);
   auto fixture = CreateVideoCodecTestFixture(config);
 
   std::vector<RateProfile> rate_profiles = {
@@ -130,7 +130,7 @@ TEST(VideoCodecTestMediaCodec, ForemanMixedRes100kbpsVp8H264) {
                         std::to_string(height);
       config.filepath = ResourcePath(config.filename, "yuv");
       config.num_frames = kNumFrames;
-      config.SetCodecSettings(codec, 1, 1, 1, false, false, false, width,
+      config.SetCodecSettings(codec, 1, 1, 1, false, false, false, false, width,
                               height);
 
       auto fixture = CreateVideoCodecTestFixture(config);

@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "156cdb3e_2af096d4",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-05-21T14:54:17Z",
+      "side": 1,
+      "message": "I wonder which block should we use for checking whether the farend is active. The one at that position or the one at FilterDelayBlocks()?\n\nFurthermore, if nothing else from the RenderBuffer is used, we can consider passing just that block to this function.",
+      "revId": "67c81ad528d8769d53a602e13d91ac989e22e339",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b8d0c6f_60fd85d6",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 535,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-05-21T14:54:17Z",
+      "side": 1,
+      "message": "those duplicated lines were probably unintended.",
+      "revId": "67c81ad528d8769d53a602e13d91ac989e22e339",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

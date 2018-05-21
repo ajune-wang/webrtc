@@ -38,6 +38,7 @@ struct TestConfig {
                         bool denoising_on,
                         bool frame_dropper_on,
                         bool spatial_resize_on,
+                        bool screen_sharing_on,
                         size_t width,
                         size_t height);
 

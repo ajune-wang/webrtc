@@ -56,7 +56,8 @@ void ConfigureSvc(VideoCodec* codec_settings) {
   const std::vector<SpatialLayer> layers =
       GetSvcConfig(codec_settings->width, codec_settings->height,
                    codec_settings->VP9()->numberOfSpatialLayers,
-                   codec_settings->VP9()->numberOfTemporalLayers, false);
+                   codec_settings->VP9()->numberOfTemporalLayers,
+                   codec_settings->mode == kScreensharing);
 
   for (size_t i = 0; i < layers.size(); ++i) {
     codec_settings->spatialLayers[i] = layers[i];
@@ -109,6 +110,7 @@ void TestConfig::SetCodecSettings(std::string codec_name,
                                   bool denoising_on,
                                   bool frame_dropper_on,
                                   bool spatial_resize_on,
+                                  bool screen_sharing_on,
                                   size_t width,
                                   size_t height) {
   this->codec_name = codec_name;
@@ -132,11 +134,16 @@ void TestConfig::SetCodecSettings(std::string codec_name,
   // Spatial scalability is only available with VP9.
   RTC_CHECK(num_spatial_layers < 2 || codec_type == kVideoCodecVP9);
 
+  // Screen sharing only works with VP9 for now.
+  RTC_CHECK(!screen_sharing_on || codec_type == kVideoCodecVP9);
+
   // Some base code requires numberOfSimulcastStreams to be set to zero
   // when simulcast is not used.
   codec_settings.numberOfSimulcastStreams =
       num_simulcast_streams <= 1 ? 0
                                  : static_cast<uint8_t>(num_simulcast_streams);
+
+  codec_settings.mode = screen_sharing_on ? kScreensharing : kRealtimeVideo;
 
   switch (codec_settings.codecType) {
     case kVideoCodecVP8:

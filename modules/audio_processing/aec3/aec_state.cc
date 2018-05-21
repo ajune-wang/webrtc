@@ -33,9 +33,19 @@ bool EnableStationaryRenderImprovements() {
       "WebRTC-Aec3StationaryRenderImprovementsKillSwitch");
 }
 
+bool EnableErleOnsetUncertainty() {
+  return !field_trial::IsEnabled("WebRTC-Aec3ErleOnserUncertaintyKillSwitch");
+}
+
 float ComputeGainRampupIncrease(const EchoCanceller3Config& config) {
   const auto& c = config.echo_removal_control.gain_rampup;
   return powf(1.f / c.first_non_zero_gain, 1.f / c.non_zero_gain_blocks);
+}
+
+bool DetectActiveRender(rtc::ArrayView<const float> x, float limit) {
+  RTC_DCHECK_EQ(kFftLengthBy2, x.size());
+  const float x_energy = std::inner_product(x.begin(), x.end(), x.begin(), 0.f);
+  return x_energy > limit * limit * kFftLengthBy2;
 }
 
 constexpr size_t kBlocksSinceConvergencedFilterInit = 10000;
@@ -53,6 +63,9 @@ AecState::AecState(const EchoCanceller3Config& config)
       use_stationary_properties_(
           EnableStationaryRenderImprovements() &&
           config_.echo_audibility.use_stationary_properties),
+      use_erle_onset_uncertainty_(
+          EnableErleOnsetUncertainty() &&
+          config_.echo_removal_control.highly_variable_echo_path),
       erle_estimator_(config.erle.min, config.erle.max_l, config.erle.max_h),
       max_render_(config_.filter.main.length_blocks, 0.f),
       reverb_decay_(fabsf(config_.ep_strength.default_len)),
@@ -136,7 +149,8 @@ void AecState::Update(
   // Update counters.
   ++capture_block_counter_;
   ++blocks_since_reset_;
-  const bool active_render_block = DetectActiveRender(x);
+  const bool active_render_block =
+      DetectActiveRender(x, config_.render_levels.active_render_limit);
   blocks_with_active_render_ += active_render_block ? 1 : 0;
   blocks_with_proper_filter_adaptation_ +=
       active_render_block && !SaturatedCapture() ? 1 : 0;
@@ -250,6 +264,9 @@ void AecState::Update(
 
   use_linear_filter_output_ = usable_linear_estimate_ && !TransparentMode();
 
+  // Detect strong render speech onsets where the filter performs poorly..
+  diverged_onset_detector_.Detect(converged_filter, render_buffer);
+
   data_dumper_->DumpRaw("aec3_erle", Erle());
   data_dumper_->DumpRaw("aec3_erle_onset", erle_estimator_.ErleOnsets());
   data_dumper_->DumpRaw("aec3_erl", Erl());
@@ -280,6 +297,10 @@ void AecState::Update(
                         filter_has_had_time_to_converge);
   data_dumper_->DumpRaw("aec3_recently_converged_filter",
                         recently_converged_filter);
+  data_dumper_->DumpRaw("aec3_render_onset", strong_render_onset_ ? 1 : 0);
+  data_dumper_->DumpRaw("aec3_active_render", active_render_block ? 1 : 0);
+  data_dumper_->DumpRaw("aec3_erle_uncertainty",
+                        ErleUncertainty() ? *ErleUncertainty() : 0.f);
 }
 
 void AecState::UpdateReverb(const std::vector<float>& impulse_response) {
@@ -468,13 +489,6 @@ void AecState::UpdateReverb(const std::vector<float>& impulse_response) {
   data_dumper_->DumpRaw("aec3_suppression_gain_limit", SuppressionGainLimit());
 }
 
-bool AecState::DetectActiveRender(rtc::ArrayView<const float> x) const {
-  const float x_energy = std::inner_product(x.begin(), x.end(), x.begin(), 0.f);
-  return x_energy > (config_.render_levels.active_render_limit *
-                     config_.render_levels.active_render_limit) *
-                        kFftLengthBy2;
-}
-
 bool AecState::DetectEchoSaturation(rtc::ArrayView<const float> x,
                                     float echo_path_gain) {
   RTC_DCHECK_LT(0, x.size());
@@ -491,6 +505,25 @@ bool AecState::DetectEchoSaturation(rtc::ArrayView<const float> x,
   }
 
   return blocks_since_last_saturation_ < 5;
+}
+
+void AecState::DivergedOnsetDetector::Detect(
+    bool converged_filter,
+    const RenderBuffer& render_buffer) {
+  const auto& x = render_buffer.Block(0)[0];
+  const bool strong_render_block = DetectActiveRender(x, 200);
+
+  if (converged_filter && strong_render_block) {
+    blocks_since_convergence_for_strong_render_ = 0;
+  } else {
+    ++blocks_since_convergence_for_strong_render_;
+  }
+  if (blocks_since_convergence_for_strong_render_ > 50 && strong_render_block) {
+    strong_render_onset_counter_ = 0;
+  } else {
+    ++strong_render_onset_counter_;
+  }
+  strong_render_onset_ = strong_render_onset_counter_ < 5;
 }
 
 }  // namespace webrtc

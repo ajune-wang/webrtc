@@ -10,7 +10,7 @@ vars = {
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
   'webrtc_git': 'https://webrtc.googlesource.com',
-  'chromium_revision': '039110971be048779a21200d0e98d22da689278a',
+  'chromium_revision': 'ee6a9e4d12a31d5f461476070dc6746efe27dbe7',
   'boringssl_git': 'https://boringssl.googlesource.com',
   # Three lines of non-changing comments so that
   # the commit queue can handle CLs rolling swarming_client
@@ -27,7 +27,7 @@ vars = {
   # Three lines of non-changing comments so that
   # the commit queue can handle CLs rolling catapult
   # and whatever else without interference from each other.
-  'catapult_revision': '7ca7a59f02029679bb68bcf5a79be7db1bbc3c3d',
+  'catapult_revision': '421df92ae3d4853247a09280144b1467f07d8f7d',
   # Three lines of non-changing comments so that
   # the commit queue can handle CLs rolling libFuzzer
   # and whatever else without interference from each other.
@@ -43,7 +43,7 @@ vars = {
   # Three lines of non-changing comments so that
   # the commit queue can handle CLs rolling Chromium third_party
   # and whatever else without interference from each other.
-  'chromium_third_party_revision': 'cc1af829342dfa24713f9a914e5f0065e5bd02ec',
+  'chromium_third_party_revision': '3b23a8b3342a30a23ee3c863aeb37b919c6a545a',
 }
 deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
@@ -61,11 +61,11 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': Var('chromium_git') + '/chromium/src/ios' + '@' + '02a22b39007fed435fa0b1582ad77bf6255a89e5',
+    'url': Var('chromium_git') + '/chromium/src/ios' + '@' + '8dfac523a815103ce7a605e4939901ab73c0f7c6',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    Var('chromium_git') + '/chromium/src/testing' + '@' + '671c6a45223774a8131ea94e519163257e688018',
+    Var('chromium_git') + '/chromium/src/testing' + '@' + 'ff83fd69fd2a09840c66a8236bb22c474a0f074d',
   # This entry is used for chromium third_party rolling into webrtc third_party only.
   'src/third_party_chromium': {
       'url': Var('chromium_git') + '/chromium/src/third_party' + '@' + Var('chromium_third_party_revision'),
@@ -135,7 +135,7 @@ deps = {
   'src/third_party/libsrtp':
     Var('chromium_git') + '/chromium/deps/libsrtp.git' + '@' + 'fc2345089a6b3c5aca9ecd2e1941871a78a13e9c',
   'src/third_party/libvpx/source/libvpx':
-    Var('chromium_git') + '/webm/libvpx.git' + '@' +  'd99abe9a9ad78b765386d0ee62559de184ba581e',
+    Var('chromium_git') + '/webm/libvpx.git' + '@' +  'e27a331778c4c99ec37262ea786a3b4cc2a491ac',
   'src/third_party/libyuv':
     Var('chromium_git') + '/libyuv/libyuv.git' + '@' + 'a9626b9daf62a9b260737e9c2de821ad087b19a1',
   'src/third_party/lss': {
@@ -175,7 +175,7 @@ deps = {
   'src/third_party/yasm/source/patched-yasm':
     Var('chromium_git') + '/chromium/deps/yasm/patched-yasm.git' + '@' + 'b98114e18d8b9b84586b10d24353ab8616d4c5fc',
   'src/tools':
-    Var('chromium_git') + '/chromium/src/tools' + '@' + 'ff5c71196bbccefb5eb237db626dc7d4f59b00ac',
+    Var('chromium_git') + '/chromium/src/tools' + '@' + 'd9449615b9773edf55bb1015a1821fb1033197cc',
   'src/tools/gyp':
     Var('chromium_git') + '/external/gyp.git' + '@' + 'd61a9397e668fa9843c4aa7da9e79460fe590bfb',
   'src/tools/swarming_client':

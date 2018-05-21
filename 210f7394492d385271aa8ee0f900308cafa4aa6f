@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "547634a8_7f939e03",
+        "filename": "api/video/video_source_interface.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-21T10:02:46Z",
+      "side": 1,
+      "message": "If you want anything other than a public, virtual destructor in an interface, please add an explanatory comment.",
+      "revId": "210f7394492d385271aa8ee0f900308cafa4aa6f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21317a86_6cadf7a0",
+        "filename": "api/video/video_stream_encoder_interface.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-21T10:02:46Z",
+      "side": 1,
+      "message": "The style guide says that destructors should be declared before normal methods.",
+      "revId": "210f7394492d385271aa8ee0f900308cafa4aa6f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

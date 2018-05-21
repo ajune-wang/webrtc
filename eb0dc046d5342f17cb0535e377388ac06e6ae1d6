@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8760e0eb_50d22da4",
+        "filename": "rtc_base/numerics/sample_counter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-21T09:21:16Z",
+      "side": 1,
+      "message": "Wait... neither sample nor sum_ are guaranteed to be nonnegative, right? So this actually only checks for positive overflow. You\u0027d need something like\n\n  if (sum_ \u003e 0) {\n    RTC_DCHECK_LE(sample, std::numeric_limits\u003cint64_t\u003e::max() - sum_);\n  } else {\n    RTC_DCHECK_GE(sample, std::numeric_limits\u003cint64_t\u003e::min() - sum_);\n  }\n\n(Please double check my math!)",
+      "revId": "eb0dc046d5342f17cb0535e377388ac06e6ae1d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5730c6f_7eae87c1",
+        "filename": "rtc_base/numerics/sample_counter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-21T09:21:16Z",
+      "side": 1,
+      "message": "This one is OK, since sample^2 and sum_squared_ are both nonnegative. But the check needs to be before the increment on line 25.",
+      "revId": "eb0dc046d5342f17cb0535e377388ac06e6ae1d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0e6c225_0e6046ae",
+        "filename": "rtc_base/numerics/sample_counter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-21T09:21:16Z",
+      "side": 1,
+      "message": "This also needs fixing to take negative overflow into account.",
+      "revId": "eb0dc046d5342f17cb0535e377388ac06e6ae1d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61f38693_5e66c1b1",
+        "filename": "rtc_base/numerics/sample_counter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-21T09:21:16Z",
+      "side": 1,
+      "message": "Yes, this is supposed to hold, but more importantly,\n\n  RTC_DCHECK_GT(min_required_samples, 0);",
+      "revId": "eb0dc046d5342f17cb0535e377388ac06e6ae1d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8ba65ae_11abd791",
+        "filename": "rtc_base/numerics/sample_counter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-21T09:21:16Z",
+      "side": 1,
+      "message": "Again, this check is OK, but it\u0027s more important to\n\n  RTC_DCHECK_GT(min_required_samples, 0);",
+      "revId": "eb0dc046d5342f17cb0535e377388ac06e6ae1d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

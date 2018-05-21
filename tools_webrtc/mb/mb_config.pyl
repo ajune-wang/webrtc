@@ -324,6 +324,16 @@
         'gn', 'openh264_debug_bot', 'x64'],
       'win_x64_win10': [
         'gn', 'openh264_debug_bot', 'x64'],
+      'win_more_configs': {
+        'intelligibility_enhancer_no_include_tests': [
+          'debug_bot', 'x86', 'intelligibility_enhancer', 'no_include_tests'],
+        'bwe_test_logging': [
+          'debug_bot', 'x86', 'bwe_test_logging'],
+        'dummy_audio_file_devices_no_protobuf': [
+          'debug_bot', 'x86', 'dummy_audio_file_devices', 'no_protobuf'],
+        'rtti_no_sctp': [
+          'debug_bot', 'x86', 'rtti', 'no_sctp'],
+      },
     }
   },
 
@@ -477,6 +487,34 @@
 
     'use_default_libcxx': {
       'gn_args': 'use_custom_libcxx=false',
-    }
+    },
+
+    'intelligibility_enhancer': {
+      'gn_args': 'rtc_enable_intelligibility_enhancer=true',
+    },
+
+    'no_include_tests': {
+      'gn_args': 'rtc_include_tests=false',
+    },
+
+    'bwe_test_logging': {
+      'gn_args': 'rtc_enable_bwe_test_logging=true',
+    },
+
+    'dummy_audio_file_devices': {
+      'gn_args': 'rtc_use_dummy_audio_file_devices=true',
+    },
+
+    'no_protobuf': {
+      'gn_args': 'rtc_enable_protobuf=false',
+    },
+
+    'rtti': {
+      'gn_args': 'use_rtti=true',
+    },
+
+    'no_sctp': {
+      'gn_args': 'rtc_enable_sctp=false',
+    },
   },
 }

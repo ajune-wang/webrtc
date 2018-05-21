@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "3f004d5e_adc44a8e",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-05-21T19:24:05Z",
+      "side": 1,
+      "message": "True, good point! I\u0027ll change it to use the delay as well. But I\u0027ll clamp it to 0, as doing otherwise will require more code to properly handle the headroom.",
+      "parentUuid": "156cdb3e_2af096d4",
+      "revId": "67c81ad528d8769d53a602e13d91ac989e22e339",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4b8d0c6f_60fd85d6",
         "filename": "modules/audio_processing/aec3/aec_state.cc",
         "patchSetId": 5
@@ -30,6 +48,24 @@
       "writtenOn": "2018-05-21T14:54:17Z",
       "side": 1,
       "message": "those duplicated lines were probably unintended.",
+      "revId": "67c81ad528d8769d53a602e13d91ac989e22e339",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ad20ae6_1f131da7",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 535,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-05-21T19:24:05Z",
+      "side": 1,
+      "message": "Thanks!",
+      "parentUuid": "4b8d0c6f_60fd85d6",
       "revId": "67c81ad528d8769d53a602e13d91ac989e22e339",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

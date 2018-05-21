@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "12ee2116_4668b0ce",
+        "filename": "api/test/videocodec_test_fixture.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-05-21T07:46:04Z",
+      "side": 1,
+      "message": "Can we return a const VideoCodecTestStats\u0026 ?",
+      "revId": "8c6f8466d324a8fa9f5c0885e1f8189285ce1466",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2aec3d76_8c3fde94",
+        "filename": "modules/video_coding/codecs/test/videocodec_test_libvpx.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-05-21T07:46:04Z",
+      "side": 1,
+      "message": "Nit: Because of the \"using\" declaration of Config above, the name change of this function actually makes the code less readable - \"what Config is this?\". Is there really a need for the \"using\"?",
+      "revId": "8c6f8466d324a8fa9f5c0885e1f8189285ce1466",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7855e76a_49830ea0",
+        "filename": "modules/video_coding/codecs/test/videocodec_test_mediacodec.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-05-21T07:46:04Z",
+      "side": 1,
+      "message": "That\u0027s faster to read! :) Now I have the full context, right here.",
+      "revId": "8c6f8466d324a8fa9f5c0885e1f8189285ce1466",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b8261ff_70131047",
+        "filename": "modules/video_coding/codecs/test/videocodec_test_openh264.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-05-21T07:46:04Z",
+      "side": 1,
+      "message": "remove \"using\" since we only refer to the full type name in two places.",
+      "revId": "8c6f8466d324a8fa9f5c0885e1f8189285ce1466",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "839053d3_b55b9ca5",
+        "filename": "modules/video_coding/codecs/test/videocodec_test_parameterized.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-05-21T07:46:04Z",
+      "side": 1,
+      "message": "save 2 lines by qualifying the type name in the one place it is necessary",
+      "revId": "8c6f8466d324a8fa9f5c0885e1f8189285ce1466",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96e58bdc_ad1875b5",
+        "filename": "modules/video_coding/codecs/test/videocodec_test_stats_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-05-21T07:46:04Z",
+      "side": 1,
+      "message": "this file should be renamed to video_codec_test_stats_impl_unittest.cc",
+      "revId": "8c6f8466d324a8fa9f5c0885e1f8189285ce1466",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f6afad0_ed507ff9",
+        "filename": "modules/video_coding/codecs/test/videocodec_test_videotoolbox.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-05-21T07:46:04Z",
+      "side": 1,
+      "message": "Fully qualified type will enhance readability here.",
+      "revId": "8c6f8466d324a8fa9f5c0885e1f8189285ce1466",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b8324d2_542d03b2",
+        "filename": "modules/video_coding/codecs/test/videoprocessor.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-05-21T07:46:04Z",
+      "side": 1,
+      "message": "use fully qualified name",
+      "revId": "8c6f8466d324a8fa9f5c0885e1f8189285ce1466",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

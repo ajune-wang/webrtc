@@ -13,353 +13,318 @@
 
 {
   # This is a map of buildbot master names -> buildbot builder names ->
-  # config names (where each config name is a key in the 'configs' dict,
-  # above). mb uses this dict to look up which config to use for a given bot.
-  # The builders should be sorted by the order they appear in the /builders
+  # list of mixins. mb uses this dict to look up which config to use for a given
+  # bot. The builders should be sorted by the order they appear in the /builders
   # page on the buildbots, *not* alphabetically.
   'masters': {
     'client.webrtc': {
       # iOS
-      'iOS32 Debug': 'ios',
-      'iOS32 Release': 'ios',
-      'iOS64 Debug': 'ios',
-      'iOS64 Release': 'ios',
-      'iOS32 Sim Debug (iOS 9.0)': 'ios',
-      'iOS64 Sim Debug (iOS 9.0)': 'ios',
-      'iOS64 Sim Debug (iOS 10.0)': 'ios',
+      # This is just used for auditing. iOS bots use the ios recipes and look up
+      # their GN arguments via files checked in under //tools_webrtc/ios/bots.
+      # It is an error to use one of these configs to generate the build files.
+      'iOS32 Debug': ['error'],
+      'iOS32 Release': ['error'],
+      'iOS64 Debug': ['error'],
+      'iOS64 Release': ['error'],
+      'iOS32 Sim Debug (iOS 9.0)': ['error'],
+      'iOS64 Sim Debug (iOS 9.0)': ['error'],
+      'iOS64 Sim Debug (iOS 10.0)': ['error'],
 
       # Mac
-      'Mac64 Debug': 'debug_bot_x64',
-      'Mac64 Release': 'release_bot_x64',
-      'Mac Asan': 'mac_asan_clang_release_bot_x64',
+      'Mac64 Debug': [
+        'gn', 'openh264_debug_bot', 'x64'],
+      'Mac64 Release': [
+        'gn', 'openh264_release_bot', 'x64'],
+      'Mac Asan': [
+        'gn', 'asan', 'clang', 'openh264_release_bot', 'x64'],
 
       # Linux
-      'Linux32 Debug': 'no_h264_debug_bot_x86',
-      'Linux32 Release': 'release_bot_x86',
-      'Linux32 Debug (ARM)': 'debug_bot_arm',
-      'Linux32 Release (ARM)': 'release_bot_arm',
-      'Linux64 Debug': 'debug_bot_x64',
-      'Linux64 Release': 'release_bot_x64',
-      'Linux64 Debug (ARM)': 'debug_bot_arm64',
-      'Linux64 Release (ARM)': 'release_bot_arm64',
-      'Linux64 Release (GCC)': 'gcc_release_bot_x64',
-      'Linux Asan': 'asan_lsan_clang_release_bot_x64',
-      'Linux Memcheck': 'memcheck_release_bot_x64',
-      'Linux MSan': 'msan_clang_release_bot_x64',
-      'Linux Tsan v2': 'tsan_clang_release_bot_x64',
-      'Linux UBSan': 'ubsan_clang_release_bot_x64',
-      'Linux UBSan vptr': 'ubsan_vptr_clang_release_bot_x64',
-      'Linux64 Release (Libfuzzer)': 'libfuzzer_asan_release_bot_x64',
+      'Linux32 Debug': [
+        'gn', 'debug_bot', 'x86'],
+      'Linux32 Release': [
+        'gn', 'openh264_release_bot', 'x86'],
+      # TODO(kjellander): Restore Goma for this when crbug.com/726706 is fixed.
+      'Linux32 Debug (ARM)': [
+        'gn', 'openh264', 'debug', 'arm'],
+      'Linux32 Release (ARM)': [
+        'gn', 'openh264_release_bot', 'arm'],
+      'Linux64 Debug': [
+        'gn', 'openh264_debug_bot', 'x64'],
+      'Linux64 Release': [
+        'gn', 'openh264_release_bot', 'x64'],
+      'Linux64 Debug (ARM)': [
+        'gn', 'openh264_debug_bot', 'arm64'],
+      'Linux64 Release (ARM)': [
+        'gn', 'openh264_release_bot', 'arm64'],
+      'Linux64 Release (GCC)': [
+        'gn', 'gcc', 'release_bot', 'x64', 'no_rtc_tests'],
+      'Linux Asan': [
+        'gn', 'asan', 'lsan', 'clang', 'openh264_release_bot', 'x64'],
+      'Linux Memcheck': [
+        'memcheck', 'gn', 'openh264_release_bot', 'x64', 'use_default_libcxx',
+        'no_lld'],
+      'Linux MSan': [
+        'gn', 'msan', 'clang', 'openh264_release_bot', 'x64'],
+      'Linux Tsan v2': [
+        'gn', 'tsan', 'clang', 'openh264_release_bot', 'x64'],
+      'Linux UBSan': [
+        'gn', 'ubsan', 'clang', 'openh264_release_bot', 'x64'],
+      'Linux UBSan vptr': [
+        'gn', 'ubsan_vptr', 'clang', 'openh264_release_bot', 'x64'],
+      'Linux64 Release (Libfuzzer)': [
+        'libfuzzer', 'asan', 'optimize_for_fuzzing', 'openh264_release_bot',
+        'x64', 'no_rtc_tests'],
 
       # Android
-      'Android32 (M Nexus5X)': 'android_release_bot_arm',
-      'Android32 (M Nexus5X)(dbg)': 'android_debug_static_bot_arm',
-      'Android64 (M Nexus5X)': 'android_release_bot_arm64',
-      'Android64 (M Nexus5X)(dbg)': 'android_debug_static_bot_arm64',
-      'Android32 Builder x86': 'android_release_bot_x86',
-      'Android32 Builder x86 (dbg)': 'android_debug_static_bot_x86',
-      'Android64 Builder x64 (dbg)': 'android_debug_static_bot_x64',
+      'Android32 (M Nexus5X)': [
+        'android', 'gn', 'release_bot', 'arm'],
+      'Android32 (M Nexus5X)(dbg)': [
+        'android', 'gn', 'debug_static_bot', 'arm'],
+      'Android64 (M Nexus5X)': [
+        'android', 'gn', 'release_bot', 'arm64'],
+      'Android64 (M Nexus5X)(dbg)': [
+        'android', 'gn', 'debug_static_bot', 'arm64'],
+      'Android32 Builder x86': [
+        'android', 'gn', 'release_bot', 'x86'],
+      'Android32 Builder x86 (dbg)': [
+        'android', 'gn', 'debug_static_bot', 'x86'],
+      'Android64 Builder x64 (dbg)': [
+        'android', 'gn', 'debug_static_bot', 'x64'],
 
       # Windows
-      'Win32 Debug': 'win_msvc_debug_bot_x86',
-      'Win32 Release': 'win_msvc_release_bot_x86',
-      'Win64 Debug': 'win_msvc_debug_bot_x64',
-      'Win64 Release': 'win_msvc_release_bot_x64',
-      'Win32 Debug (Clang)': 'win_clang_debug_bot_x86',
-      'Win32 Release (Clang)': 'win_clang_release_bot_x86',
-      'Win64 Debug (Clang)': 'win_clang_debug_bot_x64',
-      'Win64 Release (Clang)': 'win_clang_release_bot_x64',
-      'Win32 ASan': 'win_asan_clang_release_bot_x86',
+      'Win32 Debug': [
+        'gn', 'no_clang', 'openh264_debug_bot', 'x86'],
+      'Win32 Release': [
+        'gn', 'no_clang', 'openh264_release_bot', 'x86'],
+      'Win64 Debug': [
+        'gn', 'no_clang', 'openh264_debug_bot', 'x64'],
+      'Win64 Release': [
+        'gn', 'no_clang', 'openh264_release_bot', 'x64'],
+      'Win32 Debug (Clang)': [
+        'gn', 'clang', 'openh264_debug_bot', 'x86'],
+      'Win32 Release (Clang)': [
+        'gn', 'clang', 'openh264_release_bot', 'x86'],
+      'Win64 Debug (Clang)': [
+        'gn', 'clang', 'openh264_debug_bot', 'x64'],
+      'Win64 Release (Clang)': [
+        'gn', 'clang', 'openh264_release_bot', 'x64'],
+      'Win32 ASan': [
+        'gn', 'asan', 'clang',  'full_symbols', 'openh264_release_bot', 'x86',
+        'win_fastlink'],
     },
     'client.webrtc.branches': {
       # iOS
-      'iOS (stable)': 'ios',
-      'iOS (beta)': 'ios',
+      'iOS (stable)': ['error'],
+      'iOS (beta)': ['error'],
 
       # Mac
-      'Mac (stable)': 'release_bot_x64',
-      'Mac (beta)': 'release_bot_x64',
+      'Mac (stable)': [
+        'gn', 'openh264_release_bot', 'x64'],
+      'Mac (beta)': [
+        'gn', 'openh264_release_bot', 'x64'],
 
       # Linux
-      'Linux (stable)': 'release_bot_x64',
-      'Linux (beta)': 'release_bot_x64',
+      'Linux (stable)': [
+        'gn', 'openh264_release_bot', 'x64'],
+      'Linux (beta)': [
+        'gn', 'openh264_release_bot', 'x64'],
 
       # Android
-      'Android (stable)': 'android_release_bot_arm',
-      'Android (beta)': 'android_release_bot_arm',
+      'Android (stable)': [
+        'android', 'gn', 'release_bot', 'arm'],
+      'Android (beta)': [
+        'android', 'gn', 'release_bot', 'arm'],
 
       # Windows
-      'Win (stable)': 'release_bot_x86',
-      'Win (beta)': 'release_bot_x86',
+      'Win (stable)': [
+        'gn', 'openh264_release_bot', 'x86'],
+      'Win (beta)': [
+        'gn', 'openh264_release_bot', 'x86'],
     },
     'client.webrtc.perf': {
       # Android
-      'Android32 Builder': 'perf_android_release_bot_arm',
-      'Android64 Builder': 'perf_android_release_bot_arm64',
-      'Android32 Tests (J Nexus4)': 'none',
-      'Android32 Tests (K Nexus5)': 'none',
-      'Android32 Tests (L Nexus5)': 'none',
-      'Android32 Tests (L Nexus6)': 'none',
-      'Android32 Tests (L Nexus7.2)': 'none',
-      'Android64 Tests (L Nexus9)': 'none',
-      'Linux Trusty': 'perf_release_bot_x64',
-      'Mac 10.11': 'perf_release_bot_x64',
-      'Win7': 'perf_release_bot_x86',
+      'Android32 Builder': [
+        'android', 'gn', 'release', 'goma', 'arm'],
+      'Android64 Builder': [
+        'android', 'gn', 'release', 'goma', 'arm64'],
+      'Android32 Tests (J Nexus4)': ['error'],
+      'Android32 Tests (K Nexus5)': ['error'],
+      'Android32 Tests (L Nexus5)': ['error'],
+      'Android32 Tests (L Nexus6)': ['error'],
+      'Android32 Tests (L Nexus7.2)': ['error'],
+      'Android64 Tests (L Nexus9)': ['error'],
+      'Linux Trusty': [
+        'gn', 'openh264', 'release', 'goma', 'x64'],
+      'Mac 10.11': [
+        'gn', 'openh264', 'release', 'goma', 'x64'],
+      'Win7': [
+        'gn', 'openh264', 'release', 'goma', 'x86'],
     },
     'client.webrtc.fyi': {
       # Mac
-      'Mac (swarming)': 'release_bot_x64',
+      'Mac (swarming)': [
+        'gn', 'openh264_release_bot', 'x64'],
 
       # Android
-      'Android Perf (swarming)': 'perf_android_release_bot_arm',
-      'Android ASan (swarming)': 'android_asan_shared_release_bot_arm',
+      'Android Perf (swarming)': [
+        'android', 'gn', 'release', 'goma', 'arm'],
+      'Android ASan (swarming)': [
+        'android', 'gn', 'asan', 'clang', 'release_bot', 'arm'],
+
       # Windows
-      'Win (swarming)': 'release_bot_x86',
-      'Win64 Debug (Win8)': 'debug_bot_x64',
-      'Win64 Debug (Win10)': 'debug_bot_x64',
+      'Win (swarming)': [
+        'gn', 'openh264_release_bot', 'x86'],
+      'Win64 Debug (Win8)': [
+        'gn', 'openh264_debug_bot', 'x64'],
+      'Win64 Debug (Win10)': [
+        'gn', 'openh264_debug_bot', 'x64'],
     },
     'chromium.infra.codesearch': {
       'codesearch-gen-webrtc-android': {
-        'android': 'android_debug_static_bot_arm',
+        'android': [
+          'android', 'gn', 'debug_static_bot', 'arm'],
       },
       'codesearch-gen-webrtc-linux': {
-        'linux': 'codesearch_gen_linux_bot',
+        'linux': [
+          'gn', 'openh264_debug_bot', 'minimal_symbols'],
       }
     },
     'internal.client.webrtc': {
-      'iOS64 Debug': 'ios',
-      'iOS64 Perf': 'ios',
-      'iOS64 Release': 'ios',
+      'iOS64 Debug': ['error'],
+      'iOS64 Perf': ['error'],
+      'iOS64 Release': ['error'],
     },
     'internal.tryserver.webrtc': {
-      'ios_arm64_dbg': 'ios',
-      'ios_arm64_rel': 'ios',
+      'ios_arm64_dbg': ['error'],
+      'ios_arm64_rel': ['error'],
     },
     'tryserver.webrtc': {
       # iOS
-      'ios_dbg': 'ios',
-      'ios_rel': 'ios',
-      'ios_arm64_dbg': 'ios',
-      'ios_arm64_rel': 'ios',
-      'ios32_sim_ios9_dbg': 'ios',
-      'ios64_sim_ios9_dbg': 'ios',
-      'ios64_sim_ios10_dbg': 'ios',
+      'ios_dbg': ['error'],
+      'ios_rel': ['error'],
+      'ios_arm64_dbg': ['error'],
+      'ios_arm64_rel': ['error'],
+      'ios32_sim_ios9_dbg': ['error'],
+      'ios64_sim_ios9_dbg': ['error'],
+      'ios64_sim_ios10_dbg': ['error'],
 
       # Mac
-      'mac_compile_dbg': 'debug_bot_x64',
-      'mac_compile_rel': 'release_bot_x64',
-      'mac_dbg': 'debug_bot_x64',
-      'mac_rel': 'release_bot_x64',
-      'mac_asan': 'mac_asan_clang_release_bot_x64',
-      'mac_experimental': 'release_bot_x64',
+      'mac_compile_dbg': [
+        'gn', 'openh264_debug_bot', 'x64'],
+      'mac_compile_rel': [
+        'gn', 'openh264_release_bot', 'x64'],
+      'mac_dbg': [
+        'gn', 'openh264_debug_bot', 'x64'],
+      'mac_rel': [
+        'gn', 'openh264_release_bot', 'x64'],
+      'mac_asan': [
+        'gn', 'asan', 'clang', 'openh264_release_bot', 'x64'],
+      'mac_experimental': [
+        'gn', 'openh264_release_bot', 'x64'],
 
       # Linux
-      'linux_compile_dbg': 'debug_bot_x64',
-      'linux_compile_rel': 'release_bot_x64',
-      'linux_dbg': 'debug_bot_x64',
-      'linux_rel': 'release_bot_x64',
-      'linux_arm64_dbg': 'debug_bot_arm64',
-      'linux_arm64_rel': 'release_bot_arm64',
-      'linux32_dbg': 'no_h264_debug_bot_x86',
-      'linux32_rel': 'release_bot_x86',
-      'linux32_arm_dbg': 'debug_bot_arm',
-      'linux32_arm_rel': 'release_bot_arm',
-      'linux_asan': 'asan_lsan_clang_release_bot_x64',
-      'linux_gcc_rel': 'gcc_release_bot_x64',
-      'linux_memcheck': 'memcheck_release_bot_x64',
-      'linux_msan': 'msan_clang_release_bot_x64',
-      'linux_tsan2': 'tsan_clang_release_bot_x64',
-      'linux_ubsan': 'ubsan_clang_release_bot_x64',
-      'linux_ubsan_vptr': 'ubsan_vptr_clang_release_bot_x64',
-      'linux_experimental': 'release_bot_x64',
-      'linux_libfuzzer_rel': 'libfuzzer_asan_release_bot_x64',
+      'linux_compile_dbg': [
+        'gn', 'openh264_debug_bot', 'x64'],
+      'linux_compile_rel': [
+        'gn', 'openh264_release_bot', 'x64'],
+      'linux_dbg': [
+        'gn', 'openh264_debug_bot', 'x64'],
+      'linux_rel': [
+        'gn', 'openh264_release_bot', 'x64'],
+      'linux_arm64_dbg': [
+        'gn', 'openh264_debug_bot', 'arm64'],
+      'linux_arm64_rel': [
+        'gn', 'openh264_release_bot', 'arm64'],
+      'linux32_dbg': [
+        'gn', 'debug_bot', 'x86'],
+      'linux32_rel': [
+        'gn', 'openh264_release_bot', 'x86'],
+      'linux32_arm_dbg': [
+        'gn', 'openh264', 'debug', 'arm'],
+      'linux32_arm_rel': [
+        'gn', 'openh264_release_bot', 'arm'],
+      'linux_asan': [
+        'gn', 'asan', 'lsan', 'clang', 'openh264_release_bot', 'x64'],
+      'linux_gcc_rel': [
+        'gn', 'gcc', 'release_bot', 'x64', 'no_rtc_tests'],
+      'linux_memcheck': [
+        'memcheck', 'gn', 'openh264_release_bot', 'x64', 'use_default_libcxx',
+        'no_lld'],
+      'linux_msan': [
+        'gn', 'msan', 'clang', 'openh264_release_bot', 'x64'],
+      'linux_tsan2': [
+        'gn', 'tsan', 'clang', 'openh264_release_bot', 'x64'],
+      'linux_ubsan': [
+        'gn', 'ubsan', 'clang', 'openh264_release_bot', 'x64'],
+      'linux_ubsan_vptr': [
+        'gn', 'ubsan_vptr', 'clang', 'openh264_release_bot', 'x64'],
+      'linux_experimental': [
+        'gn', 'openh264_release_bot', 'x64'],
+      'linux_libfuzzer_rel': [
+        'libfuzzer', 'asan', 'optimize_for_fuzzing', 'openh264_release_bot',
+        'x64', 'no_rtc_tests'],
 
       # Android
-      'android_compile_dbg': 'android_debug_static_bot_arm',
-      'android_compile_rel': 'android_release_bot_arm',
-      'android_compile_arm64_dbg': 'android_debug_static_bot_arm64',
-      'android_compile_arm64_rel': 'android_release_bot_arm64',
-      'android_compile_x86_dbg': 'android_debug_static_bot_x86',
-      'android_compile_x86_rel': 'android_release_bot_x86',
-      'android_compile_x64_dbg': 'android_debug_static_bot_x64',
-      'android_compile_mips_dbg': 'android_debug_static_bot_mipsel',
-      'android_dbg': 'android_debug_static_bot_arm',
-      'android_rel': 'android_release_bot_arm',
-      'android_arm64_rel': 'android_release_bot_arm64',
-      'android_experimental': 'android_release_bot_arm',
+      'android_compile_dbg': [
+        'android', 'gn', 'debug_static_bot', 'arm'],
+      'android_compile_rel': [
+        'android', 'gn', 'release_bot', 'arm'],
+      'android_compile_arm64_dbg': [
+        'android', 'gn', 'debug_static_bot', 'arm64'],
+      'android_compile_arm64_rel': [
+        'android', 'gn', 'release_bot', 'arm64'],
+      'android_compile_x86_dbg': [
+        'android', 'gn', 'debug_static_bot', 'x86'],
+      'android_compile_x86_rel': [
+        'android', 'gn', 'release_bot', 'x86'],
+      'android_compile_x64_dbg': [
+        'android', 'gn', 'debug_static_bot', 'x64'],
+      'android_compile_mips_dbg': [
+        'android', 'gn', 'debug_static_bot', 'mipsel'],
+      'android_dbg': [
+        'android', 'gn', 'debug_static_bot', 'arm'],
+      'android_rel': [
+        'android', 'gn', 'release_bot', 'arm'],
+      'android_arm64_rel': [
+        'android', 'gn', 'release_bot', 'arm64'],
+      'android_experimental': [
+        'android', 'gn', 'release_bot', 'arm'],
 
       # Windows
-      'win_compile_dbg': 'debug_bot_x86',
-      'win_compile_rel': 'release_bot_x86',
-      'win_compile_x64_dbg': 'debug_bot_x64',
-      'win_compile_x64_rel': 'release_bot_x64',
-      'win_dbg': 'win_msvc_debug_bot_x86',
-      'win_rel': 'win_msvc_release_bot_x86',
-      'win_x64_dbg': 'win_msvc_debug_bot_x64',
-      'win_x64_rel': 'win_msvc_release_bot_x64',
-      'win_clang_dbg': 'win_clang_debug_bot_x86',
-      'win_clang_rel': 'win_clang_release_bot_x86',
-      'win_x64_clang_dbg': 'win_clang_debug_bot_x64',
-      'win_x64_clang_rel': 'win_clang_release_bot_x64',
-      'win_asan': 'win_asan_clang_release_bot_x86',
-      'win_experimental': 'release_bot_x86',
-      'win_x64_win8': 'debug_bot_x64',
-      'win_x64_win10': 'debug_bot_x64',
+      'win_compile_dbg': [
+        'gn', 'openh264_debug_bot', 'x86'],
+      'win_compile_rel': [
+        'gn', 'openh264_release_bot', 'x86'],
+      'win_compile_x64_dbg': [
+        'gn', 'openh264_debug_bot', 'x64'],
+      'win_compile_x64_rel': [
+        'gn', 'openh264_release_bot', 'x64'],
+      'win_dbg': [
+        'gn', 'no_clang', 'openh264_debug_bot', 'x86'],
+      'win_rel': [
+        'gn', 'no_clang', 'openh264_release_bot', 'x86'],
+      'win_x64_dbg': [
+        'gn', 'no_clang', 'openh264_debug_bot', 'x64'],
+      'win_x64_rel': [
+        'gn', 'no_clang', 'openh264_release_bot', 'x64'],
+      'win_clang_dbg': [
+        'gn', 'clang', 'openh264_debug_bot', 'x86'],
+      'win_clang_rel': [
+        'gn', 'clang', 'openh264_release_bot', 'x86'],
+      'win_x64_clang_dbg': [
+        'gn', 'clang', 'openh264_debug_bot', 'x64'],
+      'win_x64_clang_rel': [
+        'gn', 'clang', 'openh264_release_bot', 'x64'],
+      'win_asan': [
+        'gn', 'asan', 'clang',  'full_symbols', 'openh264_release_bot', 'x86',
+        'win_fastlink'],
+      'win_experimental': [
+        'gn', 'openh264_release_bot', 'x86'],
+      'win_x64_win8': [
+        'gn', 'openh264_debug_bot', 'x64'],
+      'win_x64_win10': [
+        'gn', 'openh264_debug_bot', 'x64'],
     }
-  },
-
-  # This is the list of configs that you can pass to mb; each config
-  # represents a particular combination of gn args that we must support.
-  # A given config *may* be platform-specific but is not necessarily so (i.e.,
-  # we might have mac, win, and linux bots all using the 'release_bot' config).
-  'configs': {
-    # Linux, Mac and Windows
-    'gcc_release_bot_x64': [
-      'gn', 'gcc', 'release_bot', 'x64', 'no_rtc_tests'
-    ],
-    # TOOD(kjellander): Restore Goma for this when crbug.com/726706 is fixed.
-    'debug_bot_arm': [
-      'gn', 'openh264', 'debug', 'arm'
-    ],
-    'release_bot_arm': [
-      'gn', 'openh264_release_bot', 'arm'
-    ],
-    'debug_bot_arm64': [
-      'gn', 'openh264_debug_bot', 'arm64'
-    ],
-    'release_bot_arm64': [
-      'gn', 'openh264_release_bot', 'arm64'
-    ],
-    'asan_lsan_clang_release_bot_x64': [
-      'gn', 'asan', 'lsan', 'clang', 'openh264_release_bot', 'x64'
-    ],
-    'msan_clang_release_bot_x64': [
-      'gn', 'msan', 'clang', 'openh264_release_bot', 'x64'
-    ],
-    'tsan_clang_release_bot_x64': [
-      'gn', 'tsan', 'clang', 'openh264_release_bot', 'x64'
-    ],
-    'ubsan_clang_release_bot_x64': [
-      'gn', 'ubsan', 'clang', 'openh264_release_bot', 'x64'
-    ],
-    'ubsan_vptr_clang_release_bot_x64': [
-      'gn', 'ubsan_vptr', 'clang', 'openh264_release_bot', 'x64'
-    ],
-    'debug_bot_x86': [
-      'gn', 'openh264_debug_bot', 'x86'
-    ],
-    'no_h264_debug_bot_x86': [
-      'gn', 'debug_bot', 'x86'
-    ],
-    'release_bot_x86': [
-      'gn', 'openh264_release_bot', 'x86'
-    ],
-    'debug_bot_x64': [
-      'gn', 'openh264_debug_bot', 'x64'
-    ],
-    'codesearch_gen_linux_bot': [
-      'gn', 'openh264_debug_bot', 'minimal_symbols'
-    ],
-    'release_bot_x64': [
-      'gn', 'openh264_release_bot', 'x64'
-    ],
-    'perf_release_bot_x86': [
-      'gn', 'openh264', 'release', 'goma', 'x86'
-    ],
-    'perf_release_bot_x64': [
-      'gn', 'openh264', 'release', 'goma', 'x64'
-    ],
-    'libfuzzer_asan_release_bot_x64': [
-      'libfuzzer', 'asan', 'optimize_for_fuzzing', 'openh264_release_bot',
-      'x64', 'no_rtc_tests'
-    ],
-    'memcheck_release_bot_x64': [
-      'memcheck', 'gn', 'openh264_release_bot', 'x64', 'use_default_libcxx',
-      'no_lld'
-    ],
-
-    # iOS
-    # The 'ios' config is just used for auditing. iOS bots
-    # use the ios recipes and look up their GN arguments via files checked in
-    # under //tools_webrtc/ios/bots. It is an error to actually use one of these
-    # configs to generate the build files.
-    'ios': [ 'error'],
-
-    # Windows
-    'win_clang_debug_bot_x86': [
-      'gn', 'clang', 'openh264_debug_bot', 'x86',
-    ],
-    'win_clang_release_bot_x86': [
-      'gn', 'clang', 'openh264_release_bot', 'x86',
-    ],
-    'win_clang_debug_bot_x64': [
-      'gn', 'clang', 'openh264_debug_bot', 'x64',
-    ],
-    'win_clang_release_bot_x64': [
-      'gn', 'clang', 'openh264_release_bot', 'x64',
-    ],
-    'win_msvc_debug_bot_x86': [
-      'gn', 'no_clang', 'openh264_debug_bot', 'x86',
-    ],
-    'win_msvc_release_bot_x86': [
-      'gn', 'no_clang', 'openh264_release_bot', 'x86',
-    ],
-    'win_msvc_debug_bot_x64': [
-      'gn', 'no_clang', 'openh264_debug_bot', 'x64',
-    ],
-    'win_msvc_release_bot_x64': [
-      'gn', 'no_clang', 'openh264_release_bot', 'x64',
-    ],
-    'win_asan_clang_release_bot_x86': [
-      'gn', 'asan', 'clang',  'full_symbols', 'openh264_release_bot', 'x86',
-      'win_fastlink',
-    ],
-
-    # Mac
-    'mac_asan_clang_release_bot_x64': [
-      'gn', 'asan', 'clang', 'openh264_release_bot', 'x64',
-    ],
-
-    # Android
-    'android_debug_static_bot_arm': [
-      'android', 'gn', 'debug_static_bot', 'arm'
-    ],
-    'android_release_bot_arm': [
-      'android', 'gn', 'release_bot', 'arm'
-    ],
-    'android_debug_static_bot_x86': [
-      'android', 'gn', 'debug_static_bot', 'x86'
-    ],
-    'android_release_bot_x86': [
-      'android', 'gn', 'release_bot', 'x86'
-    ],
-    'android_debug_static_bot_mipsel': [
-      'android', 'gn', 'debug_static_bot', 'mipsel'
-    ],
-    'android_debug_static_bot_arm64': [
-      'android', 'gn', 'debug_static_bot', 'arm64'
-    ],
-    'android_release_bot_arm64': [
-      'android', 'gn', 'release_bot', 'arm64'
-    ],
-    'android_debug_static_bot_x64': [
-      'android', 'gn', 'debug_static_bot', 'x64'
-    ],
-    'android_asan_shared_release_bot_arm': [
-      'android', 'gn', 'asan', 'clang', 'release_bot', 'arm'
-    ],
-    'perf_android_release_bot_arm': [
-      'android', 'gn', 'release', 'goma', 'arm'
-    ],
-    'perf_android_release_bot_arm64': [
-      'android', 'gn', 'release', 'goma', 'arm64'
-    ],
-
-    # This is used for tracking purposes; any bot that uses this config
-    # should never actually run MB.
-    'none': [
-      'error',
-    ],
   },
 
   # This is a dict mapping a given 'mixin' name to a dict of settings that

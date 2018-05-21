@@ -71,6 +71,16 @@
         'gn', 'ubsan', 'clang', 'openh264_release_bot', 'x64'],
       'Linux UBSan vptr': [
         'gn', 'ubsan_vptr', 'clang', 'openh264_release_bot', 'x64'],
+      'Linux (more configs)': {
+        'intelligibility_enhancer_no_include_tests': [
+          'debug_bot', 'x64', 'intelligibility_enhancer', 'no_include_tests'],
+        'bwe_test_logging': [
+          'debug_bot', 'x64', 'bwe_test_logging'],
+        'dummy_audio_file_devices_no_protobuf': [
+          'debug_bot', 'x64', 'dummy_audio_file_devices', 'no_protobuf'],
+        'rtti_no_sctp': [
+          'debug_bot', 'x64', 'rtti', 'no_sctp'],
+      },
       'Linux64 Release (Libfuzzer)': [
         'libfuzzer', 'asan', 'optimize_for_fuzzing', 'openh264_release_bot',
         'x64', 'no_rtc_tests'],
@@ -90,6 +100,18 @@
         'android', 'gn', 'debug_static_bot', 'x86'],
       'Android64 Builder x64 (dbg)': [
         'android', 'gn', 'debug_static_bot', 'x64'],
+      'Android32 (more configs)': {
+        'intelligibility_enhancer_no_include_tests': [
+          'android', 'debug_static_bot', 'arm',
+          'intelligibility_enhancer', 'no_include_tests'],
+        'bwe_test_logging': [
+          'android', 'debug_static_bot', 'arm', 'bwe_test_logging'],
+        'dummy_audio_file_devices_no_protobuf': [
+          'android', 'debug_static_bot', 'arm',
+          'dummy_audio_file_devices', 'no_protobuf'],
+        'rtti_no_sctp': [
+          'android', 'debug_static_bot', 'arm', 'rtti', 'no_sctp'],
+      },
 
       # Windows
       'Win32 Debug': [
@@ -111,6 +133,16 @@
       'Win32 ASan': [
         'gn', 'asan', 'clang',  'full_symbols', 'openh264_release_bot', 'x86',
         'win_fastlink'],
+      'Win (more configs)': {
+        'intelligibility_enhancer_no_include_tests': [
+          'debug_bot', 'x86', 'intelligibility_enhancer', 'no_include_tests'],
+        'bwe_test_logging': [
+          'debug_bot', 'x86', 'bwe_test_logging'],
+        'dummy_audio_file_devices_no_protobuf': [
+          'debug_bot', 'x86', 'dummy_audio_file_devices', 'no_protobuf'],
+        'rtti_no_sctp': [
+          'debug_bot', 'x86', 'rtti', 'no_sctp'],
+      },
     },
     'client.webrtc.branches': {
       # iOS
@@ -258,11 +290,21 @@
         'gn', 'ubsan', 'clang', 'openh264_release_bot', 'x64'],
       'linux_ubsan_vptr': [
         'gn', 'ubsan_vptr', 'clang', 'openh264_release_bot', 'x64'],
-      'linux_experimental': [
-        'gn', 'openh264_release_bot', 'x64'],
+      'linux_more_configs': {
+        'intelligibility_enhancer_no_include_tests': [
+          'debug_bot', 'x64', 'intelligibility_enhancer', 'no_include_tests'],
+        'bwe_test_logging': [
+          'debug_bot', 'x64', 'bwe_test_logging'],
+        'dummy_audio_file_devices_no_protobuf': [
+          'debug_bot', 'x64', 'dummy_audio_file_devices', 'no_protobuf'],
+        'rtti_no_sctp': [
+          'debug_bot', 'x64', 'rtti', 'no_sctp'],
+      },
       'linux_libfuzzer_rel': [
         'libfuzzer', 'asan', 'optimize_for_fuzzing', 'openh264_release_bot',
         'x64', 'no_rtc_tests'],
+      'linux_experimental': [
+        'gn', 'openh264_release_bot', 'x64'],
 
       # Android
       'android_compile_dbg': [
@@ -287,6 +329,18 @@
         'android', 'gn', 'release_bot', 'arm'],
       'android_arm64_rel': [
         'android', 'gn', 'release_bot', 'arm64'],
+      'android_more_configs': {
+        'intelligibility_enhancer_no_include_tests': [
+          'android', 'debug_static_bot', 'arm',
+          'intelligibility_enhancer', 'no_include_tests'],
+        'bwe_test_logging': [
+          'android', 'debug_static_bot', 'arm', 'bwe_test_logging'],
+        'dummy_audio_file_devices_no_protobuf': [
+          'android', 'debug_static_bot', 'arm',
+          'dummy_audio_file_devices', 'no_protobuf'],
+        'rtti_no_sctp': [
+          'android', 'debug_static_bot', 'arm', 'rtti', 'no_sctp'],
+      },
       'android_experimental': [
         'android', 'gn', 'release_bot', 'arm'],
 
@@ -324,6 +378,16 @@
         'gn', 'openh264_debug_bot', 'x64'],
       'win_x64_win10': [
         'gn', 'openh264_debug_bot', 'x64'],
+      'win_more_configs': {
+        'intelligibility_enhancer_no_include_tests': [
+          'debug_bot', 'x86', 'intelligibility_enhancer', 'no_include_tests'],
+        'bwe_test_logging': [
+          'debug_bot', 'x86', 'bwe_test_logging'],
+        'dummy_audio_file_devices_no_protobuf': [
+          'debug_bot', 'x86', 'dummy_audio_file_devices', 'no_protobuf'],
+        'rtti_no_sctp': [
+          'debug_bot', 'x86', 'rtti', 'no_sctp'],
+      },
     }
   },
 
@@ -477,6 +541,34 @@
 
     'use_default_libcxx': {
       'gn_args': 'use_custom_libcxx=false',
-    }
+    },
+
+    'intelligibility_enhancer': {
+      'gn_args': 'rtc_enable_intelligibility_enhancer=true',
+    },
+
+    'no_include_tests': {
+      'gn_args': 'rtc_include_tests=false',
+    },
+
+    'bwe_test_logging': {
+      'gn_args': 'rtc_enable_bwe_test_logging=true',
+    },
+
+    'dummy_audio_file_devices': {
+      'gn_args': 'rtc_use_dummy_audio_file_devices=true',
+    },
+
+    'no_protobuf': {
+      'gn_args': 'rtc_enable_protobuf=false',
+    },
+
+    'rtti': {
+      'gn_args': 'use_rtti=true',
+    },
+
+    'no_sctp': {
+      'gn_args': 'rtc_enable_sctp=false',
+    },
   },
 }

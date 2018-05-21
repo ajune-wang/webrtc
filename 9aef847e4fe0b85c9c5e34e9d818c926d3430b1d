@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4cecc3cb_a8387a8a",
+        "filename": "api/call/transport.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-05-21T13:50:13Z",
+      "side": 1,
+      "message": "put child type before constructor\nhttps://google.github.io/styleguide/cppguide.html#Declaration_Order",
+      "range": {
+        "startLine": 33,
+        "startChar": 35,
+        "endLine": 33,
+        "endChar": 0
+      },
+      "revId": "9aef847e4fe0b85c9c5e34e9d818c926d3430b1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cba8de21_7d4f0919",
+        "filename": "api/call/transport.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-05-21T13:50:13Z",
+      "side": 1,
+      "message": "Might be good idea to describe the meaning of each enum value (what is the difference between kRetransmision and kRtx?",
+      "revId": "9aef847e4fe0b85c9c5e34e9d818c926d3430b1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b541f46_4c16fec9",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-05-21T13:50:13Z",
+      "side": 1,
+      "message": "Add a test (or expectation) for RetransmissionStatus::kNone case",
+      "revId": "9aef847e4fe0b85c9c5e34e9d818c926d3430b1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "09d9c6b9_18efe15e",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 948,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-05-21T13:50:13Z",
+      "side": 1,
+      "message": "Probably remove options.retransmission \u003d",
+      "range": {
+        "startLine": 948,
+        "startChar": 12,
+        "endLine": 948,
+        "endChar": 37
+      },
+      "revId": "9aef847e4fe0b85c9c5e34e9d818c926d3430b1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

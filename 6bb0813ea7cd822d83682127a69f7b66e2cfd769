@@ -16,6 +16,24 @@
       "revId": "6bb0813ea7cd822d83682127a69f7b66e2cfd769",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2eaaa17d_b0ad6077",
+        "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCPeerConnectionFactory.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-05-21T09:23:59Z",
+      "side": 1,
+      "message": "From the discussion in the bug, it seem we\u0027ll keep using constraints for java and objc for the time being. As hta@ pointed out, it\u0027s not so user friendly to have constraints in these apis, with semantics that have diverged from the corresponding javascript apis.\n\nBut I don\u0027t know when and how that\u0027s going to be replaced.",
+      "parentUuid": "d3984f13_f194bb67",
+      "revId": "6bb0813ea7cd822d83682127a69f7b66e2cfd769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "5bbaf3e6_db5fe184",
+        "filename": "api/video/video_source_interface.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-21T11:33:51Z",
+      "side": 1,
+      "message": "For this CL, the right thing to do might simply be to add a short comment:\n\n  // Non-public, since one shouldn\u0027t own sources via this interface.",
+      "parentUuid": "9ce1fcbb_efcbac89",
+      "revId": "210f7394492d385271aa8ee0f900308cafa4aa6f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "21317a86_6cadf7a0",
         "filename": "api/video/video_stream_encoder_interface.h",
         "patchSetId": 11

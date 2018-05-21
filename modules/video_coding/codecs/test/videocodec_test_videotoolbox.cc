@@ -57,7 +57,7 @@ MAYBE_TEST(VideoCodecTestVideoToolbox, ForemanCif500kbpsH264CBP) {
       VideoCodecTestFixtureImpl::H264KeyframeChecker>();
   auto config = CreateTestConfig();
   config.SetCodecSettings(cricket::kH264CodecName, 1, 1, 1, false, false, false,
-                          352, 288);
+                          false, 352, 288);
   config.encoded_frame_checker = frame_checker.get();
   auto fixture = CreateTestFixtureWithConfig(config);
 
@@ -75,7 +75,7 @@ MAYBE_TEST(VideoCodecTestVideoToolbox, ForemanCif500kbpsH264CHP) {
   auto config = CreateTestConfig();
   config.h264_codec_settings.profile = H264::kProfileConstrainedHigh;
   config.SetCodecSettings(cricket::kH264CodecName, 1, 1, 1, false, false, false,
-                          352, 288);
+                          false, 352, 288);
   config.encoded_frame_checker = frame_checker.get();
   auto fixture = CreateTestFixtureWithConfig(config);
 

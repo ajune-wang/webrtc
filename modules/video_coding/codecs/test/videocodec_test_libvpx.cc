@@ -90,7 +90,7 @@ void PrintRdPerf(std::map<size_t, std::vector<VideoStatistics>> rd_stats) {
 TEST(VideoCodecTestLibvpx, HighBitrateVP9) {
   auto config = CreateTestConfig();
   config.SetCodecSettings(cricket::kVp9CodecName, 1, 1, 1, false, true, false,
-                          kCifWidth, kCifHeight);
+                          false, kCifWidth, kCifHeight);
   config.num_frames = kNumFramesShort;
   const auto frame_checker = rtc::MakeUnique<QpFrameChecker>();
   config.encoded_frame_checker = frame_checker.get();
@@ -110,7 +110,7 @@ TEST(VideoCodecTestLibvpx, HighBitrateVP9) {
 TEST(VideoCodecTestLibvpx, ChangeBitrateVP9) {
   auto config = CreateTestConfig();
   config.SetCodecSettings(cricket::kVp9CodecName, 1, 1, 1, false, true, false,
-                          kCifWidth, kCifHeight);
+                          false, kCifWidth, kCifHeight);
   const auto frame_checker = rtc::MakeUnique<QpFrameChecker>();
   config.encoded_frame_checker = frame_checker.get();
   auto fixture = CreateVideoCodecTestFixture(config);
@@ -135,7 +135,7 @@ TEST(VideoCodecTestLibvpx, ChangeBitrateVP9) {
 TEST(VideoCodecTestLibvpx, ChangeFramerateVP9) {
   auto config = CreateTestConfig();
   config.SetCodecSettings(cricket::kVp9CodecName, 1, 1, 1, false, true, false,
-                          kCifWidth, kCifHeight);
+                          false, kCifWidth, kCifHeight);
   const auto frame_checker = rtc::MakeUnique<QpFrameChecker>();
   config.encoded_frame_checker = frame_checker.get();
   auto fixture = CreateVideoCodecTestFixture(config);
@@ -162,7 +162,7 @@ TEST(VideoCodecTestLibvpx, ChangeFramerateVP9) {
 TEST(VideoCodecTestLibvpx, DenoiserOnVP9) {
   auto config = CreateTestConfig();
   config.SetCodecSettings(cricket::kVp9CodecName, 1, 1, 1, true, true, false,
-                          kCifWidth, kCifHeight);
+                          false, kCifWidth, kCifHeight);
   config.num_frames = kNumFramesShort;
   const auto frame_checker = rtc::MakeUnique<QpFrameChecker>();
   config.encoded_frame_checker = frame_checker.get();
@@ -182,7 +182,7 @@ TEST(VideoCodecTestLibvpx, DenoiserOnVP9) {
 TEST(VideoCodecTestLibvpx, VeryLowBitrateVP9) {
   auto config = CreateTestConfig();
   config.SetCodecSettings(cricket::kVp9CodecName, 1, 1, 1, false, true, true,
-                          kCifWidth, kCifHeight);
+                          false, kCifWidth, kCifHeight);
   const auto frame_checker = rtc::MakeUnique<QpFrameChecker>();
   config.encoded_frame_checker = frame_checker.get();
   auto fixture = CreateVideoCodecTestFixture(config);
@@ -206,7 +206,7 @@ TEST(VideoCodecTestLibvpx, VeryLowBitrateVP9) {
 TEST(VideoCodecTestLibvpx, HighBitrateVP8) {
   auto config = CreateTestConfig();
   config.SetCodecSettings(cricket::kVp8CodecName, 1, 1, 1, true, true, false,
-                          kCifWidth, kCifHeight);
+                          false, kCifWidth, kCifHeight);
   config.num_frames = kNumFramesShort;
   const auto frame_checker = rtc::MakeUnique<QpFrameChecker>();
   config.encoded_frame_checker = frame_checker.get();
@@ -244,7 +244,7 @@ TEST(VideoCodecTestLibvpx, HighBitrateVP8) {
 TEST(VideoCodecTestLibvpx, MAYBE_ChangeBitrateVP8) {
   auto config = CreateTestConfig();
   config.SetCodecSettings(cricket::kVp8CodecName, 1, 1, 1, true, true, false,
-                          kCifWidth, kCifHeight);
+                          false, kCifWidth, kCifHeight);
   const auto frame_checker = rtc::MakeUnique<QpFrameChecker>();
   config.encoded_frame_checker = frame_checker.get();
   auto fixture = CreateVideoCodecTestFixture(config);
@@ -279,7 +279,7 @@ TEST(VideoCodecTestLibvpx, MAYBE_ChangeBitrateVP8) {
 TEST(VideoCodecTestLibvpx, MAYBE_ChangeFramerateVP8) {
   auto config = CreateTestConfig();
   config.SetCodecSettings(cricket::kVp8CodecName, 1, 1, 1, true, true, false,
-                          kCifWidth, kCifHeight);
+                          false, kCifWidth, kCifHeight);
   const auto frame_checker = rtc::MakeUnique<QpFrameChecker>();
   config.encoded_frame_checker = frame_checker.get();
   auto fixture = CreateVideoCodecTestFixture(config);
@@ -319,7 +319,7 @@ TEST(VideoCodecTestLibvpx, MAYBE_ChangeFramerateVP8) {
 TEST(VideoCodecTestLibvpx, MAYBE_TemporalLayersVP8) {
   auto config = CreateTestConfig();
   config.SetCodecSettings(cricket::kVp8CodecName, 1, 1, 3, true, true, false,
-                          kCifWidth, kCifHeight);
+                          false, kCifWidth, kCifHeight);
   const auto frame_checker = rtc::MakeUnique<QpFrameChecker>();
   config.encoded_frame_checker = frame_checker.get();
   auto fixture = CreateVideoCodecTestFixture(config);
@@ -358,7 +358,7 @@ TEST(VideoCodecTestLibvpx, MAYBE_MultiresVP8) {
   config.filepath = ResourcePath(config.filename, "yuv");
   config.num_frames = 100;
   config.SetCodecSettings(cricket::kVp8CodecName, 3, 1, 3, true, true, false,
-                          1280, 720);
+                          false, 1280, 720);
   const auto frame_checker = rtc::MakeUnique<QpFrameChecker>();
   config.encoded_frame_checker = frame_checker.get();
   auto fixture = CreateVideoCodecTestFixture(config);
@@ -385,7 +385,7 @@ TEST(VideoCodecTestLibvpx, MAYBE_SimulcastVP8) {
   config.num_frames = 100;
   config.simulcast_adapted_encoder = true;
   config.SetCodecSettings(cricket::kVp8CodecName, 3, 1, 3, true, true, false,
-                          1280, 720);
+                          false, 1280, 720);
   const auto frame_checker = rtc::MakeUnique<QpFrameChecker>();
   config.encoded_frame_checker = frame_checker.get();
   auto fixture = CreateVideoCodecTestFixture(config);
@@ -411,7 +411,7 @@ TEST(VideoCodecTestLibvpx, MAYBE_SvcVP9) {
   config.filepath = ResourcePath(config.filename, "yuv");
   config.num_frames = 100;
   config.SetCodecSettings(cricket::kVp9CodecName, 1, 3, 3, true, true, false,
-                          1280, 720);
+                          false, 1280, 720);
   const auto frame_checker = rtc::MakeUnique<QpFrameChecker>();
   config.encoded_frame_checker = frame_checker.get();
   auto fixture = CreateVideoCodecTestFixture(config);
@@ -433,7 +433,7 @@ TEST(VideoCodecTestLibvpx, DISABLED_MultiresVP8RdPerf) {
   config.num_frames = 300;
   config.print_frame_level_stats = true;
   config.SetCodecSettings(cricket::kVp8CodecName, 3, 1, 3, true, true, false,
-                          1280, 720);
+                          false, 1280, 720);
   const auto frame_checker = rtc::MakeUnique<QpFrameChecker>();
   config.encoded_frame_checker = frame_checker.get();
   auto fixture = CreateVideoCodecTestFixture(config);
@@ -460,7 +460,7 @@ TEST(VideoCodecTestLibvpx, DISABLED_SvcVP9RdPerf) {
   config.num_frames = 300;
   config.print_frame_level_stats = true;
   config.SetCodecSettings(cricket::kVp9CodecName, 1, 3, 3, true, true, false,
-                          1280, 720);
+                          false, 1280, 720);
   const auto frame_checker = rtc::MakeUnique<QpFrameChecker>();
   config.encoded_frame_checker = frame_checker.get();
   auto fixture = CreateVideoCodecTestFixture(config);
@@ -475,6 +475,40 @@ TEST(VideoCodecTestLibvpx, DISABLED_SvcVP9RdPerf) {
     rd_stats[bitrate_kbps] =
         fixture->GetStats().SliceAndCalcLayerVideoStatistic(
             kNumFirstFramesToSkipAtRdPerfAnalysis, config.num_frames - 1);
+  }
+
+  PrintRdPerf(rd_stats);
+}
+
+TEST(VideoCodecTestLibvpx, DISABLED_SvcVP9RdPerfScreenSharing) {
+  auto config = CreateTestConfig();
+  config.filename = "slides_1850x1110";
+  config.filepath = ResourcePath(config.filename, "yuv");
+  config.num_frames = 600;
+  config.print_frame_level_stats = true;
+  config.SetCodecSettings(cricket::kVp9CodecName, 1, 2, 1, false, true, false,
+                          true, 1850, 1110);
+
+  const auto frame_checker = rtc::MakeUnique<QpFrameChecker>();
+  config.encoded_frame_checker = frame_checker.get();
+  auto fixture = CreateVideoCodecTestFixture(config);
+
+  const VisualizationParams kVisualizationParams = {
+      false,  // save_encoded_ivf
+      false,  // save_decoded_y4m
+  };
+
+  std::map<size_t, std::vector<VideoStatistics>> rd_stats;
+  for (size_t bitrate_kbps : {100, 300, 600, 1000, 1500}) {
+    std::vector<RateProfile> rate_profiles = {
+        {bitrate_kbps, 30, config.num_frames}};
+
+    fixture->RunTest(rate_profiles, nullptr, nullptr, nullptr,
+                     &kVisualizationParams);
+
+    rd_stats[bitrate_kbps] =
+        fixture->GetStats().SliceAndCalcLayerVideoStatistic(
+            0, config.num_frames - 1);
   }
 
   PrintRdPerf(rd_stats);

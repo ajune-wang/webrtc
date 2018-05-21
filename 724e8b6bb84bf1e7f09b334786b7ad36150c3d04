@@ -1,0 +1,95 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e6137f9a_ea1f8d44",
+        "filename": "rtc_base/numerics/sample_counter_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-21T11:24:50Z",
+      "side": 1,
+      "message": "You can use constexpr here.",
+      "range": {
+        "startLine": 21,
+        "startChar": 2,
+        "endLine": 21,
+        "endChar": 7
+      },
+      "revId": "724e8b6bb84bf1e7f09b334786b7ad36150c3d04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0492e65_70c6f18c",
+        "filename": "rtc_base/numerics/sample_counter_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-21T11:24:50Z",
+      "side": 1,
+      "message": "For added type safety,\n\n  EXPECT_THAT(counter.Avg(kMinSamples), Eq(rtc::nullopt));",
+      "revId": "724e8b6bb84bf1e7f09b334786b7ad36150c3d04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97960cdc_93890c09",
+        "filename": "rtc_base/numerics/sample_counter_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-21T11:24:50Z",
+      "side": 1,
+      "message": "You can do simply\n\n  for (int value : {1, 2, 3, 4, 5}) {",
+      "revId": "724e8b6bb84bf1e7f09b334786b7ad36150c3d04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c507e02_6e0971f8",
+        "filename": "rtc_base/numerics/sample_counter_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-21T11:24:50Z",
+      "side": 1,
+      "message": "Expect the actual value?\n\n  EXPECT_EQ(rtc::Optional\u003cint\u003e(5), counter.Max());",
+      "revId": "724e8b6bb84bf1e7f09b334786b7ad36150c3d04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02c591fe_19614e43",
+        "filename": "rtc_base/numerics/sample_counter_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-21T11:24:50Z",
+      "side": 1,
+      "message": "You can replace both of these with either\n\n  EXPECT_EQ(rtc::Optional\u003cint\u003e(3), counter.Avg(kMinSamples));\n\nor\n\n  EXPECT_THAT(counter.Avg(kMinSamples), Eq(3));",
+      "revId": "724e8b6bb84bf1e7f09b334786b7ad36150c3d04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

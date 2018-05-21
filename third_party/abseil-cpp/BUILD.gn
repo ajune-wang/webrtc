@@ -30,9 +30,8 @@ config("absl_include_config") {
         rebase_path(".", root_build_dir),
       ]
     } else {
-      # MSVC doesn't have -isystem, in that case we fallback to include_dirs and
-      # we use the warning suppression flags defined in :absl_default_cflags_cc.
-      include_dirs = [ "." ]
+      # MSVC:
+      include_dirs = ["."]
     }
   } else {
     # GCC or clang:

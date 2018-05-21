@@ -114,21 +114,13 @@ TEST_CONFIG = """\
   'masters': {
     'chromium': {},
     'fake_master': {
-      'fake_builder': 'rel_bot',
-      'fake_debug_builder': 'debug_goma',
+      'fake_rel_bot': ['rel', 'goma', 'fake_feature1'],
+      'fake_debug_goma': ['debug', 'goma'],
       'fake_args_bot': '//build/args/bots/fake_master/fake_args_bot.gn',
-      'fake_memcheck_bot': 'memcheck_bot',
-      'fake_multi_phase': { 'phase_1': 'phase_1', 'phase_2': 'phase_2'},
-      'fake_android_bot': 'android_bot',
+      'fake_memcheck_bot': ['memcheck'],
+      'fake_multi_phase': { 'phase_1': ['phase_1'], 'phase_2': ['phase_2']},
+      'fake_android_bot': ['android'],
     },
-  },
-  'configs': {
-    'rel_bot': ['rel', 'goma', 'fake_feature1'],
-    'debug_goma': ['debug', 'goma'],
-    'phase_1': ['phase_1'],
-    'phase_2': ['phase_2'],
-    'memcheck_bot': ['memcheck'],
-    'android_bot': ['android'],
   },
   'mixins': {
     'fake_feature1': {
@@ -187,11 +179,14 @@ class UnitTest(unittest.TestCase):
 
     actual_ret = mbw.Main(args)
 
-    self.assertEqual(actual_ret, ret)
+    self.assertEqual(actual_ret, ret,
+                     'Expected return code %s, got %s. Output:\n%s\n%s' % (
+                         ret, actual_ret, mbw.out, mbw.err))
     if out is not None:
       self.assertEqual(mbw.out, out)
     if err is not None:
       self.assertEqual(mbw.err, err)
+
     return mbw
 
   def test_analyze(self):
@@ -209,8 +204,9 @@ class UnitTest(unittest.TestCase):
     mbw = self.fake_mbw(files)
     mbw.Call = lambda cmd, env=None, buffer_output=True: (0, '', '')
 
-    self.check(['analyze', '-c', 'debug_goma', '//out/Default',
-                '/tmp/in.json', '/tmp/out.json'], mbw=mbw, ret=0)
+    self.check(['analyze', '-m', 'fake_master', '-b', 'fake_debug_goma',
+                '//out/Default', '/tmp/in.json', '/tmp/out.json'],
+               mbw=mbw, ret=0)
     out = json.loads(mbw.files['/tmp/out.json'])
     self.assertEqual(out, {
       'status': 'Found dependency',
@@ -220,7 +216,8 @@ class UnitTest(unittest.TestCase):
 
   def test_gen(self):
     mbw = self.fake_mbw()
-    self.check(['gen', '-c', 'debug_goma', '//out/Default', '-g', '/goma'],
+    self.check(['gen', '-m', 'fake_master', '-b', 'fake_debug_goma',
+                '-g', '/goma', '//out/Default'],
                mbw=mbw, ret=0)
     self.assertMultiLineEqual(mbw.files['/fake_src/out/Default/args.gn'],
                               ('goma_dir = "/goma"\n'
@@ -233,7 +230,8 @@ class UnitTest(unittest.TestCase):
                   mbw.out)
 
     mbw = self.fake_mbw(win32=True)
-    self.check(['gen', '-c', 'debug_goma', '-g', 'c:\\goma', '//out/Debug'],
+    self.check(['gen', '-m', 'fake_master', '-b', 'fake_debug_goma',
+                '-g', 'c:\\goma', '//out/Debug'],
                mbw=mbw, ret=0)
     self.assertMultiLineEqual(mbw.files['c:\\fake_src\\out\\Debug\\args.gn'],
                               ('goma_dir = "c:\\\\goma"\n'
@@ -254,7 +252,8 @@ class UnitTest(unittest.TestCase):
   def test_gen_fails(self):
     mbw = self.fake_mbw()
     mbw.Call = lambda cmd, env=None, buffer_output=True: (1, '', '')
-    self.check(['gen', '-c', 'debug_goma', '//out/Default'], mbw=mbw, ret=1)
+    self.check(['gen', '-m', 'fake_master', '-b', 'fake_debug_goma',
+                '//out/Default'], mbw=mbw, ret=1)
 
   def test_gen_swarming(self):
     files = {
@@ -272,7 +271,7 @@ class UnitTest(unittest.TestCase):
     }
     mbw = self.fake_mbw(files)
     self.check(['gen',
-                '-c', 'debug_goma',
+                '-m', 'fake_master', '-b', 'fake_debug_goma',
                 '--swarming-targets-file', '/tmp/swarming_targets',
                 '//out/Default'], mbw=mbw, ret=0)
     self.assertIn('/fake_src/out/Default/base_unittests.isolate',
@@ -293,11 +292,11 @@ class UnitTest(unittest.TestCase):
           "base_unittests\n"
       ),
     }
-    mbw = self.check(['gen', '-c', 'android_bot', '//out/Default',
+    mbw = self.check(['gen', '-m', 'fake_master', '-b', 'fake_android_bot',
                       '--swarming-targets-file', '/tmp/swarming_targets',
                       '--isolate-map-file',
-                      '/fake_src/testing/buildbot/gn_isolate_map.pyl'],
-                     files=test_files, ret=0)
+                      '/fake_src/testing/buildbot/gn_isolate_map.pyl',
+                      '//out/Default'], files=test_files, ret=0)
 
     isolate_file = mbw.files['/fake_src/out/Default/base_unittests.isolate']
     isolate_file_contents = ast.literal_eval(isolate_file)
@@ -327,11 +326,11 @@ class UnitTest(unittest.TestCase):
           "base_unittests\n"
       ),
     }
-    mbw = self.check(['gen', '-c', 'android_bot', '//out/Default',
+    mbw = self.check(['gen', '-m', 'fake_master', '-b', 'fake_android_bot',
                       '--swarming-targets-file', '/tmp/swarming_targets',
                       '--isolate-map-file',
-                      '/fake_src/testing/buildbot/gn_isolate_map.pyl'],
-                     files=test_files, ret=0)
+                      '/fake_src/testing/buildbot/gn_isolate_map.pyl',
+                      '//out/Default'], files=test_files, ret=0)
 
     isolate_file = mbw.files['/fake_src/out/Default/base_unittests.isolate']
     isolate_file_contents = ast.literal_eval(isolate_file)
@@ -362,11 +361,11 @@ class UnitTest(unittest.TestCase):
           "base_unittests\n"
       ),
     }
-    mbw = self.check(['gen', '-c', 'debug_goma', '//out/Default',
+    mbw = self.check(['gen', '-m', 'fake_master', '-b', 'fake_debug_goma',
                       '--swarming-targets-file', '/tmp/swarming_targets',
                       '--isolate-map-file',
-                      '/fake_src/testing/buildbot/gn_isolate_map.pyl'],
-                     files=test_files, ret=0)
+                      '/fake_src/testing/buildbot/gn_isolate_map.pyl',
+                      '//out/Default'], files=test_files, ret=0)
 
     isolate_file = mbw.files['/fake_src/out/Default/base_unittests.isolate']
     isolate_file_contents = ast.literal_eval(isolate_file)
@@ -412,11 +411,11 @@ class UnitTest(unittest.TestCase):
           "base_unittests_script.py\n"
       ),
     }
-    mbw = self.check(['gen', '-c', 'debug_goma', '//out/Default',
+    mbw = self.check(['gen', '-m', 'fake_master', '-b', 'fake_debug_goma',
                       '--swarming-targets-file', '/tmp/swarming_targets',
                       '--isolate-map-file',
-                      '/fake_src/testing/buildbot/gn_isolate_map.pyl'],
-                     files=test_files, ret=0)
+                      '/fake_src/testing/buildbot/gn_isolate_map.pyl',
+                      '//out/Default'], files=test_files, ret=0)
 
     isolate_file = (
         mbw.files['/fake_src/out/Default/base_unittests_script.isolate'])
@@ -445,11 +444,11 @@ class UnitTest(unittest.TestCase):
           "base_unittests\n"
       ),
     }
-    mbw = self.check(['gen', '-c', 'debug_goma', '//out/Default',
+    mbw = self.check(['gen', '-m', 'fake_master', '-b', 'fake_debug_goma',
                       '--swarming-targets-file', '/tmp/swarming_targets',
                       '--isolate-map-file',
-                      '/fake_src/testing/buildbot/gn_isolate_map.pyl'],
-                     files=test_files, ret=0)
+                      '/fake_src/testing/buildbot/gn_isolate_map.pyl',
+                      '//out/Default'], files=test_files, ret=0)
 
     isolate_file = mbw.files['/fake_src/out/Default/base_unittests.isolate']
     isolate_file_contents = ast.literal_eval(isolate_file)
@@ -483,11 +482,11 @@ class UnitTest(unittest.TestCase):
           "base_unittests\n"
       ),
     }
-    mbw = self.check(['gen', '-c', 'debug_goma', '//out/Default',
+    mbw = self.check(['gen', '-m', 'fake_master', '-b', 'fake_debug_goma',
                       '--swarming-targets-file', '/tmp/swarming_targets',
                       '--isolate-map-file',
-                      '/fake_src/testing/buildbot/gn_isolate_map.pyl'],
-                     files=test_files, ret=0)
+                      '/fake_src/testing/buildbot/gn_isolate_map.pyl',
+                      '//out/Default'], files=test_files, ret=0)
 
     isolate_file = mbw.files['/fake_src/out/Default/base_unittests.isolate']
     isolate_file_contents = ast.literal_eval(isolate_file)
@@ -532,11 +531,11 @@ class UnitTest(unittest.TestCase):
           "some_resource_file\n"
       ),
     }
-    mbw = self.check(['gen', '-c', 'debug_goma', '//out/Default',
+    mbw = self.check(['gen', '-m', 'fake_master', '-b', 'fake_debug_goma',
                       '--swarming-targets-file', '/tmp/swarming_targets',
                       '--isolate-map-file',
-                      '/fake_src/testing/buildbot/gn_isolate_map.pyl'],
-                     files=test_files, ret=0)
+                      '/fake_src/testing/buildbot/gn_isolate_map.pyl',
+                      '//out/Default'], files=test_files, ret=0)
 
     isolate_file = mbw.files['/fake_src/out/Default/base_unittests.isolate']
     isolate_file_contents = ast.literal_eval(isolate_file)
@@ -584,7 +583,7 @@ class UnitTest(unittest.TestCase):
     }
     mbw = self.fake_mbw(files=files, win32=True)
     self.check(['gen',
-                '-c', 'debug_goma',
+                '-m', 'fake_master', '-b', 'fake_debug_goma',
                 '--swarming-targets-file', '/tmp/swarming_targets',
                 '--isolate-map-file',
                 '/fake_src/testing/buildbot/gn_isolate_map.pyl',
@@ -632,11 +631,11 @@ class UnitTest(unittest.TestCase):
           "base_unittests\n"
       ),
     }
-    mbw = self.check(['gen', '-c', 'debug_goma', '//out/Default',
+    mbw = self.check(['gen', '-m', 'fake_master', '-b', 'fake_debug_goma',
                       '--swarming-targets-file', '/tmp/swarming_targets',
                       '--isolate-map-file',
-                      '/fake_src/testing/buildbot/gn_isolate_map.pyl'],
-                     files=test_files, ret=0)
+                      '/fake_src/testing/buildbot/gn_isolate_map.pyl',
+                      '//out/Default'], files=test_files, ret=0)
 
     isolate_file = mbw.files['/fake_src/out/Default/base_unittests.isolate']
     isolate_file_contents = ast.literal_eval(isolate_file)
@@ -681,11 +680,11 @@ class UnitTest(unittest.TestCase):
           "../../tools_webrtc/valgrind/webrtc_tests.sh\n"
       ),
     }
-    mbw = self.check(['gen', '-c', 'memcheck_bot', '//out/Release',
+    mbw = self.check(['gen', '-m', 'fake_master', '-b', 'fake_memcheck_bot',
                       '--swarming-targets-file', '/tmp/swarming_targets',
                       '--isolate-map-file',
-                      '/fake_src/testing/buildbot/gn_isolate_map.pyl'],
-                     files=test_files, ret=0)
+                      '/fake_src/testing/buildbot/gn_isolate_map.pyl',
+                      '//out/Release'], files=test_files, ret=0)
 
     isolate_file = mbw.files['/fake_src/out/Release/base_unittests.isolate']
     isolate_file_contents = ast.literal_eval(isolate_file)
@@ -733,11 +732,11 @@ class UnitTest(unittest.TestCase):
           "some_resource_file\n"
       ),
     }
-    mbw = self.check(['gen', '-c', 'debug_goma', '//out/Default',
+    mbw = self.check(['gen', '-m', 'fake_master', '-b', 'fake_debug_goma',
                       '--swarming-targets-file', '/tmp/swarming_targets',
                       '--isolate-map-file',
-                      '/fake_src/testing/buildbot/gn_isolate_map.pyl'],
-                     files=test_files, ret=0)
+                      '/fake_src/testing/buildbot/gn_isolate_map.pyl',
+                      '//out/Default'], files=test_files, ret=0)
 
     isolate_file = mbw.files['/fake_src/out/Default/base_unittests.isolate']
     isolate_file_contents = ast.literal_eval(isolate_file)
@@ -783,8 +782,8 @@ class UnitTest(unittest.TestCase):
           "base_unittests\n"
       ),
     }
-    self.check(['isolate', '-c', 'debug_goma', '//out/Default',
-                'base_unittests'], files=files, ret=0)
+    self.check(['isolate', '-m', 'fake_master', '-b', 'fake_debug_goma',
+                '//out/Default', 'base_unittests'], files=files, ret=0)
 
     # test running isolate on an existing build_dir
     files['/fake_src/out/Default/args.gn'] = 'is_debug = True\n'
@@ -806,8 +805,8 @@ class UnitTest(unittest.TestCase):
           "base_unittests\n"
       ),
     }
-    self.check(['run', '-c', 'debug_goma', '//out/Default',
-                'base_unittests'], files=files, ret=0)
+    self.check(['run', '-m', 'fake_master', '-b', 'fake_debug_goma',
+                '//out/Default', 'base_unittests'], files=files, ret=0)
 
   def test_run_swarmed(self):
     files = {
@@ -831,16 +830,19 @@ class UnitTest(unittest.TestCase):
 
     mbw = self.fake_mbw(files=files)
     mbw.Run = run_stub
-    self.check(['run', '-s', '-c', 'debug_goma', '//out/Default',
-                'base_unittests'], mbw=mbw, ret=0)
-    self.check(['run', '-s', '-c', 'debug_goma', '-d', 'os', 'Win7',
+    self.check(['run', '-s', '-m', 'fake_master', '-b', 'fake_debug_goma',
                 '//out/Default', 'base_unittests'], mbw=mbw, ret=0)
+    self.check(['run', '-s', '-m', 'fake_master', '-b', 'fake_debug_goma',
+                '-d', 'os', 'Win7', '//out/Default', 'base_unittests'],
+               mbw=mbw, ret=0)
 
   def test_lookup(self):
-    self.check(['lookup', '-c', 'debug_goma'], ret=0)
+    self.check(['lookup', '-m', 'fake_master', '-b', 'fake_debug_goma'], ret=0)
 
   def test_lookup_goma_dir_expansion(self):
-    self.check(['lookup', '-c', 'rel_bot', '-g', '/foo'], ret=0,
+    self.check(['lookup', '-m', 'fake_master', '-b', 'fake_rel_bot',
+                '-g', '/foo'],
+               ret=0,
                out=('\n'
                     'Writing """\\\n'
                     'enable_doom_melon = true\n'
@@ -867,7 +869,7 @@ class UnitTest(unittest.TestCase):
     self.assertIn('Must specify a build --phase', mbw.out)
 
     # Check that passing a --phase to a single-phase builder fails.
-    mbw = self.check(['lookup', '-m', 'fake_master', '-b', 'fake_builder',
+    mbw = self.check(['lookup', '-m', 'fake_master', '-b', 'fake_rel_bot',
                       '--phase', 'phase_1'], ret=1)
     self.assertIn('Must not specify a build --phase', mbw.out)
 

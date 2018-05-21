@@ -735,6 +735,9 @@ include_rules = [
   "+rtc_base",
   "+test",
   "+rtc_tools",
+
+  # Abseil whitelist.
+  "+absl/types/optional.h",
 ]
 
 # The below rules will be removed when webrtc:4243 is fixed.

@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "a664d943_396978df",
+        "filename": "api/test/videocodec_test_fixture.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-05-21T13:39:58Z",
+      "side": 1,
+      "message": "Nvm, just realized that we are returning a subclass here.",
+      "parentUuid": "cf92f3bb_2368ab8a",
+      "revId": "8c6f8466d324a8fa9f5c0885e1f8189285ce1466",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2aec3d76_8c3fde94",
         "filename": "modules/video_coding/codecs/test/videocodec_test_libvpx.cc",
         "patchSetId": 11

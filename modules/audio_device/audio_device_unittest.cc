@@ -10,13 +10,18 @@
 
 #include <algorithm>
 #include <cstring>
+#include <memory>
 #include <numeric>
 
 #include "api/array_view.h"
 #include "api/optional.h"
 #include "modules/audio_device/audio_device_impl.h"
 #include "modules/audio_device/include/audio_device.h"
+#include "modules/audio_device/include/audio_device_factory.h"
 #include "modules/audio_device/include/mock_audio_transport.h"
+#ifdef WEBRTC_WIN
+#include "modules/audio_device/win/core_audio_utility_win.h"
+#endif
 #include "rtc_base/buffer.h"
 #include "rtc_base/criticalsection.h"
 #include "rtc_base/event.h"
@@ -454,8 +459,10 @@ class AudioDeviceTest : public ::testing::Test {
     // Add extra logging fields here if needed for debugging.
     // rtc::LogMessage::LogTimestamps();
     // rtc::LogMessage::LogThreads();
-    audio_device_ =
-        AudioDeviceModule::Create(AudioDeviceModule::kPlatformDefaultAudio);
+    // audio_device_ =
+    // CreateAudioDevice(AudioDeviceModule::kPlatformDefaultAudio);
+    audio_device_ = CreateAudioDevice(
+        AudioDeviceModule::kWindowsCoreAudioFromInputAndOutput);
     EXPECT_NE(audio_device_.get(), nullptr);
     AudioDeviceModule::AudioLayer audio_layer;
     int got_platform_audio_layer =
@@ -506,6 +513,28 @@ class AudioDeviceTest : public ::testing::Test {
     return audio_device_;
   }
 
+  rtc::scoped_refptr<AudioDeviceModule> CreateAudioDevice(
+      AudioDeviceModule::AudioLayer audio_layer) {
+    if (audio_layer == AudioDeviceModule::kPlatformDefaultAudio) {
+      return AudioDeviceModule::Create(audio_layer);
+    } else if (audio_layer ==
+               AudioDeviceModule::kWindowsCoreAudioFromInputAndOutput) {
+#ifdef WEBRTC_WIN
+      // We must initialize the COM library on a thread before we calling any of
+      // the library functions. All COM functions will return
+      // CO_E_NOTINITIALIZED otherwise.
+      com_initializer_ = rtc::MakeUnique<webrtc_win::ScopedCOMInitializer>(
+          webrtc_win::ScopedCOMInitializer::kMTA);
+      EXPECT_TRUE(com_initializer_->Succeeded());
+      return CreateWindowsCoreAudioAudioDeviceModule();
+#else
+      return nullptr;
+#endif
+    } else {
+      return nullptr;
+    }
+  }
+
   void StartPlayout() {
     EXPECT_FALSE(audio_device()->Playing());
     EXPECT_EQ(0, audio_device()->InitPlayout());
@@ -535,6 +564,9 @@ class AudioDeviceTest : public ::testing::Test {
   }
 
  private:
+#ifdef WEBRTC_WIN
+  std::unique_ptr<webrtc_win::ScopedCOMInitializer> com_initializer_;
+#endif
   bool requirements_satisfied_ = true;
   rtc::Event event_;
   rtc::scoped_refptr<AudioDeviceModule> audio_device_;

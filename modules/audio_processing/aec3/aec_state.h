@@ -69,6 +69,15 @@ class AecState {
     return erle_estimator_.Erle();
   }
 
+  // Returns any uncertainty in the ERLE estimate.
+  rtc::Optional<float> ErleUncertainty() const {
+    if (use_erle_onset_uncertainty_ &&
+        diverged_onset_detector_.IsDivergedOnset()) {
+      return 4.f;
+    }
+    return rtc::nullopt;
+  }
+
   // Returns the time-domain ERLE.
   float ErleTimeDomain() const { return erle_estimator_.ErleTimeDomain(); }
 
@@ -132,17 +141,39 @@ class AecState {
               const std::array<float, kBlockSize>& s);
 
  private:
+  // Class for handling the explicit detection of strong render onsets when the
+  // linear filter performance is not good.
+  class DivergedOnsetDetector {
+   public:
+    explicit DivergedOnsetDetector(ApmDataDumper* data_dumper);
+
+    // Detect strong render speech onsets where the linear filter performance is
+    // poor.
+    void Detect(bool converged_filter,
+                const RenderBuffer& render_buffer,
+                int filter_delay_blocks);
+
+    bool IsDivergedOnset() const { return strong_render_onset_; }
+
+   private:
+    ApmDataDumper* const data_dumper_;
+    size_t strong_render_onset_counter_ = 0;
+    bool strong_render_onset_ = true;
+    size_t blocks_since_convergence_for_strong_render_ = 0;
+  };
+
   void UpdateReverb(const std::vector<float>& impulse_response);
-  bool DetectActiveRender(rtc::ArrayView<const float> x) const;
   void UpdateSuppressorGainLimit(bool render_activity);
   bool DetectEchoSaturation(rtc::ArrayView<const float> x,
                             float echo_path_gain);
+  void DetectDivergedOnset();
 
   static int instance_count_;
   std::unique_ptr<ApmDataDumper> data_dumper_;
   const EchoCanceller3Config config_;
   const bool allow_transparent_mode_;
   const bool use_stationary_properties_;
+  const bool use_erle_onset_uncertainty_;
   ErlEstimator erl_estimator_;
   ErleEstimator erle_estimator_;
   size_t capture_block_counter_ = 0;
@@ -186,6 +217,7 @@ class AecState {
   bool finite_erl_ = false;
   size_t active_blocks_since_converged_filter_ = 0;
   EchoAudibility echo_audibility_;
+  DivergedOnsetDetector diverged_onset_detector_;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(AecState);
 };

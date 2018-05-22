@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "82fdc8d5_0881d4b2",
+        "filename": "sdk/android/api/org/webrtc/RtpParameters.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2018-05-22T14:09:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cb1d5ef2_69512db7",
+      "range": {
+        "startLine": 121,
+        "startChar": 22,
+        "endLine": 121,
+        "endChar": 26
+      },
+      "revId": "9e094b0ab96ef70b2f7a9ad85986cd0979d10678",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7e133288_0bc6b34d",
         "filename": "sdk/objc/Framework/Headers/WebRTC/RTCRtcpParameters.h",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "c0ff41cc_65dbcb1f",
+        "filename": "sdk/objc/Framework/Headers/WebRTC/RTCRtcpParameters.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2018-05-22T14:09:53Z",
+      "side": 1,
+      "message": "Yes, that\u0027s how it is in the WebRTC API. Although the use of the field is not obvious to me, I\u0027m sure API users will find a use for it.",
+      "parentUuid": "7e133288_0bc6b34d",
+      "range": {
+        "startLine": 21,
+        "startChar": 1,
+        "endLine": 21,
+        "endChar": 53
+      },
+      "revId": "9e094b0ab96ef70b2f7a9ad85986cd0979d10678",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "85d0c1e6_2d09e3ad",
         "filename": "sdk/objc/Framework/Headers/WebRTC/RTCRtpParameters.h",
         "patchSetId": 1
@@ -68,6 +116,30 @@
       "revId": "9e094b0ab96ef70b2f7a9ad85986cd0979d10678",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2488a149_11539c1a",
+        "filename": "sdk/objc/Framework/Headers/WebRTC/RTCRtpParameters.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2018-05-22T14:09:53Z",
+      "side": 1,
+      "message": "It shouldn\u0027t.",
+      "parentUuid": "85d0c1e6_2d09e3ad",
+      "range": {
+        "startLine": 27,
+        "startChar": 27,
+        "endLine": 27,
+        "endChar": 44
+      },
+      "revId": "9e094b0ab96ef70b2f7a9ad85986cd0979d10678",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

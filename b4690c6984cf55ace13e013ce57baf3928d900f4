@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4391fc84_110e676f",
+        "filename": "media/engine/fakewebrtcvideoengine.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-05-22T13:38:41Z",
+      "side": 1,
+      "message": "Not needed in either I think, removing.",
+      "parentUuid": "a0d62cfa_de3d6597",
+      "range": {
+        "startLine": 13,
+        "startChar": 20,
+        "endLine": 13,
+        "endChar": 44
+      },
+      "revId": "b4690c6984cf55ace13e013ce57baf3928d900f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "62de90b0_52196e3f",
         "filename": "media/engine/videoencodersoftwarefallbackwrapper.h",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "b4690c6984cf55ace13e013ce57baf3928d900f4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "714124fa_910c9d86",
+        "filename": "media/engine/videoencodersoftwarefallbackwrapper.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-05-22T13:38:41Z",
+      "side": 1,
+      "message": "Actually it is now, I split this CL into multiple ones.\nI\u0027ve removed includes except for where we explicitly use VideoBitrateAllocation.",
+      "parentUuid": "62de90b0_52196e3f",
+      "range": {
+        "startLine": 18,
+        "startChar": 20,
+        "endLine": 18,
+        "endChar": 44
+      },
+      "revId": "b4690c6984cf55ace13e013ce57baf3928d900f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

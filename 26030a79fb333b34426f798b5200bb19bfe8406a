@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d914eb4c_c3d8406b",
+        "filename": "rtc_base/annotations.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-05-22T19:02:29Z",
+      "side": 1,
+      "message": "I followed the example of fallthrough.h etc and put them in system/ - the new file name is \"unused.h\" since RTC_UNUSED and RTC_WARN_UNUSED_RESULT are the only macros in here.",
+      "parentUuid": "43c18c36_e16106ca",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 31
+      },
+      "revId": "26030a79fb333b34426f798b5200bb19bfe8406a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0f4e369e_461d102b",
         "filename": "rtc_base/arch.h",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2018-05-21T18:54:49Z",
       "side": 1,
       "message": "Moving wholesale to a new file is god progress. But I wonder how much of this is actually used. Endian-detection could be moved to byteorder.h which should be the only direct user.\n\nAnd maybe we could use compiler predefines like __BYTE_ORDER__, to avoid enumerating all supported archs?",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 62
+      },
+      "revId": "26030a79fb333b34426f798b5200bb19bfe8406a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "efb642c1_6d507d0b",
+        "filename": "rtc_base/arch.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-05-22T19:02:29Z",
+      "side": 1,
+      "message": "I count 264 occurrences of WEBRTC_ARCH_ in the codebase. Most of it in DSP, codec code, which should be no surprise.\n\nThere is code dealing with endianness outside of byteorder.h (protobuf utils, wav_file.cc, ...). It seems fair to focus this CL on emptying out typedefs.h and do your suggested cleanups later.",
+      "parentUuid": "0f4e369e_461d102b",
       "range": {
         "startLine": 11,
         "startChar": 0,

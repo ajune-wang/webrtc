@@ -264,9 +264,13 @@ rtc::scoped_refptr<VideoTrackSourceInterface> VideoCapturerTrackSource::Create(
     bool remote) {
   RTC_DCHECK(worker_thread != NULL);
   RTC_DCHECK(capturer != nullptr);
+
+  // Extract raw pointer, before move.
+  cricket::VideoCapturer* capturer_ptr = capturer.get();
+
   rtc::scoped_refptr<VideoCapturerTrackSource> source(
       new rtc::RefCountedObject<VideoCapturerTrackSource>(
-          worker_thread, std::move(capturer), remote));
+          worker_thread, std::move(capturer), capturer_ptr, remote));
   source->Initialize(constraints);
   return source;
 }
@@ -277,9 +281,13 @@ rtc::scoped_refptr<VideoTrackSourceInterface> VideoCapturerTrackSource::Create(
     bool remote) {
   RTC_DCHECK(worker_thread != NULL);
   RTC_DCHECK(capturer != nullptr);
+
+  // Extract raw pointer, before move.
+  cricket::VideoCapturer* capturer_ptr = capturer.get();
+
   rtc::scoped_refptr<VideoCapturerTrackSource> source(
       new rtc::RefCountedObject<VideoCapturerTrackSource>(
-          worker_thread, std::move(capturer), remote));
+          worker_thread, std::move(capturer), capturer_ptr, remote));
   source->Initialize(nullptr);
   return source;
 }
@@ -287,11 +295,12 @@ rtc::scoped_refptr<VideoTrackSourceInterface> VideoCapturerTrackSource::Create(
 VideoCapturerTrackSource::VideoCapturerTrackSource(
     rtc::Thread* worker_thread,
     std::unique_ptr<cricket::VideoCapturer> capturer,
+    cricket::VideoCapturer* capturer_ptr,
     bool remote)
-    : VideoTrackSource(capturer.get(), remote),
+    : VideoTrackSource(std::move(capturer), remote),
       signaling_thread_(rtc::Thread::Current()),
       worker_thread_(worker_thread),
-      video_capturer_(std::move(capturer)),
+      video_capturer_(capturer_ptr),
       started_(false) {
   video_capturer_->SignalStateChange.connect(
       this, &VideoCapturerTrackSource::OnStateChange);
@@ -355,7 +364,7 @@ void VideoCapturerTrackSource::Initialize(
   // Start the camera with our best guess.
   if (!worker_thread_->Invoke<bool>(
           RTC_FROM_HERE, rtc::Bind(&cricket::VideoCapturer::StartCapturing,
-                                   video_capturer_.get(), format_))) {
+                                   video_capturer_, format_))) {
     SetState(kEnded);
     return;
   }
@@ -375,7 +384,7 @@ void VideoCapturerTrackSource::Stop() {
   started_ = false;
   worker_thread_->Invoke<void>(
       RTC_FROM_HERE,
-      rtc::Bind(&cricket::VideoCapturer::Stop, video_capturer_.get()));
+      rtc::Bind(&cricket::VideoCapturer::Stop, video_capturer_));
 }
 
 // OnStateChange listens to the cricket::VideoCapturer::SignalStateChange.
@@ -394,7 +403,7 @@ void VideoCapturerTrackSource::OnStateChange(
     return;
   }
 
-  if (capturer == video_capturer_.get()) {
+  if (capturer == video_capturer_) {
     SetState(GetReadyState(capture_state));
   }
 }

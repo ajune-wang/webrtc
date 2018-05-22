@@ -17,6 +17,8 @@
 namespace webrtc {
 
 // A VideoTrackSource generating frames with configured size and frame interval.
+// TODO(nisse): This class is no longer needed after VideoTrackSource
+// takes ownership of the VideoSource.
 class FakePeriodicVideoTrackSource : public VideoTrackSource {
  public:
   explicit FakePeriodicVideoTrackSource(bool remote)
@@ -28,12 +30,10 @@ class FakePeriodicVideoTrackSource : public VideoTrackSource {
       // Note that VideoTrack constructor gets a pointer to an
       // uninitialized source object; that works because it only
       // stores the pointer for later use.
-      : VideoTrackSource(&source_, remote), source_(config) {}
+      : VideoTrackSource(rtc::MakeUnique<FakePeriodicVideoSource>(config),
+                         remote) {}
 
   ~FakePeriodicVideoTrackSource() = default;
-
- private:
-  FakePeriodicVideoSource source_;
 };
 
 }  // namespace webrtc

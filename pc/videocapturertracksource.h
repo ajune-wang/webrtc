@@ -55,6 +55,7 @@ class VideoCapturerTrackSource : public VideoTrackSource,
  protected:
   VideoCapturerTrackSource(rtc::Thread* worker_thread,
                            std::unique_ptr<cricket::VideoCapturer> capturer,
+                           cricket::VideoCapturer* capturer_ptr,
                            bool remote);
   virtual ~VideoCapturerTrackSource();
   void Initialize(const webrtc::MediaConstraintsInterface* constraints);
@@ -68,7 +69,8 @@ class VideoCapturerTrackSource : public VideoTrackSource,
   rtc::Thread* signaling_thread_;
   rtc::Thread* worker_thread_;
   rtc::AsyncInvoker invoker_;
-  std::unique_ptr<cricket::VideoCapturer> video_capturer_;
+  // Owned by baseclass VideoTrackSource
+  cricket::VideoCapturer* video_capturer_;
   bool started_;
   cricket::VideoFormat format_;
   rtc::Optional<bool> needs_denoising_;

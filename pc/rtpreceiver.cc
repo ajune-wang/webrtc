@@ -17,6 +17,7 @@
 #include "api/videosourceproxy.h"
 #include "pc/audiotrack.h"
 #include "pc/videotrack.h"
+#include "rtc_base/ptr_util.h"
 #include "rtc_base/trace_event.h"
 
 namespace webrtc {
@@ -215,8 +216,16 @@ VideoRtpReceiver::VideoRtpReceiver(
     const std::vector<rtc::scoped_refptr<MediaStreamInterface>>& streams)
     : worker_thread_(worker_thread),
       id_(receiver_id),
-      source_(new RefCountedObject<VideoTrackSource>(&broadcaster_,
-                                                     true /* remote */)),
+      // We create the broadcaster, then give away ownership to the
+      // reference counted VideoTrackSource, while keeping a raw
+      // pointer referring to it. This is safe, because the
+      // VideoTrackSource keeps its source until it is destroyed, and
+      // since we have a reference to it, its life time is longer than
+      // ours.
+      broadcaster_(new rtc::VideoBroadcaster),
+      source_(
+          new RefCountedObject<VideoTrackSource>(rtc::WrapUnique(broadcaster_),
+                                                 true /* remote */)),
       track_(VideoTrackProxy::Create(
           rtc::Thread::Current(),
           worker_thread,
@@ -270,7 +279,6 @@ void VideoRtpReceiver::Stop() {
     return;
   }
   source_->SetState(MediaSourceInterface::kEnded);
-  source_->OnSourceDestroyed();
   if (!media_channel_ || !ssrc_) {
     RTC_LOG(LS_WARNING) << "VideoRtpReceiver::Stop: No video channel exists.";
   } else {
@@ -293,7 +301,7 @@ void VideoRtpReceiver::SetupMediaChannel(uint32_t ssrc) {
     SetSink(nullptr);
   }
   ssrc_ = ssrc;
-  SetSink(&broadcaster_);
+  SetSink(broadcaster_);
 }
 
 void VideoRtpReceiver::SetStreams(

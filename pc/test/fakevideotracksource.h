@@ -14,6 +14,7 @@
 #include "api/mediastreaminterface.h"
 #include "api/video/video_source_interface.h"
 #include "pc/videotracksource.h"
+#include "rtc_base/ptr_util.h"
 
 namespace webrtc {
 
@@ -33,7 +34,7 @@ class FakeVideoTrackSource : public VideoTrackSource {
 
  protected:
   explicit FakeVideoTrackSource(bool is_screencast)
-      : VideoTrackSource(&source_, false /* remote */),
+      : VideoTrackSource(rtc::MakeUnique<Source>(), false /* remote */),
         is_screencast_(is_screencast) {}
   virtual ~FakeVideoTrackSource() {}
 
@@ -46,7 +47,6 @@ class FakeVideoTrackSource : public VideoTrackSource {
     void RemoveSink(rtc::VideoSinkInterface<VideoFrame>* sink) override {}
   };
 
-  Source source_;
   const bool is_screencast_;
 };
 

@@ -211,10 +211,10 @@ class VideoRtpReceiver : public rtc::RefCountedObject<RtpReceiverInternal> {
   // |broadcaster_| is needed since the decoder can only handle one sink.
   // It might be better if the decoder can handle multiple sinks and consider
   // the VideoSinkWants.
-  rtc::VideoBroadcaster broadcaster_;
+  rtc::VideoBroadcaster* broadcaster_;
   // |source_| is held here to be able to change the state of the source when
   // the VideoRtpReceiver is stopped.
-  rtc::scoped_refptr<VideoTrackSource> source_;
+  const rtc::scoped_refptr<VideoTrackSource> source_;
   rtc::scoped_refptr<VideoTrackInterface> track_;
   std::vector<rtc::scoped_refptr<MediaStreamInterface>> streams_;
   bool stopped_ = false;

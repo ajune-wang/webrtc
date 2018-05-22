@@ -42,7 +42,17 @@ class TimeDelta {
     return TimeDelta(timedelta_impl::kMinusInfinityVal);
   }
   static TimeDelta seconds(int64_t seconds) {
-    return TimeDelta::us(seconds * 1000000);
+    return TimeDelta::us(static_cast<int64_t>(seconds * 1000000));
+  }
+  static TimeDelta SecondsFromDouble(double seconds) {
+    RTC_DCHECK(!std::isnan(seconds));
+    if (seconds == std::numeric_limits<double>::infinity()) {
+      return PlusInfinity();
+    } else if (seconds == -std::numeric_limits<double>::infinity()) {
+      return MinusInfinity();
+    } else {
+      return TimeDelta::us(seconds * 1000000);
+    }
   }
   static TimeDelta ms(int64_t milliseconds) {
     return TimeDelta::us(milliseconds * 1000);
@@ -66,9 +76,13 @@ class TimeDelta {
     RTC_DCHECK(us() < std::numeric_limits<int64_t>::max() / 1000);
     return us() * 1000;
   }
-
-  double SecondsAsDouble() const;
-
+  double SecondsAsDouble() const {
+    if (IsInfinite()) {
+      return std::numeric_limits<double>::infinity();
+    } else {
+      return static_cast<double>(us()) * 1e-6;
+    }
+  }
   TimeDelta Abs() const { return TimeDelta::us(std::abs(us())); }
   bool IsZero() const { return microseconds_ == 0; }
   bool IsFinite() const { return !IsInfinite(); }

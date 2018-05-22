@@ -50,6 +50,14 @@ class DataRate {
   static DataRate bps(int64_t bits_per_sec) {
     return DataRate::bits_per_second(bits_per_sec);
   }
+  static DataRate BpsFromDouble(double bits_per_sec) {
+    RTC_DCHECK(!std::isnan(bits_per_sec));
+    if (bits_per_sec == std::numeric_limits<double>::infinity()) {
+      return Infinity();
+    } else {
+      return bps(static_cast<int64_t>(bits_per_sec));
+    }
+  }
   static DataRate kbps(int64_t kilobits_per_sec) {
     return DataRate::bits_per_second(kilobits_per_sec * 1000);
   }
@@ -59,6 +67,13 @@ class DataRate {
   }
   int64_t bps() const { return bits_per_second(); }
   int64_t kbps() const { return (bps() + 500) / 1000; }
+  double BpsAsDouble() const {
+    if (IsInfinite()) {
+      return std::numeric_limits<double>::infinity();
+    } else {
+      return static_cast<double>(bps());
+    }
+  }
   bool IsZero() const { return bits_per_sec_ == 0; }
   bool IsInfinite() const {
     return bits_per_sec_ == data_rate_impl::kPlusInfinityVal;

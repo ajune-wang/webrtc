@@ -35,11 +35,24 @@ class DataSize {
     RTC_DCHECK_GE(bytes, 0);
     return DataSize(bytes);
   }
+  static DataSize BytesFromDouble(double bytes_val) {
+    RTC_DCHECK(!std::isnan(bytes_val));
+    if (bytes_val == std::numeric_limits<double>::infinity())
+      return Infinity();
+    return bytes(static_cast<int64_t>(bytes_val));
+  }
   int64_t bytes() const {
     RTC_DCHECK(IsFinite());
     return bytes_;
   }
   int64_t kilobytes() const { return (bytes() + 500) / 1000; }
+  double BytesAsDouble() const {
+    if (IsInfinite()) {
+      return std::numeric_limits<double>::infinity();
+    } else {
+      return static_cast<double>(bytes());
+    }
+  }
   bool IsZero() const { return bytes_ == 0; }
   bool IsInfinite() const { return bytes_ == data_size_impl::kPlusInfinityVal; }
   bool IsFinite() const { return !IsInfinite(); }

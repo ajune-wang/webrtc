@@ -46,6 +46,30 @@
       "revId": "5ced3424b74941d38f97a3418a4f81acf33a592c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a818698c_db8798c6",
+        "filename": "tools_webrtc/mb/mb_config.pyl",
+        "patchSetId": 4
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-05-22T07:36:54Z",
+      "side": 1,
+      "message": "Ok, please drop a comment that says something like \"this builder will build the following configs in turn.\"\n\nor mention phases, maybe.",
+      "parentUuid": "00f49c1d_803f737a",
+      "range": {
+        "startLine": 74,
+        "startChar": 6,
+        "endLine": 83,
+        "endChar": 8
+      },
+      "revId": "5ced3424b74941d38f97a3418a4f81acf33a592c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

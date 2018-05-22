@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "49e3c75d_82de6e43",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-05-22T12:45:58Z",
+      "side": 1,
+      "message": "false make more sense with new definition: pure padding packets are never re-transmissions.\n(side note: application_data is always empty in these padding packets, so shouldn\u0027t matter for your use case)",
+      "range": {
+        "startLine": 597,
+        "startChar": 32,
+        "endLine": 597,
+        "endChar": 40
+      },
+      "revId": "0357bd2b5c941a741945cc59d01f6d7b4901e3dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73341160_69248840",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 815,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-05-22T12:45:58Z",
+      "side": 1,
+      "message": "Please put comment why you also need \u0027send_over_rtx\u0027 flag to determine \u0027is_retranmission\u0027.\n(as is it looks counter-intuitive)",
+      "range": {
+        "startLine": 815,
+        "startChar": 47,
+        "endLine": 815,
+        "endChar": 60
+      },
+      "revId": "0357bd2b5c941a741945cc59d01f6d7b4901e3dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

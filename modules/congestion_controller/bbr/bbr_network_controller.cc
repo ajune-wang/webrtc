@@ -247,10 +247,14 @@ NetworkControlUpdate BbrNetworkController::CreateRateUpdate(Timestamp at_time) {
   target_rate = std::min(target_rate, pacing_rate);
 
   if (constraints_) {
-    if (constraints_->max_data_rate)
+    if (constraints_->max_data_rate) {
       target_rate = std::min(target_rate, *constraints_->max_data_rate);
-    if (constraints_->min_data_rate)
+      pacing_rate = std::min(pacing_rate, *constraints_->max_data_rate);
+    }
+    if (constraints_->min_data_rate) {
       target_rate = std::max(target_rate, *constraints_->min_data_rate);
+      pacing_rate = std::max(pacing_rate, *constraints_->min_data_rate);
+    }
   }
   bool probing_for_bandwidth = IsProbingForMoreBandwidth();
   if (last_update_state_.mode == mode_ &&

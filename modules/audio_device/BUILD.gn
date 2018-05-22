@@ -201,6 +201,13 @@ rtc_source_set("audio_device_impl") {
     "include/test_audio_device.h",
   ]
 
+  if (is_win) {
+    sources += [
+      "include/audio_device_factory.cc",
+      "include/audio_device_factory.h",
+    ]
+  }
+
   if (build_with_mozilla) {
     sources += [
       "opensl/single_rw_fifo.cc",
@@ -339,6 +346,14 @@ rtc_source_set("audio_device_impl") {
         sources += [
           "win/audio_device_core_win.cc",
           "win/audio_device_core_win.h",
+          "win/audio_device_module_win.cc",
+          "win/audio_device_module_win.h",
+          "win/core_audio_base_win.cc",
+          "win/core_audio_base_win.h",
+          "win/core_audio_input_win.cc",
+          "win/core_audio_input_win.h",
+          "win/core_audio_output_win.cc",
+          "win/core_audio_output_win.h",
           "win/core_audio_utility_win.cc",
           "win/core_audio_utility_win.h",
         ]

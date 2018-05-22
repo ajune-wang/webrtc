@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "457c4eea_e4170ff8",
+        "filename": "modules/congestion_controller/rtp/send_time_history.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-05-22T14:50:20Z",
+      "side": 1,
+      "message": "Why do we not want to include retransmitted packets?",
+      "range": {
+        "startLine": 56,
+        "startChar": 7,
+        "endLine": 56,
+        "endChar": 24
+      },
+      "revId": "54d11f7c2ccdd4490a7f4e046c83af08f9df3cfc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a14f920_2a42d634",
+        "filename": "modules/congestion_controller/rtp/send_time_history.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-05-22T14:50:20Z",
+      "side": 1,
+      "message": "When do we have remove\u003d\u003dfalse? Note that UpdateAckedSeqNum is called unconditionally above and that function removes old bytes.",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 15
+      },
+      "revId": "54d11f7c2ccdd4490a7f4e046c83af08f9df3cfc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04dcbdbd_2705ccd7",
+        "filename": "modules/congestion_controller/rtp/send_time_history.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-05-22T14:50:20Z",
+      "side": 1,
+      "message": "Not clear to me what this represents. Maybe create a struct?",
+      "range": {
+        "startLine": 57,
+        "startChar": 11,
+        "endLine": 57,
+        "endChar": 40
+      },
+      "revId": "54d11f7c2ccdd4490a7f4e046c83af08f9df3cfc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

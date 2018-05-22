@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "985ba170_0bd5e3fa",
+        "filename": "pc/rtpreceiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2018-05-22T14:57:49Z",
+      "side": 1,
+      "message": "I think VideoTrackSource was intended as a convenience base class for Track source implementations. How about just adding a \n\nclass VideoRtpTrackSource : public VideoTrackSource {\n  public:\n  VideoSinkInterface* sink() return \u0026broad_caster_;\nprivate:\n  VideoBroadcaster broad_caster_;\n}\n\nand letting VideoRtpReceiver hold a reference to this class? \n\nand maybe clarifying the documentation for VideoTrackSource?",
+      "range": {
+        "startLine": 225,
+        "startChar": 6,
+        "endLine": 225,
+        "endChar": 18
+      },
+      "revId": "953ff8983bc610a61afbceeb429ecea4b1576917",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88a51296_2f6165ac",
+        "filename": "pc/videocapturertracksource.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2018-05-22T14:57:49Z",
+      "side": 1,
+      "message": "why two capturers?\nThis looks like it was correct before. It owned the capturer.",
+      "range": {
+        "startLine": 273,
+        "startChar": 46,
+        "endLine": 273,
+        "endChar": 58
+      },
+      "revId": "953ff8983bc610a61afbceeb429ecea4b1576917",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

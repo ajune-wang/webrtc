@@ -20,6 +20,16 @@ namespace webrtc {
 // TODO(holmer): Look into unifying this with the PacketOptions in
 // asyncpacketsocket.h.
 struct PacketOptions {
+  enum class RetransmissionStatus {
+    kUnknown,
+    // Not a retransmission. The first time a packet is sent.
+    kNone,
+    // Retransmission without RTX.
+    kRetransmission,
+    // Retransmission with RTX.
+    kRtx
+  };
+
   PacketOptions();
   ~PacketOptions();
 
@@ -29,6 +39,8 @@ struct PacketOptions {
   // Additional data bound to the RTP packet for use in application code,
   // outside of WebRTC.
   std::vector<uint8_t> application_data;
+  // Whether this is a retransmission of an earlier packet.
+  RetransmissionStatus retransmission = RetransmissionStatus::kUnknown;
 };
 
 class Transport {

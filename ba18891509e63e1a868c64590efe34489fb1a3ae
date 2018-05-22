@@ -281,6 +281,23 @@
       "revId": "ba18891509e63e1a868c64590efe34489fb1a3ae",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0bb8c575_919a7f9f",
+        "filename": "rtc_base/system/inline.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-05-22T12:44:03Z",
+      "side": 1,
+      "message": "Does this cover clang as well, or is there nothing we need to do for that compiler?",
+      "revId": "ba18891509e63e1a868c64590efe34489fb1a3ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

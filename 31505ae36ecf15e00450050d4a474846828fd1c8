@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e8515359_ea44ee21",
+        "filename": "rtc_base/logging.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-05-22T12:44:03Z",
+      "side": 1,
+      "message": "Do std::strings need their own arg type, or could they be secretly converted to kCharP by calling c_str()? Hmm... probably more expensive to do that at the callsite. Nvm. :)",
+      "revId": "31505ae36ecf15e00450050d4a474846828fd1c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94713a9d_2e1f2501",
+        "filename": "rtc_base/logging.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-05-22T12:44:03Z",
+      "side": 1,
+      "message": "Wonder if this can be enforced by hiding the constructor and using a templated friend declaration. Probably not worth it, tbh.",
+      "revId": "31505ae36ecf15e00450050d4a474846828fd1c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d350482a_79719e2a",
+        "filename": "rtc_base/logging.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-05-22T12:44:03Z",
+      "side": 1,
+      "message": "What\u0027s the significance of separating arithmetic from non-arithmetic types for these calls (and the ones below)?",
+      "revId": "31505ae36ecf15e00450050d4a474846828fd1c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61c86e1f_9543215f",
+        "filename": "rtc_base/logging.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-05-22T12:44:03Z",
+      "side": 1,
+      "message": "Why is the base case Call static but the other ones not?",
+      "revId": "31505ae36ecf15e00450050d4a474846828fd1c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

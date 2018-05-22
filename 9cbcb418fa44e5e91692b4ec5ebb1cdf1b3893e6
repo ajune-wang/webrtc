@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b429738f_2cb6b64a",
+        "filename": "api/call/transport.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-05-22T09:17:04Z",
+      "side": 1,
+      "message": "Even with comments I still do not understand this type.\nIt covers some common cases mixing concepts why packet is sent/what packet is (media/retransmit) with how it is sent (using rtx ssrc vs regular ssrc).\nSome cases (padding, ulpfec, flexfec, keep-alive) doesn\u0027t seem to fit into this enum.\n\ncan a simple flag \u0027is_retransmit\u0027 be enough for your use case?",
+      "revId": "9cbcb418fa44e5e91692b4ec5ebb1cdf1b3893e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c54cd72_47cfc2c6",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-05-22T09:17:04Z",
+      "side": 1,
+      "message": "ignoring \u0027over_rtx\u0027 flag?",
+      "range": {
+        "startLine": 597,
+        "startChar": 66,
+        "endLine": 597,
+        "endChar": 71
+      },
+      "revId": "9cbcb418fa44e5e91692b4ec5ebb1cdf1b3893e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bed1f8e0_f8e45642",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 817,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-05-22T09:17:04Z",
+      "side": 1,
+      "message": "description claim this mean it is retransmission without rtx, but here you set it without checking \u0027send_over_rtx\u0027",
+      "range": {
+        "startLine": 817,
+        "startChar": 45,
+        "endLine": 817,
+        "endChar": 60
+      },
+      "revId": "9cbcb418fa44e5e91692b4ec5ebb1cdf1b3893e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

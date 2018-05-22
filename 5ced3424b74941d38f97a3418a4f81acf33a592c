@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4b229009_f801926e",
+        "filename": "tools_webrtc/mb/mb_config.pyl",
+        "patchSetId": 4
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-05-22T07:22:33Z",
+      "side": 1,
+      "message": "Is it valid to specify a dict for a builder like this? What does it actually mean?",
+      "range": {
+        "startLine": 74,
+        "startChar": 6,
+        "endLine": 83,
+        "endChar": 8
+      },
+      "revId": "5ced3424b74941d38f97a3418a4f81acf33a592c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

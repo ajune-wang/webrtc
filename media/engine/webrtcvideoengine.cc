@@ -1642,6 +1642,8 @@ WebRtcVideoChannel::WebRtcVideoSendStream::WebRtcVideoSendStream(
                                          : webrtc::RtcpMode::kCompound;
   parameters_.config.rtp.mid = send_params.mid;
 
+  rtp_parameters_.rtcp.reduced_size = send_params.rtcp.reduced_size;
+
   if (codec_settings) {
     SetCodec(*codec_settings);
   }
@@ -1761,6 +1763,8 @@ void WebRtcVideoChannel::WebRtcVideoSendStream::SetSendParameters(
   bool recreate_stream = false;
   if (params.rtcp_mode) {
     parameters_.config.rtp.rtcp_mode = *params.rtcp_mode;
+    rtp_parameters_.rtcp.reduced_size =
+        parameters_.config.rtp.rtcp_mode == webrtc::RtcpMode::kReducedSize;
     recreate_stream = true;
   }
   if (params.rtp_header_extensions) {

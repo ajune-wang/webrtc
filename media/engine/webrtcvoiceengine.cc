@@ -992,6 +992,10 @@ class WebRtcVoiceMediaChannel::WebRtcAudioSendStream
     if (reconfigure_send_stream) {
       ReconfigureAudioSendStream();
     }
+
+    rtp_parameters_.rtcp.cname = config_.rtp.c_name;
+    rtp_parameters_.rtcp.reduced_size = false;
+
     // parameters.encodings[0].active could have changed.
     UpdateSendState();
     return webrtc::RTCError::OK();

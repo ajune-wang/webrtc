@@ -115,19 +115,6 @@ class BbrNetworkController : public NetworkControllerInterface {
   NetworkControlUpdate OnTransportLossReport(TransportLossReport msg) override;
 
  private:
-  // Containing values that when changed should trigger an update.
-  struct UpdateState {
-    UpdateState();
-    UpdateState(const UpdateState&);
-    ~UpdateState();
-    Mode mode = Mode::STARTUP;
-    rtc::Optional<DataRate> bandwidth;
-    rtc::Optional<TimeDelta> rtt;
-    rtc::Optional<DataRate> pacing_rate;
-    rtc::Optional<DataRate> target_rate;
-    bool probing_for_bandwidth = false;
-  };
-
   void Reset();
   NetworkControlUpdate CreateRateUpdate(Timestamp at_time);
 
@@ -330,7 +317,6 @@ class BbrNetworkController : public NetworkControllerInterface {
   rtc::Optional<int64_t> end_recovery_at_;
   // A window used to limit the number of bytes in flight during loss recovery.
   DataSize recovery_window_;
-  UpdateState last_update_state_;
   struct BbrControllerConfig {
     // Default config based on default QUIC config
     static BbrControllerConfig DefaultConfig();

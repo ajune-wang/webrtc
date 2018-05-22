@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bf97a24a_89698f9b",
+        "filename": "rtc_base/openssladapter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-22T11:57:31Z",
+      "side": 1,
+      "message": "Any particular reason for the checked_cast, or would a dchecked_cast be sufficient?",
+      "range": {
+        "startLine": 380,
+        "startChar": 15,
+        "endLine": 380,
+        "endChar": 22
+      },
+      "revId": "30cf42ed1ed56d0c7c2738bb5ba6aa030cb5eef1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35bbcd03_26812b1a",
+        "filename": "rtc_base/openssladapter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-22T11:57:31Z",
+      "side": 1,
+      "message": "Again, use dchecked_cast by default, and checked_cast only when the extra expense is thought to be worth it.\n\n(More instances below.)",
+      "revId": "30cf42ed1ed56d0c7c2738bb5ba6aa030cb5eef1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

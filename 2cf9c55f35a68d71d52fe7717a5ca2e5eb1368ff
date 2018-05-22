@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1d6950b4_fb94a70e",
+        "filename": "api/rtpparameters.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 569,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-22T23:45:11Z",
+      "side": 0,
+      "message": "Still not supported for RtpReceiverInterface::GetParameters?",
+      "revId": "2cf9c55f35a68d71d52fe7717a5ca2e5eb1368ff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

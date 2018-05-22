@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1b303725_d90b53a6",
+        "filename": "sdk/android/api/org/webrtc/RtpParameters.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-05-22T14:18:19Z",
+      "side": 1,
+      "message": "nit: Should be javadoc",
+      "range": {
+        "startLine": 122,
+        "startChar": 4,
+        "endLine": 122,
+        "endChar": 7
+      },
+      "revId": "4e5b0e5719d6b7c42f4d0fad58f480f2f487b713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90787fcb_75f8fba5",
+        "filename": "sdk/android/api/org/webrtc/RtpParameters.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-05-22T14:18:19Z",
+      "side": 1,
+      "message": "private final",
+      "range": {
+        "startLine": 123,
+        "startChar": 4,
+        "endLine": 123,
+        "endChar": 11
+      },
+      "revId": "4e5b0e5719d6b7c42f4d0fad58f480f2f487b713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a27a5d6_fc1b4256",
+        "filename": "sdk/android/api/org/webrtc/RtpParameters.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-05-22T14:18:19Z",
+      "side": 1,
+      "message": "nit: Should be javadoc",
+      "range": {
+        "startLine": 124,
+        "startChar": 4,
+        "endLine": 124,
+        "endChar": 7
+      },
+      "revId": "4e5b0e5719d6b7c42f4d0fad58f480f2f487b713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e1cf535_34d6de99",
+        "filename": "sdk/android/api/org/webrtc/RtpParameters.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-05-22T14:18:19Z",
+      "side": 1,
+      "message": "private final",
+      "range": {
+        "startLine": 125,
+        "startChar": 4,
+        "endLine": 125,
+        "endChar": 11
+      },
+      "revId": "4e5b0e5719d6b7c42f4d0fad58f480f2f487b713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

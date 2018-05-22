@@ -776,6 +776,7 @@ class WebRtcVoiceMediaChannel::WebRtcAudioSendStream
     config_.codec_pair_id = codec_pair_id;
     config_.track_id = track_id;
     rtp_parameters_.encodings[0].ssrc = ssrc;
+    rtp_parameters_.header_extensions = extensions;
 
     if (send_codec_spec) {
       UpdateSendCodecSpec(*send_codec_spec);
@@ -799,6 +800,7 @@ class WebRtcVoiceMediaChannel::WebRtcAudioSendStream
   void SetRtpExtensions(const std::vector<webrtc::RtpExtension>& extensions) {
     RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
     config_.rtp.extensions = extensions;
+    rtp_parameters_.header_extensions = extensions;
     ReconfigureAudioSendStream();
   }
 

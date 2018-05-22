@@ -1636,6 +1636,7 @@ WebRtcVideoChannel::WebRtcVideoSendStream::WebRtcVideoSendStream(
   parameters_.config.track_id = sp.id;
   if (rtp_extensions) {
     parameters_.config.rtp.extensions = *rtp_extensions;
+    rtp_parameters_.header_extensions = *rtp_extensions;
   }
   parameters_.config.rtp.rtcp_mode = send_params.rtcp.reduced_size
                                          ? webrtc::RtcpMode::kReducedSize
@@ -1765,6 +1766,7 @@ void WebRtcVideoChannel::WebRtcVideoSendStream::SetSendParameters(
   }
   if (params.rtp_header_extensions) {
     parameters_.config.rtp.extensions = *params.rtp_header_extensions;
+    rtp_parameters_.header_extensions = *params.rtp_header_extensions;
     recreate_stream = true;
   }
   if (params.mid) {

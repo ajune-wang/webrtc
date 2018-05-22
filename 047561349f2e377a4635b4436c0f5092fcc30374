@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "31fb6477_8234e344",
+        "filename": "presubmit_test_mocks.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-05-22T06:25:59Z",
+      "side": 1,
+      "message": "I don\u0027t like this. Mocks and tests should be simple and this is production code level complexity. It\u0027s better if you just hardcode the list of files you expect in each test.",
+      "range": {
+        "startLine": 31,
+        "startChar": 2,
+        "endLine": 31,
+        "endChar": 65
+      },
+      "revId": "047561349f2e377a4635b4436c0f5092fcc30374",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f3c529f_47e8877f",
+        "filename": "tools_webrtc/presubmit_checks_lib/check_3pp.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-05-22T06:25:59Z",
+      "side": 1,
+      "message": "The implementation is good, but let\u0027s talk about the name. The convention in chrome is nopresubmit, notreechecks etc, so what about NoAutoImportDepsCheck?",
+      "range": {
+        "startLine": 126,
+        "startChar": 8,
+        "endLine": 126,
+        "endChar": 50
+      },
+      "revId": "047561349f2e377a4635b4436c0f5092fcc30374",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

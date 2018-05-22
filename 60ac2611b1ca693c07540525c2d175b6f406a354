@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e6d6eacc_24128aea",
+        "filename": "media/engine/simulcast_encoder_adapter_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-05-22T09:02:35Z",
+      "side": 1,
+      "message": "Maybe this logic is still something that should go into a fixture for these tests? So that each test case is only one line of code.",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 71
+      },
+      "revId": "60ac2611b1ca693c07540525c2d175b6f406a354",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

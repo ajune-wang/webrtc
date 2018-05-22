@@ -22,6 +22,30 @@
       "revId": "60ac2611b1ca693c07540525c2d175b6f406a354",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a7f613b_e58de384",
+        "filename": "media/engine/simulcast_encoder_adapter_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-05-22T12:29:02Z",
+      "side": 1,
+      "message": "Something like this? I\u0027m not sure it is any cleaner, even though we do save some lines in the test invocations.\n\nclass SimulcastEncoderAdapterSimulcastTest : public ::testing::Gtest {\n public:\n  SimulcastEncoderAdapterSimulcastTest() : encoder_factory_(CreateEncoderFactory()), decoder_factory_(CreateDecoderFactory()), fixture_(std::move(encoder_factory_), std::move(decoder_factory_)) {}\n\n protected:\n  std::unique_ptr\u003cSimulcastTestFixture\u003e fixture_;\n\n private:\n  std::unique_ptr\u003cVideoEncoderFactory\u003e CreateEncoderFactory() {\n  return\n      rtc::MakeUnique\u003cFunctionVideoEncoderFactory\u003e(\n          [internal_encoder_factory_]() {\n            return rtc::MakeUnique\u003cSimulcastEncoderAdapter\u003e(\n                internal_encoder_factory);\n          });\n  };\n\n  std::unique_ptr\u003cVideoDecoderFactory\u003e CreateDecoderFactory() {\n  return\n    rtc::MakeUnique\u003cFunctionVideoDecoderFactory\u003e(\n          []() { return VP8Decoder::Create(); });\n};\n\n  std::unique_ptr\u003cVideoEncoderFactory\u003e encoder_factory_;\n  std::unique_ptr\u003cVideoDecoderFactory\u003e decoder_factory_;\n  InternalEncoderFactory internal_encoder_factory_;\n};\n\nTEST_F(SimulcastEncoderAdapterSimulcastTest, TestPaddingAllStreams) {\n  fixture_-\u003eTestPaddingAllStreams();\n}\n\nTEST_F(SimulcastEncoderAdapterSimulcastTest, TestPaddingTwoStreams) {\n  fixture_-\u003eTestPaddingTwoStreams();\n}",
+      "parentUuid": "e6d6eacc_24128aea",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 71
+      },
+      "revId": "60ac2611b1ca693c07540525c2d175b6f406a354",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

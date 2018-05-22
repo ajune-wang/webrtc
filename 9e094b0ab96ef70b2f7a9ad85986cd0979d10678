@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cb1d5ef2_69512db7",
+        "filename": "sdk/android/api/org/webrtc/RtpParameters.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-05-22T08:51:50Z",
+      "side": 1,
+      "message": "I think we should move towards having POD classes in our framework be immutable. Even though I know this means mixing two different styles in this file.\n\nCan you make this class immutable with private members and public getters?",
+      "range": {
+        "startLine": 121,
+        "startChar": 22,
+        "endLine": 121,
+        "endChar": 26
+      },
+      "revId": "9e094b0ab96ef70b2f7a9ad85986cd0979d10678",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

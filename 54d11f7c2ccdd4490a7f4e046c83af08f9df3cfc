@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3aa99d12_a07ad1f4",
+        "filename": "modules/congestion_controller/rtp/send_time_history.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-05-22T16:17:30Z",
+      "side": 1,
+      "message": "If it\u0027s re-transmitted with the same id, we won\u0027t get separate feedback for it, right? So without this check we will add the bytes twice, but remove it only once?",
+      "parentUuid": "457c4eea_e4170ff8",
+      "range": {
+        "startLine": 56,
+        "startChar": 7,
+        "endLine": 56,
+        "endChar": 24
+      },
+      "revId": "54d11f7c2ccdd4490a7f4e046c83af08f9df3cfc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a14f920_2a42d634",
         "filename": "modules/congestion_controller/rtp/send_time_history.cc",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "c3fde25a_47419629",
+        "filename": "modules/congestion_controller/rtp/send_time_history.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-05-22T16:17:30Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7a14f920_2a42d634",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 15
+      },
+      "revId": "54d11f7c2ccdd4490a7f4e046c83af08f9df3cfc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "04dcbdbd_2705ccd7",
         "filename": "modules/congestion_controller/rtp/send_time_history.h",
         "patchSetId": 2
@@ -68,6 +116,30 @@
       "revId": "54d11f7c2ccdd4490a7f4e046c83af08f9df3cfc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f05f3961_6878485b",
+        "filename": "modules/congestion_controller/rtp/send_time_history.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-05-22T16:17:30Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "04dcbdbd_2705ccd7",
+      "range": {
+        "startLine": 57,
+        "startChar": 11,
+        "endLine": 57,
+        "endChar": 40
+      },
+      "revId": "54d11f7c2ccdd4490a7f4e046c83af08f9df3cfc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

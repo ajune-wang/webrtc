@@ -20,7 +20,6 @@
 #include "common_video/include/video_frame.h"
 #include "modules/video_coding/include/video_codec_initializer.h"
 #include "modules/video_coding/include/video_coding.h"
-#include "modules/video_coding/include/video_coding_defines.h"
 #include "rtc_base/arraysize.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/experiments/quality_scaling_experiment.h"
@@ -30,7 +29,6 @@
 #include "rtc_base/timeutils.h"
 #include "rtc_base/trace_event.h"
 #include "video/overuse_frame_detector.h"
-#include "video/send_statistics_proxy.h"
 
 namespace webrtc {
 
@@ -86,7 +84,7 @@ bool IsFramerateScalingEnabled(DegradationPreference degradation_preference) {
 // out). This should effectively turn off CPU adaptations for systems that
 // remotely cope with the load right now.
 CpuOveruseOptions GetCpuOveruseOptions(
-    const VideoSendStream::Config::EncoderSettings& settings,
+    const VideoStreamEncoderSettings& settings,
     bool full_overuse_time) {
   CpuOveruseOptions options;
 
@@ -316,7 +314,7 @@ class VideoStreamEncoder::VideoSourceProxy {
 VideoStreamEncoder::VideoStreamEncoder(
     uint32_t number_of_cores,
     SendStatisticsProxy* stats_proxy,
-    const VideoSendStream::Config::EncoderSettings& settings,
+    const VideoStreamEncoderSettings& settings,
     rtc::VideoSinkInterface<VideoFrame>* pre_encode_callback,
     std::unique_ptr<OveruseFrameDetector> overuse_detector)
     : shutdown_event_(true /* manual_reset */, false),
@@ -1149,9 +1147,9 @@ void VideoStreamEncoder::UpdateAdaptationStats(AdaptReason reason) {
   }
 }
 
-VideoStreamEncoder::AdaptCounts VideoStreamEncoder::GetActiveCounts(
+SendStatisticsProxy::AdaptCounts VideoStreamEncoder::GetActiveCounts(
     AdaptReason reason) {
-  VideoStreamEncoder::AdaptCounts counts =
+  SendStatisticsProxy::AdaptCounts counts =
       GetConstAdaptCounter().Counts(reason);
   switch (reason) {
     case kCpu:
@@ -1199,9 +1197,9 @@ std::string VideoStreamEncoder::AdaptCounter::ToString() const {
   return ss.str();
 }
 
-VideoStreamEncoder::AdaptCounts VideoStreamEncoder::AdaptCounter::Counts(
+SendStatisticsProxy::AdaptCounts VideoStreamEncoder::AdaptCounter::Counts(
     int reason) const {
-  AdaptCounts counts;
+  SendStatisticsProxy::AdaptCounts counts;
   counts.fps = fps_counters_[reason];
   counts.resolution = resolution_counters_[reason];
   return counts;

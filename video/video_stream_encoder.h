@@ -21,23 +21,19 @@
 #include "api/video/video_sink_interface.h"
 #include "api/video/video_stream_encoder_interface.h"
 #include "api/video_codecs/video_encoder.h"
-#include "call/call.h"
-#include "call/video_send_stream.h"
-#include "common_types.h"  // NOLINT(build/include)
 #include "common_video/include/video_bitrate_allocator.h"
-#include "modules/video_coding/include/video_coding_defines.h"
 #include "modules/video_coding/utility/quality_scaler.h"
 #include "modules/video_coding/video_coding_impl.h"
 #include "rtc_base/criticalsection.h"
 #include "rtc_base/event.h"
 #include "rtc_base/sequenced_task_checker.h"
 #include "rtc_base/task_queue.h"
-#include "typedefs.h"  // NOLINT(build/include)
 #include "video/overuse_frame_detector.h"
+// TODO(nisse): Move stats to separate build target, to avoid circular
+// dependency.
+#include "video/send_statistics_proxy.h"  // nogncheck
 
 namespace webrtc {
-
-class SendStatisticsProxy;
 
 // VideoStreamEncoder represent a video encoder that accepts raw video frames as
 // input and produces an encoded bit stream.
@@ -52,15 +48,9 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
                            // Protected only to provide access to tests.
                            protected AdaptationObserverInterface {
  public:
-  // Number of resolution and framerate reductions (-1: disabled).
-  struct AdaptCounts {
-    int resolution = 0;
-    int fps = 0;
-  };
-
   VideoStreamEncoder(uint32_t number_of_cores,
                      SendStatisticsProxy* stats_proxy,
-                     const VideoSendStream::Config::EncoderSettings& settings,
+                     const VideoStreamEncoderSettings& settings,
                      rtc::VideoSinkInterface<VideoFrame>* pre_encode_callback,
                      std::unique_ptr<OveruseFrameDetector> overuse_detector);
   ~VideoStreamEncoder();
@@ -154,7 +144,7 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
     ~AdaptCounter();
 
     // Get number of adaptation downscales for |reason|.
-    AdaptCounts Counts(int reason) const;
+    SendStatisticsProxy::AdaptCounts Counts(int reason) const;
 
     std::string ToString() const;
 
@@ -187,7 +177,8 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
   AdaptCounter& GetAdaptCounter() RTC_RUN_ON(&encoder_queue_);
   const AdaptCounter& GetConstAdaptCounter() RTC_RUN_ON(&encoder_queue_);
   void UpdateAdaptationStats(AdaptReason reason) RTC_RUN_ON(&encoder_queue_);
-  AdaptCounts GetActiveCounts(AdaptReason reason) RTC_RUN_ON(&encoder_queue_);
+  SendStatisticsProxy::AdaptCounts GetActiveCounts(AdaptReason reason)
+      RTC_RUN_ON(&encoder_queue_);
 
   rtc::Event shutdown_event_;
 
@@ -199,7 +190,7 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
 
   const std::unique_ptr<VideoSourceProxy> source_proxy_;
   EncoderSink* sink_;
-  const VideoSendStream::Config::EncoderSettings settings_;
+  const VideoStreamEncoderSettings settings_;
 
   vcm::VideoSender video_sender_ RTC_GUARDED_BY(&encoder_queue_);
   const std::unique_ptr<OveruseFrameDetector> overuse_detector_

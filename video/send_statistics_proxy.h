@@ -24,11 +24,11 @@
 #include "rtc_base/ratetracker.h"
 #include "rtc_base/thread_annotations.h"
 #include "system_wrappers/include/clock.h"
-#include "video/overuse_frame_detector.h"
+// Results in a circular dependency. Need to move stats out to its own target.
+#include "call/video_send_stream.h"
+#include "video/overuse_frame_detector.h"  // nogncheck
 #include "video/report_block_stats.h"
 #include "video/stats_counter.h"
-#include "video/video_stream_encoder.h"
-#include "call/video_send_stream.h"
 
 namespace webrtc {
 
@@ -40,6 +40,12 @@ class SendStatisticsProxy : public CpuOveruseMetricsObserver,
                             public FrameCountObserver,
                             public SendSideDelayObserver {
  public:
+  // Number of resolution and framerate reductions (-1: disabled).
+  struct AdaptCounts {
+    int resolution = 0;
+    int fps = 0;
+  };
+
   static const int kStatsTimeoutMs;
   // Number of required samples to be collected before a metric is added
   // to a rtc histogram.
@@ -64,15 +70,12 @@ class SendStatisticsProxy : public CpuOveruseMetricsObserver,
   void OnFrameDroppedByMediaOptimizations();
 
   // Adaptation stats.
-  void SetAdaptationStats(
-      const VideoStreamEncoder::AdaptCounts& cpu_counts,
-      const VideoStreamEncoder::AdaptCounts& quality_counts);
-  void OnCpuAdaptationChanged(
-      const VideoStreamEncoder::AdaptCounts& cpu_counts,
-      const VideoStreamEncoder::AdaptCounts& quality_counts);
-  void OnQualityAdaptationChanged(
-      const VideoStreamEncoder::AdaptCounts& cpu_counts,
-      const VideoStreamEncoder::AdaptCounts& quality_counts);
+  void SetAdaptationStats(const AdaptCounts& cpu_counts,
+                          const AdaptCounts& quality_counts);
+  void OnCpuAdaptationChanged(const AdaptCounts& cpu_counts,
+                              const AdaptCounts& quality_counts);
+  void OnQualityAdaptationChanged(const AdaptCounts& cpu_counts,
+                                  const AdaptCounts& quality_counts);
   void OnMinPixelLimitReached();
   void OnInitialQualityResolutionAdaptDown();
 
@@ -216,15 +219,13 @@ class SendStatisticsProxy : public CpuOveruseMetricsObserver,
   VideoSendStream::StreamStats* GetStatsEntry(uint32_t ssrc)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_);
 
-  void SetAdaptTimer(const VideoStreamEncoder::AdaptCounts& counts,
-                     StatsTimer* timer) RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_);
-  void UpdateAdaptationStats(
-      const VideoStreamEncoder::AdaptCounts& cpu_counts,
-      const VideoStreamEncoder::AdaptCounts& quality_counts)
+  void SetAdaptTimer(const AdaptCounts& counts, StatsTimer* timer)
+      RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_);
+  void UpdateAdaptationStats(const AdaptCounts& cpu_counts,
+                             const AdaptCounts& quality_counts)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_);
   void TryUpdateInitialQualityResolutionAdaptUp(
-      const VideoStreamEncoder::AdaptCounts& quality_counts)
-      RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_);
+      const AdaptCounts& quality_counts) RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_);
 
   void UpdateEncoderFallbackStats(const CodecSpecificInfo* codec_info,
                                   int pixels)

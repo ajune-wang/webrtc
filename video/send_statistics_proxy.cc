@@ -989,8 +989,8 @@ void SendStatisticsProxy::OnFrameDroppedByMediaOptimizations() {
 }
 
 void SendStatisticsProxy::SetAdaptationStats(
-    const VideoStreamEncoder::AdaptCounts& cpu_counts,
-    const VideoStreamEncoder::AdaptCounts& quality_counts) {
+    const AdaptCounts& cpu_counts,
+    const AdaptCounts& quality_counts) {
   rtc::CritScope lock(&crit_);
   SetAdaptTimer(cpu_counts, &uma_container_->cpu_adapt_timer_);
   SetAdaptTimer(quality_counts, &uma_container_->quality_adapt_timer_);
@@ -998,16 +998,16 @@ void SendStatisticsProxy::SetAdaptationStats(
 }
 
 void SendStatisticsProxy::OnCpuAdaptationChanged(
-    const VideoStreamEncoder::AdaptCounts& cpu_counts,
-    const VideoStreamEncoder::AdaptCounts& quality_counts) {
+    const AdaptCounts& cpu_counts,
+    const AdaptCounts& quality_counts) {
   rtc::CritScope lock(&crit_);
   ++stats_.number_of_cpu_adapt_changes;
   UpdateAdaptationStats(cpu_counts, quality_counts);
 }
 
 void SendStatisticsProxy::OnQualityAdaptationChanged(
-    const VideoStreamEncoder::AdaptCounts& cpu_counts,
-    const VideoStreamEncoder::AdaptCounts& quality_counts) {
+    const AdaptCounts& cpu_counts,
+    const AdaptCounts& quality_counts) {
   rtc::CritScope lock(&crit_);
   TryUpdateInitialQualityResolutionAdaptUp(quality_counts);
   ++stats_.number_of_quality_adapt_changes;
@@ -1015,8 +1015,8 @@ void SendStatisticsProxy::OnQualityAdaptationChanged(
 }
 
 void SendStatisticsProxy::UpdateAdaptationStats(
-    const VideoStreamEncoder::AdaptCounts& cpu_counts,
-    const VideoStreamEncoder::AdaptCounts& quality_counts) {
+    const AdaptCounts& cpu_counts,
+    const AdaptCounts& quality_counts) {
   cpu_downscales_ = cpu_counts.resolution;
   quality_downscales_ = quality_counts.resolution;
 
@@ -1033,7 +1033,7 @@ void SendStatisticsProxy::OnInitialQualityResolutionAdaptDown() {
 }
 
 void SendStatisticsProxy::TryUpdateInitialQualityResolutionAdaptUp(
-    const VideoStreamEncoder::AdaptCounts& quality_counts) {
+    const AdaptCounts& quality_counts) {
   if (uma_container_->initial_quality_changes_.down == 0)
     return;
 
@@ -1047,9 +1047,8 @@ void SendStatisticsProxy::TryUpdateInitialQualityResolutionAdaptUp(
   }
 }
 
-void SendStatisticsProxy::SetAdaptTimer(
-    const VideoStreamEncoder::AdaptCounts& counts,
-    StatsTimer* timer) {
+void SendStatisticsProxy::SetAdaptTimer(const AdaptCounts& counts,
+                                        StatsTimer* timer) {
   if (counts.resolution >= 0 || counts.fps >= 0) {
     // Adaptation enabled.
     if (!stats_.suspended)

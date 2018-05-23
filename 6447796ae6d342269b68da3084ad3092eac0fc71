@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d42aac26_dc089bbd",
+        "filename": "modules/pacing/paced_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2018-05-23T09:17:03Z",
+      "side": 1,
+      "message": "Why no rtc::ToHex on this one?",
+      "range": {
+        "startLine": 356,
+        "startChar": 52,
+        "endLine": 356,
+        "endChar": 66
+      },
+      "revId": "6447796ae6d342269b68da3084ad3092eac0fc71",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd798d60_f62aae28",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2122,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2018-05-23T09:17:03Z",
+      "side": 1,
+      "message": "As above.",
+      "range": {
+        "startLine": 2122,
+        "startChar": 63,
+        "endLine": 2122,
+        "endChar": 73
+      },
+      "revId": "6447796ae6d342269b68da3084ad3092eac0fc71",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -118,6 +118,30 @@
       "revId": "60ac2611b1ca693c07540525c2d175b6f406a354",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ae92dc9_6fcfe588",
+        "filename": "media/engine/simulcast_encoder_adapter_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-05-23T14:57:15Z",
+      "side": 1,
+      "message": "Another example: https://webrtc-review.googlesource.com/c/src/+/72481.",
+      "parentUuid": "04948515_e8c97c53",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 71
+      },
+      "revId": "60ac2611b1ca693c07540525c2d175b6f406a354",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

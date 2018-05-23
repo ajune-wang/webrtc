@@ -70,6 +70,30 @@
       "revId": "60ac2611b1ca693c07540525c2d175b6f406a354",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf770a82_cc0508b7",
+        "filename": "media/engine/simulcast_encoder_adapter_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-05-23T14:00:53Z",
+      "side": 1,
+      "message": "You are already using a fixture in the current code, at least you call it \u0027auto fixture \u003d CreateSimulcastTestFixture()\u0027. Is there any longer discussion around this design that you can point to? It feels like we are violating many test practices already since these tests are completely opaque and just calling into a method in a test fixture.",
+      "parentUuid": "b484890b_e17fc3eb",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 71
+      },
+      "revId": "60ac2611b1ca693c07540525c2d175b6f406a354",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

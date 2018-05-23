@@ -46,6 +46,30 @@
       "revId": "60ac2611b1ca693c07540525c2d175b6f406a354",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b484890b_e17fc3eb",
+        "filename": "media/engine/simulcast_encoder_adapter_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-05-23T07:08:39Z",
+      "side": 1,
+      "message": "Relevant TotW: https://abseil.io/tips/122.\n\n\"\"\"You can generally improve test clarity by following these steps:\n- Avoid fixtures where reasonable. Sometimes it’s not.\n- If you are using fixtures, try to avoid fixture member variables. It is far too easy to start operating on those in ways akin to globals: data flow is hard to track since absolutely any code path in the fixture may modify the member.\n- If you’ve got variables that need complex initialization that would make each test hard to read, consider a helper function (not part of the fixture) that documents that initialization and returns the object directly.\n- If you must have fixtures that contain member variables, try to avoid methods that operate on those members directly: pass them in as parameters whenever possible to make the dataflow clear.\"\"\"",
+      "parentUuid": "8a7f613b_e58de384",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 71
+      },
+      "revId": "60ac2611b1ca693c07540525c2d175b6f406a354",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

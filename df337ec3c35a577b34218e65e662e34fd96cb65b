@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "88446d51_610c932c",
+        "filename": "sdk/objc/Framework/Classes/Metal/RTCMTLI420Renderer.mm",
+        "patchSetId": 4
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5670
+      },
+      "writtenOn": "2018-05-23T11:02:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e30bc870_abb68a5f",
+      "range": {
+        "startLine": 93,
+        "startChar": 41,
+        "endLine": 93,
+        "endChar": 47
+      },
+      "revId": "df337ec3c35a577b34218e65e662e34fd96cb65b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dc99ef2a_9a2848e6",
         "filename": "sdk/objc/Framework/Classes/Metal/RTCMTLRenderer.mm",
         "patchSetId": 4
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "c1ccecc4_6e0fe4dc",
+        "filename": "sdk/objc/Framework/Classes/Metal/RTCMTLRenderer.mm",
+        "patchSetId": 4
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5670
+      },
+      "writtenOn": "2018-05-23T11:02:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dc99ef2a_9a2848e6",
+      "revId": "df337ec3c35a577b34218e65e662e34fd96cb65b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "65fa01af_a84ff9e2",
         "filename": "sdk/objc/Framework/Headers/WebRTC/RTCMTLVideoView.h",
         "patchSetId": 4
@@ -56,6 +98,24 @@
       "revId": "df337ec3c35a577b34218e65e662e34fd96cb65b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df1eb820_6d36d343",
+        "filename": "sdk/objc/Framework/Headers/WebRTC/RTCMTLVideoView.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5670
+      },
+      "writtenOn": "2018-05-23T11:02:58Z",
+      "side": 1,
+      "message": "This is to expose this feature of the backing MTKView.",
+      "parentUuid": "65fa01af_a84ff9e2",
+      "revId": "df337ec3c35a577b34218e65e662e34fd96cb65b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

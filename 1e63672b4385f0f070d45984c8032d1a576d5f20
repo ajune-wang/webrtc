@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "1b27cb3d_55824654",
+        "filename": "modules/congestion_controller/rtp/send_time_history.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-05-23T13:49:09Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "fcbd89e8_c26dad0e",
+      "range": {
+        "startLine": 106,
+        "startChar": 57,
+        "endLine": 106,
+        "endChar": 61
+      },
+      "revId": "1e63672b4385f0f070d45984c8032d1a576d5f20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "27aea407_8fc9e7ed",
         "filename": "modules/congestion_controller/rtp/send_time_history.h",
         "patchSetId": 3
@@ -131,6 +155,30 @@
       "side": 1,
       "message": "A struct can\u0027t be directly used in a map.",
       "parentUuid": "27aea407_8fc9e7ed",
+      "range": {
+        "startLine": 49,
+        "startChar": 8,
+        "endLine": 49,
+        "endChar": 21
+      },
+      "revId": "1e63672b4385f0f070d45984c8032d1a576d5f20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "27bd3aa8_d2f00154",
+        "filename": "modules/congestion_controller/rtp/send_time_history.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-05-23T13:49:09Z",
+      "side": 1,
+      "message": "You\u0027d have to add operator\u003c and operator\u003d\u003d, but those could be one-liners via std::tie.",
+      "parentUuid": "79421cf3_2e33f6d3",
       "range": {
         "startLine": 49,
         "startChar": 8,

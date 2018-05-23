@@ -56,6 +56,19 @@ TEST(TimestampTest, ComparisonOperators) {
   EXPECT_GT(Timestamp::ms(kLarge), Timestamp::ms(kSmall));
 }
 
+TEST(TimestampTest, ConvertsToAndFromDouble) {
+  const int64_t kMillis = 17;
+  const double kSecondsDouble = static_cast<double>(kMillis) / 1000;
+
+  EXPECT_NEAR(Timestamp::ms(kMillis).ToSecondsAsDouble(), kSecondsDouble, 1e-9);
+  EXPECT_EQ(Timestamp::FromSecondsAsDouble(kSecondsDouble).ms(), kMillis);
+
+  const double kPlusInfinity = std::numeric_limits<double>::infinity();
+
+  EXPECT_EQ(Timestamp::Infinity().ToSecondsAsDouble(), kPlusInfinity);
+  EXPECT_TRUE(Timestamp::FromSecondsAsDouble(kPlusInfinity).IsInfinite());
+}
+
 TEST(UnitConversionTest, TimestampAndTimeDeltaMath) {
   const int64_t kValueA = 267;
   const int64_t kValueB = 450;

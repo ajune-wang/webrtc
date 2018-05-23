@@ -58,6 +58,18 @@ TEST(DataSizeTest, ComparisonOperators) {
   EXPECT_GT(DataSize::Infinity(), large);
 }
 
+TEST(DataSizeTest, ConvertsToAndFromDouble) {
+  const int64_t kValue = 128;
+  const double kDoubleValue = static_cast<double>(kValue);
+
+  EXPECT_EQ(DataSize::bytes(kValue).ToBytesAsDouble(), kDoubleValue);
+  EXPECT_EQ(DataSize::FromBytesAsDouble(kDoubleValue).bytes(), kValue);
+
+  const double kInfinity = std::numeric_limits<double>::infinity();
+  EXPECT_EQ(DataSize::Infinity().ToBytesAsDouble(), kInfinity);
+  EXPECT_TRUE(DataSize::FromBytesAsDouble(kInfinity).IsInfinite());
+}
+
 TEST(DataSizeTest, MathOperations) {
   const int64_t kValueA = 450;
   const int64_t kValueB = 267;

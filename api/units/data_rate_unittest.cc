@@ -59,6 +59,18 @@ TEST(DataRateTest, ComparisonOperators) {
   EXPECT_GT(DataRate::Infinity(), large);
 }
 
+TEST(DataRateTest, ConvertsToAndFromDouble) {
+  const int64_t kValue = 128;
+  const double kDoubleValue = static_cast<double>(kValue);
+
+  EXPECT_EQ(DataRate::bps(kValue).ToBpsAsDouble(), kDoubleValue);
+  EXPECT_EQ(DataRate::FromBpsAsDouble(kDoubleValue).bps(), kValue);
+
+  const double kInfinity = std::numeric_limits<double>::infinity();
+  EXPECT_EQ(DataRate::Infinity().ToBpsAsDouble(), kInfinity);
+  EXPECT_TRUE(DataRate::FromBpsAsDouble(kInfinity).IsInfinite());
+}
+
 TEST(DataRateTest, MathOperations) {
   const int64_t kValueA = 450;
   const int64_t kValueB = 267;

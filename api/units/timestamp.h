@@ -37,6 +37,14 @@ class Timestamp {
   static Timestamp seconds(int64_t seconds) {
     return Timestamp::us(seconds * 1000000);
   }
+  static Timestamp FromSecondsAsDouble(double seconds) {
+    RTC_DCHECK(!std::isnan(seconds));
+    if (seconds == std::numeric_limits<double>::infinity()) {
+      return Infinity();
+    } else {
+      return Timestamp::us(static_cast<int64_t>(seconds * 1000000));
+    }
+  }
   static Timestamp ms(int64_t millis) { return Timestamp::us(millis * 1000); }
   static Timestamp us(int64_t micros) {
     RTC_DCHECK_GE(micros, 0);
@@ -48,8 +56,13 @@ class Timestamp {
     RTC_DCHECK(IsFinite());
     return microseconds_;
   }
-
-  double SecondsAsDouble() const;
+  double ToSecondsAsDouble() const {
+    if (IsInfinite()) {
+      return std::numeric_limits<double>::infinity();
+    } else {
+      return us() * 1e-6;
+    }
+  }
 
   bool IsInfinite() const {
     return microseconds_ == timestamp_impl::kPlusInfinityVal;

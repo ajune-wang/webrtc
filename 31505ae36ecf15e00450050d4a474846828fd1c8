@@ -107,6 +107,24 @@
     },
     {
       "key": {
+        "uuid": "a73fd9f2_4f1cc7ec",
+        "filename": "rtc_base/logging.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-05-23T10:35:47Z",
+      "side": 1,
+      "message": "Ah, ok. That makes sense.",
+      "parentUuid": "8298a205_890a3e8e",
+      "revId": "31505ae36ecf15e00450050d4a474846828fd1c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "61c86e1f_9543215f",
         "filename": "rtc_base/logging.h",
         "patchSetId": 17
@@ -136,6 +154,24 @@
       "side": 1,
       "message": "The base case Call() doesn\u0027t need to access any member variables, but the others do.",
       "parentUuid": "61c86e1f_9543215f",
+      "revId": "31505ae36ecf15e00450050d4a474846828fd1c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "72b5f0ab_0233aeec",
+        "filename": "rtc_base/logging.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-05-23T10:35:47Z",
+      "side": 1,
+      "message": "But doesn\u0027t prior_-\u003eCall then eventually resolve to calling a static function as if it were a method? The compiler doesn\u0027t seem to mind in this case (probably b/c of templates), but IIRC, it usually complains when you call static functions like that.",
+      "parentUuid": "80b21c20_f05b9984",
       "revId": "31505ae36ecf15e00450050d4a474846828fd1c8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

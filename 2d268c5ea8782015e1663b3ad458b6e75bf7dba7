@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "587abf92_1486dba2",
+        "filename": "tools_webrtc/gtest-parallel-wrapper.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-05-23T11:29:52Z",
+      "side": 1,
+      "message": "I think you\u0027re unnecessarily general here; I\u0027d remove *args and **kwargs and just have a name argument that I pass directly to add_argument_group.",
+      "range": {
+        "startLine": 92,
+        "startChar": 28,
+        "endLine": 92,
+        "endChar": 44
+      },
+      "revId": "2d268c5ea8782015e1663b3ad458b6e75bf7dba7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a41ddf35_de4702b3",
+        "filename": "tools_webrtc/gtest-parallel-wrapper.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-05-23T11:29:52Z",
+      "side": 1,
+      "message": "This code is still fairly busy, so please pull it into a helper function.",
+      "range": {
+        "startLine": 160,
+        "startChar": 2,
+        "endLine": 168,
+        "endChar": 72
+      },
+      "revId": "2d268c5ea8782015e1663b3ad458b6e75bf7dba7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

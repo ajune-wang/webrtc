@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "4b458ee1_2033ac88",
+        "filename": "tools_webrtc/gtest-parallel-wrapper.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-05-23T11:29:52Z",
+      "side": 1,
+      "message": "I wanted a comment explaining *why* the options are passed to gtest parallel. Your current comment is okay though; maybe it\u0027s better if users look in gtest-parallel itself to see what it does with them.",
+      "parentUuid": "2feafce2_ea7d8231",
+      "range": {
+        "startLine": 91,
+        "startChar": 2,
+        "endLine": 91,
+        "endChar": 42
+      },
+      "revId": "7bcb084b9f3bec1c07f4c8119530c4b6b76b6acf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a3136b1_793bc0cc",
         "filename": "tools_webrtc/gtest-parallel-wrapper.py",
         "patchSetId": 5
@@ -187,6 +211,30 @@
       "revId": "7bcb084b9f3bec1c07f4c8119530c4b6b76b6acf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f80d134f_a12fb824",
+        "filename": "tools_webrtc/gtest-parallel-wrapper.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-05-23T11:29:52Z",
+      "side": 1,
+      "message": "Oh, right, it\u0027s used in args later. I still feel we need to make this function shorter and easier to read, so what about\n\ntest_artifacts_dir \u003d _GetTestArtifactsDir(options)\nif test_artifacts_dir:\n  executable_args.insert(0, \u0027--test_artifacts_dir\u003d%s\u0027 % test_artifacts_dir)",
+      "parentUuid": "5b50e683_a8477a21",
+      "range": {
+        "startLine": 126,
+        "startChar": 2,
+        "endLine": 135,
+        "endChar": 77
+      },
+      "revId": "7bcb084b9f3bec1c07f4c8119530c4b6b76b6acf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     },
     {
       "key": {
@@ -331,6 +379,30 @@
     },
     {
       "key": {
+        "uuid": "56fe183b_bf8de00a",
+        "filename": "tools_webrtc/gtest-parallel-wrapper.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-05-23T11:29:52Z",
+      "side": 1,
+      "message": "Ok, we need to do some more. On a general level, this is a very long function with a lot of variables, and then it\u0027s almost always a good call to raise the abstraction level of the function by extracting helper functions. The code reads better and the reader doesn\u0027t have to keep all variables in mind, even if the variables aren\u0027t related to each other. See other comments.",
+      "parentUuid": "66f63f64_d1ad4ee6",
+      "range": {
+        "startLine": 137,
+        "startChar": 1,
+        "endLine": 154,
+        "endChar": 62
+      },
+      "revId": "7bcb084b9f3bec1c07f4c8119530c4b6b76b6acf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ea4f3f5_c0d9c7b1",
         "filename": "tools_webrtc/gtest_parallel_wrapper_test.py",
         "patchSetId": 5
@@ -375,6 +447,30 @@
       "revId": "7bcb084b9f3bec1c07f4c8119530c4b6b76b6acf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ebe1df57_9f19f647",
+        "filename": "tools_webrtc/gtest_parallel_wrapper_test.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-05-23T11:29:52Z",
+      "side": 1,
+      "message": "Yes, but the problem is that you\u0027re asserting on the output dir in the test that checks that overwriting works, but overwriting doesn\u0027t have anything at all to do with the output dir. I think your argument is that you\u0027re checking the full output of ParseArgs every time. You don\u0027t have to do that, and you shouldn\u0027t. Only check the relevant parts of the output. That way you get less brittle tests (so that don\u0027t all of them break when a shard flag changes, for instance).",
+      "parentUuid": "88d69ab0_fcd0a9db",
+      "range": {
+        "startLine": 19,
+        "startChar": 4,
+        "endLine": 24,
+        "endChar": 67
+      },
+      "revId": "7bcb084b9f3bec1c07f4c8119530c4b6b76b6acf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     },
     {
       "key": {

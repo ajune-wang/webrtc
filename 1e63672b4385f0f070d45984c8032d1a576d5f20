@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "27bfd851_87720fb3",
+        "filename": "modules/congestion_controller/rtp/send_time_history.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-05-23T13:30:03Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "6878e4f9_3bf72289",
+      "range": {
+        "startLine": 77,
+        "startChar": 25,
+        "endLine": 77,
+        "endChar": 31
+      },
+      "revId": "1e63672b4385f0f070d45984c8032d1a576d5f20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b5b9eabe_49a27ca0",
         "filename": "modules/congestion_controller/rtp/send_time_history.cc",
         "patchSetId": 3
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "fcbd89e8_c26dad0e",
+        "filename": "modules/congestion_controller/rtp/send_time_history.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-05-23T13:30:03Z",
+      "side": 1,
+      "message": "Should be done in separate CL as it affects other parts.",
+      "parentUuid": "b5b9eabe_49a27ca0",
+      "range": {
+        "startLine": 106,
+        "startChar": 57,
+        "endLine": 106,
+        "endChar": 61
+      },
+      "revId": "1e63672b4385f0f070d45984c8032d1a576d5f20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "27aea407_8fc9e7ed",
         "filename": "modules/congestion_controller/rtp/send_time_history.h",
         "patchSetId": 3
@@ -68,6 +116,30 @@
       "revId": "1e63672b4385f0f070d45984c8032d1a576d5f20",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79421cf3_2e33f6d3",
+        "filename": "modules/congestion_controller/rtp/send_time_history.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-05-23T13:30:03Z",
+      "side": 1,
+      "message": "A struct can\u0027t be directly used in a map.",
+      "parentUuid": "27aea407_8fc9e7ed",
+      "range": {
+        "startLine": 49,
+        "startChar": 8,
+        "endLine": 49,
+        "endChar": 21
+      },
+      "revId": "1e63672b4385f0f070d45984c8032d1a576d5f20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

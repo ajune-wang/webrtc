@@ -94,6 +94,30 @@
       "revId": "60ac2611b1ca693c07540525c2d175b6f406a354",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04948515_e8c97c53",
+        "filename": "media/engine/simulcast_encoder_adapter_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-05-23T14:53:03Z",
+      "side": 1,
+      "message": "Sure, and that is kind of the reason for the CL: the fixture can be reused between clients, who supply their own encoder factory. The reference to the TotW was about the \"fixture-in-fixture\" type of code in the comment above.\n\nI\u0027ll send you a design doc out-of-band, for some context :)",
+      "parentUuid": "bf770a82_cc0508b7",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 71
+      },
+      "revId": "60ac2611b1ca693c07540525c2d175b6f406a354",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

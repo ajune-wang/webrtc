@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "300910d9_f97364f3",
+        "filename": "test/direct_transport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-05-23T08:47:24Z",
+      "side": 1,
+      "message": "Let\u0027s hypothesize that we\u0027d use this class for non RTP packets. Would this still be the right place to do rtp file writing?",
+      "range": {
+        "startLine": 122,
+        "startChar": 0,
+        "endLine": 122,
+        "endChar": 31
+      },
+      "revId": "ec47896c815d8f7c62c670ef21e846ee4a9eb07a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

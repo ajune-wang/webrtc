@@ -29,6 +29,8 @@ struct PacketOptions {
   // Additional data bound to the RTP packet for use in application code,
   // outside of WebRTC.
   std::vector<uint8_t> application_data;
+  // Whether this is a retransmission of an earlier packet.
+  bool is_retransmission = false;
 };
 
 class Transport {

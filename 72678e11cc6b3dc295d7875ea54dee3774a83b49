@@ -16,6 +16,24 @@
       "revId": "72678e11cc6b3dc295d7875ea54dee3774a83b49",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ac9c137_34a9ac05",
+        "filename": "rtc_base/unittest_main.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-23T10:13:55Z",
+      "side": 0,
+      "message": "Maybe, but it didn\u0027t actually work before either---C++ iostreams are templated for the character type they work with, and here we\u0027re feeding a wchar_t* to a stream that works with char. This \"works\", but only because there\u0027s an operator\u003c\u003c that takes const void* as an argument; it simply prints the pointer value in hex.",
+      "parentUuid": "577c791a_31d5100e",
+      "revId": "72678e11cc6b3dc295d7875ea54dee3774a83b49",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

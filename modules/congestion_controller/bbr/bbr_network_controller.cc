@@ -72,6 +72,8 @@ const double kStartupGrowthTarget = 1.25;
 // we don't need to enter PROBE_RTT.
 const double kSimilarMinRttThreshold = 1.125;
 
+const TimeDelta kLossRateFilterTime = TimeDelta::seconds(10);
+
 constexpr int64_t kInitialRttMs = 200;
 constexpr int64_t kInitialBandwidthKbps = 300;
 
@@ -162,6 +164,7 @@ BbrNetworkController::DebugState::DebugState(const DebugState& state) = default;
 
 BbrNetworkController::BbrNetworkController(NetworkControllerConfig config)
     : random_(10),
+      loss_rate_(kLossRateFilterTime),
       max_bandwidth_(kBandwidthWindowSize, DataRate::Zero(), 0),
       default_bandwidth_(DataRate::kbps(kInitialBandwidthKbps)),
       max_ack_height_(kBandwidthWindowSize, DataSize::Zero(), 0),
@@ -356,6 +359,13 @@ NetworkControlUpdate BbrNetworkController::OnTransportPacketsFeedback(
     Timestamp send_time = last_sent_packet->send_time;
     TimeDelta send_delta = feedback_recv_time - send_time;
     rtt_stats_.UpdateRtt(send_delta, TimeDelta::Zero(), feedback_recv_time);
+  }
+
+  for (PacketResult& packet : msg.PacketsWithFeedback()) {
+    if (!packet.sent_packet)
+      continue;
+    loss_rate_.UpdateWithLossStatus(packet.sent_packet->send_time,
+                                    packet.receive_time.IsInfinite());
   }
 
   DataSize bytes_in_flight = msg.data_in_flight;

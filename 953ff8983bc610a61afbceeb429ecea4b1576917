@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b80cdefd_a238f632",
+        "filename": "pc/rtpreceiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-05-23T06:57:08Z",
+      "side": 1,
+      "message": "Thanks, it makes more sense to use it in that way, and not create any instances of VideoTrackSource as is. And the constructor for VideoRtpTrackSource would then include a\n\n  : VideoTrackSource (\u0026broadcaster_) {...}\n\nwhich isn\u0027t entirely kosher since we pass a pointer to an uninitialized object.\n\nIt think would be cleaner if we could delete OnSourceDestroyed (and then also the |source_| member and the raw-pointer construction argument). We could add a protected abstract method\n\n   VideoSourceInterface\u003cVideoFrame\u003e* VideoTrackSource::source()\n\nOr maybe that\u0027s an unnecessary convenience, we could instead defer implementation of the two methods AddOrUpdateSink and RemoveSink to subclasses.",
+      "parentUuid": "985ba170_0bd5e3fa",
+      "range": {
+        "startLine": 225,
+        "startChar": 6,
+        "endLine": 225,
+        "endChar": 18
+      },
+      "revId": "953ff8983bc610a61afbceeb429ecea4b1576917",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "88a51296_2f6165ac",
         "filename": "pc/videocapturertracksource.cc",
         "patchSetId": 1

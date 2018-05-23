@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e30bc870_abb68a5f",
+        "filename": "sdk/objc/Framework/Classes/Metal/RTCMTLI420Renderer.mm",
+        "patchSetId": 4
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2018-05-23T09:04:04Z",
+      "side": 1,
+      "message": "Maybe use ! for consistency",
+      "range": {
+        "startLine": 93,
+        "startChar": 41,
+        "endLine": 93,
+        "endChar": 47
+      },
+      "revId": "df337ec3c35a577b34218e65e662e34fd96cb65b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc99ef2a_9a2848e6",
+        "filename": "sdk/objc/Framework/Classes/Metal/RTCMTLRenderer.mm",
+        "patchSetId": 4
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2018-05-23T09:04:04Z",
+      "side": 1,
+      "message": "This section could use some more comments probably.",
+      "revId": "df337ec3c35a577b34218e65e662e34fd96cb65b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65fa01af_a84ff9e2",
+        "filename": "sdk/objc/Framework/Headers/WebRTC/RTCMTLVideoView.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2018-05-23T09:04:04Z",
+      "side": 1,
+      "message": "Do we need to support both modes, using/not using display link? What are the benefits of using/not using it?",
+      "revId": "df337ec3c35a577b34218e65e662e34fd96cb65b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -115,6 +115,10 @@ void CheckStunKeepaliveIntervalOfAllReadyPorts(
   }
 }
 
+bool IsAnyAddressNetwork(rtc::Network* network) {
+  return network->GetBestIP() == kAnyAddr.ipaddr();
+}
+
 }  // namespace
 
 namespace cricket {
@@ -446,7 +450,7 @@ class BasicPortAllocatorTestBase : public testing::Test,
         candidates_.begin(), candidates_.end(),
         [removed_candidates](Candidate& candidate) {
           for (const Candidate& removed_candidate : removed_candidates) {
-            if (candidate.MatchesForRemoval(removed_candidate)) {
+            if (candidate.IsEquivalent(removed_candidate)) {
               return true;
             }
           }
@@ -719,6 +723,9 @@ class BasicPortAllocatorTest : public FakeClockBase,
                              rtc::SocketAddress(kTurnUdpExtAddr.ipaddr(), 0)));
   }
 };
+
+// In the following tests note that the candidates from ports bound to the any
+// address network may not be signaled until the candidate allocation is done.
 
 // Tests that we can init the port allocator and create a session.
 TEST_F(BasicPortAllocatorTest, TestBasic) {
@@ -1148,18 +1155,28 @@ TEST_F(BasicPortAllocatorTest, TestGetAllPortsWithOneSecondStepDelay) {
   allocator_->set_step_delay(kDefaultStepDelay);
   ASSERT_TRUE(CreateSession(ICE_CANDIDATE_COMPONENT_RTP));
   session_->StartGettingPorts();
+  // Host and STUN candidates from kClientAddr.
   ASSERT_EQ_SIMULATED_WAIT(2U, candidates_.size(), 1000, fake_clock);
+  // UDP and STUN ports on kClientAddr.
   EXPECT_EQ(2U, ports_.size());
+  // Host, STUN and relay candidates from kClientAddr.
   ASSERT_EQ_SIMULATED_WAIT(6U, candidates_.size(), 2000, fake_clock);
-  EXPECT_EQ(3U, ports_.size());
+  // UDP, STUN and relay ports on kClientAddr and relay port on kAnyAddr.
+  EXPECT_EQ(4U, ports_.size());
   EXPECT_TRUE(HasCandidate(candidates_, "relay", "udp", kRelayUdpIntAddr));
   EXPECT_TRUE(HasCandidate(candidates_, "relay", "udp", kRelayUdpExtAddr));
   EXPECT_TRUE(HasCandidate(candidates_, "relay", "tcp", kRelayTcpIntAddr));
   EXPECT_TRUE(
       HasCandidate(candidates_, "relay", "ssltcp", kRelaySslTcpIntAddr));
+  // One more TCP candidate from kClientAddr.
   ASSERT_EQ_SIMULATED_WAIT(7U, candidates_.size(), 1500, fake_clock);
   EXPECT_TRUE(HasCandidate(candidates_, "local", "tcp", kClientAddr));
+  // UDP, STUN and relay and TCP ports on kClientAddr. The relay port on
+  // kAnyAddr should be pruned.
   EXPECT_EQ(4U, ports_.size());
+  for (auto* port : ports_) {
+    EXPECT_FALSE(IsAnyAddressNetwork(port->Network()));
+  }
   EXPECT_TRUE(candidate_allocation_done_);
   // If we Stop gathering now, we shouldn't get a second "done" callback.
   session_->StopGettingPorts();
@@ -1467,18 +1484,21 @@ TEST_F(BasicPortAllocatorTest, TestGetAllPortsNoSockets) {
 // Testing STUN timeout.
 TEST_F(BasicPortAllocatorTest, TestGetAllPortsNoUdpAllowed) {
   fss_->AddRule(false, rtc::FP_UDP, rtc::FD_ANY, kClientAddr);
+  fss_->AddRule(false, rtc::FP_UDP, rtc::FD_ANY, kAnyAddr);
   AddInterface(kClientAddr);
   ASSERT_TRUE(CreateSession(ICE_CANDIDATE_COMPONENT_RTP));
   session_->StartGettingPorts();
   EXPECT_EQ_SIMULATED_WAIT(2U, candidates_.size(), kDefaultAllocationTimeout,
                            fake_clock);
-  EXPECT_EQ(2U, ports_.size());
+  // UDP and TCP ports on kClientAddr, and TCP port on kAnyAddr.
+  EXPECT_EQ(3U, ports_.size());
   EXPECT_TRUE(HasCandidate(candidates_, "local", "udp", kClientAddr));
   EXPECT_TRUE(HasCandidate(candidates_, "local", "tcp", kClientAddr));
   // RelayPort connection timeout is 3sec. TCP connection with RelayServer
   // will be tried after about 3 seconds.
   EXPECT_EQ_SIMULATED_WAIT(6U, candidates_.size(), 3500, fake_clock);
-  EXPECT_EQ(3U, ports_.size());
+  // Relay ports on kClientAddr and kAnyAddr.
+  EXPECT_EQ(5U, ports_.size());
   EXPECT_TRUE(HasCandidate(candidates_, "relay", "udp", kRelayUdpIntAddr));
   EXPECT_TRUE(HasCandidate(candidates_, "relay", "tcp", kRelayTcpIntAddr));
   EXPECT_TRUE(
@@ -1489,6 +1509,8 @@ TEST_F(BasicPortAllocatorTest, TestGetAllPortsNoUdpAllowed) {
   // already passed (see above), we wait 3 seconds less than that.
   EXPECT_TRUE_SIMULATED_WAIT(candidate_allocation_done_,
                              cricket::STUN_TOTAL_TIMEOUT - 3000, fake_clock);
+  // The relay and TCP ports on kAnyAddr network should be pruned.
+  EXPECT_EQ(3U, ports_.size());
 }
 
 TEST_F(BasicPortAllocatorTest, TestCandidatePriorityOfMultipleInterfaces) {
@@ -1984,12 +2006,14 @@ TEST_F(BasicPortAllocatorTest, TestSharedSocketNoUdpAllowed) {
                         PORTALLOCATOR_DISABLE_TCP |
                         PORTALLOCATOR_ENABLE_SHARED_SOCKET);
   fss_->AddRule(false, rtc::FP_UDP, rtc::FD_ANY, kClientAddr);
+  fss_->AddRule(false, rtc::FP_UDP, rtc::FD_ANY, kAnyAddr);
   AddInterface(kClientAddr);
   ASSERT_TRUE(CreateSession(ICE_CANDIDATE_COMPONENT_RTP));
   session_->StartGettingPorts();
-  ASSERT_EQ_SIMULATED_WAIT(1U, ports_.size(), kDefaultAllocationTimeout,
+  ASSERT_EQ_SIMULATED_WAIT(1U, candidates_.size(), kDefaultAllocationTimeout,
                            fake_clock);
-  EXPECT_EQ(1U, candidates_.size());
+  // UDP ports on kClientAddr and kAnyAddr.
+  EXPECT_EQ(2U, ports_.size());
   EXPECT_TRUE(HasCandidate(candidates_, "local", "udp", kClientAddr));
   // STUN timeout is 9.5sec. We need to wait to get candidate done signal.
   EXPECT_TRUE_SIMULATED_WAIT(candidate_allocation_done_, kStunTimeoutMs,

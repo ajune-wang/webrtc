@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6e6cc310_ebb64bd6",
+        "filename": "rtc_base/openssladapter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-05-23T08:23:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bf97a24a_89698f9b",
+      "range": {
+        "startLine": 380,
+        "startChar": 15,
+        "endLine": 380,
+        "endChar": 22
+      },
+      "revId": "30cf42ed1ed56d0c7c2738bb5ba6aa030cb5eef1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "35bbcd03_26812b1a",
         "filename": "rtc_base/openssladapter.cc",
         "patchSetId": 4
@@ -39,6 +63,24 @@
       "revId": "30cf42ed1ed56d0c7c2738bb5ba6aa030cb5eef1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c09a2e82_7ff5c412",
+        "filename": "rtc_base/openssladapter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-05-23T08:23:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "35bbcd03_26812b1a",
+      "revId": "30cf42ed1ed56d0c7c2738bb5ba6aa030cb5eef1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

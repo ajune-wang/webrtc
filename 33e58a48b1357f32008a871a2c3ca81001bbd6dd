@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "161d1b14_6bb2fc67",
+        "filename": "rtc_base/physicalsocketserver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 971,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-05-23T11:48:51Z",
+      "side": 1,
+      "message": "Does it make a difference if we use new like this, or instead just\n\n  static PosixSignalHandler instance;\n  return \u0026instance;\n\nIn the non-pointer version above, will the object\u0027s destructor be run at normal program termination?",
+      "range": {
+        "startLine": 970,
+        "startChar": 0,
+        "endLine": 971,
+        "endChar": 20
+      },
+      "revId": "33e58a48b1357f32008a871a2c3ca81001bbd6dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

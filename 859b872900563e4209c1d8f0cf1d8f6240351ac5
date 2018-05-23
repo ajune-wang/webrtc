@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d2a75936_54992423",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-05-23T12:37:08Z",
+      "side": 1,
+      "message": "value doesn\u0027t match is_retransmission description here:\npadding packets are not retransmission of any of earlier packet.",
+      "revId": "859b872900563e4209c1d8f0cf1d8f6240351ac5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f05fe438_7957f9d7",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 815,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-05-23T12:37:08Z",
+      "side": 1,
+      "message": "That is not always true.\nCan you explain when packet is a retransmitted packet despite is_retransmit\u003dfalse.",
+      "revId": "859b872900563e4209c1d8f0cf1d8f6240351ac5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

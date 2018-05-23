@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "edfc5a79_deb369d1",
+        "filename": "sdk/objc/Framework/Classes/Metal/RTCMTLVideoView.m",
+        "patchSetId": 6
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-05-23T11:40:33Z",
+      "side": 1,
+      "message": "should this be changed from videoFrameSize?",
+      "range": {
+        "startLine": 143,
+        "startChar": 40,
+        "endLine": 143,
+        "endChar": 52
+      },
+      "revId": "ccedbf42cb39722ab599e2eb8f7eb6561d30804b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01141fbf_17a30d21",
+        "filename": "sdk/objc/Framework/Classes/Metal/RTCMTLVideoView.m",
+        "patchSetId": 6
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-05-23T11:40:33Z",
+      "side": 1,
+      "message": "I don\u0027t think this shenanigans is necessary here.",
+      "range": {
+        "startLine": 243,
+        "startChar": 2,
+        "endLine": 243,
+        "endChar": 39
+      },
+      "revId": "ccedbf42cb39722ab599e2eb8f7eb6561d30804b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

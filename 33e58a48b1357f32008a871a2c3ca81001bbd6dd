@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "8e7c3a29_c9cb611d",
+        "filename": "modules/audio_processing/include/config.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-05-23T14:21:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "309c452d_8f5d3bf0",
+      "revId": "33e58a48b1357f32008a871a2c3ca81001bbd6dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "98dc115d_1399d7b4",
         "filename": "rtc_base/helpers.cc",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2018-05-23T13:57:40Z",
       "side": 1,
       "message": "Ew. Not your fault, but why doesn\u0027t this function just return a RandomGenerator\u0026 or RandomGenerator*?",
+      "revId": "33e58a48b1357f32008a871a2c3ca81001bbd6dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "119eb41c_6eea52e0",
+        "filename": "rtc_base/helpers.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-05-23T14:21:48Z",
+      "side": 1,
+      "message": "Ew indeed. It\u0027s for the SetRandomTestMode below, which wants to modify the pointer.",
+      "parentUuid": "98dc115d_1399d7b4",
       "revId": "33e58a48b1357f32008a871a2c3ca81001bbd6dd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
@@ -71,6 +107,30 @@
       "side": 1,
       "message": "Yes, IIUC the destructor will be run at program termination if you do it that way, and we generally don\u0027t want that.",
       "parentUuid": "161d1b14_6bb2fc67",
+      "range": {
+        "startLine": 970,
+        "startChar": 0,
+        "endLine": 971,
+        "endChar": 20
+      },
+      "revId": "33e58a48b1357f32008a871a2c3ca81001bbd6dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6bd4733d_44fcf04e",
+        "filename": "rtc_base/physicalsocketserver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 971,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-05-23T14:21:48Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "256c5048_af680e2c",
       "range": {
         "startLine": 970,
         "startChar": 0,

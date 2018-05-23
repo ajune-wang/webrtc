@@ -193,6 +193,24 @@
       "revId": "31505ae36ecf15e00450050d4a474846828fd1c8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b29b5f4_dc2fc8ed",
+        "filename": "rtc_base/logging.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-23T10:51:03Z",
+      "side": 1,
+      "message": "This text [http://en.cppreference.com/w/cpp/language/static] seems to imply that you can use either the Foo::Meth() or the foo.Meth() syntax when calling static member functions.",
+      "parentUuid": "1d1f522b_e5772a40",
+      "revId": "31505ae36ecf15e00450050d4a474846828fd1c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

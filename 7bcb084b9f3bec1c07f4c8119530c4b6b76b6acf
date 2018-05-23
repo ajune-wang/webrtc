@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d8f3469a_8d60da69",
+        "filename": "tools_webrtc/gtest-parallel-wrapper.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-05-23T08:50:04Z",
+      "side": 1,
+      "message": "If gtest-parallel doesn\u0027t understand the flag or the flag is after --, the flag will be passed on to the test binary.",
+      "range": {
+        "startLine": 22,
+        "startChar": 14,
+        "endLine": 23,
+        "endChar": 33
+      },
+      "revId": "7bcb084b9f3bec1c07f4c8119530c4b6b76b6acf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e293a4f3_3aa30d17",
+        "filename": "tools_webrtc/gtest-parallel-wrapper.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-05-23T08:50:04Z",
+      "side": 1,
+      "message": "Add a comment why gtest-parallel wants to intercept these gtest flags (to compute sharding correctly, right?)",
+      "range": {
+        "startLine": 91,
+        "startChar": 2,
+        "endLine": 91,
+        "endChar": 42
+      },
+      "revId": "7bcb084b9f3bec1c07f4c8119530c4b6b76b6acf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a3136b1_793bc0cc",
+        "filename": "tools_webrtc/gtest-parallel-wrapper.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-05-23T08:50:04Z",
+      "side": 1,
+      "message": "unrecognized_args",
+      "range": {
+        "startLine": 124,
+        "startChar": 11,
+        "endLine": 124,
+        "endChar": 26
+      },
+      "revId": "7bcb084b9f3bec1c07f4c8119530c4b6b76b6acf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "774ab56d_9047bbc4",
+        "filename": "tools_webrtc/gtest-parallel-wrapper.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-05-23T08:50:04Z",
+      "side": 1,
+      "message": "Extract a method _MakeExecutableArgs(options)",
+      "range": {
+        "startLine": 126,
+        "startChar": 2,
+        "endLine": 135,
+        "endChar": 77
+      },
+      "revId": "7bcb084b9f3bec1c07f4c8119530c4b6b76b6acf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7319ee2f_24494f0d",
+        "filename": "tools_webrtc/gtest-parallel-wrapper.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-05-23T08:50:04Z",
+      "side": 1,
+      "message": "gtest_parallel_args. gtest_args sounds like they\u0027re getting passed to the executable (which is a gtest) but they\u0027re being passed to gtest_parallel.",
+      "range": {
+        "startLine": 137,
+        "startChar": 2,
+        "endLine": 137,
+        "endChar": 13
+      },
+      "revId": "7bcb084b9f3bec1c07f4c8119530c4b6b76b6acf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "606e8a05_5c33eb53",
+        "filename": "tools_webrtc/gtest-parallel-wrapper.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-05-23T08:50:04Z",
+      "side": 1,
+      "message": "Extract a method _ToCommandLine(options, desired_arg_names)?\n\nAlso explain in a comment what you\u0027re doing. I think the gist of it is that constructing a new command line to pass on to the test binary.",
+      "range": {
+        "startLine": 137,
+        "startChar": 2,
+        "endLine": 143,
+        "endChar": 49
+      },
+      "revId": "7bcb084b9f3bec1c07f4c8119530c4b6b76b6acf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bff00a31_9c6e4478",
+        "filename": "tools_webrtc/gtest-parallel-wrapper.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-05-23T08:50:04Z",
+      "side": 1,
+      "message": "This code is very complex and messy, so let\u0027s try to make it clearer what\u0027s going on. Extract a method _MakeGtestParallelArgs(options, gtest_keys) from lines 137-154.\n\nI think the final construction code should read\n\nexecutable_args \u003d _MakeExecutableArgs(options)\ngtest_parallel_args \u003d _MakeGtestParallelArgs(options, gtest_keys)\nfinal_args \u003d gtest_parallel_args + [options.executable, \u0027--\u0027] + executable_args\n\nreturn Args(final_args, ...)",
+      "range": {
+        "startLine": 137,
+        "startChar": 1,
+        "endLine": 154,
+        "endChar": 62
+      },
+      "revId": "7bcb084b9f3bec1c07f4c8119530c4b6b76b6acf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ea4f3f5_c0d9c7b1",
+        "filename": "tools_webrtc/gtest_parallel_wrapper_test.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-05-23T08:50:04Z",
+      "side": 1,
+      "message": "Don\u0027t assert these in every test case, and use the setup-act-verify structure. It is good to ignore the shard flags for most test cases though. The first test case for instance becomes\n\nresult \u003d script.ParseArgs([\u0027--timeout\u003d123\u0027, \u0027exec\u0027, \u0027--timeout\u0027, \u0027124\u0027])\nexpected \u003d self._Expected([\u0027--timeout\u003d124\u0027, \u0027exec\u0027, \u0027--\u0027]\n\nself.assertListEqual(result, expected)\n\nNote that I cleverly chose names above so the command lines still line up. _Expected isn\u0027t a great name but I think it\u0027s easy to understand what\u0027s going on :)\n\ndef _Expected(self, gtest_parallel_args):\n  return [\u0027--shard_index\u003d0\u0027, \u0027--shard_count\u003d1\u0027] + gtest_parallel_args\n\nWrite separate tests for verifying the output dir and test artifacts dir, and that the shard flags are always there.",
+      "range": {
+        "startLine": 19,
+        "startChar": 4,
+        "endLine": 24,
+        "endChar": 67
+      },
+      "revId": "7bcb084b9f3bec1c07f4c8119530c4b6b76b6acf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f27bfec8_7fcc9e5e",
+        "filename": "tools_webrtc/gtest_parallel_wrapper_test.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-05-23T08:50:04Z",
+      "side": 1,
+      "message": "I\u0027m inclined to think that the script should fail if a flag is double specified, but the semantics in other tools is generally that \"the last flag wins\", so this is good.",
+      "range": {
+        "startLine": 28,
+        "startChar": 8,
+        "endLine": 29,
+        "endChar": 40
+      },
+      "revId": "7bcb084b9f3bec1c07f4c8119530c4b6b76b6acf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

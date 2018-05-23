@@ -298,6 +298,24 @@
       "revId": "ba18891509e63e1a868c64590efe34489fb1a3ae",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7b6f99f_9659387f",
+        "filename": "rtc_base/system/inline.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-23T10:02:39Z",
+      "side": 1,
+      "message": "For historical reasons, clang defines __GNUC__ (because it had to be a drop-in replacement for GCC in order to gain traction).",
+      "parentUuid": "0bb8c575_919a7f9f",
+      "revId": "ba18891509e63e1a868c64590efe34489fb1a3ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

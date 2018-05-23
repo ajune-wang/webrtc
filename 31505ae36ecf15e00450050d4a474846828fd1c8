@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "560ee4d8_2420f884",
+        "filename": "rtc_base/logging.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-23T10:02:39Z",
+      "side": 1,
+      "message": "Yes, that\u0027s exactly the reason---any conversion at the call site will cost additional instructions there. We want to pass arguments in the form the caller already has available whenever possible, and do any conversion in the callee.",
+      "parentUuid": "e8515359_ea44ee21",
+      "revId": "31505ae36ecf15e00450050d4a474846828fd1c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "94713a9d_2e1f2501",
         "filename": "rtc_base/logging.h",
         "patchSetId": 17
@@ -33,6 +51,24 @@
       "revId": "31505ae36ecf15e00450050d4a474846828fd1c8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0719e5b_fcae2216",
+        "filename": "rtc_base/logging.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-23T10:02:39Z",
+      "side": 1,
+      "message": "Yes, that was my sense too, but I haven\u0027t actually tried. But templates make friend declarations complicated, and this function is hidden in a private namespace, which is why I felt the comment ought to suffice.",
+      "parentUuid": "94713a9d_2e1f2501",
+      "revId": "31505ae36ecf15e00450050d4a474846828fd1c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "8298a205_890a3e8e",
+        "filename": "rtc_base/logging.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-23T10:02:39Z",
+      "side": 1,
+      "message": "In theory, we should need only the overload that takes a const U\u0026 argument. But we call this with a bunch of declared-but-not-defined numerical constants, so if we do that we get linker errors. Rather than chase down all of those (which I\u0027d prefer to wait with until we can use inline variables in C++17), I worked around the problem.",
+      "parentUuid": "d350482a_79719e2a",
+      "revId": "31505ae36ecf15e00450050d4a474846828fd1c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "61c86e1f_9543215f",
         "filename": "rtc_base/logging.h",
         "patchSetId": 17
@@ -67,6 +121,24 @@
       "revId": "31505ae36ecf15e00450050d4a474846828fd1c8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80b21c20_f05b9984",
+        "filename": "rtc_base/logging.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-23T10:02:39Z",
+      "side": 1,
+      "message": "The base case Call() doesn\u0027t need to access any member variables, but the others do.",
+      "parentUuid": "61c86e1f_9543215f",
+      "revId": "31505ae36ecf15e00450050d4a474846828fd1c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

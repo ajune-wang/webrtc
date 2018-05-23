@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "73fa31cb_c805e2a9",
+        "filename": "tools_webrtc/gtest-parallel-wrapper.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-05-23T13:30:55Z",
+      "side": 1,
+      "message": "More generality \u003d\u003e more complexity \u003d\u003e harder to read. Therefore I argue we should just use what we need right now, and we can change to *args, **kwargs later if we need to use more parameters. It is fairly straightforward in this case though so I\u0027ll leave this one up to you.",
+      "parentUuid": "f0303c4d_60bd7492",
+      "range": {
+        "startLine": 92,
+        "startChar": 28,
+        "endLine": 92,
+        "endChar": 44
+      },
+      "revId": "2d268c5ea8782015e1663b3ad458b6e75bf7dba7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a41ddf35_de4702b3",
         "filename": "tools_webrtc/gtest-parallel-wrapper.py",
         "patchSetId": 6
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "I wouldn\u0027t call it a \"helper\" function if literally all it does is make your eyes jump to a different part of the code to understand it.\nAlso note that this part of the code basically hasn\u0027t changed in this CL, and I\u0027m not interested in arbitrary unrelated refactorings.",
       "parentUuid": "a41ddf35_de4702b3",
+      "range": {
+        "startLine": 160,
+        "startChar": 2,
+        "endLine": 168,
+        "endChar": 72
+      },
+      "revId": "2d268c5ea8782015e1663b3ad458b6e75bf7dba7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9979145b_66bdba04",
+        "filename": "tools_webrtc/gtest-parallel-wrapper.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-05-23T13:30:55Z",
+      "side": 1,
+      "message": "Yes, that\u0027s what abstractions do. This function is too important to get bogged down in details about how the shard flags are built, so it\u0027s a good idea to extract a helper function that abstracts out these details.\n\nAs for refactor now vs. refactor later: The function was pretty poorly formed before your changes, and that\u0027s not your fault. However, it arguably got worse with your original changes because it was made even longer and added more variables. I\u0027d argue we might as well whip the code into good shape now that we both have it in context, but we could wrap this review up now. Like you say elsewhere, the function gets slightly shorter in the CL\u0027s current form, so we\u0027re at least not making things worse. The code is a little shorter and cleaner, so that\u0027s a good step forward.",
+      "parentUuid": "8356ec20_cf384992",
       "range": {
         "startLine": 160,
         "startChar": 2,

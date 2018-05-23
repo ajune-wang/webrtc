@@ -175,6 +175,24 @@
       "revId": "31505ae36ecf15e00450050d4a474846828fd1c8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1d1f522b_e5772a40",
+        "filename": "rtc_base/logging.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-23T10:47:53Z",
+      "side": 1,
+      "message": "Yes, it calls it as if it were a method. Is that not allowed? Our compilers seem to handle it just fine, in any case: https://godbolt.org/g/f8RV81",
+      "parentUuid": "72b5f0ab_0233aeec",
+      "revId": "31505ae36ecf15e00450050d4a474846828fd1c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

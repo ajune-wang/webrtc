@@ -403,6 +403,30 @@
     },
     {
       "key": {
+        "uuid": "df323aff_15f7cf60",
+        "filename": "tools_webrtc/gtest-parallel-wrapper.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2018-05-23T11:57:21Z",
+      "side": 1,
+      "message": "FYI: the function went from 72 lines to 65 lines.",
+      "parentUuid": "56fe183b_bf8de00a",
+      "range": {
+        "startLine": 137,
+        "startChar": 1,
+        "endLine": 154,
+        "endChar": 62
+      },
+      "revId": "7bcb084b9f3bec1c07f4c8119530c4b6b76b6acf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ea4f3f5_c0d9c7b1",
         "filename": "tools_webrtc/gtest_parallel_wrapper_test.py",
         "patchSetId": 5

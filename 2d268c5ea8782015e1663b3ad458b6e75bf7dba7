@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f0303c4d_60bd7492",
+        "filename": "tools_webrtc/gtest-parallel-wrapper.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2018-05-23T11:57:21Z",
+      "side": 1,
+      "message": "This is explicitly a wrapper around `ArgumentParser.add_argument_group`. Why should we limit the wrapper to just the set of arguments that we happened to use in this particular case?",
+      "parentUuid": "587abf92_1486dba2",
+      "range": {
+        "startLine": 92,
+        "startChar": 28,
+        "endLine": 92,
+        "endChar": 44
+      },
+      "revId": "2d268c5ea8782015e1663b3ad458b6e75bf7dba7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a41ddf35_de4702b3",
         "filename": "tools_webrtc/gtest-parallel-wrapper.py",
         "patchSetId": 6
@@ -45,6 +69,30 @@
       "revId": "2d268c5ea8782015e1663b3ad458b6e75bf7dba7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8356ec20_cf384992",
+        "filename": "tools_webrtc/gtest-parallel-wrapper.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2018-05-23T11:57:21Z",
+      "side": 1,
+      "message": "I wouldn\u0027t call it a \"helper\" function if literally all it does is make your eyes jump to a different part of the code to understand it.\nAlso note that this part of the code basically hasn\u0027t changed in this CL, and I\u0027m not interested in arbitrary unrelated refactorings.",
+      "parentUuid": "a41ddf35_de4702b3",
+      "range": {
+        "startLine": 160,
+        "startChar": 2,
+        "endLine": 168,
+        "endChar": 72
+      },
+      "revId": "2d268c5ea8782015e1663b3ad458b6e75bf7dba7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -238,6 +238,30 @@
     },
     {
       "key": {
+        "uuid": "242a26f7_bb6420b4",
+        "filename": "tools_webrtc/gtest-parallel-wrapper.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2018-05-23T13:19:09Z",
+      "side": 1,
+      "message": "This is also an unrelated refactoring. The code is shorter than before, anyway (no makedirs at least)",
+      "parentUuid": "f80d134f_a12fb824",
+      "range": {
+        "startLine": 126,
+        "startChar": 2,
+        "endLine": 135,
+        "endChar": 77
+      },
+      "revId": "7bcb084b9f3bec1c07f4c8119530c4b6b76b6acf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7319ee2f_24494f0d",
         "filename": "tools_webrtc/gtest-parallel-wrapper.py",
         "patchSetId": 5
@@ -495,6 +519,30 @@
       "revId": "7bcb084b9f3bec1c07f4c8119530c4b6b76b6acf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3625360a_027ba7b5",
+        "filename": "tools_webrtc/gtest_parallel_wrapper_test.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2018-05-23T13:19:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ebe1df57_9f19f647",
+      "range": {
+        "startLine": 19,
+        "startChar": 4,
+        "endLine": 24,
+        "endChar": 67
+      },
+      "revId": "7bcb084b9f3bec1c07f4c8119530c4b6b76b6acf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

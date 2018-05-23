@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "19ddbd80_465f6094",
+        "filename": "common_audio/resampler/sinc_resampler.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-23T04:51:50Z",
+      "side": 1,
+      "message": "Note: The outermost parentheses aren\u0027t needed. No strong objection, but there\u0027s no technical need for them, and they don\u0027t appear to be making the code more readable either.",
+      "revId": "4d0bccb492f5fe5e11265a7ed126a3d73f41fddc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "96c93506_83c2ce48",
+        "filename": "rtc_base/checks.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-23T04:51:50Z",
+      "side": 1,
+      "message": "Suggestion: Make it RTC_NORETURN, since both the MSVC declspec and the GCC/clang attribute spell it as one single word.",
+      "revId": "4d0bccb492f5fe5e11265a7ed126a3d73f41fddc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

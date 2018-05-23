@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "309c452d_8f5d3bf0",
+        "filename": "modules/audio_processing/include/config.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-23T13:57:40Z",
+      "side": 1,
+      "message": "If you want, you can make all these pointers const. (Not pointer-to-const, but const pointers.)",
+      "revId": "33e58a48b1357f32008a871a2c3ca81001bbd6dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98dc115d_1399d7b4",
+        "filename": "rtc_base/helpers.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-23T13:57:40Z",
+      "side": 1,
+      "message": "Ew. Not your fault, but why doesn\u0027t this function just return a RandomGenerator\u0026 or RandomGenerator*?",
+      "revId": "33e58a48b1357f32008a871a2c3ca81001bbd6dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "161d1b14_6bb2fc67",
         "filename": "rtc_base/physicalsocketserver.cc",
         "patchSetId": 1
@@ -22,6 +56,30 @@
       "revId": "33e58a48b1357f32008a871a2c3ca81001bbd6dd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "256c5048_af680e2c",
+        "filename": "rtc_base/physicalsocketserver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 971,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-23T13:57:40Z",
+      "side": 1,
+      "message": "Yes, IIUC the destructor will be run at program termination if you do it that way, and we generally don\u0027t want that.",
+      "parentUuid": "161d1b14_6bb2fc67",
+      "range": {
+        "startLine": 970,
+        "startChar": 0,
+        "endLine": 971,
+        "endChar": 20
+      },
+      "revId": "33e58a48b1357f32008a871a2c3ca81001bbd6dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

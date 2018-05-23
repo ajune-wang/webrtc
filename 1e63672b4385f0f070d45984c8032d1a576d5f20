@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6878e4f9_3bf72289",
+        "filename": "modules/congestion_controller/rtp/send_time_history.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-05-23T11:42:05Z",
+      "side": 1,
+      "message": "I wonder if this should be UnwrapWithoutUpdate to avoid bugs after receiving feedback for a very old packet? Possibly as a separate CL though.",
+      "range": {
+        "startLine": 77,
+        "startChar": 25,
+        "endLine": 77,
+        "endChar": 31
+      },
+      "revId": "1e63672b4385f0f070d45984c8032d1a576d5f20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5b9eabe_49a27ca0",
+        "filename": "modules/congestion_controller/rtp/send_time_history.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-05-23T11:42:05Z",
+      "side": 1,
+      "message": "Rename to unwrapped_seq_number?",
+      "range": {
+        "startLine": 106,
+        "startChar": 57,
+        "endLine": 106,
+        "endChar": 61
+      },
+      "revId": "1e63672b4385f0f070d45984c8032d1a576d5f20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27aea407_8fc9e7ed",
+        "filename": "modules/congestion_controller/rtp/send_time_history.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-05-23T11:42:05Z",
+      "side": 1,
+      "message": "How about RemoteAndLocalNetworkId or similar to indicate which parameter is which?\n\nAlternatively, a struct would allow you to name the two members.",
+      "range": {
+        "startLine": 49,
+        "startChar": 8,
+        "endLine": 49,
+        "endChar": 21
+      },
+      "revId": "1e63672b4385f0f070d45984c8032d1a576d5f20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "8a2950de_a809e044",
+        "filename": "modules/congestion_controller/rtp/send_time_history.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-05-23T11:42:05Z",
+      "side": 1,
+      "message": "I still don\u0027t understand the logic around |remove|. It seems we call the function with |remove|\u003d\u003dfalse when we have not received the packet, but have received a later one. The packets are not removed because we expect that we still might get feedback for it.\n\nMaybe it would make sense to only call UpdateAckedSeqNum when |remove| is true?\n\nIf my understanding is correct, maybe also rename remove to acked?",
+      "parentUuid": "c3fde25a_47419629",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 15
+      },
+      "revId": "54d11f7c2ccdd4490a7f4e046c83af08f9df3cfc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "04dcbdbd_2705ccd7",
         "filename": "modules/congestion_controller/rtp/send_time_history.h",
         "patchSetId": 2

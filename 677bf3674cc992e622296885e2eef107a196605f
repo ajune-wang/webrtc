@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba88952c_2f8a1f7a",
+        "filename": "pc/peerconnection_rampup_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-05-23T11:25:54Z",
+      "side": 1,
+      "message": "rampup",
+      "range": {
+        "startLine": 40,
+        "startChar": 31,
+        "endLine": 40,
+        "endChar": 42
+      },
+      "revId": "677bf3674cc992e622296885e2eef107a196605f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02f99b05_4d404e45",
+        "filename": "pc/peerconnection_rampup_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-05-23T11:25:54Z",
+      "side": 1,
+      "message": "Would the test code be easier to follow if we did:\nFakePeriodicVideoSource::Config config;\n// Set max frame rate to 10fps to reduce the risk of test flakiness.\nconfig.frame_interval_ms \u003d 100;\nAddTrack(CreateLocalTrack(CreateFakeVideoSource(config)))\n\ninstead of\n\nAddLocalVideoTRackWithFakeSource()\n?",
+      "range": {
+        "startLine": 95,
+        "startChar": 3,
+        "endLine": 95,
+        "endChar": 0
+      },
+      "revId": "677bf3674cc992e622296885e2eef107a196605f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ccde440_709425d8",
+        "filename": "pc/peerconnection_rampup_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-05-23T11:25:54Z",
+      "side": 1,
+      "message": "Same here",
+      "range": {
+        "startLine": 106,
+        "startChar": 3,
+        "endLine": 106,
+        "endChar": 0
+      },
+      "revId": "677bf3674cc992e622296885e2eef107a196605f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

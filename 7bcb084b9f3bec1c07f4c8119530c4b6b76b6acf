@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "45d40d65_2ef670ab",
+        "filename": "tools_webrtc/gtest-parallel-wrapper.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2018-05-23T09:59:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d8f3469a_8d60da69",
+      "range": {
+        "startLine": 22,
+        "startChar": 14,
+        "endLine": 23,
+        "endChar": 33
+      },
+      "revId": "7bcb084b9f3bec1c07f4c8119530c4b6b76b6acf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e293a4f3_3aa30d17",
         "filename": "tools_webrtc/gtest-parallel-wrapper.py",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "7bcb084b9f3bec1c07f4c8119530c4b6b76b6acf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2feafce2_ea7d8231",
+        "filename": "tools_webrtc/gtest-parallel-wrapper.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2018-05-23T09:59:50Z",
+      "side": 1,
+      "message": "Added some comment but not sure what you\u0027re talking about.",
+      "parentUuid": "e293a4f3_3aa30d17",
+      "range": {
+        "startLine": 91,
+        "startChar": 2,
+        "endLine": 91,
+        "endChar": 42
+      },
+      "revId": "7bcb084b9f3bec1c07f4c8119530c4b6b76b6acf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "47b622ab_4acb3f91",
+        "filename": "tools_webrtc/gtest-parallel-wrapper.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2018-05-23T09:59:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3a3136b1_793bc0cc",
+      "range": {
+        "startLine": 124,
+        "startChar": 11,
+        "endLine": 124,
+        "endChar": 26
+      },
+      "revId": "7bcb084b9f3bec1c07f4c8119530c4b6b76b6acf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "774ab56d_9047bbc4",
         "filename": "tools_webrtc/gtest-parallel-wrapper.py",
         "patchSetId": 5
@@ -91,6 +163,30 @@
       "revId": "7bcb084b9f3bec1c07f4c8119530c4b6b76b6acf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b50e683_a8477a21",
+        "filename": "tools_webrtc/gtest-parallel-wrapper.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2018-05-23T09:59:50Z",
+      "side": 1,
+      "message": "It\u0027s not nice because test_artifacts_dir also needs to be exposed. Other than that, it\u0027s too short to be extracted.",
+      "parentUuid": "774ab56d_9047bbc4",
+      "range": {
+        "startLine": 126,
+        "startChar": 2,
+        "endLine": 135,
+        "endChar": 77
+      },
+      "revId": "7bcb084b9f3bec1c07f4c8119530c4b6b76b6acf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "fa9c9b39_52d9c55c",
+        "filename": "tools_webrtc/gtest-parallel-wrapper.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2018-05-23T09:59:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7319ee2f_24494f0d",
+      "range": {
+        "startLine": 137,
+        "startChar": 2,
+        "endLine": 137,
+        "endChar": 13
+      },
+      "revId": "7bcb084b9f3bec1c07f4c8119530c4b6b76b6acf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "606e8a05_5c33eb53",
         "filename": "tools_webrtc/gtest-parallel-wrapper.py",
         "patchSetId": 5
@@ -137,6 +257,30 @@
       "revId": "7bcb084b9f3bec1c07f4c8119530c4b6b76b6acf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1d9246c_77c239ee",
+        "filename": "tools_webrtc/gtest-parallel-wrapper.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2018-05-23T09:59:50Z",
+      "side": 1,
+      "message": "Extracted into a class.",
+      "parentUuid": "606e8a05_5c33eb53",
+      "range": {
+        "startLine": 137,
+        "startChar": 2,
+        "endLine": 143,
+        "endChar": 49
+      },
+      "revId": "7bcb084b9f3bec1c07f4c8119530c4b6b76b6acf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "66f63f64_d1ad4ee6",
+        "filename": "tools_webrtc/gtest-parallel-wrapper.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2018-05-23T09:59:50Z",
+      "side": 1,
+      "message": "Partially done, see other comments.",
+      "parentUuid": "bff00a31_9c6e4478",
+      "range": {
+        "startLine": 137,
+        "startChar": 1,
+        "endLine": 154,
+        "endChar": 62
+      },
+      "revId": "7bcb084b9f3bec1c07f4c8119530c4b6b76b6acf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ea4f3f5_c0d9c7b1",
         "filename": "tools_webrtc/gtest_parallel_wrapper_test.py",
         "patchSetId": 5
@@ -183,6 +351,30 @@
       "revId": "7bcb084b9f3bec1c07f4c8119530c4b6b76b6acf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88d69ab0_fcd0a9db",
+        "filename": "tools_webrtc/gtest_parallel_wrapper_test.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2018-05-23T09:59:50Z",
+      "side": 1,
+      "message": "I\u0027m verifying that the output of the function is exactly this, and nothing else. You could imagine this as:\n\nself.assertEqual(\n    result,\n    Args([\u0027--shard_index\u003d0\u0027, \u0027--shard_count\u003d1\u0027] + gtest_parallel_args, output_dir, test_artifacts_dir))\n\n...but clearer. So this may be a false application of the general rule that checking multiple things is bad.\n\n\nIt would make no sense to remove this and then re-add checks that there are no stray outputs for arbitrarily chosen cases.",
+      "parentUuid": "5ea4f3f5_c0d9c7b1",
+      "range": {
+        "startLine": 19,
+        "startChar": 4,
+        "endLine": 24,
+        "endChar": 67
+      },
+      "revId": "7bcb084b9f3bec1c07f4c8119530c4b6b76b6acf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

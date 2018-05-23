@@ -253,6 +253,8 @@ class BasicPortAllocatorSession : public PortAllocatorSession,
   Port* GetBestTurnPortForNetwork(const std::string& network_name) const;
   // Returns true if at least one TURN port is pruned.
   bool PruneTurnPorts(Port* newly_pairable_turn_port);
+  void MaybeSignalCandidateReady(const Candidate& c);
+  void MaybeSignalCandidatesReadyFromAnyAddressPorts();
 
   BasicPortAllocator* allocator_;
   rtc::Thread* network_thread_;
@@ -268,6 +270,7 @@ class BasicPortAllocatorSession : public PortAllocatorSession,
   // Whether to prune low-priority ports, taken from the port allocator.
   bool prune_turn_ports_;
   SessionState state_ = SessionState::CLEARED;
+  std::vector<Candidate> candidates_from_any_address_ports_;
 
   friend class AllocationSequence;
 };

@@ -659,20 +659,16 @@ std::vector<rtc::Network*> BasicPortAllocatorSession::GetNetworks() {
     set_flags(flags() | PORTALLOCATOR_DISABLE_ADAPTER_ENUMERATION);
   }
   // If the adapter enumeration is disabled, we'll just bind to any address
-  // instead of specific NIC. This is to ensure the same routing for http
-  // traffic by OS is also used here to avoid any local or public IP leakage
-  // during stun process.
-  if (flags() & PORTALLOCATOR_DISABLE_ADAPTER_ENUMERATION) {
-    network_manager->GetAnyAddressNetworks(&networks);
-  } else {
+  // instead of specific NIC when any address ports are enabled. This is to
+  // ensure the same routing for http traffic by OS is also used here to avoid
+  // any local or public IP leakage during stun process. Also, if network
+  // enumeration fails, using the ANY address as a fallback, we can at least try
+  // gathering candidates using the default route chosen by the OS.
+  if (!(flags() & PORTALLOCATOR_DISABLE_ADAPTER_ENUMERATION)) {
     network_manager->GetNetworks(&networks);
-    // If network enumeration fails, use the ANY address as a fallback, so we
-    // can at least try gathering candidates using the default route chosen by
-    // the OS. Or, if the PORTALLOCATOR_ENABLE_ANY_ADDRESS_PORTS flag is
-    // set, we'll use ANY address candidates either way.
-    if (networks.empty() || flags() & PORTALLOCATOR_ENABLE_ANY_ADDRESS_PORTS) {
-      network_manager->GetAnyAddressNetworks(&networks);
-    }
+  }
+  if (!(flags() & PORTALLOCATOR_DISABLE_ANY_ADDRESS_PORTS)) {
+    network_manager->GetAnyAddressNetworks(&networks);
   }
   // Filter out link-local networks if needed.
   if (flags() & PORTALLOCATOR_DISABLE_LINK_LOCAL_NETWORKS) {
@@ -692,11 +688,12 @@ std::vector<rtc::Network*> BasicPortAllocatorSession::GetNetworks() {
   if (flags() & PORTALLOCATOR_DISABLE_COSTLY_NETWORKS) {
     uint16_t lowest_cost = rtc::kNetworkCostMax;
     for (rtc::Network* network : networks) {
-      // Don't determine the lowest cost from a link-local network.
-      // On iOS, a device connected to the computer will get a link-local
-      // network for communicating with the computer, however this network can't
-      // be used to connect to a peer outside the network.
-      if (rtc::IPIsLinkLocal(network->GetBestIP())) {
+      // Don't determine the lowest cost from a link-local or any address
+      // network. On iOS, a device connected to the computer will get a
+      // link-local network for communicating with the computer, however this
+      // network can't be used to connect to a peer outside the network.
+      if (rtc::IPIsLinkLocal(network->GetBestIP()) ||
+          rtc::IPIsAny(network->GetBestIP())) {
         continue;
       }
       lowest_cost = std::min<uint16_t>(lowest_cost, network->GetCost());
@@ -921,11 +918,10 @@ void BasicPortAllocatorSession::OnCandidateReady(
   }
 
   if (data->ready() && CheckCandidateFilter(c)) {
-    std::vector<Candidate> candidates;
-    candidates.push_back(SanitizeRelatedAddress(c));
-    SignalCandidatesReady(this, candidates);
+    MaybeSignalCandidateReady(c);
   } else {
-    RTC_LOG(LS_INFO) << "Discarding candidate because it doesn't match filter.";
+    RTC_LOG(LS_INFO) << "Discarding candidate " << c.ToString()
+                     << " because it doesn't match filter.";
   }
 
   // If we have pruned any port, maybe need to signal port allocation done.
@@ -1063,14 +1059,17 @@ bool BasicPortAllocatorSession::CandidatePairable(const Candidate& c,
   // prevent even default IP addresses from leaking), we still don't want to
   // ping from them, even if device enumeration is disabled.  Thus, we check for
   // both device enumeration and host candidates being disabled.
-  bool network_enumeration_disabled = c.address().IsAnyIP();
+  bool candidate_has_any_address = c.address().IsAnyIP();
+  bool network_enumeration_disabled =
+      flags() & PORTALLOCATOR_DISABLE_ADAPTER_ENUMERATION;
   bool can_ping_from_candidate =
       (port->SharedSocket() || c.protocol() == TCP_PROTOCOL_NAME);
   bool host_candidates_disabled = !(candidate_filter_ & CF_HOST);
 
   return candidate_signalable ||
-         (network_enumeration_disabled && can_ping_from_candidate &&
-          !host_candidates_disabled);
+         ((network_enumeration_disabled ||
+           candidate_has_any_address) &&
+          can_ping_from_candidate && !host_candidates_disabled);
 }
 
 void BasicPortAllocatorSession::OnPortAllocationComplete(
@@ -1081,6 +1080,7 @@ void BasicPortAllocatorSession::OnPortAllocationComplete(
 
 void BasicPortAllocatorSession::MaybeSignalCandidatesAllocationDone() {
   if (CandidatesAllocationDone()) {
+    MaybeSignalCandidatesReadyFromAnyAddressPorts();
     if (pooled()) {
       RTC_LOG(LS_INFO) << "All candidates gathered for pooled session.";
     } else {
@@ -1088,6 +1088,43 @@ void BasicPortAllocatorSession::MaybeSignalCandidatesAllocationDone() {
                        << ":" << component() << ":" << generation();
     }
     SignalCandidatesAllocationDone(this);
+  }
+}
+
+void BasicPortAllocatorSession::MaybeSignalCandidateReady(const Candidate& c) {
+  if (c.network_name() == "any" &&
+      !(flags() & PORTALLOCATOR_DISABLE_ADAPTER_ENUMERATION)) {
+    candidates_from_any_address_ports_.push_back(SanitizeRelatedAddress(c));
+    RTC_LOG(INFO) << "Candidate not signaled yet because it is from the "
+                     "default route and the network enumeration is allowed: "
+                  << c.ToSensitiveString();
+    return;
+  }
+  std::vector<Candidate> candidates;
+  candidates.push_back(SanitizeRelatedAddress(c));
+  SignalCandidatesReady(this, candidates);
+}
+
+void BasicPortAllocatorSession::
+    MaybeSignalCandidatesReadyFromAnyAddressPorts() {
+  std::vector<PortData*> any_address_ports;
+  bool has_ready_ports_bound_to_enumerated_networks = false;
+  for (PortData& port_data : ports_) {
+    if (port_data.port()->Network()->name() == "any") {
+      any_address_ports.push_back(&port_data);
+    } else {
+      has_ready_ports_bound_to_enumerated_networks |= port_data.ready();
+    }
+  }
+  if ((flags() & PORTALLOCATOR_DISABLE_ANY_ADDRESS_PORTS) ||
+      (has_ready_ports_bound_to_enumerated_networks &&
+       !(flags() & PORTALLOCATOR_DISABLE_ADAPTER_ENUMERATION) &&
+       !(flags() & PORTALLOCATOR_DISABLE_PRUNE_ANY_ADDRESS_PORTS))) {
+    PrunePortsAndRemoveCandidates(any_address_ports);
+    return;
+  } else {
+    RTC_LOG(INFO) << "Signal candidates from the any address ports.";
+    SignalCandidatesReady(this, candidates_from_any_address_ports_);
   }
 }
 

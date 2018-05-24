@@ -12,12 +12,7 @@
 #define RTC_BASE_ATOMICOPS_H_
 
 #if defined(WEBRTC_WIN)
-// Include winsock2.h before including <windows.h> to maintain consistency with
-// win32.h.  We can't include win32.h directly here since it pulls in
-// headers such as basictypes.h which causes problems in Chromium where webrtc
-// exists as two separate projects, webrtc and libjingle.
-#include <winsock2.h>
-#include <windows.h>
+#include "rtc_base/win32.h"
 #endif  // defined(WEBRTC_WIN)
 
 namespace rtc {

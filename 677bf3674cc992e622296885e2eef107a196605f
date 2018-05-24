@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "9ac74a54_c75762db",
+        "filename": "pc/peerconnection_rampup_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-24T01:00:48Z",
+      "side": 1,
+      "message": "nit: Would be nice to have a comment somewhere that summarizes the goals of this test, explaining that it\u0027s a more end-to-end version of rampup_tests.cc that also tests different ICE paths, etc.",
+      "revId": "677bf3674cc992e622296885e2eef107a196605f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ba88952c_2f8a1f7a",
         "filename": "pc/peerconnection_rampup_tests.cc",
         "patchSetId": 1
@@ -46,6 +63,40 @@
       "revId": "677bf3674cc992e622296885e2eef107a196605f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "98f2c2e4_d880d0e9",
+        "filename": "pc/peerconnection_rampup_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-24T01:00:48Z",
+      "side": 1,
+      "message": "Can use FakePeriodicVideoTrackSource now to simplify this; see https://webrtc-review.googlesource.com/c/src/+/76961",
+      "revId": "677bf3674cc992e622296885e2eef107a196605f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2aa7bc6_f24a2d03",
+        "filename": "pc/peerconnection_rampup_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-24T01:00:48Z",
+      "side": 1,
+      "message": "If every test is just going to use a single network interface, we don\u0027t really need this method; could just call AddInterface when the FakeNetworkManager is constructed.",
+      "revId": "677bf3674cc992e622296885e2eef107a196605f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     },
     {
       "key": {
@@ -140,6 +191,125 @@
       "revId": "677bf3674cc992e622296885e2eef107a196605f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3bd58564_daef56b7",
+        "filename": "pc/peerconnection_rampup_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-24T01:00:48Z",
+      "side": 1,
+      "message": "Only adding the last candidate may not work for other test cases, where multiple candidates are gathered. I\u0027d suggest just adding all of them.",
+      "revId": "677bf3674cc992e622296885e2eef107a196605f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22c98e23_ded31ce5",
+        "filename": "pc/peerconnection_rampup_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-24T01:00:48Z",
+      "side": 1,
+      "message": "nit: Replace 3000 with \"kIceConnectTimeout\" (or even just kDefaultTimeout, I don\u0027t think it makes a difference here)",
+      "revId": "677bf3674cc992e622296885e2eef107a196605f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56871d39_2ece5760",
+        "filename": "pc/peerconnection_rampup_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-24T01:00:48Z",
+      "side": 1,
+      "message": "Is this just used for the debug output?",
+      "revId": "677bf3674cc992e622296885e2eef107a196605f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77b7c6eb_25ea5692",
+        "filename": "pc/peerconnection_rampup_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-24T01:00:48Z",
+      "side": 1,
+      "message": "Remember to remove before landing",
+      "revId": "677bf3674cc992e622296885e2eef107a196605f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03bfa119_ad35166e",
+        "filename": "pc/peerconnection_rampup_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-24T01:00:48Z",
+      "side": 1,
+      "message": "nit: Could just check test_state_ and do rtc::Thread::ProcessMessages(kPollIntervalMs), don\u0027t really need an event.",
+      "revId": "677bf3674cc992e622296885e2eef107a196605f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d43af663_43da8e57",
+        "filename": "pc/peerconnection_rampup_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-24T01:00:48Z",
+      "side": 1,
+      "message": "One difference between VirtualSocketServer and FakeNetworkPipe is that FakeNetworkPipe will continue to simulate delay as the simulated queue is drained, whereas VirtualSocketServer will just instantly stop simulating delay. Meaning you\u0027d suddenly start seeing old and new packets interleaved, I\u0027d assume.\n\nWe may want to fix this; I wouldn\u0027t be surprised if that\u0027s why you\u0027re only seeing a couple rendered frames during the second rampup. More generally, it would be ideal if VirtualSocketServer and FakeNetworkPipe shared as much logic as possible (maybe VirtualSocketServer could be written on top of SimulatedNetwork?), but I don\u0027t expect you to do that in this CL.",
+      "revId": "677bf3674cc992e622296885e2eef107a196605f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ffd783a_bebad228",
+        "filename": "pc/peerconnection_rampup_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-24T01:00:48Z",
+      "side": 1,
+      "message": "If the test is updated to potentially have multiple candidate pairs, you\u0027ll need to find the RTCTransportStats instead, then look up the RTCIceCandidatePairStats that matches selected_candidate_pair_id",
+      "revId": "677bf3674cc992e622296885e2eef107a196605f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

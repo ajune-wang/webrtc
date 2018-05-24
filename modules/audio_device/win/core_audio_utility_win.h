@@ -26,6 +26,8 @@
 #include "modules/audio_device/include/audio_device_defines.h"
 #include "rtc_base/logging.h"
 
+#pragma comment(lib, "Avrt.lib")
+
 namespace webrtc {
 namespace webrtc_win {
 
@@ -78,6 +80,10 @@ class ScopedMMCSSRegistration {
 class ScopedCOMInitializer {
  public:
   // Enum value provided to initialize the thread as an MTA instead of STA.
+  // There are two types of apartments, Single Threaded Apartments (STAs)
+  // and Multi Threaded Apartments (MTAs). Within a given process there can
+  // be multiple STA’s but there is only one MTA. STA is typically used by
+  // "GUI applications" and MTA by "worker threads" with no UI message loop.
   enum SelectMTA { kMTA };
 
   // Constructor for STA initialization.

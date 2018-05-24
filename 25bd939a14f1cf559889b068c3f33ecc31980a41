@@ -69,6 +69,30 @@
       "revId": "25bd939a14f1cf559889b068c3f33ecc31980a41",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a054770_90f7d710",
+        "filename": "modules/congestion_controller/bbr/loss_rate_filter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-05-24T14:36:05Z",
+      "side": 1,
+      "message": "Good point, seems like the input is sorted on ack time. Added check for negative diffs to handle this.",
+      "parentUuid": "e69fc506_24427217",
+      "range": {
+        "startLine": 23,
+        "startChar": 22,
+        "endLine": 23,
+        "endChar": 50
+      },
+      "revId": "25bd939a14f1cf559889b068c3f33ecc31980a41",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

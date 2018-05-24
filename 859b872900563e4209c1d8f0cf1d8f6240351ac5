@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "05a1d581_f6f30d0f",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 7252
+      },
+      "writtenOn": "2018-05-24T13:05:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d2a75936_54992423",
+      "revId": "859b872900563e4209c1d8f0cf1d8f6240351ac5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f05fe438_7957f9d7",
         "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
         "patchSetId": 6
@@ -51,6 +69,24 @@
       "revId": "859b872900563e4209c1d8f0cf1d8f6240351ac5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e921352e_94cbd1a7",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 815,
+      "author": {
+        "id": 7252
+      },
+      "writtenOn": "2018-05-24T13:05:47Z",
+      "side": 1,
+      "message": "I was looking at this code: https://webrtc.googlesource.com/src/+/master/modules/rtp_rtcp/source/rtp_sender.cc#489\n\nThat looks like it is taking a packet from history and sending it with send_over_rtx\u003dtrue and is_retransmit\u003dfalse.",
+      "parentUuid": "af7a80cd_79e92bf5",
+      "revId": "859b872900563e4209c1d8f0cf1d8f6240351ac5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

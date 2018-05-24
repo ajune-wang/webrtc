@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "45183be4_f4a15ef8",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 7252
+      },
+      "writtenOn": "2018-05-24T13:05:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "56e4c81a_66cdb6fe",
+      "range": {
+        "startLine": 597,
+        "startChar": 32,
+        "endLine": 597,
+        "endChar": 40
+      },
+      "revId": "0357bd2b5c941a741945cc59d01f6d7b4901e3dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "73341160_69248840",
         "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
         "patchSetId": 5
@@ -69,6 +93,30 @@
       "revId": "0357bd2b5c941a741945cc59d01f6d7b4901e3dd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b8e47d0_0bb53cc7",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 815,
+      "author": {
+        "id": 7252
+      },
+      "writtenOn": "2018-05-24T13:05:47Z",
+      "side": 1,
+      "message": "Replied elsewhere.",
+      "parentUuid": "73341160_69248840",
+      "range": {
+        "startLine": 815,
+        "startChar": 47,
+        "endLine": 815,
+        "endChar": 60
+      },
+      "revId": "0357bd2b5c941a741945cc59d01f6d7b4901e3dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

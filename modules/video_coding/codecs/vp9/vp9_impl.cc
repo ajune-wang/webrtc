@@ -21,8 +21,10 @@
 #include "vpx/vp8cx.h"
 #include "vpx/vp8dx.h"
 
+#include "api/video_codecs/sdp_video_format.h"
 #include "common_video/include/video_frame_buffer.h"
 #include "common_video/libyuv/include/webrtc_libyuv.h"
+#include "media/base/mediaconstants.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 #include "modules/video_coding/codecs/vp9/svc_rate_allocator.h"
 #include "rtc_base/checks.h"
@@ -53,8 +55,13 @@ int GetCpuSpeed(int width, int height) {
 #endif
 }
 
-bool VP9Encoder::IsSupported() {
-  return true;
+std::vector<SdpVideoFormat> SupportedVP9Codecs() {
+  return {SdpVideoFormat(
+              cricket::kVp9CodecName,
+              {{cricket::kVP9ProfileId, std::to_string(VP9::kProfile0)}}),
+          SdpVideoFormat(
+              cricket::kVp9CodecName,
+              {{cricket::kVP9ProfileId, std::to_string(VP9::kProfile2)}})};
 }
 
 std::unique_ptr<VP9Encoder> VP9Encoder::Create() {
@@ -301,15 +308,41 @@ int VP9EncoderImpl::InitEncode(const VideoCodec* inst,
       CalcBufferSize(VideoType::kI420, codec_.width, codec_.height);
   encoded_image_._buffer = new uint8_t[encoded_image_._size];
   encoded_image_._completeFrame = true;
-  // Creating a wrapper to the image - setting image data to nullptr. Actual
-  // pointer will be set in encode. Setting align to 1, as it is meaningless
-  // (actual memory is not allocated).
-  raw_ = vpx_img_wrap(nullptr, VPX_IMG_FMT_I420, codec_.width, codec_.height, 1,
-                      nullptr);
+
   // Populate encoder configuration with default values.
   if (vpx_codec_enc_config_default(vpx_codec_vp9_cx(), config_, 0)) {
     return WEBRTC_VIDEO_CODEC_ERROR;
   }
+
+  VP9::Profile profile = VP9::kProfile2;
+  RTC_DCHECK(profile);
+  vpx_img_fmt img_fmt = VPX_IMG_FMT_NONE;
+  switch (profile) {
+    case VP9::kProfile0:
+      img_fmt = VPX_IMG_FMT_I420;
+      config_->g_bit_depth = VPX_BITS_8;
+      config_->g_profile = 0;
+      config_->g_input_bit_depth = 8;
+      break;
+    case VP9::kProfile2:
+      img_fmt = VPX_IMG_FMT_I42016;
+      config_->g_bit_depth = VPX_BITS_10;
+      config_->g_profile = 2;
+      config_->g_input_bit_depth = 10;
+      break;
+    case VP9::kProfile1:
+    case VP9::kProfile3:
+      RTC_NOTREACHED();
+      return WEBRTC_VIDEO_CODEC_ERR_PARAMETER;
+  }
+
+  // Creating a wrapper to the image - setting image data to nullptr. Actual
+  // pointer will be set in encode. Setting align to 1, as it is meaningless
+  // (actual memory is not allocated).
+  raw_ =
+      vpx_img_wrap(nullptr, img_fmt, codec_.width, codec_.height, 1, nullptr);
+  raw_->bit_depth = img_fmt;
+
   config_->g_w = codec_.width;
   config_->g_h = codec_.height;
   config_->rc_target_bitrate = inst->startBitrate;  // in kbit/s
@@ -464,7 +497,11 @@ int VP9EncoderImpl::InitAndSetControlSettings(const VideoCodec* inst) {
     return WEBRTC_VIDEO_CODEC_ERR_PARAMETER;
   }
 
-  if (vpx_codec_enc_init(encoder_, vpx_codec_vp9_cx(), config_, 0)) {
+  RTC_CHECK(config_->g_bit_depth == VPX_BITS_10);
+  if (vpx_codec_enc_init(encoder_, vpx_codec_vp9_cx(), config_,
+                         config_->g_bit_depth == VPX_BITS_8
+                             ? 0
+                             : VPX_CODEC_USE_HIGHBITDEPTH)) {
     return WEBRTC_VIDEO_CODEC_UNINITIALIZED;
   }
   vpx_codec_control(encoder_, VP8E_SET_CPUUSED, cpu_speed_);
@@ -606,7 +643,6 @@ int VP9EncoderImpl::Encode(const VideoFrame& input_image,
   raw_->stride[VPX_PLANE_Y] = i420_buffer->StrideY();
   raw_->stride[VPX_PLANE_U] = i420_buffer->StrideU();
   raw_->stride[VPX_PLANE_V] = i420_buffer->StrideV();
-
   vpx_enc_frame_flags_t flags = 0;
   if (force_key_frame_) {
     flags = VPX_EFLAG_FORCE_KF;
@@ -854,10 +890,6 @@ const char* VP9EncoderImpl::ImplementationName() const {
   return "libvpx";
 }
 
-bool VP9Decoder::IsSupported() {
-  return true;
-}
-
 std::unique_ptr<VP9Decoder> VP9Decoder::Create() {
   return rtc::MakeUnique<VP9DecoderImpl>();
 }
@@ -967,6 +999,20 @@ int VP9DecoderImpl::ReturnFrame(const vpx_image_t* img,
     return WEBRTC_VIDEO_CODEC_NO_OUTPUT;
   }
 
+  PlanarYuvBuffer::BitDepthType bit_depth =
+      PlanarYuvBuffer::BitDepthType::kBitDepth8;
+  switch (img->bit_depth) {
+    case 8:
+      bit_depth = PlanarYuvBuffer::BitDepthType::kBitDepth8;
+      break;
+    case 10:
+      bit_depth = PlanarYuvBuffer::BitDepthType::kBitDepth10;
+      break;
+    default:
+      RTC_NOTREACHED();
+      return WEBRTC_VIDEO_CODEC_NO_OUTPUT;
+  }
+
   // This buffer contains all of |img|'s image data, a reference counted
   // Vp9FrameBuffer. (libvpx is done with the buffers after a few
   // vpx_codec_decode calls or vpx_codec_destroy).
@@ -976,7 +1022,7 @@ int VP9DecoderImpl::ReturnFrame(const vpx_image_t* img,
   // using a WrappedI420Buffer.
   rtc::scoped_refptr<WrappedI420Buffer> img_wrapped_buffer(
       new rtc::RefCountedObject<webrtc::WrappedI420Buffer>(
-          img->d_w, img->d_h, img->planes[VPX_PLANE_Y],
+          img->d_w, img->d_h, bit_depth, img->planes[VPX_PLANE_Y],
           img->stride[VPX_PLANE_Y], img->planes[VPX_PLANE_U],
           img->stride[VPX_PLANE_U], img->planes[VPX_PLANE_V],
           img->stride[VPX_PLANE_V],

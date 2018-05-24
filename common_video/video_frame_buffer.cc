@@ -141,16 +141,37 @@ WrappedI420Buffer::WrappedI420Buffer(int width,
                                      const uint8_t* v_plane,
                                      int v_stride,
                                      const rtc::Callback0<void>& no_longer_used)
+    : WrappedI420Buffer(width,
+                        height,
+                        PlanarYuvBuffer::BitDepthType::kBitDepth8,
+                        y_plane,
+                        y_stride,
+                        u_plane,
+                        u_stride,
+                        v_plane,
+                        v_stride,
+                        no_longer_used) {}
+
+WrappedI420Buffer::WrappedI420Buffer(int width,
+                                     int height,
+                                     PlanarYuvBuffer::BitDepthType bit_depth,
+                                     const uint8_t* y_plane,
+                                     int y_stride,
+                                     const uint8_t* u_plane,
+                                     int u_stride,
+                                     const uint8_t* v_plane,
+                                     int v_stride,
+                                     const rtc::Callback0<void>& no_longer_used)
     : width_(width),
       height_(height),
+      bit_depth_(bit_depth),
       y_plane_(y_plane),
       u_plane_(u_plane),
       v_plane_(v_plane),
       y_stride_(y_stride),
       u_stride_(u_stride),
       v_stride_(v_stride),
-      no_longer_used_cb_(no_longer_used) {
-}
+      no_longer_used_cb_(no_longer_used) {}
 
 WrappedI420Buffer::~WrappedI420Buffer() {
   no_longer_used_cb_();
@@ -162,6 +183,10 @@ int WrappedI420Buffer::width() const {
 
 int WrappedI420Buffer::height() const {
   return height_;
+}
+
+PlanarYuvBuffer::BitDepthType WrappedI420Buffer::BitDepth() const {
+  return bit_depth_;
 }
 
 const uint8_t* WrappedI420Buffer::DataY() const {

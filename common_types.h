@@ -360,6 +360,17 @@ enum class InterLayerPredMode {
              // within key picture.
 };
 
+namespace VP9 {
+
+enum Profile {
+  kProfile0 = 0,
+  kProfile1 = 1,
+  kProfile2 = 2,
+  kProfile3 = 3,
+};
+
+}  // namespace VP9
+
 // VP9 specific.
 struct VideoCodecVP9 {
   bool operator==(const VideoCodecVP9& other) const;

@@ -136,6 +136,14 @@ TEST_P(CodecEndToEndTest, SendsAndReceivesVP9VideoRotation90) {
   RunBaseTest(&test);
 }
 
+TEST_P(CodecEndToEndTest, SendsAndReceivesVP9Profile2) {
+  test::FunctionVideoEncoderFactory encoder_factory(
+      []() { return VP9Encoder::Create(); });
+  CodecObserver test(500, kVideoRotation_0, "VP9", &encoder_factory,
+                     VP9Decoder::Create());
+  RunBaseTest(&test);
+}
+
 // Mutiplex tests are using VP9 as the underlying implementation.
 TEST_P(CodecEndToEndTest, SendsAndReceivesMultiplex) {
   InternalEncoderFactory internal_encoder_factory;

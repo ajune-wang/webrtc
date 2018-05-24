@@ -18,9 +18,14 @@
 
 namespace webrtc {
 
+struct SdpVideoFormat;
+
+// Returns a vector with all supported internal VP9 profiles that we can
+// negotiate in SDP, in order of preference.
+std::vector<SdpVideoFormat> SupportedVP9Codecs();
+
 class VP9Encoder : public VideoEncoder {
  public:
-  static bool IsSupported();
   static std::unique_ptr<VP9Encoder> Create();
 
   ~VP9Encoder() override {}
@@ -28,7 +33,6 @@ class VP9Encoder : public VideoEncoder {
 
 class VP9Decoder : public VideoDecoder {
  public:
-  static bool IsSupported();
   static std::unique_ptr<VP9Decoder> Create();
 
   ~VP9Decoder() override {}

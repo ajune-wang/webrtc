@@ -14,21 +14,19 @@
 #endif  // !defined(RTC_DISABLE_VP9)
 
 #include "modules/video_coding/codecs/vp9/include/vp9.h"
+
+#include "api/video_codecs/sdp_video_format.h"
 #include "rtc_base/checks.h"
 
 namespace webrtc {
 
-bool VP9Encoder::IsSupported() {
-  return false;
+std::vector<SdpVideoFormat> SupportedVP9Codecs() {
+  return std::vector<SdpVideoFormat>();
 }
 
 std::unique_ptr<VP9Encoder> VP9Encoder::Create() {
   RTC_NOTREACHED();
   return nullptr;
-}
-
-bool VP9Decoder::IsSupported() {
-  return false;
 }
 
 std::unique_ptr<VP9Decoder> VP9Decoder::Create() {

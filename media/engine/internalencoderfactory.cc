@@ -24,9 +24,8 @@ std::vector<SdpVideoFormat> InternalEncoderFactory::GetSupportedFormats()
     const {
   std::vector<SdpVideoFormat> supported_codecs;
   supported_codecs.push_back(SdpVideoFormat(cricket::kVp8CodecName));
-  if (webrtc::VP9Encoder::IsSupported())
-    supported_codecs.push_back(SdpVideoFormat(cricket::kVp9CodecName));
-
+  for (const webrtc::SdpVideoFormat& format : webrtc::SupportedVP9Codecs())
+    supported_codecs.push_back(format);
   for (const webrtc::SdpVideoFormat& format : webrtc::SupportedH264Codecs())
     supported_codecs.push_back(format);
 

@@ -74,6 +74,18 @@ TEST_F(FullStackTest, ForemanCifPlr5Vp9) {
   RunTest(foreman_cif);
 }
 
+TEST_F(FullStackTest, GeneratorWithoutPacketLossVp9Profile2) {
+  // TODO(pbos): Decide on psnr/ssim thresholds for foreman_cif.
+  VideoQualityTest::Params foreman_cif;
+  foreman_cif.call.send_side_bwe = true;
+  foreman_cif.video[0] = {true,   352,    288,   30,    700000,
+                          700000, 700000, false, "VP9", 1,
+                          0,      0,      false, false, "GeneratorI420P10"};
+  foreman_cif.analyzer = {"foreman_cif_net_delay_0_0_plr_0_VP9", 0.0, 0.0,
+                          kFullStackTestDurationSecs};
+  RunTest(foreman_cif);
+}
+
 TEST_F(FullStackTest, ForemanCifWithoutPacketLossMultiplexI420Frame) {
   VideoQualityTest::Params foreman_cif;
   foreman_cif.call.send_side_bwe = true;

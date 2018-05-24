@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "367f7b11_c6e90fa9",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-05-24T10:33:57Z",
+      "side": 1,
+      "message": "This seems like an awfully long filter time to me. Intuitively, we should be able to react almost immediately if we start getting loss. Have you experimented with different constants on traces?",
+      "range": {
+        "startLine": 75,
+        "startChar": 57,
+        "endLine": 75,
+        "endChar": 59
+      },
+      "revId": "25bd939a14f1cf559889b068c3f33ecc31980a41",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e69fc506_24427217",
+        "filename": "modules/congestion_controller/bbr/loss_rate_filter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-05-24T10:33:57Z",
+      "side": 1,
+      "message": "Will send times be out of order if packets are reordered on the network?",
+      "range": {
+        "startLine": 23,
+        "startChar": 22,
+        "endLine": 23,
+        "endChar": 50
+      },
+      "revId": "25bd939a14f1cf559889b068c3f33ecc31980a41",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -81,6 +81,16 @@ class VideoFrameBuffer : public rtc::RefCountInterface {
 // This interface represents Type::kI420 and Type::kI444.
 class PlanarYuvBuffer : public VideoFrameBuffer {
  public:
+  // The number of bits used to indicate the color of a single pixel.
+  enum class BitDepthType {
+    kBitDepth8 = 8,
+    kBitDepth10 = 10,
+    kBitDepth12 = 12,
+  };
+
+  // Input is 8-bit by default.
+  virtual BitDepthType BitDepth() const;
+
   virtual int ChromaWidth() const = 0;
   virtual int ChromaHeight() const = 0;
 

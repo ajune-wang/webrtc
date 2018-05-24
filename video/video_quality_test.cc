@@ -1807,6 +1807,12 @@ void VideoQualityTest::CreateCapturers() {
             static_cast<int>(params_.video[video_idx].height),
             test::FrameGenerator::OutputType::I420A, rtc::nullopt,
             params_.video[video_idx].fps, clock_));
+      } else if (params_.video[video_idx].clip_name == "GeneratorI420P10") {
+        video_capturers_[video_idx].reset(test::FrameGeneratorCapturer::Create(
+            static_cast<int>(params_.video[video_idx].width),
+            static_cast<int>(params_.video[video_idx].height),
+            test::FrameGenerator::OutputType::I420P10, rtc::nullopt,
+            params_.video[video_idx].fps, clock_));
       } else if (params_.video[video_idx].clip_name.empty()) {
         video_capturers_[video_idx].reset(test::VcmCapturer::Create(
             params_.video[video_idx].width, params_.video[video_idx].height,

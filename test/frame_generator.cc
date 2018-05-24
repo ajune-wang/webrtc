@@ -85,6 +85,17 @@ class SquareGenerator : public FrameGenerator {
             rtc::Bind(&KeepBufferRefs, yuv_buffer, axx_buffer));
         break;
       }
+      case OutputType::I420P10: {
+        rtc::scoped_refptr<I420Buffer> yuv_buffer =
+            CreateI420Buffer(width_, height_);
+        buffer = new rtc::RefCountedObject<webrtc::WrappedI420Buffer>(
+            yuv_buffer->width(), yuv_buffer->height(),
+            PlanarYuvBuffer::BitDepthType::kBitDepth10, yuv_buffer->DataY(),
+            yuv_buffer->StrideY(), yuv_buffer->DataU(), yuv_buffer->StrideU(),
+            yuv_buffer->DataV(), yuv_buffer->StrideV(),
+            rtc::Bind(&KeepBufferRefs, yuv_buffer, nullptr));
+        break;
+      }
     }
 
     for (const auto& square : squares_)

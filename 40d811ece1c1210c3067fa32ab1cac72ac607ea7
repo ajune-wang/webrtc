@@ -22,6 +22,30 @@
       "revId": "40d811ece1c1210c3067fa32ab1cac72ac607ea7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "922a70a6_37631cb2",
+        "filename": "buildbucket.config",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-05-24T12:32:37Z",
+      "side": 1,
+      "message": "Ack. Yeah, I saw that email.",
+      "parentUuid": "9dc725fe_65a756b2",
+      "range": {
+        "startLine": 66,
+        "startChar": 2,
+        "endLine": 66,
+        "endChar": 67
+      },
+      "revId": "40d811ece1c1210c3067fa32ab1cac72ac607ea7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

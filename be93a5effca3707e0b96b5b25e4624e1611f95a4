@@ -1,0 +1,327 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c849663d_b07296bc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-24T17:01:17Z",
+      "side": 1,
+      "message": "Should include a bug link, and a bit more explanation about why this is valuable/when it\u0027s needed",
+      "revId": "be93a5effca3707e0b96b5b25e4624e1611f95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba55c5a6_b24c5fcf",
+        "filename": "p2p/base/p2ptransportchannel_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1692,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-24T17:01:17Z",
+      "side": 1,
+      "message": "Would be ideal if this flag wasn\u0027t necessary. I assume it\u0027s needed because the \"allow_listen\u003dfalse\" TCP ports will always be \"ready\" (see comment at bottom of basicportallocator.cc)",
+      "revId": "be93a5effca3707e0b96b5b25e4624e1611f95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c109178f_69e7fbbf",
+        "filename": "p2p/base/p2ptransportchannel_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 4395,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-24T17:01:17Z",
+      "side": 1,
+      "message": "Why is this flag needed here?",
+      "revId": "be93a5effca3707e0b96b5b25e4624e1611f95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79647205_2a6afa01",
+        "filename": "p2p/base/portallocator.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-24T17:01:17Z",
+      "side": 1,
+      "message": "When would these flags be used? Is the idea that we\u0027d set \"PORTALLOCATOR_DISABLE_ANY_ADDRESS_PORTS\" by default until we have some confidence that the new logic works well, without introducing regressions? What about PORTALLOCATOR_DISABLE_PRUNE_ANY_ADDRESS_PORTS? Ideally the new logic would be smart enough that we wouldn\u0027t need this.",
+      "revId": "be93a5effca3707e0b96b5b25e4624e1611f95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1475b729_b60eb822",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 666,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-24T17:01:17Z",
+      "side": 1,
+      "message": "nit: This merged comment is somewhat hard to understand; would suggest something like:\n\n  // If adapter enumeration is disabled, we\u0027ll just bind to any address\n  // instead of a specific NIC. This is to ensure that WebRTC traffic is routed\n  // by the OS in the same way that HTTP traffic would be, and no additional\n  // local or public IPs are leaked during ICE processing.\n  if ((flags() \u0026 PORTALLOCATOR_DISABLE_ADAPTER_ENUMERATION)) {\n    if (flags() \u0026 PORTALLOCATOR_DISABLE_ANY_ADDRESS_PORTS) {\n      RTC_LOG(LS_ERROR) \u003c\u003c \"Adapter enumeration and \\\"any address\\\" ports are both disabled, so not gathering any ICE candidates.\";\n    } else {\n      network_manager-\u003eGetAnyAddressNetworks(\u0026networks);\n    }\n  } else {\n    network_manager-\u003eGetNetworks(\u0026networks);\n    // Unless explicitly disabled, bind to the \"any\" address as a fallback, since\n    // this may potentially reveal network interfaces that weren\u0027t otherwise\n    // accessible. Note that the candidates gathered by binding to the \"any\"\n    // address won\u0027t be surfaced to the application if they\u0027re determined to be\n    // redundant (if they have the same address as a candidate gathered by\n    // binding to an interface explicitly).\n    if (!(flags() \u0026 PORTALLOCATOR_DISABLE_ANY_ADDRESS_PORTS)) {\n      network_manager-\u003eGetAnyAddressNetworks(\u0026networks);\n    }\n  }",
+      "revId": "be93a5effca3707e0b96b5b25e4624e1611f95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "adc6e800_d82538bf",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 670,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-24T17:01:17Z",
+      "side": 1,
+      "message": "So if enumeration is disabled, *and* PORTALLOCATOR_DISABLE_ANY_ADDRESS_PORTS is set, you get no candidates? Probably want to log an error in that case.",
+      "revId": "be93a5effca3707e0b96b5b25e4624e1611f95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ac06e19_3fc7aa50",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 915,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-24T17:01:17Z",
+      "side": 1,
+      "message": "SignalPortReady should be delayed as well; otherwise connectivity checks will be sent from these possibly-redundant ports, likely also resulting in \"prflx\" candidate pairs being created on the other side if not pruned in time.",
+      "revId": "be93a5effca3707e0b96b5b25e4624e1611f95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04371e03_05b5b3d6",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 923,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-24T17:01:17Z",
+      "side": 1,
+      "message": "Don\u0027t need to log c.ToString since it was already logged at the top of this method.",
+      "revId": "be93a5effca3707e0b96b5b25e4624e1611f95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44063440_a617cd66",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1071,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-24T17:01:17Z",
+      "side": 1,
+      "message": "What\u0027s the purpose of the extra boolean condition (flags() \u0026 PORTALLOCATOR_DISABLE_ADAPTER_ENUMERATION)? I don\u0027t see any situation where it would make a difference.",
+      "revId": "be93a5effca3707e0b96b5b25e4624e1611f95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ee5f9e4_79fcbbfb",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1083,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-24T17:01:17Z",
+      "side": 1,
+      "message": "Waiting for \"CandidatesAllocationDone\" could be problematic; if a STUN request times out this could be delayed for a long time.\n\nWould it be possible to only wait for all *host* candidates to be gathered?\n\nOh, but then what about when you use the \"relay only\" policy and don\u0027t have any hosts candidates? Nothing ends up being simple...\n\nMaybe just add a TODO/bug for this problem. What you have here will at least help in the majority of cases.",
+      "revId": "be93a5effca3707e0b96b5b25e4624e1611f95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b485e928_0fd4ad7c",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1094,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-24T17:01:17Z",
+      "side": 1,
+      "message": "nit: Should have a comment explaining this logic somewhere, mentioning that these candidates will be surfaced at the end of candidate gathering if they turn out to not be redundant.",
+      "revId": "be93a5effca3707e0b96b5b25e4624e1611f95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1bcb9734_93d64731",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1095,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-24T17:01:17Z",
+      "side": 1,
+      "message": "nit: Checking the network name of the candidate seems potentially fragile, at least compared to checking IPIsAny(port-\u003eNetwork()-\u003eGetBestIP())",
+      "revId": "be93a5effca3707e0b96b5b25e4624e1611f95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "afb30222_2ddd06e0",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1116,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-24T17:01:17Z",
+      "side": 1,
+      "message": "Just that a port is \"ready\" may not mean much; remember that a TcpPort with allow_listen set to false (what chromium does by default) will always be ready, even without creating a socket.\n\nAlso, even if one port is bound to an enumerated network, that doesn\u0027t necessarily mean you don\u0027t need the INADDR_ANY fallback; the enumerated network may not be able to reach the other peer. Such as in the case that brought up this issue, with the VPN that disables \"bypass\" but only handles a small IP range, described by bemasc@. If I understand correctly, in that case, it was only possible to bind to the VPN interface, but it wasn\u0027t actually usable unless the other peer was also on the VPN. The only way to use the physical interface and reach the peer was to bind to INADDR_ANY.\n\nSo... what about doing something slightly more involved, like checking for duplicate IP addresses?",
+      "revId": "be93a5effca3707e0b96b5b25e4624e1611f95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3ebf7af_f3d98d58",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1119,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-24T17:01:17Z",
+      "side": 1,
+      "message": "If flags() \u0026 PORTALLOCATOR_DISABLE_ANY_ADDRESS_PORTS is true, any_address_ports should be empty; don\u0027t need to check it here. Or if we do, it would be more appropriate as a DCHECK",
+      "revId": "be93a5effca3707e0b96b5b25e4624e1611f95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "694b3620_b518c731",
+        "filename": "p2p/client/basicportallocator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-24T17:01:17Z",
+      "side": 1,
+      "message": "This only handles IPv4; \"IPIsAny(network-\u003eGetBestIP())\" would be better.",
+      "revId": "be93a5effca3707e0b96b5b25e4624e1611f95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7861cc1b_8884f391",
+        "filename": "p2p/client/basicportallocator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 453,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-24T17:01:17Z",
+      "side": 1,
+      "message": "Why did this need to change?",
+      "revId": "be93a5effca3707e0b96b5b25e4624e1611f95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c49cf5d5_5224755c",
+        "filename": "p2p/client/basicportallocator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 728,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-24T17:01:17Z",
+      "side": 1,
+      "message": "I don\u0027t think this is really relevant, since the tests below don\u0027t check for those candidates.",
+      "revId": "be93a5effca3707e0b96b5b25e4624e1611f95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac40e6ab_9aaf7bf4",
+        "filename": "p2p/client/basicportallocator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1165,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-24T17:01:17Z",
+      "side": 1,
+      "message": "If you agree with my comment about delaying SignalPortReady, then none of these tests should have to change (aside from adding \"fss_-\u003eAddRule(false, rtc::FP_UDP, rtc::FD_ANY, kAnyAddr);\")",
+      "revId": "be93a5effca3707e0b96b5b25e4624e1611f95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "960b8151_e51d77df",
+        "filename": "p2p/client/basicportallocator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2023,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-24T17:01:17Z",
+      "side": 1,
+      "message": "I\u0027d recommend another test specifically for the new logic, which does something like:\n\n  // Simulate an endpoint whose network enumeration only reveals one address (kClientAddr),\n  // but which observes a different address when binding to the \"any\" address.\n  // BasicPortAllocator should detect this and surface candidates for each address.\n  AddInterface(kClientAddr);\n  vss_-\u003eSetAlternativeLocalAddress(kAnyAddr, kClientAddr2);\n\nAnd something similar at the P2PTransportChannel level, which does the same thing but also does fss_-\u003eAddRule(false, rtc::FP_UDP, rtc::FD_ANY, kClientAddr), and ensures you actually get a connected candidate pair with kClientAddr2. Simulating the VPN scenario described in the other comment, where you can only bind to one interface but it\u0027s not able to reach the other peer.",
+      "revId": "be93a5effca3707e0b96b5b25e4624e1611f95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

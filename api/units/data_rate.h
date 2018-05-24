@@ -45,20 +45,47 @@ class DataRate {
   }
   static DataRate bits_per_second(int64_t bits_per_sec) {
     RTC_DCHECK_GE(bits_per_sec, 0);
+    RTC_DCHECK_LT(bits_per_sec, data_rate_impl::kPlusInfinityVal);
     return DataRate(bits_per_sec);
   }
-  static DataRate bps(int64_t bits_per_sec) {
+
+  template <
+      typename T,
+      typename std::enable_if<std::is_integral<T>::value>::type* = nullptr>
+  static DataRate bps(T bits_per_sec) {
     return DataRate::bits_per_second(bits_per_sec);
   }
+
+  template <typename T,
+            typename std::enable_if<std::is_floating_point<T>::value>::type* =
+                nullptr>
+  static DataRate bps(T bits_per_sec) {
+    if (bits_per_sec == std::numeric_limits<double>::infinity()) {
+      return Infinity();
+    } else {
+      RTC_DCHECK(!std::isnan(bits_per_sec));
+      RTC_DCHECK_GE(bits_per_sec, 0);
+      RTC_DCHECK_LT(bits_per_sec, data_rate_impl::kPlusInfinityVal);
+      return DataRate(bits_per_sec);
+    }
+  }
+
   static DataRate kbps(int64_t kilobits_per_sec) {
     return DataRate::bits_per_second(kilobits_per_sec * 1000);
   }
+
   int64_t bits_per_second() const {
     RTC_DCHECK(IsFinite());
     return bits_per_sec_;
   }
-  int64_t bps() const { return bits_per_second(); }
+
+  template <typename T = int64_t>
+  T bps() const {
+    return bits_per_second();
+  }
+
   int64_t kbps() const { return (bps() + 500) / 1000; }
+
   bool IsZero() const { return bits_per_sec_ == 0; }
   bool IsInfinite() const {
     return bits_per_sec_ == data_rate_impl::kPlusInfinityVal;
@@ -90,6 +117,15 @@ class DataRate {
   explicit DataRate(int64_t bits_per_second) : bits_per_sec_(bits_per_second) {}
   int64_t bits_per_sec_;
 };
+
+template <>
+inline double DataRate::bps<double>() const {
+  if (IsInfinite()) {
+    return std::numeric_limits<double>::infinity();
+  } else {
+    return static_cast<double>(bps());
+  }
+}
 
 inline DataRate operator*(const DataRate& rate, const double& scalar) {
   return DataRate::bits_per_second(std::round(rate.bits_per_second() * scalar));

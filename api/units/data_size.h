@@ -35,11 +35,34 @@ class DataSize {
     RTC_DCHECK_GE(bytes, 0);
     return DataSize(bytes);
   }
-  int64_t bytes() const {
+  template <
+      typename T,
+      typename std::enable_if<std::is_integral<T>::value>::type* = nullptr>
+  static DataSize bytes(T bytes) {
+    RTC_DCHECK_GE(bytes, 0);
+    return DataSize(bytes);
+  }
+  template <typename T,
+            typename std::enable_if<std::is_floating_point<T>::value>::type* =
+                nullptr>
+  static DataSize bytes(T bytes) {
+    if (bytes == std::numeric_limits<double>::infinity()) {
+      return Infinity();
+    } else {
+      RTC_DCHECK(!std::isnan(bytes));
+      RTC_DCHECK_GE(bytes, 0);
+      RTC_DCHECK_LT(bytes, data_size_impl::kPlusInfinityVal);
+      return DataSize(bytes);
+    }
+  }
+
+  template <typename T = int64_t>
+  T bytes() const {
     RTC_DCHECK(IsFinite());
     return bytes_;
   }
   int64_t kilobytes() const { return (bytes() + 500) / 1000; }
+
   bool IsZero() const { return bytes_ == 0; }
   bool IsInfinite() const { return bytes_ == data_size_impl::kPlusInfinityVal; }
   bool IsFinite() const { return !IsInfinite(); }
@@ -76,6 +99,16 @@ class DataSize {
   explicit DataSize(int64_t bytes) : bytes_(bytes) {}
   int64_t bytes_;
 };
+
+template <>
+inline double DataSize::bytes<double>() const {
+  if (IsInfinite()) {
+    return std::numeric_limits<double>::infinity();
+  } else {
+    return static_cast<double>(bytes());
+  }
+}
+
 inline DataSize operator*(const DataSize& size, const double& scalar) {
   return DataSize::bytes(std::round(size.bytes() * scalar));
 }

@@ -34,22 +34,50 @@ class Timestamp {
   static Timestamp Infinity() {
     return Timestamp(timestamp_impl::kPlusInfinityVal);
   }
+
+  template <
+      typename T,
+      typename std::enable_if<std::is_integral<T>::value>::type* = nullptr>
+  static Timestamp seconds(T seconds) {
+    RTC_DCHECK_GE(seconds, 0);
+    RTC_DCHECK_LT(seconds * 1e6, timestamp_impl::kPlusInfinityVal);
+    return Timestamp::us(seconds * 1000000);
+  }
+  template <typename T,
+            typename std::enable_if<std::is_floating_point<T>::value>::type* =
+                nullptr>
+  static Timestamp seconds(T seconds) {
+    if (seconds == std::numeric_limits<double>::infinity()) {
+      return Infinity();
+    } else {
+      RTC_DCHECK(!std::isnan(seconds));
+      RTC_DCHECK_GE(seconds, 0);
+      RTC_DCHECK_LT(seconds * 1e6, timestamp_impl::kPlusInfinityVal);
+      return Timestamp::us(static_cast<int64_t>(seconds * 1e6));
+    }
+  }
+
+  template <typename T = int64_t>
   static Timestamp seconds(int64_t seconds) {
     return Timestamp::us(seconds * 1000000);
   }
+
   static Timestamp ms(int64_t millis) { return Timestamp::us(millis * 1000); }
   static Timestamp us(int64_t micros) {
     RTC_DCHECK_GE(micros, 0);
     return Timestamp(micros);
   }
-  int64_t seconds() const { return (us() + 500000) / 1000000; }
+
+  template <typename T = int64_t>
+  T seconds() const {
+    return (us() + 500000) / 1000000;
+  }
+
   int64_t ms() const { return (us() + 500) / 1000; }
   int64_t us() const {
     RTC_DCHECK(IsFinite());
     return microseconds_;
   }
-
-  double SecondsAsDouble() const;
 
   bool IsInfinite() const {
     return microseconds_ == timestamp_impl::kPlusInfinityVal;
@@ -87,6 +115,15 @@ class Timestamp {
   explicit Timestamp(int64_t us) : microseconds_(us) {}
   int64_t microseconds_;
 };
+
+template <>
+inline double Timestamp::seconds<double>() const {
+  if (IsInfinite()) {
+    return std::numeric_limits<double>::infinity();
+  } else {
+    return us() * 1e-6;
+  }
+}
 
 std::string ToString(const Timestamp& value);
 

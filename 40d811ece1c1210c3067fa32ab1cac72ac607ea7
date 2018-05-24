@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9dc725fe_65a756b2",
+        "filename": "buildbucket.config",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2018-05-24T11:57:53Z",
+      "side": 1,
+      "message": "Copied from\nhttps://chromium.googlesource.com/chromium/src/+/refs/meta/config/buildbucket.config",
+      "range": {
+        "startLine": 66,
+        "startChar": 2,
+        "endLine": 66,
+        "endChar": 67
+      },
+      "revId": "40d811ece1c1210c3067fa32ab1cac72ac607ea7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

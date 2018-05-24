@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2f60f999_dd7f8fa9",
+        "filename": "api/units/data_rate.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-24T13:05:19Z",
+      "side": 1,
+      "message": "Why not call this one `bps` too?",
+      "range": {
+        "startLine": 53,
+        "startChar": 18,
+        "endLine": 53,
+        "endChar": 33
+      },
+      "revId": "40d1dd36646bf7a3a5bfccf9be13b2fb4f33b232",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78b67f7a_7be01925",
+        "filename": "api/units/data_rate.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-24T13:05:19Z",
+      "side": 1,
+      "message": "What happens/ought to happen if the double is too large to fit in an int64_t?",
+      "revId": "40d1dd36646bf7a3a5bfccf9be13b2fb4f33b232",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bce51341_22c8c023",
+        "filename": "api/units/data_rate.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-24T13:05:19Z",
+      "side": 1,
+      "message": "It would be nice to turn `bps` into a template, to get rid of this ugly name. So that it could be called like this:\n\n  foo.bps\u003cint64_t\u003e()  // returns int64_t\n  foo.bps()           // also returns int64_t\n  foo.bps\u003cdouble\u003e()   // returns double",
+      "revId": "40d1dd36646bf7a3a5bfccf9be13b2fb4f33b232",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

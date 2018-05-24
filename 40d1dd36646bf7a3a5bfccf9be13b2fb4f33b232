@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1fe41061_4aa8b206",
+        "filename": "api/units/data_rate.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-05-24T14:28:51Z",
+      "side": 1,
+      "message": "Would cause ambiguity unless using template tricks, added template tricks as it seems nicer than having different names.",
+      "parentUuid": "2f60f999_dd7f8fa9",
+      "range": {
+        "startLine": 53,
+        "startChar": 18,
+        "endLine": 53,
+        "endChar": 33
+      },
+      "revId": "40d1dd36646bf7a3a5bfccf9be13b2fb4f33b232",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "78b67f7a_7be01925",
         "filename": "api/units/data_rate.h",
         "patchSetId": 2
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "f754b3fe_5fb8fd43",
+        "filename": "api/units/data_rate.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-05-24T14:28:51Z",
+      "side": 1,
+      "message": "Added checks for large values.",
+      "parentUuid": "78b67f7a_7be01925",
+      "revId": "40d1dd36646bf7a3a5bfccf9be13b2fb4f33b232",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bce51341_22c8c023",
         "filename": "api/units/data_rate.h",
         "patchSetId": 2
@@ -56,6 +98,24 @@
       "revId": "40d1dd36646bf7a3a5bfccf9be13b2fb4f33b232",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b531ee0c_8bc10f53",
+        "filename": "api/units/data_rate.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-05-24T14:28:51Z",
+      "side": 1,
+      "message": "Good idea. Fixed!",
+      "parentUuid": "bce51341_22c8c023",
+      "revId": "40d1dd36646bf7a3a5bfccf9be13b2fb4f33b232",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

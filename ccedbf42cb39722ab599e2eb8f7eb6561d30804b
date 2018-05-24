@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "425156a4_1c557664",
+        "filename": "sdk/objc/Framework/Classes/Metal/RTCMTLRenderer.mm",
+        "patchSetId": 6
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-05-24T07:00:36Z",
+      "side": 1,
+      "message": "Can you remove these braces as well? They make the indentation a little off IMO, and we generally don\u0027t use them.",
+      "range": {
+        "startLine": 51,
+        "startChar": 29,
+        "endLine": 51,
+        "endChar": 30
+      },
+      "revId": "ccedbf42cb39722ab599e2eb8f7eb6561d30804b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "edfc5a79_deb369d1",
         "filename": "sdk/objc/Framework/Classes/Metal/RTCMTLVideoView.m",
         "patchSetId": 6

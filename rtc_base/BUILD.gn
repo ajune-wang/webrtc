@@ -385,6 +385,7 @@ rtc_source_set("rtc_base_approved_generic") {
     ":timeutils",
     ":type_traits",
     "../:typedefs",
+    "system:arch",
   ]
 
   sources = [
@@ -1103,7 +1104,6 @@ if (rtc_include_tests) {
     sources = [
       "atomicops_unittest.cc",
       "base64_unittest.cc",
-      "basictypes_unittest.cc",
       "bind_unittest.cc",
       "bitbuffer_unittest.cc",
       "bitrateallocationstrategy_unittest.cc",

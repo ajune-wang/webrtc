@@ -50,7 +50,6 @@ ComPtr<IMMDeviceEnumerator> CreateDeviceEnumeratorInternal(
   _com_error error = ::CoCreateInstance(__uuidof(MMDeviceEnumerator), nullptr,
                                         CLSCTX_INPROC_SERVER,
                                         IID_PPV_ARGS(&device_enumerator));
-
   if (error.Error() != S_OK) {
     RTC_LOG(LS_ERROR) << "CoCreateInstance failed: " << ErrorToString(error);
   }
@@ -346,6 +345,7 @@ HRESULT GetPreferredAudioParametersInternal(IAudioClient* client,
 namespace core_audio_utility {
 
 bool IsSupported() {
+  RTC_DLOG(INFO) << "IsSupported";
   static bool g_is_supported = IsSupportedInternal();
   return g_is_supported;
 }

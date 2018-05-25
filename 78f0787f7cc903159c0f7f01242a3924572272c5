@@ -16,6 +16,24 @@
       "revId": "78f0787f7cc903159c0f7f01242a3924572272c5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1259bad5_ecc619cc",
+        "filename": "logging/rtc_event_log/events/rtc_event_probe_cluster_created.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-05-25T13:04:19Z",
+      "side": 1,
+      "message": "Not really. (Or at least not more unsafe than what we have now.)\n\nA probe logically has to consist of a non-negative number of bytes and packets, so the arguments should never be negative.\n\nMoreover, we\u0027re currently writing the data as int32_t and uin32_t in the proto and reading it as int32_t and uint32_t respectively in the parser. What this CL does is exposing this minor type inconsistency to the caller rather than hiding it in the internals of the event log.",
+      "parentUuid": "619c80eb_a1a2a67c",
+      "revId": "78f0787f7cc903159c0f7f01242a3924572272c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

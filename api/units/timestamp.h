@@ -34,23 +34,52 @@ class Timestamp {
   static Timestamp Infinity() {
     return Timestamp(timestamp_impl::kPlusInfinityVal);
   }
-  static Timestamp seconds(int64_t seconds) {
+
+  template <typename T>
+  static Timestamp seconds(T seconds) {
     return Timestamp::us(seconds * 1000000);
   }
-  static Timestamp ms(int64_t millis) { return Timestamp::us(millis * 1000); }
-  static Timestamp us(int64_t micros) {
-    RTC_DCHECK_GE(micros, 0);
-    return Timestamp(micros);
+  template <typename T>
+  static Timestamp ms(T milliseconds) {
+    return Timestamp::us(milliseconds * 1000);
   }
-  int64_t seconds() const { return (us() + 500000) / 1000000; }
-  int64_t ms() const { return (us() + 500) / 1000; }
-  int64_t us() const {
+
+  template <
+      typename T,
+      typename std::enable_if<std::is_integral<T>::value>::type* = nullptr>
+  static Timestamp us(T microseconds) {
+    RTC_DCHECK_GE(microseconds, 0);
+    RTC_DCHECK_LT(microseconds, timestamp_impl::kPlusInfinityVal);
+    return Timestamp(microseconds);
+  }
+
+  template <typename T,
+            typename std::enable_if<std::is_floating_point<T>::value>::type* =
+                nullptr>
+  static Timestamp us(T microseconds) {
+    if (microseconds == std::numeric_limits<double>::infinity()) {
+      return Infinity();
+    } else {
+      RTC_DCHECK(!std::isnan(microseconds));
+      RTC_DCHECK_GE(microseconds, 0);
+      RTC_DCHECK_LT(microseconds, timestamp_impl::kPlusInfinityVal);
+      return Timestamp(microseconds);
+    }
+  }
+
+  template <typename T = int64_t>
+  T seconds() const {
+    return (us() + 500000) / 1000000;
+  }
+  template <typename T = int64_t>
+  T ms() const {
+    return (us() + 500) / 1000;
+  }
+  template <typename T = int64_t>
+  T us() const {
     RTC_DCHECK(IsFinite());
     return microseconds_;
   }
-
-  double SecondsAsDouble() const;
-
   bool IsInfinite() const {
     return microseconds_ == timestamp_impl::kPlusInfinityVal;
   }
@@ -87,6 +116,23 @@ class Timestamp {
   explicit Timestamp(int64_t us) : microseconds_(us) {}
   int64_t microseconds_;
 };
+
+template <>
+inline double Timestamp::us<double>() const {
+  if (IsInfinite()) {
+    return std::numeric_limits<double>::infinity();
+  } else {
+    return us();
+  }
+}
+template <>
+inline double Timestamp::seconds<double>() const {
+  return us<double>() * 1e-6;
+}
+template <>
+inline double Timestamp::ms<double>() const {
+  return us<double>() * 1e-3;
+}
 
 std::string ToString(const Timestamp& value);
 

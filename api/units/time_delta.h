@@ -41,33 +41,60 @@ class TimeDelta {
   static TimeDelta MinusInfinity() {
     return TimeDelta(timedelta_impl::kMinusInfinityVal);
   }
-  static TimeDelta seconds(int64_t seconds) {
+
+  template <typename T>
+  static TimeDelta seconds(T seconds) {
     return TimeDelta::us(seconds * 1000000);
   }
-  static TimeDelta ms(int64_t milliseconds) {
+  template <typename T>
+  static TimeDelta ms(T milliseconds) {
     return TimeDelta::us(milliseconds * 1000);
   }
-  static TimeDelta us(int64_t microseconds) {
-    // Infinities only allowed via use of explicit constants.
-    RTC_DCHECK(microseconds > std::numeric_limits<int64_t>::min());
-    RTC_DCHECK(microseconds < std::numeric_limits<int64_t>::max());
+
+  template <
+      typename T,
+      typename std::enable_if<std::is_integral<T>::value>::type* = nullptr>
+  static TimeDelta us(T microseconds) {
+    RTC_DCHECK_GT(microseconds, timedelta_impl::kMinusInfinityVal);
+    RTC_DCHECK_LT(microseconds, timedelta_impl::kPlusInfinityVal);
     return TimeDelta(microseconds);
   }
-  int64_t seconds() const {
+
+  template <typename T,
+            typename std::enable_if<std::is_floating_point<T>::value>::type* =
+                nullptr>
+  static TimeDelta us(T microseconds) {
+    if (microseconds == std::numeric_limits<double>::infinity()) {
+      return PlusInfinity();
+    } else if (microseconds == -std::numeric_limits<double>::infinity()) {
+      return MinusInfinity();
+    } else {
+      RTC_DCHECK(!std::isnan(microseconds));
+      RTC_DCHECK_GT(microseconds, timedelta_impl::kMinusInfinityVal);
+      RTC_DCHECK_LT(microseconds, timedelta_impl::kPlusInfinityVal);
+      return TimeDelta(microseconds);
+    }
+  }
+
+  template <typename T = int64_t>
+  T seconds() const {
     return (us() + (us() >= 0 ? 500000 : -500000)) / 1000000;
   }
-  int64_t ms() const { return (us() + (us() >= 0 ? 500 : -500)) / 1000; }
-  int64_t us() const {
+  template <typename T = int64_t>
+  T ms() const {
+    return (us() + (us() >= 0 ? 500 : -500)) / 1000;
+  }
+  template <typename T = int64_t>
+  T us() const {
     RTC_DCHECK(IsFinite());
     return microseconds_;
   }
-  int64_t ns() const {
-    RTC_DCHECK(us() > std::numeric_limits<int64_t>::min() / 1000);
-    RTC_DCHECK(us() < std::numeric_limits<int64_t>::max() / 1000);
+  template <typename T = int64_t>
+  T ns() const {
+    RTC_DCHECK(us() > std::numeric_limits<T>::min() / 1000);
+    RTC_DCHECK(us() < std::numeric_limits<T>::max() / 1000);
     return us() * 1000;
   }
-
-  double SecondsAsDouble() const;
 
   TimeDelta Abs() const { return TimeDelta::us(std::abs(us())); }
   bool IsZero() const { return microseconds_ == 0; }
@@ -120,6 +147,29 @@ class TimeDelta {
   explicit TimeDelta(int64_t us) : microseconds_(us) {}
   int64_t microseconds_;
 };
+
+template <>
+inline double TimeDelta::us<double>() const {
+  if (IsPlusInfinity()) {
+    return std::numeric_limits<double>::infinity();
+  } else if (IsMinusInfinity()) {
+    return -std::numeric_limits<double>::infinity();
+  } else {
+    return us();
+  }
+}
+template <>
+inline double TimeDelta::seconds<double>() const {
+  return us<double>() * 1e-6;
+}
+template <>
+inline double TimeDelta::ms<double>() const {
+  return us<double>() * 1e-3;
+}
+template <>
+inline double TimeDelta::ns<double>() const {
+  return us<double>() * 1e3;
+}
 
 inline TimeDelta operator*(const TimeDelta& delta, const double& scalar) {
   return TimeDelta::us(std::round(delta.us() * scalar));

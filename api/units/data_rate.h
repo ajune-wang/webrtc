@@ -43,22 +43,46 @@ class DataRate {
   static DataRate Infinity() {
     return DataRate(data_rate_impl::kPlusInfinityVal);
   }
-  static DataRate bits_per_second(int64_t bits_per_sec) {
-    RTC_DCHECK_GE(bits_per_sec, 0);
-    return DataRate(bits_per_sec);
+
+  template <
+      typename T,
+      typename std::enable_if<std::is_integral<T>::value>::type* = nullptr>
+  static DataRate bps(T bits_per_second) {
+    RTC_DCHECK_GE(bits_per_second, 0);
+    RTC_DCHECK_LT(bits_per_second, data_rate_impl::kPlusInfinityVal);
+    return DataRate(bits_per_second);
   }
-  static DataRate bps(int64_t bits_per_sec) {
-    return DataRate::bits_per_second(bits_per_sec);
+
+  template <typename T,
+            typename std::enable_if<std::is_floating_point<T>::value>::type* =
+                nullptr>
+  static DataRate bps(T bits_per_second) {
+    if (bits_per_second == std::numeric_limits<double>::infinity()) {
+      return Infinity();
+    } else {
+      RTC_DCHECK(!std::isnan(bits_per_second));
+      RTC_DCHECK_GE(bits_per_second, 0);
+      RTC_DCHECK_LT(bits_per_second, data_rate_impl::kPlusInfinityVal);
+      return DataRate(bits_per_second);
+    }
   }
-  static DataRate kbps(int64_t kilobits_per_sec) {
-    return DataRate::bits_per_second(kilobits_per_sec * 1000);
+
+  template <typename T>
+  static DataRate kbps(T kilobits_per_sec) {
+    return DataRate::bps(kilobits_per_sec * 1000);
   }
-  int64_t bits_per_second() const {
+
+  template <typename T = int64_t>
+  T bps() const {
     RTC_DCHECK(IsFinite());
     return bits_per_sec_;
   }
-  int64_t bps() const { return bits_per_second(); }
-  int64_t kbps() const { return (bps() + 500) / 1000; }
+
+  template <typename T = int64_t>
+  T kbps() const {
+    return (bps() + 500) / 1000;
+  }
+
   bool IsZero() const { return bits_per_sec_ == 0; }
   bool IsInfinite() const {
     return bits_per_sec_ == data_rate_impl::kPlusInfinityVal;
@@ -91,35 +115,46 @@ class DataRate {
   int64_t bits_per_sec_;
 };
 
+template <>
+inline double DataRate::bps<double>() const {
+  if (IsInfinite()) {
+    return std::numeric_limits<double>::infinity();
+  } else {
+    return static_cast<double>(bps());
+  }
+}
+template <>
+inline double DataRate::kbps<double>() const {
+  return bps<double>() * 1e-3;
+}
+
 inline DataRate operator*(const DataRate& rate, const double& scalar) {
-  return DataRate::bits_per_second(std::round(rate.bits_per_second() * scalar));
+  return DataRate::bps(std::round(rate.bps() * scalar));
 }
 inline DataRate operator*(const double& scalar, const DataRate& rate) {
   return rate * scalar;
 }
 inline DataRate operator*(const DataRate& rate, const int64_t& scalar) {
-  return DataRate::bits_per_second(rate.bits_per_second() * scalar);
+  return DataRate::bps(rate.bps() * scalar);
 }
 inline DataRate operator*(const int64_t& scalar, const DataRate& rate) {
   return rate * scalar;
 }
 inline DataRate operator*(const DataRate& rate, const int32_t& scalar) {
-  return DataRate::bits_per_second(rate.bits_per_second() * scalar);
+  return DataRate::bps(rate.bps() * scalar);
 }
 inline DataRate operator*(const int32_t& scalar, const DataRate& rate) {
   return rate * scalar;
 }
 
 inline DataRate operator/(const DataSize& size, const TimeDelta& duration) {
-  return DataRate::bits_per_second(data_rate_impl::Microbits(size) /
-                                   duration.us());
+  return DataRate::bps(data_rate_impl::Microbits(size) / duration.us());
 }
 inline TimeDelta operator/(const DataSize& size, const DataRate& rate) {
-  return TimeDelta::us(data_rate_impl::Microbits(size) /
-                       rate.bits_per_second());
+  return TimeDelta::us(data_rate_impl::Microbits(size) / rate.bps());
 }
 inline DataSize operator*(const DataRate& rate, const TimeDelta& duration) {
-  int64_t microbits = rate.bits_per_second() * duration.us();
+  int64_t microbits = rate.bps() * duration.us();
   return DataSize::bytes((microbits + 4000000) / 8000000);
 }
 inline DataSize operator*(const TimeDelta& duration, const DataRate& rate) {

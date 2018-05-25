@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f35b8aa0_5bf72b17",
+        "filename": "sdk/android/src/jni/pc/sdpobserver.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-05-25T12:01:02Z",
+      "side": 1,
+      "message": "Why is this by value instead of const-ref?",
+      "range": {
+        "startLine": 33,
+        "startChar": 17,
+        "endLine": 33,
+        "endChar": 25
+      },
+      "revId": "041de22ec5b49e574e67a9247e5a0fd0a27e1fb6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -80,6 +80,44 @@ TEST(TimeDeltaTest, ComparisonOperators) {
   EXPECT_LT(TimeDelta::MinusInfinity(), TimeDelta::Zero());
 }
 
+TEST(TimeDeltaTest, ConvertsToAndFromDouble) {
+  const int64_t kMicros = 17017;
+  const double kNanosDouble = kMicros * 1e3;
+  const double kMicrosDouble = kMicros;
+  const double kMillisDouble = kMicros * 1e-3;
+  const double kSecondsDouble = kMillisDouble * 1e-3;
+
+  EXPECT_EQ(TimeDelta::us(kMicros).seconds<double>(), kSecondsDouble);
+  EXPECT_EQ(TimeDelta::seconds(kSecondsDouble).us(), kMicros);
+
+  EXPECT_EQ(TimeDelta::us(kMicros).ms<double>(), kMillisDouble);
+  EXPECT_EQ(TimeDelta::ms(kMillisDouble).us(), kMicros);
+
+  EXPECT_EQ(TimeDelta::us(kMicros).us<double>(), kMicrosDouble);
+  EXPECT_EQ(TimeDelta::us(kMicrosDouble).us(), kMicros);
+
+  EXPECT_NEAR(TimeDelta::us(kMicros).ns<double>(), kNanosDouble, 1);
+
+  const double kPlusInfinity = std::numeric_limits<double>::infinity();
+  const double kMinusInfinity = -kPlusInfinity;
+
+  EXPECT_EQ(TimeDelta::PlusInfinity().seconds<double>(), kPlusInfinity);
+  EXPECT_EQ(TimeDelta::MinusInfinity().seconds<double>(), kMinusInfinity);
+  EXPECT_EQ(TimeDelta::PlusInfinity().ms<double>(), kPlusInfinity);
+  EXPECT_EQ(TimeDelta::MinusInfinity().ms<double>(), kMinusInfinity);
+  EXPECT_EQ(TimeDelta::PlusInfinity().us<double>(), kPlusInfinity);
+  EXPECT_EQ(TimeDelta::MinusInfinity().us<double>(), kMinusInfinity);
+  EXPECT_EQ(TimeDelta::PlusInfinity().ns<double>(), kPlusInfinity);
+  EXPECT_EQ(TimeDelta::MinusInfinity().ns<double>(), kMinusInfinity);
+
+  EXPECT_TRUE(TimeDelta::seconds(kPlusInfinity).IsPlusInfinity());
+  EXPECT_TRUE(TimeDelta::seconds(kMinusInfinity).IsMinusInfinity());
+  EXPECT_TRUE(TimeDelta::ms(kPlusInfinity).IsPlusInfinity());
+  EXPECT_TRUE(TimeDelta::ms(kMinusInfinity).IsMinusInfinity());
+  EXPECT_TRUE(TimeDelta::us(kPlusInfinity).IsPlusInfinity());
+  EXPECT_TRUE(TimeDelta::us(kMinusInfinity).IsMinusInfinity());
+}
+
 TEST(TimeDeltaTest, MathOperations) {
   const int64_t kValueA = 267;
   const int64_t kValueB = 450;

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "07f05a5d_7ee291e7",
+        "filename": "modules/audio_processing/agc2/agc2_common.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-05-25T11:24:30Z",
+      "side": 1,
+      "message": "Tuning for RNN-VAD according to https://docs.google.com/document/d/1fbrF8e5UtJoCbfcLlISy7EbH9Deq5WY8BBDSnBNw8Jo/edit#heading\u003dh.e600lia3izsq\n\nWe may have to change it.",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 0
+      },
+      "revId": "6b22924c8b49f8b6a6731dc05852f490561d622f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5d63a48c_286c0985",
+        "filename": "media/base/mediachannel.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 450,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-05-25T08:03:16Z",
+      "side": 1,
+      "message": "There are more unused fields here, besides preferred_bitrate: ssrc_groups, packets_cached, nominal_bitrate. Should they be deleted too?",
+      "range": {
+        "startLine": 450,
+        "startChar": 7,
+        "endLine": 450,
+        "endChar": 22
+      },
+      "revId": "6522be0133d09bac428e58d4147ea40015fb3c0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

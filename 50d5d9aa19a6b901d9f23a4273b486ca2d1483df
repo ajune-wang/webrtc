@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7e47fbf5_8991b2bb",
+        "filename": "api/units/data_rate.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-25T09:07:40Z",
+      "side": 1,
+      "message": "Use `T` here?",
+      "range": {
+        "startLine": 60,
+        "startChar": 47,
+        "endLine": 60,
+        "endChar": 53
+      },
+      "revId": "50d5d9aa19a6b901d9f23a4273b486ca2d1483df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "657ed95d_4d71d994",
+        "filename": "api/units/data_rate.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-25T09:07:40Z",
+      "side": 1,
+      "message": "This is appropriate only for integral types.\n\nYou could do something like\n\n    if (std::is_integral\u003cT\u003e::value) {\n        return (bps() + 500) / 1000; \n    } else {\n        return bps() / 1000;\n    }",
+      "range": {
+        "startLine": 83,
+        "startChar": 11,
+        "endLine": 83,
+        "endChar": 31
+      },
+      "revId": "50d5d9aa19a6b901d9f23a4273b486ca2d1483df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5fc911ed_bc698991",
+        "filename": "api/units/data_rate.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-25T09:07:40Z",
+      "side": 1,
+      "message": "If you specialize the methods, you only get the different behavior for one floating-point type. It would probably be better to use two separate templated overloads; see this example: https://godbolt.org/g/juHyQD\n\nThe trick is to only give one of them a default for the template parameter, so that all the others will be ill-formed when called without explicit template parameters.",
+      "revId": "50d5d9aa19a6b901d9f23a4273b486ca2d1483df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a00cf621_acd6c19f",
+        "filename": "api/units/data_rate.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-25T09:07:40Z",
+      "side": 1,
+      "message": "Templatify these as well? Then you\u0027d only need one for the floating case, one for the integral case, and one for the reversed case.",
+      "revId": "50d5d9aa19a6b901d9f23a4273b486ca2d1483df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

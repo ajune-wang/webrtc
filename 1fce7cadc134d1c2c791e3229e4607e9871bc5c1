@@ -1,0 +1,135 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eeba5514_b34579b7",
+        "filename": "modules/audio_processing/aec3/residual_echo_estimator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-05-25T14:24:54Z",
+      "side": 1,
+      "message": "Please add DCHECKS for the outputs\nRTC_DCHECK(idx_start);\nRTC_DCHECK(idx_stop\n);",
+      "revId": "1fce7cadc134d1c2c791e3229e4607e9871bc5c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a85013cf_61b77001",
+        "filename": "modules/audio_processing/aec3/residual_echo_estimator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-05-25T14:24:54Z",
+      "side": 1,
+      "message": "Please move this comment to line 30 (before the method head)",
+      "revId": "1fce7cadc134d1c2c791e3229e4607e9871bc5c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aeb28dd7_c1774325",
+        "filename": "modules/audio_processing/aec3/residual_echo_estimator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-05-25T14:24:54Z",
+      "side": 1,
+      "message": "Please shift the two if-blocks so that you don\u0027t need the negate (!) in the if-statement.",
+      "revId": "1fce7cadc134d1c2c791e3229e4607e9871bc5c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89213e67_78b76d10",
+        "filename": "modules/audio_processing/aec3/residual_echo_estimator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-05-25T14:24:54Z",
+      "side": 1,
+      "message": "(size_t) \n-\u003e\nstatic_cast\u003csize_t\u003e()",
+      "range": {
+        "startLine": 55,
+        "startChar": 9,
+        "endLine": 55,
+        "endChar": 15
+      },
+      "revId": "1fce7cadc134d1c2c791e3229e4607e9871bc5c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36487cab_85788077",
+        "filename": "modules/audio_processing/aec3/residual_echo_estimator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-05-25T14:24:54Z",
+      "side": 1,
+      "message": "Is this implicit cast ok? I mean, does negating an unsigned and passing it to a method accepting an int pass a negative int, or does it pass a wrapped unsigned value?\n\nTo make this clear, I think it would make sense top put a static cast.\nspectrum_buffer.read, -static_cast\u003cint\u003e(echo_model.render_post_window_size_init));",
+      "range": {
+        "startLine": 57,
+        "startChar": 33,
+        "endLine": 57,
+        "endChar": 43
+      },
+      "revId": "1fce7cadc134d1c2c791e3229e4607e9871bc5c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d382c4dc_4fca5574",
+        "filename": "modules/audio_processing/aec3/residual_echo_estimator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-05-25T14:24:54Z",
+      "side": 1,
+      "message": "Please add \nRTC_DCHECK(X2);",
+      "revId": "1fce7cadc134d1c2c791e3229e4607e9871bc5c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da115283_a79a68ce",
+        "filename": "modules/audio_processing/aec3/residual_echo_estimator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-05-25T14:24:54Z",
+      "side": 1,
+      "message": "Wouldn\u0027t it be better to use \nint k\n\nIn GetRenderIndexesToAnalyze all the computations produce int values and spectrum_buffer.IncIndex(k) also produce an int.\n\n(that would require idx_stop and idx_start to also be int).",
+      "revId": "1fce7cadc134d1c2c791e3229e4607e9871bc5c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

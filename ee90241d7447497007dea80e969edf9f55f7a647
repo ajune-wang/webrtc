@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "001ce0fe_87a59978",
+        "filename": "rtc_base/filerotatingstream.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-25T08:17:40Z",
+      "side": 1,
+      "message": "Use a std:: prefix for fprintf---that \u003ccstdio\u003e also declares fprintf in the root namespace is a nonstandard extension, IIRC.\n\n(`stderr`, on the other hand, is a macro, so don\u0027t use std:: there...)",
+      "range": {
+        "startLine": 153,
+        "startChar": 4,
+        "endLine": 153,
+        "endChar": 11
+      },
+      "revId": "ee90241d7447497007dea80e969edf9f55f7a647",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -111,8 +111,11 @@ class SctpTransportInternal {
   // contains message payload.
   sigslot::signal2<const ReceiveDataParams&, const rtc::CopyOnWriteBuffer&>
       SignalDataReceived;
-  // Parameter is SID of closed stream.
-  sigslot::signal1<int> SignalStreamClosedRemotely;
+  // Parameter is SID.
+  sigslot::signal1<int> SignalIncomingStreamReset;
+  // Parameter is SID; fired when closing procedure is complete (both incoming
+  // and outgoing streams reset).
+  sigslot::signal1<int> SignalClosingProcedureComplete;
 
   // Helper for debugging.
   virtual void set_debug_name_for_testing(const char* debug_name) = 0;

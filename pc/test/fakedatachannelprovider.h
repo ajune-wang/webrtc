@@ -71,7 +71,7 @@ class FakeDataChannelProvider : public webrtc::DataChannelProviderInterface {
     recv_ssrcs_.insert(sid);
   }
 
-  void RemoveSctpDataStream(int sid) override {
+  void ResetOutgoingSctpDataStream(int sid) override {
     RTC_CHECK(sid >= 0);
     send_ssrcs_.erase(sid);
     recv_ssrcs_.erase(sid);

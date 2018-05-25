@@ -47,7 +47,8 @@ class VideoStreamEncoderInterface : public rtc::VideoSinkInterface<VideoFrame> {
         int min_transmit_bitrate_bps) = 0;
   };
 
-  virtual ~VideoStreamEncoderInterface() = default;
+  // TODO(nisse): Any reason to declare a destructor at all?
+  ~VideoStreamEncoderInterface() override = default;
 
   // Sets the source that will provide video frames to the VideoStreamEncoder's
   // OnFrame method. |degradation_preference| control whether or not resolution

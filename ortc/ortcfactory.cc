@@ -17,6 +17,7 @@
 #include "api/mediastreamtrackproxy.h"
 #include "api/proxy.h"
 #include "api/rtcerror.h"
+#include "api/video_codecs/builtin_video_bitrate_allocator_factory.h"
 #include "api/video_codecs/builtin_video_decoder_factory.h"
 #include "api/video_codecs/builtin_video_encoder_factory.h"
 #include "api/videosourceproxy.h"
@@ -555,6 +556,7 @@ OrtcFactory::CreateMediaEngine_w() {
       cricket::WebRtcMediaEngineFactory::Create(
           rtc::scoped_refptr<webrtc::AudioDeviceModule>(adm_),
           audio_encoder_factory_, audio_decoder_factory_,
+          webrtc::CreateBuiltinVideoBitrateAllocatorFactory(),
           webrtc::CreateBuiltinVideoEncoderFactory(),
           webrtc::CreateBuiltinVideoDecoderFactory(), nullptr,
           webrtc::AudioProcessingBuilder().Create()));

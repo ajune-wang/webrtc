@@ -502,9 +502,14 @@ void VideoStreamEncoder::ReconfigureEncoder() {
   crop_height_ = last_frame_info_->height - highest_stream_height;
 
   VideoCodec codec;
-  if (!VideoCodecInitializer::SetupCodec(
-          encoder_config_, streams, &codec, &rate_allocator_)) {
+  if (!VideoCodecInitializer::SetupCodec(encoder_config_, streams, &codec)) {
     RTC_LOG(LS_ERROR) << "Failed to create encoder configuration.";
+  }
+
+  rate_allocator_ =
+      settings_.bitrate_allocator_factory->CreateVideoBitrateAllocator(codec);
+  if (!rate_allocator_) {
+    RTC_LOG(LS_ERROR) << "Failed to create bitrate allocator.";
   }
 
   codec.startBitrate =

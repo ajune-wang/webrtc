@@ -15,14 +15,13 @@
 #include <utility>
 
 #include "api/video/i420_buffer.h"
+#include "api/video_codecs/video_bitrate_allocator_factory.h"
 #include "common_types.h"  // NOLINT(build/include)
 #include "common_video/h264/h264_common.h"
 #include "common_video/libyuv/include/webrtc_libyuv.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
-#include "modules/video_coding/codecs/vp8/simulcast_rate_allocator.h"
 #include "modules/video_coding/include/video_codec_initializer.h"
 #include "modules/video_coding/include/video_error_codes.h"
-#include "modules/video_coding/utility/default_video_bitrate_allocator.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/timeutils.h"
 #include "test/gtest.h"
@@ -164,13 +163,15 @@ std::vector<FrameType> FrameTypeForFrame(
 
 }  // namespace
 
-VideoProcessor::VideoProcessor(webrtc::VideoEncoder* encoder,
-                               VideoDecoderList* decoders,
-                               FrameReader* input_frame_reader,
-                               const VideoCodecTestFixture::Config& config,
-                               VideoCodecTestStats* stats,
-                               IvfFileWriterList* encoded_frame_writers,
-                               FrameWriterList* decoded_frame_writers)
+VideoProcessor::VideoProcessor(
+    webrtc::VideoEncoder* encoder,
+    VideoDecoderList* decoders,
+    webrtc::VideoBitrateAllocatorFactory* bitrate_allocator_factory,
+    FrameReader* input_frame_reader,
+    const VideoCodecTestFixture::Config& config,
+    VideoCodecTestStats* stats,
+    IvfFileWriterList* encoded_frame_writers,
+    FrameWriterList* decoded_frame_writers)
     : config_(config),
       num_simulcast_or_spatial_layers_(
           std::max(config_.NumberOfSimulcastStreams(),
@@ -178,7 +179,7 @@ VideoProcessor::VideoProcessor(webrtc::VideoEncoder* encoder,
       stats_(stats),
       encoder_(encoder),
       decoders_(decoders),
-      bitrate_allocator_(VideoCodecInitializer::CreateBitrateAllocator(
+      bitrate_allocator_(bitrate_allocator_factory->CreateVideoBitrateAllocator(
           config_.codec_settings)),
       framerate_fps_(0),
       encode_callback_(this),

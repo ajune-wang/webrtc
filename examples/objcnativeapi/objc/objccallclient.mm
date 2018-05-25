@@ -19,6 +19,7 @@
 #include "api/audio_codecs/builtin_audio_decoder_factory.h"
 #include "api/audio_codecs/builtin_audio_encoder_factory.h"
 #include "api/peerconnectioninterface.h"
+#include "api/video_codecs/builtin_video_bitrate_factory.h"
 #include "media/engine/webrtcmediaengine.h"
 #include "modules/audio_processing/include/audio_processing.h"
 #include "rtc_base/ptr_util.h"

@@ -19,6 +19,8 @@
 #include "api/test/videocodec_test_fixture.h"
 #include "api/test/videocodec_test_stats.h"
 #include "api/video/video_frame.h"
+#include "api/video_codecs/builtin_video_bitrate_allocator_factory.h"
+#include "api/video_codecs/video_bitrate_allocator_factory.h"
 #include "common_video/include/video_bitrate_allocator.h"
 #include "modules/video_coding/include/video_codec_interface.h"
 #include "modules/video_coding/utility/ivf_file_writer.h"
@@ -45,6 +47,7 @@ class VideoProcessor {
 
   VideoProcessor(webrtc::VideoEncoder* encoder,
                  VideoDecoderList* decoders,
+                 VideoBitrateAllocatorFactory* bitrate_allocator_factory,
                  FrameReader* input_frame_reader,
                  const VideoCodecTestFixture::Config& config,
                  VideoCodecTestStats* stats,

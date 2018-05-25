@@ -21,6 +21,7 @@
 #include "api/rtpparameters.h"
 #include "api/video/video_sink_interface.h"
 #include "api/video/video_source_interface.h"
+#include "api/video_codecs/video_bitrate_allocator_factory.h"
 #include "api/video_codecs/video_encoder_config.h"
 #include "api/video_codecs/video_encoder_factory.h"
 #include "call/rtp_config.h"
@@ -119,6 +120,9 @@ class VideoSendStream {
 
       // Ownership stays with WebrtcVideoEngine (delegated from PeerConnection).
       VideoEncoderFactory* encoder_factory = nullptr;
+
+      // Ownership stays with WebrtcVideoEngine (delegated from PeerConnection).
+      VideoBitrateAllocatorFactory* bitrate_allocator_factory = nullptr;
     } encoder_settings;
 
     static const size_t kDefaultMaxPacketSize = 1500 - 40;  // TCP over IPv4.

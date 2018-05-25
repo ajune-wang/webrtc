@@ -37,6 +37,7 @@
 #include "rtc_base/thread_checker.h"
 
 namespace webrtc {
+class VideoBitrateAllocatorFactory;
 class VideoDecoder;
 class VideoDecoderFactory;
 class VideoEncoder;
@@ -87,6 +88,8 @@ class WebRtcVideoEngine {
 #if defined(USE_BUILTIN_SW_CODECS)
   // Internal SW video codecs will be added on top of the external codecs.
   WebRtcVideoEngine(
+      std::unique_ptr<webrtc::VideoBitrateAllocatorFactory>
+          video_bitrate_allocator_factory,
       std::unique_ptr<WebRtcVideoEncoderFactory> external_video_encoder_factory,
       std::unique_ptr<WebRtcVideoDecoderFactory>
           external_video_decoder_factory);
@@ -95,6 +98,8 @@ class WebRtcVideoEngine {
   // These video codec factories represents all video codecs, i.e. both software
   // and external hardware codecs.
   WebRtcVideoEngine(
+      std::unique_ptr<webrtc::VideoBitrateAllocatorFactory>
+          video_bitrate_allocator_factory,
       std::unique_ptr<webrtc::VideoEncoderFactory> video_encoder_factory,
       std::unique_ptr<webrtc::VideoDecoderFactory> video_decoder_factory);
 
@@ -108,17 +113,21 @@ class WebRtcVideoEngine {
   RtpCapabilities GetCapabilities() const;
 
  private:
+  const std::unique_ptr<webrtc::VideoBitrateAllocatorFactory>
+      bitrate_allocator_factory_;
   const std::unique_ptr<DecoderFactoryAdapter> decoder_factory_;
   const std::unique_ptr<webrtc::VideoEncoderFactory> encoder_factory_;
 };
 
 class WebRtcVideoChannel : public VideoMediaChannel, public webrtc::Transport {
  public:
-  WebRtcVideoChannel(webrtc::Call* call,
-                     const MediaConfig& config,
-                     const VideoOptions& options,
-                     webrtc::VideoEncoderFactory* encoder_factory,
-                     DecoderFactoryAdapter* decoder_factory);
+  WebRtcVideoChannel(
+      webrtc::Call* call,
+      const MediaConfig& config,
+      const VideoOptions& options,
+      webrtc::VideoBitrateAllocatorFactory* bitrate_allocator_factory,
+      webrtc::VideoEncoderFactory* encoder_factory,
+      DecoderFactoryAdapter* decoder_factory);
   ~WebRtcVideoChannel() override;
 
   // VideoMediaChannel implementation
@@ -476,6 +485,7 @@ class WebRtcVideoChannel : public VideoMediaChannel, public webrtc::Transport {
   rtc::Optional<VideoCodecSettings> send_codec_;
   rtc::Optional<std::vector<webrtc::RtpExtension>> send_rtp_extensions_;
 
+  webrtc::VideoBitrateAllocatorFactory* const bitrate_allocator_factory_;
   webrtc::VideoEncoderFactory* const encoder_factory_;
   DecoderFactoryAdapter* const decoder_factory_;
   std::vector<VideoCodecSettings> recv_codecs_;

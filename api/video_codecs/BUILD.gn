@@ -17,6 +17,7 @@ rtc_source_set("video_codecs_api") {
   sources = [
     "sdp_video_format.cc",
     "sdp_video_format.h",
+    "video_bitrate_allocator_factory.h",
     "video_decoder.cc",
     "video_decoder.h",
     "video_decoder_factory.h",
@@ -35,6 +36,21 @@ rtc_source_set("video_codecs_api") {
     "../../rtc_base:rtc_base_approved",
     "../video:video_bitrate_allocation",
     "../video:video_frame",
+  ]
+}
+
+rtc_static_library("builtin_video_bitrate_allocator_factory") {
+  visibility = [ "*" ]
+  sources = [
+    "builtin_video_bitrate_allocator_factory.cc",
+    "builtin_video_bitrate_allocator_factory.h",
+  ]
+
+  deps = [
+    ":video_codecs_api",
+    "../../modules/video_coding:webrtc_vp8_helpers",
+    "../../modules/video_coding:webrtc_vp9_helpers",
+    "../../rtc_base:ptr_util",
   ]
 }
 

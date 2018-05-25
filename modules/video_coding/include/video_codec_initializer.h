@@ -15,6 +15,7 @@
 #include <string>
 #include <vector>
 
+#include "api/video_codecs/video_bitrate_allocator_factory.h"
 #include "api/video_codecs/video_encoder_config.h"
 
 namespace webrtc {
@@ -26,19 +27,9 @@ class VideoCodecInitializer {
  public:
   // Takes a VideoEncoderConfig and the VideoStream configuration and
   // translates them into the old school VideoCodec type.
-  // It also creates a VideoBitrateAllocator instance, suitable for the codec
-  // type used. For instance, VP8 will create an allocator than can handle
-  // simulcast and temporal layering.
-  // GetBitrateAllocator is called implicitly from here, no need to call again.
-  static bool SetupCodec(
-      const VideoEncoderConfig& config,
-      const std::vector<VideoStream>& streams,
-      VideoCodec* codec,
-      std::unique_ptr<VideoBitrateAllocator>* bitrate_allocator);
-
-  // Create a bitrate allocator for the specified codec.
-  static std::unique_ptr<VideoBitrateAllocator> CreateBitrateAllocator(
-      const VideoCodec& codec);
+  static bool SetupCodec(const VideoEncoderConfig& config,
+                         const std::vector<VideoStream>& streams,
+                         VideoCodec* codec);
 
  private:
   static VideoCodec VideoEncoderConfigToVideoCodec(

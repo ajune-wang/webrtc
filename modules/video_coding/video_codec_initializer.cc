@@ -14,27 +14,21 @@
 #include "common_types.h"  // NOLINT(build/include)
 #include "common_video/include/video_bitrate_allocator.h"
 #include "modules/video_coding/codecs/vp8/screenshare_layers.h"
-#include "modules/video_coding/codecs/vp8/simulcast_rate_allocator.h"
 #include "modules/video_coding/codecs/vp8/temporal_layers.h"
 #include "modules/video_coding/codecs/vp9/svc_config.h"
-#include "modules/video_coding/codecs/vp9/svc_rate_allocator.h"
 #include "modules/video_coding/include/video_coding_defines.h"
-#include "modules/video_coding/utility/default_video_bitrate_allocator.h"
 #include "rtc_base/logging.h"
 #include "system_wrappers/include/clock.h"
 
 namespace webrtc {
 
-bool VideoCodecInitializer::SetupCodec(
-    const VideoEncoderConfig& config,
-    const std::vector<VideoStream>& streams,
-    VideoCodec* codec,
-    std::unique_ptr<VideoBitrateAllocator>* bitrate_allocator) {
+bool VideoCodecInitializer::SetupCodec(const VideoEncoderConfig& config,
+                                       const std::vector<VideoStream>& streams,
+                                       VideoCodec* codec) {
   if (config.codec_type == kVideoCodecMultiplex) {
     VideoEncoderConfig associated_config = config.Copy();
     associated_config.codec_type = kVideoCodecVP9;
-    if (!SetupCodec(associated_config, streams, codec,
-                    bitrate_allocator)) {
+    if (!SetupCodec(associated_config, streams, codec)) {
       RTC_LOG(LS_ERROR) << "Failed to create stereo encoder configuration.";
       return false;
     }
@@ -44,28 +38,7 @@ bool VideoCodecInitializer::SetupCodec(
 
   *codec =
       VideoEncoderConfigToVideoCodec(config, streams);
-  *bitrate_allocator = CreateBitrateAllocator(*codec);
-
   return true;
-}
-
-std::unique_ptr<VideoBitrateAllocator>
-VideoCodecInitializer::CreateBitrateAllocator(const VideoCodec& codec) {
-  std::unique_ptr<VideoBitrateAllocator> rate_allocator;
-
-  switch (codec.codecType) {
-    case kVideoCodecVP8:
-      // Set up default VP8 temporal layer factory, if not provided.
-      rate_allocator.reset(new SimulcastRateAllocator(codec));
-      break;
-    case kVideoCodecVP9:
-      rate_allocator.reset(new SvcRateAllocator(codec));
-      break;
-    default:
-      rate_allocator.reset(new DefaultVideoBitrateAllocator(codec));
-  }
-
-  return rate_allocator;
 }
 
 // TODO(sprang): Split this up and separate the codec specific parts.

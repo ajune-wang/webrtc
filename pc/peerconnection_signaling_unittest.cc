@@ -16,6 +16,7 @@
 #include "api/audio_codecs/builtin_audio_decoder_factory.h"
 #include "api/audio_codecs/builtin_audio_encoder_factory.h"
 #include "api/peerconnectionproxy.h"
+#include "api/video_codecs/builtin_video_bitrate_allocator_factory.h"
 #include "api/video_codecs/builtin_video_decoder_factory.h"
 #include "api/video_codecs/builtin_video_encoder_factory.h"
 #include "pc/peerconnection.h"
@@ -72,6 +73,7 @@ class PeerConnectionSignalingBaseTest : public ::testing::Test {
         rtc::Thread::Current(), rtc::Thread::Current(), rtc::Thread::Current(),
         rtc::scoped_refptr<AudioDeviceModule>(FakeAudioCaptureModule::Create()),
         CreateBuiltinAudioEncoderFactory(), CreateBuiltinAudioDecoderFactory(),
+        CreateBuiltinVideoBitrateAllocatorFactory(),
         CreateBuiltinVideoEncoderFactory(), CreateBuiltinVideoDecoderFactory(),
         nullptr /* audio_mixer */, nullptr /* audio_processing */);
   }

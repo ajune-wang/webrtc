@@ -22,6 +22,7 @@
 #include "api/rtpreceiverinterface.h"
 #include "api/rtpsenderinterface.h"
 #include "api/test/fakeconstraints.h"
+#include "api/video_codecs/builtin_video_bitrate_allocator_factory.h"
 #include "api/video_codecs/builtin_video_decoder_factory.h"
 #include "api/video_codecs/builtin_video_encoder_factory.h"
 #include "logging/rtc_event_log/output/rtc_event_log_output_file.h"
@@ -634,6 +635,8 @@ class PeerConnectionFactoryForTest : public webrtc::PeerConnectionFactory {
   CreatePeerConnectionFactoryForTest() {
     auto audio_encoder_factory = webrtc::CreateBuiltinAudioEncoderFactory();
     auto audio_decoder_factory = webrtc::CreateBuiltinAudioDecoderFactory();
+    auto video_bitrate_allocator_factory =
+        webrtc::CreateBuiltinVideoBitrateAllocatorFactory();
     auto video_encoder_factory = webrtc::CreateBuiltinVideoEncoderFactory();
     auto video_decoder_factory = webrtc::CreateBuiltinVideoDecoderFactory();
 
@@ -642,9 +645,9 @@ class PeerConnectionFactoryForTest : public webrtc::PeerConnectionFactory {
     auto media_engine = std::unique_ptr<cricket::MediaEngineInterface>(
         cricket::WebRtcMediaEngineFactory::Create(
             FakeAudioCaptureModule::Create(), audio_encoder_factory,
-            audio_decoder_factory, std::move(video_encoder_factory),
-            std::move(video_decoder_factory), nullptr,
-            webrtc::AudioProcessingBuilder().Create()));
+            audio_decoder_factory, std::move(video_bitrate_allocator_factory),
+            std::move(video_encoder_factory), std::move(video_decoder_factory),
+            nullptr, webrtc::AudioProcessingBuilder().Create()));
 
     std::unique_ptr<webrtc::CallFactoryInterface> call_factory =
         webrtc::CreateCallFactory();
@@ -697,6 +700,7 @@ class PeerConnectionInterfaceBaseTest : public testing::Test {
             fake_audio_capture_module_),
         webrtc::CreateBuiltinAudioEncoderFactory(),
         webrtc::CreateBuiltinAudioDecoderFactory(),
+        webrtc::CreateBuiltinVideoBitrateAllocatorFactory(),
         webrtc::CreateBuiltinVideoEncoderFactory(),
         webrtc::CreateBuiltinVideoDecoderFactory(), nullptr /* audio_mixer */,
         nullptr /* audio_processing */);
@@ -1409,6 +1413,7 @@ TEST_P(PeerConnectionInterfaceTest,
           rtc::Thread::Current(), fake_audio_capture_module_,
           webrtc::CreateBuiltinAudioEncoderFactory(),
           webrtc::CreateBuiltinAudioDecoderFactory(),
+          webrtc::CreateBuiltinVideoBitrateAllocatorFactory(),
           webrtc::CreateBuiltinVideoEncoderFactory(),
           webrtc::CreateBuiltinVideoDecoderFactory(), nullptr /* audio_mixer */,
           nullptr /* audio_processing */));

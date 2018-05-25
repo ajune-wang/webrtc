@@ -364,15 +364,18 @@ class VideoCodecTestFixtureImpl::CpuProcessTime final {
 };
 
 VideoCodecTestFixtureImpl::VideoCodecTestFixtureImpl(Config config)
-    : encoder_factory_(rtc::MakeUnique<InternalEncoderFactory>()),
+    : bitrate_allocator_factory_(CreateBuiltinVideoBitrateAllocatorFactory()),
+      encoder_factory_(rtc::MakeUnique<InternalEncoderFactory>()),
       decoder_factory_(rtc::MakeUnique<InternalDecoderFactory>()),
       config_(config) {}
 
 VideoCodecTestFixtureImpl::VideoCodecTestFixtureImpl(
     Config config,
+    std::unique_ptr<VideoBitrateAllocatorFactory> bitrate_allocator_factory,
     std::unique_ptr<VideoDecoderFactory> decoder_factory,
     std::unique_ptr<VideoEncoderFactory> encoder_factory)
-    : encoder_factory_(std::move(encoder_factory)),
+    : bitrate_allocator_factory_(std::move(bitrate_allocator_factory)),
+      encoder_factory_(std::move(encoder_factory)),
       decoder_factory_(std::move(decoder_factory)),
       config_(config) {}
 
@@ -660,8 +663,8 @@ void VideoCodecTestFixtureImpl::SetUpAndInitObjects(
   task_queue->SendTask([this]() {
     CreateEncoderAndDecoder();
     processor_ = rtc::MakeUnique<VideoProcessor>(
-        encoder_.get(), &decoders_, source_frame_reader_.get(), config_,
-        &stats_,
+        encoder_.get(), &decoders_, bitrate_allocator_factory_.get(),
+        source_frame_reader_.get(), config_, &stats_,
         encoded_frame_writers_.empty() ? nullptr : &encoded_frame_writers_,
         decoded_frame_writers_.empty() ? nullptr : &decoded_frame_writers_);
   });

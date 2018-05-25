@@ -14,6 +14,7 @@
 #include <memory>
 
 #include "api/test/videocodec_test_fixture.h"
+#include "api/video_codecs/video_bitrate_allocator_factory.h"
 #include "api/video_codecs/video_decoder_factory.h"
 #include "api/video_codecs/video_encoder_factory.h"
 
@@ -25,6 +26,7 @@ std::unique_ptr<VideoCodecTestFixture> CreateVideoCodecTestFixture(
 
 std::unique_ptr<VideoCodecTestFixture> CreateVideoCodecTestFixture(
     const VideoCodecTestFixture::Config& config,
+    std::unique_ptr<VideoBitrateAllocatorFactory> bitrate_allocator_factory,
     std::unique_ptr<VideoDecoderFactory> decoder_factory,
     std::unique_ptr<VideoEncoderFactory> encoder_factory);
 

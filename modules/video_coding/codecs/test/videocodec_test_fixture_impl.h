@@ -16,6 +16,7 @@
 #include <vector>
 
 #include "api/test/videocodec_test_fixture.h"
+#include "api/video_codecs/video_bitrate_allocator_factory.h"
 #include "api/video_codecs/video_decoder_factory.h"
 #include "api/video_codecs/video_encoder_factory.h"
 #include "common_types.h"  // NOLINT(build/include)
@@ -46,6 +47,7 @@ class VideoCodecTestFixtureImpl : public VideoCodecTestFixture {
   explicit VideoCodecTestFixtureImpl(Config config);
   VideoCodecTestFixtureImpl(
       Config config,
+      std::unique_ptr<VideoBitrateAllocatorFactory> bitrate_allocator_factory,
       std::unique_ptr<VideoDecoderFactory> decoder_factory,
       std::unique_ptr<VideoEncoderFactory> encoder_factory);
   ~VideoCodecTestFixtureImpl() override;
@@ -88,7 +90,8 @@ class VideoCodecTestFixtureImpl : public VideoCodecTestFixture {
   void PrintSettings(rtc::test::TaskQueueForTest* task_queue) const;
 
   // Codecs.
-  const std::unique_ptr<VideoEncoderFactory> encoder_factory_;
+  std::unique_ptr<VideoBitrateAllocatorFactory> bitrate_allocator_factory_;
+  std::unique_ptr<VideoEncoderFactory> encoder_factory_;
   std::unique_ptr<VideoEncoder> encoder_;
   const std::unique_ptr<VideoDecoderFactory> decoder_factory_;
   VideoProcessor::VideoDecoderList decoders_;

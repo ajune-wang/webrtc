@@ -28,6 +28,7 @@
 // is not smart enough to take the #ifdef into account.
 #include "api/audio_codecs/builtin_audio_decoder_factory.h"     // nogncheck
 #include "api/audio_codecs/builtin_audio_encoder_factory.h"     // nogncheck
+#include "api/video_codecs/builtin_video_bitrate_allocator_factory.h"  // nogncheck
 #include "media/engine/convert_legacy_video_factory.h"          // nogncheck
 #include "modules/audio_device/include/audio_device.h"          // nogncheck
 #include "modules/audio_processing/include/audio_processing.h"  // nogncheck
@@ -73,6 +74,7 @@
 #else
   return [self initWithNativeAudioEncoderFactory:webrtc::CreateBuiltinAudioEncoderFactory()
                        nativeAudioDecoderFactory:webrtc::CreateBuiltinAudioDecoderFactory()
+              nativeVideoBitrateAllocatorFactory:webrtc::CreateBuiltinVideoBitrateAllocatorFactory()
                        nativeVideoEncoderFactory:webrtc::ObjCToNativeVideoEncoderFactory(
                                                      [[RTCVideoEncoderFactoryH264 alloc] init])
                        nativeVideoDecoderFactory:webrtc::ObjCToNativeVideoDecoderFactory(
@@ -97,6 +99,7 @@
   }
   return [self initWithNativeAudioEncoderFactory:webrtc::CreateBuiltinAudioEncoderFactory()
                        nativeAudioDecoderFactory:webrtc::CreateBuiltinAudioDecoderFactory()
+              nativeVideoBitrateAllocatorFactory:webrtc::CreateBuiltinVideoBitrateAllocatorFactory()
                        nativeVideoEncoderFactory:std::move(native_encoder_factory)
                        nativeVideoDecoderFactory:std::move(native_decoder_factory)
                                audioDeviceModule:[self audioDeviceModule]
@@ -138,18 +141,20 @@
   return self;
 }
 
-- (instancetype)initWithNativeAudioEncoderFactory:
-                    (rtc::scoped_refptr<webrtc::AudioEncoderFactory>)audioEncoderFactory
-                        nativeAudioDecoderFactory:
-                            (rtc::scoped_refptr<webrtc::AudioDecoderFactory>)audioDecoderFactory
-                        nativeVideoEncoderFactory:
-                            (std::unique_ptr<webrtc::VideoEncoderFactory>)videoEncoderFactory
-                        nativeVideoDecoderFactory:
-                            (std::unique_ptr<webrtc::VideoDecoderFactory>)videoDecoderFactory
-                                audioDeviceModule:
-                                    (nullable webrtc::AudioDeviceModule *)audioDeviceModule
-                            audioProcessingModule:
-                                (rtc::scoped_refptr<webrtc::AudioProcessing>)audioProcessingModule {
+- (instancetype)
+     initWithNativeAudioEncoderFactory:
+         (rtc::scoped_refptr<webrtc::AudioEncoderFactory>)audioEncoderFactory
+             nativeAudioDecoderFactory:
+                 (rtc::scoped_refptr<webrtc::AudioDecoderFactory>)audioDecoderFactory
+    nativeVideoBitrateAllocatorFactory:
+        (std::unique_ptr<webrtc::VideoBitrateAllocatorFactory>)videoBitrateAllocatorFactory
+             nativeVideoEncoderFactory:
+                 (std::unique_ptr<webrtc::VideoEncoderFactory>)videoEncoderFactory
+             nativeVideoDecoderFactory:
+                 (std::unique_ptr<webrtc::VideoDecoderFactory>)videoDecoderFactory
+                     audioDeviceModule:(nullable webrtc::AudioDeviceModule *)audioDeviceModule
+                 audioProcessingModule:
+                     (rtc::scoped_refptr<webrtc::AudioProcessing>)audioProcessingModule {
 #ifdef HAVE_NO_MEDIA
   return [self initWithNoMedia];
 #else
@@ -160,6 +165,7 @@
                                                          audioDeviceModule,
                                                          audioEncoderFactory,
                                                          audioDecoderFactory,
+                                                         std::move(videoBitrateAllocatorFactory),
                                                          std::move(videoEncoderFactory),
                                                          std::move(videoDecoderFactory),
                                                          nullptr,  // audio mixer

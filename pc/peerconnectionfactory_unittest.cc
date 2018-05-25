@@ -16,6 +16,7 @@
 #include "api/audio_codecs/builtin_audio_decoder_factory.h"
 #include "api/audio_codecs/builtin_audio_encoder_factory.h"
 #include "api/mediastreaminterface.h"
+#include "api/video_codecs/builtin_video_bitrate_allocator_factory.h"
 #include "api/video_codecs/builtin_video_decoder_factory.h"
 #include "api/video_codecs/builtin_video_encoder_factory.h"
 #include "media/base/fakevideocapturer.h"
@@ -100,6 +101,7 @@ class PeerConnectionFactoryTest : public testing::Test {
             FakeAudioCaptureModule::Create()),
         webrtc::CreateBuiltinAudioEncoderFactory(),
         webrtc::CreateBuiltinAudioDecoderFactory(),
+        webrtc::CreateBuiltinVideoBitrateAllocatorFactory(),
         webrtc::CreateBuiltinVideoEncoderFactory(),
         webrtc::CreateBuiltinVideoDecoderFactory(), nullptr /* audio_mixer */,
         nullptr /* audio_processing */);
@@ -157,6 +159,7 @@ TEST(PeerConnectionFactoryTestInternal, DISABLED_CreatePCUsingInternalModules) {
           nullptr /* signaling_thread */, nullptr /* default_adm */,
           webrtc::CreateBuiltinAudioEncoderFactory(),
           webrtc::CreateBuiltinAudioDecoderFactory(),
+          webrtc::CreateBuiltinVideoBitrateAllocatorFactory(),
           webrtc::CreateBuiltinVideoEncoderFactory(),
           webrtc::CreateBuiltinVideoDecoderFactory(), nullptr /* audio_mixer */,
           nullptr /* audio_processing */));

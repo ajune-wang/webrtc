@@ -38,7 +38,7 @@ std::unique_ptr<VideoCodecTestFixture> CreateTestFixtureWithConfig(
   auto decoder_factory = CreateObjCDecoderFactory();
   auto encoder_factory = CreateObjCEncoderFactory();
   return CreateVideoCodecTestFixture(
-      config, std::move(decoder_factory), std::move(encoder_factory));
+      config, nullptr, std::move(decoder_factory), std::move(encoder_factory));
 }
 }  // namespace
 

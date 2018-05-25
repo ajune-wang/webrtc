@@ -17,6 +17,7 @@
 #include "api/mediastreaminterface.h"
 #include "api/peerconnectioninterface.h"
 #include "api/umametrics.h"
+#include "api/video_codecs/builtin_video_bitrate_allocator_factory.h"
 #include "api/video_codecs/builtin_video_decoder_factory.h"
 #include "api/video_codecs/builtin_video_encoder_factory.h"
 #include "pc/mediasession.h"
@@ -67,17 +68,18 @@ class PeerConnectionRtpBaseTest : public testing::Test {
  public:
   explicit PeerConnectionRtpBaseTest(SdpSemantics sdp_semantics)
       : sdp_semantics_(sdp_semantics),
-        pc_factory_(
-            CreatePeerConnectionFactory(rtc::Thread::Current(),
-                                        rtc::Thread::Current(),
-                                        rtc::Thread::Current(),
-                                        FakeAudioCaptureModule::Create(),
-                                        CreateBuiltinAudioEncoderFactory(),
-                                        CreateBuiltinAudioDecoderFactory(),
-                                        CreateBuiltinVideoEncoderFactory(),
-                                        CreateBuiltinVideoDecoderFactory(),
-                                        nullptr /* audio_mixer */,
-                                        nullptr /* audio_processing */)) {}
+        pc_factory_(CreatePeerConnectionFactory(
+            rtc::Thread::Current(),
+            rtc::Thread::Current(),
+            rtc::Thread::Current(),
+            FakeAudioCaptureModule::Create(),
+            CreateBuiltinAudioEncoderFactory(),
+            CreateBuiltinAudioDecoderFactory(),
+            CreateBuiltinVideoBitrateAllocatorFactory(),
+            CreateBuiltinVideoEncoderFactory(),
+            CreateBuiltinVideoDecoderFactory(),
+            nullptr /* audio_mixer */,
+            nullptr /* audio_processing */)) {}
 
   std::unique_ptr<PeerConnectionWrapper> CreatePeerConnection() {
     return CreatePeerConnection(RTCConfiguration());

@@ -12,6 +12,7 @@
 #include <utility>
 #include <vector>
 
+#include "api/video_codecs/builtin_video_bitrate_allocator_factory.h"
 #include "api/video_codecs/builtin_video_decoder_factory.h"
 #include "api/video_codecs/builtin_video_encoder_factory.h"
 #include "modules/audio_processing/include/audio_processing.h"
@@ -85,6 +86,7 @@ bool PeerConnectionTestWrapper::CreatePc(
       network_thread_, worker_thread_, rtc::Thread::Current(),
       rtc::scoped_refptr<webrtc::AudioDeviceModule>(fake_audio_capture_module_),
       audio_encoder_factory, audio_decoder_factory,
+      webrtc::CreateBuiltinVideoBitrateAllocatorFactory(),
       webrtc::CreateBuiltinVideoEncoderFactory(),
       webrtc::CreateBuiltinVideoDecoderFactory(), nullptr /* audio_mixer */,
       nullptr /* audio_processing */);

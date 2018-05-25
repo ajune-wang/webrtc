@@ -94,6 +94,7 @@
 #include "api/transport/network_control.h"
 #include "api/turncustomizer.h"
 #include "api/umametrics.h"
+#include "api/video_codecs/video_bitrate_allocator_factory.h"
 #include "logging/rtc_event_log/rtc_event_log_factory_interface.h"
 #include "media/base/mediaconfig.h"
 // TODO(bugs.webrtc.org/6353): cricket::VideoCapturer is deprecated and should
@@ -1454,6 +1455,8 @@ rtc::scoped_refptr<PeerConnectionFactoryInterface> CreatePeerConnectionFactory(
     rtc::scoped_refptr<AudioDeviceModule> default_adm,
     rtc::scoped_refptr<AudioEncoderFactory> audio_encoder_factory,
     rtc::scoped_refptr<AudioDecoderFactory> audio_decoder_factory,
+    std::unique_ptr<VideoBitrateAllocatorFactory>
+        video_bitrate_allocator_factory,
     std::unique_ptr<VideoEncoderFactory> video_encoder_factory,
     std::unique_ptr<VideoDecoderFactory> video_decoder_factory,
     rtc::scoped_refptr<AudioMixer> audio_mixer,
@@ -1471,6 +1474,8 @@ CreatePeerConnectionFactoryWithAudioMixer(
     AudioDeviceModule* default_adm,
     rtc::scoped_refptr<AudioEncoderFactory> audio_encoder_factory,
     rtc::scoped_refptr<AudioDecoderFactory> audio_decoder_factory,
+    std::unique_ptr<VideoBitrateAllocatorFactory>
+        video_bitrate_allocator_factory,
     cricket::WebRtcVideoEncoderFactory* video_encoder_factory,
     cricket::WebRtcVideoDecoderFactory* video_decoder_factory,
     rtc::scoped_refptr<AudioMixer> audio_mixer);

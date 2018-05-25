@@ -30,6 +30,7 @@
 #include "api/peerconnectionproxy.h"
 #include "api/rtpreceiverinterface.h"
 #include "api/test/fakeconstraints.h"
+#include "api/video_codecs/builtin_video_bitrate_allocator_factory.h"
 #include "api/video_codecs/builtin_video_decoder_factory.h"
 #include "api/video_codecs/builtin_video_encoder_factory.h"
 #include "api/video_codecs/sdp_video_format.h"
@@ -578,6 +579,7 @@ class PeerConnectionWrapper : public webrtc::PeerConnectionObserver,
             fake_audio_capture_module_),
         webrtc::CreateBuiltinAudioEncoderFactory(),
         webrtc::CreateBuiltinAudioDecoderFactory(),
+        webrtc::CreateBuiltinVideoBitrateAllocatorFactory(),
         webrtc::CreateBuiltinVideoEncoderFactory(),
         webrtc::CreateBuiltinVideoDecoderFactory(), nullptr /* audio_mixer */,
         nullptr /* audio_processing */);

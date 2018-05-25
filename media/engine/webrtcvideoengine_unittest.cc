@@ -15,8 +15,10 @@
 #include <vector>
 
 #include "api/rtpparameters.h"
+#include "api/test/mock_video_bitrate_allocator_factory.h"
 #include "api/test/mock_video_decoder_factory.h"
 #include "api/test/mock_video_encoder_factory.h"
+#include "api/video_codecs/builtin_video_bitrate_allocator_factory.h"
 #include "api/video_codecs/builtin_video_decoder_factory.h"
 #include "api/video_codecs/builtin_video_encoder_factory.h"
 #include "api/video_codecs/sdp_video_format.h"
@@ -184,7 +186,8 @@ class WebRtcVideoEngineTest : public ::testing::Test {
         call_(webrtc::Call::Create(webrtc::Call::Config(&event_log_))),
         encoder_factory_(new cricket::FakeWebRtcVideoEncoderFactory),
         decoder_factory_(new cricket::FakeWebRtcVideoDecoderFactory),
-        engine_(std::unique_ptr<cricket::FakeWebRtcVideoEncoderFactory>(
+        engine_(webrtc::CreateBuiltinVideoBitrateAllocatorFactory(),
+                std::unique_ptr<cricket::FakeWebRtcVideoEncoderFactory>(
                     encoder_factory_),
                 std::unique_ptr<cricket::FakeWebRtcVideoDecoderFactory>(
                     decoder_factory_)) {}
@@ -908,18 +911,25 @@ TEST_F(WebRtcVideoEngineTest, RegisterH264DecoderIfSupported) {
 TEST(WebRtcVideoEngineNewVideoCodecFactoryTest, NullFactories) {
   std::unique_ptr<webrtc::VideoEncoderFactory> encoder_factory;
   std::unique_ptr<webrtc::VideoDecoderFactory> decoder_factory;
-  WebRtcVideoEngine engine(std::move(encoder_factory),
+  std::unique_ptr<webrtc::VideoBitrateAllocatorFactory>
+      bitrate_allocator_factory;
+  WebRtcVideoEngine engine(std::move(bitrate_allocator_factory),
+                           std::move(encoder_factory),
                            std::move(decoder_factory));
   EXPECT_EQ(0u, engine.codecs().size());
 }
 
 TEST(WebRtcVideoEngineNewVideoCodecFactoryTest, EmptyFactories) {
   // |engine| take ownership of the factories.
+  webrtc::MockVideoBitrateAllocatorFactory* bitrate_allocator_factory =
+      new webrtc::MockVideoBitrateAllocatorFactory();
   webrtc::MockVideoEncoderFactory* encoder_factory =
       new webrtc::MockVideoEncoderFactory();
   webrtc::MockVideoDecoderFactory* decoder_factory =
       new webrtc::MockVideoDecoderFactory();
   WebRtcVideoEngine engine(
+      (std::unique_ptr<webrtc::VideoBitrateAllocatorFactory>(
+          bitrate_allocator_factory)),
       (std::unique_ptr<webrtc::VideoEncoderFactory>(encoder_factory)),
       (std::unique_ptr<webrtc::VideoDecoderFactory>(decoder_factory)));
   EXPECT_CALL(*encoder_factory, GetSupportedFormats());
@@ -934,13 +944,25 @@ TEST(WebRtcVideoEngineNewVideoCodecFactoryTest, EmptyFactories) {
 // new factories.
 TEST(WebRtcVideoEngineNewVideoCodecFactoryTest, Vp8) {
   // |engine| take ownership of the factories.
+  webrtc::MockVideoBitrateAllocatorFactory* bitrate_allocator_factory =
+      new webrtc::MockVideoBitrateAllocatorFactory();
   webrtc::MockVideoEncoderFactory* encoder_factory =
       new webrtc::MockVideoEncoderFactory();
   webrtc::MockVideoDecoderFactory* decoder_factory =
       new webrtc::MockVideoDecoderFactory();
   WebRtcVideoEngine engine(
+      (std::unique_ptr<webrtc::VideoBitrateAllocatorFactory>(
+          bitrate_allocator_factory)),
       (std::unique_ptr<webrtc::VideoEncoderFactory>(encoder_factory)),
       (std::unique_ptr<webrtc::VideoDecoderFactory>(decoder_factory)));
+
+  webrtc::MockVideoBitrateAllocator* bitrate_allocator =
+      new webrtc::MockVideoBitrateAllocator();
+  EXPECT_CALL(*bitrate_allocator_factory,
+              CreateVideoBitrateAllocatorProxy(Field(
+                  &webrtc::VideoCodec::codecType, webrtc::kVideoCodecVP8)))
+      .WillOnce(testing::Return(bitrate_allocator));
+
   const webrtc::SdpVideoFormat vp8_format("VP8");
   const std::vector<webrtc::SdpVideoFormat> supported_formats = {vp8_format};
   EXPECT_CALL(*encoder_factory, GetSupportedFormats())
@@ -1043,11 +1065,15 @@ TEST(WebRtcVideoEngineNewVideoCodecFactoryTest, Vp8) {
 // Test behavior when decoder factory fails to create a decoder (returns null).
 TEST(WebRtcVideoEngineNewVideoCodecFactoryTest, NullDecoder) {
   // |engine| take ownership of the factories.
+  webrtc::MockVideoBitrateAllocatorFactory* bitrate_allocator_factory =
+      new webrtc::MockVideoBitrateAllocatorFactory();
   webrtc::MockVideoEncoderFactory* encoder_factory =
       new testing::StrictMock<webrtc::MockVideoEncoderFactory>();
   webrtc::MockVideoDecoderFactory* decoder_factory =
       new testing::StrictMock<webrtc::MockVideoDecoderFactory>();
   WebRtcVideoEngine engine(
+      (std::unique_ptr<webrtc::VideoBitrateAllocatorFactory>(
+          bitrate_allocator_factory)),
       (std::unique_ptr<webrtc::VideoEncoderFactory>(encoder_factory)),
       (std::unique_ptr<webrtc::VideoDecoderFactory>(decoder_factory)));
   const webrtc::SdpVideoFormat vp8_format("VP8");
@@ -1142,7 +1168,8 @@ class WebRtcVideoChannelBaseTest : public testing::Test {
  protected:
   WebRtcVideoChannelBaseTest()
       : call_(webrtc::Call::Create(webrtc::Call::Config(&event_log_))),
-        engine_(webrtc::CreateBuiltinVideoEncoderFactory(),
+        engine_(webrtc::CreateBuiltinVideoBitrateAllocatorFactory(),
+                webrtc::CreateBuiltinVideoEncoderFactory(),
                 webrtc::CreateBuiltinVideoDecoderFactory()) {}
 
   virtual void SetUp() {
@@ -5756,7 +5783,8 @@ class WebRtcVideoChannelSimulcastTest : public testing::Test {
       : fake_call_(),
         encoder_factory_(new cricket::FakeWebRtcVideoEncoderFactory),
         decoder_factory_(new cricket::FakeWebRtcVideoDecoderFactory),
-        engine_(std::unique_ptr<cricket::FakeWebRtcVideoEncoderFactory>(
+        engine_(webrtc::CreateBuiltinVideoBitrateAllocatorFactory(),
+                std::unique_ptr<cricket::FakeWebRtcVideoEncoderFactory>(
                     encoder_factory_),
                 std::unique_ptr<cricket::FakeWebRtcVideoDecoderFactory>(
                     decoder_factory_)),

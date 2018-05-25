@@ -80,6 +80,23 @@ TEST(TimeDeltaTest, ComparisonOperators) {
   EXPECT_LT(TimeDelta::MinusInfinity(), TimeDelta::Zero());
 }
 
+TEST(TimeDeltaTest, ConvertsToAndFromDouble) {
+  const int64_t kMillis = 17;
+  const double kSecondsDouble = static_cast<double>(kMillis) / 1000;
+
+  EXPECT_NEAR(TimeDelta::ms(kMillis).seconds<double>(), kSecondsDouble, 1e-9);
+  EXPECT_EQ(TimeDelta::seconds(kSecondsDouble).ms(), kMillis);
+
+  const double kPlusInfinity = std::numeric_limits<double>::infinity();
+  const double kMinusInfinity = -kPlusInfinity;
+
+  EXPECT_EQ(TimeDelta::PlusInfinity().seconds<double>(), kPlusInfinity);
+  EXPECT_EQ(TimeDelta::MinusInfinity().seconds<double>(), kMinusInfinity);
+
+  EXPECT_TRUE(TimeDelta::seconds(kPlusInfinity).IsPlusInfinity());
+  EXPECT_TRUE(TimeDelta::seconds(kMinusInfinity).IsMinusInfinity());
+}
+
 TEST(TimeDeltaTest, MathOperations) {
   const int64_t kValueA = 267;
   const int64_t kValueB = 450;

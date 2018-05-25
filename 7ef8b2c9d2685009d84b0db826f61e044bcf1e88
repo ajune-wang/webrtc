@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ebfdfb4d_0cd7f790",
+        "filename": "modules/audio_coding/neteq/tools/neteq_rtpplay.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-05-25T07:36:50Z",
+      "side": 1,
+      "message": "Rather than casting, can\u0027t you let input be a std::unique_ptr\u003cNetEqPacketSourceInput\u003e ?",
+      "range": {
+        "startLine": 339,
+        "startChar": 4,
+        "endLine": 339,
+        "endChar": 71
+      },
+      "revId": "7ef8b2c9d2685009d84b0db826f61e044bcf1e88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

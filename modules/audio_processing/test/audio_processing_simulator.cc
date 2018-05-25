@@ -255,6 +255,8 @@ EchoCanceller3Config ParseAec3Parameters(const std::string& filename) {
   if (rtc::GetValueFromJsonObject(root, "echo_removal_control", &section)) {
     Json::Value subsection;
     if (rtc::GetValueFromJsonObject(section, "gain_rampup", &subsection)) {
+      ReadParam(subsection, "initial_gain",
+                &cfg.echo_removal_control.gain_rampup.initial_gain);
       ReadParam(subsection, "first_non_zero_gain",
                 &cfg.echo_removal_control.gain_rampup.first_non_zero_gain);
       ReadParam(subsection, "non_zero_gain_blocks",

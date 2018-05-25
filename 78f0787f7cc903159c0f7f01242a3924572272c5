@@ -52,6 +52,24 @@
       "revId": "78f0787f7cc903159c0f7f01242a3924572272c5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2eb8ee1b_9312d01f",
+        "filename": "logging/rtc_event_log/events/rtc_event_probe_cluster_created.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-05-25T14:20:37Z",
+      "side": 1,
+      "message": "Discussed offline; I\u0027m satisfied that this is as good as can be done with the amount of effort this deserves at the moment.",
+      "parentUuid": "39d1c260_f97f9b88",
+      "revId": "78f0787f7cc903159c0f7f01242a3924572272c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

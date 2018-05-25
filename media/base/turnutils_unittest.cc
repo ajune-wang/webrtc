@@ -113,8 +113,8 @@ TEST(TurnUtilsTest, ChannelMessageZeroLength) {
   EXPECT_TRUE(UnwrapTurnPacket(kTurnChannelMsgWithZeroLength,
                                sizeof(kTurnChannelMsgWithZeroLength),
                                &content_pos, &content_size));
-  EXPECT_EQ(4, content_pos);
-  EXPECT_EQ(0, content_size);
+  EXPECT_EQ(static_cast<size_t>(4), content_pos);
+  EXPECT_EQ(static_cast<size_t>(0), content_size);
 }
 
 }  // namespace cricket

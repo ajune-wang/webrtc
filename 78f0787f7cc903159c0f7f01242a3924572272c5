@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "619c80eb_a1a2a67c",
+        "filename": "logging/rtc_event_log/events/rtc_event_probe_cluster_created.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-05-25T12:04:04Z",
+      "side": 1,
+      "message": "This is instantiated by:\n\n    event_log_-\u003eLog(rtc::MakeUnique\u003cRtcEventProbeClusterCreated\u003e(\n        cluster.pace_info.probe_cluster_id, cluster.pace_info.send_bitrate_bps,\n        cluster.pace_info.probe_cluster_min_probes,\n        cluster.pace_info.probe_cluster_min_bytes));\n\nWhich gets its date from here:\n\nstruct PacedPacketInfo {\n  PacedPacketInfo();\n  PacedPacketInfo(int probe_cluster_id,\n                  int probe_cluster_min_probes,\n                  int probe_cluster_min_bytes);\n\n  bool operator\u003d\u003d(const PacedPacketInfo\u0026 rhs) const;\n\n  // TODO(srte): Move probing info to a separate, optional struct.\n  static constexpr int kNotAProbe \u003d -1;\n  int send_bitrate_bps \u003d -1;\n  int probe_cluster_id \u003d kNotAProbe;\n  int probe_cluster_min_probes \u003d -1;\n  int probe_cluster_min_bytes \u003d -1;\n};\n\nSo it seems a bit unsafe. No?",
+      "revId": "78f0787f7cc903159c0f7f01242a3924572272c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

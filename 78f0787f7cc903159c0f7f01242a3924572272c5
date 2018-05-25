@@ -34,6 +34,24 @@
       "revId": "78f0787f7cc903159c0f7f01242a3924572272c5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39d1c260_f97f9b88",
+        "filename": "logging/rtc_event_log/events/rtc_event_probe_cluster_created.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-05-25T14:00:49Z",
+      "side": 1,
+      "message": "It sounds generally reasonable, but I am a bit concerned that PacedPacketInfo\u0027s members might at some point:\n* Have a negative number (see in the above comment what their default ctor sets them to). \n* Also, I am not sure we\u0027re guaranteed that int-s would not be more than 32-bit on some systems, although maybe we have some build configuration to prevent that?\n\nPossible solutions:\n* Is changing the types at PacedPacketInfo an option?\n* Maybe we should use some checked/saturated/otherwise-safe cast when instantiating RtcEventProbeClusterCreated?\n\nWdyt?\n\n(By the way, in the post-CL code, it is slightly odd that |bitrate_bps| is signed, but |min_probes| is unsigned; I\u0027d expect both to be unsigned values.)",
+      "parentUuid": "1259bad5_ecc619cc",
+      "revId": "78f0787f7cc903159c0f7f01242a3924572272c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

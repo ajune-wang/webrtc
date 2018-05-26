@@ -251,6 +251,7 @@ void AecState::Update(
   usable_linear_estimate_ = usable_linear_estimate_ && external_delay;
 
   use_linear_filter_output_ = usable_linear_estimate_ && !TransparentMode();
+  use_linear_filter_output_ = true;
 
   data_dumper_->DumpRaw("aec3_erle", Erle());
   data_dumper_->DumpRaw("aec3_erle_onset", erle_estimator_.ErleOnsets());

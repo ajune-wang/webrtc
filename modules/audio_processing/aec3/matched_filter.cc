@@ -26,6 +26,8 @@
 namespace webrtc {
 namespace aec3 {
 
+constexpr float kStepSize = 0.5f;
+
 #if defined(WEBRTC_HAS_NEON)
 
 void MatchedFilterCore_NEON(size_t x_start_index,
@@ -100,10 +102,10 @@ void MatchedFilterCore_NEON(size_t x_start_index,
     // Update the matched filter estimate in an NLMS manner.
     if (x2_sum > x2_sum_threshold && !saturation) {
       RTC_DCHECK_LT(0.f, x2_sum);
-      const float alpha = 0.7f * e / x2_sum;
+      const float alpha = kStepSize * e / x2_sum;
       const float32x4_t alpha_128 = vmovq_n_f32(alpha);
 
-      // filter = filter + 0.7 * (y - filter * x) / x * x.
+      // filter = filter + alpha * (y - filter * x) / x * x.
       float* h_p = &h[0];
       x_p = &x[x_start_index];
 
@@ -215,10 +217,10 @@ void MatchedFilterCore_SSE2(size_t x_start_index,
     // Update the matched filter estimate in an NLMS manner.
     if (x2_sum > x2_sum_threshold && !saturation) {
       RTC_DCHECK_LT(0.f, x2_sum);
-      const float alpha = 0.7f * e / x2_sum;
+      const float alpha = kStepSize * e / x2_sum;
       const __m128 alpha_128 = _mm_set1_ps(alpha);
 
-      // filter = filter + 0.7 * (y - filter * x) / x * x.
+      // filter = filter + alpha * (y - filter * x) / x * x.
       float* h_p = &h[0];
       x_p = &x[x_start_index];
 
@@ -286,9 +288,9 @@ void MatchedFilterCore(size_t x_start_index,
     // Update the matched filter estimate in an NLMS manner.
     if (x2_sum > x2_sum_threshold && !saturation) {
       RTC_DCHECK_LT(0.f, x2_sum);
-      const float alpha = 0.7f * e / x2_sum;
+      const float alpha = kStepSize * e / x2_sum;
 
-      // filter = filter + 0.7 * (y - filter * x) / x * x.
+      // filter = filter + alpha * (y - filter * x) / x * x.
       size_t x_index = x_start_index;
       for (size_t k = 0; k < h.size(); ++k) {
         h[k] += alpha * x[x_index];

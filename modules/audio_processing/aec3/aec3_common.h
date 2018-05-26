@@ -48,7 +48,7 @@ constexpr size_t kBlockSize = kFftLengthBy2;
 constexpr size_t kBlockSizeLog2 = 6;
 
 constexpr size_t kExtendedBlockSize = 2 * kFftLengthBy2;
-constexpr size_t kMatchedFilterWindowSizeSubBlocks = 32;
+constexpr size_t kMatchedFilterWindowSizeSubBlocks = 16;
 constexpr size_t kMatchedFilterAlignmentShiftSizeSubBlocks =
     kMatchedFilterWindowSizeSubBlocks * 3 / 4;
 

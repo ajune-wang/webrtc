@@ -22,7 +22,7 @@ struct EchoCanceller3Config {
   struct Delay {
     size_t default_delay = 5;
     size_t down_sampling_factor = 4;
-    size_t num_filters = 5;
+    size_t num_filters = 10;
     size_t api_call_jitter_blocks = 26;
     size_t min_echo_path_delay_blocks = 0;
     size_t delay_headroom_blocks = 2;
@@ -65,7 +65,7 @@ struct EchoCanceller3Config {
     float lf = 1.f;
     float mf = 1.f;
     float hf = 1.f;
-    float default_len = 0.f;
+    float default_len = 0.7f;
     bool echo_can_saturate = true;
     bool bounded_erl = false;
   } ep_strength;

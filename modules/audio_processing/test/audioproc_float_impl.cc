@@ -165,6 +165,9 @@ DEFINE_int(ns_level,
 DEFINE_int(stream_delay,
            kParameterNotSpecifiedValue,
            "Specify the stream delay in ms to use");
+DEFINE_bool(report_stream_delay,
+            true,
+            "Specify the stream delay should be reported");
 DEFINE_int(stream_drift_samples,
            kParameterNotSpecifiedValue,
            "Specify the number of stream drift samples to use");
@@ -294,6 +297,7 @@ SimulationSettings CreateSettings() {
   settings.initial_mic_level = FLAG_initial_mic_level;
   settings.simulate_mic_gain = FLAG_simulate_mic_gain;
   SetSettingIfSpecified(FLAG_simulated_mic_kind, &settings.simulated_mic_kind);
+  settings.report_stream_delay = FLAG_report_stream_delay;
   settings.report_performance = FLAG_performance_report;
   settings.use_verbose_logging = FLAG_verbose;
   settings.report_bitexactness = FLAG_bitexactness_report;

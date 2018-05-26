@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "723bbde4_760ed7c8",
+        "filename": "pc/peerconnection_rampup_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-05-26T02:06:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ac74a54_c75762db",
+      "revId": "677bf3674cc992e622296885e2eef107a196605f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba88952c_2f8a1f7a",
         "filename": "pc/peerconnection_rampup_tests.cc",
         "patchSetId": 1
@@ -83,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "c164b732_38730e20",
+        "filename": "pc/peerconnection_rampup_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-05-26T02:06:15Z",
+      "side": 1,
+      "message": "Awesome, thanks for letting me know of the update.",
+      "parentUuid": "98f2c2e4_d880d0e9",
+      "revId": "677bf3674cc992e622296885e2eef107a196605f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d2aa7bc6_f24a2d03",
         "filename": "pc/peerconnection_rampup_tests.cc",
         "patchSetId": 1
@@ -97,6 +133,24 @@
       "revId": "677bf3674cc992e622296885e2eef107a196605f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "391452b9_38a870cc",
+        "filename": "pc/peerconnection_rampup_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-05-26T02:06:15Z",
+      "side": 1,
+      "message": "Sounds good. I put this here in case we wanted to use it later when setting up different ICE paths (this is done in peerconnection_ice_unittest.cc), but I guess that probably won\u0027t be necessary. If it is we can add it back later.",
+      "parentUuid": "d2aa7bc6_f24a2d03",
+      "revId": "677bf3674cc992e622296885e2eef107a196605f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -211,6 +265,24 @@
     },
     {
       "key": {
+        "uuid": "5e4821de_a7e3a0d6",
+        "filename": "pc/peerconnection_rampup_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-05-26T02:06:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3bd58564_daef56b7",
+      "revId": "677bf3674cc992e622296885e2eef107a196605f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "22c98e23_ded31ce5",
         "filename": "pc/peerconnection_rampup_tests.cc",
         "patchSetId": 1
@@ -225,6 +297,24 @@
       "revId": "677bf3674cc992e622296885e2eef107a196605f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "997f0c92_d654c4b9",
+        "filename": "pc/peerconnection_rampup_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-05-26T02:06:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "22c98e23_ded31ce5",
+      "revId": "677bf3674cc992e622296885e2eef107a196605f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -245,6 +335,24 @@
     },
     {
       "key": {
+        "uuid": "551d97bb_59641c15",
+        "filename": "pc/peerconnection_rampup_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-05-26T02:06:15Z",
+      "side": 1,
+      "message": "Yeah, I took it out along with the other debug stuff.",
+      "parentUuid": "56871d39_2ece5760",
+      "revId": "677bf3674cc992e622296885e2eef107a196605f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "77b7c6eb_25ea5692",
         "filename": "pc/peerconnection_rampup_tests.cc",
         "patchSetId": 1
@@ -259,6 +367,24 @@
       "revId": "677bf3674cc992e622296885e2eef107a196605f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "17a862a3_152e1e67",
+        "filename": "pc/peerconnection_rampup_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-05-26T02:06:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "77b7c6eb_25ea5692",
+      "revId": "677bf3674cc992e622296885e2eef107a196605f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -279,6 +405,24 @@
     },
     {
       "key": {
+        "uuid": "a6e13d3d_fd815ec7",
+        "filename": "pc/peerconnection_rampup_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-05-26T02:06:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "03bfa119_ad35166e",
+      "revId": "677bf3674cc992e622296885e2eef107a196605f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d43af663_43da8e57",
         "filename": "pc/peerconnection_rampup_tests.cc",
         "patchSetId": 1
@@ -296,6 +440,24 @@
     },
     {
       "key": {
+        "uuid": "d7d96f27_3f60e2f4",
+        "filename": "pc/peerconnection_rampup_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-05-26T02:06:15Z",
+      "side": 1,
+      "message": "Ah I see this, thanks for pointing that out Taylor. It seems like there\u0027s two things we would like to update for VirtualSocketServer:\n-2 queues (one for each direction)\n-Same implementation for the send delay as FakeNetworkPipe\n\nThe preferred fix here would be to probably incorporate the SimulatedNetwork into the VirtualSocketServer. This could require a larger effort - the FakeNetworkPipe/Simulated network were really designed for sending/receiving at the call level, while the VirtualSocketServer is designed at the socket level. Although, I think it could be possible to use the SimulatedNetwork in the VirtualSocketServer. I was thinking the VirtualSocketServer could be the interface between the sockets and the network, where the underlying network would be the SimulatedNetwork. It would control network configurations and enqueue/dequeue packets appropriately. \n\nAs we discussed with Qingsi, it\u0027s probably best to hold off on this for now because this will probably be part of a larger effort for creating a unified network simulation, and it\u0027s best not to hastily throw something together now just for the test to run as we hope. A smaller fix could be updating the VirtualSocketServer to implement the 2 things I mentioned above. WDYT?\n\nOne small thing to note is this test (\u0026 others) will probably break when we incorporate a more \"real\" simulated networks into the VirtualSocketServer.",
+      "parentUuid": "d43af663_43da8e57",
+      "revId": "677bf3674cc992e622296885e2eef107a196605f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8ffd783a_bebad228",
         "filename": "pc/peerconnection_rampup_tests.cc",
         "patchSetId": 1
@@ -310,6 +472,24 @@
       "revId": "677bf3674cc992e622296885e2eef107a196605f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a1c8508_83b4c63e",
+        "filename": "pc/peerconnection_rampup_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-05-26T02:06:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8ffd783a_bebad228",
+      "revId": "677bf3674cc992e622296885e2eef107a196605f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

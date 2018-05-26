@@ -28,7 +28,9 @@ enum {
   MSG_CHANNELREADY,
 };
 
-bool SctpSidAllocator::AllocateSid(rtc::SSLRole role, int* sid) {
+bool SctpSidAllocator::AllocateSid(
+    rtc::SSLRole role,
+    int* sid) {
   int potential_sid = (role == rtc::SSL_CLIENT) ? 0 : 1;
   while (!IsSidAvailable(potential_sid)) {
     potential_sid += 2;
@@ -42,7 +44,8 @@ bool SctpSidAllocator::AllocateSid(rtc::SSLRole role, int* sid) {
   return true;
 }
 
-bool SctpSidAllocator::ReserveSid(int sid) {
+bool SctpSidAllocator::ReserveSid(
+    int sid) {
   if (!IsSidAvailable(sid)) {
     return false;
   }
@@ -57,7 +60,8 @@ void SctpSidAllocator::ReleaseSid(int sid) {
   }
 }
 
-bool SctpSidAllocator::IsSidAvailable(int sid) const {
+bool SctpSidAllocator::IsSidAvailable(
+    int sid) const {
   if (sid < static_cast<int>(cricket::kMinSctpSid) ||
       sid > static_cast<int>(cricket::kMaxSctpSid)) {
     return false;
@@ -229,6 +233,7 @@ void DataChannel::Close() {
   send_ssrc_ = 0;
   send_ssrc_set_ = false;
   SetState(kClosing);
+  // Will send queued data before beginning the underlying closing procedure.
   UpdateState();
 }
 
@@ -277,8 +282,9 @@ void DataChannel::SetReceiveSsrc(uint32_t receive_ssrc) {
 }
 
 // The remote peer request that this channel shall be closed.
+// Only called for RTP data channels.
 void DataChannel::RemotePeerRequestClose() {
-  DoClose();
+  CloseAbruptly(); 
 }
 
 void DataChannel::SetSctpSid(int sid) {
@@ -291,6 +297,32 @@ void DataChannel::SetSctpSid(int sid) {
 
   config_.id = sid;
   provider_->AddSctpDataStream(sid);
+}
+
+void DataChannel::OnClosingProcedureStartedRemotely(int sid) {
+  if (data_channel_type_ == cricket::DCT_SCTP && sid == config_.id && state_ != kClosing && state_ != kClosed) {
+    // Don't bother sending queued data since the side that initiated the
+    // closure wouldn't receive it anyway. See crbug.com/559394 for a lengthy
+    // discussion about this.
+    queued_send_data_.Clear();
+    queued_control_data_.Clear();
+    // Just need to change state to kClosing, SctpTransport will handle the
+    // rest of the closing procedure and OnClosingProcedureComplete will be
+    // called later.
+    started_closing_procedure_ = true;
+    SetState(kClosing);
+  }
+}
+
+void DataChannel::OnClosingProcedureComplete(int sid) {
+  if (data_channel_type_ == cricket::DCT_SCTP && sid == config_.id) {
+    // If the closing procedure is complete, we should have finished sending
+    // all pending data and transitioned to kClosing.
+    RTC_DCHECK_EQ(state_, kClosing);
+    RTC_DCHECK(queued_send_data_.Empty());
+    DisconnectFromProvider();
+    SetState(kClosed);
+  }
 }
 
 void DataChannel::OnTransportChannelCreated() {
@@ -306,11 +338,9 @@ void DataChannel::OnTransportChannelCreated() {
 }
 
 void DataChannel::OnTransportChannelDestroyed() {
-  // This method needs to synchronously close the data channel, which means any
-  // queued data needs to be discarded.
-  queued_send_data_.Clear();
-  queued_control_data_.Clear();
-  DoClose();
+  // The SctpTransport is going away (for example, because the SCTP m= section
+  // was rejected), so we need to close abruptly.
+  CloseAbruptly();
 }
 
 void DataChannel::SetSendSsrc(uint32_t send_ssrc) {
@@ -396,12 +426,6 @@ void DataChannel::OnDataReceived(const cricket::ReceiveDataParams& params,
   }
 }
 
-void DataChannel::OnStreamClosedRemotely(int sid) {
-  if (data_channel_type_ == cricket::DCT_SCTP && sid == config_.id) {
-    Close();
-  }
-}
-
 void DataChannel::OnChannelReady(bool writable) {
   writable_ = writable;
   if (!writable) {
@@ -413,14 +437,23 @@ void DataChannel::OnChannelReady(bool writable) {
   UpdateState();
 }
 
-void DataChannel::DoClose() {
-  if (state_ == kClosed)
+void DataChannel::CloseAbruptly() {
+  if (state_ == kClosed) {
     return;
+  }
 
-  receive_ssrc_set_ = false;
-  send_ssrc_set_ = false;
+  if (connected_to_provider_) {
+    DisconnectFromProvider();
+  }
+
+  // Closing abruptly means any queued data gets thrown away.
+  queued_send_data_.Clear();
+  queued_control_data_.Clear();
+
+  // Still go to "kClosing" before "kClosed", since observers may be expecting
+  // that.
   SetState(kClosing);
-  UpdateState();
+  SetState(kClosed);
 }
 
 void DataChannel::UpdateState() {
@@ -460,13 +493,26 @@ void DataChannel::UpdateState() {
       break;
     }
     case kClosing: {
+      // Wait for all queued data to be sent before beginning the closing procedure.
       if (queued_send_data_.Empty() && queued_control_data_.Empty()) {
-        if (connected_to_provider_) {
-          DisconnectFromProvider();
-        }
-
-        if (!connected_to_provider_ && !send_ssrc_set_ && !receive_ssrc_set_) {
-          SetState(kClosed);
+        if (data_channel_type_ == cricket::DCT_RTP) {
+          // For RTP data channels, we can go to "closed" after we finish
+          // sending data and the send/recv SSRCs are unset.
+          if (connected_to_provider_) {
+            DisconnectFromProvider();
+          }
+          if (!send_ssrc_set_ && !receive_ssrc_set_) {
+            SetState(kClosed);
+          }
+        } else {
+          // For SCTP data channels, we need to wait for the closing procedure
+          // to complete; after calling RemoveSctpDataStream,
+          // OnClosingProcedureComplete will end up called asynchronously
+          // afterwards.
+          if (connected_to_provider_ && !started_closing_procedure_ && config_.id >= 0) {
+            started_closing_procedure_ = true;
+            provider_->RemoveSctpDataStream(config_.id);
+          }
         }
       }
       break;
@@ -498,10 +544,6 @@ void DataChannel::DisconnectFromProvider() {
 
   provider_->DisconnectDataChannel(this);
   connected_to_provider_ = false;
-
-  if (data_channel_type_ == cricket::DCT_SCTP && config_.id >= 0) {
-    provider_->RemoveSctpDataStream(config_.id);
-  }
 }
 
 void DataChannel::DeliverQueuedReceivedData() {

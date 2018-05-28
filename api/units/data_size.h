@@ -15,6 +15,7 @@
 #include <cmath>
 #include <limits>
 #include <string>
+#include <type_traits>
 
 #include "rtc_base/checks.h"
 
@@ -35,11 +36,46 @@ class DataSize {
     RTC_DCHECK_GE(bytes, 0);
     return DataSize(bytes);
   }
-  int64_t bytes() const {
+
+  template <
+      typename T,
+      typename std::enable_if<std::is_integral<T>::value>::type* = nullptr>
+  static DataSize bytes(T bytes) {
+    RTC_DCHECK_GE(bytes, 0);
+    return DataSize(bytes);
+  }
+
+  template <typename T,
+            typename std::enable_if<std::is_floating_point<T>::value>::type* =
+                nullptr>
+  static DataSize bytes(T bytes) {
+    if (bytes == std::numeric_limits<double>::infinity()) {
+      return Infinity();
+    } else {
+      RTC_DCHECK(!std::isnan(bytes));
+      RTC_DCHECK_GE(bytes, 0);
+      RTC_DCHECK_LT(bytes, data_size_impl::kPlusInfinityVal);
+      return DataSize(bytes);
+    }
+  }
+
+  template <typename T = int64_t>
+  typename std::enable_if<std::is_integral<T>::value, T>::type bytes() const {
     RTC_DCHECK(IsFinite());
+    RTC_DCHECK_LE(bytes_, static_cast<int64_t>(std::numeric_limits<T>::max()));
     return bytes_;
   }
-  int64_t kilobytes() const { return (bytes() + 500) / 1000; }
+
+  template <typename T>
+  typename std::enable_if<std::is_floating_point<T>::value, T>::type bytes()
+      const {
+    if (IsInfinite()) {
+      return std::numeric_limits<T>::infinity();
+    } else {
+      return bytes_;
+    }
+  }
+
   bool IsZero() const { return bytes_ == 0; }
   bool IsInfinite() const { return bytes_ == data_size_impl::kPlusInfinityVal; }
   bool IsFinite() const { return !IsInfinite(); }
@@ -56,6 +92,9 @@ class DataSize {
   DataSize& operator+=(const DataSize& other) {
     bytes_ += other.bytes();
     return *this;
+  }
+  double operator/(const DataSize& other) const {
+    return bytes<double>() / other.bytes<double>();
   }
   bool operator==(const DataSize& other) const {
     return bytes_ == other.bytes_;
@@ -76,6 +115,7 @@ class DataSize {
   explicit DataSize(int64_t bytes) : bytes_(bytes) {}
   int64_t bytes_;
 };
+
 inline DataSize operator*(const DataSize& size, const double& scalar) {
   return DataSize::bytes(std::round(size.bytes() * scalar));
 }

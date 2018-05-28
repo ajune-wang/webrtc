@@ -31,10 +31,12 @@ constexpr int64_t kMinusInfinityVal = std::numeric_limits<int64_t>::min();
 class Timestamp {
  public:
   Timestamp() = delete;
-  static Timestamp Infinity() {
+  static Timestamp PlusInfinity() {
     return Timestamp(timestamp_impl::kPlusInfinityVal);
   }
-
+  static Timestamp MinusInfinity() {
+    return Timestamp(timestamp_impl::kMinusInfinityVal);
+  }
   template <typename T>
   static Timestamp seconds(T seconds) {
     return Timestamp::us(seconds * 1000000);
@@ -58,7 +60,9 @@ class Timestamp {
                 nullptr>
   static Timestamp us(T microseconds) {
     if (microseconds == std::numeric_limits<double>::infinity()) {
-      return Infinity();
+      return PlusInfinity();
+    } else if (microseconds == -std::numeric_limits<double>::infinity()) {
+      return MinusInfinity();
     } else {
       RTC_DCHECK(!std::isnan(microseconds));
       RTC_DCHECK_GE(microseconds, 0);
@@ -99,15 +103,24 @@ class Timestamp {
   template <typename T>
   typename std::enable_if<std::is_floating_point<T>::value, T>::type us()
       const {
-    if (IsInfinite()) {
+    if (IsPlusInfinity()) {
       return std::numeric_limits<T>::infinity();
+    } else if (IsMinusInfinity()) {
+      return -std::numeric_limits<T>::infinity();
     } else {
       return microseconds_;
     }
   }
 
   bool IsInfinite() const {
-    return microseconds_ == timestamp_impl::kPlusInfinityVal;
+    return microseconds_ == timedelta_impl::kPlusInfinityVal ||
+           microseconds_ == timedelta_impl::kMinusInfinityVal;
+  }
+  bool IsPlusInfinity() const {
+    return microseconds_ == timedelta_impl::kPlusInfinityVal;
+  }
+  bool IsMinusInfinity() const {
+    return microseconds_ == timedelta_impl::kMinusInfinityVal;
   }
   bool IsFinite() const { return !IsInfinite(); }
   TimeDelta operator-(const Timestamp& other) const {

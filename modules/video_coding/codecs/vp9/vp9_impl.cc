@@ -11,6 +11,7 @@
 
 #include "modules/video_coding/codecs/vp9/vp9_impl.h"
 
+#include <limits.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
@@ -507,6 +508,7 @@ int VP9EncoderImpl::InitAndSetControlSettings(const VideoCodec* inst) {
       vpx_svc_frame_drop_t svc_drop_frame;
       memset(&svc_drop_frame, 0, sizeof(svc_drop_frame));
       svc_drop_frame.framedrop_mode = CONSTRAINED_LAYER_DROP;
+      svc_drop_frame.max_consec_drop = INT_MAX;
       for (size_t i = 0; i < num_spatial_layers_; ++i) {
         svc_drop_frame.framedrop_thresh[i] =
             (i == 0) ? config_->rc_dropframe_thresh : 0;

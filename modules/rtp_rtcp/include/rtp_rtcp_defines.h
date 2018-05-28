@@ -261,15 +261,9 @@ class RtpFeedback {
 
 class RtcpIntraFrameObserver {
  public:
-  virtual void OnReceivedIntraFrameRequest(uint32_t ssrc) = 0;
-
-  RTC_DEPRECATED virtual void OnReceivedSLI(uint32_t ssrc,
-                             uint8_t picture_id) {}
-
-  RTC_DEPRECATED virtual void OnReceivedRPSI(uint32_t ssrc,
-                              uint64_t picture_id) {}
-
   virtual ~RtcpIntraFrameObserver() {}
+
+  virtual void OnReceivedIntraFrameRequest(uint32_t ssrc) = 0;
 };
 
 class RtcpBandwidthObserver {

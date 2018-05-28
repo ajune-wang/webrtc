@@ -468,7 +468,7 @@ bool RTPSender::SendOutgoingData(FrameType frame_type,
 
   return result;
 }
-
+UpdateRtpStats
 size_t RTPSender::TrySendRedundantPayloads(size_t bytes_to_send,
                                            const PacedPacketInfo& pacing_info) {
   {

@@ -50,7 +50,8 @@ std::string VideoSendStream::Stats::ToString(int64_t time_ms) const {
   ss << "media_bps: " << media_bitrate_bps << ", ";
   ss << "preferred_media_bitrate_bps: " << preferred_media_bitrate_bps << ", ";
   ss << "suspended: " << (suspended ? "true" : "false") << ", ";
-  ss << "bw_adapted: " << (bw_limited_resolution ? "true" : "false");
+  ss << "bw_adapted: " << (bw_limited_resolution ? "true" : "false") << ", ";
+  ss << "codec_impl: " << encoder_implementation_name;
   ss << '}';
   for (const auto& substream : substreams) {
     if (!substream.second.is_rtx && !substream.second.is_flexfec) {

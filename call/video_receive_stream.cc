@@ -59,7 +59,8 @@ std::string VideoReceiveStream::Stats::ToString(int64_t time_ms) const {
   ss << "max_ext_seq: " << rtcp_stats.extended_highest_sequence_number << ", ";
   ss << "nack: " << rtcp_packet_type_counts.nack_packets << ", ";
   ss << "fir: " << rtcp_packet_type_counts.fir_packets << ", ";
-  ss << "pli: " << rtcp_packet_type_counts.pli_packets;
+  ss << "pli: " << rtcp_packet_type_counts.pli_packets << ", ";
+  ss << "codec_impl: " << decoder_implementation_name;
   ss << '}';
   return ss.str();
 }

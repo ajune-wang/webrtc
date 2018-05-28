@@ -23,6 +23,10 @@ class AdaptiveModeLevelEstimator {
   void UpdateEstimation(const VadWithLevel::LevelAndProbability& vad_data);
   float LatestLevelEstimate() const;
 
+  // A confidence in the estimate.
+  float CurrentMemory() const;
+  void Reset();  // Set confidence to zero.
+
  private:
   void DebugDumpEstimate();
 

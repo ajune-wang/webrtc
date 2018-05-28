@@ -59,6 +59,18 @@ float AdaptiveModeLevelEstimator::LatestLevelEstimate() const {
       -90.f, 0.f);
 }
 
+float AdaptiveModeLevelEstimator::CurrentMemory() const {
+  return estimate_denominator_;
+}
+
+void AdaptiveModeLevelEstimator::Reset() {
+  buffer_size_ms_ = 0;
+  last_estimate_with_offset_dbfs_ = kInitialSpeechLevelEstimateDbfs;
+  estimate_numerator_ = 0.f;
+  estimate_denominator_ = 0.f;
+  saturation_protector_.Reset();
+}
+
 void AdaptiveModeLevelEstimator::DebugDumpEstimate() {
   apm_data_dumper_->DumpRaw("agc2_adaptive_level_estimate_with_offset_dbfs",
                             last_estimate_with_offset_dbfs_);

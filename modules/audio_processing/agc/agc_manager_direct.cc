@@ -17,6 +17,7 @@
 #endif
 
 #include "modules/audio_processing/agc/gain_map_internal.h"
+#include "modules/audio_processing/agc2/adaptive_mode_level_estimator_agc_interface.h"
 #include "modules/audio_processing/gain_control_impl.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
@@ -115,7 +116,8 @@ AgcManagerDirect::AgcManagerDirect(GainControl* gctrl,
                                    VolumeCallbacks* volume_callbacks,
                                    int startup_min_level,
                                    int clipped_level_min)
-    : agc_(new Agc()),
+    : apm_data_dumper_(0),
+      agc_(new AdaptiveModeLevelEstimatorAgcInterface(&apm_data_dumper_)),
       gctrl_(gctrl),
       volume_callbacks_(volume_callbacks),
       frames_since_clipped_(kClippedWaitFrames),
@@ -138,7 +140,8 @@ AgcManagerDirect::AgcManagerDirect(Agc* agc,
                                    VolumeCallbacks* volume_callbacks,
                                    int startup_min_level,
                                    int clipped_level_min)
-    : agc_(agc),
+    : apm_data_dumper_(0),
+      agc_(agc),
       gctrl_(gctrl),
       volume_callbacks_(volume_callbacks),
       frames_since_clipped_(kClippedWaitFrames),

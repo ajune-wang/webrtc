@@ -1,0 +1,187 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f6540ad2_8eabcda3",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-05-28T12:18:40Z",
+      "side": 1,
+      "message": "git-cl-format seems to have had unexpected results here. Could you put the comment on its own line, and possibly elaborate a bit more?\n\nOr, perhaps better, could you move the code from ParsedRtcEventLogNew::GetEventType up here?",
+      "range": {
+        "startLine": 82,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 60
+      },
+      "revId": "09291e0ca8a9ac2aab2568bfd44a1958607d768c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53b1928b_58f66ea5",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1134,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-05-28T12:18:40Z",
+      "side": 1,
+      "message": "What does the auto-generated code for result() do if !has_result()? I\u0027m asking in case it asserts too, in which case, we could save the RTC_CHECK.",
+      "range": {
+        "startLine": 1133,
+        "startChar": 0,
+        "endLine": 1134,
+        "endChar": 65
+      },
+      "revId": "09291e0ca8a9ac2aab2568bfd44a1958607d768c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4cb762e3_3b660168",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1141,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-05-28T12:18:40Z",
+      "side": 1,
+      "message": "Can a defective log end up not having bitrate_bps() set, yet end up reaching this point in the parser? I\u0027m asking because, if yes, failing gracefully rather than crashing, would be advisable.",
+      "range": {
+        "startLine": 1140,
+        "startChar": 0,
+        "endLine": 1141,
+        "endChar": 43
+      },
+      "revId": "09291e0ca8a9ac2aab2568bfd44a1958607d768c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e56492f0_20283646",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 473,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-05-28T12:18:40Z",
+      "side": 1,
+      "message": "+1",
+      "revId": "09291e0ca8a9ac2aab2568bfd44a1958607d768c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d2b2784_d2e73b44",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-05-28T12:18:40Z",
+      "side": 1,
+      "message": "Random rant - I wish there were a standard way to order such things. \"Black and white\" is about 40 times more common than \"white and black\", according to a Google search. I wish we also had a way to order success/failure in a common way. My personal preference would 0-1, or failure-success. It also has the benefit of being alphabetically ordered.",
+      "range": {
+        "startLine": 488,
+        "startChar": 0,
+        "endLine": 489,
+        "endChar": 33
+      },
+      "revId": "09291e0ca8a9ac2aab2568bfd44a1958607d768c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c80c97e6_0e321b99",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 643,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-05-28T12:18:40Z",
+      "side": 1,
+      "message": "nit: Could we have a comment distinguishing the blocks, rather than just an empty line?\nnit2: My vote would be for empty lines throughout, btw.",
+      "range": {
+        "startLine": 641,
+        "startChar": 0,
+        "endLine": 643,
+        "endChar": 65
+      },
+      "revId": "09291e0ca8a9ac2aab2568bfd44a1958607d768c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5c291b8_de4db1c6",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-05-28T12:18:40Z",
+      "side": 1,
+      "message": "FYI, to someone looking at the code for the first time (or first time in a while), it is confusing to see that |event_type_to_string| and |parsed_event_type_to_string| apparently differ not just in being pre/post-parsing, but also one being generally \"EventType\" and the other \"ParsedRtcEventLogNew::EventType\", but a non-new ParsedRtcEventLog::EventType is not in sight.",
+      "revId": "09291e0ca8a9ac2aab2568bfd44a1958607d768c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74b51432_2b3cecb7",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-05-28T12:18:40Z",
+      "side": 1,
+      "message": "Nobody appears to be calling this function.",
+      "revId": "09291e0ca8a9ac2aab2568bfd44a1958607d768c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2652220_d7635468",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 650,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-05-28T12:18:40Z",
+      "side": 1,
+      "message": "Same here; any users?",
+      "revId": "09291e0ca8a9ac2aab2568bfd44a1958607d768c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

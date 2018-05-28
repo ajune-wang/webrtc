@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a48b3d91_64138545",
+        "filename": "luci-notify.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-05-28T07:04:01Z",
+      "side": 1,
+      "message": "It\u0027s a bit unfortunate that a code search for this one will turn up Chromium\u0027s luci-milo.cfg (though it should be somewhat obvious that this refers to the luci-milo.cfg next to this file).\n\nI will try to move these files off of the infra/config branch and into master, like Chromium has done. Then they will be indexed by code search.",
+      "range": {
+        "startLine": 16,
+        "startChar": 26,
+        "endLine": 16,
+        "endChar": 39
+      },
+      "revId": "a0721b46a34cc259a5e80d508c99ebc71a55a42e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6e8af9a9_c0f97985",
+        "filename": "luci-notify.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-05-28T07:04:01Z",
+      "side": 1,
+      "message": "I find this comment a bit confusing. If this is an URL somewhere, can you paste the full URL?",
+      "range": {
+        "startLine": 16,
+        "startChar": 41,
+        "endLine": 16,
+        "endChar": 67
+      },
+      "revId": "a0721b46a34cc259a5e80d508c99ebc71a55a42e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

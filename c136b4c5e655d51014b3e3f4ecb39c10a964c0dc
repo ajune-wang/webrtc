@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aae12315_c3668074",
+        "filename": "cr-buildbucket.cfg",
+        "patchSetId": 4
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2018-05-28T13:09:30Z",
+      "side": 1,
+      "message": "Note how \"chromium_trybot\" is already present here.",
+      "range": {
+        "startLine": 73,
+        "startChar": 18,
+        "endLine": 73,
+        "endChar": 33
+      },
+      "revId": "c136b4c5e655d51014b3e3f4ecb39c10a964c0dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

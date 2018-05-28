@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aaa68f3_71ac19f7",
+        "filename": "modules/video_coding/BUILD.gn",
+        "patchSetId": 10
+      },
+      "lineNbr": 552,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-05-28T19:56:48Z",
+      "side": 1,
+      "message": "is the plan to move this target into api/?",
+      "revId": "3a4659751bf3c0d8995fb20c16f33e1c2197541b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70327f4f_5426bb0a",
+        "filename": "modules/video_coding/BUILD.gn",
+        "patchSetId": 10
+      },
+      "lineNbr": 823,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-05-28T19:56:48Z",
+      "side": 1,
+      "message": "should you go all the way and not depend directly on the impl, but on interface+create function?",
+      "revId": "3a4659751bf3c0d8995fb20c16f33e1c2197541b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b52aa904_0000b6d0",
+        "filename": "modules/video_coding/codecs/vp8/simulcast_test_fixture.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-05-28T19:56:48Z",
+      "side": 1,
+      "message": "Hmm. Is this a fixture then, or is it a suite of test cases?",
+      "revId": "3a4659751bf3c0d8995fb20c16f33e1c2197541b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76912110_42076a7b",
+        "filename": "modules/video_coding/codecs/vp8/simulcast_test_fixture_impl.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-05-28T19:56:48Z",
+      "side": 1,
+      "message": "Ideally the fixture should be agnostic w.r.t test framework being used so a client isn\u0027t forced to use gtest. I believe this class is actually mixing the fixture and test suite into the same entity.\n\nOh, wait, we have a dep on gtest already in video_codec_test_fixture_impl.cc - sorry I missed that. I guess we\u0027ll have to add to the wish list.",
+      "revId": "3a4659751bf3c0d8995fb20c16f33e1c2197541b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3593604c_8425d321",
+        "filename": "modules/video_coding/codecs/vp8/simulcast_test_fixture_impl.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-05-28T19:56:48Z",
+      "side": 1,
+      "message": "final",
+      "revId": "3a4659751bf3c0d8995fb20c16f33e1c2197541b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ed7889e_66cd937e",
+        "filename": "modules/video_coding/codecs/vp8/simulcast_test_fixture_impl.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-05-28T19:56:48Z",
+      "side": 1,
+      "message": "override?",
+      "revId": "3a4659751bf3c0d8995fb20c16f33e1c2197541b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -134,6 +134,7 @@ struct EchoCanceller3Config {
     } gain_rampup;
 
     bool has_clock_drift = false;
+    size_t filter_analyzer_step_size = 16;
   } echo_removal_control;
 
   struct EchoModel {

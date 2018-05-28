@@ -96,11 +96,18 @@ struct LoggedBweProbeClusterCreatedEvent {
   int64_t log_time_ms() const { return timestamp_us / 1000; }
 };
 
-struct LoggedBweProbeResultEvent {
+struct LoggedBweProbeSuccessEvent {
   int64_t timestamp_us;
   int32_t id;
-  rtc::Optional<int32_t> bitrate_bps;
-  rtc::Optional<ProbeFailureReason> failure_reason;
+  int32_t bitrate_bps;
+  int64_t log_time_us() const { return timestamp_us; }
+  int64_t log_time_ms() const { return timestamp_us / 1000; }
+};
+
+struct LoggedBweProbeFailureEvent {
+  int64_t timestamp_us;
+  int32_t id;
+  ProbeFailureReason failure_reason;
   int64_t log_time_us() const { return timestamp_us; }
   int64_t log_time_ms() const { return timestamp_us / 1000; }
 };
@@ -463,7 +470,7 @@ class ParsedRtcEventLogNew {
   friend class RtcEventLogTestHelper;
 
  public:
-  enum EventType {
+  enum class EventType {
     UNKNOWN_EVENT = 0,
     LOG_START = 1,
     LOG_END = 2,
@@ -478,10 +485,11 @@ class ParsedRtcEventLogNew {
     AUDIO_SENDER_CONFIG_EVENT = 11,
     AUDIO_NETWORK_ADAPTATION_EVENT = 16,
     BWE_PROBE_CLUSTER_CREATED_EVENT = 17,
-    BWE_PROBE_RESULT_EVENT = 18,
-    ALR_STATE_EVENT = 19,
-    ICE_CANDIDATE_PAIR_CONFIG = 20,
-    ICE_CANDIDATE_PAIR_EVENT = 21,
+    BWE_PROBE_SUCCESS_EVENT = 18,
+    BWE_PROBE_FAILURE_EVENT = 19,
+    ALR_STATE_EVENT = 20,
+    ICE_CANDIDATE_PAIR_CONFIG = 21,
+    ICE_CANDIDATE_PAIR_EVENT = 22,
   };
 
   enum class MediaType { ANY, AUDIO, VIDEO, DATA };
@@ -517,6 +525,7 @@ class ParsedRtcEventLogNew {
 
   // Reads the event type of the rtclog::Event at |index|.
   EventType GetEventType(size_t index) const;
+  EventType GetEventType(const rtclog::Event& event) const;
 
   // Reads the header, direction, header length and packet length from the RTP
   // event at |index|, and stores the values in the corresponding output
@@ -601,7 +610,8 @@ class ParsedRtcEventLogNew {
   LoggedBweProbeClusterCreatedEvent GetBweProbeClusterCreated(
       size_t index) const;
 
-  LoggedBweProbeResultEvent GetBweProbeResult(size_t index) const;
+  LoggedBweProbeSuccessEvent GetBweProbeSuccess(size_t index) const;
+  LoggedBweProbeFailureEvent GetBweProbeFailure(size_t index) const;
 
   MediaType GetMediaType(uint32_t ssrc, PacketDirection direction) const;
 
@@ -648,9 +658,13 @@ class ParsedRtcEventLogNew {
   bwe_probe_cluster_created_events() const {
     return bwe_probe_cluster_created_events_;
   }
-  const std::vector<LoggedBweProbeResultEvent>& bwe_probe_result_events()
+  const std::vector<LoggedBweProbeSuccessEvent>& bwe_probe_success_events()
       const {
-    return bwe_probe_result_events_;
+    return bwe_probe_success_events_;
+  }
+  const std::vector<LoggedBweProbeFailureEvent>& bwe_probe_failure_events()
+      const {
+    return bwe_probe_failure_events_;
   }
   const std::vector<LoggedBweDelayBasedUpdate>& bwe_delay_updates() const {
     return bwe_delay_updates_;
@@ -796,7 +810,10 @@ class ParsedRtcEventLogNew {
 
   LoggedBweProbeClusterCreatedEvent GetBweProbeClusterCreated(
       const rtclog::Event& event) const;
-  LoggedBweProbeResultEvent GetBweProbeResult(const rtclog::Event& event) const;
+  LoggedBweProbeSuccessEvent GetBweProbeSuccess(
+      const rtclog::Event& event) const;
+  LoggedBweProbeFailureEvent GetBweProbeFailure(
+      const rtclog::Event& event) const;
 
   LoggedAlrStateEvent GetAlrState(const rtclog::Event& event) const;
 
@@ -884,7 +901,8 @@ class ParsedRtcEventLogNew {
   std::vector<LoggedBweProbeClusterCreatedEvent>
       bwe_probe_cluster_created_events_;
 
-  std::vector<LoggedBweProbeResultEvent> bwe_probe_result_events_;
+  std::vector<LoggedBweProbeSuccessEvent> bwe_probe_success_events_;
+  std::vector<LoggedBweProbeFailureEvent> bwe_probe_failure_events_;
 
   std::vector<LoggedBweDelayBasedUpdate> bwe_delay_updates_;
 

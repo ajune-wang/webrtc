@@ -34,22 +34,77 @@ class Timestamp {
   static Timestamp Infinity() {
     return Timestamp(timestamp_impl::kPlusInfinityVal);
   }
-  static Timestamp seconds(int64_t seconds) {
+
+  template <typename T>
+  static Timestamp seconds(T seconds) {
     return Timestamp::us(seconds * 1000000);
   }
-  static Timestamp ms(int64_t millis) { return Timestamp::us(millis * 1000); }
-  static Timestamp us(int64_t micros) {
-    RTC_DCHECK_GE(micros, 0);
-    return Timestamp(micros);
+  template <typename T>
+  static Timestamp ms(T milliseconds) {
+    return Timestamp::us(milliseconds * 1000);
   }
-  int64_t seconds() const { return (us() + 500000) / 1000000; }
-  int64_t ms() const { return (us() + 500) / 1000; }
-  int64_t us() const {
+
+  template <
+      typename T,
+      typename std::enable_if<std::is_integral<T>::value>::type* = nullptr>
+  static Timestamp us(T microseconds) {
+    RTC_DCHECK_GE(microseconds, 0);
+    RTC_DCHECK_LT(microseconds, timestamp_impl::kPlusInfinityVal);
+    return Timestamp(microseconds);
+  }
+
+  template <typename T,
+            typename std::enable_if<std::is_floating_point<T>::value>::type* =
+                nullptr>
+  static Timestamp us(T microseconds) {
+    if (microseconds == std::numeric_limits<double>::infinity()) {
+      return Infinity();
+    } else {
+      RTC_DCHECK(!std::isnan(microseconds));
+      RTC_DCHECK_GE(microseconds, 0);
+      RTC_DCHECK_LT(microseconds, timestamp_impl::kPlusInfinityVal);
+      return Timestamp(microseconds);
+    }
+  }
+
+  template <typename T = int64_t>
+  typename std::enable_if<std::is_integral<T>::value, T>::type seconds() const {
+    int64_t seconds = (us() + 500000) / 1000000;
+    RTC_DCHECK_LE(seconds, std::numeric_limits<T>::max());
+    return static_cast<T>(seconds);
+  }
+  template <typename T = int64_t>
+  typename std::enable_if<std::is_integral<T>::value, T>::type ms() const {
+    int64_t ms = (us() + 500) / 1000;
+    RTC_DCHECK_LE(ms, std::numeric_limits<T>::max());
+    return static_cast<T>(ms);
+  }
+  template <typename T = int64_t>
+  typename std::enable_if<std::is_integral<T>::value, T>::type us() const {
     RTC_DCHECK(IsFinite());
+    RTC_DCHECK_LE(microseconds_, std::numeric_limits<T>::max());
     return microseconds_;
   }
 
-  double SecondsAsDouble() const;
+  template <typename T>
+  typename std::enable_if<std::is_floating_point<T>::value, T>::type seconds()
+      const {
+    return us<T>() * 1e-6;
+  }
+  template <typename T>
+  typename std::enable_if<std::is_floating_point<T>::value, T>::type ms()
+      const {
+    return us<T>() * 1e-3;
+  }
+  template <typename T>
+  typename std::enable_if<std::is_floating_point<T>::value, T>::type us()
+      const {
+    if (IsInfinite()) {
+      return std::numeric_limits<T>::infinity();
+    } else {
+      return microseconds_;
+    }
+  }
 
   bool IsInfinite() const {
     return microseconds_ == timestamp_impl::kPlusInfinityVal;

@@ -41,33 +41,95 @@ class TimeDelta {
   static TimeDelta MinusInfinity() {
     return TimeDelta(timedelta_impl::kMinusInfinityVal);
   }
-  static TimeDelta seconds(int64_t seconds) {
+
+  template <typename T>
+  static TimeDelta seconds(T seconds) {
     return TimeDelta::us(seconds * 1000000);
   }
-  static TimeDelta ms(int64_t milliseconds) {
+  template <typename T>
+  static TimeDelta ms(T milliseconds) {
     return TimeDelta::us(milliseconds * 1000);
   }
-  static TimeDelta us(int64_t microseconds) {
-    // Infinities only allowed via use of explicit constants.
-    RTC_DCHECK(microseconds > std::numeric_limits<int64_t>::min());
-    RTC_DCHECK(microseconds < std::numeric_limits<int64_t>::max());
+
+  template <
+      typename T,
+      typename std::enable_if<std::is_integral<T>::value>::type* = nullptr>
+  static TimeDelta us(T microseconds) {
+    RTC_DCHECK_GT(microseconds, timedelta_impl::kMinusInfinityVal);
+    RTC_DCHECK_LT(microseconds, timedelta_impl::kPlusInfinityVal);
     return TimeDelta(microseconds);
   }
-  int64_t seconds() const {
-    return (us() + (us() >= 0 ? 500000 : -500000)) / 1000000;
-  }
-  int64_t ms() const { return (us() + (us() >= 0 ? 500 : -500)) / 1000; }
-  int64_t us() const {
-    RTC_DCHECK(IsFinite());
-    return microseconds_;
-  }
-  int64_t ns() const {
-    RTC_DCHECK(us() > std::numeric_limits<int64_t>::min() / 1000);
-    RTC_DCHECK(us() < std::numeric_limits<int64_t>::max() / 1000);
-    return us() * 1000;
+
+  template <typename T,
+            typename std::enable_if<std::is_floating_point<T>::value>::type* =
+                nullptr>
+  static TimeDelta us(T microseconds) {
+    if (microseconds == std::numeric_limits<double>::infinity()) {
+      return PlusInfinity();
+    } else if (microseconds == -std::numeric_limits<double>::infinity()) {
+      return MinusInfinity();
+    } else {
+      RTC_DCHECK(!std::isnan(microseconds));
+      RTC_DCHECK_GT(microseconds, timedelta_impl::kMinusInfinityVal);
+      RTC_DCHECK_LT(microseconds, timedelta_impl::kPlusInfinityVal);
+      return TimeDelta(microseconds);
+    }
   }
 
-  double SecondsAsDouble() const;
+  template <typename T = int64_t>
+  typename std::enable_if<std::is_integral<T>::value, T>::type seconds() const {
+    int64_t seconds = (us() + (us() >= 0 ? 500000 : -500000)) / 1000000;
+    RTC_DCHECK_GE(seconds, std::numeric_limits<T>::min());
+    RTC_DCHECK_LE(seconds, std::numeric_limits<T>::max());
+    return static_cast<T>(seconds);
+  }
+  template <typename T = int64_t>
+  typename std::enable_if<std::is_integral<T>::value, T>::type ms() const {
+    int64_t ms = (us() + (us() >= 0 ? 500 : -500)) / 1000;
+    RTC_DCHECK_GE(ms, std::numeric_limits<T>::min());
+    RTC_DCHECK_LE(ms, std::numeric_limits<T>::max());
+    return static_cast<T>(ms);
+  }
+  template <typename T = int64_t>
+  typename std::enable_if<std::is_integral<T>::value, T>::type us() const {
+    RTC_DCHECK(IsFinite());
+    RTC_DCHECK_GE(microseconds_, std::numeric_limits<T>::min());
+    RTC_DCHECK_LE(microseconds_, std::numeric_limits<T>::max());
+    return microseconds_;
+  }
+  template <typename T = int64_t>
+  typename std::enable_if<std::is_integral<T>::value, T>::type ns() const {
+    RTC_DCHECK_GE(us(), std::numeric_limits<T>::min() / 1000);
+    RTC_DCHECK_LE(us(), std::numeric_limits<T>::max() / 1000);
+    return static_cast<T>(us() * 1000);
+  }
+
+  template <typename T>
+  typename std::enable_if<std::is_floating_point<T>::value, T>::type seconds()
+      const {
+    return us<T>() * 1e-6;
+  }
+  template <typename T>
+  typename std::enable_if<std::is_floating_point<T>::value, T>::type ms()
+      const {
+    return us<T>() * 1e-3;
+  }
+  template <typename T>
+  typename std::enable_if<std::is_floating_point<T>::value, T>::type us()
+      const {
+    if (IsPlusInfinity()) {
+      return std::numeric_limits<T>::infinity();
+    } else if (IsMinusInfinity()) {
+      return -std::numeric_limits<T>::infinity();
+    } else {
+      return microseconds_;
+    }
+  }
+  template <typename T = int64_t>
+  typename std::enable_if<std::is_floating_point<T>::value, T>::type ns()
+      const {
+    return us<T>() * 1e3;
+  }
 
   TimeDelta Abs() const { return TimeDelta::us(std::abs(us())); }
   bool IsZero() const { return microseconds_ == 0; }
@@ -96,7 +158,9 @@ class TimeDelta {
     microseconds_ += other.us();
     return *this;
   }
-
+  double operator/(const TimeDelta& other) const {
+    return us<double>() / other.us<double>();
+  }
   bool operator==(const TimeDelta& other) const {
     return microseconds_ == other.microseconds_;
   }

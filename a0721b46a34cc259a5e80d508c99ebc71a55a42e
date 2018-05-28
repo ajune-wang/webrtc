@@ -45,6 +45,54 @@
       "revId": "a0721b46a34cc259a5e80d508c99ebc71a55a42e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a60f5edf_acb23035",
+        "filename": "luci-notify.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2018-05-28T07:21:20Z",
+      "side": 1,
+      "message": "It\u0027s not a URL. Clarified comment.",
+      "parentUuid": "6e8af9a9_c0f97985",
+      "range": {
+        "startLine": 16,
+        "startChar": 41,
+        "endLine": 16,
+        "endChar": 67
+      },
+      "revId": "a0721b46a34cc259a5e80d508c99ebc71a55a42e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d777027e_9fe14554",
+        "filename": "luci-notify.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2018-05-28T07:21:20Z",
+      "side": 1,
+      "message": "Yes, we should move this into master, though perhaps after luci migration has quieted down, so we don\u0027t spam many commits.",
+      "parentUuid": "a48b3d91_64138545",
+      "range": {
+        "startLine": 16,
+        "startChar": 26,
+        "endLine": 16,
+        "endChar": 39
+      },
+      "revId": "a0721b46a34cc259a5e80d508c99ebc71a55a42e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

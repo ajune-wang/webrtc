@@ -1,0 +1,268 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f8b7a7a1_3f704579",
+        "filename": "api/units/data_rate.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-28T12:45:51Z",
+      "side": 1,
+      "message": "dchecked_cast? That would eliminate the need for the manual DCHECK on line 78-79.",
+      "range": {
+        "startLine": 80,
+        "startChar": 11,
+        "endLine": 80,
+        "endChar": 24
+      },
+      "revId": "9c0e0770173d18e1735995e0b5adfc0a7cd6bdc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52cb492a_c8258f47",
+        "filename": "api/units/data_rate.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-28T12:45:51Z",
+      "side": 1,
+      "message": "dchecked_cast the result before returning it?",
+      "range": {
+        "startLine": 84,
+        "startChar": 11,
+        "endLine": 84,
+        "endChar": 31
+      },
+      "revId": "9c0e0770173d18e1735995e0b5adfc0a7cd6bdc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "610ae0e2_8b0ead19",
+        "filename": "api/units/data_size.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-28T12:45:51Z",
+      "side": 1,
+      "message": "Also DCHECK that the value is small enough?",
+      "revId": "9c0e0770173d18e1735995e0b5adfc0a7cd6bdc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e083a2d_8ea13148",
+        "filename": "api/units/data_size.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-28T12:45:51Z",
+      "side": 1,
+      "message": "No need to cast; DCHECK will take care of it (and without the possible overflow you have here, which is implementation-defined behavior IIRC).",
+      "range": {
+        "startLine": 65,
+        "startChar": 26,
+        "endLine": 65,
+        "endChar": 37
+      },
+      "revId": "9c0e0770173d18e1735995e0b5adfc0a7cd6bdc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cede4564_dfb8263d",
+        "filename": "api/units/data_size.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-28T12:45:51Z",
+      "side": 1,
+      "message": "dchecked_cast?",
+      "range": {
+        "startLine": 66,
+        "startChar": 11,
+        "endLine": 66,
+        "endChar": 17
+      },
+      "revId": "9c0e0770173d18e1735995e0b5adfc0a7cd6bdc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0bf5ef4e_4329f142",
+        "filename": "api/units/time_delta.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-28T12:45:51Z",
+      "side": 1,
+      "message": "dchecked_cast?",
+      "range": {
+        "startLine": 84,
+        "startChar": 11,
+        "endLine": 84,
+        "endChar": 22
+      },
+      "revId": "9c0e0770173d18e1735995e0b5adfc0a7cd6bdc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a978f5b8_ddf7304c",
+        "filename": "api/units/time_delta.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-28T12:45:51Z",
+      "side": 1,
+      "message": "dchecked_cast?",
+      "range": {
+        "startLine": 91,
+        "startChar": 11,
+        "endLine": 91,
+        "endChar": 22
+      },
+      "revId": "9c0e0770173d18e1735995e0b5adfc0a7cd6bdc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d544e915_5773e366",
+        "filename": "api/units/time_delta.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-28T12:45:51Z",
+      "side": 1,
+      "message": "dchecked_cast?",
+      "range": {
+        "startLine": 98,
+        "startChar": 11,
+        "endLine": 98,
+        "endChar": 24
+      },
+      "revId": "9c0e0770173d18e1735995e0b5adfc0a7cd6bdc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a55ae362_9e71c58b",
+        "filename": "api/units/time_delta.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-28T12:45:51Z",
+      "side": 1,
+      "message": "You already have a default value for ns() up on line 100. This one would cause a compile error, except for the fact that the enable_if on line 129 causes a SFINAE error.\n\nSo, just remove this default value.",
+      "revId": "9c0e0770173d18e1735995e0b5adfc0a7cd6bdc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa656b3c_df0c924a",
+        "filename": "api/units/timestamp.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-28T12:45:51Z",
+      "side": 1,
+      "message": "dchecked_cast?",
+      "range": {
+        "startLine": 74,
+        "startChar": 11,
+        "endLine": 74,
+        "endChar": 22
+      },
+      "revId": "9c0e0770173d18e1735995e0b5adfc0a7cd6bdc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64388100_128c0dd7",
+        "filename": "api/units/timestamp.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-28T12:45:51Z",
+      "side": 1,
+      "message": "dchecked_cast?",
+      "range": {
+        "startLine": 80,
+        "startChar": 11,
+        "endLine": 80,
+        "endChar": 22
+      },
+      "revId": "9c0e0770173d18e1735995e0b5adfc0a7cd6bdc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf63569f_48f789ba",
+        "filename": "api/units/timestamp.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-28T12:45:51Z",
+      "side": 1,
+      "message": "dchecked_cast?",
+      "range": {
+        "startLine": 86,
+        "startChar": 11,
+        "endLine": 86,
+        "endChar": 24
+      },
+      "revId": "9c0e0770173d18e1735995e0b5adfc0a7cd6bdc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

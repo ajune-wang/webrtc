@@ -162,6 +162,7 @@ BbrNetworkController::DebugState::DebugState(const DebugState& state) = default;
 
 BbrNetworkController::BbrNetworkController(NetworkControllerConfig config)
     : random_(10),
+      loss_rate_(),
       max_bandwidth_(kBandwidthWindowSize, DataRate::Zero(), 0),
       default_bandwidth_(DataRate::kbps(kInitialBandwidthKbps)),
       max_ack_height_(kBandwidthWindowSize, DataSize::Zero(), 0),
@@ -366,6 +367,11 @@ NetworkControlUpdate BbrNetworkController::OnTransportPacketsFeedback(
 
   std::vector<PacketResult> acked_packets = msg.ReceivedWithSendInfo();
   std::vector<PacketResult> lost_packets = msg.LostWithSendInfo();
+
+  loss_rate_.UpdateWithLossStatus(msg.feedback_time.ms(),
+                                  lost_packets.size() + acked_packets.size(),
+                                  lost_packets.size());
+
   // Input the new data into the BBR model of the connection.
   if (!acked_packets.empty()) {
     for (const PacketResult& packet : acked_packets) {

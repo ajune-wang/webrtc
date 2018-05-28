@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c6c1d285_930c09e7",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-05-28T14:49:56Z",
+      "side": 1,
+      "message": "Fixed formatting and expanded the comment.\n\nCan\u0027t easily move the code because this function operates only uses the enum and ParsedRtcEventLogNew::GetEventType requires the full event.\n\nThis function will be removed after porting all tests to the new API.",
+      "parentUuid": "f6540ad2_8eabcda3",
+      "range": {
+        "startLine": 82,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 60
+      },
+      "revId": "09291e0ca8a9ac2aab2568bfd44a1958607d768c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "53b1928b_58f66ea5",
         "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "09291e0ca8a9ac2aab2568bfd44a1958607d768c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d065b7f_cb9fd1c3",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1134,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-05-28T14:49:56Z",
+      "side": 1,
+      "message": "It returns a default value.",
+      "parentUuid": "53b1928b_58f66ea5",
+      "range": {
+        "startLine": 1133,
+        "startChar": 0,
+        "endLine": 1134,
+        "endChar": 65
+      },
+      "revId": "09291e0ca8a9ac2aab2568bfd44a1958607d768c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "9022794d_38d35e9c",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1141,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-05-28T14:49:56Z",
+      "side": 1,
+      "message": "It can if you manually manufacture, and allowing graceful failure is on the todo list. However, please note that this would mostly be a cosmetic improvement since no analysis tool should continue if the log is clearly defective. CHECKING in this case is an easy way to break out of the parsing and at the same time print the location of the error without using exceptions. We do the same in all other places in the parser.",
+      "parentUuid": "4cb762e3_3b660168",
+      "range": {
+        "startLine": 1140,
+        "startChar": 0,
+        "endLine": 1141,
+        "endChar": 43
+      },
+      "revId": "09291e0ca8a9ac2aab2568bfd44a1958607d768c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e56492f0_20283646",
         "filename": "logging/rtc_event_log/rtc_event_log_parser_new.h",
         "patchSetId": 1
@@ -88,6 +160,24 @@
     },
     {
       "key": {
+        "uuid": "41c09e5b_537ee315",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 473,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-05-28T14:49:56Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e56492f0_20283646",
+      "revId": "09291e0ca8a9ac2aab2568bfd44a1958607d768c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0d2b2784_d2e73b44",
         "filename": "logging/rtc_event_log/rtc_event_log_parser_new.h",
         "patchSetId": 1
@@ -99,6 +189,30 @@
       "writtenOn": "2018-05-28T12:18:40Z",
       "side": 1,
       "message": "Random rant - I wish there were a standard way to order such things. \"Black and white\" is about 40 times more common than \"white and black\", according to a Google search. I wish we also had a way to order success/failure in a common way. My personal preference would 0-1, or failure-success. It also has the benefit of being alphabetically ordered.",
+      "range": {
+        "startLine": 488,
+        "startChar": 0,
+        "endLine": 489,
+        "endChar": 33
+      },
+      "revId": "09291e0ca8a9ac2aab2568bfd44a1958607d768c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cc5eae7b_343fea45",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-05-28T14:49:56Z",
+      "side": 1,
+      "message": "Reordered as you suggested.",
+      "parentUuid": "0d2b2784_d2e73b44",
       "range": {
         "startLine": 488,
         "startChar": 0,
@@ -134,6 +248,30 @@
     },
     {
       "key": {
+        "uuid": "44eb1959_1830f23c",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 643,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-05-28T14:49:56Z",
+      "side": 1,
+      "message": "Done. The comments are a bit obvious though.",
+      "parentUuid": "c80c97e6_0e321b99",
+      "range": {
+        "startLine": 641,
+        "startChar": 0,
+        "endLine": 643,
+        "endChar": 65
+      },
+      "revId": "09291e0ca8a9ac2aab2568bfd44a1958607d768c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c5c291b8_de4db1c6",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
         "patchSetId": 1
@@ -148,6 +286,24 @@
       "revId": "09291e0ca8a9ac2aab2568bfd44a1958607d768c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "985bb06f_579f585f",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-05-28T14:49:56Z",
+      "side": 1,
+      "message": "This will be removed when rewriting the unit tests.\n\nThe non-new version of the event types are in rtc_event_log_parser.h, which is deprecated and therefore not tested.",
+      "parentUuid": "c5c291b8_de4db1c6",
+      "revId": "09291e0ca8a9ac2aab2568bfd44a1958607d768c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -168,6 +324,24 @@
     },
     {
       "key": {
+        "uuid": "ca89cdaa_128a87e3",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-05-28T14:49:56Z",
+      "side": 1,
+      "message": "This will be removed when rewriting the unit tests.\n\nPrinting the expected events and the actual events was a very useful tool when debugging failed tests though.",
+      "parentUuid": "74b51432_2b3cecb7",
+      "revId": "09291e0ca8a9ac2aab2568bfd44a1958607d768c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c2652220_d7635468",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
         "patchSetId": 1
@@ -182,6 +356,24 @@
       "revId": "09291e0ca8a9ac2aab2568bfd44a1958607d768c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff698895_a087b4ce",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 650,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-05-28T14:49:56Z",
+      "side": 1,
+      "message": "As above.",
+      "parentUuid": "c2652220_d7635468",
+      "revId": "09291e0ca8a9ac2aab2568bfd44a1958607d768c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

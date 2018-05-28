@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "09f86e8d_592d2b64",
+        "filename": "modules/audio_processing/test/aec_dump_based_simulator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-05-28T06:26:17Z",
+      "side": 1,
+      "message": "maybe use_stream_delay?",
+      "range": {
+        "startLine": 136,
+        "startChar": 17,
+        "endLine": 136,
+        "endChar": 36
+      },
+      "revId": "f6d807e0b187546644958eaa07c19ff8ad1824a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

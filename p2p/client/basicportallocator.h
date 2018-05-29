@@ -13,6 +13,7 @@
 
 #include <memory>
 #include <string>
+#include <unordered_set>
 #include <vector>
 
 #include "api/turncustomizer.h"
@@ -168,6 +169,7 @@ class BasicPortAllocatorSession : public PortAllocatorSession,
     bool error() const { return state_ == STATE_ERROR; }
     bool pruned() const { return state_ == STATE_PRUNED; }
     bool inprogress() const { return state_ == STATE_INPROGRESS; }
+    bool signaled() const { return signaled_; }
     // Returns true if this port is ready to be used.
     bool ready() const {
       return has_pairable_candidate_ && state_ != STATE_ERROR &&
@@ -193,6 +195,7 @@ class BasicPortAllocatorSession : public PortAllocatorSession,
       RTC_DCHECK(state_ == STATE_INPROGRESS);
       state_ = STATE_ERROR;
     }
+    void set_signaled() { signaled_ = true; }
 
    private:
     enum State {
@@ -205,6 +208,7 @@ class BasicPortAllocatorSession : public PortAllocatorSession,
     Port* port_ = nullptr;
     AllocationSequence* sequence_ = nullptr;
     bool has_pairable_candidate_ = false;
+    bool signaled_ = false;
     State state_ = STATE_INPROGRESS;
   };
 
@@ -253,6 +257,9 @@ class BasicPortAllocatorSession : public PortAllocatorSession,
   Port* GetBestTurnPortForNetwork(const std::string& network_name) const;
   // Returns true if at least one TURN port is pruned.
   bool PruneTurnPorts(Port* newly_pairable_turn_port);
+  void MaybeSignalPortReady(Port* port);
+  void MaybeSignalCandidateReady(Port* port, const Candidate& c);
+  void MaybeSignalAnyAddressPortsAndCandidatesReady();
 
   BasicPortAllocator* allocator_;
   rtc::Thread* network_thread_;
@@ -268,6 +275,10 @@ class BasicPortAllocatorSession : public PortAllocatorSession,
   // Whether to prune low-priority ports, taken from the port allocator.
   bool prune_turn_ports_;
   SessionState state_ = SessionState::CLEARED;
+  // The following two fields are used to aid the gathering of candidates from
+  // any address ports and the removal of duplicate ones
+  std::unordered_set<std::string> ips_from_non_any_address_ports_;
+  std::vector<Candidate> signalable_candidates_from_any_address_ports_;
 
   friend class AllocationSequence;
 };

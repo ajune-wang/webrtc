@@ -26,6 +26,7 @@
 #include "p2p/base/udpport.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/helpers.h"
+#include "rtc_base/ipaddress.h"
 #include "rtc_base/logging.h"
 
 using rtc::CreateRandomId;
@@ -111,6 +112,24 @@ void FilterNetworks(NetworkList* networks, NetworkFilter filter) {
   networks->erase(start_to_remove, networks->end());
 }
 
+bool IsAnyAddressPort(const cricket::Port* port) {
+  if (!port) {
+    return false;
+  }
+  return rtc::IPIsAny(port->Network()->GetBestIP());
+}
+
+void RemoveCandidatesWithDuplicateIps(
+    std::vector<cricket::Candidate>* candidates,
+    const std::unordered_set<std::string>& existing_ips) {
+  auto start_to_remove = std::remove_if(
+      candidates->begin(), candidates->end(),
+      [&existing_ips](const cricket::Candidate& c) {
+        return existing_ips.find(c.address().ToString()) != existing_ips.end();
+      });
+  candidates->erase(start_to_remove, candidates->end());
+}
+
 }  // namespace
 
 namespace cricket {
@@ -150,7 +169,7 @@ BasicPortAllocator::BasicPortAllocator(
     : network_manager_(network_manager), socket_factory_(socket_factory) {
   InitRelayPortFactory(nullptr);
   RTC_DCHECK(relay_port_factory_ != nullptr);
-  RTC_DCHECK(socket_factory_ != NULL);
+  RTC_DCHECK(socket_factory_ != nullptr);
   SetConfiguration(stun_servers, std::vector<RelayServerConfig>(), 0, false,
                    nullptr);
   Construct();
@@ -162,7 +181,7 @@ BasicPortAllocator::BasicPortAllocator(
     const rtc::SocketAddress& relay_address_udp,
     const rtc::SocketAddress& relay_address_tcp,
     const rtc::SocketAddress& relay_address_ssl)
-    : network_manager_(network_manager), socket_factory_(NULL) {
+    : network_manager_(network_manager), socket_factory_(nullptr) {
   InitRelayPortFactory(nullptr);
   RTC_DCHECK(relay_port_factory_ != nullptr);
   RTC_DCHECK(network_manager_ != nullptr);
@@ -265,7 +284,7 @@ BasicPortAllocatorSession::BasicPortAllocatorSession(
                            ice_pwd,
                            allocator->flags()),
       allocator_(allocator),
-      network_thread_(NULL),
+      network_thread_(nullptr),
       socket_factory_(allocator->socket_factory()),
       allocation_started_(false),
       network_manager_started_(false),
@@ -278,7 +297,7 @@ BasicPortAllocatorSession::BasicPortAllocatorSession(
 
 BasicPortAllocatorSession::~BasicPortAllocatorSession() {
   allocator_->network_manager()->StopUpdating();
-  if (network_thread_ != NULL)
+  if (network_thread_ != nullptr)
     network_thread_->Clear(this);
 
   for (uint32_t i = 0; i < sequences_.size(); ++i) {
@@ -658,22 +677,32 @@ std::vector<rtc::Network*> BasicPortAllocatorSession::GetNetworks() {
       rtc::NetworkManager::ENUMERATION_BLOCKED) {
     set_flags(flags() | PORTALLOCATOR_DISABLE_ADAPTER_ENUMERATION);
   }
-  // If the adapter enumeration is disabled, we'll just bind to any address
-  // instead of specific NIC. This is to ensure the same routing for http
-  // traffic by OS is also used here to avoid any local or public IP leakage
-  // during stun process.
-  if (flags() & PORTALLOCATOR_DISABLE_ADAPTER_ENUMERATION) {
-    network_manager->GetAnyAddressNetworks(&networks);
+
+  // If adapter enumeration is disabled, we'll just bind to any address
+  // instead of a specific NIC. This is to ensure that WebRTC traffic is routed
+  // by the OS in the same way that HTTP traffic would be, and no additional
+  // local or public IPs are leaked during ICE processing.
+  if ((flags() & PORTALLOCATOR_DISABLE_ADAPTER_ENUMERATION)) {
+    if (flags() & PORTALLOCATOR_DISABLE_ANY_ADDRESS_PORTS) {
+      RTC_LOG(LS_ERROR) << "Adapter enumeration and \"any address\" ports are "
+                           "both disabled, so not gathering any ICE "
+                           "candidates.";
+    } else {
+      network_manager->GetAnyAddressNetworks(&networks);
+    }
   } else {
     network_manager->GetNetworks(&networks);
-    // If network enumeration fails, use the ANY address as a fallback, so we
-    // can at least try gathering candidates using the default route chosen by
-    // the OS. Or, if the PORTALLOCATOR_ENABLE_ANY_ADDRESS_PORTS flag is
-    // set, we'll use ANY address candidates either way.
-    if (networks.empty() || flags() & PORTALLOCATOR_ENABLE_ANY_ADDRESS_PORTS) {
+    // Unless explicitly disabled, bind to the "any" address as a fallback,
+    // since this may potentially reveal network interfaces that weren't
+    // otherwise accessible. Note that the candidates gathered by binding to the
+    // "any" address won't be surfaced to the application if they're determined
+    // to be redundant (if they have the same address as a candidate gathered by
+    // binding to an interface explicitly).
+    if (!(flags() & PORTALLOCATOR_DISABLE_ANY_ADDRESS_PORTS)) {
       network_manager->GetAnyAddressNetworks(&networks);
     }
   }
+
   // Filter out link-local networks if needed.
   if (flags() & PORTALLOCATOR_DISABLE_LINK_LOCAL_NETWORKS) {
     NetworkFilter link_local_filter(
@@ -692,11 +721,12 @@ std::vector<rtc::Network*> BasicPortAllocatorSession::GetNetworks() {
   if (flags() & PORTALLOCATOR_DISABLE_COSTLY_NETWORKS) {
     uint16_t lowest_cost = rtc::kNetworkCostMax;
     for (rtc::Network* network : networks) {
-      // Don't determine the lowest cost from a link-local network.
-      // On iOS, a device connected to the computer will get a link-local
-      // network for communicating with the computer, however this network can't
-      // be used to connect to a peer outside the network.
-      if (rtc::IPIsLinkLocal(network->GetBestIP())) {
+      // Don't determine the lowest cost from a link-local or any address
+      // network. On iOS, a device connected to the computer will get a
+      // link-local network for communicating with the computer, however this
+      // network can't be used to connect to a peer outside the network.
+      if (rtc::IPIsLinkLocal(network->GetBestIP()) ||
+          rtc::IPIsAny(network->GetBestIP())) {
         continue;
       }
       lowest_cost = std::min<uint16_t>(lowest_cost, network->GetCost());
@@ -885,7 +915,7 @@ void BasicPortAllocatorSession::OnCandidateReady(
     Port* port, const Candidate& c) {
   RTC_DCHECK(rtc::Thread::Current() == network_thread_);
   PortData* data = FindPort(port);
-  RTC_DCHECK(data != NULL);
+  RTC_DCHECK(data != nullptr);
   RTC_LOG(LS_INFO) << port->ToString()
                    << ": Gathered candidate: " << c.ToSensitiveString();
   // Discarding any candidate signal if port allocation status is
@@ -914,16 +944,12 @@ void BasicPortAllocatorSession::OnCandidateReady(
     }
     // If the current port is not pruned yet, SignalPortReady.
     if (!data->pruned()) {
-      RTC_LOG(LS_INFO) << port->ToString() << ": Port ready.";
-      SignalPortReady(this, port);
-      port->KeepAliveUntilPruned();
+      MaybeSignalPortReady(port);
     }
   }
 
   if (data->ready() && CheckCandidateFilter(c)) {
-    std::vector<Candidate> candidates;
-    candidates.push_back(SanitizeRelatedAddress(c));
-    SignalCandidatesReady(this, candidates);
+    MaybeSignalCandidateReady(port, c);
   } else {
     RTC_LOG(LS_INFO) << "Discarding candidate because it doesn't match filter.";
   }
@@ -991,7 +1017,7 @@ void BasicPortAllocatorSession::OnPortComplete(Port* port) {
   RTC_LOG(LS_INFO) << port->ToString()
                    << ": Port completed gathering candidates.";
   PortData* data = FindPort(port);
-  RTC_DCHECK(data != NULL);
+  RTC_DCHECK(data != nullptr);
 
   // Ignore any late signals.
   if (!data->inprogress()) {
@@ -1009,7 +1035,7 @@ void BasicPortAllocatorSession::OnPortError(Port* port) {
   RTC_LOG(LS_INFO) << port->ToString()
                    << ": Port encountered error while gathering candidates.";
   PortData* data = FindPort(port);
-  RTC_DCHECK(data != NULL);
+  RTC_DCHECK(data != nullptr);
   // We might have already given up on this port and stopped it.
   if (!data->inprogress()) {
     return;
@@ -1063,14 +1089,16 @@ bool BasicPortAllocatorSession::CandidatePairable(const Candidate& c,
   // prevent even default IP addresses from leaking), we still don't want to
   // ping from them, even if device enumeration is disabled.  Thus, we check for
   // both device enumeration and host candidates being disabled.
-  bool network_enumeration_disabled = c.address().IsAnyIP();
+  bool candidate_has_any_address = c.address().IsAnyIP();
+  bool network_enumeration_disabled =
+      flags() & PORTALLOCATOR_DISABLE_ADAPTER_ENUMERATION;
   bool can_ping_from_candidate =
       (port->SharedSocket() || c.protocol() == TCP_PROTOCOL_NAME);
   bool host_candidates_disabled = !(candidate_filter_ & CF_HOST);
 
   return candidate_signalable ||
-         (network_enumeration_disabled && can_ping_from_candidate &&
-          !host_candidates_disabled);
+         ((network_enumeration_disabled || candidate_has_any_address) &&
+          can_ping_from_candidate && !host_candidates_disabled);
 }
 
 void BasicPortAllocatorSession::OnPortAllocationComplete(
@@ -1080,6 +1108,10 @@ void BasicPortAllocatorSession::OnPortAllocationComplete(
 }
 
 void BasicPortAllocatorSession::MaybeSignalCandidatesAllocationDone() {
+  // We may need to signal any address ports and candidates gathered from them
+  // before the candidate allocation is done. The completion of candidate
+  // allocation could be delayed for a long time if a STUN request times out.
+  MaybeSignalAnyAddressPortsAndCandidatesReady();
   if (CandidatesAllocationDone()) {
     if (pooled()) {
       RTC_LOG(LS_INFO) << "All candidates gathered for pooled session.";
@@ -1089,6 +1121,98 @@ void BasicPortAllocatorSession::MaybeSignalCandidatesAllocationDone() {
     }
     SignalCandidatesAllocationDone(this);
   }
+}
+
+// We postpone the signaling of any address ports to when the candidates
+// allocation is done.
+void BasicPortAllocatorSession::MaybeSignalPortReady(Port* port) {
+  port->KeepAliveUntilPruned();
+  if (IsAnyAddressPort(port) &&
+      !(flags() & PORTALLOCATOR_DISABLE_ADAPTER_ENUMERATION)) {
+    return;
+  }
+  RTC_LOG(INFO) << port->ToString() << ": Port ready.";
+  PortData* data = FindPort(port);
+  RTC_DCHECK(data != nullptr);
+  SignalPortReady(this, port);
+  data->set_signaled();
+}
+
+// We postpone the signaling of candidates from any address ports to when the
+// candidate allocation is done. Candidates from the any address ports will be
+// signaled and surfaced to the application if we decide that they are not
+// redundant with candidates signaled from ports bound to enumerated networks.
+void BasicPortAllocatorSession::MaybeSignalCandidateReady(Port* port,
+                                                          const Candidate& c) {
+  if (IsAnyAddressPort(port) &&
+      !(flags() & PORTALLOCATOR_DISABLE_ADAPTER_ENUMERATION)) {
+    signalable_candidates_from_any_address_ports_.push_back(
+        SanitizeRelatedAddress(c));
+    RTC_LOG(INFO) << "Candidate not signaled yet because it is from the "
+                     "default route and the network enumeration is allowed: "
+                  << c.ToSensitiveString();
+    return;
+  }
+  std::vector<Candidate> candidates;
+  candidates.push_back(SanitizeRelatedAddress(c));
+  ips_from_non_any_address_ports_.insert(
+      candidates.back().address().ToString());
+  SignalCandidatesReady(this, candidates);
+}
+
+void BasicPortAllocatorSession::MaybeSignalAnyAddressPortsAndCandidatesReady() {
+  if (!allocation_sequences_created_ ||
+      std::any_of(sequences_.begin(), sequences_.end(),
+                  [](const AllocationSequence* sequence) {
+                    return sequence->state() == AllocationSequence::kRunning ||
+                           sequence->state() == AllocationSequence::kInit;
+                  })) {
+    return;
+  }
+  // Note that the candidate allocation may not be done at this stage since some
+  // ports may be still waiting for responses for STUN binding and TURN
+  // allocation, but we should not expect new ports being created. It is about
+  // time to signal any address ports.
+  std::vector<PortData*> signalable_any_address_ports;
+  bool has_ready_ports_bound_to_enumerated_networks = false;
+  for (PortData& port_data : ports_) {
+    if (IsAnyAddressPort(port_data.port())) {
+      if (!port_data.signaled() && port_data.ready()) {
+        signalable_any_address_ports.push_back(&port_data);
+      }
+    } else {
+      has_ready_ports_bound_to_enumerated_networks |= port_data.ready();
+    }
+  }
+  if (flags() & PORTALLOCATOR_DISABLE_ANY_ADDRESS_PORTS) {
+    RTC_DCHECK(signalable_any_address_ports.empty());
+    RTC_DCHECK(signalable_candidates_from_any_address_ports_.empty());
+    return;
+  }
+  // Note that TCP ports can be ready even if there is no underlying socket
+  // created. We only prune the any address ports when we expliclitly configure
+  // so, and our implementation tries the best to avoid redundant candidates
+  // from the add address ports.
+  if (has_ready_ports_bound_to_enumerated_networks &&
+      !(flags() & PORTALLOCATOR_DISABLE_ADAPTER_ENUMERATION) &&
+      !(flags() & PORTALLOCATOR_DISABLE_PRUNE_ANY_ADDRESS_PORTS)) {
+    PrunePortsAndRemoveCandidates(signalable_any_address_ports);
+    return;
+  }
+  for (PortData* port_data : signalable_any_address_ports) {
+    if (port_data->pruned() || !port_data->port()) {
+      continue;
+    }
+    RTC_LOG(INFO) << port_data->port()->ToString() << ": Port ready.";
+    SignalPortReady(this, port_data->port());
+    port_data->set_signaled();
+  }
+  RTC_LOG(INFO) << "Signaling candidates from the any address ports.";
+  RemoveCandidatesWithDuplicateIps(
+      &signalable_candidates_from_any_address_ports_,
+      ips_from_non_any_address_ports_);
+  SignalCandidatesReady(this, signalable_candidates_from_any_address_ports_);
+  signalable_candidates_from_any_address_ports_.clear();
 }
 
 void BasicPortAllocatorSession::OnPortDestroyed(
@@ -1115,7 +1239,8 @@ BasicPortAllocatorSession::PortData* BasicPortAllocatorSession::FindPort(
       return &*it;
     }
   }
-  return NULL;
+  RTC_LOG(INFO) << "Find null port";
+  return nullptr;
 }
 
 std::vector<BasicPortAllocatorSession::PortData*>
@@ -1145,6 +1270,11 @@ void BasicPortAllocatorSession::PrunePortsAndRemoveCandidates(
       // Mark the port as having no pairable candidates so that its candidates
       // won't be removed multiple times.
       data->set_has_pairable_candidate(false);
+      if (IsAnyAddressPort(data->port())) {
+        for (const Candidate& c : removed_candidates) {
+          ips_from_non_any_address_ports_.erase(c.address().ToString());
+        }
+      }
     }
   }
   if (!pruned_ports.empty()) {
@@ -1169,9 +1299,8 @@ AllocationSequence::AllocationSequence(BasicPortAllocatorSession* session,
       state_(kInit),
       flags_(flags),
       udp_socket_(),
-      udp_port_(NULL),
-      phase_(0) {
-}
+      udp_port_(nullptr),
+      phase_(0) {}
 
 void AllocationSequence::Init() {
   if (IsFlagSet(PORTALLOCATOR_ENABLE_SHARED_SOCKET)) {
@@ -1182,13 +1311,13 @@ void AllocationSequence::Init() {
       udp_socket_->SignalReadPacket.connect(
           this, &AllocationSequence::OnReadPacket);
     }
-    // Continuing if |udp_socket_| is NULL, as local TCP and RelayPort using TCP
-    // are next available options to setup a communication channel.
+    // Continuing if |udp_socket_| is nullptr, as local TCP and RelayPort using
+    // TCP are next available options to setup a communication channel.
   }
 }
 
 void AllocationSequence::Clear() {
-  udp_port_ = NULL;
+  udp_port_ = nullptr;
   relay_ports_.clear();
 }
 
@@ -1324,7 +1453,7 @@ void AllocationSequence::CreateUDPPorts() {
 
   // TODO(mallinath) - Remove UDPPort creating socket after shared socket
   // is enabled completely.
-  UDPPort* port = NULL;
+  UDPPort* port = nullptr;
   bool emit_local_candidate_for_anyaddress =
       !IsFlagSet(PORTALLOCATOR_DISABLE_DEFAULT_LOCAL_CANDIDATE);
   if (IsFlagSet(PORTALLOCATOR_ENABLE_SHARED_SOCKET) && udp_socket_) {
@@ -1535,7 +1664,7 @@ void AllocationSequence::CreateTurnPort(const RelayServerConfig& config) {
         continue;
       }
     }
-    RTC_DCHECK(port != NULL);
+    RTC_DCHECK(port != nullptr);
     session_->AddAllocatedPort(port.release(), this, true);
   }
 }
@@ -1580,7 +1709,7 @@ void AllocationSequence::OnReadPacket(
 
 void AllocationSequence::OnPortDestroyed(PortInterface* port) {
   if (udp_port_ == port) {
-    udp_port_ = NULL;
+    udp_port_ = nullptr;
     return;
   }
 

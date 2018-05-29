@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "42c765ed_c8653cea",
+        "filename": "media/base/codec_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-29T08:10:28Z",
+      "side": 1,
+      "message": "In cases when the compiler can statically guarantee that the conversion isn\u0027t narrowing, use brace initialization to convert between integer types:\n\n  size_t{1}\n\n(You can always try this---the compiler will complain if it isn\u0027t safe.) See https://google.github.io/styleguide/cppguide.html#Casting\n\nHowever, for EXPECT_EQ and the like, you don\u0027t need the exact type---you just need to get the signedness right. So just say\n\n  1u\n\n(More of these below.)",
+      "range": {
+        "startLine": 358,
+        "startChar": 12,
+        "endLine": 358,
+        "endChar": 34
+      },
+      "revId": "1af3c5091f074b7b5c840e9754edc7e63c5ee07b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

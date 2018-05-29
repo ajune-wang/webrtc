@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "941edd8d_e30388b1",
+        "filename": "modules/video_coding/BUILD.gn",
+        "patchSetId": 10
+      },
+      "lineNbr": 552,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-05-29T08:55:41Z",
+      "side": 1,
+      "message": "Yes, that is the end goal. Upload a patchset that does this.",
+      "parentUuid": "1aaa68f3_71ac19f7",
+      "revId": "3a4659751bf3c0d8995fb20c16f33e1c2197541b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "70327f4f_5426bb0a",
         "filename": "modules/video_coding/BUILD.gn",
         "patchSetId": 10
@@ -33,6 +51,24 @@
       "revId": "3a4659751bf3c0d8995fb20c16f33e1c2197541b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ffa79edc_06d961a8",
+        "filename": "modules/video_coding/BUILD.gn",
+        "patchSetId": 10
+      },
+      "lineNbr": 823,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-05-29T08:55:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "70327f4f_5426bb0a",
+      "revId": "3a4659751bf3c0d8995fb20c16f33e1c2197541b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "e6472c7d_fb0f1fcf",
+        "filename": "modules/video_coding/codecs/vp8/simulcast_test_fixture.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-05-29T08:55:41Z",
+      "side": 1,
+      "message": "Both :( See longer discussion in another comment.",
+      "parentUuid": "b52aa904_0000b6d0",
+      "revId": "3a4659751bf3c0d8995fb20c16f33e1c2197541b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "76912110_42076a7b",
         "filename": "modules/video_coding/codecs/vp8/simulcast_test_fixture_impl.cc",
         "patchSetId": 10
@@ -64,6 +118,24 @@
       "writtenOn": "2018-05-28T19:56:48Z",
       "side": 1,
       "message": "Ideally the fixture should be agnostic w.r.t test framework being used so a client isn\u0027t forced to use gtest. I believe this class is actually mixing the fixture and test suite into the same entity.\n\nOh, wait, we have a dep on gtest already in video_codec_test_fixture_impl.cc - sorry I missed that. I guess we\u0027ll have to add to the wish list.",
+      "revId": "3a4659751bf3c0d8995fb20c16f33e1c2197541b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89009cf7_f87283f5",
+        "filename": "modules/video_coding/codecs/vp8/simulcast_test_fixture_impl.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-05-29T08:55:41Z",
+      "side": 1,
+      "message": "Yes, you are right: this class combines the fixture (create and set up codecs, create rate allocator, create frame buffers, ...) and the test suite (TestKeyFrameRequestsOnAllStreams, TestPaddingAllStreams, ...). The latter is why we depend on gtest here.\n\nI\u0027m mostly interested in sharing the test suite with downstream users, rather than the logic provided by the fixture. The _test suite_ is valuable since it is encoder implementation agnostic (thanks to the fixture taking codec factories in the ctor), and all the tests should pass for any given simulcast-enabled encoder. (Open source examples are the LibvpxVp8 and SimulcastEncoderAdapter implementations.) The _fixture_ itself has fairly low value, as it mainly does menial setup: instantiate and initialize codecs and rate allocators.\n\nI don\u0027t know why we have this conflation between fixture and test suite, but it seems to me to be a fairly large undertaking in splitting it up in two separate components: test fixture and test helper.\n\n\u003d\u003d\n\nSide note: the VideoCodecTestFixture is similarly conflated: it sets up everything to do proper encoding and decoding (\"fixture\"), but then it also takes a set of values which are used by EXPECT\u0027s inside the class (\"test\"). Thus, that class also depends on gtest.",
+      "parentUuid": "76912110_42076a7b",
       "revId": "3a4659751bf3c0d8995fb20c16f33e1c2197541b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "afdd140c_b85d48b1",
+        "filename": "modules/video_coding/codecs/vp8/simulcast_test_fixture_impl.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-05-29T08:55:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3593604c_8425d321",
+      "revId": "3a4659751bf3c0d8995fb20c16f33e1c2197541b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0ed7889e_66cd937e",
         "filename": "modules/video_coding/codecs/vp8/simulcast_test_fixture_impl.h",
         "patchSetId": 10
@@ -101,6 +191,24 @@
       "revId": "3a4659751bf3c0d8995fb20c16f33e1c2197541b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d5c6f4e_440c585b",
+        "filename": "modules/video_coding/codecs/vp8/simulcast_test_fixture_impl.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-05-29T08:55:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0ed7889e_66cd937e",
+      "revId": "3a4659751bf3c0d8995fb20c16f33e1c2197541b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

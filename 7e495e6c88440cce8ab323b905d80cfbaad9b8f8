@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2bc8fea4_5bfea31e",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 819,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-05-29T09:14:30Z",
+      "side": 1,
+      "message": "I think it could also be padding, but perhaps you are fine with that?",
+      "range": {
+        "startLine": 819,
+        "startChar": 43,
+        "endLine": 819,
+        "endChar": 56
+      },
+      "revId": "7e495e6c88440cce8ab323b905d80cfbaad9b8f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "10dc6fb6_893831a0",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-05-29T11:28:55Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c6c1d285_930c09e7",
+      "range": {
+        "startLine": 82,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 60
+      },
+      "revId": "09291e0ca8a9ac2aab2568bfd44a1958607d768c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "53b1928b_58f66ea5",
         "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
         "patchSetId": 1
@@ -96,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "7828d690_743fb182",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1134,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-05-29T11:28:55Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "4d065b7f_cb9fd1c3",
+      "range": {
+        "startLine": 1133,
+        "startChar": 0,
+        "endLine": 1134,
+        "endChar": 65
+      },
+      "revId": "09291e0ca8a9ac2aab2568bfd44a1958607d768c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4cb762e3_3b660168",
         "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
         "patchSetId": 1
@@ -131,6 +179,30 @@
       "side": 1,
       "message": "It can if you manually manufacture, and allowing graceful failure is on the todo list. However, please note that this would mostly be a cosmetic improvement since no analysis tool should continue if the log is clearly defective. CHECKING in this case is an easy way to break out of the parsing and at the same time print the location of the error without using exceptions. We do the same in all other places in the parser.",
       "parentUuid": "4cb762e3_3b660168",
+      "range": {
+        "startLine": 1140,
+        "startChar": 0,
+        "endLine": 1141,
+        "endChar": 43
+      },
+      "revId": "09291e0ca8a9ac2aab2568bfd44a1958607d768c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1b50e9da_07e13ce0",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1141,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-05-29T11:28:55Z",
+      "side": 1,
+      "message": "If this is the pattern followed throughout the parser, this CL shouldn\u0027t be the one to change it. But in general, I think it\u0027s better practice to structure code in a way that allows reuse. A function/class/module that assumes that it would only be used in applications that can afford to crash, are not as reusable as ones that don\u0027t.\n\nYou\u0027re probably aware, but it\u0027s not clear from the phrasing of the last comment, so I\u0027ll mention just in case, that corruption on disk or over the wire can end up with a defective log.",
+      "parentUuid": "9022794d_38d35e9c",
       "range": {
         "startLine": 1140,
         "startChar": 0,
@@ -272,6 +344,30 @@
     },
     {
       "key": {
+        "uuid": "8aea02c5_0dbe077e",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 643,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-05-29T11:28:55Z",
+      "side": 1,
+      "message": "I see those as dividers, mostly. When you look in one ssrc-related getter, you immediately see where related getters start and end. Just a personal preference.",
+      "parentUuid": "44eb1959_1830f23c",
+      "range": {
+        "startLine": 641,
+        "startChar": 0,
+        "endLine": 643,
+        "endChar": 65
+      },
+      "revId": "09291e0ca8a9ac2aab2568bfd44a1958607d768c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c5c291b8_de4db1c6",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
         "patchSetId": 1
@@ -301,6 +397,24 @@
       "side": 1,
       "message": "This will be removed when rewriting the unit tests.\n\nThe non-new version of the event types are in rtc_event_log_parser.h, which is deprecated and therefore not tested.",
       "parentUuid": "c5c291b8_de4db1c6",
+      "revId": "09291e0ca8a9ac2aab2568bfd44a1958607d768c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "32df14ff_6615a9b4",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-05-29T11:28:55Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "985bb06f_579f585f",
       "revId": "09291e0ca8a9ac2aab2568bfd44a1958607d768c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
@@ -342,6 +456,24 @@
     },
     {
       "key": {
+        "uuid": "d3fdaa99_c6f2536a",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-05-29T11:28:55Z",
+      "side": 1,
+      "message": "Okay; just wanted to make sure it was left behind intentionally.",
+      "parentUuid": "ca89cdaa_128a87e3",
+      "revId": "09291e0ca8a9ac2aab2568bfd44a1958607d768c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c2652220_d7635468",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
         "patchSetId": 1
@@ -374,6 +506,41 @@
       "revId": "09291e0ca8a9ac2aab2568bfd44a1958607d768c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "69b04300_118f99c8",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 650,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-05-29T11:28:55Z",
+      "side": 1,
+      "message": "Oopsie; it was the function and its forward-declaration, not two functions with an overloaded name, as I had thought for some reason. I must have been distracted.",
+      "parentUuid": "ff698895_a087b4ce",
+      "revId": "09291e0ca8a9ac2aab2568bfd44a1958607d768c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c383b98c_d0654116",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 651,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-05-29T11:28:55Z",
+      "side": 1,
+      "message": "I\u0027m not sure what the new guidelines say about using std::ostream?",
+      "revId": "09291e0ca8a9ac2aab2568bfd44a1958607d768c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

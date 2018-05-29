@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ddad5dcd_609d8164",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1180,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-05-29T11:28:55Z",
+      "side": 1,
+      "message": "I would suggest adding:\n  LoggedBweProbeSuccessEvent() : timestamp_us(0), id(0), bitrate_bps(0) {}\n  LoggedBweProbeSuccessEvent(int64_t timestamp_us,\n                             int32_t id,\n                             int32_t bitrate_bps)\n      : timestamp_us(timestamp_us), id(id), bitrate_bps(bitrate_bps) {}\n\n(It would be better if the default ctor can be avoided entirely.)\n\nThis way, you can modify the code here to:\n  RTC_CHECK(pr_event.has_id());\n  RTC_CHECK(pr_event.has_bitrate_bps());\n  return LoggedBweProbeSuccessEvent(GetTimestamp(event), pr_event.id(),\n                                    pr_event.has_bitrate_bps());\n\nIMHO, that would be clearer and safer.\n\nThis can be done, because PacketView is static_assert-ing on std::is_standard_layout, not on std::is_pod.",
+      "range": {
+        "startLine": 1175,
+        "startChar": 0,
+        "endLine": 1180,
+        "endChar": 41
+      },
+      "revId": "1810079e43585af46988e02fa9467eeed997b254",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

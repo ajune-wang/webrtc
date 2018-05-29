@@ -558,6 +558,7 @@ if (rtc_include_tests) {
       "../rtc_base:rtc_task_queue",
       "../rtc_base:stringutils",
       "../test:field_trial",
+      "../test:test_common",
     ]
     sources = [
       "base/codec_unittest.cc",
@@ -655,7 +656,8 @@ if (rtc_include_tests) {
       "../logging:rtc_event_log_impl_base",
       "../modules/audio_device:mock_audio_device",
       "../modules/audio_processing:audio_processing",
-      "../modules/video_coding:simulcast_test_utility",
+      "../modules/video_coding:simulcast_test_fixture_api",
+      "../modules/video_coding:simulcast_test_fixture_impl",
       "../modules/video_coding:video_coding_utility",
       "../modules/video_coding:webrtc_vp8_helpers",
       "../p2p:p2p_test_utils",

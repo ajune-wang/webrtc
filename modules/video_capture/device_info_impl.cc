@@ -44,7 +44,7 @@ int32_t DeviceInfoImpl::NumberOfCapabilities(const char* deviceUniqueIdUTF8) {
 
   if (_lastUsedDeviceNameLength == strlen((char*)deviceUniqueIdUTF8)) {
     // Is it the same device that is asked for again.
-    if (_strnicmp((char*)_lastUsedDeviceName, (char*)deviceUniqueIdUTF8,
+    if (rtc::StrNCaseCmp((char*)_lastUsedDeviceName, (char*)deviceUniqueIdUTF8,
                   _lastUsedDeviceNameLength) == 0) {
       // yes
       _apiLock.ReleaseLockShared();
@@ -67,7 +67,7 @@ int32_t DeviceInfoImpl::GetCapability(const char* deviceUniqueIdUTF8,
   ReadLockScoped cs(_apiLock);
 
   if ((_lastUsedDeviceNameLength != strlen((char*)deviceUniqueIdUTF8)) ||
-      (_strnicmp((char*)_lastUsedDeviceName, (char*)deviceUniqueIdUTF8,
+      (rtc::StrNCaseCmp((char*)_lastUsedDeviceName, (char*)deviceUniqueIdUTF8,
                  _lastUsedDeviceNameLength) != 0)) {
     _apiLock.ReleaseLockShared();
     _apiLock.AcquireLockExclusive();
@@ -101,7 +101,7 @@ int32_t DeviceInfoImpl::GetBestMatchedCapability(
 
   ReadLockScoped cs(_apiLock);
   if ((_lastUsedDeviceNameLength != strlen((char*)deviceUniqueIdUTF8)) ||
-      (_strnicmp((char*)_lastUsedDeviceName, (char*)deviceUniqueIdUTF8,
+      (rtc::StrNCaseCmp((char*)_lastUsedDeviceName, (char*)deviceUniqueIdUTF8,
                  _lastUsedDeviceNameLength) != 0)) {
     _apiLock.ReleaseLockShared();
     _apiLock.AcquireLockExclusive();

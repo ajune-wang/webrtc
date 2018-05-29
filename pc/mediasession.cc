@@ -662,7 +662,7 @@ static bool ContainsRtxCodec(const std::vector<C>& codecs) {
 
 template <class C>
 static bool IsRtxCodec(const C& codec) {
-  return STR_CASE_CMP(codec.name.c_str(), kRtxCodecName) == 0;
+  return rtc::StrCaseCmp(codec.name.c_str(), kRtxCodecName) == 0;
 }
 
 template <class C>
@@ -677,7 +677,7 @@ static bool ContainsFlexfecCodec(const std::vector<C>& codecs) {
 
 template <class C>
 static bool IsFlexfecCodec(const C& codec) {
-  return STR_CASE_CMP(codec.name.c_str(), kFlexfecCodecName) == 0;
+  return rtc::StrCaseCmp(codec.name.c_str(), kFlexfecCodecName) == 0;
 }
 
 // Create a media content to be offered for the given |sender_options|,
@@ -1046,7 +1046,7 @@ static void NegotiateRtpHeaderExtensions(
 static void StripCNCodecs(AudioCodecs* audio_codecs) {
   AudioCodecs::iterator iter = audio_codecs->begin();
   while (iter != audio_codecs->end()) {
-    if (STR_CASE_CMP(iter->name.c_str(), kComfortNoiseCodecName) == 0) {
+    if (rtc::StrCaseCmp(iter->name.c_str(), kComfortNoiseCodecName) == 0) {
       iter = audio_codecs->erase(iter);
     } else {
       ++iter;

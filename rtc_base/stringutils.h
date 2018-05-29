@@ -47,8 +47,6 @@ namespace rtc {
 // Ex: string_match("www.TEST.GOOGLE.COM", "www.*.com") -> true
 bool string_match(const char* target, const char* pattern);
 
-}  // namespace rtc
-
 ///////////////////////////////////////////////////////////////////////////////
 // Rename a few common string functions so they are consistent across platforms.
 // tolowercase is like tolower, but not compatible with end-of-file value
@@ -67,24 +65,28 @@ inline wchar_t tolowercase(wchar_t c) {
   return static_cast<wchar_t>(towlower(c));
 }
 
+inline int StrCaseCmp(const char* s1, const char* s2) {
+  return _stricmp(s1, s2);
+}
+
+inline int StrNCaseCmp(const char* s1, const char* s2) {
+  return _strnicmp(s1, s2);
+}
 #endif  // WEBRTC_WIN
 
 #if defined(WEBRTC_POSIX)
 
-inline int _stricmp(const char* s1, const char* s2) {
+inline int StrCaseCmp(const char* s1, const char* s2) {
   return strcasecmp(s1, s2);
 }
-inline int _strnicmp(const char* s1, const char* s2, size_t n) {
+inline int StrNCaseCmp(const char* s1, const char* s2, size_t n) {
   return strncasecmp(s1, s2, n);
 }
-
 #endif  // WEBRTC_POSIX
 
 ///////////////////////////////////////////////////////////////////////////////
 // Traits simplifies porting string functions to be CTYPE-agnostic
 ///////////////////////////////////////////////////////////////////////////////
-
-namespace rtc {
 
 const size_t SIZE_UNKNOWN = static_cast<size_t>(-1);
 
@@ -194,17 +196,8 @@ size_t sprintfn(CTYPE* buffer, size_t buflen, const CTYPE* format, ...) {
 // non-wide character strings.
 ///////////////////////////////////////////////////////////////////////////////
 
-inline int asccmp(const char* s1, const char* s2) {
-  return strcmp(s1, s2);
-}
-inline int ascicmp(const char* s1, const char* s2) {
-  return _stricmp(s1, s2);
-}
-inline int ascncmp(const char* s1, const char* s2, size_t n) {
-  return strncmp(s1, s2, n);
-}
 inline int ascnicmp(const char* s1, const char* s2, size_t n) {
-  return _strnicmp(s1, s2, n);
+  return StrNCaseCmp(s1, s2, n);
 }
 inline size_t asccpyn(char* buffer, size_t buflen,
                       const char* source, size_t srclen = SIZE_UNKNOWN) {
@@ -218,15 +211,6 @@ inline wchar_t identity(wchar_t c) { return c; }
 int ascii_string_compare(const wchar_t* s1, const char* s2, size_t n,
                          CharacterTransformation transformation);
 
-inline int asccmp(const wchar_t* s1, const char* s2) {
-  return ascii_string_compare(s1, s2, static_cast<size_t>(-1), identity);
-}
-inline int ascicmp(const wchar_t* s1, const char* s2) {
-  return ascii_string_compare(s1, s2, static_cast<size_t>(-1), tolowercase);
-}
-inline int ascncmp(const wchar_t* s1, const char* s2, size_t n) {
-  return ascii_string_compare(s1, s2, n, identity);
-}
 inline int ascnicmp(const wchar_t* s1, const char* s2, size_t n) {
   return ascii_string_compare(s1, s2, n, tolowercase);
 }

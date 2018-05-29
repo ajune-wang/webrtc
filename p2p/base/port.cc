@@ -182,7 +182,7 @@ const char* ProtoToString(ProtocolType proto) {
 
 bool StringToProto(const char* value, ProtocolType* proto) {
   for (size_t i = 0; i <= PROTO_LAST; ++i) {
-    if (_stricmp(PROTO_NAMES[i], value) == 0) {
+    if (rtc::StrCaseCmp(PROTO_NAMES[i], value) == 0) {
       *proto = static_cast<ProtocolType>(i);
       return true;
     }

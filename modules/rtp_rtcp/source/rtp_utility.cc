@@ -35,7 +35,7 @@ enum {
 
 bool StringCompare(const char* str1, const char* str2,
                    const uint32_t length) {
-  return _strnicmp(str1, str2, length) == 0;
+  return rtc::StrNCaseCmp(str1, str2, length) == 0;
 }
 
 size_t Word32Align(size_t size) {

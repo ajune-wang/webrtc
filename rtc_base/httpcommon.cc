@@ -113,7 +113,7 @@ const ConstantToLabel SECURITY_ERRORS[] = {
 bool find_string(size_t& index, const std::string& needle,
                  const char* const haystack[], size_t max_index) {
   for (index=0; index<max_index; ++index) {
-    if (_stricmp(needle.c_str(), haystack[index]) == 0) {
+    if (rtc::StrCaseCmp(needle.c_str(), haystack[index]) == 0) {
       return true;
     }
   }
@@ -269,7 +269,7 @@ bool HttpShouldKeepAlive(const HttpData& data) {
   std::string connection;
   if ((data.hasHeader(HH_PROXY_CONNECTION, &connection)
       || data.hasHeader(HH_CONNECTION, &connection))) {
-    return (_stricmp(connection.c_str(), "Keep-Alive") == 0);
+    return (rtc::StrCaseCmp(connection.c_str(), "Keep-Alive") == 0);
   }
   return (data.version >= HVER_1_1);
 }
@@ -768,7 +768,7 @@ HttpAuthResult HttpAuthenticate(
     return HAR_IGNORE;
 
   // BASIC
-  if (_stricmp(auth_method.c_str(), "basic") == 0) {
+  if (rtc::StrCaseCmp(auth_method.c_str(), "basic") == 0) {
     if (context)
       return HAR_CREDENTIALS; // Bad credentials
     if (username.empty())
@@ -796,7 +796,7 @@ HttpAuthResult HttpAuthenticate(
   }
 
   // DIGEST
-  if (_stricmp(auth_method.c_str(), "digest") == 0) {
+  if (rtc::StrCaseCmp(auth_method.c_str(), "digest") == 0) {
     if (context)
       return HAR_CREDENTIALS; // Bad credentials
     if (username.empty())
@@ -863,8 +863,8 @@ HttpAuthResult HttpAuthenticate(
 
 #if defined(WEBRTC_WIN)
 #if 1
-  bool want_negotiate = (_stricmp(auth_method.c_str(), "negotiate") == 0);
-  bool want_ntlm = (_stricmp(auth_method.c_str(), "ntlm") == 0);
+  bool want_negotiate = (rtc::StrCaseCmp(auth_method.c_str(), "negotiate") == 0);
+  bool want_ntlm = (rtc::StrCaseCmp(auth_method.c_str(), "ntlm") == 0);
   // SPNEGO & NTLM
   if (want_negotiate || want_ntlm) {
     const size_t MAX_MESSAGE = 12000, MAX_SPN = 256;

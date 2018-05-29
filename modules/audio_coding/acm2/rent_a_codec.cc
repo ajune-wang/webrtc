@@ -16,6 +16,7 @@
 #include "modules/audio_coding/codecs/cng/audio_encoder_cng.h"
 #include "modules/audio_coding/codecs/g711/audio_encoder_pcm.h"
 #include "rtc_base/logging.h"
+#include "rtc_base/stringutils.h"
 #include "modules/audio_coding/codecs/g722/audio_encoder_g722.h"
 #ifdef WEBRTC_CODEC_ILBC
 #include "modules/audio_coding/codecs/ilbc/audio_encoder_ilbc.h"
@@ -113,7 +114,7 @@ rtc::Optional<NetEqDecoder> RentACodec::NetEqDecoderFromCodecId(
 RentACodec::RegistrationResult RentACodec::RegisterCngPayloadType(
     std::map<int, int>* pt_map,
     const CodecInst& codec_inst) {
-  if (STR_CASE_CMP(codec_inst.plname, "CN") != 0)
+  if (rtc::StrCaseCmp(codec_inst.plname, "CN") != 0)
     return RegistrationResult::kSkip;
   switch (codec_inst.plfreq) {
     case 8000:
@@ -130,7 +131,7 @@ RentACodec::RegistrationResult RentACodec::RegisterCngPayloadType(
 RentACodec::RegistrationResult RentACodec::RegisterRedPayloadType(
     std::map<int, int>* pt_map,
     const CodecInst& codec_inst) {
-  if (STR_CASE_CMP(codec_inst.plname, "RED") != 0)
+  if (rtc::StrCaseCmp(codec_inst.plname, "RED") != 0)
     return RegistrationResult::kSkip;
   switch (codec_inst.plfreq) {
     case 8000:
@@ -149,30 +150,30 @@ std::unique_ptr<AudioEncoder> CreateEncoder(
     const CodecInst& speech_inst,
     const rtc::scoped_refptr<LockedIsacBandwidthInfo>& bwinfo) {
 #if defined(WEBRTC_CODEC_ISACFX)
-  if (STR_CASE_CMP(speech_inst.plname, "isac") == 0)
+  if (rtc::StrCaseCmp(speech_inst.plname, "isac") == 0)
     return std::unique_ptr<AudioEncoder>(
         new AudioEncoderIsacFixImpl(speech_inst, bwinfo));
 #endif
 #if defined(WEBRTC_CODEC_ISAC)
-  if (STR_CASE_CMP(speech_inst.plname, "isac") == 0)
+  if (rtc::StrCaseCmp(speech_inst.plname, "isac") == 0)
     return std::unique_ptr<AudioEncoder>(
         new AudioEncoderIsacFloatImpl(speech_inst, bwinfo));
 #endif
 #ifdef WEBRTC_CODEC_OPUS
-  if (STR_CASE_CMP(speech_inst.plname, "opus") == 0)
+  if (rtc::StrCaseCmp(speech_inst.plname, "opus") == 0)
     return std::unique_ptr<AudioEncoder>(new AudioEncoderOpusImpl(speech_inst));
 #endif
-  if (STR_CASE_CMP(speech_inst.plname, "pcmu") == 0)
+  if (rtc::StrCaseCmp(speech_inst.plname, "pcmu") == 0)
     return std::unique_ptr<AudioEncoder>(new AudioEncoderPcmU(speech_inst));
-  if (STR_CASE_CMP(speech_inst.plname, "pcma") == 0)
+  if (rtc::StrCaseCmp(speech_inst.plname, "pcma") == 0)
     return std::unique_ptr<AudioEncoder>(new AudioEncoderPcmA(speech_inst));
-  if (STR_CASE_CMP(speech_inst.plname, "l16") == 0)
+  if (rtc::StrCaseCmp(speech_inst.plname, "l16") == 0)
     return std::unique_ptr<AudioEncoder>(new AudioEncoderPcm16B(speech_inst));
 #ifdef WEBRTC_CODEC_ILBC
-  if (STR_CASE_CMP(speech_inst.plname, "ilbc") == 0)
+  if (rtc::StrCaseCmp(speech_inst.plname, "ilbc") == 0)
     return std::unique_ptr<AudioEncoder>(new AudioEncoderIlbcImpl(speech_inst));
 #endif
-  if (STR_CASE_CMP(speech_inst.plname, "g722") == 0)
+  if (rtc::StrCaseCmp(speech_inst.plname, "g722") == 0)
     return std::unique_ptr<AudioEncoder>(new AudioEncoderG722Impl(speech_inst));
   RTC_LOG_F(LS_ERROR) << "Could not create encoder of type "
                       << speech_inst.plname;

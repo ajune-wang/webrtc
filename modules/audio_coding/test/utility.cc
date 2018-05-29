@@ -15,8 +15,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "common_types.h"  // NOLINT(build/include)
 #include "modules/audio_coding/include/audio_coding_module.h"
+#include "rtc_base/stringutils.h"
 #include "test/gtest.h"
 
 #define NUM_CODECS_WITH_FIXED_PAYLOAD_TYPE 13
@@ -274,7 +274,7 @@ bool FixedPayloadTypeCodec(const char* payloadName) {
       "MPA", "G728", "G729" };
 
   for (int n = 0; n < NUM_CODECS_WITH_FIXED_PAYLOAD_TYPE; n++) {
-    if (!STR_CASE_CMP(payloadName, fixPayloadTypeCodecs[n])) {
+    if (!rtc::StrCaseCmp(payloadName, fixPayloadTypeCodecs[n])) {
       return true;
     }
   }

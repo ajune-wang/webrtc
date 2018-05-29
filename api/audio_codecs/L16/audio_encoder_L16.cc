@@ -10,11 +10,11 @@
 
 #include "api/audio_codecs/L16/audio_encoder_L16.h"
 
-#include "common_types.h"  // NOLINT(build/include)
 #include "modules/audio_coding/codecs/pcm16b/audio_encoder_pcm16b.h"
 #include "modules/audio_coding/codecs/pcm16b/pcm16b_common.h"
 #include "rtc_base/numerics/safe_conversions.h"
 #include "rtc_base/ptr_util.h"
+#include "rtc_base/stringutils.h"
 
 namespace webrtc {
 
@@ -26,7 +26,7 @@ rtc::Optional<AudioEncoderL16::Config> AudioEncoderL16::SdpToConfig(
   Config config;
   config.sample_rate_hz = format.clockrate_hz;
   config.num_channels = rtc::dchecked_cast<int>(format.num_channels);
-  return STR_CASE_CMP(format.name.c_str(), "L16") == 0 && config.IsOk()
+  return rtc::StrCaseCmp(format.name.c_str(), "L16") == 0 && config.IsOk()
              ? rtc::Optional<Config>(config)
              : rtc::nullopt;
 }

@@ -117,7 +117,7 @@ std::string ToString(const AudioCodec& codec) {
 }
 
 bool IsCodec(const AudioCodec& codec, const char* ref_name) {
-  return (_stricmp(codec.name.c_str(), ref_name) == 0);
+  return (rtc::StrCaseCmp(codec.name.c_str(), ref_name) == 0);
 }
 
 bool FindCodec(const std::vector<AudioCodec>& codecs,
@@ -1023,8 +1023,8 @@ class WebRtcVoiceMediaChannel::WebRtcAudioSendStream
     RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
     const bool is_opus =
         config_.send_codec_spec &&
-        !STR_CASE_CMP(config_.send_codec_spec->format.name.c_str(),
-                      kOpusCodecName);
+        !rtc::StrCaseCmp(config_.send_codec_spec->format.name.c_str(),
+                         kOpusCodecName);
     if (is_opus && webrtc::field_trial::IsEnabled("WebRTC-Audio-SendSideBwe")) {
       config_.min_bitrate_bps = kOpusMinBitrateBps;
 

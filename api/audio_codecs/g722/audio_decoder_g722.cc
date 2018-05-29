@@ -13,16 +13,16 @@
 #include <memory>
 #include <vector>
 
-#include "common_types.h"  // NOLINT(build/include)
 #include "modules/audio_coding/codecs/g722/audio_decoder_g722.h"
 #include "rtc_base/numerics/safe_conversions.h"
 #include "rtc_base/ptr_util.h"
+#include "rtc_base/stringutils.h"
 
 namespace webrtc {
 
 rtc::Optional<AudioDecoderG722::Config> AudioDecoderG722::SdpToConfig(
     const SdpAudioFormat& format) {
-  return STR_CASE_CMP(format.name.c_str(), "G722") == 0 &&
+  return rtc::StrCaseCmp(format.name.c_str(), "G722") == 0 &&
                  format.clockrate_hz == 8000 &&
                  (format.num_channels == 1 || format.num_channels == 2)
              ? rtc::Optional<Config>(

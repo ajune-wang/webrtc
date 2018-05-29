@@ -22,6 +22,30 @@
       "revId": "1810079e43585af46988e02fa9467eeed997b254",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9802f488_fcaee2c9",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1180,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-05-29T12:46:48Z",
+      "side": 1,
+      "message": "The downside with taking multiple numerical arguments is that it\u0027s not apparent in the code if one has swapped the order of two arguments in the constructor.",
+      "parentUuid": "ddad5dcd_609d8164",
+      "range": {
+        "startLine": 1175,
+        "startChar": 0,
+        "endLine": 1180,
+        "endChar": 41
+      },
+      "revId": "1810079e43585af46988e02fa9467eeed997b254",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

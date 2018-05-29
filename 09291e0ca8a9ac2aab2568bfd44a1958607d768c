@@ -215,6 +215,30 @@
     },
     {
       "key": {
+        "uuid": "da757a92_96ac4ab4",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1141,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-05-29T12:46:48Z",
+      "side": 1,
+      "message": "As mentioned, it is on the todo list.\n\nTo clarify; yes, it is possible to have corruptions on the wire or on disk, but it would be much more common to get incomplete logs than to have bit errors. We therefore handle incomplete logs, but not bit errors.\n\nIf we are worried about bit errors, then we should add integrity checking to the log format because bit errors are statistically more likely to affect the contents of the fields rather than their existence. If the contents are affected, then the misleading results would likely be worse than an unusable log.",
+      "parentUuid": "1b50e9da_07e13ce0",
+      "range": {
+        "startLine": 1140,
+        "startChar": 0,
+        "endLine": 1141,
+        "endChar": 43
+      },
+      "revId": "09291e0ca8a9ac2aab2568bfd44a1958607d768c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e56492f0_20283646",
         "filename": "logging/rtc_event_log/rtc_event_log_parser_new.h",
         "patchSetId": 1
@@ -538,6 +562,24 @@
       "writtenOn": "2018-05-29T11:28:55Z",
       "side": 1,
       "message": "I\u0027m not sure what the new guidelines say about using std::ostream?",
+      "revId": "09291e0ca8a9ac2aab2568bfd44a1958607d768c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8a7965f_d3be3fdf",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 651,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-05-29T12:46:48Z",
+      "side": 1,
+      "message": "It is discouraged. However, it is not in scope of this CL.",
+      "parentUuid": "c383b98c_d0654116",
       "revId": "09291e0ca8a9ac2aab2568bfd44a1958607d768c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

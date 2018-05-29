@@ -58,6 +58,32 @@ TEST(TimestampTest, ComparisonOperators) {
   EXPECT_GT(Timestamp::ms(kLarge), Timestamp::ms(kSmall));
 }
 
+TEST(TimestampTest, ConvertsToAndFromDouble) {
+  const int64_t kMicros = 17017;
+  const double kMicrosDouble = kMicros;
+  const double kMillisDouble = kMicros * 1e-3;
+  const double kSecondsDouble = kMillisDouble * 1e-3;
+
+  EXPECT_EQ(Timestamp::us(kMicros).seconds<double>(), kSecondsDouble);
+  EXPECT_EQ(Timestamp::seconds(kSecondsDouble).us(), kMicros);
+
+  EXPECT_EQ(Timestamp::us(kMicros).ms<double>(), kMillisDouble);
+  EXPECT_EQ(Timestamp::ms(kMillisDouble).us(), kMicros);
+
+  EXPECT_EQ(Timestamp::us(kMicros).us<double>(), kMicrosDouble);
+  EXPECT_EQ(Timestamp::us(kMicrosDouble).us(), kMicros);
+
+  const double kPlusInfinity = std::numeric_limits<double>::infinity();
+
+  EXPECT_EQ(Timestamp::Infinity().seconds<double>(), kPlusInfinity);
+  EXPECT_EQ(Timestamp::Infinity().ms<double>(), kPlusInfinity);
+  EXPECT_EQ(Timestamp::Infinity().us<double>(), kPlusInfinity);
+
+  EXPECT_TRUE(Timestamp::seconds(kPlusInfinity).IsInfinite());
+  EXPECT_TRUE(Timestamp::ms(kPlusInfinity).IsInfinite());
+  EXPECT_TRUE(Timestamp::us(kPlusInfinity).IsInfinite());
+}
+
 TEST(UnitConversionTest, TimestampAndTimeDeltaMath) {
   const int64_t kValueA = 267;
   const int64_t kValueB = 450;

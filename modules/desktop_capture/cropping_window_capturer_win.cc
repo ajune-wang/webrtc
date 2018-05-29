@@ -63,6 +63,17 @@ BOOL CALLBACK TopWindowVerifier(HWND hwnd, LPARAM param) {
     return TRUE;
   }
 
+  // Ignore Chrome notification window, especially the notification for the
+  // ongoing window sharing.
+  // Notes:
+  // - This only works with notifications from Chrome, not other Apps.
+  // - All notifications from Chrome will be ignored.
+  // - This may cause part or whole of notification window being cropped into
+  // the capturing of the target window if there is overlapping.
+  if (context->window_capture_helper->IsWindowChromeNotification(hwnd)) {
+    return TRUE;
+  }
+
   // Ignore descendant windows since we want to capture them.
   // This check does not work for tooltips and context menus. Drop down menus
   // and popup windows are fine.

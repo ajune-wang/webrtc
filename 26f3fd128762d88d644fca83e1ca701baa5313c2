@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "013dd446_7d03e91f",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-05-29T11:14:44Z",
+      "side": 1,
+      "message": "Explicit enum needed here and a few other places, to not collide with the method name VideoCodecType.",
+      "range": {
+        "startLine": 51,
+        "startChar": 17,
+        "endLine": 51,
+        "endChar": 21
+      },
+      "revId": "26f3fd128762d88d644fca83e1ca701baa5313c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

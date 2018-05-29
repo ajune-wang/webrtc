@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dd4dc44b_5e5336c6",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-05-29T11:14:44Z",
+      "side": 0,
+      "message": "This method seems unused.",
+      "range": {
+        "startLine": 190,
+        "startChar": 21,
+        "endLine": 190,
+        "endChar": 35
+      },
+      "revId": "7c1ccfa881e9672edf33f1ff35d963b84c358302",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -10,7 +10,7 @@
 
 #include "api/audio_codecs/audio_format.h"
 
-#include "common_types.h"  // NOLINT(build/include)
+#include "rtc_base/stringutils.h"
 
 namespace webrtc {
 
@@ -46,7 +46,7 @@ SdpAudioFormat::SdpAudioFormat(const std::string& name,
       parameters(param) {}
 
 bool SdpAudioFormat::Matches(const SdpAudioFormat& o) const {
-  return STR_CASE_CMP(name.c_str(), o.name.c_str()) == 0 &&
+  return rtc::StrCaseCmp(name.c_str(), o.name.c_str()) == 0 &&
          clockrate_hz == o.clockrate_hz && num_channels == o.num_channels;
 }
 
@@ -55,7 +55,7 @@ SdpAudioFormat& SdpAudioFormat::operator=(const SdpAudioFormat&) = default;
 SdpAudioFormat& SdpAudioFormat::operator=(SdpAudioFormat&&) = default;
 
 bool operator==(const SdpAudioFormat& a, const SdpAudioFormat& b) {
-  return STR_CASE_CMP(a.name.c_str(), b.name.c_str()) == 0 &&
+  return rtc::StrCaseCmp(a.name.c_str(), b.name.c_str()) == 0 &&
          a.clockrate_hz == b.clockrate_hz && a.num_channels == b.num_channels &&
          a.parameters == b.parameters;
 }

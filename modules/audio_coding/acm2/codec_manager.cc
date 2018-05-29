@@ -14,7 +14,7 @@
 //#include "rtc_base/format_macros.h"
 #include "modules/audio_coding/acm2/rent_a_codec.h"
 #include "rtc_base/logging.h"
-#include "typedefs.h"  // NOLINT(build/include)
+#include "rtc_base/stringutils.h"
 
 namespace webrtc {
 namespace acm2 {
@@ -36,7 +36,7 @@ int IsValidSendCodec(const CodecInst& send_codec) {
   }
 
   // Telephone-event cannot be a send codec.
-  if (!STR_CASE_CMP(send_codec.plname, "telephone-event")) {
+  if (!rtc::StrCaseCmp(send_codec.plname, "telephone-event")) {
     RTC_LOG(LS_ERROR) << "telephone-event cannot be a send codec";
     return -1;
   }
@@ -54,7 +54,7 @@ int IsValidSendCodec(const CodecInst& send_codec) {
 bool IsOpus(const CodecInst& codec) {
   return
 #ifdef WEBRTC_CODEC_OPUS
-      !STR_CASE_CMP(codec.plname, "opus") ||
+      !rtc::StrCaseCmp(codec.plname, "opus") ||
 #endif
       false;
 }

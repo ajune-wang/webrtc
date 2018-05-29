@@ -16,7 +16,6 @@
 #include <memory>
 
 #include "api/audio_codecs/builtin_audio_decoder_factory.h"
-#include "common_types.h"  // NOLINT(build/include)
 #include "modules/audio_coding/codecs/audio_format_conversion.h"
 #include "modules/audio_coding/include/audio_coding_module.h"
 #include "modules/audio_coding/include/audio_coding_module_typedefs.h"
@@ -24,10 +23,10 @@
 #include "modules/audio_coding/test/PCMFile.h"
 #include "modules/audio_coding/test/utility.h"
 #include "rtc_base/flags.h"
+#include "rtc_base/stringutils.h"
 #include "system_wrappers/include/event_wrapper.h"
 #include "test/gtest.h"
 #include "test/testsupport/fileutils.h"
-#include "typedefs.h"  // NOLINT(build/include)
 
 DEFINE_string(codec, "isac", "Codec Name");
 DEFINE_int(sample_rate_hz, 16000, "Sampling rate in Hertz.");
@@ -103,14 +102,14 @@ class DelayTest {
     for (int n = 0; n < num_encoders; n++) {
       EXPECT_EQ(0, acm_b_->Codec(n, &my_codec_param)) <<
           "Failed to get codec.";
-      if (STR_CASE_CMP(my_codec_param.plname, "opus") == 0)
+      if (rtc::StrCaseCmp(my_codec_param.plname, "opus") == 0)
         my_codec_param.channels = 1;
       else if (my_codec_param.channels > 1)
         continue;
-      if (STR_CASE_CMP(my_codec_param.plname, "CN") == 0 &&
+      if (rtc::StrCaseCmp(my_codec_param.plname, "CN") == 0 &&
           my_codec_param.plfreq == 48000)
         continue;
-      if (STR_CASE_CMP(my_codec_param.plname, "telephone-event") == 0)
+      if (rtc::StrCaseCmp(my_codec_param.plname, "telephone-event") == 0)
         continue;
       ASSERT_EQ(true,
                 acm_b_->RegisterReceiveCodec(my_codec_param.pltype,

@@ -13,17 +13,17 @@
 #include <memory>
 #include <vector>
 
-#include "common_types.h"  // NOLINT(build/include)
 #include "modules/audio_coding/codecs/g711/audio_decoder_pcm.h"
 #include "rtc_base/numerics/safe_conversions.h"
 #include "rtc_base/ptr_util.h"
+#include "rtc_base/stringutils.h"
 
 namespace webrtc {
 
 rtc::Optional<AudioDecoderG711::Config> AudioDecoderG711::SdpToConfig(
     const SdpAudioFormat& format) {
-  const bool is_pcmu = STR_CASE_CMP(format.name.c_str(), "PCMU") == 0;
-  const bool is_pcma = STR_CASE_CMP(format.name.c_str(), "PCMA") == 0;
+  const bool is_pcmu = rtc::StrCaseCmp(format.name.c_str(), "PCMU") == 0;
+  const bool is_pcma = rtc::StrCaseCmp(format.name.c_str(), "PCMA") == 0;
   if (format.clockrate_hz == 8000 && format.num_channels >= 1 &&
       (is_pcmu || is_pcma)) {
     Config config;

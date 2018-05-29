@@ -49,7 +49,7 @@ class Vp9SsMapTest : public ::testing::Test {
     packet_.markerBit = true;
     packet_.frameType = kVideoFrameKey;
     packet_.codec = kVideoCodecVP9;
-    packet_.video_header.codec = kRtpVideoVp9;
+    packet_.video_header.codec = kVideoCodecVP9;
     packet_.video_header.codecHeader.VP9.flexible_mode = false;
     packet_.video_header.codecHeader.VP9.gof_idx = 0;
     packet_.video_header.codecHeader.VP9.temporal_idx = kNoTemporalIdx;
@@ -920,7 +920,7 @@ TEST_F(TestBasicJitterBuffer, TestSkipForwardVp9) {
 
   bool re = false;
   packet_->codec = kVideoCodecVP9;
-  packet_->video_header.codec = kRtpVideoVp9;
+  packet_->video_header.codec = kVideoCodecVP9;
   packet_->is_first_packet_in_frame = true;
   packet_->markerBit = true;
   packet_->video_header.codecHeader.VP9.flexible_mode = false;
@@ -973,7 +973,7 @@ TEST_F(TestBasicJitterBuffer, ReorderedVp9SsData_3TlLayers) {
 
   bool re = false;
   packet_->codec = kVideoCodecVP9;
-  packet_->video_header.codec = kRtpVideoVp9;
+  packet_->video_header.codec = kVideoCodecVP9;
   packet_->is_first_packet_in_frame = true;
   packet_->markerBit = true;
   packet_->video_header.codecHeader.VP9.flexible_mode = false;
@@ -1049,7 +1049,7 @@ TEST_F(TestBasicJitterBuffer, ReorderedVp9SsData_2Tl2SLayers) {
 
   bool re = false;
   packet_->codec = kVideoCodecVP9;
-  packet_->video_header.codec = kRtpVideoVp9;
+  packet_->video_header.codec = kVideoCodecVP9;
   packet_->video_header.codecHeader.VP9.flexible_mode = false;
   packet_->video_header.codecHeader.VP9.beginning_of_frame = true;
   packet_->video_header.codecHeader.VP9.end_of_frame = true;
@@ -1158,7 +1158,7 @@ TEST_F(TestBasicJitterBuffer, SpsAndPpsHandling) {
   packet_->is_first_packet_in_frame = true;
   packet_->markerBit = true;
   packet_->codec = kVideoCodecH264;
-  packet_->video_header.codec = kRtpVideoH264;
+  packet_->video_header.codec = kVideoCodecH264;
   packet_->video_header.codecHeader.H264.nalu_type = H264::NaluType::kIdr;
   packet_->video_header.codecHeader.H264.nalus[0].type = H264::NaluType::kIdr;
   packet_->video_header.codecHeader.H264.nalus[0].sps_id = -1;
@@ -1178,7 +1178,7 @@ TEST_F(TestBasicJitterBuffer, SpsAndPpsHandling) {
   packet_->is_first_packet_in_frame = true;
   packet_->markerBit = false;
   packet_->codec = kVideoCodecH264;
-  packet_->video_header.codec = kRtpVideoH264;
+  packet_->video_header.codec = kVideoCodecH264;
   packet_->video_header.codecHeader.H264.nalu_type = H264::NaluType::kStapA;
   packet_->video_header.codecHeader.H264.nalus[0].type = H264::NaluType::kSps;
   packet_->video_header.codecHeader.H264.nalus[0].sps_id = 0;
@@ -1197,7 +1197,7 @@ TEST_F(TestBasicJitterBuffer, SpsAndPpsHandling) {
   packet_->is_first_packet_in_frame = false;
   packet_->markerBit = true;
   packet_->codec = kVideoCodecH264;
-  packet_->video_header.codec = kRtpVideoH264;
+  packet_->video_header.codec = kVideoCodecH264;
   packet_->video_header.codecHeader.H264.nalu_type = H264::NaluType::kIdr;
   packet_->video_header.codecHeader.H264.nalus[0].type = H264::NaluType::kIdr;
   packet_->video_header.codecHeader.H264.nalus[0].sps_id = -1;
@@ -1219,7 +1219,7 @@ TEST_F(TestBasicJitterBuffer, SpsAndPpsHandling) {
   packet_->is_first_packet_in_frame = true;
   packet_->markerBit = true;
   packet_->codec = kVideoCodecH264;
-  packet_->video_header.codec = kRtpVideoH264;
+  packet_->video_header.codec = kVideoCodecH264;
   packet_->video_header.codecHeader.H264.nalu_type = H264::NaluType::kSlice;
   packet_->video_header.codecHeader.H264.nalus[0].type = H264::NaluType::kSlice;
   packet_->video_header.codecHeader.H264.nalus[0].sps_id = -1;

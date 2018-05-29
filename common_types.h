@@ -418,7 +418,14 @@ enum VideoCodecType {
   kVideoCodecFlexfec,
   kVideoCodecGeneric,
   kVideoCodecMultiplex,
-  kVideoCodecUnknown
+  kVideoCodecUnknown,
+
+  // TODO(nisse): Deprecated aliases, for code expecting RtpVideoCodecTypes.
+  kRtpVideoNone = kVideoCodecUnknown,
+  kRtpVideoGeneric = kVideoCodecGeneric,
+  kRtpVideoVp8 = kVideoCodecVP8,
+  kRtpVideoVp9 = kVideoCodecVP9,
+  kRtpVideoH264 = kVideoCodecH264,
 };
 
 // Translates from name of codec to codec type and vice versa.

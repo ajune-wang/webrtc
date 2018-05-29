@@ -46,6 +46,30 @@
       "revId": "041de22ec5b49e574e67a9247e5a0fd0a27e1fb6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c9a6874_3c21febd",
+        "filename": "sdk/android/src/jni/pc/sdpobserver.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-05-29T09:04:25Z",
+      "side": 1,
+      "message": "Thanks for the explanation and sorry for the long review delay.",
+      "parentUuid": "06ad9385_87d3e2b1",
+      "range": {
+        "startLine": 33,
+        "startChar": 17,
+        "endLine": 33,
+        "endChar": 25
+      },
+      "revId": "041de22ec5b49e574e67a9247e5a0fd0a27e1fb6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

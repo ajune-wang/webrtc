@@ -22,7 +22,7 @@ class RtpPacketToSend;
 
 class RtpPacketizer {
  public:
-  static RtpPacketizer* Create(RtpVideoCodecTypes type,
+  static RtpPacketizer* Create(VideoCodecType type,
                                size_t max_payload_len,
                                size_t last_packet_reduction_len,
                                const RTPVideoTypeHeader* rtp_type_header,
@@ -57,7 +57,7 @@ class RtpDepacketizer {
     RTPTypeHeader type;
   };
 
-  static RtpDepacketizer* Create(RtpVideoCodecTypes type);
+  static RtpDepacketizer* Create(VideoCodecType type);
 
   virtual ~RtpDepacketizer() {}
 

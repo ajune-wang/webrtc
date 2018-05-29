@@ -20,15 +20,14 @@
 #include <string>
 
 #include "api/audio_codecs/builtin_audio_decoder_factory.h"
-#include "common_types.h"  // NOLINT(build/include)
 #include "modules/audio_coding/codecs/audio_format_conversion.h"
 #include "modules/audio_coding/test/utility.h"
 #include "rtc_base/platform_thread.h"
+#include "rtc_base/stringutils.h"
 #include "rtc_base/timeutils.h"
 #include "system_wrappers/include/event_wrapper.h"
 #include "test/gtest.h"
 #include "test/testsupport/fileutils.h"
-#include "typedefs.h"  // NOLINT(build/include)
 
 namespace webrtc {
 
@@ -132,8 +131,8 @@ int16_t APITest::SetUp() {
   int16_t numCodecs = _acmA->NumberOfCodecs();
   for (uint8_t n = 0; n < numCodecs; n++) {
     AudioCodingModule::Codec(n, &dummyCodec);
-    if ((STR_CASE_CMP(dummyCodec.plname, "CN") == 0)
-        && (dummyCodec.plfreq == 32000)) {
+    if ((rtc::StrCaseCmp(dummyCodec.plname, "CN") == 0) &&
+        (dummyCodec.plfreq == 32000)) {
       continue;
     }
 
@@ -1079,9 +1078,9 @@ void APITest::ChangeCodec(char side) {
     }
 
     AudioCodingModule::Codec(*codecCntr, &myCodec);
-  } while (!STR_CASE_CMP(myCodec.plname, "CN")
-      || !STR_CASE_CMP(myCodec.plname, "telephone-event")
-      || !STR_CASE_CMP(myCodec.plname, "RED"));
+  } while (!rtc::StrCaseCmp(myCodec.plname, "CN") ||
+           !rtc::StrCaseCmp(myCodec.plname, "telephone-event") ||
+           !rtc::StrCaseCmp(myCodec.plname, "RED"));
 
   if (!_randomTest) {
     fprintf(stdout,"\n=====================================================\n");

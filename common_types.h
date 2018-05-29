@@ -30,21 +30,7 @@
 #pragma warning(disable : 4351)
 #endif
 
-#ifndef NULL
-#define NULL 0
-#endif
-
 #define RTP_PAYLOAD_NAME_SIZE 32u
-
-#if defined(WEBRTC_WIN) || defined(WIN32)
-// Compares two strings without regard to case.
-#define STR_CASE_CMP(s1, s2) ::_stricmp(s1, s2)
-// Compares characters of two strings without regard to case.
-#define STR_NCASE_CMP(s1, s2, n) ::_strnicmp(s1, s2, n)
-#else
-#define STR_CASE_CMP(s1, s2) ::strcasecmp(s1, s2)
-#define STR_NCASE_CMP(s1, s2, n) ::strncasecmp(s1, s2, n)
-#endif
 
 namespace webrtc {
 
@@ -217,12 +203,7 @@ struct CodecInst {
   size_t channels;
   int rate;  // bits/sec unlike {start,min,max}Bitrate elsewhere in this file!
 
-  bool operator==(const CodecInst& other) const {
-    return pltype == other.pltype &&
-           (STR_CASE_CMP(plname, other.plname) == 0) &&
-           plfreq == other.plfreq && pacsize == other.pacsize &&
-           channels == other.channels && rate == other.rate;
-  }
+  bool operator==(const CodecInst& other) const;
 
   bool operator!=(const CodecInst& other) const { return !(*this == other); }
 };

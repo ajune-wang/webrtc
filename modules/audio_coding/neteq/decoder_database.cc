@@ -16,6 +16,7 @@
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/strings/audio_format_to_string.h"
+#include "rtc_base/stringutils.h"
 
 namespace webrtc {
 
@@ -101,7 +102,7 @@ AudioDecoder* DecoderDatabase::DecoderInfo::GetDecoder() const {
 }
 
 bool DecoderDatabase::DecoderInfo::IsType(const char* name) const {
-  return STR_CASE_CMP(audio_format_.name.c_str(), name) == 0;
+  return rtc::StrCaseCmp(audio_format_.name.c_str(), name) == 0;
 }
 
 bool DecoderDatabase::DecoderInfo::IsType(const std::string& name) const {
@@ -110,7 +111,7 @@ bool DecoderDatabase::DecoderInfo::IsType(const std::string& name) const {
 
 rtc::Optional<DecoderDatabase::DecoderInfo::CngDecoder>
 DecoderDatabase::DecoderInfo::CngDecoder::Create(const SdpAudioFormat& format) {
-  if (STR_CASE_CMP(format.name.c_str(), "CN") == 0) {
+  if (rtc::StrCaseCmp(format.name.c_str(), "CN") == 0) {
     // CN has a 1:1 RTP clock rate to sample rate ratio.
     const int sample_rate_hz = format.clockrate_hz;
     RTC_DCHECK(sample_rate_hz == 8000 || sample_rate_hz == 16000 ||
@@ -123,11 +124,11 @@ DecoderDatabase::DecoderInfo::CngDecoder::Create(const SdpAudioFormat& format) {
 
 DecoderDatabase::DecoderInfo::Subtype
 DecoderDatabase::DecoderInfo::SubtypeFromFormat(const SdpAudioFormat& format) {
-  if (STR_CASE_CMP(format.name.c_str(), "CN") == 0) {
+  if (rtc::StrCaseCmp(format.name.c_str(), "CN") == 0) {
     return Subtype::kComfortNoise;
-  } else if (STR_CASE_CMP(format.name.c_str(), "telephone-event") == 0) {
+  } else if (rtc::StrCaseCmp(format.name.c_str(), "telephone-event") == 0) {
     return Subtype::kDtmf;
-  } else if (STR_CASE_CMP(format.name.c_str(), "red") == 0) {
+  } else if (rtc::StrCaseCmp(format.name.c_str(), "red") == 0) {
     return Subtype::kRed;
   }
 

@@ -33,7 +33,8 @@ namespace rtc {
 bool MatchHeader(const char* str, size_t len, HttpHeader header) {
   const char* const header_str = ToString(header);
   const size_t header_len = strlen(header_str);
-  return (len == header_len) && (_strnicmp(str, header_str, header_len) == 0);
+  return (len == header_len) &&
+         (rtc::StrNCaseCmp(str, header_str, header_len) == 0);
 }
 
 enum {
@@ -159,9 +160,10 @@ HttpParser::ProcessLine(const char* line, size_t len, HttpError* error) {
         }
         data_size_ = static_cast<size_t>(temp_size);
       } else if (MatchHeader(line, nlen, HH_TRANSFER_ENCODING)) {
-        if ((vlen == 7) && (_strnicmp(value, "chunked", 7) == 0)) {
+        if ((vlen == 7) && (rtc::StrNCaseCmp(value, "chunked", 7) == 0)) {
           chunked_ = true;
-        } else if ((vlen == 8) && (_strnicmp(value, "identity", 8) == 0)) {
+        } else if ((vlen == 8) &&
+                   (rtc::StrNCaseCmp(value, "identity", 8) == 0)) {
           chunked_ = false;
         } else {
           *error = HE_PROTOCOL;

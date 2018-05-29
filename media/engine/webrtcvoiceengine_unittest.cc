@@ -3402,7 +3402,7 @@ TEST(WebRtcVoiceEngineTest, HasCorrectPayloadTypeMapping) {
   engine.Init();
   for (const cricket::AudioCodec& codec : engine.send_codecs()) {
     auto is_codec = [&codec](const char* name, int clockrate = 0) {
-      return STR_CASE_CMP(codec.name.c_str(), name) == 0 &&
+      return rtc::StrCaseCmp(codec.name.c_str(), name) == 0 &&
              (clockrate == 0 || codec.clockrate == clockrate);
     };
     if (is_codec("CN", 16000)) {
@@ -3551,7 +3551,7 @@ TEST(WebRtcVoiceEngineTest, CollectRecvCodecs) {
       [&codecs](const webrtc::SdpAudioFormat& format) -> int {
         for (size_t i = 0; i != codecs.size(); ++i) {
           const cricket::AudioCodec& codec = codecs[i];
-          if (STR_CASE_CMP(codec.name.c_str(), format.name.c_str()) == 0 &&
+          if (rtc::StrCaseCmp(codec.name.c_str(), format.name.c_str()) == 0 &&
               codec.clockrate == format.clockrate_hz &&
               codec.channels == format.num_channels) {
             return rtc::checked_cast<int>(i);

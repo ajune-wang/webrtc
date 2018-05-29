@@ -26,6 +26,7 @@
 #include "api/audio_codecs/builtin_audio_decoder_factory.h"
 #include "modules/audio_coding/codecs/audio_format_conversion.h"
 #include "modules/audio_coding/test/utility.h"
+#include "rtc_base/stringutils.h"
 #include "system_wrappers/include/event_wrapper.h"
 #include "test/testsupport/fileutils.h"
 
@@ -83,13 +84,13 @@ void ISACTest::Setup() {
   for (codecCntr = 0; codecCntr < AudioCodingModule::NumberOfCodecs();
       codecCntr++) {
     EXPECT_EQ(0, AudioCodingModule::Codec(codecCntr, &codecParam));
-    if (!STR_CASE_CMP(codecParam.plname, "ISAC")
-        && codecParam.plfreq == 16000) {
+    if (!rtc::StrCaseCmp(codecParam.plname, "ISAC") &&
+        codecParam.plfreq == 16000) {
       memcpy(&_paramISAC16kHz, &codecParam, sizeof(CodecInst));
       _idISAC16kHz = codecCntr;
     }
-    if (!STR_CASE_CMP(codecParam.plname, "ISAC")
-        && codecParam.plfreq == 32000) {
+    if (!rtc::StrCaseCmp(codecParam.plname, "ISAC") &&
+        codecParam.plfreq == 32000) {
       memcpy(&_paramISAC32kHz, &codecParam, sizeof(CodecInst));
       _idISAC32kHz = codecCntr;
     }

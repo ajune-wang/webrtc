@@ -97,7 +97,7 @@
   for (AVFrameRateRange *fpsRange in format.videoSupportedFrameRateRanges) {
     maxFramerate = fmax(maxFramerate, fpsRange.maxFrameRate);
   }
-  return maxFramerate;
+  return fmin(maxFramerate, 30.0);
 }
 
 @end

@@ -20,15 +20,23 @@ struct EchoCanceller3Config {
   EchoCanceller3Config();
   EchoCanceller3Config(const EchoCanceller3Config& e);
   struct Delay {
+    Delay();
+    Delay(const Delay& m);
     size_t default_delay = 5;
-    size_t down_sampling_factor = 4;
-    size_t num_filters = 5;
     size_t api_call_jitter_blocks = 26;
     size_t min_echo_path_delay_blocks = 0;
     size_t delay_headroom_blocks = 2;
     size_t hysteresis_limit_1_blocks = 1;
     size_t hysteresis_limit_2_blocks = 1;
     size_t skew_hysteresis_blocks = 3;
+    struct MatchedFilters {
+      size_t num_filters = 5;
+      size_t filter_size_sub_blocks = 32;
+      size_t filter_alignment_overlap_sub_blocks = 8;
+      size_t down_sampling_factor = 4;
+      float estimator_smoothing = 0.7f;
+      float poor_excitation_render_limit = 150.f;
+    } matched_filters;
   } delay;
 
   struct Filter {
@@ -102,7 +110,6 @@ struct EchoCanceller3Config {
 
   struct RenderLevels {
     float active_render_limit = 100.f;
-    float poor_excitation_render_limit = 150.f;
   } render_levels;
 
   struct GainUpdates {

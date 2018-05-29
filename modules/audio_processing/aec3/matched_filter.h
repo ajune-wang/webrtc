@@ -16,6 +16,7 @@
 #include <vector>
 
 #include "api/array_view.h"
+#include "api/audio/echo_canceller3_config.h"
 #include "api/optional.h"
 #include "modules/audio_processing/aec3/aec3_common.h"
 #include "modules/audio_processing/aec3/downsampled_render_buffer.h"
@@ -29,6 +30,7 @@ namespace aec3 {
 // Filter core for the matched filter that is optimized for NEON.
 void MatchedFilterCore_NEON(size_t x_start_index,
                             float x2_sum_threshold,
+                            float step_size,
                             rtc::ArrayView<const float> x,
                             rtc::ArrayView<const float> y,
                             rtc::ArrayView<float> h,
@@ -42,6 +44,7 @@ void MatchedFilterCore_NEON(size_t x_start_index,
 // Filter core for the matched filter that is optimized for SSE2.
 void MatchedFilterCore_SSE2(size_t x_start_index,
                             float x2_sum_threshold,
+                            float step_size,
                             rtc::ArrayView<const float> x,
                             rtc::ArrayView<const float> y,
                             rtc::ArrayView<float> h,
@@ -53,6 +56,7 @@ void MatchedFilterCore_SSE2(size_t x_start_index,
 // Filter core for the matched filter.
 void MatchedFilterCore(size_t x_start_index,
                        float x2_sum_threshold,
+                       float step_size,
                        rtc::ArrayView<const float> x,
                        rtc::ArrayView<const float> y,
                        rtc::ArrayView<float> h,
@@ -82,11 +86,8 @@ class MatchedFilter {
 
   MatchedFilter(ApmDataDumper* data_dumper,
                 Aec3Optimization optimization,
-                size_t sub_block_size,
-                size_t window_size_sub_blocks,
-                int num_matched_filters,
-                size_t alignment_shift_sub_blocks,
-                float excitation_limit);
+                const EchoCanceller3Config::Delay::MatchedFilters& config,
+                size_t sub_block_size);
 
   ~MatchedFilter();
 
@@ -115,6 +116,7 @@ class MatchedFilter {
  private:
   ApmDataDumper* const data_dumper_;
   const Aec3Optimization optimization_;
+  const EchoCanceller3Config::Delay::MatchedFilters config_;
   const size_t sub_block_size_;
   const size_t filter_intra_lag_shift_;
   std::vector<std::vector<float>> filters_;

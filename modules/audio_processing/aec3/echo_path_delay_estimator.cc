@@ -23,18 +23,15 @@ EchoPathDelayEstimator::EchoPathDelayEstimator(
     ApmDataDumper* data_dumper,
     const EchoCanceller3Config& config)
     : data_dumper_(data_dumper),
-      down_sampling_factor_(config.delay.down_sampling_factor),
+      down_sampling_factor_(config.delay.matched_filters.down_sampling_factor),
       sub_block_size_(down_sampling_factor_ != 0
                           ? kBlockSize / down_sampling_factor_
                           : kBlockSize),
       capture_decimator_(down_sampling_factor_),
       matched_filter_(data_dumper_,
                       DetectOptimization(),
-                      sub_block_size_,
-                      kMatchedFilterWindowSizeSubBlocks,
-                      config.delay.num_filters,
-                      kMatchedFilterAlignmentShiftSizeSubBlocks,
-                      config.render_levels.poor_excitation_render_limit),
+                      config.delay.matched_filters,
+                      sub_block_size_),
       matched_filter_lag_aggregator_(data_dumper_,
                                      matched_filter_.GetMaxFilterLag()) {
   RTC_DCHECK(data_dumper);

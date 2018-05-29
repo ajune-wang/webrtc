@@ -169,22 +169,29 @@ RenderDelayBufferImpl::RenderDelayBufferImpl(const EchoCanceller3Config& config,
       optimization_(DetectOptimization()),
       config_(config),
       use_zero_external_delay_headroom_(EnableZeroExternalDelayHeadroom()),
-      sub_block_size_(
-          static_cast<int>(config.delay.down_sampling_factor > 0
-                               ? kBlockSize / config.delay.down_sampling_factor
-                               : kBlockSize)),
-      blocks_(GetRenderDelayBufferSize(config.delay.down_sampling_factor,
-                                       config.delay.num_filters,
-                                       config.filter.main.length_blocks),
-              num_bands,
-              kBlockSize),
+      sub_block_size_(static_cast<int>(
+          config.delay.matched_filters.down_sampling_factor > 0
+              ? kBlockSize / config.delay.matched_filters.down_sampling_factor
+              : kBlockSize)),
+      blocks_(
+          GetRenderDelayBufferSize(
+              config.delay.matched_filters.down_sampling_factor,
+              config.delay.matched_filters.num_filters,
+              config.delay.matched_filters.filter_size_sub_blocks,
+              config.delay.matched_filters.filter_alignment_overlap_sub_blocks,
+              config.filter.main.length_blocks),
+          num_bands,
+          kBlockSize),
       spectra_(blocks_.buffer.size(), kFftLengthBy2Plus1),
       ffts_(blocks_.buffer.size()),
       delay_(config_.delay.default_delay),
       echo_remover_buffer_(&blocks_, &spectra_, &ffts_),
-      low_rate_(GetDownSampledBufferSize(config.delay.down_sampling_factor,
-                                         config.delay.num_filters)),
-      render_decimator_(config.delay.down_sampling_factor),
+      low_rate_(GetDownSampledBufferSize(
+          config.delay.matched_filters.down_sampling_factor,
+          config.delay.matched_filters.filter_size_sub_blocks,
+          config.delay.matched_filters.filter_alignment_overlap_sub_blocks,
+          config.delay.matched_filters.num_filters)),
+      render_decimator_(config.delay.matched_filters.down_sampling_factor),
       zero_block_(num_bands, std::vector<float>(kBlockSize, 0.f)),
       fft_(),
       render_ds_(sub_block_size_, 0.f),

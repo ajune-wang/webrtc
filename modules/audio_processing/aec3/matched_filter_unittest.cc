@@ -41,7 +41,7 @@ std::string ProduceDebugText(size_t delay, size_t down_sampling_factor) {
 constexpr size_t kNumMatchedFilters = 10;
 constexpr size_t kDownSamplingFactors[] = {2, 4, 8};
 constexpr size_t kWindowSizeSubBlocks = 32;
-constexpr size_t kAlignmentShiftSubBlocks = kWindowSizeSubBlocks * 3 / 4;
+constexpr size_t kAlignmentOverlapSubBlocks = kWindowSizeSubBlocks / 4;
 
 }  // namespace
 
@@ -67,10 +67,13 @@ TEST(MatchedFilter, TestNeonOptimizations) {
       bool filters_updated_NEON = false;
       float error_sum_NEON = 0.f;
 
-      MatchedFilterCore_NEON(x_index, h.size() * 150.f * 150.f, x, y, h_NEON,
-                             &filters_updated_NEON, &error_sum_NEON);
+      MatchedFilterCore_NEON(x_index, h.size() * 150.f * 150.f, 0.7f, x, y,
+                             h_NEON, &filters_updated_NEON, &error_sum_NEON);
 
-      MatchedFilterCore(x_index, h.size() * 150.f * 150.f, x, y, h,
+      MatchedFilterCore(x_index, h.size() * 150.f * 150.f, 0.7f, x, y, h_NEON,
+                        &filters_updated_NEON, &error_sum_NEON);
+
+      x, y, h,
                         &filters_updated, &error_sum);
 
       EXPECT_EQ(filters_updated, filters_updated_NEON);
@@ -109,10 +112,10 @@ TEST(MatchedFilter, TestSse2Optimizations) {
         bool filters_updated_SSE2 = false;
         float error_sum_SSE2 = 0.f;
 
-        MatchedFilterCore_SSE2(x_index, h.size() * 150.f * 150.f, x, y, h_SSE2,
-                               &filters_updated_SSE2, &error_sum_SSE2);
+        MatchedFilterCore_SSE2(x_index, h.size() * 150.f * 150.f, 0.7f, x, y,
+                               h_SSE2, &filters_updated_SSE2, &error_sum_SSE2);
 
-        MatchedFilterCore(x_index, h.size() * 150.f * 150.f, x, y, h,
+        MatchedFilterCore(x_index, h.size() * 150.f * 150.f, 0.7f, x, y, h,
                           &filters_updated, &error_sum);
 
         EXPECT_EQ(filters_updated, filters_updated_SSE2);
@@ -146,16 +149,20 @@ TEST(MatchedFilter, LagEstimation) {
     for (size_t delay_samples : {5, 64, 150, 200, 800, 1000}) {
       SCOPED_TRACE(ProduceDebugText(delay_samples, down_sampling_factor));
       EchoCanceller3Config config;
-      config.delay.down_sampling_factor = down_sampling_factor;
-      config.delay.num_filters = kNumMatchedFilters;
-      config.delay.min_echo_path_delay_blocks = 0;
-      config.delay.api_call_jitter_blocks = 0;
       Decimator capture_decimator(down_sampling_factor);
       DelayBuffer<float> signal_delay_buffer(down_sampling_factor *
                                              delay_samples);
-      MatchedFilter filter(&data_dumper, DetectOptimization(), sub_block_size,
-                           kWindowSizeSubBlocks, kNumMatchedFilters,
-                           kAlignmentShiftSubBlocks, 150);
+      config.delay.matched_filters.down_sampling_factor = down_sampling_factor;
+      config.delay.min_echo_path_delay_blocks = 0;
+      config.delay.api_call_jitter_blocks = 0;
+      config.delay.matched_filters.filter_size_sub_blocks =
+          kWindowSizeSubBlocks;
+      config.delay.matched_filters.num_filters = kNumMatchedFilters;
+      config.delay.matched_filters.filter_alignment_overlap_sub_blocks =
+          kAlignmentOverlapSubBlocks;
+      config.delay.matched_filters.poor_excitation_render_limit = 150;
+      MatchedFilter filter(&data_dumper, DetectOptimization(),
+                           config.delay.matched_filters, sub_block_size);
 
       std::unique_ptr<RenderDelayBuffer> render_delay_buffer(
           RenderDelayBuffer::Create(config, 3));
@@ -185,14 +192,15 @@ TEST(MatchedFilter, LagEstimation) {
       // Find which lag estimate should be the most accurate.
       rtc::Optional<size_t> expected_most_accurate_lag_estimate;
       size_t alignment_shift_sub_blocks = 0;
-      for (size_t k = 0; k < config.delay.num_filters; ++k) {
+      for (size_t k = 0; k < config.delay.matched_filters.num_filters; ++k) {
         if ((alignment_shift_sub_blocks + 3 * kWindowSizeSubBlocks / 4) *
                 sub_block_size >
             delay_samples) {
           expected_most_accurate_lag_estimate = k > 0 ? k - 1 : 0;
           break;
         }
-        alignment_shift_sub_blocks += kAlignmentShiftSubBlocks;
+        alignment_shift_sub_blocks +=
+            kWindowSizeSubBlocks - kAlignmentOverlapSubBlocks;
       }
       ASSERT_TRUE(expected_most_accurate_lag_estimate);
 
@@ -243,8 +251,14 @@ TEST(MatchedFilter, LagNotReliableForUncorrelatedRenderAndCapture) {
   Random random_generator(42U);
   for (auto down_sampling_factor : kDownSamplingFactors) {
     EchoCanceller3Config config;
-    config.delay.down_sampling_factor = down_sampling_factor;
-    config.delay.num_filters = kNumMatchedFilters;
+    config.delay.matched_filters.down_sampling_factor = down_sampling_factor;
+    config.delay.matched_filters.num_filters = kNumMatchedFilters;
+    config.delay.matched_filters.filter_size_sub_blocks = kWindowSizeSubBlocks;
+    config.delay.matched_filters.num_filters = kNumMatchedFilters;
+    config.delay.matched_filters.filter_alignment_overlap_sub_blocks =
+        kAlignmentOverlapSubBlocks;
+    config.delay.matched_filters.poor_excitation_render_limit = 150;
+
     const size_t sub_block_size = kBlockSize / down_sampling_factor;
 
     std::vector<std::vector<float>> render(3,
@@ -255,9 +269,8 @@ TEST(MatchedFilter, LagNotReliableForUncorrelatedRenderAndCapture) {
     ApmDataDumper data_dumper(0);
     std::unique_ptr<RenderDelayBuffer> render_delay_buffer(
         RenderDelayBuffer::Create(config, 3));
-    MatchedFilter filter(&data_dumper, DetectOptimization(), sub_block_size,
-                         kWindowSizeSubBlocks, kNumMatchedFilters,
-                         kAlignmentShiftSubBlocks, 150);
+    MatchedFilter filter(&data_dumper, DetectOptimization(),
+                         config.delay.matched_filters, sub_block_size);
 
     // Analyze the correlation between render and capture.
     for (size_t k = 0; k < 100; ++k) {
@@ -290,11 +303,17 @@ TEST(MatchedFilter, LagNotUpdatedForLowLevelRender) {
     std::array<float, kBlockSize> capture;
     capture.fill(0.f);
     ApmDataDumper data_dumper(0);
-    MatchedFilter filter(&data_dumper, DetectOptimization(), sub_block_size,
-                         kWindowSizeSubBlocks, kNumMatchedFilters,
-                         kAlignmentShiftSubBlocks, 150);
+
+    EchoCanceller3Config config;
+    config.delay.matched_filters.filter_size_sub_blocks = kWindowSizeSubBlocks;
+    config.delay.matched_filters.num_filters = kNumMatchedFilters;
+    config.delay.matched_filters.filter_alignment_overlap_sub_blocks =
+        kAlignmentOverlapSubBlocks;
+    config.delay.matched_filters.poor_excitation_render_limit = 150;
+    MatchedFilter filter(&data_dumper, DetectOptimization(),
+                         config.delay.matched_filters, sub_block_size);
     std::unique_ptr<RenderDelayBuffer> render_delay_buffer(
-        RenderDelayBuffer::Create(EchoCanceller3Config(), 3));
+        RenderDelayBuffer::Create(config, 3));
     Decimator capture_decimator(down_sampling_factor);
 
     // Analyze the correlation between render and capture.
@@ -333,8 +352,13 @@ TEST(MatchedFilter, NumberOfLagEstimates) {
     const size_t sub_block_size = kBlockSize / down_sampling_factor;
     for (size_t num_matched_filters = 0; num_matched_filters < 10;
          ++num_matched_filters) {
-      MatchedFilter filter(&data_dumper, DetectOptimization(), sub_block_size,
-                           32, num_matched_filters, 1, 150);
+      EchoCanceller3Config::Delay::MatchedFilters config;
+      config.filter_size_sub_blocks = 32;
+      config.num_filters = num_matched_filters;
+      config.filter_alignment_overlap_sub_blocks = 1;
+      config.poor_excitation_render_limit = 150;
+      MatchedFilter filter(&data_dumper, DetectOptimization(), config,
+                           sub_block_size);
       EXPECT_EQ(num_matched_filters, filter.GetLagEstimates().size());
     }
   }

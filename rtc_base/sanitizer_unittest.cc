@@ -142,8 +142,7 @@ void MsanExpectUninitializedRead(F&& f) {
 
 }  // namespace
 
-// TODO(b/9116): Enable the test when the bug is fixed.
-TEST(SanitizerTest, DISABLED_MsanUninitialized) {
+TEST(SanitizerTest, MsanUninitialized) {
   Bar bar = MsanUninitialized<Bar>({});
   // Check that a read after initialization is OK.
   bar.ID = 1;

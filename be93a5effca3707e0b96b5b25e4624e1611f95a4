@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5bb3977e_32059653",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-05-29T17:21:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c849663d_b07296bc",
+      "revId": "be93a5effca3707e0b96b5b25e4624e1611f95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba55c5a6_b24c5fcf",
         "filename": "p2p/base/p2ptransportchannel_unittest.cc",
         "patchSetId": 3
@@ -30,6 +48,24 @@
       "writtenOn": "2018-05-24T17:01:17Z",
       "side": 1,
       "message": "Would be ideal if this flag wasn\u0027t necessary. I assume it\u0027s needed because the \"allow_listen\u003dfalse\" TCP ports will always be \"ready\" (see comment at bottom of basicportallocator.cc)",
+      "revId": "be93a5effca3707e0b96b5b25e4624e1611f95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ff1c613_f5312a24",
+        "filename": "p2p/base/p2ptransportchannel_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1692,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-05-29T17:21:13Z",
+      "side": 1,
+      "message": "This test actually has allow_listen\u003dtrue, but we did \"continuing anyway\" and had a ready TCP port. The any address ports would be pruned without this flag.",
+      "parentUuid": "ba55c5a6_b24c5fcf",
       "revId": "be93a5effca3707e0b96b5b25e4624e1611f95a4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "f961e29b_3eba09e9",
+        "filename": "p2p/base/p2ptransportchannel_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 4395,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-05-29T17:21:13Z",
+      "side": 1,
+      "message": "New connections from any address ports would interfere with the original ranking of connections when searching for the next pingable connection. Tests below relies on the assumption of how connections are ranked. I was thinking of changing the assumption itself in the tests, but felt they are really testing connections on non-any address ports.",
+      "parentUuid": "c109178f_69e7fbbf",
+      "revId": "be93a5effca3707e0b96b5b25e4624e1611f95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "79647205_2a6afa01",
         "filename": "p2p/base/portallocator.h",
         "patchSetId": 3
@@ -64,6 +118,24 @@
       "writtenOn": "2018-05-24T17:01:17Z",
       "side": 1,
       "message": "When would these flags be used? Is the idea that we\u0027d set \"PORTALLOCATOR_DISABLE_ANY_ADDRESS_PORTS\" by default until we have some confidence that the new logic works well, without introducing regressions? What about PORTALLOCATOR_DISABLE_PRUNE_ANY_ADDRESS_PORTS? Ideally the new logic would be smart enough that we wouldn\u0027t need this.",
+      "revId": "be93a5effca3707e0b96b5b25e4624e1611f95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3f27295_a5d4c7bd",
+        "filename": "p2p/base/portallocator.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-05-29T17:21:13Z",
+      "side": 1,
+      "message": "Right now the actual use of these two flags is in the unit tests in shown in this CL, and they are turned off by default.",
+      "parentUuid": "79647205_2a6afa01",
       "revId": "be93a5effca3707e0b96b5b25e4624e1611f95a4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "a0a3f2b9_f25bd517",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 666,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-05-29T17:21:13Z",
+      "side": 1,
+      "message": "Done. Thanks for the comments added!",
+      "parentUuid": "1475b729_b60eb822",
+      "revId": "be93a5effca3707e0b96b5b25e4624e1611f95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "adc6e800_d82538bf",
         "filename": "p2p/client/basicportallocator.cc",
         "patchSetId": 3
@@ -101,6 +191,24 @@
       "revId": "be93a5effca3707e0b96b5b25e4624e1611f95a4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cfbeb289_37c2bd2e",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 670,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-05-29T17:21:13Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "adc6e800_d82538bf",
+      "revId": "be93a5effca3707e0b96b5b25e4624e1611f95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "d0a808ee_ef9e574b",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 915,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-05-29T17:21:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ac06e19_3fc7aa50",
+      "revId": "be93a5effca3707e0b96b5b25e4624e1611f95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "04371e03_05b5b3d6",
         "filename": "p2p/client/basicportallocator.cc",
         "patchSetId": 3
@@ -138,6 +264,24 @@
     },
     {
       "key": {
+        "uuid": "a62e7bbc_9eb1ce20",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 923,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-05-29T17:21:13Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "04371e03_05b5b3d6",
+      "revId": "be93a5effca3707e0b96b5b25e4624e1611f95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "44063440_a617cd66",
         "filename": "p2p/client/basicportallocator.cc",
         "patchSetId": 3
@@ -149,6 +293,24 @@
       "writtenOn": "2018-05-24T17:01:17Z",
       "side": 1,
       "message": "What\u0027s the purpose of the extra boolean condition (flags() \u0026 PORTALLOCATOR_DISABLE_ADAPTER_ENUMERATION)? I don\u0027t see any situation where it would make a difference.",
+      "revId": "be93a5effca3707e0b96b5b25e4624e1611f95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74a978d9_1cc38116",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1071,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-05-29T17:21:13Z",
+      "side": 1,
+      "message": "I redefined |network_enumeration_disabled| and added |candidate_has_any_address| since in our new logic they are not necessarily equivalent any more.\n\nBefore and after this change, if c.address().IsAnyIP() is true, the condition reduces to can_ping_from_candidate \u0026\u0026 !host_candidates_disabled since the candidate would not pass the filter. The two versions can become different, if c.address().IsAnyIP() is false but it does not pass the filter, the old version gives false, but the new version is still be conditional if the enumeration is allowed.\n\nI agree it would not lead to different results in signaling candidates, since we always respect the filter, but they may affect the if block that triggers the signaling of ports, where this method is used. Do you think if this would be an issue in behavior?",
+      "parentUuid": "44063440_a617cd66",
       "revId": "be93a5effca3707e0b96b5b25e4624e1611f95a4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -172,6 +334,24 @@
     },
     {
       "key": {
+        "uuid": "2d3f9c31_8048888c",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1083,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-05-29T17:21:13Z",
+      "side": 1,
+      "message": "Good point, I found this can indeed be a problem and it would not fix the VPN issue in our application, if SignalPortReady is also delayed to this point. I have bundled the signaling of ports with that of candidates to postpone the signaling altogether in the new patch, so this becomes a problem I need to address. I have changed the logic, so that the signaling of these ports and candidates is subject to a slightly weaker condition than CandidatesAllocationDone, and it is basically the first two parts checked in CandidatesAllocationDone:\n\nif (allocation_sequences_created_ \u0026\u0026\n      std::none_of(sequences_.begin(), sequences_.end(),\n                  [](const AllocationSequence* sequence) {\n                    return sequence-\u003estate() \u003d\u003d AllocationSequence::kRunning ||\n                           sequence-\u003estate() \u003d\u003d AllocationSequence::kInit;\n                  })) {\n  // Signal any address ports and candidates gathered from them.\n}\n\nThe idea is, after the AllocationSequence has finished iterating all phases (unfortunately this logic now depends on the \"phases\" for the time being, but I think we can refactor this after removing them), we should not expect new ports created from this round of gathering. This can be a good time to signal any address ports, though the candidate allocation may not be done yet since some of them may be waiting for STUN and TURN responses. What do you think?",
+      "parentUuid": "7ee5f9e4_79fcbbfb",
+      "revId": "be93a5effca3707e0b96b5b25e4624e1611f95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b485e928_0fd4ad7c",
         "filename": "p2p/client/basicportallocator.cc",
         "patchSetId": 3
@@ -189,6 +369,24 @@
     },
     {
       "key": {
+        "uuid": "131ac9dc_14e64021",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1094,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-05-29T17:21:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b485e928_0fd4ad7c",
+      "revId": "be93a5effca3707e0b96b5b25e4624e1611f95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1bcb9734_93d64731",
         "filename": "p2p/client/basicportallocator.cc",
         "patchSetId": 3
@@ -200,6 +398,24 @@
       "writtenOn": "2018-05-24T17:01:17Z",
       "side": 1,
       "message": "nit: Checking the network name of the candidate seems potentially fragile, at least compared to checking IPIsAny(port-\u003eNetwork()-\u003eGetBestIP())",
+      "revId": "be93a5effca3707e0b96b5b25e4624e1611f95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75fe957c_d3d9eeb9",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1095,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-05-29T17:21:13Z",
+      "side": 1,
+      "message": "Yeah, I agree the name matching is awkward and fragile. A candidate can only reach here if its address is not \"any\" (replaced by the default address we found), and there is not much information left in Candidate we can use other than the network name. Am I missing something?\n\nI added the port to the arguments to solve the problem for the moment, and the checking becomes consistent with the other place in this file.",
+      "parentUuid": "1bcb9734_93d64731",
       "revId": "be93a5effca3707e0b96b5b25e4624e1611f95a4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -223,6 +439,24 @@
     },
     {
       "key": {
+        "uuid": "0546f581_39515ef9",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1116,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-05-29T17:21:13Z",
+      "side": 1,
+      "message": "I see your point, and \"ready ports\" may not mean a usable port. That was actually the reason I put !(flags() \u0026 PORTALLOCATOR_DISABLE_PRUNE_ANY_ADDRESS_PORTS)) below as a condition to trigger pruning the any address fallback, when seeming redundancy is not allowed in gathering to trade off the reliability (and this flag is not expected to be turned on in practice). You are right and for the case described by bemasc@ only the UDP port could bind and gather a candidate though it was not useful (STUN candidate wouldn\u0027t be generated since the network is unreachable).\n\nYeah, I feel checking the IP addresses may have a better trade-off between reliability and overhead. That was my first local draft but later I went for what is in this CL. Will do it in the next patch, and this will make the code consistent with the comment you added that a candidate won\u0027t surface to the application \"if they have the same address as a candidate gathered by binding to an interface explicitly\".",
+      "parentUuid": "afb30222_2ddd06e0",
+      "revId": "be93a5effca3707e0b96b5b25e4624e1611f95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b3ebf7af_f3d98d58",
         "filename": "p2p/client/basicportallocator.cc",
         "patchSetId": 3
@@ -237,6 +471,24 @@
       "revId": "be93a5effca3707e0b96b5b25e4624e1611f95a4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a37c894_51a67ad7",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1119,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-05-29T17:21:13Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b3ebf7af_f3d98d58",
+      "revId": "be93a5effca3707e0b96b5b25e4624e1611f95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -257,6 +509,24 @@
     },
     {
       "key": {
+        "uuid": "b70bf2bf_4189cb28",
+        "filename": "p2p/client/basicportallocator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-05-29T17:21:13Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "694b3620_b518c731",
+      "revId": "be93a5effca3707e0b96b5b25e4624e1611f95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7861cc1b_8884f391",
         "filename": "p2p/client/basicportallocator_unittest.cc",
         "patchSetId": 3
@@ -271,6 +541,24 @@
       "revId": "be93a5effca3707e0b96b5b25e4624e1611f95a4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6311b8e_bc393df3",
+        "filename": "p2p/client/basicportallocator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 453,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-05-29T17:21:13Z",
+      "side": 1,
+      "message": "It was because the removed candidates were from the any address port, but they matched with signaled candidates using the MatchesForRemoval that compares fewer fields than IsEquivalent. This caused incorrect erasure below.",
+      "parentUuid": "7861cc1b_8884f391",
+      "revId": "be93a5effca3707e0b96b5b25e4624e1611f95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -291,6 +579,24 @@
     },
     {
       "key": {
+        "uuid": "13a6566c_a010fe1d",
+        "filename": "p2p/client/basicportallocator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 728,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-05-29T17:21:13Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c49cf5d5_5224755c",
+      "revId": "be93a5effca3707e0b96b5b25e4624e1611f95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ac40e6ab_9aaf7bf4",
         "filename": "p2p/client/basicportallocator_unittest.cc",
         "patchSetId": 3
@@ -308,6 +614,24 @@
     },
     {
       "key": {
+        "uuid": "5689a809_43ba5e21",
+        "filename": "p2p/client/basicportallocator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1165,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-05-29T17:21:13Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ac40e6ab_9aaf7bf4",
+      "revId": "be93a5effca3707e0b96b5b25e4624e1611f95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "960b8151_e51d77df",
         "filename": "p2p/client/basicportallocator_unittest.cc",
         "patchSetId": 3
@@ -322,6 +646,24 @@
       "revId": "be93a5effca3707e0b96b5b25e4624e1611f95a4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd3870e5_41d39819",
+        "filename": "p2p/client/basicportallocator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2023,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-05-29T17:21:13Z",
+      "side": 1,
+      "message": "Done. Cool, didn\u0027t know there is SetAlternativeLocalAddress we can use.",
+      "parentUuid": "960b8151_e51d77df",
+      "revId": "be93a5effca3707e0b96b5b25e4624e1611f95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

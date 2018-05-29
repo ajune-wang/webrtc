@@ -16,6 +16,24 @@
       "revId": "2d2c888293fe5d1a4204d5026d6d630b47f6044a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "925f6894_79c7457a",
+        "filename": "p2p/base/portallocator.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-05-29T17:21:13Z",
+      "side": 0,
+      "message": "Ah, I overlooked the downstream dependencies. Will reorganize the flags for compatibility.",
+      "parentUuid": "a5e4021e_3f437ab8",
+      "revId": "2d2c888293fe5d1a4204d5026d6d630b47f6044a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

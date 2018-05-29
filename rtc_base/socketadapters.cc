@@ -448,8 +448,8 @@ void AsyncHttpsProxySocket::ProcessLine(char * data, size_t len) {
       state_ = PS_ERROR_HEADERS;
       return;
     }
-  } else if ((state_ == PS_AUTHENTICATE)
-             && (_strnicmp(data, "Proxy-Authenticate:", 19) == 0)) {
+  } else if ((state_ == PS_AUTHENTICATE) &&
+             (rtc::StrNCaseCmp(data, "Proxy-Authenticate:", 19) == 0)) {
     std::string response, auth_method;
     switch (HttpAuthenticate(data + 19, len - 19,
                              proxy_, "CONNECT", "/",
@@ -478,12 +478,12 @@ void AsyncHttpsProxySocket::ProcessLine(char * data, size_t len) {
       unknown_mechanisms_.clear();
       break;
     }
-  } else if (_strnicmp(data, "Content-Length:", 15) == 0) {
+  } else if (rtc::StrNCaseCmp(data, "Content-Length:", 15) == 0) {
     content_length_ = strtoul(data + 15, 0, 0);
-  } else if (_strnicmp(data, "Proxy-Connection: Keep-Alive", 28) == 0) {
+  } else if (rtc::StrNCaseCmp(data, "Proxy-Connection: Keep-Alive", 28) == 0) {
     expect_close_ = false;
     /*
-  } else if (_strnicmp(data, "Connection: close", 17) == 0) {
+  } else if (rtc::StrNCaseCmp(data, "Connection: close", 17) == 0) {
     expect_close_ = true;
     */
   }

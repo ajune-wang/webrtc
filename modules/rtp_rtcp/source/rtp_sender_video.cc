@@ -28,6 +28,7 @@
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/ptr_util.h"
+#include "rtc_base/stringutils.h"
 #include "rtc_base/trace_event.h"
 
 namespace webrtc {
@@ -81,15 +82,15 @@ RtpUtility::Payload* RTPSenderVideo::CreateVideoPayload(
     const char payload_name[RTP_PAYLOAD_NAME_SIZE],
     int8_t payload_type) {
   RtpVideoCodecTypes video_type = kRtpVideoGeneric;
-  if (RtpUtility::StringCompare(payload_name, "VP8", 3)) {
+  if (rtc::StrNCaseCmp(payload_name, "VP8", 3)) {
     video_type = kRtpVideoVp8;
-  } else if (RtpUtility::StringCompare(payload_name, "VP9", 3)) {
+  } else if (rtc::StrNCaseCmp(payload_name, "VP9", 3)) {
     video_type = kRtpVideoVp9;
-  } else if (RtpUtility::StringCompare(payload_name, "H264", 4)) {
+  } else if (rtc::StrNCaseCmp(payload_name, "H264", 4)) {
     video_type = kRtpVideoH264;
-  } else if (RtpUtility::StringCompare(payload_name, "I420", 4)) {
+  } else if (rtc::StrNCaseCmp(payload_name, "I420", 4)) {
     video_type = kRtpVideoGeneric;
-  } else if (RtpUtility::StringCompare(payload_name, "stereo", 6)) {
+  } else if (rtc::StrNCaseCmp(payload_name, "stereo", 6)) {
     video_type = kRtpVideoGeneric;
   } else {
     video_type = kRtpVideoGeneric;

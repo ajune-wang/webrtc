@@ -20,6 +20,7 @@
 #include "modules/rtp_rtcp/source/rtp_header_extensions.h"
 #include "modules/rtp_rtcp/source/rtp_packet_to_send.h"
 #include "rtc_base/logging.h"
+#include "rtc_base/stringutils.h"
 #include "rtc_base/timeutils.h"
 #include "rtc_base/trace_event.h"
 
@@ -38,7 +39,7 @@ int32_t RTPSenderAudio::RegisterAudioPayload(
     const size_t channels,
     const uint32_t rate,
     RtpUtility::Payload** payload) {
-  if (RtpUtility::StringCompare(payloadName, "cn", 2)) {
+  if (rtc::StrNCaseCmp(payloadName, "cn", 2)) {
     rtc::CritScope cs(&send_audio_critsect_);
     //  we can have multiple CNG payload types
     switch (frequency) {
@@ -57,7 +58,7 @@ int32_t RTPSenderAudio::RegisterAudioPayload(
       default:
         return -1;
     }
-  } else if (RtpUtility::StringCompare(payloadName, "telephone-event", 15)) {
+  } else if (rtc::StrNCaseCmp(payloadName, "telephone-event", 15)) {
     rtc::CritScope cs(&send_audio_critsect_);
     // Don't add it to the list
     // we dont want to allow send with a DTMF payloadtype

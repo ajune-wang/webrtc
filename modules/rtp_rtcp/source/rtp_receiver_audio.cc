@@ -16,6 +16,7 @@
 
 #include "common_types.h"  // NOLINT(build/include)
 #include "rtc_base/logging.h"
+#include "rtc_base/stringutils.h"
 #include "rtc_base/trace_event.h"
 
 namespace webrtc {
@@ -108,11 +109,11 @@ int32_t RTPReceiverAudio::OnNewPayloadTypeCreated(
     const SdpAudioFormat& audio_format) {
   rtc::CritScope lock(&crit_sect_);
 
-  if (RtpUtility::StringCompare(audio_format.name.c_str(), "telephone-event",
+  if (rtc::StrNCaseCmp(audio_format.name.c_str(), "telephone-event",
                                 15)) {
     telephone_event_payload_type_ = payload_type;
   }
-  if (RtpUtility::StringCompare(audio_format.name.c_str(), "cn", 2)) {
+  if (rtc::StrNCaseCmp(audio_format.name.c_str(), "cn", 2)) {
     // We support comfort noise at four different frequencies.
     if (audio_format.clockrate_hz == 8000) {
       cng_nb_payload_type_ = payload_type;

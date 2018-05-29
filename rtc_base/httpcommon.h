@@ -181,7 +181,7 @@ std::string HttpAddress(const SocketAddress& address, bool secure);
 // functional for insensitive std::string compare
 struct iless {
   bool operator()(const std::string& lhs, const std::string& rhs) const {
-    return (::_stricmp(lhs.c_str(), rhs.c_str()) < 0);
+    return (::rtc::StrCaseCmp(lhs.c_str(), rhs.c_str()) < 0);
   }
 };
 

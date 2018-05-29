@@ -21,6 +21,13 @@
 
 namespace webrtc {
 
+bool CodecInst::operator==(const CodecInst& other) const {
+  return pltype == other.pltype &&
+         (rtc::StrCaseCmp(plname, other.plname) == 0) &&
+         plfreq == other.plfreq && pacsize == other.pacsize &&
+         channels == other.channels && rate == other.rate;
+}
+
 bool VideoCodecVP8::operator==(const VideoCodecVP8& other) const {
   return (complexity == other.complexity &&
           numberOfTemporalLayers == other.numberOfTemporalLayers &&
@@ -124,7 +131,7 @@ static const char* kPayloadNameGeneric = "Generic";
 static const char* kPayloadNameMultiplex = "Multiplex";
 
 static bool CodecNamesEq(const char* name1, const char* name2) {
-  return _stricmp(name1, name2) == 0;
+  return rtc::StrCaseCmp(name1, name2) == 0;
 }
 
 const char* CodecTypeToPayloadString(VideoCodecType type) {

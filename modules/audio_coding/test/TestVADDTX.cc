@@ -16,8 +16,8 @@
 #include "modules/audio_coding/codecs/audio_format_conversion.h"
 #include "modules/audio_coding/test/PCMFile.h"
 #include "modules/audio_coding/test/utility.h"
+#include "rtc_base/stringutils.h"
 #include "test/testsupport/fileutils.h"
-#include "typedefs.h"  // NOLINT(build/include)
 
 namespace webrtc {
 
@@ -222,7 +222,7 @@ void TestWebRtcVadDtx::SetVAD(bool enable_dtx, bool enable_vad,
 
   auto codec_param = acm_send_->SendCodec();
   ASSERT_TRUE(codec_param);
-  if (STR_CASE_CMP(codec_param->plname, "opus") == 0) {
+  if (rtc::StrCaseCmp(codec_param->plname, "opus") == 0) {
     // If send codec is Opus, WebRTC VAD/DTX cannot be used.
     enable_dtx = enable_vad = false;
   }

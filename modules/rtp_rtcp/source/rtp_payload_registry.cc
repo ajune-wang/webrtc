@@ -31,8 +31,8 @@ bool PayloadIsCompatible(const RtpUtility::Payload& payload,
 bool PayloadIsCompatible(const RtpUtility::Payload& payload,
                          const VideoCodec& video_codec) {
   if (!payload.typeSpecific.is_video() ||
-      _stricmp(payload.name,
-               CodecTypeToPayloadString(video_codec.codecType)) != 0)
+      rtc::StrCaseCmp(payload.name,
+                      CodecTypeToPayloadString(video_codec.codecType)) != 0)
     return false;
   // For H264, profiles must match as well.
   if (video_codec.codecType == kVideoCodecH264) {

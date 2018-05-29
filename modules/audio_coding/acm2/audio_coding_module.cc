@@ -20,6 +20,7 @@
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/numerics/safe_conversions.h"
+#include "rtc_base/stringutils.h"
 #include "system_wrappers/include/metrics.h"
 
 namespace webrtc {
@@ -1020,7 +1021,7 @@ int AudioCodingModuleImpl::RegisterReceiveCodecUnlocked(
   }
 
   AudioDecoder* isac_decoder = nullptr;
-  if (STR_CASE_CMP(codec.plname, "isac") == 0) {
+  if (rtc::StrCaseCmp(codec.plname, "isac") == 0) {
     std::unique_ptr<AudioDecoder>& saved_isac_decoder =
         codec.plfreq == 16000 ? isac_decoder_16k_ : isac_decoder_32k_;
     if (!saved_isac_decoder) {

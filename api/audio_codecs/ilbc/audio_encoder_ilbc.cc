@@ -13,12 +13,12 @@
 #include <memory>
 #include <vector>
 
-#include "common_types.h"  // NOLINT(build/include)
 #include "modules/audio_coding/codecs/ilbc/audio_encoder_ilbc.h"
 #include "rtc_base/numerics/safe_conversions.h"
 #include "rtc_base/numerics/safe_minmax.h"
 #include "rtc_base/ptr_util.h"
 #include "rtc_base/string_to_number.h"
+#include "rtc_base/stringutils.h"
 
 namespace webrtc {
 namespace {
@@ -40,7 +40,7 @@ int GetIlbcBitrate(int ptime) {
 
 rtc::Optional<AudioEncoderIlbcConfig> AudioEncoderIlbc::SdpToConfig(
     const SdpAudioFormat& format) {
-  if (STR_CASE_CMP(format.name.c_str(), "ILBC") != 0 ||
+  if (rtc::StrCaseCmp(format.name.c_str(), "ILBC") != 0 ||
       format.clockrate_hz != 8000 || format.num_channels != 1) {
     return rtc::nullopt;
   }

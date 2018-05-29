@@ -26,6 +26,8 @@
 #include "modules/audio_device/include/audio_device_defines.h"
 #include "rtc_base/logging.h"
 
+#pragma comment(lib, "Avrt.lib")
+
 namespace webrtc {
 namespace webrtc_win {
 
@@ -78,6 +80,10 @@ class ScopedMMCSSRegistration {
 class ScopedCOMInitializer {
  public:
   // Enum value provided to initialize the thread as an MTA instead of STA.
+  // There are two types of apartments, Single Threaded Apartments (STAs)
+  // and Multi Threaded Apartments (MTAs). Within a given process there can
+  // be multiple STA’s but there is only one MTA. STA is typically used by
+  // "GUI applications" and MTA by "worker threads" with no UI message loop.
   enum SelectMTA { kMTA };
 
   // Constructor for STA initialization.
@@ -107,9 +113,23 @@ class ScopedCOMInitializer {
   void Initialize(COINIT init) {
     // Initializes the COM library for use by the calling thread, sets the
     // thread's concurrency model, and creates a new apartment for the thread
-    // if one is required.
+    // if one is required. CoInitializeEx must be called at least once, and is
+    // usually called only once, for each thread that uses the COM library.
     hr_ = CoInitializeEx(NULL, init);
-    RTC_CHECK_NE(RPC_E_CHANGED_MODE, hr_) << "Invalid COM thread model change";
+    RTC_CHECK_NE(RPC_E_CHANGED_MODE, hr_)
+        << "Invalid COM thread model change (MTA->STA)";
+    // Multiple calls to CoInitializeEx by the same thread are allowed as long
+    // as they pass the same concurrency flag, but subsequent valid calls
+    // return S_FALSE. To close the COM library gracefully on a thread, each
+    // successful call to CoInitializeEx, including any call that returns
+    // S_FALSE, must be balanced by a corresponding call to CoUninitialize.
+    if (hr_ == S_OK) {
+      RTC_DLOG(INFO)
+          << "The COM library was initialized successfully on this thread";
+    } else if (hr_ == S_FALSE) {
+      RTC_DLOG(WARNING)
+          << "The COM library is already initialized on this thread";
+    }
   }
   HRESULT hr_;
 };
@@ -262,6 +282,12 @@ namespace core_audio_utility {
 // Always verify that this method returns true before using any of the
 // other methods in this class.
 bool IsSupported();
+
+// Returns true if Multimedia Class Scheduler service (MMCSS) is supported.
+// The MMCSS enables multimedia applications to ensure that their time-sensitive
+// processing receives prioritized access to CPU resources without denying CPU
+// resources to lower-priority applications.
+bool IsMMCSSSupported();
 
 // The MMDevice API lets clients discover the audio endpoint devices in the
 // system and determine which devices are suitable for the application to use.

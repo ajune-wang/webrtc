@@ -11,6 +11,7 @@
 #include "modules/audio_device/win/core_audio_utility_win.h"
 #include "rtc_base/arraysize.h"
 #include "rtc_base/logging.h"
+#include "rtc_base/win/windows_version.h"
 #include "test/gtest.h"
 
 using Microsoft::WRL::ComPtr;
@@ -256,9 +257,9 @@ TEST_F(CoreAudioUtilityWinTest, CreateClient) {
   }
 }
 
-// TODO(henrik): enable when support for Windows version querying is added.
-TEST_F(CoreAudioUtilityWinTest, DISABLED_CreateClient2) {
-  ABORT_TEST_IF_NOT(DevicesAvailable());
+TEST_F(CoreAudioUtilityWinTest, CreateClient2) {
+  ABORT_TEST_IF_NOT(DevicesAvailable() &&
+                    rtc::rtc_win::GetVersion() >= rtc::rtc_win::VERSION_WIN10);
 
   EDataFlow data[] = {eRender, eCapture};
 

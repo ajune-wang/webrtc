@@ -44,13 +44,21 @@ bool LoadAudiosesDll() {
           nullptr);
 }
 
+bool LoadAvrtDll() {
+  static const wchar_t* const kAvrtDLL = L"%WINDIR%\\system32\\Avrt.dll";
+  wchar_t path[MAX_PATH] = {0};
+  ExpandEnvironmentStringsW(kAvrtDLL, path, arraysize(path));
+  RTC_DLOG(INFO) << rtc::ToUtf8(path);
+  return (LoadLibraryExW(path, nullptr, LOAD_WITH_ALTERED_SEARCH_PATH) !=
+          nullptr);
+}
+
 ComPtr<IMMDeviceEnumerator> CreateDeviceEnumeratorInternal(
     bool allow_reinitialize) {
   ComPtr<IMMDeviceEnumerator> device_enumerator;
   _com_error error = ::CoCreateInstance(__uuidof(MMDeviceEnumerator), nullptr,
                                         CLSCTX_INPROC_SERVER,
                                         IID_PPV_ARGS(&device_enumerator));
-
   if (error.Error() != S_OK) {
     RTC_LOG(LS_ERROR) << "CoCreateInstance failed: " << ErrorToString(error);
   }
@@ -346,8 +354,14 @@ HRESULT GetPreferredAudioParametersInternal(IAudioClient* client,
 namespace core_audio_utility {
 
 bool IsSupported() {
+  RTC_DLOG(INFO) << "IsSupported";
   static bool g_is_supported = IsSupportedInternal();
   return g_is_supported;
+}
+
+bool IsMMCSSSupported() {
+  RTC_DLOG(INFO) << "IsMMCSSSupported";
+  return LoadAvrtDll();
 }
 
 int NumberOfActiveDevices(EDataFlow data_flow) {

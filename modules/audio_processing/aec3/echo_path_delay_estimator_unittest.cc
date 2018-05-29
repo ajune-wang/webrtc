@@ -60,8 +60,8 @@ TEST(EchoPathDelayEstimator, DelayEstimation) {
   constexpr size_t kDownSamplingFactors[] = {2, 4, 8};
   for (auto down_sampling_factor : kDownSamplingFactors) {
     EchoCanceller3Config config;
-    config.delay.down_sampling_factor = down_sampling_factor;
-    config.delay.num_filters = 10;
+    config.delay.matched_filters.down_sampling_factor = down_sampling_factor;
+    config.delay.matched_filters.num_filters = 10;
     for (size_t delay_samples : {30, 64, 150, 200, 800, 4000}) {
       SCOPED_TRACE(ProduceDebugText(delay_samples, down_sampling_factor));
 
@@ -98,7 +98,7 @@ TEST(EchoPathDelayEstimator, DelayEstimation) {
         EXPECT_NEAR(delay_samples,
                     estimated_delay_samples->delay -
                         (config.delay.api_call_jitter_blocks + 1) * 64,
-                    config.delay.down_sampling_factor);
+                    config.delay.matched_filters.down_sampling_factor);
       } else {
         ADD_FAILURE();
       }

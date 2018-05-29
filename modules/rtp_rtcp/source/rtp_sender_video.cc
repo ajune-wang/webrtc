@@ -72,7 +72,7 @@ void RTPSenderVideo::SetVideoCodecType(RtpVideoCodecTypes video_type) {
   video_type_ = video_type;
 }
 
-RtpVideoCodecTypes RTPSenderVideo::VideoCodecType() const {
+VideoCodecType RTPSenderVideo::VideoCodecType() const {
   return video_type_;
 }
 
@@ -80,19 +80,19 @@ RtpVideoCodecTypes RTPSenderVideo::VideoCodecType() const {
 RtpUtility::Payload* RTPSenderVideo::CreateVideoPayload(
     const char payload_name[RTP_PAYLOAD_NAME_SIZE],
     int8_t payload_type) {
-  RtpVideoCodecTypes video_type = kRtpVideoGeneric;
+  enum VideoCodecType video_type = kVideoCodecGeneric;
   if (RtpUtility::StringCompare(payload_name, "VP8", 3)) {
-    video_type = kRtpVideoVp8;
+    video_type = kVideoCodecVP8;
   } else if (RtpUtility::StringCompare(payload_name, "VP9", 3)) {
-    video_type = kRtpVideoVp9;
+    video_type = kVideoCodecVP9;
   } else if (RtpUtility::StringCompare(payload_name, "H264", 4)) {
-    video_type = kRtpVideoH264;
+    video_type = kVideoCodecH264;
   } else if (RtpUtility::StringCompare(payload_name, "I420", 4)) {
-    video_type = kRtpVideoGeneric;
+    video_type = kVideoCodecGeneric;
   } else if (RtpUtility::StringCompare(payload_name, "stereo", 6)) {
-    video_type = kRtpVideoGeneric;
+    video_type = kVideoCodecGeneric;
   } else {
-    video_type = kRtpVideoGeneric;
+    video_type = kVideoCodecGeneric;
   }
   VideoPayload vp;
   vp.videoCodecType = video_type;
@@ -286,7 +286,7 @@ rtc::Optional<uint32_t> RTPSenderVideo::FlexfecSsrc() const {
   return rtc::nullopt;
 }
 
-bool RTPSenderVideo::SendVideo(RtpVideoCodecTypes video_type,
+bool RTPSenderVideo::SendVideo(enum VideoCodecType video_type,
                                FrameType frame_type,
                                int8_t payload_type,
                                uint32_t rtp_timestamp,

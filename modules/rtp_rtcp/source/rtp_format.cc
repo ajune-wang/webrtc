@@ -18,7 +18,7 @@
 #include "modules/rtp_rtcp/source/rtp_format_vp9.h"
 
 namespace webrtc {
-RtpPacketizer* RtpPacketizer::Create(RtpVideoCodecTypes type,
+RtpPacketizer* RtpPacketizer::Create(VideoCodecType type,
                                      size_t max_payload_len,
                                      size_t last_packet_reduction_len,
                                      const RTPVideoTypeHeader* rtp_type_header,
@@ -39,13 +39,13 @@ RtpPacketizer* RtpPacketizer::Create(RtpVideoCodecTypes type,
     case kRtpVideoGeneric:
       return new RtpPacketizerGeneric(frame_type, max_payload_len,
                                       last_packet_reduction_len);
-    case kRtpVideoNone:
+    default:
       RTC_NOTREACHED();
   }
   return nullptr;
 }
 
-RtpDepacketizer* RtpDepacketizer::Create(RtpVideoCodecTypes type) {
+RtpDepacketizer* RtpDepacketizer::Create(VideoCodecType type) {
   switch (type) {
     case kRtpVideoH264:
       return new RtpDepacketizerH264();
@@ -55,8 +55,8 @@ RtpDepacketizer* RtpDepacketizer::Create(RtpVideoCodecTypes type) {
       return new RtpDepacketizerVp9();
     case kRtpVideoGeneric:
       return new RtpDepacketizerGeneric();
-    case kRtpVideoNone:
-      assert(false);
+    default:
+      RTC_NOTREACHED();
   }
   return nullptr;
 }

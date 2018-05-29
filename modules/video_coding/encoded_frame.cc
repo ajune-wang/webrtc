@@ -190,8 +190,7 @@ void VCMEncodedFrame::CopyCodecSpecific(const RTPVideoHeader* header) {
         _codecSpecificInfo.codecType = kVideoCodecH264;
         break;
       }
-      case kRtpVideoNone:
-      case kRtpVideoGeneric: {
+      default: {
         _codecSpecificInfo.codecType = kVideoCodecUnknown;
         break;
       }

@@ -136,7 +136,7 @@ void VCMPacket::CopyCodecSpecifics(const RTPVideoHeader& videoHeader) {
     case kRtpVideoGeneric:
       codec = kVideoCodecGeneric;
       return;
-    case kRtpVideoNone:
+    default:
       codec = kVideoCodecUnknown;
       return;
   }

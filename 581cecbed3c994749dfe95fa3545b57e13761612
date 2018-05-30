@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "c09b2020_bfc9f3eb",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-05-30T12:31:10Z",
+      "side": 1,
+      "message": "How about splitting this into two things, one enum, indicating the frame drop state. and one initial frame drop counter. Than have constants (or configuration) that indicates the frame drop counts for specific state transitions?",
+      "range": {
+        "startLine": 51,
+        "startChar": 5,
+        "endLine": 51,
+        "endChar": 21
+      },
+      "revId": "581cecbed3c994749dfe95fa3545b57e13761612",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d908c555_8957780e",
         "filename": "video/video_stream_encoder.cc",
         "patchSetId": 6

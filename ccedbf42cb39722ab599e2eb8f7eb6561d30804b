@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2b8947e9_febef0a3",
+        "filename": "sdk/objc/Framework/Classes/Metal/RTCMTLRenderer.mm",
+        "patchSetId": 6
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5670
+      },
+      "writtenOn": "2018-05-30T11:37:28Z",
+      "side": 1,
+      "message": "Nope, must have braces when defining local variables inside a case.",
+      "parentUuid": "425156a4_1c557664",
+      "range": {
+        "startLine": 51,
+        "startChar": 29,
+        "endLine": 51,
+        "endChar": 30
+      },
+      "revId": "ccedbf42cb39722ab599e2eb8f7eb6561d30804b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "edfc5a79_deb369d1",
         "filename": "sdk/objc/Framework/Classes/Metal/RTCMTLVideoView.m",
         "patchSetId": 6

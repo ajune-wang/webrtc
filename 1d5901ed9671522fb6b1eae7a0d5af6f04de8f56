@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "503f2b8d_9cc572cd",
+        "filename": "media/engine/webrtcvideoengine_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 2656,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-30T12:00:17Z",
+      "side": 1,
+      "message": "I assume you can\u0027t use size_t{...} here, because the source type is signed? In that case, consider using checked_cast. (dchecked_cast would have been appropriate in production code.)\n\nThis goes for all the static_casts below too.",
+      "range": {
+        "startLine": 2656,
+        "startChar": 12,
+        "endLine": 2656,
+        "endChar": 23
+      },
+      "revId": "1d5901ed9671522fb6b1eae7a0d5af6f04de8f56",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -458,6 +458,24 @@
     },
     {
       "key": {
+        "uuid": "c8ddaf69_b1339b83",
+        "filename": "pc/peerconnection_rampup_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-30T22:10:39Z",
+      "side": 1,
+      "message": "As discussed, I think we could just remove the second rampup for now and add it back once we have a better simulation available.",
+      "parentUuid": "d7d96f27_3f60e2f4",
+      "revId": "677bf3674cc992e622296885e2eef107a196605f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8ffd783a_bebad228",
         "filename": "pc/peerconnection_rampup_tests.cc",
         "patchSetId": 1

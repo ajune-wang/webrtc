@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "44847170_d5b9d78e",
+        "filename": "pc/peerconnection_rampup_tests.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-30T22:10:39Z",
+      "side": 1,
+      "message": "nit: Would suggest combining this TODO with the one below that explains why the second rampup was problematic.",
+      "revId": "ab4ff49b8e866fae98ca087b1c2e51044fc95ad1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f63a07f_d6861e57",
+        "filename": "pc/peerconnection_rampup_tests.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-30T22:10:39Z",
+      "side": 1,
+      "message": "nit: Can just call GetStats() once and store the rtc::scoped_refptr\u003cRTCStatsReport\u003e as a local variable.",
+      "revId": "ab4ff49b8e866fae98ca087b1c2e51044fc95ad1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be487dae_429a8673",
+        "filename": "pc/peerconnection_rampup_tests.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-30T22:10:39Z",
+      "side": 1,
+      "message": "nit: Instead of iterating all RTCIceCandidatePairStats, can do:\n\nreport-\u003eGet(selected_ice_candidate_pair_id)-\u003ecast_to\u003cRTCIceCandidatePairStats\u003e();",
+      "revId": "ab4ff49b8e866fae98ca087b1c2e51044fc95ad1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

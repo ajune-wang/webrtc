@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da4560d6_cb96d249",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-30T22:18:51Z",
+      "side": 1,
+      "message": "Should mention that this CL only introduces the field to the RtpEncodingParameters struct and doesn\u0027t actually implement it yet.",
+      "revId": "d6e753bca0186a6c1747ff1fa44f5eaad9955316",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "428c5108_474a145b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-30T22:18:51Z",
+      "side": 1,
+      "message": "Should have an open-source bug entry that describes the reasoning behind this (what we discussed via email)",
+      "revId": "d6e753bca0186a6c1747ff1fa44f5eaad9955316",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

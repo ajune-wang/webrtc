@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a8caea3e_b63d40a2",
+        "filename": "rtc_base/sanitizer_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-05-30T14:45:22Z",
+      "side": 1,
+      "message": "eugenis@: Are we holding it wrong?\n\nWhen we run this test the output is:\n[157/332] SanitizerTest.MsanUninitialized (228 ms)\nError: unrecognized flag --isolated-script-test-perf-output\u003d/b/s/w/iobBibyU/perftest-output.json\nNote: Google Test filter \u003d SanitizerTest.MsanUninitialized\n[\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d] Running 1 test from 1 test case.\n[----------] Global test environment set-up.\n[----------] 1 test from SanitizerTest\n[ RUN      ] SanitizerTest.MsanUninitialized\n[000:000] (sanitizer_unittest.cc:150): read after init passed\n[000:000] (sanitizer_unittest.cc:131): __msan_set_expect_umr(1)\nExiting\n[157/332] SanitizerTest.MsanUninitialized returned/aborted with exit code 77 (228 ms)\n\nIt seems that msan crashed.",
+      "range": {
+        "startLine": 145,
+        "startChar": 0,
+        "endLine": 155,
+        "endChar": 1
+      },
+      "revId": "d5102e18fc1826b2bffa5a8cbfe2fb959e73bfdf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

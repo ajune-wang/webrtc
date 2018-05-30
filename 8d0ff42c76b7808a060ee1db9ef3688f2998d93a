@@ -16,6 +16,24 @@
       "revId": "8d0ff42c76b7808a060ee1db9ef3688f2998d93a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ffce1163_d0d877f0",
+        "filename": "rtc_base/stringutils.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-05-30T13:07:19Z",
+      "side": 1,
+      "message": "\u003e And now we also have the option to use absl::string_view. It\u0027s not free to convert const char* to string_view (you need to compute the string length), but it should be almost free to convert std::string to string_view. So maybe we should have overloads for const char* and string_view?\n\nMakes sense from an interface point of view, but to implement it properly and support strings with embedded NUL characters, simply wrapping strcasecmp/_stricmp isn\u0027t good enough.\n\nSpeaking of abseil, are there any suitable string comparison functions in abseil we could use, instead of rolling our own rtc::-functions?",
+      "parentUuid": "81bf02ce_2b8bd023",
+      "revId": "8d0ff42c76b7808a060ee1db9ef3688f2998d93a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

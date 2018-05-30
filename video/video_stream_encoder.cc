@@ -31,6 +31,7 @@
 #include "rtc_base/trace_event.h"
 #include "video/overuse_frame_detector.h"
 #include "video/send_statistics_proxy.h"
+#include "system_wrappers/include/field_trial.h"
 
 namespace webrtc {
 
@@ -44,9 +45,14 @@ const int kMaxFramerateFps = 120;
 // Time to keep a single cached pending frame in paused state.
 const int64_t kPendingFrameTimeoutMs = 1000;
 
+const char kInitialFramedropFieldTrial[] = "WebRTC-InitialFramedrop";
 // The maximum number of frames to drop at beginning of stream
 // to try and achieve desired bitrate.
-const int kMaxInitialFramedrop = 4;
+enum InitialFramedrop : int {
+  Ready = -1,
+  On = 0,
+  Finished = 4,
+};
 
 // Initial limits for BALANCED degradation preference.
 int MinFps(int pixels) {
@@ -79,6 +85,12 @@ bool IsResolutionScalingEnabled(DegradationPreference degradation_preference) {
 bool IsFramerateScalingEnabled(DegradationPreference degradation_preference) {
   return degradation_preference == DegradationPreference::MAINTAIN_RESOLUTION ||
          degradation_preference == DegradationPreference::BALANCED;
+}
+
+bool IsInitialFramedropEnabled() {
+  std::string trial_string =
+      webrtc::field_trial::FindFullName(kInitialFramedropFieldTrial);
+  return trial_string.find("Enabled") == 0;
 }
 
 // TODO(pbos): Lower these thresholds (to closer to 100%) when we handle
@@ -321,7 +333,7 @@ VideoStreamEncoder::VideoStreamEncoder(
     std::unique_ptr<OveruseFrameDetector> overuse_detector)
     : shutdown_event_(true /* manual_reset */, false),
       number_of_cores_(number_of_cores),
-      initial_rampup_(0),
+      initial_framedrop_(InitialFramedrop::Ready),
       quality_scaling_experiment_enabled_(QualityScalingExperiment::Enabled()),
       source_proxy_(new VideoSourceProxy(this)),
       sink_(nullptr),
@@ -405,7 +417,8 @@ void VideoStreamEncoder::SetSource(
     }
     degradation_preference_ = degradation_preference;
     bool allow_scaling = IsResolutionScalingEnabled(degradation_preference_);
-    initial_rampup_ = allow_scaling ? 0 : kMaxInitialFramedrop;
+    initial_framedrop_ =
+        allow_scaling ? InitialFramedrop::Ready : InitialFramedrop::Finished;
 
     if (encoder_)
       ConfigureQualityScaler();
@@ -605,7 +618,7 @@ void VideoStreamEncoder::ConfigureQualityScaler() {
     }
   } else {
     quality_scaler_.reset(nullptr);
-    initial_rampup_ = kMaxInitialFramedrop;
+    initial_framedrop_ = InitialFramedrop::Finished;
   }
 
   stats_proxy_->SetAdaptationStats(GetActiveCounts(kCpu),
@@ -767,7 +780,7 @@ void VideoStreamEncoder::MaybeEncodeVideoFrame(const VideoFrame& video_frame,
     if (GetConstAdaptCounter().ResolutionCount(kQuality) > count) {
       stats_proxy_->OnInitialQualityResolutionAdaptDown();
     }
-    ++initial_rampup_;
+    ++initial_framedrop_;
     // Storing references to a native buffer risks blocking frame capture.
     if (video_frame.video_frame_buffer()->type() !=
         VideoFrameBuffer::Type::kNative) {
@@ -779,8 +792,8 @@ void VideoStreamEncoder::MaybeEncodeVideoFrame(const VideoFrame& video_frame,
     }
     return;
   }
-  initial_rampup_ = kMaxInitialFramedrop;
-
+  if (initial_framedrop_ >= InitialFramedrop::On)
+    initial_framedrop_ = InitialFramedrop::Finished;
 
   if (EncoderPaused()) {
     // Storing references to a native buffer risks blocking frame capture.
@@ -925,6 +938,15 @@ void VideoStreamEncoder::OnBitrateUpdated(uint32_t bitrate_bps,
                       << " packet loss " << static_cast<int>(fraction_lost)
                       << " rtt " << round_trip_time_ms;
 
+  if (bitrate_bps != encoder_start_bitrate_bps_ &&
+      initial_framedrop_ == InitialFramedrop::Ready &&
+      IsInitialFramedropEnabled()) {
+    // Turn on initial framedrop feature when first real BW estimate arrives.
+    // TODO(kthelgason): Update BitrateAllocator to not call OnBitrateUpdated
+    // without an actual BW estimate.
+    initial_framedrop_ = InitialFramedrop::On;
+  }
+
   video_sender_.SetChannelParameters(bitrate_bps, fraction_lost,
                                      round_trip_time_ms, rate_allocator_.get(),
                                      bitrate_observer_);
@@ -950,7 +972,7 @@ void VideoStreamEncoder::OnBitrateUpdated(uint32_t bitrate_bps,
 }
 
 bool VideoStreamEncoder::DropDueToSize(uint32_t pixel_count) const {
-  if (initial_rampup_ < kMaxInitialFramedrop &&
+  if (initial_framedrop_ != InitialFramedrop::Finished &&
       encoder_start_bitrate_bps_ > 0) {
     if (encoder_start_bitrate_bps_ < 300000 /* qvga */) {
       return pixel_count > 320 * 240;

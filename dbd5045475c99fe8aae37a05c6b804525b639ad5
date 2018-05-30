@@ -22,6 +22,30 @@
       "revId": "dbd5045475c99fe8aae37a05c6b804525b639ad5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7694958d_4a9a2be0",
+        "filename": "modules/desktop_capture/cropping_window_capturer_win.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 6175
+      },
+      "writtenOn": "2018-05-30T23:50:57Z",
+      "side": 1,
+      "message": "Done\n\nNot that straight. Usually the target window is composed by many sub-windows/pop-up, which are to be ignored too.",
+      "parentUuid": "bfb03994_2c81308a",
+      "range": {
+        "startLine": 47,
+        "startChar": 58,
+        "endLine": 48,
+        "endChar": 0
+      },
+      "revId": "dbd5045475c99fe8aae37a05c6b804525b639ad5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

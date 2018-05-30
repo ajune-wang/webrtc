@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bfb03994_2c81308a",
+        "filename": "modules/desktop_capture/cropping_window_capturer_win.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5166
+      },
+      "writtenOn": "2018-05-30T23:00:49Z",
+      "side": 1,
+      "message": "Given the name of this function, I would have thought that simply checking WS_TOPMOST would be sufficient. I think an explanation of the return value of this function would be useful, since the code suggests that my understanding is incorrect.",
+      "range": {
+        "startLine": 47,
+        "startChar": 58,
+        "endLine": 48,
+        "endChar": 0
+      },
+      "revId": "dbd5045475c99fe8aae37a05c6b804525b639ad5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

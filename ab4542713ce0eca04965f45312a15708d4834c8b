@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "057e7da7_38ca0236",
+        "filename": "api/units/data_rate.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-30T11:37:21Z",
+      "side": 1,
+      "message": "Consider using dchecked_cast here. The two checks on lines 60 and 61 have already ensured that it\u0027s safe, but by using dchecked_cast you assure even a casual reader that this cast will not lose information.",
+      "range": {
+        "startLine": 62,
+        "startChar": 25,
+        "endLine": 62,
+        "endChar": 36
+      },
+      "revId": "ab4542713ce0eca04965f45312a15708d4834c8b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c9c9812_7b2bc15d",
+        "filename": "api/units/time_delta.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-30T11:37:21Z",
+      "side": 1,
+      "message": "dchecked_cast here too",
+      "range": {
+        "startLine": 52,
+        "startChar": 21,
+        "endLine": 52,
+        "endChar": 32
+      },
+      "revId": "ab4542713ce0eca04965f45312a15708d4834c8b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98a38bb1_bfda8134",
+        "filename": "api/units/time_delta.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-30T11:37:21Z",
+      "side": 1,
+      "message": "and here",
+      "range": {
+        "startLine": 60,
+        "startChar": 21,
+        "endLine": 60,
+        "endChar": 32
+      },
+      "revId": "ab4542713ce0eca04965f45312a15708d4834c8b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d399ce8a_2d597b3d",
+        "filename": "api/units/timestamp.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-30T11:37:21Z",
+      "side": 1,
+      "message": "dchecked_cast?",
+      "range": {
+        "startLine": 45,
+        "startChar": 21,
+        "endLine": 45,
+        "endChar": 32
+      },
+      "revId": "ab4542713ce0eca04965f45312a15708d4834c8b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ebad8254_62dfb60b",
+        "filename": "api/units/timestamp.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-30T11:37:21Z",
+      "side": 1,
+      "message": "and here",
+      "range": {
+        "startLine": 55,
+        "startChar": 21,
+        "endLine": 55,
+        "endChar": 32
+      },
+      "revId": "ab4542713ce0eca04965f45312a15708d4834c8b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

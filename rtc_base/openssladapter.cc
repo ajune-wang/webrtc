@@ -911,7 +911,7 @@ SSL_CTX* OpenSSLAdapter::CreateContext(SSLMode mode, bool enable_cache) {
 #ifndef WEBRTC_DISABLE_BUILT_IN_SSL_ROOT_CERTIFICATES
   if (!openssl::LoadBuiltinSSLRootCertificates(ctx)) {
     RTC_LOG(LS_ERROR) << "SSL_CTX creation failed: Failed to load any trusted "
-                         "ssl root certificates.";
+                        "ssl root certificates.";
     SSL_CTX_free(ctx);
     return nullptr;
   }

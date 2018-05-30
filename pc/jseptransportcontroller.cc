@@ -90,11 +90,13 @@ JsepTransportController::JsepTransportController(
     rtc::Thread* signaling_thread,
     rtc::Thread* network_thread,
     cricket::PortAllocator* port_allocator,
-    Config config)
+    Config config,
+    webrtc::RtcEventLog* event_log)
     : signaling_thread_(signaling_thread),
       network_thread_(network_thread),
       port_allocator_(port_allocator),
-      config_(config) {
+      config_(config),
+      event_log_(event_log) {
   // The |transport_observer| is assumed to be non-null.
   RTC_DCHECK(config_.transport_observer);
 }
@@ -394,7 +396,7 @@ JsepTransportController::CreateDtlsTransport(const std::string& transport_name,
         std::move(ice), config_.crypto_options);
   } else {
     auto ice = rtc::MakeUnique<cricket::P2PTransportChannel>(
-        transport_name, component, port_allocator_);
+        transport_name, component, port_allocator_, event_log_);
     dtls = rtc::MakeUnique<cricket::DtlsTransport>(std::move(ice),
                                                    config_.crypto_options);
   }

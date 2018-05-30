@@ -41,6 +41,8 @@ class PacketTransportInternal;
 
 namespace webrtc {
 
+class RtcEventLog;
+
 class JsepTransportController : public sigslot::has_slots<>,
                                 public rtc::MessageHandler {
  public:
@@ -84,7 +86,8 @@ class JsepTransportController : public sigslot::has_slots<>,
   JsepTransportController(rtc::Thread* signaling_thread,
                           rtc::Thread* network_thread,
                           cricket::PortAllocator* port_allocator,
-                          Config config);
+                          Config config,
+                          webrtc::RtcEventLog* event_log);
   virtual ~JsepTransportController();
 
   // The main method to be called; applies a description at the transport
@@ -317,7 +320,8 @@ class JsepTransportController : public sigslot::has_slots<>,
   rtc::scoped_refptr<rtc::RTCCertificate> certificate_;
   rtc::AsyncInvoker invoker_;
 
-  webrtc::MetricsObserverInterface* metrics_observer_ = nullptr;
+  MetricsObserverInterface* metrics_observer_ = nullptr;
+  RtcEventLog* event_log_ = nullptr;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(JsepTransportController);
 };

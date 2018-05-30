@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d908c555_8957780e",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-05-30T12:26:40Z",
+      "side": 1,
+      "message": "WDYT of making this configurable through the field trial string?",
+      "range": {
+        "startLine": 54,
+        "startChar": 13,
+        "endLine": 54,
+        "endChar": 15
+      },
+      "revId": "581cecbed3c994749dfe95fa3545b57e13761612",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94414025_6f55ab81",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-05-30T12:26:40Z",
+      "side": 1,
+      "message": "const?",
+      "range": {
+        "startLine": 91,
+        "startChar": 2,
+        "endLine": 91,
+        "endChar": 13
+      },
+      "revId": "581cecbed3c994749dfe95fa3545b57e13761612",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85bda6e9_8361e90f",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 795,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-05-30T12:26:40Z",
+      "side": 1,
+      "message": "I was a bit confused by this first. Maybe add a comment why we do this?",
+      "revId": "581cecbed3c994749dfe95fa3545b57e13761612",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10e9c55c_a66b4f73",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 944,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-05-30T12:26:40Z",
+      "side": 1,
+      "message": "I\u0027m a bit confused with how the initial framedrop feature works together with the start bitrate and initial BWE here. IIUC, we want to drop frames that are too large, compared to both the start bitrate and the initial BWE?",
+      "range": {
+        "startLine": 944,
+        "startChar": 7,
+        "endLine": 944,
+        "endChar": 40
+      },
+      "revId": "581cecbed3c994749dfe95fa3545b57e13761612",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7c87759_3bd08c73",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 2256,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-05-30T12:26:40Z",
+      "side": 1,
+      "message": "Should this hold both with and without the feature activated? If so, it would probably be a good idea to make the test parameterized over the two field trial strings: \"\" and \"WebRTC-InitialFramedrop/Enabled/\". Same thing for the tests below.",
+      "range": {
+        "startLine": 2256,
+        "startChar": 31,
+        "endLine": 2256,
+        "endChar": 70
+      },
+      "revId": "581cecbed3c994749dfe95fa3545b57e13761612",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

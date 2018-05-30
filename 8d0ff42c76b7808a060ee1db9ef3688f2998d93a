@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "81bf02ce_2b8bd023",
+        "filename": "rtc_base/stringutils.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-30T12:45:26Z",
+      "side": 1,
+      "message": "We very often call these with std::string arguments, with manual .c_str() conversions. Could you make overloads that take const std::string\u0026 arguments too?\n\nAnd now we also have the option to use absl::string_view. It\u0027s not free to convert const char* to string_view (you need to compute the string length), but it should be almost free to convert std::string to string_view. So maybe we should have overloads for const char* and string_view?\n\nAlso, do we *ever* do anything with the return value other than compare it to 0? It seems like bool-returning functions called Str[N]CaseEq might be more appropriate...",
+      "revId": "8d0ff42c76b7808a060ee1db9ef3688f2998d93a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

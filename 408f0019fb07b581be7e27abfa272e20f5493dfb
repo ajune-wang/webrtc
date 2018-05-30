@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "af2b2ab4_80fe43ea",
+        "filename": "modules/congestion_controller/bbr/loss_rate_filter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-05-30T15:53:37Z",
+      "side": 1,
+      "message": "interval_ms",
+      "range": {
+        "startLine": 39,
+        "startChar": 12,
+        "endLine": 39,
+        "endChar": 22
+      },
+      "revId": "408f0019fb07b581be7e27abfa272e20f5493dfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9cc3cc66_89ffd039",
+        "filename": "modules/congestion_controller/bbr/loss_rate_filter.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-05-30T15:53:37Z",
+      "side": 1,
+      "message": "Remove randomization?",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 0
+      },
+      "revId": "408f0019fb07b581be7e27abfa272e20f5493dfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72b5731a_9ee90624",
+        "filename": "modules/congestion_controller/bbr/loss_rate_filter_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-05-30T15:53:37Z",
+      "side": 1,
+      "message": "I\u0027m a bit surprised that this passes the test. Isn\u0027t the filter constant 1 second?",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 47
+      },
+      "revId": "408f0019fb07b581be7e27abfa272e20f5493dfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

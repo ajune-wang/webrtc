@@ -22,6 +22,30 @@
       "revId": "1d5901ed9671522fb6b1eae7a0d5af6f04de8f56",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2b8e708_cfb65887",
+        "filename": "media/engine/webrtcvideoengine_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 2656,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-05-30T13:08:24Z",
+      "side": 1,
+      "message": "Correct:\n\nerror: non-constant-expression cannot be narrowed from type \u0027int\u0027 to \u0027size_t\u0027 (aka \u0027unsigned long\u0027) in initializer list [-Wc++11-narrowing]\n\nOk, let me switch everything to checked_cast.",
+      "parentUuid": "503f2b8d_9cc572cd",
+      "range": {
+        "startLine": 2656,
+        "startChar": 12,
+        "endLine": 2656,
+        "endChar": 23
+      },
+      "revId": "1d5901ed9671522fb6b1eae7a0d5af6f04de8f56",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

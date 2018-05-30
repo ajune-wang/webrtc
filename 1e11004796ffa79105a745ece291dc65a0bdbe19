@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3ab4a5fd_3db8b133",
+        "filename": "modules/desktop_capture/cropping_window_capturer_win.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5166
+      },
+      "writtenOn": "2018-05-30T23:55:00Z",
+      "side": 1,
+      "message": "Thanks, that makes sense now. However, if I\u0027m reading it correctly, the effect of this CL is to ignore Chrome\u0027s sharing notification window, so that even if it intersects the window to be captured, we will still use fast capture + cropping, which means that the sharing notification will be visible in the captured session; correct? The rationale of \"falling back on GDI is bad because it might fail\" seems relevant to all occluding windows; what makes the sharing notification special?",
+      "range": {
+        "startLine": 50,
+        "startChar": 23,
+        "endLine": 51,
+        "endChar": 0
+      },
+      "revId": "1e11004796ffa79105a745ece291dc65a0bdbe19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

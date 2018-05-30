@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a714d23a_2310b554",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-05-30T12:47:42Z",
+      "side": 1,
+      "message": "I find the names a bit confusing, I\u0027d like to see either self-explanatory names, or comment on the meaning of the states and intended transitions.",
+      "parentUuid": "c09b2020_bfc9f3eb",
+      "range": {
+        "startLine": 51,
+        "startChar": 5,
+        "endLine": 51,
+        "endChar": 21
+      },
+      "revId": "581cecbed3c994749dfe95fa3545b57e13761612",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d908c555_8957780e",
         "filename": "video/video_stream_encoder.cc",
         "patchSetId": 6
@@ -99,6 +123,30 @@
       "writtenOn": "2018-05-30T12:26:40Z",
       "side": 1,
       "message": "I\u0027m a bit confused with how the initial framedrop feature works together with the start bitrate and initial BWE here. IIUC, we want to drop frames that are too large, compared to both the start bitrate and the initial BWE?",
+      "range": {
+        "startLine": 944,
+        "startChar": 7,
+        "endLine": 944,
+        "endChar": 40
+      },
+      "revId": "581cecbed3c994749dfe95fa3545b57e13761612",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "13ea740f_2702656d",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 944,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-05-30T12:47:42Z",
+      "side": 1,
+      "message": "To me, it would make sense to drop frames based on the start bitrate until the first bwe estimte arrives. And then switch to (and restart) frame dropping based on the BWE. But I suspect this change does something different, with this place being the only transition Ready --\u003e On ?\n\nAnd one complication is that with the current code, the very first call to OnBitrateUpdated passes some default value, not an estimate based on real measurements.",
+      "parentUuid": "10e9c55c_a66b4f73",
       "range": {
         "startLine": 944,
         "startChar": 7,

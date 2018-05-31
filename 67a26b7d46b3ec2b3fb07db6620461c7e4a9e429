@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "73c0c60f_edd04e48",
+        "filename": "api/video_codecs/video_codec.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-31T08:18:50Z",
+      "side": 1,
+      "message": "New sentence here? (Or semicolon if you want to be fancy...)",
+      "range": {
+        "startLine": 14,
+        "startChar": 67,
+        "endLine": 14,
+        "endChar": 68
+      },
+      "revId": "67a26b7d46b3ec2b3fb07db6620461c7e4a9e429",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd61feb9_6affd11b",
+        "filename": "api/video_codecs/video_codec.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-31T08:18:50Z",
+      "side": 1,
+      "message": "This doesn\u0027t look like it would compile---you have two closing braces but only one opening brace, and a semicolon that looks out of place. Is it possible to #include this file in one of our translation units, so that the compiler can catch this sort of thing?",
+      "revId": "67a26b7d46b3ec2b3fb07db6620461c7e4a9e429",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

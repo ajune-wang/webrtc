@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "59c27f48_e9339b6f",
+        "filename": "test/testsupport/fileutils.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 5029
+      },
+      "writtenOn": "2018-05-31T17:18:26Z",
+      "side": 1,
+      "message": "Opening bracket should be placed at the end of the last line.",
+      "range": {
+        "startLine": 358,
+        "startChar": 0,
+        "endLine": 360,
+        "endChar": 1
+      },
+      "revId": "0904ce87831227b884ec5898eb0e4d7590b7ec4f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ff85624_3f2165bd",
+        "filename": "test/testsupport/fileutils.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5029
+      },
+      "writtenOn": "2018-05-31T17:18:26Z",
+      "side": 1,
+      "message": "Same as these two lines.",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 55
+      },
+      "revId": "0904ce87831227b884ec5898eb0e4d7590b7ec4f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9523951_0042f931",
+        "filename": "test/testsupport/fileutils.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5029
+      },
+      "writtenOn": "2018-05-31T17:18:26Z",
+      "side": 1,
+      "message": "These two lines can be merged into one (\u003c 80 characters).",
+      "range": {
+        "startLine": 74,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 50
+      },
+      "revId": "0904ce87831227b884ec5898eb0e4d7590b7ec4f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

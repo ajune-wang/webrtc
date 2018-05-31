@@ -1454,9 +1454,25 @@ rtc::scoped_refptr<PeerConnectionFactoryInterface> CreatePeerConnectionFactory(
 
 // Create a new instance of PeerConnectionFactoryInterface with optional video
 // codec factories. These video factories represents all video codecs, i.e. no
-// extra internal video codecs will be added.
-// When building WebRTC with rtc_use_builtin_sw_codecs = false, this is the
-// only available CreatePeerConnectionFactory overload.
+// extra internal video codecs will be added. An optional RtcEventLog factory
+// can also be provided, e.g. a FakeRtcEventLogFactory for tests, and otherwise
+// we use the default RtcEventLog factory as in the other overloads when this
+// option is not available. When building WebRTC with rtc_use_builtin_sw_codecs
+// = false, the following two methods are the only available
+// CreatePeerConnectionFactory overloads.
+rtc::scoped_refptr<PeerConnectionFactoryInterface> CreatePeerConnectionFactory(
+    rtc::Thread* network_thread,
+    rtc::Thread* worker_thread,
+    rtc::Thread* signaling_thread,
+    rtc::scoped_refptr<AudioDeviceModule> default_adm,
+    rtc::scoped_refptr<AudioEncoderFactory> audio_encoder_factory,
+    rtc::scoped_refptr<AudioDecoderFactory> audio_decoder_factory,
+    std::unique_ptr<VideoEncoderFactory> video_encoder_factory,
+    std::unique_ptr<VideoDecoderFactory> video_decoder_factory,
+    rtc::scoped_refptr<AudioMixer> audio_mixer,
+    rtc::scoped_refptr<AudioProcessing> audio_processing,
+    std::unique_ptr<RtcEventLogFactoryInterface> event_log_factory);
+
 rtc::scoped_refptr<PeerConnectionFactoryInterface> CreatePeerConnectionFactory(
     rtc::Thread* network_thread,
     rtc::Thread* worker_thread,

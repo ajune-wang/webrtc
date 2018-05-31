@@ -19,6 +19,7 @@
 
 #include "api/candidate.h"
 #include "api/peerconnectioninterface.h"
+#include "logging/rtc_event_log/rtc_event_log.h"
 #include "media/sctp/sctptransportinternal.h"
 #include "p2p/base/dtlstransport.h"
 #include "p2p/base/p2ptransportchannel.h"
@@ -84,7 +85,8 @@ class JsepTransportController : public sigslot::has_slots<>,
   JsepTransportController(rtc::Thread* signaling_thread,
                           rtc::Thread* network_thread,
                           cricket::PortAllocator* port_allocator,
-                          Config config);
+                          Config config,
+                          RtcEventLog* event_log);
   virtual ~JsepTransportController();
 
   // The main method to be called; applies a description at the transport
@@ -317,7 +319,8 @@ class JsepTransportController : public sigslot::has_slots<>,
   rtc::scoped_refptr<rtc::RTCCertificate> certificate_;
   rtc::AsyncInvoker invoker_;
 
-  webrtc::MetricsObserverInterface* metrics_observer_ = nullptr;
+  MetricsObserverInterface* metrics_observer_ = nullptr;
+  RtcEventLog* event_log_ = nullptr;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(JsepTransportController);
 };

@@ -22,6 +22,30 @@
       "revId": "1e11004796ffa79105a745ece291dc65a0bdbe19",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45795b00_56ed5f8d",
+        "filename": "modules/desktop_capture/cropping_window_capturer_win.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 6175
+      },
+      "writtenOn": "2018-05-31T00:06:05Z",
+      "side": 1,
+      "message": "The situation to be handled here is: At sharing a window to a Hangout meeting, Hangout shows a notification that the presenting is started, which may actually fails the presenting. This is not right. I doubt this may be related to many error reports on Windows that presenting can\u0027t be started.\nYes it\u0027s possible that the sharing notification will be visible in the captured session. This is not perfect. But still better than presenting nothing. Besides user can dismiss the notification to avoid it. (Same thing happens to the notification bar already. No work-around with current capture+cropping method.)",
+      "parentUuid": "3ab4a5fd_3db8b133",
+      "range": {
+        "startLine": 50,
+        "startChar": 23,
+        "endLine": 51,
+        "endChar": 0
+      },
+      "revId": "1e11004796ffa79105a745ece291dc65a0bdbe19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "14245afb_815b6f14",
+        "filename": "api/video_codecs/video_codec.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-05-31T08:45:52Z",
+      "side": 1,
+      "message": "Done. (With a period; I like semicolons, but no need to be fancy here).",
+      "parentUuid": "73c0c60f_edd04e48",
+      "range": {
+        "startLine": 14,
+        "startChar": 67,
+        "endLine": 14,
+        "endChar": 68
+      },
+      "revId": "67a26b7d46b3ec2b3fb07db6620461c7e4a9e429",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bd61feb9_6affd11b",
         "filename": "api/video_codecs/video_codec.h",
         "patchSetId": 2
@@ -39,6 +63,24 @@
       "revId": "67a26b7d46b3ec2b3fb07db6620461c7e4a9e429",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8286f401_a16cb98d",
+        "filename": "api/video_codecs/video_codec.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-05-31T08:45:52Z",
+      "side": 1,
+      "message": "Done. I\u0027m deleting all the braces and the namespace declaration.\n\nAlso replacing include of common_types.h with this file, in the nearby video_encoder.h and video_decoder.h.",
+      "parentUuid": "bd61feb9_6affd11b",
+      "revId": "67a26b7d46b3ec2b3fb07db6620461c7e4a9e429",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

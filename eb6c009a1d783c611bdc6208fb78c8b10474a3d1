@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eb9f6466_06337528",
+        "filename": "modules/audio_processing/aec3/cascaded_biquad_filter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-05-31T09:32:46Z",
+      "side": 1,
+      "message": "Is constructor needed? Cant it be deleted?",
+      "revId": "eb6c009a1d783c611bdc6208fb78c8b10474a3d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1293cbf_a25cbfe5",
+        "filename": "modules/audio_processing/aec3/cascaded_biquad_filter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-05-31T09:32:46Z",
+      "side": 1,
+      "message": "nit 1.f",
+      "range": {
+        "startLine": 33,
+        "startChar": 29,
+        "endLine": 33,
+        "endChar": 33
+      },
+      "revId": "eb6c009a1d783c611bdc6208fb78c8b10474a3d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "739ee363_06af9688",
+        "filename": "modules/audio_processing/aec3/cascaded_biquad_filter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-05-31T09:32:46Z",
+      "side": 1,
+      "message": "Is this initizalization needed? Is it not sufficient to in the initializer list do biquads_(num_biquads, BiQuad(coefficients)) ?",
+      "revId": "eb6c009a1d783c611bdc6208fb78c8b10474a3d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb2cbd87_329767a6",
+        "filename": "modules/audio_processing/aec3/cascaded_biquad_filter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-05-31T09:32:46Z",
+      "side": 1,
+      "message": "Same question as above",
+      "range": {
+        "startLine": 51,
+        "startChar": 2,
+        "endLine": 51,
+        "endChar": 5
+      },
+      "revId": "eb6c009a1d783c611bdc6208fb78c8b10474a3d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53a31538_6adfca43",
+        "filename": "modules/audio_processing/aec3/cascaded_biquad_filter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-05-31T09:32:46Z",
+      "side": 1,
+      "message": "The style guide requires a reference parameter to be const.",
+      "revId": "eb6c009a1d783c611bdc6208fb78c8b10474a3d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

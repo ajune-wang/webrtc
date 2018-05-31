@@ -70,6 +70,30 @@
       "revId": "1e11004796ffa79105a745ece291dc65a0bdbe19",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a679fbf0_c891e22d",
+        "filename": "modules/desktop_capture/cropping_window_capturer_win.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 6175
+      },
+      "writtenOn": "2018-05-31T17:06:01Z",
+      "side": 1,
+      "message": "I\u0027m afraid it\u0027s not very feasible. It\u0027s way too hard to testify the failure of GDI methods. Not all the app windows will give error result to printWindow/BitBlt. Some example: Chrome window, it will give success result with all back frames; Word window, it will always output the same frame at beginning of capture, which makes peer think the sharing is stalled.\n\nYes there definitely will be a long tail of all kind of failure cases. So headache...",
+      "parentUuid": "8a77bfad_de64e7a1",
+      "range": {
+        "startLine": 50,
+        "startChar": 23,
+        "endLine": 51,
+        "endChar": 0
+      },
+      "revId": "1e11004796ffa79105a745ece291dc65a0bdbe19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

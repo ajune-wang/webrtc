@@ -164,6 +164,30 @@
       "revId": "408f0019fb07b581be7e27abfa272e20f5493dfb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2d3a4bec_1d4c7e58",
+        "filename": "modules/congestion_controller/bbr/loss_rate_filter_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-05-31T10:34:03Z",
+      "side": 1,
+      "message": "Yeah, it was due to alignment with the seconds interval timer. Not very obvious. I replaced this with something more clear and useful.",
+      "parentUuid": "596b9032_51f88ce4",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 47
+      },
+      "revId": "408f0019fb07b581be7e27abfa272e20f5493dfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

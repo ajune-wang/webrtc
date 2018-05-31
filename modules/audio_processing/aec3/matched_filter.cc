@@ -19,7 +19,6 @@
 #include <algorithm>
 #include <numeric>
 
-#include "api/audio/echo_canceller3_config.h"
 #include "modules/audio_processing/logging/apm_data_dumper.h"
 #include "rtc_base/logging.h"
 
@@ -30,6 +29,7 @@ namespace aec3 {
 
 void MatchedFilterCore_NEON(size_t x_start_index,
                             float x2_sum_threshold,
+                            float step_size,
                             rtc::ArrayView<const float> x,
                             rtc::ArrayView<const float> y,
                             rtc::ArrayView<float> h,
@@ -100,10 +100,10 @@ void MatchedFilterCore_NEON(size_t x_start_index,
     // Update the matched filter estimate in an NLMS manner.
     if (x2_sum > x2_sum_threshold && !saturation) {
       RTC_DCHECK_LT(0.f, x2_sum);
-      const float alpha = 0.7f * e / x2_sum;
+      const float alpha = step_size * e / x2_sum;
       const float32x4_t alpha_128 = vmovq_n_f32(alpha);
 
-      // filter = filter + 0.7 * (y - filter * x) / x * x.
+      // filter = filter + alpha * (y - filter * x) / x * x.
       float* h_p = &h[0];
       x_p = &x[x_start_index];
 
@@ -143,6 +143,7 @@ void MatchedFilterCore_NEON(size_t x_start_index,
 
 void MatchedFilterCore_SSE2(size_t x_start_index,
                             float x2_sum_threshold,
+                            float step_size,
                             rtc::ArrayView<const float> x,
                             rtc::ArrayView<const float> y,
                             rtc::ArrayView<float> h,
@@ -215,10 +216,10 @@ void MatchedFilterCore_SSE2(size_t x_start_index,
     // Update the matched filter estimate in an NLMS manner.
     if (x2_sum > x2_sum_threshold && !saturation) {
       RTC_DCHECK_LT(0.f, x2_sum);
-      const float alpha = 0.7f * e / x2_sum;
+      const float alpha = step_size * e / x2_sum;
       const __m128 alpha_128 = _mm_set1_ps(alpha);
 
-      // filter = filter + 0.7 * (y - filter * x) / x * x.
+      // filter = filter + alpha * (y - filter * x) / x * x.
       float* h_p = &h[0];
       x_p = &x[x_start_index];
 
@@ -257,6 +258,7 @@ void MatchedFilterCore_SSE2(size_t x_start_index,
 
 void MatchedFilterCore(size_t x_start_index,
                        float x2_sum_threshold,
+                       float step_size,
                        rtc::ArrayView<const float> x,
                        rtc::ArrayView<const float> y,
                        rtc::ArrayView<float> h,
@@ -286,9 +288,9 @@ void MatchedFilterCore(size_t x_start_index,
     // Update the matched filter estimate in an NLMS manner.
     if (x2_sum > x2_sum_threshold && !saturation) {
       RTC_DCHECK_LT(0.f, x2_sum);
-      const float alpha = 0.7f * e / x2_sum;
+      const float alpha = step_size * e / x2_sum;
 
-      // filter = filter + 0.7 * (y - filter * x) / x * x.
+      // filter = filter + alpha * (y - filter * x) / x * x.
       size_t x_index = x_start_index;
       for (size_t k = 0; k < h.size(); ++k) {
         h[k] += alpha * x[x_index];
@@ -303,25 +305,28 @@ void MatchedFilterCore(size_t x_start_index,
 
 }  // namespace aec3
 
-MatchedFilter::MatchedFilter(ApmDataDumper* data_dumper,
-                             Aec3Optimization optimization,
-                             size_t sub_block_size,
-                             size_t window_size_sub_blocks,
-                             int num_matched_filters,
-                             size_t alignment_shift_sub_blocks,
-                             float excitation_limit)
+MatchedFilter::MatchedFilter(
+    ApmDataDumper* data_dumper,
+    Aec3Optimization optimization,
+    const EchoCanceller3Config::Delay::MatchedFilters& config,
+    size_t sub_block_size)
     : data_dumper_(data_dumper),
       optimization_(optimization),
+      config_(config),
       sub_block_size_(sub_block_size),
-      filter_intra_lag_shift_(alignment_shift_sub_blocks * sub_block_size_),
+      detection_threshold_(config_.detection_threshold),
+      filter_intra_lag_shift_((config_.filter_size_sub_blocks -
+                               config_.filter_alignment_overlap_sub_blocks) *
+                              sub_block_size_),
       filters_(
-          num_matched_filters,
-          std::vector<float>(window_size_sub_blocks * sub_block_size_, 0.f)),
-      lag_estimates_(num_matched_filters),
-      filters_offsets_(num_matched_filters, 0),
-      excitation_limit_(excitation_limit) {
+          config_.num_filters,
+          std::vector<float>(config_.filter_size_sub_blocks * sub_block_size_,
+                             0.f)),
+      lag_estimates_(config_.num_filters),
+      filters_offsets_(config_.num_filters, 0),
+      excitation_limit_(config_.poor_excitation_render_limit) {
   RTC_DCHECK(data_dumper);
-  RTC_DCHECK_LT(0, window_size_sub_blocks);
+  RTC_DCHECK_LT(0, config_.filter_size_sub_blocks);
   RTC_DCHECK((kBlockSize % sub_block_size) == 0);
   RTC_DCHECK((sub_block_size % 4) == 0);
 }
@@ -359,22 +364,22 @@ void MatchedFilter::Update(const DownsampledRenderBuffer& render_buffer,
     switch (optimization_) {
 #if defined(WEBRTC_ARCH_X86_FAMILY)
       case Aec3Optimization::kSse2:
-        aec3::MatchedFilterCore_SSE2(x_start_index, x2_sum_threshold,
-                                     render_buffer.buffer, y, filters_[n],
-                                     &filters_updated, &error_sum);
+        aec3::MatchedFilterCore_SSE2(
+            x_start_index, x2_sum_threshold, config_.estimator_smoothing,
+            render_buffer.buffer, y, filters_[n], &filters_updated, &error_sum);
         break;
 #endif
 #if defined(WEBRTC_HAS_NEON)
       case Aec3Optimization::kNeon:
-        aec3::MatchedFilterCore_NEON(x_start_index, x2_sum_threshold,
-                                     render_buffer.buffer, y, filters_[n],
-                                     &filters_updated, &error_sum);
+        aec3::MatchedFilterCore_NEON(
+            x_start_index, x2_sum_threshold, config_.estimator_smoothing,
+            render_buffer.buffer, y, filters_[n], &filters_updated, &error_sum);
         break;
 #endif
       default:
-        aec3::MatchedFilterCore(x_start_index, x2_sum_threshold,
-                                render_buffer.buffer, y, filters_[n],
-                                &filters_updated, &error_sum);
+        aec3::MatchedFilterCore(
+            x_start_index, x2_sum_threshold, config_.estimator_smoothing,
+            render_buffer.buffer, y, filters_[n], &filters_updated, &error_sum);
     }
 
     // Compute anchor for the matched filter error.
@@ -391,11 +396,10 @@ void MatchedFilter::Update(const DownsampledRenderBuffer& render_buffer,
             [](float a, float b) -> bool { return a * a < b * b; }));
 
     // Update the lag estimates for the matched filter.
-    const float kMatchingFilterThreshold = 0.2f;
     lag_estimates_[n] = LagEstimate(
         error_sum_anchor - error_sum,
         (lag_estimate > 2 && lag_estimate < (filters_[n].size() - 10) &&
-         error_sum < kMatchingFilterThreshold * error_sum_anchor),
+         error_sum < detection_threshold_ * error_sum_anchor),
         lag_estimate + alignment_shift, filters_updated);
 
     RTC_DCHECK_GE(10, filters_.size());

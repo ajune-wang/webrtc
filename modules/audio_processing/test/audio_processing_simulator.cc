@@ -167,8 +167,6 @@ EchoCanceller3Config ParseAec3Parameters(const std::string& filename) {
   Json::Value section;
   if (rtc::GetValueFromJsonObject(root, "delay", &section)) {
     ReadParam(section, "default_delay", &cfg.delay.default_delay);
-    ReadParam(section, "down_sampling_factor", &cfg.delay.down_sampling_factor);
-    ReadParam(section, "num_filters", &cfg.delay.num_filters);
     ReadParam(section, "api_call_jitter_blocks",
               &cfg.delay.api_call_jitter_blocks);
     ReadParam(section, "min_echo_path_delay_blocks",
@@ -181,6 +179,25 @@ EchoCanceller3Config ParseAec3Parameters(const std::string& filename) {
               &cfg.delay.hysteresis_limit_2_blocks);
     ReadParam(section, "skew_hysteresis_blocks",
               &cfg.delay.skew_hysteresis_blocks);
+    ReadParam(section, "histogram_size", &cfg.delay.histogram_size);
+    ReadParam(section, "histogram_threshold", &cfg.delay.histogram_threshold);
+    Json::Value subsection;
+    if (rtc::GetValueFromJsonObject(section, "matched_filters", &subsection)) {
+      ReadParam(subsection, "down_sampling_factor",
+                &cfg.delay.matched_filters.down_sampling_factor);
+      ReadParam(subsection, "num_filters",
+                &cfg.delay.matched_filters.num_filters);
+      ReadParam(subsection, "filter_size_sub_blocks",
+                &cfg.delay.matched_filters.filter_size_sub_blocks);
+      ReadParam(subsection, "filter_alignment_overlap_sub_blocks",
+                &cfg.delay.matched_filters.filter_alignment_overlap_sub_blocks);
+      ReadParam(subsection, "estimator_smoothing",
+                &cfg.delay.matched_filters.estimator_smoothing);
+      ReadParam(subsection, "poor_excitation_render_limit",
+                &cfg.delay.matched_filters.poor_excitation_render_limit);
+      ReadParam(subsection, "detection_threshold",
+                &cfg.delay.matched_filters.detection_threshold);
+    }
   }
 
   if (rtc::GetValueFromJsonObject(root, "filter", &section)) {

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4b11f81c_7e7e7945",
+        "filename": "common_types.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 411,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-05-31T09:13:39Z",
+      "side": 1,
+      "message": "I suspect the RED, ULPFEC and Flexfec values are there only for historical reasons and could be deleted. I can\u0027t find any interesting use of them.",
+      "parentUuid": "bda3826e_95582d4c",
+      "range": {
+        "startLine": 411,
+        "startChar": 5,
+        "endLine": 411,
+        "endChar": 19
+      },
+      "revId": "6628e05039052fc6421bbb8813e8b25b1f150306",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "42d9e3b1_107ce1d4",
         "filename": "modules/rtp_rtcp/source/rtp_format.h",
         "patchSetId": 6
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "27cf2456_48233327",
+        "filename": "modules/rtp_rtcp/source/rtp_format.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-05-31T09:13:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "42d9e3b1_107ce1d4",
+      "revId": "6628e05039052fc6421bbb8813e8b25b1f150306",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "26a67853_ed07a54a",
         "filename": "video/payload_router.cc",
         "patchSetId": 6
@@ -53,6 +95,30 @@
       "writtenOn": "2018-05-31T08:17:27Z",
       "side": 1,
       "message": "this branch behave slighly differently,\nI guess it is not a problem.",
+      "range": {
+        "startLine": 87,
+        "startChar": 4,
+        "endLine": 87,
+        "endChar": 11
+      },
+      "revId": "6628e05039052fc6421bbb8813e8b25b1f150306",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "effa1044_ac1cdf3c",
+        "filename": "video/payload_router.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-05-31T09:13:39Z",
+      "side": 1,
+      "message": "Before this change, rtp-\u003ecodec was unchanged for this branched, and it\u0027s set to zero (by memset(!)) by the caller. Not sure what rtp-\u003ecodec is used for? I can change it back to 0/kVideoCodecUnknown/kRtpVideoCodecNone, if you think it is used.\n\nLooks like this RTPVideoHeader is passed on to SendOutgoingData on an rtp module.",
+      "parentUuid": "26a67853_ed07a54a",
       "range": {
         "startLine": 87,
         "startChar": 4,

@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bda3826e_95582d4c",
+        "filename": "common_types.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 411,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-05-31T08:17:27Z",
+      "side": 1,
+      "message": "I wonder if you can also find better name/description for this enum:\ne.g. enum VideoPayloadType seems more reasonable, looking at values.",
+      "range": {
+        "startLine": 411,
+        "startChar": 5,
+        "endLine": 411,
+        "endChar": 19
+      },
+      "revId": "6628e05039052fc6421bbb8813e8b25b1f150306",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "42d9e3b1_107ce1d4",
+        "filename": "modules/rtp_rtcp/source/rtp_format.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-05-31T08:17:27Z",
+      "side": 1,
+      "message": "may be add the #include \"common_types.h\"",
+      "revId": "6628e05039052fc6421bbb8813e8b25b1f150306",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26a67853_ed07a54a",
+        "filename": "video/payload_router.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-05-31T08:17:27Z",
+      "side": 1,
+      "message": "this branch behave slighly differently,\nI guess it is not a problem.",
+      "range": {
+        "startLine": 87,
+        "startChar": 4,
+        "endLine": 87,
+        "endChar": 11
+      },
+      "revId": "6628e05039052fc6421bbb8813e8b25b1f150306",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

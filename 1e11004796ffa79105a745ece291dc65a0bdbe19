@@ -46,6 +46,30 @@
       "revId": "1e11004796ffa79105a745ece291dc65a0bdbe19",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a77bfad_de64e7a1",
+        "filename": "modules/desktop_capture/cropping_window_capturer_win.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5166
+      },
+      "writtenOn": "2018-05-31T00:53:20Z",
+      "side": 1,
+      "message": "So that window is treated specially because it will almost certainly be present? That makes sense, although I still think that the fundamental problem here is not that that window might occlude the one the user is trying to share; it\u0027s that the window the user is trying to share might not be capturable using GDI. If that failure mode is detectable, then the ideal solution is to run a simplified occlusion test for windows that are capturable with GDI, and always use clipping for windows that aren\u0027t. Otherwise I worry that you\u0027re eventually going to run into a long tail of failure cases, each needing their own specific workaround.\n\nAssuming it\u0027s not possible to solve this completely, this seems like a good compromise.",
+      "parentUuid": "45795b00_56ed5f8d",
+      "range": {
+        "startLine": 50,
+        "startChar": 23,
+        "endLine": 51,
+        "endChar": 0
+      },
+      "revId": "1e11004796ffa79105a745ece291dc65a0bdbe19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

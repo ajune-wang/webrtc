@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d957f830_f48d81c7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-05-31T13:18:33Z",
+      "side": 1,
+      "message": "\"grouping\" is a very general term. Please be more precise, both in commit message and code.\n\nE.g, you could call it \"quantized arrival times\", or \"burst arrival\". \"clumped together\" is also a phrase that seems to appear in the literature (but not sure if that\u0027s quite the same effect as quantizing the arrival times like in this cl).\n\nIt would also be nice to explain what kind of network you intend to model with these new settings.",
+      "range": {
+        "startLine": 7,
+        "startChar": 5,
+        "endLine": 7,
+        "endChar": 13
+      },
+      "revId": "944e511b4a669cb5bce103135ca8c3ca5e983fea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a9c3763_22803a47",
+        "filename": "call/fake_network_pipe.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-05-31T13:18:33Z",
+      "side": 1,
+      "message": "RoundUpToMultiple ?",
+      "range": {
+        "startLine": 31,
+        "startChar": 8,
+        "endLine": 31,
+        "endChar": 18
+      },
+      "revId": "944e511b4a669cb5bce103135ca8c3ca5e983fea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ccd3c8ea_723bed76",
+        "filename": "call/fake_network_pipe.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-05-31T13:18:33Z",
+      "side": 1,
+      "message": "I wonder if there\u0027s a clearer way to write this, in particular, reusing the same variable for the quotient is not so nice. I\u0027d suggest either\n\nconst int64_t count \u003d (value + quantization - 1) / quantization;\nreturn count * quantization;\n\nor\n\nconst int64_t remainder \u003d value % quantization;\nif (remainder)\n  value +\u003d quantization - remainder;\nreturn value;\n\nYou could also simplify code at the call sites slightly, by\n\nif (!quantization)\n  return value;\n\nat the start of this function.",
+      "range": {
+        "startLine": 33,
+        "startChar": 2,
+        "endLine": 33,
+        "endChar": 24
+      },
+      "revId": "944e511b4a669cb5bce103135ca8c3ca5e983fea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

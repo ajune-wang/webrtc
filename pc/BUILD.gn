@@ -485,6 +485,7 @@ if (rtc_include_tests) {
       "../api:libjingle_peerconnection_api",
       "../api:mock_rtp",
       "../api/units:time_delta",
+      "../logging:rtc_event_log_fake_impl",
       "../rtc_base:checks",
       "../rtc_base:stringutils",
       "../test:fileutils",

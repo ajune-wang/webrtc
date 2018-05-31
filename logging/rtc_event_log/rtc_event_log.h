@@ -19,7 +19,13 @@
 #include "logging/rtc_event_log/events/rtc_event.h"
 #include "rtc_base/task_queue.h"
 
+namespace rtc {
+class Thread;
+}
+
 namespace webrtc {
+
+class FakeMetricsObserver;
 
 // TODO(terelius): Move this to the parser.
 enum PacketDirection { kIncomingPacket = 0, kOutgoingPacket };

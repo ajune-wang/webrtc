@@ -29,6 +29,7 @@ enum class IceCandidatePairEventType {
   kCheckReceived,
   kCheckResponseSent,
   kCheckResponseReceived,
+  kNumEventTypes,
 };
 
 class RtcEventIceCandidatePair final : public RtcEvent {

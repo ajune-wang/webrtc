@@ -76,7 +76,8 @@ class JsepTransportControllerTest : public JsepTransportController::Observer,
     // The tests only works with |fake_transport_factory|;
     config.external_transport_factory = fake_transport_factory_.get();
     transport_controller_ = rtc::MakeUnique<JsepTransportController>(
-        signaling_thread, network_thread, port_allocator, config);
+        signaling_thread, network_thread, port_allocator, config,
+        nullptr /* event_log */);
     ConnectTransportControllerSignals();
   }
 

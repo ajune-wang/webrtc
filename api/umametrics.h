@@ -37,6 +37,7 @@ enum PeerConnectionEnumCounterType {
   kEnumCounterDtlsHandshakeError,
   kEnumCounterIceRegathering,
   kEnumCounterIceRestart,
+  kEnumCounterIceEvent,
   kEnumCounterKeyProtocol,
   kEnumCounterSdpSemanticRequested,
   kEnumCounterSdpSemanticNegotiated,

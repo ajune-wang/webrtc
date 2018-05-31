@@ -15,6 +15,8 @@ namespace webrtc {
 
 FakeMetricsObserver::FakeMetricsObserver() {
   Reset();
+  // Allow FakeMetricObserver to be created on a different thread.
+  thread_checker_.DetachFromThread();
 }
 
 void FakeMetricsObserver::Reset() {

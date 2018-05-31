@@ -44,13 +44,21 @@ bool LoadAudiosesDll() {
           nullptr);
 }
 
+bool LoadAvrtDll() {
+  static const wchar_t* const kAvrtDLL = L"%WINDIR%\\system32\\Avrt.dll";
+  wchar_t path[MAX_PATH] = {0};
+  ExpandEnvironmentStringsW(kAvrtDLL, path, arraysize(path));
+  RTC_DLOG(INFO) << rtc::ToUtf8(path);
+  return (LoadLibraryExW(path, nullptr, LOAD_WITH_ALTERED_SEARCH_PATH) !=
+          nullptr);
+}
+
 ComPtr<IMMDeviceEnumerator> CreateDeviceEnumeratorInternal(
     bool allow_reinitialize) {
   ComPtr<IMMDeviceEnumerator> device_enumerator;
-  _com_error error = ::CoCreateInstance(__uuidof(MMDeviceEnumerator), nullptr,
-                                        CLSCTX_INPROC_SERVER,
-                                        IID_PPV_ARGS(&device_enumerator));
-
+  _com_error error =
+      ::CoCreateInstance(__uuidof(MMDeviceEnumerator), nullptr, CLSCTX_ALL,
+                         IID_PPV_ARGS(&device_enumerator));
   if (error.Error() != S_OK) {
     RTC_LOG(LS_ERROR) << "CoCreateInstance failed: " << ErrorToString(error);
   }
@@ -64,8 +72,7 @@ ComPtr<IMMDeviceEnumerator> CreateDeviceEnumeratorInternal(
     error = CoInitializeEx(nullptr, COINIT_MULTITHREADED);
     if (error.Error() != S_OK) {
       error = ::CoCreateInstance(__uuidof(MMDeviceEnumerator), nullptr,
-                                 CLSCTX_INPROC_SERVER,
-                                 IID_PPV_ARGS(&device_enumerator));
+                                 CLSCTX_ALL, IID_PPV_ARGS(&device_enumerator));
       if (error.Error() != S_OK) {
         RTC_LOG(LS_ERROR) << "CoCreateInstance failed: "
                           << ErrorToString(error);
@@ -181,6 +188,45 @@ std::string GetDeviceFriendlyNameInternal(IMMDevice* device) {
   }
 }
 
+ComPtr<IAudioSessionManager2> CreateSessionManager2Internal(
+    IMMDevice* audio_device) {
+  if (!audio_device)
+    return ComPtr<IAudioSessionManager2>();
+
+  ComPtr<IAudioSessionManager2> audio_session_manager;
+  _com_error error =
+      audio_device->Activate(__uuidof(IAudioSessionManager2), CLSCTX_ALL,
+                             nullptr, &audio_session_manager);
+  if (error.Error() != S_OK) {
+    RTC_LOG(LS_ERROR) << "IMMDevice::Activate(IAudioSessionManager2) failed: "
+                      << ErrorToString(error);
+  }
+  return audio_session_manager;
+}
+
+ComPtr<IAudioSessionEnumerator> CreateSessionEnumeratorInternal(
+    IMMDevice* audio_device) {
+  if (!audio_device) {
+    return ComPtr<IAudioSessionEnumerator>();
+  }
+
+  ComPtr<IAudioSessionEnumerator> audio_session_enumerator;
+  ComPtr<IAudioSessionManager2> audio_session_manager =
+      CreateSessionManager2Internal(audio_device);
+  if (!audio_session_manager.Get()) {
+    return audio_session_enumerator;
+  }
+  _com_error error =
+      audio_session_manager->GetSessionEnumerator(&audio_session_enumerator);
+  if (error.Error() != S_OK) {
+    RTC_LOG(LS_ERROR)
+        << "IAudioSessionEnumerator::IAudioSessionEnumerator failed: "
+        << ErrorToString(error);
+    return ComPtr<IAudioSessionEnumerator>();
+  }
+  return audio_session_enumerator;
+}
+
 // Creates and activates an IAudioClient COM object given the selected
 // endpoint device.
 ComPtr<IAudioClient> CreateClientInternal(IMMDevice* audio_device) {
@@ -188,8 +234,8 @@ ComPtr<IAudioClient> CreateClientInternal(IMMDevice* audio_device) {
     return ComPtr<IAudioClient>();
 
   ComPtr<IAudioClient> audio_client;
-  _com_error error = audio_device->Activate(
-      __uuidof(IAudioClient), CLSCTX_INPROC_SERVER, nullptr, &audio_client);
+  _com_error error = audio_device->Activate(__uuidof(IAudioClient), CLSCTX_ALL,
+                                            nullptr, &audio_client);
   if (error.Error() != S_OK) {
     RTC_LOG(LS_ERROR) << "IMMDevice::Activate(IAudioClient) failed: "
                       << ErrorToString(error);
@@ -202,8 +248,8 @@ ComPtr<IAudioClient2> CreateClient2Internal(IMMDevice* audio_device) {
     return ComPtr<IAudioClient2>();
 
   ComPtr<IAudioClient2> audio_client;
-  _com_error error = audio_device->Activate(
-      __uuidof(IAudioClient2), CLSCTX_INPROC_SERVER, nullptr, &audio_client);
+  _com_error error = audio_device->Activate(__uuidof(IAudioClient2), CLSCTX_ALL,
+                                            nullptr, &audio_client);
   if (error.Error() != S_OK) {
     RTC_LOG(LS_ERROR) << "IMMDevice::Activate(IAudioClient2) failed: "
                       << ErrorToString(error);
@@ -346,8 +392,14 @@ HRESULT GetPreferredAudioParametersInternal(IAudioClient* client,
 namespace core_audio_utility {
 
 bool IsSupported() {
+  RTC_DLOG(INFO) << "IsSupported";
   static bool g_is_supported = IsSupportedInternal();
   return g_is_supported;
+}
+
+bool IsMMCSSSupported() {
+  RTC_DLOG(INFO) << "IsMMCSSSupported";
+  return LoadAvrtDll();
 }
 
 int NumberOfActiveDevices(EDataFlow data_flow) {
@@ -466,6 +518,57 @@ bool GetOutputDeviceNames(webrtc::AudioDeviceNames* device_names) {
   RTC_DLOG(INFO) << "GetOutputDeviceNames";
   RTC_DCHECK(device_names);
   return GetDeviceNamesInternal(eRender, device_names);
+}
+
+ComPtr<IAudioSessionManager2> CreateSessionManager2(IMMDevice* device) {
+  RTC_DLOG(INFO) << "CreateSessionManager2";
+  return CreateSessionManager2Internal(device);
+}
+
+Microsoft::WRL::ComPtr<IAudioSessionEnumerator> CreateSessionEnumerator(
+    IMMDevice* device) {
+  RTC_DLOG(INFO) << "CreateSessionEnumerator";
+  return CreateSessionEnumeratorInternal(device);
+}
+
+int NumberOfActiveSessions(IMMDevice* device) {
+  RTC_DLOG(INFO) << "NumberOfActiveSessions";
+  ComPtr<IAudioSessionEnumerator> session_enumerator =
+      CreateSessionEnumerator(device);
+
+  // Iterate over all audio sessions for the given device.
+  int session_count = 0;
+  _com_error error = session_enumerator->GetCount(&session_count);
+  if (error.Error() != S_OK) {
+    RTC_LOG(LS_ERROR) << "IAudioSessionEnumerator::GetCount failed: "
+                      << ErrorToString(error);
+    return 0;
+  }
+  RTC_DLOG(INFO) << "Total number of audio sessions: " << session_count;
+
+  int num_active = 0;
+  for (int session = 0; session < session_count; session++) {
+    ComPtr<IAudioSessionControl> session_control;
+    error = session_enumerator->GetSession(session, &session_control);
+    if (error.Error() != S_OK) {
+      RTC_LOG(LS_ERROR) << "IAudioSessionEnumerator::GetSession failed: "
+                        << ErrorToString(error);
+      return 0;
+    }
+    AudioSessionState state;
+    error = session_control->GetState(&state);
+    if (error.Error() != S_OK) {
+      RTC_LOG(LS_ERROR) << "IAudioSessionControl::GetState failed: "
+                        << ErrorToString(error);
+      return 0;
+    }
+    if (state == AudioSessionStateActive) {
+      ++num_active;
+    }
+  }
+
+  RTC_DLOG(INFO) << "Number of active audio sessions: " << num_active;
+  return num_active;
 }
 
 ComPtr<IAudioClient> CreateClient(const std::string& device_id,
@@ -624,11 +727,12 @@ HRESULT SharedModeInitialize(IAudioClient* client,
                              uint32_t* endpoint_buffer_size) {
   RTC_DLOG(INFO) << "SharedModeInitialize";
   RTC_DCHECK(client);
-  // Use default flags (i.e, don't set AUDCLNT_STREAMFLAGS_NOPERSIST) to
-  // ensure that the volume level and muting state for a rendering session
-  // are persistent across system restarts. The volume level and muting
-  // state for a capture session are never persistent.
-  DWORD stream_flags = 0;
+  // The AUDCLNT_STREAMFLAGS_NOPERSIST flag disables persistence of the volume
+  // and mute settings for a session that contains rendering streams.
+  // By default, the volume level and muting state for a rendering session are
+  // persistent across system restarts. The volume level and muting state for a
+  // capture session are never persistent.
+  DWORD stream_flags = AUDCLNT_STREAMFLAGS_NOPERSIST;
 
   // Enable event-driven streaming if a valid event handle is provided.
   // After the stream starts, the audio engine will signal the event handle
@@ -737,6 +841,22 @@ ComPtr<IAudioClock> CreateAudioClock(IAudioClient* client) {
     return ComPtr<IAudioClock>();
   }
   return audio_clock;
+}
+
+ComPtr<ISimpleAudioVolume> CreateSimpleAudioVolume(IAudioClient* client) {
+  RTC_DLOG(INFO) << "CreateSimpleAudioVolume";
+  RTC_DCHECK(client);
+  // Get access to the ISimpleAudioVolume interface. This interface enables a
+  // client to control the master volume level of an audio session.
+  ComPtr<ISimpleAudioVolume> simple_audio_volume;
+  _com_error error = client->GetService(IID_PPV_ARGS(&simple_audio_volume));
+  if (error.Error() != S_OK) {
+    RTC_LOG(LS_ERROR)
+        << "IAudioClient::GetService(IID_ISimpleAudioVolume) failed: "
+        << ErrorToString(error);
+    return ComPtr<ISimpleAudioVolume>();
+  }
+  return simple_audio_volume;
 }
 
 bool FillRenderEndpointBufferWithSilence(IAudioClient* client,

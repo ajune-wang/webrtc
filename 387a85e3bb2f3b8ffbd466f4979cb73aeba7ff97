@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bfaf4e8c_f9080076",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 1474,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-31T20:20:29Z",
+      "side": 1,
+      "message": "May want to wait until https://webrtc-review.googlesource.com/#/c/79720/ lands, so we won\u0027t have to create another CreatePeerConnectionFactory overload.",
+      "revId": "387a85e3bb2f3b8ffbd466f4979cb73aeba7ff97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ce5bc7a_c34654c4",
+        "filename": "logging/rtc_event_log/fake_rtc_event_log.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-31T20:20:29Z",
+      "side": 1,
+      "message": "Is MetricObserverInterface being used just to verify that \"Log\" was called? MetricsObserverInterface isn\u0027t really meant to be a generic callback interface for tests; it\u0027s used for UMA metrics (see go/uma). In this case you don\u0027t need an extra observer class, you could just have the test get a count from the FakeRtcEventLog or FakeRtcEventLogFactory directly, like this:\n\n  // Hold onto raw pointer to the factory so we can get a pointer to the created log later.\n  FakeRtcEventLogFactory* fake_factory \u003d new FakeRtcEventLogFactory(thread);\n  CreatePeerConnection(..., rtc::WrapUnique(fake_factory));\n  // ...\n  FakeRtcEventLog* fake_log \u003d fake_factory-\u003elast_created_log();\n  ASSERT_NE(nullptr, fake_log);\n  EXPECT_GT(fake_log-\u003eice_event_count(), 0U);\n\nIt may even be possible to use RtcEventLogOutput for this purpose. Though it only sees an opaque string, so you\u0027d need to parse it to see whether it\u0027s an ICE event or not.",
+      "revId": "387a85e3bb2f3b8ffbd466f4979cb73aeba7ff97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "391f9f7d_65dba01e",
+        "filename": "logging/rtc_event_log/fake_rtc_event_log_factory.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-31T20:20:29Z",
+      "side": 1,
+      "message": "nit: I don\u0027t see the need for a factory method, when it can already be constructed directly.",
+      "revId": "387a85e3bb2f3b8ffbd466f4979cb73aeba7ff97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d90e9f3f_15935ec0",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-31T20:20:29Z",
+      "side": 1,
+      "message": "I\u0027d suggest removing the default value of nullptr for the RtcEventLog argument of the P2PTransportChannel constructor. If it didn\u0027t have a default value we would have noticed this problem earlier since compilation of JsepTransportController would have failed.",
+      "revId": "387a85e3bb2f3b8ffbd466f4979cb73aeba7ff97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e57f76d6_9d3ed11c",
+        "filename": "pc/jseptransportcontroller.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-31T20:20:29Z",
+      "side": 1,
+      "message": "Add to Config instead? Config is being used for all optional injectable objects.",
+      "revId": "387a85e3bb2f3b8ffbd466f4979cb73aeba7ff97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6695415_b07e9ec7",
+        "filename": "pc/peerconnection_integrationtest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 4420,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-31T20:20:29Z",
+      "side": 1,
+      "message": "nit: Doesn\u0027t really need media, just needs ICE. So could use offer_to_receive_audio instead of adding tracks.",
+      "revId": "387a85e3bb2f3b8ffbd466f4979cb73aeba7ff97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d339332_630fb92a",
+        "filename": "pc/peerconnection_integrationtest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 4425,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-31T20:20:29Z",
+      "side": 1,
+      "message": "nit: Doesn\u0027t really need to wait for frames to be received, just needs to wait for ICE to get connected",
+      "revId": "387a85e3bb2f3b8ffbd466f4979cb73aeba7ff97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f50cb4a8_59299279",
+        "filename": "pc/peerconnection_integrationtest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 4432,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-31T20:20:29Z",
+      "side": 1,
+      "message": "Why does the test need to explicitly close the connections?",
+      "revId": "387a85e3bb2f3b8ffbd466f4979cb73aeba7ff97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -938,7 +938,8 @@ bool PeerConnection::Initialize(
   config.enable_external_auth = true;
 #endif
   transport_controller_.reset(new JsepTransportController(
-      signaling_thread(), network_thread(), port_allocator_.get(), config));
+      signaling_thread(), network_thread(), port_allocator_.get(), config,
+      event_log_.get()));
   transport_controller_->SignalIceConnectionState.connect(
       this, &PeerConnection::OnTransportControllerConnectionState);
   transport_controller_->SignalIceGatheringState.connect(

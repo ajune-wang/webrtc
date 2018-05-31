@@ -34,6 +34,13 @@ void CascadedBiQuadFilter::Process(rtc::ArrayView<float> y) {
   }
 }
 
+void CascadedBiQuadFilter::Reset() {
+  for (auto& biquad : biquad_states_) {
+    biquad.x[0] = biquad.x[1] = 0.f;
+    biquad.y[0] = biquad.y[1] = 0.f;
+  }
+}
+
 void CascadedBiQuadFilter::ApplyBiQuad(
     rtc::ArrayView<const float> x,
     rtc::ArrayView<float> y,

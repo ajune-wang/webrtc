@@ -41,6 +41,8 @@ class CascadedBiQuadFilter {
   void Process(rtc::ArrayView<const float> x, rtc::ArrayView<float> y);
   // Applies the biquads on the values in y in an in-place manner.
   void Process(rtc::ArrayView<float> y);
+  // Resets the filter state.
+  void Reset();
 
  private:
   void ApplyBiQuad(rtc::ArrayView<const float> x,

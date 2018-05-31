@@ -140,6 +140,30 @@
       "revId": "408f0019fb07b581be7e27abfa272e20f5493dfb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "596b9032_51f88ce4",
+        "filename": "modules/congestion_controller/bbr/loss_rate_filter_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-05-31T08:43:58Z",
+      "side": 1,
+      "message": "Yes, but it seems to me that the filter should have seen 20 packets sent and 1 lost during the last 1 second. Shouldn\u0027t this give an estimate of 0.05?",
+      "parentUuid": "3ddac0f5_9c80a316",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 47
+      },
+      "revId": "408f0019fb07b581be7e27abfa272e20f5493dfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -16,6 +16,47 @@
       "revId": "4d3a7f5b2f2a0a974429ea4b71f4f0c41f6d7605",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f90904c_c53a7bae",
+        "filename": "api/video_codecs/video_codec.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-05-31T11:54:55Z",
+      "side": 1,
+      "message": "No, it\u0027s needed for VideoCodecType and a few other things. Which I didn\u0027t want to move here, since they have uses outside of the VideoCodec class.",
+      "parentUuid": "5dd8a963_31982787",
+      "revId": "4d3a7f5b2f2a0a974429ea4b71f4f0c41f6d7605",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2aeac73d_0be88195",
+        "filename": "api/video_codecs/video_codec.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-05-31T11:54:55Z",
+      "side": 1,
+      "message": "This comment is intended to discourage use of this class. Suggestions for making it clearer?",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 20
+      },
+      "revId": "4d3a7f5b2f2a0a974429ea4b71f4f0c41f6d7605",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

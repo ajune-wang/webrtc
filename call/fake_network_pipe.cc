@@ -27,6 +27,13 @@ namespace webrtc {
 namespace {
 constexpr int64_t kDefaultProcessIntervalMs = 5;
 constexpr int64_t kLogIntervalMs = 5000;
+
+int64_t QuantizeBy(int64_t value, int64_t quantization) {
+  value += quantization - 1;  // Rounding up
+  value /= quantization;
+  value *= quantization;
+  return value;
+}
 }  // namespace
 
 NetworkPacket::NetworkPacket(rtc::CopyOnWriteBuffer packet,
@@ -209,6 +216,10 @@ bool SimulatedNetwork::EnqueuePacket(PacketInFlightInfo packet) {
     network_start_time_us = capacity_link_.back().arrival_time_us;
 
   int64_t arrival_time_us = network_start_time_us + capacity_delay_ms * 1000;
+  if (config.network_grouping_ms)
+    arrival_time_us =
+        QuantizeBy(arrival_time_us, config.network_grouping_ms * 1000);
+
   capacity_link_.push({packet, arrival_time_us});
   return true;
 }
@@ -343,6 +354,11 @@ std::vector<PacketDeliveryInfo> SimulatedNetwork::DequeueDeliverablePackets(
     // Check the extra delay queue.
     while (!delay_link_.empty() &&
            time_now_us >= delay_link_.front().arrival_time_us) {
+      if (config.application_grouping_ms &&
+          QuantizeBy(delay_link_.front().arrival_time_us,
+                     config.application_grouping_ms * 1000) > time_now_us) {
+        break;
+      }
       PacketInfo packet_info = delay_link_.front();
       packets_to_deliver.emplace_back(
           PacketDeliveryInfo(packet_info.packet, packet_info.arrival_time_us));

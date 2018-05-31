@@ -125,6 +125,10 @@ class SimulatedNetwork : public NetworkSimulationInterface {
     int queue_delay_ms = 0;
     // Standard deviation of the extra delay.
     int delay_standard_deviation_ms = 0;
+    // Grouping of delivery of packets from network.
+    int network_grouping_ms = 0;
+    // Grouping of delivery from network interface to application.
+    int application_grouping_ms = 0;
     // Link capacity in kbps.
     int link_capacity_kbps = 0;
     // Random packet loss.

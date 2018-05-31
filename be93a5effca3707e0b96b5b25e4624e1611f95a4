@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "73c61a2c_26195fc7",
+        "filename": "p2p/base/p2ptransportchannel_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1692,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-31T23:07:55Z",
+      "side": 1,
+      "message": "Ah, I forgot about that; so this will actually be a problem any time TCP is enabled, period? Can we make the logic a little smarter such that this flag won\u0027t be necessary (meaning don\u0027t use an address for duplicate detection if the port is \"9\", indicating that it\u0027s an \"active\" TCP candidate that doesn\u0027t actually have a bound socket)?",
+      "parentUuid": "0ff1c613_f5312a24",
+      "revId": "be93a5effca3707e0b96b5b25e4624e1611f95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c109178f_69e7fbbf",
         "filename": "p2p/base/p2ptransportchannel_unittest.cc",
         "patchSetId": 3
@@ -107,6 +125,24 @@
     },
     {
       "key": {
+        "uuid": "b1525abb_d7ebabe8",
+        "filename": "p2p/base/p2ptransportchannel_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 4395,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-31T23:07:55Z",
+      "side": 1,
+      "message": "How do they interfere? That seems like a problem. I wouldn\u0027t have expected them to be used at all.",
+      "parentUuid": "f961e29b_3eba09e9",
+      "revId": "be93a5effca3707e0b96b5b25e4624e1611f95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "79647205_2a6afa01",
         "filename": "p2p/base/portallocator.h",
         "patchSetId": 3
@@ -136,6 +172,24 @@
       "side": 1,
       "message": "Right now the actual use of these two flags is in the unit tests in shown in this CL, and they are turned off by default.",
       "parentUuid": "79647205_2a6afa01",
+      "revId": "be93a5effca3707e0b96b5b25e4624e1611f95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d843dafa_689661e0",
+        "filename": "p2p/base/portallocator.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-31T23:07:55Z",
+      "side": 1,
+      "message": "Ok; can you try to improve the pruning logic such that these flags aren\u0027t necessary for the tests to pass, then? The tests should be using the same configuration as an application would.",
+      "parentUuid": "e3f27295_a5d4c7bd",
       "revId": "be93a5effca3707e0b96b5b25e4624e1611f95a4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -317,6 +371,24 @@
     },
     {
       "key": {
+        "uuid": "7e3c14b7_88f66918",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1071,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-31T23:07:55Z",
+      "side": 1,
+      "message": "\u003e I redefined |network_enumeration_disabled| and added |candidate_has_any_address| since in our new logic they are not necessarily equivalent any more.\n\nWhy not just rename \"network_enumeration_disabled\" to \"candidate_has_any_address\", then?\n\n\u003e The two versions can become different, if c.address().IsAnyIP() is false but it does not pass the filter\n\nThat would only happen if host candidates are disabled (see https://www.w3.org/TR/webrtc/#dom-rtcicetransportpolicy-relay), in which case it\u0027s correct to not use the port.",
+      "parentUuid": "74a978d9_1cc38116",
+      "revId": "be93a5effca3707e0b96b5b25e4624e1611f95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7ee5f9e4_79fcbbfb",
         "filename": "p2p/client/basicportallocator.cc",
         "patchSetId": 3
@@ -346,6 +418,24 @@
       "side": 1,
       "message": "Good point, I found this can indeed be a problem and it would not fix the VPN issue in our application, if SignalPortReady is also delayed to this point. I have bundled the signaling of ports with that of candidates to postpone the signaling altogether in the new patch, so this becomes a problem I need to address. I have changed the logic, so that the signaling of these ports and candidates is subject to a slightly weaker condition than CandidatesAllocationDone, and it is basically the first two parts checked in CandidatesAllocationDone:\n\nif (allocation_sequences_created_ \u0026\u0026\n      std::none_of(sequences_.begin(), sequences_.end(),\n                  [](const AllocationSequence* sequence) {\n                    return sequence-\u003estate() \u003d\u003d AllocationSequence::kRunning ||\n                           sequence-\u003estate() \u003d\u003d AllocationSequence::kInit;\n                  })) {\n  // Signal any address ports and candidates gathered from them.\n}\n\nThe idea is, after the AllocationSequence has finished iterating all phases (unfortunately this logic now depends on the \"phases\" for the time being, but I think we can refactor this after removing them), we should not expect new ports created from this round of gathering. This can be a good time to signal any address ports, though the candidate allocation may not be done yet since some of them may be waiting for STUN and TURN responses. What do you think?",
       "parentUuid": "7ee5f9e4_79fcbbfb",
+      "revId": "be93a5effca3707e0b96b5b25e4624e1611f95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97584c3b_490f9678",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1083,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-31T23:07:55Z",
+      "side": 1,
+      "message": "That would still result in potentially signaling the candidates too early with chromium, where gathering of host candidates is asynchronous due to the IPC. And it will end up being a race that decides whether the duplicate detection works for stun/turn candidates.\n\nHow about just waiting for \"candidate allocation done, OR X seconds passed\", where X is some value that we\u0027re pretty sure means no more candidates are coming. We might even have actual data to determine what value to use for X (or if we don\u0027t, we could gather it).",
+      "parentUuid": "2d3f9c31_8048888c",
       "revId": "be93a5effca3707e0b96b5b25e4624e1611f95a4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -422,6 +512,24 @@
     },
     {
       "key": {
+        "uuid": "769587fe_f306b30b",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1095,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-31T23:07:55Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "75fe957c_d3d9eeb9",
+      "revId": "be93a5effca3707e0b96b5b25e4624e1611f95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "afb30222_2ddd06e0",
         "filename": "p2p/client/basicportallocator.cc",
         "patchSetId": 3
@@ -454,6 +562,24 @@
       "revId": "be93a5effca3707e0b96b5b25e4624e1611f95a4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3534010_d7b5808d",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1116,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-31T23:07:55Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0546f581_39515ef9",
+      "revId": "be93a5effca3707e0b96b5b25e4624e1611f95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -559,6 +685,24 @@
       "revId": "be93a5effca3707e0b96b5b25e4624e1611f95a4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "43b04304_74c34105",
+        "filename": "p2p/client/basicportallocator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 453,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-31T23:07:55Z",
+      "side": 1,
+      "message": "How did they match? They would need to end up with the same port number",
+      "parentUuid": "e6311b8e_bc393df3",
+      "revId": "be93a5effca3707e0b96b5b25e4624e1611f95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     },
     {
       "key": {

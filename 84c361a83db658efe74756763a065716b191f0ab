@@ -1,0 +1,191 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "04be8e88_d9145ac4",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-31T23:07:55Z",
+      "side": 1,
+      "message": "address() is a SocketAddress, which is a combination of IP and port; don\u0027t we only want to look at the IP? Otherwise there will never be duplicates.",
+      "revId": "84c361a83db658efe74756763a065716b191f0ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e00826a_974d1ce5",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1113,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-31T23:07:55Z",
+      "side": 1,
+      "message": "So this comment is explaining why we *don\u0027t* call MaybeSignalAnyAddressPortsAndCandidatesReady from within \"if (CandidatesAllocationDone())\"? I don\u0027t think that would be clear to someone else reading this code, who doesn\u0027t have the context of this code review.\n\nIt\u0027s also a little odd that a method called MaybeSignalCandidatesAllocationDone can fire signals other than SignalCandidatesAllocationDone. Maybe add a separate \"FireSignalsIfNeeded\" method that calls both MaybeSignalAnyAddressPortsAndCandidatesReady and MaybeSignalCandidatesAllocationDone.",
+      "revId": "84c361a83db658efe74756763a065716b191f0ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1197eff_8b5bccbd",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1127,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-31T23:07:55Z",
+      "side": 1,
+      "message": "Should mention *why* we do this, and that the ports will be signaled later in MaybeSignalAnyAddressPortsAndCandidatesReady.",
+      "revId": "84c361a83db658efe74756763a065716b191f0ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "675a01a3_ef916ba5",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1159,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-31T23:07:55Z",
+      "side": 1,
+      "message": "Why does the address need to be converted to a string?",
+      "revId": "84c361a83db658efe74756763a065716b191f0ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7025f78_0a105ec3",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1180,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-31T23:07:55Z",
+      "side": 1,
+      "message": "Doesn\u0027t this need to check \"has_pairable_candidate()\", so that host candidates/ports don\u0027t end up used with the relay-only policy?",
+      "revId": "84c361a83db658efe74756763a065716b191f0ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24800840_ab68284a",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1192,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-31T23:07:55Z",
+      "side": 1,
+      "message": "Doesn\u0027t the TCP comment belong above \"has_ready_ports_bound_to_enumerated_networks |\u003d port_data.ready();\"? And isn\u0027t this still a problem?",
+      "revId": "84c361a83db658efe74756763a065716b191f0ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c65715e_b1698f59",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1197,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-31T23:07:55Z",
+      "side": 1,
+      "message": "Why is it necessary to check \"!(flags() \u0026 PORTALLOCATOR_DISABLE_ADAPTER_ENUMERATION)\"; won\u0027t this always be true if has_ready_ports_bound_to_enumerated_networks is true?",
+      "revId": "84c361a83db658efe74756763a065716b191f0ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e247384_88405948",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1199,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-31T23:07:55Z",
+      "side": 1,
+      "message": "Won\u0027t this signal a candidate as removed before it\u0027s even been signaled in the first place?",
+      "revId": "84c361a83db658efe74756763a065716b191f0ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40eda6e1_f349f5b1",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1203,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-31T23:07:55Z",
+      "side": 1,
+      "message": "nit: Why not check this before adding the port to signalable_any_address_ports?",
+      "revId": "84c361a83db658efe74756763a065716b191f0ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58c1ef0f_77507104",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1242,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-31T23:07:55Z",
+      "side": 1,
+      "message": "Remember to remove this",
+      "revId": "84c361a83db658efe74756763a065716b191f0ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5008680d_07659fd1",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1314,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-05-31T23:07:55Z",
+      "side": 1,
+      "message": "nit: In comments we typically just say \"null\" as opposed to \"nullptr\" or \"NULL\"",
+      "revId": "84c361a83db658efe74756763a065716b191f0ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -33,6 +33,7 @@
 #include "api/video_codecs/builtin_video_decoder_factory.h"
 #include "api/video_codecs/builtin_video_encoder_factory.h"
 #include "api/video_codecs/sdp_video_format.h"
+#include "logging/rtc_event_log/fake_rtc_event_log_factory.h"
 #include "media/engine/fakewebrtcvideoengine.h"
 #include "p2p/base/p2pconstants.h"
 #include "p2p/base/portinterface.h"
@@ -231,7 +232,7 @@ class PeerConnectionWrapper : public webrtc::PeerConnectionObserver,
     webrtc::PeerConnectionDependencies dependencies(nullptr);
     dependencies.cert_generator = std::move(cert_generator);
     if (!client->Init(nullptr, nullptr, nullptr, std::move(dependencies),
-                      network_thread, worker_thread)) {
+                      network_thread, worker_thread, nullptr)) {
       delete client;
       return nullptr;
     }
@@ -556,7 +557,8 @@ class PeerConnectionWrapper : public webrtc::PeerConnectionObserver,
             const PeerConnectionInterface::RTCConfiguration* config,
             webrtc::PeerConnectionDependencies dependencies,
             rtc::Thread* network_thread,
-            rtc::Thread* worker_thread) {
+            rtc::Thread* worker_thread,
+            webrtc::FakeMetricsObserver* event_log_observer) {
     // There's an error in this test code if Init ends up being called twice.
     RTC_DCHECK(!peer_connection_);
     RTC_DCHECK(!peer_connection_factory_);
@@ -572,15 +574,29 @@ class PeerConnectionWrapper : public webrtc::PeerConnectionObserver,
       return false;
     }
     rtc::Thread* const signaling_thread = rtc::Thread::Current();
-    peer_connection_factory_ = webrtc::CreatePeerConnectionFactory(
-        network_thread, worker_thread, signaling_thread,
-        rtc::scoped_refptr<webrtc::AudioDeviceModule>(
-            fake_audio_capture_module_),
-        webrtc::CreateBuiltinAudioEncoderFactory(),
-        webrtc::CreateBuiltinAudioDecoderFactory(),
-        webrtc::CreateBuiltinVideoEncoderFactory(),
-        webrtc::CreateBuiltinVideoDecoderFactory(), nullptr /* audio_mixer */,
-        nullptr /* audio_processing */);
+    if (event_log_observer) {
+      peer_connection_factory_ = webrtc::CreatePeerConnectionFactory(
+          network_thread, worker_thread, signaling_thread,
+          rtc::scoped_refptr<webrtc::AudioDeviceModule>(
+              fake_audio_capture_module_),
+          webrtc::CreateBuiltinAudioEncoderFactory(),
+          webrtc::CreateBuiltinAudioDecoderFactory(),
+          webrtc::CreateBuiltinVideoEncoderFactory(),
+          webrtc::CreateBuiltinVideoDecoderFactory(), nullptr /* audio_mixer */,
+          nullptr /* audio_processing */,
+          webrtc::CreateFakeRtcEventLogFactory(event_log_observer));
+    } else {
+      peer_connection_factory_ = webrtc::CreatePeerConnectionFactory(
+          network_thread, worker_thread, signaling_thread,
+          rtc::scoped_refptr<webrtc::AudioDeviceModule>(
+              fake_audio_capture_module_),
+          webrtc::CreateBuiltinAudioEncoderFactory(),
+          webrtc::CreateBuiltinAudioDecoderFactory(),
+          webrtc::CreateBuiltinVideoEncoderFactory(),
+          webrtc::CreateBuiltinVideoDecoderFactory(), nullptr /* audio_mixer */,
+          nullptr /* audio_processing */);
+    }
+
     if (!peer_connection_factory_) {
       return false;
     }
@@ -1075,6 +1091,8 @@ class PeerConnectionIntegrationBaseTest : public testing::Test {
         worker_thread_(rtc::Thread::Create()) {
     network_thread_->SetName("PCNetworkThread", this);
     worker_thread_->SetName("PCWorkerThread", this);
+    event_log_observer_ =
+        new rtc::RefCountedObject<webrtc::FakeMetricsObserver>();
     RTC_CHECK(network_thread_->Start());
     RTC_CHECK(worker_thread_->Start());
   }
@@ -1112,6 +1130,17 @@ class PeerConnectionIntegrationBaseTest : public testing::Test {
       const PeerConnectionFactory::Options* options,
       const RTCConfiguration* config,
       webrtc::PeerConnectionDependencies dependencies) {
+    return CreatePeerConnectionWrapper(debug_name, constraints, options, config,
+                                       std::move(dependencies), nullptr);
+  }
+
+  std::unique_ptr<PeerConnectionWrapper> CreatePeerConnectionWrapper(
+      const std::string& debug_name,
+      const MediaConstraintsInterface* constraints,
+      const PeerConnectionFactory::Options* options,
+      const RTCConfiguration* config,
+      webrtc::PeerConnectionDependencies dependencies,
+      webrtc::FakeMetricsObserver* event_log_observer) {
     RTCConfiguration modified_config;
     if (config) {
       modified_config = *config;
@@ -1126,10 +1155,22 @@ class PeerConnectionIntegrationBaseTest : public testing::Test {
 
     if (!client->Init(constraints, options, &modified_config,
                       std::move(dependencies), network_thread_.get(),
-                      worker_thread_.get())) {
+                      worker_thread_.get(), event_log_observer)) {
       return nullptr;
     }
     return client;
+  }
+
+  std::unique_ptr<PeerConnectionWrapper>
+  CreatePeerConnectionWrapperWithFakeRtcEventLog(
+      const std::string& debug_name,
+      const MediaConstraintsInterface* constraints,
+      const PeerConnectionFactory::Options* options,
+      const RTCConfiguration* config,
+      webrtc::PeerConnectionDependencies dependencies) {
+    return CreatePeerConnectionWrapper(debug_name, constraints, options, config,
+                                       std::move(dependencies),
+                                       event_log_observer_.get());
   }
 
   bool CreatePeerConnectionWrappers() {
@@ -1210,6 +1251,17 @@ class PeerConnectionIntegrationBaseTest : public testing::Test {
     return caller_ && callee_;
   }
 
+  bool CreatePeerConnectionWrappersWithFakeRtcEventLog() {
+    PeerConnectionInterface::RTCConfiguration default_config;
+    caller_ = CreatePeerConnectionWrapperWithFakeRtcEventLog(
+        "Caller", nullptr, nullptr, &default_config,
+        webrtc::PeerConnectionDependencies(nullptr));
+    callee_ = CreatePeerConnectionWrapperWithFakeRtcEventLog(
+        "Callee", nullptr, nullptr, &default_config,
+        webrtc::PeerConnectionDependencies(nullptr));
+    return caller_ && callee_;
+  }
+
   std::unique_ptr<PeerConnectionWrapper>
   CreatePeerConnectionWrapperWithAlternateKey() {
     std::unique_ptr<FakeRTCCertificateGenerator> cert_generator(
@@ -1284,6 +1336,10 @@ class PeerConnectionIntegrationBaseTest : public testing::Test {
   }
 
   rtc::FirewallSocketServer* firewall() const { return fss_.get(); }
+
+  webrtc::FakeMetricsObserver* event_log_observer() const {
+    return event_log_observer_;
+  }
 
   // Expects the provided number of new frames to be received within
   // kMaxWaitForFramesMs. The new expected frames are specified in
@@ -1437,6 +1493,7 @@ class PeerConnectionIntegrationBaseTest : public testing::Test {
   std::unique_ptr<rtc::Thread> worker_thread_;
   std::unique_ptr<PeerConnectionWrapper> caller_;
   std::unique_ptr<PeerConnectionWrapper> callee_;
+  rtc::scoped_refptr<webrtc::FakeMetricsObserver> event_log_observer_;
 };
 
 class PeerConnectionIntegrationTest
@@ -4345,6 +4402,28 @@ TEST_P(PeerConnectionIntegrationTest,
   EXPECT_EQ(1u, callee_report->GetStatsOfType<RTCTransportStats>().size());
 }
 #endif  // HAVE_SCTP
+
+TEST_P(PeerConnectionIntegrationTest,
+       IceEventsGeneratedAndLoggedInRtcEventLog) {
+  // Method invocation of the fake RtcEventLog is observed by the
+  // |event_log_observer_|.
+  ASSERT_TRUE(CreatePeerConnectionWrappersWithFakeRtcEventLog());
+  ConnectFakeSignaling();
+  caller()->AddAudioVideoTracks();
+  caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  MediaExpectations media_expectations;
+  media_expectations.CalleeExpectsSomeAudioAndVideo();
+  ASSERT_TRUE(ExpectNewFrames(media_expectations));
+  // Note that all methods of |event_log_observer_| are called on the thread of
+  // this test body, as appointed when we create FakeRtcEventLogFactory. The
+  // following call is thread-safe, as confirmed by the thread checker in
+  // FakeMetricsObserver.
+  EXPECT_GE(
+      event_log_observer()->GetEnumCounter(webrtc::kEnumCounterIceEvent, 0), 1);
+  caller()->pc()->Close();
+  callee()->pc()->Close();
+}
 
 INSTANTIATE_TEST_CASE_P(PeerConnectionIntegrationTest,
                         PeerConnectionIntegrationTest,

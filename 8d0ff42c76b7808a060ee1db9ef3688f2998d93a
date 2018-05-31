@@ -70,6 +70,24 @@
       "revId": "8d0ff42c76b7808a060ee1db9ef3688f2998d93a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10acb51a_1ae2d9dd",
+        "filename": "rtc_base/stringutils.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-31T09:06:50Z",
+      "side": 1,
+      "message": "I\u0027m pretty sure they\u0027re ASCII-only---they appear to be using the case conversion functions from absl/strings/ascii.h in the implementation. Ideally there would be documentation promising that, though.\n\nI would imagine you need a Github account in order to interact with them on Github. But there\u0027s also a public mailing list: https://groups.google.com/forum/#!forum/abseil-io",
+      "parentUuid": "5bddf514_2b097bc0",
+      "revId": "8d0ff42c76b7808a060ee1db9ef3688f2998d93a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

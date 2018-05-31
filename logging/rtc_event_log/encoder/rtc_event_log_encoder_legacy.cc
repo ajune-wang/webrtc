@@ -117,6 +117,8 @@ ConvertIceCandidatePairConfigType(IceCandidatePairConfigType type) {
       return rtclog::IceCandidatePairConfig::DESTROYED;
     case IceCandidatePairConfigType::kSelected:
       return rtclog::IceCandidatePairConfig::SELECTED;
+    case IceCandidatePairConfigType::kNumTypes:
+      RTC_NOTREACHED();
   }
   RTC_NOTREACHED();
   return rtclog::IceCandidatePairConfig::ADDED;
@@ -204,6 +206,8 @@ ConvertIceCandidatePairEventType(IceCandidatePairEventType type) {
       return rtclog::IceCandidatePairEvent::CHECK_RESPONSE_SENT;
     case IceCandidatePairEventType::kCheckResponseReceived:
       return rtclog::IceCandidatePairEvent::CHECK_RESPONSE_RECEIVED;
+    case IceCandidatePairEventType::kNumTypes:
+      RTC_NOTREACHED();
   }
   RTC_NOTREACHED();
   return rtclog::IceCandidatePairEvent::CHECK_SENT;

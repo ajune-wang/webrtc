@@ -22,6 +22,7 @@ enum class IceCandidatePairConfigType {
   kUpdated,
   kDestroyed,
   kSelected,
+  kNumTypes,
 };
 
 // TODO(qingsi): Change the names of candidate types to "host", "srflx", "prflx"

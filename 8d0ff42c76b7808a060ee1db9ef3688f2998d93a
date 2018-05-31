@@ -52,6 +52,24 @@
       "revId": "8d0ff42c76b7808a060ee1db9ef3688f2998d93a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5bddf514_2b097bc0",
+        "filename": "rtc_base/stringutils.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-05-31T08:36:49Z",
+      "side": 1,
+      "message": "\u003e I don\u0027t think we\u0027re ever interested in strings with embedded nulls. I would either ignore that problem, or DCHECK that the string doesn\u0027t have nulls in it.\n\nSilent ignore sounds dangerous (but no change to current code passing .c_str()). When handling evil data received from the network, we risk interpreting the data in inconsistent ways if some uses do silent and implicit truncation at the first NUL character. I seem to recall real-world problems when doing that in the context of x.509 certificates.\n \n\u003e I guess the ambitious option is to ask the Abseil people about it, and offer to write an absl::EqualsWithIgnoreCase function. It looks really simple to do---they already have that function as an implementation detail of the StartsWith... and EndsWith... functions.\n\nFor our uses, I also think we want ascii only. We don\u0027t want to drag in any unicode case tables. It\u0027s not clear to me what abseil\u0027s *IgnoreCase functions do? (And the posix strcasecmp is kind-of broken in this respect too, as far as it\u0027s connected to the broken design of locales).\n\nIs a github account required for posting abseil feature requests?",
+      "parentUuid": "920b7e33_2d439118",
+      "revId": "8d0ff42c76b7808a060ee1db9ef3688f2998d93a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

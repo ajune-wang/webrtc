@@ -70,6 +70,10 @@ std::string GenerateTempFilename(const std::string& dir,
 std::string ResourcePath(const std::string& name,
                          const std::string& extension);
 
+// Joins directory name and file name, separated by the path delimiter.
+std::string JoinFilename(const std::string& dir,
+                         const std::string& name);
+
 // Gets the current working directory for the executing program.
 // Returns "./" if for some reason it is not possible to find the working
 // directory.

@@ -34,6 +34,24 @@
       "revId": "8d0ff42c76b7808a060ee1db9ef3688f2998d93a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "920b7e33_2d439118",
+        "filename": "rtc_base/stringutils.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-05-31T08:12:16Z",
+      "side": 1,
+      "message": "I don\u0027t think we\u0027re ever interested in strings with embedded nulls. I would either ignore that problem, or DCHECK that the string doesn\u0027t have nulls in it.\n\nThe first thing I did when you sent me this CL was to look for existing Abseil functions, but I didn\u0027t find them. absl/strings/ascii.h has functions for converting the case of characters and whole strings, but no comparison functions. Hmmm... but absl/strings/match.h has absl::StartsWithIgnoreCase and absl::EndsWithIgnoreCase, which are close to what we want. I guess most of our uses of rtc::StrNCaseCmp could usefully be converted to use absl::StartsWithIgnoreCase instead, but we still need a function to compare two *whole* strings.\n\nI guess the ambitious option is to ask the Abseil people about it, and offer to write an absl::EqualsWithIgnoreCase function. It looks really simple to do---they already have that function as an implementation detail of the StartsWith... and EndsWith... functions.",
+      "parentUuid": "ffce1163_d0d877f0",
+      "revId": "8d0ff42c76b7808a060ee1db9ef3688f2998d93a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

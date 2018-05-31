@@ -16,6 +16,7 @@
 #include <vector>
 
 #include "modules/remote_bitrate_estimator/test/bwe_test_logging.h"
+#include "modules/rtp_rtcp/source/rtp_packet_received.h"
 #include "modules/rtp_rtcp/source/rtp_rtcp_config.h"
 #include "modules/rtp_rtcp/source/time_util.h"
 #include "rtc_base/logging.h"
@@ -54,28 +55,27 @@ StreamStatisticianImpl::StreamStatisticianImpl(
 
 StreamStatisticianImpl::~StreamStatisticianImpl() = default;
 
-void StreamStatisticianImpl::IncomingPacket(const RTPHeader& header,
-                                            size_t packet_length,
-                                            bool retransmitted) {
-  auto counters = UpdateCounters(header, packet_length, retransmitted);
+void StreamStatisticianImpl::OnRtpPacket(const RtpPacketReceived& packet) {
+  auto counters = UpdateCounters(packet);
   rtp_callback_->DataCountersUpdated(counters, ssrc_);
 }
 
 StreamDataCounters StreamStatisticianImpl::UpdateCounters(
-    const RTPHeader& header,
-    size_t packet_length,
-    bool retransmitted) {
+    const RtpPacketReceived& packet) {
+  RTPHeader header;
+  packet.GetHeader(&header);
+
   rtc::CritScope cs(&stream_lock_);
-  bool in_order = InOrderPacketInternal(header.sequenceNumber);
-  RTC_DCHECK_EQ(ssrc_, header.ssrc);
-  incoming_bitrate_.Update(packet_length, clock_->TimeInMilliseconds());
-  receive_counters_.transmitted.AddPacket(packet_length, header);
-  if (!in_order && retransmitted) {
-    receive_counters_.retransmitted.AddPacket(packet_length, header);
+  bool in_order = InOrderPacketInternal(packet.SequenceNumber());
+  RTC_DCHECK_EQ(ssrc_, packet.Ssrc());
+  incoming_bitrate_.Update(packet.size(), clock_->TimeInMilliseconds());
+  receive_counters_.transmitted.AddPacket(packet.size(), header);
+  if (!in_order && packet.recovered()) {
+    receive_counters_.retransmitted.AddPacket(packet.size(), header);
   }
 
   if (receive_counters_.transmitted.packets == 1) {
-    received_seq_first_ = header.sequenceNumber;
+    received_seq_first_ = packet.SequenceNumber();
     receive_counters_.first_packet_time_ms = clock_->TimeInMilliseconds();
   }
 
@@ -87,26 +87,26 @@ StreamDataCounters StreamStatisticianImpl::UpdateCounters(
 
     // Wrong if we use RetransmitOfOldPacket.
     if (receive_counters_.transmitted.packets > 1 &&
-        received_seq_max_ > header.sequenceNumber) {
+        received_seq_max_ > packet.SequenceNumber()) {
       // Wrap around detected.
       received_seq_wraps_++;
     }
     // New max.
-    received_seq_max_ = header.sequenceNumber;
+    received_seq_max_ = packet.SequenceNumber();
 
     // If new time stamp and more than one in-order packet received, calculate
     // new jitter statistics.
-    if (header.timestamp != last_received_timestamp_ &&
+    if (packet.Timestamp() != last_received_timestamp_ &&
         (receive_counters_.transmitted.packets -
          receive_counters_.retransmitted.packets) > 1) {
       UpdateJitter(header, receive_time);
     }
-    last_received_timestamp_ = header.timestamp;
+    last_received_timestamp_ = packet.Timestamp();
     last_receive_time_ntp_ = receive_time;
     last_receive_time_ms_ = clock_->TimeInMilliseconds();
   }
 
-  size_t packet_oh = header.headerLength + header.paddingLength;
+  size_t packet_oh = packet.headers_size() + packet.padding_size();
 
   // Our measured overhead. Filter from RFC 5104 4.2.1.2:
   // avg_OH (new) = 15/16*avg_OH (old) + 1/16*pckt_OH,
@@ -369,25 +369,23 @@ ReceiveStatisticsImpl::~ReceiveStatisticsImpl() {
   }
 }
 
-void ReceiveStatisticsImpl::IncomingPacket(const RTPHeader& header,
-                                           size_t packet_length,
-                                           bool retransmitted) {
+void ReceiveStatisticsImpl::OnRtpPacket(const RtpPacketReceived& packet) {
   StreamStatisticianImpl* impl;
   {
     rtc::CritScope cs(&receive_statistics_lock_);
-    auto it = statisticians_.find(header.ssrc);
+    auto it = statisticians_.find(packet.Ssrc());
     if (it != statisticians_.end()) {
       impl = it->second;
     } else {
-      impl = new StreamStatisticianImpl(header.ssrc, clock_, this, this);
-      statisticians_[header.ssrc] = impl;
+      impl = new StreamStatisticianImpl(packet.Ssrc(), clock_, this, this);
+      statisticians_[packet.Ssrc()] = impl;
     }
   }
   // StreamStatisticianImpl instance is created once and only destroyed when
   // this whole ReceiveStatisticsImpl is destroyed. StreamStatisticianImpl has
   // it's own locking so don't hold receive_statistics_lock_ (potential
   // deadlock).
-  impl->IncomingPacket(header, packet_length, retransmitted);
+  impl->OnRtpPacket(packet);
 }
 
 void ReceiveStatisticsImpl::FecPacketReceived(const RTPHeader& header,

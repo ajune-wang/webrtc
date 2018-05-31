@@ -869,12 +869,14 @@ void Channel::OnRtpPacket(const RtpPacketReceived& packet) {
   // Store playout timestamp for the received RTP packet
   UpdatePlayoutTimestamp(false);
 
+  // TODO(nisse): Setting payload_type_frequency here gets lost when
+  // we use the immutable packet. Can we set it closer to parsing, or
+  // should we move that info elsewhere and delete
+  // RtpPacketReceived::payload_type_frequency_?
   header.payload_type_frequency =
       rtp_payload_registry_->GetPayloadTypeFrequency(header.payloadType);
   if (header.payload_type_frequency >= 0) {
-    bool in_order = IsPacketInOrder(header);
-    rtp_receive_statistics_->IncomingPacket(
-        header, packet.size(), IsPacketRetransmitted(header, in_order));
+    rtp_receive_statistics_->OnRtpPacket(packet);
 
     ReceivePacket(packet.data(), packet.size(), header);
   }

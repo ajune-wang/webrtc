@@ -13,7 +13,7 @@
 #include <limits>
 
 #include "modules/remote_bitrate_estimator/test/estimators/bbr.h"
-#include "modules/remote_bitrate_estimator/test/estimators/nada.h"
+// #include "modules/remote_bitrate_estimator/test/estimators/nada.h"
 #include "modules/remote_bitrate_estimator/test/estimators/remb.h"
 #include "modules/remote_bitrate_estimator/test/estimators/send_side.h"
 #include "modules/remote_bitrate_estimator/test/estimators/tcp.h"
@@ -89,18 +89,24 @@ BweSender* CreateBweSender(BandwidthEstimatorType estimator,
                            BitrateObserver* observer,
                            Clock* clock) {
   switch (estimator) {
+#if 0
     case kRembEstimator:
       return new RembBweSender(kbps, observer, clock);
+#endif
     case kSendSideEstimator:
       return new SendSideBweSender(kbps, observer, clock);
+#if 0
     case kNadaEstimator:
       return new NadaBweSender(kbps, observer, clock);
+#endif
     case kBbrEstimator:
       return new BbrBweSender(observer, clock);
     case kTcpEstimator:
       RTC_FALLTHROUGH();
     case kNullEstimator:
       return new NullBweSender();
+    default:
+      ;
   }
   assert(false);
   return NULL;
@@ -110,18 +116,24 @@ BweReceiver* CreateBweReceiver(BandwidthEstimatorType type,
                                int flow_id,
                                bool plot) {
   switch (type) {
+#if 0
     case kRembEstimator:
       return new RembReceiver(flow_id, plot);
+#endif
     case kSendSideEstimator:
       return new SendSideBweReceiver(flow_id);
+#if 0
     case kNadaEstimator:
       return new NadaBweReceiver(flow_id);
+#endif
     case kBbrEstimator:
       return new BbrBweReceiver(flow_id);
     case kTcpEstimator:
       return new TcpBweReceiver(flow_id);
     case kNullEstimator:
       return new BweReceiver(flow_id);
+    default:
+      ;
   }
   assert(false);
   return NULL;

@@ -14,6 +14,7 @@
 #include <memory>
 #include <vector>
 
+#include "modules/rtp_rtcp/source/rtp_packet_received.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/rate_limiter.h"
 #include "test/null_transport.h"
@@ -43,21 +44,22 @@ bool LoopBackTransport::SendRtp(const uint8_t* data,
       return true;
     }
   }
-  RTPHeader header;
-  std::unique_ptr<RtpHeaderParser> parser(RtpHeaderParser::Create());
-  if (!parser->Parse(data, len, &header)) {
+  RtpPacketReceived parsed_packet;
+  if (!parsed_packet.Parse(data, len)) {
     return false;
   }
   const auto pl =
-      rtp_payload_registry_->PayloadTypeToPayload(header.payloadType);
+      rtp_payload_registry_->PayloadTypeToPayload(parsed_packet.PayloadType());
   if (!pl) {
     return false;
   }
-  const uint8_t* payload = data + header.headerLength;
-  RTC_CHECK_GE(len, header.headerLength);
-  const size_t payload_length = len - header.headerLength;
-  receive_statistics_->IncomingPacket(header, len, false);
-  return rtp_receiver_->IncomingRtpPacket(header, payload, payload_length,
+  receive_statistics_->OnRtpPacket(parsed_packet);
+  RTPHeader header;
+  parsed_packet.GetHeader(&header);
+  return rtp_receiver_->IncomingRtpPacket(header,
+                                          parsed_packet.payload().data(),
+                                          // TODO(nisse): Padding size?
+                                          parsed_packet.payload_size(),
                                           pl->typeSpecific);
 }
 

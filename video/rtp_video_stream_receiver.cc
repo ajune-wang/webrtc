@@ -294,8 +294,6 @@ void RtpVideoStreamReceiver::OnRtpPacket(const RtpPacketReceived& packet) {
 
   header.payload_type_frequency = kVideoPayloadTypeFrequency;
 
-  bool in_order = IsPacketInOrder(header);
-
   ReceivePacket(packet.data(), packet.size(), header);
   // Update receive statistics after ReceivePacket.
   // Receive statistics will be reset if the payload type changes (make sure
@@ -303,8 +301,12 @@ void RtpVideoStreamReceiver::OnRtpPacket(const RtpPacketReceived& packet) {
   if (!packet.recovered()) {
     // TODO(nisse): We should pass a recovered flag to stats, to aid
     // fixing bug bugs.webrtc.org/6339.
-    rtp_receive_statistics_->IncomingPacket(
-        header, packet.size(), IsPacketRetransmitted(header, in_order));
+    // TODO(nisse): Used to call IsPacketRetransmitted, is that a
+    // problem? Since it's implemented by
+    // StreamStatisticianImpl::IsRetransmitOfOldPacket, the receive
+    // statistics object should be able to sort it out by itself, if
+    // needed.
+    rtp_receive_statistics_->OnRtpPacket(packet);
   }
 
   for (RtpPacketSinkInterface* secondary_sink : secondary_sinks_) {
@@ -532,27 +534,6 @@ void RtpVideoStreamReceiver::StartReceive() {
 void RtpVideoStreamReceiver::StopReceive() {
   RTC_DCHECK_CALLED_SEQUENTIALLY(&worker_task_checker_);
   receiving_ = false;
-}
-
-bool RtpVideoStreamReceiver::IsPacketInOrder(const RTPHeader& header) const {
-  StreamStatistician* statistician =
-      rtp_receive_statistics_->GetStatistician(header.ssrc);
-  if (!statistician)
-    return false;
-  return statistician->IsPacketInOrder(header.sequenceNumber);
-}
-
-bool RtpVideoStreamReceiver::IsPacketRetransmitted(const RTPHeader& header,
-                                                   bool in_order) const {
-  // Retransmissions are handled separately if RTX is enabled.
-  if (config_.rtp.rtx_ssrc != 0)
-    return false;
-  StreamStatistician* statistician =
-      rtp_receive_statistics_->GetStatistician(header.ssrc);
-  if (!statistician)
-    return false;
-  return !in_order &&
-      statistician->IsRetransmitOfOldPacket(header);
 }
 
 void RtpVideoStreamReceiver::UpdateHistograms() {

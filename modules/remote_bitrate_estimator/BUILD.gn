@@ -102,10 +102,11 @@ if (rtc_include_tests) {
       "test/estimators/max_bandwidth_filter.cc",
       "test/estimators/max_bandwidth_filter.h",
       "test/estimators/min_rtt_filter.h",
-      "test/estimators/nada.cc",
-      "test/estimators/nada.h",
-      "test/estimators/remb.cc",
-      "test/estimators/remb.h",
+
+      # "test/estimators/nada.cc",
+      # "test/estimators/nada.h",
+      # "test/estimators/remb.cc",
+      # "test/estimators/remb.h",
       "test/estimators/send_side.cc",
       "test/estimators/send_side.h",
       "test/estimators/tcp.cc",
@@ -201,7 +202,8 @@ if (rtc_include_tests) {
       "test/estimators/congestion_window_unittest.cc",
       "test/estimators/max_bandwidth_filter_unittest.cc",
       "test/estimators/min_rtt_filter_unittest.cc",
-      "test/estimators/nada_unittest.cc",
+
+      # "test/estimators/nada_unittest.cc",
       "test/metric_recorder_unittest.cc",
     ]
     deps = [

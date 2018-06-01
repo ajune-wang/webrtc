@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "4d3c2c12_1e114c26",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-01T13:20:42Z",
+      "side": 1,
+      "message": "Maybe NotStarted \u003d -1, StartingValue \u003d 0, FinalValue \u003d 4. Now I somewhat dislike adding \"Value\" to the names, that they are clarifying (imo) here is probably a symptom of the mix state being a mix of a counter and magic values. Maybe there should also be a Disabled state, even if it\u0027s mostly equivalent to the Final value.\n\nRegardless of possible rename, I think a comment on the intended state transitions would be nice.\n\nnit: Style guide encourages kFoo constant naming in new code, while also allowing FOO.",
+      "parentUuid": "717049e6_6b401fc4",
+      "range": {
+        "startLine": 51,
+        "startChar": 5,
+        "endLine": 51,
+        "endChar": 21
+      },
+      "revId": "581cecbed3c994749dfe95fa3545b57e13761612",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d908c555_8957780e",
         "filename": "video/video_stream_encoder.cc",
         "patchSetId": 6
@@ -202,6 +226,24 @@
     },
     {
       "key": {
+        "uuid": "c6ba8212_5ef4e3b4",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 795,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-01T13:20:42Z",
+      "side": 1,
+      "message": "\u003e Done\n\nBut not yet uploaded?",
+      "parentUuid": "57540370_53951166",
+      "revId": "581cecbed3c994749dfe95fa3545b57e13761612",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "10e9c55c_a66b4f73",
         "filename": "video/video_stream_encoder.cc",
         "patchSetId": 6
@@ -261,6 +303,30 @@
       "side": 1,
       "message": "You\u0027re right, this CL changes things so that we don\u0027t use this feature at all until the first BW estimate arrives. This may not be what we want to do, and it\u0027s probably better to use it initially based on the start_bitrate, and then again when we have an estimate.\n\nThere is no clean way to do that while the BW estimator calls this with the start_bitrate, other than to add a boolean `has_gotten_first_real_estimate` but that just feels so wrong.\n\nPerhaps the right place to start would be to change the BW estimator to not call this before we have a real estimate.",
       "parentUuid": "13ea740f_2702656d",
+      "range": {
+        "startLine": 944,
+        "startChar": 7,
+        "endLine": 944,
+        "endChar": 40
+      },
+      "revId": "581cecbed3c994749dfe95fa3545b57e13761612",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f74488cd_27af7bae",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 944,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-01T13:20:42Z",
+      "side": 1,
+      "message": "\u003e Perhaps the right place to start would be to change the BW estimator to not call this before we have a real estimate.\n\nI think it\u0027s worth a try to make that change first. It would make more sense that way.",
+      "parentUuid": "4a8de0dd_61b53dc3",
       "range": {
         "startLine": 944,
         "startChar": 7,

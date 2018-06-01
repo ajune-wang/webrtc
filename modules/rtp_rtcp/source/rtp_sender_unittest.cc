@@ -1664,7 +1664,7 @@ TEST_P(RtpSenderVideoTest, KeyFrameHasCVO) {
 
   RTPVideoHeader hdr = {0};
   hdr.rotation = kVideoRotation_0;
-  rtp_sender_video_->SendVideo(kRtpVideoGeneric, kVideoFrameKey, kPayload,
+  rtp_sender_video_->SendVideo(kVideoCodecGeneric, kVideoFrameKey, kPayload,
                                kTimestamp, 0, kFrame, sizeof(kFrame), nullptr,
                                &hdr, kDefaultExpectedRetransmissionTimeMs);
 
@@ -1690,7 +1690,7 @@ TEST_P(RtpSenderVideoTest, TimingFrameHasPacketizationTimstampSet) {
   hdr.video_timing.encode_finish_delta_ms = kEncodeFinishDeltaMs;
 
   fake_clock_.AdvanceTimeMilliseconds(kPacketizationTimeMs);
-  rtp_sender_video_->SendVideo(kRtpVideoGeneric, kVideoFrameKey, kPayload,
+  rtp_sender_video_->SendVideo(kVideoCodecGeneric, kVideoFrameKey, kPayload,
                                kTimestamp, kCaptureTimestamp, kFrame,
                                sizeof(kFrame), nullptr, &hdr,
                                kDefaultExpectedRetransmissionTimeMs);
@@ -1710,12 +1710,12 @@ TEST_P(RtpSenderVideoTest, DeltaFrameHasCVOWhenChanged) {
   RTPVideoHeader hdr = {0};
   hdr.rotation = kVideoRotation_90;
   EXPECT_TRUE(rtp_sender_video_->SendVideo(
-      kRtpVideoGeneric, kVideoFrameKey, kPayload, kTimestamp, 0, kFrame,
+      kVideoCodecGeneric, kVideoFrameKey, kPayload, kTimestamp, 0, kFrame,
       sizeof(kFrame), nullptr, &hdr, kDefaultExpectedRetransmissionTimeMs));
 
   hdr.rotation = kVideoRotation_0;
   EXPECT_TRUE(rtp_sender_video_->SendVideo(
-      kRtpVideoGeneric, kVideoFrameDelta, kPayload, kTimestamp + 1, 0, kFrame,
+      kVideoCodecGeneric, kVideoFrameDelta, kPayload, kTimestamp + 1, 0, kFrame,
       sizeof(kFrame), nullptr, &hdr, kDefaultExpectedRetransmissionTimeMs));
 
   VideoRotation rotation;
@@ -1732,11 +1732,11 @@ TEST_P(RtpSenderVideoTest, DeltaFrameHasCVOWhenNonZero) {
   RTPVideoHeader hdr = {0};
   hdr.rotation = kVideoRotation_90;
   EXPECT_TRUE(rtp_sender_video_->SendVideo(
-      kRtpVideoGeneric, kVideoFrameKey, kPayload, kTimestamp, 0, kFrame,
+      kVideoCodecGeneric, kVideoFrameKey, kPayload, kTimestamp, 0, kFrame,
       sizeof(kFrame), nullptr, &hdr, kDefaultExpectedRetransmissionTimeMs));
 
   EXPECT_TRUE(rtp_sender_video_->SendVideo(
-      kRtpVideoGeneric, kVideoFrameDelta, kPayload, kTimestamp + 1, 0, kFrame,
+      kVideoCodecGeneric, kVideoFrameDelta, kPayload, kTimestamp + 1, 0, kFrame,
       sizeof(kFrame), nullptr, &hdr, kDefaultExpectedRetransmissionTimeMs));
 
   VideoRotation rotation;
@@ -1768,7 +1768,7 @@ TEST_P(RtpSenderVideoTest, SendVideoWithCameraAndFlipCVO) {
 
 TEST_P(RtpSenderVideoTest, RetransmissionTypesGeneric) {
   RTPVideoHeader header;
-  header.codec = kRtpVideoGeneric;
+  header.codec = kVideoCodecGeneric;
 
   EXPECT_EQ(kDontRetransmit,
             rtp_sender_video_->GetStorageType(
@@ -1790,7 +1790,7 @@ TEST_P(RtpSenderVideoTest, RetransmissionTypesGeneric) {
 
 TEST_P(RtpSenderVideoTest, RetransmissionTypesH264) {
   RTPVideoHeader header;
-  header.codec = kRtpVideoH264;
+  header.codec = kVideoCodecH264;
   header.codecHeader.H264.packetization_mode =
       H264PacketizationMode::NonInterleaved;
 
@@ -1814,7 +1814,7 @@ TEST_P(RtpSenderVideoTest, RetransmissionTypesH264) {
 
 TEST_P(RtpSenderVideoTest, RetransmissionTypesVP8BaseLayer) {
   RTPVideoHeader header;
-  header.codec = kRtpVideoVp8;
+  header.codec = kVideoCodecVP8;
   header.codecHeader.VP8.temporalIdx = 0;
 
   EXPECT_EQ(kDontRetransmit,
@@ -1845,7 +1845,7 @@ TEST_P(RtpSenderVideoTest, RetransmissionTypesVP8BaseLayer) {
 
 TEST_P(RtpSenderVideoTest, RetransmissionTypesVP8HigherLayers) {
   RTPVideoHeader header;
-  header.codec = kRtpVideoVp8;
+  header.codec = kVideoCodecVP8;
 
   for (int tid = 1; tid <= kMaxTemporalStreams; ++tid) {
     header.codecHeader.VP8.temporalIdx = tid;
@@ -1871,7 +1871,7 @@ TEST_P(RtpSenderVideoTest, RetransmissionTypesVP8HigherLayers) {
 
 TEST_P(RtpSenderVideoTest, RetransmissionTypesVP9) {
   RTPVideoHeader header;
-  header.codec = kRtpVideoVp9;
+  header.codec = kVideoCodecVP9;
 
   for (int tid = 1; tid <= kMaxTemporalStreams; ++tid) {
     header.codecHeader.VP9.temporal_idx = tid;
@@ -1903,7 +1903,7 @@ TEST_P(RtpSenderVideoTest, ConditionalRetransmit) {
 
   // Insert VP8 frames for all temporal layers, but stop before the final index.
   RTPVideoHeader header;
-  header.codec = kRtpVideoVp8;
+  header.codec = kVideoCodecVP8;
 
   // Fill averaging window to prevent rounding errors.
   constexpr int kNumRepetitions =
@@ -1960,7 +1960,7 @@ TEST_P(RtpSenderVideoTest, ConditionalRetransmitLimit) {
 
   // Insert VP8 frames for all temporal layers, but stop before the final index.
   RTPVideoHeader header;
-  header.codec = kRtpVideoVp8;
+  header.codec = kVideoCodecVP8;
 
   // Fill averaging window to prevent rounding errors.
   constexpr int kNumRepetitions =

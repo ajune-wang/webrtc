@@ -46,6 +46,30 @@
       "revId": "d03765b83571379589a21741c2933f7961536b0a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "deee047c_41769ec5",
+        "filename": "sdk/objc/Framework/Classes/VideoToolbox/RTCVideoEncoderH264.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-06-01T13:01:33Z",
+      "side": 1,
+      "message": "The code may be easier to understand but it\u0027s more brittle. It\u0027s very easy to forget to release something in a branch somewhere, and in fact we do this all the time. \n\nScoped objects solve this problem in a very clean way, and results in less code that\u0027s more safe.\n\nI would like to eventually use ScopedCFRefTypes wherever we have CoreFoundation types in our codebase.",
+      "parentUuid": "21a637c3_b589f473",
+      "range": {
+        "startLine": 365,
+        "startChar": 2,
+        "endLine": 365,
+        "endChar": 18
+      },
+      "revId": "d03765b83571379589a21741c2933f7961536b0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

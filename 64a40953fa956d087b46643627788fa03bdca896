@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "38f6428e_da722519",
+        "filename": "rtc_base/experiments/field_trial_parser.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2018-06-01T08:22:58Z",
+      "side": 1,
+      "message": "I find this name somewhat confusing. It is a config field for a field trial, i.e. two different meanings of the word field. FieldTrialParameter?",
+      "range": {
+        "startLine": 43,
+        "startChar": 6,
+        "endLine": 43,
+        "endChar": 16
+      },
+      "revId": "64a40953fa956d087b46643627788fa03bdca896",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6058c04a_88d12b4a",
+        "filename": "rtc_base/experiments/field_trial_parser.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2018-06-01T08:22:58Z",
+      "side": 1,
+      "message": "This is really a \"FieldTrialOnOffFlag\" or something like that, right?",
+      "range": {
+        "startLine": 61,
+        "startChar": 6,
+        "endLine": 61,
+        "endChar": 20
+      },
+      "revId": "64a40953fa956d087b46643627788fa03bdca896",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "689ce39d_10e3932b",
+        "filename": "rtc_base/experiments/field_trial_parser_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2018-06-01T08:22:58Z",
+      "side": 1,
+      "message": "Maybe add \"WebRTC-AnotherExperiment/Enabled,f:-3.1,otherstuff:beef\" to this string just to make sure the \"FindFullName\" stuff works.",
+      "range": {
+        "startLine": 50,
+        "startChar": 5,
+        "endLine": 50,
+        "endChar": 62
+      },
+      "revId": "64a40953fa956d087b46643627788fa03bdca896",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

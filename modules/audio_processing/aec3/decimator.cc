@@ -14,53 +14,56 @@
 namespace webrtc {
 namespace {
 
-// b, a = signal.butter(2, 3400/8000.0, 'lowpass', analog=False) which are the
-// same as b, a = signal.butter(2, 1700/4000.0, 'lowpass', analog=False).
-const CascadedBiQuadFilter::BiQuadCoefficients kLowPassFilterCoefficients2 = {
-    {0.22711796f, 0.45423593f, 0.22711796f},
-    {-0.27666461f, 0.18513647f}};
-constexpr int kNumFilters2 = 3;
+// signal.ellip(6, 1, 40, 3750/8000, btype='lowpass', analog=False)
+const std::vector<CascadedBiQuadFilter::BiQuadParam> kLowPassFilter2 = {
+    {{-0.08873842f, 0.99605496f},
+     {0.75916227f, 0.23841065f},
+     0.2625069682685461f},
+    {{0.62273832f, 0.78243018f},
+     {0.74892112f, 0.5410152f},
+     0.2625069682685461f},
+    {{0.71107693f, 0.70311421f},
+     {0.74895534f, 0.63924616f},
+     0.2625069682685461f}};
 
-// b, a = signal.butter(2, 750/8000.0, 'lowpass', analog=False) which are the
-// same as b, a = signal.butter(2, 375/4000.0, 'lowpass', analog=False).
-const CascadedBiQuadFilter::BiQuadCoefficients kLowPassFilterCoefficients4 = {
-    {0.0179f, 0.0357f, 0.0179f},
-    {-1.5879f, 0.6594f}};
-constexpr int kNumFilters4 = 3;
+// signal.ellip(6, 1, 40, 1800/8000, btype='lowpass', analog=False)
+const std::vector<CascadedBiQuadFilter::BiQuadParam> kLowPassFilter4 = {
+    {{-0.75642972f, 0.65407498f},
+     {0.43532888f, 0.41488166f},
+     0.40058316550825496f},
+    {{-0.167777f, 0.98582497f},
+     {0.19368069f, 0.85503363f},
+     0.40058316550825496f},
+    {{-0.00948484f, 0.99995502f},
+     {0.09602716f, 0.97186158f},
+     0.40058316550825496f}};
 
-// b, a = signal.cheby1(1, 6, [1000/8000, 2000/8000], btype='bandpass',
-// analog=False)
-const CascadedBiQuadFilter::BiQuadCoefficients kBandPassFilterCoefficients8 = {
-    {0.10330478f, 0.f, -0.10330478f},
-    {-1.520363f, 0.79339043f}};
-constexpr int kNumFilters8 = 5;
+// signal.cheby1(5, 1, [1200/8000, 1800/8000], btype='bandpass', analog=False)
+const std::vector<CascadedBiQuadFilter::BiQuadParam> kBandPassFilter8 = {
+    {{1.f, 0.f}, {0.88297809f, 0.45085848f}, 0.07585061287925589f, true},
+    {{1.f, 0.f}, {0.85178016f, 0.47599054f}, 0.07585061287925589f, true},
+    {{1.f, 0.f}, {0.80953545f, 0.52763149f}, 0.07585061287925589f, true},
+    {{1.f, 0.f}, {0.75203855f, 0.64045356f}, 0.07585061287925589f, true},
+    {{1.f, 0.f}, {0.76954785f, 0.59024877f}, 0.07585061287925589f, true}};
 
-// b, a = signal.butter(2, 1000/8000.0, 'highpass', analog=False)
-const CascadedBiQuadFilter::BiQuadCoefficients kHighPassFilterCoefficients = {
-    {0.75707638f, -1.51415275f, 0.75707638f},
-    {-1.45424359f, 0.57406192f}};
-constexpr int kNumFiltersHP2 = 1;
-constexpr int kNumFiltersHP4 = 1;
-constexpr int kNumFiltersHP8 = 0;
+// signal.butter(2, 1000/8000, btype='highpass', analog=False)
+const std::vector<CascadedBiQuadFilter::BiQuadParam> kHighPassFilter = {
+    {{1.f, 0.f}, {0.72712179f, 0.21296904f}, 0.7570763753338849f}};
+
+// Pass-through filter.
+const std::vector<CascadedBiQuadFilter::BiQuadParam> kNoFilter = {};
 
 }  // namespace
 
 Decimator::Decimator(size_t down_sampling_factor)
     : down_sampling_factor_(down_sampling_factor),
-      anti_aliasing_filter_(
-          down_sampling_factor_ == 4
-              ? kLowPassFilterCoefficients4
-              : (down_sampling_factor_ == 8 ? kBandPassFilterCoefficients8
-                                            : kLowPassFilterCoefficients2),
-          down_sampling_factor_ == 4
-              ? kNumFilters4
-              : (down_sampling_factor_ == 8 ? kNumFilters8 : kNumFilters2)),
-      noise_reduction_filter_(
-          kHighPassFilterCoefficients,
-          down_sampling_factor_ == 4
-              ? kNumFiltersHP4
-              : (down_sampling_factor_ == 8 ? kNumFiltersHP8
-                                            : kNumFiltersHP2)) {
+      anti_aliasing_filter_(down_sampling_factor_ == 4
+                                ? kLowPassFilter4
+                                : (down_sampling_factor_ == 8
+                                       ? kBandPassFilter8
+                                       : kLowPassFilter2)),
+      noise_reduction_filter_(down_sampling_factor_ == 8 ? kNoFilter
+                                                         : kHighPassFilter) {
   RTC_DCHECK(down_sampling_factor_ == 2 || down_sampling_factor_ == 4 ||
              down_sampling_factor_ == 8);
 }

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b785d4bb_766bbd1e",
+        "filename": "sdk/objc/Framework/Classes/VideoToolbox/RTCVideoEncoderH264.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-06-01T12:32:59Z",
+      "side": 1,
+      "message": "Time to change this to rtc::ScopedCFTypeRef? :D This is like the 3rd time we find a leak like this in this class, and it\u0027s already ObjC++.\n\nIt would be great to change the rest of the CFTypes here into scoped wrappers as well.",
+      "range": {
+        "startLine": 365,
+        "startChar": 2,
+        "endLine": 365,
+        "endChar": 18
+      },
+      "revId": "d03765b83571379589a21741c2933f7961536b0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

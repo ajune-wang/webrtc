@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "717049e6_6b401fc4",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-06-01T13:08:29Z",
+      "side": 1,
+      "message": "Can you suggest names that you would find more self-explanatory? Maybe it\u0027s hard to come up with a single word that describes the interaction of these states and comments are necessary.",
+      "parentUuid": "a714d23a_2310b554",
+      "range": {
+        "startLine": 51,
+        "startChar": 5,
+        "endLine": 51,
+        "endChar": 21
+      },
+      "revId": "581cecbed3c994749dfe95fa3545b57e13761612",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d908c555_8957780e",
         "filename": "video/video_stream_encoder.cc",
         "patchSetId": 6
@@ -60,6 +84,30 @@
       "writtenOn": "2018-05-30T12:26:40Z",
       "side": 1,
       "message": "WDYT of making this configurable through the field trial string?",
+      "range": {
+        "startLine": 54,
+        "startChar": 13,
+        "endLine": 54,
+        "endChar": 15
+      },
+      "revId": "581cecbed3c994749dfe95fa3545b57e13761612",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "941195f3_7ddec134",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-06-01T13:08:29Z",
+      "side": 1,
+      "message": "I thought of that as well, and I think that may be a good idea. I did test a few values locally and thought this offered the same benefit as f.x. 8 at a cost of faster time-to-first-frame. I also found 2 was not enough. Maybe 3 or 5 is incrementally better but I\u0027m not sure it\u0027s worth it to run those experiments, at least not yet.",
+      "parentUuid": "d908c555_8957780e",
       "range": {
         "startLine": 54,
         "startChar": 13,
@@ -95,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "6b18ec6c_243ad49d",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-06-01T13:08:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "94414025_6f55ab81",
+      "range": {
+        "startLine": 91,
+        "startChar": 2,
+        "endLine": 91,
+        "endChar": 13
+      },
+      "revId": "581cecbed3c994749dfe95fa3545b57e13761612",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "85bda6e9_8361e90f",
         "filename": "video/video_stream_encoder.cc",
         "patchSetId": 6
@@ -109,6 +181,24 @@
       "revId": "581cecbed3c994749dfe95fa3545b57e13761612",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57540370_53951166",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 795,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-06-01T13:08:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "85bda6e9_8361e90f",
+      "revId": "581cecbed3c994749dfe95fa3545b57e13761612",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -147,6 +237,30 @@
       "side": 1,
       "message": "To me, it would make sense to drop frames based on the start bitrate until the first bwe estimte arrives. And then switch to (and restart) frame dropping based on the BWE. But I suspect this change does something different, with this place being the only transition Ready --\u003e On ?\n\nAnd one complication is that with the current code, the very first call to OnBitrateUpdated passes some default value, not an estimate based on real measurements.",
       "parentUuid": "10e9c55c_a66b4f73",
+      "range": {
+        "startLine": 944,
+        "startChar": 7,
+        "endLine": 944,
+        "endChar": 40
+      },
+      "revId": "581cecbed3c994749dfe95fa3545b57e13761612",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a8de0dd_61b53dc3",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 944,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-06-01T13:08:29Z",
+      "side": 1,
+      "message": "You\u0027re right, this CL changes things so that we don\u0027t use this feature at all until the first BW estimate arrives. This may not be what we want to do, and it\u0027s probably better to use it initially based on the start_bitrate, and then again when we have an estimate.\n\nThere is no clean way to do that while the BW estimator calls this with the start_bitrate, other than to add a boolean `has_gotten_first_real_estimate` but that just feels so wrong.\n\nPerhaps the right place to start would be to change the BW estimator to not call this before we have a real estimate.",
+      "parentUuid": "13ea740f_2702656d",
       "range": {
         "startLine": 944,
         "startChar": 7,

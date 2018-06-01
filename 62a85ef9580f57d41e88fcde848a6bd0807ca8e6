@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b782f8b7_864f2b38",
+        "filename": "modules/audio_device/mac/audio_device_mac.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1570,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-06-01T11:01:41Z",
+      "side": 1,
+      "message": "Can be const auto, presumably?",
+      "revId": "62a85ef9580f57d41e88fcde848a6bd0807ca8e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

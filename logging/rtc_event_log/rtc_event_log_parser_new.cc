@@ -531,7 +531,9 @@ void ParsedRtcEventLogNew::StoreParsedEvent(const rtclog::Event& event) {
       if (extension_map != nullptr) {
         rtp_parser.Parse(&parsed_header, extension_map);
       } else {
-        // Use the default extension map.
+        // TODO(terelius): This should be removed. GetRtpHeader will return the
+        // default map if the parser is configured for it. Use the default
+        // extension map.
         // TODO(ivoc): Once configuration of audio streams is stored in the
         //             event log, this can be removed.
         //             Tracking bug: webrtc:6399

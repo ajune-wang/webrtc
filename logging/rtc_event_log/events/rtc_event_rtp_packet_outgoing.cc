@@ -11,6 +11,7 @@
 #include "logging/rtc_event_log/events/rtc_event_rtp_packet_outgoing.h"
 
 #include "modules/rtp_rtcp/source/rtp_packet_to_send.h"
+#include "rtc_base/ptr_util.h"
 
 namespace webrtc {
 
@@ -29,6 +30,14 @@ RtcEvent::Type RtcEventRtpPacketOutgoing::GetType() const {
 
 bool RtcEventRtpPacketOutgoing::IsConfigEvent() const {
   return false;
+}
+
+std::unique_ptr<RtcEvent> RtcEventRtpPacketOutgoing::Copy() const {
+  RtpPacketToSend packet_copy(nullptr);
+  packet_copy.CopyHeaderFrom(header_);
+  packet_copy.AllocatePayload(packet_length_ - header_.headers_size());
+  return rtc::MakeUnique<RtcEventRtpPacketOutgoing>(packet_copy,
+                                                    probe_cluster_id_);
 }
 
 }  // namespace webrtc

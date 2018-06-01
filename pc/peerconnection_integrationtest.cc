@@ -4383,6 +4383,46 @@ class PeerConnectionIntegrationInteropTest
   const SdpSemantics callee_semantics_;
 };
 
+TEST_P(PeerConnectionIntegrationTest, VideoGetParametersHasHeaderExtensions) {
+  ASSERT_TRUE(CreatePeerConnectionWrappers());
+  ConnectFakeSignaling();
+  caller()->AddVideoTrack();
+  caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  // Wait for one audio frame to be received by the callee.
+  MediaExpectations media_expectations;
+  media_expectations.CalleeExpectsSomeVideo(1);
+  ASSERT_TRUE(ExpectNewFrames(media_expectations));
+
+  ASSERT_GT(caller()->pc()->GetSenders().size(), 0u);
+  auto sender = caller()->pc()->GetSenders()[0];
+  EXPECT_GT(sender->GetParameters().header_extensions.size(), 0u);
+
+  ASSERT_GT(callee()->pc()->GetReceivers().size(), 0u);
+  auto receiver = callee()->pc()->GetReceivers()[0];
+  EXPECT_GT(receiver->GetParameters().header_extensions.size(), 0u);
+}
+
+TEST_P(PeerConnectionIntegrationTest, AudioGetParametersHasHeaderExtensions) {
+  ASSERT_TRUE(CreatePeerConnectionWrappers());
+  ConnectFakeSignaling();
+  caller()->AddAudioTrack();
+  caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  // Wait for one audio frame to be received by the callee.
+  MediaExpectations media_expectations;
+  media_expectations.CalleeExpectsSomeAudio(1);
+  ASSERT_TRUE(ExpectNewFrames(media_expectations));
+
+  ASSERT_GT(caller()->pc()->GetSenders().size(), 0u);
+  auto sender = caller()->pc()->GetSenders()[0];
+  EXPECT_GT(sender->GetParameters().header_extensions.size(), 0u);
+
+  ASSERT_GT(callee()->pc()->GetReceivers().size(), 0u);
+  auto receiver = callee()->pc()->GetReceivers()[0];
+  EXPECT_GT(receiver->GetParameters().header_extensions.size(), 0u);
+}
+
 TEST_P(PeerConnectionIntegrationInteropTest, NoMediaLocalToNoMediaRemote) {
   ASSERT_TRUE(CreatePeerConnectionWrappersWithSemantics());
   ConnectFakeSignaling();

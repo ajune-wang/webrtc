@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ce2c82c3_7c93d074",
+        "filename": "cr-buildbucket.cfg",
+        "patchSetId": 2
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-06-01T08:02:33Z",
+      "side": 1,
+      "message": "Nit: punctuation (apply throughout)",
+      "range": {
+        "startLine": 186,
+        "startChar": 20,
+        "endLine": 186,
+        "endChar": 35
+      },
+      "revId": "ea3af55a958ee058c0265660cb128bae9f1a077f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

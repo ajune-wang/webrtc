@@ -1,0 +1,129 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d6e1c83c_5a65237e",
+        "filename": "logging/rtc_event_log/events/rtc_event_alr_state.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-01T22:34:27Z",
+      "side": 1,
+      "message": "nit: Because the unique_ptr is only used by an inherited method, I am not sure if the style guide demands that \u003cmemory\u003e be #include-ed directly, in addition to its #inclusion via rtc_event.h. (I\u0027d love to know what the style guide says, one way or the other.)",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42000f49_5bf0b01a",
+        "filename": "logging/rtc_event_log/events/rtc_event_rtp_packet_incoming.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-01T22:34:27Z",
+      "side": 1,
+      "message": "This will be copied twice - once on this line, and once again in the ctor (line 38).\nRtpPacketReceived has a move-constructor. Perhaps we could use that to overload RtcEventRtpPacketIncoming\u0027s ctor with a private ctor that performs a move?",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae94607f_168ec64b",
+        "filename": "logging/rtc_event_log/events/rtc_event_rtp_packet_incoming.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-01T22:34:27Z",
+      "side": 1,
+      "message": "By overloading the ctor, you could avoid this, too.",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6c0a5fd_c8fe9143",
+        "filename": "logging/rtc_event_log/events/rtc_event_rtp_packet_outgoing.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-01T22:34:27Z",
+      "side": 1,
+      "message": "Same suggestions.",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91a109f1_7058eff2",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 539,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-01T22:34:27Z",
+      "side": 1,
+      "message": "Should both TODOs be retained?",
+      "range": {
+        "startLine": 534,
+        "startChar": 0,
+        "endLine": 539,
+        "endChar": 48
+      },
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bbdf6dd3_5e3b77bd",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 680,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-01T22:34:27Z",
+      "side": 1,
+      "message": "nit: Typo.",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51fcbaeb_2b239375",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 684,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-01T22:34:27Z",
+      "side": 1,
+      "message": "nit: Style regarding newlines now clashes with probably-pre-rebase style.",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

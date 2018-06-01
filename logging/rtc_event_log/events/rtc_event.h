@@ -13,6 +13,8 @@
 
 #include <typedefs.h>
 
+#include <memory>
+
 #include "rtc_base/timeutils.h"
 
 namespace webrtc {
@@ -56,6 +58,8 @@ class RtcEvent {
   virtual Type GetType() const = 0;
 
   virtual bool IsConfigEvent() const = 0;
+
+  virtual std::unique_ptr<RtcEvent> Copy() const = 0;
 
   const int64_t timestamp_us_;
 };

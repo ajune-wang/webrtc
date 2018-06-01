@@ -23,6 +23,7 @@ namespace rtclog {
 
 struct StreamConfig {
   StreamConfig();
+  StreamConfig(const StreamConfig& other);
   ~StreamConfig();
 
   bool operator==(const StreamConfig& other) const;

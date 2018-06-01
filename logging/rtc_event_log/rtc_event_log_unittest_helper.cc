@@ -10,610 +10,772 @@
 
 #include "logging/rtc_event_log/rtc_event_log_unittest_helper.h"
 
-#include <string.h>
+#include <string.h>  // memcmp
 
-#include <string>
+#include <memory>
+#include <utility>
 #include <vector>
 
 #include "modules/audio_coding/audio_network_adaptor/include/audio_network_adaptor.h"
 #include "modules/remote_bitrate_estimator/include/bwe_defines.h"
+#include "modules/rtp_rtcp/source/rtp_header_extensions.h"
+#include "modules/rtp_rtcp/source/rtp_packet_received.h"
+#include "modules/rtp_rtcp/source/rtp_packet_to_send.h"
 #include "rtc_base/checks.h"
-#include "test/gmock.h"
-#include "test/gtest.h"
-#include "test/testsupport/fileutils.h"
-
-// Files generated at build-time by the protobuf compiler.
-#ifdef WEBRTC_ANDROID_PLATFORM_BUILD
-#include "external/webrtc/webrtc/logging/rtc_event_log/rtc_event_log.pb.h"
-#else
-#include "logging/rtc_event_log/rtc_event_log.pb.h"
-#endif
+#include "rtc_base/random.h"
 
 namespace webrtc {
 
-namespace {
+namespace test {
 
-BandwidthUsage GetRuntimeDetectorState(
-    rtclog::DelayBasedBweUpdate::DetectorState detector_state) {
-  switch (detector_state) {
-    case rtclog::DelayBasedBweUpdate::BWE_NORMAL:
-      return BandwidthUsage::kBwNormal;
-    case rtclog::DelayBasedBweUpdate::BWE_UNDERUSING:
-      return BandwidthUsage::kBwUnderusing;
-    case rtclog::DelayBasedBweUpdate::BWE_OVERUSING:
-      return BandwidthUsage::kBwOverusing;
-  }
-  RTC_NOTREACHED();
-  return BandwidthUsage::kBwNormal;
+const RTPExtensionType kExtensionTypes[] = {
+    RTPExtensionType::kRtpExtensionTransmissionTimeOffset,
+    RTPExtensionType::kRtpExtensionAbsoluteSendTime,
+    RTPExtensionType::kRtpExtensionTransportSequenceNumber,
+    RTPExtensionType::kRtpExtensionAudioLevel,
+    RTPExtensionType::kRtpExtensionVideoRotation};
+const char* kExtensionNames[] = {
+    RtpExtension::kTimestampOffsetUri, RtpExtension::kAbsSendTimeUri,
+    RtpExtension::kTransportSequenceNumberUri, RtpExtension::kAudioLevelUri,
+    RtpExtension::kVideoRotationUri};
+
+const size_t kNumExtensions = 5;
+
+std::unique_ptr<RtcEventAlrState> GenerateRtcEventAlrState(Random* prng) {
+  return rtc::MakeUnique<RtcEventAlrState>(prng->Rand<bool>());
 }
 
-rtclog::BweProbeResult::ResultType GetProbeResultType(
-    ProbeFailureReason failure_reason) {
-  switch (failure_reason) {
-    case ProbeFailureReason::kInvalidSendReceiveInterval:
-      return rtclog::BweProbeResult::INVALID_SEND_RECEIVE_INTERVAL;
-    case ProbeFailureReason::kInvalidSendReceiveRatio:
-      return rtclog::BweProbeResult::INVALID_SEND_RECEIVE_RATIO;
-    case ProbeFailureReason::kTimeout:
-      return rtclog::BweProbeResult::TIMEOUT;
-    case ProbeFailureReason::kLast:
-      RTC_NOTREACHED();
-  }
-  RTC_NOTREACHED();
-  return rtclog::BweProbeResult::SUCCESS;
-}
-}  // namespace
-
-// Checks that the event has a timestamp, a type and exactly the data field
-// corresponding to the type.
-::testing::AssertionResult IsValidBasicEvent(const rtclog::Event& event) {
-  if (!event.has_timestamp_us()) {
-    return ::testing::AssertionFailure() << "Event has no timestamp";
-  }
-  if (!event.has_type()) {
-    return ::testing::AssertionFailure() << "Event has no event type";
-  }
-  rtclog::Event_EventType type = event.type();
-  if ((type == rtclog::Event::RTP_EVENT) != event.has_rtp_packet()) {
-    return ::testing::AssertionFailure()
-           << "Event of type " << type << " has "
-           << (event.has_rtp_packet() ? "" : "no ") << "RTP packet";
-  }
-  if ((type == rtclog::Event::RTCP_EVENT) != event.has_rtcp_packet()) {
-    return ::testing::AssertionFailure()
-           << "Event of type " << type << " has "
-           << (event.has_rtcp_packet() ? "" : "no ") << "RTCP packet";
-  }
-  if ((type == rtclog::Event::LOSS_BASED_BWE_UPDATE) !=
-      event.has_loss_based_bwe_update()) {
-    return ::testing::AssertionFailure()
-           << "Event of type " << type << " has "
-           << (event.has_loss_based_bwe_update() ? "" : "no ") << "loss update";
-  }
-  if ((type == rtclog::Event::DELAY_BASED_BWE_UPDATE) !=
-      event.has_delay_based_bwe_update()) {
-    return ::testing::AssertionFailure()
-           << "Event of type " << type << " has "
-           << (event.has_delay_based_bwe_update() ? "" : "no ")
-           << "delay update";
-  }
-  if ((type == rtclog::Event::AUDIO_PLAYOUT_EVENT) !=
-      event.has_audio_playout_event()) {
-    return ::testing::AssertionFailure()
-           << "Event of type " << type << " has "
-           << (event.has_audio_playout_event() ? "" : "no ")
-           << "audio_playout event";
-  }
-  if ((type == rtclog::Event::VIDEO_RECEIVER_CONFIG_EVENT) !=
-      event.has_video_receiver_config()) {
-    return ::testing::AssertionFailure()
-           << "Event of type " << type << " has "
-           << (event.has_video_receiver_config() ? "" : "no ")
-           << "receiver config";
-  }
-  if ((type == rtclog::Event::VIDEO_SENDER_CONFIG_EVENT) !=
-      event.has_video_sender_config()) {
-    return ::testing::AssertionFailure()
-           << "Event of type " << type << " has "
-           << (event.has_video_sender_config() ? "" : "no ") << "sender config";
-  }
-  if ((type == rtclog::Event::AUDIO_RECEIVER_CONFIG_EVENT) !=
-      event.has_audio_receiver_config()) {
-    return ::testing::AssertionFailure()
-           << "Event of type " << type << " has "
-           << (event.has_audio_receiver_config() ? "" : "no ")
-           << "audio receiver config";
-  }
-  if ((type == rtclog::Event::AUDIO_SENDER_CONFIG_EVENT) !=
-      event.has_audio_sender_config()) {
-    return ::testing::AssertionFailure()
-           << "Event of type " << type << " has "
-           << (event.has_audio_sender_config() ? "" : "no ")
-           << "audio sender config";
-  }
-  if ((type == rtclog::Event::AUDIO_NETWORK_ADAPTATION_EVENT) !=
-      event.has_audio_network_adaptation()) {
-    return ::testing::AssertionFailure()
-           << "Event of type " << type << " has "
-           << (event.has_audio_network_adaptation() ? "" : "no ")
-           << "audio network adaptation";
-  }
-  if ((type == rtclog::Event::BWE_PROBE_CLUSTER_CREATED_EVENT) !=
-      event.has_probe_cluster()) {
-    return ::testing::AssertionFailure()
-           << "Event of type " << type << " has "
-           << (event.has_probe_cluster() ? "" : "no ") << "bwe probe cluster";
-  }
-  if ((type == rtclog::Event::BWE_PROBE_RESULT_EVENT) !=
-      event.has_probe_result()) {
-    return ::testing::AssertionFailure()
-           << "Event of type " << type << " has "
-           << (event.has_probe_result() ? "" : "no ") << "bwe probe result";
-  }
-  return ::testing::AssertionSuccess();
+std::unique_ptr<RtcEventAudioPlayout> GenerateRtcEventAudioPlayout(
+    uint32_t ssrc,
+    Random* prng) {
+  return rtc::MakeUnique<RtcEventAudioPlayout>(ssrc);
 }
 
-void VerifyStreamConfigsAreEqual(const rtclog::StreamConfig& config_1,
-                                 const rtclog::StreamConfig& config_2) {
-  EXPECT_EQ(config_1.remote_ssrc, config_2.remote_ssrc);
-  EXPECT_EQ(config_1.local_ssrc, config_2.local_ssrc);
-  EXPECT_EQ(config_1.rtx_ssrc, config_2.rtx_ssrc);
-  EXPECT_EQ(config_1.rtcp_mode, config_2.rtcp_mode);
-  EXPECT_EQ(config_1.remb, config_2.remb);
+std::unique_ptr<RtcEventAudioNetworkAdaptation>
+GenerateRtcEventAudioNetworkAdaptation(Random* prng) {
+  std::unique_ptr<AudioEncoderRuntimeConfig> config =
+      rtc::MakeUnique<AudioEncoderRuntimeConfig>();
 
-  ASSERT_EQ(config_1.rtp_extensions.size(), config_2.rtp_extensions.size());
-  for (size_t i = 0; i < config_2.rtp_extensions.size(); i++) {
-    EXPECT_EQ(config_1.rtp_extensions[i].uri, config_2.rtp_extensions[i].uri);
-    EXPECT_EQ(config_1.rtp_extensions[i].id, config_2.rtp_extensions[i].id);
-  }
-  ASSERT_EQ(config_1.codecs.size(), config_2.codecs.size());
-  for (size_t i = 0; i < config_2.codecs.size(); i++) {
-    EXPECT_EQ(config_1.codecs[i].payload_name, config_2.codecs[i].payload_name);
-    EXPECT_EQ(config_1.codecs[i].payload_type, config_2.codecs[i].payload_type);
-    EXPECT_EQ(config_1.codecs[i].rtx_payload_type,
-              config_2.codecs[i].rtx_payload_type);
-  }
+  config->bitrate_bps = prng->Rand(0, 3000000);
+  config->enable_fec = prng->Rand<bool>();
+  config->enable_dtx = prng->Rand<bool>();
+  config->frame_length_ms = prng->Rand(10, 120);
+  config->num_channels = prng->Rand(1, 2);
+  config->uplink_packet_loss_fraction = prng->Rand<float>();
+
+  return rtc::MakeUnique<RtcEventAudioNetworkAdaptation>(std::move(config));
 }
 
-void RtcEventLogTestHelper::VerifyVideoReceiveStreamConfig(
-    const ParsedRtcEventLogNew& parsed_log,
-    size_t index,
-    const rtclog::StreamConfig& config) {
-  ASSERT_LT(index, parsed_log.events_.size());
-  const rtclog::Event& event = parsed_log.events_[index];
-  ASSERT_TRUE(IsValidBasicEvent(event));
-  ASSERT_EQ(rtclog::Event::VIDEO_RECEIVER_CONFIG_EVENT, event.type());
-  const rtclog::VideoReceiveConfig& receiver_config =
-      event.video_receiver_config();
-  // Check SSRCs.
-  ASSERT_TRUE(receiver_config.has_remote_ssrc());
-  EXPECT_EQ(config.remote_ssrc, receiver_config.remote_ssrc());
-  ASSERT_TRUE(receiver_config.has_local_ssrc());
-  EXPECT_EQ(config.local_ssrc, receiver_config.local_ssrc());
-  // Check RTCP settings.
-  ASSERT_TRUE(receiver_config.has_rtcp_mode());
-  if (config.rtcp_mode == RtcpMode::kCompound) {
-    EXPECT_EQ(rtclog::VideoReceiveConfig::RTCP_COMPOUND,
-              receiver_config.rtcp_mode());
-  } else {
-    EXPECT_EQ(rtclog::VideoReceiveConfig::RTCP_REDUCEDSIZE,
-              receiver_config.rtcp_mode());
-  }
-  ASSERT_TRUE(receiver_config.has_remb());
-  EXPECT_EQ(config.remb, receiver_config.remb());
-  // Check RTX map.
-  for (const rtclog::RtxMap& rtx_map : receiver_config.rtx_map()) {
-    ASSERT_TRUE(rtx_map.has_payload_type());
-    ASSERT_TRUE(rtx_map.has_config());
-    const rtclog::RtxConfig& rtx_config = rtx_map.config();
-    ASSERT_TRUE(rtx_config.has_rtx_ssrc());
-    ASSERT_TRUE(rtx_config.has_rtx_payload_type());
+std::unique_ptr<RtcEventBweUpdateDelayBased>
+GenerateRtcEventBweUpdateDelayBased(Random* prng) {
+  constexpr int32_t kMaxBweBps = 20000000;
+  constexpr size_t kNumBwStates = 3;
+  BandwidthUsage states[kNumBwStates] = {BandwidthUsage::kBwNormal,
+                                         BandwidthUsage::kBwUnderusing,
+                                         BandwidthUsage::kBwOverusing};
 
-    EXPECT_EQ(config.rtx_ssrc, rtx_config.rtx_ssrc());
-    auto codec_found =
-        std::find_if(config.codecs.begin(), config.codecs.end(),
-                     [&rtx_map](const rtclog::StreamConfig::Codec& codec) {
-                       return rtx_map.payload_type() == codec.payload_type;
-                     });
-    ASSERT_TRUE(codec_found != config.codecs.end());
-    EXPECT_EQ(rtx_config.rtx_payload_type(), codec_found->rtx_payload_type);
-  }
-  // Check header extensions.
-  ASSERT_EQ(static_cast<int>(config.rtp_extensions.size()),
-            receiver_config.header_extensions_size());
-  for (int i = 0; i < receiver_config.header_extensions_size(); i++) {
-    ASSERT_TRUE(receiver_config.header_extensions(i).has_name());
-    ASSERT_TRUE(receiver_config.header_extensions(i).has_id());
-    const std::string& name = receiver_config.header_extensions(i).name();
-    int id = receiver_config.header_extensions(i).id();
-    EXPECT_EQ(config.rtp_extensions[i].id, id);
-    EXPECT_EQ(config.rtp_extensions[i].uri, name);
-  }
-  // Check decoders.
-  ASSERT_EQ(static_cast<int>(config.codecs.size()),
-            receiver_config.decoders_size());
-  for (int i = 0; i < receiver_config.decoders_size(); i++) {
-    ASSERT_TRUE(receiver_config.decoders(i).has_name());
-    ASSERT_TRUE(receiver_config.decoders(i).has_payload_type());
-    const std::string& decoder_name = receiver_config.decoders(i).name();
-    int decoder_type = receiver_config.decoders(i).payload_type();
-    EXPECT_EQ(config.codecs[i].payload_name, decoder_name);
-    EXPECT_EQ(config.codecs[i].payload_type, decoder_type);
-  }
-
-  // Check consistency of the parser.
-  rtclog::StreamConfig parsed_config = parsed_log.GetVideoReceiveConfig(index);
-  VerifyStreamConfigsAreEqual(config, parsed_config);
+  int32_t bitrate_bps = prng->Rand(0, kMaxBweBps);
+  BandwidthUsage state = states[prng->Rand(0, kNumBwStates - 1)];
+  return rtc::MakeUnique<RtcEventBweUpdateDelayBased>(bitrate_bps, state);
 }
 
-void RtcEventLogTestHelper::VerifyVideoSendStreamConfig(
-    const ParsedRtcEventLogNew& parsed_log,
-    size_t index,
-    const rtclog::StreamConfig& config) {
-  ASSERT_LT(index, parsed_log.events_.size());
-  const rtclog::Event& event = parsed_log.events_[index];
-  ASSERT_TRUE(IsValidBasicEvent(event));
-  ASSERT_EQ(rtclog::Event::VIDEO_SENDER_CONFIG_EVENT, event.type());
-  const rtclog::VideoSendConfig& sender_config = event.video_sender_config();
+std::unique_ptr<RtcEventBweUpdateLossBased> GenerateRtcEventBweUpdateLossBased(
+    Random* prng) {
+  constexpr int32_t kMaxBweBps = 20000000;
+  constexpr int32_t kMaxPackets = 1000;
+  int32_t bitrate_bps = prng->Rand(0, kMaxBweBps);
+  uint8_t fraction_lost = prng->Rand<uint8_t>();
+  int32_t total_packets = prng->Rand(1, kMaxPackets);
 
-  EXPECT_EQ(config.local_ssrc, sender_config.ssrcs(0));
-  EXPECT_EQ(config.rtx_ssrc, sender_config.rtx_ssrcs(0));
+  return rtc::MakeUnique<RtcEventBweUpdateLossBased>(bitrate_bps, fraction_lost,
+                                                     total_packets);
+}
 
-  // Check header extensions.
-  ASSERT_EQ(static_cast<int>(config.rtp_extensions.size()),
-            sender_config.header_extensions_size());
-  for (int i = 0; i < sender_config.header_extensions_size(); i++) {
-    ASSERT_TRUE(sender_config.header_extensions(i).has_name());
-    ASSERT_TRUE(sender_config.header_extensions(i).has_id());
-    const std::string& name = sender_config.header_extensions(i).name();
-    int id = sender_config.header_extensions(i).id();
-    EXPECT_EQ(config.rtp_extensions[i].id, id);
-    EXPECT_EQ(config.rtp_extensions[i].uri, name);
+std::unique_ptr<RtcEventProbeClusterCreated>
+GenerateRtcEventProbeClusterCreated(Random* prng) {
+  constexpr int kMaxBweBps = 20000000;
+  constexpr int kMaxNumProbes = 10000;
+  int id = prng->Rand(1, kMaxNumProbes);
+  int bitrate_bps = prng->Rand(0, kMaxBweBps);
+  int min_probes = prng->Rand(5, 50);
+  int min_bytes = prng->Rand(500, 50000);
+
+  return rtc::MakeUnique<RtcEventProbeClusterCreated>(id, bitrate_bps,
+                                                      min_probes, min_bytes);
+}
+
+std::unique_ptr<RtcEventProbeResultFailure> GenerateRtcEventProbeResultFailure(
+    Random* prng) {
+  constexpr int kMaxNumProbes = 10000;
+  constexpr size_t kNumFailureReasons = 3;
+  ProbeFailureReason reasons[kNumFailureReasons] = {
+      ProbeFailureReason::kInvalidSendReceiveInterval,
+      ProbeFailureReason::kInvalidSendReceiveRatio,
+      ProbeFailureReason::kTimeout};
+
+  int id = prng->Rand(1, kMaxNumProbes);
+  ProbeFailureReason reason = reasons[prng->Rand(0, kNumFailureReasons - 1)];
+
+  return rtc::MakeUnique<RtcEventProbeResultFailure>(id, reason);
+}
+
+std::unique_ptr<RtcEventProbeResultSuccess> GenerateRtcEventProbeResultSuccess(
+    Random* prng) {
+  constexpr int kMaxBweBps = 20000000;
+  constexpr int kMaxNumProbes = 10000;
+  int id = prng->Rand(1, kMaxNumProbes);
+  int bitrate_bps = prng->Rand(0, kMaxBweBps);
+
+  return rtc::MakeUnique<RtcEventProbeResultSuccess>(id, bitrate_bps);
+}
+
+std::unique_ptr<RtcEventIceCandidatePairConfig>
+GenerateRtcEventIceCandidatePairConfig(Random* prng) {
+  constexpr size_t kNumIceConfigTypes = 4;
+  IceCandidatePairConfigType event_types[kNumIceConfigTypes] = {
+      IceCandidatePairConfigType::kAdded, IceCandidatePairConfigType::kUpdated,
+      IceCandidatePairConfigType::kDestroyed,
+      IceCandidatePairConfigType::kSelected};
+
+  constexpr size_t kNumCandidateTypes = 5;
+  IceCandidateType candidate_types[kNumCandidateTypes] = {
+      IceCandidateType::kLocal, IceCandidateType::kStun,
+      IceCandidateType::kPrflx, IceCandidateType::kRelay,
+      IceCandidateType::kUnknown};
+
+  constexpr size_t kNumProtocols = 5;
+  IceCandidatePairProtocol protocol_types[kNumProtocols] = {
+      IceCandidatePairProtocol::kUdp, IceCandidatePairProtocol::kTcp,
+      IceCandidatePairProtocol::kSsltcp, IceCandidatePairProtocol::kTls,
+      IceCandidatePairProtocol::kUnknown};
+
+  constexpr size_t kNumAddressFamilies = 3;
+  IceCandidatePairAddressFamily address_families[kNumAddressFamilies] = {
+      IceCandidatePairAddressFamily::kIpv4,
+      IceCandidatePairAddressFamily::kIpv6,
+      IceCandidatePairAddressFamily::kUnknown};
+
+  constexpr size_t kNumNetworkTypes = 6;
+  IceCandidateNetworkType network_types[kNumNetworkTypes] = {
+      IceCandidateNetworkType::kEthernet, IceCandidateNetworkType::kLoopback,
+      IceCandidateNetworkType::kWifi,     IceCandidateNetworkType::kVpn,
+      IceCandidateNetworkType::kCellular, IceCandidateNetworkType::kUnknown};
+
+  IceCandidatePairConfigType type =
+      event_types[prng->Rand(0, kNumIceConfigTypes - 1)];
+  uint32_t pair_id = prng->Rand<uint32_t>();
+
+  IceCandidatePairDescription desc;
+
+  desc.local_candidate_type =
+      candidate_types[prng->Rand(0, kNumCandidateTypes - 1)];
+  desc.local_relay_protocol = protocol_types[prng->Rand(0, kNumProtocols - 1)];
+  desc.local_network_type = network_types[prng->Rand(0, kNumNetworkTypes - 1)];
+  desc.local_address_family =
+      address_families[prng->Rand(0, kNumAddressFamilies - 1)];
+  desc.remote_candidate_type =
+      candidate_types[prng->Rand(0, kNumCandidateTypes - 1)];
+  desc.remote_address_family =
+      address_families[prng->Rand(0, kNumAddressFamilies - 1)];
+  desc.candidate_pair_protocol =
+      protocol_types[prng->Rand(0, kNumProtocols - 1)];
+
+  return rtc::MakeUnique<RtcEventIceCandidatePairConfig>(type, pair_id, desc);
+}
+
+std::unique_ptr<RtcEventIceCandidatePair> GenerateRtcEventIceCandidatePair(
+    Random* prng) {
+  constexpr size_t kNumIceCheckTypes = 8;
+  IceCandidatePairEventType event_types[kNumIceCheckTypes] = {
+      IceCandidatePairEventType::kCheckSent,
+      IceCandidatePairEventType::kCheckReceived,
+      IceCandidatePairEventType::kCheckResponseSent,
+      IceCandidatePairEventType::kCheckResponseReceived};
+  IceCandidatePairEventType type =
+      event_types[prng->Rand(0, kNumIceCheckTypes - 1)];
+  uint32_t pair_id = prng->Rand<uint32_t>();
+
+  return rtc::MakeUnique<RtcEventIceCandidatePair>(type, pair_id);
+}
+
+std::unique_ptr<RtcEventRtcpPacketIncoming> GenerateRtcEventRtcpPacketIncoming(
+    Random* prng) {
+  // TODO(terelius): Test the other RTCP types too.
+  rtcp::ReportBlock report_block;
+  report_block.SetMediaSsrc(prng->Rand<uint32_t>());  // Remote SSRC.
+  report_block.SetFractionLost(prng->Rand(50));
+
+  rtcp::SenderReport sender_report;
+  sender_report.SetSenderSsrc(prng->Rand<uint32_t>());
+  sender_report.SetNtp(NtpTime(prng->Rand<uint32_t>(), prng->Rand<uint32_t>()));
+  sender_report.SetPacketCount(prng->Rand<uint32_t>());
+  sender_report.AddReportBlock(report_block);
+
+  rtc::Buffer buffer = sender_report.Build();
+  return rtc::MakeUnique<RtcEventRtcpPacketIncoming>(buffer);
+}
+
+std::unique_ptr<RtcEventRtcpPacketOutgoing> GenerateRtcEventRtcpPacketOutgoing(
+    Random* prng) {
+  // TODO(terelius): Test the other RTCP types too.
+  rtcp::ReportBlock report_block;
+  report_block.SetMediaSsrc(prng->Rand<uint32_t>());  // Remote SSRC.
+  report_block.SetFractionLost(prng->Rand(50));
+
+  rtcp::SenderReport sender_report;
+  sender_report.SetSenderSsrc(prng->Rand<uint32_t>());
+  sender_report.SetNtp(NtpTime(prng->Rand<uint32_t>(), prng->Rand<uint32_t>()));
+  sender_report.SetPacketCount(prng->Rand<uint32_t>());
+  sender_report.AddReportBlock(report_block);
+
+  rtc::Buffer buffer = sender_report.Build();
+  return rtc::MakeUnique<RtcEventRtcpPacketOutgoing>(buffer);
+}
+
+std::unique_ptr<RtcEventRtpPacketIncoming> GenerateRtcEventRtpPacketIncoming(
+    uint32_t ssrc,
+    const RtpHeaderExtensionMap& extension_map,
+    Random* prng) {
+  constexpr int kMaxCsrcs = 3;
+  constexpr int kMaxNumExtensions = 5;
+  size_t packet_size = prng->Rand(16 + 4 * kMaxCsrcs + 4 * kMaxNumExtensions,
+                                  IP_PACKET_SIZE - 1);
+
+  RtpPacketReceived rtp_packet(&extension_map);
+  rtp_packet.SetPayloadType(prng->Rand(127));
+  rtp_packet.SetMarker(prng->Rand<bool>());
+  rtp_packet.SetSequenceNumber(prng->Rand<uint16_t>());
+  rtp_packet.SetSsrc(ssrc);
+  rtp_packet.SetTimestamp(prng->Rand<uint32_t>());
+
+  uint32_t csrcs_count = prng->Rand(0, kMaxCsrcs);
+  std::vector<uint32_t> csrcs;
+  for (unsigned i = 0; i < csrcs_count; i++) {
+    csrcs.push_back(prng->Rand<uint32_t>());
   }
-  // Check encoder.
-  ASSERT_TRUE(sender_config.has_encoder());
-  ASSERT_TRUE(sender_config.encoder().has_name());
-  ASSERT_TRUE(sender_config.encoder().has_payload_type());
-  EXPECT_EQ(config.codecs[0].payload_name, sender_config.encoder().name());
-  EXPECT_EQ(config.codecs[0].payload_type,
-            sender_config.encoder().payload_type());
+  rtp_packet.SetCsrcs(csrcs);
 
-  EXPECT_EQ(config.codecs[0].rtx_payload_type,
-            sender_config.rtx_payload_type());
+  if (extension_map.IsRegistered(TransmissionOffset::kId))
+    rtp_packet.SetExtension<TransmissionOffset>(prng->Rand(0x00ffffff));
+  if (extension_map.IsRegistered(AudioLevel::kId))
+    rtp_packet.SetExtension<AudioLevel>(prng->Rand<bool>(), prng->Rand(127));
+  if (extension_map.IsRegistered(AbsoluteSendTime::kId))
+    rtp_packet.SetExtension<AbsoluteSendTime>(prng->Rand(0x00ffffff));
+  if (extension_map.IsRegistered(VideoOrientation::kId))
+    rtp_packet.SetExtension<VideoOrientation>(prng->Rand(2));
+  if (extension_map.IsRegistered(TransportSequenceNumber::kId))
+    rtp_packet.SetExtension<TransportSequenceNumber>(prng->Rand<uint16_t>());
 
-  // Check consistency of the parser.
-  std::vector<rtclog::StreamConfig> parsed_configs =
-      parsed_log.GetVideoSendConfig(index);
-  ASSERT_EQ(1u, parsed_configs.size());
-  VerifyStreamConfigsAreEqual(config, parsed_configs[0]);
-}
-
-void RtcEventLogTestHelper::VerifyAudioReceiveStreamConfig(
-    const ParsedRtcEventLogNew& parsed_log,
-    size_t index,
-    const rtclog::StreamConfig& config) {
-  ASSERT_LT(index, parsed_log.events_.size());
-  const rtclog::Event& event = parsed_log.events_[index];
-  ASSERT_TRUE(IsValidBasicEvent(event));
-  ASSERT_EQ(rtclog::Event::AUDIO_RECEIVER_CONFIG_EVENT, event.type());
-  const rtclog::AudioReceiveConfig& receiver_config =
-      event.audio_receiver_config();
-  // Check SSRCs.
-  ASSERT_TRUE(receiver_config.has_remote_ssrc());
-  EXPECT_EQ(config.remote_ssrc, receiver_config.remote_ssrc());
-  ASSERT_TRUE(receiver_config.has_local_ssrc());
-  EXPECT_EQ(config.local_ssrc, receiver_config.local_ssrc());
-  // Check header extensions.
-  ASSERT_EQ(static_cast<int>(config.rtp_extensions.size()),
-            receiver_config.header_extensions_size());
-  for (int i = 0; i < receiver_config.header_extensions_size(); i++) {
-    ASSERT_TRUE(receiver_config.header_extensions(i).has_name());
-    ASSERT_TRUE(receiver_config.header_extensions(i).has_id());
-    const std::string& name = receiver_config.header_extensions(i).name();
-    int id = receiver_config.header_extensions(i).id();
-    EXPECT_EQ(config.rtp_extensions[i].id, id);
-    EXPECT_EQ(config.rtp_extensions[i].uri, name);
-  }
-
-  // Check consistency of the parser.
-  rtclog::StreamConfig parsed_config = parsed_log.GetAudioReceiveConfig(index);
-  EXPECT_EQ(config.remote_ssrc, parsed_config.remote_ssrc);
-  EXPECT_EQ(config.local_ssrc, parsed_config.local_ssrc);
-  // Check header extensions.
-  EXPECT_EQ(config.rtp_extensions.size(), parsed_config.rtp_extensions.size());
-  for (size_t i = 0; i < parsed_config.rtp_extensions.size(); i++) {
-    EXPECT_EQ(config.rtp_extensions[i].uri,
-              parsed_config.rtp_extensions[i].uri);
-    EXPECT_EQ(config.rtp_extensions[i].id, parsed_config.rtp_extensions[i].id);
-  }
-}
-
-void RtcEventLogTestHelper::VerifyAudioSendStreamConfig(
-    const ParsedRtcEventLogNew& parsed_log,
-    size_t index,
-    const rtclog::StreamConfig& config) {
-  ASSERT_LT(index, parsed_log.events_.size());
-  const rtclog::Event& event = parsed_log.events_[index];
-  ASSERT_TRUE(IsValidBasicEvent(event));
-  ASSERT_EQ(rtclog::Event::AUDIO_SENDER_CONFIG_EVENT, event.type());
-  const rtclog::AudioSendConfig& sender_config = event.audio_sender_config();
-  // Check SSRCs.
-  EXPECT_EQ(config.local_ssrc, sender_config.ssrc());
-  // Check header extensions.
-  ASSERT_EQ(static_cast<int>(config.rtp_extensions.size()),
-            sender_config.header_extensions_size());
-  for (int i = 0; i < sender_config.header_extensions_size(); i++) {
-    ASSERT_TRUE(sender_config.header_extensions(i).has_name());
-    ASSERT_TRUE(sender_config.header_extensions(i).has_id());
-    const std::string& name = sender_config.header_extensions(i).name();
-    int id = sender_config.header_extensions(i).id();
-    EXPECT_EQ(config.rtp_extensions[i].id, id);
-    EXPECT_EQ(config.rtp_extensions[i].uri, name);
-  }
-
-  // Check consistency of the parser.
-  rtclog::StreamConfig parsed_config = parsed_log.GetAudioSendConfig(index);
-  VerifyStreamConfigsAreEqual(config, parsed_config);
-}
-
-void RtcEventLogTestHelper::VerifyIncomingRtpEvent(
-    const ParsedRtcEventLogNew& parsed_log,
-    size_t index,
-    const RtpPacketReceived& expected_packet) {
-  ASSERT_LT(index, parsed_log.events_.size());
-  const rtclog::Event& event = parsed_log.events_[index];
-  ASSERT_TRUE(IsValidBasicEvent(event));
-  ASSERT_EQ(rtclog::Event::RTP_EVENT, event.type());
-  const rtclog::RtpPacket& rtp_packet = event.rtp_packet();
-  ASSERT_TRUE(rtp_packet.has_incoming());
-  EXPECT_TRUE(rtp_packet.incoming());
-  ASSERT_TRUE(rtp_packet.has_packet_length());
-  EXPECT_EQ(expected_packet.size(), rtp_packet.packet_length());
-  size_t header_size = expected_packet.headers_size();
-  ASSERT_TRUE(rtp_packet.has_header());
-  EXPECT_THAT(testing::make_tuple(expected_packet.data(), header_size),
-              testing::ElementsAreArray(rtp_packet.header().data(),
-                                        rtp_packet.header().size()));
-
-  // Check consistency of the parser.
-  PacketDirection parsed_direction;
-  uint8_t parsed_header[1500];
-  size_t parsed_header_size, parsed_total_size;
-  parsed_log.GetRtpHeader(index, &parsed_direction, parsed_header,
-                          &parsed_header_size, &parsed_total_size, nullptr);
-  EXPECT_EQ(kIncomingPacket, parsed_direction);
-  EXPECT_THAT(testing::make_tuple(expected_packet.data(), header_size),
-              testing::ElementsAreArray(parsed_header, parsed_header_size));
-  EXPECT_EQ(expected_packet.size(), parsed_total_size);
-}
-
-void RtcEventLogTestHelper::VerifyOutgoingRtpEvent(
-    const ParsedRtcEventLogNew& parsed_log,
-    size_t index,
-    const RtpPacketToSend& expected_packet) {
-  ASSERT_LT(index, parsed_log.events_.size());
-  const rtclog::Event& event = parsed_log.events_[index];
-  ASSERT_TRUE(IsValidBasicEvent(event));
-  ASSERT_EQ(rtclog::Event::RTP_EVENT, event.type());
-  const rtclog::RtpPacket& rtp_packet = event.rtp_packet();
-  ASSERT_TRUE(rtp_packet.has_incoming());
-  EXPECT_FALSE(rtp_packet.incoming());
-  ASSERT_TRUE(rtp_packet.has_packet_length());
-  EXPECT_EQ(expected_packet.size(), rtp_packet.packet_length());
-  size_t header_size = expected_packet.headers_size();
-  ASSERT_TRUE(rtp_packet.has_header());
-  EXPECT_THAT(testing::make_tuple(expected_packet.data(), header_size),
-              testing::ElementsAreArray(rtp_packet.header().data(),
-                                        rtp_packet.header().size()));
-
-  // Check consistency of the parser.
-  PacketDirection parsed_direction;
-  uint8_t parsed_header[1500];
-  size_t parsed_header_size, parsed_total_size;
-  parsed_log.GetRtpHeader(index, &parsed_direction, parsed_header,
-                          &parsed_header_size, &parsed_total_size, nullptr);
-  EXPECT_EQ(kOutgoingPacket, parsed_direction);
-  EXPECT_THAT(testing::make_tuple(expected_packet.data(), header_size),
-              testing::ElementsAreArray(parsed_header, parsed_header_size));
-  EXPECT_EQ(expected_packet.size(), parsed_total_size);
-}
-
-void RtcEventLogTestHelper::VerifyRtcpEvent(
-    const ParsedRtcEventLogNew& parsed_log,
-    size_t index,
-    PacketDirection direction,
-    const uint8_t* packet,
-    size_t total_size) {
-  ASSERT_LT(index, parsed_log.events_.size());
-  const rtclog::Event& event = parsed_log.events_[index];
-  ASSERT_TRUE(IsValidBasicEvent(event));
-  ASSERT_EQ(rtclog::Event::RTCP_EVENT, event.type());
-  const rtclog::RtcpPacket& rtcp_packet = event.rtcp_packet();
-  ASSERT_TRUE(rtcp_packet.has_incoming());
-  EXPECT_EQ(direction == kIncomingPacket, rtcp_packet.incoming());
-  ASSERT_TRUE(rtcp_packet.has_packet_data());
-  ASSERT_EQ(total_size, rtcp_packet.packet_data().size());
-  for (size_t i = 0; i < total_size; i++) {
-    EXPECT_EQ(packet[i], static_cast<uint8_t>(rtcp_packet.packet_data()[i]));
+  RTC_DCHECK_GE(packet_size, rtp_packet.headers_size());
+  size_t payload_size = packet_size - rtp_packet.headers_size();
+  RTC_CHECK_LE(rtp_packet.headers_size() + payload_size, IP_PACKET_SIZE);
+  uint8_t* payload = rtp_packet.AllocatePayload(payload_size);
+  for (size_t i = 0; i < payload_size; i++) {
+    payload[i] = prng->Rand<uint8_t>();
   }
 
-  // Check consistency of the parser.
-  PacketDirection parsed_direction;
-  uint8_t parsed_packet[1500];
-  size_t parsed_total_size;
-  parsed_log.GetRtcpPacket(index, &parsed_direction, parsed_packet,
-                           &parsed_total_size);
-  EXPECT_EQ(direction, parsed_direction);
-  ASSERT_EQ(total_size, parsed_total_size);
-  EXPECT_EQ(0, std::memcmp(packet, parsed_packet, total_size));
+  return rtc::MakeUnique<RtcEventRtpPacketIncoming>(rtp_packet);
 }
 
-void RtcEventLogTestHelper::VerifyPlayoutEvent(
-    const ParsedRtcEventLogNew& parsed_log,
-    size_t index,
-    uint32_t ssrc) {
-  ASSERT_LT(index, parsed_log.events_.size());
-  const rtclog::Event& event = parsed_log.events_[index];
-  ASSERT_TRUE(IsValidBasicEvent(event));
-  ASSERT_EQ(rtclog::Event::AUDIO_PLAYOUT_EVENT, event.type());
-  const rtclog::AudioPlayoutEvent& playout_event = event.audio_playout_event();
-  ASSERT_TRUE(playout_event.has_local_ssrc());
-  EXPECT_EQ(ssrc, playout_event.local_ssrc());
+std::unique_ptr<RtcEventRtpPacketOutgoing> GenerateRtcEventRtpPacketOutgoing(
+    uint32_t ssrc,
+    const RtpHeaderExtensionMap& extension_map,
+    Random* prng) {
+  constexpr int kMaxCsrcs = 3;
+  constexpr int kMaxNumExtensions = 5;
+  size_t packet_size = prng->Rand(16 + 4 * kMaxCsrcs + 4 * kMaxNumExtensions,
+                                  IP_PACKET_SIZE - 1);
 
-  // Check consistency of the parser.
-  LoggedAudioPlayoutEvent parsed_event = parsed_log.GetAudioPlayout(index);
-  EXPECT_EQ(ssrc, parsed_event.ssrc);
+  RtpPacketToSend rtp_packet(&extension_map, packet_size);
+  rtp_packet.SetPayloadType(prng->Rand(127));
+  rtp_packet.SetMarker(prng->Rand<bool>());
+  rtp_packet.SetSequenceNumber(prng->Rand<uint16_t>());
+  rtp_packet.SetSsrc(ssrc);
+  rtp_packet.SetTimestamp(prng->Rand<uint32_t>());
+
+  uint32_t csrcs_count = prng->Rand(0, kMaxCsrcs);
+  std::vector<uint32_t> csrcs;
+  for (unsigned i = 0; i < csrcs_count; i++) {
+    csrcs.push_back(prng->Rand<uint32_t>());
+  }
+  rtp_packet.SetCsrcs(csrcs);
+
+  if (extension_map.IsRegistered(TransmissionOffset::kId))
+    rtp_packet.SetExtension<TransmissionOffset>(prng->Rand(0x00ffffff));
+  if (extension_map.IsRegistered(AudioLevel::kId))
+    rtp_packet.SetExtension<AudioLevel>(prng->Rand<bool>(), prng->Rand(127));
+  if (extension_map.IsRegistered(AbsoluteSendTime::kId))
+    rtp_packet.SetExtension<AbsoluteSendTime>(prng->Rand(0x00ffffff));
+  if (extension_map.IsRegistered(VideoOrientation::kId))
+    rtp_packet.SetExtension<VideoOrientation>(prng->Rand(2));
+  if (extension_map.IsRegistered(TransportSequenceNumber::kId))
+    rtp_packet.SetExtension<TransportSequenceNumber>(prng->Rand<uint16_t>());
+
+  RTC_DCHECK_GE(packet_size, rtp_packet.headers_size());
+  size_t payload_size = packet_size - rtp_packet.headers_size();
+  RTC_CHECK_LE(rtp_packet.headers_size() + payload_size, IP_PACKET_SIZE);
+  uint8_t* payload = rtp_packet.AllocatePayload(payload_size);
+  for (size_t i = 0; i < payload_size; i++) {
+    payload[i] = prng->Rand<uint8_t>();
+  }
+
+  int probe_cluster_id = prng->Rand(0, 100000);
+  return rtc::MakeUnique<RtcEventRtpPacketOutgoing>(rtp_packet,
+                                                    probe_cluster_id);
 }
 
-void RtcEventLogTestHelper::VerifyBweLossEvent(
-    const ParsedRtcEventLogNew& parsed_log,
-    size_t index,
-    int32_t bitrate,
-    uint8_t fraction_loss,
-    int32_t total_packets) {
-  ASSERT_LT(index, parsed_log.events_.size());
-  const rtclog::Event& event = parsed_log.events_[index];
-  ASSERT_TRUE(IsValidBasicEvent(event));
-  ASSERT_EQ(rtclog::Event::LOSS_BASED_BWE_UPDATE, event.type());
-  const rtclog::LossBasedBweUpdate& bwe_event = event.loss_based_bwe_update();
-  ASSERT_TRUE(bwe_event.has_bitrate_bps());
-  EXPECT_EQ(bitrate, bwe_event.bitrate_bps());
-  ASSERT_TRUE(bwe_event.has_fraction_loss());
-  EXPECT_EQ(fraction_loss, bwe_event.fraction_loss());
-  ASSERT_TRUE(bwe_event.has_total_packets());
-  EXPECT_EQ(total_packets, bwe_event.total_packets());
+RtpHeaderExtensionMap GenerateRtpHeaderExtensionMap(Random* prng) {
+  RtpHeaderExtensionMap extension_map;
+  if (prng->Rand<bool>()) {
+    extension_map.Register<AudioLevel>(prng->Rand(1, 2));
+  }
+  if (prng->Rand<bool>()) {
+    extension_map.Register<TransmissionOffset>(prng->Rand(3, 4));
+  }
+  if (prng->Rand<bool>()) {
+    extension_map.Register<AbsoluteSendTime>(prng->Rand(5, 6));
+  }
+  if (prng->Rand<bool>()) {
+    extension_map.Register<VideoOrientation>(prng->Rand(7, 8));
+  }
+  if (prng->Rand<bool>()) {
+    extension_map.Register<TransportSequenceNumber>(prng->Rand(9, 10));
+  }
 
-  // Check consistency of the parser.
-  LoggedBweLossBasedUpdate bwe_update = parsed_log.GetLossBasedBweUpdate(index);
-  EXPECT_EQ(bitrate, bwe_update.bitrate_bps);
-  EXPECT_EQ(fraction_loss, bwe_update.fraction_lost);
-  EXPECT_EQ(total_packets, bwe_update.expected_packets);
+  return extension_map;
 }
 
-void RtcEventLogTestHelper::VerifyBweDelayEvent(
-    const ParsedRtcEventLogNew& parsed_log,
-    size_t index,
-    int32_t bitrate,
-    BandwidthUsage detector_state) {
-  ASSERT_LT(index, parsed_log.events_.size());
-  const rtclog::Event& event = parsed_log.events_[index];
-  ASSERT_TRUE(IsValidBasicEvent(event));
-  ASSERT_EQ(rtclog::Event::DELAY_BASED_BWE_UPDATE, event.type());
-  const rtclog::DelayBasedBweUpdate& bwe_event = event.delay_based_bwe_update();
-  ASSERT_TRUE(bwe_event.has_bitrate_bps());
-  EXPECT_EQ(bitrate, bwe_event.bitrate_bps());
-  ASSERT_TRUE(bwe_event.has_detector_state());
-  EXPECT_EQ(detector_state,
-            GetRuntimeDetectorState(bwe_event.detector_state()));
+std::unique_ptr<RtcEventAudioReceiveStreamConfig>
+GenerateRtcEventAudioReceiveStreamConfig(
+    uint32_t ssrc,
+    const RtpHeaderExtensionMap& extensions,
+    Random* prng) {
+  auto config = rtc::MakeUnique<rtclog::StreamConfig>();
+  // Add SSRCs for the stream.
+  config->remote_ssrc = ssrc;
+  config->local_ssrc = prng->Rand<uint32_t>();
+  // Add header extensions.
+  for (unsigned i = 0; i < kNumExtensions; i++) {
+    uint8_t id = extensions.GetId(kExtensionTypes[i]);
+    if (id != RtpHeaderExtensionMap::kInvalidId) {
+      config->rtp_extensions.emplace_back(kExtensionNames[i], id);
+    }
+  }
 
-  // Check consistency of the parser.
-  LoggedBweDelayBasedUpdate res = parsed_log.GetDelayBasedBweUpdate(index);
-  EXPECT_EQ(res.bitrate_bps, bitrate);
-  EXPECT_EQ(res.detector_state, detector_state);
+  return rtc::MakeUnique<RtcEventAudioReceiveStreamConfig>(std::move(config));
 }
 
-void RtcEventLogTestHelper::VerifyAudioNetworkAdaptation(
-    const ParsedRtcEventLogNew& parsed_log,
-    size_t index,
-    const AudioEncoderRuntimeConfig& config) {
-  ASSERT_LT(index, parsed_log.events_.size());
-  const rtclog::Event& event = parsed_log.events_[index];
-  ASSERT_TRUE(IsValidBasicEvent(event));
-  ASSERT_EQ(rtclog::Event::AUDIO_NETWORK_ADAPTATION_EVENT, event.type());
-
-  LoggedAudioNetworkAdaptationEvent parsed_event =
-      parsed_log.GetAudioNetworkAdaptation(index);
-  EXPECT_EQ(config.bitrate_bps, parsed_event.config.bitrate_bps);
-  EXPECT_EQ(config.enable_dtx, parsed_event.config.enable_dtx);
-  EXPECT_EQ(config.enable_fec, parsed_event.config.enable_fec);
-  EXPECT_EQ(config.frame_length_ms, parsed_event.config.frame_length_ms);
-  EXPECT_EQ(config.num_channels, parsed_event.config.num_channels);
-  EXPECT_EQ(config.uplink_packet_loss_fraction,
-            parsed_event.config.uplink_packet_loss_fraction);
+std::unique_ptr<RtcEventAudioSendStreamConfig>
+GenerateRtcEventAudioSendStreamConfig(uint32_t ssrc,
+                                      const RtpHeaderExtensionMap& extensions,
+                                      Random* prng) {
+  auto config = rtc::MakeUnique<rtclog::StreamConfig>();
+  // Add SSRC to the stream.
+  config->local_ssrc = ssrc;
+  // Add header extensions.
+  for (unsigned i = 0; i < kNumExtensions; i++) {
+    uint8_t id = extensions.GetId(kExtensionTypes[i]);
+    if (id != RtpHeaderExtensionMap::kInvalidId) {
+      config->rtp_extensions.emplace_back(kExtensionNames[i], id);
+    }
+  }
+  return rtc::MakeUnique<RtcEventAudioSendStreamConfig>(std::move(config));
 }
 
-void RtcEventLogTestHelper::VerifyLogStartEvent(
-    const ParsedRtcEventLogNew& parsed_log,
-    size_t index) {
-  ASSERT_LT(index, parsed_log.events_.size());
-  const rtclog::Event& event = parsed_log.events_[index];
-  ASSERT_TRUE(IsValidBasicEvent(event));
-  EXPECT_EQ(rtclog::Event::LOG_START, event.type());
+std::unique_ptr<RtcEventVideoReceiveStreamConfig>
+GenerateRtcEventVideoReceiveStreamConfig(
+    uint32_t ssrc,
+    const RtpHeaderExtensionMap& extensions,
+    Random* prng) {
+  auto config = rtc::MakeUnique<rtclog::StreamConfig>();
+
+  // Add SSRCs for the stream.
+  config->remote_ssrc = ssrc;
+  config->local_ssrc = prng->Rand<uint32_t>();
+  // Add extensions and settings for RTCP.
+  config->rtcp_mode =
+      prng->Rand<bool>() ? RtcpMode::kCompound : RtcpMode::kReducedSize;
+  config->remb = prng->Rand<bool>();
+  config->rtx_ssrc = prng->Rand<uint32_t>();
+  config->codecs.emplace_back(prng->Rand<bool>() ? "VP8" : "H264",
+                              prng->Rand(1, 127), prng->Rand(1, 127));
+  // Add header extensions.
+  for (unsigned i = 0; i < kNumExtensions; i++) {
+    uint8_t id = extensions.GetId(kExtensionTypes[i]);
+    if (id != RtpHeaderExtensionMap::kInvalidId) {
+      config->rtp_extensions.emplace_back(kExtensionNames[i], id);
+    }
+  }
+  return rtc::MakeUnique<RtcEventVideoReceiveStreamConfig>(std::move(config));
 }
 
-void RtcEventLogTestHelper::VerifyLogEndEvent(
-    const ParsedRtcEventLogNew& parsed_log,
-    size_t index) {
-  ASSERT_LT(index, parsed_log.events_.size());
-  const rtclog::Event& event = parsed_log.events_[index];
-  ASSERT_TRUE(IsValidBasicEvent(event));
-  EXPECT_EQ(rtclog::Event::LOG_END, event.type());
+std::unique_ptr<RtcEventVideoSendStreamConfig>
+GenerateRtcEventVideoSendStreamConfig(uint32_t ssrc,
+                                      const RtpHeaderExtensionMap& extensions,
+                                      Random* prng) {
+  auto config = rtc::MakeUnique<rtclog::StreamConfig>();
+
+  config->codecs.emplace_back(prng->Rand<bool>() ? "VP8" : "H264",
+                              prng->Rand(1, 127), prng->Rand(1, 127));
+  config->local_ssrc = ssrc;
+  config->rtx_ssrc = prng->Rand<uint32_t>();
+  // Add header extensions.
+  for (unsigned i = 0; i < kNumExtensions; i++) {
+    uint8_t id = extensions.GetId(kExtensionTypes[i]);
+    if (id != RtpHeaderExtensionMap::kInvalidId) {
+      config->rtp_extensions.emplace_back(kExtensionNames[i], id);
+    }
+  }
+  return rtc::MakeUnique<RtcEventVideoSendStreamConfig>(std::move(config));
 }
 
-void RtcEventLogTestHelper::VerifyBweProbeCluster(
-    const ParsedRtcEventLogNew& parsed_log,
-    size_t index,
-    int32_t id,
-    int32_t bitrate_bps,
-    uint32_t min_probes,
-    uint32_t min_bytes) {
-  ASSERT_LT(index, parsed_log.events_.size());
-  const rtclog::Event& event = parsed_log.events_[index];
-  ASSERT_TRUE(IsValidBasicEvent(event));
-  EXPECT_EQ(rtclog::Event::BWE_PROBE_CLUSTER_CREATED_EVENT, event.type());
-
-  const rtclog::BweProbeCluster& bwe_event = event.probe_cluster();
-  ASSERT_TRUE(bwe_event.has_id());
-  EXPECT_EQ(id, bwe_event.id());
-  ASSERT_TRUE(bwe_event.has_bitrate_bps());
-  EXPECT_EQ(bitrate_bps, bwe_event.bitrate_bps());
-  ASSERT_TRUE(bwe_event.has_min_packets());
-  EXPECT_EQ(min_probes, bwe_event.min_packets());
-  ASSERT_TRUE(bwe_event.has_min_bytes());
-  EXPECT_EQ(min_bytes, bwe_event.min_bytes());
-
-  // TODO(philipel): Verify the parser when parsing has been implemented.
+bool VerifyLoggedAlrStateEvent(const RtcEventAlrState& original_event,
+                               const LoggedAlrStateEvent& logged_event) {
+  if (original_event.timestamp_us_ != logged_event.log_time_us())
+    return false;
+  if (original_event.in_alr_ != logged_event.in_alr)
+    return false;
+  return true;
 }
 
-void RtcEventLogTestHelper::VerifyProbeResultSuccess(
-    const ParsedRtcEventLogNew& parsed_log,
-    size_t index,
-    int32_t id,
-    int32_t bitrate_bps) {
-  ASSERT_LT(index, parsed_log.events_.size());
-  const rtclog::Event& event = parsed_log.events_[index];
-  ASSERT_TRUE(IsValidBasicEvent(event));
-  EXPECT_EQ(rtclog::Event::BWE_PROBE_RESULT_EVENT, event.type());
-
-  const rtclog::BweProbeResult& bwe_event = event.probe_result();
-  ASSERT_TRUE(bwe_event.has_id());
-  EXPECT_EQ(id, bwe_event.id());
-  ASSERT_TRUE(bwe_event.has_bitrate_bps());
-  EXPECT_EQ(bitrate_bps, bwe_event.bitrate_bps());
-  ASSERT_TRUE(bwe_event.has_result());
-  EXPECT_EQ(rtclog::BweProbeResult::SUCCESS, bwe_event.result());
-
-  // TODO(philipel): Verify the parser when parsing has been implemented.
+bool VerifyLoggedAudioPlayoutEvent(
+    const RtcEventAudioPlayout& original_event,
+    const LoggedAudioPlayoutEvent& logged_event) {
+  if (original_event.timestamp_us_ != logged_event.log_time_us())
+    return false;
+  if (original_event.ssrc_ != logged_event.ssrc)
+    return false;
+  return true;
 }
 
-void RtcEventLogTestHelper::VerifyProbeResultFailure(
-    const ParsedRtcEventLogNew& parsed_log,
-    size_t index,
-    int32_t id,
-    ProbeFailureReason failure_reason) {
-  ASSERT_LT(index, parsed_log.events_.size());
-  const rtclog::Event& event = parsed_log.events_[index];
-  ASSERT_TRUE(IsValidBasicEvent(event));
-  EXPECT_EQ(rtclog::Event::BWE_PROBE_RESULT_EVENT, event.type());
+bool VerifyLoggedAudioNetworkAdaptationEvent(
+    const RtcEventAudioNetworkAdaptation& original_event,
+    const LoggedAudioNetworkAdaptationEvent& logged_event) {
+  if (original_event.timestamp_us_ != logged_event.log_time_us())
+    return false;
 
-  const rtclog::BweProbeResult& bwe_event = event.probe_result();
-  ASSERT_TRUE(bwe_event.has_id());
-  EXPECT_EQ(id, bwe_event.id());
-  ASSERT_TRUE(bwe_event.has_result());
-  EXPECT_EQ(GetProbeResultType(failure_reason), bwe_event.result());
-  ASSERT_FALSE(bwe_event.has_bitrate_bps());
+  if (original_event.config_->bitrate_bps != logged_event.config.bitrate_bps)
+    return false;
+  if (original_event.config_->enable_dtx != logged_event.config.enable_dtx)
+    return false;
+  if (original_event.config_->enable_fec != logged_event.config.enable_fec)
+    return false;
+  if (original_event.config_->frame_length_ms !=
+      logged_event.config.frame_length_ms)
+    return false;
+  if (original_event.config_->num_channels != logged_event.config.num_channels)
+    return false;
+  if (original_event.config_->uplink_packet_loss_fraction !=
+      logged_event.config.uplink_packet_loss_fraction)
+    return false;
 
-  // TODO(philipel): Verify the parser when parsing has been implemented.
+  return true;
 }
 
+bool VerifyLoggedBweDelayBasedUpdate(
+    const RtcEventBweUpdateDelayBased& original_event,
+    const LoggedBweDelayBasedUpdate& logged_event) {
+  if (original_event.timestamp_us_ != logged_event.log_time_us())
+    return false;
+  if (original_event.bitrate_bps_ != logged_event.bitrate_bps)
+    return false;
+  if (original_event.detector_state_ != logged_event.detector_state)
+    return false;
+  return true;
+}
+
+bool VerifyLoggedBweLossBasedUpdate(
+    const RtcEventBweUpdateLossBased& original_event,
+    const LoggedBweLossBasedUpdate& logged_event) {
+  if (original_event.timestamp_us_ != logged_event.log_time_us())
+    return false;
+  if (original_event.bitrate_bps_ != logged_event.bitrate_bps)
+    return false;
+  if (original_event.fraction_loss_ != logged_event.fraction_lost)
+    return false;
+  if (original_event.total_packets_ != logged_event.expected_packets)
+    return false;
+  return true;
+}
+
+bool VerifyLoggedBweProbeClusterCreatedEvent(
+    const RtcEventProbeClusterCreated& original_event,
+    const LoggedBweProbeClusterCreatedEvent& logged_event) {
+  if (original_event.timestamp_us_ != logged_event.log_time_us())
+    return false;
+  if (original_event.id_ != logged_event.id)
+    return false;
+  if (original_event.bitrate_bps_ != logged_event.bitrate_bps)
+    return false;
+  if (original_event.min_probes_ != logged_event.min_packets)
+    return false;
+  if (original_event.min_bytes_ != logged_event.min_bytes)
+    return false;
+
+  return true;
+}
+
+bool VerifyLoggedBweProbeFailureEvent(
+    const RtcEventProbeResultFailure& original_event,
+    const LoggedBweProbeFailureEvent& logged_event) {
+  if (original_event.timestamp_us_ != logged_event.log_time_us())
+    return false;
+  if (original_event.id_ != logged_event.id)
+    return false;
+  if (original_event.failure_reason_ != logged_event.failure_reason)
+    return false;
+  return true;
+}
+
+bool VerifyLoggedBweProbeSuccessEvent(
+    const RtcEventProbeResultSuccess& original_event,
+    const LoggedBweProbeSuccessEvent& logged_event) {
+  if (original_event.timestamp_us_ != logged_event.log_time_us())
+    return false;
+  if (original_event.id_ != logged_event.id)
+    return false;
+  if (original_event.bitrate_bps_ != logged_event.bitrate_bps)
+    return false;
+  return true;
+}
+
+bool VerifyLoggedIceCandidatePairConfig(
+    const RtcEventIceCandidatePairConfig& original_event,
+    const LoggedIceCandidatePairConfig& logged_event) {
+  if (original_event.timestamp_us_ != logged_event.log_time_us())
+    return false;
+
+  if (original_event.type_ != logged_event.type)
+    return false;
+  if (original_event.candidate_pair_id_ != logged_event.candidate_pair_id)
+    return false;
+  if (original_event.candidate_pair_desc_.local_candidate_type !=
+      logged_event.local_candidate_type)
+    return false;
+  if (original_event.candidate_pair_desc_.local_relay_protocol !=
+      logged_event.local_relay_protocol)
+    return false;
+  if (original_event.candidate_pair_desc_.local_network_type !=
+      logged_event.local_network_type)
+    return false;
+  if (original_event.candidate_pair_desc_.local_address_family !=
+      logged_event.local_address_family)
+    return false;
+  if (original_event.candidate_pair_desc_.remote_candidate_type !=
+      logged_event.remote_candidate_type)
+    return false;
+  if (original_event.candidate_pair_desc_.remote_address_family !=
+      logged_event.remote_address_family)
+    return false;
+  if (original_event.candidate_pair_desc_.candidate_pair_protocol !=
+      logged_event.candidate_pair_protocol)
+    return false;
+
+  return true;
+}
+
+bool VerifyLoggedIceCandidatePairEvent(
+    const RtcEventIceCandidatePair& original_event,
+    const LoggedIceCandidatePairEvent& logged_event) {
+  if (original_event.timestamp_us_ != logged_event.log_time_us())
+    return false;
+
+  if (original_event.type_ != logged_event.type)
+    return false;
+  if (original_event.candidate_pair_id_ != logged_event.candidate_pair_id)
+    return false;
+
+  return true;
+}
+
+bool VerifyLoggedRtpHeader(const RtpPacket& original_header,
+                           const RTPHeader& logged_header) {
+  // Standard RTP header.
+  if (original_header.Marker() != logged_header.markerBit)
+    return false;
+  if (original_header.PayloadType() != logged_header.payloadType)
+    return false;
+  if (original_header.SequenceNumber() != logged_header.sequenceNumber)
+    return false;
+  if (original_header.Timestamp() != logged_header.timestamp)
+    return false;
+  if (original_header.Ssrc() != logged_header.ssrc)
+    return false;
+  if (original_header.Csrcs().size() != logged_header.numCSRCs)
+    return false;
+  for (size_t i = 0; i < logged_header.numCSRCs; i++) {
+    if (original_header.Csrcs()[i] != logged_header.arrOfCSRCs[i])
+      return false;
+  }
+  if (original_header.padding_size() != logged_header.paddingLength)
+    return false;
+  if (original_header.headers_size() != logged_header.headerLength)
+    return false;
+
+  // TransmissionOffset header extension.
+  if (original_header.HasExtension<TransmissionOffset>() !=
+      logged_header.extension.hasTransmissionTimeOffset)
+    return false;
+  int32_t offset;
+  original_header.GetExtension<TransmissionOffset>(&offset);
+  if (offset != logged_header.extension.transmissionTimeOffset)
+    return false;
+
+  // AbsoluteSendTime header extension.
+  if (original_header.HasExtension<AbsoluteSendTime>() !=
+      logged_header.extension.hasAbsoluteSendTime)
+    return false;
+  uint32_t sendtime;
+  original_header.GetExtension<AbsoluteSendTime>(&sendtime);
+  if (sendtime != logged_header.extension.absoluteSendTime)
+    return false;
+
+  // TransportSequenceNumber header extension.
+  if (original_header.HasExtension<TransportSequenceNumber>() !=
+      logged_header.extension.hasTransportSequenceNumber)
+    return false;
+  uint16_t seqnum;
+  original_header.GetExtension<TransportSequenceNumber>(&seqnum);
+  if (seqnum != logged_header.extension.transportSequenceNumber)
+    return false;
+
+  // AudioLevel header extension.
+  if (original_header.HasExtension<AudioLevel>() !=
+      logged_header.extension.hasAudioLevel)
+    return false;
+  bool voice_activity;
+  uint8_t audio_level;
+  original_header.GetExtension<AudioLevel>(&voice_activity, &audio_level);
+  if (voice_activity != logged_header.extension.voiceActivity)
+    return false;
+  if (audio_level != logged_header.extension.audioLevel)
+    return false;
+
+  // VideoOrientation header extension.
+  if (original_header.HasExtension<VideoOrientation>() !=
+      logged_header.extension.hasVideoRotation)
+    return false;
+  uint8_t rotation;
+  original_header.GetExtension<VideoOrientation>(&rotation);
+  if (rotation != logged_header.extension.videoRotation)
+    return false;
+
+  return true;
+}
+
+bool VerifyLoggedRtpPacketIncoming(
+    const RtcEventRtpPacketIncoming& original_event,
+    const LoggedRtpPacketIncoming& logged_event) {
+  if (original_event.timestamp_us_ != logged_event.log_time_us())
+    return false;
+
+  if (original_event.header_.headers_size() != logged_event.rtp.header_length)
+    return false;
+
+  if (original_event.packet_length_ != logged_event.rtp.total_length)
+    return false;
+
+  if (!VerifyLoggedRtpHeader(original_event.header_, logged_event.rtp.header))
+    return false;
+
+  return true;
+}
+
+bool VerifyLoggedRtpPacketOutgoing(
+    const RtcEventRtpPacketOutgoing& original_event,
+    const LoggedRtpPacketOutgoing& logged_event) {
+  if (original_event.timestamp_us_ != logged_event.log_time_us())
+    return false;
+
+  if (original_event.header_.headers_size() != logged_event.rtp.header_length)
+    return false;
+
+  if (original_event.packet_length_ != logged_event.rtp.total_length)
+    return false;
+
+  if (!VerifyLoggedRtpHeader(original_event.header_, logged_event.rtp.header))
+    return false;
+
+  return true;
+}
+
+bool VerifyLoggedRtcpPacketIncoming(
+    const RtcEventRtcpPacketIncoming& original_event,
+    const LoggedRtcpPacketIncoming& logged_event) {
+  if (original_event.timestamp_us_ != logged_event.log_time_us())
+    return false;
+
+  if (original_event.packet_.size() != logged_event.rtcp.raw_data.size())
+    return false;
+  if (memcmp(original_event.packet_.data(), logged_event.rtcp.raw_data.data(),
+             original_event.packet_.size()) != 0) {
+    return false;
+  }
+  return true;
+}
+
+bool VerifyLoggedRtcpPacketOutgoing(
+    const RtcEventRtcpPacketOutgoing& original_event,
+    const LoggedRtcpPacketOutgoing& logged_event) {
+  if (original_event.timestamp_us_ != logged_event.log_time_us())
+    return false;
+
+  if (original_event.packet_.size() != logged_event.rtcp.raw_data.size())
+    return false;
+  if (memcmp(original_event.packet_.data(), logged_event.rtcp.raw_data.data(),
+             original_event.packet_.size()) != 0) {
+    return false;
+  }
+  return true;
+}
+
+bool VerifyLoggedStartEvent(int64_t start_time_us,
+                            const LoggedStartEvent& logged_event) {
+  if (start_time_us != logged_event.log_time_us())
+    return false;
+  return true;
+}
+
+bool VerifyLoggedStopEvent(int64_t stop_time_us,
+                           const LoggedStopEvent& logged_event) {
+  if (stop_time_us != logged_event.log_time_us())
+    return false;
+  return true;
+}
+
+bool VerifyLoggedAudioRecvConfig(
+    const RtcEventAudioReceiveStreamConfig& original_event,
+    const LoggedAudioRecvConfig& logged_event) {
+  if (original_event.timestamp_us_ != logged_event.log_time_us())
+    return false;
+  return *original_event.config_ == logged_event.config;
+}
+
+bool VerifyLoggedAudioSendConfig(
+    const RtcEventAudioSendStreamConfig& original_event,
+    const LoggedAudioSendConfig& logged_event) {
+  if (original_event.timestamp_us_ != logged_event.log_time_us())
+    return false;
+  return *original_event.config_ == logged_event.config;
+}
+
+bool VerifyLoggedVideoRecvConfig(
+    const RtcEventVideoReceiveStreamConfig& original_event,
+    const LoggedVideoRecvConfig& logged_event) {
+  if (original_event.timestamp_us_ != logged_event.log_time_us())
+    return false;
+  return *original_event.config_ == logged_event.config;
+}
+
+bool VerifyLoggedVideoSendConfig(
+    const RtcEventVideoSendStreamConfig& original_event,
+    const LoggedVideoSendConfig& logged_event) {
+  if (original_event.timestamp_us_ != logged_event.log_time_us())
+    return false;
+  if (logged_event.configs.size() == 1)
+    return false;
+  return *original_event.config_ == logged_event.configs[0];
+}
+
+}  // namespace test
 }  // namespace webrtc

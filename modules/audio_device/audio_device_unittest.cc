@@ -10,6 +10,7 @@
 
 #include <algorithm>
 #include <cstring>
+#include <memory>
 #include <numeric>
 
 #include "api/array_view.h"
@@ -29,6 +30,10 @@
 #include "rtc_base/timeutils.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
+#ifdef WEBRTC_WIN
+#include "modules/audio_device/include/audio_device_factory.h"
+#include "modules/audio_device/win/core_audio_utility_win.h"
+#endif
 
 using ::testing::_;
 using ::testing::AtLeast;
@@ -452,10 +457,20 @@ class AudioDeviceTest : public ::testing::Test {
     !defined(WEBRTC_DUMMY_AUDIO_BUILD)
     rtc::LogMessage::LogToDebug(rtc::LS_INFO);
     // Add extra logging fields here if needed for debugging.
-    // rtc::LogMessage::LogTimestamps();
-    // rtc::LogMessage::LogThreads();
-    audio_device_ =
-        AudioDeviceModule::Create(AudioDeviceModule::kPlatformDefaultAudio);
+    rtc::LogMessage::LogTimestamps();
+    rtc::LogMessage::LogThreads();
+#ifdef WEBRTC_WIN
+    // TODO(henrika): decide if new ADM version for Windows should be tested
+    // or not. As is, using kWindowsCoreAudio2 will lead to a new type of ADM
+    // which does not use the default (built-in) AudioDeviceImpl implementation.
+    // Instead, a new type of ADM is created where only a subset of the
+    // complete ADM APIs are implemented and instead an "input/output"-type of
+    // structure is used where common parts are shared between input and output.
+    audio_device_ = CreateAudioDevice(AudioDeviceModule::kWindowsCoreAudio2);
+#else
+    // Create default (internal) ADM.
+    audio_device_ = CreateAudioDevice(AudioDeviceModule::kPlatformDefaultAudio);
+#endif
     EXPECT_NE(audio_device_.get(), nullptr);
     AudioDeviceModule::AudioLayer audio_layer;
     int got_platform_audio_layer =
@@ -506,6 +521,31 @@ class AudioDeviceTest : public ::testing::Test {
     return audio_device_;
   }
 
+  rtc::scoped_refptr<AudioDeviceModule> CreateAudioDevice(
+      AudioDeviceModule::AudioLayer audio_layer) {
+    // Use the default factory for kPlatformDefaultAudio and a special factory
+    // CreateWindowsCoreAudioAudioDeviceModule() for kWindowsCoreAudio2.
+    if (audio_layer == AudioDeviceModule::kPlatformDefaultAudio) {
+      return AudioDeviceModule::Create(audio_layer);
+    } else if (audio_layer == AudioDeviceModule::kWindowsCoreAudio2) {
+#ifdef WEBRTC_WIN
+      // We must initialize the COM library on a thread before we calling any of
+      // the library functions. All COM functions in the ADM will return
+      // CO_E_NOTINITIALIZED otherwise.
+      com_initializer_ = rtc::MakeUnique<webrtc_win::ScopedCOMInitializer>(
+          webrtc_win::ScopedCOMInitializer::kMTA);
+      EXPECT_TRUE(com_initializer_->Succeeded());
+      EXPECT_TRUE(webrtc_win::core_audio_utility::IsSupported());
+      EXPECT_TRUE(webrtc_win::core_audio_utility::IsMMCSSSupported());
+      return CreateWindowsCoreAudioAudioDeviceModule();
+#else
+      return nullptr;
+#endif
+    } else {
+      return nullptr;
+    }
+  }
+
   void StartPlayout() {
     EXPECT_FALSE(audio_device()->Playing());
     EXPECT_EQ(0, audio_device()->InitPlayout());
@@ -534,15 +574,67 @@ class AudioDeviceTest : public ::testing::Test {
     EXPECT_FALSE(audio_device()->RecordingIsInitialized());
   }
 
+  bool NewWindowsAudioDeviceModuleIsUsed() {
+#ifdef WEBRTC_WIN
+    AudioDeviceModule::AudioLayer audio_layer;
+    EXPECT_EQ(0, audio_device()->ActiveAudioLayer(&audio_layer));
+    if (audio_layer == AudioDeviceModule::kWindowsCoreAudio2) {
+      // Default device is always added as first element in the list and the
+      // default communication device as the second element. Hence, the list
+      // contains two extra elements in this case.
+      return true;
+    }
+#endif
+    return false;
+  }
+
  private:
+#ifdef WEBRTC_WIN
+  // Windows Core Audio based ADM needs to run on a COM initialized thread.
+  std::unique_ptr<webrtc_win::ScopedCOMInitializer> com_initializer_;
+#endif
   bool requirements_satisfied_ = true;
   rtc::Event event_;
   rtc::scoped_refptr<AudioDeviceModule> audio_device_;
   bool stereo_playout_ = false;
 };
 
+// Instead of using the test fixture, verify that the different factory methods
+// work as intended.
+TEST(AudioDeviceTestWin, ConstructDestructWithFactory) {
+  rtc::scoped_refptr<AudioDeviceModule> audio_device;
+  // The default factory should work for all platforms when a default ADM is
+  // requested.
+  audio_device =
+      AudioDeviceModule::Create(AudioDeviceModule::kPlatformDefaultAudio);
+  EXPECT_TRUE(audio_device);
+  audio_device = nullptr;
+#ifdef WEBRTC_WIN
+  // For Windows, the old factory method creates an ADM where the platform-
+  // specific parts are implemented by an AudioDeviceGeneric object. Verify
+  // that the old factory can't be used in combination with the latest audio
+  // layer AudioDeviceModule::kWindowsCoreAudio2.
+  audio_device =
+      AudioDeviceModule::Create(AudioDeviceModule::kWindowsCoreAudio2);
+  EXPECT_FALSE(audio_device);
+  audio_device = nullptr;
+  // Instead, ensure that the new dedicated factory method called
+  // CreateWindowsCoreAudioAudioDeviceModule() can be used on Windows and that
+  // it sets the audio layer to kWindowsCoreAudio2 implicitly. Note that, the
+  // new ADM for Windows must be created on a COM thread.
+  webrtc_win::ScopedCOMInitializer com_initializer(
+      webrtc_win::ScopedCOMInitializer::kMTA);
+  EXPECT_TRUE(com_initializer.Succeeded());
+  audio_device = CreateWindowsCoreAudioAudioDeviceModule();
+  EXPECT_TRUE(audio_device);
+  AudioDeviceModule::AudioLayer audio_layer;
+  EXPECT_EQ(0, audio_device->ActiveAudioLayer(&audio_layer));
+  EXPECT_EQ(audio_layer, AudioDeviceModule::kWindowsCoreAudio2);
+#endif
+}
+
 // Uses the test fixture to create, initialize and destruct the ADM.
-TEST_F(AudioDeviceTest, ConstructDestruct) {}
+TEST_F(AudioDeviceTest, ConstructDestructDefault) {}
 
 TEST_F(AudioDeviceTest, InitTerminate) {
   SKIP_TEST_IF_NOT(requirements_satisfied());
@@ -552,11 +644,90 @@ TEST_F(AudioDeviceTest, InitTerminate) {
   EXPECT_FALSE(audio_device()->Initialized());
 }
 
+// Enumerate all available and active output devices.
+TEST_F(AudioDeviceTest, PlayoutDeviceNames) {
+  SKIP_TEST_IF_NOT(requirements_satisfied());
+  char device_name[kAdmMaxDeviceNameSize];
+  char unique_id[kAdmMaxGuidSize];
+  int num_devices = audio_device()->PlayoutDevices();
+  if (NewWindowsAudioDeviceModuleIsUsed()) {
+    num_devices += 2;
+  }
+  EXPECT_GT(num_devices, 0);
+  for (int i = 0; i < num_devices; ++i) {
+    EXPECT_EQ(0, audio_device()->PlayoutDeviceName(i, device_name, unique_id));
+  }
+  EXPECT_EQ(-1, audio_device()->PlayoutDeviceName(num_devices, device_name,
+                                                  unique_id));
+}
+
+// Enumerate all available and active input devices.
+TEST_F(AudioDeviceTest, RecordingDeviceNames) {
+  SKIP_TEST_IF_NOT(requirements_satisfied());
+  char device_name[kAdmMaxDeviceNameSize];
+  char unique_id[kAdmMaxGuidSize];
+  int num_devices = audio_device()->RecordingDevices();
+  if (NewWindowsAudioDeviceModuleIsUsed()) {
+    num_devices += 2;
+  }
+  EXPECT_GT(num_devices, 0);
+  for (int i = 0; i < num_devices; ++i) {
+    EXPECT_EQ(0,
+              audio_device()->RecordingDeviceName(i, device_name, unique_id));
+  }
+  EXPECT_EQ(-1, audio_device()->RecordingDeviceName(num_devices, device_name,
+                                                    unique_id));
+}
+
+// Counts number of active output devices and ensure that all can be selected.
+TEST_F(AudioDeviceTest, SetPlayoutDevice) {
+  SKIP_TEST_IF_NOT(requirements_satisfied());
+  int num_devices = audio_device()->PlayoutDevices();
+  if (NewWindowsAudioDeviceModuleIsUsed()) {
+    num_devices += 2;
+  }
+  EXPECT_GT(num_devices, 0);
+  // Verify that all available playout devices can be set (not enabled yet).
+  for (int i = 0; i < num_devices; ++i) {
+    EXPECT_EQ(0, audio_device()->SetPlayoutDevice(i));
+  }
+  EXPECT_EQ(-1, audio_device()->SetPlayoutDevice(num_devices));
+#ifdef WEBRTC_WIN
+  // On Windows, verify the alternative method where the user can select device
+  // by role.
+  EXPECT_EQ(
+      0, audio_device()->SetPlayoutDevice(AudioDeviceModule::kDefaultDevice));
+  EXPECT_EQ(0, audio_device()->SetPlayoutDevice(
+                   AudioDeviceModule::kDefaultCommunicationDevice));
+#endif
+}
+
+// Counts number of active input devices and ensure that all can be selected.
+TEST_F(AudioDeviceTest, SetRecordingDevice) {
+  SKIP_TEST_IF_NOT(requirements_satisfied());
+  int num_devices = audio_device()->RecordingDevices();
+  if (NewWindowsAudioDeviceModuleIsUsed()) {
+    num_devices += 2;
+  }
+  EXPECT_GT(num_devices, 0);
+  // Verify that all available recording devices can be set (not enabled yet).
+  for (int i = 0; i < num_devices; ++i) {
+    EXPECT_EQ(0, audio_device()->SetRecordingDevice(i));
+  }
+  EXPECT_EQ(-1, audio_device()->SetRecordingDevice(num_devices));
+#ifdef WEBRTC_WIN
+  // On Windows, verify the alternative method where the user can select device
+  // by role.
+  EXPECT_EQ(
+      0, audio_device()->SetRecordingDevice(AudioDeviceModule::kDefaultDevice));
+  EXPECT_EQ(0, audio_device()->SetRecordingDevice(
+                   AudioDeviceModule::kDefaultCommunicationDevice));
+#endif
+}
+
 // Tests Start/Stop playout without any registered audio callback.
 TEST_F(AudioDeviceTest, StartStopPlayout) {
   SKIP_TEST_IF_NOT(requirements_satisfied());
-  StartPlayout();
-  StopPlayout();
   StartPlayout();
   StopPlayout();
 }
@@ -564,8 +735,6 @@ TEST_F(AudioDeviceTest, StartStopPlayout) {
 // Tests Start/Stop recording without any registered audio callback.
 TEST_F(AudioDeviceTest, StartStopRecording) {
   SKIP_TEST_IF_NOT(requirements_satisfied());
-  StartRecording();
-  StopRecording();
   StartRecording();
   StopRecording();
 }

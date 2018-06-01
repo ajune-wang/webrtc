@@ -16,6 +16,24 @@
       "revId": "a5e35ab10499fd4b1441e331a12e51b187fee38d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b5172657_7f596e20",
+        "filename": "modules/audio_device/mac/audio_device_mac.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1587,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2018-06-01T11:33:45Z",
+      "side": 1,
+      "message": "Thanks David. Got it. There are many areas where this code could be improved. Will consider your proposed change.",
+      "parentUuid": "8664747e_a722f2a8",
+      "revId": "a5e35ab10499fd4b1441e331a12e51b187fee38d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

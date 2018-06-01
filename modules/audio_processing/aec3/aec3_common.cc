@@ -29,4 +29,28 @@ Aec3Optimization DetectOptimization() {
   return Aec3Optimization::kNone;
 }
 
+size_t GetDownSampledBufferSize(size_t down_sampling_factor,
+                                size_t matched_filter_size_sub_blocks,
+                                size_t filter_overlap_sub_blocks,
+                                size_t num_matched_filters) {
+  size_t min_size =
+      kBlockSize / down_sampling_factor *
+      ((matched_filter_size_sub_blocks - filter_overlap_sub_blocks) *
+           num_matched_filters +
+       matched_filter_size_sub_blocks + 1);
+  return pow(2, ceil(log(min_size) / log(2)));
+}
+
+size_t GetRenderDelayBufferSize(size_t down_sampling_factor,
+                                size_t matched_filter_size_sub_blocks,
+                                size_t filter_overlap_sub_blocks,
+                                size_t num_matched_filters,
+                                size_t filter_length_blocks) {
+  return GetDownSampledBufferSize(
+             down_sampling_factor, matched_filter_size_sub_blocks,
+             filter_overlap_sub_blocks, num_matched_filters) /
+             (kBlockSize / down_sampling_factor) +
+         filter_length_blocks + 1;
+}
+
 }  // namespace webrtc

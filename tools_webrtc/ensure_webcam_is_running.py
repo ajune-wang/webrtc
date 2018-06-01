@@ -29,6 +29,7 @@ If any command line arguments are passed to the script, it is executed as a
 command in a subprocess.
 """
 
+import getpass
 import os
 # psutil is not installed on non-Linux machines by default.
 import psutil  # pylint: disable=F0401
@@ -58,6 +59,7 @@ def IsWebCamRunning():
     raise Exception('Unsupported platform: %s' % sys.platform)
   for p in psutil.process_iter():
     try:
+      print 'Found process %s' % p
       if process_name == p.name:
         print 'Found a running virtual webcam (%s with PID %s)' % (p.name,
                                                                    p.pid)
@@ -96,6 +98,7 @@ def StartWebCam():
     print 'Failed to launch virtual webcam: %s' % e
     return False
 
+  IsWebCamRunning()
   return True
 
 
@@ -110,9 +113,13 @@ def _ForcePythonInterpreter(cmd):
 
 
 def Main(argv):
+  print 'Current user', getpass.getuser()
+
   if not IsWebCamRunning():
     if not StartWebCam():
       return 1
+
+  sys.stdout.flush()
 
   if argv:
     return subprocess.call(_ForcePythonInterpreter(argv))

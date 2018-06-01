@@ -22,6 +22,30 @@
       "revId": "4cd791131f9e8810104ef49798822aee4542ae51",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "790684d5_e03ba1af",
+        "filename": "test/testsupport/fileutils.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-01T07:11:38Z",
+      "side": 1,
+      "message": "Hmm. For the only use, |dir| is the callers FLAG_test_artifacts_dir? What does that value typically look like?\n\nMultiple // in the middle of a filename should be harmless, at least according to posix.\nI\u0027d be more worried if dir happens to be the empty string. \n\nI could make this a little more complicated by adding the delimiter if and only if (1) |dir| is non-empty and (2) |dir| doesn\u0027t have a trailing delimiter? And then it would also need a test or two.",
+      "parentUuid": "29aeb20d_d6ee4b57",
+      "range": {
+        "startLine": 359,
+        "startChar": 9,
+        "endLine": 359,
+        "endChar": 37
+      },
+      "revId": "4cd791131f9e8810104ef49798822aee4542ae51",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

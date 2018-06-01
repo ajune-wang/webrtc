@@ -70,6 +70,30 @@
       "revId": "4cd791131f9e8810104ef49798822aee4542ae51",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "32a0e224_ab2dd354",
+        "filename": "test/testsupport/fileutils.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-01T08:32:58Z",
+      "side": 1,
+      "message": "Keeping it simple, then, but I added an RTC_CHECK to document that choice.",
+      "parentUuid": "f999bbc5_41a1b961",
+      "range": {
+        "startLine": 359,
+        "startChar": 9,
+        "endLine": 359,
+        "endChar": 37
+      },
+      "revId": "4cd791131f9e8810104ef49798822aee4542ae51",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

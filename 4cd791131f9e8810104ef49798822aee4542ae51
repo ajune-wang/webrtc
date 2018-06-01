@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "29aeb20d_d6ee4b57",
+        "filename": "test/testsupport/fileutils.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-06-01T07:00:59Z",
+      "side": 1,
+      "message": "I guess you risk the good old /some/dir//file.txt here?",
+      "range": {
+        "startLine": 359,
+        "startChar": 9,
+        "endLine": 359,
+        "endChar": 37
+      },
+      "revId": "4cd791131f9e8810104ef49798822aee4542ae51",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

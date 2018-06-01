@@ -46,6 +46,30 @@
       "revId": "4cd791131f9e8810104ef49798822aee4542ae51",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f999bbc5_41a1b961",
+        "filename": "test/testsupport/fileutils.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-06-01T07:46:21Z",
+      "side": 1,
+      "message": "I don\u0027t know. I tried to find uses of test_artifacts_dir but I can\u0027t see it being invoked on the bots.\n\nLet\u0027s keep it simple for now I guess.",
+      "parentUuid": "790684d5_e03ba1af",
+      "range": {
+        "startLine": 359,
+        "startChar": 9,
+        "endLine": 359,
+        "endChar": 37
+      },
+      "revId": "4cd791131f9e8810104ef49798822aee4542ae51",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

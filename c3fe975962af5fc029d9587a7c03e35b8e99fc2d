@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8bb728b2_fb271597",
+        "filename": "media/engine/webrtcvideoengine.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-01T20:35:47Z",
+      "side": 1,
+      "message": "Should add a comment mentioning that this doesn\u0027t return codecs, and relies on the WebRtcVideoChannel to fill that in.",
+      "revId": "c3fe975962af5fc029d9587a7c03e35b8e99fc2d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef4519f8_e53f9d9f",
+        "filename": "pc/peerconnection_integrationtest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 4386,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-01T20:35:47Z",
+      "side": 1,
+      "message": "nit: This may belong more in peerconnection_rtp_unittest.cc (testing the RtpSender/RtpReceiver APIs) rather than peerconnection_integrationtest.cc (as the name implies, more meant for integration tests, actually sending media between two PeerConnections). Sorry that our tests are a bit of a mess.",
+      "revId": "c3fe975962af5fc029d9587a7c03e35b8e99fc2d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "844609ad_61fb14a9",
+        "filename": "pc/peerconnection_integrationtest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 4392,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-01T20:35:47Z",
+      "side": 1,
+      "message": "Don\u0027t actually need this for this test; doing an offer/answer should be enough.",
+      "revId": "c3fe975962af5fc029d9587a7c03e35b8e99fc2d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

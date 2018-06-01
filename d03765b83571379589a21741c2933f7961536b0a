@@ -22,6 +22,30 @@
       "revId": "d03765b83571379589a21741c2933f7961536b0a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21a637c3_b589f473",
+        "filename": "sdk/objc/Framework/Classes/VideoToolbox/RTCVideoEncoderH264.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 5670
+      },
+      "writtenOn": "2018-06-01T12:58:03Z",
+      "side": 1,
+      "message": "I disagree. I think it\u0027s better to adhere to the standard way of managing CF objects to make the code easier to understand.",
+      "parentUuid": "b785d4bb_766bbd1e",
+      "range": {
+        "startLine": 365,
+        "startChar": 2,
+        "endLine": 365,
+        "endChar": 18
+      },
+      "revId": "d03765b83571379589a21741c2933f7961536b0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

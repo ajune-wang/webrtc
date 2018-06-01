@@ -53,6 +53,7 @@ class TCPPort : public Port {
   int GetError() override;
   bool SupportsProtocol(const std::string& protocol) const override;
   ProtocolType GetProtocol() const override;
+  rtc::AsyncPacketSocket* socket() { return socket_; }
 
  protected:
   TCPPort(rtc::Thread* thread,

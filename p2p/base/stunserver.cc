@@ -53,7 +53,7 @@ void StunServer::OnPacket(
 void StunServer::OnBindingRequest(
     StunMessage* msg, const rtc::SocketAddress& remote_addr) {
   StunMessage response;
-  GetStunBindReqponse(msg, remote_addr, &response);
+  GetStunBindResponse(msg, remote_addr, &response);
   SendResponse(response, remote_addr);
 }
 
@@ -81,7 +81,7 @@ void StunServer::SendResponse(
     RTC_LOG_ERR(LS_ERROR) << "sendto";
 }
 
-void StunServer::GetStunBindReqponse(StunMessage* request,
+void StunServer::GetStunBindResponse(StunMessage* request,
                                      const rtc::SocketAddress& remote_addr,
                                      StunMessage* response) const {
   response->SetType(STUN_BINDING_RESPONSE);

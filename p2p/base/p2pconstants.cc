@@ -72,4 +72,7 @@ const int CONNECTION_WRITE_TIMEOUT = 15 * 1000;         // 15 seconds
 // of increased memory, but in some networks (2G), we observe up to 60s RTTs.
 const int CONNECTION_RESPONSE_TIMEOUT = 60 * 1000;  // 60 seconds
 
+const int kMaxWaitMsBeforeSignalingAnyAddressPortsAndCandidates =
+    2 * 1000;  // 2 seconds
+
 }  // namespace cricket

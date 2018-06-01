@@ -777,6 +777,7 @@ class WebRtcVoiceMediaChannel::WebRtcAudioSendStream
     config_.track_id = track_id;
     rtp_parameters_.encodings[0].ssrc = ssrc;
     rtp_parameters_.rtcp.cname = c_name;
+    rtp_parameters_.header_extensions = extensions;
 
     if (send_codec_spec) {
       UpdateSendCodecSpec(*send_codec_spec);
@@ -800,6 +801,7 @@ class WebRtcVoiceMediaChannel::WebRtcAudioSendStream
   void SetRtpExtensions(const std::vector<webrtc::RtpExtension>& extensions) {
     RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
     config_.rtp.extensions = extensions;
+    rtp_parameters_.header_extensions = extensions;
     ReconfigureAudioSendStream();
   }
 
@@ -1241,6 +1243,15 @@ class WebRtcVoiceMediaChannel::WebRtcAudioReceiveStream {
     return stream_->GetSources();
   }
 
+  webrtc::RtpParameters GetRtpParameters() const {
+    webrtc::RtpParameters rtp_parameters;
+    rtp_parameters.encodings.emplace_back();
+    rtp_parameters.encodings[0].ssrc = config_.rtp.remote_ssrc;
+    rtp_parameters.header_extensions = config_.rtp.extensions;
+
+    return rtp_parameters;
+  }
+
  private:
   void RecreateAudioReceiveStream() {
     RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
@@ -1444,9 +1455,7 @@ webrtc::RtpParameters WebRtcVoiceMediaChannel::GetRtpReceiveParameters(
           << "with ssrc " << ssrc << " which doesn't exist.";
       return webrtc::RtpParameters();
     }
-    rtp_params.encodings.emplace_back();
-    // TODO(deadbeef): Return stream-specific parameters.
-    rtp_params.encodings[0].ssrc = ssrc;
+    rtp_params = it->second->GetRtpParameters();
   }
 
   for (const AudioCodec& codec : recv_codecs_) {

@@ -890,15 +890,14 @@ webrtc::RtpParameters WebRtcVideoChannel::GetRtpReceiveParameters(
           << "with SSRC " << ssrc << " which doesn't exist.";
       return webrtc::RtpParameters();
     }
-    // TODO(deadbeef): Return stream-specific parameters, beyond just SSRC.
-    rtp_params.encodings.emplace_back();
-    rtp_params.encodings[0].ssrc = it->second->GetFirstPrimarySsrc();
+    rtp_params = it->second->GetRtpParameters();
   }
 
   // Add codecs, which any stream is prepared to receive.
   for (const VideoCodec& codec : recv_params_.codecs) {
     rtp_params.codecs.push_back(codec.ToCodecParameters());
   }
+
   return rtp_params;
 }
 
@@ -1638,6 +1637,7 @@ WebRtcVideoChannel::WebRtcVideoSendStream::WebRtcVideoSendStream(
   parameters_.config.track_id = sp.id;
   if (rtp_extensions) {
     parameters_.config.rtp.extensions = *rtp_extensions;
+    rtp_parameters_.header_extensions = *rtp_extensions;
   }
   parameters_.config.rtp.rtcp_mode = send_params.rtcp.reduced_size
                                          ? webrtc::RtcpMode::kReducedSize
@@ -1771,6 +1771,7 @@ void WebRtcVideoChannel::WebRtcVideoSendStream::SetSendParameters(
   }
   if (params.rtp_header_extensions) {
     parameters_.config.rtp.extensions = *params.rtp_header_extensions;
+    rtp_parameters_.header_extensions = *params.rtp_header_extensions;
     recreate_stream = true;
   }
   if (params.mid) {
@@ -2210,6 +2211,16 @@ WebRtcVideoChannel::WebRtcVideoReceiveStream::GetFirstPrimarySsrc() const {
   } else {
     return primary_ssrcs[0];
   }
+}
+
+webrtc::RtpParameters
+WebRtcVideoChannel::WebRtcVideoReceiveStream::GetRtpParameters() const {
+  webrtc::RtpParameters rtp_parameters;
+  rtp_parameters.encodings.emplace_back();
+  rtp_parameters.encodings[0].ssrc = GetFirstPrimarySsrc();
+  rtp_parameters.header_extensions = config_.rtp.extensions;
+
+  return rtp_parameters;
 }
 
 void WebRtcVideoChannel::WebRtcVideoReceiveStream::ConfigureCodecs(

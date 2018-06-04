@@ -118,9 +118,9 @@ class RTCStatsIntegrationTest : public testing::Test {
     PeerConnectionTestWrapper::Connect(caller_.get(), callee_.get());
 
     // Get user media for audio and video
-    caller_->GetAndAddUserMedia(true, cricket::AudioOptions(),
+    caller_->GetAndAddUserMedia(true, FakeConstraints(),
                                 true, FakeConstraints());
-    callee_->GetAndAddUserMedia(true, cricket::AudioOptions(),
+    callee_->GetAndAddUserMedia(true, FakeConstraints(),
                                 true, FakeConstraints());
 
     // Create data channels

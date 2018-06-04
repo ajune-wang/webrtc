@@ -20,9 +20,14 @@
 
 namespace webrtc {
 
+class MediaConstraintsInterface;
+
 class LocalAudioSource : public Notifier<AudioSourceInterface> {
  public:
   // Creates an instance of LocalAudioSource.
+  static rtc::scoped_refptr<LocalAudioSource> Create(
+      const MediaConstraintsInterface* constraints);
+
   static rtc::scoped_refptr<LocalAudioSource> Create(
       const cricket::AudioOptions* audio_options);
 
@@ -39,6 +44,7 @@ class LocalAudioSource : public Notifier<AudioSourceInterface> {
   ~LocalAudioSource() override {}
 
  private:
+  void Initialize(const MediaConstraintsInterface* constraints);
   void Initialize(const cricket::AudioOptions* audio_options);
 
   cricket::AudioOptions options_;

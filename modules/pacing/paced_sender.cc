@@ -263,22 +263,20 @@ void PacedSender::Process() {
                         << kMaxElapsedTimeMs << " ms";
     elapsed_time_ms = kMaxElapsedTimeMs;
   }
-  // When congested we send a padding packet every 500 ms to ensure we won't get
-  // stuck in the congested state due to no feedback being received.
-  // TODO(srte): Stop sending packet in paused state when pause is no longer
-  // used for congestion windows.
-  if (paused_ || Congested()) {
-    int64_t elapsed_since_last_update_us = now_us - last_send_time_us_;
-    if (elapsed_since_last_update_us >= kCongestedPacketIntervalMs * 1000) {
-      // We can not send padding unless a normal packet has first been sent. If
-      // we do, timestamps get messed up.
-      if (packet_counter_ > 0) {
-        PacedPacketInfo pacing_info;
-        size_t bytes_sent = SendPadding(1, pacing_info);
-        alr_detector_->OnBytesSent(bytes_sent, elapsed_time_ms);
-      }
-      last_send_time_us_ = clock_->TimeInMicroseconds();
+  // We send a padding packet every 500 ms to ensure we won't get stuck in
+  // congested state due to no feedback being received.
+  int64_t elapsed_since_last_update_us = now_us - last_send_time_us_;
+  if (elapsed_since_last_update_us >= kCongestedPacketIntervalMs * 1000) {
+    // We can not send padding unless a normal packet has first been sent. If
+    // we do, timestamps get messed up.
+    if (packet_counter_ > 0) {
+      PacedPacketInfo pacing_info;
+      size_t bytes_sent = SendPadding(1, pacing_info);
+      alr_detector_->OnBytesSent(bytes_sent, elapsed_time_ms);
     }
+    last_send_time_us_ = clock_->TimeInMicroseconds();
+  }
+  if (paused_ || Congested()) {
     return;
   }
 

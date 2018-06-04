@@ -51,6 +51,8 @@ BEGIN_SIGNALING_PROXY_MAP(PeerConnectionFactory)
   PROXY_METHOD1(rtc::scoped_refptr<MediaStreamInterface>,
                 CreateLocalMediaStream, const std::string&)
   PROXY_METHOD1(rtc::scoped_refptr<AudioSourceInterface>,
+                CreateAudioSource, const MediaConstraintsInterface*)
+  PROXY_METHOD1(rtc::scoped_refptr<AudioSourceInterface>,
                 CreateAudioSource,
                 const cricket::AudioOptions&)
   PROXY_METHOD2(rtc::scoped_refptr<VideoTrackSourceInterface>,

@@ -321,11 +321,11 @@ class PeerConnectionWrapper : public webrtc::PeerConnectionObserver,
   }
 
   rtc::scoped_refptr<webrtc::AudioTrackInterface> CreateLocalAudioTrack() {
-    cricket::AudioOptions options;
+    FakeConstraints constraints;
     // Disable highpass filter so that we can get all the test audio frames.
-    options.highpass_filter = false;
+    constraints.AddMandatory(MediaConstraintsInterface::kHighpassFilter, false);
     rtc::scoped_refptr<webrtc::AudioSourceInterface> source =
-        peer_connection_factory_->CreateAudioSource(options);
+        peer_connection_factory_->CreateAudioSource(&constraints);
     // TODO(perkj): Test audio source when it is implemented. Currently audio
     // always use the default input.
     return peer_connection_factory_->CreateAudioTrack(rtc::CreateRandomUuid(),

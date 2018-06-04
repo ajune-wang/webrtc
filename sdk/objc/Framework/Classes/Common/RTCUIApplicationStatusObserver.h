@@ -12,7 +12,6 @@
 
 #import <Foundation/Foundation.h>
 
-NS_EXTENSION_UNAVAILABLE_IOS("Application status not available in app extensions.")
 @interface RTCUIApplicationStatusObserver : NSObject
 
 + (instancetype)sharedInstance;

@@ -20,9 +20,6 @@
 
 namespace webrtc {
 
-extern const float kSpatialLayeringRateScalingFactor;
-extern const float kTemporalLayeringRateScalingFactor;
-
 class SvcRateAllocator : public VideoBitrateAllocator {
  public:
   explicit SvcRateAllocator(const VideoCodec& codec);

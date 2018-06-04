@@ -414,8 +414,7 @@ void Conductor::AddTracks() {
 
   rtc::scoped_refptr<webrtc::AudioTrackInterface> audio_track(
       peer_connection_factory_->CreateAudioTrack(
-          kAudioLabel, peer_connection_factory_->CreateAudioSource(
-                           cricket::AudioOptions())));
+          kAudioLabel, peer_connection_factory_->CreateAudioSource(nullptr)));
   auto result_or_error = peer_connection_->AddTrack(audio_track, {kStreamId});
   if (!result_or_error.ok()) {
     RTC_LOG(LS_ERROR) << "Failed to add audio track to PeerConnection: "

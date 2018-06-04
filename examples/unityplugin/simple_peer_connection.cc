@@ -429,8 +429,7 @@ void SimplePeerConnection::AddStreams(bool audio_only) {
 
   rtc::scoped_refptr<webrtc::AudioTrackInterface> audio_track(
       g_peer_connection_factory->CreateAudioTrack(
-          kAudioLabel, g_peer_connection_factory->CreateAudioSource(
-                           cricket::AudioOptions())));
+          kAudioLabel, g_peer_connection_factory->CreateAudioSource(nullptr)));
   std::string id = audio_track->id();
   stream->AddTrack(audio_track);
 

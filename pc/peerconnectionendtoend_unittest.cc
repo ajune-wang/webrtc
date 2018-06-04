@@ -105,18 +105,18 @@ class PeerConnectionEndToEndBaseTest : public sigslot::has_slots<>,
   }
 
   void GetAndAddUserMedia() {
-    cricket::AudioOptions audio_options;
+    FakeConstraints audio_constraints;
     FakeConstraints video_constraints;
-    GetAndAddUserMedia(true, audio_options, true, video_constraints);
+    GetAndAddUserMedia(true, audio_constraints, true, video_constraints);
   }
 
   void GetAndAddUserMedia(bool audio,
-                          const cricket::AudioOptions& audio_options,
+                          const FakeConstraints& audio_constraints,
                           bool video,
                           const FakeConstraints& video_constraints) {
-    caller_->GetAndAddUserMedia(audio, audio_options,
+    caller_->GetAndAddUserMedia(audio, audio_constraints,
                                 video, video_constraints);
-    callee_->GetAndAddUserMedia(audio, audio_options,
+    callee_->GetAndAddUserMedia(audio, audio_constraints,
                                 video, video_constraints);
   }
 

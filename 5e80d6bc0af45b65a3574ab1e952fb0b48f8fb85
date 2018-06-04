@@ -22,6 +22,30 @@
       "revId": "5e80d6bc0af45b65a3574ab1e952fb0b48f8fb85",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c028c05d_38c7d2eb",
+        "filename": "sdk/android/api/org/webrtc/MediaCodecVideoDecoder.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-04T09:15:31Z",
+      "side": 1,
+      "message": "initDecode already had an else clause throwing a RuntimeException. Adding a similar else clause to initEncode. Ok?",
+      "parentUuid": "a4e7378b_62f5e730",
+      "range": {
+        "startLine": 58,
+        "startChar": 4,
+        "endLine": 58,
+        "endChar": 23
+      },
+      "revId": "5e80d6bc0af45b65a3574ab1e952fb0b48f8fb85",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

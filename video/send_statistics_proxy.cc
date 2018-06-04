@@ -918,7 +918,8 @@ void SendStatisticsProxy::OnSendEncodedImage(
   // If any of the simulcast streams have a huge frame, it should be counted
   // as a single difficult input frame.
   // https://w3c.github.io/webrtc-stats/#dom-rtcvideosenderstats-hugeframessent
-  if (encoded_image.timing_.flags & TimingFrameFlags::kTriggeredBySize) {
+  if (encoded_image.timing_.flags &
+      VideoSendTiming::TimingFrameFlags::kTriggeredBySize) {
     if (!last_outlier_timestamp_ ||
         *last_outlier_timestamp_ < encoded_image.capture_time_ms_) {
       last_outlier_timestamp_.emplace(encoded_image.capture_time_ms_);

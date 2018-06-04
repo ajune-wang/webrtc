@@ -222,8 +222,10 @@ EncodedImageCallback::Result PayloadRouter::OnEncodedImage(
     CopyCodecSpecific(codec_specific_info, &rtp_video_header);
   rtp_video_header.rotation = encoded_image.rotation_;
   rtp_video_header.content_type = encoded_image.content_type_;
-  if (encoded_image.timing_.flags != TimingFrameFlags::kInvalid &&
-      encoded_image.timing_.flags != TimingFrameFlags::kNotTriggered) {
+  if (encoded_image.timing_.flags !=
+          VideoSendTiming::TimingFrameFlags::kInvalid &&
+      encoded_image.timing_.flags !=
+          VideoSendTiming::TimingFrameFlags::kNotTriggered) {
     rtp_video_header.video_timing.encode_start_delta_ms =
         VideoSendTiming::GetDeltaCappedMs(
             encoded_image.capture_time_ms_,
@@ -238,7 +240,8 @@ EncodedImageCallback::Result PayloadRouter::OnEncodedImage(
     rtp_video_header.video_timing.network2_timestamp_delta_ms = 0;
     rtp_video_header.video_timing.flags = encoded_image.timing_.flags;
   } else {
-    rtp_video_header.video_timing.flags = TimingFrameFlags::kInvalid;
+    rtp_video_header.video_timing.flags =
+        VideoSendTiming::TimingFrameFlags::kInvalid;
   }
   rtp_video_header.playout_delay = encoded_image.playout_delay_;
 

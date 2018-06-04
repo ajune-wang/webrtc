@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8c9bb493_7185705d",
+        "filename": "modules/pacing/paced_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-04T17:40:33Z",
+      "side": 1,
+      "message": "The name is not very clear to me. How about StrictlyRespectPacingRate or something similar?",
+      "range": {
+        "startLine": 83,
+        "startChar": 6,
+        "endLine": 83,
+        "endChar": 19
+      },
+      "revId": "b16fcd6ad9859d38b2c6182149de25cd1d38e572",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8c0c3a6_feed8657",
+        "filename": "modules/pacing/paced_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-04T17:40:33Z",
+      "side": 1,
+      "message": "Is there a danger that an encoder that is biased to slightly overproduce will build up unbounded queues in the pacer after this change? Should this only be disabled if the push_back experiment is enabled?",
+      "range": {
+        "startLine": 289,
+        "startChar": 8,
+        "endLine": 289,
+        "endChar": 21
+      },
+      "revId": "b16fcd6ad9859d38b2c6182149de25cd1d38e572",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

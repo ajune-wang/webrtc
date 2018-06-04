@@ -39,9 +39,9 @@ RTPHeader CreateRtpHeader(uint32_t ssrc) {
 
 class ReceiveStatisticsTest : public ::testing::Test {
  public:
-  ReceiveStatisticsTest() :
-      clock_(0),
-      receive_statistics_(ReceiveStatistics::Create(&clock_)) {
+  ReceiveStatisticsTest()
+      : clock_(10000),  // Use non-zero start time as zero considered unset.
+        receive_statistics_(ReceiveStatistics::Create(&clock_)) {
     header1_ = CreateRtpHeader(kSsrc1);
     header2_ = CreateRtpHeader(kSsrc2);
   }
@@ -188,6 +188,51 @@ TEST_F(ReceiveStatisticsTest, GetReceiveStreamDataCounters) {
   statistician->GetReceiveStreamDataCounters(&counters);
   EXPECT_GT(counters.first_packet_time_ms, -1);
   EXPECT_EQ(2u, counters.transmitted.packets);
+}
+
+TEST_F(ReceiveStatisticsTest, UnwindsSequenceNumber) {
+  RTPHeader header = CreateRtpHeader(kSsrc1);
+  header.sequenceNumber = 0xfffe;
+  receive_statistics_->IncomingPacket(header, kPacketSize1, false);
+  StreamStatistician* statistician =
+      receive_statistics_->GetStatistician(kSsrc1);
+  ASSERT_TRUE(statistician);
+
+  RtcpStatistics stat1;
+  ASSERT_TRUE(statistician->GetStatistics(&stat1, /*reset=*/true));
+  EXPECT_EQ(stat1.extended_highest_sequence_number, header.sequenceNumber);
+
+  header.sequenceNumber += 3;
+  receive_statistics_->IncomingPacket(header, kPacketSize1, false);
+  RtcpStatistics stat2;
+  ASSERT_TRUE(statistician->GetStatistics(&stat2, /*reset=*/true));
+  EXPECT_EQ(stat2.extended_highest_sequence_number,
+            0x10000 + static_cast<uint32_t>(header.sequenceNumber));
+}
+
+TEST_F(ReceiveStatisticsTest, UnwindsSequenceNumberForMisorderedPackets) {
+  RTPHeader header = CreateRtpHeader(kSsrc1);
+  header.sequenceNumber = 0xfffe;
+  receive_statistics_->IncomingPacket(header, kPacketSize1, false);
+  StreamStatistician* statistician =
+      receive_statistics_->GetStatistician(kSsrc1);
+  ASSERT_TRUE(statistician);
+
+  RtcpStatistics stat1;
+  ASSERT_TRUE(statistician->GetStatistics(&stat1, /*reset=*/true));
+  EXPECT_EQ(stat1.extended_highest_sequence_number, header.sequenceNumber);
+
+  header.sequenceNumber = 0;
+  receive_statistics_->IncomingPacket(header, kPacketSize1, false);
+  header.sequenceNumber = 0xffff;
+  receive_statistics_->IncomingPacket(header, kPacketSize1, false);
+  header.sequenceNumber = 1;
+  receive_statistics_->IncomingPacket(header, kPacketSize1, false);
+
+  RtcpStatistics stat2;
+  ASSERT_TRUE(statistician->GetStatistics(&stat2, /*reset=*/true));
+  EXPECT_EQ(stat2.extended_highest_sequence_number,
+            0x10000 + static_cast<uint32_t>(header.sequenceNumber));
 }
 
 TEST_F(ReceiveStatisticsTest, RtcpCallbacks) {

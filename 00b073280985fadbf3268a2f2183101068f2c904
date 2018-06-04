@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9215e9dc_2ffd6479",
+        "filename": "video/full_stack_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-04T09:04:16Z",
+      "side": 1,
+      "message": "This is the name that will show up in perf dashboards, right? Do we have any naming conventions?\n\nOther tests that set a bitrate seem to do that by configuring the encoder (min, max, target bitrates), while this one instead configures the link capacity of the FakeNetworkPipe.",
+      "range": {
+        "startLine": 176,
+        "startChar": 27,
+        "endLine": 176,
+        "endChar": 71
+      },
+      "revId": "00b073280985fadbf3268a2f2183101068f2c904",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -79,7 +79,8 @@ PacedSender::PacedSender(const Clock* clock,
       packet_counter_(0),
       pacing_factor_(kDefaultPaceMultiplier),
       queue_time_limit(kMaxQueueLengthMs),
-      account_for_audio_(false) {
+      account_for_audio_(false),
+      push_forward_(!field_trial::IsEnabled("WebRTC-PacerNoPushforward")) {
   UpdateBudgetWithElapsedTime(kMinPacketLimitMs);
 }
 
@@ -282,10 +283,10 @@ void PacedSender::Process() {
     return;
   }
 
-  int target_bitrate_kbps = pacing_bitrate_kbps_;
   if (elapsed_time_ms > 0) {
+    int target_bitrate_kbps = pacing_bitrate_kbps_;
     size_t queue_size_bytes = packets_->SizeInBytes();
-    if (queue_size_bytes > 0) {
+    if (push_forward_ && queue_size_bytes > 0) {
       // Assuming equal size packets and input/output rate, the average packet
       // has avg_time_left_ms left to get queue_size_bytes out of the queue, if
       // time constraint shall be met. Determine bitrate needed for that.

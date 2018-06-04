@@ -206,6 +206,7 @@ class PacedSender : public Pacer {
 
   int64_t queue_time_limit RTC_GUARDED_BY(critsect_);
   bool account_for_audio_ RTC_GUARDED_BY(critsect_);
+  const bool push_forward_;
 };
 }  // namespace webrtc
 #endif  // MODULES_PACING_PACED_SENDER_H_

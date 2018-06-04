@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a4e7378b_62f5e730",
+        "filename": "sdk/android/api/org/webrtc/MediaCodecVideoDecoder.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-06-04T07:58:39Z",
+      "side": 1,
+      "message": "Can you add a check in initDecode/initEncode that this is never used? Probably throw IllegalArgumentException",
+      "range": {
+        "startLine": 58,
+        "startChar": 4,
+        "endLine": 58,
+        "endChar": 23
+      },
+      "revId": "5e80d6bc0af45b65a3574ab1e952fb0b48f8fb85",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

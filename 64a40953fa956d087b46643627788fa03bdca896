@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "dcf967f0_81e9482c",
+        "filename": "rtc_base/experiments/field_trial_parser.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-06-04T12:20:38Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "38f6428e_da722519",
+      "range": {
+        "startLine": 43,
+        "startChar": 6,
+        "endLine": 43,
+        "endChar": 16
+      },
+      "revId": "64a40953fa956d087b46643627788fa03bdca896",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6058c04a_88d12b4a",
         "filename": "rtc_base/experiments/field_trial_parser.h",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "0d482a62_e54945fa",
+        "filename": "rtc_base/experiments/field_trial_parser.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-06-04T12:20:38Z",
+      "side": 1,
+      "message": "Realized the bool can be used directly instead. Making the interface simpler.",
+      "parentUuid": "6058c04a_88d12b4a",
+      "range": {
+        "startLine": 61,
+        "startChar": 6,
+        "endLine": 61,
+        "endChar": 20
+      },
+      "revId": "64a40953fa956d087b46643627788fa03bdca896",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "689ce39d_10e3932b",
         "filename": "rtc_base/experiments/field_trial_parser_unittest.cc",
         "patchSetId": 1
@@ -68,6 +116,30 @@
       "revId": "64a40953fa956d087b46643627788fa03bdca896",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d17431b3_3108880f",
+        "filename": "rtc_base/experiments/field_trial_parser_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-06-04T12:20:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "689ce39d_10e3932b",
+      "range": {
+        "startLine": 50,
+        "startChar": 5,
+        "endLine": 50,
+        "endChar": 62
+      },
+      "revId": "64a40953fa956d087b46643627788fa03bdca896",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

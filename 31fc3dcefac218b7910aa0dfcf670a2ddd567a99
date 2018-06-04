@@ -124,6 +124,683 @@
       "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c3f5cd5_dea030ae",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-04T12:14:58Z",
+      "side": 1,
+      "message": "Put in an anonymous namespace?",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12d018c8_41def8d3",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-04T12:14:58Z",
+      "side": 1,
+      "message": "nit: const function",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf5b3614_de2dfdb9",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-04T12:14:58Z",
+      "side": 1,
+      "message": "nit: const function",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "49e580a4_d178d8ab",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-04T12:14:58Z",
+      "side": 1,
+      "message": "nit: EventCounts makes the word \"total\" redundant, IMHO. Also, I\u0027d prefer counting A and B, not A and (A+B). So I\u0027d suggest config_events() and nonconfig_events().",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e611445_58a26461",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-04T12:14:58Z",
+      "side": 1,
+      "message": "nit: All of the members of this class seem to miss the customary postfix-ed underscore. I suspect it\u0027s by design, given that it\u0027s systematic. Could you please explain the style guideline which you follow? Is it common in some part of the database to do this for test fixtures?",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6a5bc3d_35c40885",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-04T12:14:58Z",
+      "side": 1,
+      "message": "nit: Comment about what the key of the map is?",
+      "range": {
+        "startLine": 115,
+        "startChar": 2,
+        "endLine": 118,
+        "endChar": 23
+      },
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "efecd440_59dad970",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-04T12:14:58Z",
+      "side": 1,
+      "message": "const?",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0188e04a_073cf78e",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-04T12:14:58Z",
+      "side": 1,
+      "message": "Anonymous namespace?",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e40cc9e5_aa92a6ee",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-04T12:14:58Z",
+      "side": 1,
+      "message": "Could you use std::map::find instead?",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d97d991_65298129",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-04T12:14:58Z",
+      "side": 1,
+      "message": "1. Suggest: const EventCounts\u0026 count\n2. This is a very long method. Long methods intimidate the reader and discourage scrutiny. I suggest breaking up some sections into their own methods.",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe32fedc_eaba494d",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-04T12:14:58Z",
+      "side": 1,
+      "message": "test_info-\u003etest_case_name() would give you the thing you\u0027re looking for without you having to hard-code \"RtcEventLogTest\".\n\nEmpirically:\ntest_case_name \u003d RtcEventLogTest/RtcEventLogSession\n\nSo, after the \u0027/\u0027 to \u0027_\u0027 replacement, you\u0027ll have what you need, without concatenating with a hard-coded string.",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ccf1dc4b_8b0afb18",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-04T12:14:58Z",
+      "side": 1,
+      "message": "nit: I think the WebRTC repo is moving to TODO(bugs.webrtc.org/#).",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc39508a_6a094f5a",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-04T12:14:58Z",
+      "side": 1,
+      "message": "Does this not unnecessarily reduce the unit test\u0027s coverage based on assumptions on other module\u0027s behavior? (More elaborate comment about this elsewhere.)",
+      "range": {
+        "startLine": 158,
+        "startChar": 0,
+        "endLine": 160,
+        "endChar": 75
+      },
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da11f26e_213f6e77",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-04T12:14:58Z",
+      "side": 1,
+      "message": "nit: Offload this logic into a helper?",
+      "range": {
+        "startLine": 161,
+        "startChar": 0,
+        "endLine": 171,
+        "endChar": 55
+      },
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "854ab106_207d3a7e",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-04T12:14:58Z",
+      "side": 1,
+      "message": "Move this one to the header file?",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1c8925e_e9bb9763",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-04T12:14:58Z",
+      "side": 1,
+      "message": "nit: Perhaps an array of pairs is preferable, because it\u0027s easier to verify that the entries match, and harder to introduce errors?",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 37
+      },
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0153c415_e494a277",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-04T12:14:58Z",
+      "side": 1,
+      "message": "1. Can this go into an anonymous namespace?\n2. Replace this by arraysize?\n3. If not #2, perhaps we can use it as part of the definition of the array, so that the compiler would have a chance to warn of a mismatched value if we end up defining more entries?\n4. For #3, constexpr probably would be required?",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4404de1_36351c9d",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-04T12:14:58Z",
+      "side": 1,
+      "message": "|prng| unused here. With the helper-class method approach which I\u0027ve suggested in the header file, you wouldn\u0027t need to pass this to maintain a uniform interface.",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d24ed1b_2e7d970b",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-04T12:14:58Z",
+      "side": 1,
+      "message": "These values might go out of style. Are there any constants that could be used? If there are, maybe AudioEncoderRuntimeConfig could also DCHECK on them?\n(Similarly throughout the file.)",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dac93f3b_8fdbb9fe",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-04T12:14:58Z",
+      "side": 1,
+      "message": "BandwidthUsage::kLast exists; could we use it instead?",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a15f0cb_136b00a0",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-04T12:14:58Z",
+      "side": 1,
+      "message": "const? constexpr?",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7671bd0d_f794bd0d",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-04T12:14:58Z",
+      "side": 1,
+      "message": "If RtcEventBweUpdateLossBased with total_packets\u003d0 should never happen, and the tests do not offer coverage for that case, than its ctor should DCHECK against it.\n(Similarly throughout the CL for cases where at-least-1 is guaranteed by the test.)",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94b3477a_0492237d",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-04T12:14:58Z",
+      "side": 1,
+      "message": "If 4 is a legal value, the test should cover it.\nIf it isn\u0027t, RtcEventProbeClusterCreated\u0027s ctor should guard against it.",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36b3daaa_5809518e",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-04T12:14:58Z",
+      "side": 1,
+      "message": "ProbeFailureReason::kLast exists; should we use it?\n\n(I won\u0027t check and comment for any additional instances of this comment in this file.)",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04f4c704_1a11edbc",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-04T12:14:58Z",
+      "side": 1,
+      "message": "const? constexpr?\n(Similar suggestion for other arrays in this function.)",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "990e30dd_8c9eba5a",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-04T12:14:58Z",
+      "side": 1,
+      "message": "nit: Would be clearer to a put the code that randomizes a selection out of this array, right below the definition of this array. With a little comment above the block, maybe even putting the block inside its own {} scope, it would be immediately clear where this is used. In this case, for local/remote candidate types. I mean to say, it would have been more immediately apparent to me that it doesn\u0027t have some cascading interaction. (Please see next comment.)",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85c3c325_bba99da5",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-04T12:14:58Z",
+      "side": 1,
+      "message": "Like the above comment, but perhaps a clearer example - |pair_id| is set quite a long way away from the first (and only) place where it is used. That makes things slightly less clear.",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "adfc6cce_9dadecde",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-04T12:14:58Z",
+      "side": 1,
+      "message": "Beg pardon; why 50?",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2da7c383_44de65c7",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-04T12:14:58Z",
+      "side": 1,
+      "message": "Beg pardon; I\u0027m not completely familiar with this code. Above is the media SSRC (commented as \"remote SSRC\"). Here is the sender SSRC. Does either need to correspond to the SSRC from RtcEventLogSession::WriteLog?",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f83e7c2_88a0f243",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-04T12:14:58Z",
+      "side": 1,
+      "message": "From the documentation: \"Enter rtc::ArrayView\u003cT\u003e. It contains a T pointer (to an array it doesn\u0027t own)\"\nDoesn\u0027t that mean that this code returns an ArrayView with a dangling pointer?\n\n(Same question for additional places in this file; I will not comment them explicitly.)",
+      "range": {
+        "startLine": 214,
+        "startChar": 0,
+        "endLine": 215,
+        "endChar": 61
+      },
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88f7885c_fdda435e",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-04T12:14:58Z",
+      "side": 1,
+      "message": "Could you please replace the hard-coded values by either constants pulled from elsewhere, or at least constants defined here (so as to make the code self-documenting)?",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d5e54c3_f5cb0cb1",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-04T12:14:58Z",
+      "side": 1,
+      "message": "If I am not mistaken, 127 is pulled from here: https://www.iana.org/assignments/rtp-parameters/rtp-parameters.xhtml\nWe probably have a constant for this somewhere? If not, perhaps a locally defined constant would make the value clearer?",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a807f17_e945b0b4",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-04T12:14:58Z",
+      "side": 1,
+      "message": "Note to self - verify these values in next iteration of code review.\nNote to Björn - would constants make sense here?",
+      "range": {
+        "startLine": 258,
+        "startChar": 0,
+        "endLine": 263,
+        "endChar": 70
+      },
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a81f4f3_64bd4a7a",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-04T12:14:58Z",
+      "side": 1,
+      "message": "Beg pardon; I\u0027ve only looked very briefly (this is a long CL), but aren\u0027t there more than two options?\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/modules/rtp_rtcp/include/rtp_cvo.h?sq\u003dpackage:chromium\u0026g\u003d0\u0026l\u003d37",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f46f64b0_76d1f5d9",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-04T12:14:58Z",
+      "side": 1,
+      "message": "There appears to be some code duplication between here and the Incoming event. I think you could eliminate it with a helper function, since SetExtension comes from the mutual super-class, RtpPacket.",
+      "range": {
+        "startLine": 303,
+        "startChar": 0,
+        "endLine": 312,
+        "endChar": 77
+      },
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b354810_d2e5fc6f",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-04T12:14:58Z",
+      "side": 1,
+      "message": "nit: Just a thought - using helper Generator and Verifier classes would allow you to pass the PRNG once, at construction, and forget about it with the rest of the interface. It would also create a nice segmentation of Generate/Verify functions. Lastly, it would introduce less names (and shorter ones) into the namespace. So the (using) code would look like this:\n\n  TestRtcEventGenerator gen(\u0026prng);\n  auto event \u003d gen.BweUpdateDelayBase();\n  ...\n\n(Additional motivations in the .cc file, btw.)",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69535304_d6ba6c9c",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-04T12:14:58Z",
+      "side": 1,
+      "message": "nit: Random not explicitly included by this header.",
+      "range": {
+        "startLine": 41,
+        "startChar": 59,
+        "endLine": 41,
+        "endChar": 65
+      },
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

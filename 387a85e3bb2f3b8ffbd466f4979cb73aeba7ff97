@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "47f7d78c_d2fb3866",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 1474,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-06-04T22:02:44Z",
+      "side": 1,
+      "message": "Ack. The new patch also tried a global override like the FakeClock, using mocks in the test, which removed the needs for these overrides as well.",
+      "parentUuid": "bfaf4e8c_f9080076",
+      "revId": "387a85e3bb2f3b8ffbd466f4979cb73aeba7ff97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2ce5bc7a_c34654c4",
         "filename": "logging/rtc_event_log/fake_rtc_event_log.h",
         "patchSetId": 8
@@ -33,6 +51,24 @@
       "revId": "387a85e3bb2f3b8ffbd466f4979cb73aeba7ff97",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "09776314_aa67121c",
+        "filename": "logging/rtc_event_log/fake_rtc_event_log.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-06-04T22:02:44Z",
+      "side": 1,
+      "message": "Ack. The metric observer is replaced by a counter in the event log for testing. The new patch also removed the factory with a global override like the FakeClock.",
+      "parentUuid": "2ce5bc7a_c34654c4",
+      "revId": "387a85e3bb2f3b8ffbd466f4979cb73aeba7ff97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "6dfaf0cd_e05f6e3c",
+        "filename": "logging/rtc_event_log/fake_rtc_event_log_factory.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-06-04T22:02:44Z",
+      "side": 1,
+      "message": "Ack. Removed.",
+      "parentUuid": "391f9f7d_65dba01e",
+      "revId": "387a85e3bb2f3b8ffbd466f4979cb73aeba7ff97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d90e9f3f_15935ec0",
         "filename": "pc/jseptransportcontroller.cc",
         "patchSetId": 8
@@ -67,6 +121,24 @@
       "revId": "387a85e3bb2f3b8ffbd466f4979cb73aeba7ff97",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42651a21_54a2083a",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-06-04T22:02:44Z",
+      "side": 1,
+      "message": "Ack. I will have other CLs to change the dependencies in the downstream project,and remove this default after that. Let me know if there is a better way to proceed.",
+      "parentUuid": "d90e9f3f_15935ec0",
+      "revId": "387a85e3bb2f3b8ffbd466f4979cb73aeba7ff97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "97a98ff1_77849789",
+        "filename": "pc/jseptransportcontroller.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-06-04T22:02:44Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e57f76d6_9d3ed11c",
+      "revId": "387a85e3bb2f3b8ffbd466f4979cb73aeba7ff97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c6695415_b07e9ec7",
         "filename": "pc/peerconnection_integrationtest.cc",
         "patchSetId": 8
@@ -101,6 +191,24 @@
       "revId": "387a85e3bb2f3b8ffbd466f4979cb73aeba7ff97",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b97894b_7508cc33",
+        "filename": "pc/peerconnection_integrationtest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 4420,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-06-04T22:02:44Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c6695415_b07e9ec7",
+      "revId": "387a85e3bb2f3b8ffbd466f4979cb73aeba7ff97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "99bee56e_815064b7",
+        "filename": "pc/peerconnection_integrationtest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 4425,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-06-04T22:02:44Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "1d339332_630fb92a",
+      "revId": "387a85e3bb2f3b8ffbd466f4979cb73aeba7ff97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f50cb4a8_59299279",
         "filename": "pc/peerconnection_integrationtest.cc",
         "patchSetId": 8
@@ -135,6 +261,24 @@
       "revId": "387a85e3bb2f3b8ffbd466f4979cb73aeba7ff97",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d293c0e7_c5357f77",
+        "filename": "pc/peerconnection_integrationtest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 4432,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-06-04T22:02:44Z",
+      "side": 1,
+      "message": "Not necessary. Removed.",
+      "parentUuid": "f50cb4a8_59299279",
+      "revId": "387a85e3bb2f3b8ffbd466f4979cb73aeba7ff97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

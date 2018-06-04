@@ -15,17 +15,21 @@ namespace webrtc {
 
 MatchedFilterLagAggregator::MatchedFilterLagAggregator(
     ApmDataDumper* data_dumper,
+    int detection_threshold,
+    size_t histogram_size,
     size_t max_filter_lag)
-    : data_dumper_(data_dumper), histogram_(max_filter_lag + 1, 0) {
+    : data_dumper_(data_dumper),
+      detection_threshold_(detection_threshold),
+      histogram_(max_filter_lag + 1, 0),
+      histogram_data_(histogram_size, 0) {
   RTC_DCHECK(data_dumper);
-  histogram_data_.fill(0);
 }
 
 MatchedFilterLagAggregator::~MatchedFilterLagAggregator() = default;
 
 void MatchedFilterLagAggregator::Reset() {
   std::fill(histogram_.begin(), histogram_.end(), 0);
-  histogram_data_.fill(0);
+  std::fill(histogram_data_.begin(), histogram_data_.end(), 0);
   histogram_data_index_ = 0;
   significant_candidate_found_ = false;
 }
@@ -67,7 +71,7 @@ rtc::Optional<DelayEstimate> MatchedFilterLagAggregator::Aggregate(
         std::distance(histogram_.begin(),
                       std::max_element(histogram_.begin(), histogram_.end()));
 
-    if (histogram_[candidate] > 25) {
+    if (histogram_[candidate] > detection_threshold_) {
       significant_candidate_found_ = true;
       return DelayEstimate(DelayEstimate::Quality::kRefined, candidate);
     }

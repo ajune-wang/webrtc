@@ -37,10 +37,10 @@ bool EnableZeroExternalDelayHeadroom() {
 
 size_t GetDownSamplingFactor(const EchoCanceller3Config& config) {
   // Do not use down sampling factor 8 if kill switch is triggered.
-  return (config.delay.down_sampling_factor == 8 &&
+  return (config.delay.matched_filters.down_sampling_factor == 8 &&
           field_trial::IsEnabled("WebRTC-Aec3DownSamplingFactor8KillSwitch"))
              ? 4
-             : config.delay.down_sampling_factor;
+             : config.delay.matched_filters.down_sampling_factor;
 }
 
 class RenderDelayBufferImpl final : public RenderDelayBuffer {
@@ -182,17 +182,24 @@ RenderDelayBufferImpl::RenderDelayBufferImpl(const EchoCanceller3Config& config,
       sub_block_size_(static_cast<int>(down_sampling_factor_ > 0
                                            ? kBlockSize / down_sampling_factor_
                                            : kBlockSize)),
-      blocks_(GetRenderDelayBufferSize(down_sampling_factor_,
-                                       config.delay.num_filters,
-                                       config.filter.main.length_blocks),
-              num_bands,
-              kBlockSize),
+      blocks_(
+          GetRenderDelayBufferSize(
+              down_sampling_factor_,
+              config.delay.matched_filters.filter_size_sub_blocks,
+              config.delay.matched_filters.filter_alignment_overlap_sub_blocks,
+              config.delay.matched_filters.num_filters,
+              config.filter.main.length_blocks),
+          num_bands,
+          kBlockSize),
       spectra_(blocks_.buffer.size(), kFftLengthBy2Plus1),
       ffts_(blocks_.buffer.size()),
       delay_(config_.delay.default_delay),
       echo_remover_buffer_(&blocks_, &spectra_, &ffts_),
-      low_rate_(GetDownSampledBufferSize(down_sampling_factor_,
-                                         config.delay.num_filters)),
+      low_rate_(GetDownSampledBufferSize(
+          down_sampling_factor_,
+          config.delay.matched_filters.filter_size_sub_blocks,
+          config.delay.matched_filters.filter_alignment_overlap_sub_blocks,
+          config.delay.matched_filters.num_filters)),
       render_decimator_(down_sampling_factor_),
       zero_block_(num_bands, std::vector<float>(kBlockSize, 0.f)),
       fft_(),

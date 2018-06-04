@@ -22,10 +22,10 @@ namespace webrtc {
 namespace {
 size_t GetDownSamplingFactor(const EchoCanceller3Config& config) {
   // Do not use down sampling factor 8 if kill switch is triggered.
-  return (config.delay.down_sampling_factor == 8 &&
+  return (config.delay.matched_filters.down_sampling_factor == 8 &&
           field_trial::IsEnabled("WebRTC-Aec3DownSamplingFactor8KillSwitch"))
              ? 4
-             : config.delay.down_sampling_factor;
+             : config.delay.matched_filters.down_sampling_factor;
 }
 }  // namespace
 
@@ -38,17 +38,13 @@ EchoPathDelayEstimator::EchoPathDelayEstimator(
                           ? kBlockSize / down_sampling_factor_
                           : kBlockSize),
       capture_decimator_(down_sampling_factor_),
-      matched_filter_(
-          data_dumper_,
-          DetectOptimization(),
-          sub_block_size_,
-          kMatchedFilterWindowSizeSubBlocks,
-          config.delay.num_filters,
-          kMatchedFilterAlignmentShiftSizeSubBlocks,
-          GetDownSamplingFactor(config) == 8
-              ? config.render_levels.poor_excitation_render_limit_ds8
-              : config.render_levels.poor_excitation_render_limit),
+      matched_filter_(data_dumper_,
+                      DetectOptimization(),
+                      config.delay.matched_filters,
+                      sub_block_size_),
       matched_filter_lag_aggregator_(data_dumper_,
+                                     config.delay.histogram_threshold,
+                                     config.delay.histogram_size,
                                      matched_filter_.GetMaxFilterLag()) {
   RTC_DCHECK(data_dumper);
   RTC_DCHECK(down_sampling_factor_ > 0);

@@ -11,19 +11,41 @@
 #include "logging/rtc_event_log/rtc_event_log_factory.h"
 
 #include <utility>
+#include <vector>
 
 #include "logging/rtc_event_log/rtc_event_log.h"
 
 namespace webrtc {
 
+std::vector<RtcEventLog*> g_pooled_event_log;
+
+void AddRtcEventLogForTesting(std::unique_ptr<RtcEventLog> event_log) {
+  g_pooled_event_log.push_back(event_log.get());
+  event_log.release();
+}
+
+RtcEventLog* GetTheLastRtcEventLogForTesting() {
+  return g_pooled_event_log.back();
+}
+
 std::unique_ptr<RtcEventLog> RtcEventLogFactory::CreateRtcEventLog(
     RtcEventLog::EncodingType encoding_type) {
+  if (!g_pooled_event_log.empty()) {
+    RtcEventLog* event_log = g_pooled_event_log.back();
+    g_pooled_event_log.pop_back();
+    return rtc::WrapUnique(event_log);
+  }
   return RtcEventLog::Create(encoding_type);
 }
 
 std::unique_ptr<RtcEventLog> RtcEventLogFactory::CreateRtcEventLog(
     RtcEventLog::EncodingType encoding_type,
     std::unique_ptr<rtc::TaskQueue> task_queue) {
+  if (!g_pooled_event_log.empty()) {
+    RtcEventLog* event_log = g_pooled_event_log.back();
+    g_pooled_event_log.pop_back();
+    return rtc::WrapUnique(event_log);
+  }
   return RtcEventLog::Create(encoding_type, std::move(task_queue));
 }
 

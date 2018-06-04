@@ -18,6 +18,9 @@
 
 namespace webrtc {
 
+void AddRtcEventLogForTesting(std::unique_ptr<RtcEventLog> event_log);
+RtcEventLog* GetTheLastRtcEventLogForTesting();
+
 class RtcEventLogFactory : public RtcEventLogFactoryInterface {
  public:
   ~RtcEventLogFactory() override {}

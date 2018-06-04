@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "bc16d312_263e8a5c",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-06-04T17:52:07Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "04be8e88_d9145ac4",
+      "revId": "84c361a83db658efe74756763a065716b191f0ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4e00826a_974d1ce5",
         "filename": "p2p/client/basicportallocator.cc",
         "patchSetId": 7
@@ -33,6 +51,24 @@
       "revId": "84c361a83db658efe74756763a065716b191f0ab",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d03a734_f1a60166",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1113,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-06-04T17:52:07Z",
+      "side": 1,
+      "message": "Ack. Added a method to fire two signals separately.",
+      "parentUuid": "4e00826a_974d1ce5",
+      "revId": "84c361a83db658efe74756763a065716b191f0ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "8a423a8e_e5d19e70",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1127,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-06-04T17:52:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e1197eff_8b5bccbd",
+      "revId": "84c361a83db658efe74756763a065716b191f0ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "675a01a3_ef916ba5",
         "filename": "p2p/client/basicportallocator.cc",
         "patchSetId": 7
@@ -67,6 +121,24 @@
       "revId": "84c361a83db658efe74756763a065716b191f0ab",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "09e55f7c_f259ef6c",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1159,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-06-04T17:52:07Z",
+      "side": 1,
+      "message": "Ack. Not necessary and removed.",
+      "parentUuid": "675a01a3_ef916ba5",
+      "revId": "84c361a83db658efe74756763a065716b191f0ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "9a120e67_d3077db8",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1180,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-06-04T17:52:07Z",
+      "side": 1,
+      "message": "ready() checks has_pairable_candidate().",
+      "parentUuid": "f7025f78_0a105ec3",
+      "revId": "84c361a83db658efe74756763a065716b191f0ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "24800840_ab68284a",
         "filename": "p2p/client/basicportallocator.cc",
         "patchSetId": 7
@@ -101,6 +191,24 @@
       "revId": "84c361a83db658efe74756763a065716b191f0ab",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a93e971_fed67f46",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1192,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-06-04T17:52:07Z",
+      "side": 1,
+      "message": "The readiness of TCP ports are now checked with additional qualifications. This also removes the need for the flag in the unit test P2PTransportChannelTest.CanOnlyMakeOutgoingTcpConnections.",
+      "parentUuid": "24800840_ab68284a",
+      "revId": "84c361a83db658efe74756763a065716b191f0ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "67d663f3_c0eaf790",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1197,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-06-04T17:52:07Z",
+      "side": 1,
+      "message": "Ack. Removed.",
+      "parentUuid": "2c65715e_b1698f59",
+      "revId": "84c361a83db658efe74756763a065716b191f0ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8e247384_88405948",
         "filename": "p2p/client/basicportallocator.cc",
         "patchSetId": 7
@@ -135,6 +261,24 @@
       "revId": "84c361a83db658efe74756763a065716b191f0ab",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83da96a1_056a9227",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1199,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-06-04T17:52:07Z",
+      "side": 1,
+      "message": "Ack. This method is broken into two steps, and the first step that only does the port pruning is called here. Signaling the candidate removal is placed in the second step.",
+      "parentUuid": "8e247384_88405948",
+      "revId": "84c361a83db658efe74756763a065716b191f0ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -155,6 +299,24 @@
     },
     {
       "key": {
+        "uuid": "15bb2df2_126814c8",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1203,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-06-04T17:52:07Z",
+      "side": 1,
+      "message": "Ack. Just realized the two conditions are covered by ready() and IsAnyAddressPort().",
+      "parentUuid": "40eda6e1_f349f5b1",
+      "revId": "84c361a83db658efe74756763a065716b191f0ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "58c1ef0f_77507104",
         "filename": "p2p/client/basicportallocator.cc",
         "patchSetId": 7
@@ -172,6 +334,24 @@
     },
     {
       "key": {
+        "uuid": "d329d902_fa5e28fb",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1242,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-06-04T17:52:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "58c1ef0f_77507104",
+      "revId": "84c361a83db658efe74756763a065716b191f0ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5008680d_07659fd1",
         "filename": "p2p/client/basicportallocator.cc",
         "patchSetId": 7
@@ -186,6 +366,24 @@
       "revId": "84c361a83db658efe74756763a065716b191f0ab",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b142da6a_6c5aed2c",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1314,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-06-04T17:52:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5008680d_07659fd1",
+      "revId": "84c361a83db658efe74756763a065716b191f0ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

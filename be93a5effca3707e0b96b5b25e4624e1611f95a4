@@ -90,6 +90,24 @@
     },
     {
       "key": {
+        "uuid": "3f2109d7_5c3decd2",
+        "filename": "p2p/base/p2ptransportchannel_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1692,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-06-04T17:52:07Z",
+      "side": 1,
+      "message": "The duplication detection logic is changed and the principle becomes:\n1. Delay the signaling of all any address ports and candidates gathered from these ports.\n2. For all non-any address ports, collect the IPs of their candidates. If a port is a TCPPort, only collect its candidate IP if the underlying socket is not null. A non-any address port is called ready if it has pairable candidates, not pruned (these conditions given by ready()) and its underlying socket is not null if it is a TCPPort.\n3. For each any address port, compare their candidates to the existing IPs collected from step 2, and this port can be signaled if a) it has candidates with unseen IPs or b) it has no new IPs but it is a TCPPort and there is no ready (defined in step 2) port bound to enumerated networks.",
+      "parentUuid": "73c61a2c_26195fc7",
+      "revId": "be93a5effca3707e0b96b5b25e4624e1611f95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c109178f_69e7fbbf",
         "filename": "p2p/base/p2ptransportchannel_unittest.cc",
         "patchSetId": 3
@@ -143,6 +161,24 @@
     },
     {
       "key": {
+        "uuid": "0463cd9c_63b4aa5d",
+        "filename": "p2p/base/p2ptransportchannel_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 4395,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-06-04T17:52:07Z",
+      "side": 1,
+      "message": "After changing the timing of signaling ports, there is no redundant connection created anymore. This flag can be removed.",
+      "parentUuid": "b1525abb_d7ebabe8",
+      "revId": "be93a5effca3707e0b96b5b25e4624e1611f95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "79647205_2a6afa01",
         "filename": "p2p/base/portallocator.h",
         "patchSetId": 3
@@ -193,6 +229,24 @@
       "revId": "be93a5effca3707e0b96b5b25e4624e1611f95a4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3990a26_7c91f0fd",
+        "filename": "p2p/base/portallocator.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-06-04T17:52:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d843dafa_689661e0",
+      "revId": "be93a5effca3707e0b96b5b25e4624e1611f95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -389,6 +443,24 @@
     },
     {
       "key": {
+        "uuid": "f4011fa0_b6b10adb",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1071,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-06-04T17:52:07Z",
+      "side": 1,
+      "message": "Ack. Reverted and renamed the checks.",
+      "parentUuid": "7e3c14b7_88f66918",
+      "revId": "be93a5effca3707e0b96b5b25e4624e1611f95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7ee5f9e4_79fcbbfb",
         "filename": "p2p/client/basicportallocator.cc",
         "patchSetId": 3
@@ -436,6 +508,24 @@
       "side": 1,
       "message": "That would still result in potentially signaling the candidates too early with chromium, where gathering of host candidates is asynchronous due to the IPC. And it will end up being a race that decides whether the duplicate detection works for stun/turn candidates.\n\nHow about just waiting for \"candidate allocation done, OR X seconds passed\", where X is some value that we\u0027re pretty sure means no more candidates are coming. We might even have actual data to determine what value to use for X (or if we don\u0027t, we could gather it).",
       "parentUuid": "2d3f9c31_8048888c",
+      "revId": "be93a5effca3707e0b96b5b25e4624e1611f95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40fafa6f_597fc9bc",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1083,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-06-04T17:52:07Z",
+      "side": 1,
+      "message": "Good point on the issue due to IPC. The done-or-too-long-passed logic sounds good to me. I tried with our application with X\u003d2 in the VPN setup and it feels fine. There is noticeable but tolerable latency, given this is a corner case we want to make sure it works in the first place. We may need to follow up to tweak this number in other CLs, or maybe make it configurable?",
+      "parentUuid": "97584c3b_490f9678",
       "revId": "be93a5effca3707e0b96b5b25e4624e1611f95a4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -703,6 +793,24 @@
       "revId": "be93a5effca3707e0b96b5b25e4624e1611f95a4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34ccad3c_1f64c254",
+        "filename": "p2p/client/basicportallocator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 453,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-06-04T17:52:07Z",
+      "side": 1,
+      "message": "This happened for relay candidates. For relay candidates gathered, we would have candidates from both the any address port and the non-any address port with the same IP and port number in the test, e.g. kRelayUdpIntAddr, kRelayUdpExtAddr. The difference was the priority number.\n\nI think this is the side product that surfaced the root cause, which is pointed out by the other comment you made. Candidates were removed before they were even signaled to add in the previous patches. The new patch solves this problem and candidates that are not signaled are silently removed with their ports without signaling the removal. This change is then no longer necessary and reverted.",
+      "parentUuid": "43b04304_74c34105",
+      "revId": "be93a5effca3707e0b96b5b25e4624e1611f95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

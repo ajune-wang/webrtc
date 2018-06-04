@@ -16,14 +16,31 @@
 
 namespace webrtc {
 
+RtcEventLog* g_event_log = nullptr;
+
+void SetRtcEventLogForTesting(std::unique_ptr<RtcEventLog> event_log) {
+  g_event_log = event_log.get();
+  event_log.release();
+}
+
+RtcEventLog* GetRtcEventLogForTesting() {
+  return g_event_log;
+}
+
 std::unique_ptr<RtcEventLog> RtcEventLogFactory::CreateRtcEventLog(
     RtcEventLog::EncodingType encoding_type) {
+  if (g_event_log) {
+    return rtc::WrapUnique(g_event_log);
+  }
   return RtcEventLog::Create(encoding_type);
 }
 
 std::unique_ptr<RtcEventLog> RtcEventLogFactory::CreateRtcEventLog(
     RtcEventLog::EncodingType encoding_type,
     std::unique_ptr<rtc::TaskQueue> task_queue) {
+  if (g_event_log) {
+    return rtc::WrapUnique(g_event_log);
+  }
   return RtcEventLog::Create(encoding_type, std::move(task_queue));
 }
 

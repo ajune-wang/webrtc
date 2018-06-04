@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "182e2072_8e6f3429",
+        "filename": "rtc_base/experiments/field_trial_parser.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-06-04T18:35:37Z",
+      "side": 1,
+      "message": "The sign is needed sin the values are used in subtractions later. Unsigned values can cause hard to debug wraparaounds, we don\u0027t need to be able to handle strings that are too large to fit in an int.",
+      "parentUuid": "69ec73dd_1988dbfe",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 3
+      },
+      "revId": "3b864afeee3173c8b05e15145e8a2ccc190e2ae4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c62dd5ba_236c85ba",
         "filename": "rtc_base/experiments/field_trial_parser.cc",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "3b864afeee3173c8b05e15145e8a2ccc190e2ae4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38ee3642_fa9cca9f",
+        "filename": "rtc_base/experiments/field_trial_parser.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-06-04T18:35:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c62dd5ba_236c85ba",
+      "range": {
+        "startLine": 22,
+        "startChar": 8,
+        "endLine": 22,
+        "endChar": 32
+      },
+      "revId": "3b864afeee3173c8b05e15145e8a2ccc190e2ae4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "1c4a0d77_c33b41f8",
+        "filename": "rtc_base/experiments/field_trial_parser.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-06-04T18:35:37Z",
+      "side": 1,
+      "message": "The values are used separately as well.",
+      "parentUuid": "bd368124_0466e1e2",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 47
+      },
+      "revId": "3b864afeee3173c8b05e15145e8a2ccc190e2ae4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "604c0140_83fd96bb",
         "filename": "rtc_base/experiments/field_trial_parser.cc",
         "patchSetId": 4
@@ -91,6 +163,30 @@
       "revId": "3b864afeee3173c8b05e15145e8a2ccc190e2ae4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ea4ed9a_a231a2cc",
+        "filename": "rtc_base/experiments/field_trial_parser.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-06-04T18:35:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "604c0140_83fd96bb",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 64
+      },
+      "revId": "3b864afeee3173c8b05e15145e8a2ccc190e2ae4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "2257edf7_c872958b",
+        "filename": "rtc_base/experiments/field_trial_parser.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-06-04T18:35:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a79dc9e6_ac64d451",
+      "range": {
+        "startLine": 57,
+        "startChar": 16,
+        "endLine": 57,
+        "endChar": 23
+      },
+      "revId": "3b864afeee3173c8b05e15145e8a2ccc190e2ae4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bc7ab259_09143c80",
         "filename": "rtc_base/experiments/field_trial_parser.cc",
         "patchSetId": 4
@@ -137,6 +257,30 @@
       "revId": "3b864afeee3173c8b05e15145e8a2ccc190e2ae4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd095fbe_f9350e67",
+        "filename": "rtc_base/experiments/field_trial_parser.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-06-04T18:35:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc7ab259_09143c80",
+      "range": {
+        "startLine": 74,
+        "startChar": 14,
+        "endLine": 74,
+        "endChar": 29
+      },
+      "revId": "3b864afeee3173c8b05e15145e8a2ccc190e2ae4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "1868c2c1_ff7a8549",
+        "filename": "rtc_base/experiments/field_trial_parser.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-06-04T18:35:37Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a2c88264_9d345e03",
+      "range": {
+        "startLine": 78,
+        "startChar": 6,
+        "endLine": 78,
+        "endChar": 20
+      },
+      "revId": "3b864afeee3173c8b05e15145e8a2ccc190e2ae4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3e7ed235_dc828748",
         "filename": "rtc_base/experiments/field_trial_parser.cc",
         "patchSetId": 4
@@ -183,6 +351,30 @@
       "revId": "3b864afeee3173c8b05e15145e8a2ccc190e2ae4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a73c3a7_ae31e1ab",
+        "filename": "rtc_base/experiments/field_trial_parser.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-06-04T18:35:37Z",
+      "side": 1,
+      "message": "We are not allowed to use c++ streams. Allowing stuff is ok. It\u0027s not a strict standard, just a helpful tool. It\u0027s up to the user to provide sane input. Currently we commomly use sscanf.\n\nReplacing int64 with int to avoid the windows issue. (one wouldn\u0027t want to provide such long numbers as a parameter anyways, better to use a fixed multiplier or a double for such values)",
+      "parentUuid": "3e7ed235_dc828748",
+      "range": {
+        "startLine": 99,
+        "startChar": 33,
+        "endLine": 99,
+        "endChar": 36
+      },
+      "revId": "3b864afeee3173c8b05e15145e8a2ccc190e2ae4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "fc67cb7c_d10eae86",
+        "filename": "rtc_base/experiments/field_trial_parser.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-06-04T18:35:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "858b48e6_502151c5",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 40
+      },
+      "revId": "3b864afeee3173c8b05e15145e8a2ccc190e2ae4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b4d6c663_33256500",
         "filename": "rtc_base/experiments/field_trial_parser.h",
         "patchSetId": 4
@@ -229,6 +445,30 @@
       "revId": "3b864afeee3173c8b05e15145e8a2ccc190e2ae4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7956eb1_06b4c077",
+        "filename": "rtc_base/experiments/field_trial_parser.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-06-04T18:35:37Z",
+      "side": 1,
+      "message": "Allowing ,Enabled, makes it backwards compatible with out current convention.\n\nInvalid values might occur due to parameters added in later versions. It\u0027s a design goal to allow that without breaking earlier versions.",
+      "parentUuid": "b4d6c663_33256500",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 36
+      },
+      "revId": "3b864afeee3173c8b05e15145e8a2ccc190e2ae4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -255,6 +495,30 @@
     },
     {
       "key": {
+        "uuid": "2ce1f658_6c9c2969",
+        "filename": "rtc_base/experiments/field_trial_parser.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-06-04T18:35:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9bb52052_cd395818",
+      "range": {
+        "startLine": 58,
+        "startChar": 32,
+        "endLine": 58,
+        "endChar": 48
+      },
+      "revId": "3b864afeee3173c8b05e15145e8a2ccc190e2ae4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "08dcbf55_825e64e9",
         "filename": "rtc_base/experiments/field_trial_parser.h",
         "patchSetId": 4
@@ -278,6 +542,30 @@
     },
     {
       "key": {
+        "uuid": "4a1d1c0c_18ffb380",
+        "filename": "rtc_base/experiments/field_trial_parser.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-06-04T18:35:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "08dcbf55_825e64e9",
+      "range": {
+        "startLine": 62,
+        "startChar": 51,
+        "endLine": 62,
+        "endChar": 54
+      },
+      "revId": "3b864afeee3173c8b05e15145e8a2ccc190e2ae4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3b236b3b_fd77f810",
         "filename": "rtc_base/experiments/field_trial_parser.h",
         "patchSetId": 4
@@ -289,6 +577,30 @@
       "writtenOn": "2018-06-04T13:56:59Z",
       "side": 1,
       "message": "Why this magic string, isn\u0027t empty enough? Or do we need any representation of \"unset value\" at all? Wouldn\u0027t it be cleaner to say that to omit a value, one should omit the corresponding key from the mapping. \n\nIn the example \",Enabled,\" example further down, you also omit the :, that\u0027s yet another way to unambiguously omit a specific value (although I take it the intention is that \",,\" should result in a default value of false, while \",Enabled,\" should result in a default value of true, which is stretching the meaning of \"default\" a bit... It would be slightly better to adopt the xml convention which (unless I\u0027m totally confused) is that \",Enabled,\" is a shorthand for \",Enabled:Enabled,\".\n\nI can see the convenience, but if at all possible, I\u0027d like to avoid having three different kinds of valid input (key missing, key present but value missing, both key and value present) with only a subtle difference in meaning between the first two.",
+      "range": {
+        "startLine": 63,
+        "startChar": 30,
+        "endLine": 63,
+        "endChar": 35
+      },
+      "revId": "3b864afeee3173c8b05e15145e8a2ccc190e2ae4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8b7ef6d_90101833",
+        "filename": "rtc_base/experiments/field_trial_parser.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-06-04T18:35:37Z",
+      "side": 1,
+      "message": "Removed the nan as it can be confusing for field that actually would handle it as a value.\n\nThe default value will only ever be used if the key is not present or the value is invalid.\n\nNote that the Enabled example is not using an Optional, it is a boolean flag. There is a comment describing the special behavior of the bool class. I had a special Flag class before for the same behavior, but figured it was a bit redundant.\n\nDo you think having a special class for fields like Enabled that is true by their presence would be easier to understand?",
+      "parentUuid": "3b236b3b_fd77f810",
       "range": {
         "startLine": 63,
         "startChar": 30,
@@ -324,6 +636,30 @@
     },
     {
       "key": {
+        "uuid": "6f62a2e0_ee26be62",
+        "filename": "rtc_base/experiments/field_trial_parser.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-06-04T18:35:37Z",
+      "side": 1,
+      "message": "To separate setting the optional to unset and not keeping it as the default that might be a set value.",
+      "parentUuid": "0e84f953_3cb141de",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 21
+      },
+      "revId": "3b864afeee3173c8b05e15145e8a2ccc190e2ae4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0b8f7ed4_c5d1f550",
         "filename": "rtc_base/experiments/field_trial_parser.h",
         "patchSetId": 4
@@ -344,6 +680,30 @@
       "revId": "3b864afeee3173c8b05e15145e8a2ccc190e2ae4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "740b8d0b_b9da5d2b",
+        "filename": "rtc_base/experiments/field_trial_parser.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-06-04T18:35:37Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0b8f7ed4_c5d1f550",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 28
+      },
+      "revId": "3b864afeee3173c8b05e15145e8a2ccc190e2ae4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -370,6 +730,30 @@
     },
     {
       "key": {
+        "uuid": "164c8108_acd1b13a",
+        "filename": "rtc_base/experiments/field_trial_units.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-06-04T18:35:37Z",
+      "side": 1,
+      "message": "Thanks.",
+      "parentUuid": "1de5500b_77ac8cf9",
+      "range": {
+        "startLine": 23,
+        "startChar": 46,
+        "endLine": 23,
+        "endChar": 48
+      },
+      "revId": "3b864afeee3173c8b05e15145e8a2ccc190e2ae4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "26c4ad2c_d1006b2e",
         "filename": "rtc_base/experiments/field_trial_units.cc",
         "patchSetId": 4
@@ -393,6 +777,30 @@
     },
     {
       "key": {
+        "uuid": "465539a5_2ee817ca",
+        "filename": "rtc_base/experiments/field_trial_units.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-06-04T18:35:37Z",
+      "side": 1,
+      "message": "I didn\u0027t manage to figure something good out. But I don\u0027t think the memory usage will be any issue.",
+      "parentUuid": "26c4ad2c_d1006b2e",
+      "range": {
+        "startLine": 25,
+        "startChar": 4,
+        "endLine": 25,
+        "endChar": 22
+      },
+      "revId": "3b864afeee3173c8b05e15145e8a2ccc190e2ae4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bf98371b_e885c3e1",
         "filename": "rtc_base/experiments/field_trial_units.cc",
         "patchSetId": 4
@@ -413,6 +821,30 @@
       "revId": "3b864afeee3173c8b05e15145e8a2ccc190e2ae4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "431088d5_538e718c",
+        "filename": "rtc_base/experiments/field_trial_units.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-06-04T18:35:37Z",
+      "side": 1,
+      "message": "It could, but it doesn\u0027t hurt to allow using units if it makes things more clear.",
+      "parentUuid": "bf98371b_e885c3e1",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 62
+      },
+      "revId": "3b864afeee3173c8b05e15145e8a2ccc190e2ae4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

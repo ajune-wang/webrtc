@@ -33,6 +33,7 @@
 #include "api/video_codecs/builtin_video_decoder_factory.h"
 #include "api/video_codecs/builtin_video_encoder_factory.h"
 #include "api/video_codecs/sdp_video_format.h"
+#include "logging/rtc_event_log/rtc_event_log_factory.h"
 #include "media/engine/fakewebrtcvideoengine.h"
 #include "p2p/base/p2pconstants.h"
 #include "p2p/base/portinterface.h"
@@ -589,6 +590,7 @@ class PeerConnectionWrapper : public webrtc::PeerConnectionObserver,
         webrtc::CreateBuiltinVideoEncoderFactory(),
         webrtc::CreateBuiltinVideoDecoderFactory(), nullptr /* audio_mixer */,
         nullptr /* audio_processing */);
+
     if (!peer_connection_factory_) {
       return false;
     }
@@ -955,6 +957,25 @@ class PeerConnectionWrapper : public webrtc::PeerConnectionObserver,
   rtc::AsyncInvoker invoker_;
 
   friend class PeerConnectionIntegrationBaseTest;
+};
+
+class MockRtcEventLog : public webrtc::RtcEventLog {
+ public:
+  virtual ~MockRtcEventLog() = default;
+  MOCK_METHOD2(StartLogging,
+               bool(std::unique_ptr<webrtc::RtcEventLogOutput>, int64_t));
+  MOCK_METHOD0(StopLogging, void());
+  void Log(std::unique_ptr<webrtc::RtcEvent> event) override {
+    webrtc::RtcEvent::Type event_type = event->GetType();
+    if (event_type == webrtc::RtcEvent::Type::IceCandidatePairConfig ||
+        event_type == webrtc::RtcEvent::Type::IceCandidatePairEvent) {
+      ++ice_event_count_;
+    }
+  }
+  int GetIceEventCount() { return ice_event_count_; }
+
+ private:
+  int ice_event_count_ = 0;
 };
 
 class MockRtcEventLogOutput : public webrtc::RtcEventLogOutput {
@@ -4353,6 +4374,27 @@ TEST_P(PeerConnectionIntegrationTest,
   EXPECT_EQ(1u, callee_report->GetStatsOfType<RTCTransportStats>().size());
 }
 #endif  // HAVE_SCTP
+
+TEST_P(PeerConnectionIntegrationTest,
+       IceEventsGeneratedAndLoggedInRtcEventLog) {
+  // Set up event logs for the caller and the callee.
+  webrtc::AddRtcEventLogForTesting(rtc::MakeUnique<MockRtcEventLog>());
+  webrtc::AddRtcEventLogForTesting(rtc::MakeUnique<MockRtcEventLog>());
+  std::vector<MockRtcEventLog*> event_logs;
+  event_logs.push_back(
+      static_cast<MockRtcEventLog*>(webrtc::GetTheLastRtcEventLogForTesting()));
+  event_logs.push_back(
+      static_cast<MockRtcEventLog*>(webrtc::GetTheLastRtcEventLogForTesting()));
+  ASSERT_TRUE(CreatePeerConnectionWrappers());
+  ConnectFakeSignaling();
+  PeerConnectionInterface::RTCOfferAnswerOptions options;
+  options.offer_to_receive_audio = 1;
+  caller()->SetOfferAnswerOptions(options);
+  caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(DtlsConnected(), kDefaultTimeout);
+  EXPECT_LT(0, event_logs[0]->GetIceEventCount());
+  EXPECT_LT(0, event_logs[1]->GetIceEventCount());
+}
 
 INSTANTIATE_TEST_CASE_P(PeerConnectionIntegrationTest,
                         PeerConnectionIntegrationTest,

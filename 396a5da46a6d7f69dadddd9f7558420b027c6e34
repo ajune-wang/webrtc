@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "12fe3a84_d444e5f6",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 780,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-06-04T16:31:09Z",
+      "side": 1,
+      "message": "This is a step in the wrong direction :/",
+      "range": {
+        "startLine": 780,
+        "startChar": 20,
+        "endLine": 780,
+        "endChar": 36
+      },
+      "revId": "396a5da46a6d7f69dadddd9f7558420b027c6e34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7cd610c8_1bdd78d0",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 849,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-06-04T16:31:09Z",
+      "side": 1,
+      "message": "Why has this moved?",
+      "range": {
+        "startLine": 849,
+        "startChar": 25,
+        "endLine": 849,
+        "endChar": 47
+      },
+      "revId": "396a5da46a6d7f69dadddd9f7558420b027c6e34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a4ddd55_6f124420",
+        "filename": "sdk/android/api/org/webrtc/YuvConverter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-06-04T16:31:09Z",
+      "side": 1,
+      "message": "nit: We could use glUniform4fv",
+      "range": {
+        "startLine": 85,
+        "startChar": 13,
+        "endLine": 85,
+        "endChar": 24
+      },
+      "revId": "396a5da46a6d7f69dadddd9f7558420b027c6e34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd159e87_3a19b446",
+        "filename": "sdk/android/api/org/webrtc/YuvConverter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-06-04T16:31:09Z",
+      "side": 1,
+      "message": "This comment doesn\u0027t make sense to me.",
+      "range": {
+        "startLine": 210,
+        "startChar": 7,
+        "endLine": 210,
+        "endChar": 27
+      },
+      "revId": "396a5da46a6d7f69dadddd9f7558420b027c6e34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b33469e_8a22268c",
+        "filename": "sdk/android/src/java/org/webrtc/GlGenericDrawer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-06-04T16:31:09Z",
+      "side": 1,
+      "message": "Make not public.",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 7
+      },
+      "revId": "396a5da46a6d7f69dadddd9f7558420b027c6e34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56b4b2cd_9915b52b",
+        "filename": "sdk/android/src/java/org/webrtc/GlGenericDrawer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-06-04T16:31:09Z",
+      "side": 1,
+      "message": "Is this needed, is it ever bound to anything else?",
+      "range": {
+        "startLine": 245,
+        "startChar": 11,
+        "endLine": 245,
+        "endChar": 23
+      },
+      "revId": "396a5da46a6d7f69dadddd9f7558420b027c6e34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f76ebfc4_7d8e6850",
+        "filename": "sdk/android/src/java/org/webrtc/GlGenericDrawer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-06-04T16:31:09Z",
+      "side": 1,
+      "message": "Perhaps we should disable these after we are done drawing?",
+      "range": {
+        "startLine": 248,
+        "startChar": 11,
+        "endLine": 248,
+        "endChar": 36
+      },
+      "revId": "396a5da46a6d7f69dadddd9f7558420b027c6e34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

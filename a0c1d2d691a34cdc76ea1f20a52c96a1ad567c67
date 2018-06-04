@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "059cfe66_f79c67d9",
+        "filename": "api/video/video_timing.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-06-04T08:31:44Z",
+      "side": 1,
+      "message": "Not specifically a problem for this CL, but this is a old-style enum, not an enum class, so the enum constants are made available both with and without the TimingFrameFlags:: name prefix.\n\nThis means that you make the names ::webrtc::kNotTriggered and so on available. This seems like a bad idea, given that the names seem to be designed to always be used with the TimingFrameFlags:: prefix. This CL thankfully gets rid of ::webrtc::kDefault, but there\u0027s still ::webrtc::kInvalid, and the others aren\u0027t much better.\n\nCan you please post a bug about fixing this?",
+      "revId": "a0c1d2d691a34cdc76ea1f20a52c96a1ad567c67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

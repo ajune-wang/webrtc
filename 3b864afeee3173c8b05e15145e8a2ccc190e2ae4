@@ -1,0 +1,418 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "69ec73dd_1988dbfe",
+        "filename": "rtc_base/experiments/field_trial_parser.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-04T13:56:59Z",
+      "side": 1,
+      "message": "I know style guide generally prefers int, but I\u0027d prefer using the natural type size_t (here and where needed in callers) and delete the shortening static_cast.\n\nIf you really want a signed type, ptrdiff_t ot intptr_t might be an option.",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 3
+      },
+      "revId": "3b864afeee3173c8b05e15145e8a2ccc190e2ae4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c62dd5ba_236c85ba",
+        "filename": "rtc_base/experiments/field_trial_parser.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-04T13:56:59Z",
+      "side": 1,
+      "message": "Please enclose in a pair of ().",
+      "range": {
+        "startLine": 22,
+        "startChar": 8,
+        "endLine": 22,
+        "endChar": 32
+      },
+      "revId": "3b864afeee3173c8b05e15145e8a2ccc190e2ae4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd368124_0466e1e2",
+        "filename": "rtc_base/experiments/field_trial_parser.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-04T13:56:59Z",
+      "side": 1,
+      "message": "I think I\u0027d use strcspn(trial_string, \",:\"), or the C++ counterpart, if any.",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 47
+      },
+      "revId": "3b864afeee3173c8b05e15145e8a2ccc190e2ae4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "604c0140_83fd96bb",
+        "filename": "rtc_base/experiments/field_trial_parser.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-04T13:56:59Z",
+      "side": 1,
+      "message": "Please delete before landing. If you want to keep a log, format it as a friendly summary of recognized field trials.",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 64
+      },
+      "revId": "3b864afeee3173c8b05e15145e8a2ccc190e2ae4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a79dc9e6_ac64d451",
+        "filename": "rtc_base/experiments/field_trial_parser.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-04T13:56:59Z",
+      "side": 1,
+      "message": "This should have a higher log severity, I\u0027d suggest LS_WARNING.",
+      "range": {
+        "startLine": 57,
+        "startChar": 16,
+        "endLine": 57,
+        "endChar": 23
+      },
+      "revId": "3b864afeee3173c8b05e15145e8a2ccc190e2ae4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc7ab259_09143c80",
+        "filename": "rtc_base/experiments/field_trial_parser.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-04T13:56:59Z",
+      "side": 1,
+      "message": "Prefer to avoid double comparison to the same value.\n\nif (str.empty() || str \u003d\u003d \"true\") {\n  value \u003d true;\n} else if (str \u003d\u003d \"false\") {\n  value \u003d false;\n} else ....",
+      "range": {
+        "startLine": 74,
+        "startChar": 14,
+        "endLine": 74,
+        "endChar": 29
+      },
+      "revId": "3b864afeee3173c8b05e15145e8a2ccc190e2ae4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2c88264_9d345e03",
+        "filename": "rtc_base/experiments/field_trial_parser.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-04T13:56:59Z",
+      "side": 1,
+      "message": "Prefer to move the default assignment into this block, to get all assignments to |valid| closer together.",
+      "range": {
+        "startLine": 78,
+        "startChar": 6,
+        "endLine": 78,
+        "endChar": 20
+      },
+      "revId": "3b864afeee3173c8b05e15145e8a2ccc190e2ae4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e7ed235_dc828748",
+        "filename": "rtc_base/experiments/field_trial_parser.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-04T13:56:59Z",
+      "side": 1,
+      "message": "Not portable, and broken on windows where long int is only 32 bits. The portable (and ugly) way is to use inttypes.h and sscanf(..., \"%\" PRIi64, \u0026value);\n\nAlso, generally for the sscanf conversions, I think you\u0027re allowing (and ignoring) arbitrary whitespace at the start of the value, and arbitrary garbage at the end of the value, maybe that\u0027s not what you want. Making it work with array_view is also a bit tricky (since it doens\u0027t provide NUL-termination), but may be possible with careful use of the field width parameter.\n\nBut I think I\u0027d recommend using some other C or C++ facility for integer conversion.",
+      "range": {
+        "startLine": 99,
+        "startChar": 33,
+        "endLine": 99,
+        "endChar": 36
+      },
+      "revId": "3b864afeee3173c8b05e15145e8a2ccc190e2ae4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "858b48e6_502151c5",
+        "filename": "rtc_base/experiments/field_trial_parser.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-04T13:56:59Z",
+      "side": 1,
+      "message": "Please document format more precisely. Separators for key:value pairs, any other magic characters, quotes, escapes, treatment of whitespace...  ?",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 40
+      },
+      "revId": "3b864afeee3173c8b05e15145e8a2ccc190e2ae4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4d6c663_33256500",
+        "filename": "rtc_base/experiments/field_trial_parser.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-04T13:56:59Z",
+      "side": 1,
+      "message": "Please add a brief comment on the class purpose, and on the TryParse method.\n\nAfter reviewing the rest of the cl, I think I understand the structure.\nThe caller owns a bunch of objects implementing this interface. Conceptially, the parser should produce a map of keys to values which could be queried like any other map, but since values are of varying types, one of the reasons for this class is to provide one level of indirection.\n\nDuring parsing, each key can end up in one of four(!) states:\n\n1. Not present.\n\n2. Key present, no value.\n\n3. Key present, value present and makes sense.\n\n4. Key present, but with an invalid value (out of range, syntactically incorrect).\n\nAny reduction of this list would make things easier to understand, reason about, and test. I would suggest eliminating state (4), instead let the main function ParseFieldTrial return a blool (true for success). If parsing any of the values fail, it should return false and not promise anything about what the results of any of the keys.\n\nIt would be nice if we could also make (1) and (2) have the same meaning, if you\u0027re willing to sacrifice ,Enabled, as a shorthand for ,Enabled:true,.",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 36
+      },
+      "revId": "3b864afeee3173c8b05e15145e8a2ccc190e2ae4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9bb52052_cd395818",
+        "filename": "rtc_base/experiments/field_trial_parser.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-04T13:56:59Z",
+      "side": 1,
+      "message": "Spelling",
+      "range": {
+        "startLine": 58,
+        "startChar": 32,
+        "endLine": 58,
+        "endChar": 48
+      },
+      "revId": "3b864afeee3173c8b05e15145e8a2ccc190e2ae4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08dcbf55_825e64e9",
+        "filename": "rtc_base/experiments/field_trial_parser.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-04T13:56:59Z",
+      "side": 1,
+      "message": "Please name either |key| or |value| depending on which string it is that goes here.",
+      "range": {
+        "startLine": 62,
+        "startChar": 51,
+        "endLine": 62,
+        "endChar": 54
+      },
+      "revId": "3b864afeee3173c8b05e15145e8a2ccc190e2ae4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b236b3b_fd77f810",
+        "filename": "rtc_base/experiments/field_trial_parser.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-04T13:56:59Z",
+      "side": 1,
+      "message": "Why this magic string, isn\u0027t empty enough? Or do we need any representation of \"unset value\" at all? Wouldn\u0027t it be cleaner to say that to omit a value, one should omit the corresponding key from the mapping. \n\nIn the example \",Enabled,\" example further down, you also omit the :, that\u0027s yet another way to unambiguously omit a specific value (although I take it the intention is that \",,\" should result in a default value of false, while \",Enabled,\" should result in a default value of true, which is stretching the meaning of \"default\" a bit... It would be slightly better to adopt the xml convention which (unless I\u0027m totally confused) is that \",Enabled,\" is a shorthand for \",Enabled:Enabled,\".\n\nI can see the convenience, but if at all possible, I\u0027d like to avoid having three different kinds of valid input (key missing, key present but value missing, both key and value present) with only a subtle difference in meaning between the first two.",
+      "range": {
+        "startLine": 63,
+        "startChar": 30,
+        "endLine": 63,
+        "endChar": 35
+      },
+      "revId": "3b864afeee3173c8b05e15145e8a2ccc190e2ae4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e84f953_3cb141de",
+        "filename": "rtc_base/experiments/field_trial_parser.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-04T13:56:59Z",
+      "side": 1,
+      "message": "Why do you need both an explicit bool + the implied bool in rtc::Optional?",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 21
+      },
+      "revId": "3b864afeee3173c8b05e15145e8a2ccc190e2ae4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b8f7ed4_c5d1f550",
+        "filename": "rtc_base/experiments/field_trial_parser.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-04T13:56:59Z",
+      "side": 1,
+      "message": "Having the actual parsing done by the constructor is a bit awkward, in that you need an extra bool to record success/failure. It would look nicer with a\n\n  rtc::Optional\u003cT\u003e parse\u003cT\u003e(const std::string\u0026);\n\n(and if you don\u0027t need to store any state, you could use an ArrayView rather than a string for the input).",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 28
+      },
+      "revId": "3b864afeee3173c8b05e15145e8a2ccc190e2ae4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1de5500b_77ac8cf9",
+        "filename": "rtc_base/experiments/field_trial_units.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-04T13:56:59Z",
+      "side": 1,
+      "message": "If you use %10s or so, you don\u0027t need to enforce any size limit on the input string.",
+      "range": {
+        "startLine": 23,
+        "startChar": 46,
+        "endLine": 23,
+        "endChar": 48
+      },
+      "revId": "3b864afeee3173c8b05e15145e8a2ccc190e2ae4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26c4ad2c_d1006b2e",
+        "filename": "rtc_base/experiments/field_trial_units.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-04T13:56:59Z",
+      "side": 1,
+      "message": "If possible without sacrificing readability, avoid this copy. E.g, by returning the offset to the unit string.",
+      "range": {
+        "startLine": 25,
+        "startChar": 4,
+        "endLine": 25,
+        "endChar": 22
+      },
+      "revId": "3b864afeee3173c8b05e15145e8a2ccc190e2ae4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf98371b_e885c3e1",
+        "filename": "rtc_base/experiments/field_trial_units.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-04T13:56:59Z",
+      "side": 1,
+      "message": "Do we really need the flexibility with multiple choice of units in a field trial string?\nCan\u0027t the experiment say \"bits per secong, period\" and use that, possibly in combination with standard float exponential notation like 300e3?",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 62
+      },
+      "revId": "3b864afeee3173c8b05e15145e8a2ccc190e2ae4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

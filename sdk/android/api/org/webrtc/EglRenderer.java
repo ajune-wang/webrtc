@@ -19,6 +19,7 @@ import android.os.HandlerThread;
 import android.os.Looper;
 import android.view.Surface;
 import java.nio.ByteBuffer;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Locale;
@@ -665,6 +666,7 @@ public class EglRenderer implements VideoRenderer.Callbacks, VideoSink {
   }
 
   private void logStatistics() {
+    final DecimalFormat fpsFormat = new DecimalFormat("#.0");
     final long currentTimeNs = System.nanoTime();
     synchronized (statisticsLock) {
       final long elapsedTimeNs = currentTimeNs - statisticsStartTimeNs;
@@ -672,11 +674,12 @@ public class EglRenderer implements VideoRenderer.Callbacks, VideoSink {
         return;
       }
       final float renderFps = framesRendered * TimeUnit.SECONDS.toNanos(1) / (float) elapsedTimeNs;
+
       logD("Duration: " + TimeUnit.NANOSECONDS.toMillis(elapsedTimeNs) + " ms."
           + " Frames received: " + framesReceived + "."
           + " Dropped: " + framesDropped + "."
           + " Rendered: " + framesRendered + "."
-          + " Render fps: " + String.format(Locale.US, "%.1f", renderFps) + "."
+          + " Render fps: " + fpsFormat.format(renderFps) + "."
           + " Average render time: " + averageTimeAsString(renderTimeNs, framesRendered) + "."
           + " Average swapBuffer time: "
           + averageTimeAsString(renderSwapBufferTimeNs, framesRendered) + ".");

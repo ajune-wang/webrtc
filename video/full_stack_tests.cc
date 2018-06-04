@@ -167,6 +167,19 @@ TEST_F(FullStackTest, ForemanCif30kbpsWithoutPacketLoss) {
   RunTest(foreman_cif);
 }
 
+TEST_F(FullStackTest, ForemanCifLink150kbpsWithoutPacketLoss) {
+  VideoQualityTest::Params foreman_cif;
+  foreman_cif.call.send_side_bwe = true;
+  foreman_cif.video[0] = {true,   352,     288,   30,    30000,
+                          500000, 2000000, false, "VP8", 1,
+                          0,      0,       true,  false, "foreman_cif"};
+  foreman_cif.analyzer = {"foreman_cif_link_150kbps_net_delay_0_0_plr_0",
+                          0.0, 0.0,
+                          kFullStackTestDurationSecs};
+  foreman_cif.pipe.link_capacity_kbps = 150;
+  RunTest(foreman_cif);
+}
+
 TEST_F(FullStackTest, ForemanCifPlr5) {
   VideoQualityTest::Params foreman_cif;
   foreman_cif.call.send_side_bwe = true;

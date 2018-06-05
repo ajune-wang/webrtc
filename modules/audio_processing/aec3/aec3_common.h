@@ -11,6 +11,7 @@
 #ifndef MODULES_AUDIO_PROCESSING_AEC3_AEC3_COMMON_H_
 #define MODULES_AUDIO_PROCESSING_AEC3_AEC3_COMMON_H_
 
+#include <math.h>
 #include <stddef.h>
 #include "typedefs.h"  // NOLINT(build/include)
 
@@ -48,9 +49,6 @@ constexpr size_t kBlockSize = kFftLengthBy2;
 constexpr size_t kBlockSizeLog2 = 6;
 
 constexpr size_t kExtendedBlockSize = 2 * kFftLengthBy2;
-constexpr size_t kMatchedFilterWindowSizeSubBlocks = 32;
-constexpr size_t kMatchedFilterAlignmentShiftSizeSubBlocks =
-    kMatchedFilterWindowSizeSubBlocks * 3 / 4;
 
 // TODO(peah): Integrate this with how it is done inside audio_processing_impl.
 constexpr size_t NumBandsForRate(int sample_rate_hz) {
@@ -70,20 +68,16 @@ constexpr int GetTimeDomainLength(int filter_length_blocks) {
   return filter_length_blocks * kFftLengthBy2;
 }
 
-constexpr size_t GetDownSampledBufferSize(size_t down_sampling_factor,
-                                          size_t num_matched_filters) {
-  return kBlockSize / down_sampling_factor *
-         (kMatchedFilterAlignmentShiftSizeSubBlocks * num_matched_filters +
-          kMatchedFilterWindowSizeSubBlocks + 1);
-}
+size_t GetDownSampledBufferSize(size_t down_sampling_factor,
+                                size_t matched_filter_size_sub_blocks,
+                                size_t filter_overlap_sub_blocks,
+                                size_t num_matched_filters);
 
-constexpr size_t GetRenderDelayBufferSize(size_t down_sampling_factor,
-                                          size_t num_matched_filters,
-                                          size_t filter_length_blocks) {
-  return GetDownSampledBufferSize(down_sampling_factor, num_matched_filters) /
-             (kBlockSize / down_sampling_factor) +
-         filter_length_blocks + 1;
-}
+size_t GetRenderDelayBufferSize(size_t down_sampling_factor,
+                                size_t matched_filter_size_sub_blocks,
+                                size_t filter_overlap_sub_blocks,
+                                size_t num_matched_filters,
+                                size_t filter_length_blocks);
 
 // Detects what kind of optimizations to use for the code.
 Aec3Optimization DetectOptimization();

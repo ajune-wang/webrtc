@@ -47,7 +47,7 @@ EchoCanceller3Config AdjustConfig(const EchoCanceller3Config& config) {
       adjusted_cfg.echo_model.nonlinear_release = 0.001f;
     } else {
       adjusted_cfg.ep_strength.bounded_erl = true;
-      adjusted_cfg.delay.down_sampling_factor = 2;
+      adjusted_cfg.delay.matched_filters.down_sampling_factor = 2;
       adjusted_cfg.ep_strength.default_len = 0.8f;
       adjusted_cfg.ep_strength.lf = 0.01f;
       adjusted_cfg.ep_strength.mf = 0.01f;

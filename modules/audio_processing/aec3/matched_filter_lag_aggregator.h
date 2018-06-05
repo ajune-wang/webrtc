@@ -26,7 +26,10 @@ class ApmDataDumper;
 // reliable combined lag estimate.
 class MatchedFilterLagAggregator {
  public:
-  MatchedFilterLagAggregator(ApmDataDumper* data_dumper, size_t max_filter_lag);
+  MatchedFilterLagAggregator(ApmDataDumper* data_dumper,
+                             int detection_threshold,
+                             size_t histogram_size,
+                             size_t max_filter_lag);
   ~MatchedFilterLagAggregator();
 
   // Resets the aggregator.
@@ -38,8 +41,9 @@ class MatchedFilterLagAggregator {
 
  private:
   ApmDataDumper* const data_dumper_;
+  const int detection_threshold_;
   std::vector<int> histogram_;
-  std::array<int, 250> histogram_data_;
+  std::vector<int> histogram_data_;
   int histogram_data_index_ = 0;
   bool significant_candidate_found_ = false;
 

@@ -19,7 +19,7 @@
 #include <algorithm>
 #include <numeric>
 
-#include "api/audio/echo_canceller3_config.h"
+#include "api/array_view.h"
 #include "modules/audio_processing/logging/apm_data_dumper.h"
 #include "rtc_base/logging.h"
 
@@ -30,6 +30,7 @@ namespace aec3 {
 
 void MatchedFilterCore_NEON(size_t x_start_index,
                             float x2_sum_threshold,
+                            float step_size,
                             rtc::ArrayView<const float> x,
                             rtc::ArrayView<const float> y,
                             rtc::ArrayView<float> h,
@@ -100,10 +101,10 @@ void MatchedFilterCore_NEON(size_t x_start_index,
     // Update the matched filter estimate in an NLMS manner.
     if (x2_sum > x2_sum_threshold && !saturation) {
       RTC_DCHECK_LT(0.f, x2_sum);
-      const float alpha = 0.7f * e / x2_sum;
+      const float alpha = step_size * e / x2_sum;
       const float32x4_t alpha_128 = vmovq_n_f32(alpha);
 
-      // filter = filter + 0.7 * (y - filter * x) / x * x.
+      // filter = filter + alpha * (y - filter * x) / x * x.
       float* h_p = &h[0];
       x_p = &x[x_start_index];
 
@@ -143,6 +144,7 @@ void MatchedFilterCore_NEON(size_t x_start_index,
 
 void MatchedFilterCore_SSE2(size_t x_start_index,
                             float x2_sum_threshold,
+                            float step_size,
                             rtc::ArrayView<const float> x,
                             rtc::ArrayView<const float> y,
                             rtc::ArrayView<float> h,
@@ -215,10 +217,10 @@ void MatchedFilterCore_SSE2(size_t x_start_index,
     // Update the matched filter estimate in an NLMS manner.
     if (x2_sum > x2_sum_threshold && !saturation) {
       RTC_DCHECK_LT(0.f, x2_sum);
-      const float alpha = 0.7f * e / x2_sum;
+      const float alpha = step_size * e / x2_sum;
       const __m128 alpha_128 = _mm_set1_ps(alpha);
 
-      // filter = filter + 0.7 * (y - filter * x) / x * x.
+      // filter = filter + alpha * (y - filter * x) / x * x.
       float* h_p = &h[0];
       x_p = &x[x_start_index];
 
@@ -257,6 +259,7 @@ void MatchedFilterCore_SSE2(size_t x_start_index,
 
 void MatchedFilterCore(size_t x_start_index,
                        float x2_sum_threshold,
+                       float step_size,
                        rtc::ArrayView<const float> x,
                        rtc::ArrayView<const float> y,
                        rtc::ArrayView<float> h,
@@ -286,9 +289,9 @@ void MatchedFilterCore(size_t x_start_index,
     // Update the matched filter estimate in an NLMS manner.
     if (x2_sum > x2_sum_threshold && !saturation) {
       RTC_DCHECK_LT(0.f, x2_sum);
-      const float alpha = 0.7f * e / x2_sum;
+      const float alpha = step_size * e / x2_sum;
 
-      // filter = filter + 0.7 * (y - filter * x) / x * x.
+      // filter = filter + alpha * (y - filter * x) / x * x.
       size_t x_index = x_start_index;
       for (size_t k = 0; k < h.size(); ++k) {
         h[k] += alpha * x[x_index];
@@ -301,29 +304,386 @@ void MatchedFilterCore(size_t x_start_index,
   }
 }
 
+void Filter16x8_SSE2(const DownsampledRenderBuffer& render_buffer,
+                     rtc::ArrayView<const float> y,
+                     float x2_sum_threshold,
+                     float step_size,
+                     rtc::ArrayView<float> x2_sum,
+                     rtc::ArrayView<float> e,
+                     rtc::ArrayView<float> e2_sum,
+                     std::vector<bool>* filters_updated,
+                     rtc::ArrayView<float> h) {
+  RTC_DCHECK_EQ(0, h.size() % 16);
+  const size_t num_filters = h.size() / 16 / 8;
+  const std::vector<float>& x = render_buffer.buffer;
+  RTC_DCHECK_EQ(0, x.size() % 4);
+  RTC_DCHECK_EQ(0, render_buffer.read % 4);
+  RTC_DCHECK_EQ(num_filters, x2_sum.size());
+  RTC_DCHECK_EQ(num_filters, e2_sum.size());
+  RTC_DCHECK_EQ(num_filters, e.size());
+  RTC_DCHECK_EQ(num_filters, filters_updated->size());
+
+  size_t x0 = render_buffer.read;
+  const size_t x_size_minus_1 = x.size() - 1;
+  const size_t x_size_minus_4 = x.size() - 4;
+
+  std::fill(e2_sum.begin(), e2_sum.end(), 0.f);
+  std::fill(filters_updated->begin(), filters_updated->end(), false);
+  for (size_t i = 0; i < y.size(); ++i) {
+    size_t x_i = x0;
+    const float* x_p = &x[x0];
+    float* h_p = &h[0];
+    __m128 x2_sum_128_j = _mm_set1_ps(0);
+    __m128 e_128_j = _mm_set1_ps(0);
+
+    for (size_t k = 0; k < 16; ++k) {
+      const __m128 x_k = _mm_loadu_ps(x_p);
+      const __m128 h_k = _mm_loadu_ps(h_p);
+      const __m128 xx = _mm_mul_ps(x_k, x_k);
+      x2_sum_128_j = _mm_add_ps(x2_sum_128_j, xx);
+
+      const __m128 hx = _mm_mul_ps(h_k, x_k);
+      e_128_j = _mm_add_ps(e_128_j, hx);
+
+      h_p += 4;
+      x_p = x_i < x_size_minus_4 ? x_p + 4 : &x[0];
+      x_i = (x_i + 4) & x_size_minus_1;
+    }
+
+    for (size_t j = 0; j < num_filters - 1; ++j) {
+      __m128 x2_sum_128_j_1 = _mm_set1_ps(0);
+      __m128 e_128_j_1 = _mm_set1_ps(0);
+      for (size_t k = 0; k < 16; ++k) {
+        const __m128 x_k = _mm_loadu_ps(x_p);
+        const __m128 xx = _mm_mul_ps(x_k, x_k);
+        x2_sum_128_j = _mm_add_ps(x2_sum_128_j, xx);
+        x2_sum_128_j_1 = _mm_add_ps(x2_sum_128_j_1, xx);
+
+        const __m128 h_k = _mm_loadu_ps(h_p);
+        const __m128 h_k_1 = _mm_loadu_ps(h_p + 4);
+        const __m128 hx = _mm_mul_ps(h_k, x_k);
+        const __m128 hx_1 = _mm_mul_ps(h_k_1, x_k);
+        e_128_j = _mm_add_ps(e_128_j, hx);
+        e_128_j_1 = _mm_add_ps(e_128_j_1, hx_1);
+
+        h_p += 8;
+        x_p = x_i < x_size_minus_4 ? x_p + 4 : &x[0];
+        x_i = (x_i + 4) & x_size_minus_1;
+      }
+
+      float* v = reinterpret_cast<float*>(&x2_sum_128_j);
+      x2_sum[j] = v[0] + v[1] + v[2] + v[3];
+      v = reinterpret_cast<float*>(&e_128_j);
+      e[j] = v[0] + v[1] + v[2] + v[3];
+
+      x2_sum_128_j = x2_sum_128_j_1;
+      e_128_j = e_128_j_1;
+    }
+
+    for (size_t k = 0; k < 16; ++k) {
+      const __m128 x_k = _mm_loadu_ps(x_p);
+      const __m128 h_k = _mm_loadu_ps(h_p);
+      const __m128 xx = _mm_mul_ps(x_k, x_k);
+      x2_sum_128_j = _mm_add_ps(x2_sum_128_j, xx);
+
+      const __m128 hx = _mm_mul_ps(h_k, x_k);
+      e_128_j = _mm_add_ps(e_128_j, hx);
+
+      h_p += 4;
+      x_p = x_i < x_size_minus_4 ? x_p + 4 : &x[0];
+      x_i = (x_i + 4) & x_size_minus_1;
+    }
+
+    float* v = reinterpret_cast<float*>(&x2_sum_128_j);
+    x2_sum[num_filters - 1] = v[0] + v[1] + v[2] + v[3];
+    v = reinterpret_cast<float*>(&e_128_j);
+    e[num_filters - 1] = v[0] + v[1] + v[2] + v[3];
+
+    const bool saturation =
+        y[y.size() - 1 - i] >= 32000.f || y[y.size() - 1 - i] <= -32000.f;
+    for (size_t j = 0; j < num_filters; ++j) {
+      e[j] = y[y.size() - 1 - i] - e[j];
+      e2_sum[j] += e[j] * e[j];
+
+      if (x2_sum[j] > x2_sum_threshold && !saturation) {
+        e[j] *= step_size / x2_sum[j];
+        (*filters_updated)[j] = true;
+      } else {
+        e[j] = 0.f;
+      }
+    }
+
+    x_p = &x[x0];
+    h_p = &h[0];
+    x_i = x0;
+    __m128 alpha_128_j = _mm_set1_ps(e[0]);
+    for (size_t k = 0; k < 16; ++k) {
+      const __m128 x_k = _mm_loadu_ps(x_p);
+
+      __m128 alpha_x = _mm_mul_ps(alpha_128_j, x_k);
+      __m128 h_k = _mm_loadu_ps(h_p);
+      h_k = _mm_add_ps(h_k, alpha_x);
+      _mm_storeu_ps(h_p, h_k);
+      h_p += 4;
+
+      x_p = x_i < x_size_minus_4 ? x_p + 4 : &x[0];
+      x_i = (x_i + 4) & x_size_minus_1;
+    }
+
+    for (size_t j = 0; j < num_filters - 1; ++j) {
+      __m128 alpha_128_j_1 = _mm_set1_ps(e[j + 1]);
+      for (size_t k = 0; k < 16; ++k) {
+        const __m128 x_k = _mm_loadu_ps(x_p);
+
+        __m128 alpha_x = _mm_mul_ps(alpha_128_j, x_k);
+        __m128 h_k = _mm_loadu_ps(h_p);
+        h_k = _mm_add_ps(h_k, alpha_x);
+        _mm_storeu_ps(h_p, h_k);
+        h_p += 4;
+
+        alpha_x = _mm_mul_ps(alpha_128_j_1, x_k);
+        h_k = _mm_loadu_ps(h_p);
+        h_k = _mm_add_ps(h_k, alpha_x);
+        _mm_storeu_ps(h_p, h_k);
+        h_p += 4;
+
+        x_p = x_i < x_size_minus_4 ? x_p + 4 : &x[0];
+        x_i = (x_i + 4) & x_size_minus_1;
+      }
+      alpha_128_j = alpha_128_j_1;
+    }
+
+    for (size_t k = 0; k < 16; ++k) {
+      const __m128 x_k = _mm_loadu_ps(x_p);
+
+      __m128 alpha_x = _mm_mul_ps(alpha_128_j, x_k);
+      __m128 h_k = _mm_loadu_ps(h_p);
+      h_k = _mm_add_ps(h_k, alpha_x);
+      _mm_storeu_ps(h_p, h_k);
+      h_p += 4;
+
+      x_p = x_i < x_size_minus_4 ? x_p + 4 : &x[0];
+      x_i = (x_i + 4) & x_size_minus_1;
+    }
+    x0 = (x0 + 1) & x_size_minus_1;
+  }
+}
+
+void Filter16x8(const DownsampledRenderBuffer& render_buffer,
+                rtc::ArrayView<const float> y,
+                float x2_sum_threshold,
+                float step_size,
+                rtc::ArrayView<float> x2_sum,
+                rtc::ArrayView<float> e,
+                rtc::ArrayView<float> e2_sum,
+                std::vector<bool>* filters_updated,
+                rtc::ArrayView<float> h) {
+  RTC_DCHECK_EQ(0, h.size() % 16);
+  const size_t num_filters = h.size() / 16 / 8;
+  const std::vector<float>& x = render_buffer.buffer;
+  RTC_DCHECK_EQ(0, x.size() % 4);
+  RTC_DCHECK_EQ(0, render_buffer.read % 4);
+  RTC_DCHECK_EQ(num_filters, x2_sum.size());
+  RTC_DCHECK_EQ(num_filters, e2_sum.size());
+  RTC_DCHECK_EQ(num_filters, e.size());
+  RTC_DCHECK_EQ(num_filters, filters_updated->size());
+
+  size_t x0 = render_buffer.read;
+  const size_t x_size_minus_1 = x.size() - 1;
+
+  std::fill(e2_sum.begin(), e2_sum.end(), 0.f);
+  std::fill(filters_updated->begin(), filters_updated->end(), false);
+  for (size_t i = 0; i < y.size(); ++i) {
+    std::fill(x2_sum.begin(), x2_sum.end(), 0.f);
+    std::fill(e.begin(), e.end(), 0.f);
+
+    size_t x_i = x0;
+    size_t h_i = 0;
+    for (size_t k = 0; k < 16; ++k) {
+      for (size_t n = 0; n < 4; ++n) {
+        x2_sum[0] += x[x_i + n] * x[x_i + n];
+        e[0] += h[h_i + n] * x[x_i + n];
+      }
+      h_i += 4;
+      x_i = (x_i + 4) & x_size_minus_1;
+    }
+
+    for (size_t j = 0; j < num_filters - 1; ++j) {
+      for (size_t k = 0; k < 16; ++k) {
+        for (size_t n = 0; n < 4; ++n) {
+          float x2 = x[x_i + n] * x[x_i + n];
+          x2_sum[j] += x2;
+          x2_sum[j + 1] += x2;
+          e[j] += h[h_i + n] * x[x_i + n];
+          e[j + 1] += h[h_i + 4 + n] * x[x_i + n];
+        }
+        h_i += 8;
+        x_i = (x_i + 4) & x_size_minus_1;
+      }
+    }
+
+    for (size_t k = 0; k < 16; ++k) {
+      for (size_t n = 0; n < 4; ++n) {
+        x2_sum[num_filters - 1] += x[x_i + n] * x[x_i + n];
+        e[num_filters - 1] += h[h_i + n] * x[x_i + n];
+      }
+      h_i += 4;
+      x_i = (x_i + 4) & x_size_minus_1;
+    }
+    RTC_DCHECK_EQ(h_i, h.size());
+
+    const bool saturation =
+        y[y.size() - 1 - i] >= 32000.f || y[y.size() - 1 - i] <= -32000.f;
+    for (size_t j = 0; j < num_filters; ++j) {
+      e[j] = y[y.size() - 1 - i] - e[j];
+      e2_sum[j] += e[j] * e[j];
+
+      if (x2_sum[j] > x2_sum_threshold && !saturation) {
+        e[j] *= step_size / x2_sum[j];
+        (*filters_updated)[j] = true;
+      } else {
+        e[j] = 0.f;
+      }
+    }
+
+    x_i = x0;
+    h_i = 0;
+    for (size_t k = 0; k < 16; ++k) {
+      for (size_t n = 0; n < 4; ++n) {
+        h[h_i + n] += e[0] * x[x_i + n];
+      }
+      h_i += 4;
+      x_i = (x_i + 4) & x_size_minus_1;
+    }
+
+    for (size_t j = 0; j < num_filters - 1; ++j) {
+      for (size_t k = 0; k < 16; ++k) {
+        for (size_t n = 0; n < 4; ++n) {
+          h[h_i + n] += e[j] * x[x_i + n];
+          h[h_i + 4 + n] += e[j + 1] * x[x_i + n];
+        }
+        h_i += 8;
+        x_i = (x_i + 4) & x_size_minus_1;
+      }
+    }
+
+    for (size_t k = 0; k < 16; ++k) {
+      for (size_t n = 0; n < 4; ++n) {
+        h[h_i + n] += e[num_filters - 1] * x[x_i + n];
+      }
+      h_i += 4;
+      x_i = (x_i + 4) & x_size_minus_1;
+    }
+    RTC_DCHECK_EQ(h_i, h.size());
+
+    x0 = (x0 + 1) & x_size_minus_1;
+  }
+}
+
+void FindPeaks16x8(rtc::ArrayView<const float> h,
+                   rtc::ArrayView<size_t> peaks) {
+  const size_t num_filters = h.size() / 16 / 8;
+  RTC_DCHECK_EQ(num_filters, peaks.size());
+
+  const float* h_p = &h[0];
+
+  float m0 = 0.f;
+  size_t p0 = 0;
+  for (size_t k = 0; k < 64; ++k) {
+    float tmp = fabs(*h_p++);
+    if (tmp > m0) {
+      m0 = tmp;
+      p0 = k;
+    }
+  }
+
+  for (size_t j = 0; j < num_filters - 1; ++j) {
+    float m1 = 0.f;
+    size_t p1 = 0;
+    for (size_t k = 0, i = 0; k < 16; ++k, i += 4) {
+      for (size_t n = 0; n < 4; ++n) {
+        float tmp = fabs(*h_p++);
+        if (tmp > m0) {
+          m0 = tmp;
+          p0 = i + n + 64;
+        }
+      }
+      for (size_t n = 0; n < 4; ++n) {
+        float tmp = fabs(*h_p++);
+        if (tmp > m1) {
+          m1 = tmp;
+          p1 = i + n;
+        }
+      }
+    }
+    peaks[j] = p0;
+    m0 = m1;
+    p0 = p1;
+  }
+
+  for (size_t k = 0; k < 64; ++k) {
+    float tmp = fabs(*h_p++);
+    if (tmp > m0) {
+      m0 = tmp;
+      p0 = k + 64;
+    }
+  }
+  peaks[num_filters - 1] = p0;
+}
+
 }  // namespace aec3
 
-MatchedFilter::MatchedFilter(ApmDataDumper* data_dumper,
-                             Aec3Optimization optimization,
-                             size_t sub_block_size,
-                             size_t window_size_sub_blocks,
-                             int num_matched_filters,
-                             size_t alignment_shift_sub_blocks,
-                             float excitation_limit)
+MatchedFilter::MatchedFilter(
+    ApmDataDumper* data_dumper,
+    Aec3Optimization optimization,
+    const EchoCanceller3Config::Delay::MatchedFilters& config,
+    size_t sub_block_size)
     : data_dumper_(data_dumper),
       optimization_(optimization),
+      config_(config),
       sub_block_size_(sub_block_size),
-      filter_intra_lag_shift_(alignment_shift_sub_blocks * sub_block_size_),
+      detection_threshold_(config_.detection_threshold),
+      filter_intra_lag_shift_((config_.filter_size_sub_blocks -
+                               config_.filter_alignment_overlap_sub_blocks) *
+                              sub_block_size_),
       filters_(
-          num_matched_filters,
-          std::vector<float>(window_size_sub_blocks * sub_block_size_, 0.f)),
-      lag_estimates_(num_matched_filters),
-      filters_offsets_(num_matched_filters, 0),
-      excitation_limit_(excitation_limit) {
+          config_.num_filters,
+          std::vector<float>(config_.filter_size_sub_blocks * sub_block_size_,
+                             0.f)),
+      lag_estimates_(config_.num_filters),
+      filters_offsets_(config_.num_filters, 0),
+      excitation_limit_(config.down_sampling_factor == 8
+                            ? config_.poor_excitation_render_limit_ds8
+                            : config_.poor_excitation_render_limit) {
   RTC_DCHECK(data_dumper);
-  RTC_DCHECK_LT(0, window_size_sub_blocks);
+  RTC_DCHECK_LT(0, config_.filter_size_sub_blocks);
   RTC_DCHECK((kBlockSize % sub_block_size) == 0);
   RTC_DCHECK((sub_block_size % 4) == 0);
+
+  if (config_.filter_size_sub_blocks == 16 &&
+      config_.filter_alignment_overlap_sub_blocks == 8) {
+    x2_sum_.resize(config_.num_filters);
+    std::fill(x2_sum_.begin(), x2_sum_.end(), 0.f);
+
+    e_.resize(config_.num_filters);
+    std::fill(e_.begin(), e_.end(), 0.f);
+
+    e2_sum_.resize(config_.num_filters);
+    std::fill(e2_sum_.begin(), e2_sum_.end(), 0.f);
+
+    peaks_.resize(config_.num_filters);
+    std::fill(peaks_.begin(), peaks_.end(), 0);
+
+    filters_updated_.resize(config_.num_filters);
+    std::fill(filters_updated_.begin(), filters_updated_.end(), true);
+
+    filters16x8_.resize(config_.num_filters * config_.filter_size_sub_blocks *
+                        sub_block_size_);
+    std::fill(filters16x8_.begin(), filters16x8_.end(), 0.f);
+
+    std::vector<std::vector<float>> tmp(0, std::vector<float>(0));
+    filters_.swap(tmp);
+  }
 }
 
 MatchedFilter::~MatchedFilter() = default;
@@ -336,10 +696,81 @@ void MatchedFilter::Reset() {
   for (auto& l : lag_estimates_) {
     l = MatchedFilter::LagEstimate();
   }
+
+  if (config_.filter_size_sub_blocks == 16 &&
+      config_.filter_alignment_overlap_sub_blocks == 8) {
+    std::fill(x2_sum_.begin(), x2_sum_.end(), 0.f);
+    std::fill(e_.begin(), e_.end(), 0.f);
+    std::fill(e2_sum_.begin(), e2_sum_.end(), 0.f);
+    std::fill(peaks_.begin(), peaks_.end(), 0);
+    std::fill(filters_updated_.begin(), filters_updated_.end(), true);
+    std::fill(filters16x8_.begin(), filters16x8_.end(), 0.f);
+  }
 }
 
 void MatchedFilter::Update(const DownsampledRenderBuffer& render_buffer,
                            rtc::ArrayView<const float> capture) {
+  if (config_.filter_size_sub_blocks == 16 &&
+      config_.filter_alignment_overlap_sub_blocks == 8) {
+    Update16x8(render_buffer, capture);
+  } else {
+    UpdateGeneric(render_buffer, capture);
+  }
+}
+
+void MatchedFilter::Update16x8(const DownsampledRenderBuffer& render_buffer,
+                               rtc::ArrayView<const float> capture) {
+  RTC_DCHECK_EQ(sub_block_size_, capture.size());
+  auto& y = capture;
+
+  const float x2_sum_threshold = excitation_limit_ * excitation_limit_ *
+                                 sub_block_size_ *
+                                 config_.filter_size_sub_blocks;
+
+  switch (optimization_) {
+#if defined(WEBRTC_ARCH_X86_FAMILY)
+    case Aec3Optimization::kSse2:
+      aec3::Filter16x8_SSE2(render_buffer, capture, x2_sum_threshold,
+                            config_.estimator_smoothing, x2_sum_, e_, e2_sum_,
+                            &filters_updated_, filters16x8_);
+      break;
+#endif
+#if defined(WEBRTC_HAS_NEON)
+    case Aec3Optimization::kNeon:
+      aec3::MatchedFilterCore_NEON(
+          x_start_index, x2_sum_threshold, config_.estimator_smoothing,
+          render_buffer.buffer, y, filters_[n], &filters_updated, &error_sum);
+      break;
+#endif
+    default:
+      aec3::Filter16x8(render_buffer, capture, x2_sum_threshold,
+                       config_.estimator_smoothing, x2_sum_, e_, e2_sum_,
+                       &filters_updated_, filters16x8_);
+  }
+
+  aec3::FindPeaks16x8(filters16x8_, peaks_);
+
+  // Compute anchor for the matched filter error.
+  const float error_sum_anchor =
+      std::inner_product(y.begin(), y.end(), y.begin(), 0.f);
+
+  size_t lag_estimate_bound =
+      sub_block_size_ * config_.filter_size_sub_blocks - 10;
+  size_t intra_filter_shift =
+      sub_block_size_ * config_.filter_alignment_overlap_sub_blocks;
+  for (size_t j = 0; j < config_.num_filters; ++j) {
+    // Update the lag estimates for the matched filter.
+    lag_estimates_[j] =
+        LagEstimate(error_sum_anchor - e2_sum_[j],
+                    (peaks_[j] > 2 && peaks_[j] < lag_estimate_bound &&
+                     e2_sum_[j] < detection_threshold_ * error_sum_anchor),
+                    peaks_[j] + j * intra_filter_shift, filters_updated_[j]);
+  }
+  data_dumper_->DumpRaw("aec3_correlator_h_16x8", filters16x8_);
+}
+
+void MatchedFilter::UpdateGeneric(const DownsampledRenderBuffer& render_buffer,
+                                  rtc::ArrayView<const float> capture) {
   RTC_DCHECK_EQ(sub_block_size_, capture.size());
   auto& y = capture;
 
@@ -359,22 +790,22 @@ void MatchedFilter::Update(const DownsampledRenderBuffer& render_buffer,
     switch (optimization_) {
 #if defined(WEBRTC_ARCH_X86_FAMILY)
       case Aec3Optimization::kSse2:
-        aec3::MatchedFilterCore_SSE2(x_start_index, x2_sum_threshold,
-                                     render_buffer.buffer, y, filters_[n],
-                                     &filters_updated, &error_sum);
+        aec3::MatchedFilterCore_SSE2(
+            x_start_index, x2_sum_threshold, config_.estimator_smoothing,
+            render_buffer.buffer, y, filters_[n], &filters_updated, &error_sum);
         break;
 #endif
 #if defined(WEBRTC_HAS_NEON)
       case Aec3Optimization::kNeon:
-        aec3::MatchedFilterCore_NEON(x_start_index, x2_sum_threshold,
-                                     render_buffer.buffer, y, filters_[n],
-                                     &filters_updated, &error_sum);
+        aec3::MatchedFilterCore_NEON(
+            x_start_index, x2_sum_threshold, config_.estimator_smoothing,
+            render_buffer.buffer, y, filters_[n], &filters_updated, &error_sum);
         break;
 #endif
       default:
-        aec3::MatchedFilterCore(x_start_index, x2_sum_threshold,
-                                render_buffer.buffer, y, filters_[n],
-                                &filters_updated, &error_sum);
+        aec3::MatchedFilterCore(
+            x_start_index, x2_sum_threshold, config_.estimator_smoothing,
+            render_buffer.buffer, y, filters_[n], &filters_updated, &error_sum);
     }
 
     // Compute anchor for the matched filter error.
@@ -391,11 +822,10 @@ void MatchedFilter::Update(const DownsampledRenderBuffer& render_buffer,
             [](float a, float b) -> bool { return a * a < b * b; }));
 
     // Update the lag estimates for the matched filter.
-    const float kMatchingFilterThreshold = 0.2f;
     lag_estimates_[n] = LagEstimate(
         error_sum_anchor - error_sum,
         (lag_estimate > 2 && lag_estimate < (filters_[n].size() - 10) &&
-         error_sum < kMatchingFilterThreshold * error_sum_anchor),
+         error_sum < detection_threshold_ * error_sum_anchor),
         lag_estimate + alignment_shift, filters_updated);
 
     RTC_DCHECK_GE(10, filters_.size());

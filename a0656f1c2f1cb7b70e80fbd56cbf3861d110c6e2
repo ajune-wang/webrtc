@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b335c52e_f19b06da",
+        "filename": "rtc_base/experiments/field_trial_parser.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-05T13:30:46Z",
+      "side": 1,
+      "message": "true, right? No tests caught that?",
+      "range": {
+        "startLine": 106,
+        "startChar": 11,
+        "endLine": 106,
+        "endChar": 16
+      },
+      "revId": "a0656f1c2f1cb7b70e80fbd56cbf3861d110c6e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c480f7a9_e76296b7",
+        "filename": "rtc_base/experiments/field_trial_parser.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-05T13:30:46Z",
+      "side": 1,
+      "message": "You could be a bit more explicit. Suggest: Equivalent to a FieldTrialParameter\u003cbool\u003e in the case that both key and value are present. If key is missing, evaluates to false. If key is present, but no explicit value is provided, the flag evaluates to true.\n\n(If you don\u0027t like \"evaluate\", need to phrase it with different terms for the input value (part of field trial string) and output value (true or false).\n\nAlso ensure that it supports exactly the same representations as bool, not sure what the current set are (true, false, 0, 1, 4711...).",
+      "range": {
+        "startLine": 113,
+        "startChar": 3,
+        "endLine": 113,
+        "endChar": 77
+      },
+      "revId": "a0656f1c2f1cb7b70e80fbd56cbf3861d110c6e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1cd70de_9e376e30",
+        "filename": "rtc_base/experiments/field_trial_parser.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-05T13:30:46Z",
+      "side": 1,
+      "message": "No longer correct. Also document which string values are consider valid true and false values.\n\nSimilarly, document what format are used for int and double, possibly just \"interpreted using sscanf %i / %f\".",
+      "range": {
+        "startLine": 127,
+        "startChar": 0,
+        "endLine": 128,
+        "endChar": 66
+      },
+      "revId": "a0656f1c2f1cb7b70e80fbd56cbf3861d110c6e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -113,7 +113,6 @@ std::string CodecSpecificToString(const VideoCodec& codec) {
     default:
       break;
   }
-  ss << "\n";
   return ss.str();
 }
 
@@ -261,9 +260,25 @@ std::string VideoCodecTestFixtureImpl::Config::ToString() const {
   ss << "\nmax_qp: " << codec_settings.qpMax;
   ss << "\nnum_simulcast_streams : "
      << static_cast<int>(codec_settings.numberOfSimulcastStreams);
-  ss << "\n"
-     << "--> codec_settings." << codec_type << "\n";
-  ss << CodecSpecificToString(codec_settings);
+  ss << "\n--> codec_settings." << codec_type;
+  ss << "\n" << CodecSpecificToString(codec_settings);
+  if (codec_settings.numberOfSimulcastStreams > 1) {
+    for (int i = 0; i < codec_settings.numberOfSimulcastStreams; ++i) {
+      ss << "\n->> codec_settings.simulcastStream." << i;
+      const SimulcastStream& simulcast_stream =
+          codec_settings.simulcastStream[i];
+      ss << "\nwidth: " << simulcast_stream.width;
+      ss << "\nheight: " << simulcast_stream.height;
+      ss << "\nnumberOfTemporalLayers: "
+         << static_cast<int>(simulcast_stream.numberOfTemporalLayers);
+      ss << "\nminBitrate: " << simulcast_stream.minBitrate;
+      ss << "\ntargetBitrate: " << simulcast_stream.targetBitrate;
+      ss << "\nmaxBitrate: " << simulcast_stream.maxBitrate;
+      ss << "\nqpMax: " << simulcast_stream.qpMax;
+      ss << "\nactive: " << simulcast_stream.active;
+    }
+  }
+  ss << "\n";
   return ss.str();
 }
 

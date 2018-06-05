@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "91a1bdad_de66efa2",
+        "filename": "tools_webrtc/gtest_parallel_wrapper_test.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-06-05T09:56:39Z",
+      "side": 1,
+      "message": "I think you probably want shutil.rmtree here, or it will fail if the dir is not empty. I\u0027m surprised your test passes.",
+      "range": {
+        "startLine": 24,
+        "startChar": 2,
+        "endLine": 24,
+        "endChar": 19
+      },
+      "revId": "3370ceb8829b744616b0c6a89de13a0fd41da2bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

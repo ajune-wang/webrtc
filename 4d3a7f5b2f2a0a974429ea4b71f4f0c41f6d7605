@@ -99,6 +99,74 @@
       "revId": "4d3a7f5b2f2a0a974429ea4b71f4f0c41f6d7605",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "377d22d5_b4e45350",
+        "filename": "api/video_codecs/video_codec.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-06-05T08:37:33Z",
+      "side": 1,
+      "message": "Can this be an enum class? Otherwise, these names are probably too generic.",
+      "revId": "4d3a7f5b2f2a0a974429ea4b71f4f0c41f6d7605",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11a2c4c5_dd006f84",
+        "filename": "api/video_codecs/video_codec.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-06-05T08:37:33Z",
+      "side": 1,
+      "message": "enum class?",
+      "revId": "4d3a7f5b2f2a0a974429ea4b71f4f0c41f6d7605",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5adcab63_ad633573",
+        "filename": "api/video_codecs/video_codec.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-06-05T08:37:33Z",
+      "side": 1,
+      "message": "This means that caller need to use . or -\u003e depending on whether they have a const object. Why not return a reference in both cases? (The style guide forbids mutable references as function arguments, but not elsewhere.)",
+      "revId": "4d3a7f5b2f2a0a974429ea4b71f4f0c41f6d7605",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d06d403f_a04ae4c2",
+        "filename": "api/video_codecs/video_codec.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-06-05T08:37:33Z",
+      "side": 1,
+      "message": "Is this comment still valid? That is, could we (and would we want to) remove them from this file as well?",
+      "revId": "4d3a7f5b2f2a0a974429ea4b71f4f0c41f6d7605",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

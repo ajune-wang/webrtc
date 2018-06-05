@@ -326,7 +326,7 @@ enum class VideoType {
 };
 
 // Video codec
-enum VideoCodecComplexity {
+enum class VideoCodecComplexity {
   kComplexityNormal = 0,
   kComplexityHigh = 1,
   kComplexityHigher = 2,
@@ -454,7 +454,7 @@ struct SpatialLayer {
 // settings such as resolution.
 typedef SpatialLayer SimulcastStream;
 
-enum VideoCodecMode { kRealtimeVideo, kScreensharing };
+enum class VideoCodecMode { kRealtimeVideo, kScreensharing };
 
 // Common video codec properties
 class VideoCodec {

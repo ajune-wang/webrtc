@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3266c233_83f59e61",
+        "filename": "rtc_base/sanitizer_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-06-05T20:17:22Z",
+      "side": 1,
+      "message": "After talking about this with an msan engineer, it seems that __msan_set_expect_umr is used in the msan test suite in order to speed up things, but it still causes a crash (the exit code 77 means that msan has detected an error), if we want to keep it going and reset __msan_set_expect_umr to 0 we have to compile with -fsanitize-recover\u003dmemory.\n\nWe can achieve the same result using EXPECT_DEATH, so we expect that msan will detect the problem and if it doesn\u0027t, the test will fail.",
+      "range": {
+        "startLine": 130,
+        "startChar": 2,
+        "endLine": 130,
+        "endChar": 24
+      },
+      "revId": "4b2bedf6c0bb08cc475ce3c77d3492880ee2c459",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

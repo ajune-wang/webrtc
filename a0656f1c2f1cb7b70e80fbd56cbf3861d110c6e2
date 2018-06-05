@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7317231f_8f9e196e",
+        "filename": "rtc_base/experiments/field_trial_parser.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-06-05T14:19:49Z",
+      "side": 1,
+      "message": "Good catch. The reason it was not caught is that the return value is only used for printing a warning.",
+      "parentUuid": "b335c52e_f19b06da",
+      "range": {
+        "startLine": 106,
+        "startChar": 11,
+        "endLine": 106,
+        "endChar": 16
+      },
+      "revId": "a0656f1c2f1cb7b70e80fbd56cbf3861d110c6e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c480f7a9_e76296b7",
         "filename": "rtc_base/experiments/field_trial_parser.h",
         "patchSetId": 7
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "95aa3835_7f53356b",
+        "filename": "rtc_base/experiments/field_trial_parser.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-06-05T14:19:49Z",
+      "side": 1,
+      "message": "Updated comment. It delegates the value parsing to bool, so it should be equivalent.",
+      "parentUuid": "c480f7a9_e76296b7",
+      "range": {
+        "startLine": 113,
+        "startChar": 3,
+        "endLine": 113,
+        "endChar": 77
+      },
+      "revId": "a0656f1c2f1cb7b70e80fbd56cbf3861d110c6e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a1cd70de_9e376e30",
         "filename": "rtc_base/experiments/field_trial_parser.h",
         "patchSetId": 7
@@ -68,6 +116,30 @@
       "revId": "a0656f1c2f1cb7b70e80fbd56cbf3861d110c6e2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40fc10a3_a3feb95f",
+        "filename": "rtc_base/experiments/field_trial_parser.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-06-05T14:19:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a1cd70de_9e376e30",
+      "range": {
+        "startLine": 127,
+        "startChar": 0,
+        "endLine": 128,
+        "endChar": 66
+      },
+      "revId": "a0656f1c2f1cb7b70e80fbd56cbf3861d110c6e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

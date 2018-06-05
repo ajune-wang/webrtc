@@ -29,8 +29,7 @@ rtc::Optional<int64_t> NetEqPacketSourceInput::NextPacketTime() const {
 }
 
 rtc::Optional<RTPHeader> NetEqPacketSourceInput::NextHeader() const {
-  return packet_ ? rtc::Optional<RTPHeader>(packet_->header())
-                 : rtc::nullopt;
+  return packet_ ? rtc::Optional<RTPHeader>(packet_->header()) : rtc::nullopt;
 }
 
 void NetEqPacketSourceInput::LoadNextPacket() {

@@ -118,7 +118,6 @@ rtc::Optional<int> GetFallbackMaxPixelsIfFieldTrialDisabled() {
 }
 }  // namespace
 
-
 const int SendStatisticsProxy::kStatsTimeoutMs = 5000;
 
 SendStatisticsProxy::SendStatisticsProxy(

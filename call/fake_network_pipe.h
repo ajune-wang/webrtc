@@ -260,10 +260,10 @@ class FakeNetworkPipe : public Transport, public PacketReceiver, public Module {
 
   // Returns true if enqueued, or false if packet was dropped.
   virtual bool EnqueuePacket(rtc::CopyOnWriteBuffer packet,
-                     rtc::Optional<PacketOptions> options,
-                     bool is_rtcp,
-                     MediaType media_type,
-                     rtc::Optional<PacketTime> packet_time);
+                             rtc::Optional<PacketOptions> options,
+                             bool is_rtcp,
+                             MediaType media_type,
+                             rtc::Optional<PacketTime> packet_time);
   void DeliverPacket(NetworkPacket* packet)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(config_lock_);
   bool HasTransport() const;

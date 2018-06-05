@@ -447,15 +447,15 @@ void VideoStreamEncoder::ConfigureEncoder(VideoEncoderConfig config,
   // when C++14 lambda is allowed.
   struct ConfigureEncoderTask {
     void operator()() {
-      encoder->ConfigureEncoderOnTaskQueue(
-          std::move(config), max_data_payload_length);
+      encoder->ConfigureEncoderOnTaskQueue(std::move(config),
+                                           max_data_payload_length);
     }
     VideoStreamEncoder* encoder;
     VideoEncoderConfig config;
     size_t max_data_payload_length;
   };
-  encoder_queue_.PostTask(ConfigureEncoderTask{
-      this, std::move(config), max_data_payload_length});
+  encoder_queue_.PostTask(
+      ConfigureEncoderTask{this, std::move(config), max_data_payload_length});
 }
 
 void VideoStreamEncoder::ConfigureEncoderOnTaskQueue(
@@ -477,8 +477,9 @@ void VideoStreamEncoder::ConfigureEncoderOnTaskQueue(
   // The codec configuration depends on incoming video frame size.
   if (last_frame_info_) {
     ReconfigureEncoder();
-  } else if (settings_.encoder_factory->QueryVideoEncoder(
-      encoder_config_.video_format).has_internal_source) {
+  } else if (settings_.encoder_factory
+                 ->QueryVideoEncoder(encoder_config_.video_format)
+                 .has_internal_source) {
     last_frame_info_ = VideoFrameInfo(176, 144, false);
     ReconfigureEncoder();
   }
@@ -509,8 +510,8 @@ void VideoStreamEncoder::ReconfigureEncoder() {
   crop_height_ = last_frame_info_->height - highest_stream_height;
 
   VideoCodec codec;
-  if (!VideoCodecInitializer::SetupCodec(
-          encoder_config_, streams, &codec, &rate_allocator_)) {
+  if (!VideoCodecInitializer::SetupCodec(encoder_config_, streams, &codec,
+                                         &rate_allocator_)) {
     RTC_LOG(LS_ERROR) << "Failed to create encoder configuration.";
   }
 
@@ -814,7 +815,6 @@ void VideoStreamEncoder::MaybeEncodeVideoFrame(const VideoFrame& video_frame,
     return;
   }
   initial_rampup_ = kMaxInitialFramedrop;
-
 
   if (EncoderPaused()) {
     // Storing references to a native buffer risks blocking frame capture.

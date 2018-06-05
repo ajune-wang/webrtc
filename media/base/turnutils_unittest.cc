@@ -53,8 +53,8 @@ TEST(TurnUtilsTest, InvalidTurnSendIndicationMessages) {
       0x00, 0x16, 0x00, 0x08,  // length of
       0x21, 0x12, 0xA4, 0x42,  // magic cookie
       '0',  '1',  '2',  '3',   // transaction id
-      '4',  '5',  '6',  '7',  '8',  '9', 'a',  'b',
-      0x00, 0x20, 0x00, 0x04,  // Mapped address.
+      '4',  '5',  '6',  '7',  '8',  '9',
+      'a',  'b',  0x00, 0x20, 0x00, 0x04,  // Mapped address.
       0x00, 0x00, 0x00, 0x00,
   };
   EXPECT_FALSE(
@@ -76,16 +76,15 @@ TEST(TurnUtilsTest, ValidTurnSendIndicationMessage) {
       0x21, 0x12, 0xA4, 0x42,  // magic cookie
       '0',  '1',  '2',  '3',   // transaction id
       '4',  '5',  '6',  '7',  '8',  '9',  'a',  'b',
-      0x00, 0x20, 0x00, 0x04,  // Mapped address.
-      0x00, 0x00, 0x00, 0x00,
-      0x00, 0x13, 0x00, 0x0C,  // Data attribute.
-      0x80, 0x00, 0x00, 0x00,  // RTP packet.
+      0x00, 0x20, 0x00, 0x04,                          // Mapped address.
+      0x00, 0x00, 0x00, 0x00, 0x00, 0x13, 0x00, 0x0C,  // Data attribute.
+      0x80, 0x00, 0x00, 0x00,                          // RTP packet.
       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
   };
-  EXPECT_TRUE(UnwrapTurnPacket(
-      kTurnSendIndicationMsgWithoutRtpExtension,
-      sizeof(kTurnSendIndicationMsgWithoutRtpExtension), &content_pos,
-      &content_size));
+  EXPECT_TRUE(
+      UnwrapTurnPacket(kTurnSendIndicationMsgWithoutRtpExtension,
+                       sizeof(kTurnSendIndicationMsgWithoutRtpExtension),
+                       &content_pos, &content_size));
   EXPECT_EQ(12U, content_size);
   EXPECT_EQ(32U, content_pos);
 }
@@ -93,15 +92,14 @@ TEST(TurnUtilsTest, ValidTurnSendIndicationMessage) {
 // Verify that parsing of valid TURN Channel Messages.
 TEST(TurnUtilsTest, ValidTurnChannelMessages) {
   const uint8_t kTurnChannelMsgWithRtpPacket[] = {
-      0x40, 0x00, 0x00, 0x0C,
-      0x80, 0x00, 0x00, 0x00,  // RTP packet.
+      0x40, 0x00, 0x00, 0x0C, 0x80, 0x00, 0x00, 0x00,  // RTP packet.
       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
   };
 
   size_t content_pos = 0, content_size = 0;
-  EXPECT_TRUE(UnwrapTurnPacket(
-      kTurnChannelMsgWithRtpPacket,
-      sizeof(kTurnChannelMsgWithRtpPacket), &content_pos, &content_size));
+  EXPECT_TRUE(UnwrapTurnPacket(kTurnChannelMsgWithRtpPacket,
+                               sizeof(kTurnChannelMsgWithRtpPacket),
+                               &content_pos, &content_size));
   EXPECT_EQ(12U, content_size);
   EXPECT_EQ(4U, content_pos);
 }

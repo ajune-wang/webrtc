@@ -752,6 +752,9 @@ def CommonChecks(input_api, output_api):
     r".*\bobjc[\\\/].*",
     r".*objc\.[hcm]+$",
   )
+  results.extend(input_api.canned_checks.CheckPatchFormatted(
+      input_api, output_api))
+  return results
   source_file_filter = lambda x: input_api.FilterSourceFile(x, None, black_list)
   results.extend(CheckApprovedFilesLintClean(
       input_api, output_api, source_file_filter))

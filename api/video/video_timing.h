@@ -22,8 +22,8 @@
 namespace webrtc {
 
 enum TimingFrameFlags : uint8_t {
-  kNotTriggered = 0,           // Timing info valid, but not to be transmitted.
-                               // Used on send-side only.
+  kNotTriggered = 0,  // Timing info valid, but not to be transmitted.
+                      // Used on send-side only.
   // TODO(ilnik): Delete compatibility alias.
   // Used to be sent over the wire, for the old protocol.
   kDefault = 0,                // Old name, for API compatibility.

@@ -21,8 +21,8 @@
 #include "call/rtx_receive_stream.h"
 #include "common_types.h"  // NOLINT(build/include)
 #include "common_video/h264/profile_level_id.h"
-#include "common_video/libyuv/include/webrtc_libyuv.h"
 #include "common_video/include/incoming_video_stream.h"
+#include "common_video/libyuv/include/webrtc_libyuv.h"
 #include "modules/rtp_rtcp/include/rtp_receiver.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp.h"
 #include "modules/utility/include/process_thread.h"
@@ -300,10 +300,9 @@ void VideoReceiveStream::OnFrame(const VideoFrame& video_frame) {
   // function itself, another in GetChannel() and a third in
   // GetPlayoutTimestamp.  Seems excessive.  Anyhow, I'm assuming the function
   // succeeds most of the time, which leads to grabbing a fourth lock.
-  if (rtp_stream_sync_.GetStreamSyncOffsetInMs(video_frame.timestamp(),
-                                               video_frame.render_time_ms(),
-                                               &sync_offset_ms,
-                                               &estimated_freq_khz)) {
+  if (rtp_stream_sync_.GetStreamSyncOffsetInMs(
+          video_frame.timestamp(), video_frame.render_time_ms(),
+          &sync_offset_ms, &estimated_freq_khz)) {
     // TODO(tommi): OnSyncOffsetUpdated grabs a lock.
     stats_proxy_.OnSyncOffsetUpdated(sync_offset_ms, estimated_freq_khz);
   }
@@ -389,9 +388,7 @@ rtc::Optional<Syncable::Info> VideoReceiveStream::GetInfo() const {
   RtpRtcp* rtp_rtcp = rtp_video_stream_receiver_.rtp_rtcp();
   RTC_DCHECK(rtp_rtcp);
   if (rtp_rtcp->RemoteNTP(&info.capture_time_ntp_secs,
-                          &info.capture_time_ntp_frac,
-                          nullptr,
-                          nullptr,
+                          &info.capture_time_ntp_frac, nullptr, nullptr,
                           &info.capture_time_source_clock) != 0) {
     return rtc::nullopt;
   }

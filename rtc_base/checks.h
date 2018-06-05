@@ -24,7 +24,7 @@
 #if defined(_MSC_VER)
 #define RTC_NORETURN __declspec(noreturn)
 #elif defined(__GNUC__)
-#define RTC_NORETURN __attribute__ ((__noreturn__))
+#define RTC_NORETURN __attribute__((__noreturn__))
 #else
 #define RTC_NORETURN
 #endif
@@ -89,7 +89,7 @@ namespace rtc {
 
 // Helper macro which avoids evaluating the arguments to a stream if
 // the condition doesn't hold.
-#define RTC_LAZY_STREAM(stream, condition)                                    \
+#define RTC_LAZY_STREAM(stream, condition) \
   !(condition) ? static_cast<void>(0) : rtc::FatalMessageVoidify() & (stream)
 
 // The actual stream used isn't important. We reference |ignored| in the code
@@ -117,7 +117,8 @@ namespace rtc {
 #define RTC_CHECK(condition)                                      \
   RTC_LAZY_STREAM(rtc::FatalMessage(__FILE__, __LINE__).stream(), \
                   !(condition))                                   \
-      << "Check failed: " #condition << std::endl << "# "
+      << "Check failed: " #condition << std::endl                 \
+      << "# "
 
 // Helper macro for binary operators.
 // Don't use this macro directly in your code, use RTC_CHECK_EQ et al below.
@@ -127,13 +128,13 @@ namespace rtc {
 #define RTC_CHECK_OP(name, op, val1, val2)                                 \
   if (std::string* _result =                                               \
           rtc::Check##name##Impl((val1), (val2), #val1 " " #op " " #val2)) \
-    rtc::FatalMessage(__FILE__, __LINE__, _result).stream()
+  rtc::FatalMessage(__FILE__, __LINE__, _result).stream()
 
 // Build the error message string.  This is separate from the "Impl"
 // function template because it is not performance critical and so can
 // be out of line, while the "Impl" code should be inline.  Caller
 // takes ownership of the returned string.
-template<class t1, class t2>
+template <class t1, class t2>
 std::string* MakeCheckOpString(const t1& v1, const t2& v2, const char* names) {
   std::ostringstream ss;
   ss << names << " (" << v1 << " vs. " << v2 << ")";
@@ -145,20 +146,25 @@ std::string* MakeCheckOpString(const t1& v1, const t2& v2, const char* names) {
 #if !defined(COMPILER_MSVC)
 // Commonly used instantiations of MakeCheckOpString<>. Explicitly instantiated
 // in logging.cc.
-extern template std::string* MakeCheckOpString<int, int>(
-    const int&, const int&, const char* names);
-extern template
-std::string* MakeCheckOpString<unsigned long, unsigned long>(
-    const unsigned long&, const unsigned long&, const char* names);
-extern template
-std::string* MakeCheckOpString<unsigned long, unsigned int>(
-    const unsigned long&, const unsigned int&, const char* names);
-extern template
-std::string* MakeCheckOpString<unsigned int, unsigned long>(
-    const unsigned int&, const unsigned long&, const char* names);
-extern template
-std::string* MakeCheckOpString<std::string, std::string>(
-    const std::string&, const std::string&, const char* name);
+extern template std::string* MakeCheckOpString<int, int>(const int&,
+                                                         const int&,
+                                                         const char* names);
+extern template std::string* MakeCheckOpString<unsigned long, unsigned long>(
+    const unsigned long&,
+    const unsigned long&,
+    const char* names);
+extern template std::string* MakeCheckOpString<unsigned long, unsigned int>(
+    const unsigned long&,
+    const unsigned int&,
+    const char* names);
+extern template std::string* MakeCheckOpString<unsigned int, unsigned long>(
+    const unsigned int&,
+    const unsigned long&,
+    const char* names);
+extern template std::string* MakeCheckOpString<std::string, std::string>(
+    const std::string&,
+    const std::string&,
+    const char* name);
 #endif
 
 // Helper functions for RTC_CHECK_OP macro.
@@ -219,10 +225,10 @@ DEFINE_RTC_CHECK_OP_IMPL(Gt)
 // This is identical to LogMessageVoidify but in name.
 class FatalMessageVoidify {
  public:
-  FatalMessageVoidify() { }
+  FatalMessageVoidify() {}
   // This has to be an operator with a precedence lower than << but
   // higher than ?:
-  void operator&(std::ostream&) { }
+  void operator&(std::ostream&) {}
 };
 
 #define RTC_UNREACHABLE_CODE_HIT false

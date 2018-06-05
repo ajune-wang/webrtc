@@ -187,8 +187,7 @@ bool AudioProcessingImpl::ApmSubmoduleStates::Update(
   changed |= (beamformer_enabled != beamformer_enabled_);
   changed |=
       (adaptive_gain_controller_enabled != adaptive_gain_controller_enabled_);
-  changed |=
-      (gain_controller2_enabled != gain_controller2_enabled_);
+  changed |= (gain_controller2_enabled != gain_controller2_enabled_);
   changed |= (pre_amplifier_enabled_ != pre_amplifier_enabled);
   changed |= (echo_controller_enabled != echo_controller_enabled_);
   changed |= (level_estimator_enabled != level_estimator_enabled_);
@@ -728,7 +727,7 @@ void AudioProcessingImpl::SetExtraOptions(const webrtc::Config& config) {
 
 #if WEBRTC_INTELLIGIBILITY_ENHANCER
   if (capture_nonlocked_.intelligibility_enabled !=
-     config.Get<Intelligibility>().enabled) {
+      config.Get<Intelligibility>().enabled) {
     capture_nonlocked_.intelligibility_enabled =
         config.Get<Intelligibility>().enabled;
     InitializeIntelligibility();
@@ -737,7 +736,7 @@ void AudioProcessingImpl::SetExtraOptions(const webrtc::Config& config) {
 
 #ifdef WEBRTC_ANDROID_PLATFORM_BUILD
   if (capture_nonlocked_.beamformer_enabled !=
-          config.Get<Beamforming>().enabled) {
+      config.Get<Beamforming>().enabled) {
     capture_nonlocked_.beamformer_enabled = config.Get<Beamforming>().enabled;
     if (config.Get<Beamforming>().array_geometry.size() > 1) {
       capture_.array_geometry = config.Get<Beamforming>().array_geometry;
@@ -1818,7 +1817,6 @@ bool AudioProcessingImpl::UpdateActiveSubmoduleStates() {
       public_submodules_->level_estimator->is_enabled(),
       capture_.transient_suppressor_enabled);
 }
-
 
 void AudioProcessingImpl::InitializeTransient() {
   if (capture_.transient_suppressor_enabled) {

@@ -56,23 +56,58 @@ TEST(WavWriterTest, MAYBE_CPP) {
     fclose(f);
   }
   static const uint8_t kExpectedContents[] = {
-    'R', 'I', 'F', 'F',
-    42, 0, 0, 0,  // size of whole file - 8: 6 + 44 - 8
-    'W', 'A', 'V', 'E',
-    'f', 'm', 't', ' ',
-    16, 0, 0, 0,  // size of fmt block - 8: 24 - 8
-    1, 0,  // format: PCM (1)
-    1, 0,  // channels: 1
-    0x13, 0x37, 0, 0,  // sample rate: 14099
-    0x26, 0x6e, 0, 0,  // byte rate: 2 * 14099
-    2, 0,  // block align: NumChannels * BytesPerSample
-    16, 0,  // bits per sample: 2 * 8
-    'd', 'a', 't', 'a',
-    6, 0, 0, 0,  // size of payload: 6
-    0, 0,  // first sample: 0.0
-    10, 0,  // second sample: 10.0
-    0xff, 0x7f,  // third sample: 4e4 (saturated)
-    kMetadata[0], kMetadata[1],
+      'R',
+      'I',
+      'F',
+      'F',
+      42,
+      0,
+      0,
+      0,  // size of whole file - 8: 6 + 44 - 8
+      'W',
+      'A',
+      'V',
+      'E',
+      'f',
+      'm',
+      't',
+      ' ',
+      16,
+      0,
+      0,
+      0,  // size of fmt block - 8: 24 - 8
+      1,
+      0,  // format: PCM (1)
+      1,
+      0,  // channels: 1
+      0x13,
+      0x37,
+      0,
+      0,  // sample rate: 14099
+      0x26,
+      0x6e,
+      0,
+      0,  // byte rate: 2 * 14099
+      2,
+      0,  // block align: NumChannels * BytesPerSample
+      16,
+      0,  // bits per sample: 2 * 8
+      'd',
+      'a',
+      't',
+      'a',
+      6,
+      0,
+      0,
+      0,  // size of payload: 6
+      0,
+      0,  // first sample: 0.0
+      10,
+      0,  // second sample: 10.0
+      0xff,
+      0x7f,  // third sample: 4e4 (saturated)
+      kMetadata[0],
+      kMetadata[1],
   };
   static const size_t kContentSize =
       kWavHeaderSize + kNumSamples * sizeof(int16_t) + sizeof(kMetadata);
@@ -112,23 +147,21 @@ TEST(WavWriterTest, C) {
   EXPECT_EQ(kNumSamples, rtc_WavNumSamples(w));
   rtc_WavClose(w);
   static const uint8_t kExpectedContents[] = {
-    'R', 'I', 'F', 'F',
-    44, 0, 0, 0,  // size of whole file - 8: 8 + 44 - 8
-    'W', 'A', 'V', 'E',
-    'f', 'm', 't', ' ',
-    16, 0, 0, 0,  // size of fmt block - 8: 24 - 8
-    1, 0,  // format: PCM (1)
-    2, 0,  // channels: 2
-    0x80, 0x2e, 0, 0,  // sample rate: 11904
-    0, 0xba, 0, 0,  // byte rate: 2 * 2 * 11904
-    4, 0,  // block align: NumChannels * BytesPerSample
-    16, 0,  // bits per sample: 2 * 8
-    'd', 'a', 't', 'a',
-    8, 0, 0, 0,  // size of payload: 8
-    0, 0,  // first sample: 0.0
-    10, 0,  // second sample: 10.0
-    0xff, 0x7f,  // third sample: 4e4 (saturated)
-    0, 0x80,  // fourth sample: -1e9 (saturated)
+      'R', 'I', 'F', 'F', 44, 0, 0, 0,  // size of whole file - 8: 8 + 44
+                                        // - 8
+      'W', 'A', 'V', 'E', 'f', 'm', 't', ' ', 16, 0, 0,
+      0,                 // size of fmt block - 8: 24 - 8
+      1, 0,              // format: PCM (1)
+      2, 0,              // channels: 2
+      0x80, 0x2e, 0, 0,  // sample rate: 11904
+      0, 0xba, 0, 0,     // byte rate: 2 * 2 * 11904
+      4, 0,              // block align: NumChannels * BytesPerSample
+      16, 0,             // bits per sample: 2 * 8
+      'd', 'a', 't', 'a', 8, 0, 0, 0,  // size of payload: 8
+      0, 0,                            // first sample: 0.0
+      10, 0,                           // second sample: 10.0
+      0xff, 0x7f,                      // third sample: 4e4 (saturated)
+      0, 0x80,                         // fourth sample: -1e9 (saturated)
   };
   static const size_t kContentSize =
       kWavHeaderSize + kNumSamples * sizeof(int16_t);

@@ -278,20 +278,12 @@ TEST_F(PacedSenderTest, CanQueuePacketsWithSameSequenceNumberOnDifferentSsrcs) {
   uint32_t ssrc = 12345;
   uint16_t sequence_number = 1234;
 
-  SendAndExpectPacket(PacedSender::kNormalPriority,
-                      ssrc,
-                      sequence_number,
-                      clock_.TimeInMilliseconds(),
-                      250,
-                      false);
+  SendAndExpectPacket(PacedSender::kNormalPriority, ssrc, sequence_number,
+                      clock_.TimeInMilliseconds(), 250, false);
 
   // Expect packet on second ssrc to be queued and sent as well.
-  SendAndExpectPacket(PacedSender::kNormalPriority,
-                      ssrc + 1,
-                      sequence_number,
-                      clock_.TimeInMilliseconds(),
-                      250,
-                      false);
+  SendAndExpectPacket(PacedSender::kNormalPriority, ssrc + 1, sequence_number,
+                      clock_.TimeInMilliseconds(), 250, false);
 
   clock_.AdvanceTimeMilliseconds(1000);
   send_bucket_->Process();
@@ -371,12 +363,8 @@ TEST_F(PacedSenderTest, VerifyPaddingUpToBitrate) {
 
   int64_t start_time = clock_.TimeInMilliseconds();
   while (clock_.TimeInMilliseconds() - start_time < kBitrateWindow) {
-    SendAndExpectPacket(PacedSender::kNormalPriority,
-                        ssrc,
-                        sequence_number++,
-                        capture_time_ms,
-                        250,
-                        false);
+    SendAndExpectPacket(PacedSender::kNormalPriority, ssrc, sequence_number++,
+                        capture_time_ms, 250, false);
     EXPECT_CALL(callback_, TimeToSendPadding(250, _))
         .Times(1)
         .WillOnce(Return(250));
@@ -875,12 +863,8 @@ TEST_F(PacedSenderTest, QueueTimeGrowsOverTime) {
   EXPECT_EQ(0, send_bucket_->QueueInMs());
 
   send_bucket_->SetPacingRates(30000 * kPaceMultiplier, 0);
-  SendAndExpectPacket(PacedSender::kNormalPriority,
-                      ssrc,
-                      sequence_number,
-                      clock_.TimeInMilliseconds(),
-                      1200,
-                      false);
+  SendAndExpectPacket(PacedSender::kNormalPriority, ssrc, sequence_number,
+                      clock_.TimeInMilliseconds(), 1200, false);
 
   clock_.AdvanceTimeMilliseconds(500);
   EXPECT_EQ(500, send_bucket_->QueueInMs());

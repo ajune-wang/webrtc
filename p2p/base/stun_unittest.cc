@@ -24,14 +24,16 @@ namespace cricket {
 
 class StunTest : public ::testing::Test {
  protected:
-  void CheckStunHeader(const StunMessage& msg, StunMessageType expected_type,
+  void CheckStunHeader(const StunMessage& msg,
+                       StunMessageType expected_type,
                        size_t expected_length) {
     ASSERT_EQ(expected_type, msg.type());
     ASSERT_EQ(expected_length, msg.length());
   }
 
   void CheckStunTransactionID(const StunMessage& msg,
-                              const unsigned char* expectedID, size_t length) {
+                              const unsigned char* expectedID,
+                              size_t length) {
     ASSERT_EQ(length, msg.transaction_id().size());
     ASSERT_EQ(length == kStunTransactionIdLength + 4, msg.IsLegacy());
     ASSERT_EQ(length == kStunTransactionIdLength, !msg.IsLegacy());
@@ -73,138 +75,104 @@ class StunTest : public ::testing::Test {
   }
 };
 
-
 // Sample STUN packets with various attributes
 // Gathered by wiresharking pjproject's pjnath test programs
 // pjproject available at www.pjsip.org
 
 static const unsigned char kStunMessageWithIPv6MappedAddress[] = {
-  0x00, 0x01, 0x00, 0x18,  // message header
-  0x21, 0x12, 0xa4, 0x42,  // transaction id
-  0x29, 0x1f, 0xcd, 0x7c,
-  0xba, 0x58, 0xab, 0xd7,
-  0xf2, 0x41, 0x01, 0x00,
-  0x00, 0x01, 0x00, 0x14,  // Address type (mapped), length
-  0x00, 0x02, 0xb8, 0x81,  // family (IPv6), port
-  0x24, 0x01, 0xfa, 0x00,  // an IPv6 address
-  0x00, 0x04, 0x10, 0x00,
-  0xbe, 0x30, 0x5b, 0xff,
-  0xfe, 0xe5, 0x00, 0xc3
-};
+    0x00, 0x01, 0x00, 0x18,  // message header
+    0x21, 0x12, 0xa4, 0x42,  // transaction id
+    0x29, 0x1f, 0xcd, 0x7c, 0xba, 0x58, 0xab, 0xd7, 0xf2, 0x41, 0x01, 0x00,
+    0x00, 0x01, 0x00, 0x14,  // Address type (mapped), length
+    0x00, 0x02, 0xb8, 0x81,  // family (IPv6), port
+    0x24, 0x01, 0xfa, 0x00,  // an IPv6 address
+    0x00, 0x04, 0x10, 0x00, 0xbe, 0x30, 0x5b, 0xff, 0xfe, 0xe5, 0x00, 0xc3};
 
 static const unsigned char kStunMessageWithIPv4MappedAddress[] = {
-  0x01, 0x01, 0x00, 0x0c,   // binding response, length 12
-  0x21, 0x12, 0xa4, 0x42,   // magic cookie
-  0x29, 0x1f, 0xcd, 0x7c,   // transaction ID
-  0xba, 0x58, 0xab, 0xd7,
-  0xf2, 0x41, 0x01, 0x00,
-  0x00, 0x01, 0x00, 0x08,  // Mapped, 8 byte length
-  0x00, 0x01, 0x9d, 0xfc,  // AF_INET, unxor-ed port
-  0xac, 0x17, 0x44, 0xe6   // IPv4 address
+    0x01, 0x01, 0x00, 0x0c,  // binding response, length 12
+    0x21, 0x12, 0xa4, 0x42,  // magic cookie
+    0x29, 0x1f, 0xcd, 0x7c,  // transaction ID
+    0xba, 0x58, 0xab, 0xd7, 0xf2, 0x41,
+    0x01, 0x00, 0x00, 0x01, 0x00, 0x08,  // Mapped, 8 byte length
+    0x00, 0x01, 0x9d, 0xfc,              // AF_INET, unxor-ed port
+    0xac, 0x17, 0x44, 0xe6               // IPv4 address
 };
 
 // Test XOR-mapped IP addresses:
 static const unsigned char kStunMessageWithIPv6XorMappedAddress[] = {
-  0x01, 0x01, 0x00, 0x18,  // message header (binding response)
-  0x21, 0x12, 0xa4, 0x42,  // magic cookie (rfc5389)
-  0xe3, 0xa9, 0x46, 0xe1,  // transaction ID
-  0x7c, 0x00, 0xc2, 0x62,
-  0x54, 0x08, 0x01, 0x00,
-  0x00, 0x20, 0x00, 0x14,  // Address Type (XOR), length
-  0x00, 0x02, 0xcb, 0x5b,  // family, XOR-ed port
-  0x05, 0x13, 0x5e, 0x42,  // XOR-ed IPv6 address
-  0xe3, 0xad, 0x56, 0xe1,
-  0xc2, 0x30, 0x99, 0x9d,
-  0xaa, 0xed, 0x01, 0xc3
-};
+    0x01, 0x01, 0x00, 0x18,  // message header (binding response)
+    0x21, 0x12, 0xa4, 0x42,  // magic cookie (rfc5389)
+    0xe3, 0xa9, 0x46, 0xe1,  // transaction ID
+    0x7c, 0x00, 0xc2, 0x62, 0x54, 0x08,
+    0x01, 0x00, 0x00, 0x20, 0x00, 0x14,  // Address Type (XOR), length
+    0x00, 0x02, 0xcb, 0x5b,              // family, XOR-ed port
+    0x05, 0x13, 0x5e, 0x42,              // XOR-ed IPv6 address
+    0xe3, 0xad, 0x56, 0xe1, 0xc2, 0x30,
+    0x99, 0x9d, 0xaa, 0xed, 0x01, 0xc3};
 
 static const unsigned char kStunMessageWithIPv4XorMappedAddress[] = {
-  0x01, 0x01, 0x00, 0x0c,  // message header (binding response)
-  0x21, 0x12, 0xa4, 0x42,  // magic cookie
-  0x29, 0x1f, 0xcd, 0x7c,  // transaction ID
-  0xba, 0x58, 0xab, 0xd7,
-  0xf2, 0x41, 0x01, 0x00,
-  0x00, 0x20, 0x00, 0x08,  // address type (xor), length
-  0x00, 0x01, 0xfc, 0xb5,  // family (AF_INET), XOR-ed port
-  0x8d, 0x05, 0xe0, 0xa4   // IPv4 address
+    0x01, 0x01, 0x00, 0x0c,  // message header (binding response)
+    0x21, 0x12, 0xa4, 0x42,  // magic cookie
+    0x29, 0x1f, 0xcd, 0x7c,  // transaction ID
+    0xba, 0x58, 0xab, 0xd7, 0xf2, 0x41,
+    0x01, 0x00, 0x00, 0x20, 0x00, 0x08,  // address type (xor), length
+    0x00, 0x01, 0xfc, 0xb5,              // family (AF_INET), XOR-ed port
+    0x8d, 0x05, 0xe0, 0xa4               // IPv4 address
 };
 
 // ByteString Attribute (username)
 static const unsigned char kStunMessageWithByteStringAttribute[] = {
-  0x00, 0x01, 0x00, 0x0c,
-  0x21, 0x12, 0xa4, 0x42,
-  0xe3, 0xa9, 0x46, 0xe1,
-  0x7c, 0x00, 0xc2, 0x62,
-  0x54, 0x08, 0x01, 0x00,
-  0x00, 0x06, 0x00, 0x08,  // username attribute (length 8)
-  0x61, 0x62, 0x63, 0x64,  // abcdefgh
-  0x65, 0x66, 0x67, 0x68
-};
+    0x00, 0x01, 0x00, 0x0c, 0x21, 0x12, 0xa4, 0x42, 0xe3,
+    0xa9, 0x46, 0xe1, 0x7c, 0x00, 0xc2, 0x62, 0x54, 0x08,
+    0x01, 0x00, 0x00, 0x06, 0x00, 0x08,  // username attribute (length 8)
+    0x61, 0x62, 0x63, 0x64,              // abcdefgh
+    0x65, 0x66, 0x67, 0x68};
 
 // Message with an unknown but comprehensible optional attribute.
 // Parsing should succeed despite this unknown attribute.
 static const unsigned char kStunMessageWithUnknownAttribute[] = {
-  0x00, 0x01, 0x00, 0x14,
-  0x21, 0x12, 0xa4, 0x42,
-  0xe3, 0xa9, 0x46, 0xe1,
-  0x7c, 0x00, 0xc2, 0x62,
-  0x54, 0x08, 0x01, 0x00,
-  0x00, 0xaa, 0x00, 0x07,  // Unknown attribute, length 7 (needs padding!)
-  0x61, 0x62, 0x63, 0x64,  // abcdefg + padding
-  0x65, 0x66, 0x67, 0x00,
-  0x00, 0x06, 0x00, 0x03,  // Followed by a known attribute we can
-  0x61, 0x62, 0x63, 0x00   // check for (username of length 3)
+    0x00, 0x01, 0x00, 0x14, 0x21, 0x12, 0xa4, 0x42, 0xe3, 0xa9, 0x46, 0xe1,
+    0x7c, 0x00, 0xc2, 0x62, 0x54, 0x08, 0x01, 0x00, 0x00, 0xaa, 0x00,
+    0x07,                    // Unknown attribute, length 7 (needs
+                             // padding!)
+    0x61, 0x62, 0x63, 0x64,  // abcdefg + padding
+    0x65, 0x66, 0x67, 0x00, 0x00, 0x06, 0x00, 0x03,  // Followed by a known
+                                                     // attribute we can
+    0x61, 0x62, 0x63, 0x00  // check for (username of length 3)
 };
 
 // ByteString Attribute (username) with padding byte
 static const unsigned char kStunMessageWithPaddedByteStringAttribute[] = {
-  0x00, 0x01, 0x00, 0x08,
-  0x21, 0x12, 0xa4, 0x42,
-  0xe3, 0xa9, 0x46, 0xe1,
-  0x7c, 0x00, 0xc2, 0x62,
-  0x54, 0x08, 0x01, 0x00,
-  0x00, 0x06, 0x00, 0x03,  // username attribute (length 3)
-  0x61, 0x62, 0x63, 0xcc   // abc
+    0x00, 0x01, 0x00, 0x08, 0x21, 0x12, 0xa4, 0x42, 0xe3,
+    0xa9, 0x46, 0xe1, 0x7c, 0x00, 0xc2, 0x62, 0x54, 0x08,
+    0x01, 0x00, 0x00, 0x06, 0x00, 0x03,  // username attribute (length 3)
+    0x61, 0x62, 0x63, 0xcc               // abc
 };
 
 // Message with an Unknown Attributes (uint16_t list) attribute.
 static const unsigned char kStunMessageWithUInt16ListAttribute[] = {
-  0x00, 0x01, 0x00, 0x0c,
-  0x21, 0x12, 0xa4, 0x42,
-  0xe3, 0xa9, 0x46, 0xe1,
-  0x7c, 0x00, 0xc2, 0x62,
-  0x54, 0x08, 0x01, 0x00,
-  0x00, 0x0a, 0x00, 0x06,  // username attribute (length 6)
-  0x00, 0x01, 0x10, 0x00,  // three attributes plus padding
-  0xAB, 0xCU, 0xBE, 0xEF
-};
+    0x00, 0x01, 0x00, 0x0c, 0x21, 0x12, 0xa4, 0x42, 0xe3,
+    0xa9, 0x46, 0xe1, 0x7c, 0x00, 0xc2, 0x62, 0x54, 0x08,
+    0x01, 0x00, 0x00, 0x0a, 0x00, 0x06,  // username attribute (length 6)
+    0x00, 0x01, 0x10, 0x00,              // three attributes plus padding
+    0xAB, 0xCU, 0xBE, 0xEF};
 
 // Error response message (unauthorized)
 static const unsigned char kStunMessageWithErrorAttribute[] = {
-  0x01, 0x11, 0x00, 0x14,
-  0x21, 0x12, 0xa4, 0x42,
-  0x29, 0x1f, 0xcd, 0x7c,
-  0xba, 0x58, 0xab, 0xd7,
-  0xf2, 0x41, 0x01, 0x00,
-  0x00, 0x09, 0x00, 0x10,
-  0x00, 0x00, 0x04, 0x01,
-  0x55, 0x6e, 0x61, 0x75,
-  0x74, 0x68, 0x6f, 0x72,
-  0x69, 0x7a, 0x65, 0x64
-};
+    0x01, 0x11, 0x00, 0x14, 0x21, 0x12, 0xa4, 0x42, 0x29, 0x1f,
+    0xcd, 0x7c, 0xba, 0x58, 0xab, 0xd7, 0xf2, 0x41, 0x01, 0x00,
+    0x00, 0x09, 0x00, 0x10, 0x00, 0x00, 0x04, 0x01, 0x55, 0x6e,
+    0x61, 0x75, 0x74, 0x68, 0x6f, 0x72, 0x69, 0x7a, 0x65, 0x64};
 
 static const unsigned char kStunMessageWithOriginAttribute[] = {
-  0x00, 0x01, 0x00, 0x18,  // message header (binding request), length 24
-  0x21, 0x12, 0xA4, 0x42,  // magic cookie
-  0x29, 0x1f, 0xcd, 0x7c,  // transaction id
-  0xba, 0x58, 0xab, 0xd7,
-  0xf2, 0x41, 0x01, 0x00,
-  0x80, 0x2f, 0x00, 0x12,  // origin attribute (length 18)
-  0x68, 0x74, 0x74, 0x70,  // http://example.com
-  0x3A, 0x2F, 0x2F, 0x65,
-  0x78, 0x61, 0x6d, 0x70,
-  0x6c, 0x65, 0x2e, 0x63,
-  0x6f, 0x6d, 0x00, 0x00,
+    0x00, 0x01, 0x00, 0x18,  // message header (binding request), length 24
+    0x21, 0x12, 0xA4, 0x42,  // magic cookie
+    0x29, 0x1f, 0xcd, 0x7c,  // transaction id
+    0xba, 0x58, 0xab, 0xd7, 0xf2, 0x41, 0x01, 0x00,
+    0x80, 0x2f, 0x00, 0x12,  // origin attribute (length 18)
+    0x68, 0x74, 0x74, 0x70,  // http://example.com
+    0x3A, 0x2F, 0x2F, 0x65, 0x78, 0x61, 0x6d, 0x70,
+    0x6c, 0x65, 0x2e, 0x63, 0x6f, 0x6d, 0x00, 0x00,
 };
 
 // Sample messages with an invalid length Field
@@ -213,58 +181,49 @@ static const unsigned char kStunMessageWithOriginAttribute[] = {
 static const int kRealLengthOfInvalidLengthTestCases = 32;
 
 static const unsigned char kStunMessageWithZeroLength[] = {
-  0x00, 0x01, 0x00, 0x00,  // length of 0 (last 2 bytes)
-  0x21, 0x12, 0xA4, 0x42,  // magic cookie
-  '0', '1', '2', '3',      // transaction id
-  '4', '5', '6', '7',
-  '8', '9', 'a', 'b',
-  0x00, 0x20, 0x00, 0x08,  // xor mapped address
-  0x00, 0x01, 0x21, 0x1F,
-  0x21, 0x12, 0xA4, 0x53,
+    0x00, 0x01, 0x00, 0x00,  // length of 0 (last 2 bytes)
+    0x21, 0x12, 0xA4, 0x42,  // magic cookie
+    '0',  '1',  '2',  '3',   // transaction id
+    '4',  '5',  '6',  '7',  '8',  '9',  'a',  'b',
+    0x00, 0x20, 0x00, 0x08,  // xor mapped address
+    0x00, 0x01, 0x21, 0x1F, 0x21, 0x12, 0xA4, 0x53,
 };
 
 static const unsigned char kStunMessageWithExcessLength[] = {
-  0x00, 0x01, 0x00, 0x55,  // length of 85
-  0x21, 0x12, 0xA4, 0x42,  // magic cookie
-  '0', '1', '2', '3',      // transaction id
-  '4', '5', '6', '7',
-  '8', '9', 'a', 'b',
-  0x00, 0x20, 0x00, 0x08,  // xor mapped address
-  0x00, 0x01, 0x21, 0x1F,
-  0x21, 0x12, 0xA4, 0x53,
+    0x00, 0x01, 0x00, 0x55,  // length of 85
+    0x21, 0x12, 0xA4, 0x42,  // magic cookie
+    '0',  '1',  '2',  '3',   // transaction id
+    '4',  '5',  '6',  '7',  '8',  '9',  'a',  'b',
+    0x00, 0x20, 0x00, 0x08,  // xor mapped address
+    0x00, 0x01, 0x21, 0x1F, 0x21, 0x12, 0xA4, 0x53,
 };
 
 static const unsigned char kStunMessageWithSmallLength[] = {
-  0x00, 0x01, 0x00, 0x03,  // length of 3
-  0x21, 0x12, 0xA4, 0x42,  // magic cookie
-  '0', '1', '2', '3',      // transaction id
-  '4', '5', '6', '7',
-  '8', '9', 'a', 'b',
-  0x00, 0x20, 0x00, 0x08,  // xor mapped address
-  0x00, 0x01, 0x21, 0x1F,
-  0x21, 0x12, 0xA4, 0x53,
+    0x00, 0x01, 0x00, 0x03,  // length of 3
+    0x21, 0x12, 0xA4, 0x42,  // magic cookie
+    '0',  '1',  '2',  '3',   // transaction id
+    '4',  '5',  '6',  '7',  '8',  '9',  'a',  'b',
+    0x00, 0x20, 0x00, 0x08,  // xor mapped address
+    0x00, 0x01, 0x21, 0x1F, 0x21, 0x12, 0xA4, 0x53,
 };
 
 static const unsigned char kStunMessageWithBadHmacAtEnd[] = {
-  0x00, 0x01, 0x00, 0x14,  // message length exactly 20
-  0x21, 0x12, 0xA4, 0x42,  // magic cookie
-  '0', '1', '2', '3',      // transaction ID
-  '4', '5', '6', '7',
-  '8', '9', 'a', 'b',
-  0x00, 0x08, 0x00, 0x14,  // type=STUN_ATTR_MESSAGE_INTEGRITY, length=20
-  '0', '0', '0', '0',      // We lied, there are only 16 bytes of HMAC.
-  '0', '0', '0', '0',
-  '0', '0', '0', '0',
-  '0', '0', '0', '0',
+    0x00, 0x01, 0x00, 0x14,  // message length exactly 20
+    0x21, 0x12, 0xA4, 0x42,  // magic cookie
+    '0', '1', '2', '3',      // transaction ID
+    '4', '5', '6', '7', '8', '9', 'a', 'b', 0x00, 0x08, 0x00,
+    0x14,                // type=STUN_ATTR_MESSAGE_INTEGRITY,
+                         // length=20
+    '0', '0', '0', '0',  // We lied, there are only 16 bytes of HMAC.
+    '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0',
 };
 
 // RTCP packet, for testing we correctly ignore non stun packet types.
 // V=2, P=false, RC=0, Type=200, Len=6, Sender-SSRC=85, etc
 static const unsigned char kRtcpPacket[] = {
-  0x80, 0xc8, 0x00, 0x06, 0x00, 0x00, 0x00, 0x55,
-  0xce, 0xa5, 0x18, 0x3a, 0x39, 0xcc, 0x7d, 0x09,
-  0x23, 0xed, 0x19, 0x07, 0x00, 0x00, 0x01, 0x56,
-  0x00, 0x03, 0x73, 0x50,
+    0x80, 0xc8, 0x00, 0x06, 0x00, 0x00, 0x00, 0x55, 0xce, 0xa5,
+    0x18, 0x3a, 0x39, 0xcc, 0x7d, 0x09, 0x23, 0xed, 0x19, 0x07,
+    0x00, 0x00, 0x01, 0x56, 0x00, 0x03, 0x73, 0x50,
 };
 
 // RFC5769 Test Vectors
@@ -273,20 +232,19 @@ static const unsigned char kRtcpPacket[] = {
 // Username:  "evtj:h6vY" (without quotes)
 // Password:  "VOkJxbRl1RmTxUk/WvJxBt" (without quotes)
 static const unsigned char kRfc5769SampleMsgTransactionId[] = {
-  0xb7, 0xe7, 0xa7, 0x01, 0xbc, 0x34, 0xd6, 0x86, 0xfa, 0x87, 0xdf, 0xae
-};
+    0xb7, 0xe7, 0xa7, 0x01, 0xbc, 0x34, 0xd6, 0x86, 0xfa, 0x87, 0xdf, 0xae};
 static const char kRfc5769SampleMsgClientSoftware[] = "STUN test client";
 static const char kRfc5769SampleMsgServerSoftware[] = "test vector";
 static const char kRfc5769SampleMsgUsername[] = "evtj:h6vY";
 static const char kRfc5769SampleMsgPassword[] = "VOkJxbRl1RmTxUk/WvJxBt";
-static const rtc::SocketAddress kRfc5769SampleMsgMappedAddress(
-    "192.0.2.1", 32853);
+static const rtc::SocketAddress kRfc5769SampleMsgMappedAddress("192.0.2.1",
+                                                               32853);
 static const rtc::SocketAddress kRfc5769SampleMsgIPv6MappedAddress(
-    "2001:db8:1234:5678:11:2233:4455:6677", 32853);
+    "2001:db8:1234:5678:11:2233:4455:6677",
+    32853);
 
 static const unsigned char kRfc5769SampleMsgWithAuthTransactionId[] = {
-  0x78, 0xad, 0x34, 0x33, 0xc6, 0xad, 0x72, 0xc0, 0x29, 0xda, 0x41, 0x2e
-};
+    0x78, 0xad, 0x34, 0x33, 0xc6, 0xad, 0x72, 0xc0, 0x29, 0xda, 0x41, 0x2e};
 static const char kRfc5769SampleMsgWithAuthUsername[] =
     "\xe3\x83\x9e\xe3\x83\x88\xe3\x83\xaa\xe3\x83\x83\xe3\x82\xaf\xe3\x82\xb9";
 static const char kRfc5769SampleMsgWithAuthPassword[] = "TheMatrIX";
@@ -296,207 +254,234 @@ static const char kRfc5769SampleMsgWithAuthRealm[] = "example.org";
 
 // 2.1.  Sample Request
 static const unsigned char kRfc5769SampleRequest[] = {
-  0x00, 0x01, 0x00, 0x58,   //    Request type and message length
-  0x21, 0x12, 0xa4, 0x42,   //    Magic cookie
-  0xb7, 0xe7, 0xa7, 0x01,   // }
-  0xbc, 0x34, 0xd6, 0x86,   // }  Transaction ID
-  0xfa, 0x87, 0xdf, 0xae,   // }
-  0x80, 0x22, 0x00, 0x10,   //    SOFTWARE attribute header
-  0x53, 0x54, 0x55, 0x4e,   // }
-  0x20, 0x74, 0x65, 0x73,   // }  User-agent...
-  0x74, 0x20, 0x63, 0x6c,   // }  ...name
-  0x69, 0x65, 0x6e, 0x74,   // }
-  0x00, 0x24, 0x00, 0x04,   //    PRIORITY attribute header
-  0x6e, 0x00, 0x01, 0xff,   //    ICE priority value
-  0x80, 0x29, 0x00, 0x08,   //    ICE-CONTROLLED attribute header
-  0x93, 0x2f, 0xf9, 0xb1,   // }  Pseudo-random tie breaker...
-  0x51, 0x26, 0x3b, 0x36,   // }   ...for ICE control
-  0x00, 0x06, 0x00, 0x09,   //    USERNAME attribute header
-  0x65, 0x76, 0x74, 0x6a,   // }
-  0x3a, 0x68, 0x36, 0x76,   // }  Username (9 bytes) and padding (3 bytes)
-  0x59, 0x20, 0x20, 0x20,   // }
-  0x00, 0x08, 0x00, 0x14,   //    MESSAGE-INTEGRITY attribute header
-  0x9a, 0xea, 0xa7, 0x0c,   // }
-  0xbf, 0xd8, 0xcb, 0x56,   // }
-  0x78, 0x1e, 0xf2, 0xb5,   // }  HMAC-SHA1 fingerprint
-  0xb2, 0xd3, 0xf2, 0x49,   // }
-  0xc1, 0xb5, 0x71, 0xa2,   // }
-  0x80, 0x28, 0x00, 0x04,   //    FINGERPRINT attribute header
-  0xe5, 0x7a, 0x3b, 0xcf    //    CRC32 fingerprint
+    0x00, 0x01, 0x00, 0x58,  //    Request type and message length
+    0x21, 0x12, 0xa4, 0x42,  //    Magic cookie
+    0xb7, 0xe7, 0xa7, 0x01,  // }
+    0xbc, 0x34, 0xd6, 0x86,  // }  Transaction ID
+    0xfa, 0x87, 0xdf, 0xae,  // }
+    0x80, 0x22, 0x00, 0x10,  //    SOFTWARE attribute header
+    0x53, 0x54, 0x55, 0x4e,  // }
+    0x20, 0x74, 0x65, 0x73,  // }  User-agent...
+    0x74, 0x20, 0x63, 0x6c,  // }  ...name
+    0x69, 0x65, 0x6e, 0x74,  // }
+    0x00, 0x24, 0x00, 0x04,  //    PRIORITY attribute header
+    0x6e, 0x00, 0x01, 0xff,  //    ICE priority value
+    0x80, 0x29, 0x00, 0x08,  //    ICE-CONTROLLED attribute header
+    0x93, 0x2f, 0xf9, 0xb1,  // }  Pseudo-random tie breaker...
+    0x51, 0x26, 0x3b, 0x36,  // }   ...for ICE control
+    0x00, 0x06, 0x00, 0x09,  //    USERNAME attribute header
+    0x65, 0x76, 0x74, 0x6a,  // }
+    0x3a, 0x68, 0x36, 0x76,  // }  Username (9 bytes) and padding (3 bytes)
+    0x59, 0x20, 0x20, 0x20,  // }
+    0x00, 0x08, 0x00, 0x14,  //    MESSAGE-INTEGRITY attribute header
+    0x9a, 0xea, 0xa7, 0x0c,  // }
+    0xbf, 0xd8, 0xcb, 0x56,  // }
+    0x78, 0x1e, 0xf2, 0xb5,  // }  HMAC-SHA1 fingerprint
+    0xb2, 0xd3, 0xf2, 0x49,  // }
+    0xc1, 0xb5, 0x71, 0xa2,  // }
+    0x80, 0x28, 0x00, 0x04,  //    FINGERPRINT attribute header
+    0xe5, 0x7a, 0x3b, 0xcf   //    CRC32 fingerprint
 };
 
 // 2.2.  Sample IPv4 Response
 static const unsigned char kRfc5769SampleResponse[] = {
-  0x01, 0x01, 0x00, 0x3c,  //     Response type and message length
-  0x21, 0x12, 0xa4, 0x42,  //     Magic cookie
-  0xb7, 0xe7, 0xa7, 0x01,  // }
-  0xbc, 0x34, 0xd6, 0x86,  // }  Transaction ID
-  0xfa, 0x87, 0xdf, 0xae,  // }
-  0x80, 0x22, 0x00, 0x0b,  //    SOFTWARE attribute header
-  0x74, 0x65, 0x73, 0x74,  // }
-  0x20, 0x76, 0x65, 0x63,  // }  UTF-8 server name
-  0x74, 0x6f, 0x72, 0x20,  // }
-  0x00, 0x20, 0x00, 0x08,  //    XOR-MAPPED-ADDRESS attribute header
-  0x00, 0x01, 0xa1, 0x47,  //    Address family (IPv4) and xor'd mapped port
-  0xe1, 0x12, 0xa6, 0x43,  //    Xor'd mapped IPv4 address
-  0x00, 0x08, 0x00, 0x14,  //    MESSAGE-INTEGRITY attribute header
-  0x2b, 0x91, 0xf5, 0x99,  // }
-  0xfd, 0x9e, 0x90, 0xc3,  // }
-  0x8c, 0x74, 0x89, 0xf9,  // }  HMAC-SHA1 fingerprint
-  0x2a, 0xf9, 0xba, 0x53,  // }
-  0xf0, 0x6b, 0xe7, 0xd7,  // }
-  0x80, 0x28, 0x00, 0x04,  //    FINGERPRINT attribute header
-  0xc0, 0x7d, 0x4c, 0x96   //    CRC32 fingerprint
+    0x01, 0x01, 0x00, 0x3c,  //     Response type and message length
+    0x21, 0x12, 0xa4, 0x42,  //     Magic cookie
+    0xb7, 0xe7, 0xa7, 0x01,  // }
+    0xbc, 0x34, 0xd6, 0x86,  // }  Transaction ID
+    0xfa, 0x87, 0xdf, 0xae,  // }
+    0x80, 0x22, 0x00, 0x0b,  //    SOFTWARE attribute header
+    0x74, 0x65, 0x73, 0x74,  // }
+    0x20, 0x76, 0x65, 0x63,  // }  UTF-8 server name
+    0x74, 0x6f, 0x72, 0x20,  // }
+    0x00, 0x20, 0x00, 0x08,  //    XOR-MAPPED-ADDRESS attribute header
+    0x00, 0x01, 0xa1, 0x47,  //    Address family (IPv4) and xor'd mapped port
+    0xe1, 0x12, 0xa6, 0x43,  //    Xor'd mapped IPv4 address
+    0x00, 0x08, 0x00, 0x14,  //    MESSAGE-INTEGRITY attribute header
+    0x2b, 0x91, 0xf5, 0x99,  // }
+    0xfd, 0x9e, 0x90, 0xc3,  // }
+    0x8c, 0x74, 0x89, 0xf9,  // }  HMAC-SHA1 fingerprint
+    0x2a, 0xf9, 0xba, 0x53,  // }
+    0xf0, 0x6b, 0xe7, 0xd7,  // }
+    0x80, 0x28, 0x00, 0x04,  //    FINGERPRINT attribute header
+    0xc0, 0x7d, 0x4c, 0x96   //    CRC32 fingerprint
 };
 
 // 2.3.  Sample IPv6 Response
 static const unsigned char kRfc5769SampleResponseIPv6[] = {
-  0x01, 0x01, 0x00, 0x48,  //    Response type and message length
-  0x21, 0x12, 0xa4, 0x42,  //    Magic cookie
-  0xb7, 0xe7, 0xa7, 0x01,  // }
-  0xbc, 0x34, 0xd6, 0x86,  // }  Transaction ID
-  0xfa, 0x87, 0xdf, 0xae,  // }
-  0x80, 0x22, 0x00, 0x0b,  //    SOFTWARE attribute header
-  0x74, 0x65, 0x73, 0x74,  // }
-  0x20, 0x76, 0x65, 0x63,  // }  UTF-8 server name
-  0x74, 0x6f, 0x72, 0x20,  // }
-  0x00, 0x20, 0x00, 0x14,  //    XOR-MAPPED-ADDRESS attribute header
-  0x00, 0x02, 0xa1, 0x47,  //    Address family (IPv6) and xor'd mapped port.
-  0x01, 0x13, 0xa9, 0xfa,  // }
-  0xa5, 0xd3, 0xf1, 0x79,  // }  Xor'd mapped IPv6 address
-  0xbc, 0x25, 0xf4, 0xb5,  // }
-  0xbe, 0xd2, 0xb9, 0xd9,  // }
-  0x00, 0x08, 0x00, 0x14,  //    MESSAGE-INTEGRITY attribute header
-  0xa3, 0x82, 0x95, 0x4e,  // }
-  0x4b, 0xe6, 0x7b, 0xf1,  // }
-  0x17, 0x84, 0xc9, 0x7c,  // }  HMAC-SHA1 fingerprint
-  0x82, 0x92, 0xc2, 0x75,  // }
-  0xbf, 0xe3, 0xed, 0x41,  // }
-  0x80, 0x28, 0x00, 0x04,  //    FINGERPRINT attribute header
-  0xc8, 0xfb, 0x0b, 0x4c   //    CRC32 fingerprint
+    0x01, 0x01, 0x00, 0x48,  //    Response type and message length
+    0x21, 0x12, 0xa4, 0x42,  //    Magic cookie
+    0xb7, 0xe7, 0xa7, 0x01,  // }
+    0xbc, 0x34, 0xd6, 0x86,  // }  Transaction ID
+    0xfa, 0x87, 0xdf, 0xae,  // }
+    0x80, 0x22, 0x00, 0x0b,  //    SOFTWARE attribute header
+    0x74, 0x65, 0x73, 0x74,  // }
+    0x20, 0x76, 0x65, 0x63,  // }  UTF-8 server name
+    0x74, 0x6f, 0x72, 0x20,  // }
+    0x00, 0x20, 0x00, 0x14,  //    XOR-MAPPED-ADDRESS attribute header
+    0x00, 0x02, 0xa1, 0x47,  //    Address family (IPv6) and xor'd mapped port.
+    0x01, 0x13, 0xa9, 0xfa,  // }
+    0xa5, 0xd3, 0xf1, 0x79,  // }  Xor'd mapped IPv6 address
+    0xbc, 0x25, 0xf4, 0xb5,  // }
+    0xbe, 0xd2, 0xb9, 0xd9,  // }
+    0x00, 0x08, 0x00, 0x14,  //    MESSAGE-INTEGRITY attribute header
+    0xa3, 0x82, 0x95, 0x4e,  // }
+    0x4b, 0xe6, 0x7b, 0xf1,  // }
+    0x17, 0x84, 0xc9, 0x7c,  // }  HMAC-SHA1 fingerprint
+    0x82, 0x92, 0xc2, 0x75,  // }
+    0xbf, 0xe3, 0xed, 0x41,  // }
+    0x80, 0x28, 0x00, 0x04,  //    FINGERPRINT attribute header
+    0xc8, 0xfb, 0x0b, 0x4c   //    CRC32 fingerprint
 };
 
 // 2.4.  Sample Request with Long-Term Authentication
 static const unsigned char kRfc5769SampleRequestLongTermAuth[] = {
-  0x00, 0x01, 0x00, 0x60,  //    Request type and message length
-  0x21, 0x12, 0xa4, 0x42,  //    Magic cookie
-  0x78, 0xad, 0x34, 0x33,  // }
-  0xc6, 0xad, 0x72, 0xc0,  // }  Transaction ID
-  0x29, 0xda, 0x41, 0x2e,  // }
-  0x00, 0x06, 0x00, 0x12,  //    USERNAME attribute header
-  0xe3, 0x83, 0x9e, 0xe3,  // }
-  0x83, 0x88, 0xe3, 0x83,  // }
-  0xaa, 0xe3, 0x83, 0x83,  // }  Username value (18 bytes) and padding (2 bytes)
-  0xe3, 0x82, 0xaf, 0xe3,  // }
-  0x82, 0xb9, 0x00, 0x00,  // }
-  0x00, 0x15, 0x00, 0x1c,  //    NONCE attribute header
-  0x66, 0x2f, 0x2f, 0x34,  // }
-  0x39, 0x39, 0x6b, 0x39,  // }
-  0x35, 0x34, 0x64, 0x36,  // }
-  0x4f, 0x4c, 0x33, 0x34,  // }  Nonce value
-  0x6f, 0x4c, 0x39, 0x46,  // }
-  0x53, 0x54, 0x76, 0x79,  // }
-  0x36, 0x34, 0x73, 0x41,  // }
-  0x00, 0x14, 0x00, 0x0b,  //    REALM attribute header
-  0x65, 0x78, 0x61, 0x6d,  // }
-  0x70, 0x6c, 0x65, 0x2e,  // }  Realm value (11 bytes) and padding (1 byte)
-  0x6f, 0x72, 0x67, 0x00,  // }
-  0x00, 0x08, 0x00, 0x14,  //    MESSAGE-INTEGRITY attribute header
-  0xf6, 0x70, 0x24, 0x65,  // }
-  0x6d, 0xd6, 0x4a, 0x3e,  // }
-  0x02, 0xb8, 0xe0, 0x71,  // }  HMAC-SHA1 fingerprint
-  0x2e, 0x85, 0xc9, 0xa2,  // }
-  0x8c, 0xa8, 0x96, 0x66   // }
+    0x00, 0x01,
+    0x00, 0x60,  //    Request type and message length
+    0x21, 0x12,
+    0xa4, 0x42,  //    Magic cookie
+    0x78, 0xad,
+    0x34, 0x33,  // }
+    0xc6, 0xad,
+    0x72, 0xc0,  // }  Transaction ID
+    0x29, 0xda,
+    0x41, 0x2e,  // }
+    0x00, 0x06,
+    0x00, 0x12,  //    USERNAME attribute header
+    0xe3, 0x83,
+    0x9e, 0xe3,  // }
+    0x83, 0x88,
+    0xe3, 0x83,  // }
+    0xaa, 0xe3,
+    0x83, 0x83,  // }  Username value (18 bytes) and padding (2 bytes)
+    0xe3, 0x82,
+    0xaf, 0xe3,  // }
+    0x82, 0xb9,
+    0x00, 0x00,  // }
+    0x00, 0x15,
+    0x00, 0x1c,  //    NONCE attribute header
+    0x66, 0x2f,
+    0x2f, 0x34,  // }
+    0x39, 0x39,
+    0x6b, 0x39,  // }
+    0x35, 0x34,
+    0x64, 0x36,  // }
+    0x4f, 0x4c,
+    0x33, 0x34,  // }  Nonce value
+    0x6f, 0x4c,
+    0x39, 0x46,  // }
+    0x53, 0x54,
+    0x76, 0x79,  // }
+    0x36, 0x34,
+    0x73, 0x41,  // }
+    0x00, 0x14,
+    0x00, 0x0b,  //    REALM attribute header
+    0x65, 0x78,
+    0x61, 0x6d,  // }
+    0x70, 0x6c,
+    0x65, 0x2e,  // }  Realm value (11 bytes) and padding (1 byte)
+    0x6f, 0x72,
+    0x67, 0x00,  // }
+    0x00, 0x08,
+    0x00, 0x14,  //    MESSAGE-INTEGRITY attribute header
+    0xf6, 0x70,
+    0x24, 0x65,  // }
+    0x6d, 0xd6,
+    0x4a, 0x3e,  // }
+    0x02, 0xb8,
+    0xe0, 0x71,  // }  HMAC-SHA1 fingerprint
+    0x2e, 0x85,
+    0xc9, 0xa2,  // }
+    0x8c, 0xa8,
+    0x96, 0x66  // }
 };
 
 // Length parameter is changed to 0x38 from 0x58.
 // AddMessageIntegrity will add MI information and update the length param
 // accordingly.
 static const unsigned char kRfc5769SampleRequestWithoutMI[] = {
-  0x00, 0x01, 0x00, 0x38,  //    Request type and message length
-  0x21, 0x12, 0xa4, 0x42,  //    Magic cookie
-  0xb7, 0xe7, 0xa7, 0x01,  // }
-  0xbc, 0x34, 0xd6, 0x86,  // }  Transaction ID
-  0xfa, 0x87, 0xdf, 0xae,  // }
-  0x80, 0x22, 0x00, 0x10,  //    SOFTWARE attribute header
-  0x53, 0x54, 0x55, 0x4e,  // }
-  0x20, 0x74, 0x65, 0x73,  // }  User-agent...
-  0x74, 0x20, 0x63, 0x6c,  // }  ...name
-  0x69, 0x65, 0x6e, 0x74,  // }
-  0x00, 0x24, 0x00, 0x04,  //    PRIORITY attribute header
-  0x6e, 0x00, 0x01, 0xff,  //    ICE priority value
-  0x80, 0x29, 0x00, 0x08,  //    ICE-CONTROLLED attribute header
-  0x93, 0x2f, 0xf9, 0xb1,  // }  Pseudo-random tie breaker...
-  0x51, 0x26, 0x3b, 0x36,  // }   ...for ICE control
-  0x00, 0x06, 0x00, 0x09,  //    USERNAME attribute header
-  0x65, 0x76, 0x74, 0x6a,  // }
-  0x3a, 0x68, 0x36, 0x76,  // }  Username (9 bytes) and padding (3 bytes)
-  0x59, 0x20, 0x20, 0x20   // }
+    0x00, 0x01, 0x00, 0x38,  //    Request type and message length
+    0x21, 0x12, 0xa4, 0x42,  //    Magic cookie
+    0xb7, 0xe7, 0xa7, 0x01,  // }
+    0xbc, 0x34, 0xd6, 0x86,  // }  Transaction ID
+    0xfa, 0x87, 0xdf, 0xae,  // }
+    0x80, 0x22, 0x00, 0x10,  //    SOFTWARE attribute header
+    0x53, 0x54, 0x55, 0x4e,  // }
+    0x20, 0x74, 0x65, 0x73,  // }  User-agent...
+    0x74, 0x20, 0x63, 0x6c,  // }  ...name
+    0x69, 0x65, 0x6e, 0x74,  // }
+    0x00, 0x24, 0x00, 0x04,  //    PRIORITY attribute header
+    0x6e, 0x00, 0x01, 0xff,  //    ICE priority value
+    0x80, 0x29, 0x00, 0x08,  //    ICE-CONTROLLED attribute header
+    0x93, 0x2f, 0xf9, 0xb1,  // }  Pseudo-random tie breaker...
+    0x51, 0x26, 0x3b, 0x36,  // }   ...for ICE control
+    0x00, 0x06, 0x00, 0x09,  //    USERNAME attribute header
+    0x65, 0x76, 0x74, 0x6a,  // }
+    0x3a, 0x68, 0x36, 0x76,  // }  Username (9 bytes) and padding (3 bytes)
+    0x59, 0x20, 0x20, 0x20   // }
 };
 
 // This HMAC differs from the RFC 5769 SampleRequest message. This differs
 // because spec uses 0x20 for the padding where as our implementation uses 0.
 static const unsigned char kCalculatedHmac1[] = {
-  0x79, 0x07, 0xc2, 0xd2,  // }
-  0xed, 0xbf, 0xea, 0x48,  // }
-  0x0e, 0x4c, 0x76, 0xd8,  // }  HMAC-SHA1 fingerprint
-  0x29, 0x62, 0xd5, 0xc3,  // }
-  0x74, 0x2a, 0xf9, 0xe3   // }
+    0x79, 0x07, 0xc2, 0xd2,  // }
+    0xed, 0xbf, 0xea, 0x48,  // }
+    0x0e, 0x4c, 0x76, 0xd8,  // }  HMAC-SHA1 fingerprint
+    0x29, 0x62, 0xd5, 0xc3,  // }
+    0x74, 0x2a, 0xf9, 0xe3   // }
 };
 
 // Length parameter is changed to 0x1c from 0x3c.
 // AddMessageIntegrity will add MI information and update the length param
 // accordingly.
 static const unsigned char kRfc5769SampleResponseWithoutMI[] = {
-  0x01, 0x01, 0x00, 0x1c,  //    Response type and message length
-  0x21, 0x12, 0xa4, 0x42,  //    Magic cookie
-  0xb7, 0xe7, 0xa7, 0x01,  // }
-  0xbc, 0x34, 0xd6, 0x86,  // }  Transaction ID
-  0xfa, 0x87, 0xdf, 0xae,  // }
-  0x80, 0x22, 0x00, 0x0b,  //    SOFTWARE attribute header
-  0x74, 0x65, 0x73, 0x74,  // }
-  0x20, 0x76, 0x65, 0x63,  // }  UTF-8 server name
-  0x74, 0x6f, 0x72, 0x20,  // }
-  0x00, 0x20, 0x00, 0x08,  //    XOR-MAPPED-ADDRESS attribute header
-  0x00, 0x01, 0xa1, 0x47,  //    Address family (IPv4) and xor'd mapped port
-  0xe1, 0x12, 0xa6, 0x43   //    Xor'd mapped IPv4 address
+    0x01, 0x01, 0x00, 0x1c,  //    Response type and message length
+    0x21, 0x12, 0xa4, 0x42,  //    Magic cookie
+    0xb7, 0xe7, 0xa7, 0x01,  // }
+    0xbc, 0x34, 0xd6, 0x86,  // }  Transaction ID
+    0xfa, 0x87, 0xdf, 0xae,  // }
+    0x80, 0x22, 0x00, 0x0b,  //    SOFTWARE attribute header
+    0x74, 0x65, 0x73, 0x74,  // }
+    0x20, 0x76, 0x65, 0x63,  // }  UTF-8 server name
+    0x74, 0x6f, 0x72, 0x20,  // }
+    0x00, 0x20, 0x00, 0x08,  //    XOR-MAPPED-ADDRESS attribute header
+    0x00, 0x01, 0xa1, 0x47,  //    Address family (IPv4) and xor'd mapped port
+    0xe1, 0x12, 0xa6, 0x43   //    Xor'd mapped IPv4 address
 };
 
 // This HMAC differs from the RFC 5769 SampleResponse message. This differs
 // because spec uses 0x20 for the padding where as our implementation uses 0.
 static const unsigned char kCalculatedHmac2[] = {
-  0x5d, 0x6b, 0x58, 0xbe,  // }
-  0xad, 0x94, 0xe0, 0x7e,  // }
-  0xef, 0x0d, 0xfc, 0x12,  // }  HMAC-SHA1 fingerprint
-  0x82, 0xa2, 0xbd, 0x08,  // }
-  0x43, 0x14, 0x10, 0x28   // }
+    0x5d, 0x6b, 0x58, 0xbe,  // }
+    0xad, 0x94, 0xe0, 0x7e,  // }
+    0xef, 0x0d, 0xfc, 0x12,  // }  HMAC-SHA1 fingerprint
+    0x82, 0xa2, 0xbd, 0x08,  // }
+    0x43, 0x14, 0x10, 0x28   // }
 };
 
 // A transaction ID without the 'magic cookie' portion
 // pjnat's test programs use this transaction ID a lot.
-const unsigned char kTestTransactionId1[] = { 0x029, 0x01f, 0x0cd, 0x07c,
-                                              0x0ba, 0x058, 0x0ab, 0x0d7,
-                                              0x0f2, 0x041, 0x001, 0x000 };
+const unsigned char kTestTransactionId1[] = {0x029, 0x01f, 0x0cd, 0x07c,
+                                             0x0ba, 0x058, 0x0ab, 0x0d7,
+                                             0x0f2, 0x041, 0x001, 0x000};
 
 // They use this one sometimes too.
-const unsigned char kTestTransactionId2[] = { 0x0e3, 0x0a9, 0x046, 0x0e1,
-                                              0x07c, 0x000, 0x0c2, 0x062,
-                                              0x054, 0x008, 0x001, 0x000 };
+const unsigned char kTestTransactionId2[] = {0x0e3, 0x0a9, 0x046, 0x0e1,
+                                             0x07c, 0x000, 0x0c2, 0x062,
+                                             0x054, 0x008, 0x001, 0x000};
 
-const in6_addr kIPv6TestAddress1 = { { { 0x24, 0x01, 0xfa, 0x00,
-                                         0x00, 0x04, 0x10, 0x00,
-                                         0xbe, 0x30, 0x5b, 0xff,
-                                         0xfe, 0xe5, 0x00, 0xc3 } } };
-const in6_addr kIPv6TestAddress2 = { { { 0x24, 0x01, 0xfa, 0x00,
-                                         0x00, 0x04, 0x10, 0x12,
-                                         0x06, 0x0c, 0xce, 0xff,
-                                         0xfe, 0x1f, 0x61, 0xa4 } } };
+const in6_addr kIPv6TestAddress1 = {
+    {{0x24, 0x01, 0xfa, 0x00, 0x00, 0x04, 0x10, 0x00, 0xbe, 0x30, 0x5b, 0xff,
+      0xfe, 0xe5, 0x00, 0xc3}}};
+const in6_addr kIPv6TestAddress2 = {
+    {{0x24, 0x01, 0xfa, 0x00, 0x00, 0x04, 0x10, 0x12, 0x06, 0x0c, 0xce, 0xff,
+      0xfe, 0x1f, 0x61, 0xa4}}};
 
 #ifdef WEBRTC_POSIX
-const in_addr kIPv4TestAddress1 =  { 0xe64417ac };
+const in_addr kIPv4TestAddress1 = {0xe64417ac};
 #elif defined WEBRTC_WIN
 // Windows in_addr has a union with a uchar[] array first.
-const in_addr kIPv4TestAddress1 =  { { { 0x0ac, 0x017, 0x044, 0x0e6 } } };
+const in_addr kIPv4TestAddress1 = {{{0x0ac, 0x017, 0x044, 0x0e6}}};
 #endif
 const char kTestUserName1[] = "abcdefgh";
 const char kTestUserName2[] = "abc";
@@ -516,9 +501,9 @@ const int kTestMessagePort4 = 40444;
 // Test that the GetStun*Type and IsStun*Type methods work as expected.
 TEST_F(StunTest, MessageTypes) {
   EXPECT_EQ(STUN_BINDING_RESPONSE,
-      GetStunSuccessResponseType(STUN_BINDING_REQUEST));
+            GetStunSuccessResponseType(STUN_BINDING_REQUEST));
   EXPECT_EQ(STUN_BINDING_ERROR_RESPONSE,
-      GetStunErrorResponseType(STUN_BINDING_REQUEST));
+            GetStunErrorResponseType(STUN_BINDING_REQUEST));
   EXPECT_EQ(-1, GetStunSuccessResponseType(STUN_BINDING_INDICATION));
   EXPECT_EQ(-1, GetStunSuccessResponseType(STUN_BINDING_RESPONSE));
   EXPECT_EQ(-1, GetStunSuccessResponseType(STUN_BINDING_ERROR_RESPONSE));
@@ -526,10 +511,8 @@ TEST_F(StunTest, MessageTypes) {
   EXPECT_EQ(-1, GetStunErrorResponseType(STUN_BINDING_RESPONSE));
   EXPECT_EQ(-1, GetStunErrorResponseType(STUN_BINDING_ERROR_RESPONSE));
 
-  int types[] = {
-    STUN_BINDING_REQUEST, STUN_BINDING_INDICATION,
-    STUN_BINDING_RESPONSE, STUN_BINDING_ERROR_RESPONSE
-  };
+  int types[] = {STUN_BINDING_REQUEST, STUN_BINDING_INDICATION,
+                 STUN_BINDING_RESPONSE, STUN_BINDING_ERROR_RESPONSE};
   for (size_t i = 0; i < arraysize(types); ++i) {
     EXPECT_EQ(i == 0U, IsStunRequestType(types[i]));
     EXPECT_EQ(i == 1U, IsStunIndicationType(types[i]));
@@ -547,8 +530,8 @@ TEST_F(StunTest, ReadMessageWithIPv4AddressAttribute) {
 
   const StunAddressAttribute* addr = msg.GetAddress(STUN_ATTR_MAPPED_ADDRESS);
   rtc::IPAddress test_address(kIPv4TestAddress1);
-  CheckStunAddressAttribute(addr, STUN_ADDRESS_IPV4,
-                            kTestMessagePort4, test_address);
+  CheckStunAddressAttribute(addr, STUN_ADDRESS_IPV4, kTestMessagePort4,
+                            test_address);
 }
 
 TEST_F(StunTest, ReadMessageWithIPv4XorAddressAttribute) {
@@ -561,8 +544,8 @@ TEST_F(StunTest, ReadMessageWithIPv4XorAddressAttribute) {
   const StunAddressAttribute* addr =
       msg.GetAddress(STUN_ATTR_XOR_MAPPED_ADDRESS);
   rtc::IPAddress test_address(kIPv4TestAddress1);
-  CheckStunAddressAttribute(addr, STUN_ADDRESS_IPV4,
-                            kTestMessagePort3, test_address);
+  CheckStunAddressAttribute(addr, STUN_ADDRESS_IPV4, kTestMessagePort3,
+                            test_address);
 }
 
 TEST_F(StunTest, ReadMessageWithIPv6AddressAttribute) {
@@ -574,8 +557,8 @@ TEST_F(StunTest, ReadMessageWithIPv6AddressAttribute) {
   rtc::IPAddress test_address(kIPv6TestAddress1);
 
   const StunAddressAttribute* addr = msg.GetAddress(STUN_ATTR_MAPPED_ADDRESS);
-  CheckStunAddressAttribute(addr, STUN_ADDRESS_IPV6,
-                            kTestMessagePort2, test_address);
+  CheckStunAddressAttribute(addr, STUN_ADDRESS_IPV6, kTestMessagePort2,
+                            test_address);
 }
 
 TEST_F(StunTest, ReadMessageWithInvalidAddressAttribute) {
@@ -587,8 +570,8 @@ TEST_F(StunTest, ReadMessageWithInvalidAddressAttribute) {
   rtc::IPAddress test_address(kIPv6TestAddress1);
 
   const StunAddressAttribute* addr = msg.GetAddress(STUN_ATTR_MAPPED_ADDRESS);
-  CheckStunAddressAttribute(addr, STUN_ADDRESS_IPV6,
-                            kTestMessagePort2, test_address);
+  CheckStunAddressAttribute(addr, STUN_ADDRESS_IPV6, kTestMessagePort2,
+                            test_address);
 }
 
 TEST_F(StunTest, ReadMessageWithIPv6XorAddressAttribute) {
@@ -602,8 +585,8 @@ TEST_F(StunTest, ReadMessageWithIPv6XorAddressAttribute) {
 
   const StunAddressAttribute* addr =
       msg.GetAddress(STUN_ATTR_XOR_MAPPED_ADDRESS);
-  CheckStunAddressAttribute(addr, STUN_ADDRESS_IPV6,
-                            kTestMessagePort1, test_address);
+  CheckStunAddressAttribute(addr, STUN_ADDRESS_IPV6, kTestMessagePort1,
+                            test_address);
 }
 
 // Read the RFC5389 fields from the RFC5769 sample STUN request.
@@ -628,8 +611,7 @@ TEST_F(StunTest, ReadRfc5769RequestMessage) {
   ASSERT_TRUE(msg.GetByteString(STUN_ATTR_MESSAGE_INTEGRITY) != NULL);
 
   // Fingerprint checked in a later test, but double-check the value here.
-  const StunUInt32Attribute* fingerprint =
-      msg.GetUInt32(STUN_ATTR_FINGERPRINT);
+  const StunUInt32Attribute* fingerprint = msg.GetUInt32(STUN_ATTR_FINGERPRINT);
   ASSERT_TRUE(fingerprint != NULL);
   EXPECT_EQ(0xe57a3bcf, fingerprint->value());
 }
@@ -693,13 +675,11 @@ TEST_F(StunTest, ReadRfc5769RequestMessageLongTermAuth) {
   ASSERT_TRUE(username != NULL);
   EXPECT_EQ(kRfc5769SampleMsgWithAuthUsername, username->GetString());
 
-  const StunByteStringAttribute* nonce =
-      msg.GetByteString(STUN_ATTR_NONCE);
+  const StunByteStringAttribute* nonce = msg.GetByteString(STUN_ATTR_NONCE);
   ASSERT_TRUE(nonce != NULL);
   EXPECT_EQ(kRfc5769SampleMsgWithAuthNonce, nonce->GetString());
 
-  const StunByteStringAttribute* realm =
-      msg.GetByteString(STUN_ATTR_REALM);
+  const StunByteStringAttribute* realm = msg.GetByteString(STUN_ATTR_REALM);
   ASSERT_TRUE(realm != NULL);
   EXPECT_EQ(kRfc5769SampleMsgWithAuthRealm, realm->GetString());
 
@@ -714,7 +694,7 @@ TEST_F(StunTest, ReadRfc5769RequestMessageLongTermAuth) {
 TEST_F(StunTest, ReadLegacyMessage) {
   unsigned char rfc3489_packet[sizeof(kStunMessageWithIPv4MappedAddress)];
   memcpy(rfc3489_packet, kStunMessageWithIPv4MappedAddress,
-      sizeof(kStunMessageWithIPv4MappedAddress));
+         sizeof(kStunMessageWithIPv4MappedAddress));
   // Overwrite the magic cookie here.
   memcpy(&rfc3489_packet[4], "ABCD", 4);
 
@@ -725,8 +705,8 @@ TEST_F(StunTest, ReadLegacyMessage) {
 
   const StunAddressAttribute* addr = msg.GetAddress(STUN_ATTR_MAPPED_ADDRESS);
   rtc::IPAddress test_address(kIPv4TestAddress1);
-  CheckStunAddressAttribute(addr, STUN_ADDRESS_IPV4,
-                            kTestMessagePort4, test_address);
+  CheckStunAddressAttribute(addr, STUN_ADDRESS_IPV4, kTestMessagePort4,
+                            test_address);
 }
 
 TEST_F(StunTest, SetIPv6XorAddressAttributeOwner) {
@@ -741,8 +721,8 @@ TEST_F(StunTest, SetIPv6XorAddressAttributeOwner) {
 
   const StunAddressAttribute* addr =
       msg.GetAddress(STUN_ATTR_XOR_MAPPED_ADDRESS);
-  CheckStunAddressAttribute(addr, STUN_ADDRESS_IPV6,
-                            kTestMessagePort1, test_address);
+  CheckStunAddressAttribute(addr, STUN_ADDRESS_IPV6, kTestMessagePort1,
+                            test_address);
 
   // Owner with a different transaction ID.
   msg2.SetTransactionID("ABCDABCDABCD");
@@ -789,8 +769,8 @@ TEST_F(StunTest, SetIPv4XorAddressAttributeOwner) {
 
   const StunAddressAttribute* addr =
       msg.GetAddress(STUN_ATTR_XOR_MAPPED_ADDRESS);
-  CheckStunAddressAttribute(addr, STUN_ADDRESS_IPV4,
-                            kTestMessagePort3, test_address);
+  CheckStunAddressAttribute(addr, STUN_ADDRESS_IPV4, kTestMessagePort3,
+                            test_address);
 
   // Owner with a different transaction ID.
   msg2.SetTransactionID("ABCDABCDABCD");
@@ -994,8 +974,8 @@ TEST_F(StunTest, ReadByteStringAttribute) {
 
 TEST_F(StunTest, ReadPaddedByteStringAttribute) {
   StunMessage msg;
-  size_t size = ReadStunMessage(&msg,
-                                kStunMessageWithPaddedByteStringAttribute);
+  size_t size =
+      ReadStunMessage(&msg, kStunMessageWithPaddedByteStringAttribute);
   ASSERT_NE(0U, size);
   CheckStunHeader(msg, STUN_BINDING_REQUEST, size);
   CheckStunTransactionID(msg, kTestTransactionId2, kStunTransactionIdLength);
@@ -1056,8 +1036,7 @@ TEST_F(StunTest, ReadMessageWithOriginAttribute) {
   StunMessage msg;
   size_t size = ReadStunMessage(&msg, kStunMessageWithOriginAttribute);
   CheckStunHeader(msg, STUN_BINDING_REQUEST, size);
-  const StunByteStringAttribute* origin =
-      msg.GetByteString(STUN_ATTR_ORIGIN);
+  const StunByteStringAttribute* origin = msg.GetByteString(STUN_ATTR_ORIGIN);
   ASSERT_TRUE(origin != NULL);
   EXPECT_EQ(kTestOrigin, origin->GetString());
 }
@@ -1154,56 +1133,47 @@ TEST_F(StunTest, ValidateMessageIntegrity) {
   // Try the messages from RFC 5769.
   EXPECT_TRUE(StunMessage::ValidateMessageIntegrity(
       reinterpret_cast<const char*>(kRfc5769SampleRequest),
-      sizeof(kRfc5769SampleRequest),
-      kRfc5769SampleMsgPassword));
+      sizeof(kRfc5769SampleRequest), kRfc5769SampleMsgPassword));
   EXPECT_FALSE(StunMessage::ValidateMessageIntegrity(
       reinterpret_cast<const char*>(kRfc5769SampleRequest),
-      sizeof(kRfc5769SampleRequest),
-      "InvalidPassword"));
+      sizeof(kRfc5769SampleRequest), "InvalidPassword"));
 
   EXPECT_TRUE(StunMessage::ValidateMessageIntegrity(
       reinterpret_cast<const char*>(kRfc5769SampleResponse),
-      sizeof(kRfc5769SampleResponse),
-      kRfc5769SampleMsgPassword));
+      sizeof(kRfc5769SampleResponse), kRfc5769SampleMsgPassword));
   EXPECT_FALSE(StunMessage::ValidateMessageIntegrity(
       reinterpret_cast<const char*>(kRfc5769SampleResponse),
-      sizeof(kRfc5769SampleResponse),
-      "InvalidPassword"));
+      sizeof(kRfc5769SampleResponse), "InvalidPassword"));
 
   EXPECT_TRUE(StunMessage::ValidateMessageIntegrity(
       reinterpret_cast<const char*>(kRfc5769SampleResponseIPv6),
-      sizeof(kRfc5769SampleResponseIPv6),
-      kRfc5769SampleMsgPassword));
+      sizeof(kRfc5769SampleResponseIPv6), kRfc5769SampleMsgPassword));
   EXPECT_FALSE(StunMessage::ValidateMessageIntegrity(
       reinterpret_cast<const char*>(kRfc5769SampleResponseIPv6),
-      sizeof(kRfc5769SampleResponseIPv6),
-      "InvalidPassword"));
+      sizeof(kRfc5769SampleResponseIPv6), "InvalidPassword"));
 
   // We first need to compute the key for the long-term authentication HMAC.
   std::string key;
   ComputeStunCredentialHash(kRfc5769SampleMsgWithAuthUsername,
-      kRfc5769SampleMsgWithAuthRealm, kRfc5769SampleMsgWithAuthPassword, &key);
+                            kRfc5769SampleMsgWithAuthRealm,
+                            kRfc5769SampleMsgWithAuthPassword, &key);
   EXPECT_TRUE(StunMessage::ValidateMessageIntegrity(
       reinterpret_cast<const char*>(kRfc5769SampleRequestLongTermAuth),
       sizeof(kRfc5769SampleRequestLongTermAuth), key));
   EXPECT_FALSE(StunMessage::ValidateMessageIntegrity(
       reinterpret_cast<const char*>(kRfc5769SampleRequestLongTermAuth),
-      sizeof(kRfc5769SampleRequestLongTermAuth),
-      "InvalidPassword"));
+      sizeof(kRfc5769SampleRequestLongTermAuth), "InvalidPassword"));
 
   // Try some edge cases.
   EXPECT_FALSE(StunMessage::ValidateMessageIntegrity(
       reinterpret_cast<const char*>(kStunMessageWithZeroLength),
-      sizeof(kStunMessageWithZeroLength),
-      kRfc5769SampleMsgPassword));
+      sizeof(kStunMessageWithZeroLength), kRfc5769SampleMsgPassword));
   EXPECT_FALSE(StunMessage::ValidateMessageIntegrity(
       reinterpret_cast<const char*>(kStunMessageWithExcessLength),
-      sizeof(kStunMessageWithExcessLength),
-      kRfc5769SampleMsgPassword));
+      sizeof(kStunMessageWithExcessLength), kRfc5769SampleMsgPassword));
   EXPECT_FALSE(StunMessage::ValidateMessageIntegrity(
       reinterpret_cast<const char*>(kStunMessageWithSmallLength),
-      sizeof(kStunMessageWithSmallLength),
-      kRfc5769SampleMsgPassword));
+      sizeof(kStunMessageWithSmallLength), kRfc5769SampleMsgPassword));
 
   // Again, but with the lengths matching what is claimed in the headers.
   EXPECT_FALSE(StunMessage::ValidateMessageIntegrity(
@@ -1222,8 +1192,7 @@ TEST_F(StunTest, ValidateMessageIntegrity) {
   // Check that a too-short HMAC doesn't cause buffer overflow.
   EXPECT_FALSE(StunMessage::ValidateMessageIntegrity(
       reinterpret_cast<const char*>(kStunMessageWithBadHmacAtEnd),
-      sizeof(kStunMessageWithBadHmacAtEnd),
-      kRfc5769SampleMsgPassword));
+      sizeof(kStunMessageWithBadHmacAtEnd), kRfc5769SampleMsgPassword));
 
   // Test that munging a single bit anywhere in the message causes the
   // message-integrity check to fail, unless it is after the M-I attribute.
@@ -1233,8 +1202,9 @@ TEST_F(StunTest, ValidateMessageIntegrity) {
     buf[i] ^= 0x01;
     if (i > 0)
       buf[i - 1] ^= 0x01;
-    EXPECT_EQ(i >= sizeof(buf) - 8, StunMessage::ValidateMessageIntegrity(
-        buf, sizeof(buf), kRfc5769SampleMsgPassword));
+    EXPECT_EQ(i >= sizeof(buf) - 8,
+              StunMessage::ValidateMessageIntegrity(buf, sizeof(buf),
+                                                    kRfc5769SampleMsgPassword));
   }
 }
 
@@ -1251,14 +1221,14 @@ TEST_F(StunTest, AddMessageIntegrity) {
   const StunByteStringAttribute* mi_attr =
       msg.GetByteString(STUN_ATTR_MESSAGE_INTEGRITY);
   EXPECT_EQ(20U, mi_attr->length());
-  EXPECT_EQ(0, memcmp(
-      mi_attr->bytes(), kCalculatedHmac1, sizeof(kCalculatedHmac1)));
+  EXPECT_EQ(
+      0, memcmp(mi_attr->bytes(), kCalculatedHmac1, sizeof(kCalculatedHmac1)));
 
   rtc::ByteBufferWriter buf1;
   EXPECT_TRUE(msg.Write(&buf1));
   EXPECT_TRUE(StunMessage::ValidateMessageIntegrity(
-        reinterpret_cast<const char*>(buf1.Data()), buf1.Length(),
-        kRfc5769SampleMsgPassword));
+      reinterpret_cast<const char*>(buf1.Data()), buf1.Length(),
+      kRfc5769SampleMsgPassword));
 
   IceMessage msg2;
   rtc::ByteBufferReader buf2(
@@ -1275,8 +1245,8 @@ TEST_F(StunTest, AddMessageIntegrity) {
   rtc::ByteBufferWriter buf3;
   EXPECT_TRUE(msg2.Write(&buf3));
   EXPECT_TRUE(StunMessage::ValidateMessageIntegrity(
-        reinterpret_cast<const char*>(buf3.Data()), buf3.Length(),
-        kRfc5769SampleMsgPassword));
+      reinterpret_cast<const char*>(buf3.Data()), buf3.Length(),
+      kRfc5769SampleMsgPassword));
 }
 
 // Check our STUN message validation code against the RFC5769 test messages.
@@ -1331,34 +1301,26 @@ TEST_F(StunTest, AddFingerprint) {
 }
 
 // Sample "GTURN" relay message.
-static const unsigned char kRelayMessage[] = {
-  0x00, 0x01, 0x00, 88,    // message header
-  0x21, 0x12, 0xA4, 0x42,  // magic cookie
-  '0', '1', '2', '3',      // transaction id
-  '4', '5', '6', '7',
-  '8', '9', 'a', 'b',
-  0x00, 0x01, 0x00, 8,     // mapped address
-  0x00, 0x01, 0x00, 13,
-  0x00, 0x00, 0x00, 17,
-  0x00, 0x06, 0x00, 12,    // username
-  'a', 'b', 'c', 'd',
-  'e', 'f', 'g', 'h',
-  'i', 'j', 'k', 'l',
-  0x00, 0x0d, 0x00, 4,     // lifetime
-  0x00, 0x00, 0x00, 11,
-  0x00, 0x0f, 0x00, 4,     // magic cookie
-  0x72, 0xc6, 0x4b, 0xc6,
-  0x00, 0x10, 0x00, 4,     // bandwidth
-  0x00, 0x00, 0x00, 6,
-  0x00, 0x11, 0x00, 8,     // destination address
-  0x00, 0x01, 0x00, 13,
-  0x00, 0x00, 0x00, 17,
-  0x00, 0x12, 0x00, 8,     // source address 2
-  0x00, 0x01, 0x00, 13,
-  0x00, 0x00, 0x00, 17,
-  0x00, 0x13, 0x00, 7,     // data
-  'a', 'b', 'c', 'd',
-  'e', 'f', 'g', 0         // DATA must be padded per rfc5766.
+static const unsigned char kRelayMessage[] =
+    {
+        0x00, 0x01, 0x00, 88,    // message header
+        0x21, 0x12, 0xA4, 0x42,  // magic cookie
+        '0',  '1',  '2',  '3',   // transaction id
+        '4',  '5',  '6',  '7',  '8',  '9',  'a',  'b', 0x00,
+        0x01, 0x00, 8,  // mapped address
+        0x00, 0x01, 0x00, 13,   0x00, 0x00, 0x00, 17,  0x00,
+        0x06, 0x00, 12,  // username
+        'a',  'b',  'c',  'd',  'e',  'f',  'g',  'h', 'i',
+        'j',  'k',  'l',  0x00, 0x0d, 0x00, 4,        // lifetime
+        0x00, 0x00, 0x00, 11,   0x00, 0x0f, 0x00, 4,  // magic cookie
+        0x72, 0xc6, 0x4b, 0xc6, 0x00, 0x10, 0x00, 4,  // bandwidth
+        0x00, 0x00, 0x00, 6,    0x00, 0x11, 0x00, 8,  // destination address
+        0x00, 0x01, 0x00, 13,   0x00, 0x00, 0x00, 17,  0x00,
+        0x12, 0x00, 8,  // source address 2
+        0x00, 0x01, 0x00, 13,   0x00, 0x00, 0x00, 17,  0x00,
+        0x13, 0x00, 7,                               // data
+        'a',  'b',  'c',  'd',  'e',  'f',  'g',  0  // DATA must be padded per
+                                                     // rfc5766.
 };
 
 // Test that we can read the GTURN-specific fields.
@@ -1412,10 +1374,8 @@ TEST_F(StunTest, ReadRelayMessage) {
   bytes = msg.GetByteString(STUN_ATTR_MAGIC_COOKIE);
   ASSERT_TRUE(bytes != NULL);
   EXPECT_EQ(4U, bytes->length());
-  EXPECT_EQ(0,
-            memcmp(bytes->bytes(),
-                   TURN_MAGIC_COOKIE_VALUE,
-                   sizeof(TURN_MAGIC_COOKIE_VALUE)));
+  EXPECT_EQ(0, memcmp(bytes->bytes(), TURN_MAGIC_COOKIE_VALUE,
+                      sizeof(TURN_MAGIC_COOKIE_VALUE)));
 
   bytes2 = StunAttribute::CreateByteString(STUN_ATTR_MAGIC_COOKIE);
   bytes2->CopyBytes(reinterpret_cast<const char*>(TURN_MAGIC_COOKIE_VALUE),
@@ -1541,10 +1501,10 @@ TEST_F(StunTest, RemoveAttribute) {
 // Test CopyStunAttribute
 TEST_F(StunTest, CopyAttribute) {
   rtc::ByteBufferWriter buf;
-  rtc::ByteBufferWriter* buffer_ptrs[] = { &buf, nullptr };
+  rtc::ByteBufferWriter* buffer_ptrs[] = {&buf, nullptr};
   // Test both with and without supplied ByteBufferWriter.
   for (auto buffer_ptr : buffer_ptrs) {
-    { // Test StunByteStringAttribute.
+    {  // Test StunByteStringAttribute.
       auto attr = StunAttribute::CreateByteString(STUN_ATTR_USERNAME);
       attr->CopyBytes("kes", sizeof("kes"));
 
@@ -1554,13 +1514,13 @@ TEST_F(StunTest, CopyAttribute) {
                    static_cast<StunByteStringAttribute*>(copy.get())->bytes());
     }
 
-    { // Test StunAddressAttribute.
+    {  // Test StunAddressAttribute.
       rtc::IPAddress test_ip(kIPv6TestAddress2);
       auto addr = StunAttribute::CreateAddress(STUN_ATTR_MAPPED_ADDRESS);
       rtc::SocketAddress test_addr(test_ip, kTestMessagePort2);
       addr->SetAddress(test_addr);
-      CheckStunAddressAttribute(addr.get(),
-                                STUN_ADDRESS_IPV6, kTestMessagePort2, test_ip);
+      CheckStunAddressAttribute(addr.get(), STUN_ADDRESS_IPV6,
+                                kTestMessagePort2, test_ip);
 
       auto copy = CopyStunAttribute(*addr.get(), buffer_ptr);
       ASSERT_EQ(copy->value_type(), STUN_VALUE_ADDRESS);

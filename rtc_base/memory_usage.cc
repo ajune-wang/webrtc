@@ -12,14 +12,14 @@
 
 #if defined(WEBRTC_LINUX)
 #include <unistd.h>
-#include <cstdlib>
 #include <cstdio>
+#include <cstdlib>
 #include <cstring>
 #elif defined(WEBRTC_MAC)
 #include <mach/mach.h>
 #elif defined(WEBRTC_WIN)
-#include <windows.h>
 #include <psapi.h>
+#include <windows.h>
 #endif
 
 #include "rtc_base/logging.h"

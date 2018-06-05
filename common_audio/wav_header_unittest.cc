@@ -84,8 +84,8 @@ TEST(WavHeaderTest, CheckWavParameters) {
 
   // Too large values.
   EXPECT_FALSE(CheckWavParameters(1 << 20, 1 << 20, kWavFormatPcm, 1, 0));
-  EXPECT_FALSE(CheckWavParameters(
-      1, 8000, kWavFormatPcm, 1, std::numeric_limits<uint32_t>::max()));
+  EXPECT_FALSE(CheckWavParameters(1, 8000, kWavFormatPcm, 1,
+                                  std::numeric_limits<uint32_t>::max()));
 
   // Not the same number of samples for each channel.
   EXPECT_FALSE(CheckWavParameters(3, 8000, kWavFormatPcm, 1, 5));
@@ -104,142 +104,129 @@ TEST(WavHeaderTest, ReadWavHeaderWithErrors) {
   // *BAD*.
   {
     static const uint8_t kBadRiffID[] = {
-      'R', 'i', 'f', 'f',  // *BAD*
-      0xbd, 0xd0, 0x5b, 0x07,  // size of whole file - 8: 123457689 + 44 - 8
-      'W', 'A', 'V', 'E',
-      'f', 'm', 't', ' ',
-      16, 0, 0, 0,  // size of fmt block - 8: 24 - 8
-      6, 0,  // format: A-law (6)
-      17, 0,  // channels: 17
-      0x39, 0x30, 0, 0,  // sample rate: 12345
-      0xc9, 0x33, 0x03, 0,  // byte rate: 1 * 17 * 12345
-      17, 0,  // block align: NumChannels * BytesPerSample
-      8, 0,  // bits per sample: 1 * 8
-      'd', 'a', 't', 'a',
-      0x99, 0xd0, 0x5b, 0x07,  // size of payload: 123457689
+        'R',  'i',  'f',  'f',   // *BAD*
+        0xbd, 0xd0, 0x5b, 0x07,  // size of whole file - 8: 123457689 + 44 - 8
+        'W',  'A',  'V',  'E',  'f',  'm',  't',  ' ',
+        16,   0,    0,    0,  // size of fmt block - 8: 24 - 8
+        6,    0,              // format: A-law (6)
+        17,   0,              // channels: 17
+        0x39, 0x30, 0,    0,  // sample rate: 12345
+        0xc9, 0x33, 0x03, 0,  // byte rate: 1 * 17 * 12345
+        17,   0,              // block align: NumChannels * BytesPerSample
+        8,    0,              // bits per sample: 1 * 8
+        'd',  'a',  't',  'a',  0x99, 0xd0, 0x5b, 0x07,  // size of payload:
+                                                         // 123457689
     };
     ReadableWavBuffer r(kBadRiffID, sizeof(kBadRiffID));
-    EXPECT_FALSE(
-        ReadWavHeader(&r, &num_channels, &sample_rate, &format,
-                      &bytes_per_sample, &num_samples));
+    EXPECT_FALSE(ReadWavHeader(&r, &num_channels, &sample_rate, &format,
+                               &bytes_per_sample, &num_samples));
   }
   {
     static const uint8_t kBadBitsPerSample[] = {
-      'R', 'I', 'F', 'F',
-      0xbd, 0xd0, 0x5b, 0x07,  // size of whole file - 8: 123457689 + 44 - 8
-      'W', 'A', 'V', 'E',
-      'f', 'm', 't', ' ',
-      16, 0, 0, 0,  // size of fmt block - 8: 24 - 8
-      6, 0,  // format: A-law (6)
-      17, 0,  // channels: 17
-      0x39, 0x30, 0, 0,  // sample rate: 12345
-      0xc9, 0x33, 0x03, 0,  // byte rate: 1 * 17 * 12345
-      17, 0,  // block align: NumChannels * BytesPerSample
-      1, 0,  // bits per sample: *BAD*
-      'd', 'a', 't', 'a',
-      0x99, 0xd0, 0x5b, 0x07,  // size of payload: 123457689
+        'R', 'I', 'F', 'F', 0xbd, 0xd0, 0x5b, 0x07,  // size of whole file -
+                                                     // 8: 123457689 + 44 - 8
+        'W', 'A', 'V', 'E', 'f', 'm', 't', ' ', 16, 0, 0,
+        0,                    // size of fmt block - 8: 24 - 8
+        6, 0,                 // format: A-law (6)
+        17, 0,                // channels: 17
+        0x39, 0x30, 0, 0,     // sample rate: 12345
+        0xc9, 0x33, 0x03, 0,  // byte rate: 1 * 17 * 12345
+        17, 0,                // block align: NumChannels * BytesPerSample
+        1, 0,                 // bits per sample: *BAD*
+        'd', 'a', 't', 'a', 0x99, 0xd0, 0x5b, 0x07,  // size of payload:
+                                                     // 123457689
     };
     ReadableWavBuffer r(kBadBitsPerSample, sizeof(kBadBitsPerSample));
-    EXPECT_FALSE(
-        ReadWavHeader(&r, &num_channels, &sample_rate, &format,
-                      &bytes_per_sample, &num_samples));
+    EXPECT_FALSE(ReadWavHeader(&r, &num_channels, &sample_rate, &format,
+                               &bytes_per_sample, &num_samples));
   }
   {
     static const uint8_t kBadByteRate[] = {
-      'R', 'I', 'F', 'F',
-      0xbd, 0xd0, 0x5b, 0x07,  // size of whole file - 8: 123457689 + 44 - 8
-      'W', 'A', 'V', 'E',
-      'f', 'm', 't', ' ',
-      16, 0, 0, 0,  // size of fmt block - 8: 24 - 8
-      6, 0,  // format: A-law (6)
-      17, 0,  // channels: 17
-      0x39, 0x30, 0, 0,  // sample rate: 12345
-      0x00, 0x33, 0x03, 0,  // byte rate: *BAD*
-      17, 0,  // block align: NumChannels * BytesPerSample
-      8, 0,  // bits per sample: 1 * 8
-      'd', 'a', 't', 'a',
-      0x99, 0xd0, 0x5b, 0x07,  // size of payload: 123457689
+        'R', 'I', 'F', 'F', 0xbd, 0xd0, 0x5b, 0x07,  // size of whole file -
+                                                     // 8: 123457689 + 44 - 8
+        'W', 'A', 'V', 'E', 'f', 'm', 't', ' ', 16, 0, 0,
+        0,                    // size of fmt block - 8: 24 - 8
+        6, 0,                 // format: A-law (6)
+        17, 0,                // channels: 17
+        0x39, 0x30, 0, 0,     // sample rate: 12345
+        0x00, 0x33, 0x03, 0,  // byte rate: *BAD*
+        17, 0,                // block align: NumChannels * BytesPerSample
+        8, 0,                 // bits per sample: 1 * 8
+        'd', 'a', 't', 'a', 0x99, 0xd0, 0x5b, 0x07,  // size of payload:
+                                                     // 123457689
     };
     ReadableWavBuffer r(kBadByteRate, sizeof(kBadByteRate));
-    EXPECT_FALSE(
-        ReadWavHeader(&r, &num_channels, &sample_rate, &format,
-                      &bytes_per_sample, &num_samples));
+    EXPECT_FALSE(ReadWavHeader(&r, &num_channels, &sample_rate, &format,
+                               &bytes_per_sample, &num_samples));
   }
   {
     static const uint8_t kBadFmtHeaderSize[] = {
-      'R', 'I', 'F', 'F',
-      0xbd, 0xd0, 0x5b, 0x07,  // size of whole file - 8: 123457689 + 44 - 8
-      'W', 'A', 'V', 'E',
-      'f', 'm', 't', ' ',
-      17, 0, 0, 0,  // size of fmt block *BAD*. Only 16 and 18 permitted.
-      6, 0,  // format: A-law (6)
-      17, 0,  // channels: 17
-      0x39, 0x30, 0, 0,  // sample rate: 12345
-      0xc9, 0x33, 0x03, 0,  // byte rate: 1 * 17 * 12345
-      17, 0,  // block align: NumChannels * BytesPerSample
-      8, 0,  // bits per sample: 1 * 8
-      0,  // extra (though invalid) header byte
-      'd', 'a', 't', 'a',
-      0x99, 0xd0, 0x5b, 0x07,  // size of payload: 123457689
+        'R', 'I', 'F', 'F', 0xbd, 0xd0, 0x5b, 0x07,  // size of whole file -
+                                                     // 8: 123457689 + 44 - 8
+        'W', 'A', 'V', 'E', 'f', 'm', 't', ' ', 17, 0, 0,
+        0,                 // size of fmt block *BAD*. Only 16 and 18 permitted.
+        6, 0,              // format: A-law (6)
+        17, 0,             // channels: 17
+        0x39, 0x30, 0, 0,  // sample rate: 12345
+        0xc9, 0x33, 0x03, 0,  // byte rate: 1 * 17 * 12345
+        17, 0,                // block align: NumChannels * BytesPerSample
+        8, 0,                 // bits per sample: 1 * 8
+        0,                    // extra (though invalid) header byte
+        'd', 'a', 't', 'a', 0x99, 0xd0, 0x5b, 0x07,  // size of payload:
+                                                     // 123457689
     };
     ReadableWavBuffer r(kBadFmtHeaderSize, sizeof(kBadFmtHeaderSize), false);
-    EXPECT_FALSE(
-        ReadWavHeader(&r, &num_channels, &sample_rate, &format,
-                      &bytes_per_sample, &num_samples));
+    EXPECT_FALSE(ReadWavHeader(&r, &num_channels, &sample_rate, &format,
+                               &bytes_per_sample, &num_samples));
   }
   {
     static const uint8_t kNonZeroExtensionField[] = {
-      'R', 'I', 'F', 'F',
-      0xbd, 0xd0, 0x5b, 0x07,  // size of whole file - 8: 123457689 + 44 - 8
-      'W', 'A', 'V', 'E',
-      'f', 'm', 't', ' ',
-      18, 0, 0, 0,  // size of fmt block - 8: 24 - 8
-      6, 0,  // format: A-law (6)
-      17, 0,  // channels: 17
-      0x39, 0x30, 0, 0,  // sample rate: 12345
-      0xc9, 0x33, 0x03, 0,  // byte rate: 1 * 17 * 12345
-      17, 0,  // block align: NumChannels * BytesPerSample
-      8, 0,  // bits per sample: 1 * 8
-      1, 0,  // non-zero extension field *BAD*
-      'd', 'a', 't', 'a',
-      0x99, 0xd0, 0x5b, 0x07,  // size of payload: 123457689
+        'R', 'I', 'F', 'F', 0xbd, 0xd0, 0x5b, 0x07,  // size of whole file -
+                                                     // 8: 123457689 + 44 - 8
+        'W', 'A', 'V', 'E', 'f', 'm', 't', ' ', 18, 0, 0,
+        0,                    // size of fmt block - 8: 24 - 8
+        6, 0,                 // format: A-law (6)
+        17, 0,                // channels: 17
+        0x39, 0x30, 0, 0,     // sample rate: 12345
+        0xc9, 0x33, 0x03, 0,  // byte rate: 1 * 17 * 12345
+        17, 0,                // block align: NumChannels * BytesPerSample
+        8, 0,                 // bits per sample: 1 * 8
+        1, 0,                 // non-zero extension field *BAD*
+        'd', 'a', 't', 'a', 0x99, 0xd0, 0x5b, 0x07,  // size of payload:
+                                                     // 123457689
     };
     ReadableWavBuffer r(kNonZeroExtensionField, sizeof(kNonZeroExtensionField),
                         false);
-    EXPECT_FALSE(
-        ReadWavHeader(&r, &num_channels, &sample_rate, &format,
-                      &bytes_per_sample, &num_samples));
+    EXPECT_FALSE(ReadWavHeader(&r, &num_channels, &sample_rate, &format,
+                               &bytes_per_sample, &num_samples));
   }
   {
     static const uint8_t kMissingDataChunk[] = {
-      'R', 'I', 'F', 'F',
-      0xbd, 0xd0, 0x5b, 0x07,  // size of whole file - 8: 123457689 + 44 - 8
-      'W', 'A', 'V', 'E',
-      'f', 'm', 't', ' ',
-      16, 0, 0, 0,  // size of fmt block - 8: 24 - 8
-      6, 0,  // format: A-law (6)
-      17, 0,  // channels: 17
-      0x39, 0x30, 0, 0,  // sample rate: 12345
-      0xc9, 0x33, 0x03, 0,  // byte rate: 1 * 17 * 12345
-      17, 0,  // block align: NumChannels * BytesPerSample
-      8, 0,  // bits per sample: 1 * 8
+        'R', 'I', 'F', 'F', 0xbd, 0xd0, 0x5b, 0x07,  // size of whole file -
+                                                     // 8: 123457689 + 44 - 8
+        'W', 'A', 'V', 'E', 'f', 'm', 't', ' ', 16, 0, 0,
+        0,                    // size of fmt block - 8: 24 - 8
+        6, 0,                 // format: A-law (6)
+        17, 0,                // channels: 17
+        0x39, 0x30, 0, 0,     // sample rate: 12345
+        0xc9, 0x33, 0x03, 0,  // byte rate: 1 * 17 * 12345
+        17, 0,                // block align: NumChannels * BytesPerSample
+        8, 0,                 // bits per sample: 1 * 8
     };
     ReadableWavBuffer r(kMissingDataChunk, sizeof(kMissingDataChunk));
-    EXPECT_FALSE(
-        ReadWavHeader(&r, &num_channels, &sample_rate, &format,
-                      &bytes_per_sample, &num_samples));
+    EXPECT_FALSE(ReadWavHeader(&r, &num_channels, &sample_rate, &format,
+                               &bytes_per_sample, &num_samples));
   }
   {
     static const uint8_t kMissingFmtAndDataChunks[] = {
-      'R', 'I', 'F', 'F',
-      0xbd, 0xd0, 0x5b, 0x07,  // size of whole file - 8: 123457689 + 44 - 8
-      'W', 'A', 'V', 'E',
+        'R',  'I',  'F',  'F',
+        0xbd, 0xd0, 0x5b, 0x07,  // size of whole file - 8: 123457689 + 44 - 8
+        'W',  'A',  'V',  'E',
     };
     ReadableWavBuffer r(kMissingFmtAndDataChunks,
                         sizeof(kMissingFmtAndDataChunks));
-    EXPECT_FALSE(
-        ReadWavHeader(&r, &num_channels, &sample_rate, &format,
-                      &bytes_per_sample, &num_samples));
+    EXPECT_FALSE(ReadWavHeader(&r, &num_channels, &sample_rate, &format,
+                               &bytes_per_sample, &num_samples));
   }
 }
 
@@ -250,21 +237,20 @@ TEST(WavHeaderTest, WriteAndReadWavHeader) {
   memset(buf, 0xa4, sizeof(buf));
   WriteWavHeader(buf + 4, 17, 12345, kWavFormatALaw, 1, 123457689);
   static const uint8_t kExpectedBuf[] = {
-    0xa4, 0xa4, 0xa4, 0xa4,  // untouched bytes before header
-    'R', 'I', 'F', 'F',
-    0xbd, 0xd0, 0x5b, 0x07,  // size of whole file - 8: 123457689 + 44 - 8
-    'W', 'A', 'V', 'E',
-    'f', 'm', 't', ' ',
-    16, 0, 0, 0,  // size of fmt block - 8: 24 - 8
-    6, 0,  // format: A-law (6)
-    17, 0,  // channels: 17
-    0x39, 0x30, 0, 0,  // sample rate: 12345
-    0xc9, 0x33, 0x03, 0,  // byte rate: 1 * 17 * 12345
-    17, 0,  // block align: NumChannels * BytesPerSample
-    8, 0,  // bits per sample: 1 * 8
-    'd', 'a', 't', 'a',
-    0x99, 0xd0, 0x5b, 0x07,  // size of payload: 123457689
-    0xa4, 0xa4, 0xa4, 0xa4,  // untouched bytes after header
+      0xa4, 0xa4, 0xa4, 0xa4,  // untouched bytes before header
+      'R', 'I', 'F', 'F', 0xbd, 0xd0, 0x5b, 0x07,  // size of whole file -
+                                                   // 8: 123457689 + 44 - 8
+      'W', 'A', 'V', 'E', 'f', 'm', 't', ' ', 16, 0, 0,
+      0,                    // size of fmt block - 8: 24 - 8
+      6, 0,                 // format: A-law (6)
+      17, 0,                // channels: 17
+      0x39, 0x30, 0, 0,     // sample rate: 12345
+      0xc9, 0x33, 0x03, 0,  // byte rate: 1 * 17 * 12345
+      17, 0,                // block align: NumChannels * BytesPerSample
+      8, 0,                 // bits per sample: 1 * 8
+      'd', 'a', 't', 'a', 0x99, 0xd0, 0x5b, 0x07,  // size of payload:
+                                                   // 123457689
+      0xa4, 0xa4, 0xa4, 0xa4,  // untouched bytes after header
   };
   static_assert(sizeof(kExpectedBuf) == kSize, "buffer size");
   EXPECT_EQ(0, memcmp(kExpectedBuf, buf, kSize));
@@ -275,9 +261,8 @@ TEST(WavHeaderTest, WriteAndReadWavHeader) {
   size_t bytes_per_sample = 0;
   size_t num_samples = 0;
   ReadableWavBuffer r(buf + 4, sizeof(buf) - 8);
-  EXPECT_TRUE(
-      ReadWavHeader(&r, &num_channels, &sample_rate, &format,
-                    &bytes_per_sample, &num_samples));
+  EXPECT_TRUE(ReadWavHeader(&r, &num_channels, &sample_rate, &format,
+                            &bytes_per_sample, &num_samples));
   EXPECT_EQ(17u, num_channels);
   EXPECT_EQ(12345, sample_rate);
   EXPECT_EQ(kWavFormatALaw, format);
@@ -288,21 +273,19 @@ TEST(WavHeaderTest, WriteAndReadWavHeader) {
 // Try reading an atypical but valid WAV header and make sure it's parsed OK.
 TEST(WavHeaderTest, ReadAtypicalWavHeader) {
   static const uint8_t kBuf[] = {
-    'R', 'I', 'F', 'F',
-    0x3d, 0xd1, 0x5b, 0x07,  // size of whole file - 8 + an extra 128 bytes of
-                             // "metadata": 123457689 + 44 - 8 + 128. (atypical)
-    'W', 'A', 'V', 'E',
-    'f', 'm', 't', ' ',
-    18, 0, 0, 0,  // size of fmt block (with an atypical extension size field)
-    6, 0,  // format: A-law (6)
-    17, 0,  // channels: 17
-    0x39, 0x30, 0, 0,  // sample rate: 12345
-    0xc9, 0x33, 0x03, 0,  // byte rate: 1 * 17 * 12345
-    17, 0,  // block align: NumChannels * BytesPerSample
-    8, 0,  // bits per sample: 1 * 8
-    0, 0,  // zero extension size field (atypical)
-    'd', 'a', 't', 'a',
-    0x99, 0xd0, 0x5b, 0x07,  // size of payload: 123457689
+      'R', 'I', 'F', 'F', 0x3d, 0xd1, 0x5b,
+      0x07,  // size of whole file - 8 + an extra 128 bytes of
+             // "metadata": 123457689 + 44 - 8 + 128. (atypical)
+      'W', 'A', 'V', 'E', 'f', 'm', 't', ' ', 18, 0, 0,
+      0,      // size of fmt block (with an atypical extension size field)
+      6, 0,   // format: A-law (6)
+      17, 0,  // channels: 17
+      0x39, 0x30, 0, 0,     // sample rate: 12345
+      0xc9, 0x33, 0x03, 0,  // byte rate: 1 * 17 * 12345
+      17, 0,                // block align: NumChannels * BytesPerSample
+      8, 0,                 // bits per sample: 1 * 8
+      0, 0,                 // zero extension size field (atypical)
+      'd', 'a', 't', 'a', 0x99, 0xd0, 0x5b, 0x07,  // size of payload: 123457689
   };
 
   size_t num_channels = 0;
@@ -311,9 +294,8 @@ TEST(WavHeaderTest, ReadAtypicalWavHeader) {
   size_t bytes_per_sample = 0;
   size_t num_samples = 0;
   ReadableWavBuffer r(kBuf, sizeof(kBuf));
-  EXPECT_TRUE(
-      ReadWavHeader(&r, &num_channels, &sample_rate, &format,
-                    &bytes_per_sample, &num_samples));
+  EXPECT_TRUE(ReadWavHeader(&r, &num_channels, &sample_rate, &format,
+                            &bytes_per_sample, &num_samples));
   EXPECT_EQ(17u, num_channels);
   EXPECT_EQ(12345, sample_rate);
   EXPECT_EQ(kWavFormatALaw, format);

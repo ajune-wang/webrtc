@@ -151,15 +151,16 @@ TEST_F(ReceiveStatisticsProxyTest, ReportsContentType) {
   const std::string kRealtimeString("realtime");
   const std::string kScreenshareString("screen");
   EXPECT_EQ(kRealtimeString, videocontenttypehelpers::ToString(
-                            statistics_proxy_->GetStats().content_type));
+                                 statistics_proxy_->GetStats().content_type));
   statistics_proxy_->OnDecodedFrame(3u, kWidth, kHeight,
                                     VideoContentType::SCREENSHARE);
-  EXPECT_EQ(kScreenshareString, videocontenttypehelpers::ToString(
-                          statistics_proxy_->GetStats().content_type));
+  EXPECT_EQ(kScreenshareString,
+            videocontenttypehelpers::ToString(
+                statistics_proxy_->GetStats().content_type));
   statistics_proxy_->OnDecodedFrame(3u, kWidth, kHeight,
                                     VideoContentType::UNSPECIFIED);
   EXPECT_EQ(kRealtimeString, videocontenttypehelpers::ToString(
-                            statistics_proxy_->GetStats().content_type));
+                                 statistics_proxy_->GetStats().content_type));
 }
 
 TEST_F(ReceiveStatisticsProxyTest, ReportsMaxInterframeDelay) {
@@ -372,8 +373,7 @@ TEST_F(ReceiveStatisticsProxyTest, GetStatsReportsNoCNameForUnknownSsrc) {
   EXPECT_STREQ("", statistics_proxy_->GetStats().c_name.c_str());
 }
 
-TEST_F(ReceiveStatisticsProxyTest,
-       ReportsLongestTimingFrameInfo) {
+TEST_F(ReceiveStatisticsProxyTest, ReportsLongestTimingFrameInfo) {
   const int64_t kShortEndToEndDelay = 10;
   const int64_t kMedEndToEndDelay = 20;
   const int64_t kLongEndToEndDelay = 100;
@@ -1059,7 +1059,7 @@ TEST_P(ReceiveStatisticsProxyTest, ManyPausesAtTheBeginning) {
     fake_clock_.AdvanceTimeMilliseconds(kPauseDurationMs);
 
     statistics_proxy_->OnDecodedFrame(rtc::nullopt, kWidth, kHeight,
-                                          content_type);
+                                      content_type);
     fake_clock_.AdvanceTimeMilliseconds(kInterFrameDelayMs);
   }
 

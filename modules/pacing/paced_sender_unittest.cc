@@ -600,7 +600,7 @@ TEST_F(PacedSenderTest, SendsOnlyPaddingWhenCongested) {
   EXPECT_EQ(blocked_packets, send_bucket_->QueueSizePackets());
 }
 
-TEST_F(PacedSenderTest, DoesNotAllowOveruseAfterCongestion) {
+TEST_F(PacedSenderTest, DoesNotAllowOverUseAfterCongestion) {
   uint32_t ssrc = 202020;
   uint16_t seq_num = 1000;
   RtpPacketSender::Priority prio = PacedSender::kNormalPriority;
@@ -610,7 +610,7 @@ TEST_F(PacedSenderTest, DoesNotAllowOveruseAfterCongestion) {
   // The pacing rate is low enough that the budget should not allow two packets
   // to be sent in a row.
   send_bucket_->SetPacingRates(400 * 8 * 1000 / 5, 0);
-  // The congestion window is small enough to only let one packet through.
+  // The congestion window is small enough to only let one packet trough.
   send_bucket_->SetCongestionWindow(800);
   send_bucket_->UpdateOutstandingData(0);
   // Not yet budget limited or congested, packet is sent.

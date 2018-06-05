@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ce997c47_f865f8b6",
+        "filename": "modules/audio_processing/aec3/cascaded_biquad_filter.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-06-05T07:08:58Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "254281b2_92e1686a",
+      "revId": "682694ea38a0a88bd102752a86a9112cfd6e644f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c8ba8899_5d1c814f",
         "filename": "modules/audio_processing/aec3/filter_analyzer.cc",
         "patchSetId": 5
@@ -33,6 +51,24 @@
       "revId": "682694ea38a0a88bd102752a86a9112cfd6e644f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7595bba5_58f37313",
+        "filename": "modules/audio_processing/aec3/filter_analyzer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-06-05T07:08:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c8ba8899_5d1c814f",
+      "revId": "682694ea38a0a88bd102752a86a9112cfd6e644f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -59,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "fb361007_ba8451ba",
+        "filename": "modules/audio_processing/aec3/filter_analyzer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-06-05T07:08:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6a949096_6a9bbd2e",
+      "range": {
+        "startLine": 53,
+        "startChar": 3,
+        "endLine": 53,
+        "endChar": 11
+      },
+      "revId": "682694ea38a0a88bd102752a86a9112cfd6e644f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "583ef1a1_d672293e",
         "filename": "modules/audio_processing/aec3/filter_analyzer.cc",
         "patchSetId": 5
@@ -70,6 +130,24 @@
       "writtenOn": "2018-05-31T13:46:42Z",
       "side": 1,
       "message": "Maybe we could consider using a FIR-filter for the filtering (cheaper) and use the complexity savings to filter the whole signal at once (simpler)?",
+      "revId": "682694ea38a0a88bd102752a86a9112cfd6e644f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed9a699a_95bfa823",
+        "filename": "modules/audio_processing/aec3/filter_analyzer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-06-05T07:08:58Z",
+      "side": 1,
+      "message": "That would make sense. Let\u0027s discuss that further.",
+      "parentUuid": "583ef1a1_d672293e",
       "revId": "682694ea38a0a88bd102752a86a9112cfd6e644f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

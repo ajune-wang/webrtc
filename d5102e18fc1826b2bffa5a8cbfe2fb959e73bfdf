@@ -22,6 +22,30 @@
       "revId": "d5102e18fc1826b2bffa5a8cbfe2fb959e73bfdf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb7d733e_b222956b",
+        "filename": "rtc_base/sanitizer_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-06-05T20:11:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a8caea3e_b63d40a2",
+      "range": {
+        "startLine": 145,
+        "startChar": 0,
+        "endLine": 155,
+        "endChar": 1
+      },
+      "revId": "d5102e18fc1826b2bffa5a8cbfe2fb959e73bfdf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -51,21 +51,20 @@ class VideoSendStreamImpl;
 // |worker_queue|.
 class VideoSendStream : public webrtc::VideoSendStream {
  public:
-  VideoSendStream(
-      int num_cpu_cores,
-      ProcessThread* module_process_thread,
-      rtc::TaskQueue* worker_queue,
-      CallStats* call_stats,
-      RtpTransportControllerSendInterface* transport,
-      BitrateAllocator* bitrate_allocator,
-      SendDelayStats* send_delay_stats,
-      RtcEventLog* event_log,
-      VideoSendStream::Config config,
-      VideoEncoderConfig encoder_config,
-      const std::map<uint32_t, RtpState>& suspended_ssrcs,
-      const std::map<uint32_t, RtpPayloadState>& suspended_payload_states,
-      std::unique_ptr<FecController> fec_controller,
-      RateLimiter* retransmission_limiter);
+  VideoSendStream(int num_cpu_cores,
+                  ProcessThread* module_process_thread,
+                  rtc::TaskQueue* worker_queue,
+                  CallStats* call_stats,
+                  RtpTransportControllerSendInterface* transport,
+                  BitrateAllocator* bitrate_allocator,
+                  SendDelayStats* send_delay_stats,
+                  RtcEventLog* event_log,
+                  VideoSendStream::Config config,
+                  VideoEncoderConfig encoder_config,
+                  const std::map<uint32_t, RtpState>& suspended_ssrcs,
+                  const RtpPayloadState& rtp_payload_states,
+                  std::unique_ptr<FecController> fec_controller,
+                  RateLimiter* retransmission_limiter);
 
   ~VideoSendStream() override;
 
@@ -97,7 +96,7 @@ class VideoSendStream : public webrtc::VideoSendStream {
                                    size_t byte_limit) override;
 
   void StopPermanentlyAndGetRtpStates(RtpStateMap* rtp_state_map,
-                                      RtpPayloadStateMap* payload_state_map);
+                                      RtpPayloadState* rtp_payload_state);
 
   void SetTransportOverhead(size_t transport_overhead_per_packet);
 

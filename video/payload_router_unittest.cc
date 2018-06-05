@@ -308,12 +308,13 @@ TEST(PayloadRouterTest, InfoMappedToRtpVideoHeader_Vp8) {
   NiceMock<MockRtpRtcp> rtp1;
   NiceMock<MockRtpRtcp> rtp2;
   std::vector<RtpRtcp*> modules = {&rtp1, &rtp2};
-  RtpPayloadState state2;
-  state2.picture_id = kPictureId;
-  state2.tl0_pic_idx = kTl0PicIdx;
-  std::map<uint32_t, RtpPayloadState> states = {{kSsrc2, state2}};
+  RtpPayloadState::StreamState stream_state2;
+  stream_state2.picture_id = kPictureId;
+  stream_state2.tl0_pic_idx = kTl0PicIdx;
+  RtpPayloadState state;
+  state.stream_states[kSsrc2] = stream_state2;
 
-  PayloadRouter payload_router(modules, {kSsrc1, kSsrc2}, kPayloadType, states);
+  PayloadRouter payload_router(modules, {kSsrc1, kSsrc2}, kPayloadType, state);
   payload_router.SetActive(true);
 
   EncodedImage encoded_image;
@@ -352,14 +353,15 @@ TEST(PayloadRouterTest, InfoMappedToRtpVideoHeader_Vp8) {
 }
 
 TEST(PayloadRouterTest, InfoMappedToRtpVideoHeader_Vp9) {
+  RtpPayloadState::StreamState stream_state;
+  stream_state.picture_id = kPictureId;
+  stream_state.tl0_pic_idx = kTl0PicIdx;
   RtpPayloadState state;
-  state.picture_id = kPictureId;
-  state.tl0_pic_idx = kTl0PicIdx;
-  std::map<uint32_t, RtpPayloadState> states = {{kSsrc1, state}};
+  state.stream_states[kSsrc1] = stream_state;
 
   NiceMock<MockRtpRtcp> rtp;
   std::vector<RtpRtcp*> modules = {&rtp};
-  PayloadRouter router(modules, {kSsrc1}, kPayloadType, states);
+  PayloadRouter router(modules, {kSsrc1}, kPayloadType, state);
   router.SetActive(true);
 
   EncodedImage encoded_image;
@@ -432,7 +434,8 @@ TEST(PayloadRouterTest, InfoMappedToRtpVideoHeader_Vp9) {
 TEST(PayloadRouterTest, InfoMappedToRtpVideoHeader_H264) {
   NiceMock<MockRtpRtcp> rtp1;
   std::vector<RtpRtcp*> modules = {&rtp1};
-  PayloadRouter payload_router(modules, {kSsrc1}, kPayloadType, {});
+  PayloadRouter payload_router(modules, {kSsrc1}, kPayloadType,
+                               RtpPayloadState());
   payload_router.SetActive(true);
 
   EncodedImage encoded_image;
@@ -465,52 +468,58 @@ TEST(PayloadRouterTest, CreateWithNoPreviousStates) {
   PayloadRouter payload_router(modules, {kSsrc1, kSsrc2}, kPayloadType, {});
   payload_router.SetActive(true);
 
-  std::map<uint32_t, RtpPayloadState> initial_states =
-      payload_router.GetRtpPayloadStates();
-  EXPECT_EQ(2u, initial_states.size());
-  EXPECT_NE(initial_states.find(kSsrc1), initial_states.end());
-  EXPECT_NE(initial_states.find(kSsrc2), initial_states.end());
+  RtpPayloadState initial_state = payload_router.GetRtpPayloadStates();
+  EXPECT_EQ(2u, initial_state.stream_states.size());
+  EXPECT_NE(initial_state.stream_states.find(kSsrc1),
+            initial_state.stream_states.end());
+  EXPECT_NE(initial_state.stream_states.find(kSsrc2),
+            initial_state.stream_states.end());
 }
 
 TEST(PayloadRouterTest, CreateWithPreviousStates) {
-  RtpPayloadState state1;
-  state1.picture_id = kInitialPictureId1;
-  state1.tl0_pic_idx = kInitialTl0PicIdx1;
-  RtpPayloadState state2;
-  state2.picture_id = kInitialPictureId2;
-  state2.tl0_pic_idx = kInitialTl0PicIdx2;
-  std::map<uint32_t, RtpPayloadState> states = {{kSsrc1, state1},
-                                                {kSsrc2, state2}};
+  RtpPayloadState::StreamState stream_state1;
+  stream_state1.picture_id = kInitialPictureId1;
+  stream_state1.tl0_pic_idx = kInitialTl0PicIdx1;
+  RtpPayloadState::StreamState stream_state2;
+  stream_state2.picture_id = kInitialPictureId2;
+  stream_state2.tl0_pic_idx = kInitialTl0PicIdx2;
+  RtpPayloadState state;
+  state.stream_states[kSsrc1] = stream_state1;
+  state.stream_states[kSsrc2] = stream_state2;
 
   NiceMock<MockRtpRtcp> rtp1;
   NiceMock<MockRtpRtcp> rtp2;
   std::vector<RtpRtcp*> modules = {&rtp1, &rtp2};
-  PayloadRouter payload_router(modules, {kSsrc1, kSsrc2}, kPayloadType, states);
+  PayloadRouter payload_router(modules, {kSsrc1, kSsrc2}, kPayloadType, state);
   payload_router.SetActive(true);
 
-  std::map<uint32_t, RtpPayloadState> initial_states =
-      payload_router.GetRtpPayloadStates();
-  EXPECT_EQ(2u, initial_states.size());
-  EXPECT_EQ(kInitialPictureId1, initial_states[kSsrc1].picture_id);
-  EXPECT_EQ(kInitialTl0PicIdx1, initial_states[kSsrc1].tl0_pic_idx);
-  EXPECT_EQ(kInitialPictureId2, initial_states[kSsrc2].picture_id);
-  EXPECT_EQ(kInitialTl0PicIdx2, initial_states[kSsrc2].tl0_pic_idx);
+  RtpPayloadState initial_states = payload_router.GetRtpPayloadStates();
+  EXPECT_EQ(2u, initial_states.stream_states.size());
+  EXPECT_EQ(kInitialPictureId1,
+            initial_states.stream_states[kSsrc1].picture_id);
+  EXPECT_EQ(kInitialTl0PicIdx1,
+            initial_states.stream_states[kSsrc1].tl0_pic_idx);
+  EXPECT_EQ(kInitialPictureId2,
+            initial_states.stream_states[kSsrc2].picture_id);
+  EXPECT_EQ(kInitialTl0PicIdx2,
+            initial_states.stream_states[kSsrc2].tl0_pic_idx);
 }
 
 TEST(PayloadRouterTest, PictureIdIsSetForVp8) {
-  RtpPayloadState state1;
-  state1.picture_id = kInitialPictureId1;
-  state1.tl0_pic_idx = kInitialTl0PicIdx1;
-  RtpPayloadState state2;
-  state2.picture_id = kInitialPictureId2;
-  state2.tl0_pic_idx = kInitialTl0PicIdx2;
-  std::map<uint32_t, RtpPayloadState> states = {{kSsrc1, state1},
-                                                {kSsrc2, state2}};
+  RtpPayloadState::StreamState stream_state1;
+  stream_state1.picture_id = kInitialPictureId1;
+  stream_state1.tl0_pic_idx = kInitialTl0PicIdx1;
+  RtpPayloadState::StreamState stream_state2;
+  stream_state2.picture_id = kInitialPictureId2;
+  stream_state2.tl0_pic_idx = kInitialTl0PicIdx2;
+  RtpPayloadState state;
+  state.stream_states[kSsrc1] = stream_state1;
+  state.stream_states[kSsrc2] = stream_state2;
 
   NiceMock<MockRtpRtcp> rtp1;
   NiceMock<MockRtpRtcp> rtp2;
   std::vector<RtpRtcp*> modules = {&rtp1, &rtp2};
-  PayloadRouter router(modules, {kSsrc1, kSsrc2}, kPayloadType, states);
+  PayloadRouter router(modules, {kSsrc1, kSsrc2}, kPayloadType, state);
   router.SetActive(true);
 
   EncodedImage encoded_image;
@@ -549,22 +558,24 @@ TEST(PayloadRouterTest, PictureIdIsSetForVp8) {
             router.OnEncodedImage(encoded_image, &codec_info, nullptr).error);
 
   // State should hold latest used picture id and tl0_pic_idx.
-  states = router.GetRtpPayloadStates();
-  EXPECT_EQ(2u, states.size());
-  EXPECT_EQ(kInitialPictureId1 + 1, states[kSsrc1].picture_id);
-  EXPECT_EQ(kInitialTl0PicIdx1 + 1, states[kSsrc1].tl0_pic_idx);
-  EXPECT_EQ(kInitialPictureId2 + 1, states[kSsrc2].picture_id);
-  EXPECT_EQ(kInitialTl0PicIdx2 + 1, states[kSsrc2].tl0_pic_idx);
+  state = router.GetRtpPayloadStates();
+  EXPECT_EQ(2u, state.stream_states.size());
+  EXPECT_EQ(kInitialPictureId1 + 1, state.stream_states[kSsrc1].picture_id);
+  EXPECT_EQ(kInitialTl0PicIdx1 + 1, state.stream_states[kSsrc1].tl0_pic_idx);
+  EXPECT_EQ(kInitialPictureId2 + 1, state.stream_states[kSsrc2].picture_id);
+  EXPECT_EQ(kInitialTl0PicIdx2 + 1, state.stream_states[kSsrc2].tl0_pic_idx);
 }
 
 TEST(PayloadRouterTest, PictureIdWraps) {
-  RtpPayloadState state1;
-  state1.picture_id = kMaxTwoBytePictureId;
-  state1.tl0_pic_idx = kInitialTl0PicIdx1;
+  RtpPayloadState::StreamState stream_state1;
+  stream_state1.picture_id = kMaxTwoBytePictureId;
+  stream_state1.tl0_pic_idx = kInitialTl0PicIdx1;
+  RtpPayloadState state;
+  state.stream_states[kSsrc1] = stream_state1;
 
   NiceMock<MockRtpRtcp> rtp;
   std::vector<RtpRtcp*> modules = {&rtp};
-  PayloadRouter router(modules, {kSsrc1}, kPayloadType, {{kSsrc1, state1}});
+  PayloadRouter router(modules, {kSsrc1}, kPayloadType, state);
   router.SetActive(true);
 
   EncodedImage encoded_image;
@@ -586,21 +597,22 @@ TEST(PayloadRouterTest, PictureIdWraps) {
             router.OnEncodedImage(encoded_image, &codec_info, nullptr).error);
 
   // State should hold latest used picture id and tl0_pic_idx.
-  std::map<uint32_t, RtpPayloadState> states = router.GetRtpPayloadStates();
-  EXPECT_EQ(1u, states.size());
-  EXPECT_EQ(0, states[kSsrc1].picture_id);  // Wrapped.
-  EXPECT_EQ(kInitialTl0PicIdx1, states[kSsrc1].tl0_pic_idx);
+  state = router.GetRtpPayloadStates();
+  EXPECT_EQ(1u, state.stream_states.size());
+  EXPECT_EQ(0, state.stream_states[kSsrc1].picture_id);  // Wrapped.
+  EXPECT_EQ(kInitialTl0PicIdx1, state.stream_states[kSsrc1].tl0_pic_idx);
 }
 
 TEST(PayloadRouterTest, Tl0PicIdxUpdatedForVp8) {
+  RtpPayloadState::StreamState stream_state;
+  stream_state.picture_id = kInitialPictureId1;
+  stream_state.tl0_pic_idx = kInitialTl0PicIdx1;
   RtpPayloadState state;
-  state.picture_id = kInitialPictureId1;
-  state.tl0_pic_idx = kInitialTl0PicIdx1;
-  std::map<uint32_t, RtpPayloadState> states = {{kSsrc1, state}};
+  state.stream_states[kSsrc1] = stream_state;
 
   NiceMock<MockRtpRtcp> rtp;
   std::vector<RtpRtcp*> modules = {&rtp};
-  PayloadRouter router(modules, {kSsrc1}, kPayloadType, states);
+  PayloadRouter router(modules, {kSsrc1}, kPayloadType, state);
   router.SetActive(true);
 
   EncodedImage encoded_image;
@@ -641,21 +653,22 @@ TEST(PayloadRouterTest, Tl0PicIdxUpdatedForVp8) {
             router.OnEncodedImage(encoded_image, &codec_info, nullptr).error);
 
   // State should hold latest used picture id and tl0_pic_idx.
-  states = router.GetRtpPayloadStates();
-  EXPECT_EQ(1u, states.size());
-  EXPECT_EQ(kInitialPictureId1 + 2, states[kSsrc1].picture_id);
-  EXPECT_EQ(kInitialTl0PicIdx1 + 1, states[kSsrc1].tl0_pic_idx);
+  state = router.GetRtpPayloadStates();
+  EXPECT_EQ(1u, state.stream_states.size());
+  EXPECT_EQ(kInitialPictureId1 + 2, state.stream_states[kSsrc1].picture_id);
+  EXPECT_EQ(kInitialTl0PicIdx1 + 1, state.stream_states[kSsrc1].tl0_pic_idx);
 }
 
 TEST(PayloadRouterTest, Tl0PicIdxUpdatedForVp9) {
+  RtpPayloadState::StreamState stream_state;
+  stream_state.picture_id = kInitialPictureId1;
+  stream_state.tl0_pic_idx = kInitialTl0PicIdx1;
   RtpPayloadState state;
-  state.picture_id = kInitialPictureId1;
-  state.tl0_pic_idx = kInitialTl0PicIdx1;
-  std::map<uint32_t, RtpPayloadState> states = {{kSsrc1, state}};
+  state.stream_states[kSsrc1] = stream_state;
 
   NiceMock<MockRtpRtcp> rtp;
   std::vector<RtpRtcp*> modules = {&rtp};
-  PayloadRouter router(modules, {kSsrc1}, kPayloadType, states);
+  PayloadRouter router(modules, {kSsrc1}, kPayloadType, state);
   router.SetActive(true);
 
   EncodedImage encoded_image;
@@ -713,10 +726,10 @@ TEST(PayloadRouterTest, Tl0PicIdxUpdatedForVp9) {
             router.OnEncodedImage(encoded_image, &codec_info, nullptr).error);
 
   // State should hold latest used picture id and tl0_pic_idx.
-  states = router.GetRtpPayloadStates();
-  EXPECT_EQ(1u, states.size());
-  EXPECT_EQ(kInitialPictureId1 + 2, states[kSsrc1].picture_id);
-  EXPECT_EQ(kInitialTl0PicIdx1 + 1, states[kSsrc1].tl0_pic_idx);
+  state = router.GetRtpPayloadStates();
+  EXPECT_EQ(1u, state.stream_states.size());
+  EXPECT_EQ(kInitialPictureId1 + 2, state.stream_states[kSsrc1].picture_id);
+  EXPECT_EQ(kInitialTl0PicIdx1 + 1, state.stream_states[kSsrc1].tl0_pic_idx);
 }
 
 }  // namespace webrtc

@@ -47,23 +47,22 @@ class VideoSendStreamImpl : public webrtc::BitrateAllocatorObserver,
                             public VideoBitrateAllocationObserver,
                             public webrtc::PacketFeedbackObserver {
  public:
-  VideoSendStreamImpl(
-      SendStatisticsProxy* stats_proxy,
-      rtc::TaskQueue* worker_queue,
-      CallStats* call_stats,
-      RtpTransportControllerSendInterface* transport,
-      BitrateAllocatorInterface* bitrate_allocator,
-      SendDelayStats* send_delay_stats,
-      VideoStreamEncoderInterface* video_stream_encoder,
-      RtcEventLog* event_log,
-      const VideoSendStream::Config* config,
-      int initial_encoder_max_bitrate,
-      double initial_encoder_bitrate_priority,
-      std::map<uint32_t, RtpState> suspended_ssrcs,
-      std::map<uint32_t, RtpPayloadState> suspended_payload_states,
-      VideoEncoderConfig::ContentType content_type,
-      std::unique_ptr<FecController> fec_controller,
-      RateLimiter* retransmission_limiter);
+  VideoSendStreamImpl(SendStatisticsProxy* stats_proxy,
+                      rtc::TaskQueue* worker_queue,
+                      CallStats* call_stats,
+                      RtpTransportControllerSendInterface* transport,
+                      BitrateAllocatorInterface* bitrate_allocator,
+                      SendDelayStats* send_delay_stats,
+                      VideoStreamEncoderInterface* video_stream_encoder,
+                      RtcEventLog* event_log,
+                      const VideoSendStream::Config* config,
+                      int initial_encoder_max_bitrate,
+                      double initial_encoder_bitrate_priority,
+                      std::map<uint32_t, RtpState> suspended_ssrcs,
+                      const RtpPayloadState& rtp_payload_states,
+                      VideoEncoderConfig::ContentType content_type,
+                      std::unique_ptr<FecController> fec_controller,
+                      RateLimiter* retransmission_limiter);
   ~VideoSendStreamImpl() override;
 
   // RegisterProcessThread register |module_process_thread| with those objects
@@ -81,7 +80,7 @@ class VideoSendStreamImpl : public webrtc::BitrateAllocatorObserver,
   void Stop();
 
   VideoSendStream::RtpStateMap GetRtpStates() const;
-  VideoSendStream::RtpPayloadStateMap GetRtpPayloadStates() const;
+  RtpPayloadState GetRtpPayloadStates() const;
 
   void EnableEncodedFrameRecording(const std::vector<rtc::PlatformFile>& files,
                                    size_t byte_limit);

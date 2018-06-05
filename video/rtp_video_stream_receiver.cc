@@ -168,10 +168,12 @@ RtpVideoStreamReceiver::~RtpVideoStreamReceiver() {
 }
 
 bool RtpVideoStreamReceiver::AddReceiveCodec(
+    int payload_type,
     const VideoCodec& video_codec,
     const std::map<std::string, std::string>& codec_params) {
-  pt_codec_params_.insert(make_pair(video_codec.plType, codec_params));
-  return rtp_payload_registry_.RegisterReceivePayload(video_codec) == 0;
+  pt_codec_params_.insert(make_pair(payload_type, codec_params));
+  return rtp_payload_registry_.RegisterReceivePayload(payload_type,
+                                                      video_codec) == 0;
 }
 
 uint32_t RtpVideoStreamReceiver::GetRemoteSsrc() const {

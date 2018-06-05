@@ -117,9 +117,12 @@ int32_t RtpReceiverImpl::RegisterReceivePayload(
   return result;
 }
 
-int32_t RtpReceiverImpl::RegisterReceivePayload(const VideoCodec& video_codec) {
+int32_t RtpReceiverImpl::RegisterVideoReceivePayload(
+    int payload_type,
+    const VideoCodec& video_codec) {
   rtc::CritScope lock(&critical_section_rtp_receiver_);
-  return rtp_payload_registry_->RegisterReceivePayload(video_codec);
+  return rtp_payload_registry_->RegisterReceivePayload(payload_type,
+                                                       video_codec);
 }
 
 int32_t RtpReceiverImpl::DeRegisterReceivePayload(

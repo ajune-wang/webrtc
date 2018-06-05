@@ -375,7 +375,8 @@ int32_t VideoReceiver::Decode(const VCMEncodedFrame& frame) {
 }
 
 // Register possible receive codecs, can be called multiple times
-int32_t VideoReceiver::RegisterReceiveCodec(const VideoCodec* receiveCodec,
+int32_t VideoReceiver::RegisterReceiveCodec(int payload_type,
+                                            const VideoCodec* receiveCodec,
                                             int32_t numberOfCores,
                                             bool requireKeyFrame) {
   RTC_DCHECK_RUN_ON(&construction_thread_checker_);
@@ -383,8 +384,8 @@ int32_t VideoReceiver::RegisterReceiveCodec(const VideoCodec* receiveCodec,
   if (receiveCodec == nullptr) {
     return VCM_PARAMETER_ERROR;
   }
-  if (!_codecDataBase.RegisterReceiveCodec(receiveCodec, numberOfCores,
-                                           requireKeyFrame)) {
+  if (!_codecDataBase.RegisterReceiveCodec(payload_type, receiveCodec,
+                                           numberOfCores, requireKeyFrame)) {
     return -1;
   }
   return 0;

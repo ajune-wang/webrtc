@@ -37,7 +37,8 @@ class RTPPayloadRegistry {
   int32_t RegisterReceivePayload(int payload_type,
                                  const SdpAudioFormat& audio_format,
                                  bool* created_new_payload_type);
-  int32_t RegisterReceivePayload(const VideoCodec& video_codec);
+  int32_t RegisterReceivePayload(int payload_type,
+                                 const VideoCodec& video_codec);
 
   int32_t DeRegisterReceivePayload(int8_t payload_type);
 

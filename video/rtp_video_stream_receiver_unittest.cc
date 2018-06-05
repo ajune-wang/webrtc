@@ -217,8 +217,7 @@ TEST_F(RtpVideoStreamReceiverTest, GenericKeyFrame) {
 TEST_F(RtpVideoStreamReceiverTest, NoInfiniteRecursionOnEncapsulatedRedPacket) {
   const uint8_t kRedPayloadType = 125;
   VideoCodec codec;
-  codec.plType = kRedPayloadType;
-  rtp_video_stream_receiver_->AddReceiveCodec(codec, {});
+  rtp_video_stream_receiver_->AddReceiveCodec(kRedPayloadType, codec, {});
   const std::vector<uint8_t> data({0x80,                // RTP version.
                                    kRedPayloadType,     // Payload type.
                                    0, 0, 0, 0, 0, 0,    // Don't care.
@@ -307,13 +306,13 @@ TEST_P(RtpVideoStreamReceiverTestH264, InBandSpsPps) {
 TEST_P(RtpVideoStreamReceiverTestH264, OutOfBandFmtpSpsPps) {
   constexpr int kPayloadType = 99;
   VideoCodec codec;
-  codec.plType = kPayloadType;
   std::map<std::string, std::string> codec_params;
   // Example parameter sets from https://tools.ietf.org/html/rfc3984#section-8.2
   // .
   codec_params.insert(
       {cricket::kH264FmtpSpropParameterSets, "Z0IACpZTBYmI,aMljiA=="});
-  rtp_video_stream_receiver_->AddReceiveCodec(codec, codec_params);
+  rtp_video_stream_receiver_->AddReceiveCodec(kPayloadType, codec,
+                                              codec_params);
   const uint8_t binary_sps[] = {0x67, 0x42, 0x00, 0x0a, 0x96,
                                 0x53, 0x05, 0x89, 0x88};
   mock_on_complete_frame_callback_.AppendExpectedBitstream(

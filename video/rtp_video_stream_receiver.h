@@ -74,7 +74,8 @@ class RtpVideoStreamReceiver : public RtpData,
       video_coding::OnCompleteFrameCallback* complete_frame_callback);
   ~RtpVideoStreamReceiver();
 
-  bool AddReceiveCodec(const VideoCodec& video_codec,
+  bool AddReceiveCodec(int payload_type,
+                       const VideoCodec& video_codec,
                        const std::map<std::string, std::string>& codec_params);
   uint32_t GetRemoteSsrc() const;
   int GetCsrcs(uint32_t* csrcs) const;

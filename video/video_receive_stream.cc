@@ -48,7 +48,6 @@ VideoCodec CreateDecoderVideoCodec(const VideoReceiveStream::Decoder& decoder) {
   VideoCodec codec;
   memset(&codec, 0, sizeof(codec));
 
-  codec.plType = decoder.payload_type;
   codec.codecType = PayloadStringToCodecType(decoder.payload_name);
 
   if (codec.codecType == kVideoCodecVP8) {
@@ -203,10 +202,11 @@ void VideoReceiveStream::Start() {
     video_receiver_.RegisterExternalDecoder(decoder.decoder,
                                             decoder.payload_type);
     VideoCodec codec = CreateDecoderVideoCodec(decoder);
-    RTC_CHECK(rtp_video_stream_receiver_.AddReceiveCodec(codec,
-                                                         decoder.codec_params));
-    RTC_CHECK_EQ(VCM_OK, video_receiver_.RegisterReceiveCodec(
-                             &codec, num_cpu_cores_, false));
+    RTC_CHECK(rtp_video_stream_receiver_.AddReceiveCodec(
+        decoder.payload_type, codec, decoder.codec_params));
+    RTC_CHECK_EQ(VCM_OK,
+                 video_receiver_.RegisterReceiveCodec(
+                     decoder.payload_type, &codec, num_cpu_cores_, false));
   }
 
   video_stream_decoder_.reset(new VideoStreamDecoder(

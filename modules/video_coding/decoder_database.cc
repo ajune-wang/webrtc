@@ -75,19 +75,20 @@ bool VCMDecoderDataBase::DecoderRegistered() const {
   return !dec_map_.empty();
 }
 
-bool VCMDecoderDataBase::RegisterReceiveCodec(const VideoCodec* receive_codec,
+bool VCMDecoderDataBase::RegisterReceiveCodec(int payload_type,
+                                              const VideoCodec* receive_codec,
                                               int number_of_cores,
                                               bool require_key_frame) {
   if (number_of_cores < 0) {
     return false;
   }
   // Check if payload value already exists, if so  - erase old and insert new.
-  DeregisterReceiveCodec(receive_codec->plType);
+  DeregisterReceiveCodec(payload_type);
   if (receive_codec->codecType == kVideoCodecUnknown) {
     return false;
   }
   VideoCodec* new_receive_codec = new VideoCodec(*receive_codec);
-  dec_map_[receive_codec->plType] = new VCMDecoderMapItem(
+  dec_map_[payload_type] = new VCMDecoderMapItem(
       new_receive_codec, number_of_cores, require_key_frame);
   return true;
 }
@@ -99,6 +100,7 @@ bool VCMDecoderDataBase::DeregisterReceiveCodec(uint8_t payload_type) {
   }
   delete it->second;
   dec_map_.erase(it);
+  // TODO(nisse): Get rid of plType.
   if (receive_codec_.plType == payload_type) {
     // This codec is currently in use.
     memset(&receive_codec_, 0, sizeof(VideoCodec));

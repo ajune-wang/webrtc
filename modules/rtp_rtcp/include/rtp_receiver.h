@@ -15,6 +15,7 @@
 
 #include "api/rtpreceiverinterface.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
+#include "rtc_base/deprecation.h"
 #include "typedefs.h"  // NOLINT(build/include)
 
 namespace webrtc {
@@ -66,7 +67,14 @@ class RtpReceiver {
   int32_t RegisterReceivePayload(const CodecInst& audio_codec);
 
   // Registers a receive payload in the payload registry.
-  virtual int32_t RegisterReceivePayload(const VideoCodec& video_codec) = 0;
+  virtual int32_t RegisterVideoReceivePayload(
+      int payload_type,
+      const VideoCodec& video_codec) = 0;
+
+  RTC_DEPRECATED
+  int32_t RegisterReceivePayload(const VideoCodec& video_codec) {
+    return RegisterVideoReceivePayload(video_codec.plType, video_codec);
+  }
 
   // De-registers |payload_type| from the payload registry.
   virtual int32_t DeRegisterReceivePayload(const int8_t payload_type) = 0;

@@ -49,7 +49,8 @@ class VCMDecoderDataBase {
 
   bool DecoderRegistered() const;
 
-  bool RegisterReceiveCodec(const VideoCodec* receive_codec,
+  bool RegisterReceiveCodec(int payload_type,
+                            const VideoCodec* receive_codec,
                             int number_of_cores,
                             bool require_key_frame);
 

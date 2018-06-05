@@ -165,6 +165,7 @@ int32_t RTPPayloadRegistry::RegisterReceivePayload(
 }
 
 int32_t RTPPayloadRegistry::RegisterReceivePayload(
+    int payload_type,
     const VideoCodec& video_codec) {
   rtc::CritScope cs(&crit_sect_);
 
@@ -173,22 +174,21 @@ int32_t RTPPayloadRegistry::RegisterReceivePayload(
   used_for_video_ = true;
 #endif
 
-  if (!IsPayloadTypeValid(video_codec.plType))
+  if (!IsPayloadTypeValid(payload_type))
     return -1;
 
-  auto it = payload_type_map_.find(video_codec.plType);
+  auto it = payload_type_map_.find(payload_type);
   if (it != payload_type_map_.end()) {
     // We already use this payload type. Check if it's the same as we already
     // have. If same, ignore sending an error.
     if (PayloadIsCompatible(it->second, video_codec))
       return 0;
-    RTC_LOG(LS_ERROR) << "Payload type already registered: "
-                      << static_cast<int>(video_codec.plType);
+    RTC_LOG(LS_ERROR) << "Payload type already registered: " << payload_type;
     return -1;
   }
 
-  const auto insert_status = payload_type_map_.emplace(
-      video_codec.plType, CreatePayloadType(video_codec));
+  const auto insert_status =
+      payload_type_map_.emplace(payload_type, CreatePayloadType(video_codec));
   RTC_DCHECK(insert_status.second);  // Insertion succeeded.
 
   // Successful set of payload type, clear the value of last received payload

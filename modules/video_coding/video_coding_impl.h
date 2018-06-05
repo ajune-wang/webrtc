@@ -137,7 +137,8 @@ class VideoReceiver : public Module {
                 KeyFrameRequestSender* keyframe_request_sender = nullptr);
   ~VideoReceiver() override;
 
-  int32_t RegisterReceiveCodec(const VideoCodec* receiveCodec,
+  int32_t RegisterReceiveCodec(int payload_type,
+                               const VideoCodec* receiveCodec,
                                int32_t numberOfCores,
                                bool requireKeyFrame);
 

@@ -38,7 +38,8 @@ class RtpReceiverImpl : public RtpReceiver {
 
   int32_t RegisterReceivePayload(int payload_type,
                                  const SdpAudioFormat& audio_format) override;
-  int32_t RegisterReceivePayload(const VideoCodec& video_codec) override;
+  int32_t RegisterVideoReceivePayload(int payload_type,
+                                      const VideoCodec& video_codec) override;
 
   int32_t DeRegisterReceivePayload(const int8_t payload_type) override;
 

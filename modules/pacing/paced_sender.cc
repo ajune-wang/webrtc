@@ -63,6 +63,7 @@ PacedSender::PacedSender(const Clock* clock,
     : clock_(clock),
       packet_sender_(packet_sender),
       alr_detector_(rtc::MakeUnique<AlrDetector>(event_log)),
+      drain_large_queues_(!field_trial::IsDisabled("WebRTC-PacerDrainQueue")),
       paused_(false),
       media_budget_(rtc::MakeUnique<IntervalBudget>(0)),
       padding_budget_(rtc::MakeUnique<IntervalBudget>(0)),
@@ -268,8 +269,8 @@ void PacedSender::Process() {
   // TODO(srte): Stop sending packet in paused state when pause is no longer
   // used for congestion windows.
   if (paused_ || Congested()) {
-    int64_t elapsed_since_last_send_us = now_us - last_send_time_us_;
-    if (elapsed_since_last_send_us >= kCongestedPacketIntervalMs * 1000) {
+    int64_t elapsed_since_last_update_us = now_us - last_send_time_us_;
+    if (elapsed_since_last_update_us >= kCongestedPacketIntervalMs * 1000) {
       // We can not send padding unless a normal packet has first been sent. If
       // we do, timestamps get messed up.
       if (packet_counter_ > 0) {
@@ -282,20 +283,22 @@ void PacedSender::Process() {
     return;
   }
 
-  int target_bitrate_kbps = pacing_bitrate_kbps_;
   if (elapsed_time_ms > 0) {
+    int target_bitrate_kbps = pacing_bitrate_kbps_;
     size_t queue_size_bytes = packets_->SizeInBytes();
     if (queue_size_bytes > 0) {
       // Assuming equal size packets and input/output rate, the average packet
       // has avg_time_left_ms left to get queue_size_bytes out of the queue, if
       // time constraint shall be met. Determine bitrate needed for that.
       packets_->UpdateQueueTime(clock_->TimeInMilliseconds());
-      int64_t avg_time_left_ms = std::max<int64_t>(
-          1, queue_time_limit - packets_->AverageQueueTimeMs());
-      int min_bitrate_needed_kbps =
-          static_cast<int>(queue_size_bytes * 8 / avg_time_left_ms);
-      if (min_bitrate_needed_kbps > target_bitrate_kbps)
-        target_bitrate_kbps = min_bitrate_needed_kbps;
+      if (drain_large_queues_) {
+        int64_t avg_time_left_ms = std::max<int64_t>(
+            1, queue_time_limit - packets_->AverageQueueTimeMs());
+        int min_bitrate_needed_kbps =
+            static_cast<int>(queue_size_bytes * 8 / avg_time_left_ms);
+        if (min_bitrate_needed_kbps > target_bitrate_kbps)
+          target_bitrate_kbps = min_bitrate_needed_kbps;
+      }
     }
 
     media_budget_->set_target_rate_kbps(target_bitrate_kbps);

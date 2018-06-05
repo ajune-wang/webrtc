@@ -164,6 +164,7 @@ class PacedSender : public Pacer {
   const std::unique_ptr<AlrDetector> alr_detector_ RTC_PT_GUARDED_BY(critsect_);
 
   const bool drain_large_queues_;
+  const bool video_blocks_audio_;
 
   rtc::CriticalSection critsect_;
   bool paused_ RTC_GUARDED_BY(critsect_);

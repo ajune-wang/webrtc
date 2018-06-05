@@ -64,6 +64,7 @@ PacedSender::PacedSender(const Clock* clock,
       packet_sender_(packet_sender),
       alr_detector_(rtc::MakeUnique<AlrDetector>(event_log)),
       drain_large_queues_(!field_trial::IsDisabled("WebRTC-PacerDrainQueue")),
+      video_blocks_audio_(!field_trial::IsDisabled("WebRTC-PacerBlockAudio")),
       paused_(false),
       media_budget_(rtc::MakeUnique<IntervalBudget>(0)),
       padding_budget_(rtc::MakeUnique<IntervalBudget>(0)),
@@ -282,7 +283,8 @@ void PacedSender::Process() {
       }
       last_send_time_us_ = clock_->TimeInMicroseconds();
     }
-    return;
+    if (paused_)
+      return;
   }
 
   if (elapsed_time_ms > 0) {
@@ -319,7 +321,7 @@ void PacedSender::Process() {
   }
   // The paused state is checked in the loop since SendPacket leaves the
   // critical section allowing the paused state to be changed from other code.
-  while (!packets_->Empty() && !paused_ && !Congested()) {
+  while (!packets_->Empty() && !paused_) {
     // Since we need to release the lock in order to send, we first pop the
     // element from the priority queue but keep it in storage, so that we can
     // reinsert it if send fails.
@@ -367,10 +369,16 @@ void PacedSender::ProcessThreadAttached(ProcessThread* process_thread) {
 bool PacedSender::SendPacket(const PacketQueueInterface::Packet& packet,
                              const PacedPacketInfo& pacing_info) {
   RTC_DCHECK(!paused_);
+  bool audio_packet = packet.priority == kHighPriority;
+  bool apply_pacing =
+      !audio_packet || account_for_audio_ || video_blocks_audio_;
   if (media_budget_->bytes_remaining() == 0 &&
-      pacing_info.probe_cluster_id == PacedPacketInfo::kNotAProbe) {
+      pacing_info.probe_cluster_id == PacedPacketInfo::kNotAProbe &&
+      apply_pacing) {
     return false;
   }
+  if (Congested() && apply_pacing)
+    return false;
 
   critsect_.Leave();
   const bool success = packet_sender_->TimeToSendPacket(
@@ -381,7 +389,7 @@ bool PacedSender::SendPacket(const PacketQueueInterface::Packet& packet,
   if (success) {
     if (first_sent_packet_ms_ == -1)
       first_sent_packet_ms_ = clock_->TimeInMilliseconds();
-    if (packet.priority != kHighPriority || account_for_audio_) {
+    if (!audio_packet || account_for_audio_) {
       // Update media bytes sent.
       // TODO(eladalon): TimeToSendPacket() can also return |true| in some
       // situations where nothing actually ended up being sent to the network,

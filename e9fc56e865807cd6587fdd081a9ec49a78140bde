@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "fbb42cc8_0f64c12c",
+        "filename": "sdk/BUILD.gn",
+        "patchSetId": 5
+      },
+      "lineNbr": 728,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2018-06-05T12:25:11Z",
+      "side": 1,
+      "message": "Also add this header to the `common_objc_headers` list in the `framework_objc` target so it\u0027s included in the public headers when building the framework.",
+      "revId": "e9fc56e865807cd6587fdd081a9ec49a78140bde",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7987ad9d_f06edbc7",
         "filename": "sdk/android/api/org/webrtc/RtpParameters.java",
         "patchSetId": 5
@@ -70,6 +87,46 @@
       "revId": "e9fc56e865807cd6587fdd081a9ec49a78140bde",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d6021864_3a250f1b",
+        "filename": "sdk/objc/Framework/Headers/WebRTC/RTCRtpHeaderExtension.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2018-06-05T12:25:11Z",
+      "side": 1,
+      "message": "`id` is a bit of an unfortunate name since it is a very common type in Obj-C. Don\u0027t know if Xcode code navigation may get confused by this? But if it builds fine and it conforms to some spec, I guess it\u0027s OK here.",
+      "range": {
+        "startLine": 24,
+        "startChar": 35,
+        "endLine": 24,
+        "endChar": 37
+      },
+      "revId": "e9fc56e865807cd6587fdd081a9ec49a78140bde",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dfa91eb9_ff2fecb5",
+        "filename": "sdk/objc/Framework/Headers/WebRTC/RTCRtpHeaderExtension.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2018-06-05T12:25:11Z",
+      "side": 1,
+      "message": "A bit more idiomatic to have\n\n@property(nonatomic, readonly, getter\u003disEncrypted) BOOL encrypted;\n\nwith an ivar named encrypted_",
+      "revId": "e9fc56e865807cd6587fdd081a9ec49a78140bde",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

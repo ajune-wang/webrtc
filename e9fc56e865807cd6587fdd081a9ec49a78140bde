@@ -22,6 +22,30 @@
       "revId": "e9fc56e865807cd6587fdd081a9ec49a78140bde",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94f12199_76a51c6e",
+        "filename": "sdk/android/api/org/webrtc/RtpParameters.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2018-06-05T11:44:33Z",
+      "side": 1,
+      "message": "Yes, it matches the name in the WebRTC specification, not the one in our headers which are a bit different.",
+      "parentUuid": "7987ad9d_f06edbc7",
+      "range": {
+        "startLine": 165,
+        "startChar": 23,
+        "endLine": 165,
+        "endChar": 32
+      },
+      "revId": "e9fc56e865807cd6587fdd081a9ec49a78140bde",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

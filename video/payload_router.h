@@ -28,8 +28,12 @@ struct RTPVideoHeader;
 
 // Currently only VP8/VP9 specific.
 struct RtpPayloadState {
-  int16_t picture_id = -1;
-  uint8_t tl0_pic_idx = 0;
+  struct StreamState {
+    int16_t picture_id = -1;
+    uint8_t tl0_pic_idx = 0;
+  };
+
+  std::map<uint16_t, StreamState> stream_states;
 };
 
 // PayloadRouter routes outgoing data to the correct sending RTP module, based
@@ -40,7 +44,7 @@ class PayloadRouter : public EncodedImageCallback {
   PayloadRouter(const std::vector<RtpRtcp*>& rtp_modules,
                 const std::vector<uint32_t>& ssrcs,
                 int payload_type,
-                const std::map<uint32_t, RtpPayloadState>& states);
+                const RtpPayloadState& state);
   ~PayloadRouter();
 
   // PayloadRouter will only route packets if being active, all packets will be
@@ -51,7 +55,7 @@ class PayloadRouter : public EncodedImageCallback {
   void SetActiveModules(const std::vector<bool> active_modules);
   bool IsActive();
 
-  std::map<uint32_t, RtpPayloadState> GetRtpPayloadStates() const;
+  RtpPayloadState GetRtpPayloadStates() const;
 
   // Implements EncodedImageCallback.
   // Returns 0 if the packet was routed / sent, -1 otherwise.
@@ -64,6 +68,10 @@ class PayloadRouter : public EncodedImageCallback {
 
  private:
   class RtpPayloadParams;
+  class GenericRtpDescriptorParams {
+   public:
+   private:
+  };
 
   void UpdateModuleSendingState() RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_);
 

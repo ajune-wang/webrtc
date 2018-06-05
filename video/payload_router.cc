@@ -89,39 +89,60 @@ void CopyCodecSpecific(const CodecSpecificInfo* info, RTPVideoHeader* rtp) {
   }
 }
 
+void CopyVideoTimingsIfAvailable(RTPVideoHeader* rtp,
+                                 const EncodedImage& image) {
+  if (image.timing_.flags == TimingFrameFlags::kInvalid ||
+      image.timing_.flags == TimingFrameFlags::kNotTriggered) {
+    rtp->video_timing.flags = TimingFrameFlags::kInvalid;
+    return;
+  }
+
+  rtp->video_timing.encode_start_delta_ms = VideoSendTiming::GetDeltaCappedMs(
+      image.capture_time_ms_, image.timing_.encode_start_ms);
+  rtp->video_timing.encode_finish_delta_ms = VideoSendTiming::GetDeltaCappedMs(
+      image.capture_time_ms_, image.timing_.encode_finish_ms);
+  rtp->video_timing.packetization_finish_delta_ms = 0;
+  rtp->video_timing.pacer_exit_delta_ms = 0;
+  rtp->video_timing.network_timestamp_delta_ms = 0;
+  rtp->video_timing.network2_timestamp_delta_ms = 0;
+  rtp->video_timing.flags = image.timing_.flags;
+}
+
 }  // namespace
 
 // State for setting picture id and tl0 pic idx, for VP8 and VP9
 // TODO(nisse): Make these properties not codec specific.
 class PayloadRouter::RtpPayloadParams final {
  public:
-  RtpPayloadParams(const uint32_t ssrc, const RtpPayloadState* state)
+  RtpPayloadParams(const uint32_t ssrc,
+                   const RtpPayloadState::StreamState* stream_state)
       : ssrc_(ssrc) {
     Random random(rtc::TimeMicros());
-    state_.picture_id =
-        state ? state->picture_id : (random.Rand<int16_t>() & 0x7FFF);
-    state_.tl0_pic_idx = state ? state->tl0_pic_idx : (random.Rand<uint8_t>());
+    stream_state_.picture_id = stream_state ? stream_state->picture_id
+                                            : (random.Rand<int16_t>() & 0x7FFF);
+    stream_state_.tl0_pic_idx =
+        stream_state ? stream_state->tl0_pic_idx : (random.Rand<uint8_t>());
   }
   ~RtpPayloadParams() {}
 
   void Set(RTPVideoHeader* rtp_video_header, bool first_frame_in_picture) {
     // Always set picture id. Set tl0_pic_idx iff temporal index is set.
     if (first_frame_in_picture) {
-      state_.picture_id =
-          (static_cast<uint16_t>(state_.picture_id) + 1) & 0x7FFF;
+      stream_state_.picture_id =
+          (static_cast<uint16_t>(stream_state_.picture_id) + 1) & 0x7FFF;
     }
     if (rtp_video_header->codec == kVideoCodecVP8) {
-      rtp_video_header->codecHeader.VP8.pictureId = state_.picture_id;
+      rtp_video_header->codecHeader.VP8.pictureId = stream_state_.picture_id;
 
       if (rtp_video_header->codecHeader.VP8.temporalIdx != kNoTemporalIdx) {
         if (rtp_video_header->codecHeader.VP8.temporalIdx == 0) {
-          ++state_.tl0_pic_idx;
+          ++stream_state_.tl0_pic_idx;
         }
-        rtp_video_header->codecHeader.VP8.tl0PicIdx = state_.tl0_pic_idx;
+        rtp_video_header->codecHeader.VP8.tl0PicIdx = stream_state_.tl0_pic_idx;
       }
     }
     if (rtp_video_header->codec == kVideoCodecVP9) {
-      rtp_video_header->codecHeader.VP9.picture_id = state_.picture_id;
+      rtp_video_header->codecHeader.VP9.picture_id = stream_state_.picture_id;
 
       // Note that in the case that we have no temporal layers but we do have
       // spatial layers, packets will carry layering info with a temporal_idx of
@@ -132,37 +153,38 @@ class PayloadRouter::RtpPayloadParams final {
             (rtp_video_header->codecHeader.VP9.temporal_idx == 0 ||
              rtp_video_header->codecHeader.VP9.temporal_idx ==
                  kNoTemporalIdx)) {
-          ++state_.tl0_pic_idx;
+          ++stream_state_.tl0_pic_idx;
         }
-        rtp_video_header->codecHeader.VP9.tl0_pic_idx = state_.tl0_pic_idx;
+        rtp_video_header->codecHeader.VP9.tl0_pic_idx =
+            stream_state_.tl0_pic_idx;
       }
     }
   }
 
   uint32_t ssrc() const { return ssrc_; }
 
-  RtpPayloadState state() const { return state_; }
+  RtpPayloadState::StreamState stream_state() const { return stream_state_; }
 
  private:
   const uint32_t ssrc_;
-  RtpPayloadState state_;
+  RtpPayloadState::StreamState stream_state_;
 };
 
 PayloadRouter::PayloadRouter(const std::vector<RtpRtcp*>& rtp_modules,
                              const std::vector<uint32_t>& ssrcs,
                              int payload_type,
-                             const std::map<uint32_t, RtpPayloadState>& states)
+                             const RtpPayloadState& state)
     : active_(false), rtp_modules_(rtp_modules), payload_type_(payload_type) {
   RTC_DCHECK_EQ(ssrcs.size(), rtp_modules.size());
   // SSRCs are assumed to be sorted in the same order as |rtp_modules|.
   for (uint32_t ssrc : ssrcs) {
     // Restore state if it previously existed.
-    const RtpPayloadState* state = nullptr;
-    auto it = states.find(ssrc);
-    if (it != states.end()) {
-      state = &it->second;
+    const RtpPayloadState::StreamState* stream_state = nullptr;
+    auto it = state.stream_states.find(ssrc);
+    if (it != state.stream_states.end()) {
+      stream_state = &it->second;
     }
-    params_.push_back(RtpPayloadParams(ssrc, state));
+    params_.push_back(RtpPayloadParams(ssrc, stream_state));
   }
 }
 
@@ -196,13 +218,13 @@ bool PayloadRouter::IsActive() {
   return active_ && !rtp_modules_.empty();
 }
 
-std::map<uint32_t, RtpPayloadState> PayloadRouter::GetRtpPayloadStates() const {
+RtpPayloadState PayloadRouter::GetRtpPayloadStates() const {
   rtc::CritScope lock(&crit_);
-  std::map<uint32_t, RtpPayloadState> payload_states;
+  RtpPayloadState state;
   for (const auto& param : params_) {
-    payload_states[param.ssrc()] = param.state();
+    state.stream_states[param.ssrc()] = param.stream_state();
   }
-  return payload_states;
+  return state;
 }
 
 EncodedImageCallback::Result PayloadRouter::OnEncodedImage(
@@ -218,36 +240,21 @@ EncodedImageCallback::Result PayloadRouter::OnEncodedImage(
   memset(&rtp_video_header, 0, sizeof(RTPVideoHeader));
   if (codec_specific_info)
     CopyCodecSpecific(codec_specific_info, &rtp_video_header);
+
   rtp_video_header.rotation = encoded_image.rotation_;
   rtp_video_header.content_type = encoded_image.content_type_;
-  if (encoded_image.timing_.flags != VideoSendTiming::kInvalid &&
-      encoded_image.timing_.flags != VideoSendTiming::kNotTriggered) {
-    rtp_video_header.video_timing.encode_start_delta_ms =
-        VideoSendTiming::GetDeltaCappedMs(
-            encoded_image.capture_time_ms_,
-            encoded_image.timing_.encode_start_ms);
-    rtp_video_header.video_timing.encode_finish_delta_ms =
-        VideoSendTiming::GetDeltaCappedMs(
-            encoded_image.capture_time_ms_,
-            encoded_image.timing_.encode_finish_ms);
-    rtp_video_header.video_timing.packetization_finish_delta_ms = 0;
-    rtp_video_header.video_timing.pacer_exit_delta_ms = 0;
-    rtp_video_header.video_timing.network_timestamp_delta_ms = 0;
-    rtp_video_header.video_timing.network2_timestamp_delta_ms = 0;
-    rtp_video_header.video_timing.flags = encoded_image.timing_.flags;
-  } else {
-    rtp_video_header.video_timing.flags = VideoSendTiming::kInvalid;
-  }
   rtp_video_header.playout_delay = encoded_image.playout_delay_;
 
-  int stream_index = rtp_video_header.simulcastIdx;
-  RTC_DCHECK_LT(stream_index, rtp_modules_.size());
+  CopyVideoTimingsIfAvailable(&rtp_video_header, encoded_image);
 
-  // Sets picture id and tl0 pic idx.
   const bool first_frame_in_picture =
       (codec_specific_info && codec_specific_info->codecType == kVideoCodecVP9)
           ? codec_specific_info->codecSpecific.VP9.first_frame_in_picture
           : true;
+
+  int stream_index = rtp_video_header.simulcastIdx;
+  RTC_DCHECK_LT(stream_index, rtp_modules_.size());
+  // Sets picture id and tl0 pic idx.
   params_[stream_index].Set(&rtp_video_header, first_frame_in_picture);
 
   uint32_t frame_id;

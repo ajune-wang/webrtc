@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "85c6504d_50393e9e",
+        "filename": "video/full_stack_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-05T09:02:40Z",
+      "side": 1,
+      "message": "\u003e It\u0027s unclear to me how VideoCodecVP8::automaticResizeOn is (or is not) set in these tests. Do we want quality scaling to be enabled in this test?\n\nHmm, probably disabled (from VideoEncoder::GetDefaultVp8Settings()). I think we want it to be enabled, how can we arrange that? We\u0027d need some setting or hook function in VideoQualityTest::SetupVideo (a neat 200+ lines function), suggestions welcome. Or maybe one test with scaling on, one with it off, for comparison.",
+      "parentUuid": "8c6cc6c7_6a252b65",
+      "range": {
+        "startLine": 173,
+        "startChar": 14,
+        "endLine": 173,
+        "endChar": 19
+      },
+      "revId": "00b073280985fadbf3268a2f2183101068f2c904",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d8846d63_b89143f1",
         "filename": "video/full_stack_tests.cc",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "00b073280985fadbf3268a2f2183101068f2c904",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88d36bfe_54d8b9ab",
+        "filename": "video/full_stack_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-05T09:02:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d8846d63_b89143f1",
+      "range": {
+        "startLine": 175,
+        "startChar": 43,
+        "endLine": 175,
+        "endChar": 47
+      },
+      "revId": "00b073280985fadbf3268a2f2183101068f2c904",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

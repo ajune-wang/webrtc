@@ -798,6 +798,10 @@ void BasicPortAllocatorSession::DoAllocate(bool disable_equivalent) {
 
 void BasicPortAllocatorSession::OnNetworksChanged() {
   std::vector<rtc::Network*> networks = GetNetworks();
+  RTC_LOG(INFO) << "Got " << networks.size() << " networks after change.";
+  for (auto* network : networks) {
+    RTC_LOG(INFO) << network->ToString();
+  }
   std::vector<rtc::Network*> failed_networks;
   for (AllocationSequence* sequence : sequences_) {
     // Mark the sequence as "network failed" if its network is not in

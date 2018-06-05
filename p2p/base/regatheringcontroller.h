@@ -12,6 +12,7 @@
 #define P2P_BASE_REGATHERINGCONTROLLER_H_
 
 #include "p2p/base/icetransportinternal.h"
+#include "p2p/base/icetransportstats.h"
 #include "p2p/base/portallocator.h"
 #include "rtc_base/asyncinvoker.h"
 #include "rtc_base/random.h"
@@ -75,20 +76,30 @@ class BasicRegatheringController : public sigslot::has_slots<> {
   // seperately defined for the two config parameters.
   void SetConfig(const Config& config);
 
+  bool ShouldRegatherOnAllNetworks(const IceTransportStats& stats);
+  int min_regathering_interval_ms_or_default() const {
+    return min_regathering_interval_ms_.value_or(
+        cricket::kMinRegatheringIntervalMs);
+  }
+
  private:
   // TODO(qingsi): Implement the following methods and use methods from the ICE
   // transport like GetStats to get additional information for the decision
   // making in regathering.
-  void OnIceTransportStateChanged(cricket::IceTransportInternal*) {}
-  void OnIceTransportWritableState(rtc::PacketTransportInternal*) {}
-  void OnIceTransportReceivingState(rtc::PacketTransportInternal*) {}
-  void OnIceTransportNetworkRouteChanged(rtc::Optional<rtc::NetworkRoute>) {}
+  void OnIceTransportStateChanged(cricket::IceTransportInternal*);
+  void OnIceTransportWritableState(rtc::PacketTransportInternal*);
+  void OnIceTransportReceivingState(rtc::PacketTransportInternal*);
+  void OnIceTransportNetworkRouteChanged(rtc::Optional<rtc::NetworkRoute>);
+
+  void MaybeRegatherOnAllNetworks();
   // Schedules delayed regathering of local candidates on all networks, where
   // the delay in milliseconds is randomly sampled from the range in the config.
   // The schedule can be set repeated and the delay of each repetition is
   // independently sampled from the same range. When repeated regathering is
   // scheduled, all previous schedules are canceled.
   void ScheduleRegatheringOnAllNetworks(bool repeated);
+  // One-time schedule with a range differnet from the config.
+  void ScheduleOneTimeRegatheringOnAllNetworks(const rtc::IntervalRange& range);
   // Schedules delayed regathering of local candidates on failed networks, where
   // the delay ini milliseconds is given by the config. The schedule can be set
   // repeated and each repetition is separated by the same delay. When repeated
@@ -107,6 +118,14 @@ class BasicRegatheringController : public sigslot::has_slots<> {
   // Samples a delay from the uniform distribution in the given range.
   int SampleRegatherAllNetworksInterval(const rtc::IntervalRange& range);
 
+  bool TooManyWeakSelectedCandidatePairs(
+      const webrtc::IceTransportStats& stats) const;
+  bool TooLargePingRttOverSelectedCandidatePair(
+      const webrtc::IceTransportStats& stats) const;
+  bool HadSelectedCandidatePair(const webrtc::IceTransportStats& stats) const;
+  bool HasActiveCandidatePair(const webrtc::IceTransportStats& stats) const;
+  bool HasWritableCandidatePair(const webrtc::IceTransportStats& stats) const;
+
   Config config_;
   cricket::IceTransportInternal* ice_transport_;
   cricket::PortAllocatorSession* allocator_session_ = nullptr;
@@ -115,8 +134,14 @@ class BasicRegatheringController : public sigslot::has_slots<> {
   rtc::Thread* thread_;
   rtc::AsyncInvoker invoker_for_all_networks_;
   rtc::AsyncInvoker invoker_for_failed_networks_;
+  rtc::AsyncInvoker invoker_for_one_time_regathering_on_all_networks_;
   // Used to generate random intervals for regather_all_networks_interval_range.
   Random rand_;
+  //
+  rtc::Optional<int> min_regathering_interval_ms_;
+  // Last time in milliseconds a round of regathering is done.
+  rtc::Optional<int> last_regathering_ms_on_all_networks_;
+  rtc::Optional<int> last_time_ms_writable_;
 };
 
 }  // namespace webrtc

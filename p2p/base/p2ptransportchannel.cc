@@ -92,6 +92,30 @@ uint32_t GetWeakPingIntervalInFieldTrial() {
   return cricket::WEAK_PING_INTERVAL;
 }
 
+using CandidatePair = cricket::Connection;
+std::vector<CandidatePair*> GetActiveCandidatePairs(
+    const std::vector<CandidatePair*> candidate_pairs) {
+  std::vector<CandidatePair*> active_candidate_pairs;
+  for (CandidatePair* candidate_pair : candidate_pairs) {
+    if (candidate_pair->active()) {
+      active_candidate_pairs.push_back(candidate_pair);
+    }
+  }
+  return active_candidate_pairs;
+}
+
+std::vector<CandidatePair*> GetWritableCandidatePairs(
+    const std::vector<CandidatePair*> candidate_pairs) {
+  std::vector<CandidatePair*> writable_candidate_pairs;
+  for (CandidatePair* candidate_pair : candidate_pairs) {
+    if (candidate_pair->writable()) {
+      RTC_LOG(INFO) << candidate_pair->ToString();
+      writable_candidate_pairs.push_back(candidate_pair);
+    }
+  }
+  return writable_candidate_pairs;
+}
+
 }  // unnamed namespace
 
 namespace cricket {
@@ -347,12 +371,8 @@ IceTransportState P2PTransportChannel::ComputeState() const {
     return IceTransportState::STATE_INIT;
   }
 
-  std::vector<Connection*> active_connections;
-  for (Connection* connection : connections_) {
-    if (connection->active()) {
-      active_connections.push_back(connection);
-    }
-  }
+  std::vector<Connection*> active_connections =
+      GetActiveCandidatePairs(connections_);
   if (active_connections.empty()) {
     return IceTransportState::STATE_FAILED;
   }
@@ -584,6 +604,10 @@ void P2PTransportChannel::SetIceConfig(const IceConfig& config) {
   RTC_DCHECK(ValidateIceConfig(config_).ok());
 }
 
+const IceConfig& P2PTransportChannel::GetIceConfig() const {
+  return config_;
+}
+
 const IceConfig& P2PTransportChannel::config() const {
   return config_;
 }
@@ -775,11 +799,11 @@ void P2PTransportChannel::OnCandidatesReady(
 void P2PTransportChannel::OnCandidatesAllocationDone(
     PortAllocatorSession* session) {
   RTC_DCHECK(network_thread_ == rtc::Thread::Current());
-  if (config_.gather_continually()) {
+  if (!config_.gather_once()) {
     RTC_LOG(LS_INFO) << "P2PTransportChannel: " << transport_name()
                      << ", component " << component()
-                     << " gathering complete, but using continual "
-                        "gathering so not changing gathering state.";
+                     << " gathering complete, but using continual or "
+                        "autonomous gathering so not changing gathering state.";
     return;
   }
   gathering_state_ = kIceGatheringComplete;
@@ -1239,24 +1263,43 @@ int P2PTransportChannel::SendPacket(const char *data, size_t len,
   return sent;
 }
 
-bool P2PTransportChannel::GetStats(ConnectionInfos* candidate_pair_stats_list,
-                                   CandidateStatsList* candidate_stats_list) {
+bool P2PTransportChannel::GetStats(webrtc::IceTransportStats* stats) {
   RTC_DCHECK(network_thread_ == rtc::Thread::Current());
   // Gather candidate and candidate pair stats.
-  candidate_stats_list->clear();
-  candidate_pair_stats_list->clear();
+  stats->candidate_stats_list.clear();
+  stats->candidate_pair_stats_list.clear();
 
   if (!allocator_sessions_.empty()) {
-    allocator_session()->GetCandidateStatsFromReadyPorts(candidate_stats_list);
+    allocator_session()->GetCandidateStatsFromReadyPorts(
+        &stats->candidate_stats_list);
   }
 
   // TODO(qingsi): Remove naming inconsistency for candidate pair/connection.
   for (Connection* connection : connections_) {
     ConnectionInfo candidate_pair_stats = connection->stats();
     candidate_pair_stats.best_connection = (selected_connection_ == connection);
-    candidate_pair_stats_list->push_back(std::move(candidate_pair_stats));
+    stats->candidate_pair_stats_list.push_back(std::move(candidate_pair_stats));
     connection->set_reported(true);
   }
+
+  stats->last_time_ms_candidate_pairs_sorted =
+      last_time_ms_candidate_pairs_sorted_;
+  stats->num_active_candidate_pairs =
+      GetActiveCandidatePairs(connections_).size();
+  stats->num_writable_candidate_pairs =
+      GetWritableCandidatePairs(connections_).size();
+  stats->num_continual_switchings_to_weak_candidate_pairs =
+      num_continual_switchings_to_weak_candidate_pairs_;
+  // |nomination_| is increased whenever we select a candidate pair.
+  stats->had_selected_candidate_pair = (nomination_ > 0);
+  stats->selected_candidate_pair_connectivity_check_rtt_ms =
+      selected_connection_ ? selected_connection_->rtt() : -1;
+  stats->selected_candidate_pair_writable_or_presumably_writable =
+      selected_connection_ ? (selected_connection_->writable() ||
+                              PresumedWritable(selected_connection_))
+                           : false;
+  stats->selected_candidate_pair_receiving =
+      selected_connection_ ? selected_connection_->receiving() : false;
 
   return true;
 }
@@ -1523,6 +1566,7 @@ bool P2PTransportChannel::PresumedWritable(const Connection* conn) const {
 void P2PTransportChannel::SortConnectionsAndUpdateState(
     const std::string& reason_to_sort) {
   RTC_DCHECK(network_thread_ == rtc::Thread::Current());
+  last_time_ms_candidate_pairs_sorted_ = rtc::TimeMillis();
 
   // Make sure the connection states are up-to-date since this affects how they
   // will be sorted.
@@ -1707,6 +1751,12 @@ void P2PTransportChannel::SwitchSelectedConnection(Connection* conn) {
         GetIpOverhead(
             selected_connection_->local_candidate().address().family()) +
         GetProtocolOverhead(selected_connection_->local_candidate().protocol());
+
+    if (selected_connection_->weak()) {
+      ++num_continual_switchings_to_weak_candidate_pairs_;
+    } else {
+      num_continual_switchings_to_weak_candidate_pairs_ = 0;
+    }
   } else {
     RTC_LOG(LS_INFO) << ToString()
                      << ": No selected connection";
@@ -1793,7 +1843,7 @@ void P2PTransportChannel::MaybeStopPortAllocatorSessions() {
     }
     // If gathering continually, keep the last session running so that
     // it can gather candidates if the networks change.
-    if (config_.gather_continually() && session == allocator_sessions_.back()) {
+    if (!config_.gather_once() && session == allocator_sessions_.back()) {
       session->ClearGettingPorts();
     } else {
       session->StopGettingPorts();
@@ -2183,7 +2233,7 @@ void P2PTransportChannel::OnCandidatesRemoved(
   // Do not signal candidate removals if continual gathering is not enabled, or
   // if this is not the last session because an ICE restart would have signaled
   // the remote side to remove all candidates in previous sessions.
-  if (!config_.gather_continually() || session != allocator_session()) {
+  if (config_.gather_once() || session != allocator_session()) {
     return;
   }
 

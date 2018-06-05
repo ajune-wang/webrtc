@@ -329,7 +329,7 @@ public class PeerConnection {
   public enum KeyType { RSA, ECDSA }
 
   /** Java version of PeerConnectionInterface.ContinualGatheringPolicy */
-  public enum ContinualGatheringPolicy { GATHER_ONCE, GATHER_CONTINUALLY }
+  public enum ContinualGatheringPolicy { GATHER_ONCE, GATHER_CONTINUALLY, GATHER_AUTO }
 
   /** Java version of rtc::IntervalRange */
   public static class IntervalRange {

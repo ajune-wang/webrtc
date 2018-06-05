@@ -54,7 +54,8 @@ typedef NS_ENUM(NSInteger, RTCCandidateNetworkPolicy) {
 /** Represents the continual gathering policy. */
 typedef NS_ENUM(NSInteger, RTCContinualGatheringPolicy) {
   RTCContinualGatheringPolicyGatherOnce,
-  RTCContinualGatheringPolicyGatherContinually
+  RTCContinualGatheringPolicyGatherContinually,
+  RTCContinualGatheringPolicyGatherAuto
 };
 
 /** Represents the encryption key type. */

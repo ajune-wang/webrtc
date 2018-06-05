@@ -103,6 +103,7 @@ void BasicRegatheringController::RegatherOnAllNetworksIfDoneGathering(
   // running or stopped). It is only possible to enter this state when we gather
   // continually, so there is an implicit check on continual gathering here.
   if (allocator_session_ && allocator_session_->IsCleared()) {
+    last_regathering_ms_on_all_networks_ = rtc::TimeMillis();
     allocator_session_->RegatherOnAllNetworks();
   }
   if (repeated) {
@@ -123,6 +124,17 @@ void BasicRegatheringController::ScheduleRegatheringOnFailedNetworks(
           &BasicRegatheringController::RegatherOnFailedNetworksIfDoneGathering,
           this, repeated),
       config_.regather_on_failed_networks_interval);
+}
+
+void BasicRegatheringController::ScheduleOneTimeRegatheringOnAllNetworks(
+    const rtc::IntervalRange& range) {
+  int delay_ms = SampleRegatherAllNetworksInterval(range);
+  invoker_for_one_time_regathering_on_all_networks_.AsyncInvokeDelayed<void>(
+      RTC_FROM_HERE, thread(),
+      rtc::Bind(
+          &BasicRegatheringController::RegatherOnAllNetworksIfDoneGathering,
+          this, false),
+      delay_ms);
 }
 
 void BasicRegatheringController::RegatherOnFailedNetworksIfDoneGathering(
@@ -146,6 +158,95 @@ void BasicRegatheringController::CancelScheduledRegatheringOnAllNetworks() {
 void BasicRegatheringController::CancelScheduledRegatheringOnFailedNetworks() {
   invoker_for_failed_networks_.Clear();
   has_recurring_schedule_on_failed_networks_ = false;
+}
+
+void BasicRegatheringController::OnIceTransportStateChanged(
+    cricket::IceTransportInternal*) {
+  MaybeRegatherOnAllNetworks();
+}
+
+void BasicRegatheringController::OnIceTransportWritableState(
+    rtc::PacketTransportInternal* transport) {
+  if (!transport->writable()) {
+    if (last_time_ms_writable_) {
+      // If we are changing from writable to not writable, consider regathering.
+      MaybeRegatherOnAllNetworks();
+    }
+  }
+  last_time_ms_writable_ = rtc::TimeMillis();
+}
+
+void BasicRegatheringController::OnIceTransportReceivingState(
+    rtc::PacketTransportInternal* transport) {
+  if (!transport->receiving()) {
+    MaybeRegatherOnAllNetworks();
+  }
+}
+
+void BasicRegatheringController::OnIceTransportNetworkRouteChanged(
+    rtc::Optional<rtc::NetworkRoute>) {
+  MaybeRegatherOnAllNetworks();
+}
+
+void BasicRegatheringController::MaybeRegatherOnAllNetworks() {
+  if (!ice_transport_->GetIceConfig().gather_autonomously()) {
+    return;
+  }
+  IceTransportStats stats;
+  ice_transport_->GetStats(&stats);
+  if (ShouldRegatherOnAllNetworks(stats)) {
+    RTC_LOG(INFO) << "Start autonomous regathering of local candidates.";
+    // Schedule regathering immediately.
+    ScheduleOneTimeRegatheringOnAllNetworks(rtc::IntervalRange() /* no delay*/);
+    return;
+  }
+  invoker_for_one_time_regathering_on_all_networks_.AsyncInvokeDelayed<void>(
+      RTC_FROM_HERE, thread(),
+      rtc::Bind(&BasicRegatheringController::MaybeRegatherOnAllNetworks, this),
+      min_regathering_interval_ms_or_default());
+}
+
+bool BasicRegatheringController::TooManyWeakSelectedCandidatePairs(
+    const IceTransportStats& stats) const {
+  return stats.num_continual_switchings_to_weak_candidate_pairs >
+         cricket::kMinNumSwitchingsToWeakCandidatePairsBeforeRegathering;
+}
+
+bool BasicRegatheringController::TooLargePingRttOverSelectedCandidatePair(
+    const IceTransportStats& stats) const {
+  return stats.selected_candidate_pair_connectivity_check_rtt_ms >
+         cricket::kMinRttMsOverSelectedCandidatePairBeforeRegathering;
+}
+
+bool BasicRegatheringController::HadSelectedCandidatePair(
+    const IceTransportStats& stats) const {
+  return stats.had_selected_candidate_pair;
+}
+
+bool BasicRegatheringController::HasActiveCandidatePair(
+    const IceTransportStats& stats) const {
+  return stats.num_active_candidate_pairs != 0;
+}
+
+bool BasicRegatheringController::HasWritableCandidatePair(
+    const IceTransportStats& stats) const {
+  return stats.num_writable_candidate_pairs != 0;
+}
+
+bool BasicRegatheringController::ShouldRegatherOnAllNetworks(
+    const IceTransportStats& stats) {
+  if (last_regathering_ms_on_all_networks_ &&
+      rtc::TimeMillis() < last_regathering_ms_on_all_networks_.value() +
+                              min_regathering_interval_ms_or_default()) {
+    return false;
+  }
+  if (HadSelectedCandidatePair(stats) &&
+      (TooManyWeakSelectedCandidatePairs(stats) ||
+       TooLargePingRttOverSelectedCandidatePair(stats) ||
+       !HasActiveCandidatePair(stats) || !HasWritableCandidatePair(stats))) {
+    return true;
+  }
+  return false;
 }
 
 int BasicRegatheringController::SampleRegatherAllNetworksInterval(

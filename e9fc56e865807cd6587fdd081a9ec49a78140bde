@@ -46,6 +46,30 @@
       "revId": "e9fc56e865807cd6587fdd081a9ec49a78140bde",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "963d368f_b3ca8cba",
+        "filename": "sdk/android/api/org/webrtc/RtpParameters.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-06-05T12:03:27Z",
+      "side": 1,
+      "message": "Ack even though I don\u0027t really see why it is not called encrypted in our headers then.",
+      "parentUuid": "94f12199_76a51c6e",
+      "range": {
+        "startLine": 165,
+        "startChar": 23,
+        "endLine": 165,
+        "endChar": 32
+      },
+      "revId": "e9fc56e865807cd6587fdd081a9ec49a78140bde",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

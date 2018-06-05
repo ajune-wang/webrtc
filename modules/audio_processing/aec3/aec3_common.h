@@ -48,9 +48,11 @@ constexpr size_t kBlockSize = kFftLengthBy2;
 constexpr size_t kBlockSizeLog2 = 6;
 
 constexpr size_t kExtendedBlockSize = 2 * kFftLengthBy2;
-constexpr size_t kMatchedFilterWindowSizeSubBlocks = 32;
-constexpr size_t kMatchedFilterAlignmentShiftSizeSubBlocks =
-    kMatchedFilterWindowSizeSubBlocks * 3 / 4;
+// constexpr size_t kMatchedFilterWindowSizeSubBlocks = 32;
+//  constexpr size_t kMatchedFilterAlignmentShiftSizeSubBlocks =
+//      kMatchedFilterWindowSizeSubBlocks * 3 / 4;
+// constexpr size_t kMatchedFilterAlignmentShiftSizeSubBlocks =
+//     kMatchedFilterWindowSizeSubBlocks / 2;
 
 // TODO(peah): Integrate this with how it is done inside audio_processing_impl.
 constexpr size_t NumBandsForRate(int sample_rate_hz) {
@@ -70,17 +72,39 @@ constexpr int GetTimeDomainLength(int filter_length_blocks) {
   return filter_length_blocks * kFftLengthBy2;
 }
 
+// constexpr size_t GetDownSampledBufferSize(size_t down_sampling_factor,
+//                                           size_t num_matched_filters) {
+//   return kBlockSize / down_sampling_factor *
+//          (kMatchedFilterAlignmentShiftSizeSubBlocks * num_matched_filters +
+//           kMatchedFilterWindowSizeSubBlocks + 1);
+// }
+
 constexpr size_t GetDownSampledBufferSize(size_t down_sampling_factor,
+                                          size_t filter_size_sub_blocks,
+                                          size_t alignment_sub_blocks,
                                           size_t num_matched_filters) {
   return kBlockSize / down_sampling_factor *
-         (kMatchedFilterAlignmentShiftSizeSubBlocks * num_matched_filters +
-          kMatchedFilterWindowSizeSubBlocks + 1);
+         (alignment_sub_blocks * num_matched_filters + filter_size_sub_blocks +
+          1);
 }
 
+// constexpr size_t GetRenderDelayBufferSize(size_t down_sampling_factor,
+//                                           size_t num_matched_filters,
+//                                           size_t filter_length_blocks) {
+//   return GetDownSampledBufferSize(down_sampling_factor, num_matched_filters)
+//   /
+//              (kBlockSize / down_sampling_factor) +
+//          filter_length_blocks + 1;
+// }
+
 constexpr size_t GetRenderDelayBufferSize(size_t down_sampling_factor,
+                                          size_t matched_filter_size_sub_blocks,
+                                          size_t matched_alignment_sub_blocks,
                                           size_t num_matched_filters,
                                           size_t filter_length_blocks) {
-  return GetDownSampledBufferSize(down_sampling_factor, num_matched_filters) /
+  return GetDownSampledBufferSize(
+             down_sampling_factor, matched_filter_size_sub_blocks,
+             matched_alignment_sub_blocks, num_matched_filters) /
              (kBlockSize / down_sampling_factor) +
          filter_length_blocks + 1;
 }

@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "8c6cc6c7_6a252b65",
+        "filename": "video/full_stack_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-06-05T08:29:07Z",
+      "side": 1,
+      "message": "It\u0027s unclear to me how VideoCodecVP8::automaticResizeOn is (or is not) set in these tests. Do we want quality scaling to be enabled in this test?",
+      "range": {
+        "startLine": 173,
+        "startChar": 14,
+        "endLine": 173,
+        "endChar": 19
+      },
+      "revId": "00b073280985fadbf3268a2f2183101068f2c904",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8846d63_b89143f1",
+        "filename": "video/full_stack_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-06-05T08:29:07Z",
+      "side": 1,
+      "message": "false to disabled ULPFEC.",
+      "range": {
+        "startLine": 175,
+        "startChar": 43,
+        "endLine": 175,
+        "endChar": 47
+      },
+      "revId": "00b073280985fadbf3268a2f2183101068f2c904",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9215e9dc_2ffd6479",
         "filename": "video/full_stack_tests.cc",
         "patchSetId": 1
@@ -22,6 +68,30 @@
       "revId": "00b073280985fadbf3268a2f2183101068f2c904",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "690c99e2_2e050d9a",
+        "filename": "video/full_stack_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-06-05T08:29:07Z",
+      "side": 1,
+      "message": "Not really. I think your suggestion is fine.",
+      "parentUuid": "9215e9dc_2ffd6479",
+      "range": {
+        "startLine": 176,
+        "startChar": 27,
+        "endLine": 176,
+        "endChar": 71
+      },
+      "revId": "00b073280985fadbf3268a2f2183101068f2c904",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

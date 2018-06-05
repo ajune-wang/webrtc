@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "361fb5ea_2f0c4755",
+        "filename": "modules/pacing/paced_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-06-05T07:59:25Z",
+      "side": 1,
+      "message": "Couldn\u0027t that be intepreted as not allowing any other overrides either (such as congestion window etc)?",
+      "parentUuid": "8c9bb493_7185705d",
+      "range": {
+        "startLine": 83,
+        "startChar": 6,
+        "endLine": 83,
+        "endChar": 19
+      },
+      "revId": "b16fcd6ad9859d38b2c6182149de25cd1d38e572",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f8c0c3a6_feed8657",
         "filename": "modules/pacing/paced_sender.cc",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "b16fcd6ad9859d38b2c6182149de25cd1d38e572",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e797b443_e3a80c96",
+        "filename": "modules/pacing/paced_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-06-05T07:59:25Z",
+      "side": 1,
+      "message": "It\u0027s enabled if the field trial is not enabled (for that reason, it does have a purpose after all)\n\nI guess that\u0027s why python uses \"not\" rather than !.",
+      "parentUuid": "f8c0c3a6_feed8657",
+      "range": {
+        "startLine": 289,
+        "startChar": 8,
+        "endLine": 289,
+        "endChar": 21
+      },
+      "revId": "b16fcd6ad9859d38b2c6182149de25cd1d38e572",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ca530292_86cd2adf",
+        "filename": "rtc_base/experiments/field_trial_parser.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-05T09:49:34Z",
+      "side": 1,
+      "message": "If you didn\u0027t like C-style strcspn, can you have a look at absl/string/str_split.h and see if there\u0027s something suitable? Also absl/string/numbers.h might be useful for integer conversions, instead of sscanf.\n\n(One reasonable way to think about the parsing is to conceptually first split on commas, and then examine one substring at a time and look for the :, if any).",
+      "range": {
+        "startLine": 43,
+        "startChar": 2,
+        "endLine": 45,
+        "endChar": 47
+      },
+      "revId": "4c46933f990ada4fd678b2a11c7ca98ca8cdec5c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9fb7544e_79efa032",
+        "filename": "rtc_base/experiments/field_trial_parser.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-05T09:49:34Z",
+      "side": 1,
+      "message": "Ok, so this includes the \"Enabled:false\" case, and it\u0027s considered syntactically invalid. Makes sense, I just hope it matches current usage.",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 79,
+        "endChar": 15
+      },
+      "revId": "4c46933f990ada4fd678b2a11c7ca98ca8cdec5c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "927f8e76_1814d1be",
+        "filename": "rtc_base/experiments/field_trial_parser.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-05T09:49:34Z",
+      "side": 1,
+      "message": "Using const ref here forces an extra copy, instead of a supposedly cheaper move.\n\nNow, performance is not that important for this code, but that\u0027s just another reason togo with plain pass-by-value.",
+      "range": {
+        "startLine": 117,
+        "startChar": 4,
+        "endLine": 117,
+        "endChar": 26
+      },
+      "revId": "4c46933f990ada4fd678b2a11c7ca98ca8cdec5c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23e3a935_f981f3f3",
+        "filename": "rtc_base/experiments/field_trial_parser.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-05T09:49:34Z",
+      "side": 1,
+      "message": "Suggestion: Values can\u0027t include the comma character, since there\u0027s no quote facility. For most types, white space is ignored.",
+      "range": {
+        "startLine": 20,
+        "startChar": 49,
+        "endLine": 21,
+        "endChar": 47
+      },
+      "revId": "4c46933f990ada4fd678b2a11c7ca98ca8cdec5c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60f728f3_73182f1b",
+        "filename": "rtc_base/experiments/field_trial_parser.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-05T09:49:34Z",
+      "side": 1,
+      "message": "No longer the case. And either mention the Parse method, or move some of the comment to that method.",
+      "range": {
+        "startLine": 24,
+        "startChar": 19,
+        "endLine": 24,
+        "endChar": 59
+      },
+      "revId": "4c46933f990ada4fd678b2a11c7ca98ca8cdec5c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08c13219_e2d1db3c",
+        "filename": "rtc_base/experiments/field_trial_parser.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-05T09:49:34Z",
+      "side": 1,
+      "message": "I think pass-by-value is preferable here. Caller should be able to move it, FieldTrialParameter\u003cstd::string\u003e can then move-assign the string without yet another copy operation.",
+      "range": {
+        "startLine": 39,
+        "startChar": 21,
+        "endLine": 39,
+        "endChar": 54
+      },
+      "revId": "4c46933f990ada4fd678b2a11c7ca98ca8cdec5c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d12c639d_1b8f84b5",
+        "filename": "rtc_base/experiments/field_trial_parser.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-05T09:49:34Z",
+      "side": 1,
+      "message": "I don\u0027t understand this test, can you explain?",
+      "range": {
+        "startLine": 56,
+        "startChar": 16,
+        "endLine": 56,
+        "endChar": 30
+      },
+      "revId": "4c46933f990ada4fd678b2a11c7ca98ca8cdec5c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b717666_a63ff0d5",
+        "filename": "rtc_base/experiments/field_trial_parser.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-05T09:49:34Z",
+      "side": 1,
+      "message": "I think it\u0027s clearer if you rearrange the return statements, with one early\n\n  if (!value.has_value()) return false;\n\nfor the error case, and one\n\n  return true;\n\nat the end of the function.",
+      "range": {
+        "startLine": 97,
+        "startChar": 0,
+        "endLine": 106,
+        "endChar": 17
+      },
+      "revId": "4c46933f990ada4fd678b2a11c7ca98ca8cdec5c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b40c9337_1dfeefa5",
+        "filename": "rtc_base/experiments/field_trial_parser.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-05T09:49:34Z",
+      "side": 1,
+      "message": "Is this the intended meaning, it\u0027s invalid to explicitly set \"key:true\" (equivalent to just \"key\") or \"key:false\"?",
+      "range": {
+        "startLine": 113,
+        "startChar": 0,
+        "endLine": 113,
+        "endChar": 50
+      },
+      "revId": "4c46933f990ada4fd678b2a11c7ca98ca8cdec5c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

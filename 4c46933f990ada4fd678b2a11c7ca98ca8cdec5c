@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "467856a1_ded452ea",
+        "filename": "rtc_base/experiments/field_trial_parser.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-06-05T12:28:06Z",
+      "side": 1,
+      "message": "I\u0027d like to hold on adding absl features for now. (There\u0027s still import issues breaking my IDE) But seems like a reasonable thing to investigate for a follow up CL.)",
+      "parentUuid": "ca530292_86cd2adf",
+      "range": {
+        "startLine": 43,
+        "startChar": 2,
+        "endLine": 45,
+        "endChar": 47
+      },
+      "revId": "4c46933f990ada4fd678b2a11c7ca98ca8cdec5c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9fb7544e_79efa032",
         "filename": "rtc_base/experiments/field_trial_parser.cc",
         "patchSetId": 6
@@ -45,6 +69,30 @@
       "revId": "4c46933f990ada4fd678b2a11c7ca98ca8cdec5c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "075c9cdb_87e6ab60",
+        "filename": "rtc_base/experiments/field_trial_parser.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-06-05T12:28:06Z",
+      "side": 1,
+      "message": "Changed this to allow more usages.",
+      "parentUuid": "9fb7544e_79efa032",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 79,
+        "endChar": 15
+      },
+      "revId": "4c46933f990ada4fd678b2a11c7ca98ca8cdec5c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "20b6c449_d357ef70",
+        "filename": "rtc_base/experiments/field_trial_parser.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-06-05T12:28:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "927f8e76_1814d1be",
+      "range": {
+        "startLine": 117,
+        "startChar": 4,
+        "endLine": 117,
+        "endChar": 26
+      },
+      "revId": "4c46933f990ada4fd678b2a11c7ca98ca8cdec5c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "23e3a935_f981f3f3",
         "filename": "rtc_base/experiments/field_trial_parser.h",
         "patchSetId": 6
@@ -91,6 +163,30 @@
       "revId": "4c46933f990ada4fd678b2a11c7ca98ca8cdec5c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73eb0823_1bf87dcf",
+        "filename": "rtc_base/experiments/field_trial_parser.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-06-05T12:28:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "23e3a935_f981f3f3",
+      "range": {
+        "startLine": 20,
+        "startChar": 49,
+        "endLine": 21,
+        "endChar": 47
+      },
+      "revId": "4c46933f990ada4fd678b2a11c7ca98ca8cdec5c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "3f816b8d_42a29cc5",
+        "filename": "rtc_base/experiments/field_trial_parser.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-06-05T12:28:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "60f728f3_73182f1b",
+      "range": {
+        "startLine": 24,
+        "startChar": 19,
+        "endLine": 24,
+        "endChar": 59
+      },
+      "revId": "4c46933f990ada4fd678b2a11c7ca98ca8cdec5c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "08c13219_e2d1db3c",
         "filename": "rtc_base/experiments/field_trial_parser.h",
         "patchSetId": 6
@@ -137,6 +257,30 @@
       "revId": "4c46933f990ada4fd678b2a11c7ca98ca8cdec5c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a9883c5_d6941aae",
+        "filename": "rtc_base/experiments/field_trial_parser.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-06-05T12:28:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "08c13219_e2d1db3c",
+      "range": {
+        "startLine": 39,
+        "startChar": 21,
+        "endLine": 39,
+        "endChar": 54
+      },
+      "revId": "4c46933f990ada4fd678b2a11c7ca98ca8cdec5c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "b03a82e9_87895985",
+        "filename": "rtc_base/experiments/field_trial_parser.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-06-05T12:28:06Z",
+      "side": 1,
+      "message": "It triggers for all types (with a size\u003e0) if the function doesn\u0027t have a specialization overriding it. Provides a nicer error message than a link error. Replaced with std::is_empty since it gives a better error message that includes the type.",
+      "parentUuid": "d12c639d_1b8f84b5",
+      "range": {
+        "startLine": 56,
+        "startChar": 16,
+        "endLine": 56,
+        "endChar": 30
+      },
+      "revId": "4c46933f990ada4fd678b2a11c7ca98ca8cdec5c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1b717666_a63ff0d5",
         "filename": "rtc_base/experiments/field_trial_parser.h",
         "patchSetId": 6
@@ -186,6 +354,30 @@
     },
     {
       "key": {
+        "uuid": "ae1f2fa8_38ce98e0",
+        "filename": "rtc_base/experiments/field_trial_parser.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-06-05T12:28:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1b717666_a63ff0d5",
+      "range": {
+        "startLine": 97,
+        "startChar": 0,
+        "endLine": 106,
+        "endChar": 17
+      },
+      "revId": "4c46933f990ada4fd678b2a11c7ca98ca8cdec5c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b40c9337_1dfeefa5",
         "filename": "rtc_base/experiments/field_trial_parser.h",
         "patchSetId": 6
@@ -206,6 +398,30 @@
       "revId": "4c46933f990ada4fd678b2a11c7ca98ca8cdec5c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3063d6f_b402b66e",
+        "filename": "rtc_base/experiments/field_trial_parser.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-06-05T12:28:06Z",
+      "side": 1,
+      "message": "Changed comment and behavior to be like bool. (To allow changing the default without changing the type)",
+      "parentUuid": "b40c9337_1dfeefa5",
+      "range": {
+        "startLine": 113,
+        "startChar": 0,
+        "endLine": 113,
+        "endChar": 50
+      },
+      "revId": "4c46933f990ada4fd678b2a11c7ca98ca8cdec5c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

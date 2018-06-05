@@ -62,8 +62,9 @@ void InitializeFFmpeg() {
 
 }  // namespace
 
-int H264DecoderImpl::AVGetBuffer2(
-    AVCodecContext* context, AVFrame* av_frame, int flags) {
+int H264DecoderImpl::AVGetBuffer2(AVCodecContext* context,
+                                  AVFrame* av_frame,
+                                  int flags) {
   // Set in |InitDecode|.
   H264DecoderImpl* decoder = static_cast<H264DecoderImpl*>(context->opaque);
   // DCHECK values set in |InitDecode|.
@@ -132,15 +133,12 @@ int H264DecoderImpl::AVGetBuffer2(
   // Create a VideoFrame object, to keep a reference to the buffer.
   // TODO(nisse): The VideoFrame's timestamp and rotation info is not used.
   // Refactor to do not use a VideoFrame object at all.
-  av_frame->buf[0] = av_buffer_create(
-      av_frame->data[kYPlaneIndex],
-      total_size,
-      AVFreeBuffer2,
-      static_cast<void*>(new VideoFrame(frame_buffer,
-                                        0 /* timestamp */,
-                                        0 /* render_time_ms */,
-                                        kVideoRotation_0)),
-      0);
+  av_frame->buf[0] =
+      av_buffer_create(av_frame->data[kYPlaneIndex], total_size, AVFreeBuffer2,
+                       static_cast<void*>(new VideoFrame(
+                           frame_buffer, 0 /* timestamp */,
+                           0 /* render_time_ms */, kVideoRotation_0)),
+                       0);
   RTC_CHECK(av_frame->buf[0]);
   return 0;
 }
@@ -153,11 +151,11 @@ void H264DecoderImpl::AVFreeBuffer2(void* opaque, uint8_t* data) {
   delete video_frame;
 }
 
-H264DecoderImpl::H264DecoderImpl() : pool_(true),
-                                     decoded_image_callback_(nullptr),
-                                     has_reported_init_(false),
-                                     has_reported_error_(false) {
-}
+H264DecoderImpl::H264DecoderImpl()
+    : pool_(true),
+      decoded_image_callback_(nullptr),
+      has_reported_init_(false),
+      has_reported_error_(false) {}
 
 H264DecoderImpl::~H264DecoderImpl() {
   Release();
@@ -166,18 +164,17 @@ H264DecoderImpl::~H264DecoderImpl() {
 int32_t H264DecoderImpl::InitDecode(const VideoCodec* codec_settings,
                                     int32_t number_of_cores) {
   ReportInit();
-  if (codec_settings &&
-      codec_settings->codecType != kVideoCodecH264) {
+  if (codec_settings && codec_settings->codecType != kVideoCodecH264) {
     ReportError();
     return WEBRTC_VIDEO_CODEC_ERR_PARAMETER;
   }
 
-  // FFmpeg must have been initialized (with |av_register_all|) before we
-  // proceed. |InitializeFFmpeg| does this, which makes sense for WebRTC
-  // standalone. In other cases, such as Chromium, FFmpeg is initialized
-  // externally and calling |InitializeFFmpeg| would be thread-unsafe and result
-  // in FFmpeg being initialized twice, which could break other FFmpeg usage.
-  // See the |rtc_initialize_ffmpeg| flag.
+// FFmpeg must have been initialized (with |av_register_all|) before we
+// proceed. |InitializeFFmpeg| does this, which makes sense for WebRTC
+// standalone. In other cases, such as Chromium, FFmpeg is initialized
+// externally and calling |InitializeFFmpeg| would be thread-unsafe and result
+// in FFmpeg being initialized twice, which could break other FFmpeg usage.
+// See the |rtc_initialize_ffmpeg| flag.
 #if defined(WEBRTC_INITIALIZE_FFMPEG)
   // Make sure FFmpeg has been initialized. Subsequent |InitializeFFmpeg| calls
   // do nothing.
@@ -276,13 +273,13 @@ int32_t H264DecoderImpl::Decode(const EncodedImage& input_image,
 
   // FFmpeg requires padding due to some optimized bitstream readers reading 32
   // or 64 bits at once and could read over the end. See avcodec_decode_video2.
-  RTC_CHECK_GE(input_image._size, input_image._length +
+  RTC_CHECK_GE(input_image._size,
+               input_image._length +
                    EncodedImage::GetBufferPaddingBytes(kVideoCodecH264));
   // "If the first 23 bits of the additional bytes are not 0, then damaged MPEG
   // bitstreams could cause overread and segfault." See
   // AV_INPUT_BUFFER_PADDING_SIZE. We'll zero the entire padding just in case.
-  memset(input_image._buffer + input_image._length,
-         0,
+  memset(input_image._buffer + input_image._length, 0,
          EncodedImage::GetBufferPaddingBytes(kVideoCodecH264));
 
   AVPacket packet;
@@ -316,8 +313,8 @@ int32_t H264DecoderImpl::Decode(const EncodedImage& input_image,
   RTC_DCHECK_EQ(av_frame_->reordered_opaque, frame_timestamp_us);
 
   // Obtain the |video_frame| containing the decoded image.
-  VideoFrame* video_frame = static_cast<VideoFrame*>(
-      av_buffer_get_opaque(av_frame_->buf[0]));
+  VideoFrame* video_frame =
+      static_cast<VideoFrame*>(av_buffer_get_opaque(av_frame_->buf[0]));
   RTC_DCHECK(video_frame);
   rtc::scoped_refptr<webrtc::I420BufferInterface> i420_buffer =
       video_frame->video_frame_buffer()->GetI420();
@@ -342,14 +339,13 @@ int32_t H264DecoderImpl::Decode(const EncodedImage& input_image,
       av_frame_->height != i420_buffer->height()) {
     rtc::scoped_refptr<VideoFrameBuffer> cropped_buf(
         new rtc::RefCountedObject<WrappedI420Buffer>(
-            av_frame_->width, av_frame_->height,
-            i420_buffer->DataY(), i420_buffer->StrideY(),
-            i420_buffer->DataU(), i420_buffer->StrideU(),
-            i420_buffer->DataV(), i420_buffer->StrideV(),
-            rtc::KeepRefUntilDone(i420_buffer)));
-    VideoFrame cropped_frame(
-        cropped_buf, video_frame->timestamp(), video_frame->render_time_ms(),
-        video_frame->rotation());
+            av_frame_->width, av_frame_->height, i420_buffer->DataY(),
+            i420_buffer->StrideY(), i420_buffer->DataU(),
+            i420_buffer->StrideU(), i420_buffer->DataV(),
+            i420_buffer->StrideV(), rtc::KeepRefUntilDone(i420_buffer)));
+    VideoFrame cropped_frame(cropped_buf, video_frame->timestamp(),
+                             video_frame->render_time_ms(),
+                             video_frame->rotation());
     // TODO(nisse): Timestamp and rotation are all zero here. Change decoder
     // interface to pass a VideoFrameBuffer instead of a VideoFrame?
     decoded_image_callback_->Decoded(cropped_frame, rtc::nullopt, qp);
@@ -376,8 +372,7 @@ void H264DecoderImpl::ReportInit() {
   if (has_reported_init_)
     return;
   RTC_HISTOGRAM_ENUMERATION("WebRTC.Video.H264DecoderImpl.Event",
-                            kH264DecoderEventInit,
-                            kH264DecoderEventMax);
+                            kH264DecoderEventInit, kH264DecoderEventMax);
   has_reported_init_ = true;
 }
 
@@ -385,8 +380,7 @@ void H264DecoderImpl::ReportError() {
   if (has_reported_error_)
     return;
   RTC_HISTOGRAM_ENUMERATION("WebRTC.Video.H264DecoderImpl.Event",
-                            kH264DecoderEventError,
-                            kH264DecoderEventMax);
+                            kH264DecoderEventError, kH264DecoderEventMax);
   has_reported_error_ = true;
 }
 

@@ -102,8 +102,8 @@ TEST(EchoPathDelayEstimator, DelayEstimation) {
       } else {
         ADD_FAILURE();
       }
+    }
   }
-}
 }
 
 // Verifies that the delay estimator does not produce delay estimates for render

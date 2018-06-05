@@ -81,7 +81,6 @@ void StationarityEstimator::UpdateStationarityFlags(
   }
   UpdateHangover();
   SmoothStationaryPerFreq();
-
 }
 
 bool StationarityEstimator::EstimateBandStationarity(

@@ -10,10 +10,10 @@
 
 #include "modules/audio_coding/test/EncodeDecodeTest.h"
 
-#include <memory>
-#include <sstream>
 #include <stdio.h>
 #include <stdlib.h>
+#include <memory>
+#include <sstream>
 
 #include "api/audio_codecs/builtin_audio_decoder_factory.h"
 #include "common_types.h"  // NOLINT(build/include)
@@ -25,18 +25,16 @@
 
 namespace webrtc {
 
-TestPacketization::TestPacketization(RTPStream *rtpStream, uint16_t frequency)
-    : _rtpStream(rtpStream),
-      _frequency(frequency),
-      _seqNo(0) {
-}
+TestPacketization::TestPacketization(RTPStream* rtpStream, uint16_t frequency)
+    : _rtpStream(rtpStream), _frequency(frequency), _seqNo(0) {}
 
-TestPacketization::~TestPacketization() {
-}
+TestPacketization::~TestPacketization() {}
 
 int32_t TestPacketization::SendData(
-    const FrameType /* frameType */, const uint8_t payloadType,
-    const uint32_t timeStamp, const uint8_t* payloadData,
+    const FrameType /* frameType */,
+    const uint8_t payloadType,
+    const uint32_t timeStamp,
+    const uint8_t* payloadData,
     const size_t payloadSize,
     const RTPFragmentationHeader* /* fragmentation */) {
   _rtpStream->Write(payloadType, timeStamp, _seqNo++, payloadData, payloadSize,
@@ -45,14 +43,13 @@ int32_t TestPacketization::SendData(
 }
 
 Sender::Sender()
-    : _acm(NULL),
-      _pcmFile(),
-      _audioFrame(),
-      _packetization(NULL) {
-}
+    : _acm(NULL), _pcmFile(), _audioFrame(), _packetization(NULL) {}
 
-void Sender::Setup(AudioCodingModule *acm, RTPStream *rtpStream,
-                   std::string in_file_name, int sample_rate, size_t channels) {
+void Sender::Setup(AudioCodingModule* acm,
+                   RTPStream* rtpStream,
+                   std::string in_file_name,
+                   int sample_rate,
+                   size_t channels) {
   struct CodecInst sendCodec;
   int noOfCodecs = acm->NumberOfCodecs();
   int codecNo;
@@ -119,11 +116,12 @@ void Sender::Run() {
 
 Receiver::Receiver()
     : _playoutLengthSmpls(WEBRTC_10MS_PCM_AUDIO),
-      _payloadSizeBytes(MAX_INCOMING_PAYLOAD) {
-}
+      _payloadSizeBytes(MAX_INCOMING_PAYLOAD) {}
 
-void Receiver::Setup(AudioCodingModule *acm, RTPStream *rtpStream,
-                     std::string out_file_name, size_t channels) {
+void Receiver::Setup(AudioCodingModule* acm,
+                     RTPStream* rtpStream,
+                     std::string out_file_name,
+                     size_t channels) {
   struct CodecInst recvCodec = CodecInst();
   int noOfCodecs;
   EXPECT_EQ(0, acm->InitializeReceiver());
@@ -146,7 +144,7 @@ void Receiver::Setup(AudioCodingModule *acm, RTPStream *rtpStream,
   std::string file_name;
   std::stringstream file_stream;
   file_stream << webrtc::test::OutputPath() << out_file_name
-      << static_cast<int>(codeId) << ".pcm";
+              << static_cast<int>(codeId) << ".pcm";
   file_name = file_stream.str();
   _rtpStream = rtpStream;
 
@@ -214,14 +212,14 @@ bool Receiver::PlayoutData() {
     return false;
   }
   EXPECT_EQ(0, ok);
-  if (ok < 0){
+  if (ok < 0) {
     return false;
   }
   if (_playoutLengthSmpls == 0) {
     return false;
   }
-  _pcmFile.Write10MsData(audioFrame.data(),
-      audioFrame.samples_per_channel_ * audioFrame.num_channels_);
+  _pcmFile.Write10MsData(audioFrame.data(), audioFrame.samples_per_channel_ *
+                                                audioFrame.num_channels_);
   return true;
 }
 
@@ -254,9 +252,9 @@ EncodeDecodeTest::EncodeDecodeTest() {
 }
 
 EncodeDecodeTest::EncodeDecodeTest(int testMode) {
-  //testMode == 0 for autotest
-  //testMode == 1 for testing all codecs/parameters
-  //testMode > 1 for specific user-input test (as it was used before)
+  // testMode == 0 for autotest
+  // testMode == 1 for testing all codecs/parameters
+  // testMode > 1 for specific user-input test (as it was used before)
   _testMode = testMode;
 }
 

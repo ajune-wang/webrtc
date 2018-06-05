@@ -200,16 +200,14 @@ class YuvFileGenerator : public FrameGenerator {
   void ReadNextFrame() {
     last_read_buffer_ =
         test::ReadI420Buffer(static_cast<int>(width_),
-                             static_cast<int>(height_),
-                             files_[file_index_]);
+                             static_cast<int>(height_), files_[file_index_]);
     if (!last_read_buffer_) {
       // No more frames to read in this file, rewind and move to next file.
       rewind(files_[file_index_]);
       file_index_ = (file_index_ + 1) % files_.size();
       last_read_buffer_ =
           test::ReadI420Buffer(static_cast<int>(width_),
-                               static_cast<int>(height_),
-                               files_[file_index_]);
+                               static_cast<int>(height_), files_[file_index_]);
       RTC_CHECK(last_read_buffer_);
     }
   }
@@ -249,8 +247,7 @@ class SlideGenerator : public FrameGenerator {
     if (++current_display_count_ >= frame_display_count_)
       current_display_count_ = 0;
 
-    frame_.reset(
-        new VideoFrame(buffer_, 0, 0, webrtc::kVideoRotation_0));
+    frame_.reset(new VideoFrame(buffer_, 0, 0, webrtc::kVideoRotation_0));
     return frame_.get();
   }
 
@@ -259,7 +256,7 @@ class SlideGenerator : public FrameGenerator {
   void GenerateNewFrame() {
     // The squares should have a varying order of magnitude in order
     // to simulate variation in the slides' complexity.
-    const int kSquareNum =  1 << (4 + (random_generator_.Rand(0, 3) * 2));
+    const int kSquareNum = 1 << (4 + (random_generator_.Rand(0, 3) * 2));
 
     buffer_ = I420Buffer::Create(width_, height_);
     memset(buffer_->MutableDataY(), 127, height_ * buffer_->StrideY());
@@ -451,9 +448,11 @@ std::unique_ptr<FrameGenerator> FrameGenerator::CreateSquareGenerator(
 }
 
 std::unique_ptr<FrameGenerator> FrameGenerator::CreateSlideGenerator(
-    int width, int height, int frame_repeat_count) {
-  return std::unique_ptr<FrameGenerator>(new SlideGenerator(
-      width, height, frame_repeat_count));
+    int width,
+    int height,
+    int frame_repeat_count) {
+  return std::unique_ptr<FrameGenerator>(
+      new SlideGenerator(width, height, frame_repeat_count));
 }
 
 std::unique_ptr<FrameGenerator> FrameGenerator::CreateFromYuvFile(

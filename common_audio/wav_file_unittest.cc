@@ -55,6 +55,7 @@ TEST(WavWriterTest, MAYBE_CPP) {
     ASSERT_EQ(1u, fwrite(kMetadata, sizeof(kMetadata), 1, f));
     fclose(f);
   }
+  // clang-format off
   static const uint8_t kExpectedContents[] = {
     'R', 'I', 'F', 'F',
     42, 0, 0, 0,  // size of whole file - 8: 6 + 44 - 8
@@ -74,6 +75,7 @@ TEST(WavWriterTest, MAYBE_CPP) {
     0xff, 0x7f,  // third sample: 4e4 (saturated)
     kMetadata[0], kMetadata[1],
   };
+  // clang-format on
   static const size_t kContentSize =
       kWavHeaderSize + kNumSamples * sizeof(int16_t) + sizeof(kMetadata);
   static_assert(sizeof(kExpectedContents) == kContentSize, "content size");
@@ -111,6 +113,7 @@ TEST(WavWriterTest, C) {
   rtc_WavWriteSamples(w, &kSamples[2], kNumSamples - 2);
   EXPECT_EQ(kNumSamples, rtc_WavNumSamples(w));
   rtc_WavClose(w);
+  // clang-format off
   static const uint8_t kExpectedContents[] = {
     'R', 'I', 'F', 'F',
     44, 0, 0, 0,  // size of whole file - 8: 8 + 44 - 8
@@ -130,6 +133,7 @@ TEST(WavWriterTest, C) {
     0xff, 0x7f,  // third sample: 4e4 (saturated)
     0, 0x80,  // fourth sample: -1e9 (saturated)
   };
+  // clang-format on
   static const size_t kContentSize =
       kWavHeaderSize + kNumSamples * sizeof(int16_t);
   static_assert(sizeof(kExpectedContents) == kContentSize, "content size");

@@ -209,8 +209,7 @@ TEST(FrameLengthControllerTest,
       CreateController(CreateChangeCriteriaFor20msAnd60ms(), {20}, 20);
   // Use a low uplink bandwidth and a low uplink packet loss fraction that would
   // cause frame length to increase if receiver frame length included 60ms.
-  UpdateNetworkMetrics(controller.get(),
-                       kFl20msTo60msBandwidthBps,
+  UpdateNetworkMetrics(controller.get(), kFl20msTo60msBandwidthBps,
                        kFlIncreasingPacketLossFraction,
                        kOverheadBytesPerPacket);
   CheckDecision(controller.get(), 20);
@@ -219,8 +218,7 @@ TEST(FrameLengthControllerTest,
 TEST(FrameLengthControllerTest, Maintain20MsOnMediumUplinkBandwidth) {
   auto controller =
       CreateController(CreateChangeCriteriaFor20msAnd60ms(), {20, 60}, 20);
-  UpdateNetworkMetrics(controller.get(),
-                       kMediumBandwidthBps,
+  UpdateNetworkMetrics(controller.get(), kMediumBandwidthBps,
                        kFlIncreasingPacketLossFraction,
                        kOverheadBytesPerPacket);
   CheckDecision(controller.get(), 20);
@@ -231,18 +229,15 @@ TEST(FrameLengthControllerTest, Maintain20MsOnMediumUplinkPacketLossFraction) {
       CreateController(CreateChangeCriteriaFor20msAnd60ms(), {20, 60}, 20);
   // Use a low uplink bandwidth that would cause frame length to increase if
   // uplink packet loss fraction was low.
-  UpdateNetworkMetrics(controller.get(),
-                       kFl20msTo60msBandwidthBps,
-                       kMediumPacketLossFraction,
-                       kOverheadBytesPerPacket);
+  UpdateNetworkMetrics(controller.get(), kFl20msTo60msBandwidthBps,
+                       kMediumPacketLossFraction, kOverheadBytesPerPacket);
   CheckDecision(controller.get(), 20);
 }
 
 TEST(FrameLengthControllerTest, Maintain60MsWhenNo120msCriteriaIsSet) {
   auto controller =
       CreateController(CreateChangeCriteriaFor20msAnd60ms(), {20, 60, 120}, 60);
-  UpdateNetworkMetrics(controller.get(),
-                       kFl60msTo120msBandwidthBps,
+  UpdateNetworkMetrics(controller.get(), kFl60msTo120msBandwidthBps,
                        kFlIncreasingPacketLossFraction,
                        kOverheadBytesPerPacket);
   CheckDecision(controller.get(), 60);
@@ -252,16 +247,12 @@ TEST(FrameLengthControllerTest, From120MsTo20MsOnHighUplinkBandwidth) {
   auto controller = CreateController(CreateChangeCriteriaFor20ms60msAnd120ms(),
                                      {20, 60, 120}, 120);
   // It takes two steps for frame length to go from 120ms to 20ms.
-  UpdateNetworkMetrics(controller.get(),
-                       kFl60msTo20msBandwidthBps,
-                       rtc::nullopt,
-                       kOverheadBytesPerPacket);
+  UpdateNetworkMetrics(controller.get(), kFl60msTo20msBandwidthBps,
+                       rtc::nullopt, kOverheadBytesPerPacket);
   CheckDecision(controller.get(), 60);
 
-  UpdateNetworkMetrics(controller.get(),
-                       kFl60msTo20msBandwidthBps,
-                       rtc::nullopt,
-                       kOverheadBytesPerPacket);
+  UpdateNetworkMetrics(controller.get(), kFl60msTo20msBandwidthBps,
+                       rtc::nullopt, kOverheadBytesPerPacket);
   CheckDecision(controller.get(), 20);
 }
 
@@ -311,13 +302,11 @@ TEST(FrameLengthControllerTest, From20MsTo120MsOnMultipleConditions) {
   auto controller = CreateController(CreateChangeCriteriaFor20ms60msAnd120ms(),
                                      {20, 60, 120}, 20);
   // It takes two steps for frame length to go from 20ms to 120ms.
-  UpdateNetworkMetrics(controller.get(),
-                       kFl60msTo120msBandwidthBps,
+  UpdateNetworkMetrics(controller.get(), kFl60msTo120msBandwidthBps,
                        kFlIncreasingPacketLossFraction,
                        kOverheadBytesPerPacket);
   CheckDecision(controller.get(), 60);
-  UpdateNetworkMetrics(controller.get(),
-                       kFl60msTo120msBandwidthBps,
+  UpdateNetworkMetrics(controller.get(), kFl60msTo120msBandwidthBps,
                        kFlIncreasingPacketLossFraction,
                        kOverheadBytesPerPacket);
   CheckDecision(controller.get(), 120);
@@ -326,13 +315,11 @@ TEST(FrameLengthControllerTest, From20MsTo120MsOnMultipleConditions) {
 TEST(FrameLengthControllerTest, Stall60MsIf120MsNotInReceiverFrameLengthRange) {
   auto controller =
       CreateController(CreateChangeCriteriaFor20ms60msAnd120ms(), {20, 60}, 20);
-  UpdateNetworkMetrics(controller.get(),
-                       kFl60msTo120msBandwidthBps,
+  UpdateNetworkMetrics(controller.get(), kFl60msTo120msBandwidthBps,
                        kFlIncreasingPacketLossFraction,
                        kOverheadBytesPerPacket);
   CheckDecision(controller.get(), 60);
-  UpdateNetworkMetrics(controller.get(),
-                       kFl60msTo120msBandwidthBps,
+  UpdateNetworkMetrics(controller.get(), kFl60msTo120msBandwidthBps,
                        kFlIncreasingPacketLossFraction,
                        kOverheadBytesPerPacket);
   CheckDecision(controller.get(), 60);
@@ -341,38 +328,31 @@ TEST(FrameLengthControllerTest, Stall60MsIf120MsNotInReceiverFrameLengthRange) {
 TEST(FrameLengthControllerTest, CheckBehaviorOnChangingNetworkMetrics) {
   auto controller = CreateController(CreateChangeCriteriaFor20ms60msAnd120ms(),
                                      {20, 60, 120}, 20);
-  UpdateNetworkMetrics(controller.get(),
-                       kMediumBandwidthBps,
+  UpdateNetworkMetrics(controller.get(), kMediumBandwidthBps,
                        kFlIncreasingPacketLossFraction,
                        kOverheadBytesPerPacket);
   CheckDecision(controller.get(), 20);
 
-  UpdateNetworkMetrics(controller.get(),
-                       kFl20msTo60msBandwidthBps,
+  UpdateNetworkMetrics(controller.get(), kFl20msTo60msBandwidthBps,
                        kFlIncreasingPacketLossFraction,
                        kOverheadBytesPerPacket);
   CheckDecision(controller.get(), 60);
 
-  UpdateNetworkMetrics(controller.get(),
-                       kFl60msTo120msBandwidthBps,
-                       kMediumPacketLossFraction,
-                       kOverheadBytesPerPacket);
+  UpdateNetworkMetrics(controller.get(), kFl60msTo120msBandwidthBps,
+                       kMediumPacketLossFraction, kOverheadBytesPerPacket);
   CheckDecision(controller.get(), 60);
 
-  UpdateNetworkMetrics(controller.get(),
-                       kFl60msTo120msBandwidthBps,
+  UpdateNetworkMetrics(controller.get(), kFl60msTo120msBandwidthBps,
                        kFlIncreasingPacketLossFraction,
                        kOverheadBytesPerPacket);
   CheckDecision(controller.get(), 120);
 
-  UpdateNetworkMetrics(controller.get(),
-                       kFl120msTo60msBandwidthBps,
+  UpdateNetworkMetrics(controller.get(), kFl120msTo60msBandwidthBps,
                        kFlIncreasingPacketLossFraction,
                        kOverheadBytesPerPacket);
   CheckDecision(controller.get(), 60);
 
-  UpdateNetworkMetrics(controller.get(),
-                       kMediumBandwidthBps,
+  UpdateNetworkMetrics(controller.get(), kMediumBandwidthBps,
                        kFlDecreasingPacketLossFraction,
                        kOverheadBytesPerPacket);
   CheckDecision(controller.get(), 20);

@@ -67,15 +67,12 @@ class AudioEncoderCng final : public AudioEncoder {
       float uplink_packet_loss_fraction) override;
   void OnReceivedUplinkRecoverablePacketLossFraction(
       float uplink_recoverable_packet_loss_fraction) override;
-  void OnReceivedUplinkBandwidth(
-      int target_audio_bitrate_bps,
-      rtc::Optional<int64_t> bwe_period_ms) override;
+  void OnReceivedUplinkBandwidth(int target_audio_bitrate_bps,
+                                 rtc::Optional<int64_t> bwe_period_ms) override;
 
  private:
-  EncodedInfo EncodePassive(size_t frames_to_encode,
-                            rtc::Buffer* encoded);
-  EncodedInfo EncodeActive(size_t frames_to_encode,
-                           rtc::Buffer* encoded);
+  EncodedInfo EncodePassive(size_t frames_to_encode, rtc::Buffer* encoded);
+  EncodedInfo EncodeActive(size_t frames_to_encode, rtc::Buffer* encoded);
   size_t SamplesPer10msFrame() const;
 
   std::unique_ptr<AudioEncoder> speech_encoder_;

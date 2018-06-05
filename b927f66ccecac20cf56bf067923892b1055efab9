@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ae4d050f_d519ca04",
+        "filename": "api/video/video_timing.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-06-05T09:01:18Z",
+      "side": 1,
+      "message": "Note: You don\u0027t actually need this part. I\u0027ll leave it to you to decide whether leaving it in is a net readability gain or not.",
+      "range": {
+        "startLine": 31,
+        "startChar": 29,
+        "endLine": 31,
+        "endChar": 45
+      },
+      "revId": "b927f66ccecac20cf56bf067923892b1055efab9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

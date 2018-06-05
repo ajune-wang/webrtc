@@ -46,6 +46,30 @@
       "revId": "3370ceb8829b744616b0c6a89de13a0fd41da2bb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c0b14243_ab911155",
+        "filename": "tools_webrtc/gtest_parallel_wrapper_test.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-06-05T10:58:01Z",
+      "side": 1,
+      "message": "Aha, ok.",
+      "parentUuid": "f2ab5df1_e3389a56",
+      "range": {
+        "startLine": 24,
+        "startChar": 2,
+        "endLine": 24,
+        "endChar": 19
+      },
+      "revId": "3370ceb8829b744616b0c6a89de13a0fd41da2bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

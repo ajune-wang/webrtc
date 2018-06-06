@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5eaaf703_ee7b1343",
+        "filename": "p2p/base/icetransportstats.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-06-06T23:22:00Z",
+      "side": 1,
+      "message": "Trying to use this place and also the new P2PTransportChannel::GetStats for future dev when we move to an IceStatsInterface in the modular ICE.",
+      "range": {
+        "startLine": 18,
+        "startChar": 7,
+        "endLine": 18,
+        "endChar": 24
+      },
+      "revId": "255d8c850627b6aab24bc6bb1a8c067bfc4c08ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bda77b90_c2073229",
+        "filename": "p2p/base/regatheringcontroller.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-06-06T23:22:00Z",
+      "side": 1,
+      "message": "For this logic, it suffices to just keep the last writability state of the transport, but I am thinking of changing it to one that also measures how long the transport remains writable.",
+      "range": {
+        "startLine": 176,
+        "startChar": 8,
+        "endLine": 176,
+        "endChar": 30
+      },
+      "revId": "255d8c850627b6aab24bc6bb1a8c067bfc4c08ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d26f2caa_be6b3138",
+        "filename": "p2p/base/regatheringcontroller.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-06-06T23:22:00Z",
+      "side": 1,
+      "message": "This will end up calling BasicPortAllocatorSession::Regather, without any special logic for this case. It would behave like a re-offer without signaling, and I have added a test for this. I am wondering why we prune all ports and remove their candidates in the BasicPortAllocatorSession::Regather, and it looks to me |disable_equivalent_phases| is not doing anything after this pruning, since there is nothing equivalent if all previous ports in the session are gone. Am I missing something?\n\nAlso, currently this just handles the change to CF_ALL but I am wondering if we want the change of the filter between any pair of filter types going through the same code path, though it is currently not regathering in the other cases.",
+      "range": {
+        "startLine": 198,
+        "startChar": 4,
+        "endLine": 198,
+        "endChar": 43
+      },
+      "revId": "255d8c850627b6aab24bc6bb1a8c067bfc4c08ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba5406c9_ae4a6d61",
+        "filename": "p2p/base/regatheringcontroller.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-06-06T23:22:00Z",
+      "side": 1,
+      "message": "This set of conditions may need improve as we have discussed offline, for example the absolute RTT may not be an ideal condition, but it should be more like \"whether the current RTT is greater than avg_rtt + std_rtt (or + 3*std_rtt)\".",
+      "range": {
+        "startLine": 255,
+        "startChar": 2,
+        "endLine": 255,
+        "endChar": 4
+      },
+      "revId": "255d8c850627b6aab24bc6bb1a8c067bfc4c08ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

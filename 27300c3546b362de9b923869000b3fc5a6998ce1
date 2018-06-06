@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a8664c5_02c0c4d3",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 613,
+      "author": {
+        "id": 6888
+      },
+      "writtenOn": "2018-06-06T08:56:08Z",
+      "side": 1,
+      "message": "How do we determine these values? Would it make sense to use 1 thread on dual core Macs in Chrome? (where there are likely tens, possibly more than a hundred concurrently active threads)",
+      "range": {
+        "startLine": 613,
+        "startChar": 12,
+        "endLine": 613,
+        "endChar": 13
+      },
+      "revId": "27300c3546b362de9b923869000b3fc5a6998ce1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

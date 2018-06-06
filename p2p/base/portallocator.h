@@ -279,6 +279,7 @@ class PortAllocatorSession : public sigslot::has_slots<> {
 
   sigslot::signal2<PortAllocatorSession*, IceRegatheringReason>
       SignalIceRegathering;
+  sigslot::signal1<uint32_t> SignalCandidateFilterChanged;
 
   virtual uint32_t generation();
   virtual void set_generation(uint32_t generation);

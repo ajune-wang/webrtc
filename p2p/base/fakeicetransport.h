@@ -16,6 +16,7 @@
 #include <utility>
 
 #include "p2p/base/icetransportinternal.h"
+#include "p2p/base/icetransportstats.h"
 #include "rtc_base/asyncinvoker.h"
 #include "rtc_base/copyonwritebuffer.h"
 
@@ -142,6 +143,7 @@ class FakeIceTransport : public IceTransportInternal {
   }
 
   void SetIceConfig(const IceConfig& config) override { ice_config_ = config; }
+  const IceConfig& GetIceConfig() const override { return ice_config_; }
 
   void AddRemoteCandidate(const Candidate& candidate) override {
     remote_candidates_.push_back(candidate);
@@ -157,14 +159,13 @@ class FakeIceTransport : public IceTransportInternal {
     remote_candidates_.erase(it);
   }
 
-  bool GetStats(ConnectionInfos* candidate_pair_stats_list,
-                CandidateStatsList* candidate_stats_list) override {
+  bool GetStats(webrtc::IceTransportStats* stats) override {
     CandidateStats candidate_stats;
     ConnectionInfo candidate_pair_stats;
-    candidate_stats_list->clear();
-    candidate_stats_list->push_back(candidate_stats);
-    candidate_pair_stats_list->clear();
-    candidate_pair_stats_list->push_back(candidate_pair_stats);
+    stats->candidate_stats_list.clear();
+    stats->candidate_stats_list.push_back(candidate_stats);
+    stats->candidate_pair_stats_list.clear();
+    stats->candidate_pair_stats_list.push_back(candidate_pair_stats);
     return true;
   }
 

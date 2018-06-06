@@ -16,6 +16,7 @@
 
 #include "api/candidate.h"
 #include "p2p/base/candidatepairinterface.h"
+#include "p2p/base/icetransportstats.h"
 #include "p2p/base/packettransportinternal.h"
 #include "p2p/base/port.h"
 #include "p2p/base/transportdescription.h"
@@ -51,6 +52,9 @@ enum ContinualGatheringPolicy {
   GATHER_ONCE = 0,
   // The most recent port allocator session will keep on running.
   GATHER_CONTINUALLY,
+  // The most recent port allocator session will autonomously regather local
+  // candidates when it observes triggering signals inside ICE.
+  GATHER_AUTO,
 };
 
 // ICE Nomination mode.
@@ -73,10 +77,6 @@ struct IceConfig {
   rtc::Optional<int> backup_connection_ping_interval;
 
   ContinualGatheringPolicy continual_gathering_policy = GATHER_ONCE;
-
-  bool gather_continually() const {
-    return continual_gathering_policy == GATHER_CONTINUALLY;
-  }
 
   // Whether we should prioritize Relay/Relay candidate when nothing
   // is writable yet.
@@ -152,6 +152,14 @@ struct IceConfig {
             int receiving_switching_delay_ms);
   ~IceConfig();
 
+  bool gather_once() const { return continual_gathering_policy == GATHER_ONCE; }
+  bool gather_continually() const {
+    return continual_gathering_policy == GATHER_CONTINUALLY;
+  }
+  bool gather_autonomously() const {
+    return continual_gathering_policy == GATHER_AUTO;
+  }
+
   // Helper getters for parameters with implementation-specific default value.
   // By convention, parameters with default value are represented by
   // rtc::Optional and setting a parameter to null restores its default value.
@@ -222,6 +230,8 @@ class IceTransportInternal : public rtc::PacketTransportInternal {
 
   virtual void SetIceConfig(const IceConfig& config) = 0;
 
+  virtual const IceConfig& GetIceConfig() const = 0;
+
   // Start gathering candidates if not already started, or if an ICE restart
   // occurred.
   virtual void MaybeStartGathering() = 0;
@@ -236,8 +246,7 @@ class IceTransportInternal : public rtc::PacketTransportInternal {
   virtual IceGatheringState gathering_state() const = 0;
 
   // Returns the current stats for this connection.
-  virtual bool GetStats(ConnectionInfos* candidate_pair_stats_list,
-                        CandidateStatsList* candidate_stats_list) = 0;
+  virtual bool GetStats(webrtc::IceTransportStats* stats) = 0;
 
   // Returns RTT estimate over the currently active connection, or an empty
   // rtc::Optional if there is none.

@@ -306,8 +306,6 @@ void BasicPortAllocatorSession::SetCandidateFilter(uint32_t filter) {
   if (filter == candidate_filter_) {
     return;
   }
-  // We assume the filter will only change from "ALL" to something else.
-  RTC_DCHECK(candidate_filter_ == CF_ALL);
   candidate_filter_ = filter;
   for (PortData& port : ports_) {
     if (!port.has_pairable_candidate()) {
@@ -323,6 +321,7 @@ void BasicPortAllocatorSession::SetCandidateFilter(uint32_t filter) {
       port.set_has_pairable_candidate(false);
     }
   }
+  SignalCandidateFilterChanged(filter);
 }
 
 void BasicPortAllocatorSession::StartGettingPorts() {
@@ -798,6 +797,10 @@ void BasicPortAllocatorSession::DoAllocate(bool disable_equivalent) {
 
 void BasicPortAllocatorSession::OnNetworksChanged() {
   std::vector<rtc::Network*> networks = GetNetworks();
+  RTC_LOG(INFO) << "Got " << networks.size() << " networks after change.";
+  for (auto* network : networks) {
+    RTC_LOG(INFO) << network->ToString();
+  }
   std::vector<rtc::Network*> failed_networks;
   for (AllocationSequence* sequence : sequences_) {
     // Mark the sequence as "network failed" if its network is not in

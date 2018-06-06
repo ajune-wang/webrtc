@@ -616,10 +616,12 @@ bool JsepTransport::GetTransportStats(DtlsTransportInternal* dtls_transport,
   dtls_transport->GetSrtpCryptoSuite(&substats.srtp_crypto_suite);
   dtls_transport->GetSslCipherSuite(&substats.ssl_cipher_suite);
   substats.dtls_state = dtls_transport->dtls_state();
-  if (!dtls_transport->ice_transport()->GetStats(
-          &substats.connection_infos, &substats.candidate_stats_list)) {
+  webrtc::IceTransportStats ice_stats;
+  if (!dtls_transport->ice_transport()->GetStats(&ice_stats)) {
     return false;
   }
+  substats.connection_infos = std::move(ice_stats.candidate_pair_stats_list);
+  substats.candidate_stats_list = std::move(ice_stats.candidate_stats_list);
   stats->channel_stats.push_back(substats);
   return true;
 }

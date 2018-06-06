@@ -15,6 +15,8 @@
 #include "api/fakemetricsobserver.h"
 #include "p2p/base/fakeportallocator.h"
 #include "p2p/base/icetransportinternal.h"
+#include "p2p/base/icetransportstats.h"
+#include "p2p/base/p2pconstants.h"
 #include "p2p/base/p2ptransportchannel.h"
 #include "p2p/base/packettransportinternal.h"
 #include "p2p/base/testrelayserver.h"
@@ -1190,13 +1192,12 @@ TEST_F(P2PTransportChannelTest, GetStats) {
                                  ep2_ch1()->writable(),
                              kMediumTimeout, clock);
   TestSendRecv(&clock);
-  ConnectionInfos infos;
-  CandidateStatsList candidate_stats_list;
-  ASSERT_TRUE(ep1_ch1()->GetStats(&infos, &candidate_stats_list));
-  ASSERT_GE(infos.size(), 1u);
-  ASSERT_GE(candidate_stats_list.size(), 1u);
+  webrtc::IceTransportStats stats;
+  ASSERT_TRUE(ep1_ch1()->GetStats(&stats));
+  ASSERT_GE(stats.candidate_pair_stats_list.size(), 1u);
+  ASSERT_GE(stats.candidate_stats_list.size(), 1u);
   ConnectionInfo* best_conn_info = nullptr;
-  for (ConnectionInfo& info : infos) {
+  for (ConnectionInfo& info : stats.candidate_pair_stats_list) {
     if (info.best_connection) {
       best_conn_info = &info;
       break;
@@ -3008,6 +3009,57 @@ TEST_F(P2PTransportChannelMultihomedTest,
           RemoteCandidate(ep1_ch1())->address().EqualIPs(kAlternateAddrs[0]),
       kMediumTimeout, clock);
 
+  DestroyChannels();
+}
+
+// Tests that if the backup connections are lost and then the interface with the
+// selected connection is gone, autonomous gathering will restore the
+// connectivity.
+TEST_F(P2PTransportChannelMultihomedTest,
+       TestBackupConnectionLostThenInterfaceGone) {
+  rtc::ScopedFakeClock clock;
+  auto& wifi = kAlternateAddrs;
+  AddAddress(0, wifi[0], "test_wifi0", rtc::ADAPTER_TYPE_WIFI);
+  AddAddress(1, wifi[1], "test_wifi1", rtc::ADAPTER_TYPE_WIFI);
+  // Use only local ports for simplicity.
+  SetAllocatorFlags(0, kOnlyLocalPorts);
+  SetAllocatorFlags(1, kOnlyLocalPorts);
+
+  // Set autonomous gathering policy. Note that
+  // regather_all_networks_interval_range is not set.
+  IceConfig config = CreateIceConfig(1000, GATHER_AUTO);
+  // Create channels and let them go writable, as usual.
+  CreateChannels(config, config);
+  EXPECT_TRUE_SIMULATED_WAIT(ep1_ch1()->receiving() && ep1_ch1()->writable() &&
+                                 ep2_ch1()->receiving() &&
+                                 ep2_ch1()->writable(),
+                             kMediumTimeout, clock);
+  EXPECT_TRUE(ep1_ch1()->selected_connection() &&
+              ep2_ch1()->selected_connection() &&
+              LocalCandidate(ep1_ch1())->address().EqualIPs(wifi[0]) &&
+              RemoteCandidate(ep1_ch1())->address().EqualIPs(wifi[1]));
+
+  // First destroy all backup connection.
+  DestroyAllButBestConnection(ep1_ch1());
+  SIMULATED_WAIT(false, 10, clock);
+  // Then the interface of the best connection blocked.
+  fw()->AddRule(false, rtc::FP_ANY, rtc::FD_ANY, wifi[0]);
+  EXPECT_TRUE_SIMULATED_WAIT(
+      ep1_ch1()->selected_connection() && ep2_ch1()->selected_connection() &&
+          LocalCandidate(ep1_ch1())->address().EqualIPs(wifi[0]) &&
+          RemoteCandidate(ep1_ch1())->address().EqualIPs(wifi[1]),
+      kMediumTimeout, clock);
+  SIMULATED_WAIT(false, 31000, clock);
+  // Expect the selected connection is dead and destroyed, i.e. 30 seconds
+  // without receiving from the last reception.
+  EXPECT_TRUE(!ep1_ch1()->selected_connection());
+  fw()->ClearRules();
+  // Expect that we regather and select a new writable connection after at most
+  // kMinRegatheringIntervalMs that is the default interval to attempt regather
+  // autonomously on demand.
+  EXPECT_TRUE_SIMULATED_WAIT(ep1_ch1()->selected_connection() &&
+                                 ep1_ch1()->selected_connection()->writable(),
+                             kMinRegatheringIntervalMs + kShortTimeout, clock);
   DestroyChannels();
 }
 

@@ -4983,6 +4983,9 @@ cricket::IceConfig PeerConnection::ParseIceConfig(
     case PeerConnectionInterface::GATHER_CONTINUALLY:
       gathering_policy = cricket::GATHER_CONTINUALLY;
       break;
+    case PeerConnectionInterface::GATHER_AUTO:
+      gathering_policy = cricket::GATHER_AUTO;
+      break;
     default:
       RTC_NOTREACHED();
       gathering_policy = cricket::GATHER_ONCE;

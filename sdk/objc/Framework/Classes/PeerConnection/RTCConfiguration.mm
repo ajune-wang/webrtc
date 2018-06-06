@@ -369,6 +369,8 @@
       return webrtc::PeerConnectionInterface::GATHER_ONCE;
     case RTCContinualGatheringPolicyGatherContinually:
       return webrtc::PeerConnectionInterface::GATHER_CONTINUALLY;
+    case RTCContinualGatheringPolicyGatherAuto:
+      return webrtc::PeerConnectionInterface::GATHER_AUTO;
   }
 }
 
@@ -379,6 +381,8 @@
       return RTCContinualGatheringPolicyGatherOnce;
     case webrtc::PeerConnectionInterface::GATHER_CONTINUALLY:
       return RTCContinualGatheringPolicyGatherContinually;
+    case webrtc::PeerConnectionInterface::GATHER_AUTO:
+      return RTCContinualGatheringPolicyGatherAuto;
   }
 }
 
@@ -389,6 +393,8 @@
       return @"GATHER_ONCE";
     case RTCContinualGatheringPolicyGatherContinually:
       return @"GATHER_CONTINUALLY";
+    case RTCContinualGatheringPolicyGatherAuto:
+      return @"GATHER_AUTO";
   }
 }
 

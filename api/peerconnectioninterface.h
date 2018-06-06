@@ -264,7 +264,8 @@ class PeerConnectionInterface : public rtc::RefCountInterface {
 
   enum ContinualGatheringPolicy {
     GATHER_ONCE,
-    GATHER_CONTINUALLY
+    GATHER_CONTINUALLY,
+    GATHER_AUTO
   };
 
   enum class RTCConfigurationType {

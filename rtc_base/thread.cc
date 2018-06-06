@@ -344,8 +344,9 @@ void Thread::Send(const Location& posted_from,
                   MessageHandler* phandler,
                   uint32_t id,
                   MessageData* pdata) {
-  if (IsQuitting())
+  if (IsQuitting()) {
     return;
+  }
 
   // Sent messages are sent to the MessageHandler directly, in the context
   // of "thread", like Win32 SendMessage. If in the right context,

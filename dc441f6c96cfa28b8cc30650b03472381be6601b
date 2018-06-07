@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "158e63e6_d1dbff28",
+        "filename": "video/payload_router.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-07T12:41:11Z",
+      "side": 1,
+      "message": "nit: I think I\u0027d move the nullptr to an else clause below, or inline in the expression, like\n\nparams_.push_back(RtpPayloadParams(\n   ssrc, it !\u003d state.stream_states.end() ? \u0026it-\u003esecond : nullptr));",
+      "range": {
+        "startLine": 182,
+        "startChar": 55,
+        "endLine": 182,
+        "endChar": 62
+      },
+      "revId": "dc441f6c96cfa28b8cc30650b03472381be6601b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "698f4f90_7cb1af66",
+        "filename": "video/payload_router.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-07T12:41:11Z",
+      "side": 1,
+      "message": "Document that the map is indexed by ssrc.",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 48
+      },
+      "revId": "dc441f6c96cfa28b8cc30650b03472381be6601b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3cd553e_d1362a63",
+        "filename": "video/payload_router.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-07T12:41:11Z",
+      "side": 1,
+      "message": "Could this be an RtpPayloadState rather than a vector? I guess the vector has the advantage of more direct lookup based on simulcast index.",
+      "range": {
+        "startLine": 81,
+        "startChar": 2,
+        "endLine": 81,
+        "endChar": 39
+      },
+      "revId": "dc441f6c96cfa28b8cc30650b03472381be6601b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ab14222_c7b790f5",
+        "filename": "video/video_send_stream.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-07T12:41:11Z",
+      "side": 1,
+      "message": "Is this assignment operation correct? Where this is called, from Call::DestroyVideoSendStream, it looks like we get a reference to a mapping of saved state for *all* streams, and then we mustn\u0027t clobber entries for unrelated ssrcs.\n\nI think the cleanest way is to let Call pass a pointer to a temporary RtpPayloadState (empty on the call here), and let Call merge into its state. You could add a Merge method to RtpPayloadState, which could be implemented as std::map::merge when that becomes available (C++17, it seems). So we can think of this as a function returning a pair of mappings. You could even consider writing it with a return value of std::pair\u003cRtpStateMap, RtpPayloadState\u003e instead of poitner arguments; then we wouldn\u0027t even need to think about the case of arguments being non-empty on entry.",
+      "range": {
+        "startLine": 201,
+        "startChar": 0,
+        "endLine": 201,
+        "endChar": 61
+      },
+      "revId": "dc441f6c96cfa28b8cc30650b03472381be6601b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

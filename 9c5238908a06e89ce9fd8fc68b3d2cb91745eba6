@@ -94,6 +94,30 @@
       "revId": "9c5238908a06e89ce9fd8fc68b3d2cb91745eba6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3656acc_6efcbf8a",
+        "filename": "sdk/android/native_api/audio_device_module/audio_device_android.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2018-06-07T12:16:34Z",
+      "side": 1,
+      "message": "My link was bad, I meant https://cs.chromium.org/chromium/src/third_party/webrtc/sdk/android/BUILD.gn?q\u003dAUDIO_DEVICE_INCLUDE_ANDROID_AAUDIO\u0026sq\u003dpackage:chromium\u0026g\u003d0\u0026l\u003d159\n\nBut I must admit that I don\u0027t know this code path as well as phensman.",
+      "parentUuid": "9a7dd0fb_d8204af0",
+      "range": {
+        "startLine": 21,
+        "startChar": 12,
+        "endLine": 21,
+        "endChar": 47
+      },
+      "revId": "9c5238908a06e89ce9fd8fc68b3d2cb91745eba6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

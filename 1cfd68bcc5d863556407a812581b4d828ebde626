@@ -52,6 +52,24 @@
       "revId": "1cfd68bcc5d863556407a812581b4d828ebde626",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b64237e4_abf585a3",
+        "filename": "modules/rtp_rtcp/source/rtp_frame_descriptor.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-06-07T16:12:26Z",
+      "side": 1,
+      "message": "Truncating is easy, other direction (parsing) require more effort and this intermediate structure.\n\nOk, I\u0027ll prepare large CL for the bigger picture (but not for submitting)",
+      "parentUuid": "858109a5_c287de36",
+      "revId": "1cfd68bcc5d863556407a812581b4d828ebde626",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

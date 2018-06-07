@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b5aac79c_981c6ce6",
+        "filename": "sdk/android/native_api/audio_device_module/audio_device_android.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-06-07T08:56:18Z",
+      "side": 1,
+      "message": "Hmm, I don\u0027t see this ever defined for the target compiling these files. I think we might have to add \"defines \u003d [ \"AUDIO_DEVICE_INCLUDE_ANDROID_AAUDIO\" ]\" here:\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/sdk/android/BUILD.gn?type\u003dcs\u0026q\u003dAUDIO_DEVICE_INCLUDE_ANDROID_AAUDIO\u0026sq\u003dpackage:chromium\u0026g\u003d0\u0026l\u003d131",
+      "range": {
+        "startLine": 21,
+        "startChar": 12,
+        "endLine": 21,
+        "endChar": 47
+      },
+      "revId": "9c5238908a06e89ce9fd8fc68b3d2cb91745eba6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

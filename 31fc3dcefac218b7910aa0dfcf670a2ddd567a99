@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ccff9266_e1208c1e",
+        "filename": "logging/rtc_event_log/events/rtc_event_alr_state.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-07T19:31:25Z",
+      "side": 1,
+      "message": "Linter complains without it. I don\u0027t understand why, but I\u0027m also not sufficiently interested to track it down in the style guide.",
+      "parentUuid": "d6e1c83c_5a65237e",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "42000f49_5bf0b01a",
         "filename": "logging/rtc_event_log/events/rtc_event_rtp_packet_incoming.cc",
         "patchSetId": 2
@@ -33,6 +51,24 @@
       "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10e14495_12ed0ebe",
+        "filename": "logging/rtc_event_log/events/rtc_event_rtp_packet_incoming.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-07T19:31:25Z",
+      "side": 1,
+      "message": "Added a copy constructor for this event type instead.",
+      "parentUuid": "42000f49_5bf0b01a",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "4b3f70cd_a0f30d30",
+        "filename": "logging/rtc_event_log/events/rtc_event_rtp_packet_incoming.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-07T19:31:25Z",
+      "side": 1,
+      "message": "As above.",
+      "parentUuid": "ae94607f_168ec64b",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a6c0a5fd_c8fe9143",
         "filename": "logging/rtc_event_log/events/rtc_event_rtp_packet_outgoing.cc",
         "patchSetId": 2
@@ -64,6 +118,24 @@
       "writtenOn": "2018-06-01T22:34:27Z",
       "side": 1,
       "message": "Same suggestions.",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd534d02_482fd042",
+        "filename": "logging/rtc_event_log/events/rtc_event_rtp_packet_outgoing.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-07T19:31:25Z",
+      "side": 1,
+      "message": "Same response. :)",
+      "parentUuid": "a6c0a5fd_c8fe9143",
       "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -93,6 +165,30 @@
     },
     {
       "key": {
+        "uuid": "90d618fe_2fdd617f",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 539,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-07T19:31:25Z",
+      "side": 1,
+      "message": "I think the entire else block, including both comments, should be removed. Since this would break compatibility with (very) old log files, it should be done as a separate CL. I\u0027m retaining ivoc\u0027s comment because it is tracking one of several places that should be updated.",
+      "parentUuid": "91a109f1_7058eff2",
+      "range": {
+        "startLine": 534,
+        "startChar": 0,
+        "endLine": 539,
+        "endChar": 48
+      },
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bbdf6dd3_5e3b77bd",
         "filename": "logging/rtc_event_log/rtc_event_log_parser_new.h",
         "patchSetId": 2
@@ -107,6 +203,24 @@
       "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "573da327_df6163d9",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 680,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-07T19:31:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bbdf6dd3_5e3b77bd",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -127,6 +241,24 @@
     },
     {
       "key": {
+        "uuid": "99321041_56ad0275",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 684,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-07T19:31:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "51fcbaeb_2b239375",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4c3f5cd5_dea030ae",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
         "patchSetId": 2
@@ -141,6 +273,24 @@
       "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89c3eec3_80cb26a5",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-07T19:31:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4c3f5cd5_dea030ae",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -161,6 +311,24 @@
     },
     {
       "key": {
+        "uuid": "b2f23d55_fd617ea8",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-07T19:31:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "12d018c8_41def8d3",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bf5b3614_de2dfdb9",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
         "patchSetId": 2
@@ -175,6 +343,24 @@
       "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af84890f_311e4c18",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-07T19:31:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bf5b3614_de2dfdb9",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -195,6 +381,24 @@
     },
     {
       "key": {
+        "uuid": "8998dffb_2cf73338",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-07T19:31:25Z",
+      "side": 1,
+      "message": "I wanted to highlight that it is not a getter for one of the members. I can drop total_ if you rally want.\n\nI added a total_config_events(), but I also want to retain the total_events() function.",
+      "parentUuid": "49e580a4_d178d8ab",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3e611445_58a26461",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
         "patchSetId": 2
@@ -209,6 +413,24 @@
       "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25cb709b_0e6c6746",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-07T19:31:25Z",
+      "side": 1,
+      "message": "It was retained from the old version, which probably was a struct at some point. Fixed.",
+      "parentUuid": "3e611445_58a26461",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -235,6 +457,30 @@
     },
     {
       "key": {
+        "uuid": "2b3dbaa8_592058be",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-07T19:31:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e6a5bc3d_35c40885",
+      "range": {
+        "startLine": 115,
+        "startChar": 2,
+        "endLine": 118,
+        "endChar": 23
+      },
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "efecd440_59dad970",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
         "patchSetId": 2
@@ -246,6 +492,24 @@
       "writtenOn": "2018-06-04T12:14:58Z",
       "side": 1,
       "message": "const?",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "508c3449_24fefaca",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-07T19:31:25Z",
+      "side": 1,
+      "message": "Although we aren\u0027t changing it at the moment, I don\u0027t think this is a key feature of the class. I prefer to keep as is.",
+      "parentUuid": "efecd440_59dad970",
       "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -269,6 +533,24 @@
     },
     {
       "key": {
+        "uuid": "c6ca784f_0a52ffb9",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-07T19:31:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0188e04a_073cf78e",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e40cc9e5_aa92a6ee",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
         "patchSetId": 2
@@ -280,6 +562,24 @@
       "writtenOn": "2018-06-04T12:14:58Z",
       "side": 1,
       "message": "Could you use std::map::find instead?",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dbe03e3c_ea9edaad",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-07T19:31:25Z",
+      "side": 1,
+      "message": "This is a vector, so it would have to be std::find_if or similar. That doesn\u0027t look more readable to me. Change to map?",
+      "parentUuid": "e40cc9e5_aa92a6ee",
       "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -303,6 +603,24 @@
     },
     {
       "key": {
+        "uuid": "9c676322_5102a8b7",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-07T19:31:25Z",
+      "side": 1,
+      "message": "1) I\u0027m modifying count, so that requires some other changes and extra code.\n2) I\u0027ve tried, but I have a hard time finding suitable boundaries. The best I have found is to move the configs out, but it is tightly coupled with the rest of the code. In particular it needs to access the event log, the generator, the clock and the event counts. The later code also needs to get back the modified lists incoming_extension and outgoing_extensions.",
+      "parentUuid": "2d97d991_65298129",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fe32fedc_eaba494d",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
         "patchSetId": 2
@@ -317,6 +635,24 @@
       "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7644bdc3_2379e75f",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-07T19:31:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fe32fedc_eaba494d",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -337,6 +673,24 @@
     },
     {
       "key": {
+        "uuid": "35ba4215_07352ea2",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-07T19:31:25Z",
+      "side": 1,
+      "message": "I think that is optional.",
+      "parentUuid": "ccf1dc4b_8b0afb18",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dc39508a_6a094f5a",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
         "patchSetId": 2
@@ -348,6 +702,30 @@
       "writtenOn": "2018-06-04T12:14:58Z",
       "side": 1,
       "message": "Does this not unnecessarily reduce the unit test\u0027s coverage based on assumptions on other module\u0027s behavior? (More elaborate comment about this elsewhere.)",
+      "range": {
+        "startLine": 158,
+        "startChar": 0,
+        "endLine": 160,
+        "endChar": 75
+      },
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2fae429_6f89044f",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-07T19:31:25Z",
+      "side": 1,
+      "message": "Discussed offline.\n\nWe could RTC_DCHECK_GE if you prefer.",
+      "parentUuid": "dc39508a_6a094f5a",
       "range": {
         "startLine": 158,
         "startChar": 0,
@@ -383,6 +761,30 @@
     },
     {
       "key": {
+        "uuid": "69ae3c34_ba99f511",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-07T19:31:25Z",
+      "side": 1,
+      "message": "Lets wait until we have decided if any larger sections should be moved out.",
+      "parentUuid": "da11f26e_213f6e77",
+      "range": {
+        "startLine": 161,
+        "startChar": 0,
+        "endLine": 171,
+        "endChar": 55
+      },
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "854ab106_207d3a7e",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
         "patchSetId": 2
@@ -397,6 +799,24 @@
       "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce951320_1c413178",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-07T19:31:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "854ab106_207d3a7e",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -423,6 +843,30 @@
     },
     {
       "key": {
+        "uuid": "a109d5af_77e1e3ed",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-07T19:31:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e1c8925e_e9bb9763",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 37
+      },
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0153c415_e494a277",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
         "patchSetId": 2
@@ -437,6 +881,24 @@
       "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e7a8715_0d544c99",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-07T19:31:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0153c415_e494a277",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -457,6 +919,24 @@
     },
     {
       "key": {
+        "uuid": "e9aeea89_8c70872f",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-07T19:31:25Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c4404de1_36351c9d",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1d24ed1b_2e7d970b",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
         "patchSetId": 2
@@ -471,6 +951,24 @@
       "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6978c99b_4f765a69",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-07T19:31:25Z",
+      "side": 1,
+      "message": "As discussed offline, lets add separate non-randomized tests for corner cases and boundary values in another CL.",
+      "parentUuid": "1d24ed1b_2e7d970b",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -525,6 +1023,24 @@
     },
     {
       "key": {
+        "uuid": "f2a04854_b8ee6fa4",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-07T19:31:25Z",
+      "side": 1,
+      "message": "Discussed offline.",
+      "parentUuid": "7671bd0d_f794bd0d",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "94b3477a_0492237d",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
         "patchSetId": 2
@@ -542,6 +1058,24 @@
     },
     {
       "key": {
+        "uuid": "1e7161d5_71951cbe",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-07T19:31:25Z",
+      "side": 1,
+      "message": "Discussed offline.",
+      "parentUuid": "94b3477a_0492237d",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "36b3daaa_5809518e",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
         "patchSetId": 2
@@ -553,6 +1087,24 @@
       "writtenOn": "2018-06-04T12:14:58Z",
       "side": 1,
       "message": "ProbeFailureReason::kLast exists; should we use it?\n\n(I won\u0027t check and comment for any additional instances of this comment in this file.)",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf66857b_13d99c1f",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-07T19:31:25Z",
+      "side": 1,
+      "message": "PTAL",
+      "parentUuid": "36b3daaa_5809518e",
       "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -627,6 +1179,24 @@
     },
     {
       "key": {
+        "uuid": "3b07ef75_f2c40bf7",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-07T19:31:25Z",
+      "side": 1,
+      "message": "Discussed offline.",
+      "parentUuid": "adfc6cce_9dadecde",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2da7c383_44de65c7",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
         "patchSetId": 2
@@ -641,6 +1211,24 @@
       "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b777030e_e176752b",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-07T19:31:25Z",
+      "side": 1,
+      "message": "No. We only need to use the real SSRC to parse RTP header extensions. We don\u0027t currently do anything like that for RTCP.",
+      "parentUuid": "2da7c383_44de65c7",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -667,6 +1255,30 @@
     },
     {
       "key": {
+        "uuid": "dcbc6ec0_2dd12f8f",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-07T19:31:25Z",
+      "side": 1,
+      "message": "The RtcEventRtcpPacketIncoming takes a pointer it does not own, but the contents are copied into an rtc::Buffer in the constructor. It does not store the pointer.",
+      "parentUuid": "8f83e7c2_88a0f243",
+      "range": {
+        "startLine": 214,
+        "startChar": 0,
+        "endLine": 215,
+        "endChar": 61
+      },
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "88f7885c_fdda435e",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
         "patchSetId": 2
@@ -678,6 +1290,24 @@
       "writtenOn": "2018-06-04T12:14:58Z",
       "side": 1,
       "message": "Could you please replace the hard-coded values by either constants pulled from elsewhere, or at least constants defined here (so as to make the code self-documenting)?",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a87903e_75b1a709",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-07T19:31:25Z",
+      "side": 1,
+      "message": "Added comment.",
+      "parentUuid": "88f7885c_fdda435e",
       "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -701,6 +1331,24 @@
     },
     {
       "key": {
+        "uuid": "381dd3de_20016e53",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-07T19:31:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6d5e54c3_f5cb0cb1",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a807f17_e945b0b4",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
         "patchSetId": 2
@@ -712,6 +1360,30 @@
       "writtenOn": "2018-06-04T12:14:58Z",
       "side": 1,
       "message": "Note to self - verify these values in next iteration of code review.\nNote to Björn - would constants make sense here?",
+      "range": {
+        "startLine": 258,
+        "startChar": 0,
+        "endLine": 263,
+        "endChar": 70
+      },
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a60a48c_f65a40a4",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-07T19:31:25Z",
+      "side": 1,
+      "message": "I don\u0027t think constants would make it clearer that we\u0027re generating 2 3-byte values and one 7 bit value.",
+      "parentUuid": "1a807f17_e945b0b4",
       "range": {
         "startLine": 258,
         "startChar": 0,
@@ -741,6 +1413,24 @@
     },
     {
       "key": {
+        "uuid": "b8546d27_3578fe3b",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-07T19:31:25Z",
+      "side": 1,
+      "message": "Yes, you are right. Fixed.",
+      "parentUuid": "4a81f4f3_64bd4a7a",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f46f64b0_76d1f5d9",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
         "patchSetId": 2
@@ -764,6 +1454,30 @@
     },
     {
       "key": {
+        "uuid": "8a3b1624_af8cda03",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-07T19:31:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f46f64b0_76d1f5d9",
+      "range": {
+        "startLine": 303,
+        "startChar": 0,
+        "endLine": 312,
+        "endChar": 77
+      },
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8b354810_d2e5fc6f",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.h",
         "patchSetId": 2
@@ -775,6 +1489,24 @@
       "writtenOn": "2018-06-04T12:14:58Z",
       "side": 1,
       "message": "nit: Just a thought - using helper Generator and Verifier classes would allow you to pass the PRNG once, at construction, and forget about it with the rest of the interface. It would also create a nice segmentation of Generate/Verify functions. Lastly, it would introduce less names (and shorter ones) into the namespace. So the (using) code would look like this:\n\n  TestRtcEventGenerator gen(\u0026prng);\n  auto event \u003d gen.BweUpdateDelayBase();\n  ...\n\n(Additional motivations in the .cc file, btw.)",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b49799c4_fa53295e",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-07T19:31:25Z",
+      "side": 1,
+      "message": "Added the generator object. There is no shared state between Verify functions. Do you still want to have a verifier object?",
+      "parentUuid": "8b354810_d2e5fc6f",
       "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -801,6 +1533,30 @@
       "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f7bfa10_13e91acb",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-07T19:31:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "69535304_d6ba6c9c",
+      "range": {
+        "startLine": 41,
+        "startChar": 59,
+        "endLine": 41,
+        "endChar": 65
+      },
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

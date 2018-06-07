@@ -118,6 +118,30 @@
       "revId": "9c5238908a06e89ce9fd8fc68b3d2cb91745eba6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c11a832c_164fad88",
+        "filename": "sdk/android/native_api/audio_device_module/audio_device_android.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-06-07T12:21:13Z",
+      "side": 1,
+      "message": "Yes this is kind of unrelated to this CL, just something I noticed while reviewing it. I guess we will find out once anyone actually tries to do so...",
+      "parentUuid": "d3656acc_6efcbf8a",
+      "range": {
+        "startLine": 21,
+        "startChar": 12,
+        "endLine": 21,
+        "endChar": 47
+      },
+      "revId": "9c5238908a06e89ce9fd8fc68b3d2cb91745eba6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

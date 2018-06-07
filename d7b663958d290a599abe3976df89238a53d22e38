@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e89a5697_dd7ae1b3",
+        "filename": "video/full_stack_tests.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-06-07T08:44:50Z",
+      "side": 1,
+      "message": "This might lead to a bunch of alerts.",
+      "range": {
+        "startLine": 166,
+        "startChar": 54,
+        "endLine": 166,
+        "endChar": 59
+      },
+      "revId": "d7b663958d290a599abe3976df89238a53d22e38",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0eb14d32_d3de78f2",
+        "filename": "video/video_quality_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1556,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-06-07T08:44:50Z",
+      "side": 1,
+      "message": "These nested if clauses are not great for reading the code. :( Would be nice with a proper cleanup at some point in the future.",
+      "revId": "d7b663958d290a599abe3976df89238a53d22e38",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6119c749_de8f1af5",
+        "filename": "video/video_quality_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1563,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-06-07T08:44:50Z",
+      "side": 1,
+      "message": "VP9",
+      "range": {
+        "startLine": 1563,
+        "startChar": 52,
+        "endLine": 1563,
+        "endChar": 55
+      },
+      "revId": "d7b663958d290a599abe3976df89238a53d22e38",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a905a3b_17ffafaa",
+        "filename": "video/video_quality_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1570,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-06-07T08:44:50Z",
+      "side": 1,
+      "message": "RTC_NOTREACHED?",
+      "range": {
+        "startLine": 1570,
+        "startChar": 8,
+        "endLine": 1570,
+        "endChar": 24
+      },
+      "revId": "d7b663958d290a599abe3976df89238a53d22e38",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

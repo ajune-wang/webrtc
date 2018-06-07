@@ -16,6 +16,24 @@
       "revId": "a655b7d8bbfe51089b7d357c511de6aa0fdb080d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3110a3f4_7d5f0ad8",
+        "filename": "modules/audio_processing/aec3/aec_state.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-06-07T14:00:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dc052109_5766b5cc",
+      "revId": "a655b7d8bbfe51089b7d357c511de6aa0fdb080d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

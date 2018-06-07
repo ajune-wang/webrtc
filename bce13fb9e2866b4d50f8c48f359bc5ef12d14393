@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "92f9ddb9_23efc0bf",
+        "filename": "common_types.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-06-07T10:15:19Z",
+      "side": 1,
+      "message": "Remove \"Complexity\" from all these names?",
+      "revId": "bce13fb9e2866b4d50f8c48f359bc5ef12d14393",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf65ee33_73815554",
+        "filename": "common_types.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 457,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-06-07T10:15:19Z",
+      "side": 1,
+      "message": "Just `kRealtime` now?",
+      "range": {
+        "startLine": 457,
+        "startChar": 28,
+        "endLine": 457,
+        "endChar": 42
+      },
+      "revId": "bce13fb9e2866b4d50f8c48f359bc5ef12d14393",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

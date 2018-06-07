@@ -46,6 +46,30 @@
       "revId": "2fbfe3a23a7671eacaf5b1d06f09e4f29680c453",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1145778_4a51568d",
+        "filename": "api/video_codecs/video_codec.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-07T12:01:26Z",
+      "side": 1,
+      "message": "Turns out that changing to unsigned int produces a bunch if sign-related warnings (since unsigned short was promoted to signed int).\n\nSo int seems to be a better choice. But results in warnings in a few other places where width and height are size_t, have to change those too to int.",
+      "parentUuid": "06d2d3d2_57fd5c00",
+      "range": {
+        "startLine": 109,
+        "startChar": 0,
+        "endLine": 110,
+        "endChar": 24
+      },
+      "revId": "2fbfe3a23a7671eacaf5b1d06f09e4f29680c453",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

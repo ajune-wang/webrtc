@@ -11,6 +11,7 @@ import("//build/config/mips.gni")
 import("//build/config/sanitizers/sanitizers.gni")
 import("//build/config/ui.gni")
 import("//build_overrides/build.gni")
+import("//media/media_options.gni")
 
 if (!build_with_chromium && is_component_build) {
   print("The Gn argument `is_component_build` is currently " +
@@ -126,7 +127,8 @@ declare_args() {
   # also: |rtc_initialize_ffmpeg|.
   # CHECK THE OPENH264, FFMPEG AND H.264 LICENSES/PATENTS BEFORE BUILDING.
   # http://www.openh264.org, https://www.ffmpeg.org/
-  rtc_use_h264 = proprietary_codecs && !is_android && !is_ios
+  rtc_use_h264 = proprietary_codecs &&
+                 enable_ffmpeg_video_decoders && !is_android && !is_ios
 
   # By default, use normal platform audio support or dummy audio, but don't
   # use file-based audio playout and record.
@@ -158,6 +160,9 @@ declare_args() {
     rtc_apprtcmobile_broadcast_extension = false
   }
 }
+
+assert(!rtc_use_h264 || enable_ffmpeg_video_decoders,
+       "rtc_use_h264 can only be true if enable_ffmpeg_video_decoders is true")
 
 if (!build_with_mozilla) {
   import("//testing/test.gni")

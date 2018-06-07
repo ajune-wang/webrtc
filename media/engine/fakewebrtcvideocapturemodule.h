@@ -71,7 +71,7 @@ class FakeWebRtcVideoCaptureModule : public webrtc::VideoCaptureModule {
       // https://bugs.chromium.org/p/libyuv/issues/detail?id=377
       buffer->InitializeData();
       callback_->OnFrame(
-          webrtc::VideoFrame(buffer, 0, 0, webrtc::kVideoRotation_0));
+          webrtc::VideoFrame(buffer, webrtc::kVideoRotation_0, 0));
     });
   }
 

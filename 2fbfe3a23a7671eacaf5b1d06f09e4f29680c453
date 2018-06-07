@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "27ca18e6_10ff28d0",
+        "filename": "api/video_codecs/video_codec.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-07T09:16:54Z",
+      "side": 1,
+      "message": "The presubmit style check complains about use of unsigned short. Should I fix that in this cl (smallest and easiest change would be to use unsigned int), or leave for later?",
+      "range": {
+        "startLine": 109,
+        "startChar": 0,
+        "endLine": 110,
+        "endChar": 24
+      },
+      "revId": "2fbfe3a23a7671eacaf5b1d06f09e4f29680c453",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

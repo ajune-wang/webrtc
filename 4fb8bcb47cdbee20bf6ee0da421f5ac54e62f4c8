@@ -1,0 +1,488 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "451170ac_3fe07dd2",
+        "filename": "modules/audio_device/audio_device_impl.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-06-07T14:07:49Z",
+      "side": 1,
+      "message": "Why does it need an entry in the audio layer enum?",
+      "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7357f265_a6aac577",
+        "filename": "modules/audio_device/audio_device_unittest.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 901,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-06-07T14:07:49Z",
+      "side": 1,
+      "message": "I think changing to #ifdef and switching the blocks would be easier to read.",
+      "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2acdaac3_386c40a5",
+        "filename": "modules/audio_device/fine_audio_buffer.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-06-07T14:07:49Z",
+      "side": 1,
+      "message": "Don\u0027t you need to know how many samples were returned here? Or can it only return 0 or the number of samples you expect?",
+      "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bdf7023f_b664e6c2",
+        "filename": "modules/audio_device/include/audio_device_factory.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-06-07T14:07:49Z",
+      "side": 1,
+      "message": "Why? Can this function be used to create other CoreAudioDeviceModules from an input and an output?",
+      "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15457a70_ee50a5fc",
+        "filename": "modules/audio_device/win/audio_device_module_win.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-06-07T14:07:49Z",
+      "side": 1,
+      "message": "Why return anything but \"not available\" here and for the microphone? It looks like none of the methods actually do anything.",
+      "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58e17e38_38e8fe89",
+        "filename": "modules/audio_device/win/audio_device_module_win.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-06-07T14:07:49Z",
+      "side": 1,
+      "message": "Overall: what are the possible return values when the return type is int32_t in the ADM?",
+      "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "49d64e02_20077c1c",
+        "filename": "modules/audio_device/win/audio_device_module_win.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-06-07T14:07:49Z",
+      "side": 1,
+      "message": "Looks like it doesn\u0027t need to be stored, but the getter should just return a hard-coded value and the constructor won\u0027t need to have it as a parameter.",
+      "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ecc7850_821521df",
+        "filename": "modules/audio_device/win/audio_device_module_win.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-06-07T14:07:49Z",
+      "side": 1,
+      "message": "This one is declared in audio_device.h, so you don\u0027t need a forward declaration here.",
+      "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69bc42c3_31c85c1a",
+        "filename": "modules/audio_device/win/audio_device_module_win.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-06-07T14:07:49Z",
+      "side": 1,
+      "message": "I don\u0027t think the sizes here would be enforced anyway. Use char* or std::string*? Or, better yet, pass these (which I guess are outputs) as the return value instead.",
+      "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ff832d0_a6a05c33",
+        "filename": "modules/audio_device/win/audio_device_module_win.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-06-07T14:07:49Z",
+      "side": 1,
+      "message": "Same comment as for input.",
+      "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f3ae294_e9ad0c72",
+        "filename": "modules/audio_device/win/core_audio_base_win.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-06-07T14:07:49Z",
+      "side": 1,
+      "message": "You don\u0027t need to specify the enum values directly. They\u0027ll have the same values as now if you leave them out.",
+      "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91c7de8e_0e472c9e",
+        "filename": "modules/audio_device/win/core_audio_base_win.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-06-07T14:07:49Z",
+      "side": 1,
+      "message": "Will this code return Default and Communications even if there are no active devices? IIRC, Chrome doesn\u0027t and it kind-of makes sense not to.",
+      "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5362a278_bc1c5d04",
+        "filename": "modules/audio_device/win/core_audio_base_win.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-06-07T14:07:49Z",
+      "side": 1,
+      "message": "nit: \u003e\u003d and lose the \u0027- 1\u0027?",
+      "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "899034d4_3a3c9ae9",
+        "filename": "modules/audio_device/win/core_audio_base_win.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-06-07T14:07:49Z",
+      "side": 1,
+      "message": "Why? It\u0027s already a char*.",
+      "range": {
+        "startLine": 158,
+        "startChar": 15,
+        "endLine": 158,
+        "endChar": 44
+      },
+      "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b52ba4da_36c3944f",
+        "filename": "modules/audio_device/win/core_audio_base_win.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-06-07T14:07:49Z",
+      "side": 1,
+      "message": "Same question here.",
+      "range": {
+        "startLine": 162,
+        "startChar": 17,
+        "endLine": 162,
+        "endChar": 46
+      },
+      "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "987adb84_bc0576f1",
+        "filename": "modules/audio_device/win/core_audio_base_win.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-06-07T14:07:49Z",
+      "side": 1,
+      "message": "Glad to see the odd locking from the old implementation is gone!",
+      "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "71f604fa_d24ec78f",
+        "filename": "modules/audio_device/win/core_audio_input_win.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-06-07T14:07:49Z",
+      "side": 1,
+      "message": "I see the output stops playout in Terminate(). Is nothing similar needed for input?",
+      "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a89577fa_a6b5340e",
+        "filename": "modules/audio_device/win/core_audio_input_win.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-06-07T14:07:49Z",
+      "side": 1,
+      "message": "nit: \"an\"",
+      "range": {
+        "startLine": 104,
+        "startChar": 12,
+        "endLine": 104,
+        "endChar": 15
+      },
+      "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5fb73328_ff14cbe8",
+        "filename": "modules/audio_device/win/core_audio_input_win.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-06-07T14:07:49Z",
+      "side": 1,
+      "message": "nit: -client",
+      "range": {
+        "startLine": 128,
+        "startChar": 35,
+        "endLine": 128,
+        "endChar": 41
+      },
+      "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3409a2db_ac217cfa",
+        "filename": "modules/audio_device/win/core_audio_input_win.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-06-07T14:07:49Z",
+      "side": 1,
+      "message": "You don\u0027t need this. The while clause that follows does the exact same thing.",
+      "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e68ec9f7_adef0402",
+        "filename": "modules/audio_device/win/core_audio_output_win.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-06-07T14:07:49Z",
+      "side": 1,
+      "message": "Why isn\u0027t this just implemented in Base?",
+      "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ab7ed42_a5b50a41",
+        "filename": "modules/audio_device/win/core_audio_output_win.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-06-07T14:07:49Z",
+      "side": 1,
+      "message": "input or output?",
+      "range": {
+        "startLine": 187,
+        "startChar": 41,
+        "endLine": 187,
+        "endChar": 46
+      },
+      "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "145007b0_dedea08b",
+        "filename": "modules/audio_device/win/core_audio_output_win.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-06-07T14:07:49Z",
+      "side": 1,
+      "message": "Remove?",
+      "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ab64ef0_e9f963e7",
+        "filename": "modules/audio_device/win/core_audio_output_win.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-06-07T14:07:49Z",
+      "side": 1,
+      "message": "Are we sure we can fill up the whole buffer?",
+      "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e3455d2_4b58073a",
+        "filename": "modules/audio_device/win/core_audio_output_win.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-06-07T14:07:49Z",
+      "side": 1,
+      "message": "nit nit: \u0027it crashed\u0027? also: devices.ini?",
+      "range": {
+        "startLine": 278,
+        "startChar": 31,
+        "endLine": 278,
+        "endChar": 32
+      },
+      "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa268664_ff2ea899",
+        "filename": "modules/audio_device/win/core_audio_utility_win_unittest.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 627,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-06-07T14:07:49Z",
+      "side": 1,
+      "message": "nit: uninitialized",
+      "range": {
+        "startLine": 627,
+        "startChar": 61,
+        "endLine": 627,
+        "endChar": 72
+      },
+      "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -34,6 +34,24 @@
       "revId": "1cfd68bcc5d863556407a812581b4d828ebde626",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "858109a5_c287de36",
+        "filename": "modules/rtp_rtcp/source/rtp_frame_descriptor.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-06-07T15:54:37Z",
+      "side": 1,
+      "message": "We only  need to truncate the very moment we write this information into the wire bit format, right? So I don\u0027t think we will need a struct with uint16_t frame ids at all, maybe I\u0027m missing something :)\n\nHard to decide on the name when I\u0027m not 100% sure how it will be used.",
+      "parentUuid": "95566629_84bb8129",
+      "revId": "1cfd68bcc5d863556407a812581b4d828ebde626",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -22,6 +22,30 @@
       "revId": "8cf2b85bc900963639d0974f0ad26e09d6ef99a5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "345d917c_718a2ebd",
+        "filename": "modules/video_coding/codecs/test/videocodec_test_fixture_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-06-07T06:57:03Z",
+      "side": 1,
+      "message": "I would prefer to keep the stringification here, so that I can have custom names and custom newlines.\n\nSpeaking of which, I realized that I had used a different naming convention here, vs. above. Updated in the latest patchset.",
+      "parentUuid": "f4de3cf9_2db1a119",
+      "range": {
+        "startLine": 268,
+        "startChar": 12,
+        "endLine": 268,
+        "endChar": 27
+      },
+      "revId": "8cf2b85bc900963639d0974f0ad26e09d6ef99a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

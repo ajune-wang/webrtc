@@ -46,6 +46,30 @@
       "revId": "9c5238908a06e89ce9fd8fc68b3d2cb91745eba6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a7dd0fb_d8204af0",
+        "filename": "sdk/android/native_api/audio_device_module/audio_device_android.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-06-07T09:25:59Z",
+      "side": 1,
+      "message": "It would be strange if a definition in an another target would affect these files but maybe there is some GN black magic going on here. (Are defines from dependencies automatically added to the target?)",
+      "parentUuid": "17d27bda_3b80d8ec",
+      "range": {
+        "startLine": 21,
+        "startChar": 12,
+        "endLine": 21,
+        "endChar": 47
+      },
+      "revId": "9c5238908a06e89ce9fd8fc68b3d2cb91745eba6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

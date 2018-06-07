@@ -142,6 +142,30 @@
       "revId": "9c5238908a06e89ce9fd8fc68b3d2cb91745eba6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "144eb7ff_2ba8c85b",
+        "filename": "sdk/android/native_api/audio_device_module/audio_device_android.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 6278
+      },
+      "writtenOn": "2018-06-07T17:53:00Z",
+      "side": 1,
+      "message": "The problem we are having is we are not using GN directly, our system is more strict in header searching. \n\nIn \nhttps://cs.chromium.org/chromium/src/third_party/webrtc/sdk/android/BUILD.gn?type\u003dcs\u0026q\u003dAUDIO_DEVICE_INCLUDE_ANDROID_AAUDIO\u0026sq\u003dpackage:chromium\u0026g\u003d0\u0026l\u003d159\n\nIf rtc_enable_android_aaudio is not set, the module aaudio_audio_device_module will not be defined and the header `aaudio_player.h` and `aaudio_recorder.h` will not be in the header searching path. We will have an undefined header file error.",
+      "parentUuid": "c11a832c_164fad88",
+      "range": {
+        "startLine": 21,
+        "startChar": 12,
+        "endLine": 21,
+        "endChar": 47
+      },
+      "revId": "9c5238908a06e89ce9fd8fc68b3d2cb91745eba6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

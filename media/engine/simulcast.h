@@ -33,7 +33,7 @@ std::vector<webrtc::VideoStream> GetSimulcastConfig(
     double bitrate_priority,
     int max_qp,
     int max_framerate,
-    bool is_screenshare = false);
+    bool is_screenshare);
 
 // Gets the simulcast config layers for a non-screensharing case.
 std::vector<webrtc::VideoStream> GetNormalSimulcastLayers(

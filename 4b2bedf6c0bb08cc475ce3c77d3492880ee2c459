@@ -22,6 +22,30 @@
       "revId": "4b2bedf6c0bb08cc475ce3c77d3492880ee2c459",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "113bb98a_9ac0aaed",
+        "filename": "rtc_base/sanitizer_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-06-07T10:06:43Z",
+      "side": 1,
+      "message": "OK. Makes sense.\n\nAm I right in assuming that EXPECT_DEATH will do something like fork the process, evaluate the killing expression in one fork and not evaluate it in the other? Otherwise, hiding it in a subroutine like this might be a bad idea, and the two successive tests on line 145-146 won\u0027t work.",
+      "parentUuid": "3266c233_83f59e61",
+      "range": {
+        "startLine": 130,
+        "startChar": 2,
+        "endLine": 130,
+        "endChar": 24
+      },
+      "revId": "4b2bedf6c0bb08cc475ce3c77d3492880ee2c459",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

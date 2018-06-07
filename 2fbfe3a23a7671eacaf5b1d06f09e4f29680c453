@@ -70,6 +70,30 @@
       "revId": "2fbfe3a23a7671eacaf5b1d06f09e4f29680c453",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5be536ee_1bf2e01e",
+        "filename": "api/video_codecs/video_codec.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-06-07T12:04:09Z",
+      "side": 1,
+      "message": "OK. Propagating the change to `int` as widely as required is probably the right thing to do.",
+      "parentUuid": "d1145778_4a51568d",
+      "range": {
+        "startLine": 109,
+        "startChar": 0,
+        "endLine": 110,
+        "endChar": 24
+      },
+      "revId": "2fbfe3a23a7671eacaf5b1d06f09e4f29680c453",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

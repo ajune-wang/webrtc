@@ -577,6 +577,11 @@ class PeerConnectionInterface : public rtc::RefCountInterface {
     // For all other users, specify kUnifiedPlan.
     SdpSemantics sdp_semantics = SdpSemantics::kPlanB;
 
+    // Actively reset the SRTP parameters after every offer/answer negotiation.
+    // WARNING: This would cause RTP/RTCP packets decryption failure if not
+    // used correctly. This flag will be deprecated soon. Do not rely on it.
+    bool active_reset_srtp_params = false;
+
     //
     // Don't forget to update operator== if adding something.
     //

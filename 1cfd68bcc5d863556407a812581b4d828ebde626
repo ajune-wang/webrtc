@@ -16,6 +16,24 @@
       "revId": "1cfd68bcc5d863556407a812581b4d828ebde626",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95566629_84bb8129",
+        "filename": "modules/rtp_rtcp/source/rtp_frame_descriptor.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-06-07T15:05:56Z",
+      "side": 1,
+      "message": "This intended to be used at packetization step: data that will be on the wire, nothing else.\n(e.g. this is struct that will be Parsed from the extension).\nAny suggestion how can I improve class description?\n\n\nMy idea was to have an extra struct (RtpFrameInfo?) that will use int64_t frame_ids and, likely, some extra fields (like LastPacketInSubFrame) and a class  optional\u003cRtpFrameInfo\u003e RtpFrameUnwinder::Unwind(rtp_sequence_number, RtpFrameDescriptor) that can restore the long frame ids, turn frame_id_diffs into dependent_frame_ids and copy fields to non-first packet of a subframe.\n(It will be forced to return nullopt if first packet of the subframe wasn\u0027t observed yet)",
+      "parentUuid": "27b7e7b7_c9cca584",
+      "revId": "1cfd68bcc5d863556407a812581b4d828ebde626",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

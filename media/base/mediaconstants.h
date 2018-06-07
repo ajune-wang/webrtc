@@ -129,6 +129,9 @@ extern const char kVp8CodecName[];
 extern const char kVp9CodecName[];
 extern const char kH264CodecName[];
 
+// Profile levels for VP9 video.
+extern const char kVP9Profile[];
+
 // RFC 6184 RTP Payload Format for H.264 video
 extern const char kH264FmtpProfileLevelId[];
 extern const char kH264FmtpLevelAsymmetryAllowed[];

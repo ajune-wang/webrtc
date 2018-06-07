@@ -21,6 +21,24 @@
 
 namespace cricket {
 
+rtc::Optional<webrtc::VP9::Profile> ParseSdpProfile(
+    const CodecParameterMap& params) {
+  const auto profile_it = params.find(kVP9Profile);
+  if (profile_it == params.end())
+    return webrtc::VP9::kProfile0;
+  const std::string& profile_str = profile_it->second;
+  int profile = std::stoi(profile_str);
+  return profile == 0 ? webrtc::VP9::kProfile0 : webrtc::VP9::kProfile2;
+}
+
+bool IsSameVP9Profile(const CodecParameterMap& params1,
+                      const CodecParameterMap& params2) {
+  const rtc::Optional<webrtc::VP9::Profile> profile = ParseSdpProfile(params1);
+  const rtc::Optional<webrtc::VP9::Profile> other_profile =
+      ParseSdpProfile(params2);
+  return profile == other_profile;
+}
+
 FeedbackParams::FeedbackParams() = default;
 FeedbackParams::~FeedbackParams() = default;
 
@@ -268,6 +286,8 @@ static bool IsSameH264PacketizationMode(const CodecParameterMap& ours,
 bool VideoCodec::Matches(const VideoCodec& other) const {
   if (!Codec::Matches(other))
     return false;
+  if (CodecNamesEq(name.c_str(), kVp9CodecName))
+    return IsSameVP9Profile(params, other.params);
   if (CodecNamesEq(name.c_str(), kH264CodecName))
     return webrtc::H264::IsSameH264Profile(params, other.params) &&
            IsSameH264PacketizationMode(params, other.params);
@@ -388,8 +408,11 @@ bool IsSameCodec(const std::string& name1,
   if (!CodecNamesEq(name1, name2))
     return false;
   // For every format besides H264, comparing names is enough.
-  return !CodecNamesEq(name1.c_str(), kH264CodecName) ||
-         webrtc::H264::IsSameH264Profile(params1, params2);
+  if (CodecNamesEq(name1.c_str(), kH264CodecName))
+    return webrtc::H264::IsSameH264Profile(params1, params2);
+  if (CodecNamesEq(name1.c_str(), kVp9CodecName))
+    return IsSameVP9Profile(params1, params2);
+  return true;
 }
 
 }  // namespace cricket

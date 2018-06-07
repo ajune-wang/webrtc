@@ -31,8 +31,20 @@ class WrappedI420Buffer : public I420BufferInterface {
                     const uint8_t* v_plane,
                     int v_stride,
                     const rtc::Callback0<void>& no_longer_used);
+  WrappedI420Buffer(int width,
+                    int height,
+                    PlanarYuvBuffer::BitDepthType bit_depth,
+                    const uint8_t* y_plane,
+                    int y_stride,
+                    const uint8_t* u_plane,
+                    int u_stride,
+                    const uint8_t* v_plane,
+                    int v_stride,
+                    const rtc::Callback0<void>& no_longer_used);
+
   int width() const override;
   int height() const override;
+  PlanarYuvBuffer::BitDepthType BitDepth() const override;
 
   const uint8_t* DataY() const override;
   const uint8_t* DataU() const override;
@@ -47,6 +59,7 @@ class WrappedI420Buffer : public I420BufferInterface {
 
   const int width_;
   const int height_;
+  const PlanarYuvBuffer::BitDepthType bit_depth_;
   const uint8_t* const y_plane_;
   const uint8_t* const u_plane_;
   const uint8_t* const v_plane_;

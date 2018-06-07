@@ -873,6 +873,7 @@ std::string SdpSerialize(const JsepSessionDescription& jdesc) {
                           mdesc->type(), candidates, desc->msid_signaling(),
                           &message);
   }
+  RTC_LOG(LS_ERROR) << message;
   return message;
 }
 

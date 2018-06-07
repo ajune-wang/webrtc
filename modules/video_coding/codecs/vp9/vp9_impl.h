@@ -28,7 +28,7 @@ namespace webrtc {
 
 class VP9EncoderImpl : public VP9Encoder {
  public:
-  VP9EncoderImpl();
+  VP9EncoderImpl(const cricket::VideoCodec& codec);
 
   virtual ~VP9EncoderImpl();
 
@@ -94,6 +94,7 @@ class VP9EncoderImpl : public VP9Encoder {
   CodecSpecificInfo codec_specific_;
   EncodedImageCallback* encoded_complete_callback_;
   VideoCodec codec_;
+  VP9::Profile profile_;
   bool inited_;
   int64_t timestamp_;
   int cpu_speed_;

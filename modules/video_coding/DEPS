@@ -2,6 +2,7 @@ include_rules = [
   "+vpx",
   "+call",
   "+common_video",
+  "+media/base",
   "+sdk",
   "+system_wrappers",
   "+rtc_tools",
@@ -13,7 +14,6 @@ specific_include_rules = {
     "+base/android",
   ],
   ".*test.*\.cc": [
-     "+media/base",
      "+media/engine",
   ],
 }

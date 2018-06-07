@@ -45,6 +45,10 @@ const I444BufferInterface* VideoFrameBuffer::GetI444() const {
   return static_cast<const I444BufferInterface*>(this);
 }
 
+PlanarYuvBuffer::BitDepthType PlanarYuvBuffer::BitDepth() const {
+  return BitDepthType::kBitDepth8;
+}
+
 VideoFrameBuffer::Type I420BufferInterface::type() const {
   return Type::kI420;
 }

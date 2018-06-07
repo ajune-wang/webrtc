@@ -47,7 +47,24 @@ WEBCAM_LINUX = (
 )
 
 
-def IsWebCamRunning():
+def KillWebcam(process):
+  print 'Terminating virtual webcam (%s with PID %s)' % (process.name, process.pid)
+  process.terminate()
+  try:
+    process.wait(timeout=3)
+    return
+  except psutil.TimeoutExpired:
+    print 'Survived sigterm, trying kill...'
+
+  process.kill()
+  try:
+    process.wait(timeout=3)
+  except psutil.TimeoutExpired:
+    print 'Giving up'
+    return
+
+
+def FindAndKillWebcam():
   if sys.platform == 'win32':
     process_name = 'ManyCam.exe'
   elif sys.platform.startswith('darwin'):
@@ -59,12 +76,11 @@ def IsWebCamRunning():
   for p in psutil.process_iter():
     try:
       if process_name == p.name:
-        print 'Found a running virtual webcam (%s with PID %s)' % (p.name,
-                                                                   p.pid)
+        KillWebcam(p)
         return True
     except psutil.AccessDenied:
       pass  # This is normal if we query sys processes, etc.
-  return False
+ return False
 
 
 def StartWebCam():
@@ -76,7 +92,6 @@ def StartWebCam():
       subprocess.check_call(WEBCAM_MAC)
       print 'Successfully launched virtual webcam.'
     elif sys.platform.startswith('linux'):
-
       # Must redirect stdout/stderr/stdin to avoid having the subprocess
       # being killed when the parent shell dies (happens on the bots).
       process = subprocess.Popen(WEBCAM_LINUX, stdout=subprocess.PIPE,
@@ -110,15 +125,16 @@ def _ForcePythonInterpreter(cmd):
 
 
 def Main(argv):
-  if not IsWebCamRunning():
-    if not StartWebCam():
-      return 1
+   if not StartWebCam():
+    return 1
 
-  if argv:
-    return subprocess.call(_ForcePythonInterpreter(argv))
-  else:
-    return 0
+  if not argv:
+    print 'Usage: %s some_test_binary arg1 arg2'
+    return 2
 
+  exit_code = subprocess.call(_ForcePythonInterpreter(argv))
+  FindAndKillWebcam()
+  return exit_code
 
 if __name__ == '__main__':
   sys.exit(Main(sys.argv[1:]))

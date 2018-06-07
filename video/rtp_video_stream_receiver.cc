@@ -45,7 +45,7 @@ namespace {
 //                 crbug.com/752886
 constexpr int kPacketBufferStartSize = 512;
 constexpr int kPacketBufferMaxSixe = 2048;
-}
+}  // namespace
 
 std::unique_ptr<RtpRtcp> CreateRtpRtcpModule(
     ReceiveStatistics* receive_statistics,
@@ -402,7 +402,9 @@ void RtpVideoStreamReceiver::ReceivePacket(const uint8_t* packet,
 }
 
 void RtpVideoStreamReceiver::ParseAndHandleEncapsulatingHeader(
-    const uint8_t* packet, size_t packet_length, const RTPHeader& header) {
+    const uint8_t* packet,
+    size_t packet_length,
+    const RTPHeader& header) {
   RTC_DCHECK_CALLED_SEQUENTIALLY(&worker_task_checker_);
   if (header.payloadType == config_.rtp.red_payload_type) {
     if (packet[header.headerLength] == config_.rtp.ulpfec_payload_type) {
@@ -412,8 +414,8 @@ void RtpVideoStreamReceiver::ParseAndHandleEncapsulatingHeader(
       NotifyReceiverOfFecPacket(header);
     }
     if (ulpfec_receiver_->AddReceivedRedPacket(
-            header, packet, packet_length,
-            config_.rtp.ulpfec_payload_type) != 0) {
+            header, packet, packet_length, config_.rtp.ulpfec_payload_type) !=
+        0) {
       return;
     }
     ulpfec_receiver_->ProcessReceivedFec();
@@ -542,8 +544,7 @@ bool RtpVideoStreamReceiver::IsPacketRetransmitted(const RTPHeader& header,
       rtp_receive_statistics_->GetStatistician(header.ssrc);
   if (!statistician)
     return false;
-  return !in_order &&
-      statistician->IsRetransmitOfOldPacket(header);
+  return !in_order && statistician->IsRetransmitOfOldPacket(header);
 }
 
 void RtpVideoStreamReceiver::UpdateHistograms() {

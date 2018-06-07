@@ -9,10 +9,10 @@
  */
 
 #if defined(WEBRTC_WIN)
-#include <windows.h>
 #include <shellapi.h>
 #include <shlobj.h>
 #include <tchar.h>
+#include <windows.h>
 #endif  // WEBRTC_WIN
 
 #include "rtc_base/checks.h"
@@ -33,7 +33,7 @@ const char* const FOLDER_DELIMS = "/\\";
 // DEFAULT_FOLDER_DELIM is the preferred delimiter for this platform
 #ifdef WEBRTC_WIN
 const char DEFAULT_FOLDER_DELIM = '\\';
-#else  // !WEBRTC_WIN
+#else   // !WEBRTC_WIN
 const char DEFAULT_FOLDER_DELIM = '/';
 #endif  // !WEBRTC_WIN
 
@@ -49,9 +49,7 @@ char Pathname::DefaultFolderDelimiter() {
   return DEFAULT_FOLDER_DELIM;
 }
 
-Pathname::Pathname()
-    : folder_delimiter_(DEFAULT_FOLDER_DELIM) {
-}
+Pathname::Pathname() : folder_delimiter_(DEFAULT_FOLDER_DELIM) {}
 
 Pathname::Pathname(const Pathname&) = default;
 Pathname::Pathname(Pathname&&) = default;
@@ -70,7 +68,7 @@ Pathname& Pathname::operator=(const Pathname&) = default;
 Pathname& Pathname::operator=(Pathname&&) = default;
 
 void Pathname::Normalize() {
-  for (size_t i=0; i<folder_.length(); ++i) {
+  for (size_t i = 0; i < folder_.length(); ++i) {
     if (IsFolderDelimiter(folder_[i])) {
       folder_[i] = folder_delimiter_;
     }
@@ -135,7 +133,7 @@ std::string Pathname::parent_folder() const {
 void Pathname::SetFolder(const std::string& folder) {
   folder_.assign(folder);
   // Ensure folder ends in a path delimiter
-  if (!folder_.empty() && !IsFolderDelimiter(folder_[folder_.length()-1])) {
+  if (!folder_.empty() && !IsFolderDelimiter(folder_[folder_.length() - 1])) {
     folder_.push_back(folder_delimiter_);
   }
 }
@@ -143,13 +141,13 @@ void Pathname::SetFolder(const std::string& folder) {
 void Pathname::AppendFolder(const std::string& folder) {
   folder_.append(folder);
   // Ensure folder ends in a path delimiter
-  if (!folder_.empty() && !IsFolderDelimiter(folder_[folder_.length()-1])) {
+  if (!folder_.empty() && !IsFolderDelimiter(folder_[folder_.length() - 1])) {
     folder_.push_back(folder_delimiter_);
   }
 }
 
 bool Pathname::SetBasename(const std::string& basename) {
-  if(basename.find_first_of(FOLDER_DELIMS) != std::string::npos) {
+  if (basename.find_first_of(FOLDER_DELIMS) != std::string::npos) {
     return false;
   }
   basename_.assign(basename);
@@ -158,8 +156,8 @@ bool Pathname::SetBasename(const std::string& basename) {
 
 bool Pathname::SetExtension(const std::string& extension) {
   if (extension.find_first_of(FOLDER_DELIMS) != std::string::npos ||
-    extension.find_first_of(EXT_DELIM, 1) != std::string::npos) {
-      return false;
+      extension.find_first_of(EXT_DELIM, 1) != std::string::npos) {
+    return false;
   }
   extension_.assign(extension);
   // Ensure extension begins with the extension delimiter
@@ -180,10 +178,11 @@ bool Pathname::SetFilename(const std::string& filename) {
   if ((pos == std::string::npos) || (pos == 0)) {
     return SetExtension(EMPTY_STR) && SetBasename(filename);
   } else {
-    return SetExtension(filename.substr(pos)) && SetBasename(filename.substr(0, pos));
+    return SetExtension(filename.substr(pos)) &&
+           SetBasename(filename.substr(0, pos));
   }
 }
 
 ///////////////////////////////////////////////////////////////////////////////
 
-} // namespace rtc
+}  // namespace rtc

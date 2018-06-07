@@ -24,8 +24,8 @@ namespace webrtc {
 // Deprecated. use VideoSendTiming::TimingFrameFlags instead.
 // TODO(ilnik): remove after some time.
 enum TimingFrameFlags : uint8_t {
-  kNotTriggered = 0,  // Timing info valid, but not to be transmitted.
-                      // Used on send-side only.
+  kNotTriggered = 0,           // Timing info valid, but not to be transmitted.
+                               // Used on send-side only.
   kTriggeredByTimer = 1 << 0,  // Frame marked for tracing by periodic timer.
   kTriggeredBySize = 1 << 1,   // Frame marked for tracing due to size.
   kInvalid = std::numeric_limits<uint8_t>::max()  // Invalid, ignore!

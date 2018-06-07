@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "26fc3a4c_577e9b2e",
+        "filename": "modules/video_coding/frame_buffer2.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 510,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-06-07T12:54:09Z",
+      "side": 1,
+      "message": "Sounds odd.",
+      "parentUuid": "8e5d04e9_ab804a42",
+      "range": {
+        "startLine": 510,
+        "startChar": 38,
+        "endLine": 510,
+        "endChar": 51
+      },
+      "revId": "2abb6caea0d5161f2e88e1e0c166d67562d83067",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5c5f3d22_0c62006a",
         "filename": "modules/video_coding/frame_buffer2.cc",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "2abb6caea0d5161f2e88e1e0c166d67562d83067",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1233ec0_8bc8dbd6",
+        "filename": "modules/video_coding/frame_buffer2.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 513,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-06-07T12:54:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c5f3d22_0c62006a",
+      "range": {
+        "startLine": 513,
+        "startChar": 44,
+        "endLine": 513,
+        "endChar": 45
+      },
+      "revId": "2abb6caea0d5161f2e88e1e0c166d67562d83067",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "6546062c_49d9570c",
+        "filename": "modules/video_coding/frame_buffer2.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 556,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-06-07T12:54:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "87be1bed_94aeaa24",
+      "range": {
+        "startLine": 556,
+        "startChar": 26,
+        "endLine": 556,
+        "endChar": 43
+      },
+      "revId": "2abb6caea0d5161f2e88e1e0c166d67562d83067",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d9a3adb1_9a844fc1",
         "filename": "modules/video_coding/frame_buffer2.cc",
         "patchSetId": 1
@@ -82,6 +154,30 @@
       "writtenOn": "2018-06-04T15:19:03Z",
       "side": 1,
       "message": "else? Something seem to be wrong. Return value?",
+      "range": {
+        "startLine": 562,
+        "startChar": 5,
+        "endLine": 562,
+        "endChar": 0
+      },
+      "revId": "2abb6caea0d5161f2e88e1e0c166d67562d83067",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc0cbfc1_bd3833b0",
+        "filename": "modules/video_coding/frame_buffer2.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 562,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-06-07T12:54:09Z",
+      "side": 1,
+      "message": "By still returning true we keep this frame but it will never become decodable.",
+      "parentUuid": "d9a3adb1_9a844fc1",
       "range": {
         "startLine": 562,
         "startChar": 5,

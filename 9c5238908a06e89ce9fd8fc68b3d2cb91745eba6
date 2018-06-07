@@ -70,6 +70,30 @@
       "revId": "9c5238908a06e89ce9fd8fc68b3d2cb91745eba6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82755cbc_c3dd7abd",
+        "filename": "sdk/android/native_api/audio_device_module/audio_device_android.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-06-07T11:22:48Z",
+      "side": 1,
+      "message": "In this case it would come from here (sdk/android, not modules):\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/sdk/android/BUILD.gn?type\u003dcs\u0026q\u003dAUDIO_DEVICE_INCLUDE_ANDROID_AAUDIO\u0026sq\u003dpackage:chromium\u0026g\u003d0\u0026l\u003d159\n\nI don\u0027t know if this is supposed to work or not, the docs make it sound like maybe? \nhttps://chromium.googlesource.com/chromium/src/+/master/tools/gn/docs/reference.md#defines\n\nIf it\u0027s been tested and it works I\u0027m fine with it.",
+      "parentUuid": "9a7dd0fb_d8204af0",
+      "range": {
+        "startLine": 21,
+        "startChar": 12,
+        "endLine": 21,
+        "endChar": 47
+      },
+      "revId": "9c5238908a06e89ce9fd8fc68b3d2cb91745eba6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

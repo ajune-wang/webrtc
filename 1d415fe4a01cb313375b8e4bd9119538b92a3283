@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "89a836a4_378adcdd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-06-07T15:49:50Z",
+      "side": 1,
+      "message": "Moved NackModule and VCMPacket to their own targets?",
+      "revId": "1d415fe4a01cb313375b8e4bd9119538b92a3283",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

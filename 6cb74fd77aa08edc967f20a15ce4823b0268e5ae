@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "68356cb8_48dc9b0c",
+        "filename": "modules/video_coding/jitter_buffer_common.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-06-07T15:49:50Z",
+      "side": 0,
+      "message": "This seems to only be used by VCMPacket, but VCMPacket::completeNalu is never used anywhere. Try to delete this.",
+      "revId": "6cb74fd77aa08edc967f20a15ce4823b0268e5ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

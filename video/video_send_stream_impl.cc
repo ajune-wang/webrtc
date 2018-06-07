@@ -291,7 +291,7 @@ VideoSendStreamImpl::VideoSendStreamImpl(
     int initial_encoder_max_bitrate,
     double initial_encoder_bitrate_priority,
     std::map<uint32_t, RtpState> suspended_ssrcs,
-    std::map<uint32_t, RtpPayloadState> suspended_payload_states,
+    const RtpPayloadState& rtp_payload_states,
     VideoEncoderConfig::ContentType content_type,
     std::unique_ptr<FecController> fec_controller,
     RateLimiter* retransmission_limiter)
@@ -333,7 +333,7 @@ VideoSendStreamImpl::VideoSendStreamImpl(
       payload_router_(rtp_rtcp_modules_,
                       config_->rtp.ssrcs,
                       config_->rtp.payload_type,
-                      suspended_payload_states),
+                      rtp_payload_states),
       weak_ptr_factory_(this),
       overhead_bytes_per_packet_(0),
       transport_overhead_bytes_per_packet_(0) {
@@ -865,8 +865,7 @@ std::map<uint32_t, RtpState> VideoSendStreamImpl::GetRtpStates() const {
   return rtp_states;
 }
 
-std::map<uint32_t, RtpPayloadState> VideoSendStreamImpl::GetRtpPayloadStates()
-    const {
+RtpPayloadState VideoSendStreamImpl::GetRtpPayloadStates() const {
   RTC_DCHECK_RUN_ON(worker_queue_);
   return payload_router_.GetRtpPayloadStates();
 }

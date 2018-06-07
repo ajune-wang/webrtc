@@ -19,6 +19,7 @@
 #include "modules/video_coding/utility/default_video_bitrate_allocator.h"
 #include "rtc_base/fakeclock.h"
 #include "rtc_base/logging.h"
+#include "rtc_base/refcountedobject.h"
 #include "system_wrappers/include/metrics_default.h"
 #include "system_wrappers/include/sleep.h"
 #include "test/encoder_proxy_factory.h"
@@ -92,15 +93,14 @@ class CpuOveruseDetectorProxy : public OveruseFrameDetector {
 class VideoStreamEncoderUnderTest : public VideoStreamEncoder {
  public:
   VideoStreamEncoderUnderTest(SendStatisticsProxy* stats_proxy,
-                      const VideoSendStream::Config::EncoderSettings& settings)
-      : VideoStreamEncoder(
-            1 /* number_of_cores */,
-            stats_proxy,
-            settings,
-            nullptr /* pre_encode_callback */,
-            std::unique_ptr<OveruseFrameDetector>(
-                overuse_detector_proxy_ = new CpuOveruseDetectorProxy(
-                    stats_proxy))) {}
+                              const VideoStreamEncoderSettings& settings)
+      : VideoStreamEncoder(1 /* number_of_cores */,
+                           stats_proxy,
+                           settings,
+                           nullptr /* pre_encode_callback */,
+                           std::unique_ptr<OveruseFrameDetector>(
+                               overuse_detector_proxy_ =
+                                   new CpuOveruseDetectorProxy(stats_proxy))) {}
 
   void PostTaskAndWait(bool down, AdaptReason reason) {
     rtc::Event event(false, false);

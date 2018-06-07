@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "24b176f4_29b9ab54",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-07T16:48:44Z",
+      "side": 1,
+      "message": "Should mention that this should only be used as a workaround for the linked bug, if the application knows that the other party is affected (for instance, using a version number).",
+      "revId": "3a9cfdde7f182a0443b6a2412d4a62e7cbb76d0b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bef8ab5a_4db064f8",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 582,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-07T16:48:44Z",
+      "side": 1,
+      "message": "Again, may be worth mentioning that this is only intended to be a workaround for crbug.com/835958.",
+      "revId": "3a9cfdde7f182a0443b6a2412d4a62e7cbb76d0b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b20531ff_b78b5a1c",
+        "filename": "pc/dtlssrtptransport.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-07T16:48:44Z",
+      "side": 1,
+      "message": "nit: This assumes that every answer will end up calling SetDtlsTransports, which is true now (and obviously was true in the revisions with the bug), but isn\u0027t really guaranteed. May be safer to just explicitly call ResetParams from JsepTransport or JsepTransportController.",
+      "revId": "3a9cfdde7f182a0443b6a2412d4a62e7cbb76d0b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

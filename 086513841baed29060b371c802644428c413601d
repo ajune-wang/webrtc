@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "549fb18d_97add93a",
+        "filename": "modules/remote_bitrate_estimator/aimd_rate_control.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-07T15:44:32Z",
+      "side": 1,
+      "message": "I\u0027m not sure we want to change the throughput estimate here. We might already have measured bitrate, and it would be unfortunate to forget it.",
+      "range": {
+        "startLine": 90,
+        "startChar": 2,
+        "endLine": 90,
+        "endChar": 53
+      },
+      "revId": "086513841baed29060b371c802644428c413601d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca4afca5_d2d3b665",
+        "filename": "modules/remote_bitrate_estimator/aimd_rate_control_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-07T15:44:32Z",
+      "side": 1,
+      "message": "It is not clear to me whether the test wants the sending rate to grow or not to grow, based only on the name. How about calling it SendingRateBoundedWhenThroughputNotEstimated?",
+      "range": {
+        "startLine": 250,
+        "startChar": 26,
+        "endLine": 250,
+        "endChar": 67
+      },
+      "revId": "086513841baed29060b371c802644428c413601d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "847327d0_5816e99a",
+        "filename": "modules/remote_bitrate_estimator/aimd_rate_control_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-07T15:44:32Z",
+      "side": 1,
+      "message": "Does it work with kInitialBitrate * 1.5? Maybe EXPECT_LE in that case?",
+      "range": {
+        "startLine": 265,
+        "startChar": 56,
+        "endLine": 265,
+        "endChar": 76
+      },
+      "revId": "086513841baed29060b371c802644428c413601d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

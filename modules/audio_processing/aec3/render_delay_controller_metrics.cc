@@ -67,13 +67,13 @@ void RenderDelayControllerMetrics::Update(
   }
 
   if (call_counter_ == kMetricsReportingIntervalBlocks) {
-    int value_to_report = static_cast<int>(delay_blocks_);
+    int value_to_report = static_cast<int>(delay_blocks_) >> 1;
     value_to_report = std::min(124, value_to_report);
     RTC_HISTOGRAM_COUNTS_LINEAR("WebRTC.Audio.EchoCanceller.EchoPathDelay",
                                 value_to_report, 0, 124, 125);
 
     value_to_report = static_cast<int>(buffer_delay_blocks);
-    value_to_report = std::min(124, value_to_report);
+    value_to_report = std::min(124, value_to_report) >> 1;
     RTC_HISTOGRAM_COUNTS_LINEAR("WebRTC.Audio.EchoCanceller.BufferDelay",
                                 value_to_report, 0, 124, 125);
 

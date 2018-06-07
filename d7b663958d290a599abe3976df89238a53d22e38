@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "0380761a_ecbf1d68",
+        "filename": "video/full_stack_tests.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-07T09:11:31Z",
+      "side": 1,
+      "message": "This was accidental, undone. Good catch.",
+      "parentUuid": "e89a5697_dd7ae1b3",
+      "range": {
+        "startLine": 166,
+        "startChar": 54,
+        "endLine": 166,
+        "endChar": 59
+      },
+      "revId": "d7b663958d290a599abe3976df89238a53d22e38",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0eb14d32_d3de78f2",
         "filename": "video/video_quality_test.cc",
         "patchSetId": 3
@@ -36,6 +60,24 @@
       "writtenOn": "2018-06-07T08:44:50Z",
       "side": 1,
       "message": "These nested if clauses are not great for reading the code. :( Would be nice with a proper cleanup at some point in the future.",
+      "revId": "d7b663958d290a599abe3976df89238a53d22e38",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8b01d684_572af04d",
+        "filename": "video/video_quality_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1556,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-07T09:11:31Z",
+      "side": 1,
+      "message": "Right. And it\u0027s also unfortunate that each case has to create all of the encoder specific settings. At least for this flag, it would be slightly better if .encoder_specific_settings was populated up front, and then modified as the test parameters are processed.",
+      "parentUuid": "0eb14d32_d3de78f2",
       "revId": "d7b663958d290a599abe3976df89238a53d22e38",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "9dfd6529_ffb95c62",
+        "filename": "video/video_quality_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1563,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-07T09:11:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6119c749_de8f1af5",
+      "range": {
+        "startLine": 1563,
+        "startChar": 52,
+        "endLine": 1563,
+        "endChar": 55
+      },
+      "revId": "d7b663958d290a599abe3976df89238a53d22e38",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8a905a3b_17ffafaa",
         "filename": "video/video_quality_test.cc",
         "patchSetId": 3
@@ -85,6 +151,30 @@
       "revId": "d7b663958d290a599abe3976df89238a53d22e38",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "999e7cbd_307ac96a",
+        "filename": "video/video_quality_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1570,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-07T09:11:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8a905a3b_17ffafaa",
+      "range": {
+        "startLine": 1570,
+        "startChar": 8,
+        "endLine": 1570,
+        "endChar": 24
+      },
+      "revId": "d7b663958d290a599abe3976df89238a53d22e38",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

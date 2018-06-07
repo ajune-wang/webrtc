@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "27b7e7b7_c9cca584",
+        "filename": "modules/rtp_rtcp/source/rtp_frame_descriptor.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-06-07T14:41:11Z",
+      "side": 1,
+      "message": "Where is this struct suppose to be used?\n\nAlso, I would suggest using int64_t for frame ids and frame diffs, and only truncate them in the packetization step.",
+      "revId": "1cfd68bcc5d863556407a812581b4d828ebde626",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

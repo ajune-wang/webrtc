@@ -122,6 +122,15 @@ void AecState::Update(
   // Analyze the filter and compute the delays.
   filter_analyzer_.Update(adaptive_filter_impulse_response, render_buffer);
   filter_delay_blocks_ = filter_analyzer_.DelayBlocks();
+  if (external_delay &&
+      (!external_delay_ || external_delay_->delay != external_delay->delay)) {
+    frames_since_external_delay_change_ = 0;
+    external_delay_ = external_delay;
+  }
+  if (blocks_with_proper_filter_adaptation_ < 2 * kNumBlocksPerSecond &&
+      external_delay_) {
+    filter_delay_blocks_ = config_.delay.delay_headroom_blocks;
+  }
 
   if (filter_analyzer_.Consistent()) {
     internal_delay_ = filter_analyzer_.DelayBlocks();

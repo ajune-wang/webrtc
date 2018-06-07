@@ -187,6 +187,8 @@ class AecState {
   bool converged_filter_seen_ = false;
   bool consistent_filter_seen_ = false;
   bool external_delay_seen_ = false;
+  rtc::Optional<DelayEstimate>& external_delay_;
+  size_t frames_since_external_delay_change_ = 0;
   size_t converged_filter_count_ = 0;
   bool finite_erl_ = false;
   size_t active_blocks_since_converged_filter_ = 0;

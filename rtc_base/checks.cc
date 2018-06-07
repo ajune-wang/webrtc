@@ -38,7 +38,7 @@
 #if defined(_MSC_VER)
 // Warning C4722: destructor never returns, potential memory leak.
 // FatalMessage's dtor very intentionally aborts.
-#pragma warning(disable:4722)
+#pragma warning(disable : 4722)
 #endif
 
 namespace rtc {
@@ -97,22 +97,32 @@ void FatalMessage::Init(const char* file, int line) {
 // MSVC doesn't like complex extern templates and DLLs.
 #if !defined(COMPILER_MSVC)
 // Explicit instantiations for commonly used comparisons.
-template std::string* MakeCheckOpString<int, int>(
-    const int&, const int&, const char* names);
+template std::string* MakeCheckOpString<int, int>(const int&,
+                                                  const int&,
+                                                  const char* names);
 template std::string* MakeCheckOpString<unsigned long, unsigned long>(
-    const unsigned long&, const unsigned long&, const char* names);
+    const unsigned long&,
+    const unsigned long&,
+    const char* names);
 template std::string* MakeCheckOpString<unsigned long, unsigned int>(
-    const unsigned long&, const unsigned int&, const char* names);
+    const unsigned long&,
+    const unsigned int&,
+    const char* names);
 template std::string* MakeCheckOpString<unsigned int, unsigned long>(
-    const unsigned int&, const unsigned long&, const char* names);
+    const unsigned int&,
+    const unsigned long&,
+    const char* names);
 template std::string* MakeCheckOpString<std::string, std::string>(
-    const std::string&, const std::string&, const char* name);
+    const std::string&,
+    const std::string&,
+    const char* name);
 #endif
 
 }  // namespace rtc
 
 // Function to call from the C version of the RTC_CHECK and RTC_DCHECK macros.
-RTC_NORETURN void rtc_FatalMessage(const char* file, int line,
+RTC_NORETURN void rtc_FatalMessage(const char* file,
+                                   int line,
                                    const char* msg) {
   rtc::FatalMessage(file, line).stream() << msg;
 }

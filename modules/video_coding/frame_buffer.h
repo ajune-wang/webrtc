@@ -14,8 +14,8 @@
 #include <vector>
 
 #include "modules/include/module_common_types.h"
-#include "modules/video_coding/include/video_coding.h"
 #include "modules/video_coding/encoded_frame.h"
+#include "modules/video_coding/include/video_coding.h"
 #include "modules/video_coding/jitter_buffer_common.h"
 #include "modules/video_coding/session_info.h"
 #include "typedefs.h"  // NOLINT(build/include)

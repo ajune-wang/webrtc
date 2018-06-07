@@ -28,7 +28,7 @@ namespace webrtc {
 // TestPacketization callback which writes the encoded payloads to file
 class TestPacketization : public AudioPacketizationCallback {
  public:
-  TestPacketization(RTPStream *rtpStream, uint16_t frequency);
+  TestPacketization(RTPStream* rtpStream, uint16_t frequency);
   ~TestPacketization();
   int32_t SendData(const FrameType frameType,
                    const uint8_t payloadType,
@@ -38,8 +38,11 @@ class TestPacketization : public AudioPacketizationCallback {
                    const RTPFragmentationHeader* fragmentation) override;
 
  private:
-  static void MakeRTPheader(uint8_t* rtpHeader, uint8_t payloadType,
-                            int16_t seqNo, uint32_t timeStamp, uint32_t ssrc);
+  static void MakeRTPheader(uint8_t* rtpHeader,
+                            uint8_t payloadType,
+                            int16_t seqNo,
+                            uint32_t timeStamp,
+                            uint32_t ssrc);
   RTPStream* _rtpStream;
   int32_t _frequency;
   int16_t _seqNo;
@@ -48,13 +51,16 @@ class TestPacketization : public AudioPacketizationCallback {
 class Sender {
  public:
   Sender();
-  void Setup(AudioCodingModule *acm, RTPStream *rtpStream,
-             std::string in_file_name, int sample_rate, size_t channels);
+  void Setup(AudioCodingModule* acm,
+             RTPStream* rtpStream,
+             std::string in_file_name,
+             int sample_rate,
+             size_t channels);
   void Teardown();
   void Run();
   bool Add10MsData();
 
-  //for auto_test and logging
+  // for auto_test and logging
   uint8_t testMode;
   uint8_t codeId;
 
@@ -70,15 +76,17 @@ class Sender {
 class Receiver {
  public:
   Receiver();
-  virtual ~Receiver() {};
-  void Setup(AudioCodingModule *acm, RTPStream *rtpStream,
-             std::string out_file_name, size_t channels);
+  virtual ~Receiver(){};
+  void Setup(AudioCodingModule* acm,
+             RTPStream* rtpStream,
+             std::string out_file_name,
+             size_t channels);
   void Teardown();
   void Run();
   virtual bool IncomingPacket();
   bool PlayoutData();
 
-  //for auto_test and logging
+  // for auto_test and logging
   uint8_t codeId;
   uint8_t testMode;
 

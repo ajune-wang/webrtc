@@ -17,6 +17,8 @@ StreamConfig::StreamConfig() {}
 
 StreamConfig::~StreamConfig() {}
 
+StreamConfig::StreamConfig(const StreamConfig& other) = default;
+
 bool StreamConfig::operator==(const StreamConfig& other) const {
   return local_ssrc == other.local_ssrc && remote_ssrc == other.remote_ssrc &&
          rtx_ssrc == other.rtx_ssrc && rsid == other.rsid &&

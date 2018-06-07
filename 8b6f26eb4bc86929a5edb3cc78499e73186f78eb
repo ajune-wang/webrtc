@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "54ee0d7f_f86b7545",
+        "filename": "modules/audio_processing/aec3/decimator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-06-07T11:40:35Z",
+      "side": 1,
+      "message": "Nit: I think that in python 1800/8000 becomes zero.\nPlease consider changing the comment.",
+      "revId": "8b6f26eb4bc86929a5edb3cc78499e73186f78eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

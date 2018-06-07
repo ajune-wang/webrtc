@@ -16,6 +16,24 @@
       "revId": "8b6f26eb4bc86929a5edb3cc78499e73186f78eb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f0712c3_9a11a55a",
+        "filename": "modules/audio_processing/aec3/decimator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2018-06-07T12:20:12Z",
+      "side": 1,
+      "message": "In Python 3 the operator for integer division is \"//\" and \"/\" will in this case give a fractional number.\nTime for you to upgrade to Python 3, Per! ;)",
+      "parentUuid": "54ee0d7f_f86b7545",
+      "revId": "8b6f26eb4bc86929a5edb3cc78499e73186f78eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

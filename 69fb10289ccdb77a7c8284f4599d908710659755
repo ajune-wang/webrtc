@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a44a6cd_4ccc6d76",
+        "filename": "webrtc.gni",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5182
+      },
+      "writtenOn": "2018-06-07T19:56:32Z",
+      "side": 1,
+      "message": "I don\u0027t think this is allowed :(\n\nAny idea of how to solve it?",
+      "revId": "69fb10289ccdb77a7c8284f4599d908710659755",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

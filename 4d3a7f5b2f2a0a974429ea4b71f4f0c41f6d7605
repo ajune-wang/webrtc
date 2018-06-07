@@ -136,6 +136,24 @@
     },
     {
       "key": {
+        "uuid": "815e16de_d6673b80",
+        "filename": "api/video_codecs/video_codec.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-07T08:59:02Z",
+      "side": 1,
+      "message": "It seems it needs some downstream fixes. See https://webrtc-review.googlesource.com/c/src/+/81240. So not for this cl.",
+      "parentUuid": "11a2c4c5_dd006f84",
+      "revId": "4d3a7f5b2f2a0a974429ea4b71f4f0c41f6d7605",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5adcab63_ad633573",
         "filename": "api/video_codecs/video_codec.h",
         "patchSetId": 4
@@ -153,6 +171,24 @@
     },
     {
       "key": {
+        "uuid": "d5792511_caacacdb",
+        "filename": "api/video_codecs/video_codec.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-07T08:59:02Z",
+      "side": 1,
+      "message": "I find this very confusing too, but I\u0027m not going to fix it at the moment.",
+      "parentUuid": "5adcab63_ad633573",
+      "revId": "4d3a7f5b2f2a0a974429ea4b71f4f0c41f6d7605",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d06d403f_a04ae4c2",
         "filename": "api/video_codecs/video_codec.h",
         "patchSetId": 4
@@ -164,6 +200,24 @@
       "writtenOn": "2018-06-05T08:37:33Z",
       "side": 1,
       "message": "Is this comment still valid? That is, could we (and would we want to) remove them from this file as well?",
+      "revId": "4d3a7f5b2f2a0a974429ea4b71f4f0c41f6d7605",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9bffb55b_02e07093",
+        "filename": "api/video_codecs/video_codec.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-07T08:59:02Z",
+      "side": 1,
+      "message": "That\u0027s a bit unclear. We have half-way migrated to VideoEncoderConfig, and that uses a (refcounted) pointer, and that\u0027s not so pretty either.\n\nI\u0027d prefer to keep things simple, move things like denoising flag and key frame interval out of \"codec specific\", and let encoders implement settings on a best-effort basis. That leaves the H.264 \"profiles\", they should arguably be treated as separate codec types instead, even if they\u0027re not negotiated that way in sdp.",
+      "parentUuid": "d06d403f_a04ae4c2",
       "revId": "4d3a7f5b2f2a0a974429ea4b71f4f0c41f6d7605",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

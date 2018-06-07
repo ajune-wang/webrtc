@@ -15,6 +15,7 @@
 #include <unordered_set>
 #include <vector>
 
+#include "api/video/video_stream_encoder_interface.h"
 #include "call/bitrate_allocator.h"
 #include "common_types.h"  // NOLINT(build/include)
 #include "common_video/include/video_bitrate_allocator.h"
@@ -28,7 +29,6 @@
 #include "video/send_delay_stats.h"
 #include "video/send_statistics_proxy.h"
 #include "video/video_send_stream.h"
-#include "video/video_stream_encoder.h"
 
 namespace webrtc {
 namespace internal {
@@ -43,7 +43,7 @@ namespace internal {
 class VideoSendStreamImpl : public webrtc::BitrateAllocatorObserver,
                             public webrtc::OverheadObserver,
                             public webrtc::VCMProtectionCallback,
-                            public VideoStreamEncoder::EncoderSink,
+                            public VideoStreamEncoderInterface::EncoderSink,
                             public VideoBitrateAllocationObserver,
                             public webrtc::PacketFeedbackObserver {
  public:

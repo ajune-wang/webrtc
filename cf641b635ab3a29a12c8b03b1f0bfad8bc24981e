@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8d56dcf8_3bde9bc1",
+        "filename": "logging/rtc_event_log/fake_rtc_event_log.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-07T01:00:03Z",
+      "side": 1,
+      "message": "nit: May want to do this in the constructor",
+      "revId": "cf641b635ab3a29a12c8b03b1f0bfad8bc24981e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9debf917_b7c536ef",
+        "filename": "pc/peerconnection_integrationtest.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 578,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-07T01:00:03Z",
+      "side": 1,
+      "message": "nit: Would be simpler to just always just a fake event log factory for this test; I don\u0027t see any reason not to.",
+      "revId": "cf641b635ab3a29a12c8b03b1f0bfad8bc24981e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c6bfb73_1df48d48",
+        "filename": "pc/peerconnection_integrationtest.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 4438,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-07T01:00:03Z",
+      "side": 1,
+      "message": "nit: Doesn\u0027t make a big difference, but shouldn\u0027t both values be nonzero, not just the sum?",
+      "revId": "cf641b635ab3a29a12c8b03b1f0bfad8bc24981e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

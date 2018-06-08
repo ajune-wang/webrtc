@@ -11,7 +11,6 @@
 #include "pc/rtcstatscollector.h"
 
 #include <memory>
-#include <sstream>
 #include <string>
 #include <utility>
 #include <vector>
@@ -57,9 +56,8 @@ const char kReceiver[] = "receiver";
 std::string RTCMediaStreamTrackStatsIDFromDirectionAndAttachment(
     const char* direction,
     int attachment_id) {
-  std::ostringstream oss;
-  oss << "RTCMediaStreamTrack_" << direction << "_" << attachment_id;
-  return oss.str();
+  return std::string("RTCMediaStreamTrack_") + direction + "_" +
+         rtc::ToString(attachment_id);
 }
 
 std::string RTCTransportStatsIDFromTransportChannel(

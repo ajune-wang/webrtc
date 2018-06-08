@@ -2423,9 +2423,33 @@ TEST_P(PeerConnectionIntegrationTest, GetCaptureStartNtpTimeWithOldStatsApi) {
       2 * kMaxWaitForFramesMs);
 }
 
-// Test that we can get stats (using the new stats implemnetation) for
-// unsignaled streams. Meaning when SSRCs/MSIDs aren't signaled explicitly in
-// SDP.
+// Same as above but for the legacy stats implementation.
+TEST_P(PeerConnectionIntegrationTest,
+       GetStatsForUnsignaledStreamWithOldStatsApi) {
+  ASSERT_TRUE(CreatePeerConnectionWrappers());
+  ConnectFakeSignaling();
+  caller()->AddAudioTrack();
+  // Remove SSRCs and MSIDs from the received offer SDP.
+  callee()->SetReceivedSdpMunger(RemoveSsrcsAndMsids);
+  caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  MediaExpectations media_expectations;
+  media_expectations.CalleeExpectsSomeAudio(1);
+  ASSERT_TRUE(ExpectNewFrames(media_expectations));
+
+  // We received a frame, so we should have nonzero "bytes received" stats for
+  // the unsignaled stream, if stats are working for it.
+  //
+  // Note that, since the old stats implementation associates SSRCs with tracks
+  // using SDP, when SSRCs aren't signaled in SDP these stats won't have an
+  // associated track ID. So we can't use the track "selector" argument. But we
+  // should at least get a stream stats report.
+  rtc::scoped_refptr<MockStatsObserver> stats =
+      callee()->OldGetStats();
+  ASSERT_NE(nullptr, stats);
+  EXPECT_GT(stats->BytesReceived(), 0U);
+}
+
 TEST_P(PeerConnectionIntegrationTest,
        GetStatsForUnsignaledStreamWithNewStatsApi) {
   ASSERT_TRUE(CreatePeerConnectionWrappers());
@@ -2451,7 +2475,6 @@ TEST_P(PeerConnectionIntegrationTest,
   ASSERT_GT(*inbound_stream_stats[0]->bytes_received, 0U);
   ASSERT_TRUE(inbound_stream_stats[0]->track_id.is_defined());
 }
-
 // Test that we can successfully get the media related stats (audio level
 // etc.) for the unsignaled stream.
 TEST_P(PeerConnectionIntegrationTest,

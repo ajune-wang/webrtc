@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7470a777_6c1e9ae7",
+        "filename": "modules/audio_device/win/core_audio_base_win.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2018-06-08T14:10:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "60e1a74e_e88b776f",
+      "range": {
+        "startLine": 80,
+        "startChar": 26,
+        "endLine": 80,
+        "endChar": 49
+      },
+      "revId": "5768bba3c2b08a4bf4dd2d7e957c0aa5a6cfb396",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bad2fd9d_593c9dee",
         "filename": "modules/audio_device/win/core_audio_base_win.cc",
         "patchSetId": 23
@@ -39,6 +63,24 @@
       "revId": "5768bba3c2b08a4bf4dd2d7e957c0aa5a6cfb396",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b621aa49_8f0558a8",
+        "filename": "modules/audio_device/win/core_audio_base_win.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2018-06-08T14:10:27Z",
+      "side": 1,
+      "message": "Discussed off-line.",
+      "parentUuid": "bad2fd9d_593c9dee",
+      "revId": "5768bba3c2b08a4bf4dd2d7e957c0aa5a6cfb396",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -70,6 +112,24 @@
       "writtenOn": "2018-06-08T14:08:53Z",
       "side": 1,
       "message": "I take this back! I confused the inheritance hierarchy a bit. Implementing it as you originally did, in each class, makes the most sense.\n\nSorry about that!",
+      "parentUuid": "a5f3a44e_e92c3d16",
+      "revId": "5768bba3c2b08a4bf4dd2d7e957c0aa5a6cfb396",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d599c997_b1940fac",
+        "filename": "modules/audio_device/win/core_audio_output_win.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2018-06-08T14:10:27Z",
+      "side": 1,
+      "message": "Done",
       "parentUuid": "a5f3a44e_e92c3d16",
       "revId": "5768bba3c2b08a4bf4dd2d7e957c0aa5a6cfb396",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

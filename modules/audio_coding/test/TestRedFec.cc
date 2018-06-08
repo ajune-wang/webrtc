@@ -62,8 +62,8 @@ TestRedFec::~TestRedFec() {
 }
 
 void TestRedFec::Perform() {
-  const std::string file_name = webrtc::test::ResourcePath(
-      "audio_coding/testfile32kHz", "pcm");
+  const std::string file_name =
+      webrtc::test::ResourcePath("audio_coding/testfile32kHz", "pcm");
   _inFileA.Open(file_name, 32000, "rb");
 
   ASSERT_EQ(0, _acmA->InitializeReceiver());
@@ -328,8 +328,8 @@ void TestRedFec::Perform() {
 
   RegisterSendCodec('A', kNameOPUS, 48000);
 
-#if defined(SUPPORT_RED_FB) && defined(SUPPORT_RED_SWB) &&\
-  defined(SUPPORT_RED_WB)
+#if defined(SUPPORT_RED_FB) && defined(SUPPORT_RED_SWB) && \
+    defined(SUPPORT_RED_WB)
   // Switch to codec, RED should remain switched on.
   EXPECT_TRUE(_acmA->REDStatus());
 #else
@@ -413,7 +413,8 @@ int32_t TestRedFec::SetVAD(bool enableDTX, bool enableVAD, ACMVADMode vadMode) {
   return _acmA->SetVAD(enableDTX, enableVAD, vadMode);
 }
 
-int16_t TestRedFec::RegisterSendCodec(char side, const char* codecName,
+int16_t TestRedFec::RegisterSendCodec(char side,
+                                      const char* codecName,
                                       int32_t samplingFreqHz) {
   std::cout << std::flush;
   AudioCodingModule* myACM;
@@ -435,8 +436,9 @@ int16_t TestRedFec::RegisterSendCodec(char side, const char* codecName,
     return -1;
   }
   CodecInst myCodecParam;
-  EXPECT_GT(AudioCodingModule::Codec(codecName, &myCodecParam,
-                                     samplingFreqHz, 1), -1);
+  EXPECT_GT(
+      AudioCodingModule::Codec(codecName, &myCodecParam, samplingFreqHz, 1),
+      -1);
   EXPECT_GT(myACM->RegisterSendCodec(myCodecParam), -1);
 
   // Initialization was successful.

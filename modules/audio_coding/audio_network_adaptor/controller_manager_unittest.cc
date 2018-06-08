@@ -124,14 +124,12 @@ TEST(ControllerManagerTest, ControllersInDefaultOrderOnEmptyNetworkMetrics) {
   auto states = CreateControllerManager();
   // |network_metrics| are empty, and the controllers are supposed to follow the
   // default order.
-  CheckControllersOrder(&states, rtc::nullopt, rtc::nullopt,
-                        {0, 1, 2, 3});
+  CheckControllersOrder(&states, rtc::nullopt, rtc::nullopt, {0, 1, 2, 3});
 }
 
 TEST(ControllerManagerTest, ControllersWithoutCharPointAtEndAndInDefaultOrder) {
   auto states = CreateControllerManager();
-  CheckControllersOrder(&states, 0,
-                        0.0,
+  CheckControllersOrder(&states, 0, 0.0,
                         {kNumControllers - 2, kNumControllers - 1, -1, -1});
 }
 

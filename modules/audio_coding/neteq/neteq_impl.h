@@ -14,8 +14,8 @@
 #include <memory>
 #include <string>
 
-#include "api/optional.h"
 #include "api/audio/audio_frame.h"
+#include "api/optional.h"
 #include "modules/audio_coding/neteq/audio_multi_vector.h"
 #include "modules/audio_coding/neteq/defines.h"
 #include "modules/audio_coding/neteq/expand_uma_logger.h"
@@ -61,13 +61,7 @@ struct PreemptiveExpandFactory;
 
 class NetEqImpl : public webrtc::NetEq {
  public:
-  enum class OutputType {
-    kNormalSpeech,
-    kPLC,
-    kCNG,
-    kPLCCNG,
-    kVadPassive
-  };
+  enum class OutputType { kNormalSpeech, kPLC, kCNG, kPLCCNG, kVadPassive };
 
   enum ErrorCodes {
     kNoError = 0,

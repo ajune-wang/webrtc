@@ -674,8 +674,10 @@ class RTCStatsReportVerifier {
     if (inbound_stream.media_type.is_defined() &&
         *inbound_stream.media_type == "video") {
       verifier.TestMemberIsUndefined(inbound_stream.jitter);
+      verifier.TestMemberIsUndefined(inbound_stream.accelerate_rate);
     } else {
       verifier.TestMemberIsNonNegative<double>(inbound_stream.jitter);
+      verifier.TestMemberIsNonNegative<double>(inbound_stream.accelerate_rate);
     }
     verifier.TestMemberIsNonNegative<double>(inbound_stream.fraction_lost);
     verifier.TestMemberIsUndefined(inbound_stream.round_trip_time);
@@ -714,8 +716,11 @@ class RTCStatsReportVerifier {
     if (outbound_stream.media_type.is_defined() &&
         *outbound_stream.media_type == "video") {
       verifier.TestMemberIsDefined(outbound_stream.frames_encoded);
+      verifier.TestMemberIsUndefined(outbound_stream.residual_echo_likelihood);
     } else {
       verifier.TestMemberIsUndefined(outbound_stream.frames_encoded);
+      verifier.TestMemberIsNonNegative<double>(
+          outbound_stream.residual_echo_likelihood);
     }
     return verifier.ExpectAllMembersSuccessfullyTested();
   }

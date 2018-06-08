@@ -227,6 +227,7 @@ void SetInboundRTPStreamStatsFromVoiceReceiverInfo(
   inbound_audio->jitter =
       static_cast<double>(voice_receiver_info.jitter_ms) /
           rtc::kNumMillisecsPerSec;
+  inbound_audio->accelerate_rate = voice_receiver_info.accelerate_rate;
   // |fir_count|, |pli_count| and |sli_count| are only valid for video and are
   // purposefully left undefined for audio.
 }
@@ -277,6 +278,10 @@ void SetOutboundRTPStreamStatsFromVoiceSenderInfo(
   if (voice_sender_info.codec_payload_type) {
     outbound_audio->codec_id = RTCCodecStatsIDFromMidDirectionAndPayload(
         mid, false, *voice_sender_info.codec_payload_type);
+  }
+  if (voice_sender_info.apm_statistics.residual_echo_likelihood) {
+    outbound_audio->residual_echo_likelihood =
+        *voice_sender_info.apm_statistics.residual_echo_likelihood;
   }
   // |fir_count|, |pli_count| and |sli_count| are only valid for video and are
   // purposefully left undefined for audio.

@@ -583,7 +583,8 @@ WEBRTC_RTCSTATS_IMPL(
     &burst_discard_rate,
     &gap_loss_rate,
     &gap_discard_rate,
-    &frames_decoded);
+    &frames_decoded,
+    &accelerate_rate);
 // clang-format on
 
 RTCInboundRTPStreamStats::RTCInboundRTPStreamStats(
@@ -591,8 +592,8 @@ RTCInboundRTPStreamStats::RTCInboundRTPStreamStats(
     : RTCInboundRTPStreamStats(std::string(id), timestamp_us) {
 }
 
-RTCInboundRTPStreamStats::RTCInboundRTPStreamStats(
-    std::string&& id, int64_t timestamp_us)
+RTCInboundRTPStreamStats::RTCInboundRTPStreamStats(std::string&& id,
+                                                   int64_t timestamp_us)
     : RTCRTPStreamStats(std::move(id), timestamp_us),
       packets_received("packetsReceived"),
       bytes_received("bytesReceived"),
@@ -610,8 +611,8 @@ RTCInboundRTPStreamStats::RTCInboundRTPStreamStats(
       burst_discard_rate("burstDiscardRate"),
       gap_loss_rate("gapLossRate"),
       gap_discard_rate("gapDiscardRate"),
-      frames_decoded("framesDecoded") {
-}
+      frames_decoded("framesDecoded"),
+      accelerate_rate("accelerateRate") {}
 
 RTCInboundRTPStreamStats::RTCInboundRTPStreamStats(
     const RTCInboundRTPStreamStats& other)
@@ -632,8 +633,8 @@ RTCInboundRTPStreamStats::RTCInboundRTPStreamStats(
       burst_discard_rate(other.burst_discard_rate),
       gap_loss_rate(other.gap_loss_rate),
       gap_discard_rate(other.gap_discard_rate),
-      frames_decoded(other.frames_decoded) {
-}
+      frames_decoded(other.frames_decoded),
+      accelerate_rate(other.accelerate_rate) {}
 
 RTCInboundRTPStreamStats::~RTCInboundRTPStreamStats() {
 }
@@ -644,7 +645,8 @@ WEBRTC_RTCSTATS_IMPL(
     &packets_sent,
     &bytes_sent,
     &target_bitrate,
-    &frames_encoded);
+    &frames_encoded,
+    &residual_echo_likelihood);
 // clang-format on
 
 RTCOutboundRTPStreamStats::RTCOutboundRTPStreamStats(
@@ -652,14 +654,14 @@ RTCOutboundRTPStreamStats::RTCOutboundRTPStreamStats(
     : RTCOutboundRTPStreamStats(std::string(id), timestamp_us) {
 }
 
-RTCOutboundRTPStreamStats::RTCOutboundRTPStreamStats(
-    std::string&& id, int64_t timestamp_us)
+RTCOutboundRTPStreamStats::RTCOutboundRTPStreamStats(std::string&& id,
+                                                     int64_t timestamp_us)
     : RTCRTPStreamStats(std::move(id), timestamp_us),
       packets_sent("packetsSent"),
       bytes_sent("bytesSent"),
       target_bitrate("targetBitrate"),
-      frames_encoded("framesEncoded") {
-}
+      frames_encoded("framesEncoded"),
+      residual_echo_likelihood("residualEchoLikelihood") {}
 
 RTCOutboundRTPStreamStats::RTCOutboundRTPStreamStats(
     const RTCOutboundRTPStreamStats& other)
@@ -667,8 +669,8 @@ RTCOutboundRTPStreamStats::RTCOutboundRTPStreamStats(
       packets_sent(other.packets_sent),
       bytes_sent(other.bytes_sent),
       target_bitrate(other.target_bitrate),
-      frames_encoded(other.frames_encoded) {
-}
+      frames_encoded(other.frames_encoded),
+      residual_echo_likelihood(other.residual_echo_likelihood) {}
 
 RTCOutboundRTPStreamStats::~RTCOutboundRTPStreamStats() {
 }

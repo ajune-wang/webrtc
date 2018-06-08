@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "17012969_e236fdc9",
+        "filename": "modules/audio_device/audio_device_impl.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2018-06-08T13:20:14Z",
+      "side": 1,
+      "message": "It is the method we have used to inform the factory about what type of ADM the user wants.\nI use it as a parameter in the unittest and there are e.g. three different versions today on Android. I can\u0027t think of any alternative way to select type of ADM without deviation too much from the existing style. Can you?",
+      "parentUuid": "451170ac_3fe07dd2",
+      "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7357f265_a6aac577",
         "filename": "modules/audio_device/audio_device_unittest.cc",
         "patchSetId": 22
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "187c02c6_95c56cf3",
+        "filename": "modules/audio_device/audio_device_unittest.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 901,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2018-06-08T13:20:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7357f265_a6aac577",
+      "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2acdaac3_386c40a5",
         "filename": "modules/audio_device/fine_audio_buffer.cc",
         "patchSetId": 22
@@ -47,6 +83,24 @@
       "writtenOn": "2018-06-07T14:07:49Z",
       "side": 1,
       "message": "Don\u0027t you need to know how many samples were returned here? Or can it only return 0 or the number of samples you expect?",
+      "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b49eebb3_760b0552",
+        "filename": "modules/audio_device/fine_audio_buffer.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2018-06-08T13:20:14Z",
+      "side": 1,
+      "message": "Great comment. Made it more clear that we have two distinct cases.",
+      "parentUuid": "2acdaac3_386c40a5",
       "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "c1fef863_8c87ee22",
+        "filename": "modules/audio_device/include/audio_device_factory.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2018-06-08T13:20:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bdf7023f_b664e6c2",
+      "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "15457a70_ee50a5fc",
         "filename": "modules/audio_device/win/audio_device_module_win.cc",
         "patchSetId": 22
@@ -81,6 +153,24 @@
       "writtenOn": "2018-06-07T14:07:49Z",
       "side": 1,
       "message": "Why return anything but \"not available\" here and for the microphone? It looks like none of the methods actually do anything.",
+      "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "618473f3_9d09b63f",
+        "filename": "modules/audio_device/win/audio_device_module_win.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2018-06-08T13:20:14Z",
+      "side": 1,
+      "message": "You are correct. Left this in a half-finished state.",
+      "parentUuid": "15457a70_ee50a5fc",
       "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -104,6 +194,24 @@
     },
     {
       "key": {
+        "uuid": "1093dfc2_5971ac06",
+        "filename": "modules/audio_device/win/audio_device_module_win.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2018-06-08T13:20:14Z",
+      "side": 1,
+      "message": "0 or -1. Same as in remaining \"WebRTC\"",
+      "parentUuid": "58e17e38_38e8fe89",
+      "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "49d64e02_20077c1c",
         "filename": "modules/audio_device/win/audio_device_module_win.cc",
         "patchSetId": 22
@@ -118,6 +226,24 @@
       "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64498ade_4b8ccab3",
+        "filename": "modules/audio_device/win/audio_device_module_win.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2018-06-08T13:20:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "49d64e02_20077c1c",
+      "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -138,6 +264,24 @@
     },
     {
       "key": {
+        "uuid": "d530ea15_85cf4403",
+        "filename": "modules/audio_device/win/audio_device_module_win.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2018-06-08T13:20:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ecc7850_821521df",
+      "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "69bc42c3_31c85c1a",
         "filename": "modules/audio_device/win/audio_device_module_win.h",
         "patchSetId": 22
@@ -149,6 +293,24 @@
       "writtenOn": "2018-06-07T14:07:49Z",
       "side": 1,
       "message": "I don\u0027t think the sizes here would be enforced anyway. Use char* or std::string*? Or, better yet, pass these (which I guess are outputs) as the return value instead.",
+      "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dccf0ab4_8d3d8864",
+        "filename": "modules/audio_device/win/audio_device_module_win.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2018-06-08T13:20:14Z",
+      "side": 1,
+      "message": "Modified the signature.",
+      "parentUuid": "69bc42c3_31c85c1a",
       "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -172,6 +334,24 @@
     },
     {
       "key": {
+        "uuid": "477a32e0_d191473a",
+        "filename": "modules/audio_device/win/audio_device_module_win.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2018-06-08T13:20:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6ff832d0_a6a05c33",
+      "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0f3ae294_e9ad0c72",
         "filename": "modules/audio_device/win/core_audio_base_win.cc",
         "patchSetId": 22
@@ -186,6 +366,24 @@
       "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6cec8f6e_b14bd848",
+        "filename": "modules/audio_device/win/core_audio_base_win.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2018-06-08T13:20:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0f3ae294_e9ad0c72",
+      "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -206,6 +404,24 @@
     },
     {
       "key": {
+        "uuid": "2a9443c6_c2b1d3ea",
+        "filename": "modules/audio_device/win/core_audio_base_win.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2018-06-08T13:20:14Z",
+      "side": 1,
+      "message": "Good comment. Now fixed.",
+      "parentUuid": "91c7de8e_0e472c9e",
+      "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5362a278_bc1c5d04",
         "filename": "modules/audio_device/win/core_audio_base_win.cc",
         "patchSetId": 22
@@ -220,6 +436,24 @@
       "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60333641_2e82f4a8",
+        "filename": "modules/audio_device/win/core_audio_base_win.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2018-06-08T13:20:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5362a278_bc1c5d04",
+      "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -246,6 +480,30 @@
     },
     {
       "key": {
+        "uuid": "1a1906c3_604158c3",
+        "filename": "modules/audio_device/win/core_audio_base_win.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2018-06-08T13:20:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "899034d4_3a3c9ae9",
+      "range": {
+        "startLine": 158,
+        "startChar": 15,
+        "endLine": 158,
+        "endChar": 44
+      },
+      "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b52ba4da_36c3944f",
         "filename": "modules/audio_device/win/core_audio_base_win.cc",
         "patchSetId": 22
@@ -269,6 +527,30 @@
     },
     {
       "key": {
+        "uuid": "90917f98_eb0e871e",
+        "filename": "modules/audio_device/win/core_audio_base_win.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2018-06-08T13:20:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b52ba4da_36c3944f",
+      "range": {
+        "startLine": 162,
+        "startChar": 17,
+        "endLine": 162,
+        "endChar": 46
+      },
+      "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "987adb84_bc0576f1",
         "filename": "modules/audio_device/win/core_audio_base_win.cc",
         "patchSetId": 22
@@ -280,6 +562,24 @@
       "writtenOn": "2018-06-07T14:07:49Z",
       "side": 1,
       "message": "Glad to see the odd locking from the old implementation is gone!",
+      "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d76a3286_f772010f",
+        "filename": "modules/audio_device/win/core_audio_base_win.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2018-06-08T13:20:14Z",
+      "side": 1,
+      "message": "Thanks :-)",
+      "parentUuid": "987adb84_bc0576f1",
       "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
@@ -300,6 +600,24 @@
       "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2382909b_2528a147",
+        "filename": "modules/audio_device/win/core_audio_input_win.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2018-06-08T13:20:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "71f604fa_d24ec78f",
+      "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -326,6 +644,30 @@
     },
     {
       "key": {
+        "uuid": "8a350bc4_7325b1bc",
+        "filename": "modules/audio_device/win/core_audio_input_win.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2018-06-08T13:20:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a89577fa_a6b5340e",
+      "range": {
+        "startLine": 104,
+        "startChar": 12,
+        "endLine": 104,
+        "endChar": 15
+      },
+      "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5fb73328_ff14cbe8",
         "filename": "modules/audio_device/win/core_audio_input_win.cc",
         "patchSetId": 22
@@ -349,6 +691,30 @@
     },
     {
       "key": {
+        "uuid": "4e6282c1_dbe6287b",
+        "filename": "modules/audio_device/win/core_audio_input_win.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2018-06-08T13:20:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5fb73328_ff14cbe8",
+      "range": {
+        "startLine": 128,
+        "startChar": 35,
+        "endLine": 128,
+        "endChar": 41
+      },
+      "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3409a2db_ac217cfa",
         "filename": "modules/audio_device/win/core_audio_input_win.cc",
         "patchSetId": 22
@@ -366,6 +732,24 @@
     },
     {
       "key": {
+        "uuid": "a0767787_beed682d",
+        "filename": "modules/audio_device/win/core_audio_input_win.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2018-06-08T13:20:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3409a2db_ac217cfa",
+      "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e68ec9f7_adef0402",
         "filename": "modules/audio_device/win/core_audio_output_win.cc",
         "patchSetId": 22
@@ -380,6 +764,24 @@
       "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf80a04f_2c2cde8b",
+        "filename": "modules/audio_device/win/core_audio_output_win.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2018-06-08T13:20:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e68ec9f7_adef0402",
+      "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -406,6 +808,30 @@
     },
     {
       "key": {
+        "uuid": "b0bf79ae_33d39b5a",
+        "filename": "modules/audio_device/win/core_audio_output_win.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2018-06-08T13:20:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6ab7ed42_a5b50a41",
+      "range": {
+        "startLine": 187,
+        "startChar": 41,
+        "endLine": 187,
+        "endChar": 46
+      },
+      "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "145007b0_dedea08b",
         "filename": "modules/audio_device/win/core_audio_output_win.cc",
         "patchSetId": 22
@@ -423,6 +849,24 @@
     },
     {
       "key": {
+        "uuid": "3c507707_13679349",
+        "filename": "modules/audio_device/win/core_audio_output_win.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2018-06-08T13:20:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "145007b0_dedea08b",
+      "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1ab64ef0_e9f963e7",
         "filename": "modules/audio_device/win/core_audio_output_win.cc",
         "patchSetId": 22
@@ -434,6 +878,24 @@
       "writtenOn": "2018-06-07T14:07:49Z",
       "side": 1,
       "message": "Are we sure we can fill up the whole buffer?",
+      "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "030f8329_6ca933e9",
+        "filename": "modules/audio_device/win/core_audio_output_win.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2018-06-08T13:20:14Z",
+      "side": 1,
+      "message": "Yes, that is the beauty of using FineAudioBuffer. It reads 10ms chunks from WebRTC until the consumer is pleased. If we fail to read from WebRTC (very rare case), the consumer always gets silence in its complete buffer.",
+      "parentUuid": "1ab64ef0_e9f963e7",
       "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -463,6 +925,30 @@
     },
     {
       "key": {
+        "uuid": "bcbb4ebc_5260def4",
+        "filename": "modules/audio_device/win/core_audio_output_win.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2018-06-08T13:20:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9e3455d2_4b58073a",
+      "range": {
+        "startLine": 278,
+        "startChar": 31,
+        "endLine": 278,
+        "endChar": 32
+      },
+      "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aa268664_ff2ea899",
         "filename": "modules/audio_device/win/core_audio_utility_win_unittest.cc",
         "patchSetId": 22
@@ -483,6 +969,30 @@
       "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47f714ce_abc4dccd",
+        "filename": "modules/audio_device/win/core_audio_utility_win_unittest.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 627,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2018-06-08T13:20:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aa268664_ff2ea899",
+      "range": {
+        "startLine": 627,
+        "startChar": 61,
+        "endLine": 627,
+        "endChar": 72
+      },
+      "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

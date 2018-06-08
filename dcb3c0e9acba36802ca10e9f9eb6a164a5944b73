@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "0c8b0c91_c74abf65",
+        "filename": "modules/remote_bitrate_estimator/aimd_rate_control_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-06-08T12:49:09Z",
+      "side": 1,
+      "message": "five seconds\n\nAnd this means that we have to wait this long, otherwise the send rate will not increase but be fixed and the test will pass even if the code is faulty?",
+      "range": {
+        "startLine": 256,
+        "startChar": 5,
+        "endLine": 256,
+        "endChar": 16
+      },
+      "revId": "dcb3c0e9acba36802ca10e9f9eb6a164a5944b73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7577148c_5b41449c",
         "filename": "modules/remote_bitrate_estimator/aimd_rate_control_unittest.cc",
         "patchSetId": 3

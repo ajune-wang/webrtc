@@ -1,0 +1,112 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bf6ba5ba_506ba394",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-08T11:03:08Z",
+      "side": 1,
+      "message": "1. This bunch of code is duplicated in a few places. Could you put it in a function?\n2. Maybe save the path to the fixture after setting up the file? See comment below where you read the file.",
+      "range": {
+        "startLine": 151,
+        "startChar": 0,
+        "endLine": 157,
+        "endChar": 67
+      },
+      "revId": "83d10e74332f3b2f9949971fa2bef51ccc62ab1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9c86dc4_df9d957a",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-08T11:03:08Z",
+      "side": 1,
+      "message": "Maybe it would be better to keep the file\u0027s full path in the test fixture when you first write to the file?",
+      "revId": "83d10e74332f3b2f9949971fa2bef51ccc62ab1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23b20af1_d86981ac",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-08T11:03:08Z",
+      "side": 1,
+      "message": "It is not immediately clear from the code why Register is invoked with a random selection out of two values, all values being distinct. One assumes this is a way to get a random selection of (up to) five distinct values, in random order, with simple code. If so, could you comment as much? Or potentially better - would it be overkill to have a proper random selection, and maybe randomize out of the maximum realistic range, rather than only out of twice as many values as there are extensions?",
+      "revId": "83d10e74332f3b2f9949971fa2bef51ccc62ab1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa964b38_22f2d3ab",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-08T11:03:08Z",
+      "side": 1,
+      "message": "1. Would using a random name perhaps provide better coverage?\n2. Longer names, too?\n3. I wonder what happens with the empty string for a name?",
+      "revId": "83d10e74332f3b2f9949971fa2bef51ccc62ab1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "158d35c6_237e814e",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-08T11:03:08Z",
+      "side": 1,
+      "message": "The dynamic range is 96-127, IIRC. The legal range in total is 0-127. Should we not use 0-127, then? (Note that 0 is not an unrealistic edge case; it has a proper codec attached.)",
+      "revId": "83d10e74332f3b2f9949971fa2bef51ccc62ab1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc310546_172bd640",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 746,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-08T11:03:08Z",
+      "side": 1,
+      "message": "nit-of-the-year: This line breaks with the tradition set forth by the previous functions, of explicitly returning false until the very last line, which returns true. :-)\nAnd the following Verify()s also have this new style.",
+      "revId": "83d10e74332f3b2f9949971fa2bef51ccc62ab1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

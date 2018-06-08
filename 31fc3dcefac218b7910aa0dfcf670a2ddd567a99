@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "e49e8d4b_b024ec96",
+        "filename": "logging/rtc_event_log/events/rtc_event_alr_state.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-08T11:03:08Z",
+      "side": 1,
+      "message": "Yeah, no reason to spend any time on this; just a nit.",
+      "parentUuid": "ccff9266_e1208c1e",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "42000f49_5bf0b01a",
         "filename": "logging/rtc_event_log/events/rtc_event_rtp_packet_incoming.cc",
         "patchSetId": 2
@@ -66,6 +84,24 @@
       "side": 1,
       "message": "Added a copy constructor for this event type instead.",
       "parentUuid": "42000f49_5bf0b01a",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7ea1179d_096d1ac4",
+        "filename": "logging/rtc_event_log/events/rtc_event_rtp_packet_incoming.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-08T11:03:08Z",
+      "side": 1,
+      "message": "That is indeed preferable.",
+      "parentUuid": "10e14495_12ed0ebe",
       "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
@@ -142,6 +178,24 @@
     },
     {
       "key": {
+        "uuid": "c3f4d3f8_8821327a",
+        "filename": "logging/rtc_event_log/events/rtc_event_rtp_packet_outgoing.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-08T11:03:08Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "bd534d02_482fd042",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "91a109f1_7058eff2",
         "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
         "patchSetId": 2
@@ -177,6 +231,30 @@
       "side": 1,
       "message": "I think the entire else block, including both comments, should be removed. Since this would break compatibility with (very) old log files, it should be done as a separate CL. I\u0027m retaining ivoc\u0027s comment because it is tracking one of several places that should be updated.",
       "parentUuid": "91a109f1_7058eff2",
+      "range": {
+        "startLine": 534,
+        "startChar": 0,
+        "endLine": 539,
+        "endChar": 48
+      },
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7373ce5b_9436910b",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 539,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-08T11:03:08Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "90d618fe_2fdd617f",
       "range": {
         "startLine": 534,
         "startChar": 0,
@@ -399,6 +477,24 @@
     },
     {
       "key": {
+        "uuid": "b03f1bec_9eda8653",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-08T11:03:08Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8998dffb_2cf73338",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3e611445_58a26461",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
         "patchSetId": 2
@@ -586,6 +682,24 @@
     },
     {
       "key": {
+        "uuid": "aaae0869_fa536983",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-08T11:03:08Z",
+      "side": 1,
+      "message": "Oh, right; it\u0027s a vector. Would indeed not be an improvement to use std::find_if.\n\nEither is fine by me. Map seems more natural, though, doesn\u0027t it?\n\nFYI, the Chromium codebase has this:\nhttps://cs.chromium.org/chromium/src/base/containers/flat_map.h\nProbably no equivalent in WebRTC atm?",
+      "parentUuid": "dbe03e3c_ea9edaad",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2d97d991_65298129",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
         "patchSetId": 2
@@ -618,6 +732,24 @@
       "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04ebfd32_5e320a89",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-08T11:03:08Z",
+      "side": 1,
+      "message": "1. Ah, that\u0027s why. Well, it\u0027s not a critical path, and it\u0027s a unit test, so efficiency is not important in this case. But maybe pass by pointer anyway? Just a suggestion. No strong opinion.\n2. I\u0027ll try to put some suggestions in the body of the function. If I can think of some. Next iteration.",
+      "parentUuid": "9c676322_5102a8b7",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -691,6 +823,24 @@
     },
     {
       "key": {
+        "uuid": "eccd2d76_63fb9af5",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-08T11:03:08Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "35ba4215_07352ea2",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dc39508a_6a094f5a",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
         "patchSetId": 2
@@ -726,6 +876,30 @@
       "side": 1,
       "message": "Discussed offline.\n\nWe could RTC_DCHECK_GE if you prefer.",
       "parentUuid": "dc39508a_6a094f5a",
+      "range": {
+        "startLine": 158,
+        "startChar": 0,
+        "endLine": 160,
+        "endChar": 75
+      },
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4016b562_be65f3a4",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-08T11:03:08Z",
+      "side": 1,
+      "message": "I think it would be preferable (although still not, IMHO, optimal).",
+      "parentUuid": "a2fae429_6f89044f",
       "range": {
         "startLine": 158,
         "startChar": 0,
@@ -779,6 +953,47 @@
         "endLine": 171,
         "endChar": 55
       },
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01b323f5_e91452a2",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-08T11:03:08Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "69ae3c34_ba99f511",
+      "range": {
+        "startLine": 161,
+        "startChar": 0,
+        "endLine": 171,
+        "endChar": 55
+      },
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5d679ce4_60aab236",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 705,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-08T11:03:08Z",
+      "side": 1,
+      "message": "Replacing the clock mid-way seems a bit hacky. Why is that necessary?",
       "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -1111,6 +1326,24 @@
     },
     {
       "key": {
+        "uuid": "b15fb29f_5a695b5f",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-08T11:03:08Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "cf66857b_13d99c1f",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "04f4c704_1a11edbc",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
         "patchSetId": 2
@@ -1279,6 +1512,30 @@
     },
     {
       "key": {
+        "uuid": "8dd60f25_6d86e589",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-08T11:03:08Z",
+      "side": 1,
+      "message": "I have missed that, although RtcEventRtcpPacketIncoming\u0027s ctor accepts an ArrayView, it stores that in an rtc::Buffer. I just assumed that |packet_| had the same type as |packet|. Thanks.",
+      "parentUuid": "dcbc6ec0_2dd12f8f",
+      "range": {
+        "startLine": 214,
+        "startChar": 0,
+        "endLine": 215,
+        "endChar": 61
+      },
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "88f7885c_fdda435e",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
         "patchSetId": 2
@@ -1311,6 +1568,24 @@
       "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f7e0663_3ef8f191",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-08T11:03:08Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2a87903e_75b1a709",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -1396,6 +1671,30 @@
     },
     {
       "key": {
+        "uuid": "ada6e37c_108e1832",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-08T11:03:08Z",
+      "side": 1,
+      "message": ":-)\n\nBut maybe they could make it clear why?\n\nIf you had used TransmissionOffset::kValueSizeBytes, for instance, it would be immediately clear from the code itself, would it not? \nThat is, Rand(0x0100 * TransmissionOffset::kValueSizeBytes - 1).\n\nNote that this is not meant to make things more robust to changes (although it would, to a small degree). It\u0027s meant to make it self-documenting.",
+      "parentUuid": "0a60a48c_f65a40a4",
+      "range": {
+        "startLine": 258,
+        "startChar": 0,
+        "endLine": 263,
+        "endChar": 70
+      },
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4a81f4f3_64bd4a7a",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
         "patchSetId": 2
@@ -1428,6 +1727,23 @@
       "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c2d0fd1e_0d4e1479",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-08T11:03:08Z",
+      "side": 1,
+      "message": "Where (4 * kMaxCsrcs) was used, was (4 * csrcs_count) meant?\nSimilarly elsewhere, and similarly for kMaxNumExtensions.\n\n(This was written before PS3 was posted. In PS3, it\u0027s comparable, but not exactly the same; I think it would be clearest to leave this comment here, than to migrate it.)",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     },
     {
       "key": {
@@ -1507,6 +1823,24 @@
       "side": 1,
       "message": "Added the generator object. There is no shared state between Verify functions. Do you still want to have a verifier object?",
       "parentUuid": "8b354810_d2e5fc6f",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d571da29_350a9038",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-08T11:03:08Z",
+      "side": 1,
+      "message": "It\u0027s up to you. From my side, it looks like an elegant way to segment the source code. Wdyt?",
+      "parentUuid": "b49799c4_fa53295e",
       "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

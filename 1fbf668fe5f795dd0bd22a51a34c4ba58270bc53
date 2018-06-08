@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "727182ad_e39a061d",
+        "filename": "modules/video_coding/frame_buffer2.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 573,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-08T21:05:52Z",
+      "side": 1,
+      "message": "Is it the frame that references too many previous frames, or a previous frame that too many other frames depending on it?",
+      "range": {
+        "startLine": 572,
+        "startChar": 0,
+        "endLine": 573,
+        "endChar": 0
+      },
+      "revId": "1fbf668fe5f795dd0bd22a51a34c4ba58270bc53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -48,6 +48,52 @@
     },
     {
       "key": {
+        "uuid": "79d0326f_6da0fe44",
+        "filename": "modules/remote_bitrate_estimator/aimd_rate_control_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-06-08T08:44:32Z",
+      "side": 1,
+      "message": "I would suggest adding the unit here, for historical reasons we mix bps ans kbps in the code base, so bitrate is not self-explanatory. I like using realistic constants in unit tests, this asserts that it works in the common case. If motivated, abnormal input can be used as additional test cases.\n\nSuggestion:\nkInitialBitrateBps \u003d 123000;",
+      "range": {
+        "startLine": 252,
+        "startChar": 34,
+        "endLine": 252,
+        "endChar": 38
+      },
+      "revId": "086513841baed29060b371c802644428c413601d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7acadd1_ce614984",
+        "filename": "modules/remote_bitrate_estimator/aimd_rate_control_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-06-08T08:44:32Z",
+      "side": 1,
+      "message": "I\u0027d like a comment explaining why this has to be done and why it should be exactly 5001 ms. Will the test fail if some underlying constant changes, or will it stop failing for faulty code?",
+      "range": {
+        "startLine": 255,
+        "startChar": 16,
+        "endLine": 256,
+        "endChar": 77
+      },
+      "revId": "086513841baed29060b371c802644428c413601d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "847327d0_5816e99a",
         "filename": "modules/remote_bitrate_estimator/aimd_rate_control_unittest.cc",
         "patchSetId": 2

@@ -190,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "e2a6ff24_81cadae5",
+        "filename": "modules/remote_bitrate_estimator/aimd_rate_control_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-08T10:16:32Z",
+      "side": 1,
+      "message": "Comment is confusing. 5000 ms would be 5 seconds. Maybe this is another bug in the AimdRateControl?",
+      "parentUuid": "79b4fd4d_e5ec94e4",
+      "range": {
+        "startLine": 255,
+        "startChar": 16,
+        "endLine": 256,
+        "endChar": 77
+      },
+      "revId": "086513841baed29060b371c802644428c413601d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "847327d0_5816e99a",
         "filename": "modules/remote_bitrate_estimator/aimd_rate_control_unittest.cc",
         "patchSetId": 2

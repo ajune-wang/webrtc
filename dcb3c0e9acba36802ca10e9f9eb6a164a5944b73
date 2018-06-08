@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cc442399_2bdf3826",
+        "filename": "modules/remote_bitrate_estimator/aimd_rate_control.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-08T10:16:32Z",
+      "side": 1,
+      "message": "nit: Begin comment with capital letter and end with a period. You might also want to mention that the value only changes if |input| contains a new throughput measurement.",
+      "range": {
+        "startLine": 193,
+        "startChar": 5,
+        "endLine": 193,
+        "endChar": 11
+      },
+      "revId": "dcb3c0e9acba36802ca10e9f9eb6a164a5944b73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7577148c_5b41449c",
+        "filename": "modules/remote_bitrate_estimator/aimd_rate_control_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-08T10:16:32Z",
+      "side": 1,
+      "message": "Do you have an example where 100 iteration is not enough to trigger the bug before your fix?",
+      "range": {
+        "startLine": 261,
+        "startChar": 0,
+        "endLine": 262,
+        "endChar": 0
+      },
+      "revId": "dcb3c0e9acba36802ca10e9f9eb6a164a5944b73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

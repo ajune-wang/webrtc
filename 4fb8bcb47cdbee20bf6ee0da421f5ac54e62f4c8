@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "71b83f3e_90c2076b",
+        "filename": "modules/audio_device/audio_device_impl.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-06-08T13:30:20Z",
+      "side": 1,
+      "message": "I think it makes sense for now, seeing as it\u0027s part of the established interface, makes testing easier etc.",
+      "parentUuid": "17012969_e236fdc9",
+      "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7357f265_a6aac577",
         "filename": "modules/audio_device/audio_device_unittest.cc",
         "patchSetId": 22
@@ -104,6 +122,24 @@
       "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e400461_21f3210d",
+        "filename": "modules/audio_device/fine_audio_buffer.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-06-08T13:30:20Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b49eebb3_760b0552",
+      "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -177,6 +213,24 @@
     },
     {
       "key": {
+        "uuid": "7b534b84_99432ec1",
+        "filename": "modules/audio_device/win/audio_device_module_win.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-06-08T13:30:20Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "618473f3_9d09b63f",
+      "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "58e17e38_38e8fe89",
         "filename": "modules/audio_device/win/audio_device_module_win.cc",
         "patchSetId": 22
@@ -209,6 +263,24 @@
       "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43e52e44_b7a107a8",
+        "filename": "modules/audio_device/win/audio_device_module_win.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-06-08T13:30:20Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "1093dfc2_5971ac06",
+      "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -317,6 +389,24 @@
     },
     {
       "key": {
+        "uuid": "141b062c_2498e5cf",
+        "filename": "modules/audio_device/win/audio_device_module_win.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-06-08T13:30:20Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "dccf0ab4_8d3d8864",
+      "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6ff832d0_a6a05c33",
         "filename": "modules/audio_device/win/audio_device_module_win.h",
         "patchSetId": 22
@@ -419,6 +509,24 @@
       "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1dbf4d3_f75efbcd",
+        "filename": "modules/audio_device/win/core_audio_base_win.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-06-08T13:30:20Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2a9443c6_c2b1d3ea",
+      "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -899,6 +1007,24 @@
       "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fdafd8df_ae66d0be",
+        "filename": "modules/audio_device/win/core_audio_output_win.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-06-08T13:30:20Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "030f8329_6ca933e9",
+      "revId": "4fb8bcb47cdbee20bf6ee0da421f5ac54e62f4c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

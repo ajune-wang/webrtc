@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "60e1a74e_e88b776f",
+        "filename": "modules/audio_device/win/core_audio_base_win.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-06-08T13:30:20Z",
+      "side": 1,
+      "message": "nit: reuse num_active",
+      "range": {
+        "startLine": 80,
+        "startChar": 26,
+        "endLine": 80,
+        "endChar": 49
+      },
+      "revId": "5768bba3c2b08a4bf4dd2d7e957c0aa5a6cfb396",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bad2fd9d_593c9dee",
+        "filename": "modules/audio_device/win/core_audio_base_win.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-06-08T13:30:20Z",
+      "side": 1,
+      "message": "Add the thread check here and remove the implementations in Input and Output.",
+      "revId": "5768bba3c2b08a4bf4dd2d7e957c0aa5a6cfb396",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5f3a44e_e92c3d16",
+        "filename": "modules/audio_device/win/core_audio_output_win.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-06-08T13:30:20Z",
+      "side": 1,
+      "message": "No, CoreAudioBase already implements AttachAudioBuffer. You don\u0027t need to implement it in CoreAudioOutput again.",
+      "revId": "5768bba3c2b08a4bf4dd2d7e957c0aa5a6cfb396",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "3284d937_ddd707b3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-06-08T22:06:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "24b176f4_29b9ab54",
+      "revId": "3a9cfdde7f182a0443b6a2412d4a62e7cbb76d0b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bef8ab5a_4db064f8",
         "filename": "api/peerconnectioninterface.h",
         "patchSetId": 2
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "033dbc33_6ca42a18",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 582,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-06-08T22:06:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bef8ab5a_4db064f8",
+      "revId": "3a9cfdde7f182a0443b6a2412d4a62e7cbb76d0b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b20531ff_b78b5a1c",
         "filename": "pc/dtlssrtptransport.cc",
         "patchSetId": 2
@@ -47,6 +83,24 @@
       "writtenOn": "2018-06-07T16:48:44Z",
       "side": 1,
       "message": "nit: This assumes that every answer will end up calling SetDtlsTransports, which is true now (and obviously was true in the revisions with the bug), but isn\u0027t really guaranteed. May be safer to just explicitly call ResetParams from JsepTransport or JsepTransportController.",
+      "revId": "3a9cfdde7f182a0443b6a2412d4a62e7cbb76d0b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ea11242_1bf4c043",
+        "filename": "pc/dtlssrtptransport.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-06-08T22:06:11Z",
+      "side": 1,
+      "message": "I agree that the methods is not guaranteed to be called for every offer/answer negotiation.\nBut instead of calling ResetParam in other places, I think it\u0027s safer to make the change here because this is exactly what the bug does. This flag is basically used to revert the bug fix.\n\nI can change the comments from \"reset the SRTP params after every negotiation\" to \"reset the SRTP params whenever the DtlsTransport is reset.\"  \n\nDoes it make sense?",
+      "parentUuid": "b20531ff_b78b5a1c",
       "revId": "3a9cfdde7f182a0443b6a2412d4a62e7cbb76d0b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

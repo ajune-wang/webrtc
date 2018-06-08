@@ -70,7 +70,6 @@ class VCMSessionInfo {
   int NumPackets() const;
   bool HaveFirstPacket() const;
   bool HaveLastPacket() const;
-  bool session_nack() const;
   webrtc::FrameType FrameType() const { return frame_type_; }
   int LowSequenceNumber() const;
 
@@ -80,7 +79,6 @@ class VCMSessionInfo {
   int TemporalId() const;
   bool LayerSync() const;
   int Tl0PicId() const;
-  bool NonReference() const;
 
   std::vector<NaluInfo> GetNaluInfos() const;
 
@@ -142,8 +140,6 @@ class VCMSessionInfo {
   //        frame, we know that the frame is medium or large-sized.
   void UpdateDecodableSession(const FrameData& frame_data);
 
-  // If this session has been NACKed by the jitter buffer.
-  bool session_nack_;
   bool complete_;
   bool decodable_;
   webrtc::FrameType frame_type_;

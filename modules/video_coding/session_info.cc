@@ -24,8 +24,7 @@ uint16_t BufferToUWord16(const uint8_t* dataBuffer) {
 }  // namespace
 
 VCMSessionInfo::VCMSessionInfo()
-    : session_nack_(false),
-      complete_(false),
+    : complete_(false),
       decodable_(false),
       frame_type_(kVideoFrameDelta),
       packets_(),
@@ -105,12 +104,6 @@ int VCMSessionInfo::Tl0PicId() const {
   }
 }
 
-bool VCMSessionInfo::NonReference() const {
-  if (packets_.empty() || packets_.front().video_header.codec != kVideoCodecVP8)
-    return false;
-  return packets_.front().video_header.codecHeader.VP8.nonReference;
-}
-
 std::vector<NaluInfo> VCMSessionInfo::GetNaluInfos() const {
   if (packets_.empty() ||
       packets_.front().video_header.codec != kVideoCodecH264)
@@ -144,7 +137,6 @@ void VCMSessionInfo::SetGofInfo(const GofInfoVP9& gof_info, size_t idx) {
 }
 
 void VCMSessionInfo::Reset() {
-  session_nack_ = false;
   complete_ = false;
   decodable_ = false;
   frame_type_ = kVideoFrameDelta;
@@ -421,10 +413,6 @@ bool VCMSessionInfo::HaveFirstPacket() const {
 
 bool VCMSessionInfo::HaveLastPacket() const {
   return !packets_.empty() && (last_packet_seq_num_ != -1);
-}
-
-bool VCMSessionInfo::session_nack() const {
-  return session_nack_;
 }
 
 int VCMSessionInfo::InsertPacket(const VCMPacket& packet,

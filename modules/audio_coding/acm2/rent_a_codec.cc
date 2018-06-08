@@ -15,8 +15,8 @@
 
 #include "modules/audio_coding/codecs/cng/audio_encoder_cng.h"
 #include "modules/audio_coding/codecs/g711/audio_encoder_pcm.h"
-#include "rtc_base/logging.h"
 #include "modules/audio_coding/codecs/g722/audio_encoder_g722.h"
+#include "rtc_base/logging.h"
 #ifdef WEBRTC_CODEC_ILBC
 #include "modules/audio_coding/codecs/ilbc/audio_encoder_ilbc.h"
 #endif
@@ -54,8 +54,7 @@ rtc::Optional<RentACodec::CodecId> RentACodec::CodecIdByParams(
 
 rtc::Optional<CodecInst> RentACodec::CodecInstById(CodecId codec_id) {
   rtc::Optional<int> mi = CodecIndexFromId(codec_id);
-  return mi ? rtc::Optional<CodecInst>(Database()[*mi])
-            : rtc::nullopt;
+  return mi ? rtc::Optional<CodecInst>(Database()[*mi]) : rtc::nullopt;
 }
 
 rtc::Optional<RentACodec::CodecId> RentACodec::CodecIdByInst(
@@ -276,8 +275,7 @@ std::unique_ptr<AudioEncoder> RentACodec::RentEncoderStack(
 
   auto pt = [&param](const std::map<int, int>& m) {
     auto it = m.find(param->speech_encoder->SampleRateHz());
-    return it == m.end() ? rtc::nullopt
-                         : rtc::Optional<int>(it->second);
+    return it == m.end() ? rtc::nullopt : rtc::Optional<int>(it->second);
   };
   auto cng_pt = pt(param->cng_payload_types);
   param->use_cng =

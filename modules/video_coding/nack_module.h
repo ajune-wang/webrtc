@@ -12,8 +12,8 @@
 #define MODULES_VIDEO_CODING_NACK_MODULE_H_
 
 #include <map>
-#include <vector>
 #include <set>
+#include <vector>
 
 #include "modules/include/module.h"
 #include "modules/video_coding/histogram.h"

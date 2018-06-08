@@ -105,8 +105,8 @@ class InsertPacketWithTiming {
 
     CodecInst codec;
     ASSERT_EQ(0, AudioCodingModule::Codec(FLAG_codec, &codec,
-                             FLAG_codec_sample_rate_hz,
-                             FLAG_codec_channels));
+                                          FLAG_codec_sample_rate_hz,
+                                          FLAG_codec_channels));
     ASSERT_EQ(0, receive_acm_->InitializeReceiver());
     ASSERT_EQ(0, send_acm_->RegisterSendCodec(codec));
     ASSERT_EQ(true, receive_acm_->RegisterReceiveCodec(codec.pltype,
@@ -120,22 +120,22 @@ class InsertPacketWithTiming {
     send_acm_->RegisterTransportCallback(channel_);
 
     if (strlen(FLAG_input) == 0) {
-      std::string file_name = test::ResourcePath("audio_coding/testfile32kHz",
-                                                 "pcm");
+      std::string file_name =
+          test::ResourcePath("audio_coding/testfile32kHz", "pcm");
       pcm_in_fid_.Open(file_name, 32000, "r", true);  // auto-rewind
       std::cout << "Input file " << file_name << " 32 kHz mono." << std::endl;
     } else {
-      pcm_in_fid_.Open(FLAG_input, static_cast<uint16_t>(FLAG_input_fs_hz),
-                    "r", true);  // auto-rewind
+      pcm_in_fid_.Open(FLAG_input, static_cast<uint16_t>(FLAG_input_fs_hz), "r",
+                       true);  // auto-rewind
       std::cout << "Input file " << FLAG_input << "at " << FLAG_input_fs_hz
-          << " Hz in " << ((FLAG_input_stereo) ? "stereo." : "mono.")
-          << std::endl;
+                << " Hz in " << ((FLAG_input_stereo) ? "stereo." : "mono.")
+                << std::endl;
       pcm_in_fid_.ReadStereo(FLAG_input_stereo);
     }
 
     ASSERT_TRUE(pcm_out_fid_ != NULL);
     std::cout << "Output file " << FLAG_output << " at " << FLAG_output_fs_hz
-        << " Hz." << std::endl;
+              << " Hz." << std::endl;
 
     // Other setups
     if (FLAG_loss_rate > 0)
@@ -173,8 +173,8 @@ class InsertPacketWithTiming {
       // Update time-to-insert packet.
       uint32_t t = next_receive_ts_;
       next_receive_ts_ = ReceiveTimestamp();
-      time_to_insert_packet_ms_ += static_cast<float>(next_receive_ts_ - t) /
-          samples_in_1ms_;
+      time_to_insert_packet_ms_ +=
+          static_cast<float>(next_receive_ts_ - t) / samples_in_1ms_;
 
       // Push in just enough audio.
       for (int n = 0; n < num_10ms_in_codec_frame_; n++) {
@@ -196,11 +196,11 @@ class InsertPacketWithTiming {
 
       if (FLAG_verbose) {
         if (!lost) {
-          std::cout << "\nInserting packet number " << seq_num
-              << " timestamp " << ts << std::endl;
+          std::cout << "\nInserting packet number " << seq_num << " timestamp "
+                    << ts << std::endl;
         } else {
-          std::cout << "\nLost packet number " << seq_num
-              << " timestamp " << ts << std::endl;
+          std::cout << "\nLost packet number " << seq_num << " timestamp " << ts
+                    << std::endl;
         }
       }
     }
@@ -264,10 +264,10 @@ class InsertPacketWithTiming {
   std::unique_ptr<AudioCodingModule> receive_acm_;
   Channel* channel_;
 
-  FILE* seq_num_fid_;  // Input (text), one sequence number per line.
-  FILE* send_ts_fid_;  // Input (text), one send timestamp per line.
+  FILE* seq_num_fid_;     // Input (text), one sequence number per line.
+  FILE* send_ts_fid_;     // Input (text), one send timestamp per line.
   FILE* receive_ts_fid_;  // Input (text), one receive timestamp per line.
-  FILE* pcm_out_fid_;  // Output PCM16.
+  FILE* pcm_out_fid_;     // Output PCM16.
 
   PCMFile pcm_in_fid_;  // Input PCM16.
 
@@ -290,7 +290,7 @@ class InsertPacketWithTiming {
   FILE* playout_timing_fid_;
 };
 
-}  // webrtc
+}  // namespace webrtc
 
 int main(int argc, char* argv[]) {
   if (rtc::FlagList::SetFlagsFromCommandLine(&argc, argv, true)) {

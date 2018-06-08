@@ -116,7 +116,7 @@ TEST(AudioCodingModuleTest, TestPacketLossBurst) {
 #if defined(WEBRTC_IOS)
 TEST(AudioCodingModuleTest, DISABLED_TestPacketLossStereo) {
 #else
-  TEST(AudioCodingModuleTest, TestPacketLossStereo) {
+TEST(AudioCodingModuleTest, TestPacketLossStereo) {
 #endif
   webrtc::PacketLossTest(2, 10, 10, 1).Perform();
 }
@@ -133,7 +133,7 @@ TEST(AudioCodingModuleTest, TestPacketLossStereoBurst) {
 // The full API test is too long to run automatically on bots, but can be used
 // for offline testing. User interaction is needed.
 #ifdef ACM_TEST_FULL_API
-  TEST(AudioCodingModuleTest, TestAPI) {
-    webrtc::APITest().Perform();
-  }
+TEST(AudioCodingModuleTest, TestAPI) {
+  webrtc::APITest().Perform();
+}
 #endif

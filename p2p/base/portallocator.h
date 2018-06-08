@@ -75,18 +75,25 @@ enum {
   // When specified, do not collect IPv6 ICE candidates on Wi-Fi.
   PORTALLOCATOR_ENABLE_IPV6_ON_WIFI = 0x4000,
 
-  // When this flag is set, ports not bound to any specific network interface
-  // will be used, in addition to normal ports bound to the enumerated
-  // interfaces. Without this flag, these "any address" ports would only be
-  // used when network enumeration fails or is disabled. But under certain
-  // conditions, these ports may succeed where others fail, so they may allow
-  // the application to work in a wider variety of environments, at the expense
-  // of having to allocate additional candidates.
+  // This flag is deprecated, and we always enable any address ports unless the
+  // next flag is explicitly set.
+  //
+  // TODO(qingsi): Remove this flag when downstream projects no longer use it.
   PORTALLOCATOR_ENABLE_ANY_ADDRESS_PORTS = 0x8000,
+  // By default, we allow ports not bound to any specific network interface
+  // to be used, in addition to normal ports bound to the enumerated interfaces.
+  // When network enumeration fails or is disabled, these ports may succeed
+  // where others fail under certain conditions, so they may allow the
+  // application to work in a wider variety of environments. We allocate these
+  // ports and prune them, conditionally on the allocation results of the normal
+  // ports to avoid excessive number of additional candidates.
+  //
+  // With this flag, these "any address" ports would not be allocated.
+  PORTALLOCATOR_DISABLE_ANY_ADDRESS_PORTS = 0x10000,
 
   // Exclude link-local network interfaces
   // from considertaion after adapter enumeration.
-  PORTALLOCATOR_DISABLE_LINK_LOCAL_NETWORKS = 0x10000,
+  PORTALLOCATOR_DISABLE_LINK_LOCAL_NETWORKS = 0x20000,
 };
 
 // Defines various reasons that have caused ICE regathering.

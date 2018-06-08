@@ -101,7 +101,7 @@ VCMFrameBufferEnum VCMFrameBuffer::InsertPacket(
   if (kStateEmpty == _state) {
     // First packet (empty and/or media) inserted into this frame.
     // store some info and set some initial values.
-    _timeStamp = packet.timestamp;
+    SetTimestamp(packet.timestamp);
     // We only take the ntp timestamp of the first packet of a frame.
     ntp_time_ms_ = packet.ntp_time_ms_;
     _codec = packet.codec;
@@ -232,7 +232,6 @@ int VCMFrameBuffer::NumPackets() const {
 void VCMFrameBuffer::Reset() {
   TRACE_EVENT0("webrtc", "VCMFrameBuffer::Reset");
   _length = 0;
-  _timeStamp = 0;
   _sessionInfo.Reset();
   _payloadType = 0;
   _nackCount = 0;
@@ -278,10 +277,11 @@ VCMFrameBufferStateEnum VCMFrameBuffer::GetState() const {
   return _state;
 }
 
+// TODO(nisse): Unused, delete.
 // Get current state of frame
 VCMFrameBufferStateEnum VCMFrameBuffer::GetState(uint32_t& timeStamp) const {
   TRACE_EVENT0("webrtc", "VCMFrameBuffer::GetState");
-  timeStamp = TimeStamp();
+  timeStamp = Timestamp();
   return GetState();
 }
 

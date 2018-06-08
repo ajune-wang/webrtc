@@ -256,7 +256,7 @@ EncodedImageCallback::Result PayloadRouter::OnEncodedImage(
     return Result(Result::ERROR_SEND_FAILED);
   }
   bool send_result = rtp_modules_[stream_index]->SendOutgoingData(
-      encoded_image._frameType, payload_type_, encoded_image._timeStamp,
+      encoded_image._frameType, payload_type_, encoded_image.Timestamp(),
       encoded_image.capture_time_ms_, encoded_image._buffer,
       encoded_image._length, fragmentation, &rtp_video_header, &frame_id);
   if (!send_result)

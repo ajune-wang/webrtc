@@ -328,7 +328,7 @@ EncodedImageCallback::Result VideoReceiveStream::OnEncodedImage(
   if (config_.pre_decode_callback) {
     config_.pre_decode_callback->EncodedFrameCallback(EncodedFrame(
         encoded_image._buffer, encoded_image._length, encoded_image._frameType,
-        simulcast_idx, encoded_image._timeStamp));
+        simulcast_idx, encoded_image.Timestamp()));
   }
   {
     rtc::CritScope lock(&ivf_writer_lock_);
@@ -340,7 +340,7 @@ EncodedImageCallback::Result VideoReceiveStream::OnEncodedImage(
     }
   }
 
-  return Result(Result::OK, encoded_image._timeStamp);
+  return Result(Result::OK, encoded_image.Timestamp());
 }
 
 void VideoReceiveStream::SendNack(

@@ -900,7 +900,7 @@ TEST_F(SendStatisticsProxyTest, SentResolutionHistogramsAreUpdated) {
   // Not enough samples, stats should not be updated.
   for (int i = 0; i < kMinSamples - 1; ++i) {
     fake_clock_.AdvanceTimeMilliseconds(1000 / kFps);
-    ++encoded_image._timeStamp;
+    encoded_image.SetTimestamp(encoded_image.Timestamp() + 1);
     statistics_proxy_->OnSendEncodedImage(encoded_image, nullptr);
   }
   SetUp();  // Reset stats proxy also causes histograms to be reported.
@@ -908,10 +908,10 @@ TEST_F(SendStatisticsProxyTest, SentResolutionHistogramsAreUpdated) {
   EXPECT_EQ(0, metrics::NumSamples("WebRTC.Video.SentHeightInPixels"));
 
   // Enough samples, max resolution per frame should be reported.
-  encoded_image._timeStamp = 0xfffffff0;  // Will wrap.
+  encoded_image.SetTimestamp(0xfffffff0);  // Will wrap.
   for (int i = 0; i < kMinSamples; ++i) {
     fake_clock_.AdvanceTimeMilliseconds(1000 / kFps);
-    ++encoded_image._timeStamp;
+    encoded_image.SetTimestamp(encoded_image.Timestamp() + 1);
     encoded_image._encodedWidth = kWidth;
     encoded_image._encodedHeight = kHeight;
     statistics_proxy_->OnSendEncodedImage(encoded_image, nullptr);
@@ -947,7 +947,7 @@ TEST_F(SendStatisticsProxyTest, SentFpsHistogramIsUpdated) {
   int frames = kMinPeriodicSamples * kFpsPeriodicIntervalMs * kFps / 1000 + 1;
   for (int i = 0; i < frames; ++i) {
     fake_clock_.AdvanceTimeMilliseconds(1000 / kFps);
-    ++encoded_image._timeStamp;
+    encoded_image.SetTimestamp(encoded_image.Timestamp() + 1);
     statistics_proxy_->OnSendEncodedImage(encoded_image, nullptr);
     // Frame with same timestamp should not be counted.
     statistics_proxy_->OnSendEncodedImage(encoded_image, nullptr);
@@ -988,7 +988,7 @@ TEST_F(SendStatisticsProxyTest, SentFpsHistogramExcludesSuspendedTime) {
   int frames = kMinPeriodicSamples * kFpsPeriodicIntervalMs * kFps / 1000;
   for (int i = 0; i < frames; ++i) {
     fake_clock_.AdvanceTimeMilliseconds(1000 / kFps);
-    encoded_image._timeStamp = i + 1;
+    encoded_image.SetTimestamp(i + 1);
     statistics_proxy_->OnSendEncodedImage(encoded_image, nullptr);
   }
   // Suspend.
@@ -997,7 +997,7 @@ TEST_F(SendStatisticsProxyTest, SentFpsHistogramExcludesSuspendedTime) {
 
   for (int i = 0; i < frames; ++i) {
     fake_clock_.AdvanceTimeMilliseconds(1000 / kFps);
-    encoded_image._timeStamp = i + 1;
+    encoded_image.SetTimestamp(i + 1);
     statistics_proxy_->OnSendEncodedImage(encoded_image, nullptr);
   }
   // Suspended time interval should not affect the framerate.
@@ -1283,7 +1283,8 @@ TEST_F(SendStatisticsProxyTest,
   encoded_image._encodedHeight = kHeight;
   for (int i = 0; i < kMinSamples; ++i) {
     fake_clock_.AdvanceTimeMilliseconds(1000 / kFps);
-    encoded_image._timeStamp += (kRtpClockRateHz / kFps);
+    encoded_image.SetTimestamp(encoded_image.Timestamp() +
+                               (kRtpClockRateHz / kFps));
     statistics_proxy_->OnSendEncodedImage(encoded_image, nullptr);
   }
 
@@ -1318,7 +1319,8 @@ TEST_F(SendStatisticsProxyTest,
   EncodedImage encoded_image;
   for (int i = 0; i < kMinSamples; ++i) {
     fake_clock_.AdvanceTimeMilliseconds(1000 / kFps);
-    encoded_image._timeStamp += (kRtpClockRateHz / kFps);
+    encoded_image.SetTimestamp(encoded_image.Timestamp() +
+                               (kRtpClockRateHz / kFps));
     encoded_image._encodedWidth = kWidth;
     encoded_image._encodedHeight = kHeight;
     statistics_proxy_->OnSendEncodedImage(encoded_image, nullptr);
@@ -1363,7 +1365,8 @@ TEST_F(SendStatisticsProxyTest,
   encoded_image._encodedHeight = kHeight / 2;
   for (int i = 0; i < kMinSamples; ++i) {
     fake_clock_.AdvanceTimeMilliseconds(1000 / kFps);
-    encoded_image._timeStamp += (kRtpClockRateHz / kFps);
+    encoded_image.SetTimestamp(encoded_image.Timestamp() +
+                               (kRtpClockRateHz / kFps));
     statistics_proxy_->OnSendEncodedImage(encoded_image, nullptr);
   }
 
@@ -1469,21 +1472,23 @@ TEST_F(SendStatisticsProxyTest, GetStatsReportsBandwidthLimitedResolution) {
   encoded_image._encodedHeight = kHeight / 2;
   for (int i = 0; i < kMinSamples; ++i) {
     fake_clock_.AdvanceTimeMilliseconds(1000 / kFps);
-    encoded_image._timeStamp += (kRtpClockRateHz / kFps);
+    encoded_image.SetTimestamp(encoded_image.Timestamp() +
+                               (kRtpClockRateHz / kFps));
     statistics_proxy_->OnSendEncodedImage(encoded_image, nullptr);
     EXPECT_FALSE(statistics_proxy_->GetStats().bw_limited_resolution);
   }
 
   // First frame removed from EncodedFrameMap, stats updated.
   fake_clock_.AdvanceTimeMilliseconds(1000 / kFps);
-  ++encoded_image._timeStamp;
+  encoded_image.SetTimestamp(encoded_image.Timestamp() + 1);
   statistics_proxy_->OnSendEncodedImage(encoded_image, nullptr);
   EXPECT_TRUE(statistics_proxy_->GetStats().bw_limited_resolution);
 
   // Two streams encoded.
   for (int i = 0; i < kMinSamples; ++i) {
     fake_clock_.AdvanceTimeMilliseconds(1000 / kFps);
-    encoded_image._timeStamp += (kRtpClockRateHz / kFps);
+    encoded_image.SetTimestamp(encoded_image.Timestamp() +
+                               (kRtpClockRateHz / kFps));
     encoded_image._encodedWidth = kWidth;
     encoded_image._encodedHeight = kHeight;
     statistics_proxy_->OnSendEncodedImage(encoded_image, nullptr);
@@ -1496,7 +1501,8 @@ TEST_F(SendStatisticsProxyTest, GetStatsReportsBandwidthLimitedResolution) {
 
   // First frame with two streams removed, expect no resolution limit.
   fake_clock_.AdvanceTimeMilliseconds(1000 / kFps);
-  encoded_image._timeStamp += (kRtpClockRateHz / kFps);
+  encoded_image.SetTimestamp(encoded_image.Timestamp() +
+                             (kRtpClockRateHz / kFps));
   statistics_proxy_->OnSendEncodedImage(encoded_image, nullptr);
   EXPECT_FALSE(statistics_proxy_->GetStats().bw_limited_resolution);
 

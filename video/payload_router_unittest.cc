@@ -47,7 +47,7 @@ TEST(PayloadRouterTest, SendOnOneModule) {
 
   uint8_t payload = 'a';
   EncodedImage encoded_image;
-  encoded_image._timeStamp = 1;
+  encoded_image.SetTimestamp(1);
   encoded_image.capture_time_ms_ = 2;
   encoded_image._frameType = kVideoFrameKey;
   encoded_image._buffer = &payload;
@@ -56,7 +56,7 @@ TEST(PayloadRouterTest, SendOnOneModule) {
   PayloadRouter payload_router(modules, {kSsrc1}, kPayloadType, {});
 
   EXPECT_CALL(rtp, SendOutgoingData(encoded_image._frameType, kPayloadType,
-                                    encoded_image._timeStamp,
+                                    encoded_image.Timestamp(),
                                     encoded_image.capture_time_ms_, &payload,
                                     encoded_image._length, nullptr, _, _))
       .Times(0);
@@ -66,7 +66,7 @@ TEST(PayloadRouterTest, SendOnOneModule) {
 
   payload_router.SetActive(true);
   EXPECT_CALL(rtp, SendOutgoingData(encoded_image._frameType, kPayloadType,
-                                    encoded_image._timeStamp,
+                                    encoded_image.Timestamp(),
                                     encoded_image.capture_time_ms_, &payload,
                                     encoded_image._length, nullptr, _, _))
       .Times(1)
@@ -78,7 +78,7 @@ TEST(PayloadRouterTest, SendOnOneModule) {
 
   payload_router.SetActive(false);
   EXPECT_CALL(rtp, SendOutgoingData(encoded_image._frameType, kPayloadType,
-                                    encoded_image._timeStamp,
+                                    encoded_image.Timestamp(),
                                     encoded_image.capture_time_ms_, &payload,
                                     encoded_image._length, nullptr, _, _))
       .Times(0);
@@ -88,7 +88,7 @@ TEST(PayloadRouterTest, SendOnOneModule) {
 
   payload_router.SetActive(true);
   EXPECT_CALL(rtp, SendOutgoingData(encoded_image._frameType, kPayloadType,
-                                    encoded_image._timeStamp,
+                                    encoded_image.Timestamp(),
                                     encoded_image.capture_time_ms_, &payload,
                                     encoded_image._length, nullptr, _, _))
       .Times(1)
@@ -106,7 +106,7 @@ TEST(PayloadRouterTest, SendSimulcastSetActive) {
 
   uint8_t payload = 'a';
   EncodedImage encoded_image;
-  encoded_image._timeStamp = 1;
+  encoded_image.SetTimestamp(1);
   encoded_image.capture_time_ms_ = 2;
   encoded_image._frameType = kVideoFrameKey;
   encoded_image._buffer = &payload;
@@ -122,7 +122,7 @@ TEST(PayloadRouterTest, SendSimulcastSetActive) {
   payload_router.SetActive(true);
   EXPECT_CALL(rtp_1, Sending()).WillOnce(Return(true));
   EXPECT_CALL(rtp_1, SendOutgoingData(encoded_image._frameType, kPayloadType,
-                                      encoded_image._timeStamp,
+                                      encoded_image.Timestamp(),
                                       encoded_image.capture_time_ms_, &payload,
                                       encoded_image._length, nullptr, _, _))
       .Times(1)
@@ -139,7 +139,7 @@ TEST(PayloadRouterTest, SendSimulcastSetActive) {
 
   EXPECT_CALL(rtp_2, Sending()).WillOnce(Return(true));
   EXPECT_CALL(rtp_2, SendOutgoingData(encoded_image._frameType, kPayloadType,
-                                      encoded_image._timeStamp,
+                                      encoded_image.Timestamp(),
                                       encoded_image.capture_time_ms_, &payload,
                                       encoded_image._length, nullptr, _, _))
       .Times(1)
@@ -175,7 +175,7 @@ TEST(PayloadRouterTest, SendSimulcastSetActiveModules) {
 
   uint8_t payload = 'a';
   EncodedImage encoded_image;
-  encoded_image._timeStamp = 1;
+  encoded_image.SetTimestamp(1);
   encoded_image.capture_time_ms_ = 2;
   encoded_image._frameType = kVideoFrameKey;
   encoded_image._buffer = &payload;
@@ -197,7 +197,7 @@ TEST(PayloadRouterTest, SendSimulcastSetActiveModules) {
 
   EXPECT_CALL(rtp_1, Sending()).WillOnce(Return(true));
   EXPECT_CALL(rtp_1, SendOutgoingData(encoded_image._frameType, kPayloadType,
-                                      encoded_image._timeStamp,
+                                      encoded_image.Timestamp(),
                                       encoded_image.capture_time_ms_, &payload,
                                       encoded_image._length, nullptr, _, _))
       .Times(1)

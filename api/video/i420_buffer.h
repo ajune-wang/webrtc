@@ -23,6 +23,8 @@ namespace webrtc {
 class I420Buffer : public I420BufferInterface {
  public:
   static rtc::scoped_refptr<I420Buffer> Create(int width, int height);
+  static rtc::scoped_refptr<I420Buffer>
+  Create(int width, int height, PlanarYuvBuffer::BitDepth bit_depth);
   static rtc::scoped_refptr<I420Buffer> Create(int width,
                                                int height,
                                                int stride_y,

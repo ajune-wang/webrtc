@@ -10,7 +10,7 @@ vars = {
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
   'webrtc_git': 'https://webrtc.googlesource.com',
-  'chromium_revision': 'e9fcce491e0fd41f86b1a27583af87bc91586684',
+  'chromium_revision': '02a0306243ec63566a89cfe6d352260a463ae539',
   'boringssl_git': 'https://boringssl.googlesource.com',
   # Three lines of non-changing comments so that
   # the commit queue can handle CLs rolling swarming_client
@@ -43,15 +43,15 @@ vars = {
   # Three lines of non-changing comments so that
   # the commit queue can handle CLs rolling Chromium third_party
   # and whatever else without interference from each other.
-  'chromium_third_party_revision': 'b1a95b2d516bf6901166914428fdabb3738dec07',
+  'chromium_third_party_revision': '60718d58370cbd03521252fb7be26d12893807bb',
 }
 deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    Var('chromium_git') + '/chromium/src/base' + '@' + '6d59c6b0f4428e325816828499efa8faf81e94a5',
+    Var('chromium_git') + '/chromium/src/base' + '@' + '73588950aa0486dd29e11c12c0502f2d9852874e',
   'src/build':
-    Var('chromium_git') + '/chromium/src/build' + '@' + '472d5df73fb1e61ffcbed46d0d5a769bb1e05878',
+    Var('chromium_git') + '/chromium/src/build' + '@' + 'f871e22e2b7b323995421297602603aca26b438b',
   'src/buildtools':
     Var('chromium_git') + '/chromium/buildtools.git' + '@' + '6f4dae280c6a542acacd8db281decc5c0b2a9823',
   # Gradle 4.3-rc4. Used for testing Android Studio project generation for WebRTC.
@@ -61,7 +61,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': Var('chromium_git') + '/chromium/src/ios' + '@' + '2c466eefd87b0d19a9d899bb23750fcc04348fe2',
+    'url': Var('chromium_git') + '/chromium/src/ios' + '@' + '8e72f4983d19e5cf7c176a5901a413c7e74d1163',
     'condition': 'checkout_ios',
   },
   'src/testing':

@@ -250,6 +250,24 @@
     },
     {
       "key": {
+        "uuid": "8e5f4978_08ba2d5e",
+        "filename": "p2p/base/portallocator.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-09T00:44:19Z",
+      "side": 1,
+      "message": "Were you going to remove PORTALLOCATOR_DISABLE_ANY_ADDRESS_PORTS, or is this still needed for some scenarios?",
+      "parentUuid": "e3990a26_7c91f0fd",
+      "revId": "be93a5effca3707e0b96b5b25e4624e1611f95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1475b729_b60eb822",
         "filename": "p2p/client/basicportallocator.cc",
         "patchSetId": 3
@@ -808,6 +826,24 @@
       "side": 1,
       "message": "This happened for relay candidates. For relay candidates gathered, we would have candidates from both the any address port and the non-any address port with the same IP and port number in the test, e.g. kRelayUdpIntAddr, kRelayUdpExtAddr. The difference was the priority number.\n\nI think this is the side product that surfaced the root cause, which is pointed out by the other comment you made. Candidates were removed before they were even signaled to add in the previous patches. The new patch solves this problem and candidates that are not signaled are silently removed with their ports without signaling the removal. This change is then no longer necessary and reverted.",
       "parentUuid": "43b04304_74c34105",
+      "revId": "be93a5effca3707e0b96b5b25e4624e1611f95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b514d644_e739af06",
+        "filename": "p2p/client/basicportallocator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 453,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-09T00:44:19Z",
+      "side": 1,
+      "message": "Ah, so this is related to the weirdness with GTURN candidates we were discussing... Both will have the same \"internal\" address.",
+      "parentUuid": "34ccad3c_1f64c254",
       "revId": "be93a5effca3707e0b96b5b25e4624e1611f95a4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

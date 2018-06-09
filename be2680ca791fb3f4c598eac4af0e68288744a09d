@@ -1,0 +1,259 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7ae637e0_607eb35c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-09T00:44:19Z",
+      "side": 1,
+      "message": "I wonder if we could come up with a better term than \"any address port\"...  Maybe \"wildcard port\"? I tried googling but couldn\u0027t find any standard terminology for this (which somewhat surprises me; I may just not be looking hard enough).",
+      "revId": "be2680ca791fb3f4c598eac4af0e68288744a09d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8960670f_6291c153",
+        "filename": "p2p/base/p2pconstants.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-09T00:44:19Z",
+      "side": 1,
+      "message": "How did you decide on 2 seconds? Do we have any stats we could use to decide?",
+      "revId": "be2680ca791fb3f4c598eac4af0e68288744a09d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a09981b7_195cf74c",
+        "filename": "p2p/base/p2pconstants.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-09T00:44:19Z",
+      "side": 1,
+      "message": "nit: Given that this value is only used in one place, I don\u0027t think it needs to be a named constant. Though I guess that could change (if you added a test for this, for example, which is probably a good idea)",
+      "revId": "be2680ca791fb3f4c598eac4af0e68288744a09d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3d586cc_3bcc4b96",
+        "filename": "p2p/base/tcpport.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-09T00:44:19Z",
+      "side": 1,
+      "message": "Exposing the socket leaks the implementation details of this class, and I don\u0027t think it\u0027s necessary; as mentioned in a comment, we can just use the dummy port value of 9 to distinguish between \"active\"/\"passive\" candidates (using terminology from https://tools.ietf.org/html/rfc6544)",
+      "revId": "be2680ca791fb3f4c598eac4af0e68288744a09d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "836c95db_034b2a08",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-09T00:44:19Z",
+      "side": 1,
+      "message": "Why is checking for nullness needed?",
+      "revId": "be2680ca791fb3f4c598eac4af0e68288744a09d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71f9d955_2b3edb82",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 961,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-09T00:44:19Z",
+      "side": 1,
+      "message": "nit: Given that this method isn\u0027t too large, and it\u0027s the only thing that calls MaybeSignalPortReady, it may make the code more readable to just inline it here (since the name \"Maybe\" doesn\u0027t tell you anything about what actual conditions the method will check, and it also doesn\u0027t imply that \"port-\u003eKeepAliveUntilPruned()\" is called). Same with MaybeSignalCandidateReady.",
+      "revId": "be2680ca791fb3f4c598eac4af0e68288744a09d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45fa357c_08ab8be4",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1125,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-09T00:44:19Z",
+      "side": 1,
+      "message": "nit: The second sentence of this comment still seems out of place.",
+      "revId": "be2680ca791fb3f4c598eac4af0e68288744a09d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54ad4b0d_1d462e56",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1208,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-09T00:44:19Z",
+      "side": 1,
+      "message": "nit: Why is this timer started here, instead of when allocation starts? Seems like a somewhat roundabout approach.",
+      "revId": "be2680ca791fb3f4c598eac4af0e68288744a09d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be2311da_a4437702",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1222,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-09T00:44:19Z",
+      "side": 1,
+      "message": "Why is checking for nullness needed? Doesn\u0027t appear a PortData can ever be added with a null Port. Also, even if it is possible, why \"return\" instead of \"continue\"?",
+      "revId": "be2680ca791fb3f4c598eac4af0e68288744a09d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4dee2d1f_6c1996ab",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1262,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-09T00:44:19Z",
+      "side": 1,
+      "message": "Why do we need to check \"has_ready_ports_bound_to_enumerated_networks\" here? It seems like if \"signalable_candidates\" is empty, then \"ips_from_non_any_address_ports\" must be nonempty, which means \"has_ready_ports_bound_to_enumerated_networks\" *must* be true. I\u0027m having a bit of trouble following this logic though, I may be missing something.",
+      "revId": "be2680ca791fb3f4c598eac4af0e68288744a09d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "889ca020_7a835f6d",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1298,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-09T00:44:19Z",
+      "side": 1,
+      "message": "nit: I don\u0027t think a helper function improves readability if it\u0027s only 1 line and only called in one place.",
+      "revId": "be2680ca791fb3f4c598eac4af0e68288744a09d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37263cc5_3c46ee30",
+        "filename": "p2p/client/basicportallocator.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-09T00:44:19Z",
+      "side": 1,
+      "message": "nit: Not sure we need the extra lists; could probably just use Port::Candidates",
+      "revId": "be2680ca791fb3f4c598eac4af0e68288744a09d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6a51aa3_c8d6ccca",
+        "filename": "p2p/client/basicportallocator_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 2023,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-09T00:44:19Z",
+      "side": 1,
+      "message": "What does \"potential redundancy allowed\" refer to? The fact that PORTALLOCATOR_DISABLE_ANY_ADDRESS_PORTS isn\u0027t set? I thought that was going to be removed though",
+      "revId": "be2680ca791fb3f4c598eac4af0e68288744a09d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a42452cb_ed486244",
+        "filename": "p2p/client/basicportallocator_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 2034,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-09T00:44:19Z",
+      "side": 1,
+      "message": "Why does this test have two waits, the first waiting for only one candidate and the second waiting for allocation to complete?",
+      "revId": "be2680ca791fb3f4c598eac4af0e68288744a09d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ffbb36be_32bd36e6",
+        "filename": "p2p/client/basicportallocator_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 2066,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-09T00:44:19Z",
+      "side": 1,
+      "message": "There are some things still not covered by tests, such as:\n\n* All the TCP-specific stuff\n* Signaling the \"any address\" candidates after the 2-second timeout",
+      "revId": "be2680ca791fb3f4c598eac4af0e68288744a09d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

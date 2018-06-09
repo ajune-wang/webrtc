@@ -102,7 +102,6 @@ extern const int CONNECTION_RESPONSE_TIMEOUT;
 // The minimum time we will wait before destroying a connection after creating
 // it.
 extern const int MIN_CONNECTION_LIFETIME;
-
 }  // namespace cricket
 
 #endif  // P2P_BASE_P2PCONSTANTS_H_

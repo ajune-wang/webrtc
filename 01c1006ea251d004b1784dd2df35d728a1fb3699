@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "171ebe35_36a74307",
+        "filename": "api/DEPS",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-06-11T12:28:21Z",
+      "side": 1,
+      "message": "Should this be system_wrappers/include?",
+      "revId": "01c1006ea251d004b1784dd2df35d728a1fb3699",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11d909a3_7dca19a4",
+        "filename": "api/video_codecs/videodecodersoftwarefallbackwrapper.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-06-11T12:28:21Z",
+      "side": 1,
+      "message": "Would it be an option to move this class to the .cc file, and only expose a create function in the header? E.g.,\n\n  std::unique_ptr\u003cVideoDecoder\u003e CreateVideoDecoderSoftwareFallbackWrapper(\n      std::unique_ptr\u003cVideoDecoder\u003e sw_fallback_decoder,\n      std::unique_ptr\u003cVideoDecoder\u003e hw_decoder);\n\nSmall API is best API...",
+      "revId": "01c1006ea251d004b1784dd2df35d728a1fb3699",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -48,10 +48,21 @@ class FilterAnalyzer {
   // Returns the estimated filter gain.
   float Gain() const { return gain_; }
 
+  // Returns the estimated energy gain at the tail of the filter.
+  float GetTailEnergyGain() const { return tail_energy_gain_; }
+
+  // Returns the number of blocks for the current used filter.
+  float GetNumberBlocks() const { return number_blocks_; }
+
  private:
   void UpdateFilterGain(rtc::ArrayView<const float> filter_time_domain,
                         size_t max_index);
   void PreProcessFilter(rtc::ArrayView<const float> filter_time_domain);
+
+  // Updates the estimation of the energy gain that the linear filter
+  // is applying at its tail.
+  void UpdateFilterTailEnergyGain(
+      rtc::ArrayView<const float> filter_time_domain);
 
   static int instance_count_;
   std::unique_ptr<ApmDataDumper> data_dumper_;
@@ -66,7 +77,8 @@ class FilterAnalyzer {
   size_t consistent_estimate_counter_ = 0;
   int consistent_delay_reference_ = -10;
   float gain_;
-
+  float tail_energy_gain_ = 0;
+  int number_blocks_;
   RTC_DISALLOW_COPY_AND_ASSIGN(FilterAnalyzer);
 };
 

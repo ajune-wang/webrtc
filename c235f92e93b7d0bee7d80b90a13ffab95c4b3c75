@@ -68,6 +68,30 @@
       "revId": "c235f92e93b7d0bee7d80b90a13ffab95c4b3c75",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c67f650c_5988cbbe",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1198,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-11T21:15:54Z",
+      "side": 1,
+      "message": "\u003e I was originally worried about if this would cause candidates get signaled repeatedly, if there are new candidate added later\n\nThat won\u0027t happen because PortData::signaled() will be true, so it won\u0027t be added to maybe_signalable_any_address_ports again. That\u0027s true of both the CLs.\n\nThe consequence is that candidates gathered after the 2-second timeout won\u0027t be signaled at all. Maybe we want to change:\n\n    if (!IsAnyAddressPort(port) ||\n        flags() \u0026 PORTALLOCATOR_DISABLE_ADAPTER_ENUMERATION) {\n      std::vector\u003cCandidate\u003e candidates;\n      candidates.push_back(SanitizeRelatedAddress(c));\n      SignalCandidatesReady(this, candidates);\n    }\n\nTo just:\n\n    if (port_data-\u003esignaled()) {\n      //...\n    }\n\n... So that any late candidates (meaning a srflx candidate from a late STUN response) will be signaled after all. This wouldn\u0027t do the duplicate checking, but it doesn\u0027t really matter at this point; we\u0027ve already started using the Port so we\u0027ve already potentially leaked the address (showing up as a \"prflx\" candidate on the other side). So we might as well signal the candidate, so the other peer prioritizes it correctly (prflx has a higher priority than srflx, so *not* signaling it could actually cause the \"any address\" candidate pair to be preferred over others).",
+      "parentUuid": "0fd30450_07d9d4c8",
+      "range": {
+        "startLine": 1198,
+        "startChar": 49,
+        "endLine": 1198,
+        "endChar": 61
+      },
+      "revId": "c235f92e93b7d0bee7d80b90a13ffab95c4b3c75",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

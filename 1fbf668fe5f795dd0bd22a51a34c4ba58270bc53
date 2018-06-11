@@ -22,6 +22,30 @@
       "revId": "1fbf668fe5f795dd0bd22a51a34c4ba58270bc53",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65acf056_a5631518",
+        "filename": "modules/video_coding/frame_buffer2.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 573,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-06-11T11:00:06Z",
+      "side": 1,
+      "message": "previous frame, fixed.",
+      "parentUuid": "727182ad_e39a061d",
+      "range": {
+        "startLine": 572,
+        "startChar": 0,
+        "endLine": 573,
+        "endChar": 0
+      },
+      "revId": "1fbf668fe5f795dd0bd22a51a34c4ba58270bc53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

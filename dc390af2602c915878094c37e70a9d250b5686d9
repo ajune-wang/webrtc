@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1e507217_db15f2fd",
+        "filename": "api/video_codecs/video_decoder_software_fallback_wrapper.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-06-11T23:49:15Z",
+      "side": 1,
+      "message": "This class can be final, right?",
+      "revId": "dc390af2602c915878094c37e70a9d250b5686d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

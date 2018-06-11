@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "de7d23e9_72693ad2",
+        "filename": "pc/statscollector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-06-11T08:52:16Z",
+      "side": 0,
+      "message": "Previously, this filtered out any \"SSRCs not in use\".\n\nBy the look of it, PrepareReport() is called for all senders and all receivers. Makes me wonder...\n\n1) In Plan B, senders and receivers are removed when no longer used, so this should still only be return stats for stuff that is in use. In Unified Plan, this would be called for senders and receivers forever. Having sender and receiver stats makes sense, but these are \"SSRC stats\".\nQuestion: What will happen for inactive transceivers in Unified Plan? Will this continue to return previously created reports (whose values are probably up to date and correct), or will the associated SSRC be reset and this cause default-populated reports to be created?\n\n2) Related... What if SSRC is 0 as in \"not used\"? Will we get some sort of bogus report that is the same for all of the senders? Do we need to guard against it?",
+      "revId": "196b02863dbae8df6aa35ccc62655a43b49ff9d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

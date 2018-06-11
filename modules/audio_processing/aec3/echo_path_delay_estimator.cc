@@ -42,9 +42,9 @@ EchoPathDelayEstimator::EchoPathDelayEstimator(
           data_dumper_,
           DetectOptimization(),
           sub_block_size_,
-          kMatchedFilterWindowSizeSubBlocks,
+          GetMatchedFilterSize(),
           config.delay.num_filters,
-          kMatchedFilterAlignmentShiftSizeSubBlocks,
+          GetMatchedFilterAlignment(),
           GetDownSamplingFactor(config) == 8
               ? config.render_levels.poor_excitation_render_limit_ds8
               : config.render_levels.poor_excitation_render_limit),

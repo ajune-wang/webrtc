@@ -20,6 +20,7 @@
 #include "modules/audio_processing/aec3/decimator.h"
 #include "modules/audio_processing/aec3/fft_buffer.h"
 #include "modules/audio_processing/aec3/fft_data.h"
+#include "modules/audio_processing/aec3/matched_filter.h"
 #include "modules/audio_processing/aec3/matrix_buffer.h"
 #include "rtc_base/atomicops.h"
 #include "rtc_base/checks.h"
@@ -183,6 +184,8 @@ RenderDelayBufferImpl::RenderDelayBufferImpl(const EchoCanceller3Config& config,
                                            ? kBlockSize / down_sampling_factor_
                                            : kBlockSize)),
       blocks_(GetRenderDelayBufferSize(down_sampling_factor_,
+                                       GetMatchedFilterSize(),
+                                       GetMatchedFilterAlignment(),
                                        config.delay.num_filters,
                                        config.filter.main.length_blocks),
               num_bands,
@@ -192,6 +195,8 @@ RenderDelayBufferImpl::RenderDelayBufferImpl(const EchoCanceller3Config& config,
       delay_(config_.delay.default_delay),
       echo_remover_buffer_(&blocks_, &spectra_, &ffts_),
       low_rate_(GetDownSampledBufferSize(down_sampling_factor_,
+                                         GetMatchedFilterSize(),
+                                         GetMatchedFilterAlignment(),
                                          config.delay.num_filters)),
       render_decimator_(down_sampling_factor_),
       zero_block_(num_bands, std::vector<float>(kBlockSize, 0.f)),

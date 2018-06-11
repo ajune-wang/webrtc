@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MEDIA_ENGINE_VIDEOENCODERSOFTWAREFALLBACKWRAPPER_H_
-#define MEDIA_ENGINE_VIDEOENCODERSOFTWAREFALLBACKWRAPPER_H_
+#ifndef API_VIDEO_CODECS_VIDEOENCODERSOFTWAREFALLBACKWRAPPER_H_
+#define API_VIDEO_CODECS_VIDEOENCODERSOFTWAREFALLBACKWRAPPER_H_
 
 #include <memory>
 #include <string>
@@ -46,7 +46,7 @@ class VideoEncoderSoftwareFallbackWrapper : public VideoEncoder {
                             uint32_t framerate) override;
   bool SupportsNativeHandle() const override;
   ScalingSettings GetScalingSettings() const override;
-  const char *ImplementationName() const override;
+  const char* ImplementationName() const override;
 
  private:
   bool InitFallbackEncoder();
@@ -100,4 +100,4 @@ class VideoEncoderSoftwareFallbackWrapper : public VideoEncoder {
 
 }  // namespace webrtc
 
-#endif  // MEDIA_ENGINE_VIDEOENCODERSOFTWAREFALLBACKWRAPPER_H_
+#endif  // API_VIDEO_CODECS_VIDEOENCODERSOFTWAREFALLBACKWRAPPER_H_

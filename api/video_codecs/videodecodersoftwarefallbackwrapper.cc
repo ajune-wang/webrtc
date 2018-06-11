@@ -8,7 +8,7 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "media/engine/videodecodersoftwarefallbackwrapper.h"
+#include "api/video_codecs/videodecodersoftwarefallbackwrapper.h"
 
 #include <string>
 #include <utility>
@@ -115,8 +115,7 @@ int32_t VideoDecoderSoftwareFallbackWrapper::Decode(
     }
     case DecoderType::kFallback:
       return fallback_decoder_->Decode(input_image, missing_frames,
-                                       codec_specific_info,
-                                       render_time_ms);
+                                       codec_specific_info, render_time_ms);
     default:
       RTC_NOTREACHED();
       return WEBRTC_VIDEO_CODEC_ERROR;

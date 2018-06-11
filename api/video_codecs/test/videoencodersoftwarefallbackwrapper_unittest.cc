@@ -8,7 +8,7 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "media/engine/videoencodersoftwarefallbackwrapper.h"
+#include "api/video_codecs/videoencodersoftwarefallbackwrapper.h"
 
 #include <utility>
 
@@ -96,9 +96,7 @@ class VideoEncoderSoftwareFallbackWrapperTest : public ::testing::Test {
       return supports_native_handle_;
     }
 
-    const char* ImplementationName() const override {
-      return "fake-encoder";
-    }
+    const char* ImplementationName() const override { return "fake-encoder"; }
 
     VideoEncoder::ScalingSettings GetScalingSettings() const override {
       return VideoEncoder::ScalingSettings(kLowThreshold, kHighThreshold);

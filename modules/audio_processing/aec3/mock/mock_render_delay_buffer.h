@@ -25,13 +25,13 @@ namespace test {
 class MockRenderDelayBuffer : public RenderDelayBuffer {
  public:
   explicit MockRenderDelayBuffer(int sample_rate_hz)
-      : block_buffer_(GetRenderDelayBufferSize(4, 4, 12),
+      : block_buffer_(GetRenderDelayBufferSize(4, 32, 24, 4, 12),
                       NumBandsForRate(sample_rate_hz),
                       kBlockSize),
         spectrum_buffer_(block_buffer_.buffer.size(), kFftLengthBy2Plus1),
         fft_buffer_(block_buffer_.buffer.size()),
         render_buffer_(&block_buffer_, &spectrum_buffer_, &fft_buffer_),
-        downsampled_render_buffer_(GetDownSampledBufferSize(4, 4)) {
+        downsampled_render_buffer_(GetDownSampledBufferSize(4, 32, 24, 4)) {
     ON_CALL(*this, GetRenderBuffer())
         .WillByDefault(
             testing::Invoke(this, &MockRenderDelayBuffer::FakeGetRenderBuffer));

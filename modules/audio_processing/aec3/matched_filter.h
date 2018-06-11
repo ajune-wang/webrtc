@@ -22,6 +22,10 @@
 #include "rtc_base/constructormagic.h"
 
 namespace webrtc {
+
+size_t GetMatchedFilterSize();
+size_t GetMatchedFilterAlignment();
+
 namespace aec3 {
 
 #if defined(WEBRTC_HAS_NEON)
@@ -29,6 +33,7 @@ namespace aec3 {
 // Filter core for the matched filter that is optimized for NEON.
 void MatchedFilterCore_NEON(size_t x_start_index,
                             float x2_sum_threshold,
+                            float step_size,
                             rtc::ArrayView<const float> x,
                             rtc::ArrayView<const float> y,
                             rtc::ArrayView<float> h,
@@ -42,6 +47,7 @@ void MatchedFilterCore_NEON(size_t x_start_index,
 // Filter core for the matched filter that is optimized for SSE2.
 void MatchedFilterCore_SSE2(size_t x_start_index,
                             float x2_sum_threshold,
+                            float step_size,
                             rtc::ArrayView<const float> x,
                             rtc::ArrayView<const float> y,
                             rtc::ArrayView<float> h,
@@ -53,11 +59,41 @@ void MatchedFilterCore_SSE2(size_t x_start_index,
 // Filter core for the matched filter.
 void MatchedFilterCore(size_t x_start_index,
                        float x2_sum_threshold,
+                       float step_size,
                        rtc::ArrayView<const float> x,
                        rtc::ArrayView<const float> y,
                        rtc::ArrayView<float> h,
                        bool* filters_updated,
                        float* error_sum);
+
+// Filter core for the matched filter with symmetric filter overlap that is
+// optimized for SSE2.
+void FilterSymmetricOverlap_SSE2(rtc::ArrayView<const float> x,
+                                 size_t x_start,
+                                 rtc::ArrayView<const float> y,
+                                 size_t filter_size,
+                                 size_t num_filters,
+                                 float x2_sum_threshold,
+                                 float step_size,
+                                 rtc::ArrayView<float> x2_sum,
+                                 rtc::ArrayView<float> e,
+                                 rtc::ArrayView<float> e2_sum,
+                                 std::vector<bool>* filters_updated,
+                                 rtc::ArrayView<float> h);
+
+// Filter core for the matched filter with symmetric filter overlap.
+void FilterSymmetricOverlap(rtc::ArrayView<const float> x,
+                            size_t x_start,
+                            rtc::ArrayView<const float> y,
+                            size_t filter_size,
+                            size_t num_filters,
+                            float x2_sum_threshold,
+                            float step_size,
+                            rtc::ArrayView<float> x2_sum,
+                            rtc::ArrayView<float> e,
+                            rtc::ArrayView<float> e2_sum,
+                            std::vector<bool>* filters_updated,
+                            rtc::ArrayView<float> h);
 
 }  // namespace aec3
 
@@ -104,7 +140,7 @@ class MatchedFilter {
 
   // Returns the maximum filter lag.
   size_t GetMaxFilterLag() const {
-    return filters_.size() * filter_intra_lag_shift_ + filters_[0].size();
+    return num_filters_ * filter_intra_lag_shift_ + filter_size_;
   }
 
   // Log matched filter properties.
@@ -117,10 +153,31 @@ class MatchedFilter {
   const Aec3Optimization optimization_;
   const size_t sub_block_size_;
   const size_t filter_intra_lag_shift_;
-  std::vector<std::vector<float>> filters_;
+  const bool symmetric_overlap_;
+  const size_t filter_size_;
+  const size_t num_filters_;
+  std::vector<std::vector<float>> filters_generic_;
   std::vector<LagEstimate> lag_estimates_;
   std::vector<size_t> filters_offsets_;
-  const float excitation_limit_;
+  const float x2_threshold_;
+  const float estimator_smoothing_;
+
+  std::vector<float> x2_sum_;
+  std::vector<float> e_;
+  std::vector<float> e2_sum_;
+  std::vector<size_t> peaks_;
+  std::vector<bool> filters_updated_;
+  std::vector<float> filters_symmetric_overlap_;
+
+  // Updates the correlation with the values in the capture buffer for arbitrary
+  // sizes.
+  void UpdateGeneric(const DownsampledRenderBuffer& render_buffer,
+                     rtc::ArrayView<const float> capture);
+
+  // Updates the correlation with the values in the capture buffer for filter
+  // sizes of 16 blocks with 8 blocks overlap.
+  void UpdateSymmetricOverlap(const DownsampledRenderBuffer& render_buffer,
+                              rtc::ArrayView<const float> capture);
 
   RTC_DISALLOW_IMPLICIT_CONSTRUCTORS(MatchedFilter);
 };

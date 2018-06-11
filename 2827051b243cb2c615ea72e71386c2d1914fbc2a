@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a35f80a_78ec4d3b",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2018-06-11T13:43:36Z",
+      "side": 1,
+      "message": "sprintf? SimpleStringBuilder?",
+      "revId": "2827051b243cb2c615ea72e71386c2d1914fbc2a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

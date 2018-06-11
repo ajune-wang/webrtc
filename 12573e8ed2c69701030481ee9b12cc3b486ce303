@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5abf670c_512cccaf",
+        "filename": "modules/video_coding/frame_buffer2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 572,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-11T11:03:28Z",
+      "side": 1,
+      "message": "is referenced by too many ... ?",
+      "range": {
+        "startLine": 572,
+        "startChar": 32,
+        "endLine": 572,
+        "endChar": 64
+      },
+      "revId": "12573e8ed2c69701030481ee9b12cc3b486ce303",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

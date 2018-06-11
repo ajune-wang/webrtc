@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2444634e_1fe05cab",
+        "filename": "video/payload_router.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-11T10:30:43Z",
+      "side": 1,
+      "message": "I\u0027d prefer SetVideoSendTiming(VideoSendTiming* timing, ...) (or possibly shortened to \nSetTiming or SetVideoTiming).\n\nI.e., pass a pointer to the relevant member of RTPVideoHeader, and strike \"If...\" from the\nname, since the function always sets the struct to some valid state.",
+      "range": {
+        "startLine": 92,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 53
+      },
+      "revId": "c9fbb2add9e92a79e50cc506dd8b8aad21a6c74a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

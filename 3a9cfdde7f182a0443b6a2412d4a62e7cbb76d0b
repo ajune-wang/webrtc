@@ -104,6 +104,24 @@
       "revId": "3a9cfdde7f182a0443b6a2412d4a62e7cbb76d0b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3eef14cd_7e21fc0a",
+        "filename": "pc/dtlssrtptransport.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-11T17:16:44Z",
+      "side": 1,
+      "message": "I understand your reasoning; if this CL just effectively reverts the fix, it\u0027s guaranteed to behave the same (assuming nothing else changed). But my worry is that something else *could* change. For example, if this:\n\n  if (ret \u0026\u0026 rtcp_mux_negotiator_.IsActive()) {\n    ActivateRtcpMux();\n  }\n\nWere changed to:\n\n  // Activate RTCP mux if negotiated and not already active.\n  if (ret \u0026\u0026 rtcp_mux_negotiator_.IsActive() \u0026\u0026\n      rtp_transport_-\u003eGetRtcpPacketTransport()) {\n    ActivateRtcpMux();\n  }\n\nThough I guess we can just be careful about making changes in this area until the flag\u0027s removed.",
+      "parentUuid": "7ea11242_1bf4c043",
+      "revId": "3a9cfdde7f182a0443b6a2412d4a62e7cbb76d0b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

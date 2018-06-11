@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a18c5e9a_b3eb9f78",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 821,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-06-11T20:42:16Z",
+      "side": 1,
+      "message": "Cool, this is much cleaner than scheduling a later checking in the signaling method itself.",
+      "range": {
+        "startLine": 821,
+        "startChar": 33,
+        "endLine": 821,
+        "endChar": 61
+      },
+      "revId": "c235f92e93b7d0bee7d80b90a13ffab95c4b3c75",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a6cdba8_07271b45",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1182,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-06-11T20:42:16Z",
+      "side": 1,
+      "message": "Ah, I thought you didn\u0027t mean it literally, and I overlooked the behavior in TCPPort::PrepareAddress when socket_ is null. Sure, this makes lots of sense now and the checking of socket_ is completely unnecessary.",
+      "range": {
+        "startLine": 1182,
+        "startChar": 43,
+        "endLine": 1182,
+        "endChar": 61
+      },
+      "revId": "c235f92e93b7d0bee7d80b90a13ffab95c4b3c75",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0fd30450_07d9d4c8",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1198,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-06-11T20:42:16Z",
+      "side": 1,
+      "message": "I was originally worried about if this would cause candidates get signaled repeatedly, if there are new candidate added later, and that concern introduced all the nuisance added to PortData to keep track of unsignaled candidates in the current round of gathering. If I understand it correctly now, it would not happen since our current implementation would completely renew candidates in Candidates() in cases like regathering. Am I right?",
+      "range": {
+        "startLine": 1198,
+        "startChar": 49,
+        "endLine": 1198,
+        "endChar": 61
+      },
+      "revId": "c235f92e93b7d0bee7d80b90a13ffab95c4b3c75",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

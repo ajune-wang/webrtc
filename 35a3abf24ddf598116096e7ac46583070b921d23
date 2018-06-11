@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "837fdc4e_115b33db",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 699,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-06-11T20:42:16Z",
+      "side": 1,
+      "message": "I was thinking of having this in case there is any regression in applications (not likely when I think upon it now), and I should have surfaced this to the config if I had that concern (and add a TODO removing it after everything seems stable). Will remove it in my CL.",
+      "range": {
+        "startLine": 699,
+        "startChar": 18,
+        "endLine": 699,
+        "endChar": 57
+      },
+      "revId": "35a3abf24ddf598116096e7ac46583070b921d23",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

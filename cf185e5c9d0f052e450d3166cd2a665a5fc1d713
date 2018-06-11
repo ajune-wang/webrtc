@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "68ff1817_43cba89b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-06-11T09:56:07Z",
+      "side": 1,
+      "message": "Was this CL for demonstration purposes or actually up for review?\n\nThe technical side of this is that simple. However, it needs to be added to the spec first to be allowed exposure (https://github.com/w3c/webrtc-stats/issues), or it must be placed behind Origin Trial or C++-only exposure (requires some additional wiring that has not been done before but shouldn\u0027t be difficult).\n\n\"Echo likelihood\" is tricky to standardize without a widely applicable and precise definition of what \"echo likelihood\" means. Our echo detector is an implementation detail. Would the value 0.8 mean the same thing in Chrome as it does in Firefox/Safari/Edge/etc, were they to implement it? This might be something we ship by describing it in the provisional stats spec (it has not been used yet, but the repo is set up: https://github.com/henbos/webrtc-provisional-stats). That would be an acceptable compromises: We intend to standardize and we provide a working definition, but perhaps one not precise enough to meet the W3C standards bar, and one that would need revisiting if the stat proves useful. If on the other hand we do not intend for it to be standardized, then this is a \"goog stat\" not to see the light of day in the new API.\n\nCC hta@ in case this leads to a discussion.",
+      "revId": "cf185e5c9d0f052e450d3166cd2a665a5fc1d713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "028d48f7_eee774ed",
+        "filename": "pc/rtcstats_integrationtest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 677,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-06-11T09:56:07Z",
+      "side": 1,
+      "message": "There is also rtcstats_unittest.cc which verifies the plumbing with fake lower layers.",
+      "revId": "cf185e5c9d0f052e450d3166cd2a665a5fc1d713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

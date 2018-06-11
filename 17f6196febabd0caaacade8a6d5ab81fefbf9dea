@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7ae988cb_9fbf8e59",
+        "filename": "modules/remote_bitrate_estimator/aimd_rate_control.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-06-11T09:23:55Z",
+      "side": 1,
+      "message": "Suggestion: skip the comment and write:\nif(input.incoming_bitrate)\n  latest_incoming_bitrate_bps_ \u003d *input.incoming_bitrate;\n\nMakes it\u0027s obvious that it will be updated iff we have an incomming bitrate.",
+      "range": {
+        "startLine": 194,
+        "startChar": 2,
+        "endLine": 197,
+        "endChar": 0
+      },
+      "revId": "17f6196febabd0caaacade8a6d5ab81fefbf9dea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0da697d8_95ba59c2",
+        "filename": "modules/remote_bitrate_estimator/aimd_rate_control_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-06-11T09:23:55Z",
+      "side": 1,
+      "message": "nit: seconds",
+      "range": {
+        "startLine": 256,
+        "startChar": 10,
+        "endLine": 256,
+        "endChar": 16
+      },
+      "revId": "17f6196febabd0caaacade8a6d5ab81fefbf9dea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54104e82_39337065",
+        "filename": "modules/remote_bitrate_estimator/aimd_rate_control_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-06-11T09:23:55Z",
+      "side": 1,
+      "message": "Now it does, right?",
+      "range": {
+        "startLine": 257,
+        "startChar": 0,
+        "endLine": 258,
+        "endChar": 0
+      },
+      "revId": "17f6196febabd0caaacade8a6d5ab81fefbf9dea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6595c9cd_d5fe83bb",
+        "filename": "pc/peerconnection_rampup_tests.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-11T20:35:02Z",
+      "side": 1,
+      "message": "Is 1 second enough? It looks like the default interval between RTCP packets is 1 second for video, 5 seconds for audio: https://cs.chromium.org/chromium/src/third_party/webrtc/modules/rtp_rtcp/include/rtp_rtcp_defines.h?l\u003d48\u0026rcl\u003db90e63c620877712e45ee320cfa25cb825bf5373\n\nSo it seems like this wouldn\u0027t give any time for that bandwidth estimator to react to feedback.",
+      "revId": "0610d9bc8d3e3b15526cfc508ccde3434abc9a3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2451bba9_74295bac",
+        "filename": "pc/peerconnection_rampup_tests.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-11T20:35:02Z",
+      "side": 1,
+      "message": "Wouldn\u0027t a larger value help us detect regressions more easily, since there would be a larger difference between \"BWE not working at all\" (stuck at 300kbps) and \"BWE working as expected\" (converging to kHighNetworkBandwidth)?",
+      "revId": "0610d9bc8d3e3b15526cfc508ccde3434abc9a3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cdf6baec_86f008c0",
+        "filename": "pc/peerconnection_rampup_tests.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-11T20:35:02Z",
+      "side": 1,
+      "message": "This will read \"bwe_after_1000_seconds\"; need to divide by 1000",
+      "revId": "0610d9bc8d3e3b15526cfc508ccde3434abc9a3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

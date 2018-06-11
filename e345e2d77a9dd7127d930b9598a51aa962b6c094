@@ -1,0 +1,405 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f83017f0_4b1fcd90",
+        "filename": "modules/audio_processing/aec3/aec_state.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-06-11T13:52:28Z",
+      "side": 1,
+      "message": "Would it be possible to change the naming to GetEstimatedTailGain? The term EnergyGain seems a bit unclear.",
+      "revId": "e345e2d77a9dd7127d930b9598a51aa962b6c094",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a22f1db_d812ef46",
+        "filename": "modules/audio_processing/aec3/aec_state.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-06-11T13:52:28Z",
+      "side": 1,
+      "message": "What about calling this FilterLengthBlocks?",
+      "range": {
+        "startLine": 145,
+        "startChar": 6,
+        "endLine": 145,
+        "endChar": 33
+      },
+      "revId": "e345e2d77a9dd7127d930b9598a51aa962b6c094",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dcabc234_af399402",
+        "filename": "modules/audio_processing/aec3/echo_remover.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-06-11T13:52:28Z",
+      "side": 1,
+      "message": "What about adding a data dumper in residual_echo_estimator? That would then eliminate the need to have the Getter method GetPowerSpectrumReverb",
+      "revId": "e345e2d77a9dd7127d930b9598a51aa962b6c094",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06da9e17_ac799a45",
+        "filename": "modules/audio_processing/aec3/filter_analyzer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-06-11T13:52:28Z",
+      "side": 1,
+      "message": "I think it would be better to let aec_state.h return this as\n\nint f() const {\nreturn initial_state_ ? config_.filter.main_initial.length_blocks :config_.filter.main.length_blocks;\n}",
+      "revId": "e345e2d77a9dd7127d930b9598a51aa962b6c094",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48c260f6_ded8ce48",
+        "filename": "modules/audio_processing/aec3/filter_analyzer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-06-11T13:52:28Z",
+      "side": 1,
+      "message": "It estimates \n-\u003e\nEstimates",
+      "range": {
+        "startLine": 169,
+        "startChar": 5,
+        "endLine": 169,
+        "endChar": 6
+      },
+      "revId": "e345e2d77a9dd7127d930b9598a51aa962b6c094",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7e1ba05_2384eb22",
+        "filename": "modules/audio_processing/aec3/filter_analyzer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-06-11T13:52:28Z",
+      "side": 1,
+      "message": "Would it be possible to call this UpdateFilterTailGain?",
+      "range": {
+        "startLine": 174,
+        "startChar": 21,
+        "endLine": 174,
+        "endChar": 47
+      },
+      "revId": "e345e2d77a9dd7127d930b9598a51aa962b6c094",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8f49f2d_79a6a965",
+        "filename": "modules/audio_processing/aec3/filter_analyzer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-06-11T13:52:28Z",
+      "side": 1,
+      "message": "If the scaling by kFftLengthBy2 is omitted, I think it should be fine to call the method UpdateFilterTailGain as then a proper gain is computed.\n\nThat would also have the advantage that there would not be a cross-dependency between the application of this gain and the computation of the gain (which there currently is since this gain is scaled by kFftLengthBy2).\n\nWDYT?",
+      "range": {
+        "startLine": 182,
+        "startChar": 24,
+        "endLine": 182,
+        "endChar": 37
+      },
+      "revId": "e345e2d77a9dd7127d930b9598a51aa962b6c094",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ac3568e_4f9adf04",
+        "filename": "modules/audio_processing/aec3/filter_analyzer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-06-11T13:52:28Z",
+      "side": 1,
+      "message": "Since this method is so short, and the energy computation is only done once, I don\u0027t think it is motivated to encapsulate the computation in a lambda.\n\nI also think that should shorten this method (in terms of number of lines).",
+      "revId": "e345e2d77a9dd7127d930b9598a51aa962b6c094",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb86f73e_0e070642",
+        "filename": "modules/audio_processing/aec3/filter_analyzer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-06-11T13:52:28Z",
+      "side": 1,
+      "message": "tail_energy_gain_ \u003d tail_energy_gain_ + 0.1f * (tail_energy - tail_energy_gain_);\n\n-\u003e\ntail_energy_gain_ +\u003d 0.1f * (tail_energy - tail_energy_gain_);",
+      "revId": "e345e2d77a9dd7127d930b9598a51aa962b6c094",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9982bbcc_77c291dc",
+        "filename": "modules/audio_processing/aec3/residual_echo_estimator.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-06-11T13:52:28Z",
+      "side": 1,
+      "message": "What about \nGetPowerSpectrumReverb\n-\u003e\nGetReverbPowerSpectrum\n?",
+      "revId": "e345e2d77a9dd7127d930b9598a51aa962b6c094",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93e64c80_e53381a1",
+        "filename": "modules/audio_processing/aec3/reverb_modelling.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-06-11T13:52:28Z",
+      "side": 1,
+      "message": "Would it be possible to describe tail, and gain_tail by giving them more descriptive names?\n\nFor instance\ntail -\u003e echo_tail_spectrum\ntail_gain -\u003e echo_tail_gain",
+      "range": {
+        "startLine": 44,
+        "startChar": 5,
+        "endLine": 44,
+        "endChar": 20
+      },
+      "revId": "e345e2d77a9dd7127d930b9598a51aa962b6c094",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd026d44_12e1903c",
+        "filename": "modules/audio_processing/aec3/reverb_modelling.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-06-11T13:52:28Z",
+      "side": 1,
+      "message": "There is an implicit assumption that tail has the same length as power_spectrum. Therefore think it is better to declare power_spectrum as\nrtc::ArrayView\u003cfloat\u003e power_spectrum\n\n(since the benefit of using a stricter typing is lost due to the definition of tail).",
+      "range": {
+        "startLine": 45,
+        "startChar": 32,
+        "endLine": 45,
+        "endChar": 36
+      },
+      "revId": "e345e2d77a9dd7127d930b9598a51aa962b6c094",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39c8dba8_be863659",
+        "filename": "modules/audio_processing/aec3/reverb_modelling.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-06-11T13:52:28Z",
+      "side": 1,
+      "message": "I don\u0027t think this include is needed here.",
+      "range": {
+        "startLine": 14,
+        "startChar": 20,
+        "endLine": 14,
+        "endChar": 42
+      },
+      "revId": "e345e2d77a9dd7127d930b9598a51aa962b6c094",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1236e590_8b8df1c3",
+        "filename": "modules/audio_processing/aec3/reverb_modelling.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-06-11T13:52:28Z",
+      "side": 1,
+      "message": "What about ReverbModel as the name?",
+      "range": {
+        "startLine": 18,
+        "startChar": 6,
+        "endLine": 18,
+        "endChar": 21
+      },
+      "revId": "e345e2d77a9dd7127d930b9598a51aa962b6c094",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6758edd4_3ad05a2e",
+        "filename": "modules/audio_processing/aec3/reverb_modelling.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-06-11T13:52:28Z",
+      "side": 1,
+      "message": "Does this need to be public? It is called from within AddReverb.",
+      "range": {
+        "startLine": 27,
+        "startChar": 7,
+        "endLine": 27,
+        "endChar": 32
+      },
+      "revId": "e345e2d77a9dd7127d930b9598a51aa962b6c094",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12f2309a_7edf778e",
+        "filename": "modules/audio_processing/aec3/reverb_modelling.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-06-11T13:52:28Z",
+      "side": 1,
+      "message": "Would it be possible to call this echo_power, or echo_power_spectrum?",
+      "range": {
+        "startLine": 35,
+        "startChar": 56,
+        "endLine": 35,
+        "endChar": 70
+      },
+      "revId": "e345e2d77a9dd7127d930b9598a51aa962b6c094",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f00a552_1d013a79",
+        "filename": "modules/audio_processing/aec3/reverb_modelling.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-06-11T13:52:28Z",
+      "side": 1,
+      "message": "aec3_common.h should probably be included.",
+      "range": {
+        "startLine": 38,
+        "startChar": 26,
+        "endLine": 38,
+        "endChar": 44
+      },
+      "revId": "e345e2d77a9dd7127d930b9598a51aa962b6c094",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e74154a_296f937f",
+        "filename": "modules/audio_processing/aec3/stationarity_estimator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-06-11T13:52:28Z",
+      "side": 1,
+      "message": "This seems very similar to how it is done in residual_echo_estimator.cc. Would it be possible to somehow combine these two functionalities so that it is not done twice.\nA way to achieve that could perhaps be to decouple the gain of the reverb from the actual reverb computation, and instead apply that when adding the reverb to where it is used.",
+      "range": {
+        "startLine": 81,
+        "startChar": 2,
+        "endLine": 81,
+        "endChar": 16
+      },
+      "revId": "e345e2d77a9dd7127d930b9598a51aa962b6c094",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b91ce01b_4e6d71af",
+        "filename": "modules/audio_processing/aec3/suppression_gain.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-06-11T13:52:28Z",
+      "side": 1,
+      "message": "experiment -\u003e Experiment",
+      "range": {
+        "startLine": 185,
+        "startChar": 28,
+        "endLine": 185,
+        "endChar": 38
+      },
+      "revId": "e345e2d77a9dd7127d930b9598a51aa962b6c094",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -92,6 +92,30 @@
       "revId": "c235f92e93b7d0bee7d80b90a13ffab95c4b3c75",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01dd4b52_a70a1273",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1198,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-06-11T21:31:26Z",
+      "side": 1,
+      "message": "Ack. Good point, and signaled() can be considered as a checkpoint marking best-effort redundancy checking, after which candidates are just signal for the correct prioritization. Will quote this in a comment for clarification.",
+      "parentUuid": "c67f650c_5988cbbe",
+      "range": {
+        "startLine": 1198,
+        "startChar": 49,
+        "endLine": 1198,
+        "endChar": 61
+      },
+      "revId": "c235f92e93b7d0bee7d80b90a13ffab95c4b3c75",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

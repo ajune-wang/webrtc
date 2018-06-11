@@ -15,6 +15,7 @@
 #include <array>
 #include <numeric>
 
+#include "modules/audio_processing/aec3/aec3_common.h"
 #include "modules/audio_processing/logging/apm_data_dumper.h"
 #include "rtc_base/atomicops.h"
 #include "rtc_base/checks.h"
@@ -55,7 +56,8 @@ FilterAnalyzer::FilterAnalyzer(const EchoCanceller3Config& config)
       active_render_threshold_(config.render_levels.active_render_limit *
                                config.render_levels.active_render_limit *
                                kFftLengthBy2),
-      h_highpass_(GetTimeDomainLength(config.filter.main.length_blocks), 0.f) {
+      h_highpass_(GetTimeDomainLength(config.filter.main.length_blocks), 0.f),
+      number_blocks_(config.filter.main_initial.length_blocks) {
   Reset();
 }
 
@@ -141,6 +143,8 @@ void FilterAnalyzer::Update(rtc::ArrayView<const float> filter_time_domain,
 
   consistent_estimate_ =
       consistent_estimate_counter_ > 1.5f * kNumBlocksPerSecond;
+  UpdateFilterTailEnergyGain(filter_time_domain);
+  number_blocks_ = filter_time_domain.size() * (1.f / kBlockSize);
 }
 
 void FilterAnalyzer::UpdateFilterGain(
@@ -160,6 +164,30 @@ void FilterAnalyzer::UpdateFilterGain(
   if (bounded_erl_ && gain_) {
     gain_ = std::max(gain_, 0.01f);
   }
+}
+
+/* It estimates the contributions of the filter tail to the energy
+ * of the echo signal. The estimation is done as the maximum
+ * energy of the impulse response at the tail times the number of
+ * coefficients used for describing the tail. */
+
+void FilterAnalyzer::UpdateFilterTailEnergyGain(
+    rtc::ArrayView<const float> filter_time_domain) {
+  auto ComputeEnergy = [](const rtc::ArrayView<const float> tail) {
+    RTC_DCHECK_EQ(tail.size(), kFftLengthBy2);
+    float max_energy = 0.f;
+    for (const float sample : tail) {
+      max_energy = std::max(max_energy, sample * sample);
+    }
+    return max_energy * kFftLengthBy2;
+  };
+
+  rtc::ArrayView<const float> filter_time_tail(
+      filter_time_domain.cend() - kFftLengthBy2, kFftLengthBy2);
+  float tail_energy = ComputeEnergy(filter_time_tail);
+
+  tail_energy_gain_ =
+      tail_energy_gain_ + 0.1f * (tail_energy - tail_energy_gain_);
 }
 
 }  // namespace webrtc

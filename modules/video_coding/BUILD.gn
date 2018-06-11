@@ -734,6 +734,7 @@ if (rtc_include_tests) {
       "../../media:rtc_internal_video_codecs",
       "../../media:rtc_media_base",
       "../../media:rtc_software_fallback_wrappers",
+      "../../media:rtc_vp9_profile",
       "../../rtc_base:rtc_base",
       "../../test:fileutils",
       "../../test:test_common",

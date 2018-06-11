@@ -108,8 +108,7 @@ TEST_F(FullStackTest, ForemanCifWithoutPacketLossMultiplexI420Frame) {
   foreman_cif.call.send_side_bwe = true;
   foreman_cif.video[0] = {true,   352,    288,   30,          700000,
                           700000, 700000, false, "multiplex", 1,
-                          0,      0,      false, false,       false,
-                          "foreman_cif"};
+                          0,      0,      false, false,       "foreman_cif"};
   foreman_cif.analyzer = {"foreman_cif_net_delay_0_0_plr_0_Multiplex", 0.0, 0.0,
                           kFullStackTestDurationSecs};
   RunTest(foreman_cif);

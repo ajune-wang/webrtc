@@ -71,7 +71,7 @@ void VideoCodecUnitTest::SetUp() {
 
   input_frame_generator_ = test::FrameGenerator::CreateSquareGenerator(
       codec_settings_.width, codec_settings_.height,
-      rtc::Optional<test::FrameGenerator::OutputType>(), rtc::Optional<int>());
+      test::FrameGenerator::OutputType::I420, rtc::Optional<int>());
 
   encoder_ = CreateEncoder();
   decoder_ = CreateDecoder();

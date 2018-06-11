@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "08d02ca4_5a019456",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 5366
+      },
+      "writtenOn": "2018-06-11T21:53:34Z",
+      "side": 1,
+      "message": "this should be 8 or 16\n\nhttps://cs.chromium.org/chromium/src/third_party/libvpx/source/libvpx/vpx/src/vpx_image.c?type\u003dcs\u0026g\u003d0\u0026l\u003d116\n\nThis field means how much bits we need for storage so it\u0027s set to 16 for high bitdepth (no matter it\u0027s 10 or 12).\n\nOn decoder side tho, it\u0027s set to yv12-\u003ebit_depth which is set to 8/10/12 instead.\n\nhttps://chromium.googlesource.com/webm/libvpx/+/master/vp9/vp9_iface_common.h#63",
+      "range": {
+        "startLine": 345,
+        "startChar": 20,
+        "endLine": 345,
+        "endChar": 27
+      },
+      "revId": "5e7f5998a9e8ec832c9146db6ae3feaf44449cda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

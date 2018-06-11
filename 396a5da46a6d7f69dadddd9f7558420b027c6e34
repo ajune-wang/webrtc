@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "42f9d782_53659c8d",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 780,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-06-11T10:58:02Z",
+      "side": 1,
+      "message": "Yes, this code refactoring requires YuvConverter to use VideoFrameDrawer unless we want to duplicate code again.\n\nIs there a bug filed for breaking the dependency from video_api to video_java and what needs to be done in order for this to happen? Can you file one otherwise?",
+      "parentUuid": "12fe3a84_d444e5f6",
+      "range": {
+        "startLine": 780,
+        "startChar": 20,
+        "endLine": 780,
+        "endChar": 36
+      },
+      "revId": "396a5da46a6d7f69dadddd9f7558420b027c6e34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7cd610c8_1bdd78d0",
         "filename": "sdk/android/BUILD.gn",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "396a5da46a6d7f69dadddd9f7558420b027c6e34",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a1070ac_0d1d8098",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 849,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-06-11T10:58:02Z",
+      "side": 1,
+      "message": "A mistake done by emacs sort-lines. emacs thinks capital \u0027V\u0027 should come before \u0027a\u0027.",
+      "parentUuid": "7cd610c8_1bdd78d0",
+      "range": {
+        "startLine": 849,
+        "startChar": 25,
+        "endLine": 849,
+        "endChar": 47
+      },
+      "revId": "396a5da46a6d7f69dadddd9f7558420b027c6e34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "f09f9ca2_d87d8599",
+        "filename": "sdk/android/api/org/webrtc/YuvConverter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-06-11T10:58:02Z",
+      "side": 1,
+      "message": "Cool, I didn\u0027t know the vector version could be used to modify a single uniform variable.",
+      "parentUuid": "5a4ddd55_6f124420",
+      "range": {
+        "startLine": 85,
+        "startChar": 13,
+        "endLine": 85,
+        "endChar": 24
+      },
+      "revId": "396a5da46a6d7f69dadddd9f7558420b027c6e34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bd159e87_3a19b446",
         "filename": "sdk/android/api/org/webrtc/YuvConverter.java",
         "patchSetId": 1
@@ -82,6 +154,30 @@
       "writtenOn": "2018-06-04T16:31:09Z",
       "side": 1,
       "message": "This comment doesn\u0027t make sense to me.",
+      "range": {
+        "startLine": 210,
+        "startChar": 7,
+        "endLine": 210,
+        "endChar": 27
+      },
+      "revId": "396a5da46a6d7f69dadddd9f7558420b027c6e34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5dbf56e3_d2acfbc3",
+        "filename": "sdk/android/api/org/webrtc/YuvConverter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-06-11T10:58:02Z",
+      "side": 1,
+      "message": "This comment is from the existing code. If you look at the big comment above that explains how the buffer is laid out in memory, you will see that the Y, U, and V data has the same stride, and that is why the code below uses the same stride for all values. Do you have any suggestions how the comments could be made more clear?",
+      "parentUuid": "bd159e87_3a19b446",
       "range": {
         "startLine": 210,
         "startChar": 7,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "8edae86f_d7ae6a59",
+        "filename": "sdk/android/src/java/org/webrtc/GlGenericDrawer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-06-11T10:58:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4b33469e_8a22268c",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 7
+      },
+      "revId": "396a5da46a6d7f69dadddd9f7558420b027c6e34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "56b4b2cd_9915b52b",
         "filename": "sdk/android/src/java/org/webrtc/GlGenericDrawer.java",
         "patchSetId": 1
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "b756f148_4e978f45",
+        "filename": "sdk/android/src/java/org/webrtc/GlGenericDrawer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-06-11T10:58:02Z",
+      "side": 1,
+      "message": "Ok, let\u0027s work with the assumption that the OpenGL state is always reset to default values before every frame.",
+      "parentUuid": "56b4b2cd_9915b52b",
+      "range": {
+        "startLine": 245,
+        "startChar": 11,
+        "endLine": 245,
+        "endChar": 23
+      },
+      "revId": "396a5da46a6d7f69dadddd9f7558420b027c6e34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f76ebfc4_7d8e6850",
         "filename": "sdk/android/src/java/org/webrtc/GlGenericDrawer.java",
         "patchSetId": 1
@@ -160,6 +304,30 @@
       "revId": "396a5da46a6d7f69dadddd9f7558420b027c6e34",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69788f89_0d2856e5",
+        "filename": "sdk/android/src/java/org/webrtc/GlGenericDrawer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-06-11T10:58:02Z",
+      "side": 1,
+      "message": "I\u0027ll do that in a follow-up CL so that I don\u0027t break external clients.",
+      "parentUuid": "f76ebfc4_7d8e6850",
+      "range": {
+        "startLine": 248,
+        "startChar": 11,
+        "endLine": 248,
+        "endChar": 36
+      },
+      "revId": "396a5da46a6d7f69dadddd9f7558420b027c6e34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

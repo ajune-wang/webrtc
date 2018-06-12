@@ -16,6 +16,24 @@
       "revId": "69fb10289ccdb77a7c8284f4599d908710659755",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "220df1a9_a05d6fdf",
+        "filename": "webrtc.gni",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-06-12T13:11:52Z",
+      "side": 1,
+      "message": "+phoglund@ for being a build magician",
+      "parentUuid": "7a44a6cd_4ccc6d76",
+      "revId": "69fb10289ccdb77a7c8284f4599d908710659755",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

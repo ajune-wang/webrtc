@@ -66,6 +66,7 @@ struct EchoCanceller3Config {
     float mf = 1.f;
     float hf = 1.f;
     float default_len = 0.f;
+    bool reverb_based_on_render = true;
     bool echo_can_saturate = true;
     bool bounded_erl = false;
   } ep_strength;

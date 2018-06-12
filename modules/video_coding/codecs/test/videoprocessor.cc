@@ -60,14 +60,13 @@ void GetLayerIndices(const CodecSpecificInfo& codec_specific,
                      size_t* spatial_idx,
                      size_t* temporal_idx) {
   if (codec_specific.codecType == kVideoCodecVP8) {
-    *spatial_idx = codec_specific.codecSpecific.VP8.simulcastIdx;
     *temporal_idx = codec_specific.codecSpecific.VP8.temporalIdx;
   } else if (codec_specific.codecType == kVideoCodecVP9) {
     *spatial_idx = codec_specific.codecSpecific.VP9.spatial_idx;
     *temporal_idx = codec_specific.codecSpecific.VP9.temporal_idx;
-  }
-  if (*spatial_idx == kNoSpatialIdx) {
-    *spatial_idx = 0;
+    if (*spatial_idx == kNoSpatialIdx) {
+      *spatial_idx = 0;
+    }
   }
   if (*temporal_idx == kNoTemporalIdx) {
     *temporal_idx = 0;
@@ -325,7 +324,7 @@ void VideoProcessor::FrameEncoded(
   }
 
   // Layer metadata.
-  size_t spatial_idx = 0;
+  size_t spatial_idx = encoded_image.SimulcastIndex();
   size_t temporal_idx = 0;
   GetLayerIndices(codec_specific, &spatial_idx, &temporal_idx);
 

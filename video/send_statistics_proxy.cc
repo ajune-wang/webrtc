@@ -78,9 +78,9 @@ void UpdateCodecTypeHistogram(const std::string& payload_name) {
                             kVideoMax);
 }
 
-bool IsForcedFallbackPossible(const CodecSpecificInfo* codec_info) {
-  return codec_info->codecType == kVideoCodecVP8 &&
-         codec_info->codecSpecific.VP8.simulcastIdx == 0 &&
+bool IsForcedFallbackPossible(const CodecSpecificInfo* codec_info,
+                              int simulcast_index) {
+  return codec_info->codecType == kVideoCodecVP8 && simulcast_index == 0 &&
          (codec_info->codecSpecific.VP8.temporalIdx == 0 ||
           codec_info->codecSpecific.VP8.temporalIdx == kNoTemporalIdx);
 }
@@ -776,14 +776,15 @@ void SendStatisticsProxy::OnSetEncoderTargetRate(uint32_t bitrate_bps) {
 
 void SendStatisticsProxy::UpdateEncoderFallbackStats(
     const CodecSpecificInfo* codec_info,
-    int pixels) {
-  UpdateFallbackDisabledStats(codec_info, pixels);
+    int pixels,
+    int simulcast_index) {
+  UpdateFallbackDisabledStats(codec_info, pixels, simulcast_index);
 
   if (!fallback_max_pixels_ || !uma_container_->fallback_info_.is_possible) {
     return;
   }
 
-  if (!IsForcedFallbackPossible(codec_info)) {
+  if (!IsForcedFallbackPossible(codec_info, simulcast_index)) {
     uma_container_->fallback_info_.is_possible = false;
     return;
   }
@@ -825,14 +826,15 @@ void SendStatisticsProxy::UpdateEncoderFallbackStats(
 
 void SendStatisticsProxy::UpdateFallbackDisabledStats(
     const CodecSpecificInfo* codec_info,
-    int pixels) {
+    int pixels,
+    int simulcast_index) {
   if (!fallback_max_pixels_disabled_ ||
       !uma_container_->fallback_info_disabled_.is_possible ||
       stats_.has_entered_low_resolution) {
     return;
   }
 
-  if (!IsForcedFallbackPossible(codec_info) ||
+  if (!IsForcedFallbackPossible(codec_info, simulcast_index) ||
       strcmp(codec_info->codec_name, kVp8SwCodecName) == 0) {
     uma_container_->fallback_info_disabled_.is_possible = false;
     return;
@@ -852,19 +854,16 @@ void SendStatisticsProxy::OnMinPixelLimitReached() {
 void SendStatisticsProxy::OnSendEncodedImage(
     const EncodedImage& encoded_image,
     const CodecSpecificInfo* codec_info) {
-  size_t simulcast_idx = 0;
+  size_t simulcast_idx = encoded_image.SimulcastIndex();
 
   rtc::CritScope lock(&crit_);
   ++stats_.frames_encoded;
   if (codec_info) {
-    if (codec_info->codecType == kVideoCodecVP8) {
-      simulcast_idx = codec_info->codecSpecific.VP8.simulcastIdx;
-    } else if (codec_info->codecType == kVideoCodecGeneric) {
-      simulcast_idx = codec_info->codecSpecific.generic.simulcast_idx;
-    }
     if (codec_info->codec_name) {
-      UpdateEncoderFallbackStats(codec_info, encoded_image._encodedWidth *
-                                                 encoded_image._encodedHeight);
+      UpdateEncoderFallbackStats(
+          codec_info,
+          encoded_image._encodedWidth * encoded_image._encodedHeight,
+          simulcast_idx);
       stats_.encoder_implementation_name = codec_info->codec_name;
     }
   }

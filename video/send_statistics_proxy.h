@@ -226,10 +226,12 @@ class SendStatisticsProxy : public CpuOveruseMetricsObserver,
       RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_);
 
   void UpdateEncoderFallbackStats(const CodecSpecificInfo* codec_info,
-                                  int pixels)
+                                  int pixels,
+                                  int simulcast_index)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_);
   void UpdateFallbackDisabledStats(const CodecSpecificInfo* codec_info,
-                                   int pixels)
+                                   int pixels,
+                                   int simulcast_index)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_);
 
   Clock* const clock_;

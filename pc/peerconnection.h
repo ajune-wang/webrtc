@@ -28,6 +28,7 @@
 #include "pc/statscollector.h"
 #include "pc/streamcollection.h"
 #include "pc/webrtcsessiondescriptionfactory.h"
+#include "rtc_base/asyncinvoker.h"
 
 namespace webrtc {
 
@@ -1020,6 +1021,7 @@ class PeerConnection : public PeerConnectionInternal,
   cricket::VideoOptions video_options_;
 
   int usage_event_accumulator_ = 0;
+  rtc::AsyncInvoker delayed_stats_collector_;
 };
 
 }  // namespace webrtc

@@ -100,6 +100,9 @@ static const char kDefaultVideoSenderId[] = "defaultv0";
 // The length of RTCP CNAMEs.
 static const int kRtcpCnameLength = 16;
 
+// The delay before collecting usage stats on unclosed PCs
+static const int UNCLOSED_USAGE_COLLECTION_DELAY_MS = 60000;
+
 enum {
   MSG_SET_SESSIONDESCRIPTION_SUCCESS = 0,
   MSG_SET_SESSIONDESCRIPTION_FAILED,
@@ -863,6 +866,7 @@ PeerConnection::~PeerConnection() {
     // The event log must outlive call (and any other object that uses it).
     event_log_.reset();
   });
+  delayed_stats_collector_.Clear();
 }
 
 void PeerConnection::DestroyAllChannels() {
@@ -1036,6 +1040,16 @@ bool PeerConnection::Initialize(
         RtpTransceiverProxyWithInternal<RtpTransceiver>::Create(
             signaling_thread(), new RtpTransceiver(cricket::MEDIA_TYPE_VIDEO)));
   }
+// Ensure that usage stats are collected after 60 seconds if
+// the PeerConnection hasn't been closed before that.
+#if 1
+  delayed_stats_collector_.AsyncInvokeDelayed<void>(
+      RTC_FROM_HERE, signaling_thread(),
+      rtc::Bind(&PeerConnection::ReportUsagePattern, this),
+      UNCLOSED_USAGE_COLLECTION_DELAY_MS);
+#else
+  RTC_LOG(LS_INFO) << "Using " << UNCLOSED_USAGE_COLLECTION_DELAY_MS;
+#endif
   return true;
 }
 
@@ -3272,6 +3286,7 @@ void PeerConnection::Close() {
     // The event log must outlive call (and any other object that uses it).
     event_log_.reset();
   });
+  delayed_stats_collector_.Clear();
   ReportUsagePattern();
 }
 

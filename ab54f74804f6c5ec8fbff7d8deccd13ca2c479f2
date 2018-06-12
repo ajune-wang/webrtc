@@ -1,0 +1,359 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "12a5ff78_48aa73ef",
+        "filename": "modules/audio_processing/aec3/aec_state.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-06-12T13:47:55Z",
+      "side": 1,
+      "message": "Since the number of Getters in AecState I think it would be good to specify what tail gain it is.\n\nWhat about \nGetEstimatedTailGain\n-\u003e\nGetFilterTailGain\n\nWDYT?",
+      "range": {
+        "startLine": 140,
+        "startChar": 8,
+        "endLine": 140,
+        "endChar": 28
+      },
+      "revId": "ab54f74804f6c5ec8fbff7d8deccd13ca2c479f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e21aa3ec_c98c5d0e",
+        "filename": "modules/audio_processing/aec3/aec_state.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-06-12T13:47:55Z",
+      "side": 1,
+      "message": "What about\n// Returns the number of blocks used in the current filter.\n-\u003e\n// Returns filter length in blocks.",
+      "revId": "ab54f74804f6c5ec8fbff7d8deccd13ca2c479f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7cbdbf12_5c881305",
+        "filename": "modules/audio_processing/aec3/aec_state.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-06-12T13:47:55Z",
+      "side": 1,
+      "message": "Since one returns the other, it would be good to have both names match each other.\n\nI\u0027d suggest changing\nGetFilterLengthBlocks -\u003e FilterLengthBlocks",
+      "revId": "ab54f74804f6c5ec8fbff7d8deccd13ca2c479f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85e99dad_8d4332ba",
+        "filename": "modules/audio_processing/aec3/filter_analyzer.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-06-12T13:47:55Z",
+      "side": 1,
+      "message": "The lime-break in the comment on line 172 is a bit weird.",
+      "revId": "ab54f74804f6c5ec8fbff7d8deccd13ca2c479f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c759c54_87e8d11f",
+        "filename": "modules/audio_processing/aec3/filter_analyzer.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-06-12T13:47:55Z",
+      "side": 1,
+      "message": "I would prefer a standard C++ loop here as it is easier to read and does not involve pointers. (I think it may actually be easier for the compiler to optimize as well).\nI.e.:\nfor (size_t k \u003d filter_time_domain.size() - kFftLengthBy2; k \u003c filter_time_domain.size(); ++k) {\n  tail_max_energy \u003d std::max(tail_max_energy, filter_time_domain[k] *  filter_time_domain[k]);\n}\n\n(or, a bit shorter)\nconst auto\u0026 h \u003d filter_time_domain;\nfor (size_t k \u003d h.size() - kFftLengthBy2; k \u003c h.size(); ++k) {\n  tail_max_energy \u003d std::max(tail_max_energy, h[k] *  h[k]);\n}",
+      "range": {
+        "startLine": 178,
+        "startChar": 2,
+        "endLine": 181,
+        "endChar": 3
+      },
+      "revId": "ab54f74804f6c5ec8fbff7d8deccd13ca2c479f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af23fafc_6ff90959",
+        "filename": "modules/audio_processing/aec3/residual_echo_estimator.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-06-12T13:47:55Z",
+      "side": 1,
+      "message": "I think\necho_reverb_ \u003d new ReverbModel(); \nworks\n\necho_reverb_.Reset(new ReverbModel());\nis also fine.\n\necho_reverb_ \u003d std::unique_ptr\u003cReverbModel\u003e(new ReverbModel());\nHas the drawback that (I think) an extra create and copy is needed.",
+      "revId": "ab54f74804f6c5ec8fbff7d8deccd13ca2c479f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c7ede43_ca1d592f",
+        "filename": "modules/audio_processing/aec3/residual_echo_estimator.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-06-12T13:47:55Z",
+      "side": 1,
+      "message": "As above",
+      "range": {
+        "startLine": 81,
+        "startChar": 32,
+        "endLine": 81,
+        "endChar": 42
+      },
+      "revId": "ab54f74804f6c5ec8fbff7d8deccd13ca2c479f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e3dfd55_0eefb9ec",
+        "filename": "modules/audio_processing/aec3/residual_echo_estimator.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-06-12T13:47:55Z",
+      "side": 1,
+      "message": "I\u0027m not fully sure about the value 1 here. Should it not be aec_state.FilterDelayBlocks()+1?",
+      "range": {
+        "startLine": 153,
+        "startChar": 53,
+        "endLine": 153,
+        "endChar": 54
+      },
+      "revId": "ab54f74804f6c5ec8fbff7d8deccd13ca2c479f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b010f438_0995cbdb",
+        "filename": "modules/audio_processing/aec3/residual_echo_estimator.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-06-12T13:47:55Z",
+      "side": 1,
+      "message": "Please add DCHECK of echo_reverb_",
+      "revId": "ab54f74804f6c5ec8fbff7d8deccd13ca2c479f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72ece3c4_fc4f2d98",
+        "filename": "modules/audio_processing/aec3/residual_echo_estimator.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-06-12T13:47:55Z",
+      "side": 1,
+      "message": "Please add a DCHECK for echo_reverb_ as well.",
+      "range": {
+        "startLine": 44,
+        "startChar": 13,
+        "endLine": 44,
+        "endChar": 25
+      },
+      "revId": "ab54f74804f6c5ec8fbff7d8deccd13ca2c479f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a56138c_92c88df8",
+        "filename": "modules/audio_processing/aec3/residual_echo_estimator.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-06-12T13:47:55Z",
+      "side": 1,
+      "message": "\u003d nullptr is not needed for unique_ptr. It is null by default.",
+      "range": {
+        "startLine": 93,
+        "startChar": 46,
+        "endLine": 93,
+        "endChar": 53
+      },
+      "revId": "ab54f74804f6c5ec8fbff7d8deccd13ca2c479f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e54e9c6d_24f9f604",
+        "filename": "modules/audio_processing/aec3/reverb_model.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-06-12T13:47:55Z",
+      "side": 1,
+      "message": "Please add a short comment describing what the purpose of the class is.",
+      "revId": "ab54f74804f6c5ec8fbff7d8deccd13ca2c479f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38cee212_9d2c4bec",
+        "filename": "modules/audio_processing/aec3/reverb_model.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-06-12T13:47:55Z",
+      "side": 1,
+      "message": "Reset\n-\u003e\nResets",
+      "range": {
+        "startLine": 24,
+        "startChar": 5,
+        "endLine": 24,
+        "endChar": 10
+      },
+      "revId": "ab54f74804f6c5ec8fbff7d8deccd13ca2c479f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "194993ae_f51d2995",
+        "filename": "modules/audio_processing/aec3/reverb_model.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-06-12T13:47:55Z",
+      "side": 1,
+      "message": "Add\n-\u003e\nAdds",
+      "range": {
+        "startLine": 32,
+        "startChar": 5,
+        "endLine": 32,
+        "endChar": 8
+      },
+      "revId": "ab54f74804f6c5ec8fbff7d8deccd13ca2c479f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d720903c_1042e0ae",
+        "filename": "modules/audio_processing/aec3/reverb_model.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-06-12T13:47:55Z",
+      "side": 1,
+      "message": "appling -\u003e applying",
+      "range": {
+        "startLine": 35,
+        "startChar": 12,
+        "endLine": 35,
+        "endChar": 19
+      },
+      "revId": "ab54f74804f6c5ec8fbff7d8deccd13ca2c479f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22cf6dfd_0323c7fe",
+        "filename": "modules/audio_processing/aec3/reverb_model_fallback.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-06-12T13:47:55Z",
+      "side": 1,
+      "message": "Please add a short comment describing what the purpose of the class is.",
+      "range": {
+        "startLine": 21,
+        "startChar": 6,
+        "endLine": 21,
+        "endChar": 25
+      },
+      "revId": "ab54f74804f6c5ec8fbff7d8deccd13ca2c479f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee8ef9ca_f0dc6178",
+        "filename": "modules/audio_processing/aec3/reverb_model_fallback.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-06-12T13:47:55Z",
+      "side": 1,
+      "message": "Reset -\u003e Resets",
+      "range": {
+        "startLine": 25,
+        "startChar": 5,
+        "endLine": 25,
+        "endChar": 10
+      },
+      "revId": "ab54f74804f6c5ec8fbff7d8deccd13ca2c479f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

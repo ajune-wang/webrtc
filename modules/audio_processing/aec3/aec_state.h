@@ -136,6 +136,14 @@ class AecState {
               const std::array<float, kFftLengthBy2Plus1>& Y2,
               const std::array<float, kBlockSize>& s);
 
+  // Returns the energy gain at the tail of the linear filter.
+  float GetEstimatedTailGain() const { return filter_analyzer_.GetTailGain(); }
+
+  // Returns the number of blocks used in the current filter.
+  int FilterLengthBlocks() const {
+    return filter_analyzer_.GetFilterLengthBlocks();
+  }
+
  private:
   void UpdateReverb(const std::vector<float>& impulse_response);
   bool DetectActiveRender(rtc::ArrayView<const float> x) const;
@@ -194,7 +202,6 @@ class AecState {
   bool finite_erl_ = false;
   size_t active_blocks_since_converged_filter_ = 0;
   EchoAudibility echo_audibility_;
-
   RTC_DISALLOW_COPY_AND_ASSIGN(AecState);
 };
 

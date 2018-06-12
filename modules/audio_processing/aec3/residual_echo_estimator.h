@@ -35,6 +35,11 @@ class ResidualEchoEstimator {
                 const std::array<float, kFftLengthBy2Plus1>& Y2,
                 std::array<float, kFftLengthBy2Plus1>* R2);
 
+  // Returns the reverberant power spectrum contributions to the echo residual.
+  const std::array<float, kFftLengthBy2Plus1>& GetReverbPowerSpectrum() const {
+    return echo_reverb_.GetPowerSpectrum();
+  }
+
  private:
   // Resets the state.
   void Reset();
@@ -52,12 +57,6 @@ class ResidualEchoEstimator {
                          const std::array<float, kFftLengthBy2Plus1>& Y2,
                          std::array<float, kFftLengthBy2Plus1>* R2);
 
-  // Adds the estimated unmodelled echo power to the residual echo power
-  // estimate.
-  void AddEchoReverb(const std::array<float, kFftLengthBy2Plus1>& S2,
-                     size_t delay,
-                     float reverb_decay_factor,
-                     std::array<float, kFftLengthBy2Plus1>* R2);
 
   // Estimates the echo generating signal power as gated maximal power over a
   // time window.
@@ -79,14 +78,11 @@ class ResidualEchoEstimator {
   const EchoCanceller3Config config_;
   std::array<float, kFftLengthBy2Plus1> R2_old_;
   std::array<int, kFftLengthBy2Plus1> R2_hold_counter_;
-  std::array<float, kFftLengthBy2Plus1> R2_reverb_;
-  int S2_old_index_ = 0;
-  std::vector<std::array<float, kFftLengthBy2Plus1>> S2_old_;
   std::array<float, kFftLengthBy2Plus1> X2_noise_floor_;
   std::array<int, kFftLengthBy2Plus1> X2_noise_floor_counter_;
   const bool soft_transparent_mode_;
   const bool override_estimated_echo_path_gain_;
-
+  ReverbModel echo_reverb_;
   RTC_DISALLOW_IMPLICIT_CONSTRUCTORS(ResidualEchoEstimator);
 };
 

@@ -71,7 +71,6 @@ void GetRenderIndexesToAnalyze(
 
 ResidualEchoEstimator::ResidualEchoEstimator(const EchoCanceller3Config& config)
     : config_(config),
-      S2_old_(config_.filter.main.length_blocks),
       soft_transparent_mode_(EnableSoftTransparentMode()),
       override_estimated_echo_path_gain_(OverrideEstimatedEchoPathGain()) {
   Reset();
@@ -94,8 +93,12 @@ void ResidualEchoEstimator::Estimate(
   if (aec_state.UsableLinearEstimate()) {
     RTC_DCHECK(!aec_state.SaturatedEcho());
     LinearEstimate(S2_linear, aec_state.Erle(), R2);
-    AddEchoReverb(S2_linear, aec_state.FilterDelayBlocks(),
-                  aec_state.ReverbDecay(), R2);
+    // Adds the estimated unmodelled echo power to the residual echo power
+    // estimate.
+    echo_reverb_.AddReverb(
+        render_buffer.Spectrum(aec_state.FilterLengthBlocks() + 1),
+        aec_state.GetEstimatedTailGain(), aec_state.ReverbDecay(), *R2);
+
   } else {
     // Estimate the echo generating signal power.
     std::array<float, kFftLengthBy2Plus1> X2;
@@ -131,8 +134,9 @@ void ResidualEchoEstimator::Estimate(
       R2->fill((*std::max_element(R2->begin(), R2->end())) * 100.f);
     }
 
-    AddEchoReverb(*R2, config_.filter.main.length_blocks,
-                  aec_state.ReverbDecay(), R2);
+    echo_reverb_.AddReverb(render_buffer.Spectrum(1),
+                           echo_path_gain * echo_path_gain,
+                           aec_state.ReverbDecay(), *R2);
   }
 
   if (aec_state.UseStationaryProperties()) {
@@ -159,14 +163,11 @@ void ResidualEchoEstimator::Estimate(
 }
 
 void ResidualEchoEstimator::Reset() {
+  echo_reverb_.Reset();
   X2_noise_floor_counter_.fill(config_.echo_model.noise_floor_hold);
   X2_noise_floor_.fill(config_.echo_model.min_noise_floor_power);
-  R2_reverb_.fill(0.f);
   R2_old_.fill(0.f);
   R2_hold_counter_.fill(0.f);
-  for (auto& S2_k : S2_old_) {
-    S2_k.fill(0.f);
-  }
 }
 
 void ResidualEchoEstimator::LinearEstimate(
@@ -205,41 +206,6 @@ void ResidualEchoEstimator::NonLinearEstimate(
                   (*R2)[k] + R2_old_[k] * config_.echo_model.nonlinear_release,
                   Y2[k]);
   }
-}
-
-void ResidualEchoEstimator::AddEchoReverb(
-    const std::array<float, kFftLengthBy2Plus1>& S2,
-    size_t delay,
-    float reverb_decay_factor,
-    std::array<float, kFftLengthBy2Plus1>* R2) {
-  // Compute the decay factor for how much the echo has decayed before leaving
-  // the region covered by the linear model.
-  auto integer_power = [](float base, int exp) {
-    float result = 1.f;
-    for (int k = 0; k < exp; ++k) {
-      result *= base;
-    }
-    return result;
-  };
-  RTC_DCHECK_LE(delay, S2_old_.size());
-  const float reverb_decay_for_delay =
-      integer_power(reverb_decay_factor, S2_old_.size() - delay);
-
-  // Update the estimate of the reverberant residual echo power.
-  S2_old_index_ = S2_old_index_ > 0 ? S2_old_index_ - 1 : S2_old_.size() - 1;
-  const auto& S2_end = S2_old_[S2_old_index_];
-  std::transform(
-      S2_end.begin(), S2_end.end(), R2_reverb_.begin(), R2_reverb_.begin(),
-      [reverb_decay_for_delay, reverb_decay_factor](float a, float b) {
-        return (b + a * reverb_decay_for_delay) * reverb_decay_factor;
-      });
-
-  // Update the buffer of old echo powers.
-  std::copy(S2.begin(), S2.end(), S2_old_[S2_old_index_].begin());
-
-  // Add the power of the echo reverb to the residual echo power.
-  std::transform(R2->begin(), R2->end(), R2_reverb_.begin(), R2->begin(),
-                 std::plus<float>());
 }
 
 void ResidualEchoEstimator::EchoGeneratingPower(

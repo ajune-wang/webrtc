@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "e6aec500_df8f627b",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 582,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-06-12T15:05:57Z",
+      "side": 1,
+      "message": "Not sure what is best either. Some clarification, without having looked into the details...\nThe factory could do:\n\nPeerConnectionFactory::CreatePeerConnection() {\n  pc \u003d new PeerConnection();\n  if (set_blah_for_testing_)\n    pc-\u003eSetBlahForTesting();\n  pc-\u003eInitialize(config);\n  return pc;\n}\n\nWhether that\u0027s an actual factory or a \"factory for testing\". You would still need ForTesting things but they would be limited to an internal factory and an internal pc.\n\nAlternatively, you could remove any special logic from Initialize(), so there is a delayed task posted but it will never arrive because the test will finish before it. In a PeerConnectionWrapper-based test you pretend the posted task arrived e.g:\n\n// Triggers the same thing that the posted task would have triggered.\npc-\u003eGetInternalPeerConnection()-\u003eReportUsagePatternForTesting();\n// Not caring whether or not the real task ever arrives.\n// \u003cVerify usage pattern was reported\u003e",
+      "parentUuid": "dc316413_5824ab81",
+      "revId": "012c0e3d5dd21022dbeffb62ab35b9b9a67d0af7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "51170f24_68f6f9ec",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 3

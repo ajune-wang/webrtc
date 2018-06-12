@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "dc316413_5824ab81",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 582,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-06-12T14:53:27Z",
+      "side": 1,
+      "message": "The problem with this value is that it must be available before init() returns, since the timed message is sent in init(). So we can\u0027t expose an extra setter for it.\nNot sure what works best here.",
+      "parentUuid": "69eb4e94_01f87020",
+      "revId": "012c0e3d5dd21022dbeffb62ab35b9b9a67d0af7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "51170f24_68f6f9ec",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 3
@@ -47,6 +65,24 @@
       "writtenOn": "2018-06-12T13:59:49Z",
       "side": 1,
       "message": "There is little reason to delay this by x ms. As long as it is invoked asynchronously the test is representative of reality. In fact report_usage_pattern_delay_for_testing could be a bool, and PostDelayedTask invoked with the minimal value (0 or 1 depending on if 0 is async or not).",
+      "revId": "012c0e3d5dd21022dbeffb62ab35b9b9a67d0af7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4185f2ea_ccad9565",
+        "filename": "pc/peerconnection_integrationtest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 4603,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-06-12T14:53:27Z",
+      "side": 1,
+      "message": "Probably true. What we have to guarantee is that RegisterUMAObserver() is complete before the event happens, which it will be if none of the init functions do Invoke(). Seems easy to test if this is true (the test will fail on timeout\u003d0 if there are issues).\nAnother problem is testing that the callback didn\u0027t happen when the PC is closed before the timeout. Not sure how I can test that in a decent way.",
+      "parentUuid": "fa8dae99_3005ab93",
       "revId": "012c0e3d5dd21022dbeffb62ab35b9b9a67d0af7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

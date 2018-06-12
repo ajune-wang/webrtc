@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "15250699_f24cc152",
+        "filename": "sdk/BUILD.gn",
+        "patchSetId": 5
+      },
+      "lineNbr": 728,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2018-06-12T16:33:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fbb42cc8_0f64c12c",
+      "revId": "e9fc56e865807cd6587fdd081a9ec49a78140bde",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7987ad9d_f06edbc7",
         "filename": "sdk/android/api/org/webrtc/RtpParameters.java",
         "patchSetId": 5
@@ -90,6 +108,30 @@
     },
     {
       "key": {
+        "uuid": "30daeaa3_3132d280",
+        "filename": "sdk/android/api/org/webrtc/RtpParameters.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2018-06-12T16:33:47Z",
+      "side": 1,
+      "message": "It was probably never updated when the standard changed as it would be an API break.",
+      "parentUuid": "963d368f_b3ca8cba",
+      "range": {
+        "startLine": 165,
+        "startChar": 23,
+        "endLine": 165,
+        "endChar": 32
+      },
+      "revId": "e9fc56e865807cd6587fdd081a9ec49a78140bde",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d6021864_3a250f1b",
         "filename": "sdk/objc/Framework/Headers/WebRTC/RTCRtpHeaderExtension.h",
         "patchSetId": 5
@@ -113,6 +155,30 @@
     },
     {
       "key": {
+        "uuid": "b19c0fed_0ee97daf",
+        "filename": "sdk/objc/Framework/Headers/WebRTC/RTCRtpHeaderExtension.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2018-06-12T16:33:47Z",
+      "side": 1,
+      "message": "The name follows the WebRTC spec. I don\u0027t know of any impact on Xcode code completion. If you think this is an issue, we can obviously change it later.",
+      "parentUuid": "d6021864_3a250f1b",
+      "range": {
+        "startLine": 24,
+        "startChar": 35,
+        "endLine": 24,
+        "endChar": 37
+      },
+      "revId": "e9fc56e865807cd6587fdd081a9ec49a78140bde",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dfa91eb9_ff2fecb5",
         "filename": "sdk/objc/Framework/Headers/WebRTC/RTCRtpHeaderExtension.h",
         "patchSetId": 5
@@ -127,6 +193,24 @@
       "revId": "e9fc56e865807cd6587fdd081a9ec49a78140bde",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b600122_701e3258",
+        "filename": "sdk/objc/Framework/Headers/WebRTC/RTCRtpHeaderExtension.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2018-06-12T16:33:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dfa91eb9_ff2fecb5",
+      "revId": "e9fc56e865807cd6587fdd081a9ec49a78140bde",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

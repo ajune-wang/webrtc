@@ -33,6 +33,10 @@ bool UseShortDelayEstimatorWindow() {
   return field_trial::IsEnabled("WebRTC-Aec3UseShortDelayEstimatorWindow");
 }
 
+bool EnableReverbBasedOnRender() {
+  return !field_trial::IsEnabled("WebRTC-Aec3ReverbBasedOnRenderKillSwitch");
+}
+
 // Method for adjusting config parameter dependencies..
 EchoCanceller3Config AdjustConfig(const EchoCanceller3Config& config) {
   EchoCanceller3Config adjusted_cfg = config;
@@ -71,6 +75,10 @@ EchoCanceller3Config AdjustConfig(const EchoCanceller3Config& config) {
   if (UseShortDelayEstimatorWindow()) {
     adjusted_cfg.delay.num_filters =
         std::min(adjusted_cfg.delay.num_filters, static_cast<size_t>(5));
+  }
+
+  if (EnableReverbBasedOnRender() == false) {
+    adjusted_cfg.ep_strength.reverb_based_on_render = false;
   }
 
   return adjusted_cfg;

@@ -21,6 +21,7 @@
 #include "api/rtpparameters.h"
 #include "api/video/video_sink_interface.h"
 #include "api/video/video_source_interface.h"
+#include "api/video/video_stream_encoder_settings.h"
 #include "api/video_codecs/video_encoder_config.h"
 #include "api/video_codecs/video_encoder_factory.h"
 #include "call/rtp_config.h"
@@ -106,22 +107,7 @@ class VideoSendStream {
 
     std::string ToString() const;
 
-    struct EncoderSettings {
-      EncoderSettings() = default;
-      std::string ToString() const;
-
-      // Enables the new method to estimate the cpu load from encoding, used for
-      // cpu adaptation.
-      bool experiment_cpu_load_estimator = false;
-
-      // Enables hardware VAAPI VP8 encoding if supported by the provided
-      // VideoEncoderFactory.
-      // TODO(ilnik): remove this when VAAPI VP8 experiment is over.
-      bool experiment_vaapi_vp8_hw_encoding = false;
-
-      // Ownership stays with WebrtcVideoEngine (delegated from PeerConnection).
-      VideoEncoderFactory* encoder_factory = nullptr;
-    } encoder_settings;
+    VideoStreamEncoderSettings encoder_settings;
 
     static const size_t kDefaultMaxPacketSize = 1500 - 40;  // TCP over IPv4.
     struct Rtp {

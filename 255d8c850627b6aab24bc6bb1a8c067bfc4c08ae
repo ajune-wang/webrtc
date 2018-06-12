@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "556453ad_1244c856",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-12T23:06:14Z",
+      "side": 1,
+      "message": "Does this make sense as a separate policy? If we just want some way to turn this behavior on/off for experimentation purposes, but expect it to become the default if it works, I think we could use \"webrtc::field_trial\". But if the idea is that applications using \"GATHER_AUTO\" should *never* do an ICE restart, then a separate policy would make sense.",
+      "revId": "255d8c850627b6aab24bc6bb1a8c067bfc4c08ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c6af896_5aeb7a22",
+        "filename": "p2p/base/icetransportinternal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-12T23:06:14Z",
+      "side": 1,
+      "message": "\"|| continual_gathering_policy \u003d\u003d GATHER_AUTO\"? (if it doesn\u0027t end up being removed)",
+      "revId": "255d8c850627b6aab24bc6bb1a8c067bfc4c08ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5eaaf703_ee7b1343",
         "filename": "p2p/base/icetransportstats.h",
         "patchSetId": 7
@@ -19,6 +53,193 @@
         "endLine": 18,
         "endChar": 24
       },
+      "revId": "255d8c850627b6aab24bc6bb1a8c067bfc4c08ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00a8e041_6d3f8ba9",
+        "filename": "p2p/base/icetransportstats.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-12T23:06:14Z",
+      "side": 1,
+      "message": "Doesn\u0027t appear used.",
+      "revId": "255d8c850627b6aab24bc6bb1a8c067bfc4c08ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fcd03acd_8b34200b",
+        "filename": "p2p/base/icetransportstats.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-12T23:06:14Z",
+      "side": 1,
+      "message": "These two fields could be determined by iterating ConnectionInfos",
+      "revId": "255d8c850627b6aab24bc6bb1a8c067bfc4c08ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86f2999d_3b60e7f0",
+        "filename": "p2p/base/icetransportstats.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-12T23:06:14Z",
+      "side": 1,
+      "message": "Is this meant to be \"had selected\" or \"had writable\"? Because \"had selected\" doesn\u0027t mean much; this will be true when the first pair is formed.",
+      "revId": "255d8c850627b6aab24bc6bb1a8c067bfc4c08ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61b7052d_5da7677c",
+        "filename": "p2p/base/icetransportstats.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-12T23:06:14Z",
+      "side": 1,
+      "message": "All the \"selected_candidate_pair_X\" stuff could be determined by adding a \"selected\" bool to ConnectionInfos.\n\nAlso: Is \"or_presumably_writable\" valuable here? \"Presumed writable\" could be determined from the candidate types. And this masks whether or not the pair actually is writable or not.",
+      "revId": "255d8c850627b6aab24bc6bb1a8c067bfc4c08ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7308dc16_58c5557c",
+        "filename": "p2p/base/icetransportstats.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-12T23:06:14Z",
+      "side": 1,
+      "message": "Prefer using rtc::Optional over \"-1 means not set\".",
+      "revId": "255d8c850627b6aab24bc6bb1a8c067bfc4c08ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8cd62a6d_9cbf87a8",
+        "filename": "p2p/base/icetransportstats.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-12T23:06:14Z",
+      "side": 1,
+      "message": "I think we should try to move away from using these typedefs; see https://google.github.io/styleguide/cppguide.html#Aliases\n\nAlso, would be nice if ConnectionInfo and CandidateStats were declared in the same file.",
+      "revId": "255d8c850627b6aab24bc6bb1a8c067bfc4c08ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b7a555f_6661cf3b",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 610,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-12T23:06:14Z",
+      "side": 1,
+      "message": "nit: Don\u0027t need both config() and GetIceConfig()",
+      "revId": "255d8c850627b6aab24bc6bb1a8c067bfc4c08ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6cbce7f7_4b5cc948",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1755,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-12T23:06:14Z",
+      "side": 1,
+      "message": "Looks like this isn\u0027t incremented when the selected pair goes from \"weak\" to \"strong\" (or vice-versa), only when the selected pair changes?",
+      "revId": "255d8c850627b6aab24bc6bb1a8c067bfc4c08ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cfb2194e_11e8ac96",
+        "filename": "p2p/base/p2ptransportchannel_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 3043,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-12T23:06:14Z",
+      "side": 1,
+      "message": "This reaches into the implementation of P2PTransportChannel (we really should avoid using any \"public for unit tests\" methods, and try to gradually get rid of them). Is there a way to reproduce a situation where autonomous gathering helps without doing this?\n\nI think the scenario I mentioned in the meeting today would: Two endpoints both have two network interfaces (say, WiFi and cell), they end up keeping only WiFi\u003c-\u003eWiFi, WiFi\u003c-\u003eCell and Cell\u003c-\u003eWiFi pairs alive, then they both drop off WiFi. Need to somehow restore the discarded Cell\u003c-\u003eCell pair.\n\nHmm, that really doesn\u0027t even require regathering though. Just better logic for keeping backup pairs alive. What\u0027s a realistic scenario where regathering is actually needed? TURN server going down? Network interfaces changing without getting an indication from the OS for whatever reason?",
+      "revId": "255d8c850627b6aab24bc6bb1a8c067bfc4c08ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e42dd88_0c27137d",
+        "filename": "p2p/base/regatheringcontroller.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-12T23:06:14Z",
+      "side": 1,
+      "message": "May need to disconnect signal from previous session?",
+      "revId": "255d8c850627b6aab24bc6bb1a8c067bfc4c08ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "008bd2aa_7dc07f57",
+        "filename": "p2p/base/regatheringcontroller.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-12T23:06:14Z",
+      "side": 1,
+      "message": "Why does this take a range as an argument if it\u0027s always empty? Does this even need to be asynchronous?",
       "revId": "255d8c850627b6aab24bc6bb1a8c067bfc4c08ae",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -71,6 +292,81 @@
     },
     {
       "key": {
+        "uuid": "25b895c2_a3bf5e36",
+        "filename": "p2p/base/regatheringcontroller.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-12T23:06:14Z",
+      "side": 1,
+      "message": "Ah, so this is to fix https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d8939? This is a somewhat roundabout approach though, adding a signal to PortAllocatorSession just so that BasicRegatheringController can turn around and call a method on it; it could all happen in PortAllocatorSession itself.\n\nAlso, it doesn\u0027t appear possible right now to hit this code using the public API. The only time a session\u0027s filter will change if it was \"pooled\": https://cs.chromium.org/chromium/src/third_party/webrtc/p2p/base/portallocator.cc?dr\u0026g\u003d0\u0026l\u003d218\n\nAlso, this will still end up re-gathering the TURN candidates, which is one thing we hoped to avoid.\n\nSo I think it would be preferable to consider a different approach for this and do it in a separate CL.",
+      "parentUuid": "d26f2caa_be6b3138",
+      "range": {
+        "startLine": 198,
+        "startChar": 4,
+        "endLine": 198,
+        "endChar": 43
+      },
+      "revId": "255d8c850627b6aab24bc6bb1a8c067bfc4c08ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e61e0bfe_875b1036",
+        "filename": "p2p/base/regatheringcontroller.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-12T23:06:14Z",
+      "side": 1,
+      "message": "It\u0027s not intuitive to me that MaybeRegatherOnAllNetworks also starts this timer... Also, since other methods call MaybeRegatherOnAllNetworks, which calls itself again recursively, over time you\u0027ll accumulate more and more AsyncInvokes.\n\nCan you explain how you were intending this to work? Is this being done so that, if less than min_regathering_interval_ms_or_default has passed since the last regathering, we\u0027ll check again later? Then shouldn\u0027t it be delaying for  \"min_regathering_interval_ms_or_default() - (Now() - last_regathering_ms_on_all_networks_)\"?",
+      "revId": "255d8c850627b6aab24bc6bb1a8c067bfc4c08ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2b0dabe_0467ad8f",
+        "filename": "p2p/base/regatheringcontroller.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-12T23:06:14Z",
+      "side": 1,
+      "message": "I don\u0027t understand the value of \"num_continual_switchings_to_weak_candidate_pairs\". Obviously the first switch from \"strong\" to \"weak\" means something, but doesn\u0027t the switch from \"weak\" to \"weak\" just mean the previous pair timed out? Is there any reason why 3 is the magic number of switches?\n\nAlso, won\u0027t this happen when pairs are being formed due to an ICE restart after being disconnected? It would be bad if we trigger regathering while we\u0027re already restarting.",
+      "revId": "255d8c850627b6aab24bc6bb1a8c067bfc4c08ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da68a16e_949d06dd",
+        "filename": "p2p/base/regatheringcontroller.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-12T23:06:14Z",
+      "side": 1,
+      "message": "A 1-second RTT is expected in slow networks; we can\u0027t do this or we\u0027d just constantly be regathering in certain calls (and exactly the sort of calls where superfluous ICE traffic is harmful). Is this meant to catch situations where the latency is rapidly building up? If so I think we\u0027d need to actually track it over time. And maybe start with just switching off that candidate pair (if there\u0027s a backup available) rather than doing a whole regathering.",
+      "revId": "255d8c850627b6aab24bc6bb1a8c067bfc4c08ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ba5406c9_ae4a6d61",
         "filename": "p2p/base/regatheringcontroller.cc",
         "patchSetId": 7
@@ -88,6 +384,40 @@
         "endLine": 255,
         "endChar": 4
       },
+      "revId": "255d8c850627b6aab24bc6bb1a8c067bfc4c08ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80334325_c5378e0f",
+        "filename": "p2p/base/regatheringcontroller.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-12T23:06:14Z",
+      "side": 1,
+      "message": "Doesn\u0027t \"!HasWritableCandidatePair(stats)\" make \"!HasActiveCandidatePair(stats)\" redundant? If there\u0027s no active pair there\u0027s definitely no writable pair.",
+      "revId": "255d8c850627b6aab24bc6bb1a8c067bfc4c08ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f7ac0f4_796967f0",
+        "filename": "p2p/base/regatheringcontroller.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-12T23:06:14Z",
+      "side": 1,
+      "message": "\"different\"",
       "revId": "255d8c850627b6aab24bc6bb1a8c067bfc4c08ae",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

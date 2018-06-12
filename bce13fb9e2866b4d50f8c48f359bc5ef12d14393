@@ -81,6 +81,30 @@
       "revId": "bce13fb9e2866b4d50f8c48f359bc5ef12d14393",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1e8ba9ee_d5b93d21",
+        "filename": "common_types.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 457,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-12T09:13:02Z",
+      "side": 1,
+      "message": "I\u0027ve found some downstream usage. So I\u0027ll have to postpone this change too.",
+      "parentUuid": "186d90aa_9f3c1388",
+      "range": {
+        "startLine": 457,
+        "startChar": 28,
+        "endLine": 457,
+        "endChar": 42
+      },
+      "revId": "bce13fb9e2866b4d50f8c48f359bc5ef12d14393",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

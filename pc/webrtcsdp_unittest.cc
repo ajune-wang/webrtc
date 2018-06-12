@@ -2209,6 +2209,33 @@ TEST_F(WebRtcSdpTest, SerializeSessionDescriptionWithH264) {
   EXPECT_EQ(std::string::npos, fmtp_value.find("; "));
 }
 
+TEST_F(WebRtcSdpTest, SerializeSessionDescriptionWithVP9) {
+  cricket::VideoCodec codec("VP9");
+  codec.SetParam("profile", "2");
+  video_desc_->AddCodec(codec);
+
+  jdesc_.Initialize(desc_.Copy(), kSessionId, kSessionVersion);
+
+  std::string message = webrtc::SdpSerialize(jdesc_);
+  size_t after_pt = message.find(" VP9/90000");
+  ASSERT_NE(after_pt, std::string::npos);
+  size_t before_pt = message.rfind("a=rtpmap:", after_pt);
+  ASSERT_NE(before_pt, std::string::npos);
+  before_pt += strlen("a=rtpmap:");
+  std::string pt = message.substr(before_pt, after_pt - before_pt);
+  // TODO(hta): Check if payload type |pt| occurs in the m=video line.
+  std::string to_find = "a=fmtp:" + pt + " ";
+  size_t fmtp_pos = message.find(to_find);
+  ASSERT_NE(std::string::npos, fmtp_pos) << "Failed to find " << to_find;
+  size_t fmtp_endpos = message.find("\n", fmtp_pos);
+  ASSERT_NE(std::string::npos, fmtp_endpos);
+  std::string fmtp_value = message.substr(fmtp_pos, fmtp_endpos);
+  EXPECT_NE(std::string::npos, fmtp_value.find("profile=2"));
+  // Check that there are no spaces after semicolons.
+  // https://bugs.webrtc.org/5793
+  EXPECT_EQ(std::string::npos, fmtp_value.find("; "));
+}
+
 TEST_F(WebRtcSdpTest, DeserializeSessionDescription) {
   JsepSessionDescription jdesc(kDummyType);
   // Deserialize

@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9a640bdf_fbe9cd3d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-06-12T21:25:13Z",
+      "side": 1,
+      "message": "I didn\u0027t find an official name for this either, but INADDR_ANY is named the \"wildcard address\" in Unix Network Programming (there is a copy on my desk). Maybe we can follow the book or keep it as is (literally mapped from the constant name INADDR_ANY). The \"any address\" name is only used elsewhere in network.h/cc so far, and should be easy to rename if we decide to.",
+      "parentUuid": "7ae637e0_607eb35c",
+      "revId": "be2680ca791fb3f4c598eac4af0e68288744a09d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8960670f_6291c153",
         "filename": "p2p/base/p2pconstants.cc",
         "patchSetId": 9
@@ -30,6 +48,24 @@
       "writtenOn": "2018-06-09T00:44:19Z",
       "side": 1,
       "message": "How did you decide on 2 seconds? Do we have any stats we could use to decide?",
+      "revId": "be2680ca791fb3f4c598eac4af0e68288744a09d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6614e46_d4ff57c0",
+        "filename": "p2p/base/p2pconstants.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-06-12T21:25:13Z",
+      "side": 1,
+      "message": "I can not determine if this is long enough for the moment (we almost surely would hit the delay in the VPN scenario I\u0027ve been testing since nothing else works), and used as a rule of thumb in my tests more for my subjective feeling if it causes unpleasant lagging. We probably should expose this as a config, and do experiments in the application with a couple of values.",
+      "parentUuid": "8960670f_6291c153",
       "revId": "be2680ca791fb3f4c598eac4af0e68288744a09d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "3acac2d7_feb4d0df",
+        "filename": "p2p/base/p2pconstants.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-06-12T21:25:13Z",
+      "side": 1,
+      "message": "Sure, tests related to this constant are added and keep it for the moment.",
+      "parentUuid": "a09981b7_195cf74c",
+      "revId": "be2680ca791fb3f4c598eac4af0e68288744a09d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d3d586cc_3bcc4b96",
         "filename": "p2p/base/tcpport.h",
         "patchSetId": 9
@@ -67,6 +121,24 @@
       "revId": "be2680ca791fb3f4c598eac4af0e68288744a09d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3f46c8f_06591bdb",
+        "filename": "p2p/base/tcpport.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-06-12T21:25:13Z",
+      "side": 1,
+      "message": "Ack. This point becomes clear after seeing your CL.",
+      "parentUuid": "d3d586cc_3bcc4b96",
+      "revId": "be2680ca791fb3f4c598eac4af0e68288744a09d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "6e0c924b_3df1b696",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-06-12T21:25:13Z",
+      "side": 1,
+      "message": "Removed; nullness already checked before the call sites.",
+      "parentUuid": "836c95db_034b2a08",
+      "revId": "be2680ca791fb3f4c598eac4af0e68288744a09d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "71f9d955_2b3edb82",
         "filename": "p2p/client/basicportallocator.cc",
         "patchSetId": 9
@@ -101,6 +191,24 @@
       "revId": "be2680ca791fb3f4c598eac4af0e68288744a09d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d2d1f3c_b3923d10",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 961,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-06-12T21:25:13Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "71f9d955_2b3edb82",
+      "revId": "be2680ca791fb3f4c598eac4af0e68288744a09d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "3bb09178_56501203",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1125,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-06-12T21:25:13Z",
+      "side": 1,
+      "message": "Fixed. This method is rewritten.",
+      "parentUuid": "45fa357c_08ab8be4",
+      "revId": "be2680ca791fb3f4c598eac4af0e68288744a09d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "54ad4b0d_1d462e56",
         "filename": "p2p/client/basicportallocator.cc",
         "patchSetId": 9
@@ -135,6 +261,24 @@
       "revId": "be2680ca791fb3f4c598eac4af0e68288744a09d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "405465de_bcf4b3f6",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1208,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-06-12T21:25:13Z",
+      "side": 1,
+      "message": "Ack. Fixed.",
+      "parentUuid": "54ad4b0d_1d462e56",
+      "revId": "be2680ca791fb3f4c598eac4af0e68288744a09d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -155,6 +299,24 @@
     },
     {
       "key": {
+        "uuid": "278cacf2_ed772cf0",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1222,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-06-12T21:25:13Z",
+      "side": 1,
+      "message": "Ack, no null Port can be wrapped in a PortData. \"return\" is a mistake.",
+      "parentUuid": "be2311da_a4437702",
+      "revId": "be2680ca791fb3f4c598eac4af0e68288744a09d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4dee2d1f_6c1996ab",
         "filename": "p2p/client/basicportallocator.cc",
         "patchSetId": 9
@@ -166,6 +328,24 @@
       "writtenOn": "2018-06-09T00:44:19Z",
       "side": 1,
       "message": "Why do we need to check \"has_ready_ports_bound_to_enumerated_networks\" here? It seems like if \"signalable_candidates\" is empty, then \"ips_from_non_any_address_ports\" must be nonempty, which means \"has_ready_ports_bound_to_enumerated_networks\" *must* be true. I\u0027m having a bit of trouble following this logic though, I may be missing something.",
+      "revId": "be2680ca791fb3f4c598eac4af0e68288744a09d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c215a961_da43d8fd",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1262,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-06-12T21:25:13Z",
+      "side": 1,
+      "message": "It was because the signalable_candidates defined here could be empty, and a candidate from an any address port was signalable if it passed CheckCandidateFilter in an earlier place where MaybeSignalCandidateReady was called. A case then would be the any address port is a TCP port that has no signalable candidates yet (is_any_ip is true in your CL), but no other ports bounded to enumerated networks seem to work (\"ready\" defined here; also, sorry that I should have just checked ips_from_non_any_address_ports.empty() and has_ready_ports_bound_to_enumerated_networks is equivalent but confusing). In this case, we still signal this port, and no candidates from it would be signaled though. This is equivalent to is_any_ip and ips_from_non_any_address_ports.empty() both true in your CL, which is followed by signaling the port but not the candidate since the candidate does not pass the filter.\n\nI like the way you coded in the fork CL on this part, and the comments there make the reasoning clearer. Will merge your change. Thanks!",
+      "parentUuid": "4dee2d1f_6c1996ab",
       "revId": "be2680ca791fb3f4c598eac4af0e68288744a09d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -189,6 +369,24 @@
     },
     {
       "key": {
+        "uuid": "e763bebd_49ba1172",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1298,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-06-12T21:25:13Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "889ca020_7a835f6d",
+      "revId": "be2680ca791fb3f4c598eac4af0e68288744a09d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "37263cc5_3c46ee30",
         "filename": "p2p/client/basicportallocator.h",
         "patchSetId": 9
@@ -203,6 +401,24 @@
       "revId": "be2680ca791fb3f4c598eac4af0e68288744a09d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41f9acdf_56428676",
+        "filename": "p2p/client/basicportallocator.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-06-12T21:25:13Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "37263cc5_3c46ee30",
+      "revId": "be2680ca791fb3f4c598eac4af0e68288744a09d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -223,6 +439,24 @@
     },
     {
       "key": {
+        "uuid": "9a3b9fe1_259d5284",
+        "filename": "p2p/client/basicportallocator_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 2023,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-06-12T21:25:13Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "f6a51aa3_c8d6ccca",
+      "revId": "be2680ca791fb3f4c598eac4af0e68288744a09d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a42452cb_ed486244",
         "filename": "p2p/client/basicportallocator_unittest.cc",
         "patchSetId": 9
@@ -240,6 +474,24 @@
     },
     {
       "key": {
+        "uuid": "9c166091_41bf92ca",
+        "filename": "p2p/client/basicportallocator_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 2034,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-06-12T21:25:13Z",
+      "side": 1,
+      "message": "That was intended to test that the signaling of candidates from the any address port takes place after the candidate allocation done (or after 2 seconds, which is not the case in this test), but now I realize this test actually failed to do that and we have other tests to cover the logic in timeline. Just test the behavior of discovering a new address now.",
+      "parentUuid": "a42452cb_ed486244",
+      "revId": "be2680ca791fb3f4c598eac4af0e68288744a09d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ffbb36be_32bd36e6",
         "filename": "p2p/client/basicportallocator_unittest.cc",
         "patchSetId": 9
@@ -251,6 +503,24 @@
       "writtenOn": "2018-06-09T00:44:19Z",
       "side": 1,
       "message": "There are some things still not covered by tests, such as:\n\n* All the TCP-specific stuff\n* Signaling the \"any address\" candidates after the 2-second timeout",
+      "revId": "be2680ca791fb3f4c598eac4af0e68288744a09d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4b7e477_29858f57",
+        "filename": "p2p/client/basicportallocator_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 2066,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-06-12T21:25:13Z",
+      "side": 1,
+      "message": "Tests a few tests, but for the TCP related, I have only added a test for signaling a TCP port with the any address when no ports bound to enumerated ports. What else do you suggest for TCP?",
+      "parentUuid": "ffbb36be_32bd36e6",
       "revId": "be2680ca791fb3f4c598eac4af0e68288744a09d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

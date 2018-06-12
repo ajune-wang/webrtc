@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "568e5232_c1848f8d",
+        "filename": "p2p/client/basicportallocator_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1250,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-06-12T21:25:13Z",
+      "side": 1,
+      "message": "Will clean up before landing.",
+      "range": {
+        "startLine": 1250,
+        "startChar": 2,
+        "endLine": 1250,
+        "endChar": 32
+      },
+      "revId": "7a4dc6337265e6fff83e676bc4ddecba14cf666c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

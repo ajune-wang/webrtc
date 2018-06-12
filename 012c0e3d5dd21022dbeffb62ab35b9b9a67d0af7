@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "69eb4e94_01f87020",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 582,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-06-12T13:59:49Z",
+      "side": 1,
+      "message": "I don\u0027t like putting \"for testing\" stuff in the public interface since we don\u0027t want to expose it outside of testing unless we can avoid it.\n\nCould this be moved closer to the implementation details? Perhaps \"for testing\" stuff can be set on the factory before creating the PC, or perhaps the \"for testing\" bit can be to invoke OnMessage() directly, faking that the PostDelayedTask happened.\n\nThere are peerconnection_*_unittest.cc that explicitly grab the \"internal\" PC, for stuff not in the public interface. Move the test?\nhttps://cs.chromium.org/search/?q\u003df:peerconnection+f:unittest+Internal\u0026type\u003dcs",
+      "revId": "012c0e3d5dd21022dbeffb62ab35b9b9a67d0af7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51170f24_68f6f9ec",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 3326,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-06-12T13:59:49Z",
+      "side": 1,
+      "message": "Remove debug logging before landing, or change to LS_VERBOSE etc.",
+      "revId": "012c0e3d5dd21022dbeffb62ab35b9b9a67d0af7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa8dae99_3005ab93",
+        "filename": "pc/peerconnection_integrationtest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 4603,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-06-12T13:59:49Z",
+      "side": 1,
+      "message": "There is little reason to delay this by x ms. As long as it is invoked asynchronously the test is representative of reality. In fact report_usage_pattern_delay_for_testing could be a bool, and PostDelayedTask invoked with the minimal value (0 or 1 depending on if 0 is async or not).",
+      "revId": "012c0e3d5dd21022dbeffb62ab35b9b9a67d0af7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

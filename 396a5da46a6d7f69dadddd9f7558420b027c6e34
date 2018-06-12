@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "c5853e28_a1c6c11f",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 780,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-06-12T09:08:26Z",
+      "side": 1,
+      "message": "Sure, webrtc:9388\n\nOn a second thought, I guess this is fine because it doesn\u0027t actually introduce any new direct dependency from on of the API classes. Once we clear out the dependencies described in the bug, we should be able to move these classes together with YuvConverter.",
+      "parentUuid": "42f9d782_53659c8d",
+      "range": {
+        "startLine": 780,
+        "startChar": 20,
+        "endLine": 780,
+        "endChar": 36
+      },
+      "revId": "396a5da46a6d7f69dadddd9f7558420b027c6e34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7cd610c8_1bdd78d0",
         "filename": "sdk/android/BUILD.gn",
         "patchSetId": 1
@@ -178,6 +202,30 @@
       "side": 1,
       "message": "This comment is from the existing code. If you look at the big comment above that explains how the buffer is laid out in memory, you will see that the Y, U, and V data has the same stride, and that is why the code below uses the same stride for all values. Do you have any suggestions how the comments could be made more clear?",
       "parentUuid": "bd159e87_3a19b446",
+      "range": {
+        "startLine": 210,
+        "startChar": 7,
+        "endLine": 210,
+        "endChar": 27
+      },
+      "revId": "396a5da46a6d7f69dadddd9f7558420b027c6e34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16e9c067_f5132f3c",
+        "filename": "sdk/android/api/org/webrtc/YuvConverter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-06-12T09:08:26Z",
+      "side": 1,
+      "message": "This class is no longer strictly related to SurfaceTextureHelper. I would just get rid of the comment or just change it to something like \"// Same stride is used for Y-, U-, and V-planes.\" I think since the layout is already explained above removing it would be the best option. Otherwise, it is just repeating information.",
+      "parentUuid": "5dbf56e3_d2acfbc3",
       "range": {
         "startLine": 210,
         "startChar": 7,

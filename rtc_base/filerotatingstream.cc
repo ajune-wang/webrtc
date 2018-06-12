@@ -327,22 +327,14 @@ std::vector<std::string> FileRotatingStream::GetFilesWithPrefix() const {
 std::string FileRotatingStream::GetFilePath(size_t index,
                                             size_t num_files) const {
   RTC_DCHECK_LT(index, num_files);
-  char buf[1024];
-  rtc::SimpleStringBuilder file_name(buf);
-  // The format will be "_%<num_digits>zu". We want to zero pad the index so
-  // that it will sort nicely.
-  size_t max_digits = ((num_files - 1) / 10) + 1;
-  size_t num_digits = (index / 10) + 1;
-  RTC_DCHECK_LE(num_digits, max_digits);
-  size_t padding = max_digits - num_digits;
+  // We want to zero pad the index so that it will sort nicely.
+  int max_digits = ((num_files - 1) / 10) + 1;
 
-  file_name << file_prefix_ << "_";
-  for (size_t i = 0; i < padding; ++i) {
-    file_name << "0";
-  }
-  file_name << index;
+  size_t buffer_size = 256;
+  char file_postfix[buffer_size];
+  snprintf(file_postfix, buffer_size, "_%0*zu", max_digits, index);
 
-  Pathname file_path(dir_path_, file_name.str());
+  Pathname file_path(dir_path_, file_prefix_ + file_postfix);
   return file_path.pathname();
 }
 

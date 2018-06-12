@@ -22,6 +22,30 @@
       "revId": "5e7f5998a9e8ec832c9146db6ae3feaf44449cda",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc7acc30_1a915dda",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-06-12T01:39:21Z",
+      "side": 1,
+      "message": "Done. I wonder if this caused any of the crashed I posted.",
+      "parentUuid": "08d02ca4_5a019456",
+      "range": {
+        "startLine": 345,
+        "startChar": 20,
+        "endLine": 345,
+        "endChar": 27
+      },
+      "revId": "5e7f5998a9e8ec832c9146db6ae3feaf44449cda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

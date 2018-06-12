@@ -22,6 +22,30 @@
       "revId": "9df8d9003b2f1b6914146036c21d3398d01fab43",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a5daec7_99c28aac",
+        "filename": "modules/audio_processing/test/conversational_speech/generator_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-12T09:12:22Z",
+      "side": 1,
+      "message": "Current implementation of JoinFilename (which I added a week ago) is a bit too stupid: it doesn\u0027t check if the first argument already has a trailing delimiter. So we\u0027d get double delimiters if we use it here. \n\nSo JoinFilename useful when you need to *add* the delimiter, and get a backslash rather than plain slash on windows.",
+      "parentUuid": "62c3ce8f_5c9e811d",
+      "range": {
+        "startLine": 128,
+        "startChar": 6,
+        "endLine": 128,
+        "endChar": 21
+      },
+      "revId": "9df8d9003b2f1b6914146036c21d3398d01fab43",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

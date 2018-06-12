@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ee341199_66c19c38",
+        "filename": "modules/audio_processing/aec3/aec_state.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-06-12T07:41:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f83017f0_4b1fcd90",
+      "revId": "e345e2d77a9dd7127d930b9598a51aa962b6c094",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a22f1db_d812ef46",
         "filename": "modules/audio_processing/aec3/aec_state.h",
         "patchSetId": 5
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "0389c07a_0c0ee698",
+        "filename": "modules/audio_processing/aec3/aec_state.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-06-12T07:41:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3a22f1db_d812ef46",
+      "range": {
+        "startLine": 145,
+        "startChar": 6,
+        "endLine": 145,
+        "endChar": 33
+      },
+      "revId": "e345e2d77a9dd7127d930b9598a51aa962b6c094",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dcabc234_af399402",
         "filename": "modules/audio_processing/aec3/echo_remover.cc",
         "patchSetId": 5
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "2a2d830e_65a766c6",
+        "filename": "modules/audio_processing/aec3/echo_remover.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-06-12T07:41:53Z",
+      "side": 1,
+      "message": "let\u0027s discuss the options offline.",
+      "parentUuid": "dcabc234_af399402",
+      "revId": "e345e2d77a9dd7127d930b9598a51aa962b6c094",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "06da9e17_ac799a45",
         "filename": "modules/audio_processing/aec3/filter_analyzer.cc",
         "patchSetId": 5
@@ -70,6 +130,24 @@
       "writtenOn": "2018-06-11T13:52:28Z",
       "side": 1,
       "message": "I think it would be better to let aec_state.h return this as\n\nint f() const {\nreturn initial_state_ ? config_.filter.main_initial.length_blocks :config_.filter.main.length_blocks;\n}",
+      "revId": "e345e2d77a9dd7127d930b9598a51aa962b6c094",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5630f12c_1cd5be54",
+        "filename": "modules/audio_processing/aec3/filter_analyzer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-06-12T07:41:53Z",
+      "side": 1,
+      "message": "Would that work as well during the transitions between the initial phase and the \"stable\" phase?",
+      "parentUuid": "06da9e17_ac799a45",
       "revId": "e345e2d77a9dd7127d930b9598a51aa962b6c094",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -99,6 +177,30 @@
     },
     {
       "key": {
+        "uuid": "91e00f90_86447ab5",
+        "filename": "modules/audio_processing/aec3/filter_analyzer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-06-12T07:41:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "48c260f6_ded8ce48",
+      "range": {
+        "startLine": 169,
+        "startChar": 5,
+        "endLine": 169,
+        "endChar": 6
+      },
+      "revId": "e345e2d77a9dd7127d930b9598a51aa962b6c094",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f7e1ba05_2384eb22",
         "filename": "modules/audio_processing/aec3/filter_analyzer.cc",
         "patchSetId": 5
@@ -122,6 +224,30 @@
     },
     {
       "key": {
+        "uuid": "a12c2b21_0e97c92f",
+        "filename": "modules/audio_processing/aec3/filter_analyzer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-06-12T07:41:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f7e1ba05_2384eb22",
+      "range": {
+        "startLine": 174,
+        "startChar": 21,
+        "endLine": 174,
+        "endChar": 47
+      },
+      "revId": "e345e2d77a9dd7127d930b9598a51aa962b6c094",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c8f49f2d_79a6a965",
         "filename": "modules/audio_processing/aec3/filter_analyzer.cc",
         "patchSetId": 5
@@ -133,6 +259,30 @@
       "writtenOn": "2018-06-11T13:52:28Z",
       "side": 1,
       "message": "If the scaling by kFftLengthBy2 is omitted, I think it should be fine to call the method UpdateFilterTailGain as then a proper gain is computed.\n\nThat would also have the advantage that there would not be a cross-dependency between the application of this gain and the computation of the gain (which there currently is since this gain is scaled by kFftLengthBy2).\n\nWDYT?",
+      "range": {
+        "startLine": 182,
+        "startChar": 24,
+        "endLine": 182,
+        "endChar": 37
+      },
+      "revId": "e345e2d77a9dd7127d930b9598a51aa962b6c094",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "959315d9_6f3bf642",
+        "filename": "modules/audio_processing/aec3/filter_analyzer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-06-12T07:41:53Z",
+      "side": 1,
+      "message": "Let\u0027s discuss this offline.",
+      "parentUuid": "c8f49f2d_79a6a965",
       "range": {
         "startLine": 182,
         "startChar": 24,
@@ -162,6 +312,24 @@
     },
     {
       "key": {
+        "uuid": "4756ebc1_434e47ca",
+        "filename": "modules/audio_processing/aec3/filter_analyzer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-06-12T07:41:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6ac3568e_4f9adf04",
+      "revId": "e345e2d77a9dd7127d930b9598a51aa962b6c094",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eb86f73e_0e070642",
         "filename": "modules/audio_processing/aec3/filter_analyzer.cc",
         "patchSetId": 5
@@ -176,6 +344,24 @@
       "revId": "e345e2d77a9dd7127d930b9598a51aa962b6c094",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f04bb047_a36b1b39",
+        "filename": "modules/audio_processing/aec3/filter_analyzer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-06-12T07:41:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eb86f73e_0e070642",
+      "revId": "e345e2d77a9dd7127d930b9598a51aa962b6c094",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -196,6 +382,24 @@
     },
     {
       "key": {
+        "uuid": "4a0e4961_f02a6ccf",
+        "filename": "modules/audio_processing/aec3/residual_echo_estimator.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-06-12T07:41:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9982bbcc_77c291dc",
+      "revId": "e345e2d77a9dd7127d930b9598a51aa962b6c094",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "93e64c80_e53381a1",
         "filename": "modules/audio_processing/aec3/reverb_modelling.cc",
         "patchSetId": 5
@@ -207,6 +411,30 @@
       "writtenOn": "2018-06-11T13:52:28Z",
       "side": 1,
       "message": "Would it be possible to describe tail, and gain_tail by giving them more descriptive names?\n\nFor instance\ntail -\u003e echo_tail_spectrum\ntail_gain -\u003e echo_tail_gain",
+      "range": {
+        "startLine": 44,
+        "startChar": 5,
+        "endLine": 44,
+        "endChar": 20
+      },
+      "revId": "e345e2d77a9dd7127d930b9598a51aa962b6c094",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7dea0b8_f21e816c",
+        "filename": "modules/audio_processing/aec3/reverb_modelling.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-06-12T07:41:53Z",
+      "side": 1,
+      "message": "it is not always echo, e.g., stationarity estimator. Therefore, I chose to be more descriptive in the object name, e.g. echo_reverb_ in the residual echo estimator or render_reverb_ in the stationarity estimator.",
+      "parentUuid": "93e64c80_e53381a1",
       "range": {
         "startLine": 44,
         "startChar": 5,
@@ -242,6 +470,30 @@
     },
     {
       "key": {
+        "uuid": "c96d11ed_7d1f42ff",
+        "filename": "modules/audio_processing/aec3/reverb_modelling.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-06-12T07:41:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dd026d44_12e1903c",
+      "range": {
+        "startLine": 45,
+        "startChar": 32,
+        "endLine": 45,
+        "endChar": 36
+      },
+      "revId": "e345e2d77a9dd7127d930b9598a51aa962b6c094",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "39c8dba8_be863659",
         "filename": "modules/audio_processing/aec3/reverb_modelling.h",
         "patchSetId": 5
@@ -262,6 +514,30 @@
       "revId": "e345e2d77a9dd7127d930b9598a51aa962b6c094",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a741bcc_5858004d",
+        "filename": "modules/audio_processing/aec3/reverb_modelling.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-06-12T07:41:53Z",
+      "side": 1,
+      "message": "thanks.",
+      "parentUuid": "39c8dba8_be863659",
+      "range": {
+        "startLine": 14,
+        "startChar": 20,
+        "endLine": 14,
+        "endChar": 42
+      },
+      "revId": "e345e2d77a9dd7127d930b9598a51aa962b6c094",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -311,6 +587,30 @@
     },
     {
       "key": {
+        "uuid": "6aa66d69_2f564e0b",
+        "filename": "modules/audio_processing/aec3/reverb_modelling.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-06-12T07:41:53Z",
+      "side": 1,
+      "message": "It is called from the stationarity_estimator as well.",
+      "parentUuid": "6758edd4_3ad05a2e",
+      "range": {
+        "startLine": 27,
+        "startChar": 7,
+        "endLine": 27,
+        "endChar": 32
+      },
+      "revId": "e345e2d77a9dd7127d930b9598a51aa962b6c094",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "12f2309a_7edf778e",
         "filename": "modules/audio_processing/aec3/reverb_modelling.h",
         "patchSetId": 5
@@ -322,6 +622,30 @@
       "writtenOn": "2018-06-11T13:52:28Z",
       "side": 1,
       "message": "Would it be possible to call this echo_power, or echo_power_spectrum?",
+      "range": {
+        "startLine": 35,
+        "startChar": 56,
+        "endLine": 35,
+        "endChar": 70
+      },
+      "revId": "e345e2d77a9dd7127d930b9598a51aa962b6c094",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8348a97e_379dfec9",
+        "filename": "modules/audio_processing/aec3/reverb_modelling.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-06-12T07:41:53Z",
+      "side": 1,
+      "message": "it might not always be echo, e.g., in the stationarity estimator.",
+      "parentUuid": "12f2309a_7edf778e",
       "range": {
         "startLine": 35,
         "startChar": 56,
@@ -357,6 +681,30 @@
     },
     {
       "key": {
+        "uuid": "088e689d_edf6fe88",
+        "filename": "modules/audio_processing/aec3/reverb_modelling.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-06-12T07:41:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8f00a552_1d013a79",
+      "range": {
+        "startLine": 38,
+        "startChar": 26,
+        "endLine": 38,
+        "endChar": 44
+      },
+      "revId": "e345e2d77a9dd7127d930b9598a51aa962b6c094",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8e74154a_296f937f",
         "filename": "modules/audio_processing/aec3/stationarity_estimator.cc",
         "patchSetId": 5
@@ -368,6 +716,30 @@
       "writtenOn": "2018-06-11T13:52:28Z",
       "side": 1,
       "message": "This seems very similar to how it is done in residual_echo_estimator.cc. Would it be possible to somehow combine these two functionalities so that it is not done twice.\nA way to achieve that could perhaps be to decouple the gain of the reverb from the actual reverb computation, and instead apply that when adding the reverb to where it is used.",
+      "range": {
+        "startLine": 81,
+        "startChar": 2,
+        "endLine": 81,
+        "endChar": 16
+      },
+      "revId": "e345e2d77a9dd7127d930b9598a51aa962b6c094",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fdb9f382_1132a22d",
+        "filename": "modules/audio_processing/aec3/stationarity_estimator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-06-12T07:41:53Z",
+      "side": 1,
+      "message": "As discussed offline, that is not easily done.",
+      "parentUuid": "8e74154a_296f937f",
       "range": {
         "startLine": 81,
         "startChar": 2,
@@ -400,6 +772,30 @@
       "revId": "e345e2d77a9dd7127d930b9598a51aa962b6c094",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19a34ae6_80a36c65",
+        "filename": "modules/audio_processing/aec3/suppression_gain.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-06-12T07:41:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b91ce01b_4e6d71af",
+      "range": {
+        "startLine": 185,
+        "startChar": 28,
+        "endLine": 185,
+        "endChar": 38
+      },
+      "revId": "e345e2d77a9dd7127d930b9598a51aa962b6c094",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

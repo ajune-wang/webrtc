@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "62c3ce8f_5c9e811d",
+        "filename": "modules/audio_processing/test/conversational_speech/generator_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-06-12T08:47:15Z",
+      "side": 1,
+      "message": "OutputPath() returns a string with a trailing sep char, but isn\u0027t it safer to use JoinFilename as done below?",
+      "range": {
+        "startLine": 128,
+        "startChar": 6,
+        "endLine": 128,
+        "endChar": 21
+      },
+      "revId": "9df8d9003b2f1b6914146036c21d3398d01fab43",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

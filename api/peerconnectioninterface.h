@@ -577,6 +577,10 @@ class PeerConnectionInterface : public rtc::RefCountInterface {
     // For all other users, specify kUnifiedPlan.
     SdpSemantics sdp_semantics = SdpSemantics::kPlanB;
 
+    // Time after which the usage pattern of non-closed PCs is reported.
+    // Exposed for testing.
+    rtc::Optional<int> report_usage_pattern_delay_for_testing;
+
     //
     // Don't forget to update operator== if adding something.
     //

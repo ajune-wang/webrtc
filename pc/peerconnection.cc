@@ -106,7 +106,10 @@ enum {
   MSG_CREATE_SESSIONDESCRIPTION_FAILED,
   MSG_GETSTATS,
   MSG_FREE_DATACHANNELS,
+  MSG_REPORT_USAGE_PATTERN,
 };
+
+static const int REPORT_USAGE_PATTERN_DELAY_MS = 60000;
 
 struct SetSessionDescriptionMsg : public rtc::MessageData {
   explicit SetSessionDescriptionMsg(
@@ -693,6 +696,7 @@ bool PeerConnectionInterface::RTCConfiguration::operator==(
     webrtc::TurnCustomizer* turn_customizer;
     SdpSemantics sdp_semantics;
     rtc::Optional<rtc::AdapterType> network_preference;
+    rtc::Optional<int> report_usage_pattern_delay_for_testing;
   };
   static_assert(sizeof(stuff_being_tested_for_equality) == sizeof(*this),
                 "Did you add something to RTCConfiguration and forget to "
@@ -739,7 +743,9 @@ bool PeerConnectionInterface::RTCConfiguration::operator==(
          ice_regather_interval_range == o.ice_regather_interval_range &&
          turn_customizer == o.turn_customizer &&
          sdp_semantics == o.sdp_semantics &&
-         network_preference == o.network_preference;
+         network_preference == o.network_preference &&
+         report_usage_pattern_delay_for_testing ==
+             o.report_usage_pattern_delay_for_testing;
 }
 
 bool PeerConnectionInterface::RTCConfiguration::operator!=(
@@ -1036,6 +1042,12 @@ bool PeerConnection::Initialize(
         RtpTransceiverProxyWithInternal<RtpTransceiver>::Create(
             signaling_thread(), new RtpTransceiver(cricket::MEDIA_TYPE_VIDEO)));
   }
+  signaling_thread()->PostDelayed(
+      RTC_FROM_HERE,
+      configuration.report_usage_pattern_delay_for_testing
+          ? *configuration.report_usage_pattern_delay_for_testing
+          : REPORT_USAGE_PATTERN_DELAY_MS,
+      this, MSG_REPORT_USAGE_PATTERN, nullptr);
   return true;
 }
 
@@ -3308,6 +3320,11 @@ void PeerConnection::OnMessage(rtc::Message* msg) {
     }
     case MSG_FREE_DATACHANNELS: {
       sctp_data_channels_to_free_.clear();
+      break;
+    }
+    case MSG_REPORT_USAGE_PATTERN: {
+      RTC_LOG(LS_ERROR) << "DEBUG: Reporting usage pattern from timer";
+      ReportUsagePattern();
       break;
     }
     default:

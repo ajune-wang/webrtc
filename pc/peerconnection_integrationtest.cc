@@ -4596,6 +4596,24 @@ TEST_P(PeerConnectionIntegrationTest, UsageFingerprintHistogram) {
       webrtc::kEnumCounterUsagePattern, expected_fingerprint));
 }
 
+// Test getting the usage fingerprint from a timeout.
+TEST_P(PeerConnectionIntegrationTest, UsageFingerprintHistogramFromTimeout) {
+  RTCConfiguration caller_config;
+  caller_config.report_usage_pattern_delay_for_testing =
+      rtc::Optional<int>(100);
+  ASSERT_TRUE(CreatePeerConnectionWrappersWithConfig(caller_config,
+                                                     RTCConfiguration()));
+
+  // Register UMA observer before signaling begins.
+  rtc::scoped_refptr<webrtc::FakeMetricsObserver> caller_observer =
+      new rtc::RefCountedObject<webrtc::FakeMetricsObserver>();
+  caller()->pc()->RegisterUMAObserver(caller_observer);
+  int expected_fingerprint = MakeUsageFingerprint({});
+  ASSERT_TRUE_WAIT(caller_observer->ExpectOnlySingleEnumCount(
+                       webrtc::kEnumCounterUsagePattern, expected_fingerprint),
+                   kDefaultTimeout);
+}
+
 INSTANTIATE_TEST_CASE_P(
     PeerConnectionIntegrationTest,
     PeerConnectionIntegrationInteropTest,

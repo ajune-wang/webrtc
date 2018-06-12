@@ -22,6 +22,30 @@
       "revId": "66996648575740651558a2a9b662732a7a1e0bbc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a1b8e62_cd689fd1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-06-12T07:18:52Z",
+      "side": 1,
+      "message": "No, this is small change and I don\u0027t think it needs a bug since it\u0027s not related to any bigger project.",
+      "parentUuid": "d322b501_5e428e29",
+      "range": {
+        "startLine": 13,
+        "startChar": 5,
+        "endLine": 13,
+        "endChar": 15
+      },
+      "revId": "66996648575740651558a2a9b662732a7a1e0bbc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

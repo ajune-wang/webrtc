@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "dcd6478f_87f7aeae",
+        "filename": "modules/audio_processing/aec3/aec_state.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-06-13T11:26:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d19d0a20_512020cd",
+      "range": {
+        "startLine": 139,
+        "startChar": 16,
+        "endLine": 139,
+        "endChar": 29
+      },
+      "revId": "ce46f2a40652ecc86e1b8d8c7e5c1bc6e2f84d64",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3afeef1f_388b5f01",
         "filename": "modules/audio_processing/aec3/echo_canceller3.cc",
         "patchSetId": 12
@@ -39,6 +63,24 @@
       "revId": "ce46f2a40652ecc86e1b8d8c7e5c1bc6e2f84d64",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "528bfa62_cb55b8c1",
+        "filename": "modules/audio_processing/aec3/echo_canceller3.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-06-13T11:26:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3afeef1f_388b5f01",
+      "revId": "ce46f2a40652ecc86e1b8d8c7e5c1bc6e2f84d64",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "e0ff39cb_848e4130",
+        "filename": "modules/audio_processing/aec3/filter_analyzer.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-06-13T11:26:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5b4c4956_f756cf38",
+      "revId": "ce46f2a40652ecc86e1b8d8c7e5c1bc6e2f84d64",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5da406df_1320afcf",
         "filename": "modules/audio_processing/aec3/residual_echo_estimator.cc",
         "patchSetId": 12
@@ -73,6 +133,24 @@
       "revId": "ce46f2a40652ecc86e1b8d8c7e5c1bc6e2f84d64",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29d41061_dee43a87",
+        "filename": "modules/audio_processing/aec3/residual_echo_estimator.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-06-13T11:26:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5da406df_1320afcf",
+      "revId": "ce46f2a40652ecc86e1b8d8c7e5c1bc6e2f84d64",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

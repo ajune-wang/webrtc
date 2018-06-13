@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a8ffb7b8_5cf66d41",
+        "filename": "pc/peerconnection_rampup_tests.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-06-13T01:13:31Z",
+      "side": 1,
+      "message": "Ooops, I left this here when I was trying to run quicker tests for trying out different conditions to get less noise.\n\nAs a side note, when running tests for different times I did find that the bandwidth estimation ramped up to a stable level after less than a second, and since there are no larger network changes the probing isn\u0027t triggered and it remains plateau\u0027d at this level. Although, it\u0027s probably still worth running the test for 10 seconds to reduce noise caused from changes to BWE logic down the road.\n\nOther note - The constants you linked there are used to check timeouts, but not when to send RTCP packets from the send side (I didn\u0027t find this logic). I printed out some logs and it looks like that RTCP packets initially start out sending at very short intervals, then become more spaced out.",
+      "parentUuid": "6595c9cd_d5fe83bb",
+      "revId": "0610d9bc8d3e3b15526cfc508ccde3434abc9a3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2451bba9_74295bac",
         "filename": "pc/peerconnection_rampup_tests.cc",
         "patchSetId": 6
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "b7109fb7_145cebd7",
+        "filename": "pc/peerconnection_rampup_tests.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-06-13T01:13:31Z",
+      "side": 1,
+      "message": "Good catch, I was playing around with this value and never uploaded the CL to a better value. I updated it to 1,500 Kbps.",
+      "parentUuid": "2451bba9_74295bac",
+      "revId": "0610d9bc8d3e3b15526cfc508ccde3434abc9a3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cdf6baec_86f008c0",
         "filename": "pc/peerconnection_rampup_tests.cc",
         "patchSetId": 6
@@ -50,6 +86,24 @@
       "revId": "0610d9bc8d3e3b15526cfc508ccde3434abc9a3b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac75fdcc_191119c9",
+        "filename": "pc/peerconnection_rampup_tests.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-06-13T01:13:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cdf6baec_86f008c0",
+      "revId": "0610d9bc8d3e3b15526cfc508ccde3434abc9a3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

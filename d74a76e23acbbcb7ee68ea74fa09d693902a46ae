@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "23d00f38_74194c6b",
+        "filename": "p2p/base/fakeportallocator.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-13T22:55:45Z",
+      "side": 1,
+      "message": "I think this should just RTC_DCHECK(port_) if anything. Otherwise the test would just fail later down the road and it could take longer to figure out what went wrong.",
+      "revId": "d74a76e23acbbcb7ee68ea74fa09d693902a46ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

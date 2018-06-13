@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9313dde3_6378e0df",
+        "filename": "common_video/include/video_frame.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-13T09:26:34Z",
+      "side": 1,
+      "message": "What do you think about this? There are a few places in the code where VP8 simulcast index and VP9 spatial index are treated in the same way.",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 79,
+        "endChar": 75
+      },
+      "revId": "12a2051d96736961e6c3d5d267ed5a6e7d36048e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

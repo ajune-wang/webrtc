@@ -308,7 +308,7 @@ TEST(StreamParams, TestIsSimulcastStream_InvalidStreams) {
   cricket::StreamParams stream2;
   stream2.add_ssrc(13);
   EXPECT_TRUE(stream2.AddFidSsrc(13, 14));
-  std::remove(stream2.ssrcs.begin(), stream2.ssrcs.end(), 13u);
+  stream2.ssrcs.erase(stream2.ssrcs.begin(), stream2.ssrcs.begin() + 1);
   EXPECT_FALSE(cricket::IsSimulcastStream(stream2));
 
   // stream3 has two SIM groups.

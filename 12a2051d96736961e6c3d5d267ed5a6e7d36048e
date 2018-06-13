@@ -126,6 +126,30 @@
     },
     {
       "key": {
+        "uuid": "4cd9eef9_af608093",
+        "filename": "common_video/include/video_frame.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-06-13T13:34:26Z",
+      "side": 1,
+      "message": "I think the question is whether we want to support SVC within independent SSRC-based simulcast layers. In theory this is possible, but I\u0027m not sure I have a good use case for it right now. Our code certainly does not support that right now, and if we don\u0027t see a need for it I think we can mix the concepts of \"spatial idx\" and \"simulcast idx\" here.\n\nphilipel: In terms of your RTP header extension work, can a particular \"spatial idx\" have the same resolution as some other layer, which it may or may not depend on? I.e., will the RTP header extension support \"SVC within simulcast\"?",
+      "parentUuid": "8eef6108_91ad6f21",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 79,
+        "endChar": 75
+      },
+      "revId": "12a2051d96736961e6c3d5d267ed5a6e7d36048e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8cc94152_9332cc96",
         "filename": "modules/video_coding/codecs/test/videoprocessor.cc",
         "patchSetId": 4

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f681a7c8_ebe406ad",
+        "filename": "media/base/streamparams_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-13T20:38:55Z",
+      "side": 1,
+      "message": "nit: This makes it less clear that the test is trying to remove \"13\"; why not just add erase?\n\nstd::erase(std::remove(stream2.ssrcs.begin(), stream2.ssrcs.end(), 13u), stream2.ssrcs.end());",
+      "revId": "b6377280c6057df6bc13f31f1edcd8d152f7a8a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

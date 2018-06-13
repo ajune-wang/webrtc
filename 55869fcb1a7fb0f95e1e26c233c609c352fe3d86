@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "146356de_a194e918",
+        "filename": "sdk/android/api/org/webrtc/JavaI420Buffer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-06-13T14:18:41Z",
+      "side": 1,
+      "message": "Ack. I think it more common to have \"footers\" in Java but since it\u0027s not mentioned by the style guide, I guess it\u0027s fine.",
+      "parentUuid": "2690892d_d341daf0",
+      "range": {
+        "startLine": 42,
+        "startChar": 22,
+        "endLine": 42,
+        "endChar": 35
+      },
+      "revId": "55869fcb1a7fb0f95e1e26c233c609c352fe3d86",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "72466bbf_f15f2ddc",
         "filename": "sdk/android/instrumentationtests/src/org/webrtc/VideoFrameTest.java",
         "patchSetId": 2
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "What I want to test is the different VideoFrame.Buffers we have, i.e. I420Buffer, TextureBuffer for OES/RGB, NV21Buffer, and NV12Buffer. The majority of the code for those classes are toI420() and cropAndScale(), and that is where we have seen bugs lately. I named it VideoFrameTest since the VideoFrame.Buffer is a nested class inside VideoFrame.java, and I thought maybe we would test something related to VideoFrame itself as well. I haven\u0027t actually tested anything related to VideoFrame itself, so I changed the name of this class to VideoFrameBufferTest now. This is the most accurate and concise name I can think of. In order to test TextureBuffer.toI420() I need to create a TextureBuffer with a well defined output for toI420(). I have done createRgbTextureBuffer() and createOesTextureBuffer() as simple as I can. They still depend on a lot of other components, but that\u0027s a necessary evil and the goal of this file is not to be an end-to-end test. Do you have any suggestion on how to create an OES texture with less code and less dependencies? Or do you have a proposal for a file name that you think would be more accurate?",
       "parentUuid": "72466bbf_f15f2ddc",
+      "range": {
+        "startLine": 45,
+        "startChar": 13,
+        "endLine": 45,
+        "endChar": 27
+      },
+      "revId": "55869fcb1a7fb0f95e1e26c233c609c352fe3d86",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3ce05c12_b05ac582",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/VideoFrameTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-06-13T14:18:41Z",
+      "side": 1,
+      "message": "I guess VideoFrameBufferTest is fine. Technically I think we should have separate tests for each different type of buffer but I understand this would lead to code duplication.",
+      "parentUuid": "3e49d68e_b6ff8f9e",
       "range": {
         "startLine": 45,
         "startChar": 13,
@@ -143,6 +191,30 @@
     },
     {
       "key": {
+        "uuid": "34efc746_2bb93b7d",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/VideoFrameTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-06-13T14:18:41Z",
+      "side": 1,
+      "message": "Can you also add the equals mark since that is apparently the style consumed by the linter?",
+      "parentUuid": "1489cf3b_7f860fc6",
+      "range": {
+        "startLine": 77,
+        "startChar": 41,
+        "endLine": 77,
+        "endChar": 51
+      },
+      "revId": "55869fcb1a7fb0f95e1e26c233c609c352fe3d86",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d433efea_68657dc0",
         "filename": "sdk/android/instrumentationtests/src/org/webrtc/VideoFrameTest.java",
         "patchSetId": 2
@@ -178,6 +250,30 @@
       "side": 1,
       "message": "This is not re-implementing since it delegates everything to |oesBuffer|. TextureBufferImpl requires an external YuvConverter, but I want to test the original |oesBuffer|.\n\nThe alternative would be to leak the RenderThread and just return |oesBuffer| here. What do you think?",
       "parentUuid": "d433efea_68657dc0",
+      "range": {
+        "startLine": 208,
+        "startChar": 0,
+        "endLine": 208,
+        "endChar": 43
+      },
+      "revId": "55869fcb1a7fb0f95e1e26c233c609c352fe3d86",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fcf2cabc_ae276bfd",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/VideoFrameTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-06-13T14:18:41Z",
+      "side": 1,
+      "message": "What do you think about having the render thread be a member variable and then it can be stopped in tearDown? This would avoid the problem altogether. It is not used by all configurations so I am not sure if this is recommended though.",
+      "parentUuid": "f46f13d9_66a543ae",
       "range": {
         "startLine": 208,
         "startChar": 0,
@@ -281,6 +377,30 @@
       "revId": "55869fcb1a7fb0f95e1e26c233c609c352fe3d86",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25c33f9f_1e4ce6f8",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/VideoFrameTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 455,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-06-13T14:18:41Z",
+      "side": 1,
+      "message": "Ack, I didn\u0027t find the ordering the most readable but I guess that\u0027s subjective.",
+      "parentUuid": "1bf5b541_afd10085",
+      "range": {
+        "startLine": 455,
+        "startChar": 22,
+        "endLine": 455,
+        "endChar": 36
+      },
+      "revId": "55869fcb1a7fb0f95e1e26c233c609c352fe3d86",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

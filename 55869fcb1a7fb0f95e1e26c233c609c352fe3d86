@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2690892d_d341daf0",
+        "filename": "sdk/android/api/org/webrtc/JavaI420Buffer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-06-13T13:01:17Z",
+      "side": 1,
+      "message": "Why not place this helper method directly before the method that uses it rather than directly after it? Then at least there are no dependencies to functions that have not been declared yet, and that helps me when I\u0027m reading a source file from top to bottom. The style guide just says there should be some logical order.",
+      "parentUuid": "9839100e_7e698ba4",
+      "range": {
+        "startLine": 42,
+        "startChar": 22,
+        "endLine": 42,
+        "endChar": 35
+      },
+      "revId": "55869fcb1a7fb0f95e1e26c233c609c352fe3d86",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "72466bbf_f15f2ddc",
         "filename": "sdk/android/instrumentationtests/src/org/webrtc/VideoFrameTest.java",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "55869fcb1a7fb0f95e1e26c233c609c352fe3d86",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e49d68e_b6ff8f9e",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/VideoFrameTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-06-13T13:01:17Z",
+      "side": 1,
+      "message": "What I want to test is the different VideoFrame.Buffers we have, i.e. I420Buffer, TextureBuffer for OES/RGB, NV21Buffer, and NV12Buffer. The majority of the code for those classes are toI420() and cropAndScale(), and that is where we have seen bugs lately. I named it VideoFrameTest since the VideoFrame.Buffer is a nested class inside VideoFrame.java, and I thought maybe we would test something related to VideoFrame itself as well. I haven\u0027t actually tested anything related to VideoFrame itself, so I changed the name of this class to VideoFrameBufferTest now. This is the most accurate and concise name I can think of. In order to test TextureBuffer.toI420() I need to create a TextureBuffer with a well defined output for toI420(). I have done createRgbTextureBuffer() and createOesTextureBuffer() as simple as I can. They still depend on a lot of other components, but that\u0027s a necessary evil and the goal of this file is not to be an end-to-end test. Do you have any suggestion on how to create an OES texture with less code and less dependencies? Or do you have a proposal for a file name that you think would be more accurate?",
+      "parentUuid": "72466bbf_f15f2ddc",
+      "range": {
+        "startLine": 45,
+        "startChar": 13,
+        "endLine": 45,
+        "endChar": 27
+      },
+      "revId": "55869fcb1a7fb0f95e1e26c233c609c352fe3d86",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "1489cf3b_7f860fc6",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/VideoFrameTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-06-13T13:01:17Z",
+      "side": 1,
+      "message": "Ok, I removed the spaces in literal comments in this file.",
+      "parentUuid": "4567ecb0_d70a86f3",
+      "range": {
+        "startLine": 77,
+        "startChar": 41,
+        "endLine": 77,
+        "endChar": 51
+      },
+      "revId": "55869fcb1a7fb0f95e1e26c233c609c352fe3d86",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d433efea_68657dc0",
         "filename": "sdk/android/instrumentationtests/src/org/webrtc/VideoFrameTest.java",
         "patchSetId": 2
@@ -82,6 +154,30 @@
       "writtenOn": "2018-06-13T07:51:53Z",
       "side": 1,
       "message": "Isn\u0027t it easier to instantiate TextureBufferImpl instead of reimplementing?",
+      "range": {
+        "startLine": 208,
+        "startChar": 0,
+        "endLine": 208,
+        "endChar": 43
+      },
+      "revId": "55869fcb1a7fb0f95e1e26c233c609c352fe3d86",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f46f13d9_66a543ae",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/VideoFrameTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-06-13T13:01:17Z",
+      "side": 1,
+      "message": "This is not re-implementing since it delegates everything to |oesBuffer|. TextureBufferImpl requires an external YuvConverter, but I want to test the original |oesBuffer|.\n\nThe alternative would be to leak the RenderThread and just return |oesBuffer| here. What do you think?",
+      "parentUuid": "d433efea_68657dc0",
       "range": {
         "startLine": 208,
         "startChar": 0,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "080ac886_7dff76c0",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/VideoFrameTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 437,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-06-13T13:01:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8862b867_408443c5",
+      "range": {
+        "startLine": 437,
+        "startChar": 6,
+        "endLine": 437,
+        "endChar": 16
+      },
+      "revId": "55869fcb1a7fb0f95e1e26c233c609c352fe3d86",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b86e9859_d4424f0a",
         "filename": "sdk/android/instrumentationtests/src/org/webrtc/VideoFrameTest.java",
         "patchSetId": 2
@@ -128,6 +248,30 @@
       "writtenOn": "2018-06-13T07:51:53Z",
       "side": 1,
       "message": "I find the ordering of the methods in this class a bit unoptimal for readablity. For example this method this declared far away from its usage. I would like if the actual tests would come first and then the helper method in some logical order.",
+      "range": {
+        "startLine": 455,
+        "startChar": 22,
+        "endLine": 455,
+        "endChar": 36
+      },
+      "revId": "55869fcb1a7fb0f95e1e26c233c609c352fe3d86",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1bf5b541_afd10085",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/VideoFrameTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 455,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-06-13T13:01:17Z",
+      "side": 1,
+      "message": "I try to keep methods close to usage, but I also wanted to have the public static methods before the private static methods. I plan to use the public static methods from other tests that need VideoFrame.Buffers.\n\nThe logical order is parameterization/ctor, public static methods, private static methods, actual tests. There is an exception with createBufferWithType()/createBufferToTest() since I felt they were so strongly related to the parameterization/ctor.\n\nCan you argue for why it would be more logical to place the tests before the static methods and not the other way around?",
+      "parentUuid": "b86e9859_d4424f0a",
       "range": {
         "startLine": 455,
         "startChar": 22,
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "0255a01a_f6e886de",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/VideoFrameTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 491,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-06-13T13:01:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "39e99f81_a6a509e6",
+      "range": {
+        "startLine": 491,
+        "startChar": 3,
+        "endLine": 491,
+        "endChar": 9
+      },
+      "revId": "55869fcb1a7fb0f95e1e26c233c609c352fe3d86",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1fee9ee1_e0a091ee",
         "filename": "sdk/android/instrumentationtests/src/org/webrtc/VideoFrameTest.java",
         "patchSetId": 2
@@ -186,6 +354,30 @@
     },
     {
       "key": {
+        "uuid": "6149ca93_1a68c016",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/VideoFrameTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 495,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-06-13T13:01:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1fee9ee1_e0a091ee",
+      "range": {
+        "startLine": 493,
+        "startChar": 0,
+        "endLine": 495,
+        "endChar": 73
+      },
+      "revId": "55869fcb1a7fb0f95e1e26c233c609c352fe3d86",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b3c205b2_2cd48595",
         "filename": "sdk/android/instrumentationtests/src/org/webrtc/VideoFrameTest.java",
         "patchSetId": 2
@@ -206,6 +398,30 @@
       "revId": "55869fcb1a7fb0f95e1e26c233c609c352fe3d86",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85daa4b0_20eb1840",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/VideoFrameTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 516,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-06-13T13:01:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b3c205b2_2cd48595",
+      "range": {
+        "startLine": 516,
+        "startChar": 28,
+        "endLine": 516,
+        "endChar": 55
+      },
+      "revId": "55869fcb1a7fb0f95e1e26c233c609c352fe3d86",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

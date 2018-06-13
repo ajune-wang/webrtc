@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f4db49d1_2f3fee73",
+        "filename": "modules/audio_processing/aec3/render_delay_controller_metrics.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2018-06-13T07:11:19Z",
+      "side": 1,
+      "message": "Shouldn\u0027t the min() be after the shift?",
+      "revId": "c3c216dbdd612ced9efdf6f6c0e10acf124eec97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

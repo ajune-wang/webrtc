@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b4e2d169_b9c03076",
+        "filename": "rtc_base/filerotatingstream.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-06-13T10:47:24Z",
+      "side": 1,
+      "message": "const?",
+      "range": {
+        "startLine": 331,
+        "startChar": 2,
+        "endLine": 331,
+        "endChar": 5
+      },
+      "revId": "a93426218de1c6a27b5b844bdd5a620be20d011e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7cd3a8b_d229d5ed",
+        "filename": "rtc_base/filerotatingstream.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-06-13T10:47:24Z",
+      "side": 1,
+      "message": "Also, this calculation seems wrong. For computing the number of digits, you need a logarithm, not a division. I wonder if this is what caused the overflow---num_files would only have had to be ~10000...",
+      "revId": "a93426218de1c6a27b5b844bdd5a620be20d011e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea379731_1db846c3",
+        "filename": "rtc_base/filerotatingstream.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-06-13T10:47:24Z",
+      "side": 1,
+      "message": "dchecked_cast?",
+      "range": {
+        "startLine": 331,
+        "startChar": 21,
+        "endLine": 331,
+        "endChar": 32
+      },
+      "revId": "a93426218de1c6a27b5b844bdd5a620be20d011e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8afe2f52_b839ffee",
+        "filename": "rtc_base/filerotatingstream.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-06-13T10:47:24Z",
+      "side": 1,
+      "message": "Way too much. You need space for an underscore, at most 19 digits, and a null.",
+      "range": {
+        "startLine": 333,
+        "startChar": 29,
+        "endLine": 333,
+        "endChar": 32
+      },
+      "revId": "a93426218de1c6a27b5b844bdd5a620be20d011e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

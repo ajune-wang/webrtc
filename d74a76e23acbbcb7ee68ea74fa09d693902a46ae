@@ -16,6 +16,24 @@
       "revId": "d74a76e23acbbcb7ee68ea74fa09d693902a46ae",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "224add30_972c8335",
+        "filename": "p2p/base/fakeportallocator.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-06-13T23:09:38Z",
+      "side": 1,
+      "message": "Indeed, it may have unpredictable behavior if let going on in future tests. Fixed.",
+      "parentUuid": "23d00f38_74194c6b",
+      "revId": "d74a76e23acbbcb7ee68ea74fa09d693902a46ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

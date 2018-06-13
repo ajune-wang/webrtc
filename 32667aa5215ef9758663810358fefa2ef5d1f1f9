@@ -16,6 +16,24 @@
       "revId": "32667aa5215ef9758663810358fefa2ef5d1f1f9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "248c3b6d_51970682",
+        "filename": "pc/statscollector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 601,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-13T23:19:20Z",
+      "side": 1,
+      "message": "Meaning, when \"if (report)\" would be entered? When GetStats previously generated a report for this stream.\n\nSo when an SSRC is changed, the old stream\u0027s report will still point to the same track ID. This CL doesn\u0027t change that, it\u0027s just changing the level of indentation since there\u0027s no longer an early return.",
+      "parentUuid": "8d3e4913_c782f64a",
+      "revId": "32667aa5215ef9758663810358fefa2ef5d1f1f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -16,6 +16,24 @@
       "revId": "196b02863dbae8df6aa35ccc62655a43b49ff9d1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68c9fd7d_ac76163e",
+        "filename": "pc/statscollector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-13T23:19:20Z",
+      "side": 0,
+      "message": "\u003e By the look of it, PrepareReport() is called for all senders and all receivers. \n\nIt\u0027s called for each VoiceSenderInfo/VoiceRecieverInfo/VideoSenderInfo/VideoReceiverInfo, if that\u0027s what you mean.\n\n\u003e Question: What will happen for inactive transceivers in Unified Plan? Will this continue to return previously created reports (whose values are probably up to date and correct), or will the associated SSRC be reset and this cause default-populated reports to be created?\n\nMeaning, what happens if you set the direction to \"inactive\" then back? Looks like we keep using the same SSRC, still adding \"a\u003dssrc\" lines in the \"inactive\" offer as long as the transceiver has previously been used to send: https://cs.chromium.org/chromium/src/third_party/webrtc/pc/peerconnection.cc?l\u003d3760\u0026rcl\u003d789221f1101afa33bb0f232823e6176b3b8c4ee8\n\nSo things shouldn\u0027t reset to 0.\n\n\u003e 2) Related... What if SSRC is 0 as in \"not used\"?\n\nNot applicable here. If SSRCs aren\u0027t signaled in SDP, the RtpReceiver at the API level will have an SSRC of 0 but the VoiceReceiverInfo/VideoReceiverInfo will have the actual SSRC.",
+      "parentUuid": "de7d23e9_72693ad2",
+      "revId": "196b02863dbae8df6aa35ccc62655a43b49ff9d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

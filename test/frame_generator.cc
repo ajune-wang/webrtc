@@ -53,8 +53,10 @@ class SquareGenerator : public FrameGenerator {
     RTC_CHECK(height_ > 0);
   }
 
-  rtc::scoped_refptr<I420Buffer> CreateI420Buffer(int width, int height) {
-    rtc::scoped_refptr<I420Buffer> buffer(I420Buffer::Create(width, height));
+  rtc::scoped_refptr<I420Buffer>
+  CreateI420Buffer(int width, int height, PlanarYuvBuffer::BitDepth bit_depth) {
+    rtc::scoped_refptr<I420Buffer> buffer(
+        I420Buffer::Create(width, height, bit_depth));
     memset(buffer->MutableDataY(), 127, height * buffer->StrideY());
     memset(buffer->MutableDataU(), 127,
            buffer->ChromaHeight() * buffer->StrideU());
@@ -69,20 +71,26 @@ class SquareGenerator : public FrameGenerator {
     rtc::scoped_refptr<VideoFrameBuffer> buffer = nullptr;
     switch (type_) {
       case OutputType::I420: {
-        buffer = CreateI420Buffer(width_, height_);
+        buffer = CreateI420Buffer(width_, height_,
+                                  PlanarYuvBuffer::BitDepth::kBitDepth8);
         break;
       }
       case OutputType::I420A: {
-        rtc::scoped_refptr<I420Buffer> yuv_buffer =
-            CreateI420Buffer(width_, height_);
-        rtc::scoped_refptr<I420Buffer> axx_buffer =
-            CreateI420Buffer(width_, height_);
+        rtc::scoped_refptr<I420Buffer> yuv_buffer = CreateI420Buffer(
+            width_, height_, PlanarYuvBuffer::BitDepth::kBitDepth8);
+        rtc::scoped_refptr<I420Buffer> axx_buffer = CreateI420Buffer(
+            width_, height_, PlanarYuvBuffer::BitDepth::kBitDepth8);
         buffer = WrapI420ABuffer(
             yuv_buffer->width(), yuv_buffer->height(), yuv_buffer->DataY(),
             yuv_buffer->StrideY(), yuv_buffer->DataU(), yuv_buffer->StrideU(),
             yuv_buffer->DataV(), yuv_buffer->StrideV(), axx_buffer->DataY(),
             axx_buffer->StrideY(),
             rtc::Bind(&KeepBufferRefs, yuv_buffer, axx_buffer));
+        break;
+      }
+      case OutputType::I420_BITDEPTH10: {
+        buffer = CreateI420Buffer(width_, height_,
+                                  PlanarYuvBuffer::BitDepth::kBitDepth10);
         break;
       }
     }

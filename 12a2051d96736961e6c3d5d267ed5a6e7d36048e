@@ -122,6 +122,24 @@
       "revId": "12a2051d96736961e6c3d5d267ed5a6e7d36048e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47bd1bd7_687c73e6",
+        "filename": "modules/video_coding/codecs/test/videoprocessor.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-13T13:30:11Z",
+      "side": 1,
+      "message": "It\u0027s intentional, but perhaps not pretty. The caller sets *spatial_idx from encoded_image.SimulcastIndex(), and this function modifies it for VP9 only.\n\nSo this is one place where things would get simpler if the new EncodedImage::simulcast_index_ were replaced by spatial_index_, and we deleted CodecSpecificInfoVP9::spatial_idx.",
+      "parentUuid": "8cc94152_9332cc96",
+      "revId": "12a2051d96736961e6c3d5d267ed5a6e7d36048e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

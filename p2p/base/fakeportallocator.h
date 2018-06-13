@@ -129,9 +129,11 @@ class FakePortAllocatorSession : public PortAllocatorSession {
       port_.reset(TestUDPPort::Create(network_thread_, factory_, &network, 0, 0,
                                       username(), password(), std::string(),
                                       false));
-      port_->SignalDestroyed.connect(
-          this, &FakePortAllocatorSession::OnPortDestroyed);
-      AddPort(port_.get());
+      if (port_) {
+        port_->SignalDestroyed.connect(
+            this, &FakePortAllocatorSession::OnPortDestroyed);
+        AddPort(port_.get());
+      }
     }
     ++port_config_count_;
     running_ = true;

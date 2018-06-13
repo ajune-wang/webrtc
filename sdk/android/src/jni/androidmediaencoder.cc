@@ -1013,7 +1013,6 @@ bool MediaCodecVideoEncoder::DeliverPendingOutputs(JNIEnv* jni) {
       if (codec_type == kVideoCodecVP8) {
         info.codecSpecific.VP8.pictureId = picture_id_;
         info.codecSpecific.VP8.nonReference = false;
-        info.codecSpecific.VP8.simulcastIdx = 0;
         info.codecSpecific.VP8.temporalIdx = kNoTemporalIdx;
         info.codecSpecific.VP8.layerSync = false;
         info.codecSpecific.VP8.tl0PicIdx = kNoTl0PicIdx;

@@ -78,7 +78,7 @@ class SimulcastTestFixtureImpl::Vp8TestEncodedImageCallback
                                 const CodecSpecificInfo* codec_specific_info,
                                 const RTPFragmentationHeader* fragmentation) {
     // Only store the base layer.
-    if (codec_specific_info->codecSpecific.VP8.simulcastIdx == 0) {
+    if (encoded_image.SimulcastIndex() == 0) {
       if (encoded_image._frameType == kVideoFrameKey) {
         delete[] encoded_key_frame_._buffer;
         encoded_key_frame_._buffer = new uint8_t[encoded_image._size];
@@ -97,9 +97,9 @@ class SimulcastTestFixtureImpl::Vp8TestEncodedImageCallback
                encoded_image._length);
       }
     }
-    layer_sync_[codec_specific_info->codecSpecific.VP8.simulcastIdx] =
+    layer_sync_[encoded_image.SimulcastIndex()] =
         codec_specific_info->codecSpecific.VP8.layerSync;
-    temporal_layer_[codec_specific_info->codecSpecific.VP8.simulcastIdx] =
+    temporal_layer_[encoded_image.SimulcastIndex()] =
         codec_specific_info->codecSpecific.VP8.temporalIdx;
     return Result(Result::OK, encoded_image._timeStamp);
   }

@@ -391,14 +391,9 @@ EncodedImageCallback::Result VCMEncodedFrameCallback::OnEncodedImage(
   if (codec_specific->codecType == kVideoCodecVP9) {
     if (codec_specific->codecSpecific.VP9.num_spatial_layers > 1)
       simulcast_svc_idx = codec_specific->codecSpecific.VP9.spatial_idx;
-  } else if (codec_specific->codecType == kVideoCodecVP8) {
-    simulcast_svc_idx = codec_specific->codecSpecific.VP8.simulcastIdx;
-  } else if (codec_specific->codecType == kVideoCodecGeneric) {
-    simulcast_svc_idx = codec_specific->codecSpecific.generic.simulcast_idx;
-  } else if (codec_specific->codecType == kVideoCodecH264) {
-    // TODO(ilnik): When h264 simulcast is landed, extract simulcast idx here.
+  } else {
+    simulcast_svc_idx = encoded_image.SimulcastIndex();
   }
-
   EncodedImage image_copy(encoded_image);
 
   FillTimingInfo(simulcast_svc_idx, &image_copy);

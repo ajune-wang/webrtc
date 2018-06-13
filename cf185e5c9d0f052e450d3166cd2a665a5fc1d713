@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "2d34614b_19318f22",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-13T23:50:14Z",
+      "side": 1,
+      "message": "\u003e Was this CL for demonstration purposes or actually up for review?\n\nMostly demonstration purposes, but with the ability to be finished and landed if there are no fundamental objections.\n\n\u003e However, it needs to be added to the spec first to be allowed exposure (https://github.com/w3c/webrtc-stats/issues), or it must be placed behind Origin Trial or C++-only exposure (requires some additional wiring that has not been done before but shouldn\u0027t be difficult).\n\nI thought stats had to be whitelisted before they appeared in chromium, meaning \"C++ only\" was the default, but I didn\u0027t realize we whitelisted whole types, not individual members: https://cs.chromium.org/chromium/src/content/renderer/media/webrtc/rtc_stats.cc?dr\u0026g\u003d0\u0026l\u003d19\n\nAny objection to changing this to whitelist individual members as well?\n\nWe need some way to add implementation-specific stats, for the benefit of native applications that only use one implementation of WebRTC and want the extra information without having to go through the legacy stats API.",
+      "parentUuid": "68ff1817_43cba89b",
+      "revId": "cf185e5c9d0f052e450d3166cd2a665a5fc1d713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "028d48f7_eee774ed",
         "filename": "pc/rtcstats_integrationtest.cc",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2018-06-11T09:56:07Z",
       "side": 1,
       "message": "There is also rtcstats_unittest.cc which verifies the plumbing with fake lower layers.",
+      "revId": "cf185e5c9d0f052e450d3166cd2a665a5fc1d713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61f98a8d_04e4b8f0",
+        "filename": "pc/rtcstats_integrationtest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 677,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-13T23:50:14Z",
+      "side": 1,
+      "message": "I\u0027ll update that too if we move forward with this, thanks for reminding me.",
+      "parentUuid": "028d48f7_eee774ed",
       "revId": "cf185e5c9d0f052e450d3166cd2a665a5fc1d713",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

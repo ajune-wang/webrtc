@@ -1884,6 +1884,25 @@ TEST_P(PeerConnectionIntegrationTest, AddAudioToVideoOnlyCall) {
   ASSERT_TRUE(ExpectNewFrames(media_expectations));
 }
 
+// Why can't I create an offer after re-adding the track in Unified Plan?
+TEST_P(PeerConnectionIntegrationTest, AddPreviouslyRemovedTrack) {
+  ASSERT_TRUE(CreatePeerConnectionWrappers());
+  ConnectFakeSignaling();
+  auto audio_track = caller()->CreateLocalAudioTrack();
+  // Do initial offer/answer with a track.
+  auto audio_sender = caller()->AddTrack(audio_track, {"stream_id"});
+  caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  // Remove the track and do another offer/answer.
+  caller()->pc()->RemoveTrack(audio_sender);
+  caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  // Now add the same track again and do another offer/answer.
+  caller()->AddTrack(audio_track, {"stream_id"});
+  caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+}
+
 // This test sets up a call that's transferred to a new caller with a different
 // DTLS fingerprint.
 TEST_P(PeerConnectionIntegrationTest, CallTransferredForCallee) {

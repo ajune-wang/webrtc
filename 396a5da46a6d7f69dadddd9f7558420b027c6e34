@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "0998de38_2714f54c",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 780,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-06-13T14:35:03Z",
+      "side": 1,
+      "message": "Yes, this is what I thought as well.",
+      "parentUuid": "c5853e28_a1c6c11f",
+      "range": {
+        "startLine": 780,
+        "startChar": 20,
+        "endLine": 780,
+        "endChar": 36
+      },
+      "revId": "396a5da46a6d7f69dadddd9f7558420b027c6e34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7cd610c8_1bdd78d0",
         "filename": "sdk/android/BUILD.gn",
         "patchSetId": 1
@@ -235,6 +259,30 @@
       "revId": "396a5da46a6d7f69dadddd9f7558420b027c6e34",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f2317ee_ced723d4",
+        "filename": "sdk/android/api/org/webrtc/YuvConverter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-06-13T14:35:03Z",
+      "side": 1,
+      "message": "I removed the comment.",
+      "parentUuid": "16e9c067_f5132f3c",
+      "range": {
+        "startLine": 210,
+        "startChar": 7,
+        "endLine": 210,
+        "endChar": 27
+      },
+      "revId": "396a5da46a6d7f69dadddd9f7558420b027c6e34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

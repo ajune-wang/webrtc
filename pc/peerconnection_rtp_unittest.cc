@@ -776,6 +776,26 @@ TEST_P(PeerConnectionRtpTest,
   EXPECT_FALSE(observer->called());
 }
 
+// Why can't I create an offer after re-adding the track in Unified Plan?
+TEST_P(PeerConnectionRtpTest, AddPreviouslyRemovedTrack) {
+  auto caller = CreatePeerConnection();
+  auto callee = CreatePeerConnection();
+
+  auto track1 = caller->CreateVideoTrack("video_track1");
+  auto track2 = caller->CreateVideoTrack("video_track2");
+  auto sender1 = caller->AddTrack(track1, {});
+  // Negotiate track added
+  ASSERT_TRUE(callee->SetRemoteDescription(caller->CreateOfferAndSetAsLocal()));
+
+  EXPECT_TRUE(caller->pc()->RemoveTrack(sender1));
+  // Negotiate track removed
+  ASSERT_TRUE(callee->SetRemoteDescription(caller->CreateOfferAndSetAsLocal()));
+
+  auto sender2 = caller->AddTrack(track2, {});
+  // Negotiate track re-added
+  ASSERT_TRUE(callee->SetRemoteDescription(caller->CreateOfferAndSetAsLocal()));
+}
+
 // RtpTransceiver Tests.
 
 // Test that by default there are no transceivers with Unified Plan.

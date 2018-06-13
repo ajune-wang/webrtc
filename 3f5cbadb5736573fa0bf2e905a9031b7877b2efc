@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e7fdefae_6289ff4c",
+        "filename": "p2p/base/regatheringcontroller_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-13T22:57:15Z",
+      "side": 1,
+      "message": "nit: \u0026thread_ instead of rtc::Thread::Current(), just to make it more obvious that the VirtualSocketServer is being used?",
+      "revId": "3f5cbadb5736573fa0bf2e905a9031b7877b2efc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d5c6cbae_da4f6012",
+        "filename": "video/video_send_stream_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 677,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-06-13T07:58:01Z",
+      "side": 1,
+      "message": "const?",
+      "range": {
+        "startLine": 677,
+        "startChar": 2,
+        "endLine": 677,
+        "endChar": 8
+      },
+      "revId": "7d723510e55b28b20c0643106a2e085ff62976c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f68ab08_6399f4dd",
+        "filename": "video/video_send_stream_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 680,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-06-13T07:58:01Z",
+      "side": 1,
+      "message": "+1 :))))",
+      "range": {
+        "startLine": 679,
+        "startChar": 7,
+        "endLine": 680,
+        "endChar": 15
+      },
+      "revId": "7d723510e55b28b20c0643106a2e085ff62976c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

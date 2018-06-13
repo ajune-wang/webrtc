@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d19d0a20_512020cd",
+        "filename": "modules/audio_processing/aec3/aec_state.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-06-13T10:09:25Z",
+      "side": 1,
+      "message": "Should the comment be updated. \"energy gain\" is not that clear I think.\nWhat about changing that to \"gain\" or, alternatively, extending the comment to more clearly describe what it means?",
+      "range": {
+        "startLine": 139,
+        "startChar": 16,
+        "endLine": 139,
+        "endChar": 29
+      },
+      "revId": "ce46f2a40652ecc86e1b8d8c7e5c1bc6e2f84d64",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3afeef1f_388b5f01",
+        "filename": "modules/audio_processing/aec3/echo_canceller3.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-06-13T10:09:25Z",
+      "side": 1,
+      "message": "I think we should have one more killswitch that sets adjusted_cfg.ep_strength.default_len to 0",
+      "revId": "ce46f2a40652ecc86e1b8d8c7e5c1bc6e2f84d64",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b4c4956_f756cf38",
+        "filename": "modules/audio_processing/aec3/filter_analyzer.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-06-13T10:09:25Z",
+      "side": 1,
+      "message": "It would probably also make sense to add\nRTC_DCHECK_GE(h.size(), kFftLengthBy2); \nto avoid a wraparound.",
+      "revId": "ce46f2a40652ecc86e1b8d8c7e5c1bc6e2f84d64",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5da406df_1320afcf",
+        "filename": "modules/audio_processing/aec3/residual_echo_estimator.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-06-13T10:09:25Z",
+      "side": 1,
+      "message": "Thinking more on it I think that\nif (aec_state.TransparentMode() \u0026\u0026 soft_transparent_mode_) {\n\nshould be\nif (!(aec_state.TransparentMode() \u0026\u0026 soft_transparent_mode_)) {",
+      "revId": "ce46f2a40652ecc86e1b8d8c7e5c1bc6e2f84d64",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -305,10 +305,8 @@ TEST(StreamParams, TestIsSimulcastStream_InvalidStreams) {
   EXPECT_FALSE(cricket::IsSimulcastStream(stream1));
 
   // stream2 has invalid fid-group (no primary).
-  cricket::StreamParams stream2;
-  stream2.add_ssrc(13);
-  EXPECT_TRUE(stream2.AddFidSsrc(13, 14));
-  std::remove(stream2.ssrcs.begin(), stream2.ssrcs.end(), 13u);
+  cricket::StreamParams stream2 = cricket::CreateSimStreamParams("cname", MAKE_VECTOR(kSsrcs2));
+  stream2.ssrcs.erase(stream2.ssrcs.begin(), stream2.ssrcs.begin() + 1);
   EXPECT_FALSE(cricket::IsSimulcastStream(stream2));
 
   // stream3 has two SIM groups.

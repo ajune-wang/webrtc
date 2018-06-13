@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "c501f02a_c3016287",
+        "filename": "common_video/include/video_frame.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-06-13T09:49:52Z",
+      "side": 1,
+      "message": "Why use getter and setter here at all?",
+      "revId": "12a2051d96736961e6c3d5d267ed5a6e7d36048e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9313dde3_6378e0df",
         "filename": "common_video/include/video_frame.h",
         "patchSetId": 4
@@ -19,6 +36,47 @@
         "endLine": 79,
         "endChar": 75
       },
+      "revId": "12a2051d96736961e6c3d5d267ed5a6e7d36048e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "673695b3_12771163",
+        "filename": "common_video/include/video_frame.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-06-13T09:49:52Z",
+      "side": 1,
+      "message": "I think the long term goal is to make the encoders output a generic format with temporal/spatial/reference information, so changing it from simulcast to spatial index is a good start.",
+      "parentUuid": "9313dde3_6378e0df",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 79,
+        "endChar": 75
+      },
+      "revId": "12a2051d96736961e6c3d5d267ed5a6e7d36048e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8cc94152_9332cc96",
+        "filename": "modules/video_coding/codecs/test/videoprocessor.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-06-13T09:49:52Z",
+      "side": 1,
+      "message": "This does not look intentional.",
       "revId": "12a2051d96736961e6c3d5d267ed5a6e7d36048e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

@@ -323,12 +323,6 @@ AudioProcessingBuilder& AudioProcessingBuilder::SetEchoControlFactory(
   return *this;
 }
 
-AudioProcessingBuilder& AudioProcessingBuilder::SetNonlinearBeamformer(
-    std::unique_ptr<NonlinearBeamformer> nonlinear_beamformer) {
-  nonlinear_beamformer_ = std::move(nonlinear_beamformer);
-  return *this;
-}
-
 AudioProcessingBuilder& AudioProcessingBuilder::SetEchoDetector(
     std::unique_ptr<EchoDetector> echo_detector) {
   echo_detector_ = std::move(echo_detector);
@@ -344,7 +338,7 @@ AudioProcessing* AudioProcessingBuilder::Create(const webrtc::Config& config) {
   AudioProcessingImpl* apm = new rtc::RefCountedObject<AudioProcessingImpl>(
       config, std::move(capture_post_processing_),
       std::move(render_pre_processing_), std::move(echo_control_factory_),
-      std::move(echo_detector_), nonlinear_beamformer_.release());
+      std::move(echo_detector_));
   if (apm->Initialize() != AudioProcessing::kNoError) {
     delete apm;
     apm = nullptr;
@@ -353,8 +347,7 @@ AudioProcessing* AudioProcessingBuilder::Create(const webrtc::Config& config) {
 }
 
 AudioProcessingImpl::AudioProcessingImpl(const webrtc::Config& config)
-    : AudioProcessingImpl(config, nullptr, nullptr, nullptr, nullptr, nullptr) {
-}
+    : AudioProcessingImpl(config, nullptr, nullptr, nullptr, nullptr) {}
 
 int AudioProcessingImpl::instance_count_ = 0;
 

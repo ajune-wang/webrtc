@@ -44,8 +44,6 @@ class AecDump;
 class AudioBuffer;
 class AudioFrame;
 
-class NonlinearBeamformer;
-
 class StreamConfig;
 class ProcessingConfig;
 
@@ -145,22 +143,6 @@ struct ExperimentalNs {
   explicit ExperimentalNs(bool enabled) : enabled(enabled) {}
   static const ConfigOptionID identifier = ConfigOptionID::kExperimentalNs;
   bool enabled;
-};
-
-// Use to enable beamforming. Must be provided through the constructor. It will
-// have no impact if used with AudioProcessing::SetExtraOptions().
-struct Beamforming {
-  Beamforming();
-  Beamforming(bool enabled, const std::vector<Point>& array_geometry);
-  Beamforming(bool enabled,
-              const std::vector<Point>& array_geometry,
-              SphericalPointf target_direction);
-  ~Beamforming();
-
-  static const ConfigOptionID identifier = ConfigOptionID::kBeamforming;
-  const bool enabled;
-  const std::vector<Point> array_geometry;
-  const SphericalPointf target_direction;
 };
 
 // Use to enable intelligibility enhancer in audio processing.
@@ -673,9 +655,6 @@ class AudioProcessingBuilder {
   // The AudioProcessingBuilder takes ownership of the render_pre_processing.
   AudioProcessingBuilder& SetRenderPreProcessing(
       std::unique_ptr<CustomProcessing> render_pre_processing);
-  // The AudioProcessingBuilder takes ownership of the nonlinear beamformer.
-  AudioProcessingBuilder& SetNonlinearBeamformer(
-      std::unique_ptr<NonlinearBeamformer> nonlinear_beamformer);
   // The AudioProcessingBuilder takes ownership of the echo_detector.
   AudioProcessingBuilder& SetEchoDetector(
       std::unique_ptr<EchoDetector> echo_detector);
@@ -688,7 +667,6 @@ class AudioProcessingBuilder {
   std::unique_ptr<EchoControlFactory> echo_control_factory_;
   std::unique_ptr<CustomProcessing> capture_post_processing_;
   std::unique_ptr<CustomProcessing> render_pre_processing_;
-  std::unique_ptr<NonlinearBeamformer> nonlinear_beamformer_;
   std::unique_ptr<EchoDetector> echo_detector_;
   RTC_DISALLOW_COPY_AND_ASSIGN(AudioProcessingBuilder);
 };

@@ -39,6 +39,10 @@ class EncodedImage {
 
   void SetEncodeTime(int64_t encode_start_ms, int64_t encode_finish_ms);
 
+  int SimulcastIndex() const { return simulcast_index_; }
+  void SetSimulcastIndex(int simulcast_index) {
+    simulcast_index_ = simulcast_index;
+  }
   uint32_t _encodedWidth = 0;
   uint32_t _encodedHeight = 0;
   uint32_t _timeStamp = 0;
@@ -70,6 +74,10 @@ class EncodedImage {
     int64_t receive_start_ms = 0;
     int64_t receive_finish_ms = 0;
   } timing_;
+
+ private:
+  // TODO(nisse): Generalize to |spatial_index_|, and use also for VP9 svc?
+  int simulcast_index_ = 0;
 };
 
 }  // namespace webrtc

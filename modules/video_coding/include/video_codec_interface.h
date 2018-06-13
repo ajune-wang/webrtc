@@ -31,7 +31,6 @@ struct CodecSpecificInfoVP8 {
   // TODO(nisse): Used on receive side only. Move elsewhere?
   int16_t pictureId;  // Negative value to skip pictureId.
   bool nonReference;
-  uint8_t simulcastIdx;
   uint8_t temporalIdx;
   bool layerSync;
   // TODO(nisse): Used on receive side only. Move elsewhere?
@@ -73,16 +72,11 @@ struct CodecSpecificInfoVP9 {
   bool end_of_picture;
 };
 
-struct CodecSpecificInfoGeneric {
-  uint8_t simulcast_idx;
-};
-
 struct CodecSpecificInfoH264 {
   H264PacketizationMode packetization_mode;
 };
 
 union CodecSpecificInfoUnion {
-  CodecSpecificInfoGeneric generic;
   CodecSpecificInfoVP8 VP8;
   CodecSpecificInfoVP9 VP9;
   CodecSpecificInfoH264 H264;

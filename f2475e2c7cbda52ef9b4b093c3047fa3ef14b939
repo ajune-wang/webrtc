@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "85ae5937_d279ab17",
+        "filename": "media/base/fakevideosource.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-06-13T14:38:44Z",
+      "side": 1,
+      "message": "Wouldn\u0027t it be better to use Google Mock for this?",
+      "range": {
+        "startLine": 18,
+        "startChar": 6,
+        "endLine": 18,
+        "endChar": 21
+      },
+      "revId": "f2475e2c7cbda52ef9b4b093c3047fa3ef14b939",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

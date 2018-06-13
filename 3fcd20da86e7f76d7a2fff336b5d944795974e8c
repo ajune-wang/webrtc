@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e4805fa3_314f65fe",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 5366
+      },
+      "writtenOn": "2018-06-13T19:43:20Z",
+      "side": 1,
+      "message": "since bit_depth in vpx_image_t is not actually bit depth (it\u0027s number of bits used for storage), bits_for_storage might be a better name.",
+      "range": {
+        "startLine": 325,
+        "startChar": 15,
+        "endLine": 325,
+        "endChar": 24
+      },
+      "revId": "3fcd20da86e7f76d7a2fff336b5d944795974e8c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb82baf6_dc7d322d",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 5366
+      },
+      "writtenOn": "2018-06-13T19:43:20Z",
+      "side": 1,
+      "message": "and good to add comments to address this since its name is confusing.",
+      "range": {
+        "startLine": 348,
+        "startChar": 20,
+        "endLine": 348,
+        "endChar": 29
+      },
+      "revId": "3fcd20da86e7f76d7a2fff336b5d944795974e8c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

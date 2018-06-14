@@ -16,6 +16,24 @@
       "revId": "3f5cbadb5736573fa0bf2e905a9031b7877b2efc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e518ef9_2e51e9cb",
+        "filename": "p2p/base/regatheringcontroller_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-06-14T00:40:10Z",
+      "side": 1,
+      "message": "Ack. Fixed.",
+      "parentUuid": "e7fdefae_6289ff4c",
+      "revId": "3f5cbadb5736573fa0bf2e905a9031b7877b2efc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

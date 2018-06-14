@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bb7b6b19_1fb4dcbb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2018-06-14T13:09:30Z",
+      "side": 1,
+      "message": "nit: more",
+      "range": {
+        "startLine": 10,
+        "startChar": 26,
+        "endLine": 10,
+        "endChar": 29
+      },
+      "revId": "945b6d8bd1e7c21e83dfc59da20a235af4716fec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ef1778f_bb684e08",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2018-06-14T13:09:30Z",
+      "side": 1,
+      "message": "Is this different from kDefaultTCPMSS above?",
+      "range": {
+        "startLine": 47,
+        "startChar": 62,
+        "endLine": 47,
+        "endChar": 66
+      },
+      "revId": "945b6d8bd1e7c21e83dfc59da20a235af4716fec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6535378_21fc227a",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2018-06-14T13:09:30Z",
+      "side": 1,
+      "message": "For my understanding only: what does this do?",
+      "range": {
+        "startLine": 196,
+        "startChar": 6,
+        "endLine": 196,
+        "endChar": 25
+      },
+      "revId": "945b6d8bd1e7c21e83dfc59da20a235af4716fec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0e04fe4_642c2886",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2018-06-14T13:09:30Z",
+      "side": 1,
+      "message": "I only see this variable being set, never read?",
+      "range": {
+        "startLine": 303,
+        "startChar": 2,
+        "endLine": 303,
+        "endChar": 27
+      },
+      "revId": "945b6d8bd1e7c21e83dfc59da20a235af4716fec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "7ac5f8d9_3ed01443",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-06-14T06:53:33Z",
+      "side": 1,
+      "message": "Chromium has two guards against surfacing non-standard stuff:\n1. The filter, ignoring any unrecognized dictionary types. This is not as powerful as checking individual members but better than nothing. I didn\u0027t want to end up doing string comparisons for a hundred members for performance reasons.\n2. The integrationtest with withelist. There is a browsertest performing a call between two tabs and does getStats(), if any stats show up that are not whitelisted the test will fail. This is done on a per-member basis, but this will only catch stats that are surfaced in the test\u0027s scenario.\n\nI think the right approach is to add a new category of stats members:\nRTCExperimentalStatsMember\u003cT\u003e\n\nWith RTCStatsMemberInterface::is_experimental() returning true for those and false for RTCStatsMember\u003cT\u003e.\n\nThe RTCStatsReport iterator could then easily skip or include experimental stats, perhaps a switch report-\u003eExposeExperimentalStats(true);\n\nI proposed this here:\nhttps://docs.google.com/document/d/17FyH5Oeslk2fF66AOqwUALnDX1bCPrxI8zU3bJXHA08/edit?usp\u003dsharing\nThe document also discusses how experimental stats might be tied to Origin Trial and specific \"experiments\" in Chrome, but it is not up-to-date, I think we decided to control experimentation differently, to be decided when we actually run an experiment.\n\nIn any case, C++ land should have experimental stats that are not exposed to Chrome by default, and RTCExperimentalStatsMember\u003cT\u003e sounds good to me. Thoughts?",
+      "parentUuid": "2d34614b_19318f22",
+      "revId": "cf185e5c9d0f052e450d3166cd2a665a5fc1d713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "028d48f7_eee774ed",
         "filename": "pc/rtcstats_integrationtest.cc",
         "patchSetId": 1

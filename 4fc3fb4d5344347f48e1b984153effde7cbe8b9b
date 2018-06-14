@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "bfd31e78_6b97f353",
+        "filename": "video/payload_router.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-06-14T15:22:33Z",
+      "side": 1,
+      "message": "I would say go for it, but do a PSA. It might crash some external encoders, but the fix is simple. And the information is important for later stages of the pipeline.",
+      "parentUuid": "21b08df9_4cf56226",
+      "range": {
+        "startLine": 240,
+        "startChar": 7,
+        "endLine": 240,
+        "endChar": 49
+      },
+      "revId": "4fc3fb4d5344347f48e1b984153effde7cbe8b9b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3eba9c67_ef6149a4",
         "filename": "video/payload_router.cc",
         "patchSetId": 12
@@ -36,6 +60,30 @@
       "writtenOn": "2018-06-14T14:13:38Z",
       "side": 1,
       "message": "Should we check num_spatial_layers explicitly, and use kNoSpatialIdx if there\u0027s only one layer?",
+      "range": {
+        "startLine": 250,
+        "startChar": 8,
+        "endLine": 250,
+        "endChar": 52
+      },
+      "revId": "4fc3fb4d5344347f48e1b984153effde7cbe8b9b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30b6c289_af37ed4f",
+        "filename": "video/payload_router.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-06-14T15:22:33Z",
+      "side": 1,
+      "message": "Don\u0027t know, check with philipel and danilchap. The behaviour in the SFU and/or the jitter buffer might be different for the different cases.",
+      "parentUuid": "3eba9c67_ef6149a4",
       "range": {
         "startLine": 250,
         "startChar": 8,

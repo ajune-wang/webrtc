@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "73351bac_3b2c48f6",
+        "filename": "common_video/include/video_frame.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-06-14T15:22:33Z",
+      "side": 1,
+      "message": "Thanks for the comment. I was wondering why SpatialIndex() was more complicated than it has to be.",
+      "range": {
+        "startLine": 85,
+        "startChar": 23,
+        "endLine": 85,
+        "endChar": 42
+      },
+      "revId": "ec197b0daf267f2ebb33d4d2082d8a517add40be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a3f8dfdd_00b60e74",
+        "filename": "modules/video_coding/generic_encoder.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-06-14T15:22:33Z",
+      "side": 1,
+      "message": "const?",
+      "range": {
+        "startLine": 390,
+        "startChar": 2,
+        "endLine": 390,
+        "endChar": 8
+      },
+      "revId": "ec197b0daf267f2ebb33d4d2082d8a517add40be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

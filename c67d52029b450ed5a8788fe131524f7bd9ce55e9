@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7ee00b10_c0f61948",
+        "filename": "rtc_base/logging.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-06-14T07:46:38Z",
+      "side": 1,
+      "message": "Hmm I wonder if the compiler is smart enough to optimize this. Naive implementation would have two string allocations here:\n\n\": log message\"\nand \"TAG: log message\"\n\nThe way to make sure this doesn\u0027t happen would be to allocate the string object with the correct size and then copy the correct parts to that string. This is of course less readable so if the compiler is smart enough to optimize this, I think the current way is better.",
+      "range": {
+        "startLine": 88,
+        "startChar": 15,
+        "endLine": 88,
+        "endChar": 33
+      },
+      "revId": "c67d52029b450ed5a8788fe131524f7bd9ce55e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "682fde42_f8b44ce9",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-06-14T07:46:38Z",
+      "side": 1,
+      "message": "Can you instead add a separate JNI source set for the instrumentation tests and build a custom .so-file for them?",
+      "range": {
+        "startLine": 85,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 0
+      },
+      "revId": "c67d52029b450ed5a8788fe131524f7bd9ce55e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "643735ae_7077d333",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/LoggableTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-06-14T07:46:38Z",
+      "side": 1,
+      "message": "super nit: Since this is an object \"that keeps track how its methods are called\". I guess it\u0027s technically a MockLoggable?",
+      "range": {
+        "startLine": 31,
+        "startChar": 23,
+        "endLine": 31,
+        "endChar": 35
+      },
+      "revId": "c67d52029b450ed5a8788fe131524f7bd9ce55e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62c7db56_9f6d6d3a",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/LoggableTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-06-14T07:46:38Z",
+      "side": 1,
+      "message": "I guess we add some additional info to the log so this can\u0027t be equals?",
+      "range": {
+        "startLine": 45,
+        "startChar": 28,
+        "endLine": 45,
+        "endChar": 36
+      },
+      "revId": "c67d52029b450ed5a8788fe131524f7bd9ce55e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "0ec1604f_96d6633c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-06-14T15:41:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bb7b6b19_1fb4dcbb",
+      "range": {
+        "startLine": 10,
+        "startChar": 26,
+        "endLine": 10,
+        "endChar": 29
+      },
+      "revId": "945b6d8bd1e7c21e83dfc59da20a235af4716fec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6ef1778f_bb684e08",
         "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "945b6d8bd1e7c21e83dfc59da20a235af4716fec",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a17a026c_d9775421",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-06-14T15:41:31Z",
+      "side": 1,
+      "message": "Nothing but the type (There\u0027s issues with using statically initialized values to set another statically initialized value. However, I will change this line in a follow up CL where I use the field trial parser for BBR, I\u0027d like to keep this as is.",
+      "parentUuid": "6ef1778f_bb684e08",
+      "range": {
+        "startLine": 47,
+        "startChar": 62,
+        "endLine": 47,
+        "endChar": 66
+      },
+      "revId": "945b6d8bd1e7c21e83dfc59da20a235af4716fec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "d470bf25_ae22abbb",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-06-14T15:41:31Z",
+      "side": 1,
+      "message": "This sets the recovery to nullopt,\n\"\"\"\n  // Receiving acknowledgement of a packet after |end_recovery_at_| will cause\n  // BBR to exit the recovery mode. A set value indicates at least one\n  // loss has been detected...\n\"\"\"",
+      "parentUuid": "b6535378_21fc227a",
+      "range": {
+        "startLine": 196,
+        "startChar": 6,
+        "endLine": 196,
+        "endChar": 25
+      },
+      "revId": "945b6d8bd1e7c21e83dfc59da20a235af4716fec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a0e04fe4_642c2886",
         "filename": "modules/congestion_controller/bbr/bbr_network_controller.h",
         "patchSetId": 1
@@ -91,6 +163,30 @@
       "revId": "945b6d8bd1e7c21e83dfc59da20a235af4716fec",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "385a0d2d_c336b3e0",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-06-14T15:41:31Z",
+      "side": 1,
+      "message": "Fixed.",
+      "parentUuid": "a0e04fe4_642c2886",
+      "range": {
+        "startLine": 303,
+        "startChar": 2,
+        "endLine": 303,
+        "endChar": 27
+      },
+      "revId": "945b6d8bd1e7c21e83dfc59da20a235af4716fec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

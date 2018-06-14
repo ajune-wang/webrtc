@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "701b3678_4499166e",
+        "filename": "media/base/vp9_profile.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-14T06:58:37Z",
+      "side": 1,
+      "message": "Consider making this constant file local, even if that means that it has to be repeated in the test code.",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 37
+      },
+      "revId": "d4494689518a2952d09564df147c00ab87830ed3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3afbd49_c7306bf5",
+        "filename": "media/base/vp9_profile.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-14T06:58:37Z",
+      "side": 1,
+      "message": "Internal namespaces are discouraged. See totw/130.",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 15
+      },
+      "revId": "d4494689518a2952d09564df147c00ab87830ed3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69d0872d_770147cf",
+        "filename": "media/base/vp9_profile.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-14T06:58:37Z",
+      "side": 1,
+      "message": "enum class Vp9Profile",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 14
+      },
+      "revId": "d4494689518a2952d09564df147c00ab87830ed3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a0de1e3_2d81b14c",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-14T06:58:37Z",
+      "side": 1,
+      "message": "I wasn\u0027t aware we had cricket::VideoCodec (we also have webrtc::VideoCodec and webrtc::VideoEncoderConfig, with information passed to to InitEncode).\n\nNot sure what\u0027s the right way to organize this, but it would be nice if VP9 profiles and H264 profiles were handled in a similar way. For H264, it looks like the profile is part of VideoCodecH264, i.e., the \"codec specific\" part of webrtc::VideoCodec.",
+      "range": {
+        "startLine": 33,
+        "startChar": 26,
+        "endLine": 33,
+        "endChar": 58
+      },
+      "revId": "d4494689518a2952d09564df147c00ab87830ed3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

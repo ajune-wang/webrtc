@@ -562,6 +562,114 @@ TEST_F(PacedSenderTest, HighPrioDoesntAffectBudget) {
   EXPECT_EQ(0u, send_bucket_->QueueSizePackets());
 }
 
+class PacedSenderAudioTest : public testing::Test {
+ protected:
+  struct MediaStream {
+    const RtpPacketSender::Priority priority;
+    const uint32_t ssrc;
+    const int packet_size;
+    uint16_t seq_num;
+  };
+
+  const int kProcessIntervalsPerSecond = 1000 / 5;
+
+  PacedSenderAudioTest() : clock_(123456) {}
+  void InsertPacket(PacedSender* pacer, MediaStream* stream) {
+    pacer->InsertPacket(stream->priority, stream->ssrc, stream->seq_num++,
+                        clock_.TimeInMilliseconds(), stream->packet_size,
+                        false);
+  }
+  void ProcessNext(PacedSender* pacer) {
+    clock_.AdvanceTimeMilliseconds(5);
+    pacer->Process();
+  }
+  MediaStream audio{/*priority*/ PacedSender::kHighPriority,
+                    /*ssrc*/ 3333, /*packet_size*/ 100, /*seq_num*/ 1000};
+  MediaStream video{/*priority*/ PacedSender::kNormalPriority,
+                    /*ssrc*/ 4444, /*packet_size*/ 1000, /*seq_num*/ 1000};
+  SimulatedClock clock_;
+};
+
+TEST_F(PacedSenderAudioTest, BlocksAudioDueToVideoCongestion) {
+  MockPacedSenderCallback callback;
+  EXPECT_CALL(callback, TimeToSendPadding).Times(0);
+  PacedSender pacer(&clock_, &callback, nullptr);
+  pacer.SetPacingRates(10000000, 0);
+  pacer.SetCongestionWindow(800);
+  pacer.UpdateOutstandingData(0);
+  // Video packet fills congestion window.
+  InsertPacket(&pacer, &video);
+  EXPECT_CALL(callback, TimeToSendPacket).WillOnce(Return(true));
+  ProcessNext(&pacer);
+  // Audio packet blocked due to congestion.
+  InsertPacket(&pacer, &audio);
+  EXPECT_CALL(callback, TimeToSendPacket).Times(0);
+  ProcessNext(&pacer);
+  ProcessNext(&pacer);
+  // Audio packet unblocked when congestion window clear.
+  testing::Mock::VerifyAndClearExpectations(&callback);
+  pacer.UpdateOutstandingData(0);
+  EXPECT_CALL(callback, TimeToSendPacket).WillOnce(Return(true));
+  ProcessNext(&pacer);
+}
+
+TEST_F(PacedSenderAudioTest, BlocksAudioDueToVideoBudget) {
+  MockPacedSenderCallback callback;
+  EXPECT_CALL(callback, TimeToSendPadding).Times(0);
+  PacedSender pacer(&clock_, &callback, nullptr);
+  pacer.SetPacingRates(video.packet_size / 3 * 8 * kProcessIntervalsPerSecond,
+                       0);
+  // Video fills budget for following process periods.
+  InsertPacket(&pacer, &video);
+  EXPECT_CALL(callback, TimeToSendPacket).WillOnce(Return(true));
+  ProcessNext(&pacer);
+  // Audio packet blocked due to budget limit.
+  EXPECT_CALL(callback, TimeToSendPacket).Times(0);
+  InsertPacket(&pacer, &audio);
+  ProcessNext(&pacer);
+  ProcessNext(&pacer);
+  testing::Mock::VerifyAndClearExpectations(&callback);
+  // Audio packet unblocked when the budget has recovered.
+  EXPECT_CALL(callback, TimeToSendPacket).WillOnce(Return(true));
+  ProcessNext(&pacer);
+  ProcessNext(&pacer);
+}
+
+TEST_F(PacedSenderAudioTest, AudioNotAffectedByVideoCongestionInTrial) {
+  ScopedFieldTrials trial("WebRTC-PacerBlockAudio/Disabled/");
+  MockPacedSenderCallback callback;
+  EXPECT_CALL(callback, TimeToSendPadding).Times(0);
+  PacedSender pacer(&clock_, &callback, nullptr);
+  pacer.SetPacingRates(10000000, 0);
+  pacer.SetCongestionWindow(800);
+  pacer.UpdateOutstandingData(0);
+  // Video packet fills congestion window.
+  InsertPacket(&pacer, &video);
+  EXPECT_CALL(callback, TimeToSendPacket).WillOnce(Return(true));
+  ProcessNext(&pacer);
+  // Audio not blocked due to congestion.
+  InsertPacket(&pacer, &audio);
+  EXPECT_CALL(callback, TimeToSendPacket).WillOnce(Return(true));
+  ProcessNext(&pacer);
+}
+
+TEST_F(PacedSenderAudioTest, AudioNotAffectedByVideoBudgetInTrial) {
+  ScopedFieldTrials trial("WebRTC-PacerBlockAudio/Disabled/");
+  MockPacedSenderCallback callback;
+  EXPECT_CALL(callback, TimeToSendPadding).Times(0);
+  PacedSender pacer(&clock_, &callback, nullptr);
+  pacer.SetPacingRates(video.packet_size / 3 * 8 * kProcessIntervalsPerSecond,
+                       0);
+  // Video fills budget for following process periods.
+  InsertPacket(&pacer, &video);
+  EXPECT_CALL(callback, TimeToSendPacket).WillOnce(Return(true));
+  ProcessNext(&pacer);
+  // Audio packet not blocked due to budget limit.
+  EXPECT_CALL(callback, TimeToSendPacket).WillOnce(Return(true));
+  InsertPacket(&pacer, &audio);
+  ProcessNext(&pacer);
+}
+
 TEST_F(PacedSenderTest, SendsOnlyPaddingWhenCongested) {
   uint32_t ssrc = 202020;
   uint16_t sequence_number = 1000;

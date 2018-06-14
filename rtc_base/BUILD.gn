@@ -1203,6 +1203,18 @@ if (rtc_include_tests) {
     ]
   }
 
+  rtc_source_set("array_unittests") {
+    testonly = true
+
+    sources = [
+      "array_unittest.cc",
+    ]
+    deps = [
+      ":array",
+      ":rtc_base_tests_utils",
+    ]
+  }
+
   rtc_source_set("weak_ptr_unittests") {
     testonly = true
 
@@ -1309,6 +1321,16 @@ if (rtc_include_tests) {
       defines += [ "WEBRTC_BUILT_IN_SSL_ROOT_CERTIFICATES" ]
     }
   }
+}
+
+rtc_source_set("array") {
+  testonly = true
+  sources = [
+    "array.h",
+  ]
+  deps = [
+    ":checks",
+  ]
 }
 
 if (is_android) {

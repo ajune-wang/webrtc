@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f6f1a5b1_14267207",
+        "filename": "rtc_base/experiments/field_trial_parser.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-06-14T09:31:30Z",
+      "side": 1,
+      "message": "Don\u0027t allow \u003e 1.",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 24
+      },
+      "revId": "623088d9cf3414f387ce8605def58e2e5c5acfbb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "948ac938_5bb58750",
+        "filename": "rtc_base/experiments/field_trial_parser.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-06-14T09:31:30Z",
+      "side": 1,
+      "message": "Maybe add an example string here?",
+      "range": {
+        "startLine": 25,
+        "startChar": 5,
+        "endLine": 25,
+        "endChar": 0
+      },
+      "revId": "623088d9cf3414f387ce8605def58e2e5c5acfbb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

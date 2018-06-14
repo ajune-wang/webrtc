@@ -215,6 +215,30 @@
     },
     {
       "key": {
+        "uuid": "1d1e14ec_f867aa3a",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/VideoFrameTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-06-14T10:23:49Z",
+      "side": 1,
+      "message": "I see, the equals mark is the whole point, the spaces are still recommended, i.e. / *eglContext\u003d */ null.",
+      "parentUuid": "34efc746_2bb93b7d",
+      "range": {
+        "startLine": 77,
+        "startChar": 41,
+        "endLine": 77,
+        "endChar": 51
+      },
+      "revId": "55869fcb1a7fb0f95e1e26c233c609c352fe3d86",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d433efea_68657dc0",
         "filename": "sdk/android/instrumentationtests/src/org/webrtc/VideoFrameTest.java",
         "patchSetId": 2
@@ -283,6 +307,30 @@
       "revId": "55869fcb1a7fb0f95e1e26c233c609c352fe3d86",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b55adbb_38c24eb1",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/VideoFrameTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-06-14T10:23:49Z",
+      "side": 1,
+      "message": "I want createOesTextureBuffer() to be a static self contained function. I know it\u0027s bloated to add an implementation of TextureBuffer that delegates everything just to be able to release the thread, but that\u0027s the way I prefer and I\u0027ll go with that.",
+      "parentUuid": "fcf2cabc_ae276bfd",
+      "range": {
+        "startLine": 208,
+        "startChar": 0,
+        "endLine": 208,
+        "endChar": 43
+      },
+      "revId": "55869fcb1a7fb0f95e1e26c233c609c352fe3d86",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

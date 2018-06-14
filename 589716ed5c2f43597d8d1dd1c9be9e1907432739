@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "89581f5e_cb0ac3da",
+        "filename": "rtc_base/filerotatingstream.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-06-14T01:24:32Z",
+      "side": 1,
+      "message": "You might want to DCHECK that the return value is less than buffer_size.",
+      "revId": "589716ed5c2f43597d8d1dd1c9be9e1907432739",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

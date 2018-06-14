@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "ff92677b_fbb81d4b",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-06-14T15:56:06Z",
+      "side": 1,
+      "message": "Changed this to match the structure for the max value and preparing for later changes.",
+      "parentUuid": "a17a026c_d9775421",
+      "range": {
+        "startLine": 47,
+        "startChar": 62,
+        "endLine": 47,
+        "endChar": 66
+      },
+      "revId": "945b6d8bd1e7c21e83dfc59da20a235af4716fec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b6535378_21fc227a",
         "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
         "patchSetId": 1

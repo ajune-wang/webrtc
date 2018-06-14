@@ -15,10 +15,15 @@
 #include "rtc_base/criticalsection.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/sslstreamadapter.h"
+#include "system_wrappers/include/metrics.h"
 #include "third_party/libsrtp/include/srtp.h"
 #include "third_party/libsrtp/include/srtp_priv.h"
 
 namespace cricket {
+
+// The number of error code returned when failing to unprotect RTP/RTCP packet
+// from libsrtp. Required by the RTC_HISTOGRAM_ENUMERATION.
+const int kNumSrtpErrorCode = 28;
 
 SrtpSession::SrtpSession() {}
 
@@ -137,6 +142,8 @@ bool SrtpSession::UnprotectRtp(void* p, int in_len, int* out_len) {
       metrics_observer_->IncrementSparseEnumCounter(
           webrtc::kEnumCounterSrtpUnprotectError, err);
     }
+    RTC_HISTOGRAM_ENUMERATION("WebRTC.PeerConnection.UnprotectSrtpError",
+                              static_cast<int>(err), kNumSrtpErrorCode);
     return false;
   }
   return true;
@@ -157,6 +164,8 @@ bool SrtpSession::UnprotectRtcp(void* p, int in_len, int* out_len) {
       metrics_observer_->IncrementSparseEnumCounter(
           webrtc::kEnumCounterSrtcpUnprotectError, err);
     }
+    RTC_HISTOGRAM_ENUMERATION("WebRTC.PeerConnection.UnprotectSrtcpError",
+                              static_cast<int>(err), kNumSrtpErrorCode);
     return false;
   }
   return true;

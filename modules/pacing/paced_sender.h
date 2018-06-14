@@ -163,6 +163,8 @@ class PacedSender : public Pacer {
   PacketSender* const packet_sender_;
   const std::unique_ptr<AlrDetector> alr_detector_ RTC_PT_GUARDED_BY(critsect_);
 
+  const bool drain_large_queues_;
+
   rtc::CriticalSection critsect_;
   bool paused_ RTC_GUARDED_BY(critsect_);
   // This is the media budget, keeping track of how many bits of media

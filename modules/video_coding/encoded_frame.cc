@@ -124,7 +124,6 @@ void VCMEncodedFrame::CopyCodecSpecific(const RTPVideoHeader* header) {
           // This is the first packet for this frame.
           _codecSpecificInfo.codecSpecific.VP9.picture_id = -1;
           _codecSpecificInfo.codecSpecific.VP9.temporal_idx = 0;
-          _codecSpecificInfo.codecSpecific.VP9.spatial_idx = 0;
           _codecSpecificInfo.codecSpecific.VP9.gof_idx = 0;
           _codecSpecificInfo.codecSpecific.VP9.inter_layer_predicted = false;
           _codecSpecificInfo.codecSpecific.VP9.tl0_pic_idx = -1;
@@ -157,8 +156,6 @@ void VCMEncodedFrame::CopyCodecSpecific(const RTPVideoHeader* header) {
               header->codecHeader.VP9.temporal_up_switch;
         }
         if (header->codecHeader.VP9.spatial_idx != kNoSpatialIdx) {
-          _codecSpecificInfo.codecSpecific.VP9.spatial_idx =
-              header->codecHeader.VP9.spatial_idx;
           _codecSpecificInfo.codecSpecific.VP9.inter_layer_predicted =
               header->codecHeader.VP9.inter_layer_predicted;
         }

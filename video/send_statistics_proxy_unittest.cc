@@ -36,7 +36,6 @@ const int kRtpClockRateHz = 90000;
 const CodecSpecificInfo kDefaultCodecInfo = []() {
   CodecSpecificInfo codec_info;
   codec_info.codecType = kVideoCodecVP8;
-  codec_info.codecSpecific.VP8.simulcastIdx = 0;
   return codec_info;
 }();
 }  // namespace
@@ -1171,10 +1170,10 @@ TEST_F(SendStatisticsProxyTest, VerifyQpHistogramStats_Vp8) {
   codec_info.codecType = kVideoCodecVP8;
 
   for (int i = 0; i < SendStatisticsProxy::kMinRequiredMetricsSamples; ++i) {
-    codec_info.codecSpecific.VP8.simulcastIdx = 0;
+    encoded_image.SetSpatialIndex(0);
     encoded_image.qp_ = kQpIdx0;
     statistics_proxy_->OnSendEncodedImage(encoded_image, &codec_info);
-    codec_info.codecSpecific.VP8.simulcastIdx = 1;
+    encoded_image.SetSpatialIndex(1);
     encoded_image.qp_ = kQpIdx1;
     statistics_proxy_->OnSendEncodedImage(encoded_image, &codec_info);
   }
@@ -1196,7 +1195,7 @@ TEST_F(SendStatisticsProxyTest, VerifyQpHistogramStats_Vp8OneSsrc) {
   codec_info.codecType = kVideoCodecVP8;
 
   for (int i = 0; i < SendStatisticsProxy::kMinRequiredMetricsSamples; ++i) {
-    codec_info.codecSpecific.VP8.simulcastIdx = 0;
+    encoded_image.SetSpatialIndex(0);
     encoded_image.qp_ = kQpIdx0;
     statistics_proxy_->OnSendEncodedImage(encoded_image, &codec_info);
   }
@@ -1213,10 +1212,10 @@ TEST_F(SendStatisticsProxyTest, VerifyQpHistogramStats_Vp9) {
 
   for (int i = 0; i < SendStatisticsProxy::kMinRequiredMetricsSamples; ++i) {
     encoded_image.qp_ = kQpIdx0;
-    codec_info.codecSpecific.VP9.spatial_idx = 0;
+    encoded_image.SetSpatialIndex(0);
     statistics_proxy_->OnSendEncodedImage(encoded_image, &codec_info);
     encoded_image.qp_ = kQpIdx1;
-    codec_info.codecSpecific.VP9.spatial_idx = 1;
+    encoded_image.SetSpatialIndex(1);
     statistics_proxy_->OnSendEncodedImage(encoded_image, &codec_info);
   }
   statistics_proxy_.reset();
@@ -1239,7 +1238,6 @@ TEST_F(SendStatisticsProxyTest, VerifyQpHistogramStats_Vp9OneSpatialLayer) {
 
   for (int i = 0; i < SendStatisticsProxy::kMinRequiredMetricsSamples; ++i) {
     encoded_image.qp_ = kQpIdx0;
-    codec_info.codecSpecific.VP9.spatial_idx = 0;
     statistics_proxy_->OnSendEncodedImage(encoded_image, &codec_info);
   }
   statistics_proxy_.reset();
@@ -1387,6 +1385,7 @@ TEST_F(SendStatisticsProxyTest,
   quality_counts.resolution = -1;
   statistics_proxy_->SetAdaptationStats(cpu_counts, quality_counts);
   EncodedImage encoded_image;
+  encoded_image.SetSpatialIndex(0);
   for (int i = 0; i < SendStatisticsProxy::kMinRequiredMetricsSamples; ++i)
     statistics_proxy_->OnSendEncodedImage(encoded_image, &kDefaultCodecInfo);
 
@@ -1405,6 +1404,7 @@ TEST_F(SendStatisticsProxyTest,
   quality_counts.resolution = 0;
   statistics_proxy_->SetAdaptationStats(cpu_counts, quality_counts);
   EncodedImage encoded_image;
+  encoded_image.SetSpatialIndex(0);
   for (int i = 0; i < SendStatisticsProxy::kMinRequiredMetricsSamples; ++i)
     statistics_proxy_->OnSendEncodedImage(encoded_image, &kDefaultCodecInfo);
 
@@ -1427,6 +1427,7 @@ TEST_F(SendStatisticsProxyTest,
   quality_counts.resolution = kDownscales;
   statistics_proxy_->SetAdaptationStats(cpu_counts, quality_counts);
   EncodedImage encoded_image;
+  encoded_image.SetSpatialIndex(0);
   for (int i = 0; i < SendStatisticsProxy::kMinRequiredMetricsSamples; ++i)
     statistics_proxy_->OnSendEncodedImage(encoded_image, &kDefaultCodecInfo);
   // Histograms are updated when the statistics_proxy_ is deleted.
@@ -1555,13 +1556,13 @@ TEST_F(SendStatisticsProxyTest, EncodedResolutionTimesOut) {
   EncodedImage encoded_image;
   encoded_image._encodedWidth = kEncodedWidth;
   encoded_image._encodedHeight = kEncodedHeight;
+  encoded_image.SetSpatialIndex(0);
 
   CodecSpecificInfo codec_info;
   codec_info.codecType = kVideoCodecVP8;
-  codec_info.codecSpecific.VP8.simulcastIdx = 0;
 
   statistics_proxy_->OnSendEncodedImage(encoded_image, &codec_info);
-  codec_info.codecSpecific.VP8.simulcastIdx = 1;
+  encoded_image.SetSpatialIndex(1);
   statistics_proxy_->OnSendEncodedImage(encoded_image, &codec_info);
 
   VideoSendStream::Stats stats = statistics_proxy_->GetStats();
@@ -1584,7 +1585,6 @@ TEST_F(SendStatisticsProxyTest, EncodedResolutionTimesOut) {
 
   // Report stats for second SSRC to make sure it's not outdated along with the
   // first SSRC.
-  codec_info.codecSpecific.VP8.simulcastIdx = 1;
   statistics_proxy_->OnSendEncodedImage(encoded_image, &codec_info);
 
   // Forward 1 ms, reach timeout, substream 0 should have no resolution
@@ -1603,13 +1603,13 @@ TEST_F(SendStatisticsProxyTest, ClearsResolutionFromInactiveSsrcs) {
   EncodedImage encoded_image;
   encoded_image._encodedWidth = kEncodedWidth;
   encoded_image._encodedHeight = kEncodedHeight;
+  encoded_image.SetSpatialIndex(0);
 
   CodecSpecificInfo codec_info;
   codec_info.codecType = kVideoCodecVP8;
-  codec_info.codecSpecific.VP8.simulcastIdx = 0;
 
   statistics_proxy_->OnSendEncodedImage(encoded_image, &codec_info);
-  codec_info.codecSpecific.VP8.simulcastIdx = 1;
+  encoded_image.SetSpatialIndex(1);
   statistics_proxy_->OnSendEncodedImage(encoded_image, &codec_info);
 
   statistics_proxy_->OnInactiveSsrc(config_.rtp.ssrcs[1]);
@@ -2020,11 +2020,11 @@ class ForcedFallbackTest : public SendStatisticsProxyTest {
   explicit ForcedFallbackTest(const std::string& field_trials)
       : SendStatisticsProxyTest(field_trials) {
     codec_info_.codecType = kVideoCodecVP8;
-    codec_info_.codecSpecific.VP8.simulcastIdx = 0;
     codec_info_.codecSpecific.VP8.temporalIdx = 0;
     codec_info_.codec_name = "fake_codec";
     encoded_image_._encodedWidth = kWidth;
     encoded_image_._encodedHeight = kHeight;
+    encoded_image_.SetSpatialIndex(0);
   }
 
   ~ForcedFallbackTest() override {}
@@ -2098,7 +2098,7 @@ TEST_F(ForcedFallbackEnabled, StatsNotUpdatedForTemporalLayers) {
 }
 
 TEST_F(ForcedFallbackEnabled, StatsNotUpdatedForSimulcast) {
-  codec_info_.codecSpecific.VP8.simulcastIdx = 1;
+  encoded_image_.SetSpatialIndex(1);
   InsertEncodedFrames(kMinFrames, kFrameIntervalMs);
   statistics_proxy_.reset();
   EXPECT_EQ(0, metrics::NumSamples(kPrefix + "FallbackTimeInPercent.Vp8"));

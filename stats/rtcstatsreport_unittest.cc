@@ -22,7 +22,7 @@ class RTCTestStats1 : public RTCStats {
 
   RTCTestStats1(const std::string& id, int64_t timestamp_us)
       : RTCStats(id, timestamp_us),
-        integer("integer") {}
+        integer("integer", /*is_standardized=*/false) {}
 
   RTCStatsMember<int32_t> integer;
 };
@@ -36,7 +36,7 @@ class RTCTestStats2 : public RTCStats {
 
   RTCTestStats2(const std::string& id, int64_t timestamp_us)
       : RTCStats(id, timestamp_us),
-        number("number") {}
+        number("number", /*is_standardized=*/false) {}
 
   RTCStatsMember<double> number;
 };
@@ -50,7 +50,7 @@ class RTCTestStats3 : public RTCStats {
 
   RTCTestStats3(const std::string& id, int64_t timestamp_us)
       : RTCStats(id, timestamp_us),
-        string("string") {}
+        string("string", /*is_standardized=*/false) {}
 
   RTCStatsMember<std::string> string;
 };

@@ -2151,7 +2151,8 @@ class RTCTestStats : public RTCStats {
   WEBRTC_RTCSTATS_DECL();
 
   RTCTestStats(const std::string& id, int64_t timestamp_us)
-      : RTCStats(id, timestamp_us), dummy_stat("dummyStat") {}
+      : RTCStats(id, timestamp_us),
+        dummy_stat("dummyStat", /*is_standardized=*/false) {}
 
   RTCStatsMember<int32_t> dummy_stat;
 };

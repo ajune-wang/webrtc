@@ -215,6 +215,9 @@ class RTCStatsMemberInterface {
   virtual bool is_sequence() const = 0;
   virtual bool is_string() const = 0;
   bool is_defined() const { return is_defined_; }
+  // Is this part of the stats spec? Used so that chromium can easily filter
+  // out anything unstandardized.
+  bool is_standardized() { return is_standardized_; }
   // Type and value comparator. The names are not compared. These operators are
   // exposed for testing.
   virtual bool operator==(const RTCStatsMemberInterface& other) const = 0;
@@ -236,11 +239,16 @@ class RTCStatsMemberInterface {
   }
 
  protected:
-  RTCStatsMemberInterface(const char* name, bool is_defined)
-      : name_(name), is_defined_(is_defined) {}
+  RTCStatsMemberInterface(const char* name,
+                          bool is_defined,
+                          bool is_standardized)
+      : name_(name),
+        is_defined_(is_defined),
+        is_standardized_(is_standardized) {}
 
   const char* const name_;
   bool is_defined_;
+  bool is_standardized_;
 };
 
 // Template implementation of |RTCStatsMemberInterface|. Every possible |T| is
@@ -252,20 +260,24 @@ class RTCStatsMember : public RTCStatsMemberInterface {
  public:
   static const Type kType;
 
-  explicit RTCStatsMember(const char* name)
-      : RTCStatsMemberInterface(name, false),
+  explicit RTCStatsMember(const char* name, bool is_standardized)
+      : RTCStatsMemberInterface(name, /*is_defined=*/false, is_standardized),
         value_() {}
-  RTCStatsMember(const char* name, const T& value)
-      : RTCStatsMemberInterface(name, true),
+  RTCStatsMember(const char* name, const T& value, bool is_standardized)
+      : RTCStatsMemberInterface(name, /*is_defined=*/true, is_standardized),
         value_(value) {}
-  RTCStatsMember(const char* name, T&& value)
-      : RTCStatsMemberInterface(name, true),
+  RTCStatsMember(const char* name, T&& value, bool is_standardized)
+      : RTCStatsMemberInterface(name, /*is_defined=*/true, is_standardized),
         value_(std::move(value)) {}
   explicit RTCStatsMember(const RTCStatsMember<T>& other)
-      : RTCStatsMemberInterface(other.name_, other.is_defined_),
+      : RTCStatsMemberInterface(other.name_,
+                                other.is_defined_,
+                                other.is_standardized_),
         value_(other.value_) {}
   explicit RTCStatsMember(RTCStatsMember<T>&& other)
-      : RTCStatsMemberInterface(other.name_, other.is_defined_),
+      : RTCStatsMemberInterface(other.name_,
+                                other.is_defined_,
+                                other.is_standardized_),
         value_(std::move(other.value_)) {}
 
   Type type() const override { return kType; }
@@ -280,7 +292,8 @@ class RTCStatsMember : public RTCStatsMemberInterface {
       return !other_t.is_defined();
     if (!other.is_defined())
       return false;
-    return value_ == other_t.value_;
+    return value_ == other_t.value_ &&
+           is_standardized_ == other_t.is_standardized_;
   }
   std::string ValueToString() const override;
   std::string ValueToJson() const override;
@@ -298,6 +311,7 @@ class RTCStatsMember : public RTCStatsMemberInterface {
   }
   T& operator=(const RTCStatsMember<T>& other) {
     RTC_DCHECK(other.is_defined_);
+    RTC_DCHECK_EQ(is_standardized_, other.is_standardized_);
     value_ = other.is_defined_;
     is_defined_ = true;
     return value_;

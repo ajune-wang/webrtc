@@ -60,14 +60,12 @@ RTCCertificateStats::RTCCertificateStats(
     : RTCCertificateStats(std::string(id), timestamp_us) {
 }
 
-RTCCertificateStats::RTCCertificateStats(
-    std::string&& id, int64_t timestamp_us)
+RTCCertificateStats::RTCCertificateStats(std::string&& id, int64_t timestamp_us)
     : RTCStats(std::move(id), timestamp_us),
-      fingerprint("fingerprint"),
-      fingerprint_algorithm("fingerprintAlgorithm"),
-      base64_certificate("base64Certificate"),
-      issuer_certificate_id("issuerCertificateId") {
-}
+      fingerprint("fingerprint", true),
+      fingerprint_algorithm("fingerprintAlgorithm", true),
+      base64_certificate("base64Certificate", true),
+      issuer_certificate_id("issuerCertificateId", true) {}
 
 RTCCertificateStats::RTCCertificateStats(
     const RTCCertificateStats& other)
@@ -96,16 +94,14 @@ RTCCodecStats::RTCCodecStats(
     : RTCCodecStats(std::string(id), timestamp_us) {
 }
 
-RTCCodecStats::RTCCodecStats(
-    std::string&& id, int64_t timestamp_us)
+RTCCodecStats::RTCCodecStats(std::string&& id, int64_t timestamp_us)
     : RTCStats(std::move(id), timestamp_us),
-      payload_type("payloadType"),
-      mime_type("mimeType"),
-      clock_rate("clockRate"),
-      channels("channels"),
-      sdp_fmtp_line("sdpFmtpLine"),
-      implementation("implementation") {
-}
+      payload_type("payloadType", true),
+      mime_type("mimeType", true),
+      clock_rate("clockRate", true),
+      channels("channels", true),
+      sdp_fmtp_line("sdpFmtpLine", true),
+      implementation("implementation", true) {}
 
 RTCCodecStats::RTCCodecStats(
     const RTCCodecStats& other)
@@ -138,18 +134,16 @@ RTCDataChannelStats::RTCDataChannelStats(
     : RTCDataChannelStats(std::string(id), timestamp_us) {
 }
 
-RTCDataChannelStats::RTCDataChannelStats(
-    std::string&& id, int64_t timestamp_us)
+RTCDataChannelStats::RTCDataChannelStats(std::string&& id, int64_t timestamp_us)
     : RTCStats(std::move(id), timestamp_us),
-      label("label"),
-      protocol("protocol"),
-      datachannelid("datachannelid"),
-      state("state"),
-      messages_sent("messagesSent"),
-      bytes_sent("bytesSent"),
-      messages_received("messagesReceived"),
-      bytes_received("bytesReceived") {
-}
+      label("label", true),
+      protocol("protocol", true),
+      datachannelid("datachannelid", true),
+      state("state", true),
+      messages_sent("messagesSent", true),
+      bytes_sent("bytesSent", true),
+      messages_received("messagesReceived", true),
+      bytes_received("bytesReceived", true) {}
 
 RTCDataChannelStats::RTCDataChannelStats(
     const RTCDataChannelStats& other)
@@ -200,34 +194,33 @@ RTCIceCandidatePairStats::RTCIceCandidatePairStats(
     : RTCIceCandidatePairStats(std::string(id), timestamp_us) {
 }
 
-RTCIceCandidatePairStats::RTCIceCandidatePairStats(
-    std::string&& id, int64_t timestamp_us)
+RTCIceCandidatePairStats::RTCIceCandidatePairStats(std::string&& id,
+                                                   int64_t timestamp_us)
     : RTCStats(std::move(id), timestamp_us),
-      transport_id("transportId"),
-      local_candidate_id("localCandidateId"),
-      remote_candidate_id("remoteCandidateId"),
-      state("state"),
-      priority("priority"),
-      nominated("nominated"),
-      writable("writable"),
-      readable("readable"),
-      bytes_sent("bytesSent"),
-      bytes_received("bytesReceived"),
-      total_round_trip_time("totalRoundTripTime"),
-      current_round_trip_time("currentRoundTripTime"),
-      available_outgoing_bitrate("availableOutgoingBitrate"),
-      available_incoming_bitrate("availableIncomingBitrate"),
-      requests_received("requestsReceived"),
-      requests_sent("requestsSent"),
-      responses_received("responsesReceived"),
-      responses_sent("responsesSent"),
-      retransmissions_received("retransmissionsReceived"),
-      retransmissions_sent("retransmissionsSent"),
-      consent_requests_received("consentRequestsReceived"),
-      consent_requests_sent("consentRequestsSent"),
-      consent_responses_received("consentResponsesReceived"),
-      consent_responses_sent("consentResponsesSent") {
-}
+      transport_id("transportId", true),
+      local_candidate_id("localCandidateId", true),
+      remote_candidate_id("remoteCandidateId", true),
+      state("state", true),
+      priority("priority", true),
+      nominated("nominated", true),
+      writable("writable", true),
+      readable("readable", true),
+      bytes_sent("bytesSent", true),
+      bytes_received("bytesReceived", true),
+      total_round_trip_time("totalRoundTripTime", true),
+      current_round_trip_time("currentRoundTripTime", true),
+      available_outgoing_bitrate("availableOutgoingBitrate", true),
+      available_incoming_bitrate("availableIncomingBitrate", true),
+      requests_received("requestsReceived", true),
+      requests_sent("requestsSent", true),
+      responses_received("responsesReceived", true),
+      responses_sent("responsesSent", true),
+      retransmissions_received("retransmissionsReceived", true),
+      retransmissions_sent("retransmissionsSent", true),
+      consent_requests_received("consentRequestsReceived", true),
+      consent_requests_sent("consentRequestsSent", true),
+      consent_responses_received("consentResponsesReceived", true),
+      consent_responses_sent("consentResponsesSent", true) {}
 
 RTCIceCandidatePairStats::RTCIceCandidatePairStats(
     const RTCIceCandidatePairStats& other)
@@ -284,16 +277,16 @@ RTCIceCandidateStats::RTCIceCandidateStats(std::string&& id,
                                            int64_t timestamp_us,
                                            bool is_remote)
     : RTCStats(std::move(id), timestamp_us),
-      transport_id("transportId"),
-      is_remote("isRemote", is_remote),
-      network_type("networkType"),
-      ip("ip"),
-      port("port"),
-      protocol("protocol"),
-      candidate_type("candidateType"),
-      priority("priority"),
-      url("url"),
-      deleted("deleted", false) {}
+      transport_id("transportId", true),
+      is_remote("isRemote", is_remote, true),
+      network_type("networkType", true),
+      ip("ip", true),
+      port("port", true),
+      protocol("protocol", true),
+      candidate_type("candidateType", true),
+      priority("priority", true),
+      url("url", true),
+      deleted("deleted", false, true) {}
 
 RTCIceCandidateStats::RTCIceCandidateStats(const RTCIceCandidateStats& other)
     : RTCStats(other.id(), other.timestamp_us()),
@@ -362,12 +355,10 @@ RTCMediaStreamStats::RTCMediaStreamStats(
     : RTCMediaStreamStats(std::string(id), timestamp_us) {
 }
 
-RTCMediaStreamStats::RTCMediaStreamStats(
-    std::string&& id, int64_t timestamp_us)
+RTCMediaStreamStats::RTCMediaStreamStats(std::string&& id, int64_t timestamp_us)
     : RTCStats(std::move(id), timestamp_us),
-      stream_identifier("streamIdentifier"),
-      track_ids("trackIds") {
-}
+      stream_identifier("streamIdentifier", true),
+      track_ids("trackIds", true) {}
 
 RTCMediaStreamStats::RTCMediaStreamStats(
     const RTCMediaStreamStats& other)
@@ -417,31 +408,31 @@ RTCMediaStreamTrackStats::RTCMediaStreamTrackStats(std::string&& id,
                                                    int64_t timestamp_us,
                                                    const char* kind)
     : RTCStats(std::move(id), timestamp_us),
-      track_identifier("trackIdentifier"),
-      remote_source("remoteSource"),
-      ended("ended"),
-      detached("detached"),
-      kind("kind", kind),
-      jitter_buffer_delay("jitterBufferDelay"),
-      frame_width("frameWidth"),
-      frame_height("frameHeight"),
-      frames_per_second("framesPerSecond"),
-      frames_sent("framesSent"),
-      huge_frames_sent("hugeFramesSent"),
-      frames_received("framesReceived"),
-      frames_decoded("framesDecoded"),
-      frames_dropped("framesDropped"),
-      frames_corrupted("framesCorrupted"),
-      partial_frames_lost("partialFramesLost"),
-      full_frames_lost("fullFramesLost"),
-      audio_level("audioLevel"),
-      total_audio_energy("totalAudioEnergy"),
-      echo_return_loss("echoReturnLoss"),
-      echo_return_loss_enhancement("echoReturnLossEnhancement"),
-      total_samples_received("totalSamplesReceived"),
-      total_samples_duration("totalSamplesDuration"),
-      concealed_samples("concealedSamples"),
-      concealment_events("concealmentEvents") {
+      track_identifier("trackIdentifier", true),
+      remote_source("remoteSource", true),
+      ended("ended", true),
+      detached("detached", true),
+      kind("kind", kind, true),
+      jitter_buffer_delay("jitterBufferDelay", true),
+      frame_width("frameWidth", true),
+      frame_height("frameHeight", true),
+      frames_per_second("framesPerSecond", true),
+      frames_sent("framesSent", true),
+      huge_frames_sent("hugeFramesSent", true),
+      frames_received("framesReceived", true),
+      frames_decoded("framesDecoded", true),
+      frames_dropped("framesDropped", true),
+      frames_corrupted("framesCorrupted", true),
+      partial_frames_lost("partialFramesLost", true),
+      full_frames_lost("fullFramesLost", true),
+      audio_level("audioLevel", true),
+      total_audio_energy("totalAudioEnergy", true),
+      echo_return_loss("echoReturnLoss", true),
+      echo_return_loss_enhancement("echoReturnLossEnhancement", true),
+      total_samples_received("totalSamplesReceived", true),
+      total_samples_duration("totalSamplesDuration", true),
+      concealed_samples("concealedSamples", true),
+      concealment_events("concealmentEvents", true) {
   RTC_DCHECK(kind == RTCMediaStreamTrackKind::kAudio ||
              kind == RTCMediaStreamTrackKind::kVideo);
 }
@@ -489,12 +480,11 @@ RTCPeerConnectionStats::RTCPeerConnectionStats(
     : RTCPeerConnectionStats(std::string(id), timestamp_us) {
 }
 
-RTCPeerConnectionStats::RTCPeerConnectionStats(
-    std::string&& id, int64_t timestamp_us)
+RTCPeerConnectionStats::RTCPeerConnectionStats(std::string&& id,
+                                               int64_t timestamp_us)
     : RTCStats(std::move(id), timestamp_us),
-      data_channels_opened("dataChannelsOpened"),
-      data_channels_closed("dataChannelsClosed") {
-}
+      data_channels_opened("dataChannelsOpened", true),
+      data_channels_closed("dataChannelsClosed", true) {}
 
 RTCPeerConnectionStats::RTCPeerConnectionStats(
     const RTCPeerConnectionStats& other)
@@ -527,22 +517,20 @@ RTCRTPStreamStats::RTCRTPStreamStats(
     : RTCRTPStreamStats(std::string(id), timestamp_us) {
 }
 
-RTCRTPStreamStats::RTCRTPStreamStats(
-    std::string&& id, int64_t timestamp_us)
+RTCRTPStreamStats::RTCRTPStreamStats(std::string&& id, int64_t timestamp_us)
     : RTCStats(std::move(id), timestamp_us),
-      ssrc("ssrc"),
-      associate_stats_id("associateStatsId"),
-      is_remote("isRemote", false),
-      media_type("mediaType"),
-      track_id("trackId"),
-      transport_id("transportId"),
-      codec_id("codecId"),
-      fir_count("firCount"),
-      pli_count("pliCount"),
-      nack_count("nackCount"),
-      sli_count("sliCount"),
-      qp_sum("qpSum") {
-}
+      ssrc("ssrc", true),
+      associate_stats_id("associateStatsId", true),
+      is_remote("isRemote", false, true),
+      media_type("mediaType", true),
+      track_id("trackId", true),
+      transport_id("transportId", true),
+      codec_id("codecId", true),
+      fir_count("firCount", true),
+      pli_count("pliCount", true),
+      nack_count("nackCount", true),
+      sli_count("sliCount", true),
+      qp_sum("qpSum", true) {}
 
 RTCRTPStreamStats::RTCRTPStreamStats(
     const RTCRTPStreamStats& other)
@@ -591,27 +579,26 @@ RTCInboundRTPStreamStats::RTCInboundRTPStreamStats(
     : RTCInboundRTPStreamStats(std::string(id), timestamp_us) {
 }
 
-RTCInboundRTPStreamStats::RTCInboundRTPStreamStats(
-    std::string&& id, int64_t timestamp_us)
+RTCInboundRTPStreamStats::RTCInboundRTPStreamStats(std::string&& id,
+                                                   int64_t timestamp_us)
     : RTCRTPStreamStats(std::move(id), timestamp_us),
-      packets_received("packetsReceived"),
-      bytes_received("bytesReceived"),
-      packets_lost("packetsLost"),
-      jitter("jitter"),
-      fraction_lost("fractionLost"),
-      round_trip_time("roundTripTime"),
-      packets_discarded("packetsDiscarded"),
-      packets_repaired("packetsRepaired"),
-      burst_packets_lost("burstPacketsLost"),
-      burst_packets_discarded("burstPacketsDiscarded"),
-      burst_loss_count("burstLossCount"),
-      burst_discard_count("burstDiscardCount"),
-      burst_loss_rate("burstLossRate"),
-      burst_discard_rate("burstDiscardRate"),
-      gap_loss_rate("gapLossRate"),
-      gap_discard_rate("gapDiscardRate"),
-      frames_decoded("framesDecoded") {
-}
+      packets_received("packetsReceived", true),
+      bytes_received("bytesReceived", true),
+      packets_lost("packetsLost", true),
+      jitter("jitter", true),
+      fraction_lost("fractionLost", true),
+      round_trip_time("roundTripTime", true),
+      packets_discarded("packetsDiscarded", true),
+      packets_repaired("packetsRepaired", true),
+      burst_packets_lost("burstPacketsLost", true),
+      burst_packets_discarded("burstPacketsDiscarded", true),
+      burst_loss_count("burstLossCount", true),
+      burst_discard_count("burstDiscardCount", true),
+      burst_loss_rate("burstLossRate", true),
+      burst_discard_rate("burstDiscardRate", true),
+      gap_loss_rate("gapLossRate", true),
+      gap_discard_rate("gapDiscardRate", true),
+      frames_decoded("framesDecoded", true) {}
 
 RTCInboundRTPStreamStats::RTCInboundRTPStreamStats(
     const RTCInboundRTPStreamStats& other)
@@ -652,14 +639,13 @@ RTCOutboundRTPStreamStats::RTCOutboundRTPStreamStats(
     : RTCOutboundRTPStreamStats(std::string(id), timestamp_us) {
 }
 
-RTCOutboundRTPStreamStats::RTCOutboundRTPStreamStats(
-    std::string&& id, int64_t timestamp_us)
+RTCOutboundRTPStreamStats::RTCOutboundRTPStreamStats(std::string&& id,
+                                                     int64_t timestamp_us)
     : RTCRTPStreamStats(std::move(id), timestamp_us),
-      packets_sent("packetsSent"),
-      bytes_sent("bytesSent"),
-      target_bitrate("targetBitrate"),
-      frames_encoded("framesEncoded") {
-}
+      packets_sent("packetsSent", true),
+      bytes_sent("bytesSent", true),
+      target_bitrate("targetBitrate", true),
+      frames_encoded("framesEncoded", true) {}
 
 RTCOutboundRTPStreamStats::RTCOutboundRTPStreamStats(
     const RTCOutboundRTPStreamStats& other)
@@ -689,17 +675,15 @@ RTCTransportStats::RTCTransportStats(
     : RTCTransportStats(std::string(id), timestamp_us) {
 }
 
-RTCTransportStats::RTCTransportStats(
-    std::string&& id, int64_t timestamp_us)
+RTCTransportStats::RTCTransportStats(std::string&& id, int64_t timestamp_us)
     : RTCStats(std::move(id), timestamp_us),
-      bytes_sent("bytesSent"),
-      bytes_received("bytesReceived"),
-      rtcp_transport_stats_id("rtcpTransportStatsId"),
-      dtls_state("dtlsState"),
-      selected_candidate_pair_id("selectedCandidatePairId"),
-      local_certificate_id("localCertificateId"),
-      remote_certificate_id("remoteCertificateId") {
-}
+      bytes_sent("bytesSent", true),
+      bytes_received("bytesReceived", true),
+      rtcp_transport_stats_id("rtcpTransportStatsId", true),
+      dtls_state("dtlsState", true),
+      selected_candidate_pair_id("selectedCandidatePairId", true),
+      local_certificate_id("localCertificateId", true),
+      remote_certificate_id("remoteCertificateId", true) {}
 
 RTCTransportStats::RTCTransportStats(
     const RTCTransportStats& other)

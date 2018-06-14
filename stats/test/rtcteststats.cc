@@ -30,21 +30,20 @@ WEBRTC_RTCSTATS_IMPL(RTCTestStats, RTCStats, "test-stats",
 
 RTCTestStats::RTCTestStats(const std::string& id, int64_t timestamp_us)
     : RTCStats(id, timestamp_us),
-      m_bool("mBool"),
-      m_int32("mInt32"),
-      m_uint32("mUint32"),
-      m_int64("mInt64"),
-      m_uint64("mUint64"),
-      m_double("mDouble"),
-      m_string("mString"),
-      m_sequence_bool("mSequenceBool"),
-      m_sequence_int32("mSequenceInt32"),
-      m_sequence_uint32("mSequenceUint32"),
-      m_sequence_int64("mSequenceInt64"),
-      m_sequence_uint64("mSequenceUint64"),
-      m_sequence_double("mSequenceDouble"),
-      m_sequence_string("mSequenceString") {
-}
+      m_bool("mBool", false),
+      m_int32("mInt32", false),
+      m_uint32("mUint32", false),
+      m_int64("mInt64", false),
+      m_uint64("mUint64", false),
+      m_double("mDouble", false),
+      m_string("mString", false),
+      m_sequence_bool("mSequenceBool", false),
+      m_sequence_int32("mSequenceInt32", false),
+      m_sequence_uint32("mSequenceUint32", false),
+      m_sequence_int64("mSequenceInt64", false),
+      m_sequence_uint64("mSequenceUint64", false),
+      m_sequence_double("mSequenceDouble", false),
+      m_sequence_string("mSequenceString", false) {}
 
 RTCTestStats::RTCTestStats(const RTCTestStats& other)
     : RTCStats(other.id(), other.timestamp_us()),

@@ -43,7 +43,7 @@ class RTCChildStats : public RTCStats {
 
   RTCChildStats(const std::string& id, int64_t timestamp_us)
       : RTCStats(id, timestamp_us),
-        child_int("childInt") {}
+        child_int("childInt", /*is_standardized=*/false) {}
 
   RTCStatsMember<int32_t> child_int;
 };
@@ -57,7 +57,7 @@ class RTCGrandChildStats : public RTCChildStats {
 
   RTCGrandChildStats(const std::string& id, int64_t timestamp_us)
       : RTCChildStats(id, timestamp_us),
-        grandchild_int("grandchildInt") {}
+        grandchild_int("grandchildInt", /*is_standardized=*/false) {}
 
   RTCStatsMember<int32_t> grandchild_int;
 };
@@ -329,6 +329,17 @@ TEST(RTCStatsTest, RTCStatsPrintsValidJson) {
   EXPECT_FALSE(rtc::GetIntFromJsonObject(json_output, "mUint64", &m_uint64));
 
   std::cout << stats.ToJson() << std::endl;
+}
+
+// Simple test that is_standardize() returns the value from the RTCStatsMember
+// constructor.
+TEST(RTCStatsTest, IsStandardized) {
+  RTCStatsMember<int32_t> standardized("standardized",
+                                       /*is_standardized*/ true);
+  EXPECT_TRUE(standardized.is_standardized());
+  RTCStatsMember<int32_t> unstandardized("unstandardized",
+                                         /*is_standardized*/ false);
+  EXPECT_FALSE(unstandardized.is_standardized());
 }
 
 // Death tests.

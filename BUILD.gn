@@ -438,6 +438,7 @@ if (rtc_include_tests) {
       "api/video_codecs/test:video_codecs_api_unittests",
       "p2p:libstunprober_unittests",
       "p2p:rtc_p2p_unittests",
+      "rtc_base:array_unittests",
       "rtc_base:rtc_base_approved_unittests",
       "rtc_base:rtc_base_tests_main",
       "rtc_base:rtc_base_tests_utils",

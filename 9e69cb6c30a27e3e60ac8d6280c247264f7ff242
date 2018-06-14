@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eed00b1f_1fd2cad6",
+        "filename": "pc/srtpsession.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-06-14T07:22:58Z",
+      "side": 1,
+      "message": "Suggestion:\n\n// One more than the maximum libsrtp error code. Required by RTC_HISTOGRAM_ENUMERATION. Keep this in sync with srtp_error_status_t defined in srtp.h.\nconstexpr int kSrtpErrorCodeBoundary \u003d 28;",
+      "revId": "9e69cb6c30a27e3e60ac8d6280c247264f7ff242",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

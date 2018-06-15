@@ -448,6 +448,7 @@ webrtc_fuzzer_test("transport_feedback_packet_loss_tracker_fuzzer") {
   ]
 }
 rtc_static_library("audio_processing_fuzzer_helper") {
+  testonly = true
   sources = [
     "audio_processing_fuzzer_helper.cc",
     "audio_processing_fuzzer_helper.h",
@@ -459,6 +460,7 @@ rtc_static_library("audio_processing_fuzzer_helper") {
     "../../modules/audio_processing",
     "../../rtc_base:checks",
     "../../rtc_base:rtc_base_approved",
+    "../../system_wrappers:field_trial_default",
   ]
 }
 
@@ -475,6 +477,20 @@ webrtc_fuzzer_test("audio_processing_fuzzer") {
     "../../rtc_base:safe_minmax",
   ]
   seed_corpus = "corpora/audio_processing-corpus"
+}
+
+webrtc_fuzzer_test("agc_fuzzer") {
+  sources = [
+    "agc_fuzzer.cc",
+  ]
+  deps = [
+    ":fuzz_data_helper",
+    "../../modules/audio_processing",
+    "../../modules/audio_processing",
+    "../../rtc_base:rtc_base_approved",
+  ]
+
+  #  seed_corpus = "corpora/audio_processing-corpus"
 }
 
 webrtc_fuzzer_test("comfort_noise_decoder_fuzzer") {

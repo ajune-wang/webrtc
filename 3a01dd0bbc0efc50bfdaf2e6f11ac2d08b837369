@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "00689a53_2f464ef9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-06-15T09:11:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "053534d1_69dc163d",
+      "revId": "3a01dd0bbc0efc50bfdaf2e6f11ac2d08b837369",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "15e2c09b_dfd08152",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -30,6 +48,24 @@
       "writtenOn": "2018-06-15T08:57:27Z",
       "side": 1,
       "message": "For next time: you can use many other caharcters, e.g. comma, in sed replace expressions. That\u0027s very useful when the text you\u0027re replacing has slashes in it. For example,\n\n  sed \u0027s/foo\\/bar/foobar/\u0027\n\nis the same thing as\n\n  sed \u0027s,foo/bar,foobar,\u0027",
+      "revId": "3a01dd0bbc0efc50bfdaf2e6f11ac2d08b837369",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2e98219f_8e2596c1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-06-15T09:11:15Z",
+      "side": 1,
+      "message": "Thank you! that easier to read.\nI\u0027ve updated description for more readable history (after double-checking it produce same result)",
+      "parentUuid": "15e2c09b_dfd08152",
       "revId": "3a01dd0bbc0efc50bfdaf2e6f11ac2d08b837369",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

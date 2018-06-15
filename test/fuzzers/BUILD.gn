@@ -459,6 +459,7 @@ rtc_static_library("audio_processing_fuzzer_helper") {
     "../../modules/audio_processing",
     "../../rtc_base:checks",
     "../../rtc_base:rtc_base_approved",
+    "../../system_wrappers:field_trial_default",
   ]
 }
 

@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "a5654209_65fdccdf",
+        "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCPeerConnectionFactoryBuilder+Helpers.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2018-06-15T12:01:28Z",
+      "side": 1,
+      "message": "Agreed, and then the method +builder could just `return [[RTCPeerConnectionFactoryBuilder alloc] init]` and be in the main interface as a convenience.",
+      "parentUuid": "2b1e49ab_e8a625ef",
+      "range": {
+        "startLine": 17,
+        "startChar": 37,
+        "endLine": 17,
+        "endChar": 44
+      },
+      "revId": "a72c1515d938383052729c32a572cff71117068b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "63ab6ef2_696caa19",
         "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCPeerConnectionFactoryBuilder+Helpers.h",
         "patchSetId": 3
@@ -64,6 +88,29 @@
         "startChar": 0,
         "endLine": 20,
         "endChar": 73
+      },
+      "revId": "a72c1515d938383052729c32a572cff71117068b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "13586294_98e8d3a3",
+        "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCPeerConnectionFactoryBuilder+Helpers.mm",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2018-06-15T12:01:28Z",
+      "side": 1,
+      "message": "The default builder should probably inject the RTCDefaultVideoEncoderFactory and RTCDefaultVideoDecoderFactory (include VP8/VP9 in addition to H264)",
+      "range": {
+        "startLine": 44,
+        "startChar": 48,
+        "endLine": 44,
+        "endChar": 74
       },
       "revId": "a72c1515d938383052729c32a572cff71117068b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

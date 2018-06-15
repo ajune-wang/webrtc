@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "612a6da3_1fb5b942",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-06-15T12:02:15Z",
+      "side": 1,
+      "message": "Suggested formulation:\nDisables congestion window in pacer when CongestionWindowPushback is enabled.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 90
+      },
+      "revId": "6e13ffbb5690aaa0c493b6721ab6ff57e89cfe5b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

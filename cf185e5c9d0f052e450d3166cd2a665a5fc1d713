@@ -91,6 +91,24 @@
     },
     {
       "key": {
+        "uuid": "1e042722_e788b99b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-06-15T08:13:58Z",
+      "side": 1,
+      "message": "Commented on it. I still prefer a stats hierarchy because I want \"experimental\" to be called out in rtcstats_objects.h header file since I view this as a document describing the state of getStats() and I think experimental and non-experimental are categorically different, that this deserves more attention than a parameter passed to constructors in rtcstats_object.cc.\n\nWith regards to \"is_standardized\" vs \"is_experimental\" I have no strong opinion.\n\nWe could have kStandardized, kExperimental and kImplementationSpecific, or we could go with just standard and non-standard.",
+      "parentUuid": "beee956b_5a09245f",
+      "revId": "cf185e5c9d0f052e450d3166cd2a665a5fc1d713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "028d48f7_eee774ed",
         "filename": "pc/rtcstats_integrationtest.cc",
         "patchSetId": 1

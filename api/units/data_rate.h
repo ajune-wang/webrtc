@@ -15,6 +15,7 @@
 #include <limits>
 #include <string>
 
+#include "api/units/type_trait_tools.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/numerics/safe_conversions.h"
 
@@ -45,26 +46,19 @@ class DataRate {
     return DataRate(data_rate_impl::kPlusInfinityVal);
   }
 
-  template <
-      typename T,
-      typename std::enable_if<std::is_integral<T>::value>::type* = nullptr>
+  template <typename T, typename ForInt<T>::type* = nullptr>
   static DataRate bps(T bits_per_second) {
     RTC_DCHECK_GE(bits_per_second, 0);
     RTC_DCHECK_LT(bits_per_second, data_rate_impl::kPlusInfinityVal);
     return DataRate(rtc::dchecked_cast<int64_t>(bits_per_second));
   }
-  template <
-      typename T,
-      typename std::enable_if<std::is_integral<T>::value>::type* = nullptr>
+  template <typename T, typename ForInt<T>::type* = nullptr>
   static DataRate kbps(T kilobits_per_sec) {
     RTC_DCHECK_GE(kilobits_per_sec, 0);
     RTC_DCHECK_LT(kilobits_per_sec, data_rate_impl::kPlusInfinityVal / 1000);
     return DataRate::bps(rtc::dchecked_cast<int64_t>(kilobits_per_sec) * 1000);
   }
-
-  template <typename T,
-            typename std::enable_if<std::is_floating_point<T>::value>::type* =
-                nullptr>
+  template <typename T, typename ForFloat<T>::type* = nullptr>
   static DataRate bps(T bits_per_second) {
     if (bits_per_second == std::numeric_limits<T>::infinity()) {
       return Infinity();
@@ -75,26 +69,23 @@ class DataRate {
       return DataRate(rtc::dchecked_cast<int64_t>(bits_per_second));
     }
   }
-  template <typename T,
-            typename std::enable_if<std::is_floating_point<T>::value>::type* =
-                nullptr>
+  template <typename T, typename ForFloat<T>::type* = nullptr>
   static DataRate kbps(T kilobits_per_sec) {
     return DataRate::bps(kilobits_per_sec * 1e3);
   }
 
   template <typename T = int64_t>
-  typename std::enable_if<std::is_integral<T>::value, T>::type bps() const {
+  typename ForInt<T>::type bps() const {
     RTC_DCHECK(IsFinite());
     return rtc::dchecked_cast<T>(bits_per_sec_);
   }
   template <typename T = int64_t>
-  typename std::enable_if<std::is_integral<T>::value, T>::type kbps() const {
+  typename ForInt<T>::type kbps() const {
     return rtc::dchecked_cast<T>((bps() + 500) / 1000);
   }
 
   template <typename T>
-  typename std::enable_if<std::is_floating_point<T>::value, T>::type bps()
-      const {
+  typename ForFloat<T>::type bps() const {
     if (IsInfinite()) {
       return std::numeric_limits<T>::infinity();
     } else {
@@ -102,8 +93,7 @@ class DataRate {
     }
   }
   template <typename T>
-  typename std::enable_if<std::is_floating_point<T>::value, T>::type kbps()
-      const {
+  typename ForFloat<T>::type kbps() const {
     return bps<T>() * 1e-3;
   }
 

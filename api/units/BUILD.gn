@@ -8,6 +8,11 @@
 
 import("../../webrtc.gni")
 
+rtc_source_set("type_trait_tools") {
+  sources = [
+    "type_trait_tools.h",
+  ]
+}
 rtc_source_set("data_rate") {
   sources = [
     "data_rate.cc",
@@ -17,6 +22,7 @@ rtc_source_set("data_rate") {
   deps = [
     ":data_size",
     ":time_delta",
+    ":type_trait_tools",
     "../../rtc_base:checks",
     "../../rtc_base:rtc_base_approved",
   ]
@@ -29,6 +35,7 @@ rtc_source_set("data_size") {
   ]
 
   deps = [
+    ":type_trait_tools",
     "../../rtc_base:checks",
     "../../rtc_base:rtc_base_approved",
   ]
@@ -40,6 +47,7 @@ rtc_source_set("time_delta") {
   ]
 
   deps = [
+    ":type_trait_tools",
     "../../rtc_base:checks",
     "../../rtc_base:rtc_base_approved",
   ]
@@ -53,6 +61,7 @@ rtc_source_set("timestamp") {
 
   deps = [
     ":time_delta",
+    ":type_trait_tools",
     "../../rtc_base:checks",
     "../../rtc_base:rtc_base_approved",
   ]
@@ -72,6 +81,7 @@ if (rtc_include_tests) {
       ":data_size",
       ":time_delta",
       ":timestamp",
+      ":type_trait_tools",
       "../../test:test_support",
     ]
   }

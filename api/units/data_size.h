@@ -17,6 +17,7 @@
 #include <string>
 #include <type_traits>
 
+#include "api/units/type_trait_tools.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/numerics/safe_conversions.h"
 
@@ -34,18 +35,14 @@ class DataSize {
     return DataSize(data_size_impl::kPlusInfinityVal);
   }
 
-  template <
-      typename T,
-      typename std::enable_if<std::is_integral<T>::value>::type* = nullptr>
+  template <typename T, typename ForInt<T>::type* = nullptr>
   static DataSize bytes(T bytes) {
     RTC_DCHECK_GE(bytes, 0);
     RTC_DCHECK_LT(bytes, data_size_impl::kPlusInfinityVal);
     return DataSize(rtc::dchecked_cast<int64_t>(bytes));
   }
 
-  template <typename T,
-            typename std::enable_if<std::is_floating_point<T>::value>::type* =
-                nullptr>
+  template <typename T, typename ForFloat<T>::type* = nullptr>
   static DataSize bytes(T bytes) {
     if (bytes == std::numeric_limits<T>::infinity()) {
       return Infinity();
@@ -58,14 +55,13 @@ class DataSize {
   }
 
   template <typename T = int64_t>
-  typename std::enable_if<std::is_integral<T>::value, T>::type bytes() const {
+  typename ForInt<T>::type bytes() const {
     RTC_DCHECK(IsFinite());
     return rtc::dchecked_cast<T>(bytes_);
   }
 
   template <typename T>
-  typename std::enable_if<std::is_floating_point<T>::value, T>::type bytes()
-      const {
+  typename ForFloat<T>::type bytes() const {
     if (IsInfinite()) {
       return std::numeric_limits<T>::infinity();
     } else {

@@ -34,6 +34,24 @@
       "revId": "196b02863dbae8df6aa35ccc62655a43b49ff9d1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9622146_f9513da8",
+        "filename": "pc/statscollector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-06-15T16:20:29Z",
+      "side": 0,
+      "message": "Ack",
+      "parentUuid": "68c9fd7d_ac76163e",
+      "revId": "196b02863dbae8df6aa35ccc62655a43b49ff9d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -240,6 +240,10 @@ rtc_source_set("optional") {
   deps = [
     "//third_party/abseil-cpp/absl/types:optional",
   ]
+
+  # Required for correct includes when generating QT Creator projects.
+  # TODO(bugs.webrtc.org/9274): Remove when the generator is updated.
+  include_dirs = [ "//third_party/abseil-cpp/" ]
 }
 
 rtc_source_set("refcountedbase") {

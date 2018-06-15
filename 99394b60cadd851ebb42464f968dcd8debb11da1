@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a52ad3f3_ff9a422a",
+        "filename": "api/stats/rtcstats.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-06-15T07:55:30Z",
+      "side": 1,
+      "message": "What do you think about this taking an argument filter \u003d kOnlyStandardizedMembers or kAllMembers, defaulting to kOnlyStandardizedMembers? Or do you think filtering out non-standard members should be Chrome\u0027s territory and this is overkill?",
+      "revId": "99394b60cadd851ebb42464f968dcd8debb11da1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "776803df_39e827be",
+        "filename": "pc/rtcstatscollector_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2155,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-06-15T07:55:30Z",
+      "side": 1,
+      "message": "In practice, initialization dictating whether it is standard or experimental would be put in rtcstats_objects.cc.\n\nI want to highlight the fact that something is experimental, and if initialized in the constructor I would prefer an enum over a bool rather than /*is_experimental\u003d*/.\n\nHowever, I am quite happy with how rtcstats_objects.h acts as a one-stop living document for the state of our implementation, looking very much like the spec document for easy comparison https://w3c.github.io/webrtc-stats/.\n\nFor this reason I would be much happier if the fact that a stat is experimental is called out in the header file, not just in the source file.\n\nThis is why I suggest a new set of stats types, RTCExperimentalStatsMember\u003cT\u003e, which derive from RTCStatsMember\u003cT\u003e so that static_cast\u003c\u003e works with RTCStatsMember\u003cT\u003e.\n\nclass RTCStatsMemberInterface {\n  virtual bool is_experimental() const \u003d 0;\n};\n\nclass RTCStatsMember\u003cT\u003e : public RTCStatsMemberInterface {\n  bool is_experimental() const override { return false; }\n};\n\nclass RTCExperimentalStatsMember\u003cT\u003e : public RTCStatsMember\u003cT\u003e {\n  bool is_experimental() const override { return true; }\n};\n\nThat way it is clear whether or not something is experimental from just looking at rtcstats_objects.h. Of course you could clarify this with a comment, but I think a new type is justified because they are categorically different e.g. one is exposed to the web platform and one isn\u0027t, one must go through the stats process, one doesn\u0027t, etc. I want it to be \"in your face\" for recognition. It\u0027s \"more than just a bool\", if you feel me. I\u0027m being a little bit pushy because I recognize web standards is foreign to many third_party/webrtc developers and I\u0027ve seen the processes be skipped before.\n\nclass RTCMediaStreamTrackStats final : public RTCStats {\n  ...\n  RTCStatsMember\u003cdouble\u003e audio_level;\n  RTCExperimentalStatsMember\u003cdouble\u003e speaker_is_funny_level;\n  ...\n};\n\nWhich means it is easy to change something from \"experimental\" to \"non-experimental\". You don\u0027t need to rename it and update code, you can just change one line in rtcstats_objects.h, but it is still very in your face that it is experimental by looking at this file.\n\nAnd this way you can still do...\n\nfor (const RTCStatsMemberInterface* member : stat.Members()) {\n  if (member-\u003etype() \u003d\u003d RTCStatsMemberInterface::kUint32) {\n    // Works whether or not |member-\u003eis_experimental()|.\n    const RTCStatsMember\u003cuint32_t\u003e\u0026 uint32_member \u003d\n        member-\u003ecast_to\u003cRTCStatsMember\u003cuint32_t\u003e();\n\n    if (member-\u003eis_experimental()) {\n      // Also works in case we want to add additional experiment information\n      // in the future like if it is tied to an Origin Trial or if it has an end date etc.\n      const RTCExperimentalStatsMember\u003cuint32_t\u003e\u0026 experimental_uint32_member \u003d\n          member-\u003ecast_to\u003cRTCExperimentalStatsMember\u003cuint32_t\u003e();\n    }\n  }\n}\n\nWhat do you think?",
+      "revId": "99394b60cadd851ebb42464f968dcd8debb11da1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

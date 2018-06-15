@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1cacfdd1_5b63cc53",
+        "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCPeerConnectionFactoryBuilder+Helpers.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-06-15T11:54:01Z",
+      "side": 1,
+      "message": "I would like a more descriptive name than \u0027Helpers\u0027. What about \u0027DefaultComponents\u0027?",
+      "range": {
+        "startLine": 15,
+        "startChar": 44,
+        "endLine": 15,
+        "endChar": 51
+      },
+      "revId": "a72c1515d938383052729c32a572cff71117068b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b1e49ab_e8a625ef",
+        "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCPeerConnectionFactoryBuilder+Helpers.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-06-15T11:54:01Z",
+      "side": 1,
+      "message": "Can we call this defaultBuilder instead?",
+      "range": {
+        "startLine": 17,
+        "startChar": 37,
+        "endLine": 17,
+        "endChar": 44
+      },
+      "revId": "a72c1515d938383052729c32a572cff71117068b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63ab6ef2_696caa19",
+        "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCPeerConnectionFactoryBuilder+Helpers.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-06-15T11:54:01Z",
+      "side": 1,
+      "message": "This function does not look necessary to have in the API.",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 73
+      },
+      "revId": "a72c1515d938383052729c32a572cff71117068b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ba83326_34e42773",
+        "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCPeerConnectionFactoryBuilder.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-06-15T11:54:01Z",
+      "side": 1,
+      "message": "2018",
+      "range": {
+        "startLine": 2,
+        "startChar": 13,
+        "endLine": 2,
+        "endChar": 18
+      },
+      "revId": "a72c1515d938383052729c32a572cff71117068b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cff5674c_8454635a",
+        "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCPeerConnectionFactoryBuilder.mm",
+        "patchSetId": 3
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-06-15T11:54:01Z",
+      "side": 1,
+      "message": "2018. Same for the rest of the files.",
+      "range": {
+        "startLine": 2,
+        "startChar": 14,
+        "endLine": 2,
+        "endChar": 18
+      },
+      "revId": "a72c1515d938383052729c32a572cff71117068b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

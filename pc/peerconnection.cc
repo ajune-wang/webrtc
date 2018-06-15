@@ -52,6 +52,7 @@
 #include "rtc_base/trace_event.h"
 #include "system_wrappers/include/clock.h"
 #include "system_wrappers/include/field_trial.h"
+#include "system_wrappers/include/metrics.h"
 
 using cricket::ContentInfo;
 using cricket::ContentInfos;
@@ -386,11 +387,13 @@ void NoteKeyProtocolAndMedia(
     KeyExchangeProtocolType protocol_type,
     cricket::MediaType media_type,
     rtc::scoped_refptr<webrtc::UMAObserver> uma_observer) {
-  if (!uma_observer)
-    return;
-  uma_observer->IncrementEnumCounter(webrtc::kEnumCounterKeyProtocol,
-                                     protocol_type,
-                                     webrtc::kEnumCounterKeyProtocolMax);
+  RTC_HISTOGRAM_ENUMERATION("WebRTC.PeerConnection.KeyProtocol", protocol_type,
+                            kEnumCounterKeyProtocolMax);
+  if (uma_observer) {
+    uma_observer->IncrementEnumCounter(webrtc::kEnumCounterKeyProtocol,
+                                       protocol_type,
+                                       webrtc::kEnumCounterKeyProtocolMax);
+  }
   static const std::map<std::pair<KeyExchangeProtocolType, cricket::MediaType>,
                         KeyExchangeProtocolMedia>
       proto_media_counter_map = {
@@ -409,9 +412,13 @@ void NoteKeyProtocolAndMedia(
 
   auto it = proto_media_counter_map.find({protocol_type, media_type});
   if (it != proto_media_counter_map.end()) {
-    uma_observer->IncrementEnumCounter(webrtc::kEnumCounterKeyProtocolMediaType,
-                                       it->second,
-                                       kEnumCounterKeyProtocolMediaTypeMax);
+    RTC_HISTOGRAM_ENUMERATION("WebRTC.PeerConnection.KeyProtocolMediaType",
+                              it->second, kEnumCounterKeyProtocolMediaTypeMax);
+    if (uma_observer) {
+      uma_observer->IncrementEnumCounter(
+          webrtc::kEnumCounterKeyProtocolMediaType, it->second,
+          kEnumCounterKeyProtocolMediaTypeMax);
+    }
   }
 }
 
@@ -618,6 +625,24 @@ rtc::Optional<int> RTCConfigurationToIceConfigOptionalInt(
     return rtc::nullopt;
   }
   return rtc_configuration_parameter;
+}
+
+rtc::SrtpCryptoSuite GetSrtpCryptoSuiteFromInt(int value) {
+  switch (value) {
+    case rtc::SRTP_INVALID_CRYPTO_SUITE:
+      return rtc::SrtpCryptoSuite::INVALID_CRYPTO_SUITE;
+    case rtc::SRTP_AES128_CM_SHA1_80:
+      return rtc::SrtpCryptoSuite::AES128_CM_SHA1_80;
+    case rtc::SRTP_AES128_CM_SHA1_32:
+      return rtc::SrtpCryptoSuite::AES128_CM_SHA1_32;
+    case rtc::SRTP_AEAD_AES_128_GCM:
+      return rtc::SrtpCryptoSuite::AEAD_AES_128_GCM;
+    case rtc::SRTP_AEAD_AES_256_GCM:
+      return rtc::SrtpCryptoSuite::AEAD_AES_256_GCM;
+    default:
+      RTC_NOTREACHED();
+      return rtc::SrtpCryptoSuite::INVALID_CRYPTO_SUITE;
+  }
 }
 
 }  // namespace
@@ -3041,16 +3066,19 @@ void PeerConnection::RegisterUMAObserver(UMAObserver* observer) {
       RTC_FROM_HERE,
       rtc::Bind(&PeerConnection::SetMetricObserver_n, this, observer));
   // Send information about IPv4/IPv6 status.
+  PeerConnectionAddressFamilyCounter address_family;
+  if (port_allocator_flags_ & cricket::PORTALLOCATOR_ENABLE_IPV6) {
+    address_family = kPeerConnection_IPv6;
+  } else {
+    address_family = kPeerConnection_IPv4;
+  }
+  RTC_HISTOGRAM_ENUMERATION("WebRTC.PeerConnection.AddressFamily",
+                            address_family,
+                            kPeerConnectionAddressFamilyCounter_Max);
   if (uma_observer_) {
-    if (port_allocator_flags_ & cricket::PORTALLOCATOR_ENABLE_IPV6) {
-      uma_observer_->IncrementEnumCounter(
-          kEnumCounterAddressFamily, kPeerConnection_IPv6,
-          kPeerConnectionAddressFamilyCounter_Max);
-    } else {
-      uma_observer_->IncrementEnumCounter(
-          kEnumCounterAddressFamily, kPeerConnection_IPv4,
-          kPeerConnectionAddressFamilyCounter_Max);
-    }
+    uma_observer_->IncrementEnumCounter(
+        kEnumCounterAddressFamily, address_family,
+        kPeerConnectionAddressFamilyCounter_Max);
   }
 }
 
@@ -5328,6 +5356,9 @@ void PeerConnection::OnTransportControllerCandidatesRemoved(
 
 void PeerConnection::OnTransportControllerDtlsHandshakeError(
     rtc::SSLHandshakeError error) {
+  RTC_HISTOGRAM_ENUMERATION(
+      "WebRTC.PeerConnection.DtlsHandshakeError", static_cast<int>(error),
+      static_cast<int>(rtc::SSLHandshakeError::MAX_VALUE));
   if (metrics_observer()) {
     metrics_observer()->IncrementEnumCounter(
         webrtc::kEnumCounterDtlsHandshakeError, static_cast<int>(error),
@@ -5925,6 +5956,8 @@ void PeerConnection::ReportSdpFormatReceived(
   } else if (num_audio_tracks > 0 || num_video_tracks > 0) {
     format = kSdpFormatReceivedSimple;
   }
+  RTC_HISTOGRAM_ENUMERATION("WebRTC.PeerConnection.SdpFormatReceived", format,
+                            kSdpFormatReceivedMax);
   uma_observer_->IncrementEnumCounter(kEnumCounterSdpFormatReceived, format,
                                       kSdpFormatReceivedMax);
 }
@@ -5936,6 +5969,9 @@ void PeerConnection::NoteUsageEvent(UsageEvent event) {
 
 void PeerConnection::ReportUsagePattern() const {
   RTC_DLOG(LS_INFO) << "Usage signature is " << usage_event_accumulator_;
+  RTC_HISTOGRAM_ENUMERATION_SPARSE("WebRTC.PeerConnection.UsagePattern",
+                                   usage_event_accumulator_,
+                                   static_cast<int>(UsageEvent::MAX_VALUE));
   if (uma_observer_) {
     uma_observer_->IncrementSparseEnumCounter(kEnumCounterUsagePattern,
                                               usage_event_accumulator_);
@@ -5944,33 +5980,30 @@ void PeerConnection::ReportUsagePattern() const {
 
 void PeerConnection::ReportNegotiatedSdpSemantics(
     const SessionDescriptionInterface& answer) {
-  if (!uma_observer_) {
-    return;
-  }
+  SdpSemanticNegotiated semantics_negotiated;
   switch (answer.description()->msid_signaling()) {
     case 0:
-      uma_observer_->IncrementEnumCounter(kEnumCounterSdpSemanticNegotiated,
-                                          kSdpSemanticNegotiatedNone,
-                                          kSdpSemanticNegotiatedMax);
+      semantics_negotiated = kSdpSemanticNegotiatedNone;
       break;
     case cricket::kMsidSignalingMediaSection:
-      uma_observer_->IncrementEnumCounter(kEnumCounterSdpSemanticNegotiated,
-                                          kSdpSemanticNegotiatedUnifiedPlan,
-                                          kSdpSemanticNegotiatedMax);
+      semantics_negotiated = kSdpSemanticNegotiatedUnifiedPlan;
       break;
     case cricket::kMsidSignalingSsrcAttribute:
-      uma_observer_->IncrementEnumCounter(kEnumCounterSdpSemanticNegotiated,
-                                          kSdpSemanticNegotiatedPlanB,
-                                          kSdpSemanticNegotiatedMax);
+      semantics_negotiated = kSdpSemanticNegotiatedPlanB;
       break;
     case cricket::kMsidSignalingMediaSection |
         cricket::kMsidSignalingSsrcAttribute:
-      uma_observer_->IncrementEnumCounter(kEnumCounterSdpSemanticNegotiated,
-                                          kSdpSemanticNegotiatedMixed,
-                                          kSdpSemanticNegotiatedMax);
+      semantics_negotiated = kSdpSemanticNegotiatedMixed;
       break;
     default:
       RTC_NOTREACHED();
+  }
+  RTC_HISTOGRAM_ENUMERATION("WebRTC.PeerConnection.SdpSemanticNegotiated",
+                            semantics_negotiated, kSdpSemanticNegotiatedMax);
+  if (uma_observer_) {
+    uma_observer_->IncrementEnumCounter(kEnumCounterSdpSemanticNegotiated,
+                                        semantics_negotiated,
+                                        kSdpSemanticNegotiatedMax);
   }
 }
 
@@ -6083,8 +6116,14 @@ void PeerConnection::ReportBestConnectionState(
           (local.type() == RELAY_PORT_TYPE &&
            local.relay_protocol() == cricket::TCP_PROTOCOL_NAME)) {
         type = kEnumCounterIceCandidatePairTypeTcp;
+        RTC_HISTOGRAM_ENUMERATION(
+            "WebRTC.PeerConnection.IceCandidatePairTypeTcp",
+            GetIceCandidatePairCounter(local, remote), kIceCandidatePairMax);
       } else if (local.protocol() == cricket::UDP_PROTOCOL_NAME) {
         type = kEnumCounterIceCandidatePairTypeUdp;
+        RTC_HISTOGRAM_ENUMERATION(
+            "WebRTC.PeerConnection.IceCandidatePairTypeUdp",
+            GetIceCandidatePairCounter(local, remote), kIceCandidatePairMax);
       } else {
         RTC_CHECK(0);
       }
@@ -6093,18 +6132,21 @@ void PeerConnection::ReportBestConnectionState(
           kIceCandidatePairMax);
 
       // Increment the counter for IP type.
+      PeerConnectionAddressFamilyCounter address_family;
       if (local.address().family() == AF_INET) {
-        metrics_observer()->IncrementEnumCounter(
-            kEnumCounterAddressFamily, kBestConnections_IPv4,
-            kPeerConnectionAddressFamilyCounter_Max);
-
+        address_family = kBestConnections_IPv4;
       } else if (local.address().family() == AF_INET6) {
-        metrics_observer()->IncrementEnumCounter(
-            kEnumCounterAddressFamily, kBestConnections_IPv6,
-            kPeerConnectionAddressFamilyCounter_Max);
+        address_family = kBestConnections_IPv6;
       } else {
         RTC_CHECK(0);
       }
+
+      RTC_HISTOGRAM_ENUMERATION("WebRTC.PeerConnection.AddressFamily",
+                                address_family,
+                                kPeerConnectionAddressFamilyCounter_Max);
+      metrics_observer()->IncrementEnumCounter(
+          kEnumCounterAddressFamily, address_family,
+          kPeerConnectionAddressFamilyCounter_Max);
 
       return;
     }
@@ -6128,29 +6170,43 @@ void PeerConnection::ReportNegotiatedCiphers(
 
   for (cricket::MediaType media_type : media_types) {
     PeerConnectionEnumCounterType srtp_counter_type;
+    std::string srtp_counter_name;
     PeerConnectionEnumCounterType ssl_counter_type;
+    std::string ssl_counter_name;
     switch (media_type) {
       case cricket::MEDIA_TYPE_AUDIO:
         srtp_counter_type = kEnumCounterAudioSrtpCipher;
+        srtp_counter_name = "WebRTC.PeerConnection.AudioSrtpCryptoSuite";
         ssl_counter_type = kEnumCounterAudioSslCipher;
+        ssl_counter_name = "WebRTC.PeerConnection.AudioSslCipher";
         break;
       case cricket::MEDIA_TYPE_VIDEO:
         srtp_counter_type = kEnumCounterVideoSrtpCipher;
+        srtp_counter_name = "WebRTC.PeerConnection.VideoSrtpCryptoSuite";
         ssl_counter_type = kEnumCounterVideoSslCipher;
+        ssl_counter_name = "WebRTC.PeerConnection.VideoSslCipher";
         break;
       case cricket::MEDIA_TYPE_DATA:
         srtp_counter_type = kEnumCounterDataSrtpCipher;
+        srtp_counter_name = "WebRTC.PeerConnection.DataSrtpCryptoSuite";
         ssl_counter_type = kEnumCounterDataSslCipher;
+        ssl_counter_name = "WebRTC.PeerConnection.DataSslCipher";
         break;
       default:
         RTC_NOTREACHED();
         continue;
     }
     if (srtp_crypto_suite != rtc::SRTP_INVALID_CRYPTO_SUITE) {
+      RTC_HISTOGRAM_ENUMERATION(
+          srtp_counter_name,
+          static_cast<int>(GetSrtpCryptoSuiteFromInt(srtp_crypto_suite)),
+          static_cast<int>(rtc::SrtpCryptoSuite::MAX_VALUE));
       metrics_observer()->IncrementSparseEnumCounter(srtp_counter_type,
                                                      srtp_crypto_suite);
     }
     if (ssl_cipher_suite != rtc::TLS_NULL_WITH_NULL_NULL) {
+      RTC_HISTOGRAM_ENUMERATION_SPARSE(ssl_counter_name, ssl_cipher_suite,
+                                       INT_MAX);
       metrics_observer()->IncrementSparseEnumCounter(ssl_counter_type,
                                                      ssl_cipher_suite);
     }

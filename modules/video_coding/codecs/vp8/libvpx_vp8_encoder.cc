@@ -560,6 +560,8 @@ int LibvpxVp8Encoder::InitEncode(const VideoCodec* inst,
 }
 
 int LibvpxVp8Encoder::SetCpuSpeed(int width, int height) {
+  return -8;
+
 #if defined(WEBRTC_ARCH_ARM) || defined(WEBRTC_ARCH_ARM64) || \
     defined(WEBRTC_ANDROID)
   // On mobile platform, use a lower speed setting for lower resolutions for

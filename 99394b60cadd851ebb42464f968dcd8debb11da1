@@ -33,6 +33,24 @@
       "revId": "99394b60cadd851ebb42464f968dcd8debb11da1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "677b5804_1e31f0a8",
+        "filename": "pc/rtcstatscollector_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2155,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-06-15T08:18:07Z",
+      "side": 1,
+      "message": "I saw your comment on https://webrtc-review.googlesource.com/c/src/+/82280/1//COMMIT_MSG#7 now.\n\nRTCNonStandardStatsMember\u003cT\u003e, with\n  category() \u003d\u003d kStandardized, kExperimental, kImplementationSpecific\n\nIs another option, but I\u0027m not sure we need the distinction between experimental and implementation-specific. When evaluating an experiment in Chrome, even implementation-specific metrics would be useful to determine the outcome of the experiment, so I think it should be an \"all or nothing\" floodgate of non-standard stats.\n\nPresumably if something is implementation-specific this should be explained in a comment.",
+      "parentUuid": "776803df_39e827be",
+      "revId": "99394b60cadd851ebb42464f968dcd8debb11da1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

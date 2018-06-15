@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "23bb0420_082af896",
+        "filename": "api/units/type_trait_tools.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-06-15T13:36:42Z",
+      "side": 1,
+      "message": "It probably should not live in the units subdir.",
+      "range": {
+        "startLine": 10,
+        "startChar": 8,
+        "endLine": 10,
+        "endChar": 37
+      },
+      "revId": "87f400e0de1b88e7f4158b4592aab34ce7baf868",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06e59b22_f9a25408",
+        "filename": "api/units/type_trait_tools.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-06-15T13:36:42Z",
+      "side": 1,
+      "message": "The names can of course change, although I think short names improves readability in this case.",
+      "range": {
+        "startLine": 17,
+        "startChar": 7,
+        "endLine": 17,
+        "endChar": 13
+      },
+      "revId": "87f400e0de1b88e7f4158b4592aab34ce7baf868",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

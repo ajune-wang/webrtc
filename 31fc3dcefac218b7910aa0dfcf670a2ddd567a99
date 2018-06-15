@@ -700,6 +700,24 @@
     },
     {
       "key": {
+        "uuid": "53e1b027_3db8e009",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-15T09:23:20Z",
+      "side": 1,
+      "message": "Let\u0027s keep as vector for now.",
+      "parentUuid": "aaae0869_fa536983",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2d97d991_65298129",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
         "patchSetId": 2
@@ -912,6 +930,30 @@
     },
     {
       "key": {
+        "uuid": "bb5064fa_8d7812cd",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-15T09:23:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4016b562_be65f3a4",
+      "range": {
+        "startLine": 158,
+        "startChar": 0,
+        "endLine": 160,
+        "endChar": 75
+      },
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da11f26e_213f6e77",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
         "patchSetId": 2
@@ -997,6 +1039,24 @@
       "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f76f989_6f032d15",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 705,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-15T09:23:20Z",
+      "side": 1,
+      "message": "The clock DCHECKs that time doesn\u0027t move backwards, so we can\u0027t reset the same clock. Added comment.",
+      "parentUuid": "5d679ce4_60aab236",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -1204,6 +1264,24 @@
     },
     {
       "key": {
+        "uuid": "bbc8146d_fc713c84",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-15T09:23:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dac93f3b_8fdbb9fe",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a15f0cb_136b00a0",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
         "patchSetId": 2
@@ -1218,6 +1296,24 @@
       "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb2acc03_db802d57",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-15T09:23:20Z",
+      "side": 1,
+      "message": "Now using kLast/kNumValues to randomize enums.",
+      "parentUuid": "5a15f0cb_136b00a0",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -1361,6 +1457,24 @@
     },
     {
       "key": {
+        "uuid": "78bff277_ea420473",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-15T09:23:20Z",
+      "side": 1,
+      "message": "Now using kLast/kNumValues to randomize enums.",
+      "parentUuid": "04f4c704_1a11edbc",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "990e30dd_8c9eba5a",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
         "patchSetId": 2
@@ -1378,6 +1492,24 @@
     },
     {
       "key": {
+        "uuid": "8b539dcc_889edd30",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-15T09:23:20Z",
+      "side": 1,
+      "message": "Now using kLast/kNumValues to randomize enums.",
+      "parentUuid": "990e30dd_8c9eba5a",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "85c3c325_bba99da5",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
         "patchSetId": 2
@@ -1392,6 +1524,24 @@
       "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd2c2db5_a2b0551c",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-15T09:23:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "85c3c325_bba99da5",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -1695,6 +1845,30 @@
     },
     {
       "key": {
+        "uuid": "69a581a4_0a777131",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-15T09:23:20Z",
+      "side": 1,
+      "message": "Except that Rand(0x0100 * TransmissionOffset::kValueSizeBytes - 1) doesn\u0027t actually do what you want it to. It would have to be static_cast\u003cuint32_t\u003e(1) \u003c\u003c (kValueSizeBytes * 8) - 1. Except my precedence is wrong, so it should be (static_cast\u003cuint32_t\u003e(1) \u003c\u003c (kValueSizeBytes * 8)) - 1. And that would work for the our current extensions, but the computation would overflow if we added a 4 byte extension...\n\nI think 0x00ffffff is as clear as it gets. :)",
+      "parentUuid": "ada6e37c_108e1832",
+      "range": {
+        "startLine": 258,
+        "startChar": 0,
+        "endLine": 263,
+        "endChar": 70
+      },
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4a81f4f3_64bd4a7a",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
         "patchSetId": 2
@@ -1741,6 +1915,24 @@
       "writtenOn": "2018-06-08T11:03:08Z",
       "side": 1,
       "message": "Where (4 * kMaxCsrcs) was used, was (4 * csrcs_count) meant?\nSimilarly elsewhere, and similarly for kMaxNumExtensions.\n\n(This was written before PS3 was posted. In PS3, it\u0027s comparable, but not exactly the same; I think it would be clearest to leave this comment here, than to migrate it.)",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78fcb2fa_6eb37e86",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-15T09:23:20Z",
+      "side": 1,
+      "message": "Yes, sort-of. But at this point we don\u0027t know csrc_count. We therefore compute the maximum size that the header can be and make sure that the total packet size is large enough to contain it.",
+      "parentUuid": "c2d0fd1e_0d4e1479",
       "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -1844,6 +2036,24 @@
       "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82b66174_83147782",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-15T09:23:20Z",
+      "side": 1,
+      "message": "I\u0027ve kept those as separate function for now.",
+      "parentUuid": "d571da29_350a9038",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2730cbaf_7112f60b",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-15T09:23:20Z",
+      "side": 1,
+      "message": "Done #2.",
+      "parentUuid": "bf6ba5ba_506ba394",
+      "range": {
+        "startLine": 151,
+        "startChar": 0,
+        "endLine": 157,
+        "endChar": 67
+      },
+      "revId": "83d10e74332f3b2f9949971fa2bef51ccc62ab1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f9c86dc4_df9d957a",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
         "patchSetId": 3
@@ -39,6 +63,24 @@
       "revId": "83d10e74332f3b2f9949971fa2bef51ccc62ab1a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "188213a0_cd0069da",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-15T09:23:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f9c86dc4_df9d957a",
+      "revId": "83d10e74332f3b2f9949971fa2bef51ccc62ab1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "e8f6d0d1_8583f765",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-15T09:23:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "23b20af1_d86981ac",
+      "revId": "83d10e74332f3b2f9949971fa2bef51ccc62ab1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aa964b38_22f2d3ab",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
         "patchSetId": 3
@@ -70,6 +130,24 @@
       "writtenOn": "2018-06-08T11:03:08Z",
       "side": 1,
       "message": "1. Would using a random name perhaps provide better coverage?\n2. Longer names, too?\n3. I wonder what happens with the empty string for a name?",
+      "revId": "83d10e74332f3b2f9949971fa2bef51ccc62ab1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72851de1_caf2143c",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-15T09:23:20Z",
+      "side": 1,
+      "message": "1 and 2. Imo, it doesn\u0027t and the potential benefits does not outweigh the added complexity. We never branch on, or otherwise use, the length or contents of the codec name.\n3. This is outside the scope of the test. (It will work fine though. Protobufs support empty strings and we never use the codec name anyway.)",
+      "parentUuid": "aa964b38_22f2d3ab",
       "revId": "83d10e74332f3b2f9949971fa2bef51ccc62ab1a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -93,6 +171,42 @@
     },
     {
       "key": {
+        "uuid": "c818aeff_e0de899f",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-15T09:23:20Z",
+      "side": 1,
+      "message": "Is 0 legal? If so, then I agree.",
+      "parentUuid": "158d35c6_237e814e",
+      "revId": "83d10e74332f3b2f9949971fa2bef51ccc62ab1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b764fe97_049bacb8",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-15T09:23:20Z",
+      "side": 1,
+      "message": "Is 0 legal? If so, then I agree completely.",
+      "parentUuid": "158d35c6_237e814e",
+      "revId": "83d10e74332f3b2f9949971fa2bef51ccc62ab1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dc310546_172bd640",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
         "patchSetId": 3
@@ -107,6 +221,24 @@
       "revId": "83d10e74332f3b2f9949971fa2bef51ccc62ab1a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba043173_b7132259",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 746,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-15T09:23:20Z",
+      "side": 1,
+      "message": "Done. Initially did it this way because the config didn\u0027t have a !\u003d operator.",
+      "parentUuid": "dc310546_172bd640",
+      "revId": "83d10e74332f3b2f9949971fa2bef51ccc62ab1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

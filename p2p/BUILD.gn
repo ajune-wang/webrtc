@@ -91,6 +91,7 @@ rtc_static_library("rtc_p2p") {
     "../rtc_base:safe_minmax",
     "../rtc_base:stringutils",
     "../system_wrappers:field_trial_api",
+    "../system_wrappers:metrics_api",
     "//third_party/abseil-cpp/absl/types:optional",
   ]
 

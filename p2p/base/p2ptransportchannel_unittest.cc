@@ -159,6 +159,44 @@ cricket::BasicPortAllocator* CreateBasicPortAllocator(
   allocator->SetConfiguration(stun_servers, turn_servers, 0, false);
   return allocator;
 }
+
+std::vector<cricket::Connection*> GetActiveCandidatePair(
+    const std::vector<cricket::Connection*> candidate_pairs) {
+  std::vector<cricket::Connection*> active_candidate_pairs;
+  std::copy_if(candidate_pairs.begin(), candidate_pairs.end(),
+               std::back_inserter(active_candidate_pairs),
+               [](cricket::Connection* candidate_pair) {
+                 return candidate_pair->active();
+               });
+  return active_candidate_pairs;
+}
+
+bool HasCandidatePair(const std::vector<cricket::Connection*>& candidate_pairs,
+                      const std::string& local_candidate_type,
+                      const std::string& local_candidate_proto,
+                      rtc::AdapterType local_network_type,
+                      const std::string& remote_candidate_type,
+                      const std::string& remote_candidate_proto,
+                      rtc::AdapterType remote_network_type) {
+  auto it = std::find_if(
+      candidate_pairs.begin(), candidate_pairs.end(),
+      [local_candidate_type, local_candidate_proto, local_network_type,
+       remote_candidate_type, remote_candidate_proto,
+       remote_network_type](cricket::Connection* candidate_pair) {
+        const cricket::Candidate& local_candidate =
+            candidate_pair->local_candidate();
+        const cricket::Candidate& remote_candidate =
+            candidate_pair->remote_candidate();
+        return local_candidate.type() == local_candidate_type &&
+               local_candidate.protocol() == local_candidate_proto &&
+               local_candidate.network_type() == local_network_type &&
+               remote_candidate.type() == remote_candidate_type &&
+               remote_candidate.protocol() == remote_candidate_proto &&
+               remote_candidate.network_type() == remote_network_type;
+      });
+  return it != candidate_pairs.end();
+}
+
 }  // namespace
 
 namespace cricket {
@@ -3053,6 +3091,59 @@ TEST_F(P2PTransportChannelMultihomedTest, TestRestoreBackupConnection) {
   DestroyChannels();
 }
 
+TEST_F(P2PTransportChannelMultihomedTest,
+       HasActiveCandidatePairsPerPairOfLocalAndRemoteNetworks) {
+  rtc::ScopedFakeClock clock;
+  auto& wifi = kAlternateAddrs;
+  auto& cellular = kPublicAddrs;
+  AddAddress(0, wifi[0], "test_wifi0", rtc::ADAPTER_TYPE_WIFI);
+  AddAddress(0, cellular[0], "test_cell0", rtc::ADAPTER_TYPE_CELLULAR);
+  AddAddress(1, wifi[1], "test_wifi1", rtc::ADAPTER_TYPE_WIFI);
+  AddAddress(1, cellular[1], "test_cell1", rtc::ADAPTER_TYPE_CELLULAR);
+  // Use only local ports for simplicity.
+  SetAllocatorFlags(0, kOnlyLocalPorts);
+  SetAllocatorFlags(1, kOnlyLocalPorts);
+
+  IceConfig config = CreateIceConfig(1000, GATHER_CONTINUALLY);
+  CreateChannels(config, config);
+  EXPECT_TRUE_SIMULATED_WAIT(ep1_ch1()->receiving() && ep1_ch1()->writable() &&
+                                 ep2_ch1()->receiving() &&
+                                 ep2_ch1()->writable(),
+                             kMediumTimeout, clock);
+  EXPECT_TRUE(ep1_ch1()->selected_connection() &&
+              ep2_ch1()->selected_connection());
+  std::vector<Connection*> ep1_active_candidate_pairs =
+      GetActiveCandidatePair(ep1_ch1()->connections());
+  std::vector<Connection*> ep2_active_candidate_pairs =
+      GetActiveCandidatePair(ep2_ch1()->connections());
+  EXPECT_EQ(4u, ep1_active_candidate_pairs.size());
+  EXPECT_EQ(4u, ep2_active_candidate_pairs.size());
+  HasCandidatePair(ep1_active_candidate_pairs, "local", "udp",
+                   rtc::ADAPTER_TYPE_WIFI, "local", "udp",
+                   rtc::ADAPTER_TYPE_WIFI);
+  HasCandidatePair(ep1_active_candidate_pairs, "local", "udp",
+                   rtc::ADAPTER_TYPE_WIFI, "local", "udp",
+                   rtc::ADAPTER_TYPE_CELLULAR);
+  HasCandidatePair(ep1_active_candidate_pairs, "local", "udp",
+                   rtc::ADAPTER_TYPE_CELLULAR, "local", "udp",
+                   rtc::ADAPTER_TYPE_WIFI);
+  HasCandidatePair(ep1_active_candidate_pairs, "local", "udp",
+                   rtc::ADAPTER_TYPE_CELLULAR, "local", "udp",
+                   rtc::ADAPTER_TYPE_CELLULAR);
+  HasCandidatePair(ep2_active_candidate_pairs, "local", "udp",
+                   rtc::ADAPTER_TYPE_WIFI, "local", "udp",
+                   rtc::ADAPTER_TYPE_WIFI);
+  HasCandidatePair(ep2_active_candidate_pairs, "local", "udp",
+                   rtc::ADAPTER_TYPE_WIFI, "local", "udp",
+                   rtc::ADAPTER_TYPE_CELLULAR);
+  HasCandidatePair(ep2_active_candidate_pairs, "local", "udp",
+                   rtc::ADAPTER_TYPE_CELLULAR, "local", "udp",
+                   rtc::ADAPTER_TYPE_WIFI);
+  HasCandidatePair(ep2_active_candidate_pairs, "local", "udp",
+                   rtc::ADAPTER_TYPE_CELLULAR, "local", "udp",
+                   rtc::ADAPTER_TYPE_CELLULAR);
+}
+
 // A collection of tests which tests a single P2PTransportChannel by sending
 // pings.
 class P2PTransportChannelPingTest : public testing::Test,
@@ -4329,6 +4420,54 @@ TEST_F(P2PTransportChannelPingTest, TestPortDestroyedAfterTimeoutAndPruned) {
   ch.allocator_session()->PruneAllPorts();
   EXPECT_EQ_SIMULATED_WAIT(nullptr, GetPort(&ch), 1, fake_clock);
   EXPECT_EQ_SIMULATED_WAIT(nullptr, GetPrunedPort(&ch), 1, fake_clock);
+}
+
+TEST_F(P2PTransportChannelPingTest,
+       OnlyCandidatePairsWithTheSamePairOfNetworkIdsCanBePruned) {
+  rtc::ScopedFakeClock fake_clock;
+
+  FakePortAllocator pa(rtc::Thread::Current(), nullptr);
+  P2PTransportChannel ch("test channel", 1, &pa);
+  PrepareChannel(&ch);
+  ch.MaybeStartGathering();
+  std::string kPublicIp1 = kPublicAddrs[0].ipaddr().ToString();
+  std::string kPublicIp2 = kPublicAddrs[1].ipaddr().ToString();
+  Candidate remote_candidate1 =
+      CreateUdpCandidate(LOCAL_PORT_TYPE, kPublicIp1, 1, 1 /* priority */);
+  Candidate remote_candidate2 =
+      CreateUdpCandidate(LOCAL_PORT_TYPE, kPublicIp2, 1, 2 /* priority */);
+  EXPECT_EQ(remote_candidate1.network_id(), remote_candidate2.network_id());
+  ch.AddRemoteCandidate(remote_candidate1);
+  ch.AddRemoteCandidate(remote_candidate2);
+  std::vector<Connection*> candidate_pairs;
+  candidate_pairs.push_back(WaitForConnectionTo(&ch, kPublicIp1, 1));
+  candidate_pairs.push_back(WaitForConnectionTo(&ch, kPublicIp2, 1));
+  ASSERT_TRUE(candidate_pairs[0] != nullptr && candidate_pairs[1] != nullptr);
+  // Advance the clock for 1 tick so that the receiving time is positive.
+  SIMULATED_WAIT(false, 1, fake_clock);
+  candidate_pairs[0]->ReceivedPingResponse(LOW_RTT, "id");
+  candidate_pairs[1]->ReceivedPingResponse(LOW_RTT, "id");
+  EXPECT_TRUE(!candidate_pairs[0]->weak());
+  EXPECT_TRUE(!candidate_pairs[1]->weak());
+  EXPECT_TRUE_SIMULATED_WAIT(candidate_pairs[1]->selected(), kDefaultTimeout,
+                             fake_clock);
+  // Expect that candidate_pairs[0] with the same pair of network ids is pruned
+  // because of lower priority.
+  EXPECT_TRUE(candidate_pairs[0]->pruned());
+  std::string kAlternativeIp1 = kAlternateAddrs[0].ipaddr().ToString();
+  Candidate remote_candidate3 =
+      CreateUdpCandidate(LOCAL_PORT_TYPE, kAlternativeIp1, 1, 3 /* priority */);
+  remote_candidate3.set_network_id(remote_candidate1.network_id() + 1);
+  ch.AddRemoteCandidate(remote_candidate3);
+  candidate_pairs.push_back(WaitForConnectionTo(&ch, kAlternativeIp1, 1));
+  ASSERT_TRUE(candidate_pairs[2] != nullptr);
+  candidate_pairs[2]->ReceivedPingResponse(LOW_RTT, "id");
+  EXPECT_TRUE(!candidate_pairs[2]->weak());
+  // Expect the new candidate pair is selected and the previously selected
+  // candidate pair not pruned since it is with a different pair of network ids.
+  EXPECT_TRUE_SIMULATED_WAIT(candidate_pairs[2]->selected(), kDefaultTimeout,
+                             fake_clock);
+  EXPECT_FALSE(candidate_pairs[1]->pruned());
 }
 
 class P2PTransportChannelMostLikelyToWorkFirstTest

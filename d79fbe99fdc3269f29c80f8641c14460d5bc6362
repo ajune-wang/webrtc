@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c5d0215a_a0b73c9e",
+        "filename": "modules/audio_processing/beamformer/nonlinear_beamformer_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-06-18T14:56:30Z",
+      "side": 1,
+      "message": "These two functions are copied verbatim from [...]test/test_utils.cc, as it\u0027s the last remaining usage.",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 0
+      },
+      "revId": "d79fbe99fdc3269f29c80f8641c14460d5bc6362",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

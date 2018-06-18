@@ -214,6 +214,30 @@
     },
     {
       "key": {
+        "uuid": "8b421cbd_5cbd2037",
+        "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCPeerConnectionFactoryBuilder+Helpers.mm",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2018-06-18T07:57:00Z",
+      "side": 1,
+      "message": "Ah right, this is probably so that we don\u0027t add a dependency on the software codec implementation by default. Then I think it\u0027s a good idea to keep the H264 only factories here as well, as they are always included in the obj-c build and don\u0027t bloat the binary size.",
+      "parentUuid": "fd7ee75c_bdc20de3",
+      "range": {
+        "startLine": 44,
+        "startChar": 48,
+        "endLine": 44,
+        "endChar": 74
+      },
+      "revId": "a72c1515d938383052729c32a572cff71117068b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7ba83326_34e42773",
         "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCPeerConnectionFactoryBuilder.h",
         "patchSetId": 3

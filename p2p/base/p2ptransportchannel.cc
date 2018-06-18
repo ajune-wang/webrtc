@@ -92,6 +92,11 @@ uint32_t GetWeakPingIntervalInFieldTrial() {
   return cricket::WEAK_PING_INTERVAL;
 }
 
+std::pair<int, int> GetNetworkIdPairOfCandidatePair(cricket::Connection* conn) {
+  return std::make_pair(conn->local_candidate().network_id(),
+                        conn->remote_candidate().network_id());
+}
+
 }  // unnamed namespace
 
 namespace cricket {
@@ -357,16 +362,17 @@ IceTransportState P2PTransportChannel::ComputeState() const {
     return IceTransportState::STATE_FAILED;
   }
 
-  std::set<rtc::Network*> networks;
+  std::set<std::pair<int, int>> network_id_pairs;
   for (Connection* connection : active_connections) {
-    rtc::Network* network = connection->port()->Network();
-    if (networks.find(network) == networks.end()) {
-      networks.insert(network);
+    auto network_id_pair = GetNetworkIdPairOfCandidatePair(connection);
+    if (network_id_pairs.find(network_id_pair) == network_id_pairs.end()) {
+      network_id_pairs.insert(network_id_pair);
     } else {
-      RTC_LOG(LS_VERBOSE) << ToString()
-                          << ": Ice not completed yet for this channel as "
-                          << network->ToString()
-                          << " has more than 1 connection.";
+      RTC_LOG(LS_VERBOSE)
+          << ToString() << ": Ice not completed yet for this channel as "
+          << connection->port()->Network()->ToString()
+          << " has more than 1 connection to the remote network "
+          << connection->remote_candidate().network_id();
       return IceTransportState::STATE_CONNECTING;
     }
   }
@@ -1568,7 +1574,7 @@ void P2PTransportChannel::SortConnectionsAndUpdateState(
   // will nominate every connection until it becomes writable.
   if (ice_role_ == ICEROLE_CONTROLLING ||
       (selected_connection_ && selected_connection_->nominated())) {
-    PruneConnections();
+    PruneCandidatePairsByNetworkIdPair();
   }
 
   // Check if all connections are timedout.
@@ -1597,29 +1603,30 @@ void P2PTransportChannel::SortConnectionsAndUpdateState(
   MaybeStartPinging();
 }
 
-std::map<rtc::Network*, Connection*>
-P2PTransportChannel::GetBestConnectionByNetwork() const {
+std::map<std::pair<int, int>, Connection*>
+P2PTransportChannel::GetBestCandidatePairByNetworkIdPair() const {
   // |connections_| has been sorted, so the first one in the list on a given
-  // network is the best connection on the network, except that the selected
-  // connection is always the best connection on the network.
-  std::map<rtc::Network*, Connection*> best_connection_by_network;
+  // pair of local and remote network ids is the best connection on this pair of
+  // networks, except that the selected connection is always the best connection
+  // on this pairt of networks.
+  std::map<std::pair<int, int>, Connection*> best_connection_by_network_id_pair;
   if (selected_connection_) {
-    best_connection_by_network[selected_connection_->port()->Network()] =
-        selected_connection_;
+    best_connection_by_network_id_pair[GetNetworkIdPairOfCandidatePair(
+        selected_connection_)] = selected_connection_;
   }
   // TODO(honghaiz): Need to update this if |connections_| are not sorted.
   for (Connection* conn : connections_) {
-    rtc::Network* network = conn->port()->Network();
-    // This only inserts when the network does not exist in the map.
-    best_connection_by_network.insert(std::make_pair(network, conn));
+    // This only inserts when the network id pair does not exist in the map.
+    best_connection_by_network_id_pair.insert(
+        std::make_pair(GetNetworkIdPairOfCandidatePair(conn), conn));
   }
-  return best_connection_by_network;
+  return best_connection_by_network_id_pair;
 }
 
 std::vector<Connection*>
-P2PTransportChannel::GetBestWritableConnectionPerNetwork() const {
+P2PTransportChannel::GetBestWritableCandidatePairPerNetworkIdPair() const {
   std::vector<Connection*> connections;
-  for (auto kv : GetBestConnectionByNetwork()) {
+  for (auto kv : GetBestCandidatePairByNetworkIdPair()) {
     Connection* conn = kv.second;
     if (conn->writable() && conn->connected()) {
       connections.push_back(conn);
@@ -1628,37 +1635,48 @@ P2PTransportChannel::GetBestWritableConnectionPerNetwork() const {
   return connections;
 }
 
-void P2PTransportChannel::PruneConnections() {
-  // We can prune any connection for which there is a connected, writable
-  // connection on the same network with better or equal priority.  We leave
-  // those with better priority just in case they become writable later (at
-  // which point, we would prune out the current selected connection).  We leave
-  // connections on other networks because they may not be using the same
-  // resources and they may represent very distinct paths over which we can
-  // switch. If |best_conn_on_network| is not connected, we may be reconnecting
-  // a TCP connection and should not prune connections in this network.
-  // See the big comment in CompareConnectionStates.
+void P2PTransportChannel::PruneCandidatePairsByNetworkIdPair() {
+  // Different pairs of local and remote network ids can denote different pairs
+  // of networks if the remote network id is signaled in the remote candidate.
+  // However, the network id is only part of the extension of candidate
+  // attributes we implement (see RFC 5245, Section 15.1), and the network id of
+  // a remote candidate would be zero if it is not signaled. In this case, the
+  // pruning logic below is essentailly per each local network.
   //
-  // An exception is made for connections on an "any address" network, meaning
-  // not bound to any specific network interface. We don't want to keep one of
-  // these alive as a backup, since it could be using the same network
+  // We can prune any candidate pair for which there is a connected, writable
+  // candidate pair on the same pair of network ids with better or equal
+  // priority. We leave those with better priority just in case they become
+  // writable later (at which point, we would prune out the current selected
+  // candidate pair).  We leave candidate pairs on other pairs of network ids
+  // because they may not be using the same resources and they may represent
+  // very distinct paths over which we can switch. If |best_conn_on_network| is
+  // not connected, we may be reconnecting a TCP candidate pair and should not
+  // prune candidate pairs with this pair of network ids. See the big comment in
+  // CompareConnectionStates.
+  //
+  // An exception is made for candidate pairs on an "any address" local network,
+  // meaning not bound to any specific network interface. We don't want to keep
+  // one of these alive as a backup, since it could be using the same network
   // interface as the higher-priority, selected candidate pair.
-  auto best_connection_by_network = GetBestConnectionByNetwork();
-  for (Connection* conn : connections_) {
-    Connection* best_conn = selected_connection_;
-    if (!rtc::IPIsAny(conn->port()->Network()->ip())) {
-      // If the connection is bound to a specific network interface (not an
-      // "any address" network), compare it against the best connection for
-      // that network interface rather than the best connection overall. This
-      // ensures that at least one connection per network will be left
-      // unpruned.
-      best_conn = best_connection_by_network[conn->port()->Network()];
+  auto best_candidate_pair_by_network_id_pair =
+      GetBestCandidatePairByNetworkIdPair();
+  for (Connection* candidate_pair : connections_) {
+    Connection* best_candidate_pair = selected_connection_;
+    if (!rtc::IPIsAny(candidate_pair->port()->Network()->ip())) {
+      // If the candidat _pair is bound to a specific network interface (not an
+      // "any address" network), compare it against the best candidate pair for
+      // that network interface rather than the best candidate pair overall.
+      // This ensures that at least one andidate pair per network id pair will
+      // be left unpruned.
+      best_candidate_pair = best_candidate_pair_by_network_id_pair
+          [GetNetworkIdPairOfCandidatePair(candidate_pair)];
     }
-    // Do not prune connections if the connection being compared against is
-    // weak. Otherwise, it may delete connections prematurely.
-    if (best_conn && conn != best_conn && !best_conn->weak() &&
-        CompareConnectionCandidates(best_conn, conn) >= 0) {
-      conn->Prune();
+    // Do not prune candidate pairs if the candidate pair being compared against
+    // is weak. Otherwise, it may delete candidate pairs prematurely.
+    if (best_candidate_pair && candidate_pair != best_candidate_pair &&
+        !best_candidate_pair->weak() &&
+        CompareConnectionCandidates(best_candidate_pair, candidate_pair) >= 0) {
+      candidate_pair->Prune();
     }
   }
 }
@@ -1958,7 +1976,8 @@ Connection* P2PTransportChannel::FindNextPingableConnection() {
   // Rule 2.1: Among such connections, pick the one with the earliest
   // last-ping-sent time.
   if (weak()) {
-    auto selectable_connections = GetBestWritableConnectionPerNetwork();
+    auto selectable_connections =
+        GetBestWritableCandidatePairPerNetworkIdPair();
     std::vector<Connection*> pingable_selectable_connections;
     std::copy_if(selectable_connections.begin(), selectable_connections.end(),
                  std::back_inserter(pingable_selectable_connections),

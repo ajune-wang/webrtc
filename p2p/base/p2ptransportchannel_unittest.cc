@@ -159,6 +159,34 @@ cricket::BasicPortAllocator* CreateBasicPortAllocator(
   allocator->SetConfiguration(stun_servers, turn_servers, 0, false);
   return allocator;
 }
+
+static bool HasCandidatePair(
+    const std::vector<cricket::Connection*>& candidate_pairs,
+    const std::string& local_candidate_type,
+    const std::string& local_candidate_proto,
+    rtc::AdapterType local_network_type,
+    const std::string& remote_candidate_type,
+    const std::string& remote_candidate_proto,
+    rtc::AdapterType remote_network_type) {
+  auto it = std::find_if(
+      candidate_pairs.begin(), candidate_pairs.end(),
+      [local_candidate_type, local_candidate_proto, local_network_type,
+       remote_candidate_type, remote_candidate_proto,
+       remote_network_type](cricket::Connection* candidate_pair) {
+        const cricket::Candidate& local_candidate =
+            candidate_pair->local_candidate();
+        const cricket::Candidate& remote_candidate =
+            candidate_pair->remote_candidate();
+        return local_candidate.type() == local_candidate_type &&
+               local_candidate.protocol() == local_candidate_proto &&
+               local_candidate.network_type() == local_network_type &&
+               remote_candidate.type() == remote_candidate_type &&
+               remote_candidate.protocol() == remote_candidate_proto &&
+               remote_candidate.network_type() == remote_network_type;
+      });
+  return it != candidate_pairs.end();
+}
+
 }  // namespace
 
 namespace cricket {
@@ -3051,6 +3079,47 @@ TEST_F(P2PTransportChannelMultihomedTest, TestRestoreBackupConnection) {
       kDefaultTimeout, clock);
 
   DestroyChannels();
+}
+
+// Tests that we keep one active candidate pair per each pair of local and
+// remote networks at the ice-controlling endpoint, if we signal the network id
+// of candidates from the ice-controlled endpoint.
+TEST_F(
+    P2PTransportChannelMultihomedTest,
+    IceControllingSideHasActiveCandidatePairsPerPairOfLocalAndRemoteNetworks) {
+  rtc::ScopedFakeClock clock;
+  auto& wifi = kAlternateAddrs;
+  auto& cellular = kPublicAddrs;
+  AddAddress(0, wifi[0], "test_wifi0", rtc::ADAPTER_TYPE_WIFI);
+  AddAddress(0, cellular[0], "test_cell0", rtc::ADAPTER_TYPE_CELLULAR);
+  AddAddress(1, wifi[1], "test_wifi1", rtc::ADAPTER_TYPE_WIFI);
+  AddAddress(1, cellular[1], "test_cell1", rtc::ADAPTER_TYPE_CELLULAR);
+  // Use only local ports for simplicity.
+  SetAllocatorFlags(0, kOnlyLocalPorts);
+  SetAllocatorFlags(1, kOnlyLocalPorts);
+
+  IceConfig config = CreateIceConfig(1000, GATHER_CONTINUALLY);
+  CreateChannels(config, config);
+  EXPECT_TRUE_SIMULATED_WAIT(ep1_ch1()->receiving() && ep1_ch1()->writable() &&
+                                 ep2_ch1()->receiving() &&
+                                 ep2_ch1()->writable(),
+                             kMediumTimeout, clock);
+  EXPECT_TRUE(ep1_ch1()->selected_connection() &&
+              ep2_ch1()->selected_connection());
+  EXPECT_TRUE(ep1_ch1()->GetIceRole() == ICEROLE_CONTROLLING);
+  EXPECT_EQ(4u, ep1_ch1()->connections().size());
+  HasCandidatePair(ep1_ch1()->connections(), "local", "udp",
+                   rtc::ADAPTER_TYPE_WIFI, "local", "udp",
+                   rtc::ADAPTER_TYPE_WIFI);
+  HasCandidatePair(ep1_ch1()->connections(), "local", "udp",
+                   rtc::ADAPTER_TYPE_WIFI, "local", "udp",
+                   rtc::ADAPTER_TYPE_CELLULAR);
+  HasCandidatePair(ep1_ch1()->connections(), "local", "udp",
+                   rtc::ADAPTER_TYPE_CELLULAR, "local", "udp",
+                   rtc::ADAPTER_TYPE_WIFI);
+  HasCandidatePair(ep1_ch1()->connections(), "local", "udp",
+                   rtc::ADAPTER_TYPE_CELLULAR, "local", "udp",
+                   rtc::ADAPTER_TYPE_CELLULAR);
 }
 
 // A collection of tests which tests a single P2PTransportChannel by sending

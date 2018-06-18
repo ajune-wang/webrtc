@@ -25,6 +25,7 @@
 #include <memory>
 #include <set>
 #include <string>
+#include <utility>
 #include <vector>
 
 #include "api/candidate.h"
@@ -237,7 +238,6 @@ class P2PTransportChannel : public IceTransportInternal {
   void MaybeStopPortAllocatorSessions();
   IceTransportState ComputeState() const;
 
-  Connection* GetBestConnectionOnNetwork(rtc::Network* network) const;
   bool CreateConnections(const Candidate& remote_candidate,
                          PortInterface* origin_port);
   bool CreateConnection(PortInterface* port,
@@ -310,10 +310,18 @@ class P2PTransportChannel : public IceTransportInternal {
   // Returns true if the new_connection is selected for transmission.
   bool MaybeSwitchSelectedConnection(Connection* new_connection,
                                      const std::string& reason);
-  // Gets the best connection for each network.
-  std::map<rtc::Network*, Connection*> GetBestConnectionByNetwork() const;
-  std::vector<Connection*> GetBestWritableConnectionPerNetwork() const;
-  void PruneConnections();
+  // Gets the best candidate pair for each pair of local and remote network ids.
+  std::map<std::pair<int, int>, Connection*>
+  GetBestCandidatePairByNetworkIdPair() const;
+  std::vector<Connection*> GetBestWritableCandidatePairPerNetworkIdPair() const;
+  // Prune candidate pairs that are inferior than some other candidate pair
+  // with the same pair of local and remote network ids. Different pair of
+  // network ids can represent different pairs of networks, if the network ids
+  // of the remote candidates are signaled; otherwise, the network id of a
+  // remote candidate is always zero, and pairs of ids then represent groups
+  // divided by the local networks. See the comments in the implementation for
+  // the pruning logic.
+  void PruneCandidatePairsByNetworkIdPair();
   bool IsBackupConnection(const Connection* conn) const;
 
   Connection* FindOldestConnectionNeedingTriggeredCheck(int64_t now);

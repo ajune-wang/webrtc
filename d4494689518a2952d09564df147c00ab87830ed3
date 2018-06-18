@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "297fec11_e084d237",
+        "filename": "media/base/vp9_profile.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-06-18T08:45:49Z",
+      "side": 1,
+      "message": "It is used in vp9_impl.cc. I think duplicating this would be hard to maintain. Why do recommend keeping it local?",
+      "parentUuid": "701b3678_4499166e",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 37
+      },
+      "revId": "d4494689518a2952d09564df147c00ab87830ed3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d3afbd49_c7306bf5",
         "filename": "media/base/vp9_profile.h",
         "patchSetId": 11
@@ -45,6 +69,30 @@
       "revId": "d4494689518a2952d09564df147c00ab87830ed3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2329ebc_5b298c41",
+        "filename": "media/base/vp9_profile.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-06-18T08:45:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d3afbd49_c7306bf5",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 15
+      },
+      "revId": "d4494689518a2952d09564df147c00ab87830ed3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "98b6daaa_cb0d06ab",
+        "filename": "media/base/vp9_profile.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-06-18T08:45:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "69d0872d_770147cf",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 14
+      },
+      "revId": "d4494689518a2952d09564df147c00ab87830ed3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a0de1e3_2d81b14c",
         "filename": "modules/video_coding/codecs/vp9/vp9_impl.h",
         "patchSetId": 11
@@ -82,6 +154,30 @@
       "writtenOn": "2018-06-14T06:58:37Z",
       "side": 1,
       "message": "I wasn\u0027t aware we had cricket::VideoCodec (we also have webrtc::VideoCodec and webrtc::VideoEncoderConfig, with information passed to to InitEncode).\n\nNot sure what\u0027s the right way to organize this, but it would be nice if VP9 profiles and H264 profiles were handled in a similar way. For H264, it looks like the profile is part of VideoCodecH264, i.e., the \"codec specific\" part of webrtc::VideoCodec.",
+      "range": {
+        "startLine": 33,
+        "startChar": 26,
+        "endLine": 33,
+        "endChar": 58
+      },
+      "revId": "d4494689518a2952d09564df147c00ab87830ed3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "313d47fa_b8da8b46",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-06-18T08:45:49Z",
+      "side": 1,
+      "message": "SW H264 has parameters in both webrtc::VideoCodec and cricket::VideoCodec. HW H264 has all in cricket::VideoCodec. I chose to keep it in cricket::VideoCodec because it would be common for both Sw and HW.\nhttps://cs.chromium.org/chromium/src/content/renderer/media/webrtc/rtc_video_encoder_factory.cc?dr\u003dC\u0026g\u003d0\u0026l\u003d119",
+      "parentUuid": "7a0de1e3_2d81b14c",
       "range": {
         "startLine": 33,
         "startChar": 26,

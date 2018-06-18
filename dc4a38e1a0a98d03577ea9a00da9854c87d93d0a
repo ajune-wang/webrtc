@@ -1,0 +1,572 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "064ddfa6_ad2511c1",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-18T11:06:37Z",
+      "side": 1,
+      "message": "?",
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00005edd_42f67091",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-18T11:06:37Z",
+      "side": 1,
+      "message": "Due-diligence: Clock wrap-around? Or overkill?",
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7949c8d2_e6d32107",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-18T11:06:37Z",
+      "side": 1,
+      "message": "Sorry for bringing it up again, but this looks odd. If you want a temporary file, why not create one, and then memorize its (arbitrary) path? The Chrome codebase has CreateTemporaryFile(). I\u0027ve asked nisse@ about WebRTC equivalents, and he\u0027s pointed me here:\ntest/testsupport/fileutils.h",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 104,
+        "endChar": 51
+      },
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28fb1342_da9f621d",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-18T11:06:37Z",
+      "side": 1,
+      "message": "Suggest a comment, as |num_events_before_log_start|\u0027s exact meaning is not immediately apparent from the function\u0027s declaration.",
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e616fcf4_4998127c",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-18T11:06:37Z",
+      "side": 1,
+      "message": "A vector of pairs where the second element is a map. :-) And one wonders how non-trivial the key and value of that map is. :-)\n(Not actionable.)",
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c8f49497_97073555",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-18T11:06:37Z",
+      "side": 1,
+      "message": "nit: \"Config events\", to match comment below?",
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc6a242a_a5cfe2f8",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-18T11:06:37Z",
+      "side": 1,
+      "message": "Not the most involved definition I\u0027ve seen, but not the simplest either. :-)",
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e5b0ac6e_7ca9cbed",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-18T11:06:37Z",
+      "side": 1,
+      "message": "const",
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dece9ddd_0ea430f5",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-18T11:06:37Z",
+      "side": 1,
+      "message": "Suffix _",
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "379baa0e_26df7281",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 626,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-18T11:06:37Z",
+      "side": 1,
+      "message": "The main difference between this test and the following line, is the second argument to WriteLog(). However, this is hidden away by many randomly assigned but hard-coded values to many, many fields. I would suggest populating EventCounts from a helper function instead (might be also good to do some randomization there). That way, the second argument to WriteLog will be the only difference between the tests, and a reader would see it immediately.",
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4aeac4c5_a2ac8b64",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 654,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-18T11:06:37Z",
+      "side": 1,
+      "message": "As per offline discussion, I would suggest a TODO to make this RtcEventLogImplTest, then moving RtcEventLogImpl\u0027s definition to its own header file, so that it might be test directly, since the buffer size is being tested here.",
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56f7a452_a7db647b",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 689,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-18T11:06:37Z",
+      "side": 1,
+      "message": "Don\u0027t you want to advance this?",
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1941afb6_8b44776f",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-18T11:06:37Z",
+      "side": 1,
+      "message": "I see, avoiding (size() - 1) in case (size() \u003d\u003d 0). I should adopt this.",
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "670e1dad_b954f7bb",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-18T11:06:37Z",
+      "side": 1,
+      "message": "I\u0027m assuming this is here for consistency\u0027s sake.",
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7f3ce93c_20b6d0d1",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-18T11:06:37Z",
+      "side": 1,
+      "message": "I suggest supporting at least two types right off the bat. I suggest letting this helper call one of X (where X\u003e\u003d2) different sub-helpers.\n\nRationale:\n1. Currently, whatever way you have to encode the type, is only ever encoding one thing (in tests). Your own principle was to always check with at least two values.\n2. Laying down an easy path to extend, makes it more likely that it will one day be done.",
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a70aa847_343931c5",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-18T11:06:37Z",
+      "side": 1,
+      "message": "I would prefer prng.Rand\u003cuint8_t\u003e().",
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9d26f02_f89aa076",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-18T11:06:37Z",
+      "side": 1,
+      "message": "Duplicate code (over generating a SenderReport) can be removed to helper.",
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b501e801_180c0407",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-18T11:06:37Z",
+      "side": 1,
+      "message": "Please note comment elsewhere about accepting bool for incoming/outgoing and returning the packet.",
+      "range": {
+        "startLine": 224,
+        "startChar": 0,
+        "endLine": 228,
+        "endChar": 28
+      },
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48958546_3c41db9b",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-18T11:06:37Z",
+      "side": 1,
+      "message": "I wonder if it might be a problem that we normally end up getting non-consecutive sequence numbers when randomizing packet sequences? Similarly for repeating the same exact sequence number? Is there special behavior in the UUT (unit under test) that does not get tested?",
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31326b8c_0a5d6fd0",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-18T11:06:37Z",
+      "side": 1,
+      "message": "By moving the decision about the size into the function (see comments elsewhere), we can maker sure that the size is randomized according to the selected |csrcs_count|, rather than according to |kMaxCsrcs|.",
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66e4da64_54df6caf",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-18T11:06:37Z",
+      "side": 1,
+      "message": "nit: Minyue has once told me to prefer size_t for loop indices. I don\u0027t see it being used inside the loop, so there\u0027s probably no reason to not do that here?",
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70710a1a_d6eba790",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-18T11:06:37Z",
+      "side": 1,
+      "message": "nit: AllocatePayload()\u0027s documentation says it can return nullptr, so good practice would be to at least DCHECK(payload), I think.",
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e58c20db_cf071530",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-18T11:06:37Z",
+      "side": 1,
+      "message": "You\u0027re defining this here, then again inside RandomizeRtpPacket(), while implicitly relying on the value being the same. The easiest solution would be to make this a global (in an anonymous namespace, of course). A better solution might be to only define it where it\u0027s necessary? Does RandomizeRtpPacket() need to get the size from outside, or could it randomize that too? (It might need a bool for incoming/outgoing, of course, to generate the correct subclass of RtpPacket. But it would then be able to return a value, rather than right into it, which I would consider a small plus.)",
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a02d57f_097b3709",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-18T11:06:37Z",
+      "side": 1,
+      "message": "1. Could we use RtpExtension::kMaxId here?\n2. Is RtpHeaderExtensionMap::kMaxId designed to be the exact same value? If so, perhaps one should define itself in terms of the other? Or eliminate one altogether?",
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d2dca79_5e65800e",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-18T11:06:37Z",
+      "side": 1,
+      "message": "size_t?",
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3abd1f8_2841825d",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-18T11:06:37Z",
+      "side": 1,
+      "message": "nit: size_t?",
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2444ef78_bc24a899",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-18T11:06:37Z",
+      "side": 1,
+      "message": "nit: size_t",
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cba6d22a_225d9c0d",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-18T11:06:37Z",
+      "side": 1,
+      "message": "~/webrtc/src:$ git grep \u0027for (size_t i \u003d\u0027 | wc\n   1437   16010  141187\n~/webrtc/src:$ git grep \u0027for (unsigned i \u003d\u0027 | wc\n      6      67     655",
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "519ccdc0_36216bd5",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 682,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-18T11:06:37Z",
+      "side": 1,
+      "message": "Typo?",
+      "range": {
+        "startLine": 682,
+        "startChar": 13,
+        "endLine": 682,
+        "endChar": 22
+      },
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6b3891c_db266acb",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 701,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-18T11:06:37Z",
+      "side": 1,
+      "message": "Same comment as below.",
+      "range": {
+        "startLine": 698,
+        "startChar": 0,
+        "endLine": 701,
+        "endChar": 3
+      },
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac094ddc_2975ba8c",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 713,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-18T11:06:37Z",
+      "side": 1,
+      "message": "Before memcmp() reads logged_event.rtcp.raw_data.data() beyond (potentially) the edge of the vector, could you add:\n  if (original_event.packet_.size() !\u003d logged_event.rtcp.raw_data.size())\n    return false;\n?",
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89b33bbd_3e6dba8a",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 769,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-18T11:06:37Z",
+      "side": 1,
+      "message": "This seems suspicious. If not a mistake, could you put a comment that would explain why |logged_event.configs| is a container, despite the expectation that it would always contain exactly one element?",
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1060,6 +1060,24 @@
     },
     {
       "key": {
+        "uuid": "6dbd4752_a956ffcf",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 705,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-18T11:06:37Z",
+      "side": 1,
+      "message": "That I saw. But I was confused about why we need to move the clock back in the first place. If there is a way around this, I think it would be good to use it.",
+      "parentUuid": "8f76f989_6f032d15",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "854ab106_207d3a7e",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
         "patchSetId": 2
@@ -1869,6 +1887,30 @@
     },
     {
       "key": {
+        "uuid": "7a6a997e_960869c0",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-18T11:06:37Z",
+      "side": 1,
+      "message": "1. Oops about my bad arithmetic; it was late at night when I wrote that.\n2. You don\u0027t need static_cast, do you? 1u would be enough. So\n1 \u003c\u003c (TransmissionOffset::kValueSizeBytes) - 1. Perhaps with additional parenthasis to make it clearer. Seems clearer to me.\n3. I don\u0027t think it\u0027s actually possible to change this from 3 to 4 for this extension, right? Such a change will not be backwards compatible. And since this is using a static variable, I am not suggesting it for all extensions, but rather for this extension only (and for AbsoluteSendTime, too). So readability should be all we care about?",
+      "parentUuid": "69a581a4_0a777131",
+      "range": {
+        "startLine": 258,
+        "startChar": 0,
+        "endLine": 263,
+        "endChar": 70
+      },
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4a81f4f3_64bd4a7a",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
         "patchSetId": 2
@@ -1933,6 +1975,24 @@
       "side": 1,
       "message": "Yes, sort-of. But at this point we don\u0027t know csrc_count. We therefore compute the maximum size that the header can be and make sure that the total packet size is large enough to contain it.",
       "parentUuid": "c2d0fd1e_0d4e1479",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "904b0e81_1a789a14",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-18T11:06:37Z",
+      "side": 1,
+      "message": "But there\u0027s nothing preventing us from moving this\n  uint32_t csrcs_count \u003d prng-\u003eRand(0, kMaxCsrcs);\nup to precede the setting of the packet size, right?",
+      "parentUuid": "78fcb2fa_6eb37e86",
       "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

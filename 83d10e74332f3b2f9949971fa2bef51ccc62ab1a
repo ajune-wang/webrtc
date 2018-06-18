@@ -154,6 +154,24 @@
     },
     {
       "key": {
+        "uuid": "3ad622e7_25fd71cb",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-18T11:06:37Z",
+      "side": 1,
+      "message": "I\u0027ve in the past seen code (not yours) that strcmp-ed over a hard-coded subset of a string, which presumably was at the time of introduction the entire string, but excluding the terminating null character. That is, \"CODEC_NAME\" would be strcmp-ed with 10 as the hard-coded length. Why the author thought \u0027\\0\u0027 should not also be compared, escaped me, and still does. Without context, you could surmise that he wanted to check one string was a prefix of the other, but as I remember it, this was not the case.\n\nThat kind of thing scars you for life. Some things cannot be unseen.\n\nThough I have no doubt that you would not be so careless as to incorrectly copy a string, perhaps the unit-test should not share my confidence in you? Maybe a test that checks encoding of strings, should cover the edge cases of the lengths of acceptable strings?",
+      "parentUuid": "72851de1_caf2143c",
+      "revId": "83d10e74332f3b2f9949971fa2bef51ccc62ab1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "158d35c6_237e814e",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
         "patchSetId": 3
@@ -201,6 +219,60 @@
       "side": 1,
       "message": "Is 0 legal? If so, then I agree completely.",
       "parentUuid": "158d35c6_237e814e",
+      "revId": "83d10e74332f3b2f9949971fa2bef51ccc62ab1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9e122bd_23a0fc43",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-18T11:06:37Z",
+      "side": 1,
+      "message": "0 is PCMU, AFAICT.",
+      "parentUuid": "c818aeff_e0de899f",
+      "revId": "83d10e74332f3b2f9949971fa2bef51ccc62ab1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4421879b_390a7e7b",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-18T11:06:37Z",
+      "side": 1,
+      "message": "0 is PCMU, AFAICT.",
+      "parentUuid": "c818aeff_e0de899f",
+      "revId": "83d10e74332f3b2f9949971fa2bef51ccc62ab1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "423047cc_9c346bb0",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-18T11:06:37Z",
+      "side": 1,
+      "message": "0 is PCMU, AFAICT.",
+      "parentUuid": "c818aeff_e0de899f",
       "revId": "83d10e74332f3b2f9949971fa2bef51ccc62ab1a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

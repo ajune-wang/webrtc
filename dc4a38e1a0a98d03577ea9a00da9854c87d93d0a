@@ -161,6 +161,222 @@
     },
     {
       "key": {
+        "uuid": "f3b40105_9dc9ac3d",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-18T11:59:38Z",
+      "side": 1,
+      "message": "If this had its own function, WriteConfigs() would be shorter.",
+      "range": {
+        "startLine": 174,
+        "startChar": 0,
+        "endLine": 183,
+        "endChar": 55
+      },
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "226b4e9a_94119e27",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-18T11:59:38Z",
+      "side": 1,
+      "message": "Would it be possible to have this in its own function?",
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ce9d4f6_a817e5c6",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-18T11:59:38Z",
+      "side": 1,
+      "message": "Sorry, but why do we sometimes want all extensions, but sometimes not?",
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8940deb_4258db19",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-18T11:59:38Z",
+      "side": 1,
+      "message": "nit: If video_recv_streams \u003d\u003d 1, the clock will not be advanced between NewVideoReceiveStreamConfig and NewVideoSendStreamConfig. I see that that Rand(20) could still mean that the timestamp does not change, due to AdvanceTimeMicros(0), but this case\u0027s status as OK behavior of the test is not immediately apparent to a reader. I think it would generally be better to advance the clock *after* every event generation.",
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63b41314_8c30032d",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-18T11:59:38Z",
+      "side": 1,
+      "message": "Maybe CHECK that |count.video_recv_streams| isn\u0027t excessive, leading the test to run into too many collisions before the loop can be escaped?",
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3168752c_3f45a5a4",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-18T11:59:38Z",
+      "side": 1,
+      "message": "Would it be possible to have this in its own function?",
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b65415e_89e8ebdb",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-18T11:59:38Z",
+      "side": 1,
+      "message": "IMHO, it would be more readable to have a helper that can be called |num_events_before_start| times, then the start event would be produced, then the helper would be called |remaining_events_at_start| more times.",
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0fd861df_80b4ff1f",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-18T11:59:38Z",
+      "side": 1,
+      "message": "I think it would be clearer to advance the clock after each event generation, where each iteration yields exactly one event.",
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19faefd1_f3735a7b",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-18T11:59:38Z",
+      "side": 1,
+      "message": "Just a thought, might be overkill:\nThere\u0027s a clear structure to each if-else-case here. I wonder if it would improve the code to have a loop run over a vector of pairs, where one element is a pointer to count.current_type, and the other element is a lambda that generates gen_.CurrentType().\nIt might be too \"clever\" though. Maybe this code is more readable and maintainable?",
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1214f8c3_218d4974",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 426,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-18T11:59:38Z",
+      "side": 1,
+      "message": "I think we should also have unit tests for defective cases, where the log somehow receives defective timestamps that appear to run backward, and make sure nothing crashes then. It might be that testing *writing* such a log is unnecessary, but maybe we should be careful when *reading* it?",
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4cdc986b_b7df9ea7",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-18T11:59:38Z",
+      "side": 1,
+      "message": "1. Is this sanity over the test itself? If so, make that clearer by using ASSERT_EQ instead?\n2. Why over total_nonconfig_events, and not over total_events?",
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8fac691_076fee3d",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-18T11:59:38Z",
+      "side": 1,
+      "message": "Just a thought:\n\n1. ana_configs_list_, bwe_delay_list_, etc., are containers of elements that share a common ancestor type.\n2. parsed_audio_network_adaptation_events, parsed_bwe_delay_updates, etc., are containers of elements that do not share a common ancestor, but we COULD make them share an ancestor. That ancestor can have a single virtual function - operator\u003d\u003d(const RtcEvent\u0026 other).\n\nIt would then be possible to change all of these separate loops, into a nested loop that would use EXPECT_EQ instead of VerifyX.\n\nMight be more work than its worth. For your consideration.",
+      "range": {
+        "startLine": 468,
+        "startChar": 0,
+        "endLine": 476,
+        "endChar": 3
+      },
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "379baa0e_26df7281",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
         "patchSetId": 7
@@ -206,6 +422,23 @@
       "writtenOn": "2018-06-18T11:06:37Z",
       "side": 1,
       "message": "Don\u0027t you want to advance this?",
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a08b453b_c919ebc2",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 710,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-18T11:59:38Z",
+      "side": 1,
+      "message": "You\u0027ve used ASSERT for one, and EXPECT for the other. Is that intentional?",
       "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

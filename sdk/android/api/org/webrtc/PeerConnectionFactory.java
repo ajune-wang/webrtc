@@ -13,6 +13,7 @@ package org.webrtc;
 import android.content.Context;
 import java.util.List;
 import javax.annotation.Nullable;
+import org.webrtc.Logging.Severity;
 import org.webrtc.audio.AudioDeviceModule;
 import org.webrtc.audio.LegacyAudioDeviceModule;
 
@@ -41,15 +42,22 @@ public class PeerConnectionFactory {
     final boolean enableInternalTracer;
     final boolean enableVideoHwAcceleration;
     final NativeLibraryLoader nativeLibraryLoader;
+    final String nativeLibraryName;
+    @Nullable Loggable loggable;
+    @Nullable Severity loggableSeverity;
 
     private InitializationOptions(Context applicationContext, String fieldTrials,
         boolean enableInternalTracer, boolean enableVideoHwAcceleration,
-        NativeLibraryLoader nativeLibraryLoader) {
+        NativeLibraryLoader nativeLibraryLoader, String nativeLibraryName,
+        @Nullable Loggable loggable, @Nullable Severity loggableSeverity) {
       this.applicationContext = applicationContext;
       this.fieldTrials = fieldTrials;
       this.enableInternalTracer = enableInternalTracer;
       this.enableVideoHwAcceleration = enableVideoHwAcceleration;
       this.nativeLibraryLoader = nativeLibraryLoader;
+      this.nativeLibraryName = nativeLibraryName;
+      this.loggable = loggable;
+      this.loggableSeverity = loggableSeverity;
     }
 
     public static Builder builder(Context applicationContext) {
@@ -62,6 +70,9 @@ public class PeerConnectionFactory {
       private boolean enableInternalTracer = false;
       private boolean enableVideoHwAcceleration = true;
       private NativeLibraryLoader nativeLibraryLoader = new NativeLibrary.DefaultLoader();
+      private String nativeLibraryName = "jingle_peerconnection_so";
+      @Nullable private Loggable loggable = null;
+      @Nullable private Severity loggableSeverity = null;
 
       Builder(Context applicationContext) {
         this.applicationContext = applicationContext;
@@ -87,9 +98,21 @@ public class PeerConnectionFactory {
         return this;
       }
 
+      public Builder setNativeLibraryName(String nativeLibraryName) {
+        this.nativeLibraryName = nativeLibraryName;
+        return this;
+      }
+
+      public Builder setInjectableLogger(Loggable loggable, Severity severity) {
+        this.loggable = loggable;
+        this.loggableSeverity = severity;
+        return this;
+      }
+
       public PeerConnectionFactory.InitializationOptions createInitializationOptions() {
         return new PeerConnectionFactory.InitializationOptions(applicationContext, fieldTrials,
-            enableInternalTracer, enableVideoHwAcceleration, nativeLibraryLoader);
+            enableInternalTracer, enableVideoHwAcceleration, nativeLibraryLoader, nativeLibraryName,
+            loggable, loggableSeverity);
       }
     }
   }
@@ -193,11 +216,21 @@ public class PeerConnectionFactory {
    */
   public static void initialize(InitializationOptions options) {
     ContextUtils.initialize(options.applicationContext);
-    NativeLibrary.initialize(options.nativeLibraryLoader);
+    NativeLibrary.initialize(options.nativeLibraryLoader, options.nativeLibraryName);
     nativeInitializeAndroidGlobals(options.enableVideoHwAcceleration);
     nativeInitializeFieldTrials(options.fieldTrials);
     if (options.enableInternalTracer && !internalTracerInitialized) {
       initializeInternalTracer();
+    }
+    if (options.loggable != null) {
+      Logging.injectLoggable(options.loggable, options.loggableSeverity);
+      nativeInjectLoggable(new JNILogging(options.loggable), options.loggableSeverity.ordinal());
+    } else {
+      Logging.d(TAG,
+          "PeerConnectionFactory was initialized without an injected Loggable. "
+              + "Any existing Loggable will be deleted.");
+      Logging.deleteInjectedLoggable();
+      nativeDeleteLoggable();
     }
   }
 
@@ -474,4 +507,6 @@ public class PeerConnectionFactory {
   private static native void nativeInvokeThreadsCallbacks(long factory);
   private static native void nativeFreeFactory(long factory);
   private static native long nativeGetNativePeerConnectionFactory(long factory);
+  private static native void nativeInjectLoggable(JNILogging jniLogging, int severity);
+  private static native void nativeDeleteLoggable();
 }

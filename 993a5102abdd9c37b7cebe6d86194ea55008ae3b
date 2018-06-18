@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "40a7e78b_021d1762",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-06-18T22:15:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0efe388f_50f777cc",
+      "revId": "993a5102abdd9c37b7cebe6d86194ea55008ae3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f4b2c0d2_6b656cbd",
         "filename": "pc/peerconnection_rampup_tests.cc",
         "patchSetId": 9
@@ -30,6 +48,24 @@
       "writtenOn": "2018-06-18T21:02:32Z",
       "side": 1,
       "message": "I don\u0027t really understand this comment; where does 1.7 come from? And if the max is 1.7Mbps why does it limit throughput to 1Mbps and not 1.7?",
+      "revId": "993a5102abdd9c37b7cebe6d86194ea55008ae3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b9b37db_8306713c",
+        "filename": "pc/peerconnection_rampup_tests.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-06-18T22:15:47Z",
+      "side": 1,
+      "message": "The max bitrate comes from the configured max here:\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/media/engine/webrtcvideoengine.cc?l\u003d328\n\nIt\u0027s not a \"hard\" limit at 1Mbps, but the encoder\u0027s throughput never goes above this when testing with an unlimited virtual network. I\u0027m assuming this is due to some shortcuts it takes with encoding the SquareGenerator video source. The reason I chose 4/3 of this max throughput was based off of the rampup_tests.cc:\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/call/rampup_tests.cc?l\u003d406\n\nI updated the comment. Let me know if it looks good to you.",
+      "parentUuid": "f4b2c0d2_6b656cbd",
       "revId": "993a5102abdd9c37b7cebe6d86194ea55008ae3b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

@@ -9,6 +9,8 @@
  */
 
 #include "media/base/codec.h"
+
+#include "media/base/vp9_profile.h"
 #include "rtc_base/gunit.h"
 
 using cricket::AudioCodec;
@@ -184,6 +186,26 @@ TEST(CodecTest, TestVideoCodecMatches) {
   EXPECT_TRUE(c1.Matches(VideoCodec(97, "v")));
   EXPECT_FALSE(c1.Matches(VideoCodec(96, "")));
   EXPECT_FALSE(c1.Matches(VideoCodec(95, "V")));
+}
+
+// VP9 codecs compare profile information.
+TEST(CodecTest, TestVP9CodecMatches) {
+  const char kProfile1[] = "5";
+  const char kProfile2[] = "6";
+
+  VideoCodec c_p1(95, cricket::kVp9CodecName);
+  c_p1.params[webrtc::kVP9Profile] = kProfile1;
+  {
+    VideoCodec c_p1_eq(95, "H264");
+    c_p1_eq.params[webrtc::kVP9Profile] = kProfile1;
+    EXPECT_TRUE(c_p1.Matches(c_p1_eq));
+  }
+
+  {
+    VideoCodec c_p2(95, "H264");
+    c_p2.params[webrtc::kVP9Profile] = kProfile2;
+    EXPECT_FALSE(c_p1.Matches(c_p2));
+  }
 }
 
 // Matching H264 codecs also need to have matching profile-level-id and

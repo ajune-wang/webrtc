@@ -205,8 +205,6 @@ size_t RTPFile::Read(WebRtcRTPHeader* rtpInfo, uint8_t* payloadData,
 
   EXPECT_EQ(1u, fread(rtpHeader, 12, 1, _rtpFile));
   ParseRTPHeader(rtpInfo, rtpHeader);
-  rtpInfo->type.Audio.isCNG = false;
-  rtpInfo->type.Audio.channel = 1;
   EXPECT_EQ(lengthBytes, plen + 8);
 
   if (plen == 0) {

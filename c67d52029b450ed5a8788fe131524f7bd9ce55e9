@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e8a20934_b37952fb",
+        "filename": "rtc_base/logging.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-06-18T15:20:50Z",
+      "side": 1,
+      "message": "Not sure if it\u0027s smart enough for that. \nNormally, this method shouldn\u0027t ever be used. It only gets called on Android if there is no override, and I think the only Android logsinks are JNILogSink and FileRotationgLogSink which both implement this more efficiently. This implementation is just a fallback.\n\nThat being said, it wouldn\u0027t hurt to speed it up a little in case it is used somewhere else.",
+      "parentUuid": "7ee00b10_c0f61948",
+      "range": {
+        "startLine": 88,
+        "startChar": 15,
+        "endLine": 88,
+        "endChar": 33
+      },
+      "revId": "c67d52029b450ed5a8788fe131524f7bd9ce55e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "682fde42_f8b44ce9",
         "filename": "sdk/android/BUILD.gn",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "c67d52029b450ed5a8788fe131524f7bd9ce55e9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3836fa0_2353cf02",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-06-18T15:20:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "682fde42_f8b44ce9",
+      "range": {
+        "startLine": 85,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 0
+      },
+      "revId": "c67d52029b450ed5a8788fe131524f7bd9ce55e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "40bfb1e2_3f02a059",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/LoggableTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-06-18T15:20:50Z",
+      "side": 1,
+      "message": "Agreed, done. Testing study groups are paying off :)",
+      "parentUuid": "643735ae_7077d333",
+      "range": {
+        "startLine": 31,
+        "startChar": 23,
+        "endLine": 31,
+        "endChar": 35
+      },
+      "revId": "c67d52029b450ed5a8788fe131524f7bd9ce55e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "62c7db56_9f6d6d3a",
         "filename": "sdk/android/instrumentationtests/src/org/webrtc/LoggableTest.java",
         "patchSetId": 3
@@ -82,6 +154,30 @@
       "writtenOn": "2018-06-14T07:46:38Z",
       "side": 1,
       "message": "I guess we add some additional info to the log so this can\u0027t be equals?",
+      "range": {
+        "startLine": 45,
+        "startChar": 28,
+        "endLine": 45,
+        "endChar": 36
+      },
+      "revId": "c67d52029b450ed5a8788fe131524f7bd9ce55e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0aab0430_a885c15d",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/LoggableTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-06-18T15:20:50Z",
+      "side": 1,
+      "message": "Exactly, in native we sometimes add things like timestamp and thread info.",
+      "parentUuid": "62c7db56_9f6d6d3a",
       "range": {
         "startLine": 45,
         "startChar": 28,

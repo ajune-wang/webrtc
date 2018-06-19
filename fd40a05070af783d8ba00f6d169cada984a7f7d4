@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "67e21b8c_d58936f0",
+        "filename": "rtc_base/logsinks.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-06-19T07:20:52Z",
+      "side": 1,
+      "message": "Is it a problem to always define this since it is always part of the interface?",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 27
+      },
+      "revId": "fd40a05070af783d8ba00f6d169cada984a7f7d4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ff48501_022c2391",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-06-19T07:20:52Z",
+      "side": 1,
+      "message": "Can you mark these targets with testonly? Also I feel they both should be next to the libjingle_peerconnection_android_unittest target since they are only used from there.",
+      "range": {
+        "startLine": 99,
+        "startChar": 20,
+        "endLine": 99,
+        "endChar": 44
+      },
+      "revId": "fd40a05070af783d8ba00f6d169cada984a7f7d4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93bcf683_0542f77d",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 1150,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-06-19T07:20:52Z",
+      "side": 1,
+      "message": "I don\u0027t really like that the test now contains two .so-files. This leads to duplicate symbols which can lead to strange problems. I think we should only have libjingle_peerconnection_instrumentationtests_so and make all test classes load it instead.",
+      "range": {
+        "startLine": 1149,
+        "startChar": 0,
+        "endLine": 1150,
+        "endChar": 54
+      },
+      "revId": "fd40a05070af783d8ba00f6d169cada984a7f7d4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be8b77fa_31fcbff1",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/LoggableTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-06-19T07:20:52Z",
+      "side": 1,
+      "message": "It looks to me these are missing setNativeLibraryName?",
+      "range": {
+        "startLine": 68,
+        "startChar": 4,
+        "endLine": 68,
+        "endChar": 37
+      },
+      "revId": "fd40a05070af783d8ba00f6d169cada984a7f7d4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

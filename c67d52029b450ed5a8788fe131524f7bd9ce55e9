@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "6ff5fa85_7af63dd4",
+        "filename": "rtc_base/logging.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-06-19T07:20:52Z",
+      "side": 1,
+      "message": "I see, I think it is a bit strange that this is called only on Android though. I understand if this is needed for backwards compatibility but ideally I think this is something we would work to refactor in the future.",
+      "parentUuid": "e8a20934_b37952fb",
+      "range": {
+        "startLine": 88,
+        "startChar": 15,
+        "endLine": 88,
+        "endChar": 33
+      },
+      "revId": "c67d52029b450ed5a8788fe131524f7bd9ce55e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "682fde42_f8b44ce9",
         "filename": "sdk/android/BUILD.gn",
         "patchSetId": 3

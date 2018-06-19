@@ -69,6 +69,24 @@
       "revId": "993a5102abdd9c37b7cebe6d86194ea55008ae3b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84d497dc_3064ea68",
+        "filename": "pc/peerconnection_rampup_tests.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-19T18:56:45Z",
+      "side": 1,
+      "message": "I don\u0027t see how the \"4/3\" is applicable here; rampup_tests works by waiting until the BWE ramps up to 3/4 of the network\u0027s capacity, while this test (at least now) doesn\u0027t even have a specific target value it\u0027s waiting for.\n\nIf the encoder only produces a max of ~1Mbps, then we should set the network capacity to something *less* than that (or make the generated video more complex, increasing num_squares or resolution), so we don\u0027t end up \"application limited\". We want to be testing bandwidth estimation, not encoding; we wouldn\u0027t want an improvement in the efficiency of the encoder to show up as a regression in this test.",
+      "parentUuid": "4b9b37db_8306713c",
+      "revId": "993a5102abdd9c37b7cebe6d86194ea55008ae3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

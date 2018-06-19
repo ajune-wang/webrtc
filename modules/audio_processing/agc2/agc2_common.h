@@ -42,10 +42,10 @@ constexpr float kMaxNoiseLevelDbfs = -50.f;
 // Used in the Level Estimator for deciding when to update the speech
 // level estimate. Also used in the adaptive digital gain applier to
 // decide when to allow target gain reduction.
-constexpr float kVadConfidenceThreshold = 0.9f;
+constexpr float kVadConfidenceThreshold = 0.4f;
 
 // The amount of 'memory' of the Level Estimator. Decides leak factors.
-constexpr size_t kFullBufferSizeMs = 1000;
+constexpr size_t kFullBufferSizeMs = 1600;
 constexpr float kFullBufferLeakFactor = 1.f - 1.f / kFullBufferSizeMs;
 
 constexpr float kInitialSpeechLevelEstimateDbfs = -30.f;
@@ -53,7 +53,7 @@ constexpr float kInitialSpeechLevelEstimateDbfs = -30.f;
 // Saturation Protector settings.
 constexpr float kInitialSaturationMarginDb = 17.f;
 
-constexpr size_t kPeakEnveloperSuperFrameLengthMs = 500;
+constexpr size_t kPeakEnveloperSuperFrameLengthMs = 400;
 
 constexpr size_t kPeakEnveloperBufferSize =
     kFullBufferSizeMs / kPeakEnveloperSuperFrameLengthMs + 1;

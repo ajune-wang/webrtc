@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "811efc58_8defbc4d",
+        "filename": "test/fuzzers/audio_processing_configs_fuzzer.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-06-19T08:37:40Z",
+      "side": 1,
+      "message": "Nit: this is what we have rtc_base/arraysize.h for.",
+      "range": {
+        "startLine": 69,
+        "startChar": 6,
+        "endLine": 69,
+        "endChar": 61
+      },
+      "revId": "146af1f441c52d771ffe76a2f8d173a638c0fe65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

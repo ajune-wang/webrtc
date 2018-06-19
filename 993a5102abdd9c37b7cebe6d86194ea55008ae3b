@@ -105,6 +105,24 @@
       "revId": "993a5102abdd9c37b7cebe6d86194ea55008ae3b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "861ed147_e9ffd719",
+        "filename": "pc/peerconnection_rampup_tests.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-19T23:50:49Z",
+      "side": 1,
+      "message": "500kbps may be on the low side, since we also want a decent margin between \"BWE not working at all\" (starts at 300kbps, right?) and \"working as expected\".\n\nAs for why you\u0027re seeing such a significant drop, I\u0027m guessing it\u0027s either due to the poor simulation or the BWE\u0027s sensitivity to building up queues. Or you may just be catching it at the bottom end of the sawtooth pattern? I don\u0027t really know without investigating.",
+      "parentUuid": "2b937021_e866657e",
+      "revId": "993a5102abdd9c37b7cebe6d86194ea55008ae3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

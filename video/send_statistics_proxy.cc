@@ -640,14 +640,13 @@ void SendStatisticsProxy::OnEncoderReconfigured(
       streams.empty() ? 0 : (streams.back().width * streams.back().height);
 }
 
-void SendStatisticsProxy::OnEncodedFrameTimeMeasured(
-    int encode_time_ms,
-    const CpuOveruseMetrics& metrics) {
+void SendStatisticsProxy::OnEncodedFrameTimeMeasured(int encode_time_ms,
+                                                     int encode_usage_percent) {
   rtc::CritScope lock(&crit_);
   uma_container_->encode_time_counter_.Add(encode_time_ms);
   encode_time_.Apply(1.0f, encode_time_ms);
   stats_.avg_encode_time_ms = round(encode_time_.filtered());
-  stats_.encode_usage_percent = metrics.encode_usage_percent;
+  stats_.encode_usage_percent = encode_usage_percent;
 }
 
 void SendStatisticsProxy::OnSuspendChange(bool is_suspended) {
@@ -943,6 +942,11 @@ void SendStatisticsProxy::OnSendEncodedImage(
   }
 }
 
+int SendStatisticsProxy::GetInputFrameRate() const {
+  rtc::CritScope lock(&crit_);
+  return round(uma_container_->input_frame_rate_tracker_.ComputeRate());
+}
+
 int SendStatisticsProxy::GetSendFrameRate() const {
   rtc::CritScope lock(&crit_);
   return round(encoded_frame_rate_tracker_.ComputeRate());
@@ -986,8 +990,8 @@ void SendStatisticsProxy::OnFrameDroppedByMediaOptimizations() {
 }
 
 void SendStatisticsProxy::SetAdaptationStats(
-    const VideoStreamEncoder::AdaptCounts& cpu_counts,
-    const VideoStreamEncoder::AdaptCounts& quality_counts) {
+    const AdaptCounts& cpu_counts,
+    const AdaptCounts& quality_counts) {
   rtc::CritScope lock(&crit_);
   SetAdaptTimer(cpu_counts, &uma_container_->cpu_adapt_timer_);
   SetAdaptTimer(quality_counts, &uma_container_->quality_adapt_timer_);
@@ -995,16 +999,16 @@ void SendStatisticsProxy::SetAdaptationStats(
 }
 
 void SendStatisticsProxy::OnCpuAdaptationChanged(
-    const VideoStreamEncoder::AdaptCounts& cpu_counts,
-    const VideoStreamEncoder::AdaptCounts& quality_counts) {
+    const AdaptCounts& cpu_counts,
+    const AdaptCounts& quality_counts) {
   rtc::CritScope lock(&crit_);
   ++stats_.number_of_cpu_adapt_changes;
   UpdateAdaptationStats(cpu_counts, quality_counts);
 }
 
 void SendStatisticsProxy::OnQualityAdaptationChanged(
-    const VideoStreamEncoder::AdaptCounts& cpu_counts,
-    const VideoStreamEncoder::AdaptCounts& quality_counts) {
+    const AdaptCounts& cpu_counts,
+    const AdaptCounts& quality_counts) {
   rtc::CritScope lock(&crit_);
   TryUpdateInitialQualityResolutionAdaptUp(quality_counts);
   ++stats_.number_of_quality_adapt_changes;
@@ -1012,8 +1016,8 @@ void SendStatisticsProxy::OnQualityAdaptationChanged(
 }
 
 void SendStatisticsProxy::UpdateAdaptationStats(
-    const VideoStreamEncoder::AdaptCounts& cpu_counts,
-    const VideoStreamEncoder::AdaptCounts& quality_counts) {
+    const AdaptCounts& cpu_counts,
+    const AdaptCounts& quality_counts) {
   cpu_downscales_ = cpu_counts.resolution;
   quality_downscales_ = quality_counts.resolution;
 
@@ -1030,7 +1034,7 @@ void SendStatisticsProxy::OnInitialQualityResolutionAdaptDown() {
 }
 
 void SendStatisticsProxy::TryUpdateInitialQualityResolutionAdaptUp(
-    const VideoStreamEncoder::AdaptCounts& quality_counts) {
+    const AdaptCounts& quality_counts) {
   if (uma_container_->initial_quality_changes_.down == 0)
     return;
 
@@ -1044,9 +1048,8 @@ void SendStatisticsProxy::TryUpdateInitialQualityResolutionAdaptUp(
   }
 }
 
-void SendStatisticsProxy::SetAdaptTimer(
-    const VideoStreamEncoder::AdaptCounts& counts,
-    StatsTimer* timer) {
+void SendStatisticsProxy::SetAdaptTimer(const AdaptCounts& counts,
+                                        StatsTimer* timer) {
   if (counts.resolution >= 0 || counts.fps >= 0) {
     // Adaptation enabled.
     if (!stats_.suspended)

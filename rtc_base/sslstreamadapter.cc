@@ -50,6 +50,24 @@ int SrtpCryptoSuiteFromName(const std::string& crypto_suite) {
   return SRTP_INVALID_CRYPTO_SUITE;
 }
 
+SrtpCryptoSuite GetSrtpCryptoSuiteFromInt(int value) {
+  switch (value) {
+    case rtc::SRTP_INVALID_CRYPTO_SUITE:
+      return rtc::SrtpCryptoSuite::INVALID_CRYPTO_SUITE;
+    case rtc::SRTP_AES128_CM_SHA1_80:
+      return rtc::SrtpCryptoSuite::AES128_CM_SHA1_80;
+    case rtc::SRTP_AES128_CM_SHA1_32:
+      return rtc::SrtpCryptoSuite::AES128_CM_SHA1_32;
+    case rtc::SRTP_AEAD_AES_128_GCM:
+      return rtc::SrtpCryptoSuite::AEAD_AES_128_GCM;
+    case rtc::SRTP_AEAD_AES_256_GCM:
+      return rtc::SrtpCryptoSuite::AEAD_AES_256_GCM;
+    default:
+      RTC_NOTREACHED();
+      return rtc::SrtpCryptoSuite::INVALID_CRYPTO_SUITE;
+  }
+}
+
 bool GetSrtpKeyAndSaltLengths(int crypto_suite, int *key_length,
     int *salt_length) {
   switch (crypto_suite) {

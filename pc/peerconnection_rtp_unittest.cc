@@ -16,7 +16,6 @@
 #include "api/jsep.h"
 #include "api/mediastreaminterface.h"
 #include "api/peerconnectioninterface.h"
-#include "api/umametrics.h"
 #include "api/video_codecs/builtin_video_decoder_factory.h"
 #include "api/video_codecs/builtin_video_encoder_factory.h"
 #include "pc/mediasession.h"
@@ -32,6 +31,7 @@
 #include "rtc_base/refcountedobject.h"
 #include "rtc_base/scoped_ref_ptr.h"
 #include "rtc_base/thread.h"
+#include "system_wrappers/include/metrics_default.h"
 #include "test/gmock.h"
 
 // This file contains tests for RTP Media API-related behavior of
@@ -45,6 +45,8 @@ using ::testing::UnorderedElementsAre;
 using ::testing::Values;
 
 const uint32_t kDefaultTimeout = 10000u;
+
+bool metrics_enabled = false;
 
 template <typename MethodFunctor>
 class OnSuccessObserver : public rtc::RefCountedObject<
@@ -77,7 +79,12 @@ class PeerConnectionRtpBaseTest : public testing::Test {
                                         CreateBuiltinVideoEncoderFactory(),
                                         CreateBuiltinVideoDecoderFactory(),
                                         nullptr /* audio_mixer */,
-                                        nullptr /* audio_processing */)) {}
+                                        nullptr /* audio_processing */)) {
+    if (!metrics_enabled) {
+      webrtc::metrics::Enable();
+      metrics_enabled = true;
+    }
+  }
 
   std::unique_ptr<PeerConnectionWrapper> CreatePeerConnection() {
     return CreatePeerConnection(RTCConfiguration());
@@ -1310,7 +1317,6 @@ TEST_F(PeerConnectionMsidSignalingTest, UnifiedPlanTalkingToOurself) {
   caller->AddAudioTrack("caller_audio");
   auto callee = CreatePeerConnectionWithUnifiedPlan();
   callee->AddAudioTrack("callee_audio");
-  auto caller_observer = caller->RegisterFakeMetricsObserver();
 
   ASSERT_TRUE(caller->ExchangeOfferAnswerWith(callee.get()));
 
@@ -1325,8 +1331,11 @@ TEST_F(PeerConnectionMsidSignalingTest, UnifiedPlanTalkingToOurself) {
   EXPECT_EQ(cricket::kMsidSignalingMediaSection,
             answer->description()->msid_signaling());
   // Check that this is counted correctly
-  EXPECT_TRUE(caller_observer->ExpectOnlySingleEnumCount(
-      kEnumCounterSdpSemanticNegotiated, kSdpSemanticNegotiatedUnifiedPlan));
+  EXPECT_EQ(2u, webrtc::metrics::NumSamples(
+                    "WebRTC.PeerConnection.SdpSemanticNegotiated"));
+  EXPECT_EQ(2u, webrtc::metrics::NumEvents(
+                    "WebRTC.PeerConnection.SdpSemanticNegotiated",
+                    kSdpSemanticNegotiatedUnifiedPlan));
 }
 
 TEST_F(PeerConnectionMsidSignalingTest, PlanBOfferToUnifiedPlanAnswer) {
@@ -1411,12 +1420,15 @@ TEST_F(SdpFormatReceivedTest, DataChannelOnlyIsReportedAsNoTracks) {
   auto caller = CreatePeerConnectionWithUnifiedPlan();
   caller->CreateDataChannel("dc");
   auto callee = CreatePeerConnectionWithUnifiedPlan();
-  auto callee_metrics = callee->RegisterFakeMetricsObserver();
 
   ASSERT_TRUE(callee->SetRemoteDescription(caller->CreateOffer()));
 
-  EXPECT_TRUE(callee_metrics->ExpectOnlySingleEnumCount(
-      kEnumCounterSdpFormatReceived, kSdpFormatReceivedNoTracks));
+  // Note that only the callee does ReportSdpFormatReceived.
+  EXPECT_EQ(1u, webrtc::metrics::NumSamples(
+                    "WebRTC.PeerConnection.SdpFormatReceived"));
+  EXPECT_EQ(
+      1u, webrtc::metrics::NumEvents("WebRTC.PeerConnection.SdpFormatReceived",
+                                     kSdpFormatReceivedNoTracks));
 }
 #endif  // HAVE_SCTP
 
@@ -1425,24 +1437,28 @@ TEST_F(SdpFormatReceivedTest, SimpleUnifiedPlanIsReportedAsSimple) {
   caller->AddAudioTrack("audio");
   caller->AddVideoTrack("video");
   auto callee = CreatePeerConnectionWithPlanB();
-  auto callee_metrics = callee->RegisterFakeMetricsObserver();
 
   ASSERT_TRUE(callee->SetRemoteDescription(caller->CreateOffer()));
 
-  EXPECT_TRUE(callee_metrics->ExpectOnlySingleEnumCount(
-      kEnumCounterSdpFormatReceived, kSdpFormatReceivedSimple));
+  EXPECT_EQ(1u, webrtc::metrics::NumSamples(
+                    "WebRTC.PeerConnection.SdpFormatReceived"));
+  EXPECT_EQ(
+      1u, webrtc::metrics::NumEvents("WebRTC.PeerConnection.SdpFormatReceived",
+                                     kSdpFormatReceivedSimple));
 }
 
 TEST_F(SdpFormatReceivedTest, SimplePlanBIsReportedAsSimple) {
   auto caller = CreatePeerConnectionWithPlanB();
   caller->AddVideoTrack("video");  // Video only.
   auto callee = CreatePeerConnectionWithUnifiedPlan();
-  auto callee_metrics = callee->RegisterFakeMetricsObserver();
 
   ASSERT_TRUE(callee->SetRemoteDescription(caller->CreateOffer()));
 
-  EXPECT_TRUE(callee_metrics->ExpectOnlySingleEnumCount(
-      kEnumCounterSdpFormatReceived, kSdpFormatReceivedSimple));
+  EXPECT_EQ(1u, webrtc::metrics::NumSamples(
+                    "WebRTC.PeerConnection.SdpFormatReceived"));
+  EXPECT_EQ(
+      1u, webrtc::metrics::NumEvents("WebRTC.PeerConnection.SdpFormatReceived",
+                                     kSdpFormatReceivedSimple));
 }
 
 TEST_F(SdpFormatReceivedTest, ComplexUnifiedIsReportedAsComplexUnifiedPlan) {
@@ -1451,12 +1467,14 @@ TEST_F(SdpFormatReceivedTest, ComplexUnifiedIsReportedAsComplexUnifiedPlan) {
   caller->AddAudioTrack("audio2");
   caller->AddVideoTrack("video");
   auto callee = CreatePeerConnectionWithPlanB();
-  auto callee_metrics = callee->RegisterFakeMetricsObserver();
 
   ASSERT_TRUE(callee->SetRemoteDescription(caller->CreateOffer()));
 
-  EXPECT_TRUE(callee_metrics->ExpectOnlySingleEnumCount(
-      kEnumCounterSdpFormatReceived, kSdpFormatReceivedComplexUnifiedPlan));
+  EXPECT_EQ(1u, webrtc::metrics::NumSamples(
+                    "WebRTC.PeerConnection.SdpFormatReceived"));
+  EXPECT_EQ(
+      1u, webrtc::metrics::NumEvents("WebRTC.PeerConnection.SdpFormatReceived",
+                                     kSdpFormatReceivedComplexUnifiedPlan));
 }
 
 TEST_F(SdpFormatReceivedTest, ComplexPlanBIsReportedAsComplexPlanB) {
@@ -1464,15 +1482,17 @@ TEST_F(SdpFormatReceivedTest, ComplexPlanBIsReportedAsComplexPlanB) {
   caller->AddVideoTrack("video1");
   caller->AddVideoTrack("video2");
   auto callee = CreatePeerConnectionWithUnifiedPlan();
-  auto callee_metrics = callee->RegisterFakeMetricsObserver();
 
   // This fails since Unified Plan cannot set a session description with
   // multiple "Plan B tracks" in the same media section. But we still expect the
   // SDP Format to be recorded.
   ASSERT_FALSE(callee->SetRemoteDescription(caller->CreateOffer()));
 
-  EXPECT_TRUE(callee_metrics->ExpectOnlySingleEnumCount(
-      kEnumCounterSdpFormatReceived, kSdpFormatReceivedComplexPlanB));
+  EXPECT_EQ(1u, webrtc::metrics::NumSamples(
+                    "WebRTC.PeerConnection.SdpFormatReceived"));
+  EXPECT_EQ(
+      1u, webrtc::metrics::NumEvents("WebRTC.PeerConnection.SdpFormatReceived",
+                                     kSdpFormatReceivedComplexPlanB));
 }
 
 // Sender setups in a call.

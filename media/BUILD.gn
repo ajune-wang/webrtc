@@ -120,6 +120,7 @@ rtc_static_library("rtc_media_base") {
     "../modules/audio_processing:audio_processing_statistics",
     "../rtc_base:rtc_base",
     "../rtc_base:rtc_base_approved",
+    "../rtc_base:sigslot",
     "../system_wrappers:field_trial_api",
     "//third_party/abseil-cpp/absl/types:optional",
   ]
@@ -379,6 +380,7 @@ rtc_static_library("rtc_data") {
     "../p2p:rtc_p2p",
     "../rtc_base:rtc_base",
     "../rtc_base:rtc_base_approved",
+    "../rtc_base:sigslot",
     "../system_wrappers",
   ]
 }
@@ -462,6 +464,7 @@ if (rtc_include_tests) {
       "../rtc_base:rtc_base_approved",
       "../rtc_base:rtc_base_tests_utils",
       "../rtc_base:rtc_task_queue_for_test",
+      "../rtc_base:sigslot",
       "../test:test_support",
       "//testing/gtest",
     ]

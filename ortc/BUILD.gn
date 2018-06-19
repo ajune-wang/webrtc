@@ -53,6 +53,7 @@ rtc_static_library("ortc") {
     "../rtc_base:checks",
     "../rtc_base:rtc_base",
     "../rtc_base:rtc_base_approved",
+    "../rtc_base:sigslot",
     "//third_party/abseil-cpp/absl/types:optional",
   ]
 

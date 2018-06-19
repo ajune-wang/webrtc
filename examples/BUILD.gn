@@ -723,6 +723,7 @@ if (is_linux || is_win) {
       "../api:libjingle_peerconnection_api",
       "../api/video:video_frame_i420",
       "../rtc_base:checks",
+      "../rtc_base:sigslot",
       "../rtc_base:stringutils",
     ]
     if (is_win) {

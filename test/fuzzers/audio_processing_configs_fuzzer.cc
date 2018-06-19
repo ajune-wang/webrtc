@@ -9,8 +9,10 @@
  */
 
 #include "api/audio/echo_canceller3_factory.h"
+#include "modules/audio_processing/aec_dump/mock_aec_dump.h"
 #include "modules/audio_processing/include/audio_processing.h"
 #include "rtc_base/numerics/safe_minmax.h"
+#include "rtc_base/ptr_util.h"
 #include "test/fuzzers/audio_processing_fuzzer_helper.h"
 #include "test/fuzzers/fuzz_data_helper.h"
 
@@ -79,6 +81,9 @@ std::unique_ptr<AudioProcessing> CreateApm(test::FuzzDataHelper* fuzz_data) {
       AudioProcessingBuilder()
           .SetEchoControlFactory(std::move(echo_control_factory))
           .Create(config));
+
+  apm->AttachAecDump(
+      rtc::MakeUnique<testing::NiceMock<webrtc::test::MockAecDump>>());
 
   webrtc::AudioProcessing::Config apm_config;
   apm_config.residual_echo_detector.enabled = red;

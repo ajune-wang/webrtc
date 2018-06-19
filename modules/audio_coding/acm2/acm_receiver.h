@@ -16,8 +16,8 @@
 #include <string>
 #include <vector>
 
-#include "api/audio/audio_frame.h"
 #include "api/array_view.h"
+#include "api/audio/audio_frame.h"
 #include "api/optional.h"
 #include "common_audio/vad/include/webrtc_vad.h"
 #include "modules/audio_coding/acm2/acm_resampler.h"
@@ -230,8 +230,7 @@ class AcmReceiver {
   //                           -1 if failed, e.g. given payload-type is not
   //                              registered.
   //
-  int DecoderByPayloadType(uint8_t payload_type,
-                           CodecInst* codec) const;
+  int DecoderByPayloadType(uint8_t payload_type, CodecInst* codec) const;
 
   //
   // Enable NACK and set the maximum size of the NACK list. If NACK is already

@@ -215,6 +215,7 @@ rtc_static_library("peerconnection") {
     "../stats",
     "../system_wrappers",
     "../system_wrappers:field_trial_api",
+    "../system_wrappers:metrics_api",
   ]
 }
 

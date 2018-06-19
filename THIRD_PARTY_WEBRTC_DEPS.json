@@ -6,6 +6,7 @@
   ],
   "dependencies": [
     "OWNERS",
-    "base64"
+    "base64",
+    "portaudio"
   ]
 }

@@ -171,10 +171,6 @@ class PeerConnectionWrapper {
   // report. If GetStats() fails, this method returns null and fails the test.
   rtc::scoped_refptr<const RTCStatsReport> GetStats();
 
-  // Creates a new FakeMetricsObserver and registers it with the PeerConnection
-  // as the UMA observer.
-  rtc::scoped_refptr<FakeMetricsObserver> RegisterFakeMetricsObserver();
-
  private:
   std::unique_ptr<SessionDescriptionInterface> CreateSdp(
       rtc::FunctionView<void(CreateSessionDescriptionObserver*)> fn,

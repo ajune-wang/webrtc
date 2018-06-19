@@ -66,7 +66,8 @@ class PeerConnection : public PeerConnectionInternal,
     CANDIDATE_COLLECTED = 0x80,
     REMOTE_CANDIDATE_ADDED = 0x100,
     ICE_STATE_CONNECTED = 0x200,
-    CLOSE_CALLED = 0x400
+    CLOSE_CALLED = 0x400,
+    MAX_VALUE = 0x800,
   };
 
   explicit PeerConnection(PeerConnectionFactory* factory,
@@ -188,8 +189,6 @@ class PeerConnection : public PeerConnectionInternal,
   bool AddIceCandidate(const IceCandidateInterface* candidate) override;
   bool RemoveIceCandidates(
       const std::vector<cricket::Candidate>& candidates) override;
-
-  void RegisterUMAObserver(UMAObserver* observer) override;
 
   RTCError SetBitrate(const BitrateSettings& bitrate) override;
 
@@ -667,8 +666,6 @@ class PeerConnection : public PeerConnectionInternal,
       webrtc::TurnCustomizer* turn_customizer,
       absl::optional<int> stun_candidate_keepalive_interval);
 
-  void SetMetricObserver_n(UMAObserver* observer);
-
   // Starts output of an RTC event log to the given output object.
   // This function should only be called from the worker thread.
   bool StartRtcEventLog_w(std::unique_ptr<RtcEventLogOutput> output,
@@ -685,7 +682,6 @@ class PeerConnection : public PeerConnectionInternal,
   RTCError ValidateConfiguration(const RTCConfiguration& config) const;
 
   cricket::ChannelManager* channel_manager() const;
-  MetricsObserverInterface* metrics_observer() const;
 
   enum class SessionError {
     kNone,       // No error.
@@ -913,7 +909,6 @@ class PeerConnection : public PeerConnectionInternal,
   // will refer to the same reference count.
   rtc::scoped_refptr<PeerConnectionFactory> factory_;
   PeerConnectionObserver* observer_ = nullptr;
-  rtc::scoped_refptr<UMAObserver> uma_observer_ = nullptr;
 
   // The EventLog needs to outlive |call_| (and any other object that uses it).
   std::unique_ptr<RtcEventLog> event_log_;

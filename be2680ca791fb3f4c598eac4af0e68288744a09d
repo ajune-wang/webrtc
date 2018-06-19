@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "0bab982d_1d5e1230",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-19T18:02:24Z",
+      "side": 1,
+      "message": "In that case, I\u0027d suggest we go with \"wildcard\"; that\u0027s more concise and probably more likely to be understood. Though don\u0027t need to change it in this CL.",
+      "parentUuid": "9a640bdf_fbe9cd3d",
+      "revId": "be2680ca791fb3f4c598eac4af0e68288744a09d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8960670f_6291c153",
         "filename": "p2p/base/p2pconstants.cc",
         "patchSetId": 9
@@ -66,6 +84,24 @@
       "side": 1,
       "message": "I can not determine if this is long enough for the moment (we almost surely would hit the delay in the VPN scenario I\u0027ve been testing since nothing else works), and used as a rule of thumb in my tests more for my subjective feeling if it causes unpleasant lagging. We probably should expose this as a config, and do experiments in the application with a couple of values.",
       "parentUuid": "8960670f_6291c153",
+      "revId": "be2680ca791fb3f4c598eac4af0e68288744a09d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bbf833d9_dc529429",
+        "filename": "p2p/base/p2pconstants.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-19T18:02:24Z",
+      "side": 1,
+      "message": "I was actually more concerned about this being too short, resulting in extra candidates being gathered and making ICE even slower in situations where it was slow to begin with. May want to err on the safe side if we\u0027re concerned about introducing regressions.",
+      "parentUuid": "d6614e46_d4ff57c0",
       "revId": "be2680ca791fb3f4c598eac4af0e68288744a09d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -352,6 +388,24 @@
     },
     {
       "key": {
+        "uuid": "ca098405_9e70e01d",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1262,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-19T18:02:24Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c215a961_da43d8fd",
+      "revId": "be2680ca791fb3f4c598eac4af0e68288744a09d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "889ca020_7a835f6d",
         "filename": "p2p/client/basicportallocator.cc",
         "patchSetId": 9
@@ -524,6 +578,24 @@
       "revId": "be2680ca791fb3f4c598eac4af0e68288744a09d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43328c88_8752cf36",
+        "filename": "p2p/client/basicportallocator_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 2066,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-19T18:02:24Z",
+      "side": 1,
+      "message": "I think we\u0027re good on test coverage; I didn\u0027t realize earlier that the TCP-specific logic was to keep \"CanOnlyMakeOutgoingTcpConnections\" passing.",
+      "parentUuid": "a4b7e477_29858f57",
+      "revId": "be2680ca791fb3f4c598eac4af0e68288744a09d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

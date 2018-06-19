@@ -87,6 +87,24 @@
       "revId": "993a5102abdd9c37b7cebe6d86194ea55008ae3b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b937021_e866657e",
+        "filename": "pc/peerconnection_rampup_tests.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-06-19T22:52:07Z",
+      "side": 1,
+      "message": "This value did push the network\u0027s capacity, but you make a good point that we don\u0027t want encoder efficiency improvements to cause alerts. How about half of the max throughput of the encoder (500 Kbps)?  \n\nAs a side note I played around with the network bandwidth values and I found some interesting results. It seems that when the network bandwidth limits the throughput of the encoder, then the bwe \u0026 the encoder throughput actually drop a significant amount. Not sure what the root cause would be, perhaps built up queues? It happens over UDP as well. For example I get the following two results:\n* network bandwidth \u003d 1.5 Mbps\n  BWE \u003d 1426066\n  encoder throughput \u003d 1036616\n* network bandwidth \u003d 1 Mbps\n  BWE \u003d 543417\n  encoder throughput \u003d 553288\n* network bandwidth \u003d 500 Kbps\n  BWE \u003d 276061\n  encoder throughput \u003d 282568\n\nIn the above tests, I would expect the bwe \u0026 throughput to be closer to the actual network bandwidth limit (same with 500 Kbps).\n\nAnyways, I updated the limit to 500 kbps. Let me know what you think.",
+      "parentUuid": "84d497dc_3064ea68",
+      "revId": "993a5102abdd9c37b7cebe6d86194ea55008ae3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

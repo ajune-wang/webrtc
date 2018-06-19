@@ -183,6 +183,7 @@ public class VideoFrameBufferTest {
         SurfaceTextureHelper.create("SurfaceTextureHelper test", eglContext);
     final SurfaceTexture surfaceTexture = surfaceTextureHelper.getSurfaceTexture();
     surfaceTexture.setDefaultBufferSize(width, height);
+    surfaceTextureHelper.setTextureSize(width, height);
 
     final HandlerThread renderThread = new HandlerThread("OES texture thread");
     renderThread.start();
@@ -203,12 +204,11 @@ public class VideoFrameBufferTest {
           // Draw the frame and block until an OES texture is delivered.
           drawI420Buffer(i420Buffer);
           eglBase.swapBuffers();
-          listener.waitForNewFrame();
+          final VideoFrame videoFrame = listener.waitForNewFrame();
           surfaceTextureHelper.stopListening();
           surfaceTextureHelper.dispose();
 
-          return surfaceTextureHelper.createTextureBuffer(width, height,
-              RendererCommon.convertMatrixToAndroidGraphicsMatrix(listener.transformMatrix));
+          return (VideoFrame.TextureBuffer) videoFrame.getBuffer();
         });
 
     // Wrap |oesBuffer| to quit |renderThread| once |oesBuffer| is released.
@@ -259,8 +259,22 @@ public class VideoFrameBufferTest {
       }
 
       @Override
+      public VideoFrame.TextureBuffer applyTransformationMatrix(
+          Matrix transformMatrix, int newWidth, int newHeight) {
+        // final Matrix newMatrix = new Matrix(this.transformMatrix);
+        // newMatrix.preConcat(transformMatrix);
+        // retain();
+        // return new TextureBufferImpl(
+        //     newWidth, newHeight, type, id, newMatrix, toI420Handler, yuvConverter, this
+        //     ::release);
+        return oesBuffer.applyTransformationMatrix(transformMatrix, newWidth, newHeight);
+      }
+
+      @Override
       public VideoFrame.Buffer cropAndScale(
           int cropX, int cropY, int cropWidth, int cropHeight, int scaleWidth, int scaleHeight) {
+        // TODO(magjed): Returning this here is actually buggy since the returned buffer still
+        // depends on the thread.
         return oesBuffer.cropAndScale(cropX, cropY, cropWidth, cropHeight, scaleWidth, scaleHeight);
       }
     };

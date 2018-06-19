@@ -118,7 +118,13 @@ public class VideoFrame implements RefCounted {
      * homogeneous coordinates of the form (s, t, 1) with s and t in the inclusive range [0, 1] to
      * the coordinate that should be used to sample that location from the buffer.
      */
-    public Matrix getTransformMatrix();
+    Matrix getTransformMatrix();
+
+    /**
+     * Creates a new TextureBuffer with an applied transformation matrix and a new size. The
+     * existing buffer is unchanged.
+     */
+    TextureBuffer applyTransformationMatrix(Matrix transformMatrix, int newWidth, int newHeight);
   }
 
   private final Buffer buffer;

@@ -54,9 +54,11 @@ public class PeerConnectionTest {
 
   @Before
   public void setUp() {
-    PeerConnectionFactory.initialize(PeerConnectionFactory.InitializationOptions
-                                         .builder(InstrumentationRegistry.getTargetContext())
-                                         .createInitializationOptions());
+    PeerConnectionFactory.initialize(
+        PeerConnectionFactory.InitializationOptions
+            .builder(InstrumentationRegistry.getTargetContext())
+            .setNativeLibraryName("jingle_peerconnection_instrumentationtests_so")
+            .createInitializationOptions());
   }
 
   private static class ObserverExpectations

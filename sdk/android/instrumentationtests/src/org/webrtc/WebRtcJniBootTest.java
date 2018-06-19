@@ -25,9 +25,11 @@ public class WebRtcJniBootTest {
   @Test
   @SmallTest
   public void testJniLoadsWithoutError() throws InterruptedException {
-    PeerConnectionFactory.initialize(PeerConnectionFactory.InitializationOptions
-                                         .builder(InstrumentationRegistry.getTargetContext())
-                                         .createInitializationOptions());
+    PeerConnectionFactory.initialize(
+        PeerConnectionFactory.InitializationOptions
+            .builder(InstrumentationRegistry.getTargetContext())
+            .setNativeLibraryName("jingle_peerconnection_instrumentationtests_so")
+            .createInitializationOptions());
     PeerConnectionFactory.builder().createPeerConnectionFactory();
   }
 }

@@ -1081,8 +1081,27 @@ if (rtc_include_tests) {
       "//third_party/junit",
     ]
 
-    shared_libraries = [ "../../sdk/android:libjingle_peerconnection_so" ]
+    shared_libraries =
+        [ "../../sdk/android:libjingle_peerconnection_instrumentationtests_so" ]
   }
+}
+
+rtc_shared_library("libjingle_peerconnection_instrumentationtests_so") {
+  testonly = true
+  sources = [
+    "src/jni/jni_onload.cc",
+  ]
+
+  suppressed_configs += [ "//build/config/android:hide_all_but_jni_onload" ]
+  configs += [ "//build/config/android:hide_all_but_jni" ]
+
+  deps = [
+    ":libjingle_peerconnection_jni",
+    ":libjingle_peerconnection_metrics_default_jni",
+    "../../pc:libjingle_peerconnection",
+    "../../rtc_base:rtc_base",
+  ]
+  output_extension = "so"
 }
 
 # The native API is currently experimental and may change without notice.

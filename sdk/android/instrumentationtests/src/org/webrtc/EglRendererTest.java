@@ -113,9 +113,11 @@ public class EglRendererTest {
 
   @Before
   public void setUp() throws Exception {
-    PeerConnectionFactory.initialize(PeerConnectionFactory.InitializationOptions
-                                         .builder(InstrumentationRegistry.getTargetContext())
-                                         .createInitializationOptions());
+    PeerConnectionFactory.initialize(
+        PeerConnectionFactory.InitializationOptions
+            .builder(InstrumentationRegistry.getTargetContext())
+            .setNativeLibraryName("jingle_peerconnection_instrumentationtests_so")
+            .createInitializationOptions());
     eglRenderer = new EglRenderer("TestRenderer: ");
     eglRenderer.init(null /* sharedContext */, EglBase.CONFIG_RGBA, new GlRectDrawer());
     oesTextureId = GlUtil.generateTexture(GLES11Ext.GL_TEXTURE_EXTERNAL_OES);

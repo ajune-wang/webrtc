@@ -18,11 +18,13 @@ import org.junit.runner.RunWith;
 
 @RunWith(AndroidJUnit4.class)
 public class PeerConnectionFactoryTest {
+  private static final String NATIVE_LIBRARY = "jingle_peerconnection_instrumentationtests_so";
   @SmallTest
   @Test
   public void testInitialize() {
     PeerConnectionFactory.initialize(PeerConnectionFactory.InitializationOptions
                                          .builder(InstrumentationRegistry.getTargetContext())
+                                         .setNativeLibraryName(NATIVE_LIBRARY)
                                          .createInitializationOptions());
   }
 
@@ -31,9 +33,11 @@ public class PeerConnectionFactoryTest {
   public void testInitializeTwice() {
     PeerConnectionFactory.initialize(PeerConnectionFactory.InitializationOptions
                                          .builder(InstrumentationRegistry.getTargetContext())
+                                         .setNativeLibraryName(NATIVE_LIBRARY)
                                          .createInitializationOptions());
     PeerConnectionFactory.initialize(PeerConnectionFactory.InitializationOptions
                                          .builder(InstrumentationRegistry.getTargetContext())
+                                         .setNativeLibraryName(NATIVE_LIBRARY)
                                          .createInitializationOptions());
   }
 
@@ -43,10 +47,12 @@ public class PeerConnectionFactoryTest {
     PeerConnectionFactory.initialize(PeerConnectionFactory.InitializationOptions
                                          .builder(InstrumentationRegistry.getTargetContext())
                                          .setEnableInternalTracer(true)
+                                         .setNativeLibraryName(NATIVE_LIBRARY)
                                          .createInitializationOptions());
     PeerConnectionFactory.initialize(PeerConnectionFactory.InitializationOptions
                                          .builder(InstrumentationRegistry.getTargetContext())
                                          .setEnableInternalTracer(true)
+                                         .setNativeLibraryName(NATIVE_LIBRARY)
                                          .createInitializationOptions());
   }
 
@@ -56,6 +62,7 @@ public class PeerConnectionFactoryTest {
     PeerConnectionFactory.initialize(PeerConnectionFactory.InitializationOptions
                                          .builder(InstrumentationRegistry.getTargetContext())
                                          .setEnableInternalTracer(true)
+                                         .setNativeLibraryName(NATIVE_LIBRARY)
                                          .createInitializationOptions());
     PeerConnectionFactory.shutdownInternalTracer();
   }

@@ -354,7 +354,8 @@ public class HardwareVideoEncoderTest {
   // # Tests
   @Before
   public void setUp() {
-    NativeLibrary.initialize(new NativeLibrary.DefaultLoader());
+    NativeLibrary.initialize(
+        new NativeLibrary.DefaultLoader(), "jingle_peerconnection_instrumentationtests_so");
 
     eglBase = new EglBase14(null, EglBase.CONFIG_PLAIN);
     eglBase.createDummyPbufferSurface();

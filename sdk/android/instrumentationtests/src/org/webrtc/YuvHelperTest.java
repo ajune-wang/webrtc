@@ -55,7 +55,8 @@ public class YuvHelperTest {
 
   @Before
   public void setUp() {
-    NativeLibrary.initialize(new NativeLibrary.DefaultLoader());
+    NativeLibrary.initialize(
+        new NativeLibrary.DefaultLoader(), "jingle_peerconnection_instrumentationtests_so");
   }
 
   @SmallTest

@@ -96,9 +96,8 @@ class AudioEncoderOpusImpl final : public AudioEncoder {
       float uplink_packet_loss_fraction) override;
   void OnReceivedUplinkRecoverablePacketLossFraction(
       float uplink_recoverable_packet_loss_fraction) override;
-  void OnReceivedUplinkBandwidth(
-      int target_audio_bitrate_bps,
-      rtc::Optional<int64_t> bwe_period_ms) override;
+  void OnReceivedUplinkBandwidth(int target_audio_bitrate_bps,
+                                 rtc::Optional<int64_t> bwe_period_ms) override;
   void OnReceivedRtt(int rtt_ms) override;
   void OnReceivedOverhead(size_t overhead_bytes_per_packet) override;
   void SetReceiverFrameLengthRange(int min_frame_length_ms,

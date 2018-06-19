@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "00d4ad7c_548c3c16",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/PeerConnectionFactoryTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-06-19T09:49:33Z",
+      "side": 1,
+      "message": "Perhaps put this in a helper class and use from all the tests?",
+      "range": {
+        "startLine": 21,
+        "startChar": 2,
+        "endLine": 21,
+        "endChar": 95
+      },
+      "revId": "8a569c6faa9bd52da2e45108ca1bf490dbb3caea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d5b23ba_e60adc65",
+        "filename": "sdk/android/src/java/org/webrtc/NativeLibrary.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-06-19T09:49:33Z",
+      "side": 1,
+      "message": "Is this still needed?",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 0
+      },
+      "revId": "8a569c6faa9bd52da2e45108ca1bf490dbb3caea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

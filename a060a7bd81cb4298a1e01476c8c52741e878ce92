@@ -16,6 +16,24 @@
       "revId": "a060a7bd81cb4298a1e01476c8c52741e878ce92",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b913c87_211544cf",
+        "filename": "modules/audio_processing/aec3/moving_average.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2018-06-19T10:32:35Z",
+      "side": 1,
+      "message": "Oops! Good find!",
+      "parentUuid": "7efb75e1_0902a653",
+      "revId": "a060a7bd81cb4298a1e01476c8c52741e878ce92",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

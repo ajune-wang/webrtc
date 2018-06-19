@@ -13,6 +13,7 @@
 #include <stddef.h>
 #include <stdint.h>
 
+#include "absl/container/inlined_vector.h"
 #include "api/array_view.h"
 
 namespace webrtc {
@@ -21,6 +22,7 @@ namespace webrtc {
 class RtpGenericFrameDescriptor {
  public:
   RtpGenericFrameDescriptor();
+  ~RtpGenericFrameDescriptor();
 
   bool FirstPacketInSubFrame() const { return beginning_of_subframe_; }
   void SetFirstPacketInSubFrame(bool first) { beginning_of_subframe_ = first; }
@@ -47,12 +49,9 @@ class RtpGenericFrameDescriptor {
 
   rtc::ArrayView<const uint16_t> FrameDepedenciesDiffs() const;
   void ClearFrameDependencies() { num_frame_deps_ = 0; }
-  // Returns false on failure, i.e. number of dependencies is too large.
-  bool AddFrameDependencyDiff(uint16_t fdiff);
+  void AddFrameDependencyDiff(uint16_t fdiff);
 
  private:
-  static constexpr size_t kMaxNumFrameDependencies = 8;
-
   bool beginning_of_subframe_ = false;
   bool end_of_subframe_ = false;
   bool beginning_of_frame_ = false;
@@ -62,7 +61,7 @@ class RtpGenericFrameDescriptor {
   uint8_t spatial_layers_ = 1;
   uint8_t temporal_layer_ = 0;
   size_t num_frame_deps_ = 0;
-  uint16_t frame_deps_id_diffs_[kMaxNumFrameDependencies];
+  absl::InlinedVector<uint16_t, 4> frame_deps_id_diffs_;
 };
 
 }  // namespace webrtc

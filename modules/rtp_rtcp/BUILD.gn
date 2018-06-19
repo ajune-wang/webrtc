@@ -95,6 +95,7 @@ rtc_source_set("rtp_rtcp_format") {
     "../../rtc_base:deprecation",
     "../../rtc_base:rtc_base_approved",
     "../../system_wrappers",
+    "//third_party/abseil-cpp/absl/container:inlined_vector",
     "//third_party/abseil-cpp/absl/types:optional",
   ]
 }

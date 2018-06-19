@@ -14,9 +14,8 @@
 
 namespace webrtc {
 
-constexpr size_t RtpGenericFrameDescriptor::kMaxNumFrameDependencies;
-
 RtpGenericFrameDescriptor::RtpGenericFrameDescriptor() = default;
+RtpGenericFrameDescriptor::~RtpGenericFrameDescriptor() = default;
 
 int RtpGenericFrameDescriptor::TemporalLayer() const {
   RTC_DCHECK(FirstPacketInSubFrame());
@@ -53,18 +52,14 @@ void RtpGenericFrameDescriptor::SetFrameId(uint16_t frame_id) {
 rtc::ArrayView<const uint16_t>
 RtpGenericFrameDescriptor::FrameDepedenciesDiffs() const {
   RTC_DCHECK(FirstPacketInSubFrame());
-  return rtc::MakeArrayView(frame_deps_id_diffs_, num_frame_deps_);
+  return frame_deps_id_diffs_;
 }
 
-bool RtpGenericFrameDescriptor::AddFrameDependencyDiff(uint16_t fdiff) {
+void RtpGenericFrameDescriptor::AddFrameDependencyDiff(uint16_t fdiff) {
   RTC_DCHECK(FirstPacketInSubFrame());
-  if (num_frame_deps_ == kMaxNumFrameDependencies)
-    return false;
   RTC_DCHECK_LT(fdiff, 1 << 14);
   RTC_DCHECK_GT(fdiff, 0);
-  frame_deps_id_diffs_[num_frame_deps_] = fdiff;
-  num_frame_deps_++;
-  return true;
+  frame_deps_id_diffs_.push_back(fdiff);
 }
 
 }  // namespace webrtc

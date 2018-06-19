@@ -56,7 +56,6 @@ struct SimulationSettings {
   rtc::Optional<bool> use_hpf;
   rtc::Optional<bool> use_ns;
   rtc::Optional<bool> use_ts;
-  rtc::Optional<bool> use_bf;
   rtc::Optional<bool> use_ie;
   rtc::Optional<bool> use_vad;
   rtc::Optional<bool> use_le;

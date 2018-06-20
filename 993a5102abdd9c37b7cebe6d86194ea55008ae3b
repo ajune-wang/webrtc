@@ -123,6 +123,24 @@
       "revId": "993a5102abdd9c37b7cebe6d86194ea55008ae3b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c707b7f9_96d393c7",
+        "filename": "pc/peerconnection_rampup_tests.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-06-20T21:38:06Z",
+      "side": 1,
+      "message": "As discussed offline, I tested the bwe failure case by undoing a fix for a tcp related regression. The failing case\u0027s estimate is 10 kbps, so 500 kbps should work fine. Although there\u0027s no harm in ramping up higher, and it is probably preferred for catching regressions. I updated the default generated number of squares to be higher and this allows the encoder to get to its max bitrate, and changed the network bandwidth to 1 Mbps. \n\nI investigated the drop a little bit as well. I measured the total throughput by pulling the bytes_sent stat from the ICE candidate pair, and found that it reaches much closer to the total bandwidth (for example ~940 kbps when video is getting ~760 kbps). This makes me believe that a good portion of the difference is due to different overheads, and the rest is due to congestion control being sensitive to overuse.",
+      "parentUuid": "861ed147_e9ffd719",
+      "revId": "993a5102abdd9c37b7cebe6d86194ea55008ae3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

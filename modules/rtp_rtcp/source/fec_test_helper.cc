@@ -123,7 +123,13 @@ std::unique_ptr<AugmentedPacket> AugmentedPacketGenerator::NextPacket(
   for (size_t i = 0; i < length; ++i)
     packet->data[i + kRtpHeaderSize] = offset + i;
   packet->length = length + kRtpHeaderSize;
-  memset(&packet->header, 0, sizeof(WebRtcRTPHeader));
+
+  // TODO(philipel): Use one memeset when downstream projects have been updated.
+  memset(&packet->header.header, 0, sizeof(packet->header.header));
+  memset(&packet->header.frameType, 0, sizeof(packet->header.frameType));
+  memset(&packet->header.video_header, 0, sizeof(packet->header.video_header));
+  memset(&packet->header.ntp_time_ms, 0, sizeof(packet->header.ntp_time_ms));
+
   packet->header.frameType = kVideoFrameDelta;
   packet->header.header.headerLength = kRtpHeaderSize;
   packet->header.header.markerBit = (num_packets_ == 1);

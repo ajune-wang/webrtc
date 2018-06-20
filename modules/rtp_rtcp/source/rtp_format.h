@@ -52,10 +52,23 @@ class RtpPacketizer {
 class RtpDepacketizer {
  public:
   struct ParsedPayload {
+    // TODO(philipel): Remove ctor and type when downstream projects have been
+    //                 updated.
+    ParsedPayload() : type(&video_header) {}
+    struct Type {
+      explicit Type(RTPVideoHeader* video) : Video(*video) {}
+      Type& operator=(const Type& other) {
+        Video = other.Video;
+        return *this;
+      }
+      RTPVideoHeader& Video;
+    };
+    Type type;
+
     const uint8_t* payload;
     size_t payload_length;
     FrameType frame_type;
-    RTPTypeHeader type;
+    RTPVideoHeader video_header;
   };
 
   static RtpDepacketizer* Create(VideoCodecType type);

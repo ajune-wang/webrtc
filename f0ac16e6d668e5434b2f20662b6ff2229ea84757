@@ -160,6 +160,30 @@
     },
     {
       "key": {
+        "uuid": "b63fb664_49ca95a8",
+        "filename": "modules/include/module_common_types.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-20T12:56:08Z",
+      "side": 1,
+      "message": "I\u0027m suggestiong only the *pointer* should be const. I.e., the location in memory for Video is fixed at construction time, while the contents at that memory location may still be changed.\n\nHmm, but maybe that\u0027s exactly how C++ references always work. Sorry for the confusion.",
+      "parentUuid": "aac629c5_5bcc5a9a",
+      "range": {
+        "startLine": 77,
+        "startChar": 4,
+        "endLine": 77,
+        "endChar": 26
+      },
+      "revId": "f0ac16e6d668e5434b2f20662b6ff2229ea84757",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c5a2903e_01dfc9bb",
         "filename": "modules/rtp_rtcp/source/fec_test_helper.cc",
         "patchSetId": 1

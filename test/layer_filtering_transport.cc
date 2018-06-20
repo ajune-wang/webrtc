@@ -136,17 +136,17 @@ bool LayerFilteringTransport::SendRtp(const uint8_t* packet,
     RtpDepacketizer::ParsedPayload parsed_payload;
     if (depacketizer->Parse(&parsed_payload, payload, payload_data_length)) {
       const int temporal_idx = static_cast<int>(
-          is_vp8 ? parsed_payload.type.Video.codecHeader.VP8.temporalIdx
-                 : parsed_payload.type.Video.codecHeader.VP9.temporal_idx);
+          is_vp8 ? parsed_payload.video_header.codecHeader.VP8.temporalIdx
+                 : parsed_payload.video_header.codecHeader.VP9.temporal_idx);
       const int spatial_idx = static_cast<int>(
           is_vp8 ? kNoSpatialIdx
-                 : parsed_payload.type.Video.codecHeader.VP9.spatial_idx);
+                 : parsed_payload.video_header.codecHeader.VP9.spatial_idx);
       const bool non_ref_for_inter_layer_pred =
           is_vp8 ? false
-                 : parsed_payload.type.Video.codecHeader.VP9
+                 : parsed_payload.video_header.codecHeader.VP9
                        .non_ref_for_inter_layer_pred;
       if (selected_sl_ >= 0 && spatial_idx == selected_sl_ &&
-          parsed_payload.type.Video.codecHeader.VP9.end_of_frame) {
+          parsed_payload.video_header.codecHeader.VP9.end_of_frame) {
         // This layer is now the last in the superframe.
         set_marker_bit = true;
       } else {

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "66a823a3_fcc2e27d",
+        "filename": "modules/include/module_common_types.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-06-20T11:14:34Z",
+      "side": 1,
+      "message": "This struct allows the RTPVideoHeader to be accessed via type.Video, which is still done in downstream projects.",
+      "revId": "f0ac16e6d668e5434b2f20662b6ff2229ea84757",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c521d271_b5f043aa",
+        "filename": "pc/peerconnectioninterface_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1765,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-20T22:22:56Z",
+      "side": 0,
+      "message": "Instead of removing this, can we change it to expect success? It\u0027s slightly different than the other test.",
+      "revId": "a8eed94b555ef0b3afe5dc4079ea173eead7ba78",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

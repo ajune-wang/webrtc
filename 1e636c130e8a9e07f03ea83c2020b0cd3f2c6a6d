@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cdeaa651_eeb4a89e",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1473,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-20T22:22:56Z",
+      "side": 1,
+      "message": "Would we hit the receiver DCHECK if you applied a remote description with duplicate track IDs? If so, I\u0027d leave that out; we should avoid hitting DCHECKs even with \"bad\" SDP.\n\nOr we could do an equivalent thing for receivers in AssociateTransceiver, meaning randomly generate the receiver ID instead of using the ID from SDP when a dupe is detected.",
+      "revId": "1e636c130e8a9e07f03ea83c2020b0cd3f2c6a6d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de81f311_a50c2fb4",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2747,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-20T22:22:56Z",
+      "side": 1,
+      "message": "Is this related to the CL, or just a change we forgot to make when supporting streamless tracks?",
+      "revId": "1e636c130e8a9e07f03ea83c2020b0cd3f2c6a6d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74b8a254_7cae35d1",
+        "filename": "pc/peerconnection_rtp_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1259,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-20T22:22:56Z",
+      "side": 1,
+      "message": "nit: \"AddRemoveAddTrackGeneratesNewSenderId\"?",
+      "revId": "1e636c130e8a9e07f03ea83c2020b0cd3f2c6a6d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

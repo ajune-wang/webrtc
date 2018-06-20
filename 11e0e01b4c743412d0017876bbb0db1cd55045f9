@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "63e618a1_94eb9e98",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 6680
+      },
+      "writtenOn": "2018-06-20T21:11:43Z",
+      "side": 1,
+      "message": "In the current implementation, the middle layer cannot be inactive; however, in the future such scenario may prove useful, so handling this such a case makes sense to me.  The example code that you suggested will, if I\u0027m not mistaken, return num_active_spatial_layers_ equal to 1 in the case where layers 0 and 2 are active and layer 1 is not. I think what we want in this case is the spatial layer index of the highest active layer; however, I have not thought through the system implications and I would like to address this issue in a future CL.",
+      "parentUuid": "59ad2a1b_8d5eab27",
+      "range": {
+        "startLine": 139,
+        "startChar": 75,
+        "endLine": 139,
+        "endChar": 0
+      },
+      "revId": "11e0e01b4c743412d0017876bbb0db1cd55045f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9f2664f5_2ed69b3e",
         "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2018-06-20T07:59:13Z",
       "side": 1,
       "message": "should be num_active_spatial_layers.\ni.e. remove - few lines above this field is already set",
+      "range": {
+        "startLine": 718,
+        "startChar": 33,
+        "endLine": 718,
+        "endChar": 52
+      },
+      "revId": "11e0e01b4c743412d0017876bbb0db1cd55045f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0315e516_dc9fb96a",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 718,
+      "author": {
+        "id": 6680
+      },
+      "writtenOn": "2018-06-20T21:11:43Z",
+      "side": 1,
+      "message": "Great catch.  This is an artifact of my lousy manual code merge methodology.  I have double checked the rest of the code changes carefully to ensure that there are no other lines of code that should have been deleted in other places.  Thanks!",
+      "parentUuid": "9f2664f5_2ed69b3e",
       "range": {
         "startLine": 718,
         "startChar": 33,

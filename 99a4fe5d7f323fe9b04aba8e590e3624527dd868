@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "996d86e1_ea0370fe",
+        "filename": "rtc_base/logging_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-06-20T11:56:18Z",
+      "side": 1,
+      "message": "nit: It doesn\u0027t seem to me these checks are related to the test, consider removing?",
+      "range": {
+        "startLine": 244,
+        "startChar": 0,
+        "endLine": 246,
+        "endChar": 54
+      },
+      "revId": "99a4fe5d7f323fe9b04aba8e590e3624527dd868",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

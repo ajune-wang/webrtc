@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5686a3d5_36e28b0b",
+        "filename": "modules/audio_processing/agc2/agc2_common.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-06-20T11:06:58Z",
+      "side": 1,
+      "message": "Enforce the coupling with the above constants via an assert, or at least a comment.",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 56
+      },
+      "revId": "1f83423ebe45444031a703f526b4e2e447bd288d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5df61c5d_3b1b38cd",
+        "filename": "modules/audio_processing/agc2/vad_with_level.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-06-20T11:06:58Z",
+      "side": 1,
+      "message": "Is this necessary?\nhttp://en.cppreference.com/w/cpp/numeric/math/fabs",
+      "range": {
+        "startLine": 25,
+        "startChar": 27,
+        "endLine": 25,
+        "endChar": 45
+      },
+      "revId": "1f83423ebe45444031a703f526b4e2e447bd288d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52e8edbf_c496fd6f",
+        "filename": "modules/audio_processing/agc2/vad_with_level.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-06-20T11:06:58Z",
+      "side": 1,
+      "message": "Can this be replaced by std::max_element?",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 3
+      },
+      "revId": "1f83423ebe45444031a703f526b4e2e447bd288d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b3952f1_736d1048",
+        "filename": "modules/audio_processing/agc2/vad_with_level.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-06-20T11:06:58Z",
+      "side": 1,
+      "message": "Can this be a problem if the system sample rate is 22050 Hz? Will cause VAD to run in 22 kHz. Very rare though.",
+      "range": {
+        "startLine": 44,
+        "startChar": 33,
+        "endLine": 44,
+        "endChar": 67
+      },
+      "revId": "1f83423ebe45444031a703f526b4e2e447bd288d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "863bf438_589f4dd2",
+        "filename": "modules/audio_processing/agc2/vad_with_level.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-06-20T11:06:58Z",
+      "side": 1,
+      "message": "const",
+      "range": {
+        "startLine": 52,
+        "startChar": 2,
+        "endLine": 52,
+        "endChar": 6
+      },
+      "revId": "1f83423ebe45444031a703f526b4e2e447bd288d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d93425d_d17f556f",
+        "filename": "modules/audio_processing/agc2/vad_with_level.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-06-20T11:06:58Z",
+      "side": 1,
+      "message": "const",
+      "range": {
+        "startLine": 54,
+        "startChar": 2,
+        "endLine": 54,
+        "endChar": 7
+      },
+      "revId": "1f83423ebe45444031a703f526b4e2e447bd288d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7bcbe7cd_8fd4298d",
+        "filename": "modules/audio_processing/agc2/vad_with_level.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-06-20T11:06:58Z",
+      "side": 1,
+      "message": "1 /* num_channels */",
+      "range": {
+        "startLine": 64,
+        "startChar": 75,
+        "endLine": 64,
+        "endChar": 76
+      },
+      "revId": "1f83423ebe45444031a703f526b4e2e447bd288d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

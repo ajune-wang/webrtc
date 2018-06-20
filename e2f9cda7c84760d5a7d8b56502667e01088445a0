@@ -22,6 +22,30 @@
       "revId": "e2f9cda7c84760d5a7d8b56502667e01088445a0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4dd8f10_19786f19",
+        "filename": "sdk/android/instrumentationtests/loggable_test.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-06-20T14:00:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e2083794_6a5f523b",
+      "range": {
+        "startLine": 25,
+        "startChar": 24,
+        "endLine": 25,
+        "endChar": 39
+      },
+      "revId": "e2f9cda7c84760d5a7d8b56502667e01088445a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

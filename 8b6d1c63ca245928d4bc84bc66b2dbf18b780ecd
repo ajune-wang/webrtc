@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6ea517c4_50bd1c9d",
+        "filename": "p2p/base/p2ptransportchannel_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-06-20T22:07:38Z",
+      "side": 1,
+      "message": "Maybe this will work instead:\n\n1. Add webrtc::metrics::Enable() to rtc_base/unittest_main.cc (see test/test_main.cc as an example).\n2. Call webrtc::metrics::Reset() at the top of this constructor.\n\nThe other tests that interact with the default metrics aggregator do that.",
+      "revId": "8b6d1c63ca245928d4bc84bc66b2dbf18b780ecd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac7cbd5e_fba8bef1",
+        "filename": "p2p/base/p2ptransportchannel_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-06-20T22:07:38Z",
+      "side": 1,
+      "message": "Why does the test need to listen to this signal rather than measure the metrics events (like IceRestart)?",
+      "revId": "8b6d1c63ca245928d4bc84bc66b2dbf18b780ecd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

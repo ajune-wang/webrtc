@@ -1,0 +1,124 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7c8efe0a_ae4446ea",
+        "filename": "p2p/BUILD.gn",
+        "patchSetId": 12
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-06-20T22:07:38Z",
+      "side": 1,
+      "message": "For consistency: \"../system_wrappers:metrics_default\"",
+      "revId": "e4de8eb285cfe33234b0121c372d0b0c0e303fe2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0b4259b_6cf7462f",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 6041,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-06-20T22:07:38Z",
+      "side": 1,
+      "message": "nit: could just do const char*",
+      "range": {
+        "startLine": 6041,
+        "startChar": 6,
+        "endLine": 6041,
+        "endChar": 17
+      },
+      "revId": "e4de8eb285cfe33234b0121c372d0b0c0e303fe2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3411755_39486915",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 6095,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-06-20T22:07:38Z",
+      "side": 1,
+      "message": "nit: const char*",
+      "range": {
+        "startLine": 6095,
+        "startChar": 4,
+        "endLine": 6095,
+        "endChar": 15
+      },
+      "revId": "e4de8eb285cfe33234b0121c372d0b0c0e303fe2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee5dc32e_4737c34d",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 6115,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-06-20T22:07:38Z",
+      "side": 1,
+      "message": "sparse?",
+      "range": {
+        "startLine": 6115,
+        "startChar": 6,
+        "endLine": 6115,
+        "endChar": 31
+      },
+      "revId": "e4de8eb285cfe33234b0121c372d0b0c0e303fe2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c9e4f0a_e3984c4a",
+        "filename": "pc/peerconnection_integrationtest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 4646,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-06-20T22:07:38Z",
+      "side": 1,
+      "message": "nice",
+      "revId": "e4de8eb285cfe33234b0121c372d0b0c0e303fe2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3fd91d48_e419abb5",
+        "filename": "rtc_base/sslstreamadapter.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-06-20T22:07:38Z",
+      "side": 1,
+      "message": "Maybe just define an SRTP_CRYPTO_SUITE_MAX and skip the enum class?",
+      "revId": "e4de8eb285cfe33234b0121c372d0b0c0e303fe2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

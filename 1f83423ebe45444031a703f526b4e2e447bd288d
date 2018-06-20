@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "08e48ba3_c81eb484",
+        "filename": "modules/audio_processing/agc2/vad_with_level.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-06-20T12:30:52Z",
+      "side": 1,
+      "message": "Sorry, wasn\u0027t thinking: this code looks for the largest absolute value. To use max_element, we\u0027d need to map \u0027abs\u0027 over the numbers first.",
+      "parentUuid": "a912c7bb_c21ecee2",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 3
+      },
+      "revId": "1f83423ebe45444031a703f526b4e2e447bd288d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2b3952f1_736d1048",
         "filename": "modules/audio_processing/agc2/vad_with_level.cc",
         "patchSetId": 10

@@ -22,6 +22,30 @@
       "revId": "056a68da896d9a578b9ea83e56d261648ea0adc6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0263c681_98e4cd6a",
+        "filename": "modules/include/module_common_types.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-06-20T11:53:40Z",
+      "side": 0,
+      "message": "I updated the description with a link to the previous CL.",
+      "parentUuid": "e5844bc7_fd709a42",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 2
+      },
+      "revId": "056a68da896d9a578b9ea83e56d261648ea0adc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

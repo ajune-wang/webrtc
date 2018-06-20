@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1dfc27d6_863464e6",
+        "filename": "modules/include/module_common_types.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-06-20T11:53:40Z",
+      "side": 1,
+      "message": "This is a highly temporary struct, but sure.",
+      "parentUuid": "cc023451_5d4eb7a8",
+      "range": {
+        "startLine": 71,
+        "startChar": 9,
+        "endLine": 71,
+        "endChar": 13
+      },
+      "revId": "f0ac16e6d668e5434b2f20662b6ff2229ea84757",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1bd9e18b_87ee3b4e",
         "filename": "modules/include/module_common_types.h",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2018-06-20T11:34:46Z",
       "side": 1,
       "message": "This is a deep copy, not a pointer assignment, right?",
+      "range": {
+        "startLine": 74,
+        "startChar": 6,
+        "endLine": 74,
+        "endChar": 26
+      },
+      "revId": "f0ac16e6d668e5434b2f20662b6ff2229ea84757",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43484ab5_87faa4c4",
+        "filename": "modules/include/module_common_types.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-06-20T11:53:40Z",
+      "side": 1,
+      "message": "Yes, this is an intentional deep copy.",
+      "parentUuid": "1bd9e18b_87ee3b4e",
       "range": {
         "startLine": 74,
         "startChar": 6,
@@ -88,6 +136,30 @@
     },
     {
       "key": {
+        "uuid": "aac629c5_5bcc5a9a",
+        "filename": "modules/include/module_common_types.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-06-20T11:53:40Z",
+      "side": 1,
+      "message": "This RTPVideoHeader can\u0027t be const, that would not work with current downstream projects.",
+      "parentUuid": "d06064ce_8e91b829",
+      "range": {
+        "startLine": 77,
+        "startChar": 4,
+        "endLine": 77,
+        "endChar": 26
+      },
+      "revId": "f0ac16e6d668e5434b2f20662b6ff2229ea84757",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c5a2903e_01dfc9bb",
         "filename": "modules/rtp_rtcp/source/fec_test_helper.cc",
         "patchSetId": 1
@@ -99,6 +171,24 @@
       "writtenOn": "2018-06-20T11:34:46Z",
       "side": 1,
       "message": "Not sure a higher number of memsets is an improvement... Can you move it to the constructor of AugmentedPacket to clear all members instead?\n\nAnd the last memset could be replaced by a simple assignment\n\n  packet-\u003eheader.ntp_time_ms \u003d 0;\n\nright?\n\nIn the code base generally, there are lots of memsets associated with union types, because unions can\u0027t have ordinary constructors. But since you delete the union, hopefully there\u0027s no longer a need for memset?",
+      "revId": "f0ac16e6d668e5434b2f20662b6ff2229ea84757",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78f6fedb_7c2dfdef",
+        "filename": "modules/rtp_rtcp/source/fec_test_helper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-06-20T11:53:40Z",
+      "side": 1,
+      "message": "This is also temporary, will add a TODO about it.",
+      "parentUuid": "c5a2903e_01dfc9bb",
       "revId": "f0ac16e6d668e5434b2f20662b6ff2229ea84757",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

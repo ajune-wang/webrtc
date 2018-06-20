@@ -1247,7 +1247,14 @@ PeerConnection::AddTrackUnifiedPlan(
              : cricket::MEDIA_TYPE_VIDEO);
     RTC_LOG(LS_INFO) << "Adding " << cricket::MediaTypeToString(media_type)
                      << " transceiver in response to a call to AddTrack.";
-    auto sender = CreateSender(media_type, track->id(), track, stream_ids);
+    std::string sender_id = track->id();
+    // Avoid creating a sender with an existing ID by generating a random ID.
+    // This can happen if this is the second time AddTrack has created a sender
+    // for this track.
+    if (FindSenderById(sender_id)) {
+      sender_id = rtc::CreateRandomUuid();
+    }
+    auto sender = CreateSender(media_type, sender_id, track, stream_ids);
     auto receiver = CreateReceiver(media_type, rtc::CreateRandomUuid());
     transceiver = CreateAndAddTransceiver(sender, receiver);
     transceiver->internal()->set_created_by_addtrack(true);
@@ -1392,9 +1399,12 @@ PeerConnection::AddTransceiver(
 
   RTC_LOG(LS_INFO) << "Adding " << cricket::MediaTypeToString(media_type)
                    << " transceiver in response to a call to AddTransceiver.";
-  auto sender =
-      CreateSender(media_type, (track ? track->id() : rtc::CreateRandomUuid()),
-                   track, init.stream_ids);
+  // Set the sender ID equal to the track ID if the track is specified unless
+  // that sender ID is already in use.
+  std::string sender_id =
+      (track && !FindSenderById(track->id()) ? track->id()
+                                             : rtc::CreateRandomUuid());
+  auto sender = CreateSender(media_type, sender_id, track, init.stream_ids);
   auto receiver = CreateReceiver(media_type, rtc::CreateRandomUuid());
   auto transceiver = CreateAndAddTransceiver(sender, receiver);
   transceiver->internal()->set_direction(init.direction);
@@ -1459,6 +1469,8 @@ PeerConnection::CreateAndAddTransceiver(
     rtc::scoped_refptr<RtpSenderProxyWithInternal<RtpSenderInternal>> sender,
     rtc::scoped_refptr<RtpReceiverProxyWithInternal<RtpReceiverInternal>>
         receiver) {
+  RTC_DCHECK(!FindSenderById(sender->id()));
+  RTC_DCHECK(!FindReceiverById(receiver->id()));
   auto transceiver = RtpTransceiverProxyWithInternal<RtpTransceiver>::Create(
       signaling_thread(), new RtpTransceiver(sender, receiver));
   transceivers_.push_back(transceiver);
@@ -2732,9 +2744,7 @@ PeerConnection::AssociateTransceiver(cricket::ContentSource source,
                        << " at i=" << mline_index
                        << " in response to the remote description.";
       std::string sender_id = rtc::CreateRandomUuid();
-      std::vector<std::string> stream_ids = {rtc::CreateRandomUuid()};
-      auto sender =
-          CreateSender(media_desc->type(), sender_id, nullptr, stream_ids);
+      auto sender = CreateSender(media_desc->type(), sender_id, nullptr, {});
       std::string receiver_id;
       if (!media_desc->streams().empty()) {
         receiver_id = media_desc->streams()[0].id;

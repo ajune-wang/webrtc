@@ -1760,28 +1760,6 @@ TEST_P(PeerConnectionInterfaceTest, IceCandidates) {
   EXPECT_TRUE(pc_->AddIceCandidate(observer_.last_candidate()));
 }
 
-// Test that CreateOffer and CreateAnswer will fail if the track labels are
-// not unique.
-TEST_P(PeerConnectionInterfaceTest, CreateOfferAnswerWithInvalidStream) {
-  CreatePeerConnectionWithoutDtls();
-  // Create a regular offer for the CreateAnswer test later.
-  std::unique_ptr<SessionDescriptionInterface> offer;
-  EXPECT_TRUE(DoCreateOffer(&offer, nullptr));
-  EXPECT_TRUE(offer);
-  offer.reset();
-
-  // Create a local stream with audio&video tracks having same label.
-  AddAudioTrack("track_label", {kStreamId1});
-  AddVideoTrack("track_label", {kStreamId1});
-
-  // Test CreateOffer
-  EXPECT_FALSE(DoCreateOffer(&offer, nullptr));
-
-  // Test CreateAnswer
-  std::unique_ptr<SessionDescriptionInterface> answer;
-  EXPECT_FALSE(DoCreateAnswer(&answer, nullptr));
-}
-
 // Test that we will get different SSRCs for each tracks in the offer and answer
 // we created.
 TEST_P(PeerConnectionInterfaceTest, SsrcInOfferAnswer) {

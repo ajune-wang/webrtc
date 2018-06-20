@@ -1253,6 +1253,32 @@ TEST_F(PeerConnectionRtpTestUnifiedPlan, AddRemoveAddTrackOffersWorksVideo) {
   EXPECT_EQ(sender1, sender2);
 }
 
+// Test that calling AddTrack, RemoveTrack and AddTrack again creates a second
+// m= section with a random sender id (different from the first, now rejected,
+// m= section).
+TEST_F(PeerConnectionRtpTestUnifiedPlan, AddRemoveAddTrackSenderId) {
+  auto caller = CreatePeerConnection();
+  auto callee = CreatePeerConnection();
+
+  auto track = caller->CreateVideoTrack("video");
+  auto sender1 = caller->AddTrack(track);
+  ASSERT_TRUE(caller->ExchangeOfferAnswerWith(callee.get()));
+
+  caller->pc()->RemoveTrack(sender1);
+  ASSERT_TRUE(caller->ExchangeOfferAnswerWith(callee.get()));
+
+  auto sender2 = caller->AddTrack(track);
+
+  EXPECT_NE(sender1, sender2);
+  EXPECT_NE(sender1->id(), sender2->id());
+  std::string sender2_id = sender2->id();
+
+  ASSERT_TRUE(caller->ExchangeOfferAnswerWith(callee.get()));
+
+  // The sender's ID should not change after negotiation.
+  EXPECT_EQ(sender2_id, sender2->id());
+}
+
 // Test that OnRenegotiationNeeded is fired if SetDirection is called on an
 // active RtpTransceiver with a new direction.
 TEST_F(PeerConnectionRtpTestUnifiedPlan,

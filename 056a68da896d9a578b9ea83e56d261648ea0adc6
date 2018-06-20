@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e5844bc7_fd709a42",
+        "filename": "modules/include/module_common_types.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-20T11:34:46Z",
+      "side": 0,
+      "message": "I take it there used to be another member RTPAudioHeader or the like in this union? Would be nice with a link to that deletion cl in the description of this cl.",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 2
+      },
+      "revId": "056a68da896d9a578b9ea83e56d261648ea0adc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

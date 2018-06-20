@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "cc023451_5d4eb7a8",
+        "filename": "modules/include/module_common_types.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-20T11:34:46Z",
+      "side": 1,
+      "message": "Please use a more specific name. Sticking to the old name, RTPTypeHeader, is ok if you don\u0027t have a better idea.",
+      "range": {
+        "startLine": 71,
+        "startChar": 9,
+        "endLine": 71,
+        "endChar": 13
+      },
+      "revId": "f0ac16e6d668e5434b2f20662b6ff2229ea84757",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1bd9e18b_87ee3b4e",
+        "filename": "modules/include/module_common_types.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-20T11:34:46Z",
+      "side": 1,
+      "message": "This is a deep copy, not a pointer assignment, right?",
+      "range": {
+        "startLine": 74,
+        "startChar": 6,
+        "endLine": 74,
+        "endChar": 26
+      },
+      "revId": "f0ac16e6d668e5434b2f20662b6ff2229ea84757",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "66a823a3_fcc2e27d",
         "filename": "modules/include/module_common_types.h",
         "patchSetId": 1
@@ -13,6 +59,46 @@
       "writtenOn": "2018-06-20T11:14:34Z",
       "side": 1,
       "message": "This struct allows the RTPVideoHeader to be accessed via type.Video, which is still done in downstream projects.",
+      "revId": "f0ac16e6d668e5434b2f20662b6ff2229ea84757",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d06064ce_8e91b829",
+        "filename": "modules/include/module_common_types.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-20T11:34:46Z",
+      "side": 1,
+      "message": "Would be good to const declare the pointer. Not sure what the right syntax is with references, maybe \n\n  RTPVideoHeader\u0026 const Video;",
+      "range": {
+        "startLine": 77,
+        "startChar": 4,
+        "endLine": 77,
+        "endChar": 26
+      },
+      "revId": "f0ac16e6d668e5434b2f20662b6ff2229ea84757",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5a2903e_01dfc9bb",
+        "filename": "modules/rtp_rtcp/source/fec_test_helper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-20T11:34:46Z",
+      "side": 1,
+      "message": "Not sure a higher number of memsets is an improvement... Can you move it to the constructor of AugmentedPacket to clear all members instead?\n\nAnd the last memset could be replaced by a simple assignment\n\n  packet-\u003eheader.ntp_time_ms \u003d 0;\n\nright?\n\nIn the code base generally, there are lots of memsets associated with union types, because unions can\u0027t have ordinary constructors. But since you delete the union, hopefully there\u0027s no longer a need for memset?",
       "revId": "f0ac16e6d668e5434b2f20662b6ff2229ea84757",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

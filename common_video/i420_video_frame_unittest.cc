@@ -11,6 +11,7 @@
 #include <math.h>
 #include <string.h>
 
+#include "api/video/i010_buffer.h"
 #include "api/video/i420_buffer.h"
 #include "api/video/video_frame.h"
 #include "rtc_base/bind.h"
@@ -23,7 +24,113 @@ namespace webrtc {
 
 namespace {
 
-rtc::scoped_refptr<I420Buffer> CreateGradient(int width, int height) {
+// Helper class to delegate calls to appropriate container.
+class PlanarYuvBufferFactory {
+ public:
+  static rtc::scoped_refptr<PlanarYuvBuffer> Create(VideoFrameBuffer::Type type,
+                                                    int width,
+                                                    int height) {
+    switch (type) {
+      case VideoFrameBuffer::Type::kI420:
+        return I420Buffer::Create(width, height);
+      case VideoFrameBuffer::Type::kI010:
+        return I010Buffer::Create(width, height);
+      default:
+        RTC_NOTREACHED();
+    }
+    return nullptr;
+  }
+
+  static rtc::scoped_refptr<PlanarYuvBuffer> Copy(const VideoFrameBuffer& src) {
+    switch (src.type()) {
+      case VideoFrameBuffer::Type::kI420:
+        return I420Buffer::Copy(src);
+      case VideoFrameBuffer::Type::kI010:
+        return I010Buffer::Copy(*src.GetI010());
+      default:
+        RTC_NOTREACHED();
+    }
+    return nullptr;
+  }
+
+  static rtc::scoped_refptr<PlanarYuvBuffer> Rotate(const VideoFrameBuffer& src,
+                                                    VideoRotation rotation) {
+    switch (src.type()) {
+      case VideoFrameBuffer::Type::kI420:
+        return I420Buffer::Rotate(src, rotation);
+      case VideoFrameBuffer::Type::kI010:
+        return I010Buffer::Rotate(*src.GetI010(), rotation);
+      default:
+        RTC_NOTREACHED();
+    }
+    return nullptr;
+  }
+
+  static rtc::scoped_refptr<PlanarYuvBuffer> CropAndScaleFrom(
+      const VideoFrameBuffer& src,
+      int offset_x,
+      int offset_y,
+      int crop_width,
+      int crop_height) {
+    switch (src.type()) {
+      case VideoFrameBuffer::Type::kI420: {
+        rtc::scoped_refptr<I420Buffer> buffer =
+            I420Buffer::Create(crop_width, crop_height);
+        buffer->CropAndScaleFrom(*src.GetI420(), offset_x, offset_y, crop_width,
+                                 crop_height);
+        return buffer;
+      }
+      case VideoFrameBuffer::Type::kI010: {
+        rtc::scoped_refptr<I010Buffer> buffer =
+            I010Buffer::Create(crop_width, crop_height);
+        buffer->CropAndScaleFrom(*src.GetI010(), offset_x, offset_y, crop_width,
+                                 crop_height);
+        return buffer;
+      }
+      default:
+        RTC_NOTREACHED();
+    }
+    return nullptr;
+  }
+
+  static rtc::scoped_refptr<PlanarYuvBuffer> CropAndScaleFrom(
+      const VideoFrameBuffer& src,
+      int crop_width,
+      int crop_height) {
+    const int out_width =
+        std::min(src.width(), crop_width * src.height() / crop_height);
+    const int out_height =
+        std::min(src.height(), crop_height * src.width() / crop_width);
+    return CropAndScaleFrom(src, (src.width() - out_width) / 2,
+                            (src.height() - out_height) / 2, out_width,
+                            out_height);
+  }
+
+  static rtc::scoped_refptr<PlanarYuvBuffer>
+  ScaleFrom(const VideoFrameBuffer& src, int crop_width, int crop_height) {
+    switch (src.type()) {
+      case VideoFrameBuffer::Type::kI420: {
+        rtc::scoped_refptr<I420Buffer> buffer =
+            I420Buffer::Create(crop_width, crop_height);
+        buffer->ScaleFrom(*src.GetI420());
+        return buffer;
+      }
+      case VideoFrameBuffer::Type::kI010: {
+        rtc::scoped_refptr<I010Buffer> buffer =
+            I010Buffer::Create(crop_width, crop_height);
+        buffer->ScaleFrom(*src.GetI010());
+        return buffer;
+      }
+      default:
+        RTC_NOTREACHED();
+    }
+    return nullptr;
+  }
+};
+
+rtc::scoped_refptr<PlanarYuvBuffer> CreateGradient(VideoFrameBuffer::Type type,
+                                                   int width,
+                                                   int height) {
   rtc::scoped_refptr<I420Buffer> buffer(I420Buffer::Create(width, height));
   // Initialize with gradient, Y = 128(x/w + y/h), U = 256 x/w, V = 256 y/h
   for (int x = 0; x < width; x++) {
@@ -42,7 +149,11 @@ rtc::scoped_refptr<I420Buffer> CreateGradient(int width, int height) {
           255 * y / (chroma_height - 1);
     }
   }
-  return buffer;
+  if (type == VideoFrameBuffer::Type::kI420)
+    return buffer;
+
+  RTC_DCHECK(type == VideoFrameBuffer::Type::kI010);
+  return I010Buffer::Copy(*buffer);
 }
 
 // The offsets and sizes describe the rectangle extracted from the
@@ -202,90 +313,123 @@ TEST(TestVideoFrame, TextureInitialValues) {
   EXPECT_EQ(20, frame.timestamp_us());
 }
 
-TEST(TestI420FrameBuffer, Copy) {
-  rtc::scoped_refptr<I420Buffer> buf1(I420Buffer::Create(20, 10));
-  memset(buf1->MutableDataY(), 1, 200);
-  memset(buf1->MutableDataU(), 2, 50);
-  memset(buf1->MutableDataV(), 3, 50);
-  rtc::scoped_refptr<I420Buffer> buf2 = I420Buffer::Copy(*buf1);
-  EXPECT_TRUE(test::FrameBufsEqual(buf1, buf2));
+class TestPlanarYuvBuffer
+    : public ::testing::TestWithParam<VideoFrameBuffer::Type> {};
+
+rtc::scoped_refptr<I420Buffer> CreateAndFillBuffer() {
+  auto buf = I420Buffer::Create(20, 10);
+  memset(buf->MutableDataY(), 1, 200);
+  memset(buf->MutableDataU(), 2, 50);
+  memset(buf->MutableDataV(), 3, 50);
+  return buf;
 }
 
-TEST(TestI420FrameBuffer, Scale) {
-  rtc::scoped_refptr<I420Buffer> buf = CreateGradient(200, 100);
+TEST_P(TestPlanarYuvBuffer, Copy) {
+  rtc::scoped_refptr<PlanarYuvBuffer> buf1;
+  switch (GetParam()) {
+    case VideoFrameBuffer::Type::kI420: {
+      buf1 = CreateAndFillBuffer();
+      break;
+    }
+    case VideoFrameBuffer::Type::kI010: {
+      buf1 = I010Buffer::Copy(*CreateAndFillBuffer());
+      break;
+    }
+    default:
+      RTC_NOTREACHED();
+  }
+
+  rtc::scoped_refptr<PlanarYuvBuffer> buf2 =
+      PlanarYuvBufferFactory::Copy(*buf1);
+  EXPECT_TRUE(test::FrameBufsEqual(buf1->ToI420(), buf2->ToI420()));
+}
+
+TEST_P(TestPlanarYuvBuffer, Scale) {
+  rtc::scoped_refptr<PlanarYuvBuffer> buf =
+      CreateGradient(GetParam(), 200, 100);
 
   // Pure scaling, no cropping.
-  rtc::scoped_refptr<I420Buffer> scaled_buffer(I420Buffer::Create(150, 75));
-
-  scaled_buffer->ScaleFrom(*buf);
-  CheckCrop(*scaled_buffer, 0.0, 0.0, 1.0, 1.0);
+  rtc::scoped_refptr<PlanarYuvBuffer> scaled_buffer =
+      PlanarYuvBufferFactory::ScaleFrom(*buf, 150, 75);
+  CheckCrop(*scaled_buffer->ToI420(), 0.0, 0.0, 1.0, 1.0);
 }
 
-TEST(TestI420FrameBuffer, CropXCenter) {
-  rtc::scoped_refptr<I420Buffer> buf = CreateGradient(200, 100);
+TEST_P(TestPlanarYuvBuffer, CropXCenter) {
+  rtc::scoped_refptr<PlanarYuvBuffer> buf =
+      CreateGradient(GetParam(), 200, 100);
 
   // Pure center cropping, no scaling.
-  rtc::scoped_refptr<I420Buffer> scaled_buffer(I420Buffer::Create(100, 100));
-
-  scaled_buffer->CropAndScaleFrom(*buf, 50, 0, 100, 100);
-  CheckCrop(*scaled_buffer, 0.25, 0.0, 0.5, 1.0);
+  rtc::scoped_refptr<PlanarYuvBuffer> scaled_buffer =
+      PlanarYuvBufferFactory::CropAndScaleFrom(*buf, 50, 0, 100, 100);
+  CheckCrop(*scaled_buffer->ToI420(), 0.25, 0.0, 0.5, 1.0);
 }
 
-TEST(TestI420FrameBuffer, CropXNotCenter) {
-  rtc::scoped_refptr<I420Buffer> buf = CreateGradient(200, 100);
+TEST_P(TestPlanarYuvBuffer, CropXNotCenter) {
+  rtc::scoped_refptr<PlanarYuvBuffer> buf =
+      CreateGradient(GetParam(), 200, 100);
 
   // Non-center cropping, no scaling.
-  rtc::scoped_refptr<I420Buffer> scaled_buffer(I420Buffer::Create(100, 100));
-
-  scaled_buffer->CropAndScaleFrom(*buf, 25, 0, 100, 100);
-  CheckCrop(*scaled_buffer, 0.125, 0.0, 0.5, 1.0);
+  rtc::scoped_refptr<PlanarYuvBuffer> scaled_buffer =
+      PlanarYuvBufferFactory::CropAndScaleFrom(*buf, 25, 0, 100, 100);
+  CheckCrop(*scaled_buffer->ToI420(), 0.125, 0.0, 0.5, 1.0);
 }
 
-TEST(TestI420FrameBuffer, CropYCenter) {
-  rtc::scoped_refptr<I420Buffer> buf = CreateGradient(100, 200);
+TEST_P(TestPlanarYuvBuffer, CropYCenter) {
+  rtc::scoped_refptr<PlanarYuvBuffer> buf =
+      CreateGradient(GetParam(), 100, 200);
 
   // Pure center cropping, no scaling.
-  rtc::scoped_refptr<I420Buffer> scaled_buffer(I420Buffer::Create(100, 100));
-
-  scaled_buffer->CropAndScaleFrom(*buf, 0, 50, 100, 100);
-  CheckCrop(*scaled_buffer, 0.0, 0.25, 1.0, 0.5);
+  rtc::scoped_refptr<PlanarYuvBuffer> scaled_buffer =
+      PlanarYuvBufferFactory::CropAndScaleFrom(*buf, 0, 50, 100, 100);
+  CheckCrop(*scaled_buffer->ToI420(), 0.0, 0.25, 1.0, 0.5);
 }
 
-TEST(TestI420FrameBuffer, CropYNotCenter) {
-  rtc::scoped_refptr<I420Buffer> buf = CreateGradient(100, 200);
+TEST_P(TestPlanarYuvBuffer, CropYNotCenter) {
+  rtc::scoped_refptr<PlanarYuvBuffer> buf =
+      CreateGradient(GetParam(), 100, 200);
 
-  // Non-center cropping, no scaling.
-  rtc::scoped_refptr<I420Buffer> scaled_buffer(I420Buffer::Create(100, 100));
-
-  scaled_buffer->CropAndScaleFrom(*buf, 0, 25, 100, 100);
-  CheckCrop(*scaled_buffer, 0.0, 0.125, 1.0, 0.5);
+  // Pure center cropping, no scaling.
+  rtc::scoped_refptr<PlanarYuvBuffer> scaled_buffer =
+      PlanarYuvBufferFactory::CropAndScaleFrom(*buf, 0, 25, 100, 100);
+  CheckCrop(*scaled_buffer->ToI420(), 0.0, 0.125, 1.0, 0.5);
 }
 
-TEST(TestI420FrameBuffer, CropAndScale16x9) {
-  rtc::scoped_refptr<I420Buffer> buf = CreateGradient(640, 480);
+TEST_P(TestPlanarYuvBuffer, CropAndScale16x9) {
+  rtc::scoped_refptr<PlanarYuvBuffer> buf =
+      CreateGradient(GetParam(), 640, 480);
 
-  // Center crop to 640 x 360 (16/9 aspect), then scale down by 2.
-  rtc::scoped_refptr<I420Buffer> scaled_buffer(I420Buffer::Create(320, 180));
-
-  scaled_buffer->CropAndScaleFrom(*buf);
-  CheckCrop(*scaled_buffer, 0.0, 0.125, 1.0, 0.75);
+  // Pure center cropping, no scaling.
+  rtc::scoped_refptr<PlanarYuvBuffer> scaled_buffer =
+      PlanarYuvBufferFactory::CropAndScaleFrom(*buf, 320, 180);
+  CheckCrop(*scaled_buffer->ToI420(), 0.0, 0.125, 1.0, 0.75);
 }
 
-class TestI420BufferRotate
-    : public ::testing::TestWithParam<webrtc::VideoRotation> {};
+INSTANTIATE_TEST_CASE_P(,
+                        TestPlanarYuvBuffer,
+                        ::testing::Values(VideoFrameBuffer::Type::kI420,
+                                          VideoFrameBuffer::Type::kI010));
 
-TEST_P(TestI420BufferRotate, Rotates) {
-  rtc::scoped_refptr<I420BufferInterface> buffer = CreateGradient(640, 480);
-  rtc::scoped_refptr<I420BufferInterface> rotated_buffer =
-      I420Buffer::Rotate(*buffer, GetParam());
-  CheckRotate(640, 480, GetParam(), *rotated_buffer);
+class TestPlanarYuvBufferRotate
+    : public ::testing::TestWithParam<
+          std::tuple<webrtc::VideoRotation, VideoFrameBuffer::Type>> {};
+
+TEST_P(TestPlanarYuvBufferRotate, Rotates) {
+  const webrtc::VideoRotation rotation = std::get<0>(GetParam());
+  const VideoFrameBuffer::Type type = std::get<1>(GetParam());
+  rtc::scoped_refptr<PlanarYuvBuffer> buffer = CreateGradient(type, 640, 480);
+  rtc::scoped_refptr<PlanarYuvBuffer> rotated_buffer =
+      PlanarYuvBufferFactory::Rotate(*buffer, rotation);
+  CheckRotate(640, 480, rotation, *rotated_buffer->ToI420());
 }
 
-INSTANTIATE_TEST_CASE_P(Rotate,
-                        TestI420BufferRotate,
-                        ::testing::Values(kVideoRotation_0,
-                                          kVideoRotation_90,
-                                          kVideoRotation_180,
-                                          kVideoRotation_270));
+INSTANTIATE_TEST_CASE_P(
+    Rotate,
+    TestPlanarYuvBufferRotate,
+    ::testing::Combine(::testing::Values(kVideoRotation_0,
+                                         kVideoRotation_90,
+                                         kVideoRotation_180,
+                                         kVideoRotation_270),
+                       ::testing::Values(VideoFrameBuffer::Type::kI420,
+                                         VideoFrameBuffer::Type::kI010)));
 
 }  // namespace webrtc

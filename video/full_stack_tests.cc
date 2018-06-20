@@ -9,6 +9,7 @@
  */
 #include <stdio.h>
 
+#include "media/base/vp9_profile.h"
 #include "rtc_base/experiments/alr_experiment.h"
 #include "rtc_base/flags.h"
 #include "test/field_trial.h"
@@ -101,6 +102,19 @@ TEST_F(FullStackTest, ForemanCifPlr5Vp9) {
   foreman_cif.pipe.loss_percent = 5;
   foreman_cif.pipe.queue_delay_ms = 50;
   RunTest(foreman_cif);
+}
+
+TEST_F(FullStackTest, GeneratorWithoutPacketLossVp9Profile2) {
+  SdpVideoFormat::Parameters vp92 = {
+      {kVP9FmtpProfileId, VP9ProfileToString(VP9Profile::kProfile2)}};
+  VideoQualityTest::Params generator;
+  generator.call.send_side_bwe = true;
+  generator.video[0] = {
+      true, 352, 288, 30,    700000, 700000, 700000,          false, "VP9",
+      1,    0,   0,   false, false,  false,  "GeneratorI010", 0,     vp92};
+  generator.analyzer = {"generator_net_delay_0_0_plr_0_VP9", 0.0, 0.0,
+                        kFullStackTestDurationSecs};
+  RunTest(generator);
 }
 
 TEST_F(FullStackTest, ForemanCifWithoutPacketLossMultiplexI420Frame) {

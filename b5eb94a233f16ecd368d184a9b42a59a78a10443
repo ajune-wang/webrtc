@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a5bf4895_fa9bb181",
+        "filename": "media/BUILD.gn",
+        "patchSetId": 15
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-06-20T21:17:07Z",
+      "side": 1,
+      "message": "Bot really as it is the default visibility. I added it because rest of the class seem to specifically set it. Removed.",
+      "parentUuid": "909bb109_5b64d440",
+      "range": {
+        "startLine": 57,
+        "startChar": 2,
+        "endLine": 57,
+        "endChar": 22
+      },
+      "revId": "b5eb94a233f16ecd368d184a9b42a59a78a10443",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "75a4e4ab_82dbd5cd",
         "filename": "media/base/vp9_profile.h",
         "patchSetId": 15
@@ -36,6 +60,30 @@
       "writtenOn": "2018-06-20T14:27:41Z",
       "side": 1,
       "message": "A more descriptive name would be nice. This is the string used as key in the sdp?",
+      "range": {
+        "startLine": 24,
+        "startChar": 18,
+        "endLine": 24,
+        "endChar": 29
+      },
+      "revId": "b5eb94a233f16ecd368d184a9b42a59a78a10443",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e154eb3_8c2a0ccb",
+        "filename": "media/base/vp9_profile.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-06-20T21:17:07Z",
+      "side": 1,
+      "message": "Yes, it is the key appearing in SDP. What about kVP9FmtpProfileId? \n\nIt is inspired by kH264FmtpProfileLevelId. There, we actually convert from a complicated id(like 42E01F) but 0-2 here can also be considered as ids. WDYT?",
+      "parentUuid": "75a4e4ab_82dbd5cd",
       "range": {
         "startLine": 24,
         "startChar": 18,
@@ -68,6 +116,30 @@
       "revId": "b5eb94a233f16ecd368d184a9b42a59a78a10443",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9e5695f_e1b17a24",
+        "filename": "media/base/vp9_profile.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-06-20T21:17:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8287ccc3_43c9f4a7",
+      "range": {
+        "startLine": 41,
+        "startChar": 60,
+        "endLine": 41,
+        "endChar": 0
+      },
+      "revId": "b5eb94a233f16ecd368d184a9b42a59a78a10443",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -118,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "8843c0ca_7500bfc3",
+        "filename": "modules/video_coding/codecs/vp9/include/vp9.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-06-20T21:17:07Z",
+      "side": 1,
+      "message": "Thanks, I wasn\u0027t aware of this. Chrome code is a forward-declare-fest :)",
+      "parentUuid": "c890b8c2_ffc6c078",
+      "range": {
+        "startLine": 23,
+        "startChar": 7,
+        "endLine": 23,
+        "endChar": 21
+      },
+      "revId": "b5eb94a233f16ecd368d184a9b42a59a78a10443",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5b85586e_813d8572",
         "filename": "modules/video_coding/codecs/vp9/include/vp9.h",
         "patchSetId": 15
@@ -138,6 +234,30 @@
       "revId": "b5eb94a233f16ecd368d184a9b42a59a78a10443",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c277412_b88943b1",
+        "filename": "modules/video_coding/codecs/vp9/include/vp9.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-06-20T21:17:07Z",
+      "side": 1,
+      "message": "It breaks a lot of tests and upstream calls. It would go beyond the scope of this CL. I will add a TODO to make it clear that it should be deprecated.",
+      "parentUuid": "5b85586e_813d8572",
+      "range": {
+        "startLine": 32,
+        "startChar": 37,
+        "endLine": 32,
+        "endChar": 45
+      },
+      "revId": "b5eb94a233f16ecd368d184a9b42a59a78a10443",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

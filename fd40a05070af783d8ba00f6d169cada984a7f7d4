@@ -163,6 +163,30 @@
       "revId": "fd40a05070af783d8ba00f6d169cada984a7f7d4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9906f955_e43fbcce",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/LoggableTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-06-20T13:48:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "75a8c120_fd43aefb",
+      "range": {
+        "startLine": 68,
+        "startChar": 4,
+        "endLine": 68,
+        "endChar": 37
+      },
+      "revId": "fd40a05070af783d8ba00f6d169cada984a7f7d4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

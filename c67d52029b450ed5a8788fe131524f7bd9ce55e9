@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "a84f657f_09b35d28",
+        "filename": "rtc_base/logging.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-06-20T13:48:49Z",
+      "side": 1,
+      "message": "I feel that maybe the correct approach would be to support tags on other OSs as well. But I agree that this may be outside the scope of this CL.",
+      "parentUuid": "dd7a9c6e_b85a0139",
+      "range": {
+        "startLine": 88,
+        "startChar": 15,
+        "endLine": 88,
+        "endChar": 33
+      },
+      "revId": "c67d52029b450ed5a8788fe131524f7bd9ce55e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "682fde42_f8b44ce9",
         "filename": "sdk/android/BUILD.gn",
         "patchSetId": 3

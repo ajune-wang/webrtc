@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "dd7a9c6e_b85a0139",
+        "filename": "rtc_base/logging.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-06-20T13:32:47Z",
+      "side": 1,
+      "message": "Only Android uses tags, in the other OSes the filename is just added to the string in the constructor.",
+      "parentUuid": "6ff5fa85_7af63dd4",
+      "range": {
+        "startLine": 88,
+        "startChar": 15,
+        "endLine": 88,
+        "endChar": 33
+      },
+      "revId": "c67d52029b450ed5a8788fe131524f7bd9ce55e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "682fde42_f8b44ce9",
         "filename": "sdk/android/BUILD.gn",
         "patchSetId": 3

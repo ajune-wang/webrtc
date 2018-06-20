@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "0689a5ed_dbc011f9",
+        "filename": "rtc_base/logsinks.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-06-20T13:32:47Z",
+      "side": 1,
+      "message": "True, done.",
+      "parentUuid": "67e21b8c_d58936f0",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 27
+      },
+      "revId": "fd40a05070af783d8ba00f6d169cada984a7f7d4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1ff48501_022c2391",
         "filename": "sdk/android/BUILD.gn",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "fd40a05070af783d8ba00f6d169cada984a7f7d4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2cd0852a_60ca1755",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-06-20T13:32:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1ff48501_022c2391",
+      "range": {
+        "startLine": 99,
+        "startChar": 20,
+        "endLine": 99,
+        "endChar": 44
+      },
+      "revId": "fd40a05070af783d8ba00f6d169cada984a7f7d4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -82,6 +130,30 @@
       "writtenOn": "2018-06-19T07:20:52Z",
       "side": 1,
       "message": "It looks to me these are missing setNativeLibraryName?",
+      "range": {
+        "startLine": 68,
+        "startChar": 4,
+        "endLine": 68,
+        "endChar": 37
+      },
+      "revId": "fd40a05070af783d8ba00f6d169cada984a7f7d4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75a8c120_fd43aefb",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/LoggableTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-06-20T13:32:47Z",
+      "side": 1,
+      "message": "I only added it to the ones using the native library, added to all now.",
+      "parentUuid": "be8b77fa_31fcbff1",
       "range": {
         "startLine": 68,
         "startChar": 4,

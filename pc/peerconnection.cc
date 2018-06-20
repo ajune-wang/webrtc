@@ -1247,7 +1247,14 @@ PeerConnection::AddTrackUnifiedPlan(
              : cricket::MEDIA_TYPE_VIDEO);
     RTC_LOG(LS_INFO) << "Adding " << cricket::MediaTypeToString(media_type)
                      << " transceiver in response to a call to AddTrack.";
-    auto sender = CreateSender(media_type, track->id(), track, stream_ids);
+    std::string sender_id = track->id();
+    // Avoid creating a sender with an existing ID by generating a random ID.
+    // This can happen if this is the second time AddTrack has created a sender
+    // for this track.
+    if (FindSenderById(sender_id)) {
+      sender_id = rtc::CreateRandomUuid();
+    }
+    auto sender = CreateSender(media_type, sender_id, track, stream_ids);
     auto receiver = CreateReceiver(media_type, rtc::CreateRandomUuid());
     transceiver = CreateAndAddTransceiver(sender, receiver);
     transceiver->internal()->set_created_by_addtrack(true);
@@ -1459,6 +1466,8 @@ PeerConnection::CreateAndAddTransceiver(
     rtc::scoped_refptr<RtpSenderProxyWithInternal<RtpSenderInternal>> sender,
     rtc::scoped_refptr<RtpReceiverProxyWithInternal<RtpReceiverInternal>>
         receiver) {
+  RTC_DCHECK(!FindSenderById(sender->id()));
+  RTC_DCHECK(!FindReceiverById(receiver->id()));
   auto transceiver = RtpTransceiverProxyWithInternal<RtpTransceiver>::Create(
       signaling_thread(), new RtpTransceiver(sender, receiver));
   transceivers_.push_back(transceiver);

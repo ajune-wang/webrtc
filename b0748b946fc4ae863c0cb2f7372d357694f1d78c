@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "59092aa9_260d6d67",
+        "filename": "modules/audio_mixer/audio_frame_manipulator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-06-20T14:15:52Z",
+      "side": 1,
+      "message": "Strange that we only looked at the first half of both channels. Let\u0027s land it!",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 0
+      },
+      "revId": "b0748b946fc4ae863c0cb2f7372d357694f1d78c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

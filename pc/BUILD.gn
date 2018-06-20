@@ -93,11 +93,6 @@ rtc_static_library("rtc_pc_base") {
   }
 
   public_configs = [ ":rtc_pc_config" ]
-
-  if (!build_with_chromium && is_clang) {
-    # Suppress warnings from the Chromium Clang plugin (bugs.webrtc.org/163).
-    suppressed_configs += [ "//build/config/clang:find_bad_constructs" ]
-  }
 }
 
 rtc_source_set("rtc_pc") {
@@ -182,11 +177,6 @@ rtc_static_library("peerconnection") {
 
   configs += [ ":libjingle_peerconnection_warnings_config" ]
 
-  if (!build_with_chromium && is_clang) {
-    # Suppress warnings from the Chromium Clang plugin (bugs.webrtc.org/163).
-    suppressed_configs += [ "//build/config/clang:find_bad_constructs" ]
-  }
-
   deps = [
     ":rtc_pc_base",
     "..:webrtc_common",
@@ -248,11 +238,6 @@ rtc_static_library("create_pc_factory") {
   ]
 
   configs += [ ":libjingle_peerconnection_warnings_config" ]
-
-  if (!build_with_chromium && is_clang) {
-    # Suppress warnings from the Chromium Clang plugin (bugs.webrtc.org/163).
-    suppressed_configs += [ "//build/config/clang:find_bad_constructs" ]
-  }
 }
 
 rtc_source_set("libjingle_peerconnection") {
@@ -300,11 +285,6 @@ if (rtc_include_tests) {
     include_dirs = [ "//third_party/libsrtp/srtp" ]
 
     configs += [ ":rtc_pc_unittests_config" ]
-
-    if (!build_with_chromium && is_clang) {
-      # Suppress warnings from the Chromium Clang plugin (bugs.webrtc.org/163).
-      suppressed_configs += [ "//build/config/clang:find_bad_constructs" ]
-    }
 
     if (is_win) {
       libs = [ "strmiids.lib" ]
@@ -396,11 +376,6 @@ if (rtc_include_tests) {
       "../rtc_base:rtc_task_queue",
       "../test:test_support",
     ]
-
-    if (!build_with_chromium && is_clang) {
-      # Suppress warnings from the Chromium Clang plugin (bugs.webrtc.org/163).
-      suppressed_configs += [ "//build/config/clang:find_bad_constructs" ]
-    }
   }
 
   config("peerconnection_unittests_config") {
@@ -467,11 +442,6 @@ if (rtc_include_tests) {
     }
 
     configs += [ ":peerconnection_unittests_config" ]
-
-    if (!build_with_chromium && is_clang) {
-      # Suppress warnings from the Chromium Clang plugin (bugs.webrtc.org/163).
-      suppressed_configs += [ "//build/config/clang:find_bad_constructs" ]
-    }
 
     deps = [
       ":peerconnection",

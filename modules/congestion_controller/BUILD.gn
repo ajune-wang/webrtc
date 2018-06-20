@@ -30,11 +30,6 @@ rtc_static_library("congestion_controller") {
     "send_side_congestion_controller.cc",
   ]
 
-  if (!build_with_chromium && is_clang) {
-    # Suppress warnings from the Chromium Clang plugin (bugs.webrtc.org/163).
-    suppressed_configs += [ "//build/config/clang:find_bad_constructs" ]
-  }
-
   deps = [
     ":delay_based_bwe",
     ":transport_feedback",
@@ -93,11 +88,6 @@ rtc_source_set("delay_based_bwe") {
     "../remote_bitrate_estimator",
     "goog_cc:estimators",
   ]
-
-  if (!build_with_chromium && is_clang) {
-    # Suppress warnings from the Chromium Clang plugin (bugs.webrtc.org/163).
-    suppressed_configs += [ "//build/config/clang:find_bad_constructs" ]
-  }
 }
 
 if (rtc_include_tests) {
@@ -137,10 +127,6 @@ if (rtc_include_tests) {
       "goog_cc:goog_cc_unittests",
       "rtp:congestion_controller_unittests",
     ]
-    if (!build_with_chromium && is_clang) {
-      # Suppress warnings from the Chromium Clang plugin (bugs.webrtc.org/163).
-      suppressed_configs += [ "//build/config/clang:find_bad_constructs" ]
-    }
   }
 
   rtc_source_set("mock_congestion_controller") {

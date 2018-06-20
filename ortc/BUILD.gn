@@ -55,11 +55,6 @@ rtc_static_library("ortc") {
     "../rtc_base:rtc_base_approved",
     "//third_party/abseil-cpp/absl/types:optional",
   ]
-
-  if (!build_with_chromium && is_clang) {
-    # Suppress warnings from the Chromium Clang plugin (bugs.webrtc.org/163).
-    suppressed_configs += [ "//build/config/clang:find_bad_constructs" ]
-  }
 }
 
 if (rtc_include_tests) {
@@ -97,11 +92,6 @@ if (rtc_include_tests) {
       "../system_wrappers:metrics_default",
       "../system_wrappers:runtime_enabled_features_default",
     ]
-
-    if (!build_with_chromium && is_clang) {
-      # Suppress warnings from the Chromium Clang plugin (bugs.webrtc.org/163).
-      suppressed_configs += [ "//build/config/clang:find_bad_constructs" ]
-    }
 
     if (is_android) {
       deps += [ "//testing/android/native_test:native_test_support" ]

@@ -29,11 +29,6 @@ rtc_static_library("goog_cc") {
     "probe_controller.h",
   ]
 
-  if (!build_with_chromium && is_clang) {
-    # Suppress warnings from the Chromium Clang plugin (bugs.webrtc.org/163).
-    suppressed_configs += [ "//build/config/clang:find_bad_constructs" ]
-  }
-
   deps = [
     ":delay_based_bwe",
     ":estimators",
@@ -76,11 +71,6 @@ rtc_source_set("estimators") {
   # TODO(jschuh): Bug 1348: fix this warning.
   configs += [ "//build/config/compiler:no_size_t_to_int_warning" ]
 
-  if (!build_with_chromium && is_clang) {
-    # Suppress warnings from the Chromium Clang plugin (bugs.webrtc.org/163).
-    suppressed_configs += [ "//build/config/clang:find_bad_constructs" ]
-  }
-
   deps = [
     "../../../logging:rtc_event_bwe",
     "../../../logging:rtc_event_log_api",
@@ -115,11 +105,6 @@ rtc_source_set("delay_based_bwe") {
     "../../pacing",
     "../../remote_bitrate_estimator",
   ]
-
-  if (!build_with_chromium && is_clang) {
-    # Suppress warnings from the Chromium Clang plugin (bugs.webrtc.org/163).
-    suppressed_configs += [ "//build/config/clang:find_bad_constructs" ]
-  }
 }
 
 if (rtc_include_tests) {
@@ -155,9 +140,5 @@ if (rtc_include_tests) {
       "../../rtp_rtcp:rtp_rtcp_format",
       "//testing/gmock",
     ]
-    if (!build_with_chromium && is_clang) {
-      # Suppress warnings from the Chromium Clang plugin (bugs.webrtc.org/163).
-      suppressed_configs += [ "//build/config/clang:find_bad_constructs" ]
-    }
   }
 }

@@ -543,14 +543,6 @@ rtc_static_library("peerconnection_jni") {
     "src/jni/pc/turncustomizer.h",
   ]
 
-  if (is_clang) {
-    # Suppress warnings from the Chromium Clang plugin (bugs.webrtc.org/163).
-    suppressed_configs += [
-      "//build/config/clang:extra_warnings",
-      "//build/config/clang:find_bad_constructs",
-    ]
-  }
-
   deps = [
     ":base_jni",
     ":generated_external_classes_jni",
@@ -1184,14 +1176,6 @@ rtc_static_library("native_api_peerconnection") {
     "native_api/peerconnection/peerconnectionfactory.h",
   ]
 
-  if (is_clang) {
-    # Suppress warnings from the Chromium Clang plugin (bugs.webrtc.org/163).
-    suppressed_configs += [
-      "//build/config/clang:extra_warnings",
-      "//build/config/clang:find_bad_constructs",
-    ]
-  }
-
   deps = [
     ":base_jni",
     ":peerconnection_jni",
@@ -1273,11 +1257,7 @@ rtc_source_set("native_unittests") {
   ]
 
   if (is_clang) {
-    # Suppress warnings from the Chromium Clang plugin (bugs.webrtc.org/163).
-    suppressed_configs += [
-      "//build/config/clang:extra_warnings",
-      "//build/config/clang:find_bad_constructs",
-    ]
+    suppressed_configs += [ "//build/config/clang:extra_warnings" ]
   }
 
   deps = [

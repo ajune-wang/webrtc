@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "2ed2860d_ff1f2aae",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-06-20T00:21:41Z",
+      "side": 1,
+      "message": "Ack. Added a TODO and will make a CL to rename.",
+      "parentUuid": "0bab982d_1d5e1230",
+      "revId": "be2680ca791fb3f4c598eac4af0e68288744a09d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8960670f_6291c153",
         "filename": "p2p/base/p2pconstants.cc",
         "patchSetId": 9
@@ -102,6 +120,24 @@
       "side": 1,
       "message": "I was actually more concerned about this being too short, resulting in extra candidates being gathered and making ICE even slower in situations where it was slow to begin with. May want to err on the safe side if we\u0027re concerned about introducing regressions.",
       "parentUuid": "d6614e46_d4ff57c0",
+      "revId": "be2680ca791fb3f4c598eac4af0e68288744a09d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9454cdcf_56f0ffa8",
+        "filename": "p2p/base/p2pconstants.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-06-20T00:21:41Z",
+      "side": 1,
+      "message": "I have increased the timeout interval to 2.5 seconds but admittedly it is still very much based on my experience with the application in testing. Will keep a close look at the stats after rolling out. I have created a bug to remind myself and added a TODO linked to it.",
+      "parentUuid": "bbf833d9_dc529429",
       "revId": "be2680ca791fb3f4c598eac4af0e68288744a09d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

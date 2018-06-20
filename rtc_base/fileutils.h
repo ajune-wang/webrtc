@@ -103,22 +103,6 @@ class FilesystemInterface {
 
 class Filesystem {
  public:
-  static FilesystemInterface* default_filesystem() {
-    RTC_DCHECK(default_filesystem_);
-    return default_filesystem_;
-  }
-
-  static void set_default_filesystem(FilesystemInterface* filesystem) {
-    default_filesystem_ = filesystem;
-  }
-
-  static FilesystemInterface* swap_default_filesystem(
-      FilesystemInterface* filesystem) {
-    FilesystemInterface* cur = default_filesystem_;
-    default_filesystem_ = filesystem;
-    return cur;
-  }
-
   static bool DeleteFile(const Pathname& filename) {
     return EnsureDefaultFilesystem()->DeleteFile(filename);
   }

@@ -38,6 +38,15 @@ const int SRTP_AEAD_AES_128_GCM = 0x0007;
 const int SRTP_AEAD_AES_256_GCM = 0x0008;
 #endif
 
+enum class SrtpCryptoSuite {
+  INVALID_CRYPTO_SUITE,
+  AES128_CM_SHA1_80,
+  AES128_CM_SHA1_32,
+  AEAD_AES_128_GCM,
+  AEAD_AES_256_GCM,
+  MAX_VALUE,
+};
+
 // Names of SRTP profiles listed above.
 // 128-bit AES with 80-bit SHA-1 HMAC.
 extern const char CS_AES_CM_128_HMAC_SHA1_80[];
@@ -55,6 +64,9 @@ std::string SrtpCryptoSuiteToName(int crypto_suite);
 
 // The reverse of above conversion.
 int SrtpCryptoSuiteFromName(const std::string& crypto_suite);
+
+// Converts to the SrtpCryptoSuite enum.
+SrtpCryptoSuite GetSrtpCryptoSuiteFromInt(int value);
 
 // Get key length and salt length for given crypto suite. Returns true for
 // valid suites, otherwise false.

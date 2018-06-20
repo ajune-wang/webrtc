@@ -57,11 +57,13 @@
 #include "pc/test/fakertccertificategenerator.h"
 #include "pc/test/fakevideotrackrenderer.h"
 #include "pc/test/mockpeerconnectionobservers.h"
+#include "rtc_base/criticalsection.h"
 #include "rtc_base/fakenetwork.h"
 #include "rtc_base/firewallsocketserver.h"
 #include "rtc_base/gunit.h"
 #include "rtc_base/testcertificateverifier.h"
 #include "rtc_base/virtualsocketserver.h"
+#include "system_wrappers/include/metrics_default.h"
 #include "test/gmock.h"
 
 using cricket::ContentInfo;
@@ -128,6 +130,12 @@ static const int kDefaultSrtpCryptoSuite = rtc::SRTP_AES128_CM_SHA1_80;
 static const int kDefaultSrtpCryptoSuiteGcm = rtc::SRTP_AEAD_AES_256_GCM;
 
 static const SocketAddress kDefaultLocalAddress("192.168.1.1", 0);
+
+struct TestMetricsConfig {
+  TestMetricsConfig() : metrics_enabled(false) {}
+  rtc::CriticalSection crit_;
+  bool metrics_enabled RTC_GUARDED_BY(crit_);
+} test_metrics_config;
 
 // Helper function for constructing offer/answer options to initiate an ICE
 // restart.
@@ -1113,6 +1121,13 @@ class PeerConnectionIntegrationBaseTest : public testing::Test {
     worker_thread_->SetName("PCWorkerThread", this);
     RTC_CHECK(network_thread_->Start());
     RTC_CHECK(worker_thread_->Start());
+    {
+      rtc::CritScope lock(&test_metrics_config.crit_);
+      if (!test_metrics_config.metrics_enabled) {
+        webrtc::metrics::Enable();
+        test_metrics_config.metrics_enabled = true;
+      }
+    }
   }
 
   ~PeerConnectionIntegrationBaseTest() {
@@ -1136,6 +1151,14 @@ class PeerConnectionIntegrationBaseTest : public testing::Test {
       turn_servers_.clear();
       turn_customizers_.clear();
     });
+
+    {
+      rtc::CritScope lock(&test_metrics_config.crit_);
+      if (test_metrics_config.metrics_enabled) {
+        webrtc::metrics::Reset();
+        test_metrics_config.metrics_enabled = false;
+      }
+    }
   }
 
   bool SignalingStateStable() {
@@ -1520,9 +1543,6 @@ class PeerConnectionIntegrationBaseTest : public testing::Test {
       int expected_cipher_suite) {
     ASSERT_TRUE(CreatePeerConnectionWrappersWithOptions(caller_options,
                                                         callee_options));
-    rtc::scoped_refptr<webrtc::FakeMetricsObserver> caller_observer =
-        new rtc::RefCountedObject<webrtc::FakeMetricsObserver>();
-    caller()->pc()->RegisterUMAObserver(caller_observer);
     ConnectFakeSignaling();
     caller()->AddAudioVideoTracks();
     callee()->AddAudioVideoTracks();
@@ -1530,10 +1550,10 @@ class PeerConnectionIntegrationBaseTest : public testing::Test {
     ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
     EXPECT_EQ_WAIT(rtc::SrtpCryptoSuiteToName(expected_cipher_suite),
                    caller()->OldGetStats()->SrtpCipher(), kDefaultTimeout);
-    EXPECT_EQ(
-        1, caller_observer->GetEnumCounter(webrtc::kEnumCounterAudioSrtpCipher,
-                                           expected_cipher_suite));
-    caller()->pc()->RegisterUMAObserver(nullptr);
+    EXPECT_EQ(2u, webrtc::metrics::NumEvents(
+                      "WebRTC.PeerConnection.AudioSrtpCryptoSuite",
+                      static_cast<int>(rtc::GetSrtpCryptoSuiteFromInt(
+                          expected_cipher_suite))));
   }
 
   void TestGcmNegotiationUsesCipherSuite(bool local_gcm_enabled,
@@ -1703,9 +1723,6 @@ TEST_P(PeerConnectionIntegrationTest, DtmfSenderObserver) {
 TEST_P(PeerConnectionIntegrationTest, EndToEndCallWithDtls) {
   ASSERT_TRUE(CreatePeerConnectionWrappers());
   ConnectFakeSignaling();
-  rtc::scoped_refptr<webrtc::FakeMetricsObserver> caller_observer =
-      new rtc::RefCountedObject<webrtc::FakeMetricsObserver>();
-  caller()->pc()->RegisterUMAObserver(caller_observer);
 
   // Do normal offer/answer and wait for some frames to be received in each
   // direction.
@@ -1716,12 +1733,12 @@ TEST_P(PeerConnectionIntegrationTest, EndToEndCallWithDtls) {
   MediaExpectations media_expectations;
   media_expectations.ExpectBidirectionalAudioAndVideo();
   ASSERT_TRUE(ExpectNewFrames(media_expectations));
-  EXPECT_LE(
-      1, caller_observer->GetEnumCounter(webrtc::kEnumCounterKeyProtocol,
-                                         webrtc::kEnumCounterKeyProtocolDtls));
-  EXPECT_EQ(
-      0, caller_observer->GetEnumCounter(webrtc::kEnumCounterKeyProtocol,
-                                         webrtc::kEnumCounterKeyProtocolSdes));
+  EXPECT_LE(2u,
+            webrtc::metrics::NumEvents("WebRTC.PeerConnection.KeyProtocol",
+                                       webrtc::kEnumCounterKeyProtocolDtls));
+  EXPECT_EQ(0u,
+            webrtc::metrics::NumEvents("WebRTC.PeerConnection.KeyProtocol",
+                                       webrtc::kEnumCounterKeyProtocolSdes));
 }
 
 // Uses SDES instead of DTLS for key agreement.
@@ -1730,9 +1747,6 @@ TEST_P(PeerConnectionIntegrationTest, EndToEndCallWithSdes) {
   sdes_config.enable_dtls_srtp.emplace(false);
   ASSERT_TRUE(CreatePeerConnectionWrappersWithConfig(sdes_config, sdes_config));
   ConnectFakeSignaling();
-  rtc::scoped_refptr<webrtc::FakeMetricsObserver> caller_observer =
-      new rtc::RefCountedObject<webrtc::FakeMetricsObserver>();
-  caller()->pc()->RegisterUMAObserver(caller_observer);
 
   // Do normal offer/answer and wait for some frames to be received in each
   // direction.
@@ -1743,12 +1757,12 @@ TEST_P(PeerConnectionIntegrationTest, EndToEndCallWithSdes) {
   MediaExpectations media_expectations;
   media_expectations.ExpectBidirectionalAudioAndVideo();
   ASSERT_TRUE(ExpectNewFrames(media_expectations));
-  EXPECT_LE(
-      1, caller_observer->GetEnumCounter(webrtc::kEnumCounterKeyProtocol,
-                                         webrtc::kEnumCounterKeyProtocolSdes));
-  EXPECT_EQ(
-      0, caller_observer->GetEnumCounter(webrtc::kEnumCounterKeyProtocol,
-                                         webrtc::kEnumCounterKeyProtocolDtls));
+  EXPECT_LE(2u,
+            webrtc::metrics::NumEvents("WebRTC.PeerConnection.KeyProtocol",
+                                       webrtc::kEnumCounterKeyProtocolSdes));
+  EXPECT_EQ(0u,
+            webrtc::metrics::NumEvents("WebRTC.PeerConnection.KeyProtocol",
+                                       webrtc::kEnumCounterKeyProtocolDtls));
 }
 
 // Tests that the GetRemoteAudioSSLCertificate method returns the remote DTLS
@@ -2750,10 +2764,6 @@ TEST_P(PeerConnectionIntegrationTest, Dtls10CipherStatsAndUmaMetrics) {
   ASSERT_TRUE(CreatePeerConnectionWrappersWithOptions(dtls_10_options,
                                                       dtls_10_options));
   ConnectFakeSignaling();
-  // Register UMA observer before signaling begins.
-  rtc::scoped_refptr<webrtc::FakeMetricsObserver> caller_observer =
-      new rtc::RefCountedObject<webrtc::FakeMetricsObserver>();
-  caller()->pc()->RegisterUMAObserver(caller_observer);
   caller()->AddAudioVideoTracks();
   callee()->AddAudioVideoTracks();
   caller()->CreateAndSetAndSignalOffer();
@@ -2763,9 +2773,10 @@ TEST_P(PeerConnectionIntegrationTest, Dtls10CipherStatsAndUmaMetrics) {
                    kDefaultTimeout);
   EXPECT_EQ_WAIT(rtc::SrtpCryptoSuiteToName(kDefaultSrtpCryptoSuite),
                  caller()->OldGetStats()->SrtpCipher(), kDefaultTimeout);
-  EXPECT_EQ(1,
-            caller_observer->GetEnumCounter(webrtc::kEnumCounterAudioSrtpCipher,
-                                            kDefaultSrtpCryptoSuite));
+  EXPECT_EQ(2u, webrtc::metrics::NumEvents(
+                    "WebRTC.PeerConnection.AudioSrtpCryptoSuite",
+                    static_cast<int>(rtc::GetSrtpCryptoSuiteFromInt(
+                        kDefaultSrtpCryptoSuite))));
 }
 
 // Test getting cipher stats and UMA metrics when DTLS 1.2 is negotiated.
@@ -2775,10 +2786,6 @@ TEST_P(PeerConnectionIntegrationTest, Dtls12CipherStatsAndUmaMetrics) {
   ASSERT_TRUE(CreatePeerConnectionWrappersWithOptions(dtls_12_options,
                                                       dtls_12_options));
   ConnectFakeSignaling();
-  // Register UMA observer before signaling begins.
-  rtc::scoped_refptr<webrtc::FakeMetricsObserver> caller_observer =
-      new rtc::RefCountedObject<webrtc::FakeMetricsObserver>();
-  caller()->pc()->RegisterUMAObserver(caller_observer);
   caller()->AddAudioVideoTracks();
   callee()->AddAudioVideoTracks();
   caller()->CreateAndSetAndSignalOffer();
@@ -2788,9 +2795,10 @@ TEST_P(PeerConnectionIntegrationTest, Dtls12CipherStatsAndUmaMetrics) {
                    kDefaultTimeout);
   EXPECT_EQ_WAIT(rtc::SrtpCryptoSuiteToName(kDefaultSrtpCryptoSuite),
                  caller()->OldGetStats()->SrtpCipher(), kDefaultTimeout);
-  EXPECT_EQ(1,
-            caller_observer->GetEnumCounter(webrtc::kEnumCounterAudioSrtpCipher,
-                                            kDefaultSrtpCryptoSuite));
+  EXPECT_EQ(2u, webrtc::metrics::NumEvents(
+                    "WebRTC.PeerConnection.AudioSrtpCryptoSuite",
+                    static_cast<int>(rtc::GetSrtpCryptoSuiteFromInt(
+                        kDefaultSrtpCryptoSuite))));
 }
 
 // Test that DTLS 1.0 can be used if the caller supports DTLS 1.2 and the
@@ -3509,19 +3517,17 @@ TEST_P(PeerConnectionIntegrationIceStatesTest, VerifyBestConnection) {
   SetUpNetworkInterfaces();
   caller()->AddAudioVideoTracks();
   callee()->AddAudioVideoTracks();
-
-  rtc::scoped_refptr<webrtc::FakeMetricsObserver> metrics_observer(
-      new rtc::RefCountedObject<webrtc::FakeMetricsObserver>());
-  caller()->pc()->RegisterUMAObserver(metrics_observer.get());
-
   caller()->CreateAndSetAndSignalOffer();
 
   ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
 
-  const int num_best_ipv4 = metrics_observer->GetEnumCounter(
-      webrtc::kEnumCounterAddressFamily, webrtc::kBestConnections_IPv4);
-  const int num_best_ipv6 = metrics_observer->GetEnumCounter(
-      webrtc::kEnumCounterAddressFamily, webrtc::kBestConnections_IPv6);
+  // Note that only the ICE controlling side is able to transit to
+  // PeerConnectionInterface::kIceConnectionCompleted to
+  // ReportBestConnectionState.
+  const int num_best_ipv4 = webrtc::metrics::NumEvents(
+      "WebRTC.PeerConnection.AddressFamily", webrtc::kBestConnections_IPv4);
+  const int num_best_ipv6 = webrtc::metrics::NumEvents(
+      "WebRTC.PeerConnection.AddressFamily", webrtc::kBestConnections_IPv6);
   if (TestIPv6()) {
     // When IPv6 is enabled, we should prefer an IPv6 connection over an IPv4
     // connection.
@@ -3532,11 +3538,11 @@ TEST_P(PeerConnectionIntegrationIceStatesTest, VerifyBestConnection) {
     EXPECT_EQ(0u, num_best_ipv6);
   }
 
-  EXPECT_EQ(0u, metrics_observer->GetEnumCounter(
-                    webrtc::kEnumCounterIceCandidatePairTypeUdp,
+  EXPECT_EQ(0u, webrtc::metrics::NumEvents(
+                    "WebRTC.PeerConnection.IceCandidatePairTypeUdp",
                     webrtc::kIceCandidatePairHostHost));
-  EXPECT_EQ(1u, metrics_observer->GetEnumCounter(
-                    webrtc::kEnumCounterIceCandidatePairTypeUdp,
+  EXPECT_EQ(1u, webrtc::metrics::NumEvents(
+                    "WebRTC.PeerConnection.IceCandidatePairTypeUdp",
                     webrtc::kIceCandidatePairHostPublicHostPublic));
 }
 
@@ -4637,13 +4643,6 @@ TEST_P(PeerConnectionIntegrationInteropTest,
 TEST_P(PeerConnectionIntegrationTest, UsageFingerprintHistogram) {
   ASSERT_TRUE(CreatePeerConnectionWrappers());
   ConnectFakeSignaling();
-  // Register UMA observer before signaling begins.
-  rtc::scoped_refptr<webrtc::FakeMetricsObserver> caller_observer =
-      new rtc::RefCountedObject<webrtc::FakeMetricsObserver>();
-  caller()->pc()->RegisterUMAObserver(caller_observer);
-  rtc::scoped_refptr<webrtc::FakeMetricsObserver> callee_observer =
-      new rtc::RefCountedObject<webrtc::FakeMetricsObserver>();
-  callee()->pc()->RegisterUMAObserver(callee_observer);
   caller()->AddAudioTrack();
   caller()->AddVideoTrack();
   caller()->CreateAndSetAndSignalOffer();
@@ -4659,10 +4658,11 @@ TEST_P(PeerConnectionIntegrationTest, UsageFingerprintHistogram) {
        PeerConnection::UsageEvent::REMOTE_CANDIDATE_ADDED,
        PeerConnection::UsageEvent::ICE_STATE_CONNECTED,
        PeerConnection::UsageEvent::CLOSE_CALLED});
-  EXPECT_TRUE(caller_observer->ExpectOnlySingleEnumCount(
-      webrtc::kEnumCounterUsagePattern, expected_fingerprint));
-  EXPECT_TRUE(callee_observer->ExpectOnlySingleEnumCount(
-      webrtc::kEnumCounterUsagePattern, expected_fingerprint));
+
+  EXPECT_EQ(2u,
+            webrtc::metrics::NumSamples("WebRTC.PeerConnection.UsagePattern"));
+  EXPECT_EQ(2u, webrtc::metrics::NumEvents("WebRTC.PeerConnection.UsagePattern",
+                                           expected_fingerprint));
 }
 
 INSTANTIATE_TEST_CASE_P(

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a39378de_1e9ed612",
+        "filename": "OWNERS",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-06-20T12:33:30Z",
+      "side": 1,
+      "message": "Actually, remove me from these since I\u0027m a top-level owner now. I think it\u0027s reasonable to make you the main contact for GN changes from now on.",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 34
+      },
+      "revId": "7919c19a58ab5469b1f96c06c140744ee27635ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

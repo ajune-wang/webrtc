@@ -33,11 +33,6 @@ rtc_source_set("rtc_h264_profile_id") {
     "base/h264_profile_level_id.h",
   ]
 
-  if (!build_with_chromium && is_clang) {
-    # Suppress warnings from the Chromium Clang plugin (bugs.webrtc.org/163).
-    suppressed_configs += [ "//build/config/clang:find_bad_constructs" ]
-  }
-
   deps = [
     "..:webrtc_common",
     "../rtc_base:rtc_base",
@@ -100,11 +95,6 @@ rtc_static_library("rtc_media_base") {
     "base/videosourcebase.cc",
     "base/videosourcebase.h",
   ]
-
-  if (!build_with_chromium && is_clang) {
-    # Suppress warnings from the Chromium Clang plugin (bugs.webrtc.org/163).
-    suppressed_configs += [ "//build/config/clang:find_bad_constructs" ]
-  }
 
   deps += [
     ":rtc_h264_profile_id",
@@ -172,11 +162,6 @@ rtc_static_library("rtc_internal_video_codecs") {
     "engine/webrtcvideodecoderfactory.h",
     "engine/webrtcvideoencoderfactory.h",
   ]
-
-  if (!build_with_chromium && is_clang) {
-    # Suppress warnings from the Chromium Clang plugin (bugs.webrtc.org/163).
-    suppressed_configs += [ "//build/config/clang:find_bad_constructs" ]
-  }
 
   include_dirs = []
 
@@ -248,11 +233,6 @@ rtc_static_library("rtc_audio_video") {
     "engine/webrtcvoiceengine.cc",
     "engine/webrtcvoiceengine.h",
   ]
-
-  if (!build_with_chromium && is_clang) {
-    # Suppress warnings from the Chromium Clang plugin (bugs.webrtc.org/163).
-    suppressed_configs += [ "//build/config/clang:find_bad_constructs" ]
-  }
 
   if (rtc_enable_intelligibility_enhancer) {
     defines += [ "WEBRTC_INTELLIGIBILITY_ENHANCER=1" ]
@@ -333,11 +313,6 @@ rtc_static_library("rtc_data") {
     ]
   }
 
-  if (!build_with_chromium && is_clang) {
-    # Suppress warnings from the Chromium Clang plugin (bugs.webrtc.org/163).
-    suppressed_configs += [ "//build/config/clang:find_bad_constructs" ]
-  }
-
   if (rtc_enable_sctp && rtc_build_usrsctp) {
     include_dirs = [
       # TODO(jiayl): move this into the public_configs of
@@ -413,11 +388,6 @@ if (rtc_include_tests) {
       "engine/fakewebrtcvideoengine.cc",
       "engine/fakewebrtcvideoengine.h",
     ]
-
-    if (!build_with_chromium && is_clang) {
-      # Suppress warnings from the Chromium Clang plugin (bugs.webrtc.org/163).
-      suppressed_configs += [ "//build/config/clang:find_bad_constructs" ]
-    }
 
     if (rtc_use_h264) {
       defines += [ "WEBRTC_USE_H264" ]
@@ -526,12 +496,7 @@ if (rtc_include_tests) {
     }
 
     if (!build_with_chromium && is_clang) {
-      suppressed_configs += [
-        "//build/config/clang:extra_warnings",
-
-        # Suppress warnings from the Chromium Clang plugin (bugs.webrtc.org/163).
-        "//build/config/clang:find_bad_constructs",
-      ]
+      suppressed_configs += [ "//build/config/clang:extra_warnings" ]
     }
 
     data = rtc_media_unittests_resources

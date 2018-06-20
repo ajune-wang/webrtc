@@ -144,12 +144,6 @@ if (!build_with_chromium) {
       "frame_editing/frame_editing_lib.cc",
       "frame_editing/frame_editing_lib.h",
     ]
-
-    if (!build_with_chromium && is_clang) {
-      # Suppress warnings from the Chromium Clang plugin (bugs.webrtc.org/163).
-      suppressed_configs += [ "//build/config/clang:find_bad_constructs" ]
-    }
-
     deps = [
       "..:webrtc_common",
       "../:typedefs",
@@ -175,12 +169,6 @@ if (!build_with_chromium) {
       sources = [
         "force_mic_volume_max/force_mic_volume_max.cc",
       ]
-
-      if (!build_with_chromium && is_clang) {
-        # Suppress warnings from the Chromium Clang plugin (bugs.webrtc.org/163).
-        suppressed_configs += [ "//build/config/clang:find_bad_constructs" ]
-      }
-
       deps = [
         "../modules/audio_device",
         "../modules/audio_device:audio_device_impl",
@@ -212,10 +200,6 @@ if (!build_with_chromium) {
         "event_log_visualizer/plot_python.h",
         "event_log_visualizer/triage_notifications.h",
       ]
-      if (!build_with_chromium && is_clang) {
-        # Suppress warnings from the Chromium Clang plugin (bugs.webrtc.org/163).
-        suppressed_configs += [ "//build/config/clang:find_bad_constructs" ]
-      }
       defines = [ "ENABLE_RTC_EVENT_LOG" ]
       deps = [
         ":chart_proto",
@@ -256,12 +240,6 @@ if (rtc_include_tests) {
       sources = [
         "event_log_visualizer/main.cc",
       ]
-
-      if (!build_with_chromium && is_clang) {
-        # Suppress warnings from the Chromium Clang plugin (bugs.webrtc.org/163).
-        suppressed_configs += [ "//build/config/clang:find_bad_constructs" ]
-      }
-
       defines = [ "ENABLE_RTC_EVENT_LOG" ]
       deps = [
         ":event_log_visualizer_utils",
@@ -281,12 +259,6 @@ if (rtc_include_tests) {
     sources = [
       "agc/activity_metric.cc",
     ]
-
-    if (!build_with_chromium && is_clang) {
-      # Suppress warnings from the Chromium Clang plugin (bugs.webrtc.org/163).
-      suppressed_configs += [ "//build/config/clang:find_bad_constructs" ]
-    }
-
     deps = [
       "../api/audio:audio_frame_api",
       "../modules/audio_processing",
@@ -326,12 +298,6 @@ if (rtc_include_tests) {
       "sanitizers_unittest.cc",
       "simple_command_line_parser_unittest.cc",
     ]
-
-    if (!build_with_chromium && is_clang) {
-      # Suppress warnings from the Chromium Clang plugin (bugs.webrtc.org/163).
-      suppressed_configs += [ "//build/config/clang:find_bad_constructs" ]
-    }
-
     deps = [
       ":command_line_parser",
       ":frame_editing_lib",

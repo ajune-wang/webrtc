@@ -252,26 +252,41 @@ rtc_add_configs = rtc_common_configs
 set_defaults("rtc_test") {
   configs = rtc_add_configs
   suppressed_configs = []
+  if (!build_with_chromium && is_clang) {
+    suppressed_configs += [ "//build/config/clang:find_bad_constructs" ]
+  }
 }
 
 set_defaults("rtc_source_set") {
   configs = rtc_add_configs
   suppressed_configs = []
+  if (!build_with_chromium && is_clang) {
+    suppressed_configs += [ "//build/config/clang:find_bad_constructs" ]
+  }
 }
 
 set_defaults("rtc_executable") {
   configs = rtc_add_configs
   suppressed_configs = []
+  if (!build_with_chromium && is_clang) {
+    suppressed_configs += [ "//build/config/clang:find_bad_constructs" ]
+  }
 }
 
 set_defaults("rtc_static_library") {
   configs = rtc_add_configs
   suppressed_configs = []
+  if (!build_with_chromium && is_clang) {
+    suppressed_configs += [ "//build/config/clang:find_bad_constructs" ]
+  }
 }
 
 set_defaults("rtc_shared_library") {
   configs = rtc_add_configs
   suppressed_configs = []
+  if (!build_with_chromium && is_clang) {
+    suppressed_configs += [ "//build/config/clang:find_bad_constructs" ]
+  }
 }
 
 webrtc_default_visibility = [ webrtc_root + "/*" ]

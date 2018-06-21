@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "4ef52880_fbd836de",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-21T21:19:30Z",
+      "side": 1,
+      "message": "I think the code\u0027s intention would be easier to divine, if you use the following:\n  prng_(std::get\u003c0\u003e(GetParam())),\n  gen_(prng_.Rand\u003cuint64_t\u003e()),\n(Note that you don\u0027t actually need to keep |seed_| around.)",
+      "parentUuid": "3bd29891_986316cd",
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "00005edd_42f67091",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
         "patchSetId": 7
@@ -66,6 +84,24 @@
       "side": 1,
       "message": "This real clock should not wrap around, and this fake clock will not wrap around since we initialize a 64_bit int from a 32 bit random value.",
       "parentUuid": "00005edd_42f67091",
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7346f559_621bee5f",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-21T21:19:30Z",
+      "side": 1,
+      "message": "The real clock would wrap around at some point, I assume. And a user can theoretically set any clock well beyond the real date at the time. But I guess that would be overkill to test.",
+      "parentUuid": "a7a6907f_8d8b3a66",
       "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
@@ -107,6 +143,30 @@
       "side": 1,
       "message": "Added TODO. The WebRTC support for temp files is not very convenient.",
       "parentUuid": "7949c8d2_e6d32107",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 104,
+        "endChar": 51
+      },
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "79f77879_f540d947",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-21T21:19:30Z",
+      "side": 1,
+      "message": "Thanks.",
+      "parentUuid": "b9f4688d_d4f5d53a",
       "range": {
         "startLine": 98,
         "startChar": 0,
@@ -255,6 +315,24 @@
       "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f8b9fc9a_16d7ad6d",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-21T21:19:30Z",
+      "side": 1,
+      "message": "Actually, why are we even keeping this around?",
+      "parentUuid": "f2ac62cd_e3e78ed6",
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     },
     {
       "key": {
@@ -410,6 +488,24 @@
     },
     {
       "key": {
+        "uuid": "90c7a20d_3a5df475",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-21T21:19:30Z",
+      "side": 1,
+      "message": "1. Thanks for explaining.\n2. Do we test for cases where the received packets\u0027 extensions do not actually match the config? Or would that be rejected before logged?\n3. Suggest: comment.",
+      "parentUuid": "8a2c4475_1fe9f3cd",
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b8940deb_4258db19",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
         "patchSetId": 7
@@ -480,6 +576,24 @@
     },
     {
       "key": {
+        "uuid": "0abfe6d5_146bff1b",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-21T21:19:30Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ff01b31f_0bd56efb",
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3168752c_3f45a5a4",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
         "patchSetId": 7
@@ -532,6 +646,24 @@
     },
     {
       "key": {
+        "uuid": "7afa8ab6_326292ac",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-21T21:19:30Z",
+      "side": 1,
+      "message": "Ping (can ignore if you don\u0027t think it\u0027s worth the effort; I just want to make sure it wasn\u0027t missed).",
+      "parentUuid": "7b65415e_89e8ebdb",
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0fd861df_80b4ff1f",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
         "patchSetId": 7
@@ -564,6 +696,24 @@
       "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45537829_b50e797c",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-21T21:19:30Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b82ec1c4_9a05de11",
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -602,6 +752,24 @@
     },
     {
       "key": {
+        "uuid": "7b958f3a_35362e78",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-21T21:19:30Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b82067cf_a6d9035a",
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1214f8c3_218d4974",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
         "patchSetId": 7
@@ -631,6 +799,24 @@
       "side": 1,
       "message": "Yeah, it could possibly cause problems in parsing. Not clear what to do in this case. Maybe sort them by timestamp when parsing? Added TODO.",
       "parentUuid": "1214f8c3_218d4974",
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41aa65d8_ced31b25",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 426,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-21T21:19:30Z",
+      "side": 1,
+      "message": "I think that, eventually (TODOs are perfectly OK), we should ensure:\n* When attempting to Log() an impossible sequence of events, the logger itself must not crash.\n* If possible, it would be good to abort logging altogether in such a case, as the resulting log would either be unparseable or misleading. (I can think of arguments against this; it\u0027s debatable.)\n* If the parser is processing a file which it recognizes to be defective in some way (time runs backwards, etc.), it should abort, rather than produce a misleading result.\n\nYour thoughts?",
+      "parentUuid": "57a01061_768b48a5",
       "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -669,6 +855,24 @@
       "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2605f4f_eeacce3c",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-21T21:19:30Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "1f32581c_44b47124",
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -719,6 +923,30 @@
     },
     {
       "key": {
+        "uuid": "1884fb84_aca76b58",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-21T21:19:30Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "9f28208a_4fbd08d4",
+      "range": {
+        "startLine": 468,
+        "startChar": 0,
+        "endLine": 476,
+        "endChar": 3
+      },
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "379baa0e_26df7281",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
         "patchSetId": 7
@@ -748,6 +976,24 @@
       "side": 1,
       "message": "All of the constants are different too, so we wouldn\u0027t be able to use the same helper function.",
       "parentUuid": "379baa0e_26df7281",
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db402a8d_7e76018e",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 626,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-21T21:19:30Z",
+      "side": 1,
+      "message": "Aren\u0027t the constants arbitrary? The gap between arbitrary and random is not wide.",
+      "parentUuid": "96c4ee8d_51b8145f",
       "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -856,6 +1102,24 @@
       "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55dc3107_1cbb8531",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 710,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-21T21:19:30Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ab662eb9_d24ce6a2",
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -1045,6 +1309,30 @@
     },
     {
       "key": {
+        "uuid": "1bccd0ce_7f5ca549",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-21T21:19:30Z",
+      "side": 1,
+      "message": "RtcEventRtpPacketOutgoing and RtcEventRtpPacketIncoming are indeed different, and do not share a type. RtpPacketToSend and RtpPacketReceived share a common type. But I guess what you\u0027re saying is that you\u0027d have to cast RtpPacket to either RtpPacketReceived or RtpPacketToSend before constructing the event, which is something I guess I had forgotten. So yeah, forget my suggestion.",
+      "parentUuid": "d03e06a8_ae97fa41",
+      "range": {
+        "startLine": 224,
+        "startChar": 0,
+        "endLine": 228,
+        "endChar": 28
+      },
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "48958546_3c41db9b",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
         "patchSetId": 7
@@ -1074,6 +1362,24 @@
       "side": 1,
       "message": "Nothing in the current code relies on consecutive sequence numbers.",
       "parentUuid": "48958546_3c41db9b",
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb1200ed_95d08057",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-21T21:19:30Z",
+      "side": 1,
+      "message": "You\u0027re doing delta-encoding, right? A delta of 0 and a delta of 1 are special cases, and deserve to be tested. The probability you\u0027re testing those deltas when only Rand\u003cuint16_t\u003e() is ever used, is not sufficiently high, IMHO. I would have added a TODO. Just my opinion, of course.",
+      "parentUuid": "e5904f21_85422c01",
       "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -1112,6 +1418,24 @@
       "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2583e61c_abcf7d02",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-21T21:19:30Z",
+      "side": 1,
+      "message": "I wanted the code to uniformly select a size over what\u0027s left for the payload, after the CSRCs have taken their cut. As it is, you\u0027re slightly biased upwards, when kMaxCsrcs ends up not being the number of used CSRCs. But you\u0027re right, this is not at all important.",
+      "parentUuid": "b55060c9_b6332ca5",
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -1231,6 +1555,24 @@
       "writtenOn": "2018-06-18T11:06:37Z",
       "side": 1,
       "message": "1. Could we use RtpExtension::kMaxId here?\n2. Is RtpHeaderExtensionMap::kMaxId designed to be the exact same value? If so, perhaps one should define itself in terms of the other? Or eliminate one altogether?",
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9c68e27_43ae6012",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-21T21:19:30Z",
+      "side": 1,
+      "message": "Ping (same caveat as other ping).",
+      "parentUuid": "1a02d57f_097b3709",
       "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -1471,6 +1813,30 @@
     },
     {
       "key": {
+        "uuid": "8b6d344b_861219b9",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 701,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-21T21:19:30Z",
+      "side": 1,
+      "message": "Oops! :-)",
+      "parentUuid": "e7de25a5_9e1fa705",
+      "range": {
+        "startLine": 698,
+        "startChar": 0,
+        "endLine": 701,
+        "endChar": 3
+      },
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ac094ddc_2975ba8c",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
         "patchSetId": 7
@@ -1506,6 +1872,24 @@
     },
     {
       "key": {
+        "uuid": "fdfea923_da9c1f4b",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 713,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-21T21:19:30Z",
+      "side": 1,
+      "message": "Oops! :-)",
+      "parentUuid": "9cfaeebd_62e82351",
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "89b33bbd_3e6dba8a",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
         "patchSetId": 7
@@ -1535,6 +1919,24 @@
       "side": 1,
       "message": "At some point in the past, we changed the way we store send configs for simulcast streams. Afaicr, previously we stored all SSRCs in the same VideoSendConfig, but now we would store one VideoSendConfig per SSRC. We maintained the parser for backwards compatibility.\n\nWe should look into dropping support for this. Added TODO.",
       "parentUuid": "89b33bbd_3e6dba8a",
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8d0cb373_0e8ee065",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 769,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-21T21:19:30Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7b9c61e0_70fb1a30",
       "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

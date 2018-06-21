@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3faf1505_dfb69902",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-21T21:19:30Z",
+      "side": 1,
+      "message": "Thank you for explaining the reasoning. Could you please add a comment for it here?",
+      "range": {
+        "startLine": 228,
+        "startChar": 0,
+        "endLine": 229,
+        "endChar": 47
+      },
+      "revId": "9c2e82a371db296f7fa4859d74a393ba3201d57f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d2f4e76_0cc732cf",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-21T21:19:30Z",
+      "side": 1,
+      "message": "And here?",
+      "revId": "9c2e82a371db296f7fa4859d74a393ba3201d57f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5dfc2240_78397df7",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-21T21:19:30Z",
+      "side": 1,
+      "message": "s/wth/with",
+      "range": {
+        "startLine": 279,
+        "startChar": 39,
+        "endLine": 279,
+        "endChar": 42
+      },
+      "revId": "9c2e82a371db296f7fa4859d74a393ba3201d57f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ca87b4c_be8a6b6a",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-21T21:19:30Z",
+      "side": 1,
+      "message": "s/Then/the",
+      "range": {
+        "startLine": 282,
+        "startChar": 5,
+        "endLine": 282,
+        "endChar": 9
+      },
+      "revId": "9c2e82a371db296f7fa4859d74a393ba3201d57f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "49b0ab89_7039d08d",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-21T21:19:30Z",
+      "side": 1,
+      "message": "I don\u0027t want to block your progress and have you endlessly polish this test suite, so please feel very welcome to add a TODO (or ignore me), but I must mention that I think that a good test suite would also test the case where the user of the module was abusing it. For example, Log(RtpPacketSent) without any prior configuration, while it would not produce a parse-able log, should not crash either.",
+      "range": {
+        "startLine": 286,
+        "startChar": 0,
+        "endLine": 289,
+        "endChar": 0
+      },
+      "revId": "9c2e82a371db296f7fa4859d74a393ba3201d57f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

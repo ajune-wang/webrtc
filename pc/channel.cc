@@ -34,6 +34,8 @@
 #include "pc/channelmanager.h"
 #include "pc/rtpmediautils.h"
 
+#include "absl/strings/str_cat.h"
+
 namespace cricket {
 using rtc::Bind;
 using webrtc::SdpType;
@@ -607,10 +609,9 @@ bool BaseChannel::UpdateLocalStreams_w(const std::vector<StreamParams>& streams,
        it != local_streams_.end(); ++it) {
     if (it->has_ssrcs() && !GetStreamBySsrc(streams, it->first_ssrc())) {
       if (!media_channel()->RemoveSendStream(it->first_ssrc())) {
-        std::ostringstream desc;
-        desc << "Failed to remove send stream with ssrc "
-             << it->first_ssrc() << ".";
-        SafeSetError(desc.str(), error_desc);
+        SafeSetError(absl::StrCat("Failed to remove send stream with ssrc ",
+                                  it->first_ssrc(), "."),
+                     error_desc);
         ret = false;
       }
     }
@@ -622,9 +623,9 @@ bool BaseChannel::UpdateLocalStreams_w(const std::vector<StreamParams>& streams,
       if (media_channel()->AddSendStream(*it)) {
         RTC_LOG(LS_INFO) << "Add send stream ssrc: " << it->ssrcs[0];
       } else {
-        std::ostringstream desc;
-        desc << "Failed to add send stream ssrc: " << it->first_ssrc();
-        SafeSetError(desc.str(), error_desc);
+        SafeSetError(
+            absl::StrCat("Failed to add send stream ssrc: ", it->first_ssrc()),
+            error_desc);
         ret = false;
       }
     }
@@ -648,10 +649,9 @@ bool BaseChannel::UpdateRemoteStreams_w(
       if (RemoveRecvStream_w(it->first_ssrc())) {
         RTC_LOG(LS_INFO) << "Remove remote ssrc: " << it->first_ssrc();
       } else {
-        std::ostringstream desc;
-        desc << "Failed to remove remote stream with ssrc "
-             << it->first_ssrc() << ".";
-        SafeSetError(desc.str(), error_desc);
+        SafeSetError(absl::StrCat("Failed to remove remote stream with ssrc ",
+                                  it->first_ssrc(), "."),
+                     error_desc);
         ret = false;
       }
     }
@@ -668,9 +668,9 @@ bool BaseChannel::UpdateRemoteStreams_w(
       if (AddRecvStream_w(*it)) {
         RTC_LOG(LS_INFO) << "Add remote ssrc: " << it->first_ssrc();
       } else {
-        std::ostringstream desc;
-        desc << "Failed to add remote stream ssrc: " << it->first_ssrc();
-        SafeSetError(desc.str(), error_desc);
+        SafeSetError(absl::StrCat("Failed to add remote stream ssrc: ",
+                                  it->first_ssrc()),
+                     error_desc);
         ret = false;
       }
     }

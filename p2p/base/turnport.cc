@@ -26,6 +26,8 @@
 #include "rtc_base/socketaddress.h"
 #include "rtc_base/stringencode.h"
 
+#include "absl/strings/str_cat.h"
+
 namespace cricket {
 
 // TODO(juberti): Move to stun.h when relay messages have been renamed.
@@ -1235,10 +1237,9 @@ std::string TurnPort::ReconstructedServerUrl() {
     case PROTO_TCP:
       break;
   }
-  std::ostringstream url;
-  url << scheme << ":" << server_address_.address.ipaddr().ToString() << ":"
-      << server_address_.address.port() << "?transport=" << transport;
-  return url.str();
+  return absl::StrCat(scheme, ":", server_address_.address.ipaddr().ToString(),
+                      ":", server_address_.address.port(),
+                      "?transport=", transport);
 }
 
 void TurnPort::TurnCustomizerMaybeModifyOutgoingStunMessage(

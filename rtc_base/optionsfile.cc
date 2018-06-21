@@ -168,7 +168,8 @@ bool OptionsFile::SetIntValue(const std::string& option,
   if (!IsLegalName(option)) {
     return false;
   }
-  return ToString(value, &options_[option]);
+  ToString(value, &options_[option]);
+  return true;
 }
 
 bool OptionsFile::RemoveValue(const std::string& option) {

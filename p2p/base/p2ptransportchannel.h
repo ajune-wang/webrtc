@@ -42,6 +42,8 @@
 #include "rtc_base/constructormagic.h"
 #include "rtc_base/sigslot.h"
 
+#include "absl/strings/str_cat.h"
+
 namespace webrtc {
 class RtcEventLog;
 }  // namespace webrtc
@@ -164,12 +166,11 @@ class P2PTransportChannel : public IceTransportInternal {
   }
 
   std::string ToString() const {
-    const char RECEIVING_ABBREV[2] = {'_', 'R'};
-    const char WRITABLE_ABBREV[2] = {'_', 'W'};
-    std::stringstream ss;
-    ss << "Channel[" << transport_name_ << "|" << component_ << "|"
-       << RECEIVING_ABBREV[receiving_] << WRITABLE_ABBREV[writable_] << "]";
-    return ss.str();
+    const char* RECEIVING_ABBREV[2] = {"_", "R"};
+    const char* WRITABLE_ABBREV[2] = {"_", "W"};
+    return absl::StrCat("Channel[", transport_name_, "|", component_, "|",
+                        RECEIVING_ABBREV[receiving_],
+                        WRITABLE_ABBREV[writable_], "]");
   }
 
  private:

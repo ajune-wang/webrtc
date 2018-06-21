@@ -22,6 +22,8 @@
 #include "rtc_base/logging.h"
 #include "rtc_base/nethelpers.h"
 
+#include "absl/strings/str_cat.h"
+
 namespace cricket {
 
 // TODO(?): Move these to a common place (used in relayport too)
@@ -479,12 +481,12 @@ void UDPPort::OnStunBindingRequestSucceeded(
           related_address.family());
     }
 
-    std::ostringstream url;
-    url << "stun:" << stun_server_addr.ipaddr().ToString() << ":"
-        << stun_server_addr.port();
+    std::string url =
+        absl::StrCat("stun:", stun_server_addr.ipaddr().ToString(), ":",
+                     stun_server_addr.port());
     AddAddress(stun_reflected_addr, socket_->GetLocalAddress(), related_address,
                UDP_PROTOCOL_NAME, "", "", STUN_PORT_TYPE,
-               ICE_TYPE_PREFERENCE_SRFLX, 0, url.str(), false);
+               ICE_TYPE_PREFERENCE_SRFLX, 0, url, false);
   }
   MaybeSetPortCompleteOrError();
 }

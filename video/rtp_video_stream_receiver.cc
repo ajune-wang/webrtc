@@ -39,6 +39,8 @@
 #include "system_wrappers/include/metrics.h"
 #include "video/receive_statistics_proxy.h"
 
+#include "absl/strings/str_cat.h"
+
 namespace webrtc {
 
 namespace {
@@ -260,21 +262,22 @@ void RtpVideoStreamReceiver::OnRtpPacket(const RtpPacketReceived& packet) {
 
     // Periodically log the RTP header of incoming packets.
     if (now_ms - last_packet_log_ms_ > kPacketLogIntervalMs) {
-      std::stringstream ss;
-      ss << "Packet received on SSRC: " << packet.Ssrc()
-         << " with payload type: " << static_cast<int>(packet.PayloadType())
-         << ", timestamp: " << packet.Timestamp()
-         << ", sequence number: " << packet.SequenceNumber()
-         << ", arrival time: " << packet.arrival_time_ms();
+      std::string s;
+      s = absl::StrCat(
+          "Packet received on SSRC: ", packet.Ssrc(),
+          " with payload type: ", static_cast<int>(packet.PayloadType()),
+          ", timestamp: ", packet.Timestamp(),
+          ", sequence number: ", packet.SequenceNumber(),
+          ", arrival time: ", packet.arrival_time_ms());
       int32_t time_offset;
       if (packet.GetExtension<TransmissionOffset>(&time_offset)) {
-        ss << ", toffset: " << time_offset;
+        absl::StrAppend(&s, ", toffset: ", time_offset);
       }
       uint32_t send_time;
       if (packet.GetExtension<AbsoluteSendTime>(&send_time)) {
-        ss << ", abs send time: " << send_time;
+        absl::StrAppend(&s, ", abs send time: ", send_time);
       }
-      RTC_LOG(LS_INFO) << ss.str();
+      RTC_LOG(LS_INFO) << std::move(s);
       last_packet_log_ms_ = now_ms;
     }
   }

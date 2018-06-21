@@ -16,6 +16,8 @@
 #include "rtc_base/atomicops.h"
 #include "rtc_base/checks.h"
 
+#include "absl/strings/str_cat.h"
+
 namespace webrtc {
 
 int GainController2::instance_count_ = 0;
@@ -59,10 +61,8 @@ bool GainController2::Validate(
 
 std::string GainController2::ToString(
     const AudioProcessing::Config::GainController2& config) {
-  std::stringstream ss;
-  ss << "{enabled: " << (config.enabled ? "true" : "false") << ", "
-     << "fixed_gain_dB: " << config.fixed_gain_db << "}";
-  return ss.str();
+  return absl::StrCat("{enabled: ", (config.enabled ? "true" : "false"), ", ",
+                      "fixed_gain_dB: ", config.fixed_gain_db, "}");
 }
 
 }  // namespace webrtc

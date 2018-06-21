@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c889e03f_524678e7",
+        "filename": "modules/audio_coding/neteq/tools/fake_decode_from_file.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2018-06-21T14:00:59Z",
+      "side": 1,
+      "message": "This will cause a crash if sample_rate_hz is not divisible by 100, is that what you wanted? Otherwise just a normal division may be a better idea here.",
+      "range": {
+        "startLine": 41,
+        "startChar": 31,
+        "endLine": 41,
+        "endChar": 46
+      },
+      "revId": "3f6cda86e8b0d694a22501fbc0e262aa185d97c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

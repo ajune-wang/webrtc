@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "07c5d724_f9d0ff95",
+        "filename": "media/engine/webrtcvideoengine.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 2775,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-21T19:44:13Z",
+      "side": 1,
+      "message": "It\u0027s a little odd that simulcast_layers is being used for non-simulcast; may want to call this out in a comment in applicable places (like video_encoder_config.h, and where min_bitrate_bps is set in this file).",
+      "revId": "05becacbc1849604e0f17635854dd10e7d38e92e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aad271b7_420285c4",
+        "filename": "media/engine/webrtcvideoengine_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 5278,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-21T19:44:13Z",
+      "side": 1,
+      "message": "I don\u0027t see how this first get/set of the parameters is relevant to the test",
+      "revId": "05becacbc1849604e0f17635854dd10e7d38e92e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0336a472_f59ecbea",
+        "filename": "media/engine/webrtcvideoengine_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 5799,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-21T19:44:13Z",
+      "side": 1,
+      "message": "nit: What\u0027s the point of the kNumSimulcastStreams constant in this and the test below? Seems like it would be more readable with a literal \"1\" instead.",
+      "revId": "05becacbc1849604e0f17635854dd10e7d38e92e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd4385dd_a868bfc5",
+        "filename": "media/engine/webrtcvideoengine_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 5808,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-21T19:44:13Z",
+      "side": 1,
+      "message": "nit: Checking that the min/max are unset by default doesn\u0027t seem relevant to this test.",
+      "revId": "05becacbc1849604e0f17635854dd10e7d38e92e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3702728_0d5e086e",
+        "filename": "media/engine/webrtcvideoengine_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 5839,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-21T19:44:13Z",
+      "side": 1,
+      "message": "I don\u0027t understand this since there\u0027s only one layer",
+      "revId": "05becacbc1849604e0f17635854dd10e7d38e92e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26f89a4f_99218dca",
+        "filename": "media/engine/webrtcvideoengine_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 5859,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-21T19:44:13Z",
+      "side": 1,
+      "message": "If this is just meant to test \"there\u0027s *some* default min/max when not set via RtpParameters (with target set to max)\", then it doesn\u0027t actually need to depend on the implementation defaults (e.g. 600000), it can just do:\n\n  EXPECT_GT(stream-\u003eGetVideoStreams()[0].min_bitrate_bps, 0);\n  EXPECT_GT(stream-\u003eGetVideoStreams()[0].max_bitrate_bps,\n            stream-\u003eGetVideoStreams()[0].min_bitrate_bps);\n  EXPECT_EQ(stream-\u003eGetVideoStreams()[0].max_bitrate_bps,\n            stream-\u003eGetVideoStreams()[0].target_bitrate_bps);\n\nThat way the test won\u0027t break if defaults change.\n\nUnless testing the defaults is your goal (so that the test *will* break if they change, accidentally or otherwise)",
+      "revId": "05becacbc1849604e0f17635854dd10e7d38e92e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

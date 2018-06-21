@@ -26,6 +26,7 @@ rtc_static_library("rtc_stats") {
   deps = [
     "../api:rtc_stats_api",
     "../rtc_base:rtc_base_approved",
+    "//third_party/abseil-cpp/absl/strings",
   ]
 }
 

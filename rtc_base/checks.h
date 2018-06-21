@@ -40,9 +40,9 @@ RTC_NORETURN void rtc_FatalMessage(const char* file, int line, const char* msg);
 #ifdef __cplusplus
 // C++ version.
 
-#include <sstream>
 #include <string>
 
+#include "absl/strings/str_cat.h"
 #include "rtc_base/numerics/safe_compare.h"
 #include "rtc_base/system/inline.h"
 
@@ -298,10 +298,18 @@ class FatalLogCall final {
 // takes ownership of the returned string.
 template<class t1, class t2>
 std::string* MakeCheckOpString(const t1& v1, const t2& v2, const char* names) {
-  // TODO(jonasolsson): Use absl::StrCat() instead.
-  std::ostringstream ss;
-  ss << names << " (" << v1 << " vs. " << v2 << ")";
-  std::string* msg = new std::string(ss.str());
+  std::string* msg =
+      new std::string(absl::StrCat(names, " (", v1, " vs. ", v2, ")"));
+  return msg;
+}
+
+template <class t1, class t2>
+std::string* MakeCheckOpString(t1* const& v1,
+                               t2* const& v2,
+                               const char* names) {
+  std::string* msg = new std::string(
+      absl::StrCat(names, " (", reinterpret_cast<std::uintptr_t>(v1), " vs. ",
+                   reinterpret_cast<std::uintptr_t>(v2), ")"));
   return msg;
 }
 

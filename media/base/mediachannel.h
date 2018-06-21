@@ -17,6 +17,7 @@
 #include <utility>
 #include <vector>
 
+#include "absl/strings/str_cat.h"
 #include "absl/types/optional.h"
 #include "api/audio_codecs/audio_encoder.h"
 #include "api/audio_options.h"
@@ -76,16 +77,14 @@ static std::string ToStringIfSet(const char* key,
 
 template <class T>
 static std::string VectorToString(const std::vector<T>& vals) {
-  std::ostringstream ost;  // no-presubmit-check TODO(webrtc:8982)
-  ost << "[";
-  for (size_t i = 0; i < vals.size(); ++i) {
-    if (i > 0) {
-      ost << ", ";
+  if (vals.size() == 0)
+    return "[]";
+  std::string s = absl::StrCat("[", vals[0].ToString());
+  for (size_t i = 1; i < vals.size(); ++i) {
+    absl::StrAppend(&s, ", ", vals[i].ToString());
     }
-    ost << vals[i].ToString();
-  }
-  ost << "]";
-  return ost.str();
+    absl::StrAppend(&s, "]");
+    return s;
 }
 
 // Options that can be applied to a VideoMediaChannel or a VideoMediaEngine.
@@ -110,14 +109,11 @@ struct VideoOptions {
   bool operator!=(const VideoOptions& o) const { return !(*this == o); }
 
   std::string ToString() const {
-    std::ostringstream ost;
-    ost << "VideoOptions {";
-    ost << ToStringIfSet("noise reduction", video_noise_reduction);
-    ost << ToStringIfSet("screencast min bitrate kbps",
-                         screencast_min_bitrate_kbps);
-    ost << ToStringIfSet("is_screencast ", is_screencast);
-    ost << "}";
-    return ost.str();
+    return absl::StrCat("VideoOptions {",
+                        ToStringIfSet("noise reduction", video_noise_reduction),
+                        ToStringIfSet("screencast min bitrate kbps",
+                                      screencast_min_bitrate_kbps),
+                        ToStringIfSet("is_screencast ", is_screencast), "}");
   }
 
   // Enable denoising? This flag comes from the getUserMedia
@@ -149,12 +145,7 @@ struct RtpHeaderExtension {
   RtpHeaderExtension(const std::string& uri, int id) : uri(uri), id(id) {}
 
   std::string ToString() const {
-    std::ostringstream ost;
-    ost << "{";
-    ost << "uri: " << uri;
-    ost << ", id: " << id;
-    ost << "}";
-    return ost.str();
+    return absl::StrCat("{", "uri: ", uri, ", id: ", id, "}");
   }
 
   std::string uri;
@@ -603,15 +594,14 @@ struct RtpParameters {
   RtcpParameters rtcp;
 
   std::string ToString() const {
-    std::ostringstream ost;
-    ost << "{";
+    std::string s = "{";
     const char* separator = "";
     for (const auto& entry : ToStringMap()) {
-      ost << separator << entry.first << ": " << entry.second;
+      absl::StrAppend(&s, separator, entry.first, ": ", entry.second);
       separator = ", ";
     }
-    ost << "}";
-    return ost.str();
+    absl::StrAppend(&s, "}");
+    return s;
   }
 
  protected:

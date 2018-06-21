@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "3b7e1f64_605d53e7",
+        "filename": "media/BUILD.gn",
+        "patchSetId": 15
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-06-21T10:29:14Z",
+      "side": 1,
+      "message": "media/base is a legacy API directory (see https://cs.chromium.org/chromium/src/third_party/webrtc/native-api.md). We are trying to move all APIs to api/, so not having full visibility into new files is a good thing :)",
+      "parentUuid": "a5bf4895_fa9bb181",
+      "range": {
+        "startLine": 57,
+        "startChar": 2,
+        "endLine": 57,
+        "endChar": 22
+      },
+      "revId": "b5eb94a233f16ecd368d184a9b42a59a78a10443",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "75a4e4ab_82dbd5cd",
         "filename": "media/base/vp9_profile.h",
         "patchSetId": 15
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "Yes, it is the key appearing in SDP. What about kVP9FmtpProfileId? \n\nIt is inspired by kH264FmtpProfileLevelId. There, we actually convert from a complicated id(like 42E01F) but 0-2 here can also be considered as ids. WDYT?",
       "parentUuid": "75a4e4ab_82dbd5cd",
+      "range": {
+        "startLine": 24,
+        "startChar": 18,
+        "endLine": 24,
+        "endChar": 29
+      },
+      "revId": "b5eb94a233f16ecd368d184a9b42a59a78a10443",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "130f09b0_d216f1ab",
+        "filename": "media/base/vp9_profile.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-06-21T10:29:14Z",
+      "side": 1,
+      "message": "kVP9FmtpProfileId sgtm.",
+      "parentUuid": "1e154eb3_8c2a0ccb",
       "range": {
         "startLine": 24,
         "startChar": 18,
@@ -249,6 +297,30 @@
       "side": 1,
       "message": "It breaks a lot of tests and upstream calls. It would go beyond the scope of this CL. I will add a TODO to make it clear that it should be deprecated.",
       "parentUuid": "5b85586e_813d8572",
+      "range": {
+        "startLine": 32,
+        "startChar": 37,
+        "endLine": 32,
+        "endChar": 45
+      },
+      "revId": "b5eb94a233f16ecd368d184a9b42a59a78a10443",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "59b9bf95_553bf966",
+        "filename": "modules/video_coding/codecs/vp9/include/vp9.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-06-21T10:29:14Z",
+      "side": 1,
+      "message": "sgtm",
+      "parentUuid": "8c277412_b88943b1",
       "range": {
         "startLine": 32,
         "startChar": 37,

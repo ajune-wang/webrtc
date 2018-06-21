@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c270b70e_833e916b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-21T18:07:59Z",
+      "side": 1,
+      "message": "Doesn\u0027t really matter for something as trivial as this, but generally a more descriptive commit message would be preferable, like:\n\n\"Fixing assertion in TestIsSimulcastStream_InvalidStreams.\n\nThe test was checking that IsSimulcastStream returned false with an invalid FID group,\ninstead of an invalid SIM group as we assume was intended.\"",
+      "revId": "035efe4d6ad933122db655c875724ad53216e7a9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61530720_d1f34320",
+        "filename": "media/base/streamparams_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-21T18:07:59Z",
+      "side": 1,
+      "message": "Should update this comment, for example \"stream2 has a simulcast group with an SSRC not listed in |ssrcs|.\"",
+      "revId": "035efe4d6ad933122db655c875724ad53216e7a9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0079290e_3f6eed7a",
+        "filename": "media/base/streamparams_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-21T18:07:59Z",
+      "side": 1,
+      "message": "This will actually return true right now; IsSimulcastStream doesn\u0027t check whether the group\u0027s SSRCs are actually listed in StreamParams::ssrcs, it just checks that no *other* SSRCs are.",
+      "revId": "035efe4d6ad933122db655c875724ad53216e7a9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85e5daff_b0c01d6b",
+        "filename": "media/base/streamparams_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-21T18:07:59Z",
+      "side": 1,
+      "message": "Could also test just \"SIM group with only one SSRC\":\n\n  cricket::StreamParams stream3 \u003d cricket::CreateSimStreamParams(\"cname\", {1});\n  EXPECT_FALSE(cricket::IsSimulcastStream(stream3));",
+      "revId": "035efe4d6ad933122db655c875724ad53216e7a9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

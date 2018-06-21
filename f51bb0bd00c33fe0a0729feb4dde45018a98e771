@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "80b128dd_9088da45",
+        "filename": "p2p/base/p2ptransportchannel.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-21T20:55:49Z",
+      "side": 1,
+      "message": "nit: Since it returns a map of Connections, \"GetBestConnectionByNetworkIdPair\" would seem more accurate (and consistent with the rest of the method naming).\n\nAlso, there\u0027s not exactly a 1:1 relationship between \"Connection\" and \"candidate pair\"; a Connection can switch from having a host candidate to srflx depending on what it sees in a ping response, or prflx to something else if a remote candidate is signaled late, so it can represent multiple \"candidate pairs\" over its lifetime.",
+      "revId": "f51bb0bd00c33fe0a0729feb4dde45018a98e771",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb2ff7b8_3c005609",
+        "filename": "p2p/base/p2ptransportchannel_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 4440,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-21T20:55:49Z",
+      "side": 1,
+      "message": "Would be nice to avoid adding any more tests that use methods that should be private like ReceivedPingResponse. Isn\u0027t what this is testing already covered by HasActiveCandidatePairsPerPairOfLocalAndRemoteNetworks?",
+      "revId": "f51bb0bd00c33fe0a0729feb4dde45018a98e771",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c85d3c4_250b37fe",
+        "filename": "p2p/base/p2ptransportchannel_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 4464,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-21T20:55:49Z",
+      "side": 1,
+      "message": "Would be nice to add a test for the scenario this actually solves: \"Two endpoints each have two network interfaces, they both drop off their preferred interface, and they can fall back to the unpreferred pair of networks without needing an ICE restart.\"",
+      "revId": "f51bb0bd00c33fe0a0729feb4dde45018a98e771",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

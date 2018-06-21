@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d081c2f9_198eb4fb",
+        "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCPeerConnection.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 734,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2018-06-21T09:52:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a89d1830_f5d5d8fe",
+      "range": {
+        "startLine": 734,
+        "startChar": 1,
+        "endLine": 734,
+        "endChar": 0
+      },
+      "revId": "dea622e77c83d24ef3a87fc34d91f6c285799037",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7e91d723_01caf091",
         "filename": "sdk/objc/Framework/UnitTests/RTCPeerConnectionFactory_xctest.m",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "dea622e77c83d24ef3a87fc34d91f6c285799037",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8181a835_6ef1ef34",
+        "filename": "sdk/objc/Framework/UnitTests/RTCPeerConnectionFactory_xctest.m",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2018-06-21T09:52:30Z",
+      "side": 1,
+      "message": "Also updated test above to use two auto release pools.",
+      "parentUuid": "7e91d723_01caf091",
+      "range": {
+        "startLine": 52,
+        "startChar": 4,
+        "endLine": 52,
+        "endChar": 15
+      },
+      "revId": "dea622e77c83d24ef3a87fc34d91f6c285799037",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

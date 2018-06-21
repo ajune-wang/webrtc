@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "52f131d3_6491916e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-06-21T07:28:09Z",
+      "side": 1,
+      "message": "Doesn\u0027t the m\u003d section also have a transceiver.mid which makes it clear which sender/receiver is described? Why does it matter if the same ID is present multiple times, and we end up with the same ID multiple times?\n\nIs this an inherent limitation to SDP offer/answers or assumptions in our implementation that shouldn\u0027t be there?",
+      "revId": "1e636c130e8a9e07f03ea83c2020b0cd3f2c6a6d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cdeaa651_eeb4a89e",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 3
@@ -13,6 +30,24 @@
       "writtenOn": "2018-06-20T22:22:56Z",
       "side": 1,
       "message": "Would we hit the receiver DCHECK if you applied a remote description with duplicate track IDs? If so, I\u0027d leave that out; we should avoid hitting DCHECKs even with \"bad\" SDP.\n\nOr we could do an equivalent thing for receivers in AssociateTransceiver, meaning randomly generate the receiver ID instead of using the ID from SDP when a dupe is detected.",
+      "revId": "1e636c130e8a9e07f03ea83c2020b0cd3f2c6a6d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b17ae19_acc5efa4",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1473,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-06-21T07:28:09Z",
+      "side": 1,
+      "message": "+1 We shouldn\u0027t DCHECK anything we cannot guarantee, are we guaranteeing this by rejecting such SDP already?\n\nDoes it matter if two receivers\u0027 tracks have the same ID? (Speaking out of ignorance of SDP) Wouldn\u0027t it always be clear what receiver (transceiver) we\u0027re talking about in any offer/answer? What is the harm of having two tracks t1.id \u003d\u003d t2.id?\n\nThe Chrome plumbing maps different layer objects by reference, not by ID.",
+      "parentUuid": "cdeaa651_eeb4a89e",
       "revId": "1e636c130e8a9e07f03ea83c2020b0cd3f2c6a6d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

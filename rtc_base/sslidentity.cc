@@ -22,6 +22,8 @@
 #include "rtc_base/ptr_util.h"
 #include "rtc_base/sslfingerprint.h"
 
+#include "absl/strings/str_cat.h"
+
 namespace rtc {
 
 //////////////////////////////////////////////////////////////////////
@@ -116,9 +118,9 @@ bool SSLIdentity::PemToDer(const std::string& pem_type,
 std::string SSLIdentity::DerToPem(const std::string& pem_type,
                                   const unsigned char* data,
                                   size_t length) {
-  std::stringstream result;
+  std::string result;
 
-  result << "-----BEGIN " << pem_type << "-----\n";
+  absl::StrAppend(&result, "-----BEGIN ", pem_type, "-----\n");
 
   std::string b64_encoded;
   Base64::EncodeFromArray(data, length, &b64_encoded);
@@ -129,13 +131,13 @@ std::string SSLIdentity::DerToPem(const std::string& pem_type,
   size_t chunks = (b64_encoded.size() + (kChunkSize - 1)) / kChunkSize;
   for (size_t i = 0, chunk_offset = 0; i < chunks;
        ++i, chunk_offset += kChunkSize) {
-    result << b64_encoded.substr(chunk_offset, kChunkSize);
-    result << "\n";
+    absl::StrAppend(&result, b64_encoded.substr(chunk_offset, kChunkSize),
+                    "\n");
   }
 
-  result << "-----END " << pem_type << "-----\n";
+  absl::StrAppend(&result, "-----END ", pem_type, "-----\n");
 
-  return result.str();
+  return result;
 }
 
 // static

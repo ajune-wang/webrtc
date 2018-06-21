@@ -10,7 +10,6 @@
 
 #include "ortc/ortcfactory.h"
 
-#include <sstream>
 #include <utility>  // For std::move.
 #include <vector>
 
@@ -41,6 +40,7 @@
 #include "rtc_base/helpers.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/ptr_util.h"
+#include "rtc_base/strings/string_builder.h"
 
 namespace {
 
@@ -461,13 +461,14 @@ OrtcFactory::CreateUdpTransport(int family,
   RTC_LOG(LS_INFO) << "Created UDP socket with address "
                    << socket->GetLocalAddress().ToSensitiveString() << ".";
   // Make a unique debug name (for logging/diagnostics only).
-  std::ostringstream oss;
+  char buf[64];
+  rtc::SimpleStringBuilder sb(buf);
   static int udp_id = 0;
-  oss << "udp" << udp_id++;
+  sb << "udp" << udp_id++;
   return UdpTransportProxyWithInternal<cricket::UdpTransport>::Create(
       signaling_thread_, network_thread_,
       std::unique_ptr<cricket::UdpTransport>(
-          new cricket::UdpTransport(oss.str(), std::move(socket))));
+          new cricket::UdpTransport(sb.str(), std::move(socket))));
 }
 
 rtc::scoped_refptr<AudioSourceInterface> OrtcFactory::CreateAudioSource(

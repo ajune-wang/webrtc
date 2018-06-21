@@ -3312,7 +3312,7 @@ class Vp9HeaderObserver : public test::SendTest {
     } else if (vp9_settings_.numberOfTemporalLayers > 1) {
       EXPECT_EQ(vp9.spatial_idx, 0);
     } else {
-      EXPECT_EQ(vp9.spatial_idx, kNoSpatialIdx);
+      EXPECT_EQ(vp9.spatial_idx, 0);
     }
 
     if (vp9_settings_.numberOfTemporalLayers > 1) {

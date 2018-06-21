@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "598f9d38_5a8c87fa",
+        "filename": "test/fuzzers/agc_fuzzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-06-21T12:11:32Z",
+      "side": 1,
+      "message": "I imagined it gave more coverage. Tested, it doesn\u0027t. Removed. Thank you!",
+      "parentUuid": "d492ba14_7103eaec",
+      "range": {
+        "startLine": 26,
+        "startChar": 10,
+        "endLine": 26,
+        "endChar": 14
+      },
+      "revId": "2de158e146f9f12f4f467ea4b75d4b43b2dc9703",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0cefaed5_9606ddb1",
         "filename": "test/fuzzers/agc_fuzzer.cc",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "2de158e146f9f12f4f467ea4b75d4b43b2dc9703",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa9ead27_c3bfa5ea",
+        "filename": "test/fuzzers/agc_fuzzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-06-21T12:11:32Z",
+      "side": 1,
+      "message": "Ooh, thank you! Done.",
+      "parentUuid": "0cefaed5_9606ddb1",
+      "range": {
+        "startLine": 32,
+        "startChar": 2,
+        "endLine": 32,
+        "endChar": 11
+      },
+      "revId": "2de158e146f9f12f4f467ea4b75d4b43b2dc9703",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "916f010d_2618243a",
+        "filename": "test/fuzzers/agc_fuzzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-06-21T12:11:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ee485428_c10e9d92",
+      "range": {
+        "startLine": 88,
+        "startChar": 15,
+        "endLine": 88,
+        "endChar": 42
+      },
+      "revId": "2de158e146f9f12f4f467ea4b75d4b43b2dc9703",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e2fe1f75_b2a36201",
         "filename": "test/fuzzers/agc_fuzzer.cc",
         "patchSetId": 2
@@ -91,6 +163,30 @@
       "revId": "2de158e146f9f12f4f467ea4b75d4b43b2dc9703",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95ba7bd3_cdbf45c7",
+        "filename": "test/fuzzers/agc_fuzzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-06-21T12:11:32Z",
+      "side": 1,
+      "message": "It\u0027s in AgcManagerDirect, the next level of gain control onion. It is pretty well covered by the APM fuzzer.",
+      "parentUuid": "e2fe1f75_b2a36201",
+      "range": {
+        "startLine": 110,
+        "startChar": 9,
+        "endLine": 110,
+        "endChar": 28
+      },
+      "revId": "2de158e146f9f12f4f467ea4b75d4b43b2dc9703",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

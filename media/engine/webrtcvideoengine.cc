@@ -39,6 +39,8 @@
 #include "rtc_base/trace_event.h"
 #include "system_wrappers/include/field_trial.h"
 
+#include "absl/strings/str_cat.h"
+
 namespace cricket {
 
 // Hack in order to pass in |receive_stream_id| to legacy clients.
@@ -251,16 +253,15 @@ std::vector<VideoCodec> AssignPayloadTypesAndDefaultCodecs(
 }
 
 static std::string CodecVectorToString(const std::vector<VideoCodec>& codecs) {
-  std::stringstream out;
-  out << '{';
-  for (size_t i = 0; i < codecs.size(); ++i) {
-    out << codecs[i].ToString();
-    if (i != codecs.size() - 1) {
-      out << ", ";
-    }
+  if (codecs.size() == 0)
+    return "{}";
+
+  std::string out = absl::StrCat("{", codecs[0].ToString());
+  for (size_t i = 1; i < codecs.size(); ++i) {
+    absl::StrAppend(&out, ", ", codecs[i].ToString());
   }
-  out << '}';
-  return out.str();
+  absl::StrAppend(&out, "}");
+  return out;
 }
 
 static bool ValidateCodecFormats(const std::vector<VideoCodec>& codecs) {
@@ -1019,16 +1020,16 @@ bool WebRtcVideoChannel::SetRecvParameters(const VideoRecvParameters& params) {
 
 std::string WebRtcVideoChannel::CodecSettingsVectorToString(
     const std::vector<VideoCodecSettings>& codecs) {
-  std::stringstream out;
-  out << '{';
-  for (size_t i = 0; i < codecs.size(); ++i) {
-    out << codecs[i].codec.ToString();
-    if (i != codecs.size() - 1) {
-      out << ", ";
-    }
+  if (codecs.size() == 0)
+    return "{}";
+
+  std::string out = absl::StrCat("{", codecs[0].codec.ToString());
+
+  for (size_t i = 1; i < codecs.size(); ++i) {
+    absl::StrAppend(&out, ", ", codecs[i].codec.ToString());
   }
-  out << '}';
-  return out.str();
+  absl::StrAppend(&out, "}");
+  return out;
 }
 
 bool WebRtcVideoChannel::GetSendCodec(VideoCodec* codec) {

@@ -23,6 +23,8 @@
 #include "rtc_base/sslstreamadapter.h"
 #include "rtc_base/stream.h"
 
+#include "absl/strings/str_cat.h"
+
 namespace rtc {
 class PacketTransportInternal;
 }
@@ -176,12 +178,11 @@ class DtlsTransport : public DtlsTransportInternal {
   int SetOption(rtc::Socket::Option opt, int value) override;
 
   std::string ToString() const {
-    const char RECEIVING_ABBREV[2] = {'_', 'R'};
-    const char WRITABLE_ABBREV[2] = {'_', 'W'};
-    std::stringstream ss;
-    ss << "DtlsTransport[" << transport_name_ << "|" << component_ << "|"
-       << RECEIVING_ABBREV[receiving()] << WRITABLE_ABBREV[writable()] << "]";
-    return ss.str();
+    const char* RECEIVING_ABBREV[2] = {"_", "R"};
+    const char* WRITABLE_ABBREV[2] = {"_", "W"};
+    return absl::StrCat("DtlsTransport[", transport_name_, "|", component_, "|",
+                        RECEIVING_ABBREV[receiving()],
+                        WRITABLE_ABBREV[writable()], "]");
   }
 
  private:

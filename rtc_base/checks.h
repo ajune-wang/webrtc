@@ -40,9 +40,9 @@ RTC_NORETURN void rtc_FatalMessage(const char* file, int line, const char* msg);
 #ifdef __cplusplus
 // C++ version.
 
-#include <sstream>
 #include <string>
 
+#include "absl/strings/str_cat.h"
 #include "rtc_base/numerics/safe_compare.h"
 #include "rtc_base/system/inline.h"
 
@@ -296,12 +296,21 @@ class FatalLogCall final {
 // function template because it is not performance critical and so can
 // be out of line, while the "Impl" code should be inline.  Caller
 // takes ownership of the returned string.
+template <class t1>
+t1 CheckOpTransformArg(t1 c) {
+  return std::move(c);
+}
+
+template <class t>
+std::uintptr_t CheckOpTransformArg(t* p) {
+  return reinterpret_cast<std::uintptr_t>(p);
+}
+
 template<class t1, class t2>
 std::string* MakeCheckOpString(const t1& v1, const t2& v2, const char* names) {
-  // TODO(jonasolsson): Use absl::StrCat() instead.
-  std::ostringstream ss;
-  ss << names << " (" << v1 << " vs. " << v2 << ")";
-  std::string* msg = new std::string(ss.str());
+  std::string* msg =
+      new std::string(absl::StrCat(names, " (", CheckOpTransformArg(v1),
+                                   " vs. ", CheckOpTransformArg(v2), ")"));
   return msg;
 }
 

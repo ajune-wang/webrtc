@@ -19,11 +19,26 @@ GoogCcNetworkControllerFactory::GoogCcNetworkControllerFactory(
 
 std::unique_ptr<NetworkControllerInterface>
 GoogCcNetworkControllerFactory::Create(NetworkControllerConfig config) {
-  return rtc::MakeUnique<webrtc_cc::GoogCcNetworkController>(event_log_,
-                                                             config);
+  return rtc::MakeUnique<webrtc_cc::GoogCcNetworkController>(event_log_, config,
+                                                             false);
 }
 
 TimeDelta GoogCcNetworkControllerFactory::GetProcessInterval() const {
+  const int64_t kUpdateIntervalMs = 25;
+  return TimeDelta::ms(kUpdateIntervalMs);
+}
+
+GoogCcFeedbackNetworkControllerFactory::GoogCcFeedbackNetworkControllerFactory(
+    RtcEventLog* event_log)
+    : event_log_(event_log) {}
+
+std::unique_ptr<NetworkControllerInterface>
+GoogCcFeedbackNetworkControllerFactory::Create(NetworkControllerConfig config) {
+  return rtc::MakeUnique<webrtc_cc::GoogCcNetworkController>(event_log_, config,
+                                                             true);
+}
+
+TimeDelta GoogCcFeedbackNetworkControllerFactory::GetProcessInterval() const {
   const int64_t kUpdateIntervalMs = 25;
   return TimeDelta::ms(kUpdateIntervalMs);
 }

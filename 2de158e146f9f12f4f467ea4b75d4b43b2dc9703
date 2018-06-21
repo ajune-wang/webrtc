@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d492ba14_7103eaec",
+        "filename": "test/fuzzers/agc_fuzzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-06-21T11:02:11Z",
+      "side": 1,
+      "message": "Why \u00272 *\u0027 ?",
+      "range": {
+        "startLine": 26,
+        "startChar": 10,
+        "endLine": 26,
+        "endChar": 14
+      },
+      "revId": "2de158e146f9f12f4f467ea4b75d4b43b2dc9703",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0cefaed5_9606ddb1",
+        "filename": "test/fuzzers/agc_fuzzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-06-21T11:02:11Z",
+      "side": 1,
+      "message": "Can you use rtc::SafeClamp? https://cs.chromium.org/chromium/src/third_party/webrtc/rtc_base/numerics/safe_minmax.h?q\u003dSafeClamp\u0026g\u003d0\u0026l\u003d320",
+      "range": {
+        "startLine": 32,
+        "startChar": 2,
+        "endLine": 32,
+        "endChar": 11
+      },
+      "revId": "2de158e146f9f12f4f467ea4b75d4b43b2dc9703",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee485428_c10e9d92",
+        "filename": "test/fuzzers/agc_fuzzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-06-21T11:02:11Z",
+      "side": 1,
+      "message": "Nit: I just read C++ tip of the week #151. It said it\u0027s better to spell out fully qualified namespace names in using statements. I think it\u0027s ::webrtc::AudioProcessing::NativeRate in this case. I think it applies.",
+      "range": {
+        "startLine": 88,
+        "startChar": 15,
+        "endLine": 88,
+        "endChar": 42
+      },
+      "revId": "2de158e146f9f12f4f467ea4b75d4b43b2dc9703",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2fe1f75_b2a36201",
+        "filename": "test/fuzzers/agc_fuzzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-06-21T11:02:11Z",
+      "side": 1,
+      "message": "There was another AGC call called AnalyzePreProcess. Is it covered or was that another interface?",
+      "range": {
+        "startLine": 110,
+        "startChar": 9,
+        "endLine": 110,
+        "endChar": 28
+      },
+      "revId": "2de158e146f9f12f4f467ea4b75d4b43b2dc9703",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

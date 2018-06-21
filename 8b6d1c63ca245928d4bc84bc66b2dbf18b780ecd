@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "11bbbc37_78272a62",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 688,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-21T00:01:39Z",
+      "side": 1,
+      "message": "Should be \"WebRTC.PeerConnection.IceRestartState\"; see https://cs.chromium.org/chromium/src/content/renderer/media/webrtc/rtc_peer_connection_handler.cc?l\u003d642\u0026rcl\u003d59da623a9597b60252f1c657add234eecbb30918",
+      "revId": "8b6d1c63ca245928d4bc84bc66b2dbf18b780ecd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6ea517c4_50bd1c9d",
         "filename": "p2p/base/p2ptransportchannel_unittest.cc",
         "patchSetId": 14
@@ -19,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "d8424d28_a8988adb",
+        "filename": "p2p/base/p2ptransportchannel_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-21T00:01:39Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "6ea517c4_50bd1c9d",
+      "revId": "8b6d1c63ca245928d4bc84bc66b2dbf18b780ecd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ac7cbd5e_fba8bef1",
         "filename": "p2p/base/p2ptransportchannel_unittest.cc",
         "patchSetId": 14
@@ -30,6 +65,160 @@
       "writtenOn": "2018-06-20T22:07:38Z",
       "side": 1,
       "message": "Why does the test need to listen to this signal rather than measure the metrics events (like IceRestart)?",
+      "revId": "8b6d1c63ca245928d4bc84bc66b2dbf18b780ecd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0624573_ae3e6b93",
+        "filename": "p2p/base/p2ptransportchannel_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-21T00:01:39Z",
+      "side": 1,
+      "message": "I assume because the tests need a per-endpoint count rather than a global count.\n\nBut there should preferably still be at least one test that verifies the metric is incremented.",
+      "parentUuid": "ac7cbd5e_fba8bef1",
+      "revId": "8b6d1c63ca245928d4bc84bc66b2dbf18b780ecd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97fc1635_aaeebbbc",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-21T00:01:39Z",
+      "side": 1,
+      "message": "Should be \"WebRTC.PeerConnection.IceRegatheringReason\"",
+      "revId": "8b6d1c63ca245928d4bc84bc66b2dbf18b780ecd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b300921_6a669760",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-21T00:01:39Z",
+      "side": 1,
+      "message": "Should be \"WebRTC.PeerConnection.KeyProtocolByMedia\".",
+      "revId": "8b6d1c63ca245928d4bc84bc66b2dbf18b780ecd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "740401f3_2cb80a57",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 920,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-21T00:01:39Z",
+      "side": 1,
+      "message": "Should be \"WebRTC.PeerConnection.IPMetrics\"",
+      "revId": "8b6d1c63ca245928d4bc84bc66b2dbf18b780ecd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5ffd68e_9e996e1e",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 5913,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-21T00:01:39Z",
+      "side": 1,
+      "message": "It doesn\u0027t look like \"RTC_HISTOGRAM_ENUMERATION_SPARSE\" actually results in \"SparseHistogram::FactoryGet\"; will this be a problem? I haven\u0027t looked into this much, but it sounds like it may just be a matter of efficiency: https://chromium.googlesource.com/chromium/src.git/+/HEAD/tools/metrics/histograms/README.md#When-To-Use-Sparse-Histograms",
+      "revId": "8b6d1c63ca245928d4bc84bc66b2dbf18b780ecd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1749e926_a9c13fdb",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 6050,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-21T00:01:39Z",
+      "side": 1,
+      "message": "Should be \"WebRTC.PeerConnection.CandidatePairType_TCP\"/\"WebRTC.PeerConnection.CandidatePairType_UDP\"",
+      "revId": "8b6d1c63ca245928d4bc84bc66b2dbf18b780ecd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4ace691_2be61268",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 6099,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-21T00:01:39Z",
+      "side": 1,
+      "message": "Should be \"WebRTC.PeerConnection.SrtpCryptoSuite.Audio\", etc.",
+      "revId": "8b6d1c63ca245928d4bc84bc66b2dbf18b780ecd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "250a5f21_7da400ba",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 6117,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-21T00:01:39Z",
+      "side": 1,
+      "message": "Why can\u0027t we continue just using the value of srtp_crypto_suite?",
+      "revId": "8b6d1c63ca245928d4bc84bc66b2dbf18b780ecd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b0df4616_8476957b",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 6121,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-21T00:01:39Z",
+      "side": 1,
+      "message": "Where does 100 come from? ssl_cipher_suite is an unsigned 16-bit value so shouldn\u0027t the max be 65536?",
       "revId": "8b6d1c63ca245928d4bc84bc66b2dbf18b780ecd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

@@ -11,7 +11,6 @@
 #ifndef RTC_BASE_STRINGENCODE_H_
 #define RTC_BASE_STRINGENCODE_H_
 
-#include <sstream>
 #include <string>
 #include <vector>
 
@@ -149,21 +148,25 @@ bool tokenize_first(const std::string& source,
 // Convert arbitrary values to/from a string.
 
 template <class T>
-static bool ToString(const T& t, std::string* s) {
+void ToString(const T& t, std::string* s) {
   RTC_DCHECK(s);
-  std::ostringstream oss;
-  oss << std::boolalpha << t;
-  *s = oss.str();
-  return !oss.fail();
+  *s = absl::StrCat(t);
 }
 
-template <class T>
-static bool FromString(const std::string& s, T* t) {
-  RTC_DCHECK(t);
-  std::istringstream iss(s);
-  iss >> std::boolalpha >> *t;
-  return !iss.fail();
-}
+template <>
+void ToString(const bool& b, std::string* s);
+
+bool FromString(const std::string& s, bool* t);
+bool FromString(const std::string& s, short* t);
+bool FromString(const std::string& s, unsigned short* t);
+bool FromString(const std::string& s, int* t);
+bool FromString(const std::string& s, unsigned int* t);
+bool FromString(const std::string& s, long* t);
+bool FromString(const std::string& s, long long* t);
+bool FromString(const std::string& s, unsigned long* t);
+bool FromString(const std::string& s, unsigned long long* t);
+bool FromString(const std::string& s, double* t);
+bool FromString(const std::string& s, long double* t);
 
 // Inline versions of the string conversion routines.
 

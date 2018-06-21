@@ -22,6 +22,30 @@
       "revId": "3f6cda86e8b0d694a22501fbc0e262aa185d97c0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fbaa114f_e5181054",
+        "filename": "modules/audio_coding/neteq/tools/fake_decode_from_file.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-06-21T19:05:23Z",
+      "side": 1,
+      "message": "Since this is only used for testing, crash isn\u0027t bad idea. And it is also used in line 52.",
+      "parentUuid": "c889e03f_524678e7",
+      "range": {
+        "startLine": 41,
+        "startChar": 31,
+        "endLine": 41,
+        "endChar": 46
+      },
+      "revId": "3f6cda86e8b0d694a22501fbc0e262aa185d97c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

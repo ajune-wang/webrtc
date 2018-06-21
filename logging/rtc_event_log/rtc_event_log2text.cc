@@ -13,6 +13,7 @@
 #include <iomanip>  // setfill, setw
 #include <iostream>
 #include <map>
+#include <sstream>  // no-presubmit-check TODO(webrtc:8982)
 #include <string>
 #include <utility>  // pair
 

@@ -15,6 +15,7 @@
 #include <iostream>
 #include <map>
 #include <memory>
+#include <sstream>  // no-presubmit-check TODO(webrtc:8982)
 
 #include "p2p/base/basicpacketsocketfactory.h"
 #include "p2p/stunprober/stunprober.h"

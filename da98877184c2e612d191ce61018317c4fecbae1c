@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "74be6772_22fc9707",
+        "filename": "pc/rtpsenderreceiver_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-21T19:48:48Z",
+      "side": 1,
+      "message": "Since this is in a test, could use ASSERT_TRUE",
+      "revId": "da98877184c2e612d191ce61018317c4fecbae1c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

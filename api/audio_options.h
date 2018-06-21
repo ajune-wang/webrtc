@@ -16,6 +16,8 @@
 #include "api/optional.h"
 #include "rtc_base/stringencode.h"
 
+#include "absl/strings/str_cat.h"
+
 namespace cricket {
 
 // Options that can be applied to a VoiceMediaChannel or a VoiceMediaEngine.
@@ -87,41 +89,36 @@ struct AudioOptions {
   bool operator!=(const AudioOptions& o) const { return !(*this == o); }
 
   std::string ToString() const {
-    std::ostringstream ost;
-    ost << "AudioOptions {";
-    ost << ToStringIfSet("aec", echo_cancellation);
+    return absl::StrCat(
+        "AudioOptions {", ToStringIfSet("aec", echo_cancellation)
 #if defined(WEBRTC_IOS)
-    ost << ToStringIfSet("ios_force_software_aec_HACK",
-                         ios_force_software_aec_HACK);
+                              ,
+        ToStringIfSet("ios_force_software_aec_HACK",
+                      ios_force_software_aec_HACK)
 #endif
-    ost << ToStringIfSet("agc", auto_gain_control);
-    ost << ToStringIfSet("ns", noise_suppression);
-    ost << ToStringIfSet("hf", highpass_filter);
-    ost << ToStringIfSet("swap", stereo_swapping);
-    ost << ToStringIfSet("audio_jitter_buffer_max_packets",
-                         audio_jitter_buffer_max_packets);
-    ost << ToStringIfSet("audio_jitter_buffer_fast_accelerate",
-                         audio_jitter_buffer_fast_accelerate);
-    ost << ToStringIfSet("typing", typing_detection);
-    ost << ToStringIfSet("comfort_noise", aecm_generate_comfort_noise);
-    ost << ToStringIfSet("experimental_agc", experimental_agc);
-    ost << ToStringIfSet("extended_filter_aec", extended_filter_aec);
-    ost << ToStringIfSet("delay_agnostic_aec", delay_agnostic_aec);
-    ost << ToStringIfSet("experimental_ns", experimental_ns);
-    ost << ToStringIfSet("intelligibility_enhancer", intelligibility_enhancer);
-    ost << ToStringIfSet("residual_echo_detector", residual_echo_detector);
-    ost << ToStringIfSet("tx_agc_target_dbov", tx_agc_target_dbov);
-    ost << ToStringIfSet("tx_agc_digital_compression_gain",
-                         tx_agc_digital_compression_gain);
-    ost << ToStringIfSet("tx_agc_limiter", tx_agc_limiter);
-    ost << ToStringIfSet("combined_audio_video_bwe", combined_audio_video_bwe);
-    ost << ToStringIfSet("audio_network_adaptor", audio_network_adaptor);
-    // The adaptor config is a serialized proto buffer and therefore not human
-    // readable. So we comment out the following line.
-    // ost << ToStringIfSet("audio_network_adaptor_config",
-    //     audio_network_adaptor_config);
-    ost << "}";
-    return ost.str();
+            ,
+        ToStringIfSet("agc", auto_gain_control),
+        ToStringIfSet("ns", noise_suppression),
+        ToStringIfSet("hf", highpass_filter),
+        ToStringIfSet("swap", stereo_swapping),
+        ToStringIfSet("audio_jitter_buffer_max_packets",
+                      audio_jitter_buffer_max_packets),
+        ToStringIfSet("audio_jitter_buffer_fast_accelerate",
+                      audio_jitter_buffer_fast_accelerate),
+        ToStringIfSet("typing", typing_detection),
+        ToStringIfSet("comfort_noise", aecm_generate_comfort_noise),
+        ToStringIfSet("experimental_agc", experimental_agc),
+        ToStringIfSet("extended_filter_aec", extended_filter_aec),
+        ToStringIfSet("delay_agnostic_aec", delay_agnostic_aec),
+        ToStringIfSet("experimental_ns", experimental_ns),
+        ToStringIfSet("intelligibility_enhancer", intelligibility_enhancer),
+        ToStringIfSet("residual_echo_detector", residual_echo_detector),
+        ToStringIfSet("tx_agc_target_dbov", tx_agc_target_dbov),
+        ToStringIfSet("tx_agc_digital_compression_gain",
+                      tx_agc_digital_compression_gain),
+        ToStringIfSet("tx_agc_limiter", tx_agc_limiter),
+        ToStringIfSet("combined_audio_video_bwe", combined_audio_video_bwe),
+        ToStringIfSet("audio_network_adaptor", audio_network_adaptor), "}");
   }
 
   // Audio processing that attempts to filter away the output signal from

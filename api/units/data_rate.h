@@ -142,6 +142,9 @@ class DataRate {
   int64_t bits_per_sec_;
 };
 
+inline DataRate operator+(const DataRate& lhs, const DataRate& rhs) {
+  return DataRate::bps(lhs.bps() + rhs.bps());
+}
 inline DataRate operator*(const DataRate& rate, const double& scalar) {
   return DataRate::bps(std::round(rate.bps() * scalar));
 }

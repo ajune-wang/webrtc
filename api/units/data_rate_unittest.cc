@@ -88,6 +88,7 @@ TEST(DataRateTest, MathOperations) {
   EXPECT_EQ((rate_a * kFloatValue).bps(), kValueA * kFloatValue);
 
   EXPECT_EQ(rate_a / rate_b, static_cast<double>(kValueA) / kValueB);
+  EXPECT_EQ((rate_a + rate_b).bps(), kValueA + kValueB);
 }
 
 TEST(UnitConversionTest, DataRateAndDataSizeAndTimeDelta) {

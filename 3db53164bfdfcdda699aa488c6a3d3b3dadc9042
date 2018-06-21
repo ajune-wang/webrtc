@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c5588545_e9c1de2c",
+        "filename": "rtc_base/fileutils.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-06-21T09:23:13Z",
+      "side": 1,
+      "message": "Can default_filesystem_ be removed now? Hmm, I guess not---but it could be turned into a function-local const static variable in EnsureDefaultFilesystem(), which could be called just GetFilesystem() or something.",
+      "revId": "3db53164bfdfcdda699aa488c6a3d3b3dadc9042",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -38,6 +38,9 @@ namespace {
 const char kCwndExperiment[] = "WebRTC-CwndExperiment";
 const int64_t kDefaultAcceptedQueueMs = 250;
 
+// From RTCPSender video report interval.
+const TimeDelta kLossUpdateInterval = TimeDelta::ms(1000);
+
 // Pacing-rate relative to our target send rate.
 // Multiplicative factor that is applied to the target bitrate to calculate
 // the number of bytes that can be transmitted per interval.
@@ -113,8 +116,10 @@ int64_t GetBpsOrDefault(const absl::optional<DataRate>& rate,
 }  // namespace
 
 GoogCcNetworkController::GoogCcNetworkController(RtcEventLog* event_log,
-                                                 NetworkControllerConfig config)
+                                                 NetworkControllerConfig config,
+                                                 bool feedback_only)
     : event_log_(event_log),
+      feedback_only_(feedback_only),
       probe_controller_(new ProbeController()),
       bandwidth_estimation_(
           rtc::MakeUnique<SendSideBandwidthEstimation>(event_log_)),
@@ -122,6 +127,7 @@ GoogCcNetworkController::GoogCcNetworkController(RtcEventLog* event_log,
       delay_based_bwe_(new DelayBasedBwe(event_log_)),
       acknowledged_bitrate_estimator_(
           rtc::MakeUnique<AcknowledgedBitrateEstimator>()),
+      next_loss_update_(Timestamp::ms(0)),
       last_bandwidth_(config.starting_bandwidth),
       pacing_factor_(kDefaultPaceMultiplier),
       min_pacing_rate_(DataRate::Zero()),
@@ -189,6 +195,8 @@ NetworkControlUpdate GoogCcNetworkController::OnProcessInterval(
 
 NetworkControlUpdate GoogCcNetworkController::OnRemoteBitrateReport(
     RemoteBitrateReport msg) {
+  if (feedback_only_)
+    return NetworkControlUpdate();
   bandwidth_estimation_->UpdateReceiverEstimate(msg.receive_time.ms(),
                                                 msg.bandwidth.bps());
   BWE_TEST_LOGGING_PLOT(1, "REMB_kbps", msg.receive_time.ms(),
@@ -198,6 +206,8 @@ NetworkControlUpdate GoogCcNetworkController::OnRemoteBitrateReport(
 
 NetworkControlUpdate GoogCcNetworkController::OnRoundTripTimeUpdate(
     RoundTripTimeUpdate msg) {
+  if (feedback_only_)
+    return NetworkControlUpdate();
   if (msg.smoothed) {
     delay_based_bwe_->OnRttUpdate(msg.round_trip_time.ms());
   } else {
@@ -269,6 +279,8 @@ void GoogCcNetworkController::UpdateBitrateConstraints(
 
 NetworkControlUpdate GoogCcNetworkController::OnTransportLossReport(
     TransportLossReport msg) {
+  if (feedback_only_)
+    return NetworkControlUpdate();
   int64_t total_packets_delta =
       msg.packets_received_delta + msg.packets_lost_delta;
   bandwidth_estimation_->UpdatePacketsLost(
@@ -278,24 +290,61 @@ NetworkControlUpdate GoogCcNetworkController::OnTransportLossReport(
 
 NetworkControlUpdate GoogCcNetworkController::OnTransportPacketsFeedback(
     TransportPacketsFeedback report) {
-  int64_t feedback_rtt = -1;
-  for (const auto& packet_feedback : report.PacketsWithFeedback()) {
-    if (packet_feedback.sent_packet.has_value() &&
-        packet_feedback.receive_time.IsFinite()) {
-      int64_t rtt = report.feedback_time.ms() -
-                    packet_feedback.sent_packet->send_time.ms();
-      // max() is used to account for feedback being delayed by the
-      // receiver.
-      feedback_rtt = std::max(rtt, feedback_rtt);
-    }
+  TimeDelta feedback_max_rtt = TimeDelta::MinusInfinity();
+  Timestamp max_recv_time = Timestamp::ms(0);
+  for (const auto& packet_feedback : report.ReceivedWithSendInfo()) {
+    TimeDelta rtt =
+        report.feedback_time - packet_feedback.sent_packet->send_time;
+    // max() is used to account for feedback being delayed by the
+    // receiver.
+    feedback_max_rtt = std::max(feedback_max_rtt, rtt);
+    max_recv_time = std::max(max_recv_time, packet_feedback.receive_time);
   }
-  if (feedback_rtt > -1) {
-    feedback_rtts_.push_back(feedback_rtt);
-    const size_t kFeedbackRttWindow = 32;
-    if (feedback_rtts_.size() > kFeedbackRttWindow)
-      feedback_rtts_.pop_front();
-    min_feedback_rtt_ms_.emplace(
-        *std::min_element(feedback_rtts_.begin(), feedback_rtts_.end()));
+  if (feedback_max_rtt.IsFinite()) {
+    feedback_max_rtts_.push_back(feedback_max_rtt.ms());
+    const size_t kMaxFeedbackRttWindow = 32;
+    if (feedback_max_rtts_.size() > kMaxFeedbackRttWindow)
+      feedback_max_rtts_.pop_front();
+    min_feedback_rtt_ms_.emplace(*std::min_element(feedback_max_rtts_.begin(),
+                                                   feedback_max_rtts_.end()));
+  }
+  if (feedback_only_) {
+    TimeDelta feedback_min_rtt = TimeDelta::PlusInfinity();
+    for (const auto& packet_feedback : report.ReceivedWithSendInfo()) {
+      TimeDelta pending_time = packet_feedback.receive_time - max_recv_time;
+      TimeDelta rtt = report.feedback_time -
+                      packet_feedback.sent_packet->send_time - pending_time;
+      // Value used for predicting NACK round trip time in FEC controller.
+      feedback_min_rtt = std::min(rtt, feedback_min_rtt);
+    }
+    if (feedback_min_rtt.IsFinite()) {
+      feedback_min_rtts_.push_back(feedback_max_rtt.ms());
+      const size_t kMinFeedbackRttWindow = 32;
+      if (feedback_min_rtts_.size() == kMinFeedbackRttWindow) {
+        int64_t sum_rtt_ms = std::accumulate(feedback_min_rtts_.begin(),
+                                             feedback_min_rtts_.end(), 0);
+        int64_t mean_rtt_ms = sum_rtt_ms / feedback_min_rtts_.size();
+        delay_based_bwe_->OnRttUpdate(mean_rtt_ms);
+        feedback_min_rtts_.clear();
+      }
+      bandwidth_estimation_->UpdateRtt(feedback_min_rtt.ms(),
+                                       report.feedback_time.ms());
+    }
+
+    expected_packets_since_last_loss_update_ +=
+        report.PacketsWithFeedback().size();
+    for (const auto& packet_feedback : report.PacketsWithFeedback()) {
+      lost_packets_since_last_loss_update_ +=
+          packet_feedback.receive_time.IsFinite() ? 0 : 1;
+    }
+    if (report.feedback_time > next_loss_update_) {
+      next_loss_update_ += kLossUpdateInterval;
+      bandwidth_estimation_->UpdatePacketsLost(
+          expected_packets_since_last_loss_update_,
+          lost_packets_since_last_loss_update_, report.feedback_time.ms());
+      expected_packets_since_last_loss_update_ = 0;
+      lost_packets_since_last_loss_update_ = 0;
+    }
   }
 
   std::vector<PacketFeedback> received_feedback_vector =

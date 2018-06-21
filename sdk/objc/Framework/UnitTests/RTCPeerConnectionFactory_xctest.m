@@ -42,4 +42,17 @@
   XCTAssertTrue(true, @"Expect test does not crash");
 }
 
+- (void)testMediaStreamLifetime {
+  @autoreleasepool {
+    RTCPeerConnectionFactory *factory = [[RTCPeerConnectionFactory alloc] init];
+
+    RTCMediaStream *mediaStream = [factory mediaStreamWithStreamId:@"mediaStream"];
+
+    factory = nil;
+    mediaStream = nil;
+  }
+
+  XCTAssertTrue(true, "Expect test does not crash");
+}
+
 @end

@@ -27,6 +27,7 @@
 #include "rtc_base/numerics/safe_minmax.h"
 #include "rtc_base/ptr_util.h"
 #include "rtc_base/stringencode.h"
+#include "rtc_base/strings/string_builder.h"
 #include "rtc_base/stringutils.h"
 
 namespace {
@@ -206,9 +207,9 @@ static std::string ComputeFoundation(const std::string& type,
                                      const std::string& protocol,
                                      const std::string& relay_protocol,
                                      const rtc::SocketAddress& base_address) {
-  std::ostringstream ost;
-  ost << type << base_address.ipaddr().ToString() << protocol << relay_protocol;
-  return rtc::ToString<uint32_t>(rtc::ComputeCrc32(ost.str()));
+  std::string s = absl::StrCat(type, base_address.ipaddr().ToString(), protocol,
+                               relay_protocol);
+  return rtc::ToString<uint32_t>(rtc::ComputeCrc32(s));
 }
 
 CandidateStats::CandidateStats() = default;
@@ -873,11 +874,9 @@ void Port::OnNetworkTypeChanged(const rtc::Network* network) {
 }
 
 std::string Port::ToString() const {
-  std::stringstream ss;
-  ss << "Port[" << std::hex << this << std::dec << ":" << content_name_ << ":"
-     << component_ << ":" << generation_ << ":" << type_ << ":"
-     << network_->ToString() << "]";
-  return ss.str();
+  return absl::StrCat("Port[", absl::Hex(this), ":", content_name_, ":",
+                      component_, ":", generation_, ":", type_, ":",
+                      network_->ToString(), "]");
 }
 
 // TODO(honghaiz): Make the network cost configurable from user setting.
@@ -1366,20 +1365,20 @@ void Connection::FailAndPrune() {
 }
 
 void Connection::PrintPingsSinceLastResponse(std::string* s, size_t max) {
-  std::ostringstream oss;
-  oss << std::boolalpha;
+  char buf[256];
+  rtc::SimpleStringBuilder sb(buf);
   if (pings_since_last_response_.size() > max) {
     for (size_t i = 0; i < max; i++) {
       const SentPing& ping = pings_since_last_response_[i];
-      oss << rtc::hex_encode(ping.id) << " ";
+      sb << rtc::hex_encode(ping.id) << " ";
     }
-    oss << "... " << (pings_since_last_response_.size() - max) << " more";
+    sb << "... " << (pings_since_last_response_.size() - max) << " more";
   } else {
     for (const SentPing& ping : pings_since_last_response_) {
-      oss << rtc::hex_encode(ping.id) << " ";
+      sb << rtc::hex_encode(ping.id) << " ";
     }
   }
-  *s = oss.str();
+  *s = sb.str();
 }
 
 void Connection::UpdateState(int64_t now) {
@@ -1528,31 +1527,25 @@ bool Connection::stable(int64_t now) const {
   return rtt_converged() && !missing_responses(now);
 }
 
-std::string Connection::ToDebugId() const {
-  std::stringstream ss;
-  ss << std::hex << this;
-  return ss.str();
-}
-
 uint32_t Connection::ComputeNetworkCost() const {
   // TODO(honghaiz): Will add rtt as part of the network cost.
   return port()->network_cost() + remote_candidate_.network_cost();
 }
 
 std::string Connection::ToString() const {
-  const char CONNECT_STATE_ABBREV[2] = {
-      '-',  // not connected (false)
-      'C',  // connected (true)
+  const std::string CONNECT_STATE_ABBREV[2] = {
+      "-",  // not connected (false)
+      "C",  // connected (true)
   };
-  const char RECEIVE_STATE_ABBREV[2] = {
-      '-',  // not receiving (false)
-      'R',  // receiving (true)
+  const std::string RECEIVE_STATE_ABBREV[2] = {
+      "-",  // not receiving (false)
+      "R",  // receiving (true)
   };
-  const char WRITE_STATE_ABBREV[4] = {
-      'W',  // STATE_WRITABLE
-      'w',  // STATE_WRITE_UNRELIABLE
-      '-',  // STATE_WRITE_INIT
-      'x',  // STATE_WRITE_TIMEOUT
+  const std::string WRITE_STATE_ABBREV[4] = {
+      "W",  // STATE_WRITABLE
+      "w",  // STATE_WRITE_UNRELIABLE
+      "-",  // STATE_WRITE_INIT
+      "x",  // STATE_WRITE_TIMEOUT
   };
   const std::string ICESTATE[4] = {
       "W",  // STATE_WAITING
@@ -1566,24 +1559,18 @@ std::string Connection::ToString() const {
   };
   const Candidate& local = local_candidate();
   const Candidate& remote = remote_candidate();
-  std::stringstream ss;
-  ss << "Conn[" << ToDebugId() << ":" << port_->content_name() << ":"
-     << port_->Network()->ToString() << ":" << local.id() << ":"
-     << local.component() << ":" << local.generation() << ":" << local.type()
-     << ":" << local.protocol() << ":" << local.address().ToSensitiveString()
-     << "->" << remote.id() << ":" << remote.component() << ":"
-     << remote.priority() << ":" << remote.type() << ":" << remote.protocol()
-     << ":" << remote.address().ToSensitiveString() << "|"
-     << CONNECT_STATE_ABBREV[connected()] << RECEIVE_STATE_ABBREV[receiving()]
-     << WRITE_STATE_ABBREV[write_state()] << ICESTATE[static_cast<int>(state())]
-     << "|" << SELECTED_STATE_ABBREV[selected()] << "|" << remote_nomination()
-     << "|" << nomination() << "|" << priority() << "|";
-  if (rtt_ < DEFAULT_RTT) {
-    ss << rtt_ << "]";
-  } else {
-    ss << "-]";
-  }
-  return ss.str();
+
+  return absl::StrCat(
+      "Conn[", absl::Hex(this), ":", port_->content_name(), ":",
+      port_->Network()->ToString(), ":", local.id(), ":", local.component(),
+      ":", local.generation(), ":", local.type(), ":", local.protocol(), ":",
+      local.address().ToSensitiveString(), "->", remote.id(), ":",
+      remote.component(), ":", remote.priority(), ":", remote.type(), ":",
+      remote.protocol(), ":", remote.address().ToSensitiveString(), "|",
+      CONNECT_STATE_ABBREV[connected()], RECEIVE_STATE_ABBREV[receiving()],
+      WRITE_STATE_ABBREV[write_state()], ICESTATE[static_cast<int>(state())],
+      "|", SELECTED_STATE_ABBREV[selected()], "|", remote_nomination(), "|",
+      nomination(), "|", priority(), "|", rtt_, "]");
 }
 
 std::string Connection::ToSensitiveString() const {

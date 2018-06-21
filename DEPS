@@ -745,4 +745,6 @@ include_rules = [
 
   # Abseil whitelist.
   "+absl/types/optional.h",
+  "+absl/strings/str_cat.h",
+  "+absl/strings/string_view.h",
 ]

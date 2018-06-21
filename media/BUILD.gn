@@ -121,6 +121,7 @@ rtc_static_library("rtc_media_base") {
     "../rtc_base:rtc_base",
     "../rtc_base:rtc_base_approved",
     "../system_wrappers:field_trial_api",
+    "//third_party/abseil-cpp/absl/strings:strings",
     "//third_party/abseil-cpp/absl/types:optional",
   ]
 
@@ -222,6 +223,7 @@ rtc_static_library("rtc_audio_video") {
     "../rtc_base:audio_format_to_string",
     "../rtc_base:base64",
     "../rtc_base:checks",
+    "//third_party/abseil-cpp/absl/strings:strings",
   ]
 
   sources = [

@@ -46,6 +46,8 @@
 #include "system_wrappers/include/field_trial.h"
 #include "system_wrappers/include/metrics.h"
 
+#include "absl/strings/str_cat.h"
+
 namespace cricket {
 namespace {
 
@@ -103,17 +105,17 @@ bool ValidateStreamParams(const StreamParams& sp) {
 
 // Dumps an AudioCodec in RFC 2327-ish format.
 std::string ToString(const AudioCodec& codec) {
-  std::stringstream ss;
-  ss << codec.name << "/" << codec.clockrate << "/" << codec.channels;
+  std::string s =
+      absl::StrCat(codec.name, "/", codec.clockrate, "/", codec.channels);
   if (!codec.params.empty()) {
-    ss << " {";
+    absl::StrAppend(&s, " {");
     for (const auto& param : codec.params) {
-      ss << " " << param.first << "=" << param.second;
+      absl::StrAppend(&s, " ", param.first, "=", param.second);
     }
-    ss << " }";
+    absl::StrAppend(&s, " }");
   }
-  ss << " (" << codec.id << ")";
-  return ss.str();
+  absl::StrAppend(&s, " (", codec.id, ")");
+  return s;
 }
 
 bool IsCodec(const AudioCodec& codec, const char* ref_name) {

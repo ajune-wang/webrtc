@@ -9,7 +9,9 @@
  */
 #ifndef RTC_BASE_EXPERIMENTS_CONGESTION_CONTROLLER_EXPERIMENT_H_
 #define RTC_BASE_EXPERIMENTS_CONGESTION_CONTROLLER_EXPERIMENT_H_
-#include <api/optional.h>
+
+#include "absl/types/optional.h"
+
 namespace webrtc {
 class CongestionControllerExperiment {
  public:

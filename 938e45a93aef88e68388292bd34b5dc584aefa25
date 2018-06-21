@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "feb028d1_636dae65",
+        "filename": "modules/audio_coding/neteq/tools/neteq_event_log_input.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-06-21T09:04:35Z",
+      "side": 1,
+      "message": "The code in this file is moved verbatim from neteq_packet_source_input.cc",
+      "revId": "938e45a93aef88e68388292bd34b5dc584aefa25",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "095cf0c8_79b245a1",
+        "filename": "modules/audio_coding/neteq/tools/neteq_event_log_input.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-06-21T09:04:35Z",
+      "side": 1,
+      "message": "The code in this file is moved verbatim from neteq_packet_source_input.h.",
+      "revId": "938e45a93aef88e68388292bd34b5dc584aefa25",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

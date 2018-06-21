@@ -11,7 +11,7 @@
 #ifndef RTC_BASE_RTCCERTIFICATEGENERATOR_H_
 #define RTC_BASE_RTCCERTIFICATEGENERATOR_H_
 
-#include "api/optional.h"
+#include "absl/types/optional.h"
 #include "rtc_base/refcount.h"
 #include "rtc_base/rtccertificate.h"
 #include "rtc_base/scoped_ref_ptr.h"

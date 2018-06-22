@@ -268,6 +268,10 @@ class PeerConnection : public PeerConnectionInternal,
   bool NeedsIceRestart(const std::string& content_name) const override;
   bool GetSslRole(const std::string& content_name, rtc::SSLRole* role) override;
 
+  void ReturnHistogramVeryQuicklyForTesting() {
+    return_histogram_very_quickly_ = true;
+  }
+
  protected:
   ~PeerConnection() override;
 
@@ -1020,6 +1024,7 @@ class PeerConnection : public PeerConnectionInternal,
   cricket::VideoOptions video_options_;
 
   int usage_event_accumulator_ = 0;
+  bool return_histogram_very_quickly_ = false;
 };
 
 }  // namespace webrtc

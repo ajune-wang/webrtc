@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b73835ce_f60b0057",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 6037,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-06-22T18:21:53Z",
+      "side": 1,
+      "message": "Like I mentioned in the email, I think we can just call this macro in the two branches above to work around the macro problem.",
+      "range": {
+        "startLine": 6037,
+        "startChar": 6,
+        "endLine": 6037,
+        "endChar": 31
+      },
+      "revId": "149929cfee0577f49d9e1c9fc9ac89ee1badb062",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

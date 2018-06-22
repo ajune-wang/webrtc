@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "0d844960_42e3c5f8",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 688,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-06-22T18:21:53Z",
+      "side": 1,
+      "message": "Ack. Thanks for pointing this out to me. I was completely off in understanding the source of this field. Fixed all other places as well.",
+      "parentUuid": "11bbbc37_78272a62",
+      "revId": "8b6d1c63ca245928d4bc84bc66b2dbf18b780ecd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6ea517c4_50bd1c9d",
         "filename": "p2p/base/p2ptransportchannel_unittest.cc",
         "patchSetId": 14
@@ -51,6 +69,24 @@
       "revId": "8b6d1c63ca245928d4bc84bc66b2dbf18b780ecd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14161578_a04d9b4c",
+        "filename": "p2p/base/p2ptransportchannel_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-06-22T18:21:53Z",
+      "side": 1,
+      "message": "Thanks for the tips. I realized I misunderstand how the parallel tests work, and also the lock I had was not working because the test binary had multiple per-cc locks instead of a global lock. In fact I don\u0027t need the lock...",
+      "parentUuid": "6ea517c4_50bd1c9d",
+      "revId": "8b6d1c63ca245928d4bc84bc66b2dbf18b780ecd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -89,6 +125,24 @@
     },
     {
       "key": {
+        "uuid": "97738e81_ee148255",
+        "filename": "p2p/base/p2ptransportchannel_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-06-22T18:21:53Z",
+      "side": 1,
+      "message": "Yeah, our test logic wants to explicitly count the events per endpoint for ICE restart, given different configs of the two endpoints.\n\nAlso added a few more expectations to verify the metrics, or is a separate test preferred?",
+      "parentUuid": "ac7cbd5e_fba8bef1",
+      "revId": "8b6d1c63ca245928d4bc84bc66b2dbf18b780ecd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "97fc1635_aaeebbbc",
         "filename": "p2p/client/basicportallocator.cc",
         "patchSetId": 14
@@ -103,6 +157,24 @@
       "revId": "8b6d1c63ca245928d4bc84bc66b2dbf18b780ecd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2bd704d6_3f2268e3",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-06-22T18:21:53Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "97fc1635_aaeebbbc",
+      "revId": "8b6d1c63ca245928d4bc84bc66b2dbf18b780ecd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -123,6 +195,24 @@
     },
     {
       "key": {
+        "uuid": "9ae56386_d4371ec0",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-06-22T18:21:53Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5b300921_6a669760",
+      "revId": "8b6d1c63ca245928d4bc84bc66b2dbf18b780ecd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "740401f3_2cb80a57",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 14
@@ -140,6 +230,24 @@
     },
     {
       "key": {
+        "uuid": "ebc3034c_b5453ab2",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 920,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-06-22T18:21:53Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "740401f3_2cb80a57",
+      "revId": "8b6d1c63ca245928d4bc84bc66b2dbf18b780ecd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e5ffd68e_9e996e1e",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 14
@@ -151,6 +259,24 @@
       "writtenOn": "2018-06-21T00:01:39Z",
       "side": 1,
       "message": "It doesn\u0027t look like \"RTC_HISTOGRAM_ENUMERATION_SPARSE\" actually results in \"SparseHistogram::FactoryGet\"; will this be a problem? I haven\u0027t looked into this much, but it sounds like it may just be a matter of efficiency: https://chromium.googlesource.com/chromium/src.git/+/HEAD/tools/metrics/histograms/README.md#When-To-Use-Sparse-Histograms",
+      "revId": "8b6d1c63ca245928d4bc84bc66b2dbf18b780ecd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85d13c8d_22522497",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 5913,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-06-22T18:21:53Z",
+      "side": 1,
+      "message": "It looks like the difference between RTC_HISTOGRAM_ENUMERATION and RTC_HISTOGRAM_ENUMERATION_SPARSE is not the underlying histogram type, but the caching logic we are discussing. I am wondering why it is named so, and RTC_HISTOGRAM_ENUMERATION_SPARSE uses the deprecated RTC_HISTOGRAM_COMMON_BLOCK_SLOW though it is deprecated itself...",
+      "parentUuid": "e5ffd68e_9e996e1e",
       "revId": "8b6d1c63ca245928d4bc84bc66b2dbf18b780ecd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -174,6 +300,24 @@
     },
     {
       "key": {
+        "uuid": "fc600528_5ad285d7",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 6050,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-06-22T18:21:53Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "1749e926_a9c13fdb",
+      "revId": "8b6d1c63ca245928d4bc84bc66b2dbf18b780ecd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b4ace691_2be61268",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 14
@@ -188,6 +332,24 @@
       "revId": "8b6d1c63ca245928d4bc84bc66b2dbf18b780ecd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c77b6907_ba037b0c",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 6099,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-06-22T18:21:53Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b4ace691_2be61268",
+      "revId": "8b6d1c63ca245928d4bc84bc66b2dbf18b780ecd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -208,6 +370,24 @@
     },
     {
       "key": {
+        "uuid": "d670fded_6b97606d",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 6117,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-06-22T18:21:53Z",
+      "side": 1,
+      "message": "Ack. Making a new enum is not really necessary.",
+      "parentUuid": "250a5f21_7da400ba",
+      "revId": "8b6d1c63ca245928d4bc84bc66b2dbf18b780ecd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b0df4616_8476957b",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 14
@@ -222,6 +402,24 @@
       "revId": "8b6d1c63ca245928d4bc84bc66b2dbf18b780ecd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "623870f2_a648481c",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 6121,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-06-22T18:21:53Z",
+      "side": 1,
+      "message": "Ah, I was using something similar to RTC_HISTOGRAM_COUNTS_100 as a placeholder before figuring out its 16-bit type. That\u0027s a careless mistake I missed from the clean-up. Thanks for spotting this!",
+      "parentUuid": "b0df4616_8476957b",
+      "revId": "8b6d1c63ca245928d4bc84bc66b2dbf18b780ecd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

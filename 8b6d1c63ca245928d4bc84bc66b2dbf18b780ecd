@@ -143,6 +143,24 @@
     },
     {
       "key": {
+        "uuid": "fc96cab2_e292f290",
+        "filename": "p2p/base/p2ptransportchannel_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-22T20:10:16Z",
+      "side": 1,
+      "message": "It\u0027s not a big deal for something as simple as this, but generally having one test per behavior being tested is preferable. That\u0027s what the existing tests (like TestUMAIceRestartWhileDisconnected) do. It makes it more clear what the test was actually intended to test (which helps avoid accidentally losing test coverage when refactoring, for example), and makes it more clear what\u0027s broken when a test fails, among other reasons. See https://engdoc.corp.google.com/eng/doc/devguide/coding/testing/unit-testing-best-practices.md?cl\u003dhead",
+      "parentUuid": "97738e81_ee148255",
+      "revId": "8b6d1c63ca245928d4bc84bc66b2dbf18b780ecd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "97fc1635_aaeebbbc",
         "filename": "p2p/client/basicportallocator.cc",
         "patchSetId": 14
@@ -277,6 +295,24 @@
       "side": 1,
       "message": "It looks like the difference between RTC_HISTOGRAM_ENUMERATION and RTC_HISTOGRAM_ENUMERATION_SPARSE is not the underlying histogram type, but the caching logic we are discussing. I am wondering why it is named so, and RTC_HISTOGRAM_ENUMERATION_SPARSE uses the deprecated RTC_HISTOGRAM_COMMON_BLOCK_SLOW though it is deprecated itself...",
       "parentUuid": "e5ffd68e_9e996e1e",
+      "revId": "8b6d1c63ca245928d4bc84bc66b2dbf18b780ecd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10386bc2_7f02cbb4",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 5913,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-22T20:10:16Z",
+      "side": 1,
+      "message": "Looking into this a bit more, it appears there\u0027s a limit of 16K buckets: https://cs.chromium.org/chromium/src/base/metrics/histogram.cc?l\u003d432\u0026rcl\u003dc8592cc3e490b01c0f0e84a7c7a0b5bf5db02f46\n\nWhich wouldn\u0027t work for srtp_crypto_suite/ssl_cipher_suite. So I think we\u0027ll need to add a macro that actually creates a SparseHistogram.",
+      "parentUuid": "85d13c8d_22522497",
       "revId": "8b6d1c63ca245928d4bc84bc66b2dbf18b780ecd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

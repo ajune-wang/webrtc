@@ -22,6 +22,47 @@
       "revId": "149929cfee0577f49d9e1c9fc9ac89ee1badb062",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d55656b_fa5c4e98",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 6037,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-22T20:10:16Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b73835ce_f60b0057",
+      "range": {
+        "startLine": 6037,
+        "startChar": 6,
+        "endLine": 6037,
+        "endChar": 31
+      },
+      "revId": "149929cfee0577f49d9e1c9fc9ac89ee1badb062",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "39998819_f7b89e5f",
+        "filename": "pc/peerconnection_integrationtest.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 1534,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-22T20:10:16Z",
+      "side": 1,
+      "message": "This seems racy; how about just doing \"ASSERT_TRUE_WAIT(DtlsConnected(), kDefaultTimeout);\" above instead of \"SignalingStateStable()\"? Or does the callee *never* call ReportNegotiatedCiphers? If so that sounds like a bug, which would end up skewing our numbers. If so, can you file a bug and link it in \"TODO(bugs.webrtc.org/####)\"?",
+      "revId": "149929cfee0577f49d9e1c9fc9ac89ee1badb062",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

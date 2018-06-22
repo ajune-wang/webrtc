@@ -16,7 +16,6 @@
 #include <string>
 #include <vector>
 
-#include "api/umametrics.h"
 #include "p2p/base/basicpacketsocketfactory.h"
 #include "p2p/base/port.h"
 #include "p2p/base/relayport.h"
@@ -27,6 +26,7 @@
 #include "rtc_base/checks.h"
 #include "rtc_base/helpers.h"
 #include "rtc_base/logging.h"
+#include "system_wrappers/include/metrics.h"
 
 using rtc::CreateRandomId;
 
@@ -190,9 +190,6 @@ void BasicPortAllocator::Construct() {
 
 void BasicPortAllocator::OnIceRegathering(PortAllocatorSession* session,
                                           IceRegatheringReason reason) {
-  if (!metrics_observer()) {
-    return;
-  }
   // If the session has not been taken by an active channel, do not report the
   // metric.
   for (auto& allocator_session : pooled_sessions()) {
@@ -201,9 +198,9 @@ void BasicPortAllocator::OnIceRegathering(PortAllocatorSession* session,
     }
   }
 
-  metrics_observer()->IncrementEnumCounter(
-      webrtc::kEnumCounterIceRegathering, static_cast<int>(reason),
-      static_cast<int>(IceRegatheringReason::MAX_VALUE));
+  RTC_HISTOGRAM_ENUMERATION("WebRTC.PeerConnection.IceRegatheringReason",
+                            static_cast<int>(reason),
+                            static_cast<int>(IceRegatheringReason::MAX_VALUE));
 }
 
 BasicPortAllocator::~BasicPortAllocator() {

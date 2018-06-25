@@ -195,10 +195,7 @@ class SendStatisticsProxy : public CpuOveruseMetricsObserver,
     }
   };
   struct Frame {
-    Frame(int64_t send_ms,
-          uint32_t width,
-          uint32_t height,
-          size_t simulcast_idx)
+    Frame(int64_t send_ms, uint32_t width, uint32_t height, int simulcast_idx)
         : send_ms(send_ms),
           max_width(width),
           max_height(height),
@@ -207,7 +204,7 @@ class SendStatisticsProxy : public CpuOveruseMetricsObserver,
         send_ms;          // Time when first frame with this timestamp is sent.
     uint32_t max_width;   // Max width with this timestamp.
     uint32_t max_height;  // Max height with this timestamp.
-    size_t max_simulcast_idx;  // Max simulcast index with this timestamp.
+    int max_simulcast_idx;  // Max simulcast index with this timestamp.
   };
   typedef std::map<uint32_t, Frame, TimestampOlderThan> EncodedFrameMap;
 
@@ -226,10 +223,12 @@ class SendStatisticsProxy : public CpuOveruseMetricsObserver,
       RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_);
 
   void UpdateEncoderFallbackStats(const CodecSpecificInfo* codec_info,
-                                  int pixels)
+                                  int pixels,
+                                  int simulcast_index)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_);
   void UpdateFallbackDisabledStats(const CodecSpecificInfo* codec_info,
-                                   int pixels)
+                                   int pixels,
+                                   int simulcast_index)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_);
 
   Clock* const clock_;
@@ -265,7 +264,7 @@ class SendStatisticsProxy : public CpuOveruseMetricsObserver,
     void InitializeBitrateCounters(const VideoSendStream::Stats& stats);
 
     bool InsertEncodedFrame(const EncodedImage& encoded_frame,
-                            size_t simulcast_idx,
+                            int simulcast_idx,
                             bool* is_limited_in_resolution);
     void RemoveOld(int64_t now_ms, bool* is_limited_in_resolution);
 

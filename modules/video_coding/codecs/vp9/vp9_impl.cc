@@ -631,6 +631,7 @@ int VP9EncoderImpl::Encode(const VideoFrame& input_image,
 }
 
 void VP9EncoderImpl::PopulateCodecSpecific(CodecSpecificInfo* codec_specific,
+                                           int* spatial_idx,
                                            const vpx_codec_cx_pkt& pkt,
                                            uint32_t timestamp,
                                            bool first_frame_in_picture) {
@@ -659,9 +660,8 @@ void VP9EncoderImpl::PopulateCodecSpecific(CodecSpecificInfo* codec_specific,
   }
   if (num_active_spatial_layers_ == 1) {
     RTC_CHECK_EQ(layer_id.spatial_layer_id, 0);
-    vp9_info->spatial_idx = kNoSpatialIdx;
   } else {
-    vp9_info->spatial_idx = layer_id.spatial_layer_id;
+    *spatial_idx = layer_id.spatial_layer_id;
   }
   if (layer_id.spatial_layer_id != 0) {
     vp9_info->ss_data_available = false;
@@ -870,9 +870,11 @@ int VP9EncoderImpl::GetEncodedLayerFrame(const vpx_codec_cx_pkt* pkt) {
   RTC_DCHECK_LE(encoded_image_._length, encoded_image_._size);
 
   memset(&codec_specific_, 0, sizeof(codec_specific_));
-  PopulateCodecSpecific(&codec_specific_, *pkt, input_image_->timestamp(),
-                        first_frame_in_picture);
-
+  int spatial_index = -1;
+  PopulateCodecSpecific(&codec_specific_, &spatial_index, *pkt,
+                        input_image_->timestamp(), first_frame_in_picture);
+  if (num_spatial_layers_ > 1)
+    encoded_image_.SetSpatialIndex(spatial_index);
   if (is_flexible_mode_) {
     UpdateReferenceBuffers(*pkt, pics_since_key_);
   }

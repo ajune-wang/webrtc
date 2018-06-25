@@ -105,48 +105,48 @@ TEST(PayloadRouterTest, SendSimulcastSetActive) {
   std::vector<RtpRtcp*> modules = {&rtp_1, &rtp_2};
 
   uint8_t payload = 'a';
-  EncodedImage encoded_image;
-  encoded_image._timeStamp = 1;
-  encoded_image.capture_time_ms_ = 2;
-  encoded_image._frameType = kVideoFrameKey;
-  encoded_image._buffer = &payload;
-  encoded_image._length = 1;
+  EncodedImage encoded_image_1;
+  encoded_image_1._timeStamp = 1;
+  encoded_image_1.capture_time_ms_ = 2;
+  encoded_image_1._frameType = kVideoFrameKey;
+  encoded_image_1._buffer = &payload;
+  encoded_image_1._length = 1;
+  encoded_image_1.SetSpatialIndex(0);
 
   PayloadRouter payload_router(modules, {kSsrc1, kSsrc2}, kPayloadType, {});
 
-  CodecSpecificInfo codec_info_1;
-  memset(&codec_info_1, 0, sizeof(CodecSpecificInfo));
-  codec_info_1.codecType = kVideoCodecVP8;
-  codec_info_1.codecSpecific.VP8.simulcastIdx = 0;
+  CodecSpecificInfo codec_info;
+  memset(&codec_info, 0, sizeof(CodecSpecificInfo));
+  codec_info.codecType = kVideoCodecVP8;
 
   payload_router.SetActive(true);
   EXPECT_CALL(rtp_1, Sending()).WillOnce(Return(true));
-  EXPECT_CALL(rtp_1, SendOutgoingData(encoded_image._frameType, kPayloadType,
-                                      encoded_image._timeStamp,
-                                      encoded_image.capture_time_ms_, &payload,
-                                      encoded_image._length, nullptr, _, _))
+  EXPECT_CALL(rtp_1,
+              SendOutgoingData(encoded_image_1._frameType, kPayloadType,
+                               encoded_image_1._timeStamp,
+                               encoded_image_1.capture_time_ms_, &payload,
+                               encoded_image_1._length, nullptr, _, _))
       .Times(1)
       .WillOnce(Return(true));
   EXPECT_CALL(rtp_2, SendOutgoingData(_, _, _, _, _, _, _, _, _)).Times(0);
   EXPECT_EQ(EncodedImageCallback::Result::OK,
-            payload_router.OnEncodedImage(encoded_image, &codec_info_1, nullptr)
+            payload_router.OnEncodedImage(encoded_image_1, &codec_info, nullptr)
                 .error);
 
-  CodecSpecificInfo codec_info_2;
-  memset(&codec_info_2, 0, sizeof(CodecSpecificInfo));
-  codec_info_2.codecType = kVideoCodecVP8;
-  codec_info_2.codecSpecific.VP8.simulcastIdx = 1;
+  EncodedImage encoded_image_2(encoded_image_1);
+  encoded_image_2.SetSpatialIndex(1);
 
   EXPECT_CALL(rtp_2, Sending()).WillOnce(Return(true));
-  EXPECT_CALL(rtp_2, SendOutgoingData(encoded_image._frameType, kPayloadType,
-                                      encoded_image._timeStamp,
-                                      encoded_image.capture_time_ms_, &payload,
-                                      encoded_image._length, nullptr, _, _))
+  EXPECT_CALL(rtp_2,
+              SendOutgoingData(encoded_image_2._frameType, kPayloadType,
+                               encoded_image_2._timeStamp,
+                               encoded_image_2.capture_time_ms_, &payload,
+                               encoded_image_2._length, nullptr, _, _))
       .Times(1)
       .WillOnce(Return(true));
   EXPECT_CALL(rtp_1, SendOutgoingData(_, _, _, _, _, _, _, _, _)).Times(0);
   EXPECT_EQ(EncodedImageCallback::Result::OK,
-            payload_router.OnEncodedImage(encoded_image, &codec_info_2, nullptr)
+            payload_router.OnEncodedImage(encoded_image_2, &codec_info, nullptr)
                 .error);
 
   // Inactive.
@@ -154,10 +154,10 @@ TEST(PayloadRouterTest, SendSimulcastSetActive) {
   EXPECT_CALL(rtp_1, SendOutgoingData(_, _, _, _, _, _, _, _, _)).Times(0);
   EXPECT_CALL(rtp_2, SendOutgoingData(_, _, _, _, _, _, _, _, _)).Times(0);
   EXPECT_NE(EncodedImageCallback::Result::OK,
-            payload_router.OnEncodedImage(encoded_image, &codec_info_1, nullptr)
+            payload_router.OnEncodedImage(encoded_image_1, &codec_info, nullptr)
                 .error);
   EXPECT_NE(EncodedImageCallback::Result::OK,
-            payload_router.OnEncodedImage(encoded_image, &codec_info_2, nullptr)
+            payload_router.OnEncodedImage(encoded_image_2, &codec_info, nullptr)
                 .error);
 }
 
@@ -171,21 +171,19 @@ TEST(PayloadRouterTest, SendSimulcastSetActiveModules) {
   std::vector<RtpRtcp*> modules = {&rtp_1, &rtp_2};
 
   uint8_t payload = 'a';
-  EncodedImage encoded_image;
-  encoded_image._timeStamp = 1;
-  encoded_image.capture_time_ms_ = 2;
-  encoded_image._frameType = kVideoFrameKey;
-  encoded_image._buffer = &payload;
-  encoded_image._length = 1;
+  EncodedImage encoded_image_1;
+  encoded_image_1._timeStamp = 1;
+  encoded_image_1.capture_time_ms_ = 2;
+  encoded_image_1._frameType = kVideoFrameKey;
+  encoded_image_1._buffer = &payload;
+  encoded_image_1._length = 1;
+  encoded_image_1.SetSpatialIndex(0);
+  EncodedImage encoded_image_2(encoded_image_1);
+  encoded_image_2.SetSpatialIndex(1);
   PayloadRouter payload_router(modules, {kSsrc1, kSsrc2}, kPayloadType, {});
-  CodecSpecificInfo codec_info_1;
-  memset(&codec_info_1, 0, sizeof(CodecSpecificInfo));
-  codec_info_1.codecType = kVideoCodecVP8;
-  codec_info_1.codecSpecific.VP8.simulcastIdx = 0;
-  CodecSpecificInfo codec_info_2;
-  memset(&codec_info_2, 0, sizeof(CodecSpecificInfo));
-  codec_info_2.codecType = kVideoCodecVP8;
-  codec_info_2.codecSpecific.VP8.simulcastIdx = 1;
+  CodecSpecificInfo codec_info;
+  memset(&codec_info, 0, sizeof(CodecSpecificInfo));
+  codec_info.codecType = kVideoCodecVP8;
 
   // Only setting one stream to active will still set the payload router to
   // active and allow sending data on the active stream.
@@ -193,14 +191,15 @@ TEST(PayloadRouterTest, SendSimulcastSetActiveModules) {
   payload_router.SetActiveModules(active_modules);
 
   EXPECT_CALL(rtp_1, Sending()).WillOnce(Return(true));
-  EXPECT_CALL(rtp_1, SendOutgoingData(encoded_image._frameType, kPayloadType,
-                                      encoded_image._timeStamp,
-                                      encoded_image.capture_time_ms_, &payload,
-                                      encoded_image._length, nullptr, _, _))
+  EXPECT_CALL(rtp_1,
+              SendOutgoingData(encoded_image_1._frameType, kPayloadType,
+                               encoded_image_1._timeStamp,
+                               encoded_image_1.capture_time_ms_, &payload,
+                               encoded_image_1._length, nullptr, _, _))
       .Times(1)
       .WillOnce(Return(true));
   EXPECT_EQ(EncodedImageCallback::Result::OK,
-            payload_router.OnEncodedImage(encoded_image, &codec_info_1, nullptr)
+            payload_router.OnEncodedImage(encoded_image_1, &codec_info, nullptr)
                 .error);
 
   // Setting both streams to inactive will turn the payload router to inactive.
@@ -213,10 +212,10 @@ TEST(PayloadRouterTest, SendSimulcastSetActiveModules) {
   EXPECT_CALL(rtp_2, SendOutgoingData(_, _, _, _, _, _, _, _, _)).Times(0);
   EXPECT_CALL(rtp_2, Sending()).Times(0);
   EXPECT_NE(EncodedImageCallback::Result::OK,
-            payload_router.OnEncodedImage(encoded_image, &codec_info_1, nullptr)
+            payload_router.OnEncodedImage(encoded_image_1, &codec_info, nullptr)
                 .error);
   EXPECT_NE(EncodedImageCallback::Result::OK,
-            payload_router.OnEncodedImage(encoded_image, &codec_info_2, nullptr)
+            payload_router.OnEncodedImage(encoded_image_1, &codec_info, nullptr)
                 .error);
 }
 
@@ -316,11 +315,10 @@ TEST(PayloadRouterTest, InfoMappedToRtpVideoHeader_Vp8) {
   EncodedImage encoded_image;
   encoded_image.rotation_ = kVideoRotation_90;
   encoded_image.content_type_ = VideoContentType::SCREENSHARE;
-
+  encoded_image.SetSpatialIndex(1);
   CodecSpecificInfo codec_info;
   memset(&codec_info, 0, sizeof(CodecSpecificInfo));
   codec_info.codecType = kVideoCodecVP8;
-  codec_info.codecSpecific.VP8.simulcastIdx = 1;
   codec_info.codecSpecific.VP8.temporalIdx = kTemporalIdx;
   codec_info.codecSpecific.VP8.keyIdx = kNoKeyIdx;
   codec_info.codecSpecific.VP8.layerSync = true;
@@ -362,13 +360,12 @@ TEST(PayloadRouterTest, InfoMappedToRtpVideoHeader_Vp9) {
   EncodedImage encoded_image;
   encoded_image.rotation_ = kVideoRotation_90;
   encoded_image.content_type_ = VideoContentType::SCREENSHARE;
-
+  encoded_image.SetSpatialIndex(0);
   CodecSpecificInfo codec_info;
   memset(&codec_info, 0, sizeof(CodecSpecificInfo));
   codec_info.codecType = kVideoCodecVP9;
   codec_info.codecSpecific.VP9.num_spatial_layers = 3;
   codec_info.codecSpecific.VP9.first_frame_in_picture = true;
-  codec_info.codecSpecific.VP9.spatial_idx = 0;
   codec_info.codecSpecific.VP9.temporal_idx = 2;
   codec_info.codecSpecific.VP9.end_of_picture = false;
 
@@ -383,8 +380,7 @@ TEST(PayloadRouterTest, InfoMappedToRtpVideoHeader_Vp9) {
             EXPECT_EQ(kTl0PicIdx, header->codecHeader.VP9.tl0_pic_idx);
             EXPECT_EQ(header->codecHeader.VP9.temporal_idx,
                       codec_info.codecSpecific.VP9.temporal_idx);
-            EXPECT_EQ(header->codecHeader.VP9.spatial_idx,
-                      codec_info.codecSpecific.VP9.spatial_idx);
+            EXPECT_EQ(header->codecHeader.VP9.spatial_idx, 0);
             EXPECT_EQ(header->codecHeader.VP9.num_spatial_layers,
                       codec_info.codecSpecific.VP9.num_spatial_layers);
             EXPECT_EQ(header->codecHeader.VP9.end_of_picture,
@@ -398,8 +394,8 @@ TEST(PayloadRouterTest, InfoMappedToRtpVideoHeader_Vp9) {
 
   // Next spatial layer.
   codec_info.codecSpecific.VP9.first_frame_in_picture = false;
-  codec_info.codecSpecific.VP9.spatial_idx += 1;
   codec_info.codecSpecific.VP9.end_of_picture = true;
+  encoded_image.SetSpatialIndex(1);
 
   EXPECT_CALL(rtp, SendOutgoingData(_, _, _, _, _, _, nullptr, _, _))
       .WillOnce(
@@ -412,8 +408,7 @@ TEST(PayloadRouterTest, InfoMappedToRtpVideoHeader_Vp9) {
             EXPECT_EQ(kTl0PicIdx, header->codecHeader.VP9.tl0_pic_idx);
             EXPECT_EQ(header->codecHeader.VP9.temporal_idx,
                       codec_info.codecSpecific.VP9.temporal_idx);
-            EXPECT_EQ(header->codecHeader.VP9.spatial_idx,
-                      codec_info.codecSpecific.VP9.spatial_idx);
+            EXPECT_EQ(header->codecHeader.VP9.spatial_idx, 1);
             EXPECT_EQ(header->codecHeader.VP9.num_spatial_layers,
                       codec_info.codecSpecific.VP9.num_spatial_layers);
             EXPECT_EQ(header->codecHeader.VP9.end_of_picture,
@@ -511,12 +506,12 @@ TEST(PayloadRouterTest, PictureIdIsSetForVp8) {
   router.SetActive(true);
 
   EncodedImage encoded_image;
+  encoded_image.SetSpatialIndex(0);
   // Modules are sending for this test.
   // OnEncodedImage, simulcastIdx: 0.
   CodecSpecificInfo codec_info;
   memset(&codec_info, 0, sizeof(CodecSpecificInfo));
   codec_info.codecType = kVideoCodecVP8;
-  codec_info.codecSpecific.VP8.simulcastIdx = 0;
 
   EXPECT_CALL(rtp1, SendOutgoingData(_, _, _, _, _, _, nullptr, _, _))
       .WillOnce(Invoke([](Unused, Unused, Unused, Unused, Unused, Unused,
@@ -531,7 +526,7 @@ TEST(PayloadRouterTest, PictureIdIsSetForVp8) {
             router.OnEncodedImage(encoded_image, &codec_info, nullptr).error);
 
   // OnEncodedImage, simulcastIdx: 1.
-  codec_info.codecSpecific.VP8.simulcastIdx = 1;
+  encoded_image.SetSpatialIndex(1);
 
   EXPECT_CALL(rtp2, SendOutgoingData(_, _, _, _, _, _, nullptr, _, _))
       .WillOnce(Invoke([](Unused, Unused, Unused, Unused, Unused, Unused,
@@ -565,6 +560,7 @@ TEST(PayloadRouterTest, PictureIdWraps) {
   router.SetActive(true);
 
   EncodedImage encoded_image;
+  encoded_image.SetSpatialIndex(0);
   CodecSpecificInfo codec_info;
   memset(&codec_info, 0, sizeof(CodecSpecificInfo));
   codec_info.codecType = kVideoCodecVP8;
@@ -601,6 +597,7 @@ TEST(PayloadRouterTest, Tl0PicIdxUpdatedForVp8) {
   router.SetActive(true);
 
   EncodedImage encoded_image;
+  encoded_image.SetSpatialIndex(0);
   // Modules are sending for this test.
   // OnEncodedImage, temporalIdx: 1.
   CodecSpecificInfo codec_info;

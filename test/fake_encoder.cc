@@ -111,7 +111,6 @@ int32_t FakeEncoder::Encode(const VideoFrame& input_image,
     CodecSpecificInfo specifics;
     memset(&specifics, 0, sizeof(specifics));
     specifics.codecType = kVideoCodecGeneric;
-    specifics.codecSpecific.generic.simulcast_idx = i;
     size_t min_stream_bits = static_cast<size_t>(
         (simulcast_streams[i].minBitrate * 1000) / framerate);
     size_t max_stream_bits = static_cast<size_t>(
@@ -153,8 +152,8 @@ int32_t FakeEncoder::Encode(const VideoFrame& input_image,
     encoded.content_type_ = (mode == VideoCodecMode::kScreensharing)
                                 ? VideoContentType::SCREENSHARE
                                 : VideoContentType::UNSPECIFIED;
+    encoded.SetSpatialIndex(i);
     specifics.codec_name = ImplementationName();
-    specifics.codecSpecific.generic.simulcast_idx = i;
     RTC_DCHECK(callback);
     if (callback->OnEncodedImage(encoded, &specifics, nullptr).error !=
         EncodedImageCallback::Result::OK) {

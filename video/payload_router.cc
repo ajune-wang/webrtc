@@ -15,6 +15,7 @@
 #include "modules/video_coding/include/video_codec_interface.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/random.h"
+#include "rtc_base/system/fallthrough.h"
 #include "rtc_base/timeutils.h"
 
 namespace webrtc {
@@ -31,7 +32,6 @@ void CopyCodecSpecific(const CodecSpecificInfo* info, RTPVideoHeader* rtp) {
       rtp->codecHeader.VP8.temporalIdx = info->codecSpecific.VP8.temporalIdx;
       rtp->codecHeader.VP8.layerSync = info->codecSpecific.VP8.layerSync;
       rtp->codecHeader.VP8.keyIdx = info->codecSpecific.VP8.keyIdx;
-      rtp->simulcastIdx = info->codecSpecific.VP8.simulcastIdx;
       return;
     }
     case kVideoCodecVP9: {
@@ -45,7 +45,6 @@ void CopyCodecSpecific(const CodecSpecificInfo* info, RTPVideoHeader* rtp) {
       rtp->codecHeader.VP9.non_ref_for_inter_layer_pred =
           info->codecSpecific.VP9.non_ref_for_inter_layer_pred;
       rtp->codecHeader.VP9.temporal_idx = info->codecSpecific.VP9.temporal_idx;
-      rtp->codecHeader.VP9.spatial_idx = info->codecSpecific.VP9.spatial_idx;
       rtp->codecHeader.VP9.temporal_up_switch =
           info->codecSpecific.VP9.temporal_up_switch;
       rtp->codecHeader.VP9.inter_layer_predicted =
@@ -78,12 +77,10 @@ void CopyCodecSpecific(const CodecSpecificInfo* info, RTPVideoHeader* rtp) {
     case kVideoCodecH264:
       rtp->codecHeader.H264.packetization_mode =
           info->codecSpecific.H264.packetization_mode;
-      rtp->simulcastIdx = info->codecSpecific.H264.simulcast_idx;
       return;
     case kVideoCodecMultiplex:
     case kVideoCodecGeneric:
       rtp->codec = kVideoCodecGeneric;
-      rtp->simulcastIdx = info->codecSpecific.generic.simulcast_idx;
       return;
     default:
       return;
@@ -235,34 +232,53 @@ EncodedImageCallback::Result PayloadRouter::OnEncodedImage(
 
   RTPVideoHeader rtp_video_header;
   memset(&rtp_video_header, 0, sizeof(RTPVideoHeader));
-  if (codec_specific_info)
+  if (codec_specific_info) {
     CopyCodecSpecific(codec_specific_info, &rtp_video_header);
-
+    switch (codec_specific_info->codecType) {
+      case kVideoCodecVP8:
+        // For VP8, spatial index should always be set.
+        RTC_DCHECK(encoded_image.SpatialIndex());
+        RTC_FALLTHROUGH();
+      case kVideoCodecGeneric:
+        // Map spatial index to simulcast, one ssrc per layer.
+        rtp_video_header.simulcastIdx =
+            encoded_image.SpatialIndex().value_or(0);
+        RTC_DCHECK_LT(rtp_video_header.simulcastIdx, rtp_modules_.size());
+        break;
+      case kVideoCodecVP9:
+        // For VP9, spatial index goes into the payload header.
+        rtp_video_header.codecHeader.VP9.spatial_idx =
+            encoded_image.SpatialIndex().value_or(kNoSpatialIdx);
+        break;
+      default:
+        RTC_DCHECK_EQ(encoded_image.SpatialIndex().value_or(0), 0);
+        break;
+    }
+  }
   rtp_video_header.rotation = encoded_image.rotation_;
   rtp_video_header.content_type = encoded_image.content_type_;
   rtp_video_header.playout_delay = encoded_image.playout_delay_;
 
   SetVideoTiming(&rtp_video_header.video_timing, encoded_image);
 
-  int stream_index = rtp_video_header.simulcastIdx;
-  RTC_DCHECK_LT(stream_index, rtp_modules_.size());
-
   // Sets picture id and tl0 pic idx.
   const bool first_frame_in_picture =
       (codec_specific_info && codec_specific_info->codecType == kVideoCodecVP9)
           ? codec_specific_info->codecSpecific.VP9.first_frame_in_picture
           : true;
-  params_[stream_index].Set(&rtp_video_header, first_frame_in_picture);
+  params_[rtp_video_header.simulcastIdx].Set(&rtp_video_header,
+                                             first_frame_in_picture);
 
   uint32_t frame_id;
-  if (!rtp_modules_[stream_index]->Sending()) {
+  if (!rtp_modules_[rtp_video_header.simulcastIdx]->Sending()) {
     // The payload router could be active but this module isn't sending.
     return Result(Result::ERROR_SEND_FAILED);
   }
-  bool send_result = rtp_modules_[stream_index]->SendOutgoingData(
-      encoded_image._frameType, payload_type_, encoded_image._timeStamp,
-      encoded_image.capture_time_ms_, encoded_image._buffer,
-      encoded_image._length, fragmentation, &rtp_video_header, &frame_id);
+  bool send_result =
+      rtp_modules_[rtp_video_header.simulcastIdx]->SendOutgoingData(
+          encoded_image._frameType, payload_type_, encoded_image._timeStamp,
+          encoded_image.capture_time_ms_, encoded_image._buffer,
+          encoded_image._length, fragmentation, &rtp_video_header, &frame_id);
   if (!send_result)
     return Result(Result::ERROR_SEND_FAILED);
 

@@ -310,7 +310,7 @@ TEST_F(TestVp9Impl, EndOfPicture) {
             encoder_->Encode(*NextInputFrame(), nullptr, nullptr));
 
   ASSERT_TRUE(WaitForEncodedFrames(&frames, &codec_specific));
-  EXPECT_EQ(codec_specific[0].codecSpecific.VP9.spatial_idx, kNoSpatialIdx);
+  EXPECT_EQ(frames[0].SpatialIndex(), 0);
   EXPECT_TRUE(codec_specific[0].codecSpecific.VP9.end_of_picture);
 }
 
@@ -349,7 +349,7 @@ TEST_F(TestVp9Impl, InterLayerPred) {
 
     // Key frame.
     EXPECT_FALSE(codec_specific[0].codecSpecific.VP9.inter_pic_predicted);
-    EXPECT_EQ(codec_specific[0].codecSpecific.VP9.spatial_idx, 0);
+    EXPECT_EQ(frames[0].SpatialIndex(), 0);
     EXPECT_EQ(codec_specific[0].codecSpecific.VP9.non_ref_for_inter_layer_pred,
               inter_layer_pred == InterLayerPredMode::kOff);
     EXPECT_TRUE(
@@ -362,7 +362,7 @@ TEST_F(TestVp9Impl, InterLayerPred) {
 
     // Delta frame.
     EXPECT_TRUE(codec_specific[0].codecSpecific.VP9.inter_pic_predicted);
-    EXPECT_EQ(codec_specific[0].codecSpecific.VP9.spatial_idx, 0);
+    EXPECT_EQ(frames[0].SpatialIndex(), 0);
     EXPECT_EQ(codec_specific[0].codecSpecific.VP9.non_ref_for_inter_layer_pred,
               inter_layer_pred == InterLayerPredMode::kOff ||
                   inter_layer_pred == InterLayerPredMode::kOnKeyPic);

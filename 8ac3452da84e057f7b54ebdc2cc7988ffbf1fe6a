@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9b322df9_c8fd00cd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-25T18:26:03Z",
+      "side": 1,
+      "message": "Meant to say TCP peer to peer?",
+      "revId": "8ac3452da84e057f7b54ebdc2cc7988ffbf1fe6a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f7f02c9_60d3aac8",
+        "filename": "pc/peerconnection_rampup_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-25T18:26:03Z",
+      "side": 1,
+      "message": "nit: Could just always use a fake cert verifier?",
+      "revId": "8ac3452da84e057f7b54ebdc2cc7988ffbf1fe6a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19a440e1_f03ace6b",
+        "filename": "pc/peerconnection_rampup_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-25T18:26:03Z",
+      "side": 1,
+      "message": "Do we need a fake certificate generator? |cert_generator| is used to generate a certificate for the peer-to-peer DTLS handshake, while |tls_cert_verifier| is used for TLS connections to TURN servers.",
+      "revId": "8ac3452da84e057f7b54ebdc2cc7988ffbf1fe6a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eec7398f_de084c73",
+        "filename": "pc/peerconnection_rampup_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-25T18:26:03Z",
+      "side": 1,
+      "message": "nit: Would be preferable to avoid using the PortAllocator API directly, since we want to deprecate it (https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d7447)\n\nCould just use FirewallSocketServer to block UDP instead, like the P2PTransportChannel tests do",
+      "revId": "8ac3452da84e057f7b54ebdc2cc7988ffbf1fe6a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

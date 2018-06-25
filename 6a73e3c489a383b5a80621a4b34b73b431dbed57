@@ -22,6 +22,30 @@
       "revId": "6a73e3c489a383b5a80621a4b34b73b431dbed57",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f423d9f_f8c6ff1d",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-06-25T13:42:16Z",
+      "side": 1,
+      "message": "using private CreateNetEqStatsGraph makes the public APIs more complicated and ambiguous than necessary, so I would not expose private CreateNetEqStatsGraph.\n\nRegarding overloading, I like it since it reads that CreateNetEqStatsGraph includes NetEqNetworkStatistics and NetEqLifetimeStatistics, otherwise, we may need\n\nCreateNetEqNetworkStatisticsGraph and CreateNetEqLifetimeStatsGraph, for which the difference is only in one argument type. That sounds too verbose.\n\nYes, then one may argue that private CreateNetEqStatsGraph can be private CreateNetEqStatsGraphInternal, I think that would be nice.",
+      "parentUuid": "ce514571_15c12e63",
+      "range": {
+        "startLine": 82,
+        "startChar": 7,
+        "endLine": 82,
+        "endChar": 28
+      },
+      "revId": "6a73e3c489a383b5a80621a4b34b73b431dbed57",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

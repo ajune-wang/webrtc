@@ -188,14 +188,7 @@ class VideoCaptureTest : public testing::Test {
   unsigned int number_of_devices_;
 };
 
-#ifdef WEBRTC_MAC
-// Currently fails on Mac 64-bit, see
-// https://bugs.chromium.org/p/webrtc/issues/detail?id=5406
-#define MAYBE_CreateDelete DISABLED_CreateDelete
-#else
-#define MAYBE_CreateDelete CreateDelete
-#endif
-TEST_F(VideoCaptureTest, MAYBE_CreateDelete) {
+TEST_F(VideoCaptureTest, CreateDelete) {
   for (int i = 0; i < 5; ++i) {
     int64_t start_time = rtc::TimeMillis();
     TestVideoCaptureCallback capture_observer;

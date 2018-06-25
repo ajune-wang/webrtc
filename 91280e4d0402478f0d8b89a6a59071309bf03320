@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c90c7276_1d602e76",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-06-25T11:49:33Z",
+      "side": 0,
+      "message": "reason for switching from rtc::FunctionView to std::function is because it seems that rtc::FunctionView does not support polymorphism.",
+      "range": {
+        "startLine": 84,
+        "startChar": 11,
+        "endLine": 84,
+        "endChar": 23
+      },
+      "revId": "91280e4d0402478f0d8b89a6a59071309bf03320",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

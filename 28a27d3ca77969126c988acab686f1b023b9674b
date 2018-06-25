@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e0f16413_a86560df",
+        "filename": "api/video/video_stream_encoder_observer.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-06-25T15:31:10Z",
+      "side": 1,
+      "message": "I know you\u0027re just moving this, but could we change this to be more descriptive?\nAdaptationDegrees? ReductionState? DegradationExtent? Something that better indicates that this his much we\u0027ve adapted quality due to some reason.\n\nI also think the fields could be named num_resolution_reductions and num_framerate_reductions or something along those lines to make it even more obvious.\n\nOh, and optional\u003csize_t\u003e instead of the -1 thing?\n\nwdyt?",
+      "range": {
+        "startLine": 38,
+        "startChar": 9,
+        "endLine": 38,
+        "endChar": 20
+      },
+      "revId": "28a27d3ca77969126c988acab686f1b023b9674b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65be626a_9f2a7689",
+        "filename": "api/video/video_stream_encoder_observer.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-06-25T15:31:10Z",
+      "side": 1,
+      "message": "Since we\u0027re making this an api surface, can we take the time to clean it up a little?\nI\u0027m thinking it\u0027s enough with a single OnAdaptationChanged() if we something like an enum AdaptReson { init, cpu, quality } as a paramter?",
+      "range": {
+        "startLine": 63,
+        "startChar": 2,
+        "endLine": 69,
+        "endChar": 45
+      },
+      "revId": "28a27d3ca77969126c988acab686f1b023b9674b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb95201f_0c849887",
+        "filename": "api/video/video_stream_encoder_settings.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-06-25T15:31:10Z",
+      "side": 1,
+      "message": "Unused includes?",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 53
+      },
+      "revId": "28a27d3ca77969126c988acab686f1b023b9674b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5529f1ae_1ef8ae92",
+        "filename": "video/overuse_frame_detector_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-06-25T15:31:10Z",
+      "side": 1,
+      "message": "nit: init in ctor",
+      "range": {
+        "startLine": 189,
+        "startChar": 31,
+        "endLine": 189,
+        "endChar": 32
+      },
+      "revId": "28a27d3ca77969126c988acab686f1b023b9674b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

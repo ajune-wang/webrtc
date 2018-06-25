@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ce514571_15c12e63",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-25T13:01:01Z",
+      "side": 1,
+      "message": "Is there a reason for overloading the same function name? If they generate different graphs, maybe the names should reflect that?\n\nAlternatively, how about using the private CreateNetEqStatsGraph function directly?",
+      "range": {
+        "startLine": 82,
+        "startChar": 7,
+        "endLine": 82,
+        "endChar": 28
+      },
+      "revId": "6a73e3c489a383b5a80621a4b34b73b431dbed57",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

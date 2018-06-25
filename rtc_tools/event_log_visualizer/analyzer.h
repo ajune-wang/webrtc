@@ -81,7 +81,14 @@ class EventLogAnalyzer {
       Plot* plot) const;
   void CreateNetEqStatsGraph(
       const NetEqStatsGetterMap& neteq_stats_getters,
-      rtc::FunctionView<float(const NetEqNetworkStatistics&)> stats_extractor,
+      const std::function<float(const NetEqNetworkStatistics&)>&
+          stats_extractor,
+      const std::string& plot_name,
+      Plot* plot) const;
+  void CreateNetEqStatsGraph(
+      const NetEqStatsGetterMap& neteq_stats_getters,
+      const std::function<float(const NetEqLifetimeStatistics&)>&
+          stats_extractor,
       const std::string& plot_name,
       Plot* plot) const;
 
@@ -121,6 +128,16 @@ class EventLogAnalyzer {
              parsed_log_.outgoing_audio_ssrcs().end();
     }
   }
+
+  void CreateNetEqStatsGraphInternal(
+      const NetEqStatsGetterMap& neteq_stats,
+      rtc::FunctionView<size_t(const test::NetEqStatsGetter*)> size_extractor,
+      rtc::FunctionView<uint64_t(const test::NetEqStatsGetter*, int)>
+          time_extractor,
+      rtc::FunctionView<float(const test::NetEqStatsGetter*, int)>
+          stats_extractor,
+      const std::string& plot_name,
+      Plot* plot) const;
 
   template <typename IterableType>
   void CreateAccumulatedPacketsTimeSeries(Plot* plot,

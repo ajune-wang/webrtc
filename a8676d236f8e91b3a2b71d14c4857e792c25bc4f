@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "fed731c7_4ebf6c3b",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 1312,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-25T18:04:05Z",
+      "side": 1,
+      "message": "This comment seems out of place since you can\u0027t directly create senders/receivers with the PeerConnection API, and the ORTC API doesn\u0027t use PeerConnectionFactory.",
+      "revId": "a8676d236f8e91b3a2b71d14c4857e792c25bc4f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ca78cc2b_c64bec84",
         "filename": "pc/peerconnectionfactory.cc",
         "patchSetId": 3
@@ -34,6 +51,23 @@
       "revId": "a8676d236f8e91b3a2b71d14c4857e792c25bc4f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ca7c893d_68a6eb6a",
+        "filename": "pc/peerconnectionfactory.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-25T18:04:05Z",
+      "side": 1,
+      "message": "This is duplicating \"ToRtpCapabilitiesWithAsserts\"; can we just move that from ortcfactory.cc into rtpparametersconversion.cc (and move that somewhere both PeerConnectionFactory and OrtcFactory can use it)?",
+      "revId": "a8676d236f8e91b3a2b71d14c4857e792c25bc4f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     },
     {
       "key": {

@@ -109,6 +109,11 @@ void FuzzOneInput(const uint8_t* data, size_t size) {
         packet.GetExtension<RtpMid>(&mid);
         break;
       }
+      case kRtpExtensionGenericFrameDescriptor: {
+        RtpGenericFrameDescriptor descriptor;
+        packet.GetExtension<RtpGenericFrameDescriptorExtension>(&descriptor);
+        break;
+      }
     }
   }
 }

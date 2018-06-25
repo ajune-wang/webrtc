@@ -15,6 +15,7 @@
 #include <list>
 #include <vector>
 
+#include "absl/types/variant.h"
 #include "api/audio_codecs/audio_format.h"
 #include "api/rtp_headers.h"
 #include "common_types.h"  // NOLINT(build/include)
@@ -60,39 +61,22 @@ struct VideoPayload {
   H264::Profile h264_profile;
 };
 
-class PayloadUnion {
+class PayloadUnion : public absl::variant<AudioPayload, VideoPayload> {
+  using Base = absl::variant<AudioPayload, VideoPayload>;
+
  public:
-  explicit PayloadUnion(const AudioPayload& payload);
-  explicit PayloadUnion(const VideoPayload& payload);
-  PayloadUnion(const PayloadUnion&);
-  PayloadUnion(PayloadUnion&&);
-  ~PayloadUnion();
+  using Base::Base;
 
-  PayloadUnion& operator=(const PayloadUnion&);
-  PayloadUnion& operator=(PayloadUnion&&);
-
-  bool is_audio() const { return audio_payload_.has_value(); }
-  bool is_video() const { return video_payload_.has_value(); }
+  bool is_audio() const { return absl::holds_alternative<AudioPayload>(*this); }
+  bool is_video() const { return absl::holds_alternative<VideoPayload>(*this); }
   const AudioPayload& audio_payload() const {
-    RTC_DCHECK(audio_payload_);
-    return *audio_payload_;
+    return absl::get<AudioPayload>(*this);
   }
   const VideoPayload& video_payload() const {
-    RTC_DCHECK(video_payload_);
-    return *video_payload_;
+    return absl::get<VideoPayload>(*this);
   }
-  AudioPayload& audio_payload() {
-    RTC_DCHECK(audio_payload_);
-    return *audio_payload_;
-  }
-  VideoPayload& video_payload() {
-    RTC_DCHECK(video_payload_);
-    return *video_payload_;
-  }
-
- private:
-  absl::optional<AudioPayload> audio_payload_;
-  absl::optional<VideoPayload> video_payload_;
+  AudioPayload& audio_payload() { return absl::get<AudioPayload>(*this); }
+  VideoPayload& video_payload() { return absl::get<VideoPayload>(*this); }
 };
 
 enum RTPAliveType { kRtpDead = 0, kRtpNoRtp = 1, kRtpAlive = 2 };

@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "e49d771b_d268ca2a",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-25T17:56:41Z",
+      "side": 1,
+      "message": "We currently don\u0027t have an overload to generate a uint64_t, and if we used the uint32_t version instead then there would be some probability that the new seed would be zero. Since a zero seed would break the PRNG in gen_, I prefer multiplication by an odd number.",
+      "parentUuid": "4ef52880_fbd836de",
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "00005edd_42f67091",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
         "patchSetId": 7
@@ -336,6 +354,24 @@
     },
     {
       "key": {
+        "uuid": "e9e2043d_07826837",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-25T17:56:41Z",
+      "side": 1,
+      "message": "To make initialization look nicer.",
+      "parentUuid": "f8b9fc9a_16d7ad6d",
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dece9ddd_0ea430f5",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
         "patchSetId": 7
@@ -506,6 +542,24 @@
     },
     {
       "key": {
+        "uuid": "2c541a86_695f9e43",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-25T17:56:41Z",
+      "side": 1,
+      "message": "Re 2. Well, there are two possibilities; if the config is missing, the parser can either skip parsing header extensions, or assume that it uses the default header mapping. If the stream is configured, but the actual packets use a different mapping than configured then we will misinterpret the contents and possibly hit sanity CHECKs/DCHECKs. There is no way around this.\n3. Done",
+      "parentUuid": "90c7a20d_3a5df475",
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b8940deb_4258db19",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
         "patchSetId": 7
@@ -661,6 +715,24 @@
       "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40c41d03_df5c5eb0",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-25T17:56:41Z",
+      "side": 1,
+      "message": "Ack.",
+      "parentUuid": "7afa8ab6_326292ac",
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -994,6 +1066,24 @@
       "side": 1,
       "message": "Aren\u0027t the constants arbitrary? The gap between arbitrary and random is not wide.",
       "parentUuid": "96c4ee8d_51b8145f",
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41d8ce58_6f19578b",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 626,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-25T17:56:41Z",
+      "side": 1,
+      "message": "They are sort-of arbitrary, but I want to use more events in the second case where the log is started in the middle.",
+      "parentUuid": "db402a8d_7e76018e",
       "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -1386,6 +1476,24 @@
     },
     {
       "key": {
+        "uuid": "b6453acd_faac9ada",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-25T17:56:41Z",
+      "side": 1,
+      "message": "We\u0027re not doing delta compression yet. Also, the delta compression code should be tested in greater detail in isolation.\n\nYes, it is possible that I should generate more realistic packets. However, this goes against previous suggestions of randomizing from the full range of all fields.",
+      "parentUuid": "fb1200ed_95d08057",
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "31326b8c_0a5d6fd0",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
         "patchSetId": 7
@@ -1573,6 +1681,24 @@
       "side": 1,
       "message": "Ping (same caveat as other ping).",
       "parentUuid": "1a02d57f_097b3709",
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52abfa11_72732158",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-25T17:56:41Z",
+      "side": 1,
+      "message": "I\u0027s a good idea, but it would require an API change to make RtpExtension::kMaxId a constexpr constant. I don\u0027t think it is worth it.",
+      "parentUuid": "c9c68e27_43ae6012",
       "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

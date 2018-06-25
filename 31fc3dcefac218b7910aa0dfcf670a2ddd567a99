@@ -1935,6 +1935,30 @@
     },
     {
       "key": {
+        "uuid": "4959de0b_d35d2272",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-25T17:56:41Z",
+      "side": 1,
+      "message": "2a. Yeah, you could use unsigned literals instead of static_cast.\n2b. Binary \"-\" has higher precedence than \"\u003c\u003c\", so parenthesis isn\u0027t just for clarity but actually for functionality. So (1u \u003c\u003c TransmissionOffset::kValueSizeBytes) - 1\n2c. This is missing the multiplication so it\u0027s 0x00ffffff vs\n(1u \u003c\u003c (TransmissionOffset::kValueSizeBytes * 8)) - 1\n3. I\u0027m not at all convinced that using a general formula is more readable than an explicit value if the general formula silently fails for some inputs.",
+      "parentUuid": "7a6a997e_960869c0",
+      "range": {
+        "startLine": 258,
+        "startChar": 0,
+        "endLine": 263,
+        "endChar": 70
+      },
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4a81f4f3_64bd4a7a",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
         "patchSetId": 2
@@ -2035,6 +2059,24 @@
       "side": 1,
       "message": "Ping",
       "parentUuid": "904b0e81_1a789a14",
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "197941ee_5d6926a4",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-25T17:56:41Z",
+      "side": 1,
+      "message": "Then we also need to pass in the csrc_count to GenerateRtpPacket, making the API slightly messier without actually getting the exact size. To get the exact size, we would need to inspect the configured header extensions both in GenerateRtpPacket and in the calling code. Moreover we would need to know the size of each extension rather than just knowing the maximum size.",
+      "parentUuid": "1a60c0a1_a39ac0ed",
       "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

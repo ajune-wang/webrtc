@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fdf505e7_b73b439c",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-25T17:56:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3faf1505_dfb69902",
+      "range": {
+        "startLine": 228,
+        "startChar": 0,
+        "endLine": 229,
+        "endChar": 47
+      },
+      "revId": "9c2e82a371db296f7fa4859d74a393ba3201d57f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5d2f4e76_0cc732cf",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
         "patchSetId": 9
@@ -39,6 +63,24 @@
       "revId": "9c2e82a371db296f7fa4859d74a393ba3201d57f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1c7ddb9_3a2c7784",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-25T17:56:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5d2f4e76_0cc732cf",
+      "revId": "9c2e82a371db296f7fa4859d74a393ba3201d57f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "d246704e_5362cacf",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-25T17:56:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5dfc2240_78397df7",
+      "range": {
+        "startLine": 279,
+        "startChar": 39,
+        "endLine": 279,
+        "endChar": 42
+      },
+      "revId": "9c2e82a371db296f7fa4859d74a393ba3201d57f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ca87b4c_be8a6b6a",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
         "patchSetId": 9
@@ -88,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "fc47e770_ba368560",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-25T17:56:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5ca87b4c_be8a6b6a",
+      "range": {
+        "startLine": 282,
+        "startChar": 5,
+        "endLine": 282,
+        "endChar": 9
+      },
+      "revId": "9c2e82a371db296f7fa4859d74a393ba3201d57f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "49b0ab89_7039d08d",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
         "patchSetId": 9
@@ -99,6 +189,30 @@
       "writtenOn": "2018-06-21T21:19:30Z",
       "side": 1,
       "message": "I don\u0027t want to block your progress and have you endlessly polish this test suite, so please feel very welcome to add a TODO (or ignore me), but I must mention that I think that a good test suite would also test the case where the user of the module was abusing it. For example, Log(RtpPacketSent) without any prior configuration, while it would not produce a parse-able log, should not crash either.",
+      "range": {
+        "startLine": 286,
+        "startChar": 0,
+        "endLine": 289,
+        "endChar": 0
+      },
+      "revId": "9c2e82a371db296f7fa4859d74a393ba3201d57f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3de77926_ab3109bb",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-25T17:56:41Z",
+      "side": 1,
+      "message": "In that case, it seems that test should be done elsewhere, e.g. in the encoder unittest.",
+      "parentUuid": "49b0ab89_7039d08d",
       "range": {
         "startLine": 286,
         "startChar": 0,

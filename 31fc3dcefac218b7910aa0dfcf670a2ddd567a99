@@ -1959,6 +1959,30 @@
     },
     {
       "key": {
+        "uuid": "45c41f2f_30998304",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-25T19:03:18Z",
+      "side": 1,
+      "message": "2b. My parenthesis were around a single item; typo. :-)\n2c. Yes.\n3. But these inputs are impossible, if I understand correctly. The value 3 is now locked-in for good. The formula is not there for flexibility, but rather in order to have self-documenting code.",
+      "parentUuid": "4959de0b_d35d2272",
+      "range": {
+        "startLine": 258,
+        "startChar": 0,
+        "endLine": 263,
+        "endChar": 70
+      },
+      "revId": "31fc3dcefac218b7910aa0dfcf670a2ddd567a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4a81f4f3_64bd4a7a",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
         "patchSetId": 2

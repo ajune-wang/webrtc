@@ -222,6 +222,30 @@
       "revId": "9c2e82a371db296f7fa4859d74a393ba3201d57f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80ff2706_6f10af20",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-25T19:03:18Z",
+      "side": 1,
+      "message": "I politely disagree. It could be in the encoder, if we could assume that the logger itself never does anything different based on event type. But since RtcEventLogImpl *does* have behavior that\u0027s different for config/non-config, it can be imagined that, once I introduce some bugs into your code, it would not be robust to getting config before non-config. So I\u0027d suggest, in future CLs, adding tests that verify that RtcEventLogImpl is robust to bad sequences of events.",
+      "parentUuid": "3de77926_ab3109bb",
+      "range": {
+        "startLine": 286,
+        "startChar": 0,
+        "endLine": 289,
+        "endChar": 0
+      },
+      "revId": "9c2e82a371db296f7fa4859d74a393ba3201d57f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

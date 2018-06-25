@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a9055080_06842518",
+        "filename": "pc/peerconnectionfactory.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-06-25T12:56:31Z",
+      "side": 1,
+      "message": "Is template\u003c\u003e really needed in order to override ToRtpCodecCapability? Because of being called from another template\u003c\u003e function?",
+      "revId": "842e663c0a4bbc94efcf4da269eb06b80ee57aed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "302ddf53_49acd86b",
+        "filename": "pc/peerconnectionfactory.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-06-25T12:56:31Z",
+      "side": 1,
+      "message": "Would kind and name combined into mimeType?",
+      "revId": "842e663c0a4bbc94efcf4da269eb06b80ee57aed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "853f916c_b9a10fd4",
+        "filename": "pc/peerconnectionfactory.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-06-25T12:56:31Z",
+      "side": 1,
+      "message": "I\u0027m confused about the spec\u0027s sdpFmtpLine; \"The ... field from the \"a\u003dfmtp\"line in the SDP corresponding to the codec, if one exist.\"\n\n\"the SDP\"... this is static, which SDP would it be referring to - are the fmtp lines always guaranteed to be identical? I would guess variations are allowed. Do you know know how it is supposed to be implemented?\n\nAre we not supporting it?",
+      "revId": "842e663c0a4bbc94efcf4da269eb06b80ee57aed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "928bb448_0f55869a",
+        "filename": "pc/peerconnectionfactory_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-06-25T12:56:31Z",
+      "side": 1,
+      "message": "Perhaps we should EXPECT to get what we currently support, so that this test has to be updated if capabilities change. The only regression this would find is if it becomes empty.\n\nOr is what we support platform-dependent?",
+      "revId": "842e663c0a4bbc94efcf4da269eb06b80ee57aed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

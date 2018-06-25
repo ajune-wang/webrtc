@@ -54,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "531aa0d6_771bd6cc",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1473,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-06-25T21:00:27Z",
+      "side": 1,
+      "message": "Removed the DCHECK for now.\n\nFirefox does the same thing as for senders with the same ID: keeps the first one the same but replaces the later conflicting IDs with a randomly generated ID.\n\nIn fact, it also updates the SDP in pc.remoteDescription",
+      "parentUuid": "cdeaa651_eeb4a89e",
+      "revId": "1e636c130e8a9e07f03ea83c2020b0cd3f2c6a6d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "de81f311_a50c2fb4",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 3
@@ -71,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "0631930c_44733fd6",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2747,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-06-25T21:00:27Z",
+      "side": 1,
+      "message": "Broke it out into a separate CL: https://webrtc-review.googlesource.com/c/src/+/84560",
+      "parentUuid": "de81f311_a50c2fb4",
+      "revId": "1e636c130e8a9e07f03ea83c2020b0cd3f2c6a6d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "74b8a254_7cae35d1",
         "filename": "pc/peerconnection_rtp_unittest.cc",
         "patchSetId": 3
@@ -85,6 +121,24 @@
       "revId": "1e636c130e8a9e07f03ea83c2020b0cd3f2c6a6d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef3fb1b0_a269a48c",
+        "filename": "pc/peerconnection_rtp_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1259,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-06-25T21:00:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "74b8a254_7cae35d1",
+      "revId": "1e636c130e8a9e07f03ea83c2020b0cd3f2c6a6d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

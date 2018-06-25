@@ -16,6 +16,24 @@
       "revId": "a8eed94b555ef0b3afe5dc4079ea173eead7ba78",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4116e7fe_e4ea1464",
+        "filename": "pc/peerconnectioninterface_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1765,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-06-25T21:00:27Z",
+      "side": 0,
+      "message": "Re-added it for Plan B only. Added simpler tests for Unified Plan CreateOffer/CreateAnswer to peerconnection_rtp_unittests",
+      "parentUuid": "c521d271_b5f043aa",
+      "revId": "a8eed94b555ef0b3afe5dc4079ea173eead7ba78",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -21,6 +21,7 @@
 #define P2P_BASE_P2PTRANSPORTCHANNEL_H_
 
 #include <algorithm>
+#include <list>
 #include <map>
 #include <memory>
 #include <set>
@@ -39,6 +40,7 @@
 #include "rtc_base/asyncinvoker.h"
 #include "rtc_base/asyncpacketsocket.h"
 #include "rtc_base/constructormagic.h"
+#include "rtc_base/ptr_util.h"
 #include "rtc_base/random.h"
 #include "rtc_base/sigslot.h"
 
@@ -415,6 +417,18 @@ class P2PTransportChannel : public IceTransportInternal {
   webrtc::MetricsObserverInterface* metrics_observer_ = nullptr;
   rtc::Optional<rtc::NetworkRoute> network_route_;
   webrtc::IceEventLog ice_event_log_;
+
+  struct CandidateAndResolver final {
+    CandidateAndResolver(const Candidate& candidate,
+                         rtc::AsyncResolverInterface* resolver);
+    ~CandidateAndResolver();
+    Candidate candidate_;
+    rtc::AsyncResolverInterface* resolver_;
+  };
+  std::list<CandidateAndResolver> resolvers_;
+  virtual rtc::AsyncResolverInterface* CreateResolver();
+  void FinishAddingRemoteCandidate(const Candidate& new_remote_candidate);
+  void OnCandidateResolved(rtc::AsyncResolverInterface* resolver);
 
   RTC_DISALLOW_COPY_AND_ASSIGN(P2PTransportChannel);
 };

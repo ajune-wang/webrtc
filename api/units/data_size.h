@@ -91,6 +91,7 @@ class DataSize {
     return *this;
   }
   double operator/(const DataSize& other) const {
+    RTC_CHECK(!other.IsZero());
     return bytes<double>() / other.bytes<double>();
   }
   bool operator==(const DataSize& other) const {
@@ -132,6 +133,7 @@ inline DataSize operator*(const int32_t& scalar, const DataSize& size) {
   return size * scalar;
 }
 inline DataSize operator/(const DataSize& size, const int64_t& scalar) {
+  RTC_CHECK_NE(scalar, 0);
   return DataSize::bytes(size.bytes() / scalar);
 }
 

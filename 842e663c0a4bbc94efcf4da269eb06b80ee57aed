@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d3893e15_38a66468",
+        "filename": "pc/peerconnectionfactory.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2018-06-25T13:52:49Z",
+      "side": 1,
+      "message": "I actually don\u0027t need the template specialization there, a simple overload will do when ToRtpCapabilities itself is templated.",
+      "parentUuid": "a9055080_06842518",
+      "revId": "842e663c0a4bbc94efcf4da269eb06b80ee57aed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "302ddf53_49acd86b",
         "filename": "pc/peerconnectionfactory.cc",
         "patchSetId": 2
@@ -33,6 +51,24 @@
       "revId": "842e663c0a4bbc94efcf4da269eb06b80ee57aed",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e53703de_9640b937",
+        "filename": "pc/peerconnectionfactory.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2018-06-25T13:52:49Z",
+      "side": 1,
+      "message": "Exactly.",
+      "parentUuid": "302ddf53_49acd86b",
+      "revId": "842e663c0a4bbc94efcf4da269eb06b80ee57aed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +107,24 @@
     },
     {
       "key": {
+        "uuid": "d55e0d18_33890765",
+        "filename": "pc/peerconnectionfactory.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2018-06-25T13:52:49Z",
+      "side": 1,
+      "message": "We are supporting it and the content is in the result.parameters field.",
+      "parentUuid": "853f916c_b9a10fd4",
+      "revId": "842e663c0a4bbc94efcf4da269eb06b80ee57aed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "928bb448_0f55869a",
         "filename": "pc/peerconnectionfactory_unittest.cc",
         "patchSetId": 2
@@ -85,6 +139,24 @@
       "revId": "842e663c0a4bbc94efcf4da269eb06b80ee57aed",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0c8729b_c94f31d1",
+        "filename": "pc/peerconnectionfactory_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2018-06-25T13:52:49Z",
+      "side": 1,
+      "message": "I don\u0027t believe that what we support is platform-dependent, but I modeled this test after the corresponding one from ORTC.\nI believe that if we want to check that we support some codecs or extensions, it should be done in another layer than this one anyway.",
+      "parentUuid": "928bb448_0f55869a",
+      "revId": "842e663c0a4bbc94efcf4da269eb06b80ee57aed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

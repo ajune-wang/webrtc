@@ -11,6 +11,7 @@
 #include "pc/peerconnectionfactory.h"
 
 #include <utility>
+#include <vector>
 
 #include "api/fec_controller.h"
 #include "api/mediaconstraintsinterface.h"
@@ -44,6 +45,54 @@
 #include "pc/videocapturertracksource.h"
 #include "pc/videotrack.h"
 #include "rtc_base/experiments/congestion_controller_experiment.h"
+
+namespace {
+
+webrtc::RtpCodecCapability ToRtpCodecCapability(
+    const cricket::AudioCodec& codec) {
+  webrtc::RtpCodecCapability result;
+
+  result.kind = cricket::MEDIA_TYPE_AUDIO;
+  result.name = codec.name;
+  result.clock_rate = codec.clockrate;
+  result.num_channels = codec.channels;
+  result.parameters.insert(codec.params.begin(), codec.params.end());
+
+  return result;
+}
+
+webrtc::RtpCodecCapability ToRtpCodecCapability(
+    const cricket::VideoCodec& codec) {
+  webrtc::RtpCodecCapability result;
+
+  result.kind = cricket::MEDIA_TYPE_VIDEO;
+  result.name = codec.name;
+  result.clock_rate = codec.clockrate;
+  result.parameters.insert(codec.params.begin(), codec.params.end());
+
+  return result;
+}
+
+template <typename C>
+webrtc::RtpCapabilities ToRtpCapabilities(
+    const std::vector<C>& cricket_codecs,
+    const cricket::RtpHeaderExtensions& cricket_extensions) {
+  webrtc::RtpCapabilities capabilities;
+
+  capabilities.codecs.reserve(cricket_codecs.size());
+  for (const auto& cricket_codec : cricket_codecs) {
+    capabilities.codecs.emplace_back(ToRtpCodecCapability(cricket_codec));
+  }
+
+  capabilities.header_extensions.reserve(cricket_extensions.size());
+  for (const auto& cricket_extension : cricket_extensions) {
+    capabilities.header_extensions.emplace_back(cricket_extension.uri);
+  }
+
+  return capabilities;
+}
+
+}  // namespace
 
 namespace webrtc {
 
@@ -229,6 +278,60 @@ bool PeerConnectionFactory::Initialize() {
 
 void PeerConnectionFactory::SetOptions(const Options& options) {
   options_ = options;
+}
+
+RtpCapabilities PeerConnectionFactory::GetRtpSenderCapabilities(
+    cricket::MediaType kind) const {
+  RTC_DCHECK_RUN_ON(signaling_thread_);
+  switch (kind) {
+    case cricket::MEDIA_TYPE_AUDIO: {
+      cricket::AudioCodecs cricket_codecs;
+      cricket::RtpHeaderExtensions cricket_extensions;
+      channel_manager_->GetSupportedAudioSendCodecs(&cricket_codecs);
+      channel_manager_->GetSupportedAudioRtpHeaderExtensions(
+          &cricket_extensions);
+      return ToRtpCapabilities(cricket_codecs, cricket_extensions);
+    }
+    case cricket::MEDIA_TYPE_VIDEO: {
+      cricket::VideoCodecs cricket_codecs;
+      cricket::RtpHeaderExtensions cricket_extensions;
+      channel_manager_->GetSupportedVideoCodecs(&cricket_codecs);
+      channel_manager_->GetSupportedVideoRtpHeaderExtensions(
+          &cricket_extensions);
+      return ToRtpCapabilities(cricket_codecs, cricket_extensions);
+    }
+    case cricket::MEDIA_TYPE_DATA:
+      return RtpCapabilities();
+  }
+  // Not reached; avoids compile warning.
+  FATAL();
+}
+
+RtpCapabilities PeerConnectionFactory::GetRtpReceiverCapabilities(
+    cricket::MediaType kind) const {
+  RTC_DCHECK_RUN_ON(signaling_thread_);
+  switch (kind) {
+    case cricket::MEDIA_TYPE_AUDIO: {
+      cricket::AudioCodecs cricket_codecs;
+      cricket::RtpHeaderExtensions cricket_extensions;
+      channel_manager_->GetSupportedAudioReceiveCodecs(&cricket_codecs);
+      channel_manager_->GetSupportedAudioRtpHeaderExtensions(
+          &cricket_extensions);
+      return ToRtpCapabilities(cricket_codecs, cricket_extensions);
+    }
+    case cricket::MEDIA_TYPE_VIDEO: {
+      cricket::VideoCodecs cricket_codecs;
+      cricket::RtpHeaderExtensions cricket_extensions;
+      channel_manager_->GetSupportedVideoCodecs(&cricket_codecs);
+      channel_manager_->GetSupportedVideoRtpHeaderExtensions(
+          &cricket_extensions);
+      return ToRtpCapabilities(cricket_codecs, cricket_extensions);
+    }
+    case cricket::MEDIA_TYPE_DATA:
+      return RtpCapabilities();
+  }
+  // Not reached; avoids compile warning.
+  FATAL();
 }
 
 rtc::scoped_refptr<AudioSourceInterface>

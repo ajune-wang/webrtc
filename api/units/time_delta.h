@@ -172,6 +172,7 @@ class TimeDelta {
     return *this;
   }
   double operator/(const TimeDelta& other) const {
+    RTC_CHECK(!other.IsZero());
     return us<double>() / other.us<double>();
   }
   bool operator==(const TimeDelta& other) const {
@@ -218,6 +219,7 @@ inline TimeDelta operator*(const int32_t& scalar, const TimeDelta& delta) {
 }
 
 inline TimeDelta operator/(const TimeDelta& delta, const int64_t& scalar) {
+  RTC_CHECK_NE(scalar, 0);
   return TimeDelta::us(delta.us() / scalar);
 }
 

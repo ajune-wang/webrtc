@@ -114,6 +114,7 @@ class DataRate {
   bool IsFinite() const { return !IsInfinite(); }
 
   double operator/(const DataRate& other) const {
+    RTC_CHECK(!other.IsZero());
     return bps<double>() / other.bps<double>();
   }
   bool operator==(const DataRate& other) const {
@@ -162,9 +163,11 @@ inline DataRate operator*(const int32_t& scalar, const DataRate& rate) {
 }
 
 inline DataRate operator/(const DataSize& size, const TimeDelta& duration) {
+  RTC_CHECK(!duration.IsZero());
   return DataRate::bps(data_rate_impl::Microbits(size) / duration.us());
 }
 inline TimeDelta operator/(const DataSize& size, const DataRate& rate) {
+  RTC_CHECK(!rate.IsZero());
   return TimeDelta::us(data_rate_impl::Microbits(size) / rate.bps());
 }
 inline DataSize operator*(const DataRate& rate, const TimeDelta& duration) {

@@ -19,6 +19,7 @@
 #include "modules/video_coding/utility/default_video_bitrate_allocator.h"
 #include "rtc_base/fakeclock.h"
 #include "rtc_base/logging.h"
+#include "rtc_base/refcountedobject.h"
 #include "system_wrappers/include/metrics_default.h"
 #include "system_wrappers/include/sleep.h"
 #include "test/encoder_proxy_factory.h"
@@ -93,7 +94,7 @@ class VideoStreamEncoderUnderTest : public VideoStreamEncoder {
  public:
   VideoStreamEncoderUnderTest(
       SendStatisticsProxy* stats_proxy,
-      const VideoSendStream::Config::EncoderSettings& settings)
+      const VideoStreamEncoderSettings& settings)
       : VideoStreamEncoder(1 /* number_of_cores */,
                            stats_proxy,
                            settings,
@@ -224,6 +225,7 @@ class AdaptingFrameForwarder : public test::FrameForwarder {
   absl::optional<int> last_height_;
 };
 
+// TODO(nisse): Mock only VideoStreamEncoderObserver.
 class MockableSendStatisticsProxy : public SendStatisticsProxy {
  public:
   MockableSendStatisticsProxy(Clock* clock,
@@ -238,6 +240,12 @@ class MockableSendStatisticsProxy : public SendStatisticsProxy {
     return SendStatisticsProxy::GetStats();
   }
 
+  int GetInputFrameRate() const override {
+    rtc::CritScope cs(&lock_);
+    if (mock_stats_)
+      return mock_stats_->input_frame_rate;
+    return SendStatisticsProxy::GetInputFrameRate();
+  }
   void SetMockStats(const VideoSendStream::Stats& stats) {
     rtc::CritScope cs(&lock_);
     mock_stats_.emplace(stats);

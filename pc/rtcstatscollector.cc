@@ -455,6 +455,7 @@ ProduceMediaStreamTrackStatsFromVideoSenderInfo(
   // TODO(hbos): Will reduce this by frames dropped due to congestion control
   // when available. https://crbug.com/659137
   video_track_stats->frames_sent = video_sender_info.frames_encoded;
+  video_track_stats->huge_frames_sent = video_sender_info.huge_frames_sent;
   return video_track_stats;
 }
 
@@ -666,6 +667,9 @@ void RTCStatsCollector::GetStatsReport(
     // |ProducePartialResultsOnNetworkThread| and
     // |ProducePartialResultsOnSignalingThread|.
     transceiver_stats_infos_ = PrepareTransceiverStatsInfos_s();
+    // Prepare |transport_names_| for use in
+    // |ProducePartialResultsOnNetworkThread|.
+    transport_names_ = PrepareTransportNames_s();
 
     // Prepare |call_stats_| here since GetCallStats() will hop to the worker
     // thread.
@@ -717,14 +721,8 @@ void RTCStatsCollector::ProducePartialResultsOnNetworkThread(
   rtc::scoped_refptr<RTCStatsReport> report = RTCStatsReport::Create(
       timestamp_us);
 
-  std::set<std::string> transport_names;
-  for (const auto& stats : transceiver_stats_infos_) {
-    if (stats.transport_name) {
-      transport_names.insert(*stats.transport_name);
-    }
-  }
   std::map<std::string, cricket::TransportStats> transport_stats_by_name =
-      pc_->GetTransportStatsByNames(transport_names);
+      pc_->GetTransportStatsByNames(transport_names_);
 
   std::map<std::string, CertificateStatsPair> transport_cert_stats =
       PrepareTransportCertificateStats_n(transport_stats_by_name);
@@ -1348,6 +1346,23 @@ RTCStatsCollector::PrepareTransceiverStatsInfos_s() const {
   }
 
   return transceiver_stats_infos;
+}
+
+std::set<std::string> RTCStatsCollector::PrepareTransportNames_s() const {
+  std::set<std::string> transport_names;
+  for (const auto& transceiver : pc_->GetTransceiversInternal()) {
+    if (transceiver->internal()->channel()) {
+      transport_names.insert(
+          transceiver->internal()->channel()->transport_name());
+    }
+  }
+  if (pc_->rtp_data_channel()) {
+    transport_names.insert(pc_->rtp_data_channel()->transport_name());
+  }
+  if (pc_->sctp_transport_name()) {
+    transport_names.insert(*pc_->sctp_transport_name());
+  }
+  return transport_names;
 }
 
 void RTCStatsCollector::OnDataChannelCreated(DataChannel* channel) {

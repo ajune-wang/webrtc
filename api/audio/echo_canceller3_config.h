@@ -18,7 +18,7 @@ namespace webrtc {
 // Configuration struct for EchoCanceller3
 struct EchoCanceller3Config {
   EchoCanceller3Config();
-
+  EchoCanceller3Config(const EchoCanceller3Config& e);
   struct Delay {
     size_t default_delay = 5;
     size_t down_sampling_factor = 4;
@@ -28,6 +28,7 @@ struct EchoCanceller3Config {
     size_t delay_headroom_blocks = 2;
     size_t hysteresis_limit_1_blocks = 1;
     size_t hysteresis_limit_2_blocks = 1;
+    size_t skew_hysteresis_blocks = 1;
   } delay;
 
   struct Filter {
@@ -50,18 +51,20 @@ struct EchoCanceller3Config {
 
     MainConfiguration main_initial = {12, 0.05f, 5.f, 0.001f, 20075344.f};
     ShadowConfiguration shadow_initial = {12, 0.9f, 20075344.f};
+
+    size_t config_change_duration_blocks = 250;
   } filter;
 
   struct Erle {
     float min = 1.f;
-    float max_l = 8.f;
+    float max_l = 4.f;
     float max_h = 1.5f;
   } erle;
 
   struct EpStrength {
-    float lf = 10.f;
-    float mf = 10.f;
-    float hf = 10.f;
+    float lf = 2.f;
+    float mf = 2.f;
+    float hf = 2.f;
     float default_len = 0.f;
     bool echo_can_saturate = true;
     bool bounded_erl = false;
@@ -117,6 +120,18 @@ struct EchoCanceller3Config {
 
     bool has_clock_drift = false;
   } echo_removal_control;
+
+  struct EchoModel {
+    size_t noise_floor_hold = 50;
+    float min_noise_floor_power = 1638400.f;
+    float stationary_gate_slope = 10.f;
+    float noise_gate_power = 27509.42f;
+    float noise_gate_slope = 0.3f;
+    size_t render_pre_window_size = 1;
+    size_t render_post_window_size = 1;
+    float nonlinear_hold = 1;
+    float nonlinear_release = 0.001f;
+  } echo_model;
 };
 }  // namespace webrtc
 

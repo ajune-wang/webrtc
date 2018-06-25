@@ -34,12 +34,14 @@ TEST(SuppressionGain, NullOutputGains) {
   N2.fill(0.f);
   float high_bands_gain;
   AecState aec_state(EchoCanceller3Config{});
-  EXPECT_DEATH(SuppressionGain(EchoCanceller3Config{}, DetectOptimization())
-                   .GetGain(E2, R2, N2, RenderSignalAnalyzer(), aec_state,
-                            std::vector<std::vector<float>>(
-                                3, std::vector<float>(kBlockSize, 0.f)),
-                            &high_bands_gain, nullptr),
-               "");
+  EXPECT_DEATH(
+      SuppressionGain(EchoCanceller3Config{}, DetectOptimization())
+          .GetGain(E2, R2, N2, RenderSignalAnalyzer((EchoCanceller3Config{})),
+                   aec_state,
+                   std::vector<std::vector<float>>(
+                       3, std::vector<float>(kBlockSize, 0.f)),
+                   &high_bands_gain, nullptr),
+      "");
 }
 
 #endif
@@ -48,7 +50,7 @@ TEST(SuppressionGain, NullOutputGains) {
 TEST(SuppressionGain, BasicGainComputation) {
   SuppressionGain suppression_gain(EchoCanceller3Config(),
                                    DetectOptimization());
-  RenderSignalAnalyzer analyzer;
+  RenderSignalAnalyzer analyzer(EchoCanceller3Config{});
   float high_bands_gain;
   std::array<float, kFftLengthBy2Plus1> E2;
   std::array<float, kFftLengthBy2Plus1> Y2;
@@ -76,15 +78,15 @@ TEST(SuppressionGain, BasicGainComputation) {
   for (int k = 0; k <= kNumBlocksPerSecond / 5 + 1; ++k) {
     aec_state.Update(delay_estimate, subtractor.FilterFrequencyResponse(),
                      subtractor.FilterImpulseResponse(),
-                     subtractor.ConvergedFilter(),
-                     *render_delay_buffer->GetRenderBuffer(), E2, Y2, s, false);
+                     subtractor.ConvergedFilter(), subtractor.DivergedFilter(),
+                     *render_delay_buffer->GetRenderBuffer(), E2, Y2, s);
   }
 
   for (int k = 0; k < 100; ++k) {
     aec_state.Update(delay_estimate, subtractor.FilterFrequencyResponse(),
                      subtractor.FilterImpulseResponse(),
-                     subtractor.ConvergedFilter(),
-                     *render_delay_buffer->GetRenderBuffer(), E2, Y2, s, false);
+                     subtractor.ConvergedFilter(), subtractor.DivergedFilter(),
+                     *render_delay_buffer->GetRenderBuffer(), E2, Y2, s);
     suppression_gain.GetGain(E2, R2, N2, analyzer, aec_state, x,
                              &high_bands_gain, &g);
   }
@@ -99,8 +101,8 @@ TEST(SuppressionGain, BasicGainComputation) {
   for (int k = 0; k < 100; ++k) {
     aec_state.Update(delay_estimate, subtractor.FilterFrequencyResponse(),
                      subtractor.FilterImpulseResponse(),
-                     subtractor.ConvergedFilter(),
-                     *render_delay_buffer->GetRenderBuffer(), E2, Y2, s, false);
+                     subtractor.ConvergedFilter(), subtractor.DivergedFilter(),
+                     *render_delay_buffer->GetRenderBuffer(), E2, Y2, s);
     suppression_gain.GetGain(E2, R2, N2, analyzer, aec_state, x,
                              &high_bands_gain, &g);
   }

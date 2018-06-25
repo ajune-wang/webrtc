@@ -40,6 +40,8 @@ class RenderDelayControllerImpl final : public RenderDelayController {
   void LogRenderCall() override;
   rtc::Optional<DelayEstimate> GetDelay(
       const DownsampledRenderBuffer& render_buffer,
+      size_t render_delay_buffer_delay,
+      const rtc::Optional<int>& echo_remover_delay,
       rtc::ArrayView<const float> capture) override;
 
  private:
@@ -48,6 +50,7 @@ class RenderDelayControllerImpl final : public RenderDelayController {
   const int delay_headroom_blocks_;
   const int hysteresis_limit_1_blocks_;
   const int hysteresis_limit_2_blocks_;
+  const int skew_hysteresis_blocks_;
   rtc::Optional<DelayEstimate> delay_;
   EchoPathDelayEstimator delay_estimator_;
   std::vector<float> delay_buf_;
@@ -115,6 +118,8 @@ RenderDelayControllerImpl::RenderDelayControllerImpl(
           static_cast<int>(config.delay.hysteresis_limit_1_blocks)),
       hysteresis_limit_2_blocks_(
           static_cast<int>(config.delay.hysteresis_limit_2_blocks)),
+      skew_hysteresis_blocks_(
+          static_cast<int>(config.delay.skew_hysteresis_blocks)),
       delay_estimator_(data_dumper_.get(), config),
       delay_buf_(kBlockSize * non_causal_offset, 0.f),
       skew_estimator_(kSkewHistorySizeLog2) {
@@ -143,6 +148,8 @@ void RenderDelayControllerImpl::LogRenderCall() {
 
 rtc::Optional<DelayEstimate> RenderDelayControllerImpl::GetDelay(
     const DownsampledRenderBuffer& render_buffer,
+    size_t render_delay_buffer_delay,
+    const rtc::Optional<int>& echo_remover_delay,
     rtc::ArrayView<const float> capture) {
   RTC_DCHECK_EQ(kBlockSize, capture.size());
   ++capture_call_counter_;
@@ -154,6 +161,14 @@ rtc::Optional<DelayEstimate> RenderDelayControllerImpl::GetDelay(
   auto delay_samples =
       delay_estimator_.EstimateDelay(render_buffer, capture_delayed);
 
+  // Overrule the delay estimator delay if the echo remover reports a delay.
+  if (echo_remover_delay) {
+    int total_echo_remover_delay_samples =
+        (render_delay_buffer_delay + *echo_remover_delay) * kBlockSize;
+    delay_samples = DelayEstimate(DelayEstimate::Quality::kRefined,
+                                  total_echo_remover_delay_samples);
+  }
+
   std::copy(capture.begin(), capture.end(),
             delay_buf_.begin() + delay_buf_index_);
   delay_buf_index_ = (delay_buf_index_ + kBlockSize) % delay_buf_.size();
@@ -162,6 +177,9 @@ rtc::Optional<DelayEstimate> RenderDelayControllerImpl::GetDelay(
   rtc::Optional<int> skew = skew_estimator_.GetSkewFromCapture();
 
   if (delay_samples) {
+    // TODO(peah): Refactor the rest of the code to assume a kRefined estimate
+    // quality.
+    RTC_DCHECK(DelayEstimate::Quality::kRefined == delay_samples->quality);
     if (!delay_samples_ || delay_samples->delay != delay_samples_->delay) {
       delay_change_counter_ = 0;
     }
@@ -199,7 +217,9 @@ rtc::Optional<DelayEstimate> RenderDelayControllerImpl::GetDelay(
       delay_samples_->quality == DelayEstimate::Quality::kRefined) {
     // Compute the skew offset and add a margin.
     offset_blocks = *skew_ - *skew;
-    if (offset_blocks != 0 && soft_reset_counter_ > 10 * kNumBlocksPerSecond) {
+    if (abs(offset_blocks) <= skew_hysteresis_blocks_) {
+      offset_blocks = 0;
+    } else if (soft_reset_counter_ > 10 * kNumBlocksPerSecond) {
       // Soft reset the delay estimator if there is a significant offset
       // detected.
       delay_estimator_.Reset(true);

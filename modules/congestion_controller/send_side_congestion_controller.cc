@@ -129,7 +129,7 @@ SendSideCongestionController::SendSideCongestionController(
       pause_pacer_(false),
       pacer_paused_(false),
       min_bitrate_bps_(congestion_controller::GetMinBitrateBps()),
-      delay_based_bwe_(new DelayBasedBwe(event_log_, clock_)),
+      delay_based_bwe_(new DelayBasedBwe(event_log_)),
       in_cwnd_experiment_(CwndExperimentEnabled()),
       accepted_queue_ms_(kDefaultAcceptedQueueMs),
       was_in_alr_(false),
@@ -218,7 +218,7 @@ void SendSideCongestionController::OnNetworkRouteChanged(
     rtc::CritScope cs(&bwe_lock_);
     transport_overhead_bytes_per_packet_ = network_route.packet_overhead;
     min_bitrate_bps_ = min_bitrate_bps;
-    delay_based_bwe_.reset(new DelayBasedBwe(event_log_, clock_));
+    delay_based_bwe_.reset(new DelayBasedBwe(event_log_));
     acknowledged_bitrate_estimator_.reset(new AcknowledgedBitrateEstimator());
     delay_based_bwe_->SetStartBitrate(bitrate_bps);
     delay_based_bwe_->SetMinBitrate(min_bitrate_bps);
@@ -305,7 +305,7 @@ void SendSideCongestionController::OnSentPacket(
 void SendSideCongestionController::OnRttUpdate(int64_t avg_rtt_ms,
                                                int64_t max_rtt_ms) {
   rtc::CritScope cs(&bwe_lock_);
-  delay_based_bwe_->OnRttUpdate(avg_rtt_ms, max_rtt_ms);
+  delay_based_bwe_->OnRttUpdate(avg_rtt_ms);
 }
 
 int64_t SendSideCongestionController::TimeUntilNextProcess() {
@@ -368,7 +368,8 @@ void SendSideCongestionController::OnTransportFeedback(
   {
     rtc::CritScope cs(&bwe_lock_);
     result = delay_based_bwe_->IncomingPacketFeedbackVector(
-        feedback_vector, acknowledged_bitrate_estimator_->bitrate_bps());
+        feedback_vector, acknowledged_bitrate_estimator_->bitrate_bps(),
+        clock_->TimeInMilliseconds());
   }
   if (result.updated) {
     bitrate_controller_->OnDelayBasedBweResult(result);

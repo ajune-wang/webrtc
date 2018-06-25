@@ -365,6 +365,12 @@ int main(int argc, char* argv[]) {
           return stats.packet_loss_rate / 16384.f;
         },
         "Packet loss rate", collection->AppendNewPlot());
+    analyzer.CreateNetEqStatsGraph(
+        neteq_stats,
+        [](const webrtc::NetEqLifetimeStatistics& stats) {
+          return static_cast<float>(stats.concealment_events);
+        },
+        "Concealment events", collection->AppendNewPlot());
   }
 
   if (FLAG_plot_ice_candidate_pair_config) {

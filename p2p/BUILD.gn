@@ -123,6 +123,7 @@ if (rtc_include_tests) {
       "base/fakeicetransport.h",
       "base/fakepackettransport.h",
       "base/fakeportallocator.h",
+      "base/fakeresolver.h",
       "base/mockicetransport.h",
       "base/testrelayserver.h",
       "base/teststunserver.cc",

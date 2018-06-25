@@ -25,6 +25,52 @@
     },
     {
       "key": {
+        "uuid": "77113eef_6d114766",
+        "filename": "api/video/video_stream_encoder_observer.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-06-25T16:18:28Z",
+      "side": 1,
+      "message": "Would be really nice to align the Image/Frame names in this API. It\u0027s really not clear what the difference is. WDYT?",
+      "range": {
+        "startLine": 49,
+        "startChar": 15,
+        "endLine": 49,
+        "endChar": 33
+      },
+      "revId": "28a27d3ca77969126c988acab686f1b023b9674b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e95f2192_54cac44d",
+        "filename": "api/video/video_stream_encoder_observer.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-06-25T16:18:28Z",
+      "side": 1,
+      "message": "If you do what Erik suggested below, I think we should do the same here.",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 0
+      },
+      "revId": "28a27d3ca77969126c988acab686f1b023b9674b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "65be626a_9f2a7689",
         "filename": "api/video/video_stream_encoder_observer.h",
         "patchSetId": 10
@@ -48,6 +94,29 @@
     },
     {
       "key": {
+        "uuid": "add7469e_862834de",
+        "filename": "api/video/video_stream_encoder_observer.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-06-25T16:18:28Z",
+      "side": 1,
+      "message": "I don\u0027t get what this API does. Why do we need it?",
+      "range": {
+        "startLine": 71,
+        "startChar": 15,
+        "endLine": 71,
+        "endChar": 50
+      },
+      "revId": "28a27d3ca77969126c988acab686f1b023b9674b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bb95201f_0c849887",
         "filename": "api/video/video_stream_encoder_settings.h",
         "patchSetId": 10
@@ -64,6 +133,29 @@
         "startChar": 0,
         "endLine": 18,
         "endChar": 53
+      },
+      "revId": "28a27d3ca77969126c988acab686f1b023b9674b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fca56ad5_8f0ae5cb",
+        "filename": "call/video_send_stream.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-06-25T16:18:28Z",
+      "side": 1,
+      "message": "No need to indicate that the factory is injected?",
+      "range": {
+        "startLine": 76,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 0
       },
       "revId": "28a27d3ca77969126c988acab686f1b023b9674b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

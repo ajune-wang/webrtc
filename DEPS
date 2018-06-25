@@ -714,6 +714,14 @@ hooks = [
                'download'
     ],
   },
+  {
+    # This will fix presubmit bots.
+    'name': 'fix_presubmit_bot',
+    'pattern': '.',
+    'action': ['python',
+               'src/fix_presubmit.py'
+    ],
+  },
 ]
 
 recursedeps = [

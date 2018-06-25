@@ -12,6 +12,7 @@
 // src/base/logging.cc.
 
 #include <cstdarg>
+#include <cstdint>
 #include <cstdio>
 #include <cstdlib>
 
@@ -51,6 +52,11 @@ template std::string* MakeCheckOpString<unsigned int, unsigned long>(
 template std::string* MakeCheckOpString<std::string, std::string>(
     const std::string&, const std::string&, const char* name);
 #endif
+
+std::string CheckOpTransformArg(char c) {
+  return std::string(1, c);
+}
+
 namespace webrtc_checks_impl {
 RTC_NORETURN void FatalLog(const char* file,
                            int line,
@@ -60,55 +66,57 @@ RTC_NORETURN void FatalLog(const char* file,
   va_list args;
   va_start(args, fmt);
 
-  std::ostringstream ss;  // no-presubmit-check TODO(webrtc:8982)
-  ss << "\n\n#\n# Fatal error in: " << file << ", line " << line
-     << "\n# last system error: " << LAST_SYSTEM_ERROR
-     << "\n# Check failed: " << message << "\n# ";
+  std::string s =
+      absl::StrCat("\n\n#\n# Fatal error in: ", file, ", line ", line,
+                   "\n# last system error: ", LAST_SYSTEM_ERROR,
+                   "\n# Check failed: ", message, "\n# ");
 
   for (; *fmt != CheckArgType::kEnd; ++fmt) {
     switch (*fmt) {
       case CheckArgType::kInt:
-        ss << va_arg(args, int);
+        absl::StrAppend(&s, va_arg(args, int));
         break;
       case CheckArgType::kLong:
-        ss << va_arg(args, long);
+        absl::StrAppend(&s, va_arg(args, long));
         break;
       case CheckArgType::kLongLong:
-        ss << va_arg(args, long long);
+        absl::StrAppend(&s, va_arg(args, long long));
         break;
       case CheckArgType::kUInt:
-        ss << va_arg(args, unsigned);
+        absl::StrAppend(&s, va_arg(args, unsigned));
         break;
       case CheckArgType::kULong:
-        ss << va_arg(args, unsigned long);
+        absl::StrAppend(&s, va_arg(args, unsigned long));
         break;
       case CheckArgType::kULongLong:
-        ss << va_arg(args, unsigned long long);
+        absl::StrAppend(&s, va_arg(args, unsigned long long));
         break;
       case CheckArgType::kDouble:
-        ss << va_arg(args, double);
+        absl::StrAppend(&s, va_arg(args, double));
         break;
       case CheckArgType::kLongDouble:
-        ss << va_arg(args, long double);
+        // TODO(jonasolsson) AlphaNum doesn't support long double. What do?
+        // absl::StrAppend(&s, va_arg(args, long double));
         break;
       case CheckArgType::kCharP:
-        ss << va_arg(args, const char*);
+        absl::StrAppend(&s, va_arg(args, const char*));
         break;
       case CheckArgType::kStdString:
-        ss << *va_arg(args, const std::string*);
+        absl::StrAppend(&s, *va_arg(args, const std::string*));
         break;
       case CheckArgType::kVoidP:
-        ss << va_arg(args, const void*);
+        absl::StrAppend(
+            &s, reinterpret_cast<std::uintptr_t>(va_arg(args, const void*)));
         break;
       default:
-        ss << "[Invalid CheckArgType:" << static_cast<int8_t>(*fmt) << "]";
+        absl::StrAppend(&s, "[Invalid CheckArgType:", static_cast<int8_t>(*fmt),
+                        "]");
         goto processing_loop_end;
     }
   }
 processing_loop_end:
   va_end(args);
 
-  std::string s = ss.str();
   const char* output = s.c_str();
 
 #if defined(WEBRTC_ANDROID)

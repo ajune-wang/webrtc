@@ -372,6 +372,88 @@ bool tokenize_first(const std::string& source,
   return true;
 }
 
+template <>
+void ToString(const bool& b, std::string* s) {
+  RTC_DCHECK(s);
+  *s = b ? "true" : "false";
+}
+
+bool FromString(const std::string& s, bool* t) {
+  RTC_DCHECK(t);
+  size_t truePos = s.find("true");
+  size_t falsePos = s.find("false");
+  if ((truePos != std::string::npos) &&
+      (falsePos == std::string::npos || falsePos > truePos)) {
+    *t = true;
+    return true;
+  }
+  if (falsePos != std::string::npos) {
+    *t = false;
+    return true;
+  }
+  return false;
+}
+
+bool FromString(const std::string& s, short* t) {
+  RTC_DCHECK(t);
+  int parsed = std::sscanf(s.c_str(), "%hd", t);
+  return parsed == 1;
+}
+
+bool FromString(const std::string& s, unsigned short* t) {
+  RTC_DCHECK(t);
+  int parsed = std::sscanf(s.c_str(), "%hu", t);
+  return parsed == 1;
+}
+
+bool FromString(const std::string& s, int* t) {
+  RTC_DCHECK(t);
+  int parsed = std::sscanf(s.c_str(), "%d", t);
+  return parsed == 1;
+}
+
+bool FromString(const std::string& s, unsigned* t) {
+  RTC_DCHECK(t);
+  int parsed = std::sscanf(s.c_str(), "%u", t);
+  return parsed == 1;
+}
+
+bool FromString(const std::string& s, long* t) {
+  RTC_DCHECK(t);
+  int parsed = std::sscanf(s.c_str(), "%ld", t);
+  return parsed == 1;
+}
+
+bool FromString(const std::string& s, long long* t) {
+  RTC_DCHECK(t);
+  int parsed = std::sscanf(s.c_str(), "%lld", t);
+  return parsed == 1;
+}
+
+bool FromString(const std::string& s, unsigned long* t) {
+  RTC_DCHECK(t);
+  int parsed = std::sscanf(s.c_str(), "%lu", t);
+  return parsed == 1;
+}
+
+bool FromString(const std::string& s, unsigned long long* t) {
+  RTC_DCHECK(t);
+  int parsed = std::sscanf(s.c_str(), "%llu", t);
+  return parsed == 1;
+}
+
+bool FromString(const std::string& s, double* t) {
+  RTC_DCHECK(t);
+  int parsed = std::sscanf(s.c_str(), "%lf", t);
+  return parsed == 1;
+}
+
+bool FromString(const std::string& s, long double* t) {
+  RTC_DCHECK(t);
+  int parsed = std::sscanf(s.c_str(), "%Lf", t);
+  return parsed == 1;
+}
+
 std::string join(const std::vector<std::string>& source, char delimiter) {
   if (source.size() == 0) {
     return std::string();

@@ -79,12 +79,6 @@ class IPAddress {
   bool operator<(const IPAddress& other) const;
   bool operator>(const IPAddress& other) const;
 
-#ifdef UNIT_TEST
-  inline std::ostream& operator<<(  // no-presubmit-check TODO(webrtc:8982)
-      std::ostream& os) {           // no-presubmit-check TODO(webrtc:8982)
-    return os << ToString();
-  }
-#endif  // UNIT_TEST
 
   int family() const { return family_; }
   in_addr ipv4_address() const;

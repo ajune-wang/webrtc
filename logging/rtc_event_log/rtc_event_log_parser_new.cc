@@ -18,6 +18,7 @@
 #include <istream>  // no-presubmit-check TODO(webrtc:8982)
 #include <limits>
 #include <map>
+#include <sstream>  // no-presubmit-check TODO(webrtc:8982)
 #include <utility>
 
 #include "api/rtp_headers.h"

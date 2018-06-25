@@ -15,12 +15,17 @@
 #include <cmath>
 #include <limits>
 
+#include <iostream>
 #include "api/audio/audio_frame.h"
 #include "modules/audio_processing/include/audio_processing.h"
 #include "rtc_base/checks.h"
 
 namespace webrtc {
 namespace {
+bool ValidForApm(float x) {
+  return std::isfinite(x) && -1.0f <= x && x <= 1.0f;
+}
+
 void GenerateFloatFrame(test::FuzzDataHelper* fuzz_data,
                         size_t input_rate,
                         size_t num_channels,
@@ -29,10 +34,23 @@ void GenerateFloatFrame(test::FuzzDataHelper* fuzz_data,
       rtc::CheckedDivExact(input_rate, 100ul);
   RTC_DCHECK_LE(samples_per_input_channel, 480);
   for (size_t i = 0; i < num_channels; ++i) {
+    std::fill(float_frames[i], float_frames[i] + samples_per_input_channel, 0);
+
+    // We use sizeof(int16_t) instead of sizeof(float). Otherwise the
+    // pre-generated corpus and dataset has wrong format. As a result,
+    // only half of the float arrays are filled.
+    const size_t read_bytes = sizeof(int16_t) * samples_per_input_channel;
+    if (fuzz_data->CanReadBytes(read_bytes)) {
+      rtc::ArrayView<const uint8_t> byte_array =
+          fuzz_data->ReadByteArray(read_bytes);
+      memmove(float_frames[i], byte_array.begin(), read_bytes);
+    }
+
+    // Sanitize input.
     for (size_t j = 0; j < samples_per_input_channel; ++j) {
-      float_frames[i][j] =
-          static_cast<float>(fuzz_data->ReadOrDefaultValue<int16_t>(0)) /
-          static_cast<float>(std::numeric_limits<int16_t>::max());
+      if (!ValidForApm(float_frames[i][j])) {
+        float_frames[i][j] = 0.f;
+      }
     }
   }
 }
@@ -73,6 +91,8 @@ void FuzzAudioProcessing(test::FuzzDataHelper* fuzz_data,
   // that case, default values will be used for the rest of that
   // iteration.
   while (fuzz_data->CanReadBytes(1)) {
+    std::cout << fuzz_data->BytesRead() << " " << fuzz_data->BytesLeft()
+              << std::endl;
     const bool is_float = fuzz_data->ReadOrDefaultValue(true);
     // Decide input/output rate for this iteration.
     const auto input_rate =

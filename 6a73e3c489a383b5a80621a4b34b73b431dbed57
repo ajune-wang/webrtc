@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "8c4b217e_c66ad43b",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1852,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-25T15:34:42Z",
+      "side": 1,
+      "message": "nit: size_t?",
+      "range": {
+        "startLine": 1852,
+        "startChar": 64,
+        "endLine": 1852,
+        "endChar": 67
+      },
+      "revId": "6a73e3c489a383b5a80621a4b34b73b431dbed57",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7ec76de_e0bd9a61",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1892,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-25T15:34:42Z",
+      "side": 1,
+      "message": "nit: size_t?",
+      "range": {
+        "startLine": 1892,
+        "startChar": 53,
+        "endLine": 1892,
+        "endChar": 56
+      },
+      "revId": "6a73e3c489a383b5a80621a4b34b73b431dbed57",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ce514571_15c12e63",
         "filename": "rtc_tools/event_log_visualizer/analyzer.h",
         "patchSetId": 1
@@ -42,6 +88,53 @@
         "startChar": 7,
         "endLine": 82,
         "endChar": 28
+      },
+      "revId": "6a73e3c489a383b5a80621a4b34b73b431dbed57",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3c60c45_ae458787",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-25T15:34:42Z",
+      "side": 1,
+      "message": "It seems to me that the lifetime stats and the network stats contain different types of information. I think separate names such as CreateNetEqNetworkStatsGraph and CreateNetEqLifetimeStatsGraph would be more in line with the rest of the code and would avoid the need to std::function. Although the rationale isn\u0027t very relevant in this case, std::function is banned by the Chromium style guide. Overall, I think separate names would be a benefit in this case.",
+      "parentUuid": "3f423d9f_f8c6ff1d",
+      "range": {
+        "startLine": 82,
+        "startChar": 7,
+        "endLine": 82,
+        "endChar": 28
+      },
+      "revId": "6a73e3c489a383b5a80621a4b34b73b431dbed57",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7bbb5bf3_e4b3d8db",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-25T15:34:42Z",
+      "side": 1,
+      "message": "nit: size_t?",
+      "range": {
+        "startLine": 136,
+        "startChar": 66,
+        "endLine": 136,
+        "endChar": 69
       },
       "revId": "6a73e3c489a383b5a80621a4b34b73b431dbed57",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

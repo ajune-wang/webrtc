@@ -72,7 +72,8 @@ VideoSendStream::Config::Config::~Config() = default;
 std::string VideoSendStream::Config::ToString() const {
   char buf[2 * 1024];
   rtc::SimpleStringBuilder ss(buf);
-  ss << "{encoder_settings: " << encoder_settings.ToString();
+  ss << "{encoder_settings: { experiment_cpu_load_estimator: "
+     << (encoder_settings.experiment_cpu_load_estimator ? "on" : "off") << "}}";
   ss << ", rtp: " << rtp.ToString();
   ss << ", rtcp: " << rtcp.ToString();
   ss << ", pre_encode_callback: "
@@ -83,15 +84,6 @@ std::string VideoSendStream::Config::ToString() const {
   ss << ", target_delay_ms: " << target_delay_ms;
   ss << ", suspend_below_min_bitrate: "
      << (suspend_below_min_bitrate ? "on" : "off");
-  ss << '}';
-  return ss.str();
-}
-
-std::string VideoSendStream::Config::EncoderSettings::ToString() const {
-  char buf[1024];
-  rtc::SimpleStringBuilder ss(buf);
-  ss << "{encoder_factory: "
-     << (encoder_factory ? "(VideoEncoderFactory)" : "(nullptr)");
   ss << '}';
   return ss.str();
 }

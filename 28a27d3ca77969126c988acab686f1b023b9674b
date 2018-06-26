@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9ea3c5d9_a160d918",
+        "filename": "api/video/video_stream_encoder_observer.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-26T08:48:45Z",
+      "side": 1,
+      "message": "I\u0027m not sure what these counters mean. They\u0027re not a number of events (since values are copied from the class VideoStreamEncoder::AdaptCounter, which includes Decrement methods), but the current number of steps? If so, something with \"steps\" sounds more appropriate than degrees, state or extent. How are the values named in the public stats api (C++ and js)?\n\nI\u0027ve changed to optional\u003cint\u003e (using size_t or some other unsigned type is discouraged by the style guide), and renamed the fields as you suggested. Still unclear what te name of the struct should be.",
+      "parentUuid": "e0f16413_a86560df",
+      "range": {
+        "startLine": 38,
+        "startChar": 9,
+        "endLine": 38,
+        "endChar": 20
+      },
+      "revId": "28a27d3ca77969126c988acab686f1b023b9674b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "77113eef_6d114766",
         "filename": "api/video/video_stream_encoder_observer.h",
         "patchSetId": 10
@@ -36,6 +60,30 @@
       "writtenOn": "2018-06-25T16:18:28Z",
       "side": 1,
       "message": "Would be really nice to align the Image/Frame names in this API. It\u0027s really not clear what the difference is. WDYT?",
+      "range": {
+        "startLine": 49,
+        "startChar": 15,
+        "endLine": 49,
+        "endChar": 33
+      },
+      "revId": "28a27d3ca77969126c988acab686f1b023b9674b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3bcb0ce7_483de093",
+        "filename": "api/video/video_stream_encoder_observer.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-26T08:48:45Z",
+      "side": 1,
+      "message": "I\u0027d prefer keeping name of this method as is until the poorly named EncodedImage class is replaced or renamed.",
+      "parentUuid": "77113eef_6d114766",
       "range": {
         "startLine": 49,
         "startChar": 15,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "e5f9ab23_9204cdeb",
+        "filename": "api/video/video_stream_encoder_observer.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-26T08:48:45Z",
+      "side": 1,
+      "message": "Makes sense, but not done yet.",
+      "parentUuid": "e95f2192_54cac44d",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 0
+      },
+      "revId": "28a27d3ca77969126c988acab686f1b023b9674b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "65be626a_9f2a7689",
         "filename": "api/video/video_stream_encoder_observer.h",
         "patchSetId": 10
@@ -82,6 +154,30 @@
       "writtenOn": "2018-06-25T15:31:10Z",
       "side": 1,
       "message": "Since we\u0027re making this an api surface, can we take the time to clean it up a little?\nI\u0027m thinking it\u0027s enough with a single OnAdaptationChanged() if we something like an enum AdaptReson { init, cpu, quality } as a paramter?",
+      "range": {
+        "startLine": 63,
+        "startChar": 2,
+        "endLine": 69,
+        "endChar": 45
+      },
+      "revId": "28a27d3ca77969126c988acab686f1b023b9674b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94fd8268_ac93df21",
+        "filename": "api/video/video_stream_encoder_observer.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-26T08:48:45Z",
+      "side": 1,
+      "message": "We have some sort of matrix, \"reason\" on one dimension (quality or cpu) and \"type\" (scaling or framerate) on the other. An enum for the reason part should be straightforward. What\u0027s more odd is that both OnCpuAdaptationChanged and OnQualityAdaptationChanged pass counts for both cpu and quality. Where received, in SendStatisticsProxy, all values are assigned, and then one of two additional counters are incremented based on the reason.",
+      "parentUuid": "65be626a_9f2a7689",
       "range": {
         "startLine": 63,
         "startChar": 2,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "1c94427e_bb2cf66a",
+        "filename": "api/video/video_stream_encoder_observer.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-26T08:48:45Z",
+      "side": 1,
+      "message": "It looks like it\u0027s stats for the initial framedrop feature,https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d9176",
+      "parentUuid": "add7469e_862834de",
+      "range": {
+        "startLine": 71,
+        "startChar": 15,
+        "endLine": 71,
+        "endChar": 50
+      },
+      "revId": "28a27d3ca77969126c988acab686f1b023b9674b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bb95201f_0c849887",
         "filename": "api/video/video_stream_encoder_settings.h",
         "patchSetId": 10
@@ -128,6 +248,30 @@
       "writtenOn": "2018-06-25T15:31:10Z",
       "side": 1,
       "message": "Unused includes?",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 53
+      },
+      "revId": "28a27d3ca77969126c988acab686f1b023b9674b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a02169eb_9babf49d",
+        "filename": "api/video/video_stream_encoder_settings.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-26T08:48:45Z",
+      "side": 1,
+      "message": "Deleted.",
+      "parentUuid": "bb95201f_0c849887",
       "range": {
         "startLine": 14,
         "startChar": 0,
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "f4e36b60_1a509a75",
+        "filename": "call/video_send_stream.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-26T08:48:45Z",
+      "side": 1,
+      "message": "I don\u0027t think so, it\u0027s not an optional setting.",
+      "parentUuid": "fca56ad5_8f0ae5cb",
+      "range": {
+        "startLine": 76,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 0
+      },
+      "revId": "28a27d3ca77969126c988acab686f1b023b9674b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5529f1ae_1ef8ae92",
         "filename": "video/overuse_frame_detector_unittest.cc",
         "patchSetId": 10
@@ -179,6 +347,53 @@
         "startChar": 31,
         "endLine": 189,
         "endChar": 32
+      },
+      "revId": "28a27d3ca77969126c988acab686f1b023b9674b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41267d54_d1f53bb7",
+        "filename": "video/overuse_frame_detector_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-26T08:48:45Z",
+      "side": 1,
+      "message": "Do you really mean constructor (then I\u0027d add an explicit constructor just for this), or the SetUp method? Personally, I prefer initialization to go with the declaration.",
+      "parentUuid": "5529f1ae_1ef8ae92",
+      "range": {
+        "startLine": 189,
+        "startChar": 31,
+        "endLine": 189,
+        "endChar": 32
+      },
+      "revId": "28a27d3ca77969126c988acab686f1b023b9674b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bdd1a0a2_781bd3fe",
+        "filename": "video/overuse_frame_detector_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-26T08:48:45Z",
+      "side": 1,
+      "message": "BTW, what does |auto| mean in this context?",
+      "range": {
+        "startLine": 191,
+        "startChar": 15,
+        "endLine": 191,
+        "endChar": 19
       },
       "revId": "28a27d3ca77969126c988acab686f1b023b9674b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

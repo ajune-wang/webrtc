@@ -43,6 +43,27 @@ bool EnableFilterPreprocessing() {
       "WebRTC-Aec3FilterAnalyzerPreprocessorKillSwitch");
 }
 
+// Compute the ratio of the energies between the direct path and the tail. The
+// energy is computed in the frequency domain discarding the DC contributions.
+float ComputeRatioEnergies(rtc::ArrayView<const float>& freq_resp_direct_path,
+                           rtc::ArrayView<const float>& freq_resp_tail) {
+  // Skipping the DC for the ratio computation
+  constexpr size_t n_skip_bins = 1;
+  RTC_CHECK_EQ(freq_resp_direct_path.size(), freq_resp_tail.size());
+
+  float direct_path_energy =
+      std::accumulate(freq_resp_direct_path.begin() + n_skip_bins,
+                      freq_resp_direct_path.end(), 0.f);
+
+  float tail_energy = std::accumulate(freq_resp_tail.begin() + n_skip_bins,
+                                      freq_resp_tail.end(), 0.f);
+
+  if (direct_path_energy > 0) {
+    return tail_energy / direct_path_energy;
+  } else {
+    return 0.f;  // this should never happen.
+  }
+}
 }  // namespace
 
 int FilterAnalyzer::instance_count_ = 0;
@@ -86,10 +107,14 @@ void FilterAnalyzer::Reset() {
   consistent_estimate_counter_ = 0;
   consistent_delay_reference_ = -10;
   gain_ = default_gain_;
+  tail_gain_freq_.fill(0.f);
 }
 
-void FilterAnalyzer::Update(rtc::ArrayView<const float> filter_time_domain,
-                            const RenderBuffer& render_buffer) {
+void FilterAnalyzer::Update(
+    rtc::ArrayView<const float> filter_time_domain,
+    const std::vector<std::array<float, kFftLengthBy2Plus1>>&
+        filter_freq_response,
+    const RenderBuffer& render_buffer) {
   // Preprocess the filter to avoid issues with low-frequency components in the
   // filter.
   if (use_preprocessed_filter_) {
@@ -143,7 +168,7 @@ void FilterAnalyzer::Update(rtc::ArrayView<const float> filter_time_domain,
 
   consistent_estimate_ =
       consistent_estimate_counter_ > 1.5f * kNumBlocksPerSecond;
-  UpdateFilterTailGain(filter_time_domain);
+  UpdateFilterTailFreqResp(filter_freq_response);
   filter_length_blocks_ = filter_time_domain.size() * (1.f / kBlockSize);
 }
 
@@ -166,24 +191,29 @@ void FilterAnalyzer::UpdateFilterGain(
   }
 }
 
-/* Estimates a bound of the contributions of the filter tail to the
- * energy of the echo signal. The estimation is done as the maximum
- * energy of the impulse response at the tail times the number of
- * coefficients used for describing the tail (kFftLengthBy2 in this case). */
+// Updates the estimation of the frequency response at the filter tails.
+void FilterAnalyzer::UpdateFilterTailFreqResp(
+    const std::vector<std::array<float, kFftLengthBy2Plus1>>&
+        filter_freq_response) {
+  size_t tail_block = filter_freq_response.size();
+  rtc::ArrayView<const float> freq_resp_tail(
+      filter_freq_response[tail_block - 1]);
+  rtc::ArrayView<const float> freq_resp_direct_path(
+      filter_freq_response[DelayBlocks()]);
+  float ratio_energies =
+      ComputeRatioEnergies(freq_resp_direct_path, freq_resp_tail);
+  ratio_direct_tail_energies_ +=
+      0.1f * (ratio_energies - ratio_direct_tail_energies_);
 
-void FilterAnalyzer::UpdateFilterTailGain(
-    rtc::ArrayView<const float> filter_time_domain) {
-  float tail_max_energy = 0.f;
-
-  const auto& h = filter_time_domain;
-  RTC_DCHECK_GE(h.size(), kFftLengthBy2);
-  for (size_t k = h.size() - kFftLengthBy2; k < h.size(); ++k) {
-    tail_max_energy = std::max(tail_max_energy, h[k] * h[k]);
+  for (size_t k = 0; k < kFftLengthBy2Plus1; ++k) {
+    tail_gain_freq_[k] = freq_resp_direct_path[k] * ratio_direct_tail_energies_;
   }
 
-  tail_max_energy *= kFftLengthBy2;
-
-  tail_gain_ += 0.1f * (tail_max_energy - tail_gain_);
+  for (size_t k = 1; k < kFftLengthBy2; ++k) {
+    float avg_neighbour =
+        0.5 * (tail_gain_freq_[k - 1] + tail_gain_freq_[k + 1]);
+    tail_gain_freq_[k] = std::max(tail_gain_freq_[k], avg_neighbour);
+  }
 }
 
 }  // namespace webrtc

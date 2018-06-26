@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e82361ca_f343580c",
+        "filename": "common_audio/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-06-26T11:46:08Z",
+      "side": 1,
+      "message": "I think normal visibility is enough here, isn\u0027t it? It should not be usable outside of WebRTC.",
+      "range": {
+        "startLine": 231,
+        "startChar": 2,
+        "endLine": 231,
+        "endChar": 23
+      },
+      "revId": "2b6852b1c7a85bbf676b56e7f2c85f3129ea47d4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

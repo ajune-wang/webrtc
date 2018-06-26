@@ -37,6 +37,41 @@
     },
     {
       "key": {
+        "uuid": "ca31fdd2_b6012b38",
+        "filename": "api/stats/rtcstats.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-06-26T09:35:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a4f7c97c_4b2e706f",
+      "revId": "99394b60cadd851ebb42464f968dcd8debb11da1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d5bedeb8_18ccd66d",
+        "filename": "api/stats/rtcstats.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-06-26T09:35:49Z",
+      "side": 1,
+      "message": "nit: No need for explicit anymore since it\u0027s two args.",
+      "revId": "99394b60cadd851ebb42464f968dcd8debb11da1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "776803df_39e827be",
         "filename": "pc/rtcstatscollector_unittest.cc",
         "patchSetId": 1
@@ -102,6 +137,24 @@
       "side": 1,
       "message": "I didn\u0027t do \"RTCExperimentalStatsMember\" because it seemed like a generally inadvisable use of inheritance, and would result in some duplicated code, but in this case it may be justified. Updated CL.\n\nAnd I don\u0027t see any need to differentiate between \"experimental\" and \"implementation specific\", so I\u0027d suggest for now just leaving it at \"standardized/unstandarized\". We can document via comments in the code why something is unstandardized; I can\u0027t think of any reason it would need to be determined programatically.",
       "parentUuid": "7769d677_7920e795",
+      "revId": "99394b60cadd851ebb42464f968dcd8debb11da1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ca59408d_1d6d9482",
+        "filename": "pc/rtcstatscollector_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2155,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-06-26T09:35:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "fac1d1c2_5963d0d7",
       "revId": "99394b60cadd851ebb42464f968dcd8debb11da1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

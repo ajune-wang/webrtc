@@ -1,0 +1,174 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "76123891_382d341b",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-26T17:03:54Z",
+      "side": 1,
+      "message": "nit: \"p.resolver_-\u003eDestroy(/*wait\u003d*/false);\"\n\nAlso, could you leave a comment somewhere mentioning why \"Destroy\" needs to be called instead of just calling the destructor? (I don\u0027t recall myself)",
+      "revId": "14b3f642f638f59f54781dd40c4f4c039468b7e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42436b3e_439cfeac",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1013,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-26T17:03:54Z",
+      "side": 1,
+      "message": "nit: Doesn\u0027t really need an explicit constructor/destructor if they aren\u0027t doing anything; could just use aggregate initialization to construct?",
+      "revId": "14b3f642f638f59f54781dd40c4f4c039468b7e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "356eee2c_82a552be",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1020,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-26T17:03:54Z",
+      "side": 1,
+      "message": "nit: Would prefer ordering the methods in the CC file in the same order as they are in the header, just makes it easier to find things when we\u0027re consistent.",
+      "revId": "14b3f642f638f59f54781dd40c4f4c039468b7e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f942a59_f14e3575",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1021,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-26T17:03:54Z",
+      "side": 1,
+      "message": "P2PTransportChannel can\u0027t create the resolver itself, because chromium needs the ability to inject its own resolver (which right now is https://cs.chromium.org/chromium/src/content/renderer/p2p/ipc_socket_factory.h?l\u003d48\u0026rcl\u003d41f16fe15100d43df033a012190e8172bf1eae25)\n\nAnother reason why injecting an \"AsyncResolverFactory\" in the constructor seems like a good idea.",
+      "revId": "14b3f642f638f59f54781dd40c4f4c039468b7e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "195bb3fc_7cafaa20",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1038,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-26T17:03:54Z",
+      "side": 1,
+      "message": "This won\u0027t actually destroy the AsyncResolver",
+      "revId": "14b3f642f638f59f54781dd40c4f4c039468b7e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4b7f63b_e562cbd7",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1043,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-26T17:03:54Z",
+      "side": 1,
+      "message": "May want a comment saying \"Prefer an IPv6 address if both IPv4 and IPv6 are available,\" and refer to the spec:\n\n     \"When receiving an\n      offer or answer containing an FQDN in an a\u003dcandidate attribute,\n      the FQDN is looked up in the DNS first using an AAAA record\n      (assuming the agent supports IPv6), and if no result is found or\n      the agent only supports IPv4, using an A.  If the DNS query\n      returns more than one IP address, one is chosen, and then used for\n      the remainder of ICE processing.\"",
+      "revId": "14b3f642f638f59f54781dd40c4f4c039468b7e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad11c079_b4f351e1",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1056,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-26T17:03:54Z",
+      "side": 1,
+      "message": "ToSensitiveString?",
+      "revId": "14b3f642f638f59f54781dd40c4f4c039468b7e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "071e9dcc_f32a2ed1",
+        "filename": "p2p/base/p2ptransportchannel.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-26T17:03:54Z",
+      "side": 1,
+      "message": "nit: Generally we order all methods above all member variables, even when the two are tied together like this. Can easily get messy otherwise.\n\nAlso, may be worth adding a comment like \"This is used to keep track of remote hostname candidates being asynchronously resolved before they\u0027re paired with local candidates.\"",
+      "revId": "14b3f642f638f59f54781dd40c4f4c039468b7e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9af6deff_eaf2eea7",
+        "filename": "p2p/base/p2ptransportchannel.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-26T17:03:54Z",
+      "side": 1,
+      "message": "Instead of doing this, I\u0027d recommend just adding AsyncResolverInterface as an argument to the constructor (or rather \"AsyncResolverFactory\", I guess? Which could be an interface implemented by PacketSocketFactory). Using inheritance to inject fakes is somewhat of an anti-pattern.",
+      "revId": "14b3f642f638f59f54781dd40c4f4c039468b7e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "755de7eb_1ecc7413",
+        "filename": "p2p/base/p2ptransportchannel_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 4599,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-26T17:03:54Z",
+      "side": 1,
+      "message": "May want a more \"end-to-end\" test as well, which verifies two PeerConnections can actually connect to each other via (fake) hostname candidates. Maybe in peerconnection_integrationtest.cc? Just to make sure this is all working end-to-end; the candidate isn\u0027t eaten by the PeerConnection for some reason, it actually gets paired...",
+      "revId": "14b3f642f638f59f54781dd40c4f4c039468b7e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -246,6 +246,30 @@
       "revId": "9c2e82a371db296f7fa4859d74a393ba3201d57f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bed24c0d_ff7b9b63",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-26T09:50:11Z",
+      "side": 1,
+      "message": "Once we have changed format, it wont depend on the configs to parse the RTP headers.",
+      "parentUuid": "80ff2706_6f10af20",
+      "range": {
+        "startLine": 286,
+        "startChar": 0,
+        "endLine": 289,
+        "endChar": 0
+      },
+      "revId": "9c2e82a371db296f7fa4859d74a393ba3201d57f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

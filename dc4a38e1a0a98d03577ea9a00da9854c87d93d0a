@@ -91,6 +91,24 @@
     },
     {
       "key": {
+        "uuid": "c53e5a7a_a03be0e7",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-26T09:50:11Z",
+      "side": 1,
+      "message": "I thought we agreed that code should not depend on the seed being fixed. E.g., seeding by time should work.",
+      "parentUuid": "106ccf17_4818c0d5",
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "00005edd_42f67091",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
         "patchSetId": 7
@@ -402,6 +420,24 @@
       "side": 1,
       "message": "A local (static in .cc file) function is how I usually get around overly long initialization, that do not actually yield a state that needs to be kept around.",
       "parentUuid": "e9e2043d_07826837",
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "951a951f_b16e20d2",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-26T09:50:11Z",
+      "side": 1,
+      "message": "I don\u0027t understand how you would apply that in this case.",
+      "parentUuid": "3b7545f0_fd86e6e1",
       "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -1584,6 +1620,24 @@
     },
     {
       "key": {
+        "uuid": "7925ef34_c4bef1a7",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-26T09:50:11Z",
+      "side": 1,
+      "message": "This wouldn\u0027t be limited just to RTP sequence number though. There would be similar concerns with RTP timestamp, transport-wide sequence numbers, abs-send-time, packet length and probably a whole bunch of other events types. Function calls would be a mess if you can overwrite every possible field.",
+      "parentUuid": "9deca9f5_c63d38aa",
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "31326b8c_0a5d6fd0",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
         "patchSetId": 7
@@ -1807,6 +1861,24 @@
       "side": 1,
       "message": "Why does it need to be constexpr?\n1. You could use a std::vector instead of an array.\n2. Doesn\u0027t WebRTC use VLAs (variable-length arrays)?\n\nBy the way, you\u0027re probably already familiar with std::iota, but just in case you aren\u0027t:\nhttps://en.cppreference.com/w/cpp/algorithm/iota",
       "parentUuid": "52abfa11_72732158",
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67f77e37_f6916536",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-26T09:50:11Z",
+      "side": 1,
+      "message": "Done.\n\nNot sure it is more readable though.",
+      "parentUuid": "be5d8ecd_b6bdf182",
       "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

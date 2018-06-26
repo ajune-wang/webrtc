@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "be25aa34_21c422fe",
+        "filename": "modules/audio_processing/aec3/aec_state.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-06-26T15:19:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "426353b0_acda6786",
+      "revId": "82c5c1a38d8bfcf0cd3f8b4e7fd7c5ca3bf0a0da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b089bf7b_7eb5a2d8",
         "filename": "modules/audio_processing/aec3/filter_analyzer.cc",
         "patchSetId": 6
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "948e9c6e_ef2256d2",
+        "filename": "modules/audio_processing/aec3/filter_analyzer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-06-26T15:19:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b089bf7b_7eb5a2d8",
+      "revId": "82c5c1a38d8bfcf0cd3f8b4e7fd7c5ca3bf0a0da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7f515bd5_966dbdea",
         "filename": "modules/audio_processing/aec3/filter_analyzer.cc",
         "patchSetId": 6
@@ -50,6 +86,24 @@
       "revId": "82c5c1a38d8bfcf0cd3f8b4e7fd7c5ca3bf0a0da",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c01266a_9700d376",
+        "filename": "modules/audio_processing/aec3/filter_analyzer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-06-26T15:19:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f515bd5_966dbdea",
+      "revId": "82c5c1a38d8bfcf0cd3f8b4e7fd7c5ca3bf0a0da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -90,6 +144,24 @@
       "revId": "82c5c1a38d8bfcf0cd3f8b4e7fd7c5ca3bf0a0da",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89b2cc49_9836df25",
+        "filename": "modules/audio_processing/aec3/reverb_model.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-06-26T15:19:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b2d5eb6a_19a2aceb",
+      "revId": "82c5c1a38d8bfcf0cd3f8b4e7fd7c5ca3bf0a0da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

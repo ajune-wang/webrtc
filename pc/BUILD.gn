@@ -203,7 +203,6 @@ rtc_static_library("peerconnection") {
     "../logging:rtc_event_log_impl_output",
     "../media:rtc_data",
     "../media:rtc_media_base",
-    "../modules/congestion_controller/bbr",
     "../p2p:rtc_p2p",
     "../rtc_base:base64",
     "../rtc_base:checks",

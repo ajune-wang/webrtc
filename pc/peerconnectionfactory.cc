@@ -34,7 +34,6 @@
 #include "media/engine/webrtcvideodecoderfactory.h"     // nogncheck
 #include "media/engine/webrtcvideoencoderfactory.h"     // nogncheck
 #include "modules/audio_device/include/audio_device.h"  // nogncheck
-#include "modules/congestion_controller/bbr/bbr_factory.h"
 #include "p2p/base/basicpacketsocketfactory.h"
 #include "p2p/client/basicportallocator.h"
 #include "pc/audiotrack.h"
@@ -143,9 +142,7 @@ PeerConnectionFactory::PeerConnectionFactory(
       event_log_factory_(std::move(event_log_factory)),
       fec_controller_factory_(std::move(fec_controller_factory)),
       injected_network_controller_factory_(
-          std::move(network_controller_factory)),
-      bbr_network_controller_factory_(
-          rtc::MakeUnique<BbrNetworkControllerFactory>()) {
+          std::move(network_controller_factory)) {
   if (!network_thread_) {
     owned_network_thread_ = rtc::Thread::CreateWithSocketServer();
     owned_network_thread_->SetName("pc_network_thread", nullptr);
@@ -423,11 +420,7 @@ std::unique_ptr<Call> PeerConnectionFactory::CreateCall_w(
 
   call_config.fec_controller_factory = fec_controller_factory_.get();
 
-  if (CongestionControllerExperiment::BbrControllerEnabled()) {
-    RTC_LOG(LS_INFO) << "Using BBR network controller factory";
-    call_config.network_controller_factory =
-        bbr_network_controller_factory_.get();
-  } else if (CongestionControllerExperiment::InjectedControllerEnabled()) {
+  if (CongestionControllerExperiment::InjectedControllerEnabled()) {
     RTC_LOG(LS_INFO) << "Using injected network controller factory";
     call_config.network_controller_factory =
         injected_network_controller_factory_.get();

@@ -238,6 +238,30 @@
     },
     {
       "key": {
+        "uuid": "fa9eb617_a84e5aaa",
+        "filename": "api/video/video_stream_encoder_observer.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-26T13:01:34Z",
+      "side": 1,
+      "message": "And stats are reported via VideoSenderInfo::adapt_reason (media/base/mediachannel.h) which is populated with values of the enum WebRtcVideoChannel::AdaptReason with constant values ADAPTREASON_*, used as bit masks, based in stream_-\u003eGetStats().\n\nI\u0027m not going to touch that part now...\n\nAnd the enum AdaptReason used by VideoStreamEncoder belongs to AdaptationObserverInterface, which for some reason is declared in modules/video_coding/utility/quality_scaler.h. I\u0027d prefer to not move AdaptationObserverInterface into api/. Maybe it\u0027s easiest to introduce yet another enum for the same thing.",
+      "parentUuid": "4dcc21ec_ad388dff",
+      "range": {
+        "startLine": 63,
+        "startChar": 2,
+        "endLine": 69,
+        "endChar": 45
+      },
+      "revId": "28a27d3ca77969126c988acab686f1b023b9674b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "add7469e_862834de",
         "filename": "api/video/video_stream_encoder_observer.h",
         "patchSetId": 10

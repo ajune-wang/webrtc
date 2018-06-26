@@ -262,6 +262,30 @@
     },
     {
       "key": {
+        "uuid": "82d8af79_b5b88fe5",
+        "filename": "api/video/video_stream_encoder_observer.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-06-26T13:04:42Z",
+      "side": 1,
+      "message": "Probably, then we can replace the old one and/or do further cleanup in a follow-up instead.",
+      "parentUuid": "fa9eb617_a84e5aaa",
+      "range": {
+        "startLine": 63,
+        "startChar": 2,
+        "endLine": 69,
+        "endChar": 45
+      },
+      "revId": "28a27d3ca77969126c988acab686f1b023b9674b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "add7469e_862834de",
         "filename": "api/video/video_stream_encoder_observer.h",
         "patchSetId": 10

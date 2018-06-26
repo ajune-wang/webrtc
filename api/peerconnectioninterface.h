@@ -1188,44 +1188,14 @@ struct PeerConnectionDependencies final {
   std::unique_ptr<rtc::SSLCertificateVerifier> tls_cert_verifier;
 };
 
-// PeerConnectionFactoryDependencies holds all of the PeerConnectionFactory
-// dependencies. All new dependencies should be added here instead of
-// overloading the function. This simplifies dependency injection and makes it
-// clear which are mandatory and optional. If possible please allow the peer
-// connection factory to take ownership of the dependency by adding a unique_ptr
-// to this structure.
-struct PeerConnectionFactoryDependencies final {
-  PeerConnectionFactoryDependencies() = default;
-  // This object is not copyable or assignable.
-  PeerConnectionFactoryDependencies(const PeerConnectionFactoryDependencies&) =
-      delete;
-  PeerConnectionFactoryDependencies& operator=(
-      const PeerConnectionFactoryDependencies&) = delete;
-  // This object is only moveable.
-  PeerConnectionFactoryDependencies(PeerConnectionFactoryDependencies&&) =
-      default;
-  PeerConnectionFactoryDependencies& operator=(
-      PeerConnectionFactoryDependencies&&) = default;
-
-  // Optional dependencies
-  rtc::Thread* network_thread = nullptr;
-  rtc::Thread* worker_thread = nullptr;
-  rtc::Thread* signaling_thread = nullptr;
-  std::unique_ptr<cricket::MediaEngineInterface> media_engine;
-  std::unique_ptr<CallFactoryInterface> call_factory;
-  std::unique_ptr<RtcEventLogFactoryInterface> event_log_factory;
-  std::unique_ptr<FecControllerFactoryInterface> fec_controller_factory;
-  std::unique_ptr<NetworkControllerFactoryInterface> network_controller_factory;
-};
-
 // PeerConnectionFactoryInterface is the factory interface used for creating
 // PeerConnection, MediaStream and MediaStreamTrack objects.
 //
-// The simplest method for obtaiing one, CreatePeerConnectionFactory will
+// The simplest method for obtaining one, CreatePeerConnectionFactory will
 // create the required libjingle threads, socket and network manager factory
 // classes for networking if none are provided, though it requires that the
 // application runs a message loop on the thread that called the method (see
-// explanation below)
+// explanation below).
 //
 // If an application decides to provide its own threads and/or implementation
 // of networking classes, it should use the alternate
@@ -1392,20 +1362,21 @@ class PeerConnectionFactoryInterface : public rtc::RefCountInterface {
 // rtc::Thread::Current()->Run(), or call
 // rtc::Thread::Current()->ProcessMessages() within the application's own
 // message loop.
+//
+// TODO(deadbeef): Deprecate in favor of CreatePeerConnectionFactory method
+// that takes PeerConnectionFactoryDependencies.
 rtc::scoped_refptr<PeerConnectionFactoryInterface> CreatePeerConnectionFactory(
     rtc::scoped_refptr<AudioEncoderFactory> audio_encoder_factory,
     rtc::scoped_refptr<AudioDecoderFactory> audio_decoder_factory);
 
 // Create a new instance of PeerConnectionFactoryInterface.
 //
-// |network_thread|, |worker_thread| and |signaling_thread| are
-// the only mandatory parameters.
-//
 // If non-null, a reference is added to |default_adm|, and ownership of
 // |video_encoder_factory| and |video_decoder_factory| is transferred to the
 // returned factory.
-// TODO(deadbeef): Use rtc::scoped_refptr<> and std::unique_ptr<> to make this
-// ownership transfer and ref counting more obvious.
+//
+// TODO(deadbeef): Deprecate in favor of CreatePeerConnectionFactory method
+// that takes PeerConnectionFactoryDependencies.
 rtc::scoped_refptr<PeerConnectionFactoryInterface> CreatePeerConnectionFactory(
     rtc::Thread* network_thread,
     rtc::Thread* worker_thread,
@@ -1422,6 +1393,9 @@ rtc::scoped_refptr<PeerConnectionFactoryInterface> CreatePeerConnectionFactory(
 // If |audio_mixer| is null, an internal audio mixer will be created and used.
 // If |audio_processing| is null, an internal audio processing module will be
 // created and used.
+//
+// TODO(deadbeef): Deprecate in favor of CreatePeerConnectionFactory method
+// that takes PeerConnectionFactoryDependencies.
 rtc::scoped_refptr<PeerConnectionFactoryInterface> CreatePeerConnectionFactory(
     rtc::Thread* network_thread,
     rtc::Thread* worker_thread,
@@ -1444,6 +1418,9 @@ rtc::scoped_refptr<PeerConnectionFactoryInterface> CreatePeerConnectionFactory(
 // be created and used.
 // If |network_controller_factory| is provided, it will be used if enabled via
 // field trial.
+//
+// TODO(deadbeef): Deprecate in favor of CreatePeerConnectionFactory method
+// that takes PeerConnectionFactoryDependencies.
 rtc::scoped_refptr<PeerConnectionFactoryInterface> CreatePeerConnectionFactory(
     rtc::Thread* network_thread,
     rtc::Thread* worker_thread,
@@ -1462,8 +1439,12 @@ rtc::scoped_refptr<PeerConnectionFactoryInterface> CreatePeerConnectionFactory(
 // Create a new instance of PeerConnectionFactoryInterface with optional video
 // codec factories. These video factories represents all video codecs, i.e. no
 // extra internal video codecs will be added.
-// When building WebRTC with rtc_use_builtin_sw_codecs = false, this is the
-// only available CreatePeerConnectionFactory overload.
+// When building WebRTC with rtc_use_builtin_sw_codecs = false, this (and the
+// new PeerConnectionFactoryDependencies variant) are the only available
+// CreatePeerConnectionFactory overloads.
+//
+// TODO(deadbeef): Deprecate in favor of CreatePeerConnectionFactory method
+// that takes PeerConnectionFactoryDependencies.
 rtc::scoped_refptr<PeerConnectionFactoryInterface> CreatePeerConnectionFactory(
     rtc::Thread* network_thread,
     rtc::Thread* worker_thread,
@@ -1480,6 +1461,9 @@ rtc::scoped_refptr<PeerConnectionFactoryInterface> CreatePeerConnectionFactory(
 // mixer.
 //
 // If |audio_mixer| is null, an internal audio mixer will be created and used.
+//
+// TODO(deadbeef): Deprecate in favor of CreatePeerConnectionFactory method
+// that takes PeerConnectionFactoryDependencies.
 rtc::scoped_refptr<PeerConnectionFactoryInterface>
 CreatePeerConnectionFactoryWithAudioMixer(
     rtc::Thread* network_thread,
@@ -1494,6 +1478,9 @@ CreatePeerConnectionFactoryWithAudioMixer(
 
 // Create a new instance of PeerConnectionFactoryInterface.
 // Same thread is used as worker and network thread.
+//
+// TODO(deadbeef): Deprecate in favor of CreatePeerConnectionFactory method
+// that takes PeerConnectionFactoryDependencies.
 inline rtc::scoped_refptr<PeerConnectionFactoryInterface>
 CreatePeerConnectionFactory(
     rtc::Thread* worker_and_network_thread,
@@ -1509,47 +1496,122 @@ CreatePeerConnectionFactory(
       video_encoder_factory, video_decoder_factory);
 }
 
-// This is a lower-level version of the CreatePeerConnectionFactory functions
-// above. It's implemented in the "peerconnection" build target, whereas the
-// above methods are only implemented in the broader "libjingle_peerconnection"
-// build target, which pulls in the implementations of every module webrtc may
-// use.
+// PeerConnectionFactoryDependencies holds all of the PeerConnectionFactory
+// dependencies. This simplifies dependency injection and makes it clear which
+// are mandatory and optional.
 //
-// If an application knows it will only require certain modules, it can reduce
-// webrtc's impact on its binary size by depending only on the "peerconnection"
-// target and the modules the application requires, using
+// All new dependencies should be added here instead of adding a new
+// CreatePeerConnectionFactory overload. If possible please allow the peer
+// connection factory to take ownership of the dependency by unique_ptr, as
+// this tends to be less bug prone than using reference counting or injecting
+// by raw pointer.
+//
+// When a new dependency is made injectable (say, "FooFactory") which was
+// previously always built-in, we need a way for existing applications to
+// continue getting the built-in implementation of FooFactory as they're used
+// to, while allowing new applications to omit the built-in implementation from
+// their build if desired. This is the point of the static Create method(s).
+// When FooFactory is made injectible, we can:
+//
+// 1. Add it as another member of the struct.
+// 2. Make the existing Create(s) methods populate it with the built-in
+//    implementation, depending on the "builtin_foo_factory" build target.
+// 3. Add a new Create method (Create2?) that *doesn't* depend on
+//    "builtin_foo_factory", and leaves the "foo_factory" member as null.
+// 4. Eventually, deprecate the old Create method, requiring applications
+//    that want the built-in implementation to explicitly depend on
+//    "builtin_foo_factory" themselves, and do "deps.foo_factory =
+//    webrtc::CreateBuiltInFooFactory()".
+struct PeerConnectionFactoryDependencies final {
+  // Currently, just returns an empty struct. In the future this may change as
+  // described above.
+  //
+  // Note that if you want WebRTC's built-in software codecs, you must
+  // explicitly depend on the corresponding build target (such as
+  // api/audio_codecs:builtin_audio_encoder_factory) and do
+  // "deps.audio_encoder_factory = webrtc::CreateBuiltInAudioEncoderFactory()".
+  static PeerConnectionFactoryDependencies Create();
+
+  // This object is not copyable or assignable.
+  PeerConnectionFactoryDependencies(const PeerConnectionFactoryDependencies&) =
+      delete;
+  PeerConnectionFactoryDependencies& operator=(
+      const PeerConnectionFactoryDependencies&) = delete;
+  // This object is only moveable.
+  PeerConnectionFactoryDependencies(PeerConnectionFactoryDependencies&&) =
+      default;
+  PeerConnectionFactoryDependencies& operator=(
+      PeerConnectionFactoryDependencies&&) = default;
+
+  // If either |network_thread| or |worker_thread| are null when passed into
+  // CreatePeerConnectionFactory, the PeerConnectionFactory will create the
+  // necessary thread internally. If |signaling_thread| is null, the
+  // PeerConnectionFactory will use the thread on which this method is called
+  // as the signaling thread, wrapping it in an rtc::Thread object if needed.
+  rtc::Thread* network_thread = nullptr;
+  rtc::Thread* worker_thread = nullptr;
+  rtc::Thread* signaling_thread = nullptr;
+
+  // If any of these are null, a built-in implementation will be used.
+  rtc::scoped_refptr<AudioDeviceModule> audio_device_module;
+  rtc::scoped_refptr<AudioProcessing> audio_processing;
+  rtc::scoped_refptr<AudioMixer> audio_mixer;
+  std::unique_ptr<FecControllerFactoryInterface> fec_controller_factory;
+
+  // If any of these are null, *no* built-in implementation will be used. Thus
+  // if you want audio/video support, you must set them explicitly.
+  rtc::scoped_refptr<AudioEncoderFactory> audio_encoder_factory;
+  rtc::scoped_refptr<AudioDecoderFactory> audio_decoder_factory;
+  std::unique_ptr<VideoEncoderFactory> video_encoder_factory;
+  std::unique_ptr<VideoDecoderFactory> video_decoder_factory;
+
+  // |network_controller_factory| is handled somewhat oddly. It will only be
+  // used if "CongestionControllerExperiment::BbrControllerEnabled" is false
+  // and "CongestionControllerExperiment::InjectedControllerEnabled" is true.
+  //
+  // If not used, we'll internally use either BBR or "Goog CC," depending on
+  // whether or not the BBR experiment is enabled.
+  //
+  // TODO(deadbeef): Simplify this, making it behave like the rest of the
+  // members of the struct.
+  std::unique_ptr<NetworkControllerFactoryInterface> network_controller_factory;
+
+ private:
+  // Private constructor so that applications will depend on the "Create"
+  // method (see explanation above).
+  PeerConnectionFactoryDependencies() = default;
+};
+
+rtc::scoped_refptr<PeerConnectionFactoryInterface> CreatePeerConnectionFactory(
+    PeerConnectionFactoryDependencies dependencies);
+
+// This is an alternate version of the CreatePeerConnectionFactory functions
+// above, which has fewer built-in dependencies; it's implemented in the
+// "peerconnection" build target, whereas the above methods are only
+// implemented in the broader "libjingle_peerconnection" build target, which
+// pulls in the implementations of every module WebRTC may use.
+//
+// So, if an application knows it will only require certain modules, it can
+// reduce WebRTC's impact on its binary size by depending only on the
+// "peerconnection" target and the modules the application requires, using
 // CreateModularPeerConnectionFactory instead of one of the
-// CreatePeerConnectionFactory methods above. For example, if an application
-// only uses WebRTC for audio, it can pass in null pointers for the
-// video-specific interfaces, and omit the corresponding modules from its
-// build.
+// CreatePeerConnectionFactory methods above.
+//
+// For example, if an application only uses WebRTC for data channels, it can
+// pass in null pointers for |media_engine| and |call_factory|, ommitting the
+// entire "media engine" part of the WebRTC codebase from its build. The above
+// CreatePeerConnectionFactory methods would allow ommitting built-in software
+// codecs, but not the entire media engine.
+//
+// As more PeerConnectionFactory dependencies are pulled out over time (as
+// software codecs were), it's expected that the differences between this and
+// the above CreatePeerConnectionFactory methods will be reduced, and eventually
+// this method can go away.
 //
 // If |network_thread| or |worker_thread| are null, the PeerConnectionFactory
 // will create the necessary thread internally. If |signaling_thread| is null,
 // the PeerConnectionFactory will use the thread on which this method is called
 // as the signaling thread, wrapping it in an rtc::Thread object if needed.
-//
-// If non-null, a reference is added to |default_adm|, and ownership of
-// |video_encoder_factory| and |video_decoder_factory| is transferred to the
-// returned factory.
-//
-// If |audio_mixer| is null, an internal audio mixer will be created and used.
-//
-// TODO(deadbeef): Use rtc::scoped_refptr<> and std::unique_ptr<> to make this
-// ownership transfer and ref counting more obvious.
-//
-// TODO(deadbeef): Encapsulate these modules in a struct, so that when a new
-// module is inevitably exposed, we can just add a field to the struct instead
-// of adding a whole new CreateModularPeerConnectionFactory overload.
-rtc::scoped_refptr<PeerConnectionFactoryInterface>
-CreateModularPeerConnectionFactory(
-    rtc::Thread* network_thread,
-    rtc::Thread* worker_thread,
-    rtc::Thread* signaling_thread,
-    std::unique_ptr<cricket::MediaEngineInterface> media_engine,
-    std::unique_ptr<CallFactoryInterface> call_factory,
-    std::unique_ptr<RtcEventLogFactoryInterface> event_log_factory);
-
 rtc::scoped_refptr<PeerConnectionFactoryInterface>
 CreateModularPeerConnectionFactory(
     rtc::Thread* network_thread,
@@ -1560,11 +1622,7 @@ CreateModularPeerConnectionFactory(
     std::unique_ptr<RtcEventLogFactoryInterface> event_log_factory,
     std::unique_ptr<FecControllerFactoryInterface> fec_controller_factory,
     std::unique_ptr<NetworkControllerFactoryInterface>
-        network_controller_factory = nullptr);
-
-rtc::scoped_refptr<PeerConnectionFactoryInterface>
-CreateModularPeerConnectionFactory(
-    PeerConnectionFactoryDependencies dependencies);
+        network_controller_factory);
 
 }  // namespace webrtc
 

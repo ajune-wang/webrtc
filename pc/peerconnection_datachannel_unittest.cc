@@ -41,7 +41,9 @@ class PeerConnectionFactoryForDataChannelTest
             rtc::Thread::Current(),
             rtc::MakeUnique<cricket::FakeMediaEngine>(),
             CreateCallFactory(),
-            nullptr) {}
+            /*event_log_factory=*/nullptr,
+            /*fec_controller_factory=*/nullptr,
+            /*network_controller_factory=*/nullptr) {}
 
   std::unique_ptr<cricket::SctpTransportInternalFactory>
   CreateSctpTransportInternalFactory() {

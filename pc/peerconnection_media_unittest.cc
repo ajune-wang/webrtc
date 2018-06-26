@@ -77,7 +77,8 @@ class PeerConnectionMediaBaseTest : public ::testing::Test {
     auto pc_factory = CreateModularPeerConnectionFactory(
         rtc::Thread::Current(), rtc::Thread::Current(), rtc::Thread::Current(),
         std::move(media_engine), CreateCallFactory(),
-        CreateRtcEventLogFactory());
+        CreateRtcEventLogFactory(), /*fec_controller_factory=*/nullptr,
+        /*network_controller_factory=*/nullptr);
 
     auto fake_port_allocator = rtc::MakeUnique<cricket::FakePortAllocator>(
         rtc::Thread::Current(), nullptr);

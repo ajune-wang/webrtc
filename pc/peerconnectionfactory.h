@@ -105,22 +105,10 @@ class PeerConnectionFactory : public PeerConnectionFactoryInterface {
       rtc::Thread* signaling_thread,
       std::unique_ptr<cricket::MediaEngineInterface> media_engine,
       std::unique_ptr<webrtc::CallFactoryInterface> call_factory,
-      std::unique_ptr<RtcEventLogFactoryInterface> event_log_factory);
-  PeerConnectionFactory(
-      rtc::Thread* network_thread,
-      rtc::Thread* worker_thread,
-      rtc::Thread* signaling_thread,
-      std::unique_ptr<cricket::MediaEngineInterface> media_engine,
-      std::unique_ptr<webrtc::CallFactoryInterface> call_factory,
       std::unique_ptr<RtcEventLogFactoryInterface> event_log_factory,
       std::unique_ptr<FecControllerFactoryInterface> fec_controller_factory,
       std::unique_ptr<NetworkControllerFactoryInterface>
           network_controller_factory);
-  // Use this implementation for all future use. This structure allows simple
-  // management of all new dependencies being added to the
-  // PeerConnectionFactory.
-  explicit PeerConnectionFactory(
-      PeerConnectionFactoryDependencies dependencies);
 
   // Hook to let testing framework insert actions between
   // "new RTCPeerConnection" and "pc.Initialize"

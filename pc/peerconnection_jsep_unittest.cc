@@ -59,7 +59,9 @@ class PeerConnectionFactoryForJsepTest : public PeerConnectionFactory {
                                   nullptr,
                                   AudioProcessingBuilder().Create()),
                               CreateCallFactory(),
-                              nullptr) {}
+                              /*event_log_factory=*/nullptr,
+                              /*fec_controller_factory=*/nullptr,
+                              /*network_controller_factory=*/nullptr) {}
 
   std::unique_ptr<cricket::SctpTransportInternalFactory>
   CreateSctpTransportInternalFactory() {

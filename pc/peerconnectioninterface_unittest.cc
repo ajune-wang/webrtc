@@ -624,57 +624,6 @@ class MockTrackObserver : public ObserverInterface {
 
 }  // namespace
 
-// The PeerConnectionMediaConfig tests below verify that configuration and
-// constraints are propagated into the PeerConnection's MediaConfig. These
-// settings are intended for MediaChannel constructors, but that is not
-// exercised by these unittest.
-class PeerConnectionFactoryForTest : public webrtc::PeerConnectionFactory {
- public:
-  static rtc::scoped_refptr<PeerConnectionFactoryForTest>
-  CreatePeerConnectionFactoryForTest() {
-    auto audio_encoder_factory = webrtc::CreateBuiltinAudioEncoderFactory();
-    auto audio_decoder_factory = webrtc::CreateBuiltinAudioDecoderFactory();
-    auto video_encoder_factory = webrtc::CreateBuiltinVideoEncoderFactory();
-    auto video_decoder_factory = webrtc::CreateBuiltinVideoDecoderFactory();
-
-    // Use fake audio device module since we're only testing the interface
-    // level, and using a real one could make tests flaky when run in parallel.
-    auto media_engine = std::unique_ptr<cricket::MediaEngineInterface>(
-        cricket::WebRtcMediaEngineFactory::Create(
-            FakeAudioCaptureModule::Create(), audio_encoder_factory,
-            audio_decoder_factory, std::move(video_encoder_factory),
-            std::move(video_decoder_factory), nullptr,
-            webrtc::AudioProcessingBuilder().Create()));
-
-    std::unique_ptr<webrtc::CallFactoryInterface> call_factory =
-        webrtc::CreateCallFactory();
-
-    std::unique_ptr<webrtc::RtcEventLogFactoryInterface> event_log_factory =
-        webrtc::CreateRtcEventLogFactory();
-
-    return new rtc::RefCountedObject<PeerConnectionFactoryForTest>(
-        rtc::Thread::Current(), rtc::Thread::Current(), rtc::Thread::Current(),
-        std::move(media_engine), std::move(call_factory),
-        std::move(event_log_factory));
-  }
-
-  PeerConnectionFactoryForTest(
-      rtc::Thread* network_thread,
-      rtc::Thread* worker_thread,
-      rtc::Thread* signaling_thread,
-      std::unique_ptr<cricket::MediaEngineInterface> media_engine,
-      std::unique_ptr<webrtc::CallFactoryInterface> call_factory,
-      std::unique_ptr<webrtc::RtcEventLogFactoryInterface> event_log_factory)
-      : webrtc::PeerConnectionFactory(network_thread,
-                                      worker_thread,
-                                      signaling_thread,
-                                      std::move(media_engine),
-                                      std::move(call_factory),
-                                      std::move(event_log_factory)) {}
-
-  rtc::scoped_refptr<FakeAudioCaptureModule> fake_audio_capture_module_;
-};
-
 // TODO(steveanton): Convert to use the new PeerConnectionWrapper.
 class PeerConnectionInterfaceBaseTest : public testing::Test {
  protected:
@@ -688,22 +637,21 @@ class PeerConnectionInterfaceBaseTest : public testing::Test {
   }
 
   virtual void SetUp() {
+    webrtc::PeerConnectionFactoryDependencies deps =
+        webrtc::PeerConnectionFactoryDependencies::Create();
+    deps.network_thread = rtc::Thread::Current();
+    deps.worker_thread = rtc::Thread::Current();
+    deps.signaling_thread = rtc::Thread::Current();
     // Use fake audio capture module since we're only testing the interface
     // level, and using a real one could make tests flaky when run in parallel.
     fake_audio_capture_module_ = FakeAudioCaptureModule::Create();
-    pc_factory_ = webrtc::CreatePeerConnectionFactory(
-        rtc::Thread::Current(), rtc::Thread::Current(), rtc::Thread::Current(),
-        rtc::scoped_refptr<webrtc::AudioDeviceModule>(
-            fake_audio_capture_module_),
-        webrtc::CreateBuiltinAudioEncoderFactory(),
-        webrtc::CreateBuiltinAudioDecoderFactory(),
-        webrtc::CreateBuiltinVideoEncoderFactory(),
-        webrtc::CreateBuiltinVideoDecoderFactory(), nullptr /* audio_mixer */,
-        nullptr /* audio_processing */);
+    deps.audio_device_module = fake_audio_capture_module_;
+    deps.audio_encoder_factory = webrtc::CreateBuiltinAudioEncoderFactory();
+    deps.audio_decoder_factory = webrtc::CreateBuiltinAudioDecoderFactory();
+    deps.video_encoder_factory = webrtc::CreateBuiltinVideoEncoderFactory();
+    deps.video_decoder_factory = webrtc::CreateBuiltinVideoDecoderFactory();
+    pc_factory_ = webrtc::CreatePeerConnectionFactory(std::move(deps));
     ASSERT_TRUE(pc_factory_);
-    pc_factory_for_test_ =
-        PeerConnectionFactoryForTest::CreatePeerConnectionFactoryForTest();
-    pc_factory_for_test_->Initialize();
   }
 
   void CreatePeerConnection() {
@@ -1284,7 +1232,6 @@ class PeerConnectionInterfaceBaseTest : public testing::Test {
   cricket::FakePortAllocator* port_allocator_ = nullptr;
   FakeRTCCertificateGenerator* fake_certificate_generator_ = nullptr;
   rtc::scoped_refptr<webrtc::PeerConnectionFactoryInterface> pc_factory_;
-  rtc::scoped_refptr<PeerConnectionFactoryForTest> pc_factory_for_test_;
   rtc::scoped_refptr<PeerConnectionInterface> pc_;
   MockPeerConnectionObserver observer_;
   rtc::scoped_refptr<StreamCollection> reference_collection_;
@@ -3993,8 +3940,17 @@ INSTANTIATE_TEST_CASE_P(PeerConnectionInterfaceTest,
 class PeerConnectionMediaConfigTest : public testing::Test {
  protected:
   void SetUp() override {
-    pcf_ = PeerConnectionFactoryForTest::CreatePeerConnectionFactoryForTest();
-    pcf_->Initialize();
+    webrtc::PeerConnectionFactoryDependencies deps =
+        webrtc::PeerConnectionFactoryDependencies::Create();
+    deps.network_thread = rtc::Thread::Current();
+    deps.worker_thread = rtc::Thread::Current();
+    deps.signaling_thread = rtc::Thread::Current();
+    deps.audio_device_module = FakeAudioCaptureModule::Create();
+    deps.audio_encoder_factory = webrtc::CreateBuiltinAudioEncoderFactory();
+    deps.audio_decoder_factory = webrtc::CreateBuiltinAudioDecoderFactory();
+    deps.video_encoder_factory = webrtc::CreateBuiltinVideoEncoderFactory();
+    deps.video_decoder_factory = webrtc::CreateBuiltinVideoDecoderFactory();
+    pcf_ = webrtc::CreatePeerConnectionFactory(std::move(deps));
   }
   const cricket::MediaConfig TestCreatePeerConnection(
       const PeerConnectionInterface::RTCConfiguration& config,
@@ -4005,7 +3961,7 @@ class PeerConnectionMediaConfigTest : public testing::Test {
     return pc->GetConfiguration().media_config;
   }
 
-  rtc::scoped_refptr<PeerConnectionFactoryForTest> pcf_;
+  rtc::scoped_refptr<webrtc::PeerConnectionFactoryInterface> pcf_;
   MockPeerConnectionObserver observer_;
 };
 

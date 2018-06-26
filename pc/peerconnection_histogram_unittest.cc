@@ -52,7 +52,9 @@ class PeerConnectionFactoryForUsageHistogramTest
             rtc::Thread::Current(),
             rtc::MakeUnique<cricket::FakeMediaEngine>(),
             CreateCallFactory(),
-            nullptr) {}
+            /*event_log_factory=*/nullptr,
+            /*fec_controller_factory=*/nullptr,
+            /*network_controller_factory=*/nullptr) {}
 
   void ActionsBeforeInitializeForTesting(PeerConnectionInterface* pc) override {
     PeerConnection* internal_pc = static_cast<PeerConnection*>(pc);

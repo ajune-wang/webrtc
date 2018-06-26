@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d66692d5_ed38223f",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1665,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-06-26T16:55:36Z",
+      "side": 1,
+      "message": "|best_conn| as used below; will correct before landing.",
+      "range": {
+        "startLine": 1665,
+        "startChar": 50,
+        "endLine": 1665,
+        "endChar": 65
+      },
+      "revId": "cf81e100929b3e5807e91ad83bb2a32c2b690dd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66d15902_1072d03c",
+        "filename": "p2p/base/p2ptransportchannel.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-06-26T16:55:36Z",
+      "side": 1,
+      "message": "interfaces; will correct before landing.",
+      "range": {
+        "startLine": 321,
+        "startChar": 50,
+        "endLine": 321,
+        "endChar": 59
+      },
+      "revId": "cf81e100929b3e5807e91ad83bb2a32c2b690dd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00e0b6f4_642540db",
+        "filename": "p2p/base/p2ptransportchannel_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 3129,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-06-26T16:55:36Z",
+      "side": 1,
+      "message": "ids; will correct before landing.",
+      "range": {
+        "startLine": 3129,
+        "startChar": 13,
+        "endLine": 3129,
+        "endChar": 15
+      },
+      "revId": "cf81e100929b3e5807e91ad83bb2a32c2b690dd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

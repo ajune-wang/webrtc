@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "b63c766b_11324217",
+        "filename": "p2p/base/p2ptransportchannel.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-06-26T16:55:36Z",
+      "side": 1,
+      "message": "Ack. I had been confused by the naming of Connection but this comment explains a lot. Thanks!",
+      "parentUuid": "80b128dd_9088da45",
+      "revId": "f51bb0bd00c33fe0a0729feb4dde45018a98e771",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eb2ff7b8_3c005609",
         "filename": "p2p/base/p2ptransportchannel_unittest.cc",
         "patchSetId": 4
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "1e24d31c_6ccde14e",
+        "filename": "p2p/base/p2ptransportchannel_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 4440,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-06-26T16:55:36Z",
+      "side": 1,
+      "message": "Ack. You are right and HasActiveCandidatePairsPerPairOfLocalAndRemoteNetworks has actually tested the intended behavior with the public API. Removed this test.",
+      "parentUuid": "eb2ff7b8_3c005609",
+      "revId": "f51bb0bd00c33fe0a0729feb4dde45018a98e771",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5c85d3c4_250b37fe",
         "filename": "p2p/base/p2ptransportchannel_unittest.cc",
         "patchSetId": 4
@@ -50,6 +86,24 @@
       "revId": "f51bb0bd00c33fe0a0729feb4dde45018a98e771",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dbd34681_1796b852",
+        "filename": "p2p/base/p2ptransportchannel_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 4464,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-06-26T16:55:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c85d3c4_250b37fe",
+      "revId": "f51bb0bd00c33fe0a0729feb4dde45018a98e771",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

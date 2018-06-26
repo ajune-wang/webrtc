@@ -26,20 +26,28 @@ class ReverbModel {
   // Resets the state.
   void Reset();
 
-  // Updates the reverberation contributions.
-  void UpdateReverbContributions(rtc::ArrayView<const float> power_spectrum,
-                                 float power_spectrum_scaling,
-                                 float reverb_decay);
+  // Updates the reverberation contributions without applying any shaping of the
+  // spectrum.
+  void UpdateReverbContributions_no_freq_shape(
+      rtc::ArrayView<const float> power_spectrum,
+      float power_spectrum_scaling,
+      float reverb_decay);
 
   // Adds the reverberation contributions to an input/output power spectrum.
   // - power_spectrum: Input to the exponential reverberation model.
-  // - power_spectrum_scaling: A pre-scaling of the power_spectrum used
+  // - freq_response_tail: A pre-scaling of the power_spectrum used
   // before applying the exponential reverberation model.
   // - reverb_decay: Parameter used by the expontial reververation model.
+
   void AddReverb(rtc::ArrayView<const float> power_spectrum,
-                 float power_spectrum_scaling,
+                 rtc::ArrayView<const float> freq_response_tail,
                  float reverb_decay,
                  rtc::ArrayView<float> reverb_power_spectrum);
+
+  void AddReverb_no_freq_shape(rtc::ArrayView<const float> power_spectrum,
+                               float power_spectrum_scaling,
+                               float reverb_decay,
+                               rtc::ArrayView<float> reverb_power_spectrum);
 
   // Returns the current power spectrum reverberation contributions.
   const std::array<float, kFftLengthBy2Plus1>& GetPowerSpectrum() const {
@@ -47,6 +55,11 @@ class ReverbModel {
   }
 
  private:
+  // Updates the reverberation contributions.
+  void UpdateReverbContributions(rtc::ArrayView<const float>& power_spectrum,
+                                 rtc::ArrayView<const float>& freq_resp_tail,
+                                 float reverb_decay);
+
   std::array<float, kFftLengthBy2Plus1> reverb_;
 };
 

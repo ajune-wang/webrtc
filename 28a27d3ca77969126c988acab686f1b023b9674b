@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "4e148319_f7c80664",
+        "filename": "api/video/video_stream_encoder_observer.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-06-26T11:07:35Z",
+      "side": 1,
+      "message": "Yes, AdaptationSteps sounds good.\n\nso something like this?\n\nvoid OnAdaptationChange(\n  const AdaptationSteps\u0026 cpu_adaptation, \n  const AdaptationSteps\u0026 quality_adaptation, \n  AdaptationReason reason) \u003d 0;\n\nI don\u0027t think this level of detail is reported in external stats. Afaict we have three:\n* googAdaptationChanges, the number incremented by On.*AdaptationChanged()\n* googBandwidthLimitedResolution true if adapt_counts.resolution \u003e 0 for the quality_counts parameter (signaled as adapt reason \"bandwidth\" in some places)\n* googCpuLimitedResolution true if adapt_counts.resolution \u003e 0 for the cpu_counts parameter (signaled as adapt reason \"bandwidth\" in some places)\n\nThe frame rate degradations are reported in VideoSendStream::Stats, but it looks like it is not picked up by webrtcvideoengine and propagated further...\n\nThen there\u0027s googHasEnteredLowResolution is has to do with if resolution is low enough that we might consider sw encoder fallback.",
+      "parentUuid": "9ea3c5d9_a160d918",
+      "range": {
+        "startLine": 38,
+        "startChar": 9,
+        "endLine": 38,
+        "endChar": 20
+      },
+      "revId": "28a27d3ca77969126c988acab686f1b023b9674b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "77113eef_6d114766",
         "filename": "api/video/video_stream_encoder_observer.h",
         "patchSetId": 10
@@ -178,6 +202,30 @@
       "side": 1,
       "message": "We have some sort of matrix, \"reason\" on one dimension (quality or cpu) and \"type\" (scaling or framerate) on the other. An enum for the reason part should be straightforward. What\u0027s more odd is that both OnCpuAdaptationChanged and OnQualityAdaptationChanged pass counts for both cpu and quality. Where received, in SendStatisticsProxy, all values are assigned, and then one of two additional counters are incremented based on the reason.",
       "parentUuid": "65be626a_9f2a7689",
+      "range": {
+        "startLine": 63,
+        "startChar": 2,
+        "endLine": 69,
+        "endChar": 45
+      },
+      "revId": "28a27d3ca77969126c988acab686f1b023b9674b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4dcc21ec_ad388dff",
+        "filename": "api/video/video_stream_encoder_observer.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-06-26T11:07:35Z",
+      "side": 1,
+      "message": "Yeah, that feels unnecessary. We can just keep a state instead?\nActually, looking at the call hierarchy,  we get here from \n \nVideoStreamEncoder::UpdateAdaptationStats(AdaptReason reason)\n\nSo the AdaptReason already exists. We could just add an \"init\" value that prevents incrementing the counters.",
+      "parentUuid": "94fd8268_ac93df21",
       "range": {
         "startLine": 63,
         "startChar": 2,

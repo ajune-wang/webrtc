@@ -46,6 +46,30 @@
       "revId": "11151978801c4fa1d834ea875fa43da067072fa0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32028488_2d38b9c8",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1852,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-26T09:19:45Z",
+      "side": 1,
+      "message": "Return a const pointer?",
+      "parentUuid": "2604cd9e_cf116cea",
+      "range": {
+        "startLine": 1852,
+        "startChar": 22,
+        "endLine": 1852,
+        "endChar": 69
+      },
+      "revId": "11151978801c4fa1d834ea875fa43da067072fa0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

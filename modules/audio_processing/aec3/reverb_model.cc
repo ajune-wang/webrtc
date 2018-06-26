@@ -31,25 +31,34 @@ void ReverbModel::Reset() {
 }
 
 void ReverbModel::UpdateReverbContributions(
-    rtc::ArrayView<const float> power_spectrum,
-    float power_spectrum_scaling,
+    rtc::ArrayView<const float>& power_spectrum,
+    rtc::ArrayView<const float>& freq_resp_tail,
     float reverb_decay) {
   if (reverb_decay > 0) {
     // Update the estimate of the reverberant power.
-    std::transform(power_spectrum.begin(), power_spectrum.end(),
-                   reverb_.begin(), reverb_.begin(),
-                   [reverb_decay, power_spectrum_scaling](float a, float b) {
-                     return (b + a * power_spectrum_scaling) * reverb_decay;
-                   });
+    for (size_t k = 0; k < power_spectrum.size(); ++k) {
+      reverb_[k] =
+          (reverb_[k] + power_spectrum[k] * freq_resp_tail[k]) * reverb_decay;
+    }
+  }
+}
+
+void ReverbModel::UpdateReverbContributions_no_freq_shape(
+    rtc::ArrayView<const float> power_spectrum,
+    float reverb_decay) {
+  if (reverb_decay > 0) {
+    // Update the estimate of the reverberant power.
+    for (size_t k = 0; k < power_spectrum.size(); ++k) {
+      reverb_[k] = (reverb_[k] + power_spectrum[k]) * reverb_decay;
+    }
   }
 }
 
 void ReverbModel::AddReverb(rtc::ArrayView<const float> power_spectrum,
-                            float power_spectrum_scaling,
+                            rtc::ArrayView<const float> freq_response_tail,
                             float reverb_decay,
                             rtc::ArrayView<float> reverb_power_spectrum) {
-  UpdateReverbContributions(power_spectrum, power_spectrum_scaling,
-                            reverb_decay);
+  UpdateReverbContributions(power_spectrum, freq_response_tail, reverb_decay);
 
   // Add the power of the echo reverb to the residual echo power.
   std::transform(reverb_power_spectrum.begin(), reverb_power_spectrum.end(),

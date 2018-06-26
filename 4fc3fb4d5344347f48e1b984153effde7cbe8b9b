@@ -93,6 +93,30 @@
       "revId": "4fc3fb4d5344347f48e1b984153effde7cbe8b9b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb27f403_70e73bfa",
+        "filename": "video/payload_router.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-06-26T12:10:58Z",
+      "side": 1,
+      "message": "Our vp9 encoder populates spatial_idx only if there\u0027s more than one layer, so it\u0027s not a change in behavior. Question is, should we repeat that logic here, for the benefit of other encoders? The possibility of omitting it on the wire (which is the meaning of kNoSpatialIdx, if I\u0027ve understood it correctly) is somewhat rtp specific, and hence fits better here than in encoders.",
+      "parentUuid": "30b6c289_af37ed4f",
+      "range": {
+        "startLine": 250,
+        "startChar": 8,
+        "endLine": 250,
+        "endChar": 52
+      },
+      "revId": "4fc3fb4d5344347f48e1b984153effde7cbe8b9b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

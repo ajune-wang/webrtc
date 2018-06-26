@@ -14,12 +14,12 @@
 #include <string>
 #include <utility>
 
-#include "rtc_base/base64.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/opensslcertificate.h"
 #include "rtc_base/ptr_util.h"
 #include "rtc_base/sslfingerprint.h"
+#include "rtc_base/third_party/base64/base64.h"
 
 namespace rtc {
 

@@ -161,6 +161,24 @@
     },
     {
       "key": {
+        "uuid": "1848e7f4_6fd82bd6",
+        "filename": "p2p/base/p2ptransportchannel_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-06-26T21:21:31Z",
+      "side": 1,
+      "message": "Ack. Thanks for the pointer!",
+      "parentUuid": "fc96cab2_e292f290",
+      "revId": "8b6d1c63ca245928d4bc84bc66b2dbf18b780ecd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "97fc1635_aaeebbbc",
         "filename": "p2p/client/basicportallocator.cc",
         "patchSetId": 14
@@ -316,6 +334,24 @@
       "revId": "8b6d1c63ca245928d4bc84bc66b2dbf18b780ecd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "404cfa9f_3edd4c72",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 5913,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-06-26T21:21:31Z",
+      "side": 1,
+      "message": "I have created a two separate CLs to fix this. One in WebRTC to introduce a new stub for the sparse histogram (https://webrtc-review.googlesource.com/c/src/+/85740) and one in Chromium to implement with SparseHistogram::FactoryGet (https://chromium-review.googlesource.com/c/chromium/src/+/1115503). Will land the Chromium one first after review and rebase this CL on the WebRTC fix.",
+      "parentUuid": "10386bc2_7f02cbb4",
+      "revId": "8b6d1c63ca245928d4bc84bc66b2dbf18b780ecd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

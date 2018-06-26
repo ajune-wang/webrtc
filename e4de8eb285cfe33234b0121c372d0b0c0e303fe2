@@ -154,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "96950c1d_845e7d9a",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 6115,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-06-26T21:21:31Z",
+      "side": 1,
+      "message": "It seems like RTC_HISTOGRAM_ENUMERATION_SPARSE is not really sparse... will need to update the macro like in one of Taylor\u0027s comments.",
+      "parentUuid": "ee5dc32e_4737c34d",
+      "range": {
+        "startLine": 6115,
+        "startChar": 6,
+        "endLine": 6115,
+        "endChar": 31
+      },
+      "revId": "e4de8eb285cfe33234b0121c372d0b0c0e303fe2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3c9e4f0a_e3984c4a",
         "filename": "pc/peerconnection_integrationtest.cc",
         "patchSetId": 12

@@ -63,6 +63,24 @@
       "revId": "149929cfee0577f49d9e1c9fc9ac89ee1badb062",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2273d75_3273b948",
+        "filename": "pc/peerconnection_integrationtest.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 1534,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-06-26T21:21:31Z",
+      "side": 1,
+      "message": "If I understand it correctly, the callee *never* calls ReportNegotiatedCiphers or ReportTransportStats (which calls ReportNegotiatedCiphers). ReportTransportStats is invoked when cricket::kIceConnectionCompleted, which only happens for the ICE-controlling role. I have filed a bug and linked this snippet to it.\n\nCan you also elaborate a bit why you think this could be racy? I am not sure if I understand the race condition, but do you mean both the caller and the callee may add to the counter and SignalingStateStable() may race with either addition so that the expectation below can be nondeterministic, if we fix the current buggy behavior?",
+      "parentUuid": "39998819_f7b89e5f",
+      "revId": "149929cfee0577f49d9e1c9fc9ac89ee1badb062",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

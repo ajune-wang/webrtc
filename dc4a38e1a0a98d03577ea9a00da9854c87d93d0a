@@ -444,6 +444,24 @@
     },
     {
       "key": {
+        "uuid": "a7a256cd_6cdd7271",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-26T10:34:51Z",
+      "side": 1,
+      "message": "In anonymous namespace in the .cc file:\nuint64_t GetNonZeroRandomUint64(Random* random) {\n  // Code\n}\n\nThen in the ctor\u0027s init-list:\n  prng_(std::get\u003c0\u003e(GetParam())),\n  gen_(GetNonZeroRandomUint64(\u0026prng_)),",
+      "parentUuid": "951a951f_b16e20d2",
+      "revId": "dc4a38e1a0a98d03577ea9a00da9854c87d93d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dece9ddd_0ea430f5",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
         "patchSetId": 7

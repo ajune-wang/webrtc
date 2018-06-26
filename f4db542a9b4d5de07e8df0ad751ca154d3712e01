@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9f4ef0de_af96d8e3",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-26T10:34:51Z",
+      "side": 1,
+      "message": "nit:\n  std::vector\u003cint\u003e id(RtpExtension::kMaxId - RtpExtension::kMinId + 1);\n  std::iota(id.begin(), id.end(), RtpExtension::kMinId)",
+      "range": {
+        "startLine": 334,
+        "startChar": 0,
+        "endLine": 336,
+        "endChar": 31
+      },
+      "revId": "f4db542a9b4d5de07e8df0ad751ca154d3712e01",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

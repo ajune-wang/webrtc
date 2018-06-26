@@ -47,6 +47,7 @@ LIB_TO_LICENSES_DICT = {
     'usrsctp': ['third_party/usrsctp/LICENSE'],
     'webrtc': ['LICENSE', 'LICENSE_THIRD_PARTY'],
     'zlib': ['third_party/zlib/LICENSE'],
+    'g711': ['modules/third_party/g711/LICENSE'],
 
     # Compile time dependencies, no license needed:
     'yasm': [],

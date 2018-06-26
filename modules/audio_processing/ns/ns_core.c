@@ -13,7 +13,7 @@
 #include <stdlib.h>
 
 #include "rtc_base/checks.h"
-#include "common_audio/fft4g.h"
+#include "common_audio/third_party/fft4g/fft4g.h"
 #include "common_audio/signal_processing/include/signal_processing_library.h"
 #include "modules/audio_processing/ns/noise_suppression.h"
 #include "modules/audio_processing/ns/ns_core.h"

@@ -16,4 +16,7 @@ specific_include_rules = {
   "gunit\.h": [
     "+testing/base/public/gunit.h"
   ],
+  "con_cat\.h": [
+    "+absl/strings/str_cat.h"
+  ]
 }

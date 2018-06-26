@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "95f634d4_3a173e0b",
+        "filename": "video/payload_router.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-06-26T13:41:33Z",
+      "side": 1,
+      "message": "Actually, isn\u0027t it a bit inconsistent to require spatial idx to bet set for VP8, but it\u0027s OK to have it unset for VP9?",
+      "parentUuid": "bfd31e78_6b97f353",
+      "range": {
+        "startLine": 240,
+        "startChar": 7,
+        "endLine": 240,
+        "endChar": 49
+      },
+      "revId": "4fc3fb4d5344347f48e1b984153effde7cbe8b9b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3eba9c67_ef6149a4",
         "filename": "video/payload_router.cc",
         "patchSetId": 12
@@ -108,6 +132,30 @@
       "side": 1,
       "message": "Our vp9 encoder populates spatial_idx only if there\u0027s more than one layer, so it\u0027s not a change in behavior. Question is, should we repeat that logic here, for the benefit of other encoders? The possibility of omitting it on the wire (which is the meaning of kNoSpatialIdx, if I\u0027ve understood it correctly) is somewhat rtp specific, and hence fits better here than in encoders.",
       "parentUuid": "30b6c289_af37ed4f",
+      "range": {
+        "startLine": 250,
+        "startChar": 8,
+        "endLine": 250,
+        "endChar": 52
+      },
+      "revId": "4fc3fb4d5344347f48e1b984153effde7cbe8b9b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79a4e00f_78d72aad",
+        "filename": "video/payload_router.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-06-26T13:41:33Z",
+      "side": 1,
+      "message": "Sounds good to me to keep this here.",
+      "parentUuid": "bb27f403_70e73bfa",
       "range": {
         "startLine": 250,
         "startChar": 8,

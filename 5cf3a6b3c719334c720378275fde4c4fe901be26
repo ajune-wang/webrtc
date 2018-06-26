@@ -45,6 +45,30 @@
       "revId": "5cf3a6b3c719334c720378275fde4c4fe901be26",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a1465ec_7cd244fb",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-06-26T22:44:27Z",
+      "side": 1,
+      "message": "Build errors as it cannot be converted to string directly.",
+      "parentUuid": "1614d02e_5375a1cb",
+      "range": {
+        "startLine": 100,
+        "startChar": 2,
+        "endLine": 100,
+        "endChar": 12
+      },
+      "revId": "5cf3a6b3c719334c720378275fde4c4fe901be26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

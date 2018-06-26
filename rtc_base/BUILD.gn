@@ -151,6 +151,15 @@ rtc_source_set("criticalsection") {
   ]
 }
 
+rtc_source_set("concat") {
+  sources = [
+    "con_cat.h",
+  ]
+  deps = [
+    "//third_party/abseil-cpp/absl/strings",
+  ]
+}
+
 rtc_source_set("platform_thread") {
   visibility = [
     ":rtc_base_approved",

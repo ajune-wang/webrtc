@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b6babb5e_e2b706c5",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1852,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-26T09:10:54Z",
+      "side": 1,
+      "message": "Is this going to copy the entire vector?",
+      "range": {
+        "startLine": 1852,
+        "startChar": 22,
+        "endLine": 1852,
+        "endChar": 69
+      },
+      "revId": "11151978801c4fa1d834ea875fa43da067072fa0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

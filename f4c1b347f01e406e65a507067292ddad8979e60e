@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "61ad2c7c_5f889f6c",
+        "filename": "modules/video_coding/encoded_frame.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-06-26T12:58:33Z",
+      "side": 1,
+      "message": "Hmm, never seen this before. And it goes against the style guide. Will be nice to have these classes cleaned up!",
+      "range": {
+        "startLine": 24,
+        "startChar": 24,
+        "endLine": 24,
+        "endChar": 33
+      },
+      "revId": "f4c1b347f01e406e65a507067292ddad8979e60e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

@@ -22,6 +22,30 @@
       "revId": "11151978801c4fa1d834ea875fa43da067072fa0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2604cd9e_cf116cea",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1852,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-06-26T09:16:13Z",
+      "side": 1,
+      "message": "I really didn\u0027t want to, but rtc::FunctionView does not allow \u003cconst std::vector\u003cstd::pair\u003cint64_t, NetEqStatsType\u003e\u0026\u003e, any suggestion?",
+      "parentUuid": "b6babb5e_e2b706c5",
+      "range": {
+        "startLine": 1852,
+        "startChar": 22,
+        "endLine": 1852,
+        "endChar": 69
+      },
+      "revId": "11151978801c4fa1d834ea875fa43da067072fa0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -22,6 +22,30 @@
       "revId": "54a8113c03086dc68be29458d9b70ce68f60183f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a97990b_0ed12bfa",
+        "filename": "modules/audio_coding/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 628,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2018-06-27T09:06:19Z",
+      "side": 1,
+      "message": "Yep. //modules/audio_coding/codecs/isac/main/source/lpc_tables.c has include of modules/audio_coding/codecs/isac/main/source/settings.h",
+      "parentUuid": "5dfaf5fe_25d043c3",
+      "range": {
+        "startLine": 628,
+        "startChar": 4,
+        "endLine": 628,
+        "endChar": 15
+      },
+      "revId": "54a8113c03086dc68be29458d9b70ce68f60183f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

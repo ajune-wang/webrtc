@@ -159,6 +159,7 @@ class AecState {
   const bool allow_transparent_mode_;
   const bool use_stationary_properties_;
   const bool enforce_delay_after_realignment_;
+  const bool allow_linear_mode_with_diverged_filter_;
   ErlEstimator erl_estimator_;
   ErleEstimator erle_estimator_;
   size_t capture_block_counter_ = 0;

@@ -22,6 +22,7 @@
 #include "pc/test/androidtestinitializer.h"
 #endif
 #include "pc/test/fakesctptransport.h"
+#include "rtc_base/fakenetwork.h"
 #include "rtc_base/gunit.h"
 #include "rtc_base/ptr_util.h"
 #include "rtc_base/virtualsocketserver.h"
@@ -33,6 +34,7 @@ using RTCOfferAnswerOptions = PeerConnectionInterface::RTCOfferAnswerOptions;
 using ::testing::Values;
 
 static constexpr int kDefaultTimeout = 10000;
+static const rtc::SocketAddress kDefaultLocalAddress("192.168.1.1", 0);
 
 int MakeUsageFingerprint(std::set<PeerConnection::UsageEvent> events) {
   int signature = 0;
@@ -64,13 +66,36 @@ class PeerConnectionFactoryForUsageHistogramTest
   void ReturnHistogramVeryQuickly() { return_histogram_very_quickly_ = true; }
 
  private:
-  bool return_histogram_very_quickly_;
+  bool return_histogram_very_quickly_ = false;
+};
+
+class PeerConnectionWrapperForUsageHistogramTest;
+typedef PeerConnectionWrapperForUsageHistogramTest* RawWrapperPtr;
+
+class ObserverForUsageHistogramTest : public MockPeerConnectionObserver {
+ public:
+  void OnIceCandidate(const webrtc::IceCandidateInterface* candidate) override;
+  void PrepareToExchangeCandidates(RawWrapperPtr other) {
+    candidate_target_ = other;
+  }
+
+  bool HaveDataChannel() { return last_datachannel_; }
+
+ private:
+  RawWrapperPtr candidate_target_;  // Note: Not thread-safe against deletions.
 };
 
 class PeerConnectionWrapperForUsageHistogramTest
     : public PeerConnectionWrapper {
  public:
-  using PeerConnectionWrapper::PeerConnectionWrapper;
+  PeerConnectionWrapperForUsageHistogramTest(
+      rtc::scoped_refptr<PeerConnectionFactoryInterface> pc_factory,
+      rtc::scoped_refptr<PeerConnectionInterface> pc,
+      std::unique_ptr<MockPeerConnectionObserver> observer)
+      : PeerConnectionWrapper(pc_factory, pc, std::move(observer)),
+        fake_network_manager_(new rtc::FakeNetworkManager) {
+    fake_network_manager_->AddInterface(kDefaultLocalAddress);
+  }
 
   PeerConnection* GetInternalPeerConnection() {
     auto* pci =
@@ -78,7 +103,37 @@ class PeerConnectionWrapperForUsageHistogramTest
             pc());
     return static_cast<PeerConnection*>(pci->internal());
   }
+
+  void PrepareToExchangeCandidates(
+      PeerConnectionWrapperForUsageHistogramTest* other) {
+    static_cast<ObserverForUsageHistogramTest*>(observer())
+        ->PrepareToExchangeCandidates(other);
+    static_cast<ObserverForUsageHistogramTest*>(other->observer())
+        ->PrepareToExchangeCandidates(this);
+  }
+
+  bool PcIsConnected() {
+    return pc()->ice_connection_state() ==
+               PeerConnectionInterface::kIceConnectionConnected ||
+           pc()->ice_connection_state() ==
+               PeerConnectionInterface::kIceConnectionCompleted;
+  }
+
+  bool HaveDataChannel() {
+    return static_cast<ObserverForUsageHistogramTest*>(observer())
+        ->HaveDataChannel();
+  }
+
+ private:
+  std::unique_ptr<rtc::FakeNetworkManager> fake_network_manager_;
 };
+
+void ObserverForUsageHistogramTest::OnIceCandidate(
+    const webrtc::IceCandidateInterface* candidate) {
+  if (candidate_target_) {
+    candidate_target_->pc()->AddIceCandidate(candidate);
+  }
+}
 
 class PeerConnectionUsageHistogramTest : public ::testing::Test {
  protected:
@@ -113,7 +168,7 @@ class PeerConnectionUsageHistogramTest : public ::testing::Test {
     if (immediate_report) {
       pc_factory->ReturnHistogramVeryQuickly();
     }
-    auto observer = rtc::MakeUnique<MockPeerConnectionObserver>();
+    auto observer = rtc::MakeUnique<ObserverForUsageHistogramTest>();
     auto pc = pc_factory->CreatePeerConnection(config, nullptr, nullptr,
                                                observer.get());
     if (!pc) {
@@ -141,5 +196,63 @@ TEST_F(PeerConnectionUsageHistogramTest, UsageFingerprintHistogramFromTimeout) {
                        webrtc::kEnumCounterUsagePattern, expected_fingerprint),
                    kDefaultTimeout);
 }
+
+// Test getting the usage fingerprint for an audio/video connection.
+TEST_F(PeerConnectionUsageHistogramTest, FingerprintAudioVideo) {
+  auto caller = CreatePeerConnection();
+  auto callee = CreatePeerConnection();
+  // Register UMA observer before signaling begins.
+  auto caller_observer = caller->RegisterFakeMetricsObserver();
+  auto callee_observer = callee->RegisterFakeMetricsObserver();
+  caller->AddAudioTrack("audio");
+  caller->AddVideoTrack("video");
+  caller->PrepareToExchangeCandidates(callee.get());
+  ASSERT_TRUE(caller->ExchangeOfferAnswerWith(callee.get()));
+  ASSERT_TRUE_WAIT(caller->PcIsConnected(), kDefaultTimeout);
+  ASSERT_TRUE_WAIT(callee->PcIsConnected(), kDefaultTimeout);
+  caller->pc()->Close();
+  callee->pc()->Close();
+  int expected_fingerprint = MakeUsageFingerprint(
+      {PeerConnection::UsageEvent::AUDIO_ADDED,
+       PeerConnection::UsageEvent::VIDEO_ADDED,
+       PeerConnection::UsageEvent::SET_LOCAL_DESCRIPTION_CALLED,
+       PeerConnection::UsageEvent::SET_REMOTE_DESCRIPTION_CALLED,
+       PeerConnection::UsageEvent::CANDIDATE_COLLECTED,
+       PeerConnection::UsageEvent::REMOTE_CANDIDATE_ADDED,
+       PeerConnection::UsageEvent::ICE_STATE_CONNECTED,
+       PeerConnection::UsageEvent::CLOSE_CALLED});
+  EXPECT_TRUE(caller_observer->ExpectOnlySingleEnumCount(
+      webrtc::kEnumCounterUsagePattern, expected_fingerprint));
+  EXPECT_TRUE(callee_observer->ExpectOnlySingleEnumCount(
+      webrtc::kEnumCounterUsagePattern, expected_fingerprint));
+}
+
+#ifdef HAVE_SCTP
+TEST_F(PeerConnectionUsageHistogramTest, FingerprintDataOnly) {
+  auto caller = CreatePeerConnection();
+  auto callee = CreatePeerConnection();
+  // Register UMA observer before signaling begins.
+  auto caller_observer = caller->RegisterFakeMetricsObserver();
+  auto callee_observer = callee->RegisterFakeMetricsObserver();
+  caller->CreateDataChannel("foodata");
+  caller->PrepareToExchangeCandidates(callee.get());
+  ASSERT_TRUE(caller->ExchangeOfferAnswerWith(callee.get()));
+  ASSERT_TRUE_WAIT(callee->HaveDataChannel(), kDefaultTimeout);
+  caller->pc()->Close();
+  callee->pc()->Close();
+  int expected_fingerprint = MakeUsageFingerprint(
+      {PeerConnection::UsageEvent::DATA_ADDED,
+       PeerConnection::UsageEvent::SET_LOCAL_DESCRIPTION_CALLED,
+       PeerConnection::UsageEvent::SET_REMOTE_DESCRIPTION_CALLED,
+       PeerConnection::UsageEvent::CANDIDATE_COLLECTED,
+       PeerConnection::UsageEvent::REMOTE_CANDIDATE_ADDED,
+       PeerConnection::UsageEvent::ICE_STATE_CONNECTED,
+       PeerConnection::UsageEvent::CLOSE_CALLED});
+  EXPECT_TRUE(caller_observer->ExpectOnlySingleEnumCount(
+      webrtc::kEnumCounterUsagePattern, expected_fingerprint));
+  EXPECT_TRUE(callee_observer->ExpectOnlySingleEnumCount(
+      webrtc::kEnumCounterUsagePattern, expected_fingerprint));
+}
+#endif  // HAVE_SCTP
 
 }  // namespace webrtc

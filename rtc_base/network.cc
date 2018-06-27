@@ -94,6 +94,7 @@ bool SortNetworks(const Network* a, const Network* b) {
 
 std::string AdapterTypeToString(AdapterType type) {
   switch (type) {
+    case ADAPTER_TYPE_ANY:
     case ADAPTER_TYPE_UNKNOWN:
       return "Unknown";
     case ADAPTER_TYPE_ETHERNET:
@@ -121,6 +122,8 @@ uint16_t ComputeNetworkCostByType(int type) {
       return kNetworkCostLow;
     case rtc::ADAPTER_TYPE_CELLULAR:
       return kNetworkCostHigh;
+    case rtc::ADAPTER_TYPE_ANY:
+      return kNetworkCostMax;
     case rtc::ADAPTER_TYPE_VPN:
       // The cost of a VPN should be computed using its underlying network type.
       RTC_NOTREACHED();
@@ -265,7 +268,7 @@ void NetworkManagerBase::GetAnyAddressNetworks(NetworkList* networks) {
   if (!ipv4_any_address_network_) {
     const rtc::IPAddress ipv4_any_address(INADDR_ANY);
     ipv4_any_address_network_.reset(
-        new rtc::Network("any", "any", ipv4_any_address, 0));
+        new rtc::Network("any", "any", ipv4_any_address, 0, ADAPTER_TYPE_ANY));
     ipv4_any_address_network_->set_default_local_address_provider(this);
     ipv4_any_address_network_->AddIP(ipv4_any_address);
   }

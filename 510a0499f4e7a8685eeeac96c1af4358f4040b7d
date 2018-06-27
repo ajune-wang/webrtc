@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7f89aa8a_ad7b6f63",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-06-27T23:32:34Z",
+      "side": 1,
+      "message": "The commit message is no longer accurate.",
+      "revId": "510a0499f4e7a8685eeeac96c1af4358f4040b7d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d55a4b1b_107667de",
+        "filename": "api/units/data_rate_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-06-27T23:32:34Z",
+      "side": 1,
+      "message": "You could make only these two lines conditional on that preprocessor expression.",
+      "revId": "510a0499f4e7a8685eeeac96c1af4358f4040b7d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

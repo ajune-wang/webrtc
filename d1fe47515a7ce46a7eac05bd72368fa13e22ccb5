@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "73629ce0_42d9b7d5",
+        "filename": "media/base/codec.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-27T22:58:04Z",
+      "side": 1,
+      "message": "The name \"Matches\" may be a little misleading, but the consequence of different codecs not \"matching\" is that, if an offerer supports multiple profiles, it needs to use a separate payload type for each. With RTX requiring an extra payload type, this means we\u0027ll need two extra payload types to support both profile \"0\" and \"2\", each with RTX. And we\u0027re already running somewhat low on payload types. Was this the intention?",
+      "revId": "d1fe47515a7ce46a7eac05bd72368fa13e22ccb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93d3e019_ec3262f0",
+        "filename": "media/base/codec_unittest.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-27T22:58:04Z",
+      "side": 1,
+      "message": "Should also test the matching for VideoCodecs with no \"profile-id\" (should match with \"0\", and other VideoCodecs with no \"profile-id\", but shouldn\u0027t match with \"2\").",
+      "revId": "d1fe47515a7ce46a7eac05bd72368fa13e22ccb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1418885c_5f5541f5",
+        "filename": "media/base/vp9_profile.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-27T22:58:04Z",
+      "side": 1,
+      "message": "Is this standardized anywhere? If not, is it in the process of being standardized? It\u0027s not in https://tools.ietf.org/html/draft-ietf-payload-vp9 and I couldn\u0027t find any reference to it in the Payload working group\u0027s email archives.",
+      "revId": "d1fe47515a7ce46a7eac05bd72368fa13e22ccb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de0b81bb_baffa638",
+        "filename": "media/base/vp9_profile.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-27T22:58:04Z",
+      "side": 1,
+      "message": "Need to catch exceptions in case the string isn\u0027t actually numeric? It looks like right now you could crash WebRTC by applying invalid SDP, which we always want to avoid.",
+      "revId": "d1fe47515a7ce46a7eac05bd72368fa13e22ccb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d70aaab_0b80aa53",
+        "filename": "media/base/vp9_profile.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-27T22:58:04Z",
+      "side": 1,
+      "message": "Should mention that |str| must be valid or this will throw an exception (unless that\u0027s changed)",
+      "revId": "d1fe47515a7ce46a7eac05bd72368fa13e22ccb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68c14eaa_91ddef1a",
+        "filename": "pc/webrtcsdp_unittest.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 2188,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-27T22:58:04Z",
+      "side": 1,
+      "message": "Is this necessary? We already test codec parameters being serialized; this CL doesn\u0027t even change webrtcsdp.cc.\n\nIf it IS necessary, I\u0027d advise against the approach of looking for specific strings in the generated SDP (even though that\u0027s what the test above does); it\u0027s somewhat hard to follow and fragile. Instead I\u0027d recommend testing deserialization by creating SDP with \"profile-id\", parsing it and ensuring the parsed parameter is what you expect, and testing serialization using TestSerialize (which assumes deserialization works).",
+      "revId": "d1fe47515a7ce46a7eac05bd72368fa13e22ccb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

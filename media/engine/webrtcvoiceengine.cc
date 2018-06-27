@@ -32,6 +32,7 @@
 #include "modules/audio_mixer/audio_mixer_impl.h"
 #include "modules/audio_processing/aec_dump/aec_dump_factory.h"
 #include "modules/audio_processing/include/audio_processing.h"
+#include "rtc_base/absl_str_cat.h"
 #include "rtc_base/arraysize.h"
 #include "rtc_base/base64.h"
 #include "rtc_base/byteorder.h"
@@ -103,17 +104,17 @@ bool ValidateStreamParams(const StreamParams& sp) {
 
 // Dumps an AudioCodec in RFC 2327-ish format.
 std::string ToString(const AudioCodec& codec) {
-  std::stringstream ss;
-  ss << codec.name << "/" << codec.clockrate << "/" << codec.channels;
+  std::string s =
+      absl::StrCat(codec.name, "/", codec.clockrate, "/", codec.channels);
   if (!codec.params.empty()) {
-    ss << " {";
+    absl::StrAppend(&s, " {");
     for (const auto& param : codec.params) {
-      ss << " " << param.first << "=" << param.second;
+      absl::StrAppend(&s, " ", param.first, "=", param.second);
     }
-    ss << " }";
+    absl::StrAppend(&s, " }");
   }
-  ss << " (" << codec.id << ")";
-  return ss.str();
+  absl::StrAppend(&s, " (", codec.id, ")");
+  return s;
 }
 
 bool IsCodec(const AudioCodec& codec, const char* ref_name) {

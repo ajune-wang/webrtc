@@ -655,7 +655,6 @@ class Connection : public CandidatePairInterface,
   int64_t last_data_received() const { return last_data_received_; }
 
   // Debugging description of this connection
-  std::string ToDebugId() const;
   std::string ToString() const;
   std::string ToSensitiveString() const;
   // Structured description of this candidate pair.

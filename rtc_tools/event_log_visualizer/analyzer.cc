@@ -14,6 +14,7 @@
 #include <cmath>
 #include <limits>
 #include <map>
+#include <sstream>  // no-presubmit-check TODO(webrtc:8982)
 #include <string>
 #include <utility>
 

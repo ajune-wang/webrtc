@@ -163,14 +163,7 @@ class P2PTransportChannel : public IceTransportInternal {
     return remote_candidates_;
   }
 
-  std::string ToString() const {
-    const char RECEIVING_ABBREV[2] = {'_', 'R'};
-    const char WRITABLE_ABBREV[2] = {'_', 'W'};
-    std::stringstream ss;
-    ss << "Channel[" << transport_name_ << "|" << component_ << "|"
-       << RECEIVING_ABBREV[receiving_] << WRITABLE_ABBREV[writable_] << "]";
-    return ss.str();
-  }
+  std::string ToString() const;
 
  private:
   rtc::Thread* thread() const { return network_thread_; }

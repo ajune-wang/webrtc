@@ -40,7 +40,6 @@ RTC_NORETURN void rtc_FatalMessage(const char* file, int line, const char* msg);
 #ifdef __cplusplus
 // C++ version.
 
-#include <sstream>
 #include <string>
 
 #include "rtc_base/numerics/safe_compare.h"
@@ -101,6 +100,7 @@ enum class CheckArgType : int8_t {
   kCharP,
   kStdString,
   kVoidP,
+  kCheckOp,
 };
 
 RTC_NORETURN void FatalLog(const char* file,
@@ -191,6 +191,16 @@ class LogStreamer<> final {
     static constexpr CheckArgType t[] = {Us::Type()..., CheckArgType::kEnd};
     FatalLog(file, line, message, t, args.GetVal()...);
   }
+
+  template <typename... Us>
+  RTC_NORETURN RTC_FORCE_INLINE static void CallCheckOp(const char* file,
+                                                        const int line,
+                                                        const char* message,
+                                                        const Us&... args) {
+    static constexpr CheckArgType t[] = {CheckArgType::kCheckOp, Us::Type()...,
+                                         CheckArgType::kEnd};
+    FatalLog(file, line, message, t, args.GetVal()...);
+  }
 };
 
 // Inductive case: We've already seen at least one << argument. The most recent
@@ -247,6 +257,12 @@ class FatalLogCall final {
     streamer.Call(file_, line_, message_);
   }
 
+  template <typename... Ts>
+  RTC_NORETURN RTC_FORCE_INLINE void operator%(
+      const LogStreamer<Ts...>& streamer) {
+    streamer.CallCheckOp(file_, line_, message_);
+  }
+
  private:
   const char* file_;
   int line_;
@@ -284,73 +300,11 @@ class FatalLogCall final {
 
 // Helper macro for binary operators.
 // Don't use this macro directly in your code, use RTC_CHECK_EQ et al below.
-// RTC_CHECK_EQ(...) else { ... } work properly.
-#define RTC_CHECK_OP(name, op, val1, val2)                                    \
-  while (std::string* _result =                                               \
-             rtc::Check##name##Impl((val1), (val2), #val1 " " #op " " #val2)) \
-  rtc::webrtc_checks_impl::FatalLogCall(__FILE__, __LINE__,                   \
-                                        _result->c_str()) &                   \
-      rtc::webrtc_checks_impl::LogStreamer<>()
-
-// Build the error message string.  This is separate from the "Impl"
-// function template because it is not performance critical and so can
-// be out of line, while the "Impl" code should be inline.  Caller
-// takes ownership of the returned string.
-template<class t1, class t2>
-std::string* MakeCheckOpString(const t1& v1, const t2& v2, const char* names) {
-  // TODO(jonasolsson): Use absl::StrCat() instead.
-  std::ostringstream ss;
-  ss << names << " (" << v1 << " vs. " << v2 << ")";
-  std::string* msg = new std::string(ss.str());
-  return msg;
-}
-
-// MSVC doesn't like complex extern templates and DLLs.
-#if !defined(COMPILER_MSVC)
-// Commonly used instantiations of MakeCheckOpString<>. Explicitly instantiated
-// in logging.cc.
-extern template std::string* MakeCheckOpString<int, int>(
-    const int&, const int&, const char* names);
-extern template
-std::string* MakeCheckOpString<unsigned long, unsigned long>(
-    const unsigned long&, const unsigned long&, const char* names);
-extern template
-std::string* MakeCheckOpString<unsigned long, unsigned int>(
-    const unsigned long&, const unsigned int&, const char* names);
-extern template
-std::string* MakeCheckOpString<unsigned int, unsigned long>(
-    const unsigned int&, const unsigned long&, const char* names);
-extern template
-std::string* MakeCheckOpString<std::string, std::string>(
-    const std::string&, const std::string&, const char* name);
-#endif
-
-// Helper functions for RTC_CHECK_OP macro.
-// The (int, int) specialization works around the issue that the compiler
-// will not instantiate the template version of the function on values of
-// unnamed enum type - see comment below.
-#define DEFINE_RTC_CHECK_OP_IMPL(name)                                       \
-  template <class t1, class t2>                                              \
-  inline std::string* Check##name##Impl(const t1& v1, const t2& v2,          \
-                                        const char* names) {                 \
-    if (rtc::Safe##name(v1, v2))                                             \
-      return nullptr;                                                        \
-    else                                                                     \
-      return rtc::MakeCheckOpString(v1, v2, names);                          \
-  }                                                                          \
-  inline std::string* Check##name##Impl(int v1, int v2, const char* names) { \
-    if (rtc::Safe##name(v1, v2))                                             \
-      return nullptr;                                                        \
-    else                                                                     \
-      return rtc::MakeCheckOpString(v1, v2, names);                          \
-  }
-DEFINE_RTC_CHECK_OP_IMPL(Eq)
-DEFINE_RTC_CHECK_OP_IMPL(Ne)
-DEFINE_RTC_CHECK_OP_IMPL(Le)
-DEFINE_RTC_CHECK_OP_IMPL(Lt)
-DEFINE_RTC_CHECK_OP_IMPL(Ge)
-DEFINE_RTC_CHECK_OP_IMPL(Gt)
-#undef DEFINE_RTC_CHECK_OP_IMPL
+#define RTC_CHECK_OP(name, op, val1, val2)                         \
+  while (rtc::Safe##name((val1), (val2)))                          \
+  rtc::webrtc_checks_impl::FatalLogCall(__FILE__, __LINE__,        \
+                                        #val1 " " #op " " #val2) & \
+      rtc::webrtc_checks_impl::LogStreamer<>() << (val1) << (val2)
 
 #define RTC_CHECK_EQ(val1, val2) RTC_CHECK_OP(Eq, ==, val1, val2)
 #define RTC_CHECK_NE(val1, val2) RTC_CHECK_OP(Ne, !=, val1, val2)

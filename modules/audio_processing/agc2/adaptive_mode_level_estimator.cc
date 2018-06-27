@@ -46,6 +46,7 @@ void AdaptiveModeLevelEstimator::UpdateEstimation(
                         vad_data.speech_rms_dbfs * vad_data.speech_probability;
   estimate_denominator_ =
       estimate_denominator_ * leak_factor + vad_data.speech_probability;
+  memory_ += vad_data.speech_probability /*???*/;
 
   last_estimate_with_offset_dbfs_ = estimate_numerator_ / estimate_denominator_;
 
@@ -57,6 +58,23 @@ float AdaptiveModeLevelEstimator::LatestLevelEstimate() const {
   return rtc::SafeClamp<float>(
       last_estimate_with_offset_dbfs_ + saturation_protector_.LastMargin(),
       -90.f, 0.f);
+}
+
+float AdaptiveModeLevelEstimator::CurrentMemory() const {
+  return memory_;  // estimate_denominator_;
+}
+
+void AdaptiveModeLevelEstimator::ResetMemory() {
+  memory_ = 0.f;
+}
+
+void AdaptiveModeLevelEstimator::Reset() {
+  buffer_size_ms_ = 0;
+  last_estimate_with_offset_dbfs_ = kInitialSpeechLevelEstimateDbfs;
+  estimate_numerator_ = 0.f;
+  estimate_denominator_ = 0.f;
+  saturation_protector_.Reset();
+  memory_ = 0.f;
 }
 
 void AdaptiveModeLevelEstimator::DebugDumpEstimate() {

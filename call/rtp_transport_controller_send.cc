@@ -25,11 +25,6 @@ static const int64_t kRetransmitWindowSizeMs = 500;
 const char kTaskQueueExperiment[] = "WebRTC-TaskQueueCongestionControl";
 using TaskQueueController = webrtc::webrtc_cc::SendSideCongestionController;
 
-bool TaskQueueExperimentEnabled() {
-  std::string trial = webrtc::field_trial::FindFullName(kTaskQueueExperiment);
-  return trial.find("Enable") == 0;
-}
-
 std::unique_ptr<SendSideCongestionControllerInterface> CreateController(
     Clock* clock,
     rtc::TaskQueue* task_queue,
@@ -71,7 +66,8 @@ RtpTransportControllerSend::RtpTransportControllerSend(
   // Created after task_queue to be able to post to the task queue internally.
   send_side_cc_ =
       CreateController(clock, &task_queue_, event_log, &pacer_, bitrate_config,
-                       TaskQueueExperimentEnabled(), controller_factory);
+                       !webrtc::field_trial::IsDisabled(kTaskQueueExperiment),
+                       controller_factory);
 
   process_thread_->RegisterModule(&pacer_, RTC_FROM_HERE);
   process_thread_->RegisterModule(send_side_cc_.get(), RTC_FROM_HERE);

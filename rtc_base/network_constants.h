@@ -28,7 +28,8 @@ enum AdapterType {
   ADAPTER_TYPE_WIFI = 1 << 1,
   ADAPTER_TYPE_CELLULAR = 1 << 2,
   ADAPTER_TYPE_VPN = 1 << 3,
-  ADAPTER_TYPE_LOOPBACK = 1 << 4
+  ADAPTER_TYPE_LOOPBACK = 1 << 4,
+  ADAPTER_TYPE_ANY = 1 << 5,
 };
 
 }  // namespace rtc

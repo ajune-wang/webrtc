@@ -34,7 +34,7 @@ chrome.languageSettingsPrivate.MoveType = {
  *   supportsUI: (boolean|undefined),
  *   supportsSpellcheck: (boolean|undefined),
  *   supportsTranslate: (boolean|undefined),
- *   isAllowedUILocale: (boolean|undefined)
+ *   isProhibitedUILocale: (boolean|undefined)
  * }}
  */
 chrome.languageSettingsPrivate.Language;
@@ -55,7 +55,8 @@ chrome.languageSettingsPrivate.SpellcheckDictionaryStatus;
  *   displayName: string,
  *   languageCodes: !Array<string>,
  *   enabled: (boolean|undefined),
- *   hasOptionsPage: (boolean|undefined)
+ *   hasOptionsPage: (boolean|undefined),
+ *   isProhibitedByPolicy: (boolean|undefined)
  * }}
  */
 chrome.languageSettingsPrivate.InputMethod;

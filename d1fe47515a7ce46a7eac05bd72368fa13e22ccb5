@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "8e733ad2_ea8038cf",
+        "filename": "media/base/codec.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-06-27T23:44:22Z",
+      "side": 1,
+      "message": "Yes, this was the intention. Similar to how H264 lists different profiles, we would like to list VP9 profiles. I will cc you on the meeting discussion notes.",
+      "parentUuid": "73629ce0_42d9b7d5",
+      "revId": "d1fe47515a7ce46a7eac05bd72368fa13e22ccb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "93d3e019_ec3262f0",
         "filename": "media/base/codec_unittest.cc",
         "patchSetId": 18
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "14d2342e_c01b63a7",
+        "filename": "media/base/codec_unittest.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-06-27T23:44:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "93d3e019_ec3262f0",
+      "revId": "d1fe47515a7ce46a7eac05bd72368fa13e22ccb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1418885c_5f5541f5",
         "filename": "media/base/vp9_profile.cc",
         "patchSetId": 18
@@ -47,6 +83,24 @@
       "writtenOn": "2018-06-27T22:58:04Z",
       "side": 1,
       "message": "Is this standardized anywhere? If not, is it in the process of being standardized? It\u0027s not in https://tools.ietf.org/html/draft-ietf-payload-vp9 and I couldn\u0027t find any reference to it in the Payload working group\u0027s email archives.",
+      "revId": "d1fe47515a7ce46a7eac05bd72368fa13e22ccb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66573461_8105d732",
+        "filename": "media/base/vp9_profile.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-06-27T23:44:22Z",
+      "side": 1,
+      "message": "There isn\u0027t a standard yet. I am not quite familiar with the webrtc standardization process, so I mailed juberti after nisse@\u0027s comment and waiting for a response. Would you prefer to wait until draft is updated to commit this CL?",
+      "parentUuid": "1418885c_5f5541f5",
       "revId": "d1fe47515a7ce46a7eac05bd72368fa13e22ccb5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "d579c2b6_db49581d",
+        "filename": "media/base/vp9_profile.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-06-27T23:44:22Z",
+      "side": 1,
+      "message": "Switched to rtc::StringToNumber.",
+      "parentUuid": "de0b81bb_baffa638",
+      "revId": "d1fe47515a7ce46a7eac05bd72368fa13e22ccb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2d70aaab_0b80aa53",
         "filename": "media/base/vp9_profile.h",
         "patchSetId": 18
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "08c7ffc6_311830c0",
+        "filename": "media/base/vp9_profile.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-06-27T23:44:22Z",
+      "side": 1,
+      "message": "Good catch. Switching to rtc::StringToNumber instead.",
+      "parentUuid": "2d70aaab_0b80aa53",
+      "revId": "d1fe47515a7ce46a7eac05bd72368fa13e22ccb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "68c14eaa_91ddef1a",
         "filename": "pc/webrtcsdp_unittest.cc",
         "patchSetId": 18
@@ -101,6 +191,24 @@
       "revId": "d1fe47515a7ce46a7eac05bd72368fa13e22ccb5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b4c3691_46e8b23a",
+        "filename": "pc/webrtcsdp_unittest.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 2188,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-06-27T23:44:22Z",
+      "side": 1,
+      "message": "I was more interested in seeing that \"profile-id\" param is actually being added to the sdp string in the appropriate line, but I guess that is already being tested elsewhere. I agree that this isn\u0027t adding anything new. Removing it.",
+      "parentUuid": "68c14eaa_91ddef1a",
+      "revId": "d1fe47515a7ce46a7eac05bd72368fa13e22ccb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

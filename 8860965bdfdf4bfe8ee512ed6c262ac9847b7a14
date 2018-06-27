@@ -16,6 +16,24 @@
       "revId": "8860965bdfdf4bfe8ee512ed6c262ac9847b7a14",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3a35e72_b2ebf5b1",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 6680
+      },
+      "writtenOn": "2018-06-27T09:27:14Z",
+      "side": 1,
+      "message": "Not for VP9 SVC/K-SVC. The variable, ts_target_bitrate[], appears to be used for VP8 only and should not appear in this VP9-exclusive function.  I will remove these lines of code.",
+      "parentUuid": "fb39f109_2226a182",
+      "revId": "8860965bdfdf4bfe8ee512ed6c262ac9847b7a14",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

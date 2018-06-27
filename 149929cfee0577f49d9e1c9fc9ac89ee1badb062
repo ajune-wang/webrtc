@@ -81,6 +81,24 @@
       "revId": "149929cfee0577f49d9e1c9fc9ac89ee1badb062",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61f0fb8b_90b3026f",
+        "filename": "pc/peerconnection_integrationtest.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 1534,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-27T23:37:03Z",
+      "side": 1,
+      "message": "I was assuming this was happening because the caller simply became connected first, and thus it would be racy because the caller *and* callee could become connected within the above EXPECT_EQ_WAIT, resulting in a count of 2. I didn\u0027t realize the callee just never reports cipher stats.",
+      "parentUuid": "b2273d75_3273b948",
+      "revId": "149929cfee0577f49d9e1c9fc9ac89ee1badb062",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

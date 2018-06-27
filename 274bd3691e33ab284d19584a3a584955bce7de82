@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2f12cd65_1d794968",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 16
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-27T23:37:03Z",
+      "side": 1,
+      "message": "nit: \"marcos\"",
+      "revId": "274bd3691e33ab284d19584a3a584955bce7de82",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84eeb7eb_8406980a",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 5904,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-27T23:37:03Z",
+      "side": 1,
+      "message": "RTC_HISTOGRAM_ENUMERATION_SPARSE",
+      "revId": "274bd3691e33ab284d19584a3a584955bce7de82",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1fffdc9f_3e1d87a6",
+        "filename": "pc/peerconnection.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-27T23:37:03Z",
+      "side": 1,
+      "message": "Shouldn\u0027t actually need MAX_VALUE if this uses a sparse histogram.",
+      "revId": "274bd3691e33ab284d19584a3a584955bce7de82",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22de13a7_d40c864b",
+        "filename": "pc/peerconnection_integrationtest.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 1534,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-27T23:37:03Z",
+      "side": 1,
+      "message": "nit: Link the bug here too?",
+      "revId": "274bd3691e33ab284d19584a3a584955bce7de82",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f45aece8_8c92587a",
+        "filename": "pc/peerconnection_integrationtest.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 3507,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-27T23:37:03Z",
+      "side": 1,
+      "message": "And here?",
+      "revId": "274bd3691e33ab284d19584a3a584955bce7de82",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e52a5d7_205f0434",
+        "filename": "rtc_base/sslstreamadapter.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-27T23:37:03Z",
+      "side": 1,
+      "message": "Shouldn\u0027t need this.",
+      "revId": "274bd3691e33ab284d19584a3a584955bce7de82",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91159894_b1bc44b3",
+        "filename": "rtc_base/sslstreamadapter.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-27T23:37:03Z",
+      "side": 1,
+      "message": "Or this.",
+      "revId": "274bd3691e33ab284d19584a3a584955bce7de82",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

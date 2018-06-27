@@ -179,6 +179,24 @@
     },
     {
       "key": {
+        "uuid": "fe88735b_07867d8d",
+        "filename": "p2p/base/p2ptransportchannel_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-27T23:37:03Z",
+      "side": 1,
+      "message": "Just to clarify: I was suggesting having a separate test for the metric being incremented. I consider \"when X occurs, regathering is initiated\" and \"when regathering is initiated, metric is incremented\" as separate behaviors. The latter could be tested in basicportallocator_unittest.cc since BasicPortAllocator is what\u0027s actually responsible for incrementing the metric.\n\nThough again, it\u0027s not a big deal.",
+      "parentUuid": "1848e7f4_6fd82bd6",
+      "revId": "8b6d1c63ca245928d4bc84bc66b2dbf18b780ecd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "97fc1635_aaeebbbc",
         "filename": "p2p/client/basicportallocator.cc",
         "patchSetId": 14

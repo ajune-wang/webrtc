@@ -40,11 +40,6 @@ import time
 WEBCAM_WIN = ('schtasks', '/run', '/tn', 'ManyCam')
 WEBCAM_MAC = ('open', '/Applications/ManyCam/ManyCam.app')
 E = os.path.expandvars
-WEBCAM_LINUX = (
-    E('$HOME/fake-webcam-driver/linux/v4l2_file_player/v4l2_file_player'),
-    E('$HOME/webrtc_video_quality/reference_video.yuv'),
-    '640', '480', '/dev/video0',
-)
 
 
 def IsWebCamRunning():
@@ -52,8 +47,6 @@ def IsWebCamRunning():
     process_name = 'ManyCam.exe'
   elif sys.platform.startswith('darwin'):
     process_name = 'ManyCam'
-  elif sys.platform.startswith('linux'):
-    process_name = 'v4l2_file_player'
   else:
     raise Exception('Unsupported platform: %s' % sys.platform)
   for p in psutil.process_iter():
@@ -75,22 +68,6 @@ def StartWebCam():
     elif sys.platform.startswith('darwin'):
       subprocess.check_call(WEBCAM_MAC)
       print 'Successfully launched virtual webcam.'
-    elif sys.platform.startswith('linux'):
-
-      # Must redirect stdout/stderr/stdin to avoid having the subprocess
-      # being killed when the parent shell dies (happens on the bots).
-      process = subprocess.Popen(WEBCAM_LINUX, stdout=subprocess.PIPE,
-                                 stderr=subprocess.PIPE,
-                                 stdin=subprocess.PIPE)
-      # If the v4l2loopback module is not loaded or incorrectly configured,
-      # the process will still launch but will die immediately.
-      # Wait for a second and then check for aliveness to catch such errors.
-      time.sleep(1)
-      if process.poll() is None:
-        print 'Successfully launched virtual webcam with PID %s' % process.pid
-      else:
-        print 'Failed to launch virtual webcam.'
-        return False
 
   except Exception as e:
     print 'Failed to launch virtual webcam: %s' % e
@@ -110,9 +87,10 @@ def _ForcePythonInterpreter(cmd):
 
 
 def Main(argv):
-  if not IsWebCamRunning():
-    if not StartWebCam():
-      return 1
+  if not sys.platform.startswith('linux'):
+    if not IsWebCamRunning():
+      if not StartWebCam():
+        return 1
 
   if argv:
     return subprocess.call(_ForcePythonInterpreter(argv))

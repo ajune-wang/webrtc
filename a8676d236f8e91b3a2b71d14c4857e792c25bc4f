@@ -71,6 +71,24 @@
     },
     {
       "key": {
+        "uuid": "c96cf6ec_62d8af7e",
+        "filename": "pc/peerconnectionfactory.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2018-06-27T16:46:57Z",
+      "side": 1,
+      "message": "Moved it to pc since that seems to be the place where ortc and pc share code at the moment and it uses various types from pc.",
+      "parentUuid": "ca7c893d_68a6eb6a",
+      "revId": "a8676d236f8e91b3a2b71d14c4857e792c25bc4f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "11b021e9_6cfa6c54",
         "filename": "pc/peerconnectionfactory_unittest.cc",
         "patchSetId": 3

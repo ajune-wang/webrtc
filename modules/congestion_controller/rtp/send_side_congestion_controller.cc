@@ -486,15 +486,12 @@ void SendSideCongestionController::SetAllocatedSendBitrateLimits(
     int64_t min_send_bitrate_bps,
     int64_t max_padding_bitrate_bps,
     int64_t max_total_bitrate_bps) {
-  task_queue_->PostTask([this, min_send_bitrate_bps, max_padding_bitrate_bps,
-                         max_total_bitrate_bps]() {
-    RTC_DCHECK_RUN_ON(task_queue_);
-    streams_config_.min_pacing_rate = DataRate::bps(min_send_bitrate_bps);
-    streams_config_.max_padding_rate = DataRate::bps(max_padding_bitrate_bps);
-    streams_config_.max_total_allocated_bitrate =
-        DataRate::bps(max_total_bitrate_bps);
-    UpdateStreamsConfig();
-  });
+  RTC_DCHECK_RUN_ON(task_queue_);
+  streams_config_.min_pacing_rate = DataRate::bps(min_send_bitrate_bps);
+  streams_config_.max_padding_rate = DataRate::bps(max_padding_bitrate_bps);
+  streams_config_.max_total_allocated_bitrate =
+      DataRate::bps(max_total_bitrate_bps);
+  UpdateStreamsConfig();
 }
 
 // TODO(holmer): Split this up and use SetBweBitrates in combination with
@@ -554,19 +551,19 @@ RtcpBandwidthObserver* SendSideCongestionController::GetBandwidthObserver() {
 
 void SendSideCongestionController::SetPerPacketFeedbackAvailable(
     bool available) {
-  task_queue_->PostTask([this, available]() {
-    RTC_DCHECK_RUN_ON(task_queue_);
-    packet_feedback_available_ = available;
-    MaybeRecreateControllers();
-  });
+  RTC_DCHECK_RUN_ON(task_queue_);
+  packet_feedback_available_ = available;
+  MaybeRecreateControllers();
 }
 
 void SendSideCongestionController::EnablePeriodicAlrProbing(bool enable) {
-  task_queue_->PostTask([this, enable]() {
-    RTC_DCHECK_RUN_ON(task_queue_);
-    streams_config_.requests_alr_probing = enable;
-    UpdateStreamsConfig();
-  });
+  if (!task_queue_->IsCurrent()) {
+    task_queue_->PostTask([this, enable] { EnablePeriodicAlrProbing(enable); });
+    return;
+  }
+  RTC_DCHECK_RUN_ON(task_queue_);
+  streams_config_.requests_alr_probing = enable;
+  UpdateStreamsConfig();
 }
 
 void SendSideCongestionController::UpdateStreamsConfig() {
@@ -766,11 +763,9 @@ void SendSideCongestionController::WaitOnTasksForTest() {
 }
 
 void SendSideCongestionController::SetPacingFactor(float pacing_factor) {
-  task_queue_->PostTask([this, pacing_factor]() {
-    RTC_DCHECK_RUN_ON(task_queue_);
-    streams_config_.pacing_factor = pacing_factor;
-    UpdateStreamsConfig();
-  });
+  RTC_DCHECK_RUN_ON(task_queue_);
+  streams_config_.pacing_factor = pacing_factor;
+  UpdateStreamsConfig();
 }
 
 void SendSideCongestionController::SetAllocatedBitrateWithoutFeedback(

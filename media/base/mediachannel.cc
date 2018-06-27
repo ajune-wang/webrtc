@@ -10,10 +10,23 @@
 
 #include "media/base/mediachannel.h"
 
+#include "rtc_base/absl_str_cat.h"
+
 namespace cricket {
 
 VideoOptions::VideoOptions() = default;
 VideoOptions::~VideoOptions() = default;
+
+std::string VideoOptions::ToString() const {
+  return absl::StrCat(
+      "VideoOptions {", ToStringIfSet("noise reduction", video_noise_reduction),
+      ToStringIfSet("screencast min bitrate kbps", screencast_min_bitrate_kbps),
+      ToStringIfSet("is_screencast ", is_screencast), "}");
+}
+
+std::string RtpHeaderExtension::ToString() const {
+  return absl::StrCat("{uri: ", uri, ", id: ", id, "}");
+}
 
 void MediaChannel::SetInterface(NetworkInterface* iface) {
   rtc::CritScope cs(&network_interface_crit_);
@@ -82,5 +95,26 @@ DataMediaChannel::~DataMediaChannel() = default;
 bool DataMediaChannel::GetStats(DataMediaInfo* info) {
   return true;
 }
+
+template <class T>
+std::string VectorToString(const std::vector<T>& vals) {
+  if (vals.size() == 0)
+    return "[]";
+  std::string s = absl::StrCat("[", vals[0].ToString());
+  for (size_t i = 1; i < vals.size(); ++i) {
+    absl::StrAppend(&s, ", ", vals[i].ToString());
+  }
+  absl::StrAppend(&s, "]");
+  return s;
+}
+
+template std::string VectorToString<AudioCodec>(
+    const std::vector<AudioCodec>& vals);
+template std::string VectorToString<DataCodec>(
+    const std::vector<DataCodec>& vals);
+template std::string VectorToString<VideoCodec>(
+    const std::vector<VideoCodec>& vals);
+template std::string VectorToString<webrtc::RtpExtension>(
+    const std::vector<webrtc::RtpExtension>& vals);
 
 }  // namespace cricket

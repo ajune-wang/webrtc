@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5dfaf5fe_25d043c3",
+        "filename": "modules/audio_coding/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 628,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-06-27T08:55:14Z",
+      "side": 1,
+      "message": "Is this still needed?",
+      "range": {
+        "startLine": 628,
+        "startChar": 4,
+        "endLine": 628,
+        "endChar": 15
+      },
+      "revId": "54a8113c03086dc68be29458d9b70ce68f60183f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

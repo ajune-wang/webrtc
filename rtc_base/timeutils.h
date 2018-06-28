@@ -137,11 +137,7 @@ class IntervalRange {
   int min() const { return min_; }
   int max() const { return max_; }
 
-  std::string ToString() const {
-    std::stringstream ss;
-    ss << "[" << min_ << "," << max_ << "]";
-    return ss.str();
-  }
+  std::string ToString() const;
 
   bool operator==(const IntervalRange& o) const {
     return min_ == o.min_ && max_ == o.max_;

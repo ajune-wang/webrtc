@@ -11,10 +11,10 @@
 #ifndef RTC_BASE_STRINGENCODE_H_
 #define RTC_BASE_STRINGENCODE_H_
 
-#include <sstream>
 #include <string>
 #include <vector>
 
+#include "absl/strings/string_view.h"
 #include "rtc_base/checks.h"
 
 namespace rtc {
@@ -148,31 +148,36 @@ bool tokenize_first(const std::string& source,
 
 // Convert arbitrary values to/from a string.
 
-template <class T>
-static bool ToString(const T& t, std::string* s) {
-  RTC_DCHECK(s);
-  std::ostringstream oss;
-  oss << std::boolalpha << t;
-  *s = oss.str();
-  return !oss.fail();
-}
-
-template <class T>
-static bool FromString(const std::string& s, T* t) {
-  RTC_DCHECK(t);
-  std::istringstream iss(s);
-  iss >> std::boolalpha >> *t;
-  return !iss.fail();
-}
+bool FromString(const std::string& s, bool* t);
+bool FromString(const std::string& s, short* t);
+bool FromString(const std::string& s, unsigned short* t);
+bool FromString(const std::string& s, int* t);
+bool FromString(const std::string& s, unsigned int* t);
+bool FromString(const std::string& s, long* t);
+bool FromString(const std::string& s, long long* t);
+bool FromString(const std::string& s, unsigned long* t);
+bool FromString(const std::string& s, unsigned long long* t);
+bool FromString(const std::string& s, double* t);
+bool FromString(const std::string& s, long double* t);
 
 // Inline versions of the string conversion routines.
 
-template <typename T>
-static inline std::string ToString(const T& val) {
-  std::string str;
-  ToString(val, &str);
-  return str;
-}
+std::string ToString(const bool s);
+std::string ToString(const char* const s);
+
+std::string ToString(const short s);
+std::string ToString(const unsigned short s);
+std::string ToString(const int s);
+std::string ToString(const unsigned int s);
+std::string ToString(const long int s);
+std::string ToString(const unsigned long int s);
+std::string ToString(const long long int s);
+std::string ToString(const unsigned long long int s);
+
+std::string ToString(const double t);
+std::string ToString(const float t);
+
+std::string ToString(std::string t);
 
 template <typename T>
 static inline T FromString(const std::string& str) {

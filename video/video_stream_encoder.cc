@@ -21,6 +21,7 @@
 #include "modules/video_coding/include/video_codec_initializer.h"
 #include "modules/video_coding/include/video_coding.h"
 #include "modules/video_coding/include/video_coding_defines.h"
+#include "rtc_base/absl_str_cat.h"
 #include "rtc_base/arraysize.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/experiments/quality_scaling_experiment.h"
@@ -1206,10 +1207,8 @@ VideoStreamEncoder::AdaptCounter::AdaptCounter() {
 VideoStreamEncoder::AdaptCounter::~AdaptCounter() {}
 
 std::string VideoStreamEncoder::AdaptCounter::ToString() const {
-  std::stringstream ss;
-  ss << "Downgrade counts: fps: {" << ToString(fps_counters_);
-  ss << "}, resolution: {" << ToString(resolution_counters_) << "}";
-  return ss.str();
+  return absl::StrCat("Downgrade counts: fps: {", ToString(fps_counters_),
+                      "}, resolution: {", ToString(resolution_counters_), "}");
 }
 
 VideoStreamEncoder::AdaptCounts VideoStreamEncoder::AdaptCounter::Counts(
@@ -1299,11 +1298,11 @@ void VideoStreamEncoder::AdaptCounter::MoveCount(std::vector<int>* counters,
 
 std::string VideoStreamEncoder::AdaptCounter::ToString(
     const std::vector<int>& counters) const {
-  std::stringstream ss;
+  std::string s;
   for (size_t reason = 0; reason < kScaleReasonSize; ++reason) {
-    ss << (reason ? " cpu" : "quality") << ":" << counters[reason];
+    absl::StrAppend(&s, (reason ? " cpu" : "quality"), ":", counters[reason]);
   }
-  return ss.str();
+  return s;
 }
 
 }  // namespace webrtc

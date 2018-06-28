@@ -25,6 +25,7 @@ rtc_static_library("rtc_stats") {
 
   deps = [
     "../api:rtc_stats_api",
+    "../rtc_base:absl_str_cat",
     "../rtc_base:rtc_base_approved",
   ]
 }

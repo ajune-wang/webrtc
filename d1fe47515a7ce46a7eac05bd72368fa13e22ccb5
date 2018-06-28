@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "67428551_c282ff22",
+        "filename": "media/base/codec.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-06-28T18:02:41Z",
+      "side": 1,
+      "message": "We can tell the profile after receiving the first frame by parsing through VPX decoder. However, the profile needs to be known before receiving the stream for HW codecs. This is necessary for 1)actually making the decision of selecting external HW encoder supporting that profile 2)initializing encoder/decoder and output buffers. \n\nSetting a different payload type for each profile, like H264 does, will keep things simple and consistent. We can also tell profile by parsing the H264 stream, but use different payloads for profiles and levels for easy negotiation.\n\nI tried working on supported_profiles suggestion but there are some confusing parts. Would prioritizing profile 2 happen by just reorder |supported_profiles:2;0|? What should happen if there is assymetry, i.e. |supported_profiles:2;0| and |supported_profiles:0;2|?",
+      "parentUuid": "b0b65911_d9ada5a5",
+      "revId": "d1fe47515a7ce46a7eac05bd72368fa13e22ccb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "93d3e019_ec3262f0",
         "filename": "media/base/codec_unittest.cc",
         "patchSetId": 18
@@ -137,6 +155,24 @@
       "side": 1,
       "message": "It looks like our general policy is to prefix unstandardized stuff with \"x-google\": https://cs.chromium.org/chromium/src/third_party/webrtc/media/base/mediaconstants.cc?type\u003dcs\u0026q\u003d%22x-google%22+file:%5Esrc/third_party/webrtc/+package:%5Echromium$\u0026g\u003d0\u0026l\u003d90\n\nIt would be pretty unfortunate if the standard settled on the name \"profile-id\" too, but with slightly different semantics to our implementation, resulting in interop issues.",
       "parentUuid": "66573461_8105d732",
+      "revId": "d1fe47515a7ce46a7eac05bd72368fa13e22ccb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a3cd1db_71c9bead",
+        "filename": "media/base/vp9_profile.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-06-28T18:02:41Z",
+      "side": 1,
+      "message": "Thanks, added x-google for now. Will cc you on the PR for standard.",
+      "parentUuid": "5d2490c2_800f15b9",
       "revId": "d1fe47515a7ce46a7eac05bd72368fa13e22ccb5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

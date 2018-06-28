@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "b0b65911_d9ada5a5",
+        "filename": "media/base/codec.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-28T00:39:10Z",
+      "side": 1,
+      "message": "But, depending on the wire format (is it possible to tell whether a frame is profile 0 or 2 by parsing it, or must the profile be known in advance?), we could define the attribute in such a way that you only need one payload type. For example, the offerer could do:\n\na\u003dfmtp:100 supported_profiles 0;2\n\nThat would be preferable (if it\u0027s possible) since it would save payload types.",
+      "parentUuid": "8e733ad2_ea8038cf",
+      "revId": "d1fe47515a7ce46a7eac05bd72368fa13e22ccb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "93d3e019_ec3262f0",
         "filename": "media/base/codec_unittest.cc",
         "patchSetId": 18
@@ -101,6 +119,24 @@
       "side": 1,
       "message": "There isn\u0027t a standard yet. I am not quite familiar with the webrtc standardization process, so I mailed juberti after nisse@\u0027s comment and waiting for a response. Would you prefer to wait until draft is updated to commit this CL?",
       "parentUuid": "1418885c_5f5541f5",
+      "revId": "d1fe47515a7ce46a7eac05bd72368fa13e22ccb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d2490c2_800f15b9",
+        "filename": "media/base/vp9_profile.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-28T00:39:10Z",
+      "side": 1,
+      "message": "It looks like our general policy is to prefix unstandardized stuff with \"x-google\": https://cs.chromium.org/chromium/src/third_party/webrtc/media/base/mediaconstants.cc?type\u003dcs\u0026q\u003d%22x-google%22+file:%5Esrc/third_party/webrtc/+package:%5Echromium$\u0026g\u003d0\u0026l\u003d90\n\nIt would be pretty unfortunate if the standard settled on the name \"profile-id\" too, but with slightly different semantics to our implementation, resulting in interop issues.",
+      "parentUuid": "66573461_8105d732",
       "revId": "d1fe47515a7ce46a7eac05bd72368fa13e22ccb5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

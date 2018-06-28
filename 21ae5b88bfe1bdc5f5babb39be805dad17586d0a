@@ -137,6 +137,24 @@
     },
     {
       "key": {
+        "uuid": "86bb280c_9707aa5e",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-28T14:49:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc9b2b7e_3454add4",
+      "revId": "21ae5b88bfe1bdc5f5babb39be805dad17586d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e3dcbed9_9e4cbf09",
         "filename": "logging/rtc_event_log/events/rtc_event_alr_state.h",
         "patchSetId": 2

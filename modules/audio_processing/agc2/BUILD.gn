@@ -15,10 +15,89 @@ group("agc2") {
   ]
 }
 
+rtc_source_set("legacy_interface_save_for_later_not_used") {
+  sources = [
+    "adaptive_agc_legacy_interface.cc",
+    "adaptive_agc_legacy_interface.h",
+  ]
+  configs += [ "..:apm_debug_dump" ]
+  deps = [
+    ":adaptive_digital_lib",
+    ":fixed_digital",
+
+    # ":adaptive_digital_lib",
+    # ":common",
+    # ":gain_applier",
+    # ":noise_level_estimator",
+    ":rnn_vad_with_level",
+    "..:aec_core",
+    "..:apm_logging",
+    "..:audio_frame_view",
+    "../",
+    "../../..:typedefs",
+    "../../../api:array_view",
+    "../../../common_audio",
+    "../../../rtc_base:checks",
+    "../../../rtc_base:rtc_base_approved",
+    "../../../rtc_base:safe_minmax",
+    "../vad",
+  ]
+}
+
+rtc_source_set("level_estimation_agc_interface") {
+  sources = [
+    "../agc/agc.h",
+    "adaptive_mode_level_estimator_agc_interface.cc",
+    "adaptive_mode_level_estimator_agc_interface.h",
+  ]
+  configs += [ "..:apm_debug_dump" ]
+  deps = [
+    ":adaptive_digital_lib",
+    ":common",
+    ":gain_applier",
+    ":noise_level_estimator",
+    ":rnn_vad_with_level",
+    "..:aec_core",
+    "..:apm_logging",
+    "..:audio_frame_view",
+    "../../..:typedefs",
+    "../../../api:array_view",
+    "../../../common_audio",
+    "../../../rtc_base:checks",
+    "../../../rtc_base:rtc_base_approved",
+    "../../../rtc_base:safe_minmax",
+    "../vad",
+
+    #"../",
+  ]
+}
+
 rtc_source_set("adaptive_digital") {
   sources = [
     "adaptive_agc.cc",
     "adaptive_agc.h",
+  ]
+  configs += [ "..:apm_debug_dump" ]
+
+  deps = [
+    ":adaptive_digital_lib",
+    ":common",
+    ":gain_applier",
+    ":noise_level_estimator",
+    ":rnn_vad_with_level",
+    "..:aec_core",
+    "..:apm_logging",
+    "..:audio_frame_view",
+    "../../../api:array_view",
+    "../../../common_audio",
+    "../../../rtc_base:checks",
+    "../../../rtc_base:rtc_base_approved",
+    "../../../rtc_base:safe_minmax",
+  ]
+}
+
+rtc_source_set("adaptive_digital_lib") {
+  sources = [
     "adaptive_digital_gain_applier.cc",
     "adaptive_digital_gain_applier.h",
     "adaptive_mode_level_estimator.cc",
@@ -157,6 +236,7 @@ rtc_source_set("adaptive_digital_unittests") {
   ]
   deps = [
     ":adaptive_digital",
+    ":adaptive_digital_lib",
     ":common",
     ":gain_applier",
     ":test_utils",

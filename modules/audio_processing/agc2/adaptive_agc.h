@@ -26,11 +26,24 @@ class AdaptiveAgc {
  public:
   explicit AdaptiveAgc(ApmDataDumper* apm_data_dumper);
   void Process(AudioFrameView<float> float_frame);
+
+  // New calls to make this thing fit into AGC1 framework.
+  void Analyze(AudioFrameView<const float> float_frame);
+  void Modify(AudioFrameView<float> float_frame);
+
+  AdaptiveModeLevelEstimator * GetEstimator() ;
+  float VoiceProbability() const;
+
   ~AdaptiveAgc();
 
  private:
   AdaptiveModeLevelEstimator speech_level_estimator_;
   VadWithLevel vad_;
+
+  VadWithLevel::LevelAndProbability latest_vad_result_ = VadWithLevel::LevelAndProbability{};
+  float latest_speech_level_dbfs_ = 0;
+  float latest_noise_level_dbfs_ = 0;
+
   AdaptiveDigitalGainApplier gain_applier_;
   ApmDataDumper* const apm_data_dumper_;
   NoiseLevelEstimator noise_level_estimator_;

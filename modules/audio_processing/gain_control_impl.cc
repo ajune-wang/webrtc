@@ -12,6 +12,7 @@
 
 #include "absl/types/optional.h"
 #include "modules/audio_processing/agc/legacy/gain_control.h"
+#include "modules/audio_processing/agc2/adaptive_agc.h"
 #include "modules/audio_processing/audio_buffer.h"
 #include "modules/audio_processing/logging/apm_data_dumper.h"
 #include "rtc_base/constructormagic.h"
@@ -190,6 +191,14 @@ int GainControlImpl::ProcessCaptureAudio(AudioBuffer* audio,
   RTC_DCHECK(num_proc_channels_);
   RTC_DCHECK_GE(160, audio->num_frames_per_band());
   RTC_DCHECK_EQ(audio->num_channels(), *num_proc_channels_);
+
+  if (adaptive_agc_) {
+    adaptive_agc_->Modify(AudioFrameView<float>(
+        audio->channels_f(), audio->num_channels(),
+        audio->num_frames()));
+    was_analog_level_set_ = false;
+    return AudioProcessing::kNoError;
+  }
 
   stream_is_saturated_ = false;
   int capture_channel = 0;
@@ -431,5 +440,9 @@ int GainControlImpl::Configure() {
     }
   }
   return error;
+}
+
+void GainControlImpl::SetDigitalAdaptiveAgc(AdaptiveAgc* adaptive_agc) {
+  adaptive_agc_ = adaptive_agc;
 }
 }  // namespace webrtc

@@ -25,6 +25,7 @@ namespace webrtc {
 
 class ApmDataDumper;
 class AudioBuffer;
+class AdaptiveAgc;
 
 class GainControlImpl : public GainControl {
  public:
@@ -40,6 +41,8 @@ class GainControlImpl : public GainControl {
 
   static void PackRenderAudioBuffer(AudioBuffer* audio,
                                     std::vector<int16_t>* packed_buffer);
+
+  void SetDigitalAdaptiveAgc(AdaptiveAgc* adaptive_agc);
 
   // GainControl implementation.
   bool is_enabled() const override;
@@ -90,6 +93,7 @@ class GainControlImpl : public GainControl {
   absl::optional<int> sample_rate_hz_ RTC_GUARDED_BY(crit_capture_);
 
   static int instance_counter_;
+  AdaptiveAgc* adaptive_agc_ = nullptr;
   RTC_DISALLOW_IMPLICIT_CONSTRUCTORS(GainControlImpl);
 };
 }  // namespace webrtc

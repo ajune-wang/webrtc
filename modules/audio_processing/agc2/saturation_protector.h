@@ -35,6 +35,11 @@ class SaturationProtector {
   // detected.
   float LastMargin() const;
 
+  // Doesn't reset the saturation margin. Only resets the internal
+  // memory. Question: should we even to this? Test how it behaves in
+  // practice!
+  void Reset();
+
   void DebugDumpEstimate() const;
 
  private:

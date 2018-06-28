@@ -23,6 +23,11 @@ class AdaptiveModeLevelEstimator {
   void UpdateEstimation(const VadWithLevel::LevelAndProbability& vad_data);
   float LatestLevelEstimate() const;
 
+  // A confidence in the estimate.
+  float CurrentMemory() const;
+  void ResetMemory();  // ???
+  void Reset();        // Set confidence to zero.
+
  private:
   void DebugDumpEstimate();
 
@@ -30,6 +35,7 @@ class AdaptiveModeLevelEstimator {
   float last_estimate_with_offset_dbfs_ = kInitialSpeechLevelEstimateDbfs;
   float estimate_numerator_ = 0.f;
   float estimate_denominator_ = 0.f;
+  float memory_ = 0.f;
   SaturationProtector saturation_protector_;
   ApmDataDumper* const apm_data_dumper_;
 };

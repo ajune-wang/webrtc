@@ -13,6 +13,7 @@
 #include <algorithm>
 
 #include "absl/types/optional.h"
+#include "modules/audio_processing/agc/gain_map_internal.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/ptr_util.h"
 
@@ -61,7 +62,7 @@ class FakeRecordingDeviceIdentity final : public FakeRecordingDeviceWorker {
 };
 
 // Linear fake recording device. The gain curve is a linear function mapping the
-// mic levels range [0, 255] to [0.0, 1.0].
+// mic levels range [0, 100] to [0.0, 1.0].
 class FakeRecordingDeviceLinear final : public FakeRecordingDeviceWorker {
  public:
   explicit FakeRecordingDeviceLinear(const int initial_mic_level)
@@ -74,7 +75,7 @@ class FakeRecordingDeviceLinear final : public FakeRecordingDeviceWorker {
     // If an undo level is specified, virtually restore the unmodified
     // microphone level; otherwise simulate the mic gain only.
     const float divisor =
-        (undo_mic_level_ && *undo_mic_level_ > 0) ? *undo_mic_level_ : 255.f;
+        (undo_mic_level_ && *undo_mic_level_ > 0) ? *undo_mic_level_ : 100.f;
     for (size_t i = 0; i < number_of_samples; ++i) {
       data[i] =
           std::max(kInt16SampleMin,
@@ -87,13 +88,99 @@ class FakeRecordingDeviceLinear final : public FakeRecordingDeviceWorker {
     // If an undo level is specified, virtually restore the unmodified
     // microphone level; otherwise simulate the mic gain only.
     const float divisor =
-        (undo_mic_level_ && *undo_mic_level_ > 0) ? *undo_mic_level_ : 255.f;
+        (undo_mic_level_ && *undo_mic_level_ > 0) ? *undo_mic_level_ : 100.f;
     for (size_t c = 0; c < buffer->num_channels(); ++c) {
       for (size_t i = 0; i < buffer->num_frames(); ++i) {
         buffer->channels()[c][i] =
             std::max(kFloatSampleMin,
                      std::min(kFloatSampleMax,
                               buffer->channels()[c][i] * mic_level_ / divisor));
+      }
+    }
+  }
+};
+
+// dB-scale fake recording device. Valid levels are [0, 255]. The mic applies
+// (level-100) db of gain.
+class FakeRecordingDeviceDb final : public FakeRecordingDeviceWorker {
+ public:
+  explicit FakeRecordingDeviceDb(const int initial_mic_level)
+      : FakeRecordingDeviceWorker(initial_mic_level) {}
+  ~FakeRecordingDeviceDb() override = default;
+  void ModifyBufferInt16(AudioFrame* buffer) override {
+    const size_t number_of_samples =
+        buffer->samples_per_channel_ * buffer->num_channels_;
+    int16_t* data = buffer->mutable_data();
+    // If an undo level is specified, virtually restore the unmodified
+    // microphone level; otherwise simulate the mic gain only.
+    const float undo_level_db = (undo_mic_level_ && *undo_mic_level_ > 0)
+                                    ? *undo_mic_level_ - 100.f
+                                    : 0.f;
+    const float factor_linear = DbToRatio(mic_level_ - 100.f - undo_level_db);
+
+    for (size_t i = 0; i < number_of_samples; ++i) {
+      data[i] =
+          std::max(kInt16SampleMin,
+                   std::min(kInt16SampleMax,
+                            static_cast<int16_t>(static_cast<float>(data[i]) *
+                                                 factor_linear)));
+    }
+  }
+  void ModifyBufferFloat(ChannelBuffer<float>* buffer) override {
+    // If an undo level is specified, virtually restore the unmodified
+    // microphone level; otherwise simulate the mic gain only.
+    const float undo_level_db = (undo_mic_level_ && *undo_mic_level_ > 0)
+                                    ? *undo_mic_level_ - 100.f
+                                    : 0.f;
+    const float factor_linear = DbToRatio(mic_level_ - 100.f - undo_level_db);
+    for (size_t c = 0; c < buffer->num_channels(); ++c) {
+      for (size_t i = 0; i < buffer->num_frames(); ++i) {
+        buffer->channels()[c][i] =
+            std::max(kFloatSampleMin,
+                     std::min(kFloatSampleMax,
+                              buffer->channels()[c][i] * factor_linear));
+      }
+    }
+  }
+};
+
+// Roughly dB-scale fake recording device. Valid levels are [0, 255]. The mic
+// applies a gain from kGainMap in agc/gain_map_internal.h. It's tuned to Agc1.
+class FakeRecordingDeviceAgc1 final : public FakeRecordingDeviceWorker {
+ public:
+  explicit FakeRecordingDeviceAgc1(const int initial_mic_level)
+      : FakeRecordingDeviceWorker(initial_mic_level) {}
+  ~FakeRecordingDeviceAgc1() override = default;
+  void ModifyBufferInt16(AudioFrame* buffer) override {
+    const size_t number_of_samples =
+        buffer->samples_per_channel_ * buffer->num_channels_;
+    int16_t* data = buffer->mutable_data();
+    // If an undo level is specified, virtually restore the unmodified
+    // microphone level; otherwise simulate the mic gain only.
+    const int undo_level =
+        (undo_mic_level_ && *undo_mic_level_ > 0) ? *undo_mic_level_ : 100;
+    const float factor_linear = DbToRatio(kGainMap[mic_level_ - 52] - kGainMap[undo_level - 52]);
+
+    for (size_t i = 0; i < number_of_samples; ++i) {
+      data[i] =
+          std::max(kInt16SampleMin,
+                   std::min(kInt16SampleMax,
+                            static_cast<int16_t>(static_cast<float>(data[i]) *
+                                                 factor_linear)));
+    }
+  }
+  void ModifyBufferFloat(ChannelBuffer<float>* buffer) override {
+    // If an undo level is specified, virtually restore the unmodified
+    // microphone level; otherwise simulate the mic gain only.
+    const int undo_level =
+        (undo_mic_level_ && *undo_mic_level_ > 0) ? *undo_mic_level_ : 100;
+    const float factor_linear = DbToRatio(kGainMap[mic_level_ - 52] - kGainMap[undo_level - 52]);
+    for (size_t c = 0; c < buffer->num_channels(); ++c) {
+      for (size_t i = 0; i < buffer->num_frames(); ++i) {
+        buffer->channels()[c][i] =
+            std::max(kFloatSampleMin,
+                     std::min(kFloatSampleMax,
+                              buffer->channels()[c][i] * factor_linear));
       }
     }
   }
@@ -109,6 +196,12 @@ FakeRecordingDevice::FakeRecordingDevice(int initial_mic_level,
       break;
     case 1:
       worker_ = rtc::MakeUnique<FakeRecordingDeviceLinear>(initial_mic_level);
+      break;
+    case 2:
+      worker_ = rtc::MakeUnique<FakeRecordingDeviceDb>(initial_mic_level);
+      break;
+    case 3:
+      worker_ = rtc::MakeUnique<FakeRecordingDeviceAgc1>(initial_mic_level);
       break;
     default:
       RTC_NOTREACHED();

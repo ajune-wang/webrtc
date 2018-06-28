@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da570f2b_99304b3b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-28T18:23:52Z",
+      "side": 1,
+      "message": "Should add an open source bug link before landing",
+      "revId": "878903ee3527573bcf5ea3a3045a030a395d2474",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b5fd486_e5dcb2ad",
+        "filename": "rtc_base/network.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-28T18:23:52Z",
+      "side": 1,
+      "message": "Could use a comment explaining why this is \"max\" and not \"unknown\".",
+      "revId": "878903ee3527573bcf5ea3a3045a030a395d2474",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "853003cf_ecb625db",
+        "filename": "rtc_base/network.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-28T18:23:52Z",
+      "side": 1,
+      "message": "ADAPTER_TYPE_ANY here too.",
+      "revId": "878903ee3527573bcf5ea3a3045a030a395d2474",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54c8bb83_c76808f0",
+        "filename": "rtc_base/network_constants.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-28T18:23:52Z",
+      "side": 1,
+      "message": "Could use a comment explaining what this represents and how it\u0027s different from ADAPTER_TYPE_UNKNOWN; for example:\n\n// ADAPTER_TYPE_ANY is used for ports bound to INADDR_ANY (0.0.0.0, or :: for IPv6), which\n// can use any/all network interfaces. Whereas ADAPTER_TYPE_UNKNOWN is used when a port is\n// bound to a specific interface/IP, but that interface\u0027s type couldn\u0027t be determined or\n// doesn\u0027t fit in this enum.",
+      "revId": "878903ee3527573bcf5ea3a3045a030a395d2474",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

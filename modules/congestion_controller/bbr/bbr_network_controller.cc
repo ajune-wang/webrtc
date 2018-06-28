@@ -237,7 +237,7 @@ void BbrNetworkController::Reset() {
   }
 }
 
-NetworkControlUpdate BbrNetworkController::CreateRateUpdate(Timestamp at_time) {
+NetworkControlUpdate BbrNetworkController::GetUpdate(Timestamp at_time) const {
   DataRate bandwidth = BandwidthEstimate();
   if (bandwidth.IsZero())
     bandwidth = default_bandwidth_;
@@ -303,7 +303,7 @@ NetworkControlUpdate BbrNetworkController::OnNetworkAvailability(
     NetworkAvailability msg) {
   Reset();
   rtt_stats_.OnConnectionMigration();
-  return CreateRateUpdate(msg.at_time);
+  return GetUpdate(msg.at_time);
 }
 
 NetworkControlUpdate BbrNetworkController::OnNetworkRouteChange(
@@ -314,12 +314,12 @@ NetworkControlUpdate BbrNetworkController::OnNetworkRouteChange(
     default_bandwidth_ = *msg.starting_rate;
 
   rtt_stats_.OnConnectionMigration();
-  return CreateRateUpdate(msg.at_time);
+  return GetUpdate(msg.at_time);
 }
 
 NetworkControlUpdate BbrNetworkController::OnProcessInterval(
     ProcessInterval msg) {
-  return CreateRateUpdate(msg.at_time);
+  return GetUpdate(msg.at_time);
 }
 
 NetworkControlUpdate BbrNetworkController::OnStreamsConfig(StreamsConfig msg) {
@@ -329,7 +329,7 @@ NetworkControlUpdate BbrNetworkController::OnStreamsConfig(StreamsConfig msg) {
 NetworkControlUpdate BbrNetworkController::OnTargetRateConstraints(
     TargetRateConstraints msg) {
   constraints_ = msg;
-  return CreateRateUpdate(msg.at_time);
+  return GetUpdate(msg.at_time);
 }
 
 bool BbrNetworkController::InSlowStart() const {
@@ -483,7 +483,7 @@ NetworkControlUpdate BbrNetworkController::OnTransportPacketsFeedback(
     sampler_->RemoveObsoletePackets(
         acked_packets.back().sent_packet->sequence_number);
   }
-  return CreateRateUpdate(msg.feedback_time);
+  return GetUpdate(msg.feedback_time);
 }
 
 NetworkControlUpdate BbrNetworkController::OnRemoteBitrateReport(

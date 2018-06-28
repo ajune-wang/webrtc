@@ -13,6 +13,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "rtc_base/absl_str_cat.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/stringutils.h"
 
@@ -370,6 +371,134 @@ bool tokenize_first(const std::string& source,
   *token = source.substr(0, left_pos);
   *rest = source.substr(right_pos);
   return true;
+}
+
+std::string ToString(const bool b) {
+  return b ? "true" : "false";
+}
+
+std::string ToString(const char* const t) {
+  return absl::StrCat(t);
+}
+
+std::string ToString(const short t) {
+  return absl::StrCat(t);
+}
+
+std::string ToString(const unsigned short t) {
+  return absl::StrCat(t);
+}
+
+std::string ToString(const int t) {
+  return absl::StrCat(t);
+}
+
+std::string ToString(const unsigned int t) {
+  return absl::StrCat(t);
+}
+
+std::string ToString(const long t) {
+  return absl::StrCat(t);
+}
+
+std::string ToString(const unsigned long t) {
+  return absl::StrCat(t);
+}
+
+std::string ToString(const long long t) {
+  return absl::StrCat(t);
+}
+
+std::string ToString(const unsigned long long t) {
+  return absl::StrCat(t);
+}
+
+std::string ToString(const double t) {
+  return absl::StrCat(t);
+}
+
+std::string ToString(const float t) {
+  return absl::StrCat(t);
+}
+
+std::string ToString(std::string t) {
+  return t;
+}
+
+bool FromString(const std::string& s, bool* t) {
+  RTC_DCHECK(t);
+  size_t truePos = s.find("true");
+  size_t falsePos = s.find("false");
+  if ((truePos != std::string::npos) &&
+      (falsePos == std::string::npos || falsePos > truePos)) {
+    *t = true;
+    return true;
+  }
+  if (falsePos != std::string::npos) {
+    *t = false;
+    return true;
+  }
+  return false;
+}
+
+bool FromString(const std::string& s, short* t) {
+  RTC_DCHECK(t);
+  int parsed = std::sscanf(s.c_str(), "%hd", t);
+  return parsed == 1;
+}
+
+bool FromString(const std::string& s, unsigned short* t) {
+  RTC_DCHECK(t);
+  int parsed = std::sscanf(s.c_str(), "%hu", t);
+  return parsed == 1;
+}
+
+bool FromString(const std::string& s, int* t) {
+  RTC_DCHECK(t);
+  int parsed = std::sscanf(s.c_str(), "%d", t);
+  return parsed == 1;
+}
+
+bool FromString(const std::string& s, unsigned* t) {
+  RTC_DCHECK(t);
+  int parsed = std::sscanf(s.c_str(), "%u", t);
+  return parsed == 1;
+}
+
+bool FromString(const std::string& s, long* t) {
+  RTC_DCHECK(t);
+  int parsed = std::sscanf(s.c_str(), "%ld", t);
+  return parsed == 1;
+}
+
+bool FromString(const std::string& s, long long* t) {
+  RTC_DCHECK(t);
+  int parsed = std::sscanf(s.c_str(), "%lld", t);
+  return parsed == 1;
+}
+
+bool FromString(const std::string& s, unsigned long* t) {
+  RTC_DCHECK(t);
+  int parsed = std::sscanf(s.c_str(), "%lu", t);
+  return parsed == 1;
+}
+
+bool FromString(const std::string& s, unsigned long long* t) {
+  RTC_DCHECK(t);
+  int parsed = std::sscanf(s.c_str(), "%llu", t);
+  return parsed == 1;
+}
+
+bool FromString(const std::string& s, double* t) {
+  RTC_DCHECK(t);
+  int parsed = std::sscanf(s.c_str(), "%lf", t);
+  return parsed == 1;
+}
+
+bool FromString(const std::string& s, long double* t) {
+  RTC_DCHECK(t);
+  int parsed = std::sscanf(s.c_str(), "%Lf", t);
+  return parsed == 1;
 }
 
 std::string join(const std::vector<std::string>& source, char delimiter) {

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c7ed90de_f7d2abad",
+        "filename": "api/units/data_rate_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-06-28T10:46:04Z",
+      "side": 1,
+      "message": "You can move\n\n  GTEST_HAS_DEATH_TEST \u0026\u0026 !!defined(WEBRTC_ANDROID)\n\nhere as well.",
+      "revId": "16a93cb947612d4350fe3023e98e31f8f624c882",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

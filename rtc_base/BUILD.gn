@@ -203,6 +203,7 @@ rtc_source_set("logging") {
     ":platform_thread_types",
     ":stringutils",
     ":timeutils",
+    "//third_party/abseil-cpp/absl/strings",
   ]
 
   if (build_with_chromium) {
@@ -739,6 +740,7 @@ rtc_static_library("rtc_base_generic") {
     ":stringutils",
     "..:webrtc_common",
     "../api:array_view",
+    "//third_party/abseil-cpp/absl/strings",
     "//third_party/abseil-cpp/absl/types:optional",
   ]
   public_deps = [

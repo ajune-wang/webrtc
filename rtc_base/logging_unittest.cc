@@ -150,22 +150,22 @@ class LogMessageForTesting : public LogMessage {
       : LogMessage(file, line, sev, err_ctx, err) {}
 
   const std::string& get_extra() const { return extra_; }
-  bool is_noop() const { return is_noop_; }
 #if defined(WEBRTC_ANDROID)
   const char* get_tag() const { return tag_; }
 #endif
 
-  // Returns the contents of the internal log stream.
+  // Returns the contents of the internal log message.
   // Note that parts of the stream won't (as is) be available until *after* the
   // dtor of the parent class has run. So, as is, this only represents a
-  // partially built stream.
-  std::string GetPrintStream() {
+  // partially built message.
+  std::string GetLogContents() {
     RTC_DCHECK(!is_finished_);
     is_finished_ = true;
     FinishPrintStream();
-    std::string ret = print_stream_.str();
-    // Just to make an error even more clear if the stream gets used after this.
-    print_stream_.clear();
+    std::string ret = message_;
+    // Just to make an error even more clear if the LogMessage gets used after
+    // this.
+    message_ = "";
     return ret;
   }
 
@@ -194,7 +194,6 @@ TEST(LogTest, SingleStream) {
   EXPECT_EQ(sev, LogMessage::GetLogToStream(nullptr));
 }
 
-/*
 #if GTEST_HAS_DEATH_TEST && !defined(WEBRTC_ANDROID)
 TEST(LogTest, Checks) {
   EXPECT_DEATH(FATAL() << "message",
@@ -225,7 +224,7 @@ TEST(LogTest, Checks) {
                );
 }
 #endif
-*/
+
 // Test using multiple log streams. The INFO stream should get the INFO message,
 // the VERBOSE stream should get the INFO and the VERBOSE.
 // We should restore the correct global state at the end.
@@ -307,8 +306,7 @@ TEST(LogTest, WallClockStartTime) {
 TEST(LogTest, CheckExtraErrorField) {
   LogMessageForTesting log_msg("some/path/myfile.cc", 100, LS_WARNING,
                                ERRCTX_ERRNO, 0xD);
-  ASSERT_FALSE(log_msg.is_noop());
-  log_msg.stream() << "This gets added at dtor time";
+  log_msg << "This gets added at dtor time";
 
   const std::string& extra = log_msg.get_extra();
   const size_t length_to_check = arraysize("[0x12345678]") - 1;
@@ -318,10 +316,9 @@ TEST(LogTest, CheckExtraErrorField) {
 
 TEST(LogTest, CheckFilePathParsed) {
   LogMessageForTesting log_msg("some/path/myfile.cc", 100, LS_INFO);
-  ASSERT_FALSE(log_msg.is_noop());
-  log_msg.stream() << "<- Does this look right?";
+  log_msg << "<- Does this look right?";
 
-  const std::string stream = log_msg.GetPrintStream();
+  const std::string stream = log_msg.GetLogContents();
 #if defined(WEBRTC_ANDROID)
   const char* tag = log_msg.get_tag();
   EXPECT_NE(nullptr, strstr(tag, "myfile.cc"));
@@ -344,21 +341,7 @@ TEST(LogTest, CheckTagAddedToStringInDefaultOnLogMessageAndroid) {
 }
 #endif
 
-TEST(LogTest, CheckNoopLogEntry) {
-  if (LogMessage::GetLogToDebug() <= LS_SENSITIVE) {
-    printf("CheckNoopLogEntry: skipping. Global severity is being overridden.");
-    return;
-  }
-
-  // Logging at LS_SENSITIVE severity, is by default turned off, so this should
-  // be treated as a noop message.
-  LogMessageForTesting log_msg("some/path/myfile.cc", 100, LS_SENSITIVE);
-  log_msg.stream() << "Should be logged to nowhere.";
-  EXPECT_TRUE(log_msg.is_noop());
-  const std::string stream = log_msg.GetPrintStream();
-  EXPECT_TRUE(stream.empty());
-}
-
+/*
 // Test the time required to write 1000 80-character logs to a string.
 TEST(LogTest, Perf) {
   std::string str;
@@ -366,12 +349,6 @@ TEST(LogTest, Perf) {
   LogMessage::AddLogToStream(&stream, LS_SENSITIVE);
 
   const std::string message(80, 'X');
-  {
-    // Just to be sure that we're not measuring the performance of logging
-    // noop log messages.
-    LogMessageForTesting sanity_check_msg(__FILE__, __LINE__, LS_SENSITIVE);
-    ASSERT_FALSE(sanity_check_msg.is_noop());
-  }
 
   // We now know how many bytes the logging framework will tag onto every msg.
   const size_t logging_overhead = str.size();
@@ -382,7 +359,7 @@ TEST(LogTest, Perf) {
 
   int64_t start = TimeMillis(), finish;
   for (int i = 0; i < kRepetitions; ++i) {
-    LogMessageForTesting(__FILE__, __LINE__, LS_SENSITIVE).stream() << message;
+    LogMessageForTesting(__FILE__, __LINE__, LS_SENSITIVE) << message;
   }
   finish = TimeMillis();
 
@@ -392,6 +369,6 @@ TEST(LogTest, Perf) {
   EXPECT_EQ(str.size(), (message.size() + logging_overhead) * kRepetitions);
   RTC_LOG(LS_INFO) << "Total log time: " << TimeDiff(finish, start) << " ms "
                    << " total bytes logged: " << str.size();
-}
+}*/
 
 }  // namespace rtc

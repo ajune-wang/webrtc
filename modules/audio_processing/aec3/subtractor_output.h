@@ -36,6 +36,25 @@ struct SubtractorOutput {
     E2_main.fill(0.f);
     E2_shadow.fill(0.f);
   }
+
+  void DownScaleOutputMain(float factor) {
+    float inv_factor = 1.0f / factor;
+    for (auto& s : s_main) {
+      s *= inv_factor;
+    }
+    for (auto& e : e_main) {
+      e *= inv_factor;
+    }
+    for (auto& E2 : E2_main) {
+      E2 *= inv_factor * inv_factor;
+    }
+    for (auto& re : E_main.re) {
+      re *= inv_factor;
+    }
+    for (auto& im : E_main.im) {
+      im *= inv_factor;
+    }
+  }
 };
 
 }  // namespace webrtc

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "84d8e5a6_27b5e2d0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-28T13:04:49Z",
+      "side": 1,
+      "message": "1. The entire title is repeated, no?\n2. Done.",
+      "parentUuid": "b755026e_c373d31b",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 59
+      },
+      "revId": "21ae5b88bfe1bdc5f5babb39be805dad17586d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "69660520_34df9b6e",
         "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
         "patchSetId": 2
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "4ed4ddb8_e41aa896",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-28T13:04:49Z",
+      "side": 1,
+      "message": "Added const.",
+      "parentUuid": "69660520_34df9b6e",
+      "revId": "21ae5b88bfe1bdc5f5babb39be805dad17586d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "32252107_f9cb1fd7",
         "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
         "patchSetId": 2
@@ -53,6 +95,24 @@
       "writtenOn": "2018-06-27T18:36:27Z",
       "side": 1,
       "message": "Random is giving you an int32_t, but runtime_config-\u003ebitrate_bps wants an int. I understand the problem. Perhaps a static_assert could make sure this remains a theoretical issue? The compiler would warn us if we narrow, I assume, but expanding would go unnoticed.",
+      "revId": "21ae5b88bfe1bdc5f5babb39be805dad17586d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42275686_68cb71fb",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-28T13:04:49Z",
+      "side": 1,
+      "message": "Good point.\n\nIn the real code, the bitrate actually comes from a int32_t or an uint32_t. The previous test code was also randomizing an int32_t before casting to int. I don\u0027t think we need to worry about int being larger than int32_t. The narrowing case might warrant an a static_assert and an explicit cast. Wdyt?",
+      "parentUuid": "32252107_f9cb1fd7",
       "revId": "21ae5b88bfe1bdc5f5babb39be805dad17586d0a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -76,6 +136,24 @@
     },
     {
       "key": {
+        "uuid": "206b9537_d4e1c9a4",
+        "filename": "logging/rtc_event_log/events/rtc_event_alr_state.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-28T13:04:49Z",
+      "side": 1,
+      "message": "Yes. Added test.",
+      "parentUuid": "e3dcbed9_9e4cbf09",
+      "revId": "21ae5b88bfe1bdc5f5babb39be805dad17586d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2958f635_2572f2cf",
         "filename": "logging/rtc_event_log/events/rtc_event_probe_result_success.cc",
         "patchSetId": 2
@@ -93,6 +171,24 @@
     },
     {
       "key": {
+        "uuid": "d455a99e_e1b785a3",
+        "filename": "logging/rtc_event_log/events/rtc_event_probe_result_success.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-28T13:04:49Z",
+      "side": 1,
+      "message": "It is needed in both I think, but the constructor already existed in RtcEventRtpPacketOutgoing and RtcEventRtpPacketIncoming.",
+      "parentUuid": "2958f635_2572f2cf",
+      "revId": "21ae5b88bfe1bdc5f5babb39be805dad17586d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "01c794d6_6072931a",
         "filename": "logging/rtc_event_log/events/rtc_event_rtp_packet_incoming.h",
         "patchSetId": 2
@@ -107,6 +203,24 @@
       "revId": "21ae5b88bfe1bdc5f5babb39be805dad17586d0a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1bb47008_a2c1a7c1",
+        "filename": "logging/rtc_event_log/events/rtc_event_rtp_packet_incoming.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-06-28T13:04:49Z",
+      "side": 1,
+      "message": "1. Done.\n2. Maybe. The main point of making the copy constructor is to prevent accidental copying, e.g. by instantiating a template that uses the copy constructor. Long term, we probably want to store the relevant fields rather than the serialized string.",
+      "parentUuid": "01c794d6_6072931a",
+      "revId": "21ae5b88bfe1bdc5f5babb39be805dad17586d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

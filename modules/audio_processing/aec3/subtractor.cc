@@ -13,6 +13,8 @@
 #include <algorithm>
 #include <numeric>
 
+#include <cmath>
+
 #include "api/array_view.h"
 #include "modules/audio_processing/logging/apm_data_dumper.h"
 #include "rtc_base/checks.h"
@@ -168,7 +170,12 @@ void Subtractor::Process(const RenderBuffer& render_buffer,
   main_filter_once_converged_ =
       main_filter_once_converged_ || main_filter_converged_;
   main_filter_diverged_ = e2_main > 1.5f * y2 && y2 > 30.f * 30.f * kBlockSize;
-
+  over_estimation_detector_.Update(e2_main, y2);
+  if (over_estimation_detector_.GetFactor() > sqrt(10.f)) {
+    main_filter_.DownScaleFilter(over_estimation_detector_.GetFactor());
+    output->DownScaleOutputMain(over_estimation_detector_.GetFactor());
+    over_estimation_detector_.Reset();
+  }
   // Compute spectra for future use.
   E_shadow.Spectrum(optimization_, output->E2_shadow);
   E_main.Spectrum(optimization_, output->E2_main);
@@ -193,8 +200,31 @@ void Subtractor::Process(const RenderBuffer& render_buffer,
 
   data_dumper_->DumpRaw("aec3_subtractor_G_shadow", G.re);
   data_dumper_->DumpRaw("aec3_subtractor_G_shadow", G.im);
-
+  data_dumper_->DumpRaw("aec3_overestimator_factor",
+                        over_estimation_detector_.GetFactor());
   DumpFilters();
+}
+
+void Subtractor::OverEchoEstimationDetector::Update(float e2, float y2) {
+  e2_acum_ += e2;
+  y2_acum_ += y2;
+  n_blocks_acum_++;
+  if (n_blocks_acum_ == n_blocks_) {
+    if (y2_acum_ > n_blocks_acum_ * 30.f * 30.f * kBlockSize) {
+      over_estimation_factor_ +=
+          0.1f * ((e2_acum_ / y2_acum_) - over_estimation_factor_);
+    }
+    e2_acum_ = 0.f;
+    y2_acum_ = 0.f;
+    n_blocks_acum_ = 0;
+  }
+}
+
+void Subtractor::OverEchoEstimationDetector::Reset() {
+  e2_acum_ = 0.f;
+  y2_acum_ = 0.f;
+  n_blocks_acum_ = 0;
+  over_estimation_factor_ = 0.f;
 }
 
 }  // namespace webrtc

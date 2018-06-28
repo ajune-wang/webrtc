@@ -119,6 +119,24 @@
     },
     {
       "key": {
+        "uuid": "bc9b2b7e_3454add4",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-28T13:31:38Z",
+      "side": 1,
+      "message": "I\u0027m not sure what CPUs will be introduced next year, or what bitrates we\u0027ll need to support 8k video on the second selfie-camera of next year\u0027s phones. ;-P\nMaybe use a checked_cast? (base/numerics/safe_conversions.h) This is a unit test, so efficiency should not be too much of a concern.",
+      "parentUuid": "42275686_68cb71fb",
+      "revId": "21ae5b88bfe1bdc5f5babb39be805dad17586d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e3dcbed9_9e4cbf09",
         "filename": "logging/rtc_event_log/events/rtc_event_alr_state.h",
         "patchSetId": 2
@@ -189,6 +207,24 @@
     },
     {
       "key": {
+        "uuid": "5982f74d_072d9fce",
+        "filename": "logging/rtc_event_log/events/rtc_event_probe_result_success.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-28T13:31:38Z",
+      "side": 1,
+      "message": "Ah, I\u0027d missed that. I wonder why it was necessary before. (Not important.)",
+      "parentUuid": "d455a99e_e1b785a3",
+      "revId": "21ae5b88bfe1bdc5f5babb39be805dad17586d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "01c794d6_6072931a",
         "filename": "logging/rtc_event_log/events/rtc_event_rtp_packet_incoming.h",
         "patchSetId": 2
@@ -218,6 +254,24 @@
       "side": 1,
       "message": "1. Done.\n2. Maybe. The main point of making the copy constructor is to prevent accidental copying, e.g. by instantiating a template that uses the copy constructor. Long term, we probably want to store the relevant fields rather than the serialized string.",
       "parentUuid": "01c794d6_6072931a",
+      "revId": "21ae5b88bfe1bdc5f5babb39be805dad17586d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a207b7db_bd5f8db8",
+        "filename": "logging/rtc_event_log/events/rtc_event_rtp_packet_incoming.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-06-28T13:31:38Z",
+      "side": 1,
+      "message": "My point was mostly that it seems like it would be good to add getters - header() and packet_length() - from a stylistic point of view.",
+      "parentUuid": "1bb47008_a2c1a7c1",
       "revId": "21ae5b88bfe1bdc5f5babb39be805dad17586d0a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

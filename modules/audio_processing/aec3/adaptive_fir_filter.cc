@@ -616,4 +616,20 @@ void AdaptiveFirFilter::Constrain() {
                                 : 0;
 }
 
+void AdaptiveFirFilter::DownScaleFilter(float factor) {
+  RTC_DCHECK_GT(factor, 0.f);
+  float inv_factor = 1.0f / factor;
+  for (auto& H : H_) {
+    for (auto& re : H.re) {
+      re *= inv_factor;
+    }
+    for (auto& im : H.im) {
+      im *= inv_factor;
+    }
+  }
+  for (auto& h : h_) {
+    h *= inv_factor;
+  }
+}
+
 }  // namespace webrtc

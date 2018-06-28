@@ -15,6 +15,8 @@
 #include <array>
 #include <vector>
 
+#include <cmath>
+
 #include "modules/audio_processing/aec3/adaptive_fir_filter.h"
 #include "modules/audio_processing/aec3/aec3_common.h"
 #include "modules/audio_processing/aec3/aec3_fft.h"
@@ -78,6 +80,22 @@ class Subtractor {
   }
 
  private:
+  class OverEchoEstimationDetector {
+   public:
+    OverEchoEstimationDetector() = default;
+    ~OverEchoEstimationDetector() = default;
+    void Update(float e2, float y2);
+    float GetFactor() const { return sqrt(over_estimation_factor_); }
+    void Reset();
+
+   private:
+    const int n_blocks_ = 4;
+    int n_blocks_acum_ = 0;
+    float e2_acum_ = 0.f;
+    float y2_acum_ = 0.f;
+    float over_estimation_factor_ = 0.f;
+  };
+
   const Aec3Fft fft_;
   ApmDataDumper* data_dumper_;
   const Aec3Optimization optimization_;
@@ -90,6 +108,7 @@ class Subtractor {
   bool main_filter_once_converged_ = false;
   bool shadow_filter_converged_ = false;
   bool main_filter_diverged_ = false;
+  OverEchoEstimationDetector over_estimation_detector_;
   RTC_DISALLOW_IMPLICIT_CONSTRUCTORS(Subtractor);
 };
 

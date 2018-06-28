@@ -20,14 +20,18 @@
 
 namespace webrtc {
 
+// TODO(qingsi): Remove FakeMetricsObserver after MetricsObserverInterface is
+// deprecated.
 class FakeMetricsObserver : public MetricsObserverInterface {
  public:
   FakeMetricsObserver();
   void Reset();
 
-  void IncrementEnumCounter(PeerConnectionEnumCounterType,
-                            int counter,
-                            int counter_max) override;
+  // Deprecated.
+  //
+  // void IncrementEnumCounter(PeerConnectionEnumCounterType,
+  //                           int counter,
+  //                           int counter_max) override;
   void AddHistogramSample(PeerConnectionMetricsName type, int value) override;
 
   // Accessors to be used by the tests.

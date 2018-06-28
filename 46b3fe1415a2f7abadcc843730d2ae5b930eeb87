@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "75284d5f_33877055",
+        "filename": "modules/third_party/g711/README.chromium",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-06-28T10:29:41Z",
+      "side": 1,
+      "message": "Do we need this file?\n\nI mean, I think we need it but I am not sure about the name (.chromium) since this is used in WebRTC.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 43
+      },
+      "revId": "46b3fe1415a2f7abadcc843730d2ae5b930eeb87",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

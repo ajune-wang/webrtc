@@ -104,18 +104,6 @@ TEST(UnitConversionTest, DataRateAndDataSizeAndTimeDelta) {
 }
 
 #if GTEST_HAS_DEATH_TEST && !defined(WEBRTC_ANDROID)
-TEST(UnitConversionTest, DivisionByZeroFails) {
-  const DataSize non_zero_size = DataSize::bytes(100);
-  const DataSize zero_size = DataSize::Zero();
-  const DataRate zero_rate = DataRate::Zero();
-  const TimeDelta zero_delta = TimeDelta::Zero();
-
-  EXPECT_DEATH(non_zero_size / zero_rate, "");
-  EXPECT_DEATH(non_zero_size / zero_delta, "");
-  EXPECT_DEATH(zero_size / zero_rate, "");
-  EXPECT_DEATH(zero_size / zero_delta, "");
-}
-
 TEST(UnitConversionTest, DivisionFailsOnLargeSize) {
   // Note that the failure is expected since the current implementation  is
   // implementated in a way that does not support division of large sizes. If
@@ -129,9 +117,10 @@ TEST(UnitConversionTest, DivisionFailsOnLargeSize) {
   const TimeDelta time_delta = TimeDelta::ms(100);
   EXPECT_TRUE((large_size / data_rate).IsFinite());
   EXPECT_TRUE((large_size / time_delta).IsFinite());
-
+#if RTC_DCHECK_IS_ON
   EXPECT_DEATH(too_large_size / data_rate, "");
   EXPECT_DEATH(too_large_size / time_delta, "");
+#endif  // RTC_DCHECK_IS_ON
 }
 #endif  // GTEST_HAS_DEATH_TEST && !!defined(WEBRTC_ANDROID)
 }  // namespace test

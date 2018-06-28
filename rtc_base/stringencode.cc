@@ -13,6 +13,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "rtc_base/absl_str_cat.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/stringutils.h"
 

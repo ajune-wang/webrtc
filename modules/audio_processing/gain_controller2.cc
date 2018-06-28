@@ -13,6 +13,7 @@
 #include "modules/audio_processing/audio_buffer.h"
 #include "modules/audio_processing/include/audio_frame_view.h"
 #include "modules/audio_processing/logging/apm_data_dumper.h"
+#include "rtc_base/absl_str_cat.h"
 #include "rtc_base/atomicops.h"
 #include "rtc_base/checks.h"
 
@@ -59,10 +60,8 @@ bool GainController2::Validate(
 
 std::string GainController2::ToString(
     const AudioProcessing::Config::GainController2& config) {
-  std::stringstream ss;
-  ss << "{enabled: " << (config.enabled ? "true" : "false") << ", "
-     << "fixed_gain_dB: " << config.fixed_gain_db << "}";
-  return ss.str();
+  return absl::StrCat("{enabled: ", (config.enabled ? "true" : "false"), ", ",
+                      "fixed_gain_dB: ", config.fixed_gain_db, "}");
 }
 
 }  // namespace webrtc

@@ -32,6 +32,7 @@
 #include "media/engine/webrtcmediaengine.h"
 #include "media/engine/webrtcvoiceengine.h"
 #include "modules/video_coding/include/video_error_codes.h"
+#include "rtc_base/absl_str_cat.h"
 #include "rtc_base/copyonwritebuffer.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/stringutils.h"
@@ -251,16 +252,15 @@ std::vector<VideoCodec> AssignPayloadTypesAndDefaultCodecs(
 }
 
 static std::string CodecVectorToString(const std::vector<VideoCodec>& codecs) {
-  std::stringstream out;
-  out << '{';
-  for (size_t i = 0; i < codecs.size(); ++i) {
-    out << codecs[i].ToString();
-    if (i != codecs.size() - 1) {
-      out << ", ";
-    }
+  if (codecs.size() == 0)
+    return "{}";
+
+  std::string out = absl::StrCat("{", codecs[0].ToString());
+  for (size_t i = 1; i < codecs.size(); ++i) {
+    absl::StrAppend(&out, ", ", codecs[i].ToString());
   }
-  out << '}';
-  return out.str();
+  absl::StrAppend(&out, "}");
+  return out;
 }
 
 static bool ValidateCodecFormats(const std::vector<VideoCodec>& codecs) {
@@ -1021,16 +1021,16 @@ bool WebRtcVideoChannel::SetRecvParameters(const VideoRecvParameters& params) {
 
 std::string WebRtcVideoChannel::CodecSettingsVectorToString(
     const std::vector<VideoCodecSettings>& codecs) {
-  std::stringstream out;
-  out << '{';
-  for (size_t i = 0; i < codecs.size(); ++i) {
-    out << codecs[i].codec.ToString();
-    if (i != codecs.size() - 1) {
-      out << ", ";
-    }
+  if (codecs.size() == 0)
+    return "{}";
+
+  std::string out = absl::StrCat("{", codecs[0].codec.ToString());
+
+  for (size_t i = 1; i < codecs.size(); ++i) {
+    absl::StrAppend(&out, ", ", codecs[i].codec.ToString());
   }
-  out << '}';
-  return out.str();
+  absl::StrAppend(&out, "}");
+  return out;
 }
 
 bool WebRtcVideoChannel::GetSendCodec(VideoCodec* codec) {

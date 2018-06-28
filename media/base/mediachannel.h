@@ -75,18 +75,7 @@ static std::string ToStringIfSet(const char* key,
 }
 
 template <class T>
-static std::string VectorToString(const std::vector<T>& vals) {
-  std::ostringstream ost;  // no-presubmit-check TODO(webrtc:8982)
-  ost << "[";
-  for (size_t i = 0; i < vals.size(); ++i) {
-    if (i > 0) {
-      ost << ", ";
-    }
-    ost << vals[i].ToString();
-  }
-  ost << "]";
-  return ost.str();
-}
+std::string VectorToString(const std::vector<T>& vals);
 
 // Options that can be applied to a VideoMediaChannel or a VideoMediaEngine.
 // Used to be flags, but that makes it hard to selectively apply options.
@@ -109,16 +98,7 @@ struct VideoOptions {
   }
   bool operator!=(const VideoOptions& o) const { return !(*this == o); }
 
-  std::string ToString() const {
-    std::ostringstream ost;
-    ost << "VideoOptions {";
-    ost << ToStringIfSet("noise reduction", video_noise_reduction);
-    ost << ToStringIfSet("screencast min bitrate kbps",
-                         screencast_min_bitrate_kbps);
-    ost << ToStringIfSet("is_screencast ", is_screencast);
-    ost << "}";
-    return ost.str();
-  }
+  std::string ToString() const;
 
   // Enable denoising? This flag comes from the getUserMedia
   // constraint 'googNoiseReduction', and WebRtcVideoEngine passes it
@@ -148,14 +128,7 @@ struct RtpHeaderExtension {
   RtpHeaderExtension() : id(0) {}
   RtpHeaderExtension(const std::string& uri, int id) : uri(uri), id(id) {}
 
-  std::string ToString() const {
-    std::ostringstream ost;
-    ost << "{";
-    ost << "uri: " << uri;
-    ost << ", id: " << id;
-    ost << "}";
-    return ost.str();
-  }
+  std::string ToString() const;
 
   std::string uri;
   int id;
@@ -603,15 +576,13 @@ struct RtpParameters {
   RtcpParameters rtcp;
 
   std::string ToString() const {
-    std::ostringstream ost;
-    ost << "{";
+    std::string s = "{";
     const char* separator = "";
     for (const auto& entry : ToStringMap()) {
-      ost << separator << entry.first << ": " << entry.second;
+      s += separator + entry.first + ": " + entry.second;
       separator = ", ";
     }
-    ost << "}";
-    return ost.str();
+    return s + "}";
   }
 
  protected:

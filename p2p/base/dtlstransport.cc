@@ -15,6 +15,7 @@
 #include "p2p/base/dtlstransport.h"
 
 #include "p2p/base/packettransportinternal.h"
+#include "rtc_base/absl_str_cat.h"
 #include "rtc_base/buffer.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/dscp.h"
@@ -462,6 +463,14 @@ bool DtlsTransport::GetOption(rtc::Socket::Option opt, int* value) {
 
 int DtlsTransport::SetOption(rtc::Socket::Option opt, int value) {
   return ice_transport_->SetOption(opt, value);
+}
+
+std::string DtlsTransport::ToString() const {
+  const char* RECEIVING_ABBREV[2] = {"_", "R"};
+  const char* WRITABLE_ABBREV[2] = {"_", "W"};
+  return absl::StrCat("DtlsTransport[", transport_name_, "|", component_, "|",
+                      RECEIVING_ABBREV[receiving()],
+                      WRITABLE_ABBREV[writable()], "]");
 }
 
 void DtlsTransport::ConnectToIceTransport() {

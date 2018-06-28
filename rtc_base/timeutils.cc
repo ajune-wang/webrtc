@@ -30,6 +30,7 @@
 // clang-format on
 #endif
 
+#include "rtc_base/absl_str_cat.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/numerics/safe_conversions.h"
 #include "rtc_base/timeutils.h"
@@ -218,6 +219,10 @@ int64_t TimeUTCMicros() {
   return (static_cast<int64_t>(time.time) * rtc::kNumMicrosecsPerSec +
           static_cast<int64_t>(time.millitm) * rtc::kNumMicrosecsPerMillisec);
 #endif
+}
+
+std::string IntervalRange::ToString() const {
+  return absl::StrCat("[", min_, ",", max_, "]");
 }
 
 }  // namespace rtc

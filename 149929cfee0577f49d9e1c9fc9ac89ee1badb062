@@ -99,6 +99,24 @@
       "revId": "149929cfee0577f49d9e1c9fc9ac89ee1badb062",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3bc37cd3_14da9505",
+        "filename": "pc/peerconnection_integrationtest.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 1534,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-06-28T01:21:37Z",
+      "side": 1,
+      "message": "I see, and if I understand it correctly it can be racy if we fix the bug so that it is possible both caller and the callee become connected and we have a problem in counting. I have changed SignalingStateStable() to DtlsConnected() to be future-proof.",
+      "parentUuid": "61f0fb8b_90b3026f",
+      "revId": "149929cfee0577f49d9e1c9fc9ac89ee1badb062",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

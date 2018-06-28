@@ -197,6 +197,24 @@
     },
     {
       "key": {
+        "uuid": "39398208_bff9b43c",
+        "filename": "p2p/base/p2ptransportchannel_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-06-28T01:21:37Z",
+      "side": 1,
+      "message": "Sure, I added a dedicated test in basicportallocator_unittest as well.",
+      "parentUuid": "fe88735b_07867d8d",
+      "revId": "8b6d1c63ca245928d4bc84bc66b2dbf18b780ecd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "97fc1635_aaeebbbc",
         "filename": "p2p/client/basicportallocator.cc",
         "patchSetId": 14

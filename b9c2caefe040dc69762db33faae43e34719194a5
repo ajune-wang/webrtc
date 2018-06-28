@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b922544a_fafb0c51",
+        "filename": "p2p/client/basicportallocator_unittest.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 2374,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-06-28T01:21:37Z",
+      "side": 1,
+      "message": "Maybe cleaner without it; if so, will remove it before landing.",
+      "range": {
+        "startLine": 2374,
+        "startChar": 2,
+        "endLine": 2374,
+        "endChar": 28
+      },
+      "revId": "b9c2caefe040dc69762db33faae43e34719194a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

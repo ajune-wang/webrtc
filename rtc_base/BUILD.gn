@@ -252,6 +252,7 @@ rtc_source_set("checks") {
     "checks.h",
   ]
   deps = [
+    ":absl_str_cat",
     ":safe_compare",
     "..:typedefs",
     "system:inline",
@@ -311,13 +312,24 @@ rtc_source_set("timeutils") {
     "timeutils.h",
   ]
   deps = [
+    ":absl_str_cat",
     ":checks",
     ":safe_conversions",
   ]
 }
 
+rtc_source_set("absl_str_cat") {
+  sources = [
+    "absl_str_cat.h",
+  ]
+  public_deps = [  # no-presubmit-check TODO(webrtc:8603)
+    "//third_party/abseil-cpp/absl/strings:strings",
+  ]
+}
+
 rtc_source_set("stringutils") {
   sources = [
+    "absl_str_cat.h",
     "stringencode.cc",
     "stringencode.h",
     "strings/string_builder.cc",
@@ -329,6 +341,9 @@ rtc_source_set("stringutils") {
     ":checks",
     ":safe_minmax",
     "../api:array_view",
+  ]
+  public_deps = [  # no-presubmit-check TODO(webrtc:8603)
+    "//third_party/abseil-cpp/absl/strings:strings",
   ]
 }
 

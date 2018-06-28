@@ -260,16 +260,3 @@ License:
  * requested that these non-binding requests be included along with the
  * license above.
  */
--------------------------------------------------------------------------------
-Files:
-common_audio/fft4g.c
-
-License:
-/*
- * http://www.kurims.kyoto-u.ac.jp/~ooura/fft.html
- * Copyright Takuya OOURA, 1996-2001
- *
- * You may use, copy, modify and distribute this code for any purpose (include
- * commercial use) and without fee. Please refer to this package when you modify
- * this code.
- */

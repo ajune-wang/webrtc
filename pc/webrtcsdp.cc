@@ -22,11 +22,12 @@
 #include <unordered_map>
 #include <vector>
 
-#include "api/mediatypes.h"
+#include "absl/strings/string_view.h"
 #include "api/candidate.h"
 #include "api/cryptoparams.h"
 #include "api/jsepicecandidate.h"
 #include "api/jsepsessiondescription.h"
+#include "api/mediatypes.h"
 // for RtpExtension
 #include "api/rtpparameters.h"
 #include "media/base/codec.h"
@@ -36,10 +37,12 @@
 #include "p2p/base/p2pconstants.h"
 #include "p2p/base/port.h"
 #include "pc/mediasession.h"
+#include "rtc_base/absl_str_cat.h"
 #include "rtc_base/arraysize.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/messagedigest.h"
+#include "rtc_base/strings/string_builder.h"
 #include "rtc_base/stringutils.h"
 
 using cricket::AudioContentDescription;
@@ -391,9 +394,8 @@ static bool ParseFailed(const std::string& description, SdpParseError* error) {
 static bool ParseFailedExpectFieldNum(const std::string& line,
                                       int expected_fields,
                                       SdpParseError* error) {
-  std::ostringstream description;
-  description << "Expects " << expected_fields << " fields.";
-  return ParseFailed(line, description.str(), error);
+  return ParseFailed(
+      line, absl::StrCat("Expects ", expected_fields, " fields."), error);
 }
 
 // |line| is the failing line. The failure is due to the fact that |line| has
@@ -401,9 +403,9 @@ static bool ParseFailedExpectFieldNum(const std::string& line,
 static bool ParseFailedExpectMinFieldNum(const std::string& line,
                                          int expected_min_fields,
                                          SdpParseError* error) {
-  std::ostringstream description;
-  description << "Expects at least " << expected_min_fields << " fields.";
-  return ParseFailed(line, description.str(), error);
+  return ParseFailed(
+      line, absl::StrCat("Expects at least ", expected_min_fields, " fields."),
+      error);
 }
 
 // |line| is the failing line. The failure is due to the fact that it failed to
@@ -411,9 +413,9 @@ static bool ParseFailedExpectMinFieldNum(const std::string& line,
 static bool ParseFailedGetValue(const std::string& line,
                                 const std::string& attribute,
                                 SdpParseError* error) {
-  std::ostringstream description;
-  description << "Failed to get the value of attribute: " << attribute;
-  return ParseFailed(line, description.str(), error);
+  return ParseFailed(
+      line, absl::StrCat("Failed to get the value of attribute: ", attribute),
+      error);
 }
 
 // The line starting at |line_start| of |message| is the failing line. The
@@ -425,9 +427,10 @@ static bool ParseFailedExpectLine(const std::string& message,
                                   const char line_type,
                                   const std::string& line_value,
                                   SdpParseError* error) {
-  std::ostringstream description;
-  description << "Expect line: " << line_type << "=" << line_value;
-  return ParseFailed(message, line_start, description.str(), error);
+  return ParseFailed(
+      message, line_start,
+      absl::StrCat("Expect line: ", std::string() + line_type, "=", line_value),
+      error);
 }
 
 static bool AddLine(const std::string& line, std::string* message) {
@@ -476,27 +479,25 @@ static bool GetLine(const std::string& message,
   return true;
 }
 
-// Init |os| to "|type|=|value|".
-static void InitLine(const char type,
-                     const std::string& value,
-                     std::ostringstream* os) {
-  os->str("");
-  *os << type << kSdpDelimiterEqual << value;
+// returns "|type|=|value|".
+static std::string BuildLine(const char type, const std::string& value) {
+  return absl::StrCat(absl::string_view(&type, 1),
+                      absl::string_view(&kSdpDelimiterEqual, 1), value);
 }
 
-// Init |os| to "a=|attribute|".
-static void InitAttrLine(const std::string& attribute, std::ostringstream* os) {
-  InitLine(kLineTypeAttributes, attribute, os);
+// return "a=|attribute|".
+static std::string BuildAttrLine(const std::string& attribute) {
+  return BuildLine(kLineTypeAttributes, attribute);
 }
 
 // Writes a SDP attribute line based on |attribute| and |value| to |message|.
 static void AddAttributeLine(const std::string& attribute,
                              int value,
                              std::string* message) {
-  std::ostringstream os;
-  InitAttrLine(attribute, &os);
-  os << kSdpDelimiterColon << value;
-  AddLine(os.str(), message);
+  std::string s =
+      absl::StrCat(BuildAttrLine(attribute),
+                   absl::string_view(&kSdpDelimiterColon, 1), value);
+  AddLine(s, message);
 }
 
 static bool IsLineType(const std::string& message,
@@ -539,11 +540,11 @@ static bool AddSsrcLine(uint32_t ssrc_id,
                         std::string* message) {
   // RFC 5576
   // a=ssrc:<ssrc-id> <attribute>:<value>
-  std::ostringstream os;
-  InitAttrLine(kAttributeSsrc, &os);
-  os << kSdpDelimiterColon << ssrc_id << kSdpDelimiterSpace << attribute
-     << kSdpDelimiterColon << value;
-  return AddLine(os.str(), message);
+  std::string s = absl::StrCat(
+      BuildAttrLine(kAttributeSsrc), absl::string_view(&kSdpDelimiterColon, 1),
+      ssrc_id, absl::string_view(&kSdpDelimiterSpace, 1), attribute,
+      absl::string_view(&kSdpDelimiterColon, 1), value);
+  return AddLine(s, message);
 }
 
 // Get value only from <attribute>:<value>.
@@ -576,9 +577,7 @@ static bool GetValueFromString(const std::string& line,
                                T* t,
                                SdpParseError* error) {
   if (!rtc::FromString(s, t)) {
-    std::ostringstream description;
-    description << "Invalid value: " << s << ".";
-    return ParseFailed(line, description.str(), error);
+    return ParseFailed(line, absl::StrCat("Invalid value: ", s, "."), error);
   }
   return true;
 }
@@ -764,11 +763,9 @@ static std::string GetRtcpLine(const std::vector<Candidate>& candidates) {
   // RFC 3605
   // rtcp-attribute =  "a=rtcp:" port  [nettype space addrtype space
   // connection-address] CRLF
-  std::ostringstream os;
-  InitAttrLine(kAttributeRtcp, &os);
-  os << kSdpDelimiterColon << rtcp_port << " " << kConnectionNettype << " "
-     << addr_type << " " << rtcp_ip;
-  rtcp_line = os.str();
+  rtcp_line = absl::StrCat(
+      BuildAttrLine(kAttributeRtcp), absl::string_view(&kSdpDelimiterColon, 1),
+      rtcp_port, " ", kConnectionNettype, " ", addr_type, " ", rtcp_ip);
   return rtcp_line;
 }
 
@@ -804,17 +801,16 @@ std::string SdpSerialize(const JsepSessionDescription& jdesc) {
   // RFC 4566
   // o=<username> <sess-id> <sess-version> <nettype> <addrtype>
   // <unicast-address>
-  std::ostringstream os;
-  InitLine(kLineTypeOrigin, kSessionOriginUsername, &os);
+  std::string tmp = BuildLine(kLineTypeOrigin, kSessionOriginUsername);
   const std::string& session_id =
       jdesc.session_id().empty() ? kSessionOriginSessionId : jdesc.session_id();
   const std::string& session_version = jdesc.session_version().empty()
                                            ? kSessionOriginSessionVersion
                                            : jdesc.session_version();
-  os << " " << session_id << " " << session_version << " "
-     << kSessionOriginNettype << " " << kSessionOriginAddrtype << " "
-     << kSessionOriginAddress;
-  AddLine(os.str(), &message);
+  absl::StrAppend(&tmp, " ", session_id, " ", session_version, " ",
+                  kSessionOriginNettype, " ", kSessionOriginAddrtype, " ",
+                  kSessionOriginAddress);
+  AddLine(tmp, &message);
   AddLine(kSessionName, &message);
 
   // Time Description.
@@ -836,8 +832,9 @@ std::string SdpSerialize(const JsepSessionDescription& jdesc) {
   }
 
   // MediaStream semantics
-  InitAttrLine(kAttributeMsidSemantics, &os);
-  os << kSdpDelimiterColon << " " << kMediaStreamSemantic;
+  tmp = BuildAttrLine(kAttributeMsidSemantics);
+  absl::StrAppend(&tmp, absl::string_view(&kSdpDelimiterColon, 1), " ",
+                  kMediaStreamSemantic);
 
   std::set<std::string> media_stream_ids;
   const ContentInfo* audio_content = GetFirstAudioContent(desc);
@@ -850,9 +847,9 @@ std::string SdpSerialize(const JsepSessionDescription& jdesc) {
 
   for (std::set<std::string>::const_iterator it = media_stream_ids.begin();
        it != media_stream_ids.end(); ++it) {
-    os << " " << *it;
+    absl::StrAppend(&tmp, " ", *it);
   }
-  AddLine(os.str(), &message);
+  AddLine(tmp, &message);
 
   // a=ice-lite
   //
@@ -861,8 +858,8 @@ std::string SdpSerialize(const JsepSessionDescription& jdesc) {
   // session-level structure like SessionDescription.
   for (const cricket::TransportInfo& transport : desc->transport_infos()) {
     if (transport.description.ice_mode == cricket::ICEMODE_LITE) {
-      InitAttrLine(kAttributeIceLite, &os);
-      AddLine(os.str(), &message);
+      tmp = BuildAttrLine(kAttributeIceLite);
+      AddLine(tmp, &message);
       break;
     }
   }
@@ -1003,10 +1000,10 @@ bool ParseCandidate(const std::string& message,
                            &candidate_value) ||
       attribute_candidate != kAttributeCandidate) {
     if (is_raw) {
-      std::ostringstream description;
-      description << "Expect line: " << kAttributeCandidate << ":"
-                  << "<candidate-str>";
-      return ParseFailed(first_line, 0, description.str(), error);
+      return ParseFailed(first_line, 0,
+                         absl::StrCat("Expect line: ", kAttributeCandidate,
+                                      ":<candidate-str>"),
+                         error);
     } else {
       return ParseFailedExpectLine(first_line, 0, kLineTypeAttributes,
                                    kAttributeCandidate, error);
@@ -1252,11 +1249,6 @@ void BuildMediaDescription(const ContentInfo* content_info,
   if (content_info == NULL || message == NULL) {
     return;
   }
-  // TODO(deadbeef): Rethink if we should use sprintfn instead of stringstream.
-  // According to the style guide, streams should only be used for logging.
-  // http://google-styleguide.googlecode.com/svn/
-  // trunk/cppguide.xml?showone=Streams#Streams
-  std::ostringstream os;
   const MediaContentDescription* media_desc = content_info->media_description();
   RTC_DCHECK(media_desc);
 
@@ -2786,10 +2778,11 @@ bool ParseContent(const std::string& message,
           // See: https://code.google.com/p/chromium/issues/detail?id=280726
           if (media_type == cricket::MEDIA_TYPE_DATA && IsRtp(protocol) &&
               b > cricket::kDataMaxBandwidth / 1000) {
-            std::ostringstream description;
-            description << "RTP-based data channels may not send more than "
-                        << cricket::kDataMaxBandwidth / 1000 << "kbps.";
-            return ParseFailed(line, description.str(), error);
+            return ParseFailed(
+                line,
+                absl::StrCat("RTP-based data channels may not send more than ",
+                             cricket::kDataMaxBandwidth / 1000, "kbps."),
+                error);
           }
           // Prevent integer overflow.
           b = std::min(b, INT_MAX / 1000);
@@ -3054,10 +3047,11 @@ bool ParseSsrcAttribute(const std::string& line,
   std::string attribute;
   std::string value;
   if (!rtc::tokenize_first(field2, kSdpDelimiterColon, &attribute, &value)) {
-    std::ostringstream description;
-    description << "Failed to get the ssrc attribute value from " << field2
-                << ". Expected format <attribute>:<value>.";
-    return ParseFailed(line, description.str(), error);
+    return ParseFailed(
+        line,
+        absl::StrCat("Failed to get the ssrc attribute value from ", field2,
+                     ". Expected format <attribute>:<value>."),
+        error);
   }
 
   // Check if there's already an item for this |ssrc_id|. Create a new one if

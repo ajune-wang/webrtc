@@ -26,4 +26,7 @@ specific_include_rules = {
     "+modules/audio_processing",
     "+modules/video_coding",
   ],
+  "absl_str_cat\.h": [
+    "+absl/strings/str_cat.h",
+  ]
 }

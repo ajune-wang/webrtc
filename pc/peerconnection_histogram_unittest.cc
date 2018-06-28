@@ -10,7 +10,6 @@
 
 #include <tuple>
 
-#include "api/fakemetricsobserver.h"
 #include "api/peerconnectionproxy.h"
 #include "media/base/fakemediaengine.h"
 #include "pc/mediasession.h"
@@ -25,6 +24,7 @@
 #include "rtc_base/gunit.h"
 #include "rtc_base/ptr_util.h"
 #include "rtc_base/virtualsocketserver.h"
+#include "system_wrappers/include/metrics_default.h"
 
 namespace webrtc {
 
@@ -132,14 +132,12 @@ class PeerConnectionUsageHistogramTest : public ::testing::Test {
 TEST_F(PeerConnectionUsageHistogramTest, UsageFingerprintHistogramFromTimeout) {
   auto pc = CreatePeerConnectionWithImmediateReport();
 
-  // Register UMA observer before signaling begins.
-  rtc::scoped_refptr<webrtc::FakeMetricsObserver> caller_observer =
-      new rtc::RefCountedObject<webrtc::FakeMetricsObserver>();
-  pc->GetInternalPeerConnection()->RegisterUMAObserver(caller_observer);
   int expected_fingerprint = MakeUsageFingerprint({});
-  ASSERT_TRUE_WAIT(caller_observer->ExpectOnlySingleEnumCount(
-                       webrtc::kEnumCounterUsagePattern, expected_fingerprint),
-                   kDefaultTimeout);
+  ASSERT_TRUE_WAIT(
+      1u == webrtc::metrics::NumSamples("WebRTC.PeerConnection.UsagePattern"),
+      kDefaultTimeout);
+  EXPECT_EQ(1u, webrtc::metrics::NumEvents("WebRTC.PeerConnection.UsagePattern",
+                                           expected_fingerprint));
 }
 
 }  // namespace webrtc

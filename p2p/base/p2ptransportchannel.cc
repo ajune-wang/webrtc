@@ -21,6 +21,7 @@
 #include "p2p/base/candidatepairinterface.h"
 #include "p2p/base/relayport.h"  // For RELAY_PORT_TYPE.
 #include "p2p/base/stunport.h"   // For STUN_PORT_TYPE.
+#include "rtc_base/absl_str_cat.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/crc32.h"
 #include "rtc_base/logging.h"
@@ -2357,6 +2358,14 @@ void P2PTransportChannel::LogCandidatePairConfig(
   auto candidate_pair_id = conn->hash();
   ice_event_log_.LogCandidatePairConfig(type, candidate_pair_id,
                                         conn->ToLogDescription());
+}
+
+std::string P2PTransportChannel::ToString() const {
+  const char* RECEIVING_ABBREV[2] = {"_", "R"};
+  const char* WRITABLE_ABBREV[2] = {"_", "W"};
+  return absl::StrCat("Channel[", transport_name_, "|", component_, "|",
+                      RECEIVING_ABBREV[receiving_], WRITABLE_ABBREV[writable_],
+                      "]");
 }
 
 }  // namespace cricket

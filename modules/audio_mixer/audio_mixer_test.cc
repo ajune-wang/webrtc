@@ -10,6 +10,7 @@
 
 #include <cstring>
 #include <iostream>
+#include <sstream>  // no-presubmit-check TODO(webrtc:8982)
 #include <vector>
 
 #include "api/audio/audio_mixer.h"

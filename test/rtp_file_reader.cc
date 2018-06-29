@@ -48,6 +48,10 @@ bool ReadUint32(uint32_t* out, FILE* file) {
   return true;
 }
 
+bool ReadLittleEndianUint64(uint64_t* out, FILE* file) {
+  return fread(out, 1, sizeof(uint64_t), file) == sizeof(uint64_t);
+}
+
 bool ReadUint16(uint16_t* out, FILE* file) {
   *out = 0;
   for (size_t i = 0; i < 2; ++i) {
@@ -64,6 +68,51 @@ class RtpFileReaderImpl : public RtpFileReader {
  public:
   virtual bool Init(const std::string& filename,
                     const std::set<uint32_t>& ssrc_filter) = 0;
+};
+
+class YetiRtpFileReader : public RtpFileReaderImpl {
+ public:
+  virtual ~YetiRtpFileReader() {
+    if (file_ != NULL) {
+      fclose(file_);
+      file_ = NULL;
+    }
+  }
+
+  virtual bool Init(const std::string& filename, const std::set<uint32_t>&) {
+    file_ = fopen(filename.c_str(), "rb");
+    if (file_ == NULL) {
+      printf("ERROR: Can't open file: %s\n", filename.c_str());
+      return false;
+    }
+    return true;
+  }
+
+  virtual bool NextPacket(RtpPacket* packet) {
+    assert(file_ != NULL);
+    packet->length = RtpPacket::kMaxPacketBufferSize;
+    uint64_t len = 0;
+    TRY(ReadLittleEndianUint64(&len, file_));
+    RTC_LOG(LS_INFO) << "Read " << len << " bytes.";
+    if (packet->length < len) {
+      FATAL() << "Packet is too large to fit: " << len << " bytes vs "
+              << packet->length
+              << " bytes allocated. Consider increasing the buffer "
+                 "size";
+    }
+    if (fread(packet->data, 1, len, file_) != len)
+      return false;
+
+    packet->length = len;
+    packet->original_length = len;
+    packet->time_ms = time_ms_;
+    time_ms_ += 5;
+    return true;
+  }
+
+ private:
+  FILE* file_ = NULL;
+  int64_t time_ms_ = 0;
 };
 
 class InterleavedRtpFileReader : public RtpFileReaderImpl {
@@ -649,6 +698,9 @@ RtpFileReader* RtpFileReader::Create(FileFormat format,
       break;
     case kLengthPacketInterleaved:
       reader = new InterleavedRtpFileReader();
+      break;
+    case kYeti:
+      reader = new YetiRtpFileReader();
       break;
   }
   if (!reader->Init(filename, ssrc_filter)) {

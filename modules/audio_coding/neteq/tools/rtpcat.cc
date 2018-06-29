@@ -33,7 +33,7 @@ int main(int argc, char* argv[]) {
 
   for (int i = 1; i < argc - 1; i++) {
     std::unique_ptr<RtpFileReader> input(
-        RtpFileReader::Create(RtpFileReader::kRtpDump, argv[i]));
+        RtpFileReader::Create(RtpFileReader::kYeti, argv[i]));
     RTC_CHECK(input.get() != NULL) << "Cannot open input file " << argv[i];
     printf("Input RTP file: %s\n", argv[i]);
 

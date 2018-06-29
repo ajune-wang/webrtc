@@ -143,6 +143,8 @@ class AdaptiveFirFilter {
     h_.resize(current_size);
   }
 
+  void ScaleFilter(float factor);
+
  private:
   // Constrain the filter partitions in a cyclic manner.
   void Constrain();

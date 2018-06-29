@@ -514,6 +514,8 @@ generate_jni("generated_logging_jni") {
 rtc_static_library("logging_jni") {
   visibility = [ "*" ]
   sources = [
+    "src/jni/logging/libjingle_logsink.cc",
+    "src/jni/logging/libjingle_logsink.h",
     "src/jni/logging/logsink.cc",
     "src/jni/logging/logsink.h",
   ]

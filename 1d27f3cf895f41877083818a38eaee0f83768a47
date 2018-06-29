@@ -1,0 +1,319 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b97093ee_7ccdca9a",
+        "filename": "modules/audio_processing/aec3/adaptive_fir_filter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 620,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-06-29T00:45:30Z",
+      "side": 1,
+      "message": "Since this is a downscale, maybe also add\nRTC_DCHECK_GT(1.f, factor);",
+      "revId": "1d27f3cf895f41877083818a38eaee0f83768a47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0ce1f5c_ad25c6dd",
+        "filename": "modules/audio_processing/aec3/adaptive_fir_filter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-06-29T00:45:30Z",
+      "side": 1,
+      "message": "I think DownScale is a bit ambiguous. If you can find another name, that would be good I think. I have no immediate suggestion though.",
+      "revId": "1d27f3cf895f41877083818a38eaee0f83768a47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1dd1b5eb_33d89914",
+        "filename": "modules/audio_processing/aec3/subtractor.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-06-29T00:45:30Z",
+      "side": 1,
+      "message": "possible to use the sqrtf in math.h?",
+      "revId": "1d27f3cf895f41877083818a38eaee0f83768a47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f42f7cd1_a606d0dd",
+        "filename": "modules/audio_processing/aec3/subtractor.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-06-29T00:45:30Z",
+      "side": 1,
+      "message": "Please hardcode as a constant.",
+      "range": {
+        "startLine": 174,
+        "startChar": 46,
+        "endLine": 174,
+        "endChar": 56
+      },
+      "revId": "1d27f3cf895f41877083818a38eaee0f83768a47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb3dd19c_bfadbf3b",
+        "filename": "modules/audio_processing/aec3/subtractor.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-06-29T00:45:30Z",
+      "side": 1,
+      "message": "Would it make sense to also downscale the shadow_filter_ as well?",
+      "revId": "1d27f3cf895f41877083818a38eaee0f83768a47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e06f43b_0ea7deaf",
+        "filename": "modules/audio_processing/aec3/subtractor.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-06-29T00:45:30Z",
+      "side": 1,
+      "message": "Nit\nn_blocks_acum_++;\nif (n_blocks_acum_ \u003d\u003d n_blocks_) {\n\ncan be written as\nif (++n_blocks_acum_ \u003d\u003d n_blocks_) {",
+      "range": {
+        "startLine": 211,
+        "startChar": 2,
+        "endLine": 212,
+        "endChar": 36
+      },
+      "revId": "1d27f3cf895f41877083818a38eaee0f83768a47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d98783a7_767229df",
+        "filename": "modules/audio_processing/aec3/subtractor.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-06-29T00:45:30Z",
+      "side": 1,
+      "message": "This is a very low value. A concern with that is that it could trigger also for low noise cases. Is it necessary to have it as low as this, or can it be increased?",
+      "range": {
+        "startLine": 213,
+        "startChar": 43,
+        "endLine": 213,
+        "endChar": 45
+      },
+      "revId": "1d27f3cf895f41877083818a38eaee0f83768a47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2271ef12_8dd9d7e5",
+        "filename": "modules/audio_processing/aec3/subtractor.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-06-29T00:45:30Z",
+      "side": 1,
+      "message": "What about\nOverEchoEstimationDetector\n-\u003e\nFilterMisadjustmentEstimator\n\n\n(I think this is more an estimator than a detector).",
+      "range": {
+        "startLine": 83,
+        "startChar": 8,
+        "endLine": 83,
+        "endChar": 34
+      },
+      "revId": "1d27f3cf895f41877083818a38eaee0f83768a47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3cfeba4_9054d790",
+        "filename": "modules/audio_processing/aec3/subtractor.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-06-29T00:45:30Z",
+      "side": 1,
+      "message": "Please rewrite comment.",
+      "range": {
+        "startLine": 88,
+        "startChar": 4,
+        "endLine": 88,
+        "endChar": 54
+      },
+      "revId": "1d27f3cf895f41877083818a38eaee0f83768a47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2364f7d9_ccd67ac6",
+        "filename": "modules/audio_processing/aec3/subtractor.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-06-29T00:45:30Z",
+      "side": 1,
+      "message": "GetFactor\n-\u003e\nGetMisadjustment\n?",
+      "range": {
+        "startLine": 89,
+        "startChar": 10,
+        "endLine": 89,
+        "endChar": 19
+      },
+      "revId": "1d27f3cf895f41877083818a38eaee0f83768a47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97db9bc6_e31020f8",
+        "filename": "modules/audio_processing/aec3/subtractor.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-06-29T00:45:30Z",
+      "side": 1,
+      "message": "/2\n-\u003e\n/2.f",
+      "range": {
+        "startLine": 89,
+        "startChar": 67,
+        "endLine": 89,
+        "endChar": 68
+      },
+      "revId": "1d27f3cf895f41877083818a38eaee0f83768a47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2af5d983_f2ff1606",
+        "filename": "modules/audio_processing/aec3/subtractor.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-06-29T00:45:30Z",
+      "side": 1,
+      "message": "Is there any reason not to use sqrtf from math.h? Otherwise I\u0027d prefer that.",
+      "range": {
+        "startLine": 89,
+        "startChar": 37,
+        "endLine": 89,
+        "endChar": 41
+      },
+      "revId": "1d27f3cf895f41877083818a38eaee0f83768a47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b7879e56_f1851927",
+        "filename": "modules/audio_processing/aec3/subtractor.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-06-29T00:45:30Z",
+      "side": 1,
+      "message": "What about\nover_estimation_factor_\n-\u003e\nmisadjustment_\n?",
+      "range": {
+        "startLine": 97,
+        "startChar": 10,
+        "endLine": 97,
+        "endChar": 33
+      },
+      "revId": "1d27f3cf895f41877083818a38eaee0f83768a47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00770269_74e9efe6",
+        "filename": "modules/audio_processing/aec3/subtractor_output.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-06-29T00:45:30Z",
+      "side": 1,
+      "message": "What about *_shadow? Should that also be downscaled?",
+      "revId": "1d27f3cf895f41877083818a38eaee0f83768a47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "335fd54f_bfad20ba",
+        "filename": "modules/audio_processing/aec3/subtractor_output.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-06-29T00:45:30Z",
+      "side": 1,
+      "message": "Please add a DCHECK to avoid division by zero.\nRTC_DCHECK_LT(0.f, factor);",
+      "range": {
+        "startLine": 41,
+        "startChar": 30,
+        "endLine": 41,
+        "endChar": 36
+      },
+      "revId": "1d27f3cf895f41877083818a38eaee0f83768a47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

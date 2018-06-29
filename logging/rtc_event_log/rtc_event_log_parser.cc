@@ -17,6 +17,7 @@
 #include <fstream>
 #include <istream>
 #include <map>
+#include <sstream>  // no-presubmit-check TODO(webrtc:8982)
 #include <utility>
 
 #include "logging/rtc_event_log/rtc_event_log.h"

@@ -17,6 +17,7 @@
 #include <ctime>
 #include <string>
 
+#include "absl/strings/str_cat.h"
 #include "rtc_base/checks.h"
 
 namespace rtc {
@@ -138,9 +139,7 @@ class IntervalRange {
   int max() const { return max_; }
 
   std::string ToString() const {
-    std::stringstream ss;
-    ss << "[" << min_ << "," << max_ << "]";
-    return ss.str();
+    return absl::StrCat("[", min_, ",", max_, "]");
   }
 
   bool operator==(const IntervalRange& o) const {

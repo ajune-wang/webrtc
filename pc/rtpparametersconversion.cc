@@ -14,6 +14,7 @@
 #include <utility>
 
 #include "media/base/rtputils.h"
+#include "rtc_base/strings/string_builder.h"
 
 namespace webrtc {
 

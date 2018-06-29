@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d45568be_4bc2eb3f",
+        "filename": "modules/audio_processing/aec3/subtractor.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2018-06-29T14:02:41Z",
+      "side": 1,
+      "message": "Is overhang used as intended? It either becomes 4 or -1. Could it just as well be a bool?",
+      "revId": "7282db4ce8fc5278c731ae21927ef349bcda7f3f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f93c7960_97206fa7",
+        "filename": "modules/audio_processing/aec3/subtractor.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2018-06-29T14:02:41Z",
+      "side": 1,
+      "message": "I think the calculation of adjustment_ should be moved to GetMisadjustment instead of being computed as a side-effect in IsAdjustmentNeeded. Does it even have to be a class member at all?",
+      "revId": "7282db4ce8fc5278c731ae21927ef349bcda7f3f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

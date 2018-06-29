@@ -134,6 +134,7 @@ rtc_static_library("audio_processing") {
     "agc2:adaptive_digital",
     "agc2:fixed_digital",
     "agc2:gain_applier",
+    "agc2:level_estimation_agc_interface",
     "vad",
     "//third_party/abseil-cpp/absl/types:optional",
   ]
@@ -627,6 +628,7 @@ if (rtc_include_tests) {
       "test/fake_recording_device.h",
     ]
     deps = [
+      ":audio_processing",
       "../../api:array_view",
       "../../api/audio:audio_frame_api",
       "../../common_audio:common_audio",

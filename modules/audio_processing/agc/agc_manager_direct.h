@@ -14,6 +14,7 @@
 #include <memory>
 
 #include "modules/audio_processing/agc/agc.h"
+#include "modules/audio_processing/logging/apm_data_dumper.h"
 #include "rtc_base/constructormagic.h"
 
 namespace webrtc {
@@ -47,7 +48,9 @@ class AgcManagerDirect final {
   AgcManagerDirect(GainControl* gctrl,
                    VolumeCallbacks* volume_callbacks,
                    int startup_min_level,
-                   int clipped_level_min);
+                   int clipped_level_min,
+                   bool use_agc2_level_estimation,
+                   bool use_agc2_digital_adaptive);
   // Dependency injection for testing. Don't delete |agc| as the memory is owned
   // by the manager.
   AgcManagerDirect(Agc* agc,
@@ -85,6 +88,8 @@ class AgcManagerDirect final {
   void UpdateGain();
   void UpdateCompressor();
 
+  ApmDataDumper apm_data_dumper_;
+
   std::unique_ptr<Agc> agc_;
   GainControl* gctrl_;
   VolumeCallbacks* volume_callbacks_;
@@ -99,6 +104,8 @@ class AgcManagerDirect final {
   bool capture_muted_;
   bool check_volume_on_next_process_;
   bool startup_;
+  const bool use_agc2_level_estimation_ = false;
+  const bool use_agc2_digital_adaptive_ = false;
   int startup_min_level_;
   const int clipped_level_min_;
 

@@ -17,6 +17,7 @@
 #endif
 
 #include "modules/audio_processing/agc/gain_map_internal.h"
+#include "modules/audio_processing/agc2/adaptive_mode_level_estimator_agc_interface.h"
 #include "modules/audio_processing/gain_control_impl.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
@@ -109,8 +110,11 @@ class DebugFile {
 AgcManagerDirect::AgcManagerDirect(GainControl* gctrl,
                                    VolumeCallbacks* volume_callbacks,
                                    int startup_min_level,
-                                   int clipped_level_min)
-    : agc_(new Agc()),
+                                   int clipped_level_min,
+                                   bool use_agc2_level_estimation,
+                                   bool use_agc2_digital_adaptive)
+    : apm_data_dumper_(0),
+      agc_(nullptr),
       gctrl_(gctrl),
       volume_callbacks_(volume_callbacks),
       frames_since_clipped_(kClippedWaitFrames),
@@ -123,17 +127,36 @@ AgcManagerDirect::AgcManagerDirect(GainControl* gctrl,
       capture_muted_(false),
       check_volume_on_next_process_(true),  // Check at startup.
       startup_(true),
+      use_agc2_level_estimation_(use_agc2_level_estimation),
+      use_agc2_digital_adaptive_(use_agc2_digital_adaptive),
       startup_min_level_(ClampLevel(startup_min_level)),
       clipped_level_min_(clipped_level_min),
       file_preproc_(new DebugFile("agc_preproc.pcm")),
-      file_postproc_(new DebugFile("agc_postproc.pcm")) {}
+      file_postproc_(new DebugFile("agc_postproc.pcm")) {
+  RTC_DLOG(LS_INFO) << "[agc] initialization. Use AGC2 level estimation: "
+                    << (use_agc2_level_estimation_ ? "true" : "false");
+  RTC_DLOG(LS_INFO) << "[agc] initialization. Use AGC2 digital adaptive: "
+                    << (use_agc2_digital_adaptive_ ? "true" : "false");
+
+  if (use_agc2_level_estimation_) {
+    agc_.reset(new AdaptiveModeLevelEstimatorAgcInterface(&apm_data_dumper_));
+  } else {
+    agc_.reset(new Agc());
+  }
+  if (use_agc2_digital_adaptive_) {
+    static_cast<GainControlImpl*>(gctrl_)->SetDigitalAdaptiveAgc(
+        static_cast<AdaptiveModeLevelEstimatorAgcInterface*>(agc_.get())
+            ->GetAgc());
+  }
+}
 
 AgcManagerDirect::AgcManagerDirect(Agc* agc,
                                    GainControl* gctrl,
                                    VolumeCallbacks* volume_callbacks,
                                    int startup_min_level,
                                    int clipped_level_min)
-    : agc_(agc),
+    : apm_data_dumper_(0),
+      agc_(agc),
       gctrl_(gctrl),
       volume_callbacks_(volume_callbacks),
       frames_since_clipped_(kClippedWaitFrames),
@@ -249,6 +272,9 @@ void AgcManagerDirect::Process(const int16_t* audio,
   UpdateCompressor();
 
   file_postproc_->Write(audio, length);
+
+  apm_data_dumper_.DumpRaw("experimental_gain_control_compression_gain_db", 1,
+                           &compression_);
 }
 
 void AgcManagerDirect::SetLevel(int new_level) {
@@ -287,6 +313,7 @@ void AgcManagerDirect::SetLevel(int new_level) {
   }
 
   volume_callbacks_->SetMicVolume(new_level);
+  agc_->Reset();
   RTC_DLOG(LS_INFO) << "[agc] voe_level=" << voe_level << ", "
                     << "level_=" << level_ << ", "
                     << "new_level=" << new_level;
@@ -362,18 +389,19 @@ int AgcManagerDirect::CheckVolumeAndReset() {
 // it, in which case we take no action and cache the updated level.
 void AgcManagerDirect::UpdateGain() {
   int rms_error = 0;
-  if (!agc_->GetRmsErrorDb(&rms_error)) {
+  if (!agc_->GetRmsErrorDb(&rms_error)) {  // rms_error=23
     // No error update ready.
     return;
   }
   // The compressor will always add at least kMinCompressionGain. In effect,
   // this adjusts our target gain upward by the same amount and rms_error
   // needs to reflect that.
-  rms_error += kMinCompressionGain;
+  rms_error += kMinCompressionGain;  // 23 + 2 = 25
 
   // Handle as much error as possible with the compressor first.
   int raw_compression =
-      rtc::SafeClamp(rms_error, kMinCompressionGain, max_compression_gain_);
+      rtc::SafeClamp(rms_error, kMinCompressionGain,
+                     max_compression_gain_);  // SafeClamp(25, 2, 12) = 12.
 
   // Deemphasize the compression gain error. Move halfway between the current
   // target and the newly received target. This serves to soften perceptible
@@ -386,7 +414,7 @@ void AgcManagerDirect::UpdateGain() {
     // compression range. The deemphasis would otherwise halt it at 1 dB shy.
     target_compression_ = raw_compression;
   } else {
-    target_compression_ =
+    target_compression_ =  // Enter this. target_compression_ = 9 (change by +2)
         (raw_compression - target_compression_) / 2 + target_compression_;
   }
 
@@ -395,7 +423,7 @@ void AgcManagerDirect::UpdateGain() {
   // shrink the amount of slack the compressor provides.
   const int residual_gain =
       rtc::SafeClamp(rms_error - raw_compression, -kMaxResidualGainChange,
-                     kMaxResidualGainChange);
+                     kMaxResidualGainChange);  // SafeClamp(13, -15, 15) = 13
   RTC_DLOG(LS_INFO) << "[agc] rms_error=" << rms_error
                     << ", target_compression=" << target_compression_
                     << ", residual_gain=" << residual_gain;

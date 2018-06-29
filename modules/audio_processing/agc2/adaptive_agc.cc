@@ -16,6 +16,7 @@
 #include "common_audio/include/audio_util.h"
 #include "modules/audio_processing/agc2/vad_with_level.h"
 #include "modules/audio_processing/logging/apm_data_dumper.h"
+#include "rtc_base/numerics/safe_minmax.h"
 
 namespace webrtc {
 
@@ -30,14 +31,6 @@ AdaptiveAgc::AdaptiveAgc(ApmDataDumper* apm_data_dumper)
 AdaptiveAgc::~AdaptiveAgc() = default;
 
 void AdaptiveAgc::Process(AudioFrameView<float> float_frame) {
-  // TODO(webrtc:7494): Remove this loop. Remove the vectors from
-  // VadWithData after we move to a VAD that outputs an estimate every
-  // kFrameDurationMs ms.
-  //
-  // Some VADs are 'bursty'. They return several estimates for some
-  // frames, and no estimates for other frames. We want to feed all to
-  // the level estimator, but only care about the last level it
-  // produces.
   const VadWithLevel::LevelAndProbability vad_result =
       vad_.AnalyzeFrame(float_frame);
   apm_data_dumper_->DumpRaw("agc2_vad_probability",
@@ -56,6 +49,38 @@ void AdaptiveAgc::Process(AudioFrameView<float> float_frame) {
   // The gain applier applies the gain.
   gain_applier_.Process(speech_level_dbfs, noise_level_dbfs, vad_result,
                         float_frame);
+}
+
+void AdaptiveAgc::Analyze(AudioFrameView<const float> float_frame) {
+  latest_vad_result_ = vad_.AnalyzeFrame(float_frame);
+  apm_data_dumper_->DumpRaw("agc2_vad_probability",
+                            latest_vad_result_.speech_probability);
+  apm_data_dumper_->DumpRaw("agc2_vad_rms_dbfs",
+                            latest_vad_result_.speech_rms_dbfs);
+
+  apm_data_dumper_->DumpRaw("agc2_vad_peak_dbfs",
+                            latest_vad_result_.speech_peak_dbfs);
+  speech_level_estimator_.UpdateEstimation(latest_vad_result_);
+
+  latest_speech_level_dbfs_ = speech_level_estimator_.LatestLevelEstimate();
+  latest_noise_level_dbfs_ = noise_level_estimator_.Analyze(float_frame);
+
+  apm_data_dumper_->DumpRaw("agc2_noise_estimate_dbfs",
+                            latest_noise_level_dbfs_);
+}
+
+void AdaptiveAgc::Modify(AudioFrameView<float> float_frame) {
+  // The gain applier applies the gain.
+  gain_applier_.Process(rtc::SafeClamp(latest_speech_level_dbfs_, -90.f, 0.f), latest_noise_level_dbfs_,
+                        latest_vad_result_, float_frame);
+}
+
+float AdaptiveAgc::VoiceProbability() const {
+  return latest_vad_result_.speech_probability;
+}
+
+AdaptiveModeLevelEstimator* AdaptiveAgc::GetEstimator() {
+  return &speech_level_estimator_;
 }
 
 }  // namespace webrtc

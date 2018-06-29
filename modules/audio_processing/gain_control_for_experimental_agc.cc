@@ -22,12 +22,10 @@ int GainControlForExperimentalAgc::instance_counter_ = 0;
 GainControlForExperimentalAgc::GainControlForExperimentalAgc(
     GainControl* gain_control,
     rtc::CriticalSection* crit_capture)
-    : data_dumper_(new ApmDataDumper(instance_counter_)),
+    : data_dumper_(new ApmDataDumper(0)),
       real_gain_control_(gain_control),
       volume_(0),
-      crit_capture_(crit_capture) {
-  instance_counter_++;
-}
+      crit_capture_(crit_capture) {}
 
 GainControlForExperimentalAgc::~GainControlForExperimentalAgc() = default;
 
@@ -114,7 +112,7 @@ int GainControlForExperimentalAgc::GetMicVolume() {
 }
 
 void GainControlForExperimentalAgc::Initialize() {
-  data_dumper_->InitiateNewSetOfRecordings();
+  // data_dumper_->InitiateNewSetOfRecordings();
 }
 
 }  // namespace webrtc

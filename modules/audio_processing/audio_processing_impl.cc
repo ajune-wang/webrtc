@@ -366,9 +366,13 @@ AudioProcessingImpl::AudioProcessingImpl(
       constants_(config.Get<ExperimentalAgc>().startup_min_volume,
                  config.Get<ExperimentalAgc>().clipped_level_min,
 #if defined(WEBRTC_ANDROID) || defined(WEBRTC_IOS)
+                 false,
+                 false,
                  false),
 #else
-                 config.Get<ExperimentalAgc>().enabled),
+                 config.Get<ExperimentalAgc>().enabled,
+                 config.Get<ExperimentalAgc>().enabled_agc2_level_estimator,
+                 config.Get<ExperimentalAgc>().enabled_agc2_digital_adaptive),
 #endif
 #if defined(WEBRTC_ANDROID) || defined(WEBRTC_IOS)
       capture_(false),
@@ -542,7 +546,9 @@ int AudioProcessingImpl::InitializeLocked() {
       private_submodules_->agc_manager.reset(new AgcManagerDirect(
           public_submodules_->gain_control.get(),
           public_submodules_->gain_control_for_experimental_agc.get(),
-          constants_.agc_startup_min_volume, constants_.agc_clipped_level_min));
+          constants_.agc_startup_min_volume, constants_.agc_clipped_level_min,
+          constants_.use_experimental_agc_agc2_level_estimation,
+          constants_.use_experimental_agc_agc2_digital_adaptive));
     }
     private_submodules_->agc_manager->Initialize();
     private_submodules_->agc_manager->SetCaptureMuted(
@@ -1289,14 +1295,15 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
         capture_buffer->split_bands_const(0)[kBand0To8kHz],
         capture_buffer->num_frames_per_band(), capture_nonlocked_.split_rate);
   }
-  RETURN_ON_ERR(public_submodules_->gain_control->ProcessCaptureAudio(
-      capture_buffer, echo_cancellation()->stream_has_echo()));
 
   if (submodule_states_.CaptureMultiBandProcessingActive() &&
       SampleRateSupportsMultiBand(
           capture_nonlocked_.capture_processing_format.sample_rate_hz())) {
     capture_buffer->MergeFrequencyBands();
   }
+
+  RETURN_ON_ERR(public_submodules_->gain_control->ProcessCaptureAudio(
+      capture_buffer, echo_cancellation()->stream_has_echo()));
 
   if (config_.residual_echo_detector.enabled) {
     RTC_DCHECK(private_submodules_->echo_detector);

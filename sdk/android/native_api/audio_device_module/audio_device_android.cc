@@ -69,6 +69,22 @@ rtc::scoped_refptr<AudioDeviceModule> CreateAAudioAudioDeviceModule(
 }
 #endif
 
+RTCErrorOr<rtc::scoped_refptr<AudioDeviceModule>>
+CreateAndroidAudioDeviceOrError(JNIEnv* env, jobject application_context) {
+  auto audio_device_module =
+      CreateJavaAudioDeviceModule(env, application_context);
+  int32_t err = audio_device_module->Init();
+  err |= audio_device_module->InitRecording();
+  audio_device_module->StopRecording();
+  audio_device_module->Terminate();
+  if (err != 0) {
+    LOG_AND_RETURN_ERROR(RTCErrorType::INTERNAL_ERROR,
+                         "Error initializing AudioDeviceModule");
+  } else {
+    return audio_device_module;
+  }
+}
+
 rtc::scoped_refptr<AudioDeviceModule> CreateJavaAudioDeviceModule(
     JNIEnv* env,
     jobject application_context) {

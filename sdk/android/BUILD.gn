@@ -122,6 +122,7 @@ rtc_source_set("native_api_audio_device_module") {
     ":base_jni",
     ":java_audio_device_module",
     ":opensles_audio_device_module",
+    "../../api:libjingle_peerconnection_api",
     "../../modules/audio_device:audio_device",
     "../../rtc_base:checks",
     "../../rtc_base:rtc_base_approved",

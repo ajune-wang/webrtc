@@ -13,6 +13,7 @@
 
 #include <jni.h>
 
+#include "api/rtcerror.h"
 #include "modules/audio_device/include/audio_device.h"
 
 namespace webrtc {
@@ -22,6 +23,9 @@ rtc::scoped_refptr<AudioDeviceModule> CreateAAudioAudioDeviceModule(
     JNIEnv* env,
     jobject application_context);
 #endif
+
+RTCErrorOr<rtc::scoped_refptr<AudioDeviceModule>>
+CreateAndroidAudioDeviceOrError(JNIEnv* env, jobject application_context);
 
 rtc::scoped_refptr<AudioDeviceModule> CreateJavaAudioDeviceModule(
     JNIEnv* env,

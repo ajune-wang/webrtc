@@ -181,7 +181,14 @@ void Subtractor::Process(const RenderBuffer& render_buffer,
   main_filter_once_converged_ =
       main_filter_once_converged_ || main_filter_converged_;
   main_filter_diverged_ = e2_main > 1.5f * y2 && y2 > 30.f * 30.f * kBlockSize;
-
+  filter_misadjustment_estimator_.Update(e2_main, y2);
+  if (filter_misadjustment_estimator_.IsAdjustmentNeeded()) {
+    main_filter_.ScaleFilter(
+        filter_misadjustment_estimator_.GetMisadjustment());
+    output->ScaleOutputMainFilter(
+        filter_misadjustment_estimator_.GetMisadjustment());
+    filter_misadjustment_estimator_.Reset();
+  }
   // Compute spectra for future use.
   E_shadow.Spectrum(optimization_, output->E2_shadow);
   E_main.Spectrum(optimization_, output->E2_main);
@@ -206,13 +213,39 @@ void Subtractor::Process(const RenderBuffer& render_buffer,
 
   data_dumper_->DumpRaw("aec3_subtractor_G_shadow", G.re);
   data_dumper_->DumpRaw("aec3_subtractor_G_shadow", G.im);
-
+  filter_misadjustment_estimator_.Dump(data_dumper_);
   DumpFilters();
 
   if (adaptation_during_saturation_) {
     std::for_each(e_main.begin(), e_main.end(),
                   [](float& a) { a = rtc::SafeClamp(a, -32768.f, 32767.f); });
   }
+}
+
+void Subtractor::FilterMisadjustmentEstimator::Update(float e2, float y2) {
+  e2_acum_ += e2;
+  y2_acum_ += y2;
+  if (++n_blocks_acum_ == n_blocks_) {
+    if (y2_acum_ > n_blocks_acum_ * 30.f * 30.f * kBlockSize) {
+      inv_misadjustment_ += 0.1f * ((e2_acum_ / y2_acum_) - inv_misadjustment_);
+    }
+    e2_acum_ = 0.f;
+    y2_acum_ = 0.f;
+    n_blocks_acum_ = 0;
+  }
+}
+
+void Subtractor::FilterMisadjustmentEstimator::Reset() {
+  e2_acum_ = 0.f;
+  y2_acum_ = 0.f;
+  n_blocks_acum_ = 0;
+  inv_misadjustment_ = 0.f;
+}
+
+void Subtractor::FilterMisadjustmentEstimator::Dump(
+    ApmDataDumper* data_dumper) const {
+  data_dumper->DumpRaw("aec3_overestimator_factor",
+                       inv_misadjustment_ > 0.f ? GetMisadjustment() : 0.f);
 }
 
 }  // namespace webrtc

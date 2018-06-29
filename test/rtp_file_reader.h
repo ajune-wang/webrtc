@@ -33,7 +33,7 @@ struct RtpPacket {
 
 class RtpFileReader {
  public:
-  enum FileFormat { kPcap, kRtpDump, kLengthPacketInterleaved };
+  enum FileFormat { kPcap, kRtpDump, kLengthPacketInterleaved, kInterleaved64 };
 
   virtual ~RtpFileReader() {}
   static RtpFileReader* Create(FileFormat format, const std::string& filename);

@@ -53,6 +53,24 @@
     },
     {
       "key": {
+        "uuid": "ee51c50b_78fb44c3",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 5943,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-29T18:38:33Z",
+      "side": 1,
+      "message": "By the way, I looked at \"metrics_default.cc\" and it looks like it would be pretty easy to make it support a sparse histogram (with no boundary/min/max). The implementation is already \"map with lock\", it doesn\u0027t use \"bucket_count\" at all, and it only uses \"min/max\" for bounds checking. So it\u0027s already effectively the \"sparse\" implementation, but with bounds checking.",
+      "parentUuid": "25e1850b_9fe7929d",
+      "revId": "4b39ee2e5d60f775fbdf4febcfb5eabb8b576cc3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c519724f_45838a30",
         "filename": "pc/peerconnection_integrationtest.cc",
         "patchSetId": 19

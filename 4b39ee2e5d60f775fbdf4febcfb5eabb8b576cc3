@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b06a94b2_7e6f0867",
+        "filename": "api/fakemetricsobserver.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-06-29T06:23:13Z",
+      "side": 1,
+      "message": "If you can compile while commenting this out, just delete it.\nAre there any users of fakemetricsobserver left?",
+      "revId": "4b39ee2e5d60f775fbdf4febcfb5eabb8b576cc3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6b37c29_1b4ca00a",
+        "filename": "api/umametrics.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-06-29T06:23:13Z",
+      "side": 1,
+      "message": "Again, just delete these functions.",
+      "revId": "4b39ee2e5d60f775fbdf4febcfb5eabb8b576cc3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25e1850b_9fe7929d",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 5943,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-06-29T06:23:13Z",
+      "side": 1,
+      "message": "Please ensure that this is carried as a sparse enumeration in Chrome. I think it\u0027s important; this enum has many different possible values, and the memory impact is large if it\u0027s not allocated as sparse.",
+      "revId": "4b39ee2e5d60f775fbdf4febcfb5eabb8b576cc3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c519724f_45838a30",
+        "filename": "pc/peerconnection_integrationtest.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 4619,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-06-29T06:23:13Z",
+      "side": 1,
+      "message": "I moved this test to another file (peerconnection_histogram_unittests) while you were working on this. Please update accordingly.",
+      "revId": "4b39ee2e5d60f775fbdf4febcfb5eabb8b576cc3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4597003c_0a4edbba",
+        "filename": "pc/srtpsession.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-06-29T06:23:13Z",
+      "side": 1,
+      "message": "This one is interesting. Did the stats show that we were counting these events twice?",
+      "revId": "4b39ee2e5d60f775fbdf4febcfb5eabb8b576cc3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

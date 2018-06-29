@@ -199,6 +199,10 @@ public class PeerConnectionFactory {
       return this;
     }
 
+    public Builder setSSLCertificateVerifier(SSLCertificateVerifier verifier) {
+      this.sslCertificateVerifier = verifier;
+    }
+
     public PeerConnectionFactory createPeerConnectionFactory() {
       return new PeerConnectionFactory(options, audioDeviceModule, encoderFactory, decoderFactory,
           audioProcessingFactory, fecControllerFactoryFactory);
@@ -346,6 +350,12 @@ public class PeerConnectionFactory {
   public PeerConnection createPeerConnection(
       PeerConnection.RTCConfiguration rtcConfig, PeerConnection.Observer observer) {
     return createPeerConnection(rtcConfig, null /* constraints */, observer);
+  }
+
+  @Nullable
+  public PeerConnection createPeerConnection(
+      PeerConnection.RTCConfiguration rtcConfig, PeerConnectionDependencies dependencies) {
+    return createPeerConnection(rtcConfig, null /* constraints */, dependencies.GetObserver());
   }
 
   public MediaStream createLocalMediaStream(String label) {

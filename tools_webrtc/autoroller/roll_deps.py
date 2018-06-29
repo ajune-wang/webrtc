@@ -234,18 +234,13 @@ def BuildDepsentryDict(deps_dict):
   return result
 
 
-def _RemoveStringPrefix(string, substring):
-  assert string.startswith(substring)
-  return string[len(substring):]
-
-
 def _FindChangedCipdPackages(path, old_pkgs, new_pkgs):
   assert ({p['package'] for p in old_pkgs} ==
           {p['package'] for p in new_pkgs})
   for old_pkg in old_pkgs:
     for new_pkg in new_pkgs:
-      old_version = _RemoveStringPrefix(old_pkg['version'], 'version:')
-      new_version = _RemoveStringPrefix(new_pkg['version'], 'version:')
+      old_version = old_pkg['version'].rpartition(':')[-1]
+      new_version = new_pkg['version'].rpartition(':')[-1]
       if (old_pkg['package'] == new_pkg['package'] and
           old_version != new_version):
         logging.debug('Roll dependency %s to %s', path, new_version)
@@ -289,10 +284,14 @@ def CalculateChangedDeps(webrtc_deps, new_cr_deps):
           'WebRTC DEPS entry %s has a different URL (%s) than Chromium (%s).' %
           (path, webrtc_deps_entry.url, cr_deps_entry.url))
     else:
-      # Use the HEAD of the deps repo.
-      stdout, _ = _RunCommand(['git', 'ls-remote', webrtc_deps_entry.url,
-                               'HEAD'])
-      new_rev = stdout.strip().split('\t')[0]
+      if isinstance(webrtc_deps_entry, DepsEntry):
+        # Use the HEAD of the deps repo.
+        stdout, _ = _RunCommand(['git', 'ls-remote', webrtc_deps_entry.url,
+                                'HEAD'])
+        new_rev = stdout.strip().split('\t')[0]
+      else:
+        raise RollError('WebRTC DEPS entry %s is missing from Chromium. Remove '
+                        'it or add it to DONT_AUTOROLL_THESE.' % path)
 
     # Check if an update is necessary.
     if webrtc_deps_entry.revision != new_rev:

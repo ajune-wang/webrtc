@@ -134,12 +134,7 @@ LogMessage::LogMessage(const char* file,
   }
 
   if (file != nullptr) {
-#if defined(WEBRTC_ANDROID)
-    tag_ = FilenameFromPath(file);
-    print_stream_ << "(line " << line << "): ";
-#else
     print_stream_ << "(" << FilenameFromPath(file) << ":" << line << "): ";
-#endif
   }
 
   if (err_ctx != ERRCTX_NONE) {

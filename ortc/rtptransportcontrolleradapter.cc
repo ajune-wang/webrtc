@@ -12,7 +12,6 @@
 
 #include <algorithm>  // For "remove", "find".
 #include <set>
-#include <sstream>
 #include <unordered_map>
 #include <utility>  // For std::move.
 
@@ -39,7 +38,8 @@ static RTCError CheckForIdConflicts(
     const std::vector<C2>& codecs_b,
     const cricket::RtpHeaderExtensions& extensions_b,
     const cricket::StreamParamsVec& streams_b) {
-  std::ostringstream oss;
+  char buf[256];
+  rtc::SimpleStringBuilder sb(buf);
   // Since it's assumed that C1 and C2 are different types, codecs_a and
   // codecs_b should never contain the same payload type, and thus we can just
   // use a set.
@@ -49,8 +49,8 @@ static RTCError CheckForIdConflicts(
   }
   for (const C2& codec : codecs_b) {
     if (!seen_payload_types.insert(codec.id).second) {
-      oss << "Same payload type used for audio and video codecs: " << codec.id;
-      LOG_AND_RETURN_ERROR(RTCErrorType::INVALID_PARAMETER, oss.str());
+      sb << "Same payload type used for audio and video codecs: " << codec.id;
+      LOG_AND_RETURN_ERROR(RTCErrorType::INVALID_PARAMETER, sb.str());
     }
   }
   // Audio and video *may* use the same header extensions, so use a map.
@@ -61,9 +61,9 @@ static RTCError CheckForIdConflicts(
   for (const webrtc::RtpExtension& extension : extensions_b) {
     if (seen_extensions.find(extension.id) != seen_extensions.end() &&
         seen_extensions.at(extension.id) != extension.uri) {
-      oss << "Same ID used for different RTP header extensions: "
-          << extension.id;
-      LOG_AND_RETURN_ERROR(RTCErrorType::INVALID_PARAMETER, oss.str());
+      sb << "Same ID used for different RTP header extensions: "
+         << extension.id;
+      LOG_AND_RETURN_ERROR(RTCErrorType::INVALID_PARAMETER, sb.str());
     }
   }
   std::set<uint32_t> seen_ssrcs;
@@ -73,8 +73,8 @@ static RTCError CheckForIdConflicts(
   for (const cricket::StreamParams& stream : streams_b) {
     for (uint32_t ssrc : stream.ssrcs) {
       if (!seen_ssrcs.insert(ssrc).second) {
-        oss << "Same SSRC used for audio and video senders: " << ssrc;
-        LOG_AND_RETURN_ERROR(RTCErrorType::INVALID_PARAMETER, oss.str());
+        sb << "Same SSRC used for audio and video senders: " << ssrc;
+        LOG_AND_RETURN_ERROR(RTCErrorType::INVALID_PARAMETER, sb.str());
       }
     }
   }

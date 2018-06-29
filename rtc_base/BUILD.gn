@@ -313,6 +313,7 @@ rtc_source_set("timeutils") {
   deps = [
     ":checks",
     ":safe_conversions",
+    "//third_party/abseil-cpp/absl/strings:strings",
   ]
 }
 
@@ -724,6 +725,7 @@ rtc_static_library("rtc_base_generic") {
     ":stringutils",
     "..:webrtc_common",
     "../api:array_view",
+    "//third_party/abseil-cpp/absl/strings:strings",
     "//third_party/abseil-cpp/absl/types:optional",
   ]
   public_deps = [

@@ -734,6 +734,8 @@ include_rules = [
   "+rtc_tools",
 
   # Abseil whitelist.
+  "+absl/strings/str_cat.h",
+  "+absl/strings/string_view.h",
   "+absl/types/optional.h",
   "+absl/types/variant.h",
 ]

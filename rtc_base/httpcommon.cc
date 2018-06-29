@@ -20,6 +20,7 @@
 
 #include <algorithm>
 
+#include "absl/strings/str_cat.h"
 #include "rtc_base/arraysize.h"
 #include "rtc_base/base64.h"
 #include "rtc_base/checks.h"
@@ -867,22 +868,18 @@ HttpAuthResult HttpAuthenticate(const char* challenge,
     std::string HA2 = MD5(A2);
     std::string dig_response = MD5(HA1 + ":" + middle + ":" + HA2);
 
-    std::stringstream ss;
-    ss << auth_method;
-    ss << " username=" << quote(username);
-    ss << ", realm=" << quote(realm);
-    ss << ", nonce=" << quote(nonce);
-    ss << ", uri=" << quote(uri);
+    std::string s = absl::StrCat(
+        auth_method, " username=", quote(username), ", realm=", quote(realm),
+        ", nonce=", quote(nonce), ", uri=", quote(uri));
     if (has_qop) {
-      ss << ", qop=" << qop;
-      ss << ", nc=" << ncount;
-      ss << ", cnonce=" << quote(cnonce);
+      absl::StrAppend(&s, ", qop=", qop, ", nc=", ncount,
+                      ", cnonce=", quote(cnonce));
     }
-    ss << ", response=\"" << dig_response << "\"";
+    absl::StrAppend(&s, ", response=\"", dig_response, "\"");
     if (has_opaque) {
-      ss << ", opaque=" << quote(opaque);
+      absl::StrAppend(&s, ", opaque=", quote(opaque));
     }
-    response = ss.str();
+    response = std::move(s);
     return HAR_RESPONSE;
   }
 

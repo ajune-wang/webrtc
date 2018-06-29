@@ -10,6 +10,8 @@
 
 #include "api/candidate.h"
 
+#include "absl/strings/str_cat.h"
+
 namespace cricket {
 
 Candidate::Candidate()
@@ -68,15 +70,13 @@ bool Candidate::MatchesForRemoval(const Candidate& c) const {
 }
 
 std::string Candidate::ToStringInternal(bool sensitive) const {
-  std::ostringstream ost;
   std::string address =
       sensitive ? address_.ToSensitiveString() : address_.ToString();
-  ost << "Cand[" << transport_name_ << ":" << foundation_ << ":" << component_
-      << ":" << protocol_ << ":" << priority_ << ":" << address << ":" << type_
-      << ":" << related_address_.ToString() << ":" << username_ << ":"
-      << password_ << ":" << network_id_ << ":" << network_cost_ << ":"
-      << generation_ << "]";
-  return ost.str();
+  return absl::StrCat("Cand[", transport_name_, ":", foundation_, ":",
+                      component_, ":", protocol_, ":", priority_, ":", address,
+                      ":", type_, ":", related_address_.ToString(), ":",
+                      username_, ":", password_, ":", network_id_, ":",
+                      network_cost_, ":", generation_, "]");
 }
 
 uint32_t Candidate::GetPriority(uint32_t type_preference,

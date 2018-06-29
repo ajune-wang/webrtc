@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1830e035_04451c12",
+        "filename": "modules/audio_processing/aec3/adaptive_fir_filter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 620,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-06-29T11:47:57Z",
+      "side": 1,
+      "message": "I change this function so it is now called ScaleFilter and it directly multiply the filter by the factor that is passed as an input argument. I do not see the need of the DCHECK anymore.",
+      "parentUuid": "b97093ee_7ccdca9a",
+      "revId": "1d27f3cf895f41877083818a38eaee0f83768a47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e0ce1f5c_ad25c6dd",
         "filename": "modules/audio_processing/aec3/adaptive_fir_filter.h",
         "patchSetId": 2
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "7c9c8f7f_fb1e05df",
+        "filename": "modules/audio_processing/aec3/adaptive_fir_filter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-06-29T11:47:57Z",
+      "side": 1,
+      "message": "I changed it to ScaleFilter()",
+      "parentUuid": "e0ce1f5c_ad25c6dd",
+      "revId": "1d27f3cf895f41877083818a38eaee0f83768a47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1dd1b5eb_33d89914",
         "filename": "modules/audio_processing/aec3/subtractor.cc",
         "patchSetId": 2
@@ -50,6 +86,24 @@
       "revId": "1d27f3cf895f41877083818a38eaee0f83768a47",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77911b20_caf891fd",
+        "filename": "modules/audio_processing/aec3/subtractor.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-06-29T11:47:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1dd1b5eb_33d89914",
+      "revId": "1d27f3cf895f41877083818a38eaee0f83768a47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -93,6 +147,48 @@
     },
     {
       "key": {
+        "uuid": "4e1521fa_b904496b",
+        "filename": "modules/audio_processing/aec3/subtractor.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-06-29T11:47:57Z",
+      "side": 1,
+      "message": "not sure, I will experiment with it.",
+      "parentUuid": "eb3dd19c_bfadbf3b",
+      "revId": "1d27f3cf895f41877083818a38eaee0f83768a47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5b8c3470_94bf83bb",
+        "filename": "modules/audio_processing/aec3/subtractor.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-06-29T11:47:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f42f7cd1_a606d0dd",
+      "range": {
+        "startLine": 174,
+        "startChar": 46,
+        "endLine": 174,
+        "endChar": 56
+      },
+      "revId": "1d27f3cf895f41877083818a38eaee0f83768a47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9e06f43b_0ea7deaf",
         "filename": "modules/audio_processing/aec3/subtractor.cc",
         "patchSetId": 2
@@ -113,6 +209,30 @@
       "revId": "1d27f3cf895f41877083818a38eaee0f83768a47",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24ec7f6b_638b2fd7",
+        "filename": "modules/audio_processing/aec3/subtractor.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-06-29T11:47:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9e06f43b_0ea7deaf",
+      "range": {
+        "startLine": 211,
+        "startChar": 2,
+        "endLine": 212,
+        "endChar": 36
+      },
+      "revId": "1d27f3cf895f41877083818a38eaee0f83768a47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -139,6 +259,30 @@
     },
     {
       "key": {
+        "uuid": "28e8e40a_e4e77d76",
+        "filename": "modules/audio_processing/aec3/subtractor.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-06-29T11:47:57Z",
+      "side": 1,
+      "message": "You are right, there is no a good reason for having such a low value, I will change it and find a better value.",
+      "parentUuid": "d98783a7_767229df",
+      "range": {
+        "startLine": 213,
+        "startChar": 43,
+        "endLine": 213,
+        "endChar": 45
+      },
+      "revId": "1d27f3cf895f41877083818a38eaee0f83768a47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2271ef12_8dd9d7e5",
         "filename": "modules/audio_processing/aec3/subtractor.h",
         "patchSetId": 2
@@ -162,6 +306,30 @@
     },
     {
       "key": {
+        "uuid": "888114bc_611c4a8c",
+        "filename": "modules/audio_processing/aec3/subtractor.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-06-29T11:47:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2271ef12_8dd9d7e5",
+      "range": {
+        "startLine": 83,
+        "startChar": 8,
+        "endLine": 83,
+        "endChar": 34
+      },
+      "revId": "1d27f3cf895f41877083818a38eaee0f83768a47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f3cfeba4_9054d790",
         "filename": "modules/audio_processing/aec3/subtractor.h",
         "patchSetId": 2
@@ -182,6 +350,30 @@
       "revId": "1d27f3cf895f41877083818a38eaee0f83768a47",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f2ce1df_efa9e6fa",
+        "filename": "modules/audio_processing/aec3/subtractor.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-06-29T11:47:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f3cfeba4_9054d790",
+      "range": {
+        "startLine": 88,
+        "startChar": 4,
+        "endLine": 88,
+        "endChar": 54
+      },
+      "revId": "1d27f3cf895f41877083818a38eaee0f83768a47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -254,6 +446,78 @@
     },
     {
       "key": {
+        "uuid": "428f4ac3_e966ecec",
+        "filename": "modules/audio_processing/aec3/subtractor.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-06-29T11:47:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2af5d983_f2ff1606",
+      "range": {
+        "startLine": 89,
+        "startChar": 37,
+        "endLine": 89,
+        "endChar": 41
+      },
+      "revId": "1d27f3cf895f41877083818a38eaee0f83768a47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "aa56c60e_acea9084",
+        "filename": "modules/audio_processing/aec3/subtractor.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-06-29T11:47:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2364f7d9_ccd67ac6",
+      "range": {
+        "startLine": 89,
+        "startChar": 10,
+        "endLine": 89,
+        "endChar": 19
+      },
+      "revId": "1d27f3cf895f41877083818a38eaee0f83768a47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8c8d8428_85bde6c2",
+        "filename": "modules/audio_processing/aec3/subtractor.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-06-29T11:47:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "97db9bc6_e31020f8",
+      "range": {
+        "startLine": 89,
+        "startChar": 67,
+        "endLine": 89,
+        "endChar": 68
+      },
+      "revId": "1d27f3cf895f41877083818a38eaee0f83768a47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b7879e56_f1851927",
         "filename": "modules/audio_processing/aec3/subtractor.h",
         "patchSetId": 2
@@ -274,6 +538,30 @@
       "revId": "1d27f3cf895f41877083818a38eaee0f83768a47",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5445595b_781f99fe",
+        "filename": "modules/audio_processing/aec3/subtractor.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-06-29T11:47:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b7879e56_f1851927",
+      "range": {
+        "startLine": 97,
+        "startChar": 10,
+        "endLine": 97,
+        "endChar": 33
+      },
+      "revId": "1d27f3cf895f41877083818a38eaee0f83768a47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -314,6 +602,48 @@
       "revId": "1d27f3cf895f41877083818a38eaee0f83768a47",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b0f978d9_65e8353f",
+        "filename": "modules/audio_processing/aec3/subtractor_output.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-06-29T11:47:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "335fd54f_bfad20ba",
+      "range": {
+        "startLine": 41,
+        "startChar": 30,
+        "endLine": 41,
+        "endChar": 36
+      },
+      "revId": "1d27f3cf895f41877083818a38eaee0f83768a47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "519e6714_b62efa4f",
+        "filename": "modules/audio_processing/aec3/subtractor_output.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-06-29T11:47:57Z",
+      "side": 1,
+      "message": "Not sure, I will experiment with that option.",
+      "parentUuid": "00770269_74e9efe6",
+      "revId": "1d27f3cf895f41877083818a38eaee0f83768a47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

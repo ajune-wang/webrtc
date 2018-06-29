@@ -73,6 +73,24 @@
     },
     {
       "key": {
+        "uuid": "72813bb8_65e51a5f",
+        "filename": "media/base/codec.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-29T20:35:54Z",
+      "side": 1,
+      "message": "\u003e the profile needs to be known before receiving the stream for HW codecs\n\nOk, then that\u0027s reason enough to use a separate payload type per profile.",
+      "parentUuid": "67428551_c282ff22",
+      "revId": "d1fe47515a7ce46a7eac05bd72368fa13e22ccb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "93d3e019_ec3262f0",
         "filename": "media/base/codec_unittest.cc",
         "patchSetId": 18
@@ -176,6 +194,24 @@
       "revId": "d1fe47515a7ce46a7eac05bd72368fa13e22ccb5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d599a0a3_9feedebd",
+        "filename": "media/base/vp9_profile.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-06-29T20:35:54Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "6a3cd1db_71c9bead",
+      "revId": "d1fe47515a7ce46a7eac05bd72368fa13e22ccb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

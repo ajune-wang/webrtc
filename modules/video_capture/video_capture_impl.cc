@@ -143,7 +143,7 @@ int32_t VideoCaptureImpl::IncomingFrame(uint8_t* videoFrame,
   int stride_y = width;
   int stride_uv = (width + 1) / 2;
   int target_width = width;
-  int target_height = height;
+  int target_height = abs(height);
 
   // SetApplyRotation doesn't take any lock. Make a local copy here.
   bool apply_rotation = apply_rotation_;

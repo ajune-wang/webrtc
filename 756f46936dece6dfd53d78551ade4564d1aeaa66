@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fbb18193_efe8a56f",
+        "filename": "modules/congestion_controller/send_side_congestion_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-07-02T11:26:25Z",
+      "side": 1,
+      "message": "nit: excessive scope",
+      "revId": "756f46936dece6dfd53d78551ade4564d1aeaa66",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

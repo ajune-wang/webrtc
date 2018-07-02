@@ -47,7 +47,13 @@ class AgcManagerDirectTest : public ::testing::Test {
  protected:
   AgcManagerDirectTest()
       : agc_(new MockAgc),
-        manager_(agc_, &gctrl_, &volume_, kInitialVolume, kClippedMin) {
+        manager_(agc_,
+                 &gctrl_,
+                 &volume_,
+                 kInitialVolume,
+                 kClippedMin,
+                 false,
+                 false) {
     ExpectInitialize();
     manager_.Initialize();
   }

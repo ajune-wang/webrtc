@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cc7dc7a0_fce642f6",
+        "filename": "sdk/android/api/org/webrtc/PeerConnectionDependencies.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-07-02T12:55:17Z",
+      "side": 1,
+      "message": "nit: Add an empty line",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 33
+      },
+      "revId": "022cb1c60040831d40bfc5357df484d4e01cff8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef09362f_e37045af",
+        "filename": "sdk/android/api/org/webrtc/PeerConnectionDependencies.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-07-02T12:55:17Z",
+      "side": 1,
+      "message": "nit: We\u0027ve so far passed in the required arguments in the builder-method. See for example: https://cs.chromium.org/chromium/src/third_party/webrtc/sdk/android/api/org/webrtc/PeerConnection.java?type\u003dcs\u0026q\u003dBuilder+lang:java\u0026sq\u003dpackage:chromium\u0026g\u003d0\u0026l\u003d203",
+      "range": {
+        "startLine": 27,
+        "startChar": 8,
+        "endLine": 27,
+        "endChar": 40
+      },
+      "revId": "022cb1c60040831d40bfc5357df484d4e01cff8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3edfae9_0849baae",
+        "filename": "sdk/android/api/org/webrtc/PeerConnectionDependencies.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-07-02T12:55:17Z",
+      "side": 1,
+      "message": "nit: Maybe shouldn\u0027t be public",
+      "range": {
+        "startLine": 36,
+        "startChar": 2,
+        "endLine": 36,
+        "endChar": 9
+      },
+      "revId": "022cb1c60040831d40bfc5357df484d4e01cff8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -49,8 +49,10 @@ void FuzzOneInput(const uint8_t* data, size_t size) {
     // Check the sequence numbers are monotonic. In rare case the packets number
     // may loop around and in the same FEC-protected group the packet sequence
     // number became out of order.
-    if (protect && static_cast<uint16_t>(seq_num - prev_seq_num) <
-                       kUlpfecMaxMediaPackets) {
+    if (protect &&
+        static_cast<uint16_t>(seq_num - prev_seq_num) <
+            kUlpfecMaxMediaPackets &&
+        seq_num != prev_seq_num) {
       generator.AddRtpPacketAndGenerateFec(packet.get(), payload_size,
                                            rtp_header_length);
       prev_seq_num = seq_num;

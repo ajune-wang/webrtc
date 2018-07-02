@@ -45,6 +45,30 @@
       "revId": "29292ec48fc81669d74b2354fcff2410777a31a8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89e2a1bc_9501e470",
+        "filename": "modules/audio_processing/test/audio_processing_simulator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 618,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-07-02T12:55:03Z",
+      "side": 1,
+      "message": "Opinionated debate continuing offline :-)",
+      "parentUuid": "381e3381_f7e86388",
+      "range": {
+        "startLine": 618,
+        "startChar": 6,
+        "endLine": 618,
+        "endChar": 40
+      },
+      "revId": "29292ec48fc81669d74b2354fcff2410777a31a8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

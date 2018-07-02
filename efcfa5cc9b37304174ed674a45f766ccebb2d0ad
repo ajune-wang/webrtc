@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b39de132_278134eb",
+        "filename": "modules/audio_processing/BUILD.gn",
+        "patchSetId": 5
+      },
+      "lineNbr": 626,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-07-02T09:18:35Z",
+      "side": 1,
+      "message": "Have a look into factoring this out into its own target, as per offline chat.",
+      "range": {
+        "startLine": 626,
+        "startChar": 0,
+        "endLine": 626,
+        "endChar": 32
+      },
+      "revId": "efcfa5cc9b37304174ed674a45f766ccebb2d0ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "113f7a93_2d22f8fe",
+        "filename": "modules/audio_processing/test/fake_recording_device.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-07-02T09:18:35Z",
+      "side": 1,
+      "message": "Hm, where does this value come from? Shouldn\u0027t it correspond to 0 dB gain? kGainMap[100] \u003d 23.",
+      "range": {
+        "startLine": 103,
+        "startChar": 66,
+        "endLine": 103,
+        "endChar": 69
+      },
+      "revId": "efcfa5cc9b37304174ed674a45f766ccebb2d0ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "589dc3aa_8f89bede",
+        "filename": "modules/audio_processing/test/fake_recording_device.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-07-02T09:18:35Z",
+      "side": 1,
+      "message": "nit: Agc1 is tuned to gain_map_internal, rather than the converse.",
+      "range": {
+        "startLine": 108,
+        "startChar": 71,
+        "endLine": 108,
+        "endChar": 73
+      },
+      "revId": "efcfa5cc9b37304174ed674a45f766ccebb2d0ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4af4757_b24e2da7",
+        "filename": "modules/audio_processing/test/fake_recording_device.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-07-02T09:18:35Z",
+      "side": 1,
+      "message": "nit: No need to call this function every loop iteration. Can make a \u0027const float multipler\u0027 much like the \u0027const float divisor\u0027 in FakeRecordingDeviceLinear.",
+      "range": {
+        "startLine": 121,
+        "startChar": 20,
+        "endLine": 121,
+        "endChar": 43
+      },
+      "revId": "efcfa5cc9b37304174ed674a45f766ccebb2d0ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "625c15a4_e0c2c2fd",
+        "filename": "modules/audio_processing/test/fake_recording_device.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-07-02T09:18:35Z",
+      "side": 1,
+      "message": "nit: As above.",
+      "range": {
+        "startLine": 129,
+        "startChar": 16,
+        "endLine": 129,
+        "endChar": 39
+      },
+      "revId": "efcfa5cc9b37304174ed674a45f766ccebb2d0ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

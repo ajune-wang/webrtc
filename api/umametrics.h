@@ -169,21 +169,10 @@ enum SdpFormatReceived {
   kSdpFormatReceivedMax
 };
 
+// TODO(qingsi): Deprecate MetricsObserverInterface once Chromium no longer uses
+// this class.
 class MetricsObserverInterface : public rtc::RefCountInterface {
  public:
-  // |type| is the type of the enum counter to be incremented. |counter|
-  // is the particular counter in that type. |counter_max| is the next sequence
-  // number after the highest counter.
-  virtual void IncrementEnumCounter(PeerConnectionEnumCounterType type,
-                                    int counter,
-                                    int counter_max) {}
-
-  // This is used to handle sparse counters like SSL cipher suites.
-  // TODO(guoweis): Remove the implementation once the dependency's interface
-  // definition is updated.
-  virtual void IncrementSparseEnumCounter(PeerConnectionEnumCounterType type,
-                                          int counter);
-
   virtual void AddHistogramSample(PeerConnectionMetricsName type,
                                   int value) = 0;
 };

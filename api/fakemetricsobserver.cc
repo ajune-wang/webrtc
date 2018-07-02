@@ -23,18 +23,6 @@ void FakeMetricsObserver::Reset() {
   memset(histogram_samples_, 0, sizeof(histogram_samples_));
 }
 
-void FakeMetricsObserver::IncrementEnumCounter(
-    PeerConnectionEnumCounterType type,
-    int counter,
-    int counter_max) {
-  RTC_DCHECK(thread_checker_.CalledOnValidThread());
-  if (counters_.size() <= static_cast<size_t>(type)) {
-    counters_.resize(type + 1);
-  }
-  auto& counters = counters_[type];
-  ++counters[counter];
-}
-
 void FakeMetricsObserver::AddHistogramSample(PeerConnectionMetricsName type,
                                              int value) {
   RTC_DCHECK(thread_checker_.CalledOnValidThread());

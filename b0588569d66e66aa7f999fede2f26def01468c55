@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8c32b56d_da56f80a",
+        "filename": "modules/audio_processing/agc2/adaptive_agc.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2018-07-02T14:53:35Z",
+      "side": 1,
+      "message": "Is this used anywhere? Why is it needed to add this?",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 0
+      },
+      "revId": "b0588569d66e66aa7f999fede2f26def01468c55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c5d66e1_8d597a58",
+        "filename": "modules/audio_processing/agc2/adaptive_digital_gain_applier.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2018-07-02T14:53:35Z",
+      "side": 1,
+      "message": "Should we print a log message if this value is \u003e 0? Or is it okay to ignore it?",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 79,
+        "endChar": 53
+      },
+      "revId": "b0588569d66e66aa7f999fede2f26def01468c55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

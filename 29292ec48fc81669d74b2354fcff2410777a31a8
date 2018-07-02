@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "31307743_8ba61a42",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-07-02T12:50:34Z",
+      "side": 1,
+      "message": "I would rephrase. I could understand this right only after I reviewed the code and understood why crashing is necessary.\n\n\"Since the features corresponding to the 2 flags will be implemented in separate CLs, the code crashes when (at least one of) those flags are true (wanted behavior).\"",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 5
+      },
+      "revId": "29292ec48fc81669d74b2354fcff2410777a31a8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "381e3381_f7e86388",
+        "filename": "modules/audio_processing/test/audio_processing_simulator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 618,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-07-02T12:50:34Z",
+      "side": 1,
+      "message": "!! \u0026\u0026 instead of ! || as discussed offline - i.e., adapt the existing code to what you have added (which is the correct way to go)",
+      "range": {
+        "startLine": 618,
+        "startChar": 6,
+        "endLine": 618,
+        "endChar": 40
+      },
+      "revId": "29292ec48fc81669d74b2354fcff2410777a31a8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -16,6 +16,7 @@
 #include "common_audio/include/audio_util.h"
 #include "modules/audio_processing/agc2/vad_with_level.h"
 #include "modules/audio_processing/logging/apm_data_dumper.h"
+#include "rtc_base/numerics/safe_minmax.h"
 
 namespace webrtc {
 
@@ -54,8 +55,8 @@ void AdaptiveAgc::Process(AudioFrameView<float> float_frame) {
   apm_data_dumper_->DumpRaw("agc2_noise_estimate_dbfs", noise_level_dbfs);
 
   // The gain applier applies the gain.
-  gain_applier_.Process(speech_level_dbfs, noise_level_dbfs, vad_result,
-                        float_frame);
+  gain_applier_.Process(rtc::SafeClamp(speech_level_dbfs, -90.f, 0.f),
+                        noise_level_dbfs, vad_result, float_frame);
 }
 
 }  // namespace webrtc

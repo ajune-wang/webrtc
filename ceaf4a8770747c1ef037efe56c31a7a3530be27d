@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "df3c85a5_0a15a063",
+        "filename": "test/fuzzers/ulpfec_generator_fuzzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-07-02T14:08:01Z",
+      "side": 1,
+      "message": "If you want to protect against using older packets, you may also use IsNewerSequenceNumber from modules/include/module_common_types_public.h. For instance:\n\n if (protect \u0026\u0026\n     IsNewerSequenceNumber(seq_num, prev_seq_num) \u0026\u0026\n     seq_num \u003c prev_seq_num + kUlpfecMaxMediaPackets) {",
+      "range": {
+        "startLine": 55,
+        "startChar": 8,
+        "endLine": 55,
+        "endChar": 31
+      },
+      "revId": "ceaf4a8770747c1ef037efe56c31a7a3530be27d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

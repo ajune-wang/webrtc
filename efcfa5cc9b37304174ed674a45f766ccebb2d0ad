@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f0707515_6e062bcf",
+        "filename": "modules/audio_processing/BUILD.gn",
+        "patchSetId": 5
+      },
+      "lineNbr": 626,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-07-02T09:35:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b39de132_278134eb",
+      "range": {
+        "startLine": 626,
+        "startChar": 0,
+        "endLine": 626,
+        "endChar": 32
+      },
+      "revId": "efcfa5cc9b37304174ed674a45f766ccebb2d0ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "113f7a93_2d22f8fe",
         "filename": "modules/audio_processing/test/fake_recording_device.cc",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "efcfa5cc9b37304174ed674a45f766ccebb2d0ad",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e51c940_cb117c29",
+        "filename": "modules/audio_processing/test/fake_recording_device.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-07-02T09:35:51Z",
+      "side": 1,
+      "message": "Resolved offline.",
+      "parentUuid": "113f7a93_2d22f8fe",
+      "range": {
+        "startLine": 103,
+        "startChar": 66,
+        "endLine": 103,
+        "endChar": 69
+      },
+      "revId": "efcfa5cc9b37304174ed674a45f766ccebb2d0ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "a615d504_f8a0f77a",
+        "filename": "modules/audio_processing/test/fake_recording_device.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-07-02T09:35:51Z",
+      "side": 1,
+      "message": "Decided to remove the last sentence.\n\nReasons: \n* Agc1 is not a term which is used in the code.\n* A comment like \u0027this works well with AgcManagerDirect could turn stale.",
+      "parentUuid": "589dc3aa_8f89bede",
+      "range": {
+        "startLine": 108,
+        "startChar": 71,
+        "endLine": 108,
+        "endChar": 73
+      },
+      "revId": "efcfa5cc9b37304174ed674a45f766ccebb2d0ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b4af4757_b24e2da7",
         "filename": "modules/audio_processing/test/fake_recording_device.cc",
         "patchSetId": 5
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "d4928e9b_5c28c1f4",
+        "filename": "modules/audio_processing/test/fake_recording_device.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-07-02T09:35:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b4af4757_b24e2da7",
+      "range": {
+        "startLine": 121,
+        "startChar": 20,
+        "endLine": 121,
+        "endChar": 43
+      },
+      "revId": "efcfa5cc9b37304174ed674a45f766ccebb2d0ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "625c15a4_e0c2c2fd",
         "filename": "modules/audio_processing/test/fake_recording_device.cc",
         "patchSetId": 5
@@ -114,6 +210,30 @@
       "revId": "efcfa5cc9b37304174ed674a45f766ccebb2d0ad",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5337336_de775620",
+        "filename": "modules/audio_processing/test/fake_recording_device.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-07-02T09:35:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "625c15a4_e0c2c2fd",
+      "range": {
+        "startLine": 129,
+        "startChar": 16,
+        "endLine": 129,
+        "endChar": 39
+      },
+      "revId": "efcfa5cc9b37304174ed674a45f766ccebb2d0ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f9237d10_324d65b6",
+        "filename": "modules/audio_processing/agc2/adaptive_agc.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-07-02T15:00:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8c32b56d_da56f80a",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 0
+      },
+      "revId": "b0588569d66e66aa7f999fede2f26def01468c55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7c5d66e1_8d597a58",
         "filename": "modules/audio_processing/agc2/adaptive_digital_gain_applier.cc",
         "patchSetId": 9
@@ -45,6 +69,30 @@
       "revId": "b0588569d66e66aa7f999fede2f26def01468c55",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fcf095d0_408fbabd",
+        "filename": "modules/audio_processing/agc2/adaptive_digital_gain_applier.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-07-02T15:00:28Z",
+      "side": 1,
+      "message": "It\u0027s OK to ignore. It\u0027s expected to be \u003e 0 when the input is loud. The analog AGC needs to get positive levels, but the digital can\u0027t act differently if the level is \u003e0.",
+      "parentUuid": "7c5d66e1_8d597a58",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 79,
+        "endChar": 53
+      },
+      "revId": "b0588569d66e66aa7f999fede2f26def01468c55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

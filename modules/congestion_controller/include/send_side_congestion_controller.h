@@ -138,7 +138,10 @@ class SendSideCongestionController
   PacedSender* const pacer_;
   const std::unique_ptr<BitrateController> bitrate_controller_;
   std::unique_ptr<AcknowledgedBitrateEstimator> acknowledged_bitrate_estimator_;
-  const std::unique_ptr<ProbeController> probe_controller_;
+  rtc::CriticalSection probe_lock_;
+  const std::unique_ptr<ProbeController> probe_controller_
+      RTC_GUARDED_BY(probe_lock_);
+
   const std::unique_ptr<RateLimiter> retransmission_rate_limiter_;
   TransportFeedbackAdapter transport_feedback_adapter_;
   rtc::CriticalSection network_state_lock_;

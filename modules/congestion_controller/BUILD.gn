@@ -24,8 +24,6 @@ rtc_static_library("congestion_controller") {
     "include/receive_side_congestion_controller.h",
     "include/send_side_congestion_controller.h",
     "include/send_side_congestion_controller_interface.h",
-    "probe_controller.cc",
-    "probe_controller.h",
     "receive_side_congestion_controller.cc",
     "send_side_congestion_controller.cc",
   ]
@@ -51,6 +49,7 @@ rtc_static_library("congestion_controller") {
     "../remote_bitrate_estimator",
     "../rtp_rtcp:rtp_rtcp_format",
     "goog_cc:estimators",
+    "goog_cc:probe_controller",
   ]
 
   if (!build_with_mozilla) {
@@ -108,7 +107,6 @@ if (rtc_include_tests) {
       "delay_based_bwe_unittest.cc",
       "delay_based_bwe_unittest_helper.cc",
       "delay_based_bwe_unittest_helper.h",
-      "probe_controller_unittest.cc",
       "receive_side_congestion_controller_unittest.cc",
       "send_side_congestion_controller_unittest.cc",
       "transport_feedback_adapter_unittest.cc",

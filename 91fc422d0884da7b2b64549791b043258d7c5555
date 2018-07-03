@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f917ed60_6bb6214f",
+        "filename": "modules/audio_coding/neteq/red_payload_splitter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-07-03T08:46:07Z",
+      "side": 0,
+      "message": "Since the return value from this method was never used, I changed the declaration to be void and removed the counter variable.",
+      "range": {
+        "startLine": 159,
+        "startChar": 2,
+        "endLine": 159,
+        "endChar": 28
+      },
+      "revId": "91fc422d0884da7b2b64549791b043258d7c5555",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

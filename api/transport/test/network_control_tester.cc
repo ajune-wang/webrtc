@@ -64,6 +64,13 @@ NetworkControllerTester::NetworkControllerTester(
     : current_time_(Timestamp::seconds(100000)),
       packet_sequence_number_(1),
       accumulated_buffer_(TimeDelta::Zero()) {
+  state_.target_rate = TargetTransferRate();
+  state_.target_rate->target_rate = initial_config.starting_bandwidth;
+  state_.pacer_config = PacerConfig();
+  state_.pacer_config->time_window = TimeDelta::us(1);
+  state_.pacer_config->pad_window =
+      initial_config.starting_bandwidth * TimeDelta::us(1);
+
   initial_config.constraints.at_time = current_time_;
   controller_ = factory->Create(initial_config);
   process_interval_ = factory->GetProcessInterval();

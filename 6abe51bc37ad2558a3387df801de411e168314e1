@@ -45,6 +45,54 @@
       "revId": "6abe51bc37ad2558a3387df801de411e168314e1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e16c817e_49c6ccde",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-07-03T13:59:32Z",
+      "side": 1,
+      "message": "I think that creates more coupling on the test code than needed. Note that this class is not exposed to users of BbrFactory. So it\u0027s still only available for code that has an explicit reference to a BbrNetworkController instance.\n\nSince the function is const I think it\u0027s safe to keep it public.",
+      "parentUuid": "e7eedea2_483c1ae8",
+      "range": {
+        "startLine": 168,
+        "startChar": 2,
+        "endLine": 168,
+        "endChar": 58
+      },
+      "revId": "6abe51bc37ad2558a3387df801de411e168314e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "484f4ff1_90ac6b34",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-07-03T13:59:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "29ca16c5_73d59970",
+      "range": {
+        "startLine": 168,
+        "startChar": 23,
+        "endLine": 168,
+        "endChar": 32
+      },
+      "revId": "6abe51bc37ad2558a3387df801de411e168314e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

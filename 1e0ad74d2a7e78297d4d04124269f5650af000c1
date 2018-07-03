@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f7862c5b_924916e6",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-07-03T19:32:11Z",
+      "side": 1,
+      "message": "\"bugs.webrtc.org/BUG_ID\" is a bit nicer, because it can be pasted straight into a browser, and even turns into a real hyperlink in some settings. It is slightly longer, though, and you are forcing it to be on the same line.",
+      "range": {
+        "startLine": 431,
+        "startChar": 59,
+        "endLine": 431,
+        "endChar": 74
+      },
+      "revId": "1e0ad74d2a7e78297d4d04124269f5650af000c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -355,24 +355,12 @@ TEST(BoolTest, DecodeValid) {
   bool value;
   EXPECT_TRUE(FromString("true", &value));
   EXPECT_TRUE(value);
-  EXPECT_TRUE(FromString("true,", &value));
-  EXPECT_TRUE(value);
-  EXPECT_TRUE(FromString("true , true", &value));
-  EXPECT_TRUE(value);
-  EXPECT_TRUE(FromString("true ,\n false", &value));
-  EXPECT_TRUE(value);
-  EXPECT_TRUE(FromString("  true  \n", &value));
-  EXPECT_TRUE(value);
 
   EXPECT_TRUE(FromString("false", &value));
   EXPECT_FALSE(value);
-  EXPECT_TRUE(FromString("  false ", &value));
-  EXPECT_FALSE(value);
-  EXPECT_TRUE(FromString("  false, ", &value));
-  EXPECT_FALSE(value);
 
-  EXPECT_TRUE(FromString<bool>("true\n"));
-  EXPECT_FALSE(FromString<bool>("false\n"));
+  EXPECT_TRUE(FromString<bool>("true"));
+  EXPECT_FALSE(FromString<bool>("false"));
 }
 
 TEST(BoolTest, DecodeInvalid) {
@@ -389,7 +377,7 @@ TEST(BoolTest, DecodeInvalid) {
   EXPECT_FALSE(FromString("1.", &value));
   EXPECT_FALSE(FromString("1.0", &value));
   EXPECT_FALSE(FromString("", &value));
-  EXPECT_FALSE(FromString<bool>("false\nfalse"));
+  EXPECT_FALSE(FromString("false\nfalse", &value));
 }
 
 TEST(BoolTest, RoundTrip) {

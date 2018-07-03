@@ -321,6 +321,8 @@ rtc_source_set("timeutils") {
 
 rtc_source_set("stringutils") {
   sources = [
+    "string_to_number.cc",
+    "string_to_number.h",
     "stringencode.cc",
     "stringencode.h",
     "strings/string_builder.cc",
@@ -435,8 +437,6 @@ rtc_source_set("rtc_base_approved_generic") {
     "rate_statistics.h",
     "ratetracker.cc",
     "ratetracker.h",
-    "string_to_number.cc",
-    "string_to_number.h",
     "swap_queue.h",
     "template_util.h",
     "timestampaligner.cc",

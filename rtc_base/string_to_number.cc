@@ -11,6 +11,7 @@
 #include "rtc_base/string_to_number.h"
 
 #include <cerrno>
+#include <cmath>
 #include <cstdlib>
 
 #include "rtc_base/checks.h"
@@ -44,6 +45,17 @@ absl::optional<unsigned_type> ParseUnsigned(const char* str, int base) {
     if (end && *end == '\0' && errno == 0 && (value == 0 || !is_negative)) {
       return value;
     }
+  }
+  return absl::nullopt;
+}
+
+absl::optional<floating_point_type> ParseFloatingPoint(const char* str) {
+  RTC_DCHECK(str);
+  char* end = nullptr;
+  errno = 0;
+  const floating_point_type value = std::strtold(str, &end);
+  if (end && *end == '\0' && errno == 0 && value != HUGE_VALL) {
+    return value;
   }
   return absl::nullopt;
 }

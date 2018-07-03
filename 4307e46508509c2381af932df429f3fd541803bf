@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4bc37e29_800995dc",
+        "filename": "modules/video_coding/codecs/vp8/default_temporal_layers.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-07-03T13:43:53Z",
+      "side": 1,
+      "message": "How about showing two periods of the pattern? Here and below.",
+      "range": {
+        "startLine": 143,
+        "startChar": 8,
+        "endLine": 146,
+        "endChar": 20
+      },
+      "revId": "4307e46508509c2381af932df429f3fd541803bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba531529_71cb8d30",
+        "filename": "modules/video_coding/utility/simulcast_rate_allocator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-07-03T13:43:53Z",
+      "side": 1,
+      "message": "nit: remove (or add newline above) to make it symmetric.",
+      "revId": "4307e46508509c2381af932df429f3fd541803bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d554843e_36f38db1",
+        "filename": "modules/video_coding/utility/simulcast_rate_allocator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-07-03T13:43:53Z",
+      "side": 1,
+      "message": "1? See below.",
+      "range": {
+        "startLine": 41,
+        "startChar": 27,
+        "endLine": 41,
+        "endChar": 28
+      },
+      "revId": "4307e46508509c2381af932df429f3fd541803bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e975799_b072de3a",
+        "filename": "modules/video_coding/utility/simulcast_rate_allocator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-07-03T13:43:53Z",
+      "side": 1,
+      "message": "Delete?",
+      "range": {
+        "startLine": 47,
+        "startChar": 4,
+        "endLine": 47,
+        "endChar": 19
+      },
+      "revId": "4307e46508509c2381af932df429f3fd541803bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e5de8a1_06bad8ab",
+        "filename": "modules/video_coding/utility/simulcast_rate_allocator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-07-03T13:43:53Z",
+      "side": 1,
+      "message": "I think this should be num_layers-1 ?",
+      "range": {
+        "startLine": 50,
+        "startChar": 30,
+        "endLine": 50,
+        "endChar": 40
+      },
+      "revId": "4307e46508509c2381af932df429f3fd541803bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

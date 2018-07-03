@@ -160,6 +160,35 @@ cricket::BasicPortAllocator* CreateBasicPortAllocator(
   allocator->SetConfiguration(stun_servers, turn_servers, 0, false);
   return allocator;
 }
+
+std::vector<cricket::Connection*> GetActiveCandidatePairs(
+    const std::vector<cricket::Connection*> candidate_pairs) {
+  std::vector<cricket::Connection*> active_candidate_pairs;
+  std::copy_if(candidate_pairs.begin(), candidate_pairs.end(),
+               std::back_inserter(active_candidate_pairs),
+               [](cricket::Connection* candidate_pair) {
+                 return candidate_pair->active();
+               });
+  return active_candidate_pairs;
+}
+
+bool HasCandidatePair(const std::vector<cricket::Connection*>& candidate_pairs,
+                      rtc::AdapterType local_network_type,
+                      rtc::AdapterType remote_network_type) {
+  auto it = std::find_if(
+      candidate_pairs.begin(), candidate_pairs.end(),
+      [local_network_type,
+       remote_network_type](cricket::Connection* candidate_pair) {
+        const cricket::Candidate& local_candidate =
+            candidate_pair->local_candidate();
+        const cricket::Candidate& remote_candidate =
+            candidate_pair->remote_candidate();
+        return local_candidate.network_type() == local_network_type &&
+               remote_candidate.network_type() == remote_network_type;
+      });
+  return it != candidate_pairs.end();
+}
+
 }  // namespace
 
 namespace cricket {
@@ -3093,6 +3122,105 @@ TEST_F(P2PTransportChannelMultihomedTest,
       LocalCandidate(ep1_ch1())->address().EqualIPs(kAlternateAddrs[0]));
 
   DestroyChannels();
+}
+
+// Tests that we keep one active candidate pair per each pair of local and
+// remote networks at the ice-controlling endpoint, if we signal the network
+// interface ids of candidates from the ice-controlled endpoint.
+TEST_F(P2PTransportChannelMultihomedTest,
+       HasActiveCandidatePairsPerPairOfLocalAndRemoteNetworks) {
+  rtc::ScopedFakeClock clock;
+  auto& wifi = kAlternateAddrs;
+  auto& cellular = kPublicAddrs;
+  AddAddress(0, wifi[0], "test_wifi0", rtc::ADAPTER_TYPE_WIFI);
+  AddAddress(0, cellular[0], "test_cell0", rtc::ADAPTER_TYPE_CELLULAR);
+  AddAddress(1, wifi[1], "test_wifi1", rtc::ADAPTER_TYPE_WIFI);
+  AddAddress(1, cellular[1], "test_cell1", rtc::ADAPTER_TYPE_CELLULAR);
+  // Use only local ports for simplicity.
+  SetAllocatorFlags(0, kOnlyLocalPorts);
+  SetAllocatorFlags(1, kOnlyLocalPorts);
+
+  IceConfig config = CreateIceConfig(1000, GATHER_CONTINUALLY);
+  CreateChannels(config, config);
+  EXPECT_TRUE_SIMULATED_WAIT(ep1_ch1()->receiving() && ep1_ch1()->writable() &&
+                                 ep2_ch1()->receiving() &&
+                                 ep2_ch1()->writable(),
+                             kMediumTimeout, clock);
+  EXPECT_TRUE(ep1_ch1()->selected_connection() &&
+              ep2_ch1()->selected_connection());
+  std::vector<Connection*> ep1_active_candidate_pairs =
+      GetActiveCandidatePairs(ep1_ch1()->connections());
+  std::vector<Connection*> ep2_active_candidate_pairs =
+      GetActiveCandidatePairs(ep2_ch1()->connections());
+  EXPECT_EQ(4u, ep1_active_candidate_pairs.size());
+  EXPECT_EQ(4u, ep2_active_candidate_pairs.size());
+  EXPECT_TRUE(HasCandidatePair(ep1_active_candidate_pairs,
+                               rtc::ADAPTER_TYPE_WIFI, rtc::ADAPTER_TYPE_WIFI));
+  EXPECT_TRUE(HasCandidatePair(ep1_active_candidate_pairs,
+                               rtc::ADAPTER_TYPE_WIFI,
+                               rtc::ADAPTER_TYPE_CELLULAR));
+  EXPECT_TRUE(HasCandidatePair(ep1_active_candidate_pairs,
+                               rtc::ADAPTER_TYPE_CELLULAR,
+                               rtc::ADAPTER_TYPE_WIFI));
+  EXPECT_TRUE(HasCandidatePair(ep1_active_candidate_pairs,
+                               rtc::ADAPTER_TYPE_CELLULAR,
+                               rtc::ADAPTER_TYPE_CELLULAR));
+  EXPECT_TRUE(HasCandidatePair(ep2_active_candidate_pairs,
+                               rtc::ADAPTER_TYPE_WIFI, rtc::ADAPTER_TYPE_WIFI));
+  EXPECT_TRUE(HasCandidatePair(ep2_active_candidate_pairs,
+                               rtc::ADAPTER_TYPE_WIFI,
+                               rtc::ADAPTER_TYPE_CELLULAR));
+  EXPECT_TRUE(HasCandidatePair(ep2_active_candidate_pairs,
+                               rtc::ADAPTER_TYPE_CELLULAR,
+                               rtc::ADAPTER_TYPE_WIFI));
+  EXPECT_TRUE(HasCandidatePair(ep2_active_candidate_pairs,
+                               rtc::ADAPTER_TYPE_CELLULAR,
+                               rtc::ADAPTER_TYPE_CELLULAR));
+}
+
+// Test that given two endpoints that each has two network interfaces, they can
+// fall back to use the less preferred pair of Cellular networks without ICE
+// restart, if both their WiFi interfaces lose connection.
+TEST_F(P2PTransportChannelMultihomedTest,
+       FallbackToCandidatePairOverCellularAfterWiFiDown) {
+  rtc::ScopedFakeClock clock;
+  auto& wifi = kAlternateAddrs;
+  auto& cellular = kPublicAddrs;
+  AddAddress(0, wifi[0], "test_wifi0", rtc::ADAPTER_TYPE_WIFI);
+  AddAddress(0, cellular[0], "test_cell0", rtc::ADAPTER_TYPE_CELLULAR);
+  AddAddress(1, wifi[1], "test_wifi1", rtc::ADAPTER_TYPE_WIFI);
+  AddAddress(1, cellular[1], "test_cell1", rtc::ADAPTER_TYPE_CELLULAR);
+  // Use only local ports for simplicity.
+  SetAllocatorFlags(0, kOnlyLocalPorts);
+  SetAllocatorFlags(1, kOnlyLocalPorts);
+
+  IceConfig config = CreateIceConfig(1000, GATHER_CONTINUALLY);
+  CreateChannels(config, config);
+  EXPECT_TRUE_SIMULATED_WAIT(ep1_ch1()->receiving() && ep1_ch1()->writable() &&
+                                 ep2_ch1()->receiving() &&
+                                 ep2_ch1()->writable(),
+                             kMediumTimeout, clock);
+  EXPECT_TRUE(
+      ep1_ch1()->selected_connection() &&
+      ep1_ch1()->selected_connection()->local_candidate().network_type() ==
+          rtc::ADAPTER_TYPE_WIFI &&
+      ep2_ch1()->selected_connection() &&
+      ep2_ch1()->selected_connection()->local_candidate().network_type() ==
+          rtc::ADAPTER_TYPE_WIFI);
+  fw()->AddRule(false, rtc::FP_ANY, rtc::FD_ANY, wifi[0]);
+  fw()->AddRule(false, rtc::FP_ANY, rtc::FD_ANY, wifi[1]);
+  SIMULATED_WAIT(false, 20000, clock);
+  EXPECT_TRUE_SIMULATED_WAIT(ep1_ch1()->receiving() && ep1_ch1()->writable() &&
+                                 ep2_ch1()->receiving() &&
+                                 ep2_ch1()->writable(),
+                             kMediumTimeout, clock);
+  EXPECT_TRUE(
+      ep1_ch1()->selected_connection() &&
+      ep1_ch1()->selected_connection()->local_candidate().network_type() ==
+          rtc::ADAPTER_TYPE_CELLULAR &&
+      ep2_ch1()->selected_connection() &&
+      ep2_ch1()->selected_connection()->local_candidate().network_type() ==
+          rtc::ADAPTER_TYPE_CELLULAR);
 }
 
 // A collection of tests which tests a single P2PTransportChannel by sending

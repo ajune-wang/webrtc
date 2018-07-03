@@ -140,6 +140,30 @@
       "revId": "022cb1c60040831d40bfc5357df484d4e01cff8d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66306706_c8ec410a",
+        "filename": "sdk/android/api/org/webrtc/PeerConnectionDependencies.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-07-03T06:52:43Z",
+      "side": 1,
+      "message": "You should be able to make it package protected?",
+      "parentUuid": "48a72d49_558c5b83",
+      "range": {
+        "startLine": 36,
+        "startChar": 2,
+        "endLine": 36,
+        "endChar": 9
+      },
+      "revId": "022cb1c60040831d40bfc5357df484d4e01cff8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

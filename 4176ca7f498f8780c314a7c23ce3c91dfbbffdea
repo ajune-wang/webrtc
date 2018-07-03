@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1bb51857_0521b5d0",
+        "filename": "api/rtpreceiverinterface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-07-03T10:02:09Z",
+      "side": 1,
+      "message": "I noticed we have an RTC_DEPRECATED macro, but it\u0027s too early to add that without breakages.",
+      "revId": "4176ca7f498f8780c314a7c23ce3c91dfbbffdea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9d3c634_e921c873",
+        "filename": "pc/rtpreceiver.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-07-03T10:02:09Z",
+      "side": 1,
+      "message": "Bikeshedding:\n\nPass setter-like arguments by value to allow std::move()? Or \"don\u0027t care for small objects like IDs\"?\n\n(In this case we can end up with an unnecessary copy because the other constructor takes it by const\u0026 but it shouldn\u0027t and I don\u0027t want to touch signatures now or later, the old constructor will go away in the future.)",
+      "revId": "4176ca7f498f8780c314a7c23ce3c91dfbbffdea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

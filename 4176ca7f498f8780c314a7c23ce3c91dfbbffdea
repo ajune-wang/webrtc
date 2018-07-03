@@ -19,6 +19,93 @@
     },
     {
       "key": {
+        "uuid": "5d67d1d4_a7397d4d",
+        "filename": "api/rtpreceiverinterface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-07-03T18:42:12Z",
+      "side": 1,
+      "message": "Would you rather do this as opposed to just removing the API? It generates errors when compiling either way so I don\u0027t see much of a diffference, although it does have a better error message. WDYT?",
+      "parentUuid": "1bb51857_0521b5d0",
+      "revId": "4176ca7f498f8780c314a7c23ce3c91dfbbffdea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0648042_77ca87a3",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2462,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-07-03T18:42:12Z",
+      "side": 1,
+      "message": "Add a TODO(webrtc.bugs/9480) here? \n\nIt will be a little trickier here keeping support for OnRemovedStream, but removing support for streams(). When you remove support for remote_streams(), you\u0027ll be looping through stream_ids() instead of streams(). The problem is that the MediaStream object keeps track of how many references it has to it when SetStreams() is called. I think you\u0027ll have to make sure none of the other receivers reference the stream id.",
+      "range": {
+        "startLine": 2462,
+        "startChar": 27,
+        "endLine": 2462,
+        "endChar": 40
+      },
+      "revId": "4176ca7f498f8780c314a7c23ce3c91dfbbffdea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d514e027_5e169928",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2494,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-07-03T18:42:12Z",
+      "side": 1,
+      "message": "How do you think we should remove this? Seems like we have two options.\n1. Change API to give stream ids\n2. Get stream_ids from receiver. For each stream_id, make the appropriate MediaStream object, by looping through all the receivers that reference that MediaStream \u0026 adding their tracks.\n\nAs long as the Plan B callbacks stick around we\u0027re going to have to keep the MediaStream object.",
+      "range": {
+        "startLine": 2494,
+        "startChar": 53,
+        "endLine": 2494,
+        "endChar": 60
+      },
+      "revId": "4176ca7f498f8780c314a7c23ce3c91dfbbffdea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a35b2b42_78ccc8fb",
+        "filename": "pc/rtpreceiver.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-07-03T18:42:12Z",
+      "side": 1,
+      "message": "There is a problem I see here switching to this. When we apply a remote description with Plan B (PeerConnection::OnRemoteSenderAdded), we lookup the remote stream and create the receiver with it. This way, multiple receivers can reference the same remote stream. This is necessary for both OnAddStream for the stream to have multiple track, and OnRemoveStream (PeerConnection::UpdateEndedRemoteMediaStreams) in order to remove the stream when receivers are no longer referencing the stream.\n\nI think the summary is if we want to continue to support OnRemoveStream/OnAddStream, then we need to keep track of the mapping of stream_id--\u003etrack/receiver. We can do this by calling MediaStream::AddTrack, when we create a receiver \u0026 set its stream IDs.",
+      "range": {
+        "startLine": 48,
+        "startChar": 18,
+        "endLine": 48,
+        "endChar": 34
+      },
+      "revId": "4176ca7f498f8780c314a7c23ce3c91dfbbffdea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c9d3c634_e921c873",
         "filename": "pc/rtpreceiver.cc",
         "patchSetId": 2
@@ -30,6 +117,47 @@
       "writtenOn": "2018-07-03T10:02:09Z",
       "side": 1,
       "message": "Bikeshedding:\n\nPass setter-like arguments by value to allow std::move()? Or \"don\u0027t care for small objects like IDs\"?\n\n(In this case we can end up with an unnecessary copy because the other constructor takes it by const\u0026 but it shouldn\u0027t and I don\u0027t want to touch signatures now or later, the old constructor will go away in the future.)",
+      "revId": "4176ca7f498f8780c314a7c23ce3c91dfbbffdea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fce4a6f5_959cec13",
+        "filename": "pc/rtpreceiver.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-07-03T18:42:12Z",
+      "side": 1,
+      "message": "Are you asking about passing by value to the constructor \u0026 CreateSTreamsFromIds? I don\u0027t care either way there.\n\nIt\u0027s probably isn\u0027t worth optimizing anything for the old constructor since it\u0027s just going to be removed.",
+      "parentUuid": "c9d3c634_e921c873",
+      "revId": "4176ca7f498f8780c314a7c23ce3c91dfbbffdea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b85131c_1a78d742",
+        "filename": "pc/rtpreceiver.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-07-03T18:42:12Z",
+      "side": 1,
+      "message": "nit: TODO(bugs.webrtc/9480), as opposed to TODO(hbos). Same in other places as well.",
+      "range": {
+        "startLine": 64,
+        "startChar": 5,
+        "endLine": 64,
+        "endChar": 10
+      },
       "revId": "4176ca7f498f8780c314a7c23ce3c91dfbbffdea",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

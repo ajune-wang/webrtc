@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ef6fe3f7_29754483",
+        "filename": "api/fakemetricsobserver.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-07-03T02:58:49Z",
+      "side": 1,
+      "message": "After more clean up in the new patch, there is no user of FakeMetricsObserver left in WebRTC, and thus I have removed FakeMetricsObserver and its files in the new patch.",
+      "parentUuid": "b06a94b2_7e6f0867",
+      "revId": "4b39ee2e5d60f775fbdf4febcfb5eabb8b576cc3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c6b37c29_1b4ca00a",
         "filename": "api/umametrics.h",
         "patchSetId": 19
@@ -33,6 +51,24 @@
       "revId": "4b39ee2e5d60f775fbdf4febcfb5eabb8b576cc3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7634e52_7dbd3e52",
+        "filename": "api/umametrics.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-07-03T02:58:49Z",
+      "side": 1,
+      "message": "In the new patch, I have restored the definition of MetricsObserverInterface but changed all methods to pure virtuals. This allows the Chromium to compile (with an override there) without having anything else implementing this in WebRTC. I have a stacked CL as mentioned in the top-level comment to remove the override in Chromium and the related injection code.",
+      "parentUuid": "c6b37c29_1b4ca00a",
+      "revId": "4b39ee2e5d60f775fbdf4febcfb5eabb8b576cc3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +107,24 @@
     },
     {
       "key": {
+        "uuid": "9b5aa37d_7f3410bd",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 5943,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-07-03T02:58:49Z",
+      "side": 1,
+      "message": "Ack to Taylor\u0027s comment on our default implementation. I believe we can remove the awkward boundary argument for the _SPARSE with some minor refactoring. I added a TODO to remind myself to follow up in a different CL.\n\nHarald, I have landed a CL in Chromium to implement this macro using the Chromium base::SparseHistogram (https://chromium-review.googlesource.com/c/chromium/src/+/1115503). Please let me know if I should be aware of any other memory footprint.",
+      "parentUuid": "ee51c50b_78fb44c3",
+      "revId": "4b39ee2e5d60f775fbdf4febcfb5eabb8b576cc3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c519724f_45838a30",
         "filename": "pc/peerconnection_integrationtest.cc",
         "patchSetId": 19
@@ -88,6 +142,24 @@
     },
     {
       "key": {
+        "uuid": "0c41aa99_3abff54e",
+        "filename": "pc/peerconnection_integrationtest.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 4619,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-07-03T02:58:49Z",
+      "side": 1,
+      "message": "Ah, I see. I was confused by the merge conflict in one of the patches, and didn\u0027t resolve it correctly. Thanks for catching this.",
+      "parentUuid": "c519724f_45838a30",
+      "revId": "4b39ee2e5d60f775fbdf4febcfb5eabb8b576cc3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4597003c_0a4edbba",
         "filename": "pc/srtpsession.cc",
         "patchSetId": 19
@@ -99,6 +171,24 @@
       "writtenOn": "2018-06-29T06:23:13Z",
       "side": 1,
       "message": "This one is interesting. Did the stats show that we were counting these events twice?",
+      "revId": "4b39ee2e5d60f775fbdf4febcfb5eabb8b576cc3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "052bfe51_365f72e5",
+        "filename": "pc/srtpsession.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-07-03T02:58:49Z",
+      "side": 1,
+      "message": "Logging this error also using the macro is a very recent change (https://webrtc-review.googlesource.com/c/src/+/83565). I just realized that it is not logged twice, since the Chromium name is WebRTC.PeerConnection.SrtpUnprotectedError (\"Srtp\" and \"Unprotected\" swapped). We also need to change the name back to the Chromium one in this CL, and let our downprojects that consume the \"UnprotectedSrtpError\" name to change. Fixed it in the new patch.",
+      "parentUuid": "4597003c_0a4edbba",
       "revId": "4b39ee2e5d60f775fbdf4febcfb5eabb8b576cc3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

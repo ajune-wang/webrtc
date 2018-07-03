@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ef17941e_fbd392c1",
+        "filename": "rtc_base/checks.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-07-03T09:35:05Z",
+      "side": 1,
+      "message": "The new arg type is a bit special, since it doesn\u0027t represent the type of one argument, but rather modifies how the following two arguments are handled. Please document.",
+      "revId": "4403b38cbedc585fdef54688e4a91c957cda3c53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

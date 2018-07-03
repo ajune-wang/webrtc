@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "bbc57681_95387cee",
+        "filename": "modules/audio_coding/neteq/red_payload_splitter_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-07-03T11:08:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e251228c_a044d793",
+      "range": {
+        "startLine": 324,
+        "startChar": 20,
+        "endLine": 324,
+        "endChar": 26
+      },
+      "revId": "6b601d8e29755e98bd49c21062079b2f57037304",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d683df81_44371bc6",
         "filename": "modules/audio_coding/neteq/red_payload_splitter_unittest.cc",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "6b601d8e29755e98bd49c21062079b2f57037304",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67134df8_68dec8e9",
+        "filename": "modules/audio_coding/neteq/red_payload_splitter_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-07-03T11:08:22Z",
+      "side": 1,
+      "message": "This is just a copy-paste from line 302 above. But, the difference is whether the object will be default-initialized (without \u0027()\u0027) or value-initialized (with \u0027()\u0027). It will call the ctor for RefCountedObject in any case. See https://stackoverflow.com/questions/620137/do-the-parentheses-after-the-type-name-make-a-difference-with-new.",
+      "parentUuid": "d683df81_44371bc6",
+      "range": {
+        "startLine": 336,
+        "startChar": 55,
+        "endLine": 336,
+        "endChar": 57
+      },
+      "revId": "6b601d8e29755e98bd49c21062079b2f57037304",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

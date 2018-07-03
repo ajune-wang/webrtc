@@ -22,6 +22,30 @@
       "revId": "9f2e62402443acc8ffbb0dd0cd3e2e15461951e6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "158609e3_02c91eff",
+        "filename": "media/engine/simulcast.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-07-03T14:27:59Z",
+      "side": 0,
+      "message": "Previously, yes. \nwebrtc::kLayerRateAllocation[3] contains the rates for 4 temporal layers.\n\nThe new getter takes the number of temporal layers as argument, rather than num - 1.",
+      "parentUuid": "2343a932_ad37f193",
+      "range": {
+        "startLine": 253,
+        "startChar": 38,
+        "endLine": 253,
+        "endChar": 41
+      },
+      "revId": "9f2e62402443acc8ffbb0dd0cd3e2e15461951e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

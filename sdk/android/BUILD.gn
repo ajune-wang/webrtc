@@ -55,7 +55,7 @@ generate_jar_jni("generated_external_classes_jni") {
 # Internal code that is needed by native_api_jni. The code cannot be placed in
 # base_jni because native_api_jni depends on the code (and base_jni depends on
 # native_api_jni).
-rtc_source_set("internal_jni") {
+rtc_static_library("internal_jni") {
   sources = [
     "src/jni/jvm.cc",
     "src/jni/jvm.h",
@@ -66,7 +66,7 @@ rtc_source_set("internal_jni") {
   ]
 }
 
-rtc_source_set("base_jni") {
+rtc_static_library("base_jni") {
   visibility = [ "*" ]
   sources = [
     "src/jni/androidhistogram.cc",
@@ -110,7 +110,7 @@ rtc_static_library("audio_jni") {
   ]
 }
 
-rtc_source_set("native_api_audio_device_module") {
+rtc_static_library("native_api_audio_device_module") {
   visibility = [ "*" ]
 
   sources = [
@@ -133,9 +133,7 @@ rtc_source_set("native_api_audio_device_module") {
   }
 }
 
-rtc_source_set("audio_device_module_base") {
-  visibility = [ "*" ]
-
+rtc_static_library("audio_device_module_base") {
   sources = [
     "src/jni/audio_device/audio_common.h",
     "src/jni/audio_device/audio_device_module.cc",
@@ -155,8 +153,7 @@ rtc_source_set("audio_device_module_base") {
 }
 
 if (rtc_enable_android_aaudio) {
-  rtc_source_set("aaudio_audio_device_module") {
-    visibility = [ "*" ]
+  rtc_static_library("aaudio_audio_device_module") {
     defines = [ "AUDIO_DEVICE_INCLUDE_ANDROID_AAUDIO" ]
     sources = [
       "src/jni/audio_device/aaudio_player.cc",
@@ -182,8 +179,7 @@ if (rtc_enable_android_aaudio) {
   }
 }
 
-rtc_source_set("opensles_audio_device_module") {
-  visibility = [ "*" ]
+rtc_static_library("opensles_audio_device_module") {
   sources = [
     "src/jni/audio_device/opensles_common.cc",
     "src/jni/audio_device/opensles_common.h",
@@ -205,9 +201,7 @@ rtc_source_set("opensles_audio_device_module") {
   ]
 }
 
-rtc_source_set("java_audio_device_module") {
-  visibility = [ "*" ]
-
+rtc_static_library("java_audio_device_module") {
   sources = [
     "src/jni/audio_device/audio_record_jni.cc",
     "src/jni/audio_device/audio_record_jni.h",
@@ -512,7 +506,6 @@ generate_jni("generated_logging_jni") {
 }
 
 rtc_static_library("logging_jni") {
-  visibility = [ "*" ]
   sources = [
     "src/jni/logging/logsink.cc",
     "src/jni/logging/logsink.h",
@@ -812,7 +805,7 @@ rtc_android_library("java_audio_device_module_java") {
 }
 
 # JNI target for java_audio_device_module_java
-rtc_source_set("java_audio_device_module_jni") {
+rtc_static_library("java_audio_device_module_jni") {
   sources = [
     "src/jni/audio_device/java_audio_device_module.cc",
   ]
@@ -1306,7 +1299,7 @@ rtc_android_library("native_unittests_java") {
   ]
 }
 
-rtc_source_set("native_unittests") {
+rtc_static_library("native_unittests") {
   testonly = true
 
   sources = [

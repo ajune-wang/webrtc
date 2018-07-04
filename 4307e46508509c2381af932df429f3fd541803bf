@@ -102,6 +102,24 @@
     },
     {
       "key": {
+        "uuid": "07b00da3_22c089d7",
+        "filename": "modules/video_coding/utility/simulcast_rate_allocator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-07-04T08:08:26Z",
+      "side": 1,
+      "message": "Ah, gotcha :)",
+      "parentUuid": "e0e7d102_aae50d18",
+      "revId": "4307e46508509c2381af932df429f3fd541803bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d554843e_36f38db1",
         "filename": "modules/video_coding/utility/simulcast_rate_allocator.cc",
         "patchSetId": 1

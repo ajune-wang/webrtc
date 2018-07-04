@@ -84,6 +84,24 @@
     },
     {
       "key": {
+        "uuid": "e0e7d102_aae50d18",
+        "filename": "modules/video_coding/utility/simulcast_rate_allocator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-07-04T06:50:31Z",
+      "side": 1,
+      "message": "Ah, I meant for the \"} // namespace\" thing!  But that was another nit nicely fixed :)\n\nnamespace {\nxyz\n   \u003c-- remove\n}  // namespace",
+      "parentUuid": "1df404c8_0735dbb9",
+      "revId": "4307e46508509c2381af932df429f3fd541803bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d554843e_36f38db1",
         "filename": "modules/video_coding/utility/simulcast_rate_allocator.cc",
         "patchSetId": 1

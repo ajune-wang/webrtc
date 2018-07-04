@@ -22,6 +22,30 @@
       "revId": "46b3fe1415a2f7abadcc843730d2ae5b930eeb87",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d4f5c1d_e72b5c0e",
+        "filename": "modules/third_party/g711/README.chromium",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-07-04T09:20:21Z",
+      "side": 1,
+      "message": "Discussed by person. Let\u0027s keep the .chromium suffix around.",
+      "parentUuid": "75284d5f_33877055",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 43
+      },
+      "revId": "46b3fe1415a2f7abadcc843730d2ae5b930eeb87",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

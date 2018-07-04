@@ -22,6 +22,30 @@
       "revId": "eb56668b8ccbdae9dc078ba660e8abbbe2e557a2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06421254_c77663cf",
+        "filename": "modules/third_party/portaudio/BUILD.gn",
+        "patchSetId": 5
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2018-07-04T11:21:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e7c16ccd_d1340ab1",
+      "range": {
+        "startLine": 12,
+        "startChar": 24,
+        "endLine": 12,
+        "endChar": 71
+      },
+      "revId": "eb56668b8ccbdae9dc078ba660e8abbbe2e557a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

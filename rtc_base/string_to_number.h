@@ -45,9 +45,11 @@ namespace string_to_number_internal {
 // These must be (unsigned) long long, to match the signature of strto(u)ll.
 using unsigned_type = unsigned long long;  // NOLINT(runtime/int)
 using signed_type = long long;             // NOLINT(runtime/int)
+using floating_point_type = long double;
 
 absl::optional<signed_type> ParseSigned(const char* str, int base);
 absl::optional<unsigned_type> ParseUnsigned(const char* str, int base);
+absl::optional<floating_point_type> ParseFloatingPoint(const char*);
 }  // namespace string_to_number_internal
 
 template <typename T>
@@ -82,6 +84,24 @@ StringToNumber(const char* str, int base = 10) {
                 "unsigned long long int");
   absl::optional<unsigned_type> value =
       string_to_number_internal::ParseUnsigned(str, base);
+  if (value && *value <= std::numeric_limits<T>::max()) {
+    return static_cast<T>(*value);
+  }
+  return absl::nullopt;
+}
+
+template <typename T>
+typename std::enable_if<std::is_floating_point<T>::value,
+                        absl::optional<T>>::type
+StringToNumber(const char* str, int base = 10) {
+  using string_to_number_internal::floating_point_type;
+  static_assert(std::numeric_limits<T>::max() <=
+                    std::numeric_limits<floating_point_type>::max(),
+                "StringToNumber only supports floating-point numbers as large "
+                "as unsigned long double");
+
+  absl::optional<floating_point_type> value =
+      string_to_number_internal::ParseFloatingPoint(str);
   if (value && *value <= std::numeric_limits<T>::max()) {
     return static_cast<T>(*value);
   }

@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9d176248_3f5cd161",
+        "filename": "rtc_base/string_to_number.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-07-04T11:10:24Z",
+      "side": 1,
+      "message": "I don\u0027t think you need this alias. They\u0027re useful for the integer types since we can then have //NOLINT in just one place, but that\u0027s not a problem for floating-point types.",
+      "revId": "b2e84a92e3becd7163ec472a30e4b1c6b5e585d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86d0567f_17610838",
+        "filename": "rtc_base/string_to_number.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-07-04T11:10:24Z",
+      "side": 1,
+      "message": "Floating-point numbers can also be negative, and too close to zero (although I guess in that case we\u0027d want to round to zero).\n\nI would recommend that you simply make three versions of ParseFloatingPoint, so that you don\u0027t have to convert.",
+      "revId": "b2e84a92e3becd7163ec472a30e4b1c6b5e585d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7374ff6_23676fb4",
+        "filename": "rtc_base/stringencode.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-07-04T11:10:24Z",
+      "side": 1,
+      "message": "As soon as we can use absl::StrCat, we can get rid of all of these. Add a TODO?",
+      "revId": "b2e84a92e3becd7163ec472a30e4b1c6b5e585d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14566c6d_e5fd68b0",
+        "filename": "rtc_base/stringencode.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-07-04T11:10:24Z",
+      "side": 1,
+      "message": "Top-level `const` is unnecessary in function declarations.",
+      "range": {
+        "startLine": 153,
+        "startChar": 33,
+        "endLine": 153,
+        "endChar": 38
+      },
+      "revId": "b2e84a92e3becd7163ec472a30e4b1c6b5e585d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd653f46_74383045",
+        "filename": "rtc_base/stringencode_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-07-04T11:10:24Z",
+      "side": 1,
+      "message": "Write this as `short{-123}` instead; it\u0027s shorter, and the compiler will complain if the value is out of range for the type.",
+      "range": {
+        "startLine": 364,
+        "startChar": 21,
+        "endLine": 364,
+        "endChar": 45
+      },
+      "revId": "b2e84a92e3becd7163ec472a30e4b1c6b5e585d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

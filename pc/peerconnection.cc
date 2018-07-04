@@ -1476,14 +1476,14 @@ PeerConnection::CreateReceiver(cricket::MediaType media_type,
       receiver;
   if (media_type == cricket::MEDIA_TYPE_AUDIO) {
     receiver = RtpReceiverProxyWithInternal<RtpReceiverInternal>::Create(
-        signaling_thread(),
-        new AudioRtpReceiver(worker_thread(), receiver_id, {}));
+        signaling_thread(), new AudioRtpReceiver(worker_thread(), receiver_id,
+                                                 std::vector<std::string>({})));
     NoteUsageEvent(UsageEvent::AUDIO_ADDED);
   } else {
     RTC_DCHECK_EQ(media_type, cricket::MEDIA_TYPE_VIDEO);
     receiver = RtpReceiverProxyWithInternal<RtpReceiverInternal>::Create(
-        signaling_thread(),
-        new VideoRtpReceiver(worker_thread(), receiver_id, {}));
+        signaling_thread(), new VideoRtpReceiver(worker_thread(), receiver_id,
+                                                 std::vector<std::string>({})));
     NoteUsageEvent(UsageEvent::VIDEO_ADDED);
   }
   return receiver;
@@ -2440,6 +2440,8 @@ RTCError PeerConnection::ApplyRemoteDescription(
           media_streams.push_back(stream);
         }
         // This will add the remote track to the streams.
+        // TODO(hbos): When we remove remote_streams(), use set_stream_ids()
+        // instead. https://crbug.com/webrtc/9480
         transceiver->internal()->receiver_internal()->SetStreams(media_streams);
         now_receiving_transceivers.push_back(transceiver);
       }
@@ -2454,9 +2456,12 @@ RTCError PeerConnection::ApplyRemoteDescription(
         std::vector<rtc::scoped_refptr<MediaStreamInterface>> media_streams =
             transceiver->internal()->receiver_internal()->streams();
         // This will remove the remote track from the streams.
-        transceiver->internal()->receiver_internal()->SetStreams({});
+        transceiver->internal()->receiver_internal()->set_stream_ids({});
         no_longer_receiving_transceivers.push_back(transceiver);
         // Remove any streams that no longer have tracks.
+        // TODO(https://crbug.com/webrtc/9480): When we use stream IDs instead
+        // of streams, see if the stream was removed by checking if this was the
+        // last receiver with that stream ID.
         for (auto stream : media_streams) {
           if (stream->GetAudioTracks().empty() &&
               stream->GetVideoTracks().empty()) {
@@ -3380,6 +3385,8 @@ void PeerConnection::CreateAudioReceiver(
     const RtpSenderInfo& remote_sender_info) {
   std::vector<rtc::scoped_refptr<MediaStreamInterface>> streams;
   streams.push_back(rtc::scoped_refptr<MediaStreamInterface>(stream));
+  // TODO(https://crbug.com/webrtc/9480): When we remove remote_streams(), use
+  // the constructor taking stream IDs instead.
   auto* audio_receiver = new AudioRtpReceiver(
       worker_thread(), remote_sender_info.sender_id, streams);
   audio_receiver->SetVoiceMediaChannel(voice_media_channel());
@@ -3396,6 +3403,8 @@ void PeerConnection::CreateVideoReceiver(
     const RtpSenderInfo& remote_sender_info) {
   std::vector<rtc::scoped_refptr<MediaStreamInterface>> streams;
   streams.push_back(rtc::scoped_refptr<MediaStreamInterface>(stream));
+  // TODO(https://crbug.com/webrtc/9480): When we remove remote_streams(), use
+  // the constructor taking stream IDs instead.
   auto* video_receiver = new VideoRtpReceiver(
       worker_thread(), remote_sender_info.sender_id, streams);
   video_receiver->SetVideoMediaChannel(video_media_channel());

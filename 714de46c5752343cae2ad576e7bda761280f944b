@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "11402b45_8270851f",
+        "filename": "sdk/objc/Framework/Native/src/audio/audio_device_module_ios.mm",
+        "patchSetId": 3
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-07-04T08:14:09Z",
+      "side": 1,
+      "message": "SetStereoRecording() is not implemented on iOS so this function will always return -1. Can you simplify the code?",
+      "range": {
+        "startLine": 295,
+        "startChar": 22,
+        "endLine": 295,
+        "endChar": 41
+      },
+      "revId": "714de46c5752343cae2ad576e7bda761280f944b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

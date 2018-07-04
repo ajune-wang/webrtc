@@ -200,6 +200,13 @@ public class HardwareVideoEncoderTest {
     }
 
     @Override
+    public VideoFrame.TextureBuffer applyTransformationMatrix(
+        Matrix transformMatrix, int newWidth, int newHeight) {
+      retain();
+      return new MockTextureBuffer(textureId, newWidth, newHeight, this ::release);
+    }
+
+    @Override
     public VideoFrame.Buffer cropAndScale(
         int cropX, int cropY, int cropWidth, int cropHeight, int scaleWidth, int scaleHeight) {
       retain();

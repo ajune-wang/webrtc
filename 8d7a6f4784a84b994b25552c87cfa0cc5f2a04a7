@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "41b6004c_2c2482f8",
+        "filename": "rtc_base/string_to_number.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-07-04T12:48:51Z",
+      "side": 1,
+      "message": "You can reduce code duplication here by making a template wrapper for std::strto{f,d,ld}: https://godbolt.org/g/rPdyPS",
+      "revId": "8d7a6f4784a84b994b25552c87cfa0cc5f2a04a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4877288_a3ab8982",
+        "filename": "rtc_base/stringencode.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-07-04T12:48:51Z",
+      "side": 1,
+      "message": "You may have top-level const on arguments in function *definitions*, because they serve a purpose here: The local variable is const in the function body, so that you can\u0027t mutate it. (You arguably don\u0027t *need* it here since the bodies are so short, but either way is good.)",
+      "revId": "8d7a6f4784a84b994b25552c87cfa0cc5f2a04a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

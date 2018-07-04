@@ -410,4 +410,90 @@ size_t split(const std::string& source,
   return fields->size();
 }
 
+std::string ToString(const bool b) {
+  return b ? "true" : "false";
+}
+
+std::string ToString(const char* const s) {
+  return std::string(s);
+}
+std::string ToString(const std::string s) {
+  return s;
+}
+
+std::string ToString(const short s) {
+  const size_t buffer_length = 32;
+  char buf[buffer_length];
+  std::snprintf(buf, buffer_length, "%hd", s);
+  return std::string(buf);
+}
+std::string ToString(const unsigned short s) {
+  const size_t buffer_length = 32;
+  char buf[buffer_length];
+  std::snprintf(buf, buffer_length, "%hu", s);
+  return std::string(buf);
+}
+std::string ToString(const int s) {
+  const size_t buffer_length = 32;
+  char buf[buffer_length];
+  std::snprintf(buf, buffer_length, "%d", s);
+  return std::string(buf);
+}
+std::string ToString(const unsigned int s) {
+  const size_t buffer_length = 32;
+  char buf[buffer_length];
+  std::snprintf(buf, buffer_length, "%u", s);
+  return std::string(buf);
+}
+std::string ToString(const long int s) {
+  const size_t buffer_length = 32;
+  char buf[buffer_length];
+  std::snprintf(buf, buffer_length, "%ld", s);
+  return std::string(buf);
+}
+std::string ToString(const unsigned long int s) {
+  const size_t buffer_length = 32;
+  char buf[buffer_length];
+  std::snprintf(buf, buffer_length, "%lu", s);
+  return std::string(buf);
+}
+std::string ToString(const long long int s) {
+  const size_t buffer_length = 32;
+  char buf[buffer_length];
+  std::snprintf(buf, buffer_length, "%lld", s);
+  return std::string(buf);
+}
+std::string ToString(const unsigned long long int s) {
+  const size_t buffer_length = 32;
+  char buf[buffer_length];
+  std::snprintf(buf, buffer_length, "%llu", s);
+  return std::string(buf);
+}
+
+std::string ToString(const double d) {
+  const size_t buffer_length = 32;
+  char buf[buffer_length];
+  std::snprintf(buf, buffer_length, "%g", d);
+  return std::string(buf);
+}
+
+std::string ToString(const void* const p) {
+  const size_t buffer_length = 32;
+  char buf[buffer_length];
+  std::snprintf(buf, buffer_length, "%p", p);
+  return std::string(buf);
+}
+
+bool FromString(const std::string& s, bool* b) {
+  if (s == "false") {
+    *b = false;
+    return true;
+  }
+  if (s == "true") {
+    *b = true;
+    return true;
+  }
+  return false;
+}
+
 }  // namespace rtc

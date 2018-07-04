@@ -22,6 +22,30 @@
       "revId": "8c4460a8a4c0666aa1181e3b14abacdbaf750a7f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5995c88_e75618f5",
+        "filename": "test/fuzzers/comfort_noise_decoder_fuzzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-07-04T09:02:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a90b0077_a1a5959a",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 19
+      },
+      "revId": "8c4460a8a4c0666aa1181e3b14abacdbaf750a7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

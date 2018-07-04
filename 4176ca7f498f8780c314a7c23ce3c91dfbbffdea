@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "ce946911_9c03af03",
+        "filename": "api/rtpreceiverinterface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-07-04T18:53:48Z",
+      "side": 1,
+      "message": "Oh lol, no you\u0027re right that seems kind of pointless. Let\u0027s nuke it when we can.",
+      "parentUuid": "5d67d1d4_a7397d4d",
+      "revId": "4176ca7f498f8780c314a7c23ce3c91dfbbffdea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a0648042_77ca87a3",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 2
@@ -57,6 +75,30 @@
       "revId": "4176ca7f498f8780c314a7c23ce3c91dfbbffdea",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b080c2b_98c8e9d0",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2462,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-07-04T18:53:48Z",
+      "side": 1,
+      "message": "Done. Yeah, in Chrome we loop through receivers to check if they contain the stream(/stream ID) to see if it was the first or last occurrence.",
+      "parentUuid": "a0648042_77ca87a3",
+      "range": {
+        "startLine": 2462,
+        "startChar": 27,
+        "endLine": 2462,
+        "endChar": 40
+      },
+      "revId": "4176ca7f498f8780c314a7c23ce3c91dfbbffdea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -83,6 +125,30 @@
     },
     {
       "key": {
+        "uuid": "e2b0da8e_da980d04",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2494,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-07-04T18:53:48Z",
+      "side": 1,
+      "message": "When we only care about stream_ids() we can remove the second argument because the receiver already says which stream_ids() it has. remote_streams() can either be deleted or changed to a helper function remote_stream_ids() that loops through receiver stream_ids() and takes care of removing duplicate IDs from the resulting list.\n\nUntil then, remote_streams_ contains the streams. When we create/update a receiver we see if we need to create any new stream objects and if so add them to remote_streams_.\n\nTo fire OnAddTrack() correctly we can easily look up the stream objects by their IDs. That way multiple receivers/multiple OnAddTracks() with the same streams fire with the same stream objects. Native apps can lookup stream objects from remote_streams() the same way given a receiver.",
+      "parentUuid": "d514e027_5e169928",
+      "range": {
+        "startLine": 2494,
+        "startChar": 53,
+        "endLine": 2494,
+        "endChar": 60
+      },
+      "revId": "4176ca7f498f8780c314a7c23ce3c91dfbbffdea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a35b2b42_78ccc8fb",
         "filename": "pc/rtpreceiver.cc",
         "patchSetId": 2
@@ -103,6 +169,30 @@
       "revId": "4176ca7f498f8780c314a7c23ce3c91dfbbffdea",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b76fd7eb_41a0476a",
+        "filename": "pc/rtpreceiver.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-07-04T18:53:48Z",
+      "side": 1,
+      "message": "I think we just need to update a few lines in peerconnection.cc where we use lookup by stream ID.\n\n// When adding a receiver\nreceivers_.push_back(receiver);\nfor (const auto\u0026 stream_id : receiver-\u003estream_ids()) {\n  auto* stream \u003d remote_streams_.find(stream_id);\n  if (!stream) {\n    stream \u003d MediaStream::Create(stream_id);\n    remote_streams_.push_back(stream);\n    added_streams_.push_back(stream);\n  }\n  stream-\u003eAddTrack(receiver-\u003etrack());\n  // \u003c\"stream.onaddtrack\" if stream wasn\u0027t just added?\u003e\n}\n\nYou can do the same for removing receivers. Either\n1. When you remove the track from the stream, check if the stream was empty, if so end it and remove it.\n2. After removing the receiver, see if any other receiver contains the stream IDs, if not end the streams and remove them.\n\n1 or 2 depending on if you care what will happen if the native app modifies the streams independently of peerconnection.cc.",
+      "parentUuid": "a35b2b42_78ccc8fb",
+      "range": {
+        "startLine": 48,
+        "startChar": 18,
+        "endLine": 48,
+        "endChar": 34
+      },
+      "revId": "4176ca7f498f8780c314a7c23ce3c91dfbbffdea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -161,6 +251,30 @@
       "revId": "4176ca7f498f8780c314a7c23ce3c91dfbbffdea",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c052f638_e9c2a027",
+        "filename": "pc/rtpreceiver.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-07-04T18:53:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b85131c_1a78d742",
+      "range": {
+        "startLine": 64,
+        "startChar": 5,
+        "endLine": 64,
+        "endChar": 10
+      },
+      "revId": "4176ca7f498f8780c314a7c23ce3c91dfbbffdea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a90b0077_a1a5959a",
+        "filename": "test/fuzzers/comfort_noise_decoder_fuzzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-07-04T08:15:48Z",
+      "side": 1,
+      "message": "Use the build target config instead:\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/test/fuzzers/BUILD.gn?sq\u003dpackage:chromium\u0026g\u003d0\u0026l\u003d496",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 19
+      },
+      "revId": "8c4460a8a4c0666aa1181e3b14abacdbaf750a7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

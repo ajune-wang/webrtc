@@ -120,7 +120,7 @@ class RtpTransceiverInterface : public rtc::RefCountInterface {
       rtc::ArrayView<RtpCodecCapability> codecs) = 0;
 
  protected:
-  virtual ~RtpTransceiverInterface() = default;
+  ~RtpTransceiverInterface() override = default;
 };
 
 }  // namespace webrtc

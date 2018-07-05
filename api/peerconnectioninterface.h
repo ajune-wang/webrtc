@@ -144,7 +144,7 @@ class StreamCollectionInterface : public rtc::RefCountInterface {
 
  protected:
   // Dtor protected as objects shouldn't be deleted via this interface.
-  ~StreamCollectionInterface() {}
+  ~StreamCollectionInterface() override {}
 };
 
 class StatsObserver : public rtc::RefCountInterface {
@@ -152,7 +152,7 @@ class StatsObserver : public rtc::RefCountInterface {
   virtual void OnComplete(const StatsReports& reports) = 0;
 
  protected:
-  virtual ~StatsObserver() {}
+  ~StatsObserver() override {}
 };
 
 enum class SdpSemantics { kPlanB, kUnifiedPlan };
@@ -670,20 +670,15 @@ class PeerConnectionInterface : public rtc::RefCountInterface {
   // implementations have been updated.
   virtual RTCErrorOr<rtc::scoped_refptr<RtpSenderInterface>> AddTrack(
       rtc::scoped_refptr<MediaStreamTrackInterface> track,
-      const std::vector<std::string>& stream_ids) {
-    return RTCError(RTCErrorType::UNSUPPORTED_OPERATION, "Not implemented");
-  }
+      const std::vector<std::string>& stream_ids);
+
   // |streams| indicates which stream ids the track should be associated
   // with.
   // TODO(steveanton): Remove this overload once callers have moved to the
   // signature with stream ids.
   virtual rtc::scoped_refptr<RtpSenderInterface> AddTrack(
       MediaStreamTrackInterface* track,
-      std::vector<MediaStreamInterface*> streams) {
-    // Default implementation provided so downstream implementations can remove
-    // this.
-    return nullptr;
-  }
+      std::vector<MediaStreamInterface*> streams);
 
   // Remove an RtpSender from this PeerConnection.
   // Returns true on success.
@@ -716,14 +711,10 @@ class PeerConnectionInterface : public rtc::RefCountInterface {
   // Errors:
   // - INVALID_PARAMETER: |track| is null.
   virtual RTCErrorOr<rtc::scoped_refptr<RtpTransceiverInterface>>
-  AddTransceiver(rtc::scoped_refptr<MediaStreamTrackInterface> track) {
-    return RTCError(RTCErrorType::INTERNAL_ERROR, "not implemented");
-  }
+  AddTransceiver(rtc::scoped_refptr<MediaStreamTrackInterface> track);
   virtual RTCErrorOr<rtc::scoped_refptr<RtpTransceiverInterface>>
   AddTransceiver(rtc::scoped_refptr<MediaStreamTrackInterface> track,
-                 const RtpTransceiverInit& init) {
-    return RTCError(RTCErrorType::INTERNAL_ERROR, "not implemented");
-  }
+                 const RtpTransceiverInit& init);
 
   // Adds a transceiver with the given kind. Can either be MEDIA_TYPE_AUDIO or
   // MEDIA_TYPE_VIDEO.
@@ -731,14 +722,9 @@ class PeerConnectionInterface : public rtc::RefCountInterface {
   // - INVALID_PARAMETER: |media_type| is not MEDIA_TYPE_AUDIO or
   //                      MEDIA_TYPE_VIDEO.
   virtual RTCErrorOr<rtc::scoped_refptr<RtpTransceiverInterface>>
-  AddTransceiver(cricket::MediaType media_type) {
-    return RTCError(RTCErrorType::INTERNAL_ERROR, "not implemented");
-  }
+  AddTransceiver(cricket::MediaType media_type);
   virtual RTCErrorOr<rtc::scoped_refptr<RtpTransceiverInterface>>
-  AddTransceiver(cricket::MediaType media_type,
-                 const RtpTransceiverInit& init) {
-    return RTCError(RTCErrorType::INTERNAL_ERROR, "not implemented");
-  }
+  AddTransceiver(cricket::MediaType media_type, const RtpTransceiverInit& init);
 
   // TODO(deadbeef): Make these pure virtual once all subclasses implement them.
 
@@ -758,9 +744,7 @@ class PeerConnectionInterface : public rtc::RefCountInterface {
   // AddTransceiver instead.
   virtual rtc::scoped_refptr<RtpSenderInterface> CreateSender(
       const std::string& kind,
-      const std::string& stream_id) {
-    return rtc::scoped_refptr<RtpSenderInterface>();
-  }
+      const std::string& stream_id);
 
   // If Plan B semantics are specified, gets all RtpSenders, created either
   // through AddStream, AddTrack, or CreateSender. All senders of a specific
@@ -769,9 +753,7 @@ class PeerConnectionInterface : public rtc::RefCountInterface {
   // If Unified Plan semantics are specified, gets the RtpSender for each
   // RtpTransceiver.
   virtual std::vector<rtc::scoped_refptr<RtpSenderInterface>> GetSenders()
-      const {
-    return std::vector<rtc::scoped_refptr<RtpSenderInterface>>();
-  }
+      const;
 
   // If Plan B semantics are specified, gets all RtpReceivers created when a
   // remote description is applied. All receivers of a specific media type share
@@ -782,9 +764,7 @@ class PeerConnectionInterface : public rtc::RefCountInterface {
   // If Unified Plan semantics are specified, gets the RtpReceiver for each
   // RtpTransceiver.
   virtual std::vector<rtc::scoped_refptr<RtpReceiverInterface>> GetReceivers()
-      const {
-    return std::vector<rtc::scoped_refptr<RtpReceiverInterface>>();
-  }
+      const;
 
   // Get all RtpTransceivers, created either through AddTransceiver, AddTrack or
   // by a remote description applied with SetRemoteDescription.
@@ -792,9 +772,7 @@ class PeerConnectionInterface : public rtc::RefCountInterface {
   // Note: This method is only available when Unified Plan is enabled (see
   // RTCConfiguration).
   virtual std::vector<rtc::scoped_refptr<RtpTransceiverInterface>>
-  GetTransceivers() const {
-    return {};
-  }
+  GetTransceivers() const;
 
   // The legacy non-compliant GetStats() API. This correspond to the
   // callback-based version of getStats() in JavaScript. The returned metrics
@@ -859,24 +837,14 @@ class PeerConnectionInterface : public rtc::RefCountInterface {
 
   // A "current" description the one currently negotiated from a complete
   // offer/answer exchange.
-  virtual const SessionDescriptionInterface* current_local_description() const {
-    return nullptr;
-  }
-  virtual const SessionDescriptionInterface* current_remote_description()
-      const {
-    return nullptr;
-  }
+  virtual const SessionDescriptionInterface* current_local_description() const;
+  virtual const SessionDescriptionInterface* current_remote_description() const;
 
   // A "pending" description is one that's part of an incomplete offer/answer
   // exchange (thus, either an offer or a pranswer). Once the offer/answer
   // exchange is finished, the "pending" description will become "current".
-  virtual const SessionDescriptionInterface* pending_local_description() const {
-    return nullptr;
-  }
-  virtual const SessionDescriptionInterface* pending_remote_description()
-      const {
-    return nullptr;
-  }
+  virtual const SessionDescriptionInterface* pending_local_description() const;
+  virtual const SessionDescriptionInterface* pending_remote_description() const;
 
   // Create a new offer.
   // The CreateSessionDescriptionObserver callback will be called when done.
@@ -918,9 +886,7 @@ class PeerConnectionInterface : public rtc::RefCountInterface {
 
   // TODO(deadbeef): Make this pure virtual once all Chrome subclasses of
   // PeerConnectionInterface implement it.
-  virtual PeerConnectionInterface::RTCConfiguration GetConfiguration() {
-    return PeerConnectionInterface::RTCConfiguration();
-  }
+  virtual PeerConnectionInterface::RTCConfiguration GetConfiguration();
 
   // Sets the PeerConnection's global configuration to |config|.
   //
@@ -947,15 +913,12 @@ class PeerConnectionInterface : public rtc::RefCountInterface {
   // PeerConnectionInterface implement it.
   virtual bool SetConfiguration(
       const PeerConnectionInterface::RTCConfiguration& config,
-      RTCError* error) {
-    return false;
-  }
+      RTCError* error);
+
   // Version without error output param for backwards compatibility.
   // TODO(deadbeef): Remove once chromium is updated.
   virtual bool SetConfiguration(
-      const PeerConnectionInterface::RTCConfiguration& config) {
-    return false;
-  }
+      const PeerConnectionInterface::RTCConfiguration& config);
 
   // Provides a remote candidate to the ICE Agent.
   // A copy of the |candidate| will be created and added to the remote
@@ -967,9 +930,7 @@ class PeerConnectionInterface : public rtc::RefCountInterface {
   // continual gathering, to avoid an ever-growing list of candidates as
   // networks come and go.
   virtual bool RemoveIceCandidates(
-      const std::vector<cricket::Candidate>& candidates) {
-    return false;
-  }
+      const std::vector<cricket::Candidate>& candidates);
 
   // Register a metric observer (used by chromium). It's reference counted, and
   // this method takes a reference. RegisterUMAObserver(nullptr) will release
@@ -990,24 +951,12 @@ class PeerConnectionInterface : public rtc::RefCountInterface {
   //
   // Setting |current_bitrate_bps| will reset the current bitrate estimate
   // to the provided value.
-  virtual RTCError SetBitrate(const BitrateSettings& bitrate) {
-    BitrateParameters bitrate_parameters;
-    bitrate_parameters.min_bitrate_bps = bitrate.min_bitrate_bps;
-    bitrate_parameters.current_bitrate_bps = bitrate.start_bitrate_bps;
-    bitrate_parameters.max_bitrate_bps = bitrate.max_bitrate_bps;
-    return SetBitrate(bitrate_parameters);
-  }
+  virtual RTCError SetBitrate(const BitrateSettings& bitrate);
 
   // TODO(nisse): Deprecated - use version above. These two default
   // implementations require subclasses to implement one or the other
   // of the methods.
-  virtual RTCError SetBitrate(const BitrateParameters& bitrate_parameters) {
-    BitrateSettings bitrate;
-    bitrate.min_bitrate_bps = bitrate_parameters.min_bitrate_bps;
-    bitrate.start_bitrate_bps = bitrate_parameters.current_bitrate_bps;
-    bitrate.max_bitrate_bps = bitrate_parameters.max_bitrate_bps;
-    return SetBitrate(bitrate);
-  }
+  virtual RTCError SetBitrate(const BitrateParameters& bitrate_parameters);
 
   // Sets current strategy. If not set default WebRTC allocator will be used.
   // May be changed during an active session. The strategy
@@ -1049,19 +998,14 @@ class PeerConnectionInterface : public rtc::RefCountInterface {
   // automatically after 10 minutes have passed, or when the StopRtcEventLog
   // function is called.
   // TODO(eladalon): Deprecate and remove this.
-  virtual bool StartRtcEventLog(rtc::PlatformFile file,
-                                int64_t max_size_bytes) {
-    return false;
-  }
+  virtual bool StartRtcEventLog(rtc::PlatformFile file, int64_t max_size_bytes);
 
   // Start RtcEventLog using an existing output-sink. Takes ownership of
   // |output| and passes it on to Call, which will take the ownership. If the
   // operation fails the output will be closed and deallocated. The event log
   // will send serialized events to the output object every |output_period_ms|.
   virtual bool StartRtcEventLog(std::unique_ptr<RtcEventLogOutput> output,
-                                int64_t output_period_ms) {
-    return false;
-  }
+                                int64_t output_period_ms);
 
   // Stops logging the RtcEventLog.
   // TODO(ivoc): Make this pure virtual when Chrome is updated.
@@ -1077,7 +1021,7 @@ class PeerConnectionInterface : public rtc::RefCountInterface {
 
  protected:
   // Dtor protected as objects shouldn't be deleted via this interface.
-  ~PeerConnectionInterface() {}
+  ~PeerConnectionInterface() override {}
 };
 
 // PeerConnection callback interface, used for RTCPeerConnection events.

@@ -39,6 +39,30 @@
       "revId": "0fdeec3bfcfb240f265974977a4eb61b13ed4dc4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f33929b_93cc6faa",
+        "filename": "rtc_base/stringencode.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 427,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-07-05T09:10:09Z",
+      "side": 1,
+      "message": "Almost. It returns\n\n  \"[the n]umber of characters that would have been written for a sufficiently large buffer if successful (not including the terminating null character), or a negative value if an error occurred. Thus, the (null-terminated) output has been completely written if and only if the returned value is nonnegative and less than buf_size.\"\n  --- https://en.cppreference.com/w/cpp/io/c/fprintf\n\nSo, since the buffer here is supposed to always be large enough, the right thing to do would be to DCHECK that the returned value is less than 32, and then use it as you suggest.",
+      "parentUuid": "1eb2d1b0_03ea0b4f",
+      "range": {
+        "startLine": 427,
+        "startChar": 7,
+        "endLine": 427,
+        "endChar": 15
+      },
+      "revId": "0fdeec3bfcfb240f265974977a4eb61b13ed4dc4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

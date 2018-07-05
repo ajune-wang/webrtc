@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d186c75f_e248d34d",
+        "filename": "modules/audio_processing/utility/delay_estimator_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-07-05T11:26:53Z",
+      "side": 1,
+      "message": "This change is required by a Chromium Clang checker. It is turned off for :audio_processing_unittests, but not for these newly created build targets. See bug webrtc:163 (!) for details.",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 27
+      },
+      "revId": "c0d64147b4b1eb7207fd13c90810a90ab6d2d663",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

@@ -164,6 +164,18 @@ public interface VideoEncoder {
   }
 
   /**
+   * Returns zero if the object is a Java-backed encoder that should be called
+   * through this Java interface. Otherwise, returns a non-zero integer
+   * representing a raw C++ pointer to the underlying native encoder.
+   */
+  @CalledByNative
+  default long getNativePointer() {
+    // TODO(brandtr): Remove default implementation when all downstream users
+    // have been updated.
+    return 0;
+  }
+
+  /**
    * Initializes the encoding process. Call before any calls to encode.
    */
   @CalledByNative VideoCodecStatus initEncode(Settings settings, Callback encodeCallback);

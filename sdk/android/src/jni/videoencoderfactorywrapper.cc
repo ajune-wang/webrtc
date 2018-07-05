@@ -17,6 +17,7 @@
 #include "sdk/android/native_api/jni/class_loader.h"
 #include "sdk/android/native_api/jni/java_types.h"
 #include "sdk/android/src/jni/videocodecinfo.h"
+#include "sdk/android/src/jni/videoencoderwrapper.h"
 #include "sdk/android/src/jni/wrappednativecodec.h"
 
 namespace webrtc {

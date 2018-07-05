@@ -148,6 +148,11 @@ class HardwareVideoEncoder implements VideoEncoder {
   }
 
   @Override
+  public long getNativePointer() {
+    return 0;
+  }
+
+  @Override
   public VideoCodecStatus initEncode(Settings settings, Callback callback) {
     encodeThreadChecker.checkIsOnValidThread();
 

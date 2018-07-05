@@ -52,6 +52,18 @@ public interface VideoDecoder {
   }
 
   /**
+   * Returns zero if the object is a Java-backed decoder that should be called
+   * through this Java interface. Otherwise, returns a non-zero integer
+   * representing a raw C++ pointer to the underlying native decoder.
+   */
+  @CalledByNative
+  default long getNativePointer() {
+    // TODO(brandtr): Remove default implementation when all downstream users
+    // have been updated.
+    return 0;
+  }
+
+  /**
    * Initializes the decoding process with specified settings. Will be called on the decoding thread
    * before any decode calls.
    */

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a308171_411aa345",
+        "filename": "sdk/android/api/org/webrtc/TextureBufferImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-07-05T11:34:42Z",
+      "side": 1,
+      "message": "There is only one order that makes sense, which is preConcat(). I added a comment trying to clarify it.",
+      "parentUuid": "e89ae7da_e35ea112",
+      "range": {
+        "startLine": 98,
+        "startChar": 44,
+        "endLine": 98,
+        "endChar": 88
+      },
+      "revId": "773bce0bf7f9fcdc6acc90cdb445ea45e0447823",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ded30796_832844dc",
         "filename": "sdk/android/api/org/webrtc/TextureBufferImpl.java",
         "patchSetId": 4
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "f6ab14df_658fbd8b",
+        "filename": "sdk/android/api/org/webrtc/TextureBufferImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-07-05T11:34:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ded30796_832844dc",
+      "range": {
+        "startLine": 101,
+        "startChar": 32,
+        "endLine": 101,
+        "endChar": 46
+      },
+      "revId": "773bce0bf7f9fcdc6acc90cdb445ea45e0447823",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "937d8131_aaf1fa3e",
         "filename": "sdk/android/src/java/org/webrtc/CameraSession.java",
         "patchSetId": 4
@@ -59,6 +107,30 @@
       "writtenOn": "2018-07-05T11:11:12Z",
       "side": 1,
       "message": "It is a bit strange these are not affected by the rotation. It seems it is because width/height are already set to the values they would be after the transformation in Camera2Session. Maybe consider adding this as a comment in the code.",
+      "range": {
+        "startLine": 68,
+        "startChar": 61,
+        "endLine": 68,
+        "endChar": 98
+      },
+      "revId": "773bce0bf7f9fcdc6acc90cdb445ea45e0447823",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d471f521_f77a60a5",
+        "filename": "sdk/android/src/java/org/webrtc/CameraSession.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-07-05T11:34:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "937d8131_aaf1fa3e",
       "range": {
         "startLine": 68,
         "startChar": 61,

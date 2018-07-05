@@ -174,6 +174,8 @@ class Camera1Session implements CameraSession {
     this.captureFormat = captureFormat;
     this.constructionTimeNs = constructionTimeNs;
 
+    surfaceTextureHelper.setTextureSize(captureFormat.width, captureFormat.height);
+
     startCapturing();
   }
 
@@ -247,19 +249,13 @@ class Camera1Session implements CameraSession {
   }
 
   private void listenForTextureFrames() {
-    surfaceTextureHelper.startListening(new SurfaceTextureHelper.OnTextureFrameAvailableListener() {
+    surfaceTextureHelper.startListening(new VideoSink() {
       @Override
-      public void onTextureFrameAvailable(
-          int oesTextureId, float[] transformMatrix, long timestampNs) {
+      public void onFrame(VideoFrame frame) {
         checkIsOnCameraThread();
-
-        final TextureBufferImpl buffer =
-            surfaceTextureHelper.createTextureBuffer(captureFormat.width, captureFormat.height,
-                RendererCommon.convertMatrixToAndroidGraphicsMatrix(transformMatrix));
 
         if (state != SessionState.RUNNING) {
           Logging.d(TAG, "Texture frame captured but camera is no longer running.");
-          buffer.release();
           return;
         }
 
@@ -272,14 +268,14 @@ class Camera1Session implements CameraSession {
 
         // Undo the mirror that the OS "helps" us with.
         // http://developer.android.com/reference/android/hardware/Camera.html#setDisplayOrientation(int)
-        final VideoFrame frame = new VideoFrame(
-            CameraSession.createTextureBufferWithModifiedTransformMatrix(buffer,
+        final VideoFrame modifiedFrame = new VideoFrame(
+            CameraSession.createTextureBufferWithModifiedTransformMatrix(
+                (TextureBufferImpl) frame.getBuffer(),
                 /* mirror= */ info.facing == android.hardware.Camera.CameraInfo.CAMERA_FACING_FRONT,
                 /* rotation= */ 0),
-            /* rotation= */ getFrameOrientation(), timestampNs);
-        buffer.release();
-        events.onFrameCaptured(Camera1Session.this, frame);
-        frame.release();
+            /* rotation= */ getFrameOrientation(), frame.getTimestampNs());
+        events.onFrameCaptured(Camera1Session.this, modifiedFrame);
+        modifiedFrame.release();
       }
     });
   }

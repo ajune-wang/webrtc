@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3aa1dc59_2899a7a3",
+        "filename": "api/datachannelinterface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-07-05T08:49:16Z",
+      "side": 1,
+      "message": "Prefer to say \u003ddefault; instead of {} when you want an empty destructor body. That way, the destructor will count as trivial, which can help the compiler sometimes.",
+      "range": {
+        "startLine": 173,
+        "startChar": 35,
+        "endLine": 173,
+        "endChar": 37
+      },
+      "revId": "9e3615f3f0f05da99f020173da0dfe9244d137ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

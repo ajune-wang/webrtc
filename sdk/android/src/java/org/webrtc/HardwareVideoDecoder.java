@@ -146,6 +146,11 @@ class HardwareVideoDecoder
   }
 
   @Override
+  public long getNativePointer() {
+    return 0;
+  }
+
+  @Override
   public VideoCodecStatus initDecode(Settings settings, Callback callback) {
     this.decoderThreadChecker = new ThreadChecker();
 

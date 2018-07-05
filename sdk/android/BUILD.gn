@@ -283,7 +283,6 @@ generate_jni("generated_video_jni") {
     "src/java/org/webrtc/VideoDecoderWrapper.java",
     "src/java/org/webrtc/VideoEncoderWrapper.java",
     "src/java/org/webrtc/WrappedNativeI420Buffer.java",
-    "src/java/org/webrtc/WrappedNativeVideoDecoder.java",
     "src/java/org/webrtc/WrappedNativeVideoEncoder.java",
   ]
   jni_package = ""

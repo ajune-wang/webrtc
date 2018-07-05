@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e89ae7da_e35ea112",
+        "filename": "sdk/android/api/org/webrtc/TextureBufferImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-07-05T11:11:12Z",
+      "side": 1,
+      "message": "nit: Can you add a comment clarifying in what order the matrices are applied.",
+      "range": {
+        "startLine": 98,
+        "startChar": 44,
+        "endLine": 98,
+        "endChar": 88
+      },
+      "revId": "773bce0bf7f9fcdc6acc90cdb445ea45e0447823",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ded30796_832844dc",
+        "filename": "sdk/android/api/org/webrtc/TextureBufferImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-07-05T11:11:12Z",
+      "side": 1,
+      "message": "nit: We use \"Transform\" everywhere else so maybe stick to it.",
+      "range": {
+        "startLine": 101,
+        "startChar": 32,
+        "endLine": 101,
+        "endChar": 46
+      },
+      "revId": "773bce0bf7f9fcdc6acc90cdb445ea45e0447823",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "937d8131_aaf1fa3e",
+        "filename": "sdk/android/src/java/org/webrtc/CameraSession.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-07-05T11:11:12Z",
+      "side": 1,
+      "message": "It is a bit strange these are not affected by the rotation. It seems it is because width/height are already set to the values they would be after the transformation in Camera2Session. Maybe consider adding this as a comment in the code.",
+      "range": {
+        "startLine": 68,
+        "startChar": 61,
+        "endLine": 68,
+        "endChar": 98
+      },
+      "revId": "773bce0bf7f9fcdc6acc90cdb445ea45e0447823",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

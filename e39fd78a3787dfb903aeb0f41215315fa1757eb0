@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "be1c7bec_a7453d49",
+        "filename": "sdk/android/api/org/webrtc/VideoEncoder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-07-05T14:27:48Z",
+      "side": 1,
+      "message": "Let me know if you have suggestions for a better name here.",
+      "range": {
+        "startLine": 172,
+        "startChar": 15,
+        "endLine": 172,
+        "endChar": 31
+      },
+      "revId": "e39fd78a3787dfb903aeb0f41215315fa1757eb0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

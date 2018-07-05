@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "64584680_4ed16ea2",
+        "filename": "modules/include/module_common_types.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-07-05T11:42:43Z",
+      "side": 1,
+      "message": "We are not DCHECKing currently, and since this is temporary I don\u0027t think it\u0027s worth adding.",
+      "parentUuid": "2414a38a_7dbbc8c5",
+      "range": {
+        "startLine": 51,
+        "startChar": 54,
+        "endLine": 51,
+        "endChar": 0
+      },
+      "revId": "692be4673b559e47023166b99fa3fcf04fa6f2fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e53a5364_de99809e",
         "filename": "modules/include/module_common_types.h",
         "patchSetId": 1
@@ -83,6 +107,30 @@
       "writtenOn": "2018-07-05T11:11:36Z",
       "side": 1,
       "message": "do you plan to change this type back to just variant instead of full header?\neither way, 1st parameter is duplicated in RTPVideoHeader now.",
+      "range": {
+        "startLine": 24,
+        "startChar": 43,
+        "endLine": 24,
+        "endChar": 57
+      },
+      "revId": "692be4673b559e47023166b99fa3fcf04fa6f2fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de56d317_d35df830",
+        "filename": "modules/rtp_rtcp/source/rtp_format.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-07-05T11:42:43Z",
+      "side": 1,
+      "message": "Yes, I plan on changing this back to take a variant",
+      "parentUuid": "c9f922ce_278b61cb",
       "range": {
         "startLine": 24,
         "startChar": 43,

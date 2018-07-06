@@ -71,6 +71,11 @@ struct CodecSpecificInfoGeneric {
 struct CodecSpecificInfoH264 {
   H264PacketizationMode packetization_mode;
   uint8_t simulcast_idx;
+  uint8_t temporal_layer_count;
+  uint8_t temporal_idx;
+  uint8_t tl0_pic_idx;
+  bool base_layer_sync;
+  bool idr_frame;
 };
 
 union CodecSpecificInfoUnion {

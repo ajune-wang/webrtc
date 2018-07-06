@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c8842b04_8a0a4cc5",
+        "filename": "sdk/android/api/org/webrtc/SurfaceTextureHelper.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-07-06T07:59:19Z",
+      "side": 1,
+      "message": "This kind of inheritance is generally frowned upon. It would be cleaner to just call setDefaultBufferSize from set setTextureSize.",
+      "range": {
+        "startLine": 134,
+        "startChar": 18,
+        "endLine": 134,
+        "endChar": 38
+      },
+      "revId": "a4dbe4e785a9b89e9782ffed14430a70ecc14c7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38b8c875_7d35885e",
+        "filename": "sdk/android/api/org/webrtc/SurfaceTextureHelper.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-07-06T07:59:19Z",
+      "side": 1,
+      "message": "I would prefer if ... else if so we won\u0027t trigger twice if the listener implements both interfaces.",
+      "range": {
+        "startLine": 313,
+        "startChar": 3,
+        "endLine": 317,
+        "endChar": 40
+      },
+      "revId": "a4dbe4e785a9b89e9782ffed14430a70ecc14c7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10443596_c507001c",
+        "filename": "sdk/android/src/java/org/webrtc/Camera1Session.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-07-06T07:59:19Z",
+      "side": 1,
+      "message": "nit: You could use the lambda syntax",
+      "range": {
+        "startLine": 252,
+        "startChar": 0,
+        "endLine": 254,
+        "endChar": 45
+      },
+      "revId": "a4dbe4e785a9b89e9782ffed14430a70ecc14c7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "acd3e4a3_d75cb8d3",
+        "filename": "sdk/android/src/java/org/webrtc/Camera2Session.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-07-06T07:59:19Z",
+      "side": 1,
+      "message": "nit: You could use the lambda syntax",
+      "range": {
+        "startLine": 186,
+        "startChar": 42,
+        "endLine": 188,
+        "endChar": 47
+      },
+      "revId": "a4dbe4e785a9b89e9782ffed14430a70ecc14c7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

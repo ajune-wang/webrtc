@@ -31,6 +31,10 @@ std::unique_ptr<VideoEncoderFactory> JavaToNativeVideoEncoderFactory(
     JNIEnv* jni,
     jobject encoder_factory);
 
+// Creates an instance of webrtc::SdpVideoFormat from Java VideoCodecInfo.
+SdpVideoFormat JavaToNativeVideoCodecInfo(JNIEnv* jni,
+                                          jobject video_codec_info);
+
 }  // namespace webrtc
 
 #endif  // SDK_ANDROID_NATIVE_API_CODECS_WRAPPER_H_

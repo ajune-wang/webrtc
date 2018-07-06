@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1852a6b0_da42e45f",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoDecoder.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-07-06T14:50:46Z",
+      "side": 1,
+      "message": "Right. Removed.",
+      "parentUuid": "12b49691_2b6890c5",
+      "range": {
+        "startLine": 148,
+        "startChar": 0,
+        "endLine": 152,
+        "endChar": 0
+      },
+      "revId": "13680923faa225c7c543173451e72f94488aedbb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6c1a79b5_b5bfd6f1",
         "filename": "sdk/android/src/java/org/webrtc/WrappedNativeVideoDecoder.java",
         "patchSetId": 7
@@ -45,6 +69,30 @@
       "revId": "13680923faa225c7c543173451e72f94488aedbb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91eb2f58_bd1cfa4b",
+        "filename": "sdk/android/src/java/org/webrtc/WrappedNativeVideoDecoder.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-07-06T14:50:46Z",
+      "side": 1,
+      "message": "Yes, that\u0027s much cleaner. I\u0027m not used to Java; somehow I thought that \"implements\" means that you cannot partially implement an interface. That seems to be fine though, at least when there are default implementations in the interface?",
+      "parentUuid": "6c1a79b5_b5bfd6f1",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 3
+      },
+      "revId": "13680923faa225c7c543173451e72f94488aedbb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

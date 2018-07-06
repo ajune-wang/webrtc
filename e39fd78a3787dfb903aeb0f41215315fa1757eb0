@@ -211,6 +211,30 @@
       "revId": "e39fd78a3787dfb903aeb0f41215315fa1757eb0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "34cd3530_0bab9089",
+        "filename": "sdk/android/src/java/org/webrtc/WrappedNativeVideoEncoder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-07-06T11:46:04Z",
+      "side": 1,
+      "message": "sgtm",
+      "parentUuid": "dc4bd5c1_00e275c8",
+      "range": {
+        "startLine": 18,
+        "startChar": 19,
+        "endLine": 18,
+        "endChar": 36
+      },
+      "revId": "e39fd78a3787dfb903aeb0f41215315fa1757eb0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

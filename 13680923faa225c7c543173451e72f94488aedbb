@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "12b49691_2b6890c5",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoDecoder.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-07-06T11:46:04Z",
+      "side": 1,
+      "message": "nit: not needed since we plan to keep the default",
+      "range": {
+        "startLine": 148,
+        "startChar": 0,
+        "endLine": 152,
+        "endChar": 0
+      },
+      "revId": "13680923faa225c7c543173451e72f94488aedbb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c1a79b5_b5bfd6f1",
+        "filename": "sdk/android/src/java/org/webrtc/WrappedNativeVideoDecoder.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-07-06T11:46:04Z",
+      "side": 1,
+      "message": "Is there a reason to have a separate createNativeVideoDecoderImpl? Can\u0027t we just leave createNativeVideoDecoderImpl unimplemented?",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 3
+      },
+      "revId": "13680923faa225c7c543173451e72f94488aedbb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

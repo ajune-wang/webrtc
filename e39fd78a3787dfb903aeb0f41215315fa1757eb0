@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "34c3955e_a03d3463",
+        "filename": "sdk/android/api/org/webrtc/VideoDecoder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-07-06T08:33:33Z",
+      "side": 1,
+      "message": "nit: Add a comment that the rest of the methods throw and UnsupportedOperationException in this case.",
+      "range": {
+        "startLine": 57,
+        "startChar": 5,
+        "endLine": 57,
+        "endChar": 69
+      },
+      "revId": "e39fd78a3787dfb903aeb0f41215315fa1757eb0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b2427a5_b04da601",
+        "filename": "sdk/android/api/org/webrtc/VideoDecoder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-07-06T08:33:33Z",
+      "side": 1,
+      "message": "I think this is probably find to leaves as-is.",
+      "range": {
+        "startLine": 61,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 25
+      },
+      "revId": "e39fd78a3787dfb903aeb0f41215315fa1757eb0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "be1c7bec_a7453d49",
         "filename": "sdk/android/api/org/webrtc/VideoEncoder.java",
         "patchSetId": 4
@@ -18,6 +64,53 @@
         "startChar": 15,
         "endLine": 172,
         "endChar": 31
+      },
+      "revId": "e39fd78a3787dfb903aeb0f41215315fa1757eb0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03547c59_3d642061",
+        "filename": "sdk/android/api/org/webrtc/VideoEncoder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-07-06T08:33:33Z",
+      "side": 1,
+      "message": "createNativeVideoDecoder / createNativeVideoEncoder would be inline with the current naming practices. I would prefer create over get in cases where caller takes ownership of the pointer to make this clear.\n\nCan you also please add a comment about what type the returned pointer is?",
+      "parentUuid": "be1c7bec_a7453d49",
+      "range": {
+        "startLine": 172,
+        "startChar": 15,
+        "endLine": 172,
+        "endChar": 31
+      },
+      "revId": "e39fd78a3787dfb903aeb0f41215315fa1757eb0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5adb8798_2ef32481",
+        "filename": "sdk/android/src/java/org/webrtc/WrappedNativeVideoEncoder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-07-06T08:33:33Z",
+      "side": 1,
+      "message": "I think we should this part of the interface while we are at it.",
+      "range": {
+        "startLine": 18,
+        "startChar": 19,
+        "endLine": 18,
+        "endChar": 36
       },
       "revId": "e39fd78a3787dfb903aeb0f41215315fa1757eb0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

@@ -12,7 +12,7 @@ package org.webrtc;
 
 class VP8Decoder extends WrappedNativeVideoDecoder {
   @Override
-  long createNativeDecoder() {
+  long createNativeVideoDecoderImpl() {
     return nativeCreateDecoder();
   }
 

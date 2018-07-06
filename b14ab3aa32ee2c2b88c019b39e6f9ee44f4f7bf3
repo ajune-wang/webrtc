@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "22eb55cb_63f4371e",
+        "filename": "api/peerconnectioninterface.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-07-06T08:55:37Z",
+      "side": 1,
+      "message": "If the header file follows the order specified in the style guide, definitely follow that order. If it doesn\u0027t, I guess the two options are both OK.\n\nIf you want, you may certainly reorder the stuff in the header to match the style guide.",
+      "parentUuid": "81cb8d7a_c7e1ae74",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 2
+      },
+      "revId": "b14ab3aa32ee2c2b88c019b39e6f9ee44f4f7bf3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7b2a1953_c9d4d5bb",
         "filename": "api/peerconnectioninterface.h",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2018-07-06T08:32:19Z",
       "side": 1,
       "message": "This causes a circular dependency:\n\n$ gn check out/Debug\nERROR Dependency cycle:\n  //media:rtc_media_base -\u003e\n  //common_video:common_video -\u003e\n  //modules:module_api -\u003e\n  //api:libjingle_peerconnection_api -\u003e\n  //media:rtc_media_base\n\n\nSo I had to use // nogncheck, but I am not happy about it. Should we untangle this circular dependency before getting rid of all the clang:find_bad_constructs?",
+      "range": {
+        "startLine": 105,
+        "startChar": 0,
+        "endLine": 105,
+        "endChar": 49
+      },
+      "revId": "b14ab3aa32ee2c2b88c019b39e6f9ee44f4f7bf3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9acd987d_0144e765",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-07-06T08:55:37Z",
+      "side": 1,
+      "message": "It would be good to get rid of it, and that probably belongs in a separate CL. Your choice whether you want to take on that work, and if you want to do it before or after this CL in that case.",
+      "parentUuid": "7b2a1953_c9d4d5bb",
       "range": {
         "startLine": 105,
         "startChar": 0,

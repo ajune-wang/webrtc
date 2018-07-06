@@ -22,6 +22,30 @@
       "revId": "b1f48bcfd3df9ff10a47901734287ef9c3baa292",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ed454d0_3a911b3f",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-07-06T08:55:37Z",
+      "side": 0,
+      "message": "You can generally use std::unique_ptr\u003cT\u003e freely when T is an incomplete type, but as soon as you try to dereference it you need T\u0027s definition to be visible. This means whenever you call one of T\u0027s methods; and one special case to keep track of is that ~std::unique_ptr\u003cT\u003e needs to call ~T.\n\nDoes that help?",
+      "parentUuid": "7d7e69d0_202ea880",
+      "range": {
+        "startLine": 122,
+        "startChar": 0,
+        "endLine": 122,
+        "endChar": 27
+      },
+      "revId": "b1f48bcfd3df9ff10a47901734287ef9c3baa292",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

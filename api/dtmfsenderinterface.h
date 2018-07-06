@@ -85,7 +85,7 @@ class DtmfSenderInterface : public rtc::RefCountInterface {
   virtual int inter_tone_gap() const = 0;
 
  protected:
-  virtual ~DtmfSenderInterface() {}
+  ~DtmfSenderInterface() override {}
 };
 
 }  // namespace webrtc

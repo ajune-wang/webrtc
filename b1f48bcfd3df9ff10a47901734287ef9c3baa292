@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7d7e69d0_202ea880",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-07-06T08:32:19Z",
+      "side": 0,
+      "message": "After moving PeerConnectionFactoryDependencies::PeerConnectionFactoryDependencies to the .cc file I hit this:\n\n../../buildtools/third_party/libc++/trunk/include/memory:2317:19: error: invalid application of \u0027sizeof\u0027 to an incomplete type \u0027cricket::MediaEngineInterface\u0027\n    static_assert(sizeof(_Tp) \u003e 0,\n                  ^~~~~~~~~~~\n../../buildtools/third_party/libc++/trunk/include/memory:2634:7: note: in instantiation of member function \u0027std::__1::default_delete\u003ccricket::MediaEngineInterface\u003e::operator()\u0027 requested here\n      __ptr_.second()(__tmp);\n      ^\n../../buildtools/third_party/libc++/trunk/include/memory:2588:19: note: in instantiation of member function \u0027std::__1::unique_ptr\u003ccricket::MediaEngineInterface, std::__1::default_delete\u003ccricket::MediaEngineInterface\u003e \u003e::reset\u0027 requested here\n  ~unique_ptr() { reset(); }\n                  ^\n../../api/peerconnectioninterface.cc:233:36: note: in instantiation of member function \u0027std::__1::unique_ptr\u003ccricket::MediaEngineInterface, std::__1::default_delete\u003ccricket::MediaEngineInterface\u003e \u003e::~unique_ptr\u0027 requested here\nPeerConnectionFactoryDependencies::PeerConnectionFactoryDependencies() \u003d\n                                   ^\n../../api/peerconnectioninterface.h:122:7: note: forward declaration of \u0027cricket::MediaEngineInterface\u0027\nclass MediaEngineInterface;",
+      "range": {
+        "startLine": 122,
+        "startChar": 0,
+        "endLine": 122,
+        "endChar": 27
+      },
+      "revId": "b1f48bcfd3df9ff10a47901734287ef9c3baa292",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

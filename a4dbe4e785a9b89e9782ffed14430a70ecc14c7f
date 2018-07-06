@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "025b249f_80b90af7",
+        "filename": "sdk/android/api/org/webrtc/SurfaceTextureHelper.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-07-06T09:15:33Z",
+      "side": 1,
+      "message": "Ok, let\u0027s call setDefaultBufferSize() from setTextureSize(). This will be a change in how we interact with the SurfaceTexture, but it should hopefully be ok.",
+      "parentUuid": "c8842b04_8a0a4cc5",
+      "range": {
+        "startLine": 134,
+        "startChar": 18,
+        "endLine": 134,
+        "endChar": 38
+      },
+      "revId": "a4dbe4e785a9b89e9782ffed14430a70ecc14c7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "38b8c875_7d35885e",
         "filename": "sdk/android/api/org/webrtc/SurfaceTextureHelper.java",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "a4dbe4e785a9b89e9782ffed14430a70ecc14c7f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e05419bc_f1db720c",
+        "filename": "sdk/android/api/org/webrtc/SurfaceTextureHelper.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-07-06T09:15:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "38b8c875_7d35885e",
+      "range": {
+        "startLine": 313,
+        "startChar": 3,
+        "endLine": 317,
+        "endChar": 40
+      },
+      "revId": "a4dbe4e785a9b89e9782ffed14430a70ecc14c7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "1e3ba889_35c90e86",
+        "filename": "sdk/android/src/java/org/webrtc/Camera1Session.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-07-06T09:15:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "10443596_c507001c",
+      "range": {
+        "startLine": 252,
+        "startChar": 0,
+        "endLine": 254,
+        "endChar": 45
+      },
+      "revId": "a4dbe4e785a9b89e9782ffed14430a70ecc14c7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "acd3e4a3_d75cb8d3",
         "filename": "sdk/android/src/java/org/webrtc/Camera2Session.java",
         "patchSetId": 5
@@ -91,6 +163,30 @@
       "revId": "a4dbe4e785a9b89e9782ffed14430a70ecc14c7f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe8df7f2_41d48e0d",
+        "filename": "sdk/android/src/java/org/webrtc/Camera2Session.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-07-06T09:15:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "acd3e4a3_d75cb8d3",
+      "range": {
+        "startLine": 186,
+        "startChar": 42,
+        "endLine": 188,
+        "endChar": 47
+      },
+      "revId": "a4dbe4e785a9b89e9782ffed14430a70ecc14c7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

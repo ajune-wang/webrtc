@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "cc5c760d_a5b17512",
+        "filename": "sdk/android/api/org/webrtc/VideoDecoder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-07-06T11:30:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "34c3955e_a03d3463",
+      "range": {
+        "startLine": 57,
+        "startChar": 5,
+        "endLine": 57,
+        "endChar": 69
+      },
+      "revId": "e39fd78a3787dfb903aeb0f41215315fa1757eb0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7b2427a5_b04da601",
         "filename": "sdk/android/api/org/webrtc/VideoDecoder.java",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "e39fd78a3787dfb903aeb0f41215315fa1757eb0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e69ab4b_ca133713",
+        "filename": "sdk/android/api/org/webrtc/VideoDecoder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-07-06T11:30:59Z",
+      "side": 1,
+      "message": "Ok, removed.",
+      "parentUuid": "7b2427a5_b04da601",
+      "range": {
+        "startLine": 61,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 25
+      },
+      "revId": "e39fd78a3787dfb903aeb0f41215315fa1757eb0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -95,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "eb5d000b_25633c18",
+        "filename": "sdk/android/api/org/webrtc/VideoEncoder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-07-06T11:30:59Z",
+      "side": 1,
+      "message": "Yep, good idea. Improved the comment.",
+      "parentUuid": "03547c59_3d642061",
+      "range": {
+        "startLine": 172,
+        "startChar": 15,
+        "endLine": 172,
+        "endChar": 31
+      },
+      "revId": "e39fd78a3787dfb903aeb0f41215315fa1757eb0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5adb8798_2ef32481",
         "filename": "sdk/android/src/java/org/webrtc/WrappedNativeVideoEncoder.java",
         "patchSetId": 4
@@ -115,6 +187,30 @@
       "revId": "e39fd78a3787dfb903aeb0f41215315fa1757eb0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc4bd5c1_00e275c8",
+        "filename": "sdk/android/src/java/org/webrtc/WrappedNativeVideoEncoder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-07-06T11:30:59Z",
+      "side": 1,
+      "message": "Yep, done. Flipped it so that hardware is the default though, as I would guess that most Java encoders are backed by HW implementations.\n\nI\u0027m keeping WrappedNativeVideo{En,De}coder around to trivially implement the VideoEncoder Java interface, as used by VP8Encoder, VP9Encoder, and VideoEncoderFallback.",
+      "parentUuid": "5adb8798_2ef32481",
+      "range": {
+        "startLine": 18,
+        "startChar": 19,
+        "endLine": 18,
+        "endChar": 36
+      },
+      "revId": "e39fd78a3787dfb903aeb0f41215315fa1757eb0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

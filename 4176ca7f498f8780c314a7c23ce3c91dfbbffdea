@@ -149,6 +149,30 @@
     },
     {
       "key": {
+        "uuid": "48e68a9d_6fbcefc8",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2494,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-07-06T17:47:23Z",
+      "side": 1,
+      "message": "I see. You\u0027re right, it\u0027s probably best to keep remote_streams_ around to fire the callbacks correctly.",
+      "parentUuid": "e2b0da8e_da980d04",
+      "range": {
+        "startLine": 2494,
+        "startChar": 53,
+        "endLine": 2494,
+        "endChar": 60
+      },
+      "revId": "4176ca7f498f8780c314a7c23ce3c91dfbbffdea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a35b2b42_78ccc8fb",
         "filename": "pc/rtpreceiver.cc",
         "patchSetId": 2
@@ -184,6 +208,30 @@
       "side": 1,
       "message": "I think we just need to update a few lines in peerconnection.cc where we use lookup by stream ID.\n\n// When adding a receiver\nreceivers_.push_back(receiver);\nfor (const auto\u0026 stream_id : receiver-\u003estream_ids()) {\n  auto* stream \u003d remote_streams_.find(stream_id);\n  if (!stream) {\n    stream \u003d MediaStream::Create(stream_id);\n    remote_streams_.push_back(stream);\n    added_streams_.push_back(stream);\n  }\n  stream-\u003eAddTrack(receiver-\u003etrack());\n  // \u003c\"stream.onaddtrack\" if stream wasn\u0027t just added?\u003e\n}\n\nYou can do the same for removing receivers. Either\n1. When you remove the track from the stream, check if the stream was empty, if so end it and remove it.\n2. After removing the receiver, see if any other receiver contains the stream IDs, if not end the streams and remove them.\n\n1 or 2 depending on if you care what will happen if the native app modifies the streams independently of peerconnection.cc.",
       "parentUuid": "a35b2b42_78ccc8fb",
+      "range": {
+        "startLine": 48,
+        "startChar": 18,
+        "endLine": 48,
+        "endChar": 34
+      },
+      "revId": "4176ca7f498f8780c314a7c23ce3c91dfbbffdea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cff4b214_daeb5c51",
+        "filename": "pc/rtpreceiver.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-07-06T17:47:23Z",
+      "side": 1,
+      "message": "Sounds good to me for the changes in PeerConnection to make this work. Although there is one weird thing still. The receiver constructed with stream_ids now has streams(), that aren\u0027t the same streams being used for OnAddTrack/OnAddStream/OnRemoveStream. Supporting streams() and this constructor at the same time doesn\u0027t really make sense. Since your plan is to remove streams() in the next iteration this is fine, but it\u0027s a little dangerous having both of these around at the same time.\n\n1. vs. 2.: I think the current implementation checks if the stream doesn\u0027t have any other references to tracks (so it respects the native app modifying the stream), so we would probably want to continue this.",
+      "parentUuid": "b76fd7eb_41a0476a",
       "range": {
         "startLine": 48,
         "startChar": 18,

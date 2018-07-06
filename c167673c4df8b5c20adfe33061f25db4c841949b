@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "634c6f4b_f42d239f",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-07-06T08:24:05Z",
+      "side": 1,
+      "message": "use \"new ApmDataDumper(rtc::AtomicOps::Increment(\u0026instance_counter_))),\" and remove instance_counter_++ below",
+      "range": {
+        "startLine": 115,
+        "startChar": 18,
+        "endLine": 115,
+        "endChar": 36
+      },
+      "revId": "c167673c4df8b5c20adfe33061f25db4c841949b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31c8a6f1_e8526749",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-07-06T08:24:05Z",
+      "side": 1,
+      "message": "remove",
+      "revId": "c167673c4df8b5c20adfe33061f25db4c841949b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef978fc3_2d2b3468",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-07-06T08:24:05Z",
+      "side": 1,
+      "message": "as above",
+      "revId": "c167673c4df8b5c20adfe33061f25db4c841949b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23c054aa_69475e34",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-07-06T08:24:05Z",
+      "side": 1,
+      "message": "remove",
+      "revId": "c167673c4df8b5c20adfe33061f25db4c841949b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

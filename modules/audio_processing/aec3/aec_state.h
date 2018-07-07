@@ -29,6 +29,7 @@
 #include "modules/audio_processing/aec3/filter_analyzer.h"
 #include "modules/audio_processing/aec3/render_buffer.h"
 #include "modules/audio_processing/aec3/reverb_model_estimator.h"
+#include "modules/audio_processing/aec3/subtractor_output.h"
 #include "modules/audio_processing/aec3/suppression_gain_limiter.h"
 #include "rtc_base/constructormagic.h"
 
@@ -156,7 +157,7 @@ class AecState {
               const RenderBuffer& render_buffer,
               const std::array<float, kFftLengthBy2Plus1>& E2_main,
               const std::array<float, kFftLengthBy2Plus1>& Y2,
-              const std::array<float, kBlockSize>& s);
+              const SubtractorOutput& subtractor_output);
 
   // Returns the tail freq. response of the linear filter.
   rtc::ArrayView<const float> GetFreqRespTail() const {

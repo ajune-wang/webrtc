@@ -61,7 +61,7 @@ TEST(ResidualEchoEstimator, DISABLED_BasicTest) {
   std::vector<std::vector<float>> x(3, std::vector<float>(kBlockSize, 0.f));
   std::vector<std::array<float, kFftLengthBy2Plus1>> H2(10);
   Random random_generator(42U);
-  std::array<float, kBlockSize> s;
+  SubtractorOutput output;
   Aec3Fft fft;
   absl::optional<DelayEstimate> delay_estimate;
 
@@ -74,7 +74,8 @@ TEST(ResidualEchoEstimator, DISABLED_BasicTest) {
   std::vector<float> h(GetTimeDomainLength(config.filter.main.length_blocks),
                        0.f);
 
-  s.fill(100.f);
+  output.Reset();
+  output.s_main.fill(100.f);
 
   constexpr float kLevel = 10.f;
   E2_shadow.fill(kLevel);
@@ -94,7 +95,8 @@ TEST(ResidualEchoEstimator, DISABLED_BasicTest) {
 
     aec_state.HandleEchoPathChange(echo_path_variability);
     aec_state.Update(delay_estimate, H2, h, true, false,
-                     *render_delay_buffer->GetRenderBuffer(), E2_main, Y2, s);
+                     *render_delay_buffer->GetRenderBuffer(), E2_main, Y2,
+                     output);
 
     estimator.Estimate(aec_state, *render_delay_buffer->GetRenderBuffer(),
                        S2_linear, Y2, &R2);

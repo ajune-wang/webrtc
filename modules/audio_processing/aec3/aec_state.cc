@@ -134,7 +134,9 @@ void AecState::Update(
     const RenderBuffer& render_buffer,
     const std::array<float, kFftLengthBy2Plus1>& E2_main,
     const std::array<float, kFftLengthBy2Plus1>& Y2,
-    const std::array<float, kBlockSize>& s) {
+    const SubtractorOutput& subtractor_output) {
+  // const std::array<float, kBlockSize>& s = subtractor_output.s_main;
+
   // Analyze the filter and compute the delays.
   filter_analyzer_.Update(adaptive_filter_impulse_response,
                           adaptive_filter_frequency_response, render_buffer);

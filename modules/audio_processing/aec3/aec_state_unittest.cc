@@ -31,9 +31,9 @@ TEST(AecState, NormalUsage) {
   std::vector<std::vector<float>> x(3, std::vector<float>(kBlockSize, 0.f));
   EchoPathVariability echo_path_variability(
       false, EchoPathVariability::DelayAdjustment::kNone, false);
-  std::array<float, kBlockSize> s;
+  SubtractorOutput output;
   Aec3Fft fft;
-  s.fill(100.f);
+  output.s_main.fill(100.f);
 
   std::vector<std::array<float, kFftLengthBy2Plus1>>
       converged_filter_frequency_response(10);
@@ -51,7 +51,7 @@ TEST(AecState, NormalUsage) {
   // Verify that linear AEC usability is false when the filter is diverged.
   state.Update(delay_estimate, diverged_filter_frequency_response,
                impulse_response, true, false,
-               *render_delay_buffer->GetRenderBuffer(), E2_main, Y2, s);
+               *render_delay_buffer->GetRenderBuffer(), E2_main, Y2, output);
   EXPECT_FALSE(state.UsableLinearEstimate());
 
   // Verify that linear AEC usability is true when the filter is converged
@@ -60,7 +60,7 @@ TEST(AecState, NormalUsage) {
     render_delay_buffer->Insert(x);
     state.Update(delay_estimate, converged_filter_frequency_response,
                  impulse_response, true, false,
-                 *render_delay_buffer->GetRenderBuffer(), E2_main, Y2, s);
+                 *render_delay_buffer->GetRenderBuffer(), E2_main, Y2, output);
   }
   EXPECT_TRUE(state.UsableLinearEstimate());
 
@@ -70,7 +70,7 @@ TEST(AecState, NormalUsage) {
       true, EchoPathVariability::DelayAdjustment::kNone, false));
   state.Update(delay_estimate, converged_filter_frequency_response,
                impulse_response, true, false,
-               *render_delay_buffer->GetRenderBuffer(), E2_main, Y2, s);
+               *render_delay_buffer->GetRenderBuffer(), E2_main, Y2, output);
   EXPECT_FALSE(state.UsableLinearEstimate());
 
   // Verify that the active render detection works as intended.
@@ -80,14 +80,14 @@ TEST(AecState, NormalUsage) {
       true, EchoPathVariability::DelayAdjustment::kNewDetectedDelay, false));
   state.Update(delay_estimate, converged_filter_frequency_response,
                impulse_response, true, false,
-               *render_delay_buffer->GetRenderBuffer(), E2_main, Y2, s);
+               *render_delay_buffer->GetRenderBuffer(), E2_main, Y2, output);
   EXPECT_FALSE(state.ActiveRender());
 
   for (int k = 0; k < 1000; ++k) {
     render_delay_buffer->Insert(x);
     state.Update(delay_estimate, converged_filter_frequency_response,
                  impulse_response, true, false,
-                 *render_delay_buffer->GetRenderBuffer(), E2_main, Y2, s);
+                 *render_delay_buffer->GetRenderBuffer(), E2_main, Y2, output);
   }
   EXPECT_TRUE(state.ActiveRender());
 
@@ -110,7 +110,7 @@ TEST(AecState, NormalUsage) {
   for (size_t k = 0; k < 1000; ++k) {
     state.Update(delay_estimate, converged_filter_frequency_response,
                  impulse_response, true, false,
-                 *render_delay_buffer->GetRenderBuffer(), E2_main, Y2, s);
+                 *render_delay_buffer->GetRenderBuffer(), E2_main, Y2, output);
   }
 
   ASSERT_TRUE(state.UsableLinearEstimate());
@@ -127,7 +127,7 @@ TEST(AecState, NormalUsage) {
   for (size_t k = 0; k < 1000; ++k) {
     state.Update(delay_estimate, converged_filter_frequency_response,
                  impulse_response, true, false,
-                 *render_delay_buffer->GetRenderBuffer(), E2_main, Y2, s);
+                 *render_delay_buffer->GetRenderBuffer(), E2_main, Y2, output);
   }
   ASSERT_TRUE(state.UsableLinearEstimate());
   {
@@ -148,7 +148,7 @@ TEST(AecState, NormalUsage) {
   for (size_t k = 0; k < 1000; ++k) {
     state.Update(delay_estimate, converged_filter_frequency_response,
                  impulse_response, true, false,
-                 *render_delay_buffer->GetRenderBuffer(), E2_main, Y2, s);
+                 *render_delay_buffer->GetRenderBuffer(), E2_main, Y2, output);
   }
 
   ASSERT_TRUE(state.UsableLinearEstimate());
@@ -179,8 +179,8 @@ TEST(AecState, ConvergedFilterDelay) {
   std::array<float, kBlockSize> x;
   EchoPathVariability echo_path_variability(
       false, EchoPathVariability::DelayAdjustment::kNone, false);
-  std::array<float, kBlockSize> s;
-  s.fill(100.f);
+  SubtractorOutput output;
+  output.s_main.fill(100.f);
   x.fill(0.f);
 
   std::vector<std::array<float, kFftLengthBy2Plus1>> frequency_response(
@@ -200,7 +200,7 @@ TEST(AecState, ConvergedFilterDelay) {
     state.HandleEchoPathChange(echo_path_variability);
     state.Update(delay_estimate, frequency_response, impulse_response, true,
                  false, *render_delay_buffer->GetRenderBuffer(), E2_main, Y2,
-                 s);
+                 output);
   }
 }
 

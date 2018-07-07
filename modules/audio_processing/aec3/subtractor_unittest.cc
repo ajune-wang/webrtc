@@ -87,7 +87,7 @@ float RunSubtractorTest(int num_blocks_to_process,
                      subtractor.FilterImpulseResponse(),
                      subtractor.ConvergedFilter(), subtractor.DivergedFilter(),
                      *render_delay_buffer->GetRenderBuffer(), E2_main, Y2,
-                     output.s_main);
+                     output);
   }
 
   const float output_power = std::inner_product(

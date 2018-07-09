@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "92175a1c_bc93a26b",
+        "filename": "sdk/android/src/java/org/webrtc/WrappedNativeVideoDecoder.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-07-09T11:35:52Z",
+      "side": 1,
+      "message": "nit: the preferred order is \"public abstract\"\n\nSee: https://google.github.io/styleguide/javaguide.html#s4.8.7-modifiers",
+      "range": {
+        "startLine": 17,
+        "startChar": 12,
+        "endLine": 17,
+        "endChar": 27
+      },
+      "revId": "c233eeff413c7bb28d6b76f96a80dfffae511647",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

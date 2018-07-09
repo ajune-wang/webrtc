@@ -17,10 +17,6 @@
 #endif
 #endif
 
-#if defined(WEBRTC_WIN)
-#ifndef WIN32_LEAN_AND_MEAN
-#define WIN32_LEAN_AND_MEAN
-#endif
 // clang-format off
 // clang formatting would put <windows.h> last,
 // which leads to compilation failure.

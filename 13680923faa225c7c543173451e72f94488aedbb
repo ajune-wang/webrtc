@@ -93,6 +93,30 @@
       "revId": "13680923faa225c7c543173451e72f94488aedbb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "42f375b9_1709b890",
+        "filename": "sdk/android/src/java/org/webrtc/WrappedNativeVideoDecoder.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-07-09T10:38:26Z",
+      "side": 1,
+      "message": "It should be fine to leave a method unimplemented since this is an abstract class. Can you try adding \"abstract long createNativeVideoDecoder();\" to try to force the subclasses to implement the method instead of using the default implementation? If that doesn\u0027t work, this is fine as is now.",
+      "parentUuid": "91eb2f58_bd1cfa4b",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 3
+      },
+      "revId": "13680923faa225c7c543173451e72f94488aedbb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

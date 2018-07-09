@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "bf62759a_17d108ca",
+        "filename": "modules/rtp_rtcp/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-07-09T13:13:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "36212803_b845bb98",
+      "revId": "9856712bc2e31eb04ddfe7ad8fc332cbf4439c80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b6f497d4_60be6309",
         "filename": "modules/rtp_rtcp/source/rtp_receiver_impl.cc",
         "patchSetId": 1
@@ -30,6 +48,30 @@
       "writtenOn": "2018-07-09T11:54:02Z",
       "side": 1,
       "message": "nit:\nWebRtcRTPHeader webrtc_rtp_header \u003d {};\nSee https://abseil.io/tips/88\n\"Use {} initialization without the \u003d only if the above options don’t compile:\"",
+      "range": {
+        "startLine": 162,
+        "startChar": 38,
+        "endLine": 162,
+        "endChar": 0
+      },
+      "revId": "9856712bc2e31eb04ddfe7ad8fc332cbf4439c80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "467d42cb_48f69e34",
+        "filename": "modules/rtp_rtcp/source/rtp_receiver_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-07-09T13:13:45Z",
+      "side": 1,
+      "message": "I\u0027m not sure that applies in this situation since I don\u0027t have any arguments, but I\u0027ll change it anyway.",
+      "parentUuid": "b6f497d4_60be6309",
       "range": {
         "startLine": 162,
         "startChar": 38,
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "065b59e3_3bf85e1f",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1685,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-07-09T13:13:45Z",
+      "side": 1,
+      "message": "Yes, but that is for some later CL :)",
+      "parentUuid": "4d89b1bd_978cebc0",
+      "revId": "9856712bc2e31eb04ddfe7ad8fc332cbf4439c80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6ea32150_cd30d691",
         "filename": "modules/rtp_rtcp/source/rtp_video_header.cc",
         "patchSetId": 1
@@ -70,6 +130,30 @@
       "writtenOn": "2018-07-09T11:54:02Z",
       "side": 1,
       "message": "suggestion: add explicit default values for all members that may left uninitialized:\nuint16_t width \u003d 0;\nVideoContentType content_type \u003d VideoContentType::UNSPECIFIED;\nVideoCodecType codec \u003d VideoCodecType::kRtpVideoCodecUnknown; (or Generic?)\n\nand here just write RTPVideoHeader::RTPVideoHeader() \u003d default;\n\notherwise when adding new member it would be easy to forget to add a default value for it too.",
+      "range": {
+        "startLine": 16,
+        "startChar": 14,
+        "endLine": 16,
+        "endChar": 0
+      },
+      "revId": "9856712bc2e31eb04ddfe7ad8fc332cbf4439c80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0eb9c29d_626faab4",
+        "filename": "modules/rtp_rtcp/source/rtp_video_header.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-07-09T13:13:45Z",
+      "side": 1,
+      "message": "You would have to specify the default value in the .h file anyway, so I\u0027ll leave this as it is.",
+      "parentUuid": "6ea32150_cd30d691",
       "range": {
         "startLine": 16,
         "startChar": 14,
@@ -105,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "224f05db_135596af",
+        "filename": "modules/rtp_rtcp/source/rtp_video_header.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-07-09T13:13:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "979a67e1_b5641617",
+      "range": {
+        "startLine": 31,
+        "startChar": 22,
+        "endLine": 31,
+        "endChar": 26
+      },
+      "revId": "9856712bc2e31eb04ddfe7ad8fc332cbf4439c80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f16376bb_189c06ad",
         "filename": "modules/rtp_rtcp/source/rtp_video_header.h",
         "patchSetId": 1
@@ -116,6 +224,30 @@
       "writtenOn": "2018-07-09T11:54:02Z",
       "side": 1,
       "message": "with non-const get accessor I\u0027m not sure why you also want setter",
+      "range": {
+        "startLine": 35,
+        "startChar": 75,
+        "endLine": 35,
+        "endChar": 0
+      },
+      "revId": "9856712bc2e31eb04ddfe7ad8fc332cbf4439c80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "486508cb_501f3c0e",
+        "filename": "modules/rtp_rtcp/source/rtp_video_header.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-07-09T13:13:45Z",
+      "side": 1,
+      "message": "Yeah, that makes no sense, removed.",
+      "parentUuid": "f16376bb_189c06ad",
       "range": {
         "startLine": 35,
         "startChar": 75,
@@ -151,6 +283,30 @@
     },
     {
       "key": {
+        "uuid": "0f61d0d4_61fbe19a",
+        "filename": "modules/rtp_rtcp/source/rtp_video_header.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-07-09T13:13:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2fe633c3_b70ecbd0",
+      "range": {
+        "startLine": 49,
+        "startChar": 47,
+        "endLine": 49,
+        "endChar": 0
+      },
+      "revId": "9856712bc2e31eb04ddfe7ad8fc332cbf4439c80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "84fe020b_91f5bf67",
         "filename": "modules/rtp_rtcp/source/rtp_video_header.h",
         "patchSetId": 1
@@ -162,6 +318,30 @@
       "writtenOn": "2018-07-09T11:54:02Z",
       "side": 1,
       "message": "since you turn the struct into class, add a TODO to hide all the other members too.\n(class shouldn\u0027t have public members)\n\nOr keep it a struct - it still simple enough to allow to be struct, i.e. it still \"lack any functionality other than access/setting the data members\"\n\nhttps://google.github.io/styleguide/cppguide.html#Structs_vs._Classes",
+      "range": {
+        "startLine": 82,
+        "startChar": 26,
+        "endLine": 82,
+        "endChar": 0
+      },
+      "revId": "9856712bc2e31eb04ddfe7ad8fc332cbf4439c80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e068552c_7cd1528f",
+        "filename": "modules/rtp_rtcp/source/rtp_video_header.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-07-09T13:13:45Z",
+      "side": 1,
+      "message": "Changed back to struct.",
+      "parentUuid": "84fe020b_91f5bf67",
       "range": {
         "startLine": 82,
         "startChar": 26,
@@ -197,6 +377,30 @@
     },
     {
       "key": {
+        "uuid": "10030cc5_bf0180fd",
+        "filename": "modules/rtp_rtcp/source/rtp_video_header.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-07-09T13:13:45Z",
+      "side": 1,
+      "message": "That\u0027s for a later CL. Switching on variant type is a pain though.",
+      "parentUuid": "d113a24b_3f492d8a",
+      "range": {
+        "startLine": 90,
+        "startChar": 23,
+        "endLine": 90,
+        "endChar": 0
+      },
+      "revId": "9856712bc2e31eb04ddfe7ad8fc332cbf4439c80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "35287cee_9558ec9a",
         "filename": "modules/video_coding/BUILD.gn",
         "patchSetId": 1
@@ -220,6 +424,30 @@
     },
     {
       "key": {
+        "uuid": "49cd4a79_be5bd912",
+        "filename": "modules/video_coding/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-07-09T13:13:45Z",
+      "side": 1,
+      "message": "Done, not tested on the chromium bot.",
+      "parentUuid": "35287cee_9558ec9a",
+      "range": {
+        "startLine": 226,
+        "startChar": 24,
+        "endLine": 226,
+        "endChar": 0
+      },
+      "revId": "9856712bc2e31eb04ddfe7ad8fc332cbf4439c80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2b826d65_58496fc6",
         "filename": "modules/video_coding/frame_object.cc",
         "patchSetId": 1
@@ -231,6 +459,30 @@
       "writtenOn": "2018-07-09T11:54:02Z",
       "side": 1,
       "message": "may be add absl::monostate as 1st alternative to RTPVideoTypeHeader,\n\nthen default value would be \u0027no value\u0027 and wrapping VideoTypeHeader into an optional would be unnecessary.",
+      "range": {
+        "startLine": 159,
+        "startChar": 15,
+        "endLine": 159,
+        "endChar": 33
+      },
+      "revId": "9856712bc2e31eb04ddfe7ad8fc332cbf4439c80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ed652b1e_a7b40864",
+        "filename": "modules/video_coding/frame_object.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-07-09T13:13:45Z",
+      "side": 1,
+      "message": "I think using optional is the clearer interface in this case.",
+      "parentUuid": "2b826d65_58496fc6",
       "range": {
         "startLine": 159,
         "startChar": 15,

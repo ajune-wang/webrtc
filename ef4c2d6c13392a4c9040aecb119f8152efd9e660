@@ -22,6 +22,30 @@
       "revId": "ef4c2d6c13392a4c9040aecb119f8152efd9e660",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ea582e6e_ebfea074",
+        "filename": "modules/rtp_rtcp/source/rtp_video_header.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-07-09T13:35:52Z",
+      "side": 1,
+      "message": "This is only to replicate the behavior of a union where we always assume the type is the one we choose to access (not check is performed), so this should not cause a bug.",
+      "parentUuid": "10a78b9d_467193ec",
+      "range": {
+        "startLine": 39,
+        "startChar": 71,
+        "endLine": 39,
+        "endChar": 0
+      },
+      "revId": "ef4c2d6c13392a4c9040aecb119f8152efd9e660",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

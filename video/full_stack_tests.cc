@@ -45,8 +45,6 @@ namespace webrtc {
 
 namespace {
 static const int kFullStackTestDurationSecs = 45;
-const char kScreenshareSimulcastExperiment[] =
-    "WebRTC-SimulcastScreenshare/Enabled/";
 const char kRoundRobinPacingQueueExperiment[] =
     "WebRTC-RoundRobinPacing/Enabled/";
 const char kPacerPushBackExperiment[] =
@@ -586,7 +584,6 @@ TEST(FullStackTest, ScreenshareSlidesVP8_2TL) {
 
 TEST(FullStackTest, ScreenshareSlidesVP8_3TL_Simulcast) {
   auto fixture = CreateVideoQualityTestFixture();
-  test::ScopedFieldTrials field_trial(kScreenshareSimulcastExperiment);
   ParamsWithLogging screenshare;
   screenshare.call.send_side_bwe = true;
   screenshare.screenshare[0] = {true, false, 10};
@@ -746,9 +743,7 @@ TEST(FullStackTest, ScreenshareSlidesVP8_2TL_ModeratelyRestricted_ALR) {
 
 TEST(FullStackTest, ScreenshareSlidesVP8_3TL_Simulcast_ALR) {
   auto fixture = CreateVideoQualityTestFixture();
-  test::ScopedFieldTrials field_trial(
-      std::string(kScreenshareSimulcastExperiment) +
-      AlrProbingExperimentName());
+  test::ScopedFieldTrials field_trial(AlrProbingExperimentName());
   ParamsWithLogging screenshare;
   screenshare.call.send_side_bwe = true;
   screenshare.screenshare[0] = {true, false, 10};
@@ -1110,12 +1105,12 @@ TEST(FullStackTest, MAYBE_LargeRoomVP8_50thumb) {
 
 class DualStreamsTest : public ::testing::TestWithParam<int> {};
 
+// TODO(ilnik): simulcast removed.
 // Disable dual video test on mobile device becuase it's too heavy.
 #if !defined(WEBRTC_ANDROID) && !defined(WEBRTC_IOS)
 TEST_P(DualStreamsTest,
        ModeratelyRestricted_SlidesVp8_3TL_Simulcast_Video_Simulcast_High) {
   test::ScopedFieldTrials field_trial(
-      std::string(kScreenshareSimulcastExperiment) +
       AlrProbingExperimentName() +
       std::string(kRoundRobinPacingQueueExperiment) +
       std::string(kPacerPushBackExperiment));

@@ -121,7 +121,6 @@ RTC_EXPORT
 @property(nonatomic, assign) unsigned int startBitrate;  // kilobits/sec.
 @property(nonatomic, assign) unsigned int maxBitrate;
 @property(nonatomic, assign) unsigned int minBitrate;
-@property(nonatomic, assign) unsigned int targetBitrate;
 
 @property(nonatomic, assign) uint32_t maxFramerate;
 

@@ -22,6 +22,30 @@
       "revId": "c233eeff413c7bb28d6b76f96a80dfffae511647",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98106131_521aeb00",
+        "filename": "sdk/android/src/java/org/webrtc/WrappedNativeVideoDecoder.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-07-09T11:39:12Z",
+      "side": 1,
+      "message": "Fixed.",
+      "parentUuid": "92175a1c_bc93a26b",
+      "range": {
+        "startLine": 17,
+        "startChar": 12,
+        "endLine": 17,
+        "endChar": 27
+      },
+      "revId": "c233eeff413c7bb28d6b76f96a80dfffae511647",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

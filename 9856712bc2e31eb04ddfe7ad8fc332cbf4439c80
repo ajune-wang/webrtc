@@ -1,0 +1,245 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "36212803_b845bb98",
+        "filename": "modules/rtp_rtcp/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-07-09T11:54:02Z",
+      "side": 1,
+      "message": "use relative path for 3 webrtc dependencies.",
+      "revId": "9856712bc2e31eb04ddfe7ad8fc332cbf4439c80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6f497d4_60be6309",
+        "filename": "modules/rtp_rtcp/source/rtp_receiver_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-07-09T11:54:02Z",
+      "side": 1,
+      "message": "nit:\nWebRtcRTPHeader webrtc_rtp_header \u003d {};\nSee https://abseil.io/tips/88\n\"Use {} initialization without the \u003d only if the above options don’t compile:\"",
+      "range": {
+        "startLine": 162,
+        "startChar": 38,
+        "endLine": 162,
+        "endChar": 0
+      },
+      "revId": "9856712bc2e31eb04ddfe7ad8fc332cbf4439c80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d89b1bd_978cebc0",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1685,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-07-09T11:54:02Z",
+      "side": 1,
+      "message": "Nice to have default constructor that initialize the struct!\n(May be time to add one to WebRtcRTPHeader too)",
+      "revId": "9856712bc2e31eb04ddfe7ad8fc332cbf4439c80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6ea32150_cd30d691",
+        "filename": "modules/rtp_rtcp/source/rtp_video_header.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-07-09T11:54:02Z",
+      "side": 1,
+      "message": "suggestion: add explicit default values for all members that may left uninitialized:\nuint16_t width \u003d 0;\nVideoContentType content_type \u003d VideoContentType::UNSPECIFIED;\nVideoCodecType codec \u003d VideoCodecType::kRtpVideoCodecUnknown; (or Generic?)\n\nand here just write RTPVideoHeader::RTPVideoHeader() \u003d default;\n\notherwise when adding new member it would be easy to forget to add a default value for it too.",
+      "range": {
+        "startLine": 16,
+        "startChar": 14,
+        "endLine": 16,
+        "endChar": 0
+      },
+      "revId": "9856712bc2e31eb04ddfe7ad8fc332cbf4439c80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "979a67e1_b5641617",
+        "filename": "modules/rtp_rtcp/source/rtp_video_header.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-07-09T11:54:02Z",
+      "side": 1,
+      "message": "https://google.github.io/styleguide/cppguide.html#Function_Names\n\nSuggested name for getters doesn\u0027t include \u0027get_\u0027 prefix",
+      "range": {
+        "startLine": 31,
+        "startChar": 22,
+        "endLine": 31,
+        "endChar": 26
+      },
+      "revId": "9856712bc2e31eb04ddfe7ad8fc332cbf4439c80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f16376bb_189c06ad",
+        "filename": "modules/rtp_rtcp/source/rtp_video_header.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-07-09T11:54:02Z",
+      "side": 1,
+      "message": "with non-const get accessor I\u0027m not sure why you also want setter",
+      "range": {
+        "startLine": 35,
+        "startChar": 75,
+        "endLine": 35,
+        "endChar": 0
+      },
+      "revId": "9856712bc2e31eb04ddfe7ad8fc332cbf4439c80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2fe633c3_b70ecbd0",
+        "filename": "modules/rtp_rtcp/source/rtp_video_header.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-07-09T11:54:02Z",
+      "side": 1,
+      "message": "alternatively:\nvideo_type_header_.emplace\u003cRTPVideoHeaderVP8\u003e();\n\n(to have compiler check one of the variant alternatives is constructed)",
+      "range": {
+        "startLine": 49,
+        "startChar": 47,
+        "endLine": 49,
+        "endChar": 0
+      },
+      "revId": "9856712bc2e31eb04ddfe7ad8fc332cbf4439c80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "84fe020b_91f5bf67",
+        "filename": "modules/rtp_rtcp/source/rtp_video_header.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-07-09T11:54:02Z",
+      "side": 1,
+      "message": "since you turn the struct into class, add a TODO to hide all the other members too.\n(class shouldn\u0027t have public members)\n\nOr keep it a struct - it still simple enough to allow to be struct, i.e. it still \"lack any functionality other than access/setting the data members\"\n\nhttps://google.github.io/styleguide/cppguide.html#Structs_vs._Classes",
+      "range": {
+        "startLine": 82,
+        "startChar": 26,
+        "endLine": 82,
+        "endChar": 0
+      },
+      "revId": "9856712bc2e31eb04ddfe7ad8fc332cbf4439c80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d113a24b_3f492d8a",
+        "filename": "modules/rtp_rtcp/source/rtp_video_header.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-07-09T11:54:02Z",
+      "side": 1,
+      "message": "do you plan to keep codec and video_type_header_ values in sync?\nhow?",
+      "range": {
+        "startLine": 90,
+        "startChar": 23,
+        "endLine": 90,
+        "endChar": 0
+      },
+      "revId": "9856712bc2e31eb04ddfe7ad8fc332cbf4439c80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "35287cee_9558ec9a",
+        "filename": "modules/video_coding/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-07-09T11:54:02Z",
+      "side": 1,
+      "message": "\"../../rtc_base:checks\",\n(to be consistent with nearby targets,\nalso, I guess, it might be required by dependent projects to use relative path for webrtc targets. Did you try to run chromium try bot?)",
+      "range": {
+        "startLine": 226,
+        "startChar": 24,
+        "endLine": 226,
+        "endChar": 0
+      },
+      "revId": "9856712bc2e31eb04ddfe7ad8fc332cbf4439c80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b826d65_58496fc6",
+        "filename": "modules/video_coding/frame_object.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-07-09T11:54:02Z",
+      "side": 1,
+      "message": "may be add absl::monostate as 1st alternative to RTPVideoTypeHeader,\n\nthen default value would be \u0027no value\u0027 and wrapping VideoTypeHeader into an optional would be unnecessary.",
+      "range": {
+        "startLine": 159,
+        "startChar": 15,
+        "endLine": 159,
+        "endChar": 33
+      },
+      "revId": "9856712bc2e31eb04ddfe7ad8fc332cbf4439c80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

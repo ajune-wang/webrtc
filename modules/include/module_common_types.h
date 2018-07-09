@@ -115,64 +115,6 @@ class RTPFragmentationHeader {
     swap(a.fragmentationPlType, b.fragmentationPlType);
   }
 
-  void CopyFrom(const RTPFragmentationHeader& src) {
-    if (this == &src) {
-      return;
-    }
-
-    if (src.fragmentationVectorSize != fragmentationVectorSize) {
-      // new size of vectors
-
-      // delete old
-      delete[] fragmentationOffset;
-      fragmentationOffset = NULL;
-      delete[] fragmentationLength;
-      fragmentationLength = NULL;
-      delete[] fragmentationTimeDiff;
-      fragmentationTimeDiff = NULL;
-      delete[] fragmentationPlType;
-      fragmentationPlType = NULL;
-
-      if (src.fragmentationVectorSize > 0) {
-        // allocate new
-        if (src.fragmentationOffset) {
-          fragmentationOffset = new size_t[src.fragmentationVectorSize];
-        }
-        if (src.fragmentationLength) {
-          fragmentationLength = new size_t[src.fragmentationVectorSize];
-        }
-        if (src.fragmentationTimeDiff) {
-          fragmentationTimeDiff = new uint16_t[src.fragmentationVectorSize];
-        }
-        if (src.fragmentationPlType) {
-          fragmentationPlType = new uint8_t[src.fragmentationVectorSize];
-        }
-      }
-      // set new size
-      fragmentationVectorSize = src.fragmentationVectorSize;
-    }
-
-    if (src.fragmentationVectorSize > 0) {
-      // copy values
-      if (src.fragmentationOffset) {
-        memcpy(fragmentationOffset, src.fragmentationOffset,
-               src.fragmentationVectorSize * sizeof(size_t));
-      }
-      if (src.fragmentationLength) {
-        memcpy(fragmentationLength, src.fragmentationLength,
-               src.fragmentationVectorSize * sizeof(size_t));
-      }
-      if (src.fragmentationTimeDiff) {
-        memcpy(fragmentationTimeDiff, src.fragmentationTimeDiff,
-               src.fragmentationVectorSize * sizeof(uint16_t));
-      }
-      if (src.fragmentationPlType) {
-        memcpy(fragmentationPlType, src.fragmentationPlType,
-               src.fragmentationVectorSize * sizeof(uint8_t));
-      }
-    }
-  }
-
   void VerifyAndAllocateFragmentationHeader(const size_t size) {
     assert(size <= std::numeric_limits<uint16_t>::max());
     const uint16_t size16 = static_cast<uint16_t>(size);

@@ -116,7 +116,9 @@ class PeerConnectionWrapperForUsageHistogramTest
 void ObserverForUsageHistogramTest::OnIceCandidate(
     const webrtc::IceCandidateInterface* candidate) {
   if (candidate_target_) {
-    candidate_target_->pc()->AddIceCandidate(candidate);
+    EXPECT_TRUE(candidate_target_->pc()->AddIceCandidate(candidate));
+  } else {
+    FAIL() << "Early candidate detected";
   }
 }
 

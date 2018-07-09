@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "56fde8e1_6e9c5bd6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-07-09T09:30:06Z",
+      "side": 1,
+      "message": "Adds RTT Tracker for PCC.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 18
+      },
+      "revId": "36010719a60347aaba73850e6c813a592f89c481",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "937f08cb_b3902408",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-07-09T09:30:06Z",
+      "side": 1,
+      "message": "It would be nice to give some context here.\n\nThings worth adding:\n* That it is part of a series of CLs adding PCC.\n* Expanding the PCC abbreviation.\n* Motivation why we can\u0027t use existing RTT tracking code.\n* Any known odd design choices or functionality regressions and motivations for them.\n\nA good description makes it easier for people looking back at the changes (with for instance blame) to understand the reasoning for the code.\n\nIn my experience it also makes the review process smoother as reviewers don\u0027t have to ask about those things.",
+      "revId": "36010719a60347aaba73850e6c813a592f89c481",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b7dbf54_96c400f0",
+        "filename": "modules/congestion_controller/pcc/rtt_tracker.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-07-09T09:30:06Z",
+      "side": 1,
+      "message": "Should we skip updating the estimate if a packet is lost? If so, I think a comment motivating this would be nice.",
+      "range": {
+        "startLine": 32,
+        "startChar": 6,
+        "endLine": 32,
+        "endChar": 12
+      },
+      "revId": "36010719a60347aaba73850e6c813a592f89c481",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce6c4063_d141f830",
+        "filename": "modules/congestion_controller/pcc/rtt_tracker.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-07-09T09:30:06Z",
+      "side": 1,
+      "message": "This class is very short/simple. If it isn\u0027t expected to grow much, you could consider merging it with the class owning it.\n\nHaving too many classes makes it harder to navigate the code since there\u0027s a lot of jumping between files.\n\nOf course, too few classes makes each class very long and it can make reading the code overwhelming, but in this case it seems like the active code is just roughly 10 lines.\n\nWDYT?",
+      "range": {
+        "startLine": 26,
+        "startChar": 6,
+        "endLine": 26,
+        "endChar": 16
+      },
+      "revId": "36010719a60347aaba73850e6c813a592f89c481",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

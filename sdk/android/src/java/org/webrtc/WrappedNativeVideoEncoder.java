@@ -14,10 +14,6 @@ package org.webrtc;
  * Wraps a native webrtc::VideoEncoder.
  */
 abstract class WrappedNativeVideoEncoder implements VideoEncoder {
-  @CalledByNative abstract long createNativeEncoder();
-
-  abstract boolean isSoftwareEncoder();
-
   @Override
   public VideoCodecStatus initEncode(Settings settings, Callback encodeCallback) {
     throw new UnsupportedOperationException("Not implemented.");
@@ -51,16 +47,5 @@ abstract class WrappedNativeVideoEncoder implements VideoEncoder {
   @Override
   public String getImplementationName() {
     throw new UnsupportedOperationException("Not implemented.");
-  }
-
-  @CalledByNative
-  static boolean isWrappedSoftwareEncoder(VideoEncoder encoder) {
-    return (encoder instanceof WrappedNativeVideoEncoder)
-        && ((WrappedNativeVideoEncoder) encoder).isSoftwareEncoder();
-  }
-
-  @CalledByNative
-  static boolean isInstanceOf(VideoEncoder encoder) {
-    return encoder instanceof WrappedNativeVideoEncoder;
   }
 }

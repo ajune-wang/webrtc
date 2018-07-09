@@ -77,6 +77,7 @@ struct VideoCodecH264 {
   }
   bool frameDroppingOn;
   int keyFrameInterval;
+  unsigned char numberOfTemporalLayers;
   // These are NULL/0 if not externally negotiated.
   const uint8_t* spsData;
   size_t spsLen;

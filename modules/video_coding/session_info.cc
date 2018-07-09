@@ -75,6 +75,8 @@ int VCMSessionInfo::TemporalId() const {
     return packets_.front().video_header.codecHeader.VP8.temporalIdx;
   } else if (packets_.front().video_header.codec == kVideoCodecVP9) {
     return packets_.front().video_header.codecHeader.VP9.temporal_idx;
+  } else if (packets_.front().video_header.codec == kRtpVideoH264) {
+    return packets_.front().video_header.frame_marking.temporal_id;
   } else {
     return kNoTemporalIdx;
   }
@@ -99,6 +101,8 @@ int VCMSessionInfo::Tl0PicId() const {
     return packets_.front().video_header.codecHeader.VP8.tl0PicIdx;
   } else if (packets_.front().video_header.codec == kVideoCodecVP9) {
     return packets_.front().video_header.codecHeader.VP9.tl0_pic_idx;
+  } else if (packets_.front().video_header.codec == kRtpVideoH264) {
+    return packets_.front().video_header.frame_marking.tl0_pic_idx;
   } else {
     return kNoTl0PicIdx;
   }

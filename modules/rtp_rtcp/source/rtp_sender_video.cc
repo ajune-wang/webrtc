@@ -289,6 +289,14 @@ bool RTPSenderVideo::SendVideo(enum VideoCodecType video_type,
   rtp_header->SetPayloadType(payload_type);
   rtp_header->SetTimestamp(rtp_timestamp);
   rtp_header->set_capture_time_ms(capture_time_ms);
+  if (video_header) {
+    if (video_header->codec == kRtpVideoH264 &&
+        video_header->frame_marking.temporal_id != kNoTemporalIdx) {
+      rtp_header->SetExtension<FrameMarkingExtension>(
+          video_header->frame_marking);
+    }
+  }
+
   auto last_packet = rtc::MakeUnique<RtpPacketToSend>(*rtp_header);
 
   size_t fec_packet_overhead;
@@ -366,6 +374,7 @@ bool RTPSenderVideo::SendVideo(enum VideoCodecType video_type,
 
   bool first_frame = first_frame_sent_();
   for (size_t i = 0; i < num_packets; ++i) {
+    bool first = i == 0;
     bool last = (i + 1) == num_packets;
     auto packet = last ? std::move(last_packet)
                        : rtc::MakeUnique<RtpPacketToSend>(*rtp_header);
@@ -392,6 +401,13 @@ bool RTPSenderVideo::SendVideo(enum VideoCodecType video_type,
       protect_packet = false;
     }
 
+    if (packet->HasExtension<FrameMarkingExtension>()) {
+      FrameMarking frame_marking = video_header->frame_marking;
+      frame_marking.start_of_frame = first;
+      frame_marking.end_of_frame = last;
+      packet->SetExtension<FrameMarkingExtension>(frame_marking);
+    }
+
     if (flexfec_enabled()) {
       // TODO(brandtr): Remove the FlexFEC code path when FlexfecSender
       // is wired up to PacedSender instead.
@@ -404,7 +420,7 @@ bool RTPSenderVideo::SendVideo(enum VideoCodecType video_type,
     }
 
     if (first_frame) {
-      if (i == 0) {
+      if (first) {
         RTC_LOG(LS_INFO)
             << "Sent first RTP packet of the first video frame (pre-pacer)";
       }
@@ -475,6 +491,8 @@ uint8_t RTPSenderVideo::GetTemporalId(const RTPVideoHeader& header) {
       return header.codecHeader.VP8.temporalIdx;
     case kVideoCodecVP9:
       return header.codecHeader.VP9.temporal_idx;
+    case kRtpVideoH264:
+      return header.frame_marking.temporal_id;
     default:
       return kNoTemporalIdx;
   }

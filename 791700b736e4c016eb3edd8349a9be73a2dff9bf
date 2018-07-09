@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1b7f4e23_7bf60b82",
+        "filename": "modules/congestion_controller/pcc/utility_function.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-07-09T10:46:26Z",
+      "side": 1,
+      "message": "There are reasons why one might want to avoid adding namespaces: https://abseil.io/tips/130",
+      "range": {
+        "startLine": 26,
+        "startChar": 10,
+        "endLine": 26,
+        "endChar": 13
+      },
+      "revId": "791700b736e4c016eb3edd8349a9be73a2dff9bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd132677_6f460030",
+        "filename": "modules/congestion_controller/pcc/utility_function.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-07-09T10:46:26Z",
+      "side": 1,
+      "message": "This name is a bit generic. A good practice is to name things as if you don\u0027t have any namespace protection (other that webrtc::). I could imaging this name being used in other contexts as well.\n\nMaybe PccUtilityFunctionInterface?\n\nInterface is optional to add, see: https://google.github.io/styleguide/cppguide.html#Interfaces\n\nWill we have more than one utility function? Otherwise you cold simplify the code by not having any generic interface. An interface adds costs in terms of increased boilerplate. increased binary size and increased run time overhead.",
+      "range": {
+        "startLine": 28,
+        "startChar": 6,
+        "endLine": 28,
+        "endChar": 21
+      },
+      "revId": "791700b736e4c016eb3edd8349a9be73a2dff9bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c1bc5d9_808d956e",
+        "filename": "modules/congestion_controller/pcc/utility_function.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-07-09T10:46:26Z",
+      "side": 1,
+      "message": "Add a short description. Just referencing the paper is probably enough. But a short summary of the concept would be nice.",
+      "range": {
+        "startLine": 35,
+        "startChar": 6,
+        "endLine": 35,
+        "endChar": 27
+      },
+      "revId": "791700b736e4c016eb3edd8349a9be73a2dff9bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

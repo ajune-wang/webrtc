@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d88d427a_2c95e679",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-07-09T14:08:24Z",
+      "side": 1,
+      "message": "maybe add uint8_t first \u003d i \u003d\u003d 0 and use it here.",
+      "range": {
+        "startLine": 405,
+        "startChar": 37,
+        "endLine": 405,
+        "endChar": 43
+      },
+      "revId": "7753d2d99f9820f568275412f0918014186fee6b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "713c48a9_522dcc86",
+        "filename": "modules/video_coding/codecs/h264/h264_encoder_impl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-07-09T14:08:24Z",
+      "side": 1,
+      "message": "Please rename to num_temporal_layers_ for consistency with VP8/9 encoder wrappers.",
+      "range": {
+        "startLine": 110,
+        "startChar": 6,
+        "endLine": 110,
+        "endChar": 25
+      },
+      "revId": "7753d2d99f9820f568275412f0918014186fee6b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

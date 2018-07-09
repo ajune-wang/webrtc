@@ -81,6 +81,8 @@ int32_t VideoSender::RegisterSendCodec(const VideoCodec* sendCodec,
     numLayers = sendCodec->VP8().numberOfTemporalLayers;
   } else if (sendCodec->codecType == kVideoCodecVP9) {
     numLayers = sendCodec->VP9().numberOfTemporalLayers;
+  } else if (sendCodec->codecType == kVideoCodecH264) {
+    numLayers = sendCodec->H264().numberOfTemporalLayers;
   } else if (sendCodec->codecType == kVideoCodecGeneric &&
              sendCodec->numberOfSimulcastStreams > 0) {
     // This is mainly for unit testing, disabling frame dropping.

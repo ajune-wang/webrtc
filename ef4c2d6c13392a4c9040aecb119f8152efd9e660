@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "10a78b9d_467193ec",
+        "filename": "modules/rtp_rtcp/source/rtp_video_header.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-07-09T13:25:41Z",
+      "side": 1,
+      "message": "it is sure safer, but may be not needed:\nsince this is a const method, it can only be used for reading,\nand if someone reads it, it should be already initialized.\n\nSo, if removing these 2 lines make it crash, that mean there is already a bug/misuse.",
+      "range": {
+        "startLine": 39,
+        "startChar": 71,
+        "endLine": 39,
+        "endChar": 0
+      },
+      "revId": "ef4c2d6c13392a4c9040aecb119f8152efd9e660",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

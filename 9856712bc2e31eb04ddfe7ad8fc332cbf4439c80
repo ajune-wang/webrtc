@@ -166,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "2a51b93e_f19ba6a3",
+        "filename": "modules/rtp_rtcp/source/rtp_video_header.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-07-09T13:25:41Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0eb9c29d_626faab4",
+      "range": {
+        "startLine": 16,
+        "startChar": 14,
+        "endLine": 16,
+        "endChar": 0
+      },
+      "revId": "9856712bc2e31eb04ddfe7ad8fc332cbf4439c80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "979a67e1_b5641617",
         "filename": "modules/rtp_rtcp/source/rtp_video_header.h",
         "patchSetId": 1
@@ -389,6 +413,30 @@
       "side": 1,
       "message": "That\u0027s for a later CL. Switching on variant type is a pain though.",
       "parentUuid": "d113a24b_3f492d8a",
+      "range": {
+        "startLine": 90,
+        "startChar": 23,
+        "endLine": 90,
+        "endChar": 0
+      },
+      "revId": "9856712bc2e31eb04ddfe7ad8fc332cbf4439c80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e71cb180_c3236174",
+        "filename": "modules/rtp_rtcp/source/rtp_video_header.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-07-09T13:25:41Z",
+      "side": 1,
+      "message": "yep, absl::visit looks clumsy at first.",
+      "parentUuid": "10030cc5_bf0180fd",
       "range": {
         "startLine": 90,
         "startChar": 23,

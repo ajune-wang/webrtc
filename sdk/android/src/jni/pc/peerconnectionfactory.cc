@@ -250,7 +250,8 @@ jlong CreatePeerConnectionFactoryForJava(
     // TODO(bugs.webrtc.org/7925): When all clients switched to injectable
     // factories, remove the legacy codec factories
     std::unique_ptr<VideoEncoderFactory> legacy_factory =
-        CreateLegacyVideoEncoderFactory();
+        video_hw_acceleration_enabled ? CreateLegacyVideoEncoderFactory()
+                                      : nullptr;
     legacy_video_encoder_factory = legacy_factory.get();
     video_encoder_factory =
         WrapLegacyVideoEncoderFactory(std::move(legacy_factory));
@@ -264,7 +265,8 @@ jlong CreatePeerConnectionFactoryForJava(
     // TODO(bugs.webrtc.org/7925): When all clients switched to injectable
     // factories, remove the legacy codec factories
     std::unique_ptr<VideoDecoderFactory> legacy_factory =
-        CreateLegacyVideoDecoderFactory();
+        video_hw_acceleration_enabled ? CreateLegacyVideoDecoderFactory()
+                                      : nullptr;
     legacy_video_decoder_factory = legacy_factory.get();
     video_decoder_factory =
         WrapLegacyVideoDecoderFactory(std::move(legacy_factory));

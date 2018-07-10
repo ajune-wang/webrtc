@@ -65,6 +65,53 @@
     },
     {
       "key": {
+        "uuid": "7cccf440_b57c49e8",
+        "filename": "modules/congestion_controller/pcc/rtt_tracker.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-07-10T18:39:03Z",
+      "side": 1,
+      "message": "I think this should be continue rather than return.",
+      "parentUuid": "9b7dbf54_96c400f0",
+      "range": {
+        "startLine": 32,
+        "startChar": 6,
+        "endLine": 32,
+        "endChar": 12
+      },
+      "revId": "36010719a60347aaba73850e6c813a592f89c481",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98253cec_cc6db45d",
+        "filename": "modules/congestion_controller/pcc/rtt_tracker.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-07-10T18:39:03Z",
+      "side": 1,
+      "message": "This seems to be the one-way delay + clock offset rather than the RTT. (receive_time is measured using the receiver\u0027s clock and send time is measured using the sender\u0027s clock.)\n\nThis can probably be kept as-is, but then the class should be renamed. One-way delay is probably a better signal than RTT for detecting overuse of the link. However, we cannot expect to receive results faster than 1 RTT, so we might want to measure RTT  separately to control the length of the measurement intervals.",
+      "range": {
+        "startLine": 35,
+        "startChar": 8,
+        "endLine": 35,
+        "endChar": 73
+      },
+      "revId": "36010719a60347aaba73850e6c813a592f89c481",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ce6c4063_d141f830",
         "filename": "modules/congestion_controller/pcc/rtt_tracker.h",
         "patchSetId": 1
@@ -76,6 +123,30 @@
       "writtenOn": "2018-07-09T09:30:06Z",
       "side": 1,
       "message": "This class is very short/simple. If it isn\u0027t expected to grow much, you could consider merging it with the class owning it.\n\nHaving too many classes makes it harder to navigate the code since there\u0027s a lot of jumping between files.\n\nOf course, too few classes makes each class very long and it can make reading the code overwhelming, but in this case it seems like the active code is just roughly 10 lines.\n\nWDYT?",
+      "range": {
+        "startLine": 26,
+        "startChar": 6,
+        "endLine": 26,
+        "endChar": 16
+      },
+      "revId": "36010719a60347aaba73850e6c813a592f89c481",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "140b2353_40358a52",
+        "filename": "modules/congestion_controller/pcc/rtt_tracker.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-07-10T18:39:03Z",
+      "side": 1,
+      "message": "I agree in general, but I still prefer this as a separate class. This encapsulates a well defined subtask with a simple and clear interface.",
+      "parentUuid": "ce6c4063_d141f830",
       "range": {
         "startLine": 26,
         "startChar": 6,

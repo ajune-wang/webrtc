@@ -52,6 +52,24 @@
       "revId": "e96fa64c9d2484a0e399d0f9042f67fca5136e24",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "efa3fe27_7c0b4017",
+        "filename": "test/fuzzers/packet_buffer_fuzzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-07-10T12:02:31Z",
+      "side": 1,
+      "message": "RTPVideoHeader will have a absl::variant which may call a destructor on assignment. Because of that we can\u0027t copy the element.",
+      "parentUuid": "b43f0b93_3213ad1b",
+      "revId": "e96fa64c9d2484a0e399d0f9042f67fca5136e24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -34,6 +34,24 @@
       "revId": "e96fa64c9d2484a0e399d0f9042f67fca5136e24",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5885a04c_a1eb769a",
+        "filename": "test/fuzzers/packet_buffer_fuzzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-07-10T12:00:46Z",
+      "side": 1,
+      "message": "Ah, I see (maybe). For now RTPVideoHeader has a default assignment operator, but soon it won\u0027t. Because it will be a \u0027complex class\u0027. And you\u0027re not planning to add copy c-tors/operators. Is that right?",
+      "parentUuid": "b43f0b93_3213ad1b",
+      "revId": "e96fa64c9d2484a0e399d0f9042f67fca5136e24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

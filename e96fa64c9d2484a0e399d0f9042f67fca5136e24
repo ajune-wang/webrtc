@@ -16,6 +16,24 @@
       "revId": "e96fa64c9d2484a0e399d0f9042f67fca5136e24",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b43f0b93_3213ad1b",
+        "filename": "test/fuzzers/packet_buffer_fuzzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-07-10T11:10:34Z",
+      "side": 1,
+      "message": "I looked in packet.h and packet.cc. From what I can see, RTPVideoHeader can be copied with a copy constructor. I don\u0027t think you need a byte array. I think this should work:\n\nRTPVideoHeader copy \u003d packet.video_header;\n// get fuzzed data\npacket.video_header \u003d copy;",
+      "parentUuid": "b104b545_59c33e42",
+      "revId": "e96fa64c9d2484a0e399d0f9042f67fca5136e24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

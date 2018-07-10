@@ -10,6 +10,8 @@
 
 #include "modules/audio_processing/agc2/rnn_vad/lp_residual.h"
 
+#include <math.h>
+
 #include <algorithm>
 #include <array>
 #include <numeric>
@@ -61,6 +63,12 @@ void ComputeInitialInverseFilterCoefficients(
       reflection_coeff += lpc_coeffs[j] * auto_corr[i - j];
     }
     reflection_coeff += auto_corr[i + 1];
+
+    // Avoid division by small numbers.
+    if (std::abs(error) < 1e-6f) {
+      error = std::copysign(error, 1e-6f);
+    }
+
     reflection_coeff /= -error;
     // Update LPC coefficients and total error.
     lpc_coeffs[i] = reflection_coeff;

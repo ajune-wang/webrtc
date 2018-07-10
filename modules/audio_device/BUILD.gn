@@ -21,22 +21,6 @@ config("audio_device_config") {
   ]
 }
 
-config("audio_device_warnings_config") {
-  if (is_win && is_clang) {
-    cflags = [
-      # Disable warnings failing when compiling with Clang on Windows.
-      # https://bugs.chromium.org/p/webrtc/issues/detail?id=5366
-      "-Wno-bool-conversion",
-      "-Wno-delete-non-virtual-dtor",
-      "-Wno-logical-op-parentheses",
-      "-Wno-microsoft-extra-qualification",
-      "-Wno-microsoft-goto",
-      "-Wno-reorder",
-      "-Wno-shift-overflow",
-    ]
-  }
-}
-
 rtc_source_set("audio_device") {
   visibility = [ "*" ]
   public_deps = [
@@ -397,7 +381,6 @@ rtc_source_set("audio_device_impl") {
           "msdmo.lib",
         ]
       }
-      configs += [ ":audio_device_warnings_config" ]
     }
   } else {
     defines = [ "WEBRTC_DUMMY_AUDIO_BUILD" ]

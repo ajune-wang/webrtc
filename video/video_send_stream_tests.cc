@@ -591,21 +591,6 @@ TEST_F(VideoSendStreamTest, SupportsUlpfecWithoutExtensions) {
   RunBaseTest(&test);
 }
 
-class VideoSendStreamWithoutUlpfecTest : public VideoSendStreamTest {
- protected:
-  VideoSendStreamWithoutUlpfecTest()
-      : field_trial_("WebRTC-DisableUlpFecExperiment/Enabled/") {}
-
-  test::ScopedFieldTrials field_trial_;
-};
-
-TEST_F(VideoSendStreamWithoutUlpfecTest, NoUlpfecIfDisabledThroughFieldTrial) {
-  test::FunctionVideoEncoderFactory encoder_factory(
-      []() { return VP8Encoder::Create(); });
-  UlpfecObserver test(false, false, true, false, "VP8", &encoder_factory);
-  RunBaseTest(&test);
-}
-
 // The FEC scheme used is not efficient for H264, so we should not use RED/FEC
 // since we'll still have to re-request FEC packets, effectively wasting
 // bandwidth since the receiver has to wait for FEC retransmissions to determine
@@ -614,7 +599,7 @@ TEST_F(VideoSendStreamTest, DoesNotUtilizeUlpfecForH264WithNackEnabled) {
   test::FunctionVideoEncoderFactory encoder_factory([]() {
     return absl::make_unique<test::FakeH264Encoder>(Clock::GetRealTimeClock());
   });
-  UlpfecObserver test(false, true, true, false, "H264", &encoder_factory);
+  UlpfecObserver test(false, true, false, false, "H264", &encoder_factory);
   RunBaseTest(&test);
 }
 

@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "64872b2a_134dc7e9",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-07-10T19:41:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "76123891_382d341b",
+      "revId": "14b3f642f638f59f54781dd40c4f4c039468b7e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "42436b3e_439cfeac",
         "filename": "p2p/base/p2ptransportchannel.cc",
         "patchSetId": 2
@@ -33,6 +51,24 @@
       "revId": "14b3f642f638f59f54781dd40c4f4c039468b7e6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3004d900_fb8b00af",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1013,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-07-10T19:41:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "42436b3e_439cfeac",
+      "revId": "14b3f642f638f59f54781dd40c4f4c039468b7e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "3e2198df_c14a4af3",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1020,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-07-10T19:41:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "356eee2c_82a552be",
+      "revId": "14b3f642f638f59f54781dd40c4f4c039468b7e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5f942a59_f14e3575",
         "filename": "p2p/base/p2ptransportchannel.cc",
         "patchSetId": 2
@@ -67,6 +121,24 @@
       "revId": "14b3f642f638f59f54781dd40c4f4c039468b7e6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "914e6092_a8b2a191",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1021,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-07-10T19:41:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5f942a59_f14e3575",
+      "revId": "14b3f642f638f59f54781dd40c4f4c039468b7e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "d86d50d6_3144d988",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1038,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-07-10T19:41:34Z",
+      "side": 1,
+      "message": "It destroys itself when it finishes executing. The call stack here will be:\nSignalThread::OnMessage \u003e AsyncResolver::OnWorkDone \u003e P2PTransportChannel::OnCandidateResolved. SignalThread::OnMessage contains an EnterExit object, which will delete the thread when it is destructed (if its refcount is 0, which it should be once all of the work is done).",
+      "parentUuid": "195bb3fc_7cafaa20",
+      "revId": "14b3f642f638f59f54781dd40c4f4c039468b7e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e4b7f63b_e562cbd7",
         "filename": "p2p/base/p2ptransportchannel.cc",
         "patchSetId": 2
@@ -101,6 +191,24 @@
       "revId": "14b3f642f638f59f54781dd40c4f4c039468b7e6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3926d9eb_9a1d7f24",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1043,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-07-10T19:41:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e4b7f63b_e562cbd7",
+      "revId": "14b3f642f638f59f54781dd40c4f4c039468b7e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "abd2bf53_b8598fa7",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1056,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-07-10T19:41:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ad11c079_b4f351e1",
+      "revId": "14b3f642f638f59f54781dd40c4f4c039468b7e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "071e9dcc_f32a2ed1",
         "filename": "p2p/base/p2ptransportchannel.h",
         "patchSetId": 2
@@ -135,6 +261,24 @@
       "revId": "14b3f642f638f59f54781dd40c4f4c039468b7e6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b09bf7aa_dc7b709a",
+        "filename": "p2p/base/p2ptransportchannel.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-07-10T19:41:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "071e9dcc_f32a2ed1",
+      "revId": "14b3f642f638f59f54781dd40c4f4c039468b7e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -155,6 +299,24 @@
     },
     {
       "key": {
+        "uuid": "3c01044d_410aec4e",
+        "filename": "p2p/base/p2ptransportchannel.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-07-10T19:41:34Z",
+      "side": 1,
+      "message": "I can\u0027t figure out how the code constructing P2PTransportChannels would get a PacketSocketFactory to pass in (e.g. JsepTransportController::CreateDtlsTransport). Maybe I am missing something?\n\nLooking at adding PortAllocator::CreateAsyncResolver instead (P2PTransportController already has a PortAllocator member).",
+      "parentUuid": "9af6deff_eaf2eea7",
+      "revId": "14b3f642f638f59f54781dd40c4f4c039468b7e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "755de7eb_1ecc7413",
         "filename": "p2p/base/p2ptransportchannel_unittest.cc",
         "patchSetId": 2
@@ -166,6 +328,24 @@
       "writtenOn": "2018-06-26T17:03:54Z",
       "side": 1,
       "message": "May want a more \"end-to-end\" test as well, which verifies two PeerConnections can actually connect to each other via (fake) hostname candidates. Maybe in peerconnection_integrationtest.cc? Just to make sure this is all working end-to-end; the candidate isn\u0027t eaten by the PeerConnection for some reason, it actually gets paired...",
+      "revId": "14b3f642f638f59f54781dd40c4f4c039468b7e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21b5428f_413fe55a",
+        "filename": "p2p/base/p2ptransportchannel_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 4599,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-07-10T19:41:34Z",
+      "side": 1,
+      "message": "Taking another pass at this.",
+      "parentUuid": "755de7eb_1ecc7413",
       "revId": "14b3f642f638f59f54781dd40c4f4c039468b7e6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

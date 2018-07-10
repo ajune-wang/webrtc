@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "86755e82_25dc9e57",
+        "filename": "modules/congestion_controller/pcc/utility_function.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-07-10T23:17:36Z",
+      "side": 1,
+      "message": "Please remove the unused header includes.",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 20
+      },
+      "revId": "791700b736e4c016eb3edd8349a9be73a2dff9bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "91d04d12_03047ab4",
         "filename": "modules/congestion_controller/pcc/utility_function.cc",
         "patchSetId": 1
@@ -53,6 +76,24 @@
     },
     {
       "key": {
+        "uuid": "0b143a52_c834b184",
+        "filename": "modules/congestion_controller/pcc/utility_function.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-07-10T23:17:36Z",
+      "side": 1,
+      "message": "I agree with the first points, but I don\u0027t think MonitorInterval should be forward declared. MonitorInterval is a relatively small class without a lot of other dependencies. The benefits don\u0027t seem to outweigh the downsides imo.  https://google.github.io/styleguide/cppguide.html#Forward_Declarations",
+      "parentUuid": "dc07f45a_3548deb3",
+      "revId": "791700b736e4c016eb3edd8349a9be73a2dff9bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1b7f4e23_7bf60b82",
         "filename": "modules/congestion_controller/pcc/utility_function.h",
         "patchSetId": 1
@@ -87,6 +128,30 @@
       "writtenOn": "2018-07-09T10:46:26Z",
       "side": 1,
       "message": "This name is a bit generic. A good practice is to name things as if you don\u0027t have any namespace protection (other that webrtc::). I could imaging this name being used in other contexts as well.\n\nMaybe PccUtilityFunctionInterface?\n\nInterface is optional to add, see: https://google.github.io/styleguide/cppguide.html#Interfaces\n\nWill we have more than one utility function? Otherwise you cold simplify the code by not having any generic interface. An interface adds costs in terms of increased boilerplate. increased binary size and increased run time overhead.",
+      "range": {
+        "startLine": 28,
+        "startChar": 6,
+        "endLine": 28,
+        "endChar": 21
+      },
+      "revId": "791700b736e4c016eb3edd8349a9be73a2dff9bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71c9c06e_2c889875",
+        "filename": "modules/congestion_controller/pcc/utility_function.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-07-10T23:17:36Z",
+      "side": 1,
+      "message": "We plan to experiment with other utility functions, yes.",
+      "parentUuid": "cd132677_6f460030",
       "range": {
         "startLine": 28,
         "startChar": 6,

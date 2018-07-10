@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aaaf4550_6cda6aa3",
+        "filename": "modules/audio_processing/agc2/rnn_vad/lp_residual.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-07-10T18:33:27Z",
+      "side": 1,
+      "message": "You want 1e-6f as magnitude and the sign of |error|, so swap the args.\n\n  From https://en.cppreference.com/w/cpp/numeric/math/copysign:\n    float copysign( float x, float y );\n    Composes a floating point value with the magnitude of x and the sign of y.\n\nAlso, I would define a constexpr and use std::numeric_limits::min instead of 1e-6f.\nIf you do that, you may want to check if the input in http://bugs.webrtc.org/9450 triggers a floating point overflow exception.\n\nNit: maybe use cmath and std::fabs std::copysign (for consistency in the RNN VAD).",
+      "range": {
+        "startLine": 69,
+        "startChar": 14,
+        "endLine": 69,
+        "endChar": 36
+      },
+      "revId": "eaa7009a269e70d602e1201bb54a1fe331f52bd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

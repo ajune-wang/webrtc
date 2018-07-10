@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0df8eeec_20e634c3",
+        "filename": "p2p/base/p2ptransportchannel_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 3185,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-07-10T09:03:56Z",
+      "side": 1,
+      "message": "Did you check whether this test actually fails without your changes? I suspect it wouldn\u0027t, because the \"cell\u003c-\u003ecell\" connections would still be kept alive for 30 seconds by \"DEAD_CONNECTION_RECEIVE_TIMEOUT\": https://cs.chromium.org/chromium/src/third_party/webrtc/p2p/base/p2pconstants.cc?sq\u003dpackage:chromium\u0026g\u003d0\u0026l\u003d68\n\nMeaning, to really test the scenario that our implementation currently fails at, you\u0027d need to wait at least 30 seconds, and *then* simulate losing Wi-Fi. But I could be wrong.",
+      "revId": "f3aaabfe68ad37149a283cdca0f0f535a184f19f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

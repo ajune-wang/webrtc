@@ -2,6 +2,75 @@
   "comments": [
     {
       "key": {
+        "uuid": "d807883c_731bab7d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-07-10T23:06:23Z",
+      "side": 1,
+      "message": "Commit message could be clearer.\n\nFor example, add \"for the PCC congestion control algorithm.\"\nAlso add a couple of sentences explaining what a monitor interval is and what it is used for in the algorithm.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 43
+      },
+      "revId": "e16cbf4a9d009a848f0e21257430027e6798266c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7cbe46e5_b3a8edad",
+        "filename": "modules/congestion_controller/pcc/monitor_interval.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-07-10T23:06:23Z",
+      "side": 1,
+      "message": "nit: IsFeedbackCollectionDone?",
+      "range": {
+        "startLine": 64,
+        "startChar": 22,
+        "endLine": 64,
+        "endChar": 46
+      },
+      "revId": "e16cbf4a9d009a848f0e21257430027e6798266c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "181d3554_80d489a9",
+        "filename": "modules/congestion_controller/pcc/monitor_interval.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-07-10T23:06:23Z",
+      "side": 1,
+      "message": "It\u0027s usually easier to read if the variables are named the same as their getter functions. I suggest renaming to feedback_collection_done_.",
+      "range": {
+        "startLine": 65,
+        "startChar": 9,
+        "endLine": 65,
+        "endChar": 31
+      },
+      "revId": "e16cbf4a9d009a848f0e21257430027e6798266c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0c15f9d7_429fa753",
         "filename": "modules/congestion_controller/pcc/monitor_interval.cc",
         "patchSetId": 1
@@ -25,6 +94,52 @@
     },
     {
       "key": {
+        "uuid": "68b6bcc7_f9c1af48",
+        "filename": "modules/congestion_controller/pcc/monitor_interval.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-07-10T23:06:23Z",
+      "side": 1,
+      "message": "I wonder if there could be an issue with missing feedback here?\n\nWhat happens if one RTCP feedback message contains feedbacks about packets that belong to different monitor intervals? (E.g if packets 1-10 belong to MI 1 and packets 11-20 belong to MI 2, but we first receive feedbacks covering for packets 1-5, then 6-15, then 16-20).\n\nWhat happens if feedback messages are reordered on the network? (E.g if packets 1-10 belong to MI 1 and packets 11-20 belong to MI 2, but we first receive feedback for packets 11-20 and then for packets 1-10.) Imo, it would be reasonable to count all packets from the first interval as lost. However, I worry that they might be counted as part of the second interval.",
+      "range": {
+        "startLine": 151,
+        "startChar": 6,
+        "endLine": 152,
+        "endChar": 26
+      },
+      "revId": "e16cbf4a9d009a848f0e21257430027e6798266c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e3f78ad_b99e53be",
+        "filename": "modules/congestion_controller/pcc/monitor_interval.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-07-10T23:06:23Z",
+      "side": 1,
+      "message": "I dont understand this function. complete_feedback_mi_number_ \u003e\u003d monitor_intervals_.size() should be equivalent to IsFeedbackCollectingDone(), no? So the function is supposed to return true precisely if the timeout has elapsed without collecting all the feedback? If so, please  add a comment.",
+      "range": {
+        "startLine": 168,
+        "startChar": 19,
+        "endLine": 168,
+        "endChar": 35
+      },
+      "revId": "e16cbf4a9d009a848f0e21257430027e6798266c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "97d95f8a_88691a2a",
         "filename": "modules/congestion_controller/pcc/monitor_interval.cc",
         "patchSetId": 1
@@ -41,6 +156,29 @@
         "startChar": 10,
         "endLine": 185,
         "endChar": 28
+      },
+      "revId": "e16cbf4a9d009a848f0e21257430027e6798266c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6617e386_9d9c23a6",
+        "filename": "modules/congestion_controller/pcc/monitor_interval.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-07-10T23:06:23Z",
+      "side": 1,
+      "message": "It should be sufficient to include vector (and maybe cstddef for size_t) in the header file.",
+      "range": {
+        "startLine": 14,
+        "startChar": 10,
+        "endLine": 14,
+        "endChar": 17
       },
       "revId": "e16cbf4a9d009a848f0e21257430027e6798266c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
@@ -140,6 +278,52 @@
     },
     {
       "key": {
+        "uuid": "630ccd64_bde2662a",
+        "filename": "modules/congestion_controller/pcc/monitor_interval.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-07-10T23:06:23Z",
+      "side": 1,
+      "message": "nit: s/were/was",
+      "range": {
+        "startLine": 51,
+        "startChar": 19,
+        "endLine": 51,
+        "endChar": 23
+      },
+      "revId": "e16cbf4a9d009a848f0e21257430027e6798266c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7c9b320_a85c876c",
+        "filename": "modules/congestion_controller/pcc/monitor_interval.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-07-10T23:06:23Z",
+      "side": 1,
+      "message": "The difference between \"bitrate used to send packets\" and \"actual bitrate\" isn\u0027t clear unless you have previous experience with related code. How about a reformulation like\n\"Target bitrate used to generate and pace the outgoing packets. Actually sent bitrate might not match the target exactly.\"",
+      "range": {
+        "startLine": 51,
+        "startChar": 46,
+        "endLine": 51,
+        "endChar": 69
+      },
+      "revId": "e16cbf4a9d009a848f0e21257430027e6798266c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2593a39b_8a8d5e19",
         "filename": "modules/congestion_controller/pcc/monitor_interval.h",
         "patchSetId": 1
@@ -151,6 +335,29 @@
       "writtenOn": "2018-07-10T12:28:04Z",
       "side": 1,
       "message": "What about returning a const reference? (to avoid superfluous copies of the vector when no race condition is to be feared).\nEven better: don\u0027t provide any getter on these vectors. Cf comment in https://webrtc-review.googlesource.com/c/src/+/87146.",
+      "revId": "e16cbf4a9d009a848f0e21257430027e6798266c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ad7cba7_11d82fec",
+        "filename": "modules/congestion_controller/pcc/monitor_interval.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-07-10T23:06:23Z",
+      "side": 1,
+      "message": "Please add a comment for this class. E.g. \"A MonitorBlock represents a sequence of bitrates to be tested. In the typical case there will be exactly two bitrates; (1-epsilon)*r and (1+epsilon)*r where r is the best bitrate found so far.\"",
+      "range": {
+        "startLine": 66,
+        "startChar": 6,
+        "endLine": 66,
+        "endChar": 18
+      },
       "revId": "e16cbf4a9d009a848f0e21257430027e6798266c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -173,6 +380,29 @@
         "startChar": 0,
         "endLine": 68,
         "endChar": 54
+      },
+      "revId": "e16cbf4a9d009a848f0e21257430027e6798266c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e4708b5_4c13fa24",
+        "filename": "modules/congestion_controller/pcc/monitor_interval.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-07-10T23:06:23Z",
+      "side": 1,
+      "message": "nit: s/immideatly/immediately/",
+      "range": {
+        "startLine": 68,
+        "startChar": 43,
+        "endLine": 68,
+        "endChar": 53
       },
       "revId": "e16cbf4a9d009a848f0e21257430027e6798266c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
@@ -249,6 +479,52 @@
     },
     {
       "key": {
+        "uuid": "42fdcabb_24b7c158",
+        "filename": "modules/congestion_controller/pcc/monitor_interval.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-07-10T23:06:23Z",
+      "side": 1,
+      "message": "Does this function have to be public? Where is it called?",
+      "range": {
+        "startLine": 83,
+        "startChar": 7,
+        "endLine": 83,
+        "endChar": 20
+      },
+      "revId": "e16cbf4a9d009a848f0e21257430027e6798266c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e05d56da_7e8e2811",
+        "filename": "modules/congestion_controller/pcc/monitor_interval.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-07-10T23:06:23Z",
+      "side": 1,
+      "message": "It is not clear what size of a monitor block means. Maybe rename the function to make it clear that it returns the number of bitrates to be tested?",
+      "range": {
+        "startLine": 86,
+        "startChar": 9,
+        "endLine": 86,
+        "endChar": 13
+      },
+      "revId": "e16cbf4a9d009a848f0e21257430027e6798266c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "82f05762_7e54b840",
         "filename": "modules/congestion_controller/pcc/monitor_interval.h",
         "patchSetId": 1
@@ -265,6 +541,29 @@
         "startChar": 25,
         "endLine": 88,
         "endChar": 43
+      },
+      "revId": "e16cbf4a9d009a848f0e21257430027e6798266c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac79afc1_0ed48214",
+        "filename": "modules/congestion_controller/pcc/monitor_interval.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-07-10T23:06:23Z",
+      "side": 1,
+      "message": "It is not clear to me what last_known_time_ represents. Could we get rid of it by passing in the current time to GetTargetBitrate and IsTimeoutExpired?",
+      "range": {
+        "startLine": 91,
+        "startChar": 12,
+        "endLine": 91,
+        "endChar": 28
       },
       "revId": "e16cbf4a9d009a848f0e21257430027e6798266c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
@@ -311,6 +610,29 @@
         "startChar": 12,
         "endLine": 97,
         "endChar": 14
+      },
+      "revId": "e16cbf4a9d009a848f0e21257430027e6798266c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b7f5f732_9266c60c",
+        "filename": "modules/congestion_controller/pcc/monitor_interval_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-07-10T23:06:23Z",
+      "side": 1,
+      "message": "Monitor",
+      "range": {
+        "startLine": 186,
+        "startChar": 38,
+        "endLine": 186,
+        "endChar": 45
       },
       "revId": "e16cbf4a9d009a848f0e21257430027e6798266c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

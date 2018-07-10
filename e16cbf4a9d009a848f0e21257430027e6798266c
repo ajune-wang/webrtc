@@ -140,6 +140,23 @@
     },
     {
       "key": {
+        "uuid": "2593a39b_8a8d5e19",
+        "filename": "modules/congestion_controller/pcc/monitor_interval.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2018-07-10T12:28:04Z",
+      "side": 1,
+      "message": "What about returning a const reference? (to avoid superfluous copies of the vector when no race condition is to be feared).\nEven better: don\u0027t provide any getter on these vectors. Cf comment in https://webrtc-review.googlesource.com/c/src/+/87146.",
+      "revId": "e16cbf4a9d009a848f0e21257430027e6798266c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9246fcfe_b0f1ca15",
         "filename": "modules/congestion_controller/pcc/monitor_interval.h",
         "patchSetId": 1

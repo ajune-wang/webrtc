@@ -2,6 +2,57 @@
   "comments": [
     {
       "key": {
+        "uuid": "91d04d12_03047ab4",
+        "filename": "modules/congestion_controller/pcc/utility_function.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2018-07-10T12:21:41Z",
+      "side": 1,
+      "message": "Do we want to copy the vectors? A const reference could do the job.\n\nThere might be an ever better solution: move this computation to MonitorInterval class. This would reduce coupling. E.g. if MonitorInterval changes its data structures, this class won\u0027t have to be updated.",
+      "revId": "791700b736e4c016eb3edd8349a9be73a2dff9bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "333e872f_191fb635",
+        "filename": "modules/congestion_controller/pcc/utility_function.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2018-07-10T12:21:41Z",
+      "side": 1,
+      "message": "What if packets_sent_times has less items than packets_rtts?",
+      "revId": "791700b736e4c016eb3edd8349a9be73a2dff9bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc07f45a_3548deb3",
+        "filename": "modules/congestion_controller/pcc/utility_function.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2018-07-10T12:21:41Z",
+      "side": 1,
+      "message": "Please only include what is strictly necessary, especially in header files. \nDead includes clutter the file, give wrong hints about dependencies and increase build time.\n\nEven MonitorInterval *could* be forward declared.",
+      "revId": "791700b736e4c016eb3edd8349a9be73a2dff9bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1b7f4e23_7bf60b82",
         "filename": "modules/congestion_controller/pcc/utility_function.h",
         "patchSetId": 1

@@ -723,26 +723,19 @@ void VideoSendStreamImpl::ConfigureProtection() {
   int ulpfec_payload_type = config_->rtp.ulpfec.ulpfec_payload_type;
 
   // Shorthands.
-  auto IsRedEnabled = [&]() { return red_payload_type >= 0; };
-  auto DisableRed = [&]() { red_payload_type = -1; };
-  auto IsUlpfecEnabled = [&]() { return ulpfec_payload_type >= 0; };
-  auto DisableUlpfec = [&]() { ulpfec_payload_type = -1; };
-
-  if (webrtc::field_trial::IsEnabled("WebRTC-DisableUlpFecExperiment")) {
-    RTC_LOG(LS_INFO) << "Experiment to disable sending ULPFEC is enabled.";
-    DisableUlpfec();
-  }
+  const bool red_enabled = red_payload_type >= 0;
+  const bool ulpfec_enabled = ulpfec_payload_type >= 0;
+  const auto& DisableUlpfec = [&]() {
+    red_payload_type = -1;
+    ulpfec_payload_type = -1;
+  };
 
   // If enabled, FlexFEC takes priority over RED+ULPFEC.
   if (flexfec_enabled) {
-    // We can safely disable RED here, because if the remote supports FlexFEC,
-    // we know that it has a receiver without the RED/RTX workaround.
+    // We can safely disable RED+ULPFEC here, because if the remote supports
+    // FlexFEC, we know that it has a receiver without the RED/RTX workaround.
     // See http://crbug.com/webrtc/6650 for more information.
-    if (IsRedEnabled()) {
-      RTC_LOG(LS_INFO) << "Both FlexFEC and RED are configured. Disabling RED.";
-      DisableRed();
-    }
-    if (IsUlpfecEnabled()) {
+    if (ulpfec_enabled) {
       RTC_LOG(LS_INFO)
           << "Both FlexFEC and ULPFEC are configured. Disabling ULPFEC.";
       DisableUlpfec();
@@ -753,7 +746,7 @@ void VideoSendStreamImpl::ConfigureProtection() {
   // without retransmitting FEC, so using ULPFEC + NACK for H.264 (for instance)
   // is a waste of bandwidth since FEC packets still have to be transmitted.
   // Note that this is not the case with FlexFEC.
-  if (nack_enabled && IsUlpfecEnabled() &&
+  if (nack_enabled && ulpfec_enabled &&
       !PayloadTypeSupportsSkippingFecPackets(config_->rtp.payload_name)) {
     RTC_LOG(LS_WARNING)
         << "Transmitting payload type without picture ID using "
@@ -770,14 +763,14 @@ void VideoSendStreamImpl::ConfigureProtection() {
   // TODO(brandtr): This change went into M56, so we can remove it in ~M59.
   // At that time, we can disable RED whenever ULPFEC is disabled, as there is
   // no point in using RED without ULPFEC.
-  if (IsRedEnabled()) {
+  if (red_enabled) {
     RTC_DCHECK_GE(red_payload_type, 0);
     RTC_DCHECK_LE(red_payload_type, 127);
   }
-  if (IsUlpfecEnabled()) {
+  if (ulpfec_enabled) {
     RTC_DCHECK_GE(ulpfec_payload_type, 0);
     RTC_DCHECK_LE(ulpfec_payload_type, 127);
-    if (!IsRedEnabled()) {
+    if (!red_enabled) {
       RTC_LOG(LS_WARNING)
           << "ULPFEC is enabled but RED is disabled. Disabling ULPFEC.";
       DisableUlpfec();
@@ -793,7 +786,7 @@ void VideoSendStreamImpl::ConfigureProtection() {
 
   // Currently, both ULPFEC and FlexFEC use the same FEC rate calculation logic,
   // so enable that logic if either of those FEC schemes are enabled.
-  fec_controller_->SetProtectionMethod(flexfec_enabled || IsUlpfecEnabled(),
+  fec_controller_->SetProtectionMethod(flexfec_enabled || ulpfec_enabled,
                                        nack_enabled);
 }
 

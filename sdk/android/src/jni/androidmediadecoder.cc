@@ -64,7 +64,7 @@ class MediaCodecVideoDecoder : public VideoDecoder, public rtc::MessageHandler {
  public:
   explicit MediaCodecVideoDecoder(JNIEnv* jni,
                                   VideoCodecType codecType,
-                                  jobject render_egl_context);
+                                  bool use_surface);
   ~MediaCodecVideoDecoder() override;
 
   int32_t InitDecode(const VideoCodec* codecSettings,
@@ -105,14 +105,11 @@ class MediaCodecVideoDecoder : public VideoDecoder, public rtc::MessageHandler {
   // Type of video codec.
   VideoCodecType codecType_;
 
-  // Render EGL context - owned by factory, should not be allocated/destroyed
-  // by VideoDecoder.
-  jobject render_egl_context_;
+  const bool use_surface_;
 
   bool key_frame_required_;
   bool inited_;
   bool sw_fallback_required_;
-  bool use_surface_;
   VideoCodec codec_;
   I420BufferPool decoded_frame_pool_;
   DecodedImageCallback* callback_;
@@ -141,9 +138,9 @@ class MediaCodecVideoDecoder : public VideoDecoder, public rtc::MessageHandler {
 
 MediaCodecVideoDecoder::MediaCodecVideoDecoder(JNIEnv* jni,
                                                VideoCodecType codecType,
-                                               jobject render_egl_context)
+                                               bool use_surface)
     : codecType_(codecType),
-      render_egl_context_(render_egl_context),
+      use_surface_(use_surface),
       key_frame_required_(true),
       inited_(false),
       sw_fallback_required_(false),
@@ -154,8 +151,7 @@ MediaCodecVideoDecoder::MediaCodecVideoDecoder(JNIEnv* jni,
   codec_thread_->SetName("MediaCodecVideoDecoder", NULL);
   RTC_CHECK(codec_thread_->Start()) << "Failed to start MediaCodecVideoDecoder";
 
-  use_surface_ = (render_egl_context_ != NULL);
-  ALOGD << "MediaCodecVideoDecoder ctor. Use surface: " << use_surface_;
+  ALOGD << "MediaCodecVideoDecoder ctor. Use surface: " << use_surface;
   memset(&codec_, 0, sizeof(codec_));
   AllowBlockingCalls();
 }
@@ -228,10 +224,9 @@ int32_t MediaCodecVideoDecoder::InitDecodeOnCodecThread() {
 
   ScopedJavaLocalRef<jobject> j_video_codec_enum =
       Java_VideoCodecType_fromNativeIndex(jni, codecType_);
-  jobject j_egl_context = use_surface_ ? render_egl_context_ : nullptr;
   bool success = Java_MediaCodecVideoDecoder_initDecode(
       jni, j_media_codec_video_decoder_, j_video_codec_enum, codec_.width,
-      codec_.height, JavaParamRef<jobject>(j_egl_context));
+      codec_.height);
 
   if (CheckException(jni) || !success) {
     ALOGE << "Codec initialization error - fallback to SW codec.";
@@ -779,8 +774,7 @@ void MediaCodecVideoDecoder::OnMessage(rtc::Message* msg) {
   codec_thread_->PostDelayed(RTC_FROM_HERE, kMediaCodecPollMs, this);
 }
 
-MediaCodecVideoDecoderFactory::MediaCodecVideoDecoderFactory()
-    : egl_context_(nullptr) {
+MediaCodecVideoDecoderFactory::MediaCodecVideoDecoderFactory() {
   ALOGD << "MediaCodecVideoDecoderFactory ctor";
   JNIEnv* jni = AttachCurrentThreadIfNeeded();
   ScopedLocalRefFrame local_ref_frame(jni);
@@ -807,23 +801,6 @@ MediaCodecVideoDecoderFactory::MediaCodecVideoDecoderFactory()
 
 MediaCodecVideoDecoderFactory::~MediaCodecVideoDecoderFactory() {
   ALOGD << "MediaCodecVideoDecoderFactory dtor";
-  if (egl_context_) {
-    JNIEnv* jni = AttachCurrentThreadIfNeeded();
-    jni->DeleteGlobalRef(egl_context_);
-  }
-}
-
-void MediaCodecVideoDecoderFactory::SetEGLContext(JNIEnv* jni,
-                                                  jobject egl_context) {
-  ALOGD << "MediaCodecVideoDecoderFactory::SetEGLContext";
-  if (egl_context_) {
-    jni->DeleteGlobalRef(egl_context_);
-    egl_context_ = nullptr;
-  }
-  egl_context_ = jni->NewGlobalRef(egl_context);
-  if (CheckException(jni)) {
-    ALOGE << "error calling NewGlobalRef for EGL Context.";
-  }
 }
 
 std::vector<SdpVideoFormat> MediaCodecVideoDecoderFactory::GetSupportedFormats()
@@ -843,7 +820,8 @@ std::unique_ptr<VideoDecoder> MediaCodecVideoDecoderFactory::CreateVideoDecoder(
       JNIEnv* jni = AttachCurrentThreadIfNeeded();
       ScopedLocalRefFrame local_ref_frame(jni);
       return rtc::MakeUnique<MediaCodecVideoDecoder>(
-          jni, PayloadStringToCodecType(format.name), egl_context_);
+          jni, PayloadStringToCodecType(format.name),
+          Java_MediaCodecVideoDecoder_useSurface(jni));
     }
   }
   ALOGW << "Can not find HW video decoder for type " << format.name;

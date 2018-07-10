@@ -15,9 +15,9 @@
 #include <unordered_set>
 #include <vector>
 
+#include "api/video/video_bitrate_allocator.h"
 #include "call/bitrate_allocator.h"
 #include "common_types.h"  // NOLINT(build/include)
-#include "common_video/include/video_bitrate_allocator.h"
 #include "modules/rtp_rtcp/include/flexfec_sender.h"
 #include "modules/utility/include/process_thread.h"
 #include "modules/video_coding/utility/ivf_file_writer.h"

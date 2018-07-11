@@ -93,6 +93,14 @@ class CallTest : public ::testing::Test {
   std::vector<VideoReceiveStream::Config> CreateMatchingVideoReceiveConfigs(
       const VideoSendStream::Config& video_send_config,
       Transport* rtcp_send_transport);
+  std::vector<VideoReceiveStream::Config> CreateMatchingVideoReceiveConfigs(
+      const VideoSendStream::Config& video_send_config,
+      Transport* rtcp_send_transport,
+      bool send_side_bwe,
+      absl::optional<size_t> decode_sub_stream,
+      bool receiver_reference_time_report,
+      int rtp_history_ms);
+
   void CreateMatchingAudioAndFecConfigs(Transport* rtcp_send_transport);
   void CreateMatchingReceiveConfigs(Transport* rtcp_send_transport);
 
@@ -140,6 +148,9 @@ class CallTest : public ::testing::Test {
   std::unique_ptr<Call> sender_call_;
   RtpTransportControllerSend* sender_call_transport_controller_;
   std::unique_ptr<PacketTransport> send_transport_;
+  std::vector<VideoSendStream::Config> video_send_configs_;
+  std::vector<VideoEncoderConfig> video_encoder_configs_;
+  std::vector<VideoSendStream*> video_send_streams_;
   AudioSendStream::Config audio_send_config_;
   AudioSendStream* audio_send_stream_;
 
@@ -152,7 +163,13 @@ class CallTest : public ::testing::Test {
   std::vector<FlexfecReceiveStream::Config> flexfec_receive_configs_;
   std::vector<FlexfecReceiveStream*> flexfec_receive_streams_;
 
-  std::unique_ptr<test::FrameGeneratorCapturer> frame_generator_capturer_;
+  test::FrameGeneratorCapturer* frame_generator_capturer_;
+  std::vector<rtc::VideoSourceInterface<VideoFrame>*> video_sources_;
+  std::vector<VideoCapturer*> video_capturers_;
+  std::vector<std::unique_ptr<VideoCapturer>> allocated_capturers_;
+  DegradationPreference degradation_preference_ =
+      DegradationPreference::MAINTAIN_FRAMERATE;
+
   test::FunctionVideoEncoderFactory fake_encoder_factory_;
   int fake_encoder_max_bitrate_ = -1;
   std::vector<std::unique_ptr<VideoDecoder>> allocated_decoders_;
@@ -166,13 +183,6 @@ class CallTest : public ::testing::Test {
   SingleThreadedTaskQueueForTesting task_queue_;
 
  private:
-  VideoSendStream::Config video_send_config_;
-  VideoEncoderConfig video_encoder_config_;
-  VideoSendStream* video_send_stream_;
-
-  DegradationPreference degradation_preference_ =
-      DegradationPreference::MAINTAIN_FRAMERATE;
-
   rtc::scoped_refptr<AudioProcessing> apm_send_;
   rtc::scoped_refptr<AudioProcessing> apm_recv_;
   rtc::scoped_refptr<TestAudioDeviceModule> fake_send_audio_device_;

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "76deaf5e_c70c6946",
+        "filename": "video/video_send_stream_impl.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 762,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-07-11T12:28:22Z",
+      "side": 1,
+      "message": "Merge into one if clause.\n\nAlso, disable when the opposite is true: Ulpfec disabled but Red enabled. Otherwise I think we can hit the newly modified DCHECK in the RTP module?",
+      "range": {
+        "startLine": 762,
+        "startChar": 4,
+        "endLine": 762,
+        "endChar": 26
+      },
+      "revId": "2dac67f916fe824c17eccd1d071adb77c9b6d70d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

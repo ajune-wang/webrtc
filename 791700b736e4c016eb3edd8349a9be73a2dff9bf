@@ -94,6 +94,24 @@
     },
     {
       "key": {
+        "uuid": "523b70f6_e332abb5",
+        "filename": "modules/congestion_controller/pcc/utility_function.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2018-07-11T13:26:09Z",
+      "side": 1,
+      "message": "There is no such thing as \"small\" in C++ :)\nmonitor_interval.h depends on 193 distinct headers (even when #includes are cleaned up), none of which would be included here with a forward declaration.\n\nAbout the guideline: none of the cons seems to apply here.\n\nI\u0027m really in favor of maximal decoupling, but I happily leave the final call to the owner!",
+      "parentUuid": "0b143a52_c834b184",
+      "revId": "791700b736e4c016eb3edd8349a9be73a2dff9bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1b7f4e23_7bf60b82",
         "filename": "modules/congestion_controller/pcc/utility_function.h",
         "patchSetId": 1

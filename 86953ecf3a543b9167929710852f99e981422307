@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc173a_b64ed344",
+        "filename": "sdk/android/api/org/webrtc/MediaCodecVideoDecoder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-07-11T08:08:17Z",
+      "side": 1,
+      "message": "nit: Generally public methods should have javadoc",
+      "range": {
+        "startLine": 161,
+        "startChar": 2,
+        "endLine": 161,
+        "endChar": 9
+      },
+      "revId": "86953ecf3a543b9167929710852f99e981422307",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a40e629_f7481a31",
+        "filename": "sdk/android/api/org/webrtc/MediaCodecVideoEncoder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-07-11T08:08:17Z",
+      "side": 1,
+      "message": "Since EglBase10 context is going to be useless for us anyway, I think we should just skip creating it.",
+      "range": {
+        "startLine": 158,
+        "startChar": 4,
+        "endLine": 158,
+        "endChar": 47
+      },
+      "revId": "86953ecf3a543b9167929710852f99e981422307",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd8b7c29_fa64f5eb",
+        "filename": "sdk/android/api/org/webrtc/PeerConnectionFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-07-11T08:08:17Z",
+      "side": 1,
+      "message": "nit: Javadoc first line goes to the next line",
+      "range": {
+        "startLine": 402,
+        "startChar": 5,
+        "endLine": 402,
+        "endChar": 6
+      },
+      "revId": "86953ecf3a543b9167929710852f99e981422307",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58238511_714a51c4",
+        "filename": "sdk/android/api/org/webrtc/PeerConnectionFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-07-11T08:08:17Z",
+      "side": 1,
+      "message": "nit:\n@deprecated Use new HW",
+      "range": {
+        "startLine": 407,
+        "startChar": 5,
+        "endLine": 407,
+        "endChar": 24
+      },
+      "revId": "86953ecf3a543b9167929710852f99e981422307",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4cf6674d_f960e33c",
+        "filename": "video/video_send_stream_impl.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 741,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-07-11T09:20:42Z",
+      "side": 1,
+      "message": "The log statement still needs to check if Ulpfec is enabled or not:\n\nif (IsUlpfecEnabled()) {\n  RTC_LOG \u003c\u003c \"Both FlexFEC and ULPFEC are configured. Will use FlexFEC.\";\n}",
+      "range": {
+        "startLine": 740,
+        "startChar": 4,
+        "endLine": 741,
+        "endChar": 71
+      },
+      "revId": "321e04276847399a517781e6390ffa3483e7191a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88ebdcf5_c801fa5d",
+        "filename": "video/video_send_stream_impl.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 768,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-07-11T09:20:42Z",
+      "side": 1,
+      "message": "I just found this comment that should also be updated: https://cs.chromium.org/chromium/src/third_party/webrtc/modules/rtp_rtcp/include/rtp_rtcp.h?l\u003d433\u0026rcl\u003def43aafcf5953845b71840e14c94942d60c541c1\n\nWe should also change the DCHECKs in \nhttps://cs.chromium.org/chromium/src/third_party/webrtc/modules/rtp_rtcp/source/rtp_sender_video.cc?l\u003d224\u0026rcl\u003def43aafcf5953845b71840e14c94942d60c541c1 to verify that we only ever enable RED and ULPFEC together, never separately.\n\nAfter that change, you can remove these DCHECKs, which currently provide dubious value.",
+      "range": {
+        "startLine": 765,
+        "startChar": 6,
+        "endLine": 768,
+        "endChar": 46
+      },
+      "revId": "321e04276847399a517781e6390ffa3483e7191a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

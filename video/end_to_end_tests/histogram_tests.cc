@@ -102,6 +102,7 @@ void HistogramTest::VerifyHistogramStats(bool use_rtx,
             kFakeVideoSendPayloadType;
         if (use_fec_) {
           send_config->rtp.ulpfec.red_rtx_payload_type = kRtxRedPayloadType;
+          send_config->rtp.ulpfec.ulpfec_payload_type = kUlpfecPayloadType;
           (*receive_configs)[0]
               .rtp.rtx_associated_payload_types[kRtxRedPayloadType] =
               kSendRtxPayloadType;

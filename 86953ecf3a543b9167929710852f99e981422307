@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f5dfd204_6dc83f01",
+        "filename": "sdk/android/api/org/webrtc/MediaCodecVideoDecoder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-07-11T12:53:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc173a_b64ed344",
+      "range": {
+        "startLine": 161,
+        "startChar": 2,
+        "endLine": 161,
+        "endChar": 9
+      },
+      "revId": "86953ecf3a543b9167929710852f99e981422307",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2a40e629_f7481a31",
         "filename": "sdk/android/api/org/webrtc/MediaCodecVideoEncoder.java",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "86953ecf3a543b9167929710852f99e981422307",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6908c813_4031f430",
+        "filename": "sdk/android/api/org/webrtc/MediaCodecVideoEncoder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-07-11T12:53:48Z",
+      "side": 1,
+      "message": "This code is exactly moved from PeerConnectionFactory. I don\u0027t want to change any behavior because this EGL context is used for the deprecated createVideoSource(VideoCapturer).",
+      "parentUuid": "2a40e629_f7481a31",
+      "range": {
+        "startLine": 158,
+        "startChar": 4,
+        "endLine": 158,
+        "endChar": 47
+      },
+      "revId": "86953ecf3a543b9167929710852f99e981422307",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "c6233780_fb5e4e45",
+        "filename": "sdk/android/api/org/webrtc/PeerConnectionFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-07-11T12:53:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd8b7c29_fa64f5eb",
+      "range": {
+        "startLine": 402,
+        "startChar": 5,
+        "endLine": 402,
+        "endChar": 6
+      },
+      "revId": "86953ecf3a543b9167929710852f99e981422307",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "58238511_714a51c4",
         "filename": "sdk/android/api/org/webrtc/PeerConnectionFactory.java",
         "patchSetId": 2
@@ -91,6 +163,30 @@
       "revId": "86953ecf3a543b9167929710852f99e981422307",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9da2126_aa4c40f6",
+        "filename": "sdk/android/api/org/webrtc/PeerConnectionFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-07-11T12:53:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "58238511_714a51c4",
+      "range": {
+        "startLine": 407,
+        "startChar": 5,
+        "endLine": 407,
+        "endChar": 24
+      },
+      "revId": "86953ecf3a543b9167929710852f99e981422307",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

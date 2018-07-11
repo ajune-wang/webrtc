@@ -222,6 +222,12 @@ struct RtpState {
   bool media_has_been_sent;
 };
 
+// Currently only VP8/VP9 specific.
+struct RtpPayloadState {
+  int16_t picture_id = -1;
+  uint8_t tl0_pic_idx = 0;
+};
+
 class RtpData {
  public:
   virtual ~RtpData() {}

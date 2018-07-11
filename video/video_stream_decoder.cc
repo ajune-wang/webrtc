@@ -14,13 +14,13 @@
 #include <map>
 #include <vector>
 
+#include "call/payload_router.h"
 #include "common_video/include/frame_callback.h"
 #include "modules/video_coding/video_coding_impl.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "system_wrappers/include/metrics.h"
 #include "video/call_stats.h"
-#include "video/payload_router.h"
 #include "video/receive_statistics_proxy.h"
 
 namespace webrtc {

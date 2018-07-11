@@ -15,10 +15,12 @@
 #include "modules/congestion_controller/rtp/include/send_side_congestion_controller.h"
 #include "rtc_base/location.h"
 #include "rtc_base/logging.h"
+#include "rtc_base/rate_limiter.h"
 #include "system_wrappers/include/field_trial.h"
 
 namespace webrtc {
 namespace {
+static const int64_t kRetransmitWindowSizeMs = 500;
 const char kTaskQueueExperiment[] = "WebRTC-TaskQueueCongestionControl";
 using TaskQueueController = webrtc::webrtc_cc::SendSideCongestionController;
 
@@ -63,6 +65,7 @@ RtpTransportControllerSend::RtpTransportControllerSend(
       bitrate_configurator_(bitrate_config),
       process_thread_(ProcessThread::Create("SendControllerThread")),
       observer_(nullptr),
+      retransmission_rate_limiter_(clock, kRetransmitWindowSizeMs),
       task_queue_("rtp_send_controller") {
   // Created after task_queue to be able to post to the task queue internally.
   send_side_cc_ =
@@ -78,6 +81,36 @@ RtpTransportControllerSend::~RtpTransportControllerSend() {
   process_thread_->Stop();
   process_thread_->DeRegisterModule(send_side_cc_.get());
   process_thread_->DeRegisterModule(&pacer_);
+}
+
+PayloadRouter* RtpTransportControllerSend::CreateVideoRtpSender(
+    const std::vector<uint32_t>& ssrcs,
+    std::map<uint32_t, RtpState> suspended_ssrcs,
+    const std::map<uint32_t, RtpPayloadState>&
+        states,  // move states into RtpTransportControllerSend
+    const Rtp& rtp_config,
+    const Rtcp& rtcp_config,
+    Transport* send_transport,
+    RtcpRttStats* rtcp_rtt_stats,
+    RtcpIntraFrameObserver* intra_frame_callback,
+    RtcpStatisticsCallback* rtcp_stats,
+    StreamDataCountersCallback* rtp_stats,
+    BitrateStatisticsObserver* bitrate_observer,
+    FrameCountObserver* frame_count_observer,
+    RtcpPacketTypeCounterObserver* rtcp_type_observer,
+    SendSideDelayObserver* send_delay_observer,
+    SendPacketObserver* send_packet_observer,
+    RtcEventLog* event_log,
+    OverheadObserver* overhead_observer) {
+  video_rtp_senders_.push_back(absl::make_unique<PayloadRouter>(
+      ssrcs, suspended_ssrcs,
+      states,  // remove dependency
+      rtp_config, rtcp_config, send_transport, rtcp_rtt_stats,
+      intra_frame_callback, rtcp_stats, rtp_stats, this, bitrate_observer,
+      frame_count_observer, rtcp_type_observer, send_delay_observer,
+      send_packet_observer, event_log, &retransmission_rate_limiter_,
+      overhead_observer));
+  return video_rtp_senders_.back().get();
 }
 
 void RtpTransportControllerSend::OnNetworkChanged(uint32_t bitrate_bps,
@@ -96,6 +129,8 @@ void RtpTransportControllerSend::OnNetworkChanged(uint32_t bitrate_bps,
     msg.network_estimate.bandwidth = DataRate::bps(bandwidth_bps);
   msg.network_estimate.loss_rate_ratio = fraction_loss / 255.0;
   msg.network_estimate.round_trip_time = TimeDelta::ms(rtt_ms);
+
+  retransmission_rate_limiter_.SetMaxRate(bandwidth_bps);
 
   if (!task_queue_.IsCurrent()) {
     task_queue_.PostTask([this, msg] {
@@ -214,6 +249,9 @@ void RtpTransportControllerSend::OnNetworkRouteChanged(
 void RtpTransportControllerSend::OnNetworkAvailability(bool network_available) {
   send_side_cc_->SignalNetworkState(network_available ? kNetworkUp
                                                       : kNetworkDown);
+  for (auto& rtp_sender : video_rtp_senders_) {
+    rtp_sender->OnNetworkAvailability(network_available);
+  }
 }
 RtcpBandwidthObserver* RtpTransportControllerSend::GetBandwidthObserver() {
   return send_side_cc_->GetBandwidthObserver();

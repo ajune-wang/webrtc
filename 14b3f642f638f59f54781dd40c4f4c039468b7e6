@@ -142,6 +142,24 @@
     },
     {
       "key": {
+        "uuid": "52bee978_3463e2a6",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1021,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-07-11T00:41:05Z",
+      "side": 1,
+      "message": "Ack to Taylor\u0027s comment. The resolver need be injected to P2PTransportChannel, and please see my other comment on the discussion of injection point.",
+      "parentUuid": "914e6092_a8b2a191",
+      "revId": "14b3f642f638f59f54781dd40c4f4c039468b7e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "195bb3fc_7cafaa20",
         "filename": "p2p/base/p2ptransportchannel.cc",
         "patchSetId": 2
@@ -311,6 +329,24 @@
       "side": 1,
       "message": "I can\u0027t figure out how the code constructing P2PTransportChannels would get a PacketSocketFactory to pass in (e.g. JsepTransportController::CreateDtlsTransport). Maybe I am missing something?\n\nLooking at adding PortAllocator::CreateAsyncResolver instead (P2PTransportController already has a PortAllocator member).",
       "parentUuid": "9af6deff_eaf2eea7",
+      "revId": "14b3f642f638f59f54781dd40c4f4c039468b7e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ffc5b42_fc912858",
+        "filename": "p2p/base/p2ptransportchannel.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-07-11T00:41:05Z",
+      "side": 1,
+      "message": "PacketSocketFactory is injected to BasicPortAllocator, which is passed to BasicPortAllocatorSession, and that\u0027s where subclasses of Port get the access to the socket factory to create underlying sockets (see the CreateXXXPorts methods of the AllocationSequence).\n\nSomething that may have caused confusion is that socket_factory() is only defined for the BasicPortAllocator and BasicPortAllocatorSession, while P2PTransportChannel is interfaced with PortAllocator instead of BasicPortAllocator. Like Taylor mentioned in the past, we essentially only use BasicPortAllocator in Chromium (P2PPortAllocator in Chromium and chromoting PortAllocator both inherit from BasicPortAllocator) and it is unfortunately only used to inject the PacketSocketFactory as a bloated interface. I would suggest considering moving socket_factory to PortAllocator (defaulting to return null since we do not have an injection point in the ctor signature of PortAllocator), and inject the PacketSocketFactory in JsepTransportController::CreateDtlsTransport.",
+      "parentUuid": "3c01044d_410aec4e",
       "revId": "14b3f642f638f59f54781dd40c4f4c039468b7e6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

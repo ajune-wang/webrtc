@@ -14,34 +14,60 @@
 #include <map>
 #include <vector>
 
+#include "api/call/transport.h"
 #include "api/video_codecs/video_encoder.h"
+#include "call/rtp_config.h"
 #include "common_types.h"  // NOLINT(build/include)
+#include "logging/rtc_event_log/rtc_event_log.h"
+#include "modules/rtp_rtcp/include/flexfec_sender.h"
 #include "modules/rtp_rtcp/source/rtp_video_header.h"
+#include "modules/utility/include/process_thread.h"
 #include "rtc_base/constructormagic.h"
 #include "rtc_base/criticalsection.h"
+#include "rtc_base/rate_limiter.h"
 #include "rtc_base/thread_annotations.h"
+#include "rtc_base/thread_checker.h"
 
 namespace webrtc {
 
 class RTPFragmentationHeader;
 class RtpRtcp;
-
-// Currently only VP8/VP9 specific.
-struct RtpPayloadState {
-  int16_t picture_id = -1;
-  uint8_t tl0_pic_idx = 0;
-};
+class RtpTransportControllerSendInterface;
 
 // PayloadRouter routes outgoing data to the correct sending RTP module, based
 // on the simulcast layer in RTPVideoHeader.
 class PayloadRouter : public EncodedImageCallback {
  public:
   // Rtp modules are assumed to be sorted in simulcast index order.
-  PayloadRouter(const std::vector<RtpRtcp*>& rtp_modules,
-                const std::vector<uint32_t>& ssrcs,
-                int payload_type,
-                const std::map<uint32_t, RtpPayloadState>& states);
+  PayloadRouter(
+      const std::vector<uint32_t>& ssrcs,
+      std::map<uint32_t, RtpState> suspended_ssrcs,
+      const std::map<uint32_t, RtpPayloadState>& states,
+      const Rtp& rtp_config,
+      const Rtcp& rtcp_config,
+      Transport* send_transport,
+      RtcpRttStats* rtcp_rtt_stats,
+      RtcpIntraFrameObserver* intra_frame_callback,
+      RtcpStatisticsCallback* rtcp_stats,
+      StreamDataCountersCallback* rtp_stats,
+      RtpTransportControllerSendInterface* transport,
+      BitrateStatisticsObserver* bitrate_observer,
+      FrameCountObserver* frame_count_observer,
+      RtcpPacketTypeCounterObserver* rtcp_type_observer,
+      SendSideDelayObserver* send_delay_observer,
+      SendPacketObserver* send_packet_observer,  // move inside RtpTransport
+      RtcEventLog* event_log,
+      RateLimiter* retransmission_limiter,  // move inside RtpTransport
+      OverheadObserver* overhead_observer);
   ~PayloadRouter() override;
+
+  // RegisterProcessThread register |module_process_thread| with those objects
+  // that use it. Registration has to happen on the thread were
+  // |module_process_thread| was created (libjingle's worker thread).
+  // TODO(perkj): Replace the use of |module_process_thread| with a TaskQueue,
+  // maybe |worker_queue|.
+  void RegisterProcessThread(ProcessThread* module_process_thread);
+  void DeRegisterProcessThread();
 
   // PayloadRouter will only route packets if being active, all packets will be
   // dropped otherwise.
@@ -51,7 +77,23 @@ class PayloadRouter : public EncodedImageCallback {
   void SetActiveModules(const std::vector<bool> active_modules);
   bool IsActive();
 
+  void OnNetworkAvailability(bool network_available);
+  std::map<uint32_t, RtpState> GetRtpStates() const;
   std::map<uint32_t, RtpPayloadState> GetRtpPayloadStates() const;
+
+  bool FecEnabled() const;
+
+  bool NackEnabled() const;
+
+  void DeliverRtcp(const uint8_t* packet, size_t length);
+
+  void ProtectionRequest(const FecProtectionParams* delta_params,
+                         const FecProtectionParams* key_params,
+                         uint32_t* sent_video_rate_bps,
+                         uint32_t* sent_nack_rate_bps,
+                         uint32_t* sent_fec_rate_bps);
+
+  void SetMaxRtpPacketSize(size_t max_rtp_packet_size);
 
   // Implements EncodedImageCallback.
   // Returns 0 if the packet was routed / sent, -1 otherwise.
@@ -66,13 +108,21 @@ class PayloadRouter : public EncodedImageCallback {
   class RtpPayloadParams;
 
   void UpdateModuleSendingState() RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_);
+  void ConfigureProtection(const Rtp& rtp_config);
+  void ConfigureSsrcs(const Rtp& rtp_config);
 
   rtc::CriticalSection crit_;
   bool active_ RTC_GUARDED_BY(crit_);
 
+  ProcessThread* module_process_thread_;
+  rtc::ThreadChecker module_process_thread_checker_;
+  std::map<uint32_t, RtpState> suspended_ssrcs_;
+
+  std::unique_ptr<FlexfecSender> flexfec_sender_;
   // Rtp modules are assumed to be sorted in simulcast index order. Not owned.
-  const std::vector<RtpRtcp*> rtp_modules_;
-  const int payload_type_;
+  const std::vector<std::unique_ptr<RtpRtcp>> rtp_modules_;
+  const Rtp rtp_config_;
+  RtpTransportControllerSendInterface* const transport_;
 
   std::vector<RtpPayloadParams> params_ RTC_GUARDED_BY(crit_);
 

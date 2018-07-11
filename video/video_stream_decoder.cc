@@ -14,6 +14,7 @@
 #include <map>
 #include <vector>
 
+#include "call/payload_router.h"
 #include "common_video/include/frame_callback.h"
 #include "modules/video_coding/video_coding_impl.h"
 #include "rtc_base/checks.h"

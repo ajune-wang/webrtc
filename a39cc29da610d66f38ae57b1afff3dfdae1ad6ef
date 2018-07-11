@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e4837943_161516c1",
+        "filename": "sdk/objc/Framework/UnitTests/RTCPeerConnectionFactory_xctest.m",
+        "patchSetId": 2
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-07-11T07:32:01Z",
+      "side": 1,
+      "message": "XCTAssertEqual",
+      "range": {
+        "startLine": 176,
+        "startChar": 6,
+        "endLine": 176,
+        "endChar": 19
+      },
+      "revId": "a39cc29da610d66f38ae57b1afff3dfdae1ad6ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55f0fc08_d6032041",
+        "filename": "sdk/objc/Framework/UnitTests/RTCPeerConnectionFactory_xctest.m",
+        "patchSetId": 2
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-07-11T07:32:01Z",
+      "side": 1,
+      "message": "This indentation is really strange, is this what git cl format gives?",
+      "range": {
+        "startLine": 201,
+        "startChar": 1,
+        "endLine": 205,
+        "endChar": 69
+      },
+      "revId": "a39cc29da610d66f38ae57b1afff3dfdae1ad6ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63297fe2_d8300604",
+        "filename": "sdk/objc/Framework/UnitTests/RTCPeerConnectionFactory_xctest.m",
+        "patchSetId": 2
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-07-11T07:32:01Z",
+      "side": 1,
+      "message": "XCTAssertNil/NotNil",
+      "range": {
+        "startLine": 210,
+        "startChar": 15,
+        "endLine": 211,
+        "endChar": 43
+      },
+      "revId": "a39cc29da610d66f38ae57b1afff3dfdae1ad6ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64e8659d_d8b0a307",
+        "filename": "sdk/objc/Framework/UnitTests/RTCPeerConnectionFactory_xctest.m",
+        "patchSetId": 2
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-07-11T07:32:01Z",
+      "side": 1,
+      "message": "Same for other asserts",
+      "range": {
+        "startLine": 215,
+        "startChar": 23,
+        "endLine": 215,
+        "endChar": 36
+      },
+      "revId": "a39cc29da610d66f38ae57b1afff3dfdae1ad6ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3ac7ba9_4d286146",
+        "filename": "sdk/objc/Framework/UnitTests/RTCPeerConnectionFactory_xctest.m",
+        "patchSetId": 2
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-07-11T07:32:01Z",
+      "side": 1,
+      "message": "use NSEC_PER_SEC, defined in libdispatch.",
+      "range": {
+        "startLine": 245,
+        "startChar": 67,
+        "endLine": 245,
+        "endChar": 85
+      },
+      "revId": "a39cc29da610d66f38ae57b1afff3dfdae1ad6ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

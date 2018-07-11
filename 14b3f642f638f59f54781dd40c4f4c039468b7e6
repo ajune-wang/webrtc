@@ -353,6 +353,24 @@
     },
     {
       "key": {
+        "uuid": "2c7c436c_b2c3a2c9",
+        "filename": "p2p/base/p2ptransportchannel.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-07-11T19:41:18Z",
+      "side": 1,
+      "message": "I think I have this working by adding PortAllocator::CreateAsyncResolver here https://webrtc-review.googlesource.com/c/src/+/88002, but I\u0027m not sure that is the best way to go. I\u0027ll look at moving socket_factory to PortAllocator.",
+      "parentUuid": "6ffc5b42_fc912858",
+      "revId": "14b3f642f638f59f54781dd40c4f4c039468b7e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "755de7eb_1ecc7413",
         "filename": "p2p/base/p2ptransportchannel_unittest.cc",
         "patchSetId": 2

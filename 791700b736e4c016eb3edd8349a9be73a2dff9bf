@@ -112,6 +112,24 @@
     },
     {
       "key": {
+        "uuid": "6906ebb1_692b5405",
+        "filename": "modules/congestion_controller/pcc/utility_function.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-07-11T14:00:47Z",
+      "side": 1,
+      "message": "We discussed forward declarations a few months ago in a WebRTC Core meeting and the consensus was to follow the Google C++ style guide and avoid to use them where possible (see: https://webrtc.googlesource.com/src/+/HEAD/style-guide.md#forward-declarations).",
+      "parentUuid": "523b70f6_e332abb5",
+      "revId": "791700b736e4c016eb3edd8349a9be73a2dff9bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1b7f4e23_7bf60b82",
         "filename": "modules/congestion_controller/pcc/utility_function.h",
         "patchSetId": 1

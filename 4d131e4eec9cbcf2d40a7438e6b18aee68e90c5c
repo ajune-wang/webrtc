@@ -22,6 +22,29 @@
       "revId": "4d131e4eec9cbcf2d40a7438e6b18aee68e90c5c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e354596f_60e186ae",
+        "filename": "video/video_send_stream_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 770,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-07-11T06:55:39Z",
+      "side": 0,
+      "message": "Can you file a bug for the removal of this workaround? We should also highlight this at the top of the next release notes, making it clear that we are breaking interop with old Chrome versions. (M56 went public January 2017.)",
+      "range": {
+        "startLine": 770,
+        "startChar": 32,
+        "endLine": 770,
+        "endChar": 45
+      },
+      "revId": "4d131e4eec9cbcf2d40a7438e6b18aee68e90c5c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

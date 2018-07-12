@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bcf7f895_12cbb523",
+        "filename": "modules/audio_coding/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 702,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2018-07-12T09:48:00Z",
+      "side": 1,
+      "message": "Where is arm_version defined, if not in //build/config/arm.gni?",
+      "revId": "daf10778d7331f3c1dc97c180fd9fbc1884f0df2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

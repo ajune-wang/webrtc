@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "de9d272e_5ddec94c",
+        "filename": "sdk/android/api/org/webrtc/VideoDecoderFactory.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-07-12T14:48:45Z",
+      "side": 0,
+      "message": "nit: Not called by native anymore?",
+      "range": {
+        "startLine": 21,
+        "startChar": 12,
+        "endLine": 21,
+        "endChar": 27
+      },
+      "revId": "6c2be91280bb8441d6ca0a959fc94bd33fed58e5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

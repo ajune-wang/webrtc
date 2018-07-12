@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "00d9ad54_0b557e4a",
+        "filename": "sdk/android/src/java/org/webrtc/H264Utils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-07-12T14:54:02Z",
+      "side": 1,
+      "message": "Can you remove these?",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 82
+      },
+      "revId": "47bb33d605189815130137172b0649222ce1a686",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

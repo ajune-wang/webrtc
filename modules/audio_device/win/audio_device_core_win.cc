@@ -155,7 +155,7 @@ class MediaBufferImpl : public IMediaBuffer {
   }
 
  private:
-  ~MediaBufferImpl() { delete[] _data; }
+  virtual ~MediaBufferImpl() { delete[] _data; }
 
   BYTE* _data;
   DWORD _length;

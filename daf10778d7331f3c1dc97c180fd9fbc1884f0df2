@@ -16,6 +16,24 @@
       "revId": "daf10778d7331f3c1dc97c180fd9fbc1884f0df2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77f3da44_086d7445",
+        "filename": "modules/audio_coding/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 702,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-07-12T13:25:42Z",
+      "side": 1,
+      "message": "Good question. Is the variable defined transitively from webrtc.gni? I would expect the Android trybot to have failed, otherwise. Or does it fail silently?",
+      "parentUuid": "bcf7f895_12cbb523",
+      "revId": "daf10778d7331f3c1dc97c180fd9fbc1884f0df2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

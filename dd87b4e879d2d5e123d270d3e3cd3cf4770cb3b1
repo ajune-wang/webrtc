@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2d5808a9_fd024d5a",
+        "filename": "test/call_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 491,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-07-12T09:07:18Z",
+      "side": 1,
+      "message": "I don\u0027t follow. Should this be if(source \u003d\u003d nullptr) ?",
+      "range": {
+        "startLine": 489,
+        "startChar": 0,
+        "endLine": 491,
+        "endChar": 3
+      },
+      "revId": "dd87b4e879d2d5e123d270d3e3cd3cf4770cb3b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b6ec683_001d7d87",
+        "filename": "test/call_test.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-07-12T09:07:18Z",
+      "side": 1,
+      "message": "It wasn\u0027t immediately apparent to me that these getter methods could actually mutate the state.\nMaybe change to pointer return type, or explicitly naming them GetMutableVideoSendConfig()?",
+      "range": {
+        "startLine": 133,
+        "startChar": 0,
+        "endLine": 134,
+        "endChar": 46
+      },
+      "revId": "dd87b4e879d2d5e123d270d3e3cd3cf4770cb3b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

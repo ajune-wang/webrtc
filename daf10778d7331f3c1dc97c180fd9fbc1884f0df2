@@ -52,6 +52,24 @@
       "revId": "daf10778d7331f3c1dc97c180fd9fbc1884f0df2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "772b3e12_f0136e71",
+        "filename": "modules/audio_coding/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 702,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-07-12T14:12:58Z",
+      "side": 1,
+      "message": "Thanks for clearing it up!",
+      "parentUuid": "f2d1b12a_bee9e220",
+      "revId": "daf10778d7331f3c1dc97c180fd9fbc1884f0df2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

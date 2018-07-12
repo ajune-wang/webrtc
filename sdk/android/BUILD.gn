@@ -290,6 +290,20 @@ generate_jni("generated_video_jni") {
   jni_generator_include = "//sdk/android/src/jni/jni_generator_helper.h"
 }
 
+rtc_static_library("video_codecinfo_jni") {
+  sources = [
+    "src/jni/videocodecinfo.cc",
+    "src/jni/videocodecinfo.h",
+  ]
+
+  deps = [
+    ":base_jni",
+    ":generated_video_jni",
+    ":native_api_jni",
+    "../../api/video_codecs:video_codecs_api",
+  ]
+}
+
 rtc_static_library("video_jni") {
   sources = []
   deps = []
@@ -306,8 +320,6 @@ rtc_static_library("video_jni") {
     "src/jni/nv12buffer.cc",
     "src/jni/nv21buffer.cc",
     "src/jni/pc/video.cc",
-    "src/jni/videocodecinfo.cc",
-    "src/jni/videocodecinfo.h",
     "src/jni/videocodecstatus.cc",
     "src/jni/videocodecstatus.h",
     "src/jni/videodecoderfactorywrapper.cc",
@@ -330,8 +342,8 @@ rtc_static_library("video_jni") {
   deps += [
     ":base_jni",
     ":generated_video_jni",
-    ":legacy_video_jni",  # TODO(bugs.webrtc.org/7925): Remove.
     ":native_api_jni",
+    ":video_codecinfo_jni",
     ":videoframe_jni",
     ":vp8_jni",  # TODO(bugs.webrtc.org/7925): Remove.
     ":vp9_jni",  # TODO(bugs.webrtc.org/7925): Remove.
@@ -391,15 +403,14 @@ rtc_static_library("legacy_video_jni") {
   sources = [
     "src/jni/androidmediacodeccommon.h",
     "src/jni/androidmediadecoder.cc",
-    "src/jni/androidmediadecoder_jni.h",
     "src/jni/androidmediaencoder.cc",
-    "src/jni/androidmediaencoder_jni.h",
   ]
 
   deps = [
     ":base_jni",
     ":generated_video_jni",
     ":native_api_jni",
+    ":video_codecinfo_jni",
     ":videoframe_jni",
     "../..:webrtc_common",
     "../../api/video_codecs:video_codecs_api",
@@ -1040,7 +1051,9 @@ rtc_android_library("peerconnection_java") {
   deps = [
     ":audio_api_java",
     ":base_java",
+    ":default_video_codec_factory_java",
     ":logging_java",
+    ":swcodecs_java",
     ":video_api_java",
     ":video_java",
     "//modules/audio_device:audio_device_java",
@@ -1265,6 +1278,7 @@ rtc_static_library("native_api_codecs") {
   deps = [
     ":base_jni",
     ":native_api_jni",
+    ":video_codecinfo_jni",
     ":video_jni",
     "//api/video_codecs:video_codecs_api",
     "//rtc_base:checks",

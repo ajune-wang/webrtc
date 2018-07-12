@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1c4b373c_a2740da1",
+        "filename": "sdk/android/api/org/webrtc/VideoCodecInfo.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-07-12T11:59:05Z",
+      "side": 1,
+      "message": "This seems adhoc and I would rather keep this at the implementation level even if that means some code duplication.",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 3
+      },
+      "revId": "3efdbd4970b9f276e28b73007010d0735520b750",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f951863_5647b673",
+        "filename": "sdk/android/api/org/webrtc/VideoCodecInfo.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-07-12T11:59:05Z",
+      "side": 1,
+      "message": "I don\u0027t really like that we have two equality methods \"equals\" and \"isSameCodec\". Additionally, I would rather not have codec specific functionality in a method like this.",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 3
+      },
+      "revId": "3efdbd4970b9f276e28b73007010d0735520b750",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9cb7ace3_aff94da5",
+        "filename": "sdk/android/api/org/webrtc/VideoCodecInfo.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-07-12T11:59:05Z",
+      "side": 1,
+      "message": "I would rather go the approach of introducing \"H264Helper\". There reasoning is that this class is part of video_api. Any dependencies we introduce here will be part of all applications regardless of if they will even use video features. I would rather keep this class to POD.",
+      "range": {
+        "startLine": 123,
+        "startChar": 0,
+        "endLine": 124,
+        "endChar": 64
+      },
+      "revId": "3efdbd4970b9f276e28b73007010d0735520b750",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

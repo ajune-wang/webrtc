@@ -79,13 +79,14 @@ public class HardwareVideoEncoderFactory implements VideoEncoderFactory {
         MediaCodecUtils.ENCODER_COLOR_FORMATS, info.getCapabilitiesForType(mime));
 
     if (type == VideoCodecType.H264) {
-      boolean isHighProfile = nativeIsSameH264Profile(input.params,
-                                  MediaCodecUtils.getCodecProperties(type, /* highProfile= */ true))
-          && isH264HighProfileSupported(info);
-      boolean isBaselineProfile = nativeIsSameH264Profile(
-          input.params, MediaCodecUtils.getCodecProperties(type, /* highProfile= */ false));
-
+      boolean isHighProfile =
+          VideoCodecInfo.isSameCodec(input, VideoCodecInfo.H264_HIGH_PROFILE_CODEC);
+      boolean isBaselineProfile =
+          VideoCodecInfo.isSameCodec(input, VideoCodecInfo.H264_BASELINE_PROFILE_CODEC);
       if (!isHighProfile && !isBaselineProfile) {
+        return null;
+      }
+      if (isHighProfile && !isH264HighProfileSupported(info)) {
         return null;
       }
     }
@@ -243,7 +244,4 @@ public class HardwareVideoEncoderFactory implements VideoEncoderFactory {
     return enableH264HighProfile && Build.VERSION.SDK_INT > Build.VERSION_CODES.M
         && info.getName().startsWith(EXYNOS_PREFIX);
   }
-
-  private static native boolean nativeIsSameH264Profile(
-      Map<String, String> params1, Map<String, String> params2);
 }

@@ -22,6 +22,30 @@
       "revId": "47bb33d605189815130137172b0649222ce1a686",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de6b85ae_41fe3e30",
+        "filename": "sdk/android/src/java/org/webrtc/H264Utils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-07-12T15:05:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "00d9ad54_0b557e4a",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 82
+      },
+      "revId": "47bb33d605189815130137172b0649222ce1a686",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

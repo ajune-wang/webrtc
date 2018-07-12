@@ -10,6 +10,7 @@
 
 #include "sdk/android/src/jni/videocodecinfo.h"
 
+#include "common_video/h264/profile_level_id.h"
 #include "sdk/android/generated_video_jni/jni/VideoCodecInfo_jni.h"
 #include "sdk/android/native_api/jni/java_types.h"
 #include "sdk/android/src/jni/jni_helpers.h"
@@ -31,6 +32,15 @@ ScopedJavaLocalRef<jobject> SdpVideoFormatToVideoCodecInfo(
       NativeToJavaStringMap(jni, format.parameters);
   return Java_VideoCodecInfo_Constructor(
       jni, NativeToJavaString(jni, format.name), j_params);
+}
+
+static jboolean JNI_VideoCodecInfo_IsSameH264Profile(
+    JNIEnv* jni,
+    const JavaParamRef<jclass>&,
+    const JavaParamRef<jobject>& params1,
+    const JavaParamRef<jobject>& params2) {
+  return H264::IsSameH264Profile(JavaToNativeStringMap(jni, params1),
+                                 JavaToNativeStringMap(jni, params2));
 }
 
 }  // namespace jni

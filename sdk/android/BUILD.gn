@@ -262,7 +262,6 @@ generate_jni("generated_java_audio_device_module_native_jni") {
 generate_jni("generated_video_jni") {
   sources = [
     "api/org/webrtc/EncodedImage.java",
-    "api/org/webrtc/HardwareVideoEncoderFactory.java",
     "api/org/webrtc/MediaCodecVideoDecoder.java",
     "api/org/webrtc/MediaCodecVideoEncoder.java",
     "api/org/webrtc/VideoCodecInfo.java",
@@ -299,7 +298,6 @@ rtc_static_library("video_jni") {
     "src/jni/androidvideotracksource.h",
     "src/jni/encodedimage.cc",
     "src/jni/encodedimage.h",
-    "src/jni/hardwarevideoencoderfactory.cc",
     "src/jni/jni_generator_helper.h",
     "src/jni/nativecapturerobserver.cc",
     "src/jni/nativecapturerobserver.h",

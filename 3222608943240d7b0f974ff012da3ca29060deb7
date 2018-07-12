@@ -22,6 +22,29 @@
       "revId": "3222608943240d7b0f974ff012da3ca29060deb7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "363da457_82c7e1db",
+        "filename": "api/video/video_bitrate_allocator.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-07-12T09:27:45Z",
+      "side": 1,
+      "message": "nit: since we\u0027re moving this to api let\u0027s be neat add the unit here for clarity.\ni.e. total_bitrate_bps",
+      "range": {
+        "startLine": 23,
+        "startChar": 56,
+        "endLine": 23,
+        "endChar": 69
+      },
+      "revId": "3222608943240d7b0f974ff012da3ca29060deb7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -34,6 +34,24 @@
       "revId": "daf10778d7331f3c1dc97c180fd9fbc1884f0df2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2d1b12a_bee9e220",
+        "filename": "modules/audio_coding/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 702,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-07-12T13:30:31Z",
+      "side": 1,
+      "message": "Yes, since arm.gni is imported into webrtc.gni this is defined transitively.\n\nWhich means that we should never import arm.gni amnually in other BUILD.gn files.",
+      "parentUuid": "77f3da44_086d7445",
+      "revId": "daf10778d7331f3c1dc97c180fd9fbc1884f0df2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

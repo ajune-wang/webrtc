@@ -1183,19 +1183,19 @@ static void EchoSuppression(const OouraFft& ooura_fft,
 
   // Analysis filter banks for the echo suppressor.
   // Windowed near-end ffts.
-  WindowData(fft, nearend_extended_block_lowest_band);
+  WebRtcAec_WindowData(fft, nearend_extended_block_lowest_band);
   ooura_fft.Fft(fft);
-  StoreAsComplex(fft, dfw);
+  WebRtcAec_StoreAsComplex(fft, dfw);
 
   // Windowed echo suppressor output ffts.
-  WindowData(fft, aec->eBuf);
+  WebRtcAec_WindowData(fft, aec->eBuf);
   ooura_fft.Fft(fft);
-  StoreAsComplex(fft, efw);
+  WebRtcAec_StoreAsComplex(fft, efw);
 
   // NLP
 
   // Convert far-end partition to the frequency domain with windowing.
-  WindowData(fft, farend_extended_block);
+  WebRtcAec_WindowData(fft, farend_extended_block);
   Fft(ooura_fft, fft, xfw);
   xfw_ptr = &xfw[0][0];
 

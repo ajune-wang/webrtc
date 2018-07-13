@@ -330,7 +330,6 @@ rtc_static_library("video_jni") {
   deps += [
     ":base_jni",
     ":generated_video_jni",
-    ":legacy_video_jni",  # TODO(bugs.webrtc.org/7925): Remove.
     ":native_api_jni",
     ":videoframe_jni",
     ":vp8_jni",  # TODO(bugs.webrtc.org/7925): Remove.
@@ -391,15 +390,14 @@ rtc_static_library("legacy_video_jni") {
   sources = [
     "src/jni/androidmediacodeccommon.h",
     "src/jni/androidmediadecoder.cc",
-    "src/jni/androidmediadecoder_jni.h",
     "src/jni/androidmediaencoder.cc",
-    "src/jni/androidmediaencoder_jni.h",
   ]
 
   deps = [
     ":base_jni",
     ":generated_video_jni",
     ":native_api_jni",
+    ":video_jni",
     ":videoframe_jni",
     "../..:webrtc_common",
     "../../api/video_codecs:video_codecs_api",
@@ -572,6 +570,11 @@ rtc_static_library("peerconnection_jni") {
   # considered public and are subject to change.
   visibility = [ "*" ]
 
+  allow_poison = [
+    "audio_codecs",  # TODO(bugs.webrtc.org/8396): Remove.
+    "software_video_codecs",  # TODO(bugs.webrtc.org/7925): Remove.
+  ]
+
   sources = [
     "src/jni/androidnetworkmonitor_jni.h",
     "src/jni/pc/androidnetworkmonitor.h",
@@ -624,6 +627,7 @@ rtc_static_library("peerconnection_jni") {
     ":base_jni",
     ":generated_external_classes_jni",
     ":generated_peerconnection_jni",
+    ":legacy_video_jni",
     ":logging_jni",
     ":native_api_jni",
     "../..:webrtc_common",
@@ -675,7 +679,10 @@ generate_jni("generated_metrics_jni") {
 rtc_static_library("libjingle_peerconnection_metrics_default_jni") {
   visibility = [ "*" ]
 
-  allow_poison = [ "software_video_codecs" ]  # TODO(bugs.webrtc.org/7925): Remove.
+  allow_poison = [
+    "audio_codecs",  # TODO(bugs.webrtc.org/8396): Remove.
+    "software_video_codecs",  # TODO(bugs.webrtc.org/7925): Remove.
+  ]
 
   sources = [
     "src/jni/androidmetrics.cc",
@@ -1040,7 +1047,9 @@ rtc_android_library("peerconnection_java") {
   deps = [
     ":audio_api_java",
     ":base_java",
+    ":default_video_codec_factory_java",
     ":logging_java",
+    ":swcodecs_java",
     ":video_api_java",
     ":video_java",
     "//modules/audio_device:audio_device_java",
@@ -1278,7 +1287,10 @@ rtc_static_library("native_api_codecs") {
 rtc_static_library("native_api_peerconnection") {
   visibility = [ "*" ]
 
-  allow_poison = [ "software_video_codecs" ]  # TODO(bugs.webrtc.org/7925): Remove.
+  allow_poison = [
+    "audio_codecs",  # TODO(bugs.webrtc.org/8396): Remove.
+    "software_video_codecs",  # TODO(bugs.webrtc.org/7925): Remove.
+  ]
 
   sources = [
     "native_api/peerconnection/peerconnectionfactory.cc",

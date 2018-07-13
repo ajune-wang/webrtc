@@ -179,8 +179,9 @@ class BaseTest : public RtpRtcpObserver {
       TestAudioDeviceModule* send_audio_device,
       TestAudioDeviceModule* recv_audio_device);
 
-  virtual Call::Config GetSenderCallConfig();
-  virtual Call::Config GetReceiverCallConfig();
+  virtual void ModifySenderCallConfig(Call::Config* config);
+  virtual void ModifyReceiverCallConfig(Call::Config* config);
+
   virtual void OnRtpTransportControllerSendCreated(
       RtpTransportControllerSend* controller);
   virtual void OnCallsCreated(Call* sender_call, Call* receiver_call);
@@ -218,8 +219,6 @@ class BaseTest : public RtpRtcpObserver {
       FrameGeneratorCapturer* frame_generator_capturer);
 
   virtual void OnStreamsStopped();
-
-  std::unique_ptr<webrtc::RtcEventLog> event_log_;
 };
 
 class SendTest : public BaseTest {

@@ -22,6 +22,30 @@
       "revId": "b15ac7dc4caedd13e8481947143e56035d512e0f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48bd3d64_fc052e41",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 532,
+      "author": {
+        "id": 5619
+      },
+      "writtenOn": "2018-07-13T08:36:25Z",
+      "side": 1,
+      "message": "Added const but kept the negation because I think it follows the logic that we want to avoid updating target bitrate in certain cases.",
+      "parentUuid": "74177ddc_f7a51761",
+      "range": {
+        "startLine": 532,
+        "startChar": 2,
+        "endLine": 532,
+        "endChar": 6
+      },
+      "revId": "b15ac7dc4caedd13e8481947143e56035d512e0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

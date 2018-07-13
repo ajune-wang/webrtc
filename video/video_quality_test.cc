@@ -601,38 +601,34 @@ void VideoQualityTest::SetupThumbnails(Transport* send_transport,
               params_.video[0].fps, params_.screenshare[0].enabled, true);
     }
     thumbnail_encoder_config.spatial_layers = params_.ss[0].spatial_layers;
+    GetReturnSender()->video_encoder_configs_.push_back(
+        thumbnail_encoder_config.Copy());
+    GetReturnSender()->video_send_configs_.push_back(
+        thumbnail_send_config.Copy());
 
-    thumbnail_encoder_configs_.push_back(thumbnail_encoder_config.Copy());
-    thumbnail_send_configs_.push_back(thumbnail_send_config.Copy());
-
-    AddMatchingVideoReceiveConfigs(
-        &thumbnail_receive_configs_, thumbnail_send_config, send_transport,
-        params_.call.send_side_bwe, absl::nullopt, false, kNackRtpHistoryMs);
+    AddMatchingVideoReceiveConfigs(&GetReturnSender()->video_receive_configs_,
+                                   thumbnail_send_config, send_transport,
+                                   params_.call.send_side_bwe, absl::nullopt,
+                                   false, kNackRtpHistoryMs);
   }
-  for (size_t i = 0; i < thumbnail_send_configs_.size(); ++i) {
-    thumbnail_send_streams_.push_back(receiver_call_->CreateVideoSendStream(
-        thumbnail_send_configs_[i].Copy(),
-        thumbnail_encoder_configs_[i].Copy()));
-  }
-  for (size_t i = 0; i < thumbnail_receive_configs_.size(); ++i) {
-    thumbnail_receive_streams_.push_back(sender_call_->CreateVideoReceiveStream(
-        thumbnail_receive_configs_[i].Copy()));
-  }
+  GetReturnSender()->CreateVideoStreamsForCalls(receiver_call_.get(),
+                                                sender_call_.get());
 }
 
 void VideoQualityTest::DestroyThumbnailStreams() {
-  for (VideoSendStream* thumbnail_send_stream : thumbnail_send_streams_) {
+  for (VideoSendStream* thumbnail_send_stream :
+       GetReturnSender()->video_send_streams_) {
     receiver_call_->DestroyVideoSendStream(thumbnail_send_stream);
   }
-  thumbnail_send_streams_.clear();
+  GetReturnSender()->video_send_streams_.clear();
   for (VideoReceiveStream* thumbnail_receive_stream :
-       thumbnail_receive_streams_) {
+       GetReturnSender()->video_receive_streams_) {
     sender_call_->DestroyVideoReceiveStream(thumbnail_receive_stream);
   }
-  thumbnail_send_streams_.clear();
-  thumbnail_receive_streams_.clear();
+  GetReturnSender()->video_send_streams_.clear();
+  GetReturnSender()->video_receive_streams_.clear();
   for (std::unique_ptr<test::VideoCapturer>& video_caputurer :
-       thumbnail_capturers_) {
+       GetReturnSender()->video_capturers_) {
     video_caputurer.reset();
   }
 }
@@ -640,10 +636,12 @@ void VideoQualityTest::DestroyThumbnailStreams() {
 void VideoQualityTest::SetupThumbnailCapturers(size_t num_thumbnail_streams) {
   VideoStream thumbnail = DefaultThumbnailStream();
   for (size_t i = 0; i < num_thumbnail_streams; ++i) {
-    thumbnail_capturers_.emplace_back(test::FrameGeneratorCapturer::Create(
-        static_cast<int>(thumbnail.width), static_cast<int>(thumbnail.height),
-        absl::nullopt, absl::nullopt, thumbnail.max_framerate, clock_));
-    RTC_DCHECK(thumbnail_capturers_.back());
+    GetReturnSender()->video_capturers_.emplace_back(
+        test::FrameGeneratorCapturer::Create(static_cast<int>(thumbnail.width),
+                                             static_cast<int>(thumbnail.height),
+                                             absl::nullopt, absl::nullopt,
+                                             thumbnail.max_framerate, clock_));
+    RTC_DCHECK(GetReturnSender()->video_capturers_.back());
   }
 }
 
@@ -854,7 +852,8 @@ void VideoQualityTest::RunWithAnalyzer(const Params& params) {
     GetVideoSendConfig()->post_encode_callback = analyzer.get();
 
     CreateFlexfecStreams();
-    CreateVideoStreams();
+    GetSender()->CreateVideoStreamsForCalls(sender_call_.get(),
+                                            receiver_call_.get());
     analyzer->SetSendStream(video_send_streams_[0]);
     if (video_receive_streams_.size() == 1)
       analyzer->SetReceiveStream(video_receive_streams_[0]);
@@ -862,9 +861,10 @@ void VideoQualityTest::RunWithAnalyzer(const Params& params) {
     GetVideoSendStream()->SetSource(analyzer->OutputInterface(),
                                     degradation_preference_);
     SetupThumbnailCapturers(params_.call.num_thumbnails);
-    for (size_t i = 0; i < thumbnail_send_streams_.size(); ++i) {
-      thumbnail_send_streams_[i]->SetSource(thumbnail_capturers_[i].get(),
-                                            degradation_preference_);
+    for (size_t i = 0; i < GetReturnSender()->video_send_streams_.size(); ++i) {
+      GetReturnSender()->video_send_streams_[i]->SetSource(
+          GetReturnSender()->video_capturers_[i].get(),
+          degradation_preference_);
     }
 
     CreateCapturers();
@@ -880,16 +880,17 @@ void VideoQualityTest::RunWithAnalyzer(const Params& params) {
     StartEncodedFrameLogs(
         video_receive_streams_[params_.ss[0].selected_stream]);
     StartVideoStreams();
-    for (VideoSendStream* thumbnail_send_stream : thumbnail_send_streams_)
+    for (VideoSendStream* thumbnail_send_stream :
+         GetReturnSender()->video_send_streams_)
       thumbnail_send_stream->Start();
     for (VideoReceiveStream* thumbnail_receive_stream :
-         thumbnail_receive_streams_)
+         GetReturnSender()->video_receive_streams_)
       thumbnail_receive_stream->Start();
 
     analyzer->StartMeasuringCpuProcessTime();
     StartVideoCapture();
     for (std::unique_ptr<test::VideoCapturer>& video_caputurer :
-         thumbnail_capturers_) {
+         GetReturnSender()->video_capturers_) {
       video_caputurer->Start();
     }
   });
@@ -898,17 +899,18 @@ void VideoQualityTest::RunWithAnalyzer(const Params& params) {
 
   task_queue_.SendTask([&]() {
     for (std::unique_ptr<test::VideoCapturer>& video_caputurer :
-         thumbnail_capturers_)
+         GetReturnSender()->video_capturers_)
       video_caputurer->Stop();
     for (size_t video_idx = 0; video_idx < num_video_streams_; ++video_idx) {
       video_capturers_[video_idx]->Stop();
     }
     for (VideoReceiveStream* thumbnail_receive_stream :
-         thumbnail_receive_streams_)
+         GetReturnSender()->video_receive_streams_)
       thumbnail_receive_stream->Stop();
     for (VideoReceiveStream* receive_stream : video_receive_streams_)
       receive_stream->Stop();
-    for (VideoSendStream* thumbnail_send_stream : thumbnail_send_streams_)
+    for (VideoSendStream* thumbnail_send_stream :
+         GetReturnSender()->video_send_streams_)
       thumbnail_send_stream->Stop();
     for (VideoSendStream* video_send_stream : video_send_streams_)
       video_send_stream->Stop();
@@ -1050,10 +1052,11 @@ void VideoQualityTest::RunWithRenderers(const Params& params) {
         num_streams_processed += num_streams;
       }
       CreateFlexfecStreams();
-      CreateVideoStreams();
+      GetSender()->CreateVideoStreamsForCalls(sender_call_.get(),
+                                              receiver_call_.get());
 
       CreateCapturers();
-      ConnectVideoSourcesToStreams();
+      GetSender()->ConnectVideoSourcesToStreams();
     }
 
     if (params_.audio.enabled) {

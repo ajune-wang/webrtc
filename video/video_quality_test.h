@@ -82,17 +82,10 @@ class VideoQualityTest :
   virtual std::unique_ptr<test::LayerFilteringTransport> CreateSendTransport();
   virtual std::unique_ptr<test::DirectTransport> CreateReceiveTransport();
 
-  std::vector<std::unique_ptr<test::VideoCapturer>> thumbnail_capturers_;
   Clock* const clock_;
 
   test::FunctionVideoEncoderFactory video_encoder_factory_;
   InternalEncoderFactory internal_encoder_factory_;
-  std::vector<VideoSendStream::Config> thumbnail_send_configs_;
-  std::vector<VideoEncoderConfig> thumbnail_encoder_configs_;
-  std::vector<VideoSendStream*> thumbnail_send_streams_;
-  std::vector<VideoReceiveStream::Config> thumbnail_receive_configs_;
-  std::vector<VideoReceiveStream*> thumbnail_receive_streams_;
-
   int receive_logs_;
   int send_logs_;
 

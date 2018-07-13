@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8c4921f5_97118413",
+        "filename": "api/video/video_frame.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-07-13T13:13:26Z",
+      "side": 1,
+      "message": "I would prefer keeping as much metadata as possible as immutable state. I\u0027m assuming this was added as a set function because it\u0027s impractical to have too many arguments to the ctor. What do you think about adding a builder pattern for VideoFrame instead?",
+      "range": {
+        "startLine": 91,
+        "startChar": 0,
+        "endLine": 93,
+        "endChar": 3
+      },
+      "revId": "6ae8f866b563d1a3920b30099148e6ebca7e0452",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

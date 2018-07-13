@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f935948b_fb47a63e",
+        "filename": "test/call_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-07-13T11:14:09Z",
+      "side": 1,
+      "message": "driveby nit: change to uint32_t",
+      "range": {
+        "startLine": 500,
+        "startChar": 19,
+        "endLine": 500,
+        "endChar": 31
+      },
+      "revId": "8467deb5620727a4a2db7dcfa3c8c4b3fdd4e671",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "74177ddc_f7a51761",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 532,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-07-13T08:25:31Z",
+      "side": 1,
+      "message": "const, same below. And perhaps remove the negation. I think it\u0027s easier to read:\n\nif (update_target_bitrate \u0026\u0026 spec.target_bitrate_bps) ...",
+      "range": {
+        "startLine": 532,
+        "startChar": 2,
+        "endLine": 532,
+        "endChar": 6
+      },
+      "revId": "b15ac7dc4caedd13e8481947143e56035d512e0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

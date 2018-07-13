@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9df30c92_e14399f8",
+        "filename": "test/call_test.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-07-13T09:49:57Z",
+      "side": 1,
+      "message": "nit: Should we maybe do this in reverse order of the start sequence?",
+      "range": {
+        "startLine": 152,
+        "startChar": 0,
+        "endLine": 153,
+        "endChar": 26
+      },
+      "revId": "e8d0b09e7b8f160ce323f11a9c993a79a4440195",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

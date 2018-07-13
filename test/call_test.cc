@@ -65,7 +65,8 @@ void CallTest::RunBaseTest(BaseTest* test) {
     num_audio_streams_ = test->GetNumAudioStreams();
     num_flexfec_streams_ = test->GetNumFlexfecStreams();
     RTC_DCHECK(num_video_streams_ > 0 || num_audio_streams_ > 0);
-    Call::Config send_config(test->GetSenderCallConfig());
+    Call::Config send_config(send_event_log_.get());
+    test->ModifySenderCallConfig(&send_config);
     if (num_audio_streams_ > 0) {
       CreateFakeAudioDevices(test->CreateCapturer(), test->CreateRenderer());
       test->OnFakeAudioDevicesCreated(fake_send_audio_device_.get(),
@@ -88,7 +89,8 @@ void CallTest::RunBaseTest(BaseTest* test) {
           sender_call_transport_controller_);
     }
     if (test->ShouldCreateReceivers()) {
-      Call::Config recv_config(test->GetReceiverCallConfig());
+      Call::Config recv_config(recv_event_log_.get());
+      test->ModifyReceiverCallConfig(&recv_config);
       if (num_audio_streams_ > 0) {
         AudioState::Config audio_state_config;
         audio_state_config.audio_mixer = AudioMixerImpl::Create();
@@ -493,10 +495,9 @@ const std::map<uint8_t, MediaType> CallTest::payload_type_map_ = {
     {CallTest::kAudioSendPayloadType, MediaType::AUDIO},
     {CallTest::kDefaultKeepalivePayloadType, MediaType::ANY}};
 
-BaseTest::BaseTest() : event_log_(RtcEventLog::CreateNull()) {}
+BaseTest::BaseTest() {}
 
-BaseTest::BaseTest(unsigned int timeout_ms)
-    : RtpRtcpObserver(timeout_ms), event_log_(RtcEventLog::CreateNull()) {}
+BaseTest::BaseTest(int timeout_ms) : RtpRtcpObserver(timeout_ms) {}
 
 BaseTest::~BaseTest() {}
 
@@ -512,13 +513,9 @@ void BaseTest::OnFakeAudioDevicesCreated(
     TestAudioDeviceModule* send_audio_device,
     TestAudioDeviceModule* recv_audio_device) {}
 
-Call::Config BaseTest::GetSenderCallConfig() {
-  return Call::Config(event_log_.get());
-}
+void BaseTest::ModifySenderCallConfig(Call::Config* config) {}
 
-Call::Config BaseTest::GetReceiverCallConfig() {
-  return Call::Config(event_log_.get());
-}
+void BaseTest::ModifyReceiverCallConfig(Call::Config* config) {}
 
 void BaseTest::OnRtpTransportControllerSendCreated(
     RtpTransportControllerSend* controller) {}
@@ -584,7 +581,7 @@ void BaseTest::OnFrameGeneratorCapturerCreated(
 
 void BaseTest::OnStreamsStopped() {}
 
-SendTest::SendTest(unsigned int timeout_ms) : BaseTest(timeout_ms) {}
+SendTest::SendTest(int timeout_ms) : BaseTest(timeout_ms) {}
 
 bool SendTest::ShouldCreateReceivers() const {
   return false;
@@ -592,7 +589,7 @@ bool SendTest::ShouldCreateReceivers() const {
 
 EndToEndTest::EndToEndTest() {}
 
-EndToEndTest::EndToEndTest(unsigned int timeout_ms) : BaseTest(timeout_ms) {}
+EndToEndTest::EndToEndTest(int timeout_ms) : BaseTest(timeout_ms) {}
 
 bool EndToEndTest::ShouldCreateReceivers() const {
   return true;

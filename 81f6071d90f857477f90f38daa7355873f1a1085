@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fbfb9212_1d9c0ae2",
+        "filename": "api/video/video_bitrate_allocation.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-07-13T13:11:58Z",
+      "side": 1,
+      "message": "Looks like this was only used in one place? Is it worth adding to the api?\nIf so, document.",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 0
+      },
+      "revId": "81f6071d90f857477f90f38daa7355873f1a1085",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f56dd798_6e65e56c",
+        "filename": "call/rtp_payload_params.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-07-13T13:11:58Z",
+      "side": 1,
+      "message": "This name was a little confusing. PopulateRtpWithCodecSpecifics() ?",
+      "range": {
+        "startLine": 22,
+        "startChar": 5,
+        "endLine": 22,
+        "endChar": 22
+      },
+      "revId": "81f6071d90f857477f90f38daa7355873f1a1085",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7d0e0fb_697308ad",
+        "filename": "call/rtp_payload_params.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-07-13T13:11:58Z",
+      "side": 1,
+      "message": "Why not make it const\u0026 instead?",
+      "range": {
+        "startLine": 23,
+        "startChar": 2,
+        "endLine": 23,
+        "endChar": 19
+      },
+      "revId": "81f6071d90f857477f90f38daa7355873f1a1085",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c24c3ae_e850592d",
+        "filename": "call/rtp_payload_params.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-07-13T13:11:58Z",
+      "side": 1,
+      "message": "here it\u0027s (to, from). Codec specifics above use (from, to), maybe reverse one of them?",
+      "range": {
+        "startLine": 88,
+        "startChar": 5,
+        "endLine": 88,
+        "endChar": 19
+      },
+      "revId": "81f6071d90f857477f90f38daa7355873f1a1085",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

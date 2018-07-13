@@ -2,6 +2,98 @@
   "comments": [
     {
       "key": {
+        "uuid": "71c75246_e8585b45",
+        "filename": "api/video/test/video_bitrate_allocation_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-07-13T13:14:20Z",
+      "side": 1,
+      "message": "Obsolete",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 46
+      },
+      "revId": "81f6071d90f857477f90f38daa7355873f1a1085",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cfc0e359_4267f754",
+        "filename": "api/video/test/video_bitrate_allocation_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-07-13T13:14:20Z",
+      "side": 1,
+      "message": "Obsolete",
+      "range": {
+        "startLine": 58,
+        "startChar": 2,
+        "endLine": 59,
+        "endChar": 69
+      },
+      "revId": "81f6071d90f857477f90f38daa7355873f1a1085",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4842cc5_88aebc10",
+        "filename": "api/video/video_bitrate_allocation.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-07-13T13:14:20Z",
+      "side": 1,
+      "message": "This can be deleted. (Or replaced, but I don\u0027t think it\u0027s needed)",
+      "range": {
+        "startLine": 115,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 76
+      },
+      "revId": "81f6071d90f857477f90f38daa7355873f1a1085",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd129e17_ca8e18ee",
+        "filename": "api/video/video_bitrate_allocation.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-07-13T13:14:20Z",
+      "side": 1,
+      "message": "Maybe we should have a short comment about what this does?\n\n// Returns one VideoBitrateAllocation for each spatial layer. This is used to configure simulcast streams. Note that the length of the returned vector is always kMaxSpatialLayers, the optional is unset for unused layers.",
+      "range": {
+        "startLine": 65,
+        "startChar": 54,
+        "endLine": 65,
+        "endChar": 77
+      },
+      "revId": "81f6071d90f857477f90f38daa7355873f1a1085",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fbfb9212_1d9c0ae2",
         "filename": "api/video/video_bitrate_allocation.h",
         "patchSetId": 2
@@ -18,6 +110,52 @@
         "startChar": 0,
         "endLine": 67,
         "endChar": 0
+      },
+      "revId": "81f6071d90f857477f90f38daa7355873f1a1085",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41af4920_9c0115ce",
+        "filename": "call/payload_router.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-07-13T13:14:20Z",
+      "side": 1,
+      "message": "nit: Using i is probably clearer now that we don\u0027t have ti to distinguish from?",
+      "range": {
+        "startLine": 136,
+        "startChar": 54,
+        "endLine": 136,
+        "endChar": 56
+      },
+      "revId": "81f6071d90f857477f90f38daa7355873f1a1085",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ca23ab8_5f1722cd",
+        "filename": "call/payload_router.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-07-13T13:14:20Z",
+      "side": 1,
+      "message": "I think it would read better as:\nif (layer_bitrates[si])\n  rtp_modules_[si]-\u003eSetVideoBitrateAllocation(*layer_bitrates[si]);",
+      "range": {
+        "startLine": 139,
+        "startChar": 8,
+        "endLine": 141,
+        "endChar": 33
       },
       "revId": "81f6071d90f857477f90f38daa7355873f1a1085",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

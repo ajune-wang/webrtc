@@ -289,8 +289,6 @@ class PeerConnectionInterface : public rtc::RefCountInterface {
       if (type == RTCConfigurationType::kAggressive) {
         // These parameters are also defined in Java and IOS configurations,
         // so their values may be overwritten by the Java or IOS configuration.
-        bundle_policy = kBundlePolicyMaxBundle;
-        rtcp_mux_policy = kRtcpMuxPolicyRequire;
         ice_connection_receiving_timeout =
             kAggressiveIceConnectionReceivingTimeout;
 

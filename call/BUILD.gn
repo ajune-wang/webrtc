@@ -281,6 +281,7 @@ if (rtc_include_tests) {
       "rtcp_demuxer_unittest.cc",
       "rtp_bitrate_configurator_unittest.cc",
       "rtp_demuxer_unittest.cc",
+      "rtp_payload_params_unittest.cc",
       "rtp_rtcp_demuxer_helper_unittest.cc",
       "rtx_receive_stream_unittest.cc",
     ]

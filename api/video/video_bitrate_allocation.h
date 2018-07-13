@@ -62,6 +62,9 @@ class VideoBitrateAllocation {
   // layer with a defined bitrate.
   std::vector<uint32_t> GetTemporalLayerAllocation(size_t spatial_index) const;
 
+  std::vector<absl::optional<VideoBitrateAllocation>> GetSimulcastAllocations()
+      const;
+
   uint32_t get_sum_bps() const { return sum_; }  // Sum of all bitrates.
   uint32_t get_sum_kbps() const {
     // Round down to not exceed the allocated bitrate.

@@ -32,6 +32,28 @@ struct RtpPayloadState {
   uint8_t tl0_pic_idx = 0;
 };
 
+// State for setting picture id and tl0 pic idx, for VP8 and VP9
+// TODO(nisse): Make these properties not codec specific.
+class RtpPayloadParams final {
+ public:
+  RtpPayloadParams(const uint32_t ssrc, const RtpPayloadState* state);
+  ~RtpPayloadParams();
+
+  RTPVideoHeader GetRtpVideoHeader(
+      const EncodedImage& image,
+      const CodecSpecificInfo* codec_specific_info);
+
+  uint32_t ssrc() const;
+
+  RtpPayloadState state() const;
+
+ private:
+  void Set(RTPVideoHeader* rtp_video_header, bool first_frame_in_picture);
+
+  const uint32_t ssrc_;
+  RtpPayloadState state_;
+};
+
 // PayloadRouter routes outgoing data to the correct sending RTP module, based
 // on the simulcast layer in RTPVideoHeader.
 class PayloadRouter : public EncodedImageCallback {
@@ -63,8 +85,6 @@ class PayloadRouter : public EncodedImageCallback {
   void OnBitrateAllocationUpdated(const VideoBitrateAllocation& bitrate);
 
  private:
-  class RtpPayloadParams;
-
   void UpdateModuleSendingState() RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_);
 
   rtc::CriticalSection crit_;

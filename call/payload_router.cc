@@ -21,6 +21,21 @@ namespace webrtc {
 
 namespace {
 // Map information from info into rtp.
+absl::optional<size_t> GetSimulcastIdx(const CodecSpecificInfo* info) {
+  if (!info)
+    return absl::nullopt;
+  switch (info->codecType) {
+    case kVideoCodecVP8:
+      return absl::optional<size_t>(info->codecSpecific.VP8.simulcastIdx);
+    case kVideoCodecH264:
+      return absl::optional<size_t>(info->codecSpecific.H264.simulcast_idx);
+    case kVideoCodecMultiplex:
+    case kVideoCodecGeneric:
+      return absl::optional<size_t>(info->codecSpecific.generic.simulcast_idx);
+    default:
+      return absl::nullopt;
+  }
+}
 void CopyCodecSpecific(const CodecSpecificInfo* info, RTPVideoHeader* rtp) {
   RTC_DCHECK(info);
   rtp->codec = info->codecType;
@@ -104,64 +119,80 @@ void SetVideoTiming(VideoSendTiming* timing, const EncodedImage& image) {
   timing->network2_timestamp_delta_ms = 0;
   timing->flags = image.timing_.flags;
 }
-
 }  // namespace
 
-// State for setting picture id and tl0 pic idx, for VP8 and VP9
-// TODO(nisse): Make these properties not codec specific.
-class PayloadRouter::RtpPayloadParams final {
- public:
-  RtpPayloadParams(const uint32_t ssrc, const RtpPayloadState* state)
-      : ssrc_(ssrc) {
-    Random random(rtc::TimeMicros());
-    state_.picture_id =
-        state ? state->picture_id : (random.Rand<int16_t>() & 0x7FFF);
-    state_.tl0_pic_idx = state ? state->tl0_pic_idx : (random.Rand<uint8_t>());
+RtpPayloadParams::RtpPayloadParams(const uint32_t ssrc,
+                                   const RtpPayloadState* state)
+    : ssrc_(ssrc) {
+  Random random(rtc::TimeMicros());
+  state_.picture_id =
+      state ? state->picture_id : (random.Rand<int16_t>() & 0x7FFF);
+  state_.tl0_pic_idx = state ? state->tl0_pic_idx : (random.Rand<uint8_t>());
+}
+RtpPayloadParams::~RtpPayloadParams() {}
+
+RTPVideoHeader RtpPayloadParams::GetRtpVideoHeader(
+    const EncodedImage& image,
+    const CodecSpecificInfo* codec_specific_info) {
+  RTPVideoHeader rtp_video_header;
+  if (codec_specific_info)
+    CopyCodecSpecific(codec_specific_info, &rtp_video_header);
+  rtp_video_header.rotation = image.rotation_;
+  rtp_video_header.content_type = image.content_type_;
+  rtp_video_header.playout_delay = image.playout_delay_;
+
+  SetVideoTiming(&rtp_video_header.video_timing, image);
+
+  // Sets picture id and tl0 pic idx.
+  const bool first_frame_in_picture =
+      (codec_specific_info && codec_specific_info->codecType == kVideoCodecVP9)
+          ? codec_specific_info->codecSpecific.VP9.first_frame_in_picture
+          : true;
+  Set(&rtp_video_header, first_frame_in_picture);
+  return rtp_video_header;
+}
+
+uint32_t RtpPayloadParams::ssrc() const {
+  return ssrc_;
+}
+
+RtpPayloadState RtpPayloadParams::state() const {
+  return state_;
+}
+
+void RtpPayloadParams::Set(RTPVideoHeader* rtp_video_header,
+                           bool first_frame_in_picture) {
+  // Always set picture id. Set tl0_pic_idx iff temporal index is set.
+  if (first_frame_in_picture) {
+    state_.picture_id = (static_cast<uint16_t>(state_.picture_id) + 1) & 0x7FFF;
   }
-  ~RtpPayloadParams() {}
+  if (rtp_video_header->codec == kVideoCodecVP8) {
+    rtp_video_header->vp8().pictureId = state_.picture_id;
 
-  void Set(RTPVideoHeader* rtp_video_header, bool first_frame_in_picture) {
-    // Always set picture id. Set tl0_pic_idx iff temporal index is set.
-    if (first_frame_in_picture) {
-      state_.picture_id =
-          (static_cast<uint16_t>(state_.picture_id) + 1) & 0x7FFF;
-    }
-    if (rtp_video_header->codec == kVideoCodecVP8) {
-      rtp_video_header->vp8().pictureId = state_.picture_id;
-
-      if (rtp_video_header->vp8().temporalIdx != kNoTemporalIdx) {
-        if (rtp_video_header->vp8().temporalIdx == 0) {
-          ++state_.tl0_pic_idx;
-        }
-        rtp_video_header->vp8().tl0PicIdx = state_.tl0_pic_idx;
+    if (rtp_video_header->vp8().temporalIdx != kNoTemporalIdx) {
+      if (rtp_video_header->vp8().temporalIdx == 0) {
+        ++state_.tl0_pic_idx;
       }
-    }
-    if (rtp_video_header->codec == kVideoCodecVP9) {
-      rtp_video_header->vp9().picture_id = state_.picture_id;
-
-      // Note that in the case that we have no temporal layers but we do have
-      // spatial layers, packets will carry layering info with a temporal_idx of
-      // zero, and we then have to set and increment tl0_pic_idx.
-      if (rtp_video_header->vp9().temporal_idx != kNoTemporalIdx ||
-          rtp_video_header->vp9().spatial_idx != kNoSpatialIdx) {
-        if (first_frame_in_picture &&
-            (rtp_video_header->vp9().temporal_idx == 0 ||
-             rtp_video_header->vp9().temporal_idx == kNoTemporalIdx)) {
-          ++state_.tl0_pic_idx;
-        }
-        rtp_video_header->vp9().tl0_pic_idx = state_.tl0_pic_idx;
-      }
+      rtp_video_header->vp8().tl0PicIdx = state_.tl0_pic_idx;
     }
   }
+  if (rtp_video_header->codec == kVideoCodecVP9) {
+    rtp_video_header->vp9().picture_id = state_.picture_id;
 
-  uint32_t ssrc() const { return ssrc_; }
-
-  RtpPayloadState state() const { return state_; }
-
- private:
-  const uint32_t ssrc_;
-  RtpPayloadState state_;
-};
+    // Note that in the case that we have no temporal layers but we do have
+    // spatial layers, packets will carry layering info with a temporal_idx of
+    // zero, and we then have to set and increment tl0_pic_idx.
+    if (rtp_video_header->vp9().temporal_idx != kNoTemporalIdx ||
+        rtp_video_header->vp9().spatial_idx != kNoSpatialIdx) {
+      if (first_frame_in_picture &&
+          (rtp_video_header->vp9().temporal_idx == 0 ||
+           rtp_video_header->vp9().temporal_idx == kNoTemporalIdx)) {
+        ++state_.tl0_pic_idx;
+      }
+      rtp_video_header->vp9().tl0_pic_idx = state_.tl0_pic_idx;
+    }
+  }
+}
 
 PayloadRouter::PayloadRouter(const std::vector<RtpRtcp*>& rtp_modules,
                              const std::vector<uint32_t>& ssrcs,
@@ -229,25 +260,10 @@ EncodedImageCallback::Result PayloadRouter::OnEncodedImage(
   if (!active_)
     return Result(Result::ERROR_SEND_FAILED);
 
-  RTPVideoHeader rtp_video_header;
-  if (codec_specific_info)
-    CopyCodecSpecific(codec_specific_info, &rtp_video_header);
-
-  rtp_video_header.rotation = encoded_image.rotation_;
-  rtp_video_header.content_type = encoded_image.content_type_;
-  rtp_video_header.playout_delay = encoded_image.playout_delay_;
-
-  SetVideoTiming(&rtp_video_header.video_timing, encoded_image);
-
-  int stream_index = rtp_video_header.simulcastIdx;
+  size_t stream_index = GetSimulcastIdx(codec_specific_info).value_or(0);
   RTC_DCHECK_LT(stream_index, rtp_modules_.size());
-
-  // Sets picture id and tl0 pic idx.
-  const bool first_frame_in_picture =
-      (codec_specific_info && codec_specific_info->codecType == kVideoCodecVP9)
-          ? codec_specific_info->codecSpecific.VP9.first_frame_in_picture
-          : true;
-  params_[stream_index].Set(&rtp_video_header, first_frame_in_picture);
+  RTPVideoHeader rtp_video_header = params_[stream_index].GetRtpVideoHeader(
+      encoded_image, codec_specific_info);
 
   uint32_t frame_id;
   if (!rtp_modules_[stream_index]->Sending()) {
@@ -272,22 +288,16 @@ void PayloadRouter::OnBitrateAllocationUpdated(
       // If spatial scalability is enabled, it is covered by a single stream.
       rtp_modules_[0]->SetVideoBitrateAllocation(bitrate);
     } else {
+      std::vector<absl::optional<VideoBitrateAllocation>> layer_bitrates =
+          bitrate.GetSimulcastAllocations();
       // Simulcast is in use, split the VideoBitrateAllocation into one struct
       // per rtp stream, moving over the temporal layer allocation.
       for (size_t si = 0; si < rtp_modules_.size(); ++si) {
-        // Don't send empty TargetBitrate messages on streams not being relayed.
-        if (!bitrate.IsSpatialLayerUsed(si)) {
-          // The next spatial layer could be used if the current one is
-          // inactive.
+        // The next spatial layer could be used if the current one is
+        // inactive.
+        if (!layer_bitrates[si])
           continue;
-        }
-
-        VideoBitrateAllocation layer_bitrate;
-        for (int tl = 0; tl < kMaxTemporalStreams; ++tl) {
-          if (bitrate.HasBitrate(si, tl))
-            layer_bitrate.SetBitrate(0, tl, bitrate.GetBitrate(si, tl));
-        }
-        rtp_modules_[si]->SetVideoBitrateAllocation(layer_bitrate);
+        rtp_modules_[si]->SetVideoBitrateAllocation(*layer_bitrates[si]);
       }
     }
   }

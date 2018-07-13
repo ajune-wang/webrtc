@@ -535,6 +535,7 @@ static int const kKbpsMultiplier = 1000;
   RTCConfiguration *config = [[RTCConfiguration alloc] init];
   config.iceServers = _iceServers;
   config.sdpSemantics = RTCSdpSemanticsUnifiedPlan;
+  config.bundlePolicy = RTCBundlePolicyMaxBundle;
   _peerConnection = [_factory peerConnectionWithConfiguration:config
                                                   constraints:constraints
                                                      delegate:self];

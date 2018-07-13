@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "724817f0_ec710a2b",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-07-13T07:36:11Z",
+      "side": 1,
+      "message": "Please merge with video_jni.",
+      "range": {
+        "startLine": 293,
+        "startChar": 20,
+        "endLine": 293,
+        "endChar": 39
+      },
+      "revId": "7f40dc42d67edaec63522fa071e255ff1d223218",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd36bc22_60153f4b",
+        "filename": "sdk/android/api/org/webrtc/PeerConnectionFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-07-13T07:36:11Z",
+      "side": 1,
+      "message": "Media codec factories can be created even if enableVideoHwAcceleration is disabled, is this a bug?",
+      "range": {
+        "startLine": 210,
+        "startChar": 10,
+        "endLine": 210,
+        "endChar": 88
+      },
+      "revId": "7f40dc42d67edaec63522fa071e255ff1d223218",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

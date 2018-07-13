@@ -13,6 +13,7 @@
 
 #include <stdint.h>
 
+#include "api/video/color_space.h"
 #include "api/video/video_frame_buffer.h"
 #include "api/video/video_rotation.h"
 
@@ -85,6 +86,12 @@ class VideoFrame {
   VideoRotation rotation() const { return rotation_; }
   void set_rotation(VideoRotation rotation) { rotation_ = rotation; }
 
+  // Set Color space when available.
+  ColorSpace color_space() const { return color_space_; }
+  void set_color_space(const ColorSpace& color_space) {
+    color_space_ = color_space;
+  }
+
   // Get render time in milliseconds.
   // TODO(nisse): Deprecated. Migrate all users to timestamp_us().
   int64_t render_time_ms() const;
@@ -106,6 +113,7 @@ class VideoFrame {
   int64_t ntp_time_ms_;
   int64_t timestamp_us_;
   VideoRotation rotation_;
+  ColorSpace color_space_;
 };
 
 }  // namespace webrtc

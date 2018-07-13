@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "247f6c9c_5372da63",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-07-13T13:40:30Z",
+      "side": 1,
+      "message": "Move the motivation to the description to keep the title short.\n\nSince it doesn\u0027t detect that the code for RtpPayloadParams is only moved (right?) not change, consider being explicit in the description about it. Ex: \"The RtpPayloadParams class is split into declaration and definition and moved into separade code files. Otherwise unchanged.\"",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 89
+      },
+      "revId": "81f6071d90f857477f90f38daa7355873f1a1085",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "71c75246_e8585b45",
         "filename": "api/video/test/video_bitrate_allocation_unittest.cc",
         "patchSetId": 2

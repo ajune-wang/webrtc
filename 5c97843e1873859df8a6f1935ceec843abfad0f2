@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6745f62b_e3566f87",
+        "filename": "media/engine/webrtcvideoengine.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-07-13T08:23:16Z",
+      "side": 1,
+      "message": "This will add RTX for the multiplex codec adapter too. I think that is desired though.\n\n+emircan FYI.",
+      "revId": "5c97843e1873859df8a6f1935ceec843abfad0f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "443fa1f5_116586b9",
+        "filename": "media/engine/webrtcvideoengine.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-07-13T08:23:16Z",
+      "side": 1,
+      "message": "We should add a log warning here. I have a feeling -- but no data -- that we are getting closer to the maximum number of dynamic payload types we can have. (I know that deadbeef@ was worried about this before.)",
+      "revId": "5c97843e1873859df8a6f1935ceec843abfad0f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

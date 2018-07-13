@@ -19,6 +19,7 @@
 
 namespace rtc {
 class AsyncPacketSocket;
+class AsyncResolverFactory;
 class Network;
 class PacketSocketFactory;
 class Thread;
@@ -38,6 +39,7 @@ struct CreateRelayPortArgs {
   CreateRelayPortArgs();
   rtc::Thread* network_thread;
   rtc::PacketSocketFactory* socket_factory;
+  rtc::AsyncResolverFactory* resolver_factory;
   rtc::Network* network;
   const ProtocolAddress* server_address;
   const RelayServerConfig* config;

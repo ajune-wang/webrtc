@@ -103,8 +103,8 @@ class PeerConnectionFactoryTest : public testing::Test {
         nullptr /* audio_processing */);
 
     ASSERT_TRUE(factory_.get() != NULL);
-    port_allocator_.reset(
-        new cricket::FakePortAllocator(rtc::Thread::Current(), nullptr));
+    port_allocator_.reset(new cricket::FakePortAllocator(rtc::Thread::Current(),
+                                                         nullptr, nullptr));
     raw_port_allocator_ = port_allocator_.get();
   }
 

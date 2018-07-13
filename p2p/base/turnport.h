@@ -52,6 +52,7 @@ class TurnPort : public Port {
   // Create a TURN port using the shared UDP socket, |socket|.
   static TurnPort* Create(rtc::Thread* thread,
                           rtc::PacketSocketFactory* factory,
+                          rtc::AsyncResolverFactory* resolver_factory,
                           rtc::Network* network,
                           rtc::AsyncPacketSocket* socket,
                           const std::string& username,  // ice username.
@@ -61,9 +62,9 @@ class TurnPort : public Port {
                           int server_priority,
                           const std::string& origin,
                           webrtc::TurnCustomizer* customizer) {
-    return new TurnPort(thread, factory, network, socket, username, password,
-                        server_address, credentials, server_priority, origin,
-                        customizer);
+    return new TurnPort(thread, factory, resolver_factory, network, socket,
+                        username, password, server_address, credentials,
+                        server_priority, origin, customizer);
   }
 
   // Create a TURN port that will use a new socket, bound to |network| and
@@ -71,6 +72,7 @@ class TurnPort : public Port {
   static TurnPort* Create(
       rtc::Thread* thread,
       rtc::PacketSocketFactory* factory,
+      rtc::AsyncResolverFactory* resolver_factory,
       rtc::Network* network,
       uint16_t min_port,
       uint16_t max_port,
@@ -84,10 +86,11 @@ class TurnPort : public Port {
       const std::vector<std::string>& tls_elliptic_curves,
       webrtc::TurnCustomizer* customizer,
       rtc::SSLCertificateVerifier* tls_cert_verifier = nullptr) {
-    return new TurnPort(thread, factory, network, min_port, max_port, username,
-                        password, server_address, credentials, server_priority,
-                        origin, tls_alpn_protocols, tls_elliptic_curves,
-                        customizer, tls_cert_verifier);
+    return new TurnPort(thread, factory, resolver_factory, network, min_port,
+                        max_port, username, password, server_address,
+                        credentials, server_priority, origin,
+                        tls_alpn_protocols, tls_elliptic_curves, customizer,
+                        tls_cert_verifier);
   }
 
   ~TurnPort() override;
@@ -194,6 +197,7 @@ class TurnPort : public Port {
  protected:
   TurnPort(rtc::Thread* thread,
            rtc::PacketSocketFactory* factory,
+           rtc::AsyncResolverFactory* resolver_factory,
            rtc::Network* network,
            rtc::AsyncPacketSocket* socket,
            const std::string& username,
@@ -206,6 +210,7 @@ class TurnPort : public Port {
 
   TurnPort(rtc::Thread* thread,
            rtc::PacketSocketFactory* factory,
+           rtc::AsyncResolverFactory* resolver_factory,
            rtc::Network* network,
            uint16_t min_port,
            uint16_t max_port,
@@ -313,6 +318,7 @@ class TurnPort : public Port {
 
   rtc::AsyncPacketSocket* socket_;
   SocketOptionsMap socket_options_;
+  rtc::AsyncResolverFactory* resolver_factory_;
   rtc::AsyncResolverInterface* resolver_;
   int error_;
 

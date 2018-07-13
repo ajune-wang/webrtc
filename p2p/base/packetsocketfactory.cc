@@ -18,6 +18,8 @@ PacketSocketTcpOptions::PacketSocketTcpOptions() = default;
 
 PacketSocketTcpOptions::~PacketSocketTcpOptions() = default;
 
+AsyncResolverFactory::~AsyncResolverFactory() = default;
+
 AsyncPacketSocket* PacketSocketFactory::CreateClientTcpSocket(
     const SocketAddress& local_address,
     const SocketAddress& remote_address,

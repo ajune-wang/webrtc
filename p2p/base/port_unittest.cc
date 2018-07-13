@@ -36,6 +36,7 @@
 #include "rtc_base/virtualsocketserver.h"
 
 using rtc::AsyncPacketSocket;
+using rtc::AsyncResolverFactory;
 using rtc::Buffer;
 using rtc::ByteBufferReader;
 using rtc::ByteBufferWriter;
@@ -380,6 +381,7 @@ class PortTest : public testing::Test, public sigslot::has_slots<> {
       : ss_(new rtc::VirtualSocketServer()),
         main_(ss_.get()),
         socket_factory_(rtc::Thread::Current()),
+        resolver_factory_(),
         nat_factory1_(ss_.get(), kNatAddr1, SocketAddress()),
         nat_factory2_(ss_.get(), kNatAddr2, SocketAddress()),
         nat_socket_factory1_(&nat_factory1_),
@@ -490,9 +492,9 @@ class PortTest : public testing::Test, public sigslot::has_slots<> {
   }
   UDPPort* CreateUdpPort(const SocketAddress& addr,
                          PacketSocketFactory* socket_factory) {
-    return UDPPort::Create(&main_, socket_factory, MakeNetwork(addr), 0, 0,
-                           username_, password_, std::string(), true,
-                           absl::nullopt);
+    return UDPPort::Create(&main_, socket_factory, &resolver_factory_,
+                           MakeNetwork(addr), 0, 0, username_, password_,
+                           std::string(), true, absl::nullopt);
   }
   TCPPort* CreateTcpPort(const SocketAddress& addr) {
     return CreateTcpPort(addr, &socket_factory_);
@@ -506,9 +508,9 @@ class PortTest : public testing::Test, public sigslot::has_slots<> {
                            rtc::PacketSocketFactory* factory) {
     ServerAddresses stun_servers;
     stun_servers.insert(kStunAddr);
-    return StunPort::Create(&main_, factory, MakeNetwork(addr), 0, 0, username_,
-                            password_, stun_servers, std::string(),
-                            absl::nullopt);
+    return StunPort::Create(&main_, factory, &resolver_factory_,
+                            MakeNetwork(addr), 0, 0, username_, password_,
+                            stun_servers, std::string(), absl::nullopt);
   }
   Port* CreateRelayPort(const SocketAddress& addr,
                         RelayType rtype,
@@ -535,10 +537,10 @@ class PortTest : public testing::Test, public sigslot::has_slots<> {
                            ProtocolType ext_proto,
                            const rtc::SocketAddress& server_addr) {
     return TurnPort::Create(
-        &main_, socket_factory, MakeNetwork(addr), 0, 0, username_, password_,
-        ProtocolAddress(server_addr, int_proto), kRelayCredentials, 0,
-        std::string(), std::vector<std::string>(), std::vector<std::string>(),
-        nullptr, nullptr);
+        &main_, socket_factory, &resolver_factory_, MakeNetwork(addr), 0, 0,
+        username_, password_, ProtocolAddress(server_addr, int_proto),
+        kRelayCredentials, 0, std::string(), std::vector<std::string>(),
+        std::vector<std::string>(), nullptr, nullptr);
   }
   RelayPort* CreateGturnPort(const SocketAddress& addr,
                              ProtocolType int_proto,
@@ -818,6 +820,7 @@ class PortTest : public testing::Test, public sigslot::has_slots<> {
   std::unique_ptr<rtc::VirtualSocketServer> ss_;
   rtc::AutoSocketServerThread main_;
   rtc::BasicPacketSocketFactory socket_factory_;
+  rtc::BasicAsyncResolverFactory resolver_factory_;
   std::unique_ptr<rtc::NATServer> nat_server1_;
   std::unique_ptr<rtc::NATServer> nat_server2_;
   rtc::NATSocketFactory nat_factory1_;

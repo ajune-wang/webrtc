@@ -21,6 +21,13 @@ class AsyncSocket;
 class SocketFactory;
 class Thread;
 
+// TODO(zstein): Move to own file.
+class BasicAsyncResolverFactory : public AsyncResolverFactory {
+ public:
+  ~BasicAsyncResolverFactory() override = default;
+  AsyncResolverInterface* CreateAsyncResolver() override;
+};
+
 class BasicPacketSocketFactory : public PacketSocketFactory {
  public:
   BasicPacketSocketFactory();

@@ -150,6 +150,7 @@ class TurnPortTest : public testing::Test,
       : ss_(new TurnPortTestVirtualSocketServer()),
         main_(ss_.get()),
         socket_factory_(rtc::Thread::Current()),
+        resolver_factory_(),
         turn_server_(&main_, kTurnUdpIntAddr, kTurnUdpExtAddr),
         turn_ready_(false),
         turn_error_(false),
@@ -270,10 +271,11 @@ class TurnPortTest : public testing::Test,
                                    const ProtocolAddress& server_address,
                                    const std::string& origin) {
     RelayCredentials credentials(username, password);
-    turn_port_.reset(TurnPort::Create(
-        &main_, &socket_factory_, network, 0, 0, kIceUfrag1, kIcePwd1,
-        server_address, credentials, 0, origin, std::vector<std::string>(),
-        std::vector<std::string>(), turn_customizer_.get()));
+    turn_port_.reset(
+        TurnPort::Create(&main_, &socket_factory_, &resolver_factory_, network,
+                         0, 0, kIceUfrag1, kIcePwd1, server_address,
+                         credentials, 0, origin, std::vector<std::string>(),
+                         std::vector<std::string>(), turn_customizer_.get()));
     // This TURN port will be the controlling.
     turn_port_->SetIceRole(ICEROLE_CONTROLLING);
     ConnectSignals();
@@ -301,10 +303,10 @@ class TurnPortTest : public testing::Test,
     }
 
     RelayCredentials credentials(username, password);
-    turn_port_.reset(TurnPort::Create(&main_, &socket_factory_,
-                                      MakeNetwork(kLocalAddr1), socket_.get(),
-                                      kIceUfrag1, kIcePwd1, server_address,
-                                      credentials, 0, std::string(), nullptr));
+    turn_port_.reset(TurnPort::Create(
+        &main_, &socket_factory_, &resolver_factory_, MakeNetwork(kLocalAddr1),
+        socket_.get(), kIceUfrag1, kIcePwd1, server_address, credentials, 0,
+        std::string(), nullptr));
     // This TURN port will be the controlling.
     turn_port_->SetIceRole(ICEROLE_CONTROLLING);
     ConnectSignals();
@@ -330,8 +332,8 @@ class TurnPortTest : public testing::Test,
 
   void CreateUdpPort(const SocketAddress& address) {
     udp_port_.reset(UDPPort::Create(
-        &main_, &socket_factory_, MakeNetwork(address), 0, 0, kIceUfrag2,
-        kIcePwd2, std::string(), false, absl::nullopt));
+        &main_, &socket_factory_, &resolver_factory_, MakeNetwork(address), 0,
+        0, kIceUfrag2, kIcePwd2, std::string(), false, absl::nullopt));
     // UDP port will be controlled.
     udp_port_->SetIceRole(ICEROLE_CONTROLLED);
     udp_port_->SignalPortComplete.connect(this,
@@ -736,6 +738,7 @@ class TurnPortTest : public testing::Test,
   std::unique_ptr<TurnPortTestVirtualSocketServer> ss_;
   rtc::AutoSocketServerThread main_;
   rtc::BasicPacketSocketFactory socket_factory_;
+  rtc::BasicAsyncResolverFactory resolver_factory_;
   std::unique_ptr<rtc::AsyncPacketSocket> socket_;
   TestTurnServer turn_server_;
   std::unique_ptr<TurnPort> turn_port_;

@@ -32,6 +32,7 @@ class TestUDPPort : public UDPPort {
  public:
   static TestUDPPort* Create(rtc::Thread* thread,
                              rtc::PacketSocketFactory* factory,
+                             rtc::AsyncResolverFactory* resolver_factory,
                              rtc::Network* network,
                              uint16_t min_port,
                              uint16_t max_port,
@@ -39,9 +40,9 @@ class TestUDPPort : public UDPPort {
                              const std::string& password,
                              const std::string& origin,
                              bool emit_localhost_for_anyaddress) {
-    TestUDPPort* port =
-        new TestUDPPort(thread, factory, network, min_port, max_port, username,
-                        password, origin, emit_localhost_for_anyaddress);
+    TestUDPPort* port = new TestUDPPort(
+        thread, factory, resolver_factory, network, min_port, max_port,
+        username, password, origin, emit_localhost_for_anyaddress);
     if (!port->Init()) {
       delete port;
       port = nullptr;
@@ -61,6 +62,7 @@ class TestUDPPort : public UDPPort {
  protected:
   TestUDPPort(rtc::Thread* thread,
               rtc::PacketSocketFactory* factory,
+              rtc::AsyncResolverFactory* resolver_factory,
               rtc::Network* network,
               uint16_t min_port,
               uint16_t max_port,
@@ -70,6 +72,7 @@ class TestUDPPort : public UDPPort {
               bool emit_localhost_for_anyaddress)
       : UDPPort(thread,
                 factory,
+                resolver_factory,
                 network,
                 min_port,
                 max_port,
@@ -89,6 +92,7 @@ class FakePortAllocatorSession : public PortAllocatorSession {
   FakePortAllocatorSession(PortAllocator* allocator,
                            rtc::Thread* network_thread,
                            rtc::PacketSocketFactory* factory,
+                           rtc::AsyncResolverFactory* resolver_factory,
                            const std::string& content_name,
                            int component,
                            const std::string& ice_ufrag,
@@ -100,6 +104,7 @@ class FakePortAllocatorSession : public PortAllocatorSession {
                              allocator->flags()),
         network_thread_(network_thread),
         factory_(factory),
+        resolver_factory_(resolver_factory),
         ipv4_network_("network",
                       "unittest",
                       rtc::IPAddress(INADDR_LOOPBACK),
@@ -126,9 +131,9 @@ class FakePortAllocatorSession : public PortAllocatorSession {
           (rtc::HasIPv6Enabled() && (flags() & PORTALLOCATOR_ENABLE_IPV6))
               ? ipv6_network_
               : ipv4_network_;
-      port_.reset(TestUDPPort::Create(network_thread_, factory_, &network, 0, 0,
-                                      username(), password(), std::string(),
-                                      false));
+      port_.reset(TestUDPPort::Create(
+          network_thread_, factory_, resolver_factory_, &network, 0, 0,
+          username(), password(), std::string(), false));
       RTC_DCHECK(port_);
       port_->SignalDestroyed.connect(
           this, &FakePortAllocatorSession::OnPortDestroyed);
@@ -207,6 +212,7 @@ class FakePortAllocatorSession : public PortAllocatorSession {
 
   rtc::Thread* network_thread_;
   rtc::PacketSocketFactory* factory_;
+  rtc::AsyncResolverFactory* resolver_factory_;
   rtc::Network ipv4_network_;
   rtc::Network ipv6_network_;
   std::unique_ptr<cricket::Port> port_;
@@ -225,8 +231,11 @@ class FakePortAllocatorSession : public PortAllocatorSession {
 class FakePortAllocator : public cricket::PortAllocator {
  public:
   FakePortAllocator(rtc::Thread* network_thread,
-                    rtc::PacketSocketFactory* factory)
-      : network_thread_(network_thread), factory_(factory) {
+                    rtc::PacketSocketFactory* factory,
+                    rtc::AsyncResolverFactory* resolver_factory)
+      : network_thread_(network_thread),
+        factory_(factory),
+        resolver_factory_(resolver_factory) {
     if (factory_ == NULL) {
       owned_factory_.reset(new rtc::BasicPacketSocketFactory(network_thread_));
       factory_ = owned_factory_.get();
@@ -250,8 +259,8 @@ class FakePortAllocator : public cricket::PortAllocator {
       const std::string& ice_ufrag,
       const std::string& ice_pwd) override {
     return new FakePortAllocatorSession(this, network_thread_, factory_,
-                                        content_name, component, ice_ufrag,
-                                        ice_pwd);
+                                        resolver_factory_, content_name,
+                                        component, ice_ufrag, ice_pwd);
   }
 
   bool initialized() const { return initialized_; }
@@ -259,6 +268,7 @@ class FakePortAllocator : public cricket::PortAllocator {
  private:
   rtc::Thread* network_thread_;
   rtc::PacketSocketFactory* factory_;
+  rtc::AsyncResolverFactory* resolver_factory_;
   std::unique_ptr<rtc::BasicPacketSocketFactory> owned_factory_;
 };
 

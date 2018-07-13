@@ -80,7 +80,7 @@ class PeerConnectionMediaBaseTest : public ::testing::Test {
         CreateRtcEventLogFactory());
 
     auto fake_port_allocator = absl::make_unique<cricket::FakePortAllocator>(
-        rtc::Thread::Current(), nullptr);
+        rtc::Thread::Current(), nullptr, nullptr);
     auto observer = absl::make_unique<MockPeerConnectionObserver>();
     auto modified_config = config;
     modified_config.sdp_semantics = sdp_semantics_;

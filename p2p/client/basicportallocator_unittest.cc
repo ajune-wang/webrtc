@@ -146,6 +146,7 @@ class BasicPortAllocatorTestBase : public testing::Test,
         // must be called.
         nat_factory_(vss_.get(), kNatUdpAddr, kNatTcpAddr),
         nat_socket_factory_(new rtc::BasicPacketSocketFactory(&nat_factory_)),
+        resolver_factory_(new rtc::BasicAsyncResolverFactory()),
         stun_server_(TestStunServer::Create(Thread::Current(), kStunAddr)),
         relay_server_(Thread::Current(),
                       kRelayUdpIntAddr,
@@ -483,8 +484,9 @@ class BasicPortAllocatorTestBase : public testing::Test,
     if (!stun_server.IsNil()) {
       stun_servers.insert(stun_server);
     }
-    allocator_.reset(new BasicPortAllocator(
-        &network_manager_, nat_socket_factory_.get(), stun_servers));
+    allocator_.reset(
+        new BasicPortAllocator(&network_manager_, nat_socket_factory_.get(),
+                               resolver_factory_.get(), stun_servers));
     allocator_->Initialize();
     allocator_->set_step_delay(kMinimumStepDelay);
   }
@@ -495,6 +497,7 @@ class BasicPortAllocatorTestBase : public testing::Test,
   std::unique_ptr<rtc::NATServer> nat_server_;
   rtc::NATSocketFactory nat_factory_;
   std::unique_ptr<rtc::BasicPacketSocketFactory> nat_socket_factory_;
+  std::unique_ptr<rtc::AsyncResolverFactory> resolver_factory_;
   std::unique_ptr<TestStunServer> stun_server_;
   TestRelayServer relay_server_;
   TestTurnServer turn_server_;

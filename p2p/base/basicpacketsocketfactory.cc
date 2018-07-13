@@ -26,6 +26,10 @@
 
 namespace rtc {
 
+AsyncResolverInterface* BasicAsyncResolverFactory::CreateAsyncResolver() {
+  return new AsyncResolver();
+}
+
 BasicPacketSocketFactory::BasicPacketSocketFactory()
     : thread_(Thread::Current()), socket_factory_(NULL) {}
 

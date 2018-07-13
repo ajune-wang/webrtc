@@ -104,8 +104,8 @@ class StunBindingRequest : public StunRequest {
   int64_t start_time_;
 };
 
-UDPPort::AddressResolver::AddressResolver(rtc::PacketSocketFactory* factory)
-    : socket_factory_(factory) {}
+UDPPort::AddressResolver::AddressResolver(rtc::AsyncResolverFactory* factory)
+    : async_resolver_factory_(factory) {}
 
 UDPPort::AddressResolver::~AddressResolver() {
   for (ResolverMap::iterator it = resolvers_.begin(); it != resolvers_.end();
@@ -122,7 +122,7 @@ void UDPPort::AddressResolver::Resolve(const rtc::SocketAddress& address) {
     return;
 
   rtc::AsyncResolverInterface* resolver =
-      socket_factory_->CreateAsyncResolver();
+      async_resolver_factory_->CreateAsyncResolver();
   resolvers_.insert(std::pair<rtc::SocketAddress, rtc::AsyncResolverInterface*>(
       address, resolver));
 
@@ -156,6 +156,7 @@ void UDPPort::AddressResolver::OnResolveResult(
 
 UDPPort::UDPPort(rtc::Thread* thread,
                  rtc::PacketSocketFactory* factory,
+                 rtc::AsyncResolverFactory* resolver_factory,
                  rtc::Network* network,
                  rtc::AsyncPacketSocket* socket,
                  const std::string& username,
@@ -166,6 +167,7 @@ UDPPort::UDPPort(rtc::Thread* thread,
       requests_(thread),
       socket_(socket),
       error_(0),
+      async_resolver_factory_(resolver_factory),
       ready_(false),
       stun_keepalive_delay_(STUN_KEEPALIVE_INTERVAL),
       emit_local_for_anyaddress_(emit_local_for_anyaddress) {
@@ -174,6 +176,7 @@ UDPPort::UDPPort(rtc::Thread* thread,
 
 UDPPort::UDPPort(rtc::Thread* thread,
                  rtc::PacketSocketFactory* factory,
+                 rtc::AsyncResolverFactory* resolver_factory,
                  rtc::Network* network,
                  uint16_t min_port,
                  uint16_t max_port,
@@ -192,6 +195,7 @@ UDPPort::UDPPort(rtc::Thread* thread,
       requests_(thread),
       socket_(NULL),
       error_(0),
+      async_resolver_factory_(resolver_factory),
       ready_(false),
       stun_keepalive_delay_(STUN_KEEPALIVE_INTERVAL),
       emit_local_for_anyaddress_(emit_local_for_anyaddress) {
@@ -382,7 +386,7 @@ void UDPPort::SendStunBindingRequests() {
 
 void UDPPort::ResolveStunAddress(const rtc::SocketAddress& stun_addr) {
   if (!resolver_) {
-    resolver_.reset(new AddressResolver(socket_factory()));
+    resolver_.reset(new AddressResolver(async_resolver_factory_));
     resolver_->SignalDone.connect(this, &UDPPort::OnResolveResult);
   }
 
@@ -543,6 +547,7 @@ bool UDPPort::HasCandidateWithAddress(const rtc::SocketAddress& addr) const {
 
 StunPort* StunPort::Create(rtc::Thread* thread,
                            rtc::PacketSocketFactory* factory,
+                           rtc::AsyncResolverFactory* resolver_factory,
                            rtc::Network* network,
                            uint16_t min_port,
                            uint16_t max_port,
@@ -551,8 +556,9 @@ StunPort* StunPort::Create(rtc::Thread* thread,
                            const ServerAddresses& servers,
                            const std::string& origin,
                            absl::optional<int> stun_keepalive_interval) {
-  StunPort* port = new StunPort(thread, factory, network, min_port, max_port,
-                                username, password, servers, origin);
+  StunPort* port =
+      new StunPort(thread, factory, resolver_factory, network, min_port,
+                   max_port, username, password, servers, origin);
   port->set_stun_keepalive_delay(stun_keepalive_interval);
   if (!port->Init()) {
     delete port;
@@ -563,6 +569,7 @@ StunPort* StunPort::Create(rtc::Thread* thread,
 
 StunPort::StunPort(rtc::Thread* thread,
                    rtc::PacketSocketFactory* factory,
+                   rtc::AsyncResolverFactory* resolver_factory,
                    rtc::Network* network,
                    uint16_t min_port,
                    uint16_t max_port,
@@ -572,6 +579,7 @@ StunPort::StunPort(rtc::Thread* thread,
                    const std::string& origin)
     : UDPPort(thread,
               factory,
+              resolver_factory,
               network,
               min_port,
               max_port,

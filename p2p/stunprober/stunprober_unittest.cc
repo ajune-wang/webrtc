@@ -55,13 +55,14 @@ class StunProberTest : public testing::Test {
   void set_expected_result(int result) { result_ = result; }
 
   void StartProbing(rtc::PacketSocketFactory* socket_factory,
+                    rtc::AsyncResolverFactory* resolver_factory,
                     const std::vector<rtc::SocketAddress>& addrs,
                     const rtc::NetworkManager::NetworkList& networks,
                     bool shared_socket,
                     uint16_t interval,
                     uint16_t pings_per_ip) {
-    prober.reset(
-        new StunProber(socket_factory, rtc::Thread::Current(), networks));
+    prober.reset(new StunProber(socket_factory, resolver_factory,
+                                rtc::Thread::Current(), networks));
     prober->Start(addrs, shared_socket, interval, pings_per_ip,
                   100 /* timeout_ms */, [this](StunProber* prober, int result) {
                     this->StopCallback(prober, result);
@@ -82,8 +83,8 @@ class StunProberTest : public testing::Test {
     rtc::NetworkManager::NetworkList networks;
     networks.push_back(&ipv4_network1);
 
-    std::unique_ptr<rtc::BasicPacketSocketFactory> socket_factory(
-        new rtc::BasicPacketSocketFactory());
+    auto socket_factory = absl::make_unique<rtc::BasicPacketSocketFactory>();
+    auto resolver_factory = absl::make_unique<rtc::BasicAsyncResolverFactory>();
 
     // Set up the expected results for verification.
     std::set<std::string> srflx_addresses;
@@ -95,8 +96,8 @@ class StunProberTest : public testing::Test {
     // kFailedStunAddr.
     const uint32_t total_pings_reported = total_pings_tried - pings_per_ip;
 
-    StartProbing(socket_factory.get(), addrs, networks, shared_mode, 3,
-                 pings_per_ip);
+    StartProbing(socket_factory.get(), resolver_factory.get(), addrs, networks,
+                 shared_mode, 3, pings_per_ip);
 
     WAIT(stopped_, 1000);
 

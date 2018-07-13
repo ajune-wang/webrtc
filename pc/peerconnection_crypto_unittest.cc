@@ -65,7 +65,7 @@ class PeerConnectionCryptoBaseTest : public ::testing::Test {
       const RTCConfiguration& config,
       std::unique_ptr<rtc::RTCCertificateGeneratorInterface> cert_gen) {
     auto fake_port_allocator = absl::make_unique<cricket::FakePortAllocator>(
-        rtc::Thread::Current(), nullptr);
+        rtc::Thread::Current(), nullptr, nullptr);
     auto observer = absl::make_unique<MockPeerConnectionObserver>();
     RTCConfiguration modified_config = config;
     modified_config.sdp_semantics = sdp_semantics_;

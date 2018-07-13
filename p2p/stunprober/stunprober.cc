@@ -253,10 +253,12 @@ void StunProber::ObserverAdapter::OnFinished(StunProber* stunprober,
 }
 
 StunProber::StunProber(rtc::PacketSocketFactory* socket_factory,
+                       rtc::AsyncResolverFactory* resolver_factory,
                        rtc::Thread* thread,
                        const rtc::NetworkManager::NetworkList& networks)
     : interval_ms_(0),
       socket_factory_(socket_factory),
+      resolver_factory_(resolver_factory),
       thread_(thread),
       networks_(networks) {}
 
@@ -329,7 +331,7 @@ bool StunProber::Start(StunProber::Observer* observer) {
 
 bool StunProber::ResolveServerName(const rtc::SocketAddress& addr) {
   rtc::AsyncResolverInterface* resolver =
-      socket_factory_->CreateAsyncResolver();
+      resolver_factory_->CreateAsyncResolver();
   if (!resolver) {
     return false;
   }

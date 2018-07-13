@@ -74,7 +74,7 @@ bool PeerConnectionTestWrapper::CreatePc(
     rtc::scoped_refptr<webrtc::AudioEncoderFactory> audio_encoder_factory,
     rtc::scoped_refptr<webrtc::AudioDecoderFactory> audio_decoder_factory) {
   std::unique_ptr<cricket::PortAllocator> port_allocator(
-      new cricket::FakePortAllocator(network_thread_, nullptr));
+      new cricket::FakePortAllocator(network_thread_, nullptr, nullptr));
 
   fake_audio_capture_module_ = FakeAudioCaptureModule::Create();
   if (fake_audio_capture_module_ == NULL) {

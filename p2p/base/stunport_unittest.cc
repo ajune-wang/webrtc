@@ -45,6 +45,7 @@ class StunPortTestBase : public testing::Test, public sigslot::has_slots<> {
         thread_(ss_.get()),
         network_("unittest", "unittest", kLocalAddr.ipaddr(), 32),
         socket_factory_(rtc::Thread::Current()),
+        resolver_factory_(),
         stun_server_1_(cricket::TestStunServer::Create(rtc::Thread::Current(),
                                                        kStunAddr1)),
         stun_server_2_(cricket::TestStunServer::Create(rtc::Thread::Current(),
@@ -72,9 +73,9 @@ class StunPortTestBase : public testing::Test, public sigslot::has_slots<> {
 
   void CreateStunPort(const ServerAddresses& stun_servers) {
     stun_port_.reset(cricket::StunPort::Create(
-        rtc::Thread::Current(), &socket_factory_, &network_, 0, 0,
-        rtc::CreateRandomString(16), rtc::CreateRandomString(22), stun_servers,
-        std::string(), absl::nullopt));
+        rtc::Thread::Current(), &socket_factory_, &resolver_factory_, &network_,
+        0, 0, rtc::CreateRandomString(16), rtc::CreateRandomString(22),
+        stun_servers, std::string(), absl::nullopt));
     stun_port_->set_stun_keepalive_delay(stun_keepalive_delay_);
     // If |stun_keepalive_lifetime_| is negative, let the stun port
     // choose its lifetime from the network type.
@@ -92,9 +93,9 @@ class StunPortTestBase : public testing::Test, public sigslot::has_slots<> {
     ASSERT_TRUE(socket_ != NULL);
     socket_->SignalReadPacket.connect(this, &StunPortTestBase::OnReadPacket);
     stun_port_.reset(cricket::UDPPort::Create(
-        rtc::Thread::Current(), &socket_factory_, &network_, socket_.get(),
-        rtc::CreateRandomString(16), rtc::CreateRandomString(22), std::string(),
-        false, absl::nullopt));
+        rtc::Thread::Current(), &socket_factory_, &resolver_factory_, &network_,
+        socket_.get(), rtc::CreateRandomString(16), rtc::CreateRandomString(22),
+        std::string(), false, absl::nullopt));
     ASSERT_TRUE(stun_port_ != NULL);
     ServerAddresses stun_servers;
     stun_servers.insert(server_addr);
@@ -150,6 +151,7 @@ class StunPortTestBase : public testing::Test, public sigslot::has_slots<> {
   rtc::AutoSocketServerThread thread_;
   rtc::Network network_;
   rtc::BasicPacketSocketFactory socket_factory_;
+  rtc::BasicAsyncResolverFactory resolver_factory_;
   std::unique_ptr<cricket::UDPPort> stun_port_;
   std::unique_ptr<cricket::TestStunServer> stun_server_1_;
   std::unique_ptr<cricket::TestStunServer> stun_server_2_;

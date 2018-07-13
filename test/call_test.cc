@@ -17,6 +17,7 @@
 #include "api/audio_codecs/builtin_audio_encoder_factory.h"
 #include "api/video_codecs/video_encoder_config.h"
 #include "call/rtp_transport_controller_send.h"
+#include "logging/rtc_event_log/output/rtc_event_log_output_file.h"
 #include "modules/audio_mixer/audio_mixer_impl.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/event.h"
@@ -169,6 +170,23 @@ void CallTest::RunBaseTest(BaseTest* test) {
     receive_transport_.reset();
     DestroyCalls();
   });
+}
+
+void CallTest::CreateEventLogs(std::string event_log_name, std::string suffix) {
+  send_event_log_ = RtcEventLog::Create(RtcEventLog::EncodingType::Legacy);
+  recv_event_log_ = RtcEventLog::Create(RtcEventLog::EncodingType::Legacy);
+  std::unique_ptr<RtcEventLogOutputFile> send_output(
+      absl::make_unique<RtcEventLogOutputFile>(
+          event_log_name + "_send" + suffix, RtcEventLog::kUnlimitedOutput));
+  std::unique_ptr<RtcEventLogOutputFile> recv_output(
+      absl::make_unique<RtcEventLogOutputFile>(
+          event_log_name + "_recv" + suffix, RtcEventLog::kUnlimitedOutput));
+  bool event_log_started =
+      send_event_log_->StartLogging(std::move(send_output),
+                                    RtcEventLog::kImmediateOutput) &&
+      recv_event_log_->StartLogging(std::move(recv_output),
+                                    RtcEventLog::kImmediateOutput);
+  RTC_DCHECK(event_log_started);
 }
 
 void CallTest::CreateCalls() {

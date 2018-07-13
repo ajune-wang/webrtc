@@ -70,6 +70,8 @@ class CallTest : public ::testing::Test {
   // to simplify test code.
   void RunBaseTest(BaseTest* test);
 
+  void CreateEventLogs(std::string event_log_name, std::string suffix);
+
   void CreateCalls();
   void CreateCalls(const Call::Config& sender_config,
                    const Call::Config& receiver_config);

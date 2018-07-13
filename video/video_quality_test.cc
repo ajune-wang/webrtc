@@ -787,28 +787,7 @@ void VideoQualityTest::RunWithAnalyzer(const Params& params) {
         << "Can't open the file " << params_.analyzer.graph_data_output_filename
         << "!";
   }
-
-  if (!params.logging.rtc_event_log_name.empty()) {
-    send_event_log_ = RtcEventLog::Create(RtcEventLog::EncodingType::Legacy);
-    recv_event_log_ = RtcEventLog::Create(RtcEventLog::EncodingType::Legacy);
-    std::unique_ptr<RtcEventLogOutputFile> send_output(
-        absl::make_unique<RtcEventLogOutputFile>(
-            params.logging.rtc_event_log_name + "_send",
-            RtcEventLog::kUnlimitedOutput));
-    std::unique_ptr<RtcEventLogOutputFile> recv_output(
-        absl::make_unique<RtcEventLogOutputFile>(
-            params.logging.rtc_event_log_name + "_recv",
-            RtcEventLog::kUnlimitedOutput));
-    bool event_log_started =
-        send_event_log_->StartLogging(std::move(send_output),
-                                      RtcEventLog::kImmediateOutput) &&
-        recv_event_log_->StartLogging(std::move(recv_output),
-                                      RtcEventLog::kImmediateOutput);
-    RTC_DCHECK(event_log_started);
-  } else {
-    send_event_log_ = RtcEventLog::CreateNull();
-    recv_event_log_ = RtcEventLog::CreateNull();
-  }
+  CreateEventLogs(params.logging.rtc_event_log_name, "");
 
   Call::Config send_call_config(send_event_log_.get());
   Call::Config recv_call_config(recv_event_log_.get());

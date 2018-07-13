@@ -215,7 +215,7 @@ TEST_P(ProbingEndToEndTest, ProbeOnVideoEncoderReconfiguration) {
       transport_controller_ = transport_controller;
     }
 
-    test::PacketTransport* CreateSendTransport(
+    test::DirectTransport* CreateSendTransport(
         test::SingleThreadedTaskQueueForTesting* task_queue,
         Call* sender_call) override {
       send_transport_ = new test::PacketTransport(

@@ -90,7 +90,7 @@ void RampUpTester::OnVideoStreamsCreated(
   send_stream_ = send_stream;
 }
 
-test::PacketTransport* RampUpTester::CreateSendTransport(
+test::DirectTransport* RampUpTester::CreateSendTransport(
     test::SingleThreadedTaskQueueForTesting* task_queue,
     Call* sender_call) {
   send_transport_ = new test::PacketTransport(

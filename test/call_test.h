@@ -172,7 +172,7 @@ class CallTest : public ::testing::Test {
   std::unique_ptr<webrtc::RtcEventLog> recv_event_log_;
   std::unique_ptr<Call> sender_call_;
   RtpTransportControllerSend* sender_call_transport_controller_;
-  std::unique_ptr<PacketTransport> send_transport_;
+  std::unique_ptr<DirectTransport> send_transport_;
   std::vector<VideoSendStream::Config> video_send_configs_;
   std::vector<VideoEncoderConfig> video_encoder_configs_;
   std::vector<VideoSendStream*> video_send_streams_;
@@ -180,7 +180,7 @@ class CallTest : public ::testing::Test {
   AudioSendStream* audio_send_stream_;
 
   std::unique_ptr<Call> receiver_call_;
-  std::unique_ptr<PacketTransport> receive_transport_;
+  std::unique_ptr<DirectTransport> receive_transport_;
   std::vector<VideoReceiveStream::Config> video_receive_configs_;
   std::vector<VideoReceiveStream*> video_receive_streams_;
   std::vector<AudioReceiveStream::Config> audio_receive_configs_;
@@ -242,10 +242,10 @@ class BaseTest : public RtpRtcpObserver {
       RtpTransportControllerSend* controller);
   virtual void OnCallsCreated(Call* sender_call, Call* receiver_call);
 
-  virtual test::PacketTransport* CreateSendTransport(
+  virtual test::DirectTransport* CreateSendTransport(
       SingleThreadedTaskQueueForTesting* task_queue,
       Call* sender_call);
-  virtual test::PacketTransport* CreateReceiveTransport(
+  virtual test::DirectTransport* CreateReceiveTransport(
       SingleThreadedTaskQueueForTesting* task_queue);
 
   virtual void ModifyVideoConfigs(

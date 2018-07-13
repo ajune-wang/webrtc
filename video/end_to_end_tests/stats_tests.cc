@@ -225,7 +225,7 @@ TEST_F(StatsEndToEndTest, GetStats) {
       return true;
     }
 
-    test::PacketTransport* CreateSendTransport(
+    test::DirectTransport* CreateSendTransport(
         test::SingleThreadedTaskQueueForTesting* task_queue,
         Call* sender_call) override {
       FakeNetworkPipe::Config network_config;

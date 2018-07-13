@@ -58,7 +58,7 @@ void AudioEndToEndTest::OnFakeAudioDevicesCreated(
   send_audio_device_ = send_audio_device;
 }
 
-test::PacketTransport* AudioEndToEndTest::CreateSendTransport(
+test::DirectTransport* AudioEndToEndTest::CreateSendTransport(
     SingleThreadedTaskQueueForTesting* task_queue,
     Call* sender_call) {
   return new test::PacketTransport(
@@ -66,7 +66,7 @@ test::PacketTransport* AudioEndToEndTest::CreateSendTransport(
       test::CallTest::payload_type_map_, GetNetworkPipeConfig());
 }
 
-test::PacketTransport* AudioEndToEndTest::CreateReceiveTransport(
+test::DirectTransport* AudioEndToEndTest::CreateReceiveTransport(
     SingleThreadedTaskQueueForTesting* task_queue) {
   return new test::PacketTransport(
       task_queue, nullptr, this, test::PacketTransport::kReceiver,

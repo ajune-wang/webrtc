@@ -35,8 +35,6 @@ CallTest::CallTest()
       send_event_log_(RtcEventLog::CreateNull()),
       recv_event_log_(RtcEventLog::CreateNull()),
       sender_call_transport_controller_(nullptr),
-      audio_send_config_(nullptr),
-      audio_send_stream_(nullptr),
       fake_encoder_factory_([this]() {
         auto encoder = absl::make_unique<test::FakeEncoder>(clock_);
         encoder->SetMaxBitrate(fake_encoder_max_bitrate_);
@@ -248,7 +246,7 @@ void CallTest::CreateAudioAndFecSendConfigs(size_t num_audio_streams,
   }
 }
 
-void CallTest::SetAudioConfig(const AudioSendStream::Config& config) {
+void CallTestSender::SetAudioConfig(const AudioSendStream::Config& config) {
   audio_send_config_ = config;
 }
 
@@ -374,7 +372,7 @@ void CallTest::CreateMatchingAudioConfigs(Transport* transport,
       audio_send_config_, audio_decoder_factory_, transport, sync_group));
 }
 
-AudioReceiveStream::Config CallTest::CreateMatchingAudioConfig(
+AudioReceiveStream::Config CallTestSender::CreateMatchingAudioConfig(
     const AudioSendStream::Config& send_config,
     rtc::scoped_refptr<AudioDecoderFactory> audio_decoder_factory,
     Transport* transport,
@@ -454,17 +452,29 @@ void CallTest::CreateFakeAudioDevices(
 }
 
 void CallTest::CreateVideoStreams() {
-  RTC_DCHECK(video_receive_streams_.empty());
-  CreateVideoSendStreams();
-  for (size_t i = 0; i < video_receive_configs_.size(); ++i) {
-    video_receive_streams_.push_back(receiver_call_->CreateVideoReceiveStream(
-        video_receive_configs_[i].Copy()));
-  }
+  CreateVideoStreamsForCalls(sender_call_.get(), receiver_call_.get());
+}
 
+void CallTestSender::CreateVideoStreamsForCalls(Call* sender_call,
+                                                Call* receiver_call) {
+  RTC_DCHECK(video_receive_streams_.empty());
+  CreateVideoSendStreamsForCall(sender_call);
+  CreateVideoReceiveStreamsForCall(receiver_call);
   AssociateFlexfecStreamsWithVideoStreams();
 }
 
+void CallTestSender::CreateVideoReceiveStreamsForCall(Call* receiver_call) {
+  for (size_t i = 0; i < video_receive_configs_.size(); ++i) {
+    video_receive_streams_.push_back(receiver_call->CreateVideoReceiveStream(
+        video_receive_configs_[i].Copy()));
+  }
+}
+
 void CallTest::CreateVideoSendStreams() {
+  CreateVideoSendStreamsForCall(sender_call_.get());
+}
+
+void CallTestSender::CreateVideoSendStreamsForCall(Call* sender_call) {
   RTC_DCHECK(video_send_streams_.empty());
 
   // We currently only support testing external fec controllers with a single
@@ -490,11 +500,11 @@ void CallTest::CreateVideoSendStreams() {
 
   for (size_t i : streams_creation_order) {
     if (fec_controller_factory_.get()) {
-      video_send_streams_[i] = sender_call_->CreateVideoSendStream(
+      video_send_streams_[i] = sender_call->CreateVideoSendStream(
           video_send_configs_[i].Copy(), video_encoder_configs_[i].Copy(),
           fec_controller_factory_->CreateFecController());
     } else {
-      video_send_streams_[i] = sender_call_->CreateVideoSendStream(
+      video_send_streams_[i] = sender_call->CreateVideoSendStream(
           video_send_configs_[i].Copy(), video_encoder_configs_[i].Copy());
     }
   }
@@ -507,32 +517,46 @@ void CallTest::CreateVideoSendStream(const VideoEncoderConfig& encoder_config) {
 }
 
 void CallTest::CreateAudioStreams() {
+  CreateAudioStreamsForCalls(sender_call_.get(), receiver_call_.get());
+}
+
+void CallTestSender::CreateAudioStreamsForCalls(Call* sender_call,
+                                                Call* receiver_call) {
   RTC_DCHECK(audio_send_stream_ == nullptr);
   RTC_DCHECK(audio_receive_streams_.empty());
-  audio_send_stream_ = sender_call_->CreateAudioSendStream(audio_send_config_);
+  audio_send_stream_ = sender_call->CreateAudioSendStream(audio_send_config_);
   for (size_t i = 0; i < audio_receive_configs_.size(); ++i) {
     audio_receive_streams_.push_back(
-        receiver_call_->CreateAudioReceiveStream(audio_receive_configs_[i]));
+        receiver_call->CreateAudioReceiveStream(audio_receive_configs_[i]));
   }
 }
 
 void CallTest::CreateFlexfecStreams() {
+  GetSender()->CreateFlexfecStreamsForCall(receiver_call_.get());
+  GetReturnSender()->CreateFlexfecStreamsForCall(sender_call_.get());
+}
+
+void CallTestSender::CreateFlexfecStreamsForCall(Call* receiver_call) {
   for (size_t i = 0; i < flexfec_receive_configs_.size(); ++i) {
     flexfec_receive_streams_.push_back(
-        receiver_call_->CreateFlexfecReceiveStream(
-            flexfec_receive_configs_[i]));
+        receiver_call->CreateFlexfecReceiveStream(flexfec_receive_configs_[i]));
   }
 
   AssociateFlexfecStreamsWithVideoStreams();
 }
 
 void CallTest::ConnectVideoSourcesToStreams() {
+  GetSender()->ConnectVideoSourcesToStreams();
+  GetReturnSender()->ConnectVideoSourcesToStreams();
+}
+
+void CallTestSender::ConnectVideoSourcesToStreams() {
   for (size_t i = 0; i < video_sources_.size(); ++i)
     video_send_streams_[i]->SetSource(video_sources_[i],
                                       degradation_preference_);
 }
 
-void CallTest::AssociateFlexfecStreamsWithVideoStreams() {
+void CallTestSender::AssociateFlexfecStreamsWithVideoStreams() {
   // All FlexFEC streams protect all of the video streams.
   for (FlexfecReceiveStream* flexfec_recv_stream : flexfec_receive_streams_) {
     for (VideoReceiveStream* video_recv_stream : video_receive_streams_) {
@@ -541,7 +565,7 @@ void CallTest::AssociateFlexfecStreamsWithVideoStreams() {
   }
 }
 
-void CallTest::DissociateFlexfecStreamsFromVideoStreams() {
+void CallTestSender::DissociateFlexfecStreamsFromVideoStreams() {
   for (FlexfecReceiveStream* flexfec_recv_stream : flexfec_receive_streams_) {
     for (VideoReceiveStream* video_recv_stream : video_receive_streams_) {
       video_recv_stream->RemoveSecondarySink(flexfec_recv_stream);
@@ -550,6 +574,11 @@ void CallTest::DissociateFlexfecStreamsFromVideoStreams() {
 }
 
 void CallTest::Start() {
+  GetSender()->Start();
+  GetReturnSender()->Start();
+}
+
+void CallTestSender::Start() {
   StartVideoStreams();
   if (audio_send_stream_) {
     audio_send_stream_->Start();
@@ -560,6 +589,11 @@ void CallTest::Start() {
 }
 
 void CallTest::StartVideoStreams() {
+  GetSender()->StartVideoStreams();
+  GetReturnSender()->StartVideoStreams();
+}
+
+void CallTestSender::StartVideoStreams() {
   for (VideoSendStream* video_send_stream : video_send_streams_)
     video_send_stream->Start();
   for (VideoReceiveStream* video_recv_stream : video_receive_streams_)
@@ -567,11 +601,21 @@ void CallTest::StartVideoStreams() {
 }
 
 void CallTest::StartVideoCapture() {
+  GetSender()->StartVideoCapture();
+  GetReturnSender()->StartVideoCapture();
+}
+
+void CallTestSender::StartVideoCapture() {
   for (auto& capturer : video_capturers_)
     capturer->Start();
 }
 
 void CallTest::Stop() {
+  GetSender()->Stop();
+  GetReturnSender()->Stop();
+}
+
+void CallTestSender::Stop() {
   StopVideoCapture();
   for (AudioReceiveStream* audio_recv_stream : audio_receive_streams_)
     audio_recv_stream->Stop();
@@ -582,11 +626,20 @@ void CallTest::Stop() {
 }
 
 void CallTest::StopVideoCapture() {
+  GetSender()->StopVideoCapture();
+  GetReturnSender()->StopVideoCapture();
+}
+
+void CallTestSender::StopVideoCapture() {
   for (auto& capturer : video_capturers_)
     capturer->Stop();
 }
-
 void CallTest::StopVideoStreams() {
+  GetSender()->StopVideoStreams();
+  GetReturnSender()->StopVideoStreams();
+}
+
+void CallTestSender::StopVideoStreams() {
   for (VideoSendStream* video_send_stream : video_send_streams_)
     video_send_stream->Stop();
   for (VideoReceiveStream* video_recv_stream : video_receive_streams_)
@@ -594,29 +647,39 @@ void CallTest::StopVideoStreams() {
 }
 
 void CallTest::DestroyStreams() {
-  DissociateFlexfecStreamsFromVideoStreams();
-
-  if (audio_send_stream_)
-    sender_call_->DestroyAudioSendStream(audio_send_stream_);
-  audio_send_stream_ = nullptr;
-  for (AudioReceiveStream* audio_recv_stream : audio_receive_streams_)
-    receiver_call_->DestroyAudioReceiveStream(audio_recv_stream);
-
-  DestroyVideoSendStreams();
-
-  for (VideoReceiveStream* video_recv_stream : video_receive_streams_)
-    receiver_call_->DestroyVideoReceiveStream(video_recv_stream);
-
-  for (FlexfecReceiveStream* flexfec_recv_stream : flexfec_receive_streams_)
-    receiver_call_->DestroyFlexfecReceiveStream(flexfec_recv_stream);
-
-  video_receive_streams_.clear();
+  GetSender()->DestroyStreamsForCalls(sender_call_.get(), receiver_call_.get());
+  GetReturnSender()->DestroyStreamsForCalls(receiver_call_.get(),
+                                            sender_call_.get());
   allocated_decoders_.clear();
 }
 
+void CallTestSender::DestroyStreamsForCalls(Call* sender_call,
+                                            Call* receiver_call) {
+  DissociateFlexfecStreamsFromVideoStreams();
+
+  if (audio_send_stream_)
+    sender_call->DestroyAudioSendStream(audio_send_stream_);
+  audio_send_stream_ = nullptr;
+  for (AudioReceiveStream* audio_recv_stream : audio_receive_streams_)
+    receiver_call->DestroyAudioReceiveStream(audio_recv_stream);
+
+  DestroyVideoSendStreamsForCall(sender_call);
+
+  for (VideoReceiveStream* video_recv_stream : video_receive_streams_)
+    receiver_call->DestroyVideoReceiveStream(video_recv_stream);
+
+  for (FlexfecReceiveStream* flexfec_recv_stream : flexfec_receive_streams_)
+    receiver_call->DestroyFlexfecReceiveStream(flexfec_recv_stream);
+
+  video_receive_streams_.clear();
+}
 void CallTest::DestroyVideoSendStreams() {
+  DestroyVideoSendStreamsForCall(sender_call_.get());
+}
+
+void CallTestSender::DestroyVideoSendStreamsForCall(Call* sender_call) {
   for (VideoSendStream* video_send_stream : video_send_streams_)
-    sender_call_->DestroyVideoSendStream(video_send_stream);
+    sender_call->DestroyVideoSendStream(video_send_stream);
   video_send_streams_.clear();
 }
 
@@ -628,51 +691,59 @@ void CallTest::SetVideoDegradation(DegradationPreference preference) {
   GetVideoSendStream()->SetSource(frame_generator_capturer_, preference);
 }
 
-VideoSendStream::Config* CallTest::GetVideoSendConfig() {
+VideoSendStream::Config* CallTestSender::GetVideoSendConfig() {
   return &video_send_configs_[0];
 }
 
-void CallTest::SetVideoSendConfig(const VideoSendStream::Config& config) {
+void CallTestSender::SetVideoSendConfig(const VideoSendStream::Config& config) {
   video_send_configs_.clear();
   video_send_configs_.push_back(config.Copy());
 }
 
-VideoEncoderConfig* CallTest::GetVideoEncoderConfig() {
+VideoEncoderConfig* CallTestSender::GetVideoEncoderConfig() {
   return &video_encoder_configs_[0];
 }
 
-void CallTest::SetVideoEncoderConfig(const VideoEncoderConfig& config) {
+void CallTestSender::SetVideoEncoderConfig(const VideoEncoderConfig& config) {
   video_encoder_configs_.clear();
   video_encoder_configs_.push_back(config.Copy());
 }
 
-VideoSendStream* CallTest::GetVideoSendStream() {
+VideoSendStream* CallTestSender::GetVideoSendStream() {
   return video_send_streams_[0];
 }
-FlexfecReceiveStream::Config* CallTest::GetFlexFecConfig() {
+FlexfecReceiveStream::Config* CallTestSender::GetFlexFecConfig() {
   return &flexfec_receive_configs_[0];
 }
 
-constexpr size_t CallTest::kNumSsrcs;
-const int CallTest::kDefaultWidth;
-const int CallTest::kDefaultHeight;
-const int CallTest::kDefaultFramerate;
-const int CallTest::kDefaultTimeoutMs = 30 * 1000;
-const int CallTest::kLongTimeoutMs = 120 * 1000;
-const uint32_t CallTest::kSendRtxSsrcs[kNumSsrcs] = {
-    0xBADCAFD, 0xBADCAFE, 0xBADCAFF, 0xBADCB00, 0xBADCB01, 0xBADCB02};
-const uint32_t CallTest::kVideoSendSsrcs[kNumSsrcs] = {
-    0xC0FFED, 0xC0FFEE, 0xC0FFEF, 0xC0FFF0, 0xC0FFF1, 0xC0FFF2};
-const uint32_t CallTest::kAudioSendSsrc = 0xDEADBEEF;
-const uint32_t CallTest::kFlexfecSendSsrc = 0xBADBEEF;
-const uint32_t CallTest::kReceiverLocalVideoSsrc = 0x123456;
-const uint32_t CallTest::kReceiverLocalAudioSsrc = 0x1234567;
-const int CallTest::kNackRtpHistoryMs = 1000;
+CallTestSender* CallTest::GetSender() {
+  return this;
+}
 
-const uint8_t CallTest::kDefaultKeepalivePayloadType =
+CallTestSender* CallTest::GetReturnSender() {
+  return &return_sender_;
+}
+
+constexpr size_t CallTestSender::kNumSsrcs;
+const int CallTestSender::kDefaultWidth;
+const int CallTestSender::kDefaultHeight;
+const int CallTestSender::kDefaultFramerate;
+const int CallTestSender::kDefaultTimeoutMs = 30 * 1000;
+const int CallTestSender::kLongTimeoutMs = 120 * 1000;
+const uint32_t CallTestSender::kSendRtxSsrcs[kNumSsrcs] = {
+    0xBADCAFD, 0xBADCAFE, 0xBADCAFF, 0xBADCB00, 0xBADCB01, 0xBADCB02};
+const uint32_t CallTestSender::kVideoSendSsrcs[kNumSsrcs] = {
+    0xC0FFED, 0xC0FFEE, 0xC0FFEF, 0xC0FFF0, 0xC0FFF1, 0xC0FFF2};
+const uint32_t CallTestSender::kAudioSendSsrc = 0xDEADBEEF;
+const uint32_t CallTestSender::kFlexfecSendSsrc = 0xBADBEEF;
+const uint32_t CallTestSender::kReceiverLocalVideoSsrc = 0x123456;
+const uint32_t CallTestSender::kReceiverLocalAudioSsrc = 0x1234567;
+const int CallTestSender::kNackRtpHistoryMs = 1000;
+
+const uint8_t CallTestSender::kDefaultKeepalivePayloadType =
     RtpKeepAliveConfig().payload_type;
 
-const std::map<uint8_t, MediaType> CallTest::payload_type_map_ = {
+const std::map<uint8_t, MediaType> CallTestSender::payload_type_map_ = {
     {CallTest::kVideoSendPayloadType, MediaType::VIDEO},
     {CallTest::kFakeVideoSendPayloadType, MediaType::VIDEO},
     {CallTest::kSendRtxPayloadType, MediaType::VIDEO},

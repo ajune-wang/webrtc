@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d8d7523c_a917743c",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-07-13T09:21:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "724817f0_ec710a2b",
+      "range": {
+        "startLine": 293,
+        "startChar": 20,
+        "endLine": 293,
+        "endChar": 39
+      },
+      "revId": "7f40dc42d67edaec63522fa071e255ff1d223218",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fd36bc22_60153f4b",
         "filename": "sdk/android/api/org/webrtc/PeerConnectionFactory.java",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "7f40dc42d67edaec63522fa071e255ff1d223218",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "859e69c8_5aa1dd33",
+        "filename": "sdk/android/api/org/webrtc/PeerConnectionFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-07-13T09:21:17Z",
+      "side": 1,
+      "message": "This is the current behavior and I didn\u0027t dare touch it. There is a TODO already to remove all this, including the setEnableVideoHwAcceleration() method itself.",
+      "parentUuid": "fd36bc22_60153f4b",
+      "range": {
+        "startLine": 210,
+        "startChar": 10,
+        "endLine": 210,
+        "endChar": 88
+      },
+      "revId": "7f40dc42d67edaec63522fa071e255ff1d223218",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

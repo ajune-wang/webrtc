@@ -19,7 +19,7 @@
 #include "absl/memory/memory.h"
 #include "modules/bitrate_controller/include/bitrate_controller.h"
 #include "modules/congestion_controller/goog_cc/acknowledged_bitrate_estimator.h"
-#include "modules/congestion_controller/probe_controller.h"
+#include "modules/congestion_controller/goog_cc/probe_controller.h"
 #include "modules/remote_bitrate_estimator/include/bwe_defines.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/format_macros.h"
@@ -117,7 +117,7 @@ SendSideCongestionController::SendSideCongestionController(
           BitrateController::CreateBitrateController(clock_, event_log)),
       acknowledged_bitrate_estimator_(
           absl::make_unique<AcknowledgedBitrateEstimator>()),
-      probe_controller_(new ProbeController(pacer_, clock_)),
+      probe_controller_(new ProbeController()),
       retransmission_rate_limiter_(
           new RateLimiter(clock, kRetransmitWindowSizeMs)),
       transport_feedback_adapter_(clock_),
@@ -177,8 +177,12 @@ void SendSideCongestionController::SetBweBitrates(int min_bitrate_bps,
   bitrate_controller_->SetBitrates(start_bitrate_bps, min_bitrate_bps,
                                    max_bitrate_bps);
 
-  probe_controller_->SetBitrates(min_bitrate_bps, start_bitrate_bps,
-                                 max_bitrate_bps);
+  {
+    rtc::CritScope cs(&probe_lock_);
+    probe_controller_->SetBitrates(min_bitrate_bps, start_bitrate_bps,
+                                   max_bitrate_bps,
+                                   clock_->TimeInMilliseconds());
+  }
 
   {
     rtc::CritScope cs(&bwe_lock_);
@@ -195,7 +199,10 @@ void SendSideCongestionController::SetAllocatedSendBitrateLimits(
     int64_t max_padding_bitrate_bps,
     int64_t max_total_bitrate_bps) {
   pacer_->SetSendBitrateLimits(min_send_bitrate_bps, max_padding_bitrate_bps);
-  probe_controller_->OnMaxTotalAllocatedBitrate(max_total_bitrate_bps);
+
+  rtc::CritScope cs(&probe_lock_);
+  probe_controller_->OnMaxTotalAllocatedBitrate(max_total_bitrate_bps,
+                                                clock_->TimeInMilliseconds());
 }
 
 // TODO(holmer): Split this up and use SetBweBitrates in combination with
@@ -222,9 +229,13 @@ void SendSideCongestionController::OnNetworkRouteChanged(
     delay_based_bwe_->SetStartBitrate(bitrate_bps);
     delay_based_bwe_->SetMinBitrate(min_bitrate_bps);
   }
-
-  probe_controller_->Reset();
-  probe_controller_->SetBitrates(min_bitrate_bps, bitrate_bps, max_bitrate_bps);
+  {
+    rtc::CritScope cs(&probe_lock_);
+    probe_controller_->Reset(clock_->TimeInMilliseconds());
+    probe_controller_->SetBitrates(min_bitrate_bps, bitrate_bps,
+                                   max_bitrate_bps,
+                                   clock_->TimeInMilliseconds());
+  }
 
   MaybeTriggerOnNetworkChanged();
 }
@@ -255,6 +266,7 @@ void SendSideCongestionController::SetPerPacketFeedbackAvailable(
     bool available) {}
 
 void SendSideCongestionController::EnablePeriodicAlrProbing(bool enable) {
+  rtc::CritScope cs(&probe_lock_);
   probe_controller_->EnablePeriodicAlrProbing(enable);
 }
 
@@ -279,7 +291,14 @@ void SendSideCongestionController::SignalNetworkState(NetworkState state) {
     pause_pacer_ = state == kNetworkDown;
     network_state_ = state;
   }
-  probe_controller_->OnNetworkStateChanged(state);
+
+  {
+    rtc::CritScope cs(&probe_lock_);
+    NetworkAvailability msg;
+    msg.at_time = Timestamp::ms(clock_->TimeInMilliseconds());
+    msg.network_available = state == kNetworkUp;
+    probe_controller_->OnNetworkAvailability(msg);
+  }
   MaybeTriggerOnNetworkChanged();
 }
 
@@ -327,7 +346,16 @@ void SendSideCongestionController::Process() {
     pacer_paused_ = false;
   }
   bitrate_controller_->Process();
-  probe_controller_->Process();
+
+  {
+    rtc::CritScope cs(&probe_lock_);
+    probe_controller_->SetAlrStartTimeMs(
+        pacer_->GetApplicationLimitedRegionStartTime());
+    probe_controller_->Process(clock_->TimeInMilliseconds());
+    for (auto probe_config : probe_controller_->GetAndResetPendingProbes()) {
+      pacer_->CreateProbeCluster(probe_config.target_data_rate.bps());
+    }
+  }
   MaybeTriggerOnNetworkChanged();
 }
 
@@ -357,6 +385,7 @@ void SendSideCongestionController::OnTransportFeedback(
   if (was_in_alr_ && !currently_in_alr) {
     int64_t now_ms = rtc::TimeMillis();
     acknowledged_bitrate_estimator_->SetAlrEndedTimeMs(now_ms);
+    rtc::CritScope cs(&probe_lock_);
     probe_controller_->SetAlrEndedTimeMs(now_ms);
   }
   was_in_alr_ = currently_in_alr;
@@ -375,8 +404,12 @@ void SendSideCongestionController::OnTransportFeedback(
     // Update the estimate in the ProbeController, in case we want to probe.
     MaybeTriggerOnNetworkChanged();
   }
-  if (result.recovered_from_overuse)
-    probe_controller_->RequestProbe();
+  if (result.recovered_from_overuse) {
+    rtc::CritScope cs(&probe_lock_);
+    probe_controller_->SetAlrStartTimeMs(
+        pacer_->GetApplicationLimitedRegionStartTime());
+    probe_controller_->RequestProbe(clock_->TimeInMilliseconds());
+  }
   if (in_cwnd_experiment_)
     LimitOutstandingBytes(transport_feedback_adapter_.GetOutstandingBytes());
 }
@@ -429,7 +462,11 @@ void SendSideCongestionController::MaybeTriggerOnNetworkChanged() {
       &bitrate_bps, &fraction_loss, &rtt);
   if (estimate_changed) {
     pacer_->SetEstimatedBitrate(bitrate_bps);
-    probe_controller_->SetEstimatedBitrate(bitrate_bps);
+    {
+      rtc::CritScope cs(&probe_lock_);
+      probe_controller_->SetEstimatedBitrate(bitrate_bps,
+                                             clock_->TimeInMilliseconds());
+    }
     retransmission_rate_limiter_->SetMaxRate(bitrate_bps);
   }
 

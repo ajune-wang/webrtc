@@ -6363,23 +6363,8 @@ TEST_F(WebRtcVideoChannelSimulcastTest, SetSendCodecsForScreenshare) {
 
 TEST_F(WebRtcVideoChannelSimulcastTest,
        SetSendCodecsForConferenceModeScreenshare) {
-  VerifySimulcastSettings(cricket::VideoCodec("VP8"), 1280, 720, 3, 1, true,
-                          true);
-}
-
-TEST_F(WebRtcVideoChannelSimulcastTest, SetSendCodecsForSimulcastScreenshare) {
-  webrtc::test::ScopedFieldTrials override_field_trials_(
-      "WebRTC-SimulcastScreenshare/Enabled/");
   VerifySimulcastSettings(cricket::VideoCodec("VP8"), 1280, 720, 3, 2, true,
                           true);
-}
-
-TEST_F(WebRtcVideoChannelSimulcastTest,
-       NoSimulcastScreenshareWithoutConference) {
-  webrtc::test::ScopedFieldTrials override_field_trials_(
-      "WebRTC-SimulcastScreenshare/Enabled/");
-  VerifySimulcastSettings(cricket::VideoCodec("VP8"), 1280, 720, 3, 1, true,
-                          false);
 }
 
 }  // namespace cricket

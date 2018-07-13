@@ -88,7 +88,7 @@ class ReportedReceiveTimeTester : public test::EndToEndTest {
     }
     return SEND_PACKET;
   }
-  test::PacketTransport* CreateSendTransport(
+  test::DirectTransport* CreateSendTransport(
       test::SingleThreadedTaskQueueForTesting* task_queue,
       Call* sender_call) override {
     return send_transport_ = new test::PacketTransport(

@@ -340,7 +340,7 @@ void CallPerfTest::TestCaptureNtpTime(const FakeNetworkPipe::Config& net_config,
           rtp_start_timestamp_(0) {}
 
    private:
-    test::PacketTransport* CreateSendTransport(
+    test::DirectTransport* CreateSendTransport(
         test::SingleThreadedTaskQueueForTesting* task_queue,
         Call* sender_call) override {
       return new test::PacketTransport(task_queue, sender_call, this,
@@ -348,7 +348,7 @@ void CallPerfTest::TestCaptureNtpTime(const FakeNetworkPipe::Config& net_config,
                                        payload_type_map_, net_config_);
     }
 
-    test::PacketTransport* CreateReceiveTransport(
+    test::DirectTransport* CreateReceiveTransport(
         test::SingleThreadedTaskQueueForTesting* task_queue) override {
       return new test::PacketTransport(task_queue, nullptr, this,
                                        test::PacketTransport::kReceiver,
@@ -828,7 +828,7 @@ void CallPerfTest::TestMinAudioVideoBitrate(
       return pipe_config;
     }
 
-    test::PacketTransport* CreateSendTransport(
+    test::DirectTransport* CreateSendTransport(
         test::SingleThreadedTaskQueueForTesting* task_queue,
         Call* sender_call) override {
       return send_transport_ = new test::PacketTransport(
@@ -836,7 +836,7 @@ void CallPerfTest::TestMinAudioVideoBitrate(
                  test::CallTest::payload_type_map_, GetFakeNetworkPipeConfig());
     }
 
-    test::PacketTransport* CreateReceiveTransport(
+    test::DirectTransport* CreateReceiveTransport(
         test::SingleThreadedTaskQueueForTesting* task_queue) override {
       return receive_transport_ = new test::PacketTransport(
                  task_queue, nullptr, this, test::PacketTransport::kReceiver,

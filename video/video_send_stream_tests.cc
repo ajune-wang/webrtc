@@ -518,7 +518,7 @@ class UlpfecObserver : public test::EndToEndTest {
     return SEND_PACKET;
   }
 
-  test::PacketTransport* CreateSendTransport(
+  test::DirectTransport* CreateSendTransport(
       test::SingleThreadedTaskQueueForTesting* task_queue,
       Call* sender_call) override {
     // At low RTT (< kLowRttNackMs) -> NACK only, no FEC.
@@ -705,7 +705,7 @@ class FlexfecObserver : public test::EndToEndTest {
     return SEND_PACKET;
   }
 
-  test::PacketTransport* CreateSendTransport(
+  test::DirectTransport* CreateSendTransport(
       test::SingleThreadedTaskQueueForTesting* task_queue,
       Call* sender_call) override {
     // At low RTT (< kLowRttNackMs) -> NACK only, no FEC.
@@ -1451,7 +1451,7 @@ TEST_F(VideoSendStreamTest, PaddingIsPrimarilyRetransmissions) {
       return SEND_PACKET;
     }
 
-    test::PacketTransport* CreateSendTransport(
+    test::DirectTransport* CreateSendTransport(
         test::SingleThreadedTaskQueueForTesting* task_queue,
         Call* sender_call) override {
       const int kNetworkDelayMs = 50;

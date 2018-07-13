@@ -41,10 +41,10 @@ class AudioEndToEndTest : public test::EndToEndTest {
       TestAudioDeviceModule* send_audio_device,
       TestAudioDeviceModule* recv_audio_device) override;
 
-  test::PacketTransport* CreateSendTransport(
+  test::DirectTransport* CreateSendTransport(
       SingleThreadedTaskQueueForTesting* task_queue,
       Call* sender_call) override;
-  test::PacketTransport* CreateReceiveTransport(
+  test::DirectTransport* CreateReceiveTransport(
       SingleThreadedTaskQueueForTesting* task_queue) override;
 
   void ModifyAudioConfigs(

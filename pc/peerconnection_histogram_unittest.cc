@@ -14,12 +14,14 @@
 #include "api/jsep.h"
 #include "api/peerconnectionproxy.h"
 #include "media/base/fakemediaengine.h"
+#include "p2p/client/basicportallocator.h"
 #include "pc/mediasession.h"
 #include "pc/peerconnection.h"
 #include "pc/peerconnectionfactory.h"
 #include "pc/peerconnectionwrapper.h"
 #include "pc/sdputils.h"
 #include "pc/test/fakesctptransport.h"
+#include "rtc_base/fakenetwork.h"
 #include "rtc_base/gunit.h"
 #include "rtc_base/virtualsocketserver.h"
 #include "system_wrappers/include/metrics_default.h"
@@ -31,6 +33,8 @@ using RTCOfferAnswerOptions = PeerConnectionInterface::RTCOfferAnswerOptions;
 using ::testing::Values;
 
 static constexpr int kDefaultTimeout = 10000;
+static const rtc::SocketAddress kDefaultLocalAddress("1.1.1.1", 0);
+static const rtc::SocketAddress kPrivateLocalAddress("10.1.1.1", 0);
 
 int MakeUsageFingerprint(std::set<PeerConnection::UsageEvent> events) {
   int signature = 0;
@@ -74,7 +78,6 @@ class ObserverForUsageHistogramTest : public MockPeerConnectionObserver {
   void PrepareToExchangeCandidates(RawWrapperPtr other) {
     candidate_target_ = other;
   }
-
   bool HaveDataChannel() { return last_datachannel_; }
 
  private:
@@ -138,6 +141,21 @@ class PeerConnectionWrapperForUsageHistogramTest
     return IsConnected() && callee->IsConnected();
   }
 
+  bool GenerateOfferAndGetCandidates() {
+    auto offer = CreateOffer(RTCOfferAnswerOptions());
+    if (!offer) {
+      return false;
+    }
+    bool set_local_offer =
+        SetLocalDescription(CloneSessionDescription(offer.get()));
+    EXPECT_TRUE(set_local_offer);
+    if (!set_local_offer) {
+      return false;
+    }
+    EXPECT_TRUE_WAIT(observer()->ice_gathering_complete_, kDefaultTimeout);
+    return true;
+  }
+
  private:
   // Candidates that have been sent but not yet configured
   std::vector<std::unique_ptr<webrtc::IceCandidateInterface>>
@@ -148,9 +166,8 @@ void ObserverForUsageHistogramTest::OnIceCandidate(
     const webrtc::IceCandidateInterface* candidate) {
   if (candidate_target_) {
     this->candidate_target_->AddOrBufferIceCandidate(candidate);
-  } else {
-    FAIL() << "Early candidate detected";
   }
+  // If target is not set, ignore. This happens in one-ended unit tests.
 }
 
 class PeerConnectionUsageHistogramTest : public ::testing::Test {
@@ -164,23 +181,37 @@ class PeerConnectionUsageHistogramTest : public ::testing::Test {
   }
 
   WrapperPtr CreatePeerConnection() {
-    return CreatePeerConnection(
-        RTCConfiguration(), PeerConnectionFactoryInterface::Options(), false);
+    return CreatePeerConnection(RTCConfiguration(),
+                                PeerConnectionFactoryInterface::Options(),
+                                nullptr, false);
   }
 
   WrapperPtr CreatePeerConnection(const RTCConfiguration& config) {
     return CreatePeerConnection(
-        config, PeerConnectionFactoryInterface::Options(), false);
+        config, PeerConnectionFactoryInterface::Options(), nullptr, false);
   }
 
   WrapperPtr CreatePeerConnectionWithImmediateReport() {
-    return CreatePeerConnection(
-        RTCConfiguration(), PeerConnectionFactoryInterface::Options(), true);
+    return CreatePeerConnection(RTCConfiguration(),
+                                PeerConnectionFactoryInterface::Options(),
+                                nullptr, true);
+  }
+
+  WrapperPtr CreatePeerConnectionWithPrivateLocalAddresses() {
+    auto* fake_network_manager = new rtc::FakeNetworkManager();
+    fake_network_manager->AddInterface(kDefaultLocalAddress);
+    fake_network_manager->AddInterface(kPrivateLocalAddress);
+    std::unique_ptr<cricket::BasicPortAllocator> port_allocator(
+        new cricket::BasicPortAllocator(fake_network_manager));
+    return CreatePeerConnection(RTCConfiguration(),
+                                PeerConnectionFactoryInterface::Options(),
+                                std::move(port_allocator), false);
   }
 
   WrapperPtr CreatePeerConnection(
       const RTCConfiguration& config,
       const PeerConnectionFactoryInterface::Options factory_options,
+      std::unique_ptr<cricket::PortAllocator> allocator,
       bool immediate_report) {
     rtc::scoped_refptr<PeerConnectionFactoryForUsageHistogramTest> pc_factory(
         new PeerConnectionFactoryForUsageHistogramTest());
@@ -190,8 +221,8 @@ class PeerConnectionUsageHistogramTest : public ::testing::Test {
       pc_factory->ReturnHistogramVeryQuickly();
     }
     auto observer = absl::make_unique<ObserverForUsageHistogramTest>();
-    auto pc = pc_factory->CreatePeerConnection(config, nullptr, nullptr,
-                                               observer.get());
+    auto pc = pc_factory->CreatePeerConnection(config, std::move(allocator),
+                                               nullptr, observer.get());
     if (!pc) {
       return nullptr;
     }
@@ -311,6 +342,26 @@ TEST_F(PeerConnectionUsageHistogramTest, FingerprintStunTurnInReconfiguration) {
       MakeUsageFingerprint({PeerConnection::UsageEvent::STUN_SERVER_ADDED,
                             PeerConnection::UsageEvent::TURN_SERVER_ADDED,
                             PeerConnection::UsageEvent::CLOSE_CALLED});
+  EXPECT_EQ(1,
+            webrtc::metrics::NumSamples("WebRTC.PeerConnection.UsagePattern"));
+  EXPECT_EQ(1, webrtc::metrics::NumEvents("WebRTC.PeerConnection.UsagePattern",
+                                          expected_fingerprint));
+}
+
+TEST_F(PeerConnectionUsageHistogramTest, FingerprintWithPrivateIP) {
+  // Need to set the ICE transports type (configuration.type) to kAll.
+  // Which it should already have been - it's the default.
+  // And to make sure the dummynet has a net-10 address to return.
+  auto caller = CreatePeerConnectionWithPrivateLocalAddresses();
+  caller->AddAudioTrack("audio");
+  ASSERT_TRUE(caller->GenerateOfferAndGetCandidates());
+  caller->pc()->Close();
+  int expected_fingerprint = MakeUsageFingerprint(
+      {PeerConnection::UsageEvent::AUDIO_ADDED,
+       PeerConnection::UsageEvent::SET_LOCAL_DESCRIPTION_CALLED,
+       PeerConnection::UsageEvent::CANDIDATE_COLLECTED,
+       PeerConnection::UsageEvent::CLOSE_CALLED,
+       PeerConnection::UsageEvent::PRIVATE_CANDIDATE_COLLECTED});
   EXPECT_EQ(1,
             webrtc::metrics::NumSamples("WebRTC.PeerConnection.UsagePattern"));
   EXPECT_EQ(1, webrtc::metrics::NumEvents("WebRTC.PeerConnection.UsagePattern",

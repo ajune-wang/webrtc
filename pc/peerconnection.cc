@@ -3525,6 +3525,12 @@ void PeerConnection::OnIceCandidate(
     return;
   }
   NoteUsageEvent(UsageEvent::CANDIDATE_COLLECTED);
+  std::string temp_string;
+  candidate->ToString(&temp_string);
+  if (candidate->candidate().type() == LOCAL_PORT_TYPE &&
+      candidate->candidate().address().IsPrivateIP()) {
+    NoteUsageEvent(UsageEvent::PRIVATE_CANDIDATE_COLLECTED);
+  }
   observer_->OnIceCandidate(candidate.get());
 }
 

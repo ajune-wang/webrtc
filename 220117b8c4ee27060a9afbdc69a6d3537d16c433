@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c68428fb_14010503",
+        "filename": "video/rtp_video_stream_receiver_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2018-07-16T11:24:18Z",
+      "side": 1,
+      "message": "[nit] Maybe create a variable like in other tests, so they all follow an consistent flow.",
+      "revId": "220117b8c4ee27060a9afbdc69a6d3537d16c433",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e59f00a8_521ecde2",
+        "filename": "video/rtp_video_stream_receiver_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2018-07-16T11:24:18Z",
+      "side": 1,
+      "message": "[nit] Idem.",
+      "revId": "220117b8c4ee27060a9afbdc69a6d3537d16c433",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

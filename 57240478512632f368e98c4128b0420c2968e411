@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b2b6fe6a_c3d9f8a9",
+        "filename": "pc/peerconnection_histogram_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-07-16T14:37:28Z",
+      "side": 1,
+      "message": "I believe WAIT_() is supposed to be an internal macro not used directly? There are only 2 uses of it in unittests. EXPECT_TRUE_WAIT like before?",
+      "revId": "57240478512632f368e98c4128b0420c2968e411",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b21292f_355d4368",
+        "filename": "pc/peerconnection_histogram_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-07-16T14:37:28Z",
+      "side": 1,
+      "message": "nit: GenerateOfferAndGatherCandidates()?\nA name like \"...Get...\" makes it sound like it should return the candidates but it only waits for gathering to complete.\n\nUnless we want to make it return candidates as a list?",
+      "revId": "57240478512632f368e98c4128b0420c2968e411",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1ddfc42_415dd1a6",
+        "filename": "pc/peerconnection_histogram_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-07-16T14:37:28Z",
+      "side": 1,
+      "message": "It would be nice to verify that the expected candidates were gathered (kDefaultLocalAddress, kPrivateLocalAddress), since there is a lot of things happening behind the scenes of this unittest.",
+      "revId": "57240478512632f368e98c4128b0420c2968e411",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

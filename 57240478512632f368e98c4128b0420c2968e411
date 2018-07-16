@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "38f66590_e067de73",
+        "filename": "pc/peerconnection_histogram_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-07-16T14:54:07Z",
+      "side": 1,
+      "message": "The reason for using the internal macro is that in the case of failed connection (the no-host case on a bot with only private addresses), the function will return false, but the test should succeed. Using EXPECT_TRUE_WAIT will mark the test as failing.\nPerhaps I should modify WAIT_ to have an externally available version with a more expressive name?",
+      "parentUuid": "b2b6fe6a_c3d9f8a9",
+      "revId": "57240478512632f368e98c4128b0420c2968e411",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9b21292f_355d4368",
         "filename": "pc/peerconnection_histogram_unittest.cc",
         "patchSetId": 7
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "75b1e188_96477d5f",
+        "filename": "pc/peerconnection_histogram_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-07-16T14:54:07Z",
+      "side": 1,
+      "message": "Will do.",
+      "parentUuid": "9b21292f_355d4368",
+      "revId": "57240478512632f368e98c4128b0420c2968e411",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f1ddfc42_415dd1a6",
         "filename": "pc/peerconnection_histogram_unittest.cc",
         "patchSetId": 7
@@ -47,6 +83,24 @@
       "writtenOn": "2018-07-16T14:37:28Z",
       "side": 1,
       "message": "It would be nice to verify that the expected candidates were gathered (kDefaultLocalAddress, kPrivateLocalAddress), since there is a lot of things happening behind the scenes of this unittest.",
+      "revId": "57240478512632f368e98c4128b0420c2968e411",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7576b31c_a90086a4",
+        "filename": "pc/peerconnection_histogram_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-07-16T14:54:07Z",
+      "side": 1,
+      "message": "I kind of believe in tests that test one thing only - we have the observer wired up that could have collected the addresses, but we would then be testing candidate collection, which is covered by other unittests.",
+      "parentUuid": "f1ddfc42_415dd1a6",
       "revId": "57240478512632f368e98c4128b0420c2968e411",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

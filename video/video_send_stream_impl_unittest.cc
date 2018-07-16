@@ -10,8 +10,8 @@
 
 #include <string>
 
+#include "call/rtp_transport_controller_send.h"
 #include "call/test/mock_bitrate_allocator.h"
-#include "call/test/mock_rtp_transport_controller_send.h"
 #include "logging/rtc_event_log/rtc_event_log.h"
 #include "modules/video_coding/fec_controller_default.h"
 #include "rtc_base/experiments/alr_experiment.h"
@@ -35,14 +35,6 @@ using testing::_;
 
 constexpr int64_t kDefaultInitialBitrateBps = 333000;
 const double kDefaultBitratePriority = 0.5;
-
-const float kAlrProbingExperimentPaceMultiplier = 1.0f;
-std::string GetAlrProbingExperimentString() {
-  return std::string(
-             AlrExperimentSettings::kScreenshareProbingBweExperimentName) +
-         "/1.0,2875,80,40,-60,3/";
-}
-
 }  // namespace
 
 class VideoSendStreamImplTest : public ::testing::Test {
@@ -51,7 +43,7 @@ class VideoSendStreamImplTest : public ::testing::Test {
       : clock_(1000 * 1000 * 1000),
         config_(&transport_),
         send_delay_stats_(&clock_),
-        retransmission_limiter_(&clock_, 1000),
+        transport_controller_(&clock_, &event_log_, nullptr, bitrate_config_),
         test_queue_("test_queue"),
         process_thread_(ProcessThread::Create("test_thread")),
         call_stats_(&clock_, process_thread_.get()),
@@ -60,11 +52,6 @@ class VideoSendStreamImplTest : public ::testing::Test {
                      VideoEncoderConfig::ContentType::kRealtimeVideo) {
     config_.rtp.ssrcs.push_back(8080);
     config_.rtp.payload_type = 1;
-
-    EXPECT_CALL(transport_controller_, keepalive_config())
-        .WillRepeatedly(ReturnRef(keepalive_config_));
-    EXPECT_CALL(transport_controller_, packet_router())
-        .WillRepeatedly(Return(&packet_router_));
   }
   ~VideoSendStreamImplTest() {}
 
@@ -82,13 +69,11 @@ class VideoSendStreamImplTest : public ::testing::Test {
         &event_log_, &config_, initial_encoder_max_bitrate,
         initial_encoder_bitrate_priority, suspended_ssrcs,
         suspended_payload_states, content_type,
-        absl::make_unique<FecControllerDefault>(&clock_),
-        &retransmission_limiter_);
+        absl::make_unique<FecControllerDefault>(&clock_));
   }
 
  protected:
   NiceMock<MockTransport> transport_;
-  NiceMock<MockRtpTransportControllerSend> transport_controller_;
   NiceMock<MockBitrateAllocator> bitrate_allocator_;
   NiceMock<MockVideoStreamEncoder> video_stream_encoder_;
 
@@ -96,7 +81,8 @@ class VideoSendStreamImplTest : public ::testing::Test {
   RtcEventLogNullImpl event_log_;
   VideoSendStream::Config config_;
   SendDelayStats send_delay_stats_;
-  RateLimiter retransmission_limiter_;
+  BitrateConstraints bitrate_config_;
+  RtpTransportControllerSend transport_controller_;
   rtc::test::TaskQueueForTest test_queue_;
   std::unique_ptr<ProcessThread> process_thread_;
   CallStats call_stats_;
@@ -146,36 +132,6 @@ TEST_F(VideoSendStreamImplTest, ReportFeedbackAvailability) {
             }));
     vss_impl->Start();
     EXPECT_CALL(bitrate_allocator_, RemoveObserver(vss_impl.get())).Times(1);
-    vss_impl->Stop();
-  });
-}
-
-TEST_F(VideoSendStreamImplTest, SetsScreensharePacingFactorWithFeedback) {
-  test::ScopedFieldTrials alr_experiment(GetAlrProbingExperimentString());
-
-  test_queue_.SendTask([this] {
-    config_.rtp.extensions.emplace_back(
-        RtpExtension::kTransportSequenceNumberUri,
-        RtpExtension::kTransportSequenceNumberDefaultId);
-    EXPECT_CALL(transport_controller_,
-                SetPacingFactor(kAlrProbingExperimentPaceMultiplier))
-        .Times(1);
-    auto vss_impl = CreateVideoSendStreamImpl(
-        kDefaultInitialBitrateBps, kDefaultBitratePriority,
-        VideoEncoderConfig::ContentType::kScreen);
-    vss_impl->Start();
-    vss_impl->Stop();
-  });
-}
-
-TEST_F(VideoSendStreamImplTest, DoesNotSetPacingFactorWithoutFeedback) {
-  test::ScopedFieldTrials alr_experiment(GetAlrProbingExperimentString());
-  test_queue_.SendTask([this] {
-    EXPECT_CALL(transport_controller_, SetPacingFactor(_)).Times(0);
-    auto vss_impl = CreateVideoSendStreamImpl(
-        kDefaultInitialBitrateBps, kDefaultBitratePriority,
-        VideoEncoderConfig::ContentType::kScreen);
-    vss_impl->Start();
     vss_impl->Stop();
   });
 }

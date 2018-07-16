@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a92dcead_4cd69d38",
+        "filename": "api/rtpparameters.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 605,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-07-16T17:16:45Z",
+      "side": 1,
+      "message": "nit: Maybe add a comment: // See DegradationPreference enum definition for details.\n\nAlso, add that this only applies for video.",
+      "revId": "151928300cedcb0efd0fdd19eeac95e605f4aac1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b0210bad_aad546ef",
+        "filename": "media/engine/webrtcvideoengine.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2045,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-07-16T17:16:45Z",
+      "side": 1,
+      "message": "Hmm, why did the assumption here change?",
+      "revId": "151928300cedcb0efd0fdd19eeac95e605f4aac1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "637dd3a5_e43c0c71",
+        "filename": "pc/rtpsenderreceiver_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 678,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-07-16T17:16:45Z",
+      "side": 1,
+      "message": "Maybe just remove this comment so that it doesn\u0027t need to be updated.",
+      "revId": "151928300cedcb0efd0fdd19eeac95e605f4aac1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a7109b6_80b51442",
+        "filename": "pc/rtpsenderreceiver_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 865,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-07-16T17:16:45Z",
+      "side": 1,
+      "message": "ditto here",
+      "revId": "151928300cedcb0efd0fdd19eeac95e605f4aac1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

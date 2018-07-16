@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "18fec35c_aca23395",
+        "filename": "modules/congestion_controller/goog_cc/delay_based_bwe.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-07-16T18:52:11Z",
+      "side": 1,
+      "message": "Would it make sense to move this inside the TimeToReduce... method?",
+      "range": {
+        "startLine": 241,
+        "startChar": 37,
+        "endLine": 241,
+        "endChar": 66
+      },
+      "revId": "975bf639eaf9a109752d8a07bde882fcb5695d96",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c30eab59_160ccac1",
+        "filename": "modules/remote_bitrate_estimator/aimd_rate_control.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-07-16T18:52:11Z",
+      "side": 1,
+      "message": "This check should be done at initialisation and set a const bool to avoid the unknown (as field trials can be link time injected) runtime overhead of checking a field trial.",
+      "range": {
+        "startLine": 128,
+        "startChar": 20,
+        "endLine": 128,
+        "endChar": 29
+      },
+      "revId": "975bf639eaf9a109752d8a07bde882fcb5695d96",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3a88ecf_2d46022c",
+        "filename": "modules/remote_bitrate_estimator/aimd_rate_control.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-07-16T18:52:11Z",
+      "side": 1,
+      "message": "This is currently redundant, but could be moved to the beginning of this function to simplify the callsite as mentioned above.",
+      "range": {
+        "startLine": 129,
+        "startChar": 11,
+        "endLine": 129,
+        "endChar": 24
+      },
+      "revId": "975bf639eaf9a109752d8a07bde882fcb5695d96",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9aa512f_786fcbd8",
+        "filename": "modules/remote_bitrate_estimator/aimd_rate_control.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-07-16T18:52:11Z",
+      "side": 1,
+      "message": "time_last_bitrate_decrease_ will be -1 in some cases? \n\nSince it matches the design of the surrounding I think this is acceptable, but maybe it should be an optional? In production it\u0027s safe to assume the timestamp is large, (in which case we could set it to 0 to indicate that it\u0027s a valid timestamp) but in tests there\u0027s a risk of having timestamps starting at 0.",
+      "range": {
+        "startLine": 135,
+        "startChar": 6,
+        "endLine": 135,
+        "endChar": 44
+      },
+      "revId": "975bf639eaf9a109752d8a07bde882fcb5695d96",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a99f4cdb_7b4378da",
+        "filename": "modules/remote_bitrate_estimator/aimd_rate_control.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-07-16T18:52:11Z",
+      "side": 1,
+      "message": "This could be simplified to return ... \u003e\u003d ...;",
+      "range": {
+        "startLine": 135,
+        "startChar": 2,
+        "endLine": 135,
+        "endChar": 4
+      },
+      "revId": "975bf639eaf9a109752d8a07bde882fcb5695d96",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3428c7d_dc6d7602",
+        "filename": "modules/remote_bitrate_estimator/aimd_rate_control.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-07-16T18:52:11Z",
+      "side": 1,
+      "message": "Not obvious from the name what this means. Just calling it InitialTimeToReduceFurther would probably say as much, both requires reading the comment though, something longer like\nTimeToReduceFurtherBeforeThroughputIsMeasured or maybe ReduceBitrateBeforeBitrateIsAcked seems to me like it would be easier to understand.",
+      "range": {
+        "startLine": 44,
+        "startChar": 7,
+        "endLine": 44,
+        "endChar": 42
+      },
+      "revId": "975bf639eaf9a109752d8a07bde882fcb5695d96",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

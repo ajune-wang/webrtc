@@ -1,0 +1,297 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bd295acc_aace2b42",
+        "filename": "call/payload_router.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-07-16T20:11:33Z",
+      "side": 1,
+      "message": ".",
+      "range": {
+        "startLine": 474,
+        "startChar": 3,
+        "endLine": 474,
+        "endChar": 4
+      },
+      "revId": "633c0fbc0e5ce15cc809b9931e6a622421fae7b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "432a987d_2fa0e055",
+        "filename": "call/payload_router.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 526,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-07-16T20:11:33Z",
+      "side": 1,
+      "message": ".",
+      "range": {
+        "startLine": 526,
+        "startChar": 2,
+        "endLine": 526,
+        "endChar": 3
+      },
+      "revId": "633c0fbc0e5ce15cc809b9931e6a622421fae7b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25009ae3_e71c4ee3",
+        "filename": "call/payload_router.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-07-16T20:11:33Z",
+      "side": 1,
+      "message": "Can we remove some corresponding includes from video_send_stream_impl.h/cc?",
+      "range": {
+        "startLine": 17,
+        "startChar": 8,
+        "endLine": 31,
+        "endChar": 0
+      },
+      "revId": "633c0fbc0e5ce15cc809b9931e6a622421fae7b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a867a2f_e8a7f8a5",
+        "filename": "call/payload_router_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-07-16T20:11:33Z",
+      "side": 1,
+      "message": "You probably want to remove this rather than comment it?\n\nI\u0027d be nice with a short comment on each test describing why it\u0027s ok to drop it. Something like:\n\n\"Covered by RtpPayLoadRouterTest::DoTestThis.\"\n\"Covered implicitely by EndToEndTestA::TestZ\"\n\"Testing trivial functionality\"\netc.",
+      "range": {
+        "startLine": 30,
+        "startChar": 1,
+        "endLine": 30,
+        "endChar": 2
+      },
+      "revId": "633c0fbc0e5ce15cc809b9931e6a622421fae7b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "397cb7a1_0584369c",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-07-16T20:11:33Z",
+      "side": 1,
+      "message": "As fas as I can see, the only call to RtpTransportControllerSend is to PacketRouter. To avoid the circular pointer chain  RtpTransportControllerSend -\u003e PayloadRouter -\u003e RtpTransportControllerSend we should be able to inject \u0026packet_router_ directly here instead, right?",
+      "range": {
+        "startLine": 101,
+        "startChar": 6,
+        "endLine": 101,
+        "endChar": 10
+      },
+      "revId": "633c0fbc0e5ce15cc809b9931e6a622421fae7b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "292b8ba9_d6564484",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-07-16T20:11:33Z",
+      "side": 1,
+      "message": "We should be able to just pass on the whole struct here right? At least if we also move RtpTransportControllerSendInterface::Observers to rtp_config.h",
+      "range": {
+        "startLine": 99,
+        "startChar": 47,
+        "endLine": 104,
+        "endChar": 33
+      },
+      "revId": "633c0fbc0e5ce15cc809b9931e6a622421fae7b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "007497dc_0179f38b",
+        "filename": "call/rtp_transport_controller_send_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-07-16T20:11:33Z",
+      "side": 1,
+      "message": "To make future refactoring easier I suggest naming it RtpSenderObservers and moving this outside RtpTransportControllerSendInterface. Maybe it would make sense to move it into rtp_config.h",
+      "range": {
+        "startLine": 74,
+        "startChar": 9,
+        "endLine": 74,
+        "endChar": 18
+      },
+      "revId": "633c0fbc0e5ce15cc809b9931e6a622421fae7b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "703f228c_d40bbc51",
+        "filename": "call/rtp_transport_controller_send_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-07-16T20:11:33Z",
+      "side": 1,
+      "message": "Could we put (most of) the arguments into a struct? For instance called VideoRtpSenderConfig, similar to what we do with CallConfig, VideoSendStream::Config, etc. If nothing else, it\u0027s helpful in test code where some values can be left as default etc.",
+      "range": {
+        "startLine": 90,
+        "startChar": 25,
+        "endLine": 90,
+        "endChar": 45
+      },
+      "revId": "633c0fbc0e5ce15cc809b9931e6a622421fae7b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12c21682_eaf9cfba",
+        "filename": "call/rtp_transport_controller_send_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-07-16T20:11:33Z",
+      "side": 1,
+      "message": "Missing a TODO() here?",
+      "range": {
+        "startLine": 94,
+        "startChar": 22,
+        "endLine": 94,
+        "endChar": 26
+      },
+      "revId": "633c0fbc0e5ce15cc809b9931e6a622421fae7b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bfe83055_c4eb2957",
+        "filename": "video/video_send_stream_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-07-16T20:11:33Z",
+      "side": 1,
+      "message": "If you put this helper in video_send_stream_impl.cc, you could give it the actual classes used, making the code shorter and arguably nicer. That is, you could provide the arguments\ncall_stats, \u0026encoder_feedback_,stats_proxy_, end_delay_stats and this only once each.",
+      "range": {
+        "startLine": 114,
+        "startChar": 47,
+        "endLine": 114,
+        "endChar": 62
+      },
+      "revId": "633c0fbc0e5ce15cc809b9931e6a622421fae7b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e6fded3_037fee67",
+        "filename": "video/video_send_stream_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-07-16T20:11:33Z",
+      "side": 1,
+      "message": ".",
+      "range": {
+        "startLine": 366,
+        "startChar": 2,
+        "endLine": 366,
+        "endChar": 4
+      },
+      "revId": "633c0fbc0e5ce15cc809b9931e6a622421fae7b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0aa74d59_ad29e7bf",
+        "filename": "video/video_send_stream_impl_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-07-16T20:11:33Z",
+      "side": 1,
+      "message": "It would be desirable if we could keep using the mock here, as it makes it easier to continue refactoring RtpTransportControllerSend and also makes it easier to follow the unit tests in this file (less dependent on setting up the RtpTransportControllerSend internals right).\n\nWhat is causing it to be requiring this now? Maybe it\u0027s a test that should move closer to RtpTransportControllerSend/PayloadRouter?",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 0
+      },
+      "revId": "633c0fbc0e5ce15cc809b9931e6a622421fae7b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dba33f42_3635be5e",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-07-16T20:11:33Z",
+      "side": 1,
+      "message": "Needed?",
+      "revId": "633c0fbc0e5ce15cc809b9931e6a622421fae7b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d23c68ca_32301594",
+        "filename": "api/video/video_stream_encoder_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-07-16T20:11:33Z",
+      "side": 0,
+      "message": "Would be nice if you could move the changes to fix the warnings to a separate CL.",
+      "range": {
+        "startLine": 50,
+        "startChar": 43,
+        "endLine": 50,
+        "endChar": 50
+      },
+      "revId": "1da4d79ba3275b3fa48cad3b2c0949e0d3b7afe7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a4bf047_6fbe75fb",
+        "filename": "video/video_send_stream_impl_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-07-16T20:11:33Z",
+      "side": 0,
+      "message": "Why do these have to be removed? Is it safe to remove them?",
+      "range": {
+        "startLine": 153,
+        "startChar": 32,
+        "endLine": 153,
+        "endChar": 71
+      },
+      "revId": "1da4d79ba3275b3fa48cad3b2c0949e0d3b7afe7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

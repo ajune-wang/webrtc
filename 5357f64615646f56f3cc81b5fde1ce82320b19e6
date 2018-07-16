@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b2ba547b_9e8d26b4",
+        "filename": "media/base/videocapturer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2018-07-16T14:33:16Z",
+      "side": 1,
+      "message": "What about factoring that? I.e. provide a function IsSimulcastScreenShareEnabled, so that both the field name and the policy (enabled vs disabled by default) have a single source of truth.",
+      "revId": "5357f64615646f56f3cc81b5fde1ce82320b19e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ffd93920_59ed90fc",
+        "filename": "video/full_stack_tests.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2018-07-16T14:33:16Z",
+      "side": 1,
+      "message": "Question: does it mean that once launched, we won\u0027t be able to explicitly disable it anymore?",
+      "revId": "5357f64615646f56f3cc81b5fde1ce82320b19e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

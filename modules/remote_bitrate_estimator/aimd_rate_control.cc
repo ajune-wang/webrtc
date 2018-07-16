@@ -33,6 +33,7 @@ static const int64_t kMaxFeedbackIntervalMs = 1000;
 static const float kDefaultBackoffFactor = 0.85f;
 
 const char kBweBackOffFactorExperiment[] = "WebRTC-BweBackOffFactor";
+const char kBweBackOffTimeoutExperiment[] = "WebRTC-BweBackOffTimeout";
 
 float ReadBackoffFactor() {
   std::string experiment_string =
@@ -64,6 +65,7 @@ AimdRateControl::AimdRateControl()
       rate_control_state_(kRcHold),
       rate_control_region_(kRcMaxUnknown),
       time_last_bitrate_change_(-1),
+      time_last_bitrate_decrease_(-1),
       time_first_throughput_estimate_(-1),
       bitrate_is_initialized_(false),
       beta_(webrtc::field_trial::IsEnabled(kBweBackOffFactorExperiment)
@@ -121,6 +123,21 @@ bool AimdRateControl::TimeToReduceFurther(
   return false;
 }
 
+bool AimdRateControl::TimeToReduceFurtherBeforeThroughput(
+    int64_t time_now) const {
+  if (!field_trial::IsEnabled(kBweBackOffTimeoutExperiment)) {
+    return ValidEstimate() &&
+           TimeToReduceFurther(time_now, LatestEstimate() / 2 - 1);
+  }
+  // TODO(terelius): We could use the RTT (clamped to suitable limits) instead
+  // of a fixed bitrate_reduction_interval.
+  const int64_t bitrate_reduction_interval = 200;
+  if (time_now - time_last_bitrate_decrease_ >= bitrate_reduction_interval) {
+    return true;
+  }
+  return false;
+}
+
 uint32_t AimdRateControl::LatestEstimate() const {
   return current_bitrate_bps_;
 }
@@ -156,8 +173,12 @@ uint32_t AimdRateControl::Update(const RateControlInput* input,
 
 void AimdRateControl::SetEstimate(int bitrate_bps, int64_t now_ms) {
   bitrate_is_initialized_ = true;
+  uint32_t prev_bitrate_bps = current_bitrate_bps_;
   current_bitrate_bps_ = ClampBitrate(bitrate_bps, bitrate_bps);
   time_last_bitrate_change_ = now_ms;
+  if (current_bitrate_bps_ < prev_bitrate_bps) {
+    time_last_bitrate_decrease_ = now_ms;
+  }
 }
 
 int AimdRateControl::GetNearMaxIncreaseRateBps() const {
@@ -273,6 +294,7 @@ uint32_t AimdRateControl::ChangeBitrate(uint32_t new_bitrate_bps,
       // Stay on hold until the pipes are cleared.
       rate_control_state_ = kRcHold;
       time_last_bitrate_change_ = now_ms;
+      time_last_bitrate_decrease_ = now_ms;
       break;
 
     default:

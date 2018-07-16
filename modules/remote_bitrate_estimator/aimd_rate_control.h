@@ -39,6 +39,9 @@ class AimdRateControl {
   // when over-using.
   bool TimeToReduceFurther(int64_t time_now,
                            uint32_t estimated_throughput_bps) const;
+  // As above. To be used if overusing before we have measured a throughput.
+
+  bool TimeToReduceFurtherBeforeThroughput(int64_t time_now) const;
   uint32_t LatestEstimate() const;
   void SetRtt(int64_t rtt);
   uint32_t Update(const RateControlInput* input, int64_t now_ms);
@@ -83,6 +86,7 @@ class AimdRateControl {
   RateControlState rate_control_state_;
   RateControlRegion rate_control_region_;
   int64_t time_last_bitrate_change_;
+  int64_t time_last_bitrate_decrease_;
   int64_t time_first_throughput_estimate_;
   bool bitrate_is_initialized_;
   float beta_;

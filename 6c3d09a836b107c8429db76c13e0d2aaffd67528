@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3b19ff93_e22bfbe3",
+        "filename": "modules/audio_processing/aec3/subtractor.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-07-16T13:00:42Z",
+      "side": 1,
+      "message": "nit: just to make sure - it\u0027s not possible to run AEC3 in 8k?",
+      "range": {
+        "startLine": 213,
+        "startChar": 24,
+        "endLine": 213,
+        "endChar": 29
+      },
+      "revId": "6c3d09a836b107c8429db76c13e0d2aaffd67528",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

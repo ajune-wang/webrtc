@@ -602,7 +602,6 @@ struct RtpParameters {
   // abstraction on which RTCP parameters are set.
   RtcpParameters rtcp;
 
-  // TODO(deadbeef): Not implemented.
   DegradationPreference degradation_preference =
       DegradationPreference::BALANCED;
 

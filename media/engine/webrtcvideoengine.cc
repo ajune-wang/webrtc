@@ -1693,19 +1693,18 @@ WebRtcVideoChannel::WebRtcVideoSendStream::GetDegradationPreference() const {
   // |this| acts like a VideoSource to make sure SinkWants are handled on the
   // correct thread.
   webrtc::DegradationPreference degradation_preference;
-  if (!enable_cpu_overuse_detection_) {
+  if (rtp_parameters_.degradation_preference !=
+      webrtc::DegradationPreference::BALANCED) {
+    degradation_preference = rtp_parameters_.degradation_preference;
+  } else if (!enable_cpu_overuse_detection_) {
     degradation_preference = webrtc::DegradationPreference::DISABLED;
+  } else if (parameters_.options.is_screencast.value_or(false)) {
+    degradation_preference = webrtc::DegradationPreference::MAINTAIN_RESOLUTION;
+  } else if (webrtc::field_trial::IsEnabled(
+                 "WebRTC-Video-BalancedDegradation")) {
+    degradation_preference = webrtc::DegradationPreference::BALANCED;
   } else {
-    if (parameters_.options.is_screencast.value_or(false)) {
-      degradation_preference =
-          webrtc::DegradationPreference::MAINTAIN_RESOLUTION;
-    } else if (webrtc::field_trial::IsEnabled(
-                   "WebRTC-Video-BalancedDegradation")) {
-      degradation_preference = webrtc::DegradationPreference::BALANCED;
-    } else {
-      degradation_preference =
-          webrtc::DegradationPreference::MAINTAIN_FRAMERATE;
-    }
+    degradation_preference = webrtc::DegradationPreference::MAINTAIN_FRAMERATE;
   }
   return degradation_preference;
 }
@@ -1812,6 +1811,12 @@ webrtc::RTCError WebRtcVideoChannel::WebRtcVideoSendStream::SetRtpParameters(
     }
   }
 
+  bool new_degradation_preference = false;
+  if (new_parameters.degradation_preference !=
+      rtp_parameters_.degradation_preference) {
+    new_degradation_preference = true;
+  }
+
   // TODO(bugs.webrtc.org/8807): The bitrate priority really doesn't require an
   // entire encoder reconfiguration, it just needs to update the bitrate
   // allocator.
@@ -1837,6 +1842,9 @@ webrtc::RTCError WebRtcVideoChannel::WebRtcVideoSendStream::SetRtpParameters(
   }
   if (new_send_state) {
     UpdateSendState();
+  }
+  if (new_degradation_preference) {
+    stream_->SetSource(this, GetDegradationPreference());
   }
   return webrtc::RTCError::OK();
 }
@@ -2034,7 +2042,9 @@ void WebRtcVideoChannel::WebRtcVideoSendStream::RemoveSink(
   RTC_DCHECK_RUN_ON(&thread_checker_);
   RTC_DCHECK(encoder_sink_ == sink);
   encoder_sink_ = nullptr;
-  source_->RemoveSink(sink);
+  if (source_) {
+    source_->RemoveSink(sink);
+  }
 }
 
 void WebRtcVideoChannel::WebRtcVideoSendStream::AddOrUpdateSink(
@@ -2045,7 +2055,9 @@ void WebRtcVideoChannel::WebRtcVideoSendStream::AddOrUpdateSink(
     // registration of |sink|.
     RTC_DCHECK_RUN_ON(&thread_checker_);
     encoder_sink_ = sink;
-    source_->AddOrUpdateSink(encoder_sink_, wants);
+    if (source_) {
+      source_->AddOrUpdateSink(encoder_sink_, wants);
+    }
   } else {
     // Subsequent calls to AddOrUpdateSink will happen on the encoder task
     // queue.

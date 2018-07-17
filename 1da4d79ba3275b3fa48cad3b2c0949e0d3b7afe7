@@ -45,6 +45,30 @@
       "revId": "1da4d79ba3275b3fa48cad3b2c0949e0d3b7afe7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62f7f04c_b08ba85f",
+        "filename": "video/video_send_stream_impl_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-07-17T11:59:26Z",
+      "side": 0,
+      "message": "Good question, I should be able to keep them.",
+      "parentUuid": "5a4bf047_6fbe75fb",
+      "range": {
+        "startLine": 153,
+        "startChar": 32,
+        "endLine": 153,
+        "endChar": 71
+      },
+      "revId": "1da4d79ba3275b3fa48cad3b2c0949e0d3b7afe7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

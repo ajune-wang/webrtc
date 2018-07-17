@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "06d8fc9f_f086250f",
+        "filename": "call/payload_router.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-07-17T11:59:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd295acc_aace2b42",
+      "range": {
+        "startLine": 474,
+        "startChar": 3,
+        "endLine": 474,
+        "endChar": 4
+      },
+      "revId": "633c0fbc0e5ce15cc809b9931e6a622421fae7b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "432a987d_2fa0e055",
         "filename": "call/payload_router.cc",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "633c0fbc0e5ce15cc809b9931e6a622421fae7b5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b6ad7fc_6d918917",
+        "filename": "call/payload_router.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 526,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-07-17T11:59:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "432a987d_2fa0e055",
+      "range": {
+        "startLine": 526,
+        "startChar": 2,
+        "endLine": 526,
+        "endChar": 3
+      },
+      "revId": "633c0fbc0e5ce15cc809b9931e6a622421fae7b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "0f7e99a2_0124c063",
+        "filename": "call/payload_router.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-07-17T11:59:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "25009ae3_e71c4ee3",
+      "range": {
+        "startLine": 17,
+        "startChar": 8,
+        "endLine": 31,
+        "endChar": 0
+      },
+      "revId": "633c0fbc0e5ce15cc809b9931e6a622421fae7b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6a867a2f_e8a7f8a5",
         "filename": "call/payload_router_unittest.cc",
         "patchSetId": 4
@@ -82,6 +154,30 @@
       "writtenOn": "2018-07-16T20:11:33Z",
       "side": 1,
       "message": "You probably want to remove this rather than comment it?\n\nI\u0027d be nice with a short comment on each test describing why it\u0027s ok to drop it. Something like:\n\n\"Covered by RtpPayLoadRouterTest::DoTestThis.\"\n\"Covered implicitely by EndToEndTestA::TestZ\"\n\"Testing trivial functionality\"\netc.",
+      "range": {
+        "startLine": 30,
+        "startChar": 1,
+        "endLine": 30,
+        "endChar": 2
+      },
+      "revId": "633c0fbc0e5ce15cc809b9931e6a622421fae7b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ae18a3e_17e917fb",
+        "filename": "call/payload_router_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-07-17T11:59:26Z",
+      "side": 1,
+      "message": "Tests have been added back and fixed.",
+      "parentUuid": "6a867a2f_e8a7f8a5",
       "range": {
         "startLine": 30,
         "startChar": 1,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "17407cd8_e63f2c5e",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-07-17T11:59:26Z",
+      "side": 1,
+      "message": "I agree that it would be nice to avoid the dependency, but let\u0027s leave it for a follow-up (I\u0027ll add a TODO). There are other things used: packet_sender, transport_feedback_observer, BandwidthObserver, keepalive_config...",
+      "parentUuid": "397cb7a1_0584369c",
+      "range": {
+        "startLine": 101,
+        "startChar": 6,
+        "endLine": 101,
+        "endChar": 10
+      },
+      "revId": "633c0fbc0e5ce15cc809b9931e6a622421fae7b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "292b8ba9_d6564484",
         "filename": "call/rtp_transport_controller_send.cc",
         "patchSetId": 4
@@ -137,6 +257,30 @@
       "revId": "633c0fbc0e5ce15cc809b9931e6a622421fae7b5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c009ba44_7b7c56a1",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-07-17T11:59:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "292b8ba9_d6564484",
+      "range": {
+        "startLine": 99,
+        "startChar": 47,
+        "endLine": 104,
+        "endChar": 33
+      },
+      "revId": "633c0fbc0e5ce15cc809b9931e6a622421fae7b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "8cb0a432_fd597991",
+        "filename": "call/rtp_transport_controller_send_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-07-17T11:59:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "007497dc_0179f38b",
+      "range": {
+        "startLine": 74,
+        "startChar": 9,
+        "endLine": 74,
+        "endChar": 18
+      },
+      "revId": "633c0fbc0e5ce15cc809b9931e6a622421fae7b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "703f228c_d40bbc51",
         "filename": "call/rtp_transport_controller_send_interface.h",
         "patchSetId": 4
@@ -174,6 +342,30 @@
       "writtenOn": "2018-07-16T20:11:33Z",
       "side": 1,
       "message": "Could we put (most of) the arguments into a struct? For instance called VideoRtpSenderConfig, similar to what we do with CallConfig, VideoSendStream::Config, etc. If nothing else, it\u0027s helpful in test code where some values can be left as default etc.",
+      "range": {
+        "startLine": 90,
+        "startChar": 25,
+        "endLine": 90,
+        "endChar": 45
+      },
+      "revId": "633c0fbc0e5ce15cc809b9931e6a622421fae7b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df11a7ba_0eb53995",
+        "filename": "call/rtp_transport_controller_send_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-07-17T11:59:26Z",
+      "side": 1,
+      "message": "I don\u0027t think it\u0027s a clear improvement, so let\u0027s leave it for the future for now?",
+      "parentUuid": "703f228c_d40bbc51",
       "range": {
         "startLine": 90,
         "startChar": 25,
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "3355e563_9e84ffcb",
+        "filename": "call/rtp_transport_controller_send_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-07-17T11:59:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "12c21682_eaf9cfba",
+      "range": {
+        "startLine": 94,
+        "startChar": 22,
+        "endLine": 94,
+        "endChar": 26
+      },
+      "revId": "633c0fbc0e5ce15cc809b9931e6a622421fae7b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bfe83055_c4eb2957",
         "filename": "video/video_send_stream_impl.cc",
         "patchSetId": 4
@@ -232,6 +448,30 @@
     },
     {
       "key": {
+        "uuid": "4c7cd187_7e3f2636",
+        "filename": "video/video_send_stream_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-07-17T11:59:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bfe83055_c4eb2957",
+      "range": {
+        "startLine": 114,
+        "startChar": 47,
+        "endLine": 114,
+        "endChar": 62
+      },
+      "revId": "633c0fbc0e5ce15cc809b9931e6a622421fae7b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9e6fded3_037fee67",
         "filename": "video/video_send_stream_impl.cc",
         "patchSetId": 4
@@ -252,6 +492,30 @@
       "revId": "633c0fbc0e5ce15cc809b9931e6a622421fae7b5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65edaa41_59a1e967",
+        "filename": "video/video_send_stream_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-07-17T11:59:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9e6fded3_037fee67",
+      "range": {
+        "startLine": 366,
+        "startChar": 2,
+        "endLine": 366,
+        "endChar": 4
+      },
+      "revId": "633c0fbc0e5ce15cc809b9931e6a622421fae7b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

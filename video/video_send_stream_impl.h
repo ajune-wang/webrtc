@@ -62,8 +62,7 @@ class VideoSendStreamImpl : public webrtc::BitrateAllocatorObserver,
       std::map<uint32_t, RtpState> suspended_ssrcs,
       std::map<uint32_t, RtpPayloadState> suspended_payload_states,
       VideoEncoderConfig::ContentType content_type,
-      std::unique_ptr<FecController> fec_controller,
-      RateLimiter* retransmission_limiter);
+      std::unique_ptr<FecController> fec_controller);
   ~VideoSendStreamImpl() override;
 
   // RegisterProcessThread register |module_process_thread| with those objects
@@ -74,14 +73,15 @@ class VideoSendStreamImpl : public webrtc::BitrateAllocatorObserver,
   void RegisterProcessThread(ProcessThread* module_process_thread);
   void DeRegisterProcessThread();
 
-  void SignalNetworkState(NetworkState state);
   bool DeliverRtcp(const uint8_t* packet, size_t length);
   void UpdateActiveSimulcastLayers(const std::vector<bool> active_layers);
   void Start();
   void Stop();
 
-  VideoSendStream::RtpStateMap GetRtpStates() const;
-  VideoSendStream::RtpPayloadStateMap GetRtpPayloadStates() const;
+  // TODO(holmer): Move these to RtpTransportControllerSend.
+  std::map<uint32_t, RtpState> GetRtpStates() const;
+
+  std::map<uint32_t, RtpPayloadState> GetRtpPayloadStates() const;
 
   void EnableEncodedFrameRecording(const std::vector<rtc::PlatformFile>& files,
                                    size_t byte_limit);
@@ -144,11 +144,8 @@ class VideoSendStreamImpl : public webrtc::BitrateAllocatorObserver,
 
   SendStatisticsProxy* const stats_proxy_;
   const VideoSendStream::Config* const config_;
-  std::map<uint32_t, RtpState> suspended_ssrcs_;
 
   std::unique_ptr<FecController> fec_controller_;
-  ProcessThread* module_process_thread_;
-  rtc::ThreadChecker module_process_thread_checker_;
   rtc::TaskQueue* const worker_queue_;
 
   rtc::CriticalSection encoder_activity_crit_sect_;
@@ -177,9 +174,7 @@ class VideoSendStreamImpl : public webrtc::BitrateAllocatorObserver,
   EncoderRtcpFeedback encoder_feedback_;
 
   RtcpBandwidthObserver* const bandwidth_observer_;
-  // RtpRtcp modules, declared here as they use other members on construction.
-  const std::vector<RtpRtcp*> rtp_rtcp_modules_;
-  PayloadRouter payload_router_;
+  PayloadRouter* const payload_router_;
 
   // |weak_ptr_| to our self. This is used since we can not call
   // |weak_ptr_factory_.GetWeakPtr| from multiple sequences but it is ok to copy

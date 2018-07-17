@@ -59,8 +59,6 @@ class EchoControlMobileImpl : public EchoControlMobile {
   int Enable(bool enable) override;
   int set_routing_mode(RoutingMode mode) override;
   int enable_comfort_noise(bool enable) override;
-  int SetEchoPath(const void* echo_path, size_t size_bytes) override;
-  int GetEchoPath(void* echo_path, size_t size_bytes) const override;
 
   int Configure();
 
@@ -71,8 +69,6 @@ class EchoControlMobileImpl : public EchoControlMobile {
 
   RoutingMode routing_mode_ RTC_GUARDED_BY(crit_capture_);
   bool comfort_noise_enabled_ RTC_GUARDED_BY(crit_capture_);
-  unsigned char* external_echo_path_ RTC_GUARDED_BY(crit_render_)
-      RTC_GUARDED_BY(crit_capture_);
 
   std::vector<std::unique_ptr<Canceller>> cancellers_;
   std::unique_ptr<StreamProperties> stream_properties_;

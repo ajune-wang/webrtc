@@ -55,10 +55,6 @@ AudioProcessing::Error MapError(int err) {
 }
 }  // namespace
 
-size_t EchoControlMobile::echo_path_size_bytes() {
-  return WebRtcAecm_echo_path_size_bytes();
-}
-
 struct EchoControlMobileImpl::StreamProperties {
   StreamProperties() = delete;
   StreamProperties(int sample_rate_hz,
@@ -90,17 +86,10 @@ class EchoControlMobileImpl::Canceller {
     return state_;
   }
 
-  void Initialize(int sample_rate_hz,
-                  unsigned char* external_echo_path,
-                  size_t echo_path_size_bytes) {
+  void Initialize(int sample_rate_hz) {
     RTC_DCHECK(state_);
     int error = WebRtcAecm_Init(state_, sample_rate_hz);
     RTC_DCHECK_EQ(AudioProcessing::kNoError, error);
-    if (external_echo_path != NULL) {
-      error = WebRtcAecm_InitEchoPath(state_, external_echo_path,
-                                      echo_path_size_bytes);
-      RTC_DCHECK_EQ(AudioProcessing::kNoError, error);
-    }
   }
 
  private:
@@ -113,18 +102,12 @@ EchoControlMobileImpl::EchoControlMobileImpl(rtc::CriticalSection* crit_render,
     : crit_render_(crit_render),
       crit_capture_(crit_capture),
       routing_mode_(kSpeakerphone),
-      comfort_noise_enabled_(true),
-      external_echo_path_(NULL) {
+      comfort_noise_enabled_(true) {
   RTC_DCHECK(crit_render);
   RTC_DCHECK(crit_capture);
 }
 
-EchoControlMobileImpl::~EchoControlMobileImpl() {
-  if (external_echo_path_ != NULL) {
-    delete[] external_echo_path_;
-    external_echo_path_ = NULL;
-  }
-}
+EchoControlMobileImpl::~EchoControlMobileImpl() {}
 
 void EchoControlMobileImpl::ProcessRenderAudio(
     rtc::ArrayView<const int16_t> packed_render_audio) {
@@ -286,58 +269,6 @@ bool EchoControlMobileImpl::is_comfort_noise_enabled() const {
   return comfort_noise_enabled_;
 }
 
-int EchoControlMobileImpl::SetEchoPath(const void* echo_path,
-                                       size_t size_bytes) {
-  {
-    rtc::CritScope cs_render(crit_render_);
-    rtc::CritScope cs_capture(crit_capture_);
-    if (echo_path == NULL) {
-      return AudioProcessing::kNullPointerError;
-    }
-    if (size_bytes != echo_path_size_bytes()) {
-      // Size mismatch
-      return AudioProcessing::kBadParameterError;
-    }
-
-    if (external_echo_path_ == NULL) {
-      external_echo_path_ = new unsigned char[size_bytes];
-    }
-    memcpy(external_echo_path_, echo_path, size_bytes);
-  }
-
-  // TODO(peah): Simplify once the Enable function has been removed from
-  // the public APM API.
-  RTC_DCHECK(stream_properties_);
-  Initialize(stream_properties_->sample_rate_hz,
-             stream_properties_->num_reverse_channels,
-             stream_properties_->num_output_channels);
-  return AudioProcessing::kNoError;
-}
-
-int EchoControlMobileImpl::GetEchoPath(void* echo_path,
-                                       size_t size_bytes) const {
-  rtc::CritScope cs(crit_capture_);
-  if (echo_path == NULL) {
-    return AudioProcessing::kNullPointerError;
-  }
-  if (size_bytes != echo_path_size_bytes()) {
-    // Size mismatch
-    return AudioProcessing::kBadParameterError;
-  }
-  if (!enabled_) {
-    return AudioProcessing::kNotEnabledError;
-  }
-
-  // Get the echo path from the first channel
-  int32_t err =
-      WebRtcAecm_GetEchoPath(cancellers_[0]->state(), echo_path, size_bytes);
-  if (err != 0) {
-    return MapError(err);
-  }
-
-  return AudioProcessing::kNoError;
-}
-
 void EchoControlMobileImpl::Initialize(int sample_rate_hz,
                                        size_t num_reverse_channels,
                                        size_t num_output_channels) {
@@ -363,8 +294,7 @@ void EchoControlMobileImpl::Initialize(int sample_rate_hz,
     if (!canceller) {
       canceller.reset(new Canceller());
     }
-    canceller->Initialize(sample_rate_hz, external_echo_path_,
-                          echo_path_size_bytes());
+    canceller->Initialize(sample_rate_hz);
   }
 
   Configure();

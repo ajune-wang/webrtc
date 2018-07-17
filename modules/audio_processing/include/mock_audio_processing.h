@@ -54,8 +54,6 @@ class MockEchoControlMobile : public EchoControlMobile {
   MOCK_CONST_METHOD0(routing_mode, RoutingMode());
   MOCK_METHOD1(enable_comfort_noise, int(bool enable));
   MOCK_CONST_METHOD0(is_comfort_noise_enabled, bool());
-  MOCK_METHOD2(SetEchoPath, int(const void* echo_path, size_t size_bytes));
-  MOCK_CONST_METHOD2(GetEchoPath, int(void* echo_path, size_t size_bytes));
 };
 
 class MockGainControl : public GainControl {

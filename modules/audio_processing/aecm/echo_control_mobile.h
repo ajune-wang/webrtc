@@ -153,52 +153,6 @@ int32_t WebRtcAecm_Process(void* aecmInst,
  */
 int32_t WebRtcAecm_set_config(void* aecmInst, AecmConfig config);
 
-/*
- * This function enables the user to set the echo path on-the-fly.
- *
- * Inputs                       Description
- * -------------------------------------------------------------------
- * void*        aecmInst        Pointer to the AECM instance
- * void*        echo_path       Pointer to the echo path to be set
- * size_t       size_bytes      Size in bytes of the echo path
- *
- * Outputs                      Description
- * -------------------------------------------------------------------
- * int32_t      return          0: OK
- *                              1200-12004,12100: error/warning
- */
-int32_t WebRtcAecm_InitEchoPath(void* aecmInst,
-                                const void* echo_path,
-                                size_t size_bytes);
-
-/*
- * This function enables the user to get the currently used echo path
- * on-the-fly
- *
- * Inputs                       Description
- * -------------------------------------------------------------------
- * void*        aecmInst        Pointer to the AECM instance
- * void*        echo_path       Pointer to echo path
- * size_t       size_bytes      Size in bytes of the echo path
- *
- * Outputs                      Description
- * -------------------------------------------------------------------
- * int32_t      return          0: OK
- *                              1200-12004,12100: error/warning
- */
-int32_t WebRtcAecm_GetEchoPath(void* aecmInst,
-                               void* echo_path,
-                               size_t size_bytes);
-
-/*
- * This function enables the user to get the echo path size in bytes
- *
- * Outputs                      Description
- * -------------------------------------------------------------------
- * size_t       return          Size in bytes
- */
-size_t WebRtcAecm_echo_path_size_bytes();
-
 #ifdef __cplusplus
 }
 #endif

@@ -1086,34 +1086,6 @@ TEST_F(ApmTest, EchoControlMobile) {
   EXPECT_EQ(apm_->kNoError,
       apm_->echo_control_mobile()->enable_comfort_noise(true));
   EXPECT_TRUE(apm_->echo_control_mobile()->is_comfort_noise_enabled());
-  // Set and get echo path
-  const size_t echo_path_size =
-      apm_->echo_control_mobile()->echo_path_size_bytes();
-  std::unique_ptr<char[]> echo_path_in(new char[echo_path_size]);
-  std::unique_ptr<char[]> echo_path_out(new char[echo_path_size]);
-  EXPECT_EQ(apm_->kNullPointerError,
-            apm_->echo_control_mobile()->SetEchoPath(NULL, echo_path_size));
-  EXPECT_EQ(apm_->kNullPointerError,
-            apm_->echo_control_mobile()->GetEchoPath(NULL, echo_path_size));
-  EXPECT_EQ(apm_->kBadParameterError,
-            apm_->echo_control_mobile()->GetEchoPath(echo_path_out.get(), 1));
-  EXPECT_EQ(apm_->kNoError,
-            apm_->echo_control_mobile()->GetEchoPath(echo_path_out.get(),
-                                                     echo_path_size));
-  for (size_t i = 0; i < echo_path_size; i++) {
-    echo_path_in[i] = echo_path_out[i] + 1;
-  }
-  EXPECT_EQ(apm_->kBadParameterError,
-            apm_->echo_control_mobile()->SetEchoPath(echo_path_in.get(), 1));
-  EXPECT_EQ(apm_->kNoError,
-            apm_->echo_control_mobile()->SetEchoPath(echo_path_in.get(),
-                                                     echo_path_size));
-  EXPECT_EQ(apm_->kNoError,
-            apm_->echo_control_mobile()->GetEchoPath(echo_path_out.get(),
-                                                     echo_path_size));
-  for (size_t i = 0; i < echo_path_size; i++) {
-    EXPECT_EQ(echo_path_in[i], echo_path_out[i]);
-  }
 
   // Process a few frames with NS in the default disabled state. This exercises
   // a different codepath than with it enabled.

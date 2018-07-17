@@ -925,26 +925,6 @@ class EchoControlMobile {
   virtual int enable_comfort_noise(bool enable) = 0;
   virtual bool is_comfort_noise_enabled() const = 0;
 
-  // A typical use case is to initialize the component with an echo path from a
-  // previous call. The echo path is retrieved using |GetEchoPath()|, typically
-  // at the end of a call. The data can then be stored for later use as an
-  // initializer before the next call, using |SetEchoPath()|.
-  //
-  // Controlling the echo path this way requires the data |size_bytes| to match
-  // the internal echo path size. This size can be acquired using
-  // |echo_path_size_bytes()|. |SetEchoPath()| causes an entire reset, worth
-  // noting if it is to be called during an ongoing call.
-  //
-  // It is possible that version incompatibilities may result in a stored echo
-  // path of the incorrect size. In this case, the stored path should be
-  // discarded.
-  virtual int SetEchoPath(const void* echo_path, size_t size_bytes) = 0;
-  virtual int GetEchoPath(void* echo_path, size_t size_bytes) const = 0;
-
-  // The returned path size is guaranteed not to change for the lifetime of
-  // the application.
-  static size_t echo_path_size_bytes();
-
  protected:
   virtual ~EchoControlMobile() {}
 };

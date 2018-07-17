@@ -475,59 +475,6 @@ int32_t WebRtcAecm_set_config(void* aecmInst, AecmConfig config) {
   return 0;
 }
 
-int32_t WebRtcAecm_InitEchoPath(void* aecmInst,
-                                const void* echo_path,
-                                size_t size_bytes) {
-  AecMobile* aecm = static_cast<AecMobile*>(aecmInst);
-  const int16_t* echo_path_ptr = static_cast<const int16_t*>(echo_path);
-
-  if (aecmInst == NULL) {
-    return -1;
-  }
-  if (echo_path == NULL) {
-    return AECM_NULL_POINTER_ERROR;
-  }
-  if (size_bytes != WebRtcAecm_echo_path_size_bytes()) {
-    // Input channel size does not match the size of AECM
-    return AECM_BAD_PARAMETER_ERROR;
-  }
-  if (aecm->initFlag != kInitCheck) {
-    return AECM_UNINITIALIZED_ERROR;
-  }
-
-  WebRtcAecm_InitEchoPathCore(aecm->aecmCore, echo_path_ptr);
-
-  return 0;
-}
-
-int32_t WebRtcAecm_GetEchoPath(void* aecmInst,
-                               void* echo_path,
-                               size_t size_bytes) {
-  AecMobile* aecm = static_cast<AecMobile*>(aecmInst);
-  int16_t* echo_path_ptr = static_cast<int16_t*>(echo_path);
-
-  if (aecmInst == NULL) {
-    return -1;
-  }
-  if (echo_path == NULL) {
-    return AECM_NULL_POINTER_ERROR;
-  }
-  if (size_bytes != WebRtcAecm_echo_path_size_bytes()) {
-    // Input channel size does not match the size of AECM
-    return AECM_BAD_PARAMETER_ERROR;
-  }
-  if (aecm->initFlag != kInitCheck) {
-    return AECM_UNINITIALIZED_ERROR;
-  }
-
-  memcpy(echo_path_ptr, aecm->aecmCore->channelStored, size_bytes);
-  return 0;
-}
-
-size_t WebRtcAecm_echo_path_size_bytes() {
-  return (PART_LEN1 * sizeof(int16_t));
-}
-
 static int WebRtcAecm_EstBufDelay(AecMobile* aecm, short msInSndCardBuf) {
   short delayNew, nSampSndCard;
   short nSampFar = (short)WebRtc_available_read(aecm->farendBuf);

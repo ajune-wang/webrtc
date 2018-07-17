@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5c5fedcc_c73cd39b",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-07-17T14:32:08Z",
+      "side": 1,
+      "message": "Not really, but it\u0027s small and has to be done anyway. I think I did it before, but it disappeared because of a merge. It\u0027s a bug: there is a DCHECK(!agc_) below if use_agc2_level_estimatior_ is on.",
+      "parentUuid": "e3b29c2c_da39ac9b",
+      "range": {
+        "startLine": 118,
+        "startChar": 6,
+        "endLine": 118,
+        "endChar": 70
+      },
+      "revId": "27cb6d602fc35cc51856d533e0f2fd7133c261ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "24953c8b_56ef6317",
         "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "27cb6d602fc35cc51856d533e0f2fd7133c261ea",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b23b9cc6_134f7452",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-07-17T14:32:08Z",
+      "side": 1,
+      "message": "If you insist... There are no DCHECKs for agc_ anywhere except the c-tor in this code. But maybe I should add some because I\u0027m changing how the Agc is created.",
+      "parentUuid": "24953c8b_56ef6317",
+      "range": {
+        "startLine": 441,
+        "startChar": 4,
+        "endLine": 441,
+        "endChar": 8
+      },
+      "revId": "27cb6d602fc35cc51856d533e0f2fd7133c261ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "b97b63ac_6ea7456f",
+        "filename": "modules/audio_processing/agc/agc_manager_direct_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-07-17T14:32:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1bdc52ad_2b5b00f0",
+      "range": {
+        "startLine": 372,
+        "startChar": 0,
+        "endLine": 374,
+        "endChar": 48
+      },
+      "revId": "27cb6d602fc35cc51856d533e0f2fd7133c261ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d8632319_9f162067",
         "filename": "modules/audio_processing/agc/agc_manager_direct_unittest.cc",
         "patchSetId": 2
@@ -82,6 +154,30 @@
       "writtenOn": "2018-07-17T11:07:35Z",
       "side": 1,
       "message": "[comment on existing code] Not sure I understand the goal of this test. To me it looks like there is successful mic gian change - and hence you expect Reset() to be called.",
+      "range": {
+        "startLine": 407,
+        "startChar": 2,
+        "endLine": 411,
+        "endChar": 48
+      },
+      "revId": "27cb6d602fc35cc51856d533e0f2fd7133c261ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7981ef5e_578c534b",
+        "filename": "modules/audio_processing/agc/agc_manager_direct_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 411,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-07-17T14:32:08Z",
+      "side": 1,
+      "message": "agc-\u003eReset is also called more times from CallProcess() on the lines below. Therefore I need another EXPECT.",
+      "parentUuid": "d8632319_9f162067",
       "range": {
         "startLine": 407,
         "startChar": 2,

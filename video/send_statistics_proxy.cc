@@ -262,7 +262,7 @@ bool SendStatisticsProxy::UmaSamplesContainer::InsertEncodedFrame(
 }
 
 void SendStatisticsProxy::UmaSamplesContainer::UpdateHistograms(
-    const VideoSendStream::Config::Rtp& rtp_config,
+    const RtpConfig& rtp_config,
     const VideoSendStream::Stats& current_stats) {
   RTC_DCHECK(uma_prefix_ == kRealtimePrefix || uma_prefix_ == kScreenPrefix);
   const int kIndex = uma_prefix_ == kScreenPrefix ? 1 : 0;
@@ -1170,6 +1170,8 @@ void SendStatisticsProxy::SendSideDelayUpdated(int avg_delay_ms,
   uma_container_->delay_counter_.Add(avg_delay_ms);
   uma_container_->max_delay_counter_.Add(max_delay_ms);
 }
+
+SendStatisticsProxy::FallbackEncoderInfo::FallbackEncoderInfo() {}
 
 void SendStatisticsProxy::StatsTimer::Start(int64_t now_ms) {
   if (start_ms == -1)

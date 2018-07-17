@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9f76a031_6f50940c",
+        "filename": "modules/congestion_controller/goog_cc/delay_based_bwe.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-07-17T14:54:17Z",
+      "side": 1,
+      "message": "I want to be clear ValidEstimate() has been called before LatestEstimate().",
+      "parentUuid": "18fec35c_aca23395",
+      "range": {
+        "startLine": 241,
+        "startChar": 37,
+        "endLine": 241,
+        "endChar": 66
+      },
+      "revId": "975bf639eaf9a109752d8a07bde882fcb5695d96",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c30eab59_160ccac1",
         "filename": "modules/remote_bitrate_estimator/aimd_rate_control.cc",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "9d3ce497_8ae99544",
+        "filename": "modules/remote_bitrate_estimator/aimd_rate_control.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-07-17T14:54:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c30eab59_160ccac1",
+      "range": {
+        "startLine": 128,
+        "startChar": 20,
+        "endLine": 128,
+        "endChar": 29
+      },
+      "revId": "975bf639eaf9a109752d8a07bde882fcb5695d96",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d3a88ecf_2d46022c",
         "filename": "modules/remote_bitrate_estimator/aimd_rate_control.cc",
         "patchSetId": 2
@@ -68,6 +116,30 @@
       "revId": "975bf639eaf9a109752d8a07bde882fcb5695d96",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1e1d5c6_5bbe34ae",
+        "filename": "modules/remote_bitrate_estimator/aimd_rate_control.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-07-17T14:54:17Z",
+      "side": 1,
+      "message": "ValidEstimate() must be called before LatestEstimate(). I prefer to make this explicit by placing the two calls close together.",
+      "parentUuid": "d3a88ecf_2d46022c",
+      "range": {
+        "startLine": 129,
+        "startChar": 11,
+        "endLine": 129,
+        "endChar": 24
+      },
+      "revId": "975bf639eaf9a109752d8a07bde882fcb5695d96",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +189,54 @@
     },
     {
       "key": {
+        "uuid": "202b83f9_f28fd53a",
+        "filename": "modules/remote_bitrate_estimator/aimd_rate_control.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-07-17T14:54:17Z",
+      "side": 1,
+      "message": "Given that there is now a disjunction in the condition (see below), I prefer to keep the if-statement.",
+      "parentUuid": "a99f4cdb_7b4378da",
+      "range": {
+        "startLine": 135,
+        "startChar": 2,
+        "endLine": 135,
+        "endChar": 4
+      },
+      "revId": "975bf639eaf9a109752d8a07bde882fcb5695d96",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e6ce5dcb_7a59fa03",
+        "filename": "modules/remote_bitrate_estimator/aimd_rate_control.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-07-17T14:54:17Z",
+      "side": 1,
+      "message": "Good point about the tests. I added \"time_last_bitrate_decrease_ \u003d\u003d -1 ||\" to the condition.",
+      "parentUuid": "c9aa512f_786fcbd8",
+      "range": {
+        "startLine": 135,
+        "startChar": 6,
+        "endLine": 135,
+        "endChar": 44
+      },
+      "revId": "975bf639eaf9a109752d8a07bde882fcb5695d96",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e3428c7d_dc6d7602",
         "filename": "modules/remote_bitrate_estimator/aimd_rate_control.h",
         "patchSetId": 2
@@ -137,6 +257,30 @@
       "revId": "975bf639eaf9a109752d8a07bde882fcb5695d96",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c731401_eb3e4fb6",
+        "filename": "modules/remote_bitrate_estimator/aimd_rate_control.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-07-17T14:54:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3428c7d_dc6d7602",
+      "range": {
+        "startLine": 44,
+        "startChar": 7,
+        "endLine": 44,
+        "endChar": 42
+      },
+      "revId": "975bf639eaf9a109752d8a07bde882fcb5695d96",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

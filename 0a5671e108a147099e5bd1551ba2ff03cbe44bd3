@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "106b5463_44e738c4",
+        "filename": "BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-07-17T14:06:33Z",
+      "side": 1,
+      "message": "I don\u0027t think we use the Cf. notation, I think we usually use \"See: ...\".",
+      "range": {
+        "startLine": 353,
+        "startChar": 27,
+        "endLine": 353,
+        "endChar": 29
+      },
+      "revId": "0a5671e108a147099e5bd1551ba2ff03cbe44bd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

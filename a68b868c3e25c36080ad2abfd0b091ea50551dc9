@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e6066234_47c3313d",
+        "filename": "media/engine/simulcast_encoder_adapter_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 813,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-07-17T14:14:41Z",
+      "side": 1,
+      "message": "Please note that we could try to remove this one. I\u0027ve decided to sidestep it for now because I don\u0027t have enough context about why ToI420 should never be reached.",
+      "range": {
+        "startLine": 795,
+        "startChar": 0,
+        "endLine": 813,
+        "endChar": 2
+      },
+      "revId": "a68b868c3e25c36080ad2abfd0b091ea50551dc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

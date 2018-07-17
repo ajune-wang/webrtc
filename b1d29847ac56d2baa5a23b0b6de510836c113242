@@ -48,6 +48,98 @@
     },
     {
       "key": {
+        "uuid": "fce0851e_84bf6d3c",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-07-17T12:48:35Z",
+      "side": 1,
+      "message": "TODO:?",
+      "range": {
+        "startLine": 97,
+        "startChar": 16,
+        "endLine": 97,
+        "endChar": 17
+      },
+      "revId": "b1d29847ac56d2baa5a23b0b6de510836c113242",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99630c21_ae082596",
+        "filename": "modules/video_coding/video_coding_impl.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-07-17T12:48:35Z",
+      "side": 1,
+      "message": "It would be prefferable if this was put into a new file: modules/video_coding/include/video_coding.cc.\n\nThat would make it safer if modules/video_coding/include/video_coding.h is moved to a different target from video_coding_impl in the future.\n\nSeeing that they currently are in the same target I think it\u0027s OK for now.",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 32
+      },
+      "revId": "b1d29847ac56d2baa5a23b0b6de510836c113242",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99944e5b_7010cc6e",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1174,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-07-17T12:48:35Z",
+      "side": 1,
+      "message": "\u003d default;",
+      "range": {
+        "startLine": 1174,
+        "startChar": 64,
+        "endLine": 1174,
+        "endChar": 66
+      },
+      "revId": "b1d29847ac56d2baa5a23b0b6de510836c113242",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3fabcfae_1fcf0ef8",
+        "filename": "video/video_send_stream.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-07-17T12:48:35Z",
+      "side": 1,
+      "message": "Shouldn\u0027t it be moved before all function declarations?",
+      "range": {
+        "startLine": 94,
+        "startChar": 8,
+        "endLine": 94,
+        "endChar": 19
+      },
+      "revId": "b1d29847ac56d2baa5a23b0b6de510836c113242",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f927e397_3c0080e8",
         "filename": "video/video_send_stream_impl.cc",
         "patchSetId": 8
@@ -87,6 +179,29 @@
         "startChar": 15,
         "endLine": 13,
         "endChar": 29
+      },
+      "revId": "b1d29847ac56d2baa5a23b0b6de510836c113242",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71c63395_ff267996",
+        "filename": "video/video_stream_decoder.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-07-17T12:48:35Z",
+      "side": 1,
+      "message": "Is this needed?",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 0
       },
       "revId": "b1d29847ac56d2baa5a23b0b6de510836c113242",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

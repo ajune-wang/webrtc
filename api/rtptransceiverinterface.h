@@ -34,6 +34,8 @@ enum class RtpTransceiverDirection {
 // PeerConnectionInterface::AddTransceiver.
 // https://w3c.github.io/webrtc-pc/#dom-rtcrtptransceiverinit
 struct RtpTransceiverInit final {
+  RtpTransceiverInit();
+  ~RtpTransceiverInit();
   // Direction of the RtpTransceiver. See RtpTransceiverInterface::direction().
   RtpTransceiverDirection direction = RtpTransceiverDirection::kSendRecv;
 
@@ -120,7 +122,7 @@ class RtpTransceiverInterface : public rtc::RefCountInterface {
       rtc::ArrayView<RtpCodecCapability> codecs) = 0;
 
  protected:
-  virtual ~RtpTransceiverInterface() = default;
+  ~RtpTransceiverInterface() override = default;
 };
 
 }  // namespace webrtc

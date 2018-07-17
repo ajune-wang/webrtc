@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a7158d16_6317d809",
+        "filename": "modules/remote_bitrate_estimator/aimd_rate_control.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-07-17T15:07:02Z",
+      "side": 1,
+      "message": "nit: Backoff -\u003e BackOff",
+      "range": {
+        "startLine": 35,
+        "startChar": 40,
+        "endLine": 35,
+        "endChar": 41
+      },
+      "revId": "304554a4e70ec6c6c98ca670774a91fa66e2ebe7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20428516_d2a7d66c",
+        "filename": "modules/remote_bitrate_estimator/aimd_rate_control.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-07-17T15:07:02Z",
+      "side": 1,
+      "message": "Is this really needed? What if you want to test 300ms? etc.",
+      "range": {
+        "startLine": 72,
+        "startChar": 54,
+        "endLine": 72,
+        "endChar": 64
+      },
+      "revId": "304554a4e70ec6c6c98ca670774a91fa66e2ebe7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

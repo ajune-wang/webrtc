@@ -5975,6 +5975,27 @@ TEST_F(WebRtcVideoChannelTest, DetectRtpSendParameterHeaderExtensionsChange) {
   EXPECT_EQ(webrtc::RTCErrorType::INVALID_MODIFICATION, result.type());
 }
 
+TEST_F(WebRtcVideoChannelTest, GetRtpSendParametersDegradationPreference) {
+  AddSendStream();
+
+  cricket::VideoSendParameters parameters;
+  parameters.codecs.push_back(GetEngineCodec("VP8"));
+  parameters.codecs.push_back(GetEngineCodec("VP9"));
+  EXPECT_TRUE(channel_->SetSendParameters(parameters));
+
+  webrtc::RtpParameters rtp_parameters =
+      channel_->GetRtpSendParameters(last_ssrc_);
+  rtp_parameters.degradation_preference =
+      webrtc::DegradationPreference::MAINTAIN_FRAMERATE;
+
+  EXPECT_TRUE(channel_->SetRtpSendParameters(last_ssrc_, rtp_parameters).ok());
+
+  webrtc::RtpParameters updated_rtp_parameters =
+      channel_->GetRtpSendParameters(last_ssrc_);
+  EXPECT_EQ(updated_rtp_parameters.degradation_preference,
+            webrtc::DegradationPreference::MAINTAIN_FRAMERATE);
+}
+
 // Test that if we set/get parameters multiple times, we get the same results.
 TEST_F(WebRtcVideoChannelTest, SetAndGetRtpSendParameters) {
   AddSendStream();

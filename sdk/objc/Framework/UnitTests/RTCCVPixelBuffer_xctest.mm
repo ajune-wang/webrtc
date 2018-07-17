@@ -153,6 +153,13 @@
   [self cropAndScaleTestWithRGBPixelFormat:kCVPixelFormatType_32ARGB];
 }
 
+- (void)testCropAndScaleWithCropInfo_32ARGB {
+  [self cropAndScaleTestWithRGBPixelFormat:kCVPixelFormatType_32ARGB
+                                     cropX:2
+                                     cropY:3
+                                targetPsnr:34.0f /* Some PSNR is lost due to the crop */];
+}
+
 - (void)testToI420_NV12 {
   [self toI420WithPixelFormat:kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange];
 }
@@ -224,12 +231,29 @@
 }
 
 - (void)cropAndScaleTestWithRGBPixelFormat:(OSType)pixelFormat {
+  [self cropAndScaleTestWithRGBPixelFormat:pixelFormat
+                                     cropX:0
+                                     cropY:0
+                                targetPsnr:webrtc::kPerfectPSNR];
+}
+
+- (void)cropAndScaleTestWithRGBPixelFormat:(OSType)pixelFormat
+                                     cropX:(int)cropX
+                                     cropY:(int)cropY
+                                targetPsnr:(double)targetPsnr {
   CVPixelBufferRef pixelBufferRef = NULL;
   CVPixelBufferCreate(NULL, 720, 1280, pixelFormat, NULL, &pixelBufferRef);
 
   DrawGradientInRGBPixelBuffer(pixelBufferRef);
 
-  RTCCVPixelBuffer *buffer = [[RTCCVPixelBuffer alloc] initWithPixelBuffer:pixelBufferRef];
+  RTCCVPixelBuffer *buffer =
+      [[RTCCVPixelBuffer alloc] initWithPixelBuffer:pixelBufferRef
+                                       adaptedWidth:CVPixelBufferGetWidth(pixelBufferRef)
+                                      adaptedHeight:CVPixelBufferGetHeight(pixelBufferRef)
+                                          cropWidth:CVPixelBufferGetWidth(pixelBufferRef)
+                                         cropHeight:CVPixelBufferGetHeight(pixelBufferRef)
+                                              cropX:cropX
+                                              cropY:cropY];
   XCTAssertEqual(buffer.width, 720);
   XCTAssertEqual(buffer.height, 1280);
 
@@ -246,7 +270,7 @@
   RTCI420Buffer *scaledBufferI420 = [scaledBuffer toI420];
   double psnr =
       I420PSNR(*[originalBufferI420 nativeI420Buffer], *[scaledBufferI420 nativeI420Buffer]);
-  XCTAssertEqual(psnr, webrtc::kPerfectPSNR);
+  XCTAssertGreaterThanOrEqual(psnr, targetPsnr);
 
   CVBufferRelease(pixelBufferRef);
 }

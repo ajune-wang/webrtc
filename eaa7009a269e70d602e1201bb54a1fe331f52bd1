@@ -22,6 +22,30 @@
       "revId": "eaa7009a269e70d602e1201bb54a1fe331f52bd1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0682abde_0849bbdc",
+        "filename": "modules/audio_processing/agc2/rnn_vad/lp_residual.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-07-17T08:10:02Z",
+      "side": 1,
+      "message": "limits\u003cfloat\u003e::min() will be too small. reflection_coeff will be close to +inf after division by ::min(). It is multiplied by other large numbers.",
+      "parentUuid": "aaaf4550_6cda6aa3",
+      "range": {
+        "startLine": 69,
+        "startChar": 14,
+        "endLine": 69,
+        "endChar": 36
+      },
+      "revId": "eaa7009a269e70d602e1201bb54a1fe331f52bd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

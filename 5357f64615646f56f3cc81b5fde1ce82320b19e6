@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "896adb19_6ca22e82",
+        "filename": "media/base/videocapturer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-07-17T09:39:20Z",
+      "side": 1,
+      "message": "I could make a separate function which will be just a synonym for that !...IsDisabled(...).\n\nBut I couldn\u0027t reuse it in other places. The media/engine/simulcast.cc already has the same function. But reusing it would introduce more dependencies between modules. Having them just for the sake of this experiment is unacceptable. \n\nTheoretically, we could instead define these specific functions for each experiment in webrtc::field_trial, e.g. IsSimulcastScreenshareEnabled(). \n\nUsually it doesn\u0027t worth it since most of the field trials are contained in one place in the code, some use group names to set parameters values and require some additional processing, so simple isEnabled will not suffice in that case.\n\nIt also will require changes to some api headers instead of local changes contained within each team, which would also complicate reviews.\n\nFinally, this is a huge refactoring work, which shouldn\u0027t be a part of a \"Switch experiment on by default CL\".",
+      "parentUuid": "9d6d12be_8b18cecd",
+      "revId": "5357f64615646f56f3cc81b5fde1ce82320b19e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ffd93920_59ed90fc",
         "filename": "video/full_stack_tests.cc",
         "patchSetId": 6

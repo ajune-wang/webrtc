@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "9d6d12be_8b18cecd",
+        "filename": "media/base/videocapturer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2018-07-17T09:05:17Z",
+      "side": 1,
+      "message": "All code should be deleted after some time :) More seriously, some merits of DRY:\n\n* Prevent a typo after copy/pasting\n* Prevent forgetting to update one of the copy\n* Less lines to review\n* More: https://www.artima.com/intv/dry.html\n\nBonus: we could group all these switches in one place.\n\nSo, you might not feel the need for this particular instance, but at least for next time (even temporary code) I believe this is worth it.",
+      "parentUuid": "3c34f49c_735e44d3",
+      "revId": "5357f64615646f56f3cc81b5fde1ce82320b19e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ffd93920_59ed90fc",
         "filename": "video/full_stack_tests.cc",
         "patchSetId": 6

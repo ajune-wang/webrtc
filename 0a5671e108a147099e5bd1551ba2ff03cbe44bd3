@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "4bcaf9d4_6471e6d6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-07-17T14:06:57Z",
+      "side": 1,
+      "message": "Can you also add an example without setting the variable?",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 61
+      },
+      "revId": "0a5671e108a147099e5bd1551ba2ff03cbe44bd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "106b5463_44e738c4",
         "filename": "BUILD.gn",
         "patchSetId": 1

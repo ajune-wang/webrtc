@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e3b29c2c_da39ac9b",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-07-17T11:07:35Z",
+      "side": 1,
+      "message": "Is this change related to this CL?",
+      "range": {
+        "startLine": 118,
+        "startChar": 6,
+        "endLine": 118,
+        "endChar": 70
+      },
+      "revId": "27cb6d602fc35cc51856d533e0f2fd7133c261ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24953c8b_56ef6317",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-07-17T11:07:35Z",
+      "side": 1,
+      "message": "DCHECK",
+      "range": {
+        "startLine": 441,
+        "startChar": 4,
+        "endLine": 441,
+        "endChar": 8
+      },
+      "revId": "27cb6d602fc35cc51856d533e0f2fd7133c261ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1bdc52ad_2b5b00f0",
+        "filename": "modules/audio_processing/agc/agc_manager_direct_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-07-17T11:07:35Z",
+      "side": 1,
+      "message": "this is subtle\n\n1. ASSERT_NE(volume_.GetMicVolume(), 154) to highlight the fact that the mic gain has changed\n2. move line 374 up and add a comment for it, e.g., \"When the analog volume changes, the gain controller is reset.\"",
+      "range": {
+        "startLine": 372,
+        "startChar": 0,
+        "endLine": 374,
+        "endChar": 48
+      },
+      "revId": "27cb6d602fc35cc51856d533e0f2fd7133c261ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8632319_9f162067",
+        "filename": "modules/audio_processing/agc/agc_manager_direct_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 411,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-07-17T11:07:35Z",
+      "side": 1,
+      "message": "[comment on existing code] Not sure I understand the goal of this test. To me it looks like there is successful mic gian change - and hence you expect Reset() to be called.",
+      "range": {
+        "startLine": 407,
+        "startChar": 2,
+        "endLine": 411,
+        "endChar": 48
+      },
+      "revId": "27cb6d602fc35cc51856d533e0f2fd7133c261ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -31,8 +31,7 @@ void VerifyEmptyUlpfecConfig(const UlpfecConfig& config) {
       << "Enabling RTX in ULPFEC requires rtpmap: rtx negotiation.";
 }
 
-void VerifyEmptyFlexfecConfig(
-    const VideoSendStream::Config::Rtp::Flexfec& config) {
+void VerifyEmptyFlexfecConfig(const Rtp::Flexfec& config) {
   EXPECT_EQ(-1, config.payload_type)
       << "Enabling FlexFEC requires rtpmap: flexfec negotiation.";
   EXPECT_EQ(0U, config.ssrc)

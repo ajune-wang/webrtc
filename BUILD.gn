@@ -350,6 +350,14 @@ if (!build_with_chromium) {
       "video",
     ]
 
+    # APIs cherry-picking. Cf webrtc.gni
+    if (rtc_use_builtin_audio_decoder_factory) {
+      deps += [ "api/audio_codecs:builtin_audio_decoder_factory" ]
+    }
+    if (rtc_use_builtin_audio_encoder_factory) {
+      deps += [ "api/audio_codecs:builtin_audio_encoder_factory" ]
+    }
+
     if (build_with_mozilla) {
       deps += [
         "api/video:video_frame",

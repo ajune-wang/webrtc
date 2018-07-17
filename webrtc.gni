@@ -31,6 +31,22 @@ if (is_ios) {
 }
 
 declare_args() {
+  # Cherry-pick wanted APIs ##################################################
+
+  # Enable these to add respective APIs in libwebrtc.
+  # If your final library/executable use GN, you might instead directly
+  # depends on them, like in test/BUILD.gn
+  # E.g.    deps += ["api/audio_codecs:builtin_audio_decoder_factory"]
+
+  rtc_use_builtin_audio_decoder_factory = false
+  rtc_use_builtin_audio_encoder_factory = false
+
+  # TODO(yvesg) Add flag for each api/ modules (or submodules)?
+  #   audio, audio_codecs, call, ortc, stats, test, transport, units,
+  #   video, video_codecs
+
+  ##### End of APIs cherry-pick ##############################################
+
   # Setting this to false will require the API user to pass in their own
   # SSLCertificateVerifier to verify the certificates presented from a
   # TLS-TURN server. In return disabling this saves around 100kb in the binary.

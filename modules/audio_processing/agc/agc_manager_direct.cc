@@ -437,6 +437,8 @@ void AgcManagerDirect::UpdateGain() {
     // level_ was updated by SetLevel; log the new value.
     RTC_HISTOGRAM_COUNTS_LINEAR("WebRTC.Audio.AgcSetLevel", level_, 1,
                                 kMaxMicLevel, 50);
+    // Reset the AGC since the level has changed.
+    agc_->Reset();
   }
 }
 

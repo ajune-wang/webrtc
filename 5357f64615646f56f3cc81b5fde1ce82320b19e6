@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "3c34f49c_735e44d3",
+        "filename": "media/base/videocapturer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-07-17T07:45:45Z",
+      "side": 1,
+      "message": "Since it\u0027s only an experiment code, which will be deleted after some time, I don\u0027t see the merit to do this.",
+      "parentUuid": "b2ba547b_9e8d26b4",
+      "revId": "5357f64615646f56f3cc81b5fde1ce82320b19e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ffd93920_59ed90fc",
         "filename": "video/full_stack_tests.cc",
         "patchSetId": 6
@@ -30,6 +48,24 @@
       "writtenOn": "2018-07-16T14:33:16Z",
       "side": 1,
       "message": "Question: does it mean that once launched, we won\u0027t be able to explicitly disable it anymore?",
+      "revId": "5357f64615646f56f3cc81b5fde1ce82320b19e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "650b241d_47025bc4",
+        "filename": "video/full_stack_tests.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-07-17T07:45:45Z",
+      "side": 1,
+      "message": "My bad, it is only used in conference mode: there it will be unable to disable it once it\u0027s launched.\n\nSo these tests should stay because they cover non-conference mode.\n\nAlso, because it will be always on, we are initially launching it with a kill switch. After some time, if no problems would be found, I\u0027ll remove all the experiment related code.",
+      "parentUuid": "ffd93920_59ed90fc",
       "revId": "5357f64615646f56f3cc81b5fde1ce82320b19e6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

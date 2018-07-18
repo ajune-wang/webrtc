@@ -1197,14 +1197,13 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
                                 levels.peak, 1, RmsLevel::kMinLevelDb, 64);
   }
 
-  if (private_submodules_->echo_controller) {
-    // Detect and flag any change in the analog gain.
-    int analog_mic_level = gain_control()->stream_analog_level();
-    capture_.echo_path_gain_change =
-        capture_.prev_analog_mic_level != analog_mic_level &&
-        capture_.prev_analog_mic_level != -1;
-    capture_.prev_analog_mic_level = analog_mic_level;
+  // Detect and flag any change in the analog gain.
+  capture_.echo_path_gain_change =
+      capture_.prev_analog_mic_level != gain_control()->stream_analog_level() &&
+      capture_.prev_analog_mic_level != -1;
+  capture_.prev_analog_mic_level = gain_control()->stream_analog_level();
 
+  if (private_submodules_->echo_controller) {
     private_submodules_->echo_controller->AnalyzeCapture(capture_buffer);
   }
 
@@ -1333,6 +1332,9 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
   }
 
   if (config_.gain_controller2.enabled) {
+    if (capture_.echo_path_gain_change) {
+      private_submodules_->gain_controller2->Reset();
+    }
     private_submodules_->gain_controller2->Process(capture_buffer);
   }
 

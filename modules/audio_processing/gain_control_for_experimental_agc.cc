@@ -43,14 +43,18 @@ int GainControlForExperimentalAgc::set_stream_analog_level(int level) {
   rtc::CritScope cs_capture(crit_capture_);
   data_dumper_->DumpRaw("experimental_gain_control_set_stream_analog_level", 1,
                         &level);
+  level_is_logged_ = false;
   volume_ = level;
   return AudioProcessing::kNoError;
 }
 
 int GainControlForExperimentalAgc::stream_analog_level() {
   rtc::CritScope cs_capture(crit_capture_);
-  data_dumper_->DumpRaw("experimental_gain_control_stream_analog_level", 1,
-                        &volume_);
+  if (!level_is_logged_) {
+    data_dumper_->DumpRaw("experimental_gain_control_stream_analog_level", 1,
+                          &volume_);
+    level_is_logged_ = true;
+  }
   return volume_;
 }
 

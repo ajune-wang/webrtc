@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "06da620c_3879700b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-07-18T13:00:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "df639e65_512f6466",
+      "range": {
+        "startLine": 13,
+        "startChar": 34,
+        "endLine": 13,
+        "endChar": 38
+      },
+      "revId": "db93cf313e71e5ba76d7fdb1560d70a4d6f8b260",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3b8da1cf_169587e4",
         "filename": "modules/remote_bitrate_estimator/aimd_rate_control.cc",
         "patchSetId": 5
@@ -36,6 +60,30 @@
       "writtenOn": "2018-07-18T11:54:14Z",
       "side": 1,
       "message": "Shouldn\u0027t this return int64_t?",
+      "range": {
+        "startLine": 61,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 5
+      },
+      "revId": "db93cf313e71e5ba76d7fdb1560d70a4d6f8b260",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1dac38c_c5ca2699",
+        "filename": "modules/remote_bitrate_estimator/aimd_rate_control.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-07-18T13:00:36Z",
+      "side": 1,
+      "message": "Done. Nice catch!",
+      "parentUuid": "3b8da1cf_169587e4",
       "range": {
         "startLine": 61,
         "startChar": 0,
@@ -68,6 +116,30 @@
       "revId": "db93cf313e71e5ba76d7fdb1560d70a4d6f8b260",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d74d6f1_4e10a1d3",
+        "filename": "modules/remote_bitrate_estimator/aimd_rate_control.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-07-18T13:00:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "464f551f_0f3de556",
+      "range": {
+        "startLine": 44,
+        "startChar": 42,
+        "endLine": 44,
+        "endChar": 50
+      },
+      "revId": "db93cf313e71e5ba76d7fdb1560d70a4d6f8b260",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

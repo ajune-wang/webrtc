@@ -16,9 +16,16 @@ StreamDataCounters::StreamDataCounters() : first_packet_time_ms(-1) {}
 
 constexpr size_t StreamId::kMaxSize;
 
+// Check if passed character is a "token-char" from RFC 4566.
+static bool IsTokenChar(char ch) {
+  return ch == 0x21 || (ch >= 0x23 && ch <= 0x27) || ch == 0x2a || ch == 0x2b ||
+         ch == 0x2d || ch == 0x2e || (ch >= 0x30 && ch <= 0x39) ||
+         (ch >= 0x41 && ch <= 0x5a) || (ch >= 0x5e && ch <= 0x7e);
+}
+
 bool StreamId::IsLegalName(rtc::ArrayView<const char> name) {
   return (name.size() <= kMaxSize && name.size() > 0 &&
-          std::all_of(name.data(), name.data() + name.size(), isalnum));
+          std::all_of(name.data(), name.data() + name.size(), IsTokenChar));
 }
 
 void StreamId::Set(const char* data, size_t size) {

@@ -12,6 +12,7 @@
 
 #include <algorithm>
 #include <memory>
+#include <string>
 #include <vector>
 
 #include "rtc_base/checks.h"
@@ -158,6 +159,31 @@ TEST_F(RtpRtcpAPITest, RtxSender) {
 
   module_->SetRtxSendStatus(kRtxRetransmitted);
   EXPECT_EQ(kRtxRetransmitted, module_->RtxSendStatus());
+}
+
+TEST_F(RtpRtcpAPITest, LegalName) {
+  static const std::string kLegalNames[] = {
+      // clang-format off
+      "audio",
+      "audio0",
+      "audio_0",
+      // clang-format on
+  };
+  for (const auto& name : kLegalNames) {
+    EXPECT_TRUE(StreamId::IsLegalName(name))
+        << "Name should be legal: " << name;
+  }
+
+  static const std::string kNonLegalNames[] = {
+      // clang-format off
+      "",
+      "(audio0)",
+      // clang-format on
+  };
+  for (const auto& name : kNonLegalNames) {
+    EXPECT_FALSE(StreamId::IsLegalName(name))
+        << "Name should not be legal: " << name;
+  }
 }
 
 }  // namespace webrtc

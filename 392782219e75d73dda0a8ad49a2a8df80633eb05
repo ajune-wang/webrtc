@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "651d102a_29ccad21",
+        "filename": "api/umametrics.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-07-18T21:20:51Z",
+      "side": 1,
+      "message": "Not used?",
+      "range": {
+        "startLine": 180,
+        "startChar": 2,
+        "endLine": 180,
+        "endChar": 32
+      },
+      "revId": "392782219e75d73dda0a8ad49a2a8df80633eb05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

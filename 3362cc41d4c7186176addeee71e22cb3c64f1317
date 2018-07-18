@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "4ba12835_771dbafe",
+        "filename": "media/engine/webrtcvideoengine.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1698,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-07-18T13:55:08Z",
+      "side": 1,
+      "message": "As mentioned offline, let\u0027s describe old behavior, new behavior and next steps in the description and add a TODO here.",
+      "parentUuid": "cd7f630b_7bda8595",
+      "range": {
+        "startLine": 1696,
+        "startChar": 6,
+        "endLine": 1698,
+        "endChar": 68
+      },
+      "revId": "3362cc41d4c7186176addeee71e22cb3c64f1317",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fb30c277_1d7f82c0",
         "filename": "media/engine/webrtcvideoengine.cc",
         "patchSetId": 2
@@ -108,6 +132,30 @@
       "side": 1,
       "message": "To keep the same style as the current function and to detect changes. The values are copied on line 1837, so we need to record changes before applying them.",
       "parentUuid": "fb30c277_1d7f82c0",
+      "range": {
+        "startLine": 1814,
+        "startChar": 0,
+        "endLine": 1819,
+        "endChar": 0
+      },
+      "revId": "3362cc41d4c7186176addeee71e22cb3c64f1317",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "80276736_97c86258",
+        "filename": "media/engine/webrtcvideoengine.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1819,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-07-18T13:55:08Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "9c1281ea_406fa48e",
       "range": {
         "startLine": 1814,
         "startChar": 0,

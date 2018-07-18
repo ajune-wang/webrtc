@@ -33,6 +33,8 @@ class GainController2 {
 
   void Initialize(int sample_rate_hz);
   void Process(AudioBuffer* audio);
+  // Makes the gain controller forget its memory of previous audio levels.
+  void Reset();
 
   void ApplyConfig(const AudioProcessing::Config::GainController2& config);
   static bool Validate(const AudioProcessing::Config::GainController2& config);

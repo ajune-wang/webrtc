@@ -45,6 +45,10 @@ void GainController2::Process(AudioBuffer* audio) {
   fixed_gain_controller_.Process(float_frame);
 }
 
+void GainController2::Reset() {
+  adaptive_agc_.Reset();
+}
+
 void GainController2::ApplyConfig(
     const AudioProcessing::Config::GainController2& config) {
   RTC_DCHECK(Validate(config));

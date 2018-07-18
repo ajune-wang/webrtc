@@ -712,6 +712,60 @@ void AudioProcessingImpl::SetExtraOptions(const webrtc::Config& config) {
 #endif
 }
 
+int AudioProcessingImpl::SetEchoCancellationMode(AecMode aec_mode) {
+  if (aec_mode == AecMode::kCustom) {
+    return AudioProcessing::kBadParameterError;
+  }
+  RTC_LOG(LS_INFO) << "Switching to AEC=" << aec_mode;
+  AecMode current_mode = GetEchoCancellationMode();
+  if (aec_mode == current_mode) {
+    return AudioProcessing::kNoError;
+  }
+  // Disable current AEC.
+  int error = 0;
+  if (current_mode == AecMode::kDesktop) {
+    error = echo_cancellation()->Enable(false);
+  } else if (current_mode == AecMode::kMobile) {
+    error = echo_control_mobile()->Enable(false);
+  }
+  if (error != 0) {
+    RTC_LOG(LS_WARNING) << "Unable to disable AEC=" << current_mode;
+    return error;
+  }
+  current_mode = AecMode::kDisabled;
+  // Enable new AEC.
+  if (aec_mode == AecMode::kDesktop) {
+    error = echo_cancellation()->Enable(true);
+  } else if (aec_mode == AecMode::kMobile) {
+    error = echo_control_mobile()->Enable(true);
+  }
+  if (error != 0) {
+    RTC_LOG(LS_WARNING) << "Unable to enable AEC=" << aec_mode;
+    return error;
+  }
+  current_mode = aec_mode;
+  RTC_DCHECK_EQ(public_submodules_->echo_cancellation->is_enabled(),
+                aec_mode == AecMode::kDesktop);
+  RTC_DCHECK_EQ(public_submodules_->echo_control_mobile->is_enabled(),
+                aec_mode == AecMode::kMobile);
+  return AudioProcessing::kNoError;
+}
+
+AudioProcessing::AecMode AudioProcessingImpl::GetEchoCancellationMode() const {
+  if (private_submodules_->echo_controller) {
+    return AecMode::kCustom;
+  }
+  RTC_DCHECK(!(public_submodules_->echo_cancellation->is_enabled() &&
+               public_submodules_->echo_control_mobile->is_enabled()));
+  if (public_submodules_->echo_cancellation->is_enabled()) {
+    return AecMode::kDesktop;
+  }
+  if (public_submodules_->echo_control_mobile->is_enabled()) {
+    return AecMode::kMobile;
+  }
+  return AecMode::kDisabled;
+}
+
 int AudioProcessingImpl::proc_sample_rate_hz() const {
   // Used as callback from submodules, hence locking is not allowed.
   return capture_nonlocked_.capture_processing_format.sample_rate_hz();

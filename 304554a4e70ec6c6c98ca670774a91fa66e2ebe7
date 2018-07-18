@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "92cedcf3_6193087c",
+        "filename": "modules/remote_bitrate_estimator/aimd_rate_control.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-07-18T11:24:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a7158d16_6317d809",
+      "range": {
+        "startLine": 35,
+        "startChar": 40,
+        "endLine": 35,
+        "endChar": 41
+      },
+      "revId": "304554a4e70ec6c6c98ca670774a91fa66e2ebe7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "20428516_d2a7d66c",
         "filename": "modules/remote_bitrate_estimator/aimd_rate_control.cc",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "304554a4e70ec6c6c98ca670774a91fa66e2ebe7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "280c7a2d_14a1a165",
+        "filename": "modules/remote_bitrate_estimator/aimd_rate_control.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-07-18T11:24:52Z",
+      "side": 1,
+      "message": "There should problaby be some form of sanity check. I picked these limits for consistency with \nhttps://cs.chromium.org/chromium/src/third_party/webrtc/modules/remote_bitrate_estimator/aimd_rate_control.cc?l\u003d111\u0026rcl\u003d4597e0c46fc5ecb1c63c325f87f91bdfc3c1c3fd",
+      "parentUuid": "20428516_d2a7d66c",
+      "range": {
+        "startLine": 72,
+        "startChar": 54,
+        "endLine": 72,
+        "endChar": 64
+      },
+      "revId": "304554a4e70ec6c6c98ca670774a91fa66e2ebe7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

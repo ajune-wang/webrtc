@@ -31,7 +31,7 @@ class MockRtpTransportControllerSend
  public:
   MOCK_METHOD8(
       CreateVideoRtpSender,
-      VideoRtpSenderInterface*(const std::vector<uint32_t>&,
+      RtpVideoSenderInterface*(const std::vector<uint32_t>&,
                                std::map<uint32_t, RtpState>,
                                const std::map<uint32_t, RtpPayloadState>&,
                                const RtpConfig&,

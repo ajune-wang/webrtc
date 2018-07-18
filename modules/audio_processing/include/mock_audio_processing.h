@@ -163,6 +163,8 @@ class MockAudioProcessing : public testing::NiceMock<AudioProcessing> {
   MOCK_METHOD1(Initialize, int(const ProcessingConfig& processing_config));
   MOCK_METHOD1(ApplyConfig, void(const Config& config));
   MOCK_METHOD1(SetExtraOptions, void(const webrtc::Config& config));
+  MOCK_METHOD1(SetEchoCancellationMode, int(AecMode aec_mode));
+  MOCK_CONST_METHOD0(GetEchoCancellationMode, AecMode());
   MOCK_CONST_METHOD0(proc_sample_rate_hz, int());
   MOCK_CONST_METHOD0(proc_split_sample_rate_hz, int());
   MOCK_CONST_METHOD0(num_input_channels, size_t());

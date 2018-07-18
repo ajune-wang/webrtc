@@ -159,24 +159,20 @@ AudioProcessingImpl::ApmSubmoduleStates::ApmSubmoduleStates(
       render_pre_processor_enabled_(render_pre_processor_enabled) {}
 
 bool AudioProcessingImpl::ApmSubmoduleStates::Update(
+    AecMode aec_mode,
     bool low_cut_filter_enabled,
-    bool echo_canceller_enabled,
-    bool mobile_echo_controller_enabled,
     bool residual_echo_detector_enabled,
     bool noise_suppressor_enabled,
     bool intelligibility_enhancer_enabled,
     bool adaptive_gain_controller_enabled,
     bool gain_controller2_enabled,
     bool pre_amplifier_enabled,
-    bool echo_controller_enabled,
     bool voice_activity_detector_enabled,
     bool level_estimator_enabled,
     bool transient_suppressor_enabled) {
   bool changed = false;
+  changed |= (aec_mode != aec_mode_);
   changed |= (low_cut_filter_enabled != low_cut_filter_enabled_);
-  changed |= (echo_canceller_enabled != echo_canceller_enabled_);
-  changed |=
-      (mobile_echo_controller_enabled != mobile_echo_controller_enabled_);
   changed |=
       (residual_echo_detector_enabled != residual_echo_detector_enabled_);
   changed |= (noise_suppressor_enabled != noise_suppressor_enabled_);
@@ -187,22 +183,19 @@ bool AudioProcessingImpl::ApmSubmoduleStates::Update(
   changed |=
       (gain_controller2_enabled != gain_controller2_enabled_);
   changed |= (pre_amplifier_enabled_ != pre_amplifier_enabled);
-  changed |= (echo_controller_enabled != echo_controller_enabled_);
   changed |= (level_estimator_enabled != level_estimator_enabled_);
   changed |=
       (voice_activity_detector_enabled != voice_activity_detector_enabled_);
   changed |= (transient_suppressor_enabled != transient_suppressor_enabled_);
   if (changed) {
+    aec_mode_ = aec_mode;
     low_cut_filter_enabled_ = low_cut_filter_enabled;
-    echo_canceller_enabled_ = echo_canceller_enabled;
-    mobile_echo_controller_enabled_ = mobile_echo_controller_enabled;
     residual_echo_detector_enabled_ = residual_echo_detector_enabled;
     noise_suppressor_enabled_ = noise_suppressor_enabled;
     intelligibility_enhancer_enabled_ = intelligibility_enhancer_enabled;
     adaptive_gain_controller_enabled_ = adaptive_gain_controller_enabled;
     gain_controller2_enabled_ = gain_controller2_enabled;
     pre_amplifier_enabled_ = pre_amplifier_enabled;
-    echo_controller_enabled_ = echo_controller_enabled;
     level_estimator_enabled_ = level_estimator_enabled;
     voice_activity_detector_enabled_ = voice_activity_detector_enabled;
     transient_suppressor_enabled_ = transient_suppressor_enabled;
@@ -225,9 +218,8 @@ bool AudioProcessingImpl::ApmSubmoduleStates::CaptureMultiBandSubModulesActive()
 
 bool AudioProcessingImpl::ApmSubmoduleStates::CaptureMultiBandProcessingActive()
     const {
-  return low_cut_filter_enabled_ || echo_canceller_enabled_ ||
-         mobile_echo_controller_enabled_ || noise_suppressor_enabled_ ||
-         adaptive_gain_controller_enabled_ || echo_controller_enabled_;
+  return low_cut_filter_enabled_ || noise_suppressor_enabled_ ||
+         adaptive_gain_controller_enabled_ || (aec_mode_ != AecMode::kNone);
 }
 
 bool AudioProcessingImpl::ApmSubmoduleStates::CaptureFullBandProcessingActive()
@@ -238,9 +230,8 @@ bool AudioProcessingImpl::ApmSubmoduleStates::CaptureFullBandProcessingActive()
 
 bool AudioProcessingImpl::ApmSubmoduleStates::RenderMultiBandSubModulesActive()
     const {
-  return RenderMultiBandProcessingActive() || echo_canceller_enabled_ ||
-         mobile_echo_controller_enabled_ || adaptive_gain_controller_enabled_ ||
-         echo_controller_enabled_;
+  return RenderMultiBandProcessingActive() ||
+         adaptive_gain_controller_enabled_ || (aec_mode_ != AecMode::kNone);
 }
 
 bool AudioProcessingImpl::ApmSubmoduleStates::RenderFullBandProcessingActive()
@@ -384,9 +375,16 @@ AudioProcessingImpl::AudioProcessingImpl(
     rtc::CritScope cs_render(&crit_render_);
     rtc::CritScope cs_capture(&crit_capture_);
 
-    // Mark Echo Controller enabled if a factory is injected.
-    capture_nonlocked_.echo_controller_enabled =
-        static_cast<bool>(echo_control_factory_);
+    if (static_cast<bool>(echo_control_factory_)) {
+      capture_nonlocked_.aec_mode = AecMode::kCustom;
+    } else {
+// Choose default echo cancellation depending on platform.
+#if defined(WEBRTC_ANDROID) || defined(WEBRTC_IOS)
+      capture_nonlocked_.aec_mode = AecMode::kMobile;
+#else
+      capture_nonlocked_.aec_mode = AecMode::kDesktop;
+#endif
+    }
 
     public_submodules_->echo_cancellation.reset(
         new EchoCancellationImpl(&crit_render_, &crit_capture_));
@@ -607,7 +605,7 @@ int AudioProcessingImpl::InitializeLocked(const ProcessingConfig& config) {
       StreamConfig(capture_processing_rate);
 
   int render_processing_rate;
-  if (!capture_nonlocked_.echo_controller_enabled) {
+  if (capture_nonlocked_.aec_mode != AecMode::kCustom) {
     render_processing_rate = FindNativeProcessRateToUse(
         std::min(formats_.api_format.reverse_input_stream().sample_rate_hz(),
                  formats_.api_format.reverse_output_stream().sample_rate_hz()),
@@ -620,7 +618,7 @@ int AudioProcessingImpl::InitializeLocked(const ProcessingConfig& config) {
   // TODO(aluebs): Remove this restriction once we figure out why the 3-band
   // splitting filter degrades the AEC performance.
   if (render_processing_rate > kSampleRate32kHz &&
-      !capture_nonlocked_.echo_controller_enabled) {
+      capture_nonlocked_.aec_mode != AecMode::kCustom) {
     render_processing_rate = submodule_states_.RenderMultiBandProcessingActive()
                                  ? kSampleRate32kHz
                                  : kSampleRate16kHz;
@@ -712,6 +710,51 @@ void AudioProcessingImpl::SetExtraOptions(const webrtc::Config& config) {
 #endif
 }
 
+int AudioProcessingImpl::SetEchoCancellationMode(AecMode aec_mode) {
+  if (aec_mode == AecMode::kCustom) {
+    return AudioProcessing::kBadParameterError;
+  }
+  if (capture_nonlocked_.aec_mode == aec_mode) {
+    return AudioProcessing::kNoError;
+  }
+  RTC_LOG(LS_VERBOSE) << "Attempting switch to AEC=" << aec_mode;
+  // Disable current AEC.
+  int error = 0;
+  if (capture_nonlocked_.aec_mode == AecMode::kDesktop) {
+    error = echo_cancellation()->Enable(false);
+  } else if (capture_nonlocked_.aec_mode == AecMode::kMobile) {
+    error = echo_control_mobile()->Enable(false);
+  }
+  if (error != 0) {
+    RTC_LOG(LS_ERROR) << "Unable to disable AEC="
+                      << capture_nonlocked_.aec_mode;
+    return error;
+  }
+  capture_nonlocked_.aec_mode = AecMode::kNone;
+  // Enable new AEC.
+  if (aec_mode == AecMode::kDesktop) {
+    error = echo_cancellation()->Enable(true);
+  } else if (aec_mode == AecMode::kMobile) {
+    error = echo_control_mobile()->Enable(true);
+  }
+  if (error != 0) {
+    RTC_LOG(LS_ERROR) << "Unable to enable AEC=" << aec_mode;
+    return error;
+  }
+  capture_nonlocked_.aec_mode = aec_mode;
+  return AudioProcessing::kNoError;
+}
+
+AudioProcessing::AecMode AudioProcessingImpl::GetEchoCancellationMode() const {
+  RTC_DCHECK_EQ(public_submodules_->echo_control_mobile->is_enabled(),
+                capture_nonlocked_.aec_mode == AecMode::kMobile);
+  RTC_DCHECK_EQ(public_submodules_->echo_cancellation->is_enabled(),
+                capture_nonlocked_.aec_mode == AecMode::kDesktop);
+  RTC_DCHECK_EQ(!!private_submodules_->echo_controller,
+                capture_nonlocked_.aec_mode == AecMode::kCustom);
+  return capture_nonlocked_.aec_mode;
+}
+
 int AudioProcessingImpl::proc_sample_rate_hz() const {
   // Used as callback from submodules, hence locking is not allowed.
   return capture_nonlocked_.capture_processing_format.sample_rate_hz();
@@ -734,7 +777,9 @@ size_t AudioProcessingImpl::num_input_channels() const {
 
 size_t AudioProcessingImpl::num_proc_channels() const {
   // Used as callback from submodules, hence locking is not allowed.
-  return capture_nonlocked_.echo_controller_enabled ? 1 : num_output_channels();
+  return capture_nonlocked_.aec_mode == AecMode::kCustom
+             ? 1
+             : num_output_channels();
 }
 
 size_t AudioProcessingImpl::num_output_channels() const {
@@ -1168,11 +1213,21 @@ int AudioProcessingImpl::ProcessStream(AudioFrame* frame) {
 int AudioProcessingImpl::ProcessCaptureStreamLocked() {
   HandleCaptureRuntimeSettings();
 
-  // Ensure that not both the AEC and AECM are active at the same time.
-  // TODO(peah): Simplify once the public API Enable functions for these
-  // are moved to APM.
-  RTC_DCHECK(!(public_submodules_->echo_cancellation->is_enabled() &&
-               public_submodules_->echo_control_mobile->is_enabled()));
+  // Ensure that no two WebRTC AECs are active at the same time.
+  // TODO(bugs.webrtc.org/9535): Simplify once the public API Enable functions
+  // for these are moved to APM.
+  RTC_DCHECK_EQ(public_submodules_->echo_cancellation->is_enabled(),
+                capture_nonlocked_.aec_mode == AecMode::kDesktop);
+  RTC_DCHECK_EQ(public_submodules_->echo_control_mobile->is_enabled(),
+                capture_nonlocked_.aec_mode == AecMode::kMobile);
+
+  // Ensure that the stream delay was set correctly for AEC2/AECM
+  // ProcessCaptureAudio function calls.
+  if ((capture_nonlocked_.aec_mode == AecMode::kDesktop ||
+       capture_nonlocked_.aec_mode == AecMode::kMobile) &&
+      !was_stream_delay_set()) {
+    return AudioProcessing::kStreamParameterNotSetError;
+  }
 
   MaybeUpdateHistograms();
 
@@ -1238,13 +1293,6 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
       public_submodules_->gain_control->AnalyzeCaptureAudio(capture_buffer));
   public_submodules_->noise_suppression->AnalyzeCaptureAudio(capture_buffer);
 
-  // Ensure that the stream delay was set before the call to the
-  // AEC ProcessCaptureAudio function.
-  if (public_submodules_->echo_cancellation->is_enabled() &&
-      !private_submodules_->echo_controller && !was_stream_delay_set()) {
-    return AudioProcessing::kStreamParameterNotSetError;
-  }
-
   if (private_submodules_->echo_controller) {
     data_dumper_->DumpRaw("stream_delay", stream_delay_ms());
 
@@ -1260,7 +1308,7 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
         capture_buffer, stream_delay_ms()));
   }
 
-  if (public_submodules_->echo_control_mobile->is_enabled() &&
+  if (capture_nonlocked_.aec_mode == AecMode::kMobile &&
       public_submodules_->noise_suppression->is_enabled()) {
     capture_buffer->CopyLowPassToReference();
   }
@@ -1278,15 +1326,7 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
   }
 #endif
 
-  // Ensure that the stream delay was set before the call to the
-  // AECM ProcessCaptureAudio function.
-  if (public_submodules_->echo_control_mobile->is_enabled() &&
-      !was_stream_delay_set()) {
-    return AudioProcessing::kStreamParameterNotSetError;
-  }
-
-  if (!(private_submodules_->echo_controller ||
-        public_submodules_->echo_cancellation->is_enabled())) {
+  if (capture_nonlocked_.aec_mode == AecMode::kMobile) {
     RETURN_ON_ERR(public_submodules_->echo_control_mobile->ProcessCaptureAudio(
         capture_buffer, stream_delay_ms()));
   }
@@ -1756,15 +1796,12 @@ AudioProcessing::Config AudioProcessingImpl::GetConfig() const {
 
 bool AudioProcessingImpl::UpdateActiveSubmoduleStates() {
   return submodule_states_.Update(
-      config_.high_pass_filter.enabled,
-      public_submodules_->echo_cancellation->is_enabled(),
-      public_submodules_->echo_control_mobile->is_enabled(),
+      capture_nonlocked_.aec_mode, config_.high_pass_filter.enabled,
       config_.residual_echo_detector.enabled,
       public_submodules_->noise_suppression->is_enabled(),
       capture_nonlocked_.intelligibility_enabled,
       public_submodules_->gain_control->is_enabled(),
       config_.gain_controller2.enabled, config_.pre_amplifier.enabled,
-      capture_nonlocked_.echo_controller_enabled,
       public_submodules_->voice_detection->is_enabled(),
       public_submodules_->level_estimator->is_enabled(),
       capture_.transient_suppressor_enabled);
@@ -1852,9 +1889,9 @@ void AudioProcessingImpl::InitializePreProcessor() {
 void AudioProcessingImpl::MaybeUpdateHistograms() {
   static const int kMinDiffDelayMs = 60;
 
-  if (echo_cancellation()->is_enabled()) {
-    // Activate delay_jumps_ counters if we know echo_cancellation is running.
-    // If a stream has echo we know that the echo_cancellation is in process.
+  if (capture_nonlocked_.aec_mode == AecMode::kDesktop) {
+    // Activate delay_jumps_ counters if we know AEC2 is running.
+    // If a stream has echo we know that echo cancellation is in process.
     if (capture_.stream_delay_jumps == -1 &&
         echo_cancellation()->stream_has_echo()) {
       capture_.stream_delay_jumps = 0;
@@ -1933,7 +1970,7 @@ void AudioProcessingImpl::WriteAecDumpConfigMessage(bool forced) {
   if (constants_.agc_clipped_level_min != kClippedLevelMin) {
     experiments_description += "AgcClippingLevelExperiment;";
   }
-  if (capture_nonlocked_.echo_controller_enabled) {
+  if (capture_nonlocked_.aec_mode == AecMode::kCustom) {
     experiments_description += "EchoController;";
   }
   if (config_.gain_controller2.enabled) {
@@ -1952,8 +1989,7 @@ void AudioProcessingImpl::WriteAecDumpConfigMessage(bool forced) {
   apm_config.aec_suppression_level = static_cast<int>(
       public_submodules_->echo_cancellation->suppression_level());
 
-  apm_config.aecm_enabled =
-      public_submodules_->echo_control_mobile->is_enabled();
+  apm_config.aecm_enabled = (capture_nonlocked_.aec_mode == AecMode::kMobile);
   apm_config.aecm_comfort_noise_enabled =
       public_submodules_->echo_control_mobile->is_comfort_noise_enabled();
   apm_config.aecm_routing_mode =

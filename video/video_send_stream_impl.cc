@@ -111,16 +111,7 @@ int CalculatePacketRate(uint32_t bitrate_bps, size_t packet_size_bytes) {
   return static_cast<int>((bitrate_bps + packet_size_bits - 1) /
                           packet_size_bits);
 }
-// call_stats,
-//  &encoder_feedback_,
-//  stats_proxy_,
-//  stats_proxy_,
-//  stats_proxy_,
-//  stats_proxy_,
-//  stats_proxy_,
-//  stats_proxy_,
-//  send_delay_stats,
-//  this
+
 RtpSenderObservers CreateObservers(CallStats* call_stats,
                                    EncoderRtcpFeedback* encoder_feedback,
                                    SendStatisticsProxy* stats_proxy,

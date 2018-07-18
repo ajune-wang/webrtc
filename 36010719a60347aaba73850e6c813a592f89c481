@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "883270fe_95e0810e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 7296
+      },
+      "writtenOn": "2018-07-18T11:02:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "56fde8e1_6e9c5bd6",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 18
+      },
+      "revId": "36010719a60347aaba73850e6c813a592f89c481",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "937f08cb_b3902408",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -36,6 +60,24 @@
       "writtenOn": "2018-07-09T09:30:06Z",
       "side": 1,
       "message": "It would be nice to give some context here.\n\nThings worth adding:\n* That it is part of a series of CLs adding PCC.\n* Expanding the PCC abbreviation.\n* Motivation why we can\u0027t use existing RTT tracking code.\n* Any known odd design choices or functionality regressions and motivations for them.\n\nA good description makes it easier for people looking back at the changes (with for instance blame) to understand the reasoning for the code.\n\nIn my experience it also makes the review process smoother as reviewers don\u0027t have to ask about those things.",
+      "revId": "36010719a60347aaba73850e6c813a592f89c481",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8a268d9_1b53429d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 7296
+      },
+      "writtenOn": "2018-07-18T11:02:00Z",
+      "side": 1,
+      "message": "We don\u0027t use existing RTT tracking code because we don\u0027t want to have dependencies between different congestion controllers.",
+      "parentUuid": "937f08cb_b3902408",
       "revId": "36010719a60347aaba73850e6c813a592f89c481",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -89,6 +131,30 @@
     },
     {
       "key": {
+        "uuid": "1ddb8687_13a675d3",
+        "filename": "modules/congestion_controller/pcc/rtt_tracker.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 7296
+      },
+      "writtenOn": "2018-07-18T11:02:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7cccf440_b57c49e8",
+      "range": {
+        "startLine": 32,
+        "startChar": 6,
+        "endLine": 32,
+        "endChar": 12
+      },
+      "revId": "36010719a60347aaba73850e6c813a592f89c481",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "98253cec_cc6db45d",
         "filename": "modules/congestion_controller/pcc/rtt_tracker.cc",
         "patchSetId": 1
@@ -109,6 +175,30 @@
       "revId": "36010719a60347aaba73850e6c813a592f89c481",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3623e32e_f21ff8d5",
+        "filename": "modules/congestion_controller/pcc/rtt_tracker.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 7296
+      },
+      "writtenOn": "2018-07-18T11:02:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "98253cec_cc6db45d",
+      "range": {
+        "startLine": 35,
+        "startChar": 8,
+        "endLine": 35,
+        "endChar": 73
+      },
+      "revId": "36010719a60347aaba73850e6c813a592f89c481",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

@@ -84,7 +84,7 @@ RtpTransportControllerSend::~RtpTransportControllerSend() {
   process_thread_->DeRegisterModule(&pacer_);
 }
 
-PayloadRouter* RtpTransportControllerSend::CreateVideoRtpSender(
+RtpVideoSenderInterface* RtpTransportControllerSend::CreateRtpVideoSender(
     const std::vector<uint32_t>& ssrcs,
     std::map<uint32_t, RtpState> suspended_ssrcs,
     const std::map<uint32_t, RtpPayloadState>& states,
@@ -93,7 +93,7 @@ PayloadRouter* RtpTransportControllerSend::CreateVideoRtpSender(
     Transport* send_transport,
     const RtpSenderObservers& observers,
     RtcEventLog* event_log) {
-  video_rtp_senders_.push_back(absl::make_unique<PayloadRouter>(
+  video_rtp_senders_.push_back(absl::make_unique<RtpVideoSender>(
       ssrcs, suspended_ssrcs, states, rtp_config, rtcp_config, send_transport,
       observers,
       // TODO(holmer): Remove this circular dependency by injecting

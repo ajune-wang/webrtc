@@ -598,6 +598,8 @@ class AudioProcessing : public rtc::RefCountInterface {
   // NULL. The pointers will be valid for the lifetime of the APM instance.
   // The memory for these objects is entirely managed internally.
   virtual EchoCancellation* echo_cancellation() const = 0;
+  // Deprecation: see bugs.webrtc.org/9535.
+  RTC_DEPRECATED
   virtual EchoControlMobile* echo_control_mobile() const = 0;
   virtual GainControl* gain_control() const = 0;
   // TODO(peah): Deprecate this API call.
@@ -893,6 +895,9 @@ class EchoCancellation {
   virtual ~EchoCancellation() {}
 };
 
+// DEPRECATION: This interface will be removed, see bugs.webrtc.org/9535 for
+// more information.
+//
 // The acoustic echo control for mobile (AECM) component is a low complexity
 // robust option intended for use on mobile devices.
 //
@@ -901,7 +906,9 @@ class EchoControlMobile {
  public:
   // EchoCancellation and EchoControlMobile may not be enabled simultaneously.
   // Enabling one will disable the other.
+  RTC_DEPRECATED
   virtual int Enable(bool enable) = 0;
+  RTC_DEPRECATED
   virtual bool is_enabled() const = 0;
 
   // Recommended settings for particular audio routes. In general, the louder
@@ -917,12 +924,16 @@ class EchoControlMobile {
 
   // Sets echo control appropriate for the audio routing |mode| on the device.
   // It can and should be updated during a call if the audio routing changes.
+  RTC_DEPRECATED
   virtual int set_routing_mode(RoutingMode mode) = 0;
+  RTC_DEPRECATED
   virtual RoutingMode routing_mode() const = 0;
 
   // Comfort noise replaces suppressed background noise to maintain a
   // consistent signal level.
+  RTC_DEPRECATED
   virtual int enable_comfort_noise(bool enable) = 0;
+  RTC_DEPRECATED
   virtual bool is_comfort_noise_enabled() const = 0;
 
   // A typical use case is to initialize the component with an echo path from a
@@ -938,11 +949,14 @@ class EchoControlMobile {
   // It is possible that version incompatibilities may result in a stored echo
   // path of the incorrect size. In this case, the stored path should be
   // discarded.
+  RTC_DEPRECATED
   virtual int SetEchoPath(const void* echo_path, size_t size_bytes) = 0;
+  RTC_DEPRECATED
   virtual int GetEchoPath(void* echo_path, size_t size_bytes) const = 0;
 
   // The returned path size is guaranteed not to change for the lifetime of
   // the application.
+  RTC_DEPRECATED
   static size_t echo_path_size_bytes();
 
  protected:

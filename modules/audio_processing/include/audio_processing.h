@@ -300,6 +300,17 @@ class AudioProcessing : public rtc::RefCountInterface {
     kStereoAndKeyboard
   };
 
+  enum AecMode {
+    // No echo cancellation is performed.
+    kDisabled,
+    // Tuned for desktop computers.
+    kDesktop,
+    // Tuned for mobile devices.
+    kMobile,
+    // A custom echo canceller has been provided and is used.
+    kCustom
+  };
+
   // Specifies the properties of a setting to be passed to AudioProcessing at
   // runtime.
   class RuntimeSetting {
@@ -375,6 +386,14 @@ class AudioProcessing : public rtc::RefCountInterface {
   // Pass down additional options which don't have explicit setters. This
   // ensures the options are applied immediately.
   virtual void SetExtraOptions(const webrtc::Config& config) = 0;
+
+  // Configures what acoustic echo cancellation is performed.
+  // An externally provided EchoControlFactory will permanenty override this
+  // settings. Attempting to set echo cancellation to kCustom fails.
+  virtual int SetEchoCancellationMode(AecMode aec_mode) = 0;
+
+  // Returns the current method of echo cancellation.
+  virtual AecMode GetEchoCancellationMode() const = 0;
 
   // TODO(ajm): Only intended for internal use. Make private and friend the
   // necessary classes?

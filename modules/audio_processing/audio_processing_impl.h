@@ -54,6 +54,8 @@ class AudioProcessingImpl : public AudioProcessing {
   int Initialize(const ProcessingConfig& processing_config) override;
   void ApplyConfig(const AudioProcessing::Config& config) override;
   void SetExtraOptions(const webrtc::Config& config) override;
+  int SetEchoCancellationMode(AecMode aec_mode) override;
+  AecMode GetEchoCancellationMode() const override;
   void UpdateHistogramsOnCallEnd() override;
   void AttachAecDump(std::unique_ptr<AecDump> aec_dump) override;
   void DetachAecDump() override;
@@ -176,16 +178,14 @@ class AudioProcessingImpl : public AudioProcessing {
     ApmSubmoduleStates(bool capture_post_processor_enabled,
                        bool render_pre_processor_enabled);
     // Updates the submodule state and returns true if it has changed.
-    bool Update(bool low_cut_filter_enabled,
-                bool echo_canceller_enabled,
-                bool mobile_echo_controller_enabled,
+    bool Update(AecMode aec_mode,
+                bool low_cut_filter_enabled,
                 bool residual_echo_detector_enabled,
                 bool noise_suppressor_enabled,
                 bool intelligibility_enhancer_enabled,
                 bool adaptive_gain_controller_enabled,
                 bool gain_controller2_enabled,
                 bool pre_amplifier_enabled,
-                bool echo_controller_enabled,
                 bool voice_activity_detector_enabled,
                 bool level_estimator_enabled,
                 bool transient_suppressor_enabled);
@@ -197,18 +197,16 @@ class AudioProcessingImpl : public AudioProcessing {
     bool RenderMultiBandProcessingActive() const;
 
    private:
+    AudioProcessing::AecMode aec_mode_ = AudioProcessing::kDisabled;
     const bool capture_post_processor_enabled_ = false;
     const bool render_pre_processor_enabled_ = false;
     bool low_cut_filter_enabled_ = false;
-    bool echo_canceller_enabled_ = false;
-    bool mobile_echo_controller_enabled_ = false;
     bool residual_echo_detector_enabled_ = false;
     bool noise_suppressor_enabled_ = false;
     bool intelligibility_enhancer_enabled_ = false;
     bool adaptive_gain_controller_enabled_ = false;
     bool gain_controller2_enabled_ = false;
     bool pre_amplifier_enabled_ = false;
-    bool echo_controller_enabled_ = false;
     bool level_estimator_enabled_ = false;
     bool voice_activity_detector_enabled_ = false;
     bool transient_suppressor_enabled_ = false;
@@ -407,6 +405,7 @@ class AudioProcessingImpl : public AudioProcessing {
     int stream_delay_ms;
     bool intelligibility_enabled;
     bool echo_controller_enabled = false;
+    AecMode aec_mode = AecMode::kDisabled;
   } capture_nonlocked_;
 
   struct ApmRenderState {

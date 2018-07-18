@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "00143770_ae8a4857",
+        "filename": "call/rtp_transport_controller_send.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-07-18T13:32:04Z",
+      "side": 1,
+      "message": "nit: If changing the CreateVideoRtpSender to CreateRtpVideoSender, then this should be renamed to DestroyRtpVideoSender.",
+      "range": {
+        "startLine": 59,
+        "startChar": 14,
+        "endLine": 59,
+        "endChar": 28
+      },
+      "revId": "5f5a680149f9291496e91ee4b37b1a66696a8afa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

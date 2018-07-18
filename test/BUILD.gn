@@ -31,6 +31,7 @@ group("test") {
     deps += [
       ":test_main",
       ":test_support_unittests",
+      "scenario:scenario_unittests",
     ]
   }
 }

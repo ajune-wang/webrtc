@@ -22,6 +22,30 @@
       "revId": "5f5a680149f9291496e91ee4b37b1a66696a8afa",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef6fd827_fd52d200",
+        "filename": "call/rtp_transport_controller_send.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-07-18T13:38:04Z",
+      "side": 1,
+      "message": "Yep, will do in the follow-up",
+      "parentUuid": "00143770_ae8a4857",
+      "range": {
+        "startLine": 59,
+        "startChar": 14,
+        "endLine": 59,
+        "endChar": 28
+      },
+      "revId": "5f5a680149f9291496e91ee4b37b1a66696a8afa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

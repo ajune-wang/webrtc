@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fe0ecd03_d871d9e4",
+        "filename": "media/engine/webrtcvideoengine.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1698,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2018-07-18T13:39:49Z",
+      "side": 1,
+      "message": "The problem is that it is currently not possible to know when the value is set or not through setParameters since it will default to BALANCED and I don\u0027t want to break existing code that doesn\u0027t change it directly but through other means (such as setting the is_screencast option, or the field_trial).\n\nI am assuming that if it is changed, then the user really wants to override it and not use any of the other ways set below.\nI should probably change the default value on line 1707 to BALANCED now though, or it will be impossible to have it actually BALANCED.",
+      "parentUuid": "5b505326_96684fa1",
+      "range": {
+        "startLine": 1696,
+        "startChar": 6,
+        "endLine": 1698,
+        "endChar": 68
+      },
+      "revId": "3362cc41d4c7186176addeee71e22cb3c64f1317",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fb30c277_1d7f82c0",
         "filename": "media/engine/webrtcvideoengine.cc",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "3362cc41d4c7186176addeee71e22cb3c64f1317",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c1281ea_406fa48e",
+        "filename": "media/engine/webrtcvideoengine.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1819,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2018-07-18T13:39:49Z",
+      "side": 1,
+      "message": "To keep the same style as the current function and to detect changes. The values are copied on line 1837, so we need to record changes before applying them.",
+      "parentUuid": "fb30c277_1d7f82c0",
+      "range": {
+        "startLine": 1814,
+        "startChar": 0,
+        "endLine": 1819,
+        "endChar": 0
+      },
+      "revId": "3362cc41d4c7186176addeee71e22cb3c64f1317",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "a9d5db5b_929e7799",
+        "filename": "media/engine/webrtcvideoengine.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2045,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2018-07-18T13:39:49Z",
+      "side": 1,
+      "message": "This isn\u0027t needed anymore, I found another way by adding a proper source to the channel.",
+      "parentUuid": "bfb2027e_7d727ee1",
+      "range": {
+        "startLine": 2045,
+        "startChar": 0,
+        "endLine": 2045,
+        "endChar": 16
+      },
+      "revId": "3362cc41d4c7186176addeee71e22cb3c64f1317",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "80b44347_98d72205",
         "filename": "media/engine/webrtcvideoengine_unittest.cc",
         "patchSetId": 2
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "db4a9d87_25ef60e8",
+        "filename": "media/engine/webrtcvideoengine_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 5983,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2018-07-18T13:39:49Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "80b44347_98d72205",
+      "range": {
+        "startLine": 5983,
+        "startChar": 0,
+        "endLine": 5983,
+        "endChar": 53
+      },
+      "revId": "3362cc41d4c7186176addeee71e22cb3c64f1317",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7748d370_789c37cc",
         "filename": "media/engine/webrtcvideoengine_unittest.cc",
         "patchSetId": 2
@@ -114,6 +210,30 @@
       "revId": "3362cc41d4c7186176addeee71e22cb3c64f1317",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ca97981_cd83bd40",
+        "filename": "media/engine/webrtcvideoengine_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 5991,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2018-07-18T13:39:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7748d370_789c37cc",
+      "range": {
+        "startLine": 5991,
+        "startChar": 0,
+        "endLine": 5991,
+        "endChar": 79
+      },
+      "revId": "3362cc41d4c7186176addeee71e22cb3c64f1317",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

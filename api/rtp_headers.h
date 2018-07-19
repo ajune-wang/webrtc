@@ -40,7 +40,8 @@ class StringRtpHeaderExtension {
   // maximum length that can be encoded with one-byte header extensions.
   static constexpr size_t kMaxSize = 16;
 
-  static bool IsLegalName(rtc::ArrayView<const char> name);
+  static bool IsLegalMidName(rtc::ArrayView<const char> name);
+  static bool IsLegalRsidName(rtc::ArrayView<const char> name);
 
   StringRtpHeaderExtension() { value_[0] = 0; }
   explicit StringRtpHeaderExtension(rtc::ArrayView<const char> value) {

@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "57754a5e_d9bca21d",
+        "filename": "api/peerconnectioninterface.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-07-19T08:40:53Z",
+      "side": 1,
+      "message": "I have only reordered things affected by this CL. We can run a full cleanup in a future CL.",
+      "parentUuid": "22eb55cb_63f4371e",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 2
+      },
+      "revId": "b14ab3aa32ee2c2b88c019b39e6f9ee44f4f7bf3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7b2a1953_c9d4d5bb",
         "filename": "api/peerconnectioninterface.h",
         "patchSetId": 2
@@ -93,6 +117,30 @@
       "revId": "b14ab3aa32ee2c2b88c019b39e6f9ee44f4f7bf3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b26b621f_8dc8549b",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-07-19T08:40:53Z",
+      "side": 1,
+      "message": "Let\u0027s try to do it after this CL, but it is definitely something we should do in Q4.",
+      "parentUuid": "9acd987d_0144e765",
+      "range": {
+        "startLine": 105,
+        "startChar": 0,
+        "endLine": 105,
+        "endChar": 49
+      },
+      "revId": "b14ab3aa32ee2c2b88c019b39e6f9ee44f4f7bf3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

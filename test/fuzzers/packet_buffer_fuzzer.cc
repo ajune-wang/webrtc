@@ -15,7 +15,8 @@
 namespace webrtc {
 namespace {
 class NullCallback : public video_coding::OnReceivedFrameCallback {
-  void OnReceivedFrame(std::unique_ptr<video_coding::RtpFrameObject> frame) {}
+  void OnReceivedFrame(
+      std::unique_ptr<video_coding::RtpFrameObject> frame) override {}
 };
 }  // namespace
 

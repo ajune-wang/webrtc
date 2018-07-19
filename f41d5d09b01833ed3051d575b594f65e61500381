@@ -34,6 +34,75 @@
       "revId": "f41d5d09b01833ed3051d575b594f65e61500381",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3481ace0_5f0fa78f",
+        "filename": "modules/audio_processing/gain_control_for_experimental_agc.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-07-19T12:28:45Z",
+      "side": 1,
+      "message": "I find this confusing.\n\nThe variable name to me suggests that one would dump volume_ when |level_is_logged_| is true.\nWhereas it behaves as a toggle: if false, it logs and then switches to true, and a call to set_stream_analog_level() resets the flag to false.\n\nI think it\u0027s already better if we invert its logic, so init to true in the header file, change here to if(level_is_logged_) and set to true in set_stream_analog_level().",
+      "range": {
+        "startLine": 53,
+        "startChar": 7,
+        "endLine": 53,
+        "endChar": 23
+      },
+      "revId": "f41d5d09b01833ed3051d575b594f65e61500381",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "090010c8_2abd3ea6",
+        "filename": "modules/audio_processing/gain_controller2.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-07-19T12:28:45Z",
+      "side": 1,
+      "message": "Maybe this comment should go into the .cc file since it\u0027s more about the impl.\nI would rather say here when it must be called.\n\nBut I think that by addressing Per\u0027s comment, there\u0027s no need to expose a Reset() method in GainController2; I think the API is safer if we make GainController2 knowing when to reset - hence, it should observe relevant variables.\n\nWDYT?",
+      "range": {
+        "startLine": 36,
+        "startChar": 2,
+        "endLine": 36,
+        "endChar": 74
+      },
+      "revId": "f41d5d09b01833ed3051d575b594f65e61500381",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca6f62b0_0446a403",
+        "filename": "modules/audio_processing/test/audioproc_float_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-07-19T12:28:45Z",
+      "side": 1,
+      "message": "I think you forgot to either remove or uncomment.",
+      "range": {
+        "startLine": 381,
+        "startChar": 0,
+        "endLine": 384,
+        "endChar": 61
+      },
+      "revId": "f41d5d09b01833ed3051d575b594f65e61500381",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

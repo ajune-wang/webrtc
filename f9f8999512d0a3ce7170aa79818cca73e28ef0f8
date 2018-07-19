@@ -1,0 +1,169 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8bc4f58f_13cfb9f4",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 715,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-07-19T11:49:12Z",
+      "side": 1,
+      "message": "Is there a need to return an error code? Error codes moves the responsibility to the caller to take a proper action. Since that may require a fairly detailed knowledge about APM I think it would instead be preferrable to add a log line and automatically fall-back to a safe state.",
+      "revId": "f9f8999512d0a3ce7170aa79818cca73e28ef0f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57e83db1_2f932ee0",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 715,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-07-19T11:49:12Z",
+      "side": 1,
+      "message": "In order to be thread-safe, this method need to acquire both the render and capture locks, i.e., locking down the whole APM to run in a non-concurrent mode. Since this should be avoided at all costs, I think it would make sense to look for another way of doing this.",
+      "range": {
+        "startLine": 715,
+        "startChar": 0,
+        "endLine": 715,
+        "endChar": 68
+      },
+      "revId": "f9f8999512d0a3ce7170aa79818cca73e28ef0f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d0a9f46_b6b9a4a0",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 725,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-07-19T11:49:12Z",
+      "side": 1,
+      "message": "The enable methods can never fail, so there is no need to check the return codes for those.",
+      "revId": "f9f8999512d0a3ce7170aa79818cca73e28ef0f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97160906_ff059d0a",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 731,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-07-19T11:49:12Z",
+      "side": 1,
+      "message": "There is no need to propagate the error code to the caller.",
+      "range": {
+        "startLine": 731,
+        "startChar": 6,
+        "endLine": 731,
+        "endChar": 11
+      },
+      "revId": "f9f8999512d0a3ce7170aa79818cca73e28ef0f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2148b9fc_1352d6be",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 747,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-07-19T11:49:12Z",
+      "side": 1,
+      "message": "Since the is_enabled methods will soon be removed, and they never can fail, these DCHECKs can be removed.",
+      "revId": "f9f8999512d0a3ce7170aa79818cca73e28ef0f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1996c79_5f654c2c",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 751,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-07-19T11:49:12Z",
+      "side": 1,
+      "message": "To summarize: Most of the logic in this method relates to error codes, and that is not necessary for enabling the echo cancellers. I\u0027d suggest that the enabling is instead moved to ApplyConfig.\n\nThe enabling will be a bit more complicated when some of the AEC solutions are not included in the build but for that as well I think it will be more easy to react properly if the enabling is put into the ApplyConfig method.",
+      "revId": "f9f8999512d0a3ce7170aa79818cca73e28ef0f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8355d155_2e46b537",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 754,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-07-19T11:49:12Z",
+      "side": 1,
+      "message": "In order to be thread-safe, this method need to acquire both the render and capture locks, i.e., locking down the whole APM to run in a non-concurrent mode. Since this should be avoided at all costs, I think it would make sense to look for another way of doing this.\n\nAlso, if there is no immediate need to report what the echo cancellation mode is, I think it would make sense to remove this functionality.",
+      "revId": "f9f8999512d0a3ce7170aa79818cca73e28ef0f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35478f2d_f8c7afc9",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-07-19T11:49:12Z",
+      "side": 1,
+      "message": "Would it be possible to avoid a specific Setter for this? Each setter requires a thread-safe implementation and to simplify that, as well as minimize the risks, it would be prefer to bundle the setting. \n\nA suggestion is to put this in ApplyConfig. Would that work?",
+      "revId": "f9f8999512d0a3ce7170aa79818cca73e28ef0f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6058fab7_cca2df94",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-07-19T11:49:12Z",
+      "side": 1,
+      "message": "Similar to above, the implementation of this needs to be thread-safe.\n\nIs there a clear need to for Getter?",
+      "revId": "f9f8999512d0a3ce7170aa79818cca73e28ef0f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

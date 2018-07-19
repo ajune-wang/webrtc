@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a0001197_a4667be9",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1336,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-07-19T11:56:52Z",
+      "side": 1,
+      "message": "I would suggest to instead pass the analog gain to AGC2 an do this reset internally. The reason for this is that that is more similar to how AGC2 will behave once it as well replaces the analog AGC1.\n\nWhile this change works, it creates a shared behavior between the AEC3 and AGC2 code which is not really needed. I think it would be better to enforce these to have separate code as much as possible.",
+      "revId": "f41d5d09b01833ed3051d575b594f65e61500381",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

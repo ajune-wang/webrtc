@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "65e7258a_8db6e1a4",
+        "filename": "api/rtp_headers.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5889
+      },
+      "writtenOn": "2018-07-19T10:39:34Z",
+      "side": 0,
+      "message": "Should I keep the existing method and call \"IsLegalRsidName\" internally to keep existing behaviour for users of the API?",
+      "revId": "06f66c72600e58438ba9caf9f523e00a519ef3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

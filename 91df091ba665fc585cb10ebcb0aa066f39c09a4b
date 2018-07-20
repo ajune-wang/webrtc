@@ -2,6 +2,75 @@
   "comments": [
     {
       "key": {
+        "uuid": "e7317491_f9198a59",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1630,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-07-20T12:56:20Z",
+      "side": 0,
+      "message": "These GetStatistics checks are the only accesses to capture_nonlocked_ that are done outside of any locks. Should we lift the crit_capture_ acquisition to the top of GetStatistics?",
+      "range": {
+        "startLine": 1630,
+        "startChar": 2,
+        "endLine": 1630,
+        "endChar": 45
+      },
+      "revId": "91df091ba665fc585cb10ebcb0aa066f39c09a4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b855631a_96382acd",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1666,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-07-20T12:56:20Z",
+      "side": 0,
+      "message": "Same as above.",
+      "range": {
+        "startLine": 1666,
+        "startChar": 4,
+        "endLine": 1666,
+        "endChar": 47
+      },
+      "revId": "91df091ba665fc585cb10ebcb0aa066f39c09a4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c388490_eb1d3925",
+        "filename": "modules/audio_processing/audio_processing_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-07-20T12:56:20Z",
+      "side": 0,
+      "message": "This overwrites the AEC configuration just done. Using GetConfig doesn\u0027t help: config_ is not updated until a ProcessCapture call is made.",
+      "range": {
+        "startLine": 195,
+        "startChar": 2,
+        "endLine": 195,
+        "endChar": 37
+      },
+      "revId": "91df091ba665fc585cb10ebcb0aa066f39c09a4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d218e98c_061e1733",
         "filename": "modules/audio_processing/include/audio_processing.h",
         "patchSetId": 8
@@ -22,6 +91,30 @@
       "revId": "91df091ba665fc585cb10ebcb0aa066f39c09a4b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "776010aa_f4f7d3a3",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 799,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-07-20T12:56:20Z",
+      "side": 0,
+      "message": "Done, thanks for the offline discussion.",
+      "parentUuid": "d218e98c_061e1733",
+      "range": {
+        "startLine": 799,
+        "startChar": 0,
+        "endLine": 799,
+        "endChar": 41
+      },
+      "revId": "91df091ba665fc585cb10ebcb0aa066f39c09a4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

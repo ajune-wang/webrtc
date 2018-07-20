@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "21f49f04_bcd20a0e",
+        "filename": "media/engine/simulcast_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-07-20T13:43:55Z",
+      "side": 1,
+      "message": "Another possible solution is to change https://cs.chromium.org/chromium/src/third_party/webrtc/api/video_codecs/video_encoder_config.h?l\u003d40\u0026rcl\u003dbdee46d275a3c2fba40f530841eff41ced05626e to int.",
+      "range": {
+        "startLine": 151,
+        "startChar": 2,
+        "endLine": 151,
+        "endChar": 55
+      },
+      "revId": "aad8d1e903dda396caea130da2fc37ccc77bef46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

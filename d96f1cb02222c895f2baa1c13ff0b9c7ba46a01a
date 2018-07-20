@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "02d4788e_566a7180",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-07-20T11:52:18Z",
+      "side": 1,
+      "message": "I find the description confusing.\n\nDoes \"--experimental_agc_disable_digital_adaptive 1\" also enable the adaptive digital GC from AGC2? If so, I wouldn\u0027t do that because it\u0027d be a side effect that is not clear from the flag name. I wouldn\u0027t either rename it to sth like replace_expagc_digital_adaptive_with_agc2.\n\nSo, my suggested CL description would be the following:\n---\nOptionally disable digital gain control in ExperimentalAgc.\n\nThis CL adds a flag to optionally disable the digital gain control in ExperimentalAgc when the experimental AGC (and hence AGC1) is used. This flag can be combined to that which activates AGC2 in order to enable the hybrid AGC configuration AGC1 analog only + AGC2 fixed+adaptive digital.\n---\n\nWDYT?",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 41
+      },
+      "revId": "d96f1cb02222c895f2baa1c13ff0b9c7ba46a01a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74c9fea2_53f633fc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-07-20T11:52:18Z",
+      "side": 1,
+      "message": "Remove \"something like\" and maybe you could add the audioproc_f args for the following cases:\n- AGC1 (analog + digital)\n- AGC1 analog only\n- AGC2 digital only\n- Hybrid AGC (AGC1 analog + AGC2 digital)\n\nIf the CL description is not the right place for this, we can think of where to place these details (e.g., a README.md file).",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 0
+      },
+      "revId": "d96f1cb02222c895f2baa1c13ff0b9c7ba46a01a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c86e7ad5_82b74593",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-07-20T11:52:18Z",
+      "side": 1,
+      "message": "I think this distracts. Just leave the flags closely related to this CL.",
+      "range": {
+        "startLine": 24,
+        "startChar": 48,
+        "endLine": 25,
+        "endChar": 28
+      },
+      "revId": "d96f1cb02222c895f2baa1c13ff0b9c7ba46a01a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58feac49_33fca90a",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-07-20T11:52:18Z",
+      "side": 1,
+      "message": "move to anon NS above\n\nalso, is it ok to have 2 functions? I would just keep InitializeGainControl (which also has a simpler name - i.e., no need to differentiate the two cases based on disable_digital_adaptive_) and pass disable_digital_adaptive_",
+      "range": {
+        "startLine": 177,
+        "startChar": 0,
+        "endLine": 218,
+        "endChar": 1
+      },
+      "revId": "d96f1cb02222c895f2baa1c13ff0b9c7ba46a01a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2e39213_f01b279a",
+        "filename": "modules/audio_processing/test/audio_processing_simulator.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-07-20T11:52:18Z",
+      "side": 1,
+      "message": "[not related to this CL]\n\nthis will be removed right?",
+      "range": {
+        "startLine": 69,
+        "startChar": 23,
+        "endLine": 69,
+        "endChar": 64
+      },
+      "revId": "d96f1cb02222c895f2baa1c13ff0b9c7ba46a01a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "183bdcf8_cb70bb74",
+        "filename": "modules/audio_processing/test/audio_processing_simulator.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-07-20T11:52:18Z",
+      "side": 1,
+      "message": "what about |disable_digital_adaptive_in_experimental_agc|? Or |experimental_agc_disable_digital_adaptive| as you\u0027ve done in audioproc_f?",
+      "range": {
+        "startLine": 70,
+        "startChar": 23,
+        "endLine": 70,
+        "endChar": 68
+      },
+      "revId": "d96f1cb02222c895f2baa1c13ff0b9c7ba46a01a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

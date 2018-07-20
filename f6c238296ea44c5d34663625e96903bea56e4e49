@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f0406458_33126e65",
+        "filename": "modules/audio_coding/neteq/tools/encode_neteq_input.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-07-20T13:02:10Z",
+      "side": 0,
+      "message": "Just out of curiosity: what diagnostic is triggered here? Is it because it\u0027s an override and its defined inline?",
+      "revId": "f6c238296ea44c5d34663625e96903bea56e4e49",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

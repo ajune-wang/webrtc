@@ -16,6 +16,24 @@
       "revId": "f6c238296ea44c5d34663625e96903bea56e4e49",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "17a986ad_cbfde19b",
+        "filename": "modules/audio_coding/neteq/tools/encode_neteq_input.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-07-20T13:06:05Z",
+      "side": 0,
+      "message": "Yes, this is the error:\n\n../../modules/audio_coding/neteq/tools/encode_neteq_input.h:47:31: error: [chromium-style] virtual methods with non-empty bodies shouldn\u0027t be declared inline.\n  bool ended() const override {",
+      "parentUuid": "f0406458_33126e65",
+      "revId": "f6c238296ea44c5d34663625e96903bea56e4e49",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

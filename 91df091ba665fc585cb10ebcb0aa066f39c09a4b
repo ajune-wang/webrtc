@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d218e98c_061e1733",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 799,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-07-20T08:13:17Z",
+      "side": 0,
+      "message": "There\u0027s something I don\u0027t understand about this comment.\n\nFrom inside the APM, we can\u0027t currently distinguish between this case:\napm-\u003eecho_control_mobile()-\u003eEnable(true);\napm-\u003eecho_cancellation()-\u003eEnable(true);\n...and the reverse:\napm-\u003eecho_cancellation()-\u003eEnable(true);\napm-\u003eecho_control_mobile()-\u003eEnable(true);\n...so I\u0027m not sure we actually comply with the comment.",
+      "range": {
+        "startLine": 799,
+        "startChar": 0,
+        "endLine": 799,
+        "endChar": 41
+      },
+      "revId": "91df091ba665fc585cb10ebcb0aa066f39c09a4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

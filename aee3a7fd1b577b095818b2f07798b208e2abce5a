@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d084f1a2_e984f307",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-07-20T14:13:02Z",
+      "side": 1,
+      "message": "I\u0027d skip the static cast as it is not needed when used in an if-statement (and since if-checks on unique pointers is a common pattern elsewhere in the code).",
+      "range": {
+        "startLine": 388,
+        "startChar": 8,
+        "endLine": 388,
+        "endChar": 19
+      },
+      "revId": "aee3a7fd1b577b095818b2f07798b208e2abce5a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

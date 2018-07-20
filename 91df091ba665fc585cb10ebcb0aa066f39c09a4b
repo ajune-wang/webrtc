@@ -115,6 +115,30 @@
       "revId": "91df091ba665fc585cb10ebcb0aa066f39c09a4b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4ad63de3_a7b5f511",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 799,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-07-20T14:13:02Z",
+      "side": 0,
+      "message": "+1 on that. That does not seem like being properly fulfilled, apart from being \"enforced\" in debug builds via a DCHECK.",
+      "parentUuid": "d218e98c_061e1733",
+      "range": {
+        "startLine": 799,
+        "startChar": 0,
+        "endLine": 799,
+        "endChar": 41
+      },
+      "revId": "91df091ba665fc585cb10ebcb0aa066f39c09a4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

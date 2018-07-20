@@ -243,6 +243,15 @@ struct Intelligibility {
 //
 class AudioProcessing : public rtc::RefCountInterface {
  public:
+  enum AecMode {
+    // No echo cancellation is performed.
+    kDisabled,
+    // Tuned for desktop computers.
+    kDesktop,
+    // Tuned for mobile devices.
+    kMobile
+  };
+
   // The struct below constitutes the new parameter scheme for the audio
   // processing. It is being introduced gradually and until it is fully
   // introduced, it is prone to change.
@@ -253,6 +262,13 @@ class AudioProcessing : public rtc::RefCountInterface {
   // by changing the default values in the AudioProcessing::Config struct.
   // The config is applied by passing the struct to the ApplyConfig method.
   struct Config {
+    struct EchoCancellation {
+      // Configures how acoustic echo cancellation is performed.
+      // An externally provided EchoControlFactory will permanenty override this
+      // setting.
+      AecMode mode = AecMode::kDisabled;
+    } echo_cancellation;
+
     struct ResidualEchoDetector {
       bool enabled = true;
     } residual_echo_detector;
@@ -796,7 +812,7 @@ class ProcessingConfig {
 class EchoCancellation {
  public:
   // EchoCancellation and EchoControlMobile may not be enabled simultaneously.
-  // Enabling one will disable the other.
+  // If both are enabled, one (unspecified) will automatically be disabled.
   virtual int Enable(bool enable) = 0;
   virtual bool is_enabled() const = 0;
 
@@ -900,7 +916,7 @@ class EchoCancellation {
 class EchoControlMobile {
  public:
   // EchoCancellation and EchoControlMobile may not be enabled simultaneously.
-  // Enabling one will disable the other.
+  // If both are enabled, one (unspecified) will automatically be disabled.
   virtual int Enable(bool enable) = 0;
   virtual bool is_enabled() const = 0;
 

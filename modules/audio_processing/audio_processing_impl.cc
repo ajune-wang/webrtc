@@ -491,6 +491,11 @@ int AudioProcessingImpl::MaybeInitialize(
 }
 
 int AudioProcessingImpl::InitializeLocked() {
+  // Ensure only one built-in AEC is active, by arbitrarily preferring one.
+  if (public_submodules_->echo_control_mobile->is_enabled()) {
+    echo_cancellation()->Enable(false);
+    config_.echo_cancellation.mode = AecMode::kMobile;
+  }
   UpdateActiveSubmoduleStates();
 
   const int render_audiobuffer_num_output_frames =
@@ -665,6 +670,11 @@ void AudioProcessingImpl::ApplyConfig(const AudioProcessing::Config& config) {
   // Run in a single-threaded manner when applying the settings.
   rtc::CritScope cs_render(&crit_render_);
   rtc::CritScope cs_capture(&crit_capture_);
+
+  echo_cancellation()->Enable(config_.echo_cancellation.mode ==
+                              AudioProcessing::AecMode::kDesktop);
+  echo_control_mobile()->Enable(config_.echo_cancellation.mode ==
+                                AudioProcessing::AecMode::kMobile);
 
   InitializeLowCutFilter();
 
@@ -1169,8 +1179,8 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
   HandleCaptureRuntimeSettings();
 
   // Ensure that not both the AEC and AECM are active at the same time.
-  // TODO(peah): Simplify once the public API Enable functions for these
-  // are moved to APM.
+  // TODO(bugs.webrtc.org/9535): Simplify once the public API Enable functions
+  // for these are moved to APM.
   RTC_DCHECK(!(public_submodules_->echo_cancellation->is_enabled() &&
                public_submodules_->echo_control_mobile->is_enabled()));
 
@@ -1853,8 +1863,8 @@ void AudioProcessingImpl::MaybeUpdateHistograms() {
   static const int kMinDiffDelayMs = 60;
 
   if (echo_cancellation()->is_enabled()) {
-    // Activate delay_jumps_ counters if we know echo_cancellation is running.
-    // If a stream has echo we know that the echo_cancellation is in process.
+    // Activate delay_jumps_ counters if we know AEC2 is running.
+    // If a stream has echo we know that echo cancellation is in process.
     if (capture_.stream_delay_jumps == -1 &&
         echo_cancellation()->stream_has_echo()) {
       capture_.stream_delay_jumps = 0;

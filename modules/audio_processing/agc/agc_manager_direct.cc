@@ -114,14 +114,14 @@ AgcManagerDirect::AgcManagerDirect(GainControl* gctrl,
                                    int startup_min_level,
                                    int clipped_level_min,
                                    bool use_agc2_level_estimation,
-                                   bool use_agc2_digital_adaptive)
+                                   bool disable_digital_adaptive)
     : AgcManagerDirect(new Agc(),
                        gctrl,
                        volume_callbacks,
                        startup_min_level,
                        clipped_level_min,
                        use_agc2_level_estimation,
-                       use_agc2_digital_adaptive) {}
+                       disable_digital_adaptive) {}
 
 AgcManagerDirect::AgcManagerDirect(Agc* agc,
                                    GainControl* gctrl,
@@ -142,7 +142,7 @@ AgcManagerDirect::AgcManagerDirect(Agc* agc,
                                    int startup_min_level,
                                    int clipped_level_min,
                                    bool use_agc2_level_estimation,
-                                   bool use_agc2_digital_adaptive)
+                                   bool disable_digital_adaptive)
     : data_dumper_(new ApmDataDumper(instance_counter_)),
       agc_(agc),
       gctrl_(gctrl),
@@ -158,7 +158,7 @@ AgcManagerDirect::AgcManagerDirect(Agc* agc,
       check_volume_on_next_process_(true),  // Check at startup.
       startup_(true),
       use_agc2_level_estimation_(use_agc2_level_estimation),
-      use_agc2_digital_adaptive_(use_agc2_digital_adaptive),
+      disable_digital_adaptive_(disable_digital_adaptive),
       startup_min_level_(ClampLevel(startup_min_level)),
       clipped_level_min_(clipped_level_min),
       file_preproc_(new DebugFile("agc_preproc.pcm")),
@@ -170,18 +170,63 @@ AgcManagerDirect::AgcManagerDirect(Agc* agc,
   } else {
     RTC_DCHECK(agc);
   }
-  if (use_agc2_digital_adaptive_) {
-    RTC_NOTREACHED() << "Agc2 digital adaptive not implemented.";
-  }
 }
 
 AgcManagerDirect::~AgcManagerDirect() {}
 
+int InitializeGainControl(GainControl* gain_control) {
+  if (gain_control->set_mode(GainControl::kFixedDigital) != 0) {
+    RTC_LOG(LS_ERROR) << "set_mode(GainControl::kFixedDigital) failed.";
+    return -1;
+  }
+  if (gain_control->set_target_level_dbfs(2) != 0) {
+    RTC_LOG(LS_ERROR) << "set_target_level_dbfs(2) failed.";
+    return -1;
+  }
+  if (gain_control->set_compression_gain_db(kDefaultCompressionGain) != 0) {
+    RTC_LOG(LS_ERROR)
+        << "set_compression_gain_db(kDefaultCompressionGain) failed.";
+    return -1;
+  }
+  if (gain_control->enable_limiter(true) != 0) {
+    RTC_LOG(LS_ERROR) << "enable_limiter(true) failed.";
+    return -1;
+  }
+  return 0;
+}
+
+int InitializeDisabledGainControl(GainControl* gain_control) {
+  // Make sure to initialize the gain control to not apply a gain in the
+  // ProcessCaptureAudio step.
+  if (gain_control->set_mode(GainControl::kFixedDigital) != 0) {
+    RTC_LOG(LS_ERROR) << "set_mode(GainControl::kFixedDigital) failed.";
+    return -1;
+  }
+  if (gain_control->set_target_level_dbfs(0) != 0) {
+    RTC_LOG(LS_ERROR) << "set_target_level_dbfs(0) failed.";
+    return -1;
+  }
+  if (gain_control->set_compression_gain_db(0) != 0) {
+    RTC_LOG(LS_ERROR) << "set_compression_gain_db(0) failed.";
+    return -1;
+  }
+  if (gain_control->enable_limiter(false) != 0) {
+    RTC_LOG(LS_ERROR) << "enable_limiter(false) failed.";
+    return -1;
+  }
+  return 0;
+}
+
 int AgcManagerDirect::Initialize() {
   max_level_ = kMaxMicLevel;
   max_compression_gain_ = kMaxCompressionGain;
-  target_compression_ = kDefaultCompressionGain;
-  compression_ = target_compression_;
+  if (disable_digital_adaptive_) {
+    target_compression_ = 0;
+    compression_ = 0;
+  } else {
+    target_compression_ = kDefaultCompressionGain;
+    compression_ = target_compression_;
+  }
   compression_accumulator_ = compression_;
   capture_muted_ = false;
   check_volume_on_next_process_ = true;
@@ -190,24 +235,11 @@ int AgcManagerDirect::Initialize() {
 
   data_dumper_->InitiateNewSetOfRecordings();
 
-  if (gctrl_->set_mode(GainControl::kFixedDigital) != 0) {
-    RTC_LOG(LS_ERROR) << "set_mode(GainControl::kFixedDigital) failed.";
-    return -1;
+  if (disable_digital_adaptive_) {
+    return InitializeDisabledGainControl(gctrl_);
+  } else {
+    return InitializeGainControl(gctrl_);
   }
-  if (gctrl_->set_target_level_dbfs(2) != 0) {
-    RTC_LOG(LS_ERROR) << "set_target_level_dbfs(2) failed.";
-    return -1;
-  }
-  if (gctrl_->set_compression_gain_db(kDefaultCompressionGain) != 0) {
-    RTC_LOG(LS_ERROR)
-        << "set_compression_gain_db(kDefaultCompressionGain) failed.";
-    return -1;
-  }
-  if (gctrl_->enable_limiter(true) != 0) {
-    RTC_LOG(LS_ERROR) << "enable_limiter(true) failed.";
-    return -1;
-  }
-  return 0;
 }
 
 void AgcManagerDirect::AnalyzePreProcess(int16_t* audio,
@@ -272,7 +304,9 @@ void AgcManagerDirect::Process(const int16_t* audio,
   agc_->Process(audio, length, sample_rate_hz);
 
   UpdateGain();
-  UpdateCompressor();
+  if (!disable_digital_adaptive_) {
+    UpdateCompressor();
+  }
 
   file_postproc_->Write(audio, length);
 

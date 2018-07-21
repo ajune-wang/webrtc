@@ -664,6 +664,58 @@ public class PeerConnectionTest {
   }
 
   @Test
+  @SmallTest
+  public void testCreationWithConfigAndCertificate() throws Exception {
+    PeerConnectionFactory factory = PeerConnectionFactory.builder().createPeerConnectionFactory();
+    List<PeerConnection.IceServer> iceServers = Arrays.asList(
+        PeerConnection.IceServer.builder("stun:stun.l.google.com:19302").createIceServer(),
+        PeerConnection.IceServer.builder("turn:fake.example.com")
+            .setUsername("fakeUsername")
+            .setPassword("fakePassword")
+            .createIceServer());
+    PeerConnection.RTCConfiguration config = new PeerConnection.RTCConfiguration(iceServers);
+
+    // Test configuration options.
+    config.continualGatheringPolicy = PeerConnection.ContinualGatheringPolicy.GATHER_CONTINUALLY;
+    config.iceRegatherIntervalRange = new PeerConnection.IntervalRange(1000, 2000);
+
+    // Test certificate.
+    RTCCertificate originalCert = PeerConnection.generateCertificate(/* keytype */);
+    if (originalCert.privateKey.length() == 0) {
+      fail("private key field is empty");
+    }
+    if (originalCert.certificate.length() == 0) {
+      fail("certificate field is empty");
+    }
+    config.certificates = Arrays.asList(originalCert);
+
+    ObserverExpectations offeringExpectations = new ObserverExpectations("PCTest:offerer");
+    PeerConnection offeringPC = factory.createPeerConnection(config, offeringExpectations);
+    assertNotNull(offeringPC);
+
+    // List<RTCCertificate> restoredCerts = offeringPC.getCertificates();
+    RTCCertificate restoredCert = offeringPC.getCertificate();
+    if (!originalCert.privateKey.equals(restoredCert.privateKey)) {
+      fail("private key field has changed after storing and retrieving certificate");
+    }
+    if (!originalCert.certificate.equals(restoredCert.certificate)) {
+      fail("certificate field has changed after storing and retrieving certificate");
+    }
+  }
+
+  @Test
+  @MediumTest
+  public void testGenerateCertificate() {
+    RTCCertificate rtcCertificate = PeerConnection.generateCertificate(/* keytype */);
+    if (rtcCertificate.privateKey.length() == 0) {
+      fail("private key is empty");
+    }
+    if (rtcCertificate.certificate.length() == 0) {
+      fail("certificate is empty");
+    }
+  }
+
+  @Test
   @MediumTest
   public void testCompleteSession() throws Exception {
     Metrics.enable();

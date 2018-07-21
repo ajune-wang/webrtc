@@ -41,6 +41,7 @@
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "sdk/android/generated_peerconnection_jni/jni/PeerConnection_jni.h"
+#include "sdk/android/generated_peerconnection_jni/jni/RTCCertificate_jni.h"
 #include "sdk/android/native_api/jni/java_types.h"
 #include "sdk/android/src/jni/jni_helpers.h"
 #include "sdk/android/src/jni/pc/datachannel.h"
@@ -103,6 +104,26 @@ PeerConnectionInterface::IceServers JavaToNativeIceServers(
   return ice_servers;
 }
 
+std::vector<rtc::scoped_refptr<rtc::RTCCertificate>>
+JavaToNativeRTCCertificates(JNIEnv* jni,
+                            const JavaRef<jobject>& j_rtc_certificates) {
+  std::vector<rtc::scoped_refptr<rtc::RTCCertificate>> certificates;
+  for (const JavaRef<jobject>& j_rtc_certificate :
+       Iterable(jni, j_rtc_certificates)) {
+    ScopedJavaLocalRef<jstring> privatekey_field =
+        Java_RTCCertificate_getPrivateKey(jni, j_rtc_certificate);
+    ScopedJavaLocalRef<jstring> certificate_field =
+        Java_RTCCertificate_getCertificate(jni, j_rtc_certificate);
+    static const rtc::RTCCertificatePEM pem =
+        rtc::RTCCertificatePEM(JavaToNativeString(jni, privatekey_field),
+                               JavaToNativeString(jni, certificate_field));
+    rtc::scoped_refptr<rtc::RTCCertificate> certificate =
+        rtc::RTCCertificate::FromPEM(pem);
+    certificates.push_back(certificate);
+  }
+  return certificates;
+}
+
 SdpSemantics JavaToNativeSdpSemantics(JNIEnv* jni,
                                       const JavaRef<jobject>& j_sdp_semantics) {
   std::string enum_name = GetJavaEnumName(jni, j_sdp_semantics);
@@ -129,6 +150,8 @@ void JavaToNativeRTCConfiguration(
       Java_RTCConfiguration_getBundlePolicy(jni, j_rtc_config);
   ScopedJavaLocalRef<jobject> j_rtcp_mux_policy =
       Java_RTCConfiguration_getRtcpMuxPolicy(jni, j_rtc_config);
+  ScopedJavaLocalRef<jobject> j_rtc_certificates =
+      Java_RTCConfiguration_getCertificates(jni, j_rtc_config);
   ScopedJavaLocalRef<jobject> j_tcp_candidate_policy =
       Java_RTCConfiguration_getTcpCandidatePolicy(jni, j_rtc_config);
   ScopedJavaLocalRef<jobject> j_candidate_network_policy =
@@ -148,6 +171,8 @@ void JavaToNativeRTCConfiguration(
   rtc_config->bundle_policy = JavaToNativeBundlePolicy(jni, j_bundle_policy);
   rtc_config->rtcp_mux_policy =
       JavaToNativeRtcpMuxPolicy(jni, j_rtcp_mux_policy);
+  rtc_config->certificates =
+      JavaToNativeRTCCertificates(jni, j_rtc_certificates);
   rtc_config->tcp_candidate_policy =
       JavaToNativeTcpCandidatePolicy(jni, j_tcp_candidate_policy);
   rtc_config->candidate_network_policy =
@@ -420,6 +445,38 @@ static ScopedJavaLocalRef<jobject> JNI_PeerConnection_GetRemoteDescription(
   const SessionDescriptionInterface* sdp =
       ExtractNativePC(jni, j_pc)->remote_description();
   return sdp ? NativeToJavaSessionDescription(jni, sdp) : nullptr;
+}
+
+// static ScopedJavaLocalRef<jobject> JNI_PeerConnection_GenerateCertificate(
+static ScopedJavaLocalRef<jstring> JNI_PeerConnection_GenerateCertificate(
+    JNIEnv* jni,
+    const JavaParamRef<jclass>&
+    /* keytype */) {
+  rtc::KeyType key_type = rtc::KT_ECDSA;
+  rtc::scoped_refptr<rtc::RTCCertificate> certificate =
+      rtc::RTCCertificateGenerator::GenerateCertificate(
+          rtc::KeyParams(key_type), absl::nullopt);
+  //  return NativeToJavaRTCCertificate(jni, certificate);
+  rtc::RTCCertificatePEM pem = certificate->ToPEM();
+  return NativeToJavaString(jni, pem.private_key() + "|" + pem.certificate());
+}
+
+// static ScopedJavaLocalRef<jobject> JNI_PeerConnection_GetCertificates(
+static ScopedJavaLocalRef<jstring> JNI_PeerConnection_GetCertificate(
+    JNIEnv* jni,
+    const JavaParamRef<jobject>& j_pc) {
+  const PeerConnectionInterface::RTCConfiguration rtc_config =
+      ExtractNativePC(jni, j_pc)->GetConfiguration();
+  //  return NativeToJavaList(jni, rtc_config.certificates,
+  //                            &NativeToJavaRTCCertificate);
+  std::string pem = "private_key|certificate";
+  rtc::scoped_refptr<rtc::RTCCertificate> cert;
+  if (!rtc_config.certificates.empty()) {
+    cert = rtc_config.certificates[0];
+    rtc::RTCCertificatePEM pem_cert = cert->ToPEM();
+    pem = pem_cert.private_key() + "|" + pem_cert.certificate();
+  }
+  return NativeToJavaString(jni, pem);
 }
 
 static ScopedJavaLocalRef<jobject> JNI_PeerConnection_CreateDataChannel(

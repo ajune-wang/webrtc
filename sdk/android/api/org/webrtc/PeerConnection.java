@@ -385,6 +385,7 @@ public class PeerConnection {
     public IceTransportsType iceTransportsType;
     public List<IceServer> iceServers;
     public BundlePolicy bundlePolicy;
+    public List<RTCCertificate> certificates;
     public RtcpMuxPolicy rtcpMuxPolicy;
     public TcpCandidatePolicy tcpCandidatePolicy;
     public CandidateNetworkPolicy candidateNetworkPolicy;
@@ -520,6 +521,11 @@ public class PeerConnection {
     @CalledByNative("RTCConfiguration")
     RtcpMuxPolicy getRtcpMuxPolicy() {
       return rtcpMuxPolicy;
+    }
+
+    @CalledByNative("RTCConfiguration")
+    List<RTCCertificate> getCertificates() {
+      return certificates;
     }
 
     @CalledByNative("RTCConfiguration")
@@ -719,6 +725,18 @@ public class PeerConnection {
 
   public SessionDescription getRemoteDescription() {
     return nativeGetRemoteDescription();
+  }
+
+  //  public List<RTCCertificate> getCertificates() {
+  //    return nativeGetCertificates();
+  //  }
+  public RTCCertificate getCertificate() {
+    return new RTCCertificate(nativeGetCertificate());
+  }
+
+  public static RTCCertificate generateCertificate() { // keytype
+    // return nativeGenerateCertificate();//, keytype);
+    return new RTCCertificate(nativeGenerateCertificate()); //, keytype);
   }
 
   public DataChannel createDataChannel(String label, DataChannel.Init init) {
@@ -1106,6 +1124,10 @@ public class PeerConnection {
   private native long nativeGetNativePeerConnection();
   private native SessionDescription nativeGetLocalDescription();
   private native SessionDescription nativeGetRemoteDescription();
+  // private native List<RTCCertificate> nativeGetCertificates();
+  private native String nativeGetCertificate();
+  // private static native RTCCertificate nativeGenerateCertificate();//, String keyType);
+  private static native String nativeGenerateCertificate(); //, String keyType);
   private native DataChannel nativeCreateDataChannel(String label, DataChannel.Init init);
   private native void nativeCreateOffer(SdpObserver observer, MediaConstraints constraints);
   private native void nativeCreateAnswer(SdpObserver observer, MediaConstraints constraints);

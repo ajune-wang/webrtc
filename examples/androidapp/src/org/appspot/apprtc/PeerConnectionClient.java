@@ -53,6 +53,7 @@ import org.webrtc.MediaStreamTrack.MediaType;
 import org.webrtc.PeerConnection;
 import org.webrtc.PeerConnection.IceConnectionState;
 import org.webrtc.PeerConnectionFactory;
+import org.webrtc.RTCCertificate;
 import org.webrtc.RtpParameters;
 import org.webrtc.RtpReceiver;
 import org.webrtc.RtpSender;
@@ -648,7 +649,40 @@ public class PeerConnectionClient {
     rtcConfig.enableDtlsSrtp = !peerConnectionParameters.loopback;
     rtcConfig.sdpSemantics = PeerConnection.SdpSemantics.UNIFIED_PLAN;
 
+    // generate a certificate
+    RTCCertificate myCertificate = PeerConnection.generateCertificate();
+
+    // store it in the configuration
+    rtcConfig.certificates = Arrays.asList(myCertificate);
+
+    // create a peer connection with this configuration
     peerConnection = factory.createPeerConnection(rtcConfig, pcObserver);
+
+    // retrieve the certificate being used in the peer connection
+    RTCCertificate retrievedCertificate = peerConnection.getCertificate();
+    // List<RTCCertificate> retrievedCertificates = peerConnection.getCertificates();
+
+    // verify that the active peer connection certificate matches the generated certificate
+    if (!myCertificate.privateKey.equals(retrievedCertificate.privateKey)) {
+      Log.e(TAG, "CERTIFICATE: privateKey fields do not match");
+      Log.e(TAG,
+          "CERTIFICATE: orig: " + myCertificate.privateKey.replace("\n", "_").replace("\r", "*"));
+      Log.e(TAG,
+          "CERTIFICATE: recv: "
+              + retrievedCertificate.privateKey.replace("\n", "_").replace("\r", "*"));
+    } else {
+      Log.e(TAG, "CERTIFICATE: privateKey fields match");
+    }
+    if (!myCertificate.certificate.equals(retrievedCertificate.certificate)) {
+      Log.e(TAG, "CERTIFICATE: certificate fields do not match");
+      Log.e(TAG,
+          "CERTIFICATE: orig: " + myCertificate.certificate.replace("\n", "_").replace("\r", "*"));
+      Log.e(TAG,
+          "CERTIFICATE: recv: "
+              + retrievedCertificate.certificate.replace("\n", "_").replace("\r", "*"));
+    } else {
+      Log.e(TAG, "CERTIFICATE: certificate fields match");
+    }
 
     if (dataChannelEnabled) {
       DataChannel.Init init = new DataChannel.Init();

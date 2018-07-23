@@ -12,6 +12,7 @@
 #define CALL_DEGRADED_CALL_H_
 
 #include <memory>
+#include <vector>
 
 #include "absl/types/optional.h"
 #include "api/call/transport.h"
@@ -30,6 +31,9 @@ class DegradedCall : public Call, private Transport, private PacketReceiver {
   ~DegradedCall() override;
 
   // Implements Call.
+  void SetVideoReceiveRtpHeaderExtensions(
+      const std::vector<RtpExtension>& extensions) override;
+
   AudioSendStream* CreateAudioSendStream(
       const AudioSendStream::Config& config) override;
   void DestroyAudioSendStream(AudioSendStream* send_stream) override;

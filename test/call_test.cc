@@ -321,8 +321,10 @@ void CallTest::AddMatchingVideoReceiveConfigs(
   default_config.rtp.remb = !send_side_bwe;
   default_config.rtp.transport_cc = send_side_bwe;
   default_config.rtp.local_ssrc = kReceiverLocalVideoSsrc;
+#if 0
   for (const RtpExtension& extension : video_send_config.rtp.extensions)
     default_config.rtp.extensions.push_back(extension);
+#endif
   default_config.rtp.nack.rtp_history_ms = rtp_history_ms;
   // Enable RTT calculation so NTP time estimator will work.
   default_config.rtp.rtcp_xr.receiver_reference_time_report =
@@ -365,8 +367,10 @@ void CallTest::CreateMatchingAudioAndFecConfigs(
   RTC_DCHECK(num_flexfec_streams_ <= 1);
   if (num_flexfec_streams_ == 1) {
     CreateMatchingFecConfig(rtcp_send_transport, *GetVideoSendConfig());
+#if 0
     for (const RtpExtension& extension : GetVideoSendConfig()->rtp.extensions)
       GetFlexFecConfig()->rtp_header_extensions.push_back(extension);
+#endif
   }
 }
 

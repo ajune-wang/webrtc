@@ -278,6 +278,8 @@ class FakeCall final : public webrtc::Call, public webrtc::PacketReceiver {
   void SetStats(const webrtc::Call::Stats& stats);
 
  private:
+  void SetVideoReceiveRtpHeaderExtensions(
+      const std::vector<webrtc::RtpExtension>& extensions) override;
   webrtc::AudioSendStream* CreateAudioSendStream(
       const webrtc::AudioSendStream::Config& config) override;
   void DestroyAudioSendStream(webrtc::AudioSendStream* send_stream) override;

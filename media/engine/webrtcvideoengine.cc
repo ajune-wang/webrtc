@@ -1291,8 +1291,6 @@ void WebRtcVideoChannel::ConfigureReceiverRtp(
 
   sp.GetFidSsrc(ssrc, &config->rtp.rtx_ssrc);
 
-  config->rtp.extensions = recv_rtp_extensions_;
-
   // TODO(brandtr): Generalize when we add support for multistream protection.
   flexfec_config->payload_type = recv_flexfec_payload_type_;
   if (IsFlexfecAdvertisedFieldTrialEnabled() &&
@@ -1303,7 +1301,6 @@ void WebRtcVideoChannel::ConfigureReceiverRtp(
     // TODO(brandtr): We should be spec-compliant and set |transport_cc| here
     // based on the rtcp-fb for the FlexFEC codec, not the media codec.
     flexfec_config->transport_cc = config->rtp.transport_cc;
-    flexfec_config->rtp_header_extensions = config->rtp.extensions;
   }
 }
 
@@ -2274,8 +2271,9 @@ WebRtcVideoChannel::WebRtcVideoReceiveStream::GetRtpParameters() const {
   webrtc::RtpParameters rtp_parameters;
   rtp_parameters.encodings.emplace_back();
   rtp_parameters.encodings[0].ssrc = GetFirstPrimarySsrc();
+#if 0
   rtp_parameters.header_extensions = config_.rtp.extensions;
-
+#endif
   return rtp_parameters;
 }
 
@@ -2414,12 +2412,6 @@ void WebRtcVideoChannel::WebRtcVideoReceiveStream::SetRecvParameters(
   if (params.codec_settings) {
     ConfigureCodecs(*params.codec_settings, &old_decoders);
     video_needs_recreation = true;
-  }
-  if (params.rtp_header_extensions) {
-    config_.rtp.extensions = *params.rtp_header_extensions;
-    flexfec_config_.rtp_header_extensions = *params.rtp_header_extensions;
-    video_needs_recreation = true;
-    flexfec_needs_recreation = true;
   }
   if (params.flexfec_payload_type) {
     ConfigureFlexfecCodec(*params.flexfec_payload_type);

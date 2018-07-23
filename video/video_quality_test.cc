@@ -536,6 +536,7 @@ void VideoQualityTest::SetupVideo(Transport* send_transport,
 
     CreateMatchingFecConfig(recv_transport, *GetVideoSendConfig());
     GetFlexFecConfig()->transport_cc = params_.call.send_side_bwe;
+#if 0
     if (params_.call.send_side_bwe) {
       GetFlexFecConfig()->rtp_header_extensions.push_back(
           RtpExtension(RtpExtension::kTransportSequenceNumberUri,
@@ -544,6 +545,7 @@ void VideoQualityTest::SetupVideo(Transport* send_transport,
       GetFlexFecConfig()->rtp_header_extensions.push_back(RtpExtension(
           RtpExtension::kAbsSendTimeUri, test::kAbsSendTimeExtensionId));
     }
+#endif
   }
 
   if (params_.video[0].ulpfec) {

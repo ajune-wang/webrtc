@@ -521,9 +521,11 @@ TEST_F(RtpRtcpEndToEndTest, TestFlexfecRtpStatePreservation) {
         GetVideoSendConfig()->rtp.flexfec.protected_media_ssrcs;
     flexfec_receive_config.local_ssrc = kReceiverLocalVideoSsrc;
     flexfec_receive_config.transport_cc = true;
+#if 0
     flexfec_receive_config.rtp_header_extensions.emplace_back(
         RtpExtension::kTransportSequenceNumberUri,
         test::kTransportSequenceNumberExtensionId);
+#endif
     flexfec_receive_configs_.push_back(flexfec_receive_config);
 
     CreateFlexfecStreams();

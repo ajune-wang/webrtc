@@ -209,9 +209,11 @@ TEST_P(TransportFeedbackEndToEndTest, AssignsTransportSequenceNumbers) {
         size_t stream_index,
         VideoReceiveStream::Config* receive_config) override {
       receive_config->rtp.nack.rtp_history_ms = kNackRtpHistoryMs;
+#if 0
       receive_config->rtp.extensions.clear();
       receive_config->rtp.extensions.push_back(RtpExtension(
           RtpExtension::kTransportSequenceNumberUri, kExtensionId));
+#endif
       receive_config->renderer = &fake_renderer_;
     }
 

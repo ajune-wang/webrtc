@@ -45,6 +45,11 @@ DegradedCall::~DegradedCall() {
   }
 }
 
+void DegradedCall::SetVideoReceiveRtpHeaderExtensions(
+    const std::vector<RtpExtension>& extensions) {
+  call_->SetVideoReceiveRtpHeaderExtensions(extensions);
+}
+
 AudioSendStream* DegradedCall::CreateAudioSendStream(
     const AudioSendStream::Config& config) {
   return call_->CreateAudioSendStream(config);

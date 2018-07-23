@@ -69,11 +69,8 @@
 namespace webrtc {
 
 namespace {
-// TODO(nisse): This really begs for a shared context struct.
-bool UseSendSideBwe(const std::vector<RtpExtension>& extensions,
-                    bool transport_cc) {
-  if (!transport_cc)
-    return false;
+
+bool UseTransportSeqno(const std::vector<RtpExtension>& extensions) {
   for (const auto& extension : extensions) {
     if (extension.uri == RtpExtension::kTransportSequenceNumberUri)
       return true;
@@ -81,16 +78,13 @@ bool UseSendSideBwe(const std::vector<RtpExtension>& extensions,
   return false;
 }
 
-bool UseSendSideBwe(const VideoReceiveStream::Config& config) {
-  return UseSendSideBwe(config.rtp.extensions, config.rtp.transport_cc);
+bool UseSendSideBwe(const std::vector<RtpExtension>& extensions,
+                    bool transport_cc) {
+  return transport_cc && UseTransportSeqno(extensions);
 }
 
 bool UseSendSideBwe(const AudioReceiveStream::Config& config) {
   return UseSendSideBwe(config.rtp.extensions, config.rtp.transport_cc);
-}
-
-bool UseSendSideBwe(const FlexfecReceiveStream::Config& config) {
-  return UseSendSideBwe(config.rtp_header_extensions, config.transport_cc);
 }
 
 const int* FindKeyByValue(const std::map<int, int>& m, int v) {
@@ -109,8 +103,9 @@ std::unique_ptr<rtclog::StreamConfig> CreateRtcLogStreamConfig(
   rtclog_config->rtx_ssrc = config.rtp.rtx_ssrc;
   rtclog_config->rtcp_mode = config.rtp.rtcp_mode;
   rtclog_config->remb = config.rtp.remb;
+#if 0
   rtclog_config->rtp_extensions = config.rtp.extensions;
-
+#endif
   for (const auto& d : config.decoders) {
     const int* search =
         FindKeyByValue(config.rtp.rtx_associated_payload_types, d.payload_type);
@@ -174,6 +169,9 @@ class Call final : public webrtc::Call,
 
   // Implements webrtc::Call.
   PacketReceiver* Receiver() override;
+
+  void SetVideoReceiveRtpHeaderExtensions(
+      const std::vector<RtpExtension>& extensions) override;
 
   webrtc::AudioSendStream* CreateAudioSendStream(
       const webrtc::AudioSendStream::Config& config) override;
@@ -285,6 +283,9 @@ class Call final : public webrtc::Call,
   RtpStreamReceiverController audio_receiver_controller_;
   RtpStreamReceiverController video_receiver_controller_;
 
+  std::vector<RtpExtension> video_rtp_header_extensions_
+      RTC_GUARDED_BY(receive_crit_);
+
   // This extra map is used for receive processing which is
   // independent of media type.
 
@@ -292,15 +293,10 @@ class Call final : public webrtc::Call,
   // single mapping from ssrc to a more abstract receive stream, with
   // accessor methods for all configuration we need at this level.
   struct ReceiveRtpConfig {
-    explicit ReceiveRtpConfig(const webrtc::AudioReceiveStream::Config& config)
-        : extensions(config.rtp.extensions),
-          use_send_side_bwe(UseSendSideBwe(config)) {}
-    explicit ReceiveRtpConfig(const webrtc::VideoReceiveStream::Config& config)
-        : extensions(config.rtp.extensions),
-          use_send_side_bwe(UseSendSideBwe(config)) {}
-    explicit ReceiveRtpConfig(const FlexfecReceiveStream::Config& config)
-        : extensions(config.rtp_header_extensions),
-          use_send_side_bwe(UseSendSideBwe(config)) {}
+    ReceiveRtpConfig() = default;  // Needed by std::map
+    ReceiveRtpConfig(const std::vector<RtpExtension>& extensions,
+                     bool use_send_side_bwe)
+        : extensions(extensions), use_send_side_bwe(use_send_side_bwe) {}
 
     // Registered RTP header extensions for each stream. Note that RTP header
     // extensions are negotiated per track ("m= line") in the SDP, but we have
@@ -309,7 +305,7 @@ class Call final : public webrtc::Call,
     const RtpHeaderExtensionMap extensions;
     // Set if both RTP extension the RTCP feedback message needed for
     // send side BWE are negotiated.
-    const bool use_send_side_bwe;
+    const bool use_send_side_bwe = false;
   };
   std::map<uint32_t, ReceiveRtpConfig> receive_rtp_config_
       RTC_GUARDED_BY(receive_crit_);
@@ -573,6 +569,12 @@ PacketReceiver* Call::Receiver() {
   return this;
 }
 
+void Call::SetVideoReceiveRtpHeaderExtensions(
+    const std::vector<RtpExtension>& extensions) {
+  WriteLockScoped write_lock(*receive_crit_);
+  video_rtp_header_extensions_ = extensions;
+}
+
 webrtc::AudioSendStream* Call::CreateAudioSendStream(
     const webrtc::AudioSendStream::Config& config) {
   TRACE_EVENT0("webrtc", "Call::CreateAudioSendStream");
@@ -654,8 +656,9 @@ webrtc::AudioReceiveStream* Call::CreateAudioReceiveStream(
       module_process_thread_.get(), config, config_.audio_state, event_log_);
   {
     WriteLockScoped write_lock(*receive_crit_);
-    receive_rtp_config_.emplace(config.rtp.remote_ssrc,
-                                ReceiveRtpConfig(config));
+    receive_rtp_config_.emplace(
+        config.rtp.remote_ssrc,
+        ReceiveRtpConfig(config.rtp.extensions, UseSendSideBwe(config)));
     audio_receive_streams_.insert(receive_stream);
 
     ConfigureSync(config.sync_group);
@@ -807,16 +810,18 @@ webrtc::VideoReceiveStream* Call::CreateVideoReceiveStream(
   const webrtc::VideoReceiveStream::Config& config = receive_stream->config();
   {
     WriteLockScoped write_lock(*receive_crit_);
+    ReceiveRtpConfig receive_config(
+        video_rtp_header_extensions_,
+        UseSendSideBwe(video_rtp_header_extensions_,
+                       configuration.rtp.transport_cc));
     if (config.rtp.rtx_ssrc) {
       // We record identical config for the rtx stream as for the main
       // stream. Since the transport_send_cc negotiation is per payload
       // type, we may get an incorrect value for the rtx stream, but
       // that is unlikely to matter in practice.
-      receive_rtp_config_.emplace(config.rtp.rtx_ssrc,
-                                  ReceiveRtpConfig(config));
+      receive_rtp_config_.emplace(config.rtp.rtx_ssrc, receive_config);
     }
-    receive_rtp_config_.emplace(config.rtp.remote_ssrc,
-                                ReceiveRtpConfig(config));
+    receive_rtp_config_.emplace(config.rtp.remote_ssrc, receive_config);
     video_receive_streams_.insert(receive_stream);
     ConfigureSync(config.sync_group);
   }
@@ -837,6 +842,10 @@ void Call::DestroyVideoReceiveStream(
   const VideoReceiveStream::Config& config = receive_stream_impl->config();
   {
     WriteLockScoped write_lock(*receive_crit_);
+    receive_side_cc_
+        .GetRemoteBitrateEstimator(
+            receive_rtp_config_[config.rtp.remote_ssrc].use_send_side_bwe)
+        ->RemoveStream(config.rtp.remote_ssrc);
     // Remove all ssrcs pointing to a receive stream. As RTX retransmits on a
     // separate SSRC there can be either one or two.
     receive_rtp_config_.erase(config.rtp.remote_ssrc);
@@ -846,9 +855,6 @@ void Call::DestroyVideoReceiveStream(
     video_receive_streams_.erase(receive_stream_impl);
     ConfigureSync(config.sync_group);
   }
-
-  receive_side_cc_.GetRemoteBitrateEstimator(UseSendSideBwe(config))
-      ->RemoveStream(config.rtp.remote_ssrc);
 
   UpdateAggregateNetworkState();
   delete receive_stream_impl;
@@ -879,7 +885,11 @@ FlexfecReceiveStream* Call::CreateFlexfecReceiveStream(
 
     RTC_DCHECK(receive_rtp_config_.find(config.remote_ssrc) ==
                receive_rtp_config_.end());
-    receive_rtp_config_.emplace(config.remote_ssrc, ReceiveRtpConfig(config));
+    receive_rtp_config_.emplace(
+        config.remote_ssrc,
+        ReceiveRtpConfig(video_rtp_header_extensions_,
+                         config.transport_cc &&
+                             UseTransportSeqno(video_rtp_header_extensions_)));
   }
 
   // TODO(brandtr): Store config in RtcEventLog here.
@@ -897,12 +907,12 @@ void Call::DestroyFlexfecReceiveStream(FlexfecReceiveStream* receive_stream) {
 
     const FlexfecReceiveStream::Config& config = receive_stream->GetConfig();
     uint32_t ssrc = config.remote_ssrc;
-    receive_rtp_config_.erase(ssrc);
-
     // Remove all SSRCs pointing to the FlexfecReceiveStreamImpl to be
     // destroyed.
-    receive_side_cc_.GetRemoteBitrateEstimator(UseSendSideBwe(config))
+    receive_side_cc_
+        .GetRemoteBitrateEstimator(receive_rtp_config_[ssrc].use_send_side_bwe)
         ->RemoveStream(ssrc);
+    receive_rtp_config_.erase(ssrc);
   }
 
   delete receive_stream;

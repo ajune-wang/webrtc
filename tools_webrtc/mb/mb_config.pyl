@@ -322,7 +322,7 @@
       'gn', 'openh264_debug_bot', 'minimal_symbols'
     ],
     'release_bot_x64': [
-      'gn', 'openh264_release_bot', 'x64'
+      'gn', 'openh264_release_bot', 'x64', 'no_symbols'
     ],
     'perf_release_bot_x86': [
       'gn', 'openh264', 'release', 'goma', 'x86'
@@ -540,6 +540,11 @@
     'minimal_symbols': {
       'gn_args': 'symbol_level=1 strip_absolute_paths_from_debug_symbols=true',
     },
+
+    'no_symbols': {
+      'gn_args': 'symbol_level=0',
+    },
+
 
     'msan': {
       'gn_args': ('is_msan=true msan_track_origins=2 '

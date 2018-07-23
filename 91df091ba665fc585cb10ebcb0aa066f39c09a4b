@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4365085d_75cc96e4",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1630,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-07-23T13:23:19Z",
+      "side": 0,
+      "message": "Ack",
+      "parentUuid": "e7317491_f9198a59",
+      "range": {
+        "startLine": 1630,
+        "startChar": 2,
+        "endLine": 1630,
+        "endChar": 45
+      },
+      "revId": "91df091ba665fc585cb10ebcb0aa066f39c09a4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b855631a_96382acd",
         "filename": "modules/audio_processing/audio_processing_impl.cc",
         "patchSetId": 10
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "a38e22ff_fa501d8e",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1666,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-07-23T13:23:19Z",
+      "side": 0,
+      "message": "Ack",
+      "parentUuid": "b855631a_96382acd",
+      "range": {
+        "startLine": 1666,
+        "startChar": 4,
+        "endLine": 1666,
+        "endChar": 47
+      },
+      "revId": "91df091ba665fc585cb10ebcb0aa066f39c09a4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2c388490_eb1d3925",
         "filename": "modules/audio_processing/audio_processing_unittest.cc",
         "patchSetId": 10
@@ -68,6 +116,30 @@
       "revId": "91df091ba665fc585cb10ebcb0aa066f39c09a4b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2014e0e_7760a18c",
+        "filename": "modules/audio_processing/audio_processing_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-07-23T13:23:19Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "2c388490_eb1d3925",
+      "range": {
+        "startLine": 195,
+        "startChar": 2,
+        "endLine": 195,
+        "endChar": 37
+      },
+      "revId": "91df091ba665fc585cb10ebcb0aa066f39c09a4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -139,6 +211,30 @@
       "revId": "91df091ba665fc585cb10ebcb0aa066f39c09a4b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32d96c01_1c3f69d4",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 799,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-07-23T13:23:19Z",
+      "side": 0,
+      "message": "I found how tandem is avoided: It\u0027s like the new comment. AECM doesn\u0027t run if any other AEC is active. [1]\nThe behavior is preserved in this CL, but the logic has moved into InitializeLocked().\n\n[1] https://cs.chromium.org/chromium/src/third_party/webrtc/modules/audio_processing/audio_processing_impl.cc?q\u003daudio_processing_imp\u0026sq\u003dpackage:chromium\u0026dr\u003dC\u0026l\u003d1288",
+      "parentUuid": "4ad63de3_a7b5f511",
+      "range": {
+        "startLine": 799,
+        "startChar": 0,
+        "endLine": 799,
+        "endChar": 41
+      },
+      "revId": "91df091ba665fc585cb10ebcb0aa066f39c09a4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

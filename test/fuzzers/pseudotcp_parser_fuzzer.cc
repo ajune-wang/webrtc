@@ -17,14 +17,14 @@
 namespace webrtc {
 class FakeIPseudoTcpNotify : public cricket::IPseudoTcpNotify {
  public:
-  void OnTcpOpen(cricket::PseudoTcp* tcp) {}
-  void OnTcpReadable(cricket::PseudoTcp* tcp) {}
-  void OnTcpWriteable(cricket::PseudoTcp* tcp) {}
-  void OnTcpClosed(cricket::PseudoTcp* tcp, uint32_t error) {}
+  void OnTcpOpen(cricket::PseudoTcp* tcp) override {}
+  void OnTcpReadable(cricket::PseudoTcp* tcp) override {}
+  void OnTcpWriteable(cricket::PseudoTcp* tcp) override {}
+  void OnTcpClosed(cricket::PseudoTcp* tcp, uint32_t error) override {}
 
   cricket::IPseudoTcpNotify::WriteResult TcpWritePacket(cricket::PseudoTcp* tcp,
                                                         const char* buffer,
-                                                        size_t len) {
+                                                        size_t len) override {
     return cricket::IPseudoTcpNotify::WriteResult::WR_SUCCESS;
   }
 };

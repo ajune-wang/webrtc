@@ -53,8 +53,8 @@ struct DataReader {
 
 class FuzzyFrameObject : public video_coding::EncodedFrame {
  public:
-  FuzzyFrameObject() {}
-  ~FuzzyFrameObject() {}
+  FuzzyFrameObject() = default;
+  ~FuzzyFrameObject() override = default;
 
   bool GetBitstream(uint8_t* destination) const override { return false; }
   uint32_t Timestamp() const override { return timestamp; }

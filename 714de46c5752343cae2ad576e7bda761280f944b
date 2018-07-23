@@ -22,6 +22,30 @@
       "revId": "714de46c5752343cae2ad576e7bda761280f944b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89c3089c_f8279adb",
+        "filename": "sdk/objc/Framework/Native/src/audio/audio_device_module_ios.mm",
+        "patchSetId": 3
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 6000
+      },
+      "writtenOn": "2018-07-23T08:23:02Z",
+      "side": 1,
+      "message": "What is the recommendation?    Something like this?\n\nint32_t AudioDeviceModuleIOS::SetStereoRecording(bool enable) {\n   RTC_LOG(INFO) \u003c\u003c __FUNCTION__ \u003c\u003c \"(\" \u003c\u003c enable \u003c\u003c \")\";\n\n   if (enable) {\n      RTC_LOG(WARNING) \u003c\u003c \"failed to enable stereo recording\";\n   }\n}",
+      "parentUuid": "11402b45_8270851f",
+      "range": {
+        "startLine": 295,
+        "startChar": 22,
+        "endLine": 295,
+        "endChar": 41
+      },
+      "revId": "714de46c5752343cae2ad576e7bda761280f944b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

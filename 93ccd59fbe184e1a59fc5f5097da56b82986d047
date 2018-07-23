@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "480d4bf0_708e51ce",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 676,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-07-23T15:57:58Z",
+      "side": 1,
+      "message": "If you want other projects not having to implement this method not to be blocked on everyone stop using it, you can default-implement it to invoke the RemoveTrackNew method. That way it is sufficient to only implement one of them, like we want to be the case.",
+      "revId": "93ccd59fbe184e1a59fc5f5097da56b82986d047",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "abe7443c_65333583",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 688,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-07-23T15:57:58Z",
+      "side": 1,
+      "message": "If you want to be able to call the new method everywhere in third_party/webrtc you can default-implement this to invoke the other RemoveTrack method, that way you are not blocked on everyone updating before you start using it.\n\nFor a smooth transition you might want to do both default-implementations. Both calling each other would of course lead to a stack overflow, but that\u0027s almost as good as a compile error. The important thing is everyone should only have to implement RemoveTrackNew and be happy.\n\nDefault implementations allow less transition steps.",
+      "revId": "93ccd59fbe184e1a59fc5f5097da56b82986d047",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

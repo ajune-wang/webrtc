@@ -46,6 +46,30 @@
       "revId": "714de46c5752343cae2ad576e7bda761280f944b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f3c1e2f_1f67e7e9",
+        "filename": "sdk/objc/Framework/Native/src/audio/audio_device_module_ios.mm",
+        "patchSetId": 3
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-07-23T09:22:31Z",
+      "side": 1,
+      "message": "Yes, but log something like \"recording in stereo is not supported\". No failure occurred so the log string above is misleading.",
+      "parentUuid": "89c3089c_f8279adb",
+      "range": {
+        "startLine": 295,
+        "startChar": 22,
+        "endLine": 295,
+        "endChar": 41
+      },
+      "revId": "714de46c5752343cae2ad576e7bda761280f944b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

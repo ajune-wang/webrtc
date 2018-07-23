@@ -576,8 +576,8 @@ void AudioProcessingSimulator::DestroyAudioProcessor() {
 }
 
 void AudioProcessingSimulator::CreateAudioProcessor() {
+  // Construction-time APM configuration.
   Config config;
-  AudioProcessing::Config apm_config;
   std::unique_ptr<EchoControlFactory> echo_control_factory;
   if (settings_.use_ts) {
     config.Set<ExperimentalNs>(new ExperimentalNs(*settings_.use_ts));
@@ -585,16 +585,6 @@ void AudioProcessingSimulator::CreateAudioProcessor() {
   if (settings_.use_ie) {
     config.Set<Intelligibility>(new Intelligibility(*settings_.use_ie));
   }
-  if (settings_.use_agc2) {
-    apm_config.gain_controller2.enabled = *settings_.use_agc2;
-    apm_config.gain_controller2.fixed_gain_db = settings_.agc2_fixed_gain_db;
-  }
-  if (settings_.use_pre_amplifier) {
-    apm_config.pre_amplifier.enabled = *settings_.use_pre_amplifier;
-    apm_config.pre_amplifier.fixed_gain_factor =
-        settings_.pre_amplifier_gain_factor;
-  }
-
   if (settings_.use_aec3 && *settings_.use_aec3) {
     EchoCanceller3Config cfg;
     if (settings_.aec3_settings_filename) {
@@ -602,10 +592,6 @@ void AudioProcessingSimulator::CreateAudioProcessor() {
     }
     echo_control_factory.reset(new EchoCanceller3Factory(cfg));
   }
-  if (settings_.use_hpf) {
-    apm_config.high_pass_filter.enabled = *settings_.use_hpf;
-  }
-
   if (settings_.use_refined_adaptive_filter) {
     config.Set<RefinedAdaptiveFilter>(
         new RefinedAdaptiveFilter(*settings_.use_refined_adaptive_filter));
@@ -620,9 +606,6 @@ void AudioProcessingSimulator::CreateAudioProcessor() {
           *settings_.use_experimental_agc_agc2_level_estimator,
       !!settings_.use_experimental_agc_agc2_digital_adaptive &&
           *settings_.use_experimental_agc_agc2_digital_adaptive));
-  if (settings_.use_ed) {
-    apm_config.residual_echo_detector.enabled = *settings_.use_ed;
-  }
 
   RTC_CHECK(ap_builder_);
   ap_.reset((*ap_builder_)
@@ -630,16 +613,34 @@ void AudioProcessingSimulator::CreateAudioProcessor() {
                 .Create(config));
   RTC_CHECK(ap_);
 
+  // AudioProcessing::Config settings.
+  AudioProcessing::Config apm_config = ap_->GetConfig();
+  if (settings_.use_aec && *settings_.use_aec) {
+    apm_config.echo_cancellation.enabled = true;
+    apm_config.echo_cancellation.enabled = false;
+  }
+  if (settings_.use_aecm && *settings_.use_aecm) {
+    apm_config.echo_cancellation.enabled = true;
+    apm_config.echo_cancellation.enabled = true;
+  }
+  if (settings_.use_ed) {
+    apm_config.residual_echo_detector.enabled = *settings_.use_ed;
+  }
+  if (settings_.use_agc2) {
+    apm_config.gain_controller2.enabled = *settings_.use_agc2;
+    apm_config.gain_controller2.fixed_gain_db = settings_.agc2_fixed_gain_db;
+  }
+  if (settings_.use_pre_amplifier) {
+    apm_config.pre_amplifier.enabled = *settings_.use_pre_amplifier;
+    apm_config.pre_amplifier.fixed_gain_factor =
+        settings_.pre_amplifier_gain_factor;
+  }
+  if (settings_.use_hpf) {
+    apm_config.high_pass_filter.enabled = *settings_.use_hpf;
+  }
   ap_->ApplyConfig(apm_config);
 
-  if (settings_.use_aec) {
-    RTC_CHECK_EQ(AudioProcessing::kNoError,
-                 ap_->echo_cancellation()->Enable(*settings_.use_aec));
-  }
-  if (settings_.use_aecm) {
-    RTC_CHECK_EQ(AudioProcessing::kNoError,
-                 ap_->echo_control_mobile()->Enable(*settings_.use_aecm));
-  }
+  // Configure via APM submodule accessors.
   if (settings_.use_agc) {
     RTC_CHECK_EQ(AudioProcessing::kNoError,
                  ap_->gain_control()->Enable(*settings_.use_agc));

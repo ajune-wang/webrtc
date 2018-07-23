@@ -46,9 +46,11 @@ TARGETS = [
 ]
 
 sys.path.append(os.path.join(SCRIPT_DIR, '..', 'libs'))
+# pylint: disable=C0413
 from generate_licenses import LicenseBuilder
 
 sys.path.append(os.path.join(SRC_DIR, 'build'))
+# pylint: disable=C0413
 import find_depot_tools
 
 
@@ -161,9 +163,9 @@ def Build(build_dir, arch, use_goma, extra_gn_args, extra_gn_switches,
   gn_args_str = '--args=' + ' '.join([
       k + '=' + _EncodeForGN(v) for k, v in gn_args.items()] + extra_gn_args)
 
-  gn_args = ['gen', output_directory, gn_args_str]
-  gn_args.extend(extra_gn_switches)
-  _RunGN(gn_args)
+  gn_args_list = ['gen', output_directory, gn_args_str]
+  gn_args_list.extend(extra_gn_switches)
+  _RunGN(gn_args_list)
 
   ninja_args = TARGETS[:]
   if use_goma:

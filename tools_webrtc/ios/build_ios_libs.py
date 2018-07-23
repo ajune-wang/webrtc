@@ -27,6 +27,7 @@ os.environ['PATH'] = '/usr/libexec' + os.pathsep + os.environ['PATH']
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 SRC_DIR = os.path.abspath(os.path.join(SCRIPT_DIR, '..', '..'))
 sys.path.append(os.path.join(SRC_DIR, 'build'))
+# pylint: disable=C0413
 import find_depot_tools
 
 SDK_OUTPUT_DIR = os.path.join(SRC_DIR, 'out_ios_libs')
@@ -37,6 +38,7 @@ IOS_DEPLOYMENT_TARGET = '9.0'
 LIBVPX_BUILD_VP9 = False
 
 sys.path.append(os.path.join(SCRIPT_DIR, '..', 'libs'))
+# pylint: disable=C0413
 from generate_licenses import LicenseBuilder
 
 

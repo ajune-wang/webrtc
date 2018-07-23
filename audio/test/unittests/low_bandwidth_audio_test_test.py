@@ -15,6 +15,7 @@ import sys
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 PARENT_DIR = os.path.join(SCRIPT_DIR, os.pardir)
 sys.path.append(PARENT_DIR)
+# pylint: disable=C0413
 import low_bandwidth_audio_test
 
 

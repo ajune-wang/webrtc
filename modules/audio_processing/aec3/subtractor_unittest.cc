@@ -32,7 +32,7 @@ float RunSubtractorTest(int num_blocks_to_process,
   EchoCanceller3Config config;
   config.filter.main.length_blocks = config.filter.shadow.length_blocks =
       filter_length_blocks;
-  Subtractor subtractor(config, &data_dumper, DetectOptimization());
+  Subtractor subtractor(config, &data_dumper, DetectOptimization(), 16000);
   absl::optional<DelayEstimate> delay_estimate;
   std::vector<std::vector<float>> x(3, std::vector<float>(kBlockSize, 0.f));
   std::vector<float> y(kBlockSize, 0.f);

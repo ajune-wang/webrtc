@@ -36,7 +36,8 @@ class Subtractor {
  public:
   Subtractor(const EchoCanceller3Config& config,
              ApmDataDumper* data_dumper,
-             Aec3Optimization optimization);
+             Aec3Optimization optimization,
+             int sample_rate_hz);
   ~Subtractor();
 
   // Performs the echo subtraction.
@@ -104,6 +105,7 @@ class Subtractor {
   ApmDataDumper* data_dumper_;
   const Aec3Optimization optimization_;
   const EchoCanceller3Config config_;
+  const int sample_rate_hz_;
   const bool adaptation_during_saturation_;
   const bool enable_misadjustment_estimator_;
   const bool enable_agc_gain_change_response_;

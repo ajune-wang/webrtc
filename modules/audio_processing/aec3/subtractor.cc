@@ -75,11 +75,13 @@ void PredictionError(const Aec3Fft& fft,
 
 Subtractor::Subtractor(const EchoCanceller3Config& config,
                        ApmDataDumper* data_dumper,
-                       Aec3Optimization optimization)
+                       Aec3Optimization optimization,
+                       int sample_rate_hz)
     : fft_(),
       data_dumper_(data_dumper),
       optimization_(optimization),
       config_(config),
+      sample_rate_hz_(sample_rate_hz),
       adaptation_during_saturation_(EnableAdaptationDuringSaturation()),
       enable_misadjustment_estimator_(EnableMisadjustmentEstimator()),
       enable_agc_gain_change_response_(EnableAgcGainChangeResponse()),
@@ -206,6 +208,10 @@ void Subtractor::Process(const RenderBuffer& render_buffer,
   data_dumper_->DumpRaw("aec3_subtractor_G_shadow", G.im);
   filter_misadjustment_estimator_.Dump(data_dumper_);
   DumpFilters();
+  data_dumper_->DumpWav("aec3_main_filter_output", kBlockSize, &e_main[0],
+                        LowestBandRate(sample_rate_hz_), 1);
+  data_dumper_->DumpWav("aec3_shadow_filter_output", kBlockSize, &e_shadow[0],
+                        LowestBandRate(sample_rate_hz_), 1);
 
   if (adaptation_during_saturation_) {
     std::for_each(e_main.begin(), e_main.end(),

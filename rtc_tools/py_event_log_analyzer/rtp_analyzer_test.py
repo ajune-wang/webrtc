@@ -19,6 +19,7 @@ import unittest
 
 MISSING_NUMPY = False  # pylint: disable=invalid-name
 try:
+
   import numpy
   import rtp_analyzer
 except ImportError:

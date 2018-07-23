@@ -20,7 +20,6 @@ CHECKOUT_ROOT = os.path.abspath(os.path.join(SCRIPT_DIR, os.pardir))
 sys.path.insert(0, os.path.join(CHECKOUT_ROOT, 'build'))
 import landmine_utils
 
-
 host_os = landmine_utils.host_os  # pylint: disable=invalid-name
 
 

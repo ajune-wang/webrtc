@@ -15,6 +15,7 @@ if __name__ == '__main__':
   # Make sure we always can import helper_functions.
   sys.path.append(os.path.dirname(__file__))
 
+
 import helper_functions
 
 # Chrome browsertests will throw away stderr; avoid that output gets lost.

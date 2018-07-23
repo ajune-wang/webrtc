@@ -30,10 +30,13 @@ SCRIPT_DIR = os.path.dirname(os.path.realpath(sys.argv[0]))
 CHECKOUT_ROOT = os.path.abspath(os.path.join(SCRIPT_DIR, os.pardir, os.pardir))
 
 sys.path.append(os.path.join(CHECKOUT_ROOT, 'third_party'))
+
 import requests
+
 import jinja2
 
 sys.path.append(os.path.join(CHECKOUT_ROOT, 'tools_webrtc'))
+
 from android.build_aar import BuildAar
 
 

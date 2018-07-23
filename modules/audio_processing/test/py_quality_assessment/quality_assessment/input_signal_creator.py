@@ -60,8 +60,8 @@ class InputSignalCreator(object):
     Returns:
       AudioSegment instance.
     """
-    assert 0 < frequency <= 24000
-    assert 0 < duration
+    assert 24000 >= frequency > 0
+    assert duration > 0
     template = signal_processing.SignalProcessingUtils.GenerateSilence(duration)
     return signal_processing.SignalProcessingUtils.GeneratePureTone(
         template, frequency)

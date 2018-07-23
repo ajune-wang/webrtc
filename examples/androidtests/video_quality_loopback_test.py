@@ -38,6 +38,7 @@ BAD_DEVICES_JSON = os.path.join(SRC_DIR,
                                 'bad_devices.json')
 
 sys.path.append(RTC_TOOLS_DIR)
+# pylint: disable=C0413
 import utils
 
 

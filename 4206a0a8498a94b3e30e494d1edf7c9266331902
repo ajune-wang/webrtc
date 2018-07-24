@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "57057da4_a379a08b",
+        "filename": "common_audio/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-07-24T06:54:31Z",
+      "side": 0,
+      "message": "This is required because all the 3 source files include common_audio/signal_processing/include/signal_processing_library.h, which is part of :common_audio_c.\n\nRemoving this dependency will cause errors if you run \"gn check out/Debug\" (if rtc_build_with_neon is true). For example:\n\nERROR at //common_audio/signal_processing/cross_correlation_neon.c:11:11: Include not allowed.\n#include \"common_audio/signal_processing/include/signal_processing_library.h\"\n          ^-----------------------------------------------------------------\nIt is not in any dependency of\n  //common_audio:common_audio_neon_c\nThe include file is in the target(s):\n  //common_audio:common_audio_c\nwhich should somehow be reachable.",
+      "range": {
+        "startLine": 353,
+        "startChar": 6,
+        "endLine": 353,
+        "endChar": 24
+      },
+      "revId": "4206a0a8498a94b3e30e494d1edf7c9266331902",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

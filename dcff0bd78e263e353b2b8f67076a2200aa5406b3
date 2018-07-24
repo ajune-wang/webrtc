@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "62126d3d_92586065",
+        "filename": "sdk/objc/Framework/Native/src/audio/audio_device_ios.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 899,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-07-24T11:00:10Z",
+      "side": 0,
+      "message": "This change is unrelated to the bug, but is just a small cleanup.",
+      "range": {
+        "startLine": 899,
+        "startChar": 11,
+        "endLine": 899,
+        "endChar": 27
+      },
+      "revId": "dcff0bd78e263e353b2b8f67076a2200aa5406b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

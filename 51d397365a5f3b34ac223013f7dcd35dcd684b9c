@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b6987c1f_c95b7b97",
+        "filename": "common_video/include/video_frame.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-07-24T12:12:33Z",
+      "side": 1,
+      "message": "I could change SetSpatialIndex to take an optional argument, if that\u0027s cleaner?\n\nInitially, I though we didn\u0027t need any method to clear the spatial index, and it would be enough if it\u0027s clear on a freshly created object, and set when applicable. But it turns out that at least the vp9 encoder reuses a single EncodedImage object for all encoded frames, and then it needs to explicitly unset the spatial index on frames that shouldn\u0027t have it.",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 51
+      },
+      "revId": "51d397365a5f3b34ac223013f7dcd35dcd684b9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -46,6 +46,30 @@
       "revId": "903bd4145f5a047c871652906f85a9ab37b13648",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fec0e571_496d672e",
+        "filename": "BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-07-24T15:24:13Z",
+      "side": 0,
+      "message": "It should be removed in this cl, fixing.",
+      "parentUuid": "922c3187_1b097e8f",
+      "range": {
+        "startLine": 387,
+        "startChar": 0,
+        "endLine": 395,
+        "endChar": 1
+      },
+      "revId": "903bd4145f5a047c871652906f85a9ab37b13648",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

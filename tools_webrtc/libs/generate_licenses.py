@@ -49,6 +49,7 @@ LIB_TO_LICENSES_DICT = {
     'zlib': ['third_party/zlib/LICENSE'],
     'base64': ['rtc_base/third_party/base64/LICENSE'],
     'portaudio': ['modules/third_party/portaudio/LICENSE'],
+    'fft4g': ['common_audio/third_party/fft4g/LICENSE'],
 
     # Compile time dependencies, no license needed:
     'yasm': [],

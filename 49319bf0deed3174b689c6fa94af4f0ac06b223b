@@ -1,0 +1,210 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "afe826fb_349141ef",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1088,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-07-24T18:20:00Z",
+      "side": 1,
+      "message": "Maybe also say that \"interesting\" is implementation defined.",
+      "range": {
+        "startLine": 1088,
+        "startChar": 20,
+        "endLine": 1088,
+        "endChar": 31
+      },
+      "revId": "49319bf0deed3174b689c6fa94af4f0ac06b223b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c920185_c44ca4bd",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1088,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-07-24T18:20:00Z",
+      "side": 1,
+      "message": "nit: WebRTC",
+      "range": {
+        "startLine": 1088,
+        "startChar": 53,
+        "endLine": 1088,
+        "endChar": 59
+      },
+      "revId": "49319bf0deed3174b689c6fa94af4f0ac06b223b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7adebea1_46488a73",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1090,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-07-24T18:20:00Z",
+      "side": 1,
+      "message": "nit: PeerConnection",
+      "range": {
+        "startLine": 1090,
+        "startChar": 5,
+        "endLine": 1090,
+        "endChar": 19
+      },
+      "revId": "49319bf0deed3174b689c6fa94af4f0ac06b223b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dabfd2aa_e6d48123",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1092,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-07-24T18:20:00Z",
+      "side": 1,
+      "message": "usage_pattern",
+      "range": {
+        "startLine": 1092,
+        "startChar": 38,
+        "endLine": 1092,
+        "endChar": 50
+      },
+      "revId": "49319bf0deed3174b689c6fa94af4f0ac06b223b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4a667be_015929d0",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1092,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-07-24T18:20:00Z",
+      "side": 1,
+      "message": "I think UsageEvent should be broken out of PeerConnection and exposed in the API. Then this method can reference it to define usage_pattern as a bitfield of those events.",
+      "revId": "49319bf0deed3174b689c6fa94af4f0ac06b223b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3edfc799_43d2ea98",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 5960,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-07-24T18:20:00Z",
+      "side": 1,
+      "message": "Won\u0027t this usually fire if the PeerConnection is the offerer? Is that \"interesting\"?",
+      "revId": "49319bf0deed3174b689c6fa94af4f0ac06b223b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f706c659_499f1b7c",
+        "filename": "pc/peerconnection_histogram_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-07-24T18:20:00Z",
+      "side": 1,
+      "message": "nit: don\u0027t need to wrap with optional (implicit cast)",
+      "range": {
+        "startLine": 80,
+        "startChar": 22,
+        "endLine": 80,
+        "endChar": 41
+      },
+      "revId": "49319bf0deed3174b689c6fa94af4f0ac06b223b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7dfdbab0_d33c4815",
+        "filename": "pc/peerconnection_histogram_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-07-24T18:20:00Z",
+      "side": 1,
+      "message": "nit: could instead \"override\" the observer() getter that already exists.\n\nE.g.,\n\nObserverForUsageHistogramTest* observer() {\n  return static_cast\u003cObserverForUsageHistogramTest\u003e(PeerConnectionWrapper::observer());\n}",
+      "revId": "49319bf0deed3174b689c6fa94af4f0ac06b223b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ed831aa_df3fe704",
+        "filename": "pc/peerconnection_histogram_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-07-24T18:20:00Z",
+      "side": 1,
+      "message": "nit: ASSERT_EQ_WAIT\n\n(Will give a better failure message.)",
+      "range": {
+        "startLine": 273,
+        "startChar": 2,
+        "endLine": 273,
+        "endChar": 18
+      },
+      "revId": "49319bf0deed3174b689c6fa94af4f0ac06b223b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70b62006_493d1364",
+        "filename": "pc/peerconnection_histogram_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-07-24T18:20:00Z",
+      "side": 1,
+      "message": "Could replace these two lines with:\n\nEXPECT_EQ(absl::make_optional(observed_fingerprint), caller-\u003eMyObserver()-\u003eusage_detected());",
+      "revId": "49319bf0deed3174b689c6fa94af4f0ac06b223b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

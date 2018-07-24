@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0528e8a2_aab609c7",
+        "filename": "modules/third_party/g711/README.chromium",
+        "patchSetId": 5
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-07-24T11:33:22Z",
+      "side": 1,
+      "message": "\"Custom\"",
+      "range": {
+        "startLine": 6,
+        "startChar": 9,
+        "endLine": 6,
+        "endChar": 16
+      },
+      "revId": "012b0324d3f3079ece7733fc98f5c8d034026ef0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

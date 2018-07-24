@@ -10,7 +10,6 @@
 
 #include "modules/audio_processing/aec3/matched_filter.h"
 
-#include "typedefs.h"  // NOLINT(build/include)
 #if defined(WEBRTC_ARCH_X86_FAMILY)
 #include <emmintrin.h>
 #endif
@@ -24,6 +23,7 @@
 #include "modules/audio_processing/logging/apm_data_dumper.h"
 #include "modules/audio_processing/test/echo_canceller_test_tools.h"
 #include "rtc_base/random.h"
+#include "rtc_base/system/arch.h"
 #include "system_wrappers/include/cpu_features_wrapper.h"
 #include "test/gtest.h"
 

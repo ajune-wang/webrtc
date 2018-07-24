@@ -13,7 +13,6 @@
 
 #include <stdlib.h>
 
-#include "typedefs.h"  // NOLINT(build/include)
 
 enum { AecmFalse = 0, AecmTrue };
 

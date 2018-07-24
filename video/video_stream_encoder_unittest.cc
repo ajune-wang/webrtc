@@ -25,6 +25,7 @@
 #include "test/encoder_proxy_factory.h"
 #include "test/encoder_settings.h"
 #include "test/fake_encoder.h"
+#include "test/field_trial.h"
 #include "test/frame_generator.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
@@ -2236,6 +2237,8 @@ TEST_F(VideoStreamEncoderTest,
 }
 
 TEST_F(VideoStreamEncoderTest, DropsFramesAndScalesWhenBitrateIsTooLow) {
+  webrtc::test::ScopedFieldTrials field_trials(
+      "WebRTC-InitialFramedrop/Enabled/");
   const int kTooLowBitrateForFrameSizeBps = 10000;
   video_stream_encoder_->OnBitrateUpdated(kTooLowBitrateForFrameSizeBps, 0, 0);
   const int kWidth = 640;
@@ -2265,6 +2268,8 @@ TEST_F(VideoStreamEncoderTest, DropsFramesAndScalesWhenBitrateIsTooLow) {
 
 TEST_F(VideoStreamEncoderTest,
        NumberOfDroppedFramesLimitedWhenBitrateIsTooLow) {
+  webrtc::test::ScopedFieldTrials field_trials(
+      "WebRTC-InitialFramedrop/Enabled/");
   const int kTooLowBitrateForFrameSizeBps = 10000;
   video_stream_encoder_->OnBitrateUpdated(kTooLowBitrateForFrameSizeBps, 0, 0);
   const int kWidth = 640;
@@ -2288,6 +2293,8 @@ TEST_F(VideoStreamEncoderTest,
 
 TEST_F(VideoStreamEncoderTest,
        InitialFrameDropOffWithMaintainResolutionPreference) {
+  webrtc::test::ScopedFieldTrials field_trials(
+      "WebRTC-InitialFramedrop/Enabled/");
   const int kWidth = 640;
   const int kHeight = 360;
   video_stream_encoder_->OnBitrateUpdated(kLowTargetBitrateBps, 0, 0);
@@ -2304,6 +2311,8 @@ TEST_F(VideoStreamEncoderTest,
 }
 
 TEST_F(VideoStreamEncoderTest, InitialFrameDropOffWhenEncoderDisabledScaling) {
+  webrtc::test::ScopedFieldTrials field_trials(
+      "WebRTC-InitialFramedrop/Enabled/");
   const int kWidth = 640;
   const int kHeight = 360;
   fake_encoder_.SetQualityScaling(false);
@@ -2326,6 +2335,28 @@ TEST_F(VideoStreamEncoderTest, InitialFrameDropOffWhenEncoderDisabledScaling) {
 
   video_stream_encoder_->Stop();
   fake_encoder_.SetQualityScaling(true);
+}
+
+TEST_F(VideoStreamEncoderTest, InitialFrameDropActivatesWhenBWEstimateReady) {
+  webrtc::test::ScopedFieldTrials field_trials(
+      "WebRTC-InitialFramedrop/Enabled/");
+  const int kTooLowBitrateForFrameSizeBps = 10000;
+  const int kWidth = 640;
+  const int kHeight = 360;
+
+  video_stream_encoder_->OnBitrateUpdated(kTargetBitrateBps, 0, 0);
+  video_source_.IncomingCapturedFrame(CreateFrame(1, kWidth, kHeight));
+  // Frame should not be dropped, even if it's too large.
+  WaitForEncodedFrame(1);
+
+  video_stream_encoder_->OnBitrateUpdated(kTooLowBitrateForFrameSizeBps, 0, 0);
+  video_source_.IncomingCapturedFrame(CreateFrame(2, kWidth, kHeight));
+  // Expect to drop this frame, the wait should time out.
+  ExpectDroppedFrame();
+
+  // Expect the sink_wants to specify a scaled frame.
+  EXPECT_LT(video_source_.sink_wants().max_pixel_count, kWidth * kHeight);
+  video_stream_encoder_->Stop();
 }
 
 TEST_F(VideoStreamEncoderTest,

@@ -399,7 +399,6 @@ rtc_source_set("webrtc_common") {
     "common_types.h",
   ]
   deps = [
-    ":typedefs",
     "api:array_view",
     "api/video:video_bitrate_allocation",
     "rtc_base:checks",

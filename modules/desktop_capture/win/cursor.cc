@@ -18,7 +18,6 @@
 #include "modules/desktop_capture/mouse_cursor.h"
 #include "modules/desktop_capture/win/scoped_gdi_object.h"
 #include "rtc_base/logging.h"
-#include "typedefs.h"  // NOLINT(build/include)
 
 namespace webrtc {
 

@@ -11,7 +11,6 @@
 
 #include "modules/audio_processing/aec3/suppression_gain.h"
 
-#include "typedefs.h"  // NOLINT(build/include)
 #if defined(WEBRTC_ARCH_X86_FAMILY)
 #include <emmintrin.h>
 #endif

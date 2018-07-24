@@ -16,7 +16,6 @@
 #include <intrin.h>
 #endif
 
-#include "typedefs.h"  // NOLINT(build/include)
 
 // No CPU feature is available => straight C path.
 int GetCPUInfoNoASM(CPUFeature feature) {

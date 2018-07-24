@@ -36,7 +36,6 @@
 #include "test/field_trial.h"
 #include "test/gtest.h"
 #include "test/testsupport/fileutils.h"
-#include "typedefs.h"  // NOLINT(build/include)
 
 // This must come after test/gtest.h
 #include "rtc_base/flags.h"  // NOLINT(build/include)

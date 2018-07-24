@@ -22,6 +22,30 @@
       "revId": "903bd4145f5a047c871652906f85a9ab37b13648",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "922c3187_1b097e8f",
+        "filename": "BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-07-24T14:05:26Z",
+      "side": 0,
+      "message": "Oh, I guess this will be removed in another CL (in that case the CL description should be updated).",
+      "parentUuid": "2e10fe17_26468993",
+      "range": {
+        "startLine": 387,
+        "startChar": 0,
+        "endLine": 395,
+        "endChar": 1
+      },
+      "revId": "903bd4145f5a047c871652906f85a9ab37b13648",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

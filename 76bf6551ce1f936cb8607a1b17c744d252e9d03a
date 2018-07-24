@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d3ea1def_44956836",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-07-24T11:13:56Z",
+      "side": 1,
+      "message": "s/,/.",
+      "range": {
+        "startLine": 189,
+        "startChar": 16,
+        "endLine": 189,
+        "endChar": 17
+      },
+      "revId": "76bf6551ce1f936cb8607a1b17c744d252e9d03a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

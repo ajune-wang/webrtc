@@ -10,7 +10,6 @@
 
 #include "common_audio/include/audio_util.h"
 
-#include "typedefs.h"  // NOLINT(build/include)
 
 namespace webrtc {
 

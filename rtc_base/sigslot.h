@@ -110,7 +110,7 @@
 #define _SIGSLOT_SINGLE_THREADED
 #elif defined(WEBRTC_WIN)
 #define _SIGSLOT_HAS_WIN32_THREADS
-#include "rtc_base/win32.h"
+#include "windows.h"
 #elif defined(__GNUG__) || defined(SIGSLOT_USE_POSIX_THREADS)
 #define _SIGSLOT_HAS_POSIX_THREADS
 #include <pthread.h>

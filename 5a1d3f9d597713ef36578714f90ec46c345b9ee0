@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7178a797_572abbef",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 1071,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-07-25T13:50:17Z",
+      "side": 1,
+      "message": "Why not moving this to rtc_base/third_party?",
+      "range": {
+        "startLine": 1061,
+        "startChar": 2,
+        "endLine": 1071,
+        "endChar": 3
+      },
+      "revId": "5a1d3f9d597713ef36578714f90ec46c345b9ee0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

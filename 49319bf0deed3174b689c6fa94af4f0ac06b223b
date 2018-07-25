@@ -260,6 +260,24 @@
     },
     {
       "key": {
+        "uuid": "f93e8f1e_1ea5935d",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 5960,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-07-25T15:18:40Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "bb960e3d_e2913e0a",
+      "revId": "49319bf0deed3174b689c6fa94af4f0ac06b223b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f706c659_499f1b7c",
         "filename": "pc/peerconnection_histogram_unittest.cc",
         "patchSetId": 2
@@ -336,6 +354,24 @@
       "side": 1,
       "message": "You can do that - override the return type? I thought that caused warnings\u003derrors.... will use, much neater!",
       "parentUuid": "7dfdbab0_d33c4815",
+      "revId": "49319bf0deed3174b689c6fa94af4f0ac06b223b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "63e6167c_5e2e500d",
+        "filename": "pc/peerconnection_histogram_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-07-25T15:18:40Z",
+      "side": 1,
+      "message": "Yep, but only if the overriding return type is a subclass of the overridden return type. It\u0027s a handy pattern.\n\nSee: https://en.wikipedia.org/wiki/Covariant_return_type",
+      "parentUuid": "a4d6b669_3dfcb49a",
       "revId": "49319bf0deed3174b689c6fa94af4f0ac06b223b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

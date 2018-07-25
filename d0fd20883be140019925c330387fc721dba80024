@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "3717e2c2_1ef31655",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 1094,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-07-25T15:34:03Z",
+      "side": 1,
+      "message": "It\u0027s vague by design. I don\u0027t want it to be obvious that we\u0027re going to use this interface to get data on users of WebRTC that are doing things we don\u0027t approve of.\n\nOnPossiblyDetectingSomeoneAbusingAddressCollectionPrivilleges sounds much more headline-inducing.",
+      "parentUuid": "43a52df1_e5cb7ecd",
+      "revId": "d0fd20883be140019925c330387fc721dba80024",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cb4d473e_5f70b5ba",
         "filename": "pc/peerconnection_histogram_unittest.cc",
         "patchSetId": 3
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "3d6fdd30_6dbf6008",
+        "filename": "pc/peerconnection_histogram_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-07-25T15:34:03Z",
+      "side": 1,
+      "message": "It\u0027s a getter for the variable. We could rename both.....",
+      "parentUuid": "cb4d473e_5f70b5ba",
+      "revId": "d0fd20883be140019925c330387fc721dba80024",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "449e6535_d5d76a44",
         "filename": "pc/peerconnection_histogram_unittest.cc",
         "patchSetId": 3
@@ -47,6 +83,23 @@
       "writtenOn": "2018-07-25T13:26:31Z",
       "side": 1,
       "message": "It\u0027s not clear to me why this method is checking both the fingerprint and the fingerprint with PRIVATE_CANDIDATE_COLLECTED. It also feels like this method is doing multiple things:\n1. Checking for the expected fingerprint (and variety).\n2. Getting the actual fingerprint, but only if it matched with the argument or the variety.\n3. Performing test expectations on the return value.\n\nI prefer more well defined method names and a method doing one specific task, not mixing helper getters with test expectations. Can this be split up? It would make more sense for me if the helper method was a getter for the test to expect any acceptable variety of the fingerprint, with a comment explaining why different values may be expected.\n\nIf there is a limitation where we can only check the NumEvents, not which ones were actually reported (i.e. we can\u0027t have a getter), consider changing this into a:\n\nbool ObservedFingerprint(int expected_fingerprint).\n\nAnd in the test you\n\n// Comment explaining why both are expected values.\nEXPECT_TRUE(ObservedFingerprint(expected_fingerprint) ||\n            ObservedFingerprint(expected_fingerprint | PRIVATE_CANDIDATE_COLLECTED);",
+      "revId": "d0fd20883be140019925c330387fc721dba80024",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2335eae5_7b29ace1",
+        "filename": "pc/peerconnection_histogram_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-07-25T15:34:03Z",
+      "side": 1,
+      "message": "This is the line where things get really convoluted. We want to check that the value reported with OnInterestingUsage is the same as the one reported in webrtc::metrics - but we don\u0027t know which to check against before we have checked both variants in the webrtc::metrics set. Having the PRIVATE_CANDIDATE_COLLECTED bit be different between the two would be a bug.",
       "revId": "d0fd20883be140019925c330387fc721dba80024",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ed94e5f4_aaa984cf",
+        "filename": "common_video/include/video_frame.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-07-25T10:49:41Z",
+      "side": 1,
+      "message": "I think the normal C conventions apply: if kMaxSpatialLayers \u003d\u003d 5, then valid indices are 0,1,2,3,4. So spatial_index \u003d\u003d kMaxSpatialLayers is out of range.\n\n(And then I\u0027m not entirely sure what kMaxSpatialLayers should be, it\u0027s defined to 5 in  api/video/video_bitrate_allocation.h, but there\u0027s also a local definition in media/engine/webrtcvideoengine.cc with the value 3).",
+      "parentUuid": "8112033e_d399453d",
+      "revId": "e7e2cdc51e98f714cbdce274b1c57271ce3a8636",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b1037434_a78e1183",
         "filename": "common_video/include/video_frame.h",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2018-07-25T09:55:07Z",
       "side": 1,
       "message": "[questions] * Why would anyone use memcpy to copy this class?\n* Why wouldn\u0027t absl::optionnal be memcpy-able?",
+      "revId": "e7e2cdc51e98f714cbdce274b1c57271ce3a8636",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c19db87d_f31e00d3",
+        "filename": "common_video/include/video_frame.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-07-25T10:49:41Z",
+      "side": 1,
+      "message": "\u003e [questions] * Why would anyone use memcpy to copy this class?\n\nNot sure. There are a few memcpy related to this class, but on a quick look they seem to only apply to the pointer-to buffer, not the object. But I didn\u0027t want to change the class from a container for a pointer + a bunch of integers in this cl; since the member is private, it can be changed later without breaking the interface.\n\n\u003e * Why wouldn\u0027t absl::optionnal be memcpy-able?\n\nYou\u0027re supposed to only copy \"trivial\" objects with memcpy. You\u0027d need to ask a real C++ guru to explain what \"trivial\" actually means in this context, but at least there shouldn\u0027t be any copy operators that really want to run some code. Not sure about absl::optional, but rtc::Optional wasn\u0027t \"trivial\" in this sense, because it included some magic to tell memory checkers if the optional holds a valid value or not.",
+      "parentUuid": "b1037434_a78e1183",
       "revId": "e7e2cdc51e98f714cbdce274b1c57271ce3a8636",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

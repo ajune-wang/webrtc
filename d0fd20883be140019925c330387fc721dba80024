@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "133f73f0_91929f2f",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 1094,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-07-25T16:53:45Z",
+      "side": 1,
+      "message": "Well, it is in the public interface. Might I suggest\n- OnCandidateCollectionWithoutConnectingUsage?\n- OnInterestingCandidateCollectionUsage?\n\nIn any case, LGTM.",
+      "parentUuid": "3717e2c2_1ef31655",
+      "revId": "d0fd20883be140019925c330387fc721dba80024",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cb4d473e_5f70b5ba",
         "filename": "pc/peerconnection_histogram_unittest.cc",
         "patchSetId": 3

@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8112033e_d399453d",
+        "filename": "common_video/include/video_frame.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2018-07-25T09:55:07Z",
+      "side": 1,
+      "message": "[Question] Why not LE?",
+      "revId": "e7e2cdc51e98f714cbdce274b1c57271ce3a8636",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b1037434_a78e1183",
+        "filename": "common_video/include/video_frame.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2018-07-25T09:55:07Z",
+      "side": 1,
+      "message": "[questions] * Why would anyone use memcpy to copy this class?\n* Why wouldn\u0027t absl::optionnal be memcpy-able?",
+      "revId": "e7e2cdc51e98f714cbdce274b1c57271ce3a8636",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

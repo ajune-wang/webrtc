@@ -10,6 +10,7 @@
 
 #include "common_audio/signal_processing/include/signal_processing_library.h"
 
+
 #include <arm_neon.h>
 
 // NEON intrinsics version of WebRtcSpl_DownsampleFast()

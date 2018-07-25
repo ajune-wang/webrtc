@@ -35,11 +35,11 @@ TEST(RtpPayloadParamsTest, InfoMappedToRtpVideoHeader_Vp8) {
   EncodedImage encoded_image;
   encoded_image.rotation_ = kVideoRotation_90;
   encoded_image.content_type_ = VideoContentType::SCREENSHARE;
+  encoded_image.SetSpatialIndex(1);
 
   CodecSpecificInfo codec_info;
   memset(&codec_info, 0, sizeof(CodecSpecificInfo));
   codec_info.codecType = kVideoCodecVP8;
-  codec_info.codecSpecific.VP8.simulcastIdx = 1;
   codec_info.codecSpecific.VP8.temporalIdx = kTemporalIdx;
   codec_info.codecSpecific.VP8.keyIdx = kNoKeyIdx;
   codec_info.codecSpecific.VP8.layerSync = true;
@@ -68,13 +68,12 @@ TEST(RtpPayloadParamsTest, InfoMappedToRtpVideoHeader_Vp9) {
   EncodedImage encoded_image;
   encoded_image.rotation_ = kVideoRotation_90;
   encoded_image.content_type_ = VideoContentType::SCREENSHARE;
-
+  encoded_image.SetSpatialIndex(0);
   CodecSpecificInfo codec_info;
   memset(&codec_info, 0, sizeof(CodecSpecificInfo));
   codec_info.codecType = kVideoCodecVP9;
   codec_info.codecSpecific.VP9.num_spatial_layers = 3;
   codec_info.codecSpecific.VP9.first_frame_in_picture = true;
-  codec_info.codecSpecific.VP9.spatial_idx = 0;
   codec_info.codecSpecific.VP9.temporal_idx = 2;
   codec_info.codecSpecific.VP9.end_of_picture = false;
 
@@ -87,7 +86,7 @@ TEST(RtpPayloadParamsTest, InfoMappedToRtpVideoHeader_Vp9) {
   EXPECT_EQ(kTl0PicIdx, header.vp9().tl0_pic_idx);
   EXPECT_EQ(header.vp9().temporal_idx,
             codec_info.codecSpecific.VP9.temporal_idx);
-  EXPECT_EQ(header.vp9().spatial_idx, codec_info.codecSpecific.VP9.spatial_idx);
+  EXPECT_EQ(header.vp9().spatial_idx, encoded_image.SpatialIndex());
   EXPECT_EQ(header.vp9().num_spatial_layers,
             codec_info.codecSpecific.VP9.num_spatial_layers);
   EXPECT_EQ(header.vp9().end_of_picture,
@@ -95,9 +94,8 @@ TEST(RtpPayloadParamsTest, InfoMappedToRtpVideoHeader_Vp9) {
 
   // Next spatial layer.
   codec_info.codecSpecific.VP9.first_frame_in_picture = false;
-  codec_info.codecSpecific.VP9.spatial_idx += 1;
   codec_info.codecSpecific.VP9.end_of_picture = true;
-
+  encoded_image.SetSpatialIndex(1);
   header = params.GetRtpVideoHeader(encoded_image, &codec_info);
 
   EXPECT_EQ(kVideoRotation_90, header.rotation);
@@ -107,7 +105,7 @@ TEST(RtpPayloadParamsTest, InfoMappedToRtpVideoHeader_Vp9) {
   EXPECT_EQ(kTl0PicIdx, header.vp9().tl0_pic_idx);
   EXPECT_EQ(header.vp9().temporal_idx,
             codec_info.codecSpecific.VP9.temporal_idx);
-  EXPECT_EQ(header.vp9().spatial_idx, codec_info.codecSpecific.VP9.spatial_idx);
+  EXPECT_EQ(header.vp9().spatial_idx, encoded_image.SpatialIndex());
   EXPECT_EQ(header.vp9().num_spatial_layers,
             codec_info.codecSpecific.VP9.num_spatial_layers);
   EXPECT_EQ(header.vp9().end_of_picture,
@@ -141,7 +139,6 @@ TEST(RtpPayloadParamsTest, PictureIdIsSetForVp8) {
   CodecSpecificInfo codec_info;
   memset(&codec_info, 0, sizeof(CodecSpecificInfo));
   codec_info.codecType = kVideoCodecVP8;
-  codec_info.codecSpecific.VP8.simulcastIdx = 0;
 
   RtpPayloadParams params(kSsrc1, &state);
   RTPVideoHeader header = params.GetRtpVideoHeader(encoded_image, &codec_info);

@@ -178,8 +178,8 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
   rtc::Event shutdown_event_;
 
   const uint32_t number_of_cores_;
-  // Counts how many frames we've dropped in the initial rampup phase.
-  int initial_rampup_;
+  // Counts how many frames we've dropped in the initial framedrop phase.
+  int initial_framedrop_;
 
   const bool quality_scaling_experiment_enabled_;
 
@@ -260,6 +260,8 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
   int dropped_frame_count_ RTC_GUARDED_BY(&encoder_queue_);
   absl::optional<VideoFrame> pending_frame_ RTC_GUARDED_BY(&encoder_queue_);
   int64_t pending_frame_post_time_us_ RTC_GUARDED_BY(&encoder_queue_);
+
+  bool has_seen_first_significant_bwe_change_ = false;
 
   VideoBitrateAllocationObserver* bitrate_observer_
       RTC_GUARDED_BY(&encoder_queue_);

@@ -36,6 +36,13 @@ struct PacketSocketTcpOptions {
 class AsyncPacketSocket;
 class AsyncResolverInterface;
 
+// TODO(zstein): Move to own file.
+class AsyncResolverFactory {
+ public:
+  virtual ~AsyncResolverFactory();
+  virtual AsyncResolverInterface* CreateAsyncResolver() = 0;
+};
+
 class PacketSocketFactory {
  public:
   enum Options {

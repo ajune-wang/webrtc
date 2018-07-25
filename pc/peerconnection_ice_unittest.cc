@@ -958,7 +958,8 @@ class PeerConnectionIceConfigTest : public testing::Test {
   }
   void CreatePeerConnection(const RTCConfiguration& config) {
     std::unique_ptr<cricket::FakePortAllocator> port_allocator(
-        new cricket::FakePortAllocator(rtc::Thread::Current(), nullptr));
+        new cricket::FakePortAllocator(rtc::Thread::Current(), nullptr,
+                                       nullptr));
     port_allocator_ = port_allocator.get();
     rtc::scoped_refptr<PeerConnectionInterface> pc(
         pc_factory_->CreatePeerConnection(

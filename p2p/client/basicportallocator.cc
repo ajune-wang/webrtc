@@ -128,9 +128,12 @@ const uint32_t DISABLE_ALL_PHASES =
 BasicPortAllocator::BasicPortAllocator(
     rtc::NetworkManager* network_manager,
     rtc::PacketSocketFactory* socket_factory,
+    rtc::AsyncResolverFactory* resolver_factory,
     webrtc::TurnCustomizer* customizer,
     RelayPortFactoryInterface* relay_port_factory)
-    : network_manager_(network_manager), socket_factory_(socket_factory) {
+    : network_manager_(network_manager),
+      socket_factory_(socket_factory),
+      resolver_factory_(resolver_factory) {
   InitRelayPortFactory(relay_port_factory);
   RTC_DCHECK(relay_port_factory_ != nullptr);
   RTC_DCHECK(network_manager_ != nullptr);
@@ -141,17 +144,23 @@ BasicPortAllocator::BasicPortAllocator(
 }
 
 BasicPortAllocator::BasicPortAllocator(rtc::NetworkManager* network_manager)
-    : network_manager_(network_manager), socket_factory_(nullptr) {
+    : network_manager_(network_manager),
+      socket_factory_(nullptr),
+      resolver_factory_(nullptr) {
   InitRelayPortFactory(nullptr);
   RTC_DCHECK(relay_port_factory_ != nullptr);
   RTC_DCHECK(network_manager_ != nullptr);
   Construct();
 }
 
-BasicPortAllocator::BasicPortAllocator(rtc::NetworkManager* network_manager,
-                                       rtc::PacketSocketFactory* socket_factory,
-                                       const ServerAddresses& stun_servers)
-    : network_manager_(network_manager), socket_factory_(socket_factory) {
+BasicPortAllocator::BasicPortAllocator(
+    rtc::NetworkManager* network_manager,
+    rtc::PacketSocketFactory* socket_factory,
+    rtc::AsyncResolverFactory* resolver_factory,
+    const ServerAddresses& stun_servers)
+    : network_manager_(network_manager),
+      socket_factory_(socket_factory),
+      resolver_factory_(resolver_factory) {
   InitRelayPortFactory(nullptr);
   RTC_DCHECK(relay_port_factory_ != nullptr);
   RTC_DCHECK(socket_factory_ != nullptr);
@@ -166,7 +175,9 @@ BasicPortAllocator::BasicPortAllocator(
     const rtc::SocketAddress& relay_address_udp,
     const rtc::SocketAddress& relay_address_tcp,
     const rtc::SocketAddress& relay_address_ssl)
-    : network_manager_(network_manager), socket_factory_(nullptr) {
+    : network_manager_(network_manager),
+      socket_factory_(nullptr),
+      resolver_factory_(nullptr) {
   InitRelayPortFactory(nullptr);
   RTC_DCHECK(relay_port_factory_ != nullptr);
   RTC_DCHECK(network_manager_ != nullptr);
@@ -234,7 +245,7 @@ PortAllocatorSession* BasicPortAllocator::CreateSessionInternal(
     const std::string& ice_pwd) {
   CheckRunOnValidThreadAndInitialized();
   PortAllocatorSession* session = new BasicPortAllocatorSession(
-      this, content_name, component, ice_ufrag, ice_pwd);
+      this, resolver_factory_, content_name, component, ice_ufrag, ice_pwd);
   session->SignalIceRegathering.connect(this,
                                         &BasicPortAllocator::OnIceRegathering);
   return session;
@@ -261,6 +272,7 @@ void BasicPortAllocator::InitRelayPortFactory(
 // BasicPortAllocatorSession
 BasicPortAllocatorSession::BasicPortAllocatorSession(
     BasicPortAllocator* allocator,
+    rtc::AsyncResolverFactory* resolver_factory,
     const std::string& content_name,
     int component,
     const std::string& ice_ufrag,
@@ -273,6 +285,7 @@ BasicPortAllocatorSession::BasicPortAllocatorSession(
       allocator_(allocator),
       network_thread_(nullptr),
       socket_factory_(allocator->socket_factory()),
+      resolver_factory_(resolver_factory),
       allocation_started_(false),
       network_manager_started_(false),
       allocation_sequences_created_(false),
@@ -338,6 +351,10 @@ void BasicPortAllocatorSession::StartGettingPorts() {
     owned_socket_factory_.reset(
         new rtc::BasicPacketSocketFactory(network_thread_));
     socket_factory_ = owned_socket_factory_.get();
+  }
+  if (!resolver_factory_) {
+    owned_resolver_factory_.reset(new rtc::BasicAsyncResolverFactory());
+    resolver_factory_ = owned_resolver_factory_.get();
   }
 
   network_thread_->Post(RTC_FROM_HERE, this, MSG_CONFIG_START);
@@ -793,8 +810,8 @@ void BasicPortAllocatorSession::DoAllocate(bool disable_equivalent) {
         }
       }
 
-      AllocationSequence* sequence =
-          new AllocationSequence(this, networks[i], config, sequence_flags);
+      AllocationSequence* sequence = new AllocationSequence(
+          this, resolver_factory_, networks[i], config, sequence_flags);
       sequence->SignalPortAllocationComplete.connect(
           this, &BasicPortAllocatorSession::OnPortAllocationComplete);
       sequence->Init();
@@ -1318,11 +1335,14 @@ void BasicPortAllocatorSession::PrunePortsAndSignalCandidatesRemoval(
 
 // AllocationSequence
 
-AllocationSequence::AllocationSequence(BasicPortAllocatorSession* session,
-                                       rtc::Network* network,
-                                       PortConfiguration* config,
-                                       uint32_t flags)
+AllocationSequence::AllocationSequence(
+    BasicPortAllocatorSession* session,
+    rtc::AsyncResolverFactory* resolver_factory,
+    rtc::Network* network,
+    PortConfiguration* config,
+    uint32_t flags)
     : session_(session),
+      resolver_factory_(resolver_factory),
       network_(network),
       config_(config),
       state_(kInit),
@@ -1488,16 +1508,18 @@ void AllocationSequence::CreateUDPPorts() {
       !IsFlagSet(PORTALLOCATOR_DISABLE_DEFAULT_LOCAL_CANDIDATE);
   if (IsFlagSet(PORTALLOCATOR_ENABLE_SHARED_SOCKET) && udp_socket_) {
     port = UDPPort::Create(
-        session_->network_thread(), session_->socket_factory(), network_,
-        udp_socket_.get(), session_->username(), session_->password(),
-        session_->allocator()->origin(), emit_local_candidate_for_anyaddress,
+        session_->network_thread(), session_->socket_factory(),
+        resolver_factory_, network_, udp_socket_.get(), session_->username(),
+        session_->password(), session_->allocator()->origin(),
+        emit_local_candidate_for_anyaddress,
         session_->allocator()->stun_candidate_keepalive_interval());
   } else {
     port = UDPPort::Create(
-        session_->network_thread(), session_->socket_factory(), network_,
-        session_->allocator()->min_port(), session_->allocator()->max_port(),
-        session_->username(), session_->password(),
-        session_->allocator()->origin(), emit_local_candidate_for_anyaddress,
+        session_->network_thread(), session_->socket_factory(),
+        resolver_factory_, network_, session_->allocator()->min_port(),
+        session_->allocator()->max_port(), session_->username(),
+        session_->password(), session_->allocator()->origin(),
+        emit_local_candidate_for_anyaddress,
         session_->allocator()->stun_candidate_keepalive_interval());
   }
 
@@ -1558,9 +1580,10 @@ void AllocationSequence::CreateStunPorts() {
   }
 
   StunPort* port = StunPort::Create(
-      session_->network_thread(), session_->socket_factory(), network_,
-      session_->allocator()->min_port(), session_->allocator()->max_port(),
-      session_->username(), session_->password(), config_->StunServers(),
+      session_->network_thread(), session_->socket_factory(), resolver_factory_,
+      network_, session_->allocator()->min_port(),
+      session_->allocator()->max_port(), session_->username(),
+      session_->password(), config_->StunServers(),
       session_->allocator()->origin(),
       session_->allocator()->stun_candidate_keepalive_interval());
   if (port) {
@@ -1652,6 +1675,7 @@ void AllocationSequence::CreateTurnPort(const RelayServerConfig& config) {
     CreateRelayPortArgs args;
     args.network_thread = session_->network_thread();
     args.socket_factory = session_->socket_factory();
+    args.resolver_factory = session_->resolver_factory();
     args.network = network_;
     args.username = session_->username();
     args.password = session_->password();

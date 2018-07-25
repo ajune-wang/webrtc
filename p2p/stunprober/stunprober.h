@@ -32,6 +32,7 @@ class PacketSocketFactory;
 class Thread;
 class NetworkManager;
 class AsyncResolverInterface;
+class AsyncResolverFactory;
 }  // namespace rtc
 
 namespace stunprober {
@@ -98,6 +99,7 @@ class StunProber : public sigslot::has_slots<> {
   };
 
   StunProber(rtc::PacketSocketFactory* socket_factory,
+             rtc::AsyncResolverFactory* resolver_factory,
              rtc::Thread* thread,
              const rtc::NetworkManager::NetworkList& networks);
   ~StunProber() override;
@@ -219,6 +221,7 @@ class StunProber : public sigslot::has_slots<> {
 
   // Weak references.
   rtc::PacketSocketFactory* socket_factory_;
+  rtc::AsyncResolverFactory* resolver_factory_;
   rtc::Thread* thread_;
 
   // Accumulate all resolved addresses.

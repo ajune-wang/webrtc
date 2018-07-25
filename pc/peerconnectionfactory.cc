@@ -217,6 +217,11 @@ bool PeerConnectionFactory::Initialize() {
     return false;
   }
 
+  default_resolver_factory_.reset(new rtc::BasicAsyncResolverFactory());
+  if (!default_resolver_factory_) {
+    return false;
+  }
+
   channel_manager_ = absl::make_unique<cricket::ChannelManager>(
       std::move(media_engine_), absl::make_unique<cricket::RtpDataEngine>(),
       worker_thread_, network_thread_);
@@ -373,9 +378,10 @@ PeerConnectionFactory::CreatePeerConnection(
                                                         network_thread_);
   }
   if (!dependencies.allocator) {
+    // TODO(zstein): Make resolver factory a dependency.
     dependencies.allocator.reset(new cricket::BasicPortAllocator(
         default_network_manager_.get(), default_socket_factory_.get(),
-        configuration.turn_customizer));
+        default_resolver_factory_.get(), configuration.turn_customizer));
   }
 
   network_thread_->Invoke<void>(

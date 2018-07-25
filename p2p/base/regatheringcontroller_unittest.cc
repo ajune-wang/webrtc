@@ -52,8 +52,9 @@ class RegatheringControllerTest : public testing::Test,
       : vss_(new rtc::VirtualSocketServer()),
         thread_(vss_.get()),
         ice_transport_(new cricket::MockIceTransport()),
-        allocator_(
-            new cricket::FakePortAllocator(rtc::Thread::Current(), nullptr)) {
+        allocator_(new cricket::FakePortAllocator(rtc::Thread::Current(),
+                                                  nullptr,
+                                                  nullptr)) {
     BasicRegatheringController::Config regathering_config(absl::nullopt, 0);
     regathering_controller_.reset(new BasicRegatheringController(
         regathering_config, ice_transport_.get(), rtc::Thread::Current()));

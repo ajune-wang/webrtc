@@ -66,7 +66,6 @@ rtc_static_library("rent_a_codec") {
     "acm2/rent_a_codec.h",
   ]
   deps = [
-           "../..:typedefs",
            "../../rtc_base:checks",
            "../../api:array_view",
            "//third_party/abseil-cpp/absl/types:optional",
@@ -89,7 +88,6 @@ rtc_source_set("audio_coding_module_typedefs") {
     "include/audio_coding_module_typedefs.h",
   ]
   deps = [
-    "../..:typedefs",
     "../..:webrtc_common",
   ]
 }
@@ -122,7 +120,6 @@ rtc_static_library("audio_coding") {
            "../../api/audio:audio_frame_api",
            "..:module_api",
            "../../common_audio:common_audio_c",
-           "../..:typedefs",
            "../../rtc_base:deprecation",
            "../../rtc_base:checks",
            "../../system_wrappers:metrics_api",
@@ -161,7 +158,6 @@ rtc_static_library("cng") {
   ]
 
   deps = [
-    "../..:typedefs",
     "../..:webrtc_common",
     "../../api:array_view",
     "../../api/audio_codecs:audio_codecs_api",
@@ -215,7 +211,6 @@ rtc_source_set("g711_c") {
     "codecs/g711/g711_interface.h",
   ]
   deps = [
-    "../..:typedefs",
     "../..:webrtc_common",
     "../third_party/g711:g711_3p",
   ]
@@ -252,7 +247,6 @@ rtc_source_set("g722_c") {
   ]
   deps = [
     ":g722_3p",
-    "../..:typedefs",
     "../..:webrtc_common",
   ]
 }
@@ -435,7 +429,6 @@ rtc_source_set("ilbc_c") {
   ]
 
   deps = [
-    "../..:typedefs",
     "../..:webrtc_common",
     "../../api/audio_codecs:audio_codecs_api",
     "../../common_audio",
@@ -443,6 +436,8 @@ rtc_source_set("ilbc_c") {
     "../../rtc_base:checks",
     "../../rtc_base:rtc_base_approved",
     "../../rtc_base:sanitizer",
+    "../../rtc_base/system:arch",
+    "../../rtc_base/system:unused",
   ]
 }
 
@@ -458,7 +453,6 @@ rtc_static_library("isac_common") {
   ]
   deps = [
     ":isac_bwinfo",
-    "../..:typedefs",
     "../..:webrtc_common",
     "../../api/audio_codecs:audio_codecs_api",
     "../../rtc_base:checks",
@@ -490,9 +484,7 @@ rtc_source_set("isac_bwinfo") {
   sources = [
     "codecs/isac/bandwidth_info.h",
   ]
-  deps = [
-    "../..:typedefs",
-  ]
+  deps = []
 }
 
 rtc_source_set("isac_vad") {
@@ -512,8 +504,8 @@ rtc_source_set("isac_vad") {
   ]
   deps = [
     ":isac_bwinfo",
-    "../..:typedefs",
     "../../rtc_base:compile_assert_c",
+    "../../rtc_base/system:arch",
     "../../rtc_base/system:ignore_warnings",
   ]
 }
@@ -569,13 +561,13 @@ rtc_static_library("isac_c") {
   deps = [
     ":isac_bwinfo",
     ":isac_vad",
-    "../..:typedefs",
     "../..:webrtc_common",
     "../../common_audio",
     "../../common_audio:common_audio_c",
     "../../rtc_base:checks",
     "../../rtc_base:compile_assert_c",
     "../../rtc_base:rtc_base_approved",
+    "../../rtc_base/system:arch",
     "../third_party/fft:fft",
   ]
 }
@@ -617,7 +609,6 @@ rtc_source_set("isac_fix_common") {
   ]
   deps = [
     ":isac_bwinfo",
-    "../..:typedefs",
     "../../common_audio",
     "../../common_audio:common_audio_c",
   ]
@@ -685,7 +676,6 @@ rtc_source_set("isac_fix_c") {
   deps = [
     ":isac_bwinfo",
     ":isac_common",
-    "../..:typedefs",
     "../..:webrtc_common",
     "../../api/audio_codecs:audio_codecs_api",
     "../../common_audio",
@@ -809,7 +799,6 @@ rtc_source_set("pcm16b_c") {
   ]
 
   deps = [
-    "../..:typedefs",
     "../..:webrtc_common",
   ]
 }
@@ -871,7 +860,6 @@ rtc_source_set("webrtc_opus_c") {
   }
 
   deps = [
-    "../..:typedefs",
     "../..:webrtc_common",
     "../../rtc_base:checks",
     "../../rtc_base:rtc_base_approved",
@@ -1059,7 +1047,6 @@ rtc_static_library("neteq") {
     ":cng",
     ":neteq_decoder_enum",
     "..:module_api",
-    "../..:typedefs",
     "../..:webrtc_common",
     "../../api:libjingle_peerconnection_api",
     "../../api/audio:audio_frame_api",
@@ -1102,7 +1089,6 @@ rtc_source_set("neteq_tools_minimal") {
 
   deps = [
     ":neteq",
-    "../..:typedefs",
     "../..:webrtc_common",
     "../../api:libjingle_peerconnection_api",
     "../../api/audio:audio_frame_api",
@@ -1141,7 +1127,6 @@ rtc_source_set("neteq_test_tools") {
 
   deps = [
     ":pcm16b",
-    "../..:typedefs",
     "../..:webrtc_common",
     "../../api:array_view",
     "../../api:libjingle_peerconnection_api",
@@ -1150,6 +1135,7 @@ rtc_source_set("neteq_test_tools") {
     "../../rtc_base:rtc_base",
     "../../rtc_base:rtc_base_approved",
     "../../rtc_base:rtc_base_tests_utils",
+    "../../rtc_base/system:arch",
     "../../test:rtp_test_utils",
     "../rtp_rtcp",
     "../rtp_rtcp:rtp_rtcp_format",
@@ -1189,7 +1175,6 @@ rtc_source_set("neteq_tools") {
 
   deps = [
     "..:module_api",
-    "../..:typedefs",
     "../..:webrtc_common",
     "../../api:array_view",
     "../../api/audio_codecs:audio_codecs_api",
@@ -1216,7 +1201,6 @@ rtc_source_set("neteq_input_audio_tools") {
   ]
 
   deps = [
-    "../..:typedefs",
     "../..:webrtc_common",
     "../../common_audio",
     "../../rtc_base:checks",
@@ -1342,7 +1326,6 @@ if (rtc_include_tests) {
       ":audio_format_conversion",
       ":pcm16b_c",
       "..:module_api",
-      "../..:typedefs",
       "../..:webrtc_common",
       "../../api/audio:audio_frame_api",
       "../../api/audio_codecs:builtin_audio_decoder_factory",
@@ -1372,7 +1355,6 @@ if (rtc_include_tests) {
     deps = [
       ":neteq_test_support",
       ":neteq_test_tools",
-      "../..:typedefs",
       "../..:webrtc_common",
       "../../api/audio_codecs/opus:audio_encoder_opus",
       "../../rtc_base:protobuf_utils",
@@ -1451,7 +1433,6 @@ if (rtc_include_tests) {
       ":audio_coding_module_typedefs",
       ":audio_format_conversion",
       "..:module_api",
-      "../..:typedefs",
       "../../:webrtc_common",
       "../../api/audio:audio_frame_api",
       "../../api/audio_codecs:builtin_audio_decoder_factory",
@@ -1499,6 +1480,7 @@ if (rtc_include_tests) {
              "../../api/audio_codecs/opus:audio_encoder_opus",
              "../../common_audio",
              "../../rtc_base:protobuf_utils",
+             "../../rtc_base/system:arch",
              "../../test:test_main",
              "//testing/gtest",
            ] + audio_coding_deps
@@ -1526,7 +1508,6 @@ if (rtc_include_tests) {
       testonly = true
       defines = []
       deps = [
-        "../..:typedefs",
         "../../rtc_base:checks",
         "../../test:fileutils",
       ]
@@ -1570,7 +1551,6 @@ if (rtc_include_tests) {
     testonly = true
     defines = []
     deps = [
-      "../..:typedefs",
       "../../test:fileutils",
     ]
     sources = [
@@ -1629,7 +1609,6 @@ if (rtc_include_tests) {
       ":neteq",
       ":neteq_test_tools",
       ":pcm16b",
-      "../..:typedefs",
       "../..:webrtc_common",
       "../../api/audio:audio_frame_api",
       "../../api/audio_codecs:audio_codecs_api",
@@ -1658,7 +1637,6 @@ if (rtc_include_tests) {
     deps = [
       ":neteq",
       ":neteq_test_tools",
-      "../..:typedefs",
       "../..:webrtc_common",
       "../../api/audio_codecs:builtin_audio_decoder_factory",
       "../../rtc_base:checks",
@@ -1674,7 +1652,6 @@ if (rtc_include_tests) {
 
     deps = audio_coding_deps + [
              "//third_party/abseil-cpp/absl/memory",
-             "../..:typedefs",
              ":audio_coding",
              ":neteq_input_audio_tools",
              "../../api/audio:audio_frame_api",
@@ -1699,7 +1676,6 @@ if (rtc_include_tests) {
     testonly = true
 
     deps = audio_coding_deps + [
-             "../..:typedefs",
              "../../system_wrappers:system_wrappers_default",
              "../rtp_rtcp:rtp_rtcp_format",
              "../../api:array_view",
@@ -1774,7 +1750,6 @@ if (rtc_include_tests) {
     deps = [
       ":neteq",
       ":neteq_test_support",
-      "../..:typedefs",
       "../..:webrtc_common",
       "../../rtc_base:rtc_base_approved",
       "../../system_wrappers:system_wrappers_default",
@@ -1921,7 +1896,6 @@ if (rtc_include_tests) {
 
     deps = [
       ":g722",
-      "../..:typedefs",
       "../..:webrtc_common",
     ]
   }
@@ -2089,7 +2063,6 @@ if (rtc_include_tests) {
       ":rent_a_codec",
       ":webrtc_opus",
       "..:module_api",
-      "../..:typedefs",
       "../..:webrtc_common",
       "../../api/audio:audio_frame_api",
       "../../api/audio_codecs:audio_codecs_api",
@@ -2109,6 +2082,7 @@ if (rtc_include_tests) {
       "../../rtc_base:rtc_base_approved",
       "../../rtc_base:rtc_base_tests_utils",
       "../../rtc_base:sanitizer",
+      "../../rtc_base/system:arch",
       "../../system_wrappers",
       "../../system_wrappers:cpu_features_api",
       "../../test:audio_codec_mocks",

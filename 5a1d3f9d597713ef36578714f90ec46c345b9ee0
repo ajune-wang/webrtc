@@ -46,6 +46,30 @@
       "revId": "5a1d3f9d597713ef36578714f90ec46c345b9ee0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c95fbbf8_88300c1b",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 1071,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-07-25T13:56:51Z",
+      "side": 1,
+      "message": "Fair enough. The fact that it is our code means it should stay here.",
+      "parentUuid": "da2dcdad_f0f491f1",
+      "range": {
+        "startLine": 1061,
+        "startChar": 2,
+        "endLine": 1071,
+        "endChar": 3
+      },
+      "revId": "5a1d3f9d597713ef36578714f90ec46c345b9ee0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

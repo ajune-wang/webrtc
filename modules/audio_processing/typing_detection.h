@@ -11,7 +11,6 @@
 #ifndef MODULES_AUDIO_PROCESSING_TYPING_DETECTION_H_
 #define MODULES_AUDIO_PROCESSING_TYPING_DETECTION_H_
 
-#include "typedefs.h"  // NOLINT(build/include)
 
 namespace webrtc {
 

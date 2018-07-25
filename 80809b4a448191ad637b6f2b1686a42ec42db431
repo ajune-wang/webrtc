@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "26b633be_cfffb0ed",
+        "filename": "common_audio/audio_util.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-07-25T13:40:49Z",
+      "side": 1,
+      "message": "I take it you mean there\u0027s one empty line too much? I\u0027ll fix all those (but I wonder why git cl format didn\u0027t do that for me).\n\nThis part of the cl was produced by \n\ngit grep -l \u0027#include *\"typedefs\\.h\"\u0027 |xargs sed -i \u0027/#include *\"typedefs\\.h\"/d\u0027\n\nwhich obviously leaves all empty lines in place.",
+      "parentUuid": "54b639a7_6adf284f",
+      "revId": "80809b4a448191ad637b6f2b1686a42ec42db431",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f678d1c0_81817842",
         "filename": "common_audio/resampler/include/push_resampler.h",
         "patchSetId": 7
@@ -104,6 +122,24 @@
     },
     {
       "key": {
+        "uuid": "47e73b55_543a6136",
+        "filename": "modules/audio_coding/codecs/ilbc/ilbc.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-07-25T13:40:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e0e2e3fb_cc560d33",
+      "revId": "80809b4a448191ad637b6f2b1686a42ec42db431",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d5b9fee0_3566de28",
         "filename": "modules/audio_coding/codecs/pcm16b/pcm16b.c",
         "patchSetId": 7
@@ -166,6 +202,24 @@
       "writtenOn": "2018-07-25T12:54:00Z",
       "side": 1,
       "message": "Needs to go above line 13?",
+      "revId": "80809b4a448191ad637b6f2b1686a42ec42db431",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "185cb1aa_034dd95a",
+        "filename": "modules/audio_processing/aec3/matched_filter_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-07-25T13:40:49Z",
+      "side": 1,
+      "message": "Moving it up. It works none the less, since arch.h is included by matched_filter.h, above.\n\n(If we had already changed the definitions of WEBRTC_ARCH_* so that -Wundef caught errors, I would probably not include arch.h again here and in matched_filter.cc).",
+      "parentUuid": "2f63e34e_47614a30",
       "revId": "80809b4a448191ad637b6f2b1686a42ec42db431",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -319,6 +373,24 @@
       "writtenOn": "2018-07-25T12:54:00Z",
       "side": 1,
       "message": "it\u0027s suspicious that we don\u0027t need stdint.h here",
+      "revId": "80809b4a448191ad637b6f2b1686a42ec42db431",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "995d20c3_ea47d939",
+        "filename": "modules/include/module.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-07-25T13:40:49Z",
+      "side": 1,
+      "message": "I guess we always include some other header bringing in stdint.h before this one.\n\nI\u0027m adding an #include \u003cstdint.h\u003e, since that seems right.",
+      "parentUuid": "767459b1_227961bc",
       "revId": "80809b4a448191ad637b6f2b1686a42ec42db431",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

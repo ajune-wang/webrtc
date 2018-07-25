@@ -28,8 +28,8 @@ class PortAllocatorTest : public testing::Test, public sigslot::has_slots<> {
  public:
   PortAllocatorTest()
       : vss_(new rtc::VirtualSocketServer()), main_(vss_.get()) {
-    allocator_.reset(
-        new cricket::FakePortAllocator(rtc::Thread::Current(), nullptr));
+    allocator_.reset(new cricket::FakePortAllocator(rtc::Thread::Current(),
+                                                    nullptr, nullptr));
   }
 
  protected:

@@ -193,6 +193,7 @@ class TurnEntry : public sigslot::has_slots<> {
 
 TurnPort::TurnPort(rtc::Thread* thread,
                    rtc::PacketSocketFactory* factory,
+                   rtc::AsyncResolverFactory* resolver_factory,
                    rtc::Network* network,
                    rtc::AsyncPacketSocket* socket,
                    const std::string& username,
@@ -207,6 +208,7 @@ TurnPort::TurnPort(rtc::Thread* thread,
       tls_cert_verifier_(nullptr),
       credentials_(credentials),
       socket_(socket),
+      resolver_factory_(resolver_factory),
       resolver_(NULL),
       error_(0),
       request_manager_(thread),
@@ -221,6 +223,7 @@ TurnPort::TurnPort(rtc::Thread* thread,
 
 TurnPort::TurnPort(rtc::Thread* thread,
                    rtc::PacketSocketFactory* factory,
+                   rtc::AsyncResolverFactory* resolver_factory,
                    rtc::Network* network,
                    uint16_t min_port,
                    uint16_t max_port,
@@ -248,6 +251,7 @@ TurnPort::TurnPort(rtc::Thread* thread,
       tls_cert_verifier_(tls_cert_verifier),
       credentials_(credentials),
       socket_(NULL),
+      resolver_factory_(resolver_factory),
       resolver_(NULL),
       error_(0),
       request_manager_(thread),
@@ -752,7 +756,7 @@ void TurnPort::ResolveTurnAddress(const rtc::SocketAddress& address) {
 
   RTC_LOG(LS_INFO) << ToString() << ": Starting TURN host lookup for "
                    << address.ToSensitiveString();
-  resolver_ = socket_factory()->CreateAsyncResolver();
+  resolver_ = resolver_factory_->CreateAsyncResolver();
   resolver_->SignalDone.connect(this, &TurnPort::OnResolveResult);
   resolver_->Start(address);
 }

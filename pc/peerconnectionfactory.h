@@ -24,6 +24,7 @@
 #include "rtc_base/thread.h"
 
 namespace rtc {
+class BasicAsyncResolverFactory;
 class BasicNetworkManager;
 class BasicPacketSocketFactory;
 }  // namespace rtc
@@ -148,6 +149,7 @@ class PeerConnectionFactory : public PeerConnectionFactoryInterface {
   std::unique_ptr<cricket::ChannelManager> channel_manager_;
   std::unique_ptr<rtc::BasicNetworkManager> default_network_manager_;
   std::unique_ptr<rtc::BasicPacketSocketFactory> default_socket_factory_;
+  std::unique_ptr<rtc::BasicAsyncResolverFactory> default_resolver_factory_;
   std::unique_ptr<cricket::MediaEngineInterface> media_engine_;
   std::unique_ptr<webrtc::CallFactoryInterface> call_factory_;
   std::unique_ptr<RtcEventLogFactoryInterface> event_log_factory_;

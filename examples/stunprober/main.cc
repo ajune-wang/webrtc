@@ -124,12 +124,15 @@ int main(int argc, char* argv[]) {
   rtc::Thread* thread = rtc::ThreadManager::Instance()->WrapCurrentThread();
   std::unique_ptr<rtc::BasicPacketSocketFactory> socket_factory(
       new rtc::BasicPacketSocketFactory());
+  std::unique_ptr<rtc::AsyncResolverFactory> resolver_factory(
+      new rtc::BasicAsyncResolverFactory());
   std::unique_ptr<rtc::BasicNetworkManager> network_manager(
       new rtc::BasicNetworkManager());
   rtc::NetworkManager::NetworkList networks;
   network_manager->GetNetworks(&networks);
   StunProber* prober =
-      new StunProber(socket_factory.get(), rtc::Thread::Current(), networks);
+      new StunProber(socket_factory.get(), resolver_factory.get(),
+                     rtc::Thread::Current(), networks);
   auto finish_callback = [thread](StunProber* prober, int result) {
     StopTrial(thread, prober, result);
   };

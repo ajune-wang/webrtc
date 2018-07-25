@@ -37,6 +37,7 @@ class UDPPort : public Port {
  public:
   static UDPPort* Create(rtc::Thread* thread,
                          rtc::PacketSocketFactory* factory,
+                         rtc::AsyncResolverFactory* resolver_factory,
                          rtc::Network* network,
                          rtc::AsyncPacketSocket* socket,
                          const std::string& username,
@@ -44,8 +45,9 @@ class UDPPort : public Port {
                          const std::string& origin,
                          bool emit_local_for_anyaddress,
                          absl::optional<int> stun_keepalive_interval) {
-    UDPPort* port = new UDPPort(thread, factory, network, socket, username,
-                                password, origin, emit_local_for_anyaddress);
+    UDPPort* port =
+        new UDPPort(thread, factory, resolver_factory, network, socket,
+                    username, password, origin, emit_local_for_anyaddress);
     port->set_stun_keepalive_delay(stun_keepalive_interval);
     if (!port->Init()) {
       delete port;
@@ -56,6 +58,7 @@ class UDPPort : public Port {
 
   static UDPPort* Create(rtc::Thread* thread,
                          rtc::PacketSocketFactory* factory,
+                         rtc::AsyncResolverFactory* resolver_factory,
                          rtc::Network* network,
                          uint16_t min_port,
                          uint16_t max_port,
@@ -64,9 +67,9 @@ class UDPPort : public Port {
                          const std::string& origin,
                          bool emit_local_for_anyaddress,
                          absl::optional<int> stun_keepalive_interval) {
-    UDPPort* port =
-        new UDPPort(thread, factory, network, min_port, max_port, username,
-                    password, origin, emit_local_for_anyaddress);
+    UDPPort* port = new UDPPort(thread, factory, resolver_factory, network,
+                                min_port, max_port, username, password, origin,
+                                emit_local_for_anyaddress);
     port->set_stun_keepalive_delay(stun_keepalive_interval);
     if (!port->Init()) {
       delete port;
@@ -125,6 +128,7 @@ class UDPPort : public Port {
  protected:
   UDPPort(rtc::Thread* thread,
           rtc::PacketSocketFactory* factory,
+          rtc::AsyncResolverFactory* resolver_factory,
           rtc::Network* network,
           uint16_t min_port,
           uint16_t max_port,
@@ -135,6 +139,7 @@ class UDPPort : public Port {
 
   UDPPort(rtc::Thread* thread,
           rtc::PacketSocketFactory* factory,
+          rtc::AsyncResolverFactory* resolver_factory,
           rtc::Network* network,
           rtc::AsyncPacketSocket* socket,
           const std::string& username,
@@ -181,7 +186,7 @@ class UDPPort : public Port {
   // resolve one address per instance.
   class AddressResolver : public sigslot::has_slots<> {
    public:
-    explicit AddressResolver(rtc::PacketSocketFactory* factory);
+    explicit AddressResolver(rtc::AsyncResolverFactory* resolver_factory);
     ~AddressResolver() override;
 
     void Resolve(const rtc::SocketAddress& address);
@@ -200,7 +205,7 @@ class UDPPort : public Port {
 
     void OnResolveResult(rtc::AsyncResolverInterface* resolver);
 
-    rtc::PacketSocketFactory* socket_factory_;
+    rtc::AsyncResolverFactory* async_resolver_factory_;
     ResolverMap resolvers_;
   };
 
@@ -242,6 +247,7 @@ class UDPPort : public Port {
   StunRequestManager requests_;
   rtc::AsyncPacketSocket* socket_;
   int error_;
+  rtc::AsyncResolverFactory* async_resolver_factory_;
   std::unique_ptr<AddressResolver> resolver_;
   bool ready_;
   int stun_keepalive_delay_;
@@ -260,6 +266,7 @@ class StunPort : public UDPPort {
  public:
   static StunPort* Create(rtc::Thread* thread,
                           rtc::PacketSocketFactory* factory,
+                          rtc::AsyncResolverFactory* resolver_factory,
                           rtc::Network* network,
                           uint16_t min_port,
                           uint16_t max_port,
@@ -274,6 +281,7 @@ class StunPort : public UDPPort {
  protected:
   StunPort(rtc::Thread* thread,
            rtc::PacketSocketFactory* factory,
+           rtc::AsyncResolverFactory* resolver_factory,
            rtc::Network* network,
            uint16_t min_port,
            uint16_t max_port,

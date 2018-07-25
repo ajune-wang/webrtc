@@ -747,7 +747,8 @@ class PeerConnectionInterfaceBaseTest : public testing::Test {
       const PeerConnectionInterface::RTCConfiguration& config,
       webrtc::MediaConstraintsInterface* constraints) {
     std::unique_ptr<cricket::FakePortAllocator> port_allocator(
-        new cricket::FakePortAllocator(rtc::Thread::Current(), nullptr));
+        new cricket::FakePortAllocator(rtc::Thread::Current(), nullptr,
+                                       nullptr));
     port_allocator_ = port_allocator.get();
 
     // Create certificate generator unless DTLS constraint is explicitly set to
@@ -1386,7 +1387,7 @@ TEST_P(PeerConnectionInterfaceTest,
        CreatePeerConnectionAppliesNetworkConfigToPortAllocator) {
   // Create fake port allocator.
   std::unique_ptr<cricket::FakePortAllocator> port_allocator(
-      new cricket::FakePortAllocator(rtc::Thread::Current(), nullptr));
+      new cricket::FakePortAllocator(rtc::Thread::Current(), nullptr, nullptr));
   cricket::FakePortAllocator* raw_port_allocator = port_allocator.get();
 
   // Create RTCConfiguration with some network-related fields relevant to

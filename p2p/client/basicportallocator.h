@@ -32,11 +32,13 @@ class BasicPortAllocator : public PortAllocator {
   // and must have a life time that exceeds that of BasicPortAllocator.
   BasicPortAllocator(rtc::NetworkManager* network_manager,
                      rtc::PacketSocketFactory* socket_factory,
+                     rtc::AsyncResolverFactory* resolver_factory,
                      webrtc::TurnCustomizer* customizer = nullptr,
                      RelayPortFactoryInterface* relay_port_factory = nullptr);
   explicit BasicPortAllocator(rtc::NetworkManager* network_manager);
   BasicPortAllocator(rtc::NetworkManager* network_manager,
                      rtc::PacketSocketFactory* socket_factory,
+                     rtc::AsyncResolverFactory* resolver_factory,
                      const ServerAddresses& stun_servers);
   BasicPortAllocator(rtc::NetworkManager* network_manager,
                      const ServerAddresses& stun_servers,
@@ -89,6 +91,7 @@ class BasicPortAllocator : public PortAllocator {
 
   rtc::NetworkManager* network_manager_;
   rtc::PacketSocketFactory* socket_factory_;
+  rtc::AsyncResolverFactory* resolver_factory_;
   bool allow_tcp_listen_;
   int network_ignore_mask_ = rtc::kDefaultNetworkIgnoreMask;
 
@@ -114,6 +117,7 @@ class BasicPortAllocatorSession : public PortAllocatorSession,
                                   public rtc::MessageHandler {
  public:
   BasicPortAllocatorSession(BasicPortAllocator* allocator,
+                            rtc::AsyncResolverFactory* resolver_factory,
                             const std::string& content_name,
                             int component,
                             const std::string& ice_ufrag,
@@ -123,6 +127,7 @@ class BasicPortAllocatorSession : public PortAllocatorSession,
   virtual BasicPortAllocator* allocator();
   rtc::Thread* network_thread() { return network_thread_; }
   rtc::PacketSocketFactory* socket_factory() { return socket_factory_; }
+  rtc::AsyncResolverFactory* resolver_factory() { return resolver_factory_; }
 
   void SetCandidateFilter(uint32_t filter) override;
   void StartGettingPorts() override;
@@ -272,6 +277,8 @@ class BasicPortAllocatorSession : public PortAllocatorSession,
   rtc::Thread* network_thread_;
   std::unique_ptr<rtc::PacketSocketFactory> owned_socket_factory_;
   rtc::PacketSocketFactory* socket_factory_;
+  std::unique_ptr<rtc::AsyncResolverFactory> owned_resolver_factory_;
+  rtc::AsyncResolverFactory* resolver_factory_;
   bool allocation_started_;
   bool network_manager_started_;
   bool allocation_sequences_created_;
@@ -343,6 +350,7 @@ class AllocationSequence : public rtc::MessageHandler,
     // kInit --> kRunning --> {kCompleted|kStopped}
   };
   AllocationSequence(BasicPortAllocatorSession* session,
+                     rtc::AsyncResolverFactory* resolver_factory,
                      rtc::Network* network,
                      PortConfiguration* config,
                      uint32_t flags);
@@ -402,6 +410,7 @@ class AllocationSequence : public rtc::MessageHandler,
   void OnPortDestroyed(PortInterface* port);
 
   BasicPortAllocatorSession* session_;
+  rtc::AsyncResolverFactory* resolver_factory_;
   bool network_failed_ = false;
   rtc::Network* network_;
   // Compared with the new best IP in DisableEquivalentPhases.

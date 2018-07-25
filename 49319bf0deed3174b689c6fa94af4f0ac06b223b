@@ -48,6 +48,54 @@
     },
     {
       "key": {
+        "uuid": "62bf71ae_6f289009",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1088,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-07-25T09:29:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "afe826fb_349141ef",
+      "range": {
+        "startLine": 1088,
+        "startChar": 20,
+        "endLine": 1088,
+        "endChar": 31
+      },
+      "revId": "49319bf0deed3174b689c6fa94af4f0ac06b223b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e52c7c92_e40ef238",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1088,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-07-25T09:29:16Z",
+      "side": 1,
+      "message": "Was unsure which capitalization to use, given that this is the implementation :-)\nDone.",
+      "parentUuid": "1c920185_c44ca4bd",
+      "range": {
+        "startLine": 1088,
+        "startChar": 53,
+        "endLine": 1088,
+        "endChar": 59
+      },
+      "revId": "49319bf0deed3174b689c6fa94af4f0ac06b223b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7adebea1_46488a73",
         "filename": "api/peerconnectioninterface.h",
         "patchSetId": 2
@@ -68,6 +116,30 @@
       "revId": "49319bf0deed3174b689c6fa94af4f0ac06b223b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e755f2e_43ea0306",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1090,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-07-25T09:29:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7adebea1_46488a73",
+      "range": {
+        "startLine": 1090,
+        "startChar": 5,
+        "endLine": 1090,
+        "endChar": 19
+      },
+      "revId": "49319bf0deed3174b689c6fa94af4f0ac06b223b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -111,6 +183,48 @@
     },
     {
       "key": {
+        "uuid": "3f9885f9_42abf234",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1092,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-07-25T09:29:16Z",
+      "side": 1,
+      "message": "I started out that way (even using a bitset rather than an int, and got pushback on that).\nI then realized that I wanted the ability to change the set of flags without disturbing any other component; the only other place where these things are interpreted is in tools/metrics/enums.xml, and there you name the whole value, not the bits.\n\nHiding them from the API ensures that no client (except those that read the source) is depending on them.",
+      "parentUuid": "e4a667be_015929d0",
+      "revId": "49319bf0deed3174b689c6fa94af4f0ac06b223b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18b85834_9b650cbd",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1092,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-07-25T09:29:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dabfd2aa_e6d48123",
+      "range": {
+        "startLine": 1092,
+        "startChar": 38,
+        "endLine": 1092,
+        "endChar": 50
+      },
+      "revId": "49319bf0deed3174b689c6fa94af4f0ac06b223b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3edfc799_43d2ea98",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 2
@@ -122,6 +236,24 @@
       "writtenOn": "2018-07-24T18:20:00Z",
       "side": 1,
       "message": "Won\u0027t this usually fire if the PeerConnection is the offerer? Is that \"interesting\"?",
+      "revId": "49319bf0deed3174b689c6fa94af4f0ac06b223b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb960e3d_e2913e0a",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 5960,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-07-25T09:29:16Z",
+      "side": 1,
+      "message": "It won\u0027t fire if the peerconnection gets a remote description, a remote candidate or manages to connect. Those are the things that I take as indications that someone\u0027s trying to connect something rather than just gathering addresses.\n\nThis function is called on close() and after 60 seconds of lifetime; it\u0027s not called on each change.",
+      "parentUuid": "3edfc799_43d2ea98",
       "revId": "49319bf0deed3174b689c6fa94af4f0ac06b223b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -151,6 +283,30 @@
     },
     {
       "key": {
+        "uuid": "d34a6d2e_9b17fd31",
+        "filename": "pc/peerconnection_histogram_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-07-25T09:29:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f706c659_499f1b7c",
+      "range": {
+        "startLine": 80,
+        "startChar": 22,
+        "endLine": 80,
+        "endChar": 41
+      },
+      "revId": "49319bf0deed3174b689c6fa94af4f0ac06b223b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7dfdbab0_d33c4815",
         "filename": "pc/peerconnection_histogram_unittest.cc",
         "patchSetId": 2
@@ -165,6 +321,24 @@
       "revId": "49319bf0deed3174b689c6fa94af4f0ac06b223b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4d6b669_3dfcb49a",
+        "filename": "pc/peerconnection_histogram_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-07-25T09:29:16Z",
+      "side": 1,
+      "message": "You can do that - override the return type? I thought that caused warnings\u003derrors.... will use, much neater!",
+      "parentUuid": "7dfdbab0_d33c4815",
+      "revId": "49319bf0deed3174b689c6fa94af4f0ac06b223b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -191,6 +365,30 @@
     },
     {
       "key": {
+        "uuid": "fd36cbda_7885fff0",
+        "filename": "pc/peerconnection_histogram_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-07-25T09:29:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5ed831aa_df3fe704",
+      "range": {
+        "startLine": 273,
+        "startChar": 2,
+        "endLine": 273,
+        "endChar": 18
+      },
+      "revId": "49319bf0deed3174b689c6fa94af4f0ac06b223b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "70b62006_493d1364",
         "filename": "pc/peerconnection_histogram_unittest.cc",
         "patchSetId": 2
@@ -205,6 +403,24 @@
       "revId": "49319bf0deed3174b689c6fa94af4f0ac06b223b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a11a1717_5b32ac4e",
+        "filename": "pc/peerconnection_histogram_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-07-25T09:29:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "70b62006_493d1364",
+      "revId": "49319bf0deed3174b689c6fa94af4f0ac06b223b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

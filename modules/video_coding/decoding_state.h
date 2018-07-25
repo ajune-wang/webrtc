@@ -15,7 +15,6 @@
 #include <set>
 #include <vector>
 
-#include "typedefs.h"  // NOLINT(build/include)
 
 namespace webrtc {
 

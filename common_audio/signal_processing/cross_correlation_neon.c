@@ -10,6 +10,8 @@
 
 #include "common_audio/signal_processing/include/signal_processing_library.h"
 
+#include "rtc_base/system/arch.h"
+
 #include <arm_neon.h>
 
 static inline void DotProductWithScaleNeon(int32_t* cross_correlation,

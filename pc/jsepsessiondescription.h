@@ -8,11 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-// TODO(deadbeef): Move this out of api/; it's an implementation detail and
-// shouldn't be used externally.
-
-#ifndef API_JSEPSESSIONDESCRIPTION_H_
-#define API_JSEPSESSIONDESCRIPTION_H_
+#ifndef PC_JSEPSESSIONDESCRIPTION_H_
+#define PC_JSEPSESSIONDESCRIPTION_H_
 
 #include <memory>
 #include <string>
@@ -20,7 +17,7 @@
 
 #include "api/candidate.h"
 #include "api/jsep.h"
-#include "api/jsepicecandidate.h"
+#include "pc/jsepicecandidate.h"
 #include "rtc_base/constructormagic.h"
 
 namespace cricket {
@@ -82,4 +79,4 @@ class JsepSessionDescription : public SessionDescriptionInterface {
 
 }  // namespace webrtc
 
-#endif  // API_JSEPSESSIONDESCRIPTION_H_
+#endif  // PC_JSEPSESSIONDESCRIPTION_H_

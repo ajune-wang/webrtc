@@ -18,8 +18,6 @@
 #include <vector>
 
 #include "absl/memory/memory.h"
-#include "api/jsepicecandidate.h"
-#include "api/jsepsessiondescription.h"
 #include "api/mediaconstraintsinterface.h"
 #include "api/mediastreamproxy.h"
 #include "api/mediastreamtrackproxy.h"
@@ -32,6 +30,8 @@
 #include "pc/channel.h"
 #include "pc/channelmanager.h"
 #include "pc/dtmfsender.h"
+#include "pc/jsepicecandidate.h"
+#include "pc/jsepsessiondescription.h"
 #include "pc/mediastream.h"
 #include "pc/mediastreamobserver.h"
 #include "pc/remoteaudiosource.h"

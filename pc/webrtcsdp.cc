@@ -25,8 +25,6 @@
 #include "api/mediatypes.h"
 #include "api/candidate.h"
 #include "api/cryptoparams.h"
-#include "api/jsepicecandidate.h"
-#include "api/jsepsessiondescription.h"
 // for RtpExtension
 #include "api/rtpparameters.h"
 #include "media/base/codec.h"
@@ -35,6 +33,8 @@
 #include "media/sctp/sctptransportinternal.h"
 #include "p2p/base/p2pconstants.h"
 #include "p2p/base/port.h"
+#include "pc/jsepicecandidate.h"
+#include "pc/jsepsessiondescription.h"
 #include "pc/mediasession.h"
 #include "rtc_base/arraysize.h"
 #include "rtc_base/checks.h"

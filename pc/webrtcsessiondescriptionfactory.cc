@@ -17,8 +17,8 @@
 
 #include "absl/memory/memory.h"
 #include "api/jsep.h"
-#include "api/jsepsessiondescription.h"
 #include "api/mediaconstraintsinterface.h"
+#include "pc/jsepsessiondescription.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/sslidentity.h"
 

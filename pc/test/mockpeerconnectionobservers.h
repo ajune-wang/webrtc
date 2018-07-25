@@ -22,7 +22,7 @@
 
 #include "absl/memory/memory.h"
 #include "api/datachannelinterface.h"
-#include "api/jsepicecandidate.h"
+#include "pc/jsepicecandidate.h"
 #include "pc/streamcollection.h"
 #include "rtc_base/checks.h"
 

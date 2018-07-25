@@ -14,7 +14,7 @@
 #include <utility>
 
 #include "absl/memory/memory.h"
-#include "api/jsepsessiondescription.h"
+#include "pc/jsepsessiondescription.h"
 
 namespace webrtc {
 

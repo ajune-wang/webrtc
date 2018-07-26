@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "74db2b9d_bb20d821",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-07-26T11:13:33Z",
+      "side": 1,
+      "message": "I have no idea. Fixed.",
+      "parentUuid": "89f5fedc_788f9580",
+      "range": {
+        "startLine": 49,
+        "startChar": 6,
+        "endLine": 49,
+        "endChar": 13
+      },
+      "revId": "7566b2412d4ab45205d96827b10b0e3ddbe5052f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "03b60ef1_ea313d86",
         "filename": "video/video_stream_encoder.cc",
         "patchSetId": 8
@@ -45,6 +69,30 @@
       "revId": "7566b2412d4ab45205d96827b10b0e3ddbe5052f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "413f8b1b_08b954fe",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 953,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-07-26T11:13:33Z",
+      "side": 1,
+      "message": "Since both the numbers in question are uint32s I replaced the std::abs with the abs_diff as above. Also reordered checks to do the easy ones first.",
+      "parentUuid": "03b60ef1_ea313d86",
+      "range": {
+        "startLine": 953,
+        "startChar": 6,
+        "endLine": 953,
+        "endChar": 75
+      },
+      "revId": "7566b2412d4ab45205d96827b10b0e3ddbe5052f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -83,6 +131,30 @@
       "side": 1,
       "message": "Constant might deserve a name.\n\nWill it be a problem if the initial bitrate is close to correct, and the first large change happens a minute or two into the call?",
       "parentUuid": "6fa9ce7f_a6f2ff47",
+      "range": {
+        "startLine": 957,
+        "startChar": 23,
+        "endLine": 957,
+        "endChar": 26
+      },
+      "revId": "7566b2412d4ab45205d96827b10b0e3ddbe5052f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce2d2e70_52a627af",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 957,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-07-26T11:13:33Z",
+      "side": 1,
+      "message": "Yes that\u0027s a drawback here that this can potentially happen in the middle of a call. It\u0027s unclear whether that\u0027s really a problem, but if it is I don\u0027t know how we can work around it in a sensible way. \n\nAll of this is a bit of a hack anyway...",
+      "parentUuid": "e861411b_1e12a6ac",
       "range": {
         "startLine": 957,
         "startChar": 23,

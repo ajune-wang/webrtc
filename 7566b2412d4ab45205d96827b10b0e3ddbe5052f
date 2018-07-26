@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "1c01b066_42a40092",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 953,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-07-26T11:26:36Z",
+      "side": 1,
+      "message": "Consider postponing computation of |bitrate_delta| into the code branch where !has_seen_first_significant_bwe_change_ \u0026\u0026 IsInitialFramedropOnBWEEnabled() is true.\n\nYou could also drop the |bitrate_delta| variable and inline the abs_diff expression in the test.\n\nThat\u0027s a micro optimization, so do what you think makes the code clear.",
+      "parentUuid": "413f8b1b_08b954fe",
+      "range": {
+        "startLine": 953,
+        "startChar": 6,
+        "endLine": 953,
+        "endChar": 75
+      },
+      "revId": "7566b2412d4ab45205d96827b10b0e3ddbe5052f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6fa9ce7f_a6f2ff47",
         "filename": "video/video_stream_encoder.cc",
         "patchSetId": 8
@@ -155,6 +179,30 @@
       "side": 1,
       "message": "Yes that\u0027s a drawback here that this can potentially happen in the middle of a call. It\u0027s unclear whether that\u0027s really a problem, but if it is I don\u0027t know how we can work around it in a sensible way. \n\nAll of this is a bit of a hack anyway...",
       "parentUuid": "e861411b_1e12a6ac",
+      "range": {
+        "startLine": 957,
+        "startChar": 23,
+        "endLine": 957,
+        "endChar": 26
+      },
+      "revId": "7566b2412d4ab45205d96827b10b0e3ddbe5052f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee6f53de_968c9b08",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 957,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-07-26T11:26:36Z",
+      "side": 1,
+      "message": "If it turns out to be a problem, I guess we can add another hack to unconditionally set |has_seen_first_significant_bwe_change| 30s or so into the call.\n\nBut the right way would be to eliminate the initial OnBitrateUpdated calls that don\u0027t provide any useful information.",
+      "parentUuid": "ce2d2e70_52a627af",
       "range": {
         "startLine": 957,
         "startChar": 23,

@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "4f8b845f_0e25458c",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 953,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-07-26T12:09:04Z",
+      "side": 1,
+      "message": "Inlined the abs_diff expression. Feels wrong to waste cycles on this calculation :) thanks.",
+      "parentUuid": "1c01b066_42a40092",
+      "range": {
+        "startLine": 953,
+        "startChar": 6,
+        "endLine": 953,
+        "endChar": 75
+      },
+      "revId": "7566b2412d4ab45205d96827b10b0e3ddbe5052f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6fa9ce7f_a6f2ff47",
         "filename": "video/video_stream_encoder.cc",
         "patchSetId": 8
@@ -212,6 +236,30 @@
       "revId": "7566b2412d4ab45205d96827b10b0e3ddbe5052f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "176a767a_4b8b1b82",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 957,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-07-26T12:09:04Z",
+      "side": 1,
+      "message": "Agreed.",
+      "parentUuid": "ee6f53de_968c9b08",
+      "range": {
+        "startLine": 957,
+        "startChar": 23,
+        "endLine": 957,
+        "endChar": 26
+      },
+      "revId": "7566b2412d4ab45205d96827b10b0e3ddbe5052f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

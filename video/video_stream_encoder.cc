@@ -27,6 +27,7 @@
 #include "rtc_base/system/fallthrough.h"
 #include "rtc_base/timeutils.h"
 #include "rtc_base/trace_event.h"
+#include "system_wrappers/include/field_trial.h"
 #include "video/overuse_frame_detector.h"
 
 namespace webrtc {
@@ -41,9 +42,14 @@ const int kMaxFramerateFps = 120;
 // Time to keep a single cached pending frame in paused state.
 const int64_t kPendingFrameTimeoutMs = 1000;
 
+const char kInitialFramedropFieldTrial[] = "WebRTC-InitialFramedrop";
+
 // The maximum number of frames to drop at beginning of stream
 // to try and achieve desired bitrate.
 const int kMaxInitialFramedrop = 4;
+// When the first change in BWE above this threshold occurs,
+// enable DropFrameDueToSize logic.
+const float kFramedropThreshold = 0.3;
 
 // Initial limits for BALANCED degradation preference.
 int MinFps(int pixels) {
@@ -68,6 +74,10 @@ int MaxFps(int pixels) {
   }
 }
 
+uint32_t abs_diff(uint32_t a, uint32_t b) {
+  return (a < b) ? b - a : a - b;
+}
+
 bool IsResolutionScalingEnabled(DegradationPreference degradation_preference) {
   return degradation_preference == DegradationPreference::MAINTAIN_FRAMERATE ||
          degradation_preference == DegradationPreference::BALANCED;
@@ -76,6 +86,12 @@ bool IsResolutionScalingEnabled(DegradationPreference degradation_preference) {
 bool IsFramerateScalingEnabled(DegradationPreference degradation_preference) {
   return degradation_preference == DegradationPreference::MAINTAIN_RESOLUTION ||
          degradation_preference == DegradationPreference::BALANCED;
+}
+
+bool IsInitialFramedropOnBWEEnabled() {
+  const std::string trial_string =
+      webrtc::field_trial::FindFullName(kInitialFramedropFieldTrial);
+  return trial_string.find("Enabled") == 0;
 }
 
 // TODO(pbos): Lower these thresholds (to closer to 100%) when we handle
@@ -318,7 +334,7 @@ VideoStreamEncoder::VideoStreamEncoder(
     std::unique_ptr<OveruseFrameDetector> overuse_detector)
     : shutdown_event_(true /* manual_reset */, false),
       number_of_cores_(number_of_cores),
-      initial_rampup_(0),
+      initial_framedrop_(0),
       quality_scaling_experiment_enabled_(QualityScalingExperiment::Enabled()),
       source_proxy_(new VideoSourceProxy(this)),
       sink_(nullptr),
@@ -401,8 +417,6 @@ void VideoStreamEncoder::SetSource(
       }
     }
     degradation_preference_ = degradation_preference;
-    bool allow_scaling = IsResolutionScalingEnabled(degradation_preference_);
-    initial_rampup_ = allow_scaling ? 0 : kMaxInitialFramedrop;
 
     if (encoder_)
       ConfigureQualityScaler();
@@ -600,7 +614,6 @@ void VideoStreamEncoder::ConfigureQualityScaler() {
   if (quality_scaling_allowed) {
     if (quality_scaler_.get() == nullptr) {
       // Quality scaler has not already been configured.
-      // Drop frames and scale down until desired quality is achieved.
 
       // Use experimental thresholds if available.
       absl::optional<VideoEncoder::QpThresholds> experimental_thresholds;
@@ -614,10 +627,12 @@ void VideoStreamEncoder::ConfigureQualityScaler() {
       quality_scaler_ = absl::make_unique<QualityScaler>(
           observer, experimental_thresholds ? *experimental_thresholds
                                             : *(scaling_settings.thresholds));
+      has_seen_first_significant_bwe_change_ = false;
+      initial_framedrop_ = 0;
     }
   } else {
     quality_scaler_.reset(nullptr);
-    initial_rampup_ = kMaxInitialFramedrop;
+    initial_framedrop_ = kMaxInitialFramedrop;
   }
 
   encoder_stats_observer_->OnAdaptationChanged(
@@ -782,7 +797,7 @@ void VideoStreamEncoder::MaybeEncodeVideoFrame(const VideoFrame& video_frame,
     if (GetConstAdaptCounter().ResolutionCount(kQuality) > count) {
       encoder_stats_observer_->OnInitialQualityResolutionAdaptDown();
     }
-    ++initial_rampup_;
+    ++initial_framedrop_;
     // Storing references to a native buffer risks blocking frame capture.
     if (video_frame.video_frame_buffer()->type() !=
         VideoFrameBuffer::Type::kNative) {
@@ -794,7 +809,7 @@ void VideoStreamEncoder::MaybeEncodeVideoFrame(const VideoFrame& video_frame,
     }
     return;
   }
-  initial_rampup_ = kMaxInitialFramedrop;
+  initial_framedrop_ = kMaxInitialFramedrop;
 
   if (EncoderPaused()) {
     // Storing references to a native buffer risks blocking frame capture.
@@ -941,6 +956,18 @@ void VideoStreamEncoder::OnBitrateUpdated(uint32_t bitrate_bps,
   RTC_LOG(LS_VERBOSE) << "OnBitrateUpdated, bitrate " << bitrate_bps
                       << " packet loss " << static_cast<int>(fraction_lost)
                       << " rtt " << round_trip_time_ms;
+  const int bitrate_delta = abs_diff(bitrate_bps, encoder_start_bitrate_bps_);
+  // On significant changes to BWE at the start of the call,
+  // enable frame drops to quickly react to jumps in available bandwidth.
+  if (!has_seen_first_significant_bwe_change_ &&
+      IsInitialFramedropOnBWEEnabled() &&
+      bitrate_delta >= kFramedropThreshold * encoder_start_bitrate_bps_) {
+    // Reset initial framedrop feature when first real BW estimate arrives.
+    // TODO(kthelgason): Update BitrateAllocator to not call OnBitrateUpdated
+    // without an actual BW estimate.
+    initial_framedrop_ = 0;
+    has_seen_first_significant_bwe_change_ = true;
+  }
 
   video_sender_.SetChannelParameters(bitrate_bps, fraction_lost,
                                      round_trip_time_ms, rate_allocator_.get(),
@@ -967,7 +994,7 @@ void VideoStreamEncoder::OnBitrateUpdated(uint32_t bitrate_bps,
 }
 
 bool VideoStreamEncoder::DropDueToSize(uint32_t pixel_count) const {
-  if (initial_rampup_ < kMaxInitialFramedrop &&
+  if (initial_framedrop_ != kMaxInitialFramedrop &&
       encoder_start_bitrate_bps_ > 0) {
     if (encoder_start_bitrate_bps_ < 300000 /* qvga */) {
       return pixel_count > 320 * 240;

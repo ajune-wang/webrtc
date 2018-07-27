@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4eecef23_21cdee52",
+        "filename": "rtc_base/socket_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 953,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-07-27T10:46:11Z",
+      "side": 1,
+      "message": "Should probably keep memset and comment together.",
+      "range": {
+        "startLine": 953,
+        "startChar": 0,
+        "endLine": 953,
+        "endChar": 49
+      },
+      "revId": "aec256f36017b24f2732a69ece306d9a650b4d1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

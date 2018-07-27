@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "64caf693_4db134b2",
+        "filename": "modules/congestion_controller/pcc/monitor_interval.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 7296
+      },
+      "writtenOn": "2018-07-27T09:07:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b8a0ca06_70e31fe2",
+      "range": {
+        "startLine": 79,
+        "startChar": 24,
+        "endLine": 80,
+        "endChar": 46
+      },
+      "revId": "f182f2ca6cc259b578b8d00a27247d96e0c0986b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6697a985_e0c07243",
         "filename": "modules/congestion_controller/pcc/monitor_interval.cc",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "f182f2ca6cc259b578b8d00a27247d96e0c0986b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e61b055e_9df02351",
+        "filename": "modules/congestion_controller/pcc/monitor_interval.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 7296
+      },
+      "writtenOn": "2018-07-27T09:07:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6697a985_e0c07243",
+      "range": {
+        "startLine": 102,
+        "startChar": 47,
+        "endLine": 102,
+        "endChar": 68
+      },
+      "revId": "f182f2ca6cc259b578b8d00a27247d96e0c0986b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "496f76d5_38a62d8c",
+        "filename": "modules/congestion_controller/pcc/monitor_interval.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 7296
+      },
+      "writtenOn": "2018-07-27T09:07:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9dd9cf22_f06b4c1e",
+      "range": {
+        "startLine": 106,
+        "startChar": 47,
+        "endLine": 106,
+        "endChar": 73
+      },
+      "revId": "f182f2ca6cc259b578b8d00a27247d96e0c0986b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f317ad0e_96657659",
         "filename": "modules/congestion_controller/pcc/monitor_interval.cc",
         "patchSetId": 5
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "85f6253c_f2599494",
+        "filename": "modules/congestion_controller/pcc/monitor_interval.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 7296
+      },
+      "writtenOn": "2018-07-27T09:07:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f317ad0e_96657659",
+      "range": {
+        "startLine": 111,
+        "startChar": 47,
+        "endLine": 111,
+        "endChar": 69
+      },
+      "revId": "f182f2ca6cc259b578b8d00a27247d96e0c0986b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f8fc0a4c_ffc77ad5",
         "filename": "modules/congestion_controller/pcc/monitor_interval.h",
         "patchSetId": 5
@@ -105,6 +201,30 @@
       "writtenOn": "2018-07-23T09:10:57Z",
       "side": 1,
       "message": "Is this function used, or can it be removed/made private?",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 31
+      },
+      "revId": "f182f2ca6cc259b578b8d00a27247d96e0c0986b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "846f4a2d_58f6b0c7",
+        "filename": "modules/congestion_controller/pcc/monitor_interval.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 7296
+      },
+      "writtenOn": "2018-07-27T09:07:53Z",
+      "side": 1,
+      "message": "yes, it is used e.g. here https://webrtc-review.googlesource.com/c/src/+/87222/4/modules/congestion_controller/pcc/pcc_network_controller.cc#78",
+      "parentUuid": "f8fc0a4c_ffc77ad5",
       "range": {
         "startLine": 40,
         "startChar": 0,

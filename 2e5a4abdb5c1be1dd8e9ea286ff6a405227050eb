@@ -22,6 +22,29 @@
       "revId": "2e5a4abdb5c1be1dd8e9ea286ff6a405227050eb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "edc06569_ead3fec8",
+        "filename": "test/testsupport/fileutils.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-07-27T07:57:57Z",
+      "side": 1,
+      "message": "I think you have accidentally deleted:\n\nstd::string resources_path \u003d\n      ProjectRootPath() + kResourcesDirName + kPathDelimiter;",
+      "range": {
+        "startLine": 329,
+        "startChar": 6,
+        "endLine": 329,
+        "endChar": 20
+      },
+      "revId": "2e5a4abdb5c1be1dd8e9ea286ff6a405227050eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

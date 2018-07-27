@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f144dd83_007fa385",
+        "filename": "api/peerconnectioninterface.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-07-27T09:58:05Z",
+      "side": 1,
+      "message": "I don\u0027t understand what the difference is, you still use {} (std::vector\u003crtc::scoped_refptr\u003cRtpTransceiverInterface\u003e\u003e{})?\nAnyway, should this be std::vector\u003crtc::scoped_refptr\u003cRtpTransceiverInterface\u003e\u003e() instead?\n\nEither way, if it helps with compiling under older versions, lgtm.",
+      "revId": "1677f1a7fdb76fb41dd02f93fa0c53bc46eb943e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

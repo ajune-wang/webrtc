@@ -121,7 +121,7 @@ NetEqTest::DecoderMap NetEqTest::StandardDecoderMap() {
   DecoderMap codecs = {
     {0, std::make_pair(NetEqDecoder::kDecoderPCMu, "pcmu")},
     {8, std::make_pair(NetEqDecoder::kDecoderPCMa, "pcma")},
-#ifdef WEBRTC_CODEC_ILBC
+#if WEBRTC_CODEC_ILBC
     {102, std::make_pair(NetEqDecoder::kDecoderILBC, "ilbc")},
 #endif
     {103, std::make_pair(NetEqDecoder::kDecoderISAC, "isac")},

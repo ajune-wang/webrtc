@@ -10,7 +10,9 @@ import("../../webrtc.gni")
 
 audio_codec_defines = []
 if (rtc_include_ilbc) {
-  audio_codec_defines += [ "WEBRTC_CODEC_ILBC" ]
+  audio_codec_defines += [ "WEBRTC_CODEC_ILBC=1" ]
+} else {
+  audio_codec_defines += [ "WEBRTC_CODEC_ILBC=0" ]
 }
 if (rtc_include_opus) {
   audio_codec_defines += [ "WEBRTC_CODEC_OPUS" ]

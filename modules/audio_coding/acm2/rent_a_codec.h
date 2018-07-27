@@ -54,7 +54,7 @@ class RentACodec {
     // Stereo
     kPCMU_2ch,
     kPCMA_2ch,
-#ifdef WEBRTC_CODEC_ILBC
+#if WEBRTC_CODEC_ILBC
     kILBC,
 #endif
     kG722,      // Mono
@@ -86,7 +86,7 @@ class RentACodec {
 #endif
     // 48 kHz not supported, always set to -1.
     kPCM16Bswb48kHz = -1,
-#ifndef WEBRTC_CODEC_ILBC
+#if WEBRTC_CODEC_ILBC
     kILBC = -1,
 #endif
 #ifndef WEBRTC_CODEC_OPUS

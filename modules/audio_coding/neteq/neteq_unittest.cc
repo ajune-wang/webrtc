@@ -132,7 +132,7 @@ void LoadDecoders(webrtc::NetEq* neteq) {
   // coverage for that as well.
   ASSERT_EQ(0, neteq->RegisterPayloadType(webrtc::NetEqDecoder::kDecoderPCMa,
                                           "pcma", 8));
-#ifdef WEBRTC_CODEC_ILBC
+#if WEBRTC_CODEC_ILBC
   ASSERT_EQ(true,
             neteq->RegisterPayloadType(102, SdpAudioFormat("ilbc", 8000, 1)));
 #endif
@@ -459,7 +459,7 @@ void NetEqDecodingTest::PopulateCng(int frame_index,
 
 #if !defined(WEBRTC_IOS) && defined(WEBRTC_NETEQ_UNITTEST_BITEXACT) && \
     (defined(WEBRTC_CODEC_ISAC) || defined(WEBRTC_CODEC_ISACFX)) &&    \
-    defined(WEBRTC_CODEC_ILBC) && !defined(WEBRTC_ARCH_ARM64)
+    WEBRTC_CODEC_ILBC && !defined(WEBRTC_ARCH_ARM64)
 #define MAYBE_TestBitExactness TestBitExactness
 #else
 #define MAYBE_TestBitExactness DISABLED_TestBitExactness

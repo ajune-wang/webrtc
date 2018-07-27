@@ -25,7 +25,7 @@ const CodecInst kIsacWb = {103, "ISAC", 16000, 480, 1, 32000};
 const CodecInst kIsacSwb = {104, "ISAC", 32000, 960, 1, 56000};
 #endif
 
-#ifdef WEBRTC_CODEC_ILBC
+#if WEBRTC_CODEC_ILBC
 const CodecInst kIlbc = {102, "ILBC", 8000, 240, 1, 13300};
 #endif
 
@@ -162,7 +162,7 @@ void TestWebRtcVadDtx::Perform() {
   RunTestCases();
 #endif
 
-#ifdef WEBRTC_CODEC_ILBC
+#if WEBRTC_CODEC_ILBC
   // Register iLBC as send codec
   RegisterCodec(kIlbc);
   RunTestCases();

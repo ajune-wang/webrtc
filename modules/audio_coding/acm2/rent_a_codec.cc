@@ -17,7 +17,7 @@
 #include "modules/audio_coding/codecs/g711/audio_encoder_pcm.h"
 #include "rtc_base/logging.h"
 #include "modules/audio_coding/codecs/g722/audio_encoder_g722.h"
-#ifdef WEBRTC_CODEC_ILBC
+#if WEBRTC_CODEC_ILBC
 #include "modules/audio_coding/codecs/ilbc/audio_encoder_ilbc.h"
 #endif
 #ifdef WEBRTC_CODEC_ISACFX
@@ -168,7 +168,7 @@ std::unique_ptr<AudioEncoder> CreateEncoder(
     return std::unique_ptr<AudioEncoder>(new AudioEncoderPcmA(speech_inst));
   if (STR_CASE_CMP(speech_inst.plname, "l16") == 0)
     return std::unique_ptr<AudioEncoder>(new AudioEncoderPcm16B(speech_inst));
-#ifdef WEBRTC_CODEC_ILBC
+#if WEBRTC_CODEC_ILBC
   if (STR_CASE_CMP(speech_inst.plname, "ilbc") == 0)
     return std::unique_ptr<AudioEncoder>(new AudioEncoderIlbcImpl(speech_inst));
 #endif

@@ -64,7 +64,7 @@ TEST(AudioDecoderFactoryTest, CreateIlbc) {
   // iLBC supports 8 kHz, 1 channel.
   EXPECT_FALSE(
       adf->MakeAudioDecoder(SdpAudioFormat("ilbc", 8000, 0), absl::nullopt));
-#ifdef WEBRTC_CODEC_ILBC
+#if WEBRTC_CODEC_ILBC
   EXPECT_TRUE(
       adf->MakeAudioDecoder(SdpAudioFormat("ilbc", 8000, 1), absl::nullopt));
 #endif

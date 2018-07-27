@@ -82,7 +82,7 @@ const CodecInst ACMCodecDB::database_[] = {
     // Stereo
     {110, "PCMU", 8000, 160, 2, 64000},
     {118, "PCMA", 8000, 160, 2, 64000},
-#ifdef WEBRTC_CODEC_ILBC
+#if WEBRTC_CODEC_ILBC
     {102, "ILBC", 8000, 240, 1, 13300},
 #endif
     // Mono
@@ -137,7 +137,7 @@ const ACMCodecDB::CodecSettings ACMCodecDB::codec_settings_[] = {
     // Stereo
     {6, {80, 160, 240, 320, 400, 480}, 0, 2},
     {6, {80, 160, 240, 320, 400, 480}, 0, 2},
-#ifdef WEBRTC_CODEC_ILBC
+#if WEBRTC_CODEC_ILBC
     {4, {160, 240, 320, 480}, 0, 1},
 #endif
     // Mono
@@ -191,7 +191,7 @@ const NetEqDecoder ACMCodecDB::neteq_decoders_[] = {
     NetEqDecoder::kDecoderPCMu, NetEqDecoder::kDecoderPCMa,
     // Stereo
     NetEqDecoder::kDecoderPCMu_2ch, NetEqDecoder::kDecoderPCMa_2ch,
-#ifdef WEBRTC_CODEC_ILBC
+#if WEBRTC_CODEC_ILBC
     NetEqDecoder::kDecoderILBC,
 #endif
     // Mono

@@ -133,7 +133,7 @@ TEST(BuiltinAudioEncoderFactoryTest, SupportsTheExpectedFormats) {
     {"isac", 32000, 1},
 #endif
     {"G722", 8000, 1},
-#ifdef WEBRTC_CODEC_ILBC
+#if WEBRTC_CODEC_ILBC
     {"ilbc", 8000, 1},
 #endif
     {"pcmu", 8000, 1},

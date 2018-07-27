@@ -971,7 +971,7 @@ class AcmReceiverBitExactnessOldApi : public ::testing::Test {
 };
 
 #if (defined(WEBRTC_CODEC_ISAC) || defined(WEBRTC_CODEC_ISACFX)) && \
-    defined(WEBRTC_CODEC_ILBC)
+    WEBRTC_CODEC_ILBC
 TEST_F(AcmReceiverBitExactnessOldApi, 8kHzOutput) {
   Run(8000, PlatformChecksum("7294941b62293e143d6d6c84955923fd",
                              "f26b8c9aa8257c7185925fa5b102f46a",
@@ -1389,7 +1389,7 @@ TEST_F(AcmSenderBitExactnessOldApi, Pcma_stereo_20ms) {
 #else
 #define MAYBE_Ilbc_30ms Ilbc_30ms
 #endif
-#if defined(WEBRTC_CODEC_ILBC)
+#if WEBRTC_CODEC_ILBC
 TEST_F(AcmSenderBitExactnessOldApi, MAYBE_Ilbc_30ms) {
   ASSERT_NO_FATAL_FAILURE(SetUpTest("ILBC", 8000, 1, 102, 240, 240));
   Run(AcmReceiverBitExactnessOldApi::PlatformChecksum(

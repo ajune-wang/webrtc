@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "488a1e0a_d63bbae7",
+        "filename": "test/fuzzers/audio_processing_configs_fuzzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-07-27T14:01:21Z",
+      "side": 1,
+      "message": "Maybe capital S? - probably not, I guess you have copied this string.",
+      "range": {
+        "startLine": 50,
+        "startChar": 32,
+        "endLine": 50,
+        "endChar": 33
+      },
+      "revId": "b5c0db1c2002420b864ad31bda302b2f782759ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -45,6 +45,30 @@
       "revId": "2e5a4abdb5c1be1dd8e9ea286ff6a405227050eb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b2073cb_a31ca6ed",
+        "filename": "test/testsupport/fileutils.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-07-27T08:03:55Z",
+      "side": 1,
+      "message": "Ooops. Fixed in next patchset.",
+      "parentUuid": "edc06569_ead3fec8",
+      "range": {
+        "startLine": 329,
+        "startChar": 6,
+        "endLine": 329,
+        "endChar": 20
+      },
+      "revId": "2e5a4abdb5c1be1dd8e9ea286ff6a405227050eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

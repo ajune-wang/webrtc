@@ -801,7 +801,7 @@ class ProcessingConfig {
 class EchoCancellation {
  public:
   // EchoCancellation and EchoControlMobile may not be enabled simultaneously.
-  // Enabling one will disable the other.
+  // If both are enabled, one (unspecified) will automatically be disabled.
   virtual int Enable(bool enable) = 0;
   virtual bool is_enabled() const = 0;
 
@@ -905,7 +905,7 @@ class EchoCancellation {
 class EchoControlMobile {
  public:
   // EchoCancellation and EchoControlMobile may not be enabled simultaneously.
-  // Enabling one will disable the other.
+  // If both are enabled, one (unspecified) will automatically be disabled.
   virtual int Enable(bool enable) = 0;
   virtual bool is_enabled() const = 0;
 

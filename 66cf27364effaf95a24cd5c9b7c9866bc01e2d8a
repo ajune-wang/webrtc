@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fa84a232_1200472a",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-07-27T11:35:43Z",
+      "side": 1,
+      "message": "Makes sense. What might be worth clarifying is that enable/disable will also apply to an injected echo controller, but I think that\u0027ll be obvious as the other interfaces disappear.",
+      "parentUuid": "1212ce0e_eb5eeb74",
+      "range": {
+        "startLine": 255,
+        "startChar": 7,
+        "endLine": 255,
+        "endChar": 66
+      },
+      "revId": "66cf27364effaf95a24cd5c9b7c9866bc01e2d8a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3b888a69_443e1c7f",
         "filename": "modules/audio_processing/include/audio_processing.h",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "66cf27364effaf95a24cd5c9b7c9866bc01e2d8a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d353b137_8ea17dfa",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-07-27T11:35:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b888a69_443e1c7f",
+      "range": {
+        "startLine": 256,
+        "startChar": 6,
+        "endLine": 256,
+        "endChar": 48
+      },
+      "revId": "66cf27364effaf95a24cd5c9b7c9866bc01e2d8a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "6eeef5b1_8c9e31b7",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-07-27T11:35:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ec78a812_cd6f037b",
+      "range": {
+        "startLine": 258,
+        "startChar": 11,
+        "endLine": 258,
+        "endChar": 27
+      },
+      "revId": "66cf27364effaf95a24cd5c9b7c9866bc01e2d8a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f99c7ca9_02615992",
         "filename": "modules/audio_processing/include/audio_processing.h",
         "patchSetId": 1
@@ -85,6 +157,24 @@
       "revId": "66cf27364effaf95a24cd5c9b7c9866bc01e2d8a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e29d96a4_a66b9415",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-07-27T11:35:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f99c7ca9_02615992",
+      "revId": "66cf27364effaf95a24cd5c9b7c9866bc01e2d8a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

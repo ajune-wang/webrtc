@@ -295,7 +295,6 @@ TEST_F(AudioEncoderCopyRedDeathTest, NullSpeechEncoder) {
   config.speech_encoder = NULL;
   EXPECT_DEATH(red = new AudioEncoderCopyRed(std::move(config)),
                "Speech encoder not provided.");
-  // The delete operation is needed to avoid leak reports from memcheck.
   delete red;
 }
 

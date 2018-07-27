@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1212ce0e_eb5eeb74",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-07-27T10:09:34Z",
+      "side": 1,
+      "message": "Is this comment needed? The other modules does not have that. This is kind of covered in the general comment for the struct and I think it is fairly self-explanatory without the comment.",
+      "range": {
+        "startLine": 255,
+        "startChar": 7,
+        "endLine": 255,
+        "endChar": 66
+      },
+      "revId": "66cf27364effaf95a24cd5c9b7c9866bc01e2d8a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b888a69_443e1c7f",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-07-27T10:09:34Z",
+      "side": 1,
+      "message": "\" Has a specific tuning for mobile devices.\"\nI don\u0027t think this is needed. I think the struct is self-explanatory with your naming. Furthermore, it is not actually guaranteed that the echo canceller has a mobile specific tuning.\n\nMy proposal is to omit that.",
+      "range": {
+        "startLine": 256,
+        "startChar": 6,
+        "endLine": 256,
+        "endChar": 48
+      },
+      "revId": "66cf27364effaf95a24cd5c9b7c9866bc01e2d8a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec78a812_cd6f037b",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-07-27T10:09:34Z",
+      "side": 1,
+      "message": "I\u0027d suggest to change \nEchoCancellation -\u003e EchoCanceller\nsince the rest of the struct refers to the actual modules rather than the module effect.",
+      "range": {
+        "startLine": 258,
+        "startChar": 11,
+        "endLine": 258,
+        "endChar": 27
+      },
+      "revId": "66cf27364effaf95a24cd5c9b7c9866bc01e2d8a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f99c7ca9_02615992",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-07-27T10:09:34Z",
+      "side": 1,
+      "message": "Along with the above:\necho_cancellation -\u003e echo_canceller",
+      "revId": "66cf27364effaf95a24cd5c9b7c9866bc01e2d8a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "be525c4d_98f04f28",
+        "filename": "test/testsupport/fileutils.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-07-27T07:53:54Z",
+      "side": 1,
+      "message": "Also platform seems very rarely used. The only file under resources I can find with any platform suffix is\n\nresources/audio_processing/output_data_mac.pb.sha1\n\nLooks like there are two other \"versions\" of this file,\n\nresources/audio_processing/output_data_fixed.pb.sha1\nresources/audio_processing/output_data_float.pb.sha1\n\nbut that\u0027s unrelated to platform. Per, do you know if we can drop \"_mac\" from that file name?",
+      "range": {
+        "startLine": 329,
+        "startChar": 36,
+        "endLine": 329,
+        "endChar": 44
+      },
+      "revId": "2e5a4abdb5c1be1dd8e9ea286ff6a405227050eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

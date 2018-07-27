@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8a7fbc77_e139eb26",
+        "filename": "modules/congestion_controller/pcc/monitor_interval.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2018-07-27T16:33:07Z",
+      "side": 1,
+      "message": "Wait, is there any guarantee that packets_results are ordered by send_time?",
+      "revId": "526f71adb92554e8f44c29ca5dcf4c2a48cd3aa1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4706e04a_36b2af6a",
+        "filename": "modules/congestion_controller/pcc/monitor_interval.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2018-07-27T16:33:07Z",
+      "side": 1,
+      "message": "[doc] Where does this formula come from?",
+      "revId": "526f71adb92554e8f44c29ca5dcf4c2a48cd3aa1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62ea1fc6_48c8ab28",
+        "filename": "modules/congestion_controller/pcc/monitor_interval.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2018-07-27T16:33:07Z",
+      "side": 1,
+      "message": "[nit] if (received_packets_sent_time_.size() \u003c\u003d 1) {  [...]\n\nApply now and save 66% lines!\n\nPlus, you could define beforehand a \u0027nb_packets\u0027 variable, since this value is used 4 times.",
+      "revId": "526f71adb92554e8f44c29ca5dcf4c2a48cd3aa1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0646117_7dffc5d0",
+        "filename": "modules/congestion_controller/pcc/monitor_interval.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2018-07-27T16:33:07Z",
+      "side": 1,
+      "message": "[cosmetic] I think the whole thing would be clearer once factorized. E.g.:\n\ndouble time \u003d (received_packets_sent_time_[i] - received_packets_sent_time_[0]).us();\ndouble rtt \u003d received_packets_rtt_[i].us();\nsum_times +\u003d time;\nsum_rtts  +\u003d rtt;\nsum_square_times   +\u003d time * time;\nsum_times_dot_rtts +\u003d time * rtt;",
+      "revId": "526f71adb92554e8f44c29ca5dcf4c2a48cd3aa1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40187bb6_b9e989c0",
+        "filename": "modules/congestion_controller/pcc/monitor_interval.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2018-07-27T16:33:07Z",
+      "side": 1,
+      "message": "Negative time delta?",
+      "revId": "526f71adb92554e8f44c29ca5dcf4c2a48cd3aa1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f720468_a2a5037e",
+        "filename": "modules/congestion_controller/pcc/monitor_interval.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2018-07-27T16:33:07Z",
+      "side": 1,
+      "message": "Ok, so what about the last MonitorInterval? It will always return false, so any client waiting for this to turn true will loop endlessly.",
+      "revId": "526f71adb92554e8f44c29ca5dcf4c2a48cd3aa1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

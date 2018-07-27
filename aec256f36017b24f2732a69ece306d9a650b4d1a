@@ -22,6 +22,30 @@
       "revId": "aec256f36017b24f2732a69ece306d9a650b4d1a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b73eab0_66833f6a",
+        "filename": "rtc_base/socket_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 953,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-07-27T11:28:55Z",
+      "side": 1,
+      "message": "Ok, I restored the comment also here: modules/audio_coding/codecs/red/audio_encoder_copy_red_unittest.cc.",
+      "parentUuid": "4eecef23_21cdee52",
+      "range": {
+        "startLine": 953,
+        "startChar": 0,
+        "endLine": 953,
+        "endChar": 49
+      },
+      "revId": "aec256f36017b24f2732a69ece306d9a650b4d1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

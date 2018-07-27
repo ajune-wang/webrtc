@@ -22,6 +22,29 @@
       "revId": "ef84b62014bb923042c2135f28fbdcd590291b35",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f7c43e9_8df44b3f",
+        "filename": "DEPS",
+        "patchSetId": 2
+      },
+      "lineNbr": 641,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2018-07-27T09:16:42Z",
+      "side": 1,
+      "message": "Please check whether this and below  is actually needed.",
+      "range": {
+        "startLine": 641,
+        "startChar": 3,
+        "endLine": 641,
+        "endChar": 78
+      },
+      "revId": "ef84b62014bb923042c2135f28fbdcd590291b35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

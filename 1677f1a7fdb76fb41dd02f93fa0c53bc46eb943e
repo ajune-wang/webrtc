@@ -16,6 +16,24 @@
       "revId": "1677f1a7fdb76fb41dd02f93fa0c53bc46eb943e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e27324cc_b4f425ea",
+        "filename": "api/peerconnectioninterface.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5889
+      },
+      "writtenOn": "2018-07-27T11:02:56Z",
+      "side": 1,
+      "message": "Changed to \"()\", works with both variants here.",
+      "parentUuid": "f144dd83_007fa385",
+      "revId": "1677f1a7fdb76fb41dd02f93fa0c53bc46eb943e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

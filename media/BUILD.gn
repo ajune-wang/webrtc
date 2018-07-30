@@ -423,6 +423,7 @@ if (rtc_include_tests) {
       "base/fakevideocapturer.h",
       "base/fakevideorenderer.cc",
       "base/fakevideorenderer.h",
+      "base/fakevideosource.h",
       "base/testutils.cc",
       "base/testutils.h",
       "engine/fakewebrtccall.cc",

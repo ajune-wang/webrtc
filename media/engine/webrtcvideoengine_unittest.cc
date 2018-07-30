@@ -29,6 +29,7 @@
 #include "media/base/fakenetworkinterface.h"
 #include "media/base/fakevideocapturer.h"
 #include "media/base/fakevideorenderer.h"
+#include "media/base/fakevideosource.h"
 #include "media/base/mediaconstants.h"
 #include "media/base/rtputils.h"
 #include "media/base/testutils.h"
@@ -302,7 +303,7 @@ TEST_F(WebRtcVideoEngineTest, SupportsVideoRotationHeaderExtension) {
 TEST_F(WebRtcVideoEngineTest, CVOSetHeaderExtensionBeforeCapturer) {
   // Allocate the capturer first to prevent early destruction before channel's
   // dtor is called.
-  FakeVideoCapturerWithTaskQueue capturer;
+  webrtc::FakeVideoSource video_source;
 
   encoder_factory_->AddSupportedVideoCodecType("VP8");
 
@@ -319,21 +320,21 @@ TEST_F(WebRtcVideoEngineTest, CVOSetHeaderExtensionBeforeCapturer) {
   EXPECT_TRUE(channel->SetSendParameters(parameters));
 
   // Set capturer.
-  EXPECT_TRUE(channel->SetVideoSend(kSsrc, nullptr, &capturer));
+  EXPECT_TRUE(channel->SetVideoSend(kSsrc, nullptr, &video_source));
 
   // Verify capturer has turned off applying rotation.
-  EXPECT_FALSE(capturer.apply_rotation());
+  EXPECT_FALSE(video_source.apply_rotation());
 
   // Verify removing header extension turns on applying rotation.
   parameters.extensions.clear();
   EXPECT_TRUE(channel->SetSendParameters(parameters));
-  EXPECT_TRUE(capturer.apply_rotation());
+  EXPECT_TRUE(video_source.apply_rotation());
 }
 
 TEST_F(WebRtcVideoEngineTest, CVOSetHeaderExtensionBeforeAddSendStream) {
   // Allocate the capturer first to prevent early destruction before channel's
   // dtor is called.
-  FakeVideoCapturerWithTaskQueue capturer;
+  webrtc::FakeVideoSource video_source;
 
   encoder_factory_->AddSupportedVideoCodecType("VP8");
 
@@ -349,14 +350,14 @@ TEST_F(WebRtcVideoEngineTest, CVOSetHeaderExtensionBeforeAddSendStream) {
   EXPECT_TRUE(channel->AddSendStream(StreamParams::CreateLegacy(kSsrc)));
 
   // Set capturer.
-  EXPECT_TRUE(channel->SetVideoSend(kSsrc, nullptr, &capturer));
+  EXPECT_TRUE(channel->SetVideoSend(kSsrc, nullptr, &video_source));
 
   // Verify capturer has turned off applying rotation.
-  EXPECT_FALSE(capturer.apply_rotation());
+  EXPECT_FALSE(video_source.apply_rotation());
 }
 
 TEST_F(WebRtcVideoEngineTest, CVOSetHeaderExtensionAfterCapturer) {
-  FakeVideoCapturerWithTaskQueue capturer;
+  webrtc::FakeVideoSource video_source;
 
   encoder_factory_->AddSupportedVideoCodecType("VP8");
   encoder_factory_->AddSupportedVideoCodecType("VP9");
@@ -366,10 +367,10 @@ TEST_F(WebRtcVideoEngineTest, CVOSetHeaderExtensionAfterCapturer) {
   EXPECT_TRUE(channel->AddSendStream(StreamParams::CreateLegacy(kSsrc)));
 
   // Set capturer.
-  EXPECT_TRUE(channel->SetVideoSend(kSsrc, nullptr, &capturer));
+  EXPECT_TRUE(channel->SetVideoSend(kSsrc, nullptr, &video_source));
 
   // Verify capturer has turned on applying rotation.
-  EXPECT_TRUE(capturer.apply_rotation());
+  EXPECT_TRUE(video_source.apply_rotation());
 
   // Add CVO extension.
   const int id = 1;
@@ -383,12 +384,12 @@ TEST_F(WebRtcVideoEngineTest, CVOSetHeaderExtensionAfterCapturer) {
   EXPECT_TRUE(channel->SetSendParameters(parameters));
 
   // Verify capturer has turned off applying rotation.
-  EXPECT_FALSE(capturer.apply_rotation());
+  EXPECT_FALSE(video_source.apply_rotation());
 
   // Verify removing header extension turns on applying rotation.
   parameters.extensions.clear();
   EXPECT_TRUE(channel->SetSendParameters(parameters));
-  EXPECT_TRUE(capturer.apply_rotation());
+  EXPECT_TRUE(video_source.apply_rotation());
 }
 
 TEST_F(WebRtcVideoEngineTest, SetSendFailsBeforeSettingCodecs) {

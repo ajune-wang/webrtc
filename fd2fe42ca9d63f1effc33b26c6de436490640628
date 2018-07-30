@@ -46,6 +46,30 @@
       "revId": "fd2fe42ca9d63f1effc33b26c6de436490640628",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a6a93842_3a3bec9f",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 1407,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-07-30T10:19:34Z",
+      "side": 1,
+      "message": "Removing it causes: https://chromium-swarm.appspot.com/task?id\u003d3f03780b25e0f410.",
+      "parentUuid": "73469e34_72a57fa8",
+      "range": {
+        "startLine": 1407,
+        "startChar": 6,
+        "endLine": 1407,
+        "endChar": 39
+      },
+      "revId": "fd2fe42ca9d63f1effc33b26c6de436490640628",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

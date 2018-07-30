@@ -396,10 +396,9 @@ void RtpVideoStreamReceiver::RemoveSecondarySink(
 
 void RtpVideoStreamReceiver::ReceivePacket(const RtpPacketReceived& packet) {
   if (packet.payload_size() == 0) {
-    // Padding or keep-alive packet.
+    // Keep-alive packet.
     // TODO(nisse): Could drop empty packets earlier, but need to figure out how
     // they should be counted in stats.
-    NotifyReceiverOfEmptyPacket(packet.SequenceNumber());
     return;
   }
   if (packet.PayloadType() == config_.rtp.red_payload_type) {
@@ -465,7 +464,7 @@ void RtpVideoStreamReceiver::ParseAndHandleEncapsulatingHeader(
       rtp_receive_statistics_->FecPacketReceived(header, packet_length);
       // Notify video_receiver about received FEC packets to avoid NACKing these
       // packets.
-      NotifyReceiverOfEmptyPacket(header.sequenceNumber);
+      NotifyReceiverOfFecPacket(header);
     }
     if (ulpfec_receiver_->AddReceivedRedPacket(
             header, packet, packet_length, config_.rtp.ulpfec_payload_type) !=
@@ -482,9 +481,15 @@ void RtpVideoStreamReceiver::ParseAndHandleEncapsulatingHeader(
 void RtpVideoStreamReceiver::NotifyReceiverOfEmptyPacket(uint16_t seq_num) {
   reference_finder_->PaddingReceived(seq_num);
   packet_buffer_->PaddingReceived(seq_num);
+}
+
+void RtpVideoStreamReceiver::NotifyReceiverOfFecPacket(
+    const RTPHeader& header) {
   if (nack_module_) {
-    nack_module_->OnReceivedPacket(seq_num, /* is_keyframe = */ false);
+    nack_module_->OnReceivedPacket(header.sequenceNumber,
+                                   /* is_keyframe = */ false);
   }
+  NotifyReceiverOfEmptyPacket(header.sequenceNumber);
 }
 
 bool RtpVideoStreamReceiver::DeliverRtcp(const uint8_t* rtcp_packet,

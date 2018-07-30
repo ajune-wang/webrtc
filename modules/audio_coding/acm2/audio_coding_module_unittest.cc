@@ -1148,14 +1148,13 @@ class AcmSenderBitExactnessOldApi : public ::testing::Test,
                                      payload_type, frame_size_samples);
   }
 
-  void RegisterExternalSendCodec(
-      std::unique_ptr<AudioEncoder> external_speech_encoder,
-      int payload_type) {
+  bool RegisterExternalSendCodec(AudioEncoder* external_speech_encoder,
+                                 int payload_type) {
     payload_type_ = payload_type;
     frame_size_rtp_timestamps_ = rtc::checked_cast<uint32_t>(
         external_speech_encoder->Num10MsFramesInNextPacket() *
         external_speech_encoder->RtpTimestampRateHz() / 100);
-    send_test_->RegisterExternalCodec(std::move(external_speech_encoder));
+    return send_test_->RegisterExternalCodec(external_speech_encoder);
   }
 
   // Runs the test. SetUpSender() and RegisterSendCodec() must have been called
@@ -1250,11 +1249,11 @@ class AcmSenderBitExactnessOldApi : public ::testing::Test,
                                   codec_frame_size_rtp_timestamps));
   }
 
-  void SetUpTestExternalEncoder(
-      std::unique_ptr<AudioEncoder> external_speech_encoder,
-      int payload_type) {
+  void SetUpTestExternalEncoder(AudioEncoder* external_speech_encoder,
+                                int payload_type) {
     ASSERT_TRUE(SetUpSender());
-    RegisterExternalSendCodec(std::move(external_speech_encoder), payload_type);
+    ASSERT_TRUE(
+        RegisterExternalSendCodec(external_speech_encoder, payload_type));
   }
 
   std::unique_ptr<test::AcmSendTestOldApi> send_test_;
@@ -1461,8 +1460,8 @@ TEST_F(AcmSenderBitExactnessOldApi, Opus_stereo_20ms) {
 TEST_F(AcmSenderBitExactnessNewApi, MAYBE_OpusFromFormat_stereo_20ms) {
   const auto config = AudioEncoderOpus::SdpToConfig(
       SdpAudioFormat("opus", 48000, 2, {{"stereo", "1"}}));
-  ASSERT_NO_FATAL_FAILURE(SetUpTestExternalEncoder(
-      AudioEncoderOpus::MakeAudioEncoder(*config, 120), 120));
+  const auto encoder = AudioEncoderOpus::MakeAudioEncoder(*config, 120);
+  ASSERT_NO_FATAL_FAILURE(SetUpTestExternalEncoder(encoder.get(), 120));
   Run(AcmReceiverBitExactnessOldApi::PlatformChecksum(
           "3e285b74510e62062fbd8142dacd16e9",
           "3e285b74510e62062fbd8142dacd16e9",
@@ -1500,8 +1499,8 @@ TEST_F(AcmSenderBitExactnessOldApi, Opus_stereo_20ms_voip) {
 TEST_F(AcmSenderBitExactnessNewApi, OpusFromFormat_stereo_20ms_voip) {
   const auto config = AudioEncoderOpus::SdpToConfig(
       SdpAudioFormat("opus", 48000, 2, {{"stereo", "1"}}));
-  ASSERT_NO_FATAL_FAILURE(SetUpTestExternalEncoder(
-      AudioEncoderOpus::MakeAudioEncoder(*config, 120), 120));
+  const auto encoder = AudioEncoderOpus::MakeAudioEncoder(*config, 120);
+  ASSERT_NO_FATAL_FAILURE(SetUpTestExternalEncoder(encoder.get(), 120));
   // If not set, default will be kAudio in case of stereo.
   EXPECT_EQ(0, send_test_->acm()->SetOpusApplication(kVoip));
   Run(AcmReceiverBitExactnessOldApi::PlatformChecksum(
@@ -1551,10 +1550,9 @@ class AcmSetBitRateTest : public ::testing::Test {
                                      payload_type, frame_size_samples);
   }
 
-  void RegisterExternalSendCodec(
-      std::unique_ptr<AudioEncoder> external_speech_encoder,
-      int payload_type) {
-    send_test_->RegisterExternalCodec(std::move(external_speech_encoder));
+  bool RegisterExternalSendCodec(AudioEncoder* external_speech_encoder,
+                                 int payload_type) {
+    return send_test_->RegisterExternalCodec(external_speech_encoder);
   }
 
   void RunInner(int min_expected_total_bits, int max_expected_total_bits) {
@@ -1613,9 +1611,9 @@ TEST_F(AcmSetBitRateOldApi, Opus_48khz_20ms_10kbps) {
 TEST_F(AcmSetBitRateNewApi, OpusFromFormat_48khz_20ms_10kbps) {
   const auto config = AudioEncoderOpus::SdpToConfig(
       SdpAudioFormat("opus", 48000, 2, {{"maxaveragebitrate", "10000"}}));
+  const auto encoder = AudioEncoderOpus::MakeAudioEncoder(*config, 107);
   ASSERT_TRUE(SetUpSender());
-  RegisterExternalSendCodec(AudioEncoderOpus::MakeAudioEncoder(*config, 107),
-                            107);
+  ASSERT_TRUE(RegisterExternalSendCodec(encoder.get(), 107));
   RunInner(8000, 12000);
 }
 
@@ -1627,9 +1625,9 @@ TEST_F(AcmSetBitRateOldApi, Opus_48khz_20ms_50kbps) {
 TEST_F(AcmSetBitRateNewApi, OpusFromFormat_48khz_20ms_50kbps) {
   const auto config = AudioEncoderOpus::SdpToConfig(
       SdpAudioFormat("opus", 48000, 2, {{"maxaveragebitrate", "50000"}}));
+  const auto encoder = AudioEncoderOpus::MakeAudioEncoder(*config, 107);
   ASSERT_TRUE(SetUpSender());
-  RegisterExternalSendCodec(AudioEncoderOpus::MakeAudioEncoder(*config, 107),
-                            107);
+  ASSERT_TRUE(RegisterExternalSendCodec(encoder.get(), 107));
   RunInner(40000, 60000);
 }
 
@@ -1652,9 +1650,9 @@ TEST_F(AcmSetBitRateOldApi, MAYBE_Opus_48khz_20ms_100kbps) {
 TEST_F(AcmSetBitRateNewApi, MAYBE_OpusFromFormat_48khz_20ms_100kbps) {
   const auto config = AudioEncoderOpus::SdpToConfig(
       SdpAudioFormat("opus", 48000, 2, {{"maxaveragebitrate", "100000"}}));
+  const auto encoder = AudioEncoderOpus::MakeAudioEncoder(*config, 107);
   ASSERT_TRUE(SetUpSender());
-  RegisterExternalSendCodec(AudioEncoderOpus::MakeAudioEncoder(*config, 107),
-                            107);
+  ASSERT_TRUE(RegisterExternalSendCodec(encoder.get(), 107));
   RunInner(80000, 120000);
 }
 
@@ -1726,17 +1724,17 @@ class AcmChangeBitRateOldApi : public AcmSetBitRateOldApi {
 
 TEST_F(AcmChangeBitRateOldApi, Opus_48khz_20ms_10kbps_2) {
   ASSERT_NO_FATAL_FAILURE(SetUpTest("opus", 48000, 1, 107, 960, 960));
-  Run(10000, 14096, 4232);
+  Run(10000, 32200, 5208);
 }
 
 TEST_F(AcmChangeBitRateOldApi, Opus_48khz_20ms_50kbps_2) {
   ASSERT_NO_FATAL_FAILURE(SetUpTest("opus", 48000, 1, 107, 960, 960));
-  Run(50000, 14096, 22552);
+  Run(50000, 32200, 23928);
 }
 
 TEST_F(AcmChangeBitRateOldApi, Opus_48khz_20ms_100kbps_2) {
   ASSERT_NO_FATAL_FAILURE(SetUpTest("opus", 48000, 1, 107, 960, 960));
-  Run(100000, 14096, 49472);
+  Run(100000, 32200, 50448);
 }
 
 // These next 2 tests ensure that the SetBitRate function has no effect on PCM
@@ -1756,33 +1754,36 @@ TEST_F(AcmSenderBitExactnessOldApi, External_Pcmu_20ms) {
   codec_inst.pacsize = 160;
   codec_inst.pltype = 0;
   AudioEncoderPcmU encoder(codec_inst);
-  auto mock_encoder = absl::make_unique<MockAudioEncoder>();
+  MockAudioEncoder mock_encoder;
   // Set expectations on the mock encoder and also delegate the calls to the
   // real encoder.
-  EXPECT_CALL(*mock_encoder, SampleRateHz())
+  EXPECT_CALL(mock_encoder, SampleRateHz())
       .Times(AtLeast(1))
       .WillRepeatedly(Invoke(&encoder, &AudioEncoderPcmU::SampleRateHz));
-  EXPECT_CALL(*mock_encoder, NumChannels())
+  EXPECT_CALL(mock_encoder, NumChannels())
       .Times(AtLeast(1))
       .WillRepeatedly(Invoke(&encoder, &AudioEncoderPcmU::NumChannels));
-  EXPECT_CALL(*mock_encoder, RtpTimestampRateHz())
+  EXPECT_CALL(mock_encoder, RtpTimestampRateHz())
       .Times(AtLeast(1))
       .WillRepeatedly(Invoke(&encoder, &AudioEncoderPcmU::RtpTimestampRateHz));
-  EXPECT_CALL(*mock_encoder, Num10MsFramesInNextPacket())
+  EXPECT_CALL(mock_encoder, Num10MsFramesInNextPacket())
       .Times(AtLeast(1))
       .WillRepeatedly(
           Invoke(&encoder, &AudioEncoderPcmU::Num10MsFramesInNextPacket));
-  EXPECT_CALL(*mock_encoder, GetTargetBitrate())
+  EXPECT_CALL(mock_encoder, GetTargetBitrate())
       .Times(AtLeast(1))
       .WillRepeatedly(Invoke(&encoder, &AudioEncoderPcmU::GetTargetBitrate));
-  EXPECT_CALL(*mock_encoder, EncodeImpl(_, _, _))
+  EXPECT_CALL(mock_encoder, EncodeImpl(_, _, _))
       .Times(AtLeast(1))
       .WillRepeatedly(Invoke(
           &encoder, static_cast<AudioEncoder::EncodedInfo (AudioEncoder::*)(
                         uint32_t, rtc::ArrayView<const int16_t>, rtc::Buffer*)>(
                         &AudioEncoderPcmU::Encode)));
+  EXPECT_CALL(mock_encoder, SetFec(_))
+      .Times(AtLeast(1))
+      .WillRepeatedly(Invoke(&encoder, &AudioEncoderPcmU::SetFec));
   ASSERT_NO_FATAL_FAILURE(
-      SetUpTestExternalEncoder(std::move(mock_encoder), codec_inst.pltype));
+      SetUpTestExternalEncoder(&mock_encoder, codec_inst.pltype));
   Run("81a9d4c0bb72e9becc43aef124c981e9", "8f9b8750bd80fe26b6cbf6659b89f0f9",
       50, test::AcmReceiveTestOldApi::kMonoOutput);
 }

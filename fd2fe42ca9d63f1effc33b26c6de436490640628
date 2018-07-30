@@ -94,6 +94,30 @@
       "revId": "fd2fe42ca9d63f1effc33b26c6de436490640628",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2201115d_78d0cca1",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 1407,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-07-30T11:13:27Z",
+      "side": 1,
+      "message": "Thanks, I was looking for the real error but I was not checking logcat. :)",
+      "parentUuid": "3e9bf345_57391970",
+      "range": {
+        "startLine": 1407,
+        "startChar": 6,
+        "endLine": 1407,
+        "endChar": 39
+      },
+      "revId": "fd2fe42ca9d63f1effc33b26c6de436490640628",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -43,8 +43,8 @@ void MovingMoments::CalculateMoments(const float* in,
 
     sum_ += in[i] - old_value;
     sum_of_squares_ += in[i] * in[i] - old_value * old_value;
-    first[i] = sum_ / length_;
-    second[i] = sum_of_squares_ / length_;
+    first[i] = fmax(0.f, sum_ / length_);
+    second[i] = fmax(0.f, sum_of_squares_ / length_);
   }
 }
 

@@ -16,6 +16,24 @@
       "revId": "1bd66642c37083156c625578130dbed13f5fb32c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "628fa815_c20a3d52",
+        "filename": "modules/rtp_rtcp/source/rtp_receiver_audio.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-07-30T14:14:45Z",
+      "side": 0,
+      "message": "Discussed offline. Looks like this is filtered in more-or-less the same manner downstream.",
+      "parentUuid": "e16202fd_618a3233",
+      "revId": "1bd66642c37083156c625578130dbed13f5fb32c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

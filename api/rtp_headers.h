@@ -39,14 +39,7 @@ class StringRtpHeaderExtension {
   // maximum length that can be encoded with one-byte header extensions.
   static constexpr size_t kMaxSize = 16;
 
-  static bool IsLegalMidName(rtc::ArrayView<const char> name);
-  static bool IsLegalRsidName(rtc::ArrayView<const char> name);
-
-  // TODO(bugs.webrtc.org/9537): Deprecate and remove when third parties have
-  // migrated to "IsLegalRsidName".
-  static bool IsLegalName(rtc::ArrayView<const char> name) {
-    return IsLegalRsidName(name);
-  }
+  static bool IsLegalName(rtc::ArrayView<const char> name);
 
   StringRtpHeaderExtension() { value_[0] = 0; }
   explicit StringRtpHeaderExtension(rtc::ArrayView<const char> value) {

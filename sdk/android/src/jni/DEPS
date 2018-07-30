@@ -12,4 +12,5 @@ include_rules = [
   "+modules/video_coding",
   "+pc",
   "+system_wrappers/include",
+  "+voice_engine/include/voe_base.h",
 ]

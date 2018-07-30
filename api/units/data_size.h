@@ -29,8 +29,8 @@ constexpr int64_t kPlusInfinityVal = std::numeric_limits<int64_t>::max();
 class DataSize {
  public:
   DataSize() = delete;
-  static DataSize Zero() { return DataSize(0); }
-  static DataSize Infinity() {
+  static constexpr DataSize Zero() { return DataSize(0); }
+  static constexpr DataSize Infinity() {
     return DataSize(data_size_impl::kPlusInfinityVal);
   }
 
@@ -109,7 +109,7 @@ class DataSize {
   bool operator<(const DataSize& other) const { return bytes_ < other.bytes_; }
 
  private:
-  explicit DataSize(int64_t bytes) : bytes_(bytes) {}
+  explicit constexpr DataSize(int64_t bytes) : bytes_(bytes) {}
   int64_t bytes_;
 };
 

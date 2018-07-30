@@ -14,6 +14,14 @@
 
 namespace webrtc {
 namespace test {
+TEST(TimeDeltaTest, ConstExpr) {
+  constexpr TimeDelta kTimeDeltaZero = TimeDelta::Zero();
+  constexpr TimeDelta kTimeDeltaPlusInf = TimeDelta::PlusInfinity();
+  constexpr TimeDelta kTimeDeltaMinusInf = TimeDelta::MinusInfinity();
+  EXPECT_TRUE(kTimeDeltaZero.IsZero());
+  EXPECT_TRUE(kTimeDeltaPlusInf.IsPlusInfinity());
+  EXPECT_TRUE(kTimeDeltaMinusInf.IsMinusInfinity());
+}
 
 TEST(TimeDeltaTest, GetBackSameValues) {
   const int64_t kValue = 499;

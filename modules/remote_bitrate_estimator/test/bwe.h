@@ -26,14 +26,6 @@ namespace webrtc {
 namespace testing {
 namespace bwe {
 
-// Overload map comparator.
-class SequenceNumberOlderThan {
- public:
-  bool operator()(uint16_t seq_num_1, uint16_t seq_num_2) const {
-    return IsNewerSequenceNumber(seq_num_2, seq_num_1);
-  }
-};
-
 // Holds information for computing global packet loss.
 struct LossAccount {
   LossAccount() : num_total(0), num_lost(0) {}
@@ -105,7 +97,7 @@ class LinkedSet {
   // Add new element to the front of the list and insert it in the map.
   void UpdateHead(PacketIdentifierNode* new_head);
   size_t capacity_;
-  std::map<uint16_t, PacketNodeIt, SequenceNumberOlderThan> map_;
+  std::map<uint16_t, PacketNodeIt> map_;
   std::list<PacketIdentifierNode*> list_;
 };
 

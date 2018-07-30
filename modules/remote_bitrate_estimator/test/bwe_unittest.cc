@@ -82,27 +82,6 @@ TEST_F(LinkedSetTest, Overflow) {
             static_cast<uint16_t>(kLastSeqNumber));
 }
 
-class SequenceNumberOlderThanTest : public ::testing::Test {
- public:
-  SequenceNumberOlderThanTest() {}
-  ~SequenceNumberOlderThanTest() {}
-
- protected:
-  SequenceNumberOlderThan comparator_;
-};
-
-TEST_F(SequenceNumberOlderThanTest, Operator) {
-  // Operator()(x, y) returns true <==> y is newer than x.
-  EXPECT_TRUE(comparator_.operator()(0x0000, 0x0001));
-  EXPECT_TRUE(comparator_.operator()(0x0001, 0x1000));
-  EXPECT_FALSE(comparator_.operator()(0x0001, 0x0000));
-  EXPECT_FALSE(comparator_.operator()(0x0002, 0x0002));
-  EXPECT_TRUE(comparator_.operator()(0xFFF6, 0x000A));
-  EXPECT_FALSE(comparator_.operator()(0x000A, 0xFFF6));
-  EXPECT_TRUE(comparator_.operator()(0x0000, 0x8000));
-  EXPECT_FALSE(comparator_.operator()(0x8000, 0x0000));
-}
-
 class LossAccountTest : public ::testing::Test {
  public:
   LossAccountTest() {}

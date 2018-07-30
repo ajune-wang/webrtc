@@ -12,6 +12,5 @@ include_rules = [
   "+modules/rtp_rtcp",
   "+system_wrappers",
   "+p2p",
-  "+third_party/libyuv",
 ]
 

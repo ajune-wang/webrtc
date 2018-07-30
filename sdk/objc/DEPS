@@ -17,5 +17,4 @@ include_rules = [
   "+system_wrappers",
   "+modules/audio_device",
   "+modules/audio_processing",
-  "+third_party/libyuv",
 ]

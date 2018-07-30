@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dfc32e34_9c17f3e7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-07-30T09:51:10Z",
+      "side": 1,
+      "message": "Please mention that it\u0027s for PCC in the title. \"Adds RTT tracker for PCC\" should be fine.\n\nFor people skimming the titles it\u0027s helpful to know that it\u0027s not a generic tracker added. This helps someone investigating issues with RTT in GoogCC to ignore this CL.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 17
+      },
+      "revId": "0bc0a6b55d9106d26685b74e40f527ba5cc8947f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa26fb47_5b42d6c1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-07-30T09:51:10Z",
+      "side": 1,
+      "message": "The suggested maximum line length is 73 characters. It\u0027s probably good to follow this since some people have tools with limited visible line lengths.",
+      "revId": "0bc0a6b55d9106d26685b74e40f527ba5cc8947f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

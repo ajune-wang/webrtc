@@ -84,6 +84,24 @@
     },
     {
       "key": {
+        "uuid": "0f37241a_a908ea40",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-07-30T09:51:10Z",
+      "side": 1,
+      "message": "That\u0027s a reasonable argument. I think it would be ok to share code by putting it in\nmodulues/congestion_controller/common/rtt_tracker.h for instance. However, I think it\u0027s fine to keep it separate for now. If it makes sense to share the code that can be fixed at a later time, so marking as resolved.",
+      "parentUuid": "e8a268d9_1b53429d",
+      "revId": "36010719a60347aaba73850e6c813a592f89c481",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9b7dbf54_96c400f0",
         "filename": "modules/congestion_controller/pcc/rtt_tracker.cc",
         "patchSetId": 1
@@ -246,6 +264,30 @@
       "revId": "36010719a60347aaba73850e6c813a592f89c481",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4953feb3_b9c63f95",
+        "filename": "modules/congestion_controller/pcc/rtt_tracker.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-07-30T09:51:10Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "140b2353_40358a52",
+      "range": {
+        "startLine": 26,
+        "startChar": 6,
+        "endLine": 26,
+        "endChar": 16
+      },
+      "revId": "36010719a60347aaba73850e6c813a592f89c481",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

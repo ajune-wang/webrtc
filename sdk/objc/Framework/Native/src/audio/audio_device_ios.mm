@@ -860,6 +860,7 @@ bool AudioDeviceIOS::InitPlayOrRecord() {
   if (![session beginWebRTCSession:&error]) {
     [session unlockForConfiguration];
     RTCLogError(@"Failed to begin WebRTC session: %@", error.localizedDescription);
+    audio_unit_.reset();
     return false;
   }
 
@@ -871,6 +872,7 @@ bool AudioDeviceIOS::InitPlayOrRecord() {
       // audio session during or after a Media Services failure.
       // See AVAudioSessionErrorCodeMediaServicesFailed for details.
       [session unlockForConfiguration];
+      audio_unit_.reset();
       return false;
     }
     SetupAudioBuffersForActiveAudioSession();

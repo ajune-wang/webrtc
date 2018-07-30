@@ -616,7 +616,6 @@ void Channel::Init() {
   // disabled by the user.
   // After StopListen (when no sockets exists), RTCP packets will no longer
   // be transmitted since the Transport object will then be invalid.
-  telephone_event_handler_->SetTelephoneEventForwardToDecoder(true);
   // RTCP is enabled by default.
   _rtpRtcpModule->SetRTCPStatus(RtcpMode::kCompound);
 

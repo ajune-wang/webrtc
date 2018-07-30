@@ -22,20 +22,10 @@
 namespace webrtc {
 
 // Handles audio RTP packets. This class is thread-safe.
-class RTPReceiverAudio : public RTPReceiverStrategy,
-                         public TelephoneEventHandler {
+class RTPReceiverAudio : public RTPReceiverStrategy {
  public:
   explicit RTPReceiverAudio(RtpData* data_callback);
   ~RTPReceiverAudio() override;
-
-  // The following three methods implement the TelephoneEventHandler interface.
-  // Forward DTMFs to decoder for playout.
-  void SetTelephoneEventForwardToDecoder(bool forward_to_decoder) override;
-
-  // Is TelephoneEvent configured with |payload_type|.
-  bool TelephoneEventPayloadType(const int8_t payload_type) const override;
-
-  TelephoneEventHandler* GetTelephoneEventHandler() override;
 
   // Returns true if CNG is configured with |payload_type|.
   bool CNGPayloadType(const int8_t payload_type);
@@ -63,9 +53,10 @@ class RTPReceiverAudio : public RTPReceiverStrategy,
                                   size_t payload_length,
                                   const AudioPayload& audio_specific);
 
-  bool telephone_event_forward_to_decoder_;
+  // Is TelephoneEvent configured with |payload_type|.
+  bool TelephoneEventPayloadType(const int8_t payload_type) const;
+
   int8_t telephone_event_payload_type_;
-  std::set<uint8_t> telephone_event_reported_;
 
   int8_t cng_nb_payload_type_;
   int8_t cng_wb_payload_type_;

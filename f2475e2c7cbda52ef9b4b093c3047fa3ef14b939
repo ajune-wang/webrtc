@@ -70,6 +70,30 @@
       "revId": "f2475e2c7cbda52ef9b4b093c3047fa3ef14b939",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e021b788_4f4ad9d6",
+        "filename": "media/base/fakevideosource.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-07-30T13:21:40Z",
+      "side": 1,
+      "message": "Changed to use a mock now. Myself, I don\u0027t think that makes the tests easier to follow. Do you prefer this way? Any suggestions for making tests clearer?",
+      "parentUuid": "c4fb8847_cacdd6f8",
+      "range": {
+        "startLine": 18,
+        "startChar": 6,
+        "endLine": 18,
+        "endChar": 21
+      },
+      "revId": "f2475e2c7cbda52ef9b4b093c3047fa3ef14b939",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

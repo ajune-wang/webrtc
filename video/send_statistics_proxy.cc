@@ -241,11 +241,11 @@ bool SendStatisticsProxy::UmaSamplesContainer::InsertEncodedFrame(
     encoded_frames_.clear();
   }
 
-  auto it = encoded_frames_.find(encoded_frame._timeStamp);
+  auto it = encoded_frames_.find(encoded_frame.Timestamp());
   if (it == encoded_frames_.end()) {
     // First frame with this timestamp.
     encoded_frames_.insert(
-        std::make_pair(encoded_frame._timeStamp,
+        std::make_pair(encoded_frame.Timestamp(),
                        Frame(now_ms, encoded_frame._encodedWidth,
                              encoded_frame._encodedHeight, simulcast_idx)));
     sent_fps_counter_.Add(1);

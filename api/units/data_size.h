@@ -33,6 +33,12 @@ class DataSize {
   static constexpr DataSize Infinity() {
     return DataSize(data_size_impl::kPlusInfinityVal);
   }
+  template <int64_t bytes>
+  static constexpr DataSize Bytes() {
+    static_assert(bytes >= 0, "");
+    static_assert(bytes < data_size_impl::kPlusInfinityVal, "");
+    return DataSize(bytes);
+  }
 
   template <
       typename T,

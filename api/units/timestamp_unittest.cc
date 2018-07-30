@@ -14,7 +14,14 @@
 namespace webrtc {
 namespace test {
 TEST(TimestampTest, ConstExpr) {
+  constexpr int64_t kValue = 12345;
+  constexpr Timestamp kTimestampSeconds = Timestamp::Seconds<kValue>();
+  constexpr Timestamp kTimestampMs = Timestamp::Millis<kValue>();
+  constexpr Timestamp kTimestampUs = Timestamp::Micros<kValue>();
   constexpr Timestamp kTimestampInf = Timestamp::Infinity();
+  EXPECT_EQ(kTimestampSeconds.seconds(), kValue);
+  EXPECT_EQ(kTimestampMs.ms(), kValue);
+  EXPECT_EQ(kTimestampUs.us(), kValue);
   EXPECT_TRUE(kTimestampInf.IsInfinite());
 }
 

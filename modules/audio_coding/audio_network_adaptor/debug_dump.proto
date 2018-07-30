@@ -2,7 +2,7 @@ syntax = "proto2";
 option optimize_for = LITE_RUNTIME;
 package webrtc.audio_network_adaptor.debug_dump;
 
-import "config.proto";
+import "third_party/webrtc/files/stable/webrtc/modules/audio_coding/audio_network_adaptor/config.proto";
 
 message NetworkMetrics {
   optional int32 uplink_bandwidth_bps = 1;

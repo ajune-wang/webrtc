@@ -44,6 +44,18 @@ class DataRate {
   static constexpr DataRate Infinity() {
     return DataRate(data_rate_impl::kPlusInfinityVal);
   }
+  template <int64_t bps>
+  static constexpr DataRate BitsPerSec() {
+    static_assert(bps >= 0, "");
+    static_assert(bps < data_rate_impl::kPlusInfinityVal, "");
+    return DataRate(bps);
+  }
+  template <int64_t kbps>
+  static constexpr DataRate KilobitsPerSec() {
+    static_assert(kbps >= 0, "");
+    static_assert(kbps < data_rate_impl::kPlusInfinityVal / 1000, "");
+    return DataRate(kbps * 1000);
+  }
 
   template <
       typename T,

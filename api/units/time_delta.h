@@ -42,6 +42,24 @@ class TimeDelta {
   static constexpr TimeDelta MinusInfinity() {
     return TimeDelta(timedelta_impl::kMinusInfinityVal);
   }
+  template <int64_t seconds>
+  static constexpr TimeDelta Seconds() {
+    static_assert(seconds > timedelta_impl::kMinusInfinityVal / 1000000, "");
+    static_assert(seconds < timedelta_impl::kPlusInfinityVal / 1000000, "");
+    return TimeDelta(seconds * 1000000);
+  }
+  template <int64_t ms>
+  static constexpr TimeDelta Millis() {
+    static_assert(ms > timedelta_impl::kMinusInfinityVal / 1000, "");
+    static_assert(ms < timedelta_impl::kPlusInfinityVal / 1000, "");
+    return TimeDelta(ms * 1000);
+  }
+  template <int64_t us>
+  static constexpr TimeDelta Micros() {
+    static_assert(us > timedelta_impl::kMinusInfinityVal, "");
+    static_assert(us < timedelta_impl::kPlusInfinityVal, "");
+    return TimeDelta(us);
+  }
 
   template <
       typename T,
@@ -220,7 +238,6 @@ inline TimeDelta operator*(const int32_t& scalar, const TimeDelta& delta) {
 inline TimeDelta operator/(const TimeDelta& delta, const int64_t& scalar) {
   return TimeDelta::us(delta.us() / scalar);
 }
-
 std::string ToString(const TimeDelta& value);
 }  // namespace webrtc
 

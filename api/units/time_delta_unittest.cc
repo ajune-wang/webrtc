@@ -15,9 +15,16 @@
 namespace webrtc {
 namespace test {
 TEST(TimeDeltaTest, ConstExpr) {
+  constexpr int64_t kValue = -12345;
+  constexpr TimeDelta kTimeDeltaSeconds = TimeDelta::Seconds<kValue>();
+  constexpr TimeDelta kTimeDeltaMs = TimeDelta::Millis<kValue>();
+  constexpr TimeDelta kTimeDeltaUs = TimeDelta::Micros<kValue>();
   constexpr TimeDelta kTimeDeltaZero = TimeDelta::Zero();
   constexpr TimeDelta kTimeDeltaPlusInf = TimeDelta::PlusInfinity();
   constexpr TimeDelta kTimeDeltaMinusInf = TimeDelta::MinusInfinity();
+  EXPECT_EQ(kTimeDeltaSeconds.seconds(), kValue);
+  EXPECT_EQ(kTimeDeltaMs.ms(), kValue);
+  EXPECT_EQ(kTimeDeltaUs.us(), kValue);
   EXPECT_TRUE(kTimeDeltaZero.IsZero());
   EXPECT_TRUE(kTimeDeltaPlusInf.IsPlusInfinity());
   EXPECT_TRUE(kTimeDeltaMinusInf.IsMinusInfinity());

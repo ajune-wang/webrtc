@@ -35,6 +35,24 @@ class Timestamp {
   static constexpr Timestamp Infinity() {
     return Timestamp(timestamp_impl::kPlusInfinityVal);
   }
+  template <int64_t seconds>
+  static constexpr Timestamp Seconds() {
+    static_assert(seconds >= 0, "");
+    static_assert(seconds < timestamp_impl::kPlusInfinityVal / 1000000, "");
+    return Timestamp(seconds * 1000000);
+  }
+  template <int64_t ms>
+  static constexpr Timestamp Millis() {
+    static_assert(ms >= 0, "");
+    static_assert(ms < timestamp_impl::kPlusInfinityVal / 1000, "");
+    return Timestamp(ms * 1000);
+  }
+  template <int64_t us>
+  static constexpr Timestamp Micros() {
+    static_assert(us >= 0, "");
+    static_assert(us < timestamp_impl::kPlusInfinityVal, "");
+    return Timestamp(us);
+  }
 
   template <
       typename T,

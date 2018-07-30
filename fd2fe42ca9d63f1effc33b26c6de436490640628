@@ -70,6 +70,30 @@
       "revId": "fd2fe42ca9d63f1effc33b26c6de436490640628",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3e9bf345_57391970",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 1407,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-07-30T10:26:57Z",
+      "side": 1,
+      "message": "java.lang.ClassNotFoundException: Didn\u0027t find class \"org.webrtc.audio.WebRtcAudioManager\" on path: DexPathList[[zip file \"/system/framework/android.test.runner.jar\", zip file \"/data/app/org.webrtc.native_test-1/base.apk\"],nativeLibraryDirectories\u003d[/data/app/org.webrtc.native_test-1/lib/arm, /data/app/org.webrtc.native_test-1/base.apk!/lib/armeabi-v7a, /vendor/lib, /system/lib]]\nDevice(023d3dc6bc954771) 07-30 09:01:26.795 30644 30644 W System.err: \tat dalvik.system.BaseDexClassLoader.findClass(BaseDexClassLoader.java:56)\n\nSeems you have to add dependency: \":java_audio_device_module_java\"",
+      "parentUuid": "a6a93842_3a3bec9f",
+      "range": {
+        "startLine": 1407,
+        "startChar": 6,
+        "endLine": 1407,
+        "endChar": 39
+      },
+      "revId": "fd2fe42ca9d63f1effc33b26c6de436490640628",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

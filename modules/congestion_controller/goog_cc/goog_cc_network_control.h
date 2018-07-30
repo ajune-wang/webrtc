@@ -63,6 +63,8 @@ class GoogCcNetworkController : public NetworkControllerInterface {
   NetworkControlUpdate OnNetworkEstimate(NetworkEstimate msg);
   PacerConfig UpdatePacingRates(Timestamp at_time) const;
 
+  NetworkControlUpdate GetUpdateWithProbes();
+
   RtcEventLog* const event_log_;
 
   const std::unique_ptr<ProbeController> probe_controller_;

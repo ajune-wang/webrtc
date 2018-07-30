@@ -145,7 +145,7 @@ GoogCcNetworkController::~GoogCcNetworkController() {}
 NetworkControlUpdate GoogCcNetworkController::OnNetworkAvailability(
     NetworkAvailability msg) {
   probe_controller_->OnNetworkAvailability(msg);
-  return NetworkControlUpdate();
+  return GetUpdateWithProbes();
 }
 
 NetworkControlUpdate GoogCcNetworkController::OnNetworkRouteChange(
@@ -179,12 +179,7 @@ NetworkControlUpdate GoogCcNetworkController::OnProcessInterval(
       alr_detector_->GetApplicationLimitedRegionStartTime();
   probe_controller_->SetAlrStartTimeMs(start_time_ms);
   probe_controller_->Process(msg.at_time.ms());
-  NetworkControlUpdate update = MaybeTriggerOnNetworkChanged(msg.at_time);
-  for (const ProbeClusterConfig& config :
-       probe_controller_->GetAndResetPendingProbes()) {
-    update.probe_cluster_configs.push_back(config);
-  }
-  return update;
+  return MaybeTriggerOnNetworkChanged(msg.at_time);
 }
 
 NetworkControlUpdate GoogCcNetworkController::OnRemoteBitrateReport(
@@ -236,7 +231,7 @@ NetworkControlUpdate GoogCcNetworkController::OnStreamsConfig(
     max_padding_rate_ = *msg.max_padding_rate;
     pacing_changed = true;
   }
-  NetworkControlUpdate update;
+  NetworkControlUpdate update = GetUpdateWithProbes();
   if (pacing_changed)
     update.pacer_config = UpdatePacingRates(msg.at_time);
   return update;
@@ -327,6 +322,8 @@ NetworkControlUpdate GoogCcNetworkController::OnTransportPacketsFeedback(
                                                     result.target_bitrate_bps);
     // Update the estimate in the ProbeController, in case we want to probe.
     update = MaybeTriggerOnNetworkChanged(report.feedback_time);
+  } else {
+    update = GetUpdateWithProbes();
   }
   if (result.recovered_from_overuse) {
     probe_controller_->SetAlrStartTimeMs(alr_start_time);
@@ -402,7 +399,13 @@ NetworkControlUpdate GoogCcNetworkController::MaybeTriggerOnNetworkChanged(
     last_bandwidth_ = new_estimate.bandwidth;
     return OnNetworkEstimate(new_estimate);
   }
-  return NetworkControlUpdate();
+  return GetUpdateWithProbes();
+}
+
+NetworkControlUpdate GoogCcNetworkController::GetUpdateWithProbes() {
+  NetworkControlUpdate update;
+  update.probe_cluster_configs = probe_controller_->GetAndResetPendingProbes();
+  return update;
 }
 
 bool GoogCcNetworkController::GetNetworkParameters(
@@ -436,7 +439,7 @@ bool GoogCcNetworkController::GetNetworkParameters(
 
 NetworkControlUpdate GoogCcNetworkController::OnNetworkEstimate(
     NetworkEstimate estimate) {
-  NetworkControlUpdate update;
+  NetworkControlUpdate update = GetUpdateWithProbes();
   update.pacer_config = UpdatePacingRates(estimate.at_time);
   alr_detector_->SetEstimatedBitrate(estimate.bandwidth.bps());
   probe_controller_->SetEstimatedBitrate(estimate.bandwidth.bps(),

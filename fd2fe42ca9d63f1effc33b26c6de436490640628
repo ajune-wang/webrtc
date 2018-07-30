@@ -22,6 +22,30 @@
       "revId": "fd2fe42ca9d63f1effc33b26c6de436490640628",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73469e34_72a57fa8",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 1407,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-07-30T08:42:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ea1792ab_a347fee8",
+      "range": {
+        "startLine": 1407,
+        "startChar": 6,
+        "endLine": 1407,
+        "endChar": 39
+      },
+      "revId": "fd2fe42ca9d63f1effc33b26c6de436490640628",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

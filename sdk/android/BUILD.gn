@@ -1402,7 +1402,11 @@ if (is_android) {
     ]
 
     deps = [
-      ":libjingle_peerconnection_java",
+      ":base_java",
+      ":peerconnection_java",
+      ":video_api_java",
+      ":video_java",
+      "../../rtc_base:base_java",
       "//third_party/android_support_test_runner:runner_java",
     ]
   }

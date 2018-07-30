@@ -46,6 +46,30 @@
       "revId": "f2475e2c7cbda52ef9b4b093c3047fa3ef14b939",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4fb8847_cacdd6f8",
+        "filename": "media/base/fakevideosource.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-07-30T12:31:17Z",
+      "side": 1,
+      "message": "The state you are storing here is just a record of the method calls. I don\u0027t see what value this class provides over using a proper mock. Are you planning to make this class into a proper fake, i.e. will it start producing frames?",
+      "parentUuid": "c9b7482d_f24bdbdf",
+      "range": {
+        "startLine": 18,
+        "startChar": 6,
+        "endLine": 18,
+        "endChar": 21
+      },
+      "revId": "f2475e2c7cbda52ef9b4b093c3047fa3ef14b939",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

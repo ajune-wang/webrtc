@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e16202fd_618a3233",
+        "filename": "modules/rtp_rtcp/source/rtp_receiver_audio.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-07-30T13:54:57Z",
+      "side": 0,
+      "message": "I guess the only behavioral change introduced by this CL is the removal of these sanity checks: that we don\u0027t get \"too many\" events and that they\u0027re not (all?) \u003e 15. Are these changes alright? How do we handle DTMF further down?",
+      "revId": "1bd66642c37083156c625578130dbed13f5fb32c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

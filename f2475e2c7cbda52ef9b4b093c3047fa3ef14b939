@@ -94,6 +94,30 @@
       "revId": "f2475e2c7cbda52ef9b4b093c3047fa3ef14b939",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1ab28c1_4882a1c4",
+        "filename": "media/base/fakevideosource.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-07-30T14:16:26Z",
+      "side": 1,
+      "message": "Thanks, yes I prefer this way. I know many of the \"fake\" classes in media/ actually serve the same purpose as mocks and would be more suited to be implemented using Google mock. It\u0027s more transparent using an actual mock and forces the tests to be simple. E.g. FakeVideoReceiveStream has grown too big and it\u0027s unclear from looking at a single unit test what it is actually testing.",
+      "parentUuid": "e021b788_4f4ad9d6",
+      "range": {
+        "startLine": 18,
+        "startChar": 6,
+        "endLine": 18,
+        "endChar": 21
+      },
+      "revId": "f2475e2c7cbda52ef9b4b093c3047fa3ef14b939",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

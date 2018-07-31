@@ -2,6 +2,75 @@
   "comments": [
     {
       "key": {
+        "uuid": "0a3ff8ae_4420eb1d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-07-31T13:01:07Z",
+      "side": 1,
+      "message": "Adds monitor interval class for PCC.\n\n(Keeping the line length below 55 chars)",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 67
+      },
+      "revId": "526f71adb92554e8f44c29ca5dcf4c2a48cd3aa1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "534f5006_065d01ed",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-07-31T13:01:07Z",
+      "side": 1,
+      "message": "Limit line length to 73 characters.\n\nAlso consider if you can elaborate slightly more to make it easier to follow for someone less familiar with PCC. Maybe something like:\nThe PCC congestion control algorithm divides time into consecutive intervals called monitor intervals. This CL adds a class that is used by PCC to measure the performance of sending at a certain rate during one monitor interval.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 158
+      },
+      "revId": "526f71adb92554e8f44c29ca5dcf4c2a48cd3aa1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f89e5e84_b5a31b68",
+        "filename": "modules/congestion_controller/pcc/monitor_interval.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-07-31T13:01:07Z",
+      "side": 1,
+      "message": "Is it intended behavior that we should be able to copy this class? Otherwise declare this as deleted in the header file.",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 73
+      },
+      "revId": "526f71adb92554e8f44c29ca5dcf4c2a48cd3aa1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8a7fbc77_e139eb26",
         "filename": "modules/congestion_controller/pcc/monitor_interval.cc",
         "patchSetId": 10
@@ -53,6 +122,29 @@
     },
     {
       "key": {
+        "uuid": "3d6c1bfe_d25d0703",
+        "filename": "modules/congestion_controller/pcc/monitor_interval.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-07-31T13:01:07Z",
+      "side": 1,
+      "message": "Prefer one line per definition, this makes diffs cleaner. Also, we usually use \u003d for initializing doubles:\ndouble sum_times \u003d 0;\ndouble sum_rtts \u003d 0;\ndouble sum_square_times \u003d 0;\ndouble sum_times_dot_rtts \u003d 0;",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 79
+      },
+      "revId": "526f71adb92554e8f44c29ca5dcf4c2a48cd3aa1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a0646117_7dffc5d0",
         "filename": "modules/congestion_controller/pcc/monitor_interval.cc",
         "patchSetId": 10
@@ -87,6 +179,29 @@
     },
     {
       "key": {
+        "uuid": "965edb0f_b4986524",
+        "filename": "modules/congestion_controller/pcc/monitor_interval.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-07-31T13:01:07Z",
+      "side": 1,
+      "message": "Suggested name: PccMonitorInterval if it\u0027s not meant to be usable for other methods in the future.",
+      "range": {
+        "startLine": 26,
+        "startChar": 6,
+        "endLine": 26,
+        "endChar": 21
+      },
+      "revId": "526f71adb92554e8f44c29ca5dcf4c2a48cd3aa1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5f720468_a2a5037e",
         "filename": "modules/congestion_controller/pcc/monitor_interval.h",
         "patchSetId": 10
@@ -98,6 +213,190 @@
       "writtenOn": "2018-07-27T16:33:07Z",
       "side": 1,
       "message": "Ok, so what about the last MonitorInterval? It will always return false, so any client waiting for this to turn true will loop endlessly.",
+      "revId": "526f71adb92554e8f44c29ca5dcf4c2a48cd3aa1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0bcc5aae_b489dcab",
+        "filename": "modules/congestion_controller/pcc/monitor_interval.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-07-31T13:01:07Z",
+      "side": 1,
+      "message": "I suggest merging this using a class local struct:\nstruct ReceivedPacket {\nTimeDelta rtt;\nTimestamp sent_time;\n};\nstd::vector\u003cReceivedPacket\u003e received_packets_;\n\nThat way you can also use a foreach loop below to iterate trough the packets.",
+      "range": {
+        "startLine": 55,
+        "startChar": 2,
+        "endLine": 56,
+        "endChar": 53
+      },
+      "revId": "526f71adb92554e8f44c29ca5dcf4c2a48cd3aa1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28afa0c3_76d421b1",
+        "filename": "modules/congestion_controller/pcc/monitor_interval_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-07-31T13:01:07Z",
+      "side": 1,
+      "message": "100 bps is quite low, is this intended?",
+      "range": {
+        "startLine": 18,
+        "startChar": 15,
+        "endLine": 18,
+        "endChar": 33
+      },
+      "revId": "526f71adb92554e8f44c29ca5dcf4c2a48cd3aa1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a007d134_6ac4d3b3",
+        "filename": "modules/congestion_controller/pcc/monitor_interval_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-07-31T13:01:07Z",
+      "side": 1,
+      "message": "10 microseconds is quite short, intended?",
+      "range": {
+        "startLine": 20,
+        "startChar": 47,
+        "endLine": 20,
+        "endChar": 53
+      },
+      "revId": "526f71adb92554e8f44c29ca5dcf4c2a48cd3aa1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10007441_3cdd8f90",
+        "filename": "modules/congestion_controller/pcc/monitor_interval_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-07-31T13:01:07Z",
+      "side": 1,
+      "message": "Same as above.",
+      "range": {
+        "startLine": 21,
+        "startChar": 41,
+        "endLine": 21,
+        "endChar": 47
+      },
+      "revId": "526f71adb92554e8f44c29ca5dcf4c2a48cd3aa1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53d52aa4_b4f472c9",
+        "filename": "modules/congestion_controller/pcc/monitor_interval_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-07-31T13:01:07Z",
+      "side": 1,
+      "message": "kDefaultPacketSize",
+      "range": {
+        "startLine": 22,
+        "startChar": 15,
+        "endLine": 22,
+        "endChar": 31
+      },
+      "revId": "526f71adb92554e8f44c29ca5dcf4c2a48cd3aa1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58e66d3f_e2510248",
+        "filename": "modules/congestion_controller/pcc/monitor_interval_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-07-31T13:01:07Z",
+      "side": 1,
+      "message": "kMonitorIntervalTimeout?",
+      "range": {
+        "startLine": 23,
+        "startChar": 16,
+        "endLine": 23,
+        "endChar": 26
+      },
+      "revId": "526f71adb92554e8f44c29ca5dcf4c2a48cd3aa1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1f2c7c3_7adebd18",
+        "filename": "modules/congestion_controller/pcc/monitor_interval_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-07-31T13:01:07Z",
+      "side": 1,
+      "message": "Move these to the scope where they are use.",
+      "range": {
+        "startLine": 30,
+        "startChar": 1,
+        "endLine": 31,
+        "endChar": 25
+      },
+      "revId": "526f71adb92554e8f44c29ca5dcf4c2a48cd3aa1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "165b33be_c4303c63",
+        "filename": "modules/congestion_controller/pcc/monitor_interval_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-07-31T13:01:07Z",
+      "side": 1,
+      "message": "Please make the test names more descriptive. A common pattern is XHappensWhenY, for instance IndicatesDoneWhenFeedbackReceivedAfterInterval might be what you are trying to test here?\n\n(Applies to other tests as well)",
+      "range": {
+        "startLine": 59,
+        "startChar": 29,
+        "endLine": 59,
+        "endChar": 47
+      },
       "revId": "526f71adb92554e8f44c29ca5dcf4c2a48cd3aa1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

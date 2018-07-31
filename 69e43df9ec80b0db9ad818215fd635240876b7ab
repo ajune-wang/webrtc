@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "92672d1d_29600ef4",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 962,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-07-31T14:31:11Z",
+      "side": 1,
+      "message": "It\u0027s probably better to set a class constant to avoid incurring overhead due to checking the field trial repeatedly (the field trial logic is link time injected and therefore has unspecified performance overhead)",
+      "range": {
+        "startLine": 962,
+        "startChar": 6,
+        "endLine": 962,
+        "endChar": 36
+      },
+      "revId": "69e43df9ec80b0db9ad818215fd635240876b7ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "953a13e6_77281b4f",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 964,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-07-31T14:31:11Z",
+      "side": 1,
+      "message": "How about\nstd::abs(static_cast\u003cdouble\u003e(bitrate_bps)/encoder_start_bitrate_bps_-1) \u003e\u003dkFramedropThreshold\n?\n\nThat way you avoid the somewhat unnatural subtraction on unsigned numbers.",
+      "range": {
+        "startLine": 963,
+        "startChar": 6,
+        "endLine": 964,
+        "endChar": 54
+      },
+      "revId": "69e43df9ec80b0db9ad818215fd635240876b7ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6ad0982_0ce3476b",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 997,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-07-31T14:31:11Z",
+      "side": 1,
+      "message": "Why change from \u003c to !\u003d?",
+      "range": {
+        "startLine": 997,
+        "startChar": 25,
+        "endLine": 997,
+        "endChar": 27
+      },
+      "revId": "69e43df9ec80b0db9ad818215fd635240876b7ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

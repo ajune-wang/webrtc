@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a786c35_85102a17",
+        "filename": "modules/video_coding/rtp_frame_reference_finder.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-07-31T12:23:09Z",
+      "side": 1,
+      "message": "The RtpFrameReferenceFinder is only meant to stash enough frames to be able to determine the references of the frames. I think 600 is pretty extreme, I would say 100 instead (a bit over 3 seconds on a 30 fps stream).",
+      "revId": "92a4ee81a20b2acc8d8f13326d2828a18da5597f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

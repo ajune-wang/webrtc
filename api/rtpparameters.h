@@ -417,7 +417,8 @@ struct RtpEncodingParameters {
   // TODO(asapersson): Not implemented for ORTC API.
   absl::optional<int> min_bitrate_bps;
 
-  // TODO(deadbeef): Not implemented.
+  // Specifies the maximum framerate in fps for video.
+  // TODO(asapersson): Not implemented for ORTC API.
   absl::optional<int> max_framerate;
 
   // For video, scale the resolution down by this factor.
@@ -451,6 +452,7 @@ struct RtpEncodingParameters {
            fec == o.fec && rtx == o.rtx && dtx == o.dtx &&
            bitrate_priority == o.bitrate_priority && ptime == o.ptime &&
            max_bitrate_bps == o.max_bitrate_bps &&
+           min_bitrate_bps == o.min_bitrate_bps &&
            max_framerate == o.max_framerate &&
            scale_resolution_down_by == o.scale_resolution_down_by &&
            scale_framerate_down_by == o.scale_framerate_down_by &&

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "30d9e500_232278e4",
+        "filename": "audio/channel.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 875,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-07-31T12:45:27Z",
+      "side": 1,
+      "message": "I think this is a blocker for this change. We have to move setting of payload_type_frequency first. What\u0027s the right place to configure a pt -\u003e frequency mapping, which could live either in RtpStreamReceiverController or, for the time being, in Call.",
+      "range": {
+        "startLine": 872,
+        "startChar": 0,
+        "endLine": 875,
+        "endChar": 23
+      },
+      "revId": "4577efd294b93b0e9f5686a84b5ce756d92e23e3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "417f800f_a19e3667",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-07-31T12:45:27Z",
+      "side": 1,
+      "message": "packet.recovered() is true for packets that arrive via either Rtx or fec reconstruction.\n\nThe value of the retransmitted flag was based on the logic in IsRetransmitOfOldPacket.\nInOrderPacketInternal, which is used here and also in IsRetransmitOfOldPacket is based on sequencenumbers only.\n\nIsRetransmitOfOldPacket has additional logic based on timestamps and jitter estimate, and that gets unused in the current version of this cl. That code isn\u0027t clear to me, but I imagine it tries to distinguish between retransmissions and network reorder. Do we still need this? Do the standards specify in detail how to update the retransmitted counters?",
+      "range": {
+        "startLine": 77,
+        "startChar": 19,
+        "endLine": 77,
+        "endChar": 36
+      },
+      "revId": "4577efd294b93b0e9f5686a84b5ce756d92e23e3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

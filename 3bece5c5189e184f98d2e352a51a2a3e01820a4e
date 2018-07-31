@@ -16,6 +16,24 @@
       "revId": "3bece5c5189e184f98d2e352a51a2a3e01820a4e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ad3bb66_edd1dcb3",
+        "filename": "common_video/include/video_frame.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-07-31T12:52:36Z",
+      "side": 1,
+      "message": "Maybe. Do you agree that consistency with the VideoFrame class is important?\n\nOnly drawback of renaming right away is that the EncodedFrame subclass (api/video/encoded_frame.h) ought to follow, which makes the cl slightly larger and with more potential for breakage.",
+      "parentUuid": "d1b7ed2e_00465e9f",
+      "revId": "3bece5c5189e184f98d2e352a51a2a3e01820a4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

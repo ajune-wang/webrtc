@@ -52,6 +52,24 @@
       "revId": "883ee1869371b3e43243e60539ed1fd8cd857bbd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b55ee98_0504dc8e",
+        "filename": "modules/remote_bitrate_estimator/test/bwe.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-07-31T11:39:30Z",
+      "side": 1,
+      "message": "The RTP spec only uses 16 bits to save bits on the network. With ~100 packets per second, this counter wraps every ~10 minutes. The assumption is that no buffer will hold packets this long, so there won\u0027t be conflicts between the one sequence number cycle and the next.",
+      "parentUuid": "92db81b6_c6d73c4c",
+      "revId": "883ee1869371b3e43243e60539ed1fd8cd857bbd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

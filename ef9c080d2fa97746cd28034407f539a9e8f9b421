@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3aa1ac93_8b0a85dc",
+        "filename": "modules/congestion_controller/pcc/utility_function.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-07-31T13:20:08Z",
+      "side": 1,
+      "message": "Suggestion:\nIf the interface is meant to be kept this simple you can consider using std::function\u003cvoid(const MonitorInterval\u0026)\u003e instead. That way you can use a lambda function, removing the need to create a separate class for each possible utility function.",
+      "revId": "ef9c080d2fa97746cd28034407f539a9e8f9b421",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "edbc42cf_ff38f517",
+        "filename": "modules/congestion_controller/pcc/utility_function.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-07-31T13:20:08Z",
+      "side": 1,
+      "message": "Nit: ComputeUtility? Or even just Compute as the fact that it\u0027s Utility is implied by the class name. It would also make perfect sense to overload operator() here.",
+      "range": {
+        "startLine": 22,
+        "startChar": 17,
+        "endLine": 22,
+        "endChar": 39
+      },
+      "revId": "ef9c080d2fa97746cd28034407f539a9e8f9b421",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1582ad02_555b3ec6",
+        "filename": "modules/congestion_controller/pcc/utility_function_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-07-31T13:20:08Z",
+      "side": 1,
+      "message": "Please add some indication of expected results in the name. Describe what should happen if all coefficients are zero?",
+      "range": {
+        "startLine": 61,
+        "startChar": 35,
+        "endLine": 61,
+        "endChar": 54
+      },
+      "revId": "ef9c080d2fa97746cd28034407f539a9e8f9b421",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

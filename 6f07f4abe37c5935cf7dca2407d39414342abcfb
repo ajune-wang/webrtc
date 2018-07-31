@@ -22,6 +22,30 @@
       "revId": "6f07f4abe37c5935cf7dca2407d39414342abcfb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f617e08d_c6300de5",
+        "filename": "video/video_quality_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-07-31T13:09:07Z",
+      "side": 1,
+      "message": "Done, this field is part of the API but I think it is possible to remove it since it is basically unused.",
+      "parentUuid": "0c3fe08d_f6cba9a0",
+      "range": {
+        "startLine": 118,
+        "startChar": 15,
+        "endLine": 118,
+        "endChar": 20
+      },
+      "revId": "6f07f4abe37c5935cf7dca2407d39414342abcfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

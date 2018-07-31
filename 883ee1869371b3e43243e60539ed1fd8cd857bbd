@@ -16,6 +16,24 @@
       "revId": "883ee1869371b3e43243e60539ed1fd8cd857bbd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38a37e86_4609f796",
+        "filename": "modules/remote_bitrate_estimator/test/bwe.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-07-31T11:08:08Z",
+      "side": 1,
+      "message": "Yes. I think the solution is to use the SeqNumUnwrapper to unwrap the sequence number before inserting them into the map. That way the map could use the normal \u003c ordering.",
+      "parentUuid": "e539bf06_5186ab5a",
+      "revId": "883ee1869371b3e43243e60539ed1fd8cd857bbd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

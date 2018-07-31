@@ -14,6 +14,7 @@
 
 #include <sstream>
 
+#include "modules/rtp_rtcp/source/rtp_header_extensions.h"
 #include "rtc_base/constructormagic.h"
 #include "rtc_base/numerics/safe_minmax.h"
 #include "rtc_base/system/unused.h"
@@ -135,6 +136,18 @@ void MediaPacket::SetAbsSendTimeMs(int64_t abs_send_time_ms) {
   header_.extension.absoluteSendTime =
       ((static_cast<int64_t>(abs_send_time_ms * (1 << 18)) + 500) / 1000) &
       0x00fffffful;
+}
+
+// Copies payload size, sequence number and AbsSendTime extension.
+RtpPacketReceived MediaPacket::GetRtpPacket() const {
+  RtpPacketReceived packet;
+
+  packet.AllocatePayload(payload_size());
+  packet.SetSequenceNumber(header_.sequenceNumber);
+  if (header_.extension.hasAbsoluteSendTime) {
+    packet.SetExtension<AbsoluteSendTime>(header_.extension.absoluteSendTime);
+  }
+  return packet;
 }
 
 BbrBweFeedback::BbrBweFeedback(

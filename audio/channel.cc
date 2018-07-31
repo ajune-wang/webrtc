@@ -869,11 +869,14 @@ void Channel::OnRtpPacket(const RtpPacketReceived& packet) {
   // Store playout timestamp for the received RTP packet
   UpdatePlayoutTimestamp(false);
 
+  // TODO(nisse): Setting payload_type_frequency here gets lost when we use the
+  // immutable packet, which breaks jitter statistics. XXX. The right way is to
+  // set payload_type_frequency closer to parsing, using mapping from payload
+  // type to frequency.
   header.payload_type_frequency =
       rtp_payload_registry_->GetPayloadTypeFrequency(header.payloadType);
   if (header.payload_type_frequency >= 0) {
-    rtp_receive_statistics_->IncomingPacket(header, packet.size(),
-                                            IsPacketRetransmitted(header));
+    rtp_receive_statistics_->OnRtpPacket(packet);
 
     ReceivePacket(packet.data(), packet.size(), header);
   }

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b682fbd7_387fec7d",
+        "filename": "modules/audio_processing/transient/moving_moments.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-07-31T08:34:23Z",
+      "side": 1,
+      "message": "If we move the fmax to this line, we\u0027ll ensure sum_of_squares_ is non-negative as well.",
+      "range": {
+        "startLine": 45,
+        "startChar": 4,
+        "endLine": 45,
+        "endChar": 61
+      },
+      "revId": "825fa87020e538d0464b3ec0b61d2e60cd53a004",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -11,6 +11,7 @@
 #include <stdio.h>
 
 #include "rtc_base/flags.h"
+#include "rtc_base/logging.h"
 #include "rtc_base/stringencode.h"
 #include "system_wrappers/include/field_trial_default.h"
 #include "test/field_trial.h"
@@ -597,6 +598,8 @@ int main(int argc, char* argv[]) {
     rtc::FlagList::Print(nullptr, false);
     return 0;
   }
+
+  rtc::LogMessage::SetLogToStderr(webrtc::flags::FLAG_logs);
 
   webrtc::test::ValidateFieldTrialsStringOrDie(
       webrtc::flags::FLAG_force_fieldtrials);

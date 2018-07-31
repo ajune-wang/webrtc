@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "7c1abc7e_128ed6f7",
+        "filename": "modules/audio_processing/transient/moving_moments.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-07-31T13:11:56Z",
+      "side": 1,
+      "message": "Thanks Sam! I agreed with Per with applying the smallest fix for now.",
+      "parentUuid": "230fd909_32ac8d85",
+      "range": {
+        "startLine": 45,
+        "startChar": 4,
+        "endLine": 45,
+        "endChar": 61
+      },
+      "revId": "825fa87020e538d0464b3ec0b61d2e60cd53a004",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1911e353_b2ecd679",
         "filename": "modules/audio_processing/transient/moving_moments.cc",
         "patchSetId": 3
@@ -69,6 +93,30 @@
       "revId": "825fa87020e538d0464b3ec0b61d2e60cd53a004",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1d68ffb_db4857a3",
+        "filename": "modules/audio_processing/transient/moving_moments.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-07-31T13:11:56Z",
+      "side": 1,
+      "message": "Oh right; I\u0027ve seen math.h which is not even used, so I can switch to cmath.",
+      "parentUuid": "1911e353_b2ecd679",
+      "range": {
+        "startLine": 47,
+        "startChar": 16,
+        "endLine": 47,
+        "endChar": 20
+      },
+      "revId": "825fa87020e538d0464b3ec0b61d2e60cd53a004",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

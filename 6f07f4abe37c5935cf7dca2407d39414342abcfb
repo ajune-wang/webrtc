@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0c3fe08d_f6cba9a0",
+        "filename": "video/video_quality_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2018-07-31T12:28:19Z",
+      "side": 1,
+      "message": "Are we able to remove this field from the struct if we\u0027re not going to use it?",
+      "range": {
+        "startLine": 118,
+        "startChar": 15,
+        "endLine": 118,
+        "endChar": 20
+      },
+      "revId": "6f07f4abe37c5935cf7dca2407d39414342abcfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

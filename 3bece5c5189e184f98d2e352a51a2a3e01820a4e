@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d1b7ed2e_00465e9f",
+        "filename": "common_video/include/video_frame.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-07-31T12:28:16Z",
+      "side": 1,
+      "message": "The reason you can\u0027t do this now is because you have to update downstream projects first? If so, don\u0027t you want to implement and use timestamp() and set_timestamp() in the WebRTC code so that you can update downstream projects to use those functions directly?",
+      "revId": "3bece5c5189e184f98d2e352a51a2a3e01820a4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

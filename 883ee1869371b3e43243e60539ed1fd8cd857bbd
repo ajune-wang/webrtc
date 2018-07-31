@@ -34,6 +34,24 @@
       "revId": "883ee1869371b3e43243e60539ed1fd8cd857bbd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92db81b6_c6d73c4c",
+        "filename": "modules/remote_bitrate_estimator/test/bwe.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2018-07-31T11:25:07Z",
+      "side": 1,
+      "message": "Yes it seems to be the right thing to do, thanks!\nBTW I wonder why sequence_number is an uint16 in the first place.",
+      "parentUuid": "38a37e86_4609f796",
+      "revId": "883ee1869371b3e43243e60539ed1fd8cd857bbd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "83499365_9f6f35e5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-07-31T13:00:01Z",
+      "side": 1,
+      "message": "Please update before submitting",
+      "range": {
+        "startLine": 7,
+        "startChar": 58,
+        "endLine": 7,
+        "endChar": 61
+      },
+      "revId": "9ac4b9e7f427ede3fe15c8b109292844cdb206df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

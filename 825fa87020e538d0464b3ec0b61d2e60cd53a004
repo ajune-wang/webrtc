@@ -22,6 +22,53 @@
       "revId": "825fa87020e538d0464b3ec0b61d2e60cd53a004",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "230fd909_32ac8d85",
+        "filename": "modules/audio_processing/transient/moving_moments.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-07-31T12:53:11Z",
+      "side": 1,
+      "message": "The underlying problem in this is that the code attempts to compute a sum of squares from float values in a recursive manner without bounding the estimate to avoid the effects of numerical issues.\nMy concern with bounding the estimate in only one side (lower bound to 0) is that it may cause  a larger buildup of numerical errors to higher values than before.\n\nMy suggestion is to for now go with the proposed solution of bounding the output and not the sum_of_squares_, and add a todo to properly bound this estimate.",
+      "parentUuid": "b682fbd7_387fec7d",
+      "range": {
+        "startLine": 45,
+        "startChar": 4,
+        "endLine": 45,
+        "endChar": 61
+      },
+      "revId": "825fa87020e538d0464b3ec0b61d2e60cd53a004",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1911e353_b2ecd679",
+        "filename": "modules/audio_processing/transient/moving_moments.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-07-31T12:53:11Z",
+      "side": 1,
+      "message": "Why not use std::max",
+      "range": {
+        "startLine": 47,
+        "startChar": 16,
+        "endLine": 47,
+        "endChar": 20
+      },
+      "revId": "825fa87020e538d0464b3ec0b61d2e60cd53a004",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

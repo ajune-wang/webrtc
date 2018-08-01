@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ac65d2e4_f5ef7bde",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 2349,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2018-08-01T14:40:22Z",
+      "side": 1,
+      "message": "remove?",
+      "range": {
+        "startLine": 2349,
+        "startChar": 34,
+        "endLine": 2349,
+        "endChar": 56
+      },
+      "revId": "6c67587c493a47d6c290d188720e87ce497b5570",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

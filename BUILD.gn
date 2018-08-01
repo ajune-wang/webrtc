@@ -340,15 +340,31 @@ if (!build_with_chromium) {
       "call",
       "common_audio",
       "common_video",
-      "media",
-      "modules",
+      "media:rtc_media",
+      "media:rtc_media_base",
+      "modules/audio_coding",
+      "modules/audio_device",
+      "modules/audio_mixer",
+      "modules/audio_processing",
+      "modules/bitrate_controller",
+      "modules/congestion_controller",
+      "modules/pacing",
+      "modules/remote_bitrate_estimator",
+      "modules/rtp_rtcp",
+      "modules/utility",
       "modules/video_capture:video_capture_internal_impl",
+      "modules/video_coding",
+      "modules/video_processing",
       "ortc",
       "rtc_base",
       "sdk",
       "system_wrappers:system_wrappers_default",
       "video",
     ]
+
+    if (rtc_desktop_capture_supported) {
+      deps += [ "modules/desktop_capture" ]
+    }
 
     # Additional factory functions to be exposed.
     # Rational: These factories are small enough (89 KiB / 32+ MiB)

@@ -16,6 +16,24 @@
       "revId": "06f66c72600e58438ba9caf9f523e00a519ef3c0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6a4529d_938d20ce",
+        "filename": "api/rtp_headers.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-01T02:23:19Z",
+      "side": 0,
+      "message": "Yes, please keep IsLegalName as an alias for IsLegalRsidName.",
+      "parentUuid": "65e7258a_8db6e1a4",
+      "revId": "06f66c72600e58438ba9caf9f523e00a519ef3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

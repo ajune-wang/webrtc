@@ -534,7 +534,7 @@ void DtlsTransport::OnReceivingState(rtc::PacketTransportInternal* transport) {
 void DtlsTransport::OnReadPacket(rtc::PacketTransportInternal* transport,
                                  const char* data,
                                  size_t size,
-                                 const rtc::PacketTime& packet_time,
+                                 int64_t packet_time_us,
                                  int flags) {
   RTC_DCHECK_RUN_ON(&thread_checker_);
   RTC_DCHECK(transport == ice_transport_);
@@ -542,7 +542,7 @@ void DtlsTransport::OnReadPacket(rtc::PacketTransportInternal* transport,
 
   if (!dtls_active_) {
     // Not doing DTLS.
-    SignalReadPacket(this, data, size, packet_time, 0);
+    SignalReadPacket(this, data, size, packet_time_us, 0);
     return;
   }
 
@@ -605,7 +605,7 @@ void DtlsTransport::OnReadPacket(rtc::PacketTransportInternal* transport,
         RTC_DCHECK(!srtp_ciphers_.empty());
 
         // Signal this upwards as a bypass packet.
-        SignalReadPacket(this, data, size, packet_time, PF_SRTP_BYPASS);
+        SignalReadPacket(this, data, size, packet_time_us, PF_SRTP_BYPASS);
       }
       break;
     case DTLS_TRANSPORT_FAILED:
@@ -651,7 +651,7 @@ void DtlsTransport::OnDtlsEvent(rtc::StreamInterface* dtls, int sig, int err) {
     do {
       ret = dtls_->Read(buf, sizeof(buf), &read, &read_error);
       if (ret == rtc::SR_SUCCESS) {
-        SignalReadPacket(this, buf, read, rtc::CreatePacketTime(0), 0);
+        SignalReadPacket(this, buf, read, rtc::TimeMicros(), 0);
       } else if (ret == rtc::SR_EOS) {
         // Remote peer shut down the association with no error.
         RTC_LOG(LS_INFO) << ToString() << ": DTLS transport closed";

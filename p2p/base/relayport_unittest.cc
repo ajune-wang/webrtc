@@ -65,7 +65,7 @@ class RelayPortTest : public testing::Test, public sigslot::has_slots<> {
                     const char* data,
                     size_t size,
                     const rtc::SocketAddress& remote_addr,
-                    const rtc::PacketTime& packet_time) {
+                    int64_t packet_time_us) {
     received_packet_count_[socket]++;
   }
 

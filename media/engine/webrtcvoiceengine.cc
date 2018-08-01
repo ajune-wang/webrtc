@@ -2005,11 +2005,10 @@ bool WebRtcVoiceMediaChannel::InsertDtmf(uint32_t ssrc,
 
 void WebRtcVoiceMediaChannel::OnPacketReceived(
     rtc::CopyOnWriteBuffer* packet,
-    const rtc::PacketTime& packet_time) {
+    int64_t packet_time_us) {
   RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
 
-  const webrtc::PacketTime webrtc_packet_time(packet_time.timestamp,
-                                              packet_time.not_before);
+  const webrtc::PacketTime webrtc_packet_time(packet_time_us, -1);
   webrtc::PacketReceiver::DeliveryStatus delivery_result =
       call_->Receiver()->DeliverPacket(webrtc::MediaType::AUDIO, *packet,
                                        webrtc_packet_time);
@@ -2071,12 +2070,11 @@ void WebRtcVoiceMediaChannel::OnPacketReceived(
 
 void WebRtcVoiceMediaChannel::OnRtcpReceived(
     rtc::CopyOnWriteBuffer* packet,
-    const rtc::PacketTime& packet_time) {
+    int64_t packet_time_us) {
   RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
 
   // Forward packet to Call as well.
-  const webrtc::PacketTime webrtc_packet_time(packet_time.timestamp,
-                                              packet_time.not_before);
+  const webrtc::PacketTime webrtc_packet_time(packet_time_us, -1);
   call_->Receiver()->DeliverPacket(webrtc::MediaType::AUDIO, *packet,
                                    webrtc_packet_time);
 }

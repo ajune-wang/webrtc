@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "9faa2532_3b162115",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 964,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-08-01T07:42:17Z",
+      "side": 1,
+      "message": "Good point. However, isn\u0027t that an odd case any way? This will always trigger in that situation, is this the desired behavior? Maybe we should explicitly check for that case?",
+      "parentUuid": "673bad13_711432f2",
+      "range": {
+        "startLine": 963,
+        "startChar": 6,
+        "endLine": 964,
+        "endChar": 54
+      },
+      "revId": "69e43df9ec80b0db9ad818215fd635240876b7ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d6ad0982_0ce3476b",
         "filename": "video/video_stream_encoder.cc",
         "patchSetId": 10

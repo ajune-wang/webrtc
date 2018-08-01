@@ -82,25 +82,29 @@ TEST_F(LinkedSetTest, Overflow) {
             static_cast<uint16_t>(kLastSeqNumber));
 }
 
-class SequenceNumberOlderThanTest : public ::testing::Test {
- public:
-  SequenceNumberOlderThanTest() {}
-  ~SequenceNumberOlderThanTest() {}
+TEST_F(LinkedSetTest, SameSequenceNumbers) {
+  // Test correct behavior when
+  // sequence numbers wrap (after 0xFFFF).
 
- protected:
-  SequenceNumberOlderThan comparator_;
-};
+  // Choose step such as step*capacity < 0x8000
+  // (received packets in a reasonable window)
+  const int kStep = 0x20;
+  // Choose iteration such as step*iteration > 0x10000
+  // (imply wrap)
+  const int kIterations = 0x1000;
 
-TEST_F(SequenceNumberOlderThanTest, Operator) {
-  // Operator()(x, y) returns true <==> y is newer than x.
-  EXPECT_TRUE(comparator_.operator()(0x0000, 0x0001));
-  EXPECT_TRUE(comparator_.operator()(0x0001, 0x1000));
-  EXPECT_FALSE(comparator_.operator()(0x0001, 0x0000));
-  EXPECT_FALSE(comparator_.operator()(0x0002, 0x0002));
-  EXPECT_TRUE(comparator_.operator()(0xFFF6, 0x000A));
-  EXPECT_FALSE(comparator_.operator()(0x000A, 0xFFF6));
-  EXPECT_TRUE(comparator_.operator()(0x0000, 0x8000));
-  EXPECT_FALSE(comparator_.operator()(0x8000, 0x0000));
+  int kSeqNumber = 1;
+  for (int i = 0; i < kIterations; ++i) {
+    // Other parameters don't matter here.
+    linked_set_.Insert(static_cast<uint16_t>(kSeqNumber), 0, 0, 0);
+    kSeqNumber += kStep;
+  }
+  int kLastSeqNumber = kSeqNumber - kStep;
+
+  EXPECT_EQ(linked_set_.NewestSeqNumber(),
+            static_cast<uint16_t>(kLastSeqNumber));
+  EXPECT_EQ(linked_set_.OldestSeqNumber(),
+            static_cast<uint16_t>(kLastSeqNumber - (kSetCapacity - 1) * kStep));
 }
 
 class LossAccountTest : public ::testing::Test {

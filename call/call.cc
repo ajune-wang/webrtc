@@ -208,9 +208,16 @@ class Call final : public webrtc::Call,
   Stats GetStats() const override;
 
   // Implements PacketReceiver.
+#if 0
   DeliveryStatus DeliverPacket(MediaType media_type,
                                rtc::CopyOnWriteBuffer packet,
                                const PacketTime& packet_time) override;
+#endif
+  DeliveryStatus DeliverRtp(MediaType media_type,
+                            const RtpPacketReceived& packet) override;
+  DeliveryStatus DeliverRtcp(MediaType media_type,
+                             rtc::CopyOnWriteBuffer packet,
+                             const PacketTime& packet_time) override;
 
   // Implements RecoveredPacketReceiver.
   void OnRecoveredPacket(const uint8_t* packet, size_t length) override;
@@ -236,12 +243,6 @@ class Call final : public webrtc::Call,
                                  bool has_packet_feedback) override;
 
  private:
-  DeliveryStatus DeliverRtcp(MediaType media_type,
-                             const uint8_t* packet,
-                             size_t length);
-  DeliveryStatus DeliverRtp(MediaType media_type,
-                            rtc::CopyOnWriteBuffer packet,
-                            const PacketTime& packet_time);
   void ConfigureSync(const std::string& sync_group)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(receive_crit_);
 
@@ -1166,111 +1167,89 @@ void Call::ConfigureSync(const std::string& sync_group) {
   }
 }
 
-PacketReceiver::DeliveryStatus Call::DeliverRtcp(MediaType media_type,
-                                                 const uint8_t* packet,
-                                                 size_t length) {
+PacketReceiver::DeliveryStatus Call::DeliverRtcp(
+    MediaType media_type,
+    rtc::CopyOnWriteBuffer packet,
+    const PacketTime& /* packet_time */) {
   TRACE_EVENT0("webrtc", "Call::DeliverRtcp");
   // TODO(pbos): Make sure it's a valid packet.
   //             Return DELIVERY_UNKNOWN_SSRC if it can be determined that
   //             there's no receiver of the packet.
   if (received_bytes_per_second_counter_.HasSample()) {
     // First RTP packet has been received.
-    received_bytes_per_second_counter_.Add(static_cast<int>(length));
-    received_rtcp_bytes_per_second_counter_.Add(static_cast<int>(length));
+    received_bytes_per_second_counter_.Add(static_cast<int>(packet.size()));
+    received_rtcp_bytes_per_second_counter_.Add(
+        static_cast<int>(packet.size()));
   }
   bool rtcp_delivered = false;
   if (media_type == MediaType::ANY || media_type == MediaType::VIDEO) {
     ReadLockScoped read_lock(*receive_crit_);
     for (VideoReceiveStream* stream : video_receive_streams_) {
-      if (stream->DeliverRtcp(packet, length))
+      if (stream->DeliverRtcp(packet.cdata(), packet.size()))
         rtcp_delivered = true;
     }
   }
   if (media_type == MediaType::ANY || media_type == MediaType::AUDIO) {
     ReadLockScoped read_lock(*receive_crit_);
     for (AudioReceiveStream* stream : audio_receive_streams_) {
-      if (stream->DeliverRtcp(packet, length))
+      if (stream->DeliverRtcp(packet.cdata(), packet.size()))
         rtcp_delivered = true;
     }
   }
   if (media_type == MediaType::ANY || media_type == MediaType::VIDEO) {
     ReadLockScoped read_lock(*send_crit_);
     for (VideoSendStream* stream : video_send_streams_) {
-      if (stream->DeliverRtcp(packet, length))
+      if (stream->DeliverRtcp(packet.cdata(), packet.size()))
         rtcp_delivered = true;
     }
   }
   if (media_type == MediaType::ANY || media_type == MediaType::AUDIO) {
     ReadLockScoped read_lock(*send_crit_);
     for (auto& kv : audio_send_ssrcs_) {
-      if (kv.second->DeliverRtcp(packet, length))
+      if (kv.second->DeliverRtcp(packet.cdata(), packet.size()))
         rtcp_delivered = true;
     }
   }
 
   if (rtcp_delivered) {
-    event_log_->Log(absl::make_unique<RtcEventRtcpPacketIncoming>(
-        rtc::MakeArrayView(packet, length)));
+    event_log_->Log(absl::make_unique<RtcEventRtcpPacketIncoming>(packet));
   }
 
   return rtcp_delivered ? DELIVERY_OK : DELIVERY_PACKET_ERROR;
 }
 
-PacketReceiver::DeliveryStatus Call::DeliverRtp(MediaType media_type,
-                                                rtc::CopyOnWriteBuffer packet,
-                                                const PacketTime& packet_time) {
+PacketReceiver::DeliveryStatus Call::DeliverRtp(
+    MediaType media_type,
+    const RtpPacketReceived& packet) {
   TRACE_EVENT0("webrtc", "Call::DeliverRtp");
 
-  RtpPacketReceived parsed_packet;
-  if (!parsed_packet.Parse(std::move(packet)))
-    return DELIVERY_PACKET_ERROR;
-
-  if (packet_time.timestamp != -1) {
-    int64_t timestamp_us = packet_time.timestamp;
-    if (receive_time_calculator_) {
-      timestamp_us = receive_time_calculator_->ReconcileReceiveTimes(
-          packet_time.timestamp, clock_->TimeInMicroseconds());
-    }
-    parsed_packet.set_arrival_time_ms((timestamp_us + 500) / 1000);
-  } else {
-    parsed_packet.set_arrival_time_ms(clock_->TimeInMilliseconds());
-  }
-
+  // TODO(nisse): Ensure receive_time_calculator_->ReconcileReceiveTimes or
+  // equivalent is done in the code setting packet.arrival_time_ms.
   // We might get RTP keep-alive packets in accordance with RFC6263 section 4.6.
   // These are empty (zero length payload) RTP packets with an unsignaled
   // payload type.
-  const bool is_keep_alive_packet = parsed_packet.payload_size() == 0;
+  const bool is_keep_alive_packet = packet.payload_size() == 0;
 
   RTC_DCHECK(media_type == MediaType::AUDIO || media_type == MediaType::VIDEO ||
              is_keep_alive_packet);
 
   ReadLockScoped read_lock(*receive_crit_);
-  auto it = receive_rtp_config_.find(parsed_packet.Ssrc());
-  if (it == receive_rtp_config_.end()) {
-    RTC_LOG(LS_ERROR) << "receive_rtp_config_ lookup failed for ssrc "
-                      << parsed_packet.Ssrc();
-    // Destruction of the receive stream, including deregistering from the
-    // RtpDemuxer, is not protected by the |receive_crit_| lock. But
-    // deregistering in the |receive_rtp_config_| map is protected by that lock.
-    // So by not passing the packet on to demuxing in this case, we prevent
-    // incoming packets to be passed on via the demuxer to a receive stream
-    // which is being torned down.
-    return DELIVERY_UNKNOWN_SSRC;
-  }
-  parsed_packet.IdentifyExtensions(it->second.extensions);
+  // TODO(nisse): Destruction of the receive stream, including deregistering
+  // from the RtpDemuxer, is not protected by the |receive_crit_| lock. Do we
+  // need some syncronization to prevent incoming packets to be passed on via
+  // the demuxer to a receive stream which is being torned down?
 
-  NotifyBweOfReceivedPacket(parsed_packet, media_type);
+  NotifyBweOfReceivedPacket(packet, media_type);
 
   // RateCounters expect input parameter as int, save it as int,
   // instead of converting each time it is passed to RateCounter::Add below.
-  int length = static_cast<int>(parsed_packet.size());
+  int length = static_cast<int>(packet.size());
   if (media_type == MediaType::AUDIO) {
-    if (audio_receiver_controller_.OnRtpPacket(parsed_packet)) {
+    if (audio_receiver_controller_.OnRtpPacket(packet)) {
       received_bytes_per_second_counter_.Add(length);
       received_audio_bytes_per_second_counter_.Add(length);
-      event_log_->Log(
-          absl::make_unique<RtcEventRtpPacketIncoming>(parsed_packet));
-      const int64_t arrival_time_ms = parsed_packet.arrival_time_ms();
+      event_log_->Log(absl::make_unique<RtcEventRtpPacketIncoming>(packet));
+      const int64_t arrival_time_ms = packet.arrival_time_ms();
       if (!first_received_rtp_audio_ms_) {
         first_received_rtp_audio_ms_.emplace(arrival_time_ms);
       }
@@ -1278,12 +1257,11 @@ PacketReceiver::DeliveryStatus Call::DeliverRtp(MediaType media_type,
       return DELIVERY_OK;
     }
   } else if (media_type == MediaType::VIDEO) {
-    if (video_receiver_controller_.OnRtpPacket(parsed_packet)) {
+    if (video_receiver_controller_.OnRtpPacket(packet)) {
       received_bytes_per_second_counter_.Add(length);
       received_video_bytes_per_second_counter_.Add(length);
-      event_log_->Log(
-          absl::make_unique<RtcEventRtpPacketIncoming>(parsed_packet));
-      const int64_t arrival_time_ms = parsed_packet.arrival_time_ms();
+      event_log_->Log(absl::make_unique<RtcEventRtpPacketIncoming>(packet));
+      const int64_t arrival_time_ms = packet.arrival_time_ms();
       if (!first_received_rtp_video_ms_) {
         first_received_rtp_video_ms_.emplace(arrival_time_ms);
       }
@@ -1294,6 +1272,7 @@ PacketReceiver::DeliveryStatus Call::DeliverRtp(MediaType media_type,
   return DELIVERY_UNKNOWN_SSRC;
 }
 
+#if 0
 PacketReceiver::DeliveryStatus Call::DeliverPacket(
     MediaType media_type,
     rtc::CopyOnWriteBuffer packet,
@@ -1304,6 +1283,7 @@ PacketReceiver::DeliveryStatus Call::DeliverPacket(
 
   return DeliverRtp(media_type, std::move(packet), packet_time);
 }
+#endif
 
 void Call::OnRecoveredPacket(const uint8_t* packet, size_t length) {
   RtpPacketReceived parsed_packet;

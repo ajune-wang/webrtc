@@ -39,9 +39,12 @@ class PacketReceiver {
     DELIVERY_PACKET_ERROR,
   };
 
-  virtual DeliveryStatus DeliverPacket(MediaType media_type,
-                                       rtc::CopyOnWriteBuffer packet,
-                                       const PacketTime& packet_time) = 0;
+  virtual DeliveryStatus DeliverRtp(MediaType media_type,
+                                    const RtpPacketReceived& packet) = 0;
+
+  virtual DeliveryStatus DeliverRtcp(MediaType media_type,
+                                     rtc::CopyOnWriteBuffer packet,
+                                     const PacketTime& packet_time) = 0;
 
  protected:
   virtual ~PacketReceiver() {}

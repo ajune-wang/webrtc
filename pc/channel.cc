@@ -434,17 +434,41 @@ bool BaseChannel::SendPacket(bool rtcp,
 }
 
 void BaseChannel::OnRtpPacket(const webrtc::RtpPacketReceived& parsed_packet) {
-  // Reconstruct the PacketTime from the |parsed_packet|.
-  // RtpPacketReceived.arrival_time_ms = (PacketTime + 500) / 1000;
-  // Note: The |not_before| field is always 0 here. This field is not currently
-  // used, so it should be fine.
-  int64_t timestamp = -1;
-  if (parsed_packet.arrival_time_ms() > 0) {
-    timestamp = parsed_packet.arrival_time_ms() * 1000;
+  if (!has_received_packet_) {
+    has_received_packet_ = true;
+    signaling_thread()->Post(RTC_FROM_HERE, this, MSG_FIRSTPACKETRECEIVED);
   }
-  rtc::PacketTime packet_time(timestamp, /*not_before=*/0);
 
-  OnPacketReceived(/*rtcp=*/false, parsed_packet.Buffer(), packet_time);
+  if (!srtp_active() && srtp_required_) {
+    // Our session description indicates that SRTP is required, but we got a
+    // packet before our SRTP filter is active. This means either that
+    // a) we got SRTP packets before we received the SDES keys, in which case
+    //    we can't decrypt it anyway, or
+    // b) we got SRTP packets before DTLS completed on both the RTP and RTCP
+    //    transports, so we haven't yet extracted keys, even if DTLS did
+    //    complete on the transport that the packets are being sent on. It's
+    //    really good practice to wait for both RTP and RTCP to be good to go
+    //    before sending  media, to prevent weird failure modes, so it's fine
+    //    for us to just eat packets here. This is all sidestepped if RTCP mux
+    //    is used anyway.
+    RTC_LOG(LS_WARNING) << "Can't process incoming RTP packet when SRTP is "
+                           "inactive and crypto is required";
+    return;
+  }
+
+#if 1
+  invoker_.AsyncInvoke<void>(
+      RTC_FROM_HERE, worker_thread_,
+      Bind(&BaseChannel::ProcessRtpPacket, this, parsed_packet));
+#else
+  // TODO(nisse): Invoke the OnRtpPacket method on media_channel() directly?
+  // Compiler complains "candidate template ignored: deduced conflicting types
+  // for parameter 'ObjectT' ('webrtc::RtpPacketSinkInterface' vs.
+  // 'cricket::MediaChannel')"
+  invoker_.AsyncInvoke<void>(
+      RTC_FROM_HERE, worker_thread_,
+      Bind(&MediaChannel::OnRtpPacket, media_channel(), parsed_packet));
+#endif
 }
 
 void BaseChannel::UpdateRtpHeaderExtensionMap(
@@ -472,17 +496,6 @@ bool BaseChannel::RegisterRtpDemuxerSink() {
 
 void BaseChannel::OnRtcpPacketReceived(rtc::CopyOnWriteBuffer* packet,
                                        const rtc::PacketTime& packet_time) {
-  OnPacketReceived(/*rtcp=*/true, *packet, packet_time);
-}
-
-void BaseChannel::OnPacketReceived(bool rtcp,
-                                   const rtc::CopyOnWriteBuffer& packet,
-                                   const rtc::PacketTime& packet_time) {
-  if (!has_received_packet_ && !rtcp) {
-    has_received_packet_ = true;
-    signaling_thread()->Post(RTC_FROM_HERE, this, MSG_FIRSTPACKETRECEIVED);
-  }
-
   if (!srtp_active() && srtp_required_) {
     // Our session description indicates that SRTP is required, but we got a
     // packet before our SRTP filter is active. This means either that
@@ -495,30 +508,28 @@ void BaseChannel::OnPacketReceived(bool rtcp,
     //    before sending  media, to prevent weird failure modes, so it's fine
     //    for us to just eat packets here. This is all sidestepped if RTCP mux
     //    is used anyway.
-    RTC_LOG(LS_WARNING)
-        << "Can't process incoming " << RtpRtcpStringLiteral(rtcp)
-        << " packet when SRTP is inactive and crypto is required";
+    RTC_LOG(LS_WARNING) << "Can't process incoming RTCP packet when SRTP is "
+                           "inactive and crypto is required";
     return;
   }
 
   invoker_.AsyncInvoke<void>(
       RTC_FROM_HERE, worker_thread_,
-      Bind(&BaseChannel::ProcessPacket, this, rtcp, packet, packet_time));
+      Bind(&BaseChannel::ProcessRtcpPacket, this, *packet, packet_time));
 }
 
-void BaseChannel::ProcessPacket(bool rtcp,
-                                const rtc::CopyOnWriteBuffer& packet,
-                                const rtc::PacketTime& packet_time) {
+void BaseChannel::ProcessRtpPacket(const webrtc::RtpPacketReceived& packet) {
   RTC_DCHECK(worker_thread_->IsCurrent());
+  media_channel_->OnRtpPacket(packet);
+}
 
+void BaseChannel::ProcessRtcpPacket(const rtc::CopyOnWriteBuffer& packet,
+                                    const rtc::PacketTime& packet_time) {
+  RTC_DCHECK(worker_thread_->IsCurrent());
   // Need to copy variable because OnRtcpReceived/OnPacketReceived
   // requires non-const pointer to buffer. This doesn't memcpy the actual data.
   rtc::CopyOnWriteBuffer data(packet);
-  if (rtcp) {
-    media_channel_->OnRtcpReceived(&data, packet_time);
-  } else {
-    media_channel_->OnPacketReceived(&data, packet_time);
-  }
+  media_channel_->OnRtcpReceived(&data, packet_time);
 }
 
 void BaseChannel::EnableMedia_w() {

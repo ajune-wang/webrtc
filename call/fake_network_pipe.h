@@ -21,10 +21,10 @@
 
 #include "api/call/transport.h"
 #include "api/test/simulated_network.h"
-#include "call/call.h"
 #include "common_types.h"  // NOLINT(build/include)
 #include "modules/include/module.h"
 #include "rtc_base/constructormagic.h"
+#include "rtc_base/copyonwritebuffer.h"
 #include "rtc_base/criticalsection.h"
 #include "rtc_base/random.h"
 #include "rtc_base/thread_annotations.h"
@@ -34,6 +34,14 @@ namespace webrtc {
 class Clock;
 class PacketReceiver;
 enum class MediaType;
+
+class RawPacketReceiver {
+ public:
+  virtual void DeliverPacket(MediaType media_type,
+                             rtc::CopyOnWriteBuffer packet,
+                             const PacketTime& packet_time) = 0;
+  virtual ~RawPacketReceiver() = default;
+};
 
 class NetworkPacket {
  public:
@@ -136,7 +144,9 @@ class SimulatedNetwork : public NetworkSimulationInterface {
 
 // Class faking a network link, internally is uses an implementation of a
 // SimulatedNetworkInterface to simulate network behavior.
-class FakeNetworkPipe : public Transport, public PacketReceiver, public Module {
+class FakeNetworkPipe : public Transport,
+                        public RawPacketReceiver,
+                        public Module {
  public:
   using Config = SimulatedNetwork::Config;
 
@@ -144,10 +154,10 @@ class FakeNetworkPipe : public Transport, public PacketReceiver, public Module {
   FakeNetworkPipe(Clock* clock, const FakeNetworkPipe::Config& config);
   FakeNetworkPipe(Clock* clock,
                   const FakeNetworkPipe::Config& config,
-                  PacketReceiver* receiver);
+                  RawPacketReceiver* receiver);
   FakeNetworkPipe(Clock* clock,
                   const FakeNetworkPipe::Config& config,
-                  PacketReceiver* receiver,
+                  RawPacketReceiver* receiver,
                   uint64_t seed);
 
   // Use this constructor if you plan to insert packets using SendRt[c?]p().
@@ -163,7 +173,7 @@ class FakeNetworkPipe : public Transport, public PacketReceiver, public Module {
   void SetConfig(const FakeNetworkPipe::Config& config);
 
   // Must not be called in parallel with DeliverPacket or Process.
-  void SetReceiver(PacketReceiver* receiver);
+  void SetReceiver(RawPacketReceiver* receiver);
 
   // Implements Transport interface. When/if packets are delivered, they will
   // be passed to the transport instance given in SetReceiverTransport(). These
@@ -174,15 +184,18 @@ class FakeNetworkPipe : public Transport, public PacketReceiver, public Module {
                const PacketOptions& options) override;
   bool SendRtcp(const uint8_t* packet, size_t length) override;
 
+  // TODO(nisse): XXX. No longer implements PacketReceiver (Call-related)
+  // interface, since it works with raw unparsed packets. Unclear if
+  // DeliveryStatus return code makes sense.
+
   // Implements the PacketReceiver interface. When/if packets are delivered,
   // they will be passed directly to the receiver instance given in
   // SetReceiver(), without passing through a Demuxer. The receive time in
   // PacketTime will be increased by the amount of time the packet spent in the
   // fake network pipe.
-  PacketReceiver::DeliveryStatus DeliverPacket(
-      MediaType media_type,
-      rtc::CopyOnWriteBuffer packet,
-      const PacketTime& packet_time) override;
+  void DeliverPacket(MediaType media_type,
+                     rtc::CopyOnWriteBuffer packet,
+                     const PacketTime& packet_time) override;
 
   // Processes the network queues and trigger PacketReceiver::IncomingPacket for
   // packets ready to be delivered.
@@ -231,7 +244,7 @@ class FakeNetworkPipe : public Transport, public PacketReceiver, public Module {
   // |config_lock| guards the mostly constant things like the callbacks.
   rtc::CriticalSection config_lock_;
   const std::unique_ptr<SimulatedNetwork> network_simulation_;
-  PacketReceiver* receiver_ RTC_GUARDED_BY(config_lock_);
+  RawPacketReceiver* receiver_ RTC_GUARDED_BY(config_lock_);
   Transport* const transport_ RTC_GUARDED_BY(config_lock_);
 
   // |process_lock| guards the data structures involved in delay and loss

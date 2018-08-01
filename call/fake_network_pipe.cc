@@ -73,12 +73,12 @@ FakeNetworkPipe::FakeNetworkPipe(Clock* clock,
 
 FakeNetworkPipe::FakeNetworkPipe(Clock* clock,
                                  const FakeNetworkPipe::Config& config,
-                                 PacketReceiver* receiver)
+                                 RawPacketReceiver* receiver)
     : FakeNetworkPipe(clock, config, receiver, 1) {}
 
 FakeNetworkPipe::FakeNetworkPipe(Clock* clock,
                                  const FakeNetworkPipe::Config& config,
-                                 PacketReceiver* receiver,
+                                 RawPacketReceiver* receiver,
                                  uint64_t seed)
     : clock_(clock),
       network_simulation_(absl::make_unique<SimulatedNetwork>(config, seed)),
@@ -107,7 +107,7 @@ FakeNetworkPipe::FakeNetworkPipe(Clock* clock,
 
 FakeNetworkPipe::~FakeNetworkPipe() = default;
 
-void FakeNetworkPipe::SetReceiver(PacketReceiver* receiver) {
+void FakeNetworkPipe::SetReceiver(RawPacketReceiver* receiver) {
   rtc::CritScope crit(&config_lock_);
   receiver_ = receiver;
 }
@@ -128,14 +128,13 @@ bool FakeNetworkPipe::SendRtcp(const uint8_t* packet, size_t length) {
   return true;
 }
 
-PacketReceiver::DeliveryStatus FakeNetworkPipe::DeliverPacket(
-    MediaType media_type,
-    rtc::CopyOnWriteBuffer packet,
-    const PacketTime& packet_time) {
-  return EnqueuePacket(std::move(packet), absl::nullopt, false, media_type,
-                       packet_time)
-             ? PacketReceiver::DELIVERY_OK
-             : PacketReceiver::DELIVERY_PACKET_ERROR;
+void FakeNetworkPipe::DeliverPacket(MediaType media_type,
+                                    rtc::CopyOnWriteBuffer packet,
+                                    const PacketTime& packet_time) {
+  // TODO(nisse): Propagate error from Enqueue? If we want to similate losses
+  // elsewhere in the network, callers won't get any early error.
+  EnqueuePacket(std::move(packet), absl::nullopt, false, media_type,
+                packet_time);
 }
 
 void FakeNetworkPipe::SetClockOffset(int64_t offset_ms) {

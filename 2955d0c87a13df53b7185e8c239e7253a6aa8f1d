@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0fc69276_efac203d",
+        "filename": "modules/remote_bitrate_estimator/test/bwe.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-08-01T14:44:31Z",
+      "side": 1,
+      "message": "I\u0027d prefer unwrapped_sequence_number here too.",
+      "range": {
+        "startLine": 226,
+        "startChar": 7,
+        "endLine": 226,
+        "endChar": 10
+      },
+      "revId": "2955d0c87a13df53b7185e8c239e7253a6aa8f1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03bca8e9_818ecdf8",
+        "filename": "modules/remote_bitrate_estimator/test/bwe.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-08-01T14:44:31Z",
+      "side": 1,
+      "message": "nit: .",
+      "range": {
+        "startLine": 228,
+        "startChar": 22,
+        "endLine": 228,
+        "endChar": 25
+      },
+      "revId": "2955d0c87a13df53b7185e8c239e7253a6aa8f1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e6b1874_fbaaf700",
+        "filename": "modules/remote_bitrate_estimator/test/bwe.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-08-01T14:44:31Z",
+      "side": 1,
+      "message": "We usually call this unwrapped_sequence_number.",
+      "range": {
+        "startLine": 54,
+        "startChar": 10,
+        "endLine": 54,
+        "endChar": 22
+      },
+      "revId": "2955d0c87a13df53b7185e8c239e7253a6aa8f1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd5cfc68_b7528270",
+        "filename": "modules/remote_bitrate_estimator/test/bwe.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-08-01T14:44:31Z",
+      "side": 1,
+      "message": "I don\u0027t think you can rely on getting back the same value by casting. The unwrapper may add a number that is not power of two.",
+      "range": {
+        "startLine": 89,
+        "startChar": 25,
+        "endLine": 89,
+        "endChar": 46
+      },
+      "revId": "2955d0c87a13df53b7185e8c239e7253a6aa8f1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3bd84b0c_37b4e531",
+        "filename": "modules/remote_bitrate_estimator/test/bwe.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-08-01T14:44:31Z",
+      "side": 1,
+      "message": "Do we need 4 lines for the comment?",
+      "range": {
+        "startLine": 105,
+        "startChar": 5,
+        "endLine": 106,
+        "endChar": 47
+      },
+      "revId": "2955d0c87a13df53b7185e8c239e7253a6aa8f1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d22f3913_933e619c",
+        "filename": "modules/remote_bitrate_estimator/test/bwe.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-08-01T14:44:31Z",
+      "side": 1,
+      "message": "This is deprecated. Please use SeqNumUnwrapper instead.",
+      "range": {
+        "startLine": 107,
+        "startChar": 2,
+        "endLine": 107,
+        "endChar": 11
+      },
+      "revId": "2955d0c87a13df53b7185e8c239e7253a6aa8f1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

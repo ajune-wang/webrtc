@@ -409,6 +409,7 @@ RampUpDownUpTester::RampUpDownUpTester(size_t num_video_streams,
       interval_start_ms_(clock_->TimeInMilliseconds()),
       sent_bytes_(0),
       loss_rates_(loss_rates) {
+  rtc::LogMessage::SetLogToStderr(true);
   forward_transport_config_.link_capacity_kbps = link_rates_[test_state_];
   forward_transport_config_.queue_delay_ms = 100;
   forward_transport_config_.loss_percent = loss_rates_[test_state_];

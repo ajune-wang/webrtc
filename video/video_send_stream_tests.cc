@@ -3020,6 +3020,7 @@ TEST_F(VideoSendStreamTest, ReportsSentResolution) {
     int32_t Encode(const VideoFrame& input_image,
                    const CodecSpecificInfo* codecSpecificInfo,
                    const std::vector<FrameType>* frame_types) override {
+      rtc::CritScope cs(&crit_sect_);
       CodecSpecificInfo specifics;
       specifics.codecType = kVideoCodecGeneric;
 
@@ -3034,10 +3035,7 @@ TEST_F(VideoSendStreamTest, ReportsSentResolution) {
         encoded._encodedWidth = kEncodedResolution[i].width;
         encoded._encodedHeight = kEncodedResolution[i].height;
         EncodedImageCallback* callback;
-        {
-          rtc::CritScope cs(&crit_sect_);
-          callback = callback_;
-        }
+        callback = callback_;
         RTC_DCHECK(callback);
         if (callback->OnEncodedImage(encoded, &specifics, nullptr).error !=
             EncodedImageCallback::Result::OK) {

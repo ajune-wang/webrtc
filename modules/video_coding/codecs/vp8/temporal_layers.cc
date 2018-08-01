@@ -46,6 +46,16 @@ bool IsConferenceModeScreenshare(const VideoCodec& codec) {
 }
 }  // namespace
 
+bool TemporalLayers::FrameConfig::operator==(const FrameConfig& o) const {
+  return drop_frame == o.drop_frame &&
+         last_buffer_flags == o.last_buffer_flags &&
+         golden_buffer_flags == o.golden_buffer_flags &&
+         arf_buffer_flags == o.arf_buffer_flags && layer_sync == o.layer_sync &&
+         freeze_entropy == o.freeze_entropy &&
+         encoder_layer_id == o.encoder_layer_id &&
+         packetizer_temporal_idx == o.packetizer_temporal_idx;
+}
+
 std::unique_ptr<TemporalLayers> TemporalLayers::CreateTemporalLayers(
     const VideoCodec& codec,
     size_t spatial_id) {

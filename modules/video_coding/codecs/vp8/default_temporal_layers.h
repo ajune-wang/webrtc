@@ -12,6 +12,7 @@
 #ifndef MODULES_VIDEO_CODING_CODECS_VP8_DEFAULT_TEMPORAL_LAYERS_H_
 #define MODULES_VIDEO_CODING_CODECS_VP8_DEFAULT_TEMPORAL_LAYERS_H_
 
+#include <map>
 #include <set>
 #include <vector>
 
@@ -44,15 +45,22 @@ class DefaultTemporalLayers : public TemporalLayers {
   void FrameEncoded(unsigned int size, int qp) override {}
 
  private:
+  static std::vector<TemporalLayers::FrameConfig> GetTemporalPattern(
+      size_t num_layers);
+  bool IsSyncFrame(const FrameConfig& config) const;
+  void UpdateSearchOrder(FrameConfig* config);
+
   const size_t num_layers_;
   const std::vector<unsigned int> temporal_ids_;
-  const std::vector<bool> temporal_layer_sync_;
   const std::vector<TemporalLayers::FrameConfig> temporal_pattern_;
 
   uint8_t pattern_idx_;
-  bool last_base_layer_sync_;
   // Updated cumulative bitrates, per temporal layer.
   absl::optional<std::vector<uint32_t>> new_bitrates_bps_;
+
+  // One counter per Vp8BufferReference, indicating number of frames since last
+  // refresh.
+  std::map<Vp8BufferReference, size_t> frames_since_buffer_refresh_;
 };
 
 class DefaultTemporalLayersChecker : public TemporalLayersChecker {

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "621d1e99_7eddf7f3",
+        "filename": "test/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 560,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-08-01T16:05:54Z",
+      "side": 0,
+      "message": "Is this still needed?\n\nIt is always hard to tell but since we are moving the following deps to :fake_video_codecs, it is possible that they are not needed here anymore (at least some of them):\n\"..:webrtc_common\",\n\"../api/video:video_frame_i420\",\n\"../api/video_codecs:video_codecs_api\",\n\"../common_video:common_video\",\n\"../modules/video_coding:video_codec_interface\",\n\"../modules/video_coding:webrtc_h264\",\n\"../modules/video_coding:webrtc_vp8\",\n\"../modules/video_coding:webrtc_vp9\",\n\"../rtc_base:checks\",\n\"../rtc_base:rtc_base_approved\",\n\"../rtc_base:rtc_task_queue\",\n\"../rtc_base:sequenced_task_checker\",\n\"../system_wrappers\",\n\nCan you please double check?",
+      "range": {
+        "startLine": 560,
+        "startChar": 4,
+        "endLine": 560,
+        "endChar": 35
+      },
+      "revId": "8a838fd207744022983a855b6e6ef04bf08af9df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

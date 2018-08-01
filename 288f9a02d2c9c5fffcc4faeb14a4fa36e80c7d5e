@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "92a4d05b_272fe813",
+        "filename": "test/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-08-01T16:05:54Z",
+      "side": 1,
+      "message": "Is it possible to merge this one with the \"deps\" at line 313? Some dependencies are duplicated.",
+      "range": {
+        "startLine": 366,
+        "startChar": 4,
+        "endLine": 381,
+        "endChar": 5
+      },
+      "revId": "288f9a02d2c9c5fffcc4faeb14a4fa36e80c7d5e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7a7b843_ec3c5fa1",
+        "filename": "test/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 549,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-08-01T16:05:54Z",
+      "side": 1,
+      "message": "If this dependency is not needed, please delete this line.",
+      "range": {
+        "startLine": 549,
+        "startChar": 4,
+        "endLine": 549,
+        "endChar": 5
+      },
+      "revId": "288f9a02d2c9c5fffcc4faeb14a4fa36e80c7d5e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

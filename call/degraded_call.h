@@ -17,6 +17,7 @@
 #include "api/call/transport.h"
 #include "call/call.h"
 #include "call/fake_network_pipe.h"
+#include "call/fake_network_pipe_rtp_adapter.h"
 #include "modules/utility/include/process_thread.h"
 #include "system_wrappers/include/clock.h"
 
@@ -82,9 +83,12 @@ class DegradedCall : public Call, private Transport, private PacketReceiver {
   bool SendRtcp(const uint8_t* packet, size_t length) override;
 
   // Implements PacketReceiver.
-  DeliveryStatus DeliverPacket(MediaType media_type,
-                               rtc::CopyOnWriteBuffer packet,
-                               const PacketTime& packet_time) override;
+  DeliveryStatus DeliverRtp(MediaType media_type,
+                            const RtpPacketReceived& packet) override;
+
+  DeliveryStatus DeliverRtcp(MediaType media_type,
+                             rtc::CopyOnWriteBuffer packet,
+                             const PacketTime& packet_time) override;
 
  private:
   Clock* const clock_;
@@ -96,6 +100,7 @@ class DegradedCall : public Call, private Transport, private PacketReceiver {
   size_t num_send_streams_;
 
   const absl::optional<FakeNetworkPipe::Config> receive_config_;
+  std::unique_ptr<FakeNetworkPipeRtpAdapter> receive_rtp_adapter_;
   std::unique_ptr<FakeNetworkPipe> receive_pipe_;
 };
 

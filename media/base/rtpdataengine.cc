@@ -16,6 +16,7 @@
 #include "media/base/mediaconstants.h"
 #include "media/base/rtputils.h"
 #include "media/base/streamparams.h"
+#include "modules/rtp_rtcp/source/rtp_packet_received.h"  // nogncheck
 #include "rtc_base/copyonwritebuffer.h"
 #include "rtc_base/data_rate_limiter.h"
 #include "rtc_base/helpers.h"
@@ -193,33 +194,24 @@ bool RtpDataMediaChannel::RemoveRecvStream(uint32_t ssrc) {
   return true;
 }
 
-void RtpDataMediaChannel::OnPacketReceived(rtc::CopyOnWriteBuffer* packet,
-                                           const rtc::PacketTime& packet_time) {
-  RtpHeader header;
-  if (!GetRtpHeader(packet->cdata(), packet->size(), &header)) {
-    return;
-  }
-
-  size_t header_length;
-  if (!GetRtpHeaderLen(packet->cdata(), packet->size(), &header_length)) {
-    return;
-  }
-  const char* data =
-      packet->cdata<char>() + header_length + sizeof(kReservedSpace);
-  size_t data_len = packet->size() - header_length - sizeof(kReservedSpace);
+void RtpDataMediaChannel::OnRtpPacket(const webrtc::RtpPacketReceived& packet) {
+  rtc::ArrayView<const uint8_t> data =
+      packet.payload().subview(sizeof(kReservedSpace));
 
   if (!receiving_) {
-    RTC_LOG(LS_WARNING) << "Not receiving packet " << header.ssrc << ":"
-                        << header.seq_num << " before SetReceive(true) called.";
+    RTC_LOG(LS_WARNING) << "Not receiving packet " << packet.Ssrc() << ":"
+                        << packet.SequenceNumber()
+                        << " before SetReceive(true) called.";
     return;
   }
 
-  if (!FindCodecById(recv_codecs_, header.payload_type)) {
+  if (!FindCodecById(recv_codecs_, packet.PayloadType())) {
     return;
   }
 
-  if (!GetStreamBySsrc(recv_streams_, header.ssrc)) {
-    RTC_LOG(LS_WARNING) << "Received packet for unknown ssrc: " << header.ssrc;
+  if (!GetStreamBySsrc(recv_streams_, packet.Ssrc())) {
+    RTC_LOG(LS_WARNING) << "Received packet for unknown ssrc: "
+                        << packet.Ssrc();
     return;
   }
 
@@ -233,10 +225,11 @@ void RtpDataMediaChannel::OnPacketReceived(rtc::CopyOnWriteBuffer* packet,
   //              << ", len=" << data_len;
 
   ReceiveDataParams params;
-  params.ssrc = header.ssrc;
-  params.seq_num = header.seq_num;
-  params.timestamp = header.timestamp;
-  SignalDataReceived(params, data, data_len);
+  params.ssrc = packet.Ssrc();
+  params.seq_num = packet.SequenceNumber();
+  params.timestamp = packet.Timestamp();
+  SignalDataReceived(params, reinterpret_cast<const char*>(data.data()),
+                     data.size());
 }
 
 bool RtpDataMediaChannel::SetMaxSendBandwidth(int bps) {

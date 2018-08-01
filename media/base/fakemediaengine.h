@@ -28,6 +28,7 @@
 #include "media/base/streamparams.h"
 #include "media/engine/webrtcvideoengine.h"
 #include "modules/audio_processing/include/audio_processing.h"
+#include "modules/rtp_rtcp/source/rtp_packet_received.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/copyonwritebuffer.h"
 #include "rtc_base/networkroute.h"
@@ -261,9 +262,9 @@ class RtpHelper : public Base {
   void set_recv_rtcp_parameters(const RtcpParameters& params) {
     recv_rtcp_parameters_ = params;
   }
-  virtual void OnPacketReceived(rtc::CopyOnWriteBuffer* packet,
-                                const rtc::PacketTime& packet_time) {
-    rtp_packets_.push_back(std::string(packet->data<char>(), packet->size()));
+  virtual void OnRtpPacket(const webrtc::RtpPacketReceived& packet) {
+    rtp_packets_.push_back(std::string(
+        reinterpret_cast<const char*>(packet.data()), packet.size()));
   }
   virtual void OnRtcpReceived(rtc::CopyOnWriteBuffer* packet,
                               const rtc::PacketTime& packet_time) {

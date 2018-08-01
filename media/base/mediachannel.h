@@ -28,6 +28,7 @@
 #include "api/video/video_source_interface.h"
 #include "api/video/video_timing.h"
 #include "api/video_codecs/video_encoder_config.h"
+#include "call/rtp_packet_sink_interface.h"  // nogncheck
 #include "media/base/codec.h"
 #include "media/base/mediaconfig.h"
 #include "media/base/mediaconstants.h"
@@ -161,7 +162,8 @@ struct RtpHeaderExtension {
   int id;
 };
 
-class MediaChannel : public sigslot::has_slots<> {
+class MediaChannel : public sigslot::has_slots<>,
+                     public webrtc::RtpPacketSinkInterface {
  public:
   class NetworkInterface {
    public:
@@ -184,9 +186,6 @@ class MediaChannel : public sigslot::has_slots<> {
   // Sets the abstract interface class for sending RTP/RTCP data.
   virtual void SetInterface(NetworkInterface* iface);
   virtual rtc::DiffServCodePoint PreferredDscp() const;
-  // Called when a RTP packet is received.
-  virtual void OnPacketReceived(rtc::CopyOnWriteBuffer* packet,
-                                const rtc::PacketTime& packet_time) = 0;
   // Called when a RTCP packet is received.
   virtual void OnRtcpReceived(rtc::CopyOnWriteBuffer* packet,
                               const rtc::PacketTime& packet_time) = 0;

@@ -249,6 +249,8 @@ rtc_source_set("fake_network") {
   sources = [
     "fake_network_pipe.cc",
     "fake_network_pipe.h",
+    "fake_network_pipe_rtp_adapter.cc",
+    "fake_network_pipe_rtp_adapter.h",
   ]
   deps = [
     ":call_interfaces",

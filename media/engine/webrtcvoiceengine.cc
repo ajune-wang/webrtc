@@ -32,6 +32,7 @@
 #include "modules/audio_mixer/audio_mixer_impl.h"
 #include "modules/audio_processing/aec_dump/aec_dump_factory.h"
 #include "modules/audio_processing/include/audio_processing.h"
+#include "modules/rtp_rtcp/source/rtp_packet_received.h"  // nogncheck
 #include "rtc_base/arraysize.h"
 #include "rtc_base/byteorder.h"
 #include "rtc_base/constructormagic.h"
@@ -2003,16 +2004,12 @@ bool WebRtcVoiceMediaChannel::InsertDtmf(uint32_t ssrc,
                                         event, duration);
 }
 
-void WebRtcVoiceMediaChannel::OnPacketReceived(
-    rtc::CopyOnWriteBuffer* packet,
-    const rtc::PacketTime& packet_time) {
+void WebRtcVoiceMediaChannel::OnRtpPacket(
+    const webrtc::RtpPacketReceived& packet) {
   RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
 
-  const webrtc::PacketTime webrtc_packet_time(packet_time.timestamp,
-                                              packet_time.not_before);
   webrtc::PacketReceiver::DeliveryStatus delivery_result =
-      call_->Receiver()->DeliverPacket(webrtc::MediaType::AUDIO, *packet,
-                                       webrtc_packet_time);
+      call_->Receiver()->DeliverRtp(webrtc::MediaType::AUDIO, packet);
   if (delivery_result != webrtc::PacketReceiver::DELIVERY_UNKNOWN_SSRC) {
     return;
   }
@@ -2020,10 +2017,7 @@ void WebRtcVoiceMediaChannel::OnPacketReceived(
   // Create an unsignaled receive stream for this previously not received ssrc.
   // If there already is N unsignaled receive streams, delete the oldest.
   // See: https://bugs.chromium.org/p/webrtc/issues/detail?id=5208
-  uint32_t ssrc = 0;
-  if (!GetRtpSsrc(packet->cdata(), packet->size(), &ssrc)) {
-    return;
-  }
+  uint32_t ssrc = packet.Ssrc();
   RTC_DCHECK(std::find(unsignaled_recv_ssrcs_.begin(),
                        unsignaled_recv_ssrcs_.end(),
                        ssrc) == unsignaled_recv_ssrcs_.end());
@@ -2064,8 +2058,8 @@ void WebRtcVoiceMediaChannel::OnPacketReceived(
     SetRawAudioSink(ssrc, std::move(proxy_sink));
   }
 
-  delivery_result = call_->Receiver()->DeliverPacket(
-      webrtc::MediaType::AUDIO, *packet, webrtc_packet_time);
+  delivery_result =
+      call_->Receiver()->DeliverRtp(webrtc::MediaType::AUDIO, packet);
   RTC_DCHECK_NE(webrtc::PacketReceiver::DELIVERY_UNKNOWN_SSRC, delivery_result);
 }
 
@@ -2077,8 +2071,8 @@ void WebRtcVoiceMediaChannel::OnRtcpReceived(
   // Forward packet to Call as well.
   const webrtc::PacketTime webrtc_packet_time(packet_time.timestamp,
                                               packet_time.not_before);
-  call_->Receiver()->DeliverPacket(webrtc::MediaType::AUDIO, *packet,
-                                   webrtc_packet_time);
+  call_->Receiver()->DeliverRtcp(webrtc::MediaType::AUDIO, *packet,
+                                 webrtc_packet_time);
 }
 
 void WebRtcVoiceMediaChannel::OnNetworkRouteChanged(

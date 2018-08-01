@@ -13,6 +13,7 @@
 #include <utility>
 
 #include "modules/rtp_rtcp/source/rtp_format.h"
+#include "modules/rtp_rtcp/source/rtp_packet_received.h"  // nogncheck
 #include "modules/rtp_rtcp/source/rtp_utility.h"
 #include "rtc_base/cpu_time.h"
 #include "rtc_base/flags.h"
@@ -172,42 +173,42 @@ rtc::VideoSourceInterface<VideoFrame>* VideoAnalyzer::OutputInterface() {
   return &captured_frame_forwarder_;
 }
 
-PacketReceiver::DeliveryStatus VideoAnalyzer::DeliverPacket(
+PacketReceiver::DeliveryStatus VideoAnalyzer::DeliverRtp(
     MediaType media_type,
-    rtc::CopyOnWriteBuffer packet,
-    const PacketTime& packet_time) {
-  // Ignore timestamps of RTCP packets. They're not synchronized with
-  // RTP packet timestamps and so they would confuse wrap_handler_.
-  if (RtpHeaderParser::IsRtcp(packet.cdata(), packet.size())) {
-    return receiver_->DeliverPacket(media_type, std::move(packet), packet_time);
-  }
-
+    const RtpPacketReceived& packet) {
   if (rtp_file_writer_) {
     test::RtpPacket p;
-    memcpy(p.data, packet.cdata(), packet.size());
+    memcpy(p.data, packet.data(), packet.size());
     p.length = packet.size();
     p.original_length = packet.size();
     p.time_ms = clock_->TimeInMilliseconds() - start_ms_;
     rtp_file_writer_->WritePacket(&p);
   }
 
-  RtpUtility::RtpHeaderParser parser(packet.cdata(), packet.size());
-  RTPHeader header;
-  parser.Parse(&header);
-  if (!IsFlexfec(header.payloadType) && (header.ssrc == ssrc_to_analyze_ ||
-                                         header.ssrc == rtx_ssrc_to_analyze_)) {
+  if (!IsFlexfec(packet.PayloadType()) &&
+      (packet.Ssrc() == ssrc_to_analyze_ ||
+       packet.Ssrc() == rtx_ssrc_to_analyze_)) {
     // Ignore FlexFEC timestamps, to avoid collisions with media timestamps.
     // (FlexFEC and media are sent on different SSRCs, which have different
     // timestamps spaces.)
     // Also ignore packets from wrong SSRC, but include retransmits.
     rtc::CritScope lock(&crit_);
     int64_t timestamp =
-        wrap_handler_.Unwrap(header.timestamp - rtp_timestamp_delta_);
+        wrap_handler_.Unwrap(packet.Timestamp() - rtp_timestamp_delta_);
     recv_times_[timestamp] =
         Clock::GetRealTimeClock()->CurrentNtpInMilliseconds();
   }
 
-  return receiver_->DeliverPacket(media_type, std::move(packet), packet_time);
+  return receiver_->DeliverRtp(media_type, packet);
+}
+
+PacketReceiver::DeliveryStatus VideoAnalyzer::DeliverRtcp(
+    MediaType media_type,
+    rtc::CopyOnWriteBuffer packet,
+    const PacketTime& packet_time) {
+  // Ignore timestamps of RTCP packets. They're not synchronized with
+  // RTP packet timestamps and so they would confuse wrap_handler_.
+  return receiver_->DeliverRtcp(media_type, std::move(packet), packet_time);
 }
 
 void VideoAnalyzer::PreEncodeOnFrame(const VideoFrame& video_frame) {

@@ -13,6 +13,7 @@
 #include "call/degraded_call.h"
 
 #include "absl/memory/memory.h"
+#include "modules/rtp_rtcp/source/rtp_packet_received.h"
 
 namespace webrtc {
 DegradedCall::DegradedCall(
@@ -28,8 +29,10 @@ DegradedCall::DegradedCall(
       receive_config_(receive_config) {
   if (receive_config_) {
     receive_pipe_ =
-        absl::make_unique<webrtc::FakeNetworkPipe>(clock_, *receive_config_);
-    receive_pipe_->SetReceiver(call_->Receiver());
+        absl::make_unique<FakeNetworkPipe>(clock_, *receive_config_);
+    receive_rtp_adapter_ =
+        absl::make_unique<FakeNetworkPipeRtpAdapter>(call_->Receiver());
+    receive_pipe_->SetReceiver(receive_rtp_adapter_.get());
   }
   if (send_process_thread_) {
     send_process_thread_->Start();
@@ -188,12 +191,11 @@ bool DegradedCall::SendRtcp(const uint8_t* packet, size_t length) {
   return true;
 }
 
-PacketReceiver::DeliveryStatus DegradedCall::DeliverPacket(
+PacketReceiver::DeliveryStatus DegradedCall::DeliverRtcp(
     MediaType media_type,
     rtc::CopyOnWriteBuffer packet,
     const PacketTime& packet_time) {
-  PacketReceiver::DeliveryStatus status =
-      receive_pipe_->DeliverPacket(media_type, std::move(packet), packet_time);
+  receive_pipe_->DeliverPacket(media_type, packet, packet_time);
   // This is not optimal, but there are many places where there are thread
   // checks that fail if we're not using the worker thread call into this
   // method. If we want to fix this we probably need a task queue to do handover
@@ -203,7 +205,25 @@ PacketReceiver::DeliveryStatus DegradedCall::DeliverPacket(
   // that, with the tradeoff that a non-zero delay may become a little larger
   // than anticipated at very low packet rates.
   receive_pipe_->Process();
-  return status;
+  return DELIVERY_OK;
+}
+
+PacketReceiver::DeliveryStatus DegradedCall::DeliverRtp(
+    MediaType media_type,
+    const RtpPacketReceived& packet) {
+  receive_pipe_->DeliverPacket(
+      media_type, packet.Buffer(),
+      PacketTime(packet.arrival_time_ms() * rtc::kNumMicrosecsPerMillisec, -1));
+  // This is not optimal, but there are many places where there are thread
+  // checks that fail if we're not using the worker thread call into this
+  // method. If we want to fix this we probably need a task queue to do handover
+  // of all overriden methods, which feels like overikill for the current use
+  // case.
+  // By just having this thread call out via the Process() method we work around
+  // that, with the tradeoff that a non-zero delay may become a little larger
+  // than anticipated at very low packet rates.
+  receive_pipe_->Process();
+  return DELIVERY_OK;
 }
 
 }  // namespace webrtc

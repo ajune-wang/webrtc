@@ -50,19 +50,19 @@ TEST_F(SsrcEndToEndTest, UnknownRtpPacketGivesUnknownSsrcReturnCode) {
     bool Wait() { return delivered_packet_.Wait(kDefaultTimeoutMs); }
 
    private:
-    DeliveryStatus DeliverPacket(MediaType media_type,
-                                 rtc::CopyOnWriteBuffer packet,
-                                 const PacketTime& packet_time) override {
-      if (RtpHeaderParser::IsRtcp(packet.cdata(), packet.size())) {
-        return receiver_->DeliverPacket(media_type, std::move(packet),
-                                        packet_time);
-      } else {
-        DeliveryStatus delivery_status = receiver_->DeliverPacket(
-            media_type, std::move(packet), packet_time);
-        EXPECT_EQ(DELIVERY_UNKNOWN_SSRC, delivery_status);
-        delivered_packet_.Set();
-        return delivery_status;
-      }
+    DeliveryStatus DeliverRtp(MediaType media_type,
+                              const RtpPacketReceived& packet) override {
+      DeliveryStatus delivery_status =
+          receiver_->DeliverRtp(media_type, packet);
+      EXPECT_EQ(DELIVERY_UNKNOWN_SSRC, delivery_status);
+      delivered_packet_.Set();
+      return delivery_status;
+    }
+
+    DeliveryStatus DeliverRtcp(MediaType media_type,
+                               rtc::CopyOnWriteBuffer packet,
+                               const PacketTime& packet_time) override {
+      return receiver_->DeliverRtcp(media_type, std::move(packet), packet_time);
     }
 
     PacketReceiver* receiver_;

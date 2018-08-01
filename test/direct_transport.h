@@ -17,6 +17,7 @@
 #include "api/call/transport.h"
 #include "call/call.h"
 #include "call/fake_network_pipe.h"
+#include "call/fake_network_pipe_rtp_adapter.h"
 #include "rtc_base/sequenced_task_checker.h"
 #include "rtc_base/thread_annotations.h"
 #include "test/single_threaded_task_queue.h"
@@ -86,6 +87,7 @@ class DirectTransport : public Transport {
       RTC_GUARDED_BY(&sequence_checker_);
 
   const Demuxer demuxer_;
+  std::unique_ptr<FakeNetworkPipeRtpAdapter> receive_rtp_adapter_;
   const std::unique_ptr<FakeNetworkPipe> fake_network_;
 
   rtc::SequencedTaskChecker sequence_checker_;

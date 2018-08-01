@@ -10,7 +10,7 @@
 
 #include "sdk/android/src/jni/videosink.h"
 
-#include "sdk/android/generated_video_jni/jni/VideoSink_jni.h"
+#include "sdk/android/generated_video_api_jni/jni/VideoSink_jni.h"
 #include "sdk/android/src/jni/videoframe.h"
 
 namespace webrtc {

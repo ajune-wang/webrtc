@@ -86,7 +86,7 @@ AsyncPacketSocket* BasicPacketSocketFactory::CreateServerTcpSocket(
   }
 
   // Set TCP_NODELAY (via OPT_NODELAY) for improved performance.
-  // See http://go/gtalktcpnodelayexperiment
+  // See go/gtalktcpnodelayexperiment
   socket->SetOption(Socket::OPT_NODELAY, 1);
 
   if (opts & PacketSocketFactory::OPT_STUN)
@@ -192,7 +192,7 @@ AsyncPacketSocket* BasicPacketSocketFactory::CreateClientTcpSocket(
   }
 
   // Set TCP_NODELAY (via OPT_NODELAY) for improved performance.
-  // See http://go/gtalktcpnodelayexperiment
+  // See go/gtalktcpnodelayexperiment
   tcp_socket->SetOption(Socket::OPT_NODELAY, 1);
 
   return tcp_socket;

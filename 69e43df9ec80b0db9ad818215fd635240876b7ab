@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "468e4eb5_b8346ff8",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2018-08-01T07:55:10Z",
+      "side": 1,
+      "message": "webrtc::field_trial::IsEnabled(kInitialFramedropFieldTrial)",
+      "range": {
+        "startLine": 94,
+        "startChar": 9,
+        "endLine": 94,
+        "endChar": 42
+      },
+      "revId": "69e43df9ec80b0db9ad818215fd635240876b7ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "92672d1d_29600ef4",
         "filename": "video/video_stream_encoder.cc",
         "patchSetId": 10
@@ -96,6 +119,29 @@
     },
     {
       "key": {
+        "uuid": "24d0c6f3_fa7fe210",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 968,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2018-08-01T07:55:10Z",
+      "side": 1,
+      "message": "Should only be reset if the quality scaler is enabled, right? Otherwise it will not be possible to trigger adapt up again.",
+      "range": {
+        "startLine": 968,
+        "startChar": 4,
+        "endLine": 968,
+        "endChar": 27
+      },
+      "revId": "69e43df9ec80b0db9ad818215fd635240876b7ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d6ad0982_0ce3476b",
         "filename": "video/video_stream_encoder.cc",
         "patchSetId": 10
@@ -112,6 +158,29 @@
         "startChar": 25,
         "endLine": 997,
         "endChar": 27
+      },
+      "revId": "69e43df9ec80b0db9ad818215fd635240876b7ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe41583e_2df52002",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 2247,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2018-08-01T07:55:10Z",
+      "side": 1,
+      "message": "This test (and the three below) should work without enabling the field trial, right?",
+      "range": {
+        "startLine": 2246,
+        "startChar": 0,
+        "endLine": 2247,
+        "endChar": 42
       },
       "revId": "69e43df9ec80b0db9ad818215fd635240876b7ab",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

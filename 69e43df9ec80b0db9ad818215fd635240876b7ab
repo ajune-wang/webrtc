@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "673bad13_711432f2",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 964,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-01T07:37:35Z",
+      "side": 1,
+      "message": "I think |encoder_start_bitrate_bps_| may be zero, so looks a bit dangerous to divide.",
+      "parentUuid": "953a13e6_77281b4f",
+      "range": {
+        "startLine": 963,
+        "startChar": 6,
+        "endLine": 964,
+        "endChar": 54
+      },
+      "revId": "69e43df9ec80b0db9ad818215fd635240876b7ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d6ad0982_0ce3476b",
         "filename": "video/video_stream_encoder.cc",
         "patchSetId": 10

@@ -17,6 +17,7 @@
 
 #include "media/base/mediachannel.h"
 #include "media/base/rtputils.h"
+#include "modules/rtp_rtcp/source/rtp_packet_received.h"
 #include "rtc_base/byteorder.h"
 #include "rtc_base/copyonwritebuffer.h"
 #include "rtc_base/criticalsection.h"
@@ -166,7 +167,10 @@ class FakeNetworkInterface : public MediaChannel::NetworkInterface,
         static_cast<rtc::TypedMessageData<rtc::CopyOnWriteBuffer>*>(msg->pdata);
     if (dest_) {
       if (msg->message_id == ST_RTP) {
-        dest_->OnPacketReceived(&msg_data->data(), rtc::CreatePacketTime(0));
+        webrtc::RtpPacketReceived packet;
+        if (packet.Parse(msg_data->data())) {
+          dest_->OnRtpPacket(packet);
+        }
       } else {
         dest_->OnRtcpReceived(&msg_data->data(), rtc::CreatePacketTime(0));
       }

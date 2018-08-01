@@ -582,33 +582,36 @@ webrtc::PacketReceiver* FakeCall::Receiver() {
   return this;
 }
 
-FakeCall::DeliveryStatus FakeCall::DeliverPacket(
+FakeCall::DeliveryStatus FakeCall::DeliverRtp(
     webrtc::MediaType media_type,
-    rtc::CopyOnWriteBuffer packet,
-    const webrtc::PacketTime& packet_time) {
-  EXPECT_GE(packet.size(), 12u);
+    const webrtc::RtpPacketReceived& packet) {
   RTC_DCHECK(media_type == webrtc::MediaType::AUDIO ||
              media_type == webrtc::MediaType::VIDEO);
-
-  uint32_t ssrc;
-  if (!GetRtpSsrc(packet.cdata(), packet.size(), &ssrc))
-    return DELIVERY_PACKET_ERROR;
-
   if (media_type == webrtc::MediaType::VIDEO) {
     for (auto receiver : video_receive_streams_) {
-      if (receiver->GetConfig().rtp.remote_ssrc == ssrc)
+      if (receiver->GetConfig().rtp.remote_ssrc == packet.Ssrc())
         return DELIVERY_OK;
     }
   }
   if (media_type == webrtc::MediaType::AUDIO) {
     for (auto receiver : audio_receive_streams_) {
-      if (receiver->GetConfig().rtp.remote_ssrc == ssrc) {
-        receiver->DeliverRtp(packet.cdata(), packet.size(), packet_time);
+      if (receiver->GetConfig().rtp.remote_ssrc == packet.Ssrc()) {
+        receiver->DeliverRtp(
+            packet.data(), packet.size(),
+            webrtc::PacketTime(
+                packet.arrival_time_ms() * rtc::kNumMicrosecsPerMillisec, -1));
         return DELIVERY_OK;
       }
     }
   }
   return DELIVERY_UNKNOWN_SSRC;
+}
+
+FakeCall::DeliveryStatus FakeCall::DeliverRtcp(
+    webrtc::MediaType media_type,
+    rtc::CopyOnWriteBuffer packet,
+    const webrtc::PacketTime& packet_time) {
+  return DELIVERY_PACKET_ERROR;
 }
 
 void FakeCall::SetStats(const webrtc::Call::Stats& stats) {

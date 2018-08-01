@@ -31,6 +31,7 @@
 #include "media/engine/simulcast.h"
 #include "media/engine/webrtcmediaengine.h"
 #include "media/engine/webrtcvoiceengine.h"
+#include "modules/rtp_rtcp/source/rtp_packet_received.h"
 #include "modules/video_coding/include/video_error_codes.h"
 #include "rtc_base/copyonwritebuffer.h"
 #include "rtc_base/logging.h"
@@ -1428,13 +1429,9 @@ void WebRtcVideoChannel::FillSendAndReceiveCodecStats(
   }
 }
 
-void WebRtcVideoChannel::OnPacketReceived(rtc::CopyOnWriteBuffer* packet,
-                                          const rtc::PacketTime& packet_time) {
-  const webrtc::PacketTime webrtc_packet_time(packet_time.timestamp,
-                                              packet_time.not_before);
+void WebRtcVideoChannel::OnRtpPacket(const webrtc::RtpPacketReceived& packet) {
   const webrtc::PacketReceiver::DeliveryStatus delivery_result =
-      call_->Receiver()->DeliverPacket(webrtc::MediaType::VIDEO, *packet,
-                                       webrtc_packet_time);
+      call_->Receiver()->DeliverRtp(webrtc::MediaType::VIDEO, packet);
   switch (delivery_result) {
     case webrtc::PacketReceiver::DELIVERY_OK:
       return;
@@ -1444,41 +1441,30 @@ void WebRtcVideoChannel::OnPacketReceived(rtc::CopyOnWriteBuffer* packet,
       break;
   }
 
-  uint32_t ssrc = 0;
-  if (!GetRtpSsrc(packet->cdata(), packet->size(), &ssrc)) {
-    return;
-  }
-
-  int payload_type = 0;
-  if (!GetRtpPayloadType(packet->cdata(), packet->size(), &payload_type)) {
-    return;
-  }
-
   // See if this payload_type is registered as one that usually gets its own
   // SSRC (RTX) or at least is safe to drop either way (FEC). If it is, and
   // it wasn't handled above by DeliverPacket, that means we don't know what
   // stream it associates with, and we shouldn't ever create an implicit channel
   // for these.
   for (auto& codec : recv_codecs_) {
-    if (payload_type == codec.rtx_payload_type ||
-        payload_type == codec.ulpfec.red_rtx_payload_type ||
-        payload_type == codec.ulpfec.ulpfec_payload_type) {
+    if (packet.PayloadType() == codec.rtx_payload_type ||
+        packet.PayloadType() == codec.ulpfec.red_rtx_payload_type ||
+        packet.PayloadType() == codec.ulpfec.ulpfec_payload_type) {
       return;
     }
   }
-  if (payload_type == recv_flexfec_payload_type_) {
+  if (packet.PayloadType() == recv_flexfec_payload_type_) {
     return;
   }
 
-  switch (unsignalled_ssrc_handler_->OnUnsignalledSsrc(this, ssrc)) {
+  switch (unsignalled_ssrc_handler_->OnUnsignalledSsrc(this, packet.Ssrc())) {
     case UnsignalledSsrcHandler::kDropPacket:
       return;
     case UnsignalledSsrcHandler::kDeliverPacket:
       break;
   }
 
-  if (call_->Receiver()->DeliverPacket(webrtc::MediaType::VIDEO, *packet,
-                                       webrtc_packet_time) !=
+  if (call_->Receiver()->DeliverRtp(webrtc::MediaType::VIDEO, packet) !=
       webrtc::PacketReceiver::DELIVERY_OK) {
     RTC_LOG(LS_WARNING) << "Failed to deliver RTP packet on re-delivery.";
     return;
@@ -1493,8 +1479,8 @@ void WebRtcVideoChannel::OnRtcpReceived(rtc::CopyOnWriteBuffer* packet,
   // for both audio and video on the same path. Since BundleFilter doesn't
   // filter RTCP anymore incoming RTCP packets could've been going to audio (so
   // logging failures spam the log).
-  call_->Receiver()->DeliverPacket(webrtc::MediaType::VIDEO, *packet,
-                                   webrtc_packet_time);
+  call_->Receiver()->DeliverRtcp(webrtc::MediaType::VIDEO, *packet,
+                                 webrtc_packet_time);
 }
 
 void WebRtcVideoChannel::OnReadyToSend(bool ready) {

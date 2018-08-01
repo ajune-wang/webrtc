@@ -92,7 +92,8 @@ void DirectTransport::StopSending() {
 
 void DirectTransport::SetReceiver(PacketReceiver* receiver) {
   RTC_DCHECK_CALLED_SEQUENTIALLY(&sequence_checker_);
-  fake_network_->SetReceiver(receiver);
+  receive_rtp_adapter_ = absl::make_unique<FakeNetworkPipeRtpAdapter>(receiver);
+  fake_network_->SetReceiver(receive_rtp_adapter_.get());
 }
 
 bool DirectTransport::SendRtp(const uint8_t* data,

@@ -227,12 +227,9 @@ class BaseChannel : public rtc::MessageHandler,
   void OnRtcpPacketReceived(rtc::CopyOnWriteBuffer* packet,
                             const rtc::PacketTime& packet_time);
 
-  void OnPacketReceived(bool rtcp,
-                        const rtc::CopyOnWriteBuffer& packet,
-                        const rtc::PacketTime& packet_time);
-  void ProcessPacket(bool rtcp,
-                     const rtc::CopyOnWriteBuffer& packet,
-                     const rtc::PacketTime& packet_time);
+  void ProcessRtpPacket(const webrtc::RtpPacketReceived& packet);
+  void ProcessRtcpPacket(const rtc::CopyOnWriteBuffer& packet,
+                         const rtc::PacketTime& packet_time);
 
   void EnableMedia_w();
   void DisableMedia_w();

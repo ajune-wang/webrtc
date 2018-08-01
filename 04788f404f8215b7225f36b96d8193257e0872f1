@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9e377456_e64e589e",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-08-01T12:32:54Z",
+      "side": 1,
+      "message": "I agree, removed.",
+      "parentUuid": "4f83dd6c_4ee3f0bc",
+      "revId": "04788f404f8215b7225f36b96d8193257e0872f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8b5ade8e_a88acc44",
         "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
         "patchSetId": 1
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "ceba9b91_a52c71ab",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-08-01T12:32:54Z",
+      "side": 1,
+      "message": "Agreed, removing this.",
+      "parentUuid": "8b5ade8e_a88acc44",
+      "range": {
+        "startLine": 91,
+        "startChar": 5,
+        "endLine": 91,
+        "endChar": 23
+      },
+      "revId": "04788f404f8215b7225f36b96d8193257e0872f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "007a1624_e7bc2bed",
         "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
         "patchSetId": 1
@@ -62,6 +104,30 @@
       "revId": "04788f404f8215b7225f36b96d8193257e0872f1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b0004437_c56be5b4",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-08-01T12:32:54Z",
+      "side": 1,
+      "message": "I changed the code to not assume this instead.\n\nThere\u0027s no reason why it wouldn\u0027t be possible to accept additional probes due to this call, so adding this assumption just makes it more complex.",
+      "parentUuid": "007a1624_e7bc2bed",
+      "range": {
+        "startLine": 209,
+        "startChar": 6,
+        "endLine": 209,
+        "endChar": 33
+      },
+      "revId": "04788f404f8215b7225f36b96d8193257e0872f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

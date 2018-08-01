@@ -96,7 +96,6 @@ if (rtc_build_with_neon) {
     ]
 
     if (current_cpu != "arm64") {
-      suppressed_configs += [ "//build/config/compiler:compiler_arm_fpu" ]
       cflags = [ "-mfpu=neon" ]
     }
   }

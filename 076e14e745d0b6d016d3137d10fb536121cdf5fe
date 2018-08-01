@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f36fe109_5dd386e0",
+        "filename": "modules/include/module_common_types_public.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-08-01T14:00:57Z",
+      "side": 1,
+      "message": "Mustn? (the same at line 94).",
+      "range": {
+        "startLine": 87,
+        "startChar": 7,
+        "endLine": 87,
+        "endChar": 11
+      },
+      "revId": "076e14e745d0b6d016d3137d10fb536121cdf5fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "48e6b7c0_840b2e08",
+        "filename": "modules/remote_bitrate_estimator/test/bwe.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2018-08-01T13:13:02Z",
+      "side": 1,
+      "message": "I find the wording confusing. \u0027Oldest\u0027 here is relative to the time of Insertion.\nOk, \u0027least recently inserted\u0027 might not be an improvement.",
+      "revId": "42b05179a5f6db0492e75d09822150f8e7350b0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29c9c061_53e3964b",
+        "filename": "modules/remote_bitrate_estimator/test/bwe.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2018-08-01T13:13:02Z",
+      "side": 1,
+      "message": "[nit] s/latest/newest for consistency.",
+      "revId": "42b05179a5f6db0492e75d09822150f8e7350b0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2fc791bd_758c1465",
+        "filename": "modules/remote_bitrate_estimator/test/bwe.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2018-08-01T13:13:02Z",
+      "side": 1,
+      "message": "Why pointers instead of the node struct itself?",
+      "revId": "42b05179a5f6db0492e75d09822150f8e7350b0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9645fe0_e924c8f2",
+        "filename": "modules/remote_bitrate_estimator/test/bwe_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2018-08-01T13:13:02Z",
+      "side": 1,
+      "message": "[question] Does it happen in real life? I.e. received a packet twice, not just two packets who happen to have the same sequence number after unwrapping.",
+      "revId": "42b05179a5f6db0492e75d09822150f8e7350b0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

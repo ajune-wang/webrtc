@@ -1047,6 +1047,7 @@ include_rules = [
   "+rtc_tools",
 
   # Abseil whitelist.
+  "+absl/container/inlined_vector.h",
   "+absl/memory/memory.h",
   "+absl/types/optional.h",
   "+absl/types/variant.h",

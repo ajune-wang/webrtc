@@ -116,6 +116,10 @@ rtc_static_library("aec3") {
   ]
 
   defines = []
+  if (rtc_build_with_neon && current_cpu != "arm64") {
+    cflags = [ "-mfpu=neon" ]
+  }
+
   deps = [
     "..:apm_logging",
     "..:audio_processing",

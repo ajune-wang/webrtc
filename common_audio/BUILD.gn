@@ -290,10 +290,7 @@ if (rtc_build_with_neon) {
     ]
 
     if (current_cpu != "arm64") {
-      # Enable compilation for the NEON instruction set. This is needed
-      # since //build/config/arm.gni only enables NEON for iOS, not Android.
-      # This provides the same functionality as webrtc/build/arm_neon.gypi.
-      suppressed_configs += [ "//build/config/compiler:compiler_arm_fpu" ]
+      # Enable compilation for the NEON instruction set.
       cflags = [ "-mfpu=neon" ]
     }
 
@@ -325,10 +322,7 @@ if (rtc_build_with_neon) {
     ]
 
     if (current_cpu != "arm64") {
-      # Enable compilation for the NEON instruction set. This is needed
-      # since //build/config/arm.gni only enables NEON for iOS, not Android.
-      # This provides the same functionality as webrtc/build/arm_neon.gypi.
-      suppressed_configs += [ "//build/config/compiler:compiler_arm_fpu" ]
+      # Enable compilation for the NEON instruction set.
       cflags = [ "-mfpu=neon" ]
     }
 

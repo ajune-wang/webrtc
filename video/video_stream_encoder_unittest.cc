@@ -492,7 +492,7 @@ class VideoStreamEncoderTest : public ::testing::Test {
           continue_encode_event_(false, false) {}
 
     VideoCodec codec_config() const {
-      rtc::CritScope lock(&crit_sect_);
+      rtc::CritScope cs(&crit_sect_);
       return config_;
     }
 

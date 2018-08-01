@@ -50,16 +50,38 @@ class FakeEncoder : public VideoEncoder {
   static const char* kImplementationName;
 
  protected:
+  struct FrameInfo {
+    bool keyframe;
+    struct SpatialLayer {
+      SpatialLayer() = default;
+      SpatialLayer(int size, int temporal_id)
+          : size(size), temporal_id(temporal_id) {}
+      int size = 0;
+      int temporal_id = 0;
+    };
+    std::vector<SpatialLayer> layers;
+  };
+
+  FrameInfo NextFrame(const std::vector<FrameType>* frame_types,
+                       bool keyframe,
+                       unsigned char num_simulcast_streams,
+                       const VideoBitrateAllocation& target_bitrate,
+                       SimulcastStream simulcast_streams[kMaxSimulcastStreams],
+                       int framerate);
+
+  FrameInfo last_frame_info_;
   Clock* const clock_;
+
   VideoCodec config_ RTC_GUARDED_BY(crit_sect_);
   EncodedImageCallback* callback_ RTC_GUARDED_BY(crit_sect_);
   VideoBitrateAllocation target_bitrate_ RTC_GUARDED_BY(crit_sect_);
   int configured_input_framerate_ RTC_GUARDED_BY(crit_sect_);
   int max_target_bitrate_kbps_ RTC_GUARDED_BY(crit_sect_);
   bool pending_keyframe_ RTC_GUARDED_BY(crit_sect_);
-  rtc::CriticalSection crit_sect_;
+  rtc::CriticalSection crit_sect_ RTC_GUARDED_BY(crit_sect_);
 
   uint8_t encoded_buffer_[100000];
+  bool used_layers_[kMaxSimulcastStreams];
 
   // Current byte debt to be payed over a number of frames.
   // The debt is acquired by keyframes overshooting the bitrate target.

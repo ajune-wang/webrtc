@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "367dc3f9_a0c793d9",
+        "filename": "modules/audio_coding/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 695,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-08-01T10:00:29Z",
+      "side": 1,
+      "message": "Maybe move this in the previous if at line 687 (removing the check on rtc_build_with_neon)?",
+      "range": {
+        "startLine": 691,
+        "startChar": 2,
+        "endLine": 695,
+        "endChar": 3
+      },
+      "revId": "2178f30dccb54e8eacc85048ea97e8d5a367b2fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -22,7 +22,6 @@ namespace rtc {
 
 class CopyOnWriteBuffer;
 struct PacketOptions;
-struct PacketTime;
 class PacketTransportInternal;
 
 }  // namespace rtc
@@ -88,7 +87,7 @@ class RtpTransport : public RtpTransportInternal {
   RtpTransportAdapter* GetInternal() override;
 
   // These methods will be used in the subclasses.
-  void DemuxPacket(rtc::CopyOnWriteBuffer* packet, const rtc::PacketTime& time);
+  void DemuxPacket(rtc::CopyOnWriteBuffer* packet, int64_t packet_time_us);
 
   bool SendPacket(bool rtcp,
                   rtc::CopyOnWriteBuffer* packet,
@@ -99,9 +98,9 @@ class RtpTransport : public RtpTransportInternal {
   virtual void OnNetworkRouteChanged(
       absl::optional<rtc::NetworkRoute> network_route);
   virtual void OnRtpPacketReceived(rtc::CopyOnWriteBuffer* packet,
-                                   const rtc::PacketTime& packet_time);
+                                   int64_t packet_time_us);
   virtual void OnRtcpPacketReceived(rtc::CopyOnWriteBuffer* packet,
-                                    const rtc::PacketTime& packet_time);
+                                    int64_t packet_time_us);
   // Overridden by SrtpTransport and DtlsSrtpTransport.
   virtual void OnWritableState(rtc::PacketTransportInternal* packet_transport);
 
@@ -112,7 +111,7 @@ class RtpTransport : public RtpTransportInternal {
   void OnReadPacket(rtc::PacketTransportInternal* transport,
                     const char* data,
                     size_t len,
-                    const rtc::PacketTime& packet_time,
+                    int64_t packet_time_us,
                     int flags);
 
   // Updates "ready to send" for an individual channel and fires

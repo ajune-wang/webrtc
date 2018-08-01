@@ -1429,9 +1429,8 @@ void WebRtcVideoChannel::FillSendAndReceiveCodecStats(
 }
 
 void WebRtcVideoChannel::OnPacketReceived(rtc::CopyOnWriteBuffer* packet,
-                                          const rtc::PacketTime& packet_time) {
-  const webrtc::PacketTime webrtc_packet_time(packet_time.timestamp,
-                                              packet_time.not_before);
+                                          int64_t packet_time_us) {
+  const webrtc::PacketTime webrtc_packet_time(packet_time_us, -1);
   const webrtc::PacketReceiver::DeliveryStatus delivery_result =
       call_->Receiver()->DeliverPacket(webrtc::MediaType::VIDEO, *packet,
                                        webrtc_packet_time);
@@ -1486,9 +1485,8 @@ void WebRtcVideoChannel::OnPacketReceived(rtc::CopyOnWriteBuffer* packet,
 }
 
 void WebRtcVideoChannel::OnRtcpReceived(rtc::CopyOnWriteBuffer* packet,
-                                        const rtc::PacketTime& packet_time) {
-  const webrtc::PacketTime webrtc_packet_time(packet_time.timestamp,
-                                              packet_time.not_before);
+                                        int64_t packet_time_us) {
+  const webrtc::PacketTime webrtc_packet_time(packet_time_us, -1);
   // TODO(pbos): Check webrtc::PacketReceiver::DELIVERY_OK once we deliver
   // for both audio and video on the same path. Since BundleFilter doesn't
   // filter RTCP anymore incoming RTCP packets could've been going to audio (so

@@ -22,6 +22,30 @@
       "revId": "f90528673a3c973e9117d12387c3665dcb44c249",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9928d40_36b4449a",
+        "filename": "modules/video_processing/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2018-08-01T10:05:54Z",
+      "side": 0,
+      "message": "You\u0027re right, and because GN puts own flags before config\u0027s flags, config\u0027s flags take precedence in compiler\u0027s command line.",
+      "parentUuid": "744ac254_f624cafe",
+      "range": {
+        "startLine": 99,
+        "startChar": 6,
+        "endLine": 99,
+        "endChar": 74
+      },
+      "revId": "f90528673a3c973e9117d12387c3665dcb44c249",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

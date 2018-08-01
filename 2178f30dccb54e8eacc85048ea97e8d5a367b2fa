@@ -22,6 +22,30 @@
       "revId": "2178f30dccb54e8eacc85048ea97e8d5a367b2fa",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a74fce30_800b0418",
+        "filename": "modules/audio_coding/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 695,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2018-08-01T10:05:54Z",
+      "side": 1,
+      "message": "OK, I will do that",
+      "parentUuid": "367dc3f9_a0c793d9",
+      "range": {
+        "startLine": 691,
+        "startChar": 2,
+        "endLine": 695,
+        "endChar": 3
+      },
+      "revId": "2178f30dccb54e8eacc85048ea97e8d5a367b2fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

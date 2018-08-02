@@ -43,7 +43,7 @@ class NetworkPacket {
                 absl::optional<PacketOptions> packet_options,
                 bool is_rtcp,
                 MediaType media_type_,
-                absl::optional<PacketTime> packet_time_);
+                absl::optional<int64_t> packet_time_us_);
   // Disallow copy constructor and copy assignment (no deep copies of |data_|).
   NetworkPacket(const NetworkPacket&) = delete;
   ~NetworkPacket();
@@ -65,7 +65,7 @@ class NetworkPacket {
   }
   bool is_rtcp() const { return is_rtcp_; }
   MediaType media_type() const { return media_type_; }
-  PacketTime packet_time() const { return packet_time_.value_or(PacketTime()); }
+  int64_t packet_time_us() const { return packet_time_us_.value_or(-1); }
 
  private:
   rtc::CopyOnWriteBuffer packet_;
@@ -82,7 +82,7 @@ class NetworkPacket {
   // forwarded. The PacketTime might be altered to reflect time spent in fake
   // network pipe.
   MediaType media_type_;
-  absl::optional<PacketTime> packet_time_;
+  absl::optional<int64_t> packet_time_us_;
 };
 
 // Class simulating a network link. This is a simple and naive solution just
@@ -179,10 +179,9 @@ class FakeNetworkPipe : public Transport, public PacketReceiver, public Module {
   // SetReceiver(), without passing through a Demuxer. The receive time in
   // PacketTime will be increased by the amount of time the packet spent in the
   // fake network pipe.
-  PacketReceiver::DeliveryStatus DeliverPacket(
-      MediaType media_type,
-      rtc::CopyOnWriteBuffer packet,
-      const PacketTime& packet_time) override;
+  PacketReceiver::DeliveryStatus DeliverPacket(MediaType media_type,
+                                               rtc::CopyOnWriteBuffer packet,
+                                               int64_t packet_time_us) override;
 
   // Processes the network queues and trigger PacketReceiver::IncomingPacket for
   // packets ready to be delivered.
@@ -221,7 +220,7 @@ class FakeNetworkPipe : public Transport, public PacketReceiver, public Module {
                              absl::optional<PacketOptions> options,
                              bool is_rtcp,
                              MediaType media_type,
-                             absl::optional<PacketTime> packet_time);
+                             absl::optional<int64_t> packet_time_us);
   void DeliverPacket(NetworkPacket* packet)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(config_lock_);
   bool HasTransport() const;

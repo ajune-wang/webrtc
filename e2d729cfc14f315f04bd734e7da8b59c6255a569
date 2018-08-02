@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "aabf538a_1ff25cdb",
+        "filename": "call/call.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1275,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-02T14:36:19Z",
+      "side": 1,
+      "message": "Only left for reference, while working on the cl. But I suspect we will have to keep it a while longer to be able to transition downstream code.",
+      "parentUuid": "c46a16c0_d15cad89",
+      "range": {
+        "startLine": 1275,
+        "startChar": 0,
+        "endLine": 1275,
+        "endChar": 5
+      },
+      "revId": "e2d729cfc14f315f04bd734e7da8b59c6255a569",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7c20e8e7_bf741e29",
         "filename": "call/fake_network_pipe.h",
         "patchSetId": 3
@@ -94,6 +118,30 @@
     },
     {
       "key": {
+        "uuid": "ffc70673_c6ccb41d",
+        "filename": "call/fake_network_pipe_rtp_adapter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-02T14:36:19Z",
+      "side": 1,
+      "message": "It could go with fake_network_pipe.{cc,h}, if we\u0027re willing to let it depend on call.h.\n\nWhile one of the points with this cl is to make FakeNetworkPipe be a low-level networking service, and then it shouldn\u0027t need to be aware of Call.",
+      "parentUuid": "e058f9a2_e7cdd719",
+      "range": {
+        "startLine": 21,
+        "startChar": 6,
+        "endLine": 21,
+        "endChar": 31
+      },
+      "revId": "e2d729cfc14f315f04bd734e7da8b59c6255a569",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "24ac6bf3_0bfe259b",
         "filename": "media/engine/webrtcvoiceengine.h",
         "patchSetId": 3
@@ -105,6 +153,30 @@
       "writtenOn": "2018-08-02T14:20:34Z",
       "side": 1,
       "message": "OnRtpReceived to match OnRtcpReceived below?",
+      "range": {
+        "startLine": 181,
+        "startChar": 7,
+        "endLine": 181,
+        "endChar": 18
+      },
+      "revId": "e2d729cfc14f315f04bd734e7da8b59c6255a569",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a3dc405_7e7336ee",
+        "filename": "media/engine/webrtcvoiceengine.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-02T14:36:19Z",
+      "side": 1,
+      "message": "The OnRtpPacket name comes from the RtpPacketSinkInterface.",
+      "parentUuid": "24ac6bf3_0bfe259b",
       "range": {
         "startLine": 181,
         "startChar": 7,

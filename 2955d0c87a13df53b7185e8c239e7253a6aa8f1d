@@ -190,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "25a48e8d_a7941ad5",
+        "filename": "modules/remote_bitrate_estimator/test/bwe.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2018-08-02T13:00:23Z",
+      "side": 1,
+      "message": "Yet another neater option would be to return the range (or gap) instead of both these methods.\n\n// Return size of interval from oldest to newest unwrapped sequence numbers.\nsize_t Range() const;",
+      "parentUuid": "007851f1_c3ce4dd3",
+      "range": {
+        "startLine": 89,
+        "startChar": 25,
+        "endLine": 89,
+        "endChar": 46
+      },
+      "revId": "2955d0c87a13df53b7185e8c239e7253a6aa8f1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3bd84b0c_37b4e531",
         "filename": "modules/remote_bitrate_estimator/test/bwe.h",
         "patchSetId": 5

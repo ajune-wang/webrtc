@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6385a29d_02039f86",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-08-02T14:19:36Z",
+      "side": 1,
+      "message": "nit:\nupdate.probe_cluster_configs.insert(\n   update.probe_cluster_configs.end(), probes.begin(), probes.end());\n\nIf you decide to change, change it in all other places as well.",
+      "range": {
+        "startLine": 208,
+        "startChar": 0,
+        "endLine": 209,
+        "endChar": 50
+      },
+      "revId": "0904de1931e6cb2fdf066b61545db45e07c0c432",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

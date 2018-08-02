@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "28b20f38_e6872694",
+        "filename": "modules/video_coding/utility/default_video_bitrate_allocator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-08-02T12:36:16Z",
+      "side": 1,
+      "message": "The problem is that the DefaultRateAllocator is used all around the tests. And with the new fake encoder, which actually respects 0 bitrate and stops producing frames, a lot of tests fail. \n\nSince the default rate allocator is only used in tests, it\u0027s easier to just make it respect numberOfSimulcastLayers than updating all the tests.\n\nmaybe, we should switch all the tests to fakeVp8Encoder and use Simulcast rate allocator everywhere, but it would be a too drastic change to include it here.",
+      "parentUuid": "74ba2ea0_71e1caea",
+      "range": {
+        "startLine": 44,
+        "startChar": 75,
+        "endLine": 44,
+        "endChar": 0
+      },
+      "revId": "6b9f1c69adc37dcb3e6a53f7b73473b560da0fca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "04988f60_c44b881f",
         "filename": "test/call_test.cc",
         "patchSetId": 6
@@ -45,6 +69,30 @@
       "revId": "6b9f1c69adc37dcb3e6a53f7b73473b560da0fca",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16bfe4f8_d6f1a78a",
+        "filename": "test/call_test.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-08-02T12:36:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "04988f60_c44b881f",
+      "range": {
+        "startLine": 221,
+        "startChar": 0,
+        "endLine": 222,
+        "endChar": 0
+      },
+      "revId": "6b9f1c69adc37dcb3e6a53f7b73473b560da0fca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "f32e8304_d7ea406d",
+        "filename": "test/fake_encoder.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-08-02T12:36:16Z",
+      "side": 1,
+      "message": "Added comments. Maybe better name could be used here instead of SpatialLayer? The purpose of this struct is to store information of the current super frame, which consists of several spatial layers. Each frame in the corresponding layer has a size and a separate temporal id.",
+      "parentUuid": "df7094c9_40e92c19",
+      "range": {
+        "startLine": 59,
+        "startChar": 6,
+        "endLine": 60,
+        "endChar": 26
+      },
+      "revId": "6b9f1c69adc37dcb3e6a53f7b73473b560da0fca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fb618ee3_8928b022",
         "filename": "test/fake_encoder.h",
         "patchSetId": 6
@@ -91,6 +163,30 @@
       "revId": "6b9f1c69adc37dcb3e6a53f7b73473b560da0fca",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7867623c_3a1837f6",
+        "filename": "test/fake_encoder.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-08-02T12:36:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fb618ee3_8928b022",
+      "range": {
+        "startLine": 67,
+        "startChar": 22,
+        "endLine": 67,
+        "endChar": 35
+      },
+      "revId": "6b9f1c69adc37dcb3e6a53f7b73473b560da0fca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "b0b6acd4_57211aa0",
+        "filename": "test/fake_vp8_encoder.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-08-02T12:36:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bf66003c_cac17d4b",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 0
+      },
+      "revId": "6b9f1c69adc37dcb3e6a53f7b73473b560da0fca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "16c5f660_7bd40ca1",
         "filename": "video/end_to_end_tests/extended_reports_tests.cc",
         "patchSetId": 6
@@ -137,6 +257,30 @@
       "revId": "6b9f1c69adc37dcb3e6a53f7b73473b560da0fca",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7fc81dcf_3dd3b259",
+        "filename": "video/end_to_end_tests/extended_reports_tests.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-08-02T12:36:16Z",
+      "side": 1,
+      "message": "Done.\n\nI\u0027ve added these changes. This is because the test was broken. It relied on 1) encoder producing frames for 0 bitrate (which now is not the case for the fake encoder) and 2) bitrate allocator setting 0 bitrate in VideoBitrateAllocator (SimulcastBitrateAllocator doesn\u0027t do that, it leaves empty optionals there).",
+      "parentUuid": "16c5f660_7bd40ca1",
+      "range": {
+        "startLine": 82,
+        "startChar": 12,
+        "endLine": 82,
+        "endChar": 39
+      },
+      "revId": "6b9f1c69adc37dcb3e6a53f7b73473b560da0fca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

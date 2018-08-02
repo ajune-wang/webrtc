@@ -392,6 +392,29 @@ TEST_F(BweReceiverTest, Loss) {
   EXPECT_NEAR(bwe_receiver_.GlobalReceiverPacketLossRatio(), 0.5f, 0.001f);
 }
 
+TEST_F(BweReceiverTest, WIPTEMPTEST) {
+  // test unitilized
+  int b[10];
+  // WTH!?! Doesn't trigger
+  if (b[0])
+    std::cout << "got u";
+  // EXPECT_TRUE(b[0]);
+  b[0] = 0;
+
+  // msan own example
+  int* a = new int[10];
+  a[5] = 0;
+  if (a[b[1]])
+    printf("xx\n");
+
+  // out of range. WTH not detected?
+  printf("yy\n");
+  EXPECT_TRUE(a[100]);
+  printf("zz\n");
+  EXPECT_TRUE(b[a[0] + 10]);
+  printf("the end\n");
+}
+
 }  // namespace bwe
 }  // namespace testing
 }  // namespace webrtc

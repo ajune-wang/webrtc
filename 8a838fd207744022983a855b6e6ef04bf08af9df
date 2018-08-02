@@ -22,6 +22,30 @@
       "revId": "8a838fd207744022983a855b6e6ef04bf08af9df",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8353bb95_5d8e9a23",
+        "filename": "test/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 560,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-08-02T07:10:34Z",
+      "side": 0,
+      "message": "Done. Removed:\n\"..:webrtc_common\",\n\"../api/video:video_frame_i420\",\n\"../common_video:common_video\",\n\"../modules/video_coding:video_codec_interface\",\n\"../rtc_base:rtc_task_queue\",\n\"../rtc_base:sequenced_task_checker\"",
+      "parentUuid": "621d1e99_7eddf7f3",
+      "range": {
+        "startLine": 560,
+        "startChar": 4,
+        "endLine": 560,
+        "endChar": 35
+      },
+      "revId": "8a838fd207744022983a855b6e6ef04bf08af9df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

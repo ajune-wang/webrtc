@@ -319,6 +319,10 @@ if (rtc_include_tests) {
       ":video_test_common",
       ":video_test_support",
       "../api/video:video_frame_i420",
+
+      # TODO(TODO(bugs.webrtc.org/9584): For PacketReceiver methods
+      # and vtable.
+      "../call",
       "../modules/rtp_rtcp:rtp_rtcp",
       "../rtc_base:rtc_base_approved",
       "../test:single_threaded_task_queue",

@@ -126,7 +126,8 @@ EncodedImage MultiplexEncodedImagePacker::PackAndRelease(
   int header_offset = kMultiplexImageHeaderSize;
   header.first_component_header_offset = header_offset;
   int bitstream_offset = header_offset + kMultiplexImageComponentHeaderSize *
-                                             header.component_count;
+                                             header.component_count +
+                                             1 + multiplex_image.augmenting_data_size;
 
   const std::vector<MultiplexImageComponent>& images =
       multiplex_image.image_components;
@@ -182,9 +183,18 @@ EncodedImage MultiplexEncodedImagePacker::PackAndRelease(
                          kMultiplexImageComponentHeaderSize * (i + 1)));
   }
 
+  // Augmenting Data
+  ByteWriter<uint8_t>::WriteBigEndian(combined_image._buffer + header_offset, multiplex_image.augmenting_data_size);
+  header_offset += 1;
+  if (multiplex_image.augmenting_data_size != 0) {
+    memcpy(combined_image._buffer + header_offset, multiplex_image.augmenting_data, multiplex_image.augmenting_data_size);
+    delete[] multiplex_image.augmenting_data;
+    header_offset += multiplex_image.augmenting_data_size;
+  }
+
   // Bitstreams
   for (size_t i = 0; i < images.size(); i++) {
-    PackBitstream(combined_image._buffer + frame_headers[i].bitstream_offset,
+    PackBitstream(combined_image._buffer + frame_headers[i].bitstream_offset + 1 + multiplex_image.augmenting_data_size,
                   images[i]);
     delete[] images[i].encoded_image._buffer;
   }
@@ -197,6 +207,11 @@ MultiplexImage MultiplexEncodedImagePacker::Unpack(
   const MultiplexImageHeader& header = UnpackHeader(combined_image._buffer);
 
   MultiplexImage multiplex_image(header.image_index, header.component_count);
+  multiplex_image.augmenting_data_size = ByteReader<uint8_t>::ReadBigEndian(combined_image._buffer +
+    kMultiplexImageHeaderSize +
+    kMultiplexImageComponentHeaderSize * header.component_count);
+  multiplex_image.augmenting_data = multiplex_image.data_size != 0 ?
+    combined_image._buffer + kMultiplexImageHeaderSize + kMultiplexImageComponentHeaderSize * header.component_count + 1 : NULL;
   std::vector<MultiplexImageComponentHeader> frame_headers;
   int header_offset = header.first_component_header_offset;
 

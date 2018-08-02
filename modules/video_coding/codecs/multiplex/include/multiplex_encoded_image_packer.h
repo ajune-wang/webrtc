@@ -81,6 +81,8 @@ struct MultiplexImageComponent {
 struct MultiplexImage {
   uint16_t image_index;
   uint8_t component_count;
+  uint8_t augmenting_data_size;
+  uint8_t *augmenting_data;
   std::vector<MultiplexImageComponent> image_components;
 
   MultiplexImage(uint16_t picture_index, uint8_t component_count);

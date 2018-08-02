@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "74ba2ea0_71e1caea",
+        "filename": "modules/video_coding/utility/default_video_bitrate_allocator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-08-02T11:12:14Z",
+      "side": 1,
+      "message": "I think the intent of the default allocator was to always have the \"old\" behavior where only one bitrate (layer) is used.\nIf simulcast is configured, why not just use SimulcastRateAllocator?",
+      "range": {
+        "startLine": 44,
+        "startChar": 75,
+        "endLine": 44,
+        "endChar": 0
+      },
+      "revId": "6b9f1c69adc37dcb3e6a53f7b73473b560da0fca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04988f60_c44b881f",
+        "filename": "test/call_test.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-08-02T11:12:14Z",
+      "side": 1,
+      "message": "intended \\n?",
+      "range": {
+        "startLine": 221,
+        "startChar": 0,
+        "endLine": 222,
+        "endChar": 0
+      },
+      "revId": "6b9f1c69adc37dcb3e6a53f7b73473b560da0fca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df7094c9_40e92c19",
+        "filename": "test/fake_encoder.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-08-02T11:12:14Z",
+      "side": 1,
+      "message": "please comment on what these mean\ntemporal_id for a spatial sounds confusing",
+      "range": {
+        "startLine": 59,
+        "startChar": 6,
+        "endLine": 60,
+        "endChar": 26
+      },
+      "revId": "6b9f1c69adc37dcb3e6a53f7b73473b560da0fca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb618ee3_8928b022",
+        "filename": "test/fake_encoder.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-08-02T11:12:14Z",
+      "side": 1,
+      "message": "nit: uint8_t?",
+      "range": {
+        "startLine": 67,
+        "startChar": 22,
+        "endLine": 67,
+        "endChar": 35
+      },
+      "revId": "6b9f1c69adc37dcb3e6a53f7b73473b560da0fca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf66003c_cac17d4b",
+        "filename": "test/fake_vp8_encoder.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-08-02T11:12:14Z",
+      "side": 1,
+      "message": "You can use the static methods in SimulcastUtility instead.",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 0
+      },
+      "revId": "6b9f1c69adc37dcb3e6a53f7b73473b560da0fca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16c5f660_7bd40ca1",
+        "filename": "video/end_to_end_tests/extended_reports_tests.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-08-02T11:12:14Z",
+      "side": 1,
+      "message": "nit: target_bitrates.empty()\n\nAlso, did you do these changes? I don\u0027t see the connection to fake encoder..",
+      "range": {
+        "startLine": 82,
+        "startChar": 12,
+        "endLine": 82,
+        "endChar": 39
+      },
+      "revId": "6b9f1c69adc37dcb3e6a53f7b73473b560da0fca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b45fe8aa_f1a612be",
+        "filename": "rtc_base/buffer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2018-08-02T22:08:39Z",
+      "side": 1,
+      "message": "Note here that setting data_ to nullptr is a supported case.",
+      "range": {
+        "startLine": 67,
+        "startChar": 44,
+        "endLine": 67,
+        "endChar": 51
+      },
+      "revId": "0dbed51f73dfde8fb6406da316db382705ef8f47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

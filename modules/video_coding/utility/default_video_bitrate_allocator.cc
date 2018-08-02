@@ -27,14 +27,23 @@ VideoBitrateAllocation DefaultVideoBitrateAllocator::GetAllocation(
   if (total_bitrate_bps == 0 || !codec_.active)
     return allocation;
 
+  uint32_t allocated_bitrate = 0;
   if (total_bitrate_bps < codec_.minBitrate * 1000) {
-    allocation.SetBitrate(0, 0, codec_.minBitrate * 1000);
+    allocated_bitrate = codec_.minBitrate * 1000;
   } else if (codec_.maxBitrate > 0 &&
              total_bitrate_bps > codec_.maxBitrate * 1000) {
-    allocation.SetBitrate(0, 0, codec_.maxBitrate * 1000);
+    allocated_bitrate = codec_.maxBitrate * 1000;
   } else {
-    allocation.SetBitrate(0, 0, total_bitrate_bps);
+    allocated_bitrate = total_bitrate_bps;
   }
+  size_t num_simulcast_streams =
+      codec_.numberOfSimulcastStreams > 0 ? codec_.numberOfSimulcastStreams : 1;
+  for (size_t i = 0; i < num_simulcast_streams; i++) {
+    allocation.SetBitrate(
+        i, 0,
+        allocated_bitrate * (1 << i) / ((1 << num_simulcast_streams) - 1));
+  }
+
   return allocation;
 }
 

@@ -20,14 +20,18 @@ namespace webrtc {
 namespace RtpFormatVideoGeneric {
 static const uint8_t kKeyFrameBit = 0x01;
 static const uint8_t kFirstPacketBit = 0x02;
+// If this bit is set, there will be an extended header contained in this
+// packet. This was added later so old clients will not send this.
+static const uint8_t kExtendedHeaderBit = 0x80;
 }  // namespace RtpFormatVideoGeneric
 
 class RtpPacketizerGeneric : public RtpPacketizer {
  public:
   // Initialize with payload from encoder.
   // The payload_data must be exactly one encoded generic frame.
-  RtpPacketizerGeneric(FrameType frametype,
-                       size_t max_payload_len,
+  RtpPacketizerGeneric(RTPVideoHeader const& rtp_video_header,
+                       FrameType frametype,
+                       size_t max_packet_len,
                        size_t last_packet_reduction_len);
 
   ~RtpPacketizerGeneric() override;
@@ -45,9 +49,10 @@ class RtpPacketizerGeneric : public RtpPacketizer {
   std::string ToString() override;
 
  private:
+  const RTPVideoHeader rtp_video_header_;
   const uint8_t* payload_data_;
   size_t payload_size_;
-  const size_t max_payload_len_;
+  const size_t max_packet_len_;
   const size_t last_packet_reduction_len_;
   FrameType frame_type_;
   size_t payload_len_per_packet_;
@@ -56,6 +61,8 @@ class RtpPacketizerGeneric : public RtpPacketizer {
   size_t num_packets_left_;
   // Number of packets, which will be 1 byte more than the rest.
   size_t num_larger_packets_;
+
+  void WriteExtendedHeader(uint8_t* out_ptr);
 
   RTC_DISALLOW_COPY_AND_ASSIGN(RtpPacketizerGeneric);
 };

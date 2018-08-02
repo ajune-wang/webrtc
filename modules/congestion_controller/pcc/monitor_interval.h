@@ -26,8 +26,8 @@ namespace pcc {
 class PccMonitorInterval {
  public:
   PccMonitorInterval(DataRate target_sending_rate,
-                     Timestamp start_time,
-                     TimeDelta duration);
+                  Timestamp start_time,
+                  TimeDelta duration);
   ~PccMonitorInterval();
   PccMonitorInterval(const PccMonitorInterval& other);
   void OnPacketsFeedback(const std::vector<PacketResult>& packets_results);

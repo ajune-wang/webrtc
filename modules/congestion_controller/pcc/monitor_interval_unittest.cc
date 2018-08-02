@@ -15,26 +15,27 @@ namespace webrtc {
 namespace pcc {
 namespace test {
 namespace {
-const DataRate kTargetSendingRate = DataRate::kbps(300);
+const DataRate kTargetSendingRate = DataRate::bps(100);
 const Timestamp kStartTime = Timestamp::us(0);
-const TimeDelta kIntervalDuration = TimeDelta::ms(100);
-const TimeDelta kDefaultRtt = TimeDelta::ms(100);
-const DataSize kDefaultPacketSize = DataSize::bytes(100);
+const TimeDelta kIntervalDuration = TimeDelta::us(10);
+const TimeDelta kDefaultRtt = TimeDelta::us(10);
+const DataSize kDefaultDataSize = DataSize::bytes(100);
+const TimeDelta kMiTimeout = kIntervalDuration * 4;
 
 std::vector<PacketResult> CreatePacketResults(
     const std::vector<Timestamp>& packets_send_times,
     const std::vector<Timestamp>& packets_received_times = {},
     const std::vector<DataSize>& packets_sizes = {}) {
   std::vector<PacketResult> packet_results;
+  PacketResult packet_result;
+  SentPacket sent_packet;
   for (size_t i = 0; i < packets_send_times.size(); ++i) {
-    SentPacket sent_packet;
     sent_packet.send_time = packets_send_times[i];
     if (packets_sizes.empty()) {
-      sent_packet.size = kDefaultPacketSize;
+      sent_packet.size = kDefaultDataSize;
     } else {
       sent_packet.size = packets_sizes[i];
     }
-    PacketResult packet_result;
     packet_result.sent_packet = sent_packet;
     if (packets_received_times.empty()) {
       packet_result.receive_time = packets_send_times[i] + kDefaultRtt;
@@ -48,17 +49,15 @@ std::vector<PacketResult> CreatePacketResults(
 
 }  // namespace
 
-TEST(PccMonitorIntervalTest, InitialValuesAreEqualToOnesSetInConstructor) {
-  PccMonitorInterval interval{kTargetSendingRate, kStartTime,
-                              kIntervalDuration};
+TEST(PccMonitorIntervalTest, InitialValues) {
+  PccMonitorInterval interval{kTargetSendingRate, kStartTime, kIntervalDuration};
   EXPECT_EQ(interval.IsFeedbackCollectionDone(), false);
   EXPECT_EQ(interval.GetEndTime(), kStartTime + kIntervalDuration);
   EXPECT_EQ(interval.GetTargetSendingRate(), kTargetSendingRate);
 }
 
-TEST(PccMonitorIntervalTest, IndicatesDoneWhenFeedbackReceivedAfterInterval) {
-  PccMonitorInterval interval{kTargetSendingRate, kStartTime,
-                              kIntervalDuration};
+TEST(PccMonitorIntervalTest, CollectingFeedback) {
+  PccMonitorInterval interval{kTargetSendingRate, kStartTime, kIntervalDuration};
   interval.OnPacketsFeedback(CreatePacketResults({kStartTime}));
   EXPECT_EQ(interval.IsFeedbackCollectionDone(), false);
   interval.OnPacketsFeedback(
@@ -69,9 +68,8 @@ TEST(PccMonitorIntervalTest, IndicatesDoneWhenFeedbackReceivedAfterInterval) {
   EXPECT_EQ(interval.IsFeedbackCollectionDone(), true);
 }
 
-TEST(PccMonitorIntervalTest, LossRateIsOneThirdIfLostOnePacketOutOfThree) {
-  PccMonitorInterval interval{kTargetSendingRate, kStartTime,
-                              kIntervalDuration};
+TEST(PccMonitorIntervalTest, ReceivedPacketsInfo) {
+  PccMonitorInterval interval{kTargetSendingRate, kStartTime, kIntervalDuration};
   std::vector<Timestamp> start_times = {
       kStartTime, kStartTime + 0.1 * kIntervalDuration,
       kStartTime + 0.5 * kIntervalDuration, kStartTime + kIntervalDuration,
@@ -81,8 +79,8 @@ TEST(PccMonitorIntervalTest, LossRateIsOneThirdIfLostOnePacketOutOfThree) {
       Timestamp::Infinity(), kStartTime + 2 * kIntervalDuration,
       kStartTime + 4 * kIntervalDuration};
   std::vector<DataSize> packet_sizes = {
-      kDefaultPacketSize, 2 * kDefaultPacketSize, 3 * kDefaultPacketSize,
-      4 * kDefaultPacketSize, 5 * kDefaultPacketSize};
+      kDefaultDataSize, 2 * kDefaultDataSize, 3 * kDefaultDataSize,
+      4 * kDefaultDataSize, 5 * kDefaultDataSize};
   std::vector<PacketResult> packet_results =
       CreatePacketResults(start_times, end_times, packet_sizes);
   interval.OnPacketsFeedback(packet_results);

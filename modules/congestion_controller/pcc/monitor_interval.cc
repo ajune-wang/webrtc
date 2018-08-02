@@ -14,8 +14,8 @@ namespace webrtc {
 namespace pcc {
 
 PccMonitorInterval::PccMonitorInterval(DataRate target_sending_rate,
-                                       Timestamp start_time,
-                                       TimeDelta duration)
+                                 Timestamp start_time,
+                                 TimeDelta duration)
     : target_sending_rate_(target_sending_rate),
       start_time_(start_time),
       interval_duration_(duration),
@@ -25,8 +25,7 @@ PccMonitorInterval::PccMonitorInterval(DataRate target_sending_rate,
 
 PccMonitorInterval::~PccMonitorInterval() = default;
 
-PccMonitorInterval::PccMonitorInterval(const PccMonitorInterval& other) =
-    default;
+PccMonitorInterval::PccMonitorInterval(const PccMonitorInterval& other) = default;
 
 void PccMonitorInterval::OnPacketsFeedback(
     const std::vector<PacketResult>& packets_results) {
@@ -44,9 +43,9 @@ void PccMonitorInterval::OnPacketsFeedback(
       lost_packets_size_ += packet_result.sent_packet->size;
       lost_packets_sent_time_.push_back(packet_result.sent_packet->send_time);
     } else {
-      received_packets_.push_back(
-          {packet_result.receive_time - packet_result.sent_packet->send_time,
-           packet_result.sent_packet->send_time});
+      received_packets_.push_back({packet_result.receive_time -
+                                   packet_result.sent_packet->send_time,
+                                   packet_result.sent_packet->send_time});
       received_packets_size_ += packet_result.sent_packet->size;
     }
   }
@@ -54,8 +53,9 @@ void PccMonitorInterval::OnPacketsFeedback(
 
 double PccMonitorInterval::ComputeDelayGradient(
     double delay_gradient_threshold) const {
-  if (received_packets_.empty() || received_packets_.front().sent_time ==
-                                       received_packets_.back().sent_time) {
+  if (received_packets_.empty() ||
+      received_packets_.front().sent_time ==
+          received_packets_.back().sent_time) {
     return 0;
   }
   double sum_times = 0;

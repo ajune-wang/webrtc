@@ -19,8 +19,7 @@ GoogCcNetworkControllerFactory::GoogCcNetworkControllerFactory(
 
 std::unique_ptr<NetworkControllerInterface>
 GoogCcNetworkControllerFactory::Create(NetworkControllerConfig config) {
-  return absl::make_unique<webrtc_cc::GoogCcNetworkController>(event_log_,
-                                                               config);
+  return absl::make_unique<GoogCcNetworkController>(event_log_, config);
 }
 
 TimeDelta GoogCcNetworkControllerFactory::GetProcessInterval() const {

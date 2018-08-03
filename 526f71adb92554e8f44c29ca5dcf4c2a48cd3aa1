@@ -88,6 +88,24 @@
     },
     {
       "key": {
+        "uuid": "45d0b84a_898f0e16",
+        "filename": "modules/congestion_controller/pcc/monitor_interval.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 7296
+      },
+      "writtenOn": "2018-08-03T13:10:13Z",
+      "side": 1,
+      "message": "No, there is not. This is our assumption for simplicity of testing the algorithm. We assume that if some packets are reordered with packets sent after the end of the monitor interval, then they are lost. (Otherwise it is not clear how long should we wait for packets feedback to arrive).",
+      "parentUuid": "8a7fbc77_e139eb26",
+      "revId": "526f71adb92554e8f44c29ca5dcf4c2a48cd3aa1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4706e04a_36b2af6a",
         "filename": "modules/congestion_controller/pcc/monitor_interval.cc",
         "patchSetId": 10
@@ -105,6 +123,24 @@
     },
     {
       "key": {
+        "uuid": "196b2cb5_e37fae33",
+        "filename": "modules/congestion_controller/pcc/monitor_interval.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 7296
+      },
+      "writtenOn": "2018-08-03T13:10:13Z",
+      "side": 1,
+      "message": "See e.g. formula for the b coefficient in the section \"The Linear Regression Equation\" from here: http://www.statisticshowto.com/probability-and-statistics/regression-analysis/find-a-linear-regression-equation/ \nWill add a comment.",
+      "parentUuid": "4706e04a_36b2af6a",
+      "revId": "526f71adb92554e8f44c29ca5dcf4c2a48cd3aa1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "62ea1fc6_48c8ab28",
         "filename": "modules/congestion_controller/pcc/monitor_interval.cc",
         "patchSetId": 10
@@ -116,6 +152,24 @@
       "writtenOn": "2018-07-27T16:33:07Z",
       "side": 1,
       "message": "[nit] if (received_packets_sent_time_.size() \u003c\u003d 1) {  [...]\n\nApply now and save 66% lines!\n\nPlus, you could define beforehand a \u0027nb_packets\u0027 variable, since this value is used 4 times.",
+      "revId": "526f71adb92554e8f44c29ca5dcf4c2a48cd3aa1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b48e348_8aa04cf9",
+        "filename": "modules/congestion_controller/pcc/monitor_interval.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 7296
+      },
+      "writtenOn": "2018-08-03T13:10:13Z",
+      "side": 1,
+      "message": "There could be the case when there several packets were sent at the same time. Then there will be division by zero while computing the gradient. received_packets_sent_time_.front() \u003d\u003d received_packets_sent_time_.back()) checks it. (Assuming that the packets are ordered by the sent time).",
+      "parentUuid": "62ea1fc6_48c8ab28",
       "revId": "526f71adb92554e8f44c29ca5dcf4c2a48cd3aa1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -145,6 +199,30 @@
     },
     {
       "key": {
+        "uuid": "887718f9_1365d162",
+        "filename": "modules/congestion_controller/pcc/monitor_interval.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 7296
+      },
+      "writtenOn": "2018-08-03T13:10:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3d6c1bfe_d25d0703",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 79
+      },
+      "revId": "526f71adb92554e8f44c29ca5dcf4c2a48cd3aa1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a0646117_7dffc5d0",
         "filename": "modules/congestion_controller/pcc/monitor_interval.cc",
         "patchSetId": 10
@@ -162,6 +240,24 @@
     },
     {
       "key": {
+        "uuid": "5029c966_22a90f61",
+        "filename": "modules/congestion_controller/pcc/monitor_interval.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 7296
+      },
+      "writtenOn": "2018-08-03T13:10:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a0646117_7dffc5d0",
+      "revId": "526f71adb92554e8f44c29ca5dcf4c2a48cd3aa1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "40187bb6_b9e989c0",
         "filename": "modules/congestion_controller/pcc/monitor_interval.cc",
         "patchSetId": 10
@@ -176,6 +272,24 @@
       "revId": "526f71adb92554e8f44c29ca5dcf4c2a48cd3aa1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f0a1eda_6fa0ab49",
+        "filename": "modules/congestion_controller/pcc/monitor_interval.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 7296
+      },
+      "writtenOn": "2018-08-03T13:10:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "40187bb6_b9e989c0",
+      "revId": "526f71adb92554e8f44c29ca5dcf4c2a48cd3aa1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -202,6 +316,30 @@
     },
     {
       "key": {
+        "uuid": "3c7627e4_a29a943b",
+        "filename": "modules/congestion_controller/pcc/monitor_interval.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 7296
+      },
+      "writtenOn": "2018-08-03T13:10:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "965edb0f_b4986524",
+      "range": {
+        "startLine": 26,
+        "startChar": 6,
+        "endLine": 26,
+        "endChar": 21
+      },
+      "revId": "526f71adb92554e8f44c29ca5dcf4c2a48cd3aa1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5f720468_a2a5037e",
         "filename": "modules/congestion_controller/pcc/monitor_interval.h",
         "patchSetId": 10
@@ -213,6 +351,24 @@
       "writtenOn": "2018-07-27T16:33:07Z",
       "side": 1,
       "message": "Ok, so what about the last MonitorInterval? It will always return false, so any client waiting for this to turn true will loop endlessly.",
+      "revId": "526f71adb92554e8f44c29ca5dcf4c2a48cd3aa1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39aa75e6_f1eb7a77",
+        "filename": "modules/congestion_controller/pcc/monitor_interval.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 7296
+      },
+      "writtenOn": "2018-08-03T13:10:13Z",
+      "side": 1,
+      "message": "Yes, this is true. Is it possible to distinguish the last MonitorInterval?",
+      "parentUuid": "5f720468_a2a5037e",
       "revId": "526f71adb92554e8f44c29ca5dcf4c2a48cd3aa1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -242,6 +398,30 @@
     },
     {
       "key": {
+        "uuid": "f0074be2_db3edd4f",
+        "filename": "modules/congestion_controller/pcc/monitor_interval.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 7296
+      },
+      "writtenOn": "2018-08-03T13:10:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0bcc5aae_b489dcab",
+      "range": {
+        "startLine": 55,
+        "startChar": 2,
+        "endLine": 56,
+        "endChar": 53
+      },
+      "revId": "526f71adb92554e8f44c29ca5dcf4c2a48cd3aa1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "28afa0c3_76d421b1",
         "filename": "modules/congestion_controller/pcc/monitor_interval_unittest.cc",
         "patchSetId": 10
@@ -262,6 +442,30 @@
       "revId": "526f71adb92554e8f44c29ca5dcf4c2a48cd3aa1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10ddc864_fedfec17",
+        "filename": "modules/congestion_controller/pcc/monitor_interval_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 7296
+      },
+      "writtenOn": "2018-08-03T13:10:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "28afa0c3_76d421b1",
+      "range": {
+        "startLine": 18,
+        "startChar": 15,
+        "endLine": 18,
+        "endChar": 33
+      },
+      "revId": "526f71adb92554e8f44c29ca5dcf4c2a48cd3aa1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -288,6 +492,30 @@
     },
     {
       "key": {
+        "uuid": "643eb8fa_46a7d3f2",
+        "filename": "modules/congestion_controller/pcc/monitor_interval_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 7296
+      },
+      "writtenOn": "2018-08-03T13:10:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a007d134_6ac4d3b3",
+      "range": {
+        "startLine": 20,
+        "startChar": 47,
+        "endLine": 20,
+        "endChar": 53
+      },
+      "revId": "526f71adb92554e8f44c29ca5dcf4c2a48cd3aa1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "10007441_3cdd8f90",
         "filename": "modules/congestion_controller/pcc/monitor_interval_unittest.cc",
         "patchSetId": 10
@@ -308,6 +536,30 @@
       "revId": "526f71adb92554e8f44c29ca5dcf4c2a48cd3aa1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f76de3a_6907a8cc",
+        "filename": "modules/congestion_controller/pcc/monitor_interval_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 7296
+      },
+      "writtenOn": "2018-08-03T13:10:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "10007441_3cdd8f90",
+      "range": {
+        "startLine": 21,
+        "startChar": 41,
+        "endLine": 21,
+        "endChar": 47
+      },
+      "revId": "526f71adb92554e8f44c29ca5dcf4c2a48cd3aa1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -334,6 +586,30 @@
     },
     {
       "key": {
+        "uuid": "105d9420_6b7b9dac",
+        "filename": "modules/congestion_controller/pcc/monitor_interval_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 7296
+      },
+      "writtenOn": "2018-08-03T13:10:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "53d52aa4_b4f472c9",
+      "range": {
+        "startLine": 22,
+        "startChar": 15,
+        "endLine": 22,
+        "endChar": 31
+      },
+      "revId": "526f71adb92554e8f44c29ca5dcf4c2a48cd3aa1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "58e66d3f_e2510248",
         "filename": "modules/congestion_controller/pcc/monitor_interval_unittest.cc",
         "patchSetId": 10
@@ -354,6 +630,30 @@
       "revId": "526f71adb92554e8f44c29ca5dcf4c2a48cd3aa1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1af0ff05_07e3e416",
+        "filename": "modules/congestion_controller/pcc/monitor_interval_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 7296
+      },
+      "writtenOn": "2018-08-03T13:10:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "58e66d3f_e2510248",
+      "range": {
+        "startLine": 23,
+        "startChar": 16,
+        "endLine": 23,
+        "endChar": 26
+      },
+      "revId": "526f71adb92554e8f44c29ca5dcf4c2a48cd3aa1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -380,6 +680,30 @@
     },
     {
       "key": {
+        "uuid": "401fc56c_21ee1f87",
+        "filename": "modules/congestion_controller/pcc/monitor_interval_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 7296
+      },
+      "writtenOn": "2018-08-03T13:10:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a1f2c7c3_7adebd18",
+      "range": {
+        "startLine": 30,
+        "startChar": 1,
+        "endLine": 31,
+        "endChar": 25
+      },
+      "revId": "526f71adb92554e8f44c29ca5dcf4c2a48cd3aa1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "165b33be_c4303c63",
         "filename": "modules/congestion_controller/pcc/monitor_interval_unittest.cc",
         "patchSetId": 10
@@ -400,6 +724,30 @@
       "revId": "526f71adb92554e8f44c29ca5dcf4c2a48cd3aa1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9ec02fa_581102da",
+        "filename": "modules/congestion_controller/pcc/monitor_interval_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 7296
+      },
+      "writtenOn": "2018-08-03T13:10:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "165b33be_c4303c63",
+      "range": {
+        "startLine": 59,
+        "startChar": 29,
+        "endLine": 59,
+        "endChar": 47
+      },
+      "revId": "526f71adb92554e8f44c29ca5dcf4c2a48cd3aa1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

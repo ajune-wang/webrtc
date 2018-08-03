@@ -39,6 +39,24 @@
       "revId": "0dbed51f73dfde8fb6406da316db382705ef8f47",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df060d23_06ad8800",
+        "filename": "rtc_base/buffer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2018-08-03T07:31:50Z",
+      "side": 1,
+      "message": "The facts I\u0027m operating with:\n* The code in the present state causes a UBSan failure (see linked bug).\n* If buffers of size 0 were not allowed, the unittest BufferTest.TestConstructEmpty would explicitly fail. Since it is there, maybe it was important for someone.\n\nAdditionally, I think it is strange to allow creation of an empty buffer through the default constructor but fail with an explicit size of zero.\n\nSo, rather than driving this backwards incompatible change, I would prefer the simple fix in order to unblock DEPS roll.",
+      "parentUuid": "fda5e082_c8e2ece4",
+      "revId": "0dbed51f73dfde8fb6406da316db382705ef8f47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

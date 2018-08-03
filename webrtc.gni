@@ -141,8 +141,8 @@ declare_args() {
   # as data dependencies. This is to enable memcheck execution on swarming bots.
   rtc_use_memcheck = false
 
-  # Disable this to build without support for built-in software codecs.
-  rtc_use_builtin_sw_codecs = true
+  # This flag is deprecated and is going away.
+  rtc_use_builtin_sw_codecs = false
 
   if (is_ios) {
     # Build broadcast extension in AppRTCMobile for iOS. This results in the

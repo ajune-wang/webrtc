@@ -26,43 +26,14 @@ class AudioProcessing;
 class VideoDecoderFactory;
 class VideoEncoderFactory;
 }  // namespace webrtc
-namespace cricket {
-class WebRtcVideoDecoderFactory;
-class WebRtcVideoEncoderFactory;
-}  // namespace cricket
 
 namespace cricket {
 
 class WebRtcMediaEngineFactory {
  public:
-  // These Create methods may be called on any thread, though the engine is
+  // This Create method may be called on any thread, though the engine is
   // only expected to be used on one thread, internally called the "worker
   // thread". This is the thread Init must be called on.
-  //
-  // TODO(deadbeef): Change these to return an std::unique_ptr<>, to indicate
-  // that the caller owns the returned object.
-  static MediaEngineInterface* Create(
-      webrtc::AudioDeviceModule* adm,
-      const rtc::scoped_refptr<webrtc::AudioEncoderFactory>&
-          audio_encoder_factory,
-      const rtc::scoped_refptr<webrtc::AudioDecoderFactory>&
-          audio_decoder_factory,
-      WebRtcVideoEncoderFactory* video_encoder_factory,
-      WebRtcVideoDecoderFactory* video_decoder_factory);
-  static MediaEngineInterface* Create(
-      webrtc::AudioDeviceModule* adm,
-      const rtc::scoped_refptr<webrtc::AudioEncoderFactory>&
-          audio_encoder_factory,
-      const rtc::scoped_refptr<webrtc::AudioDecoderFactory>&
-          audio_decoder_factory,
-      WebRtcVideoEncoderFactory* video_encoder_factory,
-      WebRtcVideoDecoderFactory* video_decoder_factory,
-      rtc::scoped_refptr<webrtc::AudioMixer> audio_mixer,
-      rtc::scoped_refptr<webrtc::AudioProcessing> apm);
-
-  // Create a MediaEngineInterface with optional video codec factories. These
-  // video factories represents all video codecs, i.e. no extra internal video
-  // codecs will be added.
   static std::unique_ptr<MediaEngineInterface> Create(
       rtc::scoped_refptr<webrtc::AudioDeviceModule> adm,
       rtc::scoped_refptr<webrtc::AudioEncoderFactory> audio_encoder_factory,

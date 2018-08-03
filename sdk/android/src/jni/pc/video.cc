@@ -16,7 +16,6 @@
 #include "api/video_codecs/video_decoder_factory.h"
 #include "api/video_codecs/video_encoder_factory.h"
 #include "api/videosourceproxy.h"
-#include "media/engine/convert_legacy_video_factory.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/ptr_util.h"
 #include "sdk/android/src/jni/androidvideotracksource.h"

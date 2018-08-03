@@ -120,11 +120,6 @@ class SSLIdentity;
 class Thread;
 }  // namespace rtc
 
-namespace cricket {
-class WebRtcVideoDecoderFactory;
-class WebRtcVideoEncoderFactory;
-}  // namespace cricket
-
 namespace webrtc {
 class AudioDeviceModule;
 class AudioMixer;
@@ -1341,74 +1336,9 @@ rtc::scoped_refptr<PeerConnectionFactoryInterface> CreatePeerConnectionFactory(
     rtc::scoped_refptr<AudioEncoderFactory> audio_encoder_factory,
     rtc::scoped_refptr<AudioDecoderFactory> audio_decoder_factory);
 
-// Create a new instance of PeerConnectionFactoryInterface.
-//
-// |network_thread|, |worker_thread| and |signaling_thread| are
-// the only mandatory parameters.
-//
-// If non-null, a reference is added to |default_adm|, and ownership of
-// |video_encoder_factory| and |video_decoder_factory| is transferred to the
-// returned factory.
-// TODO(deadbeef): Use rtc::scoped_refptr<> and std::unique_ptr<> to make this
-// ownership transfer and ref counting more obvious.
-rtc::scoped_refptr<PeerConnectionFactoryInterface> CreatePeerConnectionFactory(
-    rtc::Thread* network_thread,
-    rtc::Thread* worker_thread,
-    rtc::Thread* signaling_thread,
-    AudioDeviceModule* default_adm,
-    rtc::scoped_refptr<AudioEncoderFactory> audio_encoder_factory,
-    rtc::scoped_refptr<AudioDecoderFactory> audio_decoder_factory,
-    cricket::WebRtcVideoEncoderFactory* video_encoder_factory,
-    cricket::WebRtcVideoDecoderFactory* video_decoder_factory);
-
-// Create a new instance of PeerConnectionFactoryInterface with optional
-// external audio mixed and audio processing modules.
-//
-// If |audio_mixer| is null, an internal audio mixer will be created and used.
-// If |audio_processing| is null, an internal audio processing module will be
-// created and used.
-rtc::scoped_refptr<PeerConnectionFactoryInterface> CreatePeerConnectionFactory(
-    rtc::Thread* network_thread,
-    rtc::Thread* worker_thread,
-    rtc::Thread* signaling_thread,
-    AudioDeviceModule* default_adm,
-    rtc::scoped_refptr<AudioEncoderFactory> audio_encoder_factory,
-    rtc::scoped_refptr<AudioDecoderFactory> audio_decoder_factory,
-    cricket::WebRtcVideoEncoderFactory* video_encoder_factory,
-    cricket::WebRtcVideoDecoderFactory* video_decoder_factory,
-    rtc::scoped_refptr<AudioMixer> audio_mixer,
-    rtc::scoped_refptr<AudioProcessing> audio_processing);
-
-// Create a new instance of PeerConnectionFactoryInterface with optional
-// external audio mixer, audio processing, and fec controller modules.
-//
-// If |audio_mixer| is null, an internal audio mixer will be created and used.
-// If |audio_processing| is null, an internal audio processing module will be
-// created and used.
-// If |fec_controller_factory| is null, an internal fec controller module will
-// be created and used.
-// If |network_controller_factory| is provided, it will be used if enabled via
-// field trial.
-rtc::scoped_refptr<PeerConnectionFactoryInterface> CreatePeerConnectionFactory(
-    rtc::Thread* network_thread,
-    rtc::Thread* worker_thread,
-    rtc::Thread* signaling_thread,
-    AudioDeviceModule* default_adm,
-    rtc::scoped_refptr<AudioEncoderFactory> audio_encoder_factory,
-    rtc::scoped_refptr<AudioDecoderFactory> audio_decoder_factory,
-    cricket::WebRtcVideoEncoderFactory* video_encoder_factory,
-    cricket::WebRtcVideoDecoderFactory* video_decoder_factory,
-    rtc::scoped_refptr<AudioMixer> audio_mixer,
-    rtc::scoped_refptr<AudioProcessing> audio_processing,
-    std::unique_ptr<FecControllerFactoryInterface> fec_controller_factory,
-    std::unique_ptr<NetworkControllerFactoryInterface>
-        network_controller_factory = nullptr);
-
 // Create a new instance of PeerConnectionFactoryInterface with optional video
 // codec factories. These video factories represents all video codecs, i.e. no
 // extra internal video codecs will be added.
-// When building WebRTC with rtc_use_builtin_sw_codecs = false, this is the
-// only available CreatePeerConnectionFactory overload.
 rtc::scoped_refptr<PeerConnectionFactoryInterface> CreatePeerConnectionFactory(
     rtc::Thread* network_thread,
     rtc::Thread* worker_thread,
@@ -1420,39 +1350,6 @@ rtc::scoped_refptr<PeerConnectionFactoryInterface> CreatePeerConnectionFactory(
     std::unique_ptr<VideoDecoderFactory> video_decoder_factory,
     rtc::scoped_refptr<AudioMixer> audio_mixer,
     rtc::scoped_refptr<AudioProcessing> audio_processing);
-
-// Create a new instance of PeerConnectionFactoryInterface with external audio
-// mixer.
-//
-// If |audio_mixer| is null, an internal audio mixer will be created and used.
-rtc::scoped_refptr<PeerConnectionFactoryInterface>
-CreatePeerConnectionFactoryWithAudioMixer(
-    rtc::Thread* network_thread,
-    rtc::Thread* worker_thread,
-    rtc::Thread* signaling_thread,
-    AudioDeviceModule* default_adm,
-    rtc::scoped_refptr<AudioEncoderFactory> audio_encoder_factory,
-    rtc::scoped_refptr<AudioDecoderFactory> audio_decoder_factory,
-    cricket::WebRtcVideoEncoderFactory* video_encoder_factory,
-    cricket::WebRtcVideoDecoderFactory* video_decoder_factory,
-    rtc::scoped_refptr<AudioMixer> audio_mixer);
-
-// Create a new instance of PeerConnectionFactoryInterface.
-// Same thread is used as worker and network thread.
-inline rtc::scoped_refptr<PeerConnectionFactoryInterface>
-CreatePeerConnectionFactory(
-    rtc::Thread* worker_and_network_thread,
-    rtc::Thread* signaling_thread,
-    AudioDeviceModule* default_adm,
-    rtc::scoped_refptr<AudioEncoderFactory> audio_encoder_factory,
-    rtc::scoped_refptr<AudioDecoderFactory> audio_decoder_factory,
-    cricket::WebRtcVideoEncoderFactory* video_encoder_factory,
-    cricket::WebRtcVideoDecoderFactory* video_decoder_factory) {
-  return CreatePeerConnectionFactory(
-      worker_and_network_thread, worker_and_network_thread, signaling_thread,
-      default_adm, audio_encoder_factory, audio_decoder_factory,
-      video_encoder_factory, video_decoder_factory);
-}
 
 // This is a lower-level version of the CreatePeerConnectionFactory functions
 // above. It's implemented in the "peerconnection" build target, whereas the

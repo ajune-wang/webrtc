@@ -170,18 +170,12 @@ rtc_static_library("rtc_internal_video_codecs") {
     "//third_party/abseil-cpp/absl/memory",
   ]
   sources = [
-    "engine/convert_legacy_video_factory.cc",
-    "engine/convert_legacy_video_factory.h",
     "engine/internaldecoderfactory.cc",
     "engine/internaldecoderfactory.h",
     "engine/internalencoderfactory.cc",
     "engine/internalencoderfactory.h",
     "engine/multiplexcodecfactory.cc",
     "engine/multiplexcodecfactory.h",
-    "engine/scopedvideodecoder.cc",
-    "engine/scopedvideodecoder.h",
-    "engine/scopedvideoencoder.cc",
-    "engine/scopedvideoencoder.h",
     "engine/simulcast_encoder_adapter.cc",
     "engine/simulcast_encoder_adapter.h",
     "engine/vp8_encoder_simulcast_proxy.cc",
@@ -297,9 +291,6 @@ rtc_static_library("rtc_audio_video") {
     deps += [ "../modules/audio_processing/aec_dump:aec_dump_impl" ]
   } else {
     deps += [ "../modules/audio_processing/aec_dump:null_aec_dump_factory" ]
-  }
-  if (rtc_use_builtin_sw_codecs) {
-    deps += [ ":rtc_internal_video_codecs" ]
   }
   deps += [
     ":rtc_constants",

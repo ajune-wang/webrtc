@@ -27,68 +27,6 @@
 
 namespace cricket {
 
-#if defined(USE_BUILTIN_SW_CODECS)
-namespace {
-
-MediaEngineInterface* CreateWebRtcMediaEngine(
-    webrtc::AudioDeviceModule* adm,
-    const rtc::scoped_refptr<webrtc::AudioEncoderFactory>&
-        audio_encoder_factory,
-    const rtc::scoped_refptr<webrtc::AudioDecoderFactory>&
-        audio_decoder_factory,
-    WebRtcVideoEncoderFactory* video_encoder_factory,
-    WebRtcVideoDecoderFactory* video_decoder_factory,
-    rtc::scoped_refptr<webrtc::AudioMixer> audio_mixer,
-    rtc::scoped_refptr<webrtc::AudioProcessing> audio_processing) {
-#ifdef HAVE_WEBRTC_VIDEO
-  typedef WebRtcVideoEngine VideoEngine;
-  std::tuple<std::unique_ptr<WebRtcVideoEncoderFactory>,
-             std::unique_ptr<WebRtcVideoDecoderFactory>>
-      video_args(
-          (std::unique_ptr<WebRtcVideoEncoderFactory>(video_encoder_factory)),
-          (std::unique_ptr<WebRtcVideoDecoderFactory>(video_decoder_factory)));
-#else
-  typedef NullWebRtcVideoEngine VideoEngine;
-  std::tuple<> video_args;
-#endif
-  return new CompositeMediaEngine<WebRtcVoiceEngine, VideoEngine>(
-      std::forward_as_tuple(adm, audio_encoder_factory, audio_decoder_factory,
-                            audio_mixer, audio_processing),
-      std::move(video_args));
-}
-
-}  // namespace
-
-MediaEngineInterface* WebRtcMediaEngineFactory::Create(
-    webrtc::AudioDeviceModule* adm,
-    const rtc::scoped_refptr<webrtc::AudioEncoderFactory>&
-        audio_encoder_factory,
-    const rtc::scoped_refptr<webrtc::AudioDecoderFactory>&
-        audio_decoder_factory,
-    WebRtcVideoEncoderFactory* video_encoder_factory,
-    WebRtcVideoDecoderFactory* video_decoder_factory) {
-  return CreateWebRtcMediaEngine(adm, audio_encoder_factory,
-                                 audio_decoder_factory, video_encoder_factory,
-                                 video_decoder_factory, nullptr,
-                                 webrtc::AudioProcessingBuilder().Create());
-}
-
-MediaEngineInterface* WebRtcMediaEngineFactory::Create(
-    webrtc::AudioDeviceModule* adm,
-    const rtc::scoped_refptr<webrtc::AudioEncoderFactory>&
-        audio_encoder_factory,
-    const rtc::scoped_refptr<webrtc::AudioDecoderFactory>&
-        audio_decoder_factory,
-    WebRtcVideoEncoderFactory* video_encoder_factory,
-    WebRtcVideoDecoderFactory* video_decoder_factory,
-    rtc::scoped_refptr<webrtc::AudioMixer> audio_mixer,
-    rtc::scoped_refptr<webrtc::AudioProcessing> audio_processing) {
-  return CreateWebRtcMediaEngine(
-      adm, audio_encoder_factory, audio_decoder_factory, video_encoder_factory,
-      video_decoder_factory, audio_mixer, audio_processing);
-}
-#endif
-
 std::unique_ptr<MediaEngineInterface> WebRtcMediaEngineFactory::Create(
     rtc::scoped_refptr<webrtc::AudioDeviceModule> adm,
     rtc::scoped_refptr<webrtc::AudioEncoderFactory> audio_encoder_factory,

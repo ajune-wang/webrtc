@@ -41,7 +41,17 @@ class PacketReceiver {
 
   virtual DeliveryStatus DeliverPacket(MediaType media_type,
                                        rtc::CopyOnWriteBuffer packet,
-                                       const PacketTime& packet_time) = 0;
+                                       int64_t packet_time_us) {
+    return DeliverPacket(media_type, packet, PacketTime(packet_time_us, -1));
+  }
+
+  // TODO(bugs.webrtc.org/9584): Deprecated. Over the transition, default
+  // implementations are used, and subclasses must override one or the other.
+  virtual DeliveryStatus DeliverPacket(MediaType media_type,
+                                       rtc::CopyOnWriteBuffer packet,
+                                       const PacketTime& packet_time) {
+    return DeliverPacket(media_type, packet, packet_time.timestamp);
+  }
 
  protected:
   virtual ~PacketReceiver() {}

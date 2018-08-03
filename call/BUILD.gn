@@ -26,6 +26,13 @@ rtc_source_set("call_interfaces") {
   if (!build_with_mozilla) {
     sources += [ "audio_send_stream.cc" ]
   }
+
+  # TODO(bugs.webrtc.org/9584): Temporary, over webtrc::PacketTime
+  # transition.
+  if (!build_with_chromium && is_clang) {
+    # Suppress warnings from the Chromium Clang plugin (bugs.webrtc.org/163).
+    suppressed_configs += [ "//build/config/clang:find_bad_constructs" ]
+  }
   deps = [
     ":rtp_interfaces",
     ":video_stream_api",
@@ -250,6 +257,13 @@ rtc_source_set("fake_network") {
     "fake_network_pipe.cc",
     "fake_network_pipe.h",
   ]
+
+  # TODO(bugs.webrtc.org/9584): Temporary, over webtrc::PacketTime
+  # transition.
+  if (!build_with_chromium && is_clang) {
+    # Suppress warnings from the Chromium Clang plugin (bugs.webrtc.org/163).
+    suppressed_configs += [ "//build/config/clang:find_bad_constructs" ]
+  }
   deps = [
     ":call_interfaces",
     "..:webrtc_common",

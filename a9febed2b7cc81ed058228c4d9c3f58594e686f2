@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aef67a8a_8f98c12d",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1001,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-08-03T14:46:28Z",
+      "side": 1,
+      "message": "Since we are using a map I would suggest we keep an iterator to the current max, that way when iterator expires we can iterate over the remaining elements and point the iterator to the newest max value (instead of just knowing what is the max value). This way you don\u0027t have to find the new max value when a value equal to the current max value expire.",
+      "range": {
+        "startLine": 998,
+        "startChar": 0,
+        "endLine": 1001,
+        "endChar": 5
+      },
+      "revId": "a9febed2b7cc81ed058228c4d9c3f58594e686f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8937af2c_d1ad3abe",
+        "filename": "modules/remote_bitrate_estimator/test/bwe.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-08-03T16:37:17Z",
+      "side": 1,
+      "message": "rtc::dchecked_cast\u003cint\u003e()?",
+      "range": {
+        "startLine": 205,
+        "startChar": 12,
+        "endLine": 205,
+        "endChar": 47
+      },
+      "revId": "935c7bb2420d09432cf723a6d5abd7d0d58f148b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b7bee2fb_4e2fdaf6",
+        "filename": "modules/remote_bitrate_estimator/test/bwe.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-08-03T16:37:17Z",
+      "side": 1,
+      "message": "nit: s/more capable type/an int64_t/ and remove the comment below?",
+      "range": {
+        "startLine": 103,
+        "startChar": 58,
+        "endLine": 103,
+        "endChar": 75
+      },
+      "revId": "935c7bb2420d09432cf723a6d5abd7d0d58f148b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

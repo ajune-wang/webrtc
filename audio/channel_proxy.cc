@@ -76,6 +76,12 @@ void ChannelProxy::SetNACKStatus(bool enable, int max_packets) {
   channel_->SetNACKStatus(enable, max_packets);
 }
 
+void ChannelProxy::SetRtpReceiveHeaderExtensions(
+    const std::vector<RtpExtension> extensions) {
+  RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
+  channel_->SetRtpReceiveHeaderExtensions(extensions);
+}
+
 void ChannelProxy::SetSendAudioLevelIndicationStatus(bool enable, int id) {
   RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
   int error = channel_->SetSendAudioLevelIndicationStatus(enable, id);

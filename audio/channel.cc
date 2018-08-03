@@ -1032,6 +1032,11 @@ int Channel::GetRemoteSSRC(unsigned int& ssrc) {
   return 0;
 }
 
+void Channel::SetRtpReceiveHeaderExtensions(
+    const std::vector<RtpExtension>& extensions) {
+  rtp_receive_header_extensions_ = RtpHeaderExtensionMap(extensions);
+}
+
 int Channel::SetSendAudioLevelIndicationStatus(bool enable, unsigned char id) {
   _includeAudioLevelIndication = enable;
   return SetSendRtpHeaderExtension(enable, kRtpExtensionAudioLevel, id);

@@ -378,6 +378,9 @@ void AudioReceiveStream::ConfigureStream(AudioReceiveStream* stream,
     channel_proxy->SetReceiveCodecs(new_config.decoder_map);
   }
 
+  // RTP Header Extensions.
+  channel_proxy->SetRtpReceiveHeaderExtensions(new_config.rtp.extensions);
+
   stream->config_ = new_config;
 }
 }  // namespace internal

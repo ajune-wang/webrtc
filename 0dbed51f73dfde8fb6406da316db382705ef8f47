@@ -22,6 +22,23 @@
       "revId": "0dbed51f73dfde8fb6406da316db382705ef8f47",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fda5e082_c8e2ece4",
+        "filename": "rtc_base/buffer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-08-03T07:25:31Z",
+      "side": 1,
+      "message": "I\u0027d (D)CHECK(capacity_ \u003e 0) instead. Having a buffer of capacity 0 is silly, and indicates that there\u0027s a logic error elsewhere in the code.\nScanning stackoverflow (https://stackoverflow.com/questions/1087042/c-new-int0-will-it-allocate-memory), I don\u0027t think it\u0027s actually undefined behavior - obj[0] is an out-of-bounds access (and given c++\u0027 antipathy towards bounds checking on raw arrays, will probably return garbage unless ASAN).",
+      "revId": "0dbed51f73dfde8fb6406da316db382705ef8f47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

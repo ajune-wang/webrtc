@@ -403,6 +403,24 @@
       "revId": "14b3f642f638f59f54781dd40c4f4c039468b7e6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "710387b3_ec3717af",
+        "filename": "p2p/base/p2ptransportchannel_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 4599,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-08-03T22:22:22Z",
+      "side": 1,
+      "message": "As we discussed offline, we need tests on the PeerConnection level to verify 1) the AsyncResolverFactory is plumbed down to P2PTransportChannel, and this can be done similarly as the test in peerconnection_integrationtest.cc that verifies the injection of RtcEventLog; 2) an end-to-end test that a candidate with hostname signaled by one endpoint can be added and resolved by the other endpoint, and the two endpoints can connect using a candidate pair with that candidate. The test in peerconnection_integrationtest.cc that checks ICE can connect could be a good starting point.",
+      "parentUuid": "21b5428f_413fe55a",
+      "revId": "14b3f642f638f59f54781dd40c4f4c039468b7e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

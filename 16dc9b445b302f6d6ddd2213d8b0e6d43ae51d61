@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dfbd8a09_a1a9224f",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1015,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-08-03T22:22:22Z",
+      "side": 1,
+      "message": "Maybe add a TODO to remind us that we need to audit other log prints.",
+      "range": {
+        "startLine": 1015,
+        "startChar": 44,
+        "endLine": 1015,
+        "endChar": 61
+      },
+      "revId": "16dc9b445b302f6d6ddd2213d8b0e6d43ae51d61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18bb1a4c_82a8a8b9",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1041,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-08-03T22:22:22Z",
+      "side": 1,
+      "message": "Maybe use HostAsSensitiveURIString instead and also a few places below. ToSensitiveString will show the port.",
+      "range": {
+        "startLine": 1041,
+        "startChar": 51,
+        "endLine": 1041,
+        "endChar": 68
+      },
+      "revId": "16dc9b445b302f6d6ddd2213d8b0e6d43ae51d61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "666939b8_4d2d3dda",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1059,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-08-03T22:22:22Z",
+      "side": 1,
+      "message": "We have lots of log prints like this that show the IP fully or partly using the sensitive version. This is some potential leaking we discussed, and we may need notes on those when we audit them shortly.",
+      "range": {
+        "startLine": 1059,
+        "startChar": 2,
+        "endLine": 1059,
+        "endChar": 56
+      },
+      "revId": "16dc9b445b302f6d6ddd2213d8b0e6d43ae51d61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

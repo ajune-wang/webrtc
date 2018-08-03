@@ -239,7 +239,7 @@ void ScreenshareLayers::OnRatesUpdated(
   layers_[1].target_rate_kbps_ = tl1_kbps;
 }
 
-void ScreenshareLayers::FrameEncoded(unsigned int size, int qp) {
+void ScreenshareLayers::FrameEncoded(uint32_t timestamp, size_t size, int qp) {
   if (size > 0)
     encode_framerate_.Update(1, clock_->TimeInMilliseconds());
 

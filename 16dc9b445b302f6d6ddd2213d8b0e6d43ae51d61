@@ -170,6 +170,24 @@
       "revId": "16dc9b445b302f6d6ddd2213d8b0e6d43ae51d61",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d9eb66bd_ac2c3428",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1072,
+      "author": {
+        "id": 7275
+      },
+      "writtenOn": "2018-08-03T23:28:37Z",
+      "side": 1,
+      "message": "I looked more closely and I think \u003d\u003d will in fact work correctly here. That said, we should still unit test that this works as expected (since it is an important part of the mDNS candidate solution).",
+      "parentUuid": "a6e04184_f5fa7484",
+      "revId": "16dc9b445b302f6d6ddd2213d8b0e6d43ae51d61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

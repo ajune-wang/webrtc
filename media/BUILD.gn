@@ -298,9 +298,6 @@ rtc_static_library("rtc_audio_video") {
   } else {
     deps += [ "../modules/audio_processing/aec_dump:null_aec_dump_factory" ]
   }
-  if (rtc_use_builtin_sw_codecs) {
-    deps += [ ":rtc_internal_video_codecs" ]
-  }
   deps += [
     ":rtc_constants",
     ":rtc_media_base",

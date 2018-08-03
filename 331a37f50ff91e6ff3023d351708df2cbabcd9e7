@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "49e1c401_3d0df3b3",
+        "filename": "api/test/mock_video_bitrate_allocator_factory.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-08-03T08:53:47Z",
+      "side": 1,
+      "message": "There are no tests using this in either this CL or https://webrtc-review.googlesource.com/c/src/+/92320\n...and no further references to either Die() or the proxy as far as I can tell?",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 2
+      },
+      "revId": "331a37f50ff91e6ff3023d351708df2cbabcd9e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "876f78a7_4f65ca15",
+        "filename": "api/video/video_bitrate_allocator_factory.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-08-03T08:53:47Z",
+      "side": 1,
+      "message": "Include self?",
+      "range": {
+        "startLine": 15,
+        "startChar": 46,
+        "endLine": 15,
+        "endChar": 0
+      },
+      "revId": "331a37f50ff91e6ff3023d351708df2cbabcd9e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62136a17_e10bd3df",
+        "filename": "api/video/video_bitrate_allocator_factory.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-08-03T08:53:47Z",
+      "side": 1,
+      "message": "nit: Avoid forward declaration: https://webrtc.googlesource.com/src/+/HEAD/style-guide.md#forward-declarations",
+      "range": {
+        "startLine": 19,
+        "startChar": 17,
+        "endLine": 19,
+        "endChar": 0
+      },
+      "revId": "331a37f50ff91e6ff3023d351708df2cbabcd9e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "49ae5b9c_63760c6f",
+        "filename": "api/video/video_bitrate_allocator_factory.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-08-03T08:53:47Z",
+      "side": 1,
+      "message": "nit: This comment doesn\u0027t add much. Perhaps expand a bit, like how the codec parameter is supposed to be used?",
+      "range": {
+        "startLine": 26,
+        "startChar": 37,
+        "endLine": 26,
+        "endChar": 0
+      },
+      "revId": "331a37f50ff91e6ff3023d351708df2cbabcd9e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -117,7 +117,8 @@ VideoCodec VideoCodecInitializer::VideoEncoderConfigToVideoCodec(
     // screenshare where there is an exception and a simulcast encoder adapter,
     // which supports different framerates, is used instead.
     if (config.content_type != VideoEncoderConfig::ContentType::kScreen) {
-      RTC_DCHECK_EQ(streams[i].max_framerate, streams[0].max_framerate);
+      RTC_DCHECK_EQ(streams[i].max_framerate,
+                    streams[0].max_framerate);  // check
     }
     RTC_DCHECK_GE(streams[i].min_bitrate_bps, 0);
     RTC_DCHECK_GE(streams[i].target_bitrate_bps, streams[i].min_bitrate_bps);

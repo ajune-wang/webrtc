@@ -25,9 +25,6 @@
 #include "call/call.h"
 #include "common_video/h264/profile_level_id.h"
 #include "media/engine/constants.h"
-#if defined(USE_BUILTIN_SW_CODECS)
-#include "media/engine/convert_legacy_video_factory.h"  // nogncheck
-#endif
 #include "media/engine/simulcast.h"
 #include "media/engine/webrtcmediaengine.h"
 #include "media/engine/webrtcvoiceengine.h"
@@ -46,16 +43,6 @@ namespace cricket {
 // webrtc:7925 is fixed.
 class DecoderFactoryAdapter {
  public:
-#if defined(USE_BUILTIN_SW_CODECS)
-  explicit DecoderFactoryAdapter(
-      std::unique_ptr<WebRtcVideoDecoderFactory> external_video_decoder_factory)
-      : cricket_decoder_with_params_(new CricketDecoderWithParams(
-            std::move(external_video_decoder_factory))),
-        decoder_factory_(ConvertVideoDecoderFactory(
-            std::unique_ptr<WebRtcVideoDecoderFactory>(
-                cricket_decoder_with_params_))) {}
-#endif
-
   explicit DecoderFactoryAdapter(
       std::unique_ptr<webrtc::VideoDecoderFactory> video_decoder_factory)
       : cricket_decoder_with_params_(nullptr),
@@ -531,18 +518,6 @@ void DefaultUnsignalledSsrcHandler::SetDefaultSink(
     channel->SetSink(*default_recv_ssrc, default_sink_);
   }
 }
-
-#if defined(USE_BUILTIN_SW_CODECS)
-WebRtcVideoEngine::WebRtcVideoEngine(
-    std::unique_ptr<WebRtcVideoEncoderFactory> external_video_encoder_factory,
-    std::unique_ptr<WebRtcVideoDecoderFactory> external_video_decoder_factory)
-    : decoder_factory_(
-          new DecoderFactoryAdapter(std::move(external_video_decoder_factory))),
-      encoder_factory_(ConvertVideoEncoderFactory(
-          std::move(external_video_encoder_factory))) {
-  RTC_LOG(LS_INFO) << "WebRtcVideoEngine::WebRtcVideoEngine()";
-}
-#endif
 
 WebRtcVideoEngine::WebRtcVideoEngine(
     std::unique_ptr<webrtc::VideoEncoderFactory> video_encoder_factory,

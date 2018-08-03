@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "4bcc0985_1a288537",
+        "filename": "modules/congestion_controller/pcc/utility_function.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 7296
+      },
+      "writtenOn": "2018-08-03T13:10:07Z",
+      "side": 1,
+      "message": "It is easier for testing both utility function and bitrate controller to have separate class. This way I also can mock utility function for bitrate controller tests.",
+      "parentUuid": "3aa1ac93_8b0a85dc",
+      "revId": "ef9c080d2fa97746cd28034407f539a9e8f9b421",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "edbc42cf_ff38f517",
         "filename": "modules/congestion_controller/pcc/utility_function.h",
         "patchSetId": 7
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "5e0d870c_be237327",
+        "filename": "modules/congestion_controller/pcc/utility_function.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 7296
+      },
+      "writtenOn": "2018-08-03T13:10:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "edbc42cf_ff38f517",
+      "range": {
+        "startLine": 22,
+        "startChar": 17,
+        "endLine": 22,
+        "endChar": 39
+      },
+      "revId": "ef9c080d2fa97746cd28034407f539a9e8f9b421",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1582ad02_555b3ec6",
         "filename": "modules/congestion_controller/pcc/utility_function_unittest.cc",
         "patchSetId": 7
@@ -62,6 +104,30 @@
       "revId": "ef9c080d2fa97746cd28034407f539a9e8f9b421",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41a850ac_ddef7eef",
+        "filename": "modules/congestion_controller/pcc/utility_function_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 7296
+      },
+      "writtenOn": "2018-08-03T13:10:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1582ad02_555b3ec6",
+      "range": {
+        "startLine": 61,
+        "startChar": 35,
+        "endLine": 61,
+        "endChar": 54
+      },
+      "revId": "ef9c080d2fa97746cd28034407f539a9e8f9b421",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

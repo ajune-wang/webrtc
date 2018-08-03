@@ -2,6 +2,57 @@
   "comments": [
     {
       "key": {
+        "uuid": "6be3d7b8_626987b7",
+        "filename": "p2p/base/fakeasyncresolver.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 7275
+      },
+      "writtenOn": "2018-08-03T22:45:25Z",
+      "side": 1,
+      "message": "Is this definitely necessary? Generally we try to avoid using threads in fakes to reduce test flakiness.",
+      "revId": "16dc9b445b302f6d6ddd2213d8b0e6d43ae51d61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8fea7375_c171e078",
+        "filename": "p2p/base/fakeasyncresolver.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 7275
+      },
+      "writtenOn": "2018-08-03T22:45:25Z",
+      "side": 1,
+      "message": "Suggest allowing IP addresses to be injected by the test\na) so that the test knows what to check for\nb) to allow simulating IPv4 only, IPv6 only, etc.",
+      "revId": "16dc9b445b302f6d6ddd2213d8b0e6d43ae51d61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee7a56e7_98190a81",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1003,
+      "author": {
+        "id": 7275
+      },
+      "writtenOn": "2018-08-03T22:45:25Z",
+      "side": 1,
+      "message": "suggest breaking this out into a MaybeResolveHostnameCandidate method",
+      "revId": "16dc9b445b302f6d6ddd2213d8b0e6d43ae51d61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dfbd8a09_a1a9224f",
         "filename": "p2p/base/p2ptransportchannel.cc",
         "patchSetId": 4
@@ -48,6 +99,40 @@
     },
     {
       "key": {
+        "uuid": "f2b74903_821af039",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1043,
+      "author": {
+        "id": 7275
+      },
+      "writtenOn": "2018-08-03T22:45:25Z",
+      "side": 1,
+      "message": "You want to call erase() no matter what - suggest doing this before the if statement, and then you don\u0027t need to have 3 .erase() calls.",
+      "revId": "16dc9b445b302f6d6ddd2213d8b0e6d43ae51d61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b0b85be_872771d4",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1048,
+      "author": {
+        "id": 7275
+      },
+      "writtenOn": "2018-08-03T22:45:25Z",
+      "side": 1,
+      "message": "This logic won\u0027t work if you are IPv4 only and there is an AAAA DNS record for the candidate. I\u0027m not sure what the right solution is here, other than maybe adding a comment to help ensure that we handle this as part of the ICE DNS spec discussions.",
+      "revId": "16dc9b445b302f6d6ddd2213d8b0e6d43ae51d61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "666939b8_4d2d3dda",
         "filename": "p2p/base/p2ptransportchannel.cc",
         "patchSetId": 4
@@ -65,6 +150,23 @@
         "endLine": 1059,
         "endChar": 56
       },
+      "revId": "16dc9b445b302f6d6ddd2213d8b0e6d43ae51d61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6e04184_f5fa7484",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1072,
+      "author": {
+        "id": 7275
+      },
+      "writtenOn": "2018-08-03T22:45:25Z",
+      "side": 1,
+      "message": "I don\u0027t think this logic is going to work properly, because the    \n|remote_candidate_.address() \u003d\u003d new_candidate.address()| test in this function will fail (IIRC).\n\nI think you\u0027re going to want to unit test this, e.g.:\n1) Add a remote candidate of a.com:5000 (resolution starts)\n2) Add a prflx remote candidate of 1.1.1.1:5000 (from a STUN ping)\n3) Resolution completes, this function is called\n4) Should result in a single remote candidate, e.g. a.com:5000 only, not a.com:5000 and 1.1.1.1:5000.",
       "revId": "16dc9b445b302f6d6ddd2213d8b0e6d43ae51d61",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

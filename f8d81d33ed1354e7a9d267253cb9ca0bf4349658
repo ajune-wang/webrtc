@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4d33043a_7d53aa9c",
+        "filename": "modules/rtp_rtcp/source/rtp_video_header.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-06T09:12:28Z",
+      "side": 1,
+      "message": "could be nice to treat these two memebers same as other - initialized in the header.\nIf they have explicit default constructors, just remove calling it here.\nIf they do not, I think you can use brace initialization: \n...\nPlayoutDelay ploayout_delay \u003d {};",
+      "range": {
+        "startLine": 15,
+        "startChar": 35,
+        "endLine": 15,
+        "endChar": 66
+      },
+      "revId": "f8d81d33ed1354e7a9d267253cb9ca0bf4349658",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

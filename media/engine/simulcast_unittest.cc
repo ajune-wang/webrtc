@@ -10,6 +10,7 @@
 
 #include "media/engine/simulcast.h"
 
+#include "media/base/mediaconstants.h"
 #include "media/engine/constants.h"
 #include "test/field_trial.h"
 #include "test/gtest.h"

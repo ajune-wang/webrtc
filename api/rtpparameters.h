@@ -417,7 +417,10 @@ struct RtpEncodingParameters {
   // TODO(asapersson): Not implemented for ORTC API.
   absl::optional<int> min_bitrate_bps;
 
-  // TODO(deadbeef): Not implemented.
+  // TODO(asapersson): Partially implemented.
+  // Different framerates are not supported per stream for video.
+  // If set, the maximum |max_framerate| is currently used.
+  // Not supported for screencast.
   absl::optional<int> max_framerate;
 
   // For video, scale the resolution down by this factor.

@@ -96,6 +96,7 @@ class SimulatedNetwork : public NetworkSimulationInterface {
 
   // Sets a new configuration. This won't affect packets already in the pipe.
   void SetConfig(const Config& config);
+  void DelayUntil(int64_t until_us);
 
   // NetworkSimulationInterface
   bool EnqueuePacket(PacketInFlightInfo packet) override;
@@ -110,7 +111,6 @@ class SimulatedNetwork : public NetworkSimulationInterface {
     int64_t arrival_time_us;
   };
   rtc::CriticalSection config_lock_;
-
   // |process_lock| guards the data structures involved in delay and loss
   // processes, such as the packet queues.
   rtc::CriticalSection process_lock_;
@@ -121,6 +121,7 @@ class SimulatedNetwork : public NetworkSimulationInterface {
 
   // Link configuration.
   Config config_ RTC_GUARDED_BY(config_lock_);
+  absl::optional<int64_t> delay_until_us_ RTC_GUARDED_BY(config_lock_);
 
   // Are we currently dropping a burst of packets?
   bool bursting_;

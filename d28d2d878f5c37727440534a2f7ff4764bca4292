@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "42359e18_48c8adac",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1833,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-08-06T10:01:54Z",
+      "side": 1,
+      "message": "This seems unused. What\u0027s the new behavior; does it plot for one arbitrary ssrc or does it merge  playouts for all streams? Also, please update the comment above.",
+      "range": {
+        "startLine": 1833,
+        "startChar": 4,
+        "endLine": 1833,
+        "endChar": 17
+      },
+      "revId": "d28d2d878f5c37727440534a2f7ff4764bca4292",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

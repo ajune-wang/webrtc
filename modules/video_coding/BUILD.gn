@@ -356,9 +356,11 @@ rtc_static_library("webrtc_multiplex") {
     "codecs/multiplex/include/multiplex_decoder_adapter.h",
     "codecs/multiplex/include/multiplex_encoded_image_packer.h",
     "codecs/multiplex/include/multiplex_encoder_adapter.h",
+    "codecs/multiplex/include/multiplex_video_frame_buffer.h",
     "codecs/multiplex/multiplex_decoder_adapter.cc",
     "codecs/multiplex/multiplex_encoded_image_packer.cc",
     "codecs/multiplex/multiplex_encoder_adapter.cc",
+    "codecs/multiplex/multiplex_video_frame_buffer.cc",
   ]
 
   if (!build_with_chromium && is_clang) {

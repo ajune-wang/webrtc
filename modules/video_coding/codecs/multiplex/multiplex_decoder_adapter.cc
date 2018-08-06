@@ -9,6 +9,7 @@
  */
 
 #include "modules/video_coding/codecs/multiplex/include/multiplex_decoder_adapter.h"
+#include "modules/video_coding/codecs/multiplex/include/multiplex_video_frame_buffer.h"
 
 #include "api/video/i420_buffer.h"
 #include "api/video/video_frame_buffer.h"
@@ -81,8 +82,9 @@ struct MultiplexDecoderAdapter::DecodedImageData {
 
 MultiplexDecoderAdapter::MultiplexDecoderAdapter(
     VideoDecoderFactory* factory,
-    const SdpVideoFormat& associated_format)
-    : factory_(factory), associated_format_(associated_format) {}
+    const SdpVideoFormat& associated_format,
+    bool supports_augmenting_data)
+    : factory_(factory), associated_format_(associated_format), supports_augmenting_data_(supports_augmenting_data) {}
 
 MultiplexDecoderAdapter::~MultiplexDecoderAdapter() {
   Release();
@@ -115,6 +117,15 @@ int32_t MultiplexDecoderAdapter::Decode(
     int64_t render_time_ms) {
   const MultiplexImage& image =
       MultiplexEncodedImagePacker::Unpack(input_image);
+  
+  if (supports_augmenting_data_) {
+    RTC_DCHECK(decoded_augmenting_data_.find(input_image._timeStamp) ==
+               decoded_augmenting_data_.end());
+    uint8_t * augmenting_data = new uint8_t[image.augmenting_data_size];
+    memcpy(augmenting_data, image.augmenting_data, image.augmenting_data_size);
+    decoded_augmenting_data_.emplace(input_image._timeStamp, augmenting_data);
+    decoded_augmenting_data_length_.emplace(input_image._timeStamp, image.augmenting_data_size);
+  }
 
   if (image.component_count == 1) {
     RTC_DCHECK(decoded_data_.find(input_image._timeStamp) ==
@@ -157,21 +168,31 @@ void MultiplexDecoderAdapter::Decoded(AlphaCodecStream stream_idx,
                                       absl::optional<uint8_t> qp) {
   const auto& other_decoded_data_it =
       decoded_data_.find(decoded_image->timestamp());
+  const auto& augmenting_data_it = decoded_augmenting_data_.find(decoded_image->timestamp());
+  const auto& augmenting_data_length_it = decoded_augmenting_data_length_.find(decoded_image->timestamp());
+  uint16_t data_size = augmenting_data_length_it == decoded_augmenting_data_length_.end() ? 0 : augmenting_data_length_it->second;
+  uint8_t* data = data_size == 0 ? NULL : augmenting_data_it->second;
   if (other_decoded_data_it != decoded_data_.end()) {
     auto& other_image_data = other_decoded_data_it->second;
     if (stream_idx == kYUVStream) {
       RTC_DCHECK_EQ(kAXXStream, other_image_data.stream_idx_);
       MergeAlphaImages(decoded_image, decode_time_ms, qp,
                        &other_image_data.decoded_image_,
-                       other_image_data.decode_time_ms_, other_image_data.qp_);
+                       other_image_data.decode_time_ms_, other_image_data.qp_,
+                       data, data_size);
     } else {
       RTC_DCHECK_EQ(kYUVStream, other_image_data.stream_idx_);
       RTC_DCHECK_EQ(kAXXStream, stream_idx);
       MergeAlphaImages(&other_image_data.decoded_image_,
                        other_image_data.decode_time_ms_, other_image_data.qp_,
-                       decoded_image, decode_time_ms, qp);
+                       decoded_image, decode_time_ms, qp,
+                       data, data_size);
     }
     decoded_data_.erase(decoded_data_.begin(), other_decoded_data_it);
+    if (supports_augmenting_data_) {
+      decoded_augmenting_data_.erase(decoded_augmenting_data_.begin(), augmenting_data_it);
+      decoded_augmenting_data_length_.erase(decoded_augmenting_data_length_.begin(), augmenting_data_length_it);
+    }
     return;
   }
   RTC_DCHECK(decoded_data_.find(decoded_image->timestamp()) ==
@@ -188,25 +209,32 @@ void MultiplexDecoderAdapter::MergeAlphaImages(
     const absl::optional<uint8_t>& qp,
     VideoFrame* alpha_decoded_image,
     const absl::optional<int32_t>& alpha_decode_time_ms,
-    const absl::optional<uint8_t>& alpha_qp) {
+    const absl::optional<uint8_t>& alpha_qp,
+    uint8_t* augmenting_data,
+    uint16_t augmenting_data_length) {
+  rtc::scoped_refptr<VideoFrameBuffer> merged_buffer;
   if (!alpha_decoded_image->timestamp()) {
-    decoded_complete_callback_->Decoded(*decoded_image, decode_time_ms, qp);
-    return;
+    merged_buffer = decoded_image->video_frame_buffer();
+  } else {
+    rtc::scoped_refptr<webrtc::I420BufferInterface> yuv_buffer =
+        decoded_image->video_frame_buffer()->ToI420();
+    rtc::scoped_refptr<webrtc::I420BufferInterface> alpha_buffer =
+        alpha_decoded_image->video_frame_buffer()->ToI420();
+    RTC_DCHECK_EQ(yuv_buffer->width(), alpha_buffer->width());
+    RTC_DCHECK_EQ(yuv_buffer->height(), alpha_buffer->height());
+    merged_buffer = WrapI420ABuffer(
+        yuv_buffer->width(), yuv_buffer->height(), yuv_buffer->DataY(),
+        yuv_buffer->StrideY(), yuv_buffer->DataU(), yuv_buffer->StrideU(),
+        yuv_buffer->DataV(), yuv_buffer->StrideV(), alpha_buffer->DataY(),
+        alpha_buffer->StrideY(),
+        rtc::Bind(&KeepBufferRefs, yuv_buffer, alpha_buffer));
+
   }
-
-  rtc::scoped_refptr<webrtc::I420BufferInterface> yuv_buffer =
-      decoded_image->video_frame_buffer()->ToI420();
-  rtc::scoped_refptr<webrtc::I420BufferInterface> alpha_buffer =
-      alpha_decoded_image->video_frame_buffer()->ToI420();
-  RTC_DCHECK_EQ(yuv_buffer->width(), alpha_buffer->width());
-  RTC_DCHECK_EQ(yuv_buffer->height(), alpha_buffer->height());
-  rtc::scoped_refptr<I420ABufferInterface> merged_buffer = WrapI420ABuffer(
-      yuv_buffer->width(), yuv_buffer->height(), yuv_buffer->DataY(),
-      yuv_buffer->StrideY(), yuv_buffer->DataU(), yuv_buffer->StrideU(),
-      yuv_buffer->DataV(), yuv_buffer->StrideV(), alpha_buffer->DataY(),
-      alpha_buffer->StrideY(),
-      rtc::Bind(&KeepBufferRefs, yuv_buffer, alpha_buffer));
-
+  if (supports_augmenting_data_) {
+    merged_buffer = rtc::scoped_refptr<webrtc::MultiplexVideoFrameBuffer>(
+        new rtc::RefCountedObject<MultiplexVideoFrameBuffer>(merged_buffer, augmenting_data, augmenting_data_length));
+  }
+    
   VideoFrame merged_image(merged_buffer, decoded_image->timestamp(),
                           0 /* render_time_ms */, decoded_image->rotation());
   decoded_complete_callback_->Decoded(merged_image, decode_time_ms, qp);

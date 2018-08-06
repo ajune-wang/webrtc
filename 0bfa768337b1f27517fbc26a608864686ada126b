@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e4d607e2_d1c0f28f",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-06T14:54:37Z",
+      "side": 1,
+      "message": "See cl https://webrtc-review.googlesource.com/c/src/+/92621/1",
+      "range": {
+        "startLine": 301,
+        "startChar": 11,
+        "endLine": 302,
+        "endChar": 78
+      },
+      "revId": "0bfa768337b1f27517fbc26a608864686ada126b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

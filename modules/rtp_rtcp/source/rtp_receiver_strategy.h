@@ -40,22 +40,6 @@ class RTPReceiverStrategy {
                                  size_t payload_length,
                                  int64_t timestamp_ms) = 0;
 
-  // Computes the current dead-or-alive state.
-  virtual RTPAliveType ProcessDeadOrAlive(
-      uint16_t last_payload_length) const = 0;
-
-  // Notifies the strategy that we have created a new non-RED audio payload type
-  // in the payload registry.
-  virtual int32_t OnNewPayloadTypeCreated(
-      int payload_type,
-      const SdpAudioFormat& audio_format) = 0;
-
-  // Checks if the payload type has changed, and returns whether we should
-  // reset statistics and/or discard this packet.
-  virtual void CheckPayloadChanged(int8_t payload_type,
-                                   PayloadUnion* specific_payload,
-                                   bool* should_discard_changes);
-
  protected:
   // The data callback is where we should send received payload data.
   // See ParseRtpPacket. This class does not claim ownership of the callback.

@@ -46,12 +46,6 @@ class RtpReceiver {
   // Deprecated version of the above.
   int32_t RegisterReceivePayload(const CodecInst& audio_codec);
 
-  // Registers a receive payload in the payload registry.
-  virtual int32_t RegisterReceivePayload(const VideoCodec& video_codec) = 0;
-
-  // De-registers |payload_type| from the payload registry.
-  virtual int32_t DeRegisterReceivePayload(const int8_t payload_type) = 0;
-
   // Parses the media specific parts of an RTP packet and updates the receiver
   // state. This for instance means that any changes in SSRC and payload type is
   // detected and acted upon.

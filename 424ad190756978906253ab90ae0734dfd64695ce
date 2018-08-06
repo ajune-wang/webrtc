@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ca359c3d_28ea0be2",
+        "filename": "modules/rtp_rtcp/source/rtp_payload_registry.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-06T10:41:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "090128ca_2062bcca",
+      "range": {
+        "startLine": 94,
+        "startChar": 43,
+        "endLine": 95,
+        "endChar": 0
+      },
+      "revId": "424ad190756978906253ab90ae0734dfd64695ce",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0c70b4c0_e9054c09",
         "filename": "modules/rtp_rtcp/source/rtp_receiver_impl.h",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2018-08-06T10:16:45Z",
       "side": 1,
       "message": "is it used? (signature is changed, but I do not see any changed code that uses it)",
+      "range": {
+        "startLine": 69,
+        "startChar": 59,
+        "endLine": 69,
+        "endChar": 0
+      },
+      "revId": "424ad190756978906253ab90ae0734dfd64695ce",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c64654e_77658dd8",
+        "filename": "modules/rtp_rtcp/source/rtp_receiver_impl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-06T10:41:46Z",
+      "side": 1,
+      "message": "Good catch. Declaration of the method is a left over, deleting it now.",
+      "parentUuid": "0c70b4c0_e9054c09",
       "range": {
         "startLine": 69,
         "startChar": 59,

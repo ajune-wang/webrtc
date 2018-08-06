@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "74bba475_95d190a8",
+        "filename": "modules/video_capture/video_capture_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2018-08-06T10:23:58Z",
+      "side": 1,
+      "message": "nit: no need to use abs here too.",
+      "range": {
+        "startLine": 166,
+        "startChar": 24,
+        "endLine": 166,
+        "endChar": 37
+      },
+      "revId": "1d07981dc6b4b295a9b1f44146a72c7e815f05f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

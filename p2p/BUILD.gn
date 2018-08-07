@@ -123,11 +123,16 @@ if (rtc_include_tests) {
   rtc_source_set("p2p_test_utils") {
     testonly = true
     sources = [
+      "base/fakeasyncresolver.cc",
+      "base/fakeasyncresolver.h",
+      "base/fakeasyncresolverfactory.cc",
+      "base/fakeasyncresolverfactory.h",
       "base/fakecandidatepair.h",
       "base/fakedtlstransport.h",
       "base/fakeicetransport.h",
       "base/fakepackettransport.h",
       "base/fakeportallocator.h",
+      "base/mockasyncresolver.h",
       "base/mockicetransport.h",
       "base/testrelayserver.h",
       "base/teststunserver.cc",

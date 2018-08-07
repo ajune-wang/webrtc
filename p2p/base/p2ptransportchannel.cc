@@ -24,6 +24,7 @@
 #include "rtc_base/crc32.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/nethelper.h"
+#include "rtc_base/nethelpers.h"
 #include "rtc_base/stringencode.h"
 #include "rtc_base/timeutils.h"
 #include "system_wrappers/include/field_trial.h"
@@ -154,6 +155,10 @@ P2PTransportChannel::P2PTransportChannel(
 }
 
 P2PTransportChannel::~P2PTransportChannel() {
+  for (auto& p : resolvers_) {
+    p.resolver_->Destroy(false);
+    p.resolver_ = nullptr;
+  }
   RTC_DCHECK(network_thread_ == rtc::Thread::Current());
 }
 
@@ -994,6 +999,75 @@ void P2PTransportChannel::AddRemoteCandidate(const Candidate& candidate) {
     }
   }
 
+  if (candidate.address().IsUnresolvedIP()) {
+    if (!async_resolver_factory_) {
+      RTC_LOG(LS_WARNING) << "Dropping ICE candidate with hostname address "
+                          << "(no AsyncResolverFactory)";
+      return;
+    }
+
+    rtc::AsyncResolverInterface* resolver = async_resolver_factory_->Create();
+    resolver->SignalDone.connect(this,
+                                 &P2PTransportChannel::OnCandidateResolved);
+    // TODO(zstein): Calling this from the network thread currently aborts in
+    // SignalThread::Start
+    resolver->Start(candidate.address());
+    resolvers_.emplace_back(new_remote_candidate, resolver);
+    RTC_LOG(LS_INFO) << "Asynchronously resolving ICE candidate hostname "
+                     << candidate.address().ToSensitiveString();
+    return;
+  }
+
+  FinishAddingRemoteCandidate(new_remote_candidate);
+}
+
+P2PTransportChannel::CandidateAndResolver::CandidateAndResolver(
+    const Candidate& candidate,
+    rtc::AsyncResolverInterface* resolver)
+    : candidate_(candidate), resolver_(resolver) {}
+
+P2PTransportChannel::CandidateAndResolver::~CandidateAndResolver() {}
+
+void P2PTransportChannel::OnCandidateResolved(
+    rtc::AsyncResolverInterface* resolver) {
+  auto p = std::find_if(resolvers_.begin(), resolvers_.end(),
+                        [resolver](const CandidateAndResolver& cr) {
+                          return cr.resolver_ == resolver;
+                        });
+  if (p == resolvers_.end()) {
+    RTC_NOTREACHED();
+    return;
+  }
+  if (resolver->GetError()) {
+    RTC_LOG(LS_WARNING) << "Failed to resolve ICE candidate hostname "
+                        << p->candidate_.address().ToSensitiveString()
+                        << " with error " << resolver->GetError();
+    resolvers_.erase(p);
+    return;
+  }
+
+  rtc::SocketAddress resolved_address;
+  bool have_address =
+      resolver->GetResolvedAddress(AF_INET6, &resolved_address) ||
+      resolver->GetResolvedAddress(AF_INET, &resolved_address);
+  if (!have_address) {
+    RTC_LOG(LS_INFO) << "ICE candidate hostname "
+                     << p->candidate_.address().ToSensitiveString()
+                     << " could not be resolved";
+    resolvers_.erase(p);
+    return;
+  }
+
+  RTC_LOG(LS_INFO) << "Resolved ICE candidate hostname "
+                   << p->candidate_.address().HostAsSensitiveURIString()
+                   << " to " << resolved_address.ipaddr().ToSensitiveString();
+  p->candidate_.set_address(resolved_address);
+  FinishAddingRemoteCandidate(p->candidate_);
+  resolvers_.erase(p);
+}
+
+void P2PTransportChannel::FinishAddingRemoteCandidate(
+    const Candidate& new_remote_candidate) {
   // If this candidate matches what was thought to be a peer reflexive
   // candidate, we need to update the candidate priority/etc.
   for (Connection* conn : connections_) {

@@ -38,6 +38,8 @@
 #include "media/engine/fakewebrtcvideoengine.h"
 #include "media/engine/webrtcmediaengine.h"
 #include "modules/audio_processing/include/audio_processing.h"
+#include "p2p/base/fakeasyncresolverfactory.h"
+#include "p2p/base/mockasyncresolver.h"
 #include "p2p/base/p2pconstants.h"
 #include "p2p/base/portinterface.h"
 #include "p2p/base/teststunserver.h"
@@ -75,7 +77,10 @@ using cricket::StreamParams;
 using rtc::SocketAddress;
 using ::testing::Combine;
 using ::testing::ElementsAre;
+using ::testing::Return;
+using ::testing::SetArgPointee;
 using ::testing::Values;
+using ::testing::_;
 using webrtc::DataBuffer;
 using webrtc::DataChannelInterface;
 using webrtc::DtmfSender;
@@ -288,6 +293,12 @@ class PeerConnectionWrapper : public webrtc::PeerConnectionObserver,
   // PeerConnection state before an answer is created and sent to the caller.
   void SetRemoteOfferHandler(std::function<void()> handler) {
     remote_offer_handler_ = std::move(handler);
+  }
+
+  void SetLocalIceCandidateMutator(
+      std::function<std::unique_ptr<webrtc::IceCandidateInterface>(
+          const webrtc::IceCandidateInterface*)> mutator) {
+    local_ice_candidate_mutator_ = mutator;
   }
 
   // Every ICE connection state in order that has been seen by the observer.
@@ -910,13 +921,36 @@ class PeerConnectionWrapper : public webrtc::PeerConnectionObserver,
   void OnIceCandidate(const webrtc::IceCandidateInterface* candidate) override {
     RTC_LOG(LS_INFO) << debug_name_ << ": OnIceCandidate";
 
+    std::unique_ptr<webrtc::IceCandidateInterface> owned_candidate;
+    const webrtc::IceCandidateInterface* new_candidate;
+    if (local_ice_candidate_mutator_) {
+      std::string candidate_string;
+      candidate->ToString(&candidate_string);
+
+      owned_candidate = local_ice_candidate_mutator_(candidate);
+      if (!owned_candidate) {
+        RTC_LOG(LS_INFO) << "LocalIceCandidateMutator dropped \""
+                         << candidate_string << "\"";
+        return;
+      }
+      new_candidate = owned_candidate.get();
+      std::string new_candidate_string;
+      new_candidate->ToString(&new_candidate_string);
+      RTC_LOG(LS_INFO) << "LocalIceCandidateMutator changed \""
+                       << candidate_string << "\" to \"" << new_candidate_string
+                       << "\"";
+    } else {
+      new_candidate = candidate;
+    }
+
     std::string ice_sdp;
-    EXPECT_TRUE(candidate->ToString(&ice_sdp));
+    EXPECT_TRUE(new_candidate->ToString(&ice_sdp));
     if (signaling_message_receiver_ == nullptr || !signal_ice_candidates_) {
       // Remote party may be deleted.
       return;
     }
-    SendIceMessage(candidate->sdp_mid(), candidate->sdp_mline_index(), ice_sdp);
+    SendIceMessage(new_candidate->sdp_mid(), new_candidate->sdp_mline_index(),
+                   ice_sdp);
   }
   void OnDataChannel(
       rtc::scoped_refptr<DataChannelInterface> data_channel) override {
@@ -960,7 +994,9 @@ class PeerConnectionWrapper : public webrtc::PeerConnectionObserver,
   std::function<void(cricket::SessionDescription*)> received_sdp_munger_;
   std::function<void(cricket::SessionDescription*)> generated_sdp_munger_;
   std::function<void()> remote_offer_handler_;
-
+  std::function<std::unique_ptr<webrtc::IceCandidateInterface>(
+      const webrtc::IceCandidateInterface*)>
+      local_ice_candidate_mutator_;
   rtc::scoped_refptr<DataChannelInterface> data_channel_;
   std::unique_ptr<MockDataChannelObserver> data_observer_;
 
@@ -3322,6 +3358,73 @@ TEST_P(PeerConnectionIntegrationTest, IceStatesReachCompletion) {
   // TODO(deadbeef): Currently, the ICE "controlled" agent (the
   // answerer/"callee" by default) only reaches "connected". When this is
   // fixed, this test should be updated.
+  EXPECT_EQ_WAIT(webrtc::PeerConnectionInterface::kIceConnectionCompleted,
+                 caller()->ice_connection_state(), kDefaultTimeout);
+  EXPECT_EQ_WAIT(webrtc::PeerConnectionInterface::kIceConnectionConnected,
+                 callee()->ice_connection_state(), kDefaultTimeout);
+}
+
+std::function<std::unique_ptr<webrtc::IceCandidateInterface>(
+    const webrtc::IceCandidateInterface*)>
+GenLocalIceCandidateMutator(const SocketAddress& new_address,
+                            SocketAddress* original_address,
+                            rtc::MockAsyncResolver* mock_async_resolver) {
+  return [original_address, new_address,
+          mock_async_resolver](const webrtc::IceCandidateInterface* candidate) {
+    if (original_address->IsNil()) {
+      cricket::Candidate new_candidate(candidate->candidate());
+      *original_address = new_candidate.address();
+      new_candidate.set_address(new_address);
+      EXPECT_CALL(*mock_async_resolver, GetResolvedAddress(_, _))
+          .WillOnce(DoAll(SetArgPointee<1>(*original_address), Return(true)));
+      return webrtc::CreateIceCandidate(
+          candidate->sdp_mid(), candidate->sdp_mline_index(), new_candidate);
+    } else {
+      return std::unique_ptr<webrtc::IceCandidateInterface>();
+    }
+  };
+}
+
+// TODO(zstein): Finish.
+// out/Default/peerconnection_unittests
+// --gtest_filter="PeerConnectionIntegrationTest*.IceStatesReachCompletion/0"
+
+// Replace the first caller ICE candidate IP with a fake hostname and drop the
+// other candidates. Drop all candidates on the callee side (to avoid a prflx
+// connection). Use a mock resolver to resolve the hostname back to the original
+// IP on the callee side and check that the ice connection connects.
+TEST_P(PeerConnectionIntegrationTest, IceWithRemoteHostnameCompletes) {
+  webrtc::PeerConnectionDependencies callee_deps(nullptr);
+  webrtc::MockAsyncResolverFactory* callee_mock_async_resolver_factory;
+  {
+    auto callee_async_resolver_factory =
+        absl::make_unique<webrtc::MockAsyncResolverFactory>();
+    callee_mock_async_resolver_factory = callee_async_resolver_factory.get();
+    callee_deps.async_resolver_factory =
+        std::move(callee_async_resolver_factory);
+  }
+  // TODO(zstein): Make sure this gets deleted.
+  rtc::MockAsyncResolver* mock_async_resolver = new rtc::MockAsyncResolver;
+  EXPECT_CALL(*callee_mock_async_resolver_factory, Create())
+      .WillOnce(Return(mock_async_resolver));
+
+  ASSERT_TRUE(CreatePeerConnectionWrappersWithConfigAndDeps(
+      RTCConfiguration(), webrtc::PeerConnectionDependencies(nullptr),
+      RTCConfiguration(), std::move(callee_deps)));
+
+  ConnectFakeSignaling();
+  // TODO(zstein): This can be private to GenLocalIceCandidateMutator if we
+  // continue to pass in mock_async_resolver.
+  SocketAddress caller_original_address;
+  caller()->SetLocalIceCandidateMutator(GenLocalIceCandidateMutator(
+      SocketAddress("a.b", 10000), &caller_original_address,
+      mock_async_resolver));
+  callee()->SetLocalIceCandidateMutator(
+      [](const webrtc::IceCandidateInterface*) { return nullptr; });
+  caller()->AddAudioVideoTracks();
+  callee()->AddAudioVideoTracks();
+  caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
   EXPECT_EQ_WAIT(webrtc::PeerConnectionInterface::kIceConnectionCompleted,
                  caller()->ice_connection_state(), kDefaultTimeout);
   EXPECT_EQ_WAIT(webrtc::PeerConnectionInterface::kIceConnectionConnected,

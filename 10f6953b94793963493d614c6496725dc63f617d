@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c2ae80ec_0f6b4c8d",
+        "filename": "call/fake_network_pipe.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-08-07T16:13:07Z",
+      "side": 1,
+      "message": "Could the name be made clearer? Maybe PauseTransmissionUntil?",
+      "range": {
+        "startLine": 99,
+        "startChar": 7,
+        "endLine": 99,
+        "endChar": 17
+      },
+      "revId": "10f6953b94793963493d614c6496725dc63f617d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

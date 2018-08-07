@@ -39,10 +39,12 @@ uint8_t NumTemporalLayers(const VideoCodec& codec, int spatial_id) {
 }
 
 bool IsConferenceModeScreenshare(const VideoCodec& codec) {
-  if (codec.mode != VideoCodecMode::kScreensharing) {
+  if (codec.mode != VideoCodecMode::kScreensharing ||
+      NumTemporalLayers(codec, 0) != 2) {
     return false;
   }
-  return NumTemporalLayers(codec, 0) == 2;
+  // Fixed default bitrates for legacy screenshare layers mode.
+  return codec.maxBitrate == 1000 && codec.targetBitrate == 200;
 }
 }  // namespace
 

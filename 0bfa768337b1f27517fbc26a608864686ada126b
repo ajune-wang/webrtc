@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "687d3a02_0a08978b",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-08-07T14:14:54Z",
+      "side": 1,
+      "message": "I just remember I had to touch RtpPayloadRegistry when adding support for H264 High Profile, and that the code was kind of messy. Most of the bad code was there for a good reason though, so be careful removing things even when they look unnecessary.",
+      "parentUuid": "991d3973_75274eb1",
+      "range": {
+        "startLine": 169,
+        "startChar": 0,
+        "endLine": 170,
+        "endChar": 31
+      },
+      "revId": "0bfa768337b1f27517fbc26a608864686ada126b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e4d607e2_d1c0f28f",
         "filename": "video/rtp_video_stream_receiver.cc",
         "patchSetId": 5

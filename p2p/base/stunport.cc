@@ -168,6 +168,7 @@ UDPPort::UDPPort(rtc::Thread* thread,
       error_(0),
       ready_(false),
       stun_keepalive_delay_(STUN_KEEPALIVE_INTERVAL),
+      dscp_(rtc::DSCP_NO_CHANGE),
       emit_local_for_anyaddress_(emit_local_for_anyaddress) {
   requests_.set_origin(origin);
 }
@@ -194,6 +195,7 @@ UDPPort::UDPPort(rtc::Thread* thread,
       error_(0),
       ready_(false),
       stun_keepalive_delay_(STUN_KEEPALIVE_INTERVAL),
+      dscp_(rtc::DSCP_NO_CHANGE),
       emit_local_for_anyaddress_(emit_local_for_anyaddress) {
   requests_.set_origin(origin);
 }
@@ -281,7 +283,14 @@ void UDPPort::UpdateNetworkCost() {
   stun_keepalive_lifetime_ = GetStunKeepaliveLifetime();
 }
 
+rtc::DiffServCodePoint UDPPort::DefaultDscpValue() const {
+  return dscp_;
+}
+
 int UDPPort::SetOption(rtc::Socket::Option opt, int value) {
+  if (opt == rtc::AsyncSocket::OPT_DSCP) {
+    dscp_ = static_cast<rtc::DiffServCodePoint>(value);
+  }
   return socket_->SetOption(opt, value);
 }
 

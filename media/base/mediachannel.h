@@ -237,6 +237,10 @@ class MediaChannel : public sigslot::has_slots<> {
     return network_interface_->SetOption(type, opt, option);
   }
 
+  bool DscpEnabled() const {
+    return enable_dscp_;
+  }
+
  private:
   // This method sets DSCP |value| on both RTP and RTCP channels.
   int SetDscp(rtc::DiffServCodePoint value) {

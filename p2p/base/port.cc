@@ -633,6 +633,11 @@ bool Port::IsCompatibleAddress(const rtc::SocketAddress& addr) {
   return true;
 }
 
+rtc::DiffServCodePoint Port::DefaultDscpValue() const {
+  // No change from what MediaChannel set.
+  return rtc::DSCP_NO_CHANGE;
+}
+
 bool Port::ParseStunUsername(const StunMessage* stun_msg,
                              std::string* local_ufrag,
                              std::string* remote_ufrag) const {

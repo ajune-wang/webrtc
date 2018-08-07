@@ -5502,17 +5502,6 @@ RTCErrorOr<const cricket::ContentGroup*> PeerConnection::GetEarlyBundleGroup(
 RTCError PeerConnection::CreateChannels(const SessionDescription& desc) {
   // Creating the media channels. Transports should already have been created
   // at this point.
-  const cricket::ContentInfo* voice = cricket::GetFirstAudioContent(&desc);
-  if (voice && !voice->rejected &&
-      !GetAudioTransceiver()->internal()->channel()) {
-    cricket::VoiceChannel* voice_channel = CreateVoiceChannel(voice->name);
-    if (!voice_channel) {
-      LOG_AND_RETURN_ERROR(RTCErrorType::INTERNAL_ERROR,
-                           "Failed to create voice channel.");
-    }
-    GetAudioTransceiver()->internal()->SetChannel(voice_channel);
-  }
-
   const cricket::ContentInfo* video = cricket::GetFirstVideoContent(&desc);
   if (video && !video->rejected &&
       !GetVideoTransceiver()->internal()->channel()) {
@@ -5522,6 +5511,17 @@ RTCError PeerConnection::CreateChannels(const SessionDescription& desc) {
                            "Failed to create video channel.");
     }
     GetVideoTransceiver()->internal()->SetChannel(video_channel);
+  }
+
+  const cricket::ContentInfo* voice = cricket::GetFirstAudioContent(&desc);
+  if (voice && !voice->rejected &&
+      !GetAudioTransceiver()->internal()->channel()) {
+    cricket::VoiceChannel* voice_channel = CreateVoiceChannel(voice->name);
+    if (!voice_channel) {
+      LOG_AND_RETURN_ERROR(RTCErrorType::INTERNAL_ERROR,
+                           "Failed to create voice channel.");
+    }
+    GetAudioTransceiver()->internal()->SetChannel(voice_channel);
   }
 
   const cricket::ContentInfo* data = cricket::GetFirstDataContent(&desc);

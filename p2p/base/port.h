@@ -433,10 +433,7 @@ class Port : public PortInterface,
   bool IsCompatibleAddress(const rtc::SocketAddress& addr);
 
   // Returns default DSCP value.
-  rtc::DiffServCodePoint DefaultDscpValue() const {
-    // No change from what MediaChannel set.
-    return rtc::DSCP_NO_CHANGE;
-  }
+  virtual rtc::DiffServCodePoint DefaultDscpValue() const;
 
   // Extra work to be done in subclasses when a connection is destroyed.
   virtual void HandleConnectionDestroyed(Connection* conn) {}

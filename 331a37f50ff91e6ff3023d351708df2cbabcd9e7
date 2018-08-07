@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "cb2da181_fc26f7b7",
+        "filename": "api/test/mock_video_bitrate_allocator_factory.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 6278
+      },
+      "writtenOn": "2018-08-07T17:07:51Z",
+      "side": 1,
+      "message": "Not in these two CLs, but I will need this mock and the video bitrate allocator mock for later CLs.",
+      "parentUuid": "49e1c401_3d0df3b3",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 2
+      },
+      "revId": "331a37f50ff91e6ff3023d351708df2cbabcd9e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "876f78a7_4f65ca15",
         "filename": "api/video/video_bitrate_allocator_factory.h",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "4992cb8e_f0090e4c",
+        "filename": "api/video/video_bitrate_allocator_factory.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 6278
+      },
+      "writtenOn": "2018-08-07T17:07:51Z",
+      "side": 1,
+      "message": "No. that is the header for allocator, not the factory.",
+      "parentUuid": "876f78a7_4f65ca15",
+      "range": {
+        "startLine": 15,
+        "startChar": 46,
+        "endLine": 15,
+        "endChar": 0
+      },
+      "revId": "331a37f50ff91e6ff3023d351708df2cbabcd9e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "62136a17_e10bd3df",
         "filename": "api/video/video_bitrate_allocator_factory.h",
         "patchSetId": 2
@@ -59,6 +107,30 @@
       "writtenOn": "2018-08-03T08:53:47Z",
       "side": 1,
       "message": "nit: Avoid forward declaration: https://webrtc.googlesource.com/src/+/HEAD/style-guide.md#forward-declarations",
+      "range": {
+        "startLine": 19,
+        "startChar": 17,
+        "endLine": 19,
+        "endChar": 0
+      },
+      "revId": "331a37f50ff91e6ff3023d351708df2cbabcd9e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4607df41_26cc71df",
+        "filename": "api/video/video_bitrate_allocator_factory.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 6278
+      },
+      "writtenOn": "2018-08-07T17:07:51Z",
+      "side": 1,
+      "message": "VideoCodec is defined in \u0027media/base/codec.h\u0027. My concern is that is going to break the API boundary. Do you think I should bring media/base/codec.h in to api?",
+      "parentUuid": "62136a17_e10bd3df",
       "range": {
         "startLine": 19,
         "startChar": 17,
@@ -91,6 +163,30 @@
       "revId": "331a37f50ff91e6ff3023d351708df2cbabcd9e7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba522e34_29fbf0f5",
+        "filename": "api/video/video_bitrate_allocator_factory.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 6278
+      },
+      "writtenOn": "2018-08-07T17:07:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "49ae5b9c_63760c6f",
+      "range": {
+        "startLine": 26,
+        "startChar": 37,
+        "endLine": 26,
+        "endChar": 0
+      },
+      "revId": "331a37f50ff91e6ff3023d351708df2cbabcd9e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

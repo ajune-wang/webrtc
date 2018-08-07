@@ -25,6 +25,23 @@
     },
     {
       "key": {
+        "uuid": "84f744af_ec6db818",
+        "filename": "modules/rtp_rtcp/source/rtcp_packet/report_block.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-07T23:17:24Z",
+      "side": 1,
+      "message": "Drive by comment: Doesn\u0027t the ByteReader have functionality to sign extend? It looks like it has specializations for signed ints: https://cs.chromium.org/chromium/src/third_party/webrtc/modules/rtp_rtcp/source/byte_io.h?l\u003d127\u0026rcl\u003db3e2c8eb1b16f9a804c6525bac1056200f09d8da\n\nDoes: ByteReader\u003cint32_t, 3\u003e::ReadBigEndian not work?",
+      "revId": "34c8b79948d2a4752cd6ee1df8d41610e69fc6a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f3d0e274_cc77ef38",
         "filename": "modules/rtp_rtcp/source/rtcp_packet/report_block_unittest.cc",
         "patchSetId": 2

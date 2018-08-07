@@ -296,6 +296,8 @@ class RTPSender {
   // Statistics
   rtc::CriticalSection statistics_crit_;
   SendDelayMap send_delays_ RTC_GUARDED_BY(statistics_crit_);
+  SendDelayMap::const_iterator max_delay_it_ RTC_GUARDED_BY(statistics_crit_);
+  int64_t sum_delays_ms_ RTC_GUARDED_BY(statistics_crit_);
   FrameCounts frame_counts_ RTC_GUARDED_BY(statistics_crit_);
   StreamDataCounters rtp_stats_ RTC_GUARDED_BY(statistics_crit_);
   StreamDataCounters rtx_rtp_stats_ RTC_GUARDED_BY(statistics_crit_);

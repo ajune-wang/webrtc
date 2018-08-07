@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f3d0e274_cc77ef38",
+        "filename": "modules/rtp_rtcp/source/rtcp_packet/report_block_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-08-07T22:08:20Z",
+      "side": 1,
+      "message": "Let me know if you think we should change this comment now, given that CL 50020 has changed the computation of packets lost to be spec compliant.",
+      "range": {
+        "startLine": 80,
+        "startChar": 2,
+        "endLine": 80,
+        "endChar": 65
+      },
+      "revId": "34c8b79948d2a4752cd6ee1df8d41610e69fc6a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

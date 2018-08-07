@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "991d3973_75274eb1",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-07T10:46:46Z",
+      "side": 1,
+      "message": "Magnus, can you explain?\n\nI note that the only call of this method, in VideoReceiveStream::Start, wraps it in an RTC_CHECK. So we\u0027ll crash if this method ever fails.",
+      "parentUuid": "438509c3_f963e442",
+      "range": {
+        "startLine": 169,
+        "startChar": 0,
+        "endLine": 170,
+        "endChar": 31
+      },
+      "revId": "0bfa768337b1f27517fbc26a608864686ada126b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e4d607e2_d1c0f28f",
         "filename": "video/rtp_video_stream_receiver.cc",
         "patchSetId": 5
@@ -68,6 +92,30 @@
       "revId": "0bfa768337b1f27517fbc26a608864686ada126b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a80776f7_f6545f7b",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-07T10:46:46Z",
+      "side": 1,
+      "message": "GetHeader does that for us. Problem is that packet_payload_type_frequency() isn\u0027t set properly.\n\nI\u0027m adding code in Call to set it when parsing video packets, see discussion on https://webrtc-review.googlesource.com/c/src/+/92621",
+      "parentUuid": "8ef5f0c6_60a5bcda",
+      "range": {
+        "startLine": 310,
+        "startChar": 1,
+        "endLine": 313,
+        "endChar": 63
+      },
+      "revId": "0bfa768337b1f27517fbc26a608864686ada126b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

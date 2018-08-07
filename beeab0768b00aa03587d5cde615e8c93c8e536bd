@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "c56df881_6b9bd785",
+        "filename": "modules/rtp_rtcp/source/rtp_format.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-07T13:04:27Z",
+      "side": 1,
+      "message": "oh, it is already reduced without a warning to just those cases, Yep, I agree keeping the current behavior is better then.",
+      "parentUuid": "36d2c184_c04d7d9d",
+      "revId": "beeab0768b00aa03587d5cde615e8c93c8e536bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "16cd9a0d_4367bc7b",
         "filename": "video/rtp_video_stream_receiver.cc",
         "patchSetId": 6
@@ -131,6 +149,30 @@
     },
     {
       "key": {
+        "uuid": "a4983c04_e0f0bccd",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-07T13:04:27Z",
+      "side": 1,
+      "message": "yep, I understand using auto for return type of WrapUnique is reasonable.\n(https://abseil.io/tips/126 doesn\u0027t give an example, but memory header has an example where result of WrapUnique uses auto type)",
+      "parentUuid": "da3d18ee_3344422e",
+      "range": {
+        "startLine": 411,
+        "startChar": 54,
+        "endLine": 412,
+        "endChar": 0
+      },
+      "revId": "beeab0768b00aa03587d5cde615e8c93c8e536bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6ab85854_8c87abe2",
         "filename": "video/rtp_video_stream_receiver.cc",
         "patchSetId": 6
@@ -175,6 +217,30 @@
       "revId": "beeab0768b00aa03587d5cde615e8c93c8e536bd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e4085d6_72c3d27c",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-07T13:04:27Z",
+      "side": 1,
+      "message": "I do: https://abseil.io/tips/88\n\"Use {} initialization without the \u003d only if the above options don’t compile\"",
+      "parentUuid": "5fe569cd_1ba4d9a9",
+      "range": {
+        "startLine": 424,
+        "startChar": 36,
+        "endLine": 424,
+        "endChar": 0
+      },
+      "revId": "beeab0768b00aa03587d5cde615e8c93c8e536bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

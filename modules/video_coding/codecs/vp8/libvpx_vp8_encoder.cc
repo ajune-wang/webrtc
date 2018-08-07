@@ -888,7 +888,7 @@ int LibvpxVp8Encoder::GetEncodedPartitions(
     int qp = -1;
     vpx_codec_control(&encoders_[encoder_idx], VP8E_GET_LAST_QUANTIZER_64, &qp);
     temporal_layers_[stream_idx]->FrameEncoded(
-        encoded_images_[encoder_idx]._length, qp);
+        input_image.timestamp(), encoded_images_[encoder_idx]._length, qp);
     if (send_stream_[stream_idx]) {
       if (encoded_images_[encoder_idx]._length > 0) {
         TRACE_COUNTER_ID1("webrtc", "EncodedFrameSize", encoder_idx,

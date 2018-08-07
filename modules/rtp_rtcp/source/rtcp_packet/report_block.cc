@@ -14,6 +14,20 @@
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 
+namespace {
+
+int32_t ExtendSignFromInt24ToInt32(uint32_t as_int24) {
+  RTC_DCHECK(as_int24 <= 0xffffff);
+  int32_t as_int32 = as_int24;
+  bool is_negative = as_int24 & 0x800000;
+  if (is_negative) {
+    as_int32 = as_int24 | 0xff000000;
+  }
+  return as_int32;
+}
+
+}  // namespace
+
 namespace webrtc {
 namespace rtcp {
 
@@ -54,7 +68,8 @@ bool ReportBlock::Parse(const uint8_t* buffer, size_t length) {
 
   source_ssrc_ = ByteReader<uint32_t>::ReadBigEndian(&buffer[0]);
   fraction_lost_ = buffer[4];
-  cumulative_lost_ = ByteReader<uint32_t, 3>::ReadBigEndian(&buffer[5]);
+  cumulative_lost_ = ExtendSignFromInt24ToInt32(
+      ByteReader<uint32_t, 3>::ReadBigEndian(&buffer[5]));
   extended_high_seq_num_ = ByteReader<uint32_t>::ReadBigEndian(&buffer[8]);
   jitter_ = ByteReader<uint32_t>::ReadBigEndian(&buffer[12]);
   last_sr_ = ByteReader<uint32_t>::ReadBigEndian(&buffer[16]);

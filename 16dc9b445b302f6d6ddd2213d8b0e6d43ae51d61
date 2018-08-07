@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "6145b197_17fdd6d5",
+        "filename": "p2p/base/fakeasyncresolver.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-08-07T21:37:36Z",
+      "side": 1,
+      "message": "This ended up uncovering a bug, but I will look in to other approaches before submitting.",
+      "parentUuid": "6be3d7b8_626987b7",
+      "revId": "16dc9b445b302f6d6ddd2213d8b0e6d43ae51d61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8fea7375_c171e078",
         "filename": "p2p/base/fakeasyncresolver.h",
         "patchSetId": 4
@@ -33,6 +51,24 @@
       "revId": "16dc9b445b302f6d6ddd2213d8b0e6d43ae51d61",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d1e279b_baea7c95",
+        "filename": "p2p/base/fakeasyncresolver.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-08-07T21:37:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8fea7375_c171e078",
+      "revId": "16dc9b445b302f6d6ddd2213d8b0e6d43ae51d61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

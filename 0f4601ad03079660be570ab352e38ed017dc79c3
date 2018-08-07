@@ -84,6 +84,30 @@
     },
     {
       "key": {
+        "uuid": "d1e4fd88_7d69197a",
+        "filename": "call/fake_network_pipe.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-07T09:13:09Z",
+      "side": 1,
+      "message": "Yes---the compiler tries to find some common type that it can convert the second and third arguments to, but given T and nullopt it won\u0027t find optional\u003cT\u003e. The full, headache-inducing details are here: https://en.cppreference.com/w/cpp/language/operator_other#Conditional_operator",
+      "parentUuid": "adf04367_49615afb",
+      "range": {
+        "startLine": 61,
+        "startChar": 26,
+        "endLine": 61,
+        "endChar": 51
+      },
+      "revId": "0f4601ad03079660be570ab352e38ed017dc79c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0a56090f_5125580d",
         "filename": "call/fake_network_pipe.cc",
         "patchSetId": 10

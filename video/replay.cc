@@ -10,9 +10,10 @@
 
 #include <stdio.h>
 
+#include <fstream>
 #include <map>
 #include <memory>
-#include <sstream>
+#include <sstream>  // no-presubmit-check TODO(webrtc:8982)
 
 #include "api/video_codecs/video_decoder.h"
 #include "call/call.h"
@@ -21,6 +22,7 @@
 #include "modules/rtp_rtcp/include/rtp_header_parser.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/flags.h"
+#include "rtc_base/json.h"
 #include "rtc_base/string_to_number.h"
 #include "rtc_base/timeutils.h"
 #include "system_wrappers/include/clock.h"
@@ -145,6 +147,12 @@ static std::string InputFile() {
   return static_cast<std::string>(FLAG_input_file);
 }
 
+// Flag for config input file.
+DEFINE_string(config_file, "", "input file");
+static std::string ConfigFile() {
+  return static_cast<std::string>(FLAG_config_file);
+}
+
 // Flag for raw output files.
 DEFINE_string(out_base, "", "Basename (excluding .jpg) for raw output");
 static std::string OutBase() {
@@ -224,6 +232,294 @@ class DecoderBitstreamFileWriter : public test::FakeDecoder {
   FILE* file_;
 };
 
+std::string AddQuotes(std::string in_str) {
+  int mode = 0;
+  std::string out_str;
+  std::size_t found = in_str.find("rtx_payload_types");
+  in_str.insert(found - 1 + sizeof("rtx_payload_types: "), "\"");
+  found = in_str.find(", }");
+  in_str.insert(found - 1 + sizeof(", }"), "\"");
+  size_t t = 0;
+  size_t found2 = 0;
+  while (in_str.find(":", t) != std::string::npos) {
+    found = in_str.find(":", t);
+    fprintf(stderr, "found %zu\r\n", found);
+    for (int j = found; j >= static_cast<int>(found2); j--) {
+      // fprintf(stderr, "j %d\r\n", j);
+      if (in_str[j] == '{' || (in_str[j] == ' ' && in_str[j - 1] == ',') ||
+          in_str[j] == '[') {
+        in_str.insert(found, "\"");
+        in_str.insert(j + 1, "\"");
+        break;
+      }
+    }
+    found2 = found;
+    t = found + 3;
+  }
+  for (size_t i = 0; i < in_str.length(); i++) {
+    if (mode == 0 && in_str[i] != ':') {
+      out_str = out_str + in_str[i];
+    } else {
+      std::string temp;
+      temp += in_str[i++];
+      temp += in_str[i++];
+      if (in_str[i] == '{' || in_str[i] == '[' ||
+          (in_str[i] >= '0' && in_str[i] <= '9') || in_str[i] == '"') {
+        out_str += temp + in_str[i];
+      } else {
+        out_str += temp + '"' + in_str[i++];
+        while (in_str[i] != ',' && in_str[i] != '}' && in_str[i] != ']') {
+          out_str += in_str[i++];
+        }
+        if (in_str[i] == '}' || in_str[i] == ']') {
+          out_str = out_str + '"' + in_str[i];
+        } else {
+          if (in_str[i] == ',' && in_str[i + 1] == ' ' &&
+              in_str[i + 2] == '}') {
+            i += 3;
+            out_str = out_str + ", }" + '"';
+          } else {
+            out_str = out_str + "\",";
+          }
+        }
+      }
+    }
+  }
+  return out_str;
+}
+
+bool ReadRtp(VideoReceiveStream::Config* config, Json::Value rtp) {
+  if (!rtc::GetUIntFromJsonObject(rtp, "remote_ssrc",
+                                  &config->rtp.remote_ssrc)) {
+    fprintf(stderr, "no remote ssrc\r\n");
+  }
+
+  if (!rtc::GetUIntFromJsonObject(rtp, "local_ssrc", &config->rtp.local_ssrc)) {
+    fprintf(stderr, "no local ssrc\r\n");
+  }
+
+  std::string mode;
+
+  if (!rtc::GetStringFromJsonObject(rtp, "rtcp_mode", &mode)) {
+    fprintf(stderr, "no rtcp_mode\r\n");
+  }
+
+  if (mode == "RtcpMode::kCompound") {
+    config->rtp.rtcp_mode = webrtc::RtcpMode::kCompound;
+  } else {
+    config->rtp.rtcp_mode = webrtc::RtcpMode::kReducedSize;
+  }
+
+  Json::Value rtcp_xr;
+
+  if (!rtc::GetValueFromJsonObject(rtp, "rtcp_xr", &rtcp_xr)) {
+    fprintf(stderr, "rtcp_xr\r\n");
+  }
+  std::string report;
+  if (!rtc::GetStringFromJsonObject(rtcp_xr, "receiver_reference_time_report",
+                                    &report)) {
+    fprintf(stderr, "no rtcp_mode\r\n");
+  }
+  if (report == "on") {
+    config->rtp.rtcp_xr.receiver_reference_time_report = true;
+  } else {
+    config->rtp.rtcp_xr.receiver_reference_time_report = false;
+  }
+
+  std::string remb;
+
+  if (!rtc::GetStringFromJsonObject(rtp, "remb", &remb)) {
+    fprintf(stderr, "no remb\r\n");
+  }
+
+  if (remb == "on") {
+    config->rtp.remb = true;
+  } else {
+    config->rtp.remb = false;
+  }
+
+  std::string transport_cc;
+
+  if (!rtc::GetStringFromJsonObject(rtp, "transport_cc", &transport_cc)) {
+    fprintf(stderr, "no transport_cc\r\n");
+  }
+
+  if (remb == "on") {
+    config->rtp.transport_cc = true;
+  } else {
+    config->rtp.transport_cc = false;
+  }
+
+  Json::Value nack;
+
+  if (!rtc::GetValueFromJsonObject(rtp, "nack", &nack)) {
+    fprintf(stderr, "nack\r\n");
+  }
+  std::string rtp_history_ms;
+  if (!rtc::GetIntFromJsonObject(nack, "rtp_history_ms",
+                                 &config->rtp.nack.rtp_history_ms)) {
+    fprintf(stderr, "no rtp_history_ms\r\n");
+  }
+
+  if (!rtc::GetIntFromJsonObject(rtp, "ulpfec_payload_type",
+                                 &config->rtp.ulpfec_payload_type)) {
+    fprintf(stderr, "no ulpfec_payload_type\r\n");
+  }
+
+  if (!rtc::GetIntFromJsonObject(rtp, "red_type",
+                                 &config->rtp.red_payload_type)) {
+    fprintf(stderr, "no red_payload_type\r\n");
+  }
+
+  if (!rtc::GetUIntFromJsonObject(rtp, "rtx_ssrc", &config->rtp.rtx_ssrc)) {
+    fprintf(stderr, "no rtx_ssrc\r\n");
+  }
+
+  std::string rtx_payload_types;
+
+  if (!rtc::GetStringFromJsonObject(rtp, "rtx_payload_types",
+                                    &rtx_payload_types)) {
+    fprintf(stderr, "rtx_payload_types\r\n");
+  }
+
+  rtx_payload_types.erase(0, 1);
+  rtx_payload_types.erase(rtx_payload_types.length() - 3, 3);
+  fprintf(stderr, "%s", rtx_payload_types.c_str());
+
+  while (rtx_payload_types.length() > 0) {
+    int first = stoi(rtx_payload_types);
+    if (rtx_payload_types.find("->") != std::string::npos) {
+      rtx_payload_types.erase(0, rtx_payload_types.find("->") + 3);
+    }
+    int second = stoi(rtx_payload_types);
+    if (rtx_payload_types.find(")") != std::string::npos) {
+      rtx_payload_types.erase(0, rtx_payload_types.find(")") + 3);
+    }
+    config->rtp.rtx_associated_payload_types.insert(
+        std::pair<int, int>(first, second));
+  }
+
+  Json::Value extensions;
+
+  if (!rtc::GetValueFromJsonObject(rtp, "extensions", &extensions)) {
+    fprintf(stderr, "no extensions\r\n");
+  }
+
+  std::vector<Json::Value> e;
+  if (!rtc::JsonArrayToValueVector(extensions, &e)) {
+    fprintf(stderr, "failed to parse extensions");
+  }
+
+  for (size_t i = 0; i < e.size(); i++) {
+    std::string uri;
+    int id;
+
+    if (!rtc::GetIntFromJsonObject(e[i], "id", &id)) {
+      fprintf(stderr, "no id\r\n");
+    }
+
+    if (!rtc::GetStringFromJsonObject(e[i], "uri", &uri)) {
+      fprintf(stderr, "no uri\r\n");
+    }
+
+    webrtc::RtpExtension r = webrtc::RtpExtension(
+        uri, id, false);  // if encrypt is ever true, parsing will
+    config->rtp.extensions.push_back(r);
+  }
+  return true;
+}
+
+bool ReadDecoder(VideoReceiveStream::Config* config, Json::Value decoders) {
+  std::vector<Json::Value> v;
+  if (!rtc::JsonArrayToValueVector(decoders, &v)) {
+    fprintf(stderr, "failed to parse decoders");
+  }
+  for (size_t i = 0; i < v.size(); i++) {
+    Json::Value decoder = v[i];
+    std::string name;
+    int type;
+    Json::Value codec_params;
+    if (!rtc::GetIntFromJsonObject(decoder, "payload_type", &type)) {
+      fprintf(stderr, "no type\r\n");
+    }
+    if (!rtc::GetStringFromJsonObject(decoder, "payload_name", &name)) {
+      fprintf(stderr, "no name\r\n");
+    }
+    if (!rtc::GetValueFromJsonObject(decoder, "codec_params", &codec_params)) {
+      fprintf(stderr, "no params\r\n");
+    }
+
+    VideoReceiveStream::Decoder cdecoder;
+    cdecoder = test::CreateMatchingDecoder(type, name);
+    std::vector<std::string> names;
+    names = codec_params.getMemberNames();
+
+    for (size_t j = 0; j < names.size(); j++) {
+      std::string prop = names[j];
+      std::string value;
+      if (!rtc::GetStringFromJsonObject(codec_params, prop, &value)) {
+        int num;
+        if (!rtc::GetIntFromJsonObject(codec_params, prop, &num)) {
+          fprintf(stderr, "failed to get prop %s\r\n", prop.c_str());
+        } else {
+          value = std::to_string(num);
+        }
+      }
+      cdecoder.codec_params.insert(
+          std::pair<std::string, std::string>(prop, value));
+    }
+
+    config->decoders.push_back(cdecoder);
+  }
+  return true;
+}
+
+bool ReadConfig(VideoReceiveStream::Config* config, std::string config_str) {
+  Json::Reader reader;
+  Json::Value jmessage;
+  config_str = AddQuotes(config_str);
+  fprintf(stderr, "%s", config_str.c_str());
+  if (!reader.parse(config_str, jmessage)) {
+    fprintf(stderr, "parsing json failed");
+    return false;
+  }
+  if (!rtc::GetIntFromJsonObject(jmessage, "render_delay_ms",
+                                 &config->render_delay_ms)) {
+    fprintf(stderr, "no render delay\r\n");
+  }
+
+  if (!rtc::GetIntFromJsonObject(jmessage, "target_delay_ms",
+                                 &config->target_delay_ms)) {
+    fprintf(stderr, "no target delay\r\n");
+  }
+
+  if (!rtc::GetStringFromJsonObject(jmessage, "sync_group",
+                                    &config->sync_group)) {
+    fprintf(stderr, "no sync_group\r\n");
+  }
+
+  Json::Value decoders;
+
+  if (!rtc::GetValueFromJsonObject(jmessage, "decoders", &decoders)) {
+    fprintf(stderr, "no decoders\r\n");
+
+  } else {
+    ReadDecoder(config, decoders);
+  }
+
+  Json::Value rtp;
+
+  if (!rtc::GetValueFromJsonObject(jmessage, "rtp", &rtp)) {
+    fprintf(stderr, "no rtp\r\n");
+
+  } else {
+    ReadRtp(config, rtp);
+  }
+
+  fprintf(stderr, "made it!");
+  return true;
+}
+
 void RtpReplay() {
   std::stringstream window_title;
   window_title << "Playback Video (" << flags::InputFile() << ")";
@@ -234,30 +530,42 @@ void RtpReplay() {
 
   webrtc::RtcEventLogNullImpl event_log;
   std::unique_ptr<Call> call(Call::Create(Call::Config(&event_log)));
-
   test::NullTransport transport;
   VideoReceiveStream::Config receive_config(&transport);
-  receive_config.rtp.remote_ssrc = flags::Ssrc();
-  receive_config.rtp.local_ssrc = kReceiverLocalSsrc;
-  receive_config.rtp.rtx_ssrc = flags::SsrcRtx();
-  receive_config.rtp
-      .rtx_associated_payload_types[flags::MediaPayloadTypeRtx()] =
-      flags::MediaPayloadType();
-  receive_config.rtp.rtx_associated_payload_types[flags::RedPayloadTypeRtx()] =
-      flags::RedPayloadType();
-  receive_config.rtp.ulpfec_payload_type = flags::UlpfecPayloadType();
-  receive_config.rtp.red_payload_type = flags::RedPayloadType();
-  receive_config.rtp.nack.rtp_history_ms = 1000;
-  if (flags::TransmissionOffsetId() != -1) {
-    receive_config.rtp.extensions.push_back(RtpExtension(
-        RtpExtension::kTimestampOffsetUri, flags::TransmissionOffsetId()));
-  }
-  if (flags::AbsSendTimeId() != -1) {
-    receive_config.rtp.extensions.push_back(
-        RtpExtension(RtpExtension::kAbsSendTimeUri, flags::AbsSendTimeId()));
-  }
-  receive_config.renderer = &file_passthrough;
 
+  if (flags::ConfigFile() != "") {
+    std::ifstream config_file(flags::ConfigFile().c_str());
+    std::stringstream config_buffer;
+    config_buffer << config_file.rdbuf();
+    std::string config_string = config_buffer.str();
+    fprintf(stderr, "%s", config_string.c_str());
+    if (!ReadConfig(&receive_config, config_string)) {
+      return;
+    }
+    receive_config.renderer = &file_passthrough;
+  } else {
+    receive_config.rtp.remote_ssrc = flags::Ssrc();
+    receive_config.rtp.local_ssrc = kReceiverLocalSsrc;
+    receive_config.rtp.rtx_ssrc = flags::SsrcRtx();
+    receive_config.rtp
+        .rtx_associated_payload_types[flags::MediaPayloadTypeRtx()] =
+        flags::MediaPayloadType();
+    receive_config.rtp
+        .rtx_associated_payload_types[flags::RedPayloadTypeRtx()] =
+        flags::RedPayloadType();
+    receive_config.rtp.ulpfec_payload_type = flags::UlpfecPayloadType();
+    receive_config.rtp.red_payload_type = flags::RedPayloadType();
+    receive_config.rtp.nack.rtp_history_ms = 1000;
+    if (flags::TransmissionOffsetId() != -1) {
+      receive_config.rtp.extensions.push_back(RtpExtension(
+          RtpExtension::kTimestampOffsetUri, flags::TransmissionOffsetId()));
+    }
+    if (flags::AbsSendTimeId() != -1) {
+      receive_config.rtp.extensions.push_back(
+          RtpExtension(RtpExtension::kAbsSendTimeUri, flags::AbsSendTimeId()));
+    }
+    receive_config.renderer = &file_passthrough;
+  }
   VideoReceiveStream::Decoder decoder;
   decoder =
       test::CreateMatchingDecoder(flags::MediaPayloadType(), flags::Codec());

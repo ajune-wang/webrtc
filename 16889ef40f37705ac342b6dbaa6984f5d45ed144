@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "bc4555d8_b3557b00",
+        "filename": "modules/rtp_rtcp/source/rtp_format.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-07T13:21:07Z",
+      "side": 1,
+      "message": "Deleted.",
+      "parentUuid": "82394ba7_0dba2916",
+      "range": {
+        "startLine": 60,
+        "startChar": 2,
+        "endLine": 60,
+        "endChar": 8
+      },
+      "revId": "16889ef40f37705ac342b6dbaa6984f5d45ed144",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cba5301a_e5fcc108",
         "filename": "video/rtp_video_stream_receiver.cc",
         "patchSetId": 7
@@ -62,6 +86,24 @@
       "revId": "16889ef40f37705ac342b6dbaa6984f5d45ed144",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da15ae96_4666067f",
+        "filename": "video/rtp_video_stream_receiver.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-07T13:21:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "255c90bf_86159f81",
+      "revId": "16889ef40f37705ac342b6dbaa6984f5d45ed144",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -173,6 +173,30 @@
     },
     {
       "key": {
+        "uuid": "944ea3d0_81a73018",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-07T13:21:07Z",
+      "side": 1,
+      "message": "I don\u0027t think we can have a general rule for WrapUnique, it depends on what its argument looks like. In this case it\u0027s a Foo::Create function, which can reasonably be assumed to return a Foo, a Foo* or possibly some smart pointer. And I hope WrapUnique fails to compile if the argument is anything but a raw pointer?",
+      "parentUuid": "a4983c04_e0f0bccd",
+      "range": {
+        "startLine": 411,
+        "startChar": 54,
+        "endLine": 412,
+        "endChar": 0
+      },
+      "revId": "beeab0768b00aa03587d5cde615e8c93c8e536bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6ab85854_8c87abe2",
         "filename": "video/rtp_video_stream_receiver.cc",
         "patchSetId": 6

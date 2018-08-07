@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2dcf6a7b_ab275b47",
+        "filename": "modules/rtp_rtcp/source/rtp_format.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-07T11:59:01Z",
+      "side": 1,
+      "message": "why this change?\nisn\u0027t it safer to log an error in case of unknown video header instead of treating it as generic codec?",
+      "revId": "beeab0768b00aa03587d5cde615e8c93c8e536bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16cd9a0d_4367bc7b",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-07T11:59:01Z",
+      "side": 1,
+      "message": "may be warning instead of error since it might be triggered by incoming [malformed] packet.",
+      "range": {
+        "startLine": 248,
+        "startChar": 12,
+        "endLine": 248,
+        "endChar": 20
+      },
+      "revId": "beeab0768b00aa03587d5cde615e8c93c8e536bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a192d503_3b31f574",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-07T11:59:01Z",
+      "side": 1,
+      "message": "may be use WrapUnique for interacting with legacy api",
+      "range": {
+        "startLine": 411,
+        "startChar": 54,
+        "endLine": 412,
+        "endChar": 0
+      },
+      "revId": "beeab0768b00aa03587d5cde615e8c93c8e536bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ab85854_8c87abe2",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-07T11:59:01Z",
+      "side": 1,
+      "message": "since WebRtcRTPHeader doesn\u0027t have explicit default constructor, it might be safer to force value initialization here:\nWebRtcRTPHeader webrtc_rtp_header \u003d {};",
+      "range": {
+        "startLine": 424,
+        "startChar": 36,
+        "endLine": 424,
+        "endChar": 0
+      },
+      "revId": "beeab0768b00aa03587d5cde615e8c93c8e536bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

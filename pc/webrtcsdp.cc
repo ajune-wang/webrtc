@@ -1884,12 +1884,14 @@ void BuildCandidate(const std::vector<Candidate>& candidates,
       continue;
     }
 
+    // TODO(zstein): Consider changing this in a separate CL.
     InitAttrLine(kAttributeCandidate, &os);
     os << kSdpDelimiterColon << it->foundation() << " " << it->component()
        << " " << it->protocol() << " " << it->priority() << " "
-       << it->address().ipaddr().ToString() << " "
-       << it->address().PortAsString() << " " << kAttributeCandidateTyp << " "
-       << type << " ";
+       << (it->address().ipaddr().IsNil() ? it->address().hostname()
+                                          : it->address().ipaddr().ToString())
+       << " " << it->address().PortAsString() << " " << kAttributeCandidateTyp
+       << " " << type << " ";
 
     // Related address
     if (!it->related_address().IsNil()) {

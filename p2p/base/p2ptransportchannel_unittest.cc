@@ -13,6 +13,7 @@
 #include <memory>
 
 #include "absl/memory/memory.h"
+#include "p2p/base/fakeasyncresolverfactory.h"
 #include "p2p/base/fakeportallocator.h"
 #include "p2p/base/icetransportinternal.h"
 #include "p2p/base/p2ptransportchannel.h"
@@ -4575,6 +4576,22 @@ TEST_F(P2PTransportChannelMostLikelyToWorkFirstTest, TestTcpTurn) {
 
   // Finally, Local/Relay will be pinged.
   VerifyNextPingableConnection(LOCAL_PORT_TYPE, RELAY_PORT_TYPE);
+}
+
+static const int kWait = 1000;
+
+TEST(P2PTransportChannelResolverTest, HostnameCandidateIsResolved) {
+  webrtc::FakeAsyncResolverFactory async_resolver_factory;
+  P2PTransportChannel channel("tn", 0, /*allocator*/ nullptr,
+                              &async_resolver_factory);
+  Candidate hostname_candidate;
+  SocketAddress hostname_address("a.com", 1000);
+  hostname_candidate.set_address(hostname_address);
+  channel.AddRemoteCandidate(hostname_candidate);
+
+  EXPECT_EQ_WAIT(1u, channel.remote_candidates().size(), kWait);
+  const RemoteCandidate& candidate = channel.remote_candidates()[0];
+  EXPECT_FALSE(candidate.address().IsUnresolvedIP());
 }
 
 }  // namespace cricket

@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "36d2c184_c04d7d9d",
+        "filename": "modules/rtp_rtcp/source/rtp_format.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-07T12:43:00Z",
+      "side": 1,
+      "message": "Without this changes, tests involving kVideoCodecMultiplex fail. The logic with a default clause corresponds to \n\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/modules/rtp_rtcp/source/rtp_payload_registry.cc?sq\u003dpackage:chromium\u0026q\u003dConvertToRtpVideoCodecType\u0026g\u003d0\u0026l\u003d50\n\nI can change to explicitly list kVideoCodecMultiplex, if you prefer.",
+      "parentUuid": "2dcf6a7b_ab275b47",
+      "revId": "beeab0768b00aa03587d5cde615e8c93c8e536bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "16cd9a0d_4367bc7b",
         "filename": "video/rtp_video_stream_receiver.cc",
         "patchSetId": 6
@@ -30,6 +48,30 @@
       "writtenOn": "2018-08-07T11:59:01Z",
       "side": 1,
       "message": "may be warning instead of error since it might be triggered by incoming [malformed] packet.",
+      "range": {
+        "startLine": 248,
+        "startChar": 12,
+        "endLine": 248,
+        "endChar": 20
+      },
+      "revId": "beeab0768b00aa03587d5cde615e8c93c8e536bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7cc2ab6e_3b71e74f",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-07T12:43:00Z",
+      "side": 1,
+      "message": "Makes sense. Changing below \n\n    RTC_LOG(LS_ERROR) \u003c\u003c \"Failed parsing payload.\";\n\ntoo.",
+      "parentUuid": "16cd9a0d_4367bc7b",
       "range": {
         "startLine": 248,
         "startChar": 12,
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "da3d18ee_3344422e",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-07T12:43:00Z",
+      "side": 1,
+      "message": "Ok. Can I change explicit type to auto then?",
+      "parentUuid": "a192d503_3b31f574",
+      "range": {
+        "startLine": 411,
+        "startChar": 54,
+        "endLine": 412,
+        "endChar": 0
+      },
+      "revId": "beeab0768b00aa03587d5cde615e8c93c8e536bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6ab85854_8c87abe2",
         "filename": "video/rtp_video_stream_receiver.cc",
         "patchSetId": 6
@@ -76,6 +142,30 @@
       "writtenOn": "2018-08-07T11:59:01Z",
       "side": 1,
       "message": "since WebRtcRTPHeader doesn\u0027t have explicit default constructor, it might be safer to force value initialization here:\nWebRtcRTPHeader webrtc_rtp_header \u003d {};",
+      "range": {
+        "startLine": 424,
+        "startChar": 36,
+        "endLine": 424,
+        "endChar": 0
+      },
+      "revId": "beeab0768b00aa03587d5cde615e8c93c8e536bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5fe569cd_1ba4d9a9",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-07T12:43:00Z",
+      "side": 1,
+      "message": "Good catch. Other location, in RtpReceiverImpl::IncomingRtpPacket, uses\n\n  WebRtcRTPHeader webrtc_rtp_header{};\n\nYou prefer \"\u003d {}\" ?",
+      "parentUuid": "6ab85854_8c87abe2",
       "range": {
         "startLine": 424,
         "startChar": 36,

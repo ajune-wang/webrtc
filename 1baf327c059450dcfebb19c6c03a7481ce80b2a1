@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ae4bc21_3bd5698f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-07T09:42:58Z",
+      "side": 1,
+      "message": "You\u0027ve added create functions (don\u0027t know if there\u0027s a standard name for it), not constructors.",
+      "revId": "1baf327c059450dcfebb19c6c03a7481ce80b2a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21b1fdc5_6b85adbd",
+        "filename": "api/units/data_rate_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-07T09:42:58Z",
+      "side": 1,
+      "message": "Can these two be static_assert instead?",
+      "revId": "1baf327c059450dcfebb19c6c03a7481ce80b2a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2ed54ed_95cfcf30",
+        "filename": "api/units/time_delta_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-07T09:42:58Z",
+      "side": 1,
+      "message": "static_assert?",
+      "revId": "1baf327c059450dcfebb19c6c03a7481ce80b2a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d6f3ead_6d6400e0",
+        "filename": "api/units/timestamp_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-07T09:42:58Z",
+      "side": 1,
+      "message": "static_assert?",
+      "revId": "1baf327c059450dcfebb19c6c03a7481ce80b2a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -55,7 +55,6 @@ std::vector<webrtc::VideoStream> GetScreenshareLayers(
     int height,
     double bitrate_priority,
     int max_qp,
-    int max_framerate,
     bool temporal_layers_supported = true);
 }  // namespace cricket
 

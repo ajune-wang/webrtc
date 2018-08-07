@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "0cf45fc0_b67b5f27",
+        "filename": "audio/audio_receive_stream_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-07T09:04:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "69ef3363_e790d113",
+      "revId": "0f4601ad03079660be570ab352e38ed017dc79c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eff5a50a_53d99276",
         "filename": "call/fake_network_pipe.cc",
         "patchSetId": 10
@@ -39,6 +57,30 @@
       "revId": "0f4601ad03079660be570ab352e38ed017dc79c3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "adf04367_49615afb",
+        "filename": "call/fake_network_pipe.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-07T09:04:40Z",
+      "side": 1,
+      "message": "Ah, that actually seems to work. However, the first middle argument to the ?: operator needs an explicitly named optional type, I first tried\n\npacket_time ? packet_time-\u003etimestamp : absl::nullopt\n\n(with intended implicit conversion of the middle argument), but that wasn\u0027t good enough for the compiler",
+      "parentUuid": "eff5a50a_53d99276",
+      "range": {
+        "startLine": 61,
+        "startChar": 26,
+        "endLine": 61,
+        "endChar": 51
+      },
+      "revId": "0f4601ad03079660be570ab352e38ed017dc79c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "c6b6c1f5_9a7d2289",
+        "filename": "call/fake_network_pipe.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-07T09:04:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0a56090f_5125580d",
+      "range": {
+        "startLine": 268,
+        "startChar": 20,
+        "endLine": 268,
+        "endChar": 45
+      },
+      "revId": "0f4601ad03079660be570ab352e38ed017dc79c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b259fd74_c0fe2530",
         "filename": "call/fake_network_pipe.h",
         "patchSetId": 10
@@ -79,6 +145,24 @@
       "revId": "0f4601ad03079660be570ab352e38ed017dc79c3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20731d9a_d864e4ec",
+        "filename": "call/fake_network_pipe.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-07T09:04:40Z",
+      "side": 1,
+      "message": "I agree, but not sure if that cleanup belongs in this cl. Hmm, seems to be only a single use, though, so I\u0027ll do it.",
+      "parentUuid": "b259fd74_c0fe2530",
+      "revId": "0f4601ad03079660be570ab352e38ed017dc79c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

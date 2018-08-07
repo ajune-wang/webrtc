@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "3eff17b6_646c14c2",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-07T15:01:04Z",
+      "side": 1,
+      "message": "As far as I see, this method is called for each configured decoder in VideoReceiveStream::Start, which in turn is called only once over the lifetime of the VideoReceiveStream, by WebRtcVideoChannel::WebRtcVideoReceiveStream::RecreateWebRtcVideoStream.\n\nThe checks in RTPPayloadRegistry apply only if the same payload type is registered twice, then if payloads are considered \"compatible\", the latter is silently ignored, otherwise, it returns an error. And it case it returns error, code will crash in caller\u0027s RTC_CHECK. And \"compatible\" seems to really mean identical: same payload name, in in the case of h.264, same profile.\n\nSo the case that could possibly matter is if the vector webrtc::VideoReceiveStream::Config::decoders contains duplicates. Is that something that we need to handle?\n\nNote that RTPPayloadRegistry is used on the send side as well.",
+      "parentUuid": "687d3a02_0a08978b",
+      "range": {
+        "startLine": 169,
+        "startChar": 0,
+        "endLine": 170,
+        "endChar": 31
+      },
+      "revId": "0bfa768337b1f27517fbc26a608864686ada126b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e4d607e2_d1c0f28f",
         "filename": "video/rtp_video_stream_receiver.cc",
         "patchSetId": 5

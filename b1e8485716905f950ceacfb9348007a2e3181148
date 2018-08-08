@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2b2b8e79_f8cd4ef5",
+        "filename": "video/replay.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-08-08T08:39:55Z",
+      "side": 1,
+      "message": "This looks like something that would really benefit from a unit test.",
+      "range": {
+        "startLine": 235,
+        "startChar": 0,
+        "endLine": 289,
+        "endChar": 1
+      },
+      "revId": "b1e8485716905f950ceacfb9348007a2e3181148",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7626433e_083ee050",
+        "filename": "video/replay.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 505,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-08-08T08:39:55Z",
+      "side": 1,
+      "message": "Nit: remove empty line",
+      "revId": "b1e8485716905f950ceacfb9348007a2e3181148",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f43e220b_4385f3e1",
+        "filename": "video/replay.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 514,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-08-08T08:39:55Z",
+      "side": 1,
+      "message": "Nit: remove empty line",
+      "revId": "b1e8485716905f950ceacfb9348007a2e3181148",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "017c0ee4_82c300f5",
+        "filename": "video/replay.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-08-08T08:39:55Z",
+      "side": 1,
+      "message": "Why print this on stderr when things worked?",
+      "range": {
+        "startLine": 519,
+        "startChar": 2,
+        "endLine": 519,
+        "endChar": 30
+      },
+      "revId": "b1e8485716905f950ceacfb9348007a2e3181148",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

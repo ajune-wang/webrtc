@@ -1192,8 +1192,8 @@ void JsepTransportController::UpdateAggregateStates_n() {
         dtls->ice_transport()->GetIceRole() == cricket::ICEROLE_CONTROLLING &&
         dtls->ice_transport()->gathering_state() ==
             cricket::kIceGatheringComplete;
-    any_gathering = any_gathering || dtls->ice_transport()->gathering_state() !=
-                                         cricket::kIceGatheringNew;
+    any_gathering = any_gathering || dtls->ice_transport()->gathering_state() ==
+                                         cricket::kIceGatheringGathering;
     all_done_gathering =
         all_done_gathering && dtls->ice_transport()->gathering_state() ==
                                   cricket::kIceGatheringComplete;

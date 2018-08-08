@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "b70a6ab7_9e098854",
+        "filename": "api/test/mock_video_bitrate_allocator_factory.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-08-08T13:47:18Z",
+      "side": 1,
+      "message": "I cant\u0027 really say anything about this code with context, so I\u0027d say either document thoroughly what this is supposed to do, or move it to the cl where it\u0027s actually used.",
+      "parentUuid": "cb2da181_fc26f7b7",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 2
+      },
+      "revId": "331a37f50ff91e6ff3023d351708df2cbabcd9e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "876f78a7_4f65ca15",
         "filename": "api/video/video_bitrate_allocator_factory.h",
         "patchSetId": 2
@@ -131,6 +155,30 @@
       "side": 1,
       "message": "VideoCodec is defined in \u0027media/base/codec.h\u0027. My concern is that is going to break the API boundary. Do you think I should bring media/base/codec.h in to api?",
       "parentUuid": "62136a17_e10bd3df",
+      "range": {
+        "startLine": 19,
+        "startChar": 17,
+        "endLine": 19,
+        "endChar": 0
+      },
+      "revId": "331a37f50ff91e6ff3023d351708df2cbabcd9e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "49a40617_f7215cc4",
+        "filename": "api/video/video_bitrate_allocator_factory.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-08-08T13:47:18Z",
+      "side": 1,
+      "message": "If you\u0027re code is able to include this file but not media/base/codec.h, it means that you couldn\u0027t actually call or override CreateVideoBitrateAllocator() anyway, right? So I think including is still fine.",
+      "parentUuid": "4607df41_26cc71df",
       "range": {
         "startLine": 19,
         "startChar": 17,

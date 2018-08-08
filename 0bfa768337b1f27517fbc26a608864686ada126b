@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "28848367_187eff55",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-08T14:54:30Z",
+      "side": 1,
+      "message": "Dropping return value. In case there multiple decoders with the same payload type in the configuration, behavior with this cl is to use the first one and silently ignore any other entry with the same payload type. Responsibility for proper error reporting should belong to the SDP code.",
+      "parentUuid": "3eff17b6_646c14c2",
+      "range": {
+        "startLine": 169,
+        "startChar": 0,
+        "endLine": 170,
+        "endChar": 31
+      },
+      "revId": "0bfa768337b1f27517fbc26a608864686ada126b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e4d607e2_d1c0f28f",
         "filename": "video/rtp_video_stream_receiver.cc",
         "patchSetId": 5

@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0f085a52_6329fa3a",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoDecoder.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 653,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-08-08T09:02:33Z",
+      "side": 1,
+      "message": "Nit: Visible",
+      "range": {
+        "startLine": 653,
+        "startChar": 5,
+        "endLine": 653,
+        "endChar": 13
+      },
+      "revId": "98e9f8c480c8f9c2e1935c07c29bb2c80934b70a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee21749c_a0f6306b",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-08-08T09:02:33Z",
+      "side": 1,
+      "message": "Nit: Visible",
+      "range": {
+        "startLine": 486,
+        "startChar": 5,
+        "endLine": 486,
+        "endChar": 13
+      },
+      "revId": "98e9f8c480c8f9c2e1935c07c29bb2c80934b70a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39387a64_4e58ee31",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 582,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-08-08T09:02:33Z",
+      "side": 1,
+      "message": "Nit: Visible",
+      "range": {
+        "startLine": 582,
+        "startChar": 5,
+        "endLine": 582,
+        "endChar": 26
+      },
+      "revId": "98e9f8c480c8f9c2e1935c07c29bb2c80934b70a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53becc3b_2c63dee2",
+        "filename": "sdk/android/tests/src/org/webrtc/HardwareVideoDecoderTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-08-08T09:02:33Z",
+      "side": 1,
+      "message": "Nit: method",
+      "range": {
+        "startLine": 89,
+        "startChar": 47,
+        "endLine": 89,
+        "endChar": 53
+      },
+      "revId": "98e9f8c480c8f9c2e1935c07c29bb2c80934b70a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76610308_89bff2ed",
+        "filename": "sdk/android/tests/src/org/webrtc/HardwareVideoDecoderTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-08-08T09:02:33Z",
+      "side": 1,
+      "message": "Nit: punctuation (apply throughout)",
+      "range": {
+        "startLine": 200,
+        "startChar": 4,
+        "endLine": 200,
+        "endChar": 13
+      },
+      "revId": "98e9f8c480c8f9c2e1935c07c29bb2c80934b70a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d9c0134_84716e08",
+        "filename": "sdk/android/tests/src/org/webrtc/HardwareVideoEncoderTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-08-08T09:02:33Z",
+      "side": 1,
+      "message": "method",
+      "range": {
+        "startLine": 86,
+        "startChar": 47,
+        "endLine": 86,
+        "endChar": 53
+      },
+      "revId": "98e9f8c480c8f9c2e1935c07c29bb2c80934b70a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "727b224e_639efee7",
+        "filename": "sdk/android/tests/src/org/webrtc/HardwareVideoEncoderTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-08-08T09:02:33Z",
+      "side": 1,
+      "message": "Ah, and this was one of the key things you wanted to get at, right? Nice.",
+      "range": {
+        "startLine": 259,
+        "startChar": 14,
+        "endLine": 259,
+        "endChar": 39
+      },
+      "revId": "98e9f8c480c8f9c2e1935c07c29bb2c80934b70a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

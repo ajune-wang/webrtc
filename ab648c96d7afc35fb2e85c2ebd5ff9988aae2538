@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "795116d6_23a280a2",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1196,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-08-08T17:37:41Z",
+      "side": 1,
+      "message": "This would yield unintended ICE gathering state change.\n\nAssume we have 3 DTLS transports, with state kIceGatheringNew, kIceGatheringGathering and kIceGatheringComplete. Both versions of code would give |any_gathering| \u003d true and |all_done_gathering| \u003d false, and |new_gathering_state| would be kIceGatheringGathering.\n\nSuppose that a transport changes its state from kIceGatheringGathering to kIceGatheringComplete. The existing code would keep |any_gathering| \u003d true and |all_done_gathering| \u003d false, and hence |new_gathering_state| \u003d kIceGatheringGathering. On the other hand, the above change would yield |any_gathering| \u003d false and |all_done_gathering| \u003d false, so that |new_gathering_state| \u003d kIceGatheringNew, which triggers a state change.\n\nIIUC, the aggregate state kIceGatheringNew means all transports are in the initial phase of gathering (not started yet), while the aggregate kIceGatheringGathering denotes that the transports have started gathering but not everyone is done.",
+      "range": {
+        "startLine": 1195,
+        "startChar": 4,
+        "endLine": 1196,
+        "endChar": 73
+      },
+      "revId": "ab648c96d7afc35fb2e85c2ebd5ff9988aae2538",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9c9c8582_d293bac6",
+        "filename": "call/simulated_network.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-08T06:57:46Z",
+      "side": 1,
+      "message": "Not sure if there\u0027s any firm guideline, but the rest of the code tends to use math.h (135 places) rather than cmath (72 places). And similarly for other standard C headers.",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 16
+      },
+      "revId": "e79f5e403a319c8ea924a7c35c258c491a2b337e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "814bf896_79ffcde6",
+        "filename": "call/simulated_network.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-08T06:57:46Z",
+      "side": 1,
+      "message": "Doesn\u0027t seem accurate. There\u0027s also a loss model in there? (But probably best to keep this a pure move cl, and fix docs in a followup).",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 29
+      },
+      "revId": "e79f5e403a319c8ea924a7c35c258c491a2b337e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

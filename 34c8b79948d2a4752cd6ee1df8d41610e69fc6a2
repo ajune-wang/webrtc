@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ef52e94c_bc57695d",
+        "filename": "modules/rtp_rtcp/source/rtcp_packet/report_block.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-08-08T00:07:39Z",
+      "side": 1,
+      "message": "Steve pointed out the sign extension functionality in ByteReader. Using that instead to fix the problem and removed this function.",
+      "parentUuid": "293672e0_9d72f56d",
+      "range": {
+        "startLine": 19,
+        "startChar": 34,
+        "endLine": 19,
+        "endChar": 35
+      },
+      "revId": "34c8b79948d2a4752cd6ee1df8d41610e69fc6a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "84f744af_ec6db818",
         "filename": "modules/rtp_rtcp/source/rtcp_packet/report_block.cc",
         "patchSetId": 2
@@ -39,6 +63,24 @@
       "revId": "34c8b79948d2a4752cd6ee1df8d41610e69fc6a2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f54c619_48ea0d05",
+        "filename": "modules/rtp_rtcp/source/rtcp_packet/report_block.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-08-08T00:07:39Z",
+      "side": 1,
+      "message": "Good catch. Yes, it does. Thanks!",
+      "parentUuid": "84f744af_ec6db818",
+      "revId": "34c8b79948d2a4752cd6ee1df8d41610e69fc6a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

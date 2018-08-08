@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "379f6dc4_35a6b995",
+        "filename": "modules/video_coding/utility/default_video_bitrate_allocator.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-08-08T11:21:57Z",
+      "side": 1,
+      "message": "nit: allocated_bitrate_bps",
+      "range": {
+        "startLine": 30,
+        "startChar": 2,
+        "endLine": 30,
+        "endChar": 28
+      },
+      "revId": "aecf225f772da0740ab0ed679de67699a82a1856",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0b91562_9ffa979e",
+        "filename": "modules/video_coding/utility/default_video_bitrate_allocator.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-08-08T11:21:57Z",
+      "side": 1,
+      "message": "Was a bit hard to follow for me, how about:\nuint32_t allocated_bitrate_bps \u003d total_bitrate_bps;\nallocated_bitrate_bps \u003d std::max(allocated_bitrate_bps, codec_.minBitrate * 1000);\nif (codec_.maxBitrate \u003e 0)\n   allocated_bitrate_bps \u003d std::min(allocated_bitrate_bps, codec_.maxBitrate * 1000);",
+      "range": {
+        "startLine": 31,
+        "startChar": 1,
+        "endLine": 38,
+        "endChar": 3
+      },
+      "revId": "aecf225f772da0740ab0ed679de67699a82a1856",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7b79979_32298eb8",
+        "filename": "modules/video_coding/utility/default_video_bitrate_allocator.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-08-08T11:21:57Z",
+      "side": 1,
+      "message": "std::max(1, codec_.numberOfSimulcastStreams);",
+      "range": {
+        "startLine": 40,
+        "startChar": 6,
+        "endLine": 40,
+        "endChar": 80
+      },
+      "revId": "aecf225f772da0740ab0ed679de67699a82a1856",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "17a5c794_8b9618c8",
+        "filename": "test/fake_decoder.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-08-08T11:21:57Z",
+      "side": 1,
+      "message": "This means we will now crash the client if this happens. Is this always an error that can\u0027t be recovered that requires a crash?",
+      "range": {
+        "startLine": 79,
+        "startChar": 6,
+        "endLine": 79,
+        "endChar": 18
+      },
+      "revId": "aecf225f772da0740ab0ed679de67699a82a1856",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60f9fb7c_33cc4239",
+        "filename": "test/fake_encoder.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-08-08T11:21:57Z",
+      "side": 1,
+      "message": "Nit: memset can be a bit of a code smell, could we initialize this in a more explicit way?\nMaybe:\nfor(bool\u0026 used: used_layers) used \u003d false;",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 0
+      },
+      "revId": "aecf225f772da0740ab0ed679de67699a82a1856",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a837ff6_bd2b6190",
+        "filename": "test/fake_encoder.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-08-08T11:21:57Z",
+      "side": 1,
+      "message": "What does this mean?",
+      "range": {
+        "startLine": 83,
+        "startChar": 23,
+        "endLine": 83,
+        "endChar": 61
+      },
+      "revId": "aecf225f772da0740ab0ed679de67699a82a1856",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "f6e13574_c7ab01a9",
+        "filename": "modules/video_coding/utility/default_video_bitrate_allocator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-08-08T08:07:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f914ad3_5fcf2241",
+      "range": {
+        "startLine": 44,
+        "startChar": 75,
+        "endLine": 44,
+        "endChar": 0
+      },
+      "revId": "6b9f1c69adc37dcb3e6a53f7b73473b560da0fca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "04988f60_c44b881f",
         "filename": "test/call_test.cc",
         "patchSetId": 6

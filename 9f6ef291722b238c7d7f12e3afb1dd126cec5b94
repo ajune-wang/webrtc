@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ff8cb214_0eb7e6e6",
+        "filename": "modules/rtp_rtcp/source/rtp_format_video_generic.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-08T09:21:25Z",
+      "side": 1,
+      "message": "since you have to specify template parameter explicitly, you do not need make_optional helper, use constructor directly instead:\nabsl::optional\u003cuint16_t\u003e(.frame_id \u0026 0x7FFF)",
+      "range": {
+        "startLine": 29,
+        "startChar": 30,
+        "endLine": 29,
+        "endChar": 35
+      },
+      "revId": "9f6ef291722b238c7d7f12e3afb1dd126cec5b94",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4b2cfb6_b07b1b3a",
+        "filename": "modules/rtp_rtcp/source/rtp_format_video_generic.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-08T09:21:25Z",
+      "side": 1,
+      "message": "you might want to explicetly ignore 1st bit here since you are using 15bit picture ids",
+      "revId": "9f6ef291722b238c7d7f12e3afb1dd126cec5b94",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37e6be08_d606bb41",
+        "filename": "modules/rtp_rtcp/source/rtp_format_video_generic.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-08T09:21:25Z",
+      "side": 1,
+      "message": "I guess you do not need this bool since\nuse_extended_header_ \u003d\u003d picture_id_.has_value()",
+      "range": {
+        "startLine": 53,
+        "startChar": 8,
+        "endLine": 53,
+        "endChar": 12
+      },
+      "revId": "9f6ef291722b238c7d7f12e3afb1dd126cec5b94",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

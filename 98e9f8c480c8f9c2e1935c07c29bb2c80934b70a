@@ -71,6 +71,29 @@
     },
     {
       "key": {
+        "uuid": "0d6f6e6c_7f134de5",
+        "filename": "sdk/android/tests/src/org/webrtc/FakeMediaCodecWrapper.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-08-08T09:03:31Z",
+      "side": 1,
+      "message": "If anything, this fake is almost complex enough to warrant a unit test of its own, but that\u0027s your call.",
+      "range": {
+        "startLine": 30,
+        "startChar": 13,
+        "endLine": 30,
+        "endChar": 34
+      },
+      "revId": "98e9f8c480c8f9c2e1935c07c29bb2c80934b70a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "53becc3b_2c63dee2",
         "filename": "sdk/android/tests/src/org/webrtc/HardwareVideoDecoderTest.java",
         "patchSetId": 3

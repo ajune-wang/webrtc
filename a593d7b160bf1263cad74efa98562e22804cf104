@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cd3a59b1_66d975bf",
+        "filename": "media/engine/simulcast.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-08-08T13:10:39Z",
+      "side": 1,
+      "message": "I think it could actually be fine to set max framerate here. It\u0027s only for layers[0] that we (currently) still want to limit framerate. Or am I missing something?",
+      "range": {
+        "startLine": 326,
+        "startChar": 30,
+        "endLine": 326,
+        "endChar": 55
+      },
+      "revId": "a593d7b160bf1263cad74efa98562e22804cf104",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7184bbd_057edb95",
+        "filename": "media/engine/webrtcvideoengine.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1827,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-08-08T13:10:39Z",
+      "side": 1,
+      "message": "nit: maybe even break here?",
+      "revId": "a593d7b160bf1263cad74efa98562e22804cf104",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

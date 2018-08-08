@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2b49cbd8_1edb01ee",
+        "filename": "modules/rtp_rtcp/source/rtp_format_video_generic.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-08-08T09:10:58Z",
+      "side": 1,
+      "message": "I updated the code to only store the picture ID. Keep passing whole video header for now to allow adding other values to the packetizer in the future.",
+      "parentUuid": "ceac9db4_b7f23614",
+      "range": {
+        "startLine": 29,
+        "startChar": 71,
+        "endLine": 29,
+        "endChar": 0
+      },
+      "revId": "da5fb3ba7952dd9b347aeeed43945238fd0f526c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cf5270b2_56145df2",
         "filename": "modules/rtp_rtcp/source/rtp_format_video_generic.cc",
         "patchSetId": 11
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "e6e306d3_2670cf3b",
+        "filename": "modules/rtp_rtcp/source/rtp_format_video_generic.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-08-08T09:10:58Z",
+      "side": 1,
+      "message": "The reason is this is the length other packetizers use. I added a comment.",
+      "parentUuid": "cf5270b2_56145df2",
+      "range": {
+        "startLine": 133,
+        "startChar": 18,
+        "endLine": 133,
+        "endChar": 20
+      },
+      "revId": "da5fb3ba7952dd9b347aeeed43945238fd0f526c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "39de6ff8_e34d4298",
         "filename": "modules/rtp_rtcp/source/rtp_format_video_generic.cc",
         "patchSetId": 11
@@ -68,6 +116,30 @@
       "revId": "da5fb3ba7952dd9b347aeeed43945238fd0f526c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ab4b733_090a7a34",
+        "filename": "modules/rtp_rtcp/source/rtp_format_video_generic.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-08-08T09:10:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "39de6ff8_e34d4298",
+      "range": {
+        "startLine": 164,
+        "startChar": 14,
+        "endLine": 164,
+        "endChar": 22
+      },
+      "revId": "da5fb3ba7952dd9b347aeeed43945238fd0f526c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -455,7 +455,6 @@ void SimulcastEncoderAdapter::PopulateStreamCodec(
   *stream_codec = inst;
 
   // Stream specific settings.
-  stream_codec->numberOfSimulcastStreams = 0;
   stream_codec->width = inst.simulcastStream[stream_index].width;
   stream_codec->height = inst.simulcastStream[stream_index].height;
   stream_codec->maxBitrate = inst.simulcastStream[stream_index].maxBitrate;
@@ -463,8 +462,8 @@ void SimulcastEncoderAdapter::PopulateStreamCodec(
   stream_codec->qpMax = inst.simulcastStream[stream_index].qpMax;
   // Settings that are based on stream/resolution.
   const bool lowest_resolution_stream = (stream_index == 0);
-  if (lowest_resolution_stream) {
-    // Settings for lowest spatial resolutions.
+  // Settings for lowest spatial resolutions when not screensharing.
+  if (lowest_resolution_stream && inst.mode != VideoCodecMode::kScreensharing) {
     stream_codec->qpMax = kLowestResMaxQp;
   }
   if (inst.codecType == webrtc::kVideoCodecVP8) {
@@ -481,8 +480,12 @@ void SimulcastEncoderAdapter::PopulateStreamCodec(
       // Turn off denoising for all streams but the highest resolution.
       stream_codec->VP8()->denoisingOn = false;
     }
+
+    // Copy the SimulcastStream-specifics too, with potentially updated qpMax.
+    stream_codec->numberOfSimulcastStreams = 1;
+    stream_codec->simulcastStream[0] = inst.simulcastStream[stream_index];
+    stream_codec->simulcastStream[0].qpMax = stream_codec->qpMax;
   }
-  // TODO(ronghuawu): what to do with targetBitrate.
 
   stream_codec->startBitrate = start_bitrate_kbps;
 }

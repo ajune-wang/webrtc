@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cd27092b_9b689cc7",
+        "filename": "api/test/mock_video_bitrate_allocator_factory.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2018-08-08T14:33:18Z",
+      "side": 1,
+      "message": "I don\u0027t understand why this is necessary? Why can\u0027t your mock method return a std::unique_ptr\u003cVideoBitrateAllocator\u003e  and let the test decide the implementation?",
+      "range": {
+        "startLine": 30,
+        "startChar": 15,
+        "endLine": 30,
+        "endChar": 47
+      },
+      "revId": "4a5d17020f6ae259ac0b4141161ecb3618922160",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3519bcaa_43f09b05",
+        "filename": "api/video/video_bitrate_allocator_factory.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2018-08-08T14:33:18Z",
+      "side": 1,
+      "message": "2018",
+      "range": {
+        "startLine": 2,
+        "startChar": 18,
+        "endLine": 2,
+        "endChar": 22
+      },
+      "revId": "4a5d17020f6ae259ac0b4141161ecb3618922160",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "018a32c3_9ba3648f",
+        "filename": "api/video/video_bitrate_allocator_factory.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2018-08-08T14:33:18Z",
+      "side": 1,
+      "message": "Should it be possible to delete an implementation through this interface? If not, make the dtor protected.",
+      "range": {
+        "startLine": 25,
+        "startChar": 11,
+        "endLine": 25,
+        "endChar": 39
+      },
+      "revId": "4a5d17020f6ae259ac0b4141161ecb3618922160",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

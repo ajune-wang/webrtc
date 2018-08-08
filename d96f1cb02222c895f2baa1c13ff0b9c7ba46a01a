@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a0aeca9f_7ee727f1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-08-08T09:00:49Z",
+      "side": 1,
+      "message": "disable_digital_adaptive 1 only disables. It doesn\u0027t enable digital adaptive from agc2. I\u0027ve rewritten the commit message (I agree, it wasn\u0027t clear).",
+      "parentUuid": "02d4788e_566a7180",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 41
+      },
+      "revId": "d96f1cb02222c895f2baa1c13ff0b9c7ba46a01a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "74c9fea2_53f633fc",
         "filename": "/COMMIT_MSG",
         "patchSetId": 7
@@ -45,6 +69,30 @@
       "revId": "d96f1cb02222c895f2baa1c13ff0b9c7ba46a01a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86460bc0_ade52791",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-08-08T09:00:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "74c9fea2_53f633fc",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 0
+      },
+      "revId": "d96f1cb02222c895f2baa1c13ff0b9c7ba46a01a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "cd115270_4964fb92",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-08-08T09:00:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c86e7ad5_82b74593",
+      "range": {
+        "startLine": 24,
+        "startChar": 48,
+        "endLine": 25,
+        "endChar": 28
+      },
+      "revId": "d96f1cb02222c895f2baa1c13ff0b9c7ba46a01a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "58feac49_33fca90a",
         "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
         "patchSetId": 7
@@ -91,6 +163,30 @@
       "revId": "d96f1cb02222c895f2baa1c13ff0b9c7ba46a01a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8fa9fdbe_a0209903",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-08-08T09:00:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "58feac49_33fca90a",
+      "range": {
+        "startLine": 177,
+        "startChar": 0,
+        "endLine": 218,
+        "endChar": 1
+      },
+      "revId": "d96f1cb02222c895f2baa1c13ff0b9c7ba46a01a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "06f5b490_9e0a6341",
+        "filename": "modules/audio_processing/test/audio_processing_simulator.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-08-08T09:00:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c2e39213_f01b279a",
+      "range": {
+        "startLine": 69,
+        "startChar": 23,
+        "endLine": 69,
+        "endChar": 64
+      },
+      "revId": "d96f1cb02222c895f2baa1c13ff0b9c7ba46a01a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "183bdcf8_cb70bb74",
         "filename": "modules/audio_processing/test/audio_processing_simulator.h",
         "patchSetId": 7
@@ -137,6 +257,30 @@
       "revId": "d96f1cb02222c895f2baa1c13ff0b9c7ba46a01a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3dce91e_2000da45",
+        "filename": "modules/audio_processing/test/audio_processing_simulator.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-08-08T09:00:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "183bdcf8_cb70bb74",
+      "range": {
+        "startLine": 70,
+        "startChar": 23,
+        "endLine": 70,
+        "endChar": 68
+      },
+      "revId": "d96f1cb02222c895f2baa1c13ff0b9c7ba46a01a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

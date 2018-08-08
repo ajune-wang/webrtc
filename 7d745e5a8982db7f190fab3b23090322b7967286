@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fe629096_3681a8d0",
+        "filename": "test/layer_filtering_transport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-08-08T12:56:38Z",
+      "side": 0,
+      "message": "This piece of code does not really make sense. We can have either a VP8 or VP9 packet, but here we assume it is VP9.\n\nI have updated the code to something I hope makes sense.",
+      "range": {
+        "startLine": 151,
+        "startChar": 0,
+        "endLine": 152,
+        "endChar": 72
+      },
+      "revId": "7d745e5a8982db7f190fab3b23090322b7967286",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bc882a7b_d227d772",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1020,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-08-08T13:56:09Z",
+      "side": 1,
+      "message": "I\u0027m not sure if |capture_time_ms| is monotonic, so only inserting a delay once per millisecond might give incorrect results. If we on the other hand always store the max delay for a given millisecond then we will bias the average.",
+      "range": {
+        "startLine": 1019,
+        "startChar": 0,
+        "endLine": 1020,
+        "endChar": 67
+      },
+      "revId": "f6f857368a0d9cfc9e55a2a9164dba4d189a29dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

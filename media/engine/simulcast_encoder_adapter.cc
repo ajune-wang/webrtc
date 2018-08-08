@@ -463,8 +463,8 @@ void SimulcastEncoderAdapter::PopulateStreamCodec(
   stream_codec->qpMax = inst.simulcastStream[stream_index].qpMax;
   // Settings that are based on stream/resolution.
   const bool lowest_resolution_stream = (stream_index == 0);
-  if (lowest_resolution_stream) {
-    // Settings for lowest spatial resolutions.
+  if (lowest_resolution_stream && inst.mode != VideoCodecMode::kScreensharing) {
+    // Settings for lowest spatial resolutions when not screensharing.
     stream_codec->qpMax = kLowestResMaxQp;
   }
   if (inst.codecType == webrtc::kVideoCodecVP8) {

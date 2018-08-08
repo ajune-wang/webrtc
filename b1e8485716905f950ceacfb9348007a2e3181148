@@ -42,6 +42,24 @@
     },
     {
       "key": {
+        "uuid": "b6654d51_4d8280b3",
+        "filename": "video/replay.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 505,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2018-08-08T21:00:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7626433e_083ee050",
+      "revId": "b1e8485716905f950ceacfb9348007a2e3181148",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f43e220b_4385f3e1",
         "filename": "video/replay.cc",
         "patchSetId": 2
@@ -56,6 +74,24 @@
       "revId": "b1e8485716905f950ceacfb9348007a2e3181148",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c70aa4a_b7bbc770",
+        "filename": "video/replay.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 514,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2018-08-08T21:00:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f43e220b_4385f3e1",
+      "revId": "b1e8485716905f950ceacfb9348007a2e3181148",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -79,6 +115,30 @@
       "revId": "b1e8485716905f950ceacfb9348007a2e3181148",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c058c71f_fb646e04",
+        "filename": "video/replay.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2018-08-08T21:00:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "017c0ee4_82c300f5",
+      "range": {
+        "startLine": 519,
+        "startChar": 2,
+        "endLine": 519,
+        "endChar": 30
+      },
+      "revId": "b1e8485716905f950ceacfb9348007a2e3181148",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

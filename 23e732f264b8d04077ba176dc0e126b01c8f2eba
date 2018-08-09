@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7e01fab5_d79b5a5a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-09T09:15:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6dac9446_982df630",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 5
+      },
+      "revId": "23e732f264b8d04077ba176dc0e126b01c8f2eba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0533419a_69eb8c44",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "23e732f264b8d04077ba176dc0e126b01c8f2eba",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8018f45e_4cc81d1d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-09T09:15:13Z",
+      "side": 1,
+      "message": "it is more like become \u0027unneeded\u0027 rather than \u0027unused\u0027.\nNot sure there is a clear CL",
+      "parentUuid": "0533419a_69eb8c44",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 60
+      },
+      "revId": "23e732f264b8d04077ba176dc0e126b01c8f2eba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -46,6 +46,30 @@
       "revId": "387d780905ee255c621b35e20ba56adaf0a656e2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f72e9922_04472127",
+        "filename": "luci-milo.cfg",
+        "patchSetId": 2
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-08-09T09:36:11Z",
+      "side": 1,
+      "message": "Ok, and do the compile trybots also not build with dchecks?",
+      "parentUuid": "7a27c6c8_5209430e",
+      "range": {
+        "startLine": 194,
+        "startChar": 46,
+        "endLine": 194,
+        "endChar": 53
+      },
+      "revId": "387d780905ee255c621b35e20ba56adaf0a656e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

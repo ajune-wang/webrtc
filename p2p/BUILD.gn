@@ -20,6 +20,8 @@ rtc_static_library("rtc_p2p") {
   sources = [
     "base/asyncstuntcpsocket.cc",
     "base/asyncstuntcpsocket.h",
+    "base/basic_mdns_responder.cc",
+    "base/basic_mdns_responder.h",
     "base/basicasyncresolverfactory.cc",
     "base/basicasyncresolverfactory.h",
     "base/basicpacketsocketfactory.cc",
@@ -33,6 +35,7 @@ rtc_static_library("rtc_p2p") {
     "base/icetransportinternal.h",
     "base/mdns_message.cc",
     "base/mdns_message.h",
+    "base/mdns_responder.h",
     "base/p2pconstants.cc",
     "base/p2pconstants.h",
     "base/p2ptransportchannel.cc",
@@ -149,6 +152,7 @@ if (rtc_include_tests) {
 
     sources = [
       "base/asyncstuntcpsocket_unittest.cc",
+      "base/basic_mdns_responder_unittest.cc",
       "base/basicasyncresolverfactory_unittest.cc",
       "base/dtlstransport_unittest.cc",
       "base/mdns_message_unittest.cc",

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5c241cc6_38ff80e2",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-08-09T09:15:53Z",
+      "side": 1,
+      "message": "I think this would show the intention better:\nheader1_.sequenceNumber \u003d static_cast\u003cuint16_t\u003e(-1);",
+      "range": {
+        "startLine": 225,
+        "startChar": 2,
+        "endLine": 225,
+        "endChar": 28
+      },
+      "revId": "14be6e87c5ef8ff158784beb31c62860545993a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3148f0a_ca9a258a",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-08-09T09:15:53Z",
+      "side": 1,
+      "message": "Does this fail before your changes?",
+      "range": {
+        "startLine": 231,
+        "startChar": 0,
+        "endLine": 231,
+        "endChar": 40
+      },
+      "revId": "14be6e87c5ef8ff158784beb31c62860545993a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

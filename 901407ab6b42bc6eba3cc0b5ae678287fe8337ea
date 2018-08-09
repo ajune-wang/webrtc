@@ -22,6 +22,30 @@
       "revId": "901407ab6b42bc6eba3cc0b5ae678287fe8337ea",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9df509db_b009c5d7",
+        "filename": "media/engine/simulcast.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-08-09T13:05:57Z",
+      "side": 1,
+      "message": "Oops, nice catch.\nActually, I change this to have a defined max bitrate for the upper layer max, and then apply the rate allocation factor to scale the case without layers down to where the base layer would have been.\nThis also avoids collision with the conference mode detection hack... :/",
+      "parentUuid": "3f2a8ecb_967cb308",
+      "range": {
+        "startLine": 323,
+        "startChar": 10,
+        "endLine": 323,
+        "endChar": 43
+      },
+      "revId": "901407ab6b42bc6eba3cc0b5ae678287fe8337ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

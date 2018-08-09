@@ -2,6 +2,121 @@
   "comments": [
     {
       "key": {
+        "uuid": "5eeaadc3_2375c560",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-08-09T11:56:03Z",
+      "side": 1,
+      "message": "It would be nice if it\u0027s possible to write this without the helper function to make it easier to follow what actually happens. Maybe that would allow us to flatten the conditionals as well?",
+      "range": {
+        "startLine": 119,
+        "startChar": 8,
+        "endLine": 122,
+        "endChar": 60
+      },
+      "revId": "14be6e87c5ef8ff158784beb31c62860545993a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "746603fb_3a9603fb",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-08-09T11:56:03Z",
+      "side": 1,
+      "message": "Could these be combined into one?",
+      "range": {
+        "startLine": 225,
+        "startChar": 19,
+        "endLine": 225,
+        "endChar": 76
+      },
+      "revId": "14be6e87c5ef8ff158784beb31c62860545993a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55708752_84c055e8",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-08-09T11:56:03Z",
+      "side": 1,
+      "message": "Does this mean that the reported software_fallback could go from 1 to UINT16_MAX between two reports if we are unlucky? If so, are we sure that it is withing specified behavior and doesn\u0027t risk breaking assumptions in client code? (For instance if the extended_seq_max delta is used to calculate number of packets received)",
+      "range": {
+        "startLine": 226,
+        "startChar": 11,
+        "endLine": 226,
+        "endChar": 27
+      },
+      "revId": "14be6e87c5ef8ff158784beb31c62860545993a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6ae2890_4715c55d",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-08-09T11:56:03Z",
+      "side": 1,
+      "message": "Why change the type? Do we want this to wrap?",
+      "range": {
+        "startLine": 67,
+        "startChar": 11,
+        "endLine": 67,
+        "endChar": 36
+      },
+      "revId": "14be6e87c5ef8ff158784beb31c62860545993a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e683426d_0cdb37a1",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-08-09T11:56:03Z",
+      "side": 1,
+      "message": "int should work for this right? Or would that mess up other calculations?",
+      "range": {
+        "startLine": 76,
+        "startChar": 11,
+        "endLine": 76,
+        "endChar": 46
+      },
+      "revId": "14be6e87c5ef8ff158784beb31c62860545993a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5c241cc6_38ff80e2",
         "filename": "modules/rtp_rtcp/source/receive_statistics_unittest.cc",
         "patchSetId": 1

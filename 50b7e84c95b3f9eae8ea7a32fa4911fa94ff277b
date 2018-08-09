@@ -1,0 +1,239 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6bc3a8b1_319effcb",
+        "filename": "examples/mdnsresponder/mdnsresponder_main.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-09T18:31:50Z",
+      "side": 1,
+      "message": "Might be worth adding this as the usage message printed to stdout.",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 27
+      },
+      "revId": "50b7e84c95b3f9eae8ea7a32fa4911fa94ff277b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d79b7c2_9d8e53eb",
+        "filename": "examples/mdnsresponder/mdnsresponder_main.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-09T18:31:50Z",
+      "side": 1,
+      "message": "absl::make_unique",
+      "range": {
+        "startLine": 96,
+        "startChar": 10,
+        "endLine": 96,
+        "endChar": 36
+      },
+      "revId": "50b7e84c95b3f9eae8ea7a32fa4911fa94ff277b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad409f27_8193772f",
+        "filename": "examples/mdnsresponder/mdnsresponder_main.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-09T18:31:50Z",
+      "side": 1,
+      "message": "Use AsyncInvoker? I think we want to avoid using MessageHandler for any new code.",
+      "revId": "50b7e84c95b3f9eae8ea7a32fa4911fa94ff277b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "989d9aa3_08554c00",
+        "filename": "p2p/base/basic_mdns_responder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-09T18:31:50Z",
+      "side": 1,
+      "message": "Comment where these addresses come from.",
+      "revId": "50b7e84c95b3f9eae8ea7a32fa4911fa94ff277b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9b1a9a0_b279aa93",
+        "filename": "p2p/base/basic_mdns_responder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-09T18:31:50Z",
+      "side": 1,
+      "message": "RTC_DCHECK(listen_socket_ipv4_ || listen_socket_ipv6_) \u003c\u003c \"No listening socket provided.\";",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 3
+      },
+      "revId": "50b7e84c95b3f9eae8ea7a32fa4911fa94ff277b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0e69240_530ac851",
+        "filename": "p2p/base/basic_mdns_responder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-09T18:31:50Z",
+      "side": 1,
+      "message": "for (const auto\u0026 entry : name_by_ip_) {\n  entry.first, entry.second\n}",
+      "revId": "50b7e84c95b3f9eae8ea7a32fa4911fa94ff277b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f46fe197_ba776f47",
+        "filename": "p2p/base/basic_mdns_responder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-09T18:31:50Z",
+      "side": 1,
+      "message": "need deliminator",
+      "range": {
+        "startLine": 146,
+        "startChar": 42,
+        "endLine": 146,
+        "endChar": 46
+      },
+      "revId": "50b7e84c95b3f9eae8ea7a32fa4911fa94ff277b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eedefeb6_2ed2df3e",
+        "filename": "p2p/base/basic_mdns_responder.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-09T18:31:50Z",
+      "side": 1,
+      "message": "Can a client specify both ipv4 and ipv6 sockets?\n\nAlso add that the sockets must outlive the BasicMDnsResponder.",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 58
+      },
+      "revId": "50b7e84c95b3f9eae8ea7a32fa4911fa94ff277b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "741612b0_a63c4f74",
+        "filename": "p2p/base/basic_mdns_responder_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-09T18:31:50Z",
+      "side": 1,
+      "message": "const reference",
+      "range": {
+        "startLine": 140,
+        "startChar": 6,
+        "endLine": 140,
+        "endChar": 14
+      },
+      "revId": "50b7e84c95b3f9eae8ea7a32fa4911fa94ff277b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb5b4834_dc922cd9",
+        "filename": "p2p/base/mdns_responder.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-09T18:31:50Z",
+      "side": 1,
+      "message": "Please add class level documentation.",
+      "range": {
+        "startLine": 24,
+        "startChar": 6,
+        "endLine": 24,
+        "endChar": 19
+      },
+      "revId": "50b7e84c95b3f9eae8ea7a32fa4911fa94ff277b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1aea6144_b7f4bd9c",
+        "filename": "p2p/base/mdns_responder.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-09T18:31:50Z",
+      "side": 1,
+      "message": "This makes the MDnsResponder specific for the WebRTC IP concealment use case. Would it be any worse to expose a generic AddAddressMapping(const std::string\u0026 name, const rtc::IPAddress\u0026 address) and let the client do the auto-generation?\n\nJust an idea. Since I don\u0027t imagine the MDnsResponder being used for anything else it\u0027s not that big of a deal.",
+      "range": {
+        "startLine": 30,
+        "startChar": 22,
+        "endLine": 30,
+        "endChar": 42
+      },
+      "revId": "50b7e84c95b3f9eae8ea7a32fa4911fa94ff277b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

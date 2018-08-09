@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6973d3c7_1e60d20e",
+        "filename": "media/engine/simulcast.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-08-09T12:00:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b1ba3cd8_aefe06db",
+      "range": {
+        "startLine": 317,
+        "startChar": 22,
+        "endLine": 317,
+        "endChar": 29
+      },
+      "revId": "27baa7d618334224ec3c6e23095c4e2efbfbfa27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e7b682e4_c8432238",
         "filename": "media/engine/simulcast.cc",
         "patchSetId": 8
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "7807d004_58b8ead4",
+        "filename": "media/engine/simulcast.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-08-09T12:00:29Z",
+      "side": 1,
+      "message": "Right, it might make sense to set the max to the base layer bitrate in case there is no temporal layering, so that the gap to the lower layer isn\u0027t too large.",
+      "parentUuid": "e7b682e4_c8432238",
+      "range": {
+        "startLine": 320,
+        "startChar": 6,
+        "endLine": 320,
+        "endChar": 21
+      },
+      "revId": "27baa7d618334224ec3c6e23095c4e2efbfbfa27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ef44219_dad18936",
         "filename": "modules/video_coding/codecs/vp8/temporal_layers.cc",
         "patchSetId": 8
@@ -59,6 +107,30 @@
       "writtenOn": "2018-08-09T11:35:30Z",
       "side": 1,
       "message": "Are you happy with so many assumptions here?",
+      "range": {
+        "startLine": 47,
+        "startChar": 9,
+        "endLine": 50,
+        "endChar": 57
+      },
+      "revId": "27baa7d618334224ec3c6e23095c4e2efbfbfa27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3fb1b1c_f5e0eeef",
+        "filename": "modules/video_coding/codecs/vp8/temporal_layers.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-08-09T12:00:29Z",
+      "side": 1,
+      "message": "Certainly not, but I don\u0027t want to add a flag to the VideoCodec struct to explicitly tell which mode is used.\nThe plan is to nuke \"conference\" screenshare layers altogether, but that\u0027s out of the current scope.",
+      "parentUuid": "9ef44219_dad18936",
       "range": {
         "startLine": 47,
         "startChar": 9,
@@ -91,6 +163,30 @@
       "revId": "27baa7d618334224ec3c6e23095c4e2efbfbfa27",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9d6a5a7_8301017e",
+        "filename": "video/full_stack_tests.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-08-09T12:00:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6be417a8_b3d3b643",
+      "range": {
+        "startLine": 71,
+        "startChar": 12,
+        "endLine": 71,
+        "endChar": 34
+      },
+      "revId": "27baa7d618334224ec3c6e23095c4e2efbfbfa27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

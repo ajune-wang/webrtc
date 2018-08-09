@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "66050cb6_bc6320bf",
+        "filename": "pc/webrtcsdp_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2520,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-08-09T08:50:12Z",
+      "side": 1,
+      "message": "This passes without the change to webrtcsdp.cc.",
+      "revId": "d3343dd5ed2fafb9df9805b367bcc2c370461f0e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

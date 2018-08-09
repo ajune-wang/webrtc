@@ -94,6 +94,30 @@
       "revId": "387d780905ee255c621b35e20ba56adaf0a656e2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4fdf8988_4565546a",
+        "filename": "luci-milo.cfg",
+        "patchSetId": 2
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-08-09T11:25:28Z",
+      "side": 1,
+      "message": "Ok, let\u0027s ship it",
+      "parentUuid": "d8e62a99_01bf96be",
+      "range": {
+        "startLine": 194,
+        "startChar": 46,
+        "endLine": 194,
+        "endChar": 53
+      },
+      "revId": "387d780905ee255c621b35e20ba56adaf0a656e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

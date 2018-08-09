@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "22da6a36_1d654d54",
+        "filename": "p2p/base/fakeasyncresolver.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-08-09T23:03:11Z",
+      "side": 1,
+      "message": "Just to echo Justin\u0027s earlier comment, we probably may want to have a much lighter implementation of the fake.",
+      "range": {
+        "startLine": 21,
+        "startChar": 33,
+        "endLine": 21,
+        "endChar": 51
+      },
+      "revId": "dde4cd5f212c365faf8f02821542c02d4b94198c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "988c14e8_62ec0035",
         "filename": "p2p/base/p2ptransportchannel_unittest.cc",
         "patchSetId": 7
@@ -64,6 +87,76 @@
         "startChar": 38,
         "endLine": 4638,
         "endChar": 74
+      },
+      "revId": "dde4cd5f212c365faf8f02821542c02d4b94198c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e0b4847_d3287194",
+        "filename": "p2p/base/p2ptransportchannel_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 4638,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-08-09T23:03:11Z",
+      "side": 1,
+      "message": "Found I answered my own question: we have tests covering this (yeah, I should\u0027ve guessed...), https://cs.chromium.org/chromium/src/third_party/webrtc/p2p/base/p2ptransportchannel_unittest.cc?q\u003dp2ptrans\u0026sq\u003dpackage:chromium\u0026g\u003d0\u0026l\u003d1542 and tests below have covered the current dedup logic of prflx candidates. I think we won\u0027t need this test any more.",
+      "parentUuid": "38a0335c_ba04e3b4",
+      "range": {
+        "startLine": 4638,
+        "startChar": 38,
+        "endLine": 4638,
+        "endChar": 74
+      },
+      "revId": "dde4cd5f212c365faf8f02821542c02d4b94198c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28ccc6df_58aec538",
+        "filename": "pc/peerconnection_integrationtest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-08-09T23:03:11Z",
+      "side": 1,
+      "message": "I suggest to absorb the utilities provided by the two IceCandidateReplacerInterfaces below to PeerConnectionWrapper. PeerConnectionWrapper servers as the signaling channel in the test and it may be more intuitive that it carries out the behavior defined by the replacers, also reducing the load of understanding different classes for someone not familiar with the context. One way to do this may be changing/overloading ConnectFakeSignaling and adding different behavior modes of the signaling channel to the argument.",
+      "range": {
+        "startLine": 220,
+        "startChar": 6,
+        "endLine": 220,
+        "endChar": 35
+      },
+      "revId": "dde4cd5f212c365faf8f02821542c02d4b94198c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8a42fa4_f747495a",
+        "filename": "pc/peerconnection_integrationtest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 3448,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-08-09T23:03:11Z",
+      "side": 1,
+      "message": "After changing the fake and the mock to a lighter implementation without using SignalThread, we need update here as well.",
+      "range": {
+        "startLine": 3448,
+        "startChar": 24,
+        "endLine": 3448,
+        "endChar": 30
       },
       "revId": "dde4cd5f212c365faf8f02821542c02d4b94198c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

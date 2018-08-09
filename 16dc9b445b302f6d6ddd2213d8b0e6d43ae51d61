@@ -236,6 +236,24 @@
     },
     {
       "key": {
+        "uuid": "f446fad7_58985a68",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1043,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-08-09T23:03:11Z",
+      "side": 1,
+      "message": "I think even with Destroy, we can erase() before the if statement. You can do resolver-\u003eDestroy instead of p-\u003eresolver_-\u003eDestroy. The CandidateAndResolver does not have the ownership of the AsyncResolverInterface, so the destructor triggered by erase() would not delete the resolver.",
+      "parentUuid": "336a302a_d7b8432b",
+      "revId": "16dc9b445b302f6d6ddd2213d8b0e6d43ae51d61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2b0b85be_872771d4",
         "filename": "p2p/base/p2ptransportchannel.cc",
         "patchSetId": 4

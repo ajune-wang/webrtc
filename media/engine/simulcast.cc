@@ -311,21 +311,37 @@ std::vector<webrtc::VideoStream> GetScreenshareLayers(
   // restrictions. The base simulcast layer will still use legacy setup.
   if (num_simulcast_layers == kMaxScreenshareSimulcastLayers) {
     // Add optional upper simulcast layer.
-    // Lowest temporal layers of a 3 layer setup will have 40% of the total
-    // bitrate allocation for that simulcast layer. Make sure the gap between
-    // the target of the lower simulcast layer and first temporal layer of the
-    // higher one is at most 2x the bitrate, so that upswitching is not hampered
-    // by stalled bitrate estimates.
-    int max_bitrate_bps = 2 * ((layers[0].target_bitrate_bps * 10) / 4);
+    int max_bitrate_bps;
+    if (!temporal_layers_supported) {
+      max_bitrate_bps = kScreenshareDefaultTl1BitrateKbps;
+    } else if (DefaultNumberOfTemporalLayers(1) != 3 ||
+               webrtc::field_trial::IsEnabled("WebRTC-UseShortVP8TL3Pattern")) {
+      // Experimental temporal layer mode used, use increased max bitrate.
+      // Cap the base temporal layer to 1Mbps, and set the max based on the
+      // current temporal rate distribution.
+      max_bitrate_bps = static_cast<int>(
+          kScreenshareDefaultTl1BitrateKbps /
+          webrtc::SimulcastRateAllocator::GetTemporalRateAllocation(
+              DefaultNumberOfTemporalLayers(1), 0));
+    } else {
+      // Keep current bitrates with default 3tl/8 frame settings.
+      // Lowest temporal layers of a 3 layer setup will have 40% of the total
+      // bitrate allocation for that simulcast layer. Make sure the gap between
+      // the target of the lower simulcast layer and first temporal layer of the
+      // higher one is at most 2x the bitrate, so that upswitching is not
+      // hampered by stalled bitrate estimates.
+      max_bitrate_bps = 2 * ((layers[0].target_bitrate_bps * 10) / 4);
+    }
+
     // Cap max bitrate so it isn't overly high for the given resolution.
     max_bitrate_bps = std::min<int>(max_bitrate_bps,
                                     FindSimulcastMaxBitrateBps(width, height));
-
     layers[1].width = width;
     layers[1].height = height;
     layers[1].max_qp = max_qp;
     layers[1].max_framerate = max_framerate;
-    layers[1].num_temporal_layers = 3;
+    layers[1].num_temporal_layers =
+        temporal_layers_supported ? DefaultNumberOfTemporalLayers(1) : 0;
     layers[1].min_bitrate_bps = layers[0].target_bitrate_bps * 2;
     layers[1].target_bitrate_bps = max_bitrate_bps;
     layers[1].max_bitrate_bps = max_bitrate_bps;

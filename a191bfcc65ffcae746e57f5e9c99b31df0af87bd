@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c93d1345_9bd7a1ee",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-09T08:29:23Z",
+      "side": 1,
+      "message": "This target arguably has no business being public. Could you post a bug about that, and reference it here in a comment?",
+      "revId": "a191bfcc65ffcae746e57f5e9c99b31df0af87bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5a4fd18_7667323b",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-09T08:29:23Z",
+      "side": 1,
+      "message": "Same here.",
+      "revId": "a191bfcc65ffcae746e57f5e9c99b31df0af87bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d888b674_9b391a49",
+        "filename": "media/engine/simulcast.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2018-08-09T07:37:47Z",
+      "side": 1,
+      "message": "I have moved the setting of max framerate to after GetSimulcastConfig as for the other configured parameters (and now also using the actual number layers when getting the max framerate). Currently only done for !screenshare..",
+      "parentUuid": "cd3a59b1_66d975bf",
+      "range": {
+        "startLine": 326,
+        "startChar": 30,
+        "endLine": 326,
+        "endChar": 55
+      },
+      "revId": "a593d7b160bf1263cad74efa98562e22804cf104",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e7184bbd_057edb95",
         "filename": "media/engine/webrtcvideoengine.cc",
         "patchSetId": 7
@@ -39,6 +63,24 @@
       "revId": "a593d7b160bf1263cad74efa98562e22804cf104",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cdc16c0b_b3aca360",
+        "filename": "media/engine/webrtcvideoengine.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1827,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2018-08-09T07:37:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e7184bbd_057edb95",
+      "revId": "a593d7b160bf1263cad74efa98562e22804cf104",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

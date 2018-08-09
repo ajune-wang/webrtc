@@ -1,0 +1,182 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f49330f8_5494438d",
+        "filename": "modules/audio_processing/audio_processing_impl_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-08-09T12:11:53Z",
+      "side": 1,
+      "message": "Suggestion\nknown\n-\u003e\nknown and detectable",
+      "range": {
+        "startLine": 94,
+        "startChar": 59,
+        "endLine": 94,
+        "endChar": 64
+      },
+      "revId": "f4726e8792c0423c657e5ba13817f41fb714aa32",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dce28f76_704756de",
+        "filename": "modules/audio_processing/audio_processing_impl_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-08-09T12:11:53Z",
+      "side": 1,
+      "message": "This code is not related to this CL, but since you anyway change the names of constants in this method, please also change the name for gain_factor to comply to the style guide.",
+      "range": {
+        "startLine": 172,
+        "startChar": 18,
+        "endLine": 172,
+        "endChar": 29
+      },
+      "revId": "f4726e8792c0423c657e5ba13817f41fb714aa32",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "684758b5_7743e671",
+        "filename": "modules/audio_processing/audio_processing_impl_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-08-09T12:11:53Z",
+      "side": 1,
+      "message": "Incomplete comment.",
+      "range": {
+        "startLine": 192,
+        "startChar": 2,
+        "endLine": 192,
+        "endChar": 28
+      },
+      "revId": "f4726e8792c0423c657e5ba13817f41fb714aa32",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e581fa3_bf73a9cc",
+        "filename": "modules/audio_processing/audio_processing_impl_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-08-09T12:11:53Z",
+      "side": 1,
+      "message": "There is no need of separate capture_frame and render_frame.\n\nMy suggestion is to instead only use the same (AudioFrame frame). That will shorten the code and also clarify that the separation of the render and capture frames is not important for the test.",
+      "range": {
+        "startLine": 206,
+        "startChar": 13,
+        "endLine": 206,
+        "endChar": 26
+      },
+      "revId": "f4726e8792c0423c657e5ba13817f41fb714aa32",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f2478f5_3217c96b",
+        "filename": "modules/audio_processing/audio_processing_impl_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-08-09T12:11:53Z",
+      "side": 1,
+      "message": "Nit: Is it somehow possible to make this constexpr? I have a feeling it should be.",
+      "revId": "f4726e8792c0423c657e5ba13817f41fb714aa32",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "138af374_2e0b84dc",
+        "filename": "modules/audio_processing/audio_processing_impl_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-08-09T12:11:53Z",
+      "side": 1,
+      "message": "reverse -\u003e render",
+      "range": {
+        "startLine": 216,
+        "startChar": 15,
+        "endLine": 216,
+        "endChar": 22
+      },
+      "revId": "f4726e8792c0423c657e5ba13817f41fb714aa32",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5b8418f_e26c042a",
+        "filename": "modules/audio_processing/audio_processing_impl_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-08-09T12:11:53Z",
+      "side": 1,
+      "message": "My suggestion is to remove the below comment. It describes a wrong way to do it, and it does not add anything to explain how this test works.\n\n  // An APM implementation agnostic alternative would be to\n  // call ProcessReverseStream() until AnalyzeRenderAudio() is called, but that\n  // way also makes assumptions on the internal implementation of APM and\n  // requires a loop.",
+      "range": {
+        "startLine": 221,
+        "startChar": 22,
+        "endLine": 224,
+        "endChar": 21
+      },
+      "revId": "f4726e8792c0423c657e5ba13817f41fb714aa32",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef219225_ffff86d0",
+        "filename": "modules/audio_processing/audio_processing_impl_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-08-09T12:11:53Z",
+      "side": 1,
+      "message": "trigger -\u003e triggered",
+      "range": {
+        "startLine": 229,
+        "startChar": 5,
+        "endLine": 229,
+        "endChar": 12
+      },
+      "revId": "f4726e8792c0423c657e5ba13817f41fb714aa32",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

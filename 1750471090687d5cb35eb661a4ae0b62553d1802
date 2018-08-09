@@ -22,6 +22,30 @@
       "revId": "1750471090687d5cb35eb661a4ae0b62553d1802",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e2025f2_77a85fcd",
+        "filename": "media/engine/simulcast_encoder_adapter_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 876,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-08-09T09:19:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d2f2a05_cfd39b87",
+      "range": {
+        "startLine": 876,
+        "startChar": 21,
+        "endLine": 876,
+        "endChar": 23
+      },
+      "revId": "1750471090687d5cb35eb661a4ae0b62553d1802",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

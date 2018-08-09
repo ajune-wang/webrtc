@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b5962019_f80ca0b5",
+        "filename": "modules/audio_processing/audio_processing_impl_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-08-09T05:40:56Z",
+      "side": 1,
+      "message": "Please write a comment describing the purpose of the class.",
+      "revId": "a29f1fa24c18c394ce8e341d37cb9707f96af086",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9cced4be_87830da3",
+        "filename": "modules/audio_processing/audio_processing_impl_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-08-09T05:40:56Z",
+      "side": 1,
+      "message": "Since this (as well as the two variables below) is a constant, I think it must use the constant naming scheme (Camel casing beginning with a \"k\").",
+      "range": {
+        "startLine": 200,
+        "startChar": 20,
+        "endLine": 200,
+        "endChar": 31
+      },
+      "revId": "a29f1fa24c18c394ce8e341d37cb9707f96af086",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ebce035_b05150ce",
+        "filename": "modules/audio_processing/audio_processing_impl_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-08-09T05:40:56Z",
+      "side": 1,
+      "message": "Is the for loop needed? Isn\u0027t it sufficient to call AnalyzeRenderAudio only once?",
+      "revId": "a29f1fa24c18c394ce8e341d37cb9707f96af086",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95f981bd_8b7548f5",
+        "filename": "modules/audio_processing/audio_processing_impl_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-08-09T05:40:56Z",
+      "side": 1,
+      "message": "Is there any reason for that this value is not deterministic? What affects the number of calls required?",
+      "revId": "a29f1fa24c18c394ce8e341d37cb9707f96af086",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

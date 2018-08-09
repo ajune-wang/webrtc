@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a27eb922_450dd2ec",
+        "filename": "modules/audio_processing/audio_processing_impl_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-08-09T07:35:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b5962019_f80ca0b5",
+      "revId": "a29f1fa24c18c394ce8e341d37cb9707f96af086",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9cced4be_87830da3",
         "filename": "modules/audio_processing/audio_processing_impl_unittest.cc",
         "patchSetId": 2
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "9dd7fd05_37184dba",
+        "filename": "modules/audio_processing/audio_processing_impl_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-08-09T07:35:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9cced4be_87830da3",
+      "range": {
+        "startLine": 200,
+        "startChar": 20,
+        "endLine": 200,
+        "endChar": 31
+      },
+      "revId": "a29f1fa24c18c394ce8e341d37cb9707f96af086",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2ebce035_b05150ce",
         "filename": "modules/audio_processing/audio_processing_impl_unittest.cc",
         "patchSetId": 2
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "444b9eff_696a37cb",
+        "filename": "modules/audio_processing/audio_processing_impl_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-08-09T07:35:05Z",
+      "side": 1,
+      "message": "Yes, it\u0027s needed because we have to trigger a call to EchoDetector::AnalyzeRenderAudio, which occurs when the internal queue in APM is full (after 100 steps).\nBTW, I wanted to make this test agnostic to the internals of APM as much as possible, so instead of hardcoding the # of loops, I check when the method is called and added a max # of loops as a safeguard.",
+      "parentUuid": "2ebce035_b05150ce",
+      "revId": "a29f1fa24c18c394ce8e341d37cb9707f96af086",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "95f981bd_8b7548f5",
         "filename": "modules/audio_processing/audio_processing_impl_unittest.cc",
         "patchSetId": 2
@@ -73,6 +133,24 @@
       "revId": "a29f1fa24c18c394ce8e341d37cb9707f96af086",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cac5b33f_523aadd5",
+        "filename": "modules/audio_processing/audio_processing_impl_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-08-09T07:35:05Z",
+      "side": 1,
+      "message": "Related to my previous reply. I didn\u0027t want to make explicit that APM has a queue inside, but a replacing line 212 with while(!test_echo_detector-\u003eanalyze_render_audio_called()) (i.e., without a safeguard) is risky.\nSo, if at the end of the for loop the method hasn\u0027t been called yet, the test fail and indicates that the safe guard is too low. In this way, if the queue in APM becomes larger, we get an error and know how to fix this test.\n\nFinally, note that the queue size is defined in the anon NS of audio_processing_impl and moving it to the .h file and using it would mean revealing an impl detail for this test.",
+      "parentUuid": "95f981bd_8b7548f5",
+      "revId": "a29f1fa24c18c394ce8e341d37cb9707f96af086",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

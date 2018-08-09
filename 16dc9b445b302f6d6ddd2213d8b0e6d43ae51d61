@@ -368,6 +368,24 @@
       "revId": "16dc9b445b302f6d6ddd2213d8b0e6d43ae51d61",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4eda538b_2f2d9565",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1072,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-08-09T17:51:55Z",
+      "side": 1,
+      "message": "I think the failed tests show the filter given by conn-\u003eMaybeUpdatePeerReflexiveCandidate is not sufficient. For example, P2PTransportChannelResolverTest.HostnameAndPrflxCandidateDeduplicate failed because there was no candidate pair formed (no local candidate gathered in the fixture). The above check was skipped and we end up with two candidates. This could happen in practice if this endpoint only gathers relay candidates and the TURN transactions take long RTT. Adding a similar filter for all remote candidates remembered should solve the problem I think.",
+      "parentUuid": "d3256d73_8e9c68f5",
+      "revId": "16dc9b445b302f6d6ddd2213d8b0e6d43ae51d61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

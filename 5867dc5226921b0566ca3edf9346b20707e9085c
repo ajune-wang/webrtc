@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "95d63cd7_4b31d3d3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-08-09T11:50:34Z",
+      "side": 1,
+      "message": "Super clear description, thank you!",
+      "revId": "5867dc5226921b0566ca3edf9346b20707e9085c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b86b3aa9_12a0e31b",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-08-09T11:50:34Z",
+      "side": 1,
+      "message": "I added a comment on target_compression_ below. Same question applies here.",
+      "range": {
+        "startLine": 93,
+        "startChar": 12,
+        "endLine": 93,
+        "endChar": 65
+      },
+      "revId": "5867dc5226921b0566ca3edf9346b20707e9085c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b387b20e_351da5a5",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-08-09T11:50:34Z",
+      "side": 1,
+      "message": "same as above (sorry for having added the question below)",
+      "range": {
+        "startLine": 98,
+        "startChar": 2,
+        "endLine": 99,
+        "endChar": 61
+      },
+      "revId": "5867dc5226921b0566ca3edf9346b20707e9085c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc4f1210_8f384c67",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-08-09T11:50:34Z",
+      "side": 1,
+      "message": "I wonder if this affects how analog AGC1 behaves.\nDoes it end up to higher gains? I haven\u0027t checked yet if you have added unit tests, but maybe it\u0027s good to write one that checks that the value of disable_digital_adaptive_ doesn\u0027t change the output of analog AGC1 - i.e., same sequence of suggested analog gains produced.",
+      "range": {
+        "startLine": 210,
+        "startChar": 4,
+        "endLine": 210,
+        "endChar": 28
+      },
+      "revId": "5867dc5226921b0566ca3edf9346b20707e9085c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "842b1c86_9cdf775c",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-08-09T11:50:34Z",
+      "side": 1,
+      "message": "remove this line, move \"compression_ \u003d target_compression_;\" outside of the if\nmaybe rewrite as follows:\n\ntarget_compression_ \u003d disable_digital_adaptive_ ? 0 : kDefaultCompressionGain;",
+      "range": {
+        "startLine": 211,
+        "startChar": 4,
+        "endLine": 211,
+        "endChar": 21
+      },
+      "revId": "5867dc5226921b0566ca3edf9346b20707e9085c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9cd681f2_32cb07de",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-08-09T11:50:34Z",
+      "side": 1,
+      "message": "Not from this CL, but what about adding a TODO to remove this param? As discussed offline, we don\u0027t want to modify AGC1 using the level estimation from AGC2. Unless you want to keep this for the (near) future as an additional milestone before adding the analog part in AGC2.",
+      "range": {
+        "startLine": 52,
+        "startChar": 19,
+        "endLine": 52,
+        "endChar": 50
+      },
+      "revId": "5867dc5226921b0566ca3edf9346b20707e9085c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1ad4b82_d948be36",
+        "filename": "modules/audio_processing/test/audioproc_float_impl.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-08-09T11:50:34Z",
+      "side": 1,
+      "message": "maybe \"default (0).\"",
+      "range": {
+        "startLine": 124,
+        "startChar": 62,
+        "endLine": 124,
+        "endChar": 70
+      },
+      "revId": "5867dc5226921b0566ca3edf9346b20707e9085c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

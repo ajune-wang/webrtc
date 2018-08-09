@@ -386,6 +386,24 @@
       "revId": "16dc9b445b302f6d6ddd2213d8b0e6d43ae51d61",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6bf36f2_e094f62a",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1072,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-08-09T19:32:11Z",
+      "side": 1,
+      "message": "My comment above is incorrect: the necessary condition to have prflx remote candidates is to have at lease one local candidate; otherwise the other endpoint would not form a pair and would not start to ping.\n\nIt is the test setup that is problematic; please see my comments there.",
+      "parentUuid": "4eda538b_2f2d9565",
+      "revId": "16dc9b445b302f6d6ddd2213d8b0e6d43ae51d61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

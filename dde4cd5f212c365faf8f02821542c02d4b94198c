@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "988c14e8_62ec0035",
+        "filename": "p2p/base/p2ptransportchannel_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 4632,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-08-09T19:32:11Z",
+      "side": 1,
+      "message": "Address resolution should be delayed to after the prflx candidate is discovered from an unknown address.",
+      "range": {
+        "startLine": 4632,
+        "startChar": 19,
+        "endLine": 4632,
+        "endChar": 35
+      },
+      "revId": "dde4cd5f212c365faf8f02821542c02d4b94198c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "371b5e7a_b31fe7b6",
+        "filename": "p2p/base/p2ptransportchannel_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 4634,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-08-09T19:32:11Z",
+      "side": 1,
+      "message": "Need at least one local candidate; otherwise the remote side would not ping and no prflx remote candidate.",
+      "range": {
+        "startLine": 4634,
+        "startChar": 29,
+        "endLine": 4634,
+        "endChar": 43
+      },
+      "revId": "dde4cd5f212c365faf8f02821542c02d4b94198c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38a0335c_ba04e3b4",
+        "filename": "p2p/base/p2ptransportchannel_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 4638,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-08-09T19:32:11Z",
+      "side": 1,
+      "message": "Need at least one local candidate as for the test above. As we discussed offline, this test does not actually test much of the resolution (by the second expectation) but rather out generic logic in dedup remote candidates.\n\nI kind of wonder if our current code can handle this: 1) the signaling of a host remote candidate is delayed, 2) and a prflx remote candidate surfaces, 3) and the host remote candidate is received  and the dedup works as intended. I am curious to see if this works. We probably need a separate test for this, not specific to name resolution.",
+      "range": {
+        "startLine": 4638,
+        "startChar": 38,
+        "endLine": 4638,
+        "endChar": 74
+      },
+      "revId": "dde4cd5f212c365faf8f02821542c02d4b94198c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b1ba3cd8_aefe06db",
+        "filename": "media/engine/simulcast.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-08-09T11:35:30Z",
+      "side": 1,
+      "message": "temporal",
+      "range": {
+        "startLine": 317,
+        "startChar": 22,
+        "endLine": 317,
+        "endChar": 29
+      },
+      "revId": "27baa7d618334224ec3c6e23095c4e2efbfbfa27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7b682e4_c8432238",
+        "filename": "media/engine/simulcast.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-08-09T11:35:30Z",
+      "side": 1,
+      "message": "Should calculation of max bitrate account for actual temporal layering which eventually could be disabled in L340 if temporal_layers_supported\u003dfalse?",
+      "range": {
+        "startLine": 320,
+        "startChar": 6,
+        "endLine": 320,
+        "endChar": 21
+      },
+      "revId": "27baa7d618334224ec3c6e23095c4e2efbfbfa27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ef44219_dad18936",
+        "filename": "modules/video_coding/codecs/vp8/temporal_layers.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-08-09T11:35:30Z",
+      "side": 1,
+      "message": "Are you happy with so many assumptions here?",
+      "range": {
+        "startLine": 47,
+        "startChar": 9,
+        "endLine": 50,
+        "endChar": 57
+      },
+      "revId": "27baa7d618334224ec3c6e23095c4e2efbfbfa27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6be417a8_b3d3b643",
+        "filename": "video/full_stack_tests.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-08-09T11:35:30Z",
+      "side": 1,
+      "message": "AppendToFieldTrial()?",
+      "range": {
+        "startLine": 71,
+        "startChar": 12,
+        "endLine": 71,
+        "endChar": 34
+      },
+      "revId": "27baa7d618334224ec3c6e23095c4e2efbfbfa27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

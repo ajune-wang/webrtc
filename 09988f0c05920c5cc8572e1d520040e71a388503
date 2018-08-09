@@ -144,6 +144,30 @@
     },
     {
       "key": {
+        "uuid": "0cc316d7_8da3c466",
+        "filename": "modules/congestion_controller/pcc/monitor_interval.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-08-09T14:11:53Z",
+      "side": 1,
+      "message": "Ah, I see. Can you update the tests to be less sensitive? In general it\u0027s good to avoid testing floating point values for exact values. I think we have some helper macros for this. This also prevents the tests from failing due to future refactoring of the code that could conceivably introduce a similar error.",
+      "parentUuid": "1d3b8412_9f2088c1",
+      "range": {
+        "startLine": 66,
+        "startChar": 70,
+        "endLine": 66,
+        "endChar": 72
+      },
+      "revId": "09988f0c05920c5cc8572e1d520040e71a388503",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "504066e0_2fdc3c9a",
         "filename": "modules/congestion_controller/pcc/monitor_interval.cc",
         "patchSetId": 14

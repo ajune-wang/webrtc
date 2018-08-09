@@ -42,6 +42,30 @@
     },
     {
       "key": {
+        "uuid": "0e11a941_34ff7672",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-08-09T13:05:21Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b86b3aa9_12a0e31b",
+      "range": {
+        "startLine": 93,
+        "startChar": 12,
+        "endLine": 93,
+        "endChar": 65
+      },
+      "revId": "5867dc5226921b0566ca3edf9346b20707e9085c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b387b20e_351da5a5",
         "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
         "patchSetId": 12
@@ -62,6 +86,30 @@
       "revId": "5867dc5226921b0566ca3edf9346b20707e9085c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5f3b5bd_2edcb022",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-08-09T13:05:21Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b387b20e_351da5a5",
+      "range": {
+        "startLine": 98,
+        "startChar": 2,
+        "endLine": 99,
+        "endChar": 61
+      },
+      "revId": "5867dc5226921b0566ca3edf9346b20707e9085c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -88,6 +136,30 @@
     },
     {
       "key": {
+        "uuid": "8fa5c157_8832c7ab",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-08-09T13:05:21Z",
+      "side": 1,
+      "message": "Discussed offline.",
+      "parentUuid": "bc4f1210_8f384c67",
+      "range": {
+        "startLine": 210,
+        "startChar": 4,
+        "endLine": 210,
+        "endChar": 28
+      },
+      "revId": "5867dc5226921b0566ca3edf9346b20707e9085c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "842b1c86_9cdf775c",
         "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
         "patchSetId": 12
@@ -108,6 +180,30 @@
       "revId": "5867dc5226921b0566ca3edf9346b20707e9085c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62139d32_58c2b12b",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-08-09T13:05:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "842b1c86_9cdf775c",
+      "range": {
+        "startLine": 211,
+        "startChar": 4,
+        "endLine": 211,
+        "endChar": 21
+      },
+      "revId": "5867dc5226921b0566ca3edf9346b20707e9085c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -134,6 +230,30 @@
     },
     {
       "key": {
+        "uuid": "1222bff2_c870b60b",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-08-09T13:05:21Z",
+      "side": 1,
+      "message": "Let\u0027s keep it for now. It doesn\u0027t affect readability of this class much. And the binary size increase is very small.",
+      "parentUuid": "9cd681f2_32cb07de",
+      "range": {
+        "startLine": 52,
+        "startChar": 19,
+        "endLine": 52,
+        "endChar": 50
+      },
+      "revId": "5867dc5226921b0566ca3edf9346b20707e9085c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f1ad4b82_d948be36",
         "filename": "modules/audio_processing/test/audioproc_float_impl.cc",
         "patchSetId": 12
@@ -154,6 +274,30 @@
       "revId": "5867dc5226921b0566ca3edf9346b20707e9085c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "020cec21_12878348",
+        "filename": "modules/audio_processing/test/audioproc_float_impl.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-08-09T13:05:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f1ad4b82_d948be36",
+      "range": {
+        "startLine": 124,
+        "startChar": 62,
+        "endLine": 124,
+        "endChar": 70
+      },
+      "revId": "5867dc5226921b0566ca3edf9346b20707e9085c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -872,5 +872,27 @@ TEST_F(TestSimulcastEncoderAdapterFake, TestInitFailureCleansUpEncoders) {
   EXPECT_TRUE(helper_->factory()->encoders().empty());
 }
 
+TEST_F(TestSimulcastEncoderAdapterFake, DoesNotAlterMaxQpForScreenshare) {
+  const int kMaxQp = 55;
+
+  SimulcastTestFixtureImpl::DefaultSettings(
+      &codec_, static_cast<const int*>(kTestTemporalLayerProfile),
+      kVideoCodecVP8);
+  codec_.numberOfSimulcastStreams = 3;
+  codec_.simulcastStream[0].qpMax = kMaxQp;
+  codec_.mode = VideoCodecMode::kScreensharing;
+  EXPECT_EQ(0, adapter_->InitEncode(&codec_, 1, 1200));
+  EXPECT_EQ(3u, helper_->factory()->encoders().size());
+
+  // Just check the lowest stream, which is the one that where the adapter
+  // might alter the max qp setting.
+  VideoCodec ref_codec;
+  InitRefCodec(0, &ref_codec);
+  ref_codec.qpMax = kMaxQp;
+  ref_codec.VP8()->complexity = webrtc::VideoCodecComplexity::kComplexityHigher;
+  ref_codec.VP8()->denoisingOn = false;
+  ref_codec.startBitrate = 100;  // Should equal to the target bitrate.
+  VerifyCodec(ref_codec, 0);
+}
 }  // namespace test
 }  // namespace webrtc

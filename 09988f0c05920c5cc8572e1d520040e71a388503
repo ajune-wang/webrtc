@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "cae49d3f_2dc41d34",
+        "filename": "modules/congestion_controller/pcc/monitor_interval.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-08-09T13:40:57Z",
+      "side": 1,
+      "message": "If you are using the \u003cdouble\u003e method it should not lose precision.",
+      "parentUuid": "21e237df_1ea1fb9b",
+      "range": {
+        "startLine": 66,
+        "startChar": 70,
+        "endLine": 66,
+        "endChar": 72
+      },
+      "revId": "09988f0c05920c5cc8572e1d520040e71a388503",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "504066e0_2fdc3c9a",
         "filename": "modules/congestion_controller/pcc/monitor_interval.cc",
         "patchSetId": 14

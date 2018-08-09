@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ff189913_5a865029",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 440,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-09T14:30:51Z",
+      "side": 1,
+      "message": "These two lines are new since the original landing. The corresponding code in RTPReceiverVideo is\n\n  rtp_header-\u003evideo_header().playout_delay \u003d\n      rtp_header-\u003eheader.extension.playout_delay;\n\nI.e., an unconditional copy, which gets {-1, -1} in case the extension isn\u0027t set. But when creating a WebRtcRTPHeader, we get {0,0} (unclear if that\u0027s well defined initialization or just by chance).\n\nFurther down the pipe, in FrameBuffer::UpdatePlayoutDelays (frame_buffer2.c), we have\n\n  if (playout_delay.min_ms \u003e\u003d 0)\n    timing_-\u003eset_min_playout_delay(playout_delay.min_ms);\n\nSo the incorrect zeros we got here are propagated and interpreted as \"render as soon as possible\". Overriding the delay set by the AV synchronization logic (VideoReceiveStream::SetMinimumPlayoutDelay --\u003e vcm::VideoReceiver::SetMinimumPlayoutDelay  --\u003e VCMTiming::set_min_playout_delay.",
+      "range": {
+        "startLine": 438,
+        "startChar": 0,
+        "endLine": 440,
+        "endChar": 0
+      },
+      "revId": "4d27b05608cc1b03f0a6bad7a100995c8c87425e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "03d586c2_c4f15859",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-08-09T11:04:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c241cc6_38ff80e2",
+      "range": {
+        "startLine": 225,
+        "startChar": 2,
+        "endLine": 225,
+        "endChar": 28
+      },
+      "revId": "14be6e87c5ef8ff158784beb31c62860545993a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a3148f0a_ca9a258a",
         "filename": "modules/rtp_rtcp/source/receive_statistics_unittest.cc",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "14be6e87c5ef8ff158784beb31c62860545993a4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8da5126_a68d61e1",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-08-09T11:04:16Z",
+      "side": 1,
+      "message": "Yes, both tests fail before the change. This test also fails with after the change if we omit the \n\"if (received_seq_first_ \u003c header.sequenceNumber) received_seq_first_backwards_wraps_ \u003d 1;\" part.",
+      "parentUuid": "a3148f0a_ca9a258a",
+      "range": {
+        "startLine": 231,
+        "startChar": 0,
+        "endLine": 231,
+        "endChar": 40
+      },
+      "revId": "14be6e87c5ef8ff158784beb31c62860545993a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

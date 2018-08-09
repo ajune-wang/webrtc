@@ -47,6 +47,7 @@ group("examples") {
 
   if (is_linux || is_win) {
     deps += [
+      ":mdnsresponder",
       ":peerconnection_client",
       ":peerconnection_server",
       ":relayserver",
@@ -815,6 +816,23 @@ if (is_linux || is_win) {
       "../system_wrappers:field_trial_default",
       "../system_wrappers:metrics_default",
       "../system_wrappers:runtime_enabled_features_default",
+    ]
+    if (!build_with_chromium && is_clang) {
+      # Suppress warnings from the Chromium Clang plugin (bugs.webrtc.org/163).
+      suppressed_configs += [ "//build/config/clang:find_bad_constructs" ]
+    }
+  }
+
+  rtc_executable("mdnsresponder") {
+    testonly = true
+    sources = [
+      "mdnsresponder/mdnsresponder_main.cc",
+    ]
+    deps = [
+      "../p2p:rtc_p2p",
+      "../rtc_base:checks",
+      "../rtc_base:rtc_base",
+      "../rtc_base:rtc_base_approved",
     ]
     if (!build_with_chromium && is_clang) {
       # Suppress warnings from the Chromium Clang plugin (bugs.webrtc.org/163).

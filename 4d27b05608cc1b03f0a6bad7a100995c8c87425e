@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "366cae56_92fff292",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-09T14:44:58Z",
+      "side": 1,
+      "message": "Adding this check here avoids warnings \"Empty payload.\" from the depacketizer.",
+      "range": {
+        "startLine": 398,
+        "startChar": 0,
+        "endLine": 403,
+        "endChar": 3
+      },
+      "revId": "4d27b05608cc1b03f0a6bad7a100995c8c87425e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ff189913_5a865029",
         "filename": "video/rtp_video_stream_receiver.cc",
         "patchSetId": 2

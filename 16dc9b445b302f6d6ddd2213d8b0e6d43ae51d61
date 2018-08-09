@@ -89,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "1c5a18b7_62372db1",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1003,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-08-09T06:33:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ee7a56e7_98190a81",
+      "revId": "16dc9b445b302f6d6ddd2213d8b0e6d43ae51d61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dfbd8a09_a1a9224f",
         "filename": "p2p/base/p2ptransportchannel.cc",
         "patchSetId": 4
@@ -109,6 +127,30 @@
       "revId": "16dc9b445b302f6d6ddd2213d8b0e6d43ae51d61",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3f278f4_aa00f4be",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1015,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-08-09T06:33:01Z",
+      "side": 1,
+      "message": "I\u0027m tracking this elsewhere.",
+      "parentUuid": "dfbd8a09_a1a9224f",
+      "range": {
+        "startLine": 1015,
+        "startChar": 44,
+        "endLine": 1015,
+        "endChar": 61
+      },
+      "revId": "16dc9b445b302f6d6ddd2213d8b0e6d43ae51d61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -135,6 +177,30 @@
     },
     {
       "key": {
+        "uuid": "494c71c8_e889b641",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1041,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-08-09T06:33:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "18bb1a4c_82a8a8b9",
+      "range": {
+        "startLine": 1041,
+        "startChar": 51,
+        "endLine": 1041,
+        "endChar": 68
+      },
+      "revId": "16dc9b445b302f6d6ddd2213d8b0e6d43ae51d61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f2b74903_821af039",
         "filename": "p2p/base/p2ptransportchannel.cc",
         "patchSetId": 4
@@ -146,6 +212,24 @@
       "writtenOn": "2018-08-03T22:45:25Z",
       "side": 1,
       "message": "You want to call erase() no matter what - suggest doing this before the if statement, and then you don\u0027t need to have 3 .erase() calls.",
+      "revId": "16dc9b445b302f6d6ddd2213d8b0e6d43ae51d61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "336a302a_d7b8432b",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1043,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-08-09T06:33:01Z",
+      "side": 1,
+      "message": "With the added calls to p-\u003eresolver_-\u003eDestroy, I don\u0027t think I can move these all to one place now (I don\u0027t want to destroy the resolver before calling GetResolvedAddress). I could do a \"goto CLEANUP\" with the Destory/erase once at the end of the function, but I suspect you wouldn\u0027t prefer that. I think the best thing to do would be to RAII-ify AsyncResolver, but I\u0027m not sure if that will require Chromium changes.",
+      "parentUuid": "f2b74903_821af039",
       "revId": "16dc9b445b302f6d6ddd2213d8b0e6d43ae51d61",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -169,6 +253,24 @@
     },
     {
       "key": {
+        "uuid": "1bd33cda_8be3ebff",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1048,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-08-09T06:33:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2b0b85be_872771d4",
+      "revId": "16dc9b445b302f6d6ddd2213d8b0e6d43ae51d61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "666939b8_4d2d3dda",
         "filename": "p2p/base/p2ptransportchannel.cc",
         "patchSetId": 4
@@ -189,6 +291,30 @@
       "revId": "16dc9b445b302f6d6ddd2213d8b0e6d43ae51d61",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0cde9aff_5c65705f",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1059,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-08-09T06:33:01Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "666939b8_4d2d3dda",
+      "range": {
+        "startLine": 1059,
+        "startChar": 2,
+        "endLine": 1059,
+        "endChar": 56
+      },
+      "revId": "16dc9b445b302f6d6ddd2213d8b0e6d43ae51d61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -221,6 +347,24 @@
       "side": 1,
       "message": "I looked more closely and I think \u003d\u003d will in fact work correctly here. That said, we should still unit test that this works as expected (since it is an important part of the mDNS candidate solution).",
       "parentUuid": "a6e04184_f5fa7484",
+      "revId": "16dc9b445b302f6d6ddd2213d8b0e6d43ae51d61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3256d73_8e9c68f5",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1072,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-08-09T06:33:01Z",
+      "side": 1,
+      "message": "In the test you describe I think we end up with two candidates because they have different types. I don\u0027t think that is a problem now, but will be for the mDNS work. Does that sound right to you?",
+      "parentUuid": "d9eb66bd_ac2c3428",
       "revId": "16dc9b445b302f6d6ddd2213d8b0e6d43ae51d61",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

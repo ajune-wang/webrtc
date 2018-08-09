@@ -13,8 +13,10 @@
 #include <memory>
 
 #include "absl/memory/memory.h"
+#include "p2p/base/fakeasyncresolverfactory.h"
 #include "p2p/base/fakeportallocator.h"
 #include "p2p/base/icetransportinternal.h"
+#include "p2p/base/mockasyncresolver.h"
 #include "p2p/base/p2ptransportchannel.h"
 #include "p2p/base/packettransportinternal.h"
 #include "p2p/base/testrelayserver.h"
@@ -41,6 +43,11 @@
 namespace {
 
 using rtc::SocketAddress;
+using ::testing::_;
+using ::testing::Assign;
+using ::testing::DoAll;
+using ::testing::Return;
+using ::testing::SetArgPointee;
 
 // Default timeout for tests in this file.
 // Should be large enough for slow buildbots to run the tests reliably.
@@ -4575,6 +4582,76 @@ TEST_F(P2PTransportChannelMostLikelyToWorkFirstTest, TestTcpTurn) {
 
   // Finally, Local/Relay will be pinged.
   VerifyNextPingableConnection(LOCAL_PORT_TYPE, RELAY_PORT_TYPE);
+}
+
+TEST(P2PTransportChannelResolverTest, HostnameCandidateIsResolved) {
+  webrtc::FakeAsyncResolverFactory async_resolver_factory;
+  P2PTransportChannel channel("tn", 0, /*allocator*/ nullptr,
+                              &async_resolver_factory);
+  Candidate hostname_candidate;
+  SocketAddress hostname_address("fake.hostname", 1000);
+  hostname_candidate.set_address(hostname_address);
+  channel.AddRemoteCandidate(hostname_candidate);
+
+  EXPECT_EQ_WAIT(1u, channel.remote_candidates().size(), kDefaultTimeout);
+  const RemoteCandidate& candidate = channel.remote_candidates()[0];
+  EXPECT_FALSE(candidate.address().IsUnresolvedIP());
+}
+
+// TODO(zstein): These two tests fail right now, but pass if you don't set the
+// candidates' type.
+
+Candidate HostnameCandidate() {
+  Candidate hostname_candidate;
+  hostname_candidate.set_type("host");
+  SocketAddress hostname_address("fake.hostname", 12345);
+  hostname_candidate.set_address(hostname_address);
+  return hostname_candidate;
+}
+
+Candidate PrflxCandidate(const SocketAddress& address) {
+  Candidate prflx_candidate;
+  prflx_candidate.set_type("prflx");
+  prflx_candidate.set_address(address);
+  return prflx_candidate;
+}
+
+TEST(P2PTransportChannelResolverTest, HostnameAndPrflxCandidateDeduplicate) {
+  SocketAddress prflx_address("1.1.1.1", 12345);
+  bool address_resolved = false;
+  rtc::MockAsyncResolver* mock_async_resolver = new rtc::MockAsyncResolver;
+  EXPECT_CALL(*mock_async_resolver, GetResolvedAddress(_, _))
+      .WillOnce(DoAll(SetArgPointee<1>(prflx_address),
+                      Assign(&address_resolved, true), Return(true)));
+  webrtc::MockAsyncResolverFactory mock_async_resolver_factory;
+  EXPECT_CALL(mock_async_resolver_factory, Create())
+      .WillOnce(Return(mock_async_resolver));
+  P2PTransportChannel channel("tn", 0, /*allocator*/ nullptr,
+                              &mock_async_resolver_factory);
+  channel.AddRemoteCandidate(HostnameCandidate());
+  EXPECT_TRUE_WAIT(address_resolved, kDefaultTimeout);
+  EXPECT_EQ(1u, channel.remote_candidates().size());
+  channel.AddRemoteCandidate(PrflxCandidate(prflx_address));
+  EXPECT_EQ(1u, channel.remote_candidates().size());
+}
+
+TEST(P2PTransportChannelResolverTest, PrflxAndHostnameCandidateDeduplicate) {
+  SocketAddress prflx_address("1.1.1.1", 12345);
+  bool address_resolved = false;
+  rtc::MockAsyncResolver* mock_async_resolver = new rtc::MockAsyncResolver;
+  EXPECT_CALL(*mock_async_resolver, GetResolvedAddress(_, _))
+      .WillOnce(DoAll(SetArgPointee<1>(prflx_address),
+                      Assign(&address_resolved, true), Return(true)));
+  webrtc::MockAsyncResolverFactory mock_async_resolver_factory;
+  EXPECT_CALL(mock_async_resolver_factory, Create())
+      .WillOnce(Return(mock_async_resolver));
+  P2PTransportChannel channel("tn", 0, /*allocator*/ nullptr,
+                              &mock_async_resolver_factory);
+  channel.AddRemoteCandidate(PrflxCandidate(prflx_address));
+  EXPECT_EQ(1u, channel.remote_candidates().size());
+  channel.AddRemoteCandidate(HostnameCandidate());
+  EXPECT_TRUE_WAIT(address_resolved, kDefaultTimeout);
+  EXPECT_EQ(1u, channel.remote_candidates().size());
 }
 
 }  // namespace cricket

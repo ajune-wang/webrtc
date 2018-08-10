@@ -82,6 +82,29 @@
     },
     {
       "key": {
+        "uuid": "78d5c0c8_68a943c2",
+        "filename": "p2p/base/basic_mdns_responder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-08-10T16:53:57Z",
+      "side": 1,
+      "message": "Where does this number come from?",
+      "range": {
+        "startLine": 25,
+        "startChar": 10,
+        "endLine": 25,
+        "endChar": 44
+      },
+      "revId": "50b7e84c95b3f9eae8ea7a32fa4911fa94ff277b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e9b1a9a0_b279aa93",
         "filename": "p2p/base/basic_mdns_responder.cc",
         "patchSetId": 2
@@ -214,6 +237,29 @@
     },
     {
       "key": {
+        "uuid": "a4ef8827_0186387d",
+        "filename": "p2p/base/mdns_responder.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-08-10T16:53:57Z",
+      "side": 1,
+      "message": "Maybe worth specifying more about the name here? Seems like this generated a lot of interest/discussion. \n\nFrom your doc:\n\"Ephemeral hostname generation. Hostnames are generated as version-4 UUIDs (Universal Unique IDentifiers, RFC 4122 [13]) to eliminate the correlation with the identities of endpoints. The version-4 UUIDs are randomly or pseudo-randomly generated, as detailed in Section 4.4 of RFC 4122.\"",
+      "range": {
+        "startLine": 28,
+        "startChar": 5,
+        "endLine": 28,
+        "endChar": 35
+      },
+      "revId": "50b7e84c95b3f9eae8ea7a32fa4911fa94ff277b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1aea6144_b7f4bd9c",
         "filename": "p2p/base/mdns_responder.h",
         "patchSetId": 2
@@ -230,6 +276,52 @@
         "startChar": 22,
         "endLine": 30,
         "endChar": 42
+      },
+      "revId": "50b7e84c95b3f9eae8ea7a32fa4911fa94ff277b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c7b3d3c_8d20be22",
+        "filename": "p2p/base/mdns_responder.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-08-10T16:53:57Z",
+      "side": 1,
+      "message": "In mdnsresponder_main.cc you announce by calling the OnQueryReceived, but is it worth having a separate Announce() function? Looking at Figure 3 in the doc isn\u0027t the standard procedure to announce after you create a name for an address?",
+      "range": {
+        "startLine": 35,
+        "startChar": 15,
+        "endLine": 35,
+        "endChar": 30
+      },
+      "revId": "50b7e84c95b3f9eae8ea7a32fa4911fa94ff277b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "274d34a3_76cad5c9",
+        "filename": "p2p/base/mdns_responder.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-08-10T16:53:57Z",
+      "side": 1,
+      "message": "Will calling this function always send? I\u0027m just a little confused because in your basic MdnsResponder implementation, it uses this function essentially as a Send() function, and calls it internally (when it\u0027s ready to send). Would somewhere outside this class ever call this? Otherwise it seems like an implementation detail of the class itself and doesn\u0027t necessarily need to be exposed in the interface (maybe make it a private function?).",
+      "range": {
+        "startLine": 43,
+        "startChar": 15,
+        "endLine": 43,
+        "endChar": 36
       },
       "revId": "50b7e84c95b3f9eae8ea7a32fa4911fa94ff277b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

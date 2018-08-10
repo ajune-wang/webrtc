@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "a0a64f8f_550602df",
+        "filename": "modules/audio_processing/aec3/aec_state_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-08-10T17:08:37Z",
+      "side": 1,
+      "message": "Ok, got it. I think it\u0027s somewhat confusing that Reset() doesn\u0027t return it to the same state as when freshly constructed, then.",
+      "parentUuid": "69bb1404_08b0c8e9",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 17
+      },
+      "revId": "359554dc2f762d32eb7a146853dc15ce9c1cf91d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "51f15927_4942b666",
         "filename": "modules/audio_processing/aec3/echo_remover.cc",
         "patchSetId": 5
@@ -143,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "7c8d578b_f35d5947",
+        "filename": "modules/audio_processing/aec3/subtractor.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-08-10T17:08:37Z",
+      "side": 1,
+      "message": "Ahh I misread enable_shadow_filter_jumpstart_ and enable_early_shadow_filter_jumpstart_ as one and the same flag. Thank you.",
+      "parentUuid": "292637be_f242ccb8",
+      "range": {
+        "startLine": 242,
+        "startChar": 6,
+        "endLine": 246,
+        "endChar": 38
+      },
+      "revId": "359554dc2f762d32eb7a146853dc15ce9c1cf91d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "36b94b1e_e9204eaa",
         "filename": "modules/audio_processing/aec3/subtractor.cc",
         "patchSetId": 5
@@ -187,6 +235,30 @@
       "revId": "359554dc2f762d32eb7a146853dc15ce9c1cf91d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "deeb95bb_acdefbb4",
+        "filename": "modules/audio_processing/aec3/subtractor.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-08-10T17:08:37Z",
+      "side": 1,
+      "message": "I see, thank you!",
+      "parentUuid": "091497ec_bf19069b",
+      "range": {
+        "startLine": 259,
+        "startChar": 52,
+        "endLine": 259,
+        "endChar": 58
+      },
+      "revId": "359554dc2f762d32eb7a146853dc15ce9c1cf91d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "7e09cf12_649ffee1",
+        "filename": "api/video/video_bitrate_allocator_factory.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 6278
+      },
+      "writtenOn": "2018-08-10T23:26:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3519bcaa_43f09b05",
+      "range": {
+        "startLine": 2,
+        "startChar": 18,
+        "endLine": 2,
+        "endChar": 22
+      },
+      "revId": "4a5d17020f6ae259ac0b4141161ecb3618922160",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "018a32c3_9ba3648f",
         "filename": "api/video/video_bitrate_allocator_factory.h",
         "patchSetId": 3
@@ -59,6 +83,30 @@
       "writtenOn": "2018-08-08T14:33:18Z",
       "side": 1,
       "message": "Should it be possible to delete an implementation through this interface? If not, make the dtor protected.",
+      "range": {
+        "startLine": 25,
+        "startChar": 11,
+        "endLine": 25,
+        "endChar": 39
+      },
+      "revId": "4a5d17020f6ae259ac0b4141161ecb3618922160",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4023995_9c95affe",
+        "filename": "api/video/video_bitrate_allocator_factory.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 6278
+      },
+      "writtenOn": "2018-08-10T23:26:30Z",
+      "side": 1,
+      "message": "I think that should be possible. The implementation is going be held in a unique_ptr\u003cVideoBitrateAllocatorFactory\u003e",
+      "parentUuid": "018a32c3_9ba3648f",
       "range": {
         "startLine": 25,
         "startChar": 11,

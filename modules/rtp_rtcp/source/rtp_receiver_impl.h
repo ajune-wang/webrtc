@@ -19,6 +19,7 @@
 #include "absl/types/optional.h"
 #include "modules/rtp_rtcp/include/rtp_receiver.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
+#include "modules/rtp_rtcp/source/contributing_sources.h"
 #include "modules/rtp_rtcp/source/rtp_receiver_strategy.h"
 #include "rtc_base/criticalsection.h"
 
@@ -51,8 +52,6 @@ class RtpReceiverImpl : public RtpReceiver {
 
   uint32_t SSRC() const override;
 
-  int32_t CSRCs(uint32_t array_of_csrc[kRtpCsrcSize]) const override;
-
   std::vector<RtpSource> GetSources() const override;
 
   const std::vector<RtpSource>& ssrc_sources_for_testing() const {
@@ -79,9 +78,8 @@ class RtpReceiverImpl : public RtpReceiver {
 
   // SSRCs.
   uint32_t ssrc_ RTC_GUARDED_BY(critical_section_rtp_receiver_);
-  uint8_t num_csrcs_ RTC_GUARDED_BY(critical_section_rtp_receiver_);
-  uint32_t current_remote_csrc_[kRtpCsrcSize] RTC_GUARDED_BY(
-      critical_section_rtp_receiver_);
+
+  ContributingSources csrcs_ RTC_GUARDED_BY(critical_section_rtp_receiver_);
 
   // Sequence number and timestamps for the latest in-order packet.
   absl::optional<uint16_t> last_received_sequence_number_

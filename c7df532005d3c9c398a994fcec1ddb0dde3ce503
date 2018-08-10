@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "970459a8_2d74c15c",
+        "filename": "modules/rtp_rtcp/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-10T13:10:38Z",
+      "side": 1,
+      "message": "Agreed, in particular as the intention is to retire RtpReceiver, including its test, in the not too distant future. \n\nI\u0027ll try to port the existing tests to apply to this class.",
+      "parentUuid": "747c9553_b1c242a0",
+      "revId": "c7df532005d3c9c398a994fcec1ddb0dde3ce503",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "29085c34_404df42f",
         "filename": "modules/rtp_rtcp/source/contributing_sources.cc",
         "patchSetId": 3
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "ef1d4527_4a0656c3",
+        "filename": "modules/rtp_rtcp/source/contributing_sources.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-10T13:10:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "29085c34_404df42f",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 6
+      },
+      "revId": "c7df532005d3c9c398a994fcec1ddb0dde3ce503",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "775e1a86_3001dc7d",
         "filename": "modules/rtp_rtcp/source/contributing_sources.cc",
         "patchSetId": 3
@@ -53,6 +95,30 @@
       "writtenOn": "2018-08-10T11:23:51Z",
       "side": 1,
       "message": "us \u003d ms?",
+      "range": {
+        "startLine": 30,
+        "startChar": 34,
+        "endLine": 30,
+        "endChar": 0
+      },
+      "revId": "c7df532005d3c9c398a994fcec1ddb0dde3ce503",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50801821_7ca0033d",
+        "filename": "modules/rtp_rtcp/source/contributing_sources.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-10T13:10:38Z",
+      "side": 1,
+      "message": "Everything in this class intended to be ms. Fixed.\n\n(Not sure what\u0027s most appropriate for the DOMHighResTimeStamp type in the spec. Could switch everything to us at some point, if that is better).",
+      "parentUuid": "775e1a86_3001dc7d",
       "range": {
         "startLine": 30,
         "startChar": 34,
@@ -88,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "a319dc98_f18c62af",
+        "filename": "modules/rtp_rtcp/source/contributing_sources.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-10T13:10:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9cc76fa5_a08c9782",
+      "range": {
+        "startLine": 60,
+        "startChar": 11,
+        "endLine": 60,
+        "endChar": 0
+      },
+      "revId": "c7df532005d3c9c398a994fcec1ddb0dde3ce503",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "16c2af0c_abd334e9",
         "filename": "modules/rtp_rtcp/source/contributing_sources.h",
         "patchSetId": 3
@@ -111,6 +201,30 @@
     },
     {
       "key": {
+        "uuid": "e8d4cc97_35bae07d",
+        "filename": "modules/rtp_rtcp/source/contributing_sources.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-10T13:10:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "16c2af0c_abd334e9",
+      "range": {
+        "startLine": 34,
+        "startChar": 44,
+        "endLine": 34,
+        "endChar": 51
+      },
+      "revId": "c7df532005d3c9c398a994fcec1ddb0dde3ce503",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2d50eeb0_e20676ab",
         "filename": "modules/rtp_rtcp/source/contributing_sources.h",
         "patchSetId": 3
@@ -122,6 +236,30 @@
       "writtenOn": "2018-08-10T11:23:51Z",
       "side": 1,
       "message": "all other times are ms\nmay be use ms here too",
+      "range": {
+        "startLine": 40,
+        "startChar": 40,
+        "endLine": 40,
+        "endChar": 42
+      },
+      "revId": "c7df532005d3c9c398a994fcec1ddb0dde3ce503",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f5be0823_f9601e6b",
+        "filename": "modules/rtp_rtcp/source/contributing_sources.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-10T13:10:38Z",
+      "side": 1,
+      "message": "ms was intended. Fixing.",
+      "parentUuid": "2d50eeb0_e20676ab",
       "range": {
         "startLine": 40,
         "startChar": 40,
@@ -154,6 +292,30 @@
       "revId": "c7df532005d3c9c398a994fcec1ddb0dde3ce503",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "042eaa5f_3f05eb60",
+        "filename": "modules/rtp_rtcp/source/contributing_sources.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-10T13:10:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "90e6415e_43658f04",
+      "range": {
+        "startLine": 41,
+        "startChar": 40,
+        "endLine": 41,
+        "endChar": 0
+      },
+      "revId": "c7df532005d3c9c398a994fcec1ddb0dde3ce503",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

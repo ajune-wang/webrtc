@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b373f224_bacd6776",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1022,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2018-08-10T16:32:04Z",
+      "side": 1,
+      "message": "should sum_delay_ms_ be updated accordingly (remove previous delay)?",
+      "range": {
+        "startLine": 1022,
+        "startChar": 6,
+        "endLine": 1022,
+        "endChar": 34
+      },
+      "revId": "2fd1eddc600a3c6b2766fb883548730571ef73df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

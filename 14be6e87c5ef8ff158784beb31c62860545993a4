@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1eb6045f_2c44cd75",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-08-10T13:14:20Z",
+      "side": 1,
+      "message": "Tried it, but imo it doesn\u0027t seem simpler. The key part would be:\nconstexpr uint16_t kBreakpoint \u003d (std::numeric_limits\u003cuint16_t\u003e::max() \u003e\u003e 1) + 1;\nif (static_cast\u003cuint16_t\u003e(received_seq_first_ - header.sequenceNumber) \u003c kBreakpoint \u0026\u0026\n    static_cast\u003cuint16_t\u003e(header.sequenceNumber - (received_seq_first_ - \n                                                   max_reordering_threshold_)) \u003c kBreakpoint)\nThere might also be some extra conditions dealing with exact equality.",
+      "parentUuid": "5eeaadc3_2375c560",
+      "range": {
+        "startLine": 119,
+        "startChar": 8,
+        "endLine": 122,
+        "endChar": 60
+      },
+      "revId": "14be6e87c5ef8ff158784beb31c62860545993a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "746603fb_3a9603fb",
         "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "14be6e87c5ef8ff158784beb31c62860545993a4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ebd0130f_36e04250",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-08-10T13:14:20Z",
+      "side": 1,
+      "message": "No, because of the problem you point out below.",
+      "parentUuid": "746603fb_3a9603fb",
+      "range": {
+        "startLine": 225,
+        "startChar": 19,
+        "endLine": 225,
+        "endChar": 76
+      },
+      "revId": "14be6e87c5ef8ff158784beb31c62860545993a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "c581aad8_3da550b4",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-08-10T13:14:20Z",
+      "side": 1,
+      "message": "Good point. The reverse wraps should be used for cumulated_lost_packets, but not for extended_highest_sequence_number. Fixed",
+      "parentUuid": "55708752_84c055e8",
+      "range": {
+        "startLine": 226,
+        "startChar": 11,
+        "endLine": 226,
+        "endChar": 27
+      },
+      "revId": "14be6e87c5ef8ff158784beb31c62860545993a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a6ae2890_4715c55d",
         "filename": "modules/rtp_rtcp/source/receive_statistics_impl.h",
         "patchSetId": 1
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "63fc2c8f_df3ac098",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-08-10T13:14:20Z",
+      "side": 1,
+      "message": "Since it refers to sequence numbers, only the values that fit in uint16_t make sense. It\u0027s not neccessary to change the type, but we\u0027re doing arithmetic and comparisons on this and sequence numbers so I think it makes sense to avoid mixing types.",
+      "parentUuid": "a6ae2890_4715c55d",
+      "range": {
+        "startLine": 67,
+        "startChar": 11,
+        "endLine": 67,
+        "endChar": 36
+      },
+      "revId": "14be6e87c5ef8ff158784beb31c62860545993a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e683426d_0cdb37a1",
         "filename": "modules/rtp_rtcp/source/receive_statistics_impl.h",
         "patchSetId": 1
@@ -105,6 +201,30 @@
       "writtenOn": "2018-08-09T11:56:03Z",
       "side": 1,
       "message": "int should work for this right? Or would that mess up other calculations?",
+      "range": {
+        "startLine": 76,
+        "startChar": 11,
+        "endLine": 76,
+        "endChar": 46
+      },
+      "revId": "14be6e87c5ef8ff158784beb31c62860545993a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14a87c42_4b8fe7f8",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-08-10T13:14:20Z",
+      "side": 1,
+      "message": "Would probably work, but the wrap counter |received_seq_wraps_| uses uint16_t and I think it makes sense to have the same type. Since we\u0027re shifting, it is rather important that the value isn\u0027t negative. An unsigned type makes this clear.",
+      "parentUuid": "e683426d_0cdb37a1",
       "range": {
         "startLine": 76,
         "startChar": 11,

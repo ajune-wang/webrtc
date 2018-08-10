@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "80b9740f_ce486d14",
+        "filename": "modules/audio_processing/aec3/render_buffer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-08-10T17:21:31Z",
+      "side": 1,
+      "message": "Oh, I see. Thanks for explaining. So it wouldn\u0027t be a problem if we could IncIndex(position, num_spectra_shorter), but that\u0027s also a more invasive change.",
+      "parentUuid": "57fb32fb_117dc55d",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 3
+      },
+      "revId": "7a6d71e38426c8a0b68773e7cc5591326bd5f99c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7e29fe33_8020b651",
         "filename": "modules/audio_processing/aec3/subtractor.cc",
         "patchSetId": 2
@@ -69,6 +93,30 @@
       "revId": "7a6d71e38426c8a0b68773e7cc5591326bd5f99c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00ea4521_a8add0dc",
+        "filename": "modules/audio_processing/aec3/subtractor.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-08-10T17:21:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7e29fe33_8020b651",
+      "range": {
+        "startLine": 206,
+        "startChar": 17,
+        "endLine": 206,
+        "endChar": 26
+      },
+      "revId": "7a6d71e38426c8a0b68773e7cc5591326bd5f99c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

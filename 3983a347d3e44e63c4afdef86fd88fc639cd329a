@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dd3bd8aa_43d9b5a0",
+        "filename": "modules/congestion_controller/pcc/utility_function.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-08-10T09:08:19Z",
+      "side": 1,
+      "message": "rtt_gradient \u003d std::min(rtt_gradient, -delay_gradient_negative_bound_);",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 51
+      },
+      "revId": "3983a347d3e44e63c4afdef86fd88fc639cd329a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "59388949_5af06db2",
+        "filename": "modules/congestion_controller/pcc/utility_function.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-08-10T09:08:19Z",
+      "side": 1,
+      "message": "use parenthesis for operator precedence to make it easier to follow.",
+      "range": {
+        "startLine": 44,
+        "startChar": 9,
+        "endLine": 46,
+        "endChar": 49
+      },
+      "revId": "3983a347d3e44e63c4afdef86fd88fc639cd329a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5dfbda57_d30179fa",
+        "filename": "modules/congestion_controller/pcc/utility_function.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-08-10T09:08:19Z",
+      "side": 1,
+      "message": "Seems like a comment for PccUtilityFunction and should be moved there. Here you should tell what\u0027s special with Vivace? Maybe that it\u0027s the one suggested by the paper?",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 26
+      },
+      "revId": "3983a347d3e44e63c4afdef86fd88fc639cd329a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a45a7a1d_fa4c0a3a",
+        "filename": "modules/congestion_controller/pcc/utility_function.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-08-10T09:08:19Z",
+      "side": 1,
+      "message": "remove url",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 72
+      },
+      "revId": "3983a347d3e44e63c4afdef86fd88fc639cd329a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2e4221d_58e56f05",
+        "filename": "modules/congestion_controller/pcc/utility_function.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-08-10T09:08:19Z",
+      "side": 1,
+      "message": "const",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 40
+      },
+      "revId": "3983a347d3e44e63c4afdef86fd88fc639cd329a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

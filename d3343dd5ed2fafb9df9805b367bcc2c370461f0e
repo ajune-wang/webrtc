@@ -16,6 +16,24 @@
       "revId": "d3343dd5ed2fafb9df9805b367bcc2c370461f0e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8c8cafe0_0c40e412",
+        "filename": "pc/webrtcsdp_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2520,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-08-10T15:46:47Z",
+      "side": 1,
+      "message": "Looks like it\u0027s because when it parses it (https://cs.chromium.org/chromium/src/third_party/webrtc/pc/webrtcsdp.cc?l\u003d1040), it just takes the address, then the SocketAddress constructor can take either a hostname or ipaddress in the constructor.",
+      "parentUuid": "66050cb6_bc6320bf",
+      "revId": "d3343dd5ed2fafb9df9805b367bcc2c370461f0e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "95d5a565_36502b55",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2018-08-10T13:18:56Z",
+      "side": 1,
+      "message": "[Question] Which potential issue?\n\nAm I correct by saying that:\n* We want to group by frames by their timestamp, since there can be several resolutions (multicast) and we only want to keep the maximum one.\n* We have to store the frames for consolidation since:\n   * We cannot rely on simulcast index to get the highest resolution (e.g. highest always on first index).\n   * We cannot rely on the number of frames for a given timestamp (either because we don\u0027t know the max index or because we may miss frames).",
+      "revId": "af721b72cc1bdc5d945629ad78fbea701b6f82b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c82fe2f6_cbb16707",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2018-08-10T13:18:56Z",
+      "side": 1,
+      "message": "[Question] Why this constraint? Isn\u0027t removing \u0027old\u0027 frames enough?",
+      "revId": "af721b72cc1bdc5d945629ad78fbea701b6f82b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cab5d179_2989131b",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2018-08-10T13:18:56Z",
+      "side": 1,
+      "message": "[Questions]\n* Why 800 ms?\n* Do we just want to this number big enough so we know each frame of a given timestamps has been processed?\n* Must we also guarantee that the stats are populated as early as possible? Meaning that this number should not be too big.",
+      "revId": "af721b72cc1bdc5d945629ad78fbea701b6f82b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

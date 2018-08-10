@@ -21,8 +21,8 @@ namespace webrtc {
 
 class MultiplexEncoderFactory : public VideoEncoderFactory {
  public:
-  explicit MultiplexEncoderFactory(
-      std::unique_ptr<VideoEncoderFactory> factory);
+  explicit MultiplexEncoderFactory(std::unique_ptr<VideoEncoderFactory> factory,
+                                   bool supports_augmenting_data = false);
 
   std::vector<SdpVideoFormat> GetSupportedFormats() const override;
   CodecInfo QueryVideoEncoder(const SdpVideoFormat& format) const override;
@@ -31,12 +31,13 @@ class MultiplexEncoderFactory : public VideoEncoderFactory {
 
  private:
   std::unique_ptr<VideoEncoderFactory> factory_;
+  bool supports_augmenting_data_;
 };
 
 class MultiplexDecoderFactory : public VideoDecoderFactory {
  public:
-  explicit MultiplexDecoderFactory(
-      std::unique_ptr<VideoDecoderFactory> factory);
+  explicit MultiplexDecoderFactory(std::unique_ptr<VideoDecoderFactory> factory,
+                                   bool supports_augmenting_data = false);
 
   std::vector<SdpVideoFormat> GetSupportedFormats() const override;
   std::unique_ptr<VideoDecoder> CreateVideoDecoder(
@@ -44,6 +45,7 @@ class MultiplexDecoderFactory : public VideoDecoderFactory {
 
  private:
   std::unique_ptr<VideoDecoderFactory> factory_;
+  bool supports_augmenting_data_;
 };
 
 }  // namespace webrtc

@@ -22,6 +22,30 @@
       "revId": "18a12b3bd34ff135835161a3880d1d4a085cea59",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b418f91_eba359fe",
+        "filename": "modules/audio_processing/agc2/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5528
+      },
+      "writtenOn": "2018-08-10T09:38:31Z",
+      "side": 1,
+      "message": "gn check complains:\n\nThe target:\n  //modules/audio_processing/agc2:fixed_digital\nis including a file from the target:\n  //system_wrappers:metrics_api",
+      "parentUuid": "d9c04ce6_0ee6c6d1",
+      "range": {
+        "startLine": 116,
+        "startChar": 4,
+        "endLine": 116,
+        "endChar": 43
+      },
+      "revId": "18a12b3bd34ff135835161a3880d1d4a085cea59",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

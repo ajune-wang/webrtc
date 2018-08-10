@@ -22,6 +22,30 @@
       "revId": "e574c926bff71a23f1adec35a4695f41c393194c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e138cfc9_bd835761",
+        "filename": "tools_webrtc/autoroller/roll_deps.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-08-10T12:22:34Z",
+      "side": 1,
+      "message": "Good idea, will do that.",
+      "parentUuid": "4589cd1b_ce433d61",
+      "range": {
+        "startLine": 31,
+        "startChar": 41,
+        "endLine": 31,
+        "endChar": 55
+      },
+      "revId": "e574c926bff71a23f1adec35a4695f41c393194c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

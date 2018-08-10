@@ -51,13 +51,6 @@ TEST(AecState, NormalUsage) {
   std::vector<float> impulse_response(
       GetTimeDomainLength(config.filter.main.length_blocks), 0.f);
 
-  // Verify that linear AEC usability is false when the filter is diverged.
-  output.UpdatePowers(y);
-  state.Update(delay_estimate, diverged_filter_frequency_response,
-               impulse_response, *render_delay_buffer->GetRenderBuffer(),
-               E2_main, Y2, output, y);
-  EXPECT_FALSE(state.UsableLinearEstimate());
-
   // Verify that linear AEC usability is true when the filter is converged
   std::fill(x[0].begin(), x[0].end(), 101.f);
   for (int k = 0; k < 3000; ++k) {

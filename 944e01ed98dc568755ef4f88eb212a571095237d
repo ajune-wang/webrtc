@@ -1,0 +1,303 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "777c4eb3_d96da37b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-08-10T23:17:13Z",
+      "side": 1,
+      "message": "Expand the description. Mention the parts touched, this being modular, etc.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 80
+      },
+      "revId": "944e01ed98dc568755ef4f88eb212a571095237d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31cf573b_7422a8f6",
+        "filename": "media/engine/multiplexcodecfactory.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-08-10T23:17:13Z",
+      "side": 1,
+      "message": "Add comment describing what bool does and other expectations, code assumptions, etc.",
+      "range": {
+        "startLine": 24,
+        "startChar": 11,
+        "endLine": 24,
+        "endChar": 34
+      },
+      "revId": "944e01ed98dc568755ef4f88eb212a571095237d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50f457a3_ed6bf505",
+        "filename": "media/engine/multiplexcodecfactory.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-08-10T23:17:13Z",
+      "side": 1,
+      "message": "Remove explicit as we have 2 params now.",
+      "range": {
+        "startLine": 24,
+        "startChar": 2,
+        "endLine": 24,
+        "endChar": 10
+      },
+      "revId": "944e01ed98dc568755ef4f88eb212a571095237d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32e5c5c3_aea304af",
+        "filename": "media/engine/multiplexcodecfactory.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-08-10T23:17:13Z",
+      "side": 1,
+      "message": "const",
+      "range": {
+        "startLine": 34,
+        "startChar": 2,
+        "endLine": 34,
+        "endChar": 6
+      },
+      "revId": "944e01ed98dc568755ef4f88eb212a571095237d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c73aa99_1784f28e",
+        "filename": "media/engine/multiplexcodecfactory.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-08-10T23:17:13Z",
+      "side": 1,
+      "message": "const",
+      "range": {
+        "startLine": 48,
+        "startChar": 2,
+        "endLine": 48,
+        "endChar": 6
+      },
+      "revId": "944e01ed98dc568755ef4f88eb212a571095237d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c905fc6_8a0635a3",
+        "filename": "modules/video_coding/codecs/multiplex/include/multiplex_encoded_image_packer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-08-10T23:17:13Z",
+      "side": 1,
+      "message": "augmented for consistency",
+      "range": {
+        "startLine": 84,
+        "startChar": 11,
+        "endLine": 84,
+        "endChar": 31
+      },
+      "revId": "944e01ed98dc568755ef4f88eb212a571095237d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96b6ce38_a7891a90",
+        "filename": "modules/video_coding/codecs/multiplex/include/multiplex_encoder_adapter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-08-10T23:17:13Z",
+      "side": 1,
+      "message": "const",
+      "range": {
+        "startLine": 82,
+        "startChar": 2,
+        "endLine": 82,
+        "endChar": 6
+      },
+      "revId": "944e01ed98dc568755ef4f88eb212a571095237d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4312dca_e75b26db",
+        "filename": "modules/video_coding/codecs/multiplex/include/multiplex_encoder_adapter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-08-10T23:17:13Z",
+      "side": 1,
+      "message": "s/data_size/augmented_data_Size_/",
+      "range": {
+        "startLine": 83,
+        "startChar": 6,
+        "endLine": 83,
+        "endChar": 16
+      },
+      "revId": "944e01ed98dc568755ef4f88eb212a571095237d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "910cff68_37c5c2b3",
+        "filename": "modules/video_coding/codecs/multiplex/multiplex_encoder_adapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-08-10T23:17:13Z",
+      "side": 1,
+      "message": "Move this to the group below. First one should only be the header file.",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 0
+      },
+      "revId": "944e01ed98dc568755ef4f88eb212a571095237d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "feb4f07a_c6f95c41",
+        "filename": "modules/video_coding/codecs/multiplex/multiplex_encoder_adapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-08-10T23:17:13Z",
+      "side": 1,
+      "message": "s/data/augmented_data/",
+      "range": {
+        "startLine": 128,
+        "startChar": 11,
+        "endLine": 128,
+        "endChar": 15
+      },
+      "revId": "944e01ed98dc568755ef4f88eb212a571095237d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d577cd1_80d57bad",
+        "filename": "modules/video_coding/codecs/multiplex/multiplex_encoder_adapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-08-10T23:17:13Z",
+      "side": 1,
+      "message": "s/data_length/augmented_data_length/",
+      "range": {
+        "startLine": 129,
+        "startChar": 11,
+        "endLine": 129,
+        "endChar": 22
+      },
+      "revId": "944e01ed98dc568755ef4f88eb212a571095237d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dae24966_7f9db10b",
+        "filename": "modules/video_coding/codecs/multiplex/multiplex_encoder_adapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-08-10T23:17:13Z",
+      "side": 1,
+      "message": "VideoBitrateAllocation bitrate_allocation",
+      "range": {
+        "startLine": 197,
+        "startChar": 20,
+        "endLine": 197,
+        "endChar": 37
+      },
+      "revId": "944e01ed98dc568755ef4f88eb212a571095237d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be3e2f53_577548e4",
+        "filename": "modules/video_coding/codecs/multiplex/multiplex_encoder_adapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-08-10T23:17:13Z",
+      "side": 1,
+      "message": "inline this below",
+      "range": {
+        "startLine": 198,
+        "startChar": 0,
+        "endLine": 198,
+        "endChar": 43
+      },
+      "revId": "944e01ed98dc568755ef4f88eb212a571095237d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

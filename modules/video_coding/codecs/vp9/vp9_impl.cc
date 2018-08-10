@@ -38,6 +38,25 @@ namespace webrtc {
 namespace {
 const float kMaxScreenSharingFramerateFps = 5.0f;
 
+// Layering constraints.
+const int kMaxNumSpatialLayers = 3;
+const int kMaxNumTemporalLayers = 3;
+
+// Frame reference control constants.
+const int kNumFrameInGof = 4;
+const bool kTemporalRefFrameFlag[kMaxNumTemporalLayers][kNumFrameInGof] = {
+    {true, true, true, true},
+    {true, false, true, false},
+    {true, false, true, false}};
+const int kUpdBufIdx[kMaxNumTemporalLayers][kNumFrameInGof] = {{0, 0, 0, 0},
+                                                               {0, 0, 0, 0},
+                                                               {0, 0, 1, 0}};
+const int kRefBufIdx[kMaxNumTemporalLayers][kNumFrameInGof] = {{0, 0, 0, 0},
+                                                               {0, 0, 0, 0},
+                                                               {0, 0, 0, 1}};
+const int kNumRefBufs[kMaxNumTemporalLayers] = {1, 1, 2};
+const int kSpatialRefBufIdx = 7;
+
 // Only positive speeds, range for real-time coding currently is: 5 - 8.
 // Lower means slower/better quality, higher means fastest/lower quality.
 int GetCpuSpeed(int width, int height) {
@@ -52,6 +71,7 @@ int GetCpuSpeed(int width, int height) {
     return 7;
 #endif
 }
+
 // Helper class for extracting VP9 colorspace.
 ColorSpace ExtractVP9ColorSpace(vpx_color_space_t space_t,
                                 vpx_color_range_t range_t,
@@ -327,11 +347,10 @@ int VP9EncoderImpl::InitEncode(const VideoCodec* inst,
   if (number_of_cores < 1) {
     return WEBRTC_VIDEO_CODEC_ERR_PARAMETER;
   }
-  if (inst->VP9().numberOfTemporalLayers > 3) {
+  if (inst->VP9().numberOfTemporalLayers > kMaxNumTemporalLayers) {
     return WEBRTC_VIDEO_CODEC_ERR_PARAMETER;
   }
-  // libvpx probably does not support more than 3 spatial layers.
-  if (inst->VP9().numberOfSpatialLayers > 3) {
+  if (inst->VP9().numberOfSpatialLayers > kMaxNumSpatialLayers) {
     return WEBRTC_VIDEO_CODEC_ERR_PARAMETER;
   }
 
@@ -804,6 +823,7 @@ void VP9EncoderImpl::PopulateCodecSpecific(CodecSpecificInfo* codec_specific,
     pics_since_key_ = 0;
   } else if (first_frame_in_picture) {
     ++pics_since_key_;
+    RTC_CHECK_LT(pics_since_key_, std::numeric_limits<size_t>::max());
   }
 
   const bool is_key_pic = (pics_since_key_ == 0);
@@ -958,6 +978,44 @@ void VP9EncoderImpl::UpdateReferenceBuffers(const vpx_codec_cx_pkt& pkt,
           frame_buf;
     }
   }
+}
+
+vpx_svc_ref_frame_config_t VP9EncoderImpl::SetFrameReferences(
+    const size_t pics_since_key,
+    const size_t num_spatial_layers,
+    const size_t num_temporal_layers) {
+  vpx_svc_ref_frame_config_t enc_layer_conf;
+  memset(&enc_layer_conf, 0, sizeof(enc_layer_conf));
+
+  for (size_t i = 0; i < num_spatial_layers; ++i) {
+    const size_t gof_idx = pics_since_key % kNumFrameInGof;
+
+    enc_layer_conf.lst_fb_idx[i] =
+        kRefBufIdx[num_temporal_layers - 1][gof_idx] +
+        kNumRefBufs[num_temporal_layers - 1] - 1;
+
+    if (i > 0) {
+      enc_layer_conf.gld_fb_idx[i] = kSpatialRefBufIdx;
+    } else {
+      enc_layer_conf.frame_flags[i] |= VP8_EFLAG_NO_REF_GF;
+    }
+    enc_layer_conf.frame_flags[i] |= VP8_EFLAG_NO_REF_ARF;
+
+    const bool is_spatial_ref_frame = i < num_spatial_layers - 1 ? true : false;
+
+    if (kTemporalRefFrameFlag[num_temporal_layers - 1][gof_idx]) {
+      enc_layer_conf.alt_fb_idx[i] =
+          kUpdBufIdx[num_temporal_layers - 1][gof_idx];
+    } else if (is_spatial_ref_frame) {
+      enc_layer_conf.alt_fb_idx[i] = kSpatialRefBufIdx;
+    } else {
+      enc_layer_conf.frame_flags[i] |= VP8_EFLAG_NO_UPD_ARF;
+    }
+    enc_layer_conf.frame_flags[i] |= VP8_EFLAG_NO_UPD_LAST;
+    enc_layer_conf.frame_flags[i] |= VP8_EFLAG_NO_UPD_GF;
+  }
+
+  return enc_layer_conf;
 }
 
 int VP9EncoderImpl::GetEncodedLayerFrame(const vpx_codec_cx_pkt* pkt) {

@@ -8,6 +8,7 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+#include "modules/video_coding/codecs/vp9/vp9_impl.h"
 #include "api/video/color_space.h"
 #include "api/video/i420_buffer.h"
 #include "common_video/libyuv/include/webrtc_libyuv.h"
@@ -529,6 +530,153 @@ TEST_F(TestVp9ImplProfile2, EncodeDecode) {
   EXPECT_GT(I420PSNR(*input_frame->video_frame_buffer()->ToI420(),
                      *decoded_frame->video_frame_buffer()->ToI420()),
             31);
+}
+
+TEST(Vp9RefControl, SetFrameReferences1SL1TL) {
+  vpx_svc_ref_frame_config_t ref_cfg;
+  for (size_t pics_since_key = 0; pics_since_key < 1; ++pics_since_key) {
+    ref_cfg = VP9EncoderImpl::SetFrameReferences(pics_since_key, 1, 1);
+    EXPECT_EQ(ref_cfg.lst_fb_idx[0], 0);
+
+    EXPECT_EQ(ref_cfg.frame_flags[0] & VP8_EFLAG_NO_REF_LAST, 0);
+    EXPECT_NE(ref_cfg.frame_flags[0] & VP8_EFLAG_NO_REF_GF, 0);
+    EXPECT_NE(ref_cfg.frame_flags[0] & VP8_EFLAG_NO_REF_ARF, 0);
+
+    EXPECT_NE(ref_cfg.frame_flags[0] & VP8_EFLAG_NO_UPD_LAST, 0);
+    EXPECT_NE(ref_cfg.frame_flags[0] & VP8_EFLAG_NO_UPD_GF, 0);
+    EXPECT_EQ(ref_cfg.frame_flags[0] & VP8_EFLAG_NO_UPD_ARF, 0);
+  }
+}
+
+TEST(Vp9RefControl, SetFrameReferences1SL2TL) {
+  vpx_svc_ref_frame_config_t ref_cfg;
+  for (int pics_since_key = 0; pics_since_key < 4; ++pics_since_key) {
+    const bool is_temporal_ref_frame = (pics_since_key & 1) == 0;
+    ref_cfg = VP9EncoderImpl::SetFrameReferences(pics_since_key, 1, 2);
+
+    EXPECT_EQ(ref_cfg.lst_fb_idx[0], 0);
+    EXPECT_EQ(ref_cfg.frame_flags[0] & VP8_EFLAG_NO_REF_LAST, 0);
+    EXPECT_NE(ref_cfg.frame_flags[0] & VP8_EFLAG_NO_REF_GF, 0);
+    EXPECT_NE(ref_cfg.frame_flags[0] & VP8_EFLAG_NO_REF_ARF, 0);
+    if (is_temporal_ref_frame) {
+      EXPECT_EQ(ref_cfg.frame_flags[0] & VP8_EFLAG_NO_UPD_LAST, 0);
+    } else {
+      // Non-reference frame should not update any buffers.
+      EXPECT_NE(ref_cfg.frame_flags[0] & VP8_EFLAG_NO_UPD_LAST, 0);
+    }
+    EXPECT_NE(ref_cfg.frame_flags[0] & VP8_EFLAG_NO_UPD_GF, 0);
+    EXPECT_NE(ref_cfg.frame_flags[0] & VP8_EFLAG_NO_UPD_ARF, 0);
+  }
+}
+
+TEST(Vp9RefControl, SetFrameReferences3SL3TL) {
+  const int spatial_ref_buf_idx = 7;
+  vpx_svc_ref_frame_config_t ref_cfg;
+  ref_cfg = VP9EncoderImpl::SetFrameReferences(0, 3, 3);
+  EXPECT_EQ(ref_cfg.lst_fb_idx[0], 0);
+  EXPECT_EQ(ref_cfg.lst_fb_idx[1], 1);
+  EXPECT_EQ(ref_cfg.lst_fb_idx[2], 2);
+  EXPECT_EQ(ref_cfg.gld_fb_idx[1], 0);
+  EXPECT_EQ(ref_cfg.gld_fb_idx[2], 1);
+  EXPECT_EQ(ref_cfg.alt_fb_idx[0], 0);
+  EXPECT_EQ(ref_cfg.alt_fb_idx[1], 1);
+  EXPECT_EQ(ref_cfg.alt_fb_idx[2], 2);
+
+  EXPECT_EQ(ref_cfg.frame_flags[0] & VP8_EFLAG_NO_REF_LAST, 0);
+  EXPECT_NE(ref_cfg.frame_flags[0] & VP8_EFLAG_NO_REF_GF, 0);
+  EXPECT_NE(ref_cfg.frame_flags[0] & VP8_EFLAG_NO_REF_ARF, 0);
+  EXPECT_EQ(ref_cfg.frame_flags[1] & VP8_EFLAG_NO_REF_LAST, 0);
+  EXPECT_EQ(ref_cfg.frame_flags[1] & VP8_EFLAG_NO_REF_GF, 0);
+  EXPECT_NE(ref_cfg.frame_flags[1] & VP8_EFLAG_NO_REF_ARF, 0);
+  EXPECT_EQ(ref_cfg.frame_flags[2] & VP8_EFLAG_NO_REF_LAST, 0);
+  EXPECT_EQ(ref_cfg.frame_flags[2] & VP8_EFLAG_NO_REF_GF, 0);
+  EXPECT_NE(ref_cfg.frame_flags[2] & VP8_EFLAG_NO_REF_ARF, 0);
+
+  EXPECT_NE(ref_cfg.frame_flags[0] & VP8_EFLAG_NO_UPD_LAST, 0);
+  EXPECT_NE(ref_cfg.frame_flags[0] & VP8_EFLAG_NO_UPD_GF, 0);
+  EXPECT_EQ(ref_cfg.frame_flags[0] & VP8_EFLAG_NO_UPD_ARF, 0);
+
+  EXPECT_EQ(ref_cfg.frame_flags[1] & VP8_EFLAG_NO_UPD_LAST, 0);
+  EXPECT_EQ(ref_cfg.frame_flags[1] & VP8_EFLAG_NO_UPD_GF, 0);
+  EXPECT_NE(ref_cfg.frame_flags[1] & VP8_EFLAG_NO_UPD_ARF, 0);
+
+  EXPECT_EQ(ref_cfg.frame_flags[2] & VP8_EFLAG_NO_UPD_LAST, 0);
+  EXPECT_EQ(ref_cfg.frame_flags[2] & VP8_EFLAG_NO_UPD_GF, 0);
+  EXPECT_NE(ref_cfg.frame_flags[2] & VP8_EFLAG_NO_UPD_ARF, 0);
+
+  ref_cfg = VP9EncoderImpl::SetFrameReferences(1, 3, 3);
+  EXPECT_EQ(ref_cfg.lst_fb_idx[0], 0);
+  EXPECT_EQ(ref_cfg.lst_fb_idx[1], 1);
+  EXPECT_EQ(ref_cfg.lst_fb_idx[2], 2);
+  EXPECT_EQ(ref_cfg.alt_fb_idx[0], spatial_ref_buf_idx);
+  EXPECT_EQ(ref_cfg.alt_fb_idx[1], spatial_ref_buf_idx);
+  EXPECT_EQ(ref_cfg.alt_fb_idx[2], spatial_ref_buf_idx);
+
+  ref_cfg = VP9EncoderImpl::SetFrameReferences(2, 3, 3);
+  EXPECT_EQ(ref_cfg.lst_fb_idx[0], 0);
+  EXPECT_EQ(ref_cfg.lst_fb_idx[1], 1);
+  EXPECT_EQ(ref_cfg.lst_fb_idx[2], 2);
+  EXPECT_EQ(ref_cfg.alt_fb_idx[0], spatial_ref_buf_idx);
+  EXPECT_EQ(ref_cfg.alt_fb_idx[1], spatial_ref_buf_idx);
+  EXPECT_EQ(ref_cfg.alt_fb_idx[2], spatial_ref_buf_idx);
+
+  ref_cfg = VP9EncoderImpl::SetFrameReferences(3, 3, 3);
+  EXPECT_EQ(ref_cfg.lst_fb_idx[0], 3);
+  EXPECT_EQ(ref_cfg.lst_fb_idx[1], 4);
+  EXPECT_EQ(ref_cfg.lst_fb_idx[2], 5);
+  EXPECT_EQ(ref_cfg.alt_fb_idx[0], spatial_ref_buf_idx);
+  EXPECT_EQ(ref_cfg.alt_fb_idx[1], spatial_ref_buf_idx);
+  EXPECT_EQ(ref_cfg.alt_fb_idx[2], spatial_ref_buf_idx);
+
+  for (int pics_since_key = 0; pics_since_key < 4; ++pics_since_key) {
+    const bool is_temporal_ref_frame = (pics_since_key & 1) == 0;
+    ref_cfg = VP9EncoderImpl::SetFrameReferences(pics_since_key, 3, 3);
+
+    if (pics_since_key != 3) {
+      EXPECT_EQ(ref_cfg.lst_fb_idx[0], 0);
+      EXPECT_EQ(ref_cfg.lst_fb_idx[1], 1);
+      EXPECT_EQ(ref_cfg.lst_fb_idx[2], 2);
+    } else {
+      // Second T2 frame refers T1 frame.
+      EXPECT_EQ(ref_cfg.lst_fb_idx[0], 3);
+      EXPECT_EQ(ref_cfg.lst_fb_idx[1], 4);
+      EXPECT_EQ(ref_cfg.lst_fb_idx[2], 5);
+    }
+
+    if (pics_since_key == 2) {
+      // T1 is stored in buffer other than T0.
+      EXPECT_EQ(ref_cfg.alt_fb_idx[0], 3);
+      EXPECT_EQ(ref_cfg.alt_fb_idx[1], 4);
+      EXPECT_EQ(ref_cfg.alt_fb_idx[2], 5);
+    } else {
+      EXPECT_EQ(ref_cfg.alt_fb_idx[0], 7);
+      EXPECT_EQ(ref_cfg.alt_fb_idx[1], 7);
+      EXPECT_EQ(ref_cfg.alt_fb_idx[2], 7);
+    }
+
+    EXPECT_EQ(ref_cfg.frame_flags[0] & VP8_EFLAG_NO_REF_LAST, 0);
+    EXPECT_NE(ref_cfg.frame_flags[0] & VP8_EFLAG_NO_REF_GF, 0);
+    EXPECT_NE(ref_cfg.frame_flags[0] & VP8_EFLAG_NO_REF_ARF, 0);
+
+    EXPECT_EQ(ref_cfg.frame_flags[1] & VP8_EFLAG_NO_REF_LAST, 0);
+    EXPECT_NE(ref_cfg.frame_flags[1] & VP8_EFLAG_NO_REF_GF, 0);
+    EXPECT_EQ(ref_cfg.frame_flags[1] & VP8_EFLAG_NO_REF_ARF, 0);
+
+    EXPECT_EQ(ref_cfg.frame_flags[2] & VP8_EFLAG_NO_REF_LAST, 0);
+    EXPECT_NE(ref_cfg.frame_flags[2] & VP8_EFLAG_NO_REF_GF, 0);
+    EXPECT_EQ(ref_cfg.frame_flags[2] & VP8_EFLAG_NO_REF_ARF, 0);
+
+    if (pics_since_key ==) {
+      EXPECT_EQ(ref_cfg.frame_flags[0] & VP8_EFLAG_NO_UPD_LAST, 0);
+      EXPECT_EQ(ref_cfg.frame_flags[1] & VP8_EFLAG_NO_UPD_LAST, 0);
+      EXPECT_EQ(ref_cfg.frame_flags[2] & VP8_EFLAG_NO_UPD_LAST, 0);
+    } else {
+      // Non-reference frame should not update any buffers.
+      EXPECT_NE(ref_cfg.frame_flags[0] & VP8_EFLAG_NO_UPD_LAST, 0);
+    }
+    EXPECT_NE(ref_cfg.frame_flags[0] & VP8_EFLAG_NO_UPD_GF, 0);
+    EXPECT_NE(ref_cfg.frame_flags[0] & VP8_EFLAG_NO_UPD_ARF, 0);
+  }
 }
 
 }  // namespace webrtc

@@ -53,6 +53,11 @@ class VP9EncoderImpl : public VP9Encoder {
 
   const char* ImplementationName() const override;
 
+  static vpx_svc_ref_frame_config_t SetFrameReferences(
+      size_t pics_since_key,
+      size_t num_spatial_layers,
+      size_t num_temporal_layers);
+
  private:
   // Determine number of encoder threads to use.
   int NumberOfThreads(int width, int height, int number_of_cores);

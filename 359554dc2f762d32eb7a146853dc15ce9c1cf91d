@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "4a034dc0_d703f4e6",
+        "filename": "modules/audio_processing/aec3/aec_state_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-08-10T17:13:32Z",
+      "side": 1,
+      "message": "Good point! I\u0027ve never thought of that. \nI think you are right. A better name would probably be Clear().\n\nI\u0027ll change that in another CL.",
+      "parentUuid": "a0a64f8f_550602df",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 17
+      },
+      "revId": "359554dc2f762d32eb7a146853dc15ce9c1cf91d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "51f15927_4942b666",
         "filename": "modules/audio_processing/aec3/echo_remover.cc",
         "patchSetId": 5

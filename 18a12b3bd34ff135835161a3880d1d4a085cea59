@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d9c04ce6_0ee6c6d1",
+        "filename": "modules/audio_processing/agc2/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-08-10T09:34:55Z",
+      "side": 1,
+      "message": "I am not 100% sure but we can probably drop this dependency now. Can you please try to remove it and see if trybots are happy?",
+      "range": {
+        "startLine": 116,
+        "startChar": 4,
+        "endLine": 116,
+        "endChar": 43
+      },
+      "revId": "18a12b3bd34ff135835161a3880d1d4a085cea59",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

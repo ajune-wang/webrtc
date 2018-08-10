@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "57fb32fb_117dc55d",
+        "filename": "modules/audio_processing/aec3/render_buffer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-08-10T17:12:23Z",
+      "side": 1,
+      "message": "We cannot do that with the current implementation since we then don\u0027t know the starting index for num_spectra_longer.\n\nThe reason for not computing these separately in two steps is that this constitutes a major part of the complexity of the adaptive filter. \n\nThere are way to work around this but I\u0027d prefer to keep it as simple as possible since changing the implementation of SpectralSum would require other changes elsewhere.",
+      "parentUuid": "8262362f_d28b72eb",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 3
+      },
+      "revId": "7a6d71e38426c8a0b68773e7cc5591326bd5f99c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7e29fe33_8020b651",
         "filename": "modules/audio_processing/aec3/subtractor.cc",
         "patchSetId": 2
@@ -68,6 +92,30 @@
       "revId": "7a6d71e38426c8a0b68773e7cc5591326bd5f99c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4a24b98_a81c989f",
+        "filename": "modules/audio_processing/aec3/subtractor.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-08-10T17:12:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "70ca309e_3f8acf7e",
+      "range": {
+        "startLine": 215,
+        "startChar": 4,
+        "endLine": 216,
+        "endChar": 7
+      },
+      "revId": "7a6d71e38426c8a0b68773e7cc5591326bd5f99c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

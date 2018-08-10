@@ -118,6 +118,30 @@
     },
     {
       "key": {
+        "uuid": "7c699a29_74d74432",
+        "filename": "modules/congestion_controller/pcc/utility_function.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-08-10T11:24:32Z",
+      "side": 1,
+      "message": "It doesn\u0027t look like a persistent URL. If we want to refer to the paper, a doi or proper citation is better so people can find it even when this particular URL gets stale.\n\nIn this case I think it\u0027s enough to refer to the paper at a higher level PCC class. But having a reference here would of course not hurt. (just make sure that it\u0027s something persistent)",
+      "parentUuid": "b45c4221_a61fd063",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 72
+      },
+      "revId": "3983a347d3e44e63c4afdef86fd88fc639cd329a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a2e4221d_58e56f05",
         "filename": "modules/congestion_controller/pcc/utility_function.h",
         "patchSetId": 15

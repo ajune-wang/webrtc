@@ -64,7 +64,7 @@ class StreamStatisticianImpl : public StreamStatistician {
   Clock* const clock_;
   rtc::CriticalSection stream_lock_;
   RateStatistics incoming_bitrate_;
-  int max_reordering_threshold_;  // In number of packets or sequence numbers.
+  uint16_t max_reordering_threshold_;  // In number of packets/sequence numbers.
 
   // Stats on received RTP packets.
   uint32_t jitter_q4_;
@@ -73,6 +73,7 @@ class StreamStatisticianImpl : public StreamStatistician {
   NtpTime last_receive_time_ntp_;
   uint32_t last_received_timestamp_;
   uint16_t received_seq_first_;
+  uint16_t received_seq_first_backwards_wraps_;
   uint16_t received_seq_max_;
   uint16_t received_seq_wraps_;
 

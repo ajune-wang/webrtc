@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "78f6fbff_caa57c46",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-08-10T16:55:41Z",
+      "side": 1,
+      "message": "s/multicast/simulcast\nYes, this is essentially right.\nI believe the main issue was when using SimulcastEncoderAdapter (eg for hw codecs), where simulcast streams may be concurrently encoded by completely independent encoders. This can lead to races: frames arriving here out-of order. Eg. the qvga buffer for frame n+1 arriving before the hd buffer for frame n, so looking at just the max timestamp won\u0027t work.",
+      "parentUuid": "95d5a565_36502b55",
+      "revId": "af721b72cc1bdc5d945629ad78fbea701b6f82b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c82fe2f6_cbb16707",
         "filename": "video/send_statistics_proxy.cc",
         "patchSetId": 6
@@ -47,6 +65,24 @@
       "writtenOn": "2018-08-10T13:18:56Z",
       "side": 1,
       "message": "[Questions]\n* Why 800 ms?\n* Do we just want to this number big enough so we know each frame of a given timestamps has been processed?\n* Must we also guarantee that the stats are populated as early as possible? Meaning that this number should not be too big.",
+      "revId": "af721b72cc1bdc5d945629ad78fbea701b6f82b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0d64c7fc_83ff1047",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-08-10T16:55:41Z",
+      "side": 1,
+      "message": "iirc\nThe exact number doesn\u0027t have a special meaning.\nWe want to keep the map small so we don\u0027t needlessly use too much memory.\nWe also don\u0027t want to make it so small that we may have pending frames timeout out. If the encode process takes longer than 0.8s we have left the realm of realtime video far behind, and the maximum number of samples should be quite limited.",
+      "parentUuid": "cab5d179_2989131b",
       "revId": "af721b72cc1bdc5d945629ad78fbea701b6f82b9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

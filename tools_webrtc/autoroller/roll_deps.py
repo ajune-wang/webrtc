@@ -26,6 +26,7 @@ DONT_AUTOROLL_THESE = [
 ]
 
 # Run these CQ trybots in addition to the default ones in infra/config/cq.cfg.
+# TODO(bugs.webrtc.org/9615): Temporarily disabled below. re-enable when fixed.
 EXTRA_TRYBOTS = (
   'master.internal.tryserver.corp.webrtc:linux_internal'
 )
@@ -367,7 +368,8 @@ def GenerateCommitMessage(rev_update, current_commit_pos,
 
   commit_msg.append('TBR=%s' % tbr_authors)
   commit_msg.append('BUG=None')
-  commit_msg.append('CQ_INCLUDE_TRYBOTS=%s' % EXTRA_TRYBOTS)
+  # TODO(bugs.webrtc.org/9615): re-enable when fixed.
+  # commit_msg.append('CQ_INCLUDE_TRYBOTS=%s' % EXTRA_TRYBOTS)
   return '\n'.join(commit_msg)
 
 

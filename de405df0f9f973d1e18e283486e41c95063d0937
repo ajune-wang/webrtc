@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ed8724b8_0cc28c3c",
+        "filename": "api/rtpparameters.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-08-10T23:59:41Z",
+      "side": 1,
+      "message": "Lets include a link to https://w3c.github.io/webrtc-dscp-exp/ since this parameter isn\u0027t in the more standard https://w3c.github.io/webrtc-pc/#rtcrtpencodingparameters",
+      "revId": "de405df0f9f973d1e18e283486e41c95063d0937",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91d47939_75bf5891",
+        "filename": "api/rtpparameters.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-08-10T23:59:41Z",
+      "side": 1,
+      "message": "Link doesn\u0027t work for me. This one does: http://crbug.com/webrtc/8630\nCould you fix it in the comment for bitrate_priority too?",
+      "revId": "de405df0f9f973d1e18e283486e41c95063d0937",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "413ad4e7_4f85101d",
+        "filename": "media/engine/webrtcvideoengine.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 882,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-08-10T23:59:41Z",
+      "side": 1,
+      "message": "I don\u0027t think priority has been validated, so I would suggest logging here instead of using RTC_NOTREACHED.",
+      "revId": "de405df0f9f973d1e18e283486e41c95063d0937",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af0c21c6_50c0a298",
+        "filename": "media/engine/webrtcvoiceengine.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1429,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-08-10T23:59:41Z",
+      "side": 1,
+      "message": "I would also suggest logging here instead.",
+      "revId": "de405df0f9f973d1e18e283486e41c95063d0937",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

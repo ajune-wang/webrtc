@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8262362f_d28b72eb",
+        "filename": "modules/audio_processing/aec3/render_buffer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-08-10T16:55:47Z",
+      "side": 1,
+      "message": "I think we should replace this with a call to SpectralSum:\nSpectralSum(num_spectra_shorter, X2_shorter);",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 3
+      },
+      "revId": "7a6d71e38426c8a0b68773e7cc5591326bd5f99c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e29fe33_8020b651",
+        "filename": "modules/audio_processing/aec3/subtractor.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-08-10T16:55:47Z",
+      "side": 1,
+      "message": "nit: Had to think hard about what this is. I suggest renaming to \u0027render\u0027 or something similar.",
+      "range": {
+        "startLine": 206,
+        "startChar": 17,
+        "endLine": 206,
+        "endChar": 26
+      },
+      "revId": "7a6d71e38426c8a0b68773e7cc5591326bd5f99c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70ca309e_3f8acf7e",
+        "filename": "modules/audio_processing/aec3/subtractor.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-08-10T16:55:47Z",
+      "side": 1,
+      "message": "nit: Merge into \"else if (..) {\" ?",
+      "range": {
+        "startLine": 215,
+        "startChar": 4,
+        "endLine": 216,
+        "endChar": 7
+      },
+      "revId": "7a6d71e38426c8a0b68773e7cc5591326bd5f99c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c782b66c_6367e1fd",
+        "filename": "modules/audio_processing/aec3/subtractor_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-08-10T16:55:47Z",
+      "side": 1,
+      "message": "We should run this test with 15/20 as well, to cover main \u003e shadow *and* main \u003c shadow. In case there\u0027s something that\u0027s only been accounted for in a one-sided way.",
+      "range": {
+        "startLine": 179,
+        "startChar": 0,
+        "endLine": 186,
+        "endChar": 1
+      },
+      "revId": "7a6d71e38426c8a0b68773e7cc5591326bd5f99c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

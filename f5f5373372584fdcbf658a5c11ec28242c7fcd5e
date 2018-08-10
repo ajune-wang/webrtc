@@ -22,6 +22,30 @@
       "revId": "f5f5373372584fdcbf658a5c11ec28242c7fcd5e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "318a73d1_2f5db43b",
+        "filename": "modules/audio_processing/aec3/adaptive_fir_filter.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 637,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-08-10T16:38:57Z",
+      "side": 0,
+      "message": "It is needed since the order of the SetFilter and Adapt method calls needs to be reversed for the boosted shadow filter adaptation. The SetFilter operation is still ok though since the minimum size is chosen.",
+      "parentUuid": "ffe6c0ee_0c0bcf6f",
+      "range": {
+        "startLine": 636,
+        "startChar": 66,
+        "endLine": 637,
+        "endChar": 37
+      },
+      "revId": "f5f5373372584fdcbf658a5c11ec28242c7fcd5e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

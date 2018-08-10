@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "69bb1404_08b0c8e9",
+        "filename": "modules/audio_processing/aec3/aec_state_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-08-10T16:38:57Z",
+      "side": 1,
+      "message": "It does not need to be called in the echo remover since the code where it is used properly populates the SubtractorOutput state.\n\nThe reason it needs to be called here is that the unittest does not call the Subtractor code, which in the EchoRemover populates these fields. \n\nThis was not properly done before this CL but worked on the bots. The changes in this CL did, however, trigger a a unittest failure in the m_san bots due to this. That is the reason why this was added.",
+      "parentUuid": "3a6af10b_1a86b2b0",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 17
+      },
+      "revId": "359554dc2f762d32eb7a146853dc15ce9c1cf91d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "51f15927_4942b666",
         "filename": "modules/audio_processing/aec3/echo_remover.cc",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "359554dc2f762d32eb7a146853dc15ce9c1cf91d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80dee767_7f9ecf40",
+        "filename": "modules/audio_processing/aec3/echo_remover.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-08-10T16:38:57Z",
+      "side": 1,
+      "message": "Good find!",
+      "parentUuid": "51f15927_4942b666",
+      "range": {
+        "startLine": 369,
+        "startChar": 0,
+        "endLine": 369,
+        "endChar": 27
+      },
+      "revId": "359554dc2f762d32eb7a146853dc15ce9c1cf91d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "292637be_f242ccb8",
+        "filename": "modules/audio_processing/aec3/subtractor.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-08-10T16:38:57Z",
+      "side": 1,
+      "message": "I agree that this could/should be done nicer.\nHowever, I don\u0027t think that this is the same as changing the threshold to 5.\n\nIf enable_early_shadow_filter_jumpstart_ is false, poor_shadow_filter_counter_ must exceed 9 in order for the if statement to be entered (assuming that enable_shadow_filter_jumpstart_ is false).\n\nLet\u0027s rewrite this when the KillSwitches are removed.",
+      "parentUuid": "36fc502f_6025673f",
+      "range": {
+        "startLine": 242,
+        "startChar": 6,
+        "endLine": 246,
+        "endChar": 38
+      },
+      "revId": "359554dc2f762d32eb7a146853dc15ce9c1cf91d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "36b94b1e_e9204eaa",
         "filename": "modules/audio_processing/aec3/subtractor.cc",
         "patchSetId": 5
@@ -82,6 +154,30 @@
       "writtenOn": "2018-08-10T15:29:35Z",
       "side": 1,
       "message": "I don\u0027t understand why E_main is passed instead of E_shadow.",
+      "range": {
+        "startLine": 259,
+        "startChar": 52,
+        "endLine": 259,
+        "endChar": 58
+      },
+      "revId": "359554dc2f762d32eb7a146853dc15ce9c1cf91d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "091497ec_bf19069b",
+        "filename": "modules/audio_processing/aec3/subtractor.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-08-10T16:38:57Z",
+      "side": 1,
+      "message": "What is utilized here is that since the shadow filter coefficients are set to the main filter coefficients, the prediction error for the shadow filter will be identical to the prediction error of the main filter. That allows us to not have to re-compute E_shadow with the new filter error and instead we can use E_main.\n\n(note that the above is not fully true if the filter lengths of the shadow and main filters are the same).",
+      "parentUuid": "36b94b1e_e9204eaa",
       "range": {
         "startLine": 259,
         "startChar": 52,

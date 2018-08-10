@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f67ac235_5cb59f02",
+        "filename": "modules/audio_processing/agc2/fixed_gain_controller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2018-08-10T15:30:59Z",
+      "side": 1,
+      "message": "Perhaps it would be good to add some DCHECKS to ensure that the histogram_name_prefix is one of the expected options.",
+      "range": {
+        "startLine": 42,
+        "startChar": 74,
+        "endLine": 42,
+        "endChar": 76
+      },
+      "revId": "076ed4226a78f1ca1587d1cb663f1fe0c6138778",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

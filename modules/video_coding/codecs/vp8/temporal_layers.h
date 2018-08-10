@@ -23,22 +23,42 @@
 namespace webrtc {
 
 struct CodecSpecificInfoVP8;
+enum class Vp8BufferReference : uint8_t {
+  kNone = 0,
+  kLast = 1,
+  kGolden = 2,
+  kAltref = 4
+};
 
 struct Vp8EncoderConfig {
+  // Number of active temporal layers. Set to 0 if not used.
   unsigned int ts_number_layers;
+  // Arrays of length |ts_number_layers|, indicating (cumulative) target bitrate
+  // and rate decimator (e.g. 4 if every 4th frame is in the given layer) for
+  // each active temporal layer, starting with temporal id 0.
   unsigned int ts_target_bitrate[VP8_TS_MAX_LAYERS];
   unsigned int ts_rate_decimator[VP8_TS_MAX_LAYERS];
+
+  // The periodicity of the temporal pattern. Set to 0 if not used.
   unsigned int ts_periodicity;
+  // Array of length |ts_periodicity| indicating the sequence of temporal id's
+  // to assign to incoming frames.
   unsigned int ts_layer_id[VP8_TS_MAX_PERIODICITY];
+
+  // Target bitrate, in bps.
   unsigned int rc_target_bitrate;
+
+  // Clamp QP to min/max. Use 0 to disable clamping.
   unsigned int rc_min_quantizer;
   unsigned int rc_max_quantizer;
 };
 
+// This interface defines a way of getting the encoder settings needed to
+// realize a temporal layer structure of predefined size.
 class TemporalLayersChecker;
 class TemporalLayers {
  public:
-  enum BufferFlags {
+  enum BufferFlags : int {
     kNone = 0,
     kReference = 1,
     kUpdate = 2,
@@ -78,15 +98,14 @@ class TemporalLayers {
 
     bool freeze_entropy;
 
-    bool operator==(const FrameConfig& o) const {
-      return drop_frame == o.drop_frame &&
-             last_buffer_flags == o.last_buffer_flags &&
-             golden_buffer_flags == o.golden_buffer_flags &&
-             arf_buffer_flags == o.arf_buffer_flags &&
-             layer_sync == o.layer_sync && freeze_entropy == o.freeze_entropy &&
-             encoder_layer_id == o.encoder_layer_id &&
-             packetizer_temporal_idx == o.packetizer_temporal_idx;
-    }
+    // Indicates in which order the encoder should search the reference buffers
+    // when doing motion prediction. Set to kNone to use unspecified order. Any
+    // buffer indicated here must be must no have the corresponding no_ref bit
+    // set.
+    Vp8BufferReference first_search;
+    Vp8BufferReference second_search;
+
+    bool operator==(const FrameConfig& o) const;
     bool operator!=(const FrameConfig& o) const { return !(*this == o); }
 
    private:
@@ -96,6 +115,8 @@ class TemporalLayers {
                 bool freeze_entropy);
   };
 
+  // Factory for TemporalLayer strategy. Default behavior is a fixed pattern
+  // of temporal layers. See default_temporal_layers.cc
   static std::unique_ptr<TemporalLayers> CreateTemporalLayers(
       const VideoCodec& codec,
       size_t spatial_id);
@@ -103,13 +124,7 @@ class TemporalLayers {
       const VideoCodec& codec,
       size_t spatial_id);
 
-  // Factory for TemporalLayer strategy. Default behavior is a fixed pattern
-  // of temporal layers. See default_temporal_layers.cc
-  virtual ~TemporalLayers() {}
-
-  // Returns the recommended VP8 encode flags needed. May refresh the decoder
-  // and/or update the reference buffers.
-  virtual FrameConfig UpdateLayerConfig(uint32_t timestamp) = 0;
+  virtual ~TemporalLayers() = default;
 
   // New target bitrate, per temporal layer.
   virtual void OnRatesUpdated(const std::vector<uint32_t>& bitrates_bps,
@@ -119,13 +134,32 @@ class TemporalLayers {
   // Returns true iff the configuration was actually modified.
   virtual bool UpdateConfiguration(Vp8EncoderConfig* cfg) = 0;
 
+  // Returns the recommended VP8 encode flags needed, and moves the temporal
+  // pattern to the next frame.
+  // The timestamp may be used as both a time and a unique identifier, and so
+  // the caller must make sure no two frames use the same timestamp.
+  // The timestamp uses a 90kHz RTP clock.
+  // After calling this method, the actual encoder should be called with the
+  // provided frame configuration, after which:
+  // * On success, call PopulateCodecSpecific() and then FrameEncoded();
+  // * On failure/ frame drop: Call FrameEncoded() with size = 0.
+  virtual FrameConfig UpdateLayerConfig(uint32_t rtp_timestamp) = 0;
+
+  // Called after successful encoding of a frame. The rtp timestamp must match
+  // the one using in UpdateLayerConfig(). Some fields in |vp8_info| may have
+  // already been populated by the encoder, check before overwriting!
   virtual void PopulateCodecSpecific(
       bool is_keyframe,
       const TemporalLayers::FrameConfig& tl_config,
       CodecSpecificInfoVP8* vp8_info,
-      uint32_t timestamp) = 0;
+      uint32_t rtp_timestamp) = 0;
 
-  virtual void FrameEncoded(unsigned int size, int qp) = 0;
+  // Called after an encode event. If the frame was dropped, |size_bytes| must
+  // be set to 0. The rtp timestamp must match the one using in
+  // UpdateLayerConfig()
+  virtual void FrameEncoded(uint32_t rtp_timestamp,
+                            size_t size_bytes,
+                            int qp) = 0;
 };
 
 // Used only inside RTC_DCHECK(). It checks correctness of temporal layers

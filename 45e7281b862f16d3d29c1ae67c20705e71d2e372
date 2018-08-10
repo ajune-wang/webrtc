@@ -16,6 +16,40 @@
       "revId": "45e7281b862f16d3d29c1ae67c20705e71d2e372",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "189080db_fea4e5dc",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-08-10T09:53:08Z",
+      "side": 0,
+      "message": "This TODO is already adressed.",
+      "revId": "45e7281b862f16d3d29c1ae67c20705e71d2e372",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9fce4694_28dc3ac9",
+        "filename": "modules/audio_processing/aec3/aec_state_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-08-10T09:53:08Z",
+      "side": 0,
+      "message": "This part of the unittest was already outdated, but did not fail before. It fails now but since it even before tested the wrong thing I chose to remove it.",
+      "revId": "45e7281b862f16d3d29c1ae67c20705e71d2e372",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

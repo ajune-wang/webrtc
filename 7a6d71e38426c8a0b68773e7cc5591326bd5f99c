@@ -187,6 +187,30 @@
       "revId": "7a6d71e38426c8a0b68773e7cc5591326bd5f99c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "05f734f0_acd4cca7",
+        "filename": "modules/audio_processing/aec3/subtractor_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-08-10T18:15:54Z",
+      "side": 1,
+      "message": "Sorry, I missed this comment. Good point! I agree. I added such a test.",
+      "parentUuid": "c782b66c_6367e1fd",
+      "range": {
+        "startLine": 179,
+        "startChar": 0,
+        "endLine": 186,
+        "endChar": 1
+      },
+      "revId": "7a6d71e38426c8a0b68773e7cc5591326bd5f99c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -1,0 +1,182 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "747c9553_b1c242a0",
+        "filename": "modules/rtp_rtcp/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-10T11:23:51Z",
+      "side": 1,
+      "message": "might be good idea to add unittests to describe what this class is doing",
+      "revId": "c7df532005d3c9c398a994fcec1ddb0dde3ce503",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29085c34_404df42f",
+        "filename": "modules/rtp_rtcp/source/contributing_sources.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-10T11:23:51Z",
+      "side": 1,
+      "message": "static can be omitted",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 6
+      },
+      "revId": "c7df532005d3c9c398a994fcec1ddb0dde3ce503",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "775e1a86_3001dc7d",
+        "filename": "modules/rtp_rtcp/source/contributing_sources.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-10T11:23:51Z",
+      "side": 1,
+      "message": "us \u003d ms?",
+      "range": {
+        "startLine": 30,
+        "startChar": 34,
+        "endLine": 30,
+        "endChar": 0
+      },
+      "revId": "c7df532005d3c9c398a994fcec1ddb0dde3ce503",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9cc76fa5_a08c9782",
+        "filename": "modules/rtp_rtcp/source/contributing_sources.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-10T11:23:51Z",
+      "side": 1,
+      "message": "it is iterator, so pre-increment\n\nhttps://google.github.io/styleguide/cppguide.html#Preincrement_and_Predecrement\n\"For simple scalar (non-object) values there is no reason to prefer one form and we allow either. For iterators and other template types, use pre-increment.\"",
+      "range": {
+        "startLine": 60,
+        "startChar": 11,
+        "endLine": 60,
+        "endChar": 0
+      },
+      "revId": "c7df532005d3c9c398a994fcec1ddb0dde3ce503",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16c2af0c_abd334e9",
+        "filename": "modules/rtp_rtcp/source/contributing_sources.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-10T11:23:51Z",
+      "side": 1,
+      "message": "may be call it \u0027now_ms\u0027 or explain the parameter in the comment",
+      "range": {
+        "startLine": 34,
+        "startChar": 44,
+        "endLine": 34,
+        "endChar": 51
+      },
+      "revId": "c7df532005d3c9c398a994fcec1ddb0dde3ce503",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d50eeb0_e20676ab",
+        "filename": "modules/rtp_rtcp/source/contributing_sources.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-10T11:23:51Z",
+      "side": 1,
+      "message": "all other times are ms\nmay be use ms here too",
+      "range": {
+        "startLine": 40,
+        "startChar": 40,
+        "endLine": 40,
+        "endChar": 42
+      },
+      "revId": "c7df532005d3c9c398a994fcec1ddb0dde3ce503",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "90e6415e_43658f04",
+        "filename": "modules/rtp_rtcp/source/contributing_sources.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-10T11:23:51Z",
+      "side": 1,
+      "message": "add units suffix",
+      "range": {
+        "startLine": 41,
+        "startChar": 40,
+        "endLine": 41,
+        "endChar": 0
+      },
+      "revId": "c7df532005d3c9c398a994fcec1ddb0dde3ce503",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f32c1452_f33e8920",
+        "filename": "modules/rtp_rtcp/source/rtp_receiver_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-10T11:23:51Z",
+      "side": 1,
+      "message": "may be \nrtc::MakeArrayView(rtp_header.arrOfCSRCs, rtp_header.numCSRCs)",
+      "range": {
+        "startLine": 138,
+        "startChar": 26,
+        "endLine": 139,
+        "endChar": 77
+      },
+      "revId": "c7df532005d3c9c398a994fcec1ddb0dde3ce503",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

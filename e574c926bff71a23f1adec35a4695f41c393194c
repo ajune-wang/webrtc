@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4589cd1b_ce433d61",
+        "filename": "tools_webrtc/autoroller/roll_deps.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2018-08-10T11:10:57Z",
+      "side": 1,
+      "message": "Just change it to linux_internal_compile_lite. Because it\u0027s not included by default.",
+      "range": {
+        "startLine": 31,
+        "startChar": 41,
+        "endLine": 31,
+        "endChar": 55
+      },
+      "revId": "e574c926bff71a23f1adec35a4695f41c393194c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

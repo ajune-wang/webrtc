@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f88e95d3_69b7d323",
+        "filename": "modules/audio_processing/agc2/adaptive_digital_gain_applier.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2018-08-10T15:45:35Z",
+      "side": 1,
+      "message": "I think this is fine, but it would also be okay to update the histogram on every call (instead of once per 100 calls).",
+      "range": {
+        "startLine": 81,
+        "startChar": 6,
+        "endLine": 81,
+        "endChar": 32
+      },
+      "revId": "62ff0034828e5272b28314d00f87c790cba863e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

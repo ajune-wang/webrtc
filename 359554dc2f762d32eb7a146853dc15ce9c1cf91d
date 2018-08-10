@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a6af10b_1a86b2b0",
+        "filename": "modules/audio_processing/aec3/aec_state_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-08-10T15:29:35Z",
+      "side": 1,
+      "message": "Should this also be called in echo_remover?\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/modules/audio_processing/aec3/echo_remover.cc?sq\u003dpackage:chromium\u0026g\u003d0\u0026l\u003d245\n\nIf yes, shouldn\u0027t it instead be called in the SubtractorOutput constructor? Instead of manually initializing it like this. If no, why does it need to be called here?",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 17
+      },
+      "revId": "359554dc2f762d32eb7a146853dc15ce9c1cf91d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51f15927_4942b666",
+        "filename": "modules/audio_processing/aec3/echo_remover.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-08-10T15:29:35Z",
+      "side": 1,
+      "message": "Looks like a no-op. It\u0027s already true, from two lines up.",
+      "range": {
+        "startLine": 369,
+        "startChar": 0,
+        "endLine": 369,
+        "endChar": 27
+      },
+      "revId": "359554dc2f762d32eb7a146853dc15ce9c1cf91d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36fc502f_6025673f",
+        "filename": "modules/audio_processing/aec3/subtractor.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-08-10T15:29:35Z",
+      "side": 1,
+      "message": "nit: This seems equivalent to just changing threshold to 5.\n\npoor_shadow_filter_counter_ \u003c 5 || !enable_shadow_filter_jumpstart_\n\nReasoning:\nP \u003d enable_shadow_filter_jumpstart_\nx \u003d poor_shadow_filter_counter_\n\n((x\u003c5 \u0026 P) | (x\u003c10 \u0026 !P)) | !P\n// move parentheses from first | to second |, because | is associative\n(x\u003c5 \u0026 P) | ((x\u003c10 \u0026 !P) | !P)\n// A\u0026B | B equivalent to B\n(x\u003c5 \u0026 P) | !P)\n// A\u0026!B | B equivalent to A\u0026B\nx\u003c5 | !P",
+      "range": {
+        "startLine": 242,
+        "startChar": 6,
+        "endLine": 246,
+        "endChar": 38
+      },
+      "revId": "359554dc2f762d32eb7a146853dc15ce9c1cf91d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36b94b1e_e9204eaa",
+        "filename": "modules/audio_processing/aec3/subtractor.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-08-10T15:29:35Z",
+      "side": 1,
+      "message": "I don\u0027t understand why E_main is passed instead of E_shadow.",
+      "range": {
+        "startLine": 259,
+        "startChar": 52,
+        "endLine": 259,
+        "endChar": 58
+      },
+      "revId": "359554dc2f762d32eb7a146853dc15ce9c1cf91d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

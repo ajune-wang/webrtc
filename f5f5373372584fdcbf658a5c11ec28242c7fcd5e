@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ffe6c0ee_0c0bcf6f",
+        "filename": "modules/audio_processing/aec3/adaptive_fir_filter.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 637,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-08-10T15:29:35Z",
+      "side": 0,
+      "message": "Seems related to the other CL. Intentionally included here?",
+      "range": {
+        "startLine": 636,
+        "startChar": 66,
+        "endLine": 637,
+        "endChar": 37
+      },
+      "revId": "f5f5373372584fdcbf658a5c11ec28242c7fcd5e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

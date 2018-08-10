@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "586e1ae2_429d82ef",
+        "filename": "modules/audio_processing/aec3/adaptive_fir_filter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 637,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-08-10T09:49:58Z",
+      "side": 0,
+      "message": "This needs to be removed in order to allow for the SetFilter to be called before Adapt (which is a prerequisite for the new jumpstart approach of the shadow filter.\n\nNote that the code in this method was actually fine even without that DCHECK.",
+      "revId": "45e7281b862f16d3d29c1ae67c20705e71d2e372",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -113,8 +113,14 @@ void PackBitstream(uint8_t* buffer, MultiplexImageComponent image) {
   memcpy(buffer, image.encoded_image._buffer, image.encoded_image._length);
 }
 
-MultiplexImage::MultiplexImage(uint16_t picture_index, uint8_t frame_count)
-    : image_index(picture_index), component_count(frame_count) {}
+MultiplexImage::MultiplexImage(uint16_t picture_index,
+                               uint8_t frame_count,
+                               uint8_t* augmenting_data,
+                               uint16_t augmenting_data_size)
+    : image_index(picture_index),
+      component_count(frame_count),
+      augmenting_data_size(augmenting_data_size),
+      augmenting_data(augmenting_data) {}
 
 EncodedImage MultiplexEncodedImagePacker::PackAndRelease(
     const MultiplexImage& multiplex_image) {
@@ -125,8 +131,10 @@ EncodedImage MultiplexEncodedImagePacker::PackAndRelease(
   header.image_index = multiplex_image.image_index;
   int header_offset = kMultiplexImageHeaderSize;
   header.first_component_header_offset = header_offset;
-  int bitstream_offset = header_offset + kMultiplexImageComponentHeaderSize *
-                                             header.component_count;
+  int bitstream_offset =
+      header_offset +
+      kMultiplexImageComponentHeaderSize * header.component_count + 2 +
+      multiplex_image.augmenting_data_size;
 
   const std::vector<MultiplexImageComponent>& images =
       multiplex_image.image_components;
@@ -182,6 +190,18 @@ EncodedImage MultiplexEncodedImagePacker::PackAndRelease(
                          kMultiplexImageComponentHeaderSize * (i + 1)));
   }
 
+  // Augmenting Data
+  int data_offset = kMultiplexImageHeaderSize +
+                    kMultiplexImageComponentHeaderSize * header.component_count;
+  ByteWriter<uint16_t>::WriteBigEndian(combined_image._buffer + data_offset,
+                                       multiplex_image.augmenting_data_size);
+  if (multiplex_image.augmenting_data_size != 0) {
+    memcpy(combined_image._buffer + data_offset + 2,
+           multiplex_image.augmenting_data,
+           multiplex_image.augmenting_data_size);
+    delete[] multiplex_image.augmenting_data;
+  }
+
   // Bitstreams
   for (size_t i = 0; i < images.size(); i++) {
     PackBitstream(combined_image._buffer + frame_headers[i].bitstream_offset,
@@ -196,7 +216,6 @@ MultiplexImage MultiplexEncodedImagePacker::Unpack(
     const EncodedImage& combined_image) {
   const MultiplexImageHeader& header = UnpackHeader(combined_image._buffer);
 
-  MultiplexImage multiplex_image(header.image_index, header.component_count);
   std::vector<MultiplexImageComponentHeader> frame_headers;
   int header_offset = header.first_component_header_offset;
 
@@ -207,6 +226,17 @@ MultiplexImage MultiplexEncodedImagePacker::Unpack(
   }
 
   RTC_DCHECK_LE(frame_headers.size(), header.component_count);
+  int16_t augmenting_data_size = ByteReader<uint16_t>::ReadBigEndian(
+      combined_image._buffer + kMultiplexImageHeaderSize +
+      kMultiplexImageComponentHeaderSize * header.component_count);
+  uint8_t* augmenting_data =
+      augmenting_data_size != 0
+          ? combined_image._buffer + kMultiplexImageHeaderSize +
+                kMultiplexImageComponentHeaderSize * header.component_count + 2
+          : NULL;
+  MultiplexImage multiplex_image(header.image_index, header.component_count,
+                                 augmenting_data, augmenting_data_size);
+
   for (size_t i = 0; i < frame_headers.size(); i++) {
     MultiplexImageComponent image_component;
     image_component.component_index = frame_headers[i].component_index;

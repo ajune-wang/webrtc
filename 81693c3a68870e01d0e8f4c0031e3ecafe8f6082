@@ -16,6 +16,24 @@
       "revId": "81693c3a68870e01d0e8f4c0031e3ecafe8f6082",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5825c85f_78b57075",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 5516,
+      "author": {
+        "id": 7621
+      },
+      "writtenOn": "2018-08-13T17:18:18Z",
+      "side": 1,
+      "message": "Yes.  We don\u0027t actually want to do this.  Combined with the other change where the value comes from the rtpparams this won\u0027t be necessary.  I just did this change first.",
+      "parentUuid": "a85bc25b_b77484c6",
+      "revId": "81693c3a68870e01d0e8f4c0031e3ecafe8f6082",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

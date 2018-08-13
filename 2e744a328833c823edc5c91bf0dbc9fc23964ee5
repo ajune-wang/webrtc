@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b99a64ac_53d1efce",
+        "filename": "p2p/base/stunport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-08-13T20:04:50Z",
+      "side": 1,
+      "message": "nit: Use kConstant style. We are trying to conform to the style guide for all new codes. The legacy above will be rewritten soon.",
+      "range": {
+        "startLine": 32,
+        "startChar": 10,
+        "endLine": 32,
+        "endChar": 30
+      },
+      "revId": "2e744a328833c823edc5c91bf0dbc9fc23964ee5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "960f7707_e95f9ca7",
+        "filename": "p2p/base/stunport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-08-13T20:04:50Z",
+      "side": 1,
+      "message": "Could place it inside the if so that we avoid doing the increment every time and also (very unlikely) overflow.\n\nAlso, since this is a temporary measure before we add the rate limiting feature to logging, please add a TODO(webrtc:9622).",
+      "range": {
+        "startLine": 279,
+        "startChar": 23,
+        "endLine": 279,
+        "endChar": 24
+      },
+      "revId": "2e744a328833c823edc5c91bf0dbc9fc23964ee5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "17e0ba70_c4348f87",
+        "filename": "p2p/base/stunport.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-08-13T20:04:50Z",
+      "side": 1,
+      "message": "\u003e int send_error_count_ \u003d 0;\n\nnit: we typically set the default value in the header.",
+      "range": {
+        "startLine": 245,
+        "startChar": 6,
+        "endLine": 245,
+        "endChar": 23
+      },
+      "revId": "2e744a328833c823edc5c91bf0dbc9fc23964ee5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

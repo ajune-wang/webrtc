@@ -27,6 +27,10 @@ namespace cricket {
 // TODO(?): Move these to a common place (used in relayport too)
 const int RETRY_TIMEOUT = 50 * 1000;  // 50 seconds
 
+// Stop logging errors in UDPPort::SendTo after we have logged
+// |SEND_ERROR_LOG_LIMIT| messages. Start again after a successful send.
+const int SEND_ERROR_LOG_LIMIT = 5;
+
 // Handles a binding request sent to the STUN server.
 class StunBindingRequest : public StunRequest {
  public:
@@ -166,6 +170,7 @@ UDPPort::UDPPort(rtc::Thread* thread,
       requests_(thread),
       socket_(socket),
       error_(0),
+      send_error_count_(0),
       ready_(false),
       stun_keepalive_delay_(STUN_KEEPALIVE_INTERVAL),
       emit_local_for_anyaddress_(emit_local_for_anyaddress) {
@@ -192,6 +197,7 @@ UDPPort::UDPPort(rtc::Thread* thread,
       requests_(thread),
       socket_(NULL),
       error_(0),
+      send_error_count_(0),
       ready_(false),
       stun_keepalive_delay_(STUN_KEEPALIVE_INTERVAL),
       emit_local_for_anyaddress_(emit_local_for_anyaddress) {
@@ -270,8 +276,13 @@ int UDPPort::SendTo(const void* data,
   int sent = socket_->SendTo(data, size, addr, modified_options);
   if (sent < 0) {
     error_ = socket_->GetError();
-    RTC_LOG(LS_ERROR) << ToString() << ": UDP send of " << size
-                      << " bytes failed with error " << error_;
+    ++send_error_count_;
+    if (send_error_count_ < SEND_ERROR_LOG_LIMIT) {
+      RTC_LOG(LS_ERROR) << ToString() << ": UDP send of " << size
+                        << " bytes failed with error " << error_;
+    }
+  } else {
+    send_error_count_ = 0;
   }
   return sent;
 }

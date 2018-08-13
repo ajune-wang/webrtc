@@ -34,6 +34,24 @@
       "revId": "3bece5c5189e184f98d2e352a51a2a3e01820a4e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0616132_392768ec",
+        "filename": "common_video/include/video_frame.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-08-13T11:08:39Z",
+      "side": 1,
+      "message": "Then I think doing it in a followup CL is better.",
+      "parentUuid": "6ad3bb66_edd1dcb3",
+      "revId": "3bece5c5189e184f98d2e352a51a2a3e01820a4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

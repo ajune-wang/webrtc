@@ -53,8 +53,9 @@ rtc_source_set("protobuf_utils") {
   sources = [
     "protobuf_utils.h",
   ]
+  public_configs = [ "//third_party/protobuf:protobuf_config" ]
   if (rtc_enable_protobuf) {
-    public_deps = [
+    deps = [
       "//third_party/protobuf:protobuf_lite",
     ]
   }

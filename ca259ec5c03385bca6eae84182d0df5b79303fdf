@@ -424,6 +424,30 @@
       "revId": "ca259ec5c03385bca6eae84182d0df5b79303fdf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cf046d62_27922588",
+        "filename": "modules/rtp_rtcp/source/contributing_sources_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-13T11:25:52Z",
+      "side": 1,
+      "message": "My understanding that implementation details do not deserve a test, only user-visible behaviors do.\n\nOne of uses of unittest is documentation: you show how this class expected be used.\n\nI agree introducing new methods just to test pruning is bad idea.\nI would suggest not to test purging (you already have implicit tests purging doesn\u0027t remove too much.)\nFeel free to disagree and keep the test as is.\n\nthe \u0027visible\u0027 effect of pruning - old ssrcs do not use memory, but complexity of that kind of unit test is likely too high.\nIt is mostly a performance optimization rather than a feature. Let perf bots warn you if memory usage would grow too high.",
+      "parentUuid": "88e99d45_b0eec684",
+      "range": {
+        "startLine": 89,
+        "startChar": 31,
+        "endLine": 89,
+        "endChar": 53
+      },
+      "revId": "ca259ec5c03385bca6eae84182d0df5b79303fdf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

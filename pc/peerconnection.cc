@@ -4784,6 +4784,13 @@ bool PeerConnection::ReconfigurePortAllocator_n(
   if (local_description()) {
     port_allocator_->FreezeCandidatePool();
   }
+  // Add the custom tls turn servers if they exist.
+  auto turn_servers_copy = turn_servers;
+  if (tls_cert_verifier_ != nullptr) {
+    for (auto& turn_server : turn_servers_copy) {
+      turn_server.tls_cert_verifier = tls_cert_verifier_.get();
+    }
+  }
   // Call this last since it may create pooled allocator sessions using the
   // candidate filter set above.
   return port_allocator_->SetConfiguration(

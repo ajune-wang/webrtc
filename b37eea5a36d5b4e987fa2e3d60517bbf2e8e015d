@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ac7edabb_ca6c737f",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 4773,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-13T23:38:56Z",
+      "side": 1,
+      "message": "Might actually be good to pass this in by value so you can mutate it.",
+      "revId": "b37eea5a36d5b4e987fa2e3d60517bbf2e8e015d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad4719ef_9726883e",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 4789,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-13T23:38:56Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 4789,
+        "startChar": 24,
+        "endLine": 4789,
+        "endChar": 35
+      },
+      "revId": "b37eea5a36d5b4e987fa2e3d60517bbf2e8e015d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11c616ec_7258e36f",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 4797,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-13T23:38:56Z",
+      "side": 1,
+      "message": "std::move",
+      "range": {
+        "startLine": 4797,
+        "startChar": 20,
+        "endLine": 4797,
+        "endChar": 37
+      },
+      "revId": "b37eea5a36d5b4e987fa2e3d60517bbf2e8e015d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c7983765_f7316652",
+        "filename": "api/test/mock_video_bitrate_allocator_factory.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2018-08-13T07:04:07Z",
+      "side": 1,
+      "message": "Maybe just skip the mock in this cl until you use it.",
+      "parentUuid": "cd27092b_9b689cc7",
+      "range": {
+        "startLine": 30,
+        "startChar": 15,
+        "endLine": 30,
+        "endChar": 47
+      },
+      "revId": "4a5d17020f6ae259ac0b4141161ecb3618922160",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3519bcaa_43f09b05",
         "filename": "api/video/video_bitrate_allocator_factory.h",
         "patchSetId": 3
@@ -116,6 +140,30 @@
       "revId": "4a5d17020f6ae259ac0b4141161ecb3618922160",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87740572_3154b59b",
+        "filename": "api/video/video_bitrate_allocator_factory.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2018-08-13T07:04:07Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c4023995_9c95affe",
+      "range": {
+        "startLine": 25,
+        "startChar": 11,
+        "endLine": 25,
+        "endChar": 39
+      },
+      "revId": "4a5d17020f6ae259ac0b4141161ecb3618922160",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

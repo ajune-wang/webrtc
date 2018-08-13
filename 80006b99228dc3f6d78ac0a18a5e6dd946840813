@@ -22,6 +22,30 @@
       "revId": "80006b99228dc3f6d78ac0a18a5e6dd946840813",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f63258f_cec8dea8",
+        "filename": "modules/rtp_rtcp/source/rtp_receiver_impl.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-13T09:08:58Z",
+      "side": 0,
+      "message": "Restored check. I don\u0027t intend to change the handling of ssrc sources in any way in this cl.",
+      "parentUuid": "539cd324_d3d11102",
+      "range": {
+        "startLine": 179,
+        "startChar": 16,
+        "endLine": 179,
+        "endChar": 17
+      },
+      "revId": "80006b99228dc3f6d78ac0a18a5e6dd946840813",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

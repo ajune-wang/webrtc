@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4b0b38a5_d60300ec",
+        "filename": "modules/rtp_rtcp/source/contributing_sources.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-13T09:08:58Z",
+      "side": 1,
+      "message": "No, it\u0027s js api spec, https://www.w3.org/TR/webrtc/, section 5.3 RTCRtpReceiver Interface, which says\n\ngetContributingSources\nReturns an RTCRtpContributingSource for each unique CSRC identifier received by this RTCRtpReceiver in the last 10 seconds. \n\nIs it good enough to refer to https://www.w3.org/TR/webrtc/#dom-rtcrtpreceiver-getcontributingsources ?",
+      "parentUuid": "7491877f_6173cda6",
+      "range": {
+        "startLine": 17,
+        "startChar": 10,
+        "endLine": 17,
+        "endChar": 14
+      },
+      "revId": "ca259ec5c03385bca6eae84182d0df5b79303fdf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "739f2cf2_a462b896",
         "filename": "modules/rtp_rtcp/source/contributing_sources.cc",
         "patchSetId": 8
@@ -36,6 +60,30 @@
       "writtenOn": "2018-08-13T08:15:22Z",
       "side": 1,
       "message": "what are benefits of PruningInterval \u003e History?",
+      "range": {
+        "startLine": 20,
+        "startChar": 69,
+        "endLine": 20,
+        "endChar": 0
+      },
+      "revId": "ca259ec5c03385bca6eae84182d0df5b79303fdf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6de0bb3_e8c270e0",
+        "filename": "modules/rtp_rtcp/source/contributing_sources.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-13T09:08:58Z",
+      "side": 1,
+      "message": "With kPruningIntervalMs \u003d\u003d kHistoryMs, the first pruning will always be a no-op, which seems useless. Making it 50% larger lets the mapping size grow roughly 50% in size with stale entries before cleaning it up.\n\nI very much doubt this will be performance critical, and a potential DoS to make the table grow could arrange so that entries are refreshed and dont\u0027t get stale. So I just tried to find some reasonable value.",
+      "parentUuid": "739f2cf2_a462b896",
       "range": {
         "startLine": 20,
         "startChar": 69,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "4ece64e0_0c29c43d",
+        "filename": "modules/rtp_rtcp/source/contributing_sources.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-13T09:08:58Z",
+      "side": 1,
+      "message": "I\u0027m rephrasing as a TODO, referencing bugs.webrtc.org/3333. Thing is, when reading the spec, each CSRC can carry an audio-level, but it seems we don\u0027t yet support the needed header extension urn:ietf:params:rtp-hdrext:csrc-audio-level (bug also mentions 7.1 section of RFC3550, but I haven\u0027t looked into what that means).",
+      "parentUuid": "18fcdd8e_aebb657d",
+      "range": {
+        "startLine": 30,
+        "startChar": 63,
+        "endLine": 30,
+        "endChar": 0
+      },
+      "revId": "ca259ec5c03385bca6eae84182d0df5b79303fdf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e79d6dbc_52f4d3aa",
         "filename": "modules/rtp_rtcp/source/contributing_sources_unittest.cc",
         "patchSetId": 8
@@ -91,6 +163,30 @@
       "revId": "ca259ec5c03385bca6eae84182d0df5b79303fdf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36ed25d4_6282301a",
+        "filename": "modules/rtp_rtcp/source/contributing_sources_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-13T09:08:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e79d6dbc_52f4d3aa",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 5
+      },
+      "revId": "ca259ec5c03385bca6eae84182d0df5b79303fdf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "cb31be23_628e8127",
+        "filename": "modules/rtp_rtcp/source/contributing_sources_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-13T09:08:58Z",
+      "side": 1,
+      "message": "Renamed test to RecordSources",
+      "parentUuid": "c0561f5c_a1fd07c3",
+      "range": {
+        "startLine": 29,
+        "startChar": 30,
+        "endLine": 29,
+        "endChar": 40
+      },
+      "revId": "ca259ec5c03385bca6eae84182d0df5b79303fdf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2fcc6568_a8d3d04d",
         "filename": "modules/rtp_rtcp/source/contributing_sources_unittest.cc",
         "patchSetId": 8
@@ -128,6 +248,30 @@
       "writtenOn": "2018-08-13T08:15:22Z",
       "side": 1,
       "message": "I\u0027m not sure this TODO add enough value. may be remove it or rephrase in a form of what can be done: something like \u0027Remove kCsrcs constantans when ArrayView can be created from an in-place array literal\u0027\n\nside note: this is one of the motivation for absl::Span: it has an implicit constructor from braced initialization list",
+      "range": {
+        "startLine": 42,
+        "startChar": 58,
+        "endLine": 43,
+        "endChar": 49
+      },
+      "revId": "ca259ec5c03385bca6eae84182d0df5b79303fdf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a03b3e5_5dc1c894",
+        "filename": "modules/rtp_rtcp/source/contributing_sources_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-13T09:08:58Z",
+      "side": 1,
+      "message": "I\u0027m rewriting with a reference to absl::Span.",
+      "parentUuid": "2fcc6568_a8d3d04d",
       "range": {
         "startLine": 42,
         "startChar": 58,

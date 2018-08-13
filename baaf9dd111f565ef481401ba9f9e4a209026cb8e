@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8d143ee6_8a61f2eb",
+        "filename": "common_video/include/video_frame.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-08-13T12:12:07Z",
+      "side": 1,
+      "message": "set_timestamp() format is used for inline methods, right?\nshould it be applied both here and to spatial index below then? (Maybe out of scope for this cl)",
+      "range": {
+        "startLine": 41,
+        "startChar": 79,
+        "endLine": 41,
+        "endChar": 0
+      },
+      "revId": "baaf9dd111f565ef481401ba9f9e4a209026cb8e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

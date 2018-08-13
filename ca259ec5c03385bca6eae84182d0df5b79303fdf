@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "bc3d93e3_d51291ce",
+        "filename": "modules/rtp_rtcp/source/contributing_sources.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-13T09:28:14Z",
+      "side": 1,
+      "message": "yep, that link looks good to me",
+      "parentUuid": "4b0b38a5_d60300ec",
+      "range": {
+        "startLine": 17,
+        "startChar": 10,
+        "endLine": 17,
+        "endChar": 14
+      },
+      "revId": "ca259ec5c03385bca6eae84182d0df5b79303fdf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "739f2cf2_a462b896",
         "filename": "modules/rtp_rtcp/source/contributing_sources.cc",
         "patchSetId": 8
@@ -93,6 +117,30 @@
       "revId": "ca259ec5c03385bca6eae84182d0df5b79303fdf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0769bca0_f792a62d",
+        "filename": "modules/rtp_rtcp/source/contributing_sources.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-13T09:28:14Z",
+      "side": 1,
+      "message": "may be add a comment about prunning.",
+      "parentUuid": "d6de0bb3_e8c270e0",
+      "range": {
+        "startLine": 20,
+        "startChar": 69,
+        "endLine": 20,
+        "endChar": 0
+      },
+      "revId": "ca259ec5c03385bca6eae84182d0df5b79303fdf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -277,6 +325,29 @@
         "startChar": 58,
         "endLine": 43,
         "endChar": 49
+      },
+      "revId": "ca259ec5c03385bca6eae84182d0df5b79303fdf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1cf2c390_7eca173d",
+        "filename": "modules/rtp_rtcp/source/contributing_sources_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-13T09:28:14Z",
+      "side": 1,
+      "message": "since this behavior is not intended use case, it might be better to avoid writing a test for it.",
+      "range": {
+        "startLine": 89,
+        "startChar": 31,
+        "endLine": 89,
+        "endChar": 53
       },
       "revId": "ca259ec5c03385bca6eae84182d0df5b79303fdf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

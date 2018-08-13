@@ -117,7 +117,7 @@ void SignalThread::OnMessage(Message* msg) {
       SignalWorkDone(this);
     }
     if (do_delete) {
-      refcount_--;
+      // refcount_--;
     }
   }
 }

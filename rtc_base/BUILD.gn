@@ -1120,6 +1120,7 @@ if (rtc_include_tests) {
       "file_unittest.cc",
       "function_view_unittest.cc",
       "logging_unittest.cc",
+      "nethelpers_unittest.cc",
       "numerics/histogram_percentile_counter_unittest.cc",
       "numerics/mod_ops_unittest.cc",
       "numerics/moving_max_counter_unittest.cc",

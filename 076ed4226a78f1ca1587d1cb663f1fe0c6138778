@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1b5bfb90_2ccc00cb",
+        "filename": "modules/audio_processing/agc2/fixed_gain_controller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-08-13T15:41:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f67ac235_5cb59f02",
+      "range": {
+        "startLine": 42,
+        "startChar": 74,
+        "endLine": 42,
+        "endChar": 76
+      },
+      "revId": "076ed4226a78f1ca1587d1cb663f1fe0c6138778",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "28e3cb7e_df2b0943",
         "filename": "modules/audio_processing/agc2/interpolated_gain_curve.cc",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "076ed4226a78f1ca1587d1cb663f1fe0c6138778",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a973952_14b612b8",
+        "filename": "modules/audio_processing/agc2/interpolated_gain_curve.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-08-13T15:41:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "28e3cb7e_df2b0943",
+      "range": {
+        "startLine": 91,
+        "startChar": 6,
+        "endLine": 91,
+        "endChar": 60
+      },
+      "revId": "076ed4226a78f1ca1587d1cb663f1fe0c6138778",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

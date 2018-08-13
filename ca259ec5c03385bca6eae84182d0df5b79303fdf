@@ -144,6 +144,30 @@
     },
     {
       "key": {
+        "uuid": "875d318b_37ec9dcf",
+        "filename": "modules/rtp_rtcp/source/contributing_sources.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-13T10:54:35Z",
+      "side": 1,
+      "message": "Added a one-line comment.",
+      "parentUuid": "0769bca0_f792a62d",
+      "range": {
+        "startLine": 20,
+        "startChar": 69,
+        "endLine": 20,
+        "endChar": 0
+      },
+      "revId": "ca259ec5c03385bca6eae84182d0df5b79303fdf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "18fcdd8e_aebb657d",
         "filename": "modules/rtp_rtcp/source/contributing_sources.h",
         "patchSetId": 8
@@ -226,6 +250,30 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "e79d6dbc_52f4d3aa",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 5
+      },
+      "revId": "ca259ec5c03385bca6eae84182d0df5b79303fdf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e309e493_760603ca",
+        "filename": "modules/rtp_rtcp/source/contributing_sources_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-13T10:54:35Z",
+      "side": 1,
+      "message": "Really fixed these (missed the top-level ones previously).",
+      "parentUuid": "36ed25d4_6282301a",
       "range": {
         "startLine": 23,
         "startChar": 0,
@@ -343,6 +391,30 @@
       "writtenOn": "2018-08-13T09:28:14Z",
       "side": 1,
       "message": "since this behavior is not intended use case, it might be better to avoid writing a test for it.",
+      "range": {
+        "startLine": 89,
+        "startChar": 31,
+        "endLine": 89,
+        "endChar": 53
+      },
+      "revId": "ca259ec5c03385bca6eae84182d0df5b79303fdf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "88e99d45_b0eec684",
+        "filename": "modules/rtp_rtcp/source/contributing_sources_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-13T10:54:35Z",
+      "side": 1,
+      "message": "Pruning isn\u0027t intended to be visible to the user of the class, but it\u0027s a piece of the implementation that I think deserves a test.\n\nI think prefer to test it this way, relying on un-advertised behavior, over adding additional methods (e.g, a method to query the size of the |last_seen_ms_| mapping). What do you suggest?",
+      "parentUuid": "1cf2c390_7eca173d",
       "range": {
         "startLine": 89,
         "startChar": 31,

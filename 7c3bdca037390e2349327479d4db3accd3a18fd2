@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2a701bba_253f39fe",
+        "filename": "modules/rtp_rtcp/source/rtp_receiver_impl.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-13T08:15:22Z",
+      "side": 1,
+      "message": "can be removed now",
+      "revId": "7c3bdca037390e2349327479d4db3accd3a18fd2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7491877f_6173cda6",
+        "filename": "modules/rtp_rtcp/source/contributing_sources.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-13T08:15:22Z",
+      "side": 1,
+      "message": "may be mention which spec (e.g. add some kind of link to the spec) is it RFC6465 mentioned in the header?",
+      "range": {
+        "startLine": 17,
+        "startChar": 10,
+        "endLine": 17,
+        "endChar": 14
+      },
+      "revId": "ca259ec5c03385bca6eae84182d0df5b79303fdf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "739f2cf2_a462b896",
+        "filename": "modules/rtp_rtcp/source/contributing_sources.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-13T08:15:22Z",
+      "side": 1,
+      "message": "what are benefits of PruningInterval \u003e History?",
+      "range": {
+        "startLine": 20,
+        "startChar": 69,
+        "endLine": 20,
+        "endChar": 0
+      },
+      "revId": "ca259ec5c03385bca6eae84182d0df5b79303fdf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18fcdd8e_aebb657d",
+        "filename": "modules/rtp_rtcp/source/contributing_sources.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-13T08:15:22Z",
+      "side": 1,
+      "message": "is this comment a TODO?",
+      "range": {
+        "startLine": 30,
+        "startChar": 63,
+        "endLine": 30,
+        "endChar": 0
+      },
+      "revId": "ca259ec5c03385bca6eae84182d0df5b79303fdf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e79d6dbc_52f4d3aa",
+        "filename": "modules/rtp_rtcp/source/contributing_sources_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-13T08:15:22Z",
+      "side": 1,
+      "message": "constexpr\nhttps://google.github.io/styleguide/cppguide.html#Static_and_Global_Variables\n\"Constant initialization of static storage duration variables should be marked with constexpr or where possible the ABSL_CONST_INIT attribute.\"",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 5
+      },
+      "revId": "ca259ec5c03385bca6eae84182d0df5b79303fdf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0561f5c_a1fd07c3",
+        "filename": "modules/rtp_rtcp/source/contributing_sources_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-13T08:15:22Z",
+      "side": 1,
+      "message": "what behaviour this test verifies?\nhttps://testing.googleblog.com/2014/04/testing-on-toilet-test-behaviors-not.html\nhttps://testing.googleblog.com/2014/10/testing-on-toilet-writing-descriptive.html",
+      "range": {
+        "startLine": 29,
+        "startChar": 30,
+        "endLine": 29,
+        "endChar": 40
+      },
+      "revId": "ca259ec5c03385bca6eae84182d0df5b79303fdf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2fcc6568_a8d3d04d",
+        "filename": "modules/rtp_rtcp/source/contributing_sources_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-13T08:15:22Z",
+      "side": 1,
+      "message": "I\u0027m not sure this TODO add enough value. may be remove it or rephrase in a form of what can be done: something like \u0027Remove kCsrcs constantans when ArrayView can be created from an in-place array literal\u0027\n\nside note: this is one of the motivation for absl::Span: it has an implicit constructor from braced initialization list",
+      "range": {
+        "startLine": 42,
+        "startChar": 58,
+        "endLine": 43,
+        "endChar": 49
+      },
+      "revId": "ca259ec5c03385bca6eae84182d0df5b79303fdf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

@@ -237,6 +237,7 @@ rtc_source_set("audio_options_api") {
 
   deps = [
     "../rtc_base:rtc_base_approved",
+    "//third_party/abseil-cpp/absl/strings",
     "//third_party/abseil-cpp/absl/types:optional",
   ]
 }

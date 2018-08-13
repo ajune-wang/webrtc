@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5db56325_c8128738",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-08-13T09:29:18Z",
+      "side": 1,
+      "message": "Skip the comment:\n\nint extended_first_sequence_number \u003d received_seq_first_ - (received_seq_first_backwards_wraps_ \u003c\u003c 16);\nuint32_t total_expected_packets \u003d\n      extended_seq_max - extended_first_sequence_number + 1;",
+      "range": {
+        "startLine": 257,
+        "startChar": 0,
+        "endLine": 261,
+        "endChar": 54
+      },
+      "revId": "fd96bfde00ed6a9f9fe11cf645c8081ccc1f9933",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

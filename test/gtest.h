@@ -21,8 +21,8 @@ RTC_POP_IGNORING_WUNDEF()
 // GTEST_HAS_DEATH_TEST is set to 1 when death tests are supported, but appears
 // to be left unset if they're not supported. Rather than depend on this, we
 // set it to 0 ourselves here.
-#ifndef GTEST_HAS_DEATH_TEST
-#define GTEST_HAS_DEATH_TEST 0
+#ifndef TEST_GTEST_H_AS_DEATH_TEST
+#define TEST_GTEST_H_AS_DEATH_TEST 0
 #endif
 
 #endif  // TEST_GTEST_H_

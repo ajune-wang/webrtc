@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "60dc5c81_832f00fa",
+        "filename": "api/test/mock_video_bitrate_allocator_factory.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 6278
+      },
+      "writtenOn": "2018-08-13T17:19:17Z",
+      "side": 1,
+      "message": "I can do that too.",
+      "parentUuid": "c7983765_f7316652",
+      "range": {
+        "startLine": 30,
+        "startChar": 15,
+        "endLine": 30,
+        "endChar": 47
+      },
+      "revId": "4a5d17020f6ae259ac0b4141161ecb3618922160",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3519bcaa_43f09b05",
         "filename": "api/video/video_bitrate_allocator_factory.h",
         "patchSetId": 3

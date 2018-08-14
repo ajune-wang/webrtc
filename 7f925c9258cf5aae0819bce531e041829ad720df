@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "45f3a101_fac7a95c",
+        "filename": "api/audio_options.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-14T09:50:52Z",
+      "side": 1,
+      "message": "Hmm, you\u0027re right. We\u0027d need something that filters out the unset elements, and the standard library doesn\u0027t have anything to help us there. So it\u0027s probably too much work...",
+      "parentUuid": "0edbcc38_fe4b7b0d",
+      "range": {
+        "startLine": 118,
+        "startChar": 8,
+        "endLine": 118,
+        "endChar": 21
+      },
+      "revId": "7f925c9258cf5aae0819bce531e041829ad720df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a4fe371_6188d850",
         "filename": "api/audio_options.h",
         "patchSetId": 1

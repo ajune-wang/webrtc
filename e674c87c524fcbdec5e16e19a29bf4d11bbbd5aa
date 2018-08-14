@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ea1f6657_7bf39ff0",
+        "filename": "api/audio_options.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-14T09:50:52Z",
+      "side": 1,
+      "message": "Ah, good call! This will almost certainly enable the compiler to compute the lengths of the string literals at compile time. (It might have been doing so already, but across a longer distance, so more chances for something to go wrong.)",
+      "range": {
+        "startLine": 168,
+        "startChar": 35,
+        "endLine": 168,
+        "endChar": 56
+      },
+      "revId": "e674c87c524fcbdec5e16e19a29bf4d11bbbd5aa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

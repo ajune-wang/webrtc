@@ -18,6 +18,7 @@
 #include "modules/video_coding/include/video_codec_interface.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
+#include "rtc_base/numerics/sequence_number_util.h"
 #include "rtc_base/strings/string_builder.h"
 #include "system_wrappers/include/field_trial.h"
 #include "system_wrappers/include/metrics.h"
@@ -27,6 +28,7 @@ namespace {
 const float kEncodeTimeWeigthFactor = 0.5f;
 const size_t kMaxEncodedFrameMapSize = 150;
 const int64_t kMaxEncodedFrameWindowMs = 800;
+const uint32_t kMaxEncodedFrameTimestampDiff = 900000;  // 10 sec.
 const int64_t kBucketSizeMs = 100;
 const size_t kBucketCount = 10;
 
@@ -239,6 +241,17 @@ bool SendStatisticsProxy::UmaSamplesContainer::InsertEncodedFrame(
   RemoveOld(now_ms, is_limited_in_resolution);
   if (encoded_frames_.size() > kMaxEncodedFrameMapSize) {
     encoded_frames_.clear();
+  }
+
+  // Check if consecutive frame.
+  if (!encoded_frames_.empty()) {
+    uint32_t oldest_timestamp = encoded_frames_.begin()->first;
+    if (ForwardDiff(oldest_timestamp, encoded_frame._timeStamp) >
+        kMaxEncodedFrameTimestampDiff) {
+      // Gap detected, clear frames to have a sequence where newest timestamp
+      // is not too far away from oldest in order to distinguish old and new.
+      encoded_frames_.clear();
+    }
   }
 
   auto it = encoded_frames_.find(encoded_frame._timeStamp);

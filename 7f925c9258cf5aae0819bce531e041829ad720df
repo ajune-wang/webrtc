@@ -25,6 +25,53 @@
     },
     {
       "key": {
+        "uuid": "0edbcc38_fe4b7b0d",
+        "filename": "api/audio_options.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2018-08-14T08:52:02Z",
+      "side": 1,
+      "message": "That would make the unset values print as \", \" unlike the current behavior where they\u0027re skipped. Seems a bit messy to me.",
+      "parentUuid": "d024f191_4ba8bfbe",
+      "range": {
+        "startLine": 118,
+        "startChar": 8,
+        "endLine": 118,
+        "endChar": 21
+      },
+      "revId": "7f925c9258cf5aae0819bce531e041829ad720df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a4fe371_6188d850",
+        "filename": "api/audio_options.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2018-08-14T08:52:02Z",
+      "side": 1,
+      "message": "This comment was in the original code, but I\u0027m not sure if it communicates anything of value. Can we remove it?",
+      "range": {
+        "startLine": 119,
+        "startChar": 0,
+        "endLine": 122,
+        "endChar": 45
+      },
+      "revId": "7f925c9258cf5aae0819bce531e041829ad720df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "782add4b_73d237f7",
         "filename": "api/audio_options.h",
         "patchSetId": 1

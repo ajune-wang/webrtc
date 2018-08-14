@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "880945a2_da5ea6be",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 4773,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2018-08-14T00:07:21Z",
+      "side": 1,
+      "message": "Since this class holds the pointer I like doing this binding late because we can control the lifetimes better. If I modify it with a pointer inside this function it is now bound to the lifetime of this peer connection which might be true but might make it harder to refactor later.",
+      "parentUuid": "ac7edabb_ca6c737f",
+      "revId": "b37eea5a36d5b4e987fa2e3d60517bbf2e8e015d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ad4719ef_9726883e",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 4
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "9f848a63_fde32cec",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 4789,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2018-08-14T00:07:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ad4719ef_9726883e",
+      "range": {
+        "startLine": 4789,
+        "startChar": 24,
+        "endLine": 4789,
+        "endChar": 35
+      },
+      "revId": "b37eea5a36d5b4e987fa2e3d60517bbf2e8e015d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "11c616ec_7258e36f",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 4
@@ -62,6 +104,30 @@
       "revId": "b37eea5a36d5b4e987fa2e3d60517bbf2e8e015d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c43c2ef_9c18b0fc",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 4797,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2018-08-14T00:07:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "11c616ec_7258e36f",
+      "range": {
+        "startLine": 4797,
+        "startChar": 20,
+        "endLine": 4797,
+        "endChar": 37
+      },
+      "revId": "b37eea5a36d5b4e987fa2e3d60517bbf2e8e015d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

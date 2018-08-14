@@ -32,11 +32,16 @@
 #include "rtc_base/logging.h"
 #include "rtc_base/timeutils.h"
 #include "rtc_base/trace_event.h"
+#include "system_wrappers/include/field_trial.h"
 
 namespace webrtc {
 
 namespace {
 const float kMaxScreenSharingFramerateFps = 5.0f;
+
+// Layering constraints.
+const int kMaxNumSpatialLayers = 3;
+const int kMaxNumTemporalLayers = 3;
 
 // Only positive speeds, range for real-time coding currently is: 5 - 8.
 // Lower means slower/better quality, higher means fastest/lower quality.
@@ -52,6 +57,7 @@ int GetCpuSpeed(int width, int height) {
     return 7;
 #endif
 }
+
 // Helper class for extracting VP9 colorspace.
 ColorSpace ExtractVP9ColorSpace(vpx_color_space_t space_t,
                                 vpx_color_range_t range_t,
@@ -327,11 +333,10 @@ int VP9EncoderImpl::InitEncode(const VideoCodec* inst,
   if (number_of_cores < 1) {
     return WEBRTC_VIDEO_CODEC_ERR_PARAMETER;
   }
-  if (inst->VP9().numberOfTemporalLayers > 3) {
+  if (inst->VP9().numberOfTemporalLayers > kMaxNumTemporalLayers) {
     return WEBRTC_VIDEO_CODEC_ERR_PARAMETER;
   }
-  // libvpx probably does not support more than 3 spatial layers.
-  if (inst->VP9().numberOfSpatialLayers > 3) {
+  if (inst->VP9().numberOfSpatialLayers > kMaxNumSpatialLayers) {
     return WEBRTC_VIDEO_CODEC_ERR_PARAMETER;
   }
 
@@ -483,6 +488,44 @@ int VP9EncoderImpl::InitEncode(const VideoCodec* inst,
     config_->ts_layer_id[3] = 2;
   } else {
     return WEBRTC_VIDEO_CODEC_ERR_PARAMETER;
+  }
+
+  ref_config_.empty();
+
+  if (webrtc::field_trial::IsEnabled("WebRTC-Vp9RefCtrl")) {
+    config_->temporal_layering_mode = VP9E_TEMPORAL_LAYERING_MODE_BYPASS;
+    for (uint8_t sl_idx = 0; sl_idx < num_spatial_layers_; ++sl_idx) {
+      const uint8_t nonref = 0;
+      const bool inter_layer_pred = sl_idx > 0;
+      switch (num_temporal_layers_) {
+        case 1:
+          ref_config_.push_back(
+              {1, sl_idx, inter_layer_pred, {0}, {true}, {sl_idx}, {sl_idx}});
+          break;
+        case 2:
+          ref_config_.push_back({2,
+                                 sl_idx,
+                                 inter_layer_pred,
+                                 {0, 0},
+                                 {true, false},
+                                 {sl_idx, sl_idx},
+                                 {sl_idx, nonref}});
+          break;
+        case 3: {
+          uint8_t t0_idx = static_cast<uint8_t>(2 * sl_idx);
+          uint8_t t1_idx = static_cast<uint8_t>(2 * sl_idx + 1);
+          ref_config_.push_back({4,
+                                 sl_idx,
+                                 inter_layer_pred,
+                                 {0, 2, 1, 2},
+                                 {true, false, true, false},
+                                 {t0_idx, t0_idx, t0_idx, t1_idx},
+                                 {t0_idx, nonref, t1_idx, nonref}});
+        } break;
+        default:
+          RTC_NOTREACHED();
+      }
+    }
   }
 
   inter_layer_pred_ = inst->VP9().interLayerPred;
@@ -740,6 +783,24 @@ int VP9EncoderImpl::Encode(const VideoFrame& input_image,
     flags = VPX_EFLAG_FORCE_KF;
   }
 
+  if (webrtc::field_trial::IsEnabled("WebRTC-Vp9RefCtrl")) {
+    if (force_key_frame_) {
+      for (ReferenceControl::ReferenceConfig& layer : ref_config_) {
+        layer.frames_since_key = 0;
+      }
+    }
+
+    assigned_ref_config_ = ReferenceControl::SetFrameReferences(ref_config_);
+    vpx_svc_layer_id layer_id;
+    layer_id.temporal_layer_id =
+        ref_config_[0].temporal_idx[ref_config_[0].frames_since_key %
+                                    ref_config_[0].gof_size];
+    layer_id.spatial_layer_id = 0;
+    vpx_codec_control(encoder_, VP9E_SET_SVC_LAYER_ID, &layer_id);
+    vpx_codec_control(encoder_, VP9E_SET_SVC_REF_FRAME_CONFIG,
+                      &assigned_ref_config_);
+  }
+
   RTC_CHECK_GT(codec_.maxFramerate, 0);
   uint32_t duration =
       90000 / target_framerate_fps_.value_or(codec_.maxFramerate);
@@ -804,6 +865,7 @@ void VP9EncoderImpl::PopulateCodecSpecific(CodecSpecificInfo* codec_specific,
     pics_since_key_ = 0;
   } else if (first_frame_in_picture) {
     ++pics_since_key_;
+    RTC_CHECK_LT(pics_since_key_, std::numeric_limits<size_t>::max());
   }
 
   const bool is_key_pic = (pics_since_key_ == 0);
@@ -1005,6 +1067,24 @@ int VP9EncoderImpl::GetEncodedLayerFrame(const vpx_codec_cx_pkt* pkt) {
 
   if (is_flexible_mode_) {
     UpdateReferenceBuffers(*pkt, pics_since_key_);
+  }
+
+  if (webrtc::field_trial::IsEnabled("WebRTC-Vp9RefCtrl")) {
+    // Ensure assgined and actual reference configs match.
+    vpx_svc_ref_frame_config_t actual_ref_config = {{0}};
+    vpx_codec_control(encoder_, VP9E_GET_SVC_REF_FRAME_CONFIG,
+                      &actual_ref_config);
+    RTC_DCHECK_EQ(
+        actual_ref_config.update_buffer_slot[layer_id.spatial_layer_id],
+        assigned_ref_config_.update_buffer_slot[layer_id.spatial_layer_id]);
+    RTC_DCHECK_EQ(actual_ref_config.lst_fb_idx[layer_id.spatial_layer_id],
+                  assigned_ref_config_.lst_fb_idx[layer_id.spatial_layer_id]);
+    RTC_DCHECK_EQ(actual_ref_config.gld_fb_idx[layer_id.spatial_layer_id],
+                  assigned_ref_config_.gld_fb_idx[layer_id.spatial_layer_id]);
+    RTC_DCHECK_EQ(actual_ref_config.alt_fb_idx[layer_id.spatial_layer_id],
+                  assigned_ref_config_.alt_fb_idx[layer_id.spatial_layer_id]);
+
+    ++ref_config_.at(layer_id.spatial_layer_id).frames_since_key;
   }
 
   TRACE_COUNTER1("webrtc", "EncodedFrameSize", encoded_image_._length);

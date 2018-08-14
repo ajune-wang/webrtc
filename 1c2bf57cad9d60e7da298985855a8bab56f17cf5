@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f8eae84e_0048165c",
+        "filename": "modules/video_coding/receiver_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-14T11:22:35Z",
+      "side": 1,
+      "message": "I don\u0027t know why these tests need to set the delay. Tests seem to pass even if this line is just deleted (see previous patch set).",
+      "range": {
+        "startLine": 135,
+        "startChar": 0,
+        "endLine": 135,
+        "endChar": 45
+      },
+      "revId": "1c2bf57cad9d60e7da298985855a8bab56f17cf5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -430,6 +430,8 @@ rtc_static_library("webrtc_vp8") {
 # This target includes VP9 files that may be used for any VP9 codec, internal SW or external HW.
 rtc_static_library("webrtc_vp9_helpers") {
   sources = [
+    "codecs/vp9/ref_control.cc",
+    "codecs/vp9/ref_control.h",
     "codecs/vp9/svc_config.cc",
     "codecs/vp9/svc_config.h",
     "codecs/vp9/svc_rate_allocator.cc",
@@ -449,6 +451,10 @@ rtc_static_library("webrtc_vp9_helpers") {
     "../../common_video",
     "../../rtc_base:checks",
   ]
+
+  if (rtc_build_libvpx) {
+    deps += [ rtc_libvpx_dir ]
+  }
 }
 
 rtc_static_library("webrtc_vp9") {
@@ -488,6 +494,7 @@ rtc_static_library("webrtc_vp9") {
     "../../rtc_base:checks",
     "../../rtc_base:rtc_base",
     "../../system_wrappers",
+    "../../system_wrappers:field_trial_api",
     "../rtp_rtcp:rtp_rtcp_format",
     "//third_party/abseil-cpp/absl/memory",
   ]
@@ -729,6 +736,7 @@ if (rtc_include_tests) {
       "../../media:rtc_media_base",
       "../../media:rtc_vp9_profile",
       "../../rtc_base:rtc_base",
+      "../../test:field_trial",
       "../../test:fileutils",
       "../../test:test_common",
       "../../test:test_support",
@@ -757,6 +765,10 @@ if (rtc_include_tests) {
       }
     }
 
+    if (rtc_build_libvpx) {
+      deps += [ rtc_libvpx_dir ]
+    }
+
     if (!build_with_chromium && is_clang) {
       # Suppress warnings from the Chromium Clang plugin (bugs.webrtc.org/163).
       suppressed_configs += [ "//build/config/clang:find_bad_constructs" ]
@@ -773,6 +785,7 @@ if (rtc_include_tests) {
       "codecs/vp8/default_temporal_layers_unittest.cc",
       "codecs/vp8/libvpx_vp8_simulcast_test.cc",
       "codecs/vp8/screenshare_layers_unittest.cc",
+      "codecs/vp9/ref_control_unittest.cc",
       "codecs/vp9/svc_config_unittest.cc",
       "codecs/vp9/svc_rate_allocator_unittest.cc",
       "decoding_state_unittest.cc",

@@ -45,14 +45,12 @@ rtc::scoped_refptr<webrtc::PeerConnectionFactoryInterface> CreateTestPCF(
           rtc::MakeUnique<webrtc::InternalEncoderFactory>(),
           rtc::MakeUnique<webrtc::InternalDecoderFactory>(),
           nullptr /* audio_mixer */, webrtc::AudioProcessingBuilder().Create());
-  RTC_LOG(LS_INFO) << "Media engine created: " << media_engine.get();
 
   auto factory = CreateModularPeerConnectionFactory(
       network_thread, worker_thread, signaling_thread, std::move(media_engine),
       webrtc::CreateCallFactory(), webrtc::CreateRtcEventLogFactory());
-  RTC_LOG(LS_INFO) << "PeerConnectionFactory created: " << factory;
   RTC_CHECK(factory) << "Failed to create the peer connection factory; "
-                     << "WebRTC/libjingle init likely failed on this device";
+                        "WebRTC/libjingle init likely failed on this device";
 
   return factory;
 }

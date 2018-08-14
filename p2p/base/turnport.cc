@@ -15,6 +15,7 @@
 #include <utility>
 #include <vector>
 
+#include "absl/strings/str_cat.h"
 #include "absl/types/optional.h"
 #include "p2p/base/stun.h"
 #include "rtc_base/asyncpacketsocket.h"
@@ -1236,10 +1237,9 @@ std::string TurnPort::ReconstructedServerUrl() {
     case PROTO_TCP:
       break;
   }
-  std::ostringstream url;
-  url << scheme << ":" << server_address_.address.ipaddr().ToString() << ":"
-      << server_address_.address.port() << "?transport=" << transport;
-  return url.str();
+  return absl::StrCat(scheme, ":", server_address_.address.ipaddr().ToString(),
+                      ":", server_address_.address.port(),
+                      "?transport=", transport);
 }
 
 void TurnPort::TurnCustomizerMaybeModifyOutgoingStunMessage(

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "55cbc4dd_2c23e084",
+        "filename": "video/overuse_frame_detector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-08-14T13:54:09Z",
+      "side": 1,
+      "message": "map uses int64_t as key, why uint32_t?",
+      "range": {
+        "startLine": 295,
+        "startChar": 21,
+        "endLine": 295,
+        "endChar": 29
+      },
+      "revId": "ebe6442950817b554f23202fc3eeec9f64a27cf1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

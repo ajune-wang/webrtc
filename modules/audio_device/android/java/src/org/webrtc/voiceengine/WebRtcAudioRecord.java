@@ -173,11 +173,18 @@ public class WebRtcAudioRecord {
                 new AudioSamples(audioRecord, data));
           }
         } else {
+          // Note that |bytesRead| can be zero or the positive number of bytes that were
+          // read, or one of four (negative) error codes.
           String errorMessage = "AudioRecord.read failed: " + bytesRead;
           Logging.e(TAG, errorMessage);
-          if (bytesRead == AudioRecord.ERROR_INVALID_OPERATION) {
+          if (bytesRead == 0) {
+            Logging.e(TAG, "ByteBuffer argument is not a valid direct buffer");
+          } else if (bytesRead < 0) {
+            // Stop audio recording and send error callback as soon as an error is detected.
             keepAlive = false;
             reportWebRtcAudioRecordError(errorMessage);
+          } else if (bytesRead < byteBuffer.capacity()) {
+            Logging.w(TAG, "AudioRecord underflow");
           }
         }
         if (DEBUG) {

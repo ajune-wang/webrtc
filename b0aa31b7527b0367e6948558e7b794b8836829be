@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2ec796a0_c6903860",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2018-08-14T14:51:26Z",
+      "side": 1,
+      "message": "You meant mod_ops.h?",
+      "revId": "b0aa31b7527b0367e6948558e7b794b8836829be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa87c717_10f61132",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2018-08-14T14:51:26Z",
+      "side": 1,
+      "message": "You could static_check it remains \u003c std::numeric_limits\u003cuint32_t\u003e::max() / 2 to prevent inadequate modifications in the future.",
+      "revId": "b0aa31b7527b0367e6948558e7b794b8836829be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f122199_1da27eba",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2018-08-14T14:51:26Z",
+      "side": 1,
+      "message": "That\u0027s not really what is checked!",
+      "revId": "b0aa31b7527b0367e6948558e7b794b8836829be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6191ff0_5f6d0968",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2018-08-14T14:51:26Z",
+      "side": 1,
+      "message": "[question] Why clearing instead of processing these \u0027old enough\u0027 frames, like in RemoveOld?",
+      "revId": "b0aa31b7527b0367e6948558e7b794b8836829be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

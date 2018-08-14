@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "577d1e12_46996b24",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-08-14T00:54:52Z",
+      "side": 1,
+      "message": "Move it to CL description by using EDIT above. Right now its in PatchSet description.",
+      "parentUuid": "777c4eb3_d96da37b",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 80
+      },
+      "revId": "944e01ed98dc568755ef4f88eb212a571095237d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "31cf573b_7422a8f6",
         "filename": "media/engine/multiplexcodecfactory.h",
         "patchSetId": 3
@@ -248,6 +272,30 @@
       "side": 1,
       "message": "I am using augmenting everywhere as the data is augmenting the frame",
       "parentUuid": "8c905fc6_8a0635a3",
+      "range": {
+        "startLine": 84,
+        "startChar": 11,
+        "endLine": 84,
+        "endChar": 31
+      },
+      "revId": "944e01ed98dc568755ef4f88eb212a571095237d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f31d6a5a_b1286ed3",
+        "filename": "modules/video_coding/codecs/multiplex/include/multiplex_encoded_image_packer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-08-14T00:54:52Z",
+      "side": 1,
+      "message": "Sorry, I didnt take a look at the entire CL yet. \"augmenting\" is fine.",
+      "parentUuid": "75c7b05f_6e1867b4",
       "range": {
         "startLine": 84,
         "startChar": 11,

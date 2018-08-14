@@ -1,0 +1,303 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ce3fe34a_ffa6a978",
+        "filename": "modules/video_coding/codecs/multiplex/include/multiplex_decoder_adapter.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-08-14T00:54:52Z",
+      "side": 1,
+      "message": "Add these two inside DecodedImageData instead and use a single map.",
+      "range": {
+        "startLine": 73,
+        "startChar": 2,
+        "endLine": 75,
+        "endChar": 33
+      },
+      "revId": "2e57300226fcf54ac2f91ec49fb551000883ce68",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "544c4eb6_94b12049",
+        "filename": "modules/video_coding/codecs/multiplex/include/multiplex_video_frame_buffer.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-08-14T00:54:52Z",
+      "side": 1,
+      "message": "What about calling this AugmentedVideoFrameBuffer? We defined multiplex with multiple layers of a video frame in mind: YUV, Alpha, Depth, etc.",
+      "range": {
+        "startLine": 17,
+        "startChar": 6,
+        "endLine": 17,
+        "endChar": 31
+      },
+      "revId": "2e57300226fcf54ac2f91ec49fb551000883ce68",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "061a650c_a48fec17",
+        "filename": "modules/video_coding/codecs/multiplex/include/multiplex_video_frame_buffer.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-08-14T00:54:52Z",
+      "side": 1,
+      "message": "Since you are wrapping it directly into std::unique_ptr, can you make this param std::unique_ptr instead. You can pass it with std::move.",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 31
+      },
+      "revId": "2e57300226fcf54ac2f91ec49fb551000883ce68",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b313a25f_0c680822",
+        "filename": "modules/video_coding/codecs/multiplex/include/multiplex_video_frame_buffer.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-08-14T00:54:52Z",
+      "side": 1,
+      "message": "Pass primitive types via copy.",
+      "range": {
+        "startLine": 22,
+        "startChar": 12,
+        "endLine": 22,
+        "endChar": 20
+      },
+      "revId": "2e57300226fcf54ac2f91ec49fb551000883ce68",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "823f4af2_4ef979b2",
+        "filename": "modules/video_coding/codecs/multiplex/include/multiplex_video_frame_buffer.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-08-14T00:54:52Z",
+      "side": 1,
+      "message": "Add comment above these methods.\n// VideoFrameBuffer implementation",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 26
+      },
+      "revId": "2e57300226fcf54ac2f91ec49fb551000883ce68",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47baa6c0_014343cc",
+        "filename": "modules/video_coding/codecs/multiplex/include/multiplex_video_frame_buffer.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-08-14T00:54:52Z",
+      "side": 1,
+      "message": "You probably should include \u003cmemory\u003e. Run \"git cl lint\" for automatic checks.",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 46
+      },
+      "revId": "2e57300226fcf54ac2f91ec49fb551000883ce68",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27383820_93434f4a",
+        "filename": "modules/video_coding/codecs/multiplex/multiplex_encoded_image_packer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-08-14T00:54:52Z",
+      "side": 1,
+      "message": "We should just add this to MultiplexImageHeader, as this is going to be written in all cases:\nuint32_t augmenting_data_size;\nuint32_t augmenting_data_offset;\n\nMultiplexImageHeader+MultiplexImageComponentHeader(s)+(Augmented Data)+MultiplexImageComponent(s) formula works fine, but lets add more comments for easier reading.",
+      "range": {
+        "startLine": 136,
+        "startChar": 68,
+        "endLine": 136,
+        "endChar": 69
+      },
+      "revId": "2e57300226fcf54ac2f91ec49fb551000883ce68",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9deb56d_b543e981",
+        "filename": "modules/video_coding/codecs/multiplex/multiplex_encoded_image_packer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-08-14T00:54:52Z",
+      "side": 1,
+      "message": "const",
+      "range": {
+        "startLine": 229,
+        "startChar": 2,
+        "endLine": 229,
+        "endChar": 9
+      },
+      "revId": "2e57300226fcf54ac2f91ec49fb551000883ce68",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f649c819_a2dc70af",
+        "filename": "modules/video_coding/codecs/multiplex/multiplex_encoded_image_packer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-08-14T00:54:52Z",
+      "side": 1,
+      "message": "nullptr",
+      "range": {
+        "startLine": 236,
+        "startChar": 12,
+        "endLine": 236,
+        "endChar": 16
+      },
+      "revId": "2e57300226fcf54ac2f91ec49fb551000883ce68",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc6dc732_91a3ed83",
+        "filename": "modules/video_coding/codecs/multiplex/multiplex_encoder_adapter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-08-14T00:54:52Z",
+      "side": 1,
+      "message": "Lets use std::unique_ptr instead and pass ownership via std::move as much as possible. If there is any error or early destruction, these arrays might leak.",
+      "range": {
+        "startLine": 128,
+        "startChar": 2,
+        "endLine": 128,
+        "endChar": 9
+      },
+      "revId": "2e57300226fcf54ac2f91ec49fb551000883ce68",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "906640d3_17c75798",
+        "filename": "modules/video_coding/codecs/multiplex/multiplex_encoder_adapter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-08-14T00:54:52Z",
+      "side": 1,
+      "message": "specifies",
+      "range": {
+        "startLine": 159,
+        "startChar": 5,
+        "endLine": 159,
+        "endChar": 14
+      },
+      "revId": "2e57300226fcf54ac2f91ec49fb551000883ce68",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0990f98a_8e59df36",
+        "filename": "modules/video_coding/codecs/multiplex/multiplex_encoder_adapter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-08-14T00:54:52Z",
+      "side": 1,
+      "message": "No camel case for local vars.\nhttps://google.github.io/styleguide/cppguide.html#Variable_Names",
+      "range": {
+        "startLine": 200,
+        "startChar": 25,
+        "endLine": 200,
+        "endChar": 42
+      },
+      "revId": "2e57300226fcf54ac2f91ec49fb551000883ce68",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16f0373d_69086eb3",
+        "filename": "modules/video_coding/codecs/multiplex/test/multiplex_adapter_with_data_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-08-14T00:54:52Z",
+      "side": 1,
+      "message": "There is a cool trick you can do instead of duplicating code. You can move all to multiplex_adapter_unittest.cc and make every existing test to run in both modes.\n\n- Define this class to take a param\nclass TestMultiplexAdapter : public VideoCodecUnitTest, public TestWithParam\u003cbool /* supports_aug */\u003e,\n- Extract the bool value class is built with and use it in Create*coder and CreateBuffer calls to find the right implementation. \nbool supports_aug \u003d GetParam();\n- Make all test cases TEST_P so that they are parameterized. If the test is specific to one case, check bool to early return.\n- Use macro below to instantiate each case with both booleans.\nINSTANTIATE_TEST_CASE_P(,\n                        TestMultiplexAdapter,\n                        ::testing::Bool());\n\n\nhttps://cs.chromium.org/chromium/src/content/renderer/media_recorder/media_recorder_handler_unittest.cc?type\u003dcs\u0026g\u003d0",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 64
+      },
+      "revId": "2e57300226fcf54ac2f91ec49fb551000883ce68",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

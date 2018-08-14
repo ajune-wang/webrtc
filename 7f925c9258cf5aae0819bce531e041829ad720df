@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "6e388c34_03bfadc9",
+        "filename": "api/audio_options.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-14T09:27:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a4fe371_6188d850",
+      "range": {
+        "startLine": 119,
+        "startChar": 0,
+        "endLine": 122,
+        "endChar": 45
+      },
+      "revId": "7f925c9258cf5aae0819bce531e041829ad720df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "782add4b_73d237f7",
         "filename": "api/audio_options.h",
         "patchSetId": 1
@@ -83,6 +107,24 @@
       "writtenOn": "2018-08-14T00:39:16Z",
       "side": 1,
       "message": "You should probably use StrCat here too, since the other code that you change calls this repeatedly.",
+      "revId": "7f925c9258cf5aae0819bce531e041829ad720df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d91517f_ddb71f0e",
+        "filename": "api/audio_options.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-14T09:27:33Z",
+      "side": 1,
+      "message": "Done.\nmay be it is even better to use StrAppend,\nbut that would kill the purpose of testing StrCat.",
+      "parentUuid": "782add4b_73d237f7",
       "revId": "7f925c9258cf5aae0819bce531e041829ad720df",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

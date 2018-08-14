@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d024f191_4ba8bfbe",
+        "filename": "api/audio_options.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-14T00:39:16Z",
+      "side": 1,
+      "message": "Each ToStringIfSet result has a trailing comma+space---including the last one. So you should probably use absl::StrJoin here instead of absl::StrCat.",
+      "range": {
+        "startLine": 118,
+        "startChar": 8,
+        "endLine": 118,
+        "endChar": 21
+      },
+      "revId": "7f925c9258cf5aae0819bce531e041829ad720df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "782add4b_73d237f7",
+        "filename": "api/audio_options.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-14T00:39:16Z",
+      "side": 1,
+      "message": "You should probably use StrCat here too, since the other code that you change calls this repeatedly.",
+      "revId": "7f925c9258cf5aae0819bce531e041829ad720df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

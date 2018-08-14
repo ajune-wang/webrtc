@@ -95,7 +95,7 @@ TEST_P(MultiStreamEndToEndTest, SendsAndReceivesMultipleStreams) {
 
    private:
     std::unique_ptr<VideoOutputObserver> observers_[kNumStreams];
-  } tester(&task_queue_);
+  } tester(task_queue());
 
   tester.RunTest();
 }

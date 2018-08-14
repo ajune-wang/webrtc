@@ -213,7 +213,7 @@ class PictureIdTest : public test::CallTest,
   PictureIdTest() : num_temporal_layers_(GetParam()) {}
 
   virtual ~PictureIdTest() {
-    task_queue_.SendTask([this]() {
+    task_queue()->SendTask([this]() {
       send_transport_.reset();
       receive_transport_.reset();
       DestroyCalls();
@@ -284,11 +284,11 @@ void PictureIdTest::SetupEncoder(VideoEncoderFactory* encoder_factory,
   observer_.reset(
       new PictureIdObserver(PayloadStringToCodecType(payload_name)));
 
-  task_queue_.SendTask([this, encoder_factory, payload_name]() {
+  task_queue()->SendTask([this, encoder_factory, payload_name]() {
     CreateCalls();
 
     send_transport_.reset(new test::PacketTransport(
-        &task_queue_, sender_call_.get(), observer_.get(),
+        task_queue(), sender_call_.get(), observer_.get(),
         test::PacketTransport::kSender, payload_type_map_,
         FakeNetworkPipe::Config()));
 
@@ -305,7 +305,7 @@ void PictureIdTest::SetupEncoder(VideoEncoderFactory* encoder_factory,
 
 void PictureIdTest::TestPictureIdContinuousAfterReconfigure(
     const std::vector<int>& ssrc_counts) {
-  task_queue_.SendTask([this]() {
+  task_queue()->SendTask([this]() {
     CreateVideoStreams();
     CreateFrameGeneratorCapturer(kFrameRate, kFrameMaxWidth, kFrameMaxHeight);
 
@@ -323,14 +323,14 @@ void PictureIdTest::TestPictureIdContinuousAfterReconfigure(
     observer_->SetExpectedSsrcs(ssrc_count);
     observer_->ResetObservedSsrcs();
     // Make sure the picture_id sequence is continuous on reinit and recreate.
-    task_queue_.SendTask([this]() {
+    task_queue()->SendTask([this]() {
       GetVideoSendStream()->ReconfigureVideoEncoder(
           GetVideoEncoderConfig()->Copy());
     });
     EXPECT_TRUE(observer_->Wait()) << "Timed out waiting for packets.";
   }
 
-  task_queue_.SendTask([this]() {
+  task_queue()->SendTask([this]() {
     Stop();
     DestroyStreams();
   });
@@ -338,7 +338,7 @@ void PictureIdTest::TestPictureIdContinuousAfterReconfigure(
 
 void PictureIdTest::TestPictureIdIncreaseAfterRecreateStreams(
     const std::vector<int>& ssrc_counts) {
-  task_queue_.SendTask([this]() {
+  task_queue()->SendTask([this]() {
     CreateVideoStreams();
     CreateFrameGeneratorCapturer(kFrameRate, kFrameMaxWidth, kFrameMaxHeight);
 
@@ -353,7 +353,7 @@ void PictureIdTest::TestPictureIdIncreaseAfterRecreateStreams(
   // with it, therefore it is expected that some frames might be lost.
   observer_->SetMaxExpectedPictureIdGap(kMaxFramesLost);
   for (int ssrc_count : ssrc_counts) {
-    task_queue_.SendTask([this, &ssrc_count]() {
+    task_queue()->SendTask([this, &ssrc_count]() {
       frame_generator_capturer_->Stop();
       DestroyVideoSendStreams();
 
@@ -370,7 +370,7 @@ void PictureIdTest::TestPictureIdIncreaseAfterRecreateStreams(
     EXPECT_TRUE(observer_->Wait()) << "Timed out waiting for packets.";
   }
 
-  task_queue_.SendTask([this]() {
+  task_queue()->SendTask([this]() {
     Stop();
     DestroyStreams();
   });

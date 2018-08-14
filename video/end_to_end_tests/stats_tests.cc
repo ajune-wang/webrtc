@@ -515,14 +515,14 @@ TEST_F(StatsEndToEndTest, MAYBE_ContentTypeSwitches) {
 
   VideoEncoderConfig encoder_config_with_screenshare;
 
-  task_queue_.SendTask([this, &test, &send_config, &recv_config,
-                        &encoder_config_with_screenshare]() {
+  task_queue()->SendTask([this, &test, &send_config, &recv_config,
+                          &encoder_config_with_screenshare]() {
     CreateSenderCall(send_config);
     CreateReceiverCall(recv_config);
 
-    receive_transport_.reset(test.CreateReceiveTransport(&task_queue_));
+    receive_transport_.reset(test.CreateReceiveTransport(task_queue()));
     send_transport_.reset(
-        test.CreateSendTransport(&task_queue_, sender_call_.get()));
+        test.CreateSendTransport(task_queue(), sender_call_.get()));
     send_transport_->SetReceiver(receiver_call_->Receiver());
     receive_transport_->SetReceiver(sender_call_->Receiver());
 
@@ -553,7 +553,7 @@ TEST_F(StatsEndToEndTest, MAYBE_ContentTypeSwitches) {
   test.PerformTest();
 
   // Replace old send stream.
-  task_queue_.SendTask([this, &encoder_config_with_screenshare]() {
+  task_queue()->SendTask([this, &encoder_config_with_screenshare]() {
     DestroyVideoSendStreams();
     CreateVideoSendStream(encoder_config_with_screenshare);
     SetVideoDegradation(DegradationPreference::BALANCED);
@@ -563,7 +563,7 @@ TEST_F(StatsEndToEndTest, MAYBE_ContentTypeSwitches) {
   // Continue to run test but now with screenshare.
   test.PerformTest();
 
-  task_queue_.SendTask([this]() {
+  task_queue()->SendTask([this]() {
     Stop();
     DestroyStreams();
     send_transport_.reset();
@@ -706,15 +706,15 @@ TEST_F(StatsEndToEndTest, CallReportsRttForSender) {
   std::unique_ptr<test::DirectTransport> sender_transport;
   std::unique_ptr<test::DirectTransport> receiver_transport;
 
-  task_queue_.SendTask([this, &sender_transport, &receiver_transport]() {
+  task_queue()->SendTask([this, &sender_transport, &receiver_transport]() {
     FakeNetworkPipe::Config config;
     config.queue_delay_ms = kSendDelayMs;
     CreateCalls();
     sender_transport = absl::make_unique<test::DirectTransport>(
-        &task_queue_, config, sender_call_.get(), payload_type_map_);
+        task_queue(), config, sender_call_.get(), payload_type_map_);
     config.queue_delay_ms = kReceiveDelayMs;
     receiver_transport = absl::make_unique<test::DirectTransport>(
-        &task_queue_, config, receiver_call_.get(), payload_type_map_);
+        task_queue(), config, receiver_call_.get(), payload_type_map_);
     sender_transport->SetReceiver(receiver_call_->Receiver());
     receiver_transport->SetReceiver(sender_call_->Receiver());
 
@@ -742,7 +742,7 @@ TEST_F(StatsEndToEndTest, CallReportsRttForSender) {
     SleepMs(10);
   }
 
-  task_queue_.SendTask([this, &sender_transport, &receiver_transport]() {
+  task_queue()->SendTask([this, &sender_transport, &receiver_transport]() {
     Stop();
     DestroyStreams();
     sender_transport.reset();

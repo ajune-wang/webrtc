@@ -166,6 +166,8 @@ class CallTest : public ::testing::Test {
   VideoSendStream* GetVideoSendStream();
   FlexfecReceiveStream::Config* GetFlexFecConfig();
 
+  SingleThreadedTaskQueueForTesting* task_queue() { return &task_queue_; }
+
   Clock* const clock_;
 
   std::unique_ptr<webrtc::RtcEventLog> send_event_log_;
@@ -209,9 +211,9 @@ class CallTest : public ::testing::Test {
   rtc::scoped_refptr<AudioEncoderFactory> audio_encoder_factory_;
   test::FakeVideoRenderer fake_renderer_;
 
+ private:
   SingleThreadedTaskQueueForTesting task_queue_;
 
- private:
   rtc::scoped_refptr<AudioProcessing> apm_send_;
   rtc::scoped_refptr<AudioProcessing> apm_recv_;
   rtc::scoped_refptr<TestAudioDeviceModule> fake_send_audio_device_;

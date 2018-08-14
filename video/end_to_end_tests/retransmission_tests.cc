@@ -229,7 +229,7 @@ TEST_P(RetransmissionEndToEndTest,
     VideoSendStream* send_stream_;
     VideoReceiveStream* receive_stream_;
     test::SingleThreadedTaskQueueForTesting* const task_queue_;
-  } test(&task_queue_);
+  } test(task_queue());
 
   RunBaseTest(&test);
 }

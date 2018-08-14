@@ -132,7 +132,9 @@ TEST_F(TestVCMReceiver, NonDecodableDuration_OneIncomplete) {
   const int kMinDelayMs = 500;
   receiver_.SetNackSettings(kMaxNackListSize, kMaxPacketAgeToNack,
                             kMaxNonDecodableDuration);
+#if 0
   receiver_.SetMinReceiverDelay(kMinDelayMs);
+#endif
   int64_t key_frame_inserted = clock_->TimeInMilliseconds();
   EXPECT_GE(InsertFrame(kVideoFrameKey, true), kNoError);
   // Insert an incomplete frame.
@@ -162,7 +164,9 @@ TEST_F(TestVCMReceiver, NonDecodableDuration_NoTrigger) {
   const int kMinDelayMs = 500;
   receiver_.SetNackSettings(kMaxNackListSize, kMaxPacketAgeToNack,
                             kMaxNonDecodableDuration);
+#if 0
   receiver_.SetMinReceiverDelay(kMinDelayMs);
+#endif
   int64_t key_frame_inserted = clock_->TimeInMilliseconds();
   EXPECT_GE(InsertFrame(kVideoFrameKey, true), kNoError);
   // Insert an incomplete frame.
@@ -194,7 +198,9 @@ TEST_F(TestVCMReceiver, NonDecodableDuration_NoTrigger2) {
   const int kMinDelayMs = 500;
   receiver_.SetNackSettings(kMaxNackListSize, kMaxPacketAgeToNack,
                             kMaxNonDecodableDuration);
+#if 0
   receiver_.SetMinReceiverDelay(kMinDelayMs);
+#endif
   int64_t key_frame_inserted = clock_->TimeInMilliseconds();
   EXPECT_GE(InsertFrame(kVideoFrameKey, true), kNoError);
   // Insert enough frames to have too long non-decodable sequence, except that
@@ -226,7 +232,9 @@ TEST_F(TestVCMReceiver, NonDecodableDuration_KeyFrameAfterIncompleteFrames) {
   const int kMinDelayMs = 500;
   receiver_.SetNackSettings(kMaxNackListSize, kMaxPacketAgeToNack,
                             kMaxNonDecodableDuration);
+#if 0
   receiver_.SetMinReceiverDelay(kMinDelayMs);
+#endif
   int64_t key_frame_inserted = clock_->TimeInMilliseconds();
   EXPECT_GE(InsertFrame(kVideoFrameKey, true), kNoError);
   // Insert an incomplete frame.

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "405469e3_979499b5",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2018-08-14T08:03:04Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 500,
+        "startChar": 2,
+        "endLine": 500,
+        "endChar": 38
+      },
+      "revId": "3d9ff80515dac858cdd9d6314ea3fd8727449473",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

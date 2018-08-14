@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "578bf5cc_b6d8f5cf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-08-14T22:47:38Z",
+      "side": 1,
+      "message": "Leave space after first line as that is automatically assigned as CL header.\nFit the rest of the description lines into 80-chars.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 80
+      },
+      "revId": "4dd023a7dc2637f58e820e7207a384432723482a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "840f549f_91989b60",
+        "filename": "modules/video_coding/codecs/multiplex/test/multiplex_adapter_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-08-14T22:47:38Z",
+      "side": 1,
+      "message": "supports_augmenting_data\nI was abbreviating it for the comment only :)",
+      "range": {
+        "startLine": 38,
+        "startChar": 49,
+        "endLine": 38,
+        "endChar": 61
+      },
+      "revId": "4dd023a7dc2637f58e820e7207a384432723482a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4afcb3e0_f06612d2",
+        "filename": "modules/video_coding/codecs/multiplex/test/multiplex_adapter_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-08-14T22:47:38Z",
+      "side": 1,
+      "message": "Move this to the end of the file after all TEST_P cases are declared.",
+      "range": {
+        "startLine": 172,
+        "startChar": 0,
+        "endLine": 174,
+        "endChar": 43
+      },
+      "revId": "4dd023a7dc2637f58e820e7207a384432723482a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "148ad4ef_33ab2dcd",
+        "filename": "modules/video_coding/codecs/multiplex/test/multiplex_adapter_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-08-14T22:47:38Z",
+      "side": 1,
+      "message": "I think you can make |bool supports_augmenting_data \u003d GetParam()| a class member and directly use that.",
+      "range": {
+        "startLine": 281,
+        "startChar": 66,
+        "endLine": 281,
+        "endChar": 76
+      },
+      "revId": "4dd023a7dc2637f58e820e7207a384432723482a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

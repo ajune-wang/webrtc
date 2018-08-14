@@ -241,6 +241,7 @@ class WebRtcVoiceMediaChannel final : public VoiceMediaChannel,
   std::vector<AudioCodec> recv_codecs_;
 
   int max_send_bitrate_bps_ = 0;
+  rtc::DiffServCodePoint preferred_dscp_ = rtc::DSCP_DEFAULT;
   AudioOptions options_;
   absl::optional<int> dtmf_payload_type_;
   int dtmf_payload_freq_ = -1;

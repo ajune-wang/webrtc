@@ -348,7 +348,7 @@ TEST_P(BandwidthEndToEndTest, ReportsSetEncoderRates) {
     VideoSendStream* send_stream_;
     test::EncoderProxyFactory encoder_factory_;
     uint32_t bitrate_kbps_ RTC_GUARDED_BY(crit_);
-  } test(&task_queue_);
+  } test(task_queue());
 
   RunBaseTest(&test);
 }

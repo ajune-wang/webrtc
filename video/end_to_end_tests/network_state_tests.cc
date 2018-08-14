@@ -81,8 +81,8 @@ void NetworkStateEndToEndTest::VerifyNewVideoSendStreamsRespectNetworkState(
     Transport* transport) {
   test::EncoderProxyFactory encoder_factory(encoder);
 
-  task_queue_.SendTask([this, network_to_bring_up, &encoder_factory,
-                        transport]() {
+  task_queue()->SendTask([this, network_to_bring_up, &encoder_factory,
+                          transport]() {
     CreateSenderCall(Call::Config(send_event_log_.get()));
     sender_call_->SignalChannelNetworkState(network_to_bring_up, kNetworkUp);
 
@@ -97,7 +97,7 @@ void NetworkStateEndToEndTest::VerifyNewVideoSendStreamsRespectNetworkState(
 
   SleepMs(kSilenceTimeoutMs);
 
-  task_queue_.SendTask([this]() {
+  task_queue()->SendTask([this]() {
     Stop();
     DestroyStreams();
     DestroyCalls();
@@ -109,12 +109,12 @@ void NetworkStateEndToEndTest::VerifyNewVideoReceiveStreamsRespectNetworkState(
     Transport* transport) {
   std::unique_ptr<test::DirectTransport> sender_transport;
 
-  task_queue_.SendTask([this, &sender_transport, network_to_bring_up,
-                        transport]() {
+  task_queue()->SendTask([this, &sender_transport, network_to_bring_up,
+                          transport]() {
     CreateCalls();
     receiver_call_->SignalChannelNetworkState(network_to_bring_up, kNetworkUp);
     sender_transport = absl::make_unique<test::DirectTransport>(
-        &task_queue_, sender_call_.get(), payload_type_map_);
+        task_queue(), sender_call_.get(), payload_type_map_);
     sender_transport->SetReceiver(receiver_call_->Receiver());
     CreateSendConfig(1, 0, 0, sender_transport.get());
     CreateMatchingReceiveConfigs(transport);
@@ -126,7 +126,7 @@ void NetworkStateEndToEndTest::VerifyNewVideoReceiveStreamsRespectNetworkState(
 
   SleepMs(kSilenceTimeoutMs);
 
-  task_queue_.SendTask([this, &sender_transport]() {
+  task_queue()->SendTask([this, &sender_transport]() {
     Stop();
     DestroyStreams();
     sender_transport.reset();
@@ -341,7 +341,7 @@ TEST_F(NetworkStateEndToEndTest, RespectsNetworkState) {
     int sender_rtcp_ RTC_GUARDED_BY(test_crit_);
     int receiver_rtcp_ RTC_GUARDED_BY(test_crit_);
     int down_frames_ RTC_GUARDED_BY(test_crit_);
-  } test(&task_queue_);
+  } test(task_queue());
 
   RunBaseTest(&test);
 }

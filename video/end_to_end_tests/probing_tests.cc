@@ -174,7 +174,7 @@ TEST_P(ProbingEndToEndTest, TriggerMidCallProbing) {
   bool success = false;
   const int kMaxAttempts = 3;
   for (int i = 0; i < kMaxAttempts; ++i) {
-    TriggerMidCallProbingTest test(&task_queue_, &success);
+    TriggerMidCallProbingTest test(task_queue(), &success);
     RunBaseTest(&test);
     if (success)
       return;
@@ -290,7 +290,7 @@ TEST_P(ProbingEndToEndTest, ProbeOnVideoEncoderReconfiguration) {
   bool success = false;
   const int kMaxAttempts = 3;
   for (int i = 0; i < kMaxAttempts; ++i) {
-    ReconfigureTest test(&task_queue_, &success);
+    ReconfigureTest test(task_queue(), &success);
     RunBaseTest(&test);
     if (success) {
       return;

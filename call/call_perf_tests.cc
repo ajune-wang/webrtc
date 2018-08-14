@@ -165,7 +165,7 @@ void CallPerfTest::TestAudioVideoSync(FecMode fec,
   AudioReceiveStream* audio_receive_stream;
   std::unique_ptr<DriftingClock> drifting_clock;
 
-  task_queue_.SendTask([&]() {
+  task_queue()->SendTask([&]() {
     metrics::Reset();
     rtc::scoped_refptr<TestAudioDeviceModule> fake_audio_device =
         TestAudioDeviceModule::CreateTestAudioDeviceModule(
@@ -200,18 +200,18 @@ void CallPerfTest::TestAudioVideoSync(FecMode fec,
                  });
 
     audio_send_transport = absl::make_unique<test::PacketTransport>(
-        &task_queue_, sender_call_.get(), &observer,
+        task_queue(), sender_call_.get(), &observer,
         test::PacketTransport::kSender, audio_pt_map, audio_net_config);
     audio_send_transport->SetReceiver(receiver_call_->Receiver());
 
     video_send_transport = absl::make_unique<test::PacketTransport>(
-        &task_queue_, sender_call_.get(), &observer,
+        task_queue(), sender_call_.get(), &observer,
         test::PacketTransport::kSender, video_pt_map,
         FakeNetworkPipe::Config());
     video_send_transport->SetReceiver(receiver_call_->Receiver());
 
     receive_transport = absl::make_unique<test::PacketTransport>(
-        &task_queue_, receiver_call_.get(), &observer,
+        task_queue(), receiver_call_.get(), &observer,
         test::PacketTransport::kReceiver, payload_type_map_,
         FakeNetworkPipe::Config());
     receive_transport->SetReceiver(sender_call_->Receiver());
@@ -241,7 +241,7 @@ void CallPerfTest::TestAudioVideoSync(FecMode fec,
     audio_recv_config.rtp.remote_ssrc = kAudioSendSsrc;
     audio_recv_config.rtp.local_ssrc = kAudioRecvSsrc;
     audio_recv_config.sync_group = kSyncGroup;
-    audio_recv_config.decoder_factory = audio_decoder_factory_;
+    audio_recv_config.decoder_factory = audio_decoder_factory();
     audio_recv_config.decoder_map = {
         {kAudioSendPayloadType, {"ISAC", 16000, 1}}};
 
@@ -270,7 +270,7 @@ void CallPerfTest::TestAudioVideoSync(FecMode fec,
   EXPECT_TRUE(observer.Wait())
       << "Timed out while waiting for audio and video to be synchronized.";
 
-  task_queue_.SendTask([&]() {
+  task_queue()->SendTask([&]() {
     audio_send_stream->Stop();
     audio_receive_stream->Stop();
 

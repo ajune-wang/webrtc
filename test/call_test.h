@@ -166,6 +166,17 @@ class CallTest : public ::testing::Test {
   VideoSendStream* GetVideoSendStream();
   FlexfecReceiveStream::Config* GetFlexFecConfig();
 
+  rtc::scoped_refptr<AudioDecoderFactory> audio_decoder_factory() {
+    return audio_decoder_factory_;
+  }
+  rtc::scoped_refptr<AudioEncoderFactory> audio_encoder_factory() {
+    return audio_encoder_factory_;
+  }
+  rtc::VideoSinkInterface<VideoFrame>* fake_renderer() {
+    return &fake_renderer_;
+  }
+  SingleThreadedTaskQueueForTesting* task_queue() { return &task_queue_; }
+
   Clock* const clock_;
 
   std::unique_ptr<webrtc::RtcEventLog> send_event_log_;
@@ -205,13 +216,15 @@ class CallTest : public ::testing::Test {
   size_t num_video_streams_;
   size_t num_audio_streams_;
   size_t num_flexfec_streams_;
+
+ private:
   rtc::scoped_refptr<AudioDecoderFactory> audio_decoder_factory_;
   rtc::scoped_refptr<AudioEncoderFactory> audio_encoder_factory_;
+
   test::FakeVideoRenderer fake_renderer_;
 
   SingleThreadedTaskQueueForTesting task_queue_;
 
- private:
   rtc::scoped_refptr<AudioProcessing> apm_send_;
   rtc::scoped_refptr<AudioProcessing> apm_recv_;
   rtc::scoped_refptr<TestAudioDeviceModule> fake_send_audio_device_;

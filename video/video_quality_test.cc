@@ -790,7 +790,7 @@ void VideoQualityTest::StopThumbnails() {
 std::unique_ptr<test::LayerFilteringTransport>
 VideoQualityTest::CreateSendTransport() {
   return absl::make_unique<test::LayerFilteringTransport>(
-      &task_queue_, params_.pipe, sender_call_.get(), kPayloadTypeVP8,
+      task_queue(), params_.pipe, sender_call_.get(), kPayloadTypeVP8,
       kPayloadTypeVP9, params_.video[0].selected_tl, params_.ss[0].selected_sl,
       payload_type_map_, kVideoSendSsrcs[0],
       static_cast<uint32_t>(kVideoSendSsrcs[0] + params_.ss[0].streams.size() -
@@ -800,7 +800,7 @@ VideoQualityTest::CreateSendTransport() {
 std::unique_ptr<test::DirectTransport>
 VideoQualityTest::CreateReceiveTransport() {
   return absl::make_unique<test::DirectTransport>(
-      &task_queue_, params_.pipe, receiver_call_.get(), payload_type_map_);
+      task_queue(), params_.pipe, receiver_call_.get(), payload_type_map_);
 }
 
 void VideoQualityTest::RunWithAnalyzer(const Params& params) {
@@ -850,8 +850,8 @@ void VideoQualityTest::RunWithAnalyzer(const Params& params) {
   send_call_config.bitrate_config = params.call.call_bitrate_config;
   recv_call_config.bitrate_config = params.call.call_bitrate_config;
 
-  task_queue_.SendTask([this, &send_call_config, &recv_call_config,
-                        &send_transport, &recv_transport]() {
+  task_queue()->SendTask([this, &send_call_config, &recv_call_config,
+                          &send_transport, &recv_transport]() {
     if (params_.audio.enabled)
       InitializeAudioDevice(&send_call_config, &recv_call_config);
 
@@ -877,7 +877,7 @@ void VideoQualityTest::RunWithAnalyzer(const Params& params) {
       params.ss[0].selected_sl, params_.video[0].selected_tl,
       is_quick_test_enabled, clock_, params_.logging.rtp_dump_name);
 
-  task_queue_.SendTask([&]() {
+  task_queue()->SendTask([&]() {
     analyzer->SetCall(sender_call_.get());
     analyzer->SetReceiver(receiver_call_->Receiver());
     send_transport->SetReceiver(analyzer.get());
@@ -932,7 +932,7 @@ void VideoQualityTest::RunWithAnalyzer(const Params& params) {
 
   analyzer->Wait();
 
-  task_queue_.SendTask([&]() {
+  task_queue()->SendTask([&]() {
     StopThumbnailCapture();
     StopThumbnails();
     Stop();
@@ -991,7 +991,7 @@ void VideoQualityTest::SetupAudio(Transport* transport) {
     audio_send_config.max_bitrate_bps = kOpusBitrateFbBps;
     audio_send_config.send_codec_spec->transport_cc_enabled = true;
   }
-  audio_send_config.encoder_factory = audio_encoder_factory_;
+  audio_send_config.encoder_factory = audio_encoder_factory();
   SetAudioConfig(audio_send_config);
 
   std::string sync_group;
@@ -1010,7 +1010,7 @@ void VideoQualityTest::RunWithRenderers(const Params& params) {
   std::vector<std::unique_ptr<test::VideoRenderer>> loopback_renderers;
   RtcEventLogNullImpl null_event_log;
 
-  task_queue_.SendTask([&]() {
+  task_queue()->SendTask([&]() {
     params_ = params;
     CheckParams();
 
@@ -1098,7 +1098,7 @@ void VideoQualityTest::RunWithRenderers(const Params& params) {
 
   test::PressEnterToContinue();
 
-  task_queue_.SendTask([&]() {
+  task_queue()->SendTask([&]() {
     Stop();
     DestroyStreams();
 

@@ -73,14 +73,14 @@ TEST_F(SsrcEndToEndTest, UnknownRtpPacketGivesUnknownSsrcReturnCode) {
   std::unique_ptr<test::DirectTransport> receive_transport;
   std::unique_ptr<PacketInputObserver> input_observer;
 
-  task_queue_.SendTask([this, &send_transport, &receive_transport,
-                        &input_observer]() {
+  task_queue()->SendTask([this, &send_transport, &receive_transport,
+                          &input_observer]() {
     CreateCalls();
 
     send_transport = absl::make_unique<test::DirectTransport>(
-        &task_queue_, sender_call_.get(), payload_type_map_);
+        task_queue(), sender_call_.get(), payload_type_map_);
     receive_transport = absl::make_unique<test::DirectTransport>(
-        &task_queue_, receiver_call_.get(), payload_type_map_);
+        task_queue(), receiver_call_.get(), payload_type_map_);
     input_observer =
         absl::make_unique<PacketInputObserver>(receiver_call_->Receiver());
     send_transport->SetReceiver(input_observer.get());
@@ -101,7 +101,7 @@ TEST_F(SsrcEndToEndTest, UnknownRtpPacketGivesUnknownSsrcReturnCode) {
   // Wait() waits for a received packet.
   EXPECT_TRUE(input_observer->Wait());
 
-  task_queue_.SendTask([this, &send_transport, &receive_transport]() {
+  task_queue()->SendTask([this, &send_transport, &receive_transport]() {
     Stop();
     DestroyStreams();
     send_transport.reset();

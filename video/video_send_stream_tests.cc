@@ -89,7 +89,7 @@ class VideoSendStreamTest : public test::CallTest {
 };
 
 TEST_F(VideoSendStreamTest, CanStartStartedStream) {
-  task_queue_.SendTask([this]() {
+  task_queue()->SendTask([this]() {
     CreateSenderCall();
 
     test::NullTransport transport;
@@ -103,7 +103,7 @@ TEST_F(VideoSendStreamTest, CanStartStartedStream) {
 }
 
 TEST_F(VideoSendStreamTest, CanStopStoppedStream) {
-  task_queue_.SendTask([this]() {
+  task_queue()->SendTask([this]() {
     CreateSenderCall();
 
     test::NullTransport transport;
@@ -1666,7 +1666,7 @@ TEST_F(VideoSendStreamTest, ChangingNetworkRoute) {
    private:
     test::SingleThreadedTaskQueueForTesting* const task_queue_;
     Call* call_;
-  } test(&task_queue_);
+  } test(task_queue());
 
   RunBaseTest(&test);
 }
@@ -1732,7 +1732,7 @@ TEST_F(VideoSendStreamTest, ChangingTransportOverhead) {
     int packets_sent_ RTC_GUARDED_BY(lock_);
     int transport_overhead_;
     const size_t kMaxRtpPacketSize = 1000;
-  } test(&task_queue_);
+  } test(task_queue());
 
   RunBaseTest(&test);
 }
@@ -1856,7 +1856,7 @@ TEST_F(VideoSendStreamTest, RespectsMinTransmitBitrateAfterContentSwitch) {
   // Function for removing and recreating the send stream with a new config.
   auto reset_fun = [this](const VideoSendStream::Config& send_stream_config,
                           const VideoEncoderConfig& encoder_config) {
-    task_queue_.SendTask([this, &send_stream_config, &encoder_config]() {
+    task_queue()->SendTask([this, &send_stream_config, &encoder_config]() {
       Stop();
       DestroyVideoSendStreams();
       SetVideoSendConfig(send_stream_config);
@@ -1934,7 +1934,7 @@ TEST_F(VideoSendStreamTest,
   EncoderObserver encoder;
   test::EncoderProxyFactory encoder_factory(&encoder);
 
-  task_queue_.SendTask([this, &transport, &encoder_factory]() {
+  task_queue()->SendTask([this, &transport, &encoder_factory]() {
     CreateSenderCall();
     CreateSendConfig(1, 0, 0, &transport);
     GetVideoSendConfig()->encoder_settings.encoder_factory = &encoder_factory;
@@ -1946,14 +1946,14 @@ TEST_F(VideoSendStreamTest,
 
   encoder.WaitForResolution(kDefaultWidth, kDefaultHeight);
 
-  task_queue_.SendTask([this]() {
+  task_queue()->SendTask([this]() {
     frame_generator_capturer_->ChangeResolution(kDefaultWidth * 2,
                                                 kDefaultHeight * 2);
   });
 
   encoder.WaitForResolution(kDefaultWidth * 2, kDefaultHeight * 2);
 
-  task_queue_.SendTask([this]() {
+  task_queue()->SendTask([this]() {
     DestroyStreams();
     DestroyCalls();
   });
@@ -2099,7 +2099,7 @@ TEST_F(VideoSendStreamTest, VideoSendStreamStopSetEncoderRateToZero) {
   encoder_factory.SetHasInternalSource(true);
   test::FrameForwarder forwarder;
 
-  task_queue_.SendTask([this, &transport, &encoder_factory, &forwarder]() {
+  task_queue()->SendTask([this, &transport, &encoder_factory, &forwarder]() {
     CreateSenderCall();
     CreateSendConfig(1, 0, 0, &transport);
 
@@ -2116,16 +2116,16 @@ TEST_F(VideoSendStreamTest, VideoSendStreamStopSetEncoderRateToZero) {
 
   EXPECT_TRUE(encoder.WaitForEncoderInit());
 
-  task_queue_.SendTask([this]() { GetVideoSendStream()->Start(); });
+  task_queue()->SendTask([this]() { GetVideoSendStream()->Start(); });
   EXPECT_TRUE(encoder.WaitBitrateChanged(true));
 
-  task_queue_.SendTask([this]() { GetVideoSendStream()->Stop(); });
+  task_queue()->SendTask([this]() { GetVideoSendStream()->Stop(); });
   EXPECT_TRUE(encoder.WaitBitrateChanged(false));
 
-  task_queue_.SendTask([this]() { GetVideoSendStream()->Start(); });
+  task_queue()->SendTask([this]() { GetVideoSendStream()->Start(); });
   EXPECT_TRUE(encoder.WaitBitrateChanged(true));
 
-  task_queue_.SendTask([this]() {
+  task_queue()->SendTask([this]() {
     DestroyStreams();
     DestroyCalls();
   });
@@ -2142,7 +2142,7 @@ TEST_F(VideoSendStreamTest, VideoSendStreamUpdateActiveSimulcastLayers) {
   encoder_factory.SetHasInternalSource(true);
   test::FrameForwarder forwarder;
 
-  task_queue_.SendTask([this, &transport, &encoder_factory, &forwarder]() {
+  task_queue()->SendTask([this, &transport, &encoder_factory, &forwarder]() {
     CreateSenderCall();
     // Create two simulcast streams.
     CreateSendConfig(2, 0, 0, &transport);
@@ -2165,14 +2165,14 @@ TEST_F(VideoSendStreamTest, VideoSendStreamUpdateActiveSimulcastLayers) {
 
   // When we turn on the simulcast layers it will update the BitrateAllocator,
   // which in turn updates the VideoEncoder's bitrate.
-  task_queue_.SendTask([this]() {
+  task_queue()->SendTask([this]() {
     GetVideoSendStream()->UpdateActiveSimulcastLayers({true, true});
   });
   EXPECT_TRUE(encoder.WaitBitrateChanged(true));
 
   GetVideoEncoderConfig()->simulcast_layers[0].active = true;
   GetVideoEncoderConfig()->simulcast_layers[1].active = false;
-  task_queue_.SendTask([this]() {
+  task_queue()->SendTask([this]() {
     GetVideoSendStream()->ReconfigureVideoEncoder(
         GetVideoEncoderConfig()->Copy());
   });
@@ -2188,12 +2188,12 @@ TEST_F(VideoSendStreamTest, VideoSendStreamUpdateActiveSimulcastLayers) {
   // Turning off both simulcast layers should trigger a bitrate change of 0.
   GetVideoEncoderConfig()->simulcast_layers[0].active = false;
   GetVideoEncoderConfig()->simulcast_layers[1].active = false;
-  task_queue_.SendTask([this]() {
+  task_queue()->SendTask([this]() {
     GetVideoSendStream()->UpdateActiveSimulcastLayers({false, false});
   });
   EXPECT_TRUE(encoder.WaitBitrateChanged(false));
 
-  task_queue_.SendTask([this]() {
+  task_queue()->SendTask([this]() {
     DestroyStreams();
     DestroyCalls();
   });
@@ -2230,7 +2230,7 @@ TEST_F(VideoSendStreamTest, CapturesTextureAndVideoFrames) {
   FrameObserver observer;
   std::vector<VideoFrame> input_frames;
 
-  task_queue_.SendTask([this, &transport, &observer, &input_frames]() {
+  task_queue()->SendTask([this, &transport, &observer, &input_frames]() {
     // Initialize send stream.
     CreateSenderCall();
 
@@ -2271,7 +2271,7 @@ TEST_F(VideoSendStreamTest, CapturesTextureAndVideoFrames) {
   // timestamp are not compared because capturer sets those values.
   ExpectEqualFramesVector(input_frames, observer.output_frames());
 
-  task_queue_.SendTask([this]() {
+  task_queue()->SendTask([this]() {
     DestroyStreams();
     DestroyCalls();
   });
@@ -2416,7 +2416,7 @@ TEST_F(VideoSendStreamTest, EncoderIsProperlyInitializedAndDestroyed) {
     bool released_ RTC_GUARDED_BY(crit_);
     test::EncoderProxyFactory encoder_factory_;
     VideoEncoderConfig encoder_config_;
-  } test_encoder(&task_queue_);
+  } test_encoder(task_queue());
 
   RunBaseTest(&test_encoder);
 
@@ -2995,7 +2995,7 @@ TEST_F(VideoSendStreamTest, ReconfigureBitratesSetsEncoderBitratesCorrectly) {
     webrtc::VideoSendStream* send_stream_;
     test::EncoderProxyFactory encoder_factory_;
     webrtc::VideoEncoderConfig encoder_config_;
-  } test(&task_queue_);
+  } test(task_queue());
 
   RunBaseTest(&test);
 }
@@ -3720,7 +3720,7 @@ TEST_F(VideoSendStreamTest, RemoveOverheadFromBandwidth) {
     uint32_t max_bitrate_bps_ RTC_GUARDED_BY(&crit_);
     bool first_packet_sent_ RTC_GUARDED_BY(&crit_);
     rtc::Event bitrate_changed_event_;
-  } test(&task_queue_);
+  } test(task_queue());
   RunBaseTest(&test);
 }
 
@@ -3982,7 +3982,8 @@ TEST_F(VideoSendStreamTest, SwitchesToScreenshareAndBack) {
   auto reset_fun = [this](const VideoSendStream::Config& send_stream_config,
                           const VideoEncoderConfig& encoder_config,
                           test::BaseTest* test) {
-    task_queue_.SendTask([this, &send_stream_config, &encoder_config, &test]() {
+    task_queue()->SendTask([this, &send_stream_config, &encoder_config,
+                            &test]() {
       Stop();
       DestroyVideoSendStreams();
       SetVideoSendConfig(send_stream_config);

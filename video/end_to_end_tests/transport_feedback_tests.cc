@@ -234,7 +234,7 @@ TEST_P(TransportFeedbackEndToEndTest, AssignsTransportSequenceNumbers) {
     uint32_t first_media_ssrc_;
     std::map<uint32_t, uint32_t> rtx_to_media_ssrcs_;
     RtpExtensionHeaderObserver* observer_;
-  } tester(&task_queue_);
+  } tester(task_queue());
 
   tester.RunTest();
 }

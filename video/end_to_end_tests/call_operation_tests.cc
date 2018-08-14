@@ -106,14 +106,14 @@ TEST_P(CallOperationEndToEndTest, RendersSingleDelayedFrame) {
   std::unique_ptr<test::DirectTransport> sender_transport;
   std::unique_ptr<test::DirectTransport> receiver_transport;
 
-  task_queue_.SendTask([this, &renderer, &frame_forwarder, &sender_transport,
-                        &receiver_transport]() {
+  task_queue()->SendTask([this, &renderer, &frame_forwarder, &sender_transport,
+                          &receiver_transport]() {
     CreateCalls();
 
     sender_transport = absl::make_unique<test::DirectTransport>(
-        &task_queue_, sender_call_.get(), payload_type_map_);
+        task_queue(), sender_call_.get(), payload_type_map_);
     receiver_transport = absl::make_unique<test::DirectTransport>(
-        &task_queue_, receiver_call_.get(), payload_type_map_);
+        task_queue(), receiver_call_.get(), payload_type_map_);
     sender_transport->SetReceiver(receiver_call_->Receiver());
     receiver_transport->SetReceiver(sender_call_->Receiver());
 
@@ -139,7 +139,7 @@ TEST_P(CallOperationEndToEndTest, RendersSingleDelayedFrame) {
   EXPECT_TRUE(renderer.Wait())
       << "Timed out while waiting for the frame to render.";
 
-  task_queue_.SendTask([this, &sender_transport, &receiver_transport]() {
+  task_queue()->SendTask([this, &sender_transport, &receiver_transport]() {
     Stop();
     DestroyStreams();
     sender_transport.reset();
@@ -166,14 +166,14 @@ TEST_P(CallOperationEndToEndTest, TransmitsFirstFrame) {
   std::unique_ptr<test::DirectTransport> sender_transport;
   std::unique_ptr<test::DirectTransport> receiver_transport;
 
-  task_queue_.SendTask([this, &renderer, &frame_generator, &frame_forwarder,
-                        &sender_transport, &receiver_transport]() {
+  task_queue()->SendTask([this, &renderer, &frame_generator, &frame_forwarder,
+                          &sender_transport, &receiver_transport]() {
     CreateCalls();
 
     sender_transport = absl::make_unique<test::DirectTransport>(
-        &task_queue_, sender_call_.get(), payload_type_map_);
+        task_queue(), sender_call_.get(), payload_type_map_);
     receiver_transport = absl::make_unique<test::DirectTransport>(
-        &task_queue_, receiver_call_.get(), payload_type_map_);
+        task_queue(), receiver_call_.get(), payload_type_map_);
     sender_transport->SetReceiver(receiver_call_->Receiver());
     receiver_transport->SetReceiver(sender_call_->Receiver());
 
@@ -194,7 +194,7 @@ TEST_P(CallOperationEndToEndTest, TransmitsFirstFrame) {
   EXPECT_TRUE(renderer.Wait())
       << "Timed out while waiting for the frame to render.";
 
-  task_queue_.SendTask([this, &sender_transport, &receiver_transport]() {
+  task_queue()->SendTask([this, &sender_transport, &receiver_transport]() {
     Stop();
     DestroyStreams();
     sender_transport.reset();
@@ -234,13 +234,13 @@ TEST_P(CallOperationEndToEndTest, ObserversEncodedFrames) {
   std::unique_ptr<test::DirectTransport> sender_transport;
   std::unique_ptr<test::DirectTransport> receiver_transport;
 
-  task_queue_.SendTask([&]() {
+  task_queue()->SendTask([&]() {
     CreateCalls();
 
     sender_transport = absl::make_unique<test::DirectTransport>(
-        &task_queue_, sender_call_.get(), payload_type_map_);
+        task_queue(), sender_call_.get(), payload_type_map_);
     receiver_transport = absl::make_unique<test::DirectTransport>(
-        &task_queue_, receiver_call_.get(), payload_type_map_);
+        task_queue(), receiver_call_.get(), payload_type_map_);
     sender_transport->SetReceiver(receiver_call_->Receiver());
     receiver_transport->SetReceiver(sender_call_->Receiver());
 
@@ -261,7 +261,7 @@ TEST_P(CallOperationEndToEndTest, ObserversEncodedFrames) {
   EXPECT_TRUE(post_encode_observer.Wait())
       << "Timed out while waiting for send-side encoded-frame callback.";
 
-  task_queue_.SendTask([this, &sender_transport, &receiver_transport]() {
+  task_queue()->SendTask([this, &sender_transport, &receiver_transport]() {
     Stop();
     DestroyStreams();
     sender_transport.reset();

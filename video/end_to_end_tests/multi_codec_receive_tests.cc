@@ -143,17 +143,17 @@ class FrameObserver : public test::RtpRtcpObserver,
 class MultiCodecReceiveTest : public test::CallTest {
  public:
   MultiCodecReceiveTest() {
-    task_queue_.SendTask([this]() {
+    task_queue()->SendTask([this]() {
       CreateCalls();
 
       send_transport_.reset(new test::PacketTransport(
-          &task_queue_, sender_call_.get(), &observer_,
+          task_queue(), sender_call_.get(), &observer_,
           test::PacketTransport::kSender, kPayloadTypeMap,
           FakeNetworkPipe::Config()));
       send_transport_->SetReceiver(receiver_call_->Receiver());
 
       receive_transport_.reset(new test::PacketTransport(
-          &task_queue_, receiver_call_.get(), &observer_,
+          task_queue(), receiver_call_.get(), &observer_,
           test::PacketTransport::kReceiver, kPayloadTypeMap,
           FakeNetworkPipe::Config()));
       receive_transport_->SetReceiver(sender_call_->Receiver());
@@ -161,7 +161,7 @@ class MultiCodecReceiveTest : public test::CallTest {
   }
 
   virtual ~MultiCodecReceiveTest() {
-    task_queue_.SendTask([this]() {
+    task_queue()->SendTask([this]() {
       send_transport_.reset();
       receive_transport_.reset();
       DestroyCalls();
@@ -221,7 +221,7 @@ void MultiCodecReceiveTest::RunTestWithCodecs(
   EXPECT_TRUE(!configs.empty());
 
   // Create and start call.
-  task_queue_.SendTask([this, &configs]() {
+  task_queue()->SendTask([this, &configs]() {
     CreateSendConfig(1, 0, 0, send_transport_.get());
     ConfigureEncoder(configs[0]);
     CreateMatchingReceiveConfigs(receive_transport_.get());
@@ -235,7 +235,7 @@ void MultiCodecReceiveTest::RunTestWithCodecs(
 
   for (size_t i = 1; i < configs.size(); ++i) {
     // Recreate VideoSendStream with new config (codec, temporal layers).
-    task_queue_.SendTask([this, i, &configs]() {
+    task_queue()->SendTask([this, i, &configs]() {
       frame_generator_capturer_->Stop();
       DestroyVideoSendStreams();
       observer_.Reset();
@@ -250,7 +250,7 @@ void MultiCodecReceiveTest::RunTestWithCodecs(
     EXPECT_TRUE(observer_.Wait()) << "Timed out waiting for frames.";
   }
 
-  task_queue_.SendTask([this]() {
+  task_queue()->SendTask([this]() {
     Stop();
     DestroyStreams();
   });

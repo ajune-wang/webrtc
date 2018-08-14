@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4cbeddf0_432f103b",
+        "filename": "audio/channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-14T07:46:16Z",
+      "side": 0,
+      "message": "I take it the intention for this lock is to protect the |event_log_| pointer only,\nnot to serialize the calls to -\u003eLog ?",
+      "range": {
+        "startLine": 91,
+        "startChar": 2,
+        "endLine": 91,
+        "endChar": 29
+      },
+      "revId": "ccee56beee32b0caaf8130622606f044b7913d46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

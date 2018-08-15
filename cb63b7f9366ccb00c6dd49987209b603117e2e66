@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c9b56c4d_9c64bda0",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-08-15T15:14:12Z",
+      "side": 1,
+      "message": "Third option: (more verbose, possibly more readable, possibly not, consider if you like)\nif (received_seq_first_ \u003e\u003d max_reordering_threshold_){\n  if (header.sequenceNumber \u003c received_seq_first_ \u0026\u0026 \n      header.sequenceNumber \u003e\u003d received_seq_first_-max_reordering_threshold_)){      \n    received_seq_first_ \u003d header.sequenceNumber;\n  }\n} else if (header.sequenceNumber \u003c received_seq_first_){\n  received_seq_first_ \u003d header.sequenceNumber;\n} else if {header.sequenceNumber \u003e received_seq_first_ +\n   std::numeric_limits\u003cuint16_t\u003e::max() - max_reordering_threshold_){\n   received_seq_first_backwards_wraps_ \u003d 1;\n   received_seq_first_ \u003d header.sequenceNumber;\n}",
+      "revId": "cb63b7f9366ccb00c6dd49987209b603117e2e66",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70a06c3e_3fa90e86",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-08-15T15:14:12Z",
+      "side": 1,
+      "message": "nit: Use \u003e and skip +1.\nnit: Skip extra parenthesis pair.",
+      "range": {
+        "startLine": 127,
+        "startChar": 36,
+        "endLine": 129,
+        "endChar": 71
+      },
+      "revId": "cb63b7f9366ccb00c6dd49987209b603117e2e66",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

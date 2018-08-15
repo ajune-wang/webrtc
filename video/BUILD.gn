@@ -95,6 +95,9 @@ rtc_static_library("video") {
     "../modules/rtp_rtcp",
     "../modules/utility",
     "../modules/video_coding",
+
+    # TODO(nisse): Drop this dep, when EnableEncodedFrameRecording is
+    # deleted also from VideoReceiveStream.
     "../modules/video_coding:video_coding_utility",
     "../modules/video_processing",
     "../rtc_base:rtc_base_approved",
@@ -213,6 +216,7 @@ if (rtc_include_tests) {
       "../modules/audio_mixer:audio_mixer_impl",
       "../modules/rtp_rtcp",
       "../modules/video_coding:video_coding",
+      "../modules/video_coding:video_coding_utility",
       "../modules/video_coding:webrtc_h264",
       "../modules/video_coding:webrtc_multiplex",
       "../modules/video_coding:webrtc_vp8",
@@ -391,7 +395,9 @@ if (rtc_include_tests) {
       "end_to_end_tests/extended_reports_tests.cc",
       "end_to_end_tests/fec_tests.cc",
       "end_to_end_tests/histogram_tests.cc",
-      "end_to_end_tests/log_tests.cc",
+
+      # TODO(nisse): Also delete file.
+      # "end_to_end_tests/log_tests.cc",
       "end_to_end_tests/multi_codec_receive_tests.cc",
       "end_to_end_tests/multi_stream_tester.cc",
       "end_to_end_tests/multi_stream_tester.h",

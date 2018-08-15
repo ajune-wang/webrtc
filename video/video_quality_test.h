@@ -83,7 +83,6 @@ class VideoQualityTest :
                              Call::Config* recv_call_config);
   void SetupAudio(Transport* transport);
 
-  void StartEncodedFrameLogs(VideoSendStream* stream);
   void StartEncodedFrameLogs(VideoReceiveStream* stream);
 
   virtual std::unique_ptr<test::LayerFilteringTransport> CreateSendTransport();

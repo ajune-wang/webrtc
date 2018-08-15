@@ -539,24 +539,8 @@ EncodedImageCallback::Result VideoSendStreamImpl::OnEncodedImage(
 
   fec_controller_->UpdateWithEncodedData(encoded_image._length,
                                          encoded_image._frameType);
-  EncodedImageCallback::Result result = rtp_video_sender_->OnEncodedImage(
+  return rtp_video_sender_->OnEncodedImage(
       encoded_image, codec_specific_info, fragmentation);
-
-  RTC_DCHECK(codec_specific_info);
-
-  int layer = codec_specific_info->codecType == kVideoCodecVP8
-                  ? codec_specific_info->codecSpecific.VP8.simulcastIdx
-                  : 0;
-  {
-    rtc::CritScope lock(&ivf_writers_crit_);
-    if (file_writers_[layer].get()) {
-      bool ok = file_writers_[layer]->WriteFrame(
-          encoded_image, codec_specific_info->codecType);
-      RTC_DCHECK(ok);
-    }
-  }
-
-  return result;
 }
 
 std::map<uint32_t, RtpState> VideoSendStreamImpl::GetRtpStates() const {
@@ -618,27 +602,6 @@ uint32_t VideoSendStreamImpl::OnBitrateUpdated(uint32_t bitrate_bps,
                                           fraction_loss, rtt);
   stats_proxy_->OnSetEncoderTargetRate(encoder_target_rate_bps_);
   return protection_bitrate;
-}
-
-void VideoSendStreamImpl::EnableEncodedFrameRecording(
-    const std::vector<rtc::PlatformFile>& files,
-    size_t byte_limit) {
-  {
-    rtc::CritScope lock(&ivf_writers_crit_);
-    for (unsigned int i = 0; i < kMaxSimulcastStreams; ++i) {
-      if (i < files.size()) {
-        file_writers_[i] = IvfFileWriter::Wrap(rtc::File(files[i]), byte_limit);
-      } else {
-        file_writers_[i].reset();
-      }
-    }
-  }
-
-  if (!files.empty()) {
-    // Make a keyframe appear as early as possible in the logs, to give actually
-    // decodable output.
-    video_stream_encoder_->SendKeyFrame();
-  }
 }
 
 int VideoSendStreamImpl::ProtectionRequest(

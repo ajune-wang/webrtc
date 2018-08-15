@@ -19,6 +19,7 @@ namespace field_trial {
 
 static const char* trials_init_string = NULL;
 
+#ifndef WEBRTC_EXCLUDE_FIELD_TRIAL_DEFAULT
 std::string FindFullName(const std::string& name) {
   if (trials_init_string == NULL)
     return std::string();
@@ -51,6 +52,7 @@ std::string FindFullName(const std::string& name) {
   }
   return std::string();
 }
+#endif  // WEBRTC_EXCLUDE_FIELD_TRIAL_DEFAULT
 
 // Optionally initialize field trial from a string.
 void InitFieldTrialsFromString(const char* trials_string) {

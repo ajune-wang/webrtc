@@ -190,6 +190,49 @@ TEST_F(ReceiveStatisticsTest, GetReceiveStreamDataCounters) {
   EXPECT_EQ(2u, counters.transmitted.packets);
 }
 
+TEST_F(ReceiveStatisticsTest, InitialPacketsReordered) {
+  StreamStatistician* statistician;
+  RtcpStatistics statistics;
+
+  receive_statistics_->IncomingPacket(header1_, kPacketSize1, false);
+
+  statistician = receive_statistics_->GetStatistician(kSsrc1);
+  ASSERT_TRUE(statistician != NULL);
+  statistician->GetStatistics(&statistics, false);
+  EXPECT_EQ(statistics.packets_lost, 0);
+
+  header1_.sequenceNumber--;
+  receive_statistics_->IncomingPacket(header1_, kPacketSize1, false);
+
+  statistician = receive_statistics_->GetStatistician(kSsrc1);
+  ASSERT_TRUE(statistician != NULL);
+  statistician->GetStatistics(&statistics, false);
+  EXPECT_EQ(statistics.packets_lost, 0);
+}
+
+TEST_F(ReceiveStatisticsTest, InitialPacketsReorderedAndWrapping) {
+  StreamStatistician* statistician;
+  RtcpStatistics statistics;
+
+  header1_.sequenceNumber = 0;
+  receive_statistics_->IncomingPacket(header1_, kPacketSize1, false);
+
+  statistician = receive_statistics_->GetStatistician(kSsrc1);
+  ASSERT_TRUE(statistician != NULL);
+  statistician->GetStatistics(&statistics, false);
+  EXPECT_EQ(statistics.packets_lost, 0);
+  EXPECT_EQ(statistics.extended_highest_sequence_number, 0u);
+
+  header1_.sequenceNumber = static_cast<uint16_t>(-1);
+  receive_statistics_->IncomingPacket(header1_, kPacketSize1, false);
+
+  statistician = receive_statistics_->GetStatistician(kSsrc1);
+  ASSERT_TRUE(statistician != NULL);
+  statistician->GetStatistics(&statistics, false);
+  EXPECT_EQ(statistics.packets_lost, 0);
+  EXPECT_EQ(statistics.extended_highest_sequence_number, 0u);
+}
+
 class MockRtcpCallback : public RtcpStatisticsCallback {
  public:
   MOCK_METHOD2(StatisticsUpdated,

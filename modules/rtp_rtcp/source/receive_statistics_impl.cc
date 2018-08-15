@@ -13,6 +13,7 @@
 #include <math.h>
 
 #include <cstdlib>
+#include <limits>
 #include <vector>
 
 #include "modules/remote_bitrate_estimator/test/bwe_test_logging.h"
@@ -42,6 +43,7 @@ StreamStatisticianImpl::StreamStatisticianImpl(
       last_receive_time_ms_(0),
       last_received_timestamp_(0),
       received_seq_first_(0),
+      received_seq_first_backwards_wraps_(0),
       received_seq_max_(0),
       received_seq_wraps_(0),
       received_packet_overhead_(12),
@@ -109,6 +111,28 @@ StreamDataCounters StreamStatisticianImpl::UpdateCounters(
     last_received_timestamp_ = header.timestamp;
     last_receive_time_ntp_ = receive_time;
     last_receive_time_ms_ = clock_->TimeInMilliseconds();
+  } else if (receive_counters_.transmitted.packets <=
+             max_reordering_threshold_) {
+    // Reordering at the beginning of the stream may have caused the first
+    // sequence number to arrive late. Update the received_seq_first_ if
+    // received_seq_first_ is newer than the current packet, but not by more
+    // than max_reordering_threshold_.
+    if (header.sequenceNumber < received_seq_first_ &&
+        header.sequenceNumber >=
+            received_seq_first_ -
+                std::min(received_seq_first_, max_reordering_threshold_)) {
+      // The new sequence number is numerically smaller than the first one.
+      received_seq_first_ = header.sequenceNumber;
+    } else if (received_seq_first_ < max_reordering_threshold_ &&
+               header.sequenceNumber >=
+                   received_seq_first_ + (std::numeric_limits<uint16_t>::max() -
+                                          max_reordering_threshold_ + 1)) {
+      // The new sequence number is earlier than the first received one after
+      // wrapping is taken into account.
+      RTC_DCHECK_EQ(received_seq_first_backwards_wraps_, 0);
+      received_seq_first_backwards_wraps_ = 1;
+      received_seq_first_ = header.sequenceNumber;
+    }
   }
 
   size_t packet_oh = header.headerLength + header.paddingLength;
@@ -154,7 +178,8 @@ void StreamStatisticianImpl::FecPacketReceived(const RTPHeader& header,
 void StreamStatisticianImpl::SetMaxReorderingThreshold(
     int max_reordering_threshold) {
   rtc::CritScope cs(&stream_lock_);
-  max_reordering_threshold_ = max_reordering_threshold;
+  max_reordering_threshold_ =
+      rtc::dchecked_cast<uint16_t>(max_reordering_threshold);
 }
 
 bool StreamStatisticianImpl::GetStatistics(RtcpStatistics* statistics,
@@ -234,7 +259,9 @@ RtcpStatistics StreamStatisticianImpl::CalculateRtcpStatistics(
 
   statistics.fraction_lost = last_fraction_lost_;
   // Calculate cumulative loss, according to RFC3550 Appendix A.3.
-  uint32_t total_expected_packets = extended_seq_max - received_seq_first_ + 1;
+  uint32_t total_expected_packets =
+      extended_seq_max - received_seq_first_ +
+      (received_seq_first_backwards_wraps_ << 16) + 1;
   statistics.packets_lost =
       total_expected_packets - receive_counters_.transmitted.packets;
   // Since cumulative loss is carried in a signed 24-bit field in RTCP, we may

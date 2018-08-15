@@ -194,5 +194,11 @@ class RtpMid : public BaseRtpStringExtension {
   static constexpr const char kUri[] = "urn:ietf:params:rtp-hdrext:sdes:mid";
 };
 
+class RtpHdrSignaling : public BaseRtpStringExtension {
+ public:
+  static constexpr RTPExtensionType kId = kRtpExtensionHdrSignaling;
+  static constexpr const char kUri[] = "rtp-hdr-signaling-uri-placeholder";
+};
+
 }  // namespace webrtc
 #endif  // MODULES_RTP_RTCP_SOURCE_RTP_HEADER_EXTENSIONS_H_

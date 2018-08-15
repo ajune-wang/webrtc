@@ -236,6 +236,9 @@ bool RtpHeaderParser::Parse(
   header->extension.has_video_timing = false;
   header->extension.video_timing = {0u, 0u, 0u, 0u, 0u, 0u, false};
 
+  header->extension.hasHdrSignaling = false;
+  // Should there be a default value?
+
   if (X) {
     /* RTP header extension, RFC 3550.
      0                   1                   2                   3
@@ -470,6 +473,10 @@ void RtpHeaderParser::ParseOneByteExtensionHeader(
         case kRtpExtensionGenericFrameDescriptor:
           RTC_LOG(WARNING)
               << "RtpGenericFrameDescriptor unsupported by rtp header parser.";
+          break;
+        case kRtpExtensionHdrSignaling:
+          header->extension.hdrSignaling.Set(rtc::MakeArrayView(ptr, len + 1));
+          header->extension.hasHdrSignaling = true;
           break;
         case kRtpExtensionNone:
         case kRtpExtensionNumberOfExtensions: {

@@ -22,6 +22,30 @@
       "revId": "62ff0034828e5272b28314d00f87c790cba863e8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53e94461_8b37800e",
+        "filename": "modules/audio_processing/agc2/adaptive_digital_gain_applier.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-08-15T07:43:18Z",
+      "side": 1,
+      "message": "I think histograms are efficient enough to update on every call. But we have the same pattern in other places in APM. Where a value is logged every second. I\u0027d like to keep it mostly for consistency.",
+      "parentUuid": "f88e95d3_69b7d323",
+      "range": {
+        "startLine": 81,
+        "startChar": 6,
+        "endLine": 81,
+        "endChar": 32
+      },
+      "revId": "62ff0034828e5272b28314d00f87c790cba863e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

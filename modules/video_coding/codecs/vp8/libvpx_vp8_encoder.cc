@@ -72,24 +72,24 @@ bool GetGfBoostPercentageFromFieldTrialGroup(int* boost_percentage) {
   return true;
 }
 
-static_assert(
-    VP8_TS_MAX_PERIODICITY == VPX_TS_MAX_PERIODICITY,
-    "VP8_TS_MAX_PERIODICITY must be kept in sync with the constant in libvpx.");
-static_assert(
-    VP8_TS_MAX_LAYERS == VPX_TS_MAX_LAYERS,
-    "VP8_TS_MAX_LAYERS must be kept in sync with the constant in libvpx.");
+static_assert(Vp8EncoderConfig::kMaxPeriodicity == VPX_TS_MAX_PERIODICITY,
+              "Vp8EncoderConfig::kMaxPeriodicity must be kept in sync with the "
+              "constant in libvpx.");
+static_assert(Vp8EncoderConfig::kMaxLayers == VPX_TS_MAX_LAYERS,
+              "Vp8EncoderConfig::kMaxLayers must be kept in sync with the "
+              "constant in libvpx.");
 
 static Vp8EncoderConfig GetEncoderConfig(vpx_codec_enc_cfg* vpx_config) {
   Vp8EncoderConfig config;
 
   config.ts_number_layers = vpx_config->ts_number_layers;
   memcpy(config.ts_target_bitrate, vpx_config->ts_target_bitrate,
-         sizeof(unsigned int) * VP8_TS_MAX_LAYERS);
+         sizeof(unsigned int) * Vp8EncoderConfig::kMaxLayers);
   memcpy(config.ts_rate_decimator, vpx_config->ts_rate_decimator,
-         sizeof(unsigned int) * VP8_TS_MAX_LAYERS);
+         sizeof(unsigned int) * Vp8EncoderConfig::kMaxLayers);
   config.ts_periodicity = vpx_config->ts_periodicity;
   memcpy(config.ts_layer_id, vpx_config->ts_layer_id,
-         sizeof(unsigned int) * VP8_TS_MAX_PERIODICITY);
+         sizeof(unsigned int) * Vp8EncoderConfig::kMaxPeriodicity);
   config.rc_target_bitrate = vpx_config->rc_target_bitrate;
   config.rc_min_quantizer = vpx_config->rc_min_quantizer;
   config.rc_max_quantizer = vpx_config->rc_max_quantizer;
@@ -101,12 +101,12 @@ static void FillInEncoderConfig(vpx_codec_enc_cfg* vpx_config,
                                 const Vp8EncoderConfig& config) {
   vpx_config->ts_number_layers = config.ts_number_layers;
   memcpy(vpx_config->ts_target_bitrate, config.ts_target_bitrate,
-         sizeof(unsigned int) * VP8_TS_MAX_LAYERS);
+         sizeof(unsigned int) * Vp8EncoderConfig::kMaxLayers);
   memcpy(vpx_config->ts_rate_decimator, config.ts_rate_decimator,
-         sizeof(unsigned int) * VP8_TS_MAX_LAYERS);
+         sizeof(unsigned int) * Vp8EncoderConfig::kMaxLayers);
   vpx_config->ts_periodicity = config.ts_periodicity;
   memcpy(vpx_config->ts_layer_id, config.ts_layer_id,
-         sizeof(unsigned int) * VP8_TS_MAX_PERIODICITY);
+         sizeof(unsigned int) * Vp8EncoderConfig::kMaxPeriodicity);
   vpx_config->rc_target_bitrate = config.rc_target_bitrate;
   vpx_config->rc_min_quantizer = config.rc_min_quantizer;
   vpx_config->rc_max_quantizer = config.rc_max_quantizer;
@@ -119,6 +119,30 @@ bool UpdateVpxConfiguration(TemporalLayers* temporal_layers,
   if (res)
     FillInEncoderConfig(cfg, config);
   return res;
+}
+
+uint8_t NumTemporalLayers(const VideoCodec& codec, int spatial_id) {
+  uint8_t num_temporal_layers =
+      std::max<uint8_t>(1, codec.VP8().numberOfTemporalLayers);
+  if (codec.numberOfSimulcastStreams > 0) {
+    RTC_DCHECK_LT(spatial_id, codec.numberOfSimulcastStreams);
+    num_temporal_layers =
+        std::max(num_temporal_layers,
+                 codec.simulcastStream[spatial_id].numberOfTemporalLayers);
+  }
+  return num_temporal_layers;
+}
+
+bool IsConferenceModeScreenshare(const VideoCodec& codec) {
+  if (codec.mode != VideoCodecMode::kScreensharing ||
+      NumTemporalLayers(codec, 0) != 2) {
+    return false;
+  }
+  // Fixed default bitrates for legacy screenshare layers mode.
+  return (codec.numberOfSimulcastStreams == 0 && codec.maxBitrate == 1000) ||
+         (codec.numberOfSimulcastStreams >= 1 &&
+          codec.simulcastStream[0].maxBitrate == 1000 &&
+          codec.simulcastStream[0].targetBitrate == 200);
 }
 }  // namespace
 
@@ -289,10 +313,20 @@ void LibvpxVp8Encoder::SetupTemporalLayers(int num_streams,
                                            const VideoCodec& codec) {
   RTC_DCHECK(temporal_layers_.empty());
   for (int i = 0; i < num_streams; ++i) {
+    TemporalLayersType type;
+    int num_layers;
+    if (IsConferenceModeScreenshare(codec) && i == 0) {
+      type = TemporalLayersType::kBitrateDynamic;
+      // Legacy screenshare layers supports max 2 layers.
+      num_layers = std::max<int>(2, num_temporal_layers);
+    } else {
+      type = TemporalLayersType::kFixedPattern;
+      num_layers = num_temporal_layers;
+    }
     temporal_layers_.emplace_back(
-        TemporalLayers::CreateTemporalLayers(codec, i));
+        TemporalLayers::CreateTemporalLayers(type, num_layers));
     temporal_layers_checkers_.emplace_back(
-        TemporalLayers::CreateTemporalLayersChecker(codec, i));
+        TemporalLayersChecker::CreateTemporalLayersChecker(type, num_layers));
   }
 }
 

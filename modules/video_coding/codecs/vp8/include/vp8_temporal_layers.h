@@ -1,4 +1,5 @@
-/* Copyright (c) 2011 The WebRTC project authors. All Rights Reserved.
+/*
+ *  Copyright (c) 2018 The WebRTC project authors. All Rights Reserved.
  *
  *  Use of this source code is governed by a BSD-style license
  *  that can be found in the LICENSE file in the root of the source
@@ -6,19 +7,12 @@
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
  */
-/*
- * This file defines the interface for doing temporal layers with VP8.
- */
-#ifndef MODULES_VIDEO_CODING_CODECS_VP8_TEMPORAL_LAYERS_H_
-#define MODULES_VIDEO_CODING_CODECS_VP8_TEMPORAL_LAYERS_H_
 
-#include <vector>
+#ifndef MODULES_VIDEO_CODING_CODECS_VP8_INCLUDE_VP8_TEMPORAL_LAYERS_H_
+#define MODULES_VIDEO_CODING_CODECS_VP8_INCLUDE_VP8_TEMPORAL_LAYERS_H_
+
 #include <memory>
-
-#include "api/video_codecs/video_codec.h"
-
-#define VP8_TS_MAX_PERIODICITY 16
-#define VP8_TS_MAX_LAYERS 5
+#include <vector>
 
 namespace webrtc {
 
@@ -42,6 +36,8 @@ namespace webrtc {
 // FrameEncoded() for a previous one, but calls themselves must be both
 // synchronized (e.g. run on a task queue) and in order (per type).
 
+enum class TemporalLayersType { kFixedPattern, kBitrateDynamic };
+
 struct CodecSpecificInfoVP8;
 enum class Vp8BufferReference : uint8_t {
   kNone = 0,
@@ -51,31 +47,33 @@ enum class Vp8BufferReference : uint8_t {
 };
 
 struct Vp8EncoderConfig {
+  static constexpr size_t kMaxPeriodicity = 16;
+  static constexpr size_t kMaxLayers = 5;
+
   // Number of active temporal layers. Set to 0 if not used.
-  unsigned int ts_number_layers;
+  uint32_t ts_number_layers;
   // Arrays of length |ts_number_layers|, indicating (cumulative) target bitrate
   // and rate decimator (e.g. 4 if every 4th frame is in the given layer) for
   // each active temporal layer, starting with temporal id 0.
-  unsigned int ts_target_bitrate[VP8_TS_MAX_LAYERS];
-  unsigned int ts_rate_decimator[VP8_TS_MAX_LAYERS];
+  uint32_t ts_target_bitrate[kMaxLayers];
+  uint32_t ts_rate_decimator[kMaxLayers];
 
   // The periodicity of the temporal pattern. Set to 0 if not used.
-  unsigned int ts_periodicity;
+  uint32_t ts_periodicity;
   // Array of length |ts_periodicity| indicating the sequence of temporal id's
   // to assign to incoming frames.
-  unsigned int ts_layer_id[VP8_TS_MAX_PERIODICITY];
+  uint32_t ts_layer_id[kMaxPeriodicity];
 
   // Target bitrate, in bps.
-  unsigned int rc_target_bitrate;
+  uint32_t rc_target_bitrate;
 
   // Clamp QP to min/max. Use 0 to disable clamping.
-  unsigned int rc_min_quantizer;
-  unsigned int rc_max_quantizer;
+  uint32_t rc_min_quantizer;
+  uint32_t rc_max_quantizer;
 };
 
 // This interface defines a way of getting the encoder settings needed to
 // realize a temporal layer structure of predefined size.
-class TemporalLayersChecker;
 class TemporalLayers {
  public:
   enum BufferFlags : int {
@@ -139,11 +137,8 @@ class TemporalLayers {
   // Factory for TemporalLayer strategy. Default behavior is a fixed pattern
   // of temporal layers. See default_temporal_layers.cc
   static std::unique_ptr<TemporalLayers> CreateTemporalLayers(
-      const VideoCodec& codec,
-      size_t spatial_id);
-  static std::unique_ptr<TemporalLayersChecker> CreateTemporalLayersChecker(
-      const VideoCodec& codec,
-      size_t spatial_id);
+      TemporalLayersType type,
+      int num_temporal_layers);
 
   virtual ~TemporalLayers() = default;
 
@@ -186,40 +181,6 @@ class TemporalLayers {
                             int qp) = 0;
 };
 
-// Used only inside RTC_DCHECK(). It checks correctness of temporal layers
-// dependencies and sync bits. The only method of this class is called after
-// each UpdateLayersConfig() of a corresponding TemporalLayers class.
-class TemporalLayersChecker {
- public:
-  explicit TemporalLayersChecker(int num_temporal_layers);
-  virtual ~TemporalLayersChecker() {}
-
-  virtual bool CheckTemporalConfig(
-      bool frame_is_keyframe,
-      const TemporalLayers::FrameConfig& frame_config);
-
- private:
-  struct BufferState {
-    BufferState() : is_keyframe(true), temporal_layer(0), sequence_number(0) {}
-    bool is_keyframe;
-    uint8_t temporal_layer;
-    uint32_t sequence_number;
-  };
-  bool CheckAndUpdateBufferState(BufferState* state,
-                                 bool* need_sync,
-                                 bool frame_is_keyframe,
-                                 uint8_t temporal_layer,
-                                 webrtc::TemporalLayers::BufferFlags flags,
-                                 uint32_t sequence_number,
-                                 uint32_t* lowest_sequence_referenced);
-  BufferState last_;
-  BufferState arf_;
-  BufferState golden_;
-  int num_temporal_layers_;
-  uint32_t sequence_number_;
-  uint32_t last_sync_sequence_number_;
-  uint32_t last_tl0_sequence_number_;
-};
-
 }  // namespace webrtc
-#endif  // MODULES_VIDEO_CODING_CODECS_VP8_TEMPORAL_LAYERS_H_
+
+#endif  // MODULES_VIDEO_CODING_CODECS_VP8_INCLUDE_VP8_TEMPORAL_LAYERS_H_

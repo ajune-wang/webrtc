@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "e3d593b7_ac0123a6",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-08-15T14:40:14Z",
+      "side": 1,
+      "message": "Done as discussed offline.",
+      "parentUuid": "7f24ebd0_e40591ef",
+      "range": {
+        "startLine": 119,
+        "startChar": 8,
+        "endLine": 122,
+        "endChar": 60
+      },
+      "revId": "14be6e87c5ef8ff158784beb31c62860545993a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "746603fb_3a9603fb",
         "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
         "patchSetId": 1
@@ -282,6 +306,30 @@
       "revId": "14be6e87c5ef8ff158784beb31c62860545993a4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c12a25d_3a0bc26c",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-08-15T14:40:14Z",
+      "side": 1,
+      "message": "Changed to uint32_t as discussed offline.",
+      "parentUuid": "767a06e1_c43a6fc5",
+      "range": {
+        "startLine": 76,
+        "startChar": 11,
+        "endLine": 76,
+        "endChar": 46
+      },
+      "revId": "14be6e87c5ef8ff158784beb31c62860545993a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

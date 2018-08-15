@@ -22,6 +22,30 @@
       "revId": "fd96bfde00ed6a9f9fe11cf645c8081ccc1f9933",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56386e7a_5093c3d0",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-08-15T14:40:14Z",
+      "side": 1,
+      "message": "Removed comment and changed type wraps_ type to uint32_t.",
+      "parentUuid": "5db56325_c8128738",
+      "range": {
+        "startLine": 257,
+        "startChar": 0,
+        "endLine": 261,
+        "endChar": 54
+      },
+      "revId": "fd96bfde00ed6a9f9fe11cf645c8081ccc1f9933",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

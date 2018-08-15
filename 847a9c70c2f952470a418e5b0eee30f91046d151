@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1de82dc8_5a1e5cc3",
+        "filename": "sdk/objc/Framework/Classes/Common/RTCFieldTrials.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-08-15T14:09:04Z",
+      "side": 0,
+      "message": "This code uses webrtc::field_trial::InitFieldTrialsFromString which is declared and defined by //system_wrappers:field_trial_default and it should also depend on it.\n\nThe real problem is that //system_wrappers:field_trial_default also defines webrtc::field_trial::FindFullName, in order to avoid it I am thinking to introduce a new way to avoid to define optional symbols (the pre-processor macro WEBRTC_EXCLUDE_FIELD_TRIAL_DEFAULT).\n\nTested with WEBRTC_EXCLUDE_FIELD_TRIAL_DEFAULT defined:\n\nUndefined symbols for architecture x86_64:\n  \"webrtc::field_trial::FindFullName(std::__1::basic_string\u003cchar, std::__1::char_traits\u003cchar\u003e, std::__1::allocator\u003cchar\u003e \u003e const\u0026)\", referenced from:\n      webrtc::field_trial::IsEnabled(char const*) in libwebrtc_opus.a(audio_encoder_opus.o)\n      webrtc::field_trial::IsEnabled(char const*) in libaudio_network_adaptor.a(audio_network_adaptor_impl.o)\n      webrtc::field_trial::IsEnabled(char const*) in libneteq.a(delay_manager.o)\n      webrtc::field_trial::IsEnabled(char const*) in libneteq.a(decision_logic.o)\n      webrtc::field_trial::IsEnabled(char const*) in libneteq.a(delay_peak_detector.o)\n      webrtc::FecControllerPlrBased::FecControllerPlrBased(webrtc::FecControllerPlrBased::Config const\u0026) in libaudio_network_adaptor.a(fec_controller_plr_based.o)\n      webrtc::FecControllerPlrBased::FecControllerPlrBased(webrtc::FecControllerPlrBased::Config const\u0026) in libaudio_network_adaptor.a(fec_controller_plr_based.o)\n\nAny opinions on this? Is this the right way of solving this issue or should we change the field_trial API in order to avoid webrtc::field_trial::InitFieldTrialsFromString?",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 62
+      },
+      "revId": "847a9c70c2f952470a418e5b0eee30f91046d151",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

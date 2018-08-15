@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "6c95f81e_0374d097",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2018-08-15T07:58:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2ec796a0_c6903860",
+      "revId": "b0aa31b7527b0367e6948558e7b794b8836829be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa87c717_10f61132",
         "filename": "video/send_statistics_proxy.cc",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "b0aa31b7527b0367e6948558e7b794b8836829be",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20ab20b6_36268c27",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2018-08-15T07:58:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa87c717_10f61132",
+      "revId": "b0aa31b7527b0367e6948558e7b794b8836829be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "35fa2302_75e8d986",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2018-08-15T07:58:36Z",
+      "side": 1,
+      "message": "Updated comment.",
+      "parentUuid": "4f122199_1da27eba",
+      "revId": "b0aa31b7527b0367e6948558e7b794b8836829be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d6191ff0_5f6d0968",
         "filename": "video/send_statistics_proxy.cc",
         "patchSetId": 1
@@ -64,6 +118,24 @@
       "writtenOn": "2018-08-14T14:51:26Z",
       "side": 1,
       "message": "[question] Why clearing instead of processing these \u0027old enough\u0027 frames, like in RemoveOld?",
+      "revId": "b0aa31b7527b0367e6948558e7b794b8836829be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "daf15820_182a0c63",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2018-08-15T07:58:36Z",
+      "side": 1,
+      "message": "We will not know if the remaining frames are complete (all layers received) so the stats for these frames might be incorrect. The stats that are update in RemoveOld are an average over all frames over a call and reported at the end. So potentially skipping some frames should not affect too much. The sent fps stats (used by GetStats) should not be affected.",
+      "parentUuid": "d6191ff0_5f6d0968",
       "revId": "b0aa31b7527b0367e6948558e7b794b8836829be",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

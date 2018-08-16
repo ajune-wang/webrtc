@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "91c306a2_4957c486",
+        "filename": "api/test/simulated_network.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2018-08-16T09:43:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0dd16edd_a5c277e0",
+      "range": {
+        "startLine": 45,
+        "startChar": 34,
+        "endLine": 45,
+        "endChar": 46
+      },
+      "revId": "282083088e1a69fc189157ae12d3b16f14ec4ab9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2b6bcc9a_764203f2",
         "filename": "api/test/simulated_network.h",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "282083088e1a69fc189157ae12d3b16f14ec4ab9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "585895d8_50a9f52e",
+        "filename": "api/test/simulated_network.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2018-08-16T09:43:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2b6bcc9a_764203f2",
+      "range": {
+        "startLine": 46,
+        "startChar": 45,
+        "endLine": 47,
+        "endChar": 28
+      },
+      "revId": "282083088e1a69fc189157ae12d3b16f14ec4ab9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

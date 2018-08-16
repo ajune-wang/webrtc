@@ -18,6 +18,7 @@
 #include <vector>
 
 #include "absl/memory/memory.h"
+#include "absl/strings/str_cat.h"
 #include "api/jsepicecandidate.h"
 #include "api/jsepsessiondescription.h"
 #include "api/mediaconstraintsinterface.h"
@@ -593,10 +594,9 @@ bool CheckForRemoteIceRestart(const SessionDescriptionInterface* old_desc,
 std::string GetSetDescriptionErrorMessage(cricket::ContentSource source,
                                           SdpType type,
                                           const RTCError& error) {
-  std::ostringstream oss;
-  oss << "Failed to set " << (source == cricket::CS_LOCAL ? "local" : "remote")
-      << " " << SdpTypeToString(type) << " sdp: " << error.message();
-  return oss.str();
+  return absl::StrCat("Failed to set ",
+                      (source == cricket::CS_LOCAL ? "local" : "remote"), " ",
+                      SdpTypeToString(type), " sdp: ", error.message());
 }
 
 std::string GetStreamIdsString(rtc::ArrayView<const std::string> stream_ids) {
@@ -5915,10 +5915,8 @@ const char* PeerConnection::SessionErrorToString(SessionError error) const {
 }
 
 std::string PeerConnection::GetSessionErrorMsg() {
-  std::ostringstream desc;
-  desc << kSessionError << SessionErrorToString(session_error()) << ". ";
-  desc << kSessionErrorDesc << session_error_desc() << ".";
-  return desc.str();
+  return absl::StrCat(kSessionError, SessionErrorToString(session_error()),
+                      ". ", kSessionErrorDesc, session_error_desc(), ".");
 }
 
 void PeerConnection::ReportSdpFormatReceived(

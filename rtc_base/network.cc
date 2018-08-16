@@ -34,6 +34,7 @@
 #include <algorithm>
 #include <memory>
 
+#include "absl/strings/str_cat.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/networkmonitor.h"
@@ -181,9 +182,7 @@ const int kPublicPort = 53;  // DNS port.
 std::string MakeNetworkKey(const std::string& name,
                            const IPAddress& prefix,
                            int prefix_length) {
-  std::ostringstream ost;
-  ost << name << "%" << prefix.ToString() << "/" << prefix_length;
-  return ost.str();
+  return absl::StrCat(name, "%", prefix.ToString(), "/", prefix_length);
 }
 // Test if the network name matches the type<number> pattern, e.g. eth0. The
 // matching is case-sensitive.
@@ -1057,17 +1056,17 @@ uint16_t Network::GetCost() const {
 }
 
 std::string Network::ToString() const {
-  std::stringstream ss;
   // Print out the first space-terminated token of the network desc, plus
   // the IP address.
-  ss << "Net[" << description_.substr(0, description_.find(' ')) << ":"
-     << prefix_.ToSensitiveString() << "/" << prefix_length_ << ":"
-     << AdapterTypeToString(type_);
+  std::string s =
+      absl::StrCat("Net[", description_.substr(0, description_.find(' ')), ":",
+                   prefix_.ToSensitiveString(), "/", prefix_length_, ":",
+                   AdapterTypeToString(type_));
   if (IsVpn()) {
-    ss << "/" << AdapterTypeToString(underlying_type_for_vpn_);
+    absl::StrAppend(&s, "/", AdapterTypeToString(underlying_type_for_vpn_));
   }
-  ss << ":id=" << id_ << "]";
-  return ss.str();
+  absl::StrAppend(&s, ":id=", id_, "]");
+  return s;
 }
 
 }  // namespace rtc

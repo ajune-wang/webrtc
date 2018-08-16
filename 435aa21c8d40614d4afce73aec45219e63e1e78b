@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "32b39a97_8db66f7e",
+        "filename": "sdk/objc/Framework/Classes/Common/RTCFieldTrials.mm",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2018-08-16T13:42:15Z",
+      "side": 1,
+      "message": "[question] Is it still useful if an external FindFullName is provided?\n(see also remark below)",
+      "revId": "435aa21c8d40614d4afce73aec45219e63e1e78b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ff36376d_1b3e87e1",
+        "filename": "system_wrappers/source/field_trial_default.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2018-08-16T13:42:15Z",
+      "side": 1,
+      "message": "If these setter+getter are expected even for non default, it think it\u0027s confusing to let them sit here, maybe they could be moved in system_wrappers/source/field_trial.cc (ditto for respective .h)\n\nThen, you would have another option instead of macros: either add the field_trial_default.cc or not in your build target.",
+      "revId": "435aa21c8d40614d4afce73aec45219e63e1e78b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "08393ed3_3dd50f9e",
         "filename": "webrtc.gni",
         "patchSetId": 3

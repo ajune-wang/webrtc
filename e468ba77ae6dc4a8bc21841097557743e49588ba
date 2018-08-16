@@ -16,6 +16,24 @@
       "revId": "e468ba77ae6dc4a8bc21841097557743e49588ba",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38860b2c_ce488107",
+        "filename": "modules/video_coding/decoder_database.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-08-16T12:35:35Z",
+      "side": 0,
+      "message": "This basically should never happen, and is also IMO an error.\n\nThe way this should work is that any codec that is not \"known\" to WebRTC should be treated as a generic codec, not rejected.",
+      "parentUuid": "b4d7c297_4291c5a2",
+      "revId": "e468ba77ae6dc4a8bc21841097557743e49588ba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -506,4 +506,22 @@ TEST(RtpPacketTest, ParseLegacyTimingFrameExtension) {
   EXPECT_EQ(receivied_timing.flags, 0);
 }
 
+TEST(RtpPacketTest, CreateAndParseHdrExtension) {
+  const std::string kValue = "temp_data";
+  RtpPacket::ExtensionManager extensions;
+  extensions.Register<RtpHdrSignaling>(1);
+
+  RtpPacket packet(&extensions);
+  EXPECT_TRUE(packet.SetExtension<RtpHdrSignaling>(kValue));
+
+  packet.SetPayloadSize(42);
+
+  // Read packet with the extension.
+  RtpPacketReceived parsed(&extensions);
+  EXPECT_TRUE(parsed.Parse(packet.Buffer()));
+  std::string read;
+  EXPECT_TRUE(parsed.GetExtension<RtpHdrSignaling>(&read));
+  EXPECT_EQ(read, kValue);
+}
+
 }  // namespace webrtc

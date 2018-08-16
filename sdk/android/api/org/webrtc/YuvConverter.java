@@ -47,11 +47,18 @@ public class YuvConverter {
 
   private static class ShaderCallbacks implements GlGenericDrawer.ShaderCallbacks {
     // Y'UV444 to RGB888, see https://en.wikipedia.org/wiki/YUV#Y.27UV444_to_RGB888_conversion. We
-    // use the ITU-R coefficients for U and V.
-    private static final float[] yCoeffs = new float[] {0.2987856f, 0.5871095f, 0.1141049f, 0.0f};
+    // use the ITU-R BT.601 coefficients for Y, U and V.
+    // To map the Y-values to range [16-235] and U- and V-values to range [16-240], the matrix has
+    // been multiplied with matrix:
+    // {{220 / 256, 0, 0, 16 / 256},
+    // {0, 225 / 256, 0, 16 / 256},
+    // {0, 0, 225 / 256, 16 / 256},
+    // {0, 0, 0, 1}}
+    private static final float[] yCoeffs = new float[] {0.256953f, 0.504453f, 0.0979688f, 0.0625f};
     private static final float[] uCoeffs =
-        new float[] {-0.168805420f, -0.3317003f, 0.5005057f, 0.5f};
-    private static final float[] vCoeffs = new float[] {0.4997964f, -0.4184672f, -0.0813292f, 0.5f};
+        new float[] {-0.129313f, -0.253881f, 0.383203f, 0.501953f};
+    private static final float[] vCoeffs =
+        new float[] {0.540527f, -0.452628f, -0.0878994f, 0.501953f};
 
     private int xUnitLoc;
     private int coeffsLoc;

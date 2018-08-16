@@ -400,4 +400,7 @@ constexpr const char RepairedRtpStreamId::kUri[];
 constexpr RTPExtensionType RtpMid::kId;
 constexpr const char RtpMid::kUri[];
 
+constexpr RTPExtensionType RtpHdrSignaling::kId;
+constexpr const char RtpHdrSignaling::kUri[];
+
 }  // namespace webrtc

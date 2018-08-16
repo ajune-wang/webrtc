@@ -471,6 +471,10 @@ void RtpHeaderParser::ParseOneByteExtensionHeader(
           RTC_LOG(WARNING)
               << "RtpGenericFrameDescriptor unsupported by rtp header parser.";
           break;
+        case kRtpExtensionHdrSignaling:
+          header->extension.hdrSignaling.emplace(
+              rtc::MakeArrayView(reinterpret_cast<const char*>(ptr), len + 1));
+          break;
         case kRtpExtensionNone:
         case kRtpExtensionNumberOfExtensions: {
           RTC_NOTREACHED() << "Invalid extension type: " << type;

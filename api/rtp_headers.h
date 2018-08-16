@@ -84,6 +84,9 @@ typedef StringRtpHeaderExtension StreamId;
 // Mid represents RtpMid which is a string.
 typedef StringRtpHeaderExtension Mid;
 
+// HdrSignaling represents RtpHdrSignaling which is a string.
+typedef StringRtpHeaderExtension HdrSignaling;
+
 struct RTPHeaderExtension {
   RTPHeaderExtension();
   RTPHeaderExtension(const RTPHeaderExtension& other);
@@ -127,6 +130,8 @@ struct RTPHeaderExtension {
   // For identifying the media section used to interpret this RTP packet. See
   // https://tools.ietf.org/html/draft-ietf-mmusic-sdp-bundle-negotiation-38
   Mid mid;
+
+  absl::optional<HdrSignaling> hdrSignaling;
 };
 
 struct RTPHeader {

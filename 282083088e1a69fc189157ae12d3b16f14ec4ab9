@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0dd16edd_a5c277e0",
+        "filename": "api/test/simulated_network.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-08-16T09:38:47Z",
+      "side": 1,
+      "message": "is a default network simulation configuration",
+      "range": {
+        "startLine": 45,
+        "startChar": 34,
+        "endLine": 45,
+        "endChar": 46
+      },
+      "revId": "282083088e1a69fc189157ae12d3b16f14ec4ab9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b6bcc9a_764203f2",
+        "filename": "api/test/simulated_network.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-08-16T09:38:47Z",
+      "side": 1,
+      "message": "no custom NetworkSimulationInterface is provided",
+      "range": {
+        "startLine": 46,
+        "startChar": 45,
+        "endLine": 47,
+        "endChar": 28
+      },
+      "revId": "282083088e1a69fc189157ae12d3b16f14ec4ab9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

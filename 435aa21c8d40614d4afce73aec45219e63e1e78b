@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "08393ed3_3dd50f9e",
+        "filename": "webrtc.gni",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-16T09:24:44Z",
+      "side": 1,
+      "message": "Should there be documentation for this one in native-api.md?",
+      "range": {
+        "startLine": 34,
+        "startChar": 38,
+        "endLine": 34,
+        "endChar": 72
+      },
+      "revId": "435aa21c8d40614d4afce73aec45219e63e1e78b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

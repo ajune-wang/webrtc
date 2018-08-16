@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a06aaacc_cb9748dc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 7296
+      },
+      "writtenOn": "2018-08-16T14:08:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0a3ff8ae_4420eb1d",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 67
+      },
+      "revId": "526f71adb92554e8f44c29ca5dcf4c2a48cd3aa1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "534f5006_065d01ed",
         "filename": "/COMMIT_MSG",
         "patchSetId": 10
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "5b173932_b20ac775",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 7296
+      },
+      "writtenOn": "2018-08-16T14:08:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "534f5006_065d01ed",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 158
+      },
+      "revId": "526f71adb92554e8f44c29ca5dcf4c2a48cd3aa1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f89e5e84_b5a31b68",
         "filename": "modules/congestion_controller/pcc/monitor_interval.cc",
         "patchSetId": 10
@@ -59,6 +107,30 @@
       "writtenOn": "2018-07-31T13:01:07Z",
       "side": 1,
       "message": "Is it intended behavior that we should be able to copy this class? Otherwise declare this as deleted in the header file.",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 73
+      },
+      "revId": "526f71adb92554e8f44c29ca5dcf4c2a48cd3aa1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5fed5d81_bc209278",
+        "filename": "modules/congestion_controller/pcc/monitor_interval.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 7296
+      },
+      "writtenOn": "2018-08-16T14:08:45Z",
+      "side": 1,
+      "message": "Yes, I need it to be able to store the vector of monitor intervals.",
+      "parentUuid": "f89e5e84_b5a31b68",
       "range": {
         "startLine": 28,
         "startChar": 0,

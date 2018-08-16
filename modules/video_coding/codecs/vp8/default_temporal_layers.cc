@@ -13,6 +13,7 @@
 #include <string.h>
 
 #include <algorithm>
+#include <array>
 #include <memory>
 #include <set>
 #include <utility>
@@ -60,7 +61,7 @@ TemporalLayers::FrameConfig::FrameConfig(TemporalLayers::BufferFlags last,
 namespace {
 static constexpr uint8_t kUninitializedPatternIndex =
     std::numeric_limits<uint8_t>::max();
-static const std::set<Vp8BufferReference> kAllBuffers = {
+static constexpr std::array<Vp8BufferReference, 3> kAllBuffers = {
     Vp8BufferReference::kLast, Vp8BufferReference::kGolden,
     Vp8BufferReference::kAltref};
 
@@ -113,7 +114,8 @@ uint8_t GetUpdatedBuffers(const TemporalLayers::FrameConfig& config) {
 // Find the set of buffers that are never updated by the given pattern.
 std::set<Vp8BufferReference> FindKfBuffers(
     const std::vector<TemporalLayers::FrameConfig>& frame_configs) {
-  std::set<Vp8BufferReference> kf_buffers = kAllBuffers;
+  std::set<Vp8BufferReference> kf_buffers(kAllBuffers.begin(),
+                                          kAllBuffers.end());
   for (TemporalLayers::FrameConfig config : frame_configs) {
     // Get bit-masked set of update buffers for this frame config.
     uint8_t updated_buffers = GetUpdatedBuffers(config);

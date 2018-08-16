@@ -1,0 +1,369 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2a79a2b3_f7d304b9",
+        "filename": "api/test/videocodec_test_stats.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-16T11:20:16Z",
+      "side": 1,
+      "message": "Why not fix the things in this file too?",
+      "revId": "7ac5e0dbf57e50339635c49886f5cb058edb5681",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a04d03dc_e6ca18cc",
+        "filename": "examples/stunprober/main.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-16T11:20:16Z",
+      "side": 1,
+      "message": "What\u0027s this needed for?",
+      "revId": "7ac5e0dbf57e50339635c49886f5cb058edb5681",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6518bc32_0b338857",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-16T11:20:16Z",
+      "side": 1,
+      "message": "What\u0027s this needed for?",
+      "revId": "7ac5e0dbf57e50339635c49886f5cb058edb5681",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1092fc9_6db52024",
+        "filename": "media/base/mediachannel.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-16T11:20:16Z",
+      "side": 1,
+      "message": "`val` is always true here.",
+      "range": {
+        "startLine": 70,
+        "startChar": 34,
+        "endLine": 70,
+        "endChar": 37
+      },
+      "revId": "7ac5e0dbf57e50339635c49886f5cb058edb5681",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d6a17ca_c90a4ce7",
+        "filename": "media/base/mediachannel.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 599,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-16T11:20:16Z",
+      "side": 1,
+      "message": "StrJoin?",
+      "revId": "7ac5e0dbf57e50339635c49886f5cb058edb5681",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30afb99e_27601e2e",
+        "filename": "media/engine/webrtcvideoengine.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-16T11:20:16Z",
+      "side": 1,
+      "message": "StrJoin?",
+      "revId": "7ac5e0dbf57e50339635c49886f5cb058edb5681",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aac049a7_b1319443",
+        "filename": "media/engine/webrtcvideoengine.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1031,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-16T11:20:16Z",
+      "side": 1,
+      "message": "StrJoin?",
+      "revId": "7ac5e0dbf57e50339635c49886f5cb058edb5681",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e1d37e1_287875be",
+        "filename": "modules/audio_processing/gain_controller2.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-16T11:20:16Z",
+      "side": 1,
+      "message": "I don\u0027t think you need the parentheses anymore---the commas that separate function arguments have really low precedence.",
+      "range": {
+        "startLine": 70,
+        "startChar": 36,
+        "endLine": 70,
+        "endChar": 37
+      },
+      "revId": "7ac5e0dbf57e50339635c49886f5cb058edb5681",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6df23d71_e1e05b60",
+        "filename": "ortc/ortcfactory.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-16T11:20:16Z",
+      "side": 1,
+      "message": "Why not StrCat?",
+      "revId": "7ac5e0dbf57e50339635c49886f5cb058edb5681",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4cea1fae_fc4102e8",
+        "filename": "ortc/ortcfactory.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-16T11:20:16Z",
+      "side": 1,
+      "message": "Ah, is it because UdpTransport takes const char* instead of std::string? Well, if it genuinely doesn\u0027t want to take ownership of a std::string, SimpleStringBuilder is better.",
+      "range": {
+        "startLine": 471,
+        "startChar": 36,
+        "endLine": 471,
+        "endChar": 44
+      },
+      "revId": "7ac5e0dbf57e50339635c49886f5cb058edb5681",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38eb8966_decd978a",
+        "filename": "ortc/rtptransportcontrolleradapter.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-16T11:20:16Z",
+      "side": 1,
+      "message": "I would argue that the code becomes more readable if you remove this, and put three copies of it below right next to where you use it. More LOCs, but less action-at-a-distance.",
+      "revId": "7ac5e0dbf57e50339635c49886f5cb058edb5681",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "009e6cb8_a0ce6add",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-16T11:20:16Z",
+      "side": 1,
+      "message": "You don\u0027t save the string here. Should it be SimpleStringBuilder instead?",
+      "revId": "7ac5e0dbf57e50339635c49886f5cb058edb5681",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "befd9386_bb9eef93",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1382,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-16T11:20:16Z",
+      "side": 1,
+      "message": "StrJoin would seem like a better choice here, since you want a std::string in the end.",
+      "revId": "7ac5e0dbf57e50339635c49886f5cb058edb5681",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5755c19b_fdf28ed3",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1557,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-16T11:20:16Z",
+      "side": 1,
+      "message": "It may be unnecessarily costly to use std::string here instead of const char*.",
+      "range": {
+        "startLine": 1557,
+        "startChar": 8,
+        "endLine": 1557,
+        "endChar": 19
+      },
+      "revId": "7ac5e0dbf57e50339635c49886f5cb058edb5681",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9cea1bff_5f656235",
+        "filename": "rtc_base/sslidentity.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-16T11:20:16Z",
+      "side": 1,
+      "message": "StrCat?",
+      "range": {
+        "startLine": 122,
+        "startChar": 8,
+        "endLine": 122,
+        "endChar": 17
+      },
+      "revId": "7ac5e0dbf57e50339635c49886f5cb058edb5681",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ff68485_10646746",
+        "filename": "rtc_base/sslidentity.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-16T11:20:16Z",
+      "side": 1,
+      "message": "StrJoin?",
+      "revId": "7ac5e0dbf57e50339635c49886f5cb058edb5681",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e725694b_ce71c07b",
+        "filename": "stats/BUILD.gn",
+        "patchSetId": 10
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-16T11:20:16Z",
+      "side": 1,
+      "message": "You don\u0027t need the :strings suffix. The default is for the build target name to be the same as the directory name.",
+      "range": {
+        "startLine": 29,
+        "startChar": 42,
+        "endLine": 29,
+        "endChar": 50
+      },
+      "revId": "7ac5e0dbf57e50339635c49886f5cb058edb5681",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57ecbd98_513f7262",
+        "filename": "stats/rtcstats.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-16T11:20:16Z",
+      "side": 1,
+      "message": "sizeof(buf)? That way, you won\u0027t have to name the length.",
+      "range": {
+        "startLine": 56,
+        "startChar": 16,
+        "endLine": 56,
+        "endChar": 29
+      },
+      "revId": "7ac5e0dbf57e50339635c49886f5cb058edb5681",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c9c31d8_c23f0dd5",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-16T11:20:16Z",
+      "side": 1,
+      "message": "This looks like a job for SimpleStringBuilder, since the log statement just wants to look at the string, not take ownership of it.",
+      "revId": "7ac5e0dbf57e50339635c49886f5cb058edb5681",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -22,6 +22,30 @@
       "revId": "3e18c828205fccf0c74b4aa6b81cbdb892113b54",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "acc67b56_d0865843",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2018-08-16T13:45:49Z",
+      "side": 1,
+      "message": "Is there some other way to make sure that the overloads are only available in tests?\n\nThe only thing we should be using them for is pretty printing in gtest\u0027s EXPECT_EQ macros (and similar), so if they\u0027re missing it should only result in uglier test output. The tests should still work without the \u003c\u003c overloads.",
+      "parentUuid": "81bf2832_b45fc3df",
+      "range": {
+        "startLine": 20,
+        "startChar": 49,
+        "endLine": 20,
+        "endChar": 58
+      },
+      "revId": "3e18c828205fccf0c74b4aa6b81cbdb892113b54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

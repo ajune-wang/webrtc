@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "81bf2832_b45fc3df",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2018-08-16T12:56:20Z",
+      "side": 1,
+      "message": "I\u0027ve just looked at the GN magic that propagates UNIT_TEST to targets, and with the messy way that we\u0027re depending on gtest, it\u0027s as good as random whether this macro will be available in a given target.\n\nE.g.\n  gn desc out/something //api/video/test:rtc_api_video_unittests | grep UNIT_TEST  # not found\n\nSo I think its usage should be removed as soon as possible.",
+      "range": {
+        "startLine": 20,
+        "startChar": 49,
+        "endLine": 20,
+        "endChar": 58
+      },
+      "revId": "3e18c828205fccf0c74b4aa6b81cbdb892113b54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

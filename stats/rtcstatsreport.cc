@@ -10,7 +10,7 @@
 
 #include "api/stats/rtcstatsreport.h"
 
-#include <sstream>
+#include "absl/strings/str_cat.h"
 
 namespace webrtc {
 
@@ -115,16 +115,16 @@ RTCStatsReport::ConstIterator RTCStatsReport::end() const {
 }
 
 std::string RTCStatsReport::ToJson() const {
-  std::ostringstream oss;
+  std::string s;
   ConstIterator it = begin();
   if (it != end()) {
-    oss << '[' << it->ToJson();
+    absl::StrAppend(&s, "[", it->ToJson());
     for (++it; it != end(); ++it) {
-      oss << "," << it->ToJson();
+      absl::StrAppend(&s, ",", it->ToJson());
     }
-    oss << ']';
+    absl::StrAppend(&s, "]");
   }
-  return oss.str();
+  return s;
 }
 
 }  // namespace webrtc

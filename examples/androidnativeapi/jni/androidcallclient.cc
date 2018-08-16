@@ -160,13 +160,13 @@ void AndroidCallClient::CreatePeerConnectionFactory() {
           absl::make_unique<webrtc::InternalEncoderFactory>(),
           absl::make_unique<webrtc::InternalDecoderFactory>(),
           nullptr /* audio_mixer */, webrtc::AudioProcessingBuilder().Create());
-  RTC_LOG(LS_INFO) << "Media engine created: " << media_engine.get();
+  RTC_LOG(LS_INFO) << "Media engine created";
 
   pcf_ = CreateModularPeerConnectionFactory(
       network_thread_.get(), worker_thread_.get(), signaling_thread_.get(),
       std::move(media_engine), webrtc::CreateCallFactory(),
       webrtc::CreateRtcEventLogFactory());
-  RTC_LOG(LS_INFO) << "PeerConnectionFactory created: " << pcf_;
+  RTC_LOG(LS_INFO) << "PeerConnectionFactory created";
 }
 
 void AndroidCallClient::CreatePeerConnection() {
@@ -178,13 +178,13 @@ void AndroidCallClient::CreatePeerConnection() {
   pc_ = pcf_->CreatePeerConnection(config, nullptr /* port_allocator */,
                                    nullptr /* cert_generator */,
                                    pc_observer_.get());
-  RTC_LOG(LS_INFO) << "PeerConnection created: " << pc_;
+  RTC_LOG(LS_INFO) << "PeerConnection created";
 
   rtc::scoped_refptr<webrtc::VideoTrackInterface> local_video_track =
       pcf_->CreateVideoTrack("video", video_source_);
   local_video_track->AddOrUpdateSink(local_sink_.get(), rtc::VideoSinkWants());
   pc_->AddTransceiver(local_video_track);
-  RTC_LOG(LS_INFO) << "Local video sink set up: " << local_video_track;
+  RTC_LOG(LS_INFO) << "Local video sink set up";
 
   for (const rtc::scoped_refptr<webrtc::RtpTransceiverInterface>& tranceiver :
        pc_->GetTransceivers()) {
@@ -194,7 +194,7 @@ void AndroidCallClient::CreatePeerConnection() {
         track->kind() == webrtc::MediaStreamTrackInterface::kVideoKind) {
       static_cast<webrtc::VideoTrackInterface*>(track.get())
           ->AddOrUpdateSink(remote_sink_.get(), rtc::VideoSinkWants());
-      RTC_LOG(LS_INFO) << "Remote video sink set up: " << track;
+      RTC_LOG(LS_INFO) << "Remote video sink set up";
       break;
     }
   }

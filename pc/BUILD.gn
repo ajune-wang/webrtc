@@ -87,6 +87,7 @@ rtc_static_library("rtc_pc_base") {
     "../rtc_base/third_party/sigslot",
     "../system_wrappers:metrics_api",
     "//third_party/abseil-cpp/absl/memory",
+    "//third_party/abseil-cpp/absl/strings:strings",
     "//third_party/abseil-cpp/absl/types:optional",
   ]
 
@@ -210,6 +211,7 @@ rtc_static_library("peerconnection") {
     "../system_wrappers:field_trial_api",
     "../system_wrappers:metrics_api",
     "//third_party/abseil-cpp/absl/memory",
+    "//third_party/abseil-cpp/absl/strings:strings",
     "//third_party/abseil-cpp/absl/types:optional",
   ]
 }

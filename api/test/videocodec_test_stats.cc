@@ -9,6 +9,7 @@
  */
 
 #include "api/test/videocodec_test_stats.h"
+#include <sstream>  // no-presubmit-check TODO(webrtc:8982)
 
 namespace webrtc {
 namespace test {

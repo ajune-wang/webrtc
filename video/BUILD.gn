@@ -82,6 +82,7 @@ rtc_static_library("video") {
     "../system_wrappers:field_trial_api",
     "../system_wrappers:metrics_api",
     "//third_party/abseil-cpp/absl/memory",
+    "//third_party/abseil-cpp/absl/strings:strings",
     "//third_party/abseil-cpp/absl/types:optional",
 
     # For RtxReceiveStream.

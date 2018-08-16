@@ -14,6 +14,7 @@
 #include <utility>
 
 #include "absl/memory/memory.h"
+#include "absl/strings/str_cat.h"
 #include "p2p/base/asyncstuntcpsocket.h"
 #include "p2p/base/packetsocketfactory.h"
 #include "p2p/base/stun.h"
@@ -597,9 +598,8 @@ std::string TurnServerConnection::ToString() const {
   const char* const kProtos[] = {
       "unknown", "udp", "tcp", "ssltcp"
   };
-  std::ostringstream ost;
-  ost << src_.ToString() << "-" << dst_.ToString() << ":"<< kProtos[proto_];
-  return ost.str();
+  return absl::StrCat(src_.ToString(), "-", dst_.ToString(), ":",
+                      kProtos[proto_]);
 }
 
 TurnServerAllocation::TurnServerAllocation(TurnServer* server,
@@ -630,9 +630,7 @@ TurnServerAllocation::~TurnServerAllocation() {
 }
 
 std::string TurnServerAllocation::ToString() const {
-  std::ostringstream ost;
-  ost << "Alloc[" << conn_.ToString() << "]";
-  return ost.str();
+  return absl::StrCat("Alloc[", conn_.ToString() < "]");
 }
 
 void TurnServerAllocation::HandleTurnMessage(const TurnMessage* msg) {

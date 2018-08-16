@@ -69,6 +69,30 @@
       "revId": "81e45e024fc8fdb503e2f8eabdb2fba007addef7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d01c217_f5d0b456",
+        "filename": "call/fake_network_pipe.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2018-08-16T15:03:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8313b422_580d56a1",
+      "range": {
+        "startLine": 115,
+        "startChar": 5,
+        "endLine": 115,
+        "endChar": 31
+      },
+      "revId": "81e45e024fc8fdb503e2f8eabdb2fba007addef7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

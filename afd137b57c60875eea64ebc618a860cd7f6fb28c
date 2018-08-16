@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cc28a2bd_e02aee5a",
+        "filename": "common_types.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-16T10:41:11Z",
+      "side": 1,
+      "message": "I wonder if anything breaks of you add \u003d kVideoCodecGeneric here, making it an alias rather than a distinct value?",
+      "range": {
+        "startLine": 350,
+        "startChar": 2,
+        "endLine": 350,
+        "endChar": 20
+      },
+      "revId": "afd137b57c60875eea64ebc618a860cd7f6fb28c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

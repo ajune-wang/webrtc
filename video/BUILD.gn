@@ -82,6 +82,7 @@ rtc_static_library("video") {
     "../system_wrappers:field_trial_api",
     "../system_wrappers:metrics_api",
     "//third_party/abseil-cpp/absl/memory",
+    "//third_party/abseil-cpp/absl/strings:strings",
     "//third_party/abseil-cpp/absl/types:optional",
 
     # For RtxReceiveStream.
@@ -173,6 +174,7 @@ rtc_source_set("video_stream_encoder_impl") {
     "../rtc_base/experiments:quality_scaling_experiment",
     "../rtc_base/system:fallthrough",
     "../system_wrappers:field_trial_api",
+    "//third_party/abseil-cpp/absl/strings:strings",
     "//third_party/abseil-cpp/absl/types:optional",
   ]
 }

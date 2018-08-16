@@ -13,6 +13,7 @@
 #include <utility>
 #include <vector>
 
+#include "absl/strings/str_cat.h"
 #include "p2p/base/p2pconstants.h"
 #include "p2p/base/portallocator.h"
 #include "p2p/base/stun.h"
@@ -474,12 +475,12 @@ void UDPPort::OnStunBindingRequestSucceeded(
           rtc::EmptySocketAddressWithFamily(related_address.family());
     }
 
-    std::ostringstream url;
-    url << "stun:" << stun_server_addr.ipaddr().ToString() << ":"
-        << stun_server_addr.port();
+    std::string url =
+        absl::StrCat("stun:", stun_server_addr.ipaddr().ToString(), ":",
+                     stun_server_addr.port());
     AddAddress(stun_reflected_addr, socket_->GetLocalAddress(), related_address,
                UDP_PROTOCOL_NAME, "", "", STUN_PORT_TYPE,
-               ICE_TYPE_PREFERENCE_SRFLX, 0, url.str(), false);
+               ICE_TYPE_PREFERENCE_SRFLX, 0, url, false);
   }
   MaybeSetPortCompleteOrError();
 }

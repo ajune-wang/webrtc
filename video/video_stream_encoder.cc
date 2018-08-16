@@ -15,6 +15,7 @@
 #include <numeric>
 #include <utility>
 
+#include "absl/strings/str_cat.h"
 #include "api/video/i420_buffer.h"
 #include "common_video/include/video_frame.h"
 #include "modules/video_coding/include/video_codec_initializer.h"
@@ -1213,10 +1214,8 @@ VideoStreamEncoder::AdaptCounter::AdaptCounter() {
 VideoStreamEncoder::AdaptCounter::~AdaptCounter() {}
 
 std::string VideoStreamEncoder::AdaptCounter::ToString() const {
-  std::stringstream ss;
-  ss << "Downgrade counts: fps: {" << ToString(fps_counters_);
-  ss << "}, resolution: {" << ToString(resolution_counters_) << "}";
-  return ss.str();
+  return absl::StrCat("Downgrade counts: fps: {", ToString(fps_counters_),
+                      "}, resolution: {", ToString(resolution_counters_), "}");
 }
 
 VideoStreamEncoderObserver::AdaptationSteps
@@ -1306,11 +1305,11 @@ void VideoStreamEncoder::AdaptCounter::MoveCount(std::vector<int>* counters,
 
 std::string VideoStreamEncoder::AdaptCounter::ToString(
     const std::vector<int>& counters) const {
-  std::stringstream ss;
+  std::string s;
   for (size_t reason = 0; reason < kScaleReasonSize; ++reason) {
-    ss << (reason ? " cpu" : "quality") << ":" << counters[reason];
+    absl::StrAppend(&s, (reason ? " cpu" : "quality"), ":", counters[reason]);
   }
-  return ss.str();
+  return s;
 }
 
 }  // namespace webrtc

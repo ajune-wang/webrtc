@@ -25,6 +25,7 @@
 
 #include <algorithm>
 
+#include "absl/strings/str_cat.h"
 #include "rtc_base/bytebuffer.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/httpcommon.h"
@@ -369,15 +370,17 @@ bool AsyncHttpsProxySocket::ShouldIssueConnect() const {
 }
 
 void AsyncHttpsProxySocket::SendRequest() {
-  std::stringstream ss;
-  ss << "CONNECT " << dest_.ToString() << " HTTP/1.0\r\n";
-  ss << "User-Agent: " << agent_ << "\r\n";
-  ss << "Host: " << dest_.HostAsURIString() << "\r\n";
-  ss << "Content-Length: 0\r\n";
-  ss << "Proxy-Connection: Keep-Alive\r\n";
-  ss << headers_;
-  ss << "\r\n";
-  std::string str = ss.str();
+  std::string str = absl::StrCat("CONNECT ", dest_.ToString(),
+                                 " HTTP/1.0\r\n"
+                                 "User-Agent: ",
+                                 agent_,
+                                 "\r\n"
+                                 "Host: ",
+                                 dest_.HostAsURIString(),
+                                 "\r\n"
+                                 "Content-Length: 0\r\n"
+                                 "Proxy-Connection: Keep-Alive\r\n",
+                                 headers_, "\r\n");
   DirectSend(str.c_str(), str.size());
   state_ = PS_LEADER;
   expect_close_ = true;

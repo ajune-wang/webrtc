@@ -46,6 +46,30 @@
       "revId": "e477b81aa9b12781c53468d67077547346d89f86",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "495500a9_693f6c48",
+        "filename": "test/call_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-08-17T14:09:50Z",
+      "side": 1,
+      "message": "Ok, you probably want to make sure that the change does not affect existing tests extending CallTest. It\u0027s probably easier to make sure that you have to opt in to the new behavior.",
+      "parentUuid": "dcbefa28_d43a172c",
+      "range": {
+        "startLine": 312,
+        "startChar": 64,
+        "endLine": 312,
+        "endChar": 68
+      },
+      "revId": "e477b81aa9b12781c53468d67077547346d89f86",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

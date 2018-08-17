@@ -178,6 +178,24 @@
     },
     {
       "key": {
+        "uuid": "007c7a76_6927c148",
+        "filename": "modules/congestion_controller/pcc/monitor_interval.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2018-08-17T13:38:42Z",
+      "side": 1,
+      "message": "That\u0027s very clear, you should add that as a comment :)",
+      "parentUuid": "45d0b84a_898f0e16",
+      "revId": "526f71adb92554e8f44c29ca5dcf4c2a48cd3aa1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4706e04a_36b2af6a",
         "filename": "modules/congestion_controller/pcc/monitor_interval.cc",
         "patchSetId": 10
@@ -242,6 +260,24 @@
       "side": 1,
       "message": "There could be the case when there several packets were sent at the same time. Then there will be division by zero while computing the gradient. received_packets_sent_time_.front() \u003d\u003d received_packets_sent_time_.back()) checks it. (Assuming that the packets are ordered by the sent time).",
       "parentUuid": "62ea1fc6_48c8ab28",
+      "revId": "526f71adb92554e8f44c29ca5dcf4c2a48cd3aa1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e85c87db_8d05fc3d",
+        "filename": "modules/congestion_controller/pcc/monitor_interval.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2018-08-17T13:38:42Z",
+      "side": 1,
+      "message": "My bad! I\u0027ve read too fast and thought you were comparing iterators.\nYou could add a little comment e.g. \"// Early return to prevent division by 0 in case all packets are sent at the same time.\"\nEasily distracted people like me will appreciate!",
+      "parentUuid": "6b48e348_8aa04cf9",
       "revId": "526f71adb92554e8f44c29ca5dcf4c2a48cd3aa1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "60e88c6c_b9e1aade",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 726,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-08-17T11:22:26Z",
+      "side": 1,
+      "message": "Done, I also added a const bool member for this so we don\u0027t need to query quite as often.",
+      "parentUuid": "eb86bdeb_7f205590",
+      "range": {
+        "startLine": 726,
+        "startChar": 36,
+        "endLine": 726,
+        "endChar": 63
+      },
+      "revId": "7b29f1d8dd910ee33a479d3506480d7ab957799b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c4acb76f_f0c0c2aa",
         "filename": "modules/video_coding/codecs/vp8/test/vp8_impl_unittest.cc",
         "patchSetId": 3
@@ -95,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "74428fb6_172b4028",
+        "filename": "modules/video_coding/codecs/vp8/test/vp8_impl_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-08-17T11:22:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "653b2aaf_8c0f4387",
+      "range": {
+        "startLine": 358,
+        "startChar": 68,
+        "endLine": 358,
+        "endChar": 69
+      },
+      "revId": "7b29f1d8dd910ee33a479d3506480d7ab957799b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "24fd15de_205ff4c7",
         "filename": "modules/video_coding/codecs/vp8/test/vp8_impl_unittest.cc",
         "patchSetId": 3
@@ -118,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "1b6909fb_6e7aa9a9",
+        "filename": "modules/video_coding/codecs/vp8/test/vp8_impl_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-08-17T11:22:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "24fd15de_205ff4c7",
+      "range": {
+        "startLine": 359,
+        "startChar": 13,
+        "endLine": 359,
+        "endChar": 15
+      },
+      "revId": "7b29f1d8dd910ee33a479d3506480d7ab957799b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c0080581_f7f78a33",
         "filename": "modules/video_coding/codecs/vp8/test/vp8_impl_unittest.cc",
         "patchSetId": 3
@@ -138,6 +210,30 @@
       "revId": "7b29f1d8dd910ee33a479d3506480d7ab957799b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "641c2adf_85e76fce",
+        "filename": "modules/video_coding/codecs/vp8/test/vp8_impl_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-08-17T11:22:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c0080581_f7f78a33",
+      "range": {
+        "startLine": 362,
+        "startChar": 45,
+        "endLine": 362,
+        "endChar": 46
+      },
+      "revId": "7b29f1d8dd910ee33a479d3506480d7ab957799b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -15,6 +15,8 @@
 #include <utility>
 #include <vector>
 
+#include "api/video/i420_buffer.h"
+#include "rtc_tools/y4m_file_reader.h"
 #include "third_party/libyuv/include/libyuv/compare.h"
 #include "third_party/libyuv/include/libyuv/convert.h"
 
@@ -61,13 +63,23 @@ enum VideoAnalysisMetricsType { kPSNR, kSSIM };
 // problem with the decoding there would be 'Barcode error' instead of yyyy.
 // The stat files are used to compare the right frames with each other and
 // to calculate statistics.
-void RunAnalysis(const char* reference_file_name,
-                 const char* test_file_name,
+void RunAnalysis(const rtc::scoped_refptr<webrtc::test::Video>& reference_video,
+                 const rtc::scoped_refptr<webrtc::test::Video>& test_video,
                  const char* stats_file_reference_name,
                  const char* stats_file_test_name,
                  int width,
                  int height,
                  ResultsContainer* results);
+
+// Compute PSNR for an I420 buffer (all planes). The max return value (in the
+// case where the test and reference frames are exactly the same) will be 48.
+double Psnr(const rtc::scoped_refptr<I420BufferInterface>& ref_buffer,
+            const rtc::scoped_refptr<I420BufferInterface>& test_buffer);
+
+// Compute SSIM for an I420 buffer (all planes). The max return value (in the
+// case where the test and reference frames are exactly the same) will be 1.
+double Ssim(const rtc::scoped_refptr<I420BufferInterface>& ref_buffer,
+            const rtc::scoped_refptr<I420BufferInterface>& test_buffer);
 
 // Compute PSNR or SSIM for an I420 frame (all planes). When we are calculating
 // PSNR values, the max return value (in the case where the test and reference
@@ -128,21 +140,6 @@ bool IsThereBarcodeError(std::string line);
 // Extract the frame number in the reference video. I.e. if line is
 // frame_0023 0284, we will get 284.
 int ExtractDecodedFrameNumber(std::string line);
-
-// Extracts an I420 frame at position frame_number from the raw YUV file.
-bool ExtractFrameFromYuvFile(const char* i420_file_name,
-                             int width,
-                             int height,
-                             int frame_number,
-                             uint8_t* result_frame);
-
-// Extracts an I420 frame at position frame_number from the Y4M file. The first
-// frame has corresponded |frame_number| 0.
-bool ExtractFrameFromY4mFile(const char* i420_file_name,
-                             int width,
-                             int height,
-                             int frame_number,
-                             uint8_t* result_frame);
 
 }  // namespace test
 }  // namespace webrtc

@@ -16,6 +16,7 @@
 #include <string>
 
 #include "rtc_tools/frame_analyzer/video_quality_analysis.h"
+#include "rtc_tools/y4m_file_reader.h"
 #include "test/gtest.h"
 #include "test/testsupport/fileutils.h"
 
@@ -42,27 +43,34 @@ class VideoQualityAnalysisTest : public ::testing::Test {
 };
 
 TEST_F(VideoQualityAnalysisTest, MatchExtractedY4mFrame) {
-  std::string video_file =
-      webrtc::test::ResourcePath("reference_less_video_test_file", "y4m");
+  const rtc::scoped_refptr<Y4mFile> video =
+      Y4mFile::Open(ResourcePath("reference_less_video_test_file", "y4m"));
 
   std::string extracted_frame_from_video_file =
-      webrtc::test::ResourcePath("video_quality_analysis_frame", "txt");
+      ResourcePath("video_quality_analysis_frame", "txt");
 
   int frame_height = 720, frame_width = 1280;
   int frame_number = 2;
-  int size = GetI420FrameSize(frame_width, frame_height);
-  uint8_t* result_frame = new uint8_t[size];
+  int size = frame_width * frame_height * 3 / 2;
   uint8_t* expected_frame = new uint8_t[size];
 
   FILE* input_file = fopen(extracted_frame_from_video_file.c_str(), "rb");
   fread(expected_frame, 1, size, input_file);
 
-  ExtractFrameFromY4mFile(video_file.c_str(), frame_width, frame_height,
-                          frame_number, result_frame);
+  const rtc::scoped_refptr<webrtc::I420BufferInterface> result_frame =
+      video->GetFrame(frame_number);
 
-  EXPECT_EQ(*expected_frame, *result_frame);
+  // Compare Y plane.
+  EXPECT_EQ(0, memcmp(expected_frame, result_frame->DataY(),
+                      frame_width * frame_height));
+  // Compare U plane.
+  EXPECT_EQ(0, memcmp(expected_frame + frame_width * frame_height,
+                      result_frame->DataU(), frame_width * frame_height / 4));
+  // Compare V plane.
+  EXPECT_EQ(0, memcmp(expected_frame + frame_width * frame_height * 5 / 4,
+                      result_frame->DataV(), frame_width * frame_height / 4));
+
   fclose(input_file);
-  delete[] result_frame;
   delete[] expected_frame;
 }
 

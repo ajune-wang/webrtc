@@ -10,6 +10,8 @@
 
 #include "modules/audio_processing/echo_cancellation_proxy.h"
 
+#include "rtc_base/logging.h"
+
 namespace webrtc {
 
 EchoCancellationProxy::EchoCancellationProxy(
@@ -58,7 +60,15 @@ int EchoCancellationProxy::stream_drift_samples() const {
 
 int EchoCancellationProxy::set_suppression_level(
     EchoCancellation::SuppressionLevel level) {
-  return echo_cancellation_->set_suppression_level(level);
+  AudioProcessing::Config apm_config = audio_processing_->GetConfig();
+  if (level == EchoCancellation::SuppressionLevel::kLowSuppression) {
+    RTC_LOG(LS_ERROR)
+        << "Low AEC2 suppression not supported. Using moderate level instead.";
+  }
+  apm_config.echo_canceller.legacy_moderate_suppression_level =
+      (level != EchoCancellation::SuppressionLevel::kHighSuppression);
+  audio_processing_->ApplyConfig(apm_config);
+  return AudioProcessing::kNoError;
 }
 
 EchoCancellation::SuppressionLevel EchoCancellationProxy::suppression_level()

@@ -202,35 +202,13 @@ void DebugDumpReplayer::ConfigureApm(const audioproc::Config& msg) {
 
   // AEC configs.
   RTC_CHECK(msg.has_aec_enabled());
-  RTC_CHECK_EQ(AudioProcessing::kNoError,
-               apm_->echo_cancellation()->Enable(msg.aec_enabled()));
-
-  RTC_CHECK(msg.has_aec_drift_compensation_enabled());
-  RTC_CHECK_EQ(AudioProcessing::kNoError,
-               apm_->echo_cancellation()->enable_drift_compensation(
-                   msg.aec_drift_compensation_enabled()));
-
-  RTC_CHECK(msg.has_aec_suppression_level());
-  RTC_CHECK_EQ(AudioProcessing::kNoError,
-               apm_->echo_cancellation()->set_suppression_level(
-                   static_cast<EchoCancellation::SuppressionLevel>(
-                       msg.aec_suppression_level())));
-
-  // AECM configs.
   RTC_CHECK(msg.has_aecm_enabled());
-  RTC_CHECK_EQ(AudioProcessing::kNoError,
-               apm_->echo_control_mobile()->Enable(msg.aecm_enabled()));
-
-  RTC_CHECK(msg.has_aecm_comfort_noise_enabled());
-  RTC_CHECK_EQ(AudioProcessing::kNoError,
-               apm_->echo_control_mobile()->enable_comfort_noise(
-                   msg.aecm_comfort_noise_enabled()));
-
-  RTC_CHECK(msg.has_aecm_routing_mode());
-  RTC_CHECK_EQ(AudioProcessing::kNoError,
-               apm_->echo_control_mobile()->set_routing_mode(
-                   static_cast<EchoControlMobile::RoutingMode>(
-                       msg.aecm_routing_mode())));
+  RTC_CHECK(msg.has_aec_suppression_level());
+  apm_config.echo_canceller.enabled = msg.aec_enabled() || msg.aecm_enabled();
+  apm_config.echo_canceller.mobile_mode = msg.aecm_enabled();
+  apm_config.echo_canceller.legacy_moderate_suppression_level =
+      (msg.aec_suppression_level() !=
+       EchoCancellation::SuppressionLevel::kHighSuppression);
 
   // AGC configs.
   RTC_CHECK(msg.has_agc_enabled());

@@ -178,25 +178,22 @@ bool FrameDataAreEqual(const AudioFrame& frame1, const AudioFrame& frame2) {
 }
 
 void EnableAllAPComponents(AudioProcessing* ap) {
+  AudioProcessing::Config apm_config = ap->GetConfig();
+  apm_config.echo_canceller.enabled = true;
 #if defined(WEBRTC_AUDIOPROC_FIXED_PROFILE)
-  EXPECT_NOERR(ap->echo_control_mobile()->Enable(true));
+  apm_config.echo_canceller.mobile_mode = true;
 
   EXPECT_NOERR(ap->gain_control()->set_mode(GainControl::kAdaptiveDigital));
   EXPECT_NOERR(ap->gain_control()->Enable(true));
 #elif defined(WEBRTC_AUDIOPROC_FLOAT_PROFILE)
-  EXPECT_NOERR(ap->echo_cancellation()->enable_drift_compensation(true));
-  EXPECT_NOERR(ap->echo_cancellation()->enable_metrics(true));
-  EXPECT_NOERR(ap->echo_cancellation()->enable_delay_logging(true));
-  EXPECT_NOERR(ap->echo_cancellation()->set_suppression_level(
-      EchoCancellation::SuppressionLevel::kModerateSuppression));
-  EXPECT_NOERR(ap->echo_cancellation()->Enable(true));
+  apm_config.echo_canceller.mobile_mode = false;
+  apm_config.echo_canceller.legacy_moderate_suppression_level = true;
 
   EXPECT_NOERR(ap->gain_control()->set_mode(GainControl::kAdaptiveAnalog));
   EXPECT_NOERR(ap->gain_control()->set_analog_level_limits(0, 255));
   EXPECT_NOERR(ap->gain_control()->Enable(true));
 #endif
 
-  AudioProcessing::Config apm_config;
   apm_config.high_pass_filter.enabled = true;
   ap->ApplyConfig(apm_config);
 
@@ -931,7 +928,6 @@ TEST_F(ApmTest, EchoCancellation) {
   EXPECT_FALSE(apm_->echo_cancellation()->is_drift_compensation_enabled());
 
   EchoCancellation::SuppressionLevel level[] = {
-    EchoCancellation::kLowSuppression,
     EchoCancellation::kModerateSuppression,
     EchoCancellation::kHighSuppression,
   };

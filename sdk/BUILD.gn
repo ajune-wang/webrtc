@@ -471,7 +471,6 @@ if (is_ios || is_mac) {
         "../modules:module_api",
         "../modules/video_coding:video_codec_interface",
         "../rtc_base:rtc_base_approved",
-        "../system_wrappers:field_trial_api",
       ]
     }
 
@@ -1023,7 +1022,6 @@ if (is_ios || is_mac) {
           ":videocodec_objc",
           ":videotoolbox_objc",
           "../rtc_base:rtc_base_approved",
-          "../system_wrappers:field_trial_default",
           "../system_wrappers:metrics_default",
           "../system_wrappers:runtime_enabled_features_default",
         ]

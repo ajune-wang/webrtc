@@ -75,6 +75,16 @@ inline bool IsDisabled(const char* name) {
   return FindFullName(name).find("Disabled") == 0;
 }
 
+// Not part of the field_trial API and always defined by WebRTC:
+
+// Optionally initialize field trial from a string.
+// This method can be called at most once before any other call into webrtc.
+// E.g. before the peer connection factory is constructed.
+// Note: trials_string must never be destroyed.
+void InitFieldTrialsFromString(const char* trials_string);
+
+const char* GetFieldTrialString();
+
 }  // namespace field_trial
 }  // namespace webrtc
 

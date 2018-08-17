@@ -79,6 +79,7 @@ rtc_static_library("rtc_media_base") {
     "../rtc_base:sanitizer",
     "../rtc_base:sequenced_task_checker",
     "../rtc_base:stringutils",
+    "../system_wrappers:field_trial",
   ]
   sources = [
     "base/adaptedvideotracksource.cc",
@@ -136,7 +137,6 @@ rtc_static_library("rtc_media_base") {
     "../rtc_base:rtc_base",
     "../rtc_base:rtc_base_approved",
     "../rtc_base/third_party/sigslot",
-    "../system_wrappers:field_trial_api",
     "//third_party/abseil-cpp/absl/types:optional",
   ]
 
@@ -217,7 +217,6 @@ rtc_static_library("rtc_internal_video_codecs") {
     "../rtc_base:rtc_base_approved",
     "../rtc_base:sequenced_task_checker",
     "../system_wrappers",
-    "../system_wrappers:field_trial_api",
     "../system_wrappers:metrics_api",
     "//third_party/libyuv",
   ]
@@ -239,6 +238,7 @@ rtc_static_library("rtc_audio_video") {
     "../rtc_base:audio_format_to_string",
     "../rtc_base:checks",
     "../rtc_base/third_party/base64",
+    "../system_wrappers:field_trial",
   ]
 
   sources = [
@@ -327,7 +327,6 @@ rtc_static_library("rtc_audio_video") {
     "../rtc_base:rtc_task_queue",
     "../rtc_base:stringutils",
     "../system_wrappers",
-    "../system_wrappers:field_trial_api",
     "../system_wrappers:metrics_api",
     "//third_party/abseil-cpp/absl/types:optional",
   ]

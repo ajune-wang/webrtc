@@ -1,0 +1,230 @@
+/*
+ *  Copyright (c) 2018 The WebRTC project authors. All Rights Reserved.
+ *
+ *  Use of this source code is governed by a BSD-style license
+ *  that can be found in the LICENSE file in the root of the source
+ *  tree. An additional intellectual property rights grant can be found
+ *  in the file PATENTS.  All contributing project authors may
+ *  be found in the AUTHORS file in the root of the source tree.
+ */
+
+#include "rtc_tools/frame_analyzer/video_aligner.h"
+
+#include <algorithm>
+#include <cmath>
+#include <deque>
+#include <limits>
+#include <vector>
+
+#include "api/video/i420_buffer.h"
+#include "rtc_base/checks.h"
+#include "rtc_base/refcountedobject.h"
+
+#include "third_party/libyuv/include/libyuv/compare.h"
+
+namespace webrtc {
+namespace test {
+
+namespace {
+
+// This constant controls how many frames we look ahead while seeking for the
+// match for the next frame. Note that we may span bigger gaps than this number
+// since we reset the counter as soon as we find a better match. The seeking
+// will stop when there is no improvement in the next kNumberOfFramesLookAhead
+// frames. Typically, the PSNR will improve as we get closer and closer to the
+// real match.
+const int kNumberOfFramesLookAhead = 60;
+
+double Psnr(const rtc::scoped_refptr<I420BufferInterface>& ref_buffer,
+            const rtc::scoped_refptr<I420BufferInterface>& test_buffer) {
+  RTC_CHECK_EQ(ref_buffer->width(), test_buffer->width());
+  RTC_CHECK_EQ(ref_buffer->height(), test_buffer->height());
+  return libyuv::I420Psnr(
+      ref_buffer->DataY(), ref_buffer->StrideY(), ref_buffer->DataU(),
+      ref_buffer->StrideU(), ref_buffer->DataV(), ref_buffer->StrideV(),
+      test_buffer->DataY(), test_buffer->StrideY(), test_buffer->DataU(),
+      test_buffer->StrideU(), test_buffer->DataV(), test_buffer->StrideV(),
+      test_buffer->width(), test_buffer->height());
+}
+
+// Helper class that takes a video and generates an infinite looping video.
+class LoopingVideo : public rtc::RefCountedObject<Video> {
+ public:
+  explicit LoopingVideo(const rtc::scoped_refptr<Video>& video)
+      : video_(video) {}
+
+  size_t number_of_frames() const override {
+    return std::numeric_limits<size_t>::max();
+  }
+
+  rtc::scoped_refptr<I420BufferInterface> GetFrame(
+      size_t index) const override {
+    return video_->GetFrame(index % video_->number_of_frames());
+  }
+
+ private:
+  const rtc::scoped_refptr<Video> video_;
+};
+
+// Helper class that take a vector of frame indicies and a video and produces a
+// new video where the frames have been reshuffled.
+class ReorderedVideo : public rtc::RefCountedObject<Video> {
+ public:
+  ReorderedVideo(const rtc::scoped_refptr<Video>& video,
+                 const std::vector<size_t>& indicies)
+      : video_(video), indicies_(indicies) {}
+
+  size_t number_of_frames() const override { return indicies_.size(); }
+
+  rtc::scoped_refptr<I420BufferInterface> GetFrame(
+      size_t index) const override {
+    return video_->GetFrame(indicies_.at(index));
+  }
+
+ private:
+  const rtc::scoped_refptr<Video> video_;
+  const std::vector<size_t> indicies_;
+};
+
+// Helper class that takes a video and produces a downscaled video.
+class DownscaledVideo : public rtc::RefCountedObject<Video> {
+ public:
+  DownscaledVideo(float scale_factor, const rtc::scoped_refptr<Video>& video)
+      : scale_factor_(scale_factor), video_(video) {}
+
+  size_t number_of_frames() const override {
+    return video_->number_of_frames();
+  }
+
+  rtc::scoped_refptr<I420BufferInterface> GetFrame(
+      size_t index) const override {
+    const rtc::scoped_refptr<I420BufferInterface> frame =
+        video_->GetFrame(index);
+    rtc::scoped_refptr<I420Buffer> downscaled_frame = I420Buffer::Create(
+        static_cast<int>(round(scale_factor_ * frame->width())),
+        static_cast<int>(round(scale_factor_ * frame->height())));
+    downscaled_frame->ScaleFrom(*frame);
+    return downscaled_frame;
+  }
+
+ private:
+  const float scale_factor_;
+  const rtc::scoped_refptr<Video> video_;
+};
+
+// Helper class that takes a video and caches the latest frame access. This
+// improves performance a lot since the original source if often from a file.
+class CachedVideo : public rtc::RefCountedObject<Video> {
+ public:
+  CachedVideo(int max_cache_size, const rtc::scoped_refptr<Video>& video)
+      : max_cache_size_(max_cache_size), video_(video) {}
+
+  size_t number_of_frames() const override {
+    return video_->number_of_frames();
+  }
+
+  rtc::scoped_refptr<I420BufferInterface> GetFrame(
+      size_t index) const override {
+    for (const CachedFrame& cached_frame : cache_) {
+      if (cached_frame.index == index)
+        return cached_frame.frame;
+    }
+
+    rtc::scoped_refptr<I420BufferInterface> frame = video_->GetFrame(index);
+    cache_.push_front({index, frame});
+    if (cache_.size() > max_cache_size_)
+      cache_.pop_back();
+
+    return frame;
+  }
+
+ private:
+  struct CachedFrame {
+    size_t index;
+    rtc::scoped_refptr<I420BufferInterface> frame;
+  };
+
+  const size_t max_cache_size_;
+  const rtc::scoped_refptr<Video> video_;
+  mutable std::deque<CachedFrame> cache_;
+};
+
+// Try matching the test frame against all frames in the reference video and
+// return the index of the best matching frame.
+size_t FindBestMatch(const rtc::scoped_refptr<I420BufferInterface>& test_frame,
+                     const Video& reference_video) {
+  std::vector<double> psnr;
+  for (const auto& ref_frame : reference_video)
+    psnr.push_back(Psnr(test_frame, ref_frame));
+  return std::distance(psnr.begin(),
+                       std::max_element(psnr.begin(), psnr.end()));
+}
+
+// Find and return the index of the frame matching the test frame. The search
+// starts at the starting index and continues until there is no better match
+// within the next kNumberOfFramesLookAhead frames.
+size_t FindNextMatch(const rtc::scoped_refptr<I420BufferInterface>& test_frame,
+                     const Video& reference_video,
+                     size_t start_index) {
+  const double start_psnr =
+      Psnr(test_frame, reference_video.GetFrame(start_index));
+  for (int i = 1; i < kNumberOfFramesLookAhead; ++i) {
+    const size_t next_index = start_index + i;
+    // If we find a better match, restart the search at that point.
+    if (start_psnr < Psnr(test_frame, reference_video.GetFrame(next_index)))
+      return FindNextMatch(test_frame, reference_video, next_index);
+  }
+  // The starting index was the best match.
+  return start_index;
+}
+
+// Returns a vector with the same size as the given test video. Each index
+// corresponds to what reference frame that test frame matches to. These
+// indicies are strictly increasing and might loop around the reference video,
+// e.g. their values can be bigger than the number of frames in the reference
+// video and they should be interpreted modulo that size.
+std::vector<size_t> FindMatchingFrameIndicies(
+    const rtc::scoped_refptr<Video>& reference_video,
+    const rtc::scoped_refptr<Video>& test_video) {
+  // This is done to get a 10x speedup. We don't need the full resolution in
+  // order to match frames, and we should limit file access and not read the
+  // same memory tens of times.
+  const float kScaleFactor = 0.25f;
+  const rtc::scoped_refptr<Video> cached_downscaled_reference_video =
+      new CachedVideo(kNumberOfFramesLookAhead,
+                      new DownscaledVideo(kScaleFactor, reference_video));
+  const rtc::scoped_refptr<Video> downscaled_test_video =
+      new DownscaledVideo(kScaleFactor, test_video);
+
+  // Assume the video is looping around.
+  const rtc::scoped_refptr<Video> looping_reference_video =
+      new LoopingVideo(cached_downscaled_reference_video);
+
+  std::vector<size_t> match_indicies;
+  for (const rtc::scoped_refptr<I420BufferInterface>& test_frame :
+       *downscaled_test_video) {
+    if (match_indicies.empty()) {
+      // First frame.
+      match_indicies.push_back(
+          FindBestMatch(test_frame, *cached_downscaled_reference_video));
+    } else {
+      match_indicies.push_back(FindNextMatch(
+          test_frame, *looping_reference_video, match_indicies.back()));
+    }
+  }
+
+  return match_indicies;
+}
+
+}  // namespace
+
+rtc::scoped_refptr<Video> GenerateAlignedReferenceVideo(
+    const rtc::scoped_refptr<Video>& reference_video,
+    const rtc::scoped_refptr<Video>& test_video) {
+  return new ReorderedVideo(
+      new LoopingVideo(reference_video),
+      FindMatchingFrameIndicies(reference_video, test_video));
+}
+
+}  // namespace test
+}  // namespace webrtc

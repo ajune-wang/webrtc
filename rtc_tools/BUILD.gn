@@ -16,6 +16,7 @@ group("rtc_tools") {
   deps = [
     ":command_line_parser",
     ":frame_analyzer",
+    ":video_aligner",
     ":video_quality_analysis",
     ":y4m_file_reader",
   ]
@@ -71,6 +72,24 @@ rtc_static_library("y4m_file_reader") {
     "../rtc_base:rtc_base_approved",
     "../rtc_base:sequenced_task_checker",
     "//third_party/abseil-cpp/absl/types:optional",
+  ]
+}
+
+rtc_static_library("video_aligner") {
+  sources = [
+    "frame_analyzer/video_aligner.cc",
+    "frame_analyzer/video_aligner.h",
+  ]
+  deps = [
+    ":y4m_file_reader",
+    "../api/video:video_frame_i420",
+    "../common_video",
+    "../rtc_base:checks",
+    "../rtc_base:rtc_base_approved",
+    "../rtc_base:sequenced_task_checker",
+    "../test:perf_test",
+    "//third_party/abseil-cpp/absl/types:optional",
+    "//third_party/libyuv",
   ]
 }
 

@@ -22,6 +22,30 @@
       "revId": "e477b81aa9b12781c53468d67077547346d89f86",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dcbefa28_d43a172c",
+        "filename": "test/call_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 7296
+      },
+      "writtenOn": "2018-08-17T14:01:34Z",
+      "side": 1,
+      "message": "Yes, if this value is zero, then the fix doesn\u0027t work. But I don\u0027t know how this value affects the tests.",
+      "parentUuid": "9cdfaa06_8613d2ca",
+      "range": {
+        "startLine": 312,
+        "startChar": 64,
+        "endLine": 312,
+        "endChar": 68
+      },
+      "revId": "e477b81aa9b12781c53468d67077547346d89f86",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -221,7 +221,7 @@ void CallTest::CreateVideoSendConfig(VideoSendStream::Config* video_config,
                                      size_t num_video_streams,
                                      size_t num_used_ssrcs,
                                      Transport* send_transport) {
-  RTC_DCHECK_LE(num_video_streams + num_used_ssrcs, kNumSsrcs);
+  RTC_DCHECK_LE(2 * num_video_streams + num_used_ssrcs, kNumSsrcs);
   *video_config = VideoSendStream::Config(send_transport);
   video_config->encoder_settings.encoder_factory = &fake_encoder_factory_;
   video_config->rtp.payload_name = "FAKE";
@@ -237,8 +237,12 @@ void CallTest::CreateVideoSendConfig(VideoSendStream::Config* video_config,
                              &video_encoder_configs_.back());
   }
 
-  for (size_t i = 0; i < num_video_streams; ++i)
+  for (size_t i = 0; i < num_video_streams; ++i) {
     video_config->rtp.ssrcs.push_back(kVideoSendSsrcs[num_used_ssrcs + i]);
+    video_config->rtp.rtx.ssrcs.push_back(
+        kVideoSendSsrcs[num_used_ssrcs + num_video_streams + i]);
+    video_config->rtp.rtx.payload_type = kSendRtxPayloadType;
+  }
   video_config->rtp.extensions.push_back(RtpExtension(
       RtpExtension::kVideoRotationUri, kVideoRotationRtpExtensionId));
 }
@@ -305,7 +309,7 @@ void CallTest::CreateMatchingVideoReceiveConfigs(
     const VideoSendStream::Config& video_send_config,
     Transport* rtcp_send_transport) {
   CreateMatchingVideoReceiveConfigs(video_send_config, rtcp_send_transport,
-                                    true, absl::nullopt, false, 0);
+                                    true, absl::nullopt, false, 5000);
 }
 
 void CallTest::CreateMatchingVideoReceiveConfigs(

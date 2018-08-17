@@ -16,7 +16,9 @@ group("rtc_tools") {
   deps = [
     ":command_line_parser",
     ":frame_analyzer",
+    ":video_file",
     ":video_quality_analysis",
+    ":y4m_file_reader",
   ]
   if (!build_with_chromium) {
     deps += [
@@ -59,12 +61,39 @@ rtc_static_library("command_line_parser") {
   ]
 }
 
+rtc_static_library("video_file") {
+  sources = [
+    "video_file.cc",
+    "video_file.h",
+  ]
+  deps = [
+    "../api/video:video_frame",
+    "../rtc_base:rtc_base_approved",
+  ]
+}
+
+rtc_static_library("y4m_file_reader") {
+  sources = [
+    "y4m_file_reader.cc",
+    "y4m_file_reader.h",
+  ]
+  deps = [
+    ":video_file",
+    "../api/video:video_frame_i420",
+    "../rtc_base:rtc_base_approved",
+    "../rtc_base:sequenced_task_checker",
+    "//third_party/abseil-cpp/absl/types:optional",
+  ]
+}
+
 rtc_static_library("video_quality_analysis") {
   sources = [
     "frame_analyzer/video_quality_analysis.cc",
     "frame_analyzer/video_quality_analysis.h",
   ]
   deps = [
+    ":video_file",
+    "../api/video:video_frame_i420",
     "../common_video",
     "../test:perf_test",
     "//third_party/libyuv",
@@ -80,6 +109,7 @@ rtc_executable("frame_analyzer") {
   deps = [
     ":command_line_parser",
     ":video_quality_analysis",
+    ":y4m_file_reader",
     "../test:perf_test",
     "//build/win:default_exe_manifest",
   ]
@@ -96,6 +126,7 @@ if (!build_with_chromium) {
     deps = [
       ":command_line_parser",
       ":video_quality_analysis",
+      ":y4m_file_reader",
       "//build/win:default_exe_manifest",
     ]
   }
@@ -108,6 +139,7 @@ if (!build_with_chromium) {
 
     deps = [
       ":video_quality_analysis",
+      ":y4m_file_reader",
     ]
   }
 
@@ -310,6 +342,7 @@ if (rtc_include_tests) {
       "frame_editing/frame_editing_unittest.cc",
       "sanitizers_unittest.cc",
       "simple_command_line_parser_unittest.cc",
+      "y4m_file_reader_unittest.cc",
     ]
 
     if (!build_with_chromium && is_clang) {
@@ -322,6 +355,7 @@ if (rtc_include_tests) {
       ":frame_editing_lib",
       ":reference_less_video_analysis_lib",
       ":video_quality_analysis",
+      ":y4m_file_reader",
       "../common_video:common_video",
       "../rtc_base",
       "../rtc_base:checks",

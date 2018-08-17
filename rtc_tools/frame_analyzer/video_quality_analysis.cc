@@ -21,9 +21,6 @@
 #include "test/testsupport/perf_test.h"
 
 #define STATS_LINE_LENGTH 32
-#define Y4M_FILE_HEADER_MAX_SIZE 200
-#define Y4M_FRAME_DELIMITER "FRAME"
-#define Y4M_FRAME_HEADER_SIZE 6
 
 namespace webrtc {
 namespace test {
@@ -92,90 +89,31 @@ bool GetNextStatsLine(FILE* stats_file, char* line) {
   return true;
 }
 
-bool ExtractFrameFromYuvFile(const char* i420_file_name,
-                             int width,
-                             int height,
-                             int frame_number,
-                             uint8_t* result_frame) {
-  int frame_size = GetI420FrameSize(width, height);
-  int offset = frame_number * frame_size;  // Calculate offset for the frame.
-  bool errors = false;
-
-  FILE* input_file = fopen(i420_file_name, "rb");
-  if (input_file == NULL) {
-    fprintf(stderr, "Couldn't open input file for reading: %s\n",
-            i420_file_name);
-    return false;
-  }
-
-  // Change stream pointer to new offset.
-  fseek(input_file, offset, SEEK_SET);
-
-  size_t bytes_read = fread(result_frame, 1, frame_size, input_file);
-  if (bytes_read != static_cast<size_t>(frame_size) && ferror(input_file)) {
-    fprintf(stdout, "Error while reading frame no %d from file %s\n",
-            frame_number, i420_file_name);
-    errors = true;
-  }
-  fclose(input_file);
-  return !errors;
+double Psnr(const rtc::scoped_refptr<I420BufferInterface>& ref_buffer,
+            const rtc::scoped_refptr<I420BufferInterface>& test_buffer) {
+  RTC_CHECK_EQ(ref_buffer->width(), test_buffer->width());
+  RTC_CHECK_EQ(ref_buffer->height(), test_buffer->height());
+  const double psnr = libyuv::I420Psnr(
+      ref_buffer->DataY(), ref_buffer->StrideY(), ref_buffer->DataU(),
+      ref_buffer->StrideU(), ref_buffer->DataV(), ref_buffer->StrideV(),
+      test_buffer->DataY(), test_buffer->StrideY(), test_buffer->DataU(),
+      test_buffer->StrideU(), test_buffer->DataV(), test_buffer->StrideV(),
+      test_buffer->width(), test_buffer->height());
+  // LibYuv sets the max psnr value to 128, we restrict it to 48.
+  // In case of 0 mse in one frame, 128 can skew the results significantly.
+  return std::min(48.0, psnr);
 }
 
-bool ExtractFrameFromY4mFile(const char* y4m_file_name,
-                             int width,
-                             int height,
-                             int frame_number,
-                             uint8_t* result_frame) {
-  int frame_size = GetI420FrameSize(width, height);
-  int inital_offset = frame_number * (frame_size + Y4M_FRAME_HEADER_SIZE);
-  int frame_offset = 0;
-
-  FILE* input_file = fopen(y4m_file_name, "rb");
-  if (input_file == NULL) {
-    fprintf(stderr, "Couldn't open input file for reading: %s\n",
-            y4m_file_name);
-    return false;
-  }
-
-  // YUV4MPEG2, a.k.a. Y4M File format has a file header and a frame header. The
-  // file header has the aspect: "YUV4MPEG2 C420 W640 H360 Ip F30:1 A1:1".
-  char frame_header[Y4M_FILE_HEADER_MAX_SIZE];
-  size_t bytes_read =
-      fread(frame_header, 1, Y4M_FILE_HEADER_MAX_SIZE - 1, input_file);
-  if (bytes_read != static_cast<size_t>(frame_size) && ferror(input_file)) {
-    fprintf(stdout, "Error while reading frame from file %s\n", y4m_file_name);
-    fclose(input_file);
-    return false;
-  }
-  frame_header[bytes_read] = '\0';
-  std::string header_contents(frame_header);
-  std::size_t found = header_contents.find(Y4M_FRAME_DELIMITER);
-  if (found == std::string::npos) {
-    fprintf(stdout, "Corrupted Y4M header, could not find \"FRAME\" in %s\n",
-            header_contents.c_str());
-    fclose(input_file);
-    return false;
-  }
-  frame_offset = static_cast<int>(found);
-
-  // Change stream pointer to new offset, skipping the frame header as well.
-  fseek(input_file, inital_offset + frame_offset + Y4M_FRAME_HEADER_SIZE,
-        SEEK_SET);
-
-  bytes_read = fread(result_frame, 1, frame_size, input_file);
-  if (feof(input_file)) {
-    fclose(input_file);
-    return false;
-  }
-  if (bytes_read != static_cast<size_t>(frame_size) && ferror(input_file)) {
-    fprintf(stdout, "Error while reading frame no %d from file %s\n",
-            frame_number, y4m_file_name);
-    fclose(input_file);
-    return false;
-  }
-
-  fclose(input_file);
-  return true;
+double Ssim(const rtc::scoped_refptr<I420BufferInterface>& ref_buffer,
+            const rtc::scoped_refptr<I420BufferInterface>& test_buffer) {
+  RTC_CHECK_EQ(ref_buffer->width(), test_buffer->width());
+  RTC_CHECK_EQ(ref_buffer->height(), test_buffer->height());
+  return libyuv::I420Ssim(
+      ref_buffer->DataY(), ref_buffer->StrideY(), ref_buffer->DataU(),
+      ref_buffer->StrideU(), ref_buffer->DataV(), ref_buffer->StrideV(),
+      test_buffer->DataY(), test_buffer->StrideY(), test_buffer->DataU(),
+      test_buffer->StrideU(), test_buffer->DataV(), test_buffer->StrideV(),
+      test_buffer->width(), test_buffer->height());
 }
 
 double CalculateMetrics(VideoAnalysisMetricsType video_metrics_type,
@@ -223,29 +161,20 @@ double CalculateMetrics(VideoAnalysisMetricsType video_metrics_type,
   return result;
 }
 
-void RunAnalysis(const char* reference_file_name,
-                 const char* test_file_name,
-                 const char* stats_file_reference_name,
-                 const char* stats_file_test_name,
-                 int width,
-                 int height,
-                 ResultsContainer* results) {
-  // Check if the reference_file_name ends with "y4m".
-  bool y4m_mode = false;
-  if (std::string(reference_file_name).find("y4m") != std::string::npos) {
-    y4m_mode = true;
-  }
-
-  int size = GetI420FrameSize(width, height);
+void RunAnalysis(
+    const rtc::scoped_refptr<webrtc::test::VideoFile>& reference_video,
+    const rtc::scoped_refptr<webrtc::test::VideoFile>& test_video,
+    const char* stats_file_reference_name,
+    const char* stats_file_test_name,
+    int width,
+    int height,
+    ResultsContainer* results) {
   FILE* stats_file_ref = fopen(stats_file_reference_name, "r");
   FILE* stats_file_test = fopen(stats_file_test_name, "r");
 
   // String buffer for the lines in the stats file.
   char line[STATS_LINE_LENGTH];
 
-  // Allocate buffers for test and reference frames.
-  uint8_t* test_frame = new uint8_t[size];
-  uint8_t* reference_frame = new uint8_t[size];
   int previous_frame_number = -1;
 
   // Maps barcode id to the frame id for the reference video.
@@ -282,21 +211,14 @@ void RunAnalysis(const char* reference_file_name,
     assert(extracted_test_frame != -1);
     assert(decoded_frame_number != -1);
 
-    ExtractFrameFromYuvFile(test_file_name, width, height, extracted_test_frame,
-                            test_frame);
-    if (y4m_mode) {
-      ExtractFrameFromY4mFile(reference_file_name, width, height,
-                              extracted_ref_frame, reference_frame);
-    } else {
-      ExtractFrameFromYuvFile(reference_file_name, width, height,
-                              extracted_ref_frame, reference_frame);
-    }
+    const rtc::scoped_refptr<webrtc::I420BufferInterface> test_frame =
+        test_video->GetFrame(extracted_test_frame);
+    const rtc::scoped_refptr<webrtc::I420BufferInterface> reference_frame =
+        test_video->GetFrame(extracted_ref_frame);
 
     // Calculate the PSNR and SSIM.
-    double result_psnr =
-        CalculateMetrics(kPSNR, reference_frame, test_frame, width, height);
-    double result_ssim =
-        CalculateMetrics(kSSIM, reference_frame, test_frame, width, height);
+    double result_psnr = Psnr(reference_frame, test_frame);
+    double result_ssim = Ssim(reference_frame, test_frame);
 
     previous_frame_number = decoded_frame_number;
 
@@ -312,8 +234,6 @@ void RunAnalysis(const char* reference_file_name,
   // Cleanup.
   fclose(stats_file_ref);
   fclose(stats_file_test);
-  delete[] test_frame;
-  delete[] reference_frame;
 }
 
 std::vector<std::pair<int, int> > CalculateFrameClusters(

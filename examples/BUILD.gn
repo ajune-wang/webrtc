@@ -205,19 +205,15 @@ if (is_ios || (is_mac && target_cpu != "x86")) {
 
     if (is_ios) {
       # iOS must use WebRTC.framework which is dynamically linked.
-      # 'gn check' is disabled in order to avoid confusion and
-      # errors caused by multiple implementations.
-      check_includes = false
       deps = [
-        "../sdk:framework_objc",
+        "../sdk:framework_objc+link",
         "../system_wrappers:field_trial_default",
         "../system_wrappers:runtime_enabled_features_default",
       ]
     } else {
       deps = [
-        "../sdk:common_objc",
+        "../sdk:mac_framework_objc+link",
         "../system_wrappers:field_trial_default",
-        "../system_wrappers:metrics_default",
         "../system_wrappers:runtime_enabled_features_default",
       ]
     }
@@ -279,23 +275,12 @@ if (is_ios || (is_mac && target_cpu != "x86")) {
     ]
     if (is_ios) {
       # iOS must use WebRTC.framework which is dynamically linked.
-      # 'gn check' is disabled in order to avoid confusion and
-      # errors caused by multiple implementations.
-      check_includes = false
       deps += [
         ":AppRTCMobile_ios_frameworks",
-        "../sdk:framework_objc",
+        "../sdk:framework_objc+link",
       ]
     } else {
-      deps += [
-        "../sdk:common_objc",
-        "../sdk:mediaconstraints_objc",
-        "../sdk:peerconnectionfactory_base_objc",
-        "../sdk:videocapture_objc",
-        "../sdk:videocodec_objc",
-        "../sdk:videoframebuffer_objc",
-        "../sdk:videosource_objc",
-      ]
+      deps += [ "../sdk:mac_framework_objc+link" ]
     }
     libs = [ "QuartzCore.framework" ]
   }
@@ -303,9 +288,6 @@ if (is_ios || (is_mac && target_cpu != "x86")) {
   if (is_ios) {
     rtc_static_library("AppRTCMobile_lib") {
       # iOS must use WebRTC.framework which is dynamically linked.
-      # 'gn check' is disabled in order to avoid confusion and
-      # errors caused by multiple implementations.
-      check_includes = false
       testonly = true
       sources = [
         "objc/AppRTCMobile/ios/ARDAppDelegate.h",
@@ -334,7 +316,7 @@ if (is_ios || (is_mac && target_cpu != "x86")) {
         ":AppRTCMobile_ios_frameworks",
         ":apprtc_common",
         ":apprtc_signaling",
-        "../sdk:framework_objc",
+        "../sdk:framework_objc+link",
       ]
     }
 
@@ -396,7 +378,6 @@ if (is_ios || (is_mac && target_cpu != "x86")) {
       }
 
       rtc_static_library("AppRTCMobileBroadcastUpload_lib") {
-        check_includes = false
         testonly = true
         sources = [
           "objc/AppRTCMobile/ios/broadcast_extension/ARDBroadcastSampleHandler.h",
@@ -406,7 +387,7 @@ if (is_ios || (is_mac && target_cpu != "x86")) {
         deps = [
           ":AppRTCMobile_ios_frameworks",
           ":apprtc_signaling",
-          "../sdk:framework_objc",
+          "../sdk:framework_objc+link",
         ]
 
         libs = [ "ReplayKit.framework" ]
@@ -507,10 +488,12 @@ if (is_ios || (is_mac && target_cpu != "x86")) {
         "../modules/audio_processing:audio_processing",
         "../pc:libjingle_peerconnection",
         "../rtc_base:rtc_base",
+        "../sdk:base_objc",
         "../sdk:default_codec_factory_objc",
-        "../sdk:framework_objc",
+        "../sdk:helpers_objc",
         "../sdk:native_api",
         "../sdk:ui_objc",
+        "../sdk:videocapture_objc",
         "../sdk:videotoolbox_objc",
         "../system_wrappers:field_trial_default",
         "../system_wrappers:metrics_default",
@@ -545,6 +528,18 @@ if (is_ios || (is_mac && target_cpu != "x86")) {
   }
 
   if (is_mac) {
+    bundle_data("AppRTCMobile_mac_frameworks") {
+      deps = [
+        "../sdk:mac_framework_objc+link",
+      ]
+      sources = [
+        "$root_build_dir/WebRTC.framework",
+      ]
+      outputs = [
+        "{{bundle_resources_dir}}/Frameworks/{{source_file_part}}",
+      ]
+    }
+
     rtc_static_library("AppRTCMobile_lib") {
       testonly = true
       sources = [
@@ -557,14 +552,7 @@ if (is_ios || (is_mac && target_cpu != "x86")) {
       deps = [
         ":apprtc_common",
         ":apprtc_signaling",
-        "../sdk:default_codec_factory_objc",
-        "../sdk:metal_objc",
-        "../sdk:peerconnectionfactory_base_objc",
-        "../sdk:ui_objc",
-        "../sdk:videocapture_objc",
-        "../sdk:videocodec_objc",
-        "../sdk:videocodec_objc",
-        "../sdk:videotoolbox_objc",
+        "../sdk:mac_framework_objc+link",
       ]
     }
 
@@ -584,6 +572,8 @@ if (is_ios || (is_mac && target_cpu != "x86")) {
 
       deps = [
         ":AppRTCMobile_lib",
+        ":AppRTCMobile_mac_frameworks",
+        "../sdk:mac_framework_objc+link",
       ]
     }
   }
@@ -629,9 +619,6 @@ if (is_ios || (is_mac && target_cpu != "x86")) {
     if (is_ios) {
       rtc_source_set("apprtcmobile_test_sources") {
         # iOS must use WebRTC.framework which is dynamically linked.
-        # 'gn check' is disabled in order to avoid confusion and
-        # errors caused by multiple implementations.
-        check_includes = false
         testonly = true
         include_dirs = [
           "objc/AppRTCMobile",
@@ -648,7 +635,7 @@ if (is_ios || (is_mac && target_cpu != "x86")) {
           ":AppRTCMobile_lib",
           ":apprtc_signaling",
           "../rtc_base:rtc_base",
-          "../sdk:framework_objc",
+          "../sdk:framework_objc+link",
           "//build/config/ios:xctest",
           "//third_party/ocmock",
         ]

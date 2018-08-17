@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f92b17c0_559605ea",
+        "filename": "modules/congestion_controller/pcc/monitor_interval.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-08-17T12:49:07Z",
+      "side": 1,
+      "message": "Should there be a warning when this happens?",
+      "range": {
+        "startLine": 114,
+        "startChar": 11,
+        "endLine": 114,
+        "endChar": 31
+      },
+      "revId": "30655a9d465b68f98d83141c3ea1d4c86d1cb24c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b7c390b_ddf53d9e",
+        "filename": "modules/congestion_controller/pcc/monitor_interval.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-08-17T12:49:07Z",
+      "side": 1,
+      "message": "nit: remove header if not used",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 38
+      },
+      "revId": "30655a9d465b68f98d83141c3ea1d4c86d1cb24c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51279ea3_305741eb",
+        "filename": "modules/congestion_controller/pcc/monitor_interval.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-08-17T12:49:07Z",
+      "side": 1,
+      "message": "I think the explanation could be moved to the CC file.",
+      "range": {
+        "startLine": 42,
+        "startChar": 56,
+        "endLine": 44,
+        "endChar": 88
+      },
+      "revId": "30655a9d465b68f98d83141c3ea1d4c86d1cb24c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7ddbff1_bee360fa",
+        "filename": "modules/congestion_controller/pcc/monitor_interval_unittest.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-08-17T12:49:07Z",
+      "side": 1,
+      "message": "Should there be a unit test for the delay gradient calculation?",
+      "revId": "30655a9d465b68f98d83141c3ea1d4c86d1cb24c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1511,9 +1511,25 @@ void WebRtcVideoChannel::OnNetworkRouteChanged(
 
 void WebRtcVideoChannel::SetInterface(NetworkInterface* iface) {
   MediaChannel::SetInterface(iface);
-  // Set the RTP recv/send buffer to a bigger size
+  // Set the RTP recv/send buffer to a bigger size.
+
+  // The group here can be either a positive integer with an explicit size, in
+  // which case that is used as size. Otherwise, if "Disabled" is used, the size
+  // will be the legacy default. In all other cases the new default, which is 4x
+  // the legacy size, is used.
+  const std::string group_name =
+      webrtc::field_trial::FindFullName("WebRTC-IncreasedReceivebuffers");
+  int recv_buffer_size = 0;
+  if (sscanf(group_name.c_str(), "%d", &recv_buffer_size) != 1 ||
+      recv_buffer_size <= 0) {
+    if (group_name.find("Disabled") == 0) {
+      recv_buffer_size = kVideoRtpBufferSize;
+    } else {
+      recv_buffer_size = kVideoRtpBufferSize * 4;
+    }
+  }
   MediaChannel::SetOption(NetworkInterface::ST_RTP, rtc::Socket::OPT_RCVBUF,
-                          kVideoRtpBufferSize);
+                          recv_buffer_size);
 
   // Speculative change to increase the outbound socket buffer size.
   // In b/15152257, we are seeing a significant number of packets discarded

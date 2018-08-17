@@ -143,7 +143,8 @@ FrameGeneratorCapturer::FrameGeneratorCapturer(
       sink_(nullptr),
       sink_wants_observer_(nullptr),
       frame_generator_(std::move(frame_generator)),
-      target_fps_(target_fps),
+      source_fps_(target_fps),
+      target_capture_fps_(target_fps),
       first_frame_capture_time_(-1),
       task_queue_("FrameGenCapQ", rtc::TaskQueue::Priority::HIGH) {
   RTC_DCHECK(frame_generator_);
@@ -178,6 +179,9 @@ void FrameGeneratorCapturer::InsertFrame() {
   rtc::CritScope cs(&lock_);
   if (sending_) {
     VideoFrame* frame = frame_generator_->NextFrame();
+    int decimation = source_fps_ / target_capture_fps_;
+    for (int i = 1; i < decimation; ++i)
+      frame = frame_generator_->NextFrame();
     frame->set_timestamp_us(clock_->TimeInMicroseconds());
     frame->set_ntp_time_ms(clock_->CurrentNtpInMilliseconds());
     frame->set_rotation(fake_rotation_);
@@ -208,6 +212,12 @@ void FrameGeneratorCapturer::ChangeResolution(size_t width, size_t height) {
   frame_generator_->ChangeResolution(width, height);
 }
 
+void FrameGeneratorCapturer::ChangeFramerate(int framerate) {
+  rtc::CritScope cs(&lock_);
+  RTC_CHECK(target_capture_fps_ > 0);
+  target_capture_fps_ = std::min(source_fps_, framerate);
+}
+
 void FrameGeneratorCapturer::SetSinkWantsObserver(SinkWantsObserver* observer) {
   rtc::CritScope cs(&lock_);
   RTC_DCHECK(!sink_wants_observer_);
@@ -230,7 +240,7 @@ void FrameGeneratorCapturer::AddOrUpdateSink(
   VideoCapturer::AddOrUpdateSink(sink, resolution_wants);
 
   // Ignore any requests for framerate higher than initially configured.
-  if (wants.max_framerate_fps < target_fps_) {
+  if (wants.max_framerate_fps < target_capture_fps_) {
     wanted_fps_.emplace(wants.max_framerate_fps);
   } else {
     wanted_fps_.reset();
@@ -253,9 +263,9 @@ void FrameGeneratorCapturer::ForceFrame() {
 
 int FrameGeneratorCapturer::GetCurrentConfiguredFramerate() {
   rtc::CritScope cs(&lock_);
-  if (wanted_fps_ && *wanted_fps_ < target_fps_)
+  if (wanted_fps_ && *wanted_fps_ < target_capture_fps_)
     return *wanted_fps_;
-  return target_fps_;
+  return target_capture_fps_;
 }
 
 }  // namespace test

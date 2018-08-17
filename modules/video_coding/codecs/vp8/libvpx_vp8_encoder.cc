@@ -26,6 +26,22 @@
 
 namespace webrtc {
 namespace {
+
+const char kVp8ForceFallbackEncoderFieldTrial[] =
+    "WebRTC-VP8-Forced-Fallback-Encoder-v2";
+absl::optional<int> GetForcedFallbackMinPixelsFromFieldTrialGroup() {
+  std::string group =
+      webrtc::field_trial::FindFullName(kVp8ForceFallbackEncoderFieldTrial);
+  int min_pixels;
+  int max_pixels;
+  int min_bps;
+  if (sscanf(group.c_str(), "Enabled-%d,%d,%d", &min_pixels, &max_pixels,
+             &min_bps) == 3) {
+    return min_pixels;
+  }
+  return absl::nullopt;
+}
+
 const char kVp8GfBoostFieldTrial[] = "WebRTC-VP8-GfBoost";
 
 // QP is obtained from VP8-bitstream for HW, so the QP corresponds to the
@@ -159,6 +175,7 @@ LibvpxVp8Encoder::LibvpxVp8Encoder()
       cpu_speed_default_(-6),
       number_of_cores_(0),
       rc_max_intra_target_(0),
+      min_pixel_override_(GetForcedFallbackMinPixelsFromFieldTrialGroup()),
       key_frame_request_(kMaxSimulcastStreams, false) {
   temporal_layers_.reserve(kMaxSimulcastStreams);
   temporal_layers_checkers_.reserve(kMaxSimulcastStreams);
@@ -921,9 +938,16 @@ VideoEncoder::ScalingSettings LibvpxVp8Encoder::GetScalingSettings() const {
   const bool enable_scaling = encoders_.size() == 1 &&
                               configurations_[0].rc_dropframe_thresh > 0 &&
                               codec_.VP8().automaticResizeOn;
-  return enable_scaling ? VideoEncoder::ScalingSettings(kLowVp8QpThreshold,
-                                                        kHighVp8QpThreshold)
-                        : VideoEncoder::ScalingSettings::kOff;
+  if (enable_scaling) {
+    if (min_pixel_override_) {
+      return VideoEncoder::ScalingSettings(
+          kLowVp8QpThreshold, kHighVp8QpThreshold, *min_pixel_override_);
+    } else {
+      return VideoEncoder::ScalingSettings(kLowVp8QpThreshold,
+                                           kHighVp8QpThreshold);
+    }
+  }
+  return VideoEncoder::ScalingSettings::kOff;
 }
 
 int LibvpxVp8Encoder::SetChannelParameters(uint32_t packetLoss, int64_t rtt) {

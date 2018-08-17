@@ -94,6 +94,7 @@ class LibvpxVp8Encoder : public VP8Encoder {
   int cpu_speed_default_;
   int number_of_cores_;
   uint32_t rc_max_intra_target_;
+  absl::optional<int> min_pixel_override_;
   std::vector<std::unique_ptr<TemporalLayers>> temporal_layers_;
   std::vector<std::unique_ptr<TemporalLayersChecker>> temporal_layers_checkers_;
   std::vector<bool> key_frame_request_;

@@ -256,12 +256,12 @@ int32_t VideoSender::AddVideoFrame(const VideoFrame& videoFrame,
     return VCM_UNINITIALIZED;
   SetEncoderParameters(encoder_params, encoder_has_internal_source);
   if (_mediaOpt.DropFrame()) {
-    RTC_LOG(LS_VERBOSE) << "Drop Frame "
-                        << "target bitrate "
-                        << encoder_params.target_bitrate.get_sum_bps()
-                        << " loss rate " << encoder_params.loss_rate << " rtt "
-                        << encoder_params.rtt << " input frame rate "
-                        << encoder_params.input_frame_rate;
+    RTC_LOG(LS_INFO) << "Drop Frame "
+                     << "target bitrate "
+                     << encoder_params.target_bitrate.get_sum_bps()
+                     << " loss rate " << encoder_params.loss_rate << " rtt "
+                     << encoder_params.rtt << " input frame rate "
+                     << encoder_params.input_frame_rate;
     post_encode_callback_->OnDroppedFrame(
         EncodedImageCallback::DropReason::kDroppedByMediaOptimizations);
     return VCM_OK;

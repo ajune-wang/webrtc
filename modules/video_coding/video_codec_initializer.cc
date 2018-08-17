@@ -24,15 +24,13 @@
 
 namespace webrtc {
 
-bool VideoCodecInitializer::SetupCodec(
-    const VideoEncoderConfig& config,
-    const std::vector<VideoStream>& streams,
-    VideoCodec* codec,
-    std::unique_ptr<VideoBitrateAllocator>* bitrate_allocator) {
+bool VideoCodecInitializer::SetupCodec(const VideoEncoderConfig& config,
+                                       const std::vector<VideoStream>& streams,
+                                       VideoCodec* codec) {
   if (config.codec_type == kVideoCodecMultiplex) {
     VideoEncoderConfig associated_config = config.Copy();
     associated_config.codec_type = kVideoCodecVP9;
-    if (!SetupCodec(associated_config, streams, codec, bitrate_allocator)) {
+    if (!SetupCodec(associated_config, streams, codec)) {
       RTC_LOG(LS_ERROR) << "Failed to create stereo encoder configuration.";
       return false;
     }
@@ -41,8 +39,6 @@ bool VideoCodecInitializer::SetupCodec(
   }
 
   *codec = VideoEncoderConfigToVideoCodec(config, streams);
-  *bitrate_allocator = CreateBitrateAllocator(*codec);
-
   return true;
 }
 

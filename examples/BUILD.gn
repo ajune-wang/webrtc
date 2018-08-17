@@ -505,6 +505,7 @@ if (is_ios || (is_mac && target_cpu != "x86")) {
         "../logging:rtc_event_log_impl_base",
         "../media:rtc_audio_video",
         "../modules/audio_processing:audio_processing",
+        "../pc:builtin_video_bitrate_allocator_factory",
         "../pc:libjingle_peerconnection",
         "../rtc_base:rtc_base",
         "../sdk:default_codec_factory_objc",

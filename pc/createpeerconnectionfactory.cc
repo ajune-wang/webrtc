@@ -16,6 +16,7 @@
 #include "media/engine/webrtcmediaengine.h"
 #include "modules/audio_device/include/audio_device.h"
 #include "modules/audio_processing/include/audio_processing.h"
+#include "pc/builtin_video_bitrate_allocator_factory.h"
 #include "rtc_base/bind.h"
 #include "rtc_base/scoped_ref_ptr.h"
 #include "rtc_base/thread.h"
@@ -52,10 +53,15 @@ rtc::scoped_refptr<PeerConnectionFactoryInterface> CreatePeerConnectionFactory(
     audio_processing_use = AudioProcessingBuilder().Create();
   }
 
+  std::unique_ptr<VideoBitrateAllocatorFactory>
+      video_bitrate_allocator_factory =
+          CreateBuiltinVideoBitrateAllocatorFactory();
+
   std::unique_ptr<cricket::MediaEngineInterface> media_engine(
       cricket::WebRtcMediaEngineFactory::Create(
           default_adm, audio_encoder_factory, audio_decoder_factory,
-          video_encoder_factory, video_decoder_factory, audio_mixer,
+          video_encoder_factory, video_decoder_factory,
+          std::move(video_bitrate_allocator_factory), audio_mixer,
           audio_processing_use));
 
   std::unique_ptr<CallFactoryInterface> call_factory = CreateCallFactory();
@@ -87,10 +93,15 @@ rtc::scoped_refptr<PeerConnectionFactoryInterface> CreatePeerConnectionFactory(
     audio_processing_use = AudioProcessingBuilder().Create();
   }
 
+  std::unique_ptr<VideoBitrateAllocatorFactory>
+      video_bitrate_allocator_factory =
+          CreateBuiltinVideoBitrateAllocatorFactory();
+
   std::unique_ptr<cricket::MediaEngineInterface> media_engine(
       cricket::WebRtcMediaEngineFactory::Create(
           default_adm, audio_encoder_factory, audio_decoder_factory,
-          video_encoder_factory, video_decoder_factory, audio_mixer,
+          video_encoder_factory, video_decoder_factory,
+          std::move(video_bitrate_allocator_factory), audio_mixer,
           audio_processing_use));
 
   std::unique_ptr<CallFactoryInterface> call_factory = CreateCallFactory();
@@ -119,11 +130,16 @@ rtc::scoped_refptr<PeerConnectionFactoryInterface> CreatePeerConnectionFactory(
   if (!audio_processing)
     audio_processing = AudioProcessingBuilder().Create();
 
+  std::unique_ptr<VideoBitrateAllocatorFactory>
+      video_bitrate_allocator_factory =
+          CreateBuiltinVideoBitrateAllocatorFactory();
+
   std::unique_ptr<cricket::MediaEngineInterface> media_engine =
       cricket::WebRtcMediaEngineFactory::Create(
           default_adm, audio_encoder_factory, audio_decoder_factory,
           std::move(video_encoder_factory), std::move(video_decoder_factory),
-          audio_mixer, audio_processing);
+          std::move(video_bitrate_allocator_factory), audio_mixer,
+          audio_processing);
 
   std::unique_ptr<CallFactoryInterface> call_factory = CreateCallFactory();
 

@@ -1512,8 +1512,12 @@ void WebRtcVideoChannel::OnNetworkRouteChanged(
 void WebRtcVideoChannel::SetInterface(NetworkInterface* iface) {
   MediaChannel::SetInterface(iface);
   // Set the RTP recv/send buffer to a bigger size
+  const int recv_buffer_size =
+      webrtc::field_trial::IsDisabled("WebRTC-IncreasedReceivebuffers")
+          ? kVideoRtpBufferSize
+          : 262144;
   MediaChannel::SetOption(NetworkInterface::ST_RTP, rtc::Socket::OPT_RCVBUF,
-                          kVideoRtpBufferSize);
+                          recv_buffer_size);
 
   // Speculative change to increase the outbound socket buffer size.
   // In b/15152257, we are seeing a significant number of packets discarded

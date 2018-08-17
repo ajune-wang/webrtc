@@ -70,6 +70,30 @@
       "revId": "e477b81aa9b12781c53468d67077547346d89f86",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66bcf860_f8f88c25",
+        "filename": "test/call_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-08-17T14:23:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "495500a9_693f6c48",
+      "range": {
+        "startLine": 312,
+        "startChar": 64,
+        "endLine": 312,
+        "endChar": 68
+      },
+      "revId": "e477b81aa9b12781c53468d67077547346d89f86",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -721,7 +721,9 @@ int LibvpxVp8Encoder::Encode(const VideoFrame& frame,
   TemporalLayers::FrameConfig tl_configs[kMaxSimulcastStreams];
   for (size_t i = 0; i < encoders_.size(); ++i) {
     tl_configs[i] = temporal_layers_[i]->UpdateLayerConfig(frame.timestamp());
-    if (tl_configs[i].drop_frame) {
+    if (tl_configs[i].drop_frame &&
+        (!send_key_frame ||
+         field_trial::IsDisabled("WebRTC-Vp8DontDropKeyFrames"))) {
       // Drop this frame.
       return WEBRTC_VIDEO_CODEC_OK;
     }

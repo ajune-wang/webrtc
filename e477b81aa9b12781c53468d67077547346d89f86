@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9cdfaa06_8613d2ca",
+        "filename": "test/call_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-08-17T13:38:11Z",
+      "side": 1,
+      "message": "Does this change the behavior of existing tests?",
+      "range": {
+        "startLine": 312,
+        "startChar": 64,
+        "endLine": 312,
+        "endChar": 68
+      },
+      "revId": "e477b81aa9b12781c53468d67077547346d89f86",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

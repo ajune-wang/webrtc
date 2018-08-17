@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "e449220b_87d4b1fa",
+        "filename": "sdk/objc/Framework/Classes/Common/RTCFieldTrials.mm",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2018-08-17T14:40:52Z",
+      "side": 1,
+      "message": "A \u0027noop\u0027 isn\u0027t harmless in my book: it adds confusion.\n\nBut is seems good enough like that, I lack some context for a proper call:\n * Maybe GetFieldTrialsString() is meant to be available anyway?\n * How is this objc initialization connected with the whole FieldTrial mechanism?",
+      "parentUuid": "a41533e7_53df13fd",
+      "revId": "435aa21c8d40614d4afce73aec45219e63e1e78b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ff36376d_1b3e87e1",
         "filename": "system_wrappers/source/field_trial_default.cc",
         "patchSetId": 3
@@ -66,6 +84,24 @@
       "side": 1,
       "message": "+1 for moving everything into system_wrappers/source/field_trial.cc and .h.\n\nI prefer to use the macro and document it in order to make it explicit even if another build system is used.",
       "parentUuid": "ff36376d_1b3e87e1",
+      "revId": "435aa21c8d40614d4afce73aec45219e63e1e78b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1bd00f75_d57656d2",
+        "filename": "system_wrappers/source/field_trial_default.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2018-08-17T14:40:52Z",
+      "side": 1,
+      "message": "Fair enough! The macro is slightly more explicit.\n\nOTOH, doesn\u0027t the other method (removing field_trial_default.cc from the target) make it easier for google3 (which is more than an hypothetical client)?\n-\u003e No custom DEFINE to pass to build, just create a custom target containing the client\u0027s field_trial implementation.",
+      "parentUuid": "801fc777_8706418d",
       "revId": "435aa21c8d40614d4afce73aec45219e63e1e78b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

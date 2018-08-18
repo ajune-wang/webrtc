@@ -54,6 +54,18 @@ bool EnableShadowFilterJumpstart() {
   return !field_trial::IsEnabled("WebRTC-Aec3ShadowFilterJumpstartKillSwitch");
 }
 
+bool EnableUnityInitialRampupGain() {
+  return field_trial::IsEnabled("WebRTC-Aec3EnableUnityInitialRampupGain");
+}
+
+bool EnableAttenuatingRampupGain() {
+  return field_trial::IsEnabled("WebRTC-Aec3EnableAttenuatingRampupGain");
+}
+
+bool EnableUnityNonZeroRampupGain() {
+  return field_trial::IsEnabled("WebRTC-Aec3EnableUnityNonZeroRampupGain");
+}
+
 // Method for adjusting config parameter dependencies..
 EchoCanceller3Config AdjustConfig(const EchoCanceller3Config& config) {
   EchoCanceller3Config adjusted_cfg = config;
@@ -124,6 +136,20 @@ EchoCanceller3Config AdjustConfig(const EchoCanceller3Config& config) {
       adjusted_cfg.filter.main.leakage_diverged = 0.1f;
     }
     adjusted_cfg.filter.main.error_floor = 0.001f;
+  }
+
+  if (EnableUnityInitialRampupGain() &&
+      adjusted_cfg.echo_removal_control.gain_rampup.initial_gain == 0.f) {
+    adjusted_cfg.echo_removal_control.gain_rampup.initial_gain = 1.f;
+  }
+
+  if (adjusted_cfg.echo_removal_control.gain_rampup.first_non_zero_gain ==
+      0.001f) {
+    if (EnableAttenuatingRampupGain()) {
+      adjusted_cfg.echo_removal_control.gain_rampup.first_non_zero_gain = 100.f;
+    } else if (EnableUnityNonZeroRampupGain()) {
+      adjusted_cfg.echo_removal_control.gain_rampup.first_non_zero_gain = 1.f;
+    }
   }
 
   return adjusted_cfg;

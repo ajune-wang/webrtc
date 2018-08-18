@@ -80,7 +80,7 @@ class AecState {
 
     if (!filter_has_had_time_to_converge_ &&
         use_uncertainty_until_sufficiently_adapted_) {
-      return 10.f;
+      return 1.f;
     }
     return absl::nullopt;
   }

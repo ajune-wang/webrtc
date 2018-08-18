@@ -230,6 +230,8 @@ void AecState::Update(
     filter_has_had_time_to_converge_ =
         blocks_with_proper_filter_adaptation_ >= 1.5f * kNumBlocksPerSecond;
   }
+  if (converged_filter)
+    filter_has_had_time_to_converge_ = true;
 
   if (!filter_should_have_converged_) {
     filter_should_have_converged_ =
@@ -335,7 +337,9 @@ void AecState::Update(
   }
 
   use_linear_filter_output_ = usable_linear_estimate_ && !TransparentMode();
-  diverged_linear_filter_ = diverged_filter;
+  diverged_linear_filter_ =
+      subtractor_output_analyzer_.StronglyDivergedFilter() &&
+      active_render_block;
 
   const bool stationary_block =
       use_stationary_properties_ && echo_audibility_.IsBlockStationary();

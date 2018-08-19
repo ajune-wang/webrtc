@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9ebc9a9a_77f8cc74",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-08-19T08:46:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e7a0b7c9_1443a721",
+      "range": {
+        "startLine": 9,
+        "startChar": 8,
+        "endLine": 9,
+        "endChar": 13
+      },
+      "revId": "92cfaf1386234f8c3e39f7a24c44153118376c9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ec9aee6a_73417618",
         "filename": "modules/audio_processing/aec3/echo_canceller3.cc",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2018-08-19T08:12:31Z",
       "side": 1,
       "message": "I\u0027m always a bit suspicious about comparing floats to non-zero literals. Is it being set to exactly 0.001f somewhere else?",
+      "range": {
+        "startLine": 146,
+        "startChar": 72,
+        "endLine": 147,
+        "endChar": 12
+      },
+      "revId": "92cfaf1386234f8c3e39f7a24c44153118376c9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48eecf9c_f5d0abd5",
+        "filename": "modules/audio_processing/aec3/echo_canceller3.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-08-19T08:46:04Z",
+      "side": 1,
+      "message": "Yes, I agree. It seems to work though, but maybe that is just locally.\n\nThis is set as the default values in the config struct. The reason for this construct is to avoid overriding any customized values that are set.\n\nWDYT, is it ok to use this variant?",
+      "parentUuid": "ec9aee6a_73417618",
       "range": {
         "startLine": 146,
         "startChar": 72,
@@ -85,6 +133,30 @@
       "revId": "92cfaf1386234f8c3e39f7a24c44153118376c9c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cda1c260_3dd6a0fc",
+        "filename": "modules/audio_processing/aec3/subtractor_output_analyzer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-08-19T08:46:04Z",
+      "side": 1,
+      "message": "Sounds good!",
+      "parentUuid": "fe9e459b_491e0e12",
+      "range": {
+        "startLine": 33,
+        "startChar": 7,
+        "endLine": 33,
+        "endChar": 15
+      },
+      "revId": "92cfaf1386234f8c3e39f7a24c44153118376c9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

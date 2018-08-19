@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "ce2b17f4_4b2643a1",
+        "filename": "modules/audio_processing/aec3/echo_canceller3.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-08-19T09:16:40Z",
+      "side": 1,
+      "message": "I changed this to instead compare to the a local default configuration, which should be more explicit and less prone to floating point issues.",
+      "parentUuid": "48eecf9c_f5d0abd5",
+      "range": {
+        "startLine": 146,
+        "startChar": 72,
+        "endLine": 147,
+        "endChar": 12
+      },
+      "revId": "92cfaf1386234f8c3e39f7a24c44153118376c9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ceacdbd4_736bc6e3",
         "filename": "modules/audio_processing/aec3/echo_canceller3.cc",
         "patchSetId": 3

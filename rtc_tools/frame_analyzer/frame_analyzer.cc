@@ -15,6 +15,7 @@
 #include <string>
 #include <vector>
 
+#include "rtc_tools/frame_analyzer/video_aligner.h"
 #include "rtc_tools/frame_analyzer/video_quality_analysis.h"
 #include "rtc_tools/simple_command_line_parser.h"
 #include "rtc_tools/y4m_file_reader.h"
@@ -112,12 +113,20 @@ int main(int argc, char* argv[]) {
     return 0;
   }
 
-  webrtc::test::RunAnalysis(
-      reference_video, test_video, parser.GetFlag("stats_file_ref").c_str(),
-      parser.GetFlag("stats_file_test").c_str(), width, height, &results);
-  webrtc::test::GetMaxRepeatedAndSkippedFrames(
-      parser.GetFlag("stats_file_ref"), parser.GetFlag("stats_file_test"),
-      &results);
+  const std::vector<size_t> matching_indicies =
+      webrtc::test::FindMatchingFrameIndicies(reference_video, test_video);
+
+  results.frames =
+      webrtc::test::RunAnalysis(reference_video, test_video, matching_indicies);
+
+  const std::vector<webrtc::test::Cluster> clusters =
+      webrtc::test::CalculateFrameClusters(matching_indicies);
+  results.max_repeated_frames = webrtc::test::GetMaxRepeatedFrames(clusters);
+  results.max_skipped_frames = webrtc::test::GetMaxSkippedFrames(clusters);
+  results.total_skipped_frames =
+      webrtc::test::GetTotalNumberOfSkippedFrames(clusters);
+  results.decode_errors_ref = 0;
+  results.decode_errors_test = 0;
 
   webrtc::test::PrintAnalysisResults(parser.GetFlag("label"), &results);
 

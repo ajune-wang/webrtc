@@ -70,6 +70,24 @@
       "revId": "53661f6510ebed307b695cbca7c75876215998bc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b5909d45_6693a5c3",
+        "filename": "DEPS",
+        "patchSetId": 5
+      },
+      "lineNbr": 1049,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-20T10:26:54Z",
+      "side": 1,
+      "message": "Since headers are finer-grained than build targets, I\u0027d say we want headers anyway. If it was possible to easily whitelist individual functions and types I\u0027d probably prefer that instead, but headers are what we\u0027ve got unless we want to start building nontrivial stuff.",
+      "parentUuid": "6ee9553a_8efb3e20",
+      "revId": "53661f6510ebed307b695cbca7c75876215998bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

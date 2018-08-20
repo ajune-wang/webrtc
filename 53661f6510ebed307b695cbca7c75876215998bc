@@ -52,6 +52,24 @@
       "revId": "53661f6510ebed307b695cbca7c75876215998bc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6ee9553a_8efb3e20",
+        "filename": "DEPS",
+        "patchSetId": 5
+      },
+      "lineNbr": 1049,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-08-20T10:21:05Z",
+      "side": 1,
+      "message": "Yes, I think it is not possible to use build target in DEPS.",
+      "parentUuid": "77a82e11_10737997",
+      "revId": "53661f6510ebed307b695cbca7c75876215998bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

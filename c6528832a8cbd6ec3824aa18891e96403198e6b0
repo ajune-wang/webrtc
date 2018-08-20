@@ -70,6 +70,30 @@
       "revId": "c6528832a8cbd6ec3824aa18891e96403198e6b0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "800c3fa1_78314af7",
+        "filename": "system_wrappers/source/field_trial.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-08-20T14:02:13Z",
+      "side": 1,
+      "message": "\u003e Using #ifndef makes convenience sense if we want to support third-party non-gn builds.\n\u003e \n\u003e For a normal gn build, I think it\u0027s strongly preferable to check with #if and ensure that BUILD.gn always provides a value, so that -Wundef can catch mistakes (in code or build files) related to the symbol.\n\nI am leaning towards creating a clear interface for link time customizations, so third party build system will be easier to support. I am no 100% sure about it yet but I think it is good for WebRTC to treat these macros as part of the API (with clear documentation).\n \n\u003e Since the only use is in a .cc-file, it only needs to be defined when building this target. Not sure if gn provides a distinction between defines like this, and defines that need to propagate to dependencies?\n\nYes, but it is based on public_deps and public_configs. We usually rely on common_inherited_configs (https://cs.chromium.org/chromium/src/third_party/webrtc/BUILD.gn?l\u003d88\u0026rcl\u003de23b8a9899a1bdb1a1d810a9cc08c65dbb927dd9) for this kind of defines so they will be globally set.\nYou are right, this is only needed for this target, so maybe I can move this define from common_inherited_configs to system_wrappers:field_trial_default. WDYT?\n\nIn the meantime I will think about using #if instead of #ifndef.",
+      "parentUuid": "ade95e7b_656cc51a",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 42
+      },
+      "revId": "c6528832a8cbd6ec3824aa18891e96403198e6b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

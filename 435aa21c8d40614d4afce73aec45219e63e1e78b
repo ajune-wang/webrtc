@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "fb87ec12_67b31378",
+        "filename": "sdk/objc/Framework/Classes/Common/RTCFieldTrials.mm",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-08-20T07:13:44Z",
+      "side": 1,
+      "message": "\u003e A \u0027noop\u0027 isn\u0027t harmless in my book: it adds confusion.\n\u003e \n\u003e But is seems good enough like that, I lack some context for a proper call:\n\u003e  * Maybe GetFieldTrialsString() is meant to be available anyway?\nYes, IIUC this symbol is always available. The one users can provide an implementation is webrtc::field_trial::FindFullName.\n\n\u003e  * How is this objc initialization connected with the whole FieldTrial mechanism?\n\nI have no context about this. I will loop in someone from the team that owns this code (I think here: https://webrtc-review.googlesource.com/c/src/+/94766).",
+      "parentUuid": "e449220b_87d4b1fa",
+      "revId": "435aa21c8d40614d4afce73aec45219e63e1e78b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ff36376d_1b3e87e1",
         "filename": "system_wrappers/source/field_trial_default.cc",
         "patchSetId": 3
@@ -102,6 +120,24 @@
       "side": 1,
       "message": "Fair enough! The macro is slightly more explicit.\n\nOTOH, doesn\u0027t the other method (removing field_trial_default.cc from the target) make it easier for google3 (which is more than an hypothetical client)?\n-\u003e No custom DEFINE to pass to build, just create a custom target containing the client\u0027s field_trial implementation.",
       "parentUuid": "801fc777_8706418d",
+      "revId": "435aa21c8d40614d4afce73aec45219e63e1e78b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "59b0607b_70ac79f2",
+        "filename": "system_wrappers/source/field_trial_default.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-08-20T07:13:44Z",
+      "side": 1,
+      "message": "I still think that avoiding link errors is a better default. Isolating the definition in a separate build target means that there will be linker errors and in order to fix them it will be enough to just depend on the default target from everywhere (the build system cannot help you because the real dependency is the one with the header file and that is satisfied).\n\nIn order to get better defaults I prefer to use preprocessor macros and let users who know what they are doing to define them.\n\nI reworked this CL here: https://webrtc-review.googlesource.com/c/src/+/94766. It merges the 2 build targets into 1 and it cleans up unneeded dependencies.",
+      "parentUuid": "1bd00f75_d57656d2",
       "revId": "435aa21c8d40614d4afce73aec45219e63e1e78b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

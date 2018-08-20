@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7453c75f_935be7ed",
+        "filename": "sdk/objc/Framework/Classes/Common/RTCFieldTrials.mm",
+        "patchSetId": 4
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-08-20T12:27:33Z",
+      "side": 0,
+      "message": "kthelgason@: Is it correct that WebRTC uses this function (which is only used by the default webrtc::field_trial::FindFullName implementation)?",
+      "range": {
+        "startLine": 71,
+        "startChar": 2,
+        "endLine": 71,
+        "endChar": 78
+      },
+      "revId": "adc48799090c5906abe37211c389aa588167d6a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

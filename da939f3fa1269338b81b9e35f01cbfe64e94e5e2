@@ -190,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "e6c25f16_e1344a51",
+        "filename": "call/rtp_payload_params_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-20T18:40:00Z",
+      "side": 1,
+      "message": "I find it as obscure as before...\nMay be this tip can explain better what I mean:\nhttps://abseil.io/tips/122\n\n(UnorderedElementsAre doesn\u0027t work? what error did you got?\nI made a small test, it worked for me:\nRTPVideoHeader header;\nheader.dependencies \u003d {3, 2, 1};\nEXPECT_THAT(header.dependencies, ::testing::UnorderedElementsAre(1, 2, 3));\nEXPECT_THAT(header.dependencies, ::testing::UnorderedElementsAreArray({1, 2, 3}));\nEXPECT_THAT(header.dependencies, ::testing::WhenSorted(::testing::ElementsAre(1, 2, 3)));\n)",
+      "parentUuid": "4c40fea0_e48e04c5",
+      "range": {
+        "startLine": 332,
+        "startChar": 52,
+        "endLine": 332,
+        "endChar": 0
+      },
+      "revId": "da939f3fa1269338b81b9e35f01cbfe64e94e5e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d8eb9fd4_afaf3cdd",
         "filename": "modules/rtp_rtcp/source/rtp_format_video_generic.cc",
         "patchSetId": 3

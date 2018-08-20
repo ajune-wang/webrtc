@@ -1,0 +1,222 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a2dc983e_58966301",
+        "filename": "call/rtp_payload_params.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-20T18:40:00Z",
+      "side": 1,
+      "message": "This is probably Undefined Behaviour:\n\nI do not see why would std::array\u003cstd::array promise to provides continuous block of memory.",
+      "revId": "8ded21e8ef0d8d08b5d5352f74e8f38a76007284",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "848d3137_484caa79",
+        "filename": "call/rtp_payload_params.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-20T18:40:00Z",
+      "side": 1,
+      "message": "emplace returns a reference, so you may write\nrtp_video_header-\u003egeneric.emplace().frame_id \u003d state_.picture_id;",
+      "range": {
+        "startLine": 202,
+        "startChar": 40,
+        "endLine": 202,
+        "endChar": 0
+      },
+      "revId": "8ded21e8ef0d8d08b5d5352f74e8f38a76007284",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a48921f6_6a465e29",
+        "filename": "call/rtp_payload_params.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-20T18:40:00Z",
+      "side": 1,
+      "message": "if you plan to use simulcast index as spatial layer, add a TODO\nif you would always use 0 as spatial layer, may be do not introduce this constant making some code below simpler",
+      "range": {
+        "startLine": 224,
+        "startChar": 30,
+        "endLine": 224,
+        "endChar": 0
+      },
+      "revId": "8ded21e8ef0d8d08b5d5352f74e8f38a76007284",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e088738_61ee4f80",
+        "filename": "call/rtp_payload_params.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-20T18:40:00Z",
+      "side": 1,
+      "message": "please avoid memset, specially on c++ types\n\ndoes key frame resets it for all spatial layers?",
+      "range": {
+        "startLine": 244,
+        "startChar": 70,
+        "endLine": 244,
+        "endChar": 0
+      },
+      "revId": "8ded21e8ef0d8d08b5d5352f74e8f38a76007284",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d514d888_4c702922",
+        "filename": "call/rtp_payload_params.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-20T18:40:00Z",
+      "side": 1,
+      "message": "may be _GE(, 0)",
+      "range": {
+        "startLine": 258,
+        "startChar": 36,
+        "endLine": 258,
+        "endChar": 0
+      },
+      "revId": "8ded21e8ef0d8d08b5d5352f74e8f38a76007284",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0eee79b_00fa2e63",
+        "filename": "call/rtp_payload_params.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-20T18:40:00Z",
+      "side": 1,
+      "message": "prefer to put output parameter last\nhttps://google.github.io/styleguide/cppguide.html#Output_Parameters",
+      "range": {
+        "startLine": 47,
+        "startChar": 51,
+        "endLine": 47,
+        "endChar": 0
+      },
+      "revId": "8ded21e8ef0d8d08b5d5352f74e8f38a76007284",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3efb595_34d3dd4b",
+        "filename": "call/rtp_payload_params_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-20T18:40:00Z",
+      "side": 1,
+      "message": "nice name :)",
+      "range": {
+        "startLine": 28,
+        "startChar": 14,
+        "endLine": 28,
+        "endChar": 23
+      },
+      "revId": "8ded21e8ef0d8d08b5d5352f74e8f38a76007284",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "96d02ae9_69ed1968",
+        "filename": "call/rtp_payload_params_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-20T18:40:00Z",
+      "side": 1,
+      "message": "since you care about this value, may be name it:\n/*shared_frame_id\u003d*/0",
+      "range": {
+        "startLine": 52,
+        "startChar": 59,
+        "endLine": 52,
+        "endChar": 60
+      },
+      "revId": "8ded21e8ef0d8d08b5d5352f74e8f38a76007284",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f2dec9f3_a502f672",
+        "filename": "call/rtp_payload_params_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-20T18:40:00Z",
+      "side": 1,
+      "message": "it might be cleaner to use free function to simulate test data, but move all expectations into tests:\n\nEncodedImage KeyFrame() {\n  EncodedImage encoded_image;\n  encoded_image._frameType \u003d kVideoFrameKey\n  return encoded_image;\n}\n\nCodecSpecificInfo Vp8Specific(int tid, LayerSync layer_sync) {\n  CodecSpecificInfo codec_info{};\n  codec_info.codecType \u003d kVideoCodecVP8;\n  codec_info.codecSpecific.VP8.temporalIdx \u003d temporal_index;\n  codec_info.codecSpecific.VP8.layerSync \u003d layer_sync \u003d\u003d kSync;\n  return codec_info\n}\n\nCodecSpecificInfo* HackyVp8Specific(int tid, LayerSync layer_sync) {\n  static CodecSpecificInfo codec_info{};\n  codec_info.codecType \u003d kVideoCodecVP8;\n  codec_info.codecSpecific.VP8.temporalIdx \u003d temporal_index;\n  codec_info.codecSpecific.VP8.layerSync \u003d layer_sync \u003d\u003d kSync;\n  return \u0026codec_info;\n}\n\n\nTEST {\n  RtpPayloadParams params;\n  EXPECT_THAT(params.GetRtpVideoHeader(KeyFrame(), \u0026Vp8Specific(/*tid\u003d*/0, kNoSync), /*shared_frame_id\u003d*/0).generic.value_or({}).dependencis, IsEmpty());\n  EXPECT_THAT(params.GetRtpVideoHeader(DeltaFrame(), HackyVp8Specific(/*tid\u003d*/1, kNoSync), ElementsAre(0));\n...\n\n  EXPECT_THAT(params.GetRtpVideoHeader(DeltaFrame(), \u0026Vp8Specific(/*tid\u003d*/2, kNoSync),  /*shared_frame_id\u003d*/3).generic-\u003edependencies, WhenSorted(ElementsAre(0, 1, 2)));\n}\n\n\nWhile other fields are verified in individual tests\n\nTEST(, UsesSharedFrameIdAsId) {\n  ...\n  RTPVideoHeader header \u003d ...(,, shared_frame_id);\n  ASSERT_TRUE(header.generic);\n  EXPECT_EQ(header.generic-\u003eframe_id, shared_frame_id);\n}\n\nTEST(, UsesTemporalLayerAsIs)\nTEST(, HasNoSpatialLayer) // MaybeTODO(change to UseSimulcastIdxAsSpatialLayer)",
+      "revId": "8ded21e8ef0d8d08b5d5352f74e8f38a76007284",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6db30db6_9d368423",
+        "filename": "modules/rtp_rtcp/source/rtp_format_video_generic_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-20T18:40:00Z",
+      "side": 1,
+      "message": "emplace() returns a reference, so you may still use one line here and below.",
+      "range": {
+        "startLine": 198,
+        "startChar": 37,
+        "endLine": 198,
+        "endChar": 0
+      },
+      "revId": "8ded21e8ef0d8d08b5d5352f74e8f38a76007284",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

@@ -573,6 +573,24 @@
     },
     {
       "key": {
+        "uuid": "31eea351_9d1cc905",
+        "filename": "modules/congestion_controller/pcc/monitor_interval.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2018-08-20T15:38:07Z",
+      "side": 1,
+      "message": "Thanks for the explanation. Since I couldn\u0027t find any code in any CL calling this (except tests) , I was afraid it was a \u0027just in case\u0027 method.\n\n\u003e Familiar with the algorithm design.\n\nThis can be easily drowned by future layers of implementation tweaks. Why not rephrasing the comment, akin to (in frenglish):\n\n// Returns true if got complete information about packets.\n// NB: This only happens when a packet is sent posterior to the monitor interval.\n//     If such event doesn\u0027t occur, we don\u0027t mind anyway and stay in the same state.",
+      "parentUuid": "5a86c69e_40227d28",
+      "revId": "526f71adb92554e8f44c29ca5dcf4c2a48cd3aa1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0bcc5aae_b489dcab",
         "filename": "modules/congestion_controller/pcc/monitor_interval.h",
         "patchSetId": 10

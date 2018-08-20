@@ -14,7 +14,9 @@
 
 namespace webrtc {
 
-constexpr size_t RtpGenericFrameDescriptor::kMaxNumFrameDependencies;
+constexpr int RtpGenericFrameDescriptor::kMaxNumFrameDependencies;
+constexpr int RtpGenericFrameDescriptor::kMaxTemporalLayers;
+constexpr int RtpGenericFrameDescriptor::kMaxSpatialLayers;
 
 RtpGenericFrameDescriptor::RtpGenericFrameDescriptor() = default;
 

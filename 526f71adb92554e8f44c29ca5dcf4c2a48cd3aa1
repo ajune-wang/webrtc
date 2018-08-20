@@ -196,6 +196,24 @@
     },
     {
       "key": {
+        "uuid": "3d1ebfc0_67f49da1",
+        "filename": "modules/congestion_controller/pcc/monitor_interval.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 7296
+      },
+      "writtenOn": "2018-08-20T12:37:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "007c7a76_6927c148",
+      "revId": "526f71adb92554e8f44c29ca5dcf4c2a48cd3aa1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4706e04a_36b2af6a",
         "filename": "modules/congestion_controller/pcc/monitor_interval.cc",
         "patchSetId": 10
@@ -281,6 +299,24 @@
       "revId": "526f71adb92554e8f44c29ca5dcf4c2a48cd3aa1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9cddf57_28557a5e",
+        "filename": "modules/congestion_controller/pcc/monitor_interval.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 7296
+      },
+      "writtenOn": "2018-08-20T12:37:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e85c87db_8d05fc3d",
+      "revId": "526f71adb92554e8f44c29ca5dcf4c2a48cd3aa1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -477,6 +513,24 @@
       "side": 1,
       "message": "Yes, this is true. Is it possible to distinguish the last MonitorInterval?",
       "parentUuid": "5f720468_a2a5037e",
+      "revId": "526f71adb92554e8f44c29ca5dcf4c2a48cd3aa1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ba1555d_62540247",
+        "filename": "modules/congestion_controller/pcc/monitor_interval.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 7296
+      },
+      "writtenOn": "2018-08-20T12:37:32Z",
+      "side": 1,
+      "message": "I think it should be treated externally, on the client side. We cannot know which MonitorInterval is the last one and which packet is the last sent/delivered packet using existing congestion controller interface.",
+      "parentUuid": "39aa75e6_f1eb7a77",
       "revId": "526f71adb92554e8f44c29ca5dcf4c2a48cd3aa1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

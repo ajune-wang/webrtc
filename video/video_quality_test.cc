@@ -17,6 +17,8 @@
 #include <string>
 #include <vector>
 
+#include "call/fake_network_pipe.h"
+#include "call/simulated_network.h"
 #include "logging/rtc_event_log/output/rtc_event_log_output_file.h"
 #include "media/engine/internalencoderfactory.h"
 #include "media/engine/vp8_encoder_simulcast_proxy.h"
@@ -790,8 +792,12 @@ void VideoQualityTest::StopThumbnails() {
 std::unique_ptr<test::LayerFilteringTransport>
 VideoQualityTest::CreateSendTransport() {
   return absl::make_unique<test::LayerFilteringTransport>(
-      &task_queue_, params_.pipe, sender_call_.get(), kPayloadTypeVP8,
-      kPayloadTypeVP9, params_.video[0].selected_tl, params_.ss[0].selected_sl,
+      &task_queue_,
+      absl::make_unique<FakeNetworkPipe>(
+          Clock::GetRealTimeClock(),
+          absl::make_unique<SimulatedNetwork>(params_.pipe)),
+      sender_call_.get(), kPayloadTypeVP8, kPayloadTypeVP9,
+      params_.video[0].selected_tl, params_.ss[0].selected_sl,
       payload_type_map_, kVideoSendSsrcs[0],
       static_cast<uint32_t>(kVideoSendSsrcs[0] + params_.ss[0].streams.size() -
                             1));

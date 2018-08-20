@@ -9,6 +9,8 @@
  */
 
 #include "api/test/simulated_network.h"
+#include "call/fake_network_pipe.h"
+#include "call/simulated_network.h"
 #include "modules/rtp_rtcp/source/rtp_utility.h"
 #include "modules/video_coding/include/video_coding_defines.h"
 #include "system_wrappers/include/metrics.h"
@@ -231,9 +233,12 @@ TEST_F(StatsEndToEndTest, GetStats) {
         Call* sender_call) override {
       DefaultNetworkSimulationConfig network_config;
       network_config.loss_percent = 5;
-      return new test::PacketTransport(task_queue, sender_call, this,
-                                       test::PacketTransport::kSender,
-                                       payload_type_map_, network_config);
+      return new test::PacketTransport(
+          task_queue, sender_call, this, test::PacketTransport::kSender,
+          payload_type_map_,
+          absl::make_unique<FakeNetworkPipe>(
+              Clock::GetRealTimeClock(),
+              absl::make_unique<SimulatedNetwork>(network_config)));
     }
     void ModifySenderCallConfig(Call::Config* config) override {
       config->bitrate_config.start_bitrate_bps = kStartBitrateBps;

@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "b4b8857c_1c81b333",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-08-20T15:48:01Z",
+      "side": 1,
+      "message": "I think I prefer to keep the current implementation based on your previous suggestion.",
+      "parentUuid": "c9b56c4d_9c64bda0",
+      "revId": "cb63b7f9366ccb00c6dd49987209b603117e2e66",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "70a06c3e_3fa90e86",
         "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
         "patchSetId": 5
@@ -30,6 +48,30 @@
       "writtenOn": "2018-08-15T15:14:12Z",
       "side": 1,
       "message": "nit: Use \u003e and skip +1.\nnit: Skip extra parenthesis pair.",
+      "range": {
+        "startLine": 127,
+        "startChar": 36,
+        "endLine": 129,
+        "endChar": 71
+      },
+      "revId": "cb63b7f9366ccb00c6dd49987209b603117e2e66",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6452101c_db5a7402",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-08-20T15:48:01Z",
+      "side": 1,
+      "message": "Changed \u003e\u003d -\u003e \u003e as suggested.\n\nThe extra parenthesis is there to avoid intermediary overflows in the computation. While not necessary, I prefer to keep them.",
+      "parentUuid": "70a06c3e_3fa90e86",
       "range": {
         "startLine": 127,
         "startChar": 36,

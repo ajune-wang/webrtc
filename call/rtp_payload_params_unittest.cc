@@ -9,9 +9,11 @@
  */
 
 #include <memory>
+#include <set>
 
 #include "call/rtp_payload_params.h"
 #include "modules/video_coding/include/video_codec_interface.h"
+#include "test/field_trial.h"
 #include "test/gtest.h"
 
 namespace webrtc {
@@ -23,6 +25,7 @@ const int16_t kTl0PicIdx = 20;
 const uint8_t kTemporalIdx = 1;
 const int16_t kInitialPictureId1 = 222;
 const int16_t kInitialTl0PicIdx1 = 99;
+const int64_t kDontCare = 0;
 }  // namespace
 
 TEST(RtpPayloadParamsTest, InfoMappedToRtpVideoHeader_Vp8) {
@@ -40,20 +43,28 @@ TEST(RtpPayloadParamsTest, InfoMappedToRtpVideoHeader_Vp8) {
   memset(&codec_info, 0, sizeof(CodecSpecificInfo));
   codec_info.codecType = kVideoCodecVP8;
   codec_info.codecSpecific.VP8.simulcastIdx = 1;
-  codec_info.codecSpecific.VP8.temporalIdx = kTemporalIdx;
+  codec_info.codecSpecific.VP8.temporalIdx = 0;
   codec_info.codecSpecific.VP8.keyIdx = kNoKeyIdx;
-  codec_info.codecSpecific.VP8.layerSync = true;
+  codec_info.codecSpecific.VP8.layerSync = false;
   codec_info.codecSpecific.VP8.nonReference = true;
 
-  RTPVideoHeader header = params.GetRtpVideoHeader(encoded_image, &codec_info);
+  RTPVideoHeader header =
+      params.GetRtpVideoHeader(encoded_image, &codec_info, 0);
+
+  codec_info.codecType = kVideoCodecVP8;
+  codec_info.codecSpecific.VP8.simulcastIdx = 1;
+  codec_info.codecSpecific.VP8.temporalIdx = 1;
+  codec_info.codecSpecific.VP8.layerSync = true;
+
+  header = params.GetRtpVideoHeader(encoded_image, &codec_info, 1);
 
   EXPECT_EQ(kVideoRotation_90, header.rotation);
   EXPECT_EQ(VideoContentType::SCREENSHARE, header.content_type);
   EXPECT_EQ(1, header.simulcastIdx);
   EXPECT_EQ(kVideoCodecVP8, header.codec);
-  EXPECT_EQ(kPictureId + 1, header.vp8().pictureId);
+  EXPECT_EQ(kPictureId + 2, header.vp8().pictureId);
   EXPECT_EQ(kTemporalIdx, header.vp8().temporalIdx);
-  EXPECT_EQ(kTl0PicIdx, header.vp8().tl0PicIdx);
+  EXPECT_EQ(kTl0PicIdx + 1, header.vp8().tl0PicIdx);
   EXPECT_EQ(kNoKeyIdx, header.vp8().keyIdx);
   EXPECT_TRUE(header.vp8().layerSync);
   EXPECT_TRUE(header.vp8().nonReference);
@@ -78,7 +89,8 @@ TEST(RtpPayloadParamsTest, InfoMappedToRtpVideoHeader_Vp9) {
   codec_info.codecSpecific.VP9.temporal_idx = 2;
   codec_info.codecSpecific.VP9.end_of_picture = false;
 
-  RTPVideoHeader header = params.GetRtpVideoHeader(encoded_image, &codec_info);
+  RTPVideoHeader header =
+      params.GetRtpVideoHeader(encoded_image, &codec_info, kDontCare);
 
   EXPECT_EQ(kVideoRotation_90, header.rotation);
   EXPECT_EQ(VideoContentType::SCREENSHARE, header.content_type);
@@ -99,7 +111,7 @@ TEST(RtpPayloadParamsTest, InfoMappedToRtpVideoHeader_Vp9) {
   codec_info.codecSpecific.VP9.spatial_idx += 1;
   codec_info.codecSpecific.VP9.end_of_picture = true;
 
-  header = params.GetRtpVideoHeader(encoded_image, &codec_info);
+  header = params.GetRtpVideoHeader(encoded_image, &codec_info, kDontCare);
 
   EXPECT_EQ(kVideoRotation_90, header.rotation);
   EXPECT_EQ(VideoContentType::SCREENSHARE, header.content_type);
@@ -124,7 +136,8 @@ TEST(RtpPayloadParamsTest, InfoMappedToRtpVideoHeader_H264) {
   codec_info.codecSpecific.H264.packetization_mode =
       H264PacketizationMode::SingleNalUnit;
 
-  RTPVideoHeader header = params.GetRtpVideoHeader(encoded_image, &codec_info);
+  RTPVideoHeader header =
+      params.GetRtpVideoHeader(encoded_image, &codec_info, kDontCare);
 
   EXPECT_EQ(0, header.simulcastIdx);
   EXPECT_EQ(kVideoCodecH264, header.codec);
@@ -144,7 +157,8 @@ TEST(RtpPayloadParamsTest, PictureIdIsSetForVp8) {
   codec_info.codecSpecific.VP8.simulcastIdx = 0;
 
   RtpPayloadParams params(kSsrc1, &state);
-  RTPVideoHeader header = params.GetRtpVideoHeader(encoded_image, &codec_info);
+  RTPVideoHeader header =
+      params.GetRtpVideoHeader(encoded_image, &codec_info, kDontCare);
   EXPECT_EQ(kVideoCodecVP8, header.codec);
   EXPECT_EQ(kInitialPictureId1 + 1, header.vp8().pictureId);
 
@@ -166,7 +180,8 @@ TEST(RtpPayloadParamsTest, PictureIdWraps) {
   codec_info.codecSpecific.VP8.temporalIdx = kNoTemporalIdx;
 
   RtpPayloadParams params(kSsrc1, &state);
-  RTPVideoHeader header = params.GetRtpVideoHeader(encoded_image, &codec_info);
+  RTPVideoHeader header =
+      params.GetRtpVideoHeader(encoded_image, &codec_info, kDontCare);
   EXPECT_EQ(kVideoCodecVP8, header.codec);
   EXPECT_EQ(0, header.vp8().pictureId);
 
@@ -189,7 +204,8 @@ TEST(RtpPayloadParamsTest, Tl0PicIdxUpdatedForVp8) {
   codec_info.codecSpecific.VP8.temporalIdx = 1;
 
   RtpPayloadParams params(kSsrc1, &state);
-  RTPVideoHeader header = params.GetRtpVideoHeader(encoded_image, &codec_info);
+  RTPVideoHeader header =
+      params.GetRtpVideoHeader(encoded_image, &codec_info, kDontCare);
 
   EXPECT_EQ(kVideoCodecVP8, header.codec);
   EXPECT_EQ(kInitialPictureId1 + 1, header.vp8().pictureId);
@@ -198,7 +214,7 @@ TEST(RtpPayloadParamsTest, Tl0PicIdxUpdatedForVp8) {
   // OnEncodedImage, temporalIdx: 0.
   codec_info.codecSpecific.VP8.temporalIdx = 0;
 
-  header = params.GetRtpVideoHeader(encoded_image, &codec_info);
+  header = params.GetRtpVideoHeader(encoded_image, &codec_info, kDontCare);
   EXPECT_EQ(kVideoCodecVP8, header.codec);
   EXPECT_EQ(kInitialPictureId1 + 2, header.vp8().pictureId);
   EXPECT_EQ(kInitialTl0PicIdx1 + 1, header.vp8().tl0PicIdx);
@@ -223,7 +239,8 @@ TEST(RtpPayloadParamsTest, Tl0PicIdxUpdatedForVp9) {
   codec_info.codecSpecific.VP9.first_frame_in_picture = true;
 
   RtpPayloadParams params(kSsrc1, &state);
-  RTPVideoHeader header = params.GetRtpVideoHeader(encoded_image, &codec_info);
+  RTPVideoHeader header =
+      params.GetRtpVideoHeader(encoded_image, &codec_info, kDontCare);
 
   EXPECT_EQ(kVideoCodecVP9, header.codec);
   const auto& vp9_header =
@@ -234,7 +251,7 @@ TEST(RtpPayloadParamsTest, Tl0PicIdxUpdatedForVp9) {
   // OnEncodedImage, temporalIdx: 0.
   codec_info.codecSpecific.VP9.temporal_idx = 0;
 
-  header = params.GetRtpVideoHeader(encoded_image, &codec_info);
+  header = params.GetRtpVideoHeader(encoded_image, &codec_info, kDontCare);
 
   EXPECT_EQ(kVideoCodecVP9, header.codec);
   EXPECT_EQ(kInitialPictureId1 + 2, vp9_header.picture_id);
@@ -243,7 +260,7 @@ TEST(RtpPayloadParamsTest, Tl0PicIdxUpdatedForVp9) {
   // OnEncodedImage, first_frame_in_picture = false
   codec_info.codecSpecific.VP9.first_frame_in_picture = false;
 
-  header = params.GetRtpVideoHeader(encoded_image, &codec_info);
+  header = params.GetRtpVideoHeader(encoded_image, &codec_info, kDontCare);
 
   EXPECT_EQ(kVideoCodecVP9, header.codec);
   EXPECT_EQ(kInitialPictureId1 + 2, vp9_header.picture_id);
@@ -253,4 +270,118 @@ TEST(RtpPayloadParamsTest, Tl0PicIdxUpdatedForVp9) {
   EXPECT_EQ(kInitialPictureId1 + 2, params.state().picture_id);
   EXPECT_EQ(kInitialTl0PicIdx1 + 1, params.state().tl0_pic_idx);
 }
+
+TEST(RtpPayloadParamsTest, PictureIdForOldGenericFormat) {
+  test::ScopedFieldTrials generic_picture_id(
+      "WebRTC-GenericPictureId/Enabled/");
+  RtpPayloadState state{};
+
+  EncodedImage encoded_image;
+  CodecSpecificInfo codec_info{};
+  codec_info.codecType = kVideoCodecGeneric;
+
+  RtpPayloadParams params(kSsrc1, &state);
+  RTPVideoHeader header =
+      params.GetRtpVideoHeader(encoded_image, &codec_info, kDontCare);
+
+  EXPECT_EQ(kVideoCodecGeneric, header.codec);
+  EXPECT_EQ(0, header.frame_id);
+
+  header = params.GetRtpVideoHeader(encoded_image, &codec_info, kDontCare);
+  EXPECT_EQ(1, header.frame_id);
+}
+
+class RtpPayloadParamsVp8ToGenericTest : public ::testing::Test {
+ public:
+  RtpPayloadParamsVp8ToGenericTest() : state(), params(123, &state) {}
+
+  void Convert(int64_t shared_frame_id,
+               bool keyframe,
+               int temporal_index,
+               bool layers_sync) {
+    EncodedImage encoded_image;
+    encoded_image._frameType = keyframe ? kVideoFrameKey : kVideoFrameDelta;
+
+    CodecSpecificInfo codec_info{};
+    codec_info.codecType = kVideoCodecVP8;
+    codec_info.codecSpecific.VP8.temporalIdx = temporal_index;
+    codec_info.codecSpecific.VP8.layerSync = layers_sync;
+
+    header =
+        params.GetRtpVideoHeader(encoded_image, &codec_info, shared_frame_id);
+  }
+
+  void Check(int64_t frame_id,
+             int temporal_index,
+             const std::set<int64_t>& expected) {
+    EXPECT_TRUE(header.higher_spatial_layers.empty());
+    EXPECT_EQ(header.spatial_index, 0);
+
+    EXPECT_EQ(header.frame_id, frame_id);
+    EXPECT_EQ(header.temporal_index, temporal_index);
+    std::set<int64_t> actual(header.dependencies.begin(),
+                             header.dependencies.end());
+    EXPECT_EQ(actual, expected);
+  }
+
+  RtpPayloadState state;
+  RtpPayloadParams params;
+  RTPVideoHeader header;
+};
+
+TEST_F(RtpPayloadParamsVp8ToGenericTest, Keyframe) {
+  Convert(0, true, 0, false);
+  Check(0, 0, {});
+  Convert(1, false, 0, false);
+  Check(1, 0, {0});
+  Convert(2, true, 0, false);
+  Check(2, 0, {});
+}
+
+TEST_F(RtpPayloadParamsVp8ToGenericTest, TooHighTemporalIndex) {
+  Convert(0, true, 0, false);
+  Check(0, 0, {});
+  Convert(1, false, RtpGenericFrameDescriptor::kMaxTemporalLayers, false);
+  Check(-1, 0, {});
+}
+
+TEST_F(RtpPayloadParamsVp8ToGenericTest, LayerSync) {
+  // 02120212 pattern
+  Convert(0, true, 0, false);
+  Check(0, 0, {});
+  Convert(1, false, 2, true);
+  Check(1, 2, {0});
+  Convert(2, false, 1, true);
+  Check(2, 1, {0});
+  Convert(3, false, 2, false);
+  Check(3, 2, {0, 1, 2});
+
+  Convert(4, false, 0, false);
+  Check(4, 0, {0});
+  Convert(5, false, 2, false);
+  Check(5, 2, {2, 3, 4});
+  Convert(6, false, 1, true);  // layer sync
+  Check(6, 1, {4});
+  Convert(7, false, 2, false);
+  Check(7, 2, {4, 5, 6});
+}
+
+TEST_F(RtpPayloadParamsVp8ToGenericTest, FrameIdGaps) {
+  // 0101 pattern
+  Convert(0, true, 0, false);
+  Check(0, 0, {});
+  Convert(1, false, 1, true);
+  Check(1, 1, {0});
+
+  Convert(5, false, 0, false);
+  Check(5, 0, {0});
+  Convert(10, false, 1, false);
+  Check(10, 1, {1, 5});
+
+  Convert(15, false, 0, false);
+  Check(15, 0, {5});
+  Convert(20, false, 1, false);
+  Check(20, 1, {10, 15});
+}
+
 }  // namespace webrtc

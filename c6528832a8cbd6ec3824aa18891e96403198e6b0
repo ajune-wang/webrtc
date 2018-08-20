@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e9cbdca6_1d9c2692",
+        "filename": "system_wrappers/source/field_trial.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-20T13:08:49Z",
+      "side": 1,
+      "message": "If we really want to test definedness (contrary to code style), maybe cleaner to have a\n\n#ifndef WEBRTC_EXCLUDE_FIELD_TRIAL_DEFAULT\n#define WEBRTC_EXCLUDE_FIELD_TRIAL_DEFAULT 0\n#endif\n\nat the top of the file, and use #if rather than #ifn?def for the actual use of the symbol?",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 42
+      },
+      "revId": "c6528832a8cbd6ec3824aa18891e96403198e6b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

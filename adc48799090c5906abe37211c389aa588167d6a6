@@ -22,6 +22,30 @@
       "revId": "adc48799090c5906abe37211c389aa588167d6a6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "578a928a_9d803dc5",
+        "filename": "sdk/objc/Framework/Classes/Common/RTCFieldTrials.mm",
+        "patchSetId": 4
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 6077
+      },
+      "writtenOn": "2018-08-20T12:49:47Z",
+      "side": 0,
+      "message": "Sorry, I\u0027m not sure I understand the question. Do you mean if webrtc should use some other way f setting field trial flags that would also work with custom implementations of FindFullName, such as chromiums?",
+      "parentUuid": "7453c75f_935be7ed",
+      "range": {
+        "startLine": 71,
+        "startChar": 2,
+        "endLine": 71,
+        "endChar": 78
+      },
+      "revId": "adc48799090c5906abe37211c389aa588167d6a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

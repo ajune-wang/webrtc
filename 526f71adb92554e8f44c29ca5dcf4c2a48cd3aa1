@@ -537,6 +537,24 @@
     },
     {
       "key": {
+        "uuid": "2640a05a_cb4c034f",
+        "filename": "modules/congestion_controller/pcc/monitor_interval.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2018-08-20T12:55:04Z",
+      "side": 1,
+      "message": "Ok, so I suggest to remove this method altogether! You can revisit the options if the need arises.",
+      "parentUuid": "8ba1555d_62540247",
+      "revId": "526f71adb92554e8f44c29ca5dcf4c2a48cd3aa1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0bcc5aae_b489dcab",
         "filename": "modules/congestion_controller/pcc/monitor_interval.h",
         "patchSetId": 10

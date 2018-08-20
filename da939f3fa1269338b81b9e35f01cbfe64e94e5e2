@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a9fa38f3_e4809153",
+        "filename": "call/rtp_payload_params.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-20T11:17:39Z",
+      "side": 1,
+      "message": "may be \nRtpPayloadParams::RtpPayloadParams(const RtpPayloadParams\u0026 other) \u003d default;",
+      "range": {
+        "startLine": 122,
+        "startChar": 65,
+        "endLine": 122,
+        "endChar": 0
+      },
+      "revId": "da939f3fa1269338b81b9e35f01cbfe64e94e5e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc4341b8_91da64f9",
+        "filename": "call/rtp_payload_params.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-20T11:17:39Z",
+      "side": 1,
+      "message": "is RtpPayloadParams object shared between simulcast streams?",
+      "range": {
+        "startLine": 227,
+        "startChar": 30,
+        "endLine": 227,
+        "endChar": 0
+      },
+      "revId": "da939f3fa1269338b81b9e35f01cbfe64e94e5e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f41dd6f9_447a085f",
+        "filename": "call/rtp_payload_params.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-20T11:17:39Z",
+      "side": 1,
+      "message": "may be name it like you describe it in the comment:\nlast_shared_frame_id_",
+      "range": {
+        "startLine": 58,
+        "startChar": 6,
+        "endLine": 58,
+        "endChar": 18
+      },
+      "revId": "da939f3fa1269338b81b9e35f01cbfe64e94e5e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f87ec972_74479710",
+        "filename": "call/rtp_payload_params_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-20T11:17:39Z",
+      "side": 1,
+      "message": "reading this test I have no idea what it is doing.\nit might help to annotate each parameter when calling convert:\nRTPVideoHeader header \u003d ConvertVp8(/*shared_frame_id*/\u003d0, /*keyframe\u003d*/true, /*temporal_index\u003d*/0, /*layers_sync\u003d*/false);\nand keep all expectations in test itself\nEXPECT_EQ(header.frame_id, 0);\nEXPECT_THAT(header.dependencies, UnorderedElementsAre(0, 1));\n\nalso, this way you do not want to repeat all the expectation all the times, just those that really matter, those you verify in this particular test",
+      "range": {
+        "startLine": 332,
+        "startChar": 52,
+        "endLine": 332,
+        "endChar": 0
+      },
+      "revId": "da939f3fa1269338b81b9e35f01cbfe64e94e5e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8eb9fd4_afaf3cdd",
+        "filename": "modules/rtp_rtcp/source/rtp_format_video_generic.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-20T11:17:39Z",
+      "side": 1,
+      "message": "may be \u0027\u003e\u003d 0\u0027  with a comment \u0027negative frame_id indicate it is unset\u0027\nor make frame_id an optional",
+      "range": {
+        "startLine": 29,
+        "startChar": 36,
+        "endLine": 29,
+        "endChar": 41
+      },
+      "revId": "da939f3fa1269338b81b9e35f01cbfe64e94e5e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "189b9cb7_ba13bb01",
+        "filename": "modules/rtp_rtcp/source/rtp_generic_frame_descriptor.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-20T11:17:39Z",
+      "side": 1,
+      "message": "use the constant your introduced",
+      "range": {
+        "startLine": 30,
+        "startChar": 32,
+        "endLine": 30,
+        "endChar": 33
+      },
+      "revId": "da939f3fa1269338b81b9e35f01cbfe64e94e5e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57d0ff8f_d4e5c516",
+        "filename": "modules/rtp_rtcp/source/rtp_video_header.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-20T11:17:39Z",
+      "side": 1,
+      "message": "either add a comment negative value is invalid or, likely cleaner, turn it into optional.",
+      "revId": "da939f3fa1269338b81b9e35f01cbfe64e94e5e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

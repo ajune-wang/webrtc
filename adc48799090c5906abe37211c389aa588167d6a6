@@ -46,6 +46,30 @@
       "revId": "adc48799090c5906abe37211c389aa588167d6a6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f64d7d54_396d6090",
+        "filename": "sdk/objc/Framework/Classes/Common/RTCFieldTrials.mm",
+        "patchSetId": 4
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-08-20T12:55:39Z",
+      "side": 0,
+      "message": "Yes, I was surprised that webrtc::field_trial::InitFieldTrialsFromString is only used to set trials_init_string which in turn is only used by the default implementation of field trial (https://cs.chromium.org/chromium/src/third_party/webrtc/system_wrappers/source/field_trial_default.cc).\n\nI think Chromium doesn\u0027t use this code, I just want to be sure it is intended behavior and we are aware of it (e.g. if a user implements field_trial this call will be a ~ noop).",
+      "parentUuid": "578a928a_9d803dc5",
+      "range": {
+        "startLine": 71,
+        "startChar": 2,
+        "endLine": 71,
+        "endChar": 78
+      },
+      "revId": "adc48799090c5906abe37211c389aa588167d6a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ffcc4711_044aaea5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-20T14:13:31Z",
+      "side": 1,
+      "message": "true",
+      "range": {
+        "startLine": 12,
+        "startChar": 42,
+        "endLine": 12,
+        "endChar": 47
+      },
+      "revId": "f1cee08fe929f2d31c614bd9480c3f6a31266a57",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48703f52_170d6e09",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-20T14:13:31Z",
+      "side": 1,
+      "message": "Spelling",
+      "range": {
+        "startLine": 17,
+        "startChar": 15,
+        "endLine": 17,
+        "endChar": 22
+      },
+      "revId": "f1cee08fe929f2d31c614bd9480c3f6a31266a57",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8bbf244e_594ef7dd",
+        "filename": "webrtc.gni",
+        "patchSetId": 6
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-20T14:13:31Z",
+      "side": 1,
+      "message": "Default should then be false, right? Comment also needs updating.",
+      "range": {
+        "startLine": 38,
+        "startChar": 36,
+        "endLine": 38,
+        "endChar": 40
+      },
+      "revId": "f1cee08fe929f2d31c614bd9480c3f6a31266a57",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -94,6 +94,30 @@
       "revId": "c6528832a8cbd6ec3824aa18891e96403198e6b0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7d90614_93f5859d",
+        "filename": "system_wrappers/source/field_trial.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-20T14:13:31Z",
+      "side": 1,
+      "message": "\u003e I am leaning towards creating a clear interface for link time customizations, so third party build system will be easier to support. I am no 100% sure about it yet but I think it is good for WebRTC to treat these macros as part of the API (with clear documentation).\n\nMakes sense to me, even though I don\u0027t really understand the use cases.\n\n\u003e You are right, this is only needed for this target, so maybe I can move this define from common_inherited_configs to system_wrappers:field_trial_default. WDYT?\n\nsgtm. The rest of the code shouldn\u0027t need to know.\n \n\u003e In the meantime I will think about using #if instead of #ifndef.",
+      "parentUuid": "800c3fa1_78314af7",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 42
+      },
+      "revId": "c6528832a8cbd6ec3824aa18891e96403198e6b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

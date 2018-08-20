@@ -87,8 +87,9 @@ class DataSize {
   DataSize operator-(const DataSize& other) const {
     return DataSize::bytes(bytes() - other.bytes());
   }
-  DataSize operator+(const DataSize& other) const {
-    return DataSize::bytes(bytes() + other.bytes());
+  constexpr DataSize operator+(const DataSize& other) const {
+    return IsInfinite() || other.IsInfinite() ? DataSize::Infinity()
+                                              : DataSize(bytes_ + other.bytes_);
   }
   DataSize& operator-=(const DataSize& other) {
     bytes_ -= other.bytes();

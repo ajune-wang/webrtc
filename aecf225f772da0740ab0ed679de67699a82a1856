@@ -190,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "ef340365_fbd3e463",
+        "filename": "test/fake_decoder.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2018-08-20T07:47:51Z",
+      "side": 1,
+      "message": "Not really. But FakeDecoder or FakeEncoder can not depend on gtest since that will cause problems for other projects that does not depend on the same version of gtest. \nSince this is supposed to be used for tests or none prod code, crashing seems reasonable.",
+      "parentUuid": "9974f91d_11022cf9",
+      "range": {
+        "startLine": 79,
+        "startChar": 6,
+        "endLine": 79,
+        "endChar": 18
+      },
+      "revId": "aecf225f772da0740ab0ed679de67699a82a1856",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "60f9fb7c_33cc4239",
         "filename": "test/fake_encoder.cc",
         "patchSetId": 10

@@ -555,6 +555,24 @@
     },
     {
       "key": {
+        "uuid": "5a86c69e_40227d28",
+        "filename": "modules/congestion_controller/pcc/monitor_interval.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-08-20T14:11:58Z",
+      "side": 1,
+      "message": "The code is designed to call the congestion controller when sending a packet or receiving feedback. For monitor intervals which are not the last one, we need to know that they have ended because then we should move to the next state.  A \"last\" monitor interval would only occur if we stop sending packets and in that case we should not move to a new state.\n\nOf course, no code should wait for network events by spin-locking. If you see any code that does, please let us know. However, MonitorInterval is an internal helper class in the PCC congestion controller and not exposed in the API. So the use is contained in a relatively small code base and we can assume that anyone making significant structural changes is familiar with the algorithm design.",
+      "parentUuid": "2640a05a_cb4c034f",
+      "revId": "526f71adb92554e8f44c29ca5dcf4c2a48cd3aa1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0bcc5aae_b489dcab",
         "filename": "modules/congestion_controller/pcc/monitor_interval.h",
         "patchSetId": 10

@@ -70,6 +70,30 @@
       "revId": "adc48799090c5906abe37211c389aa588167d6a6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01411c82_5d108818",
+        "filename": "sdk/objc/Framework/Classes/Common/RTCFieldTrials.mm",
+        "patchSetId": 4
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 6077
+      },
+      "writtenOn": "2018-08-20T12:57:56Z",
+      "side": 0,
+      "message": "Right, yeah I definitely wasn\u0027t aware of that before. That said I don\u0027t think we expect many users to provide their own field trial implementation, and we don\u0027t even really support this on iOS in any reasonable way, so I don\u0027t see this as an issue.",
+      "parentUuid": "f64d7d54_396d6090",
+      "range": {
+        "startLine": 71,
+        "startChar": 2,
+        "endLine": 71,
+        "endChar": 78
+      },
+      "revId": "adc48799090c5906abe37211c389aa588167d6a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

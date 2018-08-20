@@ -26,7 +26,7 @@ RtpPacketizerGeneric::RtpPacketizerGeneric(
     size_t max_payload_len,
     size_t last_packet_reduction_len)
     : picture_id_(
-          rtp_video_header.frame_id != kNoPictureId
+          rtp_video_header.frame_id != -1
               ? absl::optional<uint16_t>(rtp_video_header.frame_id & 0x7FFF)
               : absl::nullopt),
       payload_data_(nullptr),

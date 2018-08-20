@@ -46,6 +46,30 @@
       "revId": "c6528832a8cbd6ec3824aa18891e96403198e6b0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ade95e7b_656cc51a",
+        "filename": "system_wrappers/source/field_trial.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-20T13:38:59Z",
+      "side": 1,
+      "message": "Using #ifndef makes convenience sense if we want to support third-party non-gn builds.\n\nFor a normal gn build, I think it\u0027s strongly preferable to check with #if and ensure that BUILD.gn always provides a value, so that -Wundef can catch mistakes (in code or build files) related to the symbol.\n\nSince the only use is in a .cc-file, it only needs to be defined when building this target. Not sure if gn provides a distinction between defines like this, and defines that need to propagate to dependencies?",
+      "parentUuid": "040799f0_a604f0d5",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 42
+      },
+      "revId": "c6528832a8cbd6ec3824aa18891e96403198e6b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

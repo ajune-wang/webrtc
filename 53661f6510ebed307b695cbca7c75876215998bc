@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b2c9578f_37c21c58",
+        "filename": "DEPS",
+        "patchSetId": 5
+      },
+      "lineNbr": 1049,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-20T08:13:29Z",
+      "side": 1,
+      "message": "Hmm, wait a minute. Should we really be whitelisting entire directories? I\u0027m not saying it\u0027s definitely a bad idea, but the need to add a new whitelist entry will make it much more probable that people think twice and/or talk to use before starting to use something that no one has used in WebRTC before.",
+      "revId": "53661f6510ebed307b695cbca7c75876215998bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

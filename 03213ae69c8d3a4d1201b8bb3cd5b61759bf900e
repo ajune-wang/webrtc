@@ -22,6 +22,30 @@
       "revId": "03213ae69c8d3a4d1201b8bb3cd5b61759bf900e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34bef4f2_0adf5c2d",
+        "filename": "test/gtest.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-08-20T11:37:37Z",
+      "side": 1,
+      "message": "Well, spotted, should not be here, accidental match for my automatic script to update include guards.\n\nFixed.",
+      "parentUuid": "b8b1604c_d25f7fcf",
+      "range": {
+        "startLine": 28,
+        "startChar": 24,
+        "endLine": 29,
+        "endChar": 0
+      },
+      "revId": "03213ae69c8d3a4d1201b8bb3cd5b61759bf900e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

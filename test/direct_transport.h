@@ -42,10 +42,20 @@ class Demuxer {
 // same task-queue - the one that's passed in via the constructor.
 class DirectTransport : public Transport {
  public:
+  // Deprecated. DO NOT USE. Create required implementation of
+  // SimulatedPacketReceiverInterface and use constructor, that accepts it.
+  // Because there can be different ways to simulated underling network
+  // passing implementation specific config to the transport constructor makes
+  // no sense.
   DirectTransport(SingleThreadedTaskQueueForTesting* task_queue,
                   Call* send_call,
                   const std::map<uint8_t, MediaType>& payload_type_map);
 
+  // Deprecated. DO NOT USE. Create required implementation of
+  // SimulatedPacketReceiverInterface and use constructor, that accepts it.
+  // Because there can be different ways to simulated underling network
+  // passing implementation specific config to the transport constructor makes
+  // no sense.
   DirectTransport(SingleThreadedTaskQueueForTesting* task_queue,
                   const DefaultNetworkSimulationConfig& config,
                   Call* send_call,

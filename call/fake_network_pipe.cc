@@ -19,6 +19,7 @@
 #include "call/call.h"
 #include "call/fake_network_pipe.h"
 #include "call/simulated_network.h"
+#include "modules/utility/include/process_thread.h"
 #include "rtc_base/logging.h"
 #include "system_wrappers/include/clock.h"
 
@@ -213,6 +214,14 @@ bool FakeNetworkPipe::EnqueuePacket(rtc::CopyOnWriteBuffer packet,
     packets_in_flight_.pop_back();
     ++dropped_packets_;
   }
+  absl::optional<int64_t> delivery_us =
+      network_simulation_->NextDeliveryTimeUs();
+  if (delivery_us) {
+    next_process_time_us_ = *delivery_us;
+    if (process_thread_)
+      process_thread_->WakeUp(this);
+  }
+
   return sent;
 }
 
@@ -338,6 +347,11 @@ int64_t FakeNetworkPipe::TimeUntilNextProcess() {
   rtc::CritScope crit(&process_lock_);
   int64_t delay_us = next_process_time_us_ - clock_->TimeInMicroseconds();
   return std::max<int64_t>((delay_us + 500) / 1000, 0);
+}
+
+void FakeNetworkPipe::ProcessThreadAttached(ProcessThread* process_thread) {
+  rtc::CritScope cs(&process_lock_);
+  process_thread_ = process_thread;
 }
 
 bool FakeNetworkPipe::HasTransport() const {

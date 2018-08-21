@@ -157,6 +157,30 @@
       "revId": "322de579798f8e8beffca8a08ceec68c03634a9f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32d6f9c1_d882759c",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 483,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-21T15:29:12Z",
+      "side": 1,
+      "message": "would recommend former because clang-tidy can read it\nhttp://clang.llvm.org/extra/clang-tidy/checks/bugprone-argument-comment.html",
+      "parentUuid": "461e24a3_86788478",
+      "range": {
+        "startLine": 483,
+        "startChar": 44,
+        "endLine": 483,
+        "endChar": 67
+      },
+      "revId": "322de579798f8e8beffca8a08ceec68c03634a9f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

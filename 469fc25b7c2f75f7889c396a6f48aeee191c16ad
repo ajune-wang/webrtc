@@ -1,0 +1,280 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d130e9b0_bfc94f77",
+        "filename": "p2p/base/fakeasyncresolver.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-08-21T23:09:37Z",
+      "side": 1,
+      "message": "Please see the comment in the header.",
+      "range": {
+        "startLine": 41,
+        "startChar": 1,
+        "endLine": 43,
+        "endChar": 43
+      },
+      "revId": "469fc25b7c2f75f7889c396a6f48aeee191c16ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6bac81f_a3e5e5d0",
+        "filename": "p2p/base/fakeasyncresolver.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-08-21T23:09:37Z",
+      "side": 1,
+      "message": "1) I think \"delete this\" in the middle of a member function (Start in this case, given how SignalDone is wired in P2PTransportChannel) is undefined behavior in general, not specific to the sanitizer build.\n2) The synchronous operation is really a consequence of both firing SignalDone directly in Start and how SignalDone is wired in P2PTransportChannel. It feels hard for someone to understand the issue without the context of the implementation detail of P2PTransportChannel, when reading this as a general fake.\n\nI would suggest to change this comment to just mention that it won\u0027t delete itself as the real object but instead the code that creates the fake should be responsible for its lifespan.\n\nThe same comment goes to the comment in the cc file and also the mock\u0027s header and impl files",
+      "range": {
+        "startLine": 25,
+        "startChar": 2,
+        "endLine": 28,
+        "endChar": 24
+      },
+      "revId": "469fc25b7c2f75f7889c396a6f48aeee191c16ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8f3d1a6_00047b33",
+        "filename": "p2p/base/fakeasyncresolverfactory.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-08-21T23:09:37Z",
+      "side": 1,
+      "message": "May remove it, for the same reason in my other comment about the \"synchronous implementation\".",
+      "range": {
+        "startLine": 28,
+        "startChar": 66,
+        "endLine": 29,
+        "endChar": 77
+      },
+      "revId": "469fc25b7c2f75f7889c396a6f48aeee191c16ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d42fa7c7_402ccdf2",
+        "filename": "p2p/base/mockasyncresolver.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-08-21T23:09:37Z",
+      "side": 1,
+      "message": "Need update.",
+      "range": {
+        "startLine": 21,
+        "startChar": 3,
+        "endLine": 21,
+        "endChar": 33
+      },
+      "revId": "469fc25b7c2f75f7889c396a6f48aeee191c16ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec72b467_fa8477ac",
+        "filename": "p2p/base/mockasyncresolver.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-08-21T23:09:37Z",
+      "side": 1,
+      "message": "Please see comments in the fake.",
+      "range": {
+        "startLine": 32,
+        "startChar": 2,
+        "endLine": 34,
+        "endChar": 68
+      },
+      "revId": "469fc25b7c2f75f7889c396a6f48aeee191c16ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36cd28a0_b3106883",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 1040,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-08-21T23:09:37Z",
+      "side": 1,
+      "message": "nit: maybe LS_ERROR",
+      "range": {
+        "startLine": 1040,
+        "startChar": 12,
+        "endLine": 1040,
+        "endChar": 22
+      },
+      "revId": "469fc25b7c2f75f7889c396a6f48aeee191c16ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7105ed97_fb474738",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 1050,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-08-21T23:09:37Z",
+      "side": 1,
+      "message": "nit: not sure if this is the best name to tell what it does. How about MaybeSetCandidateAddressIfResolved?",
+      "range": {
+        "startLine": 1050,
+        "startChar": 26,
+        "endLine": 1050,
+        "endChar": 52
+      },
+      "revId": "469fc25b7c2f75f7889c396a6f48aeee191c16ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e008464_f334c4e0",
+        "filename": "p2p/base/p2ptransportchannel_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 771,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-08-21T23:09:37Z",
+      "side": 1,
+      "message": "This function relies on an assumption of a single saved candidate. This expectation and the expectation below depend on the test setup of only gathering one host candidate. Suggest to make it more general and decoupled from the test setup. I am thinking of a possible approach, having a const map setting up known name-address maps (e.g., kPublicAddrs[0] \u003c-\u003e \"fake.hostname\") or a IP-base SocketAddress to hostname SocketAddress maps first, and then a helper like \"ReplaceSavedCandidatesIpWithHost(int endpoint)\", which replaces saved candidate(s).",
+      "range": {
+        "startLine": 771,
+        "startChar": 4,
+        "endLine": 771,
+        "endChar": 48
+      },
+      "revId": "469fc25b7c2f75f7889c396a6f48aeee191c16ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c560959f_69734eb0",
+        "filename": "p2p/base/p2ptransportchannel_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 4625,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-08-21T23:09:37Z",
+      "side": 1,
+      "message": "kOnlyLocalPorts?",
+      "range": {
+        "startLine": 4625,
+        "startChar": 21,
+        "endLine": 4625,
+        "endChar": 77
+      },
+      "revId": "469fc25b7c2f75f7889c396a6f48aeee191c16ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a1e5fd9_7bf9b5b1",
+        "filename": "p2p/base/p2ptransportchannel_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 4644,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-08-21T23:09:37Z",
+      "side": 1,
+      "message": "Suggest to just set the remote ICE parameters once and remove/change the expectation on the generation below. We don\u0027t have to repeat the test of this aspect in this test case.",
+      "range": {
+        "startLine": 4643,
+        "startChar": 2,
+        "endLine": 4644,
+        "endChar": 51
+      },
+      "revId": "469fc25b7c2f75f7889c396a6f48aeee191c16ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63ded04d_2f24b280",
+        "filename": "pc/peerconnection_integrationtest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-08-21T23:09:37Z",
+      "side": 1,
+      "message": "Up to you: like my other comment earlier here, the \"replacer\" implements different behaviors of the signaling channel and can be absorbed to the impl of signaling in this test.",
+      "range": {
+        "startLine": 220,
+        "startChar": 6,
+        "endLine": 220,
+        "endChar": 35
+      },
+      "revId": "469fc25b7c2f75f7889c396a6f48aeee191c16ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "215d64c4_9f092fbe",
+        "filename": "pc/peerconnection_integrationtest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 939,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-08-21T23:09:37Z",
+      "side": 1,
+      "message": "name inconsistency",
+      "range": {
+        "startLine": 939,
+        "startChar": 27,
+        "endLine": 939,
+        "endChar": 51
+      },
+      "revId": "469fc25b7c2f75f7889c396a6f48aeee191c16ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

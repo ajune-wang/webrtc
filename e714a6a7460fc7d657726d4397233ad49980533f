@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cec1e676_74b2f81b",
+        "filename": "call/rtp_payload_params_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-21T12:29:27Z",
+      "side": 1,
+      "message": "prefer to put child types before constructor\nhttps://google.github.io/styleguide/cppguide.html#Declaration_Order",
+      "range": {
+        "startLine": 300,
+        "startChar": 36,
+        "endLine": 300,
+        "endChar": 0
+      },
+      "revId": "e714a6a7460fc7d657726d4397233ad49980533f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b407b38_f52d82a5",
+        "filename": "call/rtp_payload_params_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-21T12:29:27Z",
+      "side": 1,
+      "message": "this is class, which imply members should use \u0027_\u0027 suffix.\nAlso, class members should not be public. Test are no exception.\nBut as an exception Test can use protected members (still accessible directly in the test cases)\nhttps://google.github.io/styleguide/cppguide.html#Access_Control",
+      "range": {
+        "startLine": 329,
+        "startChar": 24,
+        "endLine": 329,
+        "endChar": 0
+      },
+      "revId": "e714a6a7460fc7d657726d4397233ad49980533f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e43df6d2_864bd1a0",
+        "filename": "modules/rtp_rtcp/source/rtp_video_header.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-21T12:29:27Z",
+      "side": 1,
+      "message": "may this struct can be directly in webrtc namespace instead of nested struct of the RTPVideoHeader",
+      "range": {
+        "startLine": 28,
+        "startChar": 32,
+        "endLine": 28,
+        "endChar": 0
+      },
+      "revId": "e714a6a7460fc7d657726d4397233ad49980533f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

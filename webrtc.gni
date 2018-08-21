@@ -343,8 +343,39 @@ template("rtc_test") {
   }
 }
 
-template("rtc_source_set") {
-  source_set(target_name) {
+template("rtc_executable") {
+  executable(target_name) {
+    forward_variables_from(invoker,
+                           "*",
+                           [
+                             "deps",
+                             "configs",
+                             "public_configs",
+                             "suppressed_configs",
+                             "visibility",
+                           ])
+    forward_variables_from(invoker, [ "visibility" ])
+    if (!defined(visibility)) {
+      visibility = webrtc_default_visibility
+    }
+    configs += invoker.configs
+    configs -= rtc_remove_configs
+    configs -= invoker.suppressed_configs
+    deps = invoker.deps
+
+    public_configs = [
+      rtc_common_inherited_config,
+      absl_include_config,
+      absl_define_config,
+    ]
+    if (defined(invoker.public_configs)) {
+      public_configs += invoker.public_configs
+    }
+  }
+}
+
+template("rtc_static_library") {
+  static_library(target_name) {
     forward_variables_from(invoker,
                            "*",
                            [
@@ -410,38 +441,7 @@ template("rtc_source_set") {
   }
 }
 
-template("rtc_executable") {
-  executable(target_name) {
-    forward_variables_from(invoker,
-                           "*",
-                           [
-                             "deps",
-                             "configs",
-                             "public_configs",
-                             "suppressed_configs",
-                             "visibility",
-                           ])
-    forward_variables_from(invoker, [ "visibility" ])
-    if (!defined(visibility)) {
-      visibility = webrtc_default_visibility
-    }
-    configs += invoker.configs
-    configs -= rtc_remove_configs
-    configs -= invoker.suppressed_configs
-    deps = invoker.deps
-
-    public_configs = [
-      rtc_common_inherited_config,
-      absl_include_config,
-      absl_define_config,
-    ]
-    if (defined(invoker.public_configs)) {
-      public_configs += invoker.public_configs
-    }
-  }
-}
-
-template("rtc_static_library") {
+template("rtc_source_set") {
   static_library(target_name) {
     forward_variables_from(invoker,
                            "*",

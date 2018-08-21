@@ -205,6 +205,30 @@
       "revId": "322de579798f8e8beffca8a08ceec68c03634a9f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9881bad8_3a5cb7a6",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 483,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-21T15:47:39Z",
+      "side": 1,
+      "message": "Ok, changing back to that style.",
+      "parentUuid": "32d6f9c1_d882759c",
+      "range": {
+        "startLine": 483,
+        "startChar": 44,
+        "endLine": 483,
+        "endChar": 67
+      },
+      "revId": "322de579798f8e8beffca8a08ceec68c03634a9f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

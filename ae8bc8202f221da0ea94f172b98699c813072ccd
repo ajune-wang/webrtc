@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0460636c_6e7d8b68",
+        "filename": "video/end_to_end_tests/probing_tests.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-08-21T14:25:31Z",
+      "side": 1,
+      "message": "nit: is this member still used, or could we remove it? (Might apply for similar change in the other classes as well.)",
+      "range": {
+        "startLine": 227,
+        "startChar": 6,
+        "endLine": 227,
+        "endChar": 21
+      },
+      "revId": "ae8bc8202f221da0ea94f172b98699c813072ccd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

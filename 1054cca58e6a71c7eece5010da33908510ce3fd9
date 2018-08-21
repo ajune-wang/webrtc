@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "965e9e19_ed72e4cc",
+        "filename": "modules/congestion_controller/pcc/monitor_interval.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-08-21T12:20:25Z",
+      "side": 1,
+      "message": "if(std::abs(rtt_gradient) \u003c delay_gradient_threshold)\n rtt_gradient \u003d 0;",
+      "range": {
+        "startLine": 93,
+        "startChar": 1,
+        "endLine": 94,
+        "endChar": 77
+      },
+      "revId": "1054cca58e6a71c7eece5010da33908510ce3fd9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08869054_3cc605e3",
+        "filename": "modules/congestion_controller/pcc/monitor_interval.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-08-21T12:20:25Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be lost packet count/send packet count?",
+      "range": {
+        "startLine": 106,
+        "startChar": 27,
+        "endLine": 106,
+        "endChar": 38
+      },
+      "revId": "1054cca58e6a71c7eece5010da33908510ce3fd9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,511 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f78ba4a2_779d9283",
+        "filename": "p2p/base/mdns_message.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-21T02:34:34Z",
+      "side": 1,
+      "message": "RFC link for these. \n\nAlso: constexpr",
+      "range": {
+        "startLine": 16,
+        "startChar": 15,
+        "endLine": 16,
+        "endChar": 43
+      },
+      "revId": "919104226b32309b8ca3e2e0057a38909166dd52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9785bc44_315925d6",
+        "filename": "p2p/base/mdns_message.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-21T02:34:34Z",
+      "side": 1,
+      "message": "Doesn\u0027t hurt to put the anonymous namespace in the namespace webrtc {",
+      "revId": "919104226b32309b8ca3e2e0057a38909166dd52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4fbf41f3_06ede1c7",
+        "filename": "p2p/base/mdns_message.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-21T02:34:34Z",
+      "side": 1,
+      "message": "octet \u0026 0xc0",
+      "revId": "919104226b32309b8ca3e2e0057a38909166dd52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e78d5ca8_9a9ca4f6",
+        "filename": "p2p/base/mdns_message.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-21T02:34:34Z",
+      "side": 1,
+      "message": "Could this ever result in infinite recursion? (e.g., with a specially crafted packet)",
+      "revId": "919104226b32309b8ca3e2e0057a38909166dd52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15695fc5_8c49cbea",
+        "filename": "p2p/base/mdns_message.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-21T02:34:34Z",
+      "side": 1,
+      "message": "Up to you:\n\nWould this be more clear written in the positive?\n\nE.g.\n\nbool all_success \u003d buf-\u003eReadUInt16(\u0026id) \u0026\u0026 buf-\u003eReadUInt16(\u0026flags) \u0026\u0026 ...;\nif (!all_success) {\n  RTC_LOG(LS_ERROR) \u003c\u003c \"Invalid mDNS header.\";\n}\nreturn all_success;",
+      "revId": "919104226b32309b8ca3e2e0057a38909166dd52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27ada67e_f5dc81ef",
+        "filename": "p2p/base/mdns_message.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-21T02:34:34Z",
+      "side": 1,
+      "message": "Up to you:\n\nMaybe have a mapping like:\n\nstruct {\n  int type_num;\n  SectionDataType type; \n} kSectionDataTypeMapping[] \u003d {\n  { 1, SectionDataType::kA },\n  { 28, SectionDataType::kAAAA },\n};\n\nThen iterate through that static mapping.",
+      "revId": "919104226b32309b8ca3e2e0057a38909166dd52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "414d9936_16ee105f",
+        "filename": "p2p/base/mdns_message.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-21T02:34:34Z",
+      "side": 1,
+      "message": "Is this portable? Relies on compiler struct layout.",
+      "revId": "919104226b32309b8ca3e2e0057a38909166dd52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c61347e6_8702e5b5",
+        "filename": "p2p/base/mdns_message.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-21T02:34:34Z",
+      "side": 1,
+      "message": "check return value",
+      "range": {
+        "startLine": 381,
+        "startChar": 13,
+        "endLine": 381,
+        "endChar": 18
+      },
+      "revId": "919104226b32309b8ca3e2e0057a38909166dd52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8876e0af_537ed003",
+        "filename": "p2p/base/mdns_message.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 411,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-21T02:34:34Z",
+      "side": 1,
+      "message": "I don\u0027t think you need to qualify this",
+      "range": {
+        "startLine": 411,
+        "startChar": 9,
+        "endLine": 411,
+        "endChar": 20
+      },
+      "revId": "919104226b32309b8ca3e2e0057a38909166dd52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "512b7bcc_8ad3d568",
+        "filename": "p2p/base/mdns_message.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-21T02:34:34Z",
+      "side": 1,
+      "message": "This looks like a bit of a hack:\n\n1) Shadowing start_ from the base class and assigning a different meaning.\n2) Base class exposes Length() which is confusing with len()\n\nIs there a different way to do this?",
+      "range": {
+        "startLine": 53,
+        "startChar": 6,
+        "endLine": 53,
+        "endChar": 29
+      },
+      "revId": "919104226b32309b8ca3e2e0057a38909166dd52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be090d19_80cfe89e",
+        "filename": "p2p/base/mdns_message.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-21T02:34:34Z",
+      "side": 1,
+      "message": "RFC section reference?",
+      "revId": "919104226b32309b8ca3e2e0057a38909166dd52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc81c154_db8e0755",
+        "filename": "p2p/base/mdns_message.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-21T02:34:34Z",
+      "side": 1,
+      "message": "Put next to SetQueryOrResponse",
+      "revId": "919104226b32309b8ca3e2e0057a38909166dd52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7286d56_ed767326",
+        "filename": "p2p/base/mdns_message.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-21T02:34:34Z",
+      "side": 1,
+      "message": "Add comments spelling out the XXcount",
+      "revId": "919104226b32309b8ca3e2e0057a38909166dd52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d33a5c7f_8f32d726",
+        "filename": "p2p/base/mdns_message.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-21T02:34:34Z",
+      "side": 1,
+      "message": "RFC section reference?",
+      "revId": "919104226b32309b8ca3e2e0057a38909166dd52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4e2fc6a_9fe3cc15",
+        "filename": "p2p/base/mdns_message.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-21T02:34:34Z",
+      "side": 1,
+      "message": "What about just saving this as a fully qualified domain name (with periods)?",
+      "revId": "919104226b32309b8ca3e2e0057a38909166dd52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "934a2eac_403a58e2",
+        "filename": "p2p/base/mdns_message.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-21T02:34:34Z",
+      "side": 1,
+      "message": "Reference/comment",
+      "revId": "919104226b32309b8ca3e2e0057a38909166dd52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ee2a1d4_84774d91",
+        "filename": "p2p/base/mdns_message.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-21T02:34:34Z",
+      "side": 1,
+      "message": "Reference/comment",
+      "revId": "919104226b32309b8ca3e2e0057a38909166dd52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86fa4765_dbf43299",
+        "filename": "p2p/base/mdns_message.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-21T02:34:34Z",
+      "side": 1,
+      "message": "I\u0027d say just use the name SetTtlSeconds for consistency with other methods.",
+      "range": {
+        "startLine": 134,
+        "startChar": 7,
+        "endLine": 134,
+        "endChar": 22
+      },
+      "revId": "919104226b32309b8ca3e2e0057a38909166dd52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e59338e1_970ae1d3",
+        "filename": "p2p/base/mdns_message.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-21T02:34:34Z",
+      "side": 1,
+      "message": "Thoughts on exposing question_section_ directly as a const reference?\n\nWould be nice to be able to iterate over it.",
+      "revId": "919104226b32309b8ca3e2e0057a38909166dd52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83902d3c_c45c9527",
+        "filename": "p2p/base/mdns_message_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-21T02:34:34Z",
+      "side": 1,
+      "message": "wrap in namespace webrtc { to avoid webrtc::",
+      "revId": "919104226b32309b8ca3e2e0057a38909166dd52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a39ecf2d_f298de95",
+        "filename": "p2p/base/mdns_message_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-21T02:34:34Z",
+      "side": 1,
+      "message": "uint8_t ?",
+      "range": {
+        "startLine": 27,
+        "startChar": 6,
+        "endLine": 27,
+        "endChar": 19
+      },
+      "revId": "919104226b32309b8ca3e2e0057a38909166dd52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19556622_9c42a393",
+        "filename": "p2p/base/mdns_message_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-21T02:34:34Z",
+      "side": 1,
+      "message": "There should be an EXPECT_EQ that will show you the binary diff between the expected and actual. I don\u0027t think it\u0027ll work necessarily for std::string, but I would encourage using that instead of a boolean.",
+      "revId": "919104226b32309b8ca3e2e0057a38909166dd52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db6ea2e1_8b2c5825",
+        "filename": "p2p/base/mdns_message_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-21T02:34:34Z",
+      "side": 1,
+      "message": "!\u003d 0",
+      "range": {
+        "startLine": 186,
+        "startChar": 25,
+        "endLine": 186,
+        "endChar": 49
+      },
+      "revId": "919104226b32309b8ca3e2e0057a38909166dd52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0245f13e_12c8f88e",
+        "filename": "p2p/base/mdns_message_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-21T02:34:34Z",
+      "side": 1,
+      "message": "No need, just use TEST(",
+      "range": {
+        "startLine": 204,
+        "startChar": 6,
+        "endLine": 204,
+        "endChar": 21
+      },
+      "revId": "919104226b32309b8ca3e2e0057a38909166dd52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cebd064e_cf264d0d",
+        "filename": "p2p/base/mdns_message_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-21T02:34:34Z",
+      "side": 1,
+      "message": "Check out GMock matchers: https://github.com/google/googletest/blob/master/googlemock/docs/CheatSheet.md\n\nEXPECT_THAT(queried_names, ElementsAre(\"webrtc.org.\"));",
+      "revId": "919104226b32309b8ca3e2e0057a38909166dd52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56acb4f1_5cdf8c33",
+        "filename": "p2p/base/mdns_message_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-21T02:34:34Z",
+      "side": 1,
+      "message": "EXPECT_THAT(queried_names, ElementsAre(\"webrtc4.org.\", \"webrtc6.org.\"));",
+      "revId": "919104226b32309b8ca3e2e0057a38909166dd52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d73ff20c_1f038d88",
+        "filename": "p2p/base/mdns_message_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-21T02:34:34Z",
+      "side": 1,
+      "message": "Split: one EXPECT per clause",
+      "revId": "919104226b32309b8ca3e2e0057a38909166dd52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -10,16 +10,13 @@
 
 #include "call/rtp_config.h"
 
+#include "absl/strings/str_cat.h"
 #include "rtc_base/strings/string_builder.h"
 
 namespace webrtc {
 
 std::string NackConfig::ToString() const {
-  char buf[1024];
-  rtc::SimpleStringBuilder ss(buf);
-  ss << "{rtp_history_ms: " << rtp_history_ms;
-  ss << '}';
-  return ss.str();
+  return absl::StrCat("{rtp_history_ms: ", rtp_history_ms, "}");
 }
 
 std::string UlpfecConfig::ToString() const {

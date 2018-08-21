@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "3c4e281e_3fb0f7e3",
+        "filename": "call/rtp_payload_params.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-08-21T11:23:00Z",
+      "side": 1,
+      "message": "std::array guarantees contiguous storage.",
+      "parentUuid": "a2dc983e_58966301",
+      "revId": "8ded21e8ef0d8d08b5d5352f74e8f38a76007284",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "848d3137_484caa79",
         "filename": "call/rtp_payload_params.cc",
         "patchSetId": 4
@@ -30,6 +48,30 @@
       "writtenOn": "2018-08-20T18:40:00Z",
       "side": 1,
       "message": "emplace returns a reference, so you may write\nrtp_video_header-\u003egeneric.emplace().frame_id \u003d state_.picture_id;",
+      "range": {
+        "startLine": 202,
+        "startChar": 40,
+        "endLine": 202,
+        "endChar": 0
+      },
+      "revId": "8ded21e8ef0d8d08b5d5352f74e8f38a76007284",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "363ea515_37672a0a",
+        "filename": "call/rtp_payload_params.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-08-21T11:23:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "848d3137_484caa79",
       "range": {
         "startLine": 202,
         "startChar": 40,
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "00b47756_2e378221",
+        "filename": "call/rtp_payload_params.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-08-21T11:23:00Z",
+      "side": 1,
+      "message": "We will use it for codecs that have spatial layers (VP9/AV1).",
+      "parentUuid": "a48921f6_6a465e29",
+      "range": {
+        "startLine": 224,
+        "startChar": 30,
+        "endLine": 224,
+        "endChar": 0
+      },
+      "revId": "8ded21e8ef0d8d08b5d5352f74e8f38a76007284",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7e088738_61ee4f80",
         "filename": "call/rtp_payload_params.cc",
         "patchSetId": 4
@@ -76,6 +142,30 @@
       "writtenOn": "2018-08-20T18:40:00Z",
       "side": 1,
       "message": "please avoid memset, specially on c++ types\n\ndoes key frame resets it for all spatial layers?",
+      "range": {
+        "startLine": 244,
+        "startChar": 70,
+        "endLine": 244,
+        "endChar": 0
+      },
+      "revId": "8ded21e8ef0d8d08b5d5352f74e8f38a76007284",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2d499430_e0125db6",
+        "filename": "call/rtp_payload_params.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-08-21T11:23:00Z",
+      "side": 1,
+      "message": "Replaced memset with std::array::fill instead.",
+      "parentUuid": "7e088738_61ee4f80",
       "range": {
         "startLine": 244,
         "startChar": 70,
@@ -111,6 +201,30 @@
     },
     {
       "key": {
+        "uuid": "9dfd1014_9f9520ae",
+        "filename": "call/rtp_payload_params.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-08-21T11:23:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d514d888_4c702922",
+      "range": {
+        "startLine": 258,
+        "startChar": 36,
+        "endLine": 258,
+        "endChar": 0
+      },
+      "revId": "8ded21e8ef0d8d08b5d5352f74e8f38a76007284",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b0eee79b_00fa2e63",
         "filename": "call/rtp_payload_params.h",
         "patchSetId": 4
@@ -134,6 +248,30 @@
     },
     {
       "key": {
+        "uuid": "a09b4bf8_021fc5ad",
+        "filename": "call/rtp_payload_params.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-08-21T11:23:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b0eee79b_00fa2e63",
+      "range": {
+        "startLine": 47,
+        "startChar": 51,
+        "endLine": 47,
+        "endChar": 0
+      },
+      "revId": "8ded21e8ef0d8d08b5d5352f74e8f38a76007284",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e3efb595_34d3dd4b",
         "filename": "call/rtp_payload_params_unittest.cc",
         "patchSetId": 4
@@ -145,6 +283,30 @@
       "writtenOn": "2018-08-20T18:40:00Z",
       "side": 1,
       "message": "nice name :)",
+      "range": {
+        "startLine": 28,
+        "startChar": 14,
+        "endLine": 28,
+        "endChar": 23
+      },
+      "revId": "8ded21e8ef0d8d08b5d5352f74e8f38a76007284",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4ebe9bd4_9fbdfba5",
+        "filename": "call/rtp_payload_params_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-08-21T11:23:00Z",
+      "side": 1,
+      "message": ":D",
+      "parentUuid": "e3efb595_34d3dd4b",
       "range": {
         "startLine": 28,
         "startChar": 14,
@@ -180,6 +342,30 @@
     },
     {
       "key": {
+        "uuid": "5134d776_bcc5e947",
+        "filename": "call/rtp_payload_params_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-08-21T11:23:00Z",
+      "side": 1,
+      "message": "Ooops, this should be kDontCare",
+      "parentUuid": "96d02ae9_69ed1968",
+      "range": {
+        "startLine": 52,
+        "startChar": 59,
+        "endLine": 52,
+        "endChar": 60
+      },
+      "revId": "8ded21e8ef0d8d08b5d5352f74e8f38a76007284",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f2dec9f3_a502f672",
         "filename": "call/rtp_payload_params_unittest.cc",
         "patchSetId": 4
@@ -197,6 +383,24 @@
     },
     {
       "key": {
+        "uuid": "ab273ec5_2273243f",
+        "filename": "call/rtp_payload_params_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-08-21T11:23:00Z",
+      "side": 1,
+      "message": "I think the problem in this case is that I want to validate all fields in the GenericDescriptorInfo every time (since they are all relevant for the generic descriptor).\n\nDoing it this way would make the tests way more verbose.\n\nI understand that implementing complex logic in tests is not a good thing, but in this case I think the ConvertAndCheck function is very simple and does not make the tests harder to understand, in fact, I think it makes the tests easier to understand.",
+      "parentUuid": "f2dec9f3_a502f672",
+      "revId": "8ded21e8ef0d8d08b5d5352f74e8f38a76007284",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6db30db6_9d368423",
         "filename": "modules/rtp_rtcp/source/rtp_format_video_generic_unittest.cc",
         "patchSetId": 4
@@ -208,6 +412,30 @@
       "writtenOn": "2018-08-20T18:40:00Z",
       "side": 1,
       "message": "emplace() returns a reference, so you may still use one line here and below.",
+      "range": {
+        "startLine": 198,
+        "startChar": 37,
+        "endLine": 198,
+        "endChar": 0
+      },
+      "revId": "8ded21e8ef0d8d08b5d5352f74e8f38a76007284",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c61d8e03_f829c0bb",
+        "filename": "modules/rtp_rtcp/source/rtp_format_video_generic_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-08-21T11:23:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6db30db6_9d368423",
       "range": {
         "startLine": 198,
         "startChar": 37,

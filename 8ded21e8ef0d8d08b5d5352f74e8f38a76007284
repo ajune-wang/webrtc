@@ -239,6 +239,30 @@
     },
     {
       "key": {
+        "uuid": "2d565fc5_06c05fac",
+        "filename": "call/rtp_payload_params.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-08-21T15:47:12Z",
+      "side": 1,
+      "message": "I now realize I completely misunderstood your initial comment :)\n\nTo reply to you comment: No, we do not intend to use spatial index as simulcast index.",
+      "parentUuid": "88815b3d_3c02606a",
+      "range": {
+        "startLine": 224,
+        "startChar": 30,
+        "endLine": 224,
+        "endChar": 0
+      },
+      "revId": "8ded21e8ef0d8d08b5d5352f74e8f38a76007284",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7e088738_61ee4f80",
         "filename": "call/rtp_payload_params.cc",
         "patchSetId": 4

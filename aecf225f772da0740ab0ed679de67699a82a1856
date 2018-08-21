@@ -214,6 +214,30 @@
     },
     {
       "key": {
+        "uuid": "e6c3674f_007da393",
+        "filename": "test/fake_decoder.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-08-21T09:55:51Z",
+      "side": 1,
+      "message": "Sebastian, Are you still opposing to this behavior here?",
+      "parentUuid": "ef340365_fbd3e463",
+      "range": {
+        "startLine": 79,
+        "startChar": 6,
+        "endLine": 79,
+        "endChar": 18
+      },
+      "revId": "aecf225f772da0740ab0ed679de67699a82a1856",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "60f9fb7c_33cc4239",
         "filename": "test/fake_encoder.cc",
         "patchSetId": 10

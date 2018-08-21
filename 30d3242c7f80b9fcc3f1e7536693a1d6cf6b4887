@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "84880516_688ccb0b",
+        "filename": "rtc_tools/frame_analyzer/video_quality_analysis.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-08-21T12:33:18Z",
+      "side": 1,
+      "message": "Can we remove these? They are always set to 0 now.",
+      "range": {
+        "startLine": 148,
+        "startChar": 0,
+        "endLine": 151,
+        "endChar": 21
+      },
+      "revId": "30d3242c7f80b9fcc3f1e7536693a1d6cf6b4887",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

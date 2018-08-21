@@ -14,6 +14,7 @@
 #include <stdio.h>
 #include <list>
 #include <map>
+#include <memory>
 #include <set>
 #include <string>
 #include <vector>
@@ -313,7 +314,7 @@ class TurnPort : public Port {
 
   rtc::AsyncPacketSocket* socket_;
   SocketOptionsMap socket_options_;
-  rtc::AsyncResolverInterface* resolver_;
+  std::unique_ptr<rtc::AsyncResolverInterface> resolver_;
   int error_;
 
   StunRequestManager request_manager_;

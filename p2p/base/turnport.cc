@@ -207,7 +207,7 @@ TurnPort::TurnPort(rtc::Thread* thread,
       tls_cert_verifier_(nullptr),
       credentials_(credentials),
       socket_(socket),
-      resolver_(NULL),
+      resolver_(nullptr),
       error_(0),
       request_manager_(thread),
       next_channel_number_(TURN_CHANNEL_NUMBER_START),
@@ -248,7 +248,7 @@ TurnPort::TurnPort(rtc::Thread* thread,
       tls_cert_verifier_(tls_cert_verifier),
       credentials_(credentials),
       socket_(NULL),
-      resolver_(NULL),
+      resolver_(nullptr),
       error_(0),
       request_manager_(thread),
       next_channel_number_(TURN_CHANNEL_NUMBER_START),
@@ -271,9 +271,6 @@ TurnPort::~TurnPort() {
 
   while (!entries_.empty()) {
     DestroyEntry(entries_.front());
-  }
-  if (resolver_) {
-    resolver_->Destroy(false);
   }
   if (!SharedSocket()) {
     delete socket_;
@@ -752,13 +749,13 @@ void TurnPort::ResolveTurnAddress(const rtc::SocketAddress& address) {
 
   RTC_LOG(LS_INFO) << ToString() << ": Starting TURN host lookup for "
                    << address.ToSensitiveString();
-  resolver_ = socket_factory()->CreateAsyncResolver();
+  resolver_.reset(socket_factory()->CreateAsyncResolver());
   resolver_->SignalDone.connect(this, &TurnPort::OnResolveResult);
   resolver_->Start(address);
 }
 
 void TurnPort::OnResolveResult(rtc::AsyncResolverInterface* resolver) {
-  RTC_DCHECK(resolver == resolver_);
+  RTC_DCHECK(resolver == resolver_.get());
   // If DNS resolve is failed when trying to connect to the server using TCP,
   // one of the reason could be due to DNS queries blocked by firewall.
   // In such cases we will try to connect to the server with hostname, assuming

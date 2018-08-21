@@ -11,6 +11,7 @@
 #ifndef P2P_STUNPROBER_STUNPROBER_H_
 #define P2P_STUNPROBER_STUNPROBER_H_
 
+#include <memory>
 #include <set>
 #include <string>
 #include <vector>
@@ -241,6 +242,8 @@ class StunProber : public sigslot::has_slots<> {
   ObserverAdapter observer_adapter_;
 
   rtc::NetworkManager::NetworkList networks_;
+
+  std::unique_ptr<rtc::AsyncResolverInterface> async_resolver_;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(StunProber);
 };

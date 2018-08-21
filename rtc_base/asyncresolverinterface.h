@@ -28,8 +28,6 @@ class AsyncResolverInterface {
   virtual bool GetResolvedAddress(int family, SocketAddress* addr) const = 0;
   // Returns error from resolver.
   virtual int GetError() const = 0;
-  // Delete the resolver.
-  virtual void Destroy(bool wait) = 0;
   // Returns top most resolved IPv4 address if address is resolved successfully.
   // Otherwise returns address set in SetAddress.
   SocketAddress address() const {

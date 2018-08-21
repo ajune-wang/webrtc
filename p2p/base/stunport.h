@@ -196,7 +196,8 @@ class UDPPort : public Port {
 
    private:
     typedef std::map<rtc::SocketAddress,
-                     rtc::AsyncResolverInterface*> ResolverMap;
+                     std::unique_ptr<rtc::AsyncResolverInterface>>
+        ResolverMap;
 
     void OnResolveResult(rtc::AsyncResolverInterface* resolver);
 

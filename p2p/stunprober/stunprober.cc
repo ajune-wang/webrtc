@@ -328,13 +328,13 @@ bool StunProber::Start(StunProber::Observer* observer) {
 }
 
 bool StunProber::ResolveServerName(const rtc::SocketAddress& addr) {
-  rtc::AsyncResolverInterface* resolver =
-      socket_factory_->CreateAsyncResolver();
-  if (!resolver) {
+  // TODO(zstein): Ensure we only ever need one of these at a time.
+  async_resolver_.reset(socket_factory_->CreateAsyncResolver());
+  if (!async_resolver_) {
     return false;
   }
-  resolver->SignalDone.connect(this, &StunProber::OnServerResolved);
-  resolver->Start(addr);
+  async_resolver_->SignalDone.connect(this, &StunProber::OnServerResolved);
+  async_resolver_->Start(addr);
   return true;
 }
 
@@ -357,9 +357,8 @@ void StunProber::OnServerResolved(rtc::AsyncResolverInterface* resolver) {
 
   // Deletion of AsyncResolverInterface can't be done in OnResolveResult which
   // handles SignalDone.
-  invoker_.AsyncInvoke<void>(
-      RTC_FROM_HERE, thread_,
-      rtc::Bind(&rtc::AsyncResolverInterface::Destroy, resolver, false));
+  invoker_.AsyncInvoke<void>(RTC_FROM_HERE, thread_,
+                             [this]() { async_resolver_ = nullptr; });
   servers_.pop_back();
 
   if (servers_.size()) {

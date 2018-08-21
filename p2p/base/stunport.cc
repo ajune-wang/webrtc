@@ -110,10 +110,7 @@ UDPPort::AddressResolver::AddressResolver(rtc::PacketSocketFactory* factory)
 UDPPort::AddressResolver::~AddressResolver() {
   for (ResolverMap::iterator it = resolvers_.begin(); it != resolvers_.end();
        ++it) {
-    // TODO(guoweis): Change to asynchronous DNS resolution to prevent the hang
-    // when passing true to the Destroy() which is a safer way to avoid the code
-    // unloaded before the thread exits. Please see webrtc bug 5139.
-    it->second->Destroy(false);
+    it->second = nullptr;
   }
 }
 
@@ -121,10 +118,9 @@ void UDPPort::AddressResolver::Resolve(const rtc::SocketAddress& address) {
   if (resolvers_.find(address) != resolvers_.end())
     return;
 
-  rtc::AsyncResolverInterface* resolver =
-      socket_factory_->CreateAsyncResolver();
-  resolvers_.insert(std::pair<rtc::SocketAddress, rtc::AsyncResolverInterface*>(
-      address, resolver));
+  std::unique_ptr<rtc::AsyncResolverInterface> resolver(
+      socket_factory_->CreateAsyncResolver());
+  resolvers_.insert(std::make_pair(address, std::move(resolver)));
 
   resolver->SignalDone.connect(this,
                                &UDPPort::AddressResolver::OnResolveResult);
@@ -147,7 +143,7 @@ void UDPPort::AddressResolver::OnResolveResult(
     rtc::AsyncResolverInterface* resolver) {
   for (ResolverMap::iterator it = resolvers_.begin(); it != resolvers_.end();
        ++it) {
-    if (it->second == resolver) {
+    if (it->second.get() == resolver) {
       SignalDone(it->first, resolver->GetError());
       return;
     }

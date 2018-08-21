@@ -37,7 +37,6 @@ class AsyncResolver : public SignalThread, public AsyncResolverInterface {
   void Start(const SocketAddress& addr) override;
   bool GetResolvedAddress(int family, SocketAddress* addr) const override;
   int GetError() const override;
-  void Destroy(bool wait) override;
 
   const std::vector<IPAddress>& addresses() const { return addresses_; }
   void set_error(int error) { error_ = error; }

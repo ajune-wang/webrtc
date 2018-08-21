@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7e62879a_73094bd2",
+        "filename": "modules/congestion_controller/pcc/monitor_interval.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-08-21T15:17:19Z",
+      "side": 1,
+      "message": "packets_lost",
+      "revId": "e24a6c7bf022c37218db114750c36d417d7d0af5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "571e399b_7985980f",
+        "filename": "modules/congestion_controller/pcc/monitor_interval.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-08-21T15:17:19Z",
+      "side": 1,
+      "message": "packets_received",
+      "range": {
+        "startLine": 106,
+        "startChar": 9,
+        "endLine": 106,
+        "endChar": 32
+      },
+      "revId": "e24a6c7bf022c37218db114750c36d417d7d0af5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a51b351_ff1c1698",
+        "filename": "modules/congestion_controller/pcc/monitor_interval.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-08-21T15:17:19Z",
+      "side": 1,
+      "message": "Could write: (lost_packets_number \u003d\u003d 0) only",
+      "range": {
+        "startLine": 107,
+        "startChar": 6,
+        "endLine": 107,
+        "endChar": 62
+      },
+      "revId": "e24a6c7bf022c37218db114750c36d417d7d0af5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

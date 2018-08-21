@@ -221,13 +221,14 @@ TEST_P(ProbingEndToEndTest, ProbeOnVideoEncoderReconfiguration) {
     test::PacketTransport* CreateSendTransport(
         test::SingleThreadedTaskQueueForTesting* task_queue,
         Call* sender_call) override {
+      auto network =
+          absl::make_unique<SimulatedNetwork>(DefaultNetworkSimulationConfig());
+      send_simulated_network_ = network.get();
       send_transport_ = new test::PacketTransport(
           task_queue, sender_call, this, test::PacketTransport::kSender,
           CallTest::payload_type_map_,
-          absl::make_unique<FakeNetworkPipe>(
-              Clock::GetRealTimeClock(),
-              absl::make_unique<SimulatedNetwork>(
-                  DefaultNetworkSimulationConfig())));
+          absl::make_unique<FakeNetworkPipe>(Clock::GetRealTimeClock(),
+                                             std::move(network)));
       return send_transport_;
     }
 
@@ -248,7 +249,7 @@ TEST_P(ProbingEndToEndTest, ProbeOnVideoEncoderReconfiguration) {
                 stats.send_bandwidth_bps <= 350000) {
               DefaultNetworkSimulationConfig config;
               config.link_capacity_kbps = 200;
-              send_transport_->SetConfig(config);
+              send_simulated_network_->SetConfig(config);
 
               // In order to speed up the test we can interrupt exponential
               // probing by toggling the network availability. The alternative
@@ -263,7 +264,7 @@ TEST_P(ProbingEndToEndTest, ProbeOnVideoEncoderReconfiguration) {
             if (stats.send_bandwidth_bps <= 210000) {
               DefaultNetworkSimulationConfig config;
               config.link_capacity_kbps = 5000;
-              send_transport_->SetConfig(config);
+              send_simulated_network_->SetConfig(config);
 
               encoder_config_->max_bitrate_bps = 2000000;
               encoder_config_->simulcast_layers[0].max_bitrate_bps = 1200000;
@@ -289,6 +290,7 @@ TEST_P(ProbingEndToEndTest, ProbeOnVideoEncoderReconfiguration) {
     test::SingleThreadedTaskQueueForTesting* const task_queue_;
     bool* const success_;
     test::PacketTransport* send_transport_;
+    SimulatedNetwork* send_simulated_network_;
     VideoSendStream* send_stream_;
     VideoEncoderConfig* encoder_config_;
     RtpTransportControllerSend* transport_controller_;

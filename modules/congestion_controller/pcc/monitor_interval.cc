@@ -21,6 +21,7 @@ PccMonitorInterval::PccMonitorInterval(DataRate target_sending_rate,
       start_time_(start_time),
       interval_duration_(duration),
       received_packets_size_(DataSize::Zero()),
+      lost_packets_size_(DataSize::Zero()),
       feedback_collection_done_(false) {}
 
 PccMonitorInterval::~PccMonitorInterval() = default;
@@ -44,6 +45,7 @@ void PccMonitorInterval::OnPacketsFeedback(
       return;
     }
     if (packet_result.receive_time.IsInfinite()) {
+      lost_packets_size_ += packet_result.sent_packet->size;
       lost_packets_sent_time_.push_back(packet_result.sent_packet->send_time);
     } else {
       received_packets_.push_back(
@@ -88,8 +90,8 @@ double PccMonitorInterval::ComputeDelayGradient(
   }
   double rtt_gradient =
       sum_scaled_time_delta_dot_delay / sum_squared_scaled_time_deltas;
-  if (std::abs(rtt_gradient) < delay_gradient_threshold)
-    rtt_gradient = 0;
+  rtt_gradient =
+      (std::abs(rtt_gradient) < delay_gradient_threshold) ? 0 : rtt_gradient;
   return rtt_gradient;
 }
 
@@ -102,13 +104,10 @@ Timestamp PccMonitorInterval::GetEndTime() const {
 }
 
 double PccMonitorInterval::GetLossRate() const {
-  size_t lost_packets_number = lost_packets_sent_time_.size();
-  size_t received_packets_number = received_packets_.size();
-  if (lost_packets_number == 0 && received_packets_number == 0) {
+  if (lost_packets_size_.IsZero() && received_packets_size_.IsZero()) {
     return 0;
   }
-  return static_cast<double>(lost_packets_number) /
-         (lost_packets_number + received_packets_number);
+  return lost_packets_size_ / (lost_packets_size_ + received_packets_size_);
 }
 
 DataRate PccMonitorInterval::GetTargetSendingRate() const {

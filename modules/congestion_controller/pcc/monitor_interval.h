@@ -59,6 +59,7 @@ class PccMonitorInterval {
   std::vector<ReceivedPacket> received_packets_;
   std::vector<Timestamp> lost_packets_sent_time_;
   DataSize received_packets_size_;
+  DataSize lost_packets_size_;
   bool feedback_collection_done_;
 };
 

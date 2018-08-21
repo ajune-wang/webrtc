@@ -8,6 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+#include "call/fake_network_pipe.h"
+#include "call/simulated_network.h"
 #include "test/call_test.h"
 #include "test/gtest.h"
 #include "test/rtcp_packet_parser.h"
@@ -31,7 +33,8 @@ class RtcpXrObserver : public test::EndToEndTest {
         sent_rtcp_target_bitrate_(false),
         sent_zero_rtcp_target_bitrate_(false),
         sent_rtcp_dlrr_(0),
-        send_transport_(nullptr) {
+        send_transport_(nullptr),
+        send_simulated_network_(nullptr) {
     forward_transport_config_.link_capacity_kbps = 500;
     forward_transport_config_.queue_delay_ms = 0;
     forward_transport_config_.loss_percent = 0;
@@ -66,7 +69,7 @@ class RtcpXrObserver : public test::EndToEndTest {
       // Reduce bandwidth restriction to disable second stream after it was
       // enabled for some time.
       forward_transport_config_.link_capacity_kbps = 200;
-      send_transport_->SetConfig(forward_transport_config_);
+      send_simulated_network_->SetConfig(forward_transport_config_);
     }
 
     sent_rtcp_sr_ += parser.sender_report()->num_packets();
@@ -118,9 +121,14 @@ class RtcpXrObserver : public test::EndToEndTest {
   test::PacketTransport* CreateSendTransport(
       test::SingleThreadedTaskQueueForTesting* task_queue,
       Call* sender_call) {
+    auto network =
+        absl::make_unique<SimulatedNetwork>(forward_transport_config_);
+    send_simulated_network_ = network.get();
     send_transport_ = new test::PacketTransport(
         task_queue, sender_call, this, test::PacketTransport::kSender,
-        test::CallTest::payload_type_map_, forward_transport_config_);
+        test::CallTest::payload_type_map_,
+        absl::make_unique<FakeNetworkPipe>(Clock::GetRealTimeClock(),
+                                           std::move(network)));
     return send_transport_;
   }
 
@@ -166,6 +174,7 @@ class RtcpXrObserver : public test::EndToEndTest {
   int sent_rtcp_dlrr_;
   DefaultNetworkSimulationConfig forward_transport_config_;
   test::PacketTransport* send_transport_;
+  SimulatedNetwork* send_simulated_network_;
 };
 
 TEST_F(ExtendedReportsEndToEndTest,

@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "a3ec233d_04fd8205",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-21T15:43:35Z",
+      "side": 1,
+      "message": "Ok, reverting this part of the change. Which implies a minor change of behavior, in that the nack module will be invoked twice for these packets.",
+      "parentUuid": "674b9b59_a465c6e9",
+      "range": {
+        "startLine": 207,
+        "startChar": 2,
+        "endLine": 207,
+        "endChar": 37
+      },
+      "revId": "322de579798f8e8beffca8a08ceec68c03634a9f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e8bc4348_9f8fab83",
         "filename": "video/rtp_video_stream_receiver.cc",
         "patchSetId": 1

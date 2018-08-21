@@ -238,6 +238,30 @@
     },
     {
       "key": {
+        "uuid": "fc453639_b3bcdab0",
+        "filename": "test/fake_decoder.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-08-21T10:45:41Z",
+      "side": 1,
+      "message": "I think this is alright. However it\u0027s good to remember that sometimes code is moved from test to production, so it\u0027s good to think about what behavior we would want in that case. But of course, we also shouldn\u0027t spend to much effort on what if\u0027s, so, marking as resolved.",
+      "parentUuid": "e6c3674f_007da393",
+      "range": {
+        "startLine": 79,
+        "startChar": 6,
+        "endLine": 79,
+        "endChar": 18
+      },
+      "revId": "aecf225f772da0740ab0ed679de67699a82a1856",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "60f9fb7c_33cc4239",
         "filename": "test/fake_encoder.cc",
         "patchSetId": 10

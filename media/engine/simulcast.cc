@@ -27,6 +27,9 @@ namespace {
 constexpr int kScreenshareDefaultTl0BitrateKbps = 200;
 constexpr int kScreenshareDefaultTl1BitrateKbps = 1000;
 
+static const char* kSimulcastScreenshareFieldTrialName =
+    "WebRTC-SimulcastScreenshare";
+
 }  // namespace
 
 struct SimulcastFormat {
@@ -189,6 +192,7 @@ std::vector<webrtc::VideoStream> GetSimulcastConfig(
   if (is_screenshare) {
     return GetScreenshareLayers(max_layers, width, height, bitrate_priority,
                                 max_qp, max_framerate,
+                                ScreenshareSimulcastFieldTrialEnabled(),
                                 temporal_layers_supported);
   } else {
     return GetNormalSimulcastLayers(max_layers, width, height, bitrate_priority,
@@ -289,9 +293,12 @@ std::vector<webrtc::VideoStream> GetScreenshareLayers(
     double bitrate_priority,
     int max_qp,
     int max_framerate,
+    bool screenshare_simulcast_enabled,
     bool temporal_layers_supported) {
+  auto max_screenshare_layers =
+      screenshare_simulcast_enabled ? kMaxScreenshareSimulcastLayers : 1;
   size_t num_simulcast_layers =
-      std::min<int>(max_layers, kMaxScreenshareSimulcastLayers);
+      std::min<int>(max_layers, max_screenshare_layers);
 
   std::vector<webrtc::VideoStream> layers(num_simulcast_layers);
   // For legacy screenshare in conference mode, tl0 and tl1 bitrates are
@@ -335,6 +342,10 @@ std::vector<webrtc::VideoStream> GetScreenshareLayers(
   // just set it for the first simulcast layer.
   layers[0].bitrate_priority = bitrate_priority;
   return layers;
+}
+
+bool ScreenshareSimulcastFieldTrialEnabled() {
+  return !webrtc::field_trial::IsDisabled(kSimulcastScreenshareFieldTrialName);
 }
 
 }  // namespace cricket

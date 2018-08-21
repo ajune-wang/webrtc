@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "1a3d4102_2f8c0fe4",
+        "filename": "call/rtp_payload_params.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-08-21T14:59:15Z",
+      "side": 1,
+      "message": "https://stackoverflow.com/a/6632937",
+      "parentUuid": "05faf1d3_22cb1f2c",
+      "revId": "8ded21e8ef0d8d08b5d5352f74e8f38a76007284",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "848d3137_484caa79",
         "filename": "call/rtp_payload_params.cc",
         "patchSetId": 4
@@ -161,6 +179,30 @@
       "side": 1,
       "message": "this function is called Vp8...",
       "parentUuid": "00b47756_2e378221",
+      "range": {
+        "startLine": 224,
+        "startChar": 30,
+        "endLine": 224,
+        "endChar": 0
+      },
+      "revId": "8ded21e8ef0d8d08b5d5352f74e8f38a76007284",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8e6a7bdc_a3f05b31",
+        "filename": "call/rtp_payload_params.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-08-21T14:59:15Z",
+      "side": 1,
+      "message": "Yes, but the idea is to use |last_shared_frame_id_| for every codec type.",
+      "parentUuid": "dadf7eec_e551c041",
       "range": {
         "startLine": 224,
         "startChar": 30,

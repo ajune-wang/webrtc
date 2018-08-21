@@ -8,6 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+#include "call/fake_network_pipe.h"
+#include "call/simulated_network.h"
 #include "test/call_test.h"
 #include "test/gtest.h"
 #include "test/rtcp_packet_parser.h"
@@ -30,7 +32,12 @@ class RtcpXrObserver : public test::EndToEndTest {
         sent_rtcp_rrtr_(0),
         sent_rtcp_target_bitrate_(false),
         sent_zero_rtcp_target_bitrate_(false),
-        sent_rtcp_dlrr_(0) {}
+        sent_rtcp_dlrr_(0),
+        send_simulated_network_(nullptr) {
+    forward_transport_config_.link_capacity_kbps = 500;
+    forward_transport_config_.queue_delay_ms = 0;
+    forward_transport_config_.loss_percent = 0;
+  }
 
  private:
   // Receive stream should send RR packets (and RRTR packets if enabled).
@@ -123,6 +130,19 @@ class RtcpXrObserver : public test::EndToEndTest {
     }
   };
 
+  test::PacketTransport* CreateSendTransport(
+      test::SingleThreadedTaskQueueForTesting* task_queue,
+      Call* sender_call) {
+    auto network =
+        absl::make_unique<SimulatedNetwork>(forward_transport_config_);
+    send_simulated_network_ = network.get();
+    return new test::PacketTransport(
+        task_queue, sender_call, this, test::PacketTransport::kSender,
+        test::CallTest::payload_type_map_,
+        absl::make_unique<FakeNetworkPipe>(Clock::GetRealTimeClock(),
+                                           std::move(network)));
+  }
+
   void ModifyVideoConfigs(
       VideoSendStream::Config* send_config,
       std::vector<VideoReceiveStream::Config>* receive_configs,
@@ -166,6 +186,8 @@ class RtcpXrObserver : public test::EndToEndTest {
   bool sent_rtcp_target_bitrate_ RTC_GUARDED_BY(&crit_);
   bool sent_zero_rtcp_target_bitrate_ RTC_GUARDED_BY(&crit_);
   int sent_rtcp_dlrr_;
+  DefaultNetworkSimulationConfig forward_transport_config_;
+  SimulatedNetwork* send_simulated_network_;
 };
 
 TEST_F(ExtendedReportsEndToEndTest,

@@ -20,7 +20,6 @@
 #include "rtc_base/constructormagic.h"
 #include "rtc_base/copyonwritebuffer.h"
 #include "rtc_base/task_queue.h"
-#include "rtc_base/weak_ptr.h"
 
 namespace webrtc {
 //
@@ -31,6 +30,12 @@ class RtcpTransceiver : public RtcpFeedbackSenderInterface {
  public:
   explicit RtcpTransceiver(const RtcpTransceiverConfig& config);
   ~RtcpTransceiver() override;
+
+  // Asynchroniosly terminates the transceiver. Callbacks when done.
+  // No calls except destructor are allowed after this call.
+  // After callback transceiver will not longer use callbacks passed in the
+  // constructor or registered as observer.
+  void Stop(std::function<void()> on_destructed);
 
   // Registers observer to be notified about incoming rtcp packets.
   // Calls to observer will be done on the |config.task_queue|.
@@ -80,12 +85,6 @@ class RtcpTransceiver : public RtcpFeedbackSenderInterface {
  private:
   rtc::TaskQueue* const task_queue_;
   std::unique_ptr<RtcpTransceiverImpl> rtcp_transceiver_;
-  rtc::WeakPtrFactory<RtcpTransceiverImpl> ptr_factory_;
-  // TaskQueue, and thus tasks posted to it, may outlive this.
-  // Thus when Posting task class always pass copy of the weak_ptr to access
-  // the RtcpTransceiver and never guarantee it still will be alive when task
-  // runs.
-  rtc::WeakPtr<RtcpTransceiverImpl> ptr_;
 
   RTC_DISALLOW_IMPLICIT_CONSTRUCTORS(RtcpTransceiver);
 };

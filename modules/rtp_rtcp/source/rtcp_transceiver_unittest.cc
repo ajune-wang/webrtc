@@ -83,7 +83,7 @@ TEST(RtcpTransceiverTest, SendsRtcpOnTaskQueueWhenCreatedOnTaskQueue) {
   WaitPostedTasks(&queue);
 }
 
-TEST(RtcpTransceiverTest, CanBeDestoryedOnTaskQueue) {
+TEST(RtcpTransceiverTest, CanBeStoppedOnTaskQueue) {
   rtc::TaskQueue queue("rtcp");
   NiceMock<MockTransport> outgoing_transport;
   RtcpTransceiverConfig config;
@@ -91,7 +91,11 @@ TEST(RtcpTransceiverTest, CanBeDestoryedOnTaskQueue) {
   config.task_queue = &queue;
   auto rtcp_transceiver = absl::make_unique<RtcpTransceiver>(config);
 
-  queue.PostTask([&] { rtcp_transceiver.reset(); });
+  queue.PostTask([&] {
+    rtcp_transceiver->Stop([] {});
+    // Once stopped, can be destroyed even on the task queue.
+    rtcp_transceiver.reset();
+  });
   WaitPostedTasks(&queue);
 }
 
@@ -189,26 +193,22 @@ TEST(RtcpTransceiverTest, CanCallSendCompoundPacketFromAnyThread) {
   WaitPostedTasks(&queue);
 }
 
-TEST(RtcpTransceiverTest, DoesntSendPacketsAfterDestruction) {
+TEST(RtcpTransceiverTest, DoesntSendPacketsAfterStop) {
   MockTransport outgoing_transport;
   rtc::TaskQueue queue("rtcp");
   RtcpTransceiverConfig config;
   config.outgoing_transport = &outgoing_transport;
   config.task_queue = &queue;
-  config.schedule_periodic_compound_packets = false;
-
-  EXPECT_CALL(outgoing_transport, SendRtcp(_, _)).Times(0);
+  config.schedule_periodic_compound_packets = true;
+  config.initial_report_delay_ms = 10;
+  config.report_period_ms = 10;
 
   auto rtcp_transceiver = absl::make_unique<RtcpTransceiver>(config);
-  rtc::Event pause(false, false);
-  queue.PostTask([&] {
-    pause.Wait(rtc::Event::kForever);
-    rtcp_transceiver.reset();
-  });
   rtcp_transceiver->SendCompoundPacket();
-  pause.Set();
-  WaitPostedTasks(&queue);
-  EXPECT_FALSE(rtcp_transceiver);
+  rtcp_transceiver->Stop(
+      [&] { EXPECT_CALL(outgoing_transport, SendRtcp(_, _)).Times(0); });
+  rtc::Event sleep(false, false);
+  sleep.Wait(/*milliseconds=*/50);
 }
 
 TEST(RtcpTransceiverTest, SendsTransportFeedbackOnTaskQueue) {

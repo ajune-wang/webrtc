@@ -221,11 +221,6 @@ absl::optional<int64_t> PacedSender::GetApplicationLimitedRegionStartTime()
   return alr_detector_->GetApplicationLimitedRegionStartTime();
 }
 
-size_t PacedSender::QueueSizePackets() const {
-  rtc::CritScope cs(&critsect_);
-  return packets_->SizeInPackets();
-}
-
 int64_t PacedSender::FirstSentPacketTimeMs() const {
   rtc::CritScope cs(&critsect_);
   return first_sent_packet_ms_;

@@ -57,7 +57,6 @@ class PacketQueueInterface {
   virtual void CancelPop(const Packet& packet) = 0;
   virtual void FinalizePop(const Packet& packet) = 0;
   virtual bool Empty() const = 0;
-  virtual size_t SizeInPackets() const = 0;
   virtual uint64_t SizeInBytes() const = 0;
   virtual int64_t OldestEnqueueTimeMs() const = 0;
   virtual void UpdateQueueTime(int64_t timestamp_ms) = 0;

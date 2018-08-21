@@ -141,10 +141,6 @@ bool RoundRobinPacketQueue::Empty() const {
   return stream_priorities_.empty();
 }
 
-size_t RoundRobinPacketQueue::SizeInPackets() const {
-  return size_packets_;
-}
-
 uint64_t RoundRobinPacketQueue::SizeInBytes() const {
   return size_bytes_;
 }

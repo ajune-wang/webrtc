@@ -172,6 +172,7 @@ class FakeNetworkPipe : public webrtc::SimulatedPacketReceiverInterface,
   // packets ready to be delivered.
   void Process() override;
   int64_t TimeUntilNextProcess() override;
+  void ProcessThreadAttached(ProcessThread* process_thread) override;
 
   // Get statistics.
   float PercentageLoss();
@@ -228,6 +229,8 @@ class FakeNetworkPipe : public webrtc::SimulatedPacketReceiverInterface,
   // |process_lock| guards the data structures involved in delay and loss
   // processes, such as the packet queues.
   rtc::CriticalSection process_lock_;
+
+  ProcessThread* process_thread_ RTC_GUARDED_BY(process_lock_) = nullptr;
 
   // Packets  are added at the back of the deque, this makes the deque ordered
   // by increasing send time. The common case when removing packets from the

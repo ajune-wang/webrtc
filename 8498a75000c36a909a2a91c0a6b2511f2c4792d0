@@ -91,6 +91,30 @@
       "revId": "8498a75000c36a909a2a91c0a6b2511f2c4792d0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c8b2fc5_396926c0",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 4007,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-08-22T18:08:30Z",
+      "side": 1,
+      "message": "I also thought about this, but from my understanding it has to do whether or not the SDP is local or remote? I.e., if the remote creates the offer, the local should still put simulcast in it\u0027s answer?",
+      "parentUuid": "121c94eb_6b076c50",
+      "range": {
+        "startLine": 4007,
+        "startChar": 22,
+        "endLine": 4007,
+        "endChar": 63
+      },
+      "revId": "8498a75000c36a909a2a91c0a6b2511f2c4792d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

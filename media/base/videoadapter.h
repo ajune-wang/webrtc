@@ -48,6 +48,9 @@ class VideoAdapter {
   // requested aspect ratio is orientation agnostic and will be adjusted to
   // maintain the input orientation, so it doesn't matter if e.g. 1280x720 or
   // 720x1280 is requested.
+  // If width: < 0 or height: < 0 - no resolution limit is applied.
+  // Else if width: 0 or height: 0 - all frames are dropped.
+  // Note: Should be called from the source only.
   void OnOutputFormatRequest(const absl::optional<VideoFormat>& format);
 
   // Requests the output frame size from |AdaptFrameResolution| to have as close
@@ -57,6 +60,7 @@ class VideoAdapter {
   // framerate rather than resolution.
   // Set |max_pixel_count| and/or |max_framerate_fps| to
   // std::numeric_limit<int>::max() if no upper limit is desired.
+  // Note: Should be called from the sink only.
   void OnResolutionFramerateRequest(
       const absl::optional<int>& target_pixel_count,
       int max_pixel_count,

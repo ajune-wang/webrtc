@@ -168,7 +168,8 @@ bool VideoAdapter::AdaptFrameResolution(int in_width,
   // The max output pixel count is the minimum of the requests from
   // OnOutputFormatRequest and OnResolutionRequest.
   int max_pixel_count = resolution_request_max_pixel_count_;
-  if (requested_format_) {
+  if (requested_format_ && requested_format_->width >= 0 &&
+      requested_format_->height >= 0) {
     max_pixel_count = std::min(
         max_pixel_count, requested_format_->width * requested_format_->height);
   }
@@ -194,8 +195,8 @@ bool VideoAdapter::AdaptFrameResolution(int in_width,
   }
 
   // Calculate how the input should be cropped.
-  if (!requested_format_ || requested_format_->width == 0 ||
-      requested_format_->height == 0) {
+  if (!requested_format_ || requested_format_->width <= 0 ||
+      requested_format_->height <= 0) {
     *cropped_width = in_width;
     *cropped_height = in_height;
   } else {

@@ -279,6 +279,28 @@ TEST_F(VideoAdapterTest, AdaptFramerateHighLimit) {
   EXPECT_EQ(0, adapter_wrapper_->GetStats().dropped_frames);
 }
 
+// Adapt the frame rate to be half of the capture rate. No resolution limit set.
+// Expect the number of dropped frames to be half of the number the captured
+// frames.
+TEST_F(VideoAdapterTest, AdaptFramerateToHalfWithNoPixelLimit) {
+  VideoFormat request_format = capture_format_;
+  request_format.width = -1;
+  request_format.interval *= 2;
+  adapter_.OnOutputFormatRequest(request_format);
+
+  // Capture 10 frames and verify that every other frame is dropped. The first
+  // frame should not be dropped.
+  int expected_dropped_frames = 0;
+  for (int i = 0; i < 10; ++i) {
+    adapter_wrapper_->AdaptFrame(frame_source_->GetFrame());
+    EXPECT_GE(adapter_wrapper_->GetStats().captured_frames, i + 1);
+    if (i % 2 == 1)
+      ++expected_dropped_frames;
+    EXPECT_EQ(expected_dropped_frames,
+              adapter_wrapper_->GetStats().dropped_frames);
+  }
+}
+
 // After the first timestamp, add a big offset to the timestamps. Expect that
 // the adapter is conservative and resets to the new offset and does not drop
 // any frame.
@@ -469,6 +491,21 @@ TEST_F(VideoAdapterTest, AdaptFrameResolutionQuarter) {
   EXPECT_EQ(capture_format_.height, cropped_height_);
   EXPECT_EQ(request_format.width, out_width_);
   EXPECT_EQ(request_format.height, out_height_);
+}
+
+// Set no output pixel resolution. Expect no cropping or resolution change.
+TEST_F(VideoAdapterTest, AdaptFrameResolutionNoLimit) {
+  VideoFormat output_format = capture_format_;
+  output_format.width = -1;
+  output_format.height = -1;
+  adapter_.OnOutputFormatRequest(output_format);
+  EXPECT_TRUE(adapter_.AdaptFrameResolution(
+      capture_format_.width, capture_format_.height, 0, &cropped_width_,
+      &cropped_height_, &out_width_, &out_height_));
+  EXPECT_EQ(capture_format_.width, cropped_width_);
+  EXPECT_EQ(capture_format_.height, cropped_height_);
+  EXPECT_EQ(capture_format_.width, out_width_);
+  EXPECT_EQ(capture_format_.height, out_height_);
 }
 
 // Adapt the pixel resolution to 0. Expect frame drop.

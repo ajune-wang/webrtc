@@ -221,7 +221,7 @@ rtc_static_library("rtp_rtcp") {
     "../../rtc_base/time:timestamp_extrapolator",
     "../../system_wrappers",
     "../../system_wrappers:field_trial_api",
-    "../../system_wrappers:metrics_api",
+    "../../system_wrappers:metrics",
     "../audio_coding:audio_format_conversion",
     "../remote_bitrate_estimator",
     "//third_party/abseil-cpp/absl/memory",

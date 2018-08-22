@@ -46,6 +46,8 @@ declare_args() {
     rtc_exclude_field_trial_default = false
   }
 
+  rtc_exclude_metrics_default = false
+
   # Setting this to false will require the API user to pass in their own
   # SSLCertificateVerifier to verify the certificates presented from a
   # TLS-TURN server. In return disabling this saves around 100kb in the binary.

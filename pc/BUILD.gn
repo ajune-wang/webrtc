@@ -85,7 +85,7 @@ rtc_static_library("rtc_pc_base") {
     "../rtc_base:stringutils",
     "../rtc_base/third_party/base64",
     "../rtc_base/third_party/sigslot",
-    "../system_wrappers:metrics_api",
+    "../system_wrappers:metrics",
     "//third_party/abseil-cpp/absl/memory",
     "//third_party/abseil-cpp/absl/types:optional",
   ]
@@ -208,7 +208,7 @@ rtc_static_library("peerconnection") {
     "../stats",
     "../system_wrappers",
     "../system_wrappers:field_trial_api",
-    "../system_wrappers:metrics_api",
+    "../system_wrappers:metrics",
     "//third_party/abseil-cpp/absl/memory",
     "//third_party/abseil-cpp/absl/types:optional",
   ]
@@ -313,7 +313,7 @@ if (rtc_include_tests) {
       "../rtc_base:rtc_base_tests_main",
       "../rtc_base:rtc_base_tests_utils",
       "../rtc_base/third_party/sigslot",
-      "../system_wrappers:metrics_default",
+      "../system_wrappers:metrics",
       "../system_wrappers:runtime_enabled_features_default",
       "../test:test_support",
       "//third_party/abseil-cpp/absl/memory",
@@ -485,6 +485,7 @@ if (rtc_include_tests) {
       "../rtc_base:checks",
       "../rtc_base:stringutils",
       "../rtc_base/third_party/base64",
+      "../system_wrappers:metrics",
       "../test:fileutils",
       "//third_party/abseil-cpp/absl/memory",
     ]
@@ -526,7 +527,6 @@ if (rtc_include_tests) {
       "../rtc_base:rtc_base_tests_utils",
       "../rtc_base:rtc_task_queue",
       "../rtc_base:safe_conversions",
-      "../system_wrappers:metrics_default",
       "../system_wrappers:runtime_enabled_features_default",
       "../test:audio_codec_mocks",
       "../test:test_support",

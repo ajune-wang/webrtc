@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e5897891_e329b27e",
+        "filename": "rtc_tools/y4m_file_reader.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-08-22T17:24:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1590c883_0217f254",
+      "range": {
+        "startLine": 200,
+        "startChar": 36,
+        "endLine": 200,
+        "endChar": 41
+      },
+      "revId": "c5dda7ad1dfebf24b69443871e5cdbb7c9f380bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bc0f6698_1616db87",
         "filename": "rtc_tools/y4m_file_reader.h",
         "patchSetId": 12
@@ -45,6 +69,30 @@
       "revId": "c5dda7ad1dfebf24b69443871e5cdbb7c9f380bf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a7f20fd_7363c860",
+        "filename": "rtc_tools/y4m_file_reader.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-08-22T17:24:23Z",
+      "side": 1,
+      "message": "Yes exactly, I\u0027m using it in the follow-up CL https://webrtc-review.googlesource.com/c/src/+/94773. \n\nThe main reason is to make it simpler to loop over the frames of the video, like this:\nfor (const rtc::scoped_refptr\u003cI420BufferInterface\u003e\u0026 frame : video) {\n  ...\n\nThis is very common for e.g. summing up PSNR and similar.",
+      "parentUuid": "bc0f6698_1616db87",
+      "range": {
+        "startLine": 29,
+        "startChar": 2,
+        "endLine": 29,
+        "endChar": 18
+      },
+      "revId": "c5dda7ad1dfebf24b69443871e5cdbb7c9f380bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

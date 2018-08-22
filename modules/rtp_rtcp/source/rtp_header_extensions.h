@@ -14,6 +14,7 @@
 #include <string>
 
 #include "api/array_view.h"
+#include "api/video/hdr_metadata.h"
 #include "api/video/video_content_type.h"
 #include "api/video/video_rotation.h"
 #include "api/video/video_timing.h"
@@ -151,6 +152,19 @@ class VideoTimingExtension {
   static bool Write(rtc::ArrayView<uint8_t> data,
                     uint16_t time_delta_ms,
                     uint8_t idx);
+};
+
+class HdrMetadataExtension {
+ public:
+  static constexpr RTPExtensionType kId = kRtpExtensionHdrMetadata;
+  static constexpr uint8_t kValueSizeBytes = 8;
+  static constexpr const char kUri[] = "rtp-hdr-signaling-uri-placeholder";
+
+  static bool Parse(rtc::ArrayView<const uint8_t> data,
+                    HdrMetadata* hdr_metadata);
+  static size_t ValueSize(const HdrMetadata&) { return kValueSizeBytes; }
+  static bool Write(rtc::ArrayView<uint8_t> data,
+                    const HdrMetadata& hdr_metadata);
 };
 
 // Base extension class for RTP header extensions which are strings.

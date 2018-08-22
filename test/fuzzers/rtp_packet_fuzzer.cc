@@ -95,6 +95,11 @@ void FuzzOneInput(const uint8_t* data, size_t size) {
         VideoSendTiming timing;
         packet.GetExtension<VideoTimingExtension>(&timing);
         break;
+      case kRtpExtensionHdrMetadata: {
+        HdrMetadata hdr_metadata;
+        packet.GetExtension<HdrMetadataExtension>(&hdr_metadata);
+        break;
+      }
       case kRtpExtensionRtpStreamId: {
         std::string rsid;
         packet.GetExtension<RtpStreamId>(&rsid);

@@ -506,4 +506,26 @@ TEST(RtpPacketTest, ParseLegacyTimingFrameExtension) {
   EXPECT_EQ(receivied_timing.flags, 0);
 }
 
+TEST(RtpPacketTest, CreateAndParseHdrExtension) {
+  HdrMetadata hdrMetadata;
+  hdrMetadata.max_content_light_level = 1234;
+  hdrMetadata.max_frame_average_light_level = 567;
+  RtpPacket::ExtensionManager extensions;
+  extensions.Register<HdrMetadataExtension>(1);
+
+  RtpPacket packet(&extensions);
+  EXPECT_TRUE(packet.SetExtension<HdrMetadataExtension>(hdrMetadata));
+
+  packet.SetPayloadSize(42);
+
+  // Read packet with the extension.
+  RtpPacketReceived parsed(&extensions);
+  EXPECT_TRUE(parsed.Parse(packet.Buffer()));
+  HdrMetadata read;
+  EXPECT_TRUE(parsed.GetExtension<HdrMetadataExtension>(&read));
+  EXPECT_EQ(hdrMetadata.max_content_light_level, read.max_content_light_level);
+  EXPECT_EQ(hdrMetadata.max_frame_average_light_level,
+            read.max_frame_average_light_level);
+}
+
 }  // namespace webrtc

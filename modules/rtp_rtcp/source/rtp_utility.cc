@@ -236,6 +236,10 @@ bool RtpHeaderParser::Parse(
   header->extension.has_video_timing = false;
   header->extension.video_timing = {0u, 0u, 0u, 0u, 0u, 0u, false};
 
+  header->extension.has_hdr_metadata = false;
+  header->extension.hdr_metadata.max_content_light_level = 0u;
+  header->extension.hdr_metadata.max_frame_average_light_level = 0u;
+
   if (X) {
     /* RTP header extension, RFC 3550.
      0                   1                   2                   3
@@ -470,6 +474,11 @@ void RtpHeaderParser::ParseOneByteExtensionHeader(
         case kRtpExtensionGenericFrameDescriptor:
           RTC_LOG(WARNING)
               << "RtpGenericFrameDescriptor unsupported by rtp header parser.";
+          break;
+        case kRtpExtensionHdrMetadata:
+          HdrMetadataExtension::Parse(rtc::MakeArrayView(ptr, len + 1),
+                                      &header->extension.hdr_metadata);
+          header->extension.has_hdr_metadata = true;
           break;
         case kRtpExtensionNone:
         case kRtpExtensionNumberOfExtensions: {

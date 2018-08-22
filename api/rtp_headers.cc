@@ -34,7 +34,8 @@ RTPHeaderExtension::RTPHeaderExtension()
       videoRotation(kVideoRotation_0),
       hasVideoContentType(false),
       videoContentType(VideoContentType::UNSPECIFIED),
-      has_video_timing(false) {}
+      has_video_timing(false),
+      has_hdr_metadata(false) {}
 
 RTPHeaderExtension::RTPHeaderExtension(const RTPHeaderExtension& other) =
     default;

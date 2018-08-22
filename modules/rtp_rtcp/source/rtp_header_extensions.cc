@@ -350,6 +350,36 @@ bool VideoTimingExtension::Write(rtc::ArrayView<uint8_t> data,
   return true;
 }
 
+// HDR Metadata.
+constexpr RTPExtensionType HdrMetadataExtension::kId;
+constexpr uint8_t HdrMetadataExtension::kValueSizeBytes;
+constexpr const char HdrMetadataExtension::kUri[];
+
+bool HdrMetadataExtension::Parse(rtc::ArrayView<const uint8_t> data,
+                                 HdrMetadata* hdr_metadata) {
+  RTC_DCHECK(hdr_metadata);
+  if (data.size() != kValueSizeBytes)
+    return false;
+  hdr_metadata->max_content_light_level = ByteReader<uint32_t>::ReadBigEndian(
+      data.data() + HdrMetadata::kMaxContentLightLevelOffset);
+  hdr_metadata->max_frame_average_light_level =
+      ByteReader<uint32_t>::ReadBigEndian(
+          data.data() + HdrMetadata::kMaxFrameAverageLightLevelOffset);
+  return true;
+}
+
+bool HdrMetadataExtension::Write(rtc::ArrayView<uint8_t> data,
+                                 const HdrMetadata& hdr_metadata) {
+  RTC_DCHECK_EQ(data.size(), kValueSizeBytes);
+  ByteWriter<uint32_t>::WriteBigEndian(
+      data.data() + HdrMetadata::kMaxContentLightLevelOffset,
+      hdr_metadata.max_content_light_level);
+  ByteWriter<uint32_t>::WriteBigEndian(
+      data.data() + HdrMetadata::kMaxFrameAverageLightLevelOffset,
+      hdr_metadata.max_frame_average_light_level);
+  return true;
+}
+
 bool BaseRtpStringExtension::Parse(rtc::ArrayView<const uint8_t> data,
                                    StringRtpHeaderExtension* str) {
   if (data.empty() || data[0] == 0)  // Valid string extension can't be empty.

@@ -210,13 +210,11 @@ if (is_ios || (is_mac && target_cpu != "x86")) {
       check_includes = false
       deps = [
         "../sdk:framework_objc",
-        "../system_wrappers:field_trial_default",
         "../system_wrappers:runtime_enabled_features_default",
       ]
     } else {
       deps = [
         "../sdk:common_objc",
-        "../system_wrappers:field_trial_default",
         "../system_wrappers:metrics_default",
         "../system_wrappers:runtime_enabled_features_default",
       ]
@@ -512,7 +510,6 @@ if (is_ios || (is_mac && target_cpu != "x86")) {
         "../sdk:native_api",
         "../sdk:ui_objc",
         "../sdk:videotoolbox_objc",
-        "../system_wrappers:field_trial_default",
         "../system_wrappers:metrics_default",
         "../system_wrappers:runtime_enabled_features_default",
         "//third_party/abseil-cpp/absl/memory",
@@ -735,7 +732,6 @@ if (is_linux || is_win) {
       "../rtc_base:rtc_base",
       "../rtc_base:rtc_base_approved",
       "../rtc_base:rtc_json",
-      "../system_wrappers:field_trial_default",
       "../system_wrappers:metrics_default",
       "../system_wrappers:runtime_enabled_features_default",
       "//third_party/libyuv",
@@ -774,7 +770,6 @@ if (is_linux || is_win) {
       "../pc:rtc_pc",
       "../rtc_base:rtc_base",
       "../rtc_base:rtc_base_approved",
-      "../system_wrappers:field_trial_default",
       "../system_wrappers:metrics_default",
       "../system_wrappers:runtime_enabled_features_default",
     ]
@@ -793,7 +788,6 @@ if (is_linux || is_win) {
       "../pc:rtc_pc",
       "../rtc_base:rtc_base",
       "../rtc_base:rtc_base_approved",
-      "../system_wrappers:field_trial_default",
       "../system_wrappers:metrics_default",
       "../system_wrappers:runtime_enabled_features_default",
     ]
@@ -812,7 +806,6 @@ if (is_linux || is_win) {
       "../pc:rtc_pc",
       "../rtc_base:rtc_base",
       "../rtc_base:rtc_base_approved",
-      "../system_wrappers:field_trial_default",
       "../system_wrappers:metrics_default",
       "../system_wrappers:runtime_enabled_features_default",
     ]
@@ -866,7 +859,6 @@ if (is_win || is_android) {
       "../modules/video_capture:video_capture_module",
       "../pc:libjingle_peerconnection",
       "../rtc_base:rtc_base",
-      "../system_wrappers:field_trial_default",
       "../system_wrappers:metrics_default",
       "../system_wrappers:runtime_enabled_features_default",
       "//third_party/abseil-cpp/absl/memory",
@@ -927,7 +919,6 @@ if (!build_with_chromium) {
       "../rtc_base:rtc_base",
       "../rtc_base:rtc_base_approved",
       "../rtc_base:stringutils",
-      "../system_wrappers:field_trial_default",
     ]
   }
 }

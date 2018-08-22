@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "9597d732_9acd9a99",
+        "filename": "p2p/base/fakeasyncresolver.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-08-22T18:26:57Z",
+      "side": 1,
+      "message": "1) as far as I understand, the example of \"delete this\" works because the code would not return to a stack frame of the calling member function.\n2) sure, I agree the design of AsyncResolverInterface feels problematic, and we need either change the design or add tests for it. My point is that \"delete this\" is an implementation choice for the method Destroy, depending on how other methods and internal signals interact with it (for the same reason \"delete this\" will not be used in this fake because of the synchronous operation), not pertaining to the pure interface, though the comment there and in the factory now kind of suggesting one to \"delete this\". Reading the fake may not make it clear to someone where \"delete this\" comes from.",
+      "parentUuid": "e654d054_b72e442c",
+      "range": {
+        "startLine": 25,
+        "startChar": 2,
+        "endLine": 28,
+        "endChar": 24
+      },
+      "revId": "469fc25b7c2f75f7889c396a6f48aeee191c16ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a8f3d1a6_00047b33",
         "filename": "p2p/base/fakeasyncresolverfactory.h",
         "patchSetId": 11
@@ -436,6 +460,30 @@
       "side": 1,
       "message": "I think it is actually fine to remove all of the ice parameter setting (test still passes with almost the same log). Does that sound okay to you?",
       "parentUuid": "3a1e5fd9_7bf9b5b1",
+      "range": {
+        "startLine": 4643,
+        "startChar": 2,
+        "endLine": 4644,
+        "endChar": 51
+      },
+      "revId": "469fc25b7c2f75f7889c396a6f48aeee191c16ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "336313f4_c91ee5c5",
+        "filename": "p2p/base/p2ptransportchannel_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 4644,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-08-22T18:26:57Z",
+      "side": 1,
+      "message": "I think technically we need to set it, because it is the intended procedure of establishing a connection. https://cs.chromium.org/chromium/src/third_party/webrtc/p2p/base/p2ptransportchannel.cc?g\u003d0\u0026l\u003d1871.\n\nThe test passes because it stops earlier than when we would DCHECK it in sending pings imo.",
+      "parentUuid": "b5640bd6_665724dc",
       "range": {
         "startLine": 4643,
         "startChar": 2,

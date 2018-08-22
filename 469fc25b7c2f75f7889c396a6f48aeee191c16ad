@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1e26ec21_971bbc5f",
+        "filename": "p2p/base/fakeasyncresolver.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-08-22T03:06:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d130e9b0_bfc94f77",
+      "range": {
+        "startLine": 41,
+        "startChar": 1,
+        "endLine": 43,
+        "endChar": 43
+      },
+      "revId": "469fc25b7c2f75f7889c396a6f48aeee191c16ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f6bac81f_a3e5e5d0",
         "filename": "p2p/base/fakeasyncresolver.h",
         "patchSetId": 11
@@ -36,6 +60,30 @@
       "writtenOn": "2018-08-21T23:09:37Z",
       "side": 1,
       "message": "1) I think \"delete this\" in the middle of a member function (Start in this case, given how SignalDone is wired in P2PTransportChannel) is undefined behavior in general, not specific to the sanitizer build.\n2) The synchronous operation is really a consequence of both firing SignalDone directly in Start and how SignalDone is wired in P2PTransportChannel. It feels hard for someone to understand the issue without the context of the implementation detail of P2PTransportChannel, when reading this as a general fake.\n\nI would suggest to change this comment to just mention that it won\u0027t delete itself as the real object but instead the code that creates the fake should be responsible for its lifespan.\n\nThe same comment goes to the comment in the cc file and also the mock\u0027s header and impl files",
+      "range": {
+        "startLine": 25,
+        "startChar": 2,
+        "endLine": 28,
+        "endChar": 24
+      },
+      "revId": "469fc25b7c2f75f7889c396a6f48aeee191c16ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e654d054_b72e442c",
+        "filename": "p2p/base/fakeasyncresolver.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-08-22T03:06:49Z",
+      "side": 1,
+      "message": "1) Pretty sure \"delete this\" isn\u0027t undefined behavior here: https://isocpp.org/wiki/faq/freestore-mgmt#delete-this\n2) I agree it is hard for someone to understand the issue without the context of the implementation, but I think implementing different memory semantics than other AsyncResolverInterface subclasses without comment is worse. I think this code is too confusing for any kind of general use.\n\nGenerally: I think we should try to check in tests that Destroy is called on AsyncResolverInterfaces. If we don\u0027t check this, it will cause a leak in Chromium (which calls \"delete this\" in Destroy) but not in WebRTC (AsyncResolver implements its own reference counting and can delete itself).",
+      "parentUuid": "f6bac81f_a3e5e5d0",
       "range": {
         "startLine": 25,
         "startChar": 2,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "9cc0a00a_40777caa",
+        "filename": "p2p/base/fakeasyncresolverfactory.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-08-22T03:06:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a8f3d1a6_00047b33",
+      "range": {
+        "startLine": 28,
+        "startChar": 66,
+        "endLine": 29,
+        "endChar": 77
+      },
+      "revId": "469fc25b7c2f75f7889c396a6f48aeee191c16ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d42fa7c7_402ccdf2",
         "filename": "p2p/base/mockasyncresolver.h",
         "patchSetId": 11
@@ -91,6 +163,30 @@
       "revId": "469fc25b7c2f75f7889c396a6f48aeee191c16ad",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc59c7f5_0c6da88b",
+        "filename": "p2p/base/mockasyncresolver.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-08-22T03:06:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d42fa7c7_402ccdf2",
+      "range": {
+        "startLine": 21,
+        "startChar": 3,
+        "endLine": 21,
+        "endChar": 33
+      },
+      "revId": "469fc25b7c2f75f7889c396a6f48aeee191c16ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -140,6 +236,30 @@
     },
     {
       "key": {
+        "uuid": "6b3237a0_d6ce9ed9",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 1040,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-08-22T03:06:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "36cd28a0_b3106883",
+      "range": {
+        "startLine": 1040,
+        "startChar": 12,
+        "endLine": 1040,
+        "endChar": 22
+      },
+      "revId": "469fc25b7c2f75f7889c396a6f48aeee191c16ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7105ed97_fb474738",
         "filename": "p2p/base/p2ptransportchannel.cc",
         "patchSetId": 11
@@ -160,6 +280,30 @@
       "revId": "469fc25b7c2f75f7889c396a6f48aeee191c16ad",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db9e0732_87e0f6c8",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 1050,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-08-22T03:06:49Z",
+      "side": 1,
+      "message": "I didn\u0027t like the name much either. The method also calls FinishAddingRemoteCandidate - it doesn\u0027t just mutate the candidate. What about AddRemoteCandidateWithResolver?",
+      "parentUuid": "7105ed97_fb474738",
+      "range": {
+        "startLine": 1050,
+        "startChar": 26,
+        "endLine": 1050,
+        "endChar": 52
+      },
+      "revId": "469fc25b7c2f75f7889c396a6f48aeee191c16ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -186,6 +330,30 @@
     },
     {
       "key": {
+        "uuid": "9ad50d71_93fc9cd9",
+        "filename": "p2p/base/p2ptransportchannel_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 771,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-08-22T03:06:49Z",
+      "side": 1,
+      "message": "Lets not implement that until we need it.",
+      "parentUuid": "8e008464_f334c4e0",
+      "range": {
+        "startLine": 771,
+        "startChar": 4,
+        "endLine": 771,
+        "endChar": 48
+      },
+      "revId": "469fc25b7c2f75f7889c396a6f48aeee191c16ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c560959f_69734eb0",
         "filename": "p2p/base/p2ptransportchannel_unittest.cc",
         "patchSetId": 11
@@ -206,6 +374,30 @@
       "revId": "469fc25b7c2f75f7889c396a6f48aeee191c16ad",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37c5f4ea_9a515db3",
+        "filename": "p2p/base/p2ptransportchannel_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 4625,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-08-22T03:06:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c560959f_69734eb0",
+      "range": {
+        "startLine": 4625,
+        "startChar": 21,
+        "endLine": 4625,
+        "endChar": 77
+      },
+      "revId": "469fc25b7c2f75f7889c396a6f48aeee191c16ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -232,6 +424,30 @@
     },
     {
       "key": {
+        "uuid": "b5640bd6_665724dc",
+        "filename": "p2p/base/p2ptransportchannel_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 4644,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-08-22T03:06:49Z",
+      "side": 1,
+      "message": "I think it is actually fine to remove all of the ice parameter setting (test still passes with almost the same log). Does that sound okay to you?",
+      "parentUuid": "3a1e5fd9_7bf9b5b1",
+      "range": {
+        "startLine": 4643,
+        "startChar": 2,
+        "endLine": 4644,
+        "endChar": 51
+      },
+      "revId": "469fc25b7c2f75f7889c396a6f48aeee191c16ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "63ded04d_2f24b280",
         "filename": "pc/peerconnection_integrationtest.cc",
         "patchSetId": 11
@@ -255,6 +471,30 @@
     },
     {
       "key": {
+        "uuid": "e426cc06_282fc1e0",
+        "filename": "pc/peerconnection_integrationtest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-08-22T03:06:49Z",
+      "side": 1,
+      "message": "Ack. Lets discuss more in person if you think it is important.",
+      "parentUuid": "63ded04d_2f24b280",
+      "range": {
+        "startLine": 220,
+        "startChar": 6,
+        "endLine": 220,
+        "endChar": 35
+      },
+      "revId": "469fc25b7c2f75f7889c396a6f48aeee191c16ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "215d64c4_9f092fbe",
         "filename": "pc/peerconnection_integrationtest.cc",
         "patchSetId": 11
@@ -275,6 +515,47 @@
       "revId": "469fc25b7c2f75f7889c396a6f48aeee191c16ad",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b58c372_5b049a1b",
+        "filename": "pc/peerconnection_integrationtest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 939,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-08-22T03:06:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "215d64c4_9f092fbe",
+      "range": {
+        "startLine": 939,
+        "startChar": 27,
+        "endLine": 939,
+        "endChar": 51
+      },
+      "revId": "469fc25b7c2f75f7889c396a6f48aeee191c16ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "39bb7bb2_fac81ba2",
+        "filename": "pc/peerconnection_integrationtest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 945,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-08-22T03:06:49Z",
+      "side": 1,
+      "message": "Also fixed this name inconsistency.",
+      "revId": "469fc25b7c2f75f7889c396a6f48aeee191c16ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

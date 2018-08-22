@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "61e4dd45_53f4218b",
+        "filename": "system_wrappers/include/field_trial.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-22T08:02:15Z",
+      "side": 1,
+      "message": "Sentence break here?",
+      "range": {
+        "startLine": 20,
+        "startChar": 49,
+        "endLine": 20,
+        "endChar": 50
+      },
+      "revId": "2389cdd0d3e0737b3d6f07542d0bc0600ec31c0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

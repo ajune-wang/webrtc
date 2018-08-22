@@ -29,7 +29,9 @@ bool EnforceAdaptiveEchoReverbEstimation() {
 }
 
 constexpr int kEarlyReverbMinSizeBlocks = 3;
-constexpr int kBlocksPerSection = 3;
+constexpr int kBlocksPerSection = 6;
+// Linear regression approach assumes symmetric index around 0.
+constexpr float kCount = -0.5f * kBlocksPerSection * kFftLengthBy2 + 0.5f;
 
 // Averages the values in a block of size kFftLengthBy2;
 float BlockAverage(rtc::ArrayView<const float> v, size_t block_index) {
@@ -57,6 +59,31 @@ void AnalyzeBlockGain(const std::array<float, kFftLengthBy2>& h2,
 // Arithmetic sum of $2 \sum_{i=0.5}^{(N-1)/2}i^2$ calculated directly.
 constexpr float SymmetricArithmetricSum(int N) {
   return N * (N * N - 1.0f) * (1.f / 12.f);
+}
+
+// Returns the square of an impulse response block.
+void BlockSquare(rtc::ArrayView<const float> h,
+                 int block_index,
+                 rtc::ArrayView<float> h2_block) {
+  RTC_DCHECK_LE((block_index + 1) * kFftLengthBy2, h.size());
+  RTC_DCHECK_GE(block_index, 0);
+  std::transform(h.begin() + block_index * kFftLengthBy2,
+                 h.begin() + (block_index + 1) * kFftLengthBy2,
+                 h2_block.begin(), [](float a) { return a * a; });
+}
+
+// Returns the peak energy of an impulse response.
+float BlockEnergyPeak(rtc::ArrayView<const float> h, int peak_block) {
+  std::array<float, kFftLengthBy2> h2_peak;
+  BlockSquare(h, peak_block, h2_peak);
+  return *std::max_element(h2_peak.begin(), h2_peak.end());
+}
+
+// Returns the average energy of an impulse response block.
+float BlockEnergyAverage(rtc::ArrayView<const float> h, int block_index) {
+  std::array<float, kFftLengthBy2> h2;
+  BlockSquare(h, block_index, h2);
+  return BlockAverage(h2, 0);
 }
 
 }  // namespace
@@ -89,7 +116,6 @@ void ReverbDecayEstimator::Update(rtc::ArrayView<const float> filter,
     return;
   }
 
-  // TODO(devicentepena): Verify that the below is correct.
   bool estimation_feasible =
       filter_delay_blocks <=
       filter_length_blocks_ - kEarlyReverbMinSizeBlocks - 1;
@@ -120,7 +146,7 @@ void ReverbDecayEstimator::Update(rtc::ArrayView<const float> filter,
   } else {
     // When the filter is fully analyzed, estimate the reverb decay and reset
     // the block_to_analyze_ counter.
-    EstimateDecay(filter);
+    EstimateDecay(filter, filter_delay_blocks);
   }
 }
 
@@ -135,21 +161,9 @@ void ReverbDecayEstimator::ResetDecayEstimation() {
   late_reverb_end_ = 0;
 }
 
-void ReverbDecayEstimator::EstimateDecay(rtc::ArrayView<const float> filter) {
-  auto& h = filter;
-
+void ReverbDecayEstimator::EstimateDecay(rtc::ArrayView<const float> h,
+                                         int peak_block) {
   RTC_DCHECK_EQ(0, h.size() % kFftLengthBy2);
-
-  // Compute the squared filter coefficients.
-  std::array<float, GetTimeDomainLength(kMaxAdaptiveFilterLength)> h2_data;
-  RTC_DCHECK_GE(h2_data.size(), filter_length_coefficients_);
-  rtc::ArrayView<float> h2(h2_data.data(), filter_length_coefficients_);
-  std::transform(h.begin(), h.end(), h2.begin(), [](float a) { return a * a; });
-
-  // Identify the peak index of the filter.
-  const int peak_coefficient =
-      std::distance(h2.begin(), std::max_element(h2.begin(), h2.end()));
-  int peak_block = peak_coefficient >> kFftLengthBy2Log2;
 
   // Reset the block analysis counter.
   block_to_analyze_ =
@@ -158,11 +172,12 @@ void ReverbDecayEstimator::EstimateDecay(rtc::ArrayView<const float> filter) {
   // To estimate the reverb decay, the energy of the first filter section must
   // be substantially larger than the last. Also, the first filter section
   // energy must not deviate too much from the max peak.
-  const float first_reverb_gain = BlockAverage(h2, block_to_analyze_);
-  tail_gain_ = BlockAverage(h2, (h2.size() >> kFftLengthBy2Log2) - 1);
+  const float first_reverb_gain = BlockEnergyAverage(h, block_to_analyze_);
+  tail_gain_ = BlockEnergyAverage(h, (h.size() >> kFftLengthBy2Log2) - 1);
+  float peak_energy = BlockEnergyPeak(h, peak_block);
   const bool sufficient_reverb_decay = first_reverb_gain > 4.f * tail_gain_;
   const bool valid_filter =
-      first_reverb_gain > 2.f * tail_gain_ && h2[peak_coefficient] < 100.f;
+      first_reverb_gain > 2.f * tail_gain_ && peak_energy < 100.f;
 
   // Estimate the size of the regions with early and late reflections.
   const int size_early_reverb = early_reverb_estimator_.Estimate();
@@ -255,8 +270,8 @@ void ReverbDecayEstimator::Dump(ApmDataDumper* data_dumper) const {
   data_dumper->DumpRaw("aec3_reverb_alpha", smoothing_constant_);
   data_dumper->DumpRaw("aec3_num_reverb_decay_blocks",
                        late_reverb_end_ - late_reverb_start_);
-  data_dumper->DumpRaw("aec3_blocks_after_early_reflections",
-                       late_reverb_start_);
+  data_dumper->DumpRaw("aec3_late_reverb_start", late_reverb_start_);
+  data_dumper->DumpRaw("aec3_late_reverb_end", late_reverb_end_);
   early_reverb_estimator_.Dump(data_dumper);
 }
 
@@ -291,9 +306,9 @@ float ReverbDecayEstimator::LateReverbLinearRegressor::Estimate() {
 
 ReverbDecayEstimator::EarlyReverbLengthEstimator::EarlyReverbLengthEstimator(
     int max_blocks)
-    : numerators_(1 + max_blocks / kBlocksPerSection, 0.f),
+    : numerators_(max_blocks - kBlocksPerSection, 0.f),
       nz_(numerators_.size(), 0.f),
-      count_(numerators_.size(), 0.f) {
+      count_(0.f) {
   RTC_DCHECK_LE(0, max_blocks);
 }
 
@@ -301,27 +316,35 @@ ReverbDecayEstimator::EarlyReverbLengthEstimator::
     ~EarlyReverbLengthEstimator() = default;
 
 void ReverbDecayEstimator::EarlyReverbLengthEstimator::Reset() {
-  // Linear regression approach assumes symmetric index around 0.
-  constexpr float kCount = -0.5f * kBlocksPerSection * kFftLengthBy2 + 0.5f;
-  std::fill(count_.begin(), count_.end(), kCount);
+  count_ = kCount;
   std::fill(nz_.begin(), nz_.end(), 0.f);
-  section_ = 0;
-  section_update_counter_ = 0;
+  block_ = 0;
 }
 
 void ReverbDecayEstimator::EarlyReverbLengthEstimator::Accumulate(
     float value,
     float smoothing) {
-  nz_[section_] += count_[section_] * value;
-  ++count_[section_];
-
-  if (++section_update_counter_ == kBlocksPerSection * kFftLengthBy2) {
-    RTC_DCHECK_GT(nz_.size(), section_);
-    RTC_DCHECK_GT(numerators_.size(), section_);
-    numerators_[section_] +=
-        smoothing * (nz_[section_] - numerators_[section_]);
-    section_update_counter_ = 0;
-    ++section_;
+  // Each section is composed by kBlocksPerSection blocks and each section
+  // overlaps with the next one in (kBlocksPerSection - 1) blocks. For example,
+  // the first section covers the blocks [0:5], the second
+  // covers the blocks [1:6] and so on. As a result, for each value,
+  // kBlocksPerSection sections needs to be updated.
+  for (size_t k = 0; k < kBlocksPerSection; ++k) {
+    size_t section = block_ - k;
+    if ((section >= 0) && (section < nz_.size())) {
+      nz_[section] += (count_ + kFftLengthBy2 * k) * value;
+    }
+  }
+  if (++count_ == kCount + kFftLengthBy2) {
+    if (block_ >= (kBlocksPerSection - 1)) {
+      size_t section = block_ - (kBlocksPerSection - 1);
+      RTC_DCHECK_GT(nz_.size(), section);
+      RTC_DCHECK_GT(numerators_.size(), section);
+      numerators_[section] += smoothing * (nz_[section] - numerators_[section]);
+      n_sections_ = section + 1;
+    }
+    ++block_;
+    count_ = kCount;
   }
 }
 
@@ -334,19 +357,30 @@ int ReverbDecayEstimator::EarlyReverbLengthEstimator::Estimate() {
   constexpr float numerator_11 = 0.13750352374993502f * nn / kFftLengthBy2;
   // log2(0.8) *  nn / kFftLengthBy2.
   constexpr float numerator_08 = -0.32192809488736229f * nn / kFftLengthBy2;
-  constexpr int kNumSectionsToAnalyze = 3;
+  constexpr int kNumSectionsToAnalyze = 9;
 
-  // Analyze the first kNumSectionsToAnalyze regions.
-  // TODO(devicentepena): Add a more thorough comment for explaining the logic
-  // below.
-  const float min_stable_region = *std::min_element(
-      numerators_.begin() + kNumSectionsToAnalyze, numerators_.end());
   int early_reverb_size = 0;
+  if (n_sections_ < kNumSectionsToAnalyze) {
+    return early_reverb_size;
+  }
+
+  // The blocks that are due to early echo reverberations are estimated. The
+  // estimation is done by analyzing the impulse response. The portions of the
+  // impulse response whose energy is not decreasing over time are considered to
+  // be part of the early reverberation. Furthermore, the blocks where the
+  // energy is decreasing faster than what it does at the end of the impulse
+  // response are also consider part of the early reverberation regions. That
+  // estimation is limited to the first kNumSectionsToAnalyze blocks.
+
+  RTC_DCHECK_LE(n_sections_, numerators_.size());
+  const float min_stable_region =
+      *std::min_element(numerators_.begin() + kNumSectionsToAnalyze,
+                        numerators_.begin() + n_sections_);
   for (int k = 0; k < kNumSectionsToAnalyze; ++k) {
     if ((numerators_[k] > numerator_11) ||
         (numerators_[k] < numerator_08 &&
          numerators_[k] < 0.9f * min_stable_region)) {
-      early_reverb_size = (k + 1) * kBlocksPerSection;
+      early_reverb_size = k + 1;
     }
   }
 

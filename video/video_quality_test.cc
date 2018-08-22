@@ -69,6 +69,31 @@ class VideoStreamFactory
 
 namespace webrtc {
 
+class NetworkSimulationWrapper : public NetworkSimulationInterface {
+ public:
+  explicit NetworkSimulationWrapper(NetworkSimulationInterface* delegate)
+      : delegate_(delegate) {}
+  // DO NOT USE. Method added temporary for further refactoring and will be
+  // removed soon.
+  // Sets a new configuration. This won't affect packets already in the pipe.
+  void SetConfig(const SimulatedNetworkConfig& config) override{};
+
+  bool EnqueuePacket(PacketInFlightInfo packet_info) override {
+    return delegate_->EnqueuePacket(packet_info);
+  };
+  // Retrieves all packets that should be delivered by the given receive time.
+  std::vector<PacketDeliveryInfo> DequeueDeliverablePackets(
+      int64_t receive_time_us) override {
+    return delegate_->DequeueDeliverablePackets(receive_time_us);
+  };
+  absl::optional<int64_t> NextDeliveryTimeUs() const override {
+    return delegate_->NextDeliveryTimeUs();
+  }
+
+ private:
+  NetworkSimulationInterface* delegate_;
+};
+
 std::unique_ptr<VideoEncoder> VideoQualityTest::CreateVideoEncoder(
     const SdpVideoFormat& format) {
   if (format.name == "VP8") {
@@ -113,6 +138,9 @@ VideoQualityTest::Params::Params()
       screenshare{{false, false, 10, 0}, {false, false, 10, 0}},
       analyzer({"", 0.0, 0.0, 0, "", ""}),
       pipe(),
+      config(),
+      sender_network(nullptr),
+      receiver_network(nullptr),
       ss{{std::vector<VideoStream>(), 0, 0, -1, InterLayerPredMode::kOn,
           std::vector<SpatialLayer>()},
          {std::vector<VideoStream>(), 0, 0, -1, InterLayerPredMode::kOn,
@@ -150,17 +178,29 @@ void VideoQualityTest::CheckParams() {
     if (params_.ss[video_idx].num_spatial_layers == 0)
       params_.ss[video_idx].num_spatial_layers = 1;
 
-    if (params_.pipe.loss_percent != 0 ||
-        params_.pipe.queue_length_packets != 0) {
-      // Since LayerFilteringTransport changes the sequence numbers, we can't
-      // use that feature with pack loss, since the NACK request would end up
-      // retransmitting the wrong packets.
-      RTC_CHECK(params_.ss[video_idx].selected_sl == -1 ||
-                params_.ss[video_idx].selected_sl ==
-                    params_.ss[video_idx].num_spatial_layers - 1);
-      RTC_CHECK(params_.video[video_idx].selected_tl == -1 ||
-                params_.video[video_idx].selected_tl ==
-                    params_.video[video_idx].num_temporal_layers - 1);
+    if (!params_.config && params_.sender_network == nullptr &&
+        params_.receiver_network == nullptr) {
+      // TODO(titovartem) replace with default config creation when removing
+      // pipe.
+      params_.config = params_.pipe;
+    }
+    RTC_CHECK((params_.config && params_.sender_network == nullptr &&
+               params_.receiver_network == nullptr) ||
+              (!params_.config && params_.sender_network != nullptr &&
+               params_.receiver_network != nullptr));
+    if (params_.config) {
+      if (params_.config->loss_percent != 0 ||
+          params_.config->queue_length_packets != 0) {
+        // Since LayerFilteringTransport changes the sequence numbers, we can't
+        // use that feature with pack loss, since the NACK request would end up
+        // retransmitting the wrong packets.
+        RTC_CHECK(params_.ss[video_idx].selected_sl == -1 ||
+                  params_.ss[video_idx].selected_sl ==
+                      params_.ss[video_idx].num_spatial_layers - 1);
+        RTC_CHECK(params_.video[video_idx].selected_tl == -1 ||
+                  params_.video[video_idx].selected_tl ==
+                      params_.video[video_idx].num_temporal_layers - 1);
+      }
     }
 
     // TODO(ivica): Should max_bitrate_bps == -1 represent inf max bitrate, as
@@ -793,11 +833,17 @@ void VideoQualityTest::StopThumbnails() {
 
 std::unique_ptr<test::LayerFilteringTransport>
 VideoQualityTest::CreateSendTransport() {
+  std::unique_ptr<NetworkSimulationInterface> simulated_network = nullptr;
+  if (params_.sender_network == nullptr) {
+    simulated_network = absl::make_unique<SimulatedNetwork>(*params_.config);
+  } else {
+    simulated_network =
+        absl::make_unique<NetworkSimulationWrapper>(params_.sender_network);
+  }
   return absl::make_unique<test::LayerFilteringTransport>(
       &task_queue_,
-      absl::make_unique<FakeNetworkPipe>(
-          Clock::GetRealTimeClock(),
-          absl::make_unique<SimulatedNetwork>(params_.pipe)),
+      absl::make_unique<FakeNetworkPipe>(Clock::GetRealTimeClock(),
+                                         std::move(simulated_network)),
       sender_call_.get(), kPayloadTypeVP8, kPayloadTypeVP9,
       params_.video[0].selected_tl, params_.ss[0].selected_sl,
       payload_type_map_, kVideoSendSsrcs[0],
@@ -807,11 +853,17 @@ VideoQualityTest::CreateSendTransport() {
 
 std::unique_ptr<test::DirectTransport>
 VideoQualityTest::CreateReceiveTransport() {
+  std::unique_ptr<NetworkSimulationInterface> simulated_network = nullptr;
+  if (params_.receiver_network == nullptr) {
+    simulated_network = absl::make_unique<SimulatedNetwork>(*params_.config);
+  } else {
+    simulated_network =
+        absl::make_unique<NetworkSimulationWrapper>(params_.receiver_network);
+  }
   return absl::make_unique<test::DirectTransport>(
       &task_queue_,
-      absl::make_unique<FakeNetworkPipe>(
-          Clock::GetRealTimeClock(),
-          absl::make_unique<SimulatedNetwork>(params_.pipe)),
+      absl::make_unique<FakeNetworkPipe>(Clock::GetRealTimeClock(),
+                                         std::move(simulated_network)),
       receiver_call_.get(), payload_type_map_);
 }
 

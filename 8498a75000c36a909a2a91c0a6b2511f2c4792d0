@@ -22,6 +22,75 @@
       "revId": "8498a75000c36a909a2a91c0a6b2511f2c4792d0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64ba7c2a_9d526bc0",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 601,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-08-22T18:02:10Z",
+      "side": 1,
+      "message": "I think it\u0027s worth specifying here exactly what this will affect. \n\"For Plan B\" --\u003e \"This will apply to all video tracks with a Plan B offer.\"\n\nFor example, if you had two video tracks and enabled this it currently would create this number of simulcast layers on both video tracks.",
+      "range": {
+        "startLine": 601,
+        "startChar": 8,
+        "endLine": 601,
+        "endChar": 28
+      },
+      "revId": "8498a75000c36a909a2a91c0a6b2511f2c4792d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cdac2553_0c909a75",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 820,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-08-22T18:02:10Z",
+      "side": 1,
+      "message": "Should probably create a const \u0026 comment on what it is for - MediaConstraintsInterface::kGoogSimulcastLayers.",
+      "range": {
+        "startLine": 820,
+        "startChar": 35,
+        "endLine": 820,
+        "endChar": 54
+      },
+      "revId": "8498a75000c36a909a2a91c0a6b2511f2c4792d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "121c94eb_6b076c50",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 4007,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-08-22T18:02:10Z",
+      "side": 1,
+      "message": "Maybe just ignore the value and use 1 here, since this is for an answer?",
+      "range": {
+        "startLine": 4007,
+        "startChar": 22,
+        "endLine": 4007,
+        "endChar": 63
+      },
+      "revId": "8498a75000c36a909a2a91c0a6b2511f2c4792d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

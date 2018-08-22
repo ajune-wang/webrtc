@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9d508008_cbe1f236",
+        "filename": "modules/audio_processing/aec3/block_delay_buffer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2018-08-22T07:26:08Z",
+      "side": 1,
+      "message": "Is it really necessary to allocate buffers when the delay is 0?",
+      "revId": "ffa9387fb9a2353bbed887a6e6e4c30966501714",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73bdcdf1_6f361070",
+        "filename": "modules/audio_processing/aec3/block_delay_buffer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2018-08-22T07:26:08Z",
+      "side": 1,
+      "message": "You could put \u0027j\u0027 as the inner loop to have less index fiddling (but perhaps that would be slightly worse cache-wise).\n\nThen you could also use last_insert_ instead of i to avoid the computation of last_insert_ at the end (it will be incremented by the loop).",
+      "revId": "ffa9387fb9a2353bbed887a6e6e4c30966501714",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df9cc2a0_aad72c1a",
+        "filename": "modules/audio_processing/aec3/block_delay_buffer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2018-08-22T07:26:08Z",
+      "side": 1,
+      "message": "Maybe the unit of the delay could be clarified. Is it the number of samples in a 16 kHz signal?",
+      "revId": "ffa9387fb9a2353bbed887a6e6e4c30966501714",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d330cc9e_7f3b8663",
+        "filename": "modules/audio_processing/aec3/echo_canceller3.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2018-08-22T07:26:08Z",
+      "side": 1,
+      "message": "The \"if\" is not really needed as you have an early return in BlockDelayBuffer when the delay is zero.",
+      "revId": "ffa9387fb9a2353bbed887a6e6e4c30966501714",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

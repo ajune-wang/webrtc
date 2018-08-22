@@ -46,6 +46,30 @@
       "revId": "22fbf5d9d5b25780a87f6dab900241f2ad9d286a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ccea9bea_a4e32ff4",
+        "filename": "test/frame_generator_capturer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-08-22T10:56:05Z",
+      "side": 1,
+      "message": "What\u0027s the intended use case? If it\u0027s only for tests it might be fine with arbitrary but uneven frame drops.",
+      "parentUuid": "9493b11a_f3cb50e9",
+      "range": {
+        "startLine": 182,
+        "startChar": 0,
+        "endLine": 184,
+        "endChar": 44
+      },
+      "revId": "22fbf5d9d5b25780a87f6dab900241f2ad9d286a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -596,6 +596,10 @@ class PeerConnectionInterface : public rtc::RefCountInterface {
     // confused with RTCP mux (multiplexing RTP and RTCP together).
     bool use_rtp_mux = true;
 
+    // For "Plan B",
+    // Specifies requested number of simulcast layers.
+    int num_simulcast_layers = 1;
+
     RTCOfferAnswerOptions() = default;
 
     RTCOfferAnswerOptions(int offer_to_receive_video,

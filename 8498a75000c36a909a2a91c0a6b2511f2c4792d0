@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "43b632f6_50abe876",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-08-22T16:12:35Z",
+      "side": 1,
+      "message": "We should adda Bug: here, describing that this is an API change that is only intended for our mobile APIs.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 9
+      },
+      "revId": "8498a75000c36a909a2a91c0a6b2511f2c4792d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

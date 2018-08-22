@@ -22,6 +22,30 @@
       "revId": "22fbf5d9d5b25780a87f6dab900241f2ad9d286a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9493b11a_f3cb50e9",
+        "filename": "test/frame_generator_capturer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-08-22T08:51:22Z",
+      "side": 1,
+      "message": "Yes. Not sure exactly what behavior we\u0027d like though. Maybe it\u0027d make sense to use float rounding and dcheck that we are getting close to an integer decimation. Or we could accept uneven frame drop and allow arbitrary decimation rates. WDYT?",
+      "parentUuid": "1d84c60a_ae4db9cb",
+      "range": {
+        "startLine": 182,
+        "startChar": 0,
+        "endLine": 184,
+        "endChar": 44
+      },
+      "revId": "22fbf5d9d5b25780a87f6dab900241f2ad9d286a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

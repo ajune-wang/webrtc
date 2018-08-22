@@ -316,6 +316,9 @@ config("common_config") {
     # Used in Chromium's overrides to disable logging
     defines += [ "WEBRTC_UNSAFE_FUZZER_MODE" ]
   }
+
+  #cflags += [ "-march=native" ]
+  cflags += [ "-Os" ]
 }
 
 config("common_objc") {

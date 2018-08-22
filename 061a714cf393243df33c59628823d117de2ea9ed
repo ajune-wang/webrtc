@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8c5838c7_f8dc5d25",
+        "filename": "examples/BUILD.gn",
+        "patchSetId": 15
+      },
+      "lineNbr": 533,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-08-22T12:32:05Z",
+      "side": 1,
+      "message": "See if we need this.",
+      "range": {
+        "startLine": 533,
+        "startChar": 34,
+        "endLine": 533,
+        "endChar": 39
+      },
+      "revId": "061a714cf393243df33c59628823d117de2ea9ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "989536ff_33028956",
+        "filename": "examples/BUILD.gn",
+        "patchSetId": 15
+      },
+      "lineNbr": 627,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-08-22T12:32:05Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 627,
+        "startChar": 17,
+        "endLine": 627,
+        "endChar": 18
+      },
+      "revId": "061a714cf393243df33c59628823d117de2ea9ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a42cd98f_c89ab1b9",
+        "filename": "examples/objcnativeapi/objc/NADViewController.mm",
+        "patchSetId": 15
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-08-22T12:32:05Z",
+      "side": 1,
+      "message": "This define comes from the header that is being conditionally included. We should always include this file and check the #define before instantiating the class.",
+      "range": {
+        "startLine": 15,
+        "startChar": 12,
+        "endLine": 15,
+        "endChar": 30
+      },
+      "revId": "061a714cf393243df33c59628823d117de2ea9ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48976d23_e29ffa86",
+        "filename": "sdk/BUILD.gn",
+        "patchSetId": 15
+      },
+      "lineNbr": 1127,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-08-22T12:32:05Z",
+      "side": 1,
+      "message": "Let\u0027s rename this target to something like \"WebRTC_framework_bundle\" and get rid of \"AppRTCMobile_ios_frameworks\" in examples/BUILD.gn.",
+      "range": {
+        "startLine": 1127,
+        "startChar": 21,
+        "endLine": 1127,
+        "endChar": 49
+      },
+      "revId": "061a714cf393243df33c59628823d117de2ea9ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

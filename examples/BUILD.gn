@@ -217,7 +217,6 @@ if (is_ios || (is_mac && target_cpu != "x86")) {
       deps = [
         "../sdk:common_objc",
         "../system_wrappers:field_trial_default",
-        "../system_wrappers:metrics_default",
         "../system_wrappers:runtime_enabled_features_default",
       ]
     }
@@ -513,7 +512,6 @@ if (is_ios || (is_mac && target_cpu != "x86")) {
         "../sdk:ui_objc",
         "../sdk:videotoolbox_objc",
         "../system_wrappers:field_trial_default",
-        "../system_wrappers:metrics_default",
         "../system_wrappers:runtime_enabled_features_default",
         "//third_party/abseil-cpp/absl/memory",
       ]
@@ -736,7 +734,6 @@ if (is_linux || is_win) {
       "../rtc_base:rtc_base_approved",
       "../rtc_base:rtc_json",
       "../system_wrappers:field_trial_default",
-      "../system_wrappers:metrics_default",
       "../system_wrappers:runtime_enabled_features_default",
       "//third_party/libyuv",
     ]
@@ -775,7 +772,6 @@ if (is_linux || is_win) {
       "../rtc_base:rtc_base",
       "../rtc_base:rtc_base_approved",
       "../system_wrappers:field_trial_default",
-      "../system_wrappers:metrics_default",
       "../system_wrappers:runtime_enabled_features_default",
     ]
     if (!build_with_chromium && is_clang) {
@@ -794,7 +790,6 @@ if (is_linux || is_win) {
       "../rtc_base:rtc_base",
       "../rtc_base:rtc_base_approved",
       "../system_wrappers:field_trial_default",
-      "../system_wrappers:metrics_default",
       "../system_wrappers:runtime_enabled_features_default",
     ]
     if (!build_with_chromium && is_clang) {
@@ -813,7 +808,6 @@ if (is_linux || is_win) {
       "../rtc_base:rtc_base",
       "../rtc_base:rtc_base_approved",
       "../system_wrappers:field_trial_default",
-      "../system_wrappers:metrics_default",
       "../system_wrappers:runtime_enabled_features_default",
     ]
     if (!build_with_chromium && is_clang) {
@@ -867,7 +861,6 @@ if (is_win || is_android) {
       "../pc:libjingle_peerconnection",
       "../rtc_base:rtc_base",
       "../system_wrappers:field_trial_default",
-      "../system_wrappers:metrics_default",
       "../system_wrappers:runtime_enabled_features_default",
       "//third_party/abseil-cpp/absl/memory",
     ]

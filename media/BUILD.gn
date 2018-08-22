@@ -218,7 +218,6 @@ rtc_static_library("rtc_internal_video_codecs") {
     "../rtc_base:sequenced_task_checker",
     "../system_wrappers",
     "../system_wrappers:field_trial_api",
-    "../system_wrappers:metrics_api",
     "//third_party/libyuv",
   ]
 }
@@ -239,6 +238,7 @@ rtc_static_library("rtc_audio_video") {
     "../rtc_base:audio_format_to_string",
     "../rtc_base:checks",
     "../rtc_base/third_party/base64",
+    "../system_wrappers:metrics",
   ]
 
   sources = [
@@ -328,7 +328,6 @@ rtc_static_library("rtc_audio_video") {
     "../rtc_base:stringutils",
     "../system_wrappers",
     "../system_wrappers:field_trial_api",
-    "../system_wrappers:metrics_api",
     "//third_party/abseil-cpp/absl/types:optional",
   ]
 }
@@ -598,7 +597,6 @@ if (rtc_include_tests) {
       "../rtc_base:rtc_base_approved",
       "../rtc_base:rtc_base_tests_main",
       "../rtc_base:rtc_base_tests_utils",
-      "../system_wrappers:metrics_default",
       "../system_wrappers:runtime_enabled_features_default",
       "../test:audio_codec_mocks",
       "../test:test_support",

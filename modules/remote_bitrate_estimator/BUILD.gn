@@ -47,7 +47,7 @@ rtc_static_library("remote_bitrate_estimator") {
     "../../rtc_base:safe_minmax",
     "../../system_wrappers",
     "../../system_wrappers:field_trial_api",
-    "../../system_wrappers:metrics_api",
+    "../../system_wrappers:metrics",
     "//third_party/abseil-cpp/absl/types:optional",
   ]
 }

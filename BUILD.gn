@@ -365,7 +365,6 @@ if (!build_with_chromium) {
       deps += [
         "api/video:video_frame",
         "system_wrappers:field_trial_default",
-        "system_wrappers:metrics_default",
       ]
     } else {
       deps += [
@@ -436,7 +435,6 @@ if (rtc_include_tests) {
       "rtc_base:sigslot_unittest",
       "rtc_base:weak_ptr_unittests",
       "rtc_base/experiments:experiments_unittests",
-      "system_wrappers:metrics_default",
       "system_wrappers:runtime_enabled_features_default",
     ]
 

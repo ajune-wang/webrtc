@@ -50,14 +50,8 @@ class AudioCodingModuleImpl final : public AudioCodingModule {
   void ModifyEncoder(rtc::FunctionView<void(std::unique_ptr<AudioEncoder>*)>
                          modifier) override;
 
-  void QueryEncoder(
-      rtc::FunctionView<void(const AudioEncoder*)> query) override;
-
   // Get current send codec.
   absl::optional<CodecInst> SendCodec() const override;
-
-  // Get current send frequency.
-  int SendFrequency() const override;
 
   // Sets the bitrate to the specified value in bits/sec. In case the codec does
   // not support the requested value it will choose an appropriate value
@@ -595,12 +589,6 @@ void AudioCodingModuleImpl::ModifyEncoder(
   modifier(&encoder_stack_);
 }
 
-void AudioCodingModuleImpl::QueryEncoder(
-    rtc::FunctionView<void(const AudioEncoder*)> query) {
-  rtc::CritScope lock(&acm_crit_sect_);
-  query(encoder_stack_.get());
-}
-
 // Get current send codec.
 absl::optional<CodecInst> AudioCodingModuleImpl::SendCodec() const {
   rtc::CritScope lock(&acm_crit_sect_);
@@ -622,18 +610,6 @@ absl::optional<CodecInst> AudioCodingModuleImpl::SendCodec() const {
                      acm2::CodecManager::ForgeCodecInst(encoder_stack_.get()))
                : absl::nullopt;
   }
-}
-
-// Get current send frequency.
-int AudioCodingModuleImpl::SendFrequency() const {
-  rtc::CritScope lock(&acm_crit_sect_);
-
-  if (!encoder_stack_) {
-    RTC_LOG(LS_ERROR) << "SendFrequency Failed, no codec is registered";
-    return -1;
-  }
-
-  return encoder_stack_->SampleRateHz();
 }
 
 void AudioCodingModuleImpl::SetBitRate(int bitrate_bps) {
@@ -1289,14 +1265,6 @@ int AudioCodingModule::Codec(const char* payload_name,
     return -1;
   absl::optional<int> i = acm2::RentACodec::CodecIndexFromId(*ci);
   return i ? *i : -1;
-}
-
-// Checks the validity of the parameters of the given codec
-bool AudioCodingModule::IsCodecValid(const CodecInst& codec) {
-  bool valid = acm2::RentACodec::IsCodecValid(codec);
-  if (!valid)
-    RTC_LOG(LS_ERROR) << "Invalid codec setting";
-  return valid;
 }
 
 }  // namespace webrtc

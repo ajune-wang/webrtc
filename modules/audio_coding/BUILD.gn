@@ -117,12 +117,12 @@ rtc_static_library("audio_coding") {
   }
 
   deps = audio_coding_deps + [
+           "../../system_wrappers:metrics",
            "../../api/audio:audio_frame_api",
            "..:module_api",
            "../../common_audio:common_audio_c",
            "../../rtc_base:deprecation",
            "../../rtc_base:checks",
-           "../../system_wrappers:metrics_api",
            "../../api:array_view",
            "../../api/audio_codecs:audio_codecs_api",
            ":audio_coding_module_typedefs",
@@ -1059,7 +1059,7 @@ rtc_static_library("neteq") {
     "../../rtc_base:sanitizer",
     "../../rtc_base/system:fallthrough",
     "../../system_wrappers:field_trial_api",
-    "../../system_wrappers:metrics_api",
+    "../../system_wrappers:metrics",
     "//third_party/abseil-cpp/absl/types:optional",
   ]
 }
@@ -1584,7 +1584,6 @@ if (rtc_include_tests) {
       "../..:webrtc_common",
       "../../api:libjingle_peerconnection_api",
       "../../rtc_base:rtc_base_approved",
-      "../../system_wrappers:metrics_default",
       "../../system_wrappers:system_wrappers_default",
       "../../test:field_trial",
       "../../test:test_main",

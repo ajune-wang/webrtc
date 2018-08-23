@@ -45,10 +45,6 @@ class StreamStatistician {
       StreamDataCounters* data_counters) const = 0;
 
   virtual uint32_t BitrateReceived() const = 0;
-
-  // Returns true if the packet with RTP header |header| is likely to be a
-  // retransmitted packet, false otherwise.
-  virtual bool IsRetransmitOfOldPacket(const RTPHeader& header) const = 0;
 };
 
 class ReceiveStatistics : public ReceiveStatisticsProvider {
@@ -59,8 +55,7 @@ class ReceiveStatistics : public ReceiveStatisticsProvider {
 
   // Updates the receive statistics with this packet.
   virtual void IncomingPacket(const RTPHeader& rtp_header,
-                              size_t packet_length,
-                              bool retransmitted) = 0;
+                              size_t packet_length) = 0;
 
   // Increment counter for number of FEC packets received.
   virtual void FecPacketReceived(const RTPHeader& header,

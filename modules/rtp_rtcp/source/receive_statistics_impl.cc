@@ -55,8 +55,8 @@ StreamStatisticianImpl::StreamStatisticianImpl(
 StreamStatisticianImpl::~StreamStatisticianImpl() = default;
 
 void StreamStatisticianImpl::IncomingPacket(const RTPHeader& header,
-                                            size_t packet_length,
-                                            bool retransmitted) {
+                                            size_t packet_length) {
+  bool retransmitted = IsRetransmitOfOldPacket(header);
   auto counters = UpdateCounters(header, packet_length, retransmitted);
   rtp_callback_->DataCountersUpdated(counters, ssrc_);
 }
@@ -362,8 +362,7 @@ ReceiveStatisticsImpl::~ReceiveStatisticsImpl() {
 }
 
 void ReceiveStatisticsImpl::IncomingPacket(const RTPHeader& header,
-                                           size_t packet_length,
-                                           bool retransmitted) {
+                                           size_t packet_length) {
   StreamStatisticianImpl* impl;
   {
     rtc::CritScope cs(&receive_statistics_lock_);
@@ -379,7 +378,7 @@ void ReceiveStatisticsImpl::IncomingPacket(const RTPHeader& header,
   // this whole ReceiveStatisticsImpl is destroyed. StreamStatisticianImpl has
   // it's own locking so don't hold receive_statistics_lock_ (potential
   // deadlock).
-  impl->IncomingPacket(header, packet_length, retransmitted);
+  impl->IncomingPacket(header, packet_length);
 }
 
 void ReceiveStatisticsImpl::FecPacketReceived(const RTPHeader& header,

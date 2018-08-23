@@ -16,6 +16,24 @@
       "revId": "3b913bd410fde46865b1d432569eac62e2ccc8d2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78623f90_340cc849",
+        "filename": "test/scenario/video_stream.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-08-23T14:49:04Z",
+      "side": 1,
+      "message": "Good catch, I copied this from calltest (before your fix). Changed the default to something more reasonable and added a DCHECK.",
+      "parentUuid": "3eb7151d_06701788",
+      "revId": "3b913bd410fde46865b1d432569eac62e2ccc8d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

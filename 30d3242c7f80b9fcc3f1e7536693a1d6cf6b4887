@@ -22,6 +22,30 @@
       "revId": "30d3242c7f80b9fcc3f1e7536693a1d6cf6b4887",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fbbdc902_b505e0a2",
+        "filename": "rtc_tools/frame_analyzer/video_quality_analysis.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-08-23T10:48:17Z",
+      "side": 1,
+      "message": "Yeah, we need to be careful not to break the scripts that rely on this output though. I think we need to remove it in two steps, updating the users of this script first.",
+      "parentUuid": "84880516_688ccb0b",
+      "range": {
+        "startLine": 148,
+        "startChar": 0,
+        "endLine": 151,
+        "endChar": 21
+      },
+      "revId": "30d3242c7f80b9fcc3f1e7536693a1d6cf6b4887",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

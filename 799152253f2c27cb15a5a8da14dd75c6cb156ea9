@@ -94,6 +94,29 @@
     },
     {
       "key": {
+        "uuid": "9c10fda9_98bd2b61",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 24
+      },
+      "lineNbr": 940,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-08-23T12:28:17Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 940,
+        "startChar": 32,
+        "endLine": 940,
+        "endChar": 48
+      },
+      "revId": "799152253f2c27cb15a5a8da14dd75c6cb156ea9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d7bae3dc_69ac7222",
         "filename": "video/video_send_stream_impl.cc",
         "patchSetId": 24

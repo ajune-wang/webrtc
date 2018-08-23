@@ -76,6 +76,44 @@ class SuppressionGain {
     float average_power_ = 32768.f * 32768.f;
   };
 
+  // Class for selecting whether the suppressor is in the nearend or echo state.
+  class StateSelector {
+   public:
+    explicit StateSelector(
+        const EchoCanceller3Config::Suppressor::StateSelection config);
+
+    // Returns whether the current state is the nearend state.
+    bool IsNearendState() const { return nearend_state_; }
+
+    // Updates the state selection based on latest spectral estimates.
+    void Update(rtc::ArrayView<const float> nearend_spectrum,
+                rtc::ArrayView<const float> echo_spectrum,
+                rtc::ArrayView<const float> comfort_noise_spectrum);
+
+   private:
+    const float enr_threshold_ = 10.f;
+    const float snr_threshold_ = 10.f;
+    const int hold_duration_ = 25;
+    const int trigger_threshold_ = 15;
+
+    bool nearend_state_ = false;
+    int trigger_counter_ = 0;
+    int hold_counter__ = 0;
+  };
+
+  struct GainParameters {
+    explicit GainParameters(
+        const EchoCanceller3Config::Suppressor::MaskingThresholds& masking_lf,
+        const EchoCanceller3Config::Suppressor::MaskingThresholds& masking_hf,
+        const float max_inc_factor,
+        const float max_dec_factor_lf);
+    const float max_inc_factor;
+    const float max_dec_factor_lf;
+    std::array<float, kFftLengthBy2Plus1> enr_transparent_;
+    std::array<float, kFftLengthBy2Plus1> enr_suppress_;
+    std::array<float, kFftLengthBy2Plus1> emr_transparent_;
+  };
+
   static int instance_count_;
   std::unique_ptr<ApmDataDumper> data_dumper_;
   const Aec3Optimization optimization_;
@@ -87,15 +125,15 @@ class SuppressionGain {
   std::array<float, kFftLengthBy2Plus1> gain_increase_;
   std::array<float, kFftLengthBy2Plus1> last_nearend_;
   std::array<float, kFftLengthBy2Plus1> last_echo_;
-  std::array<float, kFftLengthBy2Plus1> enr_transparent_;
-  std::array<float, kFftLengthBy2Plus1> enr_suppress_;
-  std::array<float, kFftLengthBy2Plus1> emr_transparent_;
   LowNoiseRenderDetector low_render_detector_;
   bool initial_state_ = true;
   int initial_state_change_counter_ = 0;
   const bool enable_transparency_improvements_;
   const bool enable_new_suppression_;
   aec3::MovingAverage moving_average_;
+  const GainParameters params_nearend_;
+  const GainParameters params_echo_;
+  StateSelector state_selector_;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(SuppressionGain);
 };

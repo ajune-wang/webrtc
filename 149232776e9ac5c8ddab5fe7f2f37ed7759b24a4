@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "77e17334_dee0f134",
+        "filename": "api/test/video_quality_test_fixture.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2018-08-23T11:09:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f7aaba6a_1677ea39",
+      "revId": "149232776e9ac5c8ddab5fe7f2f37ed7759b24a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e188f9e8_b0f4a39e",
         "filename": "api/test/video_quality_test_fixture.h",
         "patchSetId": 2
@@ -33,6 +51,24 @@
       "revId": "149232776e9ac5c8ddab5fe7f2f37ed7759b24a4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ffbf306_ea97b0ce",
+        "filename": "api/test/video_quality_test_fixture.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2018-08-23T11:09:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e188f9e8_b0f4a39e",
+      "revId": "149232776e9ac5c8ddab5fe7f2f37ed7759b24a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -56,6 +92,30 @@
       "revId": "149232776e9ac5c8ddab5fe7f2f37ed7759b24a4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a17ab7e3_bb871696",
+        "filename": "video/video_quality_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2018-08-23T11:09:19Z",
+      "side": 1,
+      "message": "As I understand shared pointers currently forbidden by style guide and using scoped pointer requires additional actions from implementor. \n\nAs I understand FakeNetworkPipe is used not only in video quality test pipeline, but also in other parts, so it is why I was aware of changing ownership there and wanted to keep it as before if possible. \n\nAssumption, that object will be alive during pipeline execution because of ownership holding is not absolutely wrong, because fake pipeline usually created on per test basis and it is test writer responsibility to keep configuration and implementation objects alive, during test run, otherwise it will look weird, that test writer want to run test, but want to destroy simulation, that is part of test. So underlying layers can still believe that object will be alive during whole life cycle.",
+      "parentUuid": "c33aedfc_568adec0",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 76,
+        "endChar": 31
+      },
+      "revId": "149232776e9ac5c8ddab5fe7f2f37ed7759b24a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -96,6 +156,30 @@
       "revId": "149232776e9ac5c8ddab5fe7f2f37ed7759b24a4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b7c3f24_60a7ae17",
+        "filename": "video/video_quality_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2018-08-23T11:09:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d65668d0_090dbfac",
+      "range": {
+        "startLine": 84,
+        "startChar": 55,
+        "endLine": 84,
+        "endChar": 65
+      },
+      "revId": "149232776e9ac5c8ddab5fe7f2f37ed7759b24a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

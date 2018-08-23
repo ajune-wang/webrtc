@@ -146,6 +146,9 @@ const char MediaConstraintsInterface::kCpuOveruseDetection[] =
     "googCpuOveruseDetection";
 const char MediaConstraintsInterface::kPayloadPadding[] = "googPayloadPadding";
 
+const char MediaConstraintsInterface::kGoogSimulcastLayers[] =
+    "googSimulcastLayers";
+
 // Set |value| to the value associated with the first appearance of |key|, or
 // return false if |key| is not found.
 bool MediaConstraintsInterface::Constraints::FindFirst(

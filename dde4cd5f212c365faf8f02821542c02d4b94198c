@@ -237,6 +237,29 @@
     },
     {
       "key": {
+        "uuid": "8d02437a_83156319",
+        "filename": "pc/peerconnection_integrationtest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-23T04:20:07Z",
+      "side": 1,
+      "message": "redundant",
+      "range": {
+        "startLine": 310,
+        "startChar": 52,
+        "endLine": 310,
+        "endChar": 54
+      },
+      "revId": "dde4cd5f212c365faf8f02821542c02d4b94198c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c8a42fa4_f747495a",
         "filename": "pc/peerconnection_integrationtest.cc",
         "patchSetId": 7

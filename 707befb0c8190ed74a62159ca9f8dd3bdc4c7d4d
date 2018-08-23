@@ -1,0 +1,221 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f89f2896_a546c251",
+        "filename": "p2p/base/fakeasyncresolver.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-23T04:20:07Z",
+      "side": 1,
+      "message": "Not a huge fan of hardcoding addresses in the fake. I think the test should register these bindings explicitly.",
+      "revId": "707befb0c8190ed74a62159ca9f8dd3bdc4c7d4d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11f195c1_3b2d2bfc",
+        "filename": "p2p/base/fakeasyncresolver.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-23T04:20:07Z",
+      "side": 1,
+      "message": "Maybe could do rtc::Thread::Current()-\u003eDispose(this) ?",
+      "revId": "707befb0c8190ed74a62159ca9f8dd3bdc4c7d4d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d4aff7d_2e12cf80",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-23T04:20:07Z",
+      "side": 1,
+      "message": "nit: instead of nullptr just .clear the list at the end of the loop.",
+      "revId": "707befb0c8190ed74a62159ca9f8dd3bdc4c7d4d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1bfbfb75_bb7e9b36",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 980,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-23T04:20:07Z",
+      "side": 1,
+      "message": "redundant",
+      "revId": "707befb0c8190ed74a62159ca9f8dd3bdc4c7d4d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb6ddafb_d32a1896",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 1063,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-23T04:20:07Z",
+      "side": 1,
+      "message": "comment that we prefer IPv6 over IPv4 (may not be obvious from the ||)",
+      "revId": "707befb0c8190ed74a62159ca9f8dd3bdc4c7d4d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2b5e367_f48fef07",
+        "filename": "p2p/base/p2ptransportchannel.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-23T04:20:07Z",
+      "side": 1,
+      "message": "vector?",
+      "range": {
+        "startLine": 431,
+        "startChar": 7,
+        "endLine": 431,
+        "endChar": 11
+      },
+      "revId": "707befb0c8190ed74a62159ca9f8dd3bdc4c7d4d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "832a7008_b9e9dfab",
+        "filename": "p2p/base/p2ptransportchannel.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-23T04:20:07Z",
+      "side": 1,
+      "message": "const ref?",
+      "range": {
+        "startLine": 434,
+        "startChar": 38,
+        "endLine": 434,
+        "endChar": 47
+      },
+      "revId": "707befb0c8190ed74a62159ca9f8dd3bdc4c7d4d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1663b1ef_ad4eb772",
+        "filename": "p2p/base/p2ptransportchannel_unittest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 771,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-23T04:20:07Z",
+      "side": 1,
+      "message": "need to handle the case where it\u0027s not at least 1 or else the test will crash",
+      "revId": "707befb0c8190ed74a62159ca9f8dd3bdc4c7d4d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f481c13_a9590227",
+        "filename": "p2p/base/p2ptransportchannel_unittest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 4611,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-23T04:20:07Z",
+      "side": 1,
+      "message": "ASSERT_EQ_WAIT\n\n(Since the next line will crash if the condition is not true.)",
+      "range": {
+        "startLine": 4611,
+        "startChar": 2,
+        "endLine": 4611,
+        "endChar": 16
+      },
+      "revId": "707befb0c8190ed74a62159ca9f8dd3bdc4c7d4d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0734440e_44f3b173",
+        "filename": "pc/peerconnection_integrationtest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-23T04:20:07Z",
+      "side": 1,
+      "message": "redundant",
+      "range": {
+        "startLine": 310,
+        "startChar": 52,
+        "endLine": 310,
+        "endChar": 55
+      },
+      "revId": "707befb0c8190ed74a62159ca9f8dd3bdc4c7d4d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c3f7bda_519e13be",
+        "filename": "pc/peerconnection_integrationtest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 931,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-23T04:20:07Z",
+      "side": 1,
+      "message": "Why not just return std::unique_ptr\u003cwebrtc::IceCandidateInterface\u003e instead of storing the owned_candidate as a member variable?",
+      "range": {
+        "startLine": 931,
+        "startChar": 39,
+        "endLine": 931,
+        "endChar": 58
+      },
+      "revId": "707befb0c8190ed74a62159ca9f8dd3bdc4c7d4d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

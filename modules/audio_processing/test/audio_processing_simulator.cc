@@ -280,9 +280,6 @@ EchoCanceller3Config ParseAec3Parameters(const std::string& filename) {
     ReadParam(section, "normal", &cfg.gain_updates.normal);
     ReadParam(section, "saturation", &cfg.gain_updates.saturation);
     ReadParam(section, "nonlinear", &cfg.gain_updates.nonlinear);
-    ReadParam(section, "max_inc_factor", &cfg.gain_updates.max_inc_factor);
-    ReadParam(section, "max_dec_factor_lf",
-              &cfg.gain_updates.max_dec_factor_lf);
     ReadParam(section, "floor_first_increase",
               &cfg.gain_updates.floor_first_increase);
   }
@@ -329,8 +326,18 @@ EchoCanceller3Config ParseAec3Parameters(const std::string& filename) {
   if (rtc::GetValueFromJsonObject(root, "suppressor", &section)) {
     ReadParam(section, "nearend_average_blocks",
               &cfg.suppressor.nearend_average_blocks);
-    ReadParam(section, "mask_lf", &cfg.suppressor.mask_lf);
-    ReadParam(section, "mask_hf", &cfg.suppressor.mask_hf);
+    ReadParam(section, "nearend_mask_lf", &cfg.suppressor.nearend_mask_lf);
+    ReadParam(section, "nearend_mask_hf", &cfg.suppressor.nearend_mask_hf);
+    ReadParam(section, "echo_mask_lf", &cfg.suppressor.echo_mask_lf);
+    ReadParam(section, "echo_mask_hf", &cfg.suppressor.echo_mask_hf);
+    ReadParam(section, "nearend_max_inc_factor",
+              &cfg.suppressor.nearend_max_inc_factor);
+    ReadParam(section, "nearend_max_dec_factor_lf",
+              &cfg.suppressor.nearend_max_dec_factor_lf);
+    ReadParam(section, "echo_max_inc_factor",
+              &cfg.suppressor.echo_max_inc_factor);
+    ReadParam(section, "echo_max_dec_factor_lf",
+              &cfg.suppressor.echo_max_dec_factor_lf);
     ReadParam(section, "enforce_transparent",
               &cfg.suppressor.enforce_transparent);
     ReadParam(section, "enforce_empty_higher_bands",

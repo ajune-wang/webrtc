@@ -159,8 +159,6 @@ class NetEqImpl : public webrtc::NetEq {
 
   int LeastRequiredDelayMs() const override;
 
-  int SetTargetDelay() override;
-
   int TargetDelayMs() const override;
 
   int CurrentDelayMs() const override;
@@ -195,10 +193,6 @@ class NetEqImpl : public webrtc::NetEq {
 
   absl::optional<SdpAudioFormat> GetDecoderFormat(
       int payload_type) const override;
-
-  int SetTargetNumberOfChannels() override;
-
-  int SetTargetSampleRate() override;
 
   // Flushes both the packet buffer and the sync buffer.
   void FlushBuffers() override;

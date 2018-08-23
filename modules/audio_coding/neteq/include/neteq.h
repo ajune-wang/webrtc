@@ -96,7 +96,7 @@ class NetEq {
     bool for_test_no_time_stretching = false;  // Use only for testing.
   };
 
-  enum ReturnCodes { kOK = 0, kFail = -1, kNotImplemented = -2 };
+  enum ReturnCodes { kOK = 0, kFail = -1 };
 
   // Creates a new NetEq object, with parameters set in |config|. The |config|
   // object will only have to be valid for the duration of the call to this
@@ -186,9 +186,6 @@ class NetEq {
   // SetMaximumDelay()) are applied.
   virtual int LeastRequiredDelayMs() const = 0;
 
-  // Not implemented.
-  virtual int SetTargetDelay() = 0;
-
   // Returns the current target delay in ms. This includes any extra delay
   // requested through SetMinimumDelay.
   virtual int TargetDelayMs() const = 0;
@@ -240,12 +237,6 @@ class NetEq {
   // such payload type was registered.
   virtual absl::optional<SdpAudioFormat> GetDecoderFormat(
       int payload_type) const = 0;
-
-  // Not implemented.
-  virtual int SetTargetNumberOfChannels() = 0;
-
-  // Not implemented.
-  virtual int SetTargetSampleRate() = 0;
 
   // Flushes both the packet buffer and the sync buffer.
   virtual void FlushBuffers() = 0;

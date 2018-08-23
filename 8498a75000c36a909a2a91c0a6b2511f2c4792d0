@@ -211,6 +211,30 @@
       "revId": "8498a75000c36a909a2a91c0a6b2511f2c4792d0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b617a856_42455d69",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 4007,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-08-23T18:46:33Z",
+      "side": 1,
+      "message": "Ah right, this is correct. I was thinking for a server you don\u0027t want an answer with simulcast, but the answer/offer is probably relayed from a server between peers. I\u0027m guessing this means peer1 \u003c---\u003e server \u003c---\u003e peer2, where both peers are sending simulcast and I assume peer2 would get the offer \u0026 reply with the answer with simulcast. I guess I don\u0027t understand perfectly how the server parsing/relaying of the answer/offer works for simulcast.",
+      "parentUuid": "394e4dca_fa35fb07",
+      "range": {
+        "startLine": 4007,
+        "startChar": 22,
+        "endLine": 4007,
+        "endChar": 63
+      },
+      "revId": "8498a75000c36a909a2a91c0a6b2511f2c4792d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

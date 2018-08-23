@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0dedeea3_3a1c8c75",
+        "filename": "pc/peerconnection_media_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-08-23T18:46:33Z",
+      "side": 1,
+      "message": "This tests that the number of simulcast layers propagates to the StreamParams object, but it would also be nice to test that it actually creates the simulcast layers when you SetLocalDescription. Could you test this as well, and also for the answer? I think you could do it with:\ncaller-\u003eSetLocalDescription(offer);\nauto senders \u003d caller-\u003epc-\u003egetSenders();\nfor(const auto\u0026 sender : senders) {\n  if (sender-\u003emedatype \u003d\u003d cricket::MediaType::MEDIA_TYPE_VIDEO) {\n    EXPECT_EQ(3u, sender-\u003eGetParameters().encodings.size());\n  }\n}",
+      "range": {
+        "startLine": 289,
+        "startChar": 2,
+        "endLine": 289,
+        "endChar": 11
+      },
+      "revId": "fa7841a5a78846c7a2b2958df617a748c3dfc47e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

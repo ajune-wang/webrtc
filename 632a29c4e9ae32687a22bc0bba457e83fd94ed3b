@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ea86b34f_8db6a975",
+        "filename": "video/full_stack_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-08-23T05:54:45Z",
+      "side": 1,
+      "message": "Put this as the default in paramswithlogging instead. These lines you\u0027re adding aren\u0027t related to the individual test cases so we should keep then out of the test bodies.",
+      "range": {
+        "startLine": 108,
+        "startChar": 23,
+        "endLine": 108,
+        "endChar": 53
+      },
+      "revId": "632a29c4e9ae32687a22bc0bba457e83fd94ed3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b4fbaa7_47066717",
+        "filename": "video/video_quality_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-08-23T05:54:45Z",
+      "side": 1,
+      "message": "Explain why this class is here.",
+      "range": {
+        "startLine": 72,
+        "startChar": 6,
+        "endLine": 72,
+        "endChar": 30
+      },
+      "revId": "632a29c4e9ae32687a22bc0bba457e83fd94ed3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a19b74f6_693bae55",
+        "filename": "video/video_quality_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-08-23T05:54:45Z",
+      "side": 1,
+      "message": "So absl optional has an operator bool ()? Just checking.",
+      "range": {
+        "startLine": 191,
+        "startChar": 16,
+        "endLine": 191,
+        "endChar": 22
+      },
+      "revId": "632a29c4e9ae32687a22bc0bba457e83fd94ed3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

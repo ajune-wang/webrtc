@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f7aaba6a_1677ea39",
+        "filename": "api/test/video_quality_test_fixture.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-23T09:02:06Z",
+      "side": 1,
+      "message": "Maybe replace the second sentence with \"Must be nullopt if `sender_network` and `receiver_network` are non-null.\"\n\nThird sentence: \"May be nullopt even if `sender_network` and `receiver_network` are null; in that case, a default config will be used.\" Or did I misunderstand?",
+      "revId": "149232776e9ac5c8ddab5fe7f2f37ed7759b24a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e188f9e8_b0f4a39e",
+        "filename": "api/test/video_quality_test_fixture.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-23T09:02:06Z",
+      "side": 1,
+      "message": "Suggested shared comment for both line 92 and 95: \"Simulations of sender and receiver networks. They must either both be null (in which case `config` is used), or both be non-null (in which case `config` must be nullopt).\"",
+      "revId": "149232776e9ac5c8ddab5fe7f2f37ed7759b24a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b0413e3_00a18ad7",
+        "filename": "video/video_quality_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-23T09:02:06Z",
+      "side": 1,
+      "message": "This class can be final, right?",
+      "revId": "149232776e9ac5c8ddab5fe7f2f37ed7759b24a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d65668d0_090dbfac",
+        "filename": "video/video_quality_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-23T09:02:06Z",
+      "side": 1,
+      "message": "This formatting looks off. Did you run `git cl format`?",
+      "range": {
+        "startLine": 84,
+        "startChar": 55,
+        "endLine": 84,
+        "endChar": 65
+      },
+      "revId": "149232776e9ac5c8ddab5fe7f2f37ed7759b24a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

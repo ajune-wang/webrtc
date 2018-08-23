@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3eb7151d_06701788",
+        "filename": "test/scenario/video_stream.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 7296
+      },
+      "writtenOn": "2018-08-23T12:13:32Z",
+      "side": 1,
+      "message": "Do you set nack_history_time somewhere or it is zero here by default? \nIf this is zero, then rtx won\u0027t be enabled in tests.",
+      "revId": "3b913bd410fde46865b1d432569eac62e2ccc8d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

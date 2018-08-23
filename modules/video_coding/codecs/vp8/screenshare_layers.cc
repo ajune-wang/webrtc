@@ -60,13 +60,25 @@ ScreenshareLayers::~ScreenshareLayers() {
   UpdateHistograms();
 }
 
+bool ScreenshareLayers::SupportsEncoderFrameDropping() const {
+  // This implementation of TemporalLayers assumes encode frame dropping is off.
+  return false;
+}
+
 TemporalLayers::FrameConfig ScreenshareLayers::UpdateLayerConfig(
     uint32_t timestamp) {
+  auto it = pending_frame_configs_.find(timestamp);
+  if (it != pending_frame_configs_.end()) {
+    // Drop and re-encode, reuse the previous config.
+    return it->second;
+  }
+
   if (number_of_temporal_layers_ <= 1) {
     // No flags needed for 1 layer screenshare.
     // TODO(pbos): Consider updating only last, and not all buffers.
     TemporalLayers::FrameConfig tl_config(
         kReferenceAndUpdate, kReferenceAndUpdate, kReferenceAndUpdate);
+    pending_frame_configs_[timestamp] = tl_config;
     return tl_config;
   }
 
@@ -196,6 +208,7 @@ TemporalLayers::FrameConfig ScreenshareLayers::UpdateLayerConfig(
   }
 
   tl_config.layer_sync = layer_state == TemporalLayerState::kTl1Sync;
+  pending_frame_configs_[timestamp] = tl_config;
   return tl_config;
 }
 
@@ -239,20 +252,45 @@ void ScreenshareLayers::OnRatesUpdated(
   layers_[1].target_rate_kbps_ = tl1_kbps;
 }
 
-void ScreenshareLayers::FrameEncoded(uint32_t timestamp, size_t size, int qp) {
-  if (size > 0)
-    encode_framerate_.Update(1, clock_->TimeInMilliseconds());
-
-  if (number_of_temporal_layers_ == 1)
-    return;
-
-  RTC_DCHECK_NE(-1, active_layer_);
-  if (size == 0) {
+void ScreenshareLayers::OnEncodeDone(uint32_t rtp_timestamp,
+                                     size_t size_bytes,
+                                     bool is_keyframe,
+                                     int qp,
+                                     CodecSpecificInfoVP8* vp8_info) {
+  if (size_bytes == 0) {
     layers_[active_layer_].state = TemporalLayer::State::kDropped;
     ++stats_.num_overshoots_;
     return;
   }
 
+  auto it = pending_frame_configs_.find(rtp_timestamp);
+  RTC_DCHECK(it != pending_frame_configs_.end());
+  FrameConfig frame_config = it->second;
+  pending_frame_configs_.erase(it);
+
+  if (number_of_temporal_layers_ == 1) {
+    vp8_info->temporalIdx = kNoTemporalIdx;
+    vp8_info->layerSync = false;
+  } else {
+    int64_t unwrapped_timestamp = time_wrap_handler_.Unwrap(rtp_timestamp);
+    vp8_info->temporalIdx = frame_config.packetizer_temporal_idx;
+    vp8_info->layerSync = frame_config.layer_sync;
+    if (is_keyframe) {
+      vp8_info->temporalIdx = 0;
+      last_sync_timestamp_ = unwrapped_timestamp;
+      vp8_info->layerSync = true;
+      layers_[0].state = TemporalLayer::State::kKeyFrame;
+      layers_[1].state = TemporalLayer::State::kKeyFrame;
+      active_layer_ = 1;
+    }
+  }
+
+  encode_framerate_.Update(1, clock_->TimeInMilliseconds());
+
+  if (number_of_temporal_layers_ == 1)
+    return;
+
+  RTC_DCHECK_NE(-1, active_layer_);
   if (layers_[active_layer_].state == TemporalLayer::State::kDropped) {
     layers_[active_layer_].state = TemporalLayer::State::kQualityBoost;
   }
@@ -261,39 +299,16 @@ void ScreenshareLayers::FrameEncoded(uint32_t timestamp, size_t size, int qp) {
     layers_[active_layer_].last_qp = qp;
 
   if (active_layer_ == 0) {
-    layers_[0].debt_bytes_ += size;
-    layers_[1].debt_bytes_ += size;
+    layers_[0].debt_bytes_ += size_bytes;
+    layers_[1].debt_bytes_ += size_bytes;
     ++stats_.num_tl0_frames_;
     stats_.tl0_target_bitrate_sum_ += layers_[0].target_rate_kbps_;
     stats_.tl0_qp_sum_ += qp;
   } else if (active_layer_ == 1) {
-    layers_[1].debt_bytes_ += size;
+    layers_[1].debt_bytes_ += size_bytes;
     ++stats_.num_tl1_frames_;
     stats_.tl1_target_bitrate_sum_ += layers_[1].target_rate_kbps_;
     stats_.tl1_qp_sum_ += qp;
-  }
-}
-
-void ScreenshareLayers::PopulateCodecSpecific(
-    bool frame_is_keyframe,
-    const TemporalLayers::FrameConfig& tl_config,
-    CodecSpecificInfoVP8* vp8_info,
-    uint32_t timestamp) {
-  if (number_of_temporal_layers_ == 1) {
-    vp8_info->temporalIdx = kNoTemporalIdx;
-    vp8_info->layerSync = false;
-  } else {
-    int64_t unwrapped_timestamp = time_wrap_handler_.Unwrap(timestamp);
-    vp8_info->temporalIdx = tl_config.packetizer_temporal_idx;
-    vp8_info->layerSync = tl_config.layer_sync;
-    if (frame_is_keyframe) {
-      vp8_info->temporalIdx = 0;
-      last_sync_timestamp_ = unwrapped_timestamp;
-      vp8_info->layerSync = true;
-      layers_[0].state = TemporalLayer::State::kKeyFrame;
-      layers_[1].state = TemporalLayer::State::kKeyFrame;
-      active_layer_ = 1;
-    }
   }
 }
 

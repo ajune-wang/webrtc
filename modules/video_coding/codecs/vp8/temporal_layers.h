@@ -32,12 +32,10 @@ namespace webrtc {
 // of calls such as this:
 // - UpdateLayerConfig(timestampA)
 // - UpdateLayerConfig(timestampB)
-// - PopulateCodecSpecific(timestampA, ...)
+// - OnEncodeDone(timestampA, 1234, ...)
 // - UpdateLayerConfig(timestampC)
-// - FrameEncoded(timestampA, 1234, ...)
-// - FrameEncoded(timestampB, 0, ...)
-// - PopulateCodecSpecific(timestampC, ...)
-// - FrameEncoded(timestampC, 1234, ...)
+// - OnEncodeDone(timestampB, 0, ...)
+// - OnEncodeDone(timestampC, 1234, ...)
 // Note that UpdateLayerConfig() for a new frame can happen before
 // FrameEncoded() for a previous one, but calls themselves must be both
 // synchronized (e.g. run on a task queue) and in order (per type).
@@ -147,12 +145,26 @@ class TemporalLayers {
 
   virtual ~TemporalLayers() = default;
 
+  // If this method returns true, the encoder is free to drop frames for
+  // instance in an effort to uphold encoding bitrate.
+  // If this return false, the encoder must not drop any frames unless:
+  //  1. Requested to do so via FrameConfig.drop_frame
+  //  2. The frame to be encoded is requested to be a keyframe
+  //  3. The encoded detected a large overshoot and decided to drop and then
+  //     re-encode the image at a low bitrate. In this case the encoder should
+  //     call OnEncodeDone() once with size = 0 to indicate drop, and then call
+  //     OnEncodeDone() again when the frame has actually been encoded.
+  virtual bool SupportsEncoderFrameDropping() const = 0;
+
   // New target bitrate, per temporal layer.
   virtual void OnRatesUpdated(const std::vector<uint32_t>& bitrates_bps,
                               int framerate_fps) = 0;
 
-  // Update the encoder configuration with target bitrates or other parameters.
-  // Returns true iff the configuration was actually modified.
+  // Called by the encoder before encoding a frame. |cfg| contains the current
+  // configuration. If the TemporalLayers instance wishes any part of that
+  // to be changed before the encode step, |cfg| should be changed and then
+  // return true. If false is returned, the encoder will proceed without
+  // updating the configuration.
   virtual bool UpdateConfiguration(Vp8EncoderConfig* cfg) = 0;
 
   // Returns the recommended VP8 encode flags needed, and moves the temporal
@@ -166,24 +178,24 @@ class TemporalLayers {
   // * On failure/ frame drop: Call FrameEncoded() with size = 0.
   virtual FrameConfig UpdateLayerConfig(uint32_t rtp_timestamp) = 0;
 
-  // Called after successful encoding of a frame. The rtp timestamp must match
-  // the one using in UpdateLayerConfig(). Some fields in |vp8_info| may have
-  // already been populated by the encoder, check before overwriting.
-  // |tl_config| is the frame config returned by UpdateLayerConfig() for this
-  // rtp_timestamp;
-  // If |is_keyframe| is true, the flags in |tl_config| will be ignored.
-  virtual void PopulateCodecSpecific(
-      bool is_keyframe,
-      const TemporalLayers::FrameConfig& tl_config,
-      CodecSpecificInfoVP8* vp8_info,
-      uint32_t rtp_timestamp) = 0;
-
-  // Called after an encode event. If the frame was dropped, |size_bytes| must
-  // be set to 0. The rtp timestamp must match the one using in
-  // UpdateLayerConfig()
-  virtual void FrameEncoded(uint32_t rtp_timestamp,
+  // Called after the encode step is done. |rtp_timestamp| must match the
+  // parameter use in the UpdateLayerConfig() call.
+  // |is_keyframe| must be true iff the encoder decided to encode this frame as
+  // a keyframe.
+  // If the encoder decided to drop this frame, |size_bytes| must be set to 0,
+  // otherwise it should indicate the size in bytes of the encoded frame.
+  // If |size_bytes| > 0, and |vp8_info| is not null, the TemporalLayers
+  // instance my update |vp8_info| with codec specific data such as temporal id.
+  // Some fields of this struct may have already been populated by the encoder,
+  // check before overwriting.
+  // If |size_bytes| > 0, |qp| should indicate the frame-level QP this frame was
+  // encoded at. If the encoder does not support extracting this, |qp| should be
+  // set to 0.
+  virtual void OnEncodeDone(uint32_t rtp_timestamp,
                             size_t size_bytes,
-                            int qp) = 0;
+                            bool is_keyframe,
+                            int qp,
+                            CodecSpecificInfoVP8* vp8_info) = 0;
 };
 
 // Used only inside RTC_DCHECK(). It checks correctness of temporal layers

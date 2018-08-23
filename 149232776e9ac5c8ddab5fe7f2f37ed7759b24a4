@@ -167,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "4db14712_f2381853",
+        "filename": "video/video_quality_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-23T12:16:09Z",
+      "side": 1,
+      "message": "std::shared_ptr is forbidden here: https://chromium-cpp.appspot.com/#library-blacklist\n\nIn my opinion, accepting interfaces by unique_ptr and working around that by a wrapper like this is not a bad idea, provided the wrapper is only needed for testing. It\u0027s nice if test code is clean and simple, but not at the expense of making production code less robust.",
+      "parentUuid": "5035a8ec_27e83f06",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 76,
+        "endChar": 31
+      },
+      "revId": "149232776e9ac5c8ddab5fe7f2f37ed7759b24a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6b0413e3_00a18ad7",
         "filename": "video/video_quality_test.cc",
         "patchSetId": 2

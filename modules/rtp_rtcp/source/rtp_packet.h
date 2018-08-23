@@ -24,9 +24,12 @@ class RtpPacket {
  public:
   using ExtensionType = RTPExtensionType;
   using ExtensionManager = RtpHeaderExtensionMap;
-  static constexpr int kMaxExtensionHeaders = 14;
+  static constexpr int kMaxExtensionHeaders = 20;
   static constexpr int kMinExtensionId = 1;
-  static constexpr int kMaxExtensionId = 14;
+  static constexpr int kOneByteHeaderMaxExtensionId = 14;
+  static constexpr int kTwoByteHeaderMaxExtensionId = 255;
+  static constexpr int kOneByteHeaderExtensionMaxLength = 16;
+  static constexpr int kTwoByteHeaderExtensionMaxLength = 255;
 
   // |extensions| required for SetExtension/ReserveExtension functions during
   // packet creating and used if available in Parse function.
@@ -131,6 +134,12 @@ class RtpPacket {
   // Returns empty arrayview on failure.
   rtc::ArrayView<uint8_t> AllocateRawExtension(int id, size_t length);
 
+  // Promotes existing one-byte header extensions to two-byte header extensions
+  // by rewriting the data and updates the corresponding extension offsets.
+  void PromoteToTwoByteHeaderExtension();
+
+  uint16_t SetExtensionLengthAddZeroPadding(size_t extensions_offset);
+
   // Find or allocate an extension |type|. Returns view of size |length|
   // to write raw extension to or an empty view on failure.
   rtc::ArrayView<uint8_t> AllocateExtension(ExtensionType type, size_t length);
@@ -150,6 +159,7 @@ class RtpPacket {
 
   ExtensionInfo extension_entries_[kMaxExtensionHeaders];
   size_t extensions_size_ = 0;  // Unaligned.
+  size_t number_of_allocated_extensions_ = 0;
   rtc::CopyOnWriteBuffer buffer_;
 };
 
@@ -169,7 +179,7 @@ bool RtpPacket::GetExtension(Values... values) const {
 template <typename Extension, typename... Values>
 bool RtpPacket::SetExtension(Values... values) {
   const size_t value_size = Extension::ValueSize(values...);
-  if (value_size == 0 || value_size > 16)
+  if (value_size > kTwoByteHeaderExtensionMaxLength)
     return false;
   auto buffer = AllocateExtension(Extension::kId, value_size);
   if (buffer.empty())

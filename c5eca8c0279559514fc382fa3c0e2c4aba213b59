@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2b3da636_b0dad081",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-23T12:59:23Z",
+      "side": 1,
+      "message": "I think this change is caused by setting a non-zero payload_type_frequency.",
+      "range": {
+        "startLine": 251,
+        "startChar": 2,
+        "endLine": 251,
+        "endChar": 37
+      },
+      "revId": "c5eca8c0279559514fc382fa3c0e2c4aba213b59",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55e6324d_2bc94289",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-23T12:59:23Z",
+      "side": 1,
+      "message": "Test seems to pass despite this.",
+      "range": {
+        "startLine": 267,
+        "startChar": 0,
+        "endLine": 267,
+        "endChar": 53
+      },
+      "revId": "c5eca8c0279559514fc382fa3c0e2c4aba213b59",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25bfabf8_84da8931",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-23T12:59:23Z",
+      "side": 1,
+      "message": "And this too.",
+      "range": {
+        "startLine": 386,
+        "startChar": 2,
+        "endLine": 386,
+        "endChar": 53
+      },
+      "revId": "c5eca8c0279559514fc382fa3c0e2c4aba213b59",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,475 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "17bfc771_9e7b86e5",
+        "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-08-23T06:35:00Z",
+      "side": 1,
+      "message": "If this is to be put as a constant outside of the functions where it is used I think it should have a more descriptive name since the context where it is used cannot be used to deduce its meaning.",
+      "range": {
+        "startLine": 34,
+        "startChar": 16,
+        "endLine": 34,
+        "endChar": 22
+      },
+      "revId": "52537651be23569d2bbf96bb42fa8d9abfe84b53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d15fab4_330cace8",
+        "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-08-23T06:35:00Z",
+      "side": 1,
+      "message": "I\u0027d suggest changing this to SquareBlock, since that is what this doe\ni.e.\nIt squares the coefficients in a block.",
+      "range": {
+        "startLine": 65,
+        "startChar": 11,
+        "endLine": 65,
+        "endChar": 12
+      },
+      "revId": "52537651be23569d2bbf96bb42fa8d9abfe84b53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7fc34246_66c22497",
+        "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-08-23T06:35:00Z",
+      "side": 1,
+      "message": "Since a block is 64 elements large, I\u0027d suggest to instead define a customized comparator in max_element that comparse the squared elements directly.\nThat should be cheaper than first squaring and storing the squared elements, and then finding the max element.",
+      "range": {
+        "startLine": 76,
+        "startChar": 6,
+        "endLine": 76,
+        "endChar": 21
+      },
+      "revId": "52537651be23569d2bbf96bb42fa8d9abfe84b53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd5b0fc6_2e2d6c7b",
+        "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-08-23T06:35:00Z",
+      "side": 1,
+      "message": "If the previous suggested change is done, I\u0027d suggest moving the operations of BlockSquare into this method since there is then only one use of that.",
+      "range": {
+        "startLine": 85,
+        "startChar": 2,
+        "endLine": 85,
+        "endChar": 13
+      },
+      "revId": "52537651be23569d2bbf96bb42fa8d9abfe84b53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b9e2ae4_6094cfe5",
+        "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-08-23T06:35:00Z",
+      "side": 1,
+      "message": "I\u0027d prefer use the name filter instead of h in the method header and then aliasing filter to h as before.\n\nThe reason for that is that filter is more descriptive to a new reader to the code and the EstimateDecay method is the main method that a user of the class interacts with.",
+      "range": {
+        "startLine": 164,
+        "startChar": 45,
+        "endLine": 165,
+        "endChar": 55
+      },
+      "revId": "52537651be23569d2bbf96bb42fa8d9abfe84b53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf59f4d5_6a040dfa",
+        "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-08-23T06:35:00Z",
+      "side": 1,
+      "message": "I\u0027d suggest extracting\nh.size() \u003e\u003e kFftLengthBy2Log2\ninto a constant\nconst size_t h_size_blocks \u003d h.size() \u003e\u003e kFftLengthBy2Log2;\n\nSince it may be nontrivial for a reader to see what the operation does.",
+      "range": {
+        "startLine": 176,
+        "startChar": 38,
+        "endLine": 176,
+        "endChar": 67
+      },
+      "revId": "52537651be23569d2bbf96bb42fa8d9abfe84b53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84757cca_cca47f9d",
+        "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-08-23T06:35:00Z",
+      "side": 1,
+      "message": "Please re-format the comment section to fully utilize the available column space.",
+      "range": {
+        "startLine": 328,
+        "startChar": 14,
+        "endLine": 328,
+        "endChar": 18
+      },
+      "revId": "52537651be23569d2bbf96bb42fa8d9abfe84b53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5306836e_dc03c647",
+        "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-08-23T06:35:00Z",
+      "side": 1,
+      "message": "What prevents block_ to be less than k? If it is, this will wrap. I think that warrants at least a DCHECK.",
+      "range": {
+        "startLine": 333,
+        "startChar": 21,
+        "endLine": 333,
+        "endChar": 27
+      },
+      "revId": "52537651be23569d2bbf96bb42fa8d9abfe84b53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c8045c3_7e7f1392",
+        "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-08-23T06:35:00Z",
+      "side": 1,
+      "message": "section \u003e\u003d 0\nThis is always true since section is a size_t",
+      "range": {
+        "startLine": 334,
+        "startChar": 9,
+        "endLine": 334,
+        "endChar": 21
+      },
+      "revId": "52537651be23569d2bbf96bb42fa8d9abfe84b53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2232e820_2f7110ee",
+        "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-08-23T06:35:00Z",
+      "side": 1,
+      "message": "This is a for-loop over an if-statement that only is entered for a section of the loop.\n\nThis looks like something that should be changed into removing the if-statement and instead changing the loop range accordingly.",
+      "revId": "52537651be23569d2bbf96bb42fa8d9abfe84b53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "687705ad_59f4b9f3",
+        "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-08-23T06:35:00Z",
+      "side": 1,
+      "message": "If this is updated for many of the loop indices I\u0027d suggest changing this into\n\nconst size_t kStart \u003d 0; // Or something else than 0 if the above comment changes that.\nconst float value_scaled \u003d kFftLengthBy2 * value;\nfloat value_to_store \u003d (count_ + kFftLengthBy2 * k0) * value;\nfor (size_t k \u003d kStart; ....) {\n value_to_store +\u003d value_scaled\n ...\n if (--) {\n  nz_[section] +\u003d  value_to_store;\n }\n}",
+      "range": {
+        "startLine": 335,
+        "startChar": 22,
+        "endLine": 335,
+        "endChar": 59
+      },
+      "revId": "52537651be23569d2bbf96bb42fa8d9abfe84b53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d248de1_c5d60b4d",
+        "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-08-23T06:35:00Z",
+      "side": 1,
+      "message": "Would it be possible to change the name of count_ to something more descriptive?\n\nAs it is now, it is the comparison on 338 is hard to grasp without looking at the rest of the usage of count_.\ncount_ seems very related to kCount but the comparison in the if-statement is done with an offset.\n\nIt would be good with a name that clearly distinguishes the meaning from the block index block_.",
+      "range": {
+        "startLine": 338,
+        "startChar": 8,
+        "endLine": 338,
+        "endChar": 14
+      },
+      "revId": "52537651be23569d2bbf96bb42fa8d9abfe84b53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a34ffa25_922d1c33",
+        "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-08-23T06:35:00Z",
+      "side": 1,
+      "message": "block_ \u003e\u003d (kBlocksPerSection - 1)\n-\u003e\nblock_ \u003e kBlocksPerSection",
+      "revId": "52537651be23569d2bbf96bb42fa8d9abfe84b53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9435d00_7a4db956",
+        "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-08-23T06:35:00Z",
+      "side": 1,
+      "message": "Is the expression guaranteed to end up \u003e 0? Otherwise section may wrap.\n\nIt would be good with a DCHECK for that.",
+      "range": {
+        "startLine": 340,
+        "startChar": 23,
+        "endLine": 340,
+        "endChar": 29
+      },
+      "revId": "52537651be23569d2bbf96bb42fa8d9abfe84b53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "411d781e_5c1221d3",
+        "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-08-23T06:35:00Z",
+      "side": 1,
+      "message": "The blocks that are due to early echo reverberations are estimated.\n-\u003e\nEstimation of the blocks that correspond to early reverberations.",
+      "range": {
+        "startLine": 367,
+        "startChar": 5,
+        "endLine": 367,
+        "endChar": 71
+      },
+      "revId": "52537651be23569d2bbf96bb42fa8d9abfe84b53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f14b00ce_7a2e9230",
+        "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-08-23T06:35:00Z",
+      "side": 1,
+      "message": "The portions of the\n// impulse response whose energy is not decreasing over time are considered to\n// be part of the early reverberation.\n\nThis is a bit ambiguous. Do you mean over time, or do you mean over coefficients in the impulse response.",
+      "range": {
+        "startLine": 368,
+        "startChar": 59,
+        "endLine": 370,
+        "endChar": 40
+      },
+      "revId": "52537651be23569d2bbf96bb42fa8d9abfe84b53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73ce6eb0_db832cc1",
+        "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-08-23T06:35:00Z",
+      "side": 1,
+      "message": "consider\n-\u003e\nconsidered to be",
+      "range": {
+        "startLine": 372,
+        "startChar": 23,
+        "endLine": 372,
+        "endChar": 31
+      },
+      "revId": "52537651be23569d2bbf96bb42fa8d9abfe84b53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a65a594_5ecff4a6",
+        "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-08-23T06:35:00Z",
+      "side": 1,
+      "message": "That -\u003e The",
+      "range": {
+        "startLine": 372,
+        "startChar": 73,
+        "endLine": 372,
+        "endChar": 77
+      },
+      "revId": "52537651be23569d2bbf96bb42fa8d9abfe84b53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a9fe1cc_a0df2514",
+        "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-08-23T06:35:00Z",
+      "side": 1,
+      "message": "early_reverb_size \u003d k + 1;\n-\u003e\nearly_reverb_size_minus 1 \u003d k;",
+      "range": {
+        "startLine": 383,
+        "startChar": 5,
+        "endLine": 383,
+        "endChar": 32
+      },
+      "revId": "52537651be23569d2bbf96bb42fa8d9abfe84b53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7408f40_313e8ce1",
+        "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-08-23T06:35:00Z",
+      "side": 1,
+      "message": "return early_reverb_size;\n-\u003e\nreturn early_reverb_size \u003d\u003d 0 ? 0 : early_reverb_size +1;",
+      "range": {
+        "startLine": 387,
+        "startChar": 2,
+        "endLine": 387,
+        "endChar": 27
+      },
+      "revId": "52537651be23569d2bbf96bb42fa8d9abfe84b53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15ea85a2_0c91d1ed",
+        "filename": "modules/audio_processing/aec3/reverb_frequency_response.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-08-23T06:35:00Z",
+      "side": 1,
+      "message": "Please recompute \n(1.f / 0.2f) * 0.1f\ninto a new constant, or, if the details in how the constant is computed are important, break it out into a separate constexpr and add an explaining comment.",
+      "range": {
+        "startLine": 72,
+        "startChar": 52,
+        "endLine": 72,
+        "endChar": 71
+      },
+      "revId": "52537651be23569d2bbf96bb42fa8d9abfe84b53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

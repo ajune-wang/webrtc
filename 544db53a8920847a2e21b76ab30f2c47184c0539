@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b43cbe11_fa7ce124",
+        "filename": "pc/peerconnection_integrationtest.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 3446,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-23T22:53:56Z",
+      "side": 1,
+      "message": "Why not just stack allocate?",
+      "range": {
+        "startLine": 3446,
+        "startChar": 6,
+        "endLine": 3446,
+        "endChar": 33
+      },
+      "revId": "544db53a8920847a2e21b76ab30f2c47184c0539",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -142,6 +142,24 @@
     },
     {
       "key": {
+        "uuid": "a55b7bde_c5ae788b",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 980,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-23T22:53:56Z",
+      "side": 1,
+      "message": "Don\u0027t need a return; at the end of a void function.",
+      "parentUuid": "4b6de338_6e68a368",
+      "revId": "707befb0c8190ed74a62159ca9f8dd3bdc4c7d4d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cb6ddafb_d32a1896",
         "filename": "p2p/base/p2ptransportchannel.cc",
         "patchSetId": 12
@@ -224,6 +242,30 @@
     },
     {
       "key": {
+        "uuid": "123b20c3_4a518062",
+        "filename": "p2p/base/p2ptransportchannel.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-23T22:53:56Z",
+      "side": 1,
+      "message": "In practice it\u0027s likely std::vector actually has better performance due to spacial locality.",
+      "parentUuid": "1344fd67_cde5b61a",
+      "range": {
+        "startLine": 431,
+        "startChar": 7,
+        "endLine": 431,
+        "endChar": 11
+      },
+      "revId": "707befb0c8190ed74a62159ca9f8dd3bdc4c7d4d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "832a7008_b9e9dfab",
         "filename": "p2p/base/p2ptransportchannel.h",
         "patchSetId": 12
@@ -271,6 +313,30 @@
     },
     {
       "key": {
+        "uuid": "84b9b423_c7ce6972",
+        "filename": "p2p/base/p2ptransportchannel.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-23T22:53:56Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "9646bff4_ec04a312",
+      "range": {
+        "startLine": 434,
+        "startChar": 38,
+        "endLine": 434,
+        "endChar": 47
+      },
+      "revId": "707befb0c8190ed74a62159ca9f8dd3bdc4c7d4d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1663b1ef_ad4eb772",
         "filename": "p2p/base/p2ptransportchannel_unittest.cc",
         "patchSetId": 12
@@ -300,6 +366,24 @@
       "side": 1,
       "message": "Using ASSERT gives:\n../../p2p/base/p2ptransportchannel_unittest.cc:770:5: error: no viable conversion from returned value of type \u0027void\u0027 to function return type \u0027rtc::SocketAddress\u0027\nI think RTC_CHECK is the way to go.",
       "parentUuid": "1663b1ef_ad4eb772",
+      "revId": "707befb0c8190ed74a62159ca9f8dd3bdc4c7d4d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5752781c_10fe9c5e",
+        "filename": "p2p/base/p2ptransportchannel_unittest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 771,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-23T22:53:56Z",
+      "side": 1,
+      "message": "Yeah, ASSERT doesn\u0027t really work in functions (since it does return; to exit early).\n\nRTC_CHECK has the problem of killing the entire test binary if the condition is false, but I guess it\u0027s not a huge issue.",
+      "parentUuid": "391a2798_9aa4d6d3",
       "revId": "707befb0c8190ed74a62159ca9f8dd3bdc4c7d4d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

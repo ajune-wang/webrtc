@@ -119,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "07af8705_1d130fca",
+        "filename": "video/video_quality_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-08-23T12:00:17Z",
+      "side": 1,
+      "message": "Shared pointers aren\u0027t forbidden, but shared ownership is discouraged since it\u0027s often easier to reason about code with clear ownership. I agree that we shouldn\u0027t need it here though.\n\nI don\u0027t think we need to try to preserve the FakeNetworkPipe interface, it seems reasonable to keep ownership of the NetworkSimulation outside. It is already a common pattern to keep a raw pointer to the simulation to allow changing the config or retrieve simulation specific stats. Those cases would just keep a unique pointer and share a raw pointer instead and would be clearer by such a change.\n\nIn the other cases we can either add an extra member or create a version/subclass of FakeNetworkPipe that also holds ownership and we can choose which one to use depending on where we want the ownership.",
+      "parentUuid": "a17ab7e3_bb871696",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 76,
+        "endChar": 31
+      },
+      "revId": "149232776e9ac5c8ddab5fe7f2f37ed7759b24a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6b0413e3_00a18ad7",
         "filename": "video/video_quality_test.cc",
         "patchSetId": 2

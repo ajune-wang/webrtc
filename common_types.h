@@ -340,11 +340,8 @@ enum VideoCodecType {
   kVideoCodecH264,
   kVideoCodecI420,
   kVideoCodecMultiplex,
-  // DEPRECATED. Do not use.
-  kVideoCodecUnknown,
 
   // TODO(nisse): Deprecated aliases, for code expecting RtpVideoCodecTypes.
-  kRtpVideoNone = kVideoCodecGeneric,
   kRtpVideoGeneric = kVideoCodecGeneric,
   kRtpVideoVp8 = kVideoCodecVP8,
   kRtpVideoVp9 = kVideoCodecVP9,

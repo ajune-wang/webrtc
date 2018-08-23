@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b8b52192_439e0390",
+        "filename": "api/mediaconstraintsinterface.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-08-23T10:38:12Z",
+      "side": 1,
+      "message": "googNumSimulcastLayers ?",
+      "range": {
+        "startLine": 150,
+        "startChar": 5,
+        "endLine": 150,
+        "endChar": 24
+      },
+      "revId": "98124458aa441273a639ac15c5532ae8e8adb1f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "307c2d8d_420c42bf",
+        "filename": "api/mediaconstraintsinterface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-08-23T10:38:12Z",
+      "side": 1,
+      "message": "simulcast",
+      "revId": "98124458aa441273a639ac15c5532ae8e8adb1f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26ad49bf_823a90b1",
+        "filename": "api/mediaconstraintsinterface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-08-23T10:38:12Z",
+      "side": 1,
+      "message": "kNumSimulcastLayers, to be consistent with the other naming?",
+      "range": {
+        "startLine": 124,
+        "startChar": 20,
+        "endLine": 124,
+        "endChar": 40
+      },
+      "revId": "98124458aa441273a639ac15c5532ae8e8adb1f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "539d5abf_4d9d4ffe",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 599,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-08-23T10:38:12Z",
+      "side": 1,
+      "message": "Maybe write \"SDP\" instead, since this will apply to answers too?",
+      "range": {
+        "startLine": 599,
+        "startChar": 57,
+        "endLine": 599,
+        "endChar": 62
+      },
+      "revId": "98124458aa441273a639ac15c5532ae8e8adb1f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2ec8ae5_973b6e8b",
+        "filename": "pc/peerconnection_media_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-08-23T10:38:12Z",
+      "side": 1,
+      "message": "Do we want to check that there are FIDs generated too? Or is that orthogonal to this change?",
+      "range": {
+        "startLine": 289,
+        "startChar": 58,
+        "endLine": 289,
+        "endChar": 61
+      },
+      "revId": "98124458aa441273a639ac15c5532ae8e8adb1f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -290,13 +290,16 @@ void SuppressionGain::GainToNoAudibleEcho(
     const std::array<float, kFftLengthBy2Plus1>& min_gain,
     const std::array<float, kFftLengthBy2Plus1>& max_gain,
     std::array<float, kFftLengthBy2Plus1>* gain) const {
+  const auto& p =
+      state_selector_.IsNearendState() ? params_nearend_ : params_echo_;
   for (size_t k = 0; k < gain->size(); ++k) {
     float enr = echo[k] / (nearend[k] + 1.f);  // Echo-to-nearend ratio.
     float emr = echo[k] / (masker[k] + 1.f);   // Echo-to-masker (noise) ratio.
     float g = 1.0f;
-    if (enr > enr_transparent_[k] && emr > emr_transparent_[k]) {
-      g = (enr_suppress_[k] - enr) / (enr_suppress_[k] - enr_transparent_[k]);
-      g = std::max(g, emr_transparent_[k] / emr);
+    if (enr > p.enr_transparent_[k] && emr > p.emr_transparent_[k]) {
+      g = (p.enr_suppress_[k] - enr) /
+          (p.enr_suppress_[k] - p.enr_transparent_[k]);
+      g = std::max(g, p.emr_transparent_[k] / emr);
     }
     (*gain)[k] = std::max(std::min(g, max_gain[k]), min_gain[k]);
   }
@@ -312,6 +315,8 @@ void SuppressionGain::LowerBandGain(
     std::array<float, kFftLengthBy2Plus1>* gain) {
   const bool saturated_echo = aec_state.SaturatedEcho();
   const bool linear_echo_estimate = aec_state.UsableLinearEstimate();
+  const auto& params =
+      state_selector_.IsNearendState() ? params_nearend_ : params_echo_;
 
   // Weight echo power in terms of audibility. // Precompute 1/weighted echo
   // (note that when the echo is zero, the precomputed value is never used).
@@ -337,8 +342,7 @@ void SuppressionGain::LowerBandGain(
         // quickly after strong nearend.
         if (last_nearend_[k] > last_echo_[k]) {
           min_gain[k] =
-              std::max(min_gain[k],
-                       last_gain_[k] * config_.gain_updates.max_dec_factor_lf);
+              std::max(min_gain[k], last_gain_[k] * params.max_dec_factor_lf);
           min_gain[k] = std::min(min_gain[k], 1.f);
         }
       }
@@ -353,7 +357,7 @@ void SuppressionGain::LowerBandGain(
   if (enable_transparency_improvements_) {
     for (size_t k = 0; k < gain->size(); ++k) {
       max_gain[k] =
-          std::min(std::max(last_gain_[k] * config_.gain_updates.max_inc_factor,
+          std::min(std::max(last_gain_[k] * params.max_inc_factor,
                             config_.gain_updates.floor_first_increase),
                    1.f);
     }
@@ -420,7 +424,16 @@ SuppressionGain::SuppressionGain(const EchoCanceller3Config& config,
       enable_transparency_improvements_(EnableTransparencyImprovements()),
       enable_new_suppression_(EnableNewSuppression()),
       moving_average_(kFftLengthBy2Plus1,
-                      config.suppressor.nearend_average_blocks) {
+                      config.suppressor.nearend_average_blocks),
+      params_nearend_(config_.suppressor.nearend_mask_lf,
+                      config_.suppressor.nearend_mask_hf,
+                      config_.suppressor.nearend_max_inc_factor,
+                      config_.suppressor.nearend_max_dec_factor_lf),
+      params_echo_(config_.suppressor.echo_mask_lf,
+                   config_.suppressor.echo_mask_hf,
+                   config_.suppressor.echo_max_inc_factor,
+                   config_.suppressor.echo_max_dec_factor_lf),
+      state_selector_(config_.suppressor.state_selection) {
   RTC_DCHECK_LT(0, state_change_duration_blocks_);
   one_by_state_change_duration_blocks_ = 1.f / state_change_duration_blocks_;
   last_gain_.fill(1.f);
@@ -428,28 +441,6 @@ SuppressionGain::SuppressionGain(const EchoCanceller3Config& config,
   gain_increase_.fill(1.f);
   last_nearend_.fill(0.f);
   last_echo_.fill(0.f);
-
-  // Compute per-band masking thresholds.
-  constexpr size_t kLastLfBand = 5;
-  constexpr size_t kFirstHfBand = 8;
-  RTC_DCHECK_LT(kLastLfBand, kFirstHfBand);
-  auto& lf = config.suppressor.mask_lf;
-  auto& hf = config.suppressor.mask_hf;
-  RTC_DCHECK_LT(lf.enr_transparent, lf.enr_suppress);
-  RTC_DCHECK_LT(hf.enr_transparent, hf.enr_suppress);
-  for (size_t k = 0; k < kFftLengthBy2Plus1; k++) {
-    float a;
-    if (k <= kLastLfBand) {
-      a = 0.f;
-    } else if (k < kFirstHfBand) {
-      a = (k - kLastLfBand) / static_cast<float>(kFirstHfBand - kLastLfBand);
-    } else {
-      a = 1.f;
-    }
-    enr_transparent_[k] = (1 - a) * lf.enr_transparent + a * hf.enr_transparent;
-    enr_suppress_[k] = (1 - a) * lf.enr_suppress + a * hf.enr_suppress;
-    emr_transparent_[k] = (1 - a) * lf.emr_transparent + a * hf.emr_transparent;
-  }
 }
 
 SuppressionGain::~SuppressionGain() = default;
@@ -623,6 +614,73 @@ bool SuppressionGain::LowNoiseRenderDetector::Detect(
       average_power_ < kThreshold && x2_max < 3 * average_power_;
   average_power_ = average_power_ * 0.9f + x2_sum * 0.1f;
   return low_noise_render;
+}
+
+SuppressionGain::StateSelector::StateSelector(
+    const EchoCanceller3Config::Suppressor::StateSelection config)
+    : enr_threshold_(config.enr_threshold),
+      snr_threshold_(config.snr_threshold),
+      hold_duration_(config.hold_duration),
+      trigger_threshold_(config.trigger_threshold) {}
+void SuppressionGain::StateSelector::Update(
+    rtc::ArrayView<const float> nearend_spectrum,
+    rtc::ArrayView<const float> echo_spectrum,
+    rtc::ArrayView<const float> comfort_noise_spectrum) {
+  auto low_frequency_energy = [](rtc::ArrayView<const float> spectrum) {
+    RTC_DCHECK_GE(1, spectrum.size());
+    RTC_DCHECK_LE(16, spectrum.size());
+    return std::accumulate(spectrum.begin() + 1, spectrum.begin() + 16, 0.f);
+  };
+  const float ne_sum = low_frequency_energy(nearend_spectrum);
+  const float echo_sum = low_frequency_energy(echo_spectrum);
+  const float noise_sum = low_frequency_energy(comfort_noise_spectrum);
+
+  // Detect strong active nearend if the nearend is sufficiently stronger than
+  // the echo and the nearend noise.
+  if (ne_sum > enr_threshold_ * echo_sum &&
+      ne_sum > snr_threshold_ * noise_sum) {
+    if (++trigger_counter_ >= trigger_threshold_) {
+      // After a period of strong active nearend activity, flag nearend mode.
+      hold_counter__ = hold_duration_;
+      trigger_counter_ = trigger_threshold_;
+    }
+  } else {
+    // Forgt previously detected  strong active nearend activity.
+    trigger_counter_ = std::max(0, trigger_counter_ - 1);
+  }
+
+  // Remain in any nearend mode for a certain duration.
+  hold_counter__ = std::max(0, hold_counter__ - 1);
+  nearend_state_ = hold_counter__ > 0;
+}
+
+SuppressionGain::GainParameters::GainParameters(
+    const EchoCanceller3Config::Suppressor::MaskingThresholds& masking_lf,
+    const EchoCanceller3Config::Suppressor::MaskingThresholds& masking_hf,
+    const float max_inc_factor,
+    const float max_dec_factor_lf)
+    : max_inc_factor(max_inc_factor), max_dec_factor_lf(max_dec_factor_lf) {
+  // Compute per-band masking thresholds.
+  constexpr size_t kLastLfBand = 5;
+  constexpr size_t kFirstHfBand = 8;
+  RTC_DCHECK_LT(kLastLfBand, kFirstHfBand);
+  auto& lf = masking_lf;
+  auto& hf = masking_hf;
+  RTC_DCHECK_LT(lf.enr_transparent, lf.enr_suppress);
+  RTC_DCHECK_LT(hf.enr_transparent, hf.enr_suppress);
+  for (size_t k = 0; k < kFftLengthBy2Plus1; k++) {
+    float a;
+    if (k <= kLastLfBand) {
+      a = 0.f;
+    } else if (k < kFirstHfBand) {
+      a = (k - kLastLfBand) / static_cast<float>(kFirstHfBand - kLastLfBand);
+    } else {
+      a = 1.f;
+    }
+    enr_transparent_[k] = (1 - a) * lf.enr_transparent + a * hf.enr_transparent;
+    enr_suppress_[k] = (1 - a) * lf.enr_suppress + a * hf.enr_suppress;
+    emr_transparent_[k] = (1 - a) * lf.emr_transparent + a * hf.emr_transparent;
+  }
 }
 
 }  // namespace webrtc

@@ -36,6 +36,29 @@
     },
     {
       "key": {
+        "uuid": "c33aedfc_568adec0",
+        "filename": "video/video_quality_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-08-23T09:05:04Z",
+      "side": 1,
+      "message": "This seems questionable. The underlying code will rightly assume that it has ownership of the underlying implementation (meaning that it safely can assume that is not destroyed and that it can destroy the underlying object at any time), but this will be a false assumption.\n\nI think it\u0027s better to reconsider if the interfaces are correct. There are some options that we could consider.\n\nMaybe the interface should not transfer ownership and we should instead provide a raw pointer to the underlying layers? That way ownership is moved to where it seems to belong. This is more or less equivalent to the wrapper solution, but makes it more apparent and removes one level of indirection (making it easier to debug and understand).\n\nIf we want to support both having ownership only in FakeNetworkPipe and having it outside we can use a shared pointer (I\u0027d prefer the std version, but others might argue for the rtc version).",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 76,
+        "endChar": 31
+      },
+      "revId": "149232776e9ac5c8ddab5fe7f2f37ed7759b24a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6b0413e3_00a18ad7",
         "filename": "video/video_quality_test.cc",
         "patchSetId": 2

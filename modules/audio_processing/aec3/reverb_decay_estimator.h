@@ -40,7 +40,7 @@ class ReverbDecayEstimator {
   void Dump(ApmDataDumper* data_dumper) const;
 
  private:
-  void EstimateDecay(rtc::ArrayView<const float> filter);
+  void EstimateDecay(rtc::ArrayView<const float> filter, int peak_block);
   void AnalyzeFilter(rtc::ArrayView<const float> filter);
 
   void ResetDecayEstimation();
@@ -84,9 +84,9 @@ class ReverbDecayEstimator {
    private:
     std::vector<float> numerators_;
     std::vector<float> nz_;
-    std::vector<float> count_;
-    int section_ = 0;
-    int section_update_counter_ = 0;
+    int coefficients_counter_;
+    int block_counter_ = 0;
+    int n_sections_ = 0;
   };
 
   const int filter_length_blocks_;

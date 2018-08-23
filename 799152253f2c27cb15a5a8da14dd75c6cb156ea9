@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0b199efe_92f2ed46",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 24
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-08-23T11:57:59Z",
+      "side": 1,
+      "message": "should this also be true for\ncodec_specific_info-\u003ecodecType \u003d\u003d kVideoCodecH264",
+      "range": {
+        "startLine": 310,
+        "startChar": 63,
+        "endLine": 310,
+        "endChar": 0
+      },
+      "revId": "799152253f2c27cb15a5a8da14dd75c6cb156ea9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8e8e7a8_ffa88f4d",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 24
+      },
+      "lineNbr": 1015,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-08-23T11:57:59Z",
+      "side": 1,
+      "message": "Maybe have a temp optional here instead as pass pointer to that? Then it\u0027s very explicit and you don\u0027t need the if below.",
+      "range": {
+        "startLine": 1015,
+        "startChar": 6,
+        "endLine": 1015,
+        "endChar": 19
+      },
+      "revId": "799152253f2c27cb15a5a8da14dd75c6cb156ea9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dbf2c2c1_dfabfecb",
+        "filename": "modules/video_coding/utility/simulcast_test_fixture_impl.cc",
+        "patchSetId": 24
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-08-23T11:57:59Z",
+      "side": 1,
+      "message": "Is this correct? Based on the previous code it looks like this should say\nif (encoded_image.SpatialIndex().value_or(0) \u003e 0) {\nOr am I missing something?",
+      "range": {
+        "startLine": 81,
+        "startChar": 38,
+        "endLine": 81,
+        "endChar": 42
+      },
+      "revId": "799152253f2c27cb15a5a8da14dd75c6cb156ea9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "170e596c_4b19a9e7",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 24
+      },
+      "lineNbr": 885,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-08-23T11:57:59Z",
+      "side": 1,
+      "message": "This gets messy. Right now we want to blacklist vp9 since it\u0027s using a single ssrc. But that might change...",
+      "range": {
+        "startLine": 885,
+        "startChar": 49,
+        "endLine": 885,
+        "endChar": 0
+      },
+      "revId": "799152253f2c27cb15a5a8da14dd75c6cb156ea9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7bae3dc_69ac7222",
+        "filename": "video/video_send_stream_impl.cc",
+        "patchSetId": 24
+      },
+      "lineNbr": 528,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-08-23T11:57:59Z",
+      "side": 1,
+      "message": "I think the existing code is wrong here, it should just blacklist vp9.",
+      "range": {
+        "startLine": 525,
+        "startChar": 0,
+        "endLine": 528,
+        "endChar": 14
+      },
+      "revId": "799152253f2c27cb15a5a8da14dd75c6cb156ea9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

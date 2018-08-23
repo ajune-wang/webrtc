@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "be76a0e3_bebf9c8d",
+        "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-08-23T13:37:46Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "17bfc771_9e7b86e5",
+      "range": {
+        "startLine": 34,
+        "startChar": 16,
+        "endLine": 34,
+        "endChar": 22
+      },
+      "revId": "52537651be23569d2bbf96bb42fa8d9abfe84b53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5d15fab4_330cace8",
         "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "52537651be23569d2bbf96bb42fa8d9abfe84b53",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79fe7d33_6f06839f",
+        "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-08-23T13:37:46Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5d15fab4_330cace8",
+      "range": {
+        "startLine": 65,
+        "startChar": 11,
+        "endLine": 65,
+        "endChar": 12
+      },
+      "revId": "52537651be23569d2bbf96bb42fa8d9abfe84b53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "f7030244_d7a5c4b5",
+        "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-08-23T13:37:46Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7fc34246_66c22497",
+      "range": {
+        "startLine": 76,
+        "startChar": 6,
+        "endLine": 76,
+        "endChar": 21
+      },
+      "revId": "52537651be23569d2bbf96bb42fa8d9abfe84b53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cd5b0fc6_2e2d6c7b",
         "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
         "patchSetId": 4
@@ -91,6 +163,30 @@
       "revId": "52537651be23569d2bbf96bb42fa8d9abfe84b53",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f88b4bba_4e731f91",
+        "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-08-23T13:37:46Z",
+      "side": 1,
+      "message": "Done, I finally removed the BlockSquare method as after the suggested changes it was just used here.",
+      "parentUuid": "cd5b0fc6_2e2d6c7b",
+      "range": {
+        "startLine": 85,
+        "startChar": 2,
+        "endLine": 85,
+        "endChar": 13
+      },
+      "revId": "52537651be23569d2bbf96bb42fa8d9abfe84b53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "32341036_736fb27c",
+        "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-08-23T13:37:46Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5b9e2ae4_6094cfe5",
+      "range": {
+        "startLine": 164,
+        "startChar": 45,
+        "endLine": 165,
+        "endChar": 55
+      },
+      "revId": "52537651be23569d2bbf96bb42fa8d9abfe84b53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bf59f4d5_6a040dfa",
         "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
         "patchSetId": 4
@@ -137,6 +257,30 @@
       "revId": "52537651be23569d2bbf96bb42fa8d9abfe84b53",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9319f12f_14102aaa",
+        "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-08-23T13:37:46Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "bf59f4d5_6a040dfa",
+      "range": {
+        "startLine": 176,
+        "startChar": 38,
+        "endLine": 176,
+        "endChar": 67
+      },
+      "revId": "52537651be23569d2bbf96bb42fa8d9abfe84b53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "2ac0bf33_5340cd71",
+        "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-08-23T13:37:46Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "84757cca_cca47f9d",
+      "range": {
+        "startLine": 328,
+        "startChar": 14,
+        "endLine": 328,
+        "endChar": 18
+      },
+      "revId": "52537651be23569d2bbf96bb42fa8d9abfe84b53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5306836e_dc03c647",
         "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
         "patchSetId": 4
@@ -183,6 +351,30 @@
       "revId": "52537651be23569d2bbf96bb42fa8d9abfe84b53",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d25bcc28_2641e8cb",
+        "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-08-23T13:37:46Z",
+      "side": 1,
+      "message": "Thanks, I missed that. In the next if statement, I checked that we were accessing the right part of the memory so the functionality of the code should not change. However, as you pointed out those variables should have been integers and not size_t.",
+      "parentUuid": "5306836e_dc03c647",
+      "range": {
+        "startLine": 333,
+        "startChar": 21,
+        "endLine": 333,
+        "endChar": 27
+      },
+      "revId": "52537651be23569d2bbf96bb42fa8d9abfe84b53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -226,6 +418,48 @@
     },
     {
       "key": {
+        "uuid": "28c576bf_5b434802",
+        "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-08-23T13:37:46Z",
+      "side": 1,
+      "message": "true, thanks for pointing it out.",
+      "parentUuid": "7c8045c3_7e7f1392",
+      "range": {
+        "startLine": 334,
+        "startChar": 9,
+        "endLine": 334,
+        "endChar": 21
+      },
+      "revId": "52537651be23569d2bbf96bb42fa8d9abfe84b53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ff374451_82942ac4",
+        "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-08-23T13:37:46Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2232e820_2f7110ee",
+      "revId": "52537651be23569d2bbf96bb42fa8d9abfe84b53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "687705ad_59f4b9f3",
         "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
         "patchSetId": 4
@@ -246,6 +480,30 @@
       "revId": "52537651be23569d2bbf96bb42fa8d9abfe84b53",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f98c374_5ebdaf66",
+        "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-08-23T13:37:46Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "687705ad_59f4b9f3",
+      "range": {
+        "startLine": 335,
+        "startChar": 22,
+        "endLine": 335,
+        "endChar": 59
+      },
+      "revId": "52537651be23569d2bbf96bb42fa8d9abfe84b53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -272,6 +530,30 @@
     },
     {
       "key": {
+        "uuid": "1d7e91e1_2157b948",
+        "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-08-23T13:37:46Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0d248de1_c5d60b4d",
+      "range": {
+        "startLine": 338,
+        "startChar": 8,
+        "endLine": 338,
+        "endChar": 14
+      },
+      "revId": "52537651be23569d2bbf96bb42fa8d9abfe84b53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a34ffa25_922d1c33",
         "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
         "patchSetId": 4
@@ -289,6 +571,24 @@
     },
     {
       "key": {
+        "uuid": "de2da200_d9bd08e4",
+        "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-08-23T13:37:46Z",
+      "side": 1,
+      "message": "In order to make it equivalent, we need to write (block_ \u003e kBlocksPerSection - 2). However, I would like to keep (kBlocksPerSection - 1) as it is the same expression that is used in the following line when computing the section.",
+      "parentUuid": "a34ffa25_922d1c33",
+      "revId": "52537651be23569d2bbf96bb42fa8d9abfe84b53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a9435d00_7a4db956",
         "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
         "patchSetId": 4
@@ -300,6 +600,30 @@
       "writtenOn": "2018-08-23T06:35:00Z",
       "side": 1,
       "message": "Is the expression guaranteed to end up \u003e 0? Otherwise section may wrap.\n\nIt would be good with a DCHECK for that.",
+      "range": {
+        "startLine": 340,
+        "startChar": 23,
+        "endLine": 340,
+        "endChar": 29
+      },
+      "revId": "52537651be23569d2bbf96bb42fa8d9abfe84b53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec595d94_532809f9",
+        "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-08-23T13:37:46Z",
+      "side": 1,
+      "message": "there is a check just before that line so it is guaranteed to have a value larger of equal to 0.",
+      "parentUuid": "a9435d00_7a4db956",
       "range": {
         "startLine": 340,
         "startChar": 23,
@@ -335,6 +659,30 @@
     },
     {
       "key": {
+        "uuid": "3aef276d_e5b0a1bf",
+        "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-08-23T13:37:46Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "411d781e_5c1221d3",
+      "range": {
+        "startLine": 367,
+        "startChar": 5,
+        "endLine": 367,
+        "endChar": 71
+      },
+      "revId": "52537651be23569d2bbf96bb42fa8d9abfe84b53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f14b00ce_7a2e9230",
         "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
         "patchSetId": 4
@@ -355,6 +703,30 @@
       "revId": "52537651be23569d2bbf96bb42fa8d9abfe84b53",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43abcc1e_aaee5ccc",
+        "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-08-23T13:37:46Z",
+      "side": 1,
+      "message": "I changed it to coefficients.",
+      "parentUuid": "f14b00ce_7a2e9230",
+      "range": {
+        "startLine": 368,
+        "startChar": 59,
+        "endLine": 370,
+        "endChar": 40
+      },
+      "revId": "52537651be23569d2bbf96bb42fa8d9abfe84b53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -404,6 +776,54 @@
     },
     {
       "key": {
+        "uuid": "4f884963_845df26d",
+        "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-08-23T13:37:46Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "73ce6eb0_db832cc1",
+      "range": {
+        "startLine": 372,
+        "startChar": 23,
+        "endLine": 372,
+        "endChar": 31
+      },
+      "revId": "52537651be23569d2bbf96bb42fa8d9abfe84b53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e476ade2_2bdb0811",
+        "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-08-23T13:37:46Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "4a65a594_5ecff4a6",
+      "range": {
+        "startLine": 372,
+        "startChar": 73,
+        "endLine": 372,
+        "endChar": 77
+      },
+      "revId": "52537651be23569d2bbf96bb42fa8d9abfe84b53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2a9fe1cc_a0df2514",
         "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
         "patchSetId": 4
@@ -424,6 +844,30 @@
       "revId": "52537651be23569d2bbf96bb42fa8d9abfe84b53",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec96bb0c_07793a6f",
+        "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-08-23T13:37:46Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2a9fe1cc_a0df2514",
+      "range": {
+        "startLine": 383,
+        "startChar": 5,
+        "endLine": 383,
+        "endChar": 32
+      },
+      "revId": "52537651be23569d2bbf96bb42fa8d9abfe84b53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -450,6 +894,30 @@
     },
     {
       "key": {
+        "uuid": "b9a44780_0b400407",
+        "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-08-23T13:37:46Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d7408f40_313e8ce1",
+      "range": {
+        "startLine": 387,
+        "startChar": 2,
+        "endLine": 387,
+        "endChar": 27
+      },
+      "revId": "52537651be23569d2bbf96bb42fa8d9abfe84b53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "15ea85a2_0c91d1ed",
         "filename": "modules/audio_processing/aec3/reverb_frequency_response.cc",
         "patchSetId": 4
@@ -470,6 +938,30 @@
       "revId": "52537651be23569d2bbf96bb42fa8d9abfe84b53",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1ee3abc_cb2f7081",
+        "filename": "modules/audio_processing/aec3/reverb_frequency_response.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-08-23T13:37:46Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "15ea85a2_0c91d1ed",
+      "range": {
+        "startLine": 72,
+        "startChar": 52,
+        "endLine": 72,
+        "endChar": 71
+      },
+      "revId": "52537651be23569d2bbf96bb42fa8d9abfe84b53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

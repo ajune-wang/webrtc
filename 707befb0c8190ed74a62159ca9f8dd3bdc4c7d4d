@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "8c23d520_67a8de1f",
+        "filename": "p2p/base/fakeasyncresolver.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-08-23T22:44:33Z",
+      "side": 1,
+      "message": "I wrote this before I had the mock. I\u0027ll just use the mock now and get rid of the fake.",
+      "parentUuid": "f89f2896_a546c251",
+      "revId": "707befb0c8190ed74a62159ca9f8dd3bdc4c7d4d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "11f195c1_3b2d2bfc",
         "filename": "p2p/base/fakeasyncresolver.cc",
         "patchSetId": 12
@@ -33,6 +51,24 @@
       "revId": "707befb0c8190ed74a62159ca9f8dd3bdc4c7d4d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7711f315_0d2131e4",
+        "filename": "p2p/base/fakeasyncresolver.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-08-23T22:44:33Z",
+      "side": 1,
+      "message": "Getting rid of this fake.",
+      "parentUuid": "11f195c1_3b2d2bfc",
+      "revId": "707befb0c8190ed74a62159ca9f8dd3bdc4c7d4d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "bbd43a9a_95201aea",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-08-23T22:44:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7d4aff7d_2e12cf80",
+      "revId": "707befb0c8190ed74a62159ca9f8dd3bdc4c7d4d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1bfbfb75_bb7e9b36",
         "filename": "p2p/base/p2ptransportchannel.cc",
         "patchSetId": 12
@@ -64,6 +118,24 @@
       "writtenOn": "2018-08-23T04:20:07Z",
       "side": 1,
       "message": "redundant",
+      "revId": "707befb0c8190ed74a62159ca9f8dd3bdc4c7d4d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b6de338_6e68a368",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 980,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-08-23T22:44:33Z",
+      "side": 1,
+      "message": "With what?",
+      "parentUuid": "1bfbfb75_bb7e9b36",
       "revId": "707befb0c8190ed74a62159ca9f8dd3bdc4c7d4d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -84,6 +156,24 @@
       "revId": "707befb0c8190ed74a62159ca9f8dd3bdc4c7d4d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "abbe99c3_6c6cdbbe",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 1063,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-08-23T22:44:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cb6ddafb_d32a1896",
+      "revId": "707befb0c8190ed74a62159ca9f8dd3bdc4c7d4d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -110,6 +200,30 @@
     },
     {
       "key": {
+        "uuid": "1344fd67_cde5b61a",
+        "filename": "p2p/base/p2ptransportchannel.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-08-23T22:44:33Z",
+      "side": 1,
+      "message": "I think I picked list for O(1) resolvers_.erase, but I don\u0027t think the list will be long enough to matter in practice. I will change it if you feel strongly.",
+      "parentUuid": "a2b5e367_f48fef07",
+      "range": {
+        "startLine": 431,
+        "startChar": 7,
+        "endLine": 431,
+        "endChar": 11
+      },
+      "revId": "707befb0c8190ed74a62159ca9f8dd3bdc4c7d4d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "832a7008_b9e9dfab",
         "filename": "p2p/base/p2ptransportchannel.h",
         "patchSetId": 12
@@ -133,6 +247,30 @@
     },
     {
       "key": {
+        "uuid": "9646bff4_ec04a312",
+        "filename": "p2p/base/p2ptransportchannel.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-08-23T22:44:33Z",
+      "side": 1,
+      "message": "The implementation calls set_address, so I prefer this to something like:\n\n  void AddRemoteCandidateWithResolver(Candidate candidate, ...\n    Candidate new_candidate \u003d candidate;\n    new_candidate.set_address(...)",
+      "parentUuid": "832a7008_b9e9dfab",
+      "range": {
+        "startLine": 434,
+        "startChar": 38,
+        "endLine": 434,
+        "endChar": 47
+      },
+      "revId": "707befb0c8190ed74a62159ca9f8dd3bdc4c7d4d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1663b1ef_ad4eb772",
         "filename": "p2p/base/p2ptransportchannel_unittest.cc",
         "patchSetId": 12
@@ -147,6 +285,24 @@
       "revId": "707befb0c8190ed74a62159ca9f8dd3bdc4c7d4d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "391a2798_9aa4d6d3",
+        "filename": "p2p/base/p2ptransportchannel_unittest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 771,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-08-23T22:44:33Z",
+      "side": 1,
+      "message": "Using ASSERT gives:\n../../p2p/base/p2ptransportchannel_unittest.cc:770:5: error: no viable conversion from returned value of type \u0027void\u0027 to function return type \u0027rtc::SocketAddress\u0027\nI think RTC_CHECK is the way to go.",
+      "parentUuid": "1663b1ef_ad4eb772",
+      "revId": "707befb0c8190ed74a62159ca9f8dd3bdc4c7d4d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -173,6 +329,30 @@
     },
     {
       "key": {
+        "uuid": "3f012121_6602b4eb",
+        "filename": "p2p/base/p2ptransportchannel_unittest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 4611,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-08-23T22:44:33Z",
+      "side": 1,
+      "message": "Thanks, I always forget about EXPECT v ASSERT.",
+      "parentUuid": "2f481c13_a9590227",
+      "range": {
+        "startLine": 4611,
+        "startChar": 2,
+        "endLine": 4611,
+        "endChar": 16
+      },
+      "revId": "707befb0c8190ed74a62159ca9f8dd3bdc4c7d4d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0734440e_44f3b173",
         "filename": "pc/peerconnection_integrationtest.cc",
         "patchSetId": 12
@@ -196,6 +376,30 @@
     },
     {
       "key": {
+        "uuid": "599eb7bd_ebbecb6b",
+        "filename": "pc/peerconnection_integrationtest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-08-23T22:44:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0734440e_44f3b173",
+      "range": {
+        "startLine": 310,
+        "startChar": 52,
+        "endLine": 310,
+        "endChar": 55
+      },
+      "revId": "707befb0c8190ed74a62159ca9f8dd3bdc4c7d4d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3c3f7bda_519e13be",
         "filename": "pc/peerconnection_integrationtest.cc",
         "patchSetId": 12
@@ -216,6 +420,30 @@
       "revId": "707befb0c8190ed74a62159ca9f8dd3bdc4c7d4d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4cf04c5_a6e7594f",
+        "filename": "pc/peerconnection_integrationtest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 931,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-08-23T22:44:33Z",
+      "side": 1,
+      "message": "Historical artifact. Good idea.",
+      "parentUuid": "3c3f7bda_519e13be",
+      "range": {
+        "startLine": 931,
+        "startChar": 39,
+        "endLine": 931,
+        "endChar": 58
+      },
+      "revId": "707befb0c8190ed74a62159ca9f8dd3bdc4c7d4d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

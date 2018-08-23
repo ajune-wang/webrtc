@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "a301a193_43255a94",
+        "filename": "p2p/base/fakeasyncresolver.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-08-23T22:44:33Z",
+      "side": 1,
+      "message": "2) To document my current understanding, AsyncResolverInterface says:\n  // Delete the resolver.\n  virtual void Destroy(bool wait) \u003d 0;\nIt has been that way for a while.\nAsyncResolver calls \"delete this\" by passing this to the EnterExit in SignalThread::Destroy.\n\nWould you prefer if this comment said \"doesn\u0027t actually delete the object\" instead of \"delete this\"?\n\nUPDATE (after responding to Steve\u0027s feedback): This file is going away.",
+      "parentUuid": "9597d732_9acd9a99",
+      "range": {
+        "startLine": 25,
+        "startChar": 2,
+        "endLine": 28,
+        "endChar": 24
+      },
+      "revId": "469fc25b7c2f75f7889c396a6f48aeee191c16ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a8f3d1a6_00047b33",
         "filename": "p2p/base/fakeasyncresolverfactory.h",
         "patchSetId": 11
@@ -484,6 +508,30 @@
       "side": 1,
       "message": "I think technically we need to set it, because it is the intended procedure of establishing a connection. https://cs.chromium.org/chromium/src/third_party/webrtc/p2p/base/p2ptransportchannel.cc?g\u003d0\u0026l\u003d1871.\n\nThe test passes because it stops earlier than when we would DCHECK it in sending pings imo.",
       "parentUuid": "b5640bd6_665724dc",
+      "range": {
+        "startLine": 4643,
+        "startChar": 2,
+        "endLine": 4644,
+        "endChar": 51
+      },
+      "revId": "469fc25b7c2f75f7889c396a6f48aeee191c16ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dd1a4a4e_8d28217a",
+        "filename": "p2p/base/p2ptransportchannel_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 4644,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-08-23T22:44:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "336313f4_c91ee5c5",
       "range": {
         "startLine": 4643,
         "startChar": 2,

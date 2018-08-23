@@ -128,8 +128,6 @@ struct EchoCanceller3Config {
     GainChanges saturation = {1.2f, 1.2f, 1.5f, 1.5f, 1.f, 1.f};
     GainChanges nonlinear = {1.5f, 1.5f, 1.2f, 1.2f, 1.1f, 1.1f};
 
-    float max_inc_factor = 2.0f;
-    float max_dec_factor_lf = 0.25f;
     float floor_first_increase = 0.00001f;
   } gain_updates;
 
@@ -161,6 +159,9 @@ struct EchoCanceller3Config {
   } echo_model;
 
   struct Suppressor {
+    Suppressor();
+    Suppressor(const Suppressor& e);
+
     size_t nearend_average_blocks = 4;
 
     struct MaskingThresholds {
@@ -168,8 +169,22 @@ struct EchoCanceller3Config {
       float enr_suppress;
       float emr_transparent;
     };
-    MaskingThresholds mask_lf = {.2f, .3f, .3f};
-    MaskingThresholds mask_hf = {.07f, .1f, .3f};
+    MaskingThresholds nearend_mask_lf = {.2f, .3f, .3f};
+    MaskingThresholds nearend_mask_hf = {.07f, .1f, .3f};
+    MaskingThresholds echo_mask_lf = {.2f, .3f, .3f};
+    MaskingThresholds echo_mask_hf = {.07f, .1f, .3f};
+    float nearend_max_inc_factor = 2.0f;
+    float nearend_max_dec_factor_lf = 0.25f;
+    float echo_max_inc_factor = 2.0f;
+    float echo_max_dec_factor_lf = 0.25f;
+
+    struct StateSelection {
+      float enr_threshold = 10.f;
+      float snr_threshold = 10.f;
+      int hold_duration = 25;
+      int trigger_threshold = 15;
+    } state_selection;
+
     bool enforce_transparent = false;
     bool enforce_empty_higher_bands = false;
   } suppressor;

@@ -25,4 +25,8 @@ EchoCanceller3Config::EchoModel::EchoModel() = default;
 EchoCanceller3Config::EchoModel::EchoModel(
     const EchoCanceller3Config::EchoModel& e) = default;
 
+EchoCanceller3Config::Suppressor::Suppressor() = default;
+EchoCanceller3Config::Suppressor::Suppressor(
+    const EchoCanceller3Config::Suppressor& e) = default;
+
 }  // namespace webrtc

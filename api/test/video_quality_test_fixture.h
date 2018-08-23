@@ -79,7 +79,15 @@ class VideoQualityTestFixtureInterface {
       std::string graph_data_output_filename;
       std::string graph_title;
     } analyzer;
+    // Deprecated. DO NOT USE. Use config instead. This is not pipe actually,
+    // it is just configuration, that will be passed to default implementation
+    // of simulation layer.
     DefaultNetworkSimulationConfig pipe;
+    // Config for default simulation implementation. Must be nullopt if
+    // `sender_network` and `receiver_network` in Injectables are non-null.
+    // May be nullopt even if `sender_network` and `receiver_network` are null;
+    // in that case, a default config will be used.
+    absl::optional<DefaultNetworkSimulationConfig> config;
     struct SS {                          // Spatial scalability.
       std::vector<VideoStream> streams;  // If empty, one stream is assumed.
       size_t selected_stream;
@@ -98,10 +106,27 @@ class VideoQualityTestFixtureInterface {
     } logging;
   };
 
+  // Contains objects, that will be injected on different layers of test
+  // framework to override the behavior of system parts.
+  struct Injectables {
+    Injectables();
+    ~Injectables();
+
+    // Simulations of sender and receiver networks. They must either both be
+    // null (in which case `config` from Params is used), or both be non-null
+    // (in which case `config` from Params must be nullopt).
+    std::unique_ptr<NetworkSimulationInterface> sender_network;
+    std::unique_ptr<NetworkSimulationInterface> receiver_network;
+  };
+
   virtual ~VideoQualityTestFixtureInterface() = default;
 
-  virtual void RunWithAnalyzer(const Params& params) = 0;
-  virtual void RunWithRenderers(const Params& params) = 0;
+  virtual void RunWithAnalyzer(
+      const Params& params,
+      std::unique_ptr<Injectables> injectables = nullptr) = 0;
+  virtual void RunWithRenderers(
+      const Params& params,
+      std::unique_ptr<Injectables> injectables = nullptr) = 0;
 
   virtual const std::map<uint8_t, webrtc::MediaType>& payload_type_map() = 0;
 };

@@ -31,8 +31,12 @@ class VideoQualityTest :
   explicit VideoQualityTest(
       std::unique_ptr<FecControllerFactoryInterface> fec_controller_factory);
 
-  void RunWithAnalyzer(const Params& params) override;
-  void RunWithRenderers(const Params& params) override;
+  void RunWithAnalyzer(
+      const Params& params,
+      std::unique_ptr<Injectables> injectables = nullptr) override;
+  void RunWithRenderers(
+      const Params& params,
+      std::unique_ptr<Injectables> injectables = nullptr) override;
 
   const std::map<uint8_t, webrtc::MediaType>& payload_type_map() override {
     return payload_type_map_;
@@ -63,7 +67,7 @@ class VideoQualityTest :
 
   // Helper methods accessing only params_.
   std::string GenerateGraphTitle() const;
-  void CheckParams();
+  void CheckParamsAndInjectables();
 
   // Helper methods for setting up the call.
   void CreateCapturers();
@@ -104,6 +108,7 @@ class VideoQualityTest :
   int send_logs_;
 
   Params params_;
+  std::unique_ptr<Injectables> injectables_;
 
   // Note: not same as similarly named member in CallTest. This is the number of
   // separate send streams, the one in CallTest is the number of substreams for

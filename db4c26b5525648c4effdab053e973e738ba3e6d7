@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a5eafa9d_8b0aaf6b",
+        "filename": "modules/video_coding/codecs/vp8/default_temporal_layers.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 484,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-08-23T15:53:02Z",
+      "side": 1,
+      "message": "Nit: why not just iterate kf_buffers_ directly?",
+      "range": {
+        "startLine": 483,
+        "startChar": 7,
+        "endLine": 484,
+        "endChar": 60
+      },
+      "revId": "db4c26b5525648c4effdab053e973e738ba3e6d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7b885bd5_94722715",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 515,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-08-23T15:53:02Z",
+      "side": 1,
+      "message": "nit: Please check if the extra line is intended.",
+      "range": {
+        "startLine": 514,
+        "startChar": 0,
+        "endLine": 515,
+        "endChar": 0
+      },
+      "revId": "db4c26b5525648c4effdab053e973e738ba3e6d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "96ba78d9_9fdd3c25",
+        "filename": "modules/video_coding/codecs/vp8/screenshare_layers.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-08-23T15:53:02Z",
+      "side": 1,
+      "message": "if frame is dropped here but it\u0027s a keyframe and it\u0027s not dropped upstream, won\u0027t absence of pending_frame_configs_[] be a problem?",
+      "range": {
+        "startLine": 100,
+        "startChar": 14,
+        "endLine": 100,
+        "endChar": 62
+      },
+      "revId": "db4c26b5525648c4effdab053e973e738ba3e6d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "307c5384_c66b4aba",
+        "filename": "modules/video_coding/codecs/vp8/screenshare_layers.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-08-23T15:53:02Z",
+      "side": 1,
+      "message": "Ditto.",
+      "range": {
+        "startLine": 108,
+        "startChar": 17,
+        "endLine": 108,
+        "endChar": 64
+      },
+      "revId": "db4c26b5525648c4effdab053e973e738ba3e6d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8eea70f_62fa16de",
+        "filename": "modules/video_coding/codecs/vp8/screenshare_layers.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-08-23T15:53:02Z",
+      "side": 1,
+      "message": "Ditto.",
+      "range": {
+        "startLine": 116,
+        "startChar": 16,
+        "endLine": 116,
+        "endChar": 63
+      },
+      "revId": "db4c26b5525648c4effdab053e973e738ba3e6d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2a836c3_5cfcf3cf",
+        "filename": "modules/video_coding/codecs/vp8/screenshare_layers.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-08-23T15:53:02Z",
+      "side": 1,
+      "message": "Not entirely dropped keyframe may cause problems here",
+      "range": {
+        "startLine": 267,
+        "startChar": 2,
+        "endLine": 267,
+        "endChar": 49
+      },
+      "revId": "db4c26b5525648c4effdab053e973e738ba3e6d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ccbba51_5d5fb017",
+        "filename": "modules/video_coding/codecs/vp8/temporal_layers.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-08-23T15:53:02Z",
+      "side": 1,
+      "message": "Update this please.",
+      "range": {
+        "startLine": 177,
+        "startChar": 7,
+        "endLine": 178,
+        "endChar": 0
+      },
+      "revId": "db4c26b5525648c4effdab053e973e738ba3e6d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

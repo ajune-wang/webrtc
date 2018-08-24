@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "08c7549e_1703d3ae",
+        "filename": "abseil-in-webrtc.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-24T08:03:43Z",
+      "side": 1,
+      "message": "for each of this section might be good to have short sentence what should be used instead.\n\n(Keep using|Use) rtc::CriticalSection\nUse rtc::ArrayView\nUse rtc::SimpleStringBuilder",
+      "range": {
+        "startLine": 22,
+        "startChar": 17,
+        "endLine": 22,
+        "endChar": 0
+      },
+      "revId": "28f416fc7916515814f20aafff16a76be81b5f14",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e032a87e_8cfdea2c",
+        "filename": "abseil-in-webrtc.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-24T08:03:43Z",
+      "side": 1,
+      "message": "May be keep just the static initializer reason as the main blocker and remove this sentence.\nMutex may be ok to mix with old version due to their nature: Mutexes are nearly always just an implementation detail so shouldn\u0027t create compatibility problem,\n\n(side note, I know another reason why need to be careful with Mutex: it has functionality that involves time, That time is measured using different clock than the one used by webrtc.)",
+      "range": {
+        "startLine": 27,
+        "startChar": 23,
+        "endLine": 28,
+        "endChar": 59
+      },
+      "revId": "28f416fc7916515814f20aafff16a76be81b5f14",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "13343773_cb053150",
+        "filename": "abseil-in-webrtc.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-24T08:03:43Z",
+      "side": 1,
+      "message": "binary size",
+      "range": {
+        "startLine": 42,
+        "startChar": 63,
+        "endLine": 42,
+        "endChar": 67
+      },
+      "revId": "28f416fc7916515814f20aafff16a76be81b5f14",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76faa911_7b9cb742",
+        "filename": "abseil-in-webrtc.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-24T08:03:43Z",
+      "side": 1,
+      "message": "I feel it is better without emotions here:\nThese functions are optimized for speed, not binary size.",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 37
+      },
+      "revId": "28f416fc7916515814f20aafff16a76be81b5f14",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

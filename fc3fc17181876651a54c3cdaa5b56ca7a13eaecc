@@ -57,6 +57,24 @@
       "revId": "fc3fc17181876651a54c3cdaa5b56ca7a13eaecc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3b242a57_8c7f38eb",
+        "filename": "test/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-08-24T07:30:25Z",
+      "side": 1,
+      "message": "I copied this pattern from gtest/BUILD.gn (search for gtest_direct_config).",
+      "parentUuid": "c236568a_6876996d",
+      "revId": "fc3fc17181876651a54c3cdaa5b56ca7a13eaecc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

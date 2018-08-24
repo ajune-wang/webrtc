@@ -26,7 +26,14 @@ CreateVideoQualityTestFixture() {
 std::unique_ptr<VideoQualityTestFixtureInterface>
 CreateVideoQualityTestFixture(
     std::unique_ptr<FecControllerFactoryInterface> fec_controller_factory) {
-  return absl::make_unique<VideoQualityTest>(std::move(fec_controller_factory));
+  auto components = absl::make_unique<VideoQualityTest::InjectionComponents>();
+  components.fec_controller_factory = std::move(fec_controller_factory);
+  return absl::make_unique<VideoQualityTest>(std::move(components));
+}
+
+std::unique_ptr<VideoQualityTestFixtureInterface> CreateVideoQualityTestFixture(
+    std::unique_ptr<VideoQualityTest::InjectionComponents> components) {
+  return absl::make_unique<VideoQualityTest>(std::move(components));
 }
 
 }  // namespace webrtc

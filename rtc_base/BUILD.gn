@@ -524,6 +524,19 @@ rtc_source_set("rtc_task_queue_api") {
   ]
 }
 
+rtc_source_set("rtc_cancelable_task_handler") {
+  sources = [
+    "cancelable_task_handler.cc",
+    "cancelable_task_handler.h",
+  ]
+  deps = [
+    ":ptr_util",
+    ":refcount",
+    ":rtc_task_queue",
+    "//third_party/abseil-cpp/absl/memory",
+  ]
+}
+
 if (rtc_enable_libevent) {
   rtc_source_set("rtc_task_queue_libevent") {
     visibility = [ ":rtc_task_queue_impl" ]
@@ -1176,14 +1189,17 @@ if (rtc_include_tests) {
     testonly = true
 
     sources = [
+      "cancelable_task_handler_unittest.cc",
       "task_queue_unittest.cc",
     ]
     deps = [
       ":rtc_base_approved",
       ":rtc_base_tests_main",
       ":rtc_base_tests_utils",
+      ":rtc_cancelable_task_handler",
       ":rtc_task_queue",
       ":rtc_task_queue_for_test",
+      "../system_wrappers:system_wrappers",
       "../test:test_support",
     ]
   }

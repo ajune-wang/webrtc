@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ae6ee6d4_24bfae21",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-08-24T14:03:03Z",
+      "side": 1,
+      "message": "is this required in webrtc?",
+      "range": {
+        "startLine": 26,
+        "startChar": 27,
+        "endLine": 26,
+        "endChar": 51
+      },
+      "revId": "aa1bb2bd2472eab681067ce9e48bdef472c10225",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a8515cf_f3dcd653",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-08-24T14:03:03Z",
+      "side": 1,
+      "message": "nit: double space",
+      "range": {
+        "startLine": 91,
+        "startChar": 28,
+        "endLine": 91,
+        "endChar": 30
+      },
+      "revId": "aa1bb2bd2472eab681067ce9e48bdef472c10225",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b03d653_5266c7ef",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-08-24T14:03:03Z",
+      "side": 1,
+      "message": "you can leave it as psla. Sending this out today ;-) either way works, so no action needed.",
+      "revId": "aa1bb2bd2472eab681067ce9e48bdef472c10225",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

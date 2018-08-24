@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "36f3ea6a_2de33a3a",
+        "filename": "modules/video_coding/utility/simulcast_test_fixture_impl.cc",
+        "patchSetId": 24
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-08-24T09:13:16Z",
+      "side": 1,
+      "message": "Yeah, this code looks wrong. The frame buffers saved here are only used by TestStrideEncodeDecode, so let\u0027s make sure we only store the base layer (as the code in the CL does).\n\nI verified locally and the libvpx and OpenH264+ffmpeg test still pass after this change.",
+      "parentUuid": "5e6b20cb_0e74f76a",
+      "range": {
+        "startLine": 81,
+        "startChar": 38,
+        "endLine": 81,
+        "endChar": 42
+      },
+      "revId": "799152253f2c27cb15a5a8da14dd75c6cb156ea9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "170e596c_4b19a9e7",
         "filename": "video/send_statistics_proxy.cc",
         "patchSetId": 24

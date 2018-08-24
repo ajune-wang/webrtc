@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4671ab04_b0b0e374",
+        "filename": "modules/audio_processing/aec3/suppression_gain.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2018-08-24T14:19:57Z",
+      "side": 1,
+      "message": "IMHO, it is a bit misleading to set the values of these four member here, as they are overwritten by the constructor with values from the config.",
+      "revId": "5681c673932b985fa96088fdfec7df48465624ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f444a09_6dfee0d5",
+        "filename": "modules/audio_processing/aec3/suppression_gain.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2018-08-24T14:19:57Z",
+      "side": 1,
+      "message": "Why two underscores? By accident?",
+      "revId": "5681c673932b985fa96088fdfec7df48465624ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

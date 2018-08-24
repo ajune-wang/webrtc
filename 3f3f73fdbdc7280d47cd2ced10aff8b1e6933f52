@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5fc2b342_6c0a5d1b",
+        "filename": "ENG_REVIEW_OWNERS",
+        "patchSetId": 3
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-08-24T08:30:42Z",
+      "side": 1,
+      "message": "It seems we need this file because the //third_party/OWNERS file includes the root ENG_REVIEW_OWNERS file (https://cs.chromium.org/chromium/src/third_party/OWNERS?l\u003d14-15\u0026rcl\u003d1170e81211a15649e0381ea9a83552ff815f907f) but this file is in the Chromium repository.\n\nHere is my proposal (inspired by https://cs.chromium.org/chromium/src/OWNERS). Move WebRTC\u0027s root OWNERS into //ENG_REVIEW_OWNERS and include this one into the root OWNERS file.\n\nWDYT?",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 16
+      },
+      "revId": "3f3f73fdbdc7280d47cd2ced10aff8b1e6933f52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

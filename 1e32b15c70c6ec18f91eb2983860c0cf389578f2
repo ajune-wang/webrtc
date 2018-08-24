@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b45fecd9_d2b71202",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-24T09:47:08Z",
+      "side": 1,
+      "message": "We add the new object to the mapping and release the lock, before calling SetEnableRetransmitDetection. That means that we have a slight race, where packets might be received and processed before the setting is applied. Is that a problem? \n\nCleanest way to fix would be to add the flag as an argument to the StreamStatisticianImpl constructor.",
+      "range": {
+        "startLine": 432,
+        "startChar": 0,
+        "endLine": 432,
+        "endChar": 34
+      },
+      "revId": "1e32b15c70c6ec18f91eb2983860c0cf389578f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

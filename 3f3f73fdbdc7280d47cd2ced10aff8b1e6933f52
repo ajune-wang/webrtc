@@ -94,6 +94,30 @@
       "revId": "3f3f73fdbdc7280d47cd2ced10aff8b1e6933f52",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b668689_fab0d62b",
+        "filename": "ENG_REVIEW_OWNERS",
+        "patchSetId": 3
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-08-24T14:30:19Z",
+      "side": 1,
+      "message": "Agreed. I created a CL to discuss possible solutions with depot_tools owners: https://chromium-review.googlesource.com/c/chromium/tools/depot_tools/+/1188574.",
+      "parentUuid": "44fd3bcd_51294939",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 16
+      },
+      "revId": "3f3f73fdbdc7280d47cd2ced10aff8b1e6933f52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

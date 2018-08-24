@@ -58,7 +58,7 @@ class VideoStreamEncoderObserver : public CpuOveruseMetricsObserver {
     kMediaOptimization
   };
 
-  virtual ~VideoStreamEncoderObserver() = default;
+  ~VideoStreamEncoderObserver() override = default;
 
   virtual void OnIncomingFrame(int width, int height) = 0;
 

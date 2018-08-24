@@ -13,6 +13,10 @@
 #include <algorithm>
 #include <numeric>
 
+#include "rtc_base/logging.h"
+#include "rtc_base/strings/string_builder.h"
+#include "rtc_tools/frame_analyzer/video_color_aligner.h"
+#include "rtc_tools/frame_analyzer/video_temporal_aligner.h"
 #include "test/testsupport/perf_test.h"
 #include "third_party/libyuv/include/libyuv/compare.h"
 #include "third_party/libyuv/include/libyuv/convert.h"
@@ -55,6 +59,27 @@ std::vector<AnalysisResult> RunAnalysis(
     const rtc::scoped_refptr<webrtc::test::Video>& reference_video,
     const rtc::scoped_refptr<webrtc::test::Video>& test_video,
     const std::vector<size_t>& test_frame_indices) {
+  const rtc::scoped_refptr<Video> aligned_reference_video =
+      ReorderVideo(reference_video, test_frame_indices);
+
+  const ColorTransformationMatrix color_transformation =
+      CalculateColorTransformationMatrix(aligned_reference_video, test_video);
+
+  char buf[256];
+  rtc::SimpleStringBuilder string_builder(buf);
+  for (int i = 0; i < 3; ++i) {
+    string_builder << "\n";
+    for (int j = 0; j < 4; ++j)
+      string_builder.AppendFormat("%6.2f ", color_transformation[i][j]);
+  }
+  RTC_LOG(LS_INFO) << "Adjusting test video with color transformation: "
+                   << string_builder.str();
+  fprintf(stdout, "Adjusting test video with color transformation: %s\n",
+          string_builder.str());
+
+  const rtc::scoped_refptr<Video> aligned_test_video =
+      AdjustColors(color_transformation, test_video);
+
   std::vector<AnalysisResult> results;
   for (size_t i = 0; i < test_frame_indices.size(); ++i) {
     // Ignore duplicated frames in the test video.
@@ -62,10 +87,9 @@ std::vector<AnalysisResult> RunAnalysis(
       continue;
 
     const rtc::scoped_refptr<I420BufferInterface>& test_frame =
-        test_video->GetFrame(i);
+        aligned_test_video->GetFrame(i);
     const rtc::scoped_refptr<I420BufferInterface>& reference_frame =
-        reference_video->GetFrame(test_frame_indices[i] %
-                                  reference_video->number_of_frames());
+        aligned_reference_video->GetFrame(i);
 
     // Fill in the result struct.
     AnalysisResult result;
@@ -138,6 +162,16 @@ void PrintAnalysisResults(FILE* output,
 
     PrintResultList("PSNR", "", label, psnr_values, "dB", false);
     PrintResultList("SSIM", "", label, ssim_values, "score", false);
+
+    double psnr_sum = 0.0;
+    for (double val : psnr_values)
+      psnr_sum += val;
+    double ssim_sum = 0.0;
+    for (double val : ssim_values)
+      ssim_sum += val;
+
+    fprintf(stdout, "Average PSNR: %f, average SSIM: %f\n",
+            psnr_sum / psnr_values.size(), ssim_sum / ssim_values.size());
   }
 
   PrintResult("Max_repeated", "", label, results->max_repeated_frames, "",

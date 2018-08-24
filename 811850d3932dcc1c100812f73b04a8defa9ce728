@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2a143199_a08d12c7",
+        "filename": "cr-buildbucket.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-08-24T09:31:40Z",
+      "side": 1,
+      "message": "Not sure if we should have a different service account?",
+      "range": {
+        "startLine": 198,
+        "startChar": 24,
+        "endLine": 198,
+        "endChar": 88
+      },
+      "revId": "811850d3932dcc1c100812f73b04a8defa9ce728",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8dc5d0fb_8dfd2448",
+        "filename": "luci-scheduler.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-08-24T09:31:40Z",
+      "side": 1,
+      "message": "The old master triggers the FYI waterfall on WebRTC checkins, which makes sense.",
+      "range": {
+        "startLine": 83,
+        "startChar": 2,
+        "endLine": 83,
+        "endChar": 34
+      },
+      "revId": "811850d3932dcc1c100812f73b04a8defa9ce728",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

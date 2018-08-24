@@ -140,4 +140,50 @@ TEST(SimpleStringBuilder, BufferOverrunIntAlreadyFull) {
 
 #endif
 
+////////////////////////////////////////////////////////////////////////////////
+// StringBuilder.
+
+TEST(StringBuilder, Limit) {
+  StringBuilder sb;
+  EXPECT_EQ(0u, sb.str().size());
+
+  // Test that for a SSB with a buffer size of 10, that we can write 9 chars
+  // into it.
+  sb << "012345678";  // 9 characters + '\0'.
+  EXPECT_EQ(sb.str(), "012345678");
+}
+
+TEST(StringBuilder, NumbersAndChars) {
+  StringBuilder sb;
+  sb << 1 << ':' << 2.1 << ":" << 2.2f << ':' << 78187493520ll << ':'
+     << 78187493520ul;
+  EXPECT_EQ(sb.str(), "1:2.100000:2.200000:78187493520:78187493520");
+}
+
+TEST(StringBuilder, Format) {
+  StringBuilder sb;
+  sb << "Here we go - ";
+  sb.AppendFormat("This is a hex formatted value: 0x%08lx", 3735928559);
+  EXPECT_EQ(sb.str(), "Here we go - This is a hex formatted value: 0xdeadbeef");
+}
+
+TEST(StringBuilder, StdString) {
+  StringBuilder sb;
+  std::string str = "does this work?";
+  sb << str;
+  EXPECT_EQ(str, sb.str());
+}
+
+TEST(StringBuilder, Release) {
+  StringBuilder sb;
+  std::string str = "Here's something";
+  sb << str;
+  EXPECT_EQ(str, sb.str());
+  const char* original_buffer = sb.str().c_str();
+  std::string moved = sb.Release();
+  EXPECT_TRUE(sb.str().empty());
+  EXPECT_EQ(str, moved);
+  EXPECT_EQ(original_buffer, moved.c_str());
+}
+
 }  // namespace rtc

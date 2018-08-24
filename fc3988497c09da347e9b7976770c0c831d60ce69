@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "0a61f190_797c4111",
+        "filename": "rtc_base/strings/string_builder.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2018-08-24T12:07:00Z",
+      "side": 1,
+      "message": "In what cases would construction from another StringBuilder be useful?",
+      "parentUuid": "93c524ec_8fea9855",
+      "revId": "fc3988497c09da347e9b7976770c0c831d60ce69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2e3fa889_cfcfe9ba",
         "filename": "rtc_base/strings/string_builder.h",
         "patchSetId": 2
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "d913773e_48e668cf",
+        "filename": "rtc_base/strings/string_builder.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2018-08-24T12:07:00Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2e3fa889_cfcfe9ba",
+      "range": {
+        "startLine": 217,
+        "startChar": 14,
+        "endLine": 217,
+        "endChar": 18
+      },
+      "revId": "fc3988497c09da347e9b7976770c0c831d60ce69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8d1da06d_1385c927",
         "filename": "rtc_base/strings/string_builder.h",
         "patchSetId": 2
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "ed6b7f96_a336cd8f",
+        "filename": "rtc_base/strings/string_builder.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2018-08-24T12:07:00Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8d1da06d_1385c927",
+      "revId": "fc3988497c09da347e9b7976770c0c831d60ce69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c5bb62b5_0cc1573f",
         "filename": "rtc_base/strings/string_builder.h",
         "patchSetId": 2
@@ -70,6 +130,30 @@
       "writtenOn": "2018-03-10T20:09:12Z",
       "side": 1,
       "message": "const?",
+      "range": {
+        "startLine": 227,
+        "startChar": 4,
+        "endLine": 227,
+        "endChar": 7
+      },
+      "revId": "fc3988497c09da347e9b7976770c0c831d60ce69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2eacda6e_720aa024",
+        "filename": "rtc_base/strings/string_builder.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2018-08-24T12:07:00Z",
+      "side": 1,
+      "message": "we reassign this for use in another DCHECK.",
+      "parentUuid": "c5bb62b5_0cc1573f",
       "range": {
         "startLine": 227,
         "startChar": 4,
@@ -102,6 +186,30 @@
       "revId": "fc3988497c09da347e9b7976770c0c831d60ce69",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1890a1f3_710ead04",
+        "filename": "rtc_base/strings/string_builder.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2018-08-24T12:07:00Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "fcd04de7_ebb3e573",
+      "range": {
+        "startLine": 230,
+        "startChar": 6,
+        "endLine": 230,
+        "endChar": 12
+      },
+      "revId": "fc3988497c09da347e9b7976770c0c831d60ce69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

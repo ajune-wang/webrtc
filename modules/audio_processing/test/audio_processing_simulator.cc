@@ -341,8 +341,33 @@ class Aec3ParametersParser {
     if (rtc::GetValueFromJsonObject(root, "suppressor", &section)) {
       ReadParam(section, "nearend_average_blocks",
                 &cfg.suppressor.nearend_average_blocks);
-      ReadParam(section, "mask_lf", &cfg.suppressor.mask_lf);
-      ReadParam(section, "mask_hf", &cfg.suppressor.mask_hf);
+
+      ReadParam(section, "nearend_mask_lf", &cfg.suppressor.nearend_mask_lf);
+      ReadParam(section, "nearend_mask_hf", &cfg.suppressor.nearend_mask_hf);
+      ReadParam(section, "echo_mask_lf", &cfg.suppressor.echo_mask_lf);
+      ReadParam(section, "echo_mask_hf", &cfg.suppressor.echo_mask_hf);
+      ReadParam(section, "nearend_max_inc_factor",
+                &cfg.suppressor.nearend_max_inc_factor);
+      ReadParam(section, "nearend_max_dec_factor_lf",
+                &cfg.suppressor.nearend_max_dec_factor_lf);
+      ReadParam(section, "echo_max_inc_factor",
+                &cfg.suppressor.echo_max_inc_factor);
+      ReadParam(section, "echo_max_dec_factor_lf",
+                &cfg.suppressor.echo_max_dec_factor_lf);
+
+      Json::Value subsection;
+      if (rtc::GetValueFromJsonObject(section, "state_selection",
+                                      &subsection)) {
+        ReadParam(subsection, "enr_threshold",
+                  &cfg.suppressor.state_selection.enr_threshold);
+        ReadParam(subsection, "snr_threshold",
+                  &cfg.suppressor.state_selection.snr_threshold);
+        ReadParam(subsection, "hold_duration",
+                  &cfg.suppressor.state_selection.hold_duration);
+        ReadParam(subsection, "trigger_threshold",
+                  &cfg.suppressor.state_selection.trigger_threshold);
+      }
+
       ReadParam(section, "enforce_transparent",
                 &cfg.suppressor.enforce_transparent);
       ReadParam(section, "enforce_empty_higher_bands",

@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "1d4ada44_167ae52a",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-24T10:02:05Z",
+      "side": 1,
+      "message": "btw, are there tests that ReceiveStatisticsImpl behaves when queried for Stream statisticsthat hadn\u0027t seen any packets yet?",
+      "range": {
+        "startLine": 431,
+        "startChar": 66,
+        "endLine": 431,
+        "endChar": 0
+      },
+      "revId": "1e32b15c70c6ec18f91eb2983860c0cf389578f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b45fecd9_d2b71202",
         "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
         "patchSetId": 4
@@ -18,6 +41,76 @@
         "startChar": 0,
         "endLine": 432,
         "endChar": 34
+      },
+      "revId": "1e32b15c70c6ec18f91eb2983860c0cf389578f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c684c9ff_162bf59b",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-24T10:02:05Z",
+      "side": 1,
+      "message": "constructor parameter wouldn\u0027t fix it:\nif there simultanious calls to IncomingPacket and SetDetection, IncomingPacket might grab the receive_statistics_lock_ first and create new StreamStatistician with default flag (false).\n[Should be fine - 1st packet hardly can be detected as retransmit]\n\nConstruction parameter still can be nice since it would avoid taking an extra lock inside StreamStatisticianImpl",
+      "parentUuid": "b45fecd9_d2b71202",
+      "range": {
+        "startLine": 432,
+        "startChar": 0,
+        "endLine": 432,
+        "endChar": 34
+      },
+      "revId": "1e32b15c70c6ec18f91eb2983860c0cf389578f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62c9d745_72e26c12",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-24T10:02:05Z",
+      "side": 1,
+      "message": "why is it different?",
+      "range": {
+        "startLine": 251,
+        "startChar": 37,
+        "endLine": 252,
+        "endChar": 0
+      },
+      "revId": "1e32b15c70c6ec18f91eb2983860c0cf389578f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "acfe89a9_f928e0e8",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-24T10:02:05Z",
+      "side": 1,
+      "message": "can you resolve it?\nwould be enough to call SetRetransmitDetection(kSsrc1, true)?",
+      "range": {
+        "startLine": 267,
+        "startChar": 5,
+        "endLine": 267,
+        "endChar": 16
       },
       "revId": "1e32b15c70c6ec18f91eb2983860c0cf389578f2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

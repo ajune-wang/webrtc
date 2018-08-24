@@ -22,6 +22,30 @@
       "revId": "bfbf43c1129c695a8141c9d8f143c5b66845ea3e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4ab9855_02c66abe",
+        "filename": "api/mediaconstraintsinterface.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2018-08-24T09:00:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "36d71508_cea18eb3",
+      "range": {
+        "startLine": 123,
+        "startChar": 19,
+        "endLine": 123,
+        "endChar": 24
+      },
+      "revId": "bfbf43c1129c695a8141c9d8f143c5b66845ea3e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

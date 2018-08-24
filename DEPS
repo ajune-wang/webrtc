@@ -1049,4 +1049,6 @@ include_rules = [
   "+absl/strings/string_view.h",
   "+absl/types/optional.h",
   "+absl/types/variant.h",
+
+  "+third_party/protobuf/src/google/protobuf",
 ]

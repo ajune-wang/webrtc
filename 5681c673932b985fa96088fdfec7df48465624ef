@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "034a7dd6_a02e8044",
+        "filename": "modules/audio_processing/aec3/suppression_gain.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-08-24T20:17:26Z",
+      "side": 1,
+      "message": "Very good find! Totally agree!",
+      "parentUuid": "4671ab04_b0b0e374",
+      "revId": "5681c673932b985fa96088fdfec7df48465624ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1f444a09_6dfee0d5",
         "filename": "modules/audio_processing/aec3/suppression_gain.h",
         "patchSetId": 8
@@ -33,6 +51,24 @@
       "revId": "5681c673932b985fa96088fdfec7df48465624ef",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70733211_02187854",
+        "filename": "modules/audio_processing/aec3/suppression_gain.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-08-24T20:17:26Z",
+      "side": 1,
+      "message": "Well spotted! Yes, that was a mistake.",
+      "parentUuid": "1f444a09_6dfee0d5",
+      "revId": "5681c673932b985fa96088fdfec7df48465624ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

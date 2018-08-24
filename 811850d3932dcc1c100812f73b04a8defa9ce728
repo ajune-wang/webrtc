@@ -91,6 +91,30 @@
       "revId": "811850d3932dcc1c100812f73b04a8defa9ce728",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "416df417_59c4ddc1",
+        "filename": "luci-scheduler.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-08-24T11:32:03Z",
+      "side": 1,
+      "message": "Hm, yeah, maybe I should make that chromium-fyi and chromium respectively.",
+      "parentUuid": "94addefd_c2eaaabe",
+      "range": {
+        "startLine": 97,
+        "startChar": 13,
+        "endLine": 97,
+        "endChar": 16
+      },
+      "revId": "811850d3932dcc1c100812f73b04a8defa9ce728",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

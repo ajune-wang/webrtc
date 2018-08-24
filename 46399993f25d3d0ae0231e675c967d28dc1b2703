@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "67d0e424_cc9d8752",
+        "filename": "common_types.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-24T08:10:07Z",
+      "side": 0,
+      "message": "nit: Might be better to drop this change here, and land it as part of https://webrtc-review.googlesource.com/c/src/+/95720 instead.",
+      "range": {
+        "startLine": 347,
+        "startChar": 0,
+        "endLine": 347,
+        "endChar": 37
+      },
+      "revId": "46399993f25d3d0ae0231e675c967d28dc1b2703",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

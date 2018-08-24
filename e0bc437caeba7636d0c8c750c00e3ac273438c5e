@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "00d31ec6_2aaa9f15",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-24T08:10:07Z",
+      "side": 1,
+      "message": "Maybe add link to the cl this is a followup to, https://webrtc-review.googlesource.com/92086.\nIf you don\u0027t feel bug link is sufficient.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 0
+      },
+      "revId": "e0bc437caeba7636d0c8c750c00e3ac273438c5e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -235,6 +235,30 @@
       "revId": "8498a75000c36a909a2a91c0a6b2511f2c4792d0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f2651663_eb416b40",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 4007,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-08-24T05:22:06Z",
+      "side": 1,
+      "message": "Hmm, I\u0027m a bit confused as well. In my comment above, I was thinking there could be two scenarios:\n\n1) peer{1,2} creates an offer including simulcast, sends it to the server and gets an answer back. Then we could put \u00271\u0027 here.\n2) server creates two offers excluding simulcast, sends them to peer{1,2} which respond with answers including simulcast. Then we should put \u0027num_simulcast_layers\u0027 here.\n\nBut maybe the scenario in 2) does not really make sense? Because when peer2 has sent its answer to the server, the server would have to create a new offer to send to peer1, to notify it of the newly connected peer2. So the amount of signaling is higher than scenario 1).",
+      "parentUuid": "b617a856_42455d69",
+      "range": {
+        "startLine": 4007,
+        "startChar": 22,
+        "endLine": 4007,
+        "endChar": 63
+      },
+      "revId": "8498a75000c36a909a2a91c0a6b2511f2c4792d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

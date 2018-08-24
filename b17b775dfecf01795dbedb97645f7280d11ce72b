@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2345e8b6_862b8c7c",
+        "filename": "cr-buildbucket.cfg",
+        "patchSetId": 5
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2018-08-24T11:37:04Z",
+      "side": 1,
+      "message": "Should recipe be here? Other equivalent mixins don\u0027t have it.",
+      "range": {
+        "startLine": 170,
+        "startChar": 2,
+        "endLine": 170,
+        "endChar": 8
+      },
+      "revId": "b17b775dfecf01795dbedb97645f7280d11ce72b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

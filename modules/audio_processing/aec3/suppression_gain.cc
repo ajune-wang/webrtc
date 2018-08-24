@@ -59,60 +59,6 @@ void AdjustForExternalFilters(std::array<float, kFftLengthBy2Plus1>* gain) {
   (*gain)[kFftLengthBy2] = (*gain)[kFftLengthBy2Minus1];
 }
 
-// Computes the gain to apply for the bands beyond the first band.
-float UpperBandsGain(
-    const absl::optional<int>& narrow_peak_band,
-    bool saturated_echo,
-    const std::vector<std::vector<float>>& render,
-    const std::array<float, kFftLengthBy2Plus1>& low_band_gain) {
-  RTC_DCHECK_LT(0, render.size());
-  if (render.size() == 1) {
-    return 1.f;
-  }
-
-  if (narrow_peak_band &&
-      (*narrow_peak_band > static_cast<int>(kFftLengthBy2Plus1 - 10))) {
-    return 0.001f;
-  }
-
-  constexpr size_t kLowBandGainLimit = kFftLengthBy2 / 2;
-  const float gain_below_8_khz = *std::min_element(
-      low_band_gain.begin() + kLowBandGainLimit, low_band_gain.end());
-
-  // Always attenuate the upper bands when there is saturated echo.
-  if (saturated_echo) {
-    return std::min(0.001f, gain_below_8_khz);
-  }
-
-  // Compute the upper and lower band energies.
-  const auto sum_of_squares = [](float a, float b) { return a + b * b; };
-  const float low_band_energy =
-      std::accumulate(render[0].begin(), render[0].end(), 0.f, sum_of_squares);
-  float high_band_energy = 0.f;
-  for (size_t k = 1; k < render.size(); ++k) {
-    const float energy = std::accumulate(render[k].begin(), render[k].end(),
-                                         0.f, sum_of_squares);
-    high_band_energy = std::max(high_band_energy, energy);
-  }
-
-  // If there is more power in the lower frequencies than the upper frequencies,
-  // or if the power in upper frequencies is low, do not bound the gain in the
-  // upper bands.
-  float anti_howling_gain;
-  constexpr float kThreshold = kBlockSize * 10.f * 10.f / 4.f;
-  if (high_band_energy < std::max(low_band_energy, kThreshold)) {
-    anti_howling_gain = 1.f;
-  } else {
-    // In all other cases, bound the gain for upper frequencies.
-    RTC_DCHECK_LE(low_band_energy, high_band_energy);
-    RTC_DCHECK_NE(0.f, high_band_energy);
-    anti_howling_gain = 0.01f * sqrtf(low_band_energy / high_band_energy);
-  }
-
-  // Choose the gain as the minimum of the lower and upper gains.
-  return std::min(gain_below_8_khz, anti_howling_gain);
-}
-
 // Scales the echo according to assessed audibility at the other end.
 void WeightEchoForAudibility(const EchoCanceller3Config& config,
                              rtc::ArrayView<const float> echo,
@@ -282,6 +228,76 @@ void AdjustNonConvergedFrequencies(
 
 int SuppressionGain::instance_count_ = 0;
 
+float SuppressionGain::UpperBandsGain(
+    const std::array<float, kFftLengthBy2Plus1>& echo_spectrum,
+    const std::array<float, kFftLengthBy2Plus1>& comfort_noise_spectrum,
+    const absl::optional<int>& narrow_peak_band,
+    bool saturated_echo,
+    const std::vector<std::vector<float>>& render,
+    const std::array<float, kFftLengthBy2Plus1>& low_band_gain) const {
+  RTC_DCHECK_LT(0, render.size());
+  if (render.size() == 1) {
+    return 1.f;
+  }
+
+  if (narrow_peak_band &&
+      (*narrow_peak_band > static_cast<int>(kFftLengthBy2Plus1 - 10))) {
+    return 0.001f;
+  }
+
+  constexpr size_t kLowBandGainLimit = kFftLengthBy2 / 2;
+  const float gain_below_8_khz = *std::min_element(
+      low_band_gain.begin() + kLowBandGainLimit, low_band_gain.end());
+
+  // Always attenuate the upper bands when there is saturated echo.
+  if (saturated_echo) {
+    return std::min(0.001f, gain_below_8_khz);
+  }
+
+  // Compute the upper and lower band energies.
+  const auto sum_of_squares = [](float a, float b) { return a + b * b; };
+  const float low_band_energy =
+      std::accumulate(render[0].begin(), render[0].end(), 0.f, sum_of_squares);
+  float high_band_energy = 0.f;
+  for (size_t k = 1; k < render.size(); ++k) {
+    const float energy = std::accumulate(render[k].begin(), render[k].end(),
+                                         0.f, sum_of_squares);
+    high_band_energy = std::max(high_band_energy, energy);
+  }
+
+  // If there is more power in the lower frequencies than the upper frequencies,
+  // or if the power in upper frequencies is low, do not bound the gain in the
+  // upper bands.
+  float anti_howling_gain;
+  constexpr float kThreshold = kBlockSize * 10.f * 10.f / 4.f;
+  if (high_band_energy < std::max(low_band_energy, kThreshold)) {
+    anti_howling_gain = 1.f;
+  } else {
+    // In all other cases, bound the gain for upper frequencies.
+    RTC_DCHECK_LE(low_band_energy, high_band_energy);
+    RTC_DCHECK_NE(0.f, high_band_energy);
+    anti_howling_gain = 0.01f * sqrtf(low_band_energy / high_band_energy);
+  }
+
+  // Bound the upper gain during significant echo activity.
+  auto low_frequency_energy = [](rtc::ArrayView<const float> spectrum) {
+    RTC_DCHECK_GE(1, spectrum.size());
+    RTC_DCHECK_LE(16, spectrum.size());
+    return std::accumulate(spectrum.begin() + 1, spectrum.begin() + 16, 0.f);
+  };
+  const float echo_sum = low_frequency_energy(echo_spectrum);
+  const float noise_sum = low_frequency_energy(comfort_noise_spectrum);
+  float gain_bound = 1.f;
+  if (echo_sum >
+          config_.suppressor.high_bands_suppression.enr_threshold * noise_sum &&
+      !state_selector_.IsEchoState()) {
+    gain_bound = config_.suppressor.high_bands_suppression.max_gain_during_echo;
+  }
+
+  // Choose the gain as the minimum of the lower and upper gains.
+  return std::min(std::min(gain_below_8_khz, anti_howling_gain), gain_bound);
+}
+
 // Computes the gain to reduce the echo to a non audible level.
 void SuppressionGain::GainToNoAudibleEcho(
     const std::array<float, kFftLengthBy2Plus1>& nearend,
@@ -290,13 +306,16 @@ void SuppressionGain::GainToNoAudibleEcho(
     const std::array<float, kFftLengthBy2Plus1>& min_gain,
     const std::array<float, kFftLengthBy2Plus1>& max_gain,
     std::array<float, kFftLengthBy2Plus1>* gain) const {
+  const auto& p =
+      state_selector_.IsNearendState() ? params_nearend_ : params_echo_;
   for (size_t k = 0; k < gain->size(); ++k) {
     float enr = echo[k] / (nearend[k] + 1.f);  // Echo-to-nearend ratio.
     float emr = echo[k] / (masker[k] + 1.f);   // Echo-to-masker (noise) ratio.
     float g = 1.0f;
-    if (enr > enr_transparent_[k] && emr > emr_transparent_[k]) {
-      g = (enr_suppress_[k] - enr) / (enr_suppress_[k] - enr_transparent_[k]);
-      g = std::max(g, emr_transparent_[k] / emr);
+    if (enr > p.enr_transparent_[k] && emr > p.emr_transparent_[k]) {
+      g = (p.enr_suppress_[k] - enr) /
+          (p.enr_suppress_[k] - p.enr_transparent_[k]);
+      g = std::max(g, p.emr_transparent_[k] / emr);
     }
     (*gain)[k] = std::max(std::min(g, max_gain[k]), min_gain[k]);
   }
@@ -312,6 +331,8 @@ void SuppressionGain::LowerBandGain(
     std::array<float, kFftLengthBy2Plus1>* gain) {
   const bool saturated_echo = aec_state.SaturatedEcho();
   const bool linear_echo_estimate = aec_state.UsableLinearEstimate();
+  const auto& params =
+      state_selector_.IsNearendState() ? params_nearend_ : params_echo_;
 
   // Weight echo power in terms of audibility. // Precompute 1/weighted echo
   // (note that when the echo is zero, the precomputed value is never used).
@@ -337,8 +358,7 @@ void SuppressionGain::LowerBandGain(
         // quickly after strong nearend.
         if (last_nearend_[k] > last_echo_[k]) {
           min_gain[k] =
-              std::max(min_gain[k],
-                       last_gain_[k] * config_.gain_updates.max_dec_factor_lf);
+              std::max(min_gain[k], last_gain_[k] * params.max_dec_factor_lf);
           min_gain[k] = std::min(min_gain[k], 1.f);
         }
       }
@@ -353,7 +373,7 @@ void SuppressionGain::LowerBandGain(
   if (enable_transparency_improvements_) {
     for (size_t k = 0; k < gain->size(); ++k) {
       max_gain[k] =
-          std::min(std::max(last_gain_[k] * config_.gain_updates.max_inc_factor,
+          std::min(std::max(last_gain_[k] * params.max_inc_factor,
                             config_.gain_updates.floor_first_increase),
                    1.f);
     }
@@ -420,7 +440,16 @@ SuppressionGain::SuppressionGain(const EchoCanceller3Config& config,
       enable_transparency_improvements_(EnableTransparencyImprovements()),
       enable_new_suppression_(EnableNewSuppression()),
       moving_average_(kFftLengthBy2Plus1,
-                      config.suppressor.nearend_average_blocks) {
+                      config.suppressor.nearend_average_blocks),
+      params_nearend_(config_.suppressor.nearend_mask_lf,
+                      config_.suppressor.nearend_mask_hf,
+                      config_.suppressor.nearend_max_inc_factor,
+                      config_.suppressor.nearend_max_dec_factor_lf),
+      params_echo_(config_.suppressor.echo_mask_lf,
+                   config_.suppressor.echo_mask_hf,
+                   config_.suppressor.echo_max_inc_factor,
+                   config_.suppressor.echo_max_dec_factor_lf),
+      state_selector_(config_.suppressor.state_selection) {
   RTC_DCHECK_LT(0, state_change_duration_blocks_);
   one_by_state_change_duration_blocks_ = 1.f / state_change_duration_blocks_;
   last_gain_.fill(1.f);
@@ -428,28 +457,6 @@ SuppressionGain::SuppressionGain(const EchoCanceller3Config& config,
   gain_increase_.fill(1.f);
   last_nearend_.fill(0.f);
   last_echo_.fill(0.f);
-
-  // Compute per-band masking thresholds.
-  constexpr size_t kLastLfBand = 5;
-  constexpr size_t kFirstHfBand = 8;
-  RTC_DCHECK_LT(kLastLfBand, kFirstHfBand);
-  auto& lf = config.suppressor.mask_lf;
-  auto& hf = config.suppressor.mask_hf;
-  RTC_DCHECK_LT(lf.enr_transparent, lf.enr_suppress);
-  RTC_DCHECK_LT(hf.enr_transparent, hf.enr_suppress);
-  for (size_t k = 0; k < kFftLengthBy2Plus1; k++) {
-    float a;
-    if (k <= kLastLfBand) {
-      a = 0.f;
-    } else if (k < kFirstHfBand) {
-      a = (k - kLastLfBand) / static_cast<float>(kFirstHfBand - kLastLfBand);
-    } else {
-      a = 1.f;
-    }
-    enr_transparent_[k] = (1 - a) * lf.enr_transparent + a * hf.enr_transparent;
-    enr_suppress_[k] = (1 - a) * lf.enr_suppress + a * hf.enr_suppress;
-    emr_transparent_[k] = (1 - a) * lf.emr_transparent + a * hf.emr_transparent;
-  }
 }
 
 SuppressionGain::~SuppressionGain() = default;
@@ -457,6 +464,7 @@ SuppressionGain::~SuppressionGain() = default;
 void SuppressionGain::GetGain(
     const std::array<float, kFftLengthBy2Plus1>& nearend_spectrum,
     const std::array<float, kFftLengthBy2Plus1>& echo_spectrum,
+    const std::array<float, kFftLengthBy2Plus1>& residual_echo_spectrum,
     const std::array<float, kFftLengthBy2Plus1>& comfort_noise_spectrum,
     const FftData& linear_aec_fft,
     const FftData& capture_fft,
@@ -478,12 +486,16 @@ void SuppressionGain::GetGain(
   std::array<float, kFftLengthBy2Plus1> nearend_average;
   moving_average_.Average(nearend_spectrum, nearend_average);
 
+  // Update the state selection.
+  state_selector_.Update(nearend_spectrum, residual_echo_spectrum,
+                         comfort_noise_spectrum);
+
   // Compute gain for the lower band.
   bool low_noise_render = low_render_detector_.Detect(render);
   const absl::optional<int> narrow_peak_band =
       render_signal_analyzer.NarrowPeakBand();
-  LowerBandGain(low_noise_render, aec_state, nearend_average, echo_spectrum,
-                comfort_noise_spectrum, low_band_gain);
+  LowerBandGain(low_noise_render, aec_state, nearend_average,
+                residual_echo_spectrum, comfort_noise_spectrum, low_band_gain);
 
   // Limit the gain of the lower bands during start up and after resets.
   const float gain_upper_bound = aec_state.SuppressionGainLimit();
@@ -494,8 +506,9 @@ void SuppressionGain::GetGain(
   }
 
   // Compute the gain for the upper bands.
-  *high_bands_gain = UpperBandsGain(narrow_peak_band, aec_state.SaturatedEcho(),
-                                    render, *low_band_gain);
+  *high_bands_gain =
+      UpperBandsGain(echo_spectrum, comfort_noise_spectrum, narrow_peak_band,
+                     aec_state.SaturatedEcho(), render, *low_band_gain);
   if (cfg.enforce_empty_higher_bands) {
     *high_bands_gain = 0.f;
   }
@@ -623,6 +636,74 @@ bool SuppressionGain::LowNoiseRenderDetector::Detect(
       average_power_ < kThreshold && x2_max < 3 * average_power_;
   average_power_ = average_power_ * 0.9f + x2_sum * 0.1f;
   return low_noise_render;
+}
+
+SuppressionGain::StateSelector::StateSelector(
+    const EchoCanceller3Config::Suppressor::StateSelection config)
+    : enr_threshold_(config.enr_threshold),
+      snr_threshold_(config.snr_threshold),
+      hold_duration_(config.hold_duration),
+      trigger_threshold_(config.trigger_threshold) {}
+
+void SuppressionGain::StateSelector::Update(
+    rtc::ArrayView<const float> nearend_spectrum,
+    rtc::ArrayView<const float> residual_echo_spectrum,
+    rtc::ArrayView<const float> comfort_noise_spectrum) {
+  auto low_frequency_energy = [](rtc::ArrayView<const float> spectrum) {
+    RTC_DCHECK_GE(1, spectrum.size());
+    RTC_DCHECK_LE(16, spectrum.size());
+    return std::accumulate(spectrum.begin() + 1, spectrum.begin() + 16, 0.f);
+  };
+  const float ne_sum = low_frequency_energy(nearend_spectrum);
+  const float residual_echo_sum = low_frequency_energy(residual_echo_spectrum);
+  const float noise_sum = low_frequency_energy(comfort_noise_spectrum);
+
+  // Detect strong active nearend if the nearend is sufficiently stronger than
+  // the echo and the nearend noise.
+  if (ne_sum > enr_threshold_ * residual_echo_sum &&
+      ne_sum > snr_threshold_ * noise_sum) {
+    if (++trigger_counter_ >= trigger_threshold_) {
+      // After a period of strong active nearend activity, flag nearend mode.
+      hold_counter__ = hold_duration_;
+      trigger_counter_ = trigger_threshold_;
+    }
+  } else {
+    // Forgt previously detected  strong active nearend activity.
+    trigger_counter_ = std::max(0, trigger_counter_ - 1);
+  }
+
+  // Remain in any nearend mode for a certain duration.
+  hold_counter__ = std::max(0, hold_counter__ - 1);
+  nearend_state_ = hold_counter__ > 0;
+}
+
+SuppressionGain::GainParameters::GainParameters(
+    const EchoCanceller3Config::Suppressor::MaskingThresholds& masking_lf,
+    const EchoCanceller3Config::Suppressor::MaskingThresholds& masking_hf,
+    const float max_inc_factor,
+    const float max_dec_factor_lf)
+    : max_inc_factor(max_inc_factor), max_dec_factor_lf(max_dec_factor_lf) {
+  // Compute per-band masking thresholds.
+  constexpr size_t kLastLfBand = 5;
+  constexpr size_t kFirstHfBand = 8;
+  RTC_DCHECK_LT(kLastLfBand, kFirstHfBand);
+  auto& lf = masking_lf;
+  auto& hf = masking_hf;
+  RTC_DCHECK_LT(lf.enr_transparent, lf.enr_suppress);
+  RTC_DCHECK_LT(hf.enr_transparent, hf.enr_suppress);
+  for (size_t k = 0; k < kFftLengthBy2Plus1; k++) {
+    float a;
+    if (k <= kLastLfBand) {
+      a = 0.f;
+    } else if (k < kFirstHfBand) {
+      a = (k - kLastLfBand) / static_cast<float>(kFirstHfBand - kLastLfBand);
+    } else {
+      a = 1.f;
+    }
+    enr_transparent_[k] = (1 - a) * lf.enr_transparent + a * hf.enr_transparent;
+    enr_suppress_[k] = (1 - a) * lf.enr_suppress + a * hf.enr_suppress;
+    emr_transparent_[k] = (1 - a) * lf.emr_transparent + a * hf.emr_transparent;
+  }
 }
 
 }  // namespace webrtc

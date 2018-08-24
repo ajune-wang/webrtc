@@ -167,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "adcb9758_e8fb8e2d",
+        "filename": "modules/video_coding/utility/simulcast_test_fixture_impl.cc",
+        "patchSetId": 24
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-24T09:57:51Z",
+      "side": 1,
+      "message": "\u003e Yeah, this code looks wrong. The frame buffers saved here are only used by TestStrideEncodeDecode, so let\u0027s make sure we only store the base layer (as the code in the CL does).\n\nThanks for investigating. Note that ps#24 which you\u0027re commenting has the corrected \u003d\u003d 0 logic, while ps#25 and #26 had the opposite logic. Just uploaded ps#27 to fix that.",
+      "parentUuid": "36f3ea6a_2de33a3a",
+      "range": {
+        "startLine": 81,
+        "startChar": 38,
+        "endLine": 81,
+        "endChar": 42
+      },
+      "revId": "799152253f2c27cb15a5a8da14dd75c6cb156ea9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "170e596c_4b19a9e7",
         "filename": "video/send_statistics_proxy.cc",
         "patchSetId": 24

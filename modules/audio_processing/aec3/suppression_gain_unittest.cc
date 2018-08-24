@@ -27,11 +27,13 @@ namespace aec3 {
 // Verifies that the check for non-null output gains works.
 TEST(SuppressionGain, NullOutputGains) {
   std::array<float, kFftLengthBy2Plus1> E2;
+  std::array<float, kFftLengthBy2Plus1> S2;
   std::array<float, kFftLengthBy2Plus1> R2;
   std::array<float, kFftLengthBy2Plus1> N2;
   FftData E;
   FftData Y;
   E2.fill(0.f);
+  S2.fill(0.f);
   R2.fill(0.f);
   N2.fill(0.f);
   E.re.fill(0.f);
@@ -43,7 +45,7 @@ TEST(SuppressionGain, NullOutputGains) {
   AecState aec_state(EchoCanceller3Config{});
   EXPECT_DEATH(
       SuppressionGain(EchoCanceller3Config{}, DetectOptimization(), 16000)
-          .GetGain(E2, R2, N2, E, Y,
+          .GetGain(E2, S2, R2, N2, E, Y,
                    RenderSignalAnalyzer((EchoCanceller3Config{})), aec_state,
                    std::vector<std::vector<float>>(
                        3, std::vector<float>(kBlockSize, 0.f)),
@@ -61,6 +63,7 @@ TEST(SuppressionGain, BasicGainComputation) {
   float high_bands_gain;
   std::array<float, kFftLengthBy2Plus1> E2;
   std::array<float, kFftLengthBy2Plus1> Y2;
+  std::array<float, kFftLengthBy2Plus1> S2;
   std::array<float, kFftLengthBy2Plus1> R2;
   std::array<float, kFftLengthBy2Plus1> N2;
   std::array<float, kFftLengthBy2Plus1> g;
@@ -80,6 +83,7 @@ TEST(SuppressionGain, BasicGainComputation) {
   // Ensure that a strong noise is detected to mask any echoes.
   E2.fill(10.f);
   Y2.fill(10.f);
+  S2.fill(0.1f);
   R2.fill(0.1f);
   N2.fill(100.f);
   output.Reset();
@@ -102,7 +106,7 @@ TEST(SuppressionGain, BasicGainComputation) {
                      subtractor.FilterImpulseResponse(),
                      *render_delay_buffer->GetRenderBuffer(), E2, Y2, output,
                      y);
-    suppression_gain.GetGain(E2, R2, N2, E, Y, analyzer, aec_state, x,
+    suppression_gain.GetGain(E2, S2, R2, N2, E, Y, analyzer, aec_state, x,
                              &high_bands_gain, &g);
   }
   std::for_each(g.begin(), g.end(),
@@ -112,6 +116,7 @@ TEST(SuppressionGain, BasicGainComputation) {
   E2.fill(100.f);
   Y2.fill(100.f);
   R2.fill(0.1f);
+  S2.fill(0.1f);
   N2.fill(0.f);
   E.re.fill(sqrtf(E2[0]));
   Y.re.fill(sqrtf(Y2[0]));
@@ -121,7 +126,7 @@ TEST(SuppressionGain, BasicGainComputation) {
                      subtractor.FilterImpulseResponse(),
                      *render_delay_buffer->GetRenderBuffer(), E2, Y2, output,
                      y);
-    suppression_gain.GetGain(E2, R2, N2, E, Y, analyzer, aec_state, x,
+    suppression_gain.GetGain(E2, S2, R2, N2, E, Y, analyzer, aec_state, x,
                              &high_bands_gain, &g);
   }
   std::for_each(g.begin(), g.end(),
@@ -129,11 +134,12 @@ TEST(SuppressionGain, BasicGainComputation) {
 
   // Ensure that a strong echo is suppressed.
   E2.fill(1000000000.f);
+  S2.fill(10000000000000.f);
   R2.fill(10000000000000.f);
   E.re.fill(sqrtf(E2[0]));
 
   for (int k = 0; k < 10; ++k) {
-    suppression_gain.GetGain(E2, R2, N2, E, Y, analyzer, aec_state, x,
+    suppression_gain.GetGain(E2, S2, R2, N2, E, Y, analyzer, aec_state, x,
                              &high_bands_gain, &g);
   }
   std::for_each(g.begin(), g.end(),

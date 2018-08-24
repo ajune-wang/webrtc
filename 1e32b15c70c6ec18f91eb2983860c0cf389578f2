@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "eac3f3d4_ce9c672b",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-24T10:52:34Z",
+      "side": 1,
+      "message": "Not that I\u0027m aware of. Is it relevant to test that GetStatistician returns null under certain circumstances?",
+      "parentUuid": "1d4ada44_167ae52a",
+      "range": {
+        "startLine": 431,
+        "startChar": 66,
+        "endLine": 431,
+        "endChar": 0
+      },
+      "revId": "1e32b15c70c6ec18f91eb2983860c0cf389578f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b45fecd9_d2b71202",
         "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
         "patchSetId": 4
@@ -72,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "32c5da7c_d89203e6",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-24T10:52:34Z",
+      "side": 1,
+      "message": "You\u0027re right. If we call SetEnableRetransmitDetection before registering the ssrc with the demuxer, we\u0027ll be fine. Current version of the cl doesn\u0027t do it in that order for video, though.\n\nI\u0027ll add construction parameter.",
+      "parentUuid": "c684c9ff_162bf59b",
+      "range": {
+        "startLine": 432,
+        "startChar": 0,
+        "endLine": 432,
+        "endChar": 34
+      },
+      "revId": "1e32b15c70c6ec18f91eb2983860c0cf389578f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "62c9d745_72e26c12",
         "filename": "modules/rtp_rtcp/source/receive_statistics_unittest.cc",
         "patchSetId": 4
@@ -95,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "6645d596_742c4526",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-24T10:52:34Z",
+      "side": 1,
+      "message": "I think it\u0027s because I set header.payload_type_frequency.\n\nI could probably back out that part of the change; non-zero frequency required with SetEnableRetransmitDetection(true).",
+      "parentUuid": "62c9d745_72e26c12",
+      "range": {
+        "startLine": 251,
+        "startChar": 37,
+        "endLine": 252,
+        "endChar": 0
+      },
+      "revId": "1e32b15c70c6ec18f91eb2983860c0cf389578f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "acfe89a9_f928e0e8",
         "filename": "modules/rtp_rtcp/source/receive_statistics_unittest.cc",
         "patchSetId": 4
@@ -106,6 +178,30 @@
       "writtenOn": "2018-08-24T10:02:05Z",
       "side": 1,
       "message": "can you resolve it?\nwould be enough to call SetRetransmitDetection(kSsrc1, true)?",
+      "range": {
+        "startLine": 267,
+        "startChar": 5,
+        "endLine": 267,
+        "endChar": 16
+      },
+      "revId": "1e32b15c70c6ec18f91eb2983860c0cf389578f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08fa074d_80da2631",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-24T10:52:34Z",
+      "side": 1,
+      "message": "Do you think it\u0027s appropriate to enable with this test? It doesn\u0027t check any of the values from the below call to GetStatistics.\n\nOtherwise, I\u0027ll just delete this TODO comment and the one further down.",
+      "parentUuid": "acfe89a9_f928e0e8",
       "range": {
         "startLine": 267,
         "startChar": 5,

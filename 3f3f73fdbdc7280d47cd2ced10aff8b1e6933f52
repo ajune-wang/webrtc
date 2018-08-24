@@ -70,6 +70,30 @@
       "revId": "3f3f73fdbdc7280d47cd2ced10aff8b1e6933f52",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44fd3bcd_51294939",
+        "filename": "ENG_REVIEW_OWNERS",
+        "patchSetId": 3
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-08-24T12:25:28Z",
+      "side": 1,
+      "message": "Yeah, that sounds wrong. See if you can patch depot_tools instead.",
+      "parentUuid": "ff42de12_44895130",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 16
+      },
+      "revId": "3f3f73fdbdc7280d47cd2ced10aff8b1e6933f52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

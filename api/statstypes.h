@@ -109,6 +109,7 @@ class StatsReport {
     kStatsValueNameFramesDecoded,
     kStatsValueNameFramesEncoded,
     kStatsValueNameJitterBufferDelay,
+    kStatsValueNameKind,
     kStatsValueNameMediaType,
     kStatsValueNamePacketsLost,
     kStatsValueNamePacketsReceived,

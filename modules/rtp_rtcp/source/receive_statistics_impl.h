@@ -39,15 +39,14 @@ class StreamStatisticianImpl : public StreamStatistician {
   void GetReceiveStreamDataCounters(
       StreamDataCounters* data_counters) const override;
   uint32_t BitrateReceived() const override;
-  bool IsRetransmitOfOldPacket(const RTPHeader& header) const override;
 
-  void IncomingPacket(const RTPHeader& rtp_header,
-                      size_t packet_length,
-                      bool retransmitted);
+  void IncomingPacket(const RTPHeader& rtp_header, size_t packet_length);
   void FecPacketReceived(const RTPHeader& header, size_t packet_length);
   void SetMaxReorderingThreshold(int max_reordering_threshold);
+  void SetEnableRetransmitDetection(bool enable);
 
  private:
+  bool IsRetransmitOfOldPacket(const RTPHeader& header) const;
   bool InOrderPacketInternal(uint16_t sequence_number) const;
   RtcpStatistics CalculateRtcpStatistics()
       RTC_EXCLUSIVE_LOCKS_REQUIRED(stream_lock_);
@@ -61,6 +60,7 @@ class StreamStatisticianImpl : public StreamStatistician {
   rtc::CriticalSection stream_lock_;
   RateStatistics incoming_bitrate_;
   int max_reordering_threshold_;  // In number of packets or sequence numbers.
+  bool enable_retransmit_detection_;
 
   // Stats on received RTP packets.
   uint32_t jitter_q4_;
@@ -100,13 +100,12 @@ class ReceiveStatisticsImpl : public ReceiveStatistics,
   std::vector<rtcp::ReportBlock> RtcpReportBlocks(size_t max_blocks) override;
 
   // Implement ReceiveStatistics.
-  void IncomingPacket(const RTPHeader& header,
-                      size_t packet_length,
-                      bool retransmitted) override;
+  void IncomingPacket(const RTPHeader& header, size_t packet_length) override;
   void FecPacketReceived(const RTPHeader& header,
                          size_t packet_length) override;
   StreamStatistician* GetStatistician(uint32_t ssrc) const override;
   void SetMaxReorderingThreshold(int max_reordering_threshold) override;
+  void SetEnableRetransmitDetection(uint32_t ssrc, bool enable) override;
 
   void RegisterRtcpStatisticsCallback(
       RtcpStatisticsCallback* callback) override;

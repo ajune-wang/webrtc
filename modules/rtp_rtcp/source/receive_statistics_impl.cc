@@ -38,6 +38,7 @@ StreamStatisticianImpl::StreamStatisticianImpl(
       incoming_bitrate_(kStatisticsProcessIntervalMs,
                         RateStatistics::kBpsScale),
       max_reordering_threshold_(kDefaultMaxReorderingThreshold),
+      enable_retransmit_detection_(false),
       jitter_q4_(0),
       cumulative_loss_(0),
       last_receive_time_ms_(0),
@@ -55,9 +56,10 @@ StreamStatisticianImpl::StreamStatisticianImpl(
 StreamStatisticianImpl::~StreamStatisticianImpl() = default;
 
 void StreamStatisticianImpl::IncomingPacket(const RTPHeader& header,
-                                            size_t packet_length,
-                                            bool retransmitted) {
-  auto counters = UpdateCounters(header, packet_length, retransmitted);
+                                            size_t packet_length) {
+  auto counters = UpdateCounters(
+      header, packet_length,
+      enable_retransmit_detection_ && IsRetransmitOfOldPacket(header));
   rtp_callback_->DataCountersUpdated(counters, ssrc_);
 }
 
@@ -150,6 +152,11 @@ void StreamStatisticianImpl::SetMaxReorderingThreshold(
     int max_reordering_threshold) {
   rtc::CritScope cs(&stream_lock_);
   max_reordering_threshold_ = max_reordering_threshold;
+}
+
+void StreamStatisticianImpl::SetEnableRetransmitDetection(bool enable) {
+  rtc::CritScope cs(&stream_lock_);
+  enable_retransmit_detection_ = enable;
 }
 
 bool StreamStatisticianImpl::GetStatistics(RtcpStatistics* statistics,
@@ -362,8 +369,7 @@ ReceiveStatisticsImpl::~ReceiveStatisticsImpl() {
 }
 
 void ReceiveStatisticsImpl::IncomingPacket(const RTPHeader& header,
-                                           size_t packet_length,
-                                           bool retransmitted) {
+                                           size_t packet_length) {
   StreamStatisticianImpl* impl;
   {
     rtc::CritScope cs(&receive_statistics_lock_);
@@ -379,7 +385,7 @@ void ReceiveStatisticsImpl::IncomingPacket(const RTPHeader& header,
   // this whole ReceiveStatisticsImpl is destroyed. StreamStatisticianImpl has
   // it's own locking so don't hold receive_statistics_lock_ (potential
   // deadlock).
-  impl->IncomingPacket(header, packet_length, retransmitted);
+  impl->IncomingPacket(header, packet_length);
 }
 
 void ReceiveStatisticsImpl::FecPacketReceived(const RTPHeader& header,
@@ -411,6 +417,22 @@ void ReceiveStatisticsImpl::SetMaxReorderingThreshold(
   for (auto& statistician : statisticians_) {
     statistician.second->SetMaxReorderingThreshold(max_reordering_threshold);
   }
+}
+
+void ReceiveStatisticsImpl::SetEnableRetransmitDetection(uint32_t ssrc,
+                                                         bool enable) {
+  StreamStatisticianImpl* impl;
+  {
+    rtc::CritScope cs(&receive_statistics_lock_);
+    auto it = statisticians_.find(ssrc);
+    if (it != statisticians_.end()) {
+      impl = it->second;
+    } else {
+      impl = new StreamStatisticianImpl(ssrc, clock_, this, this);
+      statisticians_[ssrc] = impl;
+    }
+  }
+  impl->SetEnableRetransmitDetection(enable);
 }
 
 void ReceiveStatisticsImpl::RegisterRtcpStatisticsCallback(

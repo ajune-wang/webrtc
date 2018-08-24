@@ -182,6 +182,7 @@ void ExtractStats(const cricket::VoiceReceiverInfo& info, StatsReport* report) {
                      info.capture_start_ntp_time_ms);
   }
   report->AddString(StatsReport::kStatsValueNameMediaType, "audio");
+  report->AddString(StatsReport::kStatsValueNameKind, "audio");
 }
 
 void ExtractStats(const cricket::VoiceSenderInfo& info, StatsReport* report) {
@@ -213,6 +214,7 @@ void ExtractStats(const cricket::VoiceSenderInfo& info, StatsReport* report) {
     }
   }
   report->AddString(StatsReport::kStatsValueNameMediaType, "audio");
+  report->AddString(StatsReport::kStatsValueNameKind, "audio");
   if (info.ana_statistics.bitrate_action_counter) {
     report->AddInt(StatsReport::kStatsValueNameAnaBitrateActionCounter,
                    *info.ana_statistics.bitrate_action_counter);
@@ -280,6 +282,7 @@ void ExtractStats(const cricket::VideoReceiverInfo& info, StatsReport* report) {
   for (const auto& i : ints)
     report->AddInt(i.name, i.value);
   report->AddString(StatsReport::kStatsValueNameMediaType, "video");
+  report->AddString(StatsReport::kStatsValueNameKind, "video");
 
   if (info.timing_frame_info) {
     report->AddString(StatsReport::kStatsValueNameTimingFrameInfo,
@@ -330,6 +333,7 @@ void ExtractStats(const cricket::VideoSenderInfo& info, StatsReport* report) {
   for (const auto& i : ints)
     report->AddInt(i.name, i.value);
   report->AddString(StatsReport::kStatsValueNameMediaType, "video");
+  report->AddString(StatsReport::kStatsValueNameKind, "video");
   report->AddString(
       StatsReport::kStatsValueNameContentType,
       webrtc::videocontenttypehelpers::ToString(info.content_type));

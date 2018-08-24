@@ -586,6 +586,9 @@ class StatsCollectorTest : public testing::Test {
     std::string media_type =
         ExtractSsrcStatsValue(*reports, StatsReport::kStatsValueNameMediaType);
     EXPECT_EQ("audio", media_type);
+    std::string kind =
+        ExtractSsrcStatsValue(*reports, StatsReport::kStatsValueNameKind);
+    EXPECT_EQ("audio", kind);
 
     // Verifies the values in the track report.
     if (!voice_info.senders.empty()) {
@@ -1053,6 +1056,10 @@ TEST_P(StatsCollectorTrackTest, TrackAndSsrcObjectExistAfterUpdateSsrcStats) {
   std::string media_type =
       ExtractSsrcStatsValue(reports, StatsReport::kStatsValueNameMediaType);
   EXPECT_EQ("video", media_type);
+
+  std::string kind =
+      ExtractSsrcStatsValue(reports, StatsReport::kStatsValueNameKind);
+  EXPECT_EQ("video", kind);
 }
 
 // This test verifies that an SSRC object has the identifier of a Transport

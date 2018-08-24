@@ -408,6 +408,8 @@ const char* StatsReport::Value::display_name() const {
       return "codecImplementationName";
     case kStatsValueNameMediaType:
       return "mediaType";
+    case kStatsValueNameKind:
+      return "kind";
     case kStatsValueNameQpSum:
       return "qpSum";
     // 'goog' prefixed constants.

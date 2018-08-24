@@ -41,4 +41,7 @@ specific_include_rules = {
   ".*stun_validator_fuzzer\.cc": [
     "+p2p/base/stun.h",
   ],
+  ".*mdns_parser_fuzzer\.cc": [
+    "+p2p/base/mdns_message.h",
+  ],
 }

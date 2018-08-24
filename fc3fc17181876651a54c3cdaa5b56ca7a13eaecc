@@ -39,6 +39,24 @@
       "revId": "fc3fc17181876651a54c3cdaa5b56ca7a13eaecc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c236568a_6876996d",
+        "filename": "test/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2018-08-24T07:16:18Z",
+      "side": 1,
+      "message": "Well, this does actually seem to solve the problem of consistency that I mentioned previously. I\u0027m not against this.",
+      "parentUuid": "7791239f_32aa81a0",
+      "revId": "fc3fc17181876651a54c3cdaa5b56ca7a13eaecc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

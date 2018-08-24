@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b30dffbc_489e3c8c",
+        "filename": "api/test/video_quality_test_fixture.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-24T00:38:01Z",
+      "side": 1,
+      "message": "Never combine virtual methods and default arguments. See https://google.github.io/styleguide/cppguide.html#Default_Arguments",
+      "range": {
+        "startLine": 126,
+        "startChar": 47,
+        "endLine": 126,
+        "endChar": 56
+      },
+      "revId": "a952ff9b44f89d8a20bbafb180af7cb6c02ca5bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9db66c58_10eec247",
+        "filename": "video/video_quality_test.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-24T00:38:01Z",
+      "side": 1,
+      "message": "Not necessary; unique_ptr is initialized to null by default.",
+      "range": {
+        "startLine": 126,
+        "startChar": 6,
+        "endLine": 126,
+        "endChar": 56
+      },
+      "revId": "a952ff9b44f89d8a20bbafb180af7cb6c02ca5bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

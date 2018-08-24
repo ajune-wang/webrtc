@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "28fc99de_4fc9df73",
+        "filename": "sdk/android/src/java/org/webrtc/GlGenericDrawer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-08-24T16:26:37Z",
+      "side": 1,
+      "message": "I\u0027m worried this will affect behavior or performance. Why is it not enough to update the existing constants?",
+      "range": {
+        "startLine": 107,
+        "startChar": 0,
+        "endLine": 116,
+        "endChar": 63
+      },
+      "revId": "b223eb93896586ec738853acf5973564ededa66e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

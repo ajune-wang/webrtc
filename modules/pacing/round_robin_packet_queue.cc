@@ -157,6 +157,17 @@ int64_t RoundRobinPacketQueue::OldestEnqueueTimeMs() const {
 }
 
 void RoundRobinPacketQueue::UpdateQueueTime(int64_t timestamp_ms) {
+#ifdef WEBRTC_LINUX
+  static constexpr int64_t kTimestampMonotonicCorrection = 5;
+  if (timestamp_ms < time_last_updated_ &&
+      timestamp_ms + kTimestampMonotonicCorrection >= time_last_updated_) {
+    // We've observed an issue on some Android devices where timestamp_ms is
+    // ~1ms before time_last_updated_. While tracking it down, we'll silently
+    // ignore these slight-in-the-past timestamps but still DCHECK.
+    RTC_DCHECK_GE(timestamp_ms, time_last_updated_);
+    return;
+  }
+#endif
   RTC_CHECK_GE(timestamp_ms, time_last_updated_);
   if (timestamp_ms == time_last_updated_)
     return;

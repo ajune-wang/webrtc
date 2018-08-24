@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ddafe14c_85f1de8e",
+        "filename": "p2p/base/mdns_message.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-08-24T22:39:02Z",
+      "side": 1,
+      "message": "Figured \"section entry\" may be a better phase, which is actually used in the RFC.",
+      "range": {
+        "startLine": 36,
+        "startChar": 11,
+        "endLine": 36,
+        "endChar": 24
+      },
+      "revId": "cffed5489422f27bbc5c1a7d7a41402d2ad40611",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "27d0f60e_d61b714d",
+        "filename": "api/units/data_rate.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-24T01:10:03Z",
+      "side": 1,
+      "message": "Apparently, this isn\u0027t safe to use: https://webrtc-review.googlesource.com/c/src/+/72681/4//COMMIT_MSG#20",
+      "range": {
+        "startLine": 14,
+        "startChar": 7,
+        "endLine": 14,
+        "endChar": 16
+      },
+      "revId": "fc3fc17181876651a54c3cdaa5b56ca7a13eaecc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7791239f_32aa81a0",
+        "filename": "test/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-24T01:10:03Z",
+      "side": 1,
+      "message": "...but you try to set it here. Hmm.",
+      "revId": "fc3fc17181876651a54c3cdaa5b56ca7a13eaecc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

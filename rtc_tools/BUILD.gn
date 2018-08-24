@@ -75,6 +75,10 @@ rtc_static_library("y4m_file_reader") {
 
 rtc_static_library("video_quality_analysis") {
   sources = [
+    "frame_analyzer/linear_least_squares.cc",
+    "frame_analyzer/linear_least_squares.h",
+    "frame_analyzer/video_color_aligner.cc",
+    "frame_analyzer/video_color_aligner.h",
     "frame_analyzer/video_quality_analysis.cc",
     "frame_analyzer/video_quality_analysis.h",
     "frame_analyzer/video_temporal_aligner.cc",

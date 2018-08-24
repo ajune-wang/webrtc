@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c20ad089_5a79fb8b",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-24T11:52:32Z",
+      "side": 1,
+      "message": "\u0027Set\u0027 and \u0027Enable\u0027 sound a bit redundant.\nDo SetRetransmitDetetction or EnableRetransmitDetection look reasonable names?",
+      "range": {
+        "startLine": 425,
+        "startChar": 28,
+        "endLine": 425,
+        "endChar": 56
+      },
+      "revId": "e83265b9bc1da0a164b06b446827bde3741d3887",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fb28a34d_36bbab1b",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-24T11:52:32Z",
+      "side": 1,
+      "message": "may be avoid double lookup. e.g.\nauto kv \u003d statisticians_.emplace(ssrc, nullptr);\nif (kv.second) { // new element\n  kv.first-\u003esecond \u003d new StreamStatistician\n  return;\n}\nimpl \u003d kv.first-\u003esecond;",
+      "range": {
+        "startLine": 432,
+        "startChar": 28,
+        "endLine": 432,
+        "endChar": 0
+      },
+      "revId": "e83265b9bc1da0a164b06b446827bde3741d3887",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "080399a5_90a8ab46",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-24T11:52:32Z",
+      "side": 1,
+      "message": "may be undo this change to stress behavior is unchanged",
+      "revId": "e83265b9bc1da0a164b06b446827bde3741d3887",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8a4c8b09_89f46828",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-24T11:52:32Z",
+      "side": 1,
+      "message": "does this still pass?",
+      "revId": "e83265b9bc1da0a164b06b446827bde3741d3887",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

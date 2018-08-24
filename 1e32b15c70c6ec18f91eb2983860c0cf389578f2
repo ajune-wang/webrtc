@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "e3760b00_12585277",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-24T11:52:32Z",
+      "side": 1,
+      "message": "That check doesn\u0027t seems relevant\n\nI\u0027m more worried about ReceiveStatisticsProvider::RtcpReportBlocks() function - I would expect it doesn\u0027t generate report block for ssrc that received no packets.\nAnd (sure more importantly) - doesn\u0027t crash.",
+      "parentUuid": "eac3f3d4_ce9c672b",
+      "range": {
+        "startLine": 431,
+        "startChar": 66,
+        "endLine": 431,
+        "endChar": 0
+      },
+      "revId": "1e32b15c70c6ec18f91eb2983860c0cf389578f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b45fecd9_d2b71202",
         "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
         "patchSetId": 4
@@ -167,6 +191,30 @@
     },
     {
       "key": {
+        "uuid": "e76923b8_e8560ace",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-24T11:52:32Z",
+      "side": 1,
+      "message": "Might be good idea to make a separate CL that cleanup these tests.\nStarting from removing memset to initialize RTPHeader (it now has nice default constructor) to ensuring each test verifies what it promise to, in particular re-transmit packets are counted.",
+      "parentUuid": "6645d596_742c4526",
+      "range": {
+        "startLine": 251,
+        "startChar": 37,
+        "endLine": 252,
+        "endChar": 0
+      },
+      "revId": "1e32b15c70c6ec18f91eb2983860c0cf389578f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "acfe89a9_f928e0e8",
         "filename": "modules/rtp_rtcp/source/receive_statistics_unittest.cc",
         "patchSetId": 4
@@ -211,6 +259,30 @@
       "revId": "1e32b15c70c6ec18f91eb2983860c0cf389578f2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8507ba5c_bc7ffb47",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-24T11:52:32Z",
+      "side": 1,
+      "message": "yep, to keep old behavior (or rather to show how to keep old behavior. One of purpose of tests is to document usage) \n\nThis test explicitly moves sequence number backwards hinting it expects retransmits.",
+      "parentUuid": "08fa074d_80da2631",
+      "range": {
+        "startLine": 267,
+        "startChar": 5,
+        "endLine": 267,
+        "endChar": 16
+      },
+      "revId": "1e32b15c70c6ec18f91eb2983860c0cf389578f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

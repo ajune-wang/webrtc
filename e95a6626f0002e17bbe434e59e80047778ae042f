@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8587cda1_0380b626",
+        "filename": "rtc_base/rate_statistics.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-24T00:54:16Z",
+      "side": 1,
+      "message": "std::copy instead of memcpy?",
+      "revId": "e95a6626f0002e17bbe434e59e80047778ae042f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3cbcc636_95d43da3",
+        "filename": "rtc_base/rate_statistics.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-24T00:54:16Z",
+      "side": 1,
+      "message": "This type is (or would be) cheap to move but expensive to copy, so consider also adding a move constructor. (The implementation can be \u003ddefault, I think.)",
+      "revId": "e95a6626f0002e17bbe434e59e80047778ae042f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

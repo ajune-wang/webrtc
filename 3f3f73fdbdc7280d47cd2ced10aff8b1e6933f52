@@ -46,6 +46,30 @@
       "revId": "3f3f73fdbdc7280d47cd2ced10aff8b1e6933f52",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ff42de12_44895130",
+        "filename": "ENG_REVIEW_OWNERS",
+        "patchSetId": 3
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-08-24T09:47:18Z",
+      "side": 1,
+      "message": "CL: https://webrtc-review.googlesource.com/c/src/+/95942.\n\nI have just realized that in WebRTC this means that WebRTC owners will the added to the owners of //third_party when the presubmit runs in WebRTC. This is wrong (even if innocuous), maybe the right solution is update code in depot_tools and avoid to crash if the file is not found?",
+      "parentUuid": "410cf8d5_a2bc99ed",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 16
+      },
+      "revId": "3f3f73fdbdc7280d47cd2ced10aff8b1e6933f52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

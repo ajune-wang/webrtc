@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "66150993_934f5add",
+        "filename": "api/test/simulated_network.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-08-26T10:44:28Z",
+      "side": 1,
+      "message": "The config is simulation specific right? So maybe it should keep it\u0027s name to keep the distinction more apparent? (That would also allow dropping the Default prefix to make the name shorter.",
+      "revId": "f2fcc7aa9a64640da6c08227ec101ee53aa7fc47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "480fea22_fe06f90a",
+        "filename": "api/test/simulated_network.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-08-26T10:44:28Z",
+      "side": 1,
+      "message": "Can be removed if DefaultNetworkBehaviorConfig is not renamed.",
+      "range": {
+        "startLine": 76,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 68
+      },
+      "revId": "f2fcc7aa9a64640da6c08227ec101ee53aa7fc47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

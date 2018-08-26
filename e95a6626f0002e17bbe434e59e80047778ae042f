@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ea8d2ef7_586482e9",
+        "filename": "rtc_base/rate_statistics.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-08-26T20:54:57Z",
+      "side": 1,
+      "message": "Replaced with std::copy.",
+      "parentUuid": "8587cda1_0380b626",
+      "revId": "e95a6626f0002e17bbe434e59e80047778ae042f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3cbcc636_95d43da3",
         "filename": "rtc_base/rate_statistics.h",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "e95a6626f0002e17bbe434e59e80047778ae042f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90fb4c63_6296f662",
+        "filename": "rtc_base/rate_statistics.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-08-26T20:54:57Z",
+      "side": 1,
+      "message": "I added explicit move ctor. \u003ddefault caused error:\nerror: [chromium-style] Complex constructor has an inlined body.\n  RateStatistics(RateStatistics\u0026\u0026 other) \u003d default;",
+      "parentUuid": "3cbcc636_95d43da3",
+      "revId": "e95a6626f0002e17bbe434e59e80047778ae042f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -2,6 +2,92 @@
   "comments": [
     {
       "key": {
+        "uuid": "afaeeef0_535c0087",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-08-27T07:49:35Z",
+      "side": 1,
+      "message": "through the media",
+      "range": {
+        "startLine": 14,
+        "startChar": 29,
+        "endLine": 14,
+        "endChar": 33
+      },
+      "revId": "5032e7564f690fba87ee1f97065c6d44628d5628",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67e9a101_79a9848b",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-08-27T07:49:35Z",
+      "side": 1,
+      "message": "implementations",
+      "range": {
+        "startLine": 15,
+        "startChar": 36,
+        "endLine": 15,
+        "endChar": 50
+      },
+      "revId": "5032e7564f690fba87ee1f97065c6d44628d5628",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a332c638_56ad36b4",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-08-27T07:49:35Z",
+      "side": 1,
+      "message": "encoded",
+      "range": {
+        "startLine": 31,
+        "startChar": 14,
+        "endLine": 31,
+        "endChar": 15
+      },
+      "revId": "5032e7564f690fba87ee1f97065c6d44628d5628",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3233c136_629b7606",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-08-27T07:49:35Z",
+      "side": 1,
+      "message": "I think it would be good to understand how we this and MediaTransportEncodedVideoFrame will map to the existing EncodedFrame/EncodedImage etc in WebRTC. Are we replacing those with these, or are we just adding one more?",
+      "revId": "5032e7564f690fba87ee1f97065c6d44628d5628",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9150178f_b1bdfcd2",
         "filename": "api/media_transport_interface.h",
         "patchSetId": 8

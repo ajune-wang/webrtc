@@ -166,6 +166,29 @@
     },
     {
       "key": {
+        "uuid": "abd032d3_a5890489",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-08-27T07:49:35Z",
+      "side": 1,
+      "message": "I _think_ Deregister is more common in the codebase",
+      "range": {
+        "startLine": 135,
+        "startChar": 19,
+        "endLine": 135,
+        "endChar": 21
+      },
+      "revId": "6df87c9182da06c84cbe884cdf020450e74834e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2e72dc3e_2966f812",
         "filename": "api/media_transport_interface.h",
         "patchSetId": 4

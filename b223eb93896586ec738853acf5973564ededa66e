@@ -22,6 +22,30 @@
       "revId": "b223eb93896586ec738853acf5973564ededa66e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e34e052f_f57dedc9",
+        "filename": "sdk/android/src/java/org/webrtc/GlGenericDrawer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-08-27T12:15:42Z",
+      "side": 1,
+      "message": "I mainly did the change to use an exact inverse matrix.\n\nIt would be possible to update the old values and add constant factors instead if you ignore the smaller factors like 0.00113166.\n\nHowever, I feel like matrix multiplication should be a very widely used operation that should be efficient and work on all device.",
+      "parentUuid": "28fc99de_4fc9df73",
+      "range": {
+        "startLine": 107,
+        "startChar": 0,
+        "endLine": 116,
+        "endChar": 63
+      },
+      "revId": "b223eb93896586ec738853acf5973564ededa66e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

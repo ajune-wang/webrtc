@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8678ccd9_3c14426d",
+        "filename": "video/full_stack_tests.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-08-27T08:41:36Z",
+      "side": 1,
+      "message": "Why is this needed here but not the tests above?",
+      "range": {
+        "startLine": 489,
+        "startChar": 26,
+        "endLine": 489,
+        "endChar": 58
+      },
+      "revId": "cb647c213b24106a68385c2a801a70fd746da4f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

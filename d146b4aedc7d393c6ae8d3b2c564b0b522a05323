@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "668b2783_dd5d2efc",
+        "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-08-27T14:28:34Z",
+      "side": 1,
+      "message": "Nit: Consider bundling lines 338 and 340 since that makes the initialization into a one-liner which I think i clearer.",
+      "range": {
+        "startLine": 338,
+        "startChar": 8,
+        "endLine": 338,
+        "endChar": 20
+      },
+      "revId": "d146b4aedc7d393c6ae8d3b2c564b0b522a05323",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e998034e_5f67eba8",
+        "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-08-27T14:28:34Z",
+      "side": 1,
+      "message": "Please put the nested if-statements in one single if-statement using \u0026\u0026",
+      "range": {
+        "startLine": 349,
+        "startChar": 8,
+        "endLine": 349,
+        "endChar": 29
+      },
+      "revId": "d146b4aedc7d393c6ae8d3b2c564b0b522a05323",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

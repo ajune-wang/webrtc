@@ -550,23 +550,23 @@ if (rtc_enable_libevent) {
   }
 }
 
-if (is_mac || is_ios) {
-  rtc_source_set("rtc_task_queue_gcd") {
-    visibility = [ ":rtc_task_queue_impl" ]
-    sources = [
-      "task_queue_gcd.cc",
-      "task_queue_posix.cc",
-      "task_queue_posix.h",
-    ]
-    deps = [
-      ":checks",
-      ":logging",
-      ":ptr_util",
-      ":refcount",
-      ":rtc_task_queue_api",
-    ]
-  }
-}
+#if (is_mac || is_ios) {
+#  rtc_source_set("rtc_task_queue_gcd") {
+#    visibility = [ ":rtc_task_queue_impl" ]
+#    sources = [
+#      "task_queue_gcd.cc",
+#      "task_queue_posix.cc",
+#      "task_queue_posix.h",
+#    ]
+#    deps = [
+#      ":checks",
+#      ":logging",
+#      ":ptr_util",
+#      ":refcount",
+#      ":rtc_task_queue_api",
+#    ]
+#  }
+#}
 
 if (is_win) {
   rtc_source_set("rtc_task_queue_win") {
@@ -592,7 +592,7 @@ if (is_win) {
 
 rtc_source_set("rtc_task_queue_impl") {
   visibility = [ "*" ]
-  if (rtc_enable_libevent) {
+  if (rtc_enable_libevent || is_mac || is_ios) {
     deps = [
       ":rtc_task_queue_libevent",
     ]

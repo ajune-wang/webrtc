@@ -16,6 +16,24 @@
       "revId": "11f58d7cbf70f837aef943b596d5bd6e3cf48dbe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "58a01990_20d09f60",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-08-27T08:53:21Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "4b4dfdad_c3204ae5",
+      "revId": "11f58d7cbf70f837aef943b596d5bd6e3cf48dbe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6a22ae8e_271cb53c",
+        "filename": "rtc_base/experiments/rtt_mult_experiment_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-08-27T14:33:25Z",
+      "side": 1,
+      "message": "Make this \"Enabled\", so that you only test the OOB value.\n\nAlso, add a \"Enabled-1.5\" test, making sure you get 1.0 out.",
+      "range": {
+        "startLine": 37,
+        "startChar": 63,
+        "endLine": 37,
+        "endChar": 69
+      },
+      "revId": "a96fbc2eae73cd92a8027959c9628f57cbc36e48",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

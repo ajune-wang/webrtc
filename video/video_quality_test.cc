@@ -20,6 +20,7 @@
 #include "call/fake_network_pipe.h"
 #include "call/simulated_network.h"
 #include "logging/rtc_event_log/output/rtc_event_log_output_file.h"
+#include "media/engine/adm_helpers.h"
 #include "media/engine/internalencoderfactory.h"
 #include "media/engine/vp8_encoder_simulcast_proxy.h"
 #include "media/engine/webrtcvideoengine.h"
@@ -109,7 +110,7 @@ VideoQualityTest::Params::Params()
              false, false, ""},
             {false, 640, 480, 30, 50, 800, 800, false, "VP8", 1, -1, 0, false,
              false, false, ""}},
-      audio({false, false, false}),
+      audio({false, false, false, false}),
       screenshare{{false, false, 10, 0}, {false, false, 10, 0}},
       analyzer({"", 0.0, 0.0, 0, "", ""}),
       pipe(),
@@ -865,7 +866,8 @@ void VideoQualityTest::RunWithAnalyzer(const Params& params) {
   task_queue_.SendTask([this, &send_call_config, &recv_call_config,
                         &send_transport, &recv_transport]() {
     if (params_.audio.enabled)
-      InitializeAudioDevice(&send_call_config, &recv_call_config);
+      InitializeAudioDevice(
+          &send_call_config, &recv_call_config, params_.audio.use_real_adm);
 
     CreateCalls(send_call_config, recv_call_config);
     send_transport = CreateSendTransport();
@@ -964,21 +966,37 @@ void VideoQualityTest::RunWithAnalyzer(const Params& params) {
 }
 
 void VideoQualityTest::InitializeAudioDevice(Call::Config* send_call_config,
-                                             Call::Config* recv_call_config) {
-  rtc::scoped_refptr<TestAudioDeviceModule> fake_audio_device =
-      TestAudioDeviceModule::CreateTestAudioDeviceModule(
-          TestAudioDeviceModule::CreatePulsedNoiseCapturer(32000, 48000),
-          TestAudioDeviceModule::CreateDiscardRenderer(48000), 1.f);
+                                             Call::Config* recv_call_config,
+                                             bool use_real_adm) {
+  rtc::scoped_refptr<AudioDeviceModule> audio_device;
+  if (use_real_adm) {
+    // Run test with real ADM (using default audio devices) if user has
+    // explicitly set the --use_real_adm command-line flag.
+    audio_device =
+        AudioDeviceModule::Create(AudioDeviceModule::kPlatformDefaultAudio);
+  } else {
+    // By default, create a test ADM which fakes audio.
+    audio_device = TestAudioDeviceModule::CreateTestAudioDeviceModule(
+        TestAudioDeviceModule::CreatePulsedNoiseCapturer(32000, 48000),
+        TestAudioDeviceModule::CreateDiscardRenderer(48000), 1.f);
+  }
 
   AudioState::Config audio_state_config;
   audio_state_config.audio_mixer = AudioMixerImpl::Create();
   audio_state_config.audio_processing = AudioProcessingBuilder().Create();
-  audio_state_config.audio_device_module = fake_audio_device;
+  audio_state_config.audio_device_module = audio_device;
   send_call_config->audio_state = AudioState::Create(audio_state_config);
-  RTC_CHECK(fake_audio_device->RegisterAudioCallback(
-                send_call_config->audio_state->audio_transport()) == 0);
+  RTC_CHECK(audio_device->RegisterAudioCallback(
+            send_call_config->audio_state->audio_transport()) == 0);
   recv_call_config->audio_state = AudioState::Create(audio_state_config);
-  fake_audio_device->Init();
+  if (use_real_adm) {
+    // The real ADM requires extra initialization: setting default devices,
+    // setting up number of channels etc. Helper class also calls
+    // AudioDeviceModule::Init().
+    webrtc::adm_helpers::Init(audio_device.get());
+  } else {
+    audio_device->Init();
+  }
 }
 
 void VideoQualityTest::SetupAudio(Transport* transport) {
@@ -1015,6 +1033,7 @@ void VideoQualityTest::SetupAudio(Transport* transport) {
 }
 
 void VideoQualityTest::RunWithRenderers(const Params& params) {
+  RTC_LOG(INFO) << __FUNCTION__;
   num_video_streams_ = params.call.dual_video ? 2 : 1;
   std::unique_ptr<test::LayerFilteringTransport> send_transport;
   std::unique_ptr<test::DirectTransport> recv_transport;
@@ -1033,7 +1052,8 @@ void VideoQualityTest::RunWithRenderers(const Params& params) {
     Call::Config recv_call_config(&null_event_log);
 
     if (params_.audio.enabled)
-      InitializeAudioDevice(&send_call_config, &recv_call_config);
+      InitializeAudioDevice(
+          &send_call_config, &recv_call_config, params_.audio.use_real_adm);
 
     CreateCalls(send_call_config, recv_call_config);
 

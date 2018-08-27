@@ -80,7 +80,8 @@ class VideoQualityTest :
   void StopThumbnails();
   void DestroyThumbnailStreams();
   void InitializeAudioDevice(Call::Config* send_call_config,
-                             Call::Config* recv_call_config);
+                             Call::Config* recv_call_config,
+                             bool use_real_adm);
   void SetupAudio(Transport* transport);
 
   void StartEncodedFrameLogs(VideoSendStream* stream);

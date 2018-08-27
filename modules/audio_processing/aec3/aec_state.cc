@@ -260,7 +260,9 @@ void AecState::Update(
   // Update the ERL and ERLE measures.
   if (blocks_since_reset_ >= 2 * kNumBlocksPerSecond) {
     const auto& X2 = render_buffer.Spectrum(filter_delay_blocks_);
-    erle_estimator_.Update(X2, Y2, E2_main, converged_filter);
+    erle_estimator_.Update(
+        X2, Y2, E2_main, converged_filter,
+        config_.echo_removal_control.linear_and_stable_echo_path);
     if (converged_filter) {
       erl_estimator_.Update(X2, Y2);
     }

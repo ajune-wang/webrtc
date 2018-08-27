@@ -167,7 +167,8 @@ void ErleEstimator::ErleFreqInstantaneous::Reset() {
 void ErleEstimator::Update(rtc::ArrayView<const float> render_spectrum,
                            rtc::ArrayView<const float> capture_spectrum,
                            rtc::ArrayView<const float> subtractor_spectrum,
-                           bool converged_filter) {
+                           bool converged_filter,
+                           bool linear_and_stable_echo_path) {
   RTC_DCHECK_EQ(kFftLengthBy2Plus1, render_spectrum.size());
   RTC_DCHECK_EQ(kFftLengthBy2Plus1, capture_spectrum.size());
   RTC_DCHECK_EQ(kFftLengthBy2Plus1, subtractor_spectrum.size());
@@ -220,16 +221,18 @@ void ErleEstimator::Update(rtc::ArrayView<const float> render_spectrum,
     erle_update(kFftLengthBy4, kFftLengthBy2, max_erle_hf_);
   }
 
-  for (size_t k = 1; k < kFftLengthBy2; ++k) {
-    hold_counters_[k]--;
-    if (hold_counters_[k] <= (kBlocksForOnsetDetection - kErleHold)) {
-      if (erle_[k] > erle_onsets_[k]) {
-        erle_[k] = std::max(erle_onsets_[k], 0.97f * erle_[k]);
-        RTC_DCHECK_LE(min_erle_, erle_[k]);
-      }
-      if (hold_counters_[k] <= 0) {
-        coming_onset_[k] = true;
-        hold_counters_[k] = 0;
+  if (!linear_and_stable_echo_path) {
+    for (size_t k = 1; k < kFftLengthBy2; ++k) {
+      hold_counters_[k]--;
+      if (hold_counters_[k] <= (kBlocksForOnsetDetection - kErleHold)) {
+        if (erle_[k] > erle_onsets_[k]) {
+          erle_[k] = std::max(erle_onsets_[k], 0.97f * erle_[k]);
+          RTC_DCHECK_LE(min_erle_, erle_[k]);
+        }
+        if (hold_counters_[k] <= 0) {
+          coming_onset_[k] = true;
+          hold_counters_[k] = 0;
+        }
       }
     }
   }
@@ -254,9 +257,11 @@ void ErleEstimator::Update(rtc::ArrayView<const float> render_spectrum,
     }
   }
   --hold_counter_time_domain_;
-  if (hold_counter_time_domain_ <= 0) {
-    erle_time_domain_log2_ =
-        std::max(min_erle_log2_, erle_time_domain_log2_ - 0.044f);
+  if (!linear_and_stable_echo_path) {
+    if (hold_counter_time_domain_ <= 0) {
+      erle_time_domain_log2_ =
+          std::max(min_erle_log2_, erle_time_domain_log2_ - 0.044f);
+    }
   }
   if (hold_counter_time_domain_ == 0) {
     erle_time_inst_.ResetAccumulators();

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8250711f_30f4377e",
+        "filename": "media/base/videoadapter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2018-08-27T09:23:10Z",
+      "side": 1,
+      "message": "Yes, but then it is not possible to set a fps limit, right?",
+      "parentUuid": "7e56a04e_6c5f178c",
+      "range": {
+        "startLine": 51,
+        "startChar": 2,
+        "endLine": 51,
+        "endChar": 67
+      },
+      "revId": "1fa5f55a645e5f90c93fc368387c25c6c3ee1b9d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7319a44e_8a3e0108",
         "filename": "media/base/videoadapter.h",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2018-08-24T11:54:03Z",
       "side": 1,
       "message": "Isn\u0027t it better to say that all frames should be dropped by requesting 0 fps instead of 0x0 video?",
+      "range": {
+        "startLine": 52,
+        "startChar": 1,
+        "endLine": 52,
+        "endChar": 60
+      },
+      "revId": "1fa5f55a645e5f90c93fc368387c25c6c3ee1b9d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6970aeba_0ec6e0a4",
+        "filename": "media/base/videoadapter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2018-08-27T09:23:10Z",
+      "side": 1,
+      "message": "This is the current behavior, maybe it is not as clear to specify |interval| so all frames are dropped.\n\nFor the method OnResolutionFramerateRequest below, if requesting either |max_pixel_count| \u003d 0 or |max_framerate_fps| \u003d 0, all frames are dropped.",
+      "parentUuid": "7319a44e_8a3e0108",
       "range": {
         "startLine": 52,
         "startChar": 1,

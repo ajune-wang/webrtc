@@ -381,7 +381,7 @@
 
     # Mac
     'mac_asan_clang_release_bot_x64': [
-      'gn', 'asan', 'clang', 'openh264', 'release_bot', 'x64',
+      'gn', 'asan', 'lsan', 'clang', 'openh264', 'release_bot', 'x64',
     ],
 
     # Android

@@ -69,6 +69,24 @@
       "revId": "e95a6626f0002e17bbe434e59e80047778ae042f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "40b6bd74_25b716fe",
+        "filename": "rtc_base/rate_statistics.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-27T01:17:38Z",
+      "side": 1,
+      "message": "Yeah---you\u0027ll want\n\n  RateStatistics(RateStatistics\u0026\u0026 other);\n\nin the .h file, and\n\n  RateStatistics::RateStatistics(RateStatistics\u0026\u0026 other) \u003d default;\n\nin the .cc file.",
+      "parentUuid": "90fb4c63_6296f662",
+      "revId": "e95a6626f0002e17bbe434e59e80047778ae042f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

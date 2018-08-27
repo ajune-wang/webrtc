@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9e3f0129_3c93c387",
+        "filename": "rtc_base/rate_statistics.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-27T01:17:38Z",
+      "side": 1,
+      "message": "You can use absl::make_unique so that you avoid the naked `new`:\n\n  buckets_ \u003d absl::make_unique\u003cBucket[]\u003e(other.max_window_size_ms_);",
+      "revId": "2e9429a4be6e6a97336ef8cb0b09796be60da1fc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "447268b6_8f46c263",
+        "filename": "rtc_base/rate_statistics.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-27T01:17:38Z",
+      "side": 1,
+      "message": "As I said elsewhere, I think this is the same as\n\n  RateStatistics::RateStatistics(RateStatistics\u0026\u0026 other) \u003d default;",
+      "revId": "2e9429a4be6e6a97336ef8cb0b09796be60da1fc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

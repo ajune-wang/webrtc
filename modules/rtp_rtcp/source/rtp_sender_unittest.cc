@@ -2079,6 +2079,15 @@ TEST_P(RtpSenderTest, SendsKeepAlive) {
   EXPECT_EQ(kSeqNum + 1, rtp_sender_->SequenceNumber());
 }
 
+class EmptyClass {};
+
+TEST_P(RtpSenderTest, TestLeakDetection) {
+  auto* x = new EmptyClass;
+  // Must use the variable in some non trivial way,
+  // otherwise the whole code would be optimized out with -O2
+  std::cout << (void*)x << std::endl;
+}
+
 INSTANTIATE_TEST_CASE_P(WithAndWithoutOverhead,
                         RtpSenderTest,
                         ::testing::Bool());

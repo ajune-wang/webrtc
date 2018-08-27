@@ -22,6 +22,30 @@
       "revId": "49380c0670ec7e1c6ede342499d504c14c9d974e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47353a01_cec82edd",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-27T09:48:57Z",
+      "side": 1,
+      "message": "Done. But this class lacks thread annotations on the member variables. I\u0027ll think it\u0027s best to fix that first, in a separate cl, I\u0027ll give it a try.",
+      "parentUuid": "dc3f6327_fb1bfc10",
+      "range": {
+        "startLine": 62,
+        "startChar": 6,
+        "endLine": 62,
+        "endChar": 34
+      },
+      "revId": "49380c0670ec7e1c6ede342499d504c14c9d974e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -15,9 +15,9 @@
 - (NSString *)humanReadableDescription {
   if ([self.name isEqualToString:@"H264"]) {
     NSString *profileId = self.parameters[@"profile-level-id"];
-    if ([profileId isEqualToString:@"640c1f"]) {
+    if ([profileId hasPrefix:@"64"]) {
       return @"H264 (High)";
-    } else if ([profileId isEqualToString:@"42e01f"]) {
+    } else if ([profileId hasPrefix:@"42"]) {
       return @"H264 (Baseline)";
     } else {
       return [NSString stringWithFormat:@"H264 (%@)", profileId];

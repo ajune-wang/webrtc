@@ -539,6 +539,7 @@ static int const kKbpsMultiplier = 1000;
   }];
   config.iceServers = _iceServers;
   config.sdpSemantics = RTCSdpSemanticsUnifiedPlan;
+  config.bundlePolicy = RTCBundlePolicyMaxBundle;
   config.certificate = pcert;
 
   _peerConnection = [_factory peerConnectionWithConfiguration:config

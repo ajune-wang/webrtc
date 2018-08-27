@@ -22,6 +22,30 @@
       "revId": "e5dcb9195921cc61f48d92934eac80e4d6e1aace",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe16468d_801c2876",
+        "filename": "rtc_base/strings/string_builder.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2018-08-27T15:26:20Z",
+      "side": 1,
+      "message": "Yeah, I\u0027m unsure what it means to move a reference, this was intended to be a move constructor. Will fix.",
+      "parentUuid": "47e27fbf_e92f183e",
+      "range": {
+        "startLine": 96,
+        "startChar": 16,
+        "endLine": 96,
+        "endChar": 21
+      },
+      "revId": "e5dcb9195921cc61f48d92934eac80e4d6e1aace",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

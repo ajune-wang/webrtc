@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "3354807b_242dc5b2",
+        "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-08-27T13:56:07Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "56d28d41_8bf9d54d",
+      "revId": "8fd874e54a98f0934ce610edb9ea16db5dbdec6b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f5af52b4_2d9d4f02",
         "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
         "patchSetId": 7
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "b0f85ee6_64845072",
+        "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-08-27T13:56:07Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f5af52b4_2d9d4f02",
+      "range": {
+        "startLine": 331,
+        "startChar": 5,
+        "endLine": 331,
+        "endChar": 10
+      },
+      "revId": "8fd874e54a98f0934ce610edb9ea16db5dbdec6b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "26fb063f_47d0ef62",
         "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
         "patchSetId": 7
@@ -53,6 +95,30 @@
       "writtenOn": "2018-08-24T09:46:52Z",
       "side": 1,
       "message": "I think it is a bit strange that \nfirst_section \u003d block_counter_ - kBlocksPerSection + 1;\nThat should mean that the size of a section is equal to the size of a blocks, right? If first_section is an index of the section (and it seems to be since on line 339 the loop variable section is used to index the nz_ array).",
+      "range": {
+        "startLine": 332,
+        "startChar": 31,
+        "endLine": 332,
+        "endChar": 45
+      },
+      "revId": "8fd874e54a98f0934ce610edb9ea16db5dbdec6b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3750ac4_cc99cbf7",
+        "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-08-27T13:56:07Z",
+      "side": 1,
+      "message": "I changed the name of the variable to first_section_index to make it clear that is the index that represents the first section that needs to be updated with the new value that received this Accumulate method.",
+      "parentUuid": "26fb063f_47d0ef62",
       "range": {
         "startLine": 332,
         "startChar": 31,
@@ -88,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "58e19cd3_fa0da7db",
+        "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-08-27T13:56:07Z",
+      "side": 1,
+      "message": "I changed value_to_inc to const.",
+      "parentUuid": "98c5add9_11ba655f",
+      "range": {
+        "startLine": 336,
+        "startChar": 8,
+        "endLine": 336,
+        "endChar": 20
+      },
+      "revId": "8fd874e54a98f0934ce610edb9ea16db5dbdec6b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a4ce5432_c7abf535",
         "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
         "patchSetId": 7
@@ -99,6 +189,24 @@
       "writtenOn": "2018-08-24T09:46:52Z",
       "side": 1,
       "message": "If there is no strong reason not to, I\u0027d suggest using the standard loop pattern here to simplify for the reader as well for the compiler. I.e.,\n\nsize_t last_section_plus_1 \u003d std::min(static_cast\u003csize_t\u003e(block_counter_+1), nz_.size());\n...\nfor (size_t section \u003d first_section; section \u003c last_section_plus_1; ++section, value_to_add +\u003d value_to_inc) {\n    nz_[section] +\u003d value_to_add;\n  }\n\n\n\n(using last_section_plus_1 avoid special handling of the case of nz_.size() \u003d\u003d 0)",
+      "revId": "8fd874e54a98f0934ce610edb9ea16db5dbdec6b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d1acf3d_f94be35e",
+        "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-08-27T13:56:07Z",
+      "side": 1,
+      "message": "I would need to change as well the value_to_add variable and I think the current version is clearer. As we moved back to the lower sections, the points that take part in the linear regression are farther apart and need to be updated with larger values (value_to_add variable).",
+      "parentUuid": "a4ce5432_c7abf535",
       "revId": "8fd874e54a98f0934ce610edb9ea16db5dbdec6b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -119,6 +227,24 @@
       "revId": "8fd874e54a98f0934ce610edb9ea16db5dbdec6b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20d618a3_11e1a212",
+        "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-08-27T13:56:07Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "bd71a9c2_b0396cfc",
+      "revId": "8fd874e54a98f0934ce610edb9ea16db5dbdec6b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -145,6 +271,30 @@
     },
     {
       "key": {
+        "uuid": "3c61169f_6ea54581",
+        "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-08-27T13:56:07Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e6e7401e_5c18f29f",
+      "range": {
+        "startLine": 376,
+        "startChar": 35,
+        "endLine": 376,
+        "endChar": 46
+      },
+      "revId": "8fd874e54a98f0934ce610edb9ea16db5dbdec6b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "39cb47a7_50691a2b",
         "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
         "patchSetId": 7
@@ -165,6 +315,30 @@
       "revId": "8fd874e54a98f0934ce610edb9ea16db5dbdec6b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf0c913a_f476b03a",
+        "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-08-27T13:56:07Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "39cb47a7_50691a2b",
+      "range": {
+        "startLine": 379,
+        "startChar": 40,
+        "endLine": 379,
+        "endChar": 53
+      },
+      "revId": "8fd874e54a98f0934ce610edb9ea16db5dbdec6b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -191,6 +365,30 @@
     },
     {
       "key": {
+        "uuid": "fe8409ce_876ea332",
+        "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-08-27T13:56:07Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e61d292d_54aac3c0",
+      "range": {
+        "startLine": 381,
+        "startChar": 66,
+        "endLine": 381,
+        "endChar": 79
+      },
+      "revId": "8fd874e54a98f0934ce610edb9ea16db5dbdec6b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b79b2357_fa1c4a38",
         "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
         "patchSetId": 7
@@ -202,6 +400,30 @@
       "writtenOn": "2018-08-24T09:46:52Z",
       "side": 1,
       "message": "It is a bit confusing that the constant for the limit of the number of blocks has a name that contains \"NumSections\". Is it a limit in terms of block or sections?",
+      "range": {
+        "startLine": 382,
+        "startChar": 53,
+        "endLine": 382,
+        "endChar": 74
+      },
+      "revId": "8fd874e54a98f0934ce610edb9ea16db5dbdec6b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63f068af_62425a57",
+        "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-08-27T13:56:07Z",
+      "side": 1,
+      "message": "I changed the comment to make it clearer.",
+      "parentUuid": "b79b2357_fa1c4a38",
       "range": {
         "startLine": 382,
         "startChar": 53,
@@ -237,6 +459,30 @@
     },
     {
       "key": {
+        "uuid": "cfe96b83_991df59e",
+        "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-08-27T13:56:07Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "9c523bae_d03f2f1f",
+      "range": {
+        "startLine": 386,
+        "startChar": 14,
+        "endLine": 386,
+        "endChar": 31
+      },
+      "revId": "8fd874e54a98f0934ce610edb9ea16db5dbdec6b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "08d8b0d5_a487f488",
         "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
         "patchSetId": 7
@@ -254,6 +500,24 @@
     },
     {
       "key": {
+        "uuid": "635653ed_964430b3",
+        "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-08-27T13:56:07Z",
+      "side": 1,
+      "message": "hmmm, there is already a comment before starting the loop. Do you think that I should extend the comment?",
+      "parentUuid": "08d8b0d5_a487f488",
+      "revId": "8fd874e54a98f0934ce610edb9ea16db5dbdec6b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1222caae_052c61bd",
         "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
         "patchSetId": 7
@@ -265,6 +529,30 @@
       "writtenOn": "2018-08-24T09:46:52Z",
       "side": 1,
       "message": "Can an early loop exit be added? I.e.:\nelse {\n break;\n}\n\nComplexity-wise it is not important but for the understanding of the algorithm I think it could make sense. With the current loop it looks as if early_reverb_size_minus_1 could be increased also after the if-statement has ceased to be true. \nIf that is intended the code is good, but if it is neither intended or expected to happen I think an early exit would simplify the understanding of the code since the loop then more clearly matches what the comment on 376 states.",
+      "range": {
+        "startLine": 394,
+        "startChar": 4,
+        "endLine": 394,
+        "endChar": 5
+      },
+      "revId": "8fd874e54a98f0934ce610edb9ea16db5dbdec6b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "995ccb9f_08d32767",
+        "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-08-27T13:56:07Z",
+      "side": 1,
+      "message": "I do not think it is possible to have an early loop exit. If one of the sections that we are analyzing has, for example, a positive tilt (numerator larger than numerator_11), the block that represents that section is considered part of the early reverberations.",
+      "parentUuid": "1222caae_052c61bd",
       "range": {
         "startLine": 394,
         "startChar": 4,

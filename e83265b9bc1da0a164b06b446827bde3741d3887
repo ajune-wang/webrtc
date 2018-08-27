@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "bd4f7197_a5e7683d",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-27T08:34:04Z",
+      "side": 1,
+      "message": "EnableRetransmitDetection is fine with me. I was concerned that style was to have Enable/Disable methods with no argument, but it seems we do have several Enable methods with bool argument, so that should be familiar then.",
+      "parentUuid": "c20ad089_5a79fb8b",
+      "range": {
+        "startLine": 425,
+        "startChar": 28,
+        "endLine": 425,
+        "endChar": 56
+      },
+      "revId": "e83265b9bc1da0a164b06b446827bde3741d3887",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fb28a34d_36bbab1b",
         "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "e83265b9bc1da0a164b06b446827bde3741d3887",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4fece8c_0e49685e",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-27T08:34:04Z",
+      "side": 1,
+      "message": "Done.\n\nHaving these expressions with |first| and |second| makes we wonder when C++ will add lisp-like shorthands like cdar, caddr, etc. See http://clhs.lisp.se/Body/f_car_c.htm ;-)",
+      "parentUuid": "fb28a34d_36bbab1b",
+      "range": {
+        "startLine": 432,
+        "startChar": 28,
+        "endLine": 432,
+        "endChar": 0
+      },
+      "revId": "e83265b9bc1da0a164b06b446827bde3741d3887",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -76,6 +124,24 @@
       "writtenOn": "2018-08-24T11:52:32Z",
       "side": 1,
       "message": "does this still pass?",
+      "revId": "e83265b9bc1da0a164b06b446827bde3741d3887",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "91e6e2c4_83e04847",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-27T08:34:04Z",
+      "side": 1,
+      "message": "No. It did pass on ps #3, but now it fails. Have to investigate.\n\nNot sure how to think about the tests. I can\u0027t both back out the change to set payload_type_frequency, and call EnableRetransmitDetection(true), since the latter depends on a valid payload_type frequency for compariing rtp time to system time. So what do you prefer?",
+      "parentUuid": "8a4c8b09_89f46828",
       "revId": "e83265b9bc1da0a164b06b446827bde3741d3887",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

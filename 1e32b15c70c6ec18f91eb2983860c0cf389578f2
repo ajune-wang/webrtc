@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "7adb9a74_29b9aca6",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-27T08:34:04Z",
+      "side": 1,
+      "message": "I\u0027ve had a look at ReceiveStatisticsImpl::RtcpReportBlocks and StreamStatisticianImpl::GetActiveStatisticsAndReset. It looks like the latter should return false for a stream that has not received any packets, and then the former shouldn\u0027t produce any report blocks. Do you agree?",
+      "parentUuid": "e3760b00_12585277",
+      "range": {
+        "startLine": 431,
+        "startChar": 66,
+        "endLine": 431,
+        "endChar": 0
+      },
+      "revId": "1e32b15c70c6ec18f91eb2983860c0cf389578f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b45fecd9_d2b71202",
         "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
         "patchSetId": 4

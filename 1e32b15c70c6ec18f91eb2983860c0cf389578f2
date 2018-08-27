@@ -121,6 +121,30 @@
     },
     {
       "key": {
+        "uuid": "c8f5e87c_66c282e3",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-27T09:32:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bebd08bb_d4b90659",
+      "range": {
+        "startLine": 431,
+        "startChar": 66,
+        "endLine": 431,
+        "endChar": 0
+      },
+      "revId": "1e32b15c70c6ec18f91eb2983860c0cf389578f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b45fecd9_d2b71202",
         "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
         "patchSetId": 4
@@ -189,6 +213,30 @@
       "revId": "1e32b15c70c6ec18f91eb2983860c0cf389578f2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32ed0b02_2d9cde3a",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-27T09:32:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "32c5da7c_d89203e6",
+      "range": {
+        "startLine": 432,
+        "startChar": 0,
+        "endLine": 432,
+        "endChar": 34
+      },
+      "revId": "1e32b15c70c6ec18f91eb2983860c0cf389578f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -322,6 +370,30 @@
       "side": 1,
       "message": "yep, to keep old behavior (or rather to show how to keep old behavior. One of purpose of tests is to document usage) \n\nThis test explicitly moves sequence number backwards hinting it expects retransmits.",
       "parentUuid": "08fa074d_80da2631",
+      "range": {
+        "startLine": 267,
+        "startChar": 5,
+        "endLine": 267,
+        "endChar": 16
+      },
+      "revId": "1e32b15c70c6ec18f91eb2983860c0cf389578f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e67c4a05_309aea31",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-27T09:32:15Z",
+      "side": 1,
+      "message": "Done, for this and the other test passing retransmitted \u003d\u003d true (RtpCallbacks).",
+      "parentUuid": "8507ba5c_bc7ffb47",
       "range": {
         "startLine": 267,
         "startChar": 5,

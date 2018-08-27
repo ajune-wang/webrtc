@@ -31,7 +31,8 @@ class ErleEstimator {
   void Update(rtc::ArrayView<const float> render_spectrum,
               rtc::ArrayView<const float> capture_spectrum,
               rtc::ArrayView<const float> subtractor_spectrum,
-              bool converged_filter);
+              bool converged_filter,
+              bool linear_and_stable_echo_path);
 
   // Returns the most recent ERLE estimate.
   const std::array<float, kFftLengthBy2Plus1>& Erle() const { return erle_; }

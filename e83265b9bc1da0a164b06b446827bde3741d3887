@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "a6fd5e48_e626b05c",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-27T09:04:07Z",
+      "side": 1,
+      "message": "if you want it more readable, you may write something like\nStreamStatisticianImpl*\u0026 impl_ref \u003d statisticians_[ssrc];\nif (impl_ref \u003d\u003d nullptr) { // new element\n  impl_ref \u003d new ...\n  return;\n}\nimpl \u003d impl_ref;",
+      "parentUuid": "d4fece8c_0e49685e",
+      "range": {
+        "startLine": 432,
+        "startChar": 28,
+        "endLine": 432,
+        "endChar": 0
+      },
+      "revId": "e83265b9bc1da0a164b06b446827bde3741d3887",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "080399a5_90a8ab46",
         "filename": "modules/rtp_rtcp/source/receive_statistics_unittest.cc",
         "patchSetId": 5
@@ -142,6 +166,24 @@
       "side": 1,
       "message": "No. It did pass on ps #3, but now it fails. Have to investigate.\n\nNot sure how to think about the tests. I can\u0027t both back out the change to set payload_type_frequency, and call EnableRetransmitDetection(true), since the latter depends on a valid payload_type frequency for compariing rtp time to system time. So what do you prefer?",
       "parentUuid": "8a4c8b09_89f46828",
+      "revId": "e83265b9bc1da0a164b06b446827bde3741d3887",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1e146c6b_dcc11139",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-27T09:04:07Z",
+      "side": 1,
+      "message": "out of this two choices keeping payload_type frequency is better:\nin real code you expect that property to be set. (i.e. keep test closer to how class suppose to be used)",
+      "parentUuid": "91e6e2c4_83e04847",
       "revId": "e83265b9bc1da0a164b06b446827bde3741d3887",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

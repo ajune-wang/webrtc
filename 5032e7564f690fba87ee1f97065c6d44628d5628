@@ -88,6 +88,24 @@
     },
     {
       "key": {
+        "uuid": "fb12bf5c_fc061978",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-08-27T14:19:17Z",
+      "side": 1,
+      "message": "This is particularly an AudioFrame. I just shared with you the CR which defines VideoFrame and the relation with EncodedFrame \u0026 EncodedImage.",
+      "parentUuid": "3233c136_629b7606",
+      "revId": "5032e7564f690fba87ee1f97065c6d44628d5628",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9150178f_b1bdfcd2",
         "filename": "api/media_transport_interface.h",
         "patchSetId": 8

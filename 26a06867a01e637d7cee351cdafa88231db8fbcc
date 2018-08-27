@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c71e3e4d_91b3e8b5",
+        "filename": "rtc_base/strings/string_builder_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2018-08-27T09:26:48Z",
+      "side": 1,
+      "message": "Is copy elision guaranteed in c11? This part of the test seems to fail on some platforms.",
+      "range": {
+        "startLine": 186,
+        "startChar": 12,
+        "endLine": 186,
+        "endChar": 42
+      },
+      "revId": "26a06867a01e637d7cee351cdafa88231db8fbcc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

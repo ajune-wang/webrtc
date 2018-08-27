@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "779a5217_cf7d46d4",
+        "filename": "rtc_base/rate_statistics.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-08-27T08:56:27Z",
+      "side": 1,
+      "message": "Switched to absl::make_unique.",
+      "parentUuid": "9e3f0129_3c93c387",
+      "revId": "2e9429a4be6e6a97336ef8cb0b09796be60da1fc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "447268b6_8f46c263",
         "filename": "rtc_base/rate_statistics.cc",
         "patchSetId": 3
@@ -33,6 +51,24 @@
       "revId": "2e9429a4be6e6a97336ef8cb0b09796be60da1fc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "858c8d52_cf71d864",
+        "filename": "rtc_base/rate_statistics.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-08-27T08:56:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "447268b6_8f46c263",
+      "revId": "2e9429a4be6e6a97336ef8cb0b09796be60da1fc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

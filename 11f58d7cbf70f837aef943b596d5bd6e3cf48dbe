@@ -34,6 +34,24 @@
       "revId": "11f58d7cbf70f837aef943b596d5bd6e3cf48dbe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "77ec55b7_bcb022c9",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-08-27T09:07:10Z",
+      "side": 1,
+      "message": "Checked, with qp\u003d64 screenshare_loopback fails, but with 63 it works. Added snapping to the range [1,63]",
+      "parentUuid": "58a01990_20d09f60",
+      "revId": "11f58d7cbf70f837aef943b596d5bd6e3cf48dbe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

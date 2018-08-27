@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dc3f6327_fb1bfc10",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-27T09:40:01Z",
+      "side": 1,
+      "message": "Do you mind fix (and improve) locking:\nenable_retransmit_detection_ is accessed here without holding the stream_lock_\nboth IsRetruansmiOfOldPacket and UpdateCounters take the same lock.\nmay be move taking that lock here.",
+      "range": {
+        "startLine": 62,
+        "startChar": 6,
+        "endLine": 62,
+        "endChar": 34
+      },
+      "revId": "49380c0670ec7e1c6ede342499d504c14c9d974e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -90,6 +90,11 @@ void AudioMultiVector::PushBackInterleaved(const int16_t* append_this,
   delete[] temp_array;
 }
 
+void AudioMultiVector::PushBackInterleaved(
+    const rtc::BufferT<int16_t>& append_this) {
+  PushBackInterleaved(append_this.data(), append_this.size());
+}
+
 void AudioMultiVector::PushBack(const AudioMultiVector& append_this) {
   assert(num_channels_ == append_this.num_channels_);
   if (num_channels_ == append_this.num_channels_) {

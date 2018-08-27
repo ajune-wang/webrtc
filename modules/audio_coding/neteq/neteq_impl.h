@@ -289,6 +289,8 @@ class NetEqImpl : public webrtc::NetEq {
                AudioDecoder::SpeechType speech_type,
                bool play_dtmf) RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_sect_);
 
+  bool DoCodecPlc() RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_sect_);
+
   // Sub-method which calls the Expand class to perform the expand operation.
   int DoExpand(bool play_dtmf) RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_sect_);
 

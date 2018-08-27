@@ -16,6 +16,7 @@
 #include <vector>
 
 #include "modules/audio_coding/neteq/audio_vector.h"
+#include "rtc_base/buffer.h"
 #include "rtc_base/constructormagic.h"
 
 namespace webrtc {
@@ -50,6 +51,9 @@ class AudioMultiVector {
   // The length of this object is increased with the |length| divided by the
   // number of channels.
   virtual void PushBackInterleaved(const int16_t* append_this, size_t length);
+
+  // Like above, but takes the interleaved input data from a BufferT object.
+  void PushBackInterleaved(const rtc::BufferT<int16_t>& append_this);
 
   // Appends the contents of AudioMultiVector |append_this| to this object. The
   // length of this object is increased with the length of |append_this|.

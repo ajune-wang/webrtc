@@ -890,7 +890,12 @@ int NetEqImpl::GetAudioInternal(AudioFrame* audio_frame, bool* muted) {
       break;
     }
     case kExpand: {
-      return_value = DoExpand(play_dtmf);
+      RTC_DCHECK_EQ(return_value, 0);
+      if (!current_rtp_payload_type_ || !DoCodecPlc()) {
+        return_value = DoExpand(play_dtmf);
+      }
+      RTC_DCHECK_GE(sync_buffer_->FutureLength() - expand_->overlap_length(),
+                    output_size_samples_);
       break;
     }
     case kAccelerate:
@@ -1539,6 +1544,44 @@ void NetEqImpl::DoMerge(int16_t* decoded_buffer,
   if (!play_dtmf) {
     dtmf_tone_generator_->Reset();
   }
+}
+
+bool NetEqImpl::DoCodecPlc() {
+  AudioDecoder* decoder = decoder_database_->GetActiveDecoder();
+  if (!decoder) {
+    return false;
+  }
+  rtc::BufferT<int16_t> concealment_audio;
+  RTC_DCHECK_EQ(concealment_audio.size(), 0);
+  while (concealment_audio.size() + sync_buffer_->FutureLength() -
+             expand_->overlap_length() <
+         output_size_samples_) {
+    size_t size_before = concealment_audio.size();
+    decoder->GeneratePlc(&concealment_audio);
+    if (concealment_audio.size() == size_before) {
+      // Nothing produced. Resort to regular expand.
+      return false;
+    }
+  }
+  sync_buffer_->PushBack(concealment_audio);
+  RTC_DCHECK_NE(algorithm_buffer_->Channels(), 0);
+  const size_t concealed_samples_per_channel =
+      concealment_audio.size() / algorithm_buffer_->Channels();
+
+  // Update in-call and post-call statistics.
+  const bool is_new_concealment_event = (last_mode_ != kModeCodecPlc);
+  if (std::all_of(concealment_audio.cbegin(), concealment_audio.cend(),
+                  [](int16_t i) { return i == 0; })) {
+    // Expand operation generates only noise.
+    stats_.ExpandedNoiseSamples(concealed_samples_per_channel,
+                                is_new_concealment_event);
+  } else {
+    // Expand operation generates more than only noise.
+    stats_.ExpandedVoiceSamples(concealed_samples_per_channel,
+                                is_new_concealment_event);
+  }
+  last_mode_ = kModeCodecPlc;
+  return true;
 }
 
 int NetEqImpl::DoExpand(bool play_dtmf) {

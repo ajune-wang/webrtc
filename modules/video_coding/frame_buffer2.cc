@@ -153,10 +153,13 @@ FrameBuffer::ReturnReason FrameBuffer::NextFrame(
         }
 
         float rtt_mult = protection_mode_ == kProtectionNackFEC ? 0.0 : 1.0;
+        if (webrtc::field_trial::IsEnabled("WebRTC-RttMult"))
+          rtt_mult = RttMultExperiment::GetRttMult();
         timing_->SetJitterDelay(jitter_estimator_->GetJitterEstimate(rtt_mult));
         timing_->UpdateCurrentDelay(frame->RenderTime(), now_ms);
       } else {
-        if (webrtc::field_trial::IsEnabled("WebRTC-AddRttToPlayoutDelay"))
+        if (webrtc::field_trial::IsEnabled("WebRTC-RttMult") ||
+            webrtc::field_trial::IsEnabled("WebRTC-AddRttToPlayoutDelay"))
           jitter_estimator_->FrameNacked();
       }
 

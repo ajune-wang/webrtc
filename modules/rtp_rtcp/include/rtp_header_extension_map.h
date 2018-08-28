@@ -27,6 +27,13 @@ struct RtpExtensionSize {
 
 class RtpHeaderExtensionMap {
  public:
+  static constexpr int kMinId = 1;
+  static constexpr int kMaxId = 20;
+  static constexpr int kOneByteHeaderMaxId = 14;
+  static constexpr size_t kOneByteHeaderSize = 1;
+  static constexpr size_t kTwoByteHeaderSize = 2;
+  static constexpr int kOneByteHeaderExtensionMaxLength = 16;
+
   static constexpr RTPExtensionType kInvalidType = kRtpExtensionNone;
   static constexpr int kInvalidId = 0;
 
@@ -56,6 +63,8 @@ class RtpHeaderExtensionMap {
     return ids_[type];
   }
 
+  static bool TwoByteHeaderRequired(int id, size_t length);
+
   size_t GetTotalLengthInBytes(
       rtc::ArrayView<const RtpExtensionSize> extensions) const;
 
@@ -66,8 +75,6 @@ class RtpHeaderExtensionMap {
   int32_t Deregister(RTPExtensionType type);
 
  private:
-  static constexpr int kMinId = 1;
-  static constexpr int kMaxId = 14;
   bool Register(int id, RTPExtensionType type, const char* uri);
 
   RTPExtensionType types_[kMaxId + 1];

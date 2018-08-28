@@ -11,7 +11,7 @@
 #include "test/fake_vp8_encoder.h"
 
 #include "common_types.h"  // NOLINT(build/include)
-#include "modules/video_coding/codecs/vp8/temporal_layers.h"
+#include "modules/video_coding/codecs/vp8/include/vp8_temporal_layers.h"
 #include "modules/video_coding/include/video_codec_interface.h"
 #include "modules/video_coding/include/video_error_codes.h"
 #include "modules/video_coding/utility/simulcast_utility.h"
@@ -55,7 +55,10 @@ int32_t FakeVP8Encoder::InitEncode(const VideoCodec* config,
                       : config->VP8().numberOfTemporalLayers;
   RTC_DCHECK_GT(num_temporal_layers, 0);
 
-  SetupTemporalLayers(number_of_streams, num_temporal_layers, *config);
+  SetupTemporalLayers(number_of_streams, num_temporal_layers,
+                      config->mode == VideoCodecMode::kRealtimeVideo
+                          ? TemporalLayersType::kFixedPattern
+                          : TemporalLayersType::kBitrateDynamic);
 
   return WEBRTC_VIDEO_CODEC_OK;
 }
@@ -68,13 +71,13 @@ int32_t FakeVP8Encoder::Release() {
 
 void FakeVP8Encoder::SetupTemporalLayers(int num_streams,
                                          int num_temporal_layers,
-                                         const VideoCodec& codec) {
+                                         TemporalLayersType type) {
   RTC_DCHECK_CALLED_SEQUENTIALLY(&sequence_checker_);
 
   temporal_layers_.clear();
   for (int i = 0; i < num_streams; ++i) {
     temporal_layers_.emplace_back(
-        TemporalLayers::CreateTemporalLayers(codec, i));
+        TemporalLayers::CreateTemporalLayers(type, num_temporal_layers));
   }
 }
 

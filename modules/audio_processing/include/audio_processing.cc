@@ -14,6 +14,9 @@
 
 namespace webrtc {
 
+void CustomAnalyzer::SetRuntimeSetting(
+    AudioProcessing::RuntimeSetting setting) {}
+
 void CustomProcessing::SetRuntimeSetting(
     AudioProcessing::RuntimeSetting setting) {}
 

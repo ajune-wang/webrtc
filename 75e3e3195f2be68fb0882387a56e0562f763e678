@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ee5a3124_4e8e17e5",
+        "filename": "api/video/video_stream_encoder_observer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-08-28T14:33:27Z",
+      "side": 1,
+      "message": "This is the other error I mentioned in the previous patch set:\n\napi/video/video_stream_encoder_observer.h:39:3: error: [chromium-style] Complex class/struct needs an explicit out-of-line constructor.\n  struct AdaptationSteps {\n\nI fixed creating a .cc file with the definition because AdaptationSteps() \u003d default was not enough:\n\napi/video/video_stream_encoder_observer.h:40:5: error: [chromium-style] Complex constructor has an inlined body.\n    AdaptationSteps() \u003d default;",
+      "range": {
+        "startLine": 40,
+        "startChar": 4,
+        "endLine": 40,
+        "endChar": 22
+      },
+      "revId": "75e3e3195f2be68fb0882387a56e0562f763e678",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

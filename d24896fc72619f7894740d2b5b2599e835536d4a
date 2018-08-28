@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e346c23b_63713abe",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-28T13:48:28Z",
+      "side": 1,
+      "message": "why change to do this check after call to rtp_rtcp_-\u003eRemoveNTP?",
+      "range": {
+        "startLine": 187,
+        "startChar": 78,
+        "endLine": 187,
+        "endChar": 0
+      },
+      "revId": "d24896fc72619f7894740d2b5b2599e835536d4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a4dc01f_8fd3ad7c",
+        "filename": "sdk/objc/Framework/Headers/WebRTC/RTCAudioSessionConfiguration.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2018-08-28T13:55:59Z",
+      "side": 1,
+      "message": "There is also an RTC_EXTERN macro that is RTC_EXPORT + extern (but maybe we don\u0027t use that anymore, just noticed it in RTCMacros.h)",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 6
+      },
+      "revId": "df274a73f07da86f74f333946b21ab2afa8a7595",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

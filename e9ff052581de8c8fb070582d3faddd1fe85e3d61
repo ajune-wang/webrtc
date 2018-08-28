@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d43081cf_80c503f1",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-08-28T18:36:01Z",
+      "side": 1,
+      "message": "We are calling the injected analyzer from ProcessCaptureStreamLocked(), so it\u0027s correct to keep this here; however, it\u0027s an analyzer module that doesn\u0027t modify the stream. I guess it\u0027s fine but I would double check with Per - I will add him as reviewer.",
+      "range": {
+        "startLine": 242,
+        "startChar": 31,
+        "endLine": 242,
+        "endChar": 60
+      },
+      "revId": "e9ff052581de8c8fb070582d3faddd1fe85e3d61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a8cfb62c_cd8e0e35",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1374,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-08-28T18:36:01Z",
+      "side": 1,
+      "message": "Add above:\n// Experimental APM sub-module that analyzes |capture_buffer|.",
+      "range": {
+        "startLine": 1372,
+        "startChar": 0,
+        "endLine": 1374,
+        "endChar": 3
+      },
+      "revId": "e9ff052581de8c8fb070582d3faddd1fe85e3d61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c93d9ff_23a1aa63",
+        "filename": "modules/audio_processing/audio_processing_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-08-28T18:36:01Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 31
+      },
+      "revId": "e9ff052581de8c8fb070582d3faddd1fe85e3d61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8b0dd12_a3b85c3c",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 679,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-08-28T18:36:01Z",
+      "side": 1,
+      "message": "capture_analyzer",
+      "range": {
+        "startLine": 679,
+        "startChar": 55,
+        "endLine": 679,
+        "endChar": 78
+      },
+      "revId": "e9ff052581de8c8fb070582d3faddd1fe85e3d61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3253f48_afbfd305",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 1026,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-08-28T18:36:01Z",
+      "side": 1,
+      "message": "Experimental interface for a custom analysis submodule.",
+      "range": {
+        "startLine": 1026,
+        "startChar": 3,
+        "endLine": 1026,
+        "endChar": 45
+      },
+      "revId": "e9ff052581de8c8fb070582d3faddd1fe85e3d61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

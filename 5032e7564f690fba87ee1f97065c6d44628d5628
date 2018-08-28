@@ -140,6 +140,24 @@
     },
     {
       "key": {
+        "uuid": "741c589b_b327492e",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-08-28T14:10:34Z",
+      "side": 1,
+      "message": "This interface is for AudioFrames, so I am not commenting on the reason for this particular |FrameType|, but for video, media transport needs to know e.g. about keyframes and delta frames, because it needs to know the dependencies between the frames that it sends (and there are different retransmission approaches - e.g. transmission of a new keyframe may cancel pending retransmission of previous keyframe).\n\nI agree though that FrameType mixes Audio \u0026 Video (maybe that\u0027s something that should be refactored in webrtc/files/stable/webrtc/common_types.h ?)\n\nCan you comment on what is the |payload_type|? To me it\u0027s opaque information that is needed by the receiving end, but I would quite frankly see it as a part of \u0027encoded_data\u0027. Are you saying it\u0027s redundant to frame_type?",
+      "parentUuid": "eceaa6a5_d0650fe6",
+      "revId": "5032e7564f690fba87ee1f97065c6d44628d5628",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1d47cdbc_84be76cc",
         "filename": "api/media_transport_interface.h",
         "patchSetId": 8

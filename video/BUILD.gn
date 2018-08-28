@@ -286,6 +286,7 @@ if (rtc_include_tests) {
       "../test:test_common",
       "../test:test_renderer",
       "../test:test_support",
+      "//build/win:default_exe_manifest",
       "//testing/gtest",
     ]
     if (!build_with_chromium && is_clang) {

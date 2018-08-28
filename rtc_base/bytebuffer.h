@@ -185,7 +185,7 @@ class ByteBufferReader : public ByteBuffer {
   // after this call.
   bool Consume(size_t size);
 
- private:
+ protected:
   void Construct(const char* bytes, size_t size);
 
   const char* bytes_;

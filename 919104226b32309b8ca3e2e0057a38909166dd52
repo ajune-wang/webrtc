@@ -119,6 +119,24 @@
     },
     {
       "key": {
+        "uuid": "bad2fa7b_6be81015",
+        "filename": "p2p/base/mdns_message.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-28T01:24:15Z",
+      "side": 1,
+      "message": "I see, makes sense as is.",
+      "parentUuid": "5286baa1_0096249a",
+      "revId": "919104226b32309b8ca3e2e0057a38909166dd52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e78d5ca8_9a9ca4f6",
         "filename": "p2p/base/mdns_message.cc",
         "patchSetId": 2
@@ -218,6 +236,24 @@
       "side": 1,
       "message": "I haven\u0027t made changes to this comment yet, just wondering if switch could generate faster code as jumps.",
       "parentUuid": "27ada67e_f5dc81ef",
+      "revId": "919104226b32309b8ca3e2e0057a38909166dd52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a9bf4e4_a93563c0",
+        "filename": "p2p/base/mdns_message.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-28T01:24:15Z",
+      "side": 1,
+      "message": "switch is probably faster",
+      "parentUuid": "d04f0cd9_4368af9c",
       "revId": "919104226b32309b8ca3e2e0057a38909166dd52",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -841,6 +877,24 @@
       "revId": "919104226b32309b8ca3e2e0057a38909166dd52",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9091c243_ba8ae29a",
+        "filename": "p2p/base/mdns_message_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-28T01:24:15Z",
+      "side": 1,
+      "message": "Yeah, binary diff is worth the reinterpret_cast.",
+      "parentUuid": "0ad13ad7_8789325c",
+      "revId": "919104226b32309b8ca3e2e0057a38909166dd52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

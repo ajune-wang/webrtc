@@ -1,0 +1,152 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "075925a7_192e2ee6",
+        "filename": "p2p/base/mdns_message.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-28T01:24:15Z",
+      "side": 1,
+      "message": "Talked offline about simplifying this algorithm. Summary:\n\nWhen resolving a pointer, check 1) the pointer points to an offset before the current label and 2) the pointer target does not itself end with a pointer",
+      "revId": "22aa1dd27c586b6a227ce82694f516d68d54b8db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a17d2d03_31bf1b21",
+        "filename": "p2p/base/mdns_message.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-28T01:24:15Z",
+      "side": 1,
+      "message": "Add a link to the fuzzer file",
+      "revId": "22aa1dd27c586b6a227ce82694f516d68d54b8db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e77f115e_6643763b",
+        "filename": "p2p/base/mdns_message.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-28T01:24:15Z",
+      "side": 1,
+      "message": "Hmm, what do you think about this:\n\nIntroduce a new class rtc::MessageBufferReader in rtc_base that subclasses rtc::ByteBufferReader and exposes these additional methods:\n\n- MessageData() -- returns pointer to the start of the buffer (including processed data)\n- MessageLength() -- returns length of the entire buffer (including processed data)\n- CurrentOffset() -- returns current offset (start_)\n- FromOffset() -- returns a new MessageBufferReader with start_ set to the given offset\n\nThen move ReadDomainName out of this class and as a standalone function that takes a MessageBufferReader.",
+      "revId": "22aa1dd27c586b6a227ce82694f516d68d54b8db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eebe9ec2_0f5c1251",
+        "filename": "p2p/base/mdns_message_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-28T01:24:15Z",
+      "side": 1,
+      "message": "nit: I think it would be more clear to inline these.",
+      "revId": "22aa1dd27c586b6a227ce82694f516d68d54b8db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "092e23bf_f1f861a6",
+        "filename": "p2p/base/mdns_message_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-28T01:24:15Z",
+      "side": 1,
+      "message": "ASSERT_EQ since line 292 relies on it.",
+      "range": {
+        "startLine": 286,
+        "startChar": 2,
+        "endLine": 286,
+        "endChar": 11
+      },
+      "revId": "22aa1dd27c586b6a227ce82694f516d68d54b8db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00890d19_ef836a7c",
+        "filename": "p2p/base/mdns_message_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-28T01:24:15Z",
+      "side": 1,
+      "message": "ASSERT_EQ",
+      "range": {
+        "startLine": 306,
+        "startChar": 2,
+        "endLine": 306,
+        "endChar": 11
+      },
+      "revId": "22aa1dd27c586b6a227ce82694f516d68d54b8db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "616b5f62_5dfe9337",
+        "filename": "p2p/base/mdns_message_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-28T01:24:15Z",
+      "side": 1,
+      "message": "Can use EXPECT_THAT(queried_names, UnorderedElementsAre(...))",
+      "revId": "22aa1dd27c586b6a227ce82694f516d68d54b8db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "253bc4a9_1e97ff4b",
+        "filename": "test/fuzzers/mdns_parser_fuzzer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-28T01:24:15Z",
+      "side": 1,
+      "message": "absl::make_unique",
+      "revId": "22aa1dd27c586b6a227ce82694f516d68d54b8db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

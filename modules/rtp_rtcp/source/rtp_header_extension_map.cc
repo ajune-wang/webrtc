@@ -55,7 +55,11 @@ static_assert(arraysize(kExtensions) ==
 constexpr RTPExtensionType RtpHeaderExtensionMap::kInvalidType;
 constexpr int RtpHeaderExtensionMap::kInvalidId;
 constexpr int RtpHeaderExtensionMap::kMinId;
-constexpr int RtpHeaderExtensionMap::kMaxId;
+constexpr int RtpHeaderExtensionMap::kOneByteHeaderMaxId;
+constexpr int RtpHeaderExtensionMap::kTwoByteHeaderMaxId;
+constexpr size_t RtpHeaderExtensionMap::kOneByteHeaderSize;
+constexpr size_t RtpHeaderExtensionMap::kTwoByteHeaderSize;
+constexpr int RtpHeaderExtensionMap::kOneByteHeaderExtensionMaxLength;
 
 RtpHeaderExtensionMap::RtpHeaderExtensionMap() {
   for (auto& type : types_)
@@ -88,20 +92,38 @@ bool RtpHeaderExtensionMap::RegisterByUri(int id, const std::string& uri) {
   return false;
 }
 
+bool RtpHeaderExtensionMap::TwoByteHeaderRequired(int id, size_t length) {
+  return id > kOneByteHeaderMaxId ||
+         length > kOneByteHeaderExtensionMaxLength || length == 0;
+}
+
 size_t RtpHeaderExtensionMap::GetTotalLengthInBytes(
     rtc::ArrayView<const RtpExtensionSize> extensions) const {
   // Header size of the extension block, see RFC3550 Section 5.3.1
-  static constexpr size_t kRtpOneByteHeaderLength = 4;
+  static constexpr size_t kRtpOneAndTwoByteHeaderLength = 4;
   // Header size of each individual extension, see RFC5285 Section 4.2
-  static constexpr size_t kExtensionHeaderLength = 1;
+  static constexpr size_t kOneByteHeaderSize = 1;
+  static constexpr size_t kTwoByteHeaderSize = 2;
   size_t values_size = 0;
+  size_t number_of_extensions = 0;
+  bool two_byte_header_required = false;
   for (const RtpExtensionSize& extension : extensions) {
-    if (IsRegistered(extension.type))
-      values_size += extension.value_size + kExtensionHeaderLength;
+    if (IsRegistered(extension.type)) {
+      values_size += extension.value_size;
+      ++number_of_extensions;
+      if (TwoByteHeaderRequired(GetId(extension.type), extension.value_size)) {
+        two_byte_header_required = true;
+      }
+    }
   }
-  if (values_size == 0)
+  if (number_of_extensions == 0)
     return 0;
-  size_t size = kRtpOneByteHeaderLength + values_size;
+
+  const size_t extension_header_length =
+      two_byte_header_required ? kTwoByteHeaderSize : kOneByteHeaderSize;
+
+  size_t size = kRtpOneAndTwoByteHeaderLength +
+                number_of_extensions * extension_header_length + values_size;
   // Round up to the nearest size that is a multiple of 4.
   // Which is same as round down (size + 3).
   return size + 3 - (size + 3) % 4;
@@ -122,7 +144,7 @@ bool RtpHeaderExtensionMap::Register(int id,
   RTC_DCHECK_GT(type, kRtpExtensionNone);
   RTC_DCHECK_LT(type, kRtpExtensionNumberOfExtensions);
 
-  if (id < kMinId || id > kMaxId) {
+  if (id < kMinId || id > kTwoByteHeaderMaxId) {
     RTC_LOG(LS_WARNING) << "Failed to register extension uri:'" << uri
                         << "' with invalid id:" << id << ".";
     return false;

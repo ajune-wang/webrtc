@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "501d3b53_75d5baef",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-08-28T16:31:53Z",
+      "side": 1,
+      "message": "Ideally, this method shouldn\u0027t even have num_temporal_layers as a parameter. Because it\u0027s derived from codec in a calling code.\n\nYou should inline here the code, which currently was in TemporalLayers::CreateTemporalLayers:\n\n  if (IsConferenceModeScreenshare(codec) \u0026\u0026 spatial_id \u003d\u003d 0) {\n    // Conference mode temporal layering for screen content in base stream.\n    return absl::make_unique\u003cScreenshareLayers\u003e(2, Clock::GetRealTimeClock());\n  }\n\n  return absl::make_unique\u003cDefaultTemporalLayers\u003e(\n      NumTemporalLayers(codec, spatial_id));\n\nAnd NumTemporalLayers is:\n\n  uint8_t num_temporal_layers \u003d\n      std::max\u003cuint8_t\u003e(1, codec.VP8().numberOfTemporalLayers);\n  if (codec.numberOfSimulcastStreams \u003e 0) {\n    RTC_DCHECK_LT(spatial_id, codec.numberOfSimulcastStreams);\n    num_temporal_layers \u003d\n        std::max(num_temporal_layers,\n                 codec.simulcastStream[spatial_id].numberOfTemporalLayers);\n  }\n  return num_temporal_layers;",
+      "parentUuid": "3afdc238_b65082da",
+      "range": {
+        "startLine": 316,
+        "startChar": 50,
+        "endLine": 316,
+        "endChar": 66
+      },
+      "revId": "110690cfee2a1a3f5fcdab886dd993be276da643",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "882c205f_3df14b2d",
         "filename": "test/fake_vp8_encoder.cc",
         "patchSetId": 4

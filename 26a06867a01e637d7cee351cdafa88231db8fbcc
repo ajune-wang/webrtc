@@ -22,6 +22,30 @@
       "revId": "26a06867a01e637d7cee351cdafa88231db8fbcc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b6d0cdb_8b9a93d0",
+        "filename": "rtc_base/strings/string_builder_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-28T09:46:51Z",
+      "side": 1,
+      "message": "Copy elision is *not* guaranteed in C++11. But I\u0027m guessing what might be tripping you up is an optimization where short strings are stored in the std::string object instead of on the heap. To reliably avoid that, use an example string whose length is \u003e sizeof(std::string).\n\nhttps://shaharmike.com/cpp/std-string/ is a good read if you have 20 minutes to spare.",
+      "parentUuid": "c71e3e4d_91b3e8b5",
+      "range": {
+        "startLine": 186,
+        "startChar": 12,
+        "endLine": 186,
+        "endChar": 42
+      },
+      "revId": "26a06867a01e637d7cee351cdafa88231db8fbcc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

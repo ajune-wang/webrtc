@@ -46,6 +46,30 @@
       "revId": "e5dcb9195921cc61f48d92934eac80e4d6e1aace",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3fd1110b_082ff763",
+        "filename": "rtc_base/strings/string_builder.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-28T09:46:51Z",
+      "side": 1,
+      "message": "Calling std::move on a const\u0026 will IIRC turn it into a const\u0026\u0026, which can\u0027t be moved from since it\u0027s const, so you\u0027ll end up paying for a copy.\n\nIt\u0027s unfortunate that there are cases like this where std::move will silently fail to prevent copying.",
+      "parentUuid": "fe16468d_801c2876",
+      "range": {
+        "startLine": 96,
+        "startChar": 16,
+        "endLine": 96,
+        "endChar": 21
+      },
+      "revId": "e5dcb9195921cc61f48d92934eac80e4d6e1aace",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

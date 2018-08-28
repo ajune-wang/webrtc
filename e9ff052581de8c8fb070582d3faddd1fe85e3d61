@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "dc82e6d5_de7437c1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-08-28T18:45:59Z",
+      "side": 1,
+      "message": "Adding the CustomAnalyzer interface in APM.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 31
+      },
+      "revId": "e9ff052581de8c8fb070582d3faddd1fe85e3d61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d43081cf_80c503f1",
         "filename": "modules/audio_processing/audio_processing_impl.cc",
         "patchSetId": 4

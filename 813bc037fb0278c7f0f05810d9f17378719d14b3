@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "45667acf_9af7ccd2",
+        "filename": "video/rtp_video_stream_receiver.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-28T12:07:22Z",
+      "side": 1,
+      "message": "Ok to reuse the same lock?",
+      "range": {
+        "startLine": 181,
+        "startChar": 0,
+        "endLine": 184,
+        "endChar": 39
+      },
+      "revId": "813bc037fb0278c7f0f05810d9f17378719d14b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

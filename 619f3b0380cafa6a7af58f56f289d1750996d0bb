@@ -22,6 +22,30 @@
       "revId": "619f3b0380cafa6a7af58f56f289d1750996d0bb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28b73a13_d38c897c",
+        "filename": "modules/audio_processing/aec3/subtractor_output_analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2018-08-28T06:59:05Z",
+      "side": 1,
+      "message": ":)",
+      "parentUuid": "5d79ebb8_c281ae42",
+      "range": {
+        "startLine": 39,
+        "startChar": 22,
+        "endLine": 39,
+        "endChar": 23
+      },
+      "revId": "619f3b0380cafa6a7af58f56f289d1750996d0bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

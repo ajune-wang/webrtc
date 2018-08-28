@@ -22,6 +22,30 @@
       "revId": "d24896fc72619f7894740d2b5b2599e835536d4a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1afd21b_0a2fb5f1",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-28T13:57:15Z",
+      "side": 1,
+      "message": "It makes the code more similar to the corresponding audio code. See https://webrtc-review.googlesource.com/93820\n\nBut maybe a mistaken change (I was under the imperssion that I\u0027d need more local variables to do it the other way, but I see no reason for that now). Do you want me to restore the order?",
+      "parentUuid": "e346c23b_63713abe",
+      "range": {
+        "startLine": 187,
+        "startChar": 78,
+        "endLine": 187,
+        "endChar": 0
+      },
+      "revId": "d24896fc72619f7894740d2b5b2599e835536d4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

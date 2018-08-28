@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "45e1f76b_8da4e114",
+        "filename": "rtc_base/message_buffer_reader.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-08-28T20:27:48Z",
+      "side": 1,
+      "message": "ctor and destructor could be inlined in the header, but I remember there was once a style campaign that encourages header+cc. Not sure if I recall correctly.",
+      "range": {
+        "startLine": 15,
+        "startChar": 21,
+        "endLine": 15,
+        "endChar": 40
+      },
+      "revId": "4fb15545298338adfe238df61e7df02c12f3e29a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "f8a5b4e3_54ee6a38",
+        "filename": "p2p/base/mdns_message.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-08-28T20:27:48Z",
+      "side": 1,
+      "message": "Done. 1) and 2) can be combined and simplified to pointing to an offset before the current domain name field, i.e. comparing the position to jump to with the start position of the domain name to read, which is the offset at the beginning of this method (ReadDomainName is supposed to be called to parse a complete domain name field).",
+      "parentUuid": "075925a7_192e2ee6",
+      "revId": "22aa1dd27c586b6a227ce82694f516d68d54b8db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a17d2d03_31bf1b21",
         "filename": "p2p/base/mdns_message.h",
         "patchSetId": 4
@@ -33,6 +51,24 @@
       "revId": "22aa1dd27c586b6a227ce82694f516d68d54b8db",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "538d2f69_b7261cda",
+        "filename": "p2p/base/mdns_message.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-08-28T20:27:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a17d2d03_31bf1b21",
+      "revId": "22aa1dd27c586b6a227ce82694f516d68d54b8db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "0f8d83b8_be119b1c",
+        "filename": "p2p/base/mdns_message.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-08-28T20:27:48Z",
+      "side": 1,
+      "message": "Sure, the new subclass can be a generic utility not restricted to mDNS. There is a minor caveat in the interface, and I don\u0027t have FromOffset in the new patch since ByteBufferReader explicitly deletes copy ctor and assignment; ctor + Consume can do the same thing as in the patch.",
+      "parentUuid": "e77f115e_6643763b",
+      "revId": "22aa1dd27c586b6a227ce82694f516d68d54b8db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eebe9ec2_0f5c1251",
         "filename": "p2p/base/mdns_message_unittest.cc",
         "patchSetId": 4
@@ -67,6 +121,24 @@
       "revId": "22aa1dd27c586b6a227ce82694f516d68d54b8db",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b88500a_ecb41256",
+        "filename": "p2p/base/mdns_message_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-08-28T20:27:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eebe9ec2_0f5c1251",
+      "revId": "22aa1dd27c586b6a227ce82694f516d68d54b8db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -93,6 +165,30 @@
     },
     {
       "key": {
+        "uuid": "4e2a7430_6221e5b8",
+        "filename": "p2p/base/mdns_message_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-08-28T20:27:48Z",
+      "side": 1,
+      "message": "Ack. Fixed.",
+      "parentUuid": "092e23bf_f1f861a6",
+      "range": {
+        "startLine": 286,
+        "startChar": 2,
+        "endLine": 286,
+        "endChar": 11
+      },
+      "revId": "22aa1dd27c586b6a227ce82694f516d68d54b8db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "00890d19_ef836a7c",
         "filename": "p2p/base/mdns_message_unittest.cc",
         "patchSetId": 4
@@ -116,6 +212,30 @@
     },
     {
       "key": {
+        "uuid": "00b639c2_61e11dee",
+        "filename": "p2p/base/mdns_message_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-08-28T20:27:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "00890d19_ef836a7c",
+      "range": {
+        "startLine": 306,
+        "startChar": 2,
+        "endLine": 306,
+        "endChar": 11
+      },
+      "revId": "22aa1dd27c586b6a227ce82694f516d68d54b8db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "616b5f62_5dfe9337",
         "filename": "p2p/base/mdns_message_unittest.cc",
         "patchSetId": 4
@@ -133,6 +253,24 @@
     },
     {
       "key": {
+        "uuid": "48e7cdbc_9c3b4e8d",
+        "filename": "p2p/base/mdns_message_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-08-28T20:27:48Z",
+      "side": 1,
+      "message": "Done. Thanks for the pointer.",
+      "parentUuid": "616b5f62_5dfe9337",
+      "revId": "22aa1dd27c586b6a227ce82694f516d68d54b8db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "253bc4a9_1e97ff4b",
         "filename": "test/fuzzers/mdns_parser_fuzzer.cc",
         "patchSetId": 4
@@ -147,6 +285,24 @@
       "revId": "22aa1dd27c586b6a227ce82694f516d68d54b8db",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9954c4d4_73ab0ac3",
+        "filename": "test/fuzzers/mdns_parser_fuzzer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-08-28T20:27:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "253bc4a9_1e97ff4b",
+      "revId": "22aa1dd27c586b6a227ce82694f516d68d54b8db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

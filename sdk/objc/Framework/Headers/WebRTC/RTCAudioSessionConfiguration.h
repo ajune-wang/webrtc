@@ -15,10 +15,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+RTC_EXPORT
 extern const int kRTCAudioSessionPreferredNumberOfChannels;
+RTC_EXPORT
 extern const double kRTCAudioSessionHighPerformanceSampleRate;
+RTC_EXPORT
 extern const double kRTCAudioSessionLowComplexitySampleRate;
+RTC_EXPORT
 extern const double kRTCAudioSessionHighPerformanceIOBufferDuration;
+RTC_EXPORT
 extern const double kRTCAudioSessionLowComplexityIOBufferDuration;
 
 // Struct to hold configuration values.

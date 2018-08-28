@@ -123,6 +123,23 @@
     },
     {
       "key": {
+        "uuid": "eceaa6a5_d0650fe6",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-08-28T06:53:35Z",
+      "side": 1,
+      "message": "FrameType mixes audio and video frames. Is there really a need for that if we have separate audio video frame types? Can we break it apart into two new enums instead which only contain the audio/video specifics?\n\nOh, and do we really need to know the frame type for the transport at all? We have the payload type below already. The transport should know as little as possible about the payload contents.\n\nIf there\u0027s a doc describing how this class is supposed to be used, please point me at it.",
+      "revId": "5032e7564f690fba87ee1f97065c6d44628d5628",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1d47cdbc_84be76cc",
         "filename": "api/media_transport_interface.h",
         "patchSetId": 8
@@ -174,6 +191,57 @@
     },
     {
       "key": {
+        "uuid": "4ae6a133_ef7caeab",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-08-28T06:53:35Z",
+      "side": 1,
+      "message": "*Very* nice that you don\u0027t allow modifying the frame!",
+      "revId": "5032e7564f690fba87ee1f97065c6d44628d5628",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84da073a_30981666",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-08-28T06:53:35Z",
+      "side": 1,
+      "message": "+1 - payload type (as an 8-bit number) is an RTP concept.",
+      "revId": "5032e7564f690fba87ee1f97065c6d44628d5628",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9201297_1fc11c70",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-08-28T06:53:35Z",
+      "side": 1,
+      "message": "Why not vector\u003cuint_8\u003e ?",
+      "revId": "5032e7564f690fba87ee1f97065c6d44628d5628",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ff61a03b_19849c64",
         "filename": "api/media_transport_interface.h",
         "patchSetId": 8
@@ -185,6 +253,23 @@
       "writtenOn": "2018-08-27T01:50:41Z",
       "side": 1,
       "message": "By making the members `const`, you ensure that MediaTransportEncodedAudioFrame instances aren\u0027t movable, which they otherwise could be (and would benefit from, since they store some of their state on the heap). Is this a good choice?",
+      "revId": "5032e7564f690fba87ee1f97065c6d44628d5628",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "780bf007_3a00025b",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-08-28T06:53:35Z",
+      "side": 1,
+      "message": "An idea: since this interface is just one method, could we replace it with passing a lambda to the transport instead?",
       "revId": "5032e7564f690fba87ee1f97065c6d44628d5628",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -225,6 +310,23 @@
       "writtenOn": "2018-08-27T01:50:41Z",
       "side": 1,
       "message": "Why is the destructor not public?",
+      "revId": "5032e7564f690fba87ee1f97065c6d44628d5628",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ef6368f_7551a9e3",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-08-28T06:53:35Z",
+      "side": 1,
+      "message": "Do we really want to mix sending/receiving in one class? We\u0027ve been working to get rid of such constructs in both the old VideoEngine and VoiceEngine.",
       "revId": "5032e7564f690fba87ee1f97065c6d44628d5628",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

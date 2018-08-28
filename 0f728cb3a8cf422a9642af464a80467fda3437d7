@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "2cb493c8_1db2e8d3",
+        "filename": "p2p/base/mdns_message.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-28T23:24:54Z",
+      "side": 1,
+      "message": "nit: RTC_DCHECK_EQ",
+      "range": {
+        "startLine": 317,
+        "startChar": 2,
+        "endLine": 317,
+        "endChar": 12
+      },
+      "revId": "0f728cb3a8cf422a9642af464a80467fda3437d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a2b398b2_bf5163d3",
         "filename": "rtc_base/bytebuffer.h",
         "patchSetId": 6
@@ -13,6 +36,30 @@
       "writtenOn": "2018-08-28T23:19:03Z",
       "side": 1,
       "message": "Wondering I may need this in the private section. If it stays as is, I think I should be able to provide FromOffset.\n\nNot sure which one is preferred.",
+      "range": {
+        "startLine": 196,
+        "startChar": 2,
+        "endLine": 196,
+        "endChar": 30
+      },
+      "revId": "0f728cb3a8cf422a9642af464a80467fda3437d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb7cf1f0_766aab2d",
+        "filename": "rtc_base/bytebuffer.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-28T23:24:54Z",
+      "side": 1,
+      "message": "I think it should be private. Though I don\u0027t really see why it\u0027s not copy/movable already...",
+      "parentUuid": "a2b398b2_bf5163d3",
       "range": {
         "startLine": 196,
         "startChar": 2,

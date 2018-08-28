@@ -2,6 +2,256 @@
   "comments": [
     {
       "key": {
+        "uuid": "95607ece_1677c650",
+        "filename": "api/audio_codecs/audio_decoder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-28T09:06:07Z",
+      "side": 1,
+      "message": "Document that the default implementation will soon go away, and link to bug?",
+      "revId": "71128c1b58b517a085b946f230552015d1c52e15",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51e0910a_5f3a7250",
+        "filename": "modules/audio_coding/neteq/audio_multi_vector.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-28T09:06:07Z",
+      "side": 1,
+      "message": "Arguably, this old overload is made obsolete by the new overload.",
+      "revId": "71128c1b58b517a085b946f230552015d1c52e15",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c537196b_bc5d6730",
+        "filename": "modules/audio_coding/neteq/audio_multi_vector.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-28T09:06:07Z",
+      "side": 1,
+      "message": "`rtc::ArrayView\u003cconst int16_t\u003e` would be better, right?",
+      "range": {
+        "startLine": 56,
+        "startChar": 27,
+        "endLine": 56,
+        "endChar": 55
+      },
+      "revId": "71128c1b58b517a085b946f230552015d1c52e15",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c39cd759_37c61706",
+        "filename": "modules/audio_coding/neteq/neteq_decoder_plc_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-28T09:06:07Z",
+      "side": 1,
+      "message": "checked_cast, since this is a test?",
+      "range": {
+        "startLine": 65,
+        "startChar": 26,
+        "endLine": 65,
+        "endChar": 37
+      },
+      "revId": "71128c1b58b517a085b946f230552015d1c52e15",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "726e33b3_7dedb34c",
+        "filename": "modules/audio_coding/neteq/neteq_decoder_plc_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-28T09:06:07Z",
+      "side": 1,
+      "message": "Can these two be const?",
+      "revId": "71128c1b58b517a085b946f230552015d1c52e15",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c451fa6_243878e2",
+        "filename": "modules/audio_coding/neteq/neteq_decoder_plc_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-28T09:06:07Z",
+      "side": 1,
+      "message": "Can loss_cadence_ and input_ be const?",
+      "revId": "71128c1b58b517a085b946f230552015d1c52e15",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f4e38be_dcc25e8c",
+        "filename": "modules/audio_coding/neteq/neteq_decoder_plc_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-28T09:06:07Z",
+      "side": 1,
+      "message": "No use of `override` in this class?",
+      "revId": "71128c1b58b517a085b946f230552015d1c52e15",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "588a719d_bffa9b03",
+        "filename": "modules/audio_coding/neteq/neteq_decoder_plc_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-28T09:06:07Z",
+      "side": 1,
+      "message": "Consider avoiding raw `new` and not repeating the class name:\n\n  auto generator \u003d absl::make_unique\u003cZeroSampleGenerator\u003e();",
+      "revId": "71128c1b58b517a085b946f230552015d1c52e15",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4b55f45_8bc838e3",
+        "filename": "modules/audio_coding/neteq/neteq_decoder_plc_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-28T09:06:07Z",
+      "side": 1,
+      "message": "make_unique again.",
+      "revId": "71128c1b58b517a085b946f230552015d1c52e15",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "902c666a_f4689291",
+        "filename": "modules/audio_coding/neteq/neteq_decoder_plc_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-28T09:06:07Z",
+      "side": 1,
+      "message": "And again!",
+      "revId": "71128c1b58b517a085b946f230552015d1c52e15",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ce2dafc_ea56a2b9",
+        "filename": "modules/audio_coding/neteq/neteq_decoder_plc_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-28T09:06:07Z",
+      "side": 1,
+      "message": "And again!",
+      "revId": "71128c1b58b517a085b946f230552015d1c52e15",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb97f4ab_a950a9fd",
+        "filename": "modules/audio_coding/neteq/neteq_decoder_plc_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-28T09:06:07Z",
+      "side": 1,
+      "message": "And again!",
+      "revId": "71128c1b58b517a085b946f230552015d1c52e15",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18d5579b_952ca394",
+        "filename": "modules/audio_coding/neteq/neteq_decoder_plc_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-28T09:06:07Z",
+      "side": 1,
+      "message": "And again!",
+      "revId": "71128c1b58b517a085b946f230552015d1c52e15",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "621dc352_7cb9599b",
+        "filename": "modules/audio_coding/neteq/neteq_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1554,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-28T09:06:07Z",
+      "side": 1,
+      "message": "By having this on the stack, you create a fresh heap buffer each time and free it at the end (when you return from this function). Would it be a good idea to turn this into a member variable? That way, the heap allocation would rapidly become large enough, and we would enter a steady state of no further heap allocations.",
+      "revId": "71128c1b58b517a085b946f230552015d1c52e15",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1c719a5d_a4ba682a",
         "filename": "modules/audio_coding/neteq/tools/encode_neteq_input.cc",
         "patchSetId": 1

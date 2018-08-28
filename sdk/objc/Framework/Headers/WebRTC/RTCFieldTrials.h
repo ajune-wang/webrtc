@@ -40,7 +40,6 @@ RTC_EXTERN NSString *RTCFieldTrialTrendlineFilterValue(
 
 /** Initialize field trials using a dictionary mapping field trial keys to their values. See above
  *  for valid keys and values.
- *  Must be called before any other call into WebRTC. See:
- *  webrtc/system_wrappers/include/field_trial_default.h
+ *  Must be called before any other call into WebRTC. See system_wrappers/include/field_trial.h
  */
 RTC_EXTERN void RTCInitFieldTrialDictionary(NSDictionary<NSString *, NSString *> *fieldTrials);

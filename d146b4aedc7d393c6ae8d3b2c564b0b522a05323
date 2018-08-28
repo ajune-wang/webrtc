@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7400ed1e_be9a3e76",
+        "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-08-28T07:17:36Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "668b2783_dd5d2efc",
+      "range": {
+        "startLine": 338,
+        "startChar": 8,
+        "endLine": 338,
+        "endChar": 20
+      },
+      "revId": "d146b4aedc7d393c6ae8d3b2c564b0b522a05323",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e998034e_5f67eba8",
         "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
         "patchSetId": 9
@@ -36,6 +60,30 @@
       "writtenOn": "2018-08-27T14:28:34Z",
       "side": 1,
       "message": "Please put the nested if-statements in one single if-statement using \u0026\u0026",
+      "range": {
+        "startLine": 349,
+        "startChar": 8,
+        "endLine": 349,
+        "endChar": 29
+      },
+      "revId": "d146b4aedc7d393c6ae8d3b2c564b0b522a05323",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ace8c94_472b045d",
+        "filename": "modules/audio_processing/aec3/reverb_decay_estimator.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-08-28T07:17:36Z",
+      "side": 1,
+      "message": "I am not sure if the code would be cleaner as the lines 358 and 359 are always executed even when the condition of the line 350 is false.",
+      "parentUuid": "e998034e_5f67eba8",
       "range": {
         "startLine": 349,
         "startChar": 8,

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d872a3e9_23854815",
+        "filename": "video/video_quality_test.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2018-08-28T08:21:13Z",
+      "side": 1,
+      "message": "It must be a member since it keeps COM initialized for the complete test.",
+      "parentUuid": "f0cd36b8_0dfd6287",
+      "range": {
+        "startLine": 86,
+        "startChar": 40,
+        "endLine": 86,
+        "endChar": 57
+      },
+      "revId": "5bd570935a54f3111ae72503e4f66cc32271a805",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "323ce741_eae97d30",
         "filename": "video/video_quality_test.h",
         "patchSetId": 10
@@ -36,6 +60,30 @@
       "writtenOn": "2018-08-28T07:24:46Z",
       "side": 1,
       "message": "I don\u0027t see why this needs to be a member variable, isn\u0027t it used only CreateAudioDevice()?",
+      "range": {
+        "startLine": 122,
+        "startChar": 52,
+        "endLine": 122,
+        "endChar": 68
+      },
+      "revId": "5bd570935a54f3111ae72503e4f66cc32271a805",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f167d3e5_8bec4ada",
+        "filename": "video/video_quality_test.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2018-08-28T08:21:13Z",
+      "side": 1,
+      "message": "If it was not a member, and only used locally, then COM would be closed when CreateAudioDevice goes out of scope and then all upcoming calls from the ADM would fail.\n\nNote that:\n\nScopedCOMInitializer::~ScopedCOMInitializer() {\n  DCHECK_CALLED_ON_VALID_THREAD(thread_checker_);\n  if (Succeeded())\n    CoUninitialize();\n}\n\nHence, COM is \"killed\" by the ScopedCOMInitializer destructor. That\u0027s why it must be a member.",
+      "parentUuid": "323ce741_eae97d30",
       "range": {
         "startLine": 122,
         "startChar": 52,

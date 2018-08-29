@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8581279f_889d626b",
+        "filename": "modules/rtp_rtcp/source/rtp_format_h264.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-08-29T07:58:46Z",
+      "side": 1,
+      "message": "Nit: do you plan to replace this with PayloadSizeLimits in another refactoring CL?\nIf this is the last refactoring CL, you might want to do it in this one and not the next one, implementing new logic.",
+      "range": {
+        "startLine": 29,
+        "startChar": 20,
+        "endLine": 30,
+        "endChar": 53
+      },
+      "revId": "7dd61c02a4aeca8072ecf55f15ba3dc397c51525",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

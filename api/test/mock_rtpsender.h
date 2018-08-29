@@ -30,6 +30,11 @@ class MockRtpSender : public rtc::RefCountedObject<RtpSenderInterface> {
   MOCK_METHOD0(GetParameters, RtpParameters());
   MOCK_METHOD1(SetParameters, RTCError(const RtpParameters&));
   MOCK_CONST_METHOD0(GetDtmfSender, rtc::scoped_refptr<DtmfSenderInterface>());
+  MOCK_METHOD1(void,
+               SetFrameEncryptor,
+               rtc::scoped_refptr<FrameEncryptorInterface>);
+  MOCK_CONST_METHOD0(rtc::scoped_refptr<FrameEncryptorInterface>,
+                     GetFrameEncryptor);
 };
 
 }  // namespace webrtc

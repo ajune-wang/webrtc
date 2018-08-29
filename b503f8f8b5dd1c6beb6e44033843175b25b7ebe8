@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d02cbcee_c8d4ac38",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1016,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-08-29T14:50:49Z",
+      "side": 1,
+      "message": "Even for a DCHECK this looks pretty expensive.",
+      "revId": "b503f8f8b5dd1c6beb6e44033843175b25b7ebe8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "422a9ceb_f8f658eb",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1067,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-08-29T14:50:49Z",
+      "side": 1,
+      "message": "is |max_delay_it_| guaranteed not to be equal to end() here?",
+      "revId": "b503f8f8b5dd1c6beb6e44033843175b25b7ebe8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

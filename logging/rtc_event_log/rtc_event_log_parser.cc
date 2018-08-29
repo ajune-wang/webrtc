@@ -236,6 +236,11 @@ void GetHeaderExtensions(std::vector<RtpExtension>* header_extensions,
 
 }  // namespace
 
+ParsedRtcEventLog::ParsedRtcEventLog() = default;
+ParsedRtcEventLog::~ParsedRtcEventLog() = default;
+
+ParsedRtcEventLog::BweProbeResultEvent::BweProbeResultEvent() = default;
+
 bool ParsedRtcEventLog::ParseFile(const std::string& filename) {
   std::ifstream file(filename, std::ios_base::in | std::ios_base::binary);
   if (!file.good() || !file.is_open()) {

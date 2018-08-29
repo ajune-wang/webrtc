@@ -22,6 +22,30 @@
       "revId": "7dd61c02a4aeca8072ecf55f15ba3dc397c51525",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ec5554d_3c080f31",
+        "filename": "modules/rtp_rtcp/source/rtp_format_h264.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-29T08:14:17Z",
+      "side": 1,
+      "message": "yes, I plan more refactoring CLs, in particular would like to merge constructor and SetPayloadData in each individual packetizer.\n(trying to put all in the same CL looked too crowded: https://webrtc-review.googlesource.com/c/src/+/96600 )",
+      "parentUuid": "8581279f_889d626b",
+      "range": {
+        "startLine": 29,
+        "startChar": 20,
+        "endLine": 30,
+        "endChar": 53
+      },
+      "revId": "7dd61c02a4aeca8072ecf55f15ba3dc397c51525",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

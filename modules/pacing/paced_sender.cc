@@ -179,6 +179,7 @@ void PacedSender::SetPacingRates(uint32_t pacing_rate_bps,
   rtc::CritScope cs(&critsect_);
   RTC_DCHECK(pacing_rate_bps > 0);
   pacing_bitrate_kbps_ = pacing_rate_bps / 1000;
+  RTC_DCHECK(pacing_bitrate_kbps_ > 0);
   padding_budget_->set_target_rate_kbps(padding_rate_bps / 1000);
 }
 

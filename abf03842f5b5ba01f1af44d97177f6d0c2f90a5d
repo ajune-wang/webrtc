@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3dbf85d3_5c465f2b",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-08-29T09:24:08Z",
+      "side": 1,
+      "message": "Am I missing something?\n\nIn file included from ../../logging/rtc_event_log/rtc_event_log_parser.cc:11:\n../../logging/rtc_event_log/rtc_event_log_parser.h:60:10: error: [chromium-style] Complex constructor has an inlined body.\n  struct BweProbeResultEvent {",
+      "range": {
+        "startLine": 60,
+        "startChar": 2,
+        "endLine": 61,
+        "endChar": 26
+      },
+      "revId": "abf03842f5b5ba01f1af44d97177f6d0c2f90a5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "128f475f_2fd18c5d",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 527,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-08-29T09:24:08Z",
+      "side": 1,
+      "message": "Same here:\n\nIn file included from ../../logging/rtc_event_log/rtc_event_log_parser_new.cc:11:\n../../logging/rtc_event_log/rtc_event_log_parser_new.h:521:10: error: [chromium-style] Complex constructor has an inlined body.\n  struct LoggedRtpStreamView {",
+      "range": {
+        "startLine": 521,
+        "startChar": 0,
+        "endLine": 527,
+        "endChar": 45
+      },
+      "revId": "abf03842f5b5ba01f1af44d97177f6d0c2f90a5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "6cdf9af3_a0c7802d",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-08-29T07:09:45Z",
+      "side": 1,
+      "message": "This should not be included here. The purpose of this method is to report whether there are any submodules active that modify the capture stream, in which case a new output need to be formed.\n\nSince this module only analyses the audio, it should not be included here.",
+      "parentUuid": "d43081cf_80c503f1",
+      "range": {
+        "startLine": 242,
+        "startChar": 31,
+        "endLine": 242,
+        "endChar": 60
+      },
+      "revId": "e9ff052581de8c8fb070582d3faddd1fe85e3d61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a8cfb62c_cd8e0e35",
         "filename": "modules/audio_processing/audio_processing_impl.cc",
         "patchSetId": 4
@@ -133,6 +157,52 @@
         "startChar": 3,
         "endLine": 1026,
         "endChar": 45
+      },
+      "revId": "e9ff052581de8c8fb070582d3faddd1fe85e3d61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26b3b1a1_2ef372ad",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 1027,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-08-29T07:09:45Z",
+      "side": 1,
+      "message": "I think the name of this interface is a bit too vague. I guess the intention is that it could be used both for the render and capture signals, which makes sense.\n\nHowever, I think the naming of the interface should be made more specific so that a reader of the code can understand the purpose of the interface.\n\nWhat about\nCustomStreamAnalyzer\nOr CustomAudioAnalyzer?",
+      "range": {
+        "startLine": 1027,
+        "startChar": 6,
+        "endLine": 1027,
+        "endChar": 20
+      },
+      "revId": "e9ff052581de8c8fb070582d3faddd1fe85e3d61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5c61a0f_82a61219",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 1037,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-08-29T07:09:45Z",
+      "side": 1,
+      "message": "The intended use of this is method is not clear to me. What kind of runtime information is needs to be passed to an analysis module? I would rather have expected that the information should be passed from the analysis module than to it. \n\nIf there is no clear usecase I think that this method should be removed from the interface.",
+      "range": {
+        "startLine": 1037,
+        "startChar": 15,
+        "endLine": 1037,
+        "endChar": 32
       },
       "revId": "e9ff052581de8c8fb070582d3faddd1fe85e3d61",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

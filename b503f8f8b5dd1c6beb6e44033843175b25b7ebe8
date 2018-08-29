@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "06dad250_9ed485a3",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1016,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-08-29T15:27:55Z",
+      "side": 1,
+      "message": "Yes, it is on the same order of magnitude as the old code. We don\u0027t intend to keep this DCHECK around once we have tested the code.",
+      "parentUuid": "d02cbcee_c8d4ac38",
+      "revId": "b503f8f8b5dd1c6beb6e44033843175b25b7ebe8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "422a9ceb_f8f658eb",
         "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
         "patchSetId": 4
@@ -33,6 +51,24 @@
       "revId": "b503f8f8b5dd1c6beb6e44033843175b25b7ebe8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f8b14b5_9d75741a",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1067,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-08-29T15:27:55Z",
+      "side": 1,
+      "message": "We\u0027ve just inserted an element, so a maximum should exist at this point.\nAdded a DCHECK.",
+      "parentUuid": "422a9ceb_f8f658eb",
+      "revId": "b503f8f8b5dd1c6beb6e44033843175b25b7ebe8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

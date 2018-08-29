@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "affd3363_61d5a9a4",
+        "filename": "api/units/data_size.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-08-29T12:02:00Z",
+      "side": 1,
+      "message": "nit: Maybe arithmetic should be saturated or checked to prevent overflow? Not specific to this addition though, so maybe a TODO somewhere at the beginning of the file.",
+      "range": {
+        "startLine": 96,
+        "startChar": 57,
+        "endLine": 96,
+        "endChar": 78
+      },
+      "revId": "e9e260dd98efb83fc2de2bee3eeecdaf26dd3897",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0cbd13c4_2b2ff963",
+        "filename": "rtc_base/experiments/field_trial_parser.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-08-29T12:02:00Z",
+      "side": 1,
+      "message": "nit: never",
+      "range": {
+        "startLine": 34,
+        "startChar": 26,
+        "endLine": 34,
+        "endChar": 31
+      },
+      "revId": "e9e260dd98efb83fc2de2bee3eeecdaf26dd3897",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "421b57e3_50722df4",
+        "filename": "rtc_base/experiments/field_trial_parser.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-08-29T12:02:00Z",
+      "side": 1,
+      "message": "Do we really want implicit casts, or is it better to have a GetOptional() method?",
+      "range": {
+        "startLine": 142,
+        "startChar": 11,
+        "endLine": 142,
+        "endChar": 28
+      },
+      "revId": "e9e260dd98efb83fc2de2bee3eeecdaf26dd3897",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a727038_c43b2541",
+        "filename": "test/scenario/hardware_codecs.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-08-29T12:02:00Z",
+      "side": 1,
+      "message": "nit: Create",
+      "range": {
+        "startLine": 28,
+        "startChar": 9,
+        "endLine": 28,
+        "endChar": 32
+      },
+      "revId": "e9e260dd98efb83fc2de2bee3eeecdaf26dd3897",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a09891fd_8789b461",
+        "filename": "test/scenario/hardware_codecs.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-08-29T12:02:00Z",
+      "side": 1,
+      "message": "nit \".\"\nSame below",
+      "range": {
+        "startLine": 30,
+        "startChar": 64,
+        "endLine": 30,
+        "endChar": 72
+      },
+      "revId": "e9e260dd98efb83fc2de2bee3eeecdaf26dd3897",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

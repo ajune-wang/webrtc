@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a44d4b6c_de7bfc14",
+        "filename": "api/rtpreceiverinterface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-29T23:14:10Z",
+      "side": 1,
+      "message": "What does this mean?",
+      "range": {
+        "startLine": 135,
+        "startChar": 15,
+        "endLine": 135,
+        "endChar": 33
+      },
+      "revId": "a80b502e22d94ad04d1ea6bbe2742d94b0b41e9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a00953a5_377dba0f",
+        "filename": "pc/rtpreceiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-29T23:14:10Z",
+      "side": 1,
+      "message": "move?",
+      "range": {
+        "startLine": 143,
+        "startChar": 21,
+        "endLine": 143,
+        "endChar": 36
+      },
+      "revId": "a80b502e22d94ad04d1ea6bbe2742d94b0b41e9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90a1ab85_2682430c",
+        "filename": "pc/rtpreceiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-29T23:14:10Z",
+      "side": 1,
+      "message": "move?",
+      "range": {
+        "startLine": 323,
+        "startChar": 21,
+        "endLine": 323,
+        "endChar": 36
+      },
+      "revId": "a80b502e22d94ad04d1ea6bbe2742d94b0b41e9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

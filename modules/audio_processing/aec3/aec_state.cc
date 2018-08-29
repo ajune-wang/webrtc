@@ -73,6 +73,11 @@ bool UseEarlyLimiterDeactivation() {
       "WebRTC-Aec3EarlyLimiterDeactivationKillSwitch");
 }
 
+bool ResetErleAfterEchoPathChanges() {
+  return !field_trial::IsEnabled(
+      "WebRTC-Aec3ResetErleAfterEchoPathChangesKillSwitch");
+}
+
 float UncertaintyBeforeConvergence() {
   if (LowUncertaintyBeforeConvergence()) {
     return 1.f;
@@ -147,6 +152,9 @@ void AecState::HandleEchoPathChange(
     suppression_gain_limiter_.Reset();
     blocks_since_converged_filter_ = kBlocksSinceConvergencedFilterInit;
     diverged_blocks_ = 0;
+    if (ResetErleAfterEchoPathChanges()) {
+      erle_estimator_.Reset();
+    }
   };
 
   // TODO(peah): Refine the reset scheme according to the type of gain and

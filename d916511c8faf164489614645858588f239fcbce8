@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8efb6a54_3d33580d",
+        "filename": "test/BUILD.gn",
+        "patchSetId": 20
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-08-29T13:50:04Z",
+      "side": 1,
+      "message": "Should we remove this?",
+      "range": {
+        "startLine": 196,
+        "startChar": 2,
+        "endLine": 198,
+        "endChar": 3
+      },
+      "revId": "d916511c8faf164489614645858588f239fcbce8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0411614a_772946da",
+        "filename": "test/BUILD.gn",
+        "patchSetId": 20
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-08-29T13:50:04Z",
+      "side": 1,
+      "message": "Same as above.",
+      "range": {
+        "startLine": 267,
+        "startChar": 4,
+        "endLine": 269,
+        "endChar": 5
+      },
+      "revId": "d916511c8faf164489614645858588f239fcbce8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

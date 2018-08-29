@@ -364,7 +364,7 @@ if (!build_with_chromium) {
     if (build_with_mozilla) {
       deps += [
         "api/video:video_frame",
-        "system_wrappers:field_trial_default",
+        "system_wrappers:field_trial",
         "system_wrappers:metrics_default",
       ]
     } else {

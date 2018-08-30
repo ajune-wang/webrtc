@@ -448,6 +448,13 @@ class SessionDescription {
   void set_msid_supported(bool supported) { msid_supported_ = supported; }
   bool msid_supported() const { return msid_supported_; }
 
+  void set_mixed_one_two_byte_header_extension(bool supported) {
+    mixed_one_two_byte_header_extension_ = supported;
+  }
+  bool mixed_one_two_byte_header_extension() const {
+    return mixed_one_two_byte_header_extension_;
+  }
+
   // Determines how the MSIDs were/will be signaled. Flag value composed of
   // MsidSignaling bits (see enum above).
   void set_msid_signaling(int msid_signaling) {
@@ -462,6 +469,7 @@ class SessionDescription {
   TransportInfos transport_infos_;
   ContentGroups content_groups_;
   bool msid_supported_ = true;
+  bool mixed_one_two_byte_header_extension_ = true;
   // Default to what Plan B would do.
   // TODO(bugs.webrtc.org/8530): Change default to kMsidSignalingMediaSection.
   int msid_signaling_ = kMsidSignalingSsrcAttribute;

@@ -118,6 +118,7 @@ static const char kAttributeRtcpMux[] = "rtcp-mux";
 static const char kAttributeRtcpReducedSize[] = "rtcp-rsize";
 static const char kAttributeSsrc[] = "ssrc";
 static const char kSsrcAttributeCname[] = "cname";
+static const char kAttributeExtmapAllowMixed[] = "extmap-allow-mixed";
 static const char kAttributeExtmap[] = "extmap";
 // draft-alvestrand-mmusic-msid-01
 // a=msid-semantic: WMS
@@ -819,6 +820,12 @@ std::string SdpSerialize(const JsepSessionDescription& jdesc) {
 
   // Time Description.
   AddLine(kTimeDescription, &message);
+
+  // Mixed one- and two byte header extension
+  if (desc->mixed_one_two_byte_header_extension()) {
+    InitAttrLine(kAttributeExtmapAllowMixed, &os);
+    AddLine(os.str(), &message);
+  }
 
   // Group
   if (desc->HasGroup(cricket::GROUP_TYPE_BUNDLE)) {
@@ -2004,6 +2011,7 @@ bool ParseSessionDescription(const std::string& message,
   std::string line;
 
   desc->set_msid_supported(false);
+  desc->set_mixed_one_two_byte_header_extension(false);
 
   // RFC 4566
   // v=  (protocol version)
@@ -2141,6 +2149,8 @@ bool ParseSessionDescription(const std::string& message,
       }
       desc->set_msid_supported(
           CaseInsensitiveFind(semantics, kMediaStreamSemantic));
+    } else if (HasAttribute(line, kAttributeExtmapAllowMixed)) {
+      desc->set_mixed_one_two_byte_header_extension(true);
     } else if (HasAttribute(line, kAttributeExtmap)) {
       RtpExtension extmap;
       if (!ParseExtmap(line, &extmap, error)) {

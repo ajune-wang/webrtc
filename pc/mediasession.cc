@@ -1282,6 +1282,8 @@ SessionDescription* MediaSessionDescriptionFactory::CreateOffer(
   FilterDataCodecs(&offer_data_codecs,
                    session_options.data_channel_type == DCT_SCTP);
 
+  offer->set_mixed_one_two_byte_header_extension(true);
+
   RtpHeaderExtensions audio_rtp_extensions;
   RtpHeaderExtensions video_rtp_extensions;
   GetRtpHdrExtsToOffer(session_options, current_description,
@@ -1399,6 +1401,12 @@ SessionDescription* MediaSessionDescriptionFactory::CreateAnswer(
   ContentGroup answer_bundle(GROUP_TYPE_BUNDLE);
   // Transport info shared by the bundle group.
   std::unique_ptr<TransportInfo> bundle_transport;
+
+  if (offer->mixed_one_two_byte_header_extension()) {
+    answer->set_mixed_one_two_byte_header_extension(true);
+  } else {
+    answer->set_mixed_one_two_byte_header_extension(false);
+  }
 
   // Get list of all possible codecs that respects existing payload type
   // mappings and uses a single payload type space.

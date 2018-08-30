@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d938627e_f048763f",
+        "filename": "modules/rtp_rtcp/source/rtp_format_vp8.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-08-30T08:19:51Z",
+      "side": 1,
+      "message": "Nit: I find that payload_len would be a better name. But you decide.",
+      "range": {
+        "startLine": 201,
+        "startChar": 46,
+        "endLine": 201,
+        "endChar": 55
+      },
+      "revId": "8d94013265265f5aad8a14d17719ef55f5554ca4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dd627774_a485d65c",
+        "filename": "modules/rtp_rtcp/source/rtp_format_vp8_test_helper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-08-30T08:19:51Z",
+      "side": 1,
+      "message": "These can be removed. |expected_part| is always full of 0 and not even used in this function, and |expected_frag_start| is true only for the first packet and false otherwise(|expected_frag_start[i]| can be replaced by |i \u003d\u003d 0|).",
+      "range": {
+        "startLine": 61,
+        "startChar": 4,
+        "endLine": 62,
+        "endChar": 35
+      },
+      "revId": "8d94013265265f5aad8a14d17719ef55f5554ca4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b8f23bf_fb0fbf9d",
+        "filename": "modules/rtp_rtcp/source/rtp_format_vp8_test_helper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-08-30T08:19:51Z",
+      "side": 1,
+      "message": "Please add here:\nEXPECT_PART_ID_EQ(buffer[0], 0);  // In equal size mode, PartID is always 0.",
+      "revId": "8d94013265265f5aad8a14d17719ef55f5554ca4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af73685e_7579a436",
+        "filename": "modules/rtp_rtcp/source/rtp_format_vp8_test_helper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-08-30T08:19:51Z",
+      "side": 1,
+      "message": "Since fragmentation is removed (because we always use equal size mode), do we need to keep all these partitions? Do you plan to simplify it further by changing this method to accept only single payload length?\n\nIt\u0027s not a must, but if you decide to skip it, could you file a bug about it?",
+      "range": {
+        "startLine": 34,
+        "startChar": 2,
+        "endLine": 34,
+        "endChar": 66
+      },
+      "revId": "8d94013265265f5aad8a14d17719ef55f5554ca4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b603639_99f6e187",
+        "filename": "modules/rtp_rtcp/source/rtp_format_vp8_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-08-30T08:19:51Z",
+      "side": 1,
+      "message": "If you decide to remove partitions, all the tests can be simplified by replacing kSizeVecor and kNumPartitions with a single kPayloadLengh.\nAlso, kExpectedPart is always 0 in all tests, so it can be removed too, you should update helper to account for that. kExpectedFragStart is always true only for the first packet in Equal Size mode.",
+      "range": {
+        "startLine": 104,
+        "startChar": 0,
+        "endLine": 105,
+        "endChar": 63
+      },
+      "revId": "8d94013265265f5aad8a14d17719ef55f5554ca4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

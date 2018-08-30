@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4e636e5c_4910e003",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-08-30T21:57:11Z",
+      "side": 1,
+      "message": "nit: we typically put the following message above the Bug line.",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 39
+      },
+      "revId": "0d9c380a0839db2846f499e928057039358dc17a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50e25faf_f17d3cd1",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-08-30T21:57:11Z",
+      "side": 1,
+      "message": "nit: we use the camel-cased \"Rtt\" (mostly) in the rest of the codebase.",
+      "range": {
+        "startLine": 36,
+        "startChar": 10,
+        "endLine": 36,
+        "endChar": 28
+      },
+      "revId": "0d9c380a0839db2846f499e928057039358dc17a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7158f26_fa545149",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-08-30T21:57:11Z",
+      "side": 1,
+      "message": "Like we discussed in the meeting, we may need to coordinate with the UMA side in Chromium to add the metric.",
+      "range": {
+        "startLine": 159,
+        "startChar": 50,
+        "endLine": 159,
+        "endChar": 76
+      },
+      "revId": "0d9c380a0839db2846f499e928057039358dc17a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eca259e1_0a201f3f",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-08-30T21:57:11Z",
+      "side": 1,
+      "message": "One thought: it may be helpful to combine \"reason\" and \"why\" to come up with an informative log.",
+      "range": {
+        "startLine": 273,
+        "startChar": 68,
+        "endLine": 273,
+        "endChar": 74
+      },
+      "revId": "0d9c380a0839db2846f499e928057039358dc17a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cdc416d4_3e72121e",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1657,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-08-30T21:57:11Z",
+      "side": 1,
+      "message": "!\u003d nullptr",
+      "range": {
+        "startLine": 1657,
+        "startChar": 6,
+        "endLine": 1657,
+        "endChar": 24
+      },
+      "revId": "0d9c380a0839db2846f499e928057039358dc17a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2b8dd9a_774e0955",
+        "filename": "p2p/base/p2ptransportchannel.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-08-30T21:57:11Z",
+      "side": 1,
+      "message": "nit: not sure if \"Criterion\" would be better. I was thinking |selection_criteria_| is going to be one of them but turned it is indeed plural list ordered by precedence.\n\n\"selection_criteria\" is used quite often to denote a single value but we also have |selection_criteria_|. It feels a bit confusing when reading methods where they both show.",
+      "range": {
+        "startLine": 77,
+        "startChar": 29,
+        "endLine": 77,
+        "endChar": 37
+      },
+      "revId": "0d9c380a0839db2846f499e928057039358dc17a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71759ec6_6d841cab",
+        "filename": "p2p/base/p2ptransportchannel.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-08-30T21:57:11Z",
+      "side": 1,
+      "message": "vim typo",
+      "range": {
+        "startLine": 249,
+        "startChar": 35,
+        "endLine": 249,
+        "endChar": 37
+      },
+      "revId": "0d9c380a0839db2846f499e928057039358dc17a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eaed60db_afa53854",
+        "filename": "p2p/base/p2ptransportchannel.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 473,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-08-30T21:57:11Z",
+      "side": 1,
+      "message": "Prefer to add a comment mentioning that the vector defines the precedence of criteria. Maybe also tweak the name a bit to make it more clear.",
+      "range": {
+        "startLine": 473,
+        "startChar": 42,
+        "endLine": 473,
+        "endChar": 61
+      },
+      "revId": "0d9c380a0839db2846f499e928057039358dc17a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

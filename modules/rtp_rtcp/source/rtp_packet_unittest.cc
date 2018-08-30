@@ -112,6 +112,7 @@ constexpr uint8_t kPacketWithLegacyTimingExtension[] = {
     0x04, 0x00, 0x00, 0x00,
     0x00, 0x00, 0x00, 0x00};
 // clang-format on
+
 }  // namespace
 
 TEST(RtpPacketTest, CreateMinimum) {
@@ -504,6 +505,83 @@ TEST(RtpPacketTest, ParseLegacyTimingFrameExtension) {
   EXPECT_EQ(receivied_timing.encode_start_delta_ms, 1);
   EXPECT_EQ(receivied_timing.pacer_exit_delta_ms, 4);
   EXPECT_EQ(receivied_timing.flags, 0);
+}
+
+TEST(RtpPacketTest, TwoByteHeaderExtension_Test1) {
+  // One extension requiring two-byte header extension
+  const std::string kValue = "123456789abcdef";
+  RtpPacket::ExtensionManager extensions;
+  // ID > 14 will trigger two byte header
+  extensions.Register<RtpMid>(20);
+
+  RtpPacket packet(&extensions);
+  EXPECT_FALSE(packet.IsTwoByteHeaderExtensionUsed());
+  EXPECT_TRUE(packet.SetExtension<RtpMid>(kValue));
+  EXPECT_TRUE(packet.IsTwoByteHeaderExtensionUsed());
+  packet.SetPayloadSize(42);
+
+  // Read packet with the extension.
+  RtpPacketReceived parsed(&extensions);
+  EXPECT_TRUE(parsed.Parse(packet.Buffer()));
+  std::string read;
+  EXPECT_TRUE(parsed.GetExtension<RtpMid>(&read));
+  EXPECT_EQ(read, kValue);
+}
+
+TEST(RtpPacketTest, TwoByteHeaderExtension_Test2) {
+  // One extension requiring two-byte header extension
+  // followed by one-byte extension.
+  const std::string kValue = "123456789abcdef";
+  const std::string kValue2 = "abcdefg";
+  RtpPacket::ExtensionManager extensions;
+  // ID > 14 will trigger two byte header
+  extensions.Register<RtpMid>(20);
+  extensions.Register<RtpStreamId>(1);
+
+  RtpPacket packet(&extensions);
+  EXPECT_FALSE(packet.IsTwoByteHeaderExtensionUsed());
+  EXPECT_TRUE(packet.SetExtension<RtpMid>(kValue));
+  EXPECT_TRUE(packet.IsTwoByteHeaderExtensionUsed());
+  EXPECT_TRUE(packet.SetExtension<RtpStreamId>(kValue2));
+  EXPECT_TRUE(packet.IsTwoByteHeaderExtensionUsed());
+  packet.SetPayloadSize(42);
+
+  // Read packet with the extension.
+  RtpPacketReceived parsed(&extensions);
+  EXPECT_TRUE(parsed.Parse(packet.Buffer()));
+  std::string read;
+  EXPECT_TRUE(parsed.GetExtension<RtpMid>(&read));
+  EXPECT_EQ(read, kValue);
+  EXPECT_TRUE(parsed.GetExtension<RtpStreamId>(&read));
+  EXPECT_EQ(read, kValue2);
+}
+
+TEST(RtpPacketTest, PromoteToTwoByteHeaderExtension) {
+  // One-byte extension followed by extension requiring two-byte header
+  // extension. This will cause a promotion.
+  const std::string kValue = "123456789abcdef";
+  const std::string kValue2 = "abcdefg";
+  RtpPacket::ExtensionManager extensions;
+  // ID > 14 will trigger two byte header
+  extensions.Register<RtpMid>(20);
+  extensions.Register<RtpStreamId>(1);
+
+  RtpPacket packet(&extensions);
+  EXPECT_FALSE(packet.IsTwoByteHeaderExtensionUsed());
+  EXPECT_TRUE(packet.SetExtension<RtpStreamId>(kValue));
+  EXPECT_FALSE(packet.IsTwoByteHeaderExtensionUsed());
+  EXPECT_TRUE(packet.SetExtension<RtpMid>(kValue2));
+  EXPECT_TRUE(packet.IsTwoByteHeaderExtensionUsed());
+  packet.SetPayloadSize(42);
+
+  // Read packet with the extension.
+  RtpPacketReceived parsed(&extensions);
+  EXPECT_TRUE(parsed.Parse(packet.Buffer()));
+  std::string read;
+  EXPECT_TRUE(parsed.GetExtension<RtpStreamId>(&read));
+  EXPECT_EQ(read, kValue);
+  EXPECT_TRUE(parsed.GetExtension<RtpMid>(&read));
+  EXPECT_EQ(read, kValue2);
 }
 
 }  // namespace webrtc

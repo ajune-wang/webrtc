@@ -34,6 +34,24 @@
       "revId": "3b913bd410fde46865b1d432569eac62e2ccc8d2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb465603_aa2820d7",
+        "filename": "test/scenario/video_stream.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-08-30T11:38:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "78623f90_340cc849",
+      "revId": "3b913bd410fde46865b1d432569eac62e2ccc8d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -33,7 +33,7 @@
 namespace {
 
 // The minimum improvement in RTT that justifies a switch.
-const int kMinImprovement = 10;
+const int kMinRTTImprovement = 10;
 
 bool IsRelayRelay(const cricket::Connection* conn) {
   return conn->local_candidate().type() == cricket::RELAY_PORT_TYPE &&
@@ -142,6 +142,7 @@ P2PTransportChannel::P2PTransportChannel(
               true /* presume_writable_when_fully_relayed */,
               REGATHER_ON_FAILED_NETWORKS_INTERVAL,
               RECEIVING_SWITCHING_DELAY) {
+  SetSelectionPolicy(CandidateSelectionPolicy::COST);
   weak_ping_interval_ = GetWeakPingIntervalInFieldTrial();
   // Validate IceConfig even for mostly built-in constant default values in case
   // we change them.
@@ -231,19 +232,21 @@ void P2PTransportChannel::AddConnection(Connection* connection) {
 // implement the ice-renomination option.
 bool P2PTransportChannel::ShouldSwitchSelectedConnection(
     Connection* new_connection,
+    CandidateSelectionCriteria* why,
     bool* missed_receiving_unchanged_threshold) const {
   if (!ReadyToSend(new_connection) || selected_connection_ == new_connection) {
     return false;
   }
 
   if (selected_connection_ == nullptr) {
+    *why = CandidateSelectionCriteria::DEFAULT;
     return true;
   }
 
   // Do not switch to a connection that is not receiving if it is not on a
   // preferred network or it has higher cost because it may be just spuriously
   // better.
-  int compare_a_b_by_networks = CompareCandidatePairNetworks(
+  int compare_a_b_by_networks = CompareCandidatePairsByNetworks(
       new_connection, selected_connection_, config_.network_preference);
   if (compare_a_b_by_networks == b_is_better && !new_connection->receiving()) {
     return false;
@@ -251,25 +254,26 @@ bool P2PTransportChannel::ShouldSwitchSelectedConnection(
 
   absl::optional<int64_t> receiving_unchanged_threshold(
       rtc::TimeMillis() - config_.receiving_switching_delay_or_default());
-  int cmp = CompareConnections(selected_connection_, new_connection,
+  int cmp = CompareConnections(new_connection, selected_connection_, why,
                                receiving_unchanged_threshold,
                                missed_receiving_unchanged_threshold);
-  if (cmp != 0) {
-    return cmp < 0;
-  }
-
-  // If everything else is the same, switch only if rtt has improved by
-  // a margin.
-  return new_connection->rtt() <= selected_connection_->rtt() - kMinImprovement;
+  return cmp > 0;
 }
 
 bool P2PTransportChannel::MaybeSwitchSelectedConnection(
     Connection* new_connection,
     const std::string& reason) {
   bool missed_receiving_unchanged_threshold = false;
-  if (ShouldSwitchSelectedConnection(new_connection,
+  CandidateSelectionCriteria why;
+  if (ShouldSwitchSelectedConnection(new_connection, &why,
                                      &missed_receiving_unchanged_threshold)) {
     RTC_LOG(LS_INFO) << "Switching selected connection due to: " << reason;
+
+    RTC_HISTOGRAM_ENUMERATION(
+        "WebRTC.PeerConnection.CandidateSelectionCriteria",
+        static_cast<int>(why),
+        static_cast<int>(CandidateSelectionCriteria::MAX_VALUE));
+
     SwitchSelectedConnection(new_connection);
     return true;
   }
@@ -1404,18 +1408,9 @@ void P2PTransportChannel::MaybeStartPinging() {
   }
 }
 
-int P2PTransportChannel::CompareCandidatePairNetworks(
+int P2PTransportChannel::CompareCandidatePairsByNetworkCosts(
     const Connection* a,
-    const Connection* b,
-    absl::optional<rtc::AdapterType> network_preference) const {
-  int compare_a_b_by_network_preference =
-      CompareCandidatePairsByNetworkPreference(a, b,
-                                               config_.network_preference);
-  // The network preference has a higher precedence than the network cost.
-  if (compare_a_b_by_network_preference != a_and_b_equal) {
-    return compare_a_b_by_network_preference;
-  }
-
+    const Connection* b) const {
   uint32_t a_cost = a->ComputeNetworkCost();
   uint32_t b_cost = b->ComputeNetworkCost();
   // Prefer lower network cost.
@@ -1425,6 +1420,36 @@ int P2PTransportChannel::CompareCandidatePairNetworks(
   if (a_cost > b_cost) {
     return b_is_better;
   }
+  return a_and_b_equal;
+}
+
+int P2PTransportChannel::CompareCandidatePairsByNetworks(
+    const cricket::Connection* a,
+    const cricket::Connection* b,
+    absl::optional<rtc::AdapterType> network_preference) const {
+  int cmp = CompareCandidatePairsByNetworkPreference(a, b, network_preference);
+  if (cmp == 0) {
+    cmp = CompareCandidatePairsByNetworkCosts(a, b);
+  }
+  return cmp;
+}
+
+int P2PTransportChannel::CompareCandidatePairsByRTT(
+    const cricket::Connection* a,
+    const cricket::Connection* b) const {
+  if (a->rtt() <= b->rtt() - kMinRTTImprovement) {
+    return a_is_better;
+  }
+  if (a->rtt() >= b->rtt() + kMinRTTImprovement) {
+    return b_is_better;
+  }
+  return a_and_b_equal;
+}
+
+int P2PTransportChannel::CompareCandidatePairsByPacketLoss(
+    const cricket::Connection* a,
+    const cricket::Connection* b) const {
+  // TODO(jeroendb) Hookup to the PacketLossEstimator
   return a_and_b_equal;
 }
 
@@ -1503,16 +1528,34 @@ int P2PTransportChannel::CompareConnectionStates(
   return 0;
 }
 
+int P2PTransportChannel::CompareCandidatePairsByRemoteNominations(
+    const Connection* a,
+    const Connection* b) const {
+  if (ice_role_ == ICEROLE_CONTROLLED) {
+    // Compare the connections based on the nomination states and the last data
+    // received time if this is on the controlled side.
+    if (a->remote_nomination() > b->remote_nomination()) {
+      return a_is_better;
+    }
+    if (a->remote_nomination() < b->remote_nomination()) {
+      return b_is_better;
+    }
+
+    if (a->last_data_received() > b->last_data_received()) {
+      return a_is_better;
+    }
+    if (a->last_data_received() < b->last_data_received()) {
+      return b_is_better;
+    }
+  }
+  return 0;
+}
+
 // Compares two connections based only on the candidate and network information.
 // Returns positive if |a| is better than |b|.
 int P2PTransportChannel::CompareConnectionCandidates(
     const Connection* a,
     const Connection* b) const {
-  int compare_a_b_by_networks =
-      CompareCandidatePairNetworks(a, b, config_.network_preference);
-  if (compare_a_b_by_networks != a_and_b_equal) {
-    return compare_a_b_by_networks;
-  }
 
   // Compare connection priority. Lower values get sorted last.
   if (a->priority() > b->priority()) {
@@ -1562,40 +1605,55 @@ bool P2PTransportChannel::IsRemoteCandidatePruned(const Candidate& cand) const {
 int P2PTransportChannel::CompareConnections(
     const Connection* a,
     const Connection* b,
+    CandidateSelectionCriteria* selection_criteria,
     absl::optional<int64_t> receiving_unchanged_threshold,
     bool* missed_receiving_unchanged_threshold) const {
   RTC_CHECK(a != nullptr);
   RTC_CHECK(b != nullptr);
 
-  // We prefer to switch to a writable and receiving connection over a
-  // non-writable or non-receiving connection, even if the latter has
-  // been nominated by the controlling side.
-  int state_cmp = CompareConnectionStates(a, b, receiving_unchanged_threshold,
-                                          missed_receiving_unchanged_threshold);
-  if (state_cmp != 0) {
-    return state_cmp;
+  int cmp = 0;
+  CandidateSelectionCriteria why = CandidateSelectionCriteria::DEFAULT;
+
+  for (auto criteria : selection_criteria_) {
+    switch (criteria) {
+      case CandidateSelectionCriteria::CANDIDATE_STATE:
+        cmp = CompareConnectionStates(a, b, receiving_unchanged_threshold,
+                                      missed_receiving_unchanged_threshold);
+        break;
+      case CandidateSelectionCriteria::REMOTE_NOMINATION:
+        cmp = CompareCandidatePairsByRemoteNominations(a, b);
+        break;
+      case CandidateSelectionCriteria::NETWORK_PREFERENCE:
+        cmp = CompareCandidatePairsByNetworkPreference(
+            a, b, config_.network_preference);
+        break;
+      case CandidateSelectionCriteria::NETWORK_COST:
+        cmp = CompareCandidatePairsByNetworkCosts(a, b);
+        break;
+      case CandidateSelectionCriteria::CANDIDATE_PRIORITY:
+        cmp = CompareConnectionCandidates(a, b);
+        break;
+      case CandidateSelectionCriteria::CANDIDATE_RTT:
+        cmp = CompareCandidatePairsByRTT(a, b);
+        break;
+      case CandidateSelectionCriteria::CANDIDATE_PACKET_LOSS:
+        cmp = CompareCandidatePairsByPacketLoss(a, b);
+        break;
+      default:
+        RTC_NOTREACHED();
+        break;
+    }
+    if (cmp != 0) {
+      why = criteria;
+      break;
+    }
   }
 
-  if (ice_role_ == ICEROLE_CONTROLLED) {
-    // Compare the connections based on the nomination states and the last data
-    // received time if this is on the controlled side.
-    if (a->remote_nomination() > b->remote_nomination()) {
-      return a_is_better;
-    }
-    if (a->remote_nomination() < b->remote_nomination()) {
-      return b_is_better;
-    }
-
-    if (a->last_data_received() > b->last_data_received()) {
-      return a_is_better;
-    }
-    if (a->last_data_received() < b->last_data_received()) {
-      return b_is_better;
-    }
+  if (selection_criteria) {
+    *selection_criteria = why;
   }
 
-  // Compare the network cost and priority.
-  return CompareConnectionCandidates(a, b);
+  return cmp;
 }
 
 bool P2PTransportChannel::PresumedWritable(const Connection* conn) const {
@@ -1626,12 +1684,9 @@ void P2PTransportChannel::SortConnectionsAndUpdateState(
   // TODO(honghaiz): Don't sort;  Just use std::max_element in the right places.
   std::stable_sort(connections_.begin(), connections_.end(),
                    [this](const Connection* a, const Connection* b) {
-                     int cmp = CompareConnections(a, b, absl::nullopt, nullptr);
-                     if (cmp != 0) {
-                       return cmp > 0;
-                     }
-                     // Otherwise, sort based on latency estimate.
-                     return a->rtt() < b->rtt();
+                     int cmp = CompareConnections(a, b, nullptr, absl::nullopt,
+                                                  nullptr);
+                     return cmp > 0;
                    });
 
   RTC_LOG(LS_VERBOSE) << "Sorting " << connections_.size()
@@ -2444,6 +2499,37 @@ void P2PTransportChannel::LogCandidatePairConfig(
   }
   ice_event_log_.LogCandidatePairConfig(type, conn->id(),
                                         conn->ToLogDescription());
+}
+
+void P2PTransportChannel::SetSelectionPolicy(
+    CandidateSelectionPolicy selection_policy) {
+  switch (selection_policy) {
+    case CandidateSelectionPolicy::COST:
+      // The COST policy is equivalent to the way candidate prioritization
+      // as done before.
+      selection_criteria_ = {CandidateSelectionCriteria::CANDIDATE_STATE,
+                             CandidateSelectionCriteria::REMOTE_NOMINATION,
+                             CandidateSelectionCriteria::NETWORK_PREFERENCE,
+                             CandidateSelectionCriteria::NETWORK_COST,
+                             CandidateSelectionCriteria::CANDIDATE_PRIORITY,
+                             CandidateSelectionCriteria::CANDIDATE_RTT};
+      break;
+    case CandidateSelectionPolicy::QUALITY:
+      // The QUALITY policy puts priority on packet-loss, rtt before network
+      // cost and even candidate priority.
+      selection_criteria_ = {CandidateSelectionCriteria::CANDIDATE_STATE,
+                             CandidateSelectionCriteria::REMOTE_NOMINATION,
+                             CandidateSelectionCriteria::NETWORK_PREFERENCE,
+                             CandidateSelectionCriteria::CANDIDATE_PACKET_LOSS,
+                             CandidateSelectionCriteria::CANDIDATE_RTT,
+                             CandidateSelectionCriteria::CANDIDATE_PRIORITY,
+                             CandidateSelectionCriteria::NETWORK_COST};
+      break;
+    default:
+      RTC_NOTREACHED();
+      break;
+  }
+  selection_policy_ = selection_policy;
 }
 
 }  // namespace cricket

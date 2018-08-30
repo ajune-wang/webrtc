@@ -72,6 +72,20 @@ class RemoteCandidate : public Candidate {
   PortInterface* origin_port_;
 };
 
+enum class CandidateSelectionPolicy { COST, QUALITY, MAX_VALUE };
+
+enum class CandidateSelectionCriteria {
+  DEFAULT,
+  CANDIDATE_STATE,
+  REMOTE_NOMINATION,
+  NETWORK_PREFERENCE,
+  NETWORK_COST,
+  CANDIDATE_PRIORITY,
+  CANDIDATE_RTT,
+  CANDIDATE_PACKET_LOSS,
+  MAX_VALUE
+};
+
 // P2PTransportChannel manages the candidates and connection process to keep
 // two P2P clients connected to each other.
 class P2PTransportChannel : public IceTransportInternal {
@@ -179,6 +193,9 @@ class P2PTransportChannel : public IceTransportInternal {
     return ss.str();
   }
 
+  CandidateSelectionPolicy GetSelectionPolicy() { return selection_policy_; }
+  void SetSelectionPolicy(CandidateSelectionPolicy selection_policy);
+
  private:
   rtc::Thread* thread() const { return network_thread_; }
 
@@ -206,13 +223,16 @@ class P2PTransportChannel : public IceTransportInternal {
   // that's pingable.
   void MaybeStartPinging();
 
-  int CompareCandidatePairNetworks(
+  // The methods below return a positive value if |a| is preferable to |b|,
+  // a negative value if |b| is preferable, and 0 if they're equally preferable.
+
+  // Compare the connections based on the network preference and network
+  // cost.
+  int CompareCandidatePairsByNetworks(
       const Connection* a,
       const Connection* b,
       absl::optional<rtc::AdapterType> network_preference) const;
 
-  // The methods below return a positive value if |a| is preferable to |b|,
-  // a negative value if |b| is preferable, and 0 if they're equally preferable.
   // If |receiving_unchanged_threshold| is set, then when |b| is receiving and
   // |a| is not, returns a negative value only if |b| has been in receiving
   // state and |a| has been in not receiving state since
@@ -223,15 +243,43 @@ class P2PTransportChannel : public IceTransportInternal {
       const cricket::Connection* b,
       absl::optional<int64_t> receiving_unchanged_threshold,
       bool* missed_receiving_unchanged_threshold) const;
+
+  // Compares the candidates based on pritority (higher is better),
+  // gathering generation (higher is better) and whether they're
+  // pruned (not pruned is better).:w
+  //
   int CompareConnectionCandidates(const cricket::Connection* a,
                                   const cricket::Connection* b) const;
+
+  // Compare the connections based on the nomination states and the last data
+  // received time if this is on the controlled side.
+  int CompareCandidatePairsByRemoteNominations(const Connection* a,
+                                               const Connection* b) const;
+
+  // Compare the connections based on network costs. Wired is considered
+  // cheapest, then WiFi, then cellular. VPN connections derive their cost
+  // from the lower level network interface.
+  int CompareCandidatePairsByNetworkCosts(const Connection* a,
+                                          const Connection* b) const;
+
+  // Compare the connections based on STUN ping RTTS. Lower RTT values
+  // are considered better. A buffer is applied so that RTTs within a certain
+  // margin (10ms) from each other are deemed equal.
+  int CompareCandidatePairsByRTT(const Connection* a,
+                                 const Connection* b) const;
+
+  // Compare the connections based on packet-loss. Lower packet-loss numbers
+  // are considered better.
+  int CompareCandidatePairsByPacketLoss(const Connection* a,
+                                        const Connection* b) const;
+
   // Compares two connections based on the connection states
   // (writable/receiving/connected), nomination states, last data received time,
-  // and static preferences. Does not include latency. Used by both sorting
-  // and ShouldSwitchSelectedConnection().
+  // and static preferences, RTT and packet-loss.
   // Returns a positive value if |a| is better than |b|.
   int CompareConnections(const cricket::Connection* a,
                          const cricket::Connection* b,
+                         CandidateSelectionCriteria* selection_criteria,
                          absl::optional<int64_t> receiving_unchanged_threshold,
                          bool* missed_receiving_unchanged_threshold) const;
 
@@ -315,6 +363,7 @@ class P2PTransportChannel : public IceTransportInternal {
   // receiving-unchanged-threshold.
   bool ShouldSwitchSelectedConnection(
       Connection* new_connection,
+      CandidateSelectionCriteria* why,
       bool* missed_receiving_unchanged_threshold) const;
   // Returns true if the new_connection is selected for transmission.
   bool MaybeSwitchSelectedConnection(Connection* new_connection,
@@ -419,6 +468,9 @@ class P2PTransportChannel : public IceTransportInternal {
   rtc::AsyncInvoker invoker_;
   absl::optional<rtc::NetworkRoute> network_route_;
   webrtc::IceEventLog ice_event_log_;
+
+  CandidateSelectionPolicy selection_policy_ = CandidateSelectionPolicy::COST;
+  std::vector<CandidateSelectionCriteria> selection_criteria_;
 
   struct CandidateAndResolver final {
     CandidateAndResolver(const Candidate& candidate,

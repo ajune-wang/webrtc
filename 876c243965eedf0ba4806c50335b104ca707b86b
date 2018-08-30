@@ -1,0 +1,157 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dcfce63f_bc44445f",
+        "filename": "rtc_base/strings/string_builder.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-30T09:32:32Z",
+      "side": 1,
+      "message": "Move this TODO down to line 98?",
+      "revId": "876c243965eedf0ba4806c50335b104ca707b86b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "859179bd_5d8c660b",
+        "filename": "rtc_base/strings/string_builder.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-30T09:32:32Z",
+      "side": 1,
+      "message": "You should probably also add an overload that takes const std::string\u0026. Alternatively, have only one overload that takes a std::string by value.\n\n\"You may use rvalue references to define pairs of overloads, one taking Foo\u0026\u0026 and the other taking const Foo\u0026. Usually the preferred solution is just to pass by value, but an overloaded pair of functions sometimes yields better performance and is sometimes necessary in generic code that needs to support a wide variety of types. As always: if you\u0027re writing more complicated code for the sake of performance, make sure you have evidence that it actually helps.\"\n-- https://google.github.io/styleguide/cppguide.html#Rvalue_references\n\nHmm. Actually, instead of const std::string\u0026, std::string\u0026\u0026 and const char* overloads, I suspect you should have just absl::string_view, plus (for the cases where you can do better than copy) std::string\u0026\u0026.\n\nAlso, this needs to be `explicit`.",
+      "revId": "876c243965eedf0ba4806c50335b104ca707b86b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d9e8bbc_b2b523bc",
+        "filename": "rtc_base/strings/string_builder.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-30T09:32:32Z",
+      "side": 1,
+      "message": "absl::StrCat explicitly deletes this overload because it\u0027s too easy to accidentally format a number as a char if the number happens to be 8 bits. Should this class do the same?",
+      "revId": "876c243965eedf0ba4806c50335b104ca707b86b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5951314_1a282c0f",
+        "filename": "rtc_base/strings/string_builder.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-30T09:32:32Z",
+      "side": 1,
+      "message": "This should have the same set of overloads as the constructor on line 96.",
+      "revId": "876c243965eedf0ba4806c50335b104ca707b86b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "294c11ad_152d7e31",
+        "filename": "rtc_base/strings/string_builder.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-30T09:32:32Z",
+      "side": 1,
+      "message": "Add the same overloads here too?\n\nOr delete the method. Is it useful?",
+      "revId": "876c243965eedf0ba4806c50335b104ca707b86b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63f34bc9_8c9a70dd",
+        "filename": "rtc_base/strings/string_builder.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-30T09:32:32Z",
+      "side": 1,
+      "message": "I suspect this function shouldn\u0027t be inlined.",
+      "revId": "876c243965eedf0ba4806c50335b104ca707b86b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ef342ed_1be26b5e",
+        "filename": "rtc_base/strings/string_builder.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-30T09:32:32Z",
+      "side": 1,
+      "message": "If you add the absl::string_view overloads that I suggested, this won\u0027t be necessary.",
+      "revId": "876c243965eedf0ba4806c50335b104ca707b86b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "741d2902_79100cbe",
+        "filename": "rtc_base/strings/string_builder.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-30T09:32:32Z",
+      "side": 1,
+      "message": "Why is this method useful in addition to operator\u003c\u003c ?",
+      "revId": "876c243965eedf0ba4806c50335b104ca707b86b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71eee178_20785f28",
+        "filename": "rtc_base/strings/string_builder_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-30T09:32:32Z",
+      "side": 1,
+      "message": "Maybe add\n\n  EXPECT_LT(sizeof(str), str.size());  // No small object optimization.",
+      "revId": "876c243965eedf0ba4806c50335b104ca707b86b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

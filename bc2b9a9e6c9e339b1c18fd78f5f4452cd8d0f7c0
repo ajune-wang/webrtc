@@ -1,0 +1,182 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ccd0dc30_edea90a2",
+        "filename": "modules/rtp_rtcp/source/rtp_header_extension_map.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-08-30T13:59:12Z",
+      "side": 1,
+      "message": "nit: Add comment about why length \u003d\u003d 0 is included here",
+      "range": {
+        "startLine": 97,
+        "startChar": 54,
+        "endLine": 97,
+        "endChar": 60
+      },
+      "revId": "bc2b9a9e6c9e339b1c18fd78f5f4452cd8d0f7c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bdbe3ecf_689f6689",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-08-30T13:59:12Z",
+      "side": 1,
+      "message": "Shouldn\u0027t the existing ExtensionManager::kOneByteHeaderSize be subtracted as well?",
+      "range": {
+        "startLine": 229,
+        "startChar": 56,
+        "endLine": 229,
+        "endChar": 0
+      },
+      "revId": "bc2b9a9e6c9e339b1c18fd78f5f4452cd8d0f7c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "946f13f8_a29f518d",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-08-30T13:59:12Z",
+      "side": 1,
+      "message": "is this a todo?",
+      "range": {
+        "startLine": 294,
+        "startChar": 2,
+        "endLine": 294,
+        "endChar": 31
+      },
+      "revId": "bc2b9a9e6c9e339b1c18fd78f5f4452cd8d0f7c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f70d7203_56f2d2fa",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-08-30T13:59:12Z",
+      "side": 1,
+      "message": "Maybe use can just do\nrtc::Buffer temp_buffer(WriteAt(extensions_offset), extensions_size_);\nThen no need to worry about delete or memcpy explicitly.",
+      "range": {
+        "startLine": 298,
+        "startChar": 0,
+        "endLine": 300,
+        "endChar": 68
+      },
+      "revId": "bc2b9a9e6c9e339b1c18fd78f5f4452cd8d0f7c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "367f9407_7689ec22",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-08-30T13:59:12Z",
+      "side": 1,
+      "message": "nit: Here and elsewhere, end comments with period.",
+      "range": {
+        "startLine": 302,
+        "startChar": 17,
+        "endLine": 302,
+        "endChar": 0
+      },
+      "revId": "bc2b9a9e6c9e339b1c18fd78f5f4452cd8d0f7c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3bd4d9e9_014e2667",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-08-30T13:59:12Z",
+      "side": 1,
+      "message": "Nit: Not strictly necessary with ByteWriter for single-byte type.",
+      "range": {
+        "startLine": 315,
+        "startChar": 62,
+        "endLine": 315,
+        "endChar": 0
+      },
+      "revId": "bc2b9a9e6c9e339b1c18fd78f5f4452cd8d0f7c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1305877a_76624080",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-08-30T13:59:12Z",
+      "side": 1,
+      "message": "SetExtensionLengthMaybeAddZeroPAdding?",
+      "revId": "bc2b9a9e6c9e339b1c18fd78f5f4452cd8d0f7c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3230f788_fd59ff35",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-08-30T13:59:12Z",
+      "side": 1,
+      "message": "not new code, but would it be possible to rename this? maybe DataPointer(offset)? I dunno.\nI just found that foo \u003d read(WriteAt(X)) is getting more and more common and quite confusing at first glance",
+      "range": {
+        "startLine": 144,
+        "startChar": 11,
+        "endLine": 144,
+        "endChar": 18
+      },
+      "revId": "bc2b9a9e6c9e339b1c18fd78f5f4452cd8d0f7c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

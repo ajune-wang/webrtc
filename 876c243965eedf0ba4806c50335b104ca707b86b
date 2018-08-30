@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "f37429b1_05cf51b5",
+        "filename": "rtc_base/strings/string_builder.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2018-08-30T13:25:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dcfce63f_bc44445f",
+      "revId": "876c243965eedf0ba4806c50335b104ca707b86b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "859179bd_5d8c660b",
         "filename": "rtc_base/strings/string_builder.h",
         "patchSetId": 9
@@ -30,6 +48,24 @@
       "writtenOn": "2018-08-30T09:32:32Z",
       "side": 1,
       "message": "You should probably also add an overload that takes const std::string\u0026. Alternatively, have only one overload that takes a std::string by value.\n\n\"You may use rvalue references to define pairs of overloads, one taking Foo\u0026\u0026 and the other taking const Foo\u0026. Usually the preferred solution is just to pass by value, but an overloaded pair of functions sometimes yields better performance and is sometimes necessary in generic code that needs to support a wide variety of types. As always: if you\u0027re writing more complicated code for the sake of performance, make sure you have evidence that it actually helps.\"\n-- https://google.github.io/styleguide/cppguide.html#Rvalue_references\n\nHmm. Actually, instead of const std::string\u0026, std::string\u0026\u0026 and const char* overloads, I suspect you should have just absl::string_view, plus (for the cases where you can do better than copy) std::string\u0026\u0026.\n\nAlso, this needs to be `explicit`.",
+      "revId": "876c243965eedf0ba4806c50335b104ca707b86b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "439f14c4_ef0a68ca",
+        "filename": "rtc_base/strings/string_builder.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2018-08-30T13:25:51Z",
+      "side": 1,
+      "message": "I went with a string_view constructor. Adding a std::string\u0026\u0026 constructor would make StringBuilder(\"abc\") ambiguous, and we practically always use the 0-param constructor anyways so it wouldn\u0027t gain that much.",
+      "parentUuid": "859179bd_5d8c660b",
       "revId": "876c243965eedf0ba4806c50335b104ca707b86b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "68fd8960_10fa502e",
+        "filename": "rtc_base/strings/string_builder.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2018-08-30T13:25:51Z",
+      "side": 1,
+      "message": "Hmm. Ideally I\u0027d like this class to be a drop-in replacement for std::stringstream, and we use the \u003c\u003c(char) overload in some places, notably a bunch of the SDP parsing code. We could of course wrap those in rtc::ToString or something, but is it worth it?",
+      "parentUuid": "0d9e8bbc_b2b523bc",
+      "revId": "876c243965eedf0ba4806c50335b104ca707b86b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d5951314_1a282c0f",
         "filename": "rtc_base/strings/string_builder.h",
         "patchSetId": 9
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "bad241a0_d3e51234",
+        "filename": "rtc_base/strings/string_builder.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2018-08-30T13:25:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d5951314_1a282c0f",
+      "revId": "876c243965eedf0ba4806c50335b104ca707b86b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "294c11ad_152d7e31",
         "filename": "rtc_base/strings/string_builder.h",
         "patchSetId": 9
@@ -81,6 +153,24 @@
       "writtenOn": "2018-08-30T09:32:32Z",
       "side": 1,
       "message": "Add the same overloads here too?\n\nOr delete the method. Is it useful?",
+      "revId": "876c243965eedf0ba4806c50335b104ca707b86b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4edefe48_d77f53cd",
+        "filename": "rtc_base/strings/string_builder.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2018-08-30T13:25:51Z",
+      "side": 1,
+      "message": "I\u0027ve added it since stringstream has it, and we us it in a few places. It\u0027s only really used to clear the stream by calling ss.str(\"\").",
+      "parentUuid": "294c11ad_152d7e31",
       "revId": "876c243965eedf0ba4806c50335b104ca707b86b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -104,6 +194,24 @@
     },
     {
       "key": {
+        "uuid": "97a9c552_642b9bfc",
+        "filename": "rtc_base/strings/string_builder.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2018-08-30T13:25:51Z",
+      "side": 1,
+      "message": "True, I moved it over.",
+      "parentUuid": "63f34bc9_8c9a70dd",
+      "revId": "876c243965eedf0ba4806c50335b104ca707b86b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ef342ed_1be26b5e",
         "filename": "rtc_base/strings/string_builder.h",
         "patchSetId": 9
@@ -118,6 +226,24 @@
       "revId": "876c243965eedf0ba4806c50335b104ca707b86b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26304a5d_ce41d022",
+        "filename": "rtc_base/strings/string_builder.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2018-08-30T13:25:51Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5ef342ed_1be26b5e",
+      "revId": "876c243965eedf0ba4806c50335b104ca707b86b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -138,6 +264,24 @@
     },
     {
       "key": {
+        "uuid": "2f162979_a336f0c1",
+        "filename": "rtc_base/strings/string_builder.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2018-08-30T13:25:51Z",
+      "side": 1,
+      "message": "Not sure, it\u0027s gone now.",
+      "parentUuid": "741d2902_79100cbe",
+      "revId": "876c243965eedf0ba4806c50335b104ca707b86b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "71eee178_20785f28",
         "filename": "rtc_base/strings/string_builder_unittest.cc",
         "patchSetId": 9
@@ -152,6 +296,24 @@
       "revId": "876c243965eedf0ba4806c50335b104ca707b86b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "adbf81c5_ba0f40b8",
+        "filename": "rtc_base/strings/string_builder_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2018-08-30T13:25:51Z",
+      "side": 1,
+      "message": "Sounds good.",
+      "parentUuid": "71eee178_20785f28",
+      "revId": "876c243965eedf0ba4806c50335b104ca707b86b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

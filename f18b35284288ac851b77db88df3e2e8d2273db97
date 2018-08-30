@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b31fb81f_e1a4d62e",
+        "filename": "api/mediaconstraintsinterface.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-08-30T09:19:16Z",
+      "side": 0,
+      "message": "I think this one is still defined in mediaconstraintsinterface.h",
+      "range": {
+        "startLine": 107,
+        "startChar": 38,
+        "endLine": 107,
+        "endChar": 62
+      },
+      "revId": "f18b35284288ac851b77db88df3e2e8d2273db97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

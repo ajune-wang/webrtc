@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "5d164060_1fe02103",
+        "filename": "api/audio_codecs/audio_decoder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-08-30T11:32:02Z",
+      "side": 1,
+      "message": "Right. But at the time when NetEq requests PLC audio, it doesn\u0027t know how many frames were lost. It does know how many samples are needed to fill the coming 10 ms output buffer. We could add that as a parameter, which the implementation would be free to ignore. WDYT?",
+      "parentUuid": "dbc1d0e8_e97ee284",
+      "range": {
+        "startLine": 129,
+        "startChar": 0,
+        "endLine": 129,
+        "endChar": 69
+      },
+      "revId": "71128c1b58b517a085b946f230552015d1c52e15",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "95607ece_1677c650",
         "filename": "api/audio_codecs/audio_decoder.h",
         "patchSetId": 1

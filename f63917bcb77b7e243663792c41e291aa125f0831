@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "28f270ad_a566d2dd",
+        "filename": "modules/audio_coding/neteq/neteq_decoder_plc_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-08-30T20:10:54Z",
+      "side": 1,
+      "message": "Does it make sense to add:\n\nEXPECT_EQ(0, stats_no_loss.expand_rate)\nEXPECT_GT(stats.expand_rate, 0)",
+      "range": {
+        "startLine": 208,
+        "startChar": 2,
+        "endLine": 208,
+        "endChar": 11
+      },
+      "revId": "f63917bcb77b7e243663792c41e291aa125f0831",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28a25c59_27f6b380",
+        "filename": "modules/audio_coding/neteq/neteq_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 876,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-08-30T20:10:54Z",
+      "side": 1,
+      "message": "is there a way to force codec plc off?",
+      "range": {
+        "startLine": 876,
+        "startChar": 41,
+        "endLine": 876,
+        "endChar": 51
+      },
+      "revId": "f63917bcb77b7e243663792c41e291aa125f0831",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd324a74_c8203495",
+        "filename": "modules/audio_coding/neteq/neteq_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1538,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-08-30T20:10:54Z",
+      "side": 1,
+      "message": "with needed_samples_per_channel should while-loop be unnecessary?",
+      "range": {
+        "startLine": 1538,
+        "startChar": 2,
+        "endLine": 1538,
+        "endChar": 7
+      },
+      "revId": "f63917bcb77b7e243663792c41e291aa125f0831",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

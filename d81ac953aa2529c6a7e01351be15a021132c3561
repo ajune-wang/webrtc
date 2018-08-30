@@ -22,6 +22,30 @@
       "revId": "d81ac953aa2529c6a7e01351be15a021132c3561",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e01d6ad6_c629c656",
+        "filename": "modules/audio_coding/neteq/tools/encode_neteq_input.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-08-30T11:14:06Z",
+      "side": 0,
+      "message": "The only place this class was used before was in neteq_rtp_fuzzer.cc and neteq_signal_fuzzer.cc. In both cases, the ended() method was overridden. :)",
+      "parentUuid": "8a0d9a01_ab347b4c",
+      "range": {
+        "startLine": 56,
+        "startChar": 31,
+        "endLine": 56,
+        "endChar": 32
+      },
+      "revId": "d81ac953aa2529c6a7e01351be15a021132c3561",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

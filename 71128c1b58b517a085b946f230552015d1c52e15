@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3a1a4bb0_ad7ec195",
+        "filename": "api/audio_codecs/audio_decoder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-08-30T11:14:06Z",
+      "side": 1,
+      "message": "This is an updated API which will replace DecodePlc and HasDecodePlc. DecodePlc was never used to obtain any concealment audio, despite it having a parameter for it. The signature was poorly designed, since there was no obvious way for the implementation to know how much data could be written to the output. In practice, it was only used as a signal to the decoder that \"stuff was lost and you should expect state faults -- deal with it\".",
+      "parentUuid": "e82a26a0_58ce0f32",
+      "range": {
+        "startLine": 129,
+        "startChar": 0,
+        "endLine": 129,
+        "endChar": 69
+      },
+      "revId": "71128c1b58b517a085b946f230552015d1c52e15",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "95607ece_1677c650",
         "filename": "api/audio_codecs/audio_decoder.h",
         "patchSetId": 1

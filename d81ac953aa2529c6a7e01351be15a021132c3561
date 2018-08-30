@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8a0d9a01_ab347b4c",
+        "filename": "modules/audio_coding/neteq/tools/encode_neteq_input.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-08-30T10:53:55Z",
+      "side": 0,
+      "message": "interesting. how did this work before?",
+      "range": {
+        "startLine": 56,
+        "startChar": 31,
+        "endLine": 56,
+        "endChar": 32
+      },
+      "revId": "d81ac953aa2529c6a7e01351be15a021132c3561",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

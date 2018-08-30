@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c0b53b18_67d0befb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-30T14:05:00Z",
+      "side": 1,
+      "message": "\"processing\", not \"parsing\"",
+      "range": {
+        "startLine": 7,
+        "startChar": 39,
+        "endLine": 7,
+        "endChar": 46
+      },
+      "revId": "84bc5d1c9958ab3046f7e07e56269825481f0a51",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da14cf36_55ddf9c1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-08-30T14:05:00Z",
+      "side": 1,
+      "message": "I think it\u0027s worth mentioning that the condition can be triggered by untrusted network data, and that ignoring the bogus value is the right thing to do. If you agree with that analysis; I\u0027m not at all familiar with this code.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 92
+      },
+      "revId": "84bc5d1c9958ab3046f7e07e56269825481f0a51",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

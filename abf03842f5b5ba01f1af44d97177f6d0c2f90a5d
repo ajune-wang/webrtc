@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "ed42fb1f_8d6bb347",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-08-30T09:37:39Z",
+      "side": 1,
+      "message": "Yes, that fixed the problem. Thanks!",
+      "parentUuid": "575c36b8_a936b11a",
+      "range": {
+        "startLine": 60,
+        "startChar": 2,
+        "endLine": 61,
+        "endChar": 26
+      },
+      "revId": "abf03842f5b5ba01f1af44d97177f6d0c2f90a5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "128f475f_2fd18c5d",
         "filename": "logging/rtc_event_log/rtc_event_log_parser_new.h",
         "patchSetId": 2

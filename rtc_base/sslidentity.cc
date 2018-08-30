@@ -10,6 +10,7 @@
 
 // Handling of certificates and keypairs for SSLStreamAdapter's peer mode.
 #include "rtc_base/sslidentity.h"
+#include "rtc_base/strings/string_builder.h"
 
 #include <ctime>
 #include <string>
@@ -116,7 +117,7 @@ bool SSLIdentity::PemToDer(const std::string& pem_type,
 std::string SSLIdentity::DerToPem(const std::string& pem_type,
                                   const unsigned char* data,
                                   size_t length) {
-  std::stringstream result;
+  rtc::StringBuilder result;
 
   result << "-----BEGIN " << pem_type << "-----\n";
 

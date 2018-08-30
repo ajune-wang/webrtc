@@ -21,6 +21,7 @@
 #include "modules/rtp_rtcp/source/rtp_utility.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/flags.h"
+#include "rtc_base/strings/string_builder.h"
 #include "test/rtp_file_writer.h"
 
 namespace {
@@ -67,7 +68,7 @@ bool ParseSsrc(std::string str, uint32_t* ssrc) {
     read_mode = std::hex;
     str = str.substr(2);
   }
-  std::stringstream ss(str);
+  rtc::StringBuilder ss(str);
   ss >> read_mode >> *ssrc;
   return str.empty() || (!ss.fail() && ss.eof());
 }

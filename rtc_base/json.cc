@@ -9,6 +9,7 @@
  */
 
 #include "rtc_base/json.h"
+#include "rtc_base/strings/string_builder.h"
 
 #include <errno.h>
 #include <limits.h>
@@ -20,7 +21,7 @@ namespace rtc {
 
 bool GetStringFromJson(const Json::Value& in, std::string* out) {
   if (!in.isString()) {
-    std::ostringstream s;
+    rtc::StringBuilder s;
     if (in.isBool()) {
       s << std::boolalpha << in.asBool();
     } else if (in.isInt()) {

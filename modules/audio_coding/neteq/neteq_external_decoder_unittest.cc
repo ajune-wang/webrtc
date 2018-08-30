@@ -122,7 +122,7 @@ class NetEqExternalDecoderUnitTest : public test::NetEqExternalDecoderTest {
         } while (Lost());  // If lost, immediately read the next packet.
       }
 
-      std::ostringstream ss;
+      rtc::StringBuilder ss;
       ss << "Lap number " << k << ".";
       SCOPED_TRACE(ss.str());  // Print out the parameter values on failure.
       // Compare mono and multi-channel.

@@ -15,6 +15,7 @@
 
 #include "absl/types/optional.h"
 #include "rtc_base/stringencode.h"
+#include "rtc_base/strings/string_builder.h"
 
 namespace cricket {
 
@@ -87,7 +88,7 @@ struct AudioOptions {
   bool operator!=(const AudioOptions& o) const { return !(*this == o); }
 
   std::string ToString() const {
-    std::ostringstream ost;
+    rtc::StringBuilder ost;
     ost << "AudioOptions {";
     ost << ToStringIfSet("aec", echo_cancellation);
 #if defined(WEBRTC_IOS)

@@ -10,6 +10,7 @@
 
 #include "test/testsupport/perf_test.h"
 #include "rtc_base/criticalsection.h"
+#include "rtc_base/strings/string_builder.h"
 
 #include <stdio.h>
 #include <fstream>
@@ -44,13 +45,13 @@ class PerfResultsLogger {
                  const double value,
                  const std::string& units,
                  const bool important) {
-    std::ostringstream value_stream;
+    rtc::StringBuilder value_stream;
     value_stream.precision(8);
     value_stream << value;
     LogResultsImpl(graph_name, trace_name, value_stream.str(), units,
                    important);
 
-    std::ostringstream json_stream;
+    rtc::StringBuilder json_stream;
     json_stream << '"' << trace_name << R"(":{)";
     json_stream << R"("type":"scalar",)";
     json_stream << R"("value":)" << value << ',';
@@ -64,13 +65,13 @@ class PerfResultsLogger {
                              const double error,
                              const std::string& units,
                              const bool important) {
-    std::ostringstream value_stream;
+    rtc::StringBuilder value_stream;
     value_stream.precision(8);
     value_stream << '{' << mean << ',' << error << '}';
     LogResultsImpl(graph_name, trace_name, value_stream.str(), units,
                    important);
 
-    std::ostringstream json_stream;
+    rtc::StringBuilder json_stream;
     json_stream << '"' << trace_name << R"(":{)";
     json_stream << R"("type":"list_of_scalar_values",)";
     json_stream << R"("values":[)" << mean << "],";
@@ -84,7 +85,7 @@ class PerfResultsLogger {
                      const rtc::ArrayView<const double> values,
                      const std::string& units,
                      const bool important) {
-    std::ostringstream value_stream;
+    rtc::StringBuilder value_stream;
     value_stream.precision(8);
     value_stream << '[';
     OutputListToStream(&value_stream, values);
@@ -92,7 +93,7 @@ class PerfResultsLogger {
     LogResultsImpl(graph_name, trace_name, value_stream.str(), units,
                    important);
 
-    std::ostringstream json_stream;
+    rtc::StringBuilder json_stream;
     json_stream << '"' << trace_name << R"(":{)";
     json_stream << R"("type":"list_of_scalar_values",)";
     json_stream << R"("values":)" << value_stream.str() << ',';
@@ -127,7 +128,7 @@ class PerfResultsLogger {
 };
 
 std::string PerfResultsLogger::ToJSON() const {
-  std::ostringstream json_stream;
+  rtc::StringBuilder json_stream;
   json_stream << R"({"format_version":"1.0",)";
   json_stream << R"("charts":{)";
   rtc::CritScope lock(&crit_);

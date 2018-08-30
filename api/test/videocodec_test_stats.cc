@@ -14,7 +14,7 @@ namespace webrtc {
 namespace test {
 
 std::string VideoCodecTestStats::FrameStatistics::ToString() const {
-  std::stringstream ss;
+  rtc::StringBuilder ss;
   ss << "frame_number " << frame_number;
   ss << " decoded_width " << decoded_width;
   ss << " decoded_height " << decoded_height;
@@ -43,7 +43,7 @@ VideoCodecTestStats::VideoStatistics::VideoStatistics(const VideoStatistics&) =
 
 std::string VideoCodecTestStats::VideoStatistics::ToString(
     std::string prefix) const {
-  std::stringstream ss;
+  rtc::StringBuilder ss;
   ss << prefix << "target_bitrate_kbps: " << target_bitrate_kbps;
   ss << "\n" << prefix << "input_framerate_fps: " << input_framerate_fps;
   ss << "\n" << prefix << "spatial_idx: " << spatial_idx;

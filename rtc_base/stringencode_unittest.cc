@@ -11,6 +11,7 @@
 #include "rtc_base/stringencode.h"
 #include "rtc_base/arraysize.h"
 #include "rtc_base/gunit.h"
+#include "rtc_base/strings/string_builder.h"
 #include "rtc_base/stringutils.h"
 
 #include <sstream>  // no-presubmit-check TODO(webrtc:8982)
@@ -372,7 +373,7 @@ TEST(ToString, SanityCheck) {
 
   int i = 10;
   int* p = &i;
-  std::ostringstream s;  // no-presubmit-check TODO(webrtc:8982)
+  rtc::StringBuilder s;  // no-presubmit-check TODO(webrtc:8982)
   s << p;
   EXPECT_EQ(s.str(), ToString(p));
 

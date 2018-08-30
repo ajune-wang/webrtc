@@ -90,7 +90,7 @@ bool ParseSsrc(std::string str) {
     read_mode = std::hex;
     str = str.substr(2);
   }
-  std::stringstream ss(str);
+  rtc::StringBuilder ss(str);
   ss >> read_mode >> filtered_ssrc;
   return str.empty() || (!ss.fail() && ss.eof());
 }

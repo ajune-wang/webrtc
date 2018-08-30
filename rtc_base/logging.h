@@ -57,6 +57,7 @@
 
 #include "rtc_base/constructormagic.h"
 #include "rtc_base/deprecation.h"
+#include "rtc_base/strings/string_builder.h"
 #include "rtc_base/system/inline.h"
 #include "rtc_base/thread_annotations.h"
 
@@ -272,7 +273,7 @@ template <
 #endif
         !std::is_same<T1, LogMetadataErr>::value>::type* = nullptr>
 Val<LogArgType::kStdString, std::string> MakeVal(const T& x) {
-  std::ostringstream os;  // no-presubmit-check TODO(webrtc:8982)
+  rtc::StringBuilder os;  // no-presubmit-check TODO(webrtc:8982)
   os << x;
   return {os.str()};
 }
@@ -492,7 +493,7 @@ class LogMessage {
   void FinishPrintStream();
 
   // The ostream that buffers the formatted message before output
-  std::ostringstream print_stream_;
+  rtc::StringBuilder print_stream_;
 
   // The severity level of this message
   LoggingSeverity severity_;

@@ -11,6 +11,7 @@
 #include "modules/audio_processing/aec3/adaptive_fir_filter.h"
 
 // Defines WEBRTC_ARCH_X86_FAMILY, used below.
+#include "rtc_base/strings/string_builder.h"
 #include "rtc_base/system/arch.h"
 
 #include <math.h>
@@ -39,7 +40,7 @@ namespace aec3 {
 namespace {
 
 std::string ProduceDebugText(size_t delay) {
-  std::ostringstream ss;
+  rtc::StringBuilder ss;
   ss << ", Delay: " << delay;
   return ss.str();
 }

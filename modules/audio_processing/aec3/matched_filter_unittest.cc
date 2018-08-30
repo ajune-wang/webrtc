@@ -11,6 +11,7 @@
 #include "modules/audio_processing/aec3/matched_filter.h"
 
 // Defines WEBRTC_ARCH_X86_FAMILY, used below.
+#include "rtc_base/strings/string_builder.h"
 #include "rtc_base/system/arch.h"
 
 #if defined(WEBRTC_ARCH_X86_FAMILY)
@@ -34,7 +35,7 @@ namespace aec3 {
 namespace {
 
 std::string ProduceDebugText(size_t delay, size_t down_sampling_factor) {
-  std::ostringstream ss;
+  rtc::StringBuilder ss;
   ss << "Delay: " << delay;
   ss << ", Down sampling factor: " << down_sampling_factor;
   return ss.str();

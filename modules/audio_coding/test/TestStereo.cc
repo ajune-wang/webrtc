@@ -832,7 +832,7 @@ void TestStereo::Run(TestPackStereo* channel,
 
 void TestStereo::OpenOutFile(int16_t test_number) {
   std::string file_name;
-  std::stringstream file_stream;
+  rtc::StringBuilder file_stream;
   file_stream << webrtc::test::OutputPath() << "teststereo_out_" << test_number
               << ".pcm";
   file_name = file_stream.str();

@@ -9,6 +9,7 @@
  */
 
 #include "rtc_base/network.h"
+#include "rtc_base/strings/string_builder.h"
 
 #if defined(WEBRTC_POSIX)
 // linux/if.h can't be included at the same time as the posix sys/if.h, and
@@ -181,7 +182,7 @@ const int kPublicPort = 53;  // DNS port.
 std::string MakeNetworkKey(const std::string& name,
                            const IPAddress& prefix,
                            int prefix_length) {
-  std::ostringstream ost;
+  rtc::StringBuilder ost;
   ost << name << "%" << prefix.ToString() << "/" << prefix_length;
   return ost.str();
 }
@@ -1057,7 +1058,7 @@ uint16_t Network::GetCost() const {
 }
 
 std::string Network::ToString() const {
-  std::stringstream ss;
+  rtc::StringBuilder ss;
   // Print out the first space-terminated token of the network desc, plus
   // the IP address.
   ss << "Net[" << description_.substr(0, description_.find(' ')) << ":"

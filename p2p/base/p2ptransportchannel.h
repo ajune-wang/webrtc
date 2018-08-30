@@ -41,6 +41,7 @@
 #include "rtc_base/asyncinvoker.h"
 #include "rtc_base/asyncpacketsocket.h"
 #include "rtc_base/constructormagic.h"
+#include "rtc_base/strings/string_builder.h"
 #include "rtc_base/third_party/sigslot/sigslot.h"
 
 namespace webrtc {
@@ -173,7 +174,7 @@ class P2PTransportChannel : public IceTransportInternal {
   std::string ToString() const {
     const char RECEIVING_ABBREV[2] = {'_', 'R'};
     const char WRITABLE_ABBREV[2] = {'_', 'W'};
-    std::stringstream ss;
+    rtc::StringBuilder ss;
     ss << "Channel[" << transport_name_ << "|" << component_ << "|"
        << RECEIVING_ABBREV[receiving_] << WRITABLE_ABBREV[writable_] << "]";
     return ss.str();

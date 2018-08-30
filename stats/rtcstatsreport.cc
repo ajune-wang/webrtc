@@ -115,7 +115,7 @@ RTCStatsReport::ConstIterator RTCStatsReport::end() const {
 }
 
 std::string RTCStatsReport::ToJson() const {
-  std::ostringstream oss;
+  rtc::StringBuilder oss;
   ConstIterator it = begin();
   if (it != end()) {
     oss << '[' << it->ToJson();

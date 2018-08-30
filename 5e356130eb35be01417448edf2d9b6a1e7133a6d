@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0f500867_656fa149",
+        "filename": "test/DEPS",
+        "patchSetId": 8
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-08-30T09:51:27Z",
+      "side": 1,
+      "message": "This should not be needed (absl/memory/memory.h is already available: https://cs.chromium.org/chromium/src/third_party/webrtc/DEPS?l\u003d1048\u0026rcl\u003d0e468e741cf6b07e1b20582d4df55cdd7dfbefa0).\n\nWhat error do you get if you remove the line?\n\nWe want to keep the list of absl headers we want to use in the main DEPS file so we can disable things we cannot use (e.g. absl::Mutex).",
+      "range": {
+        "startLine": 21,
+        "startChar": 2,
+        "endLine": 21,
+        "endChar": 28
+      },
+      "revId": "5e356130eb35be01417448edf2d9b6a1e7133a6d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

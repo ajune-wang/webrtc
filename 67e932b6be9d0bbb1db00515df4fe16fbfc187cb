@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ced00d9e_bb217f38",
+        "filename": "modules/pacing/paced_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-08-30T13:21:14Z",
+      "side": 1,
+      "message": "This wont solve the problem described in release builds.",
+      "revId": "67e932b6be9d0bbb1db00515df4fe16fbfc187cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

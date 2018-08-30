@@ -119,6 +119,21 @@ class AudioDecoder {
   // memory allocated in |decoded| should accommodate |num_frames| frames.
   virtual size_t DecodePlc(size_t num_frames, int16_t* decoded);
 
+  // Asks the decoder to generate packet-loss concealment and append it to the
+  // end of |concealment_audio|. The implementation is expected to produce
+  // concealment audio in a channel-interleaved format, with as many channels
+  // as the last decoded packet produced. The number of samples produced per
+  // channel is up to the implementation to decide, but the caller may return
+  // for more if the length was insufficient. If the implementation provides
+  // concealment samples, it is also responsible for "stitching" it together
+  // the decoded audio on either side of the concealment.
+  // If the implementation is not willing to produce concealment audio, it must
+  // leave the buffer unmodified.
+  // Note: The default implementation of GeneratePlc will be deleted soon. All
+  // implementations must provide their own, which can be a simple as a no-op.
+  // TODO(bugs.webrtc.org/9676): Remove default impementation.
+  virtual void GeneratePlc(rtc::BufferT<int16_t>* concealment_audio);
+
   // Resets the decoder state (empty buffers etc.).
   virtual void Reset() = 0;
 

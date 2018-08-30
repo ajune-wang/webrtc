@@ -158,6 +158,24 @@
     },
     {
       "key": {
+        "uuid": "f9efb1c5_92c5f130",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-08-30T11:14:02Z",
+      "side": 1,
+      "message": "If possible, I\u0027d rather see FrameType as a sub enum of this class (and then another one in the corresponding video frame class) and that we move away from the mixed one in common_types.h. It would simplify logic (no need to e.g. DCHECK audio frames aren\u0027t assigned video frame types).\n\nIn RTP, multiple payload types can be multiplexed across the same channel (\u003dSSRC), so an 8-bit payload type is included in the headers to demux the payloads to the right piece of code (\u003ddecoder).\n\nThe only use of audio frame type right now is to determine whether to set the marker bit in the RTP header (I\u0027d guess there won\u0027t be an equivalent in QUIC?). But this information could be obtained from the payload type itself, provided the transport knows about payload type mappings, in particular, which PTs are CNG. The current RTP implementation knows this.\n\nIs there a design doc you could point at?",
+      "parentUuid": "741c589b_b327492e",
+      "revId": "5032e7564f690fba87ee1f97065c6d44628d5628",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1d47cdbc_84be76cc",
         "filename": "api/media_transport_interface.h",
         "patchSetId": 8

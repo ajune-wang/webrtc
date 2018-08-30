@@ -1889,16 +1889,18 @@ WebRtcVideoChannel::WebRtcVideoSendStream::ValidateRtpParameters(
         RTCErrorType::INVALID_MODIFICATION,
         "Attempted to set RtpParameters with modified header extensions");
   }
-  if (rtp_parameters.encodings[0].ssrc != rtp_parameters_.encodings[0].ssrc) {
-    LOG_AND_RETURN_ERROR(RTCErrorType::INVALID_MODIFICATION,
-                         "Attempted to set RtpParameters with modified SSRC");
-  }
-  if (rtp_parameters.encodings[0].bitrate_priority <= 0) {
-    LOG_AND_RETURN_ERROR(RTCErrorType::INVALID_RANGE,
-                         "Attempted to set RtpParameters bitrate_priority to "
-                         "an invalid number. bitrate_priority must be > 0.");
-  }
+
   for (size_t i = 0; i < rtp_parameters.encodings.size(); ++i) {
+    if (rtp_parameters.encodings[i].ssrc != rtp_parameters_.encodings[i].ssrc) {
+      LOG_AND_RETURN_ERROR(RTCErrorType::INVALID_MODIFICATION,
+                           "Attempted to set RtpParameters with modified SSRC");
+    }
+    if (rtp_parameters.encodings[i].bitrate_priority <= 0) {
+      LOG_AND_RETURN_ERROR(RTCErrorType::INVALID_RANGE,
+                           "Attempted to set RtpParameters bitrate_priority to "
+                           "an invalid number. bitrate_priority must be > 0.");
+    }
+
     if (rtp_parameters.encodings[i].min_bitrate_bps &&
         rtp_parameters.encodings[i].max_bitrate_bps) {
       if (*rtp_parameters.encodings[i].max_bitrate_bps <

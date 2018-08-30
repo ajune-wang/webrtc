@@ -34,6 +34,24 @@
       "revId": "67e932b6be9d0bbb1db00515df4fe16fbfc187cb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9a1bb51_439e6e90",
+        "filename": "modules/pacing/paced_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-08-30T13:39:13Z",
+      "side": 1,
+      "message": "Pleas add a comment that the condition in the DCHECK does not have to be fulfilled (since we use DCHECKS as a form of documentation).\n\nAlso, use the RTC_DCHEK_GT macro instead.",
+      "parentUuid": "6f13c8bb_d0b6f071",
+      "revId": "67e932b6be9d0bbb1db00515df4fe16fbfc187cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

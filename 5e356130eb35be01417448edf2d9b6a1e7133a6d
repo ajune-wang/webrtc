@@ -46,6 +46,30 @@
       "revId": "5e356130eb35be01417448edf2d9b6a1e7133a6d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a5dcb46a_4387a328",
+        "filename": "test/DEPS",
+        "patchSetId": 8
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-08-30T20:30:51Z",
+      "side": 1,
+      "message": "Correct, I forgot to mention that detail! Good catch! :)",
+      "parentUuid": "7d8ba327_35de4021",
+      "range": {
+        "startLine": 21,
+        "startChar": 2,
+        "endLine": 21,
+        "endChar": 28
+      },
+      "revId": "5e356130eb35be01417448edf2d9b6a1e7133a6d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

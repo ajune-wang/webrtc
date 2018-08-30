@@ -22,6 +22,30 @@
       "revId": "5e356130eb35be01417448edf2d9b6a1e7133a6d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d8ba327_35de4021",
+        "filename": "test/DEPS",
+        "patchSetId": 8
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-08-30T17:41:08Z",
+      "side": 1,
+      "message": "I got an inclusion violation, but I just realized I should use \"absl/memory/memory.h\" instead of \"third_party/abseil-cpp/absl/memory/memory.h\" from the recent PSA, and this would make the whitelisting on the root-level work. Fixed.",
+      "parentUuid": "0f500867_656fa149",
+      "range": {
+        "startLine": 21,
+        "startChar": 2,
+        "endLine": 21,
+        "endChar": 28
+      },
+      "revId": "5e356130eb35be01417448edf2d9b6a1e7133a6d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

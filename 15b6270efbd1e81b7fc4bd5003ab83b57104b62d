@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a9dd524_8811e9da",
+        "filename": "sdk/android/api/org/webrtc/FrameDecryptor.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-30T22:03:23Z",
+      "side": 1,
+      "message": "maybe name the C++ interface type",
+      "range": {
+        "startLine": 22,
+        "startChar": 29,
+        "endLine": 22,
+        "endChar": 35
+      },
+      "revId": "15b6270efbd1e81b7fc4bd5003ab83b57104b62d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

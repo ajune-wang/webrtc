@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6c6b450d_7e813c18",
+        "filename": "modules/rtp_rtcp/source/rtp_format_vp8.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-30T09:15:01Z",
+      "side": 1,
+      "message": "reverted back to payload_len since this change is questionable.",
+      "parentUuid": "d938627e_f048763f",
+      "range": {
+        "startLine": 201,
+        "startChar": 46,
+        "endLine": 201,
+        "endChar": 55
+      },
+      "revId": "8d94013265265f5aad8a14d17719ef55f5554ca4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dd627774_a485d65c",
         "filename": "modules/rtp_rtcp/source/rtp_format_vp8_test_helper.cc",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "1bb91744_ceef8b0f",
+        "filename": "modules/rtp_rtcp/source/rtp_format_vp8_test_helper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-30T09:15:01Z",
+      "side": 1,
+      "message": "Same - agree it can (and better) be removed, would like to do it in next CL.",
+      "parentUuid": "dd627774_a485d65c",
+      "range": {
+        "startLine": 61,
+        "startChar": 4,
+        "endLine": 62,
+        "endChar": 35
+      },
+      "revId": "8d94013265265f5aad8a14d17719ef55f5554ca4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5b8f23bf_fb0fbf9d",
         "filename": "modules/rtp_rtcp/source/rtp_format_vp8_test_helper.cc",
         "patchSetId": 2
@@ -62,6 +110,24 @@
       "revId": "8d94013265265f5aad8a14d17719ef55f5554ca4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2535bc57_4522ed3e",
+        "filename": "modules/rtp_rtcp/source/rtp_format_vp8_test_helper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-30T09:15:01Z",
+      "side": 1,
+      "message": "Added, or I\u0027ll forget it in next CL.",
+      "parentUuid": "5b8f23bf_fb0fbf9d",
+      "revId": "8d94013265265f5aad8a14d17719ef55f5554ca4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -85,6 +151,30 @@
       "revId": "8d94013265265f5aad8a14d17719ef55f5554ca4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48e7671b_6f1caf61",
+        "filename": "modules/rtp_rtcp/source/rtp_format_vp8_test_helper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-08-30T09:15:01Z",
+      "side": 1,
+      "message": "Would like postpone it to next CL.\n\nI tried to do that in same CL, but that triggers too many changes in test code.\nDo not want to create a bug since I would like to do it shortly (would like also cleanup tests before adding more functionality to Packetizer)",
+      "parentUuid": "af73685e_7579a436",
+      "range": {
+        "startLine": 34,
+        "startChar": 2,
+        "endLine": 34,
+        "endChar": 66
+      },
+      "revId": "8d94013265265f5aad8a14d17719ef55f5554ca4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

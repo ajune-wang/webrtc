@@ -16,6 +16,24 @@
       "revId": "67e932b6be9d0bbb1db00515df4fe16fbfc187cb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f13c8bb_d0b6f071",
+        "filename": "modules/pacing/paced_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-08-30T13:24:55Z",
+      "side": 1,
+      "message": "This failing doesn\u0027t have to cause a failure in practice, since the value might be updated at a later time. Therefore I don\u0027t think it\u0027s worth it to crash release build clients here.",
+      "parentUuid": "ced00d9e_bb217f38",
+      "revId": "67e932b6be9d0bbb1db00515df4fe16fbfc187cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

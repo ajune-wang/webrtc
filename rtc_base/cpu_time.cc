@@ -81,10 +81,13 @@ int64_t GetThreadCpuTimeNanos() {
     RTC_LOG_ERR(LS_ERROR) << "clock_gettime() failed.";
   }
 #elif defined(WEBRTC_MAC)
+  mach_port_t thread_port = mach_thread_self();
   thread_basic_info_data_t info;
   mach_msg_type_number_t count = THREAD_BASIC_INFO_COUNT;
-  if (thread_info(mach_thread_self(), THREAD_BASIC_INFO, (thread_info_t)&info,
-                  &count) == KERN_SUCCESS) {
+  kern_return_t kr =
+      thread_info(thread_port, THREAD_BASIC_INFO, (thread_info_t)&info, &count);
+  mach_port_deallocate(mach_task_self(), thread_port);
+  if (kr == KERN_SUCCESS) {
     return info.user_time.seconds * kNumNanosecsPerSec +
            info.user_time.microseconds * kNumNanosecsPerMicrosec;
   } else {

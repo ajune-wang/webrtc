@@ -45,6 +45,30 @@
       "revId": "1549f45ac35937364aea4eebf31122185769e9a0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51cf4147_5ea9de4e",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 3498,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-31T20:09:11Z",
+      "side": 1,
+      "message": "rtc::Bind implicitly holds a reference: https://codesearch.chromium.org/chromium/src/third_party/webrtc/rtc_base/bind.h?sq\u003dpackage:chromium\u0026g\u003d0\u0026l\u003d176",
+      "parentUuid": "4d3689a7_03d33bb2",
+      "range": {
+        "startLine": 3498,
+        "startChar": 4,
+        "endLine": 3498,
+        "endChar": 62
+      },
+      "revId": "1549f45ac35937364aea4eebf31122185769e9a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -601,6 +601,11 @@ void ScreenCapturerMac::ScreenRefresh(CGDirectDisplayID display_id,
 
 std::unique_ptr<DesktopFrame> ScreenCapturerMac::CreateFrame() {
   std::unique_ptr<DesktopFrame> frame(new BasicDesktopFrame(screen_pixel_bounds_.size()));
+  if (desktop_config_.displays.size() > 1) {
+    memset(frame->data(),
+           0,
+           DesktopFrame::kBytesPerPixel * frame->size().width() * frame->size().height());
+  }
   frame->set_dpi(
       DesktopVector(kStandardDPI * dip_to_pixel_scale_, kStandardDPI * dip_to_pixel_scale_));
   return frame;

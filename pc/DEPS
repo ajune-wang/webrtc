@@ -3,6 +3,7 @@ include_rules = [
   "+api",
   "+call",
   "+common_video",
+  "+crypto",
   "+logging/rtc_event_log",
   "+logging/rtc_event_log",
   "+media",

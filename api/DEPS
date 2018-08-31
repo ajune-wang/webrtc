@@ -1,6 +1,7 @@
 include_rules = [
   "+third_party/libyuv",
   "+common_video",
+  "+crypto",
   "+media",
   "+p2p",
   "+pc",

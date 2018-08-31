@@ -12,6 +12,7 @@
 
 #include <memory>
 
+#include "crypto/ssladapter.h"
 #include "p2p/base/basicpacketsocketfactory.h"
 #include "p2p/base/teststunserver.h"
 #include "p2p/stunprober/stunprober.h"
@@ -19,7 +20,6 @@
 #include "rtc_base/bind.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/gunit.h"
-#include "rtc_base/ssladapter.h"
 #include "rtc_base/virtualsocketserver.h"
 
 using stunprober::StunProber;

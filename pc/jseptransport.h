@@ -19,6 +19,8 @@
 #include "absl/types/optional.h"
 #include "api/candidate.h"
 #include "api/jsep.h"
+#include "crypto/rtccertificate.h"
+#include "crypto/sslstreamadapter.h"
 #include "p2p/base/dtlstransport.h"
 #include "p2p/base/p2pconstants.h"
 #include "p2p/base/transportinfo.h"
@@ -31,8 +33,6 @@
 #include "pc/transportstats.h"
 #include "rtc_base/constructormagic.h"
 #include "rtc_base/messagequeue.h"
-#include "rtc_base/rtccertificate.h"
-#include "rtc_base/sslstreamadapter.h"
 #include "rtc_base/third_party/sigslot/sigslot.h"
 
 namespace cricket {

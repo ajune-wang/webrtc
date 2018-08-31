@@ -2,6 +2,7 @@ include_rules = [
   "+api",
   "+call",
   "+common_video",
+  "+crypto",
   "+logging/rtc_event_log",
   "+modules/audio_coding",
   "+modules/audio_device",

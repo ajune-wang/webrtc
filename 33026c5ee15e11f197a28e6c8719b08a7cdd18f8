@@ -52,6 +52,24 @@
       "revId": "33026c5ee15e11f197a28e6c8719b08a7cdd18f8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b428eed6_fbc1b927",
+        "filename": "api/audio_codecs/audio_decoder.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-08-31T13:02:53Z",
+      "side": 1,
+      "message": "Updated the contract, and the calling from neteq_impl.cc too.",
+      "parentUuid": "be7a8983_281ba769",
+      "revId": "33026c5ee15e11f197a28e6c8719b08a7cdd18f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e1e7a4e3_374ab15a",
+        "filename": "modules/audio_coding/codecs/opus/test/BUILD.gn",
+        "patchSetId": 8
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-08-31T11:01:12Z",
+      "side": 1,
+      "message": "the idea is that test/ includes test code only (e.g., same done in modules/audio_processing)",
+      "parentUuid": "dee96d37_739b703f",
+      "range": {
+        "startLine": 17,
+        "startChar": 22,
+        "endLine": 17,
+        "endChar": 26
+      },
+      "revId": "5a315b67849298ca1047722454dcf08679a7a65a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b80281dd_f1e6cb63",
         "filename": "modules/audio_coding/codecs/opus/test/lapped_transform.h",
         "patchSetId": 8
@@ -45,6 +69,30 @@
       "revId": "5a315b67849298ca1047722454dcf08679a7a65a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02e2b88b_6b45e319",
+        "filename": "modules/audio_coding/codecs/opus/test/lapped_transform.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-08-31T11:01:12Z",
+      "side": 1,
+      "message": "Right and also because RealFourier is used in the AGC2 RNN VAD.",
+      "parentUuid": "b80281dd_f1e6cb63",
+      "range": {
+        "startLine": 122,
+        "startChar": 29,
+        "endLine": 122,
+        "endChar": 40
+      },
+      "revId": "5a315b67849298ca1047722454dcf08679a7a65a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

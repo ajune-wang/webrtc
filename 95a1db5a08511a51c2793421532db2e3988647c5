@@ -1,0 +1,318 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "71cfac14_3bc5e579",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-31T18:18:44Z",
+      "side": 1,
+      "message": "Could go ahead and move the namespace cricket { outside the anonymous namespace so you don\u0027t have to qualify cricket:: on everything.",
+      "revId": "95a1db5a08511a51c2793421532db2e3988647c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a41486ea_132d93a8",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-31T18:18:44Z",
+      "side": 1,
+      "message": "What do you think about returning const char* then the switch can just return the string literal.",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 18
+      },
+      "revId": "95a1db5a08511a51c2793421532db2e3988647c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "05c7c69c_faf84d3d",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-31T18:18:44Z",
+      "side": 1,
+      "message": "No default: the compiler will give a warning if a case is not handled (new with enum classes)",
+      "revId": "95a1db5a08511a51c2793421532db2e3988647c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0cf5529d_769c0db4",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1453,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-31T18:18:44Z",
+      "side": 1,
+      "message": "No need for cricket:: here and elsewhere.",
+      "range": {
+        "startLine": 1453,
+        "startChar": 10,
+        "endLine": 1453,
+        "endChar": 17
+      },
+      "revId": "95a1db5a08511a51c2793421532db2e3988647c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84ad9ae8_cab9c85c",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1493,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-31T18:18:44Z",
+      "side": 1,
+      "message": "nit: usually follow this format:\n\n// TODO(bugs.webrtc.org/####): Comment here with period at the end.\n\nBug links are preferable to username.",
+      "revId": "95a1db5a08511a51c2793421532db2e3988647c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "adba196e_57863ba4",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1685,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-31T18:18:44Z",
+      "side": 1,
+      "message": "no default",
+      "revId": "95a1db5a08511a51c2793421532db2e3988647c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a07f3ce4_8d67d884",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1695,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-31T18:18:44Z",
+      "side": 1,
+      "message": "nit (optional): I usually leave off !\u003d nullptr",
+      "range": {
+        "startLine": 1695,
+        "startChar": 6,
+        "endLine": 1695,
+        "endChar": 27
+      },
+      "revId": "95a1db5a08511a51c2793421532db2e3988647c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4cba35f_8ea4e2c5",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 2573,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-31T18:18:44Z",
+      "side": 1,
+      "message": "no default",
+      "revId": "95a1db5a08511a51c2793421532db2e3988647c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a91de09_8c910887",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 2577,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-31T18:18:44Z",
+      "side": 1,
+      "message": "RTC_NOTREACHED down here",
+      "revId": "95a1db5a08511a51c2793421532db2e3988647c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8ec06e0_e13aa6c6",
+        "filename": "p2p/base/p2ptransportchannel.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-31T18:18:44Z",
+      "side": 1,
+      "message": "brief description for these two enums",
+      "revId": "95a1db5a08511a51c2793421532db2e3988647c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73477cc1_e16fdf1a",
+        "filename": "p2p/base/p2ptransportchannel.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-31T18:18:44Z",
+      "side": 1,
+      "message": "In general enums follow the kCamelCase naming. But I suppose most of this class uses the ALL_CAPS naming so it\u0027s more consistent.",
+      "revId": "95a1db5a08511a51c2793421532db2e3988647c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85f5a8f3_8d9d7945",
+        "filename": "p2p/base/p2ptransportchannel.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-31T18:18:44Z",
+      "side": 1,
+      "message": "drop the get_\n\nAnnotate method with const",
+      "range": {
+        "startLine": 196,
+        "startChar": 27,
+        "endLine": 196,
+        "endChar": 31
+      },
+      "revId": "95a1db5a08511a51c2793421532db2e3988647c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "961fe7d3_643b0678",
+        "filename": "p2p/base/p2ptransportchannel.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-31T18:18:44Z",
+      "side": 1,
+      "message": "typo",
+      "range": {
+        "startLine": 249,
+        "startChar": 38,
+        "endLine": 249,
+        "endChar": 47
+      },
+      "revId": "95a1db5a08511a51c2793421532db2e3988647c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06f708dd_5a501cd5",
+        "filename": "p2p/base/p2ptransportchannel.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-31T18:18:44Z",
+      "side": 1,
+      "message": "RTTs",
+      "range": {
+        "startLine": 266,
+        "startChar": 48,
+        "endLine": 266,
+        "endChar": 52
+      },
+      "revId": "95a1db5a08511a51c2793421532db2e3988647c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7193e8f8_f533e60b",
+        "filename": "p2p/base/p2ptransportchannel.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-31T18:18:44Z",
+      "side": 1,
+      "message": "nit: no hyphen",
+      "range": {
+        "startLine": 272,
+        "startChar": 38,
+        "endLine": 272,
+        "endChar": 50
+      },
+      "revId": "95a1db5a08511a51c2793421532db2e3988647c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1a34fca_09fd2213",
+        "filename": "p2p/base/p2ptransportchannel.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 479,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-31T18:18:44Z",
+      "side": 1,
+      "message": "Usually methods go above all the fields.",
+      "revId": "95a1db5a08511a51c2793421532db2e3988647c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

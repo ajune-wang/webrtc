@@ -9,6 +9,8 @@
  */
 #include "rtc_base/experiments/field_trial_parser.h"
 
+#include <inttypes.h>
+
 #include <algorithm>
 #include <map>
 #include <type_traits>
@@ -88,6 +90,26 @@ template <>
 absl::optional<int> ParseTypedParameter<int>(std::string str) {
   int value;
   if (sscanf(str.c_str(), "%i", &value) == 1) {
+    return value;
+  } else {
+    return absl::nullopt;
+  }
+}
+
+template <>
+absl::optional<int64_t> ParseTypedParameter<int64_t>(std::string str) {
+  int64_t value;
+  if (sscanf(str.c_str(), "%" SCNd64, &value) == 1) {
+    return value;
+  } else {
+    return absl::nullopt;
+  }
+}
+
+template <>
+absl::optional<uint64_t> ParseTypedParameter<uint64_t>(std::string str) {
+  uint64_t value;
+  if (sscanf(str.c_str(), "%" SCNu64, &value) == 1) {
     return value;
   } else {
     return absl::nullopt;

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0fff7755_39b933d9",
+        "filename": "modules/audio_processing/aec3/echo_audibility.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-08-31T12:20:26Z",
+      "side": 1,
+      "message": "Please pass this to the constructor instead and store it as a const bool on the EchoAudibility state. In that way you don\u0027t need to keep passing it to each update call.",
+      "revId": "2f9e5cb46e6b48f2fd9d4c428c3fa7565c3ac71d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

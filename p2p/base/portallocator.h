@@ -16,11 +16,11 @@
 #include <string>
 #include <vector>
 
+#include "crypto/sslcertificate.h"
 #include "p2p/base/port.h"
 #include "p2p/base/portinterface.h"
 #include "rtc_base/helpers.h"
 #include "rtc_base/proxyinfo.h"
-#include "rtc_base/sslcertificate.h"
 #include "rtc_base/third_party/sigslot/sigslot.h"
 #include "rtc_base/thread.h"
 #include "rtc_base/thread_checker.h"

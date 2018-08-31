@@ -222,6 +222,7 @@ if (rtc_include_tests) {
       ":bwe_simulator_lib",
       ":remote_bitrate_estimator",
       "../..:webrtc_common",
+      "../../crypto",
       "../../rtc_base:rtc_base_approved",
       "../../test:fileutils",
       "../../test:test_main",

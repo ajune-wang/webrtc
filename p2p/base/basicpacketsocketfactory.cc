@@ -12,6 +12,7 @@
 
 #include <string>
 
+#include "crypto/ssladapter.h"
 #include "p2p/base/asyncstuntcpsocket.h"
 #include "p2p/base/stun.h"
 #include "rtc_base/asynctcpsocket.h"
@@ -21,7 +22,6 @@
 #include "rtc_base/nethelpers.h"
 #include "rtc_base/physicalsocketserver.h"
 #include "rtc_base/socketadapters.h"
-#include "rtc_base/ssladapter.h"
 #include "rtc_base/thread.h"
 
 namespace rtc {

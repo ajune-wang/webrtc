@@ -12,12 +12,12 @@
 #include <utility>
 
 #include "absl/memory/memory.h"
+#include "crypto/messagedigest.h"
 #include "p2p/base/stun.h"
 #include "rtc_base/arraysize.h"
 #include "rtc_base/bytebuffer.h"
 #include "rtc_base/gunit.h"
 #include "rtc_base/logging.h"
-#include "rtc_base/messagedigest.h"
 #include "rtc_base/socketaddress.h"
 
 namespace cricket {

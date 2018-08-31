@@ -13,6 +13,7 @@
 #include "pc/srtptransport.h"
 
 #include "absl/memory/memory.h"
+#include "crypto/sslstreamadapter.h"
 #include "media/base/fakertp.h"
 #include "p2p/base/dtlstransportinternal.h"
 #include "p2p/base/fakepackettransport.h"
@@ -21,7 +22,6 @@
 #include "pc/srtptestutil.h"
 #include "rtc_base/asyncpacketsocket.h"
 #include "rtc_base/gunit.h"
-#include "rtc_base/sslstreamadapter.h"
 
 using rtc::kTestKey1;
 using rtc::kTestKey2;

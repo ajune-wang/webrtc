@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5319f0bb_9b08f9f6",
+        "filename": "modules/audio_coding/neteq/neteq_decoder_plc_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-08-31T06:51:19Z",
+      "side": 1,
+      "message": "It does make sense, indeed.",
+      "parentUuid": "28f270ad_a566d2dd",
+      "range": {
+        "startLine": 208,
+        "startChar": 2,
+        "endLine": 208,
+        "endChar": 11
+      },
+      "revId": "f63917bcb77b7e243663792c41e291aa125f0831",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "28a25c59_27f6b380",
         "filename": "modules/audio_coding/neteq/neteq_impl.cc",
         "patchSetId": 5
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "e43a19d7_d0850c66",
+        "filename": "modules/audio_coding/neteq/neteq_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 876,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-08-31T06:51:19Z",
+      "side": 1,
+      "message": "Do you mean through a config setting in NetEq? The decoder implementation can force it off by not providing any PLC samples.",
+      "parentUuid": "28a25c59_27f6b380",
+      "range": {
+        "startLine": 876,
+        "startChar": 41,
+        "endLine": 876,
+        "endChar": 51
+      },
+      "revId": "f63917bcb77b7e243663792c41e291aa125f0831",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dd324a74_c8203495",
         "filename": "modules/audio_coding/neteq/neteq_impl.cc",
         "patchSetId": 5
@@ -59,6 +107,30 @@
       "writtenOn": "2018-08-30T20:10:54Z",
       "side": 1,
       "message": "with needed_samples_per_channel should while-loop be unnecessary?",
+      "range": {
+        "startLine": 1538,
+        "startChar": 2,
+        "endLine": 1538,
+        "endChar": 7
+      },
+      "revId": "f63917bcb77b7e243663792c41e291aa125f0831",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "abf81c2c_d50c8c5c",
+        "filename": "modules/audio_coding/neteq/neteq_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1538,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-08-31T06:51:19Z",
+      "side": 1,
+      "message": "The way the AudioDecoder interface is specified now, the decoder implementation is free to deliver a smaller (or bigger) number of samples than needed_samples_per_channel. The number is simply a helper to the implementation if it needs it.",
+      "parentUuid": "dd324a74_c8203495",
       "range": {
         "startLine": 1538,
         "startChar": 2,

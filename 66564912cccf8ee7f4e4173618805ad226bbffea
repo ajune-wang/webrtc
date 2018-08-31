@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "86696621_f64c4d64",
+        "filename": "rtc_base/strings/string_builder.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-31T12:26:07Z",
+      "side": 1,
+      "message": "Nit: It\u0027s easier to read if you use a fresh variable here (and then both of them can be const).",
+      "range": {
+        "startLine": 124,
+        "startChar": 4,
+        "endLine": 124,
+        "endChar": 7
+      },
+      "revId": "66564912cccf8ee7f4e4173618805ad226bbffea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "448038f8_c4f4a967",
+        "filename": "rtc_base/strings/string_builder_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-31T12:26:07Z",
+      "side": 1,
+      "message": "Copy+paste accident. (Also applies to the comment on line 152, I guess.)",
+      "revId": "66564912cccf8ee7f4e4173618805ad226bbffea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -42,8 +42,7 @@ class PacketTransportInternal;
 
 namespace webrtc {
 
-class JsepTransportController : public sigslot::has_slots<>,
-                                public rtc::MessageHandler {
+class JsepTransportController : public sigslot::has_slots<> {
  public:
   // Used when the RtpTransport/DtlsTransport of the m= section is changed
   // because the section is rejected or BUNDLE is enabled.
@@ -181,8 +180,6 @@ class JsepTransportController : public sigslot::has_slots<>,
   sigslot::signal1<rtc::SSLHandshakeError> SignalDtlsHandshakeError;
 
  private:
-  void OnMessage(rtc::Message* pmsg) override;
-
   RTCError ApplyDescription_n(bool local,
                               SdpType type,
                               const cricket::SessionDescription* description);

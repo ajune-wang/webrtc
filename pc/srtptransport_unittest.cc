@@ -21,7 +21,7 @@
 #include "pc/srtptestutil.h"
 #include "rtc_base/asyncpacketsocket.h"
 #include "rtc_base/gunit.h"
-#include "rtc_base/sslstreamadapter.h"
+#include "crypto/sslstreamadapter.h"
 
 using rtc::kTestKey1;
 using rtc::kTestKey2;

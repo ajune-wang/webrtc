@@ -27,7 +27,7 @@
 #include "rtc_base/gunit.h"
 #include "rtc_base/platform_thread.h"
 #include "rtc_base/socketaddress.h"
-#include "rtc_base/testcertificateverifier.h"
+#include "crypto/testcertificateverifier.h"
 #include "rtc_base/virtualsocketserver.h"
 #include "test/gtest.h"
 #include "test/testsupport/perf_test.h"

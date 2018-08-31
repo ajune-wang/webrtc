@@ -16,7 +16,7 @@
 
 #include "rtc_base/constructormagic.h"
 #include "rtc_base/proxyinfo.h"
-#include "rtc_base/sslcertificate.h"
+#include "crypto/sslcertificate.h"
 
 namespace rtc {
 

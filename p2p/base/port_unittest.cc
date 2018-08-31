@@ -30,7 +30,7 @@
 #include "rtc_base/natserver.h"
 #include "rtc_base/natsocketfactory.h"
 #include "rtc_base/socketaddress.h"
-#include "rtc_base/ssladapter.h"
+#include "crypto/ssladapter.h"
 #include "rtc_base/stringutils.h"
 #include "rtc_base/thread.h"
 #include "rtc_base/virtualsocketserver.h"

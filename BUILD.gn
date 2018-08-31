@@ -46,6 +46,8 @@ if (!build_with_chromium) {
         "call:fake_network_unittests",
         "common_audio:common_audio_unittests",
         "common_video:common_video_unittests",
+        "crypto:crypto_tests_utils",
+        "crypto:crypto_unittests",
         "media:rtc_media_unittests",
         "modules:modules_tests",
         "modules:modules_unittests",
@@ -344,6 +346,7 @@ if (!build_with_chromium) {
       "call",
       "common_audio",
       "common_video",
+      "crypto",
       "media",
       "modules",
       "modules/video_capture:video_capture_internal_impl",
@@ -562,6 +565,8 @@ if (rtc_include_tests) {
   rtc_test("webrtc_nonparallel_tests") {
     testonly = true
     deps = [
+      "crypto:crypto",
+      "crypto:crypto_tests_utils",
       "rtc_base:rtc_base_nonparallel_tests",
     ]
     if (is_android) {

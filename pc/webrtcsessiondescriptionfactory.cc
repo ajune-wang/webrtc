@@ -20,7 +20,7 @@
 #include "api/jsepsessiondescription.h"
 #include "api/mediaconstraintsinterface.h"
 #include "rtc_base/checks.h"
-#include "rtc_base/sslidentity.h"
+#include "crypto/sslidentity.h"
 
 using cricket::MediaSessionOptions;
 

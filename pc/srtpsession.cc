@@ -14,7 +14,7 @@
 #include "pc/externalhmac.h"
 #include "rtc_base/criticalsection.h"
 #include "rtc_base/logging.h"
-#include "rtc_base/sslstreamadapter.h"
+#include "crypto/sslstreamadapter.h"
 #include "system_wrappers/include/metrics.h"
 #include "third_party/libsrtp/include/srtp.h"
 #include "third_party/libsrtp/include/srtp_priv.h"

@@ -1,0 +1,16 @@
+include_rules = [
+  "+rtc_base",
+]
+
+specific_include_rules = {
+  "gunit_prod.h": [
+    "+gtest",
+    "+testing/base/gunit_prod.h",
+  ],
+  "protobuf_utils.h": [
+    "+third_party/protobuf",
+  ],
+  "gunit\.h": [
+    "+testing/base/public/gunit.h"
+  ],
+}

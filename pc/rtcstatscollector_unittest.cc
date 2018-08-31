@@ -32,7 +32,7 @@
 #include "pc/test/rtcstatsobtainer.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/fakeclock.h"
-#include "rtc_base/fakesslidentity.h"
+#include "crypto/fakesslidentity.h"
 #include "rtc_base/gunit.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/stringutils.h"

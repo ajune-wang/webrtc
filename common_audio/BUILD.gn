@@ -380,6 +380,7 @@ if (rtc_include_tests) {
       ":fir_filter_factory",
       ":sinc_resampler",
       "..:webrtc_common",
+      "../crypto",
       "../rtc_base:checks",
       "../rtc_base:rtc_base_approved",
       "../rtc_base:rtc_base_tests_utils",

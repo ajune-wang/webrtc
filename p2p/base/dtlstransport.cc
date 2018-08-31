@@ -20,7 +20,7 @@
 #include "rtc_base/dscp.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/messagequeue.h"
-#include "rtc_base/sslstreamadapter.h"
+#include "crypto/sslstreamadapter.h"
 #include "rtc_base/stream.h"
 #include "rtc_base/thread.h"
 

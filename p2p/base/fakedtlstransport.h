@@ -19,7 +19,7 @@
 #include "absl/memory/memory.h"
 #include "p2p/base/dtlstransportinternal.h"
 #include "p2p/base/fakeicetransport.h"
-#include "rtc_base/fakesslidentity.h"
+#include "crypto/fakesslidentity.h"
 
 namespace cricket {
 

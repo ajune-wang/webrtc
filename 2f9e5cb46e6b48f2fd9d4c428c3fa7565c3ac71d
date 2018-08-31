@@ -16,6 +16,24 @@
       "revId": "2f9e5cb46e6b48f2fd9d4c428c3fa7565c3ac71d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4b9ad90_6ab1efa2",
+        "filename": "modules/audio_processing/aec3/echo_audibility.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-08-31T12:35:25Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0fff7755_39b933d9",
+      "revId": "2f9e5cb46e6b48f2fd9d4c428c3fa7565c3ac71d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

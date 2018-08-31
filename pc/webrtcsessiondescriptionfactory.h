@@ -15,13 +15,13 @@
 #include <queue>
 #include <string>
 
+#include "crypto/rtccertificate.h"
+#include "crypto/rtccertificategenerator.h"
 #include "p2p/base/transportdescriptionfactory.h"
 #include "pc/mediasession.h"
 #include "pc/peerconnectioninternal.h"
 #include "rtc_base/constructormagic.h"
 #include "rtc_base/messagehandler.h"
-#include "rtc_base/rtccertificate.h"
-#include "rtc_base/rtccertificategenerator.h"
 
 namespace webrtc {
 

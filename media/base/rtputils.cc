@@ -12,10 +12,10 @@
 
 // PacketTimeUpdateParams is defined in asyncpacketsocket.h.
 // TODO(sergeyu): Find more appropriate place for PacketTimeUpdateParams.
+#include "crypto/messagedigest.h"
 #include "media/base/turnutils.h"
 #include "rtc_base/asyncpacketsocket.h"
 #include "rtc_base/checks.h"
-#include "rtc_base/messagedigest.h"
 
 namespace cricket {
 

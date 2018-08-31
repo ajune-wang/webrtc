@@ -11,6 +11,7 @@
 #include <map>
 #include <memory>
 
+#include "crypto/ssladapter.h"
 #include "p2p/base/basicpacketsocketfactory.h"
 #include "p2p/base/relayport.h"
 #include "p2p/base/relayserver.h"
@@ -19,7 +20,6 @@
 #include "rtc_base/logging.h"
 #include "rtc_base/socketadapters.h"
 #include "rtc_base/socketaddress.h"
-#include "rtc_base/ssladapter.h"
 #include "rtc_base/thread.h"
 #include "rtc_base/virtualsocketserver.h"
 

@@ -832,6 +832,9 @@ void VP9EncoderImpl::PopulateCodecSpecific(CodecSpecificInfo* codec_specific,
   // TODO(asapersson): this info has to be obtained from the encoder.
   vp9_info->temporal_up_switch = false;
 
+  printf("\nsl %d key %d", layer_id.spatial_layer_id,
+         !!(pkt.data.frame.flags & VPX_FRAME_IS_KEY));
+
   if (pkt.data.frame.flags & VPX_FRAME_IS_KEY) {
     pics_since_key_ = 0;
   } else if (first_frame_in_picture) {

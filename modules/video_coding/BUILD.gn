@@ -454,6 +454,7 @@ rtc_static_library("webrtc_vp9_helpers") {
     "../../api/video_codecs:video_codecs_api",
     "../../common_video",
     "../../rtc_base:checks",
+    "../../system_wrappers:field_trial_api",
   ]
 }
 

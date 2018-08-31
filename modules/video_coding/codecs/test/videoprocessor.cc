@@ -433,9 +433,8 @@ void VideoProcessor::FrameEncoded(
   }
 
   if (encoded_frame_writers_) {
-    RTC_CHECK(encoded_frame_writers_->at(spatial_idx)
-                  ->WriteFrame(*encoded_image_for_decode,
-                               config_.codec_settings.codecType));
+    RTC_CHECK(encoded_frame_writers_->at(0)->WriteFrame(
+        *encoded_image_for_decode, config_.codec_settings.codecType));
   }
 
   if (!config_.encode_in_real_time) {

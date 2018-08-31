@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d029f83c_f3ca6685",
+        "filename": "modules/audio_processing/aec3/echo_audibility.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-08-31T12:50:57Z",
+      "side": 1,
+      "message": "The constructor needs to be marked \"explicit\" when there is only one parameter.",
+      "range": {
+        "startLine": 34,
+        "startChar": 2,
+        "endLine": 34,
+        "endChar": 16
+      },
+      "revId": "7f02de6f538969fd0e1856bc4766dc02ed4f55b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

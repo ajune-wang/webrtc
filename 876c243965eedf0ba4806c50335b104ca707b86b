@@ -143,6 +143,24 @@
     },
     {
       "key": {
+        "uuid": "1d8b9f19_8fbcf88e",
+        "filename": "rtc_base/strings/string_builder.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2018-08-31T12:15:07Z",
+      "side": 1,
+      "message": "Sounds good, let\u0027s go with that.",
+      "parentUuid": "274cfde2_6a9f2bfc",
+      "revId": "876c243965eedf0ba4806c50335b104ca707b86b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d5951314_1a282c0f",
         "filename": "rtc_base/strings/string_builder.h",
         "patchSetId": 9
@@ -225,6 +243,24 @@
       "side": 1,
       "message": "Then perhaps a later CL should replace this method with a `Clear` method in both classes?",
       "parentUuid": "4edefe48_d77f53cd",
+      "revId": "876c243965eedf0ba4806c50335b104ca707b86b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "78795176_4e802f8a",
+        "filename": "rtc_base/strings/string_builder.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2018-08-31T12:15:07Z",
+      "side": 1,
+      "message": "Let\u0027s do it now.",
+      "parentUuid": "211529de_f843a47b",
       "revId": "876c243965eedf0ba4806c50335b104ca707b86b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

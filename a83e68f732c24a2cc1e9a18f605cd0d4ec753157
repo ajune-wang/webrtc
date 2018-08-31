@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2347752d_ee0e8e63",
+        "filename": "rtc_base/strings/string_builder.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2018-08-31T12:15:07Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "1930e834_edb7b77c",
+      "range": {
+        "startLine": 95,
+        "startChar": 25,
+        "endLine": 95,
+        "endChar": 30
+      },
+      "revId": "a83e68f732c24a2cc1e9a18f605cd0d4ec753157",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "50063014_41e7a84e",
         "filename": "rtc_base/strings/string_builder.h",
         "patchSetId": 10
@@ -36,6 +60,24 @@
       "writtenOn": "2018-08-31T10:16:09Z",
       "side": 1,
       "message": "Bug! This will read from s.data() until we reach a null byte, which may be more than s.size() characters.\n\nYou can explicitly cast a string_view to a std::string:\n\n  str_ \u003d static_cast\u003cstd::string\u003e(s);\n\nbut it appears to be much more efficient to do this:\n\n  str_.assign(s.data(), s.size());",
+      "revId": "a83e68f732c24a2cc1e9a18f605cd0d4ec753157",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "739306cb_349fccc0",
+        "filename": "rtc_base/strings/string_builder.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2018-08-31T12:15:07Z",
+      "side": 1,
+      "message": "Function, and by extension bug, deleted.",
+      "parentUuid": "50063014_41e7a84e",
       "revId": "a83e68f732c24a2cc1e9a18f605cd0d4ec753157",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

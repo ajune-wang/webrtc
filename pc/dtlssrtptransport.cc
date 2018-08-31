@@ -15,7 +15,7 @@
 #include <utility>
 
 #include "media/base/rtputils.h"
-#include "rtc_base/sslstreamadapter.h"
+#include "crypto/sslstreamadapter.h"
 
 namespace {
 // Value specified in RFC 5764.

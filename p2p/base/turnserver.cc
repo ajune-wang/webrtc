@@ -22,7 +22,7 @@
 #include "rtc_base/checks.h"
 #include "rtc_base/helpers.h"
 #include "rtc_base/logging.h"
-#include "rtc_base/messagedigest.h"
+#include "crypto/messagedigest.h"
 #include "rtc_base/socketadapters.h"
 #include "rtc_base/stringencode.h"
 #include "rtc_base/thread.h"

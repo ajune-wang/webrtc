@@ -17,7 +17,7 @@
 #include "rtc_base/bytebuffer.h"
 #include "rtc_base/gunit.h"
 #include "rtc_base/logging.h"
-#include "rtc_base/messagedigest.h"
+#include "crypto/messagedigest.h"
 #include "rtc_base/socketaddress.h"
 
 namespace cricket {

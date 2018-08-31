@@ -60,7 +60,7 @@
 #include "rtc_base/firewallsocketserver.h"
 #include "rtc_base/gunit.h"
 #include "rtc_base/numerics/safe_conversions.h"
-#include "rtc_base/testcertificateverifier.h"
+#include "crypto/testcertificateverifier.h"
 #include "rtc_base/virtualsocketserver.h"
 #include "system_wrappers/include/metrics_default.h"
 #include "test/gmock.h"

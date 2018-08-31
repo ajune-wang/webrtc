@@ -19,9 +19,9 @@
 #include "rtc_base/dscp.h"
 #include "rtc_base/gunit.h"
 #include "rtc_base/helpers.h"
-#include "rtc_base/ssladapter.h"
-#include "rtc_base/sslidentity.h"
-#include "rtc_base/sslstreamadapter.h"
+#include "crypto/ssladapter.h"
+#include "crypto/sslidentity.h"
+#include "crypto/sslstreamadapter.h"
 #include "rtc_base/stringutils.h"
 
 #define MAYBE_SKIP_TEST(feature)                                  \

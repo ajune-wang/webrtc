@@ -18,8 +18,8 @@
 #include "p2p/base/stun.h"
 #include "p2p/base/turnserver.h"
 #include "rtc_base/asyncudpsocket.h"
-#include "rtc_base/ssladapter.h"
-#include "rtc_base/sslidentity.h"
+#include "crypto/ssladapter.h"
+#include "crypto/sslidentity.h"
 #include "rtc_base/thread.h"
 #include "rtc_base/thread_checker.h"
 

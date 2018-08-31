@@ -651,6 +651,7 @@ if (is_linux || is_win) {
     deps = [
       "../api:libjingle_peerconnection_api",
       "../api/video:video_frame_i420",
+      "../crypto:crypto",
       "../rtc_base:checks",
       "../rtc_base:stringutils",
       "../rtc_base/third_party/sigslot",
@@ -881,6 +882,7 @@ if (!build_with_chromium) {
     }
 
     deps = [
+      "../crypto:crypto",
       "../p2p:libstunprober",
       "../p2p:rtc_p2p",
       "../rtc_base:checks",

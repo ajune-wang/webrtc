@@ -80,6 +80,7 @@ rtc_executable("frame_analyzer") {
   deps = [
     ":command_line_parser",
     ":video_quality_analysis",
+    "../crypto",
     "../test:perf_test",
   ]
 }
@@ -95,6 +96,7 @@ if (!build_with_chromium) {
     deps = [
       ":command_line_parser",
       ":video_quality_analysis",
+      "../crypto",
     ]
   }
 
@@ -131,6 +133,7 @@ if (!build_with_chromium) {
     deps = [
       ":command_line_parser",
       "../common_video",
+      "../crypto",
       "//third_party/libyuv",
     ]
   }
@@ -155,6 +158,7 @@ if (!build_with_chromium) {
     deps = [
       ":command_line_parser",
       ":frame_editing_lib",
+      "../crypto",
     ]
   }
 
@@ -166,6 +170,7 @@ if (!build_with_chromium) {
       ]
 
       deps = [
+        "../crypto",
         "../modules/audio_device",
         "../modules/audio_device:audio_device_impl",
         "../system_wrappers:system_wrappers_default",
@@ -205,6 +210,7 @@ if (!build_with_chromium) {
         "../:webrtc_common",
         "../call:call_interfaces",
         "../call:video_stream_api",
+        "../crypto",
         "../logging:rtc_event_log_api",
         "../logging:rtc_event_log_impl_base",
         "../logging:rtc_event_log_parser",

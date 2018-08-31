@@ -16,7 +16,7 @@
 #include "rtc_base/gunit.h"
 #include "rtc_base/helpers.h"
 #include "rtc_base/socketaddress.h"
-#include "rtc_base/ssladapter.h"
+#include "crypto/ssladapter.h"
 #include "rtc_base/virtualsocketserver.h"
 
 using cricket::ServerAddresses;

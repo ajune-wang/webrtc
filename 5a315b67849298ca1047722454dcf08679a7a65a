@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dee96d37_739b703f",
+        "filename": "modules/audio_coding/codecs/opus/test/BUILD.gn",
+        "patchSetId": 8
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-08-31T10:12:30Z",
+      "side": 1,
+      "message": "I see, the library is called \u0027test\u0027 because it\u0027s in the \u0027test\u0027 folder. Still, the name is not exactly descriptive... It doesn\u0027t get better with \u0027test_unittest\u0027.",
+      "range": {
+        "startLine": 17,
+        "startChar": 22,
+        "endLine": 17,
+        "endChar": 26
+      },
+      "revId": "5a315b67849298ca1047722454dcf08679a7a65a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b80281dd_f1e6cb63",
+        "filename": "modules/audio_coding/codecs/opus/test/lapped_transform.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-08-31T10:12:30Z",
+      "side": 1,
+      "message": "Not high prio because it\u0027s a testonly target, right?",
+      "range": {
+        "startLine": 122,
+        "startChar": 29,
+        "endLine": 122,
+        "endChar": 40
+      },
+      "revId": "5a315b67849298ca1047722454dcf08679a7a65a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

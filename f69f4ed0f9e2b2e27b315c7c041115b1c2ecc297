@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a5851b17_d2d5997c",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1418,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2018-08-31T12:25:34Z",
+      "side": 1,
+      "message": "cricket::Connection for consistency.",
+      "revId": "f69f4ed0f9e2b2e27b315c7c041115b1c2ecc297",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02dc79be_ebec8b1c",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1448,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2018-08-31T12:25:34Z",
+      "side": 1,
+      "message": "[nit] Just switching a and b from the previous test is a bit easier to read.",
+      "revId": "f69f4ed0f9e2b2e27b315c7c041115b1c2ecc297",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e3618e8_21859ccb",
+        "filename": "p2p/base/p2ptransportchannel.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2018-08-31T12:25:34Z",
+      "side": 1,
+      "message": "I think it\u0027s best to drop MAX_VALUE here (never used).",
+      "revId": "f69f4ed0f9e2b2e27b315c7c041115b1c2ecc297",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "769ccb00_bcbd8840",
+        "filename": "p2p/base/p2ptransportchannel.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2018-08-31T12:25:34Z",
+      "side": 1,
+      "message": "If DEFAULT isn\u0027t allowed (cf corresponding switch), why proposing it as an enum in the first place?",
+      "revId": "f69f4ed0f9e2b2e27b315c7c041115b1c2ecc297",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ba3563e_2f088b21",
+        "filename": "p2p/base/p2ptransportchannel.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2018-08-31T12:25:34Z",
+      "side": 1,
+      "message": "MAX_VALUE \u003d CANDIDATE_PACKET_LOSS is more accurate, and make it clearer that it\u0027s isn\u0027t one of the selection criteria!\n(using MAX_VALUE to close enumeration doesn\u0027t seem to be a common practice in webrtc)",
+      "revId": "f69f4ed0f9e2b2e27b315c7c041115b1c2ecc297",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

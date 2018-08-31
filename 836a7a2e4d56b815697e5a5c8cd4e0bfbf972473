@@ -22,6 +22,30 @@
       "revId": "836a7a2e4d56b815697e5a5c8cd4e0bfbf972473",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c3a85855_d15e7f42",
+        "filename": "pc/dtmfsender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-08-31T22:20:23Z",
+      "side": 0,
+      "message": "Yes, there\u0027s only one message so it\u0027s safe to do Clear() on the whole AsyncInvoker. I renamed the AsyncInvoker to avoid it being reused for a different purpose.",
+      "parentUuid": "d9a51c87_25114673",
+      "range": {
+        "startLine": 138,
+        "startChar": 21,
+        "endLine": 138,
+        "endChar": 51
+      },
+      "revId": "836a7a2e4d56b815697e5a5c8cd4e0bfbf972473",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

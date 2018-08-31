@@ -460,26 +460,17 @@ bool ParseSsData(rtc::BitBuffer* parser, RTPVideoHeaderVP9* vp9) {
 }
 }  // namespace
 
-RtpPacketizerVp9::RtpPacketizerVp9(const RTPVideoHeaderVP9& hdr,
-                                   size_t max_payload_length,
-                                   size_t last_packet_reduction_len)
+RtpPacketizerVp9::RtpPacketizerVp9(rtc::ArrayView<const uint8_t> payload,
+                                   PayloadSizeLimits limits,
+                                   const RTPVideoHeaderVP9& hdr)
     : hdr_(hdr),
-      max_payload_length_(max_payload_length),
-      payload_(nullptr),
-      payload_size_(0),
-      last_packet_reduction_len_(last_packet_reduction_len) {}
-
-RtpPacketizerVp9::~RtpPacketizerVp9() {}
-
-size_t RtpPacketizerVp9::SetPayloadData(
-    const uint8_t* payload,
-    size_t payload_size,
-    const RTPFragmentationHeader* fragmentation) {
-  payload_ = payload;
-  payload_size_ = payload_size;
+      payload_(payload.data()),
+      payload_size_(payload.size()),
+      limits_(limits) {
   GeneratePackets();
-  return packets_.size();
 }
+
+RtpPacketizerVp9::~RtpPacketizerVp9() = default;
 
 size_t RtpPacketizerVp9::NumPackets() const {
   return packets_.size();
@@ -487,21 +478,21 @@ size_t RtpPacketizerVp9::NumPackets() const {
 
 // Splits payload in minimal number of roughly equal in size packets.
 void RtpPacketizerVp9::GeneratePackets() {
-  if (max_payload_length_ < PayloadDescriptorLength(hdr_) + 1) {
+  if (limits_.max_payload_len < PayloadDescriptorLength(hdr_) + 1) {
     RTC_LOG(LS_ERROR) << "Payload header and one payload byte won't fit in the "
                          "first packet.";
     return;
   }
-  if (max_payload_length_ < PayloadDescriptorLengthMinusSsData(hdr_) + 1 +
-                                last_packet_reduction_len_) {
+  if (limits_.max_payload_len < PayloadDescriptorLengthMinusSsData(hdr_) + 1 +
+                                    limits_.last_packet_reduction_len) {
     RTC_LOG(LS_ERROR)
         << "Payload header and one payload byte won't fit in the last"
            " packet.";
     return;
   }
   if (payload_size_ == 1 &&
-      max_payload_length_ <
-          PayloadDescriptorLength(hdr_) + 1 + last_packet_reduction_len_) {
+      limits_.max_payload_len < PayloadDescriptorLength(hdr_) + 1 +
+                                    limits_.last_packet_reduction_len) {
     RTC_LOG(LS_ERROR) << "Can't fit header and payload into single packet, but "
                          "payload size is one: no way to generate packets with "
                          "nonzero payload.";
@@ -516,10 +507,11 @@ void RtpPacketizerVp9::GeneratePackets() {
 
   size_t ss_data_len = SsDataLength(hdr_);
   // Payload, virtual payload and SS hdr data in the first packet together.
-  size_t total_bytes = ss_data_len + payload_size_ + last_packet_reduction_len_;
+  size_t total_bytes =
+      ss_data_len + payload_size_ + limits_.last_packet_reduction_len;
   // Now all packets will have the same lenght of vp9 headers.
   size_t per_packet_capacity =
-      max_payload_length_ - PayloadDescriptorLengthMinusSsData(hdr_);
+      limits_.max_payload_len - PayloadDescriptorLengthMinusSsData(hdr_);
   // Integer division rounding up.
   size_t num_packets =
       (total_bytes + per_packet_capacity - 1) / per_packet_capacity;
@@ -559,7 +551,7 @@ void RtpPacketizerVp9::GeneratePackets() {
     // Last packet should be smaller
     RTC_DCHECK(num_packets_left > 0 ||
                per_packet_capacity >=
-                   packet_bytes + last_packet_reduction_len_);
+                   packet_bytes + limits_.last_packet_reduction_len);
   }
   RTC_CHECK_EQ(bytes_processed, payload_size_);
 }
@@ -625,8 +617,8 @@ bool RtpPacketizerVp9::WriteHeaderAndPayload(const PacketInfo& packet_info,
                                              RtpPacketToSend* packet,
                                              bool last) const {
   uint8_t* buffer = packet->AllocatePayload(
-      last ? max_payload_length_ - last_packet_reduction_len_
-           : max_payload_length_);
+      last ? limits_.max_payload_len - limits_.last_packet_reduction_len
+           : limits_.max_payload_len);
   RTC_DCHECK(buffer);
   size_t header_length;
   if (!WriteHeader(packet_info, buffer, &header_length))
@@ -653,7 +645,7 @@ bool RtpPacketizerVp9::WriteHeader(const PacketInfo& packet_info,
   bool v_bit = hdr_.ss_data_available && b_bit;
   bool z_bit = hdr_.non_ref_for_inter_layer_pred;
 
-  rtc::BitBufferWriter writer(buffer, max_payload_length_);
+  rtc::BitBufferWriter writer(buffer, limits_.max_payload_len);
   RETURN_FALSE_ON_ERROR(writer.WriteBits(i_bit ? 1 : 0, 1));
   RETURN_FALSE_ON_ERROR(writer.WriteBits(p_bit ? 1 : 0, 1));
   RETURN_FALSE_ON_ERROR(writer.WriteBits(l_bit ? 1 : 0, 1));

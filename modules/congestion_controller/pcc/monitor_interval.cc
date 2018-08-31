@@ -101,12 +101,16 @@ Timestamp PccMonitorInterval::GetEndTime() const {
   return start_time_ + interval_duration_;
 }
 
-double PccMonitorInterval::GetLossRate() const {
+double PccMonitorInterval::GetLossRate(double loss_rate_threshold) const {
   size_t packets_lost = lost_packets_sent_time_.size();
   size_t packets_received = received_packets_.size();
   if (packets_lost == 0)
     return 0;
-  return static_cast<double>(packets_lost) / (packets_lost + packets_received);
+  double loss_rate =
+      static_cast<double>(packets_lost) / (packets_lost + packets_received);
+  if (loss_rate < loss_rate_threshold)
+    loss_rate = 0;
+  return loss_rate;
 }
 
 DataRate PccMonitorInterval::GetTargetSendingRate() const {

@@ -36,7 +36,7 @@ class PccMonitorInterval {
   bool IsFeedbackCollectionDone() const;
   Timestamp GetEndTime() const;
 
-  double GetLossRate() const;
+  double GetLossRate(double loss_rate_threshold) const;
   // Estimates the gradient using linear regression on the 2-dimensional
   // dataset (sampled packets delay, time of sampling).
   double ComputeDelayGradient(double delay_gradient_threshold) const;

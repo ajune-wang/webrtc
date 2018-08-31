@@ -21,6 +21,7 @@ constexpr double kLossCoefficient = 11.35;
 constexpr double kThroughputPower = 0.9;
 constexpr double kThroughputCoefficient = 1;
 constexpr double kDelayGradientNegativeBound = 10;
+constexpr double kLossRateThreshold = 0;
 
 const Timestamp kStartTime = Timestamp::us(0);
 const TimeDelta kPacketsDelta = TimeDelta::ms(1);
@@ -59,9 +60,9 @@ std::vector<PacketResult> CreatePacketResults(
 
 TEST(PccVivaceUtilityFunctionTest,
      UtilityIsThroughputTermIfAllRestCoefficientsAreZero) {
-  VivaceUtilityFunction utility_function(0, 0, kThroughputCoefficient,
-                                         kThroughputPower, 0,
-                                         kDelayGradientNegativeBound);
+  VivaceUtilityFunction utility_function(
+      0, 0, kThroughputCoefficient, kThroughputPower, 0,
+      kDelayGradientNegativeBound, kLossRateThreshold);
   PccMonitorInterval monitor_interval(kSendingBitrate, kStartTime,
                                       kIntervalDuration);
   monitor_interval.OnPacketsFeedback(CreatePacketResults(
@@ -80,7 +81,7 @@ TEST(PccVivaceUtilityFunctionTest,
      LossTermIsNonZeroIfLossCoefficientIsNonZero) {
   VivaceUtilityFunction utility_function(
       0, kLossCoefficient, kThroughputCoefficient, kThroughputPower, 0,
-      kDelayGradientNegativeBound);
+      kDelayGradientNegativeBound, kLossRateThreshold);
   PccMonitorInterval monitor_interval(kSendingBitrate, kStartTime,
                                       kIntervalDuration);
   monitor_interval.OnPacketsFeedback(CreatePacketResults(
@@ -94,7 +95,7 @@ TEST(PccVivaceUtilityFunctionTest,
                    kThroughputCoefficient *
                            std::pow(kSendingBitrate.bps(), kThroughputPower) -
                        kLossCoefficient * kSendingBitrate.bps() *
-                           monitor_interval.GetLossRate());
+                           monitor_interval.GetLossRate(kLossRateThreshold));
 }
 
 }  // namespace test

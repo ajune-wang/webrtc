@@ -90,7 +90,7 @@ TEST(PccMonitorIntervalTest, LossRateIsOneThirdIfLostOnePacketOutOfThree) {
   interval.OnPacketsFeedback(packet_results);
   EXPECT_EQ(interval.IsFeedbackCollectionDone(), true);
 
-  EXPECT_DOUBLE_EQ(interval.GetLossRate(), 1. / 3);
+  EXPECT_DOUBLE_EQ(interval.GetLossRate(0), 1. / 3);
 }
 
 TEST(PccMonitorIntervalTest, DelayGradientIsZeroIfNoChangeInPacketDelay) {

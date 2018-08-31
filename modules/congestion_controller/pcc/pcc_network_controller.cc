@@ -9,9 +9,11 @@
  */
 
 #include <algorithm>
+#include <memory>
 
 #include "absl/memory/memory.h"
 #include "modules/congestion_controller/pcc/pcc_network_controller.h"
+#include "system_wrappers/include/field_trial.h"
 
 namespace webrtc {
 namespace pcc {
@@ -25,8 +27,8 @@ constexpr double kAlphaForRtt = 0.9;
 constexpr double kSlowStartModeIncrease = 1.5;
 
 constexpr double kAlphaForPacketInterval = 0.9;
-constexpr int64_t kMinPacketsNumberPerInterval = 20;
-const TimeDelta kMinDurationOfMonitorInterval = TimeDelta::ms(50);
+constexpr int64_t kMinPacketsNumberPerInterval = 10;
+const TimeDelta kMinDurationOfMonitorInterval = TimeDelta::ms(100);
 const TimeDelta kStartupDuration = TimeDelta::ms(500);
 constexpr double kMinRateChangeBps = 4000;
 const DataRate kMinRateHaveMultiplicativeRateChange =
@@ -39,44 +41,146 @@ constexpr double kDynamicBoundaryIncrement = 0.1;
 // Utility function parameters.
 constexpr double kRttGradientCoefficientBps = 0.005;
 constexpr double kLossCoefficientBps = 10;
-constexpr double kThroughputCoefficient = 0.001;
+constexpr double kThroughputCoefficient = 0.004;
 constexpr double kThroughputPower = 0.9;
-constexpr double kRttGradientThreshold = 0.01;
-constexpr double kDelayGradientNegativeBound = 0.1;
+constexpr double kRttGradientThreshold = 0.02;
+constexpr double kDelayGradientNegativeBound = 0.5;
+constexpr double kLossRateThreshold = 0.2;
 
 constexpr int64_t kNumberOfPacketsToKeep = 20;
 const uint64_t kRandomSeed = 100;
+
+const char kPccConfigTrial[] = "WebRTC-BwePccConfig";
+
+std::unique_ptr<PccUtilityFunctionInterface> CreateUtilityFunction(
+    bool is_modified,
+    double rtt_gradient_coefficient,
+    double loss_coefficient,
+    double throughput_coefficient,
+    double throughput_power,
+    double rtt_gradient_threshold,
+    double rtt_gradient_negative_bound,
+    double loss_rate_threshold) {
+  if (is_modified) {
+    return absl::make_unique<ModifiedVivaceUtilityFunction>(
+        rtt_gradient_coefficient, loss_coefficient, throughput_coefficient,
+        throughput_power, rtt_gradient_threshold, rtt_gradient_negative_bound,
+        loss_rate_threshold);
+  }
+  return absl::make_unique<VivaceUtilityFunction>(
+      rtt_gradient_coefficient, loss_coefficient, throughput_coefficient,
+      throughput_power, rtt_gradient_threshold, rtt_gradient_negative_bound,
+      loss_rate_threshold);
+}
 }  // namespace
 
+PccNetworkController::PccControllerConfig::PccControllerConfig(
+    std::string field_trial)
+    : alpha_for_packet_interval("alpha_for_packet_interval",
+                                kAlphaForPacketInterval),
+      default_bandwidth("default_bandwidth",
+                        DataRate::kbps(kInitialBandwidthKbps)),
+      initial_rtt_ms("initial_rtt_ms", kInitialRttMs),
+      monitor_interval_timeout_ratio("monitor_interval_timeout_ratio",
+                                     kTimeoutRatio),
+      monitor_interval_length_strategy(
+          "monitor_interval_length_strategy",
+          MonitorIntervalLengthStrategy::kFixed,
+          {{"kAdaptive", MonitorIntervalLengthStrategy::kAdaptive},
+           {"kFixed", MonitorIntervalLengthStrategy::kFixed}}),
+      monitor_interval_duration_ratio("monitor_interval_duration_ratio",
+                                      kMonitorIntervalDurationRatio),
+      min_duration_of_monitor_interval("min_duration_of_monitor_interval",
+                                       kMinDurationOfMonitorInterval),
+      sampling_step("sampling_step", kDefaultSamplingStep),
+      min_rate_change_bps("min_rate_change_bps", kMinRateChangeBps),
+      min_packets_number_per_interval("min_packets_number_per_interval",
+                                      kMinPacketsNumberPerInterval),
+      startup_duration("startup_duration", kStartupDuration),
+      slow_start_increase_factor("slow_start_increase_factor",
+                                 kSlowStartModeIncrease),
+      initial_conversion_factor("initial_conversion_factor",
+                                kInitialConversionFactor),
+      initial_dynamic_boundary("initial_dynamic_boundary",
+                               kInitialDynamicBoundary),
+      dynamic_boundary_increment("dynamic_boundary_increment",
+                                 kDynamicBoundaryIncrement),
+      is_modified_utility_function("is_modified_utility_function", true),
+      rtt_gradient_coefficient("rtt_gradient_coefficient",
+                               kRttGradientCoefficientBps),
+      loss_coefficient("loss_coefficient", kLossCoefficientBps),
+      throughput_coefficient("throughput_coefficient", kThroughputCoefficient),
+      throughput_power("throughput_power", kThroughputPower),
+      rtt_gradient_threshold("rtt_gradient_threshold", kRttGradientThreshold),
+      rtt_gradient_negative_bound("rtt_gradient_negative_bound",
+                                  kDelayGradientNegativeBound),
+      loss_rate_threshold("loss_rate_threshold", kLossRateThreshold),
+      number_of_packets_to_keep("number_of_packets_to_keep",
+                                kNumberOfPacketsToKeep) {
+  ParseFieldTrial({&alpha_for_packet_interval,
+                   &default_bandwidth,
+                   &initial_rtt_ms,
+                   &monitor_interval_timeout_ratio,
+                   &monitor_interval_length_strategy,
+                   &monitor_interval_duration_ratio,
+                   &min_duration_of_monitor_interval,
+                   &sampling_step,
+                   &min_rate_change_bps,
+                   &min_packets_number_per_interval,
+                   &startup_duration,
+                   &slow_start_increase_factor,
+                   &loss_rate_threshold,
+                   &initial_conversion_factor,
+                   &initial_dynamic_boundary,
+                   &dynamic_boundary_increment,
+                   &rtt_gradient_coefficient,
+                   &loss_coefficient,
+                   &throughput_coefficient,
+                   &throughput_power,
+                   &rtt_gradient_threshold,
+                   &rtt_gradient_negative_bound,
+                   &number_of_packets_to_keep},
+                  field_trial);
+}
+PccNetworkController::PccControllerConfig::~PccControllerConfig() = default;
+PccNetworkController::PccControllerConfig::PccControllerConfig(
+    const PccControllerConfig&) = default;
+PccNetworkController::PccControllerConfig
+PccNetworkController::PccControllerConfig::FromTrial() {
+  return PccControllerConfig(
+      webrtc::field_trial::FindFullName(kPccConfigTrial));
+}
+
 PccNetworkController::PccNetworkController(NetworkControllerConfig config)
-    : start_time_(Timestamp::Infinity()),
+    : config_(PccControllerConfig::FromTrial()),
+      start_time_(Timestamp::Infinity()),
       last_sent_packet_time_(Timestamp::Infinity()),
       smoothed_packets_sending_interval_(TimeDelta::Zero()),
       mode_(Mode::kStartup),
-      default_bandwidth_(DataRate::kbps(kInitialBandwidthKbps)),
-      bandwidth_estimate_(default_bandwidth_),
-      rtt_tracker_(TimeDelta::ms(kInitialRttMs), kAlphaForRtt),
-      monitor_interval_timeout_(TimeDelta::ms(kInitialRttMs) * kTimeoutRatio),
-      monitor_interval_length_strategy_(MonitorIntervalLengthStrategy::kFixed),
-      monitor_interval_duration_ratio_(kMonitorIntervalDurationRatio),
-      sampling_step_(kDefaultSamplingStep),
-      monitor_interval_timeout_ratio_(kTimeoutRatio),
-      min_packets_number_per_interval_(kMinPacketsNumberPerInterval),
-      bitrate_controller_(kInitialConversionFactor,
-                          kInitialDynamicBoundary,
-                          kDynamicBoundaryIncrement,
-                          kRttGradientCoefficientBps,
-                          kLossCoefficientBps,
-                          kThroughputCoefficient,
-                          kThroughputPower,
-                          kRttGradientThreshold,
-                          kDelayGradientNegativeBound),
+      bandwidth_estimate_(config_.default_bandwidth),
+      rtt_tracker_(TimeDelta::ms(static_cast<int64_t>(config_.initial_rtt_ms)),
+                   kAlphaForRtt),
+      monitor_interval_timeout_(rtt_tracker_.GetRtt() *
+                                config_.monitor_interval_timeout_ratio),
+      min_rate_have_multiplicative_rate_change_(
+          DataRate::bps(config_.min_rate_change_bps / config_.sampling_step)),
+      bitrate_controller_(
+          config_.initial_conversion_factor,
+          config_.initial_dynamic_boundary,
+          config_.dynamic_boundary_increment,
+          CreateUtilityFunction(config_.is_modified_utility_function,
+                                config_.rtt_gradient_coefficient,
+                                config_.loss_coefficient,
+                                config_.throughput_coefficient,
+                                config_.throughput_power,
+                                config_.rtt_gradient_threshold,
+                                config_.rtt_gradient_negative_bound,
+                                config_.loss_rate_threshold)),
       monitor_intervals_duration_(TimeDelta::Zero()),
       complete_feedback_monitor_interval_number_(0),
       random_generator_(kRandomSeed) {
   if (config.starting_bandwidth.IsFinite()) {
-    default_bandwidth_ = config.starting_bandwidth;
-    bandwidth_estimate_ = default_bandwidth_;
+    bandwidth_estimate_ = config.starting_bandwidth;
   }
 }
 
@@ -103,7 +207,7 @@ NetworkControlUpdate PccNetworkController::CreateRateUpdate(
   // TODO(koloskova): Add correct estimate.
   target_rate_msg.network_estimate.loss_rate_ratio = 0;
   target_rate_msg.network_estimate.bwe_period =
-      monitor_interval_duration_ratio_ * rtt_tracker_.GetRtt();
+      config_.monitor_interval_duration_ratio * rtt_tracker_.GetRtt();
 
   target_rate_msg.target_rate = sending_rate;
   update.target_rate = target_rate_msg;
@@ -124,7 +228,8 @@ NetworkControlUpdate PccNetworkController::OnSentPacket(SentPacket msg) {
   // Monitor interval is initialized in OnProcessInterval function.
   if (start_time_.IsInfinite()) {
     start_time_ = msg.send_time;
-    monitor_intervals_duration_ = kStartupDuration;
+    monitor_intervals_duration_ = config_.startup_duration;
+    RTC_DCHECK(mode_ == Mode::kStartup);
     monitor_intervals_bitrates_ = {bandwidth_estimate_};
     monitor_intervals_.emplace_back(bandwidth_estimate_, msg.send_time,
                                     monitor_intervals_duration_);
@@ -132,8 +237,10 @@ NetworkControlUpdate PccNetworkController::OnSentPacket(SentPacket msg) {
   }
   if (last_sent_packet_time_.IsFinite()) {
     smoothed_packets_sending_interval_ =
-        (msg.send_time - last_sent_packet_time_) * kAlphaForPacketInterval +
-        (1 - kAlphaForPacketInterval) * smoothed_packets_sending_interval_;
+        (msg.send_time - last_sent_packet_time_) *
+            config_.alpha_for_packet_interval +
+        (1 - config_.alpha_for_packet_interval) *
+            smoothed_packets_sending_interval_;
   }
   last_sent_packet_time_ = msg.send_time;
   if (!monitor_intervals_.empty() &&
@@ -162,7 +269,7 @@ NetworkControlUpdate PccNetworkController::OnSentPacket(SentPacket msg) {
       mode_ = Mode::kOnlineLearning;
   }
   if (mode_ == Mode::kStartup &&
-      msg.send_time - start_time_ >= kStartupDuration) {
+      msg.send_time - start_time_ >= config_.startup_duration) {
     DataSize received_size = DataSize::Zero();
     for (size_t i = 1; i < last_received_packets_.size(); ++i) {
       received_size += last_received_packets_[i].sent_packet->size;
@@ -181,7 +288,8 @@ NetworkControlUpdate PccNetworkController::OnSentPacket(SentPacket msg) {
     monitor_intervals_bitrates_ = {bandwidth_estimate_};
     monitor_intervals_.emplace_back(bandwidth_estimate_, msg.send_time,
                                     monitor_intervals_duration_);
-    bandwidth_estimate_ = bandwidth_estimate_ * (1 / kSlowStartModeIncrease);
+    bandwidth_estimate_ =
+        bandwidth_estimate_ * (1 / config_.slow_start_increase_factor);
     complete_feedback_monitor_interval_number_ = 0;
     return CreateRateUpdate(msg.send_time);
   }
@@ -189,32 +297,34 @@ NetworkControlUpdate PccNetworkController::OnSentPacket(SentPacket msg) {
     // Creating new monitor intervals.
     monitor_intervals_.clear();
     monitor_interval_timeout_ =
-        rtt_tracker_.GetRtt() * monitor_interval_timeout_ratio_;
+        rtt_tracker_.GetRtt() * config_.monitor_interval_timeout_ratio;
     monitor_intervals_duration_ = ComputeMonitorIntervalsDuration();
     complete_feedback_monitor_interval_number_ = 0;
     // Compute bitrates and start first monitor interval.
     if (mode_ == Mode::kSlowStart) {
-      monitor_intervals_bitrates_ = {kSlowStartModeIncrease *
+      monitor_intervals_bitrates_ = {config_.slow_start_increase_factor *
                                      bandwidth_estimate_};
       monitor_intervals_.emplace_back(
-          kSlowStartModeIncrease * bandwidth_estimate_, msg.send_time,
-          monitor_intervals_duration_);
+          config_.slow_start_increase_factor * bandwidth_estimate_,
+          msg.send_time, monitor_intervals_duration_);
     } else {
       RTC_DCHECK(mode_ == Mode::kOnlineLearning || mode_ == Mode::kDoubleCheck);
       monitor_intervals_.clear();
       int64_t sign = 2 * (random_generator_.Rand(0, 1) % 2) - 1;
       RTC_DCHECK_GE(sign, -1);
       RTC_DCHECK_LE(sign, 1);
-      if (bandwidth_estimate_ >= kMinRateHaveMultiplicativeRateChange) {
+      if (bandwidth_estimate_ >= min_rate_have_multiplicative_rate_change_) {
         monitor_intervals_bitrates_ = {
-            bandwidth_estimate_ * (1 + sign * sampling_step_),
-            bandwidth_estimate_ * (1 - sign * sampling_step_)};
+            bandwidth_estimate_ * (1 + sign * config_.sampling_step),
+            bandwidth_estimate_ * (1 - sign * config_.sampling_step)};
       } else {
         monitor_intervals_bitrates_ = {
             DataRate::bps(std::max<double>(
-                bandwidth_estimate_.bps() + sign * kMinRateChangeBps, 0)),
+                bandwidth_estimate_.bps() + sign * config_.min_rate_change_bps,
+                0)),
             DataRate::bps(std::max<double>(
-                bandwidth_estimate_.bps() - sign * kMinRateChangeBps, 0))};
+                bandwidth_estimate_.bps() - sign * config_.min_rate_change_bps,
+                0))};
       }
       monitor_intervals_.emplace_back(monitor_intervals_bitrates_[0],
                                       msg.send_time,
@@ -226,19 +336,20 @@ NetworkControlUpdate PccNetworkController::OnSentPacket(SentPacket msg) {
 
 TimeDelta PccNetworkController::ComputeMonitorIntervalsDuration() const {
   TimeDelta monitor_intervals_duration = TimeDelta::Zero();
-  if (monitor_interval_length_strategy_ ==
+  if (config_.monitor_interval_length_strategy ==
       MonitorIntervalLengthStrategy::kAdaptive) {
     monitor_intervals_duration = std::max(
-        rtt_tracker_.GetRtt() * monitor_interval_duration_ratio_,
-        smoothed_packets_sending_interval_ * min_packets_number_per_interval_);
+        rtt_tracker_.GetRtt() * config_.monitor_interval_duration_ratio,
+        smoothed_packets_sending_interval_ *
+            config_.min_packets_number_per_interval);
   } else {
-    RTC_DCHECK(monitor_interval_length_strategy_ ==
+    RTC_DCHECK(config_.monitor_interval_length_strategy ==
                MonitorIntervalLengthStrategy::kFixed);
-    monitor_intervals_duration =
-        smoothed_packets_sending_interval_ * min_packets_number_per_interval_;
+    monitor_intervals_duration = smoothed_packets_sending_interval_ *
+                                 config_.min_packets_number_per_interval;
   }
-  monitor_intervals_duration =
-      std::max(kMinDurationOfMonitorInterval, monitor_intervals_duration);
+  monitor_intervals_duration = std::max<TimeDelta>(
+      config_.min_duration_of_monitor_interval, monitor_intervals_duration);
   return monitor_intervals_duration;
 }
 
@@ -263,7 +374,7 @@ NetworkControlUpdate PccNetworkController::OnTransportPacketsFeedback(
   for (const PacketResult& packet_result : msg.ReceivedWithSendInfo()) {
     last_received_packets_.push_back(packet_result);
   }
-  while (last_received_packets_.size() > kNumberOfPacketsToKeep) {
+  while (last_received_packets_.size() > config_.number_of_packets_to_keep) {
     last_received_packets_.pop_front();
   }
   rtt_tracker_.OnPacketsFeedback(msg.PacketsWithFeedback(), msg.feedback_time);
@@ -300,8 +411,10 @@ bool PccNetworkController::NeedDoubleCheckMeasurments() const {
   if (mode_ == Mode::kSlowStart) {
     return false;
   }
-  double first_loss_rate = monitor_intervals_[0].GetLossRate();
-  double second_loss_rate = monitor_intervals_[1].GetLossRate();
+  double first_loss_rate =
+      monitor_intervals_[0].GetLossRate(config_.loss_rate_threshold);
+  double second_loss_rate =
+      monitor_intervals_[1].GetLossRate(config_.loss_rate_threshold);
   DataRate first_bitrate = monitor_intervals_[0].GetTargetSendingRate();
   DataRate second_bitrate = monitor_intervals_[1].GetTargetSendingRate();
   if ((first_bitrate.bps() - second_bitrate.bps()) *

@@ -32,7 +32,8 @@ class PccBitrateController {
                        double throughput_coefficient,
                        double throughput_power,
                        double rtt_gradient_threshold,
-                       double delay_gradient_negative_bound);
+                       double delay_gradient_negative_bound,
+                       double loss_rate_threshold);
 
   PccBitrateController(
       double initial_conversion_factor,

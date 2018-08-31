@@ -32,6 +32,8 @@ rtc_static_library("pcc_controller") {
     ":rtt_tracker",
     "../../../api/transport:network_control",
     "../../../rtc_base:rtc_base_approved",
+    "../../../rtc_base/experiments:field_trial_parser",
+    "../../../system_wrappers:field_trial_api",
     "//third_party/abseil-cpp/absl/memory:memory",
   ]
 }

@@ -18,7 +18,7 @@
 #include "rtc_base/copyonwritebuffer.h"
 #include "rtc_base/gunit.h"
 #include "rtc_base/helpers.h"
-#include "rtc_base/ssladapter.h"
+#include "crypto/ssladapter.h"
 
 class FakeDataReceiver : public sigslot::has_slots<> {
  public:

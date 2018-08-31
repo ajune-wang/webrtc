@@ -1130,6 +1130,7 @@ rtc_source_set("neteq_test_tools") {
     "../../api:array_view",
     "../../api:libjingle_peerconnection_api",
     "../../common_audio",
+    "../../crypto:crypto",
     "../../rtc_base:checks",
     "../../rtc_base:rtc_base",
     "../../rtc_base:rtc_base_approved",
@@ -1331,6 +1332,7 @@ if (rtc_include_tests) {
       "../../api/audio:audio_frame_api",
       "../../api/audio_codecs:builtin_audio_decoder_factory",
       "../../api/audio_codecs:builtin_audio_encoder_factory",
+      "../../crypto:crypto",
       "../../rtc_base:checks",
       "../../rtc_base:rtc_base_approved",
       "../../rtc_base/synchronization:rw_lock_wrapper",
@@ -1440,6 +1442,7 @@ if (rtc_include_tests) {
       "../../:webrtc_common",
       "../../api/audio:audio_frame_api",
       "../../api/audio_codecs:builtin_audio_decoder_factory",
+      "../../crypto",
       "../../rtc_base:checks",
       "../../rtc_base:rtc_base_approved",
       "../../system_wrappers",
@@ -1483,6 +1486,7 @@ if (rtc_include_tests) {
              "../../api/audio_codecs:audio_codecs_api",
              "../../api/audio_codecs/opus:audio_encoder_opus",
              "../../common_audio",
+             "../../crypto",
              "../../rtc_base:protobuf_utils",
              "../../rtc_base/system:arch",
              "../../test:test_main",
@@ -1513,6 +1517,7 @@ if (rtc_include_tests) {
       visibility += webrtc_default_visibility
       defines = []
       deps = [
+        "../../crypto",
         "../../rtc_base:checks",
         "../../test:field_trial",
         "../../test:fileutils",
@@ -1601,6 +1606,7 @@ if (rtc_include_tests) {
       ":webrtc_opus",
       "../..:webrtc_common",
       "../../api:libjingle_peerconnection_api",
+      "../../crypto",
       "../../rtc_base:rtc_base_approved",
       "../../system_wrappers:metrics_default",
       "../../system_wrappers:system_wrappers_default",
@@ -1683,6 +1689,7 @@ if (rtc_include_tests) {
              "../../api/audio_codecs/isac:audio_encoder_isac",
              "../../api/audio_codecs/opus:audio_encoder_opus",
              "../../rtc_base:rtc_base_approved",
+             "../../crypto",
            ]
 
     sources = [
@@ -1696,6 +1703,7 @@ if (rtc_include_tests) {
     testonly = true
 
     deps = audio_coding_deps + [
+             "../../crypto",
              "../../system_wrappers:system_wrappers_default",
              "../rtp_rtcp:rtp_rtcp_format",
              "../../api:array_view",
@@ -1717,6 +1725,7 @@ if (rtc_include_tests) {
     ]
 
     deps = [
+      "../../crypto",
       "../../rtc_base:checks",
       "../../rtc_base:rtc_base_approved",
       "../../system_wrappers:system_wrappers_default",
@@ -1736,6 +1745,7 @@ if (rtc_include_tests) {
       ":neteq",
       ":neteq_test_tools",
       ":pcm16b",
+      "../../crypto",
       "../../rtc_base:rtc_base_approved",
       "../../system_wrappers:system_wrappers_default",
       "//testing/gtest",
@@ -1754,6 +1764,7 @@ if (rtc_include_tests) {
       ":neteq_quality_test_support",
       ":neteq_tools",
       ":webrtc_opus",
+      "../../crypto",
       "../../rtc_base:rtc_base_approved",
       "../../test:test_main",
       "//testing/gtest",
@@ -1771,6 +1782,7 @@ if (rtc_include_tests) {
       ":neteq",
       ":neteq_test_support",
       "../..:webrtc_common",
+      "../../crypto",
       "../../rtc_base:rtc_base_approved",
       "../../system_wrappers:system_wrappers_default",
       "../../test:fileutils",
@@ -1791,6 +1803,7 @@ if (rtc_include_tests) {
       ":neteq_quality_test_support",
       ":neteq_tools",
       "../..:webrtc_common",
+      "../../crypto",
       "../../rtc_base:checks",
       "../../rtc_base:rtc_base_approved",
       "../../system_wrappers:system_wrappers_default",
@@ -1811,6 +1824,7 @@ if (rtc_include_tests) {
       ":isac_fix",
       ":neteq",
       ":neteq_quality_test_support",
+      "../../crypto",
       "../../rtc_base:rtc_base_approved",
       "../../test:test_main",
       "//testing/gtest",
@@ -1828,6 +1842,7 @@ if (rtc_include_tests) {
       ":g711",
       ":neteq",
       ":neteq_quality_test_support",
+      "../../crypto",
       "../../rtc_base:checks",
       "../../rtc_base:rtc_base_approved",
       "../../test:fileutils",
@@ -1847,6 +1862,7 @@ if (rtc_include_tests) {
       ":neteq",
       ":neteq_quality_test_support",
       ":pcm16b",
+      "../../crypto",
       "../../rtc_base:checks",
       "../../rtc_base:rtc_base_approved",
       "../../test:fileutils",
@@ -1971,6 +1987,7 @@ if (rtc_include_tests) {
     deps = [
       ":webrtc_opus",
       "../../common_audio",
+      "../../crypto",
       "../../rtc_base:rtc_base_approved",
       "../../test:fileutils",
       "../../test:test_main",
@@ -2093,6 +2110,7 @@ if (rtc_include_tests) {
       "../../common_audio",
       "../../common_audio:common_audio_c",
       "../../common_audio:mock_common_audio",
+      "../../crypto:crypto",
       "../../logging:mocks",
       "../../logging:rtc_event_audio",
       "../../logging:rtc_event_log_api",

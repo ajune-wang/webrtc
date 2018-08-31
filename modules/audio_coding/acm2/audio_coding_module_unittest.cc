@@ -33,7 +33,7 @@
 #include "modules/audio_coding/neteq/tools/packet.h"
 #include "modules/audio_coding/neteq/tools/rtp_file_source.h"
 #include "rtc_base/criticalsection.h"
-#include "rtc_base/messagedigest.h"
+#include "crypto/messagedigest.h"
 #include "rtc_base/numerics/safe_conversions.h"
 #include "rtc_base/platform_thread.h"
 #include "rtc_base/refcountedobject.h"

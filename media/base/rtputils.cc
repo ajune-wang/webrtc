@@ -15,7 +15,7 @@
 #include "media/base/turnutils.h"
 #include "rtc_base/asyncpacketsocket.h"
 #include "rtc_base/checks.h"
-#include "rtc_base/messagedigest.h"
+#include "crypto/messagedigest.h"
 
 namespace cricket {
 

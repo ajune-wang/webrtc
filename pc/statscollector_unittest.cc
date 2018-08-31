@@ -21,7 +21,7 @@
 #include "pc/test/fakepeerconnectionforstats.h"
 #include "pc/test/fakevideotracksource.h"
 #include "pc/videotrack.h"
-#include "rtc_base/fakesslidentity.h"
+#include "crypto/fakesslidentity.h"
 #include "rtc_base/third_party/base64/base64.h"
 #include "test/gtest.h"
 

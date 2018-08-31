@@ -36,7 +36,7 @@
 #include "rtc_base/logging.h"
 #include "rtc_base/socketadapters.h"
 #include "rtc_base/socketaddress.h"
-#include "rtc_base/ssladapter.h"
+#include "crypto/ssladapter.h"
 #include "rtc_base/thread.h"
 #include "rtc_base/virtualsocketserver.h"
 

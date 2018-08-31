@@ -20,8 +20,8 @@
 #include "pc/peerconnectioninternal.h"
 #include "rtc_base/constructormagic.h"
 #include "rtc_base/messagehandler.h"
-#include "rtc_base/rtccertificate.h"
-#include "rtc_base/rtccertificategenerator.h"
+#include "crypto/rtccertificate.h"
+#include "crypto/rtccertificategenerator.h"
 
 namespace webrtc {
 

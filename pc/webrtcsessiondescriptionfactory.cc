@@ -19,7 +19,7 @@
 #include "api/jsep.h"
 #include "api/jsepsessiondescription.h"
 #include "rtc_base/checks.h"
-#include "rtc_base/sslidentity.h"
+#include "crypto/sslidentity.h"
 
 using cricket::MediaSessionOptions;
 

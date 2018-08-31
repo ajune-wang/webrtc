@@ -12,6 +12,9 @@
 #include <string>
 #include <vector>
 
+#include "crypto/fakesslidentity.h"
+#include "crypto/messagedigest.h"
+#include "crypto/ssladapter.h"
 #include "media/base/codec.h"
 #include "media/base/testutils.h"
 #include "p2p/base/p2pconstants.h"
@@ -21,10 +24,7 @@
 #include "pc/rtpmediautils.h"
 #include "pc/srtpfilter.h"
 #include "rtc_base/checks.h"
-#include "rtc_base/fakesslidentity.h"
 #include "rtc_base/gunit.h"
-#include "rtc_base/messagedigest.h"
-#include "rtc_base/ssladapter.h"
 
 #define ASSERT_CRYPTO(cd, s, cs)      \
   ASSERT_EQ(s, cd->cryptos().size()); \

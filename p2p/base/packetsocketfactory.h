@@ -14,9 +14,9 @@
 #include <string>
 #include <vector>
 
+#include "crypto/sslcertificate.h"
 #include "rtc_base/constructormagic.h"
 #include "rtc_base/proxyinfo.h"
-#include "rtc_base/sslcertificate.h"
 
 namespace rtc {
 

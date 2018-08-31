@@ -11,6 +11,7 @@
 #include <algorithm>
 #include <memory>
 
+#include "crypto/ssladapter.h"
 #include "p2p/base/basicpacketsocketfactory.h"
 #include "p2p/base/p2pconstants.h"
 #include "p2p/base/p2ptransportchannel.h"
@@ -31,7 +32,6 @@
 #include "rtc_base/nethelpers.h"
 #include "rtc_base/network.h"
 #include "rtc_base/socketaddress.h"
-#include "rtc_base/ssladapter.h"
 #include "rtc_base/thread.h"
 #include "rtc_base/virtualsocketserver.h"
 #include "system_wrappers/include/metrics_default.h"

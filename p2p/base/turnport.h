@@ -18,11 +18,11 @@
 #include <string>
 #include <vector>
 
+#include "crypto/sslcertificate.h"
 #include "p2p/base/port.h"
 #include "p2p/client/basicportallocator.h"
 #include "rtc_base/asyncinvoker.h"
 #include "rtc_base/asyncpacketsocket.h"
-#include "rtc_base/sslcertificate.h"
 
 namespace rtc {
 class AsyncResolver;

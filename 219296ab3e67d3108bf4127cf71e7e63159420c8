@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "441afc75_47f9128d",
+        "filename": "pc/dtmfsender.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-08-31T22:12:01Z",
+      "side": 1,
+      "message": "Maybe this comment should be updated while you\u0027re here.",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 0
+      },
+      "revId": "219296ab3e67d3108bf4127cf71e7e63159420c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

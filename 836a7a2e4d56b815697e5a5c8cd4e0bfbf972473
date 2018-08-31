@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d9a51c87_25114673",
+        "filename": "pc/dtmfsender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-08-31T22:12:01Z",
+      "side": 0,
+      "message": "Do you know why the message ID was specified for this Clear() and not in StopSending()? It\u0027s a small difference with your newer CL, because the AsyncInvoker::Clear() doesn\u0027t allows specifying an ID like the MessageHandler does. \n\nThere\u0027s only one message anyways, so I\u0027m going to mark this comment as resolved..",
+      "range": {
+        "startLine": 138,
+        "startChar": 21,
+        "endLine": 138,
+        "endChar": 51
+      },
+      "revId": "836a7a2e4d56b815697e5a5c8cd4e0bfbf972473",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

@@ -14,11 +14,11 @@
 #include <crtdbg.h>
 #endif
 
+#include "crypto/ssladapter.h"
+#include "crypto/sslstreamadapter.h"
 #include "rtc_base/flags.h"
 #include "rtc_base/gunit.h"
 #include "rtc_base/logging.h"
-#include "rtc_base/ssladapter.h"
-#include "rtc_base/sslstreamadapter.h"
 #include "system_wrappers/include/field_trial_default.h"
 #include "system_wrappers/include/metrics_default.h"
 #include "test/field_trial.h"

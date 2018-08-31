@@ -14,10 +14,10 @@
 #include <memory>
 #include <string>
 
+#include "crypto/messagedigest.h"
 #include "modules/audio_coding/neteq/tools/audio_sink.h"
 #include "rtc_base/buffer.h"
 #include "rtc_base/constructormagic.h"
-#include "rtc_base/messagedigest.h"
 #include "rtc_base/stringencode.h"
 #include "rtc_base/system/arch.h"
 

@@ -55,6 +55,7 @@ if (rtc_include_tests) {
       ":rtc_stats",
       ":rtc_stats_test_utils",
       "../api:rtc_stats_api",
+      "../crypto",
       "../rtc_base:checks",
       "../rtc_base:rtc_base_approved",
       "../rtc_base:rtc_base_tests_main",

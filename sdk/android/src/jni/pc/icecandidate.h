@@ -18,7 +18,7 @@
 #include "api/jsepicecandidate.h"
 #include "api/peerconnectioninterface.h"
 #include "api/rtpparameters.h"
-#include "rtc_base/sslidentity.h"
+#include "crypto/sslidentity.h"
 #include "sdk/android/src/jni/jni_helpers.h"
 
 namespace webrtc {

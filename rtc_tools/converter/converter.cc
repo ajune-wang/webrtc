@@ -14,6 +14,7 @@
 #include <iomanip>
 #include <sstream>
 
+#include "rtc_base/strings/string_builder.h"
 #include "rtc_tools/converter/converter.h"
 
 #ifdef WIN32
@@ -161,7 +162,7 @@ bool Converter::FileExists(std::string file_name_to_check) {
 }
 
 std::string Converter::FormFrameName(int width, int number) {
-  std::stringstream tmp;
+  rtc::StringBuilder tmp;
 
   // Zero-pad number to a string.
   tmp << std::setfill('0') << std::setw(width) << number;

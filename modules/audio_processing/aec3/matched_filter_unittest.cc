@@ -26,6 +26,7 @@
 #include "modules/audio_processing/logging/apm_data_dumper.h"
 #include "modules/audio_processing/test/echo_canceller_test_tools.h"
 #include "rtc_base/random.h"
+#include "rtc_base/strings/string_builder.h"
 #include "system_wrappers/include/cpu_features_wrapper.h"
 #include "test/gtest.h"
 
@@ -34,7 +35,7 @@ namespace aec3 {
 namespace {
 
 std::string ProduceDebugText(size_t delay, size_t down_sampling_factor) {
-  std::ostringstream ss;
+  rtc::StringBuilder ss;
   ss << "Delay: " << delay;
   ss << ", Down sampling factor: " << down_sampling_factor;
   return ss.str();

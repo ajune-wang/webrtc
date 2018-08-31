@@ -27,6 +27,7 @@
 #include "rtc_base/checks.h"
 #include "rtc_base/json.h"
 #include "rtc_base/logging.h"
+#include "rtc_base/strings/string_builder.h"
 #include "rtc_base/stringutils.h"
 
 namespace webrtc {
@@ -368,7 +369,7 @@ void CopyFromAudioFrame(const AudioFrame& src, ChannelBuffer<float>* dest) {
 
 std::string GetIndexedOutputWavFilename(const std::string& wav_name,
                                         int counter) {
-  std::stringstream ss;
+  rtc::StringBuilder ss;
   ss << wav_name.substr(0, wav_name.size() - 4) << "_" << counter
      << wav_name.substr(wav_name.size() - 4);
   return ss.str();

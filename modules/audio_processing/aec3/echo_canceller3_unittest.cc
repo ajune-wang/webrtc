@@ -22,6 +22,7 @@
 #include "modules/audio_processing/aec3/frame_blocker.h"
 #include "modules/audio_processing/aec3/mock/mock_block_processor.h"
 #include "modules/audio_processing/audio_buffer.h"
+#include "rtc_base/strings/string_builder.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
 
@@ -604,13 +605,13 @@ class EchoCanceller3Tester {
 };
 
 std::string ProduceDebugText(int sample_rate_hz) {
-  std::ostringstream ss;
+  rtc::StringBuilder ss;
   ss << "Sample rate: " << sample_rate_hz;
   return ss.str();
 }
 
 std::string ProduceDebugText(int sample_rate_hz, int variant) {
-  std::ostringstream ss;
+  rtc::StringBuilder ss;
   ss << "Sample rate: " << sample_rate_hz << ", variant: " << variant;
   return ss.str();
 }

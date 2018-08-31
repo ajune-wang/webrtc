@@ -21,6 +21,7 @@
 #include "modules/audio_coding/include/audio_coding_module_typedefs.h"
 #include "modules/audio_coding/test/TestStereo.h"
 #include "modules/audio_coding/test/utility.h"
+#include "rtc_base/strings/string_builder.h"
 #include "test/gtest.h"
 #include "test/testsupport/fileutils.h"
 
@@ -375,7 +376,7 @@ void OpusTest::Run(TestPackStereo* channel,
 
 void OpusTest::OpenOutFile(int test_number) {
   std::string file_name;
-  std::stringstream file_stream;
+  rtc::StringBuilder file_stream;
   file_stream << webrtc::test::OutputPath() << "opustest_out_" << test_number
               << ".pcm";
   file_name = file_stream.str();

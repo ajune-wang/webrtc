@@ -12,6 +12,8 @@
 
 #include <sstream>
 
+#include "rtc_base/strings/string_builder.h"
+
 namespace webrtc {
 namespace test {
 
@@ -19,7 +21,7 @@ NetEqInput::PacketData::PacketData() = default;
 NetEqInput::PacketData::~PacketData() = default;
 
 std::string NetEqInput::PacketData::ToString() const {
-  std::stringstream ss;
+  rtc::StringBuilder ss;
   ss << "{"
      << "time_ms: " << static_cast<int64_t>(time_ms) << ", "
      << "header: {"

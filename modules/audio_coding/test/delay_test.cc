@@ -171,7 +171,7 @@ class DelayTest {
   }
 
   void OpenOutFile(const char* output_id) {
-    std::stringstream file_stream;
+    rtc::StringBuilder file_stream;
     file_stream << "delay_test_" << FLAG_codec << "_" << FLAG_sample_rate_hz
                 << "Hz"
                 << "_" << FLAG_delay << "ms.pcm";

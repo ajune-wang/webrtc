@@ -87,7 +87,7 @@ struct AudioOptions {
   bool operator!=(const AudioOptions& o) const { return !(*this == o); }
 
   std::string ToString() const {
-    std::ostringstream ost;
+    rtc::StringBuilder ost;
     ost << "AudioOptions {";
     ost << ToStringIfSet("aec", echo_cancellation);
 #if defined(WEBRTC_IOS)

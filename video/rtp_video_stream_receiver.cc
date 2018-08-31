@@ -285,7 +285,7 @@ void RtpVideoStreamReceiver::OnRtpPacket(const RtpPacketReceived& packet) {
 
     // Periodically log the RTP header of incoming packets.
     if (now_ms - last_packet_log_ms_ > kPacketLogIntervalMs) {
-      std::stringstream ss;
+      rtc::StringBuilder ss;
       ss << "Packet received on SSRC: " << packet.Ssrc()
          << " with payload type: " << static_cast<int>(packet.PayloadType())
          << ", timestamp: " << packet.Timestamp()

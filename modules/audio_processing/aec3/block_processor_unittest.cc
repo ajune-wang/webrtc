@@ -93,7 +93,7 @@ void RunCaptureNumBandsVerificationTest(int sample_rate_hz) {
 #endif
 
 std::string ProduceDebugText(int sample_rate_hz) {
-  std::ostringstream ss;
+  rtc::StringBuilder ss;
   ss << "Sample rate: " << sample_rate_hz;
   return ss.str();
 }

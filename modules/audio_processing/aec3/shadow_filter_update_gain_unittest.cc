@@ -115,13 +115,13 @@ void RunFilterUpdateTest(int num_blocks_to_process,
 }
 
 std::string ProduceDebugText(int filter_length_blocks) {
-  std::ostringstream ss;
+  rtc::StringBuilder ss;
   ss << "Length: " << filter_length_blocks;
   return ss.str();
 }
 
 std::string ProduceDebugText(size_t delay, int filter_length_blocks) {
-  std::ostringstream ss;
+  rtc::StringBuilder ss;
   ss << "Delay: " << delay << ", ";
   ss << ProduceDebugText(filter_length_blocks);
   return ss.str();

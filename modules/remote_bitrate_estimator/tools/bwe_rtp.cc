@@ -50,7 +50,7 @@ std::set<uint32_t> SsrcFilter() {
   std::string ssrc_filter_string = static_cast<std::string>(FLAG_ssrc_filter);
   if (ssrc_filter_string.empty())
     return std::set<uint32_t>();
-  std::stringstream ss;
+  rtc::StringBuilder ss;
   std::string ssrc_filter = ssrc_filter_string;
   std::set<uint32_t> ssrcs;
 

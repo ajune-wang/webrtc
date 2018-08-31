@@ -186,7 +186,7 @@ class FileRenderPassthrough : public rtc::VideoSinkInterface<VideoFrame> {
     if (basename_.empty())
       return;
 
-    std::stringstream filename;
+    rtc::StringBuilder filename;
     filename << basename_ << count_++ << "_" << video_frame.timestamp()
              << ".jpg";
 
@@ -225,7 +225,7 @@ class DecoderBitstreamFileWriter : public test::FakeDecoder {
 };
 
 void RtpReplay() {
-  std::stringstream window_title;
+  rtc::StringBuilder window_title;
   window_title << "Playback Video (" << flags::InputFile() << ")";
   std::unique_ptr<test::VideoRenderer> playback_video(
       test::VideoRenderer::Create(window_title.str().c_str(), 640, 480));

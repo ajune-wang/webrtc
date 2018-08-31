@@ -386,7 +386,7 @@ void NetEqDecodingTest::DecodeAndCompare(
   uint64_t last_concealed_samples = 0;
   uint64_t last_total_samples_received = 0;
   while (packet_) {
-    std::ostringstream ss;
+    rtc::StringBuilder ss;
     ss << "Lap number " << i++ << " in DecodeAndCompare while loop";
     SCOPED_TRACE(ss.str());  // Print out the parameter values on failure.
     ASSERT_NO_FATAL_FAILURE(Process());
@@ -900,7 +900,7 @@ TEST_F(NetEqDecodingTest, MAYBE_DecoderError) {
   static const int kExpectedOutputLength = 160;  // 10 ms at 16 kHz sample rate.
   const int16_t* const_out_frame_data = out_frame_.data();
   for (int i = 0; i < kExpectedOutputLength; ++i) {
-    std::ostringstream ss;
+    rtc::StringBuilder ss;
     ss << "i = " << i;
     SCOPED_TRACE(ss.str());  // Print out the parameter values on failure.
     EXPECT_EQ(0, const_out_frame_data[i]);
@@ -922,7 +922,7 @@ TEST_F(NetEqDecodingTest, GetAudioBeforeInsertPacket) {
       kInitSampleRateHz / 100;  // 10 ms at initial sample rate.
   const int16_t* const_out_frame_data = out_frame_.data();
   for (int i = 0; i < kExpectedOutputLength; ++i) {
-    std::ostringstream ss;
+    rtc::StringBuilder ss;
     ss << "i = " << i;
     SCOPED_TRACE(ss.str());  // Print out the parameter values on failure.
     EXPECT_EQ(0, const_out_frame_data[i]);
@@ -1532,7 +1532,7 @@ TEST_F(NetEqDecodingTestTwoInstances, CompareMutedStateOnOff) {
   AudioFrame out_frame1, out_frame2;
   bool muted;
   for (int i = 0; i < 1000; ++i) {
-    std::ostringstream ss;
+    rtc::StringBuilder ss;
     ss << "i = " << i;
     SCOPED_TRACE(ss.str());  // Print out the loop iterator on failure.
     EXPECT_EQ(0, neteq_->GetAudio(&out_frame1, &muted));
@@ -1555,7 +1555,7 @@ TEST_F(NetEqDecodingTestTwoInstances, CompareMutedStateOnOff) {
   int counter = 0;
   while (out_frame1.speech_type_ != AudioFrame::kNormalSpeech) {
     ASSERT_LT(counter++, 1000) << "Test timed out";
-    std::ostringstream ss;
+    rtc::StringBuilder ss;
     ss << "counter = " << counter;
     SCOPED_TRACE(ss.str());  // Print out the loop iterator on failure.
     EXPECT_EQ(0, neteq_->GetAudio(&out_frame1, &muted));

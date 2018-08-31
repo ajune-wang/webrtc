@@ -485,7 +485,7 @@ void UDPPort::OnStunBindingRequestSucceeded(
           rtc::EmptySocketAddressWithFamily(related_address.family());
     }
 
-    std::ostringstream url;
+    rtc::StringBuilder url;
     url << "stun:" << stun_server_addr.ipaddr().ToString() << ":"
         << stun_server_addr.port();
     AddAddress(stun_reflected_addr, socket_->GetLocalAddress(), related_address,

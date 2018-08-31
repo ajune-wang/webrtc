@@ -159,7 +159,7 @@ void RunWronglyInsertOrderTest(int sample_rate_hz,
 #endif
 
 std::string ProduceDebugText(int sample_rate_hz) {
-  std::ostringstream ss;
+  rtc::StringBuilder ss;
   ss << "Sample rate: " << sample_rate_hz;
   return ss.str();
 }
@@ -229,7 +229,7 @@ TEST(BlockFramer, WrongNumberOfSamplesInBlockForInsertBlock) {
 TEST(BlockFramer, WrongNumberOfPreceedingApiCallsForInsertBlock) {
   for (auto rate : {8000, 16000, 32000, 48000}) {
     for (size_t num_calls = 0; num_calls < 4; ++num_calls) {
-      std::ostringstream ss;
+      rtc::StringBuilder ss;
       ss << "Sample rate: " << rate;
       ss << ", Num preceeding InsertBlockAndExtractSubFrame calls: "
          << num_calls;

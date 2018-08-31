@@ -133,7 +133,7 @@ void Receiver::Setup(AudioCodingModule *acm, RTPStream *rtpStream,
 
   int playSampFreq;
   std::string file_name;
-  std::stringstream file_stream;
+  rtc::StringBuilder file_stream;
   file_stream << webrtc::test::OutputPath() << out_file_name
       << static_cast<int>(codeId) << ".pcm";
   file_name = file_stream.str();

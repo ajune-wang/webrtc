@@ -260,7 +260,7 @@ TEST_F(VideoCaptureTest, MAYBE_Capabilities) {
     VideoCaptureCapability capability;
     EXPECT_EQ(0, device_info_->GetCapability(module->CurrentDeviceName(), i,
                                              capability));
-    std::ostringstream resolutionStream;
+    rtc::StringBuilder resolutionStream;
     resolutionStream << capability.width << "x" << capability.height;
     resolutionStream.flush();
     std::string resolution = resolutionStream.str();

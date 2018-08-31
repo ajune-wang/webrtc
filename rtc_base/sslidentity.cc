@@ -116,7 +116,7 @@ bool SSLIdentity::PemToDer(const std::string& pem_type,
 std::string SSLIdentity::DerToPem(const std::string& pem_type,
                                   const unsigned char* data,
                                   size_t length) {
-  std::stringstream result;
+  rtc::StringBuilder result;
 
   result << "-----BEGIN " << pem_type << "-----\n";
 

@@ -223,7 +223,7 @@ void BweTest::PrintResults(double max_throughput_kbps,
   webrtc::test::PrintResult(
       "BwePerformance", GetTestName(), "Utilization var coeff",
       throughput_kbps.GetStdDev() / throughput_kbps.GetMean(), "", false);
-  std::stringstream ss;
+  rtc::StringBuilder ss;
   for (auto& kv : flow_throughput_kbps) {
     ss.str("");
     ss << "Throughput flow " << kv.first;
@@ -430,7 +430,7 @@ void BweTest::RunChoke(BandwidthEstimatorType bwe_type,
   choke.set_max_delay_ms(500);
   const int64_t kRunTimeMs = 60 * 1000;
 
-  std::stringstream title("Choke");
+  rtc::StringBuilder title("Choke");
   char delimiter = '_';
 
   for (auto it = capacities_kbps.begin(); it != capacities_kbps.end(); ++it) {

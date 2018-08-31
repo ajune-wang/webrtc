@@ -30,7 +30,7 @@ std::string AggregatedStats::ToString() const {
 }
 
 std::string AggregatedStats::ToStringWithMultiplier(int multiplier) const {
-  std::stringstream ss;
+  rtc::StringBuilder ss;
   ss << "periodic_samples:" << num_samples << ", {";
   ss << "min:" << (min * multiplier) << ", ";
   ss << "avg:" << (average * multiplier) << ", ";

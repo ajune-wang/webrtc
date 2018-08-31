@@ -142,7 +142,7 @@ class IntervalRange {
   int max() const { return max_; }
 
   std::string ToString() const {
-    std::stringstream ss;
+    rtc::StringBuilder ss;
     ss << "[" << min_ << "," << max_ << "]";
     return ss.str();
   }

@@ -64,7 +64,7 @@ TEST(OpenSSLAdapterTest, TestTransformAlpnProtocols) {
 
   // One protocol test.
   std::vector<std::string> alpn_protos{"h2"};
-  std::stringstream expected_response;
+  rtc::StringBuilder expected_response;
   expected_response << static_cast<char>(2) << "h2";
   EXPECT_EQ(expected_response.str(), TransformAlpnProtocols(alpn_protos));
 

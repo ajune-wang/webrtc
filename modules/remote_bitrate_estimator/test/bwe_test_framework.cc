@@ -234,7 +234,7 @@ RateCounterFilter::RateCounterFilter(PacketProcessorListener* listener,
   // keep the current plot functionality without having to print the full
   // context for each PLOT line. It is unclear whether multiple flow IDs are
   // needed at all in the long term.
-  std::stringstream ss;
+  rtc::StringBuilder ss;
   ss << algorithm_name_;
   for (int flow_id : flow_ids) {
     ss << ',' << flow_id;

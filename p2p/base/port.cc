@@ -206,7 +206,7 @@ static std::string ComputeFoundation(const std::string& type,
                                      const std::string& protocol,
                                      const std::string& relay_protocol,
                                      const rtc::SocketAddress& base_address) {
-  std::ostringstream ost;
+  rtc::StringBuilder ost;
   ost << type << base_address.ipaddr().ToString() << protocol << relay_protocol;
   return rtc::ToString(rtc::ComputeCrc32(ost.str()));
 }
@@ -873,7 +873,7 @@ void Port::OnNetworkTypeChanged(const rtc::Network* network) {
 }
 
 std::string Port::ToString() const {
-  std::stringstream ss;
+  rtc::StringBuilder ss;
   ss << "Port[" << std::hex << this << std::dec << ":" << content_name_ << ":"
      << component_ << ":" << generation_ << ":" << type_ << ":"
      << network_->ToString() << "]";
@@ -1366,7 +1366,7 @@ void Connection::FailAndPrune() {
 }
 
 void Connection::PrintPingsSinceLastResponse(std::string* s, size_t max) {
-  std::ostringstream oss;
+  rtc::StringBuilder oss;
   oss << std::boolalpha;
   if (pings_since_last_response_.size() > max) {
     for (size_t i = 0; i < max; i++) {
@@ -1529,7 +1529,7 @@ bool Connection::stable(int64_t now) const {
 }
 
 std::string Connection::ToDebugId() const {
-  std::stringstream ss;
+  rtc::StringBuilder ss;
   ss << std::hex << this;
   return ss.str();
 }
@@ -1566,7 +1566,7 @@ std::string Connection::ToString() const {
   };
   const Candidate& local = local_candidate();
   const Candidate& remote = remote_candidate();
-  std::stringstream ss;
+  rtc::StringBuilder ss;
   ss << "Conn[" << ToDebugId() << ":" << port_->content_name() << ":"
      << port_->Network()->ToString() << ":" << local.id() << ":"
      << local.component() << ":" << local.generation() << ":" << local.type()

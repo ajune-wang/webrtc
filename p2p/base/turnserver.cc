@@ -597,7 +597,7 @@ std::string TurnServerConnection::ToString() const {
   const char* const kProtos[] = {
       "unknown", "udp", "tcp", "ssltcp"
   };
-  std::ostringstream ost;
+  rtc::StringBuilder ost;
   ost << src_.ToString() << "-" << dst_.ToString() << ":"<< kProtos[proto_];
   return ost.str();
 }
@@ -630,7 +630,7 @@ TurnServerAllocation::~TurnServerAllocation() {
 }
 
 std::string TurnServerAllocation::ToString() const {
-  std::ostringstream ost;
+  rtc::StringBuilder ost;
   ost << "Alloc[" << conn_.ToString() << "]";
   return ost.str();
 }

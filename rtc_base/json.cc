@@ -20,7 +20,7 @@ namespace rtc {
 
 bool GetStringFromJson(const Json::Value& in, std::string* out) {
   if (!in.isString()) {
-    std::ostringstream s;
+    rtc::StringBuilder s;
     if (in.isBool()) {
       s << std::boolalpha << in.asBool();
     } else if (in.isInt()) {

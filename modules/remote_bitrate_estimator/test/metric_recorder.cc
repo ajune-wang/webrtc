@@ -359,7 +359,7 @@ void MetricRecorder::PlotObjectiveHistogram(const std::string& title,
 void MetricRecorder::PlotZero() {
   for (int i = kThroughput; i <= kLoss; ++i) {
     if (plot_information_[i].plot) {
-      std::stringstream prefix;
+      rtc::StringBuilder prefix;
       // TODO(terelius): Since this does not use the BWE_TEST_LOGGING macros,
       // it hasn't been kept up to date with the plot format. Remove or fix?
       prefix << "Receiver_" << flow_id_ << "_" + plot_information_[i].prefix;

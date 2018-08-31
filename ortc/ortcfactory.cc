@@ -461,7 +461,7 @@ OrtcFactory::CreateUdpTransport(int family,
   RTC_LOG(LS_INFO) << "Created UDP socket with address "
                    << socket->GetLocalAddress().ToSensitiveString() << ".";
   // Make a unique debug name (for logging/diagnostics only).
-  std::ostringstream oss;
+  rtc::StringBuilder oss;
   static int udp_id = 0;
   oss << "udp" << udp_id++;
   return UdpTransportProxyWithInternal<cricket::UdpTransport>::Create(

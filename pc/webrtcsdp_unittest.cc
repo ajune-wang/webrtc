@@ -1736,7 +1736,7 @@ class WebRtcSdpTest : public testing::Test {
         "a=rtpmap:104 ISAC/32000\r\n"
         "a=fmtp:111 0-15,66,70\r\n"
         "a=fmtp:111 ";
-    std::ostringstream os;
+    rtc::StringBuilder os;
     os << "minptime=" << params.min_ptime << "; stereo=" << params.stereo
        << "; sprop-stereo=" << params.sprop_stereo
        << "; useinbandfec=" << params.useinband
@@ -1809,7 +1809,7 @@ class WebRtcSdpTest : public testing::Test {
         "a=rtcp-fb:101 nack\r\n"
         "a=rtcp-fb:101 nack pli\r\n"
         "a=rtcp-fb:101 goog-remb\r\n";
-    std::ostringstream os;
+    rtc::StringBuilder os;
     os << sdp_session_and_audio;
     os << "a=rtcp-fb:" << (use_wildcard ? "*" : "111") << " nack\r\n";
     os << sdp_video;

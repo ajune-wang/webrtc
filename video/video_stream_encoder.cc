@@ -1237,7 +1237,7 @@ VideoStreamEncoder::AdaptCounter::AdaptCounter() {
 VideoStreamEncoder::AdaptCounter::~AdaptCounter() {}
 
 std::string VideoStreamEncoder::AdaptCounter::ToString() const {
-  std::stringstream ss;
+  rtc::StringBuilder ss;
   ss << "Downgrade counts: fps: {" << ToString(fps_counters_);
   ss << "}, resolution: {" << ToString(resolution_counters_) << "}";
   return ss.str();
@@ -1330,7 +1330,7 @@ void VideoStreamEncoder::AdaptCounter::MoveCount(std::vector<int>* counters,
 
 std::string VideoStreamEncoder::AdaptCounter::ToString(
     const std::vector<int>& counters) const {
-  std::stringstream ss;
+  rtc::StringBuilder ss;
   for (size_t reason = 0; reason < kScaleReasonSize; ++reason) {
     ss << (reason ? " cpu" : "quality") << ":" << counters[reason];
   }

@@ -142,7 +142,7 @@ void TestGetSetBandwidthInfo(const int16_t* speech_data,
 
   int elapsed_time_ms = 0;
   for (int i = 0; elapsed_time_ms < 10000; ++i) {
-    std::ostringstream ss;
+    rtc::StringBuilder ss;
     ss << " i = " << i;
     SCOPED_TRACE(ss.str());
 

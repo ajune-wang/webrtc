@@ -798,7 +798,7 @@ HttpAuthResult HttpAuthenticate(const char* challenge,
     std::string HA2 = MD5(A2);
     std::string dig_response = MD5(HA1 + ":" + middle + ":" + HA2);
 
-    std::stringstream ss;
+    rtc::StringBuilder ss;
     ss << auth_method;
     ss << " username=" << quote(username);
     ss << ", realm=" << quote(realm);

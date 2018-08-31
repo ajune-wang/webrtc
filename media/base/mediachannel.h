@@ -76,7 +76,7 @@ static std::string ToStringIfSet(const char* key,
 
 template <class T>
 static std::string VectorToString(const std::vector<T>& vals) {
-  std::ostringstream ost;  // no-presubmit-check TODO(webrtc:8982)
+  rtc::StringBuilder ost;  // no-presubmit-check TODO(webrtc:8982)
   ost << "[";
   for (size_t i = 0; i < vals.size(); ++i) {
     if (i > 0) {
@@ -110,7 +110,7 @@ struct VideoOptions {
   bool operator!=(const VideoOptions& o) const { return !(*this == o); }
 
   std::string ToString() const {
-    std::ostringstream ost;
+    rtc::StringBuilder ost;
     ost << "VideoOptions {";
     ost << ToStringIfSet("noise reduction", video_noise_reduction);
     ost << ToStringIfSet("screencast min bitrate kbps",
@@ -149,7 +149,7 @@ struct RtpHeaderExtension {
   RtpHeaderExtension(const std::string& uri, int id) : uri(uri), id(id) {}
 
   std::string ToString() const {
-    std::ostringstream ost;
+    rtc::StringBuilder ost;
     ost << "{";
     ost << "uri: " << uri;
     ost << ", id: " << id;
@@ -602,7 +602,7 @@ struct RtpParameters {
   RtcpParameters rtcp;
 
   std::string ToString() const {
-    std::ostringstream ost;
+    rtc::StringBuilder ost;
     ost << "{";
     const char* separator = "";
     for (const auto& entry : ToStringMap()) {

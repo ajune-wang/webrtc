@@ -375,7 +375,7 @@ void OpusTest::Run(TestPackStereo* channel,
 
 void OpusTest::OpenOutFile(int test_number) {
   std::string file_name;
-  std::stringstream file_stream;
+  rtc::StringBuilder file_stream;
   file_stream << webrtc::test::OutputPath() << "opustest_out_" << test_number
               << ".pcm";
   file_name = file_stream.str();

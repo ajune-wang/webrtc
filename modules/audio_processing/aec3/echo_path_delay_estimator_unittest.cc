@@ -26,7 +26,7 @@ namespace webrtc {
 namespace {
 
 std::string ProduceDebugText(size_t delay, size_t down_sampling_factor) {
-  std::ostringstream ss;
+  rtc::StringBuilder ss;
   ss << "Delay: " << delay;
   ss << ", Down sampling factor: " << down_sampling_factor;
   return ss.str();

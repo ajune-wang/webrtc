@@ -25,7 +25,7 @@ template <typename T>
 std::string VectorToString(const std::vector<T>& vector) {
   if (vector.empty())
     return "[]";
-  std::ostringstream oss;
+  rtc::StringBuilder oss;
   oss << "[" << rtc::ToString(vector[0]);
   for (size_t i = 1; i < vector.size(); ++i) {
     oss << "," << rtc::ToString(vector[i]);
@@ -40,7 +40,7 @@ template <typename T>
 std::string VectorOfStringsToString(const std::vector<T>& strings) {
   if (strings.empty())
     return "[]";
-  std::ostringstream oss;
+  rtc::StringBuilder oss;
   oss << "[\"" << rtc::ToString(strings[0]) << '\"';
   for (size_t i = 1; i < strings.size(); ++i) {
     oss << ",\"" << rtc::ToString(strings[i]) << '\"';
@@ -54,7 +54,7 @@ std::string ToStringAsDouble(const T value) {
   // JSON represents numbers as floating point numbers with about 15 decimal
   // digits of precision.
   const int JSON_PRECISION = 16;
-  std::ostringstream oss;
+  rtc::StringBuilder oss;
   oss << std::setprecision(JSON_PRECISION) << static_cast<double>(value);
   return oss.str();
 }
@@ -63,7 +63,7 @@ template <typename T>
 std::string VectorToStringAsDouble(const std::vector<T>& vector) {
   if (vector.empty())
     return "[]";
-  std::ostringstream oss;
+  rtc::StringBuilder oss;
   oss << "[" << ToStringAsDouble<T>(vector[0]);
   for (size_t i = 1; i < vector.size(); ++i) {
     oss << "," << ToStringAsDouble<T>(vector[i]);
@@ -96,7 +96,7 @@ bool RTCStats::operator!=(const RTCStats& other) const {
 }
 
 std::string RTCStats::ToJson() const {
-  std::ostringstream oss;
+  rtc::StringBuilder oss;
   oss << "{\"type\":\"" << type() << "\","
       << "\"id\":\"" << id_ << "\","
       << "\"timestamp\":" << timestamp_us_;

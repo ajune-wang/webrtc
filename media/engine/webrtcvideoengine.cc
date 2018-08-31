@@ -251,7 +251,7 @@ std::vector<VideoCodec> AssignPayloadTypesAndDefaultCodecs(
 }
 
 static std::string CodecVectorToString(const std::vector<VideoCodec>& codecs) {
-  std::stringstream out;
+  rtc::StringBuilder out;
   out << '{';
   for (size_t i = 0; i < codecs.size(); ++i) {
     out << codecs[i].ToString();
@@ -1021,7 +1021,7 @@ bool WebRtcVideoChannel::SetRecvParameters(const VideoRecvParameters& params) {
 
 std::string WebRtcVideoChannel::CodecSettingsVectorToString(
     const std::vector<VideoCodecSettings>& codecs) {
-  std::stringstream out;
+  rtc::StringBuilder out;
   out << '{';
   for (size_t i = 0; i < codecs.size(); ++i) {
     out << codecs[i].codec.ToString();

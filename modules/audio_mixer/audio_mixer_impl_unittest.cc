@@ -50,7 +50,7 @@ void ResetFrame(AudioFrame* frame) {
 std::string ProduceDebugText(int sample_rate_hz,
                              int number_of_channels,
                              int number_of_sources) {
-  std::ostringstream ss;
+  rtc::StringBuilder ss;
   ss << "Sample rate: " << sample_rate_hz << " ";
   ss << "Number of channels: " << number_of_channels << " ";
   ss << "Number of sources: " << number_of_sources;

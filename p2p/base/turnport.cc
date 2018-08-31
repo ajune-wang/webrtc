@@ -1236,7 +1236,7 @@ std::string TurnPort::ReconstructedServerUrl() {
     case PROTO_TCP:
       break;
   }
-  std::ostringstream url;
+  rtc::StringBuilder url;
   url << scheme << ":" << server_address_.address.ipaddr().ToString() << ":"
       << server_address_.address.port() << "?transport=" << transport;
   return url.str();

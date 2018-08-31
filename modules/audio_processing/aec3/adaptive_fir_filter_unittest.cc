@@ -39,7 +39,7 @@ namespace aec3 {
 namespace {
 
 std::string ProduceDebugText(size_t delay) {
-  std::ostringstream ss;
+  rtc::StringBuilder ss;
   ss << ", Delay: " << delay;
   return ss.str();
 }

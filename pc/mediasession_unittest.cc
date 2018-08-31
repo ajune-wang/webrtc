@@ -3703,7 +3703,7 @@ void TestAudioCodecsAnswer(RtpTransceiverDirection offer_direction,
     }
 
     auto format_codecs = [](const std::vector<AudioCodec>& codecs) {
-      std::stringstream os;
+      rtc::StringBuilder os;
       bool first = true;
       os << "{";
       for (const auto& c : codecs) {

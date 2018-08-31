@@ -103,7 +103,7 @@ bool ValidateStreamParams(const StreamParams& sp) {
 
 // Dumps an AudioCodec in RFC 2327-ish format.
 std::string ToString(const AudioCodec& codec) {
-  std::stringstream ss;
+  rtc::StringBuilder ss;
   ss << codec.name << "/" << codec.clockrate << "/" << codec.channels;
   if (!codec.params.empty()) {
     ss << " {";

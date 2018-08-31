@@ -29,13 +29,13 @@ namespace webrtc {
 namespace {
 
 std::string ProduceDebugText(int sample_rate_hz) {
-  std::ostringstream ss;
+  rtc::StringBuilder ss;
   ss << "Sample rate: " << sample_rate_hz;
   return ss.str();
 }
 
 std::string ProduceDebugText(int sample_rate_hz, size_t delay) {
-  std::ostringstream ss;
+  rtc::StringBuilder ss;
   ss << ProduceDebugText(sample_rate_hz) << ", Delay: " << delay;
   return ss.str();
 }

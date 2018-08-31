@@ -259,7 +259,7 @@ void OpenFileAndWriteMessage(const std::string& filename,
 }
 
 std::string ResourceFilePath(const std::string& name, int sample_rate_hz) {
-  std::ostringstream ss;
+  rtc::StringBuilder ss;
   // Resource files are all stereo.
   ss << name << sample_rate_hz / 1000 << "_stereo";
   return test::ResourcePath(ss.str(), "pcm");
@@ -280,7 +280,7 @@ std::string OutputFilePath(const std::string& name,
                            size_t num_reverse_input_channels,
                            size_t num_reverse_output_channels,
                            StreamDirection file_direction) {
-  std::ostringstream ss;
+  rtc::StringBuilder ss;
   ss << name << "_i" << num_input_channels << "_" << input_rate / 1000 << "_ir"
      << num_reverse_input_channels << "_" << reverse_input_rate / 1000 << "_";
   if (num_output_channels == 1) {

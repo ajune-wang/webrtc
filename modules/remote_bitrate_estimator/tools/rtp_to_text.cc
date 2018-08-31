@@ -43,7 +43,7 @@ int main(int argc, char* argv[]) {
     if (header.extension.transmissionTimeOffset != 0)
       ++non_zero_ts_offsets;
     if (arrival_time_only) {
-      std::stringstream ss;
+      rtc::StringBuilder ss;
       ss << static_cast<int64_t>(packet.time_ms) * 1000000;
       fprintf(stdout, "%s\n", ss.str().c_str());
     } else {

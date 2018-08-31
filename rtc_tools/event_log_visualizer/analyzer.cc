@@ -75,7 +75,7 @@ void SortPacketFeedbackVector(std::vector<PacketFeedback>* vec) {
 }
 
 std::string SsrcToString(uint32_t ssrc) {
-  std::stringstream ss;
+  rtc::StringBuilder ss;
   ss << "SSRC " << ssrc;
   return ss.str();
 }
@@ -408,7 +408,7 @@ std::string GetCandidatePairLogDescriptionAsString(
   // represents a pair of a local server-reflexive candidate on a WiFi network
   // and a remote relay candidate using TCP as the relay protocol on a cell
   // network, when the candidate pair communicates over UDP using IPv4.
-  std::stringstream ss;
+  rtc::StringBuilder ss;
   std::string local_candidate_type =
       GetIceCandidateTypeAsString(config.local_candidate_type);
   std::string remote_candidate_type =

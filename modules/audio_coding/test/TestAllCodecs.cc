@@ -476,7 +476,7 @@ void TestAllCodecs::Run(TestPack* channel) {
 
 void TestAllCodecs::OpenOutFile(int test_number) {
   std::string filename = webrtc::test::OutputPath();
-  std::ostringstream test_number_str;
+  rtc::StringBuilder test_number_str;
   test_number_str << test_number;
   filename += "testallcodecs_out_";
   filename += test_number_str.str();

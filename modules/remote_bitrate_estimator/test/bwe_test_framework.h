@@ -128,7 +128,7 @@ class Stats {
   }
 
   std::string AsString() {
-    std::stringstream ss;
+    rtc::StringBuilder ss;
     ss << (GetMean() >= 0 ? GetMean() : -1) << ", "
        << (GetStdDev() >= 0 ? GetStdDev() : -1);
     return ss.str();

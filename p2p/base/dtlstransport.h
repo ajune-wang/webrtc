@@ -182,7 +182,7 @@ class DtlsTransport : public DtlsTransportInternal {
   std::string ToString() const {
     const char RECEIVING_ABBREV[2] = {'_', 'R'};
     const char WRITABLE_ABBREV[2] = {'_', 'W'};
-    std::stringstream ss;
+    rtc::StringBuilder ss;
     ss << "DtlsTransport[" << transport_name_ << "|" << component_ << "|"
        << RECEIVING_ABBREV[receiving()] << WRITABLE_ABBREV[writable()] << "]";
     return ss.str();

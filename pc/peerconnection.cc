@@ -595,7 +595,7 @@ bool CheckForRemoteIceRestart(const SessionDescriptionInterface* old_desc,
 std::string GetSetDescriptionErrorMessage(cricket::ContentSource source,
                                           SdpType type,
                                           const RTCError& error) {
-  std::ostringstream oss;
+  rtc::StringBuilder oss;
   oss << "Failed to set " << (source == cricket::CS_LOCAL ? "local" : "remote")
       << " " << SdpTypeToString(type) << " sdp: " << error.message();
   return oss.str();
@@ -5835,7 +5835,7 @@ const char* PeerConnection::SessionErrorToString(SessionError error) const {
 }
 
 std::string PeerConnection::GetSessionErrorMsg() {
-  std::ostringstream desc;
+  rtc::StringBuilder desc;
   desc << kSessionError << SessionErrorToString(session_error()) << ". ";
   desc << kSessionErrorDesc << session_error_desc() << ".";
   return desc.str();

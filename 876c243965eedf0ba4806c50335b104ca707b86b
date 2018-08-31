@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "07275bac_578c5f99",
+        "filename": "rtc_base/strings/string_builder.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-31T10:16:09Z",
+      "side": 1,
+      "message": "OK, I didn\u0027t realize that. Then the full solution would be to make a string_view lookalike that also supported stealing the buffer from a temporary std::string, which would be complicated and messy. So just accepting string_view sounds like the right trade-off.",
+      "parentUuid": "439f14c4_ef0a68ca",
+      "revId": "876c243965eedf0ba4806c50335b104ca707b86b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0d9e8bbc_b2b523bc",
         "filename": "rtc_base/strings/string_builder.h",
         "patchSetId": 9
@@ -101,6 +119,24 @@
       "side": 1,
       "message": "Hmm. Ideally I\u0027d like this class to be a drop-in replacement for std::stringstream, and we use the \u003c\u003c(char) overload in some places, notably a bunch of the SDP parsing code. We could of course wrap those in rtc::ToString or something, but is it worth it?",
       "parentUuid": "0d9e8bbc_b2b523bc",
+      "revId": "876c243965eedf0ba4806c50335b104ca707b86b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "274cfde2_6a9f2bfc",
+        "filename": "rtc_base/strings/string_builder.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-31T10:16:09Z",
+      "side": 1,
+      "message": "absl::string_view(\u0026c, 1) works if `c` is a char. And if it\u0027s a literal, just use \"x\" instead of \u0027x\u0027.",
+      "parentUuid": "68fd8960_10fa502e",
       "revId": "876c243965eedf0ba4806c50335b104ca707b86b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -174,6 +210,24 @@
       "revId": "876c243965eedf0ba4806c50335b104ca707b86b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "211529de_f843a47b",
+        "filename": "rtc_base/strings/string_builder.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-31T10:16:09Z",
+      "side": 1,
+      "message": "Then perhaps a later CL should replace this method with a `Clear` method in both classes?",
+      "parentUuid": "4edefe48_d77f53cd",
+      "revId": "876c243965eedf0ba4806c50335b104ca707b86b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

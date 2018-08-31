@@ -414,6 +414,24 @@
     },
     {
       "key": {
+        "uuid": "077e8ae6_1f9dc44f",
+        "filename": "modules/audio_coding/neteq/neteq_decoder_plc_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-31T08:21:18Z",
+      "side": 1,
+      "message": "You get warnings if you use `override` in some but not all places in a class. Here you were initially using it in zero places, so you got no warning. (This is to avoid getting a million warnings for legacy code that doesn\u0027t use `override`.)",
+      "parentUuid": "46f24354_90b1c9ad",
+      "revId": "71128c1b58b517a085b946f230552015d1c52e15",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "588a719d_bffa9b03",
         "filename": "modules/audio_coding/neteq/neteq_decoder_plc_unittest.cc",
         "patchSetId": 1

@@ -10,6 +10,7 @@
 
 #include "modules/rtp_rtcp/source/rtp_format_vp8_test_helper.h"
 
+#include "rtc_base/strings/string_builder.h"
 #include "test/gtest.h"
 
 namespace webrtc {
@@ -69,7 +70,7 @@ void RtpFormatVp8TestHelper::GetAllPacketsAndCheck(
     size_t expected_num_packets) {
   ASSERT_TRUE(inited_);
   for (size_t i = 0; i < expected_num_packets; ++i) {
-    std::ostringstream ss;
+    rtc::StringBuilder ss;
     ss << "Checking packet " << i;
     SCOPED_TRACE(ss.str());
     EXPECT_TRUE(packetizer->NextPacket(&packet_));

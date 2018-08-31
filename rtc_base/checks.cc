@@ -34,6 +34,7 @@
 #endif  // WEBRTC_WIN
 
 #include "rtc_base/checks.h"
+#include "rtc_base/strings/string_builder.h"
 
 namespace rtc {
 namespace webrtc_checks_impl {
@@ -96,7 +97,7 @@ RTC_NORETURN void FatalLog(const char* file,
   va_list args;
   va_start(args, fmt);
 
-  std::ostringstream ss;  // no-presubmit-check TODO(webrtc:8982)
+  rtc::StringBuilder ss;  // no-presubmit-check TODO(webrtc:8982)
   ss << "\n\n#\n# Fatal error in: " << file << ", line " << line
      << "\n# last system error: " << LAST_SYSTEM_ERROR << "\n# Check failed: ";
 
@@ -106,7 +107,7 @@ RTC_NORETURN void FatalLog(const char* file,
     // two arguments.
     fmt++;
 
-    std::ostringstream s1, s2;  // no-presubmit-check TODO(webrtc:8982)
+    rtc::StringBuilder s1, s2;  // no-presubmit-check TODO(webrtc:8982)
     if (ParseArg(&args, &fmt, s1) && ParseArg(&args, &fmt, s2))
       ss << message << " (" << s1.str() << " vs. " << s2.str() << ")\n# ";
   } else {

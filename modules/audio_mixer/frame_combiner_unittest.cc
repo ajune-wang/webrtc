@@ -18,6 +18,7 @@
 #include "modules/audio_mixer/gain_change_calculator.h"
 #include "modules/audio_mixer/sine_wave_generator.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/strings/string_builder.h"
 #include "test/gtest.h"
 
 namespace webrtc {
@@ -34,7 +35,7 @@ struct FrameCombinerConfig {
 std::string ProduceDebugText(int sample_rate_hz,
                              int number_of_channels,
                              int number_of_sources) {
-  std::ostringstream ss;
+  rtc::StringBuilder ss;
   ss << "Sample rate: " << sample_rate_hz << " ,";
   ss << "number of channels: " << number_of_channels << " ,";
   ss << "number of sources: " << number_of_sources;
@@ -42,7 +43,7 @@ std::string ProduceDebugText(int sample_rate_hz,
 }
 
 std::string ProduceDebugText(const FrameCombinerConfig& config) {
-  std::ostringstream ss;
+  rtc::StringBuilder ss;
   ss << "Sample rate: " << config.sample_rate_hz << " ,";
   ss << "number of channels: " << config.number_of_channels << " ,";
   ss << "limiter active: " << (config.use_limiter ? "on" : "off") << " ,";

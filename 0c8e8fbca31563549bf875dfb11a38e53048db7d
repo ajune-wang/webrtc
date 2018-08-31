@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "1113cdb5_59488267",
+        "filename": "modules/audio_coding/neteq/accelerate.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-08-31T08:46:18Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7e675b23_349b766f",
+      "revId": "0c8e8fbca31563549bf875dfb11a38e53048db7d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "df03457a_e5c59f01",
         "filename": "modules/audio_coding/neteq/audio_multi_vector.cc",
         "patchSetId": 3
@@ -50,6 +68,24 @@
       "revId": "0c8e8fbca31563549bf875dfb11a38e53048db7d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "761f1721_8e16dd18",
+        "filename": "modules/audio_coding/neteq/audio_multi_vector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-08-31T08:46:18Z",
+      "side": 1,
+      "message": "It was mostly a convenience variable. But I can remove it.",
+      "parentUuid": "df03457a_e5c59f01",
+      "revId": "0c8e8fbca31563549bf875dfb11a38e53048db7d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

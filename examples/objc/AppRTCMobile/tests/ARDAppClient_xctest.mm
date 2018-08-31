@@ -13,7 +13,7 @@
 #import <QuartzCore/CoreAnimation.h>
 #import <XCTest/XCTest.h>
 
-#include "rtc_base/ssladapter.h"
+#include "crypto/ssladapter.h"
 
 #import <WebRTC/RTCMediaConstraints.h>
 #import <WebRTC/RTCPeerConnectionFactory.h>

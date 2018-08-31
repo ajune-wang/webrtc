@@ -11,8 +11,8 @@
 #ifndef P2P_BASE_TRANSPORTDESCRIPTIONFACTORY_H_
 #define P2P_BASE_TRANSPORTDESCRIPTIONFACTORY_H_
 
+#include "crypto/rtccertificate.h"
 #include "p2p/base/transportdescription.h"
-#include "rtc_base/rtccertificate.h"
 
 namespace rtc {
 class SSLIdentity;

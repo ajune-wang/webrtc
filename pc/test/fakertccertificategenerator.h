@@ -16,8 +16,8 @@
 #include <utility>
 
 #include "api/peerconnectioninterface.h"
-#include "rtc_base/rtccertificate.h"
-#include "rtc_base/rtccertificategenerator.h"
+#include "crypto/rtccertificate.h"
+#include "crypto/rtccertificategenerator.h"
 
 // RSA with mod size 1024, pub exp 0x10001.
 static const rtc::RTCCertificatePEM kRsaPems[] = {

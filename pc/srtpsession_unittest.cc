@@ -13,10 +13,10 @@
 #include <string>
 
 #include "absl/memory/memory.h"
+#include "crypto/sslstreamadapter.h"  // For rtc::SRTP_*
 #include "media/base/fakertp.h"
 #include "pc/srtptestutil.h"
 #include "rtc_base/gunit.h"
-#include "rtc_base/sslstreamadapter.h"  // For rtc::SRTP_*
 #include "system_wrappers/include/metrics_default.h"
 #include "third_party/libsrtp/include/srtp.h"
 

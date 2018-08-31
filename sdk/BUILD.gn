@@ -903,6 +903,7 @@ if (is_ios || is_mac) {
         "../api/video:video_frame",
         "../api/video_codecs:video_codecs_api",
         "../common_video",
+        "../crypto:crypto",
         "../media:rtc_media_base",
         "../modules:module_api",
         "../modules/audio_device:audio_device_api",

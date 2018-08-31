@@ -34,7 +34,7 @@
 #include "rtc_base/natsocketfactory.h"
 #include "rtc_base/proxyserver.h"
 #include "rtc_base/socketaddress.h"
-#include "rtc_base/ssladapter.h"
+#include "crypto/ssladapter.h"
 #include "rtc_base/thread.h"
 #include "rtc_base/virtualsocketserver.h"
 #include "system_wrappers/include/metrics_default.h"

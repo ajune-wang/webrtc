@@ -1,5 +1,6 @@
 include_rules = [
   "+api",
+  "+crypto",
   "+common_video",
   "+media",
   "+modules/audio_device",

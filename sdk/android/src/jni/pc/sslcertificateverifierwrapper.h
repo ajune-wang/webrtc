@@ -14,7 +14,7 @@
 #include <jni.h>
 #include <vector>
 
-#include "rtc_base/sslcertificate.h"
+#include "crypto/sslcertificate.h"
 #include "sdk/android/src/jni/jni_helpers.h"
 
 namespace webrtc {

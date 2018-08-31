@@ -327,6 +327,7 @@ if (rtc_include_tests) {
 
     deps = [
       ":rtp_rtcp",
+      "../../crypto",
       "../../test:fileutils",
       "../../test:test_main",
       "//testing/gtest",

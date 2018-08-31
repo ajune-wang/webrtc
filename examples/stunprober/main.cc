@@ -24,7 +24,7 @@
 #include "rtc_base/logging.h"
 #include "rtc_base/nethelpers.h"
 #include "rtc_base/network.h"
-#include "rtc_base/ssladapter.h"
+#include "crypto/ssladapter.h"
 #include "rtc_base/stringutils.h"
 #include "rtc_base/thread.h"
 #include "rtc_base/timeutils.h"

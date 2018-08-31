@@ -23,7 +23,7 @@
 #include "pc/rtptransporttestutil.h"
 #include "rtc_base/asyncpacketsocket.h"
 #include "rtc_base/gunit.h"
-#include "rtc_base/sslstreamadapter.h"
+#include "crypto/sslstreamadapter.h"
 
 using cricket::FakeDtlsTransport;
 using cricket::FakeIceTransport;

@@ -73,6 +73,7 @@ rtc_static_library("rtc_media_base") {
   libs = []
   deps = [
     "../api:audio_options_api",
+    "../crypto:crypto",
     "../rtc_base:checks",
     "../rtc_base:rtc_base_approved",
     "../rtc_base:rtc_task_queue",
@@ -488,6 +489,7 @@ if (rtc_include_tests) {
       ":rtc_constants",
       ":rtc_data",
       "../api/video:video_frame_i420",
+      "../crypto:crypto",
       "../modules/audio_processing:mocks",
       "../modules/rtp_rtcp",
       "../modules/video_coding:video_codec_interface",

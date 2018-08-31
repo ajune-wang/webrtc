@@ -29,7 +29,7 @@
 #include "modules/audio_coding/neteq/tools/neteq_test.h"
 #include "modules/audio_coding/neteq/tools/rtp_file_source.h"
 #include "rtc_base/ignore_wundef.h"
-#include "rtc_base/messagedigest.h"
+#include "crypto/messagedigest.h"
 #include "rtc_base/numerics/safe_conversions.h"
 #include "rtc_base/protobuf_utils.h"
 #include "rtc_base/stringencode.h"

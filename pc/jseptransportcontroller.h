@@ -32,7 +32,7 @@
 #include "rtc_base/asyncinvoker.h"
 #include "rtc_base/constructormagic.h"
 #include "rtc_base/refcountedobject.h"
-#include "rtc_base/sslstreamadapter.h"
+#include "crypto/sslstreamadapter.h"
 #include "rtc_base/third_party/sigslot/sigslot.h"
 
 namespace rtc {

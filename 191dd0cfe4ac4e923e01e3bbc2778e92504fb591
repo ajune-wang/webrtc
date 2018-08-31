@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "06c8e50d_9c9edea7",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-31T12:53:58Z",
+      "side": 1,
+      "message": "Missing \u0026 here! Not caused by your CL, but still...",
+      "range": {
+        "startLine": 290,
+        "startChar": 24,
+        "endLine": 290,
+        "endChar": 63
+      },
+      "revId": "191dd0cfe4ac4e923e01e3bbc2778e92504fb591",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

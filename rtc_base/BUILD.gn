@@ -845,7 +845,6 @@ rtc_static_library("rtc_base_generic") {
       "optionsfile.cc",
       "optionsfile.h",
       "rollingaccumulator.h",
-      "sslroots.h",
     ]
 
     if (is_win) {
@@ -1044,6 +1043,7 @@ if (rtc_include_tests) {
       ":rtc_base",
       ":rtc_base_approved",
       ":rtc_base_tests_utils",
+      "../crypto:crypto",
       "../system_wrappers:field_trial_default",
       "../system_wrappers:metrics_default",
       "../test:field_trial",

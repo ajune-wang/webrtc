@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3ad99c11_e3fd26cf",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1551,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-08-31T19:59:13Z",
+      "side": 1,
+      "message": "I like this much better than the current creating/deleting",
+      "range": {
+        "startLine": 1551,
+        "startChar": 5,
+        "endLine": 1551,
+        "endChar": 71
+      },
+      "revId": "1549f45ac35937364aea4eebf31122185769e9a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4d3689a7_03d33bb2",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 3498,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-08-31T19:59:13Z",
+      "side": 1,
+      "message": "Why does it need to be a scoped_refptr here, but not for the OnSuccess?",
+      "range": {
+        "startLine": 3498,
+        "startChar": 4,
+        "endLine": 3498,
+        "endChar": 62
+      },
+      "revId": "1549f45ac35937364aea4eebf31122185769e9a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

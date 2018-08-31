@@ -29,6 +29,7 @@
 #include "api/jsepsessiondescription.h"
 // for RtpExtension
 #include "api/rtpparameters.h"
+#include "crypto/messagedigest.h"
 #include "media/base/codec.h"
 #include "media/base/mediaconstants.h"
 #include "media/base/rtputils.h"
@@ -39,7 +40,6 @@
 #include "rtc_base/arraysize.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
-#include "rtc_base/messagedigest.h"
 #include "rtc_base/strings/string_builder.h"
 #include "rtc_base/stringutils.h"
 

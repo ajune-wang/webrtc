@@ -19,6 +19,7 @@
 
 #include "api/candidate.h"
 #include "api/peerconnectioninterface.h"
+#include "crypto/sslstreamadapter.h"
 #include "logging/rtc_event_log/rtc_event_log.h"
 #include "media/sctp/sctptransportinternal.h"
 #include "p2p/base/dtlstransport.h"
@@ -32,7 +33,6 @@
 #include "rtc_base/asyncinvoker.h"
 #include "rtc_base/constructormagic.h"
 #include "rtc_base/refcountedobject.h"
-#include "rtc_base/sslstreamadapter.h"
 #include "rtc_base/third_party/sigslot/sigslot.h"
 
 namespace rtc {

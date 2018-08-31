@@ -151,6 +151,7 @@ if (is_android) {
     deps = [
       ":libjingle_peerconnection_jni",
       ":libjingle_peerconnection_metrics_default_jni",
+      "../../crypto:crypto",
       "../../pc:libjingle_peerconnection",
       "../../rtc_base:rtc_base",
     ]
@@ -175,6 +176,7 @@ if (is_android) {
       ":null_media_jni",
       ":null_video_jni",
       ":peerconnection_jni",
+      "../../crypto:crypto",
       "../../pc:peerconnection",
       "../../rtc_base:rtc_base",
       "../../rtc_base:rtc_base_approved",
@@ -656,6 +658,7 @@ if (is_android) {
       "../..:webrtc_common",
       "../../api:libjingle_peerconnection_api",
       "../../api/video_codecs:video_codecs_api",
+      "../../crypto:crypto",
       "../../logging:rtc_event_log_api",
       "../../logging:rtc_event_log_impl_base",
       "../../media:rtc_data",
@@ -1317,6 +1320,7 @@ if (is_android) {
       ":instrumentationtests_jni",
       ":libjingle_peerconnection_jni",
       ":libjingle_peerconnection_metrics_default_jni",
+      "../../crypto:crypto",
       "../../pc:libjingle_peerconnection",
       "../../rtc_base:rtc_base",
     ]

@@ -34,6 +34,24 @@
       "revId": "33026c5ee15e11f197a28e6c8719b08a7cdd18f8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be7a8983_281ba769",
+        "filename": "api/audio_codecs/audio_decoder.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-31T08:58:27Z",
+      "side": 1,
+      "message": "But if we only document that the caller can come back until it\u0027s gotten the number of samples it wants, we make it sound like it\u0027s not OK for the callee to not eventually produce enough samples since that would lead to an infinite loop.\n\nIn other words, if the caller wants samples and the callee doesn\u0027t want to provide them, we need to document who prevails.\n\nCompare the docs for the `read` system call, where the callee may return fewer bytes than the caller requested, and the caller may try again---until the callee returns zero bytes, which the caller should take as a signal that there will be no more bytes ever.",
+      "parentUuid": "cfce8797_1c474327",
+      "revId": "33026c5ee15e11f197a28e6c8719b08a7cdd18f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "50022787_14e337d1",
+        "filename": "api/audio_codecs/audio_decoder.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-31T13:11:32Z",
+      "side": 1,
+      "message": "I guess this sentence is redundant and can be removed.",
+      "range": {
+        "startLine": 126,
+        "startChar": 55,
+        "endLine": 128,
+        "endChar": 17
+      },
+      "revId": "8852190d5a30f673353a74f3bd4974f03d80c777",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22d72cf4_87bf57d3",
+        "filename": "modules/audio_coding/neteq/neteq_decoder_plc_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-08-31T13:11:32Z",
+      "side": 1,
+      "message": "No need to cast---RTC_[D]CHECK_* can compare integers of any type.",
+      "range": {
+        "startLine": 69,
+        "startChar": 17,
+        "endLine": 69,
+        "endChar": 39
+      },
+      "revId": "8852190d5a30f673353a74f3bd4974f03d80c777",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

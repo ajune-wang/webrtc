@@ -13,6 +13,7 @@
 #include <memory>
 
 #include "absl/memory/memory.h"
+#include "crypto/ssladapter.h"
 #include "p2p/base/fakeportallocator.h"
 #include "p2p/base/icetransportinternal.h"
 #include "p2p/base/mockasyncresolver.h"
@@ -34,7 +35,6 @@
 #include "rtc_base/natsocketfactory.h"
 #include "rtc_base/proxyserver.h"
 #include "rtc_base/socketaddress.h"
-#include "rtc_base/ssladapter.h"
 #include "rtc_base/thread.h"
 #include "rtc_base/virtualsocketserver.h"
 #include "system_wrappers/include/metrics_default.h"

@@ -231,6 +231,7 @@ void AecState::Update(
     // Update the echo audibility evaluator.
     echo_audibility_.Update(
         render_buffer, FilterDelayBlocks(), external_delay_seen_,
+        config_.echo_audibility.use_stationarity_properties_at_init,
         config_.ep_strength.reverb_based_on_render ? ReverbDecay() : 0.f);
   }
 

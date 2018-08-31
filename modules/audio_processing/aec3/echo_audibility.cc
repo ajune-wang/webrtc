@@ -29,12 +29,13 @@ EchoAudibility::~EchoAudibility() = default;
 void EchoAudibility::Update(const RenderBuffer& render_buffer,
                             int delay_blocks,
                             bool external_delay_seen,
+                            bool use_render_stationarity_at_init,
                             float reverb_decay) {
   UpdateRenderNoiseEstimator(render_buffer.GetSpectrumBuffer(),
                              render_buffer.GetBlockBuffer(),
                              external_delay_seen);
 
-  if (external_delay_seen) {
+  if (external_delay_seen || use_render_stationarity_at_init) {
     UpdateRenderStationarityFlags(render_buffer, delay_blocks, reverb_decay);
   }
 }

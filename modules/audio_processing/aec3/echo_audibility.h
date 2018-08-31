@@ -38,6 +38,7 @@ class EchoAudibility {
   void Update(const RenderBuffer& render_buffer,
               int delay_blocks,
               bool external_delay_seen,
+              bool use_render_stationarity_at_init,
               float reverb_decay);
 
   // Get the residual echo scaling.

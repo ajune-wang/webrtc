@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a0667b95_4de37b8c",
+        "filename": "pc/datachannel.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-08-31T22:03:27Z",
+      "side": 1,
+      "message": "super nit: PeerConnection calls this async_invoker_. Do we wanna keep these consistent?",
+      "range": {
+        "startLine": 289,
+        "startChar": 20,
+        "endLine": 289,
+        "endChar": 28
+      },
+      "revId": "707b8f592dce4f2c1b78d51297728d54a0f6776c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

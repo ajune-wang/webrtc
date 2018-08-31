@@ -651,6 +651,7 @@ if (is_linux || is_win) {
     deps = [
       "../api:libjingle_peerconnection_api",
       "../api/video:video_frame_i420",
+      "../crypto:crypto",
       "../rtc_base:checks",
       "../rtc_base:stringutils",
       "../rtc_base/third_party/sigslot",
@@ -817,6 +818,7 @@ if (is_win || is_android) {
       "../api/audio_codecs:builtin_audio_decoder_factory",
       "../api/audio_codecs:builtin_audio_encoder_factory",
       "../api/video:video_frame",
+      "../crypto:crypto",
       "../media:rtc_audio_video",
       "../media:rtc_internal_video_codecs",
       "../media:rtc_media",
@@ -881,6 +883,7 @@ if (!build_with_chromium) {
     }
 
     deps = [
+      "../crypto:crypto",
       "../p2p:libstunprober",
       "../p2p:rtc_p2p",
       "../rtc_base:checks",

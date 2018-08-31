@@ -21,7 +21,7 @@
 #include "rtc_base/nethelpers.h"
 #include "rtc_base/physicalsocketserver.h"
 #include "rtc_base/socketadapters.h"
-#include "rtc_base/ssladapter.h"
+#include "crypto/ssladapter.h"
 #include "rtc_base/thread.h"
 
 namespace rtc {

@@ -20,7 +20,7 @@
 #include "rtc_base/buffer.h"
 #include "rtc_base/bufferqueue.h"
 #include "rtc_base/constructormagic.h"
-#include "rtc_base/sslstreamadapter.h"
+#include "crypto/sslstreamadapter.h"
 #include "rtc_base/stream.h"
 #include "rtc_base/thread_checker.h"
 

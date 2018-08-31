@@ -19,7 +19,7 @@
 #include "api/peerconnectioninterface.h"
 #include "media/sctp/sctptransportinternal.h"
 #include "pc/channelmanager.h"
-#include "rtc_base/rtccertificategenerator.h"
+#include "crypto/rtccertificategenerator.h"
 #include "rtc_base/scoped_ref_ptr.h"
 #include "rtc_base/thread.h"
 

@@ -22,7 +22,7 @@
 #include "p2p/client/basicportallocator.h"
 #include "rtc_base/asyncinvoker.h"
 #include "rtc_base/asyncpacketsocket.h"
-#include "rtc_base/sslcertificate.h"
+#include "crypto/sslcertificate.h"
 
 namespace rtc {
 class AsyncResolver;

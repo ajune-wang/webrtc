@@ -23,13 +23,15 @@ VivaceUtilityFunction::VivaceUtilityFunction(
     double throughput_coefficient,
     double throughput_power,
     double delay_gradient_threshold,
-    double delay_gradient_negative_bound)
+    double delay_gradient_negative_bound,
+    double loss_rate_threshold)
     : delay_gradient_coefficient_(delay_gradient_coefficient),
       loss_coefficient_(loss_coefficient),
       throughput_power_(throughput_power),
       throughput_coefficient_(throughput_coefficient),
       delay_gradient_threshold_(delay_gradient_threshold),
-      delay_gradient_negative_bound_(delay_gradient_negative_bound) {
+      delay_gradient_negative_bound_(delay_gradient_negative_bound),
+      loss_rate_threshold_(loss_rate_threshold) {
   RTC_DCHECK_GE(delay_gradient_negative_bound_, 0);
 }
 
@@ -37,7 +39,7 @@ double VivaceUtilityFunction::Compute(
     const PccMonitorInterval& monitor_interval) const {
   RTC_DCHECK(monitor_interval.IsFeedbackCollectionDone());
   double bitrate = monitor_interval.GetTargetSendingRate().bps();
-  double loss_rate = monitor_interval.GetLossRate();
+  double loss_rate = monitor_interval.GetLossRate(loss_rate_threshold_);
   double rtt_gradient =
       monitor_interval.ComputeDelayGradient(delay_gradient_threshold_);
   rtt_gradient = std::max(rtt_gradient, -delay_gradient_negative_bound_);
@@ -54,13 +56,15 @@ ModifiedVivaceUtilityFunction::ModifiedVivaceUtilityFunction(
     double throughput_coefficient,
     double throughput_power,
     double delay_gradient_threshold,
-    double delay_gradient_negative_bound)
+    double delay_gradient_negative_bound,
+    double loss_rate_threshold)
     : delay_gradient_coefficient_(delay_gradient_coefficient),
       loss_coefficient_(loss_coefficient),
       throughput_power_(throughput_power),
       throughput_coefficient_(throughput_coefficient),
       delay_gradient_threshold_(delay_gradient_threshold),
-      delay_gradient_negative_bound_(delay_gradient_negative_bound) {
+      delay_gradient_negative_bound_(delay_gradient_negative_bound),
+      loss_rate_threshold_(loss_rate_threshold) {
   RTC_DCHECK_GE(delay_gradient_negative_bound_, 0);
 }
 
@@ -68,7 +72,7 @@ double ModifiedVivaceUtilityFunction::Compute(
     const PccMonitorInterval& monitor_interval) const {
   RTC_DCHECK(monitor_interval.IsFeedbackCollectionDone());
   double bitrate = monitor_interval.GetTargetSendingRate().bps();
-  double loss_rate = monitor_interval.GetLossRate();
+  double loss_rate = monitor_interval.GetLossRate(loss_rate_threshold_);
   double rtt_gradient =
       monitor_interval.ComputeDelayGradient(delay_gradient_threshold_);
   rtt_gradient = std::max(rtt_gradient, -delay_gradient_negative_bound_);

@@ -30,7 +30,8 @@ PccBitrateController::PccBitrateController(double initial_conversion_factor,
                                            double throughput_coefficient,
                                            double throughput_power,
                                            double rtt_gradient_threshold,
-                                           double delay_gradient_negative_bound)
+                                           double delay_gradient_negative_bound,
+                                           double loss_rate_threshold)
     : PccBitrateController(initial_conversion_factor,
                            initial_dynamic_boundary,
                            dynamic_boundary_increment,
@@ -40,7 +41,8 @@ PccBitrateController::PccBitrateController(double initial_conversion_factor,
                                throughput_coefficient,
                                throughput_power,
                                rtt_gradient_threshold,
-                               delay_gradient_negative_bound)) {}
+                               delay_gradient_negative_bound,
+                               loss_rate_threshold)) {}
 
 PccBitrateController::PccBitrateController(
     double initial_conversion_factor,

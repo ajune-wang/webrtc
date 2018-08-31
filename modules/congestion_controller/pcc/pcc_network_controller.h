@@ -12,6 +12,7 @@
 #define MODULES_CONGESTION_CONTROLLER_PCC_PCC_NETWORK_CONTROLLER_H_
 
 #include <deque>
+#include <string>
 #include <vector>
 
 #include "api/transport/network_control.h"
@@ -19,6 +20,8 @@
 #include "modules/congestion_controller/pcc/bitrate_controller.h"
 #include "modules/congestion_controller/pcc/monitor_interval.h"
 #include "modules/congestion_controller/pcc/rtt_tracker.h"
+#include "rtc_base/experiments/field_trial_parser.h"
+#include "rtc_base/experiments/field_trial_units.h"
 #include "rtc_base/random.h"
 
 namespace webrtc {
@@ -54,6 +57,55 @@ class PccNetworkController : public NetworkControllerInterface {
     kFixed
   };
 
+  struct PccControllerConfig {
+    FieldTrialParameter<double> alpha_for_packet_interval;
+    // Default value used for initializing bandwidth.
+    FieldTrialParameter<DataRate> default_bandwidth;
+    FieldTrialParameter<int64_t> initial_rtt_ms;
+    // How long should we wait for feedback to arrive after finishing monitor
+    // interval.
+    FieldTrialParameter<double> monitor_interval_timeout_ratio;
+    FieldTrialEnum<MonitorIntervalLengthStrategy>
+        monitor_interval_length_strategy;
+    // Duration ratio in tearms of RTT. Used only for adaptive monitor interval
+    // length strategy.
+    FieldTrialParameter<double> monitor_interval_duration_ratio;
+    FieldTrialParameter<TimeDelta> min_duration_of_monitor_interval;
+    FieldTrialParameter<double> sampling_step;  // Epsilon
+    FieldTrialParameter<double> min_rate_change_bps;
+    FieldTrialParameter<int64_t> min_packets_number_per_interval;
+    // Duration of the startup mode. To disable startup mode set it to 0.
+    FieldTrialParameter<TimeDelta> startup_duration;
+    // How larger should we try to send for the next monitor interval in the
+    // slow start mode.
+    FieldTrialParameter<double> slow_start_increase_factor;
+
+    // Bitrate controller parameters
+    FieldTrialParameter<double> initial_conversion_factor;
+    FieldTrialParameter<double> initial_dynamic_boundary;
+    FieldTrialParameter<double> dynamic_boundary_increment;
+    // Utility function parameters
+    FieldTrialParameter<bool> is_modified_utility_function;
+    FieldTrialParameter<double> rtt_gradient_coefficient;
+    FieldTrialParameter<double> loss_coefficient;
+    FieldTrialParameter<double> throughput_coefficient;
+    FieldTrialParameter<double> throughput_power;
+    FieldTrialParameter<double> rtt_gradient_threshold;
+    // Use very high positive number to disable bounding delay gradient.
+    FieldTrialParameter<double> rtt_gradient_negative_bound;
+    FieldTrialParameter<double> loss_rate_threshold;
+
+    // How many last received packets should we keep. These packets used after
+    // the startup mode and when timeout expired to set up the sending rate.
+    // Set to 0 to disable this.
+    FieldTrialParameter<size_t> number_of_packets_to_keep;
+
+    explicit PccControllerConfig(std::string field_trial);
+    ~PccControllerConfig();
+    PccControllerConfig(const PccControllerConfig&);
+    static PccControllerConfig FromTrial();
+  };
+
   explicit PccNetworkController(NetworkControllerConfig config);
   ~PccNetworkController() override;
 
@@ -81,23 +133,20 @@ class PccNetworkController : public NetworkControllerInterface {
   bool IsTimeoutExpired(Timestamp current_time) const;
   bool IsFeedbackCollectionDone() const;
 
+  PccControllerConfig config_;
+
   Timestamp start_time_;
   Timestamp last_sent_packet_time_;
   TimeDelta smoothed_packets_sending_interval_;
+
   Mode mode_;
 
-  // Default value used for initializing bandwidth.
-  DataRate default_bandwidth_;
   // Current estimate r.
   DataRate bandwidth_estimate_;
 
   RttTracker rtt_tracker_;
   TimeDelta monitor_interval_timeout_;
-  const MonitorIntervalLengthStrategy monitor_interval_length_strategy_;
-  const double monitor_interval_duration_ratio_;
-  const double sampling_step_;  // Epsilon.
-  const double monitor_interval_timeout_ratio_;
-  const int64_t min_packets_number_per_interval_;
+  const DataRate min_rate_have_multiplicative_rate_change_;
 
   PccBitrateController bitrate_controller_;
 

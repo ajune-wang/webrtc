@@ -36,7 +36,8 @@ class VivaceUtilityFunction : public PccUtilityFunctionInterface {
                         double throughput_coefficient,
                         double throughput_power,
                         double delay_gradient_threshold,
-                        double delay_gradient_negative_bound);
+                        double delay_gradient_negative_bound,
+                        double loss_rate_threshold);
   double Compute(const PccMonitorInterval& monitor_interval) const override;
   ~VivaceUtilityFunction() override;
 
@@ -47,6 +48,7 @@ class VivaceUtilityFunction : public PccUtilityFunctionInterface {
   const double throughput_coefficient_;
   const double delay_gradient_threshold_;
   const double delay_gradient_negative_bound_;
+  const double loss_rate_threshold_;
 };
 
 // This utility function were obtained by tuning Vivace utility function.
@@ -60,7 +62,8 @@ class ModifiedVivaceUtilityFunction : public PccUtilityFunctionInterface {
                                 double throughput_coefficient,
                                 double throughput_power,
                                 double delay_gradient_threshold,
-                                double delay_gradient_negative_bound);
+                                double delay_gradient_negative_bound,
+                                double loss_rate_threshold);
   double Compute(const PccMonitorInterval& monitor_interval) const override;
   ~ModifiedVivaceUtilityFunction() override;
 
@@ -71,6 +74,7 @@ class ModifiedVivaceUtilityFunction : public PccUtilityFunctionInterface {
   const double throughput_coefficient_;
   const double delay_gradient_threshold_;
   const double delay_gradient_negative_bound_;
+  const double loss_rate_threshold_;
 };
 
 }  // namespace pcc

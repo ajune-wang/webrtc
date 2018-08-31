@@ -30,6 +30,7 @@ constexpr double kThroughputCoefficient = 500 * 1000;
 constexpr double kThroughputPower = 0.99;
 constexpr double kDelayGradientThreshold = 0.01;
 constexpr double kDelayGradientNegativeBound = 10;
+constexpr double kLossRateThreshold = 0.2;
 
 const DataRate kTargetSendingRate = DataRate::kbps(300);
 const double kEpsilon = 0.05;
@@ -77,10 +78,11 @@ TEST(PccBitrateControllerTest, IncreaseRateWhenNoChangesForTestBitrates) {
       kInitialConversionFactor, kInitialDynamicBoundary,
       kDynamicBoundaryIncrement, kDelayGradientCoefficient, kLossCoefficient,
       kThroughputCoefficient, kThroughputPower, kDelayGradientThreshold,
-      kDelayGradientNegativeBound);
+      kDelayGradientNegativeBound, kLossRateThreshold);
   VivaceUtilityFunction utility_function(
       kDelayGradientCoefficient, kLossCoefficient, kThroughputCoefficient,
-      kThroughputPower, kDelayGradientThreshold, kDelayGradientNegativeBound);
+      kThroughputPower, kDelayGradientThreshold, kDelayGradientNegativeBound,
+      kLossRateThreshold);
   std::vector<PccMonitorInterval> monitor_block{
       PccMonitorInterval(kTargetSendingRate * (1 + kEpsilon), kStartTime,
                          kIntervalDuration),
@@ -153,9 +155,9 @@ TEST(PccBitrateControllerTest, NoBoundaryWhenSmallGradient) {
       kInitialConversionFactor, kInitialDynamicBoundary,
       kDynamicBoundaryIncrement, std::move(mock_utility_function));
   std::vector<PccMonitorInterval> monitor_block{
-      PccMonitorInterval(kTargetSendingRate * (1 + kEpsilon), kStartTime,
+      PccMonitorInterval(kTargetSendingRate * (1 - kEpsilon), kStartTime,
                          kIntervalDuration),
-      PccMonitorInterval(kTargetSendingRate * (1 - kEpsilon),
+      PccMonitorInterval(kTargetSendingRate * (1 + kEpsilon),
                          kStartTime + kIntervalDuration, kIntervalDuration)};
   // To complete collecting feedback within monitor intervals.
   monitor_block[0].OnPacketsFeedback(
@@ -164,7 +166,7 @@ TEST(PccBitrateControllerTest, NoBoundaryWhenSmallGradient) {
       CreatePacketResults({kStartTime + 3 * kIntervalDuration}, {}, {}));
 
   double gradient =
-      (kFirstMonitorIntervalUtility - kSecondMonitorIntervalUtility) /
+      (kSecondMonitorIntervalUtility - kFirstMonitorIntervalUtility) /
       (kTargetSendingRate.bps() * 2 * kEpsilon);
   // When the gradient is small we don't hit the dynamic boundary.
   EXPECT_EQ(bitrate_controller
@@ -267,9 +269,9 @@ TEST(PccBitrateControllerTest, StepSizeIncrease) {
       .WillOnce(testing::Return(kFirstMiUtilityFunction))
       .WillOnce(testing::Return(kSecondMiUtilityFunction));
   std::vector<PccMonitorInterval> monitor_block{
-      PccMonitorInterval(kTargetSendingRate * (1 + kEpsilon), kStartTime,
+      PccMonitorInterval(kTargetSendingRate * (1 - kEpsilon), kStartTime,
                          kIntervalDuration),
-      PccMonitorInterval(kTargetSendingRate * (1 - kEpsilon),
+      PccMonitorInterval(kTargetSendingRate * (1 + kEpsilon),
                          kStartTime + kIntervalDuration, kIntervalDuration)};
   // To complete collecting feedback within monitor intervals.
   monitor_block[0].OnPacketsFeedback(
@@ -277,7 +279,7 @@ TEST(PccBitrateControllerTest, StepSizeIncrease) {
   monitor_block[1].OnPacketsFeedback(
       CreatePacketResults({kStartTime + 3 * kIntervalDuration}, {}, {}));
 
-  double gradient = (kFirstMiUtilityFunction - kSecondMiUtilityFunction) /
+  double gradient = (kSecondMiUtilityFunction - kFirstMiUtilityFunction) /
                     (kTargetSendingRate.bps() * 2 * kEpsilon);
   PccBitrateController bitrate_controller(
       kInitialConversionFactor, kInitialDynamicBoundary,

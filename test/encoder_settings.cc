@@ -12,6 +12,7 @@
 #include <algorithm>
 #include <string>
 
+#include "media/engine/fake_video_codec_factory.h"
 #include "media/engine/internaldecoderfactory.h"
 #include "modules/video_coding/codecs/h264/include/h264.h"
 #include "modules/video_coding/codecs/multiplex/include/multiplex_decoder_adapter.h"
@@ -137,6 +138,8 @@ VideoReceiveStream::Decoder CreateMatchingDecoder(
   } else if (payload_name == "multiplex") {
     decoder.decoder = new MultiplexDecoderAdapter(
         new InternalDecoderFactory(), SdpVideoFormat(cricket::kVp9CodecName));
+  } else if (payload_name == "FakeCodec") {
+    decoder.decoder = FakeVideoDecoderFactory::CreateVideoDecoder().release();
   } else {
     decoder.decoder = new FakeDecoder();
   }

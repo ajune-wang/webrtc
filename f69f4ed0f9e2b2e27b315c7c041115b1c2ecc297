@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a06704fd_43e723e4",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1418,
+      "author": {
+        "id": 7524
+      },
+      "writtenOn": "2018-08-31T17:32:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a5851b17_d2d5997c",
+      "revId": "f69f4ed0f9e2b2e27b315c7c041115b1c2ecc297",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "02dc79be_ebec8b1c",
         "filename": "p2p/base/p2ptransportchannel.cc",
         "patchSetId": 5
@@ -33,6 +51,24 @@
       "revId": "f69f4ed0f9e2b2e27b315c7c041115b1c2ecc297",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df239eb7_53355c8b",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1448,
+      "author": {
+        "id": 7524
+      },
+      "writtenOn": "2018-08-31T17:32:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "02dc79be_ebec8b1c",
+      "revId": "f69f4ed0f9e2b2e27b315c7c041115b1c2ecc297",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "3b333905_ff748d55",
+        "filename": "p2p/base/p2ptransportchannel.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 7524
+      },
+      "writtenOn": "2018-08-31T17:32:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1e3618e8_21859ccb",
+      "revId": "f69f4ed0f9e2b2e27b315c7c041115b1c2ecc297",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "769ccb00_bcbd8840",
         "filename": "p2p/base/p2ptransportchannel.h",
         "patchSetId": 5
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "5e8503fb_b843cac6",
+        "filename": "p2p/base/p2ptransportchannel.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 7524
+      },
+      "writtenOn": "2018-08-31T17:32:25Z",
+      "side": 1,
+      "message": "Criteria are used in 2 ways:\n- To figure out what to compare\n- To report back which criteria was the tiebreaker\n\nDEFAULT is used in the latter case (e.g. the was no old candidate to compare against).\n\nIt does seem that NONE is a better name.",
+      "parentUuid": "769ccb00_bcbd8840",
+      "revId": "f69f4ed0f9e2b2e27b315c7c041115b1c2ecc297",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4ba3563e_2f088b21",
         "filename": "p2p/base/p2ptransportchannel.h",
         "patchSetId": 5
@@ -84,6 +156,24 @@
       "revId": "f69f4ed0f9e2b2e27b315c7c041115b1c2ecc297",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df54af9b_cd8f0aed",
+        "filename": "p2p/base/p2ptransportchannel.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 7524
+      },
+      "writtenOn": "2018-08-31T17:32:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4ba3563e_2f088b21",
+      "revId": "f69f4ed0f9e2b2e27b315c7c041115b1c2ecc297",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -32,16 +32,12 @@ namespace webrtc {
 
 class RtpPacketizerVp9 : public RtpPacketizer {
  public:
-  RtpPacketizerVp9(const RTPVideoHeaderVP9& hdr,
-                   size_t max_payload_length,
-                   size_t last_packet_reduction_len);
+  // The |payload| must be one encoded VP9 layer frame.
+  RtpPacketizerVp9(rtc::ArrayView<const uint8_t> payload,
+                   PayloadSizeLimits limits,
+                   const RTPVideoHeaderVP9& hdr);
 
   ~RtpPacketizerVp9() override;
-
-  // The payload data must be one encoded VP9 layer frame.
-  size_t SetPayloadData(const uint8_t* payload,
-                        size_t payload_size,
-                        const RTPFragmentationHeader* fragmentation);
 
   size_t NumPackets() const override;
 
@@ -50,17 +46,16 @@ class RtpPacketizerVp9 : public RtpPacketizer {
   // Returns true on success, false otherwise.
   bool NextPacket(RtpPacketToSend* packet) override;
 
-  typedef struct {
-    size_t payload_start_pos;
+ private:
+  struct PacketInfo {
+    const uint8_t* payload;
     size_t size;
     bool layer_begin;
     bool layer_end;
-  } PacketInfo;
-  typedef std::queue<PacketInfo> PacketInfoQueue;
+  };
 
- private:
   // Calculates all packet sizes and loads info to packet queue.
-  void GeneratePackets();
+  void GeneratePackets(rtc::ArrayView<const uint8_t> payload);
 
   // Writes the payload descriptor header and copies payload to the |buffer|.
   // |packet_info| determines which part of the payload to write.
@@ -77,11 +72,8 @@ class RtpPacketizerVp9 : public RtpPacketizer {
                    size_t* header_length) const;
 
   const RTPVideoHeaderVP9 hdr_;
-  const size_t max_payload_length_;  // The max length in bytes of one packet.
-  const uint8_t* payload_;           // The payload data to be packetized.
-  size_t payload_size_;              // The size in bytes of the payload data.
-  const size_t last_packet_reduction_len_;
-  PacketInfoQueue packets_;
+  const PayloadSizeLimits limits_;  // The max length in bytes of one packet.
+  std::queue<PacketInfo> packets_;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(RtpPacketizerVp9);
 };

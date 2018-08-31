@@ -1,0 +1,303 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "81e90901_c75e90c5",
+        "filename": "api/rtpsenderinterface.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-08-31T18:46:58Z",
+      "side": 1,
+      "message": "How the parameters are set can be pretty confusing, especially someone not familiar with the code. Did it happen with SetParameters, AddTransceiver, SDP - local or remote, offer or answer....What is even happening!!!\n\nAnyways I think a more specific comment here or elsewhere would be nice. Maybe something like:\n\"Returns the list of encoding parameters that will be applied when the SDP local description is set. These initial encoding parameters can be set by PeerConnection::AddTransceiver, and later updated with Get/SetParameters.",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 17
+      },
+      "revId": "dc6bbfb579e855c5e447c744196f2fc4fe656a39",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf66499c_9bdf8ab1",
+        "filename": "media/base/mediaengine.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-08-31T18:46:58Z",
+      "side": 1,
+      "message": "Since the checks for ssrc \u0026 bitrate_priority are being introduced per encoding layer (instead of index 0) it would be nice to have a test.",
+      "range": {
+        "startLine": 62,
+        "startChar": 8,
+        "endLine": 63,
+        "endChar": 44
+      },
+      "revId": "dc6bbfb579e855c5e447c744196f2fc4fe656a39",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0771290b_b36572a5",
+        "filename": "media/base/mediaengine.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-08-31T18:46:58Z",
+      "side": 1,
+      "message": "You updated to check all sssrcs/bitrate_priority for video, but just the one at index 0 for voice. This got me thinking - is there even a case when voice has multiple ssrcs? I don\u0027t think it\u0027s supported. In that case you could change the first check to:\nrtp_parameters.encodings.size() !\u003d 1",
+      "range": {
+        "startLine": 106,
+        "startChar": 6,
+        "endLine": 106,
+        "endChar": 38
+      },
+      "revId": "dc6bbfb579e855c5e447c744196f2fc4fe656a39",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bec4a115_24585ba3",
+        "filename": "pc/peerconnection_rtp_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1387,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-08-31T18:46:58Z",
+      "side": 1,
+      "message": "nit: MEDIA_TYPE_VIDEO? I don\u0027t think multiple send_encodings is supported with audio.",
+      "range": {
+        "startLine": 1387,
+        "startChar": 45,
+        "endLine": 1387,
+        "endChar": 70
+      },
+      "revId": "dc6bbfb579e855c5e447c744196f2fc4fe656a39",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "507b4aef_95b89576",
+        "filename": "pc/peerconnection_rtp_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1475,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-08-31T18:46:58Z",
+      "side": 1,
+      "message": "How about adding a test for the passing use case? AddTransceiver with a valid send_encoding, and then getting the sender, and verifying that the init_send_encodings set on the sender are the same?",
+      "range": {
+        "startLine": 1475,
+        "startChar": 1,
+        "endLine": 1475,
+        "endChar": 0
+      },
+      "revId": "dc6bbfb579e855c5e447c744196f2fc4fe656a39",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e29c17fe_9c025ca8",
+        "filename": "pc/rtpsender.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-08-31T18:46:58Z",
+      "side": 1,
+      "message": "This locks someone in to that number of encodings by calling GetParameters. What if they are a simulcast user that SDP munges? Then calling GetParameters before doing so would cause problems because your init_parameters_.encodings.size() !\u003d sdp_rtp_parameters.encodings.size().\n\nMaybe the best thing to do here is only allow setting the encodings with set_init_send_encodings(), and just returning RtpParameters() here if they\u0027re empty.",
+      "range": {
+        "startLine": 237,
+        "startChar": 6,
+        "endLine": 237,
+        "endChar": 42
+      },
+      "revId": "dc6bbfb579e855c5e447c744196f2fc4fe656a39",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e048f34_cd854e88",
+        "filename": "pc/rtpsender.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-08-31T18:46:58Z",
+      "side": 1,
+      "message": "maybe comment here that these are the parameters come from the SDP when setting the local description.\n\nAlso we should call Validate(Video/Voice)RtpParameters(init_parameters_, current_parameters) or maybe better is to DCHECK that they\u0027re the same size. This shouldn\u0027t happen unless someone sets send_encodings with AddTransceiver AND SDP munges to a different ssrc size. But that shouldn\u0027t be allowed.",
+      "range": {
+        "startLine": 323,
+        "startChar": 6,
+        "endLine": 323,
+        "endChar": 38
+      },
+      "revId": "dc6bbfb579e855c5e447c744196f2fc4fe656a39",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14faaa60_dc27bf3b",
+        "filename": "pc/rtpsender.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-08-31T18:46:58Z",
+      "side": 1,
+      "message": "is media_channel always not a nullptr when calling SetSsrc()? That seems to be the case. If so a DCHECK is probably appropriate.",
+      "range": {
+        "startLine": 324,
+        "startChar": 10,
+        "endLine": 324,
+        "endChar": 24
+      },
+      "revId": "dc6bbfb579e855c5e447c744196f2fc4fe656a39",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4b233df_02b966bf",
+        "filename": "pc/rtpsender.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-08-31T18:46:58Z",
+      "side": 1,
+      "message": "This seems like a problem to me. What if somebody expects the ssrcs they set with send_encodings to be used for rtp headers \u0026 SDP signaling? I see two solutions:\n1) When calling AddTransceiver if the ssrc is set we return an error because we don\u0027t support this right now.\n2) Wire the ssrc set in send encodings to the actual StreamParams object. It will require a bit of work, but here\u0027s the path if you want to do this:\n - PeerConnection::GetMediaDescriptionOptionsForTransceiver - add a vector of (size num_simulcast layers) to SenderOptions\n - MediaSession::AddStreamParams - Only call Generate ssrcs if the ssrcs aren\u0027t specified in SenderOptions\n\nUnfortunately the correct way (option 2) requires some effort because you\u0027d have to change SenderOptions so it would mean updating various parts of the code.",
+      "range": {
+        "startLine": 327,
+        "startChar": 8,
+        "endLine": 327,
+        "endChar": 36
+      },
+      "revId": "dc6bbfb579e855c5e447c744196f2fc4fe656a39",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a8b3734_4c51ff65",
+        "filename": "pc/rtpsender.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 472,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-08-31T18:46:58Z",
+      "side": 1,
+      "message": "nit: I\u0027ve been told to put brackets even if it\u0027s a one liner and I think it\u0027s a good practice. Could you please update here and elsewhere in this file?",
+      "range": {
+        "startLine": 472,
+        "startChar": 43,
+        "endLine": 472,
+        "endChar": 0
+      },
+      "revId": "dc6bbfb579e855c5e447c744196f2fc4fe656a39",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79015ecc_4da5f817",
+        "filename": "pc/rtpsender.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-08-31T18:46:58Z",
+      "side": 1,
+      "message": "Should we allow to set this more than once?",
+      "range": {
+        "startLine": 152,
+        "startChar": 11,
+        "endLine": 152,
+        "endChar": 37
+      },
+      "revId": "dc6bbfb579e855c5e447c744196f2fc4fe656a39",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84fbbe35_a1d17838",
+        "filename": "pc/rtpsenderreceiver_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 618,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-08-31T18:46:58Z",
+      "side": 1,
+      "message": "Maybe instead of calling GetParameters to populate init_parameters_.encodings, you can call set_init_send_encodings(). I commented about this inside rtpsender.cc",
+      "range": {
+        "startLine": 618,
+        "startChar": 25,
+        "endLine": 618,
+        "endChar": 57
+      },
+      "revId": "dc6bbfb579e855c5e447c744196f2fc4fe656a39",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8dc3ce8_6ee17abc",
+        "filename": "pc/rtpsenderreceiver_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 640,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-08-31T18:46:58Z",
+      "side": 1,
+      "message": "I don\u0027t know if it\u0027s worth testing multiple encoding layers for audio, because it isn\u0027t supported. Maybe this stuff should be checked before it\u0027s just ignored at the lower layers (SetParameters):\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/media/engine/webrtcvoiceengine.cc?l\u003d970\n\nI think I had a comment on this in ValidateVoiceRtpParameters.",
+      "range": {
+        "startLine": 640,
+        "startChar": 2,
+        "endLine": 640,
+        "endChar": 35
+      },
+      "revId": "dc6bbfb579e855c5e447c744196f2fc4fe656a39",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

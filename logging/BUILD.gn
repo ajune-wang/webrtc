@@ -343,6 +343,7 @@ if (rtc_enable_protobuf) {
       deps = [
         ":rtc_event_log_api",
         ":rtc_event_log_parser",
+        "../crypto",
         "../modules/rtp_rtcp",
         "../modules/rtp_rtcp:rtp_rtcp_format",
         "../rtc_base:checks",

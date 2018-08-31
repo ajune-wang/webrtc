@@ -16,6 +16,7 @@
 #include <string>
 #include <vector>
 
+#include "crypto/ssladapter.h"
 #include "media/sctp/sctptransport.h"
 #include "p2p/base/fakedtlstransport.h"
 #include "rtc_base/bind.h"
@@ -23,7 +24,6 @@
 #include "rtc_base/criticalsection.h"
 #include "rtc_base/gunit.h"
 #include "rtc_base/helpers.h"
-#include "rtc_base/ssladapter.h"
 #include "rtc_base/thread.h"
 
 namespace {

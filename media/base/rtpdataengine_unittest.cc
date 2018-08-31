@@ -11,6 +11,7 @@
 #include <memory>
 #include <string>
 
+#include "crypto/ssladapter.h"
 #include "media/base/fakenetworkinterface.h"
 #include "media/base/mediaconstants.h"
 #include "media/base/rtpdataengine.h"
@@ -18,7 +19,6 @@
 #include "rtc_base/copyonwritebuffer.h"
 #include "rtc_base/gunit.h"
 #include "rtc_base/helpers.h"
-#include "rtc_base/ssladapter.h"
 
 class FakeDataReceiver : public sigslot::has_slots<> {
  public:

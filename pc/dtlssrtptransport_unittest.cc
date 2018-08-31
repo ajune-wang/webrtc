@@ -14,6 +14,7 @@
 #include <utility>
 
 #include "absl/memory/memory.h"
+#include "crypto/sslstreamadapter.h"
 #include "media/base/fakertp.h"
 #include "p2p/base/dtlstransportinternal.h"
 #include "p2p/base/fakedtlstransport.h"
@@ -23,7 +24,6 @@
 #include "pc/rtptransporttestutil.h"
 #include "rtc_base/asyncpacketsocket.h"
 #include "rtc_base/gunit.h"
-#include "rtc_base/sslstreamadapter.h"
 
 using cricket::FakeDtlsTransport;
 using cricket::FakeIceTransport;

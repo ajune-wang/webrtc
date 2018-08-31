@@ -2,6 +2,7 @@ include_rules = [
   "+third_party/libyuv",
   "+call/callfactoryinterface.h",
   "+common_video",
+  "+crypto",
   "+logging/rtc_event_log/rtc_event_log_factory_interface.h",
   "+media/base",
   "+media/engine",

@@ -14,6 +14,7 @@
 #include <utility>
 
 #include "absl/memory/memory.h"
+#include "crypto/messagedigest.h"
 #include "p2p/base/asyncstuntcpsocket.h"
 #include "p2p/base/packetsocketfactory.h"
 #include "p2p/base/stun.h"
@@ -22,7 +23,6 @@
 #include "rtc_base/checks.h"
 #include "rtc_base/helpers.h"
 #include "rtc_base/logging.h"
-#include "rtc_base/messagedigest.h"
 #include "rtc_base/socketadapters.h"
 #include "rtc_base/stringencode.h"
 #include "rtc_base/thread.h"

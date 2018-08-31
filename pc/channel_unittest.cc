@@ -12,6 +12,7 @@
 #include <utility>
 
 #include "api/array_view.h"
+#include "crypto/sslstreamadapter.h"
 #include "media/base/fakemediaengine.h"
 #include "media/base/fakertp.h"
 #include "media/base/mediachannel.h"
@@ -25,7 +26,6 @@
 #include "rtc_base/fakeclock.h"
 #include "rtc_base/gunit.h"
 #include "rtc_base/logging.h"
-#include "rtc_base/sslstreamadapter.h"
 
 using cricket::DtlsTransportInternal;
 using cricket::FakeVoiceMediaChannel;

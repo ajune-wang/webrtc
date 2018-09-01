@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0c4deae9_76a733d7",
+        "filename": "modules/congestion_controller/pcc/pcc_network_controller.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-09-01T08:10:08Z",
+      "side": 1,
+      "message": "Should use TimeDelta",
+      "range": {
+        "startLine": 64,
+        "startChar": 24,
+        "endLine": 64,
+        "endChar": 31
+      },
+      "revId": "ee1f90ebabcc19021e6d9552e10d9fc7b995360c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16a918ef_719af9c2",
+        "filename": "modules/congestion_controller/pcc/pcc_network_controller.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-09-01T08:10:08Z",
+      "side": 1,
+      "message": "DataRate",
+      "range": {
+        "startLine": 75,
+        "startChar": 24,
+        "endLine": 75,
+        "endChar": 30
+      },
+      "revId": "ee1f90ebabcc19021e6d9552e10d9fc7b995360c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72358d20_19af2c56",
+        "filename": "modules/congestion_controller/pcc/pcc_network_controller.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-09-01T08:10:08Z",
+      "side": 1,
+      "message": "Should be int, no reason that this should be higher than INT_MAX.",
+      "range": {
+        "startLine": 76,
+        "startChar": 24,
+        "endLine": 76,
+        "endChar": 31
+      },
+      "revId": "ee1f90ebabcc19021e6d9552e10d9fc7b995360c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c826080c_91794f05",
+        "filename": "modules/congestion_controller/pcc/pcc_network_controller.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-09-01T08:10:08Z",
+      "side": 1,
+      "message": "skip the is, or replace with use",
+      "range": {
+        "startLine": 88,
+        "startChar": 30,
+        "endLine": 88,
+        "endChar": 58
+      },
+      "revId": "ee1f90ebabcc19021e6d9552e10d9fc7b995360c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a07137e_869d11ce",
+        "filename": "modules/congestion_controller/pcc/pcc_network_controller.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-09-01T08:10:08Z",
+      "side": 1,
+      "message": "Should be int, no reason for this to be higher than INT_MAX, and should not be different on different platforms (32 vs 64 bit)",
+      "range": {
+        "startLine": 101,
+        "startChar": 24,
+        "endLine": 101,
+        "endChar": 30
+      },
+      "revId": "ee1f90ebabcc19021e6d9552e10d9fc7b995360c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac22a27b_58784873",
+        "filename": "rtc_base/experiments/field_trial_parser.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-09-01T08:10:08Z",
+      "side": 1,
+      "message": "I guess it could have been documented better, but there\u0027s a reason why this was not implemented. I don\u0027t there\u0027s a good use case for having a such a large integer as a parameter. If it\u0027s motivated to use such large numbers, there\u0027s other options:\n* Use double which also allows for eng notation.\n* Use a special parser such as the unit types which allows more readable specification of the unit scale (such as kbps).\n* Use a fixed scale factor, for instance it might make more sense to specify size in bytes rather than bits, or specifying bitrates in kbps rather than bps. (but prefer the options above)",
+      "range": {
+        "startLine": 100,
+        "startChar": 15,
+        "endLine": 100,
+        "endChar": 22
+      },
+      "revId": "ee1f90ebabcc19021e6d9552e10d9fc7b995360c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bda8a798_8a9cc487",
+        "filename": "rtc_base/experiments/field_trial_parser.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-09-01T08:10:08Z",
+      "side": 1,
+      "message": "See above.\nWith one difference in that there currently is no way to specify that a generic numerical parameter should be positive which this actually adds. There could be an argument to be made for having restricted range parameters to allow warning for odd parameter settings. But I think it would be good to allow arbitrary limits in that case. It\u0027s currently a common pattern to sanity check field trial parameters to ensure that they are within a given range, this would be nice to support more generally.",
+      "range": {
+        "startLine": 110,
+        "startChar": 15,
+        "endLine": 110,
+        "endChar": 23
+      },
+      "revId": "ee1f90ebabcc19021e6d9552e10d9fc7b995360c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

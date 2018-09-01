@@ -19,6 +19,7 @@
 #include "modules/video_coding/codecs/vp9/include/vp9.h"
 
 #include "media/base/vp9_profile.h"
+#include "modules/video_coding/codecs/vp9/ref_control.h"
 #include "modules/video_coding/codecs/vp9/vp9_frame_buffer_pool.h"
 #include "modules/video_coding/utility/framerate_controller.h"
 
@@ -141,6 +142,9 @@ class VP9EncoderImpl : public VP9Encoder {
     size_t temporal_layer_id = 0;
   };
   std::map<size_t, RefFrameBuffer> ref_buf_;
+
+  std::vector<ReferenceControl::ReferenceConfig> ref_config_;
+  vpx_svc_ref_frame_config assigned_ref_config_;
 };
 
 class VP9DecoderImpl : public VP9Decoder {

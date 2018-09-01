@@ -19,6 +19,7 @@
 #include "media/engine/simulcast_encoder_adapter.h"
 #include "modules/video_coding/utility/vp8_header_parser.h"
 #include "modules/video_coding/utility/vp9_uncompressed_header_parser.h"
+#include "test/field_trial.h"
 #include "test/function_video_encoder_factory.h"
 #include "test/gtest.h"
 #include "test/testsupport/fileutils.h"
@@ -464,6 +465,7 @@ TEST(VideoCodecTestLibvpx, DISABLED_SvcVP9RdPerf) {
   config.filepath = ResourcePath(config.filename, "yuv");
   config.num_frames = 300;
   config.print_frame_level_stats = true;
+  config.visualization_params.save_encoded_ivf = true;
   config.SetCodecSettings(cricket::kVp9CodecName, 1, 3, 3, true, true, false,
                           1280, 720);
   const auto frame_checker = absl::make_unique<QpFrameChecker>();

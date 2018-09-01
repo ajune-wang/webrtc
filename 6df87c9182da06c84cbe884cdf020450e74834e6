@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a87f4464_8cbc586f",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-09-01T19:26:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5ee3ccf6_10ec945b",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 56
+      },
+      "revId": "6df87c9182da06c84cbe884cdf020450e74834e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "46064fd8_f64feb99",
         "filename": "api/media_transport_interface.h",
         "patchSetId": 4
@@ -186,6 +210,30 @@
       "revId": "6df87c9182da06c84cbe884cdf020450e74834e6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95f37029_c2d0dca6",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-09-01T19:26:04Z",
+      "side": 1,
+      "message": "I count about the same number of Unregister and Deregister in webrtc codebase, but if you have strong preference to Deregister I can change.",
+      "parentUuid": "abd032d3_a5890489",
+      "range": {
+        "startLine": 135,
+        "startChar": 19,
+        "endLine": 135,
+        "endChar": 21
+      },
+      "revId": "6df87c9182da06c84cbe884cdf020450e74834e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

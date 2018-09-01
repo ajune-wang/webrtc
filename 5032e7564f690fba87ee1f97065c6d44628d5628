@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3a303653_7f5cac54",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-09-01T19:26:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "afaeeef0_535c0087",
+      "range": {
+        "startLine": 14,
+        "startChar": 29,
+        "endLine": 14,
+        "endChar": 33
+      },
+      "revId": "5032e7564f690fba87ee1f97065c6d44628d5628",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "67e9a101_79a9848b",
         "filename": "api/media_transport_interface.h",
         "patchSetId": 8
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "f03580cb_a7b70e41",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-09-01T19:26:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "67e9a101_79a9848b",
+      "range": {
+        "startLine": 15,
+        "startChar": 36,
+        "endLine": 15,
+        "endChar": 50
+      },
+      "revId": "5032e7564f690fba87ee1f97065c6d44628d5628",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a332c638_56ad36b4",
         "filename": "api/media_transport_interface.h",
         "patchSetId": 8
@@ -68,6 +116,30 @@
       "revId": "5032e7564f690fba87ee1f97065c6d44628d5628",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa17e39f_82407097",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-09-01T19:26:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a332c638_56ad36b4",
+      "range": {
+        "startLine": 31,
+        "startChar": 14,
+        "endLine": 31,
+        "endChar": 15
+      },
+      "revId": "5032e7564f690fba87ee1f97065c6d44628d5628",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -106,6 +178,24 @@
     },
     {
       "key": {
+        "uuid": "a90f272e_7ffc5ad5",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-09-01T19:26:04Z",
+      "side": 1,
+      "message": "Yes for audio frame, it\u0027s a new struct. As Peter pointed out, the video frame will reused EncodedFrame and EncodedImage.",
+      "parentUuid": "fb12bf5c_fc061978",
+      "revId": "5032e7564f690fba87ee1f97065c6d44628d5628",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9150178f_b1bdfcd2",
         "filename": "api/media_transport_interface.h",
         "patchSetId": 8
@@ -120,6 +210,24 @@
       "revId": "5032e7564f690fba87ee1f97065c6d44628d5628",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9198968b_15ce8205",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-09-01T19:26:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9150178f_b1bdfcd2",
+      "revId": "5032e7564f690fba87ee1f97065c6d44628d5628",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -176,6 +284,24 @@
     },
     {
       "key": {
+        "uuid": "23a2582a_5812bbd4",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-09-01T19:26:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f9efb1c5_92c5f130",
+      "revId": "5032e7564f690fba87ee1f97065c6d44628d5628",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1d47cdbc_84be76cc",
         "filename": "api/media_transport_interface.h",
         "patchSetId": 8
@@ -190,6 +316,24 @@
       "revId": "5032e7564f690fba87ee1f97065c6d44628d5628",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5eddb395_4cdf52e3",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-09-01T19:26:04Z",
+      "side": 1,
+      "message": "Payload type is copied from RTPHeader.payload_type which is uint8_t.\n\nThere is TODO below to enumerate audio encodings and store enum.",
+      "parentUuid": "1d47cdbc_84be76cc",
+      "revId": "5032e7564f690fba87ee1f97065c6d44628d5628",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -210,6 +354,24 @@
     },
     {
       "key": {
+        "uuid": "7a1e26ff_486b3db1",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-09-01T19:26:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c79fad07_eec6b933",
+      "revId": "5032e7564f690fba87ee1f97065c6d44628d5628",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b9a3520f_d3e5caa0",
         "filename": "api/media_transport_interface.h",
         "patchSetId": 8
@@ -224,6 +386,24 @@
       "revId": "5032e7564f690fba87ee1f97065c6d44628d5628",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1554aee0_b30d9198",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-09-01T19:26:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b9a3520f_d3e5caa0",
+      "revId": "5032e7564f690fba87ee1f97065c6d44628d5628",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -244,6 +424,24 @@
     },
     {
       "key": {
+        "uuid": "d02ef93b_44b13e53",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-09-01T19:26:04Z",
+      "side": 1,
+      "message": "Removed consts per discussion in other comments to allow frame to be moveable.",
+      "parentUuid": "4ae6a133_ef7caeab",
+      "revId": "5032e7564f690fba87ee1f97065c6d44628d5628",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "84da073a_30981666",
         "filename": "api/media_transport_interface.h",
         "patchSetId": 8
@@ -258,6 +456,24 @@
       "revId": "5032e7564f690fba87ee1f97065c6d44628d5628",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b05532e_a13d6489",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-09-01T19:26:04Z",
+      "side": 1,
+      "message": "Yes will do it in a separate CL.",
+      "parentUuid": "84da073a_30981666",
+      "revId": "5032e7564f690fba87ee1f97065c6d44628d5628",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -278,6 +494,24 @@
     },
     {
       "key": {
+        "uuid": "c2f80014_5b2ac0ea",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-09-01T19:26:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e9201297_1fc11c70",
+      "revId": "5032e7564f690fba87ee1f97065c6d44628d5628",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ff61a03b_19849c64",
         "filename": "api/media_transport_interface.h",
         "patchSetId": 8
@@ -295,6 +529,24 @@
     },
     {
       "key": {
+        "uuid": "db2a813a_a84a6f67",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-09-01T19:26:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ff61a03b_19849c64",
+      "revId": "5032e7564f690fba87ee1f97065c6d44628d5628",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "780bf007_3a00025b",
         "filename": "api/media_transport_interface.h",
         "patchSetId": 8
@@ -309,6 +561,24 @@
       "revId": "5032e7564f690fba87ee1f97065c6d44628d5628",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e669f05_34cf6d16",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-09-01T19:26:04Z",
+      "side": 1,
+      "message": "Either way is fine, for video there will be definitely more than one interface (for frames and key frame requests). I think it makes sense to keep audio and video symmetrical",
+      "parentUuid": "780bf007_3a00025b",
+      "revId": "5032e7564f690fba87ee1f97065c6d44628d5628",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -335,6 +605,30 @@
     },
     {
       "key": {
+        "uuid": "2b5f9743_e80fb3d6",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-09-01T19:26:04Z",
+      "side": 1,
+      "message": "This is abstract channel ID (similar to SSRC) which I think is better as unsigned.",
+      "parentUuid": "e20ce7e2_1aa38581",
+      "range": {
+        "startLine": 113,
+        "startChar": 22,
+        "endLine": 113,
+        "endChar": 30
+      },
+      "revId": "5032e7564f690fba87ee1f97065c6d44628d5628",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "11b699aa_1e839e3c",
         "filename": "api/media_transport_interface.h",
         "patchSetId": 8
@@ -349,6 +643,24 @@
       "revId": "5032e7564f690fba87ee1f97065c6d44628d5628",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ffbf6519_dba12b6b",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-09-01T19:26:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "11b699aa_1e839e3c",
+      "revId": "5032e7564f690fba87ee1f97065c6d44628d5628",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -369,6 +681,24 @@
     },
     {
       "key": {
+        "uuid": "ec229788_73162b4b",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-09-01T19:26:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6ef6368f_7551a9e3",
+      "revId": "5032e7564f690fba87ee1f97065c6d44628d5628",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5385773b_0dcf5492",
         "filename": "api/media_transport_interface.h",
         "patchSetId": 8
@@ -386,6 +716,24 @@
     },
     {
       "key": {
+        "uuid": "b772b7b4_21456f78",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-09-01T19:26:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5385773b_0dcf5492",
+      "revId": "5032e7564f690fba87ee1f97065c6d44628d5628",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "55bbe9d2_b5c89400",
         "filename": "api/media_transport_interface.h",
         "patchSetId": 8
@@ -400,6 +748,24 @@
       "revId": "5032e7564f690fba87ee1f97065c6d44628d5628",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4989d8e5_a9378a7e",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-09-01T19:26:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "55bbe9d2_b5c89400",
+      "revId": "5032e7564f690fba87ee1f97065c6d44628d5628",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

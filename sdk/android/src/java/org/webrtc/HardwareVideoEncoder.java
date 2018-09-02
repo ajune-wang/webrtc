@@ -564,6 +564,7 @@ class HardwareVideoEncoder implements VideoEncoder {
   private VideoCodecStatus updateBitrate() {
     outputThreadChecker.checkIsOnValidThread();
     adjustedBitrate = bitrateAdjuster.getAdjustedBitrateBps();
+    Logging.d(TAG, "updateBitrate " + adjustedBitrate);
     try {
       Bundle params = new Bundle();
       params.putInt(MediaCodec.PARAMETER_KEY_VIDEO_BITRATE, adjustedBitrate);

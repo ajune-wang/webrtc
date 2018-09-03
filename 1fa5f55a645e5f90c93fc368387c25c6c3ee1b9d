@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "e9dd5d9b_246b55b7",
+        "filename": "media/base/videoadapter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-09-03T12:43:33Z",
+      "side": 1,
+      "message": "True. I guess it would be better to split resolution requests and fps requests. Is it possible to implement that without too much work? Currently, we are also coupling max resolution requests with aspect ratio requests. Maybe we could change it to:\nvoid OnOutputFormatRequest(const absl::optional\u003cfloat\u003e\u0026 target_aspect_ratio, const absl::optional\u003cint\u003e\u0026 max_pixel_count, const absl::optional\u003cfloat\u003e\u0026 max_fps)?",
+      "parentUuid": "8250711f_30f4377e",
+      "range": {
+        "startLine": 51,
+        "startChar": 2,
+        "endLine": 51,
+        "endChar": 67
+      },
+      "revId": "1fa5f55a645e5f90c93fc368387c25c6c3ee1b9d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7319a44e_8a3e0108",
         "filename": "media/base/videoadapter.h",
         "patchSetId": 3

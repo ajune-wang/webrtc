@@ -336,6 +336,24 @@
     },
     {
       "key": {
+        "uuid": "008e24b3_831cd343",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 508,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-09-03T09:22:51Z",
+      "side": 1,
+      "message": "You\u0027re right, this won\u0027t work for one-byte extensions. Thanks for spotting this.\n\nThe standard says that padding should have ID\u003d0 and the length field set to all zeros. In the case the length field is not set to all zeros, processing of further extension elements should stop. I thought that I had removed this functionality when I added support for 2-byte header extensions so I added it back. I see now that this was not included in the original code. I will try to think of a better way of adding it.",
+      "parentUuid": "1b2c7095_c677243b",
+      "revId": "bc2b9a9e6c9e339b1c18fd78f5f4452cd8d0f7c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3230f788_fd59ff35",
         "filename": "modules/rtp_rtcp/source/rtp_packet.h",
         "patchSetId": 7
@@ -407,6 +425,30 @@
     },
     {
       "key": {
+        "uuid": "f00c7856_19a75b01",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-09-03T09:22:51Z",
+      "side": 1,
+      "message": "My mistake, didn\u0027t see data(). I saw the MakeArrayView(WriteAt()) calls and thought that view was synonym for reading. I will change to use data() + offset.",
+      "parentUuid": "d15714d6_91194886",
+      "range": {
+        "startLine": 144,
+        "startChar": 11,
+        "endLine": 144,
+        "endChar": 18
+      },
+      "revId": "bc2b9a9e6c9e339b1c18fd78f5f4452cd8d0f7c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f5b69055_168f6c8f",
         "filename": "modules/rtp_rtcp/source/rtp_packet_unittest.cc",
         "patchSetId": 7
@@ -446,6 +488,54 @@
         "startChar": 42,
         "endLine": 510,
         "endChar": 43
+      },
+      "revId": "bc2b9a9e6c9e339b1c18fd78f5f4452cd8d0f7c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fbf2b941_dcf807ab",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 510,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-09-03T09:22:51Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8f358c5c_67b1b8eb",
+      "range": {
+        "startLine": 510,
+        "startChar": 42,
+        "endLine": 510,
+        "endChar": 43
+      },
+      "revId": "bc2b9a9e6c9e339b1c18fd78f5f4452cd8d0f7c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "04617243_1e5d38f0",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 510,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-09-03T09:22:51Z",
+      "side": 1,
+      "message": "I agree, I test too much in the same test. I will split up the test into several tests with better naming :)",
+      "parentUuid": "f5b69055_168f6c8f",
+      "range": {
+        "startLine": 510,
+        "startChar": 43,
+        "endLine": 510,
+        "endChar": 48
       },
       "revId": "bc2b9a9e6c9e339b1c18fd78f5f4452cd8d0f7c0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

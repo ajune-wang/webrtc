@@ -530,7 +530,17 @@ static bool GetLineWithType(const std::string& message,
 
 static bool HasAttribute(const std::string& line,
                          const std::string& attribute) {
-  return (line.compare(kLinePrefixLength, attribute.size(), attribute) == 0);
+  if (line.compare(kLinePrefixLength, attribute.size(), attribute) == 0) {
+    // Make sure that the match is not only a partial match. Next character of
+    // line must be either '\0', ':' or ' '.
+    RTC_CHECK_LE(kLinePrefixLength + attribute.size(), line.size());
+    if (line[kLinePrefixLength + attribute.size()] == '\0' ||
+        line[kLinePrefixLength + attribute.size()] == kSdpDelimiterColon ||
+        line[kLinePrefixLength + attribute.size()] == kSdpDelimiterSpace)) {
+      return true;
+    }
+  }
+  return false;
 }
 
 static bool AddSsrcLine(uint32_t ssrc_id,

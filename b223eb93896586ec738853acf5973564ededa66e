@@ -70,6 +70,30 @@
       "revId": "b223eb93896586ec738853acf5973564ededa66e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d290a69a_592caddd",
+        "filename": "sdk/android/src/java/org/webrtc/GlGenericDrawer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-09-03T14:17:59Z",
+      "side": 1,
+      "message": "I updated the code now rounding the numbers in the shader. A few more constant factors were added to the shader.",
+      "parentUuid": "4eefbd92_95c24075",
+      "range": {
+        "startLine": 107,
+        "startChar": 0,
+        "endLine": 116,
+        "endChar": 63
+      },
+      "revId": "b223eb93896586ec738853acf5973564ededa66e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

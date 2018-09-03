@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "de5fee99_09d90e33",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-09-03T08:05:16Z",
+      "side": 1,
+      "message": "if",
+      "range": {
+        "startLine": 9,
+        "startChar": 29,
+        "endLine": 9,
+        "endChar": 31
+      },
+      "revId": "6885d5d3703ba454ac41e755d2e23afb2e4932f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "030c3cba_b0be8bfb",
+        "filename": "rtc_base/experiments/field_trial_parser.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-09-03T08:05:16Z",
+      "side": 1,
+      "message": "This seems unrelated to the CL description.",
+      "revId": "6885d5d3703ba454ac41e755d2e23afb2e4932f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

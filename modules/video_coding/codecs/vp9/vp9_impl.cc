@@ -600,6 +600,11 @@ int VP9EncoderImpl::InitAndSetControlSettings(const VideoCodec* inst) {
       svc_drop_frame.framedrop_thresh[i] = config_->rc_dropframe_thresh;
     }
     vpx_codec_control(encoder_, VP9E_SET_SVC_FRAME_DROP_LAYER, &svc_drop_frame);
+
+    // TODO(webrtc:9710): Frame buffer on receiver invalidates frames that use
+    // second temporal reference. Since fixing frame buffer is not trivial,
+    // disable the second temporal reference feature for now.
+    vpx_codec_control(encoder_, VP9E_SET_SVC_GF_TEMPORAL_REF, 0);
   }
 
   // Register callback for getting each spatial layer.

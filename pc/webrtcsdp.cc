@@ -118,6 +118,7 @@ static const char kAttributeRtcpMux[] = "rtcp-mux";
 static const char kAttributeRtcpReducedSize[] = "rtcp-rsize";
 static const char kAttributeSsrc[] = "ssrc";
 static const char kSsrcAttributeCname[] = "cname";
+static const char kAttributeExtmapAllowMixed[] = "extmap-allow-mixed";
 static const char kAttributeExtmap[] = "extmap";
 // draft-alvestrand-mmusic-msid-01
 // a=msid-semantic: WMS
@@ -386,7 +387,7 @@ static bool ParseFailed(const std::string& description, SdpParseError* error) {
   return ParseFailed("", description, error);
 }
 
-// |line| is the failing line. The failure is due to the fact that |line|
+// |line| is the failing line. The failure Hais due to the fact that |line|
 // doesn't have |expected_fields| fields.
 static bool ParseFailedExpectFieldNum(const std::string& line,
                                       int expected_fields,
@@ -530,7 +531,17 @@ static bool GetLineWithType(const std::string& message,
 
 static bool HasAttribute(const std::string& line,
                          const std::string& attribute) {
-  return (line.compare(kLinePrefixLength, attribute.size(), attribute) == 0);
+  if (line.compare(kLinePrefixLength, attribute.size(), attribute) == 0) {
+    // Make sure that the match is not only a partial match. Next character of
+    // line must be either '\0', ':' or ' '.
+    RTC_CHECK_LE(kLinePrefixLength + attribute.size(), line.size());
+    if (line[kLinePrefixLength + attribute.size()] == '\0' ||
+        line[kLinePrefixLength + attribute.size()] == kSdpDelimiterColon ||
+        line[kLinePrefixLength + attribute.size()] == kSdpDelimiterSpace)) {
+      return true;
+    }
+  }
+  return false;
 }
 
 static bool AddSsrcLine(uint32_t ssrc_id,
@@ -833,6 +844,12 @@ std::string SdpSerialize(const JsepSessionDescription& jdesc) {
       group_line.append(*it);
     }
     AddLine(group_line, &message);
+  }
+
+  // Mixed one- and two byte header extension allowed.
+  if (desc->extmap_allow_mixed()) {
+    InitAttrLine(kAttributeExtmapAllowMixed, &os);
+    AddLine(os.str(), &message);
   }
 
   // MediaStream semantics
@@ -2004,6 +2021,7 @@ bool ParseSessionDescription(const std::string& message,
   std::string line;
 
   desc->set_msid_supported(false);
+  desc->set_extmap_allow_mixed(false);
 
   // RFC 4566
   // v=  (protocol version)
@@ -2141,6 +2159,8 @@ bool ParseSessionDescription(const std::string& message,
       }
       desc->set_msid_supported(
           CaseInsensitiveFind(semantics, kMediaStreamSemantic));
+    } else if (HasAttribute(line, kAttributeExtmapAllowMixed)) {
+      desc->set_extmap_allow_mixed(true);
     } else if (HasAttribute(line, kAttributeExtmap)) {
       RtpExtension extmap;
       if (!ParseExtmap(line, &extmap, error)) {

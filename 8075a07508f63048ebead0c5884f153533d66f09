@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ffb8a5d_5a025724",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 1173,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-09-03T14:43:12Z",
+      "side": 1,
+      "message": "These headers are unused.",
+      "range": {
+        "startLine": 1172,
+        "startChar": 0,
+        "endLine": 1173,
+        "endChar": 43
+      },
+      "revId": "8075a07508f63048ebead0c5884f153533d66f09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7506f29e_0b5291ad",
+        "filename": "sdk/android/api/org/webrtc/FrameDecryptor.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-09-03T14:43:12Z",
+      "side": 1,
+      "message": "Okay but this doesn\u0027t describe at all what this interface is about.",
+      "range": {
+        "startLine": 14,
+        "startChar": 3,
+        "endLine": 14,
+        "endChar": 54
+      },
+      "revId": "8075a07508f63048ebead0c5884f153533d66f09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8392e325_a013750c",
+        "filename": "sdk/android/api/org/webrtc/FrameDecryptor.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-09-03T14:43:12Z",
+      "side": 1,
+      "message": "JavaDoc syntax @note",
+      "range": {
+        "startLine": 17,
+        "startChar": 3,
+        "endLine": 17,
+        "endChar": 8
+      },
+      "revId": "8075a07508f63048ebead0c5884f153533d66f09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ddca0d9f_d8116c17",
+        "filename": "sdk/android/api/org/webrtc/FrameDecryptor.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-09-03T14:43:12Z",
+      "side": 1,
+      "message": "I see this interface returns a reference counted object. I would prefer if the returned object had a reference already and the caller would take ownership of it.",
+      "range": {
+        "startLine": 22,
+        "startChar": 13,
+        "endLine": 22,
+        "endChar": 47
+      },
+      "revId": "8075a07508f63048ebead0c5884f153533d66f09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01ea989a_6a9b8067",
+        "filename": "sdk/android/api/org/webrtc/FrameEncryptor.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-09-03T14:43:12Z",
+      "side": 1,
+      "message": "Not called by native?",
+      "range": {
+        "startLine": 24,
+        "startChar": 2,
+        "endLine": 24,
+        "endChar": 17
+      },
+      "revId": "8075a07508f63048ebead0c5884f153533d66f09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "937ef13c_d2c2f1e0",
+        "filename": "sdk/android/api/org/webrtc/RtpReceiver.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-09-03T14:43:12Z",
+      "side": 1,
+      "message": "I don\u0027t see why this is needed?",
+      "range": {
+        "startLine": 29,
+        "startChar": 35,
+        "endLine": 29,
+        "endChar": 54
+      },
+      "revId": "8075a07508f63048ebead0c5884f153533d66f09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9b678c6_8e929fe3",
+        "filename": "sdk/android/api/org/webrtc/RtpReceiver.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-09-03T14:43:12Z",
+      "side": 1,
+      "message": "Java methods start with a lower case letter",
+      "range": {
+        "startLine": 73,
+        "startChar": 14,
+        "endLine": 73,
+        "endChar": 31
+      },
+      "revId": "8075a07508f63048ebead0c5884f153533d66f09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

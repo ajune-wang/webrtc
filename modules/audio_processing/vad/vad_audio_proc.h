@@ -31,7 +31,8 @@ class VadAudioProc {
 
   int ExtractFeatures(const int16_t* audio_frame,
                       size_t length,
-                      AudioFeatures* audio_features);
+                      AudioFeatures* audio_features,
+                      bool only_rms);
 
   static const size_t kDftSize = 512;
 

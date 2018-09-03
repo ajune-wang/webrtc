@@ -48,6 +48,7 @@ class Agc {
   std::unique_ptr<LoudnessHistogram> histogram_;
   std::unique_ptr<LoudnessHistogram> inactive_histogram_;
   VoiceActivityDetector vad_;
+  const bool only_rms_ = false;
 };
 
 }  // namespace webrtc

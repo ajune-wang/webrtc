@@ -46,6 +46,30 @@
       "revId": "b223eb93896586ec738853acf5973564ededa66e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4eefbd92_95c24075",
+        "filename": "sdk/android/src/java/org/webrtc/GlGenericDrawer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-09-03T12:20:03Z",
+      "side": 1,
+      "message": "You should be able to do an exact change from full to limited color change by just adjusting the constants here. The small factors like 0.00113166 are due to numerical approximations in the matrix in YuvConverter. I think it\u0027s better to keep this logic as ground truth and have the matrix in YuvConverter be the inverse of this implicit matrix. \n\nI would like to keep the logic as close as possible to what it looks like now. I think it\u0027s cleaner and it looks more similar to how they describe it on Wikipedia. Performance wise, it has around half the number of flops as the matrix multiplication. The mat4 assignment into a local variable could potentially also lead to suboptimal code on some devices.",
+      "parentUuid": "e34e052f_f57dedc9",
+      "range": {
+        "startLine": 107,
+        "startChar": 0,
+        "endLine": 116,
+        "endChar": 63
+      },
+      "revId": "b223eb93896586ec738853acf5973564ededa66e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

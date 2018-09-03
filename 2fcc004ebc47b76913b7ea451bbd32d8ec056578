@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "67e1e0e9_c1e70c9c",
+        "filename": "rtc_tools/barcode_tools/barcode_decoder.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-09-03T13:19:28Z",
+      "side": 1,
+      "message": "Nit: maybe fix this indent while you\u0027re at it",
+      "range": {
+        "startLine": 25,
+        "startChar": 25,
+        "endLine": 25,
+        "endChar": 29
+      },
+      "revId": "2fcc004ebc47b76913b7ea451bbd32d8ec056578",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7fd7e71e_04d0a7f2",
+        "filename": "rtc_tools/barcode_tools/barcode_decoder.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-09-03T13:19:28Z",
+      "side": 1,
+      "message": "YUV or Y4M. Or is Y4M really just YUV + metadata? In that case we don\u0027t have to mention the distinction.",
+      "range": {
+        "startLine": 26,
+        "startChar": 5,
+        "endLine": 26,
+        "endChar": 47
+      },
+      "revId": "2fcc004ebc47b76913b7ea451bbd32d8ec056578",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba98acfc_72a991cc",
+        "filename": "rtc_tools/barcode_tools/barcode_decoder.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-09-03T13:19:28Z",
+      "side": 1,
+      "message": "(Ignored if Y4M)",
+      "range": {
+        "startLine": 33,
+        "startChar": 4,
+        "endLine": 34,
+        "endChar": 55
+      },
+      "revId": "2fcc004ebc47b76913b7ea451bbd32d8ec056578",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

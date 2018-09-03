@@ -16,6 +16,24 @@
       "revId": "0b154fbb661df6e027457455258bfde28b0ca77a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9c0a51c_07b467f7",
+        "filename": "modules/video_coding/media_optimization.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-09-03T14:20:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "843c779d_7c8b0e23",
+      "revId": "0b154fbb661df6e027457455258bfde28b0ca77a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

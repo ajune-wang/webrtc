@@ -10,7 +10,7 @@
 
 #import "RTCCVPixelBuffer.h"
 
-#import "api/video_frame_buffer/RTCMutableI420Buffer.h"
+#import "api/video_frame_buffer/RTCNativeMutableI420Buffer.h"
 
 #include "common_video/libyuv/include/webrtc_libyuv.h"
 #include "rtc_base/checks.h"
@@ -157,8 +157,8 @@
 
   CVPixelBufferLockBaseAddress(_pixelBuffer, kCVPixelBufferLock_ReadOnly);
 
-  RTCMutableI420Buffer* i420Buffer =
-      [[RTCMutableI420Buffer alloc] initWithWidth:[self width] height:[self height]];
+  RTCNativeMutableI420Buffer* i420Buffer =
+      [[RTCNativeMutableI420Buffer alloc] initWithWidth:[self width] height:[self height]];
 
   switch (pixelFormat) {
     case kCVPixelFormatType_420YpCbCr8BiPlanarFullRange:

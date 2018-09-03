@@ -10,14 +10,16 @@
 
 #import <AVFoundation/AVFoundation.h>
 
-#import "base/RTCI420Buffer.h"
-#import "base/RTCMacros.h"
+#import "RTCMacros.h"
+#import "RTCMutableI420Buffer.h"
+#import "RTCNativeI420Buffer.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-/** RTCI420Buffer implements the RTCI420Buffer protocol */
+/** Mutable version of RTCI420Buffer */
 RTC_EXPORT
-@interface RTCI420Buffer : NSObject <RTCI420Buffer>
+@interface RTCNativeMutableI420Buffer
+    : RTCNativeI420Buffer<RTCMutableI420Buffer>
 @end
 
 NS_ASSUME_NONNULL_END

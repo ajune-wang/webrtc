@@ -13,7 +13,7 @@
 
 #include "sdk/objc/native/src/objc_video_track_source.h"
 
-#import "api/video_frame_buffer/RTCI420Buffer+Private.h"
+#import "api/video_frame_buffer/RTCNativeI420Buffer+Private.h"
 #import "base/RTCVideoFrame.h"
 #import "base/RTCVideoFrameBuffer.h"
 #import "components/video_frame_buffer/RTCCVPixelBuffer.h"
@@ -336,7 +336,7 @@ class ObjCCallbackVideoSink : public rtc::VideoSinkInterface<webrtc::VideoFrame>
 
 - (void)testOnCapturedFrameI420BufferNeedsAdaptation {
   rtc::scoped_refptr<webrtc::I420Buffer> i420Buffer = CreateI420Gradient(720, 1280);
-  RTCI420Buffer *buffer = [[RTCI420Buffer alloc] initWithFrameBuffer:i420Buffer];
+  RTCNativeI420Buffer *buffer = [[RTCNativeI420Buffer alloc] initWithFrameBuffer:i420Buffer];
   RTCVideoFrame *frame =
       [[RTCVideoFrame alloc] initWithBuffer:buffer rotation:RTCVideoRotation_0 timeStampNs:0];
 
@@ -345,7 +345,7 @@ class ObjCCallbackVideoSink : public rtc::VideoSinkInterface<webrtc::VideoFrame>
     XCTAssertEqual(outputFrame.width, 360);
     XCTAssertEqual(outputFrame.height, 640);
 
-    RTCI420Buffer *outputBuffer = (RTCI420Buffer *)outputFrame.buffer;
+    RTCNativeI420Buffer *outputBuffer = (RTCNativeI420Buffer *)outputFrame.buffer;
 
     double psnr = I420PSNR(*[buffer nativeI420Buffer], *[outputBuffer nativeI420Buffer]);
     XCTAssertEqual(psnr, webrtc::kPerfectPSNR);
@@ -365,7 +365,7 @@ class ObjCCallbackVideoSink : public rtc::VideoSinkInterface<webrtc::VideoFrame>
 
 - (void)testOnCapturedFrameI420BufferNeedsCropping {
   rtc::scoped_refptr<webrtc::I420Buffer> i420Buffer = CreateI420Gradient(380, 640);
-  RTCI420Buffer *buffer = [[RTCI420Buffer alloc] initWithFrameBuffer:i420Buffer];
+  RTCNativeI420Buffer *buffer = [[RTCNativeI420Buffer alloc] initWithFrameBuffer:i420Buffer];
   RTCVideoFrame *frame =
       [[RTCVideoFrame alloc] initWithBuffer:buffer rotation:RTCVideoRotation_0 timeStampNs:0];
 
@@ -374,7 +374,7 @@ class ObjCCallbackVideoSink : public rtc::VideoSinkInterface<webrtc::VideoFrame>
     XCTAssertEqual(outputFrame.width, 360);
     XCTAssertEqual(outputFrame.height, 640);
 
-    RTCI420Buffer *outputBuffer = (RTCI420Buffer *)outputFrame.buffer;
+    RTCNativeI420Buffer *outputBuffer = (RTCNativeI420Buffer *)outputFrame.buffer;
 
     double psnr = I420PSNR(*[buffer nativeI420Buffer], *[outputBuffer nativeI420Buffer]);
     XCTAssertGreaterThanOrEqual(psnr, 40);

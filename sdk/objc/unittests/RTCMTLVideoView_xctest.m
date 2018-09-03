@@ -16,7 +16,7 @@
 
 #import "components/renderer/metal/RTCMTLVideoView.h"
 
-#import "api/video_frame_buffer/RTCI420Buffer.h"
+#import "api/video_frame_buffer/RTCNativeI420Buffer.h"
 #import "base/RTCVideoFrameBuffer.h"
 #import "components/renderer/metal/RTCMTLNV12Renderer.h"
 #import "components/video_frame_buffer/RTCCVPixelBuffer.h"
@@ -70,7 +70,8 @@
     OCMStub([frameMock buffer])
         .andReturn([[RTCCVPixelBuffer alloc] initWithPixelBuffer:pixelBufferRef]);
   } else {
-    OCMStub([frameMock buffer]).andReturn([[RTCI420Buffer alloc] initWithWidth:200 height:200]);
+    OCMStub([frameMock buffer])
+        .andReturn([[RTCNativeI420Buffer alloc] initWithWidth:200 height:200]);
   }
   OCMStub([frameMock timeStampNs]).andReturn(arc4random_uniform(INT_MAX));
   return frameMock;

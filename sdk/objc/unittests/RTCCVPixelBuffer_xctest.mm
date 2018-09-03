@@ -13,7 +13,7 @@
 
 #import "components/video_frame_buffer/RTCCVPixelBuffer.h"
 
-#import "api/video_frame_buffer/RTCI420Buffer+Private.h"
+#import "api/video_frame_buffer/RTCNativeI420Buffer+Private.h"
 #import "base/RTCVideoFrame.h"
 #import "base/RTCVideoFrameBuffer.h"
 #import "frame_buffer_helpers.h"
@@ -224,8 +224,8 @@
   XCTAssertEqual(scaledBuffer.height, outputSize.height);
 
   if (outputSize.width > 0 && outputSize.height > 0) {
-    RTCI420Buffer *originalBufferI420 = [buffer toI420];
-    RTCI420Buffer *scaledBufferI420 = [scaledBuffer toI420];
+    RTCNativeI420Buffer *originalBufferI420 = [buffer toI420];
+    RTCNativeI420Buffer *scaledBufferI420 = [scaledBuffer toI420];
     double psnr =
         I420PSNR(*[originalBufferI420 nativeI420Buffer], *[scaledBufferI420 nativeI420Buffer]);
     XCTAssertEqual(psnr, webrtc::kPerfectPSNR);
@@ -265,8 +265,8 @@
   XCTAssertEqual(scaledBuffer.width, 360);
   XCTAssertEqual(scaledBuffer.height, 640);
 
-  RTCI420Buffer *originalBufferI420 = [buffer toI420];
-  RTCI420Buffer *scaledBufferI420 = [scaledBuffer toI420];
+  RTCNativeI420Buffer *originalBufferI420 = [buffer toI420];
+  RTCNativeI420Buffer *scaledBufferI420 = [scaledBuffer toI420];
   double psnr =
       I420PSNR(*[originalBufferI420 nativeI420Buffer], *[scaledBufferI420 nativeI420Buffer]);
   XCTAssertEqual(psnr, webrtc::kPerfectPSNR);
@@ -283,7 +283,7 @@
   CopyI420BufferToCVPixelBuffer(i420Buffer, pixelBufferRef);
 
   RTCCVPixelBuffer *buffer = [[RTCCVPixelBuffer alloc] initWithPixelBuffer:pixelBufferRef];
-  RTCI420Buffer *fromCVPixelBuffer = [buffer toI420];
+  RTCNativeI420Buffer *fromCVPixelBuffer = [buffer toI420];
 
   double psnr = I420PSNR(*i420Buffer, *[fromCVPixelBuffer nativeI420Buffer]);
   double target = webrtc::kPerfectPSNR;

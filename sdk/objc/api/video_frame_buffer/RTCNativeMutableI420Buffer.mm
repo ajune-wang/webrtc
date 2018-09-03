@@ -8,13 +8,13 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#import "RTCMutableI420Buffer.h"
+#import "RTCNativeMutableI420Buffer.h"
 
-#import "RTCI420Buffer+Private.h"
+#import "RTCNativeI420Buffer+Private.h"
 
 #include "api/video/i420_buffer.h"
 
-@implementation RTCMutableI420Buffer
+@implementation RTCNativeMutableI420Buffer
 
 - (uint8_t *)mutableDataY {
   return static_cast<webrtc::I420Buffer *>(_i420Buffer.get())->MutableDataY();

@@ -8,7 +8,7 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#import "RTCI420Buffer+Private.h"
+#import "RTCNativeI420Buffer+Private.h"
 
 #include "api/video/i420_buffer.h"
 
@@ -17,7 +17,7 @@
 #include "third_party/libyuv/include/libyuv.h"
 #endif
 
-@implementation RTCI420Buffer
+@implementation RTCNativeI420Buffer
 
 - (instancetype)initWithWidth:(int)width height:(int)height {
   if (self = [super init]) {

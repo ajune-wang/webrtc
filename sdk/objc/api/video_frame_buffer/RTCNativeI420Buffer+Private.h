@@ -8,13 +8,13 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#import "RTCI420Buffer.h"
+#import "RTCNativeI420Buffer.h"
 
 #include "api/video/i420_buffer.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface RTCI420Buffer () {
+@interface RTCNativeI420Buffer () {
  @protected
   rtc::scoped_refptr<webrtc::I420BufferInterface> _i420Buffer;
 }

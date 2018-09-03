@@ -332,6 +332,18 @@ rtc_source_set("stringutils") {
   ]
 }
 
+rtc_source_set("slow_str_cat") {
+  sources = [
+    "strings/slow_str_cat.cc",
+    "strings/slow_str_cat.h",
+  ]
+  deps = [
+    ":checks",
+    "system:inline",
+    "//third_party/abseil-cpp/absl/strings",
+  ]
+}
+
 rtc_source_set("audio_format_to_string") {
   sources = [
     "strings/audio_format_to_string.cc",
@@ -1158,6 +1170,7 @@ if (rtc_include_tests) {
       "string_to_number_unittest.cc",
       "stringencode_unittest.cc",
       "stringize_macros_unittest.cc",
+      "strings/slow_str_cat_unittest.cc",
       "strings/string_builder_unittest.cc",
       "stringutils_unittest.cc",
       "swap_queue_unittest.cc",
@@ -1182,6 +1195,7 @@ if (rtc_include_tests) {
       ":safe_compare",
       ":safe_minmax",
       ":sanitizer",
+      ":slow_str_cat",
       ":stringutils",
       "../api:array_view",
       "../system_wrappers:system_wrappers",

@@ -30,7 +30,10 @@ class VoiceActivityDetector {
   ~VoiceActivityDetector();
 
   // Processes each audio chunk and estimates the voice probability.
-  void ProcessChunk(const int16_t* audio, size_t length, int sample_rate_hz);
+  void ProcessChunk(const int16_t* audio,
+                    size_t length,
+                    int sample_rate_hz,
+                    bool only_rms);
 
   // Returns a vector of voice probabilities for each chunk. It can be empty for
   // some chunks, but it catches up afterwards returning multiple values at

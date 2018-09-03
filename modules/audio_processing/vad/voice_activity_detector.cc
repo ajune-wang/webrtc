@@ -36,7 +36,8 @@ VoiceActivityDetector::~VoiceActivityDetector() = default;
 // Otherwise it clears them.
 void VoiceActivityDetector::ProcessChunk(const int16_t* audio,
                                          size_t length,
-                                         int sample_rate_hz) {
+                                         int sample_rate_hz,
+                                         bool only_rms) {
   RTC_DCHECK_EQ(length, sample_rate_hz / 100);
   // Resample to the required rate.
   const int16_t* resampled_ptr = audio;
@@ -54,7 +55,8 @@ void VoiceActivityDetector::ProcessChunk(const int16_t* audio,
   // called.
   RTC_CHECK_EQ(standalone_vad_->AddAudio(resampled_ptr, length), 0);
 
-  audio_processing_.ExtractFeatures(resampled_ptr, length, &features_);
+  audio_processing_.ExtractFeatures(resampled_ptr, length, &features_,
+                                    only_rms);
 
   chunkwise_voice_probabilities_.resize(features_.num_frames);
   chunkwise_rms_.resize(features_.num_frames);
@@ -67,15 +69,20 @@ void VoiceActivityDetector::ProcessChunk(const int16_t* audio,
       std::fill(chunkwise_voice_probabilities_.begin(),
                 chunkwise_voice_probabilities_.end(), kLowProbability);
     } else {
-      std::fill(chunkwise_voice_probabilities_.begin(),
-                chunkwise_voice_probabilities_.end(), kNeutralProbability);
-      RTC_CHECK_GE(
-          standalone_vad_->GetActivity(&chunkwise_voice_probabilities_[0],
-                                       chunkwise_voice_probabilities_.size()),
-          0);
-      RTC_CHECK_GE(pitch_based_vad_.VoicingProbability(
-                       features_, &chunkwise_voice_probabilities_[0]),
-                   0);
+      if (only_rms) {
+        std::fill(chunkwise_voice_probabilities_.begin(),
+                  chunkwise_voice_probabilities_.end(), 1.0);
+      } else {
+        std::fill(chunkwise_voice_probabilities_.begin(),
+                  chunkwise_voice_probabilities_.end(), kNeutralProbability);
+        RTC_CHECK_GE(
+            standalone_vad_->GetActivity(&chunkwise_voice_probabilities_[0],
+                                         chunkwise_voice_probabilities_.size()),
+            0);
+        RTC_CHECK_GE(pitch_based_vad_.VoicingProbability(
+                         features_, &chunkwise_voice_probabilities_[0]),
+                     0);
+      }
     }
     last_voice_probability_ = chunkwise_voice_probabilities_.back();
   }

@@ -77,7 +77,8 @@ void VadAudioProc::ResetBuffer() {
 
 int VadAudioProc::ExtractFeatures(const int16_t* frame,
                                   size_t length,
-                                  AudioFeatures* features) {
+                                  AudioFeatures* features,
+                                  bool only_rms) {
   features->num_frames = 0;
   if (length != kNumSubframeSamples) {
     return -1;
@@ -110,9 +111,11 @@ int VadAudioProc::ExtractFeatures(const int16_t* frame,
     }
   }
 
-  PitchAnalysis(features->log_pitch_gain, features->pitch_lag_hz,
-                kMaxNumFrames);
-  FindFirstSpectralPeaks(features->spectral_peak, kMaxNumFrames);
+  if (!only_rms) {
+    PitchAnalysis(features->log_pitch_gain, features->pitch_lag_hz,
+                  kMaxNumFrames);
+    FindFirstSpectralPeaks(features->spectral_peak, kMaxNumFrames);
+  }
   ResetBuffer();
   return 0;
 }

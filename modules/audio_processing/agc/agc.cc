@@ -48,7 +48,7 @@ float Agc::AnalyzePreproc(const int16_t* audio, size_t length) {
 }
 
 void Agc::Process(const int16_t* audio, size_t length, int sample_rate_hz) {
-  vad_.ProcessChunk(audio, length, sample_rate_hz);
+  vad_.ProcessChunk(audio, length, sample_rate_hz, only_rms_);
   const std::vector<double>& rms = vad_.chunkwise_rms();
   const std::vector<double>& probabilities =
       vad_.chunkwise_voice_probabilities();

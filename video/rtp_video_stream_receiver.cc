@@ -316,11 +316,7 @@ void RtpVideoStreamReceiver::OnRtpPacket(const RtpPacketReceived& packet) {
   // Receive statistics will be reset if the payload type changes (make sure
   // that the first packet is included in the stats).
   if (!packet.recovered()) {
-    RTPHeader header;
-    packet.GetHeader(&header);
-    // TODO(nisse): We should pass a recovered flag to stats, to aid
-    // fixing bug bugs.webrtc.org/6339.
-    rtp_receive_statistics_->IncomingPacket(header, packet.size());
+    rtp_receive_statistics_->OnRtpPacket(packet);
   }
 
   for (RtpPacketSinkInterface* secondary_sink : secondary_sinks_) {

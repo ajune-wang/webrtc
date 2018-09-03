@@ -1129,8 +1129,9 @@ void VideoSendStreamTest::TestPacketFragmentationSize(VideoFormat format,
         send_config->rtp.payload_name = "VP8";
       send_config->encoder_settings.encoder_factory = &encoder_factory_;
       send_config->rtp.max_packet_size = kMaxPacketSize;
+#if 0
       send_config->post_encode_callback = this;
-
+#endif
       // Make sure there is at least one extension header, to make the RTP
       // header larger than the base length of 12 bytes.
       EXPECT_FALSE(send_config->rtp.extensions.empty());

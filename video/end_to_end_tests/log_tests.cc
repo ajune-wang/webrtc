@@ -68,7 +68,9 @@ TEST_F(LogEndToEndTest, LogsEncodedFramesWhenRequested) {
         VideoEncoderConfig* encoder_config) override {
       decoder_ = VP8Decoder::Create();
 
+#if 0
       send_config->post_encode_callback = this;
+#endif
       send_config->rtp.payload_name = "VP8";
       send_config->encoder_settings.encoder_factory = &encoder_factory_;
       encoder_config->codec_type = kVideoCodecVP8;

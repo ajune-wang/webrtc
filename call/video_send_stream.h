@@ -118,12 +118,6 @@ class VideoSendStream {
     // effects, snapshots etc. 'nullptr' disables the callback.
     rtc::VideoSinkInterface<VideoFrame>* pre_encode_callback = nullptr;
 
-    // Called for each encoded frame, e.g. used for file storage. 'nullptr'
-    // disables the callback. Also measures timing and passes the time
-    // spent on encoding. This timing will not fire if encoding takes longer
-    // than the measuring window, since the sample data will have been dropped.
-    EncodedFrameObserver* post_encode_callback = nullptr;
-
     // Expected delay needed by the renderer, i.e. the frame will be delivered
     // this many milliseconds, if possible, earlier than expected render time.
     // Only valid if |local_renderer| is set.

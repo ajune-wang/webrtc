@@ -1043,8 +1043,10 @@ void VideoQualityTest::RunWithAnalyzer(const Params& params) {
     video_receive_configs_[params_.ss[0].selected_stream].renderer =
         analyzer.get();
     GetVideoSendConfig()->pre_encode_callback = analyzer->pre_encode_proxy();
+#if 0
     RTC_DCHECK(!GetVideoSendConfig()->post_encode_callback);
     GetVideoSendConfig()->post_encode_callback = analyzer.get();
+#endif
 
     CreateFlexfecStreams();
     CreateVideoStreams();

@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "56df6d0a_7421cd46",
+        "filename": "modules/rtp_rtcp/source/rtp_format.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-09-04T13:01:42Z",
+      "side": 1,
+      "message": "SplitAboutEqually",
+      "range": {
+        "startLine": 53,
+        "startChar": 29,
+        "endLine": 53,
+        "endChar": 45
+      },
+      "revId": "a6b6000c29da5935ab3dbe20bda2aa140310b885",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d23a91db_bdab626a",
+        "filename": "modules/rtp_rtcp/source/rtp_format_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-09-04T13:01:42Z",
+      "side": 1,
+      "message": "2",
+      "range": {
+        "startLine": 102,
+        "startChar": 65,
+        "endLine": 102,
+        "endChar": 66
+      },
+      "revId": "a6b6000c29da5935ab3dbe20bda2aa140310b885",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2b6fb7f_ffb345f4",
+        "filename": "modules/rtp_rtcp/source/rtp_format_vp8.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-09-04T13:01:42Z",
+      "side": 1,
+      "message": "Can you use here |kVp8FixedPayloadDescriptorSize + PayloadDescriptorExtraLength() + packet_payload_len|? No need to allocate max capacity. Also, it\u0027s used in the constructor, so you may want to create an extra method/function e.g. |HeaderSize()|.\n\nIn that case you should check that buffer is not nullptr.",
+      "range": {
+        "startLine": 202,
+        "startChar": 43,
+        "endLine": 202,
+        "endChar": 54
+      },
+      "revId": "a6b6000c29da5935ab3dbe20bda2aa140310b885",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53bf52be_840d9950",
+        "filename": "modules/rtp_rtcp/source/rtp_format_vp8.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-09-04T13:01:42Z",
+      "side": 1,
+      "message": "this is not needed if you allocate exactly needed capacity above.",
+      "range": {
+        "startLine": 210,
+        "startChar": 14,
+        "endLine": 210,
+        "endChar": 32
+      },
+      "revId": "a6b6000c29da5935ab3dbe20bda2aa140310b885",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

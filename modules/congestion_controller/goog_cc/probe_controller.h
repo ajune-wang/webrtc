@@ -23,8 +23,6 @@
 
 namespace webrtc {
 
-class Clock;
-
 // This class controls initiation of probing to estimate initial channel
 // capacity. There is also support for probing during a session when max
 // bitrate is adjusted by an application.

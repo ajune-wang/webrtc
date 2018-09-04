@@ -21,32 +21,21 @@ static const size_t kGenericHeaderLength = 1;
 static const size_t kExtendedHeaderLength = 2;
 
 RtpPacketizerGeneric::RtpPacketizerGeneric(
+    rtc::ArrayView<const uint8_t> payload,
+    PayloadSizeLimits limits,
     const RTPVideoHeader& rtp_video_header,
-    FrameType frame_type,
-    size_t max_payload_len,
-    size_t last_packet_reduction_len)
+    FrameType frame_type)
     : picture_id_(rtp_video_header.generic
                       ? absl::optional<uint16_t>(
                             rtp_video_header.generic->frame_id & 0x7FFF)
                       : absl::nullopt),
-      payload_data_(nullptr),
-      payload_size_(0),
-      max_payload_len_(max_payload_len - kGenericHeaderLength -
+      payload_data_(payload.data()),
+      payload_size_(payload.size()),
+      max_payload_len_(limits.max_payload_len - kGenericHeaderLength -
                        (picture_id_.has_value() ? kExtendedHeaderLength : 0)),
-      last_packet_reduction_len_(last_packet_reduction_len),
       frame_type_(frame_type),
       num_packets_left_(0),
-      num_larger_packets_(0) {}
-
-RtpPacketizerGeneric::~RtpPacketizerGeneric() {}
-
-size_t RtpPacketizerGeneric::SetPayloadData(
-    const uint8_t* payload_data,
-    size_t payload_size,
-    const RTPFragmentationHeader* fragmentation) {
-  payload_data_ = payload_data;
-  payload_size_ = payload_size;
-
+      num_larger_packets_(0) {
   // Fragment packets such that they are almost the same size, even accounting
   // for larger header in the last packet.
   // Since we are given how much extra space is occupied by the longer header
@@ -54,7 +43,7 @@ size_t RtpPacketizerGeneric::SetPayloadData(
   // there's last_packet_reduction_len_ virtual payload, to be put at the end of
   // the last packet.
   //
-  size_t total_bytes = payload_size_ + last_packet_reduction_len_;
+  size_t total_bytes = payload_size_ + limits.last_packet_reduction_len;
 
   // Minimum needed number of packets to fit payload and virtual payload in the
   // last packet.
@@ -73,9 +62,9 @@ size_t RtpPacketizerGeneric::SetPayloadData(
   if (picture_id_.has_value()) {
     generic_header_ |= RtpFormatVideoGeneric::kExtendedHeaderBit;
   }
-
-  return num_packets_left_;
 }
+
+RtpPacketizerGeneric::~RtpPacketizerGeneric() = default;
 
 size_t RtpPacketizerGeneric::NumPackets() const {
   return num_packets_left_;

@@ -29,17 +29,12 @@ class RtpPacketizerGeneric : public RtpPacketizer {
  public:
   // Initialize with payload from encoder.
   // The payload_data must be exactly one encoded generic frame.
-  RtpPacketizerGeneric(const RTPVideoHeader& rtp_video_header,
-                       FrameType frametype,
-                       size_t max_payload_len,
-                       size_t last_packet_reduction_len);
+  RtpPacketizerGeneric(rtc::ArrayView<const uint8_t> payload,
+                       PayloadSizeLimits limits,
+                       const RTPVideoHeader& rtp_video_header,
+                       FrameType frametype);
 
   ~RtpPacketizerGeneric() override;
-
-  // Returns total number of packets to be generated.
-  size_t SetPayloadData(const uint8_t* payload_data,
-                        size_t payload_size,
-                        const RTPFragmentationHeader* fragmentation);
 
   size_t NumPackets() const override;
 
@@ -53,7 +48,6 @@ class RtpPacketizerGeneric : public RtpPacketizer {
   const uint8_t* payload_data_;
   size_t payload_size_;
   const size_t max_payload_len_;
-  const size_t last_packet_reduction_len_;
   FrameType frame_type_;
   size_t payload_len_per_packet_;
   uint8_t generic_header_;

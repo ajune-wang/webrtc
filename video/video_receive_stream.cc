@@ -18,6 +18,7 @@
 
 #include "absl/memory/memory.h"
 #include "absl/types/optional.h"
+#include "api/video_codecs/video_decoder_factory.h"
 #include "call/rtp_stream_receiver_controller_interface.h"
 #include "call/rtx_receive_stream.h"
 #include "common_types.h"  // NOLINT(build/include)
@@ -120,7 +121,7 @@ VideoReceiveStream::VideoReceiveStream(
   RTC_DCHECK(!config_.decoders.empty());
   std::set<int> decoder_payload_types;
   for (const Decoder& decoder : config_.decoders) {
-    RTC_CHECK(decoder.decoder);
+    RTC_CHECK(decoder.decoder_factory);
     RTC_CHECK(decoder_payload_types.find(decoder.payload_type) ==
               decoder_payload_types.end())
         << "Duplicate payload type (" << decoder.payload_type
@@ -202,7 +203,10 @@ void VideoReceiveStream::Start() {
   RTC_DCHECK(renderer != nullptr);
 
   for (const Decoder& decoder : config_.decoders) {
-    video_receiver_.RegisterExternalDecoder(decoder.decoder,
+    video_decoders_.push_back(
+        decoder.decoder_factory->CreateVideoDecoder(decoder.video_format));
+    RTC_CHECK(video_decoders_.back());
+    video_receiver_.RegisterExternalDecoder(video_decoders_.back().get(),
                                             decoder.payload_type);
     VideoCodec codec = CreateDecoderVideoCodec(decoder);
     rtp_video_stream_receiver_.AddReceiveCodec(codec, decoder.codec_params);

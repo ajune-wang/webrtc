@@ -45,6 +45,7 @@
 /mojo
 /out
 /testing
+/test/fuzzers/corpora/
 /third_party
 /tools
 /tools_webrtc/android/profiling/flamegraph

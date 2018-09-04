@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bfeb6424_08fbe0c9",
+        "filename": "rtc_base/messagequeue.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-09-04T12:35:28Z",
+      "side": 1,
+      "message": "This change, by itself, is maybe sufficient to fix the earlier crash. But I think it\u0027s better to explicitly wrap the right thread.\n\nThis change is then needed for OveruseFrameDetectorTest.RunOnTqNormalUsage, which calls FakeClock::AdvanceTimeMicros from a task queue. Which has no corresponding rtc::Thread, unless it\u0027s accidentally auto-wrapped.",
+      "range": {
+        "startLine": 167,
+        "startChar": 0,
+        "endLine": 174,
+        "endChar": 5
+      },
+      "revId": "670f6c8188e930a87d8bb82ceb730e05ce9ce348",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

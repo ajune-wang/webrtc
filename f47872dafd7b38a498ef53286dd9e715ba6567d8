@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da0821f0_9076a439",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-09-04T21:20:38Z",
+      "side": 1,
+      "message": "I think I\u0027ve seen this number called samples_per_channel in much of WebRTC.  IMHO, if we call it sample_count, then sample_count / num_channels should give samples_per_channel.  If we want it to be the number of samples in each channel, we should call it samples_per_channel, so that samples_per_channel * num_channels gives the total sample count.",
+      "revId": "f47872dafd7b38a498ef53286dd9e715ba6567d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e0265c3_03a8b63b",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-09-04T21:20:38Z",
+      "side": 1,
+      "message": "Isn\u0027t sequence_number chosen by RTP?  It\u0027s basically the RTP packet number, IIRC.  Does it make sense for this to be chosen by the implementation on the send-side (or even receive side if the implementation has some other way to sequence frames, such as the starting_sample_index + sample_count)?\n\nOr is this like the video frame id that we want the media stack to choose for us?",
+      "revId": "f47872dafd7b38a498ef53286dd9e715ba6567d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e2a352e_788e38f0",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-09-04T21:20:38Z",
+      "side": 1,
+      "message": "Nit:  asynchronous is misspelled.",
+      "revId": "f47872dafd7b38a498ef53286dd9e715ba6567d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e7f0e63_1a50222a",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-09-04T21:20:38Z",
+      "side": 1,
+      "message": "Why does it matter at all if it\u0027s unset before setting a new one?  Do we want to DCHECK that it\u0027s nullptr when setting a new one?  Is this just so we can force the caller to behave itself and not try to attach two of them?",
+      "revId": "f47872dafd7b38a498ef53286dd9e715ba6567d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

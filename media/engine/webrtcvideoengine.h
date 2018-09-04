@@ -395,8 +395,7 @@ class WebRtcVideoChannel : public VideoMediaChannel, public webrtc::Transport {
     void MaybeAssociateFlexfecWithVideo();
     void MaybeDissociateFlexfecFromVideo();
 
-    void ConfigureCodecs(const std::vector<VideoCodecSettings>& recv_codecs,
-                         DecoderMap* old_codecs);
+    void ConfigureCodecs(const std::vector<VideoCodecSettings>& recv_codecs);
     void ConfigureFlexfecCodec(int flexfec_payload_type);
 
     std::string GetCodecNameFromPayloadType(int payload_type);

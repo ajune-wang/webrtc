@@ -1069,8 +1069,10 @@ void VideoQualityTest::RunWithAnalyzer(const Params& params) {
           video_capturers_[video_idx].get(), degradation_preference_);
     }
 
+#if 0
     StartEncodedFrameLogs(
         video_receive_streams_[params_.ss[0].selected_stream]);
+#endif
 
     if (params_.audio.enabled) {
       SetupAudio(send_transport.get());
@@ -1283,8 +1285,10 @@ void VideoQualityTest::RunWithRenderers(const Params& params) {
       SetupAudio(send_transport.get());
     }
 
+#if 0
     for (VideoReceiveStream* receive_stream : video_receive_streams_)
       StartEncodedFrameLogs(receive_stream);
+#endif
     Start();
   });
 
@@ -1305,6 +1309,7 @@ void VideoQualityTest::RunWithRenderers(const Params& params) {
   });
 }
 
+#if 0
 void VideoQualityTest::StartEncodedFrameLogs(VideoReceiveStream* stream) {
   if (!params_.logging.encoded_frame_base_path.empty()) {
     std::ostringstream str;
@@ -1315,4 +1320,6 @@ void VideoQualityTest::StartEncodedFrameLogs(VideoReceiveStream* stream) {
                                         100000000);
   }
 }
+#endif
+
 }  // namespace webrtc

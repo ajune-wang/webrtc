@@ -25,10 +25,10 @@
 #ifndef MODULES_RTP_RTCP_SOURCE_RTP_FORMAT_VP8_H_
 #define MODULES_RTP_RTCP_SOURCE_RTP_FORMAT_VP8_H_
 
-#include <queue>
 #include <string>
 #include <vector>
 
+#include "api/array_view.h"
 #include "modules/include/module_common_types.h"
 #include "modules/rtp_rtcp/source/rtp_format.h"
 #include "rtc_base/constructormagic.h"
@@ -54,13 +54,6 @@ class RtpPacketizerVp8 : public RtpPacketizer {
   bool NextPacket(RtpPacketToSend* packet) override;
 
  private:
-  typedef struct {
-    size_t payload_start_pos;
-    size_t size;
-    bool first_packet;
-  } InfoStruct;
-  typedef std::queue<InfoStruct> InfoQueue;
-
   static const int kXBit = 0x80;
   static const int kNBit = 0x20;
   static const int kSBit = 0x10;
@@ -72,18 +65,12 @@ class RtpPacketizerVp8 : public RtpPacketizer {
   static const int kKBit = 0x10;
   static const int kYBit = 0x20;
 
-  // Calculate all packet sizes and load to packet info queue.
-  void GeneratePackets(size_t payload_len);
-
-  // Insert packet into packet queue.
-  void QueuePacket(size_t start_pos, size_t packet_size, bool first_packet);
-
   // Write the payload header and copy the payload to the buffer.
   // The info in packet_info determines which part of the payload is written
   // and what to write in the header fields.
-  int WriteHeaderAndPayload(const InfoStruct& packet_info,
-                            uint8_t* buffer,
-                            size_t buffer_length) const;
+  int WriteHeaderAndPayload(bool first_packet,
+                            size_t packet_payload_len,
+                            rtc::ArrayView<uint8_t> buffer) const;
 
   // Write the X field and the appropriate extension fields to buffer.
   // The function returns the extension length (including X field), or -1
@@ -132,10 +119,10 @@ class RtpPacketizerVp8 : public RtpPacketizer {
   bool TL0PicIdxFieldPresent() const;
   bool PictureIdPresent() const { return (PictureIdLength() > 0); }
 
-  const uint8_t* payload_data_;
   const RTPVideoHeaderVP8 hdr_info_;
-  const PayloadSizeLimits limits_;
-  InfoQueue packets_;
+  rtc::ArrayView<const uint8_t> remaining_payload_;
+  std::vector<size_t> payload_sizes_;
+  std::vector<size_t>::const_iterator current_packet_;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(RtpPacketizerVp8);
 };

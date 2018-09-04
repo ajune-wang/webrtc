@@ -22,6 +22,7 @@
 #include "api/video/video_content_type.h"
 #include "api/video/video_sink_interface.h"
 #include "api/video/video_timing.h"
+#include "api/video_codecs/sdp_video_format.h"
 #include "call/rtp_config.h"
 #include "common_types.h"  // NOLINT(build/include)
 #include "common_video/include/frame_callback.h"
@@ -31,7 +32,7 @@
 namespace webrtc {
 
 class RtpPacketSinkInterface;
-class VideoDecoder;
+class VideoDecoderFactory;
 
 class VideoReceiveStream {
  public:
@@ -43,8 +44,9 @@ class VideoReceiveStream {
     ~Decoder();
     std::string ToString() const;
 
-    // The actual decoder instance.
-    VideoDecoder* decoder = nullptr;
+    // Ownership stays with WebrtcVideoEngine (delegated from PeerConnection).
+    VideoDecoderFactory* decoder_factory = nullptr;
+    SdpVideoFormat video_format;
 
     // Received RTP packets with this payload type will be sent to this decoder
     // instance.

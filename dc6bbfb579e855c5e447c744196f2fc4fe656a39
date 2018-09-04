@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c29d2dd9_d362576a",
+        "filename": "api/rtpsenderinterface.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2018-09-04T19:13:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "81e90901_c75e90c5",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 17
+      },
+      "revId": "dc6bbfb579e855c5e447c744196f2fc4fe656a39",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cf66499c_9bdf8ab1",
         "filename": "media/base/mediaengine.cc",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "dc6bbfb579e855c5e447c744196f2fc4fe656a39",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8be1c1e1_7262ff45",
+        "filename": "media/base/mediaengine.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2018-09-04T19:13:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf66499c_9bdf8ab1",
+      "range": {
+        "startLine": 62,
+        "startChar": 8,
+        "endLine": 63,
+        "endChar": 44
+      },
+      "revId": "dc6bbfb579e855c5e447c744196f2fc4fe656a39",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "8567e81d_7c221c2c",
+        "filename": "media/base/mediaengine.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2018-09-04T19:13:02Z",
+      "side": 1,
+      "message": "I think, it behaves the same way as for video: if you ask for more layers than what is supported, you will only get data in the first few.\nI tried it using SDP munging, simulcast audio will properly create multiple streams, but only transmit data on the first layer.\nI don\u0027t believe we should necessarily block that as we don\u0027t have any counters about (mis)usage and it\u0027s pretty harmless.\n\nFor the sake of completeness, I\u0027ll merge the 2 functions into one, the standard doesn\u0027t make any difference between video and audio parameters really.",
+      "parentUuid": "0771290b_b36572a5",
+      "range": {
+        "startLine": 106,
+        "startChar": 6,
+        "endLine": 106,
+        "endChar": 38
+      },
+      "revId": "dc6bbfb579e855c5e447c744196f2fc4fe656a39",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bec4a115_24585ba3",
         "filename": "pc/peerconnection_rtp_unittest.cc",
         "patchSetId": 5
@@ -91,6 +163,30 @@
       "revId": "dc6bbfb579e855c5e447c744196f2fc4fe656a39",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23aac07a_e3348377",
+        "filename": "pc/peerconnection_rtp_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1387,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2018-09-04T19:13:02Z",
+      "side": 1,
+      "message": "Done. But in theory, there\u0027s nothing I believe that would prevent this and it should work (though only the 1st layer will have any content).",
+      "parentUuid": "bec4a115_24585ba3",
+      "range": {
+        "startLine": 1387,
+        "startChar": 45,
+        "endLine": 1387,
+        "endChar": 70
+      },
+      "revId": "dc6bbfb579e855c5e447c744196f2fc4fe656a39",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "8c163a6c_d80c1130",
+        "filename": "pc/peerconnection_rtp_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1475,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2018-09-04T19:13:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "507b4aef_95b89576",
+      "range": {
+        "startLine": 1475,
+        "startChar": 1,
+        "endLine": 1475,
+        "endChar": 0
+      },
+      "revId": "dc6bbfb579e855c5e447c744196f2fc4fe656a39",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e29c17fe_9c025ca8",
         "filename": "pc/rtpsender.cc",
         "patchSetId": 5
@@ -137,6 +257,30 @@
       "revId": "dc6bbfb579e855c5e447c744196f2fc4fe656a39",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68e2a823_a60f985e",
+        "filename": "pc/rtpsender.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2018-09-04T19:13:02Z",
+      "side": 1,
+      "message": "This is to support get/setParameters() before negotiation (before you have a media_channel_) and we need to return something proper.\nThe init parameters should have always at least one encoding as specified in the standard. I agree it could be better and moved it to the constructor instead.\n\nIt doesn\u0027t lock the number of layers though as we iterate over those and apply the init_parameters_ settings.",
+      "parentUuid": "e29c17fe_9c025ca8",
+      "range": {
+        "startLine": 237,
+        "startChar": 6,
+        "endLine": 237,
+        "endChar": 42
+      },
+      "revId": "dc6bbfb579e855c5e447c744196f2fc4fe656a39",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "6c0d6014_b9062641",
+        "filename": "pc/rtpsender.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2018-09-04T19:13:02Z",
+      "side": 1,
+      "message": "It is not an error that they have a different size as SDP munging is permitted right now, so no DCHECK for this.\nCurrently, the number of entries in the SDP is authoritative and I added a note for this.",
+      "parentUuid": "2e048f34_cd854e88",
+      "range": {
+        "startLine": 323,
+        "startChar": 6,
+        "endLine": 323,
+        "endChar": 38
+      },
+      "revId": "dc6bbfb579e855c5e447c744196f2fc4fe656a39",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "14faaa60_dc27bf3b",
         "filename": "pc/rtpsender.cc",
         "patchSetId": 5
@@ -186,6 +354,30 @@
     },
     {
       "key": {
+        "uuid": "6decde7c_cbbfefc3",
+        "filename": "pc/rtpsender.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2018-09-04T19:13:02Z",
+      "side": 1,
+      "message": "It is always the case as the stream needs to be registered with the media channel first.",
+      "parentUuid": "14faaa60_dc27bf3b",
+      "range": {
+        "startLine": 324,
+        "startChar": 10,
+        "endLine": 324,
+        "endChar": 24
+      },
+      "revId": "dc6bbfb579e855c5e447c744196f2fc4fe656a39",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f4b233df_02b966bf",
         "filename": "pc/rtpsender.cc",
         "patchSetId": 5
@@ -197,6 +389,30 @@
       "writtenOn": "2018-08-31T18:46:58Z",
       "side": 1,
       "message": "This seems like a problem to me. What if somebody expects the ssrcs they set with send_encodings to be used for rtp headers \u0026 SDP signaling? I see two solutions:\n1) When calling AddTransceiver if the ssrc is set we return an error because we don\u0027t support this right now.\n2) Wire the ssrc set in send encodings to the actual StreamParams object. It will require a bit of work, but here\u0027s the path if you want to do this:\n - PeerConnection::GetMediaDescriptionOptionsForTransceiver - add a vector of (size num_simulcast layers) to SenderOptions\n - MediaSession::AddStreamParams - Only call Generate ssrcs if the ssrcs aren\u0027t specified in SenderOptions\n\nUnfortunately the correct way (option 2) requires some effort because you\u0027d have to change SenderOptions so it would mean updating various parts of the code.",
+      "range": {
+        "startLine": 327,
+        "startChar": 8,
+        "endLine": 327,
+        "endChar": 36
+      },
+      "revId": "dc6bbfb579e855c5e447c744196f2fc4fe656a39",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23398050_c671fa92",
+        "filename": "pc/rtpsender.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2018-09-04T19:13:02Z",
+      "side": 1,
+      "message": "I can mark the ssrc field only available to ORTC if you prefer as it only seems to be implemented there.\nI don\u0027t think doing a lot of work to be worth the time to support an unspecified field.",
+      "parentUuid": "f4b233df_02b966bf",
       "range": {
         "startLine": 327,
         "startChar": 8,
@@ -232,6 +448,30 @@
     },
     {
       "key": {
+        "uuid": "5063cf5e_c9e8dbec",
+        "filename": "pc/rtpsender.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 472,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2018-09-04T19:13:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2a8b3734_4c51ff65",
+      "range": {
+        "startLine": 472,
+        "startChar": 43,
+        "endLine": 472,
+        "endChar": 0
+      },
+      "revId": "dc6bbfb579e855c5e447c744196f2fc4fe656a39",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "79015ecc_4da5f817",
         "filename": "pc/rtpsender.h",
         "patchSetId": 5
@@ -252,6 +492,30 @@
       "revId": "dc6bbfb579e855c5e447c744196f2fc4fe656a39",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79ff0148_0cd2ace7",
+        "filename": "pc/rtpsender.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2018-09-04T19:13:02Z",
+      "side": 1,
+      "message": "It shouldn\u0027t have any adverse effect.",
+      "parentUuid": "79015ecc_4da5f817",
+      "range": {
+        "startLine": 152,
+        "startChar": 11,
+        "endLine": 152,
+        "endChar": 37
+      },
+      "revId": "dc6bbfb579e855c5e447c744196f2fc4fe656a39",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -278,6 +542,30 @@
     },
     {
       "key": {
+        "uuid": "47952b0e_d8c0d79e",
+        "filename": "pc/rtpsenderreceiver_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 618,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2018-09-04T19:13:02Z",
+      "side": 1,
+      "message": "The point here is to test get/setParameters() before negotiation though, which I can\u0027t achieve using another API.",
+      "parentUuid": "84fbbe35_a1d17838",
+      "range": {
+        "startLine": 618,
+        "startChar": 25,
+        "endLine": 618,
+        "endChar": 57
+      },
+      "revId": "dc6bbfb579e855c5e447c744196f2fc4fe656a39",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d8dc3ce8_6ee17abc",
         "filename": "pc/rtpsenderreceiver_unittest.cc",
         "patchSetId": 5
@@ -298,6 +586,30 @@
       "revId": "dc6bbfb579e855c5e447c744196f2fc4fe656a39",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "884511b7_d3155b4f",
+        "filename": "pc/rtpsenderreceiver_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 640,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2018-09-04T19:13:02Z",
+      "side": 1,
+      "message": "I believe it\u0027s fine to allow this, though I changed my test to have only one layer in this case. Other layers will be ignored in the lower levels of WebRTC and data is only transmitted in the base layer.",
+      "parentUuid": "d8dc3ce8_6ee17abc",
+      "range": {
+        "startLine": 640,
+        "startChar": 2,
+        "endLine": 640,
+        "endChar": 35
+      },
+      "revId": "dc6bbfb579e855c5e447c744196f2fc4fe656a39",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

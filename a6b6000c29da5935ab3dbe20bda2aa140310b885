@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "763e85e9_8f930695",
+        "filename": "modules/rtp_rtcp/source/rtp_format_vp8.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-09-04T14:44:37Z",
+      "side": 1,
+      "message": "My bad. I was under the impression that the memory allocation is done here, but it\u0027s not.",
+      "parentUuid": "be2520a4_e49723bb",
+      "range": {
+        "startLine": 202,
+        "startChar": 43,
+        "endLine": 202,
+        "endChar": 54
+      },
+      "revId": "a6b6000c29da5935ab3dbe20bda2aa140310b885",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "53bf52be_840d9950",
         "filename": "modules/rtp_rtcp/source/rtp_format_vp8.cc",
         "patchSetId": 1
@@ -163,6 +187,30 @@
       "revId": "a6b6000c29da5935ab3dbe20bda2aa140310b885",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9a8b4ff_874acad3",
+        "filename": "modules/rtp_rtcp/source/rtp_format_vp8.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-09-04T14:44:37Z",
+      "side": 1,
+      "message": "Not relevant anymore.",
+      "parentUuid": "53bf52be_840d9950",
+      "range": {
+        "startLine": 210,
+        "startChar": 14,
+        "endLine": 210,
+        "endChar": 32
+      },
+      "revId": "a6b6000c29da5935ab3dbe20bda2aa140310b885",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

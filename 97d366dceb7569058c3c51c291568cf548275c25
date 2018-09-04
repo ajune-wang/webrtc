@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5cfe0b5e_93405d77",
+        "filename": "rtc_base/logging.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 462,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2018-09-04T09:20:32Z",
+      "side": 1,
+      "message": "It\u0027s currently only used in the early return and one of the deprecated out-of-tree compatibility functions. If we end up moving it back into the RTC_LOG macros we should definitely bring it back.",
+      "parentUuid": "67c41069_82bebd69",
+      "revId": "97d366dceb7569058c3c51c291568cf548275c25",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5ce420a0_de66ab7c",
         "filename": "rtc_base/logging_unittest.cc",
         "patchSetId": 4
@@ -30,6 +48,24 @@
       "writtenOn": "2018-09-04T08:43:06Z",
       "side": 1,
       "message": "Doesn\u0027t this result in an extra copy, compared to just calling .Release()?",
+      "revId": "97d366dceb7569058c3c51c291568cf548275c25",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b2e7f77_f9cee9cf",
+        "filename": "rtc_base/logging_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2018-09-04T09:20:32Z",
+      "side": 1,
+      "message": "Oh right. I forgot we replaced the older std::move-based version of Release.",
+      "parentUuid": "5ce420a0_de66ab7c",
       "revId": "97d366dceb7569058c3c51c291568cf548275c25",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

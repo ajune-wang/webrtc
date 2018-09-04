@@ -72,6 +72,9 @@ class GoogCcNetworkController : public NetworkControllerInterface {
 
   absl::optional<NetworkControllerConfig> initial_config_;
 
+  DataSize initial_data_window_;
+  bool initial_reduced_bandwidth_ = false;
+
   Timestamp next_loss_update_ = Timestamp::ms(0);
   int lost_packets_since_last_loss_update_ = 0;
   int expected_packets_since_last_loss_update_ = 0;

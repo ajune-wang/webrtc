@@ -115,7 +115,8 @@ TEST(RtpPacketizerSplitAboutEqually, SomePacketsAreSmallerSumToPayloadLen) {
   EXPECT_THAT(Sum(payload_sizes), 28);
 }
 
-TEST(RtpPacketizerVideoGeneric, SomePacketsAreSmallerRespectsMaxPayloadSize) {
+TEST(RtpPacketizerSplitAboutEqually,
+     SomePacketsAreSmallerRespectsMaxPayloadSize) {
   RtpPacketizer::PayloadSizeLimits limits;
   limits.max_payload_len = 7;
   limits.last_packet_reduction_len = 5;
@@ -126,7 +127,7 @@ TEST(RtpPacketizerVideoGeneric, SomePacketsAreSmallerRespectsMaxPayloadSize) {
   EXPECT_THAT(payload_sizes, Each(Le(limits.max_payload_len)));
 }
 
-TEST(RtpPacketizerVideoGeneric,
+TEST(RtpPacketizerSplitAboutEqually,
      SomePacketsAreSmallerRespectsLastPacketReductionLength) {
   RtpPacketizer::PayloadSizeLimits limits;
   limits.max_payload_len = 7;
@@ -139,7 +140,8 @@ TEST(RtpPacketizerVideoGeneric,
             limits.max_payload_len - limits.last_packet_reduction_len);
 }
 
-TEST(RtpPacketizerVideoGeneric, SomePacketsAreSmallerPacketsAlmostEqualInSize) {
+TEST(RtpPacketizerSplitAboutEqually,
+     SomePacketsAreSmallerPacketsAlmostEqualInSize) {
   RtpPacketizer::PayloadSizeLimits limits;
   limits.max_payload_len = 7;
   limits.last_packet_reduction_len = 5;
@@ -150,7 +152,7 @@ TEST(RtpPacketizerVideoGeneric, SomePacketsAreSmallerPacketsAlmostEqualInSize) {
   EXPECT_LE(EffectivePacketsSizeDifference(payload_sizes, limits), 1);
 }
 
-TEST(RtpPacketizerVideoGeneric,
+TEST(RtpPacketizerSplitAboutEqually,
      SomePacketsAreSmallerGeneratesMinimumNumberOfPackets) {
   RtpPacketizer::PayloadSizeLimits limits;
   limits.max_payload_len = 7;

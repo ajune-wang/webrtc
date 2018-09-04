@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "51dd05f4_96b3fe7f",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-09-04T08:37:37Z",
+      "side": 1,
+      "message": "A simple fix may be to forward-declare PacketTransportInternal (if we don\u0027t want to add p2p:rtc_p2p as a dependency of libjingle_peerconnection_api; we should have some transport interface in api/).\n\nAnother alternative is to move MediaTransportFactory to a separate header file and build target with a dependency on rtc_p2p.",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 45
+      },
+      "revId": "69e0f9e953e29d116a05c1d5a9cfa0f68d244cd2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

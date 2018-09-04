@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "72eb482b_495608b6",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-09-04T22:32:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da0821f0_9076a439",
+      "revId": "f47872dafd7b38a498ef53286dd9e715ba6567d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6e0265c3_03a8b63b",
         "filename": "api/media_transport_interface.h",
         "patchSetId": 19
@@ -33,6 +51,24 @@
       "revId": "f47872dafd7b38a498ef53286dd9e715ba6567d8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60157dcc_198921ec",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-09-04T22:32:44Z",
+      "side": 1,
+      "message": "Yes sequence_number can be incremented in implementation but we discussed (and there is TODO) to remove it completely because sample_index and sample_count are enough for NetEQ to order frames. So I would leave it as is and remove it when we fix NetEQ.",
+      "parentUuid": "6e0265c3_03a8b63b",
+      "revId": "f47872dafd7b38a498ef53286dd9e715ba6567d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "a12ce8bd_7fea0f33",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-09-04T22:32:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1e2a352e_788e38f0",
+      "revId": "f47872dafd7b38a498ef53286dd9e715ba6567d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7e7f0e63_1a50222a",
         "filename": "api/media_transport_interface.h",
         "patchSetId": 19
@@ -67,6 +121,24 @@
       "revId": "f47872dafd7b38a498ef53286dd9e715ba6567d8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98e1d9b5_c6c488db",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-09-04T22:32:44Z",
+      "side": 1,
+      "message": "Yes, DCHECK(old \u003d\u003d nullptr || new \u003d\u003d nullptr) would be appropriate. I want to avoid bugs when streams would steal sink from each other... at least until we decide / implement proper demuxer.",
+      "parentUuid": "7e7f0e63_1a50222a",
+      "revId": "f47872dafd7b38a498ef53286dd9e715ba6567d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

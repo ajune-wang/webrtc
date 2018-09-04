@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "337512fb_14e9d0e5",
+        "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator_agc.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-09-04T11:02:18Z",
+      "side": 1,
+      "message": "The name was identical to a constant in the parent class. Good code shouldn\u0027t require devs to know name lookup rules. Therefore I changed it.\n\nAlso: the constant \u00270\u0027 was ignored, because 0 was an invalid value for set_target_level_dbfs()",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 0
+      },
+      "revId": "6f158f48676741bbbea9b31ec2f45b2981e7ccd5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

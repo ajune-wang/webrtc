@@ -81,4 +81,6 @@ default_args = {
   libyuv_use_gflags = false
 
   gtest_enable_absl_printers = true
+
+  symbol_level = 0
 }

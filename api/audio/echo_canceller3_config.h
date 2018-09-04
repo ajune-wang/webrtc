@@ -22,6 +22,7 @@ struct EchoCanceller3Config {
   struct Delay {
     Delay();
     Delay(const Delay& e);
+
     size_t default_delay = 5;
     size_t down_sampling_factor = 4;
     size_t num_filters = 6;
@@ -32,6 +33,12 @@ struct EchoCanceller3Config {
     size_t hysteresis_limit_2_blocks = 1;
     size_t skew_hysteresis_blocks = 3;
     size_t fixed_capture_delay_samples = 0;
+    float delay_estimate_smoothing = 0.7f;
+    float delay_candidate_detection_threshold = 0.2f;
+    struct DelaySelectionThresholds {
+      int initial;
+      int converged;
+    } delay_selection_thresholds = {25, 25};
   } delay;
 
   struct Filter {

@@ -36,8 +36,6 @@
 #include <uuids.h>
 #include <windows.h>
 
-#include <iomanip>
-
 #include "rtc_base/logging.h"
 #include "rtc_base/platform_thread.h"
 #include "rtc_base/stringutils.h"

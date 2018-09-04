@@ -15,7 +15,6 @@
 #include <stdio.h>
 #include <tchar.h>
 
-#include <iomanip>
 #include <string>
 #include <utility>
 

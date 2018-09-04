@@ -11,9 +11,8 @@
 #include <stdlib.h>
 #include <sys/stat.h>
 
-#include <iomanip>
-#include <sstream>
-
+#include "rtc_base/stringencode.h"
+#include "rtc_base/stringutils.h"
 #include "rtc_tools/converter/converter.h"
 
 #ifdef WIN32
@@ -161,12 +160,8 @@ bool Converter::FileExists(std::string file_name_to_check) {
 }
 
 std::string Converter::FormFrameName(int width, int number) {
-  std::stringstream tmp;
-
   // Zero-pad number to a string.
-  tmp << std::setfill('0') << std::setw(width) << number;
-
-  return "frame_" + tmp.str();
+  return "frame_" + rtc::LeftPad('0', width, rtc::ToString(number));
 }
 
 }  // namespace test

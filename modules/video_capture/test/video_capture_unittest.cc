@@ -22,6 +22,7 @@
 #include "modules/video_capture/video_capture_factory.h"
 #include "rtc_base/criticalsection.h"
 #include "rtc_base/scoped_ref_ptr.h"
+#include "rtc_base/strings/string_builder.h"
 #include "rtc_base/timeutils.h"
 #include "system_wrappers/include/sleep.h"
 #include "test/frame_utils.h"
@@ -260,9 +261,8 @@ TEST_F(VideoCaptureTest, MAYBE_Capabilities) {
     VideoCaptureCapability capability;
     EXPECT_EQ(0, device_info_->GetCapability(module->CurrentDeviceName(), i,
                                              capability));
-    std::ostringstream resolutionStream;
+    rtc::StringBuilder resolutionStream;
     resolutionStream << capability.width << "x" << capability.height;
-    resolutionStream.flush();
     std::string resolution = resolutionStream.str();
     frame_rates_by_resolution[resolution].push_back(capability.maxFPS);
 

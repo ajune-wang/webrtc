@@ -31,6 +31,7 @@
 #include "rtc_base/arraysize.h"
 #include "rtc_base/numerics/safe_minmax.h"
 #include "rtc_base/random.h"
+#include "rtc_base/strings/string_builder.h"
 #include "system_wrappers/include/cpu_features_wrapper.h"
 #include "test/gtest.h"
 
@@ -39,7 +40,7 @@ namespace aec3 {
 namespace {
 
 std::string ProduceDebugText(size_t delay) {
-  std::ostringstream ss;
+  rtc::StringBuilder ss;
   ss << ", Delay: " << delay;
   return ss.str();
 }

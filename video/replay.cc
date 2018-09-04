@@ -12,7 +12,6 @@
 
 #include <map>
 #include <memory>
-#include <sstream>
 
 #include "api/video_codecs/video_decoder.h"
 #include "call/call.h"
@@ -22,6 +21,7 @@
 #include "rtc_base/checks.h"
 #include "rtc_base/flags.h"
 #include "rtc_base/string_to_number.h"
+#include "rtc_base/strings/string_builder.h"
 #include "rtc_base/timeutils.h"
 #include "system_wrappers/include/clock.h"
 #include "system_wrappers/include/sleep.h"
@@ -186,7 +186,7 @@ class FileRenderPassthrough : public rtc::VideoSinkInterface<VideoFrame> {
     if (basename_.empty())
       return;
 
-    std::stringstream filename;
+    rtc::StringBuilder filename;
     filename << basename_ << count_++ << "_" << video_frame.timestamp()
              << ".jpg";
 
@@ -225,7 +225,7 @@ class DecoderBitstreamFileWriter : public test::FakeDecoder {
 };
 
 void RtpReplay() {
-  std::stringstream window_title;
+  rtc::StringBuilder window_title;
   window_title << "Playback Video (" << flags::InputFile() << ")";
   std::unique_ptr<test::VideoRenderer> playback_video(
       test::VideoRenderer::Create(window_title.str().c_str(), 640, 480));

@@ -159,6 +159,7 @@ if (!build_with_chromium) {
       ":command_line_parser",
       "../common_video",
       "//build/win:default_exe_manifest",
+      "//rtc_base:stringutils",
       "//third_party/libyuv",
     ]
   }

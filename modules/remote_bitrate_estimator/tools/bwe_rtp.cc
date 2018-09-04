@@ -13,13 +13,13 @@
 #include <stdio.h>
 
 #include <set>
-#include <sstream>
 #include <string>
 
 #include "modules/remote_bitrate_estimator/remote_bitrate_estimator_abs_send_time.h"
 #include "modules/remote_bitrate_estimator/remote_bitrate_estimator_single_stream.h"
 #include "modules/rtp_rtcp/include/rtp_header_parser.h"
 #include "rtc_base/flags.h"
+#include "rtc_base/strings/string_builder.h"
 #include "test/rtp_file_reader.h"
 
 namespace flags {
@@ -50,7 +50,7 @@ std::set<uint32_t> SsrcFilter() {
   std::string ssrc_filter_string = static_cast<std::string>(FLAG_ssrc_filter);
   if (ssrc_filter_string.empty())
     return std::set<uint32_t>();
-  std::stringstream ss;
+  rtc::StringBuilder ss;
   std::string ssrc_filter = ssrc_filter_string;
   std::set<uint32_t> ssrcs;
 

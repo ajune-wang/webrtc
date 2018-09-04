@@ -28,6 +28,7 @@
 #include "modules/video_coding/codecs/multiplex/include/multiplex_encoder_adapter.h"
 #include "modules/video_coding/codecs/vp8/include/vp8.h"
 #include "modules/video_coding/codecs/vp9/include/vp9.h"
+#include "rtc_base/strings/string_builder.h"
 #include "test/run_loop.h"
 #include "test/testsupport/fileutils.h"
 #include "test/video_renderer.h"
@@ -124,7 +125,7 @@ VideoQualityTest::Params::~Params() = default;
 void VideoQualityTest::TestBody() {}
 
 std::string VideoQualityTest::GenerateGraphTitle() const {
-  std::stringstream ss;
+  rtc::StringBuilder ss;
   ss << params_.video[0].codec;
   ss << " (" << params_.video[0].target_bitrate_bps / 1000 << "kbps";
   ss << ", " << params_.video[0].fps << " FPS";
@@ -1063,7 +1064,7 @@ void VideoQualityTest::RunWithRenderers(const Params& params) {
         const size_t num_streams = params_.ss[video_idx].streams.size();
         if (selected_stream_id == num_streams) {
           for (size_t stream_id = 0; stream_id < num_streams; ++stream_id) {
-            std::ostringstream oss;
+            rtc::StringBuilder oss;
             oss << "Loopback Video #" << video_idx << " - Stream #"
                 << static_cast<int>(stream_id);
             loopback_renderers.emplace_back(test::VideoRenderer::Create(
@@ -1077,7 +1078,7 @@ void VideoQualityTest::RunWithRenderers(const Params& params) {
                   .sync_group = kSyncGroup;
           }
         } else {
-          std::ostringstream oss;
+          rtc::StringBuilder oss;
           oss << "Loopback Video #" << video_idx;
           loopback_renderers.emplace_back(test::VideoRenderer::Create(
               oss.str().c_str(),
@@ -1127,7 +1128,7 @@ void VideoQualityTest::RunWithRenderers(const Params& params) {
 
 void VideoQualityTest::StartEncodedFrameLogs(VideoSendStream* stream) {
   if (!params_.logging.encoded_frame_base_path.empty()) {
-    std::ostringstream str;
+    rtc::StringBuilder str;
     str << send_logs_++;
     std::string prefix =
         params_.logging.encoded_frame_base_path + "." + str.str() + ".send.";
@@ -1142,7 +1143,7 @@ void VideoQualityTest::StartEncodedFrameLogs(VideoSendStream* stream) {
 
 void VideoQualityTest::StartEncodedFrameLogs(VideoReceiveStream* stream) {
   if (!params_.logging.encoded_frame_base_path.empty()) {
-    std::ostringstream str;
+    rtc::StringBuilder str;
     str << receive_logs_++;
     std::string path =
         params_.logging.encoded_frame_base_path + "." + str.str() + ".recv.ivf";

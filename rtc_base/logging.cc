@@ -31,8 +31,6 @@ static const int kMaxLogLineSize = 1024 - 60;
 
 #include <algorithm>
 #include <cstdarg>
-#include <iomanip>
-#include <ostream>
 #include <vector>
 
 #include "rtc_base/criticalsection.h"
@@ -62,16 +60,6 @@ const char* FilenameFromPath(const char* file) {
     return file;
   else
     return (end1 > end2) ? end1 + 1 : end2 + 1;
-}
-
-std::ostream& GetNoopStream() {
-  class NoopStreamBuf : public std::streambuf {
-   public:
-    int overflow(int c) override { return c; }
-  };
-  static NoopStreamBuf noop_buffer;
-  static std::ostream noop_stream(&noop_buffer);
-  return noop_stream;
 }
 
 // Global lock for log subsystem, only needed to serialize access to streams_.
@@ -108,11 +96,7 @@ LogMessage::LogMessage(const char* file,
                        LoggingSeverity sev,
                        LogErrorContext err_ctx,
                        int err)
-    : severity_(sev), is_noop_(IsNoop(sev)) {
-  // If there's no need to do any work, let's not :)
-  if (is_noop_)
-    return;
-
+    : severity_(sev) {
   if (timestamp_) {
     // Use SystemTimeMillis so that even if tests use fake clocks, the timestamp
     // in log messages represents the real system time.
@@ -120,14 +104,14 @@ LogMessage::LogMessage(const char* file,
     // Also ensure WallClockStartTime is initialized, so that it matches
     // LogStartTime.
     WallClockStartTime();
-    print_stream_ << "[" << std::setfill('0') << std::setw(3) << (time / 1000)
-                  << ":" << std::setw(3) << (time % 1000) << std::setfill(' ')
+    print_stream_ << "[" << rtc::LeftPad('0', 3, rtc::ToString(time / 1000))
+                  << ":" << rtc::LeftPad('0', 3, rtc::ToString(time % 1000))
                   << "] ";
   }
 
   if (thread_) {
     PlatformThreadId id = CurrentThreadId();
-    print_stream_ << "[" << std::dec << id << "] ";
+    print_stream_ << "[" << id << "] ";
   }
 
   if (file != nullptr) {
@@ -184,10 +168,8 @@ LogMessage::LogMessage(const char* file,
                        LoggingSeverity sev,
                        const char* tag)
     : LogMessage(file, line, sev, ERRCTX_NONE, 0 /* err */) {
-  if (!is_noop_) {
     tag_ = tag;
     print_stream_ << tag << ": ";
-  }
 }
 #endif
 
@@ -199,14 +181,10 @@ LogMessage::LogMessage(const char* file,
                        LoggingSeverity sev,
                        const std::string& tag)
     : LogMessage(file, line, sev) {
-  if (!is_noop_)
     print_stream_ << tag << ": ";
 }
 
 LogMessage::~LogMessage() {
-  if (is_noop_)
-    return;
-
   FinishPrintStream();
 
   // TODO(tommi): Unfortunately |ostringstream::str()| always returns a copy
@@ -237,14 +215,12 @@ LogMessage::~LogMessage() {
 
 void LogMessage::AddTag(const char* tag) {
 #ifdef WEBRTC_ANDROID
-  if (!is_noop_) {
     tag_ = tag;
-  }
 #endif
 }
 
-std::ostream& LogMessage::stream() {
-  return is_noop_ ? GetNoopStream() : print_stream_;
+rtc::StringBuilder& LogMessage::stream() {
+  return print_stream_;
 }
 
 bool LogMessage::Loggable(LoggingSeverity sev) {
@@ -487,11 +463,9 @@ bool LogMessage::IsNoop(LoggingSeverity severity) {
 }
 
 void LogMessage::FinishPrintStream() {
-  if (is_noop_)
-    return;
   if (!extra_.empty())
     print_stream_ << " : " << extra_;
-  print_stream_ << std::endl;
+  print_stream_ << "\n";
 }
 
 namespace webrtc_logging_impl {
@@ -525,6 +499,10 @@ void Log(const LogArgType* fmt, ...) {
       return;
     }
   }
+
+  if (LogMessage::IsNoop(meta.meta.Severity()))
+    return;
+
   LogMessage log_message(meta.meta.File(), meta.meta.Line(),
                          meta.meta.Severity(), meta.err_ctx, meta.err);
   if (tag) {
@@ -564,7 +542,8 @@ void Log(const LogArgType* fmt, ...) {
         log_message.stream() << *va_arg(args, const std::string*);
         break;
       case LogArgType::kVoidP:
-        log_message.stream() << va_arg(args, const void*);
+        log_message.stream() << rtc::ToHex(
+            reinterpret_cast<uintptr_t>(va_arg(args, const void*)));
         break;
       default:
         RTC_NOTREACHED();

@@ -19,6 +19,7 @@
 #include "modules/remote_bitrate_estimator/test/packet_receiver.h"
 #include "modules/remote_bitrate_estimator/test/packet_sender.h"
 #include "rtc_base/arraysize.h"
+#include "rtc_base/strings/string_builder.h"
 #include "system_wrappers/include/clock.h"
 #include "system_wrappers/include/field_trial.h"
 #include "test/testsupport/perf_test.h"
@@ -223,16 +224,16 @@ void BweTest::PrintResults(double max_throughput_kbps,
   webrtc::test::PrintResult(
       "BwePerformance", GetTestName(), "Utilization var coeff",
       throughput_kbps.GetStdDev() / throughput_kbps.GetMean(), "", false);
-  std::stringstream ss;
+  rtc::StringBuilder ss;
   for (auto& kv : flow_throughput_kbps) {
-    ss.str("");
+    ss.Clear();
     ss << "Throughput flow " << kv.first;
     webrtc::test::PrintResultMeanAndError("BwePerformance", GetTestName(),
                                           ss.str(), kv.second.GetMean(),
                                           kv.second.GetStdDev(), "kbps", false);
   }
   for (auto& kv : flow_delay_ms) {
-    ss.str("");
+    ss.Clear();
     ss << "Delay flow " << kv.first;
     webrtc::test::PrintResultMeanAndError("BwePerformance", GetTestName(),
                                           ss.str(), kv.second.GetMean(),
@@ -430,14 +431,14 @@ void BweTest::RunChoke(BandwidthEstimatorType bwe_type,
   choke.set_max_delay_ms(500);
   const int64_t kRunTimeMs = 60 * 1000;
 
-  std::stringstream title("Choke");
-  char delimiter = '_';
+  rtc::StringBuilder title("Choke");
+  std::string delimiter = "_";
 
   for (auto it = capacities_kbps.begin(); it != capacities_kbps.end(); ++it) {
     choke.set_capacity_kbps(*it);
     RunFor(kRunTimeMs);
     title << delimiter << (*it);
-    delimiter = '-';
+    delimiter = "-";
   }
 
   title << "_kbps,_" << (kRunTimeMs / 1000) << "s_each";

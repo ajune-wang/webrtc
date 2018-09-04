@@ -10,10 +10,9 @@
 
 #include "api/stats/rtcstats.h"
 
-#include <iomanip>
-#include <sstream>
-
+#include "rtc_base/arraysize.h"
 #include "rtc_base/stringencode.h"
+#include "rtc_base/strings/string_builder.h"
 
 namespace webrtc {
 
@@ -25,7 +24,7 @@ template <typename T>
 std::string VectorToString(const std::vector<T>& vector) {
   if (vector.empty())
     return "[]";
-  std::ostringstream oss;
+  rtc::StringBuilder oss;
   oss << "[" << rtc::ToString(vector[0]);
   for (size_t i = 1; i < vector.size(); ++i) {
     oss << "," << rtc::ToString(vector[i]);
@@ -40,10 +39,10 @@ template <typename T>
 std::string VectorOfStringsToString(const std::vector<T>& strings) {
   if (strings.empty())
     return "[]";
-  std::ostringstream oss;
-  oss << "[\"" << rtc::ToString(strings[0]) << '\"';
+  rtc::StringBuilder oss;
+  oss << "[\"" << rtc::ToString(strings[0]) << "\"";
   for (size_t i = 1; i < strings.size(); ++i) {
-    oss << ",\"" << rtc::ToString(strings[i]) << '\"';
+    oss << ",\"" << rtc::ToString(strings[i]) << "\"";
   }
   oss << "]";
   return oss.str();
@@ -53,17 +52,18 @@ template <typename T>
 std::string ToStringAsDouble(const T value) {
   // JSON represents numbers as floating point numbers with about 15 decimal
   // digits of precision.
-  const int JSON_PRECISION = 16;
-  std::ostringstream oss;
-  oss << std::setprecision(JSON_PRECISION) << static_cast<double>(value);
-  return oss.str();
+  char buf[32];
+  const int len = std::snprintf(&buf[0], arraysize(buf), "%f.16",
+                                static_cast<double>(value));
+  RTC_DCHECK_LE(len, arraysize(buf));
+  return std::string(&buf[0], len);
 }
 
 template <typename T>
 std::string VectorToStringAsDouble(const std::vector<T>& vector) {
   if (vector.empty())
     return "[]";
-  std::ostringstream oss;
+  rtc::StringBuilder oss;
   oss << "[" << ToStringAsDouble<T>(vector[0]);
   for (size_t i = 1; i < vector.size(); ++i) {
     oss << "," << ToStringAsDouble<T>(vector[i]);
@@ -96,7 +96,7 @@ bool RTCStats::operator!=(const RTCStats& other) const {
 }
 
 std::string RTCStats::ToJson() const {
-  std::ostringstream oss;
+  rtc::StringBuilder oss;
   oss << "{\"type\":\"" << type() << "\","
       << "\"id\":\"" << id_ << "\","
       << "\"timestamp\":" << timestamp_us_;
@@ -104,7 +104,7 @@ std::string RTCStats::ToJson() const {
     if (member->is_defined()) {
       oss << ",\"" << member->name() << "\":";
       if (member->is_string())
-        oss << '"' << member->ValueToJson() << '"';
+        oss << "\"" << member->ValueToJson() << "\"";
       else
         oss << member->ValueToJson();
     }

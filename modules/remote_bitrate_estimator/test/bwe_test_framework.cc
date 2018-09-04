@@ -16,6 +16,7 @@
 
 #include "rtc_base/constructormagic.h"
 #include "rtc_base/numerics/safe_minmax.h"
+#include "rtc_base/strings/string_builder.h"
 #include "rtc_base/system/unused.h"
 
 namespace webrtc {
@@ -234,10 +235,10 @@ RateCounterFilter::RateCounterFilter(PacketProcessorListener* listener,
   // keep the current plot functionality without having to print the full
   // context for each PLOT line. It is unclear whether multiple flow IDs are
   // needed at all in the long term.
-  std::stringstream ss;
+  rtc::StringBuilder ss;
   ss << algorithm_name_;
   for (int flow_id : flow_ids) {
-    ss << ',' << flow_id;
+    ss << "," << flow_id;
   }
   algorithm_name_ = ss.str();
 }

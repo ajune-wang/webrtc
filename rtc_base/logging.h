@@ -47,7 +47,6 @@
 #include <errno.h>
 
 #include <list>
-#include <sstream>
 #include <string>
 #include <utility>
 
@@ -57,6 +56,7 @@
 
 #include "rtc_base/constructormagic.h"
 #include "rtc_base/deprecation.h"
+#include "rtc_base/strings/string_builder.h"
 #include "rtc_base/system/inline.h"
 #include "rtc_base/thread_annotations.h"
 
@@ -257,26 +257,6 @@ inline Val<LogArgType::kLogMetadataTag, LogMetadataTag> MakeVal(
 }
 #endif
 
-// Handle arbitrary types other than the above by falling back to stringstream.
-// TODO(bugs.webrtc.org/9278): Get rid of this overload when callers don't need
-// it anymore. No in-tree caller does, but some external callers still do.
-template <
-    typename T,
-    typename T1 =
-        typename std::remove_cv<typename std::remove_reference<T>::type>::type,
-    typename std::enable_if<
-        std::is_class<T1>::value && !std::is_same<T1, std::string>::value &&
-        !std::is_same<T1, LogMetadata>::value &&
-#ifdef WEBRTC_ANDROID
-        !std::is_same<T1, LogMetadataTag>::value &&
-#endif
-        !std::is_same<T1, LogMetadataErr>::value>::type* = nullptr>
-Val<LogArgType::kStdString, std::string> MakeVal(const T& x) {
-  std::ostringstream os;  // no-presubmit-check TODO(webrtc:8982)
-  os << x;
-  return {os.str()};
-}
-
 void Log(const LogArgType* fmt, ...);
 
 // Ephemeral type that represents the result of the logging << operator.
@@ -418,7 +398,7 @@ class LogMessage {
     return Loggable(S);
   }
 
-  std::ostream& stream();
+  rtc::StringBuilder& stream();
 
   // Returns the time at which this function was called for the first time.
   // The time will be used as the logging start time.
@@ -464,6 +444,12 @@ class LogMessage {
   // Useful for configuring logging from the command line.
   static void ConfigureLogging(const char* params);
 
+  // Checks the current global debug severity and if the |streams_| collection
+  // is empty. If |severity| is smaller than the global severity and if the
+  // |streams_| collection is empty, the LogMessage will be considered a noop
+  // LogMessage.
+  static bool IsNoop(LoggingSeverity severity);
+
  private:
   friend class LogMessageForTesting;
   typedef std::pair<LogSink*, LoggingSeverity> StreamAndSeverity;
@@ -481,18 +467,12 @@ class LogMessage {
   static void OutputToDebug(const std::string& msg, LoggingSeverity severity);
 #endif
 
-  // Checks the current global debug severity and if the |streams_| collection
-  // is empty. If |severity| is smaller than the global severity and if the
-  // |streams_| collection is empty, the LogMessage will be considered a noop
-  // LogMessage.
-  static bool IsNoop(LoggingSeverity severity);
-
   // Called from the dtor (or from a test) to append optional extra error
   // information to the log stream and a newline character.
   void FinishPrintStream();
 
   // The ostream that buffers the formatted message before output
-  std::ostringstream print_stream_;
+  rtc::StringBuilder print_stream_;
 
   // The severity level of this message
   LoggingSeverity severity_;
@@ -505,8 +485,6 @@ class LogMessage {
   // String data generated in the constructor, that should be appended to
   // the message before output.
   std::string extra_;
-
-  const bool is_noop_;
 
   // The output streams and their associated severities
   static StreamList streams_;

@@ -23,6 +23,7 @@
 #include "rtc_base/gunit.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/stringencode.h"
+#include "rtc_base/strings/string_builder.h"
 #include "rtc_base/stringutils.h"
 
 #ifdef WEBRTC_ANDROID
@@ -1736,7 +1737,7 @@ class WebRtcSdpTest : public testing::Test {
         "a=rtpmap:104 ISAC/32000\r\n"
         "a=fmtp:111 0-15,66,70\r\n"
         "a=fmtp:111 ";
-    std::ostringstream os;
+    rtc::StringBuilder os;
     os << "minptime=" << params.min_ptime << "; stereo=" << params.stereo
        << "; sprop-stereo=" << params.sprop_stereo
        << "; useinbandfec=" << params.useinband
@@ -1745,8 +1746,7 @@ class WebRtcSdpTest : public testing::Test {
        << "a=maxptime:" << params.max_ptime << "\r\n";
     sdp += os.str();
 
-    os.clear();
-    os.str("");
+    os.Clear();
     // Pl type 100 preferred.
     os << "m=video 9 RTP/SAVPF 99 95\r\n"
        << "a=rtpmap:99 VP8/90000\r\n"
@@ -1809,7 +1809,7 @@ class WebRtcSdpTest : public testing::Test {
         "a=rtcp-fb:101 nack\r\n"
         "a=rtcp-fb:101 nack pli\r\n"
         "a=rtcp-fb:101 goog-remb\r\n";
-    std::ostringstream os;
+    rtc::StringBuilder os;
     os << sdp_session_and_audio;
     os << "a=rtcp-fb:" << (use_wildcard ? "*" : "111") << " nack\r\n";
     os << sdp_video;

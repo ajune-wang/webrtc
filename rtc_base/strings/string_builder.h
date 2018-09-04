@@ -150,7 +150,7 @@ class StringBuilder {
     return *this;
   }
 
-  const std::string& str() const { return str_; }
+  std::string str() const { return str_; }
 
   void Clear() { str_.clear(); }
 

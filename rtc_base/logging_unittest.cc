@@ -150,7 +150,6 @@ class LogMessageForTesting : public LogMessage {
       : LogMessage(file, line, sev, err_ctx, err) {}
 
   const std::string& get_extra() const { return extra_; }
-  bool is_noop() const { return is_noop_; }
 #if defined(WEBRTC_ANDROID)
   const char* get_tag() const { return tag_; }
 #endif
@@ -165,7 +164,7 @@ class LogMessageForTesting : public LogMessage {
     FinishPrintStream();
     std::string ret = print_stream_.str();
     // Just to make an error even more clear if the stream gets used after this.
-    print_stream_.clear();
+    print_stream_.Clear();
     return ret;
   }
 
@@ -303,7 +302,6 @@ TEST(LogTest, WallClockStartTime) {
 TEST(LogTest, CheckExtraErrorField) {
   LogMessageForTesting log_msg("some/path/myfile.cc", 100, LS_WARNING,
                                ERRCTX_ERRNO, 0xD);
-  ASSERT_FALSE(log_msg.is_noop());
   log_msg.stream() << "This gets added at dtor time";
 
   const std::string& extra = log_msg.get_extra();
@@ -314,7 +312,6 @@ TEST(LogTest, CheckExtraErrorField) {
 
 TEST(LogTest, CheckFilePathParsed) {
   LogMessageForTesting log_msg("some/path/myfile.cc", 100, LS_INFO);
-  ASSERT_FALSE(log_msg.is_noop());
   log_msg.stream() << "<- Does this look right?";
 
   const std::string stream = log_msg.GetPrintStream();
@@ -350,7 +347,6 @@ TEST(LogTest, CheckNoopLogEntry) {
   // be treated as a noop message.
   LogMessageForTesting log_msg("some/path/myfile.cc", 100, LS_SENSITIVE);
   log_msg.stream() << "Should be logged to nowhere.";
-  EXPECT_TRUE(log_msg.is_noop());
   const std::string stream = log_msg.GetPrintStream();
   EXPECT_TRUE(stream.empty());
 }
@@ -366,7 +362,6 @@ TEST(LogTest, Perf) {
     // Just to be sure that we're not measuring the performance of logging
     // noop log messages.
     LogMessageForTesting sanity_check_msg(__FILE__, __LINE__, LS_SENSITIVE);
-    ASSERT_FALSE(sanity_check_msg.is_noop());
   }
 
   // We now know how many bytes the logging framework will tag onto every msg.

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "babba0a7_389e923d",
+        "filename": "modules/audio_device/audio_device_buffer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 426,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2018-09-04T08:54:14Z",
+      "side": 1,
+      "message": "If rec_sample_rate_ is atomically updated from another thread (is it?) then it may get a different value each time you use it (since another thread could have updated it in between). It would be safer to make a local copy once, before the for-loop, and use that instead of the actual atomic.",
+      "range": {
+        "startLine": 426,
+        "startChar": 37,
+        "endLine": 426,
+        "endChar": 53
+      },
+      "revId": "4e70aebc9207059d1af142ab1dbd031ba1c627e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

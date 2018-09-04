@@ -15,9 +15,20 @@
 #include <string>
 #include <vector>
 
+#include "rtc_base/stringutils.h"
 #include "rtc_tools/frame_analyzer/video_quality_analysis.h"
 #include "rtc_tools/simple_command_line_parser.h"
+#include "rtc_tools/y4m_file_reader.h"
 #include "test/testsupport/perf_test.h"
+
+static rtc::scoped_refptr<webrtc::test::Video>
+OpenVideoFile(const std::string& file_name, int width, int height) {
+  if (rtc::ends_with(file_name.c_str(), ".y4m"))
+    return webrtc::test::Y4mFile::Open(file_name);
+  if (rtc::ends_with(file_name.c_str(), ".yuv"))
+    return webrtc::test::OpenYuvFile(file_name, width, height);
+  return nullptr;
+}
 
 /*
  * A command line tool running PSNR and SSIM on a reference video and a test
@@ -101,11 +112,19 @@ int main(int argc, char* argv[]) {
 
   webrtc::test::ResultsContainer results;
 
-  webrtc::test::RunAnalysis(parser.GetFlag("reference_file").c_str(),
-                            parser.GetFlag("test_file").c_str(),
-                            parser.GetFlag("stats_file_ref").c_str(),
-                            parser.GetFlag("stats_file_test").c_str(), width,
-                            height, &results);
+  rtc::scoped_refptr<webrtc::test::Video> reference_video =
+      OpenVideoFile(parser.GetFlag("reference_file"), width, height);
+  rtc::scoped_refptr<webrtc::test::Video> test_video =
+      OpenVideoFile(parser.GetFlag("test_file"), width, height);
+
+  if (!reference_video || !test_video) {
+    fprintf(stderr, "Error opening video files\n");
+    return 0;
+  }
+
+  webrtc::test::RunAnalysis(
+      reference_video, test_video, parser.GetFlag("stats_file_ref").c_str(),
+      parser.GetFlag("stats_file_test").c_str(), width, height, &results);
   webrtc::test::GetMaxRepeatedAndSkippedFrames(
       parser.GetFlag("stats_file_ref"), parser.GetFlag("stats_file_test"),
       &results);

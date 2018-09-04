@@ -10,7 +10,7 @@
 #ifndef MODULES_RTP_RTCP_SOURCE_RTP_FORMAT_VIDEO_GENERIC_H_
 #define MODULES_RTP_RTCP_SOURCE_RTP_FORMAT_VIDEO_GENERIC_H_
 
-#include <string>
+#include <vector>
 
 #include "common_types.h"  // NOLINT(build/include)
 #include "modules/rtp_rtcp/source/rtp_format.h"
@@ -29,17 +29,12 @@ class RtpPacketizerGeneric : public RtpPacketizer {
  public:
   // Initialize with payload from encoder.
   // The payload_data must be exactly one encoded generic frame.
-  RtpPacketizerGeneric(const RTPVideoHeader& rtp_video_header,
-                       FrameType frametype,
-                       size_t max_payload_len,
-                       size_t last_packet_reduction_len);
+  RtpPacketizerGeneric(rtc::ArrayView<const uint8_t> payload,
+                       PayloadSizeLimits limits,
+                       const RTPVideoHeader& rtp_video_header,
+                       FrameType frametype);
 
   ~RtpPacketizerGeneric() override;
-
-  // Returns total number of packets to be generated.
-  size_t SetPayloadData(const uint8_t* payload_data,
-                        size_t payload_size,
-                        const RTPFragmentationHeader* fragmentation);
 
   size_t NumPackets() const override;
 
@@ -50,17 +45,10 @@ class RtpPacketizerGeneric : public RtpPacketizer {
 
  private:
   const absl::optional<uint16_t> picture_id_;
-  const uint8_t* payload_data_;
-  size_t payload_size_;
-  const size_t max_payload_len_;
-  const size_t last_packet_reduction_len_;
-  FrameType frame_type_;
-  size_t payload_len_per_packet_;
   uint8_t generic_header_;
-  // Number of packets yet to be retrieved by NextPacket() call.
-  size_t num_packets_left_;
-  // Number of packets, which will be 1 byte more than the rest.
-  size_t num_larger_packets_;
+  rtc::ArrayView<const uint8_t> remaining_payload_;
+  std::vector<size_t> payload_sizes_;
+  std::vector<size_t>::const_iterator current_packet_;
 
   void WriteExtendedHeader(uint8_t* out_ptr);
 

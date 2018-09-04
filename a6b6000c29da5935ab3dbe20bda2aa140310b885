@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4a15f1aa_d5446aed",
+        "filename": "modules/rtp_rtcp/source/rtp_format.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-09-04T14:22:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "56df6d0a_7421cd46",
+      "range": {
+        "startLine": 53,
+        "startChar": 29,
+        "endLine": 53,
+        "endChar": 45
+      },
+      "revId": "a6b6000c29da5935ab3dbe20bda2aa140310b885",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d23a91db_bdab626a",
         "filename": "modules/rtp_rtcp/source/rtp_format_unittest.cc",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "95bf2472_ea280102",
+        "filename": "modules/rtp_rtcp/source/rtp_format_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-09-04T14:22:25Z",
+      "side": 1,
+      "message": "oops, bad copy-paste with adjustment from RtpPacketizerGeneric tests, fixed.",
+      "parentUuid": "d23a91db_bdab626a",
+      "range": {
+        "startLine": 102,
+        "startChar": 65,
+        "endLine": 102,
+        "endChar": 66
+      },
+      "revId": "a6b6000c29da5935ab3dbe20bda2aa140310b885",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b2b6fb7f_ffb345f4",
         "filename": "modules/rtp_rtcp/source/rtp_format_vp8.cc",
         "patchSetId": 1
@@ -59,6 +107,30 @@
       "writtenOn": "2018-09-04T13:01:42Z",
       "side": 1,
       "message": "Can you use here |kVp8FixedPayloadDescriptorSize + PayloadDescriptorExtraLength() + packet_payload_len|? No need to allocate max capacity. Also, it\u0027s used in the constructor, so you may want to create an extra method/function e.g. |HeaderSize()|.\n\nIn that case you should check that buffer is not nullptr.",
+      "range": {
+        "startLine": 202,
+        "startChar": 43,
+        "endLine": 202,
+        "endChar": 54
+      },
+      "revId": "a6b6000c29da5935ab3dbe20bda2aa140310b885",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be2520a4_e49723bb",
+        "filename": "modules/rtp_rtcp/source/rtp_format_vp8.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-09-04T14:22:25Z",
+      "side": 1,
+      "message": "The idea was that allocating FreeCapactiy is as cheap as allocating any smaller number.\n(but that is not safer in case FreeCapacity() \u003c bytes written since I CHECK after writing)\n\nrather than precalculating header size, I precalculate full header now.\nthen it is both trivial to Allocate exact number of bytes needed and to write the header.",
+      "parentUuid": "b2b6fb7f_ffb345f4",
       "range": {
         "startLine": 202,
         "startChar": 43,

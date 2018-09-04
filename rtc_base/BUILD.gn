@@ -90,6 +90,41 @@ rtc_source_set("rtc_base_approved") {
   }
 }
 
+component("foo") {
+  sources = [
+    "foo.h",
+    "foo.cc",
+  ]
+  defines = [ "IS_FOO_IMPL" ]
+  deps = [
+    ":rtc_export",
+  ]
+}
+
+component("bar") {
+  sources = [
+    "bar.cc",
+  ]
+  deps = [
+    ":foo",
+  ]
+}
+
+executable("baz") {
+  sources = [
+    "baz.cc",
+  ]
+  deps = [
+    ":foo",
+  ]
+}
+
+rtc_source_set("rtc_export") {
+  sources = [
+    "rtc_export.h",
+  ]
+}
+
 rtc_source_set("macromagic") {
   # TODO(bugs.webrtc.org/9606): This should not be public.
   visibility = [ "*" ]

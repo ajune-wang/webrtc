@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "67c41069_82bebd69",
+        "filename": "rtc_base/logging.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 462,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-09-04T08:43:06Z",
+      "side": 1,
+      "message": "Is this one called in enough places that using the same template trick as for the removed Loggable is called for? (If yes, a separate CL would probably be nice.)",
+      "revId": "97d366dceb7569058c3c51c291568cf548275c25",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ce420a0_de66ab7c",
+        "filename": "rtc_base/logging_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-09-04T08:43:06Z",
+      "side": 1,
+      "message": "Doesn\u0027t this result in an extra copy, compared to just calling .Release()?",
+      "revId": "97d366dceb7569058c3c51c291568cf548275c25",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

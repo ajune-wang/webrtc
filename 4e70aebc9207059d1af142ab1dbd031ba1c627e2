@@ -22,6 +22,30 @@
       "revId": "4e70aebc9207059d1af142ab1dbd031ba1c627e2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f99df5c9_bfd151eb",
+        "filename": "modules/audio_device/audio_device_buffer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 426,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2018-09-04T08:55:03Z",
+      "side": 1,
+      "message": "Sorry, I meant if-statement instead of for-loop. :-)",
+      "parentUuid": "babba0a7_389e923d",
+      "range": {
+        "startLine": 426,
+        "startChar": 37,
+        "endLine": 426,
+        "endChar": 53
+      },
+      "revId": "4e70aebc9207059d1af142ab1dbd031ba1c627e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

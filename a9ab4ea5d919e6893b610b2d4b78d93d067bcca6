@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c804721e_bc73a516",
+        "filename": "pc/webrtcsdp.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-09-04T17:22:26Z",
+      "side": 1,
+      "message": "Could you add a comment like this:\n\n// rtc::StringBuilder does not have an overload for single chars, so\n// define equivalent 1-length strings to use instead. The single char\n// constants are provided to improve the readablility of rtc::tokenize_first\n// and rtc::split which only work with single char delimiters.",
+      "revId": "a9ab4ea5d919e6893b610b2d4b78d93d067bcca6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32c08cbd_8895ad3c",
+        "filename": "pc/webrtcsdp.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-09-04T17:22:26Z",
+      "side": 1,
+      "message": "I think it would be nicer to intersperse these with the above strings. What do you think?",
+      "revId": "a9ab4ea5d919e6893b610b2d4b78d93d067bcca6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

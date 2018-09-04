@@ -24,9 +24,12 @@ import java.util.concurrent.TimeUnit;
 import javax.annotation.Nullable;
 import org.webrtc.ThreadUtils.ThreadChecker;
 
-/** Android hardware video decoder. */
+/**
+ * Android hardware video decoder.
+ */
 @TargetApi(16)
-@SuppressWarnings("deprecation") // Cannot support API 16 without using deprecated methods.
+@SuppressWarnings("deprecation")
+// Cannot support API 16 without using deprecated methods.
 class HardwareVideoDecoder implements VideoDecoder, VideoSink {
   private static final String TAG = "HardwareVideoDecoder";
 
@@ -100,7 +103,7 @@ class HardwareVideoDecoder implements VideoDecoder, VideoSink {
   // on the decoder thread.
   private boolean keyFrameRequired;
 
-  private final EglBase.Context sharedContext;
+  private final @Nullable EglBase.Context sharedContext;
   // Valid and immutable while the decoder is running.
   @Nullable private SurfaceTextureHelper surfaceTextureHelper;
   @Nullable private Surface surface = null;
@@ -127,10 +130,13 @@ class HardwareVideoDecoder implements VideoDecoder, VideoSink {
   @Nullable private MediaCodecWrapper codec = null;
 
   HardwareVideoDecoder(MediaCodecWrapperFactory mediaCodecWrapperFactory, String codecName,
-      VideoCodecType codecType, int colorFormat, EglBase.Context sharedContext) {
+      VideoCodecType codecType, int colorFormat, @Nullable EglBase.Context sharedContext) {
     if (!isSupportedColorFormat(colorFormat)) {
       throw new IllegalArgumentException("Unsupported color format: " + colorFormat);
     }
+    Logging.d(TAG,
+        "ctor name: " + codecName + " type: " + codecType + " color format: " + colorFormat
+            + " context: " + sharedContext);
     this.mediaCodecWrapperFactory = mediaCodecWrapperFactory;
     this.codecName = codecName;
     this.codecType = codecType;
@@ -155,7 +161,9 @@ class HardwareVideoDecoder implements VideoDecoder, VideoSink {
   // Internal variant is used when restarting the codec due to reconfiguration.
   private VideoCodecStatus initDecodeInternal(int width, int height) {
     decoderThreadChecker.checkIsOnValidThread();
-    Logging.d(TAG, "initDecodeInternal");
+    Logging.d(TAG,
+        "initDecodeInternal name: " + codecName + " type: " + codecType + " width: " + width
+            + " height: " + height);
     if (outputThread != null) {
       Logging.e(TAG, "initDecodeInternal called while the codec is already running");
       return VideoCodecStatus.FALLBACK_SOFTWARE;

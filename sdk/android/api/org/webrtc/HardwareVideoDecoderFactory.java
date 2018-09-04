@@ -27,8 +27,10 @@ import javax.annotation.Nullable;
 @SuppressWarnings("deprecation") // API level 16 requires use of deprecated methods.
 public class HardwareVideoDecoderFactory implements VideoDecoderFactory {
   private static final String TAG = "HardwareVideoDecoderFactory";
+  private static final String[] SOFTWARE_IMPLEMENTATION_PREFIXES = {"OMX.google.", "OMX.SEC."};
 
-  private final EglBase.Context sharedContext;
+  private final @Nullable EglBase.Context sharedContext;
+  private final boolean software;
 
   /** Creates a HardwareVideoDecoderFactory that does not use surface textures. */
   @Deprecated // Not removed yet to avoid breaking callers.
@@ -37,11 +39,26 @@ public class HardwareVideoDecoderFactory implements VideoDecoderFactory {
   }
 
   /**
-   * Creates a HardwareVideoDecoderFactory that supports surface texture rendering using the given
-   * shared context.  The context may be null.  If it is null, then surface support is disabled.
+   * Creates a HardwareVideoDecoderFactory that supports surface texture rendering.
+   *
+   * @param sharedContext The textures generated will be accessible from this context. May be null,
+   *                      this disables texture support.
    */
-  public HardwareVideoDecoderFactory(EglBase.Context sharedContext) {
+  public HardwareVideoDecoderFactory(@Nullable EglBase.Context sharedContext) {
+    this(sharedContext, /* software= */ false);
+  }
+
+  /**
+   * Creates a HardwareVideoDecoderFactory that supports surface texture rendering.
+   *
+   * @param sharedContext The textures generated will be accessible from this context. May be null,
+   *                      this disables texture support.
+   * @param software If this is true, software based codec implementations will be used. In this
+   *                 mode, hardware based implementations will be ignored.
+   */
+  public HardwareVideoDecoderFactory(@Nullable EglBase.Context sharedContext, boolean software) {
     this.sharedContext = sharedContext;
+    this.software = software;
   }
 
   @Nullable
@@ -94,7 +111,7 @@ public class HardwareVideoDecoderFactory implements VideoDecoderFactory {
       try {
         info = MediaCodecList.getCodecInfoAt(i);
       } catch (IllegalArgumentException e) {
-        Logging.e(TAG, "Cannot retrieve encoder codec info", e);
+        Logging.e(TAG, "Cannot retrieve decoder codec info", e);
       }
 
       if (info == null || info.isEncoder()) {
@@ -105,6 +122,7 @@ public class HardwareVideoDecoderFactory implements VideoDecoderFactory {
         return info;
       }
     }
+
     return null; // No support for this type.
   }
 
@@ -119,26 +137,17 @@ public class HardwareVideoDecoderFactory implements VideoDecoderFactory {
         == null) {
       return false;
     }
-    return isHardwareSupported(info, type);
+    return isSoftware(info) == software;
   }
 
-  private boolean isHardwareSupported(MediaCodecInfo info, VideoCodecType type) {
+  private boolean isSoftware(MediaCodecInfo info) {
     String name = info.getName();
-    switch (type) {
-      case VP8:
-        // QCOM, Intel, Exynos, and Nvidia all supported for VP8.
-        return name.startsWith(QCOM_PREFIX) || name.startsWith(INTEL_PREFIX)
-            || name.startsWith(EXYNOS_PREFIX) || name.startsWith(NVIDIA_PREFIX);
-      case VP9:
-        // QCOM and Exynos supported for VP9.
-        return name.startsWith(QCOM_PREFIX) || name.startsWith(EXYNOS_PREFIX);
-      case H264:
-        // QCOM, Intel, and Exynos supported for H264.
-        return name.startsWith(QCOM_PREFIX) || name.startsWith(INTEL_PREFIX)
-            || name.startsWith(EXYNOS_PREFIX);
-      default:
-        return false;
+    for (String prefix : SOFTWARE_IMPLEMENTATION_PREFIXES) {
+      if (name.startsWith(prefix)) {
+        return true;
+      }
     }
+    return false;
   }
 
   private boolean isH264HighProfileSupported(MediaCodecInfo info) {

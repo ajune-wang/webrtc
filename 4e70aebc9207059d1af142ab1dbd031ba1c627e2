@@ -46,6 +46,30 @@
       "revId": "4e70aebc9207059d1af142ab1dbd031ba1c627e2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0143b1f8_2357cb3c",
+        "filename": "modules/audio_device/audio_device_buffer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 426,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2018-09-04T09:03:10Z",
+      "side": 1,
+      "message": "Sure I can do that, but on Android the sample rate is set once (before start) and then never changed during a call. For desktop platforms, it can change if a device is removed but it is a very rare event.",
+      "parentUuid": "f99df5c9_bfd151eb",
+      "range": {
+        "startLine": 426,
+        "startChar": 37,
+        "endLine": 426,
+        "endChar": 53
+      },
+      "revId": "4e70aebc9207059d1af142ab1dbd031ba1c627e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

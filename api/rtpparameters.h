@@ -302,6 +302,7 @@ struct RtpExtension {
   // Inclusive min and max IDs for one-byte header extensions, per RFC5285.
   static const int kMinId;
   static const int kMaxId;
+  static const int kOneByteHeaderExtensionMaxId;
 
   std::string uri;
   int id = 0;

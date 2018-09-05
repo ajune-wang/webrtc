@@ -133,7 +133,8 @@ const char RtpExtension::kEncryptHeaderExtensionsUri[] =
     "urn:ietf:params:rtp-hdrext:encrypt";
 
 const int RtpExtension::kMinId = 1;
-const int RtpExtension::kMaxId = 14;
+const int RtpExtension::kMaxId = 255;
+const int RtpExtension::kOneByteHeaderExtensionMaxId = 14;
 
 bool RtpExtension::IsSupportedForAudio(const std::string& uri) {
   return uri == webrtc::RtpExtension::kAudioLevelUri ||

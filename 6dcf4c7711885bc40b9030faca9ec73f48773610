@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "44cd10ac_a3334233",
+        "filename": "modules/audio_coding/neteq/tools/neteq_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-09-05T20:49:38Z",
+      "side": 1,
+      "message": "can you guarantee that this is positive valued? I am not sure that for every 10 ms poll, these rates adds up to 1.",
+      "range": {
+        "startLine": 157,
+        "startChar": 37,
+        "endLine": 157,
+        "endChar": 44
+      },
+      "revId": "6dcf4c7711885bc40b9030faca9ec73f48773610",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -22,6 +22,7 @@
 #include "rtc_base/crc32.h"
 #include "rtc_base/helpers.h"
 #include "rtc_base/logging.h"
+#include "rtc_base/mdns_responder_interface.h"
 #include "rtc_base/messagedigest.h"
 #include "rtc_base/network.h"
 #include "rtc_base/numerics/safe_minmax.h"
@@ -157,6 +158,28 @@ const int64_t kConsiderPacketLostAfter = 3000;  // 3 seconds
 
 // For packet loss estimation.
 const int64_t kForgetPacketAfter = 30000;  // 30 seconds
+
+class CallbackOnNameCreatedImpl
+    : public webrtc::MDnsResponderInterface::CallbackOnNameCreated {
+ public:
+  explicit CallbackOnNameCreatedImpl(const cricket::Candidate& candidate,
+                                     bool is_final)
+      : candidate_(candidate), is_final_(is_final) {}
+
+  void Run(const rtc::IPAddress& addr, const std::string& name) override {
+    RTC_DCHECK(candidate_.address().ipaddr() == addr);
+    rtc::SocketAddress hostname_address(name, candidate_.address().port());
+    candidate_.set_address(hostname_address);
+    RTC_DCHECK(candidate_.related_address() == rtc::SocketAddress());
+    SignalFinishAddingAddress(candidate_, is_final_);
+  }
+
+  sigslot::signal2<const cricket::Candidate&, bool> SignalFinishAddingAddress;
+
+ private:
+  cricket::Candidate candidate_;
+  bool is_final_;
+};
 
 }  // namespace
 
@@ -411,7 +434,7 @@ void Port::AddAddress(const rtc::SocketAddress& address,
                       uint32_t type_preference,
                       uint32_t relay_preference,
                       const std::string& url,
-                      bool final) {
+                      bool is_final) {
   if (protocol == TCP_PROTOCOL_NAME && type == LOCAL_PORT_TYPE) {
     RTC_DCHECK(!tcptype.empty());
   }
@@ -428,10 +451,25 @@ void Port::AddAddress(const rtc::SocketAddress& address,
   c.set_network_type(network_->type());
   c.set_related_address(related_address);
   c.set_url(url);
+  if (network_->GetMDnsResponder() != nullptr) {
+    if (type == LOCAL_PORT_TYPE) {
+      auto callback = absl::make_unique<CallbackOnNameCreatedImpl>(c, is_final);
+      callback->SignalFinishAddingAddress.connect(this,
+                                                  &Port::FinishAddingAddress);
+      network_->GetMDnsResponder()->CreateNameForAddress(c.address().ipaddr(),
+                                                         std::move(callback));
+      return;
+    }
+    c.set_related_address(rtc::SocketAddress());
+  }
+  FinishAddingAddress(c, is_final);
+}
+
+void Port::FinishAddingAddress(const Candidate& c, bool is_final) {
   candidates_.push_back(c);
   SignalCandidateReady(this, c);
 
-  if (final) {
+  if (is_final) {
     SignalPortComplete(this);
   }
 }

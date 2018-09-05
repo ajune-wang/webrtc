@@ -22,6 +22,30 @@
       "revId": "3279c1696fda359469c5604911eceb6c672c1508",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9aaff2e6_0b165501",
+        "filename": "rtc_base/messagequeue.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-09-05T14:34:25Z",
+      "side": 1,
+      "message": "It would make sense. I didn\u0027t bother since it\u0027s a private method, and \"InternalForTesting\" (or \"ForTestingInternal\") seemed a bit much. And dropping \"Internal\" makes it collide with the above static method.\n\nBut I\u0027ll be happy to rename it, if you tell it what name you prefer?",
+      "parentUuid": "ab485bec_62671e32",
+      "range": {
+        "startLine": 134,
+        "startChar": 26,
+        "endLine": 134,
+        "endChar": 57
+      },
+      "revId": "3279c1696fda359469c5604911eceb6c672c1508",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

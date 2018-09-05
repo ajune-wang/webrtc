@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 The WebRTC project authors. All Rights Reserved.
+ *  Copyright 2018 The WebRTC project authors. All Rights Reserved.
  *
  *  Use of this source code is governed by a BSD-style license
  *  that can be found in the LICENSE file in the root of the source
@@ -12,21 +12,15 @@ package org.webrtc;
 
 import javax.annotation.Nullable;
 
-/** Factory for Android hardware VideoDecoders. */
-public class HardwareVideoDecoderFactory extends MediaCodecVideoDecoderFactory {
-  /** Creates a HardwareVideoDecoderFactory that does not use surface textures. */
-  @Deprecated // Not removed yet to avoid breaking callers.
-  public HardwareVideoDecoderFactory() {
-    this(null);
-  }
-
+/** Factory for Android platform software VideoDecoders. */
+public class PlatformSoftwareVideoDecoderFactory extends MediaCodecVideoDecoderFactory {
   /**
    * Creates a HardwareVideoDecoderFactory that supports surface texture rendering.
    *
    * @param sharedContext The textures generated will be accessible from this context. May be null,
    *                      this disables texture support.
    */
-  public HardwareVideoDecoderFactory(@Nullable EglBase.Context sharedContext) {
-    super(sharedContext, new String[] {""}, MediaCodecUtils.SOFTWARE_IMPLEMENTATION_PREFIXES);
+  public PlatformSoftwareVideoDecoderFactory(@Nullable EglBase.Context sharedContext) {
+    super(sharedContext, MediaCodecUtils.SOFTWARE_IMPLEMENTATION_PREFIXES, new String[] {""});
   }
 }

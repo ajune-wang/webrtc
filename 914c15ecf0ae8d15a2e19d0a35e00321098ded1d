@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b555fead_bebf0ee5",
+        "filename": "modules/audio_coding/neteq/neteq_impl.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 1554,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-09-05T21:01:08Z",
+      "side": 1,
+      "message": "I find that the only necessity of kModeCodecPlc is here (maybe I miss other places).\n\nBut if we do not need to count it a new concealment event when Codec PLC follows a NetEq PLC, we can indifferentiate kModeCodecPlc from kModeExpand.",
+      "range": {
+        "startLine": 1554,
+        "startChar": 55,
+        "endLine": 1554,
+        "endChar": 68
+      },
+      "revId": "914c15ecf0ae8d15a2e19d0a35e00321098ded1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

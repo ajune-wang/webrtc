@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ca2f760_9c9dd926",
+        "filename": "rtc_base/messagequeue.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-09-05T14:45:51Z",
+      "side": 1,
+      "message": "May have to revert this rename, or keep old name as alias, due to downstream usage.",
+      "range": {
+        "startLine": 229,
+        "startChar": 2,
+        "endLine": 229,
+        "endChar": 48
+      },
+      "revId": "a38bd8cd6f58833e4d67e37b4b224086fbd49db3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

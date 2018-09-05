@@ -260,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "9f4c1db6_5e30a191",
+        "filename": "sdk/android/api/org/webrtc/RtpReceiver.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2018-09-05T00:06:14Z",
+      "side": 1,
+      "message": "Resolving this, please reopen if you have any more questions.",
+      "parentUuid": "d132ba4f_9c255c12",
+      "range": {
+        "startLine": 29,
+        "startChar": 35,
+        "endLine": 29,
+        "endChar": 54
+      },
+      "revId": "8075a07508f63048ebead0c5884f153533d66f09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f9b678c6_8e929fe3",
         "filename": "sdk/android/api/org/webrtc/RtpReceiver.java",
         "patchSetId": 6

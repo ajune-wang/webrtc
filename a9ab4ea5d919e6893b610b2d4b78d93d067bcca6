@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "3e428288_c32824af",
+        "filename": "pc/webrtcsdp.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2018-09-05T07:55:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c804721e_bc73a516",
+      "revId": "a9ab4ea5d919e6893b610b2d4b78d93d067bcca6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "32c08cbd_8895ad3c",
         "filename": "pc/webrtcsdp.cc",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2018-09-04T17:22:26Z",
       "side": 1,
       "message": "I think it would be nicer to intersperse these with the above strings. What do you think?",
+      "revId": "a9ab4ea5d919e6893b610b2d4b78d93d067bcca6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b688bf7_b57a8a52",
+        "filename": "pc/webrtcsdp.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2018-09-05T07:55:37Z",
+      "side": 1,
+      "message": "I don\u0027t have a preference here, they\u0027re interspersed now.",
+      "parentUuid": "32c08cbd_8895ad3c",
       "revId": "a9ab4ea5d919e6893b610b2d4b78d93d067bcca6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

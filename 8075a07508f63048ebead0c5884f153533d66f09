@@ -190,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "52d39b16_12d9588b",
+        "filename": "sdk/android/api/org/webrtc/FrameDecryptor.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2018-09-05T23:53:50Z",
+      "side": 1,
+      "message": "Hey Sami, I am trying to understand how to correctly implement memory lifetime management between C++ and Java across the JNI bridge.\n\nIn the native API we always pass the FrameDecryptor in as a scoped_refptr to the RtpReceiver. This is because one FrameDecryptor can be attached to multiple receivers. This enforces that the FrameDecryptor will not be destructed as long as it is attached to at least one RtpReceiver.\n\nIn Java I haven\u0027t seen a way to hold a scoped_refptr in Java code. The idiom appears to be releasing the pointer into the object. At this point it is now Javas responsibility to eventually cleanup that pointer through some function such as nativeDestroy(pointer). However in this case we need to pass this particular native pointer to possibly multiple RtpReceivers in such a way that they share a scoped_refptr for lifetime management.\n\nA simple way to do this would be to have each RtpReceiver hold a reference directly to the FrameDecryptor it is currently using however when passing this pointer down into the native implementation it requires a scoped_refptr whos value would now be 1. This could be problematic if working with multiple RtpReceivers as each native RtpReceiver would be creating a scoped_refptr with only one instance which could lead it to be incorrectly freed. \n\nI am not sure if there is a simple way to do this that I am missing?",
+      "parentUuid": "466eb883_82f4f4a8",
+      "range": {
+        "startLine": 22,
+        "startChar": 13,
+        "endLine": 22,
+        "endChar": 47
+      },
+      "revId": "8075a07508f63048ebead0c5884f153533d66f09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "01ea989a_6a9b8067",
         "filename": "sdk/android/api/org/webrtc/FrameEncryptor.java",
         "patchSetId": 6

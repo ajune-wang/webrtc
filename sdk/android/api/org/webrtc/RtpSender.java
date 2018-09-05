@@ -17,8 +17,8 @@ public class RtpSender {
   final long nativeRtpSender;
 
   @Nullable private MediaStreamTrack cachedTrack;
+  @Nullable private FrameEncryptor cachedFrameEncryptor;
   private boolean ownsTrack = true;
-
   private final @Nullable DtmfSender dtmfSender;
 
   @CalledByNative
@@ -79,6 +79,16 @@ public class RtpSender {
     return dtmfSender;
   }
 
+  public void setFrameEncryptor(FrameEncryptor frameEncryptor) {
+    this.cachedFrameEncryptor = frameEncryptor;
+    nativeSetFrameEncryptor(nativeRtpSender, frameEncryptor.getNativeFrameEncryptor());
+  }
+
+  @Nullable
+  public FrameEncryptor getFrameEncryptor() {
+    return cachedFrameEncryptor;
+  }
+
   public void dispose() {
     if (dtmfSender != null) {
       dtmfSender.dispose();
@@ -104,4 +114,6 @@ public class RtpSender {
   private static native RtpParameters nativeGetParameters(long rtpSender);
 
   private static native String nativeGetId(long rtpSender);
+
+  private static native void nativeSetFrameEncryptor(long rtpSender, long nativeFrameEncryptor);
 };

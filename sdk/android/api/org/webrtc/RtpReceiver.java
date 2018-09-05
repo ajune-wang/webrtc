@@ -26,6 +26,7 @@ public class RtpReceiver {
   private long nativeObserver;
 
   @Nullable private MediaStreamTrack cachedTrack;
+  @Nullable private FrameDecryptor cacheFrameDecryptor;
 
   @CalledByNative
   public RtpReceiver(long nativeRtpReceiver) {
@@ -69,6 +70,16 @@ public class RtpReceiver {
     nativeObserver = nativeSetObserver(nativeRtpReceiver, observer);
   }
 
+  public void setFrameDecryptor(FrameDecryptor frameDecryptor) {
+    this.cacheFrameDecryptor = frameDecryptor;
+    nativeSetFrameDecryptor(nativeRtpReceiver, frameDecryptor.getNativeFrameDecryptor());
+  }
+
+  @Nullable
+  public FrameDecryptor getFrameDecryptor() {
+    return cacheFrameDecryptor;
+  }
+
   // This should increment the reference count of the track.
   // Will be released in dispose().
   private static native long nativeGetTrack(long rtpReceiver);
@@ -77,4 +88,5 @@ public class RtpReceiver {
   private static native String nativeGetId(long rtpReceiver);
   private static native long nativeSetObserver(long rtpReceiver, Observer observer);
   private static native void nativeUnsetObserver(long rtpReceiver, long nativeObserver);
+  private static native void nativeSetFrameDecryptor(long rtpReceiver, long nativeFrameDecryptor);
 };

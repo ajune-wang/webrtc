@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3c00d296_77d93701",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2018-09-05T09:15:42Z",
+      "side": 1,
+      "message": "Could we avoid this if we instead check on an actual state tracking variable?",
+      "range": {
+        "startLine": 416,
+        "startChar": 3,
+        "endLine": 416,
+        "endChar": 48
+      },
+      "revId": "79443ee5666e7fb68457ddd0c66f9c3c22ceaa1c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a2422eb_973295f0",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2018-09-05T09:15:42Z",
+      "side": 1,
+      "message": "Suggest adding comment, something like:\n\"Emergency backoff in case initial congestion window is full and we received no acknowledged bitrate\".\n\nOr, could we make it clearer from code itself, i.e. by making initial_reduced_bandwidth_ an enum representing different states:\nINIT_STATE_NO_ACK_BANDWIDTH_RECEIVED\nINIT_STATE_ACK_BANDWIDTH_RECEIVED\nINIT_STATE_OVER",
+      "range": {
+        "startLine": 503,
+        "startChar": 2,
+        "endLine": 504,
+        "endChar": 67
+      },
+      "revId": "79443ee5666e7fb68457ddd0c66f9c3c22ceaa1c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

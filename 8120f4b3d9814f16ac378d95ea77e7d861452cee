@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6137e076_4c12c309",
+        "filename": "call/video_receive_stream.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-09-05T13:31:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f6407a60_236f49b3",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 26
+      },
+      "revId": "8120f4b3d9814f16ac378d95ea77e7d861452cee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fbd28693_a58dc828",
         "filename": "call/video_receive_stream.h",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2018-09-05T12:22:53Z",
       "side": 1,
       "message": "This information should already be in the SdpVideoFormat. Can we remove these members now, or in a followup?",
+      "range": {
+        "startLine": 55,
+        "startChar": 4,
+        "endLine": 62,
+        "endChar": 52
+      },
+      "revId": "8120f4b3d9814f16ac378d95ea77e7d861452cee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e06141fc_4c094ac3",
+        "filename": "call/video_receive_stream.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-09-05T13:31:33Z",
+      "side": 1,
+      "message": "I agree they look redundant. But used in quite a few places. Maybe it would be better to to a separate cl to replace payload_name and codec_params with video_format, and land that first?",
+      "parentUuid": "fbd28693_a58dc828",
       "range": {
         "startLine": 55,
         "startChar": 4,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "fd8107f3_ee334030",
+        "filename": "media/engine/webrtcvideoengine.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2268,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-09-05T13:31:33Z",
+      "side": 1,
+      "message": "Looks like it should always be on-null. I\u0027ll try deleting the if. A CHECK seems overkill, if it\u0027s invalid, we\u0027ll crash on null-pointer access anyway.",
+      "parentUuid": "8dcf0a03_2369ef85",
+      "range": {
+        "startLine": 2268,
+        "startChar": 8,
+        "endLine": 2268,
+        "endChar": 24
+      },
+      "revId": "8120f4b3d9814f16ac378d95ea77e7d861452cee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "90dac87a_670fabb4",
         "filename": "test/encoder_settings.cc",
         "patchSetId": 3
@@ -82,6 +154,30 @@
       "writtenOn": "2018-09-05T12:22:53Z",
       "side": 1,
       "message": "Is it OK to not set the decoder_factory member here?",
+      "range": {
+        "startLine": 126,
+        "startChar": 9,
+        "endLine": 126,
+        "endChar": 16
+      },
+      "revId": "8120f4b3d9814f16ac378d95ea77e7d861452cee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3ba7bc6_52c23fc1",
+        "filename": "test/encoder_settings.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-09-05T13:31:33Z",
+      "side": 1,
+      "message": "We can\u0027t set it, since we don\u0027t know what factory is appropriate or who\u0027s going to own it.\n\nIt might be best to just this method, but I\u0027m not doing it now to try to keep amount of changes down.",
+      "parentUuid": "90dac87a_670fabb4",
       "range": {
         "startLine": 126,
         "startChar": 9,

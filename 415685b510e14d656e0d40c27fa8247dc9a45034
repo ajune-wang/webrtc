@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "49a26c65_ac4c3dba",
+        "filename": "sdk/android/api/org/webrtc/RtpReceiver.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-09-05T09:20:35Z",
+      "side": 1,
+      "message": "Please also change the name of this method (and the other getter as well.)",
+      "range": {
+        "startLine": 79,
+        "startChar": 24,
+        "endLine": 79,
+        "endChar": 41
+      },
+      "revId": "415685b510e14d656e0d40c27fa8247dc9a45034",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

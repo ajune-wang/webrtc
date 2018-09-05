@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "3440a792_465a2a41",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-09-05T11:52:12Z",
+      "side": 1,
+      "message": "Yes, makes sense. I\u0027ve moved IsConferenceModeScreenshare() and NumTemporalLayers() to \nSimulcastUtility so we can re-use them for now.",
+      "parentUuid": "501d3b53_75d5baef",
+      "range": {
+        "startLine": 316,
+        "startChar": 50,
+        "endLine": 316,
+        "endChar": 66
+      },
+      "revId": "110690cfee2a1a3f5fcdab886dd993be276da643",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "882c205f_3df14b2d",
         "filename": "test/fake_vp8_encoder.cc",
         "patchSetId": 4
@@ -69,6 +93,30 @@
       "revId": "110690cfee2a1a3f5fcdab886dd993be276da643",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7da7d7e8_cdc3a53a",
+        "filename": "test/fake_vp8_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-09-05T11:52:12Z",
+      "side": 1,
+      "message": "Followed libvpx_vp8_encoder and removed the other two parameters.",
+      "parentUuid": "882c205f_3df14b2d",
+      "range": {
+        "startLine": 80,
+        "startChar": 8,
+        "endLine": 80,
+        "endChar": 72
+      },
+      "revId": "110690cfee2a1a3f5fcdab886dd993be276da643",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

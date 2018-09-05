@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a135685e_da9d4897",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-09-05T17:42:47Z",
+      "side": 1,
+      "message": "No, but it is used only in connection with MediaTransportAudioFrame. There are various frame types in WebRTC and I did not want to add another open at high level. But if WebRTC prefers to have enums outside of class, I can rename and move up. What do you think?",
+      "parentUuid": "8f6a0d9f_45c045bc",
+      "revId": "aba2c5ef350b5dea967cf6bf8274b04e97677378",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3e61bee2_da86633f",
         "filename": "api/media_transport_interface.h",
         "patchSetId": 20
@@ -51,6 +69,24 @@
       "revId": "aba2c5ef350b5dea967cf6bf8274b04e97677378",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad368d45_33cbf8ab",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-09-05T17:42:47Z",
+      "side": 1,
+      "message": "SetReceiveAudioSink - done.\n\nAs a far as separate interface for send/receive, we discussed extensively in STO between sukhanov/psla/nisse/holmer and came up with temporary decision to start with a flat interface that supports bi-directional connection, because we were not ready to solve issues with creating send/receive streams and de-muxing in media transport. We will collect more issues when we implement RTP media transport and if needed separate send/receive and add de-muxing into media transport.\n\nBut for now I think the interface is workable and provides a good starting point for integration work.",
+      "parentUuid": "175cebbf_fcc436d0",
+      "revId": "aba2c5ef350b5dea967cf6bf8274b04e97677378",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

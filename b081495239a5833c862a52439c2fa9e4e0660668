@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "439aaba6_765093b5",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2018-09-05T08:25:42Z",
+      "side": 1,
+      "message": "What if periodic_task_handle is already set?\nMaybe CHECK(ready_to_send) ?",
+      "range": {
+        "startLine": 335,
+        "startChar": 2,
+        "endLine": 335,
+        "endChar": 23
+      },
+      "revId": "b081495239a5833c862a52439c2fa9e4e0660668",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

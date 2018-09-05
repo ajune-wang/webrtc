@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2d635c0e_175b5d47",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 867,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-09-05T07:25:29Z",
+      "side": 1,
+      "message": "I am not too happy of these dependencies on Chromium internals but it is not a real problem since it is guarded by build_with_chromium.",
+      "range": {
+        "startLine": 867,
+        "startChar": 6,
+        "endLine": 867,
+        "endChar": 25
+      },
+      "revId": "80020c3d244d1f1d16006e813a33aa9956cc97d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

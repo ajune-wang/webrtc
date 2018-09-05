@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a5bed4ee_d211b997",
+        "filename": "modules/audio_processing/aec3/matched_filter_lag_aggregator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-09-05T06:47:29Z",
+      "side": 1,
+      "message": "This if statement would be clearer if we write,\nif (histogram_[candidate] \u003e thresholds_.converged || \n    histogram_[candidate] \u003e thresholds_.initial )\n\nas if the first condition is false means that significant_candidate_found_ is false. \n\nIt would be also nice to add at the constructor a DCHECK that makes sure that the thr for the converged is lower than the initial one, e.g., RTC_DCHECK_LE(thresholds_.converged, thresholds_.initial)",
+      "revId": "f1b3262e9b84abbe797697f0ab575923300696c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

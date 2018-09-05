@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "035873c7_34938628",
+        "filename": "webrtc.gni",
+        "patchSetId": 6
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-09-05T14:04:54Z",
+      "side": 1,
+      "message": "FYI I changed the default value.",
+      "range": {
+        "startLine": 55,
+        "startChar": 32,
+        "endLine": 55,
+        "endChar": 51
+      },
+      "revId": "44f964fe971dc827e50752777d05b440e6e50c7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

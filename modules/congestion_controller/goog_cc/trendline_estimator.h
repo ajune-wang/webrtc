@@ -49,15 +49,9 @@ class TrendlineEstimator : public DelayIncreaseDetectorInterface {
   //   k < 0     ->  the delay decreases, queues are being emptied
   double trendline_slope() const { return trendline_ * threshold_gain_; }
 
-  // Returns the number of deltas which the current estimator state is based on.
-  unsigned int num_of_deltas() const { return num_of_deltas_; }
-
  private:
   friend class GoogCcStatePrinter;
-  void Detect(double offset,
-              double ts_delta,
-              int num_of_deltas,
-              int64_t now_ms);
+  void Detect(double ts_delta, int64_t now_ms);
 
   void UpdateThreshold(double modified_offset, int64_t now_ms);
 
@@ -66,7 +60,7 @@ class TrendlineEstimator : public DelayIncreaseDetectorInterface {
   const double smoothing_coef_;
   const double threshold_gain_;
   // Used by the existing threshold.
-  unsigned int num_of_deltas_;
+  int num_of_deltas_;
   // Keep the arrival times small by using the change from the first packet.
   int64_t first_arrival_time_ms_;
   // Exponential backoff filtering.

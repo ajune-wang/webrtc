@@ -49,10 +49,10 @@ absl::optional<double> LinearFitSlope(
 constexpr double kMaxAdaptOffsetMs = 15.0;
 constexpr double kOverUsingTimeThreshold = 10;
 constexpr int kMinNumDeltas = 60;
+constexpr int kDeltaCounterMax = 1000;
 
 }  // namespace
 
-enum { kDeltaCounterMax = 1000 };
 
 TrendlineEstimator::TrendlineEstimator(size_t window_size,
                                        double smoothing_coef,
@@ -84,8 +84,7 @@ void TrendlineEstimator::Update(double recv_delta_ms,
                                 int64_t arrival_time_ms) {
   const double delta_ms = recv_delta_ms - send_delta_ms;
   ++num_of_deltas_;
-  if (num_of_deltas_ > kDeltaCounterMax)
-    num_of_deltas_ = kDeltaCounterMax;
+  num_of_deltas_ = std::min(num_of_deltas_, kDeltaCounterMax);
   if (first_arrival_time_ms_ == -1)
     first_arrival_time_ms_ = arrival_time_ms;
 
@@ -111,22 +110,20 @@ void TrendlineEstimator::Update(double recv_delta_ms,
 
   BWE_TEST_LOGGING_PLOT(1, "trendline_slope", arrival_time_ms, trendline_);
 
-  Detect(trendline_slope(), send_delta_ms, num_of_deltas(), arrival_time_ms);
+  Detect(send_delta_ms, arrival_time_ms);
 }
 
 BandwidthUsage TrendlineEstimator::State() const {
   return hypothesis_;
 }
 
-void TrendlineEstimator::Detect(double offset,
-                                double ts_delta,
-                                int num_of_deltas,
-                                int64_t now_ms) {
-  if (num_of_deltas < 2) {
+void TrendlineEstimator::Detect(double ts_delta, int64_t now_ms) {
+  double offset = trendline_ * threshold_gain_;
+  if (num_of_deltas_ < 2) {
     hypothesis_ = BandwidthUsage::kBwNormal;
     return;
   }
-  const double T = std::min(num_of_deltas, kMinNumDeltas) * offset;
+  const double T = std::min(num_of_deltas_, kMinNumDeltas) * offset;
   BWE_TEST_LOGGING_PLOT(1, "T", now_ms, T);
   BWE_TEST_LOGGING_PLOT(1, "threshold", now_ms, threshold_);
   if (T > threshold_) {

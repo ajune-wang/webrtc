@@ -34,6 +34,8 @@ static const int64_t kMaxFeedbackIntervalMs = 1000;
 static const float kDefaultBackoffFactor = 0.85f;
 static const int64_t kDefaultInitialBackOffIntervalMs = 200;
 
+const char kBweAlwaysLowHoldExperiment[] = "WebRTC-Bwe-AlwaysLowHold";
+
 const char kBweBackOffFactorExperiment[] = "WebRTC-BweBackOffFactor";
 const char kBweInitialBackOffIntervalExperiment[] =
     "WebRTC-BweInitialBackOffInterval";
@@ -94,6 +96,8 @@ AimdRateControl::AimdRateControl()
                 ? ReadBackoffFactor()
                 : kDefaultBackoffFactor),
       rtt_(kDefaultRttMs),
+      always_hold_low_experiment_(
+          field_trial::IsEnabled(kBweAlwaysLowHoldExperiment)),
       in_experiment_(!AdaptiveThresholdExperimentIsDisabled()),
       smoothing_experiment_(
           webrtc::field_trial::IsEnabled("WebRTC-Audio-BandwidthSmoothing")),
@@ -262,6 +266,9 @@ uint32_t AimdRateControl::ChangeBitrate(uint32_t new_bitrate_bps,
       sqrt(var_max_bitrate_kbps_ * avg_max_bitrate_kbps_);
   switch (rate_control_state_) {
     case kRcHold:
+      if (always_hold_low_experiment_)
+        new_bitrate_bps = std::min<uint32_t>(new_bitrate_bps,
+                                             estimated_throughput_bps * beta_);
       break;
 
     case kRcIncrease:

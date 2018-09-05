@@ -93,6 +93,7 @@ class AimdRateControl {
   bool bitrate_is_initialized_;
   float beta_;
   int64_t rtt_;
+  const bool always_hold_low_experiment_;
   const bool in_experiment_;
   const bool smoothing_experiment_;
   const bool in_initial_backoff_interval_experiment_;

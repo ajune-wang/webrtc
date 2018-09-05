@@ -22,6 +22,30 @@
       "revId": "b081495239a5833c862a52439c2fa9e4e0660668",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b0398ead_ab5715d3",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-09-05T08:48:18Z",
+      "side": 1,
+      "message": "This private function doesn\u0027t have to worry about that. It is up to the callers to ensure one way or another there is no hanging periodic task.\n\nCHECK here wound fail e.g. because SetReadyToSend update the flag after scheduling the periodic task. Added DCHECKs inside the task. (if that happen, nothing bad would really follow)",
+      "parentUuid": "439aaba6_765093b5",
+      "range": {
+        "startLine": 335,
+        "startChar": 2,
+        "endLine": 335,
+        "endChar": 23
+      },
+      "revId": "b081495239a5833c862a52439c2fa9e4e0660668",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -44,7 +44,7 @@ namespace cricket {
 // Hack in order to pass in |receive_stream_id| to legacy clients.
 // TODO(magjed): Remove once WebRtcVideoDecoderFactory is deprecated and
 // webrtc:7925 is fixed.
-class DecoderFactoryAdapter {
+class DecoderFactoryAdapter : public webrtc::VideoDecoderFactory {
  public:
 #if defined(USE_BUILTIN_SW_CODECS)
   explicit DecoderFactoryAdapter(
@@ -66,12 +66,12 @@ class DecoderFactoryAdapter {
       cricket_decoder_with_params_->SetReceiveStreamId(receive_stream_id);
   }
 
-  std::vector<webrtc::SdpVideoFormat> GetSupportedFormats() const {
+  std::vector<webrtc::SdpVideoFormat> GetSupportedFormats() const override {
     return decoder_factory_->GetSupportedFormats();
   }
 
   std::unique_ptr<webrtc::VideoDecoder> CreateVideoDecoder(
-      const webrtc::SdpVideoFormat& format) {
+      const webrtc::SdpVideoFormat& format) override {
     return decoder_factory_->CreateVideoDecoder(format);
   }
 
@@ -125,36 +125,6 @@ class DecoderFactoryAdapter {
 };
 
 namespace {
-
-// Video decoder class to be used for unknown codecs. Doesn't support decoding
-// but logs messages to LS_ERROR.
-class NullVideoDecoder : public webrtc::VideoDecoder {
- public:
-  int32_t InitDecode(const webrtc::VideoCodec* codec_settings,
-                     int32_t number_of_cores) override {
-    RTC_LOG(LS_ERROR) << "Can't initialize NullVideoDecoder.";
-    return WEBRTC_VIDEO_CODEC_OK;
-  }
-
-  int32_t Decode(const webrtc::EncodedImage& input_image,
-                 bool missing_frames,
-                 const webrtc::CodecSpecificInfo* codec_specific_info,
-                 int64_t render_time_ms) override {
-    RTC_LOG(LS_ERROR) << "The NullVideoDecoder doesn't support decoding.";
-    return WEBRTC_VIDEO_CODEC_OK;
-  }
-
-  int32_t RegisterDecodeCompleteCallback(
-      webrtc::DecodedImageCallback* callback) override {
-    RTC_LOG(LS_ERROR)
-        << "Can't register decode complete callback on NullVideoDecoder.";
-    return WEBRTC_VIDEO_CODEC_OK;
-  }
-
-  int32_t Release() override { return WEBRTC_VIDEO_CODEC_OK; }
-
-  const char* ImplementationName() const override { return "NullVideoDecoder"; }
-};
 
 // If this field trial is enabled, we will enable sending FlexFEC and disable
 // sending ULPFEC whenever the former has been negotiated in the SDPs.
@@ -2242,12 +2212,10 @@ WebRtcVideoChannel::WebRtcVideoReceiveStream::WebRtcVideoReceiveStream(
       first_frame_timestamp_(-1),
       estimated_remote_start_ntp_time_ms_(0) {
   config_.renderer = this;
-  DecoderMap old_decoders;
-  ConfigureCodecs(recv_codecs, &old_decoders);
+  ConfigureCodecs(recv_codecs);
   ConfigureFlexfecCodec(flexfec_config.payload_type);
   MaybeRecreateWebRtcFlexfecStream();
   RecreateWebRtcVideoStream();
-  RTC_DCHECK(old_decoders.empty());
 }
 
 WebRtcVideoChannel::WebRtcVideoReceiveStream::~WebRtcVideoReceiveStream() {
@@ -2289,57 +2257,25 @@ WebRtcVideoChannel::WebRtcVideoReceiveStream::GetRtpParameters() const {
 }
 
 void WebRtcVideoChannel::WebRtcVideoReceiveStream::ConfigureCodecs(
-    const std::vector<VideoCodecSettings>& recv_codecs,
-    DecoderMap* old_decoders) {
+    const std::vector<VideoCodecSettings>& recv_codecs) {
   RTC_DCHECK(!recv_codecs.empty());
-  *old_decoders = std::move(allocated_decoders_);
   config_.decoders.clear();
   config_.rtp.rtx_associated_payload_types.clear();
   for (const auto& recv_codec : recv_codecs) {
     webrtc::SdpVideoFormat video_format(recv_codec.codec.name,
                                         recv_codec.codec.params);
-    std::unique_ptr<webrtc::VideoDecoder> new_decoder;
 
-    if (allocated_decoders_.count(video_format) > 0) {
-      RTC_LOG(LS_WARNING)
-          << "VideoReceiveStream configured with duplicate codecs: "
-          << video_format.name;
-      continue;
-    }
-
-    auto it = old_decoders->find(video_format);
-    if (it != old_decoders->end()) {
-      new_decoder = std::move(it->second);
-      old_decoders->erase(it);
-    }
-
-    if (!new_decoder && decoder_factory_) {
-      decoder_factory_->SetReceiveStreamId(stream_params_.id);
-      new_decoder = decoder_factory_->CreateVideoDecoder(webrtc::SdpVideoFormat(
-          recv_codec.codec.name, recv_codec.codec.params));
-    }
-
-    // If we still have no valid decoder, we have to create a "Null" decoder
-    // that ignores all calls. The reason we can get into this state is that
-    // the old decoder factory interface doesn't have a way to query supported
-    // codecs.
-    if (!new_decoder)
-      new_decoder.reset(new NullVideoDecoder());
+    decoder_factory_->SetReceiveStreamId(stream_params_.id);
 
     webrtc::VideoReceiveStream::Decoder decoder;
-    decoder.decoder = new_decoder.get();
+    decoder.decoder_factory = decoder_factory_;
+    decoder.video_format = video_format;
     decoder.payload_type = recv_codec.codec.id;
     decoder.payload_name = recv_codec.codec.name;
     decoder.codec_params = recv_codec.codec.params;
     config_.decoders.push_back(decoder);
     config_.rtp.rtx_associated_payload_types[recv_codec.rtx_payload_type] =
         recv_codec.codec.id;
-
-    const bool did_insert =
-        allocated_decoders_
-            .insert(std::make_pair(video_format, std::move(new_decoder)))
-            .second;
-    RTC_CHECK(did_insert);
   }
 
   const auto& codec = recv_codecs.front();
@@ -2419,9 +2355,8 @@ void WebRtcVideoChannel::WebRtcVideoReceiveStream::SetRecvParameters(
     const ChangedRecvParameters& params) {
   bool video_needs_recreation = false;
   bool flexfec_needs_recreation = false;
-  DecoderMap old_decoders;
   if (params.codec_settings) {
-    ConfigureCodecs(*params.codec_settings, &old_decoders);
+    ConfigureCodecs(*params.codec_settings);
     video_needs_recreation = true;
   }
   if (params.rtp_header_extensions) {

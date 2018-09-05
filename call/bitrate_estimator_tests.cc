@@ -170,7 +170,8 @@ class BitrateEstimatorTest : public test::CallTest {
           is_sending_receiving_(false),
           send_stream_(nullptr),
           frame_generator_capturer_(),
-          fake_decoder_() {
+          decoder_factory_(
+              []() { return absl::make_unique<test::FakeDecoder>(); }) {
       test_->GetVideoSendConfig()->rtp.ssrcs[0]++;
       send_stream_ = test_->sender_call_->CreateVideoSendStream(
           test_->GetVideoSendConfig()->Copy(),
@@ -185,7 +186,7 @@ class BitrateEstimatorTest : public test::CallTest {
       frame_generator_capturer_->Start();
 
       VideoReceiveStream::Decoder decoder;
-      decoder.decoder = &fake_decoder_;
+      decoder.decoder_factory = &decoder_factory_;
       decoder.payload_type = test_->GetVideoSendConfig()->rtp.payload_type;
       decoder.payload_name = test_->GetVideoSendConfig()->rtp.payload_name;
       test_->receive_config_.decoders.clear();
@@ -228,7 +229,8 @@ class BitrateEstimatorTest : public test::CallTest {
     VideoSendStream* send_stream_;
     VideoReceiveStream* video_receive_stream_;
     std::unique_ptr<test::FrameGeneratorCapturer> frame_generator_capturer_;
-    test::FakeDecoder fake_decoder_;
+
+    test::FunctionVideoDecoderFactory decoder_factory_;
   };
 
   LogObserver receiver_log_;

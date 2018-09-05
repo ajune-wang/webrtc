@@ -22,6 +22,7 @@
 #include "rtc_base/criticalsection.h"
 #include "rtc_base/event.h"
 #include "system_wrappers/include/clock.h"
+#include "test/decoder_proxy_factory.h"
 #include "test/field_trial.h"
 #include "video/call_stats.h"
 #include "video/video_receive_stream.h"
@@ -69,7 +70,9 @@ class VideoReceiveStreamTest : public testing::Test {
       : process_thread_(ProcessThread::Create("TestThread")),
         override_field_trials_(kNewJitterBufferFieldTrialEnabled),
         config_(&mock_transport_),
-        call_stats_(Clock::GetRealTimeClock(), process_thread_.get()) {}
+        call_stats_(Clock::GetRealTimeClock(), process_thread_.get()),
+        h264_decoder_factory_(&mock_h264_video_decoder_),
+        null_decoder_factory_(&mock_null_video_decoder_) {}
 
   void SetUp() {
     constexpr int kDefaultNumCpuCores = 2;
@@ -81,12 +84,12 @@ class VideoReceiveStreamTest : public testing::Test {
     h264_decoder.payload_name = "H264";
     h264_decoder.codec_params.insert(
         {"sprop-parameter-sets", "Z0IACpZTBYmI,aMljiA=="});
-    h264_decoder.decoder = &mock_h264_video_decoder_;
+    h264_decoder.decoder_factory = &h264_decoder_factory_;
     config_.decoders.push_back(h264_decoder);
     VideoReceiveStream::Decoder null_decoder;
     null_decoder.payload_type = 98;
     null_decoder.payload_name = "null";
-    null_decoder.decoder = &mock_null_video_decoder_;
+    null_decoder.decoder_factory = &null_decoder_factory_;
     config_.decoders.push_back(null_decoder);
 
     video_receive_stream_.reset(new webrtc::internal::VideoReceiveStream(
@@ -101,6 +104,8 @@ class VideoReceiveStreamTest : public testing::Test {
   CallStats call_stats_;
   MockVideoDecoder mock_h264_video_decoder_;
   MockVideoDecoder mock_null_video_decoder_;
+  test::DecoderProxyFactory h264_decoder_factory_;
+  test::DecoderProxyFactory null_decoder_factory_;
   cricket::FakeVideoRenderer fake_renderer_;
   MockTransport mock_transport_;
   PacketRouter packet_router_;

@@ -259,6 +259,10 @@ bool NetworkManager::GetDefaultLocalAddress(int family, IPAddress* addr) const {
   return false;
 }
 
+webrtc::MDnsResponderInterface* NetworkManager::GetMDnsResponder() {
+  return nullptr;
+}
+
 NetworkManagerBase::NetworkManagerBase()
     : enumeration_permission_(NetworkManager::ENUMERATION_ALLOWED),
       ipv6_enabled_(true) {}
@@ -281,6 +285,7 @@ void NetworkManagerBase::GetAnyAddressNetworks(NetworkList* networks) {
         new rtc::Network("any", "any", ipv4_any_address, 0, ADAPTER_TYPE_ANY));
     ipv4_any_address_network_->set_default_local_address_provider(this);
     ipv4_any_address_network_->AddIP(ipv4_any_address);
+    ipv4_any_address_network_->SetMDnsResponder(GetMDnsResponder());
   }
   networks->push_back(ipv4_any_address_network_.get());
 
@@ -291,6 +296,7 @@ void NetworkManagerBase::GetAnyAddressNetworks(NetworkList* networks) {
           "any", "any", ipv6_any_address, 0, ADAPTER_TYPE_ANY));
       ipv6_any_address_network_->set_default_local_address_provider(this);
       ipv6_any_address_network_->AddIP(ipv6_any_address);
+      ipv6_any_address_network_->SetMDnsResponder(GetMDnsResponder());
     }
     networks->push_back(ipv6_any_address_network_.get());
   }
@@ -380,6 +386,7 @@ void NetworkManagerBase::MergeNetworkList(const NetworkList& new_networks,
         delete net;
       }
     }
+    networks_map_[key]->SetMDnsResponder(GetMDnsResponder());
   }
   // It may still happen that the merged list is a subset of |networks_|.
   // To detect this change, we compare their sizes.

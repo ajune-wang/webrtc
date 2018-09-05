@@ -20,6 +20,7 @@
 #include <vector>
 
 #include "rtc_base/ipaddress.h"
+#include "rtc_base/mdns_responder_interface.h"
 #include "rtc_base/messagehandler.h"
 #include "rtc_base/networkmonitor.h"
 #include "rtc_base/third_party/sigslot/sigslot.h"
@@ -137,6 +138,8 @@ class NetworkManager : public DefaultLocalAddressProvider {
       ipv6_network_count = 0;
     }
   };
+
+  virtual webrtc::MDnsResponderInterface* GetMDnsResponder();
 };
 
 // Base class for NetworkManager implementations.
@@ -357,6 +360,13 @@ class Network {
   // Clear the network's list of addresses.
   void ClearIPs() { ips_.clear(); }
 
+  void SetMDnsResponder(webrtc::MDnsResponderInterface* mdns_responder) {
+    mdns_responder_ = mdns_responder;
+  }
+  webrtc::MDnsResponderInterface* GetMDnsResponder() const {
+    return mdns_responder_;
+  }
+
   // Returns the scope-id of the network's address.
   // Should only be relevant for link-local IPv6 addresses.
   int scope_id() const { return scope_id_; }
@@ -428,6 +438,7 @@ class Network {
   int prefix_length_;
   std::string key_;
   std::vector<InterfaceAddress> ips_;
+  webrtc::MDnsResponderInterface* mdns_responder_ = nullptr;
   int scope_id_;
   bool ignored_;
   AdapterType type_;

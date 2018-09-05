@@ -403,7 +403,9 @@ class Port : public PortInterface,
                   uint32_t type_preference,
                   uint32_t relay_preference,
                   const std::string& url,
-                  bool final);
+                  bool is_final);
+
+  void FinishAddingAddress(const Candidate& c, bool is_final);
 
   // Adds the given connection to the map keyed by the remote candidate address.
   // If an existing connection has the same address, the existing one will be

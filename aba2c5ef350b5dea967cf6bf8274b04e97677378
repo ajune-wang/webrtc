@@ -33,6 +33,24 @@
       "revId": "aba2c5ef350b5dea967cf6bf8274b04e97677378",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "175cebbf_fcc436d0",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-09-05T08:12:31Z",
+      "side": 1,
+      "message": "I agree it\u0027s preferable to define separate interfaces for send and receive interface, even if we need an all-in-one object for the top-level injection. On the top-level, I think it is reasonable with a class representing the (bidirectional) connection to the remote peer. \n\nOr do you think it makes sense to inject one MediaSendTransport for send streams and a separate MediaReceiveTransport for receive streams?",
+      "parentUuid": "3e61bee2_da86633f",
+      "revId": "aba2c5ef350b5dea967cf6bf8274b04e97677378",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

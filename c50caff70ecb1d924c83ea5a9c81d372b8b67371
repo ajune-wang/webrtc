@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "79241f1f_6f088bb6",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2018-09-05T18:56:26Z",
+      "side": 1,
+      "message": "nit: this could be a member function, reused here and above.",
+      "range": {
+        "startLine": 427,
+        "startChar": 6,
+        "endLine": 430,
+        "endChar": 55
+      },
+      "revId": "c50caff70ecb1d924c83ea5a9c81d372b8b67371",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

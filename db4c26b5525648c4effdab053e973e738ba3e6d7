@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3bc27aae_2c7959a3",
+        "filename": "modules/video_coding/codecs/vp8/default_temporal_layers.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 484,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-09-05T13:05:41Z",
+      "side": 1,
+      "message": "This is an iteration over all non-keyframe buffers.\nI\u0027ve updated the code to a single loop anyway.",
+      "parentUuid": "a5eafa9d_8b0aaf6b",
+      "range": {
+        "startLine": 483,
+        "startChar": 7,
+        "endLine": 484,
+        "endChar": 60
+      },
+      "revId": "db4c26b5525648c4effdab053e973e738ba3e6d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7b885bd5_94722715",
         "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2018-08-23T15:53:02Z",
       "side": 1,
       "message": "nit: Please check if the extra line is intended.",
+      "range": {
+        "startLine": 514,
+        "startChar": 0,
+        "endLine": 515,
+        "endChar": 0
+      },
+      "revId": "db4c26b5525648c4effdab053e973e738ba3e6d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0025b357_5c54c1f1",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 515,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-09-05T13:05:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7b885bd5_94722715",
       "range": {
         "startLine": 514,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "86120bcc_65db807c",
+        "filename": "modules/video_coding/codecs/vp8/screenshare_layers.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-09-05T13:05:41Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "96ba78d9_9fdd3c25",
+      "range": {
+        "startLine": 100,
+        "startChar": 14,
+        "endLine": 100,
+        "endChar": 62
+      },
+      "revId": "db4c26b5525648c4effdab053e973e738ba3e6d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "307c5384_c66b4aba",
         "filename": "modules/video_coding/codecs/vp8/screenshare_layers.cc",
         "patchSetId": 1
@@ -91,6 +163,30 @@
       "revId": "db4c26b5525648c4effdab053e973e738ba3e6d7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b9da2bd_34c0fffe",
+        "filename": "modules/video_coding/codecs/vp8/screenshare_layers.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-09-05T13:05:41Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "307c5384_c66b4aba",
+      "range": {
+        "startLine": 108,
+        "startChar": 17,
+        "endLine": 108,
+        "endChar": 64
+      },
+      "revId": "db4c26b5525648c4effdab053e973e738ba3e6d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "a34c7209_9b603137",
+        "filename": "modules/video_coding/codecs/vp8/screenshare_layers.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-09-05T13:05:41Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a8eea70f_62fa16de",
+      "range": {
+        "startLine": 116,
+        "startChar": 16,
+        "endLine": 116,
+        "endChar": 63
+      },
+      "revId": "db4c26b5525648c4effdab053e973e738ba3e6d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e2a836c3_5cfcf3cf",
         "filename": "modules/video_coding/codecs/vp8/screenshare_layers.cc",
         "patchSetId": 1
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "1b53c053_e2396c7d",
+        "filename": "modules/video_coding/codecs/vp8/screenshare_layers.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-09-05T13:05:41Z",
+      "side": 1,
+      "message": "Yes, nice catch! I\u0027ll make sure this method can handle missing values.",
+      "parentUuid": "e2a836c3_5cfcf3cf",
+      "range": {
+        "startLine": 267,
+        "startChar": 2,
+        "endLine": 267,
+        "endChar": 49
+      },
+      "revId": "db4c26b5525648c4effdab053e973e738ba3e6d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2ccbba51_5d5fb017",
         "filename": "modules/video_coding/codecs/vp8/temporal_layers.h",
         "patchSetId": 1
@@ -160,6 +304,30 @@
       "revId": "db4c26b5525648c4effdab053e973e738ba3e6d7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f1a2fe9_e560ed5c",
+        "filename": "modules/video_coding/codecs/vp8/temporal_layers.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-09-05T13:05:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2ccbba51_5d5fb017",
+      "range": {
+        "startLine": 177,
+        "startChar": 7,
+        "endLine": 178,
+        "endChar": 0
+      },
+      "revId": "db4c26b5525648c4effdab053e973e738ba3e6d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

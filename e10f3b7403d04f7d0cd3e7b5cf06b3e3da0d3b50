@@ -22,6 +22,30 @@
       "revId": "e10f3b7403d04f7d0cd3e7b5cf06b3e3da0d3b50",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32a0cf8a_d4dd3907",
+        "filename": "sdk/objc/components/renderer/opengl/RTCNSGLVideoView.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2018-09-05T14:50:47Z",
+      "side": 0,
+      "message": "Yes, it\u0027s just that when this header is included as part of the framework, all headers are put in a flat directory structure under WebRTC.framework/Headers. So the paths need to work there as well. In sdk/BUILD.gn \"objc/base\" is added to include_dirs to get around this.",
+      "parentUuid": "ea320436_2a127fcd",
+      "range": {
+        "startLine": 18,
+        "startChar": 9,
+        "endLine": 18,
+        "endChar": 14
+      },
+      "revId": "e10f3b7403d04f7d0cd3e7b5cf06b3e3da0d3b50",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

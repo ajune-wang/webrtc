@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b2268e38_87d3f121",
+        "filename": "pc/peerconnection_rtp_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1380,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-09-05T18:26:18Z",
+      "side": 1,
+      "message": "nit: period at the end of the  sentence. Here and elsewhere in the test.",
+      "range": {
+        "startLine": 1380,
+        "startChar": 29,
+        "endLine": 1380,
+        "endChar": 49
+      },
+      "revId": "9297db8d192c0a7abb1fb3c611f915745fe1e6c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f899679_56ac560d",
+        "filename": "pc/peerconnection_rtp_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1478,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-09-05T18:26:18Z",
+      "side": 1,
+      "message": "I know that you\u0027re testing at the RtpSender level:\n - get/set RtpSender\u0027s RtpParameters\n - setting the local description\n - seeing that the parameters are properly set\n\nCould we test this here as well? It would be a good for peace of mind. You could even add it to this test --\u003e CreatOffer/SetLocalDescription, GetParameters and check that active/max_bitrate_bps are set at the sender.",
+      "range": {
+        "startLine": 1478,
+        "startChar": 41,
+        "endLine": 1478,
+        "endChar": 68
+      },
+      "revId": "9297db8d192c0a7abb1fb3c611f915745fe1e6c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "325ce758_c50b72c2",
+        "filename": "pc/rtpsender.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-09-05T18:26:18Z",
+      "side": 1,
+      "message": "nit: Plan-B simulcast can be confusing because someone might think this means SDP munging is only supported for Plan-B. I think what you mean is a Plan B style simulcast lines. I would either say:\n\n\"...to support SDP munging for simulcast.\"\nor\n\"...to support SDP munging for simulcast with \"a\u003dssrc-group:SIM \u003cssrc-id\u003e...\" lines as described in RFC 5576.\"",
+      "range": {
+        "startLine": 324,
+        "startChar": 21,
+        "endLine": 324,
+        "endChar": 41
+      },
+      "revId": "9297db8d192c0a7abb1fb3c611f915745fe1e6c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1942ec4_8d3015e8",
+        "filename": "pc/rtpsenderreceiver_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1123,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-09-05T18:26:18Z",
+      "side": 1,
+      "message": "nit: Is the 2 necessary here? Since that\u0027s what\u0027s always done can we just take out the default arg and always create a sender with 2 layers?",
+      "range": {
+        "startLine": 1122,
+        "startChar": 0,
+        "endLine": 1123,
+        "endChar": 39
+      },
+      "revId": "9297db8d192c0a7abb1fb3c611f915745fe1e6c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

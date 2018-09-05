@@ -284,6 +284,30 @@
     },
     {
       "key": {
+        "uuid": "023dcad3_881ee3d6",
+        "filename": "pc/rtpsender.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-09-05T18:26:18Z",
+      "side": 1,
+      "message": "Ah yeah, you\u0027re right. I guess for the simulcast case you can get/set parameters of the first layer before the local description is set, then after it\u0027s set you get/set other layers.",
+      "parentUuid": "68e2a823_a60f985e",
+      "range": {
+        "startLine": 237,
+        "startChar": 6,
+        "endLine": 237,
+        "endChar": 42
+      },
+      "revId": "dc6bbfb579e855c5e447c744196f2fc4fe656a39",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2e048f34_cd854e88",
         "filename": "pc/rtpsender.cc",
         "patchSetId": 5
@@ -378,6 +402,30 @@
     },
     {
       "key": {
+        "uuid": "e8d67d1b_0d9b8cb6",
+        "filename": "pc/rtpsender.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-09-05T18:26:18Z",
+      "side": 1,
+      "message": "DCHECK this then?",
+      "parentUuid": "6decde7c_cbbfefc3",
+      "range": {
+        "startLine": 324,
+        "startChar": 10,
+        "endLine": 324,
+        "endChar": 24
+      },
+      "revId": "dc6bbfb579e855c5e447c744196f2fc4fe656a39",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f4b233df_02b966bf",
         "filename": "pc/rtpsender.cc",
         "patchSetId": 5
@@ -418,6 +466,53 @@
         "startChar": 8,
         "endLine": 327,
         "endChar": 36
+      },
+      "revId": "dc6bbfb579e855c5e447c744196f2fc4fe656a39",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a9ade2f_43e6cbb7",
+        "filename": "pc/rtpsender.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-09-05T18:26:18Z",
+      "side": 1,
+      "message": "sgtm. This means 1), correct? \n\nSince the ssrc will always be overridden by the SDP created ssrc I think you should return an error if AddTransceiver tries to create a transceiver with send_encodings that have an ssrc set. Otherwise it could be potentially confusing for someone trying to control that value. You could also add a check at the RtpSender level.",
+      "parentUuid": "23398050_c671fa92",
+      "range": {
+        "startLine": 327,
+        "startChar": 8,
+        "endLine": 327,
+        "endChar": 36
+      },
+      "revId": "dc6bbfb579e855c5e447c744196f2fc4fe656a39",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9dccf59_0e386ab6",
+        "filename": "pc/rtpsender.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-09-05T18:26:18Z",
+      "side": 1,
+      "message": "Isn\u0027t this currently a problem if someone calls AddTransceiver with one sendEncoding, munges the SDP for 3 simulcast layers \u0026 sets the local description? Here\u0027s what I think would happen:\n - RtpSender is created with a default init_parameters_.encodings (size 1)\n - Local description is set calling SetSsrc. Sets init_parameters_.encodings[0].ssrc equal to the one that comes from the munged SDP at simulcast a layer 0 \n - current_parameters.encodings is overridden by the init_parameters_.encodings. This changes the size of current_parameters.encodings from 3 to 1!\n\nI think what you want to do is loop through the init_parameters_.encodings, \u0026 copy every value besides the ssrc over to current_parameters.encodings[i], correct?",
+      "range": {
+        "startLine": 330,
+        "startChar": 6,
+        "endLine": 330,
+        "endChar": 63
       },
       "revId": "dc6bbfb579e855c5e447c744196f2fc4fe656a39",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

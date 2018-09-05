@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f6407a60_236f49b3",
+        "filename": "call/video_receive_stream.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-09-05T12:22:53Z",
+      "side": 1,
+      "message": "Include what you use.\n\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/style-guide.md?l\u003d131\u0026rcl\u003d711a31aead9007e42dd73c302c8ec40f9e931619",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 26
+      },
+      "revId": "8120f4b3d9814f16ac378d95ea77e7d861452cee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fbd28693_a58dc828",
+        "filename": "call/video_receive_stream.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-09-05T12:22:53Z",
+      "side": 1,
+      "message": "This information should already be in the SdpVideoFormat. Can we remove these members now, or in a followup?",
+      "range": {
+        "startLine": 55,
+        "startChar": 4,
+        "endLine": 62,
+        "endChar": 52
+      },
+      "revId": "8120f4b3d9814f16ac378d95ea77e7d861452cee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8dcf0a03_2369ef85",
+        "filename": "media/engine/webrtcvideoengine.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2268,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-09-05T12:22:53Z",
+      "side": 1,
+      "message": "I think we should always have a decoder factory here. What happens if you CHECK here instead?",
+      "range": {
+        "startLine": 2268,
+        "startChar": 8,
+        "endLine": 2268,
+        "endChar": 24
+      },
+      "revId": "8120f4b3d9814f16ac378d95ea77e7d861452cee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90dac87a_670fabb4",
+        "filename": "test/encoder_settings.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-09-05T12:22:53Z",
+      "side": 1,
+      "message": "Is it OK to not set the decoder_factory member here?",
+      "range": {
+        "startLine": 126,
+        "startChar": 9,
+        "endLine": 126,
+        "endChar": 16
+      },
+      "revId": "8120f4b3d9814f16ac378d95ea77e7d861452cee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

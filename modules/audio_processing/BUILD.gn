@@ -120,7 +120,7 @@ rtc_static_library("audio_processing") {
     "../../rtc_base:sanitizer",
     "../../rtc_base/system:arch",
     "../../system_wrappers:cpu_features_api",
-    "../../system_wrappers:field_trial_api",
+    "../../system_wrappers:field_trial",
     "../../system_wrappers:metrics_api",
     "aec:aec",
     "aec:aec_core",

@@ -16,6 +16,24 @@
       "revId": "f1b3262e9b84abbe797697f0ab575923300696c2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "479e900e_65ae9678",
+        "filename": "modules/audio_processing/aec3/matched_filter_lag_aggregator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-09-05T07:22:30Z",
+      "side": 1,
+      "message": "That if would be even better like:\nif (significant_candidate_found || histogram_[candidate] \u003e thresholds_.initial )\n\nAnd as discussed, the DCHECK should have been written like:\n RTC_DCHECK_LE(thresholds_.initial, thresholds_.converged)",
+      "parentUuid": "a5bed4ee_d211b997",
+      "revId": "f1b3262e9b84abbe797697f0ab575923300696c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

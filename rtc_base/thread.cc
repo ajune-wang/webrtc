@@ -451,6 +451,10 @@ void Thread::InvokeInternal(const Location& posted_from,
   Send(posted_from, handler);
 }
 
+bool Thread::IsProcessingMessagesForTesting() {
+  return IsOwned() && MessageQueue::IsProcessingMessagesForTesting();
+}
+
 void Thread::Clear(MessageHandler* phandler,
                    uint32_t id,
                    MessageList* removed) {

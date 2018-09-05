@@ -53,6 +53,11 @@ class GoogCcNetworkController : public NetworkControllerInterface {
 
  private:
   friend class GoogCcStatePrinter;
+  enum class InitialState {
+    kWaitingForEstimate,
+    kWindowFullWaitingForEstimate,
+    kReceivedEstimate
+  };
   std::vector<ProbeClusterConfig> UpdateBitrateConstraints(
       TargetRateConstraints constraints,
       absl::optional<DataRate> starting_rate);
@@ -71,6 +76,9 @@ class GoogCcNetworkController : public NetworkControllerInterface {
   std::unique_ptr<AcknowledgedBitrateEstimator> acknowledged_bitrate_estimator_;
 
   absl::optional<NetworkControllerConfig> initial_config_;
+
+  const DataSize initial_data_window_;
+  InitialState initial_state_ = InitialState::kWaitingForEstimate;
 
   Timestamp next_loss_update_ = Timestamp::MinusInfinity();
   int lost_packets_since_last_loss_update_ = 0;

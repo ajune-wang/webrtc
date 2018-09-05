@@ -55,6 +55,14 @@ bool CwndExperimentEnabled() {
   return experiment_string.find("Enabled") == 0;
 }
 
+DataSize GetInitialDataWindowFromTrial() {
+  std::string experiment_string =
+      field_trial::FindFullName("WebRTC-Bwe-InitialDataWindow");
+  int init_cwnd_bytes;
+  if (sscanf(experiment_string.c_str(), "%i", &init_cwnd_bytes) == 1)
+    return DataSize::bytes(init_cwnd_bytes);
+  return DataSize::Infinity();
+}
 bool ReadCwndExperimentParameter(int64_t* accepted_queue_ms) {
   RTC_DCHECK(accepted_queue_ms);
   std::string experiment_string =
@@ -128,6 +136,7 @@ GoogCcNetworkController::GoogCcNetworkController(RtcEventLog* event_log,
       acknowledged_bitrate_estimator_(
           absl::make_unique<AcknowledgedBitrateEstimator>()),
       initial_config_(config),
+      initial_data_window_(GetInitialDataWindowFromTrial()),
       last_bandwidth_(*config.constraints.starting_rate),
       pacing_factor_(config.stream_based_config.pacing_factor.value_or(
           kDefaultPaceMultiplier)),
@@ -249,7 +258,15 @@ NetworkControlUpdate GoogCcNetworkController::OnSentPacket(
     SentPacket sent_packet) {
   alr_detector_->OnBytesSent(sent_packet.size.bytes(),
                              sent_packet.send_time.ms());
-  return NetworkControlUpdate();
+  if (initial_state_ == InitialState::kWaitingForEstimate &&
+      sent_packet.data_in_flight > initial_data_window_) {
+    initial_state_ = InitialState::kWindowFullWaitingForEstimate;
+    NetworkControlUpdate update;
+    MaybeTriggerOnNetworkChanged(&update, sent_packet.send_time);
+    return update;
+  } else {
+    return NetworkControlUpdate();
+  }
 }
 
 NetworkControlUpdate GoogCcNetworkController::OnStreamsConfig(
@@ -395,13 +412,23 @@ NetworkControlUpdate GoogCcNetworkController::OnTransportPacketsFeedback(
   previously_in_alr = alr_start_time.has_value();
   acknowledged_bitrate_estimator_->IncomingPacketFeedbackVector(
       received_feedback_vector);
+  auto acknowledged_bitrate = acknowledged_bitrate_estimator_->bitrate_bps();
+  if (acknowledged_bitrate) {
+    if (initial_state_ == InitialState::kWindowFullWaitingForEstimate)
+      delay_based_bwe_->SetStartBitrate(*acknowledged_bitrate);
+    initial_state_ = InitialState::kReceivedEstimate;
+  }
   DelayBasedBwe::Result result;
   result = delay_based_bwe_->IncomingPacketFeedbackVector(
-      received_feedback_vector, acknowledged_bitrate_estimator_->bitrate_bps(),
+      received_feedback_vector, acknowledged_bitrate,
       report.feedback_time.ms());
   NetworkControlUpdate update;
   if (result.updated) {
     if (result.probe) {
+      if (initial_state_ == InitialState::kWindowFullWaitingForEstimate)
+        delay_based_bwe_->SetStartBitrate(result.target_bitrate_bps);
+      initial_state_ = InitialState::kReceivedEstimate;
+
       bandwidth_estimation_->SetSendBitrate(result.target_bitrate_bps);
     }
     // Since SetSendBitrate now resets the delay-based estimate, we have to call
@@ -469,6 +496,9 @@ void GoogCcNetworkController::MaybeTriggerOnNetworkChanged(
   int64_t rtt_ms;
   bandwidth_estimation_->CurrentEstimate(&estimated_bitrate_bps, &fraction_loss,
                                          &rtt_ms);
+
+  if (initial_state_ == InitialState::kWindowFullWaitingForEstimate)
+    estimated_bitrate_bps = bandwidth_estimation_->GetMinBitrate();
 
   estimated_bitrate_bps = std::max<int32_t>(
       estimated_bitrate_bps, bandwidth_estimation_->GetMinBitrate());

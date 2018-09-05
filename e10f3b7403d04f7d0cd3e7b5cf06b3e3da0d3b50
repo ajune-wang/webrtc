@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ea320436_2a127fcd",
+        "filename": "sdk/objc/components/renderer/opengl/RTCNSGLVideoView.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-09-05T14:47:22Z",
+      "side": 0,
+      "message": "Isn\u0027t this still under base/?",
+      "range": {
+        "startLine": 18,
+        "startChar": 9,
+        "endLine": 18,
+        "endChar": 14
+      },
+      "revId": "e10f3b7403d04f7d0cd3e7b5cf06b3e3da0d3b50",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

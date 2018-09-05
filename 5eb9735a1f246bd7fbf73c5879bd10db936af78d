@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3fde0215_8a01436b",
+        "filename": "sdk/android/api/org/webrtc/HardwareVideoDecoderFactory.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-09-05T09:09:36Z",
+      "side": 1,
+      "message": "Maybe it\u0027s cleaner to make a base class with a name that is sw/hw agnostic, and use that base class from here. Otherwise it looks weird that we take a software argument to a hardware class.",
+      "range": {
+        "startLine": 59,
+        "startChar": 9,
+        "endLine": 59,
+        "endChar": 36
+      },
+      "revId": "5eb9735a1f246bd7fbf73c5879bd10db936af78d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

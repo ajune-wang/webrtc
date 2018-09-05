@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e6557179_dc7029ca",
+        "filename": "modules/remote_bitrate_estimator/aimd_rate_control.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-09-05T17:41:38Z",
+      "side": 1,
+      "message": "Is the idea here that if the throughput decreases the BWE should follow as beta * throughput?",
+      "range": {
+        "startLine": 271,
+        "startChar": 0,
+        "endLine": 272,
+        "endChar": 0
+      },
+      "revId": "b8b7d2f90d0d25cc9249cd81e8ec2ba696da9800",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

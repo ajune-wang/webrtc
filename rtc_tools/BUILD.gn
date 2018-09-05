@@ -102,6 +102,7 @@ rtc_executable("frame_analyzer") {
     ":command_line_parser",
     ":video_file_reader",
     ":video_quality_analysis",
+    "../rtc_base:stringutils",
     "../test:perf_test",
   ]
 }
@@ -306,6 +307,7 @@ if (rtc_include_tests) {
     "../resources/foreman_128x96.yuv",
     "../resources/foreman_cif.yuv",
     "../resources/reference_less_video_test_file.y4m",
+    "../resources/reference_video_640x360_30fps.y4m",
   ]
 
   if (is_ios) {

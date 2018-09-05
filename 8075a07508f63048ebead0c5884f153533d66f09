@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d7709cd0_1c6d4a4b",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 1173,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2018-09-05T00:05:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ffb8a5d_5a025724",
+      "range": {
+        "startLine": 1172,
+        "startChar": 0,
+        "endLine": 1173,
+        "endChar": 43
+      },
+      "revId": "8075a07508f63048ebead0c5884f153533d66f09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7506f29e_0b5291ad",
         "filename": "sdk/android/api/org/webrtc/FrameDecryptor.java",
         "patchSetId": 6
@@ -200,6 +224,30 @@
       "writtenOn": "2018-09-03T14:43:12Z",
       "side": 1,
       "message": "I don\u0027t see why this is needed?",
+      "range": {
+        "startLine": 29,
+        "startChar": 35,
+        "endLine": 29,
+        "endChar": 54
+      },
+      "revId": "8075a07508f63048ebead0c5884f153533d66f09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d132ba4f_9c255c12",
+        "filename": "sdk/android/api/org/webrtc/RtpReceiver.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2018-09-05T00:05:37Z",
+      "side": 1,
+      "message": "The FrameDecryptor Java object is cached so that when you call GetFrameDecryptor you retrieve the Java implementation. The Java interface only requires a native pointer is provided. The native interface FrameDecryptorInterface only requires two functions Decrypt and GetMaxPlaintextSize.\n\nIn reality functionality such as SetKey will also be required, however this isn\u0027t present in the API as it is not directly required by WebRTC to function. As a result implementers will need a way to cast back from FrameDecryptor to their concrete implementation and this seemed like the simplest way. In practice this to the user just looks like:\n\nFrameDecryptorCustomImpl frameDecryptor \u003d (FrameDecryptorCustomImpl)rtpReceiver.getFrameDecryptor();\nframeDecryptor.setKey(...);",
+      "parentUuid": "937ef13c_d2c2f1e0",
       "range": {
         "startLine": 29,
         "startChar": 35,

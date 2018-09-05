@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8f6a0d9f_45c045bc",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-09-05T07:57:37Z",
+      "side": 1,
+      "message": "Do we need this now that FrameType is local to the class?",
+      "revId": "aba2c5ef350b5dea967cf6bf8274b04e97677378",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e61bee2_da86633f",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-09-05T07:57:37Z",
+      "side": 1,
+      "message": "SetReceiveAudioSink() would be easier to understand IMO - provided I didn\u0027t already misunderstand it! :)\n\nAlso, is it really necessary to share send/receive in the same interface? If there is state for CC etc that needs to be shared, can that live in a shared object instead? Like I said in a previous comment, we have legacy \"duplex\" constructs in some places which we\u0027re trying to get rid of.",
+      "revId": "aba2c5ef350b5dea967cf6bf8274b04e97677378",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

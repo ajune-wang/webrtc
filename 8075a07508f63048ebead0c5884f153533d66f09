@@ -238,6 +238,30 @@
     },
     {
       "key": {
+        "uuid": "1ddebc72_7042cc2e",
+        "filename": "sdk/android/api/org/webrtc/FrameDecryptor.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2018-09-06T00:14:34Z",
+      "side": 1,
+      "message": "I don\u0027t really understand the comment in the context of returning a pointer to a refcounted object. In this case the caller should determine if they need to keep a reference to the object and in that case upref it.\n\nThis is what happens when the native RtpReceiver retrieves the pointer and converts it into a scoped_refptr.",
+      "parentUuid": "aa5bc24a_7fab99dc",
+      "range": {
+        "startLine": 22,
+        "startChar": 13,
+        "endLine": 22,
+        "endChar": 47
+      },
+      "revId": "8075a07508f63048ebead0c5884f153533d66f09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "01ea989a_6a9b8067",
         "filename": "sdk/android/api/org/webrtc/FrameEncryptor.java",
         "patchSetId": 6

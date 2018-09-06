@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "cf91fbfe_08c03e5f",
+        "filename": "api/test/neteq_simulator.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-09-06T10:54:28Z",
+      "side": 1,
+      "message": "Because of its std::vector member, this struct is cheaper to move than to copy, so consider declaring a move constructor as well.",
+      "revId": "6dcf4c7711885bc40b9030faca9ec73f48773610",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "44cd10ac_a3334233",
         "filename": "modules/audio_coding/neteq/tools/neteq_test.cc",
         "patchSetId": 1

@@ -1535,6 +1535,7 @@ if (rtc_include_tests) {
         "../../system_wrappers:system_wrappers_default",
         "../../test:test_support",
         "//third_party/abseil-cpp/absl/memory",
+        "//third_party/abseil-cpp/absl/strings",
       ]
     }
 
@@ -1544,6 +1545,7 @@ if (rtc_include_tests) {
       deps = [
         ":neteq_test_factory",
         ":neteq_test_tools",
+        "../../rtc_base:rtc_base_approved",
       ]
       sources = [
         "neteq/tools/neteq_rtpplay.cc",

@@ -344,6 +344,7 @@ if (rtc_include_tests) {
         ":neteq_simulator_api",
         "../modules/audio_coding:neteq_test_factory",
         "//third_party/abseil-cpp/absl/memory",
+        "//third_party/abseil-cpp/absl/strings",
       ]
     }
   }

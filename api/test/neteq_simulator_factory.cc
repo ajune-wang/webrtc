@@ -21,6 +21,10 @@ NetEqSimulatorFactory::NetEqSimulatorFactory()
 
 NetEqSimulatorFactory::~NetEqSimulatorFactory() = default;
 
+void NetEqSimulatorFactory::SetFieldTrials(absl::string_view field_trials) {
+  factory_->SetFieldTrials(field_trials);
+}
+
 std::unique_ptr<NetEqSimulator> NetEqSimulatorFactory::CreateSimulator(
     int argc,
     char* argv[]) {

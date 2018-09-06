@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4eea7fd4_270b90e8",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-09-06T08:10:09Z",
+      "side": 1,
+      "message": "Can you move this constant into the function where it\u0027s used instead? It\u0027s good to not lose the type info...",
+      "revId": "a8550e270afadd40eca2b2b3e6066d3383d286aa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

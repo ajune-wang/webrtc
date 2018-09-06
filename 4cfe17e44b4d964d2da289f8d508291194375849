@@ -22,6 +22,30 @@
       "revId": "4cfe17e44b4d964d2da289f8d508291194375849",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d20ed2f7_292e0c1f",
+        "filename": "modules/audio_coding/neteq/tools/neteq_test_factory.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2018-09-06T13:41:56Z",
+      "side": 1,
+      "message": "Unfortunately we do need to call this before creating the ScopedFieldTrials. In the constructor of ScopedFieldTrials there is an assert(field_trials_initiated_) which will only be true after ValidateFieldTrialsStringOrDie is called. I tried removing it, and it causes a crash as expected.",
+      "parentUuid": "785f0cfe_cc06d4c9",
+      "range": {
+        "startLine": 278,
+        "startChar": 2,
+        "endLine": 278,
+        "endChar": 32
+      },
+      "revId": "4cfe17e44b4d964d2da289f8d508291194375849",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

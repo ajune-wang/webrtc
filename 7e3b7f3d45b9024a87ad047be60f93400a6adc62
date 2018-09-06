@@ -42,6 +42,40 @@
     },
     {
       "key": {
+        "uuid": "868c3852_9f033edf",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-09-06T04:51:30Z",
+      "side": 1,
+      "message": "I like the idea of having a separate way for developers to indicate that they expect private IPs to be hidden. No need to figure out how to do that now, but here is a bug we can reference: http://crbug.com/webrtc/9723",
+      "revId": "7e3b7f3d45b9024a87ad047be60f93400a6adc62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "694bdac6_8e4bc9d1",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 463,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-09-06T04:51:30Z",
+      "side": 1,
+      "message": "Maybe set this in an else branch instead of setting it above this if and then clearing it here.",
+      "revId": "7e3b7f3d45b9024a87ad047be60f93400a6adc62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "27e17fb6_5df8b464",
         "filename": "p2p/client/basicportallocator_unittest.cc",
         "patchSetId": 3
@@ -53,6 +87,40 @@
       "writtenOn": "2018-09-05T17:51:36Z",
       "side": 1,
       "message": "Add a comment about what the test is testing.",
+      "revId": "7e3b7f3d45b9024a87ad047be60f93400a6adc62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6955e8fa_66566eaa",
+        "filename": "rtc_base/fake_mdns_responder.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-09-06T04:51:30Z",
+      "side": 1,
+      "message": "I think we could just use a counter to generate names here (name1, name2, etc), but I don\u0027t feel strongly about it.",
+      "revId": "7e3b7f3d45b9024a87ad047be60f93400a6adc62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e019def5_63c3d33f",
+        "filename": "rtc_base/fake_mdns_responder.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-09-06T04:51:30Z",
+      "side": 1,
+      "message": "Looks like you could avoid this iteration with a map from IPAddress to string without losing anything.",
       "revId": "7e3b7f3d45b9024a87ad047be60f93400a6adc62",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -127,6 +195,74 @@
       "writtenOn": "2018-09-05T17:51:36Z",
       "side": 1,
       "message": "Maybe just alias an std::function?\n\nusing NameCreatedCallback \u003d std::function\u003cvoid(const rtc::IPAddress\u0026, const std::string\u0026)\u003e;",
+      "revId": "7e3b7f3d45b9024a87ad047be60f93400a6adc62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c462b37_c9cb0735",
+        "filename": "rtc_base/mdns_responder_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-09-06T04:51:30Z",
+      "side": 1,
+      "message": "Is there a reason this isn\u0027t pure virtual (\u003d 0)?",
+      "revId": "7e3b7f3d45b9024a87ad047be60f93400a6adc62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ecd32f9_416f58f2",
+        "filename": "rtc_base/mdns_responder_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-09-06T04:51:30Z",
+      "side": 1,
+      "message": "Is there a reason this isn\u0027t pure virtual (\u003d 0)?\nThe fake would need an empty definition.",
+      "revId": "7e3b7f3d45b9024a87ad047be60f93400a6adc62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41a41f18_9719275e",
+        "filename": "rtc_base/network.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-09-06T04:51:30Z",
+      "side": 1,
+      "message": "This seems like it will be doing redundant work, but I\u0027m not familiar enough with this code to know of a better place to do this. Is there a reason there isn\u0027t a more natural place? I can spend some more time trying to find one tomorrow if you would like.",
+      "revId": "7e3b7f3d45b9024a87ad047be60f93400a6adc62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00e34b52_5cc73ec8",
+        "filename": "rtc_base/network.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-09-06T04:51:30Z",
+      "side": 1,
+      "message": "This could use a comment. It looks like it is only override in test code in this CL. I assume it needs to be override in Chromium in a follow up CL? Can we add TODOs here to remove the default implementation once that happens?",
       "revId": "7e3b7f3d45b9024a87ad047be60f93400a6adc62",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

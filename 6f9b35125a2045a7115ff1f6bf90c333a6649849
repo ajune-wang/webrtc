@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c20837a0_e4584a49",
+        "filename": "video/end_to_end_tests/log_tests.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-09-06T07:59:03Z",
+      "side": 1,
+      "message": "This is unrelated to this CL, but it seems that the same boiler plate is repeated in many of these end_to_end_tests/*.cc files...",
+      "range": {
+        "startLine": 79,
+        "startChar": 7,
+        "endLine": 79,
+        "endChar": 19
+      },
+      "revId": "6f9b35125a2045a7115ff1f6bf90c333a6649849",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

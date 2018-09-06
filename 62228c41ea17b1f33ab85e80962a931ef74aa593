@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7147614b_d55d0e1e",
+        "filename": "call/video_receive_stream.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-09-06T07:59:03Z",
+      "side": 0,
+      "message": "Nice to get rid of this!",
+      "range": {
+        "startLine": 53,
+        "startChar": 3,
+        "endLine": 53,
+        "endChar": 8
+      },
+      "revId": "62228c41ea17b1f33ab85e80962a931ef74aa593",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

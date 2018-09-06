@@ -303,6 +303,7 @@ rtc_source_set("audio_device_impl") {
       defines += [ "WEBRTC_DUMMY_FILE_DEVICES" ]
     } else {
       if (is_linux) {
+        configs += [ "../../..:no_global_constructors" ]
         sources += [
           "linux/alsasymboltable_linux.cc",
           "linux/alsasymboltable_linux.h",
@@ -320,6 +321,7 @@ rtc_source_set("audio_device_impl") {
           defines += [ "WEBRTC_USE_X11" ]
         }
         if (rtc_include_pulse_audio) {
+          configs += [ "../..:no_exit_time_destructors" ]
           sources += [
             "linux/audio_device_pulse_linux.cc",
             "linux/audio_device_pulse_linux.h",

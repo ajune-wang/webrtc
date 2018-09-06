@@ -26,7 +26,57 @@ const PacedPacketInfo kPacingInfo0(0, kNumProbesCluster0, 2000);
 const PacedPacketInfo kPacingInfo1(1, kNumProbesCluster1, 4000);
 constexpr float kTargetUtilizationFraction = 0.95f;
 constexpr int64_t kDummyTimestamp = 1000;
+
+const TimeDelta kGroupMaxDuration = TimeDelta::ms(5);
+const TimeDelta kBurstMaxDelta = TimeDelta::ms(5);
+const TimeDelta kBurstMaxDuration = TimeDelta::ms(100);
+const TimeDelta kOneMs = TimeDelta::ms(1);
+
+const Timestamp kFirstSendTime = Timestamp::seconds(1000);
+const Timestamp kFirstReceiveTime = kFirstSendTime + TimeDelta::ms(50);
+const Timestamp kReceiveTimeInBurst = kFirstReceiveTime + kBurstMaxDelta;
+const Timestamp kSystemTime = Timestamp::seconds(1001);
+const Timestamp kSendTimeInGroup = kFirstSendTime + kGroupMaxDuration;
+const Timestamp kSendTimeOutsideGroup =
+    kFirstSendTime + kGroupMaxDuration + kOneMs;
+
+const Timestamp kReceiveTimeOutsideBurst =
+    kFirstReceiveTime + kBurstMaxDelta + kOneMs;
+const Timestamp kReceiveTimeInMaxBurst = kFirstReceiveTime + kBurstMaxDuration;
+const Timestamp kReceiveTimeOutsideMaxBurst =
+    kFirstReceiveTime + kBurstMaxDuration + kOneMs;
+
 }  // namespace
+
+TEST(PacketDelayGroupTest, PacketGroupingBySendTime) {
+  PacketDelayGroup group(kFirstSendTime, kFirstReceiveTime, kSystemTime);
+  EXPECT_TRUE(group.BelongsToGroup(kSendTimeInGroup, kReceiveTimeInBurst));
+  EXPECT_FALSE(
+      group.BelongsToGroup(kSendTimeOutsideGroup, kReceiveTimeInBurst));
+  group.AddPacketInfo(kSendTimeInGroup, kReceiveTimeInBurst, kSystemTime);
+  EXPECT_FALSE(
+      group.BelongsToGroup(kSendTimeOutsideGroup, kReceiveTimeInBurst));
+}
+
+TEST(PacketDelayGroupTest, BurstGroupingByReceiveTime) {
+  PacketDelayGroup group(kFirstSendTime, kFirstReceiveTime, kSystemTime);
+  EXPECT_TRUE(group.BelongsToBurst(kSendTimeOutsideGroup, kReceiveTimeInBurst));
+  EXPECT_FALSE(
+      group.BelongsToBurst(kSendTimeOutsideGroup, kReceiveTimeOutsideBurst));
+  group.AddPacketInfo(kSendTimeInGroup, kReceiveTimeInBurst, kSystemTime);
+  EXPECT_TRUE(
+      group.BelongsToBurst(kSendTimeOutsideGroup, kReceiveTimeOutsideBurst));
+  for (int offset_ms = 0; offset_ms < kBurstMaxDuration.ms();
+       offset_ms += kBurstMaxDelta.ms()) {
+    TimeDelta offset = TimeDelta::ms(offset_ms);
+    group.AddPacketInfo(kFirstSendTime + offset, kFirstReceiveTime + offset,
+                        kSystemTime);
+  }
+  EXPECT_TRUE(
+      group.BelongsToBurst(kSendTimeOutsideGroup, kReceiveTimeInMaxBurst));
+  EXPECT_FALSE(
+      group.BelongsToBurst(kSendTimeOutsideGroup, kReceiveTimeOutsideMaxBurst));
+}
 
 TEST_F(DelayBasedBweTest, NoCrashEmptyFeedback) {
   std::vector<PacketFeedback> packet_feedback_vector;

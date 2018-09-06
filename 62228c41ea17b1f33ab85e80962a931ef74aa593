@@ -22,6 +22,30 @@
       "revId": "62228c41ea17b1f33ab85e80962a931ef74aa593",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7f6303e0_679fd27f",
+        "filename": "call/video_receive_stream.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-09-06T08:35:43Z",
+      "side": 0,
+      "message": "We still have them as part of the SdpVideoFormat. Not sure how it is used in depacketizing; the use I\u0027m aware of is for calling VideoDecoderFactory::CreateDecoder. (In next, cl to replace |decoder| by |decoder_factory|).",
+      "parentUuid": "7147614b_d55d0e1e",
+      "range": {
+        "startLine": 53,
+        "startChar": 3,
+        "endLine": 53,
+        "endChar": 8
+      },
+      "revId": "62228c41ea17b1f33ab85e80962a931ef74aa593",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

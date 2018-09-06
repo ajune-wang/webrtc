@@ -20,7 +20,6 @@
 #include "logging/rtc_event_log/rtc_event_log.h"
 #include "modules/congestion_controller/goog_cc/trendline_estimator.h"
 #include "modules/pacing/paced_sender.h"
-#include "modules/remote_bitrate_estimator/include/remote_bitrate_estimator.h"
 #include "modules/remote_bitrate_estimator/test/bwe_test_logging.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/constructormagic.h"
@@ -30,13 +29,6 @@
 #include "system_wrappers/include/metrics.h"
 
 namespace {
-constexpr int kTimestampGroupLengthMs = 5;
-constexpr int kAbsSendTimeFraction = 18;
-constexpr int kAbsSendTimeInterArrivalUpshift = 8;
-constexpr int kInterArrivalShift =
-    kAbsSendTimeFraction + kAbsSendTimeInterArrivalUpshift;
-constexpr double kTimestampToMs =
-    1000.0 / static_cast<double>(1 << kInterArrivalShift);
 // This ssrc is used to fulfill the current API but will be removed
 // after the API has been changed.
 constexpr uint32_t kFixedSsrc = 0;
@@ -69,6 +61,52 @@ size_t ReadTrendlineFilterWindowSize() {
 }  // namespace
 
 namespace webrtc {
+namespace {
+constexpr TimeDelta kMaxSendTimeGroupDuration = TimeDelta::Millis<5>();
+constexpr TimeDelta kMaxReceiveTimeBurstDelta = TimeDelta::Millis<5>();
+constexpr TimeDelta kMaxReceiveTimeBurstDuration = TimeDelta::Millis<100>();
+constexpr TimeDelta kReceiveTimeOffsetThreshold = TimeDelta::Millis<3000>();
+
+}  // namespace
+
+PacketDelayGroup::PacketDelayGroup(Timestamp send_time,
+                                   Timestamp receive_time,
+                                   Timestamp system_time)
+    : first_send_time(send_time),
+      last_send_time(send_time),
+      first_receive_time(receive_time),
+      last_receive_time(receive_time),
+      last_system_time(system_time) {}
+
+PacketDelayGroup::~PacketDelayGroup() = default;
+PacketDelayGroup::PacketDelayGroup(const PacketDelayGroup&) = default;
+
+void PacketDelayGroup::AddPacketInfo(Timestamp send_time,
+                                     Timestamp receive_time,
+                                     Timestamp system_time) {
+  first_send_time = std::min(first_send_time, send_time);
+  last_send_time = std::max(last_send_time, send_time);
+  first_receive_time = std::min(first_receive_time, receive_time);
+  last_receive_time = std::max(last_receive_time, receive_time);
+  last_system_time = std::max(last_system_time, system_time);
+}
+
+bool PacketDelayGroup::BelongsToGroup(Timestamp send_time,
+                                      Timestamp receive_time) const {
+  TimeDelta send_time_duration = send_time - first_send_time;
+  return send_time_duration <= kMaxSendTimeGroupDuration;
+}
+
+bool PacketDelayGroup::BelongsToBurst(Timestamp send_time,
+                                      Timestamp receive_time) const {
+  TimeDelta send_time_delta = send_time - first_send_time;
+  TimeDelta receive_time_delta = receive_time - last_receive_time;
+  TimeDelta receive_time_duration = receive_time - first_receive_time;
+  bool receiving_faster_than_sent = receive_time_delta < send_time_delta;
+  return receiving_faster_than_sent &&
+         receive_time_delta <= kMaxReceiveTimeBurstDelta &&
+         receive_time_duration <= kMaxReceiveTimeBurstDuration;
+}
 
 DelayBasedBwe::Result::Result()
     : updated(false),
@@ -86,13 +124,12 @@ DelayBasedBwe::Result::~Result() {}
 
 DelayBasedBwe::DelayBasedBwe(RtcEventLog* event_log)
     : event_log_(event_log),
-      inter_arrival_(),
       delay_detector_(),
       last_seen_packet_ms_(-1),
       uma_recorded_(false),
       probe_bitrate_estimator_(event_log),
       trendline_window_size_(
-          webrtc::field_trial::IsEnabled(kBweWindowSizeInPacketsExperiment)
+          field_trial::IsEnabled(kBweWindowSizeInPacketsExperiment)
               ? ReadTrendlineFilterWindowSize()
               : kDefaultTrendlineWindowSize),
       trendline_smoothing_coeff_(kDefaultTrendlineSmoothingCoeff),
@@ -182,39 +219,43 @@ DelayBasedBwe::Result DelayBasedBwe::OnLongFeedbackDelay(
 void DelayBasedBwe::IncomingPacketFeedback(
     const PacketFeedback& packet_feedback,
     int64_t at_time_ms) {
-  int64_t now_ms = at_time_ms;
+  Timestamp at_time = Timestamp::ms(at_time_ms);
   // Reset if the stream has timed out.
   if (last_seen_packet_ms_ == -1 ||
-      now_ms - last_seen_packet_ms_ > kStreamTimeOutMs) {
-    inter_arrival_.reset(
-        new InterArrival((kTimestampGroupLengthMs << kInterArrivalShift) / 1000,
-                         kTimestampToMs, true));
+      at_time.ms() - last_seen_packet_ms_ > kStreamTimeOutMs) {
+    packet_groups_.clear();
     delay_detector_.reset(new TrendlineEstimator(trendline_window_size_,
                                                  trendline_smoothing_coeff_,
                                                  trendline_threshold_gain_));
   }
-  last_seen_packet_ms_ = now_ms;
+  last_seen_packet_ms_ = at_time.ms();
+  Timestamp send_time = Timestamp::ms(packet_feedback.send_time_ms);
+  Timestamp receive_time = Timestamp::ms(packet_feedback.arrival_time_ms);
 
-  uint32_t send_time_24bits =
-      static_cast<uint32_t>(
-          ((static_cast<uint64_t>(packet_feedback.send_time_ms)
-            << kAbsSendTimeFraction) +
-           500) /
-          1000) &
-      0x00FFFFFF;
-  // Shift up send time to use the full 32 bits that inter_arrival works with,
-  // so wrapping works properly.
-  uint32_t timestamp = send_time_24bits << kAbsSendTimeInterArrivalUpshift;
-
-  uint32_t ts_delta = 0;
-  int64_t t_delta = 0;
-  int size_delta = 0;
-  if (inter_arrival_->ComputeDeltas(timestamp, packet_feedback.arrival_time_ms,
-                                    now_ms, packet_feedback.payload_size,
-                                    &ts_delta, &t_delta, &size_delta)) {
-    double ts_delta_ms = (1000.0 * ts_delta) / (1 << kInterArrivalShift);
-    delay_detector_->Update(t_delta, ts_delta_ms,
-                            packet_feedback.arrival_time_ms);
+  if (packet_groups_.empty() ||
+      !(packet_groups_.back().BelongsToGroup(send_time, receive_time) ||
+        packet_groups_.back().BelongsToBurst(send_time, receive_time))) {
+    packet_groups_.emplace_back(send_time, receive_time, at_time);
+  } else {
+    packet_groups_.back().AddPacketInfo(send_time, receive_time, at_time);
+  }
+  if (packet_groups_.size() >= 3) {
+    TimeDelta send_delta =
+        packet_groups_[1].last_send_time - packet_groups_[0].last_send_time;
+    TimeDelta receive_delta = packet_groups_[1].last_receive_time -
+                              packet_groups_[0].last_receive_time;
+    TimeDelta system_delta =
+        packet_groups_[1].last_system_time - packet_groups_[0].last_system_time;
+    RTC_DCHECK_GE(receive_delta.ms(), 0);
+    if (receive_delta - system_delta >= kReceiveTimeOffsetThreshold) {
+      RTC_LOG(LS_WARNING)
+          << "The receive time to clock offset has changed (diff = "
+          << receive_delta.ms() - system_delta.ms() << " ms), ignoring delta.";
+    } else {
+      delay_detector_->Update(receive_delta.ms<double>(),
+                              send_delta.ms<double>(), receive_time.ms());
+    }
+    packet_groups_.pop_front();
   }
   if (packet_feedback.pacing_info.probe_cluster_id !=
       PacedPacketInfo::kNotAProbe) {
@@ -321,4 +362,5 @@ void DelayBasedBwe::SetMinBitrate(int min_bitrate_bps) {
 int64_t DelayBasedBwe::GetExpectedBwePeriodMs() const {
   return rate_control_.GetExpectedBandwidthPeriodMs();
 }
+
 }  // namespace webrtc

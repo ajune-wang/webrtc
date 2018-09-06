@@ -11,6 +11,7 @@
 #ifndef MODULES_CONGESTION_CONTROLLER_GOOG_CC_DELAY_BASED_BWE_H_
 #define MODULES_CONGESTION_CONTROLLER_GOOG_CC_DELAY_BASED_BWE_H_
 
+#include <deque>
 #include <memory>
 #include <utility>
 #include <vector>
@@ -18,14 +19,31 @@
 #include "modules/congestion_controller/goog_cc/delay_increase_detector_interface.h"
 #include "modules/congestion_controller/goog_cc/probe_bitrate_estimator.h"
 #include "modules/remote_bitrate_estimator/aimd_rate_control.h"
-#include "modules/remote_bitrate_estimator/include/remote_bitrate_estimator.h"
-#include "modules/remote_bitrate_estimator/inter_arrival.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/constructormagic.h"
 #include "rtc_base/race_checker.h"
 
 namespace webrtc {
-class RtcEventLog;
+
+struct PacketDelayGroup {
+  explicit PacketDelayGroup(Timestamp send_time,
+                            Timestamp receive_time,
+                            Timestamp system_time);
+  PacketDelayGroup(const PacketDelayGroup&);
+  ~PacketDelayGroup();
+  void AddPacketInfo(Timestamp send_time,
+                     Timestamp receive_time,
+                     Timestamp system_time);
+  bool BelongsToGroup(Timestamp send_time, Timestamp receive_time) const;
+  bool BelongsToBurst(Timestamp send_time, Timestamp receive_time) const;
+
+  Timestamp first_send_time;
+  Timestamp last_send_time;
+
+  Timestamp first_receive_time;
+  Timestamp last_receive_time;
+  Timestamp last_system_time;
+};
 
 class DelayBasedBwe {
  public:
@@ -71,7 +89,8 @@ class DelayBasedBwe {
 
   rtc::RaceChecker network_race_;
   RtcEventLog* const event_log_;
-  std::unique_ptr<InterArrival> inter_arrival_;
+  std::deque<PacketDelayGroup> packet_groups_;
+
   std::unique_ptr<DelayIncreaseDetectorInterface> delay_detector_;
   int64_t last_seen_packet_ms_;
   bool uma_recorded_;

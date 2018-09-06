@@ -25,8 +25,16 @@
 #include "modules/congestion_controller/goog_cc/delay_based_bwe.h"
 #include "modules/congestion_controller/goog_cc/probe_controller.h"
 #include "rtc_base/constructormagic.h"
+#include "rtc_base/experiments/field_trial_parser.h"
+#include "rtc_base/experiments/field_trial_units.h"
 
 namespace webrtc {
+
+struct InitialDataWindowConfig {
+  FieldTrialParameter<DataSize> size;
+  FieldTrialParameter<double> exit_rate_factor;
+  InitialDataWindowConfig();
+};
 
 class GoogCcNetworkController : public NetworkControllerInterface {
  public:
@@ -53,6 +61,11 @@ class GoogCcNetworkController : public NetworkControllerInterface {
 
  private:
   friend class GoogCcStatePrinter;
+  enum class InitialState {
+    kWaitingForEstimate,
+    kWindowFullWaitingForEstimate,
+    kReceivedEstimate
+  };
   std::vector<ProbeClusterConfig> UpdateBitrateConstraints(
       TargetRateConstraints constraints,
       absl::optional<DataRate> starting_rate);
@@ -71,6 +84,9 @@ class GoogCcNetworkController : public NetworkControllerInterface {
   std::unique_ptr<AcknowledgedBitrateEstimator> acknowledged_bitrate_estimator_;
 
   absl::optional<NetworkControllerConfig> initial_config_;
+
+  const InitialDataWindowConfig initial_data_window_;
+  InitialState initial_state_ = InitialState::kWaitingForEstimate;
 
   Timestamp next_loss_update_ = Timestamp::MinusInfinity();
   int lost_packets_since_last_loss_update_ = 0;

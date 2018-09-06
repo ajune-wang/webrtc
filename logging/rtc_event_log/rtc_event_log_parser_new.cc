@@ -528,6 +528,12 @@ void ParsedRtcEventLogNew::StoreParsedEvent(const rtclog::Event& event) {
           event, &direction, header, &header_length, &total_length, nullptr);
       RtpUtility::RtpHeaderParser rtp_parser(header, header_length);
       RTPHeader parsed_header;
+
+      // Since we give the parser only a header, there can be no way for it to
+      // know the padding length. We give it an initial value. If the parser
+      // finds evidence of other value, it will rewrite the field.
+      parsed_header.paddingLength = total_length - header_length;
+
       if (extension_map != nullptr) {
         rtp_parser.Parse(&parsed_header, extension_map);
       } else {

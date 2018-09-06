@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "06027260_deeee068",
+        "filename": "test/decoder_proxy_factory.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-09-06T12:44:03Z",
+      "side": 1,
+      "message": "This class looks extremly similar to FunctionVideoDecoderFactory, which is a bit more general. Do we really need this class?",
+      "range": {
+        "startLine": 27,
+        "startChar": 6,
+        "endLine": 27,
+        "endChar": 25
+      },
+      "revId": "022acbab63223486adb49f50b157419f5138cff9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

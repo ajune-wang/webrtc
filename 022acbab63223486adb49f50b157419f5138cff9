@@ -46,6 +46,30 @@
       "revId": "022acbab63223486adb49f50b157419f5138cff9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2229ff82_c8e94242",
+        "filename": "test/decoder_proxy_factory.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-09-06T13:07:13Z",
+      "side": 1,
+      "message": "Right, so using a DecoderProxy we can own the actual decoder and make sure that it is not destroyed when the DecoderProxy is destroyed.\n\nWDYT about making the DecoderProxy public, and then use FunctionVideoDecoderFactory instead of a DecoderProxyFactory? That way you should be able to do something like:\n\n  FunctionVideoDecoderFactory([my_decoder_](){return absl::make_unique\u003cDecoderProxy(my_decoder_)\u003e();})\n\nwhich is still pretty straight forward.",
+      "parentUuid": "8d4f3d59_42316368",
+      "range": {
+        "startLine": 27,
+        "startChar": 6,
+        "endLine": 27,
+        "endChar": 25
+      },
+      "revId": "022acbab63223486adb49f50b157419f5138cff9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

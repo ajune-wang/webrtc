@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2a600797_44da5e99",
+        "filename": "rtc_base/checks.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-09-06T08:28:23Z",
+      "side": 1,
+      "message": "The style guide doesn\u0027t allow mutable reference arguments. Use a pointer instead.",
+      "range": {
+        "startLine": 42,
+        "startChar": 20,
+        "endLine": 42,
+        "endChar": 34
+      },
+      "revId": "c88bf5258ba363669b571182053790a2fb8c842f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66de421a_1ae4a87e",
+        "filename": "rtc_base/checks.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-09-06T08:28:23Z",
+      "side": 1,
+      "message": "Pointer.",
+      "range": {
+        "startLine": 64,
+        "startChar": 55,
+        "endLine": 64,
+        "endChar": 69
+      },
+      "revId": "c88bf5258ba363669b571182053790a2fb8c842f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

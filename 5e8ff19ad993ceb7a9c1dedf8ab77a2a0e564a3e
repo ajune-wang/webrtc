@@ -16,6 +16,24 @@
       "revId": "5e8ff19ad993ceb7a9c1dedf8ab77a2a0e564a3e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "121df8eb_96127dfa",
+        "filename": "api/dtmfsenderinterface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-09-06T13:16:11Z",
+      "side": 1,
+      "message": "I have an in-progress CL that turns tonebuffer into an [[internal slot]] in Blink, updated only on tone events and send calls. But it didn\u0027t solve the problem without the WebRTC change, so the WebRTC change has to land before I can test that this fixes the problem.\n\nOnce I\u0027ve verified that this works, I\u0027ll remove the getter from the content/ layer (with as many getters as I can get away with deleting), so that we don\u0027t invoke\u003c\u003e from DTMF.\nCan be considered part of onion souping.",
+      "parentUuid": "51779042_fe1d73dc",
+      "revId": "5e8ff19ad993ceb7a9c1dedf8ab77a2a0e564a3e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

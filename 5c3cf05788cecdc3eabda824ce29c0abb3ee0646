@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f0b0e54f_6a167f2f",
+        "filename": "examples/stunprober/main.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2018-09-06T12:23:57Z",
+      "side": 0,
+      "message": "Here I was a bit careless, and a unrelated #include deletion snuck in. It is unused, so maybe removing it now is for the best.",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 19
+      },
+      "revId": "5c3cf05788cecdc3eabda824ce29c0abb3ee0646",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

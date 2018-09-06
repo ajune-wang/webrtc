@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "51779042_fe1d73dc",
+        "filename": "api/dtmfsenderinterface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-09-06T10:38:54Z",
+      "side": 1,
+      "message": "Is the tone buffer surfaced to blink and cached there in an [[internal slot]] or is this just going to be used as a boolean \"is tone buffer empty\"?\n\nI see that the RTCDTMFSender has the same problem as RTCDataChannel et. al. in that its synchronous methods (attribute getters) are doing a blocking invoke on the signaling thread, meaning state information is surfaced prematurely and exposes the fact that the buffer may have been modified in the background.\n\nFor a spec compliant version we should surface all state information in a callback and cache everything in blink.",
+      "revId": "5e8ff19ad993ceb7a9c1dedf8ab77a2a0e564a3e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

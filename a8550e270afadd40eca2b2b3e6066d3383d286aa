@@ -34,6 +34,24 @@
       "revId": "a8550e270afadd40eca2b2b3e6066d3383d286aa",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ef8b795_4f3a573b",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-09-06T10:58:03Z",
+      "side": 1,
+      "message": "An option is to use the constexpr version:\nconstexpr TimeDelta kLossUpdateInterval \u003d TimeDelta::Millis\u003c1000\u003e();",
+      "parentUuid": "dbdc9743_e0873dee",
+      "revId": "a8550e270afadd40eca2b2b3e6066d3383d286aa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -192,6 +192,7 @@ class NetworkTest : public testing::Test, public sigslot::has_slots<> {
 #endif  // defined(WEBRTC_POSIX)
 
  protected:
+  AutoThread main;
   bool callback_called_;
 };
 

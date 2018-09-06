@@ -15,8 +15,8 @@ if (is_android) {
   import("//build/config/android/rules.gni")
 }
 
+# TODO(nisse): Delete?
 config("rtc_base_chromium_config") {
-  defines = [ "NO_MAIN_THREAD_WRAPPING" ]
 }
 
 config("rtc_base_all_dependent_config") {

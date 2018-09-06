@@ -70,8 +70,10 @@ void CreateClientConnection(HttpServer& server,
 }  // anonymous namespace
 
 TEST(HttpServer, DoesNotSignalCloseUnlessCloseAllIsCalled) {
+  AutoThread main;
   HttpServer server;
   HttpServerMonitor monitor(&server);
+
   // Add an active client connection
   CreateClientConnection(server, monitor, true);
   // Simulate a response
@@ -84,6 +86,7 @@ TEST(HttpServer, DoesNotSignalCloseUnlessCloseAllIsCalled) {
 }
 
 TEST(HttpServer, SignalsCloseWhenNoConnectionsAreActive) {
+  AutoThread main;
   HttpServer server;
   HttpServerMonitor monitor(&server);
   // Add an idle client connection
@@ -96,6 +99,7 @@ TEST(HttpServer, SignalsCloseWhenNoConnectionsAreActive) {
 }
 
 TEST(HttpServer, SignalsCloseAfterGracefulCloseAll) {
+  AutoThread main;
   HttpServer server;
   HttpServerMonitor monitor(&server);
   // Add an active client connection
@@ -113,6 +117,7 @@ TEST(HttpServer, SignalsCloseAfterGracefulCloseAll) {
 }
 
 TEST(HttpServer, SignalsCloseAfterForcedCloseAll) {
+  AutoThread main;
   HttpServer server;
   HttpServerMonitor monitor(&server);
   // Add an active client connection

@@ -47,6 +47,7 @@ class WebRtcVideoCapturerTest : public testing::Test {
   }
 
  protected:
+  rtc::AutoThread main_thread_;
   FakeWebRtcVcmFactory* factory_;  // owned by capturer_
   std::unique_ptr<cricket::WebRtcVideoCapturer> capturer_;
 };

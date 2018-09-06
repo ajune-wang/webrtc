@@ -264,16 +264,13 @@ TEST(ThreadTest, Names) {
 }
 
 TEST(ThreadTest, Wrap) {
-  Thread* current_thread = Thread::Current();
-  current_thread->UnwrapCurrent();
-  CustomThread* cthread = new CustomThread();
-  EXPECT_TRUE(cthread->WrapCurrent());
-  EXPECT_TRUE(cthread->RunningForTest());
-  EXPECT_FALSE(cthread->IsOwned());
-  cthread->UnwrapCurrent();
-  EXPECT_FALSE(cthread->RunningForTest());
-  delete cthread;
-  current_thread->WrapCurrent();
+  CustomThread cthread;
+  EXPECT_TRUE(cthread.WrapCurrent());
+  EXPECT_EQ(&cthread, Thread::Current());
+  EXPECT_TRUE(cthread.RunningForTest());
+  EXPECT_FALSE(cthread.IsOwned());
+  cthread.UnwrapCurrent();
+  EXPECT_FALSE(cthread.RunningForTest());
 }
 
 TEST(ThreadTest, Invoke) {
@@ -435,6 +432,7 @@ class AsyncInvokeTest : public testing::Test {
   }
 
  protected:
+  AutoThread main;
   enum { kWaitTimeout = 1000 };
   AsyncInvokeTest() : int_value_(0), expected_thread_(nullptr) {}
 
@@ -582,6 +580,7 @@ class GuardedAsyncInvokeTest : public testing::Test {
   }
 
  protected:
+  AutoThread main;
   const static int kWaitTimeout = 1000;
   GuardedAsyncInvokeTest() : int_value_(0), expected_thread_(nullptr) {}
 

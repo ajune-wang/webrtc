@@ -284,6 +284,7 @@ class JsepTransportControllerTest : public JsepTransportController::Observer,
   int gathering_state_signal_count_ = 0;
   int candidates_signal_count_ = 0;
 
+  rtc::AutoThread main_thread_;
   // |network_thread_| should be destroyed after |transport_controller_|
   std::unique_ptr<rtc::Thread> network_thread_;
   std::unique_ptr<JsepTransportController> transport_controller_;

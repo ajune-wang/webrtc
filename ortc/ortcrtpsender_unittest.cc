@@ -51,6 +51,7 @@ class OrtcRtpSenderTest : public testing::Test {
   }
 
  protected:
+  rtc::AutoThread main_thread_;
   rtc::scoped_refptr<AudioTrackInterface> CreateAudioTrack(
       const std::string& id) {
     return ortc_factory_->CreateAudioTrack(id, nullptr);

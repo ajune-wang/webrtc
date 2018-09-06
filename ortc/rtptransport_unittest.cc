@@ -37,6 +37,7 @@ class RtpTransportTest : public testing::Test {
   }
 
  protected:
+  rtc::AutoThread main_thread_;
   // Owned by |ortc_factory_|.
   cricket::FakeMediaEngine* fake_media_engine_;
   std::unique_ptr<OrtcFactoryInterface> ortc_factory_;

@@ -118,6 +118,8 @@ int main(int argc, char* argv[]) {
   rtc::test::InitTestSuite(RUN_ALL_TESTS, argc, argv, false);
   rtc::test::RunTestsFromIOSApp();
 #endif
+
+  rtc::AutoThread main_thread;
   const int res = RUN_ALL_TESTS();
 
   rtc::CleanupSSL();

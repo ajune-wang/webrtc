@@ -64,6 +64,7 @@ class VideoCapturerTest : public sigslot::has_slots<>, public testing::Test {
 };
 
 TEST_F(VideoCapturerTest, CaptureState) {
+  rtc::AutoThread main_thread;
   EXPECT_TRUE(capturer_->enable_video_adapter());
   EXPECT_EQ(cricket::CS_RUNNING,
             capturer_->Start(cricket::VideoFormat(

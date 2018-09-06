@@ -775,6 +775,7 @@ if (is_ios || is_mac) {
         "audio_codecs",  # TODO(bugs.webrtc.org/8396): Remove.
         "software_video_codecs",  # TODO(bugs.webrtc.org/7925): Remove.
       ]
+      configs += [ "../..:no_exit_time_destructors" ]
       sources = [
         "objc/api/peerconnection/RTCAudioSource+Private.h",
         "objc/api/peerconnection/RTCAudioSource.h",

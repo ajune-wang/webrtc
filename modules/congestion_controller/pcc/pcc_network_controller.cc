@@ -26,11 +26,9 @@ constexpr double kSlowStartModeIncrease = 1.5;
 
 constexpr double kAlphaForPacketInterval = 0.9;
 constexpr int64_t kMinPacketsNumberPerInterval = 20;
-const TimeDelta kMinDurationOfMonitorInterval = TimeDelta::ms(50);
-const TimeDelta kStartupDuration = TimeDelta::ms(500);
+const int64_t kMinDurationOfMonitorInterval = 50;
+const int64_t kStartupDuration = 500;
 constexpr double kMinRateChangeBps = 4000;
-const DataRate kMinRateHaveMultiplicativeRateChange =
-    DataRate::bps(kMinRateChangeBps / kDefaultSamplingStep);
 
 // Bitrate controller constants.
 constexpr double kInitialConversionFactor = 5;
@@ -120,11 +118,14 @@ NetworkControlUpdate PccNetworkController::CreateRateUpdate(
 }
 
 NetworkControlUpdate PccNetworkController::OnSentPacket(SentPacket msg) {
+  const TimeDelta startupDuration = TimeDelta::ms(kStartupDuration);
+  const DataRate kMinRateHaveMultiplicativeRateChange =
+      DataRate::bps(kMinRateChangeBps / kDefaultSamplingStep);
   // Start new monitor interval if previous has finished.
   // Monitor interval is initialized in OnProcessInterval function.
   if (start_time_.IsInfinite()) {
     start_time_ = msg.send_time;
-    monitor_intervals_duration_ = kStartupDuration;
+    monitor_intervals_duration_ = startupDuration;
     monitor_intervals_bitrates_ = {bandwidth_estimate_};
     monitor_intervals_.emplace_back(bandwidth_estimate_, msg.send_time,
                                     monitor_intervals_duration_);
@@ -162,7 +163,7 @@ NetworkControlUpdate PccNetworkController::OnSentPacket(SentPacket msg) {
       mode_ = Mode::kOnlineLearning;
   }
   if (mode_ == Mode::kStartup &&
-      msg.send_time - start_time_ >= kStartupDuration) {
+      msg.send_time - start_time_ >= startupDuration) {
     DataSize received_size = DataSize::Zero();
     for (size_t i = 1; i < last_received_packets_.size(); ++i) {
       received_size += last_received_packets_[i].sent_packet->size;
@@ -226,6 +227,8 @@ NetworkControlUpdate PccNetworkController::OnSentPacket(SentPacket msg) {
 
 TimeDelta PccNetworkController::ComputeMonitorIntervalsDuration() const {
   TimeDelta monitor_intervals_duration = TimeDelta::Zero();
+  const TimeDelta minDurationOfMonitorInterval =
+      TimeDelta::ms(kMinDurationOfMonitorInterval);
   if (monitor_interval_length_strategy_ ==
       MonitorIntervalLengthStrategy::kAdaptive) {
     monitor_intervals_duration = std::max(
@@ -238,7 +241,7 @@ TimeDelta PccNetworkController::ComputeMonitorIntervalsDuration() const {
         smoothed_packets_sending_interval_ * min_packets_number_per_interval_;
   }
   monitor_intervals_duration =
-      std::max(kMinDurationOfMonitorInterval, monitor_intervals_duration);
+      std::max(minDurationOfMonitorInterval, monitor_intervals_duration);
   return monitor_intervals_duration;
 }
 

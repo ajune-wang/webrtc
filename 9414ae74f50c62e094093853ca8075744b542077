@@ -1,0 +1,372 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8e085e07_e5b8096a",
+        "filename": "rtc_tools/frame_analyzer/linear_least_squares.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-09-06T09:20:16Z",
+      "side": 1,
+      "message": "Maybe we should consider make a single matrix library for WebRTC to avoid duplicating this logic?",
+      "range": {
+        "startLine": 22,
+        "startChar": 6,
+        "endLine": 22,
+        "endChar": 12
+      },
+      "revId": "9414ae74f50c62e094093853ca8075744b542077",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7dd37105_2e7f8f48",
+        "filename": "rtc_tools/frame_analyzer/linear_least_squares.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-09-06T09:20:16Z",
+      "side": 1,
+      "message": "Can you please clarify why we can do this, are the input matrices already transposed?",
+      "range": {
+        "startLine": 102,
+        "startChar": 52,
+        "endLine": 102,
+        "endChar": 71
+      },
+      "revId": "9414ae74f50c62e094093853ca8075744b542077",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36ecc3d7_4d17a07d",
+        "filename": "rtc_tools/frame_analyzer/linear_least_squares.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-09-06T09:20:16Z",
+      "side": 1,
+      "message": "Maybe a more descriptive iterator name here would be better?",
+      "range": {
+        "startLine": 105,
+        "startChar": 14,
+        "endLine": 105,
+        "endChar": 15
+      },
+      "revId": "9414ae74f50c62e094093853ca8075744b542077",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa1b385d_1251ccd3",
+        "filename": "rtc_tools/frame_analyzer/linear_least_squares.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-09-06T09:20:16Z",
+      "side": 1,
+      "message": "nit: highest absolute value in the \"scaling\" position",
+      "range": {
+        "startLine": 106,
+        "startChar": 31,
+        "endLine": 106,
+        "endChar": 47
+      },
+      "revId": "9414ae74f50c62e094093853ca8075744b542077",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b14d604_6cebdf34",
+        "filename": "rtc_tools/frame_analyzer/linear_least_squares.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-09-06T09:20:16Z",
+      "side": 1,
+      "message": "nit: size_t?",
+      "range": {
+        "startLine": 107,
+        "startChar": 4,
+        "endLine": 107,
+        "endChar": 7
+      },
+      "revId": "9414ae74f50c62e094093853ca8075744b542077",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1906efb0_8a9d1d3e",
+        "filename": "rtc_tools/frame_analyzer/linear_least_squares.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-09-06T09:20:16Z",
+      "side": 1,
+      "message": "nit: we could start at i + 1",
+      "range": {
+        "startLine": 108,
+        "startChar": 25,
+        "endLine": 108,
+        "endChar": 26
+      },
+      "revId": "9414ae74f50c62e094093853ca8075744b542077",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9dd29f63_c21bfb71",
+        "filename": "rtc_tools/frame_analyzer/linear_least_squares.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-09-06T09:20:16Z",
+      "side": 1,
+      "message": "Can you add a comment what happens in this case?",
+      "range": {
+        "startLine": 117,
+        "startChar": 6,
+        "endLine": 117,
+        "endChar": 15
+      },
+      "revId": "9414ae74f50c62e094093853ca8075744b542077",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a2da7e3_6643e976",
+        "filename": "rtc_tools/frame_analyzer/linear_least_squares.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-09-06T09:20:16Z",
+      "side": 1,
+      "message": "nit: this variables shadows the above variable, this is generally not considered good.",
+      "range": {
+        "startLine": 126,
+        "startChar": 19,
+        "endLine": 126,
+        "endChar": 24
+      },
+      "revId": "9414ae74f50c62e094093853ca8075744b542077",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d639af37_80d2491d",
+        "filename": "rtc_tools/frame_analyzer/linear_least_squares.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-09-06T09:20:16Z",
+      "side": 1,
+      "message": "Does this actually solve a system of equations, looks like that to me based on the code?",
+      "range": {
+        "startLine": 22,
+        "startChar": 3,
+        "endLine": 22,
+        "endChar": 12
+      },
+      "revId": "9414ae74f50c62e094093853ca8075744b542077",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2e0630c_860bc426",
+        "filename": "rtc_tools/frame_analyzer/linear_least_squares.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-09-06T09:20:16Z",
+      "side": 1,
+      "message": "Seems like this class would be an ideal target for unit testing?",
+      "range": {
+        "startLine": 29,
+        "startChar": 6,
+        "endLine": 29,
+        "endChar": 35
+      },
+      "revId": "9414ae74f50c62e094093853ca8075744b542077",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ef48f67_4ead60d5",
+        "filename": "rtc_tools/frame_analyzer/linear_least_squares.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-09-06T09:20:16Z",
+      "side": 1,
+      "message": "Unclear why this is a vector of vectors and not just a vector? Or is this a system of equations?",
+      "range": {
+        "startLine": 36,
+        "startChar": 29,
+        "endLine": 36,
+        "endChar": 62
+      },
+      "revId": "9414ae74f50c62e094093853ca8075744b542077",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a409b4e9_a61fbdd8",
+        "filename": "rtc_tools/frame_analyzer/video_color_aligner.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-09-06T09:20:16Z",
+      "side": 1,
+      "message": "Seems unnecessarily big if we are only going to use ChromaWidth * ChromeHeight?",
+      "range": {
+        "startLine": 55,
+        "startChar": 37,
+        "endLine": 55,
+        "endChar": 42
+      },
+      "revId": "9414ae74f50c62e094093853ca8075744b542077",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "232819df_f144908c",
+        "filename": "rtc_tools/frame_analyzer/video_color_aligner.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-09-06T09:20:16Z",
+      "side": 1,
+      "message": "I think it would be cleaner to just have a second loop for U- and V-planes.",
+      "range": {
+        "startLine": 121,
+        "startChar": 0,
+        "endLine": 122,
+        "endChar": 21
+      },
+      "revId": "9414ae74f50c62e094093853ca8075744b542077",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "09ca918b_c56d0019",
+        "filename": "rtc_tools/frame_analyzer/video_color_aligner.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-09-06T09:20:16Z",
+      "side": 1,
+      "message": "Is it possible to add simple tests for these methods?",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 44
+      },
+      "revId": "9414ae74f50c62e094093853ca8075744b542077",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "931a5aac_59606707",
+        "filename": "rtc_tools/frame_analyzer/video_quality_analysis.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-09-06T09:20:16Z",
+      "side": 1,
+      "message": "nit: Looks like this class takes an array view, is it possible to make one with specified length so we avoid overruns?",
+      "range": {
+        "startLine": 69,
+        "startChar": 7,
+        "endLine": 69,
+        "endChar": 26
+      },
+      "revId": "9414ae74f50c62e094093853ca8075744b542077",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4adf3038_7b5a9ce4",
+        "filename": "rtc_tools/frame_analyzer/video_temporal_aligner.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-09-06T09:20:16Z",
+      "side": 1,
+      "message": "Is this an unrelated change?",
+      "range": {
+        "startLine": 218,
+        "startChar": 28,
+        "endLine": 218,
+        "endChar": 52
+      },
+      "revId": "9414ae74f50c62e094093853ca8075744b542077",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

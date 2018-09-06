@@ -22,6 +22,7 @@ rtc_static_library("pcc") {
 }
 
 rtc_static_library("pcc_controller") {
+  configs += [ "../../..:no_global_constructors" ]
   sources = [
     "pcc_network_controller.cc",
     "pcc_network_controller.h",

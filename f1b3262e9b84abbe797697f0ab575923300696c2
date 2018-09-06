@@ -52,6 +52,24 @@
       "revId": "f1b3262e9b84abbe797697f0ab575923300696c2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "39b0e329_62c33dc2",
+        "filename": "modules/audio_processing/aec3/matched_filter_lag_aggregator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-09-06T22:14:14Z",
+      "side": 1,
+      "message": "I agree, I think the if-statement is correct as it is.\nI like the suggestion for the DCHECK, I\u0027ll add that",
+      "parentUuid": "b2c2e229_e8b00147",
+      "revId": "f1b3262e9b84abbe797697f0ab575923300696c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

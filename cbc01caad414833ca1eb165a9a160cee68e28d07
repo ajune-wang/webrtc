@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ea66370f_e52cf4e7",
+        "filename": "api/test/neteq_simulator_factory.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-09-06T12:51:46Z",
+      "side": 1,
+      "message": "Can this be turned into a constructor argument or some equivalent?\n\nAlso, a pointer to where one can read more about the expected contents of this string?",
+      "revId": "cbc01caad414833ca1eb165a9a160cee68e28d07",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

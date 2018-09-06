@@ -214,6 +214,30 @@
     },
     {
       "key": {
+        "uuid": "aa5bc24a_7fab99dc",
+        "filename": "sdk/android/api/org/webrtc/FrameDecryptor.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2018-09-06T00:00:44Z",
+      "side": 1,
+      "message": "^ Ignore this this only applies to shared_ptr and not scoped_refptr.",
+      "parentUuid": "52d39b16_12d9588b",
+      "range": {
+        "startLine": 22,
+        "startChar": 13,
+        "endLine": 22,
+        "endChar": 47
+      },
+      "revId": "8075a07508f63048ebead0c5884f153533d66f09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "01ea989a_6a9b8067",
         "filename": "sdk/android/api/org/webrtc/FrameEncryptor.java",
         "patchSetId": 6

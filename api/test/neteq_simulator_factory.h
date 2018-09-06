@@ -13,6 +13,7 @@
 
 #include <memory>
 
+#include "absl/strings/string_view.h"
 #include "api/test/neteq_simulator.h"
 
 namespace webrtc {
@@ -24,6 +25,9 @@ class NetEqSimulatorFactory {
  public:
   NetEqSimulatorFactory();
   ~NetEqSimulatorFactory();
+  // Sets field trials. Note that this function should not be called more than
+  // once.
+  void SetFieldTrials(absl::string_view field_trials);
   // This function takes the same arguments as the neteq_rtpplay utility.
   std::unique_ptr<NetEqSimulator> CreateSimulator(int argc, char* argv[]);
 

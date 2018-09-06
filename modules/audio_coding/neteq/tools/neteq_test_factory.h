@@ -13,6 +13,7 @@
 
 #include <memory>
 
+#include "absl/strings/string_view.h"
 #include "modules/audio_coding/neteq/tools/neteq_test.h"
 
 namespace webrtc {
@@ -21,6 +22,7 @@ namespace test {
 class SsrcSwitchDetector;
 class NetEqStatsGetter;
 class NetEqStatsPlotter;
+class ScopedFieldTrials;
 
 // Note that the NetEqTestFactory needs to be alive when the NetEqTest object is
 // used for a simulation.
@@ -28,6 +30,9 @@ class NetEqTestFactory {
  public:
   NetEqTestFactory();
   ~NetEqTestFactory();
+  // Sets field trials. Note that this function should not be called more than
+  // once.
+  void SetFieldTrials(absl::string_view field_trials);
   std::unique_ptr<NetEqTest> InitializeTest(int argc, char* argv[]);
 
  private:
@@ -35,6 +40,7 @@ class NetEqTestFactory {
   NetEqTest::ExtDecoderMap ext_codecs_;
   std::unique_ptr<SsrcSwitchDetector> ssrc_switch_detector_;
   std::unique_ptr<NetEqStatsPlotter> stats_plotter_;
+  std::unique_ptr<ScopedFieldTrials> field_trials_;
 };
 
 }  // namespace test

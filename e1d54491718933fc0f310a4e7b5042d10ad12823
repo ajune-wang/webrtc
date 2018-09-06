@@ -22,6 +22,30 @@
       "revId": "e1d54491718933fc0f310a4e7b5042d10ad12823",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd9fba34_fed02952",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-09-06T13:46:35Z",
+      "side": 1,
+      "message": "Here it\u0027s perfect!",
+      "parentUuid": "c2cf7685_9df39056",
+      "range": {
+        "startLine": 114,
+        "startChar": 34,
+        "endLine": 114,
+        "endChar": 43
+      },
+      "revId": "e1d54491718933fc0f310a4e7b5042d10ad12823",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

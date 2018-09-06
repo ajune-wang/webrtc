@@ -35,6 +35,8 @@ class NetEqTestFactory {
   NetEqTest::ExtDecoderMap ext_codecs_;
   std::unique_ptr<SsrcSwitchDetector> ssrc_switch_detector_;
   std::unique_ptr<NetEqStatsPlotter> stats_plotter_;
+  std::unique_ptr<ScopedFieldTrials> field_trials_;
+  static bool field_trials_validate_called_ = false;
 };
 
 }  // namespace test

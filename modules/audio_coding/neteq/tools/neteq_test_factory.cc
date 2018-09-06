@@ -312,8 +312,11 @@ std::unique_ptr<NetEqTest> NetEqTestFactory::InitializeTest(int argc,
     exit(0);
   }
 
-  ValidateFieldTrialsStringOrDie(FLAG_force_fieldtrials);
-  ScopedFieldTrials field_trials(FLAG_force_fieldtrials);
+  if (!field_trials_validate_called_) {
+    field_trials_validate_called_ = true;
+    ValidateFieldTrialsStringOrDie(FLAG_force_fieldtrials);
+  }
+  field_trials_.reset(new ScopedFieldTrials(FLAG_force_fieldtrials));
 
   RTC_CHECK(ValidatePayloadType(FLAG_pcmu));
   RTC_CHECK(ValidatePayloadType(FLAG_pcma));

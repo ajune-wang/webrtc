@@ -166,6 +166,13 @@ config("common_inherited_config") {
   }
 }
 
+config("rtc_prod_config") {
+  # Ideally, WebRTC production code (but not test code) should have these flags.
+  if (is_clang) {
+    cflags = [ "-Wglobal-constructors" ]
+  }
+}
+
 config("common_config") {
   cflags = []
   cflags_c = []

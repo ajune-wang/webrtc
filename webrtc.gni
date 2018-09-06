@@ -262,6 +262,7 @@ rtc_common_inherited_config = webrtc_root + ":common_inherited_config"
 # Common configs to remove or add in all rtc targets.
 rtc_remove_configs = []
 rtc_add_configs = rtc_common_configs
+rtc_prod_configs = [ webrtc_root + ":rtc_prod_config" ]
 
 set_defaults("rtc_test") {
   configs = rtc_add_configs
@@ -524,6 +525,10 @@ template("rtc_static_library") {
           assert_no_deps += [ webrtc_root + ":poison_" + poison_type ]
         }
       }
+    }
+
+    if (!defined(testonly)) {
+      configs += rtc_prod_configs
     }
 
     configs += invoker.configs

@@ -120,6 +120,7 @@ NetworkControlUpdate PccNetworkController::CreateRateUpdate(
 }
 
 NetworkControlUpdate PccNetworkController::OnSentPacket(SentPacket msg) {
+  DataRate::bps(kMinRateChangeBps / kDefaultSamplingStep);
   // Start new monitor interval if previous has finished.
   // Monitor interval is initialized in OnProcessInterval function.
   if (start_time_.IsInfinite()) {

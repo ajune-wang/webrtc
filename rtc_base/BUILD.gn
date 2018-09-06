@@ -208,6 +208,7 @@ rtc_source_set("logging") {
       "../../webrtc_overrides/rtc_base/logging.h",
     ]
   } else {
+    configs += [ "..:no_global_constructors" ]
     sources = [
       "logging.cc",
       "logging.h",

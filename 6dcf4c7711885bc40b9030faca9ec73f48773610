@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "6d815b35_5cb490ec",
+        "filename": "api/test/neteq_simulator.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2018-09-06T14:03:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf91fbfe_08c03e5f",
+      "revId": "6dcf4c7711885bc40b9030faca9ec73f48773610",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "44cd10ac_a3334233",
         "filename": "modules/audio_coding/neteq/tools/neteq_test.cc",
         "patchSetId": 1
@@ -39,6 +57,30 @@
       "revId": "6dcf4c7711885bc40b9030faca9ec73f48773610",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3bc1338_0f49ddf7",
+        "filename": "modules/audio_coding/neteq/tools/neteq_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2018-09-06T14:03:39Z",
+      "side": 1,
+      "message": "Good point. I now added a different scaling to handle the case where these add up to more than 1.",
+      "parentUuid": "44cd10ac_a3334233",
+      "range": {
+        "startLine": 157,
+        "startChar": 37,
+        "endLine": 157,
+        "endChar": 44
+      },
+      "revId": "6dcf4c7711885bc40b9030faca9ec73f48773610",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

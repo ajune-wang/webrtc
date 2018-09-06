@@ -22,6 +22,30 @@
       "revId": "b8b7d2f90d0d25cc9249cd81e8ec2ba696da9800",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8847079a_771ff71b",
+        "filename": "modules/remote_bitrate_estimator/aimd_rate_control.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-09-06T07:32:32Z",
+      "side": 1,
+      "message": "My thinking is that the hold state indicates that we are currently in recovery, in which case we don\u0027t want to send at full speed until we have fully recovered. This is achieved when we get into the hold state via the decrease state, but not when we get there directly from the increase state. This makes sure we always send at less than full speed.\n\nI\u0027m not sure if this is the right solution though. Maybe you have other ideas on how we could do this?",
+      "parentUuid": "e6557179_dc7029ca",
+      "range": {
+        "startLine": 271,
+        "startChar": 0,
+        "endLine": 272,
+        "endChar": 0
+      },
+      "revId": "b8b7d2f90d0d25cc9249cd81e8ec2ba696da9800",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

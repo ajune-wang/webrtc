@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "73b7a130_7ab324a7",
+        "filename": "sdk/android/src/jni/pc/rtpreceiver.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-09-06T07:27:39Z",
+      "side": 1,
+      "message": "nit: should be static, also can you please move below UnsetObserver to try to match the order in Java.",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 98,
+        "endChar": 5
+      },
+      "revId": "6f25ef8665189b07174cf0b67cb9c5517ca57bd0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a76385d6_203a52f4",
+        "filename": "sdk/android/src/jni/pc/rtpsender.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-09-06T07:27:39Z",
+      "side": 1,
+      "message": "nit: should be static, also can you please move below GetId to try to match the order in Java.",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 4
+      },
+      "revId": "6f25ef8665189b07174cf0b67cb9c5517ca57bd0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

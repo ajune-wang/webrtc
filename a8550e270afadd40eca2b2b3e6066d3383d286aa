@@ -52,6 +52,24 @@
       "revId": "a8550e270afadd40eca2b2b3e6066d3383d286aa",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ddcca3d2_05c96d94",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-09-06T11:29:55Z",
+      "side": 1,
+      "message": "Ok, I will prepare a CL as soon as https://webrtc-review.googlesource.com/c/src/+/98380 is ready to go.",
+      "parentUuid": "9ef8b795_4f3a573b",
+      "revId": "a8550e270afadd40eca2b2b3e6066d3383d286aa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

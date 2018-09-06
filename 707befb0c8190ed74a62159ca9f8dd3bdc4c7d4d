@@ -160,6 +160,24 @@
     },
     {
       "key": {
+        "uuid": "aa98fb61_7e0fc9aa",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 980,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-09-06T05:49:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a55b7bde_c5ae788b",
+      "revId": "707befb0c8190ed74a62159ca9f8dd3bdc4c7d4d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cb6ddafb_d32a1896",
         "filename": "p2p/base/p2ptransportchannel.cc",
         "patchSetId": 12
@@ -254,6 +272,30 @@
       "side": 1,
       "message": "In practice it\u0027s likely std::vector actually has better performance due to spacial locality.",
       "parentUuid": "1344fd67_cde5b61a",
+      "range": {
+        "startLine": 431,
+        "startChar": 7,
+        "endLine": 431,
+        "endChar": 11
+      },
+      "revId": "707befb0c8190ed74a62159ca9f8dd3bdc4c7d4d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "922b5449_834935b5",
+        "filename": "p2p/base/p2ptransportchannel.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-09-06T05:49:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "123b20c3_4a518062",
       "range": {
         "startLine": 431,
         "startChar": 7,

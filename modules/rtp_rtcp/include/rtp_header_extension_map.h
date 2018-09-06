@@ -29,6 +29,10 @@ class RtpHeaderExtensionMap {
  public:
   static constexpr RTPExtensionType kInvalidType = kRtpExtensionNone;
   static constexpr int kInvalidId = 0;
+  static constexpr int kMinId = 1;
+  static constexpr int kMaxId = 255;
+  static constexpr size_t kOneByteExtensionHeaderLength = 1;
+  static constexpr size_t kTwoByteExtensionHeaderLength = 2;
 
   RtpHeaderExtensionMap();
   explicit RtpHeaderExtensionMap(rtc::ArrayView<const RtpExtension> extensions);
@@ -66,8 +70,6 @@ class RtpHeaderExtensionMap {
   int32_t Deregister(RTPExtensionType type);
 
  private:
-  static constexpr int kMinId = 1;
-  static constexpr int kMaxId = 14;
   bool Register(int id, RTPExtensionType type, const char* uri);
 
   RTPExtensionType types_[kMaxId + 1];

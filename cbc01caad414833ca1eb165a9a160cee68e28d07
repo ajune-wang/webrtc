@@ -16,6 +16,24 @@
       "revId": "cbc01caad414833ca1eb165a9a160cee68e28d07",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9f4786b_fe196fc3",
+        "filename": "api/test/neteq_simulator_factory.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2018-09-06T13:24:21Z",
+      "side": 1,
+      "message": "Unfortunately it\u0027s not easily possible to do this in the constructor. The reason is related to how flags are parsed in the neteq_rtpplay utility. \n\nIn neteq_rtpplay we want to be able to set field-trials in a command-line flag. However, the command-line flags are parsed in the CreateSimulator function, so at construction time, flags are not available yet. This means that for neteq_rtpplay we should first call CreateSimulator, and then call SetFieldTrials afterwards. I realize this is a bit clunky, but I\u0027m not sure how to make it better. Let me know if you have a good suggestion.",
+      "parentUuid": "ea66370f_e52cf4e7",
+      "revId": "cbc01caad414833ca1eb165a9a160cee68e28d07",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

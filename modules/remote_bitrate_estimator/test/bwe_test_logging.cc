@@ -26,8 +26,6 @@ namespace webrtc {
 namespace testing {
 namespace bwe {
 
-Logging Logging::g_Logging;
-
 static std::string ToString(uint32_t v) {
   rtc::StringBuilder ss;
   ss << v;
@@ -58,6 +56,7 @@ Logging::Context::~Context() {
 }
 
 Logging* Logging::GetInstance() {
+  static Logging g_Logging;
   return &g_Logging;
 }
 

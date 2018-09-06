@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "1e39da02_798192b8",
+        "filename": "media/base/videoadapter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2018-09-06T13:41:19Z",
+      "side": 1,
+      "message": "Done, ptal.",
+      "parentUuid": "e9dd5d9b_246b55b7",
+      "range": {
+        "startLine": 51,
+        "startChar": 2,
+        "endLine": 51,
+        "endChar": 67
+      },
+      "revId": "1fa5f55a645e5f90c93fc368387c25c6c3ee1b9d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7319a44e_8a3e0108",
         "filename": "media/base/videoadapter.h",
         "patchSetId": 3

@@ -17,6 +17,7 @@
 #include "modules/audio_coding/neteq/tools/output_wav_file.h"
 #include "modules/audio_coding/neteq/tools/resample_input_audio_file.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/strings/string_builder.h"
 #include "test/testsupport/fileutils.h"
 
 namespace webrtc {

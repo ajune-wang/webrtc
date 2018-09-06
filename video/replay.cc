@@ -13,7 +13,6 @@
 #include <fstream>
 #include <map>
 #include <memory>
-#include <sstream>
 
 #include "api/video_codecs/video_decoder.h"
 #include "call/call.h"
@@ -25,6 +24,7 @@
 #include "rtc_base/flags.h"
 #include "rtc_base/json.h"
 #include "rtc_base/string_to_number.h"
+#include "rtc_base/strings/string_builder.h"
 #include "rtc_base/timeutils.h"
 #include "system_wrappers/include/clock.h"
 #include "system_wrappers/include/sleep.h"
@@ -194,7 +194,7 @@ class FileRenderPassthrough : public rtc::VideoSinkInterface<VideoFrame> {
     if (basename_.empty())
       return;
 
-    std::stringstream filename;
+    rtc::StringBuilder filename;
     filename << basename_ << count_++ << "_" << video_frame.timestamp()
              << ".jpg";
 
@@ -337,7 +337,7 @@ class RtpReplayer final {
     auto stream_state = absl::make_unique<StreamState>();
     // Parse the configuration file.
     std::ifstream config_file(config_path);
-    std::stringstream raw_json_buffer;
+    rtc::StringBuilder raw_json_buffer;
     raw_json_buffer << config_file.rdbuf();
     std::string raw_json = raw_json_buffer.str();
     Json::Reader json_reader;
@@ -360,7 +360,7 @@ class RtpReplayer final {
                               .decoder;
       }
       // Create a window for this config.
-      std::stringstream window_title;
+      rtc::StringBuilder window_title;
       window_title << "Playback Video (" << config_count++ << ")";
       stream_state->sinks.emplace_back(
           test::VideoRenderer::Create(window_title.str().c_str(), 640, 480));
@@ -379,7 +379,7 @@ class RtpReplayer final {
     auto stream_state = absl::make_unique<StreamState>();
     // Create the video renderers. We must add both to the stream state to keep
     // them from deallocating.
-    std::stringstream window_title;
+    rtc::StringBuilder window_title;
     window_title << "Playback Video (" << rtp_dump_path << ")";
     std::unique_ptr<test::VideoRenderer> playback_video(
         test::VideoRenderer::Create(window_title.str().c_str(), 640, 480));

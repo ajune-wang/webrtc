@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c0a3c556_f9865ab1",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 535,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-09-06T13:00:38Z",
+      "side": 1,
+      "message": "I know. As the comment says, the parser will rewrite it if it is sure of the padding length by other means, e.g. a false padding bit will rewrite it to 0.\n\nThis code is indeed ugly. I dislike it myself. But to make this CL minimal, this can be a good choice.\n\nIdeally, we need to add padding bit to RTP header (and remove paddingLength). But this will make the CL a lot larger.",
+      "parentUuid": "2c3bb48a_1a3dc3bd",
+      "range": {
+        "startLine": 535,
+        "startChar": 0,
+        "endLine": 535,
+        "endChar": 65
+      },
+      "revId": "f4ff479b8a5ac938187d4d6402f5a10f5359558a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f157b7d8_a519db75",
         "filename": "modules/audio_coding/neteq/tools/neteq_replacement_input.cc",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2018-09-06T12:42:18Z",
       "side": 1,
       "message": "Are you sure that payload.size() has the correct value?",
+      "range": {
+        "startLine": 50,
+        "startChar": 17,
+        "endLine": 50,
+        "endChar": 31
+      },
+      "revId": "f4ff479b8a5ac938187d4d6402f5a10f5359558a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c22f9838_c0ca6f34",
+        "filename": "modules/audio_coding/neteq/tools/neteq_replacement_input.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-09-06T13:00:38Z",
+      "side": 1,
+      "message": "This relies on the fact that payload has the right size. It should be guaranteed by NetEqInput implementation, e.g, https://cs.chromium.org/chromium/src/third_party/webrtc/rtc_tools/event_log_visualizer/analyzer.cc?q\u003danalyzer.cc\u0026sq\u003dpackage:chromium\u0026g\u003d0\u0026l\u003d1702",
+      "parentUuid": "f157b7d8_a519db75",
       "range": {
         "startLine": 50,
         "startChar": 17,

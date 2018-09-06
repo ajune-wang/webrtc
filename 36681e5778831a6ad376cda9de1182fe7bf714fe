@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e5534d91_c339b1ff",
+        "filename": "modules/remote_bitrate_estimator/test/bwe_test_logging.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-09-06T14:17:36Z",
+      "side": 1,
+      "message": "I fixed the no_global_constructors by following: https://isocpp.org/wiki/faq/ctors#static-init-order-on-first-use, but obviously it isn\u0027t enough to remove the no_exit_time_destructors.\n\nI guess static is needed to be sure this is only initialized once (even in a multi-threaded context). How can we untangle this?",
+      "range": {
+        "startLine": 59,
+        "startChar": 2,
+        "endLine": 59,
+        "endChar": 27
+      },
+      "revId": "36681e5778831a6ad376cda9de1182fe7bf714fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

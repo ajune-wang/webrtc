@@ -46,6 +46,30 @@
       "revId": "b8b7d2f90d0d25cc9249cd81e8ec2ba696da9800",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c0e26ef_56326da0",
+        "filename": "modules/remote_bitrate_estimator/aimd_rate_control.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-09-06T09:27:26Z",
+      "side": 1,
+      "message": "I don\u0027t think this will work well.\n\nOne of the problems in GoogCC is false detection of increasing delay which cause a underutilization of the link. With this change it seems we would also have to worry about incorrectly detecting decreasing delay and hence double the number of incorrect backoffs.\n\nI also don\u0027t understand the problem you\u0027re trying to solve. If we are in the Hold state of random noise, it seems correct to do nothing. If we are in the Hold state because delay is actually decreasing, then we\u0027re by definition sending at a rate lower than the full capacity regardless of whether we have passed the Decrease state.",
+      "parentUuid": "8847079a_771ff71b",
+      "range": {
+        "startLine": 271,
+        "startChar": 0,
+        "endLine": 272,
+        "endChar": 0
+      },
+      "revId": "b8b7d2f90d0d25cc9249cd81e8ec2ba696da9800",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

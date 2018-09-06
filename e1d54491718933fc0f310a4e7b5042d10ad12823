@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c2cf7685_9df39056",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-09-06T13:32:58Z",
+      "side": 1,
+      "message": "This is not constexpr so I moved it in the function but we also have the possibility to pass it as parameter and move it into SpectralFeaturesExtractor.",
+      "range": {
+        "startLine": 114,
+        "startChar": 34,
+        "endLine": 114,
+        "endChar": 43
+      },
+      "revId": "e1d54491718933fc0f310a4e7b5042d10ad12823",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -86,6 +86,10 @@ void WriteCallOrderData(const bool render_call,
   WriteData(&call_type, sizeof(call_type), file, filename.c_str());
 }
 
+bool WriteCallOrderFile() {
+  return FLAG_full;
+}
+
 }  // namespace
 
 int do_main(int argc, char* argv[]) {
@@ -124,7 +128,8 @@ int do_main(int argc, char* argv[]) {
 
   std::stringstream callorder_raw_name;
   callorder_raw_name << FLAG_callorder_file << ".char";
-  FILE* callorder_char_file = OpenFile(callorder_raw_name.str(), "wb");
+  FILE* callorder_char_file =
+      WriteCallOrderFile() ? OpenFile(callorder_raw_name.str(), "wb") : nullptr;
   FILE* settings_file = OpenFile(FLAG_settings_file, "wb");
 
   while (ReadMessageFromFile(debug_file, &event_msg)) {
@@ -162,8 +167,10 @@ int do_main(int argc, char* argv[]) {
                        reverse_raw_file.get());
       }
       if (FLAG_full) {
-        WriteCallOrderData(true /* render_call */, callorder_char_file,
-                           FLAG_callorder_file);
+        if (callorder_char_file != nullptr) {
+          WriteCallOrderData(true /* render_call */, callorder_char_file,
+                             FLAG_callorder_file);
+        }
       }
     } else if (event_msg.type() == Event::STREAM) {
       frame_count++;
@@ -221,8 +228,10 @@ int do_main(int argc, char* argv[]) {
       }
 
       if (FLAG_full) {
-        WriteCallOrderData(false /* render_call */, callorder_char_file,
-                           FLAG_callorder_file);
+        if (callorder_char_file != nullptr) {
+          WriteCallOrderData(false /* render_call */, callorder_char_file,
+                             FLAG_callorder_file);
+        }
         if (msg.has_delay()) {
           static FILE* delay_file = OpenFile(FLAG_delay_file, "wb");
           int32_t delay = msg.delay();
@@ -358,9 +367,11 @@ int do_main(int argc, char* argv[]) {
         output_wav_file.reset(new WavWriter(
             output_name.str(), output_sample_rate, num_output_channels));
 
-        std::stringstream callorder_name;
-        callorder_name << FLAG_callorder_file << frame_count << ".char";
-        callorder_char_file = OpenFile(callorder_name.str(), "wb");
+        if (WriteCallOrderFile()) {
+          std::stringstream callorder_name;
+          callorder_name << FLAG_callorder_file << frame_count << ".char";
+          callorder_char_file = OpenFile(callorder_name.str(), "wb");
+        }
       }
     }
   }

@@ -22,6 +22,30 @@
       "revId": "fe3240aeae249f340dadff92205b394bae6c5b58",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "34e459b3_1bfb196d",
+        "filename": "ortc/rtptransportcontrolleradapter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 629,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-09-07T20:16:16Z",
+      "side": 0,
+      "message": "Done, PS#2 just removes static. Thanks.",
+      "parentUuid": "83979f4b_8658530e",
+      "range": {
+        "startLine": 629,
+        "startChar": 2,
+        "endLine": 629,
+        "endChar": 8
+      },
+      "revId": "fe3240aeae249f340dadff92205b394bae6c5b58",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

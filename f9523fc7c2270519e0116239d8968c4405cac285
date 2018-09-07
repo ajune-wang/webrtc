@@ -93,6 +93,30 @@
       "revId": "f9523fc7c2270519e0116239d8968c4405cac285",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84564649_e07af390",
+        "filename": "sdk/android/src/jni/pc/icecandidate.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-09-07T18:26:20Z",
+      "side": 1,
+      "message": "I kind of feel RTC_NOTREACHED may be better if we believe this code is not reachable in production runtime.",
+      "parentUuid": "4ee17387_7a53c3fc",
+      "range": {
+        "startLine": 221,
+        "startChar": 2,
+        "endLine": 221,
+        "endChar": 18
+      },
+      "revId": "f9523fc7c2270519e0116239d8968c4405cac285",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

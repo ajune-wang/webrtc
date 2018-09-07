@@ -1,0 +1,130 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "026bd825_67e2bd17",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-09-07T12:20:55Z",
+      "side": 1,
+      "message": "nit: is",
+      "range": {
+        "startLine": 544,
+        "startChar": 55,
+        "endLine": 544,
+        "endChar": 64
+      },
+      "revId": "dd31f2415a37116b244cac5379d20f4c671510df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63776da9_79f98c3b",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-09-07T12:20:55Z",
+      "side": 1,
+      "message": "I think it would be better to make a separate test that generates a single padding packet and then parses it. This would make it easier to identify what is breaking. Could be done by passing in \"bool padding\" as an argument and placing the unit test in rtc_event_lg_encoder_unittest.cc",
+      "range": {
+        "startLine": 299,
+        "startChar": 13,
+        "endLine": 299,
+        "endChar": 20
+      },
+      "revId": "dd31f2415a37116b244cac5379d20f4c671510df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8a72fae_5378c64e",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-09-07T12:20:55Z",
+      "side": 1,
+      "message": "nit: How about \"a packet can contain both padidng and other payload\" instead?",
+      "range": {
+        "startLine": 301,
+        "startChar": 21,
+        "endLine": 301,
+        "endChar": 54
+      },
+      "revId": "dd31f2415a37116b244cac5379d20f4c671510df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ded08cac_8e8cbd57",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-09-07T12:20:55Z",
+      "side": 1,
+      "message": "TODO(webrtc:9730)?",
+      "range": {
+        "startLine": 303,
+        "startChar": 16,
+        "endLine": 303,
+        "endChar": 48
+      },
+      "revId": "dd31f2415a37116b244cac5379d20f4c671510df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "326375cd_3401cae2",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 730,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-09-07T12:20:55Z",
+      "side": 1,
+      "message": "This would not be needed if we keep the code in VerifyLoggedRtpHeader. If doing it this way, we need the same code in VerifyLoggedRtpPacketIncoming.",
+      "revId": "dd31f2415a37116b244cac5379d20f4c671510df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85a512bc_e6c906b3",
+        "filename": "modules/rtp_rtcp/source/rtp_utility.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-09-07T12:20:55Z",
+      "side": 1,
+      "message": "Someone who\u0027s OWNER should review this file.",
+      "revId": "dd31f2415a37116b244cac5379d20f4c671510df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

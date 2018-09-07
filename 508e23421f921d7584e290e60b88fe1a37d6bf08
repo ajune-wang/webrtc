@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fb123012_7dee6eeb",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 622,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-09-07T12:20:55Z",
+      "side": 0,
+      "message": "Why remove this check? We do want to ensure that the parsed padding length is equal to the padding length used in the real packet right?",
+      "revId": "508e23421f921d7584e290e60b88fe1a37d6bf08",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

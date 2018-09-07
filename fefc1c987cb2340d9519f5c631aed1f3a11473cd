@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9295169b_f45a0611",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-09-07T09:34:52Z",
+      "side": 1,
+      "message": "First things first. Naming! :-)\n\nIs rtc_export a good name? rtc_ is redundant in header and build target names. Maybe rtc_base/symbols_visibility.h and rtc_base:symbol_visibility is a better name?\n\nLet me know.",
+      "range": {
+        "startLine": 51,
+        "startChar": 16,
+        "endLine": 51,
+        "endChar": 26
+      },
+      "revId": "fefc1c987cb2340d9519f5c631aed1f3a11473cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

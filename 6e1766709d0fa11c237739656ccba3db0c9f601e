@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "091edbfd_dd480698",
+        "filename": "rtc_base/rtc_export.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-09-07T09:34:52Z",
+      "side": 1,
+      "message": "This will be defined by a config that will be added to all the WebRTC build targets (V8 example: https://cs.chromium.org/chromium/src/v8/BUILD.gn?l\u003d208-220\u0026rcl\u003dcfe7115690758c9b6d92de705a6036c8fd753b37).",
+      "range": {
+        "startLine": 16,
+        "startChar": 7,
+        "endLine": 16,
+        "endChar": 29
+      },
+      "revId": "6e1766709d0fa11c237739656ccba3db0c9f601e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea909452_05f15df6",
+        "filename": "rtc_base/rtc_export.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-09-07T09:34:52Z",
+      "side": 1,
+      "message": "The same for this one, but it will be propagated using public_configs to targets that depend on WebRTC (https://cs.chromium.org/chromium/src/v8/BUILD.gn?rcl\u003dcfe7115690758c9b6d92de705a6036c8fd753b37\u0026l\u003d260-262).",
+      "range": {
+        "startLine": 18,
+        "startChar": 6,
+        "endLine": 18,
+        "endChar": 25
+      },
+      "revId": "6e1766709d0fa11c237739656ccba3db0c9f601e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

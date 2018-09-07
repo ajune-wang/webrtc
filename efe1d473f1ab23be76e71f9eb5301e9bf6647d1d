@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d5db10f1_38abd1bf",
+        "filename": "examples/objc/AppRTCMobile/ARDAppClient.m",
+        "patchSetId": 6
+      },
+      "lineNbr": 543,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-09-07T12:53:36Z",
+      "side": 1,
+      "message": "No need to preserve this behaviour, though I appreciate the effort. AppRTCMobile should use defaults as much as possible.",
+      "range": {
+        "startLine": 543,
+        "startChar": 24,
+        "endLine": 543,
+        "endChar": 48
+      },
+      "revId": "efe1d473f1ab23be76e71f9eb5301e9bf6647d1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "17f64491_573601fb",
+        "filename": "sdk/objc/api/peerconnection/RTCConfiguration.mm",
+        "patchSetId": 6
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-09-07T12:53:36Z",
+      "side": 1,
+      "message": "Please just use the default constructor instead of passing in a type here. That way\niOS will have the same defaults as the C++ layer.",
+      "range": {
+        "startLine": 55,
+        "startChar": 6,
+        "endLine": 55,
+        "endChar": 66
+      },
+      "revId": "efe1d473f1ab23be76e71f9eb5301e9bf6647d1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

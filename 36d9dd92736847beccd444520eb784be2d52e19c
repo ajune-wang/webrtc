@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "b355ee9d_105ee46e",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-09-07T19:19:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "849a555b_b141eb26",
+      "revId": "36d9dd92736847beccd444520eb784be2d52e19c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c9969397_cfef053e",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 2
@@ -56,6 +74,48 @@
       "revId": "36d9dd92736847beccd444520eb784be2d52e19c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2456fd3_ddfe813f",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-09-07T19:19:19Z",
+      "side": 1,
+      "message": "Thanks, I was struggling with naming. The anonymous struct + this improved the situation.\nI\u0027ve only added a small comment because it is not a map, but we are just organizing info to map from {KeyExchangeProtocolType, cricket::MediaType} to KeyExchangeProtocolMedia.",
+      "parentUuid": "dea5d889_32c6d1c2",
+      "range": {
+        "startLine": 121,
+        "startChar": 31,
+        "endLine": 121,
+        "endChar": 50
+      },
+      "revId": "36d9dd92736847beccd444520eb784be2d52e19c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1087abee_47a5cd79",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-09-07T19:19:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c9969397_cfef053e",
+      "revId": "36d9dd92736847beccd444520eb784be2d52e19c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

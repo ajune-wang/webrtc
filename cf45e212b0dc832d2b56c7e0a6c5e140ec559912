@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "cc78c441_ed956144",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 513,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-09-07T11:16:35Z",
+      "side": 1,
+      "message": "Copy-pasted todo, even :-) all occurences replaced in file.",
+      "parentUuid": "68aff6ef_3cbd5116",
+      "revId": "cf45e212b0dc832d2b56c7e0a6c5e140ec559912",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9eef6b3e_550c64f2",
         "filename": "pc/rtcstatscollector.cc",
         "patchSetId": 8
@@ -33,6 +51,24 @@
       "revId": "cf45e212b0dc832d2b56c7e0a6c5e140ec559912",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55a59f2e_6ca8c4c5",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 608,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-09-07T11:16:35Z",
+      "side": 1,
+      "message": "Comment added. Getting the streams fully out of WebRTC would solve it.\nDesign doc?",
+      "parentUuid": "9eef6b3e_550c64f2",
+      "revId": "cf45e212b0dc832d2b56c7e0a6c5e140ec559912",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

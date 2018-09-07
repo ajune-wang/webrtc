@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "a66a8d07_b19c3e62",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-09-07T10:43:26Z",
+      "side": 1,
+      "message": "I\u0027m not really comfortable with one build target per #define. But maybe it\u0027s the way to go.",
+      "range": {
+        "startLine": 51,
+        "startChar": 16,
+        "endLine": 51,
+        "endChar": 26
+      },
+      "revId": "6e1766709d0fa11c237739656ccba3db0c9f601e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "20e00269_db655adf",
         "filename": "rtc_base/rtc_export.h",
         "patchSetId": 3
@@ -93,6 +116,29 @@
         "startChar": 6,
         "endLine": 18,
         "endChar": 25
+      },
+      "revId": "6e1766709d0fa11c237739656ccba3db0c9f601e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9c60fa0_9ea19a71",
+        "filename": "rtc_base/rtc_export.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-09-07T10:43:26Z",
+      "side": 1,
+      "message": "Would be more readable with indentation matching the #if nesting, like\n\n#if\n# if\n# else\n# endif\n#endif",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 6
       },
       "revId": "6e1766709d0fa11c237739656ccba3db0c9f601e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

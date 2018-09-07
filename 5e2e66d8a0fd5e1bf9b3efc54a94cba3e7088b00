@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1862c1f0_3ef1306c",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-09-07T13:22:13Z",
+      "side": 1,
+      "message": "You end up computing this square root at run time every time you call this function. An alternative would have been (up on line 23)\n\n  static_assert(kNumBands \u003d\u003d 22);\n  constexpr float kDctScalingFactor \u003d 0.301511345;  // sqrt(2 / kNumBands)",
+      "revId": "5e2e66d8a0fd5e1bf9b3efc54a94cba3e7088b00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

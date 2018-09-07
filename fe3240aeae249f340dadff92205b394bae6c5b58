@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "83979f4b_8658530e",
+        "filename": "ortc/rtptransportcontrolleradapter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 629,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-09-07T17:25:50Z",
+      "side": 0,
+      "message": "I think just removing these statics would be fine. We\u0027re not really worried about performance here. But I\u0027ll leave it up to you to decide.",
+      "range": {
+        "startLine": 629,
+        "startChar": 2,
+        "endLine": 629,
+        "endChar": 8
+      },
+      "revId": "fe3240aeae249f340dadff92205b394bae6c5b58",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

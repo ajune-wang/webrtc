@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ade4e064_56b9c2ed",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 7035
+      },
+      "writtenOn": "2018-09-07T14:12:50Z",
+      "side": 1,
+      "message": "add .f",
+      "range": {
+        "startLine": 26,
+        "startChar": 36,
+        "endLine": 26,
+        "endChar": 47
+      },
+      "revId": "7dd98e777d28b6b3fb4c404e6dcfd4d4d1768895",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

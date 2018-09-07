@@ -257,6 +257,10 @@ std::string VideoCodecTestFixtureImpl::Config::ToString() const {
   ss << "\nmax_bitrate_kbps: " << codec_settings.maxBitrate;
   ss << "\nmin_bitrate_kbps: " << codec_settings.minBitrate;
   ss << "\nmax_qp: " << codec_settings.qpMax;
+  std::string content = codec_settings.mode == VideoCodecMode::kRealtimeVideo
+                            ? "normal"
+                            : "screen";
+  ss << "\ncontent: " << content;
   ss << "\nnum_simulcast_streams: "
      << static_cast<int>(codec_settings.numberOfSimulcastStreams);
   ss << "\n\n--> codec_settings." << codec_type;

@@ -22,6 +22,7 @@
 #include "test/function_video_encoder_factory.h"
 #include "test/gtest.h"
 #include "test/testsupport/fileutils.h"
+#include "test/video_codec_settings.h"
 
 namespace webrtc {
 namespace test {
@@ -480,6 +481,56 @@ TEST(VideoCodecTestLibvpx, DISABLED_SvcVP9RdPerf) {
     rd_stats[bitrate_kbps] =
         fixture->GetStats().SliceAndCalcLayerVideoStatistic(
             kNumFirstFramesToSkipAtRdPerfAnalysis, config.num_frames - 1);
+  }
+
+  PrintRdPerf(rd_stats);
+}
+
+TEST(VideoCodecTestLibvpx, DISABLED_SvcVP9RdPerfHighFramerateScreenSharing) {
+  auto config = CreateConfig();
+  config.filename = "FourPeople_1280x720_30";
+  config.filepath = ResourcePath(config.filename, "yuv");
+  config.num_frames = 300;
+  config.print_frame_level_stats = true;
+  config.visualization_params.save_encoded_ivf = true;
+  config.codec_name = cricket::kVp9CodecName;
+  VideoCodecType codec_type = PayloadStringToCodecType(config.codec_name);
+  test::CodecSettings(codec_type, &config.codec_settings);
+  config.codec_settings.width = 1280;
+  config.codec_settings.height = 720;
+  config.codec_settings.mode = VideoCodecMode::kScreensharing;
+
+  VideoCodecVP9& vp9 = *config.codec_settings.VP9();
+  vp9.denoisingOn = true;
+  vp9.frameDroppingOn = true;
+  vp9.keyFrameInterval = 3000;
+  vp9.automaticResizeOn = false;
+  vp9.numberOfSpatialLayers = 3;
+  vp9.numberOfTemporalLayers = 1;
+  vp9.interLayerPred = InterLayerPredMode::kOn;
+
+  SpatialLayer sl0 = {1280, 720, 5, 1, 200, 200, 30, 56, true};
+  SpatialLayer sl1 = {1280, 720, 5, 1, 500, 500, 30, 56, true};
+  SpatialLayer sl2 = {1280, 720, 30, 1, 3000, 3000, 30, 56, true};
+
+  config.codec_settings.spatialLayers[0] = sl0;
+  config.codec_settings.spatialLayers[1] = sl1;
+  config.codec_settings.spatialLayers[2] = sl2;
+
+  const auto frame_checker = absl::make_unique<QpFrameChecker>();
+  config.encoded_frame_checker = frame_checker.get();
+  auto fixture = CreateVideoCodecTestFixture(config);
+
+  std::map<size_t, std::vector<VideoStatistics>> rd_stats;
+  for (size_t bitrate_kbps : {1000, 1500, 2000, 2500}) {
+    std::vector<RateProfile> rate_profiles = {
+        {bitrate_kbps, 30, config.num_frames}};
+
+    fixture->RunTest(rate_profiles, nullptr, nullptr, nullptr);
+
+    rd_stats[bitrate_kbps] =
+        fixture->GetStats().SliceAndCalcLayerVideoStatistic(
+            0, config.num_frames - 1);
   }
 
   PrintRdPerf(rd_stats);

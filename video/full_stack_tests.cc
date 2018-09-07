@@ -764,6 +764,25 @@ TEST(FullStackTest, ScreenshareSlidesVP9_2SL) {
   fixture->RunWithAnalyzer(screenshare);
 }
 
+TEST(FullStackTest, ScreenshareSlidesVP9_3SL) {
+  auto fixture = CreateVideoQualityTestFixture();
+  ParamsWithLogging screenshare;
+  screenshare.call.send_side_bwe = true;
+  screenshare.video[0] = {true,    1850,  1110,  30, 50000, 200000,
+                          2000000, false, "VP9", 1,  0,     400000,
+                          false,   false, false, ""};
+  screenshare.screenshare[0] = {true, false, 10};
+  screenshare.analyzer = {"screenshare_slides_vp9_2sl", 0.0, 0.0,
+                          kFullStackTestDurationSecs};
+  SpatialLayer sl0 = {1850, 1110, 5, 1, 200, 200, 30, 56, true};
+  SpatialLayer sl1 = {1850, 1110, 5, 1, 500, 500, 30, 56, true};
+  SpatialLayer sl2 = {1850, 1110, 30, 1, 1250, 1250, 30, 56, true};
+  screenshare.ss[0] = {
+      std::vector<VideoStream>(),  0,    3, 2, InterLayerPredMode::kOn,
+      std::vector<SpatialLayer>(), false};
+  fixture->RunWithAnalyzer(screenshare);
+}
+
 TEST(FullStackTest, VP9SVC_3SL_High) {
   auto fixture = CreateVideoQualityTestFixture();
   ParamsWithLogging simulcast;

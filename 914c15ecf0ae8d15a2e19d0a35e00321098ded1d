@@ -70,6 +70,30 @@
       "revId": "914c15ecf0ae8d15a2e19d0a35e00321098ded1d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff7a1ccb_9d04e0c6",
+        "filename": "modules/audio_coding/neteq/neteq_impl.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 1554,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-09-07T14:47:30Z",
+      "side": 1,
+      "message": "Ok. then do we expect Decode() to do the smoothing?",
+      "parentUuid": "49f5e99e_7def5657",
+      "range": {
+        "startLine": 1554,
+        "startChar": 55,
+        "endLine": 1554,
+        "endChar": 68
+      },
+      "revId": "914c15ecf0ae8d15a2e19d0a35e00321098ded1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

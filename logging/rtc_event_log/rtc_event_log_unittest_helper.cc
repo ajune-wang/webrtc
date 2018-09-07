@@ -12,6 +12,7 @@
 
 #include <string.h>  // memcmp
 
+#include <algorithm>
 #include <limits>
 #include <memory>
 #include <numeric>
@@ -294,10 +295,22 @@ void EventGenerator::RandomizeRtpPacket(
   RTC_DCHECK_GE(packet_size, rtp_packet->headers_size());
   size_t payload_size = packet_size - rtp_packet->headers_size();
   RTC_CHECK_LE(rtp_packet->headers_size() + payload_size, IP_PACKET_SIZE);
-  uint8_t* payload = rtp_packet->AllocatePayload(payload_size);
-  RTC_DCHECK(payload != nullptr);
-  for (size_t i = 0; i < payload_size; i++) {
-    payload[i] = prng_.Rand<uint8_t>();
+
+  const bool padding = prng_.Rand<bool>();
+  if (padding) {
+    // In principle, padding can be partial to payload. Currently, RTC eventlog
+    // encoder-parser can only maintain padding length if packet is full
+    // padding. Follow bug webrtc:9730 for fixes.
+    RTC_DCHECK_EQ(0u, rtp_packet->payload_size());
+    constexpr size_t kMaxPaddingSize = 244u;
+    rtp_packet->SetPadding(
+        static_cast<uint8_t>(std::min(payload_size, kMaxPaddingSize)), &prng_);
+  } else {
+    uint8_t* payload = rtp_packet->AllocatePayload(payload_size);
+    RTC_DCHECK(payload != nullptr);
+    for (size_t i = 0; i < payload_size; i++) {
+      payload[i] = prng_.Rand<uint8_t>();
+    }
   }
 }
 
@@ -619,8 +632,6 @@ bool VerifyLoggedRtpHeader(const RtpPacket& original_header,
       return false;
   }
 
-  if (original_header.padding_size() != logged_header.paddingLength)
-    return false;
   if (original_header.headers_size() != logged_header.headerLength)
     return false;
 
@@ -715,6 +726,14 @@ bool VerifyLoggedRtpPacketOutgoing(
 
   if (original_event.packet_length_ != logged_event.rtp.total_length)
     return false;
+
+  if ((original_event.header_.data()[0] & 0x20) != 0 &&  // no padding
+      original_event.packet_length_ - original_event.header_.headers_size() !=
+          logged_event.rtp.header.paddingLength) {
+    // Currently, RTC eventlog encoder-parser can only maintain padding length
+    // if packet is full padding. Follow bug webrtc:9730 for fixes.
+    return false;
+  }
 
   // TODO(terelius): Probe cluster ID isn't parsed, used or tested. Unless
   // someone has a strong reason to keep it, it'll be removed.

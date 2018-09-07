@@ -112,6 +112,27 @@ enum {
 
 static const int REPORT_USAGE_PATTERN_DELAY_MS = 60000;
 
+struct ProtoMediaCounter {
+  KeyExchangeProtocolType protocol_type;
+  cricket::MediaType media_type;
+  KeyExchangeProtocolMedia protocol_media;
+};
+
+static const ProtoMediaCounter proto_media_counter[] = {
+    {kEnumCounterKeyProtocolDtls, cricket::MEDIA_TYPE_AUDIO,
+     kEnumCounterKeyProtocolMediaTypeDtlsAudio},
+    {kEnumCounterKeyProtocolDtls, cricket::MEDIA_TYPE_VIDEO,
+     kEnumCounterKeyProtocolMediaTypeDtlsVideo},
+    {kEnumCounterKeyProtocolDtls, cricket::MEDIA_TYPE_DATA,
+     kEnumCounterKeyProtocolMediaTypeDtlsData},
+    {kEnumCounterKeyProtocolSdes, cricket::MEDIA_TYPE_AUDIO,
+     kEnumCounterKeyProtocolMediaTypeSdesAudio},
+    {kEnumCounterKeyProtocolSdes, cricket::MEDIA_TYPE_VIDEO,
+     kEnumCounterKeyProtocolMediaTypeSdesVideo},
+    {kEnumCounterKeyProtocolSdes, cricket::MEDIA_TYPE_DATA,
+     kEnumCounterKeyProtocolMediaTypeSdesData},
+};
+
 struct SetSessionDescriptionMsg : public rtc::MessageData {
   explicit SetSessionDescriptionMsg(
       webrtc::SetSessionDescriptionObserver* observer)
@@ -391,26 +412,13 @@ void NoteKeyProtocolAndMedia(KeyExchangeProtocolType protocol_type,
                              cricket::MediaType media_type) {
   RTC_HISTOGRAM_ENUMERATION("WebRTC.PeerConnection.KeyProtocol", protocol_type,
                             kEnumCounterKeyProtocolMax);
-  static const std::map<std::pair<KeyExchangeProtocolType, cricket::MediaType>,
-                        KeyExchangeProtocolMedia>
-      proto_media_counter_map = {
-          {{kEnumCounterKeyProtocolDtls, cricket::MEDIA_TYPE_AUDIO},
-           kEnumCounterKeyProtocolMediaTypeDtlsAudio},
-          {{kEnumCounterKeyProtocolDtls, cricket::MEDIA_TYPE_VIDEO},
-           kEnumCounterKeyProtocolMediaTypeDtlsVideo},
-          {{kEnumCounterKeyProtocolDtls, cricket::MEDIA_TYPE_DATA},
-           kEnumCounterKeyProtocolMediaTypeDtlsData},
-          {{kEnumCounterKeyProtocolSdes, cricket::MEDIA_TYPE_AUDIO},
-           kEnumCounterKeyProtocolMediaTypeSdesAudio},
-          {{kEnumCounterKeyProtocolSdes, cricket::MEDIA_TYPE_VIDEO},
-           kEnumCounterKeyProtocolMediaTypeSdesVideo},
-          {{kEnumCounterKeyProtocolSdes, cricket::MEDIA_TYPE_DATA},
-           kEnumCounterKeyProtocolMediaTypeSdesData}};
 
-  auto it = proto_media_counter_map.find({protocol_type, media_type});
-  if (it != proto_media_counter_map.end()) {
-    RTC_HISTOGRAM_ENUMERATION("WebRTC.PeerConnection.KeyProtocolByMedia",
-                              it->second, kEnumCounterKeyProtocolMediaTypeMax);
+  for (const ProtoMediaCounter& pmc : proto_media_counter) {
+    if (pmc.protocol_type == protocol_type && pmc.media_type == media_type) {
+      RTC_HISTOGRAM_ENUMERATION("WebRTC.PeerConnection.KeyProtocolByMedia",
+                                pmc.protocol_media,
+                                kEnumCounterKeyProtocolMediaTypeMax);
+    }
   }
 }
 

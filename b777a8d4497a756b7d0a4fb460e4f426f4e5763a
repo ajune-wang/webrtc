@@ -16,6 +16,24 @@
       "revId": "b777a8d4497a756b7d0a4fb460e4f426f4e5763a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10957035_4545a37b",
+        "filename": "modules/audio_coding/neteq/tools/neteq_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2018-09-07T15:21:42Z",
+      "side": 1,
+      "message": "I made some changes based on our offline discussion. PTAL.",
+      "parentUuid": "50a4ed96_2c0d92bd",
+      "revId": "b777a8d4497a756b7d0a4fb460e4f426f4e5763a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -45,6 +45,30 @@
       "revId": "f9523fc7c2270519e0116239d8968c4405cac285",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "966c106b_bec1175f",
+        "filename": "sdk/android/src/jni/pc/icecandidate.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-09-07T09:52:31Z",
+      "side": 1,
+      "message": "Actually that would be equal to RTC_DCHECK. Since this is RTC_CHECK, is this the return needed?",
+      "parentUuid": "4c57ce4a_2044cb49",
+      "range": {
+        "startLine": 221,
+        "startChar": 2,
+        "endLine": 221,
+        "endChar": 18
+      },
+      "revId": "f9523fc7c2270519e0116239d8968c4405cac285",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

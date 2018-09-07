@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d67bb77f_5850951a",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2018-09-07T06:08:45Z",
+      "side": 1,
+      "message": "dcheck that this is one of three strings? The fourth value \"ssltcp\" we saw while looking at the code can never happen at least since ssltcp candidates are not relayed.",
+      "parentUuid": "70cd06ca_445f4985",
+      "revId": "80bb8db3ed229310fb923282dc4b82c0f58639c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8b1613a3_bd99cabe",
         "filename": "pc/rtcstatscollector_unittest.cc",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2018-09-06T12:12:34Z",
       "side": 1,
       "message": "Also make sure it is defined in rtcstats_integrationtest.cc.",
+      "revId": "80bb8db3ed229310fb923282dc4b82c0f58639c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b14b0a70_9d176d50",
+        "filename": "pc/rtcstatscollector_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1008,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2018-09-07T06:08:45Z",
+      "side": 1,
+      "message": "unless the integration tests run with a turn server they won\u0027t get a relay candidate. Do they?",
+      "parentUuid": "8b1613a3_bd99cabe",
       "revId": "80bb8db3ed229310fb923282dc4b82c0f58639c2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

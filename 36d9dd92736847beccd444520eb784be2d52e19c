@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "849a555b_b141eb26",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-09-07T17:43:02Z",
+      "side": 1,
+      "message": "(optional) Could just define this as an anonymous struct:\n\nstatic const struct {\n  KeyExchangeProtocolType protocol_type;\n  cricket::MediaType media_type;\n  KeyExchangeProtocolMedia protocol_media;\n} proto_media_counter[] \u003d { ... }",
+      "revId": "36d9dd92736847beccd444520eb784be2d52e19c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c9969397_cfef053e",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-09-07T17:43:02Z",
+      "side": 1,
+      "message": "nit: move this to right above NoteKeyProtocolAndMedia",
+      "revId": "36d9dd92736847beccd444520eb784be2d52e19c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dea5d889_32c6d1c2",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-09-07T17:43:02Z",
+      "side": 1,
+      "message": "naming suggestion: kEnumCounterKeyProtocolMediaMap",
+      "range": {
+        "startLine": 121,
+        "startChar": 31,
+        "endLine": 121,
+        "endChar": 50
+      },
+      "revId": "36d9dd92736847beccd444520eb784be2d52e19c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

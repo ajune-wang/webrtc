@@ -22,6 +22,30 @@
       "revId": "7cd2a9514837cfb63f636fa2d213e7941fc76f2e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6a9a610_055b9607",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-09-07T10:40:42Z",
+      "side": 0,
+      "message": "Are all three types in the map enums or similar? In that case, you could turn this into a global constant array I think.",
+      "parentUuid": "3a5fcff6_f0ecd842",
+      "range": {
+        "startLine": 394,
+        "startChar": 2,
+        "endLine": 408,
+        "endChar": 54
+      },
+      "revId": "7cd2a9514837cfb63f636fa2d213e7941fc76f2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

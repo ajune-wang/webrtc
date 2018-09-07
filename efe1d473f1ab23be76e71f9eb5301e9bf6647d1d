@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "78af0b43_749dc848",
+        "filename": "examples/objc/AppRTCMobile/ARDAppClient.m",
+        "patchSetId": 6
+      },
+      "lineNbr": 543,
+      "author": {
+        "id": 7508
+      },
+      "writtenOn": "2018-09-07T14:46:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d5db10f1_38abd1bf",
+      "range": {
+        "startLine": 543,
+        "startChar": 24,
+        "endLine": 543,
+        "endChar": 48
+      },
+      "revId": "efe1d473f1ab23be76e71f9eb5301e9bf6647d1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "17f64491_573601fb",
         "filename": "sdk/objc/api/peerconnection/RTCConfiguration.mm",
         "patchSetId": 6
@@ -45,6 +69,30 @@
       "revId": "efe1d473f1ab23be76e71f9eb5301e9bf6647d1d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f284dff_5c723f89",
+        "filename": "sdk/objc/api/peerconnection/RTCConfiguration.mm",
+        "patchSetId": 6
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 7508
+      },
+      "writtenOn": "2018-09-07T14:46:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "17f64491_573601fb",
+      "range": {
+        "startLine": 55,
+        "startChar": 6,
+        "endLine": 55,
+        "endChar": 66
+      },
+      "revId": "efe1d473f1ab23be76e71f9eb5301e9bf6647d1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

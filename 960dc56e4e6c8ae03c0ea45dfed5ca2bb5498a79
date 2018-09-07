@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "33ee7970_f68d6b34",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-09-07T09:50:31Z",
+      "side": 1,
+      "message": "webrtc:5008",
+      "revId": "960dc56e4e6c8ae03c0ea45dfed5ca2bb5498a79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

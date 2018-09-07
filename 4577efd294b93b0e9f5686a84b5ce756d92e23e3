@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "0eb2bcdf_655a5f4a",
+        "filename": "audio/channel.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 875,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-09-07T10:49:49Z",
+      "side": 1,
+      "message": "In the current patchset, this is solved by making a (reasonably cheap) copy of RtpPacketReceived.",
+      "parentUuid": "30d9e500_232278e4",
+      "range": {
+        "startLine": 872,
+        "startChar": 0,
+        "endLine": 875,
+        "endChar": 23
+      },
+      "revId": "4577efd294b93b0e9f5686a84b5ce756d92e23e3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "417f800f_a19e3667",
         "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
         "patchSetId": 9

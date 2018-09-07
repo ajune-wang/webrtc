@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "20e00269_db655adf",
+        "filename": "rtc_base/rtc_export.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-09-07T10:21:15Z",
+      "side": 1,
+      "message": "Please don\u0027t put this file directly under rtc_base/, since that\u0027s a legacy API directory. Maybe rtc_base/system/?",
+      "revId": "6e1766709d0fa11c237739656ccba3db0c9f601e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "091edbfd_dd480698",
         "filename": "rtc_base/rtc_export.h",
         "patchSetId": 3
@@ -36,6 +53,24 @@
       "writtenOn": "2018-09-07T10:04:47Z",
       "side": 1,
       "message": "Why not copying the rational for the 3 flavors like in v8?\nOne could wonder in which case a symbol is neither \"BUILT\" nor \"USED\".",
+      "revId": "6e1766709d0fa11c237739656ccba3db0c9f601e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a7ec68d_04abbdaa",
+        "filename": "rtc_base/rtc_export.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-09-07T10:21:15Z",
+      "side": 1,
+      "message": "+1. Documentation would be nice.",
+      "parentUuid": "9ebba842_6e5d54b6",
       "revId": "6e1766709d0fa11c237739656ccba3db0c9f601e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

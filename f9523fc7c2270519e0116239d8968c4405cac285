@@ -69,6 +69,30 @@
       "revId": "f9523fc7c2270519e0116239d8968c4405cac285",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ee17387_7a53c3fc",
+        "filename": "sdk/android/src/jni/pc/icecandidate.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-09-07T18:01:02Z",
+      "side": 1,
+      "message": "I\u0027ve found that certain compilers aren\u0027t convinced that RTC_CHECK(false) will terminate the function, so will complain if a return is not specified.",
+      "parentUuid": "966c106b_bec1175f",
+      "range": {
+        "startLine": 221,
+        "startChar": 2,
+        "endLine": 221,
+        "endChar": 18
+      },
+      "revId": "f9523fc7c2270519e0116239d8968c4405cac285",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -606,6 +606,18 @@ RTCError RtpTransportControllerAdapter::ValidateAndApplyVideoReceiverParameters(
   return RTCError::OK();
 }
 
+const cricket::AudioCodec& DummyAudioCodec() {
+  static const auto* dummy_audio =
+      new cricket::AudioCodec(0, cricket::kPcmuCodecName, 8000, 0, 1);
+  return *dummy_audio;
+}
+
+const cricket::VideoCodec& DummyVideoCodec() {
+  static const auto* dummy_video =
+      new cricket::VideoCodec(96, cricket::kVp8CodecName);
+  return *dummy_video;
+}
+
 RtpTransportControllerAdapter::RtpTransportControllerAdapter(
     const cricket::MediaConfig& config,
     cricket::ChannelManager* channel_manager,
@@ -626,13 +638,10 @@ RtpTransportControllerAdapter::RtpTransportControllerAdapter(
   // currently reject empty lists of codecs. Note that these codecs will never
   // actually be used, because when parameters are set, the dummy codecs will
   // be replaced by actual codecs before any send/receive streams are created.
-  static const cricket::AudioCodec dummy_audio(0, cricket::kPcmuCodecName, 8000,
-                                               0, 1);
-  static const cricket::VideoCodec dummy_video(96, cricket::kVp8CodecName);
-  local_audio_description_.AddCodec(dummy_audio);
-  remote_audio_description_.AddCodec(dummy_audio);
-  local_video_description_.AddCodec(dummy_video);
-  remote_video_description_.AddCodec(dummy_video);
+  local_audio_description_.AddCodec(DummyAudioCodec());
+  remote_audio_description_.AddCodec(DummyAudioCodec());
+  local_video_description_.AddCodec(DummyVideoCodec());
+  remote_video_description_.AddCodec(DummyVideoCodec());
 
   worker_thread_->Invoke<void>(
       RTC_FROM_HERE, rtc::Bind(&RtpTransportControllerAdapter::Init_w, this));

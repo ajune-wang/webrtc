@@ -22,6 +22,30 @@
       "revId": "7dd98e777d28b6b3fb4c404e6dcfd4d4d1768895",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36599421_7ba789ae",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-09-07T14:30:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ade4e064_56b9c2ed",
+      "range": {
+        "startLine": 26,
+        "startChar": 36,
+        "endLine": 26,
+        "endChar": 47
+      },
+      "revId": "7dd98e777d28b6b3fb4c404e6dcfd4d4d1768895",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "56bb478f_626ef34f",
+        "filename": "modules/remote_bitrate_estimator/test/bwe_test_framework.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-09-07T12:28:21Z",
+      "side": 1,
+      "message": "SetPayloadSize\ndoes about the same, but name looks more readable (when you ignore the result)",
+      "range": {
+        "startLine": 145,
+        "startChar": 9,
+        "endLine": 145,
+        "endChar": 24
+      },
+      "revId": "ec8d7cf06a29a6dad46245c8652618fae31ab682",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53dfc66e_adaab3ea",
+        "filename": "modules/remote_bitrate_estimator/test/bwe_test_framework.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-09-07T12:28:21Z",
+      "side": 1,
+      "message": "because you haven\u0027t provided extension_map to the packet [created with default constructor],\nthis call is noop.\nMay be use some default map, e.g. \nRtpHeaderExtensionMap extensions({{1, AbsoluteSendTime::kUri}});\nor do not copy the abs send time if you do not use it.",
+      "range": {
+        "startLine": 148,
+        "startChar": 11,
+        "endLine": 148,
+        "endChar": 23
+      },
+      "revId": "ec8d7cf06a29a6dad46245c8652618fae31ab682",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44817ee8_cd23c0e7",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-09-07T12:28:21Z",
+      "side": 1,
+      "message": "may by copy function CountPacket from rtp_sender.cc (or generalize it into \nCountPacket(RtpPacketCounter* counter, const RtpPacket\u0026 packet) and share between stats and RTPSender )\nso that you wouldn\u0027t need the header",
+      "range": {
+        "startLine": 81,
+        "startChar": 57,
+        "endLine": 81,
+        "endChar": 63
+      },
+      "revId": "ec8d7cf06a29a6dad46245c8652618fae31ab682",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0fe73444_56d69921",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-09-07T12:28:21Z",
+      "side": 1,
+      "message": "why do you want this inheritance?\n\nMay be add OnRtpPacket without it.",
+      "range": {
+        "startLine": 27,
+        "startChar": 31,
+        "endLine": 27,
+        "endChar": 60
+      },
+      "revId": "ec8d7cf06a29a6dad46245c8652618fae31ab682",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a560e73_724ae587",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-09-07T12:28:21Z",
+      "side": 1,
+      "message": "Implements\n\ncomments should be descriptive (\"Opens the file\") rather than imperative (\"Open the file\");\nhttps://google.github.io/styleguide/cppguide.html#Function_Comments",
+      "range": {
+        "startLine": 45,
+        "startChar": 5,
+        "endLine": 45,
+        "endChar": 14
+      },
+      "revId": "ec8d7cf06a29a6dad46245c8652618fae31ab682",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a629ced_4fc6d202",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-09-07T12:28:21Z",
+      "side": 1,
+      "message": "may be name it \u0027delta\u0027\nsince it is not recommended to shorten words",
+      "range": {
+        "startLine": 65,
+        "startChar": 65,
+        "endLine": 65,
+        "endChar": 69
+      },
+      "revId": "ec8d7cf06a29a6dad46245c8652618fae31ab682",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a01dc20a_ed056e57",
+        "filename": "modules/rtp_rtcp/source/rtcp_sender_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-09-07T12:28:21Z",
+      "side": 1,
+      "message": "\"100 - 12\" to be identical to old code",
+      "range": {
+        "startLine": 101,
+        "startChar": 27,
+        "endLine": 101,
+        "endChar": 30
+      },
+      "revId": "ec8d7cf06a29a6dad46245c8652618fae31ab682",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7d3d058_d73bd9b9",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-09-07T12:28:21Z",
+      "side": 1,
+      "message": "-12",
+      "range": {
+        "startLine": 330,
+        "startChar": 25,
+        "endLine": 330,
+        "endChar": 28
+      },
+      "revId": "ec8d7cf06a29a6dad46245c8652618fae31ab682",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4faa736_f652c846",
+        "filename": "modules/rtp_rtcp/test/testAPI/test_api.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-09-07T12:28:21Z",
+      "side": 1,
+      "message": "header contains paddingSize\nbetter double check if rtp_receiver_ decreases it from the passed payload, or ignores.",
+      "range": {
+        "startLine": 61,
+        "startChar": 6,
+        "endLine": 61,
+        "endChar": 35
+      },
+      "revId": "ec8d7cf06a29a6dad46245c8652618fae31ab682",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a2bbe4a0_fb07755e",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-09-07T15:32:42Z",
+      "side": 1,
+      "message": "removed for simplicity, you right, I do not need to worry much",
+      "parentUuid": "46fbf4da_0b23e9c3",
+      "range": {
+        "startLine": 414,
+        "startChar": 11,
+        "endLine": 414,
+        "endChar": 37
+      },
+      "revId": "a563fde63c3137f67f02b874f5cf0f299ea02660",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c0af2592_3ab78452",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "a563fde63c3137f67f02b874f5cf0f299ea02660",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c324dc7_75a4fb2d",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-09-07T15:32:42Z",
+      "side": 1,
+      "message": "AllocatePayload would crash if packet\u0027s internal buffer capacity is not large enough (normally it is larger than really used).\nThis dcheck is different and must be _after_ NextPacket - \nBefore call to NextPacket payload_size is zero.\nthis check verifies packetizer didn\u0027t write more payload bytes than limits set.\ne.g. if first_packet_reduction_len will be used, it will fail for vp9 and h264 because they still ignore that limit\n\n\nAdded TODO note for single packet case about two-byte header extensions (doesn\u0027t apply for other cases)",
+      "parentUuid": "c0af2592_3ab78452",
+      "range": {
+        "startLine": 424,
+        "startChar": 4,
+        "endLine": 424,
+        "endChar": 69
+      },
+      "revId": "a563fde63c3137f67f02b874f5cf0f299ea02660",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

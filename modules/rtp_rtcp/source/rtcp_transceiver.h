@@ -29,9 +29,10 @@ namespace webrtc {
 class RtcpTransceiver : public RtcpFeedbackSenderInterface {
  public:
   explicit RtcpTransceiver(const RtcpTransceiverConfig& config);
-  // Blocks unless Stop was called.
-  // TODO(danilchap): Change destructor to never block by breaking assumption
-  // callbacks are not used after destruction.
+  // Note that interfaces provided in constructor still might be used after the
+  // destructor. However they can only be used on the confic.task_queue.
+  // Use Stop function to get notified when they are no longer used or
+  // ensure those objects outlive the task queue.
   ~RtcpTransceiver() override;
 
   // Start asynchronious destruction of the RtcpTransceiver.

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "50a4ed96_2c0d92bd",
+        "filename": "modules/audio_coding/neteq/tools/neteq_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-09-07T13:33:02Z",
+      "side": 1,
+      "message": "Is the normalization right: as far as I can tell, kNormal will always be 0.\n\nAnyways, I think my concern may not be solved by just a normalization.\n\nIf I recall correctly, the #sample of expansion we add each time is not regular. We correct it by subtracting a number when we do Merge. There can be other pitfalls like that.\n\nSo, if we learn actions from stats, it may not be accurate for each getAudio call.",
+      "revId": "b777a8d4497a756b7d0a4fb460e4f426f4e5763a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "46fbf4da_0b23e9c3",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-09-07T15:05:49Z",
+      "side": 1,
+      "message": "Maybe you don\u0027t need to worry so much about moving it at the very end and simplify the code by omitting this case.\n\nOtherwise, If there\u0027re only 2 packets, you still \"leak\" the middle_packet.",
+      "range": {
+        "startLine": 414,
+        "startChar": 11,
+        "endLine": 414,
+        "endChar": 37
+      },
+      "revId": "a563fde63c3137f67f02b874f5cf0f299ea02660",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0af2592_3ab78452",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-09-07T15:05:49Z",
+      "side": 1,
+      "message": "This check has to be above, because otherwise it\u0027s usless, as NextPacket() would crash e.g. here:\nhttps://cs.corp.google.com/piper///depot/google3/third_party/webrtc/files/stable/webrtc/modules/rtp_rtcp/source/rtp_format_vp8.cc?q\u003drtp_format_vp8.cc\u0026dr\u0026l\u003d196\n\nAlso, nit: Add here a comment that this check may crash in case of 2-header byte extensions, because combined first and last headers may be several bytes longer than their total length separately.",
+      "range": {
+        "startLine": 424,
+        "startChar": 4,
+        "endLine": 424,
+        "endChar": 69
+      },
+      "revId": "a563fde63c3137f67f02b874f5cf0f299ea02660",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

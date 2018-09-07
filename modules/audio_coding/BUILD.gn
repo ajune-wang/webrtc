@@ -1514,7 +1514,6 @@ if (rtc_include_tests) {
       defines = []
       deps = [
         "../../rtc_base:checks",
-        "../../test:field_trial",
         "../../test:fileutils",
       ]
       sources = [
@@ -1544,6 +1543,8 @@ if (rtc_include_tests) {
       deps = [
         ":neteq_test_factory",
         ":neteq_test_tools",
+        "../../rtc_base:rtc_base_approved",
+        "../../test:field_trial",
       ]
       sources = [
         "neteq/tools/neteq_rtpplay.cc",

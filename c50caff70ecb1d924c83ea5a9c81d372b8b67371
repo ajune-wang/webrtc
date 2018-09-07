@@ -22,6 +22,30 @@
       "revId": "c50caff70ecb1d924c83ea5a9c81d372b8b67371",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "046ef11c_b1a34e84",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-09-07T08:59:39Z",
+      "side": 1,
+      "message": "I made them share the condition instead. I\u0027d rather not use a state modifying function as it makes it harder to follow the code. (the reader would have to look at the function to realise that it modifies the state of delay_based_bwe_)",
+      "parentUuid": "79241f1f_6f088bb6",
+      "range": {
+        "startLine": 427,
+        "startChar": 6,
+        "endLine": 430,
+        "endChar": 55
+      },
+      "revId": "c50caff70ecb1d924c83ea5a9c81d372b8b67371",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

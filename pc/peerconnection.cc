@@ -14,7 +14,6 @@
 #include <limits>
 #include <queue>
 #include <set>
-#include <utility>
 #include <vector>
 
 #include "absl/memory/memory.h"
@@ -388,25 +387,10 @@ bool MediaSectionsHaveSameCount(const SessionDescription& desc1,
 }
 
 void NoteKeyProtocolAndMedia(KeyExchangeProtocolType protocol_type,
-                             cricket::MediaType media_type) {
+                             cricket::MediaType media_type,
+                             const ProtocolMediaMap& proto_media_counter_map) {
   RTC_HISTOGRAM_ENUMERATION("WebRTC.PeerConnection.KeyProtocol", protocol_type,
                             kEnumCounterKeyProtocolMax);
-  static const std::map<std::pair<KeyExchangeProtocolType, cricket::MediaType>,
-                        KeyExchangeProtocolMedia>
-      proto_media_counter_map = {
-          {{kEnumCounterKeyProtocolDtls, cricket::MEDIA_TYPE_AUDIO},
-           kEnumCounterKeyProtocolMediaTypeDtlsAudio},
-          {{kEnumCounterKeyProtocolDtls, cricket::MEDIA_TYPE_VIDEO},
-           kEnumCounterKeyProtocolMediaTypeDtlsVideo},
-          {{kEnumCounterKeyProtocolDtls, cricket::MEDIA_TYPE_DATA},
-           kEnumCounterKeyProtocolMediaTypeDtlsData},
-          {{kEnumCounterKeyProtocolSdes, cricket::MEDIA_TYPE_AUDIO},
-           kEnumCounterKeyProtocolMediaTypeSdesAudio},
-          {{kEnumCounterKeyProtocolSdes, cricket::MEDIA_TYPE_VIDEO},
-           kEnumCounterKeyProtocolMediaTypeSdesVideo},
-          {{kEnumCounterKeyProtocolSdes, cricket::MEDIA_TYPE_DATA},
-           kEnumCounterKeyProtocolMediaTypeSdesData}};
-
   auto it = proto_media_counter_map.find({protocol_type, media_type});
   if (it != proto_media_counter_map.end()) {
     RTC_HISTOGRAM_ENUMERATION("WebRTC.PeerConnection.KeyProtocolByMedia",
@@ -425,7 +409,9 @@ void NoteAddIceCandidateResult(int result) {
 // needs a ufrag and pwd. Mismatches, such as replying with a DTLS fingerprint
 // to SDES keys, will be caught in JsepTransport negotiation, and backstopped
 // by Channel's |srtp_required| check.
-RTCError VerifyCrypto(const SessionDescription* desc, bool dtls_enabled) {
+RTCError VerifyCrypto(const SessionDescription* desc,
+                      bool dtls_enabled,
+                      const ProtocolMediaMap& proto_media_counter_map) {
   const cricket::ContentGroup* bundle =
       desc->GetGroupByName(cricket::GROUP_TYPE_BUNDLE);
   for (const cricket::ContentInfo& content_info : desc->contents()) {
@@ -435,7 +421,8 @@ RTCError VerifyCrypto(const SessionDescription* desc, bool dtls_enabled) {
     // Note what media is used with each crypto protocol, for all sections.
     NoteKeyProtocolAndMedia(dtls_enabled ? webrtc::kEnumCounterKeyProtocolDtls
                                          : webrtc::kEnumCounterKeyProtocolSdes,
-                            content_info.media_description()->type());
+                            content_info.media_description()->type(),
+                            proto_media_counter_map);
     const std::string& mid = content_info.name;
     if (bundle && bundle->HasContentName(mid) &&
         mid != *(bundle->FirstContentName())) {
@@ -1030,6 +1017,21 @@ bool PeerConnection::Initialize(
       return_histogram_very_quickly_ ? 0 : REPORT_USAGE_PATTERN_DELAY_MS;
   signaling_thread()->PostDelayed(RTC_FROM_HERE, delay_ms, this,
                                   MSG_REPORT_USAGE_PATTERN, nullptr);
+
+  proto_media_counter_map_ = {
+      {{kEnumCounterKeyProtocolDtls, cricket::MEDIA_TYPE_AUDIO},
+       kEnumCounterKeyProtocolMediaTypeDtlsAudio},
+      {{kEnumCounterKeyProtocolDtls, cricket::MEDIA_TYPE_VIDEO},
+       kEnumCounterKeyProtocolMediaTypeDtlsVideo},
+      {{kEnumCounterKeyProtocolDtls, cricket::MEDIA_TYPE_DATA},
+       kEnumCounterKeyProtocolMediaTypeDtlsData},
+      {{kEnumCounterKeyProtocolSdes, cricket::MEDIA_TYPE_AUDIO},
+       kEnumCounterKeyProtocolMediaTypeSdesAudio},
+      {{kEnumCounterKeyProtocolSdes, cricket::MEDIA_TYPE_VIDEO},
+       kEnumCounterKeyProtocolMediaTypeSdesVideo},
+      {{kEnumCounterKeyProtocolSdes, cricket::MEDIA_TYPE_DATA},
+       kEnumCounterKeyProtocolMediaTypeSdesData}};
+
   return true;
 }
 
@@ -5716,7 +5718,8 @@ RTCError PeerConnection::ValidateSessionDescription(
   std::string crypto_error;
   if (webrtc_session_desc_factory_->SdesPolicy() == cricket::SEC_REQUIRED ||
       dtls_enabled_) {
-    RTCError crypto_error = VerifyCrypto(sdesc->description(), dtls_enabled_);
+    RTCError crypto_error = VerifyCrypto(sdesc->description(), dtls_enabled_,
+                                         proto_media_counter_map_);
     if (!crypto_error.ok()) {
       return crypto_error;
     }

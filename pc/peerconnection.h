@@ -15,6 +15,7 @@
 #include <memory>
 #include <set>
 #include <string>
+#include <utility>
 #include <vector>
 
 #include "api/peerconnectioninterface.h"
@@ -30,6 +31,10 @@
 #include "pc/webrtcsessiondescriptionfactory.h"
 
 namespace webrtc {
+
+typedef std::map<std::pair<KeyExchangeProtocolType, cricket::MediaType>,
+                 KeyExchangeProtocolMedia>
+    ProtocolMediaMap;
 
 class MediaStreamObserver;
 class VideoRtpReceiver;
@@ -1033,6 +1038,7 @@ class PeerConnection : public PeerConnectionInternal,
 
   int usage_event_accumulator_ = 0;
   bool return_histogram_very_quickly_ = false;
+  ProtocolMediaMap proto_media_counter_map_;
 };
 
 }  // namespace webrtc

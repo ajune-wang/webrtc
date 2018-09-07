@@ -70,6 +70,30 @@
       "revId": "7cd2a9514837cfb63f636fa2d213e7941fc76f2e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0f0b1bd_37488f28",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-09-07T12:12:32Z",
+      "side": 0,
+      "message": "I would definitely suggest that you use an array-of-structs instead of an array-of-arrays; that way you get to use the real types, and you can name the fields.",
+      "parentUuid": "d0f2f65d_ea110ab3",
+      "range": {
+        "startLine": 394,
+        "startChar": 2,
+        "endLine": 408,
+        "endChar": 54
+      },
+      "revId": "7cd2a9514837cfb63f636fa2d213e7941fc76f2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

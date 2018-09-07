@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a5fcff6_f0ecd842",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-09-07T10:03:15Z",
+      "side": 0,
+      "message": "After reading the style guide I think this solution is probably too complex.\n\nWe can change the data structure and avoid the usage of std::map or use a function-local static pointer as we discussed earlier.",
+      "range": {
+        "startLine": 394,
+        "startChar": 2,
+        "endLine": 408,
+        "endChar": 54
+      },
+      "revId": "7cd2a9514837cfb63f636fa2d213e7941fc76f2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

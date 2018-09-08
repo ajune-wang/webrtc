@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "641eff17_486cec4e",
+        "filename": "sdk/android/api/org/webrtc/PeerConnection.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 7702
+      },
+      "writtenOn": "2018-09-08T21:32:58Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "0df01b62_23a85198",
+      "range": {
+        "startLine": 80,
+        "startChar": 22,
+        "endLine": 80,
+        "endChar": 31
+      },
+      "revId": "f9523fc7c2270519e0116239d8968c4405cac285",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4c57ce4a_2044cb49",
         "filename": "sdk/android/src/jni/pc/icecandidate.cc",
         "patchSetId": 2
@@ -117,6 +141,30 @@
       "revId": "f9523fc7c2270519e0116239d8968c4405cac285",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c49909a_27f9c698",
+        "filename": "sdk/android/src/jni/pc/icecandidate.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 7702
+      },
+      "writtenOn": "2018-09-08T21:32:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "84564649_e07af390",
+      "range": {
+        "startLine": 221,
+        "startChar": 2,
+        "endLine": 221,
+        "endChar": 18
+      },
+      "revId": "f9523fc7c2270519e0116239d8968c4405cac285",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

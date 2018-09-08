@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "38b51b3e_131db3a2",
+        "filename": "rtc_tools/frame_analyzer/linear_least_squares.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-09-08T17:02:39Z",
+      "side": 1,
+      "message": "I talked with Mirko about this. Maybe in the future we will add support for linear algebra as a third_party dep, but for now it was easier to handroll it. I think if we need a real matrix library in WebRTC, we should consider adding a third_party dep.",
+      "parentUuid": "8e085e07_e5b8096a",
+      "range": {
+        "startLine": 22,
+        "startChar": 6,
+        "endLine": 22,
+        "endChar": 12
+      },
+      "revId": "9414ae74f50c62e094093853ca8075744b542077",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7dd37105_2e7f8f48",
         "filename": "rtc_tools/frame_analyzer/linear_least_squares.cc",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "9414ae74f50c62e094093853ca8075744b542077",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0b121ae_aa7a3c8a",
+        "filename": "rtc_tools/frame_analyzer/linear_least_squares.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-09-08T17:02:39Z",
+      "side": 1,
+      "message": "Yeah, the output from MatrixMultiply was accidentally transposed already. I fixed it and clarified the code and comment here.",
+      "parentUuid": "7dd37105_2e7f8f48",
+      "range": {
+        "startLine": 102,
+        "startChar": 52,
+        "endLine": 102,
+        "endChar": 71
+      },
+      "revId": "9414ae74f50c62e094093853ca8075744b542077",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "c2b5548f_5c7972cc",
+        "filename": "rtc_tools/frame_analyzer/linear_least_squares.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-09-08T17:02:39Z",
+      "side": 1,
+      "message": "Done, changed to the verbose name |diagonal_index|.",
+      "parentUuid": "36ecc3d7_4d17a07d",
+      "range": {
+        "startLine": 105,
+        "startChar": 14,
+        "endLine": 105,
+        "endChar": 15
+      },
+      "revId": "9414ae74f50c62e094093853ca8075744b542077",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aa1b385d_1251ccd3",
         "filename": "rtc_tools/frame_analyzer/linear_least_squares.cc",
         "patchSetId": 5
@@ -91,6 +163,30 @@
       "revId": "9414ae74f50c62e094093853ca8075744b542077",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac3a6a7d_ae88bb46",
+        "filename": "rtc_tools/frame_analyzer/linear_least_squares.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-09-08T17:02:39Z",
+      "side": 1,
+      "message": "The technical term for this element is pivot (https://en.wikipedia.org/wiki/Pivot_element), but I changed the comment to \"Make sure the diagonal element has the highest absolute value by swapping columns if necessary.\".",
+      "parentUuid": "aa1b385d_1251ccd3",
+      "range": {
+        "startLine": 106,
+        "startChar": 31,
+        "endLine": 106,
+        "endChar": 47
+      },
+      "revId": "9414ae74f50c62e094093853ca8075744b542077",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "0958f638_e9a7db85",
+        "filename": "rtc_tools/frame_analyzer/linear_least_squares.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-09-08T17:02:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b14d604_6cebdf34",
+      "range": {
+        "startLine": 107,
+        "startChar": 4,
+        "endLine": 107,
+        "endChar": 7
+      },
+      "revId": "9414ae74f50c62e094093853ca8075744b542077",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1906efb0_8a9d1d3e",
         "filename": "rtc_tools/frame_analyzer/linear_least_squares.cc",
         "patchSetId": 5
@@ -137,6 +257,30 @@
       "revId": "9414ae74f50c62e094093853ca8075744b542077",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5ab292a_afd2d1a4",
+        "filename": "rtc_tools/frame_analyzer/linear_least_squares.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-09-08T17:02:39Z",
+      "side": 1,
+      "message": "Done, but doesn\u0027t matter.",
+      "parentUuid": "1906efb0_8a9d1d3e",
+      "range": {
+        "startLine": 108,
+        "startChar": 25,
+        "endLine": 108,
+        "endChar": 26
+      },
+      "revId": "9414ae74f50c62e094093853ca8075744b542077",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "45a1ad42_b0dba98a",
+        "filename": "rtc_tools/frame_analyzer/linear_least_squares.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-09-08T17:02:39Z",
+      "side": 1,
+      "message": "Done. Note that this normally will never happen. In the case of color space transformation, it could happen if e.g. the u and v values are exactly the same, and then there are many color space transformations leading to an optimal solution.",
+      "parentUuid": "9dd29f63_c21bfb71",
+      "range": {
+        "startLine": 117,
+        "startChar": 6,
+        "endLine": 117,
+        "endChar": 15
+      },
+      "revId": "9414ae74f50c62e094093853ca8075744b542077",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a2da7e3_6643e976",
         "filename": "rtc_tools/frame_analyzer/linear_least_squares.cc",
         "patchSetId": 5
@@ -183,6 +351,30 @@
       "revId": "9414ae74f50c62e094093853ca8075744b542077",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03ccb2f3_b5b059e5",
+        "filename": "rtc_tools/frame_analyzer/linear_least_squares.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-09-08T17:02:39Z",
+      "side": 1,
+      "message": "Done, simplified the code a bit.",
+      "parentUuid": "3a2da7e3_6643e976",
+      "range": {
+        "startLine": 126,
+        "startChar": 19,
+        "endLine": 126,
+        "endChar": 24
+      },
+      "revId": "9414ae74f50c62e094093853ca8075744b542077",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "4ed8a4ef_70072bed",
+        "filename": "rtc_tools/frame_analyzer/linear_least_squares.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-09-08T17:02:39Z",
+      "side": 1,
+      "message": "Yes. This function finds the matrix b that minimizes the difference |y - x * b|^2. By linear algebra magic, this can be proven to be the solution of the following system of equations:\nx^T * x * b \u003d x^T * y.\nhttps://en.wikipedia.org/wiki/Linear_least_squares\n\nWhat I\u0027m doing is storing the matrices (x^T * x) and (x^T * y). When aliging color space, these matrices are just 4x4 big, although x and y are huge (e.g. 100000000x4).",
+      "parentUuid": "d639af37_80d2491d",
+      "range": {
+        "startLine": 22,
+        "startChar": 3,
+        "endLine": 22,
+        "endChar": 12
+      },
+      "revId": "9414ae74f50c62e094093853ca8075744b542077",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e2e0630c_860bc426",
         "filename": "rtc_tools/frame_analyzer/linear_least_squares.h",
         "patchSetId": 5
@@ -229,6 +445,30 @@
       "revId": "9414ae74f50c62e094093853ca8075744b542077",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8c20d94_501b3745",
+        "filename": "rtc_tools/frame_analyzer/linear_least_squares.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-09-08T17:02:39Z",
+      "side": 1,
+      "message": "Yes absolutely. I should have clarified that I\u0027m working on tests. I wanted to upload the CL before I went on vacation.",
+      "parentUuid": "e2e0630c_860bc426",
+      "range": {
+        "startLine": 29,
+        "startChar": 6,
+        "endLine": 29,
+        "endChar": 35
+      },
+      "revId": "9414ae74f50c62e094093853ca8075744b542077",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -255,6 +495,30 @@
     },
     {
       "key": {
+        "uuid": "0848cc61_9d1cf17f",
+        "filename": "rtc_tools/frame_analyzer/linear_least_squares.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-09-08T17:02:39Z",
+      "side": 1,
+      "message": "It\u0027s a matrix. It\u0027s the same |x| and |y| as in the class comments. It would be possible to add observation row by row, and then it would only be a vector, but for numerical efficancy reasons many observations are added at a time.",
+      "parentUuid": "5ef48f67_4ead60d5",
+      "range": {
+        "startLine": 36,
+        "startChar": 29,
+        "endLine": 36,
+        "endChar": 62
+      },
+      "revId": "9414ae74f50c62e094093853ca8075744b542077",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a409b4e9_a61fbdd8",
         "filename": "rtc_tools/frame_analyzer/video_color_aligner.cc",
         "patchSetId": 5
@@ -275,6 +539,30 @@
       "revId": "9414ae74f50c62e094093853ca8075744b542077",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9b18123_164a8ddd",
+        "filename": "rtc_tools/frame_analyzer/video_color_aligner.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-09-08T17:02:39Z",
+      "side": 1,
+      "message": "Very good catch, this was indeed a bug.",
+      "parentUuid": "a409b4e9_a61fbdd8",
+      "range": {
+        "startLine": 55,
+        "startChar": 37,
+        "endLine": 55,
+        "endChar": 42
+      },
+      "revId": "9414ae74f50c62e094093853ca8075744b542077",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -324,6 +612,30 @@
     },
     {
       "key": {
+        "uuid": "516c7b9a_730f18fb",
+        "filename": "rtc_tools/frame_analyzer/video_color_aligner.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-09-08T17:02:39Z",
+      "side": 1,
+      "message": "Yes, I should have clarified that I\u0027m working on tests. I wanted to upload the CL before I went on vacation.",
+      "parentUuid": "09ca918b_c56d0019",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 44
+      },
+      "revId": "9414ae74f50c62e094093853ca8075744b542077",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "931a5aac_59606707",
         "filename": "rtc_tools/frame_analyzer/video_quality_analysis.cc",
         "patchSetId": 5
@@ -347,6 +659,30 @@
     },
     {
       "key": {
+        "uuid": "538d709c_ca98d3d7",
+        "filename": "rtc_tools/frame_analyzer/video_quality_analysis.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-09-08T17:02:39Z",
+      "side": 1,
+      "message": "It already has a specified length that is passed to the array view. The ctor looks like this:\n// Construct an ArrayView from a C-style array.\ntemplate \u003ctypename U, size_t N\u003e\nArrayView(U (\u0026array)[N]).",
+      "parentUuid": "931a5aac_59606707",
+      "range": {
+        "startLine": 69,
+        "startChar": 7,
+        "endLine": 69,
+        "endChar": 26
+      },
+      "revId": "9414ae74f50c62e094093853ca8075744b542077",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4adf3038_7b5a9ce4",
         "filename": "rtc_tools/frame_analyzer/video_temporal_aligner.cc",
         "patchSetId": 5
@@ -367,6 +703,30 @@
       "revId": "9414ae74f50c62e094093853ca8075744b542077",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "681297d7_95d878c0",
+        "filename": "rtc_tools/frame_analyzer/video_temporal_aligner.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-09-08T17:02:39Z",
+      "side": 1,
+      "message": "Yes, sorry about that. I realized it was more convenient for ReorderVideo() to assume the video is looping, rather than crashing if the indicies loop around. It\u0027s useful for the changes in video_quality_analysis.cc.\n\nI postponed these changes to a follow-up CL: https://webrtc-review.googlesource.com/c/src/+/98980. It makes this CL more focused and avoids having to revert these new classes in case the follow-up CL causes problem.",
+      "parentUuid": "4adf3038_7b5a9ce4",
+      "range": {
+        "startLine": 218,
+        "startChar": 28,
+        "endLine": 218,
+        "endChar": 52
+      },
+      "revId": "9414ae74f50c62e094093853ca8075744b542077",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

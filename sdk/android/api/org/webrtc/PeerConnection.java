@@ -385,6 +385,7 @@ public class PeerConnection {
     public IceTransportsType iceTransportsType;
     public List<IceServer> iceServers;
     public BundlePolicy bundlePolicy;
+    public RTCCertificate certificate;
     public RtcpMuxPolicy rtcpMuxPolicy;
     public TcpCandidatePolicy tcpCandidatePolicy;
     public CandidateNetworkPolicy candidateNetworkPolicy;
@@ -520,6 +521,11 @@ public class PeerConnection {
     @CalledByNative("RTCConfiguration")
     RtcpMuxPolicy getRtcpMuxPolicy() {
       return rtcpMuxPolicy;
+    }
+
+    @CalledByNative("RTCConfiguration")
+    RTCCertificate getCertificate() {
+      return certificate;
     }
 
     @CalledByNative("RTCConfiguration")
@@ -719,6 +725,10 @@ public class PeerConnection {
 
   public SessionDescription getRemoteDescription() {
     return nativeGetRemoteDescription();
+  }
+
+  public RTCCertificate getCertificate() {
+    return new RTCCertificate(nativeGetCertificate());
   }
 
   public DataChannel createDataChannel(String label, DataChannel.Init init) {
@@ -1106,6 +1116,7 @@ public class PeerConnection {
   private native long nativeGetNativePeerConnection();
   private native SessionDescription nativeGetLocalDescription();
   private native SessionDescription nativeGetRemoteDescription();
+  private native String nativeGetCertificate();
   private native DataChannel nativeCreateDataChannel(String label, DataChannel.Init init);
   private native void nativeCreateOffer(SdpObserver observer, MediaConstraints constraints);
   private native void nativeCreateAnswer(SdpObserver observer, MediaConstraints constraints);

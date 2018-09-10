@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "84c49912_76879a21",
+        "filename": "test/frame_generator_capturer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-09-10T11:48:21Z",
+      "side": 1,
+      "message": "One thing that would improve readability would be if this was called next_run_time_ms_ instead (or next_intended...). I think that\u0027s what got me confused before.",
+      "range": {
+        "startLine": 51,
+        "startChar": 4,
+        "endLine": 51,
+        "endChar": 25
+      },
+      "revId": "6df0ba8da2974f6e6fe7d1ad14eb4d6b3f3390f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

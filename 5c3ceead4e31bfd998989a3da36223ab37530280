@@ -70,6 +70,30 @@
       "revId": "5c3ceead4e31bfd998989a3da36223ab37530280",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce14b2f3_3ec26c3d",
+        "filename": "test/frame_generator_capturer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-09-10T10:18:57Z",
+      "side": 1,
+      "message": "in our internal tests I see that error message a lot. hopefully not trying to catch up would reduce that log spam.\n\nI reordered statements a bit to have that +\u003d next to comment \u0027Schedule the next frame capture...\"\nAlso, added DCHECKS below explainig what is expected delay until next frame.\nHope that make code clearer.",
+      "parentUuid": "64d0c3c5_86aa896b",
+      "range": {
+        "startLine": 52,
+        "startChar": 3,
+        "endLine": 53,
+        "endChar": 41
+      },
+      "revId": "5c3ceead4e31bfd998989a3da36223ab37530280",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

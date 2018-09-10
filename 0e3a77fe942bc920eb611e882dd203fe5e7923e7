@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "bd834a12_73002649",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-09-10T16:13:14Z",
+      "side": 1,
+      "message": "No, for this implementation there\u0027s no need to store more data.\nI just wanted a comment that explains that this map stores the last seen pack per packet size so that we can quickly find them when sending payload based padding. Out of context it looks odd is all",
+      "parentUuid": "566c258f_3a779901",
+      "revId": "0e3a77fe942bc920eb611e882dd203fe5e7923e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7b96e5c4_2daa0f19",
         "filename": "modules/rtp_rtcp/source/rtp_packet_history.cc",
         "patchSetId": 4
@@ -84,6 +102,30 @@
     },
     {
       "key": {
+        "uuid": "ec6b4de8_4c219b90",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-09-10T16:13:14Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "eedcb48b_1eaff7e5",
+      "range": {
+        "startLine": 186,
+        "startChar": 0,
+        "endLine": 189,
+        "endChar": 3
+      },
+      "revId": "0e3a77fe942bc920eb611e882dd203fe5e7923e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7062be1e_04cb4a27",
         "filename": "modules/rtp_rtcp/source/rtp_packet_history.cc",
         "patchSetId": 4
@@ -128,6 +170,30 @@
       "revId": "0e3a77fe942bc920eb611e882dd203fe5e7923e7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d4c29ba_ff8a7f1c",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-09-10T16:13:14Z",
+      "side": 1,
+      "message": "ah, of course.",
+      "parentUuid": "dea7fdfb_e06e4a4e",
+      "range": {
+        "startLine": 192,
+        "startChar": 6,
+        "endLine": 192,
+        "endChar": 56
+      },
+      "revId": "0e3a77fe942bc920eb611e882dd203fe5e7923e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -269,6 +335,30 @@
       "revId": "0e3a77fe942bc920eb611e882dd203fe5e7923e7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7d6010c_ca42255a",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 542,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-09-10T16:13:14Z",
+      "side": 1,
+      "message": "Right, forgot we had that.",
+      "parentUuid": "90463c85_079f8766",
+      "range": {
+        "startLine": 541,
+        "startChar": 0,
+        "endLine": 542,
+        "endChar": 0
+      },
+      "revId": "0e3a77fe942bc920eb611e882dd203fe5e7923e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

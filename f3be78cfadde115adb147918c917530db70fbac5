@@ -22,6 +22,150 @@
       "revId": "f3be78cfadde115adb147918c917530db70fbac5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77860dc5_eaf5d52a",
+        "filename": "api/rtpparameters.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-09-10T17:08:52Z",
+      "side": 1,
+      "message": "Should be fine to change kMaxId to 255. API users shouldn\u0027t be relying on the exact value.\n\nAlso, maybe link to the RFC for:\n1) 1-byte header extension ID: https://tools.ietf.org/html/rfc8285#section-4.2\n2) 2-byte header extension ID: https://tools.ietf.org/html/rfc8285#section-4.3",
+      "parentUuid": "2623171c_b5eebe37",
+      "range": {
+        "startLine": 136,
+        "startChar": 0,
+        "endLine": 137,
+        "endChar": 58
+      },
+      "revId": "f3be78cfadde115adb147918c917530db70fbac5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f73c74d_f6f417cd",
+        "filename": "api/rtpparameters.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-09-10T17:08:52Z",
+      "side": 1,
+      "message": "Update?",
+      "range": {
+        "startLine": 302,
+        "startChar": 35,
+        "endLine": 302,
+        "endChar": 61
+      },
+      "revId": "f3be78cfadde115adb147918c917530db70fbac5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52d499ec_55fb09b7",
+        "filename": "api/rtpparameters.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-09-10T17:08:52Z",
+      "side": 1,
+      "message": "nit: Could update to RFC8285 (which obsoleted RFC5285).",
+      "range": {
+        "startLine": 302,
+        "startChar": 67,
+        "endLine": 302,
+        "endChar": 74
+      },
+      "revId": "f3be78cfadde115adb147918c917530db70fbac5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36ffb448_02644194",
+        "filename": "media/engine/webrtcmediaengine.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-09-10T17:08:52Z",
+      "side": 1,
+      "message": "Use one of the existing constants? (RtpExtension or RtpHeaderExtensionMap)",
+      "revId": "f3be78cfadde115adb147918c917530db70fbac5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1f75483_b8cb89a8",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-09-10T17:08:52Z",
+      "side": 1,
+      "message": "Wow these constants are duplicated in a lot of places.",
+      "revId": "f3be78cfadde115adb147918c917530db70fbac5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8a16492c_9566914f",
+        "filename": "pc/mediasession.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 404,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-09-10T17:08:52Z",
+      "side": 1,
+      "message": "Why not kMaxId?",
+      "range": {
+        "startLine": 404,
+        "startChar": 34,
+        "endLine": 404,
+        "endChar": 62
+      },
+      "revId": "f3be78cfadde115adb147918c917530db70fbac5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1e8f092_a67d53bb",
+        "filename": "pc/rtpparametersconversion_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-09-10T17:08:52Z",
+      "side": 1,
+      "message": "Please add a test for ID\u003d15 if we now support that here.",
+      "revId": "f3be78cfadde115adb147918c917530db70fbac5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

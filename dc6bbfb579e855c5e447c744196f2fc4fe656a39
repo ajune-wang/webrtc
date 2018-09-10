@@ -308,6 +308,30 @@
     },
     {
       "key": {
+        "uuid": "af7e025b_cdd9ead2",
+        "filename": "pc/rtpsender.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2018-09-10T15:57:12Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "023dcad3_881ee3d6",
+      "range": {
+        "startLine": 237,
+        "startChar": 6,
+        "endLine": 237,
+        "endChar": 42
+      },
+      "revId": "dc6bbfb579e855c5e447c744196f2fc4fe656a39",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2e048f34_cd854e88",
         "filename": "pc/rtpsender.cc",
         "patchSetId": 5
@@ -426,6 +450,30 @@
     },
     {
       "key": {
+        "uuid": "099a0e58_67a08acf",
+        "filename": "pc/rtpsender.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2018-09-10T15:57:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e8d67d1b_0d9b8cb6",
+      "range": {
+        "startLine": 324,
+        "startChar": 10,
+        "endLine": 324,
+        "endChar": 24
+      },
+      "revId": "dc6bbfb579e855c5e447c744196f2fc4fe656a39",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f4b233df_02b966bf",
         "filename": "pc/rtpsender.cc",
         "patchSetId": 5
@@ -497,6 +545,30 @@
     },
     {
       "key": {
+        "uuid": "65b34587_32083fcd",
+        "filename": "pc/rtpsender.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2018-09-10T15:57:12Z",
+      "side": 1,
+      "message": "Yes, that means 1. Done",
+      "parentUuid": "3a9ade2f_43e6cbb7",
+      "range": {
+        "startLine": 327,
+        "startChar": 8,
+        "endLine": 327,
+        "endChar": 36
+      },
+      "revId": "dc6bbfb579e855c5e447c744196f2fc4fe656a39",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b9dccf59_0e386ab6",
         "filename": "pc/rtpsender.cc",
         "patchSetId": 5
@@ -517,6 +589,30 @@
       "revId": "dc6bbfb579e855c5e447c744196f2fc4fe656a39",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eff989ae_d048faa4",
+        "filename": "pc/rtpsender.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2018-09-10T15:57:12Z",
+      "side": 1,
+      "message": "I see what you mean. I changed the code to take that into account.",
+      "parentUuid": "b9dccf59_0e386ab6",
+      "range": {
+        "startLine": 330,
+        "startChar": 6,
+        "endLine": 330,
+        "endChar": 63
+      },
+      "revId": "dc6bbfb579e855c5e447c744196f2fc4fe656a39",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

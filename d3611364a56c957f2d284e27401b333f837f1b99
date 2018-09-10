@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "db7c46d8_a9610819",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-09-10T11:59:55Z",
+      "side": 1,
+      "message": "We don\u0027t know yet. Let\u0027s not say anything categorical at this point.",
+      "parentUuid": "d2289cf3_970f2b87",
+      "range": {
+        "startLine": 10,
+        "startChar": 48,
+        "endLine": 13,
+        "endChar": 0
+      },
+      "revId": "d3611364a56c957f2d284e27401b333f837f1b99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a970978_a3defbbf",
         "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator_agc.h",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "d3611364a56c957f2d284e27401b333f837f1b99",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e08ababe_50cdb70c",
+        "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator_agc.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-09-10T11:59:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a970978_a3defbbf",
+      "range": {
+        "startLine": 41,
+        "startChar": 23,
+        "endLine": 41,
+        "endChar": 44
+      },
+      "revId": "d3611364a56c957f2d284e27401b333f837f1b99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "5e861afc_5c17ae84",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-09-10T11:59:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "69fd62fd_c80f8040",
+      "range": {
+        "startLine": 368,
+        "startChar": 17,
+        "endLine": 371,
+        "endChar": 23
+      },
+      "revId": "d3611364a56c957f2d284e27401b333f837f1b99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "37837594_dfeb5802",
         "filename": "modules/audio_processing/audio_processing_impl.cc",
         "patchSetId": 4
@@ -82,6 +154,30 @@
       "writtenOn": "2018-09-10T08:02:49Z",
       "side": 1,
       "message": "compare this to line 1299: why are they different? agc_manager wants the lower band 8k signal, but here it looks like we\u0027re passing the full band one",
+      "range": {
+        "startLine": 1223,
+        "startChar": 10,
+        "endLine": 1223,
+        "endChar": 39
+      },
+      "revId": "d3611364a56c957f2d284e27401b333f837f1b99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b46f4d52_6ffc23d6",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1223,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-09-10T11:59:55Z",
+      "side": 1,
+      "message": "Passing the full-band is OK, because the VAD resamples: https://cs.chromium.org/chromium/src/third_party/webrtc/modules/audio_processing/vad/voice_activity_detector.cc?type\u003dcs\u0026q\u003dprocesschunk\u0026sq\u003dpackage:chromium\u0026g\u003d0\u0026l\u003d41",
+      "parentUuid": "37837594_dfeb5802",
       "range": {
         "startLine": 1223,
         "startChar": 10,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "485d33c5_040aaa97",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1226,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-09-10T11:59:55Z",
+      "side": 1,
+      "message": "Are you sure? Better not having any comment at all than having a bad one for 1+ years. If e.g. the comment says \"use this experimental feature at you own risk\".",
+      "parentUuid": "3f4f9635_289f99ba",
+      "range": {
+        "startLine": 1221,
+        "startChar": 0,
+        "endLine": 1226,
+        "endChar": 5
+      },
+      "revId": "d3611364a56c957f2d284e27401b333f837f1b99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9ad31edc_b93f884d",
         "filename": "modules/audio_processing/audio_processing_impl.h",
         "patchSetId": 4
@@ -128,6 +248,30 @@
       "writtenOn": "2018-09-10T08:02:49Z",
       "side": 1,
       "message": "I commented the CL description asking if the new flags are meant for production or just for experimental changes. In the latter case, I would add comments here to clearly indicate what can be used safely and what one should not touch.",
+      "range": {
+        "startLine": 375,
+        "startChar": 9,
+        "endLine": 375,
+        "endChar": 48
+      },
+      "revId": "d3611364a56c957f2d284e27401b333f837f1b99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e485c65_29b150a4",
+        "filename": "modules/audio_processing/audio_processing_impl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-09-10T11:59:55Z",
+      "side": 1,
+      "message": "In the IMPL file as well? I\u0027ve commented in the audio_processing header.",
+      "parentUuid": "9ad31edc_b93f884d",
       "range": {
         "startLine": 375,
         "startChar": 9,
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "15bf804e_3c947e97",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-09-10T11:59:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "214f2442_2a7a0871",
+      "range": {
+        "startLine": 145,
+        "startChar": 2,
+        "endLine": 145,
+        "endChar": 34
+      },
+      "revId": "d3611364a56c957f2d284e27401b333f837f1b99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6a5567be_90b98b86",
         "filename": "modules/audio_processing/test/audio_processing_simulator.cc",
         "patchSetId": 4
@@ -186,6 +354,30 @@
     },
     {
       "key": {
+        "uuid": "330cc56b_f70c1c05",
+        "filename": "modules/audio_processing/test/audio_processing_simulator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 722,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-09-10T11:59:55Z",
+      "side": 1,
+      "message": "Hm, I tested it and verified it works. Why wasn\u0027t this detected? Ah, agc_before_aec\u003d0 would activate the feature anyway. But I didn\u0027t test it with \"\u003d0\" it because I just left the flag out to get the default.\n\nThanks!",
+      "parentUuid": "6a5567be_90b98b86",
+      "range": {
+        "startLine": 722,
+        "startChar": 10,
+        "endLine": 722,
+        "endChar": 19
+      },
+      "revId": "d3611364a56c957f2d284e27401b333f837f1b99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "610bd887_1d7adb7c",
         "filename": "modules/audio_processing/test/audioproc_float_impl.cc",
         "patchSetId": 4
@@ -200,6 +392,24 @@
       "revId": "d3611364a56c957f2d284e27401b333f837f1b99",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "110e18b6_26b983a6",
+        "filename": "modules/audio_processing/test/audioproc_float_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-09-10T11:59:55Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "610bd887_1d7adb7c",
+      "revId": "d3611364a56c957f2d284e27401b333f837f1b99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -204,6 +204,13 @@ class UnixRealTimeClock : public RealTimeClock {
 static WindowsRealTimeClock* volatile g_shared_clock = nullptr;
 #endif  // defined(WEBRTC_WIN)
 
+#ifdef WEBRTC_POSIX
+UnixRealTimeClock& GetUnixRealTimeClock() {
+  static UnixRealTimeClock* unix_realtime_clock = new UnixRealTimeClock();
+  return *unix_realtime_clock;
+}
+#endif  // WEBRTC_POSIX
+
 Clock* Clock::GetRealTimeClock() {
 #if defined(WEBRTC_WIN)
   // This read relies on volatile read being atomic-load-acquire. This is
@@ -221,8 +228,7 @@ Clock* Clock::GetRealTimeClock() {
   }
   return g_shared_clock;
 #elif defined(WEBRTC_POSIX)
-  static UnixRealTimeClock clock;
-  return &clock;
+  return &GetUnixRealTimeClock();
 #else   // defined(WEBRTC_POSIX)
   return nullptr;
 #endif  // !defined(WEBRTC_WIN) || defined(WEBRTC_POSIX)

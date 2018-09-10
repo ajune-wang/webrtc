@@ -94,6 +94,30 @@
       "revId": "914c15ecf0ae8d15a2e19d0a35e00321098ded1d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1737c35_f1e99f64",
+        "filename": "modules/audio_coding/neteq/neteq_impl.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 1554,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-09-10T06:56:59Z",
+      "side": 1,
+      "message": "Yes. That\u0027s what the description of GeneratePlc() in the interface file says.",
+      "parentUuid": "ff7a1ccb_9d04e0c6",
+      "range": {
+        "startLine": 1554,
+        "startChar": 55,
+        "endLine": 1554,
+        "endChar": 68
+      },
+      "revId": "914c15ecf0ae8d15a2e19d0a35e00321098ded1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4194f68c_e945bc1e",
+        "filename": "modules/audio_processing/aec3/echo_audibility.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-09-10T12:07:28Z",
+      "side": 1,
+      "message": "maybe we can change the name to filter_has_had_time_to_converge so it is a bit clearer the meaning of that input variable.",
+      "revId": "35262441b3b1b771d9f5cd991765e4f0c6154fd2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

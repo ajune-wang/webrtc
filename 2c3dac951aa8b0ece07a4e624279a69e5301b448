@@ -46,6 +46,30 @@
       "revId": "2c3dac951aa8b0ece07a4e624279a69e5301b448",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79728474_19216e2a",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-09-10T11:03:27Z",
+      "side": 1,
+      "message": "if the writing of extensions is not much longer than copying a header, we can use one packet to write extensions there 3 times (resetting in between). Then it can be used as the last packet and all other packets will have extensions written there directly as in cast of a single packet below.\n\nAlternatively, that packet can be reused between calls to this method.",
+      "parentUuid": "04c482c2_a081bb85",
+      "range": {
+        "startLine": 356,
+        "startChar": 0,
+        "endLine": 358,
+        "endChar": 71
+      },
+      "revId": "2c3dac951aa8b0ece07a4e624279a69e5301b448",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3855ec4a_ad25057b",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1380,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-09-10T18:34:24Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be added to UnimplementedRtpEncodingParameterHasValue()? That way the SSRC can\u0027t be set with RtpSender::SetParameters as well (which would also be overridden by SetLocalDescription).",
+      "range": {
+        "startLine": 1380,
+        "startChar": 8,
+        "endLine": 1380,
+        "endChar": 31
+      },
+      "revId": "d0f574cec124f46aa5f97c2552b30197b4668857",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "884ef298_9cf62238",
+        "filename": "pc/rtpsender.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-09-10T18:34:24Z",
+      "side": 1,
+      "message": "Isn\u0027t this always true, given that you emplace_back() and encoding in the constructor?",
+      "range": {
+        "startLine": 320,
+        "startChar": 6,
+        "endLine": 320,
+        "endChar": 41
+      },
+      "revId": "d0f574cec124f46aa5f97c2552b30197b4668857",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50eb6483_aca51757",
+        "filename": "pc/rtpsender.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-09-10T18:34:24Z",
+      "side": 1,
+      "message": "I think you forgot to add this to the RtpVideoSender as well",
+      "range": {
+        "startLine": 322,
+        "startChar": 6,
+        "endLine": 322,
+        "endChar": 27
+      },
+      "revId": "d0f574cec124f46aa5f97c2552b30197b4668857",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf40f442_729ead03",
+        "filename": "pc/rtpsender.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-09-10T18:34:24Z",
+      "side": 1,
+      "message": "Looks good. Could you please also add this to VideoRtpSender::SetSsrc?\n\nAlso, this being unimplemented in the VideoRtpSender wasn\u0027t caught by tests, and would have broke simulcast for anybody SDP munging after AddTransceiver. Could you please add a test? Something like:\n-AddTransceiver w/ one sendEncoding\n-GetOffer\n-Update offer with a simulcast group (generate a couple ssrcs \u0026 add them to the StreamParams object like done here - https://cs.chromium.org/chromium/src/third_party/webrtc/pc/mediasession.cc?l\u003d443)\n-SetLocalDescription\n-GetParameters from sender \u0026 check that they are set appropriately.",
+      "range": {
+        "startLine": 334,
+        "startChar": 8,
+        "endLine": 334,
+        "endChar": 72
+      },
+      "revId": "d0f574cec124f46aa5f97c2552b30197b4668857",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8063036_7c6f3674",
+        "filename": "pc/rtpsender.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 556,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-09-10T18:34:24Z",
+      "side": 1,
+      "message": "Same comment as above about this always being true",
+      "range": {
+        "startLine": 556,
+        "startChar": 6,
+        "endLine": 556,
+        "endChar": 41
+      },
+      "revId": "d0f574cec124f46aa5f97c2552b30197b4668857",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

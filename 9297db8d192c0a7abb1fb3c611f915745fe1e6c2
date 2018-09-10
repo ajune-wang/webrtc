@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "464813ac_ecb4211c",
+        "filename": "pc/rtpsender.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-09-10T18:34:24Z",
+      "side": 1,
+      "message": "Could you please remove the \"Plan-B\"? This comment needs to be added to VideoRtpSender::SetSsrc as well.",
+      "parentUuid": "309b717d_0a0cf1c4",
+      "range": {
+        "startLine": 324,
+        "startChar": 21,
+        "endLine": 324,
+        "endChar": 41
+      },
+      "revId": "9297db8d192c0a7abb1fb3c611f915745fe1e6c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b1942ec4_8d3015e8",
         "filename": "pc/rtpsenderreceiver_unittest.cc",
         "patchSetId": 6

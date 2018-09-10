@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a4931c2a_27ed4210",
+        "filename": "rtc_base/strings/string_builder.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2018-09-10T12:32:12Z",
+      "side": 1,
+      "message": "This is the signature used by std::stringstream. Returning a const string\u0026 causes problems when RTC_LOG_AND_RETURN_ERROR passes it on to the webrtc::RTCError constructor, which expects a const char*. We might change those call sites instead, would that be preferable?",
+      "range": {
+        "startLine": 153,
+        "startChar": 2,
+        "endLine": 153,
+        "endChar": 42
+      },
+      "revId": "35077ce19529bfb6a4b9ef6d5bab3fba0b56d129",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e3f1294_03dd1fb7",
+        "filename": "rtc_base/strings/string_builder_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2018-09-10T12:32:12Z",
+      "side": 1,
+      "message": "This test breaks due to the str() changes. If we keep the signature change we\u0027ll have to add access original_buffer in some other way, or scrap the test.",
+      "range": {
+        "startLine": 175,
+        "startChar": 0,
+        "endLine": 189,
+        "endChar": 3
+      },
+      "revId": "35077ce19529bfb6a4b9ef6d5bab3fba0b56d129",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

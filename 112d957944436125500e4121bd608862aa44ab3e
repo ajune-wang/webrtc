@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "93af2e36_b3bfab9f",
+        "filename": "api/units/time_delta.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2018-09-10T12:32:12Z",
+      "side": 1,
+      "message": "for the integral std::abs()",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 18
+      },
+      "revId": "112d957944436125500e4121bd608862aa44ab3e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c535fe87_464e61ff",
+        "filename": "examples/stunprober/main.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2018-09-10T12:32:12Z",
+      "side": 1,
+      "message": "used for istream-based parsing.",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 59
+      },
+      "revId": "112d957944436125500e4121bd608862aa44ab3e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cdd1a9c4_3a2d07c9",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2018-09-10T12:32:12Z",
+      "side": 1,
+      "message": "Used for istream-based parsing.",
+      "range": {
+        "startLine": 14,
+        "startChar": 9,
+        "endLine": 14,
+        "endChar": 18
+      },
+      "revId": "112d957944436125500e4121bd608862aa44ab3e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "49a824ce_f9d2f4ce",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2018-09-10T12:32:12Z",
+      "side": 1,
+      "message": "used for istream-based parsing.",
+      "range": {
+        "startLine": 16,
+        "startChar": 9,
+        "endLine": 16,
+        "endChar": 18
+      },
+      "revId": "112d957944436125500e4121bd608862aa44ab3e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "faf9d02d_9991bc2c",
+        "filename": "modules/audio_processing/aec3/aec3_fft.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2018-09-10T12:32:12Z",
+      "side": 1,
+      "message": "for std::multiplies",
+      "range": {
+        "startLine": 14,
+        "startChar": 9,
+        "endLine": 14,
+        "endChar": 21
+      },
+      "revId": "112d957944436125500e4121bd608862aa44ab3e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9fec91b5_04e646a4",
+        "filename": "modules/audio_processing/aec3/render_buffer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2018-09-10T12:32:12Z",
+      "side": 1,
+      "message": "for std::plus",
+      "range": {
+        "startLine": 14,
+        "startChar": 9,
+        "endLine": 14,
+        "endChar": 21
+      },
+      "revId": "112d957944436125500e4121bd608862aa44ab3e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

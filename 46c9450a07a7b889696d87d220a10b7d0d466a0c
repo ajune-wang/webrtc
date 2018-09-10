@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bf9766a0_ba620497",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1370,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2018-09-10T12:32:12Z",
+      "side": 0,
+      "message": "As far as I can tell we don\u0027t actually write any bools here.",
+      "range": {
+        "startLine": 1370,
+        "startChar": 6,
+        "endLine": 1370,
+        "endChar": 24
+      },
+      "revId": "46c9450a07a7b889696d87d220a10b7d0d466a0c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

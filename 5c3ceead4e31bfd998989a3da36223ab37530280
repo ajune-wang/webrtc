@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0ab956b0_b6c4daef",
+        "filename": "test/frame_generator_capturer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-09-10T09:03:08Z",
+      "side": 1,
+      "message": "Since we wait for more or less exat this amount of time, any slight delays would cause us to drop a frame. That could cause flaky behaviour. We should ensure that we don\u0027t drop frames for minor or temporary delays.",
+      "range": {
+        "startLine": 52,
+        "startChar": 3,
+        "endLine": 53,
+        "endChar": 41
+      },
+      "revId": "5c3ceead4e31bfd998989a3da36223ab37530280",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

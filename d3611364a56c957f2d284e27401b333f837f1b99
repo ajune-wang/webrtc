@@ -1,0 +1,205 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d2289cf3_970f2b87",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-09-10T08:02:49Z",
+      "side": 1,
+      "message": "Do you mean that the flag should not be used for production settings?",
+      "range": {
+        "startLine": 10,
+        "startChar": 48,
+        "endLine": 13,
+        "endChar": 0
+      },
+      "revId": "d3611364a56c957f2d284e27401b333f837f1b99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a970978_a3defbbf",
+        "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator_agc.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-09-10T08:02:49Z",
+      "side": 1,
+      "message": "this looks like the headroom param; if so, shouldn\u0027t we include that keyword in the variable name?",
+      "range": {
+        "startLine": 41,
+        "startChar": 23,
+        "endLine": 41,
+        "endChar": 44
+      },
+      "revId": "d3611364a56c957f2d284e27401b333f837f1b99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69fd62fd_c80f8040",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-09-10T08:02:49Z",
+      "side": 1,
+      "message": "what about using /* arg_name\u003d */?\nI can evince from 373-375, but it reads better if arg names are added",
+      "range": {
+        "startLine": 368,
+        "startChar": 17,
+        "endLine": 371,
+        "endChar": 23
+      },
+      "revId": "d3611364a56c957f2d284e27401b333f837f1b99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37837594_dfeb5802",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1223,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-09-10T08:02:49Z",
+      "side": 1,
+      "message": "compare this to line 1299: why are they different? agc_manager wants the lower band 8k signal, but here it looks like we\u0027re passing the full band one",
+      "range": {
+        "startLine": 1223,
+        "startChar": 10,
+        "endLine": 1223,
+        "endChar": 39
+      },
+      "revId": "d3611364a56c957f2d284e27401b333f837f1b99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f4f9635_289f99ba",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1226,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-09-10T08:02:49Z",
+      "side": 1,
+      "message": "if this is an experimental change, I would add a comment",
+      "range": {
+        "startLine": 1221,
+        "startChar": 0,
+        "endLine": 1226,
+        "endChar": 5
+      },
+      "revId": "d3611364a56c957f2d284e27401b333f837f1b99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ad31edc_b93f884d",
+        "filename": "modules/audio_processing/audio_processing_impl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-09-10T08:02:49Z",
+      "side": 1,
+      "message": "I commented the CL description asking if the new flags are meant for production or just for experimental changes. In the latter case, I would add comments here to clearly indicate what can be used safely and what one should not touch.",
+      "range": {
+        "startLine": 375,
+        "startChar": 9,
+        "endLine": 375,
+        "endChar": 48
+      },
+      "revId": "d3611364a56c957f2d284e27401b333f837f1b99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "214f2442_2a7a0871",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-09-10T08:02:49Z",
+      "side": 1,
+      "message": "same here, add a comment if this is an experimental flag (especially if it\u0027s meant to be removed at some point)",
+      "range": {
+        "startLine": 145,
+        "startChar": 2,
+        "endLine": 145,
+        "endChar": 34
+      },
+      "revId": "d3611364a56c957f2d284e27401b333f837f1b99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a5567be_90b98b86",
+        "filename": "modules/audio_processing/test/audio_processing_simulator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 722,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-09-10T08:02:49Z",
+      "side": 1,
+      "message": "*settings_\n^",
+      "range": {
+        "startLine": 722,
+        "startChar": 10,
+        "endLine": 722,
+        "endChar": 19
+      },
+      "revId": "d3611364a56c957f2d284e27401b333f837f1b99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "610bd887_1d7adb7c",
+        "filename": "modules/audio_processing/test/audioproc_float_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-09-10T08:02:49Z",
+      "side": 1,
+      "message": "271, 274, 277 are empty, but I don\u0027t see the need for isolating 272 and 275",
+      "revId": "d3611364a56c957f2d284e27401b333f837f1b99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

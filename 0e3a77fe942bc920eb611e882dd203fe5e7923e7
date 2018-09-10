@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "566c258f_3a779901",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2018-09-10T14:48:23Z",
+      "side": 1,
+      "message": "Would there be a value in storing more packets?  The previous code also always picked the same packet which may or my not be a newer packet depending on seq no rollover.",
+      "parentUuid": "40f5fcce_cb08782b",
+      "revId": "0e3a77fe942bc920eb611e882dd203fe5e7923e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7b96e5c4_2daa0f19",
         "filename": "modules/rtp_rtcp/source/rtp_packet_history.cc",
         "patchSetId": 4
@@ -30,6 +48,30 @@
       "writtenOn": "2018-09-10T12:51:48Z",
       "side": 1,
       "message": "Hm, so if there is no element larger than |packet_length| in the map, we decrement the end iterator? Is that legal?",
+      "range": {
+        "startLine": 186,
+        "startChar": 0,
+        "endLine": 189,
+        "endChar": 3
+      },
+      "revId": "0e3a77fe942bc920eb611e882dd203fe5e7923e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eedcb48b_1eaff7e5",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2018-09-10T14:48:23Z",
+      "side": 1,
+      "message": "yup",
+      "parentUuid": "7b96e5c4_2daa0f19",
       "range": {
         "startLine": 186,
         "startChar": 0,
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "dea7fdfb_e06e4a4e",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2018-09-10T14:48:23Z",
+      "side": 1,
+      "message": "no viable overloaded operator[] for type \u0027const std::map\u003cuint16_t, StoredPacket\u003e\u0027 (aka \u0027const map\u003cunsigned short, webrtc::RtpPacketHistory::StoredPacket\u003e\u0027)\n  RtpPacketToSend* best_packet \u003d packet_history_[seq_no].packet.get();\n\nGetBestFittingPacket is const and since packet_history_[seq_no] will modify packet_history_ if seq_no if it does not exist there is no such operator.",
+      "parentUuid": "7062be1e_04cb4a27",
+      "range": {
+        "startLine": 192,
+        "startChar": 6,
+        "endLine": 192,
+        "endChar": 56
+      },
+      "revId": "0e3a77fe942bc920eb611e882dd203fe5e7923e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6c6e70c9_a9cb2fa2",
         "filename": "modules/rtp_rtcp/source/rtp_packet_history.cc",
         "patchSetId": 4
@@ -85,6 +151,30 @@
       "revId": "0e3a77fe942bc920eb611e882dd203fe5e7923e7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b42ea3b_cc7a5b58",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2018-09-10T14:48:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6c6e70c9_a9cb2fa2",
+      "range": {
+        "startLine": 247,
+        "startChar": 0,
+        "endLine": 248,
+        "endChar": 0
+      },
+      "revId": "0e3a77fe942bc920eb611e882dd203fe5e7923e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -111,6 +201,30 @@
     },
     {
       "key": {
+        "uuid": "62816349_7e0a4bdf",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2018-09-10T14:48:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "078e79f7_0245038d",
+      "range": {
+        "startLine": 139,
+        "startChar": 11,
+        "endLine": 139,
+        "endChar": 14
+      },
+      "revId": "0e3a77fe942bc920eb611e882dd203fe5e7923e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "963a2c80_2c76e18d",
         "filename": "modules/rtp_rtcp/source/rtp_packet_history_unittest.cc",
         "patchSetId": 4
@@ -122,6 +236,30 @@
       "writtenOn": "2018-09-10T12:51:48Z",
       "side": 1,
       "message": "Maybe also explicitly test that requesting target size \u003c or \u003d target size works too?",
+      "range": {
+        "startLine": 541,
+        "startChar": 0,
+        "endLine": 542,
+        "endChar": 0
+      },
+      "revId": "0e3a77fe942bc920eb611e882dd203fe5e7923e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90463c85_079f8766",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 542,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2018-09-10T14:48:23Z",
+      "side": 1,
+      "message": "More explicit than RtpPacketHistoryTest.GetBestFittingPacket?",
+      "parentUuid": "963a2c80_2c76e18d",
       "range": {
         "startLine": 541,
         "startChar": 0,

@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dbec28c0_01148996",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-09-10T10:26:24Z",
+      "side": 1,
+      "message": "Please add a first line that is a bit more specific. Maybe, \"Refactor initialization of GetRealTimeClock singleton\".",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 48
+      },
+      "revId": "cc954c1fe0bb5e0d4b5dc3f639d7cecc14389f56",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0875863b_4431b189",
+        "filename": "system_wrappers/source/clock.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-09-10T10:26:24Z",
+      "side": 1,
+      "message": "Since the interface below returns a pointer, not a reference, prefer returning pointer type here too.\n\nThat\u0027s also consistent with, e.g., ThreadManager::Instance",
+      "range": {
+        "startLine": 208,
+        "startChar": 1,
+        "endLine": 208,
+        "endChar": 18
+      },
+      "revId": "cc954c1fe0bb5e0d4b5dc3f639d7cecc14389f56",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "596fefb2_346c37ca",
+        "filename": "system_wrappers/source/clock.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-09-10T10:26:24Z",
+      "side": 1,
+      "message": "I don\u0027t think any of this is needed with C++11. I think I\u0027d suggest simplifying all this to something like\n\nClock* Clock::GetRealTimeClock() {\n#if defined(WEBRTC_WIN)\n  static Clock* const clock \u003d new WindowsRealTimeClock();\n#elif define(WEBRTC_POSIX)\n  static Clock* const clock \u003d new UnixRealTimeClock();\n#elif\n  static Clock* const clock \u003d nullptr;\n#endif\n  return clock;\n}",
+      "range": {
+        "startLine": 216,
+        "startChar": 0,
+        "endLine": 229,
+        "endChar": 24
+      },
+      "revId": "cc954c1fe0bb5e0d4b5dc3f639d7cecc14389f56",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

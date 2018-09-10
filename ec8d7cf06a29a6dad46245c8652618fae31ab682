@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9cedeef0_3e02e698",
+        "filename": "modules/remote_bitrate_estimator/test/bwe_test_framework.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-09-10T09:14:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "56bb478f_626ef34f",
+      "range": {
+        "startLine": 145,
+        "startChar": 9,
+        "endLine": 145,
+        "endChar": 24
+      },
+      "revId": "ec8d7cf06a29a6dad46245c8652618fae31ab682",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "53dfc66e_adaab3ea",
         "filename": "modules/remote_bitrate_estimator/test/bwe_test_framework.cc",
         "patchSetId": 11
@@ -36,6 +60,30 @@
       "writtenOn": "2018-09-07T12:28:21Z",
       "side": 1,
       "message": "because you haven\u0027t provided extension_map to the packet [created with default constructor],\nthis call is noop.\nMay be use some default map, e.g. \nRtpHeaderExtensionMap extensions({{1, AbsoluteSendTime::kUri}});\nor do not copy the abs send time if you do not use it.",
+      "range": {
+        "startLine": 148,
+        "startChar": 11,
+        "endLine": 148,
+        "endChar": 23
+      },
+      "revId": "ec8d7cf06a29a6dad46245c8652618fae31ab682",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "524d179f_12266470",
+        "filename": "modules/remote_bitrate_estimator/test/bwe_test_framework.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-09-10T09:14:05Z",
+      "side": 1,
+      "message": "Deleted. I think the test code uses the abs send time, but in this cl this method is used only when sending the packet to stats, which doesn\u0027t need it, as far as I see.\n\nSo I\u0027m deleting this code.",
+      "parentUuid": "53dfc66e_adaab3ea",
       "range": {
         "startLine": 148,
         "startChar": 11,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "0c7befd6_b2375dbb",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-09-10T09:14:05Z",
+      "side": 1,
+      "message": "Hmm, can we change AddPacket or add a new overload, to define\n\nRtpPacketCounter::AddPacket(const RtpPacket\u0026 packet) \n\n? And then use in both places.",
+      "parentUuid": "44817ee8_cd23c0e7",
+      "range": {
+        "startLine": 81,
+        "startChar": 57,
+        "endLine": 81,
+        "endChar": 63
+      },
+      "revId": "ec8d7cf06a29a6dad46245c8652618fae31ab682",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0fe73444_56d69921",
         "filename": "modules/rtp_rtcp/source/receive_statistics_impl.h",
         "patchSetId": 11
@@ -82,6 +154,30 @@
       "writtenOn": "2018-09-07T12:28:21Z",
       "side": 1,
       "message": "why do you want this inheritance?\n\nMay be add OnRtpPacket without it.",
+      "range": {
+        "startLine": 27,
+        "startChar": 31,
+        "endLine": 27,
+        "endChar": 60
+      },
+      "revId": "ec8d7cf06a29a6dad46245c8652618fae31ab682",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bef960f0_d27bc0d3",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-09-10T09:14:05Z",
+      "side": 1,
+      "message": "Because I think about it as an RtpPacketSink, and I\u0027d like the compiler to check that its OnRtpPacket method matches the interface. \n\nI could demote it to a private inherit, if you prefer (since this is an implementation class, not intended to be exposed to anyone, that wouldn\u0027t make that much a difference).\n\nLonger term, if we move stats into RtpTransportControllerReceive, I\u0027m not sure it\u0027s right to let ReceiveStatisticsImpl have it\u0027s own demuxer; maybe RtpTransportController should feed a StreamStatistician for each ssrc as part of its own demuxing, and then ReceiveStatistics would only be responsible for extracting the stats.",
+      "parentUuid": "0fe73444_56d69921",
       "range": {
         "startLine": 27,
         "startChar": 31,
@@ -114,6 +210,30 @@
       "revId": "ec8d7cf06a29a6dad46245c8652618fae31ab682",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b05ebe73_84b2b94b",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-09-10T09:14:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3a560e73_724ae587",
+      "range": {
+        "startLine": 45,
+        "startChar": 5,
+        "endLine": 45,
+        "endChar": 14
+      },
+      "revId": "ec8d7cf06a29a6dad46245c8652618fae31ab682",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +283,30 @@
     },
     {
       "key": {
+        "uuid": "75c6b5e6_86da9b2d",
+        "filename": "modules/rtp_rtcp/source/rtcp_sender_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-09-10T09:14:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a01dc20a_ed056e57",
+      "range": {
+        "startLine": 101,
+        "startChar": 27,
+        "endLine": 101,
+        "endChar": 30
+      },
+      "revId": "ec8d7cf06a29a6dad46245c8652618fae31ab682",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e7d3d058_d73bd9b9",
         "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl_unittest.cc",
         "patchSetId": 11
@@ -186,6 +330,30 @@
     },
     {
       "key": {
+        "uuid": "f33050eb_db5763b9",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-09-10T09:14:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e7d3d058_d73bd9b9",
+      "range": {
+        "startLine": 330,
+        "startChar": 25,
+        "endLine": 330,
+        "endChar": 28
+      },
+      "revId": "ec8d7cf06a29a6dad46245c8652618fae31ab682",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b4faa736_f652c846",
         "filename": "modules/rtp_rtcp/test/testAPI/test_api.cc",
         "patchSetId": 11
@@ -197,6 +365,30 @@
       "writtenOn": "2018-09-07T12:28:21Z",
       "side": 1,
       "message": "header contains paddingSize\nbetter double check if rtp_receiver_ decreases it from the passed payload, or ignores.",
+      "range": {
+        "startLine": 61,
+        "startChar": 6,
+        "endLine": 61,
+        "endChar": 35
+      },
+      "revId": "ec8d7cf06a29a6dad46245c8652618fae31ab682",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "09beb195_8a24eaac",
+        "filename": "modules/rtp_rtcp/test/testAPI/test_api.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-09-10T09:14:05Z",
+      "side": 1,
+      "message": "Looks like it is passed to RTPReceiverVideo::ParseRtpPacket and RTPReceiverAudio::ParseRtpPacket, which subtracts the padding length.\nSo we\u0027ll have to add padding length here. (Or unconditionally set \nheader.paddingLength \u003d 0, not sure if that is better).",
+      "parentUuid": "b4faa736_f652c846",
       "range": {
         "startLine": 61,
         "startChar": 6,

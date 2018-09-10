@@ -24,16 +24,6 @@ namespace webrtc {
 namespace {
 // Min packet size for BestFittingPacket() to honor.
 constexpr size_t kMinPacketRequestBytes = 50;
-
-// Utility function to get the absolute difference in size between the provided
-// target size and the size of packet.
-size_t SizeDiff(const std::unique_ptr<RtpPacketToSend>& packet, size_t size) {
-  size_t packet_size = packet->size();
-  if (packet_size > size) {
-    return packet_size - size;
-  }
-  return size - packet_size;
-}
 }  // namespace
 
 constexpr size_t RtpPacketHistory::kMaxCapacity;
@@ -110,6 +100,8 @@ void RtpPacketHistory::PutRtpPacket(std::unique_ptr<RtpPacketToSend> packet,
   if (!start_seqno_) {
     start_seqno_ = rtp_seq_no;
   }
+
+  packet_size_[stored_packet.packet->size()] = rtp_seq_no;
 }
 
 std::unique_ptr<RtpPacketToSend> RtpPacketHistory::GetPacketAndSetSendTime(
@@ -186,28 +178,24 @@ std::unique_ptr<RtpPacketToSend> RtpPacketHistory::GetBestFittingPacket(
     size_t packet_length) const {
   // TODO(sprang): Make this smarter, taking retransmit count etc into account.
   rtc::CritScope cs(&lock_);
-  if (packet_length < kMinPacketRequestBytes || packet_history_.empty()) {
+  if (packet_length < kMinPacketRequestBytes || packet_size_.empty()) {
     return nullptr;
   }
 
-  size_t min_diff = std::numeric_limits<size_t>::max();
-  RtpPacketToSend* best_packet = nullptr;
-  for (auto& it : packet_history_) {
-    size_t diff = SizeDiff(it.second.packet, packet_length);
-    if (!min_diff || diff < min_diff) {
-      min_diff = diff;
-      best_packet = it.second.packet.get();
-      if (diff == 0) {
-        break;
-      }
-    }
+  // Find the first packet that is smaller than or equal to |packet_length|.
+  auto size_iter = packet_size_.upper_bound(packet_length);
+  if (size_iter != packet_size_.begin()) {
+    --size_iter;
   }
-
+  const uint16_t seq_no = size_iter->second;
+  RtpPacketToSend* best_packet =
+      packet_history_.find(seq_no)->second.packet.get();
   return absl::make_unique<RtpPacketToSend>(*best_packet);
 }
 
 void RtpPacketHistory::Reset() {
   packet_history_.clear();
+  packet_size_.clear();
   start_seqno_.reset();
 }
 
@@ -256,6 +244,7 @@ std::unique_ptr<RtpPacketToSend> RtpPacketHistory::RemovePacket(
   // Move the packet out from the StoredPacket container.
   std::unique_ptr<RtpPacketToSend> rtp_packet =
       std::move(packet_it->second.packet);
+
   // Erase the packet from the map, and capture iterator to the next one.
   StoredPacketIterator next_it = packet_history_.erase(packet_it);
 
@@ -270,6 +259,12 @@ std::unique_ptr<RtpPacketToSend> RtpPacketHistory::RemovePacket(
     start_seqno_ = next_it->first;
   } else {
     start_seqno_.reset();
+  }
+
+  auto size_iterator = packet_size_.find(rtp_packet->size());
+  RTC_CHECK(size_iterator != packet_size_.end());
+  if (size_iterator->second == rtp_packet->SequenceNumber()) {
+    packet_size_.erase(size_iterator);
   }
 
   return rtp_packet;

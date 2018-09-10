@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1d870554_329fd695",
+        "filename": "modules/audio_coding/neteq/tools/neteq_rtpplay.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-09-10T07:20:25Z",
+      "side": 1,
+      "message": "How necessary is it to pass the args to Factory and parse them there. Is it possible to move\n  std::string program_name \u003d argv[0];\n  std::string usage \u003d\n      \"Tool for decoding an RTP dump file using NetEq.\\n\"\n      \"Run \" +\n      program_name +\n      \" --help for usage.\\n\"\n      \"Example usage:\\n\" +\n      program_name + \" input.rtp output.{pcm, wav}\\n\";\n  if (rtc::FlagList::SetFlagsFromCommandLine(\u0026argc, argv, true)) {\n    exit(1);\n  }\n  if (FLAG_help) {\n    std::cout \u003c\u003c usage;\n    rtc::FlagList::Print(nullptr, false);\n    exit(0);\n  }\nhere too?",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 0
+      },
+      "revId": "966723f19ec49dfd58087332e0a9e80cae9cb99b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc0fbf2f_803a9b5b",
+        "filename": "modules/audio_coding/neteq/tools/neteq_rtpplay.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-09-10T07:20:25Z",
+      "side": 1,
+      "message": "I prefer using \nwebrtc::test::ValidateFieldTrialsStringOrDie(FLAG_force_fieldtrials);\nwebrtc::field_trial::InitFieldTrialsFromString(FLAG_force_fieldtrials);\ninstead.",
+      "range": {
+        "startLine": 29,
+        "startChar": 16,
+        "endLine": 29,
+        "endChar": 46
+      },
+      "revId": "966723f19ec49dfd58087332e0a9e80cae9cb99b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

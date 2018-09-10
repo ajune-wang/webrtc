@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2ad35845_53e7584e",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 663,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-09-10T08:37:27Z",
+      "side": 1,
+      "message": "In this form temporal layer setting overwrites codec setting. Is it intended?\n\nThis is the same behavior for screenshare layers, but for default layers it would always enable frame dropping, which is different.\n\nConsider changing to \"enable_frame_dropping \u003d enable_frame_dropping \u0026\u0026 ...\"",
+      "range": {
+        "startLine": 663,
+        "startChar": 3,
+        "endLine": 663,
+        "endChar": 27
+      },
+      "revId": "ea4e3fd0a12b14c6ce5920cb437a83e8340323ec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79632e1f_0d979ddd",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-09-10T08:37:27Z",
+      "side": 1,
+      "message": "Nit: threshold? It\u0027s not so log to abbreviate it.",
+      "range": {
+        "startLine": 87,
+        "startChar": 21,
+        "endLine": 87,
+        "endChar": 26
+      },
+      "revId": "ea4e3fd0a12b14c6ce5920cb437a83e8340323ec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

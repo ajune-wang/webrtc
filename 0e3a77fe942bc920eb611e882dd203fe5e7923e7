@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "40f5fcce_cb08782b",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-09-10T12:51:48Z",
+      "side": 1,
+      "message": "So we always store the last packet seen for a particular size? I guess that\u0027s fine since it\u0027s only used for padding, but maybe add a comment?",
+      "revId": "0e3a77fe942bc920eb611e882dd203fe5e7923e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b96e5c4_2daa0f19",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-09-10T12:51:48Z",
+      "side": 1,
+      "message": "Hm, so if there is no element larger than |packet_length| in the map, we decrement the end iterator? Is that legal?",
+      "range": {
+        "startLine": 186,
+        "startChar": 0,
+        "endLine": 189,
+        "endChar": 3
+      },
+      "revId": "0e3a77fe942bc920eb611e882dd203fe5e7923e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7062be1e_04cb4a27",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-09-10T12:51:48Z",
+      "side": 1,
+      "message": "nit: Since we know this sequence number exists we can just do\npacket_history_[seq_no].packet.get();",
+      "range": {
+        "startLine": 192,
+        "startChar": 6,
+        "endLine": 192,
+        "endChar": 56
+      },
+      "revId": "0e3a77fe942bc920eb611e882dd203fe5e7923e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c6e70c9_a9cb2fa2",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-09-10T12:51:48Z",
+      "side": 1,
+      "message": "intentional?",
+      "range": {
+        "startLine": 247,
+        "startChar": 0,
+        "endLine": 248,
+        "endChar": 0
+      },
+      "revId": "0e3a77fe942bc920eb611e882dd203fe5e7923e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "078e79f7_0245038d",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-09-10T12:51:48Z",
+      "side": 1,
+      "message": "nit: should the key be size_t?",
+      "range": {
+        "startLine": 139,
+        "startChar": 11,
+        "endLine": 139,
+        "endChar": 14
+      },
+      "revId": "0e3a77fe942bc920eb611e882dd203fe5e7923e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "963a2c80_2c76e18d",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 542,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-09-10T12:51:48Z",
+      "side": 1,
+      "message": "Maybe also explicitly test that requesting target size \u003c or \u003d target size works too?",
+      "range": {
+        "startLine": 541,
+        "startChar": 0,
+        "endLine": 542,
+        "endChar": 0
+      },
+      "revId": "0e3a77fe942bc920eb611e882dd203fe5e7923e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

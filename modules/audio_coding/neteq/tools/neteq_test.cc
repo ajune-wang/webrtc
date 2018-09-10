@@ -138,13 +138,15 @@ NetEqTest::SimulationStepResult NetEqTest::RunToNextGetAudio() {
       }
 
       input_->AdvanceOutputEvent();
-      result.simulation_step_ms = time_now_ms - start_time_ms;
+      result.simulation_step_ms =
+          input_->NextEventTime().value_or(time_now_ms) - start_time_ms;
       // TODO(ivoc): Set the result.<action>_ms values correctly.
       result.is_simulation_finished = input_->ended();
       return result;
     }
   }
-  result.simulation_step_ms = time_now_ms - start_time_ms;
+  result.simulation_step_ms =
+      input_->NextEventTime().value_or(time_now_ms) - start_time_ms;
   result.is_simulation_finished = true;
   return result;
 }

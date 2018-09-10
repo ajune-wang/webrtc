@@ -56,6 +56,8 @@ constexpr RTPExtensionType RtpHeaderExtensionMap::kInvalidType;
 constexpr int RtpHeaderExtensionMap::kInvalidId;
 constexpr int RtpHeaderExtensionMap::kMinId;
 constexpr int RtpHeaderExtensionMap::kMaxId;
+constexpr size_t RtpHeaderExtensionMap::kOneByteExtensionHeaderLength;
+constexpr size_t RtpHeaderExtensionMap::kTwoByteExtensionHeaderLength;
 
 RtpHeaderExtensionMap::RtpHeaderExtensionMap() {
   for (auto& type : types_)
@@ -93,11 +95,10 @@ size_t RtpHeaderExtensionMap::GetTotalLengthInBytes(
   // Header size of the extension block, see RFC3550 Section 5.3.1
   static constexpr size_t kRtpOneByteHeaderLength = 4;
   // Header size of each individual extension, see RFC5285 Section 4.2
-  static constexpr size_t kExtensionHeaderLength = 1;
   size_t values_size = 0;
   for (const RtpExtensionSize& extension : extensions) {
     if (IsRegistered(extension.type))
-      values_size += extension.value_size + kExtensionHeaderLength;
+      values_size += extension.value_size + kOneByteExtensionHeaderLength;
   }
   if (values_size == 0)
     return 0;

@@ -22,6 +22,30 @@
       "revId": "5c3ceead4e31bfd998989a3da36223ab37530280",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f67e2804_af693407",
+        "filename": "test/frame_generator_capturer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-09-10T09:14:21Z",
+      "side": 1,
+      "message": "if InsertFrame() is instant, then intended_run_time_ms_ would be now_ms before +\u003d\n(and far from flaky after interval_ms is added)",
+      "parentUuid": "0ab956b0_b6c4daef",
+      "range": {
+        "startLine": 52,
+        "startChar": 3,
+        "endLine": 53,
+        "endChar": 41
+      },
+      "revId": "5c3ceead4e31bfd998989a3da36223ab37530280",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

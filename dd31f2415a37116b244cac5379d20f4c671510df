@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "cde83e24_9cf7105b",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-09-10T15:30:42Z",
+      "side": 1,
+      "message": "Right, but some things (including SSRC) are passed in as arguments even though it is part of  RTP.\n\nOn the other hand, if you do want RandomizeRtpPacket to randomly generate padding packets,  then I\u0027d like to reduce the fraction to something lower, e.g. 10%.",
+      "parentUuid": "c9825087_05443c9b",
+      "range": {
+        "startLine": 299,
+        "startChar": 13,
+        "endLine": 299,
+        "endChar": 20
+      },
+      "revId": "dd31f2415a37116b244cac5379d20f4c671510df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c8a72fae_5378c64e",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
         "patchSetId": 4

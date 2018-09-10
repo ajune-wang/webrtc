@@ -191,11 +191,17 @@ void AecState::Update(
   filter_analyzer_.Update(adaptive_filter_impulse_response,
                           adaptive_filter_frequency_response, render_buffer);
   filter_delay_blocks_ = filter_analyzer_.DelayBlocks();
+
+  const bool delay_change =
+      external_delay &&
+      (!external_delay_ || external_delay_->delay != external_delay->delay);
+  if (delay_change) {
+    external_delay_ = external_delay;
+  }
+
   if (enforce_delay_after_realignment_) {
-    if (external_delay &&
-        (!external_delay_ || external_delay_->delay != external_delay->delay)) {
+    if (delay_change) {
       frames_since_external_delay_change_ = 0;
-      external_delay_ = external_delay;
     }
     if (blocks_with_proper_filter_adaptation_ < 2 * kNumBlocksPerSecond &&
         external_delay_) {
@@ -220,6 +226,15 @@ void AecState::Update(
   blocks_with_active_render_ += active_render_block ? 1 : 0;
   blocks_with_proper_filter_adaptation_ +=
       active_render_block && !SaturatedCapture() ? 1 : 0;
+
+  if (config_.echo_removal_control.linear_and_stable_echo_path &&
+      delay_change) {
+    converged_filter_seen_ = false;
+    blocks_with_proper_filter_adaptation_ = 0;
+    filter_has_had_time_to_converge_ = false;
+  } else {
+    converged_filter_seen_ = converged_filter_seen_ || converged_filter;
+  }
 
   // Update the limit on the echo suppression after an echo path change to avoid
   // an initial echo burst.
@@ -260,10 +275,6 @@ void AecState::Update(
   } else {
     filter_has_had_time_to_converge_ =
         blocks_with_proper_filter_adaptation_ >= 1.5f * kNumBlocksPerSecond;
-  }
-
-  if (converged_filter && early_entry_to_converged_mode_) {
-    filter_has_had_time_to_converge_ = true;
   }
 
   if (!filter_should_have_converged_) {
@@ -324,8 +335,6 @@ void AecState::Update(
         active_blocks_since_consistent_filter_estimate_ >
         30 * kNumBlocksPerSecond;
   }
-
-  converged_filter_seen_ = converged_filter_seen_ || converged_filter;
 
   // If no filter convergence is seen for a long time, reset the estimated
   // properties of the echo path.
@@ -402,13 +411,15 @@ void AecState::Update(
   data_dumper_->DumpRaw("aec3_filter_should_have_converged",
                         filter_should_have_converged_);
   data_dumper_->DumpRaw("aec3_filter_has_had_time_to_converge",
-                        filter_has_had_time_to_converge_);
+                        filter_has_had_time_to_converge_ ? 1 : 0);
   data_dumper_->DumpRaw("aec3_recently_converged_filter",
                         recently_converged_filter);
   data_dumper_->DumpRaw("aec3_suppresion_gain_limiter_running",
                         IsSuppressionGainLimitActive());
   data_dumper_->DumpRaw("aec3_filter_tail_freq_resp_est",
                         GetReverbFrequencyResponse());
+  data_dumper_->DumpRaw("blocks_with_proper_filter_adaptation",
+                        ((float)blocks_with_proper_filter_adaptation_));
 }
 
 bool AecState::DetectActiveRender(rtc::ArrayView<const float> x) const {

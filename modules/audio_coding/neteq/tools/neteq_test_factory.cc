@@ -36,7 +36,6 @@
 #include "modules/audio_coding/neteq/tools/rtp_file_source.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/flags.h"
-#include "test/field_trial.h"
 #include "test/testsupport/fileutils.h"
 
 namespace webrtc {
@@ -136,14 +135,7 @@ DEFINE_bool(matlabplot,
 DEFINE_bool(pythonplot,
             false,
             "Generates a python script for plotting the delay profile");
-DEFINE_bool(help, false, "Prints this message");
 DEFINE_bool(concealment_events, false, "Prints concealment events");
-DEFINE_string(
-    force_fieldtrials,
-    "",
-    "Field trials control experimental feature code which can be forced. "
-    "E.g. running with --force_fieldtrials=WebRTC-FooFeature/Enable/"
-    " will assign the group Enable to field trial WebRTC-FooFeature.");
 
 // Maps a codec type to a printable name string.
 std::string CodecName(NetEqDecoder codec) {
@@ -292,12 +284,6 @@ std::unique_ptr<NetEqTest> NetEqTestFactory::InitializeTest(int argc,
   if (rtc::FlagList::SetFlagsFromCommandLine(&argc, argv, true)) {
     exit(1);
   }
-  if (FLAG_help) {
-    std::cout << usage;
-    rtc::FlagList::Print(nullptr, false);
-    exit(0);
-  }
-
   if (FLAG_codec_map) {
     PrintCodecMapping();
   }
@@ -311,9 +297,6 @@ std::unique_ptr<NetEqTest> NetEqTestFactory::InitializeTest(int argc,
     std::cout << usage;
     exit(0);
   }
-
-  ValidateFieldTrialsStringOrDie(FLAG_force_fieldtrials);
-  ScopedFieldTrials field_trials(FLAG_force_fieldtrials);
 
   RTC_CHECK(ValidatePayloadType(FLAG_pcmu));
   RTC_CHECK(ValidatePayloadType(FLAG_pcma));

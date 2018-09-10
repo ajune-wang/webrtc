@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "ce2bf92d_7870f732",
+        "filename": "system_wrappers/source/clock.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-09-10T11:21:25Z",
+      "side": 1,
+      "message": "Removed together with g_shared_clock.",
+      "parentUuid": "0875863b_4431b189",
+      "range": {
+        "startLine": 208,
+        "startChar": 1,
+        "endLine": 208,
+        "endChar": 18
+      },
+      "revId": "cc954c1fe0bb5e0d4b5dc3f639d7cecc14389f56",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "596fefb2_346c37ca",
         "filename": "system_wrappers/source/clock.cc",
         "patchSetId": 1
@@ -68,6 +92,30 @@
       "revId": "cc954c1fe0bb5e0d4b5dc3f639d7cecc14389f56",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a8afe44_1dcbf316",
+        "filename": "system_wrappers/source/clock.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-09-10T11:21:25Z",
+      "side": 1,
+      "message": "Done, thanks for the suggestion.",
+      "parentUuid": "596fefb2_346c37ca",
+      "range": {
+        "startLine": 216,
+        "startChar": 0,
+        "endLine": 229,
+        "endChar": 24
+      },
+      "revId": "cc954c1fe0bb5e0d4b5dc3f639d7cecc14389f56",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -65,6 +65,8 @@ bool PerSenderRtpEncodingParameterHasValue(
   return false;
 }
 
+}  // namespace
+
 // Returns true if any RtpParameters member that isn't implemented contains a
 // value.
 bool UnimplementedRtpParameterHasValue(const RtpParameters& parameters) {
@@ -84,8 +86,6 @@ bool UnimplementedRtpParameterHasValue(const RtpParameters& parameters) {
   }
   return false;
 }
-
-}  // namespace
 
 LocalAudioSinkAdapter::LocalAudioSinkAdapter() : sink_(nullptr) {}
 
@@ -124,6 +124,7 @@ AudioRtpSender::AudioRtpSender(rtc::Thread* worker_thread,
           DtmfSender::Create(rtc::Thread::Current(), this))),
       sink_adapter_(new LocalAudioSinkAdapter()) {
   RTC_DCHECK(worker_thread);
+  init_parameters_.encodings.emplace_back();
 }
 
 AudioRtpSender::~AudioRtpSender() {
@@ -229,8 +230,14 @@ bool AudioRtpSender::SetTrack(MediaStreamTrackInterface* track) {
 }
 
 RtpParameters AudioRtpSender::GetParameters() {
-  if (!media_channel_ || stopped_) {
+  if (stopped_) {
     return RtpParameters();
+  }
+  if (!media_channel_) {
+    RtpParameters result = init_parameters_;
+    last_transaction_id_ = rtc::CreateRandomUuid();
+    result.transaction_id = last_transaction_id_.value();
+    return result;
   }
   return worker_thread_->Invoke<RtpParameters>(RTC_FROM_HERE, [&] {
     RtpParameters result = media_channel_->GetRtpSendParameters(ssrc_);
@@ -242,7 +249,7 @@ RtpParameters AudioRtpSender::GetParameters() {
 
 RTCError AudioRtpSender::SetParameters(const RtpParameters& parameters) {
   TRACE_EVENT0("webrtc", "AudioRtpSender::SetParameters");
-  if (!media_channel_ || stopped_) {
+  if (stopped_) {
     return RTCError(RTCErrorType::INVALID_STATE);
   }
   if (!last_transaction_id_) {
@@ -262,6 +269,13 @@ RTCError AudioRtpSender::SetParameters(const RtpParameters& parameters) {
     LOG_AND_RETURN_ERROR(
         RTCErrorType::UNSUPPORTED_PARAMETER,
         "Attempted to set an unimplemented parameter of RtpParameters.");
+  }
+  if (!media_channel_) {
+    auto result = cricket::ValidateRtpParameters(init_parameters_, parameters);
+    if (result.ok()) {
+      init_parameters_ = parameters;
+    }
+    return result;
   }
   return worker_thread_->Invoke<RTCError>(RTC_FROM_HERE, [&] {
     RTCError result = media_channel_->SetRtpSendParameters(ssrc_, parameters);
@@ -302,6 +316,28 @@ void AudioRtpSender::SetSsrc(uint32_t ssrc) {
     if (stats_) {
       stats_->AddLocalAudioTrack(track_.get(), ssrc_);
     }
+  }
+  if (!init_parameters_.encodings.empty()) {
+    worker_thread_->Invoke<void>(RTC_FROM_HERE, [&] {
+      RTC_DCHECK(media_channel_);
+      // Get the current parameters, which are constructed from the SDP.
+      // The number of layers in the SDP is currently authoritative to support
+      // SDP munging for Plan-B simulcast with "a=ssrc-group:SIM <ssrc-id>..."
+      // lines as described in RFC 5576.
+      // All fields should be default constructed and the SSRC field set, which
+      // we need to copy.
+      RtpParameters current_parameters =
+          media_channel_->GetRtpSendParameters(ssrc_);
+      for (size_t i = 0; i < init_parameters_.encodings.size(); ++i) {
+        init_parameters_.encodings[i].ssrc =
+            current_parameters.encodings[i].ssrc;
+        current_parameters.encodings[i] = init_parameters_.encodings[i];
+      }
+      current_parameters.degradation_preference =
+          init_parameters_.degradation_preference;
+      media_channel_->SetRtpSendParameters(ssrc_, current_parameters);
+      init_parameters_.encodings.clear();
+    });
   }
 }
 
@@ -377,6 +413,7 @@ VideoRtpSender::VideoRtpSender(rtc::Thread* worker_thread,
                                const std::string& id)
     : worker_thread_(worker_thread), id_(id) {
   RTC_DCHECK(worker_thread);
+  init_parameters_.encodings.emplace_back();
 }
 
 VideoRtpSender::~VideoRtpSender() {
@@ -434,8 +471,14 @@ bool VideoRtpSender::SetTrack(MediaStreamTrackInterface* track) {
 }
 
 RtpParameters VideoRtpSender::GetParameters() {
-  if (!media_channel_ || stopped_) {
+  if (stopped_) {
     return RtpParameters();
+  }
+  if (!media_channel_) {
+    RtpParameters result = init_parameters_;
+    last_transaction_id_ = rtc::CreateRandomUuid();
+    result.transaction_id = last_transaction_id_.value();
+    return result;
   }
   return worker_thread_->Invoke<RtpParameters>(RTC_FROM_HERE, [&] {
     RtpParameters result = media_channel_->GetRtpSendParameters(ssrc_);
@@ -447,7 +490,7 @@ RtpParameters VideoRtpSender::GetParameters() {
 
 RTCError VideoRtpSender::SetParameters(const RtpParameters& parameters) {
   TRACE_EVENT0("webrtc", "VideoRtpSender::SetParameters");
-  if (!media_channel_ || stopped_) {
+  if (stopped_) {
     return RTCError(RTCErrorType::INVALID_STATE);
   }
   if (!last_transaction_id_) {
@@ -467,6 +510,13 @@ RTCError VideoRtpSender::SetParameters(const RtpParameters& parameters) {
     LOG_AND_RETURN_ERROR(
         RTCErrorType::UNSUPPORTED_PARAMETER,
         "Attempted to set an unimplemented parameter of RtpParameters.");
+  }
+  if (!media_channel_) {
+    auto result = cricket::ValidateRtpParameters(init_parameters_, parameters);
+    if (result.ok()) {
+      init_parameters_ = parameters;
+    }
+    return result;
   }
   return worker_thread_->Invoke<RTCError>(RTC_FROM_HERE, [&] {
     RTCError result = media_channel_->SetRtpSendParameters(ssrc_, parameters);
@@ -502,6 +552,26 @@ void VideoRtpSender::SetSsrc(uint32_t ssrc) {
   ssrc_ = ssrc;
   if (can_send_track()) {
     SetVideoSend();
+  }
+  if (!init_parameters_.encodings.empty()) {
+    worker_thread_->Invoke<void>(RTC_FROM_HERE, [&] {
+      // Get the current parameters, which are constructed from the SDP.
+      // The number of layers in the SDP is currently authoritative to support
+      // SDP munging for Plan-B simulcast.
+      // All fields should be default constructed and the SSRC field set, which
+      // we need to copy.
+      RtpParameters current_parameters =
+          media_channel_->GetRtpSendParameters(ssrc_);
+      for (size_t i = 0; i < init_parameters_.encodings.size(); ++i) {
+        init_parameters_.encodings[i].ssrc =
+            current_parameters.encodings[i].ssrc;
+      }
+      current_parameters.encodings = init_parameters_.encodings;
+      current_parameters.degradation_preference =
+          init_parameters_.degradation_preference;
+      media_channel_->SetRtpSendParameters(ssrc_, current_parameters);
+      init_parameters_.encodings.clear();
+    });
   }
 }
 

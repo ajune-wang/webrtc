@@ -10,8 +10,12 @@
 
 #include "api/test/neteq_simulator_factory.h"
 
+#include <string>
+
 #include "absl/memory/memory.h"
 #include "modules/audio_coding/neteq/tools/neteq_test_factory.h"
+#include "rtc_base/checks.h"
+#include "rtc_base/flags.h"
 
 namespace webrtc {
 namespace test {
@@ -24,7 +28,15 @@ NetEqSimulatorFactory::~NetEqSimulatorFactory() = default;
 std::unique_ptr<NetEqSimulator> NetEqSimulatorFactory::CreateSimulator(
     int argc,
     char* argv[]) {
-  return factory_->InitializeTest(argc, argv);
+  if (rtc::FlagList::SetFlagsFromCommandLine(&argc, argv, true)) {
+    RTC_NOTREACHED() << "Error while parsing command-line flags";
+  }
+  if (argc != 3) {
+    RTC_NOTREACHED()
+        << "Not enough input arguments. Expected 3 arguments, but found"
+        << argc;
+  }
+  return factory_->InitializeTest(argv[1], argv[2]);
 }
 
 }  // namespace test

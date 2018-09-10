@@ -46,6 +46,30 @@
       "revId": "5c3ceead4e31bfd998989a3da36223ab37530280",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64d0c3c5_86aa896b",
+        "filename": "test/frame_generator_capturer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-09-10T09:37:16Z",
+      "side": 1,
+      "message": "Ah, now I see, to it accepts up to one frame delay? Is it rare on test systems that we get up to 30/40 ms delays or is it simply better to drop frames that variable frame rate?",
+      "parentUuid": "f67e2804_af693407",
+      "range": {
+        "startLine": 52,
+        "startChar": 3,
+        "endLine": 53,
+        "endChar": 41
+      },
+      "revId": "5c3ceead4e31bfd998989a3da36223ab37530280",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

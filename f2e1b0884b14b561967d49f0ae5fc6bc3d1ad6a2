@@ -22,6 +22,30 @@
       "revId": "f2e1b0884b14b561967d49f0ae5fc6bc3d1ad6a2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "360b5fe7_4460f002",
+        "filename": "rtc_base/build/rtc_export.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-09-10T07:08:46Z",
+      "side": 1,
+      "message": "No, we don\u0027t and the presubmit complains so I think it will not be indented before landing.\n\nI am going to create a CL to export symbols today.",
+      "parentUuid": "2ab261c4_1346ef37",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 6
+      },
+      "revId": "f2e1b0884b14b561967d49f0ae5fc6bc3d1ad6a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "bc9b1042_582d12d1",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 663,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-09-10T08:48:25Z",
+      "side": 1,
+      "message": "It is intended. DefaultTemporalLayers does not work as intended with frame dropping off.\nIn the case of screenshare, webrtcvideoengine always configures frame dropping off. So when simulcast screenshare is used, the high-quality stream would be force to have frame dropping off  which is hurting performance.\nOn the flip side, ScreenshareLayers does not work as intended with frame dropping on.\nI therefore take the frameDroppingOn from codec specifics if temporal layers isn\u0027t used, and otherwise the layering strategy gets to override that setting.\nAdded comment. OK?",
+      "parentUuid": "2ad35845_53e7584e",
+      "range": {
+        "startLine": 663,
+        "startChar": 3,
+        "endLine": 663,
+        "endChar": 27
+      },
+      "revId": "ea4e3fd0a12b14c6ce5920cb437a83e8340323ec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "79632e1f_0d979ddd",
         "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.h",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "ea4e3fd0a12b14c6ce5920cb437a83e8340323ec",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "600211d9_b2ad2734",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-09-10T08:48:25Z",
+      "side": 1,
+      "message": "It was named to match vpx_codec_enc_cfg::rc_dropframe_thresh, but agree it makes to write it out. Done.",
+      "parentUuid": "79632e1f_0d979ddd",
+      "range": {
+        "startLine": 87,
+        "startChar": 21,
+        "endLine": 87,
+        "endChar": 26
+      },
+      "revId": "ea4e3fd0a12b14c6ce5920cb437a83e8340323ec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

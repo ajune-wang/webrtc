@@ -214,6 +214,30 @@
     },
     {
       "key": {
+        "uuid": "9553ff63_dd6fc016",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-09-11T14:01:32Z",
+      "side": 1,
+      "message": "\u003e private inheritance is banned ( https://google.github.io/styleguide/cppguide.html#Inheritance )\n\u003e keep it public if you want to have it.\n\nPublic it is, then. (I did add non-public inheritance in https://webrtc-review.googlesource.com/51862, maybe could change that back to all public now that VideoStreamEncoderInterface is advertised).\n\n\u003e longer term I disagree [but that is out of scope of this CL]: stats demuxer is simpler and different to regular rtp_demuxer.\n\u003e for stats all you need to know is ssrc, e.g. it make sense to account rtx and regular ssrc separately.\n\nOk, we\u0027ll see how things work out when we get that far.",
+      "parentUuid": "1e7cbb87_a9135817",
+      "range": {
+        "startLine": 27,
+        "startChar": 31,
+        "endLine": 27,
+        "endChar": 60
+      },
+      "revId": "ec8d7cf06a29a6dad46245c8652618fae31ab682",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a560e73_724ae587",
         "filename": "modules/rtp_rtcp/source/receive_statistics_impl.h",
         "patchSetId": 11

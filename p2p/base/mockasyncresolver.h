@@ -22,8 +22,7 @@ class MockAsyncResolver : public AsyncResolverInterface {
   MockAsyncResolver() = default;
   ~MockAsyncResolver() = default;
 
-  void Start(const rtc::SocketAddress& addr) { SignalDone(this); }
-
+  MOCK_METHOD1(Start, void(const rtc::SocketAddress&));
   MOCK_CONST_METHOD2(GetResolvedAddress, bool(int family, SocketAddress* addr));
   MOCK_CONST_METHOD0(GetError, int());
 
@@ -31,6 +30,8 @@ class MockAsyncResolver : public AsyncResolverInterface {
   // order to avoid sanitizer failures caused by this being a synchronous
   // implementation. The test code should delete the object instead.
   MOCK_METHOD1(Destroy, void(bool));
+
+  void DoSignalDone() { SignalDone(this); }
 };
 
 }  // namespace rtc

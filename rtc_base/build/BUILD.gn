@@ -1,0 +1,47 @@
+# Copyright (c) 2018 The WebRTC project authors. All Rights Reserved.
+#
+# Use of this source code is governed by a BSD-style license
+# that can be found in the LICENSE file in the root of the source
+# tree. An additional intellectual property rights grant can be found
+# in the file PATENTS.  All contributing project authors may
+# be found in the AUTHORS file in the root of the source tree.
+
+import("../../webrtc.gni")
+
+# WebRTC build targets that define exported symbols need to add "export_symbols"
+# to their configs.
+config("export_symbols") {
+  if (is_component_build) {
+    defines = [
+      "WEBRTC_EXPORT_SYMBOLS=1",
+      "WEBRTC_IMPORT_SYMBOLS=0",
+    ]
+  } else {
+    defines = [
+      "WEBRTC_EXPORT_SYMBOLS=0",
+      "WEBRTC_IMPORT_SYMBOLS=0",
+    ]
+  }
+}
+
+# Shared libraries or components that depend on WebRTC need to add
+# "import_symbols" to their public_configs.
+config("import_symbols") {
+  if (is_component_build) {
+    defines = [
+      "WEBRTC_EXPORT_SYMBOLS=0",
+      "WEBRTC_IMPORT_SYMBOLS=1",
+    ]
+  } else {
+    defines = [
+      "WEBRTC_EXPORT_SYMBOLS=0",
+      "WEBRTC_IMPORT_SYMBOLS=0",
+    ]
+  }
+}
+
+rtc_source_set("symbol_visibility") {
+  sources = [
+    "symbol_visibility.h",
+  ]
+}

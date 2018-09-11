@@ -39,7 +39,6 @@ class WinsockInitializer {
  private:
   int err_;
 };
-WinsockInitializer g_winsockinit;
 #endif
 
 }  // namespace rtc

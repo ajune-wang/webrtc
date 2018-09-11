@@ -46,6 +46,30 @@
       "revId": "36681e5778831a6ad376cda9de1182fe7bf714fe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c10d689_2055f76c",
+        "filename": "modules/remote_bitrate_estimator/test/bwe_test_logging.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-09-11T08:49:58Z",
+      "side": 1,
+      "message": "Done, thanks for pointing that out.",
+      "parentUuid": "0670b000_a9b7e605",
+      "range": {
+        "startLine": 59,
+        "startChar": 2,
+        "endLine": 59,
+        "endChar": 27
+      },
+      "revId": "36681e5778831a6ad376cda9de1182fe7bf714fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

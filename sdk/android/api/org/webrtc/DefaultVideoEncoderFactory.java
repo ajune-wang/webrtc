@@ -20,7 +20,28 @@ public class DefaultVideoEncoderFactory implements VideoEncoderFactory {
   private final VideoEncoderFactory hardwareVideoEncoderFactory;
   private final VideoEncoderFactory softwareVideoEncoderFactory = new SoftwareVideoEncoderFactory();
 
-  /** Create encoder factory using default hardware encoder factory. */
+  /**
+   * Create encoder factory using default hardware encoder factory.
+   *
+   * @param sharedContext The textures generated will be accessible from this context. May be null,
+   *                      this disables texture support.
+   * @param enableH264HighProfile Enables H264 high-profile support. This should only be set to true
+   *                              if the decoder used has support for high-profile.
+   */
+  public DefaultVideoEncoderFactory(
+      @Nullable EglBase.Context sharedContext, boolean enableH264HighProfile) {
+    final EglBase14.Context egl14Context;
+    if (sharedContext instanceof EglBase14.Context) {
+      egl14Context = (EglBase14.Context) sharedContext;
+    } else {
+      egl14Context = null;
+    }
+
+    this.hardwareVideoEncoderFactory =
+        new HardwareVideoEncoderFactory(egl14Context, enableH264HighProfile);
+  }
+
+  @Deprecated
   public DefaultVideoEncoderFactory(
       EglBase.Context eglContext, boolean enableIntelVp8Encoder, boolean enableH264HighProfile) {
     this.hardwareVideoEncoderFactory =

@@ -41,7 +41,7 @@ import org.junit.runner.RunWith;
 @TargetApi(16)
 @RunWith(ParameterizedRunner.class)
 @UseRunnerDelegate(BaseJUnit4RunnerDelegate.class)
-public class HardwareVideoEncoderTest {
+public class AndroidVideoEncoderInstrumentationTest {
   @ClassParameter private static List<ParameterSet> CLASS_PARAMS = new ArrayList<>();
 
   static {
@@ -59,7 +59,7 @@ public class HardwareVideoEncoderTest {
   private final boolean useTextures;
   private final boolean useEglContext;
 
-  public HardwareVideoEncoderTest(boolean useTextures, boolean useEglContext) {
+  public AndroidVideoEncoderInstrumentationTest(boolean useTextures, boolean useEglContext) {
     this.useTextures = useTextures;
     this.useEglContext = useEglContext;
   }

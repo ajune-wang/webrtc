@@ -371,6 +371,17 @@ NetEqLifetimeStatistics NetEqImpl::GetLifetimeStatistics() const {
   return stats_.GetLifetimeStatistics();
 }
 
+NetEqOperationsAndBufferStatistics
+NetEqImpl::GetOperationsAndBufferStatistics() {
+  rtc::CritScope lock(&crit_sect_);
+  auto result = stats_.GetOperationsAndBufferStatistics();
+  result.current_buffer_size_ms =
+      (packet_buffer_->NumSamplesInBuffer(decoder_frame_length_) +
+       sync_buffer_->FutureLength()) *
+      1000 / fs_hz_;
+  return result;
+}
+
 void NetEqImpl::GetRtcpStatistics(RtcpStatistics* stats) {
   rtc::CritScope lock(&crit_sect_);
   if (stats) {

@@ -111,6 +111,8 @@ class StatisticsCalculator {
   // never reset.
   NetEqLifetimeStatistics GetLifetimeStatistics() const;
 
+  NetEqOperationsAndBufferStatistics GetOperationsAndBufferStatistics();
+
  private:
   static const int kMaxReportPeriod = 60;  // Seconds before auto-reset.
   static const size_t kLenWaitingTimes = 100;
@@ -178,6 +180,7 @@ class StatisticsCalculator {
   static uint16_t CalculateQ14Ratio(size_t numerator, uint32_t denominator);
 
   NetEqLifetimeStatistics lifetime_stats_;
+  NetEqOperationsAndBufferStatistics operations_and_buffer_stats_;
   size_t concealed_samples_correction_ = 0;
   size_t voice_concealed_samples_correction_ = 0;
   size_t preemptive_samples_;
@@ -189,6 +192,7 @@ class StatisticsCalculator {
   size_t lost_timestamps_;
   uint32_t timestamps_since_last_report_;
   std::deque<int> waiting_times_;
+  int last_waiting_time_ms_ = 0;
   uint32_t secondary_decoded_samples_;
   size_t discarded_secondary_packets_;
   PeriodicUmaCount delayed_packet_outage_counter_;

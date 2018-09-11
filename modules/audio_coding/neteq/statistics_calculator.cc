@@ -200,10 +200,12 @@ void StatisticsCalculator::ConcealedSamplesCorrection(int num_samples,
 
 void StatisticsCalculator::PreemptiveExpandedSamples(size_t num_samples) {
   preemptive_samples_ += num_samples;
+  operations_and_buffer_stats_.preemptive_samples += num_samples;
 }
 
 void StatisticsCalculator::AcceleratedSamples(size_t num_samples) {
   accelerate_samples_ += num_samples;
+  operations_and_buffer_stats_.accelerate_samples += num_samples;
 }
 
 void StatisticsCalculator::AddZeros(size_t num_samples) {
@@ -220,6 +222,7 @@ void StatisticsCalculator::SecondaryPacketsDiscarded(size_t num_packets) {
 
 void StatisticsCalculator::LostSamples(size_t num_samples) {
   lost_timestamps_ += num_samples;
+  operations_and_buffer_stats_.missing_samples += num_samples;
 }
 
 void StatisticsCalculator::IncreaseCounter(size_t num_samples, int fs_hz) {
@@ -261,6 +264,7 @@ void StatisticsCalculator::StoreWaitingTime(int waiting_time_ms) {
     waiting_times_.pop_front();
   }
   waiting_times_.push_back(waiting_time_ms);
+  last_waiting_time_ms_ = waiting_time_ms;
 }
 
 void StatisticsCalculator::GetNetworkStatistics(int fs_hz,
@@ -343,6 +347,15 @@ void StatisticsCalculator::PopulateDelayManagerStats(
 
 NetEqLifetimeStatistics StatisticsCalculator::GetLifetimeStatistics() const {
   return lifetime_stats_;
+}
+
+NetEqOperationsAndBufferStatistics
+StatisticsCalculator::GetOperationsAndBufferStatistics() {
+  operations_and_buffer_stats_.last_waiting_time_ms = last_waiting_time_ms_;
+  auto result = operations_and_buffer_stats_;
+  // Reset the statistics.
+  operations_and_buffer_stats_ = {};
+  return result;
 }
 
 uint16_t StatisticsCalculator::CalculateQ14Ratio(size_t numerator,

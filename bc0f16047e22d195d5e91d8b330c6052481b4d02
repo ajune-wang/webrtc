@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dc3e6763_f01f2ce0",
+        "filename": "p2p/base/mockasyncresolver.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-09-11T20:47:59Z",
+      "side": 1,
+      "message": "nit: Could replace with\n\nInvokeWithoutArgs([this] { SignalDone(this); })\n\nAnd delete DoSignalDone",
+      "revId": "bc0f16047e22d195d5e91d8b330c6052481b4d02",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "683a7367_5d6c2dce",
+        "filename": "p2p/base/p2ptransportchannel_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 4634,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-09-11T20:47:59Z",
+      "side": 1,
+      "message": "Should these happen in order? By default gmock does not verify relative ordering of calls. If they should then use InSequence (see the docs).",
+      "revId": "bc0f16047e22d195d5e91d8b330c6052481b4d02",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

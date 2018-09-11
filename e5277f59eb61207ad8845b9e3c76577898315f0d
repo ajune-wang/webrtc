@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "24e471a7_16489010",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-09-11T13:35:05Z",
+      "side": 1,
+      "message": "may be add some unittests (to rtp_sender_unittests.cc) for this block of code.\n\n(e.g. CutsFrameIdTo16Bits or ConvertsDependentFramesToDiffs)",
+      "range": {
+        "startLine": 70,
+        "startChar": 29,
+        "endLine": 70,
+        "endChar": 0
+      },
+      "revId": "e5277f59eb61207ad8845b9e3c76577898315f0d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "909c7859_12be5a9b",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 468,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-09-11T13:35:05Z",
+      "side": 1,
+      "message": "May be add some tests for this block of code.",
+      "revId": "e5277f59eb61207ad8845b9e3c76577898315f0d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02d43607_267dfa31",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 479,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-09-11T13:35:05Z",
+      "side": 1,
+      "message": "may be comment why you are storing raw frame_id/ frame_diff into fields that are designed for unwinded fields",
+      "range": {
+        "startLine": 479,
+        "startChar": 70,
+        "endLine": 479,
+        "endChar": 0
+      },
+      "revId": "e5277f59eb61207ad8845b9e3c76577898315f0d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6bbc185e_0c1c6684",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 490,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-09-11T13:35:05Z",
+      "side": 1,
+      "message": "fill higher_spatial_layers?\nor add TODO to fill them",
+      "range": {
+        "startLine": 490,
+        "startChar": 7,
+        "endLine": 490,
+        "endChar": 0
+      },
+      "revId": "e5277f59eb61207ad8845b9e3c76577898315f0d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -37,30 +37,12 @@ static_assert(static_cast<int>(webrtc::RTCErrorType::INTERNAL_ERROR) ==
 namespace webrtc {
 
 RTCError::RTCError(RTCError&& other)
-    : type_(other.type_), have_string_message_(other.have_string_message_) {
-  if (have_string_message_) {
-    new (&string_message_) std::string(std::move(other.string_message_));
-  } else {
-    static_message_ = other.static_message_;
-  }
-}
+    : type_(other.type_), message_(std::move(other.message_)) {}
 
 RTCError& RTCError::operator=(RTCError&& other) {
   type_ = other.type_;
-  if (other.have_string_message_) {
-    set_message(std::move(other.string_message_));
-  } else {
-    set_message(other.static_message_);
-  }
+  message_ = std::move(other.message_);
   return *this;
-}
-
-RTCError::~RTCError() {
-  // If we hold a message string that was built, rather than a static string,
-  // we need to delete it.
-  if (have_string_message_) {
-    string_message_.~basic_string();
-  }
 }
 
 // static
@@ -69,28 +51,11 @@ RTCError RTCError::OK() {
 }
 
 const char* RTCError::message() const {
-  if (have_string_message_) {
-    return string_message_.c_str();
-  } else {
-    return static_message_;
-  }
+  return message_.c_str();
 }
 
-void RTCError::set_message(const char* message) {
-  if (have_string_message_) {
-    string_message_.~basic_string();
-    have_string_message_ = false;
-  }
-  static_message_ = message;
-}
-
-void RTCError::set_message(std::string&& message) {
-  if (!have_string_message_) {
-    new (&string_message_) std::string(std::move(message));
-    have_string_message_ = true;
-  } else {
-    string_message_ = message;
-  }
+void RTCError::set_message(std::string message) {
+  message_ = std::move(message);
 }
 
 // TODO(jonasolsson): Change to use absl::string_view when it's available.

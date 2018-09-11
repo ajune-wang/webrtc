@@ -192,6 +192,30 @@
     },
     {
       "key": {
+        "uuid": "6604c4dc_c7565dbd",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-09-11T11:54:03Z",
+      "side": 1,
+      "message": "Please hold off on doing this. Since we\u0027re never creating those kinds of packets, it\u0027s unclear if we want to spend a substantial number of bits to encode this information. We\u0027re also working on large changes to the proto format, and we\u0027d like to avoid conflicts with other format changes.",
+      "parentUuid": "ffab63da_b41d5989",
+      "range": {
+        "startLine": 299,
+        "startChar": 13,
+        "endLine": 299,
+        "endChar": 20
+      },
+      "revId": "dd31f2415a37116b244cac5379d20f4c671510df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c8a72fae_5378c64e",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
         "patchSetId": 4

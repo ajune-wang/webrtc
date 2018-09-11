@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9b2a2f5e_9091f7e0",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-09-11T11:27:16Z",
+      "side": 1,
+      "message": "nit: R",
+      "range": {
+        "startLine": 319,
+        "startChar": 24,
+        "endLine": 319,
+        "endChar": 25
+      },
+      "revId": "3964efd6744e7ae1efe08b37cb0e4875da074a6e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f4fc2d1_4c84cf9f",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-09-11T11:27:16Z",
+      "side": 1,
+      "message": "nit: R",
+      "range": {
+        "startLine": 347,
+        "startChar": 24,
+        "endLine": 347,
+        "endChar": 25
+      },
+      "revId": "3964efd6744e7ae1efe08b37cb0e4875da074a6e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d714eb98_27ac7120",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 732,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-09-11T11:27:16Z",
+      "side": 1,
+      "message": "nit: C",
+      "range": {
+        "startLine": 732,
+        "startChar": 26,
+        "endLine": 732,
+        "endChar": 27
+      },
+      "revId": "3964efd6744e7ae1efe08b37cb0e4875da074a6e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31efa75b_92d5ab03",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 760,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-09-11T11:27:16Z",
+      "side": 1,
+      "message": "nit: C",
+      "range": {
+        "startLine": 760,
+        "startChar": 26,
+        "endLine": 760,
+        "endChar": 27
+      },
+      "revId": "3964efd6744e7ae1efe08b37cb0e4875da074a6e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

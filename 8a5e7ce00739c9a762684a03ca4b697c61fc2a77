@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3cf91535_ebf2ceea",
+        "filename": "rtc_base/build/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-09-11T15:05:25Z",
+      "side": 1,
+      "message": "I am wondering if we should define an rtc_ GN attribute with default value identical to is_component_build in order to allow users to override it in their GN configuration.\n\nAs of today component builds are explicitly disabled in standalone WebRTC: https://cs.chromium.org/chromium/src/third_party/webrtc/webrtc.gni?l\u003d15-27\u0026rcl\u003d95c56eebe0a2b31ad5752138d15b431124e17d36.",
+      "range": {
+        "startLine": 14,
+        "startChar": 6,
+        "endLine": 14,
+        "endChar": 24
+      },
+      "revId": "8a5e7ce00739c9a762684a03ca4b697c61fc2a77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b155b71b_0821018d",
+        "filename": "rtc_base/build/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-09-11T15:05:25Z",
+      "side": 1,
+      "message": "I had to change the name of this file since the macro is now called RTC_PUBLIC. I opted for a more generic name.",
+      "range": {
+        "startLine": 45,
+        "startChar": 5,
+        "endLine": 45,
+        "endChar": 24
+      },
+      "revId": "8a5e7ce00739c9a762684a03ca4b697c61fc2a77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce2e1efe_3607e185",
+        "filename": "webrtc.gni",
+        "patchSetId": 6
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-09-11T15:05:25Z",
+      "side": 1,
+      "message": "This and the change at line 289 will allow us to export symbols more easily (no need to tag build targets one by one).\n\nIt is possible because we don\u0027t plan to create a lot of small shared libraries but only one libwebrtc.{dll,so} so it is safe to say that internal build targets always export and the build target that depend on a shared library always import.",
+      "range": {
+        "startLine": 279,
+        "startChar": 2,
+        "endLine": 279,
+        "endChar": 48
+      },
+      "revId": "8a5e7ce00739c9a762684a03ca4b697c61fc2a77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

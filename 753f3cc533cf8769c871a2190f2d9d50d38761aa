@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "22c22029_b601c449",
+        "filename": "api/rtcerror.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-09-11T12:48:29Z",
+      "side": 1,
+      "message": "Just implement with \u003ddefault.",
+      "revId": "753f3cc533cf8769c871a2190f2d9d50d38761aa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3a694e5_40c4a546",
+        "filename": "api/rtcerror.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-09-11T12:48:29Z",
+      "side": 1,
+      "message": "Here too.",
+      "revId": "753f3cc533cf8769c871a2190f2d9d50d38761aa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e98289c5_5865fa14",
+        "filename": "api/rtcerror.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-09-11T12:48:29Z",
+      "side": 1,
+      "message": "This should be absl::string_view, but that\u0027s for another day...",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 11
+      },
+      "revId": "753f3cc533cf8769c871a2190f2d9d50d38761aa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee8e01d4_b7c2888b",
+        "filename": "api/rtcerror.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-09-11T12:48:29Z",
+      "side": 1,
+      "message": "Unless you say `message_(std::move(message))` here, you force an extra copy. And you have to drop the `const` on the previous line, too, because you can\u0027t  actually move from a const rvalue, so the code would silently have that extra copy anyway even if you added the std::move call.",
+      "revId": "753f3cc533cf8769c871a2190f2d9d50d38761aa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e0fb681_bac60598",
+        "filename": "api/rtcerror.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-09-11T12:48:29Z",
+      "side": 1,
+      "message": "You don\u0027t need this; std::strings are empty by default.",
+      "range": {
+        "startLine": 125,
+        "startChar": 23,
+        "endLine": 125,
+        "endChar": 27
+      },
+      "revId": "753f3cc533cf8769c871a2190f2d9d50d38761aa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

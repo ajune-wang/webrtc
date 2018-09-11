@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a81f630a_84b06230",
+        "filename": "rtc_base/build/rtc_export.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-09-11T09:05:48Z",
+      "side": 1,
+      "message": "Interesting. That seems to be related to objc vs objc++ name mangling.\n\nIn the other cl, I suggested renaming this RTC_EXPORT to RTC_PUBLIC.",
+      "parentUuid": "5ed45003_c8aaa2c4",
+      "range": {
+        "startLine": 28,
+        "startChar": 8,
+        "endLine": 28,
+        "endChar": 18
+      },
+      "revId": "f2e1b0884b14b561967d49f0ae5fc6bc3d1ad6a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2ab261c4_1346ef37",
         "filename": "rtc_base/build/rtc_export.h",
         "patchSetId": 4
@@ -69,6 +93,30 @@
       "revId": "f2e1b0884b14b561967d49f0ae5fc6bc3d1ad6a2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a70d050_09cdfc5c",
+        "filename": "rtc_base/build/rtc_export.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-09-11T09:05:48Z",
+      "side": 1,
+      "message": "Apparently not, if git cl format dislikes it. Generally, we should strive to avoid deep nesting of preprocessor directives, but if we have to do it, indentation helps a bit to make it readable. If it\u0027s really rare, I guess it\u0027s not worth the effort to fix git cl format, but it would be nice if it allowed indentation and also warned for inconsistent indentation.",
+      "parentUuid": "2ab261c4_1346ef37",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 6
+      },
+      "revId": "f2e1b0884b14b561967d49f0ae5fc6bc3d1ad6a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

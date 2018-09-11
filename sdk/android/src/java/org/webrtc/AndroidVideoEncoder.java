@@ -31,8 +31,8 @@ import org.webrtc.ThreadUtils.ThreadChecker;
 /** Android hardware video encoder. */
 @TargetApi(19)
 @SuppressWarnings("deprecation") // Cannot support API level 19 without using deprecated methods.
-class HardwareVideoEncoder implements VideoEncoder {
-  private static final String TAG = "HardwareVideoEncoder";
+class AndroidVideoEncoder implements VideoEncoder {
+  private static final String TAG = "AndroidVideoEncoder";
 
   // Bitrate modes - should be in sync with OMX_VIDEO_CONTROLRATETYPE defined
   // in OMX_Video.h
@@ -115,7 +115,7 @@ class HardwareVideoEncoder implements VideoEncoder {
   @Nullable private volatile Exception shutdownException;
 
   /**
-   * Creates a new HardwareVideoEncoder with the given codecName, codecType, colorFormat, key frame
+   * Creates a new AndroidVideoEncoder with the given codecName, codecType, colorFormat, key frame
    * intervals, and bitrateAdjuster.
    *
    * @param codecName the hardware codec implementation to use
@@ -129,7 +129,7 @@ class HardwareVideoEncoder implements VideoEncoder {
    *     desired bitrates
    * @throws IllegalArgumentException if colorFormat is unsupported
    */
-  public HardwareVideoEncoder(MediaCodecWrapperFactory mediaCodecWrapperFactory, String codecName,
+  public AndroidVideoEncoder(MediaCodecWrapperFactory mediaCodecWrapperFactory, String codecName,
       VideoCodecType codecType, Integer surfaceColorFormat, Integer yuvColorFormat,
       Map<String, String> params, int keyFrameIntervalSec, int forceKeyFrameIntervalMs,
       BitrateAdjuster bitrateAdjuster, EglBase14.Context sharedContext) {

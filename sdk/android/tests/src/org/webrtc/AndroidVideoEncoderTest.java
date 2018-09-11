@@ -50,7 +50,7 @@ import org.webrtc.VideoFrame.I420Buffer;
 
 @RunWith(LocalRobolectricTestRunner.class)
 @Config(manifest = Config.NONE)
-public class HardwareVideoEncoderTest {
+public class AndroidVideoEncoderTest {
   private static final VideoEncoder.Settings TEST_ENCODER_SETTINGS = new Settings(
       /* numberOfCores= */ 1,
       /* width= */ 640,
@@ -62,7 +62,7 @@ public class HardwareVideoEncoderTest {
   private static final long POLL_DELAY_MS = 10;
   private static final long DELIVER_ENCODED_IMAGE_DELAY_MS = 10;
 
-  private static class TestEncoder extends HardwareVideoEncoder {
+  private static class TestEncoder extends AndroidVideoEncoder {
     private final Object deliverEncodedImageLock = new Object();
     private boolean deliverEncodedImageDone = true;
 
@@ -152,8 +152,7 @@ public class HardwareVideoEncoderTest {
   @Test
   public void testInit() {
     // Set-up.
-    HardwareVideoEncoder encoder =
-        new TestEncoderBuilder().setCodecType(VideoCodecType.VP8).build();
+    AndroidVideoEncoder encoder = new TestEncoderBuilder().setCodecType(VideoCodecType.VP8).build();
 
     // Test.
     assertThat(encoder.initEncode(TEST_ENCODER_SETTINGS, mockEncoderCallback))
@@ -178,7 +177,7 @@ public class HardwareVideoEncoderTest {
   @Test
   public void testEncodeByteBuffer() {
     // Set-up.
-    HardwareVideoEncoder encoder = new TestEncoderBuilder().build();
+    AndroidVideoEncoder encoder = new TestEncoderBuilder().build();
     encoder.initEncode(TEST_ENCODER_SETTINGS, mockEncoderCallback);
 
     // Test.
@@ -246,7 +245,7 @@ public class HardwareVideoEncoderTest {
   @Test
   public void testRelease() {
     // Set-up.
-    HardwareVideoEncoder encoder = new TestEncoderBuilder().build();
+    AndroidVideoEncoder encoder = new TestEncoderBuilder().build();
     encoder.initEncode(TEST_ENCODER_SETTINGS, mockEncoderCallback);
 
     // Test.
@@ -259,7 +258,7 @@ public class HardwareVideoEncoderTest {
   @Test
   public void testReleaseMultipleTimes() {
     // Set-up.
-    HardwareVideoEncoder encoder = new TestEncoderBuilder().build();
+    AndroidVideoEncoder encoder = new TestEncoderBuilder().build();
     encoder.initEncode(TEST_ENCODER_SETTINGS, mockEncoderCallback);
 
     // Test.

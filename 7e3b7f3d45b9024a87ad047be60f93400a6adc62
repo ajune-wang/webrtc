@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "441c0d56_65043726",
+        "filename": "p2p/base/p2ptransportchannel_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 4667,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-09-11T17:29:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "90f9faca_18992157",
+      "range": {
+        "startLine": 4667,
+        "startChar": 2,
+        "endLine": 4667,
+        "endChar": 18
+      },
+      "revId": "7e3b7f3d45b9024a87ad047be60f93400a6adc62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2676a33c_6318ba08",
         "filename": "p2p/base/p2ptransportchannel_unittest.cc",
         "patchSetId": 3
@@ -39,6 +63,24 @@
       "revId": "7e3b7f3d45b9024a87ad047be60f93400a6adc62",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9ae8dc6_adc41e8e",
+        "filename": "p2p/base/p2ptransportchannel_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 4682,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-09-11T17:29:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2676a33c_6318ba08",
+      "revId": "7e3b7f3d45b9024a87ad047be60f93400a6adc62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "9f76af29_682b8f07",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-09-11T17:29:42Z",
+      "side": 1,
+      "message": "Ack. Maybe we can keep the flag in Chromium even after the review so that it stays as a feature flag in runtime. I have linked a TODO here to this bug.",
+      "parentUuid": "868c3852_9f033edf",
+      "revId": "7e3b7f3d45b9024a87ad047be60f93400a6adc62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "694bdac6_8e4bc9d1",
         "filename": "p2p/base/port.cc",
         "patchSetId": 3
@@ -73,6 +133,24 @@
       "revId": "7e3b7f3d45b9024a87ad047be60f93400a6adc62",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f225c329_07b7f622",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 463,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-09-11T17:29:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "694bdac6_8e4bc9d1",
+      "revId": "7e3b7f3d45b9024a87ad047be60f93400a6adc62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -93,6 +171,24 @@
     },
     {
       "key": {
+        "uuid": "ff4bfb26_2b9c866b",
+        "filename": "p2p/client/basicportallocator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2249,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-09-11T17:29:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "27e17fb6_5df8b464",
+      "revId": "7e3b7f3d45b9024a87ad047be60f93400a6adc62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6955e8fa_66566eaa",
         "filename": "rtc_base/fake_mdns_responder.h",
         "patchSetId": 3
@@ -110,6 +206,24 @@
     },
     {
       "key": {
+        "uuid": "3e15f8bb_486cbdef",
+        "filename": "rtc_base/fake_mdns_responder.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-09-11T17:29:42Z",
+      "side": 1,
+      "message": "I actually used the counter to generate names in the Chromium unit tests for the responder. We do not need the exact name for testing in this CL but for future it feels more handy to have the name predetermined. Changed this part.",
+      "parentUuid": "6955e8fa_66566eaa",
+      "revId": "7e3b7f3d45b9024a87ad047be60f93400a6adc62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e019def5_63c3d33f",
         "filename": "rtc_base/fake_mdns_responder.h",
         "patchSetId": 3
@@ -124,6 +238,24 @@
       "revId": "7e3b7f3d45b9024a87ad047be60f93400a6adc62",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91605f16_7eb2ada3",
+        "filename": "rtc_base/fake_mdns_responder.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-09-11T17:29:42Z",
+      "side": 1,
+      "message": "Good catch. The inverse mapping actually works better here.",
+      "parentUuid": "e019def5_63c3d33f",
+      "revId": "7e3b7f3d45b9024a87ad047be60f93400a6adc62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -150,6 +282,30 @@
     },
     {
       "key": {
+        "uuid": "42e89df7_000c9971",
+        "filename": "rtc_base/fakenetwork.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-09-11T17:29:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "64600478_8e495444",
+      "range": {
+        "startLine": 85,
+        "startChar": 23,
+        "endLine": 85,
+        "endChar": 29
+      },
+      "revId": "7e3b7f3d45b9024a87ad047be60f93400a6adc62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ec81f120_a6a6f9e9",
         "filename": "rtc_base/mdns_responder_interface.h",
         "patchSetId": 3
@@ -164,6 +320,24 @@
       "revId": "7e3b7f3d45b9024a87ad047be60f93400a6adc62",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d456a68_e79a9831",
+        "filename": "rtc_base/mdns_responder_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-09-11T17:29:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ec81f120_a6a6f9e9",
+      "revId": "7e3b7f3d45b9024a87ad047be60f93400a6adc62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -184,6 +358,24 @@
     },
     {
       "key": {
+        "uuid": "1a14f209_c91775f7",
+        "filename": "rtc_base/mdns_responder_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-09-11T17:29:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "53a1e0ca_233416a8",
+      "revId": "7e3b7f3d45b9024a87ad047be60f93400a6adc62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dd0f95ed_3dbf12a3",
         "filename": "rtc_base/mdns_responder_interface.h",
         "patchSetId": 3
@@ -198,6 +390,24 @@
       "revId": "7e3b7f3d45b9024a87ad047be60f93400a6adc62",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "779dd6bd_027ee562",
+        "filename": "rtc_base/mdns_responder_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-09-11T17:29:42Z",
+      "side": 1,
+      "message": "Good point and I can just use lambda for the impl. After our offline discussion, I think the WebRTC WeakPtr is good enough to safely capture a this pointer.",
+      "parentUuid": "dd0f95ed_3dbf12a3",
+      "revId": "7e3b7f3d45b9024a87ad047be60f93400a6adc62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -218,6 +428,24 @@
     },
     {
       "key": {
+        "uuid": "c48a73d7_50e720c3",
+        "filename": "rtc_base/mdns_responder_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-09-11T17:29:42Z",
+      "side": 1,
+      "message": "Actually I could\u0027ve used the pure interface. Updated.",
+      "parentUuid": "7c462b37_c9cb0735",
+      "revId": "7e3b7f3d45b9024a87ad047be60f93400a6adc62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7ecd32f9_416f58f2",
         "filename": "rtc_base/mdns_responder_interface.h",
         "patchSetId": 3
@@ -235,6 +463,24 @@
     },
     {
       "key": {
+        "uuid": "0c53582c_fe8a35c4",
+        "filename": "rtc_base/mdns_responder_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-09-11T17:29:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7ecd32f9_416f58f2",
+      "revId": "7e3b7f3d45b9024a87ad047be60f93400a6adc62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "41a41f18_9719275e",
         "filename": "rtc_base/network.cc",
         "patchSetId": 3
@@ -246,6 +492,24 @@
       "writtenOn": "2018-09-06T04:51:30Z",
       "side": 1,
       "message": "This seems like it will be doing redundant work, but I\u0027m not familiar enough with this code to know of a better place to do this. Is there a reason there isn\u0027t a more natural place? I can spend some more time trying to find one tomorrow if you would like.",
+      "revId": "7e3b7f3d45b9024a87ad047be60f93400a6adc62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bda43718_2851deeb",
+        "filename": "rtc_base/network.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-09-11T17:29:42Z",
+      "side": 1,
+      "message": "Yes, it could indeed do the same setting for the same network. I could have this line at the end of the if branch, so the mDNS responder is only set when a new network (new as seen by its key as defined by MakeNetworkKey) is created. I was thinking of the case when this code path is activated but mDNS responder is not yet initialized (though this is something I would like to avoid in my implementation in this CL (https://chromium-review.googlesource.com/c/chromium/src/+/1206002)), some networks would register a null mDNS responder, and later miss the chance to register an effective responder when we discover new networks. Let me know if this does not make much sense.",
+      "parentUuid": "41a41f18_9719275e",
       "revId": "7e3b7f3d45b9024a87ad047be60f93400a6adc62",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -269,6 +533,24 @@
     },
     {
       "key": {
+        "uuid": "7ccdcb0e_83c3195a",
+        "filename": "rtc_base/network.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-09-11T17:29:42Z",
+      "side": 1,
+      "message": "Yes, Chromium implements MDnsResponderInterface and IpcNetworkManager overrides this method in this CL (https://chromium-review.googlesource.com/c/chromium/src/+/1206002). We probably want to keep the default implementation that returns a null pointer if we turn off the feature by the upcoming flag.",
+      "parentUuid": "00e34b52_5cc73ec8",
+      "revId": "7e3b7f3d45b9024a87ad047be60f93400a6adc62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3beb6e0a_f3332f96",
         "filename": "rtc_base/network.h",
         "patchSetId": 3
@@ -283,6 +565,24 @@
       "revId": "7e3b7f3d45b9024a87ad047be60f93400a6adc62",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3dfcfc01_6a163b07",
+        "filename": "rtc_base/network.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-09-11T17:29:42Z",
+      "side": 1,
+      "message": "Sure, also thanks for the suggestion on the lifetime note.",
+      "parentUuid": "3beb6e0a_f3332f96",
+      "revId": "7e3b7f3d45b9024a87ad047be60f93400a6adc62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -168,6 +168,30 @@
     },
     {
       "key": {
+        "uuid": "ffab63da_b41d5989",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 7102
+      },
+      "writtenOn": "2018-09-11T11:40:55Z",
+      "side": 1,
+      "message": "As there no other ways to get it right if padding bit (in header) is true and packet contains both regular payload and padding.\n\nI meant by \"deficiency\" the above case. Test will fail if we generate such packets.\n\nI\u0027d add padding_length to event log in a follow up cl to solve this issue.",
+      "parentUuid": "f9d7e14b_2de3a8ee",
+      "range": {
+        "startLine": 299,
+        "startChar": 13,
+        "endLine": 299,
+        "endChar": 20
+      },
+      "revId": "dd31f2415a37116b244cac5379d20f4c671510df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c8a72fae_5378c64e",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
         "patchSetId": 4

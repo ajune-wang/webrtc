@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cd1c84dc_068264c7",
+        "filename": "rtc_base/win32socketinit.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-09-11T12:58:37Z",
+      "side": 0,
+      "message": "This triggers both -Wexit-time-destructors and -Wglobal-constructors but I don\u0027t understand how it works (and there are no other references to WinsockInitializer: https://cs.chromium.org/search/?q\u003dWinsockInitializer\u0026sq\u003dpackage:chromium\u0026type\u003dcs).\n\nIf I remove this line, tests start to fail, so I assume it is needed.\nThere are some ways to avoid these warnings but without knowing how g_winsockinit is accessed I am not sure what is the best way to fix.\n\ntommi@ do you have context about this?",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 33
+      },
+      "revId": "7cd0e15faf17a0a27c121d30f1f3b78cf2469536",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

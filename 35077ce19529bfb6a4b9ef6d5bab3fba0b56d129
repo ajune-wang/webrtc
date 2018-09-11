@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a1777101_51876699",
+        "filename": "rtc_base/strings/string_builder.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-09-11T02:01:57Z",
+      "side": 1,
+      "message": "Yes---this way, you force all callers to pay (in code size and execution time) for a copy, even those who only wanted to peek.\n\nChange that constructor to take an absl::string_view instead.",
+      "parentUuid": "a4931c2a_27ed4210",
+      "range": {
+        "startLine": 153,
+        "startChar": 2,
+        "endLine": 153,
+        "endChar": 42
+      },
+      "revId": "35077ce19529bfb6a4b9ef6d5bab3fba0b56d129",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7e3f1294_03dd1fb7",
         "filename": "rtc_base/strings/string_builder_unittest.cc",
         "patchSetId": 4

@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "073b977c_b27b85e1",
+        "filename": "media/engine/webrtcvideoengine.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-09-11T02:01:57Z",
+      "side": 1,
+      "message": "Just checking: You are planning to bulk replace these with `return out.Release();`, right?",
+      "range": {
+        "startLine": 264,
+        "startChar": 9,
+        "endLine": 264,
+        "endChar": 18
+      },
+      "revId": "29515197a4d663ef8b3e5eabe017b2a9c5ae8bdd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10e4bcc9_4b5fcb82",
+        "filename": "p2p/base/dtlstransport.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-09-11T02:01:57Z",
+      "side": 1,
+      "message": "Change to absl::string_view? That almost certainly makes the code both smaller and faster: https://godbolt.org/z/eaZZJD",
+      "range": {
+        "startLine": 185,
+        "startChar": 10,
+        "endLine": 185,
+        "endChar": 21
+      },
+      "revId": "29515197a4d663ef8b3e5eabe017b2a9c5ae8bdd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65f54ea4_2c2b1e46",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-09-11T02:01:57Z",
+      "side": 1,
+      "message": "Will your future CL change this to .Release() too?",
+      "range": {
+        "startLine": 211,
+        "startChar": 43,
+        "endLine": 211,
+        "endChar": 47
+      },
+      "revId": "29515197a4d663ef8b3e5eabe017b2a9c5ae8bdd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

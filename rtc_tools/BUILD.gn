@@ -75,6 +75,8 @@ rtc_static_library("video_file_reader") {
 
 rtc_static_library("video_quality_analysis") {
   sources = [
+    "frame_analyzer/video_geometry_aligner.cc",
+    "frame_analyzer/video_geometry_aligner.h",
     "frame_analyzer/video_quality_analysis.cc",
     "frame_analyzer/video_quality_analysis.h",
     "frame_analyzer/video_temporal_aligner.cc",
@@ -82,6 +84,7 @@ rtc_static_library("video_quality_analysis") {
   ]
   deps = [
     ":video_file_reader",
+    "../api/video:video_frame",
     "../api/video:video_frame_i420",
     "../common_video",
     "../rtc_base:checks",
@@ -324,6 +327,7 @@ if (rtc_include_tests) {
 
     sources = [
       "frame_analyzer/reference_less_video_analysis_unittest.cc",
+      "frame_analyzer/video_geometry_aligner_unittest.cc",
       "frame_analyzer/video_quality_analysis_unittest.cc",
       "frame_analyzer/video_temporal_aligner_unittest.cc",
       "frame_editing/frame_editing_unittest.cc",

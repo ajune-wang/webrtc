@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "faefeff1_dd31dc13",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-09-11T10:35:39Z",
+      "side": 1,
+      "message": "missed this one, will do",
+      "parentUuid": "026bd825_67e2bd17",
+      "range": {
+        "startLine": 544,
+        "startChar": 55,
+        "endLine": 544,
+        "endChar": 64
+      },
+      "revId": "dd31f2415a37116b244cac5379d20f4c671510df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "63776da9_79f98c3b",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
         "patchSetId": 4
@@ -96,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "6c7f141c_4f5308f4",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-09-11T10:35:39Z",
+      "side": 1,
+      "message": "I see that changing the API makes sense, particularly because the packet size is given as argument, and the padding size is coupled with it.\n\nBut I did not fully follow your suggestion to treat it as SSRC. I think SSRC is different from padding. The value of randomizing SSRC can be limited while introducing much complication of the test.\n\nPadding (including padding bit, padding length and actual padding data) is good subject (particularly padding bit and padding length) to randomize. IMO, the value of doing randomization is similar to Marker, PayloadType, etc.\n\nYes, the generation cannot be completely random due to the deficiency of parser, but it should be fixed soonish I believe. Then we will just need to modify this part a little bit.",
+      "parentUuid": "cde83e24_9cf7105b",
+      "range": {
+        "startLine": 299,
+        "startChar": 13,
+        "endLine": 299,
+        "endChar": 20
+      },
+      "revId": "dd31f2415a37116b244cac5379d20f4c671510df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c8a72fae_5378c64e",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
         "patchSetId": 4
@@ -119,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "f244538f_2a85412c",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-09-11T10:35:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c8a72fae_5378c64e",
+      "range": {
+        "startLine": 301,
+        "startChar": 21,
+        "endLine": 301,
+        "endChar": 54
+      },
+      "revId": "dd31f2415a37116b244cac5379d20f4c671510df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ded08cac_8e8cbd57",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
         "patchSetId": 4
@@ -139,6 +211,30 @@
       "revId": "dd31f2415a37116b244cac5379d20f4c671510df",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d271732_e4816544",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-09-11T10:35:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ded08cac_8e8cbd57",
+      "range": {
+        "startLine": 303,
+        "startChar": 16,
+        "endLine": 303,
+        "endChar": 48
+      },
+      "revId": "dd31f2415a37116b244cac5379d20f4c671510df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -188,6 +284,24 @@
       "writtenOn": "2018-09-07T12:20:55Z",
       "side": 1,
       "message": "Someone who\u0027s OWNER should review this file.",
+      "revId": "dd31f2415a37116b244cac5379d20f4c671510df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55c7b385_cabe02de",
+        "filename": "modules/rtp_rtcp/source/rtp_utility.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-09-11T10:35:39Z",
+      "side": 1,
+      "message": "added henrik.lundin@webrtc.org",
+      "parentUuid": "85a512bc_e6c906b3",
       "revId": "dd31f2415a37116b244cac5379d20f4c671510df",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

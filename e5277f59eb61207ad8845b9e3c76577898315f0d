@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "74c6a21d_225f6201",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-09-11T14:55:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "24e471a7_16489010",
+      "range": {
+        "startLine": 70,
+        "startChar": 29,
+        "endLine": 70,
+        "endChar": 0
+      },
+      "revId": "e5277f59eb61207ad8845b9e3c76577898315f0d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "909c7859_12be5a9b",
         "filename": "video/rtp_video_stream_receiver.cc",
         "patchSetId": 1
@@ -65,6 +89,30 @@
     },
     {
       "key": {
+        "uuid": "15375a01_2cc916a2",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 479,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-09-11T14:55:31Z",
+      "side": 1,
+      "message": "Not sure what I should do in this case. For all other codecs we unwrap the picture id in the RtpFrameReferenceFinder, but to avoid having an intermediate state for the GenericDescriptorInfo we would have to unwrap it here instead.\n\nMaybe it\u0027s better to remove RTPVideoHeader::GenericDescriptorInfo and just use an RtpGenericFrameDescriptor all the way. That way we don\u0027t have to very similar objects and we avoid this problem.",
+      "parentUuid": "02d43607_267dfa31",
+      "range": {
+        "startLine": 479,
+        "startChar": 70,
+        "endLine": 479,
+        "endChar": 0
+      },
+      "revId": "e5277f59eb61207ad8845b9e3c76577898315f0d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6bbc185e_0c1c6684",
         "filename": "video/rtp_video_stream_receiver.cc",
         "patchSetId": 1
@@ -85,6 +133,30 @@
       "revId": "e5277f59eb61207ad8845b9e3c76577898315f0d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6de4ef50_868ca6b7",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 490,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-09-11T14:55:31Z",
+      "side": 1,
+      "message": "They are not really useful for the receiver, so we don\u0027t need to parse them.",
+      "parentUuid": "6bbc185e_0c1c6684",
+      "range": {
+        "startLine": 490,
+        "startChar": 7,
+        "endLine": 490,
+        "endChar": 0
+      },
+      "revId": "e5277f59eb61207ad8845b9e3c76577898315f0d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

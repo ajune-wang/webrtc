@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "169b4cd0_3888d599",
+        "filename": "rtc_tools/frame_analyzer/video_quality_analysis.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-09-11T11:20:39Z",
+      "side": 1,
+      "message": "nit: use color_adjusted_test_video.number_of_frames",
+      "range": {
+        "startLine": 83,
+        "startChar": 25,
+        "endLine": 83,
+        "endChar": 50
+      },
+      "revId": "e14e7bb4a3c43abc008ecfbca441f7d76b528982",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

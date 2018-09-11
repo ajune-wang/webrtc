@@ -103,45 +103,13 @@ class MediaCodecVideoDecoderFactory implements VideoDecoderFactory {
         continue;
       }
 
-      if (isSupportedCodec(info, type)) {
+      if (MediaCodecUtils.isSupportedCodec(info, type, MediaCodecUtils.DECODER_COLOR_FORMATS,
+              prefixWhitelist, prefixBlacklist)) {
         return info;
       }
     }
 
     return null; // No support for this type.
-  }
-
-  // Returns true if the given MediaCodecInfo indicates a supported encoder for the given type.
-  private boolean isSupportedCodec(MediaCodecInfo info, VideoCodecType type) {
-    String name = info.getName();
-    if (!MediaCodecUtils.codecSupportsType(info, type)) {
-      return false;
-    }
-    // Check for a supported color format.
-    if (MediaCodecUtils.selectColorFormat(
-            MediaCodecUtils.DECODER_COLOR_FORMATS, info.getCapabilitiesForType(type.mimeType()))
-        == null) {
-      return false;
-    }
-    return isWhitelisted(name) && !isBlacklisted(name);
-  }
-
-  private boolean isWhitelisted(String name) {
-    for (String prefix : prefixWhitelist) {
-      if (name.startsWith(prefix)) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  private boolean isBlacklisted(String name) {
-    for (String prefix : prefixBlacklist) {
-      if (name.startsWith(prefix)) {
-        return true;
-      }
-    }
-    return false;
   }
 
   private boolean isH264HighProfileSupported(MediaCodecInfo info) {

@@ -431,8 +431,8 @@ public class PeerConnectionClient {
     final VideoDecoderFactory decoderFactory;
 
     if (peerConnectionParameters.videoCodecHwAcceleration) {
-      encoderFactory = new DefaultVideoEncoderFactory(
-          rootEglBase.getEglBaseContext(), true /* enableIntelVp8Encoder */, enableH264HighProfile);
+      encoderFactory =
+          new DefaultVideoEncoderFactory(rootEglBase.getEglBaseContext(), enableH264HighProfile);
       decoderFactory = new DefaultVideoDecoderFactory(rootEglBase.getEglBaseContext());
     } else {
       encoderFactory = new SoftwareVideoEncoderFactory();

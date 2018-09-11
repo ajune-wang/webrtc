@@ -94,4 +94,28 @@ class MediaCodecUtils {
   private MediaCodecUtils() {
     // This class should not be instantiated.
   }
+
+  // Returns true if the given MediaCodecInfo indicates a supported encoder for the given type.
+  static boolean isSupportedCodec(MediaCodecInfo info, VideoCodecType type, int[] colorFormats,
+      String[] prefixWhitelist, String[] prefixBlacklist) {
+    String name = info.getName();
+    if (!codecSupportsType(info, type)) {
+      return false;
+    }
+    // Check for a supported color format.
+    if (selectColorFormat(colorFormats, info.getCapabilitiesForType(type.mimeType())) == null) {
+      return false;
+    }
+    return isCodecInPrefixList(prefixWhitelist, name)
+        && !isCodecInPrefixList(prefixBlacklist, name);
+  }
+
+  private static boolean isCodecInPrefixList(String[] prefixList, String name) {
+    for (String prefix : prefixList) {
+      if (name.startsWith(prefix)) {
+        return true;
+      }
+    }
+    return false;
+  }
 }

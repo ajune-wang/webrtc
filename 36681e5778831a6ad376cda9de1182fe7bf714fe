@@ -22,6 +22,30 @@
       "revId": "36681e5778831a6ad376cda9de1182fe7bf714fe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0670b000_a9b7e605",
+        "filename": "modules/remote_bitrate_estimator/test/bwe_test_logging.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-09-11T02:34:25Z",
+      "side": 1,
+      "message": "Yes, `static` causes the object to be created just once, threadsafely. You didn\u0027t follow the recipie exactly though. You should have done\n\n  static Logging* logging \u003d new Logging;\n  return logging;\n\nThat way, the destructor will never run, since no one owns the Logging object---we basically leak it, and keep a raw pointer to it so that we can continue using it...",
+      "parentUuid": "e5534d91_c339b1ff",
+      "range": {
+        "startLine": 59,
+        "startChar": 2,
+        "endLine": 59,
+        "endChar": 27
+      },
+      "revId": "36681e5778831a6ad376cda9de1182fe7bf714fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

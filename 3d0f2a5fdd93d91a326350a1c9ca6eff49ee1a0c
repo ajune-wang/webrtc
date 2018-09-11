@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "30854f43_7ac6002b",
+        "filename": "audio/channel.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 875,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-09-11T14:43:08Z",
+      "side": 1,
+      "message": "\u003e what are the blockers to resolve the TODO?\n\nNeed to propagate some mapping of payload-type to frequency from the sdp parsing code down to Call, where the packets are parsed. Don\u0027t know how hard or easy that might be.",
+      "parentUuid": "ead6995e_faa85af1",
+      "range": {
+        "startLine": 875,
+        "startChar": 18,
+        "endLine": 875,
+        "endChar": 76
+      },
+      "revId": "3d0f2a5fdd93d91a326350a1c9ca6eff49ee1a0c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "faa7ec73_cefcb9d1",
         "filename": "modules/remote_bitrate_estimator/test/bwe_test_framework.cc",
         "patchSetId": 13
@@ -82,6 +106,30 @@
       "writtenOn": "2018-09-10T13:35:37Z",
       "side": 1,
       "message": "will it make sense to parsed_packet.set_payload_frequency here?",
+      "range": {
+        "startLine": 55,
+        "startChar": 3,
+        "endLine": 56,
+        "endChar": 0
+      },
+      "revId": "3d0f2a5fdd93d91a326350a1c9ca6eff49ee1a0c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0c2dc087_7fa77b92",
+        "filename": "modules/rtp_rtcp/test/testAPI/test_api.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-09-11T14:43:08Z",
+      "side": 1,
+      "message": "\u003e will it make sense to parsed_packet.set_payload_frequency here?\n\nMaybe, what should it be set to then? Since we don\u0027t call EnableRetransmitDetection, it will not be used.",
+      "parentUuid": "907c5e5b_4252c641",
       "range": {
         "startLine": 55,
         "startChar": 3,

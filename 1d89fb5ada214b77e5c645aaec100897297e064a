@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e8cf4007_21f456ba",
+        "filename": "api/test/neteq_simulator_factory.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-09-11T07:42:19Z",
+      "side": 1,
+      "message": "Rewrite as\n\n  RTC_CHECK(!rtc::FlagList::SetFlagsFromCommandLine(\u0026argc, argv, true))\n      \u003c\u003c \"Error while parsing command-line flags\";\n\nBecause it\u0027s easier to read, but more importantly, because RTC_NOTREACHED behaves like DCHECK, not CHECK.",
+      "revId": "1d89fb5ada214b77e5c645aaec100897297e064a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "05fe90b8_dd0a0e84",
+        "filename": "api/test/neteq_simulator_factory.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-09-11T07:42:19Z",
+      "side": 1,
+      "message": "RTC_CHECK here too?\n\n  RTC_CHECK_EQ(argc, 3) \u003c\u003c \"Wrong number of command-line arguments. Expected 3, got \" \u003c\u003c argc;",
+      "revId": "1d89fb5ada214b77e5c645aaec100897297e064a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

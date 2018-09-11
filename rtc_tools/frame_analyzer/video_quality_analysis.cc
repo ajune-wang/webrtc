@@ -13,6 +13,7 @@
 #include <algorithm>
 #include <numeric>
 
+#include "rtc_tools/frame_analyzer/video_geometry_aligner.h"
 #include "test/testsupport/perf_test.h"
 #include "third_party/libyuv/include/libyuv/compare.h"
 #include "third_party/libyuv/include/libyuv/convert.h"
@@ -67,11 +68,14 @@ std::vector<AnalysisResult> RunAnalysis(
         reference_video->GetFrame(test_frame_indices[i] %
                                   reference_video->number_of_frames());
 
+    const rtc::scoped_refptr<I420BufferInterface>& cropped_reference_frame =
+        AdjustCropping(reference_frame, test_frame);
+
     // Fill in the result struct.
     AnalysisResult result;
     result.frame_number = test_frame_indices[i];
-    result.psnr_value = Psnr(reference_frame, test_frame);
-    result.ssim_value = Ssim(reference_frame, test_frame);
+    result.psnr_value = Psnr(cropped_reference_frame, test_frame);
+    result.ssim_value = Ssim(cropped_reference_frame, test_frame);
     results.push_back(result);
   }
 

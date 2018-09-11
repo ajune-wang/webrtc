@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "59bab786_05083357",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 503,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-09-11T12:50:01Z",
+      "side": 1,
+      "message": ".get() not needed - ::testing::NotNull supports matching smart pointers too",
+      "range": {
+        "startLine": 503,
+        "startChar": 20,
+        "endLine": 503,
+        "endChar": 26
+      },
+      "revId": "349aac79490fea04d3d1d5ac5f7bd18f899ff5e3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0e23115b_102a30c7",
         "filename": "modules/rtp_rtcp/source/rtp_packet_history_unittest.cc",
         "patchSetId": 6

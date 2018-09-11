@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2d5bb92a_07cd876a",
+        "filename": "media/engine/webrtcvideoengine.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2018-09-11T12:21:00Z",
+      "side": 1,
+      "message": "Yeah. I\u0027m planning to do it via a regex like /return(.*)\\.str();/return$1.Release, so this one should be covered.",
+      "parentUuid": "073b977c_b27b85e1",
+      "range": {
+        "startLine": 264,
+        "startChar": 9,
+        "endLine": 264,
+        "endChar": 18
+      },
+      "revId": "29515197a4d663ef8b3e5eabe017b2a9c5ae8bdd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "10e4bcc9_4b5fcb82",
         "filename": "p2p/base/dtlstransport.h",
         "patchSetId": 5
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "b8b4326d_1282329c",
+        "filename": "p2p/base/dtlstransport.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2018-09-11T12:21:00Z",
+      "side": 1,
+      "message": "Oh right - I think I assumed that the small object optimizations would make this cheap, but we still have all the constructors/destructors.",
+      "parentUuid": "10e4bcc9_4b5fcb82",
+      "range": {
+        "startLine": 185,
+        "startChar": 10,
+        "endLine": 185,
+        "endChar": 21
+      },
+      "revId": "29515197a4d663ef8b3e5eabe017b2a9c5ae8bdd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "65f54ea4_2c2b1e46",
         "filename": "p2p/base/port.cc",
         "patchSetId": 5
@@ -59,6 +107,30 @@
       "writtenOn": "2018-09-11T02:01:57Z",
       "side": 1,
       "message": "Will your future CL change this to .Release() too?",
+      "range": {
+        "startLine": 211,
+        "startChar": 43,
+        "endLine": 211,
+        "endChar": 47
+      },
+      "revId": "29515197a4d663ef8b3e5eabe017b2a9c5ae8bdd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66d2fe99_5211b0f3",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2018-09-11T12:21:00Z",
+      "side": 1,
+      "message": "Hmm. the regex would miss this one. Let\u0027s change it now instead.\n\nActually it would get caught, but now I\u0027ve uploaded the change, so let\u0027s keep it.",
+      "parentUuid": "65f54ea4_2c2b1e46",
       "range": {
         "startLine": 211,
         "startChar": 43,

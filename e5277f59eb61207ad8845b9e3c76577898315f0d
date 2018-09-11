@@ -113,6 +113,30 @@
     },
     {
       "key": {
+        "uuid": "3d2c07ad_c9788e28",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 479,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-09-11T15:13:08Z",
+      "side": 1,
+      "message": "I\u0027m fine with comment that unwinding done later, in packet bufferer? that has to take packet reordering into account.\n\nbut if you think redesigning RTPVideoHeader to carry raw descriptor is better approach, do it, or add a TODO to do it.",
+      "parentUuid": "15375a01_2cc916a2",
+      "range": {
+        "startLine": 479,
+        "startChar": 70,
+        "endLine": 479,
+        "endChar": 0
+      },
+      "revId": "e5277f59eb61207ad8845b9e3c76577898315f0d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6bbc185e_0c1c6684",
         "filename": "video/rtp_video_stream_receiver.cc",
         "patchSetId": 1
@@ -148,6 +172,30 @@
       "side": 1,
       "message": "They are not really useful for the receiver, so we don\u0027t need to parse them.",
       "parentUuid": "6bbc185e_0c1c6684",
+      "range": {
+        "startLine": 490,
+        "startChar": 7,
+        "endLine": 490,
+        "endChar": 0
+      },
+      "revId": "e5277f59eb61207ad8845b9e3c76577898315f0d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c2c369fc_03fd546d",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 490,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-09-11T15:13:08Z",
+      "side": 1,
+      "message": "may be add a comment to avoid confusing people like me,\nsomething like \"Ignore higher spatial layers because receiver/decoder doesn\u0027t need them\"",
+      "parentUuid": "6de4ef50_868ca6b7",
       "range": {
         "startLine": 490,
         "startChar": 7,

@@ -22,6 +22,30 @@
       "revId": "e14e7bb4a3c43abc008ecfbca441f7d76b528982",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6ae0dde_17e1d181",
+        "filename": "rtc_tools/frame_analyzer/video_quality_analysis.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-09-11T11:31:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "169b4cd0_3888d599",
+      "range": {
+        "startLine": 83,
+        "startChar": 25,
+        "endLine": 83,
+        "endChar": 50
+      },
+      "revId": "e14e7bb4a3c43abc008ecfbca441f7d76b528982",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

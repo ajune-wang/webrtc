@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1206f7f5_502e5a13",
+        "filename": "rtc_tools/frame_analyzer/video_geometry_aligner.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-09-11T11:39:54Z",
+      "side": 1,
+      "message": "Is this comment outdated, doesn\u0027t seem to check it\u0027s even?",
+      "range": {
+        "startLine": 37,
+        "startChar": 5,
+        "endLine": 37,
+        "endChar": 29
+      },
+      "revId": "bdbaa792b5f972550fc8b13d5003cbc0860c8f6d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23abe18c_451a7161",
+        "filename": "rtc_tools/frame_analyzer/video_geometry_aligner.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-09-11T11:39:54Z",
+      "side": 1,
+      "message": "nit: Since negative values are not legal, maybe this should an unsigned type?",
+      "range": {
+        "startLine": 22,
+        "startChar": 2,
+        "endLine": 22,
+        "endChar": 5
+      },
+      "revId": "bdbaa792b5f972550fc8b13d5003cbc0860c8f6d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

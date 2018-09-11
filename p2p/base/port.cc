@@ -22,6 +22,7 @@
 #include "rtc_base/crc32.h"
 #include "rtc_base/helpers.h"
 #include "rtc_base/logging.h"
+#include "rtc_base/mdns_responder_interface.h"
 #include "rtc_base/messagedigest.h"
 #include "rtc_base/network.h"
 #include "rtc_base/numerics/safe_minmax.h"
@@ -411,7 +412,7 @@ void Port::AddAddress(const rtc::SocketAddress& address,
                       uint32_t type_preference,
                       uint32_t relay_preference,
                       const std::string& url,
-                      bool final) {
+                      bool is_final) {
   if (protocol == TCP_PROTOCOL_NAME && type == LOCAL_PORT_TYPE) {
     RTC_DCHECK(!tcptype.empty());
   }
@@ -426,12 +427,38 @@ void Port::AddAddress(const rtc::SocketAddress& address,
   c.set_tcptype(tcptype);
   c.set_network_name(network_->name());
   c.set_network_type(network_->type());
-  c.set_related_address(related_address);
   c.set_url(url);
+  // TODO(bugs.webrtc.org/9723): Use a config to control the feature of IP
+  // handling with mDNS.
+  if (network_->GetMDnsResponder() != nullptr) {
+    // Obfuscate the IP address of a host candidates by an mDNS hostname.
+    if (type == LOCAL_PORT_TYPE) {
+      auto callback = [this, c, is_final](const rtc::IPAddress& addr,
+                                          const std::string& name) mutable {
+        RTC_DCHECK(c.address().ipaddr() == addr);
+        rtc::SocketAddress hostname_address(name, c.address().port());
+        c.set_address(hostname_address);
+        RTC_DCHECK(c.related_address() == rtc::SocketAddress());
+        this->FinishAddingAddress(c, is_final);
+      };
+      network_->GetMDnsResponder()->CreateNameForAddress(c.address().ipaddr(),
+                                                         callback);
+      return;
+    }
+    // For other types of candidates, the related address should be set to
+    // 0.0.0.0 or ::0.
+    c.set_related_address(rtc::SocketAddress());
+  } else {
+    c.set_related_address(related_address);
+  }
+  FinishAddingAddress(c, is_final);
+}
+
+void Port::FinishAddingAddress(const Candidate& c, bool is_final) {
   candidates_.push_back(c);
   SignalCandidateReady(this, c);
 
-  if (final) {
+  if (is_final) {
     SignalPortComplete(this);
   }
 }

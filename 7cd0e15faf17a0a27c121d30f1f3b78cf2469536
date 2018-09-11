@@ -22,6 +22,30 @@
       "revId": "7cd0e15faf17a0a27c121d30f1f3b78cf2469536",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "793ab101_9f935b7d",
+        "filename": "rtc_base/win32socketinit.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2018-09-11T16:04:17Z",
+      "side": 0,
+      "message": "In Chrome, this isn\u0027t needed since Chrome itself initializes socket calls. In standalone apps such as tests, we need to make sure that WSAStartup/WSACleanup() is called.\n\nIn general I think this code is basically legacy code and that the application should perform this initialization, not webrtc (chances are that there will either be multiple calls to initialize winsock, or that the application is unaware that webrtc is doing this).\n\nFor now, one thing we could do is to move the global g_winsockinit variable into EnsureWinsockInit(), as a static, and that way avoid the global initializer problem.\n\nAnother thing we could do is to remove EnsureWinsockInit altogether, offer WinsockInitializer as an inline utility class on Windows and use it directly from tests that need it and otherwise don\u0027t use it. The risky part with that is that Windows standalone apps that implicitly depend on this initialization, might start to fail.",
+      "parentUuid": "cd1c84dc_068264c7",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 33
+      },
+      "revId": "7cd0e15faf17a0a27c121d30f1f3b78cf2469536",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

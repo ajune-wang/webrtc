@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "56a2ccaa_756fd6e1",
+        "filename": "rtc_base/build/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 6932
+      },
+      "writtenOn": "2018-09-11T16:50:23Z",
+      "side": 1,
+      "message": "I think the reason it is explicitly disabled (with an error message) is to manage expectation from user which set is_component_build to true expecting a dll and not getting it. Once you finish supporting shared libs builds, it would make sense to rewire it. Using an additional rtc_xxx GN configure flag would only be necessary if you expect people to e.g. have a component build of chrome with a static build of libwebrtc. I\u0027m not sure it would work (as some shared third party libs like BoringSSL already honor the is_component_build flag).",
+      "parentUuid": "3cf91535_ebf2ceea",
+      "range": {
+        "startLine": 14,
+        "startChar": 6,
+        "endLine": 14,
+        "endChar": 24
+      },
+      "revId": "8a5e7ce00739c9a762684a03ca4b697c61fc2a77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b155b71b_0821018d",
         "filename": "rtc_base/build/BUILD.gn",
         "patchSetId": 6
@@ -59,6 +83,30 @@
       "writtenOn": "2018-09-11T15:05:25Z",
       "side": 1,
       "message": "This and the change at line 289 will allow us to export symbols more easily (no need to tag build targets one by one).\n\nIt is possible because we don\u0027t plan to create a lot of small shared libraries but only one libwebrtc.{dll,so} so it is safe to say that internal build targets always export and the build target that depend on a shared library always import.",
+      "range": {
+        "startLine": 279,
+        "startChar": 2,
+        "endLine": 279,
+        "endChar": 48
+      },
+      "revId": "8a5e7ce00739c9a762684a03ca4b697c61fc2a77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae14d5d8_0ae48212",
+        "filename": "webrtc.gni",
+        "patchSetId": 6
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 6932
+      },
+      "writtenOn": "2018-09-11T16:50:23Z",
+      "side": 1,
+      "message": "When GYP was generating shared libs, there were actually quite a few of them. Supposing that there will be only ever one shared lib, and that it will be the top of the dependency tree is a HUGE hypothesis. Actually if you do it that way, will the dll export anything itself? Supposedly only the applications (tests, examples) should have that flag, right?",
+      "parentUuid": "ce2e1efe_3607e185",
       "range": {
         "startLine": 279,
         "startChar": 2,

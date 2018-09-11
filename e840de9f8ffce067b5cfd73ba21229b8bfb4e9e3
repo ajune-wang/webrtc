@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "411c8ce6_c359e3c7",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-09-11T02:19:32Z",
+      "side": 1,
+      "message": "constexpr?\n\nAlso, put this in an unnamed namespace? Or just put it inside the function where you use it.",
+      "range": {
+        "startLine": 393,
+        "startChar": 7,
+        "endLine": 393,
+        "endChar": 12
+      },
+      "revId": "e840de9f8ffce067b5cfd73ba21229b8bfb4e9e3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

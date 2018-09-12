@@ -267,6 +267,8 @@ rtc_common_inherited_config = webrtc_root + ":common_inherited_config"
 rtc_remove_configs = []
 rtc_add_configs = rtc_common_configs
 rtc_prod_configs = [ webrtc_root + ":rtc_prod_config" ]
+rtc_symbols_config =
+    [ webrtc_root + "/rtc_base/build:symbol_visibility_config" ]
 
 set_defaults("rtc_test") {
   configs = rtc_add_configs
@@ -275,6 +277,7 @@ set_defaults("rtc_test") {
 
 set_defaults("rtc_source_set") {
   configs = rtc_add_configs
+  public_configs = rtc_symbols_config
   suppressed_configs = []
 }
 
@@ -285,6 +288,7 @@ set_defaults("rtc_executable") {
 
 set_defaults("rtc_static_library") {
   configs = rtc_add_configs
+  public_configs = rtc_symbols_config
   suppressed_configs = []
 }
 

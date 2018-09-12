@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ac803980_e866e15b",
+        "filename": "modules/rtp_rtcp/include/rtp_header_extension_map.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-09-12T12:42:11Z",
+      "side": 1,
+      "message": "increasing MaxId noticeably increase size of this class.\nOne workaround - postpone increasing it until it is actually needed.\nAnother solution - refactor the class (but that is subject for a dedicated CL)",
+      "range": {
+        "startLine": 75,
+        "startChar": 26,
+        "endLine": 75,
+        "endChar": 32
+      },
+      "revId": "94ae1bff27a7f4a2344ae576bb1cd6761e1748f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ff85c64_fcbc9de0",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-09-12T12:42:11Z",
+      "side": 1,
+      "message": "ditto - increasing max number of extension increases size of this class.\nif you need larger ids, consider refactoring plain array into something smarter.\n\nmay be simplest would be to add \u0027id\u0027 to the ExtensionInfo struct, remove assumption \"index \u003d\u003d id -1\", keep kMaxExtensionHeaders low, do linear search.",
+      "range": {
+        "startLine": 153,
+        "startChar": 35,
+        "endLine": 153,
+        "endChar": 55
+      },
+      "revId": "94ae1bff27a7f4a2344ae576bb1cd6761e1748f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d3848f0_6705e28f",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-09-12T12:42:11Z",
+      "side": 1,
+      "message": "may be in addition to large id, add test with large size extension.\ne.g. adjust mid or rsid to support string longer than 16 characters (when used via std::string parser)",
+      "revId": "94ae1bff27a7f4a2344ae576bb1cd6761e1748f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8da7b718_025fb074",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-09-12T12:42:11Z",
+      "side": 1,
+      "message": "can keep for consistency with other tests, or can remove for clarity:\nthis test is about parsing extensions, so validating other fields is noisy",
+      "range": {
+        "startLine": 459,
+        "startChar": 48,
+        "endLine": 459,
+        "endChar": 0
+      },
+      "revId": "94ae1bff27a7f4a2344ae576bb1cd6761e1748f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

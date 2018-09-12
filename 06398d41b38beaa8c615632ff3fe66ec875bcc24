@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2fb7c950_3a9c0e92",
+        "filename": "modules/congestion_controller/goog_cc/trendline_estimator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2018-09-12T12:41:55Z",
+      "side": 1,
+      "message": "use trendline_slope() here? The operation made no sense to me until I read the comment for said function so I think it makes sense it is a function. \n\nNaming here puzzles me (unrelated to change at hand): a line usually has a slope and an offset. But the result of trendline_slope() is stored in a variable offset?!",
+      "range": {
+        "startLine": 121,
+        "startChar": 2,
+        "endLine": 121,
+        "endChar": 47
+      },
+      "revId": "06398d41b38beaa8c615632ff3fe66ec875bcc24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

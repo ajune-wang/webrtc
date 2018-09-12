@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f0a05d5a_05ecd771",
+        "filename": "BUILD.gn",
+        "patchSetId": 8
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-09-12T11:57:11Z",
+      "side": 1,
+      "message": "\u003e This should apply only when building object files that goes into the webrtc library, so is this the right place? It looks like it is included also for tests and examples.\n\nYou are right. It is fine for now but in case we will officially support a shared library this will cause problems. Let me move it out of here.\n\n\u003e I\u0027d prefer WEBRTC_LIBRARY or WEBRTC_LIBRARY_IMPLEMENTATION. E.g., I consider unit tests part of the implementation, and those shouldn\u0027t have this define.\n\nI don\u0027t have strong opinions here, is WEBRTC_LIBRARY_IMPL ok? (I prefer if it is a little bit shorter shorter).",
+      "parentUuid": "9d92b62c_2e6b8862",
+      "range": {
+        "startLine": 96,
+        "startChar": 16,
+        "endLine": 96,
+        "endChar": 37
+      },
+      "revId": "86342fa102210c56ad8532fb497aea01bdf65347",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e8e49ba2_686a5b04",
         "filename": "BUILD.gn",
         "patchSetId": 8

@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "56f72a31_45268e23",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-09-12T14:04:46Z",
+      "side": 1,
+      "message": "don\u0027t",
+      "range": {
+        "startLine": 7,
+        "startChar": 25,
+        "endLine": 7,
+        "endChar": 28
+      },
+      "revId": "6489845b3ecefa6736c1decc93659817bc1ba5f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "387f5e1c_b0ad3546",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-09-12T14:04:46Z",
+      "side": 1,
+      "message": "remove :)",
+      "range": {
+        "startLine": 217,
+        "startChar": 33,
+        "endLine": 217,
+        "endChar": 40
+      },
+      "revId": "6489845b3ecefa6736c1decc93659817bc1ba5f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22c81c77_506addb8",
+        "filename": "media/engine/simulcast_encoder_adapter_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 516,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-09-12T14:04:46Z",
+      "side": 1,
+      "message": "const",
+      "range": {
+        "startLine": 516,
+        "startChar": 2,
+        "endLine": 516,
+        "endChar": 10
+      },
+      "revId": "6489845b3ecefa6736c1decc93659817bc1ba5f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61c08ffd_e66fdfda",
+        "filename": "media/engine/simulcast_encoder_adapter_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 934,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-09-12T14:04:46Z",
+      "side": 1,
+      "message": "Define closer to where it\u0027s used?",
+      "revId": "6489845b3ecefa6736c1decc93659817bc1ba5f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

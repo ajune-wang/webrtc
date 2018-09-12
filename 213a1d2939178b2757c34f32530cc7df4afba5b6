@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "ac666fb1_a05c2246",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 549,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-09-12T10:43:08Z",
+      "side": 1,
+      "message": "OK. That makes a lot of sense.",
+      "parentUuid": "579d9ce5_28a66536",
+      "range": {
+        "startLine": 549,
+        "startChar": 6,
+        "endLine": 549,
+        "endChar": 34
+      },
+      "revId": "213a1d2939178b2757c34f32530cc7df4afba5b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "758526e6_a02e634c",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
         "patchSetId": 7

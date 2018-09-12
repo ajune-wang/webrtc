@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1969593a_ea25bc6c",
+        "filename": "pc/rtpsender.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-09-12T18:52:14Z",
+      "side": 1,
+      "message": "Looks like your rebase put this in the anonymous namespace.",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 39
+      },
+      "revId": "d7c68e5142e9de4237e5f843b0d1f1c136357bd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e83bed0_1c591a8b",
+        "filename": "pc/rtpsender.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 600,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-09-12T18:52:14Z",
+      "side": 1,
+      "message": "It looks like you didn\u0027t upload? This still isn\u0027t updated to reflect the same logic \u0026 comments as the AudioSender.",
+      "range": {
+        "startLine": 581,
+        "startChar": 0,
+        "endLine": 600,
+        "endChar": 3
+      },
+      "revId": "d7c68e5142e9de4237e5f843b0d1f1c136357bd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "a4669228_c6999e2f",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1380,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-09-12T18:52:14Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "09a697a1_d21e9d71",
+      "range": {
+        "startLine": 1380,
+        "startChar": 8,
+        "endLine": 1380,
+        "endChar": 31
+      },
+      "revId": "d0f574cec124f46aa5f97c2552b30197b4668857",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "884ef298_9cf62238",
         "filename": "pc/rtpsender.cc",
         "patchSetId": 7
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "Judging from the code, it seems like you can update the SSRC on the sender. I\u0027m wondering if it can happen after the sender has already been configured, in which case parameters have already been applied.",
       "parentUuid": "884ef298_9cf62238",
+      "range": {
+        "startLine": 320,
+        "startChar": 6,
+        "endLine": 320,
+        "endChar": 41
+      },
+      "revId": "d0f574cec124f46aa5f97c2552b30197b4668857",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4e3f699c_41161c89",
+        "filename": "pc/rtpsender.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-09-12T18:52:14Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "3b7ef2bd_3211ce06",
       "range": {
         "startLine": 320,
         "startChar": 6,
@@ -190,6 +238,30 @@
     },
     {
       "key": {
+        "uuid": "939d5f40_834728a3",
+        "filename": "pc/rtpsender.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-09-12T18:52:14Z",
+      "side": 1,
+      "message": "We do (kinda) support simulcast with Unified Plan SDP if you want to munge the SDP \u0026 SLD(). We just don\u0027t support creating a spec compliant SDP (with RIDs) for simulcast through AddTransceiver.\n\nI\u0027m okay not testing this at the PC level since it would mean testing munging behavior (which isn\u0027t currently tested with Plan B either).\n\nIt is worth noting that this test would catch the issue with the VideoSender\u0027s init_parameters.encodings.size() overriding current_parameters.encodings.size() (where the current parameters should be authoritative). How about testing it at the Sender level? I made a comment.",
+      "parentUuid": "881dae81_934589d7",
+      "range": {
+        "startLine": 334,
+        "startChar": 8,
+        "endLine": 334,
+        "endChar": 72
+      },
+      "revId": "d0f574cec124f46aa5f97c2552b30197b4668857",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c8063036_7c6f3674",
         "filename": "pc/rtpsender.cc",
         "patchSetId": 7
@@ -234,6 +306,29 @@
       "revId": "d0f574cec124f46aa5f97c2552b30197b4668857",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "622d91ec_acf48ddc",
+        "filename": "pc/rtpsenderreceiver_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 886,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-09-12T18:52:14Z",
+      "side": 1,
+      "message": "Can you test this with the size of init_encodings being 1, and then stream params still sets up 2 simulcast layers? This would catch the code you\u0027re missing right now in RtpVideoSender::SetSsrc, where the VideoSender uses the VideoMediaChannel\u0027s params as authoritive for the size.",
+      "range": {
+        "startLine": 886,
+        "startChar": 30,
+        "endLine": 886,
+        "endChar": 76
+      },
+      "revId": "d0f574cec124f46aa5f97c2552b30197b4668857",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

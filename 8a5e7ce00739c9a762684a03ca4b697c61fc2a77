@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "337c3294_712e3831",
+        "filename": "rtc_base/build/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-09-12T07:22:18Z",
+      "side": 1,
+      "message": "Thanks for mentioning BoringSLL, I am looking into it to see if I can improve this import/export mechanism.\n\nYes, we will be able to remove the assert in webrtc.gni, I am ok with it and avoiding to add another GN arg is a nice thing to do, but I would like to remove the assert only when we have a top level component in the main BUILD.gn file (which will replace the static_library: https://cs.chromium.org/chromium/src/third_party/webrtc/BUILD.gn?rcl\u003d96ede16a4e38efba5792cb69d1ad020b586da237\u0026l\u003d357-415).",
+      "parentUuid": "56a2ccaa_756fd6e1",
+      "range": {
+        "startLine": 14,
+        "startChar": 6,
+        "endLine": 14,
+        "endChar": 24
+      },
+      "revId": "8a5e7ce00739c9a762684a03ca4b697c61fc2a77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b155b71b_0821018d",
         "filename": "rtc_base/build/BUILD.gn",
         "patchSetId": 6
@@ -143,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "015e9082_33e39fa5",
+        "filename": "webrtc.gni",
+        "patchSetId": 6
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-09-12T07:22:18Z",
+      "side": 1,
+      "message": "\u003e \u003e When GYP was generating shared libs, there were actually quite a few of them. Supposing that there will be only ever one shared lib, and that it will be the top of the dependency tree is a HUGE hypothesis. \n\u003e \n\u003e I agree it might make sense at some point to split out, e.g., codec factories to their own shared libraries. But it\u0027s also good to keep things simple; I think we should aim for supporting one big dll now. Let us try to avoid adding huge obstacles to later generalizations, but not spend more code and effort on it now than absolutely necessary.\n\nSince the webrtc component will live in src/BUILD.gn I think we will be able (if we really want) to add GN args to exclude codecs from linking into the shared library. I was already thinking something like that with yvesg@ (see this comment: https://cs.chromium.org/chromium/src/third_party/webrtc/BUILD.gn?rcl\u003d96ede16a4e38efba5792cb69d1ad020b586da237\u0026l\u003d383-388).\n\nIf we want to support more than one shared library we will have to avoid to add rtc_export_symbols to rtc_static_library and rtc_source_set, but we will have to manually add the right config that will define the right macro. I think it is doable, more complex to maintain but doable.",
+      "parentUuid": "bed88eb8_56d76158",
+      "range": {
+        "startLine": 279,
+        "startChar": 2,
+        "endLine": 279,
+        "endChar": 48
+      },
+      "revId": "8a5e7ce00739c9a762684a03ca4b697c61fc2a77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cb8e461c_f4f96468",
         "filename": "webrtc.gni",
         "patchSetId": 6
@@ -166,6 +214,30 @@
     },
     {
       "key": {
+        "uuid": "f0775160_7503237c",
+        "filename": "webrtc.gni",
+        "patchSetId": 6
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-09-12T07:22:18Z",
+      "side": 1,
+      "message": "Correct, but I am starting to think that we can avoid the rtc_import_symbol completely and rewrite to something like:\n\n #ifdef WEBRTC_WIN\n\n #if WEBRTC_EXPORT_SYMBOLS\n #define RTC_PUBLIC __declspec(dllexport)\n #else\n #define RTC_PUBLIC __declspec(dllimport)\n #endif\n\n #else\n\n #if __has_attribute(visibility) \u0026\u0026 WEBRTC_EXPORT_SYMBOLS\n #define RTC_PUBLIC __attribute__((visibility(\"default\")))\n #endif\n\n #endif  // WEBRTC_WIN\n\n #ifndef RTC_PUBLIC\n #define RTC_PUBLIC\n #endif\n\nSo we can avoid the complexity of the propagation of another macro definition and clients will just work. WDYT?",
+      "parentUuid": "cb8e461c_f4f96468",
+      "range": {
+        "startLine": 284,
+        "startChar": 2,
+        "endLine": 284,
+        "endChar": 27
+      },
+      "revId": "8a5e7ce00739c9a762684a03ca4b697c61fc2a77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "557e6f6e_08422740",
         "filename": "webrtc.gni",
         "patchSetId": 6
@@ -177,6 +249,30 @@
       "writtenOn": "2018-09-12T07:08:02Z",
       "side": 1,
       "message": "This looks odd to me.",
+      "range": {
+        "startLine": 295,
+        "startChar": 0,
+        "endLine": 295,
+        "endChar": 37
+      },
+      "revId": "8a5e7ce00739c9a762684a03ca4b697c61fc2a77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b7d7536_a6457539",
+        "filename": "webrtc.gni",
+        "patchSetId": 6
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-09-12T07:22:18Z",
+      "side": 1,
+      "message": "Yes, please read the previous comment and let me know. I plan to remove it.",
+      "parentUuid": "557e6f6e_08422740",
       "range": {
         "startLine": 295,
         "startChar": 0,

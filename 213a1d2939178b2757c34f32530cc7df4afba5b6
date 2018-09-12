@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "579d9ce5_28a66536",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 549,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-09-12T09:37:54Z",
+      "side": 1,
+      "message": "I thought precisely the same but tried to avoid doing so in this CL since\n1. any change in RTPHeader can be a huge change, is better done as one (or more) follow up\n2. I think even paddingLength, even absl:optional\u003csize_t\u003e paddingLength, should be avoid in RTP header, since similar to payload length, the header does not \"know\" the padding length. Then the padding length should be treated elsewhere ... even bigger change.",
+      "parentUuid": "d635ee64_fdd067fe",
+      "range": {
+        "startLine": 549,
+        "startChar": 6,
+        "endLine": 549,
+        "endChar": 34
+      },
+      "revId": "213a1d2939178b2757c34f32530cc7df4afba5b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "758526e6_a02e634c",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
         "patchSetId": 7

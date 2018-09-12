@@ -213,6 +213,30 @@
       "revId": "86342fa102210c56ad8532fb497aea01bdf65347",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75f2b8cf_36457fcf",
+        "filename": "BUILD.gn",
+        "patchSetId": 8
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-09-12T14:02:38Z",
+      "side": 1,
+      "message": "Would something like:\n\n #ifdef COMPONENT_BUILD\n #define WEBRTC_SHARED_LIBRARY 1\n #else\n #define WEBRTC_SHARED_LIBRARY 0\n #endif\n\nin rtc_base/build/symbol_visibility.h be enough?\n\nCOMPONENT_BUILD is globally defined when is_component_build \u003d true.\n\nWith this we will remove //rtc_base/build:symbol_visibility_config and WEBRTC_SHARED_LIBRARY should be consistently defined everywhere if GN is used (without having to rely on public_configs).",
+      "parentUuid": "04d396d0_a7d2a508",
+      "range": {
+        "startLine": 371,
+        "startChar": 21,
+        "endLine": 371,
+        "endChar": 59
+      },
+      "revId": "86342fa102210c56ad8532fb497aea01bdf65347",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

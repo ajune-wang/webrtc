@@ -215,6 +215,30 @@
     },
     {
       "key": {
+        "uuid": "19f7badc_e251f721",
+        "filename": "webrtc.gni",
+        "patchSetId": 6
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-09-12T08:05:23Z",
+      "side": 1,
+      "message": "\u003e \u003e If we want to support more than one shared library we will have to avoid to add rtc_export_symbols to rtc_static_library and rtc_source_set, but we will have to manually add the right config that will define the right macro. I think it is doable, more complex to maintain but doable.\n\u003e \n\u003e The tricky case is if we want to build multiple shared libraries with dependencies between them. As long as each shared library we build is self contained, things should be pretty straightforward. In particular, object files that go into shared libraries won\u0027t ever need dllimport on any symbols.\n\nYes and I think it is safe to say that we have no plans to support multiple shared libraries with dependencies between them.",
+      "parentUuid": "7797e8b3_da91a8f0",
+      "range": {
+        "startLine": 279,
+        "startChar": 2,
+        "endLine": 279,
+        "endChar": 48
+      },
+      "revId": "8a5e7ce00739c9a762684a03ca4b697c61fc2a77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cb8e461c_f4f96468",
         "filename": "webrtc.gni",
         "patchSetId": 6
@@ -274,6 +298,30 @@
       "side": 1,
       "message": "Then you\u0027d get __declspec(dllimport) in headers also when you build an executable and link statically to webrtc. I don\u0027t think that\u0027s a proper way of using dllimport. I don\u0027t really know if it actually works or not, but if it works, dllimport would be unnecessary, the compiler could do that by default for everything not explicitly dllexport:ed, right?\n\nAs I understand it, when you want to build a windows executable and link it with some library, you must tell, at *compile* time, if you intend to link with a static library or a dll.\n\nIn contrast, ELF shared libraries were designed to let you postpone that decision until link time, with a bit of extra complexity with the PLT entries (and even more complexity to support symbols which refer to data objects rather than functions).",
       "parentUuid": "f0775160_7503237c",
+      "range": {
+        "startLine": 284,
+        "startChar": 2,
+        "endLine": 284,
+        "endChar": 27
+      },
+      "revId": "8a5e7ce00739c9a762684a03ca4b697c61fc2a77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a167552f_5945679f",
+        "filename": "webrtc.gni",
+        "patchSetId": 6
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-09-12T08:05:23Z",
+      "side": 1,
+      "message": "Good catch nisse@! Yes, this will never work. What about this instead:\n\n #if WEBRTC_SHARED_LIBRARY  // defined when is_component_build \u003d true\n\n #ifdef WEBRTC_WIN\n\n #if WEBRTC_EXPORT_SYMBOLS\n #define RTC_PUBLIC __declspec(dllexport)\n #else\n #define RTC_PUBLIC __declspec(dllimport)\n #endif\n\n #else\n\n #if __has_attribute(visibility) \u0026\u0026 WEBRTC_EXPORT_SYMBOLS\n #define RTC_PUBLIC __attribute__((visibility(\"default\")))\n #endif\n\n #endif  // WEBRTC_WIN\n\n #endif  // WEBRTC_SHARED_LIBRARY\n\n #ifndef RTC_PUBLIC\n #define RTC_PUBLIC\n #endif\n\nThis will allow us to avoid to propagate the burden of macro definition to our clients, we will do everything in our BUILD.gn files. If is_component_build \u003d true we will export symbols and targets that depend on WebRTC will import them.\n\nIf it isn\u0027t a component build or (__has_attribute(visibility) \u0026\u0026 WEBRTC_EXPORT_SYMBOLS) is not true RTC_PUBLIC will voidify itself.",
+      "parentUuid": "c78b7337_f0f0c042",
       "range": {
         "startLine": 284,
         "startChar": 2,

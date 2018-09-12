@@ -22,6 +22,30 @@
       "revId": "06398d41b38beaa8c615632ff3fe66ec875bcc24",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0c7d4df_5cf829fb",
+        "filename": "modules/congestion_controller/goog_cc/trendline_estimator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-09-12T13:43:47Z",
+      "side": 1,
+      "message": "I renamed some variables and moved the comment, hopefully making it easier to follow. I also moved the access method so it\u0027s more obvious that it\u0027s only for tests. (I think we probably should remove it completely and make the tests test behaviour rather than implementation)",
+      "parentUuid": "2fb7c950_3a9c0e92",
+      "range": {
+        "startLine": 121,
+        "startChar": 2,
+        "endLine": 121,
+        "endChar": 47
+      },
+      "revId": "06398d41b38beaa8c615632ff3fe66ec875bcc24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "71e1a7d6_909abce8",
+        "filename": "modules/audio_coding/neteq/include/neteq.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-09-12T11:44:24Z",
+      "side": 1,
+      "message": "Now that you have non-resetting sample counters, you may also want to add an output sample counter (for calculating relative rates). Or will you rely on NetEqLifetimeStatistics::total_samples_received?",
+      "range": {
+        "startLine": 79,
+        "startChar": 7,
+        "endLine": 79,
+        "endChar": 30
+      },
+      "revId": "bd11d7722e7366b49212d655557d9d2b2773b265",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18804594_65c7d512",
+        "filename": "modules/audio_coding/neteq/include/neteq.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-09-12T11:44:24Z",
+      "side": 1,
+      "message": "Add comments for which of these metrics are cumulative.",
+      "range": {
+        "startLine": 80,
+        "startChar": 11,
+        "endLine": 80,
+        "endChar": 29
+      },
+      "revId": "bd11d7722e7366b49212d655557d9d2b2773b265",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e6c20a25_ce9ed30d",
         "filename": "modules/audio_coding/neteq/statistics_calculator.cc",
         "patchSetId": 3
@@ -13,6 +59,30 @@
       "writtenOn": "2018-09-12T11:20:31Z",
       "side": 1,
       "message": "There might be a possibility for a negative overflow here, but I think that actually doesn\u0027t matter if the user of the stats API is calculating the difference since the last time the stats were polled. WDYT?",
+      "range": {
+        "startLine": 187,
+        "startChar": 55,
+        "endLine": 188,
+        "endChar": 0
+      },
+      "revId": "bd11d7722e7366b49212d655557d9d2b2773b265",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a7c4295_ffc552fc",
+        "filename": "modules/audio_coding/neteq/statistics_calculator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-09-12T11:44:24Z",
+      "side": 1,
+      "message": "If you do the Right Thing w.r.t. negative overflow, you will in the end be replicating lifetime_stats_.concealed_samples. Why not use that instead?",
+      "parentUuid": "e6c20a25_ce9ed30d",
       "range": {
         "startLine": 187,
         "startChar": 55,

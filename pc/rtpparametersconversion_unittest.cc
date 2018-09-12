@@ -290,13 +290,13 @@ TEST(RtpParametersConversionTest, ToCricketRtpHeaderExtensions) {
 }
 
 TEST(RtpParametersConversionTest, ToCricketRtpHeaderExtensionsErrors) {
-  // First, IDs outside the range 1-14.
+  // First, IDs outside the range 1-255.
   std::vector<RtpHeaderExtensionParameters> extensions = {
       {"http://example.com", 0}};
   auto result = ToCricketRtpHeaderExtensions(extensions);
   EXPECT_EQ(RTCErrorType::INVALID_RANGE, result.error().type());
 
-  extensions[0].id = 15;
+  extensions[0].id = 256;
   result = ToCricketRtpHeaderExtensions(extensions);
   EXPECT_EQ(RTCErrorType::INVALID_RANGE, result.error().type());
 

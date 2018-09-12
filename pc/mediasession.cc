@@ -399,8 +399,9 @@ class UsedPayloadTypes : public UsedIds<Codec> {
 class UsedRtpHeaderExtensionIds : public UsedIds<webrtc::RtpExtension> {
  public:
   UsedRtpHeaderExtensionIds()
-      : UsedIds<webrtc::RtpExtension>(webrtc::RtpExtension::kMinId,
-                                      webrtc::RtpExtension::kMaxId) {}
+      : UsedIds<webrtc::RtpExtension>(
+            webrtc::RtpExtension::kMinId,
+            webrtc::RtpExtension::kOneByteHeaderExtensionMaxId) {}
 
  private:
 };

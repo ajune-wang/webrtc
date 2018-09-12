@@ -33,6 +33,7 @@
 #include "rtc_base/ignore_wundef.h"
 #include "rtc_base/numerics/safe_conversions.h"
 #include "rtc_base/numerics/safe_minmax.h"
+#include "rtc_base/pathutils.h"
 #include "rtc_base/protobuf_utils.h"
 #include "rtc_base/refcountedobject.h"
 #include "rtc_base/strings/string_builder.h"
@@ -43,6 +44,7 @@
 #include "system_wrappers/include/event_wrapper.h"
 #include "test/gtest.h"
 #include "test/testsupport/fileutils.h"
+#include "test/testsupport/test_artifacts.h"
 
 RTC_PUSH_IGNORING_WUNDEF()
 #ifdef WEBRTC_ANDROID_PLATFORM_BUILD
@@ -64,7 +66,7 @@ namespace {
 // When false, this will compare the output data with the results stored to
 // file. This is the typical case. When the file should be updated, it can
 // be set to true with the command-line switch --write_ref_data.
-bool write_ref_data = false;
+bool write_ref_data = true;
 const int32_t kChannels[] = {1, 2};
 const int kSampleRates[] = {8000, 16000, 32000, 48000};
 
@@ -224,24 +226,6 @@ int16_t MaxAudioFrame(const AudioFrame& frame) {
 
   return max_data;
 }
-
-#if defined(WEBRTC_AUDIOPROC_FLOAT_PROFILE)
-void TestStats(const AudioProcessing::Statistic& test,
-               const audioproc::Test::Statistic& reference) {
-  EXPECT_EQ(reference.instant(), test.instant);
-  EXPECT_EQ(reference.average(), test.average);
-  EXPECT_EQ(reference.maximum(), test.maximum);
-  EXPECT_EQ(reference.minimum(), test.minimum);
-}
-
-void WriteStatsMessage(const AudioProcessing::Statistic& output,
-                       audioproc::Test::Statistic* msg) {
-  msg->set_instant(output.instant);
-  msg->set_average(output.average);
-  msg->set_maximum(output.maximum);
-  msg->set_minimum(output.minimum);
-}
-#endif
 
 void OpenFileAndWriteMessage(const std::string& filename,
                              const MessageLite& msg) {
@@ -2047,7 +2031,6 @@ TEST_F(ApmTest, Process) {
          true);
 
     int frame_count = 0;
-    int has_echo_count = 0;
     int has_voice_count = 0;
     int is_saturated_count = 0;
     int analog_level = 127;
@@ -2075,10 +2058,6 @@ TEST_F(ApmTest, Process) {
                 frame_->num_channels_);
 
       max_output_average += MaxAudioFrame(*frame_);
-
-      if (apm_->echo_cancellation()->stream_has_echo()) {
-        has_echo_count++;
-      }
 
       analog_level = apm_->gain_control()->stream_analog_level();
       analog_level_average += analog_level;
@@ -2108,18 +2087,20 @@ TEST_F(ApmTest, Process) {
 #if defined(WEBRTC_AUDIOPROC_FLOAT_PROFILE)
       const int kStatsAggregationFrameNum = 100;  // 1 second.
       if (frame_count % kStatsAggregationFrameNum == 0) {
-        // Get echo metrics.
-        EchoCancellation::Metrics echo_metrics;
-        EXPECT_EQ(apm_->kNoError,
-                  apm_->echo_cancellation()->GetMetrics(&echo_metrics));
+        // Get echo and delay metrics.
+        AudioProcessingStats stats =
+            apm_->GetStatistics(true /* has_remote_tracks */);
 
-        // Get delay metrics.
-        int median = 0;
-        int std = 0;
-        float fraction_poor_delays = 0;
-        EXPECT_EQ(apm_->kNoError,
-                  apm_->echo_cancellation()->GetDelayMetrics(
-                      &median, &std, &fraction_poor_delays));
+        // Echo metrics.
+        const float echo_return_loss = stats.echo_return_loss.value_or(-1.0f);
+        const float echo_return_loss_enhancement = stats.echo_return_loss_enhancement.value_or(-1.0f);
+        const float divergent_filter_fraction = stats.divergent_filter_fraction.value_or(-1.0f);
+        const float residual_echo_likelihood = stats.residual_echo_likelihood.value_or(-1.0f);
+        const float residual_echo_likelihood_recent_max = stats.residual_echo_likelihood_recent_max.value_or(-1.0f);
+
+        // Delay metrics.
+        const int32_t delay_median_ms = stats.delay_median_ms.value_or(-1.0);
+        const int32_t delay_standard_deviation_ms = stats.delay_standard_deviation_ms.value_or(-1.0);
 
         // Get RMS.
         int rms_level = apm_->level_estimator()->RMS();
@@ -2129,46 +2110,39 @@ TEST_F(ApmTest, Process) {
         if (!write_ref_data) {
           const audioproc::Test::EchoMetrics& reference =
               test->echo_metrics(stats_index);
-          TestStats(echo_metrics.residual_echo_return_loss,
-                    reference.residual_echo_return_loss());
-          TestStats(echo_metrics.echo_return_loss,
-                    reference.echo_return_loss());
-          TestStats(echo_metrics.echo_return_loss_enhancement,
+          EXPECT_EQ(echo_return_loss, reference.echo_return_loss());
+          EXPECT_EQ(echo_return_loss_enhancement,
                     reference.echo_return_loss_enhancement());
-          TestStats(echo_metrics.a_nlp,
-                    reference.a_nlp());
-          EXPECT_EQ(echo_metrics.divergent_filter_fraction,
+          EXPECT_EQ(divergent_filter_fraction,
                     reference.divergent_filter_fraction());
+          EXPECT_EQ(residual_echo_likelihood,
+                    reference.residual_echo_likelihood());
+          EXPECT_EQ(residual_echo_likelihood_recent_max,
+                    reference.residual_echo_likelihood_recent_max());
 
           const audioproc::Test::DelayMetrics& reference_delay =
               test->delay_metrics(stats_index);
-          EXPECT_EQ(reference_delay.median(), median);
-          EXPECT_EQ(reference_delay.std(), std);
-          EXPECT_EQ(reference_delay.fraction_poor_delays(),
-                    fraction_poor_delays);
+          EXPECT_EQ(reference_delay.median(), delay_median_ms);
+          EXPECT_EQ(reference_delay.std(), delay_standard_deviation_ms);
 
           EXPECT_EQ(test->rms_level(stats_index), rms_level);
 
           ++stats_index;
         } else {
-          audioproc::Test::EchoMetrics* message =
-              test->add_echo_metrics();
-          WriteStatsMessage(echo_metrics.residual_echo_return_loss,
-                            message->mutable_residual_echo_return_loss());
-          WriteStatsMessage(echo_metrics.echo_return_loss,
-                            message->mutable_echo_return_loss());
-          WriteStatsMessage(echo_metrics.echo_return_loss_enhancement,
-                            message->mutable_echo_return_loss_enhancement());
-          WriteStatsMessage(echo_metrics.a_nlp,
-                            message->mutable_a_nlp());
-          message->set_divergent_filter_fraction(
-              echo_metrics.divergent_filter_fraction);
-
+          audioproc::Test::EchoMetrics* message_echo = test->add_echo_metrics();
+          message_echo->set_echo_return_loss(echo_return_loss);
+          message_echo->set_echo_return_loss_enhancement(
+              echo_return_loss_enhancement);
+          message_echo->set_divergent_filter_fraction(
+              divergent_filter_fraction);
+          message_echo->set_residual_echo_likelihood(
+              residual_echo_likelihood);
+          message_echo->set_residual_echo_likelihood_recent_max(
+              residual_echo_likelihood_recent_max);
           audioproc::Test::DelayMetrics* message_delay =
               test->add_delay_metrics();
-          message_delay->set_median(median);
-          message_delay->set_std(std);
-          message_delay->set_fraction_poor_delays(fraction_poor_delays);
+          message_delay->set_median(delay_median_ms);
+          message_delay->set_std(delay_standard_deviation_ms);
 
           test->add_rms_level(rms_level);
         }
@@ -2198,7 +2172,6 @@ TEST_F(ApmTest, Process) {
       const int kMaxOutputAverageOffset = 0;
       const int kMaxOutputAverageNear = kIntNear;
 #endif
-      EXPECT_NEAR(test->has_echo_count(), has_echo_count, kIntNear);
       EXPECT_NEAR(test->has_voice_count(),
                   has_voice_count - kHasVoiceCountOffset,
                   kHasVoiceCountNear);
@@ -2215,7 +2188,6 @@ TEST_F(ApmTest, Process) {
                   kFloatNear);
 #endif
     } else {
-      test->set_has_echo_count(has_echo_count);
       test->set_has_voice_count(has_voice_count);
       test->set_is_saturated_count(is_saturated_count);
 
@@ -2233,8 +2205,13 @@ TEST_F(ApmTest, Process) {
     rewind(near_file_);
   }
 
+  std::string output_dir;
+  test::GetTestArtifactsDir(&output_dir);
+  std::string output_fn = rtc::Pathname(ref_filename_).filename();
+  std::string output_path = rtc::Pathname(output_dir, output_fn).pathname();
+  printf("Writing to %s\n", output_path.c_str());
   if (write_ref_data) {
-    OpenFileAndWriteMessage(ref_filename_, ref_data);
+    OpenFileAndWriteMessage(output_path, ref_data);
   }
 }
 

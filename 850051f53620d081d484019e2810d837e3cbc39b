@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b088187d_3bf2c717",
+        "filename": "examples/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2018-09-12T11:29:37Z",
+      "side": 1,
+      "message": "You need deps in addition to data.\n\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/audio/BUILD.gn?q\u003d:low_bandwidth_audio_test",
+      "range": {
+        "startLine": 188,
+        "startChar": 0,
+        "endLine": 189,
+        "endChar": 0
+      },
+      "revId": "850051f53620d081d484019e2810d837e3cbc39b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

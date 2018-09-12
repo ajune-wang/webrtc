@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "9d92b62c_2e6b8862",
+        "filename": "BUILD.gn",
+        "patchSetId": 8
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 7833
+      },
+      "writtenOn": "2018-09-12T10:49:45Z",
+      "side": 1,
+      "message": "This should apply only when building object files that goes into the webrtc library, so is this the right place? It looks like it is included also for tests and examples.\n\nI\u0027d prefer WEBRTC_LIBRARY or WEBRTC_LIBRARY_IMPLEMENTATION. E.g., I consider unit tests part of the implementation, and those shouldn\u0027t have this define.",
+      "range": {
+        "startLine": 96,
+        "startChar": 16,
+        "endLine": 96,
+        "endChar": 37
+      },
+      "revId": "86342fa102210c56ad8532fb497aea01bdf65347",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e8e49ba2_686a5b04",
         "filename": "BUILD.gn",
         "patchSetId": 8
@@ -13,6 +36,30 @@
       "writtenOn": "2018-09-12T10:28:17Z",
       "side": 1,
       "message": "Not related to this CL, but perhaps it\u0027s time to drop this presubmit check if you\u0027ve given up the war on public_deps.",
+      "range": {
+        "startLine": 371,
+        "startChar": 21,
+        "endLine": 371,
+        "endChar": 59
+      },
+      "revId": "86342fa102210c56ad8532fb497aea01bdf65347",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "086a061d_b9ebaf30",
+        "filename": "BUILD.gn",
+        "patchSetId": 8
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 7833
+      },
+      "writtenOn": "2018-09-12T10:49:45Z",
+      "side": 1,
+      "message": "Why is the promotion from deps to public_deps needed for this cl?",
+      "parentUuid": "e8e49ba2_686a5b04",
       "range": {
         "startLine": 371,
         "startChar": 21,

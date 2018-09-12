@@ -49,6 +49,29 @@
     },
     {
       "key": {
+        "uuid": "82d1d897_9cb034f0",
+        "filename": "rtc_base/logging_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-09-12T13:14:57Z",
+      "side": 1,
+      "message": "I think reinterpret_cast would be the style guide approved thing to use here.",
+      "range": {
+        "startLine": 199,
+        "startChar": 12,
+        "endLine": 199,
+        "endChar": 19
+      },
+      "revId": "83466068760c6776c05cf5cb1126457a5b87ff0b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "481d988e_b021491b",
         "filename": "rtc_base/logging_unittest.cc",
         "patchSetId": 1
@@ -81,6 +104,24 @@
       "revId": "83466068760c6776c05cf5cb1126457a5b87ff0b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06bcc929_50f0a486",
+        "filename": "rtc_base/logging_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-09-12T13:14:57Z",
+      "side": 1,
+      "message": "Ah. Which you spell in capitals on line 199---I think that may have been why I missed it.",
+      "parentUuid": "7059db4f_f5a24869",
+      "revId": "83466068760c6776c05cf5cb1126457a5b87ff0b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

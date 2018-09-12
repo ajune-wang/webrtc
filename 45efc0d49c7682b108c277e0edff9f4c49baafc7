@@ -22,6 +22,47 @@
       "revId": "45efc0d49c7682b108c277e0edff9f4c49baafc7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c589cd7e_bf13a772",
+        "filename": "api/rtcerror.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-09-12T10:24:17Z",
+      "side": 1,
+      "message": "Yes, that comment is outdated. IIRC that happened when we upgraded from VS2013 to VS2015. (I believe we\u0027re on VS2017 now.)",
+      "parentUuid": "314042da_251b36fb",
+      "range": {
+        "startLine": 231,
+        "startChar": 0,
+        "endLine": 233,
+        "endChar": 21
+      },
+      "revId": "45efc0d49c7682b108c277e0edff9f4c49baafc7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e90f6af5_99b778a5",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1540,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-09-12T10:24:17Z",
+      "side": 1,
+      "message": "Use string_view here too?",
+      "revId": "45efc0d49c7682b108c277e0edff9f4c49baafc7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -189,6 +189,30 @@
       "revId": "86342fa102210c56ad8532fb497aea01bdf65347",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "04d396d0_a7d2a508",
+        "filename": "BUILD.gn",
+        "patchSetId": 8
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-09-12T12:40:23Z",
+      "side": 1,
+      "message": "There is all_dependent_configs (https://gn.googlesource.com/gn/+/master/docs/reference.md#all_dependent_configs). This is what we need in this situation if we want to avoid public_deps.\n\nLast time I talked with GN authors they told me all_dependent_configs should almost never be used, that is why I try to reach the goal using only public_deps and public_configs.\n\nLet me think about your proposal of moving the definition of WEBRTC_SHARED_LIBRARY. I like it and it seems safer.",
+      "parentUuid": "86b9dc9a_a606da43",
+      "range": {
+        "startLine": 371,
+        "startChar": 21,
+        "endLine": 371,
+        "endChar": 59
+      },
+      "revId": "86342fa102210c56ad8532fb497aea01bdf65347",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

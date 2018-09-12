@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "c663b519_6ecf9456",
+        "filename": "BUILD.gn",
+        "patchSetId": 8
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-09-12T12:26:19Z",
+      "side": 1,
+      "message": "impl seems to be a common abbreviation, so I guess that\u0027s fine. We shouldn\u0027t need to spell it out very often, ideally only once in BUILD.gn, and in symbol_visibility.h.",
+      "parentUuid": "f0a05d5a_05ecd771",
+      "range": {
+        "startLine": 96,
+        "startChar": 16,
+        "endLine": 96,
+        "endChar": 37
+      },
+      "revId": "86342fa102210c56ad8532fb497aea01bdf65347",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e8e49ba2_686a5b04",
         "filename": "BUILD.gn",
         "patchSetId": 8
@@ -132,6 +156,30 @@
       "side": 1,
       "message": "\u003e Not related to this CL, but perhaps it\u0027s time to drop this presubmit check if you\u0027ve given up the war on public_deps.\n\nI still think we have to avoid them internally (and the presubmit helps us to avoid regressions). In this situation, libwebrtc is grouping together build targets in order to create a shared library or a static library and I think public_deps is the right tool for the job in order to propagate WebRTC internal public_configs (and headers) to external build targets.\n\n\u003e Why is the promotion from deps to public_deps needed for this cl?\n\nBecause WEBRTC_SHARED_LIBRARY\u003d1 is set using public_configs (in order to propagate the macro definition one step further in the build graph). Using public_deps propagates public_configs another step up in the build graph, so for example:\n\nA -\u003e //:webrtc -\u003e //api:transport_api\n\n//api:transport_api\u0027s public_configs will be propagated to //:webrtc but not to A. If //:webrtc public_dep on //api:transport_api then A will also get //api:transport_api\u0027s public_configs (this is definitely complex but it is how GN works: https://gn.googlesource.com/gn/+/master/docs/reference.md#public_configs + https://gn.googlesource.com/gn/+/master/docs/reference.md#public_deps).",
       "parentUuid": "086a061d_b9ebaf30",
+      "range": {
+        "startLine": 371,
+        "startChar": 21,
+        "endLine": 371,
+        "endChar": 59
+      },
+      "revId": "86342fa102210c56ad8532fb497aea01bdf65347",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "86b9dc9a_a606da43",
+        "filename": "BUILD.gn",
+        "patchSetId": 8
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-09-12T12:26:19Z",
+      "side": 1,
+      "message": "\u003e Because WEBRTC_SHARED_LIBRARY\u003d1 is set using public_configs (in order to propagate the macro definition one step further in the build graph).\n\nOnly one step? And there\u0027s no way to propagate configs further without also propagating access to headers (like public_deps does)? I think it\u0027s common that defines have to be used consistently on all compilation units. E.g., consider a define that is used in some internal header that is included indirectly by the application, and affects the abi. symbol_visibility.h is an excellent example, and I think it\u0027s a fairly common pattern.\n\nIf it\u0027s only these top-level targets that are affected (I don\u0027t quite understand what we\u0027ll need on the intermediate targets), I think I\u0027d prefer an explicit\n\npublic_configs +\u003d rtc_symbol_something_config\n\nThat\u0027s not much more verbose than the # no-presubmit-check comments.\n\nAn alternative might be to put WEBRTC_SHARED_LIBRARY into a generated webrtc_config.h; unlike WEBRTC_IMPLEMENTATION, we should always have the same value for both applications and webrtc itself, and there\u0027s no risk of inconsistencies between compilation units.",
+      "parentUuid": "8f55bd7f_32a90397",
       "range": {
         "startLine": 371,
         "startChar": 21,

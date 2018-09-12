@@ -146,25 +146,27 @@ NetEqTest::SimulationStepResult NetEqTest::RunToNextGetAudio() {
       input_->AdvanceOutputEvent();
       result.simulation_step_ms =
           input_->NextEventTime().value_or(time_now_ms) - start_time_ms;
-      const auto network_stats = SimulationStats();
-      current_state_.current_delay_ms = network_stats.current_buffer_size_ms;
-      current_state_.packet_loss_occurred = network_stats.packet_loss_rate > 0;
-      int scaling_factor = std::max(1 << 14, network_stats.accelerate_rate +
-                                                 network_stats.expand_rate +
-                                                 network_stats.preemptive_rate);
-      // TODO(ivoc): Improve the accuracy of these numbers by adding a new API
-      // to NetEq.
+      const auto operations_state = neteq_->GetOperationsAndState();
+      // TODO(ivoc): Add last_waiting_time_ms to the state and rename
+      // current_delay_ms to something less confusing.
+      current_state_.current_delay_ms = operations_state.current_buffer_size_ms;
       result.action_times_ms[Action::kAccelerate] =
-          (10 * network_stats.accelerate_rate) / scaling_factor;
+          (operations_state.accelerate_samples -
+           prev_ops_state_.accelerate_samples) *
+          1000 / sample_rate_hz_;
       result.action_times_ms[Action::kExpand] =
-          (10 * network_stats.expand_rate) / scaling_factor;
+          (operations_state.missing_samples - prev_ops_state_.missing_samples) *
+          1000 / sample_rate_hz_;
       result.action_times_ms[Action::kPreemptiveExpand] =
-          (10 * network_stats.preemptive_rate) / scaling_factor;
+          (operations_state.preemptive_samples -
+           prev_ops_state_.preemptive_samples) *
+          1000 / sample_rate_hz_;
       result.action_times_ms[Action::kNormal] =
           10 - result.action_times_ms[Action::kAccelerate] -
           result.action_times_ms[Action::kExpand] -
           result.action_times_ms[Action::kPreemptiveExpand];
       result.is_simulation_finished = input_->ended();
+      prev_ops_state_ = operations_state;
       return result;
     }
   }

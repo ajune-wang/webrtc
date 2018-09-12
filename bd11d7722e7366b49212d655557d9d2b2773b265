@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e6c20a25_ce9ed30d",
+        "filename": "modules/audio_coding/neteq/statistics_calculator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2018-09-12T11:20:31Z",
+      "side": 1,
+      "message": "There might be a possibility for a negative overflow here, but I think that actually doesn\u0027t matter if the user of the stats API is calculating the difference since the last time the stats were polled. WDYT?",
+      "range": {
+        "startLine": 187,
+        "startChar": 55,
+        "endLine": 188,
+        "endChar": 0
+      },
+      "revId": "bd11d7722e7366b49212d655557d9d2b2773b265",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

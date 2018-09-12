@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "429cfe87_4d58ba4b",
+        "filename": "BUILD.gn",
+        "patchSetId": 7
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-09-12T09:53:09Z",
+      "side": 1,
+      "message": "spelling",
+      "range": {
+        "startLine": 93,
+        "startChar": 54,
+        "endLine": 93,
+        "endChar": 61
+      },
+      "revId": "db888bd8272dc2522c4788a932159438c7aef043",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ca3e524_21dcb2ad",
+        "filename": "rtc_base/build/symbol_visibility.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-09-12T09:53:09Z",
+      "side": 1,
+      "message": "This one doesn\u0027t exist anymore.",
+      "range": {
+        "startLine": 19,
+        "startChar": 55,
+        "endLine": 19,
+        "endChar": 76
+      },
+      "revId": "db888bd8272dc2522c4788a932159438c7aef043",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

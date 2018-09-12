@@ -201,7 +201,7 @@ if (is_ios || (is_mac && target_cpu != "x86")) {
       "objc/AppRTCMobile/common/ARDUtilities.h",
       "objc/AppRTCMobile/common/ARDUtilities.m",
     ]
-    public_configs = [ ":apprtc_common_config" ]
+    public_configs += [ ":apprtc_common_config" ]
 
     if (is_ios) {
       # iOS must use WebRTC.framework which is dynamically linked.
@@ -268,7 +268,7 @@ if (is_ios || (is_mac && target_cpu != "x86")) {
       "objc/AppRTCMobile/RTCSessionDescription+JSON.h",
       "objc/AppRTCMobile/RTCSessionDescription+JSON.m",
     ]
-    public_configs = [ ":apprtc_signaling_config" ]
+    public_configs += [ ":apprtc_signaling_config" ]
     deps = [
       ":apprtc_common",
       ":socketrocket",
@@ -582,7 +582,7 @@ if (is_ios || (is_mac && target_cpu != "x86")) {
       "objc/AppRTCMobile/third_party/SocketRocket/SRWebSocket.m",
     ]
     configs += [ ":socketrocket_warning_config" ]
-    public_configs = [ ":socketrocket_include_config" ]
+    public_configs += [ ":socketrocket_include_config" ]
 
     libs = [
       "CFNetwork.framework",

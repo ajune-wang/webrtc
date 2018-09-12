@@ -94,7 +94,7 @@ rtc_static_library("rtc_pc_base") {
     deps += [ "//third_party/libsrtp" ]
   }
 
-  public_configs = [ ":rtc_pc_config" ]
+  public_configs += [ ":rtc_pc_config" ]
 
   if (!build_with_chromium && is_clang) {
     # Suppress warnings from the Chromium Clang plugin (bugs.webrtc.org/163).

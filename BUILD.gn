@@ -89,6 +89,12 @@ config("common_inherited_config") {
   defines = []
   cflags = []
   ldflags = []
+
+  # All WebRTC build targets require this macro to be deinfed in order to correctly
+  # export symbols when is_component_build is true.
+  # For more info see: rtc_base/build/BUILD.gn.
+  defines += [ "WEBRTC_IMPLEMENTATION" ]
+
   if (build_with_mozilla) {
     defines += [ "WEBRTC_MOZILLA_BUILD" ]
   }

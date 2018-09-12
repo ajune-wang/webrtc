@@ -1,0 +1,27 @@
+# Copyright (c) 2018 The WebRTC project authors. All Rights Reserved.
+#
+# Use of this source code is governed by a BSD-style license
+# that can be found in the LICENSE file in the root of the source
+# tree. An additional intellectual property rights grant can be found
+# in the file PATENTS.  All contributing project authors may
+# be found in the AUTHORS file in the root of the source tree.
+
+import("../../webrtc.gni")
+
+# WebRTC static_library and source_set build targets will automatically list
+# this config in their public_configs. This means that executables and
+# shared libraries that depend on WebRTC will automatically inherit this
+# configuration.
+config("symbol_visibility_config") {
+  if (is_component_build) {
+    defines = [ "WEBRTC_SHARED_LIBRARY=1" ]
+  } else {
+    defines = [ "WEBRTC_SHARED_LIBRARY=0" ]
+  }
+}
+
+rtc_source_set("symbol_visibility") {
+  sources = [
+    "symbol_visibility.h",
+  ]
+}

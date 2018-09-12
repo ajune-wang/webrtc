@@ -116,6 +116,76 @@
       "revId": "8a5e7ce00739c9a762684a03ca4b697c61fc2a77",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bed88eb8_56d76158",
+        "filename": "webrtc.gni",
+        "patchSetId": 6
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-09-12T07:08:02Z",
+      "side": 1,
+      "message": "\u003e When GYP was generating shared libs, there were actually quite a few of them. Supposing that there will be only ever one shared lib, and that it will be the top of the dependency tree is a HUGE hypothesis. \n\nI agree it might make sense at some point to split out, e.g., codec factories to their own shared libraries. But it\u0027s also good to keep things simple; I think we should aim for supporting one big dll now. Let us try to avoid adding huge obstacles to later generalizations, but not spend more code and effort on it now than absolutely necessary.",
+      "parentUuid": "ae14d5d8_0ae48212",
+      "range": {
+        "startLine": 279,
+        "startChar": 2,
+        "endLine": 279,
+        "endChar": 48
+      },
+      "revId": "8a5e7ce00739c9a762684a03ca4b697c61fc2a77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb8e461c_f4f96468",
+        "filename": "webrtc.gni",
+        "patchSetId": 6
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-09-12T07:08:02Z",
+      "side": 1,
+      "message": "This should have an rtc_import_symbols, if I understand this correctly. I.e., when building an object file that is intended to go into a windows .exe file linked at runtime with libwebrtc.dll, all webrtc headers that are included need the __declspec(dllimport) thing attached to the symbols that belong to the dll.",
+      "range": {
+        "startLine": 284,
+        "startChar": 2,
+        "endLine": 284,
+        "endChar": 27
+      },
+      "revId": "8a5e7ce00739c9a762684a03ca4b697c61fc2a77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "557e6f6e_08422740",
+        "filename": "webrtc.gni",
+        "patchSetId": 6
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-09-12T07:08:02Z",
+      "side": 1,
+      "message": "This looks odd to me.",
+      "range": {
+        "startLine": 295,
+        "startChar": 0,
+        "endLine": 295,
+        "endChar": 37
+      },
+      "revId": "8a5e7ce00739c9a762684a03ca4b697c61fc2a77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

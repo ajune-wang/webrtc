@@ -184,9 +184,38 @@ TEST(LogTest, SingleStream) {
   EXPECT_NE(std::string::npos, str.find("INFO"));
   EXPECT_EQ(std::string::npos, str.find("VERBOSE"));
 
+  int i = 1;
+  long l = 2l;
+  long long ll = 3ll;
+
+  unsigned int u = 4u;
+  unsigned long ul = 5ul;
+  unsigned long long ull = 6ull;
+
+  std::string s1 = "char*";
+  std::string s2 = "std::string";
+  std::string s3 = "absl::stringview";
+
+  void* p = (void*)0xABCD;
+
+  // Log all suported types(except doubles/floats) as a sanity-check.
+  RTC_LOG(LS_INFO) << "|" << i << "|" << l << "|" << ll << "|" << u << "|" << ul
+                   << "|" << ull << "|" << s1.c_str() << "|" << s2 << "|"
+                   << absl::string_view(s3) << "|" << p << "|";
+
+  EXPECT_NE(std::string::npos, str.find("|1|"));
+  EXPECT_NE(std::string::npos, str.find("|2|"));
+  EXPECT_NE(std::string::npos, str.find("|3|"));
+  EXPECT_NE(std::string::npos, str.find("|4|"));
+  EXPECT_NE(std::string::npos, str.find("|5|"));
+  EXPECT_NE(std::string::npos, str.find("|6|"));
+  EXPECT_NE(std::string::npos, str.find("|char*|"));
+  EXPECT_NE(std::string::npos, str.find("|std::string|"));
+  EXPECT_NE(std::string::npos, str.find("|absl::stringview|"));
+  EXPECT_NE(std::string::npos, str.find("|abcd|"));
+
   LogMessage::RemoveLogToStream(&stream);
   EXPECT_EQ(LS_NONE, LogMessage::GetLogToStream(&stream));
-
   EXPECT_EQ(sev, LogMessage::GetLogToStream(nullptr));
 }
 

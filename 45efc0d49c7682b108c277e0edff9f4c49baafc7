@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "314042da_251b36fb",
+        "filename": "api/rtcerror.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2018-09-12T07:55:42Z",
+      "side": 1,
+      "message": "Just saw this comment, but it looks like it might be outdated.\n\n\"What\u0027s New for Visual C++ in Visual Studio 2015\nISO C/C++ Standards Support\n\nImplicit Generation of Move Special Member Functions Move constructors and move assignment operators are now implicitly generated when conditions allow, thus bringing the compiler into full conformance with C++11 rvalue references. (C++11)\"\n\nhttps://msdn.microsoft.com/en-us/library/hh409293.aspx\n\nDo we have to support some specific version of VS?",
+      "range": {
+        "startLine": 231,
+        "startChar": 0,
+        "endLine": 233,
+        "endChar": 21
+      },
+      "revId": "45efc0d49c7682b108c277e0edff9f4c49baafc7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

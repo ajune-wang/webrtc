@@ -74,6 +74,20 @@ struct NetEqLifetimeStatistics {
   uint64_t voice_concealed_samples = 0;
 };
 
+// Metrics that describe the operations performed in NetEq, and the internal
+// state.
+struct NetEqOperationsAndState {
+  uint64_t preemptive_samples = 0;
+  uint64_t accelerate_samples = 0;
+  // This category includes any operation to cover missing audio samples, such
+  // as expansion and merge.
+  uint64_t missing_samples = 0;
+  // The waiting time of the last decoded packet.
+  uint64_t last_waiting_time_ms = 0;
+  // The sum of the packet and jitter buffer size in ms.
+  uint64_t current_buffer_size_ms = 0;
+};
+
 // This is the interface class for NetEq.
 class NetEq {
  public:
@@ -205,6 +219,10 @@ class NetEq {
   // Returns a copy of this class's lifetime statistics. These statistics are
   // never reset.
   virtual NetEqLifetimeStatistics GetLifetimeStatistics() const = 0;
+
+  // Returns statistics about the performed operations and internal state. These
+  // statistics are never reset.
+  virtual NetEqOperationsAndState GetOperationsAndState() const = 0;
 
   // Writes the current RTCP statistics to |stats|. The statistics are reset
   // and a new report period is started with the call.

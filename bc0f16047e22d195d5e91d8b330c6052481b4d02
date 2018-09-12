@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "4d4329a2_28a9b62f",
+        "filename": "p2p/base/mockasyncresolver.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-09-12T21:49:59Z",
+      "side": 1,
+      "message": "Done. Good idea.",
+      "parentUuid": "dc3e6763_f01f2ce0",
+      "revId": "bc0f16047e22d195d5e91d8b330c6052481b4d02",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "683a7367_5d6c2dce",
         "filename": "p2p/base/p2ptransportchannel_unittest.cc",
         "patchSetId": 6
@@ -33,6 +51,24 @@
       "revId": "bc0f16047e22d195d5e91d8b330c6052481b4d02",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32541bc0_6db6f07d",
+        "filename": "p2p/base/p2ptransportchannel_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 4634,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-09-12T21:49:59Z",
+      "side": 1,
+      "message": "Thanks for the pointer. Yes, they should. Updated with InSequence.",
+      "parentUuid": "683a7367_5d6c2dce",
+      "revId": "bc0f16047e22d195d5e91d8b330c6052481b4d02",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

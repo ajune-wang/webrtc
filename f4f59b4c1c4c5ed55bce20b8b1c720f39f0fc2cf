@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "e4c1bbf1_a424d346",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 438,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-09-12T21:49:59Z",
+      "side": 1,
+      "message": "WeakPtr was mostly a Chromium thing, and WebRTC has the stripped-down version of it. We don\u0027t have many examples of this pattern in WebRTC but we do in Chromium. This is done so because I am worried about capture \"this\" in an asynchronous callback is dangerous, now that the callback definition in the interfaces is changed to aliases of std::function.",
+      "parentUuid": "847d4911_9e41b1f5",
+      "revId": "f4f59b4c1c4c5ed55bce20b8b1c720f39f0fc2cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "03f981d3_020121ac",
         "filename": "rtc_base/mdns_responder_interface.h",
         "patchSetId": 7
@@ -30,6 +48,24 @@
       "writtenOn": "2018-09-12T21:30:29Z",
       "side": 1,
       "message": "Why does this need a callback? Can we just return bool?\nTried to look for callers, but it doesn\u0027t look like downstream CLs have been rebased yet.",
+      "revId": "f4f59b4c1c4c5ed55bce20b8b1c720f39f0fc2cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "498eafb7_3bfd63b4",
+        "filename": "rtc_base/mdns_responder_interface.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-09-12T21:49:59Z",
+      "side": 1,
+      "message": "This is done so to work with the generated interface by mojo in Chromium. All methods would be implemented as client calls via the mojo pipe, and the returns are given asynchronously via callbacks. This CL (https://chromium-review.googlesource.com/c/chromium/src/+/1182875) may explain better.\n\nTechnically I could rewrite this interface in a synchronous way, but I feel now that our only implementation is asynchronous, it could be a bit more straightforward to understand the codepath by making it clear it is going to be asynchronous. I think I did change the downstream here (https://chromium-review.googlesource.com/c/chromium/src/+/1206002) in mdns_responder_client.cc. Let me know if I missed anything.",
+      "parentUuid": "03f981d3_020121ac",
       "revId": "f4f59b4c1c4c5ed55bce20b8b1c720f39f0fc2cf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

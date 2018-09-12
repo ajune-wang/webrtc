@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0891fe98_aa233b39",
+        "filename": "video/video_receive_stream.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-09-12T11:12:24Z",
+      "side": 1,
+      "message": "Should we call LegacyCreateVideoDecoder here? If so, how to get the stream id? We could add a member in VideoReceiveStream::Decoder. Alternatively, is there any way we could move the stream id to SdpVideoFormat::parameters, instead of using LegacyCreateVideoDecoder? It would be straight forward to let webrtcvideoengine insert the value into that map.",
+      "range": {
+        "startLine": 239,
+        "startChar": 33,
+        "endLine": 239,
+        "endChar": 51
+      },
+      "revId": "b9e8d8d143e9bece9d5c077ee8453c61fbe18ec6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

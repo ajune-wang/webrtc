@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "771c9356_6e5f7a49",
+        "filename": "rtc_base/build/symbol_visibility.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-09-12T13:20:56Z",
+      "side": 1,
+      "message": "We really want to catch errors where this file is used without getting the appropriate build config to set things up. Do you think #if (rather than #ifdef) for WEBRTC_SHARED_LIBRARY above is enough? My gut reaction is to ask for #if rather than #ifdef everywhere, but I guess we can\u0027t insist on having\n\n#define WEBRTC_LIBRARY_IMPL 0\n\nwhen build application code.",
+      "range": {
+        "startLine": 23,
+        "startChar": 1,
+        "endLine": 23,
+        "endChar": 6
+      },
+      "revId": "c5d4b353389e1a145b4250a50030fde106e08214",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

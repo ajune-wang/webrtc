@@ -334,6 +334,30 @@
     },
     {
       "key": {
+        "uuid": "2d934169_e3a2e8b3",
+        "filename": "webrtc.gni",
+        "patchSetId": 6
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-09-12T09:32:17Z",
+      "side": 1,
+      "message": "Well, what I wanted to do is unfeasible but PS#7 contains the best of both solutions (at least I hope so).",
+      "parentUuid": "a167552f_5945679f",
+      "range": {
+        "startLine": 284,
+        "startChar": 2,
+        "endLine": 284,
+        "endChar": 27
+      },
+      "revId": "8a5e7ce00739c9a762684a03ca4b697c61fc2a77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "557e6f6e_08422740",
         "filename": "webrtc.gni",
         "patchSetId": 6
@@ -378,6 +402,30 @@
       "revId": "8a5e7ce00739c9a762684a03ca4b697c61fc2a77",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00a47a5f_7c300b33",
+        "filename": "webrtc.gni",
+        "patchSetId": 6
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-09-12T09:32:17Z",
+      "side": 1,
+      "message": "Removed in PS#7.",
+      "parentUuid": "2b7d7536_a6457539",
+      "range": {
+        "startLine": 295,
+        "startChar": 0,
+        "endLine": 295,
+        "endChar": 37
+      },
+      "revId": "8a5e7ce00739c9a762684a03ca4b697c61fc2a77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

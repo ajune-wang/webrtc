@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d635ee64_fdd067fe",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 549,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-09-12T07:37:11Z",
+      "side": 1,
+      "message": "Would it be a good idea to extend the RTPHeader struct instead to be able to communicate the presence of a P bit, even though we don\u0027t know the padding length? I\u0027m thinking something like\n\n struct RTPHeader {\n   ...\n   bool paddingBit;\n   absl:optional\u003csize_t\u003e paddingLength;  // Empty means unknown padding length.\n   ...\n };\n\nThis does of course become a bit of a double-booking, since paddingLength has no meaning if paddingBit is false. But, I\u0027d rather not have a nested optional. :)\n\nWDYT?",
+      "range": {
+        "startLine": 549,
+        "startChar": 6,
+        "endLine": 549,
+        "endChar": 34
+      },
+      "revId": "213a1d2939178b2757c34f32530cc7df4afba5b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "758526e6_a02e634c",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-09-12T07:37:11Z",
+      "side": 1,
+      "message": "Nit: missing a space after the comma.",
+      "range": {
+        "startLine": 316,
+        "startChar": 17,
+        "endLine": 316,
+        "endChar": 19
+      },
+      "revId": "213a1d2939178b2757c34f32530cc7df4afba5b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

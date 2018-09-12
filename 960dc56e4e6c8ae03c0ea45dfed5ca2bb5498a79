@@ -16,6 +16,121 @@
       "revId": "960dc56e4e6c8ae03c0ea45dfed5ca2bb5498a79",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84a86554_9e2ce3da",
+        "filename": "media/base/mediachannel.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 5501
+      },
+      "writtenOn": "2018-09-12T06:50:08Z",
+      "side": 1,
+      "message": "Does chromium not use dscp_enabled() style? If not, totally fine, I\u0027m just a bit surprised.",
+      "range": {
+        "startLine": 242,
+        "startChar": 7,
+        "endLine": 242,
+        "endChar": 18
+      },
+      "revId": "960dc56e4e6c8ae03c0ea45dfed5ca2bb5498a79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8058cb0c_33e325b1",
+        "filename": "p2p/base/port.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 5501
+      },
+      "writtenOn": "2018-09-12T06:50:08Z",
+      "side": 1,
+      "message": "Not sure what \"usually for STUN\" means, if this is called \"StunDscpValue\".",
+      "range": {
+        "startLine": 435,
+        "startChar": 23,
+        "endLine": 436,
+        "endChar": 16
+      },
+      "revId": "960dc56e4e6c8ae03c0ea45dfed5ca2bb5498a79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70972fee_2066d7c5",
+        "filename": "p2p/base/turnport.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 555,
+      "author": {
+        "id": 5501
+      },
+      "writtenOn": "2018-09-12T06:50:08Z",
+      "side": 1,
+      "message": "I\u0027d add a comment, like:\n// Remember the last requested DSCP value, for STUN traffic.",
+      "range": {
+        "startLine": 555,
+        "startChar": 6,
+        "endLine": 555,
+        "endChar": 9
+      },
+      "revId": "960dc56e4e6c8ae03c0ea45dfed5ca2bb5498a79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e29519e_70c2f602",
+        "filename": "p2p/base/turnport.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 555,
+      "author": {
+        "id": 5501
+      },
+      "writtenOn": "2018-09-12T06:50:08Z",
+      "side": 1,
+      "message": "In chromium/webrtc, single-line blocks don\u0027t get braces, I think.",
+      "range": {
+        "startLine": 555,
+        "startChar": 35,
+        "endLine": 555,
+        "endChar": 37
+      },
+      "revId": "960dc56e4e6c8ae03c0ea45dfed5ca2bb5498a79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d55892f_1220def6",
+        "filename": "p2p/base/turnport.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 5501
+      },
+      "writtenOn": "2018-09-12T06:50:08Z",
+      "side": 1,
+      "message": "stun_dscp_value_?",
+      "range": {
+        "startLine": 320,
+        "startChar": 25,
+        "endLine": 320,
+        "endChar": 30
+      },
+      "revId": "960dc56e4e6c8ae03c0ea45dfed5ca2bb5498a79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -394,8 +394,7 @@ class WebRtcVideoChannel : public VideoMediaChannel, public webrtc::Transport {
     void MaybeAssociateFlexfecWithVideo();
     void MaybeDissociateFlexfecFromVideo();
 
-    void ConfigureCodecs(const std::vector<VideoCodecSettings>& recv_codecs,
-                         DecoderMap* old_codecs);
+    void ConfigureCodecs(const std::vector<VideoCodecSettings>& recv_codecs);
     void ConfigureFlexfecCodec(int flexfec_payload_type);
 
     std::string GetCodecNameFromPayloadType(int payload_type);
@@ -414,7 +413,7 @@ class WebRtcVideoChannel : public VideoMediaChannel, public webrtc::Transport {
     webrtc::FlexfecReceiveStream::Config flexfec_config_;
     webrtc::FlexfecReceiveStream* flexfec_stream_;
 
-    webrtc::VideoDecoderFactory* decoder_factory_;
+    webrtc::VideoDecoderFactory* const decoder_factory_;
     DecoderMap allocated_decoders_;
 
     rtc::CriticalSection sink_lock_;

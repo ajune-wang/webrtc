@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "09a697a1_d21e9d71",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1380,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2018-09-12T16:15:47Z",
+      "side": 1,
+      "message": "There IS a value in the SSRC field set by the lower layer and it needs to be preserved between calls, so we can only check there\u0027s none in the constructor and not on setParameters() calls.",
+      "parentUuid": "3855ec4a_ad25057b",
+      "range": {
+        "startLine": 1380,
+        "startChar": 8,
+        "endLine": 1380,
+        "endChar": 31
+      },
+      "revId": "d0f574cec124f46aa5f97c2552b30197b4668857",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "884ef298_9cf62238",
         "filename": "pc/rtpsender.cc",
         "patchSetId": 7
@@ -45,6 +69,30 @@
       "revId": "d0f574cec124f46aa5f97c2552b30197b4668857",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b7ef2bd_3211ce06",
+        "filename": "pc/rtpsender.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2018-09-12T16:15:47Z",
+      "side": 1,
+      "message": "Judging from the code, it seems like you can update the SSRC on the sender. I\u0027m wondering if it can happen after the sender has already been configured, in which case parameters have already been applied.",
+      "parentUuid": "884ef298_9cf62238",
+      "range": {
+        "startLine": 320,
+        "startChar": 6,
+        "endLine": 320,
+        "endChar": 41
+      },
+      "revId": "d0f574cec124f46aa5f97c2552b30197b4668857",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "a3140a11_86ead7ab",
+        "filename": "pc/rtpsender.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2018-09-12T16:15:47Z",
+      "side": 1,
+      "message": "So much code duplication :(\nDone.",
+      "parentUuid": "50eb6483_aca51757",
+      "range": {
+        "startLine": 322,
+        "startChar": 6,
+        "endLine": 322,
+        "endChar": 27
+      },
+      "revId": "d0f574cec124f46aa5f97c2552b30197b4668857",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bf40f442_729ead03",
         "filename": "pc/rtpsender.cc",
         "patchSetId": 7
@@ -82,6 +154,30 @@
       "writtenOn": "2018-09-10T18:34:24Z",
       "side": 1,
       "message": "Looks good. Could you please also add this to VideoRtpSender::SetSsrc?\n\nAlso, this being unimplemented in the VideoRtpSender wasn\u0027t caught by tests, and would have broke simulcast for anybody SDP munging after AddTransceiver. Could you please add a test? Something like:\n-AddTransceiver w/ one sendEncoding\n-GetOffer\n-Update offer with a simulcast group (generate a couple ssrcs \u0026 add them to the StreamParams object like done here - https://cs.chromium.org/chromium/src/third_party/webrtc/pc/mediasession.cc?l\u003d443)\n-SetLocalDescription\n-GetParameters from sender \u0026 check that they are set appropriately.",
+      "range": {
+        "startLine": 334,
+        "startChar": 8,
+        "endLine": 334,
+        "endChar": 72
+      },
+      "revId": "d0f574cec124f46aa5f97c2552b30197b4668857",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "881dae81_934589d7",
+        "filename": "pc/rtpsender.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2018-09-12T16:15:47Z",
+      "side": 1,
+      "message": "Added to the VideoRtpSender.\nBut how would that work for modifying the description? We don\u0027t really support simulcast with unified plan, and I\u0027m not sure that going out of our way to test some exotic non-spec behavior is the right thing.",
+      "parentUuid": "bf40f442_729ead03",
       "range": {
         "startLine": 334,
         "startChar": 8,
@@ -114,6 +210,30 @@
       "revId": "d0f574cec124f46aa5f97c2552b30197b4668857",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7db40a2_de3f752a",
+        "filename": "pc/rtpsender.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 556,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2018-09-12T16:15:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c8063036_7c6f3674",
+      "range": {
+        "startLine": 556,
+        "startChar": 6,
+        "endLine": 556,
+        "endChar": 41
+      },
+      "revId": "d0f574cec124f46aa5f97c2552b30197b4668857",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

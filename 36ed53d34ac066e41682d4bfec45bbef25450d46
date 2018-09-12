@@ -22,6 +22,30 @@
       "revId": "36ed53d34ac066e41682d4bfec45bbef25450d46",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a21177ef_65a14b34",
+        "filename": "modules/audio_processing/audio_processing_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2189,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-09-12T07:48:25Z",
+      "side": 1,
+      "message": "These tests are disabled on iOS currently because they fail, probably for the same reasons that they used to fail on Android. We have already added these different values for android, and I guess whatever motivated that also applies to iOS.",
+      "parentUuid": "10aa7b77_835d3faa",
+      "range": {
+        "startLine": 2189,
+        "startChar": 27,
+        "endLine": 2189,
+        "endChar": 50
+      },
+      "revId": "36ed53d34ac066e41682d4bfec45bbef25450d46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -46,6 +46,30 @@
       "revId": "c5d4b353389e1a145b4250a50030fde106e08214",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bebf29e5_89b403b7",
+        "filename": "rtc_base/build/symbol_visibility.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-09-12T14:54:53Z",
+      "side": 1,
+      "message": "There is a mistake in my previous comment. It should have been:\n\nConsider that in order to get there someone will have to define WEBRTC_SHARED_LIBRARY\u003d1 and since the WebRTC build takes care of defining WEBRTC_LIBRARY_IMPL, if it isn\u0027t defined it is probably safe to consider that code as compiled in an external target, so __declspec(dllimport) should be ok. Isn\u0027t this enough?",
+      "parentUuid": "46b8da14_7c42c0f1",
+      "range": {
+        "startLine": 23,
+        "startChar": 1,
+        "endLine": 23,
+        "endChar": 6
+      },
+      "revId": "c5d4b353389e1a145b4250a50030fde106e08214",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

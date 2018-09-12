@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c798f36f_1321c05f",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-09-12T12:59:01Z",
+      "side": 1,
+      "message": "This suffix is unnecessary, since it\u0027s the default.",
+      "range": {
+        "startLine": 201,
+        "startChar": 42,
+        "endLine": 201,
+        "endChar": 50
+      },
+      "revId": "83466068760c6776c05cf5cb1126457a5b87ff0b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "481d988e_b021491b",
+        "filename": "rtc_base/logging_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-09-12T12:59:01Z",
+      "side": 1,
+      "message": "Where does abcd come from?",
+      "revId": "83466068760c6776c05cf5cb1126457a5b87ff0b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

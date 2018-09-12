@@ -22,6 +22,52 @@
       "revId": "11ed454db2dc47ae3f2a01307775d073b9386bd7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c53d9e9_023e8125",
+        "filename": "media/base/mediachannel.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 5501
+      },
+      "writtenOn": "2018-09-12T07:08:05Z",
+      "side": 1,
+      "message": "Maybe UpdateDscp, just because \"Set\" looks weird without taking a value.",
+      "range": {
+        "startLine": 242,
+        "startChar": 6,
+        "endLine": 242,
+        "endChar": 13
+      },
+      "revId": "11ed454db2dc47ae3f2a01307775d073b9386bd7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1cf7646d_c8ad06ec",
+        "filename": "media/engine/webrtcvideoengine.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 871,
+      "author": {
+        "id": 5501
+      },
+      "writtenOn": "2018-09-12T07:08:05Z",
+      "side": 1,
+      "message": "Probably remove the ref, or make it a const ref if you keep it.",
+      "range": {
+        "startLine": 871,
+        "startChar": 8,
+        "endLine": 871,
+        "endChar": 9
+      },
+      "revId": "11ed454db2dc47ae3f2a01307775d073b9386bd7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

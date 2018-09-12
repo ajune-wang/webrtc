@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5365f32a_85339789",
+        "filename": "media/engine/webrtcvideoengine.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 873,
+      "author": {
+        "id": 5501
+      },
+      "writtenOn": "2018-09-12T07:08:05Z",
+      "side": 1,
+      "message": "Is this part still PoC? Some questions:\n\n1) Is this behavior specified somewhere? If so, link in the comments.\n2) Can you make a helper that converts from the raw network priority to an enum, since this is used in two places? Not sure which names are preferred (VeryLow/Low/Medium/High or BelowNormal/Normal/High/ExtraHigh). Also make sure float comparisons don\u0027t use \u003d\u003d, seems like these should probably be both \u003c\u003d and use an epsilon.\n3) It seems weird that if I set both video and audio to High, they\u0027ll have different markings. Though if this is all specified somewhere, then that\u0027s fine.",
+      "range": {
+        "startLine": 873,
+        "startChar": 8,
+        "endLine": 873,
+        "endChar": 60
+      },
+      "revId": "7a905b47009df2ccd12dae00adec991b275a8b94",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6eccbaa5_46a39263",
+        "filename": "pc/rtpsender.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5501
+      },
+      "writtenOn": "2018-09-12T07:08:05Z",
+      "side": 1,
+      "message": "Is this using !\u003d for floats? Should probably also use an epsilon if so.",
+      "range": {
+        "startLine": 61,
+        "startChar": 42,
+        "endLine": 61,
+        "endChar": 65
+      },
+      "revId": "7a905b47009df2ccd12dae00adec991b275a8b94",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

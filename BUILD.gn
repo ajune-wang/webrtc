@@ -83,12 +83,21 @@ if (!build_with_chromium) {
   }
 }
 
+config("library_impl_config") {
+  # Build targets that contain WebRTC implementation need this macro to
+  # be defined in order to correctly export symbols when is_component_build
+  # is true.
+  # For more info see: rtc_base/build/BUILD.gn.
+  defines = [ "WEBRTC_LIBRARY_IMPL" ]
+}
+
 # Contains the defines and includes in common.gypi that are duplicated both as
 # target_defaults and direct_dependent_settings.
 config("common_inherited_config") {
   defines = []
   cflags = []
   ldflags = []
+
   if (build_with_mozilla) {
     defines += [ "WEBRTC_MOZILLA_BUILD" ]
   }
@@ -354,16 +363,15 @@ config("common_objc") {
 
 if (!build_with_chromium) {
   # Target to build all the WebRTC production code.
-  rtc_static_library("webrtc") {
+  component("webrtc") {
     # Only the root target should depend on this.
     visibility = [ "//:default" ]
 
     sources = []
     complete_static_lib = true
-    suppressed_configs += [ "//build/config/compiler:thin_archive" ]
     defines = []
 
-    deps = [
+    public_deps = [  # no-presubmit-check TODO(webrtc:8603)
       ":webrtc_common",
       "api:transport_api",
       "audio",
@@ -386,19 +394,19 @@ if (!build_with_chromium) {
     # That begin said:
     # TODO(yvesg) Consider making all non-core APIs optional, so that users
     #             can build a customized library tailored to their needs.
-    deps += [
+    public_deps += [  # no-presubmit-check TODO(webrtc:8603)
       "api/audio_codecs:builtin_audio_decoder_factory",
       "api/audio_codecs:builtin_audio_encoder_factory",
     ]
 
     if (build_with_mozilla) {
-      deps += [
+      public_deps += [  # no-presubmit-check TODO(webrtc:8603)
         "api/video:video_frame",
         "system_wrappers:field_trial_default",
         "system_wrappers:metrics_default",
       ]
     } else {
-      deps += [
+      public_deps += [  # no-presubmit-check TODO(webrtc:8603)
         "api",
         "logging",
         "p2p",
@@ -409,7 +417,7 @@ if (!build_with_chromium) {
 
     if (rtc_enable_protobuf) {
       defines += [ "ENABLE_RTC_EVENT_LOG" ]
-      deps += [ "logging:rtc_event_log_proto" ]
+      public_deps += [ "logging:rtc_event_log_proto" ]  # no-presubmit-check TODO(webrtc:8603)
     }
   }
 }

@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d6063b7c_4a35c8de",
+        "filename": "modules/audio_coding/neteq/include/neteq.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-09-12T07:12:33Z",
+      "side": 1,
+      "message": "Maybe generalize and just say \"state of the object\"?",
+      "range": {
+        "startLine": 77,
+        "startChar": 77,
+        "endLine": 78,
+        "endChar": 27
+      },
+      "revId": "e0c6a4a5b845172063d85f2620a2c3f127fa1ddf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c79142ea_b163fb8b",
+        "filename": "modules/audio_coding/neteq/include/neteq.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-09-12T07:12:33Z",
+      "side": 1,
+      "message": "Similarly, should we generalize to NetEqOperationsAndState?",
+      "range": {
+        "startLine": 79,
+        "startChar": 7,
+        "endLine": 79,
+        "endChar": 41
+      },
+      "revId": "e0c6a4a5b845172063d85f2620a2c3f127fa1ddf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66088378_69dc1e86",
+        "filename": "modules/audio_coding/neteq/statistics_calculator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-09-12T07:12:33Z",
+      "side": 1,
+      "message": "This is called to report how many samples worth of audio has been lost on the wire, which rarely matches the number of concealment samples produced. For instance, if no packets are lost but the delays cause NetEq to expand every now and then, this will report zero. Also, a loss of a packet with, say, 20 ms of audio may result in both fewer and more concealment samples being played out, depending on the signal and the buffer state.\n\nDoes this match your intention with missing_samples?",
+      "range": {
+        "startLine": 223,
+        "startChar": 27,
+        "endLine": 223,
+        "endChar": 38
+      },
+      "revId": "e0c6a4a5b845172063d85f2620a2c3f127fa1ddf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

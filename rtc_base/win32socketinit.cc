@@ -16,10 +16,7 @@ namespace rtc {
 
 // Please don't remove this function.
 void EnsureWinsockInit() {
-  // The default implementation uses a global initializer, so WSAStartup
-  // happens at module load time.  Thus we don't need to do anything here.
-  // The hook is provided so that a client that statically links with
-  // libjingle can override it, to provide its own initialization.
+  static WinsockInitializer* winsock_init = new WinsockInitializer();
 }
 
 #if defined(WEBRTC_WIN)
@@ -39,7 +36,6 @@ class WinsockInitializer {
  private:
   int err_;
 };
-WinsockInitializer g_winsockinit;
 #endif
 
 }  // namespace rtc

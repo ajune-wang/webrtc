@@ -8,7 +8,9 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+#if TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
+#endif
 
 typedef NS_ENUM(NSInteger, RTCDeviceType) {
   RTCDeviceTypeUnknown,
@@ -73,9 +75,11 @@ typedef NS_ENUM(NSInteger, RTCDeviceType) {
   RTCDeviceTypeSimulatorx86_64,
 };
 
+#if TARGET_OS_IPHONE
 @interface UIDevice (RTCDevice)
 
 + (RTCDeviceType)deviceType;
 + (BOOL)isIOS11OrLater;
 
 @end
+#endif

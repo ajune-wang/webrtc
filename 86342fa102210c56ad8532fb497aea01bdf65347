@@ -237,6 +237,30 @@
       "revId": "86342fa102210c56ad8532fb497aea01bdf65347",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8a89dfc_f1afcfd2",
+        "filename": "BUILD.gn",
+        "patchSetId": 8
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-09-13T06:49:42Z",
+      "side": 1,
+      "message": "Should work, I think. But how is COMPONENT_BUILD defined? Can we make WEBRTC_SHARED_LIBRARY globally defined in the same way?\n\nIf we rely on COMPONENT_BUILD in this way, we don\u0027t even need WEBRTC_SHARED_LIBRARY, right? symbol_visibility.h would be the only user, defining the RTC_PUBLIC macro used in the rest of the code.",
+      "parentUuid": "75f2b8cf_36457fcf",
+      "range": {
+        "startLine": 371,
+        "startChar": 21,
+        "endLine": 371,
+        "endChar": 59
+      },
+      "revId": "86342fa102210c56ad8532fb497aea01bdf65347",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

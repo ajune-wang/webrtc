@@ -46,6 +46,30 @@
       "revId": "7cd0e15faf17a0a27c121d30f1f3b78cf2469536",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e26454eb_46d8d268",
+        "filename": "rtc_base/win32socketinit.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-09-13T08:20:55Z",
+      "side": 0,
+      "message": "\u003e In Chrome, this isn\u0027t needed since Chrome itself initializes socket calls. In standalone apps such as tests, we need to make sure that WSAStartup/WSACleanup() is called.\n\u003e \n\u003e In general I think this code is basically legacy code and that the application should perform this initialization, not webrtc (chances are that there will either be multiple calls to initialize winsock, or that the application is unaware that webrtc is doing this).\n\u003e \n\u003e For now, one thing we could do is to move the global g_winsockinit variable into EnsureWinsockInit(), as a static, and that way avoid the global initializer problem.\n\nDone in PS#4. In order to avoid -Wexit-time-destructors I created it on the heap to intentionally leak it. This means ~WinsockInitializer will never be called but it shouldn\u0027t be a problem since WinsockInitializer is only created once at the beginning.\n\n\u003e Another thing we could do is to remove EnsureWinsockInit altogether, offer WinsockInitializer as an inline utility class on Windows and use it directly from tests that need it and otherwise don\u0027t use it. The risky part with that is that Windows standalone apps that implicitly depend on this initialization, might start to fail.\n\nI agree. We can send out a PSA and announce we are going to remove it in 2 weeks.\nAnd the more I think about it and the more I think that PS#4 has the potential to create problems to applications because we are not sure they are calling EnsureWinsockInit. So maybe we can directly go with the second solution and send out a PSA. What do you think?",
+      "parentUuid": "793ab101_9f935b7d",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 33
+      },
+      "revId": "7cd0e15faf17a0a27c121d30f1f3b78cf2469536",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

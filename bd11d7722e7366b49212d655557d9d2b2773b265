@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "01a13f02_d2d0a023",
+        "filename": "modules/audio_coding/neteq/include/neteq.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2018-09-13T12:42:32Z",
+      "side": 1,
+      "message": "I think it should be good enough to use on NetEqLifetimeStatistics::total_samples_received. I\u0027ll add a comment to indicate that.",
+      "parentUuid": "71e1a7d6_909abce8",
+      "range": {
+        "startLine": 79,
+        "startChar": 7,
+        "endLine": 79,
+        "endChar": 30
+      },
+      "revId": "bd11d7722e7366b49212d655557d9d2b2773b265",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "18804594_65c7d512",
         "filename": "modules/audio_coding/neteq/include/neteq.h",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "bd11d7722e7366b49212d655557d9d2b2773b265",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03874dee_c14b1830",
+        "filename": "modules/audio_coding/neteq/include/neteq.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2018-09-13T12:42:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "18804594_65c7d512",
+      "range": {
+        "startLine": 80,
+        "startChar": 11,
+        "endLine": 80,
+        "endChar": 29
+      },
+      "revId": "bd11d7722e7366b49212d655557d9d2b2773b265",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -92,6 +140,30 @@
       "revId": "bd11d7722e7366b49212d655557d9d2b2773b265",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ea3da00_81c1bac9",
+        "filename": "modules/audio_coding/neteq/statistics_calculator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2018-09-13T12:42:32Z",
+      "side": 1,
+      "message": "Ok, I guess that makes sense. Done.",
+      "parentUuid": "1a7c4295_ffc552fc",
+      "range": {
+        "startLine": 187,
+        "startChar": 55,
+        "endLine": 188,
+        "endChar": 0
+      },
+      "revId": "bd11d7722e7366b49212d655557d9d2b2773b265",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

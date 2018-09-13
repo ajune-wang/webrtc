@@ -100,6 +100,7 @@ NetEqImpl::NetEqImpl(const NetEq::Config& config,
       timestamp_(0),
       reset_decoder_(false),
       ssrc_(0),
+      csrc_(0),
       first_packet_(true),
       enable_fast_accelerate_(config.enable_fast_accelerate),
       nack_enabled_(false),
@@ -538,6 +539,19 @@ int NetEqImpl::InsertPacketInternal(const RTPHeader& rtp_header,
 
   bool update_sample_rate_and_channels =
       first_packet_ || (rtp_header.ssrc != ssrc_);
+
+  bool talker_switch = first_packet_ || (rtp_header.numCSRCs == 1 &&
+                                         rtp_header.arrOfCSRCs[0] != csrc_);
+  if (talker_switch) {
+    csrc_ = rtp_header.arrOfCSRCs[0];
+    RTC_LOG(LS_INFO) << "Talker switched!";
+    // Talker switch normally indicates a discontinuity in the decoder state.
+    // We do a decoder reset in such situation to avoid possible audio
+    // artefacts.
+    AudioDecoder* decoder = decoder_database_->GetActiveDecoder();
+    if (decoder != nullptr)
+      decoder->Reset();
+  }
 
   if (update_sample_rate_and_channels) {
     // Reset timestamp scaling.

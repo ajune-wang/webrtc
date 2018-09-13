@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "0638acae_6bc0b139",
+        "filename": "modules/rtp_rtcp/include/receive_statistics.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-09-13T07:33:45Z",
+      "side": 0,
+      "message": "It seems we need to keep this method for a while, to not break downstream users.\n\nThe first approach would be to implement this method by constructing an RtpPacketReceived and pass it to OnRtpPacket. But there are a few difficulties. I think the following attributes are needed, and thus we should copy them from RTPHeader:\n\nheaders_size, padding_size, payload_size, SequenceNumber, Ssrc, Timestamp, payload_type_frequency\n\nI\u0027m not aware of any way to set the payload_size without actually allocating storage, which is fine in tests but so nice at this place. headers_size is also problematic, there\u0027s no easy way to set it directly without also setting headers contents.\n\nI\u0027m thinking that maybe a reasonable approach would be to define a struct containing the data really needed for stats, and use for all methods but the advertised entry points. Then it should be straight forward to have one entry point filling out that struct from an RTPHeader, and one using an RtpPacketReceived. If such a struct/class could also be a base class of RtpPacket, we\u0027d save a copy, but I\u0027m not sure that\u0027s a good match.\n\nAlternatively, keep using RTPHeader internally, and only add a new metod OnRtpPacket, which copies the the data out using packet.GetHeader. That would be a much smaller cl.",
+      "range": {
+        "startLine": 58,
+        "startChar": 2,
+        "endLine": 59,
+        "endChar": 56
+      },
+      "revId": "1beef1a97aa7e9a3f50776e100fa2bc7c63fcdd8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1756d051_3b0b305d",
         "filename": "modules/rtp_rtcp/source/receive_statistics_unittest.cc",
         "patchSetId": 11

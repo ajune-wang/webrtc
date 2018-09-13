@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "bfe1fe86_198519e2",
+        "filename": "modules/rtp_rtcp/include/rtp_header_extension_map.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-09-13T13:03:24Z",
+      "side": 1,
+      "message": "I think it\u0027s needed if we want to be able to receive two-byte header extensions. Looking at the code, I don\u0027t see that there\u0027s too much gain in having the explicit table lookup if kRtpExtensionNumberOfExtensions is reasonable small.\nSo I would vote for first refactoring so that this direct memory dependency is removed.",
+      "parentUuid": "ac803980_e866e15b",
+      "range": {
+        "startLine": 75,
+        "startChar": 26,
+        "endLine": 75,
+        "endChar": 32
+      },
+      "revId": "94ae1bff27a7f4a2344ae576bb1cd6761e1748f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2ff85c64_fcbc9de0",
         "filename": "modules/rtp_rtcp/source/rtp_packet.h",
         "patchSetId": 6
@@ -36,6 +60,30 @@
       "writtenOn": "2018-09-12T12:42:11Z",
       "side": 1,
       "message": "ditto - increasing max number of extension increases size of this class.\nif you need larger ids, consider refactoring plain array into something smarter.\n\nmay be simplest would be to add \u0027id\u0027 to the ExtensionInfo struct, remove assumption \"index \u003d\u003d id -1\", keep kMaxExtensionHeaders low, do linear search.",
+      "range": {
+        "startLine": 153,
+        "startChar": 35,
+        "endLine": 153,
+        "endChar": 55
+      },
+      "revId": "94ae1bff27a7f4a2344ae576bb1cd6761e1748f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2c32868_51f0e29b",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-09-13T13:03:24Z",
+      "side": 1,
+      "message": "We need to handle larger ids if we want to be able to receive two-byte header extensions. Worst case, there could be 255 different extensions.\n\nYes, that would work. Is a fixed-size array to prefer over a vector with a small reserved size, that could potentially increase if needed?",
+      "parentUuid": "2ff85c64_fcbc9de0",
       "range": {
         "startLine": 153,
         "startChar": 35,

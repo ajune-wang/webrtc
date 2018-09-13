@@ -132,8 +132,10 @@ const int RtpExtension::kMidDefaultId = 9;
 const char RtpExtension::kEncryptHeaderExtensionsUri[] =
     "urn:ietf:params:rtp-hdrext:encrypt";
 
+// See RFC8285 Section 4.2-4.3 for local min and max id of header extensions.
 const int RtpExtension::kMinId = 1;
-const int RtpExtension::kMaxId = 14;
+const int RtpExtension::kMaxId = 255;
+const int RtpExtension::kOneByteHeaderExtensionMaxId = 14;
 
 bool RtpExtension::IsSupportedForAudio(const std::string& uri) {
   return uri == webrtc::RtpExtension::kAudioLevelUri ||

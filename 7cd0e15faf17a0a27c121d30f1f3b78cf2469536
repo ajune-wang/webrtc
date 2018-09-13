@@ -94,6 +94,30 @@
       "revId": "7cd0e15faf17a0a27c121d30f1f3b78cf2469536",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53b09822_a4055a62",
+        "filename": "rtc_base/win32socketinit.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2018-09-13T20:26:31Z",
+      "side": 0,
+      "message": "Yes - I\u0027m OK with going straight for the 2nd solution. I find it fairly unlikely that removing it is a problem in practice, and if it is, the PSA will hopefully help and fixing the problem is pretty simple.",
+      "parentUuid": "855ea125_a51d71f4",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 33
+      },
+      "revId": "7cd0e15faf17a0a27c121d30f1f3b78cf2469536",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

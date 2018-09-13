@@ -10,17 +10,10 @@
 
 #include "rtc_base/win32socketinit.h"
 
+#include "rtc_base/checks.h"
 #include "rtc_base/win32.h"
 
 namespace rtc {
-
-// Please don't remove this function.
-void EnsureWinsockInit() {
-  // The default implementation uses a global initializer, so WSAStartup
-  // happens at module load time.  Thus we don't need to do anything here.
-  // The hook is provided so that a client that statically links with
-  // libjingle can override it, to provide its own initialization.
-}
 
 #if defined(WEBRTC_WIN)
 class WinsockInitializer {
@@ -39,7 +32,13 @@ class WinsockInitializer {
  private:
   int err_;
 };
-WinsockInitializer g_winsockinit;
+
+// Please don't remove this function.
+void EnsureWinsockInit() {
+  static WinsockInitializer* winsock_init = new WinsockInitializer();
+  RTC_CHECK_EQ(winsock_init->error(), 0);
+}
+
 #endif
 
 }  // namespace rtc

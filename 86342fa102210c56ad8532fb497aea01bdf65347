@@ -261,6 +261,30 @@
       "revId": "86342fa102210c56ad8532fb497aea01bdf65347",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "09a66be4_b68552b4",
+        "filename": "BUILD.gn",
+        "patchSetId": 8
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-09-13T07:28:24Z",
+      "side": 1,
+      "message": "\u003e Should work, I think. But how is COMPONENT_BUILD defined? Can we make WEBRTC_SHARED_LIBRARY globally defined in the same way?\n\nIt is defined by the Chromium build/config/compiler code: https://cs.chromium.org/chromium/src/build/config/compiler/BUILD.gn?l\u003d1216-1218\u0026rcl\u003d46207ecb02220fe83f3d052098bbcec23625339e. We can\u0027t define WEBRTC_SHARED_LIBRARY there.\n\n\u003e If we rely on COMPONENT_BUILD in this way, we don\u0027t even need WEBRTC_SHARED_LIBRARY, right? symbol_visibility.h would be the only user, defining the RTC_PUBLIC macro used in the rest of the code.\n\nCorrect, I kept WEBRTC_SHARED_LIBRARY around for readability since COMPONENT_BUILD is too generic but we can definitely but no one stops us from doing:\n\n #ifdef COMPONENT_BUILD\n\n // define RTC_PUBLIC\n\n # endif\n\n #ifndef RTC_PUBLIC\n #define RTC_PUBLIC\n #endif\n\nI created WEBRTC_SHARED_LIBRARY after reading the BoringSSL configuration (https://cs.chromium.org/chromium/src/third_party/boringssl/BUILD.gn?l\u003d13-19\u0026rcl\u003d145465a79bc9ea86e8b1a00305ae81c71132bbfb) but that requires clients to explicitly rely on that GN config to define a macro if and only if is_component_build is True (which implies that COMPONENT_BUILD is defined).",
+      "parentUuid": "d8a89dfc_f1afcfd2",
+      "range": {
+        "startLine": 371,
+        "startChar": 21,
+        "endLine": 371,
+        "endChar": 59
+      },
+      "revId": "86342fa102210c56ad8532fb497aea01bdf65347",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

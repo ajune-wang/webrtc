@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9ed7995e_b60c8ae7",
+        "filename": "media/engine/webrtcvideoengine.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 873,
+      "author": {
+        "id": 7621
+      },
+      "writtenOn": "2018-09-13T23:28:08Z",
+      "side": 1,
+      "message": "The mapping does exist on the chrome side, where it\u0027s mapped from the w3c strings:  https://cs.chromium.org/chromium/src/third_party/blink/renderer/modules/peerconnection/rtc_rtp_sender.cc?l\u003d179\n\nI admit if you\u0027re using standalone webrtc there\u0027s more potential for error. I thought about the floats too, but they\u0027re never the output of a measurement and are all exactly specifiable.\n\nI\u0027d prefer adding comments to recreating the conversion helpers.",
+      "parentUuid": "5365f32a_85339789",
+      "range": {
+        "startLine": 873,
+        "startChar": 8,
+        "endLine": 873,
+        "endChar": 60
+      },
+      "revId": "7a905b47009df2ccd12dae00adec991b275a8b94",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6eccbaa5_46a39263",
         "filename": "pc/rtpsender.cc",
         "patchSetId": 4

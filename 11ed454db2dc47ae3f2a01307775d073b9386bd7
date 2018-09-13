@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "3ada1f34_931f482f",
+        "filename": "media/base/mediachannel.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 7621
+      },
+      "writtenOn": "2018-09-13T23:28:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2c53d9e9_023e8125",
+      "range": {
+        "startLine": 242,
+        "startChar": 6,
+        "endLine": 242,
+        "endChar": 13
+      },
+      "revId": "11ed454db2dc47ae3f2a01307775d073b9386bd7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1cf7646d_c8ad06ec",
         "filename": "media/engine/webrtcvideoengine.cc",
         "patchSetId": 3
@@ -68,6 +92,30 @@
       "revId": "11ed454db2dc47ae3f2a01307775d073b9386bd7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "485f8c2f_ce595cec",
+        "filename": "media/engine/webrtcvideoengine.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 871,
+      "author": {
+        "id": 7621
+      },
+      "writtenOn": "2018-09-13T23:28:08Z",
+      "side": 1,
+      "message": "Yeah I just wanted a shorter way of referring to it over and over.  Consted.",
+      "parentUuid": "1cf7646d_c8ad06ec",
+      "range": {
+        "startLine": 871,
+        "startChar": 8,
+        "endLine": 871,
+        "endChar": 9
+      },
+      "revId": "11ed454db2dc47ae3f2a01307775d073b9386bd7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

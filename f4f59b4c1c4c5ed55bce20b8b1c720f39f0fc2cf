@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "273ed77a_d737dd41",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 438,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-09-13T00:01:25Z",
+      "side": 1,
+      "message": "Ack - I assume the signal implemented the equivalent functionality before (it should be disconnected if the Port is destroyed). I do think it is nice to have this code inline. Another fix might be to have an MDnsAddressRegistration object (like HostResolver::Request) that is owned by this object so that the callback could be cancelled, but I don\u0027t think we need to expand the scope of this CL now.",
+      "parentUuid": "e4c1bbf1_a424d346",
+      "revId": "f4f59b4c1c4c5ed55bce20b8b1c720f39f0fc2cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c43659eb_ac8801c7",
         "filename": "p2p/base/port.cc",
         "patchSetId": 7
@@ -103,6 +121,24 @@
       "revId": "f4f59b4c1c4c5ed55bce20b8b1c720f39f0fc2cf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "296426fa_e8e7fe4c",
+        "filename": "rtc_base/mdns_responder_interface.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-09-13T00:01:25Z",
+      "side": 1,
+      "message": "Okay, I see where this comes from now, and I agree that there isn\u0027t any real value to having a synchronous version here. Thanks.",
+      "parentUuid": "498eafb7_3bfd63b4",
+      "revId": "f4f59b4c1c4c5ed55bce20b8b1c720f39f0fc2cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

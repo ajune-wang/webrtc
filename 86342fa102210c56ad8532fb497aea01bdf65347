@@ -285,6 +285,30 @@
       "revId": "86342fa102210c56ad8532fb497aea01bdf65347",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83ea364f_c861004c",
+        "filename": "BUILD.gn",
+        "patchSetId": 8
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-09-13T07:49:54Z",
+      "side": 1,
+      "message": "\u003e \u003e Should work, I think. But how is COMPONENT_BUILD defined? Can we make WEBRTC_SHARED_LIBRARY globally defined in the same way?\n\u003e \n\u003e It is defined by the Chromium build/config/compiler code: https://cs.chromium.org/chromium/src/build/config/compiler/BUILD.gn?l\u003d1216-1218\u0026rcl\u003d46207ecb02220fe83f3d052098bbcec23625339e. We can\u0027t define WEBRTC_SHARED_LIBRARY there.\n\nI wasn\u0027t thinking same place, but using the same mechanism to propagate it to all targets. If that is reasonably easy, I think that\u0027s the right way to go.\n\n\u003e Correct, I kept WEBRTC_SHARED_LIBRARY around for readability since COMPONENT_BUILD is too generic but we can definitely but no one stops us from doing:\n\u003e \n\u003e  #ifdef COMPONENT_BUILD\n\u003e \n\u003e  // define RTC_PUBLIC\n\u003e \n\u003e  # endif\n\u003e \n\u003e  #ifndef RTC_PUBLIC\n\u003e  #define RTC_PUBLIC\n\u003e  #endif\n\nIf it\u0027s too cumbersome to get WEBRTC_SHARED_LIBRARY defined in a global fashion, it looks fine to me to keep things simple and just use and document COMPONENT_BUILD.\n\nI\u0027m still a bit worried about consistency. If some compilation units include symbol_visibility.h without the right definition of COMPONENT_BUILD/WEBRTC_SHARED_LIBRARY, we can get pretty subtle errors. But if this define is a documented facility for applications, it\u0027s inconvenient to require that it\u0027s always defined; it\u0027s friendlier to applications to say that leaving it undefined implies default configuration.\n\nI\u0027m not aware of any simple solution. I think using a generated webrtc-config.h (or a generated symbol-visibility.h, if it\u0027s the only user) would work, but I guess that is a departure from the normal way to use gn configuration. Do we have any other header files that are automatically generated as part of the build?",
+      "parentUuid": "09a66be4_b68552b4",
+      "range": {
+        "startLine": 371,
+        "startChar": 21,
+        "endLine": 371,
+        "endChar": 59
+      },
+      "revId": "86342fa102210c56ad8532fb497aea01bdf65347",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

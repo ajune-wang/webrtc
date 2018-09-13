@@ -7,7 +7,7 @@ vars = {
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
   'webrtc_git': 'https://webrtc.googlesource.com',
-  'chromium_revision': 'bd99b7d4a8c6321fa370190a6e1d0e8e23b16f81',
+  'chromium_revision': 'aa7696e47b35c64bb1c499ab4d2510803dc3682f',
   'boringssl_git': 'https://boringssl.googlesource.com',
   # Three lines of non-changing comments so that
   # the commit queue can handle CLs rolling swarming_client
@@ -24,7 +24,7 @@ vars = {
   # Three lines of non-changing comments so that
   # the commit queue can handle CLs rolling catapult
   # and whatever else without interference from each other.
-  'catapult_revision': 'fc2514597ca6cf3c29b9687ee964736b29bc8c5e',
+  'catapult_revision': 'd64f0324b3984c26c798bc6953234f99a20b145f',
   # Three lines of non-changing comments so that
   # the commit queue can handle CLs rolling libFuzzer
   # and whatever else without interference from each other.
@@ -42,9 +42,9 @@ deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    Var('chromium_git') + '/chromium/src/base' + '@' + '142a80038baae00e003fa2aee355b371b3964cef',
+    Var('chromium_git') + '/chromium/src/base' + '@' + '7692df6a62bde36df1e096353bebfdd3ec9da0b7',
   'src/build':
-    Var('chromium_git') + '/chromium/src/build' + '@' + '107ec0dc4d210fa801217dd84491679350a9ad8c',
+    Var('chromium_git') + '/chromium/src/build' + '@' + '1acbf2897279e95e0235b99902945efff7d14ea1',
   'src/buildtools':
     Var('chromium_git') + '/chromium/buildtools.git' + '@' + '2dff9c9c74e9d732e6fe57c84ef7fd044cc45d96',
   # Gradle 4.3-rc4. Used for testing Android Studio project generation for WebRTC.
@@ -54,13 +54,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': Var('chromium_git') + '/chromium/src/ios' + '@' + '4d01607e134de4a79b1769ff786858a799e94f08',
+    'url': Var('chromium_git') + '/chromium/src/ios' + '@' + '71a2d3717dea4da20902ce783dfceb57713e01ab',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    Var('chromium_git') + '/chromium/src/testing' + '@' + '77621d9252d0bbc0ede01afd03cd75c280712218',
+    Var('chromium_git') + '/chromium/src/testing' + '@' + '7836752645d62794374ae8121190056efa838682',
   'src/third_party':
-    Var('chromium_git') + '/chromium/src/third_party' + '@' + 'cdcd43db7ced095b5e187eccb985cc86a59a09dd',
+    Var('chromium_git') + '/chromium/src/third_party' + '@' + 'e227a273e454fd8576ace8ce7e96119a85232c17',
   'src/third_party/android_ndk': {
       'url': Var('chromium_git') + '/android_ndk.git' + '@' + '4e2cea441bfd43f0863d14f57b1e1844260b9884',
       'condition': 'checkout_android',
@@ -84,7 +84,7 @@ deps = {
   'src/third_party/colorama/src':
     Var('chromium_git') + '/external/colorama.git' + '@' + '799604a1041e9b3bc5d2789ecbd7e8db2e18e6b8',
   'src/third_party/depot_tools':
-    Var('chromium_git') + '/chromium/tools/depot_tools.git' + '@' + 'ddda0b5b8a961e4abb2a1699ffdfe07920046c44',
+    Var('chromium_git') + '/chromium/tools/depot_tools.git' + '@' + '0425ebd2b395dd754606e3639c296c5619757451',
   'src/third_party/errorprone/lib': {
       'url': Var('chromium_git') + '/chromium/third_party/errorprone.git' + '@' + '980d49e839aa4984015efed34b0134d4b2c9b6d7',
       'condition': 'checkout_android',
@@ -195,7 +195,7 @@ deps = {
   'src/third_party/yasm/source/patched-yasm':
     Var('chromium_git') + '/chromium/deps/yasm/patched-yasm.git' + '@' + '720b70524a4424b15fc57e82263568c8ba0496ad',
   'src/tools':
-    Var('chromium_git') + '/chromium/src/tools' + '@' + 'faed70b9c65d9e46bdb40236fb9501d032962466',
+    Var('chromium_git') + '/chromium/src/tools' + '@' + 'f4307deb7f60616a611f84ad63ea4a645ed01b27',
   'src/tools/swarming_client':
     Var('chromium_git') + '/infra/luci/client-py.git' + '@' +  Var('swarming_revision'),
 
@@ -976,7 +976,7 @@ deps = {
       'packages': [
           {
               'package': 'chromium/third_party/android_deps/libs/com_google_guava_guava',
-              'version': 'version:25.0-cr0',
+              'version': 'version:25.0-jre-cr0',
           },
       ],
       'condition': 'checkout_android',

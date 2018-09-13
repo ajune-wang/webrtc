@@ -70,6 +70,30 @@
       "revId": "7cd0e15faf17a0a27c121d30f1f3b78cf2469536",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "855ea125_a51d71f4",
+        "filename": "rtc_base/win32socketinit.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-09-13T08:34:04Z",
+      "side": 0,
+      "message": "It will also allows us to get rid of https://cs.chromium.org/chromium/src/third_party/webrtc_overrides/rtc_base/win32socketinit.cc because I assume this call (https://cs.chromium.org/chromium/src/content/browser/browser_main_loop.cc?l\u003d691-693\u0026rcl\u003d80ec8e2bfafe49e77be2996e7aa9c713c6853ab3) in BrowserMainLoop::EarlyInitialization is enough.",
+      "parentUuid": "e26454eb_46d8d268",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 33
+      },
+      "revId": "7cd0e15faf17a0a27c121d30f1f3b78cf2469536",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

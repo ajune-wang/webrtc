@@ -309,6 +309,30 @@
       "revId": "86342fa102210c56ad8532fb497aea01bdf65347",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4bba52eb_ea0bc92f",
+        "filename": "BUILD.gn",
+        "patchSetId": 8
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-09-13T08:55:54Z",
+      "side": 1,
+      "message": "\u003e \u003e \u003e Should work, I think. But how is COMPONENT_BUILD defined? Can we make WEBRTC_SHARED_LIBRARY globally defined in the same way?\n\u003e \u003e \n\u003e \u003e It is defined by the Chromium build/config/compiler code: https://cs.chromium.org/chromium/src/build/config/compiler/BUILD.gn?l\u003d1216-1218\u0026rcl\u003d46207ecb02220fe83f3d052098bbcec23625339e. We can\u0027t define WEBRTC_SHARED_LIBRARY there.\n\u003e \n\u003e I wasn\u0027t thinking same place, but using the same mechanism to propagate it to all targets. If that is reasonably easy, I think that\u0027s the right way to go.\n\nUnfortunately I don\u0027t think we do anything like that because these configurations are part of the core of the Chromium build system: https://cs.chromium.org/chromium/src/build/config/BUILDCONFIG.gn?l\u003d520-539\u0026rcl\u003d8a1a7293f365fb2685ae57fa24d34b7ee72ad8dd.\n \n\u003e \u003e Correct, I kept WEBRTC_SHARED_LIBRARY around for readability since COMPONENT_BUILD is too generic but we can definitely but no one stops us from doing:\n\u003e \u003e \n\u003e \u003e  #ifdef COMPONENT_BUILD\n\u003e \u003e \n\u003e \u003e  // define RTC_PUBLIC\n\u003e \u003e \n\u003e \u003e  # endif\n\u003e \u003e \n\u003e \u003e  #ifndef RTC_PUBLIC\n\u003e \u003e  #define RTC_PUBLIC\n\u003e \u003e  #endif\n\u003e \n\u003e If it\u0027s too cumbersome to get WEBRTC_SHARED_LIBRARY defined in a global fashion, it looks fine to me to keep things simple and just use and document COMPONENT_BUILD.\n\u003e \n\u003e I\u0027m still a bit worried about consistency. If some compilation units include symbol_visibility.h without the right definition of COMPONENT_BUILD/WEBRTC_SHARED_LIBRARY, we can get pretty subtle errors. But if this define is a documented facility for applications, it\u0027s inconvenient to require that it\u0027s always defined; it\u0027s friendlier to applications to say that leaving it undefined implies default configuration.\n\u003e \n\u003e I\u0027m not aware of any simple solution. I think using a generated webrtc-config.h (or a generated symbol-visibility.h, if it\u0027s the only user) would work, but I guess that is a departure from the normal way to use gn configuration. Do we have any other header files that are automatically generated as part of the build?\n\nWe currently generate JNI code with the jni_generator but I think that generator will still rely on COMPONENT_BUILD or some info from GN land in order to generate webrtc-config.h.\n\nIn a Chromium build, which is the only one supported (because standalone WebRTC still relies on the Chromium build system), I am quite sure COMPONENT_BUILD will be consistently defined everywhere (unless someone will explicitly #undef or remove //build/config/compiler:runtime_library from their build targets, and that happens only here: https://cs.chromium.org/chromium/src/chrome/installer/gcapi_mac/BUILD.gn?l\u003d22-49\u0026rcl\u003d046d539b96f85568341629d6a7166f62817de501).\n\nOn the other hand, I think something like:\n\n #ifdef COMPONENT_BUILD\n #define WEBRTC_SHARED_LIBRARY\n #endif\n\nIs a good idea because it will allow us to document WEBRTC_SHARED_LIBRARY for the standalone WebRTC and let people that use another build system to define WEBRTC_SHARED_LIBRARY. This will force us to use #ifdef (I prefer #if in this case) and it is probably going too far given that there are a lot of macros defined by the build system that are not documented.\n\nSo:\n\n #ifdef COMPONENT_BUILD\n\n // define RTC_PUBLIC\n\n # endif\n\n #ifndef RTC_PUBLIC\n #define RTC_PUBLIC\n #endif\n\nseems the best thing we can do at the moment.",
+      "parentUuid": "83ea364f_c861004c",
+      "range": {
+        "startLine": 371,
+        "startChar": 21,
+        "endLine": 371,
+        "endChar": 59
+      },
+      "revId": "86342fa102210c56ad8532fb497aea01bdf65347",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

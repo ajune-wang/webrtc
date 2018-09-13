@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "2b4b271b_73f8d042",
+        "filename": "BUILD.gn",
+        "patchSetId": 8
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-09-13T18:56:53Z",
+      "side": 1,
+      "message": "Resolving this, I\u0027ve kept IMPL since it is both shorter and common.",
+      "parentUuid": "c663b519_6ecf9456",
+      "range": {
+        "startLine": 96,
+        "startChar": 16,
+        "endLine": 96,
+        "endChar": 37
+      },
+      "revId": "86342fa102210c56ad8532fb497aea01bdf65347",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e8e49ba2_686a5b04",
         "filename": "BUILD.gn",
         "patchSetId": 8
@@ -333,6 +357,30 @@
       "revId": "86342fa102210c56ad8532fb497aea01bdf65347",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55ab9546_c9919d9e",
+        "filename": "BUILD.gn",
+        "patchSetId": 8
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-09-13T18:56:53Z",
+      "side": 1,
+      "message": "Implemented the version with only COMPONENT_BUILD in PS#12.",
+      "parentUuid": "4bba52eb_ea0bc92f",
+      "range": {
+        "startLine": 371,
+        "startChar": 21,
+        "endLine": 371,
+        "endChar": 59
+      },
+      "revId": "86342fa102210c56ad8532fb497aea01bdf65347",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

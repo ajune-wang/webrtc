@@ -289,5 +289,13 @@ INSTANTIATE_TEST_CASE_P(
         ::testing::Values(1, 4, 8, 15, 16, 17, 31, 32, 33, 63, 64),
         ::testing::Values(1, 2, 100, 10000)));
 
+// TODO: !!!
+TEST(ELAD, E1) {
+  // uint64_t shift = 64;
+  // uint64_t x = 1;
+  // x = (x << shift);
+  // printf("x = %lu\n", x);
+}
+
 }  // namespace
 }  // namespace webrtc

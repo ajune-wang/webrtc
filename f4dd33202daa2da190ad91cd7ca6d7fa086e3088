@@ -16,6 +16,75 @@
       "revId": "f4dd33202daa2da190ad91cd7ca6d7fa086e3088",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53eb54bf_b8c1e995",
+        "filename": "tools_webrtc/executable_host_build.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2018-09-14T09:04:53Z",
+      "side": 1,
+      "message": "\u003e Deprecated since version 2.7: The optparse module is deprecated and will not be developed further; development will continue with the argparse module.",
+      "range": {
+        "startLine": 13,
+        "startChar": 5,
+        "endLine": 13,
+        "endChar": 13
+      },
+      "revId": "f4dd33202daa2da190ad91cd7ca6d7fa086e3088",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "837ab2f9_d1d8a6e3",
+        "filename": "tools_webrtc/executable_host_build.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2018-09-14T09:04:53Z",
+      "side": 1,
+      "message": "When you move this description to the top-level docstring, you can use   description\u003d__doc__",
+      "range": {
+        "startLine": 30,
+        "startChar": 6,
+        "endLine": 30,
+        "endChar": 17
+      },
+      "revId": "f4dd33202daa2da190ad91cd7ca6d7fa086e3088",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2f1ec463_108bd236",
+        "filename": "tools_webrtc/executable_host_build.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2018-09-14T09:04:53Z",
+      "side": 1,
+      "message": "Typo",
+      "range": {
+        "startLine": 30,
+        "startChar": 30,
+        "endLine": 30,
+        "endChar": 40
+      },
+      "revId": "f4dd33202daa2da190ad91cd7ca6d7fa086e3088",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

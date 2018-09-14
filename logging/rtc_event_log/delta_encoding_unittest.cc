@@ -131,8 +131,10 @@ TEST_P(DeltaEncodingTest, BigDeltaNoWrapAround) {
   TestEncodingAndDecoding(base, values);
 }
 
+// TODO: !!! Add 1. ForceSignedForTesting 2. ForceUnsignedForTesting 3. Default.
 TEST_P(DeltaEncodingTest, MaxDeltaNoWrapAround) {
-  const uint64_t base = 3432;
+  // const uint64_t base = 3432;  // TODO: !!!
+  const uint64_t base = 5;
 
   const auto values = CreateSequenceByLastValue(
       std::numeric_limits<uint64_t>::max(), GetParam());
@@ -288,6 +290,17 @@ INSTANTIATE_TEST_CASE_P(
     ::testing::Combine(
         ::testing::Values(1, 4, 8, 15, 16, 17, 31, 32, 33, 63, 64),
         ::testing::Values(1, 2, 100, 10000)));
+
+// TODO: !!!
+TEST(ELAD, E1) {
+  uint64_t base = 1;
+  uint64_t delta = 3;
+  uint64_t result = (base - delta) & 0x7;
+  printf("result = %lu\n", result);
+  // uint64_t x = 1;
+  // x = (x << shift);
+  // printf("x = %lu\n", x);
+}
 
 }  // namespace
 }  // namespace webrtc

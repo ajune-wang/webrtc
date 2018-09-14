@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6af606cc_010922b4",
+        "filename": "tools_webrtc/executable_host_build.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2018-09-14T09:00:08Z",
+      "side": 1,
+      "message": "Needs docstring describing what this script does",
+      "revId": "f4dd33202daa2da190ad91cd7ca6d7fa086e3088",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

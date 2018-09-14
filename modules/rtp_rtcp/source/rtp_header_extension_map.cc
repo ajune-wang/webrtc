@@ -21,7 +21,7 @@ namespace {
 
 struct ExtensionInfo {
   RTPExtensionType type;
-  const char* uri;
+  absl::string_view uri;
 };
 
 template <typename Extension>
@@ -80,7 +80,7 @@ bool RtpHeaderExtensionMap::RegisterByType(int id, RTPExtensionType type) {
   return false;
 }
 
-bool RtpHeaderExtensionMap::RegisterByUri(int id, const std::string& uri) {
+bool RtpHeaderExtensionMap::RegisterByUri(int id, absl::string_view uri) {
   for (const ExtensionInfo& extension : kExtensions)
     if (uri == extension.uri)
       return Register(id, extension.type, extension.uri);
@@ -119,7 +119,7 @@ int32_t RtpHeaderExtensionMap::Deregister(RTPExtensionType type) {
 
 bool RtpHeaderExtensionMap::Register(int id,
                                      RTPExtensionType type,
-                                     const char* uri) {
+                                     absl::string_view uri) {
   RTC_DCHECK_GT(type, kRtpExtensionNone);
   RTC_DCHECK_LT(type, kRtpExtensionNumberOfExtensions);
 

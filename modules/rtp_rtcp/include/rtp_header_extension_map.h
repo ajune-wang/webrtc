@@ -11,8 +11,7 @@
 #ifndef MODULES_RTP_RTCP_INCLUDE_RTP_HEADER_EXTENSION_MAP_H_
 #define MODULES_RTP_RTCP_INCLUDE_RTP_HEADER_EXTENSION_MAP_H_
 
-#include <string>
-
+#include "absl/strings/string_view.h"
 #include "api/array_view.h"
 #include "api/rtpparameters.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
@@ -38,7 +37,7 @@ class RtpHeaderExtensionMap {
     return Register(id, Extension::kId, Extension::kUri);
   }
   bool RegisterByType(int id, RTPExtensionType type);
-  bool RegisterByUri(int id, const std::string& uri);
+  bool RegisterByUri(int id, absl::string_view uri);
 
   bool IsRegistered(RTPExtensionType type) const {
     return GetId(type) != kInvalidId;
@@ -68,7 +67,7 @@ class RtpHeaderExtensionMap {
  private:
   static constexpr int kMinId = 1;
   static constexpr int kMaxId = 14;
-  bool Register(int id, RTPExtensionType type, const char* uri);
+  bool Register(int id, RTPExtensionType type, absl::string_view uri);
 
   RTPExtensionType types_[kMaxId + 1];
   uint8_t ids_[kRtpExtensionNumberOfExtensions];

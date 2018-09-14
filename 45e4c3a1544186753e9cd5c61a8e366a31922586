@@ -22,6 +22,30 @@
       "revId": "45e4c3a1544186753e9cd5c61a8e366a31922586",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ffa09c10_8db444ef",
+        "filename": "rtc_base/build/symbol_visibility.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-09-14T06:46:18Z",
+      "side": 1,
+      "message": "Yes, thanks for catching this!",
+      "parentUuid": "99f7205d_c443b73b",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 19
+      },
+      "revId": "45e4c3a1544186753e9cd5c61a8e366a31922586",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

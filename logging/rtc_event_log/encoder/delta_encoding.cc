@@ -23,7 +23,7 @@
 #include "rtc_base/numerics/safe_conversions.h"
 
 namespace webrtc {
-namespace {
+// namespace {  // TODO: !!!
 
 // TODO(eladalon): Only build the decoder in tools and unit tests.
 
@@ -54,9 +54,21 @@ uint64_t MaxValueOfBitWidth(uint64_t bit_width) {
                            : ((static_cast<uint64_t>(1) << bit_width) - 1);
 }
 
+// TODO: !!! Rename
+uint64_t SumWithMod(uint64_t lhs, uint64_t rhs, uint64_t mod_bit_width) {
+  RTC_DCHECK_LE(mod_bit_width, 64);
+  uint64_t sum = lhs + rhs;
+  if (mod_bit_width < 64) {
+    sum = sum % (static_cast<uint64_t>(1) << mod_bit_width);
+  }
+  return sum;
+}
+
 // Computes the delta between |previous| and |current|, under the assumption
-// that wrap-around occurs after width |bit_width| is exceeded.
-uint64_t ComputeDelta(uint64_t previous, uint64_t current, uint64_t width) {
+// that wrap-around occurs after |width| is exceeded.
+uint64_t UnsignedDelta(uint64_t previous,
+                       uint64_t current,
+                       uint64_t width) {
   RTC_DCHECK(width == 64 || current < (static_cast<uint64_t>(1) << width));
   RTC_DCHECK(width == 64 || previous < (static_cast<uint64_t>(1) << width));
 
@@ -67,6 +79,68 @@ uint64_t ComputeDelta(uint64_t previous, uint64_t current, uint64_t width) {
     // "Walk" until the max value, one more step to 0, then to |current|.
     return (MaxValueOfBitWidth(width) - previous) + 1 + current;
   }
+}
+
+// Unlike int64_t, this can go above 0x7fffffffffffffff.
+struct SignedUInt64 final {
+  SignedUInt64() : SignedUInt64(true, 0) {}
+  SignedUInt64(bool positive, uint64_t abs_value) : positive(positive), abs_value(abs_value) {
+    if (abs_value == 0) {
+      positive = true;
+    }
+  }
+
+  bool positive;
+  uint64_t abs_value;
+};
+
+SignedUInt64 SignedDelta(uint64_t previous,
+                         uint64_t current,
+                         uint64_t width) {
+  RTC_DCHECK_GE(width, 1);
+  RTC_DCHECK(width == 64 || current < (static_cast<uint64_t>(1) << width));
+  RTC_DCHECK(width == 64 || previous < (static_cast<uint64_t>(1) << width));
+
+  const uint64_t forward_delta = UnsignedDelta(previous, current, width);
+  const uint64_t backward_delta = UnsignedDelta(current, previous, width);
+  RTC_DCHECK_EQ(SumWithMod(forward_delta, backward_delta, width), 0u);
+
+  if (forward_delta == backward_delta) {  // Either 0 or half of max (rounded).
+    if (forward_delta == 0) {
+      return SignedUInt64(true, 0);
+    }
+    // TODO: !!! Add DCHECKs that hit this.
+    RTC_DCHECK_EQ(forward_delta, 1 << (width - 1));  // Half of max (rounded).
+    // The bit pattern is 100...00 for both, when looked upon as unsigned.
+    // It is possible to represent as a negative value, but not as positive,
+    // using |width| bits.
+  }
+
+  // TODO: !!! Check the case where forward_delta + 1 overflows. May
+
+  // At least one of these deltas (as an absolute value) is less than 64 bits
+  // // wide, or else their summation would exceed the size
+  // RTC_DCHECK(BitWidth(forward_delta) < 64 || BitWidth(backward_delta) < 64);
+
+  // // With signed deltas we can represent one more negative number than we can
+  // // positive numbers. E.g. with 4 bits we can represent numbers in [-8, 7].
+  // // TODO: !!! What if forward_delta overflows? Can I prove it can't? Probably
+  // // I can't.
+  // if (forward_delta + 1 <= backward_delta) {
+  //   return forward_delta;
+  // } else {
+  //   return 
+  // }
+
+  // if (current >= previous) {
+  //   // Simply "walk" forward.
+  //   return current - previous;
+  // } else {
+
+  // }
+
+  return SignedUInt64(true, 0);  // TODO: !!!
+
 }
 
 // Determines the encoding type (e.g. fixed-size encoding).
@@ -194,6 +268,15 @@ class FixedLengthDeltaEncoder final {
   static std::string EncodeDeltas(uint64_t base,
                                   const std::vector<uint64_t>& values);
 
+  // TODO: !!!
+  static void CalculateMinAndMaxDeltas(
+      uint64_t base,
+      const std::vector<uint64_t>& values,
+      uint64_t bit_width,
+      uint64_t* max_unsigned_delta,
+      SignedUInt64* min_signed_delta,
+      SignedUInt64* max_signed_delta);
+
  private:
   // FixedLengthDeltaEncoder objects are to be created by EncodeDeltas() and
   // released by it before it returns. They're mostly a convenient way to
@@ -220,6 +303,8 @@ class FixedLengthDeltaEncoder final {
 
   // Encode a given delta into the stream.
   void EncodeDelta(uint64_t previous, uint64_t current);
+  void EncodeUnsignedDelta(uint64_t previous, uint64_t current);
+  void EncodeSignedDelta(uint64_t previous, uint64_t current);
 
   // The parameters according to which encoding will be done (width of
   // fields, whether signed deltas should be used, etc.)
@@ -254,13 +339,12 @@ std::string FixedLengthDeltaEncoder::EncodeDeltas(
       std::max(BitWidth(base),
                BitWidth(*std::max_element(values.begin(), values.end())));
 
-  uint64_t max_unsigned_delta =
-      ComputeDelta(base, values[0], params.original_width_bits);
-  for (size_t i = 1; i < values.size(); ++i) {
-    const uint64_t unsigned_delta =
-        ComputeDelta(values[i - 1], values[i], params.original_width_bits);
-    max_unsigned_delta = std::max(unsigned_delta, max_unsigned_delta);
-  }
+  uint64_t max_unsigned_delta;
+  SignedUInt64 min_signed_delta;
+  SignedUInt64 max_signed_delta;
+  CalculateMinAndMaxDeltas(base, values, params.original_width_bits,
+                           &max_unsigned_delta, &min_signed_delta,
+                           &max_signed_delta);
 
   // We indicate the special case of all values being equal to the base with
   // the empty string.
@@ -285,6 +369,33 @@ std::string FixedLengthDeltaEncoder::EncodeDeltas(
 
   FixedLengthDeltaEncoder encoder(params, base, values);
   return encoder.Encode();
+}
+
+void FixedLengthDeltaEncoder::CalculateMinAndMaxDeltas(
+    uint64_t base,
+    const std::vector<uint64_t>& values,
+    uint64_t bit_width,
+    uint64_t* max_unsigned_delta_out,
+    SignedUInt64* min_signed_delta_out,
+    SignedUInt64* max_signed_delta_out) {
+  RTC_DCHECK(!values.empty());
+  RTC_DCHECK(max_unsigned_delta_out);
+  RTC_DCHECK(min_signed_delta_out);
+  RTC_DCHECK(max_signed_delta_out);
+
+  uint64_t max_unsigned_delta = UnsignedDelta(base, values[0], bit_width);
+  SignedUInt64 min_signed_delta = SignedDelta(base, values[0], bit_width);
+  SignedUInt64 max_signed_delta = min_signed_delta;
+
+  for (size_t i = 1; i < values.size(); ++i) {
+    const uint64_t unsigned_delta =
+        UnsignedDelta(values[i - 1], values[i], bit_width);
+    max_unsigned_delta = std::max(unsigned_delta, max_unsigned_delta);
+  }
+
+  *max_unsigned_delta_out = max_unsigned_delta;
+  *min_signed_delta_out = min_signed_delta;
+  *max_signed_delta_out = max_signed_delta;
 }
 
 FixedLengthDeltaEncoder::FixedLengthDeltaEncoder(
@@ -385,10 +496,26 @@ void FixedLengthDeltaEncoder::EncodeHeaderWithAllOptionalFields() {
 }
 
 void FixedLengthDeltaEncoder::EncodeDelta(uint64_t previous, uint64_t current) {
+  if (params_.signed_deltas) {
+    EncodeSignedDelta(previous, current);
+  } else {
+    EncodeUnsignedDelta(previous, current);
+  }
+}
+
+void FixedLengthDeltaEncoder::EncodeUnsignedDelta(uint64_t previous, uint64_t current) {
   RTC_DCHECK(writer_);
-  writer_->WriteBits(
-      ComputeDelta(previous, current, params_.original_width_bits),
-      params_.delta_width_bits);
+  const uint64_t delta =
+      UnsignedDelta(previous, current, params_.original_width_bits);
+  writer_->WriteBits(delta, params_.delta_width_bits);
+}
+
+void FixedLengthDeltaEncoder::EncodeSignedDelta(uint64_t previous, uint64_t current) {
+  // TODO: !!!
+  // RTC_DCHECK(writer_);
+  // const SignedUInt64 delta =
+  //     SignedDelta(previous, current, params_.original_width_bits);
+  // writer_->WriteBits(UnsignedRepresentation(delta), params_.delta_width_bits);
 }
 
 // Perform decoding of a a delta-encoded stream, extracting the original
@@ -708,7 +835,7 @@ uint64_t FixedLengthDeltaDecoder::ApplyDelta(uint64_t base,
   return result;
 }
 
-}  // namespace
+// }  // namespace  // TODO: !!!
 
 std::string EncodeDeltas(uint64_t base, const std::vector<uint64_t>& values) {
   // TODO(eladalon): Support additional encodings.
@@ -737,3 +864,10 @@ std::vector<uint64_t> DecodeDeltas(const std::string& input,
 }
 
 }  // namespace webrtc
+
+// TODO: !!!
+// uint64_t TestMe(uint64_t previous,
+//                 uint64_t current,
+//                 uint64_t width) {
+//   return webrtc::SignedDelta(previous, current, width);
+// }

@@ -21,7 +21,26 @@
 #include "test/gtest.h"
 
 namespace webrtc {
+
+void SetFixedLengthEncoderDeltaSignednessForTesting(bool signedness);
+
 namespace {
+
+enum class DeltaSignedness { kNoOverride, kForceUnsigned, kForceSigned };
+
+void MaybeSetSignedness(DeltaSignedness signedness) {
+  switch (signedness) {
+    case DeltaSignedness::kNoOverride:
+      return;
+    case DeltaSignedness::kForceUnsigned:
+      SetFixedLengthEncoderDeltaSignednessForTesting(false);
+      return;
+    case DeltaSignedness::kForceSigned:
+      // SetFixedLengthEncoderDeltaSignednessForTesting(true);  // TODO: !!!
+      return;
+  }
+  RTC_NOTREACHED();
+}
 
 uint64_t RandomWithMaxBitWidth(Random* prng, uint64_t max_width) {
   RTC_DCHECK_GE(max_width, 1u);
@@ -95,14 +114,23 @@ std::vector<uint64_t> CreateSequenceByDeltas(
 
 // Tests of the delta encoding, parameterized by the number of values
 // in the sequence created by the test.
-class DeltaEncodingTest : public ::testing::TestWithParam<size_t> {
+class DeltaEncodingTest
+    : public ::testing::TestWithParam<std::tuple<DeltaSignedness, size_t>> {
  public:
+  DeltaEncodingTest()
+      : signedness_(std::get<0>(GetParam())),
+        num_of_values_(std::get<1>(GetParam())) {
+    MaybeSetSignedness(signedness_);
+  }
   ~DeltaEncodingTest() override = default;
+
+  const DeltaSignedness signedness_;
+  const uint64_t num_of_values_;
 };
 
 TEST_P(DeltaEncodingTest, AllValuesEqualToBaseValue) {
   const uint64_t base = 3432;
-  std::vector<uint64_t> values(GetParam());
+  std::vector<uint64_t> values(num_of_values_);
   std::fill(values.begin(), values.end(), base);
   std::string encoded;
   TestEncodingAndDecoding(base, values, &encoded);
@@ -115,7 +143,7 @@ TEST_P(DeltaEncodingTest, AllValuesEqualToBaseValue) {
 TEST_P(DeltaEncodingTest, MinDeltaNoWrapAround) {
   const uint64_t base = 3432;
 
-  const auto values = CreateSequenceByFirstValue(base + 1, GetParam());
+  const auto values = CreateSequenceByFirstValue(base + 1, num_of_values_);
   ASSERT_GT(values[values.size() - 1], base) << "Sanity; must not wrap around";
 
   TestEncodingAndDecoding(base, values);
@@ -125,17 +153,20 @@ TEST_P(DeltaEncodingTest, BigDeltaNoWrapAround) {
   const uint64_t kBigDelta = 132828;
   const uint64_t base = 3432;
 
-  const auto values = CreateSequenceByFirstValue(base + kBigDelta, GetParam());
+  const auto values =
+      CreateSequenceByFirstValue(base + kBigDelta, num_of_values_);
   ASSERT_GT(values[values.size() - 1], base) << "Sanity; must not wrap around";
 
   TestEncodingAndDecoding(base, values);
 }
 
+// TODO: !!! Add 1. ForceSignedForTesting 2. ForceUnsignedForTesting 3. Default.
 TEST_P(DeltaEncodingTest, MaxDeltaNoWrapAround) {
-  const uint64_t base = 3432;
+  // const uint64_t base = 3432;  // TODO: !!!
+  const uint64_t base = 5;
 
   const auto values = CreateSequenceByLastValue(
-      std::numeric_limits<uint64_t>::max(), GetParam());
+      std::numeric_limits<uint64_t>::max(), num_of_values_);
   ASSERT_GT(values[values.size() - 1], base) << "Sanity; must not wrap around";
 
   TestEncodingAndDecoding(base, values);
@@ -144,7 +175,7 @@ TEST_P(DeltaEncodingTest, MaxDeltaNoWrapAround) {
 TEST_P(DeltaEncodingTest, MinDeltaWithWrapAround) {
   const uint64_t base = std::numeric_limits<uint64_t>::max();
 
-  const auto values = CreateSequenceByDeltas(0, {10, 3}, GetParam());
+  const auto values = CreateSequenceByDeltas(0, {10, 3}, num_of_values_);
   ASSERT_LT(values[values.size() - 1], base) << "Sanity; must wrap around";
 
   TestEncodingAndDecoding(base, values);
@@ -159,7 +190,8 @@ TEST_P(DeltaEncodingTest, BigDeltaWithWrapAround) {
   const uint64_t kBigDelta = 132828;
   const uint64_t base = std::numeric_limits<uint64_t>::max() - kBigDelta + 3;
 
-  const auto values = CreateSequenceByFirstValue(base + kBigDelta, GetParam());
+  const auto values =
+      CreateSequenceByFirstValue(base + kBigDelta, num_of_values_);
   ASSERT_LT(values[values.size() - 1], base) << "Sanity; must wrap around";
 
   TestEncodingAndDecoding(base, values);
@@ -171,15 +203,15 @@ TEST_P(DeltaEncodingTest, BigDeltaWithWrapAround) {
 TEST_P(DeltaEncodingTest, MaxDeltaWithWrapAround) {
   const uint64_t base = 3432;
 
-  const auto values = CreateSequenceByLastValue(3, GetParam());
+  const auto values = CreateSequenceByLastValue(3, num_of_values_);
   ASSERT_LT(values[values.size() - 1], base) << "Sanity; must wrap around";
 
   TestEncodingAndDecoding(base, values);
 }
 
-// If GetParam() == 1, a zero delta will yield an empty string; that's already
-// covered by AllValuesEqualToBaseValue, but it doesn't hurt to test again.
-// For all other cases, we have a new test.
+// If num_of_values_ == 1, a zero delta will yield an empty string; that's
+// already covered by AllValuesEqualToBaseValue, but it doesn't hurt to test
+// again. For all other cases, we have a new test.
 TEST_P(DeltaEncodingTest, ZeroDelta) {
   const uint64_t base = 3432;
 
@@ -187,26 +219,35 @@ TEST_P(DeltaEncodingTest, ZeroDelta) {
   // consecutive zeros.
   const std::vector<uint64_t> deltas = {0,      312, 11, 1,  1, 0, 0, 12,
                                         400321, 3,   3,  12, 5, 0, 6};
-  const auto values = CreateSequenceByDeltas(base, deltas, GetParam());
+  const auto values = CreateSequenceByDeltas(base, deltas, num_of_values_);
 
   TestEncodingAndDecoding(base, values);
 }
 
-INSTANTIATE_TEST_CASE_P(NumberOfValuesInSequence,
-                        DeltaEncodingTest,
-                        ::testing::Values(1, 2, 100, 10000));
+INSTANTIATE_TEST_CASE_P(
+    NumberOfValuesInSequence,
+    DeltaEncodingTest,
+    ::testing::Combine(::testing::Values(DeltaSignedness::kNoOverride,
+                                         DeltaSignedness::kForceUnsigned,
+                                         DeltaSignedness::kForceSigned),
+                       ::testing::Values(1, 2, 100, 10000)));
 
 // Tests over the quality of the compression (as opposed to its correctness).
 // Not to be confused with tests of runtime efficiency.
 class DeltaEncodingCompressionQualityTest
-    : public ::testing::TestWithParam<std::tuple<uint64_t, uint64_t>> {
+    : public ::testing::TestWithParam<
+          std::tuple<DeltaSignedness, uint64_t, uint64_t>> {
  public:
   DeltaEncodingCompressionQualityTest()
-      : delta_max_bit_width_(std::get<0>(GetParam())),
-        num_of_values_(std::get<1>(GetParam())) {}
+      : signedness_(std::get<0>(GetParam())),
+        delta_max_bit_width_(std::get<1>(GetParam())),
+        num_of_values_(std::get<2>(GetParam())) {
+    MaybeSetSignedness(signedness_);
+  }
 
   ~DeltaEncodingCompressionQualityTest() override = default;
 
+  const DeltaSignedness signedness_;
   const uint64_t delta_max_bit_width_;
   const uint64_t num_of_values_;
 };
@@ -250,20 +291,28 @@ INSTANTIATE_TEST_CASE_P(
     DeltaMaxBitWidthAndNumberOfValuesInSequence,
     DeltaEncodingCompressionQualityTest,
     ::testing::Combine(
+        ::testing::Values(DeltaSignedness::kNoOverride,
+                          DeltaSignedness::kForceUnsigned,
+                          DeltaSignedness::kForceSigned),
         ::testing::Values(1, 4, 8, 15, 16, 17, 31, 32, 33, 63, 64),
         ::testing::Values(1, 2, 100, 10000)));
 
 // Similar to DeltaEncodingTest, but instead of semi-surgically producing
 // specific cases, produce large amount of semi-realistic inputs.
 class DeltaEncodingFuzzerLikeTest
-    : public ::testing::TestWithParam<std::tuple<uint64_t, uint64_t>> {
+    : public ::testing::TestWithParam<
+          std::tuple<DeltaSignedness, uint64_t, uint64_t>> {
  public:
   DeltaEncodingFuzzerLikeTest()
-      : delta_max_bit_width_(std::get<0>(GetParam())),
-        num_of_values_(std::get<1>(GetParam())) {}
+      : signedness_(std::get<0>(GetParam())),
+        delta_max_bit_width_(std::get<1>(GetParam())),
+        num_of_values_(std::get<2>(GetParam())) {
+    MaybeSetSignedness(signedness_);
+  }
 
   ~DeltaEncodingFuzzerLikeTest() override = default;
 
+  const DeltaSignedness signedness_;
   const uint64_t delta_max_bit_width_;
   const uint64_t num_of_values_;
 };
@@ -286,6 +335,9 @@ INSTANTIATE_TEST_CASE_P(
     DeltaMaxBitWidthAndNumberOfValuesInSequence,
     DeltaEncodingFuzzerLikeTest,
     ::testing::Combine(
+        ::testing::Values(DeltaSignedness::kNoOverride,
+                          DeltaSignedness::kForceUnsigned,
+                          DeltaSignedness::kForceSigned),
         ::testing::Values(1, 4, 8, 15, 16, 17, 31, 32, 33, 63, 64),
         ::testing::Values(1, 2, 100, 10000)));
 

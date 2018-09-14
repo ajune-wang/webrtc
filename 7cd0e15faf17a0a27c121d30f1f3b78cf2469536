@@ -118,6 +118,30 @@
       "revId": "7cd0e15faf17a0a27c121d30f1f3b78cf2469536",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bcf3286f_f3297a4a",
+        "filename": "rtc_base/win32socketinit.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-09-14T08:28:09Z",
+      "side": 0,
+      "message": "Ok, I am preparing the PSA.\n\nWhile doing that I created https://webrtc-review.googlesource.com/c/src/+/100420 to confirm that Chromium is not affected. Compilation is OK but I plan to manually test it later because I had to remove a call to EnsureWinsockInit in rtc_base/physicalsocketserver.cc and it is possible that Chromium was implicitly doing that. Removing that should not affect Chromium but I prefer to double check.",
+      "parentUuid": "53b09822_a4055a62",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 33
+      },
+      "revId": "7cd0e15faf17a0a27c121d30f1f3b78cf2469536",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

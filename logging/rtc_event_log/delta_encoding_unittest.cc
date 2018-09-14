@@ -224,5 +224,6 @@ INSTANTIATE_TEST_CASE_P(
     DeltaEncodingFuzzerLikeTest,
     ::testing::Combine(::testing::Values(1, 4, 8, 32, 64),
                        ::testing::Values(1, 2, 100, 10000)));
+
 }  // namespace
 }  // namespace webrtc

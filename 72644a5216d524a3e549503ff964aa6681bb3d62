@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9f8bcdab_68db0761",
+        "filename": "rtc_base/build/rtc_export.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-09-14T08:35:01Z",
+      "side": 1,
+      "message": "Maybe we could rearrange this to depend on COMPONENT_BUILD only on windows? Like\n\n#ifdef WEBRTC_WIN\n\n#ifdef COMPONENT_BUILD\n#ifdef WEBRTC_LIBRARY_IMPL\n#define RTC_EXPORT __declspec(dllexport)\n#else\n#define RTC_EXPORT __declspec(dllimport)\n#endif\n#endif  // COMPONENT_BUILD\n\n#else  // WEBRTC_WIN\n\n#if __has_attribute(visibility)\n#define RTC_EXPORT __attribute__((visibility(\"default\")))\n#endif\n\n#endif  // WEBRTC_WIN\n\nThis defines RTC_EXPORT in a lot more cases, but in those cases it\u0027s not going to have any effect, since \"default\" visibility is, well, the default.",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 0
+      },
+      "revId": "72644a5216d524a3e549503ff964aa6681bb3d62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

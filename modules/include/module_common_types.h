@@ -54,7 +54,13 @@ class RTPFragmentationHeader {
 
   RTPFragmentationHeader(RTPFragmentationHeader&& other)
       : RTPFragmentationHeader() {
-    std::swap(*this, other);
+    using std::swap;
+    swap(*this, other);
+  }
+
+  void operator=(RTPFragmentationHeader&& other) {
+    using std::swap;
+    swap(*this, other);
   }
 
   ~RTPFragmentationHeader() {
@@ -63,8 +69,6 @@ class RTPFragmentationHeader {
     delete[] fragmentationTimeDiff;
     delete[] fragmentationPlType;
   }
-
-  void operator=(RTPFragmentationHeader&& other) { std::swap(*this, other); }
 
   friend void swap(RTPFragmentationHeader& a, RTPFragmentationHeader& b) {
     using std::swap;

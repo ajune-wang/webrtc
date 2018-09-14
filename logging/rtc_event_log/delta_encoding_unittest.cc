@@ -19,6 +19,9 @@
 #include "rtc_base/random.h"
 #include "test/gtest.h"
 
+// TODO: !!!
+uint64_t TestMe(uint64_t previous, uint64_t current, uint64_t width);
+
 namespace webrtc {
 namespace {
 
@@ -224,5 +227,30 @@ INSTANTIATE_TEST_CASE_P(
     DeltaEncodingFuzzerLikeTest,
     ::testing::Combine(::testing::Values(1, 4, 8, 32, 64),
                        ::testing::Values(1, 2, 100, 10000)));
+
+// uint64_t BitWidth(uint64_t input) {
+//   uint64_t width = 0;
+//   do {  // input == 0 -> width == 1
+//     width += 1;
+//     input >>= 1;
+//   } while (input != 0);
+//   return width;
+// }
+
+// uint64_t MaxValueOfBitWidth(uint64_t bit_width) {
+//   RTC_DCHECK_GE(bit_width, 1);
+//   RTC_DCHECK_LE(bit_width, 64);
+//   return (bit_width == 64) ? std::numeric_limits<uint64_t>::max()
+//                            : ((static_cast<uint64_t>(1) << bit_width) - 1);
+// }
+
+// TEST(ELAD, E1) {
+//   uint64_t x = 0xffffffffffffffff;
+//   uint64_t y = 0x7fffffffffffffff;
+//   // uint64_t x = 0xf;
+//   // uint64_t y = 0xf / 2;
+//   TestMe(x, y, 64);
+// }
+
 }  // namespace
 }  // namespace webrtc

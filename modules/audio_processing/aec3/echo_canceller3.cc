@@ -62,6 +62,10 @@ bool EnableUnityNonZeroRampupGain() {
   return field_trial::IsEnabled("WebRTC-Aec3EnableUnityNonZeroRampupGain");
 }
 
+bool EnableDominantNearendTuning() {
+  return field_trial::IsEnabled("WebRTC-Aec3EnableDominantNearendTuning");
+}
+
 // Method for adjusting config parameter dependencies..
 EchoCanceller3Config AdjustConfig(const EchoCanceller3Config& config) {
   EchoCanceller3Config adjusted_cfg = config;
@@ -145,6 +149,21 @@ EchoCanceller3Config AdjustConfig(const EchoCanceller3Config& config) {
       adjusted_cfg.echo_removal_control.gain_rampup.first_non_zero_gain ==
           default_cfg.echo_removal_control.gain_rampup.first_non_zero_gain) {
     adjusted_cfg.echo_removal_control.gain_rampup.first_non_zero_gain = 1.f;
+  }
+
+  if (EnableDominantNearendTuning()) {
+    default_cfg.suppressor.dominant_nearend_detection.enr_threshold = 7;
+    default_cfg.suppressor.dominant_nearend_detection.snr_threshold = 60;
+    default_cfg.suppressor.dominant_nearend_detection.hold_duration = 6;
+    default_cfg.suppressor.dominant_nearend_detection.trigger_threshold = 10;
+    default_cfg.suppressor.nearend_tuning.mask_hf.enr_transparent = 0.27f;
+    default_cfg.suppressor.nearend_tuning.mask_hf.enr_suppress = 0.3f;
+    default_cfg.suppressor.nearend_tuning.mask_hf.emr_transparent = 0.5f;
+    default_cfg.suppressor.nearend_tuning.mask_lf.enr_transparent = 0.4f;
+    default_cfg.suppressor.nearend_tuning.mask_lf.enr_suppress = 0.5f;
+    default_cfg.suppressor.nearend_tuning.mask_lf.emr_transparent = 0.5f;
+    default_cfg.suppressor.nearend_tuning.max_dec_factor_lf = 0.4f;
+    default_cfg.suppressor.nearend_tuning.max_inc_factor = 4.f;
   }
 
   return adjusted_cfg;

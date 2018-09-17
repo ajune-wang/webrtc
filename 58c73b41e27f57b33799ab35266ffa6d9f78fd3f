@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a550ff50_0375a75c",
+        "filename": "tools_webrtc/executable_host_build.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-09-17T08:24:47Z",
+      "side": 1,
+      "message": "There is with tempfile.TemporaryDirectory() as tmpdirname, but I guess that isn\u0027t available in Python 2.7?",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 27
+      },
+      "revId": "58c73b41e27f57b33799ab35266ffa6d9f78fd3f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

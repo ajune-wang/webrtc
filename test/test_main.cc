@@ -19,6 +19,10 @@
 #include "test/testsupport/fileutils.h"
 #include "test/testsupport/perf_test.h"
 
+#if defined(WEBRTC_WIN)
+#include "rtc_base/win32socketinit.h"
+#endif
+
 #if defined(WEBRTC_IOS)
 #include "test/ios/test_support.h"
 
@@ -85,6 +89,10 @@ int main(int argc, char* argv[]) {
   // the application.
   webrtc::field_trial::InitFieldTrialsFromString(FLAG_force_fieldtrials);
   webrtc::metrics::Enable();
+
+#if defined(WEBRTC_WIN)
+  rtc::WinsockInitializer winsock_init;
+#endif
 
   rtc::LogMessage::SetLogToStderr(FLAG_logs);
 

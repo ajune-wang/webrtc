@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8a804f03_6dcbf51e",
+        "filename": "rtc_base/asyncpacketsocket.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-09-17T09:26:50Z",
+      "side": 1,
+      "message": "Another alternative would be to add an `operator int64_t` method to PacketTime: https://godbolt.org/z/KU3GrV",
+      "revId": "59719c8ed4ab4a796a65cc9aa4f428cbf5cfa406",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

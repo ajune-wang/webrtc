@@ -128,23 +128,39 @@ rtc_source_set("field_trial_default") {
   visibility = [ "*" ]
 }
 
-rtc_source_set("runtime_enabled_features_api") {
+rtc_source_set("runtime_enabled_features") {
   visibility = [ "*" ]
-  sources = [
+  configs += [ "..:no_global_constructors" ]
+  public = [
     "include/runtime_enabled_features.h",
+  ]
+  sources = [
+    "source/runtime_enabled_features.cc",
+  ]
+  if (rtc_exclude_runtime_enabled_features_default) {
+    defines = [ "WEBRTC_EXCLUDE_RUNTIME_ENABLED_FEATURES" ]
+  }
+  deps = [
+    "../rtc_base:rtc_base_approved",
   ]
 }
 
-rtc_source_set("runtime_enabled_features_default") {
+# TODO(bugs.webrtc.org/9631): Remove this as soon as Chromium stop depending
+# on it.
+rtc_source_set("runtime_enabled_features_api") {
+  public_deps = [  # no-presubmit-check TODO(webrtc:8603)
+    ":runtime_enabled_features",
+  ]
   visibility = [ "*" ]
-  configs += [ "..:no_global_constructors" ]
-  sources = [
-    "source/runtime_enabled_features_default.cc",
+}
+
+# TODO(bugs.webrtc.org/9631): Remove this as soon as Chromium stop depending
+# on it.
+rtc_source_set("runtime_enabled_features_default") {
+  public_deps = [  # no-presubmit-check TODO(webrtc:8603)
+    ":runtime_enabled_features",
   ]
-  deps = [
-    ":runtime_enabled_features_api",
-    "../rtc_base:rtc_base_approved",
-  ]
+  visibility = [ "*" ]
 }
 
 rtc_source_set("metrics") {

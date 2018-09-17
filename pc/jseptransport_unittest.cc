@@ -1045,7 +1045,7 @@ class JsepTransport2HeaderExtensionTest
   void OnReadPacket1(rtc::PacketTransportInternal* transport,
                      const char* data,
                      size_t size,
-                     const rtc::PacketTime& time,
+                     int64_t /* packet_time_us */,
                      int flags) {
     RTC_LOG(LS_INFO) << "JsepTransport 1 Received a packet.";
     CompareHeaderExtensions(
@@ -1058,7 +1058,7 @@ class JsepTransport2HeaderExtensionTest
   void OnReadPacket2(rtc::PacketTransportInternal* transport,
                      const char* data,
                      size_t size,
-                     const rtc::PacketTime& time,
+                     int64_t /* packet_time_us */,
                      int flags) {
     RTC_LOG(LS_INFO) << "JsepTransport 2 Received a packet.";
     CompareHeaderExtensions(

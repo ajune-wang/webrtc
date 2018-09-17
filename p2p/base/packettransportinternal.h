@@ -25,7 +25,6 @@
 
 namespace rtc {
 struct PacketOptions;
-struct PacketTime;
 struct SentPacket;
 
 class PacketTransportInternal : public virtual webrtc::PacketTransportInterface,
@@ -82,11 +81,7 @@ class PacketTransportInternal : public virtual webrtc::PacketTransportInterface,
   sigslot::signal1<PacketTransportInternal*> SignalReceivingState;
 
   // Signalled each time a packet is received on this channel.
-  sigslot::signal5<PacketTransportInternal*,
-                   const char*,
-                   size_t,
-                   const rtc::PacketTime&,
-                   int>
+  sigslot::signal5<PacketTransportInternal*, const char*, size_t, int64_t, int>
       SignalReadPacket;
 
   // Signalled each time a packet is sent on this channel.

@@ -234,12 +234,12 @@ static void SendPingAndReceiveResponse(Connection* lconn,
   ASSERT_TRUE_WAIT(lport->last_stun_msg(), kDefaultTimeout);
   ASSERT_TRUE(lport->last_stun_buf());
   rconn->OnReadPacket(lport->last_stun_buf()->data<char>(),
-                      lport->last_stun_buf()->size(), rtc::PacketTime());
+                      lport->last_stun_buf()->size(), /* packet_time_us */ -1);
   clock->AdvanceTime(webrtc::TimeDelta::ms(ms));
   ASSERT_TRUE_WAIT(rport->last_stun_msg(), kDefaultTimeout);
   ASSERT_TRUE(rport->last_stun_buf());
   lconn->OnReadPacket(rport->last_stun_buf()->data<char>(),
-                      rport->last_stun_buf()->size(), rtc::PacketTime());
+                      rport->last_stun_buf()->size(), /* packet_time_us */ -1);
 }
 
 class TestChannel : public sigslot::has_slots<> {
@@ -1391,7 +1391,7 @@ TEST_F(PortTest, TestLoopbackCall) {
   IceMessage* msg = lport->last_stun_msg();
   EXPECT_EQ(STUN_BINDING_REQUEST, msg->type());
   conn->OnReadPacket(lport->last_stun_buf()->data<char>(),
-                     lport->last_stun_buf()->size(), rtc::PacketTime());
+                     lport->last_stun_buf()->size(), /* packet_time_us */ -1);
   ASSERT_TRUE_WAIT(lport->last_stun_msg() != NULL, kDefaultTimeout);
   msg = lport->last_stun_msg();
   EXPECT_EQ(STUN_BINDING_RESPONSE, msg->type());
@@ -1424,7 +1424,7 @@ TEST_F(PortTest, TestLoopbackCall) {
   lport->Reset();
   std::unique_ptr<ByteBufferWriter> buf(new ByteBufferWriter());
   WriteStunMessage(modified_req.get(), buf.get());
-  conn1->OnReadPacket(buf->Data(), buf->Length(), rtc::PacketTime());
+  conn1->OnReadPacket(buf->Data(), buf->Length(), /* packet_time_us */ -1);
   ASSERT_TRUE_WAIT(lport->last_stun_msg() != NULL, kDefaultTimeout);
   msg = lport->last_stun_msg();
   EXPECT_EQ(STUN_BINDING_ERROR_RESPONSE, msg->type());
@@ -1460,7 +1460,7 @@ TEST_F(PortTest, TestIceRoleConflict) {
   EXPECT_EQ(STUN_BINDING_REQUEST, msg->type());
   // Send rport binding request to lport.
   lconn->OnReadPacket(rport->last_stun_buf()->data<char>(),
-                      rport->last_stun_buf()->size(), rtc::PacketTime());
+                      rport->last_stun_buf()->size(), /* packet_time_us */ -1);
 
   ASSERT_TRUE_WAIT(lport->last_stun_msg() != NULL, kDefaultTimeout);
   EXPECT_EQ(STUN_BINDING_RESPONSE, lport->last_stun_msg()->type());
@@ -1693,13 +1693,13 @@ TEST_F(PortTest, TestSendStunMessage) {
 
   // Receive the BINDING-REQUEST and respond with BINDING-RESPONSE.
   rconn->OnReadPacket(lport->last_stun_buf()->data<char>(),
-                      lport->last_stun_buf()->size(), rtc::PacketTime());
+                      lport->last_stun_buf()->size(), /* packet_time_us */ -1);
   msg = rport->last_stun_msg();
   ASSERT_TRUE(msg != NULL);
   EXPECT_EQ(STUN_BINDING_RESPONSE, msg->type());
   // Received a BINDING-RESPONSE.
   lconn->OnReadPacket(rport->last_stun_buf()->data<char>(),
-                      rport->last_stun_buf()->size(), rtc::PacketTime());
+                      rport->last_stun_buf()->size(), /* packet_time_us */ -1);
   // Verify the STUN Stats.
   EXPECT_EQ(1U, lconn->stats().sent_ping_requests_total);
   EXPECT_EQ(1U, lconn->stats().sent_ping_requests_before_first_response);
@@ -1779,11 +1779,11 @@ TEST_F(PortTest, TestSendStunMessage) {
   // Respond with a BINDING-RESPONSE.
   request.reset(CopyStunMessage(msg));
   lconn->OnReadPacket(rport->last_stun_buf()->data<char>(),
-                      rport->last_stun_buf()->size(), rtc::PacketTime());
+                      rport->last_stun_buf()->size(), /* packet_time_us */ -1);
   msg = lport->last_stun_msg();
   // Receive the BINDING-RESPONSE.
   rconn->OnReadPacket(lport->last_stun_buf()->data<char>(),
-                      lport->last_stun_buf()->size(), rtc::PacketTime());
+                      lport->last_stun_buf()->size(), /* packet_time_us */ -1);
 
   // Verify the Stun ping stats.
   EXPECT_EQ(3U, rconn->stats().sent_ping_requests_total);
@@ -1837,7 +1837,7 @@ TEST_F(PortTest, TestNomination) {
   ASSERT_TRUE_WAIT(lport->last_stun_msg(), kDefaultTimeout);
   ASSERT_TRUE(lport->last_stun_buf());
   rconn->OnReadPacket(lport->last_stun_buf()->data<char>(),
-                      lport->last_stun_buf()->size(), rtc::PacketTime());
+                      lport->last_stun_buf()->size(), /* packet_time_us */ -1);
   EXPECT_EQ(nomination, rconn->remote_nomination());
   EXPECT_FALSE(lconn->nominated());
   EXPECT_TRUE(rconn->nominated());
@@ -1849,7 +1849,7 @@ TEST_F(PortTest, TestNomination) {
   ASSERT_TRUE_WAIT(rport->last_stun_msg(), kDefaultTimeout);
   ASSERT_TRUE(rport->last_stun_buf());
   lconn->OnReadPacket(rport->last_stun_buf()->data<char>(),
-                      rport->last_stun_buf()->size(), rtc::PacketTime());
+                      rport->last_stun_buf()->size(), /* packet_time_us */ -1);
   EXPECT_EQ(nomination, lconn->acked_nomination());
   EXPECT_TRUE(lconn->nominated());
   EXPECT_TRUE(rconn->nominated());
@@ -1982,7 +1982,7 @@ TEST_F(PortTest, TestNetworkCostChange) {
   EXPECT_EQ(STUN_BINDING_REQUEST, msg->type());
   // Pass the binding request to rport.
   rconn->OnReadPacket(lport->last_stun_buf()->data<char>(),
-                      lport->last_stun_buf()->size(), rtc::PacketTime());
+                      lport->last_stun_buf()->size(), /* packet_time_us */ -1);
   // Wait until rport sends the response and then check the remote network cost.
   ASSERT_TRUE_WAIT(rport->last_stun_msg() != NULL, kDefaultTimeout);
   EXPECT_EQ(rtc::kNetworkCostHigh, rconn->remote_candidate().network_cost());
@@ -2304,7 +2304,7 @@ TEST_F(PortTest, TestHandleStunBindingIndication) {
   EXPECT_EQ(STUN_BINDING_REQUEST, msg->type());
   // Send rport binding request to lport.
   lconn->OnReadPacket(rport->last_stun_buf()->data<char>(),
-                      rport->last_stun_buf()->size(), rtc::PacketTime());
+                      rport->last_stun_buf()->size(), /* packet_time_us */ -1);
   ASSERT_TRUE_WAIT(lport->last_stun_msg() != NULL, kDefaultTimeout);
   EXPECT_EQ(STUN_BINDING_RESPONSE, lport->last_stun_msg()->type());
   int64_t last_ping_received1 = lconn->last_ping_received();
@@ -2312,7 +2312,7 @@ TEST_F(PortTest, TestHandleStunBindingIndication) {
   // Adding a delay of 100ms.
   rtc::Thread::Current()->ProcessMessages(100);
   // Pinging lconn using stun indication message.
-  lconn->OnReadPacket(buf->Data(), buf->Length(), rtc::PacketTime());
+  lconn->OnReadPacket(buf->Data(), buf->Length(), /* packet_time_us */ -1);
   int64_t last_ping_received2 = lconn->last_ping_received();
   EXPECT_GT(last_ping_received2, last_ping_received1);
 }
@@ -2751,7 +2751,7 @@ TEST_F(PortTest, TestIceLiteConnectivity) {
   // Feeding the respone message from litemode to the full mode connection.
   ch1.conn()->OnReadPacket(ice_lite_port->last_stun_buf()->data<char>(),
                            ice_lite_port->last_stun_buf()->size(),
-                           rtc::PacketTime());
+                           /* packet_time_us */ -1);
   // Verifying full mode connection becomes writable from the response.
   EXPECT_EQ_WAIT(Connection::STATE_WRITABLE, ch1.conn()->write_state(),
                  kDefaultTimeout);

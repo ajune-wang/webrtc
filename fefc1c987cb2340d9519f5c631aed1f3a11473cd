@@ -22,6 +22,30 @@
       "revId": "fefc1c987cb2340d9519f5c631aed1f3a11473cd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "753e998e_09ee8fd1",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-09-17T11:35:44Z",
+      "side": 1,
+      "message": "Resolving this.",
+      "parentUuid": "9295169b_f45a0611",
+      "range": {
+        "startLine": 51,
+        "startChar": 16,
+        "endLine": 51,
+        "endChar": 26
+      },
+      "revId": "fefc1c987cb2340d9519f5c631aed1f3a11473cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

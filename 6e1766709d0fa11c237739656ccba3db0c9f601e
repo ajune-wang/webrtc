@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "19c3ba23_cd0771b9",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-09-17T11:35:44Z",
+      "side": 1,
+      "message": "We decided to keep it like this for now.",
+      "parentUuid": "a66a8d07_b19c3e62",
+      "range": {
+        "startLine": 51,
+        "startChar": 16,
+        "endLine": 51,
+        "endChar": 26
+      },
+      "revId": "6e1766709d0fa11c237739656ccba3db0c9f601e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "20e00269_db655adf",
         "filename": "rtc_base/rtc_export.h",
         "patchSetId": 3
@@ -57,6 +81,24 @@
       "revId": "6e1766709d0fa11c237739656ccba3db0c9f601e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95c0e89e_e87d9905",
+        "filename": "rtc_base/rtc_export.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-09-17T11:35:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1d928e2e_1ddee70a",
+      "revId": "6e1766709d0fa11c237739656ccba3db0c9f601e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -136,6 +178,30 @@
     },
     {
       "key": {
+        "uuid": "e782668c_a68856da",
+        "filename": "rtc_base/rtc_export.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-09-17T11:35:44Z",
+      "side": 1,
+      "message": "See later patch sets for the reasons behind the new implementation.",
+      "parentUuid": "091edbfd_dd480698",
+      "range": {
+        "startLine": 16,
+        "startChar": 7,
+        "endLine": 16,
+        "endChar": 29
+      },
+      "revId": "6e1766709d0fa11c237739656ccba3db0c9f601e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ea909452_05f15df6",
         "filename": "rtc_base/rtc_export.h",
         "patchSetId": 3
@@ -156,6 +222,30 @@
       "revId": "6e1766709d0fa11c237739656ccba3db0c9f601e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35b40f41_51d3f9d5",
+        "filename": "rtc_base/rtc_export.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-09-17T11:35:44Z",
+      "side": 1,
+      "message": "This has been removed in later patch sets.",
+      "parentUuid": "ea909452_05f15df6",
+      "range": {
+        "startLine": 18,
+        "startChar": 6,
+        "endLine": 18,
+        "endChar": 25
+      },
+      "revId": "6e1766709d0fa11c237739656ccba3db0c9f601e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -203,6 +293,30 @@
       "revId": "6e1766709d0fa11c237739656ccba3db0c9f601e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "446be368_92d2314b",
+        "filename": "rtc_base/rtc_export.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-09-17T11:35:44Z",
+      "side": 1,
+      "message": "Resolving this.",
+      "parentUuid": "0866db80_29d2d39a",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 6
+      },
+      "revId": "6e1766709d0fa11c237739656ccba3db0c9f601e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

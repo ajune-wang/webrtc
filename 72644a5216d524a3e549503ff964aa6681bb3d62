@@ -69,6 +69,30 @@
       "revId": "72644a5216d524a3e549503ff964aa6681bb3d62",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b32bd568_a6b4f6e3",
+        "filename": "rtc_base/build/rtc_export.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-09-17T11:35:44Z",
+      "side": 1,
+      "message": "Resolve this comment, we decided to rename the RTC_EXPORT under sdk/ to RTC_OBJC_EXPORT and keep this implementation.",
+      "parentUuid": "9f8bcdab_68db0761",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 0
+      },
+      "revId": "72644a5216d524a3e549503ff964aa6681bb3d62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -62,7 +62,7 @@
 #include "rtc_base/numerics/safe_conversions.h"
 #include "rtc_base/testcertificateverifier.h"
 #include "rtc_base/virtualsocketserver.h"
-#include "system_wrappers/include/metrics_default.h"
+#include "system_wrappers/include/metrics.h"
 #include "test/gmock.h"
 
 using cricket::ContentInfo;

@@ -531,6 +531,9 @@ int NetEqImpl::InsertPacketInternal(const RTPHeader& rtp_header,
     packet.sequence_number = rtp_header.sequenceNumber;
     packet.timestamp = rtp_header.timestamp;
     packet.payload.SetData(payload.data(), payload.size());
+    packet.talker_id = rtp_header.numCSRCs >= 1
+                           ? absl::make_optional(rtp_header.arrOfCSRCs[0])
+                           : absl::nullopt;
     // Waiting time will be set upon inserting the packet in the buffer.
     RTC_DCHECK(!packet.waiting_time);
     return packet;
@@ -672,6 +675,7 @@ int NetEqImpl::InsertPacketInternal(const RTPHeader& rtp_header,
       const auto sequence_number = packet.sequence_number;
       const auto payload_type = packet.payload_type;
       const Packet::Priority original_priority = packet.priority;
+      const auto talker_id = packet.talker_id;
       auto packet_from_result = [&](AudioDecoder::ParseResult& result) {
         Packet new_packet;
         new_packet.sequence_number = sequence_number;
@@ -679,6 +683,7 @@ int NetEqImpl::InsertPacketInternal(const RTPHeader& rtp_header,
         new_packet.timestamp = result.timestamp;
         new_packet.priority.codec_level = result.priority;
         new_packet.priority.red_level = original_priority.red_level;
+        new_packet.talker_id = talker_id;
         new_packet.frame = std::move(result.frame);
         return new_packet;
       };
@@ -1331,14 +1336,7 @@ int NetEqImpl::Decode(PacketList* packet_list,
 
   if (reset_decoder_) {
     // TODO(hlundin): Write test for this.
-    if (decoder)
-      decoder->Reset();
-
-    // Reset comfort noise decoder.
-    ComfortNoiseDecoder* cng_decoder = decoder_database_->GetActiveCngDecoder();
-    if (cng_decoder)
-      cng_decoder->Reset();
-
+    ResetDecoderAndCngDecoder(decoder);
     reset_decoder_ = false;
   }
 
@@ -1438,10 +1436,17 @@ int NetEqImpl::DecodeLoop(PacketList* packet_list,
            operation == kFastAccelerate || operation == kMerge ||
            operation == kPreemptiveExpand);
 
-    auto opt_result = packet_list->front().frame->Decode(
+    const Packet& packet = packet_list->front();
+    const bool talker_switched =
+        talker_id_ && packet.talker_id && *talker_id_ != *packet.talker_id;
+    if (talker_switched) {
+      ResetDecoderAndCngDecoder(decoder);
+    }
+    auto opt_result = packet.frame->Decode(
         rtc::ArrayView<int16_t>(&decoded_buffer_[*decoded_length],
                                 decoded_buffer_length_ - *decoded_length));
     last_decoded_timestamps_.push_back(packet_list->front().timestamp);
+    talker_id_ = packet.talker_id;
     packet_list->pop_front();
     if (opt_result) {
       const auto& result = *opt_result;
@@ -1474,6 +1479,16 @@ int NetEqImpl::DecodeLoop(PacketList* packet_list,
          (packet_list->size() == 1 && decoder_database_->IsComfortNoise(
                                           packet_list->front().payload_type)));
   return 0;
+}
+
+void NetEqImpl::ResetDecoderAndCngDecoder(AudioDecoder* decoder) {
+  if (decoder)
+    decoder->Reset();
+
+  // Reset comfort noise decoder.
+  ComfortNoiseDecoder* cng_decoder = decoder_database_->GetActiveCngDecoder();
+  if (cng_decoder)
+    cng_decoder->Reset();
 }
 
 void NetEqImpl::DoNormal(const int16_t* decoded_buffer,

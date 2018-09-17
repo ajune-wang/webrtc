@@ -276,6 +276,10 @@ class NetEqImpl : public webrtc::NetEq {
                  AudioDecoder::SpeechType* speech_type)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_sect_);
 
+  // Sub-method which resets decoder and the active CNG decoder.
+  void ResetDecoderAndCngDecoder(AudioDecoder* decoder)
+      RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_sect_);
+
   // Sub-method which calls the Normal class to perform the normal operation.
   void DoNormal(const int16_t* decoded_buffer,
                 size_t decoded_length,
@@ -410,6 +414,7 @@ class NetEqImpl : public webrtc::NetEq {
   absl::optional<uint8_t> current_cng_rtp_payload_type_
       RTC_GUARDED_BY(crit_sect_);
   uint32_t ssrc_ RTC_GUARDED_BY(crit_sect_);
+  absl::optional<uint32_t> talker_id_ RTC_GUARDED_BY(crit_sect_);
   bool first_packet_ RTC_GUARDED_BY(crit_sect_);
   bool enable_fast_accelerate_ RTC_GUARDED_BY(crit_sect_);
   std::unique_ptr<NackTracker> nack_ RTC_GUARDED_BY(crit_sect_);

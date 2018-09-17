@@ -1288,6 +1288,89 @@ TEST_F(NetEqImplTest, InsertEmptyPacket) {
   neteq_->InsertEmptyPacket(rtp_header);
 }
 
+TEST_F(NetEqImplTest, TalkerSwitchInvokeDecoderReset) {
+  UseNoMocks();
+  CreateInstance();
+  constexpr uint32_t kTalkerId1 = 0x13579246;
+  constexpr uint32_t kTalkerId2 = 0x24680135;
+
+  constexpr size_t kPayloadLength = 1;
+  constexpr uint8_t kPayloadType = 0;
+  constexpr uint16_t kFirstSequenceNumber = 0x1234;
+  constexpr uint32_t kFirstTimestamp = 0x12345678;
+  constexpr uint32_t kSsrc = 0x87654321;
+  constexpr uint32_t kFirstReceiveTime = 17;
+  uint8_t payload[kPayloadLength] = {0};
+
+  constexpr int kSampleRateHz = 8000;
+  // We let decoder return 10 ms each time.
+  constexpr size_t kFrameLengthSamples =
+      static_cast<size_t>(10 * kSampleRateHz / 1000);
+
+  RTPHeader rtp_header;
+  rtp_header.payloadType = kPayloadType;
+  rtp_header.sequenceNumber = kFirstSequenceNumber;
+  rtp_header.timestamp = kFirstTimestamp;
+  rtp_header.ssrc = kSsrc;
+  rtp_header.numCSRCs = 1;
+  rtp_header.arrOfCSRCs[0] = kTalkerId1;
+
+  // Create a mock decoder object.
+  MockAudioDecoder mock_decoder;
+  EXPECT_CALL(mock_decoder, SampleRateHz())
+      .WillRepeatedly(Return(kSampleRateHz));
+  EXPECT_CALL(mock_decoder, Channels()).WillRepeatedly(Return(1));
+  EXPECT_CALL(mock_decoder, IncomingPacket(_, kPayloadLength, _, _, _))
+      .WillRepeatedly(Return(0));
+  EXPECT_CALL(mock_decoder, PacketDuration(_, _))
+      .WillRepeatedly(Return(rtc::checked_cast<int>(kFrameLengthSamples)));
+
+  int16_t dummy_output[kFrameLengthSamples] = {0};
+
+  EXPECT_EQ(NetEq::kOK, neteq_->RegisterExternalDecoder(
+                            &mock_decoder, NetEqDecoder::kDecoderPCM16B,
+                            "dummy name", kPayloadType));
+
+  // Insert first packet.
+  neteq_->InsertPacket(rtp_header, payload, kFirstReceiveTime);
+
+  // Mock decoder works normally the first 2 times.
+  EXPECT_CALL(mock_decoder,
+              DecodeInternal(_, kPayloadLength, kSampleRateHz, _, _))
+      .WillOnce(DoAll(
+          SetArrayArgument<3>(dummy_output, dummy_output + kFrameLengthSamples),
+          SetArgPointee<4>(AudioDecoder::kSpeech),
+          Return(rtc::checked_cast<int>(kFrameLengthSamples))))
+      .RetiresOnSaturation();
+
+  AudioFrame output;
+  bool muted;
+  EXPECT_EQ(NetEq::kOK, neteq_->GetAudio(&output, &muted));
+
+  rtp_header.sequenceNumber = kFirstSequenceNumber + 1;
+  rtp_header.timestamp = kFirstTimestamp + kFrameLengthSamples;
+  rtp_header.arrOfCSRCs[0] = kTalkerId2;
+
+  // Insert second packet.
+  neteq_->InsertPacket(rtp_header, payload, kFirstReceiveTime + 155);
+
+  EXPECT_CALL(mock_decoder, Reset()).WillOnce(Return()).RetiresOnSaturation();
+
+  EXPECT_CALL(mock_decoder,
+              DecodeInternal(_, kPayloadLength, kSampleRateHz, _, _))
+      .WillOnce(DoAll(
+          SetArrayArgument<3>(dummy_output, dummy_output + kFrameLengthSamples),
+          SetArgPointee<4>(AudioDecoder::kSpeech),
+          Return(rtc::checked_cast<int>(kFrameLengthSamples))))
+      .RetiresOnSaturation();
+
+  EXPECT_EQ(NetEq::kOK, neteq_->GetAudio(&output, &muted));
+
+  // Die isn't called through NiceMock (since it's called by the
+  // MockAudioDecoder constructor), so it needs to be mocked explicitly.
+  EXPECT_CALL(mock_decoder, Die());
+}
+
 class Decoder120ms : public AudioDecoder {
  public:
   Decoder120ms(int sample_rate_hz, SpeechType speech_type)

@@ -67,6 +67,10 @@ struct Packet {
   uint32_t timestamp;
   uint16_t sequence_number;
   uint8_t payload_type;
+
+  // An identifier of the talker from which the packet is created.
+  absl::optional<uint32_t> talker_id;
+
   // Datagram excluding RTP header and header extension.
   rtc::Buffer payload;
   Priority priority;

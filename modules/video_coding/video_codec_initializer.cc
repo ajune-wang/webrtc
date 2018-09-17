@@ -207,9 +207,11 @@ VideoCodec VideoCodecInitializer::VideoEncoderConfigToVideoCodec(
 
         const bool no_spatial_layering = (spatial_layers.size() == 1);
         if (no_spatial_layering) {
-          // Use codec's bitrate limits.
-          spatial_layers.back().minBitrate = video_codec.minBitrate;
-          spatial_layers.back().maxBitrate = video_codec.maxBitrate;
+          // Reset target bitrate. This is the way to signal to rate allocator
+          // and to encoder wrapper to ignore layer settings (to use codec
+          // settings instead).
+          // TODO(ssilkin): Wrap VideoCodec::SpatialLayer[] in absl::optional.
+          spatial_layers.back().targetBitrate = 0;
         }
       }
 

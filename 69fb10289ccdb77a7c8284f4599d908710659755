@@ -34,6 +34,24 @@
       "revId": "69fb10289ccdb77a7c8284f4599d908710659755",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b92f2492_ad1a135f",
+        "filename": "webrtc.gni",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-09-17T07:44:55Z",
+      "side": 1,
+      "message": "Nope, //media is not available in standalone WebRTC. You have to move enable_ffmpeg_video_decoders to build/config/features.gni; we can see that file.\n\nIf you can\u0027t move the variable outright you can create an intermediate variable in features.gni that takes on the value of enable_ffmpeg_video_decoders. I think that should just work.",
+      "parentUuid": "220df1a9_a05d6fdf",
+      "revId": "69fb10289ccdb77a7c8284f4599d908710659755",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

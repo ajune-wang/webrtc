@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "0fa62849_3022502f",
+        "filename": "rtc_base/build/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-09-17T11:37:10Z",
+      "side": 1,
+      "message": "This has been reverted.",
+      "parentUuid": "b155b71b_0821018d",
+      "range": {
+        "startLine": 45,
+        "startChar": 5,
+        "endLine": 45,
+        "endChar": 24
+      },
+      "revId": "8a5e7ce00739c9a762684a03ca4b697c61fc2a77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ce2e1efe_3607e185",
         "filename": "webrtc.gni",
         "patchSetId": 6

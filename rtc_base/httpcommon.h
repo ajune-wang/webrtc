@@ -242,7 +242,6 @@ struct HttpData {
   typedef HeaderMap::iterator iterator;
 
   HttpVersion version;
-  std::unique_ptr<StreamInterface> document;
 
   HttpData();
 
@@ -318,15 +317,12 @@ struct HttpData {
     return headers_.upper_bound(ToString(header));
   }
 
-  void setContent(const std::string& content_type, StreamInterface* document);
-  void setDocumentAndLength(StreamInterface* document);
-
   virtual size_t formatLeader(char* buffer, size_t size) const = 0;
   virtual HttpError parseLeader(const char* line, size_t len) = 0;
 
  protected:
   virtual ~HttpData();
-  void clear(bool release_document);
+  void clear();
 
  private:
   HeaderMap headers_;
@@ -337,7 +333,7 @@ struct HttpRequestData : public HttpData {
 
   HttpRequestData() {}
 
-  void clear(bool release_document);
+  void clear();
 
   size_t formatLeader(char* buffer, size_t size) const override;
   HttpError parseLeader(const char* line, size_t len) override;
@@ -351,7 +347,7 @@ struct HttpResponseData : public HttpData {
   std::string message;
 
   HttpResponseData() : scode(HC_INTERNAL_SERVER_ERROR) {}
-  void clear(bool release_document);
+  void clear();
 
   // Convenience methods
   void set_success(uint32_t scode = HC_OK);

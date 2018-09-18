@@ -455,13 +455,10 @@ HttpData::HttpData() : version(HVER_1_1) {}
 
 HttpData::~HttpData() = default;
 
-void HttpData::clear(bool release_document) {
+void HttpData::clear() {
   // Clear headers first, since releasing a document may have far-reaching
   // effects.
   headers_.clear();
-  if (release_document) {
-    document.reset();
-  }
 }
 
 void HttpData::changeHeader(const std::string& name,
@@ -511,6 +508,7 @@ bool HttpData::hasHeader(const std::string& name, std::string* value) const {
   return true;
 }
 
+#if 0
 void HttpData::setContent(const std::string& content_type,
                           StreamInterface* document) {
   setHeader(HH_CONTENT_TYPE, content_type);
@@ -532,14 +530,14 @@ void HttpData::setDocumentAndLength(StreamInterface* document) {
     setHeader(HH_TRANSFER_ENCODING, "chunked");
   }
 }
-
+#endif
 //
 // HttpRequestData
 //
 
-void HttpRequestData::clear(bool release_document) {
+void HttpRequestData::clear() {
   path.clear();
-  HttpData::clear(release_document);
+  HttpData::clear();
 }
 
 size_t HttpRequestData::formatLeader(char* buffer, size_t size) const {
@@ -574,6 +572,7 @@ HttpError HttpRequestData::parseLeader(const char* line, size_t len) {
   return HE_NONE;
 }
 
+// TODO(nisse): Delete, together with url class.
 bool HttpRequestData::getAbsoluteUri(std::string* uri) const {
   Url<char> url(path);
   if (url.valid()) {
@@ -589,6 +588,7 @@ bool HttpRequestData::getAbsoluteUri(std::string* uri) const {
   return url.valid();
 }
 
+// TODO(nisse): Delete
 bool HttpRequestData::getRelativeUri(std::string* host,
                                      std::string* path) const {
   Url<char> url(this->path);
@@ -607,10 +607,10 @@ bool HttpRequestData::getRelativeUri(std::string* host,
 // HttpResponseData
 //
 
-void HttpResponseData::clear(bool release_document) {
+void HttpResponseData::clear() {
   scode = HC_INTERNAL_SERVER_ERROR;
   message.clear();
-  HttpData::clear(release_document);
+  HttpData::clear();
 }
 
 void HttpResponseData::set_success(uint32_t scode) {

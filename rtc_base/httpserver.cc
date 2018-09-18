@@ -113,7 +113,6 @@ HttpServer::Connection::Connection(int connection_id, HttpServer* server)
     : connection_id_(connection_id),
       server_(server),
       current_(nullptr),
-      signalling_(false),
       close_(false) {}
 
 HttpServer::Connection::~Connection() {
@@ -151,7 +150,7 @@ void HttpServer::Connection::Respond(HttpServerTransaction* transaction) {
 
 void HttpServer::Connection::InitiateClose(bool force) {
   bool request_in_progress = (HM_SEND == base_.mode()) || (nullptr == current_);
-  if (!signalling_ && (force || !request_in_progress)) {
+  if (force || !request_in_progress) {
     server_->Remove(connection_id_);
   } else {
     close_ = true;
@@ -161,27 +160,15 @@ void HttpServer::Connection::InitiateClose(bool force) {
 //
 // IHttpNotify Implementation
 //
-
 HttpError HttpServer::Connection::onHttpHeaderComplete(bool chunked,
                                                        size_t& data_size) {
-  if (data_size == SIZE_UNKNOWN) {
-    data_size = 0;
-  }
   RTC_DCHECK(current_ != nullptr);
-  bool custom_document = false;
-  server_->SignalHttpRequestHeader(server_, current_, &custom_document);
-  if (!custom_document) {
-    current_->request.document.reset(new MemoryStream);
-  }
   return HE_NONE;
 }
 
 void HttpServer::Connection::onHttpComplete(HttpMode mode, HttpError err) {
   if (mode == HM_SEND) {
     RTC_DCHECK(current_ != nullptr);
-    signalling_ = true;
-    server_->SignalHttpRequestComplete(server_, current_, err);
-    signalling_ = false;
     if (close_) {
       // Force a close
       err = HE_DISCONNECTED;
@@ -199,9 +186,8 @@ void HttpServer::Connection::onHttpComplete(HttpMode mode, HttpError err) {
     current_ = nullptr;
     server_->SignalHttpRequest(server_, transaction);
   } else if (mode == HM_SEND) {
-    Thread::Current()->Dispose(current_->response.document.release());
-    current_->request.clear(true);
-    current_->response.clear(true);
+    current_->request.clear();
+    current_->response.clear();
     base_.recv(&current_->request);
   } else {
     RTC_NOTREACHED();

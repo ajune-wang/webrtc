@@ -419,9 +419,11 @@ def CalculateChangedClang(new_cr_rev):
 
 
 def GenerateCommitMessage(rev_update, current_commit_pos, new_commit_pos,
-                          changed_deps_list, clang_change=None,
+                          changed_deps_list,
                           added_deps_paths=None,
-                          removed_deps_paths=None):
+                          removed_deps_paths=None,
+                          clang_change=None,
+                          ):
   current_cr_rev = rev_update.current_chromium_rev[0:10]
   new_cr_rev = rev_update.new_chromium_rev[0:10]
   rev_interval = '%s..%s' % (current_cr_rev, new_cr_rev)

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "faf00303_210ed1ef",
+        "filename": "tools_webrtc/autoroller/roll_deps.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 689,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2018-09-19T15:24:04Z",
+      "side": 1,
+      "message": "The usual convention is to indent continuations with 4 spaces, not 2. See example on line 524.",
+      "range": {
+        "startLine": 689,
+        "startChar": 2,
+        "endLine": 689,
+        "endChar": 4
+      },
+      "revId": "33ea13d39549e26ebfc572018ae62ae35012052b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

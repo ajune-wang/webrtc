@@ -22,6 +22,30 @@
       "revId": "33ea13d39549e26ebfc572018ae62ae35012052b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1cb8c0c0_fff2ad1e",
+        "filename": "tools_webrtc/autoroller/roll_deps.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 689,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2018-09-19T15:28:00Z",
+      "side": 1,
+      "message": "Thanks! git cl format doesn\u0027t catch these ones...\nBy the way, are list entries also considered \u0027indent continuations\u0027? Cf line 31.",
+      "parentUuid": "faf00303_210ed1ef",
+      "range": {
+        "startLine": 689,
+        "startChar": 2,
+        "endLine": 689,
+        "endChar": 4
+      },
+      "revId": "33ea13d39549e26ebfc572018ae62ae35012052b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -7,7 +7,7 @@ vars = {
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
   'webrtc_git': 'https://webrtc.googlesource.com',
-  'chromium_revision': 'e4b02117a9359cc7f27811af64f39c8475160c31',
+  'chromium_revision': '00160c98ebf9e56b945434934accba032d39db51',
   'boringssl_git': 'https://boringssl.googlesource.com',
   # Three lines of non-changing comments so that
   # the commit queue can handle CLs rolling swarming_client
@@ -54,13 +54,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': Var('chromium_git') + '/chromium/src/ios' + '@' + '7d51fa5227367d91dd3cb232565d419ec31b8eb4',
+    'url': Var('chromium_git') + '/chromium/src/ios' + '@' + '70781bdbaf40ab251f4d603764785f9a4606bd55',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    Var('chromium_git') + '/chromium/src/testing' + '@' + 'fe4e1f210cb9effaecaa9cdf8bab9c09516cd699',
+    Var('chromium_git') + '/chromium/src/testing' + '@' + 'c6f0d30307f5b2a1eb858c453519e127314c7f51',
   'src/third_party':
-    Var('chromium_git') + '/chromium/src/third_party' + '@' + 'f29c2448d232d7902418ba4ed0c3f0a49634da3d',
+    Var('chromium_git') + '/chromium/src/third_party' + '@' + '6ed376a8d2bb07b395ddb1afb145fd553dce905d',
   'src/third_party/android_ndk': {
       'url': Var('chromium_git') + '/android_ndk.git' + '@' + '4e2cea441bfd43f0863d14f57b1e1844260b9884',
       'condition': 'checkout_android',
@@ -84,7 +84,7 @@ deps = {
   'src/third_party/colorama/src':
     Var('chromium_git') + '/external/colorama.git' + '@' + '799604a1041e9b3bc5d2789ecbd7e8db2e18e6b8',
   'src/third_party/depot_tools':
-    Var('chromium_git') + '/chromium/tools/depot_tools.git' + '@' + '07b5283a4ea1056007f6c2ec233411b72caa3227',
+    Var('chromium_git') + '/chromium/tools/depot_tools.git' + '@' + '77900be4e71e5ccda7d9efeca7bbff6dc5f3c597',
   'src/third_party/errorprone/lib': {
       'url': Var('chromium_git') + '/chromium/third_party/errorprone.git' + '@' + '980d49e839aa4984015efed34b0134d4b2c9b6d7',
       'condition': 'checkout_android',

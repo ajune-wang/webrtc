@@ -79,6 +79,10 @@ typedef NS_ENUM(NSInteger, ARDAppClientState) {
                    settings:(ARDSettingsModel *)settings
                  isLoopback:(BOOL)isLoopback;
 
+- (void)setSpeakerMute:(bool)enable;
+
+- (void)setMicrophoneMute:(bool)enable;
+
 // Disconnects from the AppRTC servers and any connected clients.
 - (void)disconnect;
 

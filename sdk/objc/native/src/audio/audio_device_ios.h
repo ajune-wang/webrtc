@@ -260,6 +260,12 @@ class AudioDeviceIOS : public AudioDeviceGeneric,
   // Set to 1 when playout is active and 0 otherwise.
   volatile int playing_;
 
+  // Set to 1 when speaker is muted and 0 otherwise.
+  volatile int is_speaker_muted_;
+
+  // Set to 1 when microphone is muted and 0 otherwise.
+  volatile int is_microphone_muted_;
+
   // Set to true after successful call to Init(), false otherwise.
   bool initialized_ RTC_GUARDED_BY(thread_checker_);
 

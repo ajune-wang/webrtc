@@ -105,6 +105,8 @@ AudioDeviceIOS::AudioDeviceIOS()
       audio_unit_(nullptr),
       recording_(0),
       playing_(0),
+      is_speaker_muted_(0),
+      is_microphone_muted_(0),
       initialized_(false),
       audio_is_initialized_(false),
       is_interrupted_(false),
@@ -405,6 +407,10 @@ OSStatus AudioDeviceIOS::OnDeliverRecordedData(AudioUnitRenderActionFlags* flags
     return result;
   }
 
+  if (rtc::AtomicOps::AcquireLoad(&is_microphone_muted_)) {
+    memset(reinterpret_cast<int8_t*>(record_audio_buffer_.data()), 0, num_frames * sizeof(int16_t));
+  }
+
   // Get a pointer to the recorded audio and send it to the WebRTC ADB.
   // Use the FineAudioBuffer instance to convert between native buffer size
   // and the 10ms buffer size used by WebRTC.
@@ -425,7 +431,7 @@ OSStatus AudioDeviceIOS::OnGetPlayoutData(AudioUnitRenderActionFlags* flags,
 
   // Produce silence and give audio unit a hint about it if playout is not
   // activated.
-  if (!rtc::AtomicOps::AcquireLoad(&playing_)) {
+  if (!rtc::AtomicOps::AcquireLoad(&playing_) || rtc::AtomicOps::AcquireLoad(&is_speaker_muted_)) {
     const size_t size_in_bytes = audio_buffer->mDataByteSize;
     RTC_CHECK_EQ(size_in_bytes / VoiceProcessingAudioUnit::kBytesPerSample, num_frames);
     *flags |= kAudioUnitRenderAction_OutputIsSilence;
@@ -921,6 +927,36 @@ bool AudioDeviceIOS::IsInterrupted() {
   return is_interrupted_;
 }
 
+int32_t AudioDeviceIOS::SpeakerMuteIsAvailable(bool& available) {
+  available = true;
+  return 0;
+}
+
+int32_t AudioDeviceIOS::SetSpeakerMute(bool enable) {
+  rtc::AtomicOps::ReleaseStore(&is_speaker_muted_, enable ? 1 : 0);
+  return 0;
+}
+
+int32_t AudioDeviceIOS::SpeakerMute(bool& enabled) const {
+  enabled = rtc::AtomicOps::AcquireLoad(&is_speaker_muted_);
+  return 0;
+}
+
+int32_t AudioDeviceIOS::MicrophoneMuteIsAvailable(bool& available) {
+  available = true;
+  return 0;
+}
+
+int32_t AudioDeviceIOS::SetMicrophoneMute(bool enable) {
+  rtc::AtomicOps::ReleaseStore(&is_microphone_muted_, enable ? 1 : 0);
+  return 0;
+}
+
+int32_t AudioDeviceIOS::MicrophoneMute(bool& enabled) const {
+  enabled = rtc::AtomicOps::AcquireLoad(&is_microphone_muted_);
+  return 0;
+}
+
 #pragma mark - Not Implemented
 
 int32_t AudioDeviceIOS::ActiveAudioLayer(AudioDeviceModule::AudioLayer& audioLayer) const {
@@ -973,21 +1009,6 @@ int32_t AudioDeviceIOS::MinSpeakerVolume(uint32_t& minVolume) const {
   return -1;
 }
 
-int32_t AudioDeviceIOS::SpeakerMuteIsAvailable(bool& available) {
-  available = false;
-  return 0;
-}
-
-int32_t AudioDeviceIOS::SetSpeakerMute(bool enable) {
-  RTC_NOTREACHED() << "Not implemented";
-  return -1;
-}
-
-int32_t AudioDeviceIOS::SpeakerMute(bool& enabled) const {
-  RTC_NOTREACHED() << "Not implemented";
-  return -1;
-}
-
 int32_t AudioDeviceIOS::SetPlayoutDevice(uint16_t index) {
   RTC_LOG_F(LS_WARNING) << "Not implemented";
   return 0;
@@ -1004,21 +1025,6 @@ int32_t AudioDeviceIOS::InitMicrophone() {
 
 bool AudioDeviceIOS::MicrophoneIsInitialized() const {
   return true;
-}
-
-int32_t AudioDeviceIOS::MicrophoneMuteIsAvailable(bool& available) {
-  available = false;
-  return 0;
-}
-
-int32_t AudioDeviceIOS::SetMicrophoneMute(bool enable) {
-  RTC_NOTREACHED() << "Not implemented";
-  return -1;
-}
-
-int32_t AudioDeviceIOS::MicrophoneMute(bool& enabled) const {
-  RTC_NOTREACHED() << "Not implemented";
-  return -1;
 }
 
 int32_t AudioDeviceIOS::StereoRecordingIsAvailable(bool& available) {

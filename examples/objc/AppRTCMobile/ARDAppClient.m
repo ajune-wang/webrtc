@@ -10,6 +10,7 @@
 
 #import "ARDAppClient+Internal.h"
 
+#import <WebRTC/RTCAudioDeviceModule.h>
 #import <WebRTC/RTCAudioTrack.h>
 #import <WebRTC/RTCCameraVideoCapturer.h>
 #import <WebRTC/RTCConfiguration.h>
@@ -118,6 +119,7 @@ static int const kKbpsMultiplier = 1000;
 @synthesize channel = _channel;
 @synthesize loopbackChannel = _loopbackChannel;
 @synthesize turnClient = _turnClient;
+@synthesize adm = _adm;
 @synthesize peerConnection = _peerConnection;
 @synthesize factory = _factory;
 @synthesize messageQueue = _messageQueue;
@@ -226,9 +228,11 @@ static int const kKbpsMultiplier = 1000;
 
   RTCDefaultVideoDecoderFactory *decoderFactory = [[RTCDefaultVideoDecoderFactory alloc] init];
   RTCDefaultVideoEncoderFactory *encoderFactory = [[RTCDefaultVideoEncoderFactory alloc] init];
+  _adm = [[RTCAudioDeviceModule alloc] init];
   encoderFactory.preferredCodec = [settings currentVideoCodecSettingFromStore];
   _factory = [[RTCPeerConnectionFactory alloc] initWithEncoderFactory:encoderFactory
-                                                       decoderFactory:decoderFactory];
+                                                       decoderFactory:decoderFactory
+                                                    audioDeviceModule:_adm];
 
 #if defined(WEBRTC_IOS)
   if (kARDAppClientEnableTracing) {
@@ -287,6 +291,14 @@ static int const kKbpsMultiplier = 1000;
   }];
 }
 
+- (void)setSpeakerMute:(bool)enable {
+  [_adm setSpeakerMute:enable];
+}
+
+- (void)setMicrophoneMute:(bool)enable {
+  [_adm setMicrophoneMute:enable];
+}
+
 - (void)disconnect {
   if (_state == kARDAppClientStateDisconnected) {
     return;
@@ -317,6 +329,8 @@ static int const kKbpsMultiplier = 1000;
 #endif
   [_peerConnection close];
   _peerConnection = nil;
+  _adm = nil;
+  _factory = nil;
   self.state = kARDAppClientStateDisconnected;
 #if defined(WEBRTC_IOS)
   if (kARDAppClientEnableTracing) {

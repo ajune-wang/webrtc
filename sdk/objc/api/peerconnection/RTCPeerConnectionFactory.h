@@ -14,6 +14,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class RTCAudioDeviceModule;
 @class RTCAudioSource;
 @class RTCAudioTrack;
 @class RTCConfiguration;
@@ -36,6 +37,11 @@ RTC_OBJC_EXPORT
 /* Initialize object with injectable video encoder/decoder factories */
 - (instancetype)initWithEncoderFactory:(nullable id<RTCVideoEncoderFactory>)encoderFactory
                         decoderFactory:(nullable id<RTCVideoDecoderFactory>)decoderFactory;
+
+/* Initialize object with injectable video encoder/decoder factories, and audio device module */
+- (instancetype)initWithEncoderFactory:(nullable id<RTCVideoEncoderFactory>)encoderFactory
+                        decoderFactory:(nullable id<RTCVideoDecoderFactory>)decoderFactory
+                     audioDeviceModule:(nullable RTCAudioDeviceModule *)audioDeviceModule;
 
 /** Initialize an RTCAudioSource with constraints. */
 - (RTCAudioSource *)audioSourceWithConstraints:(nullable RTCMediaConstraints *)constraints;

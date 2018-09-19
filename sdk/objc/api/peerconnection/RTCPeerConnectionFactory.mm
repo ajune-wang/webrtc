@@ -12,6 +12,7 @@
 #import "RTCPeerConnectionFactory+Private.h"
 #import "RTCPeerConnectionFactoryOptions+Private.h"
 
+#import "RTCAudioDeviceModule+Private.h"
 #import "RTCAudioSource+Private.h"
 #import "RTCAudioTrack+Private.h"
 #import "RTCMediaConstraints+Private.h"
@@ -61,47 +62,54 @@
 
 @synthesize nativeFactory = _nativeFactory;
 
-- (rtc::scoped_refptr<webrtc::AudioDeviceModule>)audioDeviceModule {
-#if defined(WEBRTC_IOS)
-  return webrtc::CreateAudioDeviceModule();
-#else
-  return nullptr;
-#endif
-}
-
 - (instancetype)init {
 #ifdef HAVE_NO_MEDIA
   return [self initWithNoMedia];
 #else
+  RTCAudioDeviceModule *audioDeviceModule = [[RTCAudioDeviceModule alloc] init];
   return [self initWithNativeAudioEncoderFactory:webrtc::CreateBuiltinAudioEncoderFactory()
                        nativeAudioDecoderFactory:webrtc::CreateBuiltinAudioDecoderFactory()
                        nativeVideoEncoderFactory:webrtc::ObjCToNativeVideoEncoderFactory(
                                                      [[RTCVideoEncoderFactoryH264 alloc] init])
                        nativeVideoDecoderFactory:webrtc::ObjCToNativeVideoDecoderFactory(
                                                      [[RTCVideoDecoderFactoryH264 alloc] init])
-                               audioDeviceModule:[self audioDeviceModule]
+                               audioDeviceModule:audioDeviceModule.nativeAudioDeviceModule
                            audioProcessingModule:nullptr];
 #endif
 }
 
 - (instancetype)initWithEncoderFactory:(nullable id<RTCVideoEncoderFactory>)encoderFactory
                         decoderFactory:(nullable id<RTCVideoDecoderFactory>)decoderFactory {
+  return [self initWithEncoderFactory:encoderFactory
+                       decoderFactory:decoderFactory
+                    audioDeviceModule:[[RTCAudioDeviceModule alloc] init]];
+}
+
+- (instancetype)initWithEncoderFactory:(nullable id<RTCVideoEncoderFactory>)encoderFactory
+                        decoderFactory:(nullable id<RTCVideoDecoderFactory>)decoderFactory
+                     audioDeviceModule:(nullable RTCAudioDeviceModule *)audioDeviceModule {
 #ifdef HAVE_NO_MEDIA
   return [self initWithNoMedia];
 #else
   std::unique_ptr<webrtc::VideoEncoderFactory> native_encoder_factory;
   std::unique_ptr<webrtc::VideoDecoderFactory> native_decoder_factory;
+  rtc::scoped_refptr<webrtc::AudioDeviceModule> native_audio_device_module;
   if (encoderFactory) {
     native_encoder_factory = webrtc::ObjCToNativeVideoEncoderFactory(encoderFactory);
   }
   if (decoderFactory) {
     native_decoder_factory = webrtc::ObjCToNativeVideoDecoderFactory(decoderFactory);
   }
+  if (audioDeviceModule) {
+    native_audio_device_module = audioDeviceModule.nativeAudioDeviceModule;
+  } else {
+    native_audio_device_module = [RTCAudioDeviceModule audioDeviceModule];
+  }
   return [self initWithNativeAudioEncoderFactory:webrtc::CreateBuiltinAudioEncoderFactory()
                        nativeAudioDecoderFactory:webrtc::CreateBuiltinAudioDecoderFactory()
                        nativeVideoEncoderFactory:std::move(native_encoder_factory)
                        nativeVideoDecoderFactory:std::move(native_decoder_factory)
-                               audioDeviceModule:[self audioDeviceModule]
+                               audioDeviceModule:native_audio_device_module
                            audioProcessingModule:nullptr];
 #endif
 }

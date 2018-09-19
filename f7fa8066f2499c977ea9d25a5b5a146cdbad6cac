@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0acad159_f2c46b24",
+        "filename": "test/decoder_proxy_factory.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-09-19T11:03:18Z",
+      "side": 1,
+      "message": "VideoDecoderProxyFactory",
+      "range": {
+        "startLine": 27,
+        "startChar": 6,
+        "endLine": 27,
+        "endChar": 25
+      },
+      "revId": "f7fa8066f2499c977ea9d25a5b5a146cdbad6cac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

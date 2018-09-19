@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "468130ea_64e8f677",
+        "filename": "tools_webrtc/autoroller/roll_deps.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 691,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2018-09-19T15:17:28Z",
+      "side": 1,
+      "message": "Seems like a great opportunity to change these arguments to be specified by name\n\n , added_deps_paths\u003dnew_generated_android_deps,\n\netc.",
+      "range": {
+        "startLine": 691,
+        "startChar": 0,
+        "endLine": 691,
+        "endChar": 37
+      },
+      "revId": "ed533dd05ee933ce38eed24471ff95274d36ff96",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

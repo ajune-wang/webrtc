@@ -454,8 +454,6 @@ void RtpVideoStreamReceiver::ReceivePacket(const RtpPacketReceived& packet) {
       VideoSendTiming::kInvalid;
   webrtc_rtp_header.video_header().playout_delay.min_ms = -1;
   webrtc_rtp_header.video_header().playout_delay.max_ms = -1;
-  webrtc_rtp_header.video_header().is_last_packet_in_frame =
-      webrtc_rtp_header.header.markerBit;
 
   packet.GetExtension<VideoOrientation>(
       &webrtc_rtp_header.video_header().rotation);
@@ -472,10 +470,8 @@ void RtpVideoStreamReceiver::ReceivePacket(const RtpPacketReceived& packet) {
     webrtc_rtp_header.video_header().is_first_packet_in_frame =
         generic_descriptor_wire.FirstSubFrameInFrame() &&
         generic_descriptor_wire.FirstPacketInSubFrame();
-    webrtc_rtp_header.video_header().is_last_packet_in_frame =
-        webrtc_rtp_header.header.markerBit ||
-        (generic_descriptor_wire.LastSubFrameInFrame() &&
-         generic_descriptor_wire.LastPacketInSubFrame());
+    // TODO(philipel): Add is_last_packet_in_frame to the RtpVideoHeader and use
+    //                 the information from the generic descriptor to set it.
 
     // For now we store the diffs in |generic_descirptor.dependencies|. They
     // are later recaculated when the frame id is unwrapped.

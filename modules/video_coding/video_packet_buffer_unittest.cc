@@ -39,6 +39,7 @@ class TestPacketBuffer : public ::testing::Test,
 
   void OnReceivedFrame(std::unique_ptr<RtpFrameObject> frame) override {
     uint16_t first_seq_num = frame->first_seq_num();
+    std::cout << "=========== Frame :::::::::::" << first_seq_num << std::endl;
     if (frames_from_callback_.find(first_seq_num) !=
         frames_from_callback_.end()) {
       ADD_FAILURE() << "Already received frame with first sequence number "
@@ -77,6 +78,7 @@ class TestPacketBuffer : public ::testing::Test,
 
   void CheckFrame(uint16_t first_seq_num) {
     auto frame_it = frames_from_callback_.find(first_seq_num);
+    std::cout << "=========== #frames ::::" << frames_from_callback_.size() << std::endl;
     ASSERT_FALSE(frame_it == frames_from_callback_.end())
         << "Could not find frame with first sequence number " << first_seq_num
         << ".";

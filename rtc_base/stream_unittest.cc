@@ -58,10 +58,6 @@ class TestStream : public StreamInterface {
     return true;
   }
 
-  bool GetSize(size_t* size) const override { return false; }
-
-  bool GetAvailable(size_t* size) const override { return false; }
-
  private:
   size_t pos_;
 };

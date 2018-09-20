@@ -12,7 +12,6 @@
 #include <sys/file.h>
 #endif  // WEBRTC_POSIX
 #include <errno.h>
-#include <sys/stat.h>
 #include <sys/types.h>
 
 #include <algorithm>
@@ -120,14 +119,6 @@ bool StreamInterface::GetPosition(size_t* position) const {
   return false;
 }
 
-bool StreamInterface::GetSize(size_t* size) const {
-  return false;
-}
-
-bool StreamInterface::GetAvailable(size_t* size) const {
-  return false;
-}
-
 bool StreamInterface::GetWriteRemaining(size_t* size) const {
   return false;
 }
@@ -186,14 +177,6 @@ bool StreamAdapterInterface::SetPosition(size_t position) {
 
 bool StreamAdapterInterface::GetPosition(size_t* position) const {
   return stream_->GetPosition(position);
-}
-
-bool StreamAdapterInterface::GetSize(size_t* size) const {
-  return stream_->GetSize(size);
-}
-
-bool StreamAdapterInterface::GetAvailable(size_t* size) const {
-  return stream_->GetAvailable(size);
 }
 
 bool StreamAdapterInterface::GetWriteRemaining(size_t* size) const {
@@ -367,30 +350,6 @@ bool FileStream::GetPosition(size_t* position) const {
   return true;
 }
 
-bool FileStream::GetSize(size_t* size) const {
-  RTC_DCHECK(nullptr != size);
-  if (!file_)
-    return false;
-  struct stat file_stats;
-  if (fstat(fileno(file_), &file_stats) != 0)
-    return false;
-  if (size)
-    *size = file_stats.st_size;
-  return true;
-}
-
-bool FileStream::GetAvailable(size_t* size) const {
-  RTC_DCHECK(nullptr != size);
-  if (!GetSize(size))
-    return false;
-  long result = ftell(file_);
-  if (result < 0)
-    return false;
-  if (size)
-    *size -= result;
-  return true;
-}
-
 bool FileStream::ReserveSize(size_t size) {
   // TODO: extend the file to the proper length
   return true;
@@ -493,12 +452,6 @@ bool MemoryStreamBase::GetPosition(size_t* position) const {
 bool MemoryStreamBase::GetSize(size_t* size) const {
   if (size)
     *size = data_length_;
-  return true;
-}
-
-bool MemoryStreamBase::GetAvailable(size_t* size) const {
-  if (size)
-    *size = data_length_ - seek_position_;
   return true;
 }
 

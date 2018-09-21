@@ -9,8 +9,13 @@
  */
 
 #include "modules/audio_mixer/audio_frame_manipulator.h"
+
+#include <string.h>
+
 #include "audio/utility/audio_frame_operations.h"
 #include "rtc_base/checks.h"
+
+
 
 namespace webrtc {
 
@@ -55,11 +60,23 @@ void Ramp(float start_gain, float target_gain, AudioFrame* audio_frame) {
 
 void RemixFrame(size_t target_number_of_channels, AudioFrame* frame) {
   RTC_DCHECK_GE(target_number_of_channels, 1);
-  RTC_DCHECK_LE(target_number_of_channels, 2);
+  //RTC_DCHECK_LE(target_number_of_channels, 2);
   if (frame->num_channels_ == 1 && target_number_of_channels == 2) {
     AudioFrameOperations::MonoToStereo(frame);
   } else if (frame->num_channels_ == 2 && target_number_of_channels == 1) {
     AudioFrameOperations::StereoToMono(frame);
+  } else if (frame->num_channels_ == 1 && target_number_of_channels > 1) {
+    int16_t data_copy[AudioFrame::kMaxDataSizeSamples];
+    memcpy(data_copy, frame->data(),
+           sizeof(int16_t) * frame->samples_per_channel_);
+    int16_t* frame_data = frame->mutable_data();
+    for (size_t i = 0; i < frame->samples_per_channel_; ++i) {
+      for (size_t chan = 0; chan < target_number_of_channels; ++chan) {
+        frame_data[i * target_number_of_channels + chan] = data_copy[i];
+      }
+    }
+  } else {
+    RTC_NOTREACHED();
   }
 }
 }  // namespace webrtc

@@ -14,6 +14,7 @@
 #include "api/video_codecs/builtin_video_encoder_factory.h"
 #include "media/engine/webrtcmediaengine.h"
 #include "modules/audio_processing/include/audio_processing.h"
+#include "pc/builtin_video_bitrate_allocator_factory.h"
 #include "pc/mediasession.h"
 #include "pc/peerconnectionfactory.h"
 #include "pc/peerconnectionwrapper.h"
@@ -56,6 +57,7 @@ class PeerConnectionFactoryForJsepTest : public PeerConnectionFactory {
                                   CreateBuiltinAudioDecoderFactory(),
                                   CreateBuiltinVideoEncoderFactory(),
                                   CreateBuiltinVideoDecoderFactory(),
+                                  CreateBuiltinVideoBitrateAllocatorFactory(),
                                   nullptr,
                                   AudioProcessingBuilder().Create()),
                               CreateCallFactory(),

@@ -22,6 +22,7 @@
 #include "modules/video_coding/jitter_buffer.h"
 #include "modules/video_coding/packet.h"
 #include "modules/video_coding/timing.h"
+#include "pc/builtin_video_bitrate_allocator_factory.h"
 #include "rtc_base/criticalsection.h"
 #include "rtc_base/thread_checker.h"
 #include "system_wrappers/include/clock.h"
@@ -116,7 +117,9 @@ class VideoCodingModuleImpl : public VideoCodingModule {
       // asynchronously keep the instance alive until destruction or until a
       // new send codec is registered.
       VideoCodec codec = *sendCodec;
-      rate_allocator_ = VideoCodecInitializer::CreateBitrateAllocator(codec);
+      auto rate_allocator_factory = CreateBuiltinVideoBitrateAllocatorFactory();
+      rate_allocator_ =
+          rate_allocator_factory->CreateVideoBitrateAllocator(codec);
       return sender_.RegisterSendCodec(&codec, numberOfCores, maxPayloadSize);
     }
     return sender_.RegisterSendCodec(sendCodec, numberOfCores, maxPayloadSize);

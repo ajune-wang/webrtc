@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "f7fdf691_7a141d76",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-09-21T12:26:46Z",
+      "side": 1,
+      "message": "Yeah if someone changes the underlying magic it would be nice to DCHECK-crash or else web-visible changes could go unnoticed.",
+      "parentUuid": "d67bb77f_5850951a",
+      "revId": "80bb8db3ed229310fb923282dc4b82c0f58639c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8b1613a3_bd99cabe",
         "filename": "pc/rtcstatscollector_unittest.cc",
         "patchSetId": 1
@@ -66,6 +84,24 @@
       "side": 1,
       "message": "unless the integration tests run with a turn server they won\u0027t get a relay candidate. Do they?",
       "parentUuid": "8b1613a3_bd99cabe",
+      "revId": "80bb8db3ed229310fb923282dc4b82c0f58639c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44ade8ac_acdb5cd6",
+        "filename": "pc/rtcstatscollector_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1008,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-09-21T12:26:46Z",
+      "side": 1,
+      "message": "Ok but still add a \"TestMemberIsUndefined\" check and add a comment why we expect it to be undefined. I want the integrationtest to have complete coverage of the stats, even though there are exceptions where something is not fully testable (that is something we could fix with a TODO). It\u0027s good that lack of coverage is also explicit and documented. In the case of \"track\" stats, we make sure all audio members are undefined for video tracks and vice-versa, and that still tests something valid. In this case, verify that we don\u0027t have a relay candidate on a non-relay connection. If the test is every updated to have relay connections the failing test would notify us that something changed and we can remove the todo.",
+      "parentUuid": "b14b0a70_9d176d50",
       "revId": "80bb8db3ed229310fb923282dc4b82c0f58639c2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

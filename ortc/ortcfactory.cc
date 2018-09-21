@@ -31,6 +31,7 @@
 #include "p2p/base/basicpacketsocketfactory.h"
 #include "p2p/base/udptransport.h"
 #include "pc/audiotrack.h"
+#include "pc/builtin_video_bitrate_allocator_factory.h"
 #include "pc/channelmanager.h"
 #include "pc/localaudiosource.h"
 #include "pc/rtpparametersconversion.h"
@@ -556,7 +557,9 @@ OrtcFactory::CreateMediaEngine_w() {
           rtc::scoped_refptr<webrtc::AudioDeviceModule>(adm_),
           audio_encoder_factory_, audio_decoder_factory_,
           webrtc::CreateBuiltinVideoEncoderFactory(),
-          webrtc::CreateBuiltinVideoDecoderFactory(), nullptr,
+          webrtc::CreateBuiltinVideoDecoderFactory(),
+          webrtc::CreateBuiltinVideoBitrateAllocatorFactory(),
+          nullptr /* audio_mixer */,
           webrtc::AudioProcessingBuilder().Create()));
 }
 

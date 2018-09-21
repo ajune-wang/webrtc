@@ -44,6 +44,7 @@
 #include "p2p/base/testturncustomizer.h"
 #include "p2p/base/testturnserver.h"
 #include "p2p/client/basicportallocator.h"
+#include "pc/builtin_video_bitrate_allocator_factory.h"
 #include "pc/dtmfsender.h"
 #include "pc/localaudiosource.h"
 #include "pc/mediasession.h"
@@ -611,7 +612,9 @@ class PeerConnectionWrapper : public webrtc::PeerConnectionObserver,
             webrtc::CreateBuiltinAudioEncoderFactory(),
             webrtc::CreateBuiltinAudioDecoderFactory(),
             webrtc::CreateBuiltinVideoEncoderFactory(),
-            webrtc::CreateBuiltinVideoDecoderFactory(), nullptr,
+            webrtc::CreateBuiltinVideoDecoderFactory(),
+            webrtc::CreateBuiltinVideoBitrateAllocatorFactory(),
+            nullptr /* audio_mixer */,
             webrtc::AudioProcessingBuilder().Create());
     pc_factory_dependencies.call_factory = webrtc::CreateCallFactory();
     if (event_log_factory) {

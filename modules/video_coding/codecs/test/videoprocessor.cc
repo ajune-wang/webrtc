@@ -23,6 +23,7 @@
 #include "modules/video_coding/include/video_error_codes.h"
 #include "modules/video_coding/utility/default_video_bitrate_allocator.h"
 #include "modules/video_coding/utility/simulcast_rate_allocator.h"
+#include "pc/builtin_video_bitrate_allocator_factory.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/timeutils.h"
 #include "test/gtest.h"
@@ -173,8 +174,9 @@ VideoProcessor::VideoProcessor(webrtc::VideoEncoder* encoder,
       stats_(stats),
       encoder_(encoder),
       decoders_(decoders),
-      bitrate_allocator_(VideoCodecInitializer::CreateBitrateAllocator(
-          config_.codec_settings)),
+      bitrate_allocator_(
+          CreateBuiltinVideoBitrateAllocatorFactory()
+              ->CreateVideoBitrateAllocator(config_.codec_settings)),
       framerate_fps_(0),
       encode_callback_(this),
       input_frame_reader_(input_frame_reader),

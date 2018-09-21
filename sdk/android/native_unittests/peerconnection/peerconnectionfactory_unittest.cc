@@ -44,7 +44,8 @@ rtc::scoped_refptr<webrtc::PeerConnectionFactoryInterface> CreateTestPCF(
           webrtc::CreateBuiltinAudioDecoderFactory(),
           absl::make_unique<webrtc::InternalEncoderFactory>(),
           absl::make_unique<webrtc::InternalDecoderFactory>(),
-          nullptr /* audio_mixer */, webrtc::AudioProcessingBuilder().Create());
+          webrtc::CreateBuiltinVideoDecoderFactory(), nullptr /* audio_mixer */,
+          webrtc::AudioProcessingBuilder().Create());
   RTC_LOG(LS_INFO) << "Media engine created: " << media_engine.get();
 
   auto factory = CreateModularPeerConnectionFactory(

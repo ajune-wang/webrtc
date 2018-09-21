@@ -12,6 +12,7 @@
 
 #include <algorithm>
 #include <limits>
+#include <iostream>
 #include <utility>
 
 #include "common_video/h264/h264_common.h"
@@ -62,6 +63,8 @@ PacketBuffer::~PacketBuffer() {
 
 bool PacketBuffer::InsertPacket(VCMPacket* packet) {
   std::vector<std::unique_ptr<RtpFrameObject>> found_frames;
+  RTC_CHECK(packet);
+  std::cout << "=========== InsertPacket :::::::::::" << packet->seqNum << std::endl;
   {
     rtc::CritScope lock(&crit_);
 
@@ -77,6 +80,7 @@ bool PacketBuffer::InsertPacket(VCMPacket* packet) {
       // If we have explicitly cleared past this packet then it's old,
       // don't insert it.
       if (is_cleared_to_first_seq_num_) {
+        std::cout << "=========== cleared  :::::::::::" << seq_num << std::endl;
         delete[] packet->dataPtr;
         packet->dataPtr = nullptr;
         return false;
@@ -89,6 +93,7 @@ bool PacketBuffer::InsertPacket(VCMPacket* packet) {
       // Duplicate packet, just delete the payload.
       if (data_buffer_[index].seqNum == packet->seqNum) {
         delete[] packet->dataPtr;
+        std::cout << "=========== duplicate  :::::::::::" << seq_num << std::endl;
         packet->dataPtr = nullptr;
         return true;
       }
@@ -122,11 +127,17 @@ bool PacketBuffer::InsertPacket(VCMPacket* packet) {
     if (packet->frameType == kVideoFrameKey)
       last_received_keyframe_packet_ms_ = now_ms;
 
+    std::cout << "=========== FindFrames  :::::::::::" << seq_num << std::endl;
     found_frames = FindFrames(seq_num);
   }
 
-  for (std::unique_ptr<RtpFrameObject>& frame : found_frames)
+  std::cout << "=========== BeforeFrame :::::::::::" << std::endl;
+  for (std::unique_ptr<RtpFrameObject>& frame : found_frames) {
+
+    RTC_CHECK(frame);
+    std::cout << "=========== OnReceivedFrame :::::::::::" << frame->first_seq_num() << std::endl;
     received_frame_callback_->OnReceivedFrame(std::move(frame));
+  }
 
   return true;
 }
@@ -270,11 +281,13 @@ std::vector<std::unique_ptr<RtpFrameObject>> PacketBuffer::FindFrames(
   std::vector<std::unique_ptr<RtpFrameObject>> found_frames;
   for (size_t i = 0; i < size_ && PotentialNewFrame(seq_num); ++i) {
     size_t index = seq_num % size_;
+    std::cout << "=========== FindFrames :::::::::::" << i << "," << index << std::endl;
     sequence_buffer_[index].continuous = true;
 
     // If all packets of the frame is continuous, find the first packet of the
     // frame and create an RtpFrameObject.
     if (sequence_buffer_[index].frame_end) {
+      std::cout << "=========== frame_end :::::::::::" << std::endl;
       size_t frame_size = 0;
       int max_nack_count = -1;
       uint16_t start_seq_num = seq_num;
@@ -303,12 +316,14 @@ std::vector<std::unique_ptr<RtpFrameObject>> PacketBuffer::FindFrames(
           break;
 
         if (is_h264 && !is_h264_keyframe) {
+          std::cout << "=========== (is_h264 && !is_h264_keyframe) :::::::::::" << std::endl;
           const auto* h264_header = absl::get_if<RTPVideoHeaderH264>(
               &data_buffer_[start_index].video_header.video_type_header);
           if (!h264_header || h264_header->nalus_length >= kMaxNalusPerPacket)
             return found_frames;
 
           for (size_t j = 0; j < h264_header->nalus_length; ++j) {
+            std::cout << "=========== j :::::::::::" << j << std::endl;
             if (h264_header->nalus[j].type == H264::NaluType::kSps) {
               has_h264_sps = true;
             } else if (h264_header->nalus[j].type == H264::NaluType::kPps) {
@@ -320,6 +335,7 @@ std::vector<std::unique_ptr<RtpFrameObject>> PacketBuffer::FindFrames(
           if ((sps_pps_idr_is_h264_keyframe_ && has_h264_idr && has_h264_sps &&
                has_h264_pps) ||
               (!sps_pps_idr_is_h264_keyframe_ && has_h264_idr)) {
+            std::cout << "=========== is_h264_keyframe :::::::::::" << has_h264_idr << std::endl;
             is_h264_keyframe = true;
           }
         }
@@ -328,6 +344,7 @@ std::vector<std::unique_ptr<RtpFrameObject>> PacketBuffer::FindFrames(
           break;
 
         start_index = start_index > 0 ? start_index - 1 : size_ - 1;
+          std::cout << "=========== start_index :::::::::::" << start_index << std::endl;
 
         // In the case of H264 we don't have a frame_begin bit (yes,
         // |frame_begin| might be set to true but that is a lie). So instead
@@ -341,12 +358,15 @@ std::vector<std::unique_ptr<RtpFrameObject>> PacketBuffer::FindFrames(
           break;
         }
 
+        std::cout << "=========== start_seq_num :::::::::::" << start_seq_num << std::endl;
         --start_seq_num;
       }
 
       if (is_h264) {
         // Warn if this is an unsafe frame.
         if (has_h264_idr && (!has_h264_sps || !has_h264_pps)) {
+
+          std::cout << "=========== has_h264 :::::::::::" << start_seq_num << std::endl;
           RTC_LOG(LS_WARNING)
               << "Received H.264-IDR frame "
               << "(SPS: " << has_h264_sps << ", PPS: " << has_h264_pps
@@ -372,6 +392,7 @@ std::vector<std::unique_ptr<RtpFrameObject>> PacketBuffer::FindFrames(
         if (!is_h264_keyframe && missing_packets_.upper_bound(start_seq_num) !=
                                      missing_packets_.begin()) {
           uint16_t stop_index = (index + 1) % size_;
+          std::cout << "=========== stop_index :::::::::::" << stop_index << std::endl;
           while (start_index != stop_index) {
             sequence_buffer_[start_index].frame_created = false;
             start_index = (start_index + 1) % size_;
@@ -384,6 +405,7 @@ std::vector<std::unique_ptr<RtpFrameObject>> PacketBuffer::FindFrames(
       missing_packets_.erase(missing_packets_.begin(),
                              missing_packets_.upper_bound(seq_num));
 
+      std::cout << "=========== emplace_back :::::::::::" << start_seq_num << std::endl;
       found_frames.emplace_back(
           new RtpFrameObject(this, start_seq_num, seq_num, frame_size,
                              max_nack_count, clock_->TimeInMilliseconds()));

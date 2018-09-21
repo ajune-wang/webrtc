@@ -12,6 +12,7 @@
 
 #include <algorithm>
 #include <limits>
+#include <iostream>
 #include <utility>
 
 #include "common_video/h264/h264_common.h"
@@ -62,6 +63,8 @@ PacketBuffer::~PacketBuffer() {
 
 bool PacketBuffer::InsertPacket(VCMPacket* packet) {
   std::vector<std::unique_ptr<RtpFrameObject>> found_frames;
+  RTC_CHECK(packet);
+  std::cout << "=========== InsertPacket :::::::::::" << packet->seqNum << std::endl;
   {
     rtc::CritScope lock(&crit_);
 
@@ -77,6 +80,7 @@ bool PacketBuffer::InsertPacket(VCMPacket* packet) {
       // If we have explicitly cleared past this packet then it's old,
       // don't insert it.
       if (is_cleared_to_first_seq_num_) {
+        std::cout << "=========== cleared  :::::::::::" << seq_num << std::endl;
         delete[] packet->dataPtr;
         packet->dataPtr = nullptr;
         return false;
@@ -89,6 +93,7 @@ bool PacketBuffer::InsertPacket(VCMPacket* packet) {
       // Duplicate packet, just delete the payload.
       if (data_buffer_[index].seqNum == packet->seqNum) {
         delete[] packet->dataPtr;
+        std::cout << "=========== duplicate  :::::::::::" << seq_num << std::endl;
         packet->dataPtr = nullptr;
         return true;
       }
@@ -122,11 +127,17 @@ bool PacketBuffer::InsertPacket(VCMPacket* packet) {
     if (packet->frameType == kVideoFrameKey)
       last_received_keyframe_packet_ms_ = now_ms;
 
+    std::cout << "=========== FindFrames  :::::::::::" << seq_num << std::endl;
     found_frames = FindFrames(seq_num);
   }
 
-  for (std::unique_ptr<RtpFrameObject>& frame : found_frames)
+  std::cout << "=========== BeforeFrame :::::::::::" << std::endl;
+  for (std::unique_ptr<RtpFrameObject>& frame : found_frames) {
+
+    RTC_CHECK(frame);
+    std::cout << "=========== OnReceivedFrame :::::::::::" << frame->first_seq_num() << std::endl;
     received_frame_callback_->OnReceivedFrame(std::move(frame));
+  }
 
   return true;
 }

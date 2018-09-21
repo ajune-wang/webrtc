@@ -416,6 +416,41 @@ TEST(TaskQueueTest, PostAndReply2) {
   EXPECT_TRUE(event.Wait(1000));
 }
 
+// Use two post and reply task. First one is slower, 2nd one is faster so that
+// reply tasks should run in opposite order than post tasks.
+TEST(TaskQueueTest, PostAndReplyOutOfOrder) {
+  static const char kQueueName[] = "PostQueue";
+  static const char kWorkQueueName[] = "ReplyQueue";
+
+  rtc::Event slow_task(false, false);
+  rtc::Event slow_task_done(false, false);
+  rtc::Event fast_task(false, false);
+  rtc::Event fast_task_done(false, false);
+
+  TaskQueue post_queue(kQueueName);
+  TaskQueue reply_queue(kWorkQueueName);
+
+  post_queue.PostTaskAndReply(
+      /*task=*/
+      [&] {
+        EXPECT_TRUE(slow_task.Wait(1000));
+        slow_task_done.Set();
+      },
+      /*reply=*/[&] { EXPECT_TRUE(slow_task_done.Wait(0)); }, &reply_queue);
+
+  post_queue.PostTaskAndReply(
+      [&] {
+        EXPECT_TRUE(fast_task.Wait(1000));
+        fast_task_done.Set();
+      },
+      /* reply=*/[&] { EXPECT_TRUE(fast_task_done.Wait(0)); }, &reply_queue);
+
+  fast_task.Set();
+  EXPECT_TRUE(fast_task_done.Wait(1000));
+  slow_task.Set();
+  EXPECT_TRUE(slow_task_done.Wait(1000));
+}
+
 // Tests posting more messages than a queue can queue up.
 // In situations like that, tasks will get dropped.
 TEST(TaskQueueTest, PostALot) {

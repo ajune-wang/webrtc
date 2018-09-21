@@ -32,10 +32,16 @@
 #include "rtc_base/logging.h"
 #include "rtc_base/timeutils.h"
 #include "rtc_base/trace_event.h"
+#include "system_wrappers/include/field_trial.h"
 
 namespace webrtc {
 
 namespace {
+// Maps from gof_idx to encoder internal reference frame buffer index. These
+// maps work for 1,2 and 3 temporal layers with GOF length of 1,2 and 4 frames.
+uint8_t kRefBufIdx[4] = {0, 0, 0, 1};
+uint8_t kUpdBufIdx[4] = {0, 0, 1, 0};
+
 // Only positive speeds, range for real-time coding currently is: 5 - 8.
 // Lower means slower/better quality, higher means fastest/lower quality.
 int GetCpuSpeed(int width, int height) {
@@ -766,6 +772,11 @@ int VP9EncoderImpl::Encode(const VideoFrame& input_image,
     flags = VPX_EFLAG_FORCE_KF;
   }
 
+  if (webrtc::field_trial::IsEnabled("WebRTC-Vp9RefCtrl")) {
+    vpx_svc_ref_frame_config_t ref_config = SetReferences(force_key_frame_);
+    vpx_codec_control(encoder_, VP9E_SET_SVC_REF_FRAME_CONFIG, &ref_config);
+  }
+
   // TODO(ssilkin): Frame duration should be specified per spatial layer
   // since their frame rate can be different. For now calculate frame duration
   // based on target frame rate of the highest spatial layer, which frame rate
@@ -1024,6 +1035,45 @@ void VP9EncoderImpl::UpdateReferenceBuffers(const vpx_codec_cx_pkt& pkt,
     // is reference and stored in buffer 0.
     ref_buf_[0] = frame_buf;
   }
+}
+
+vpx_svc_ref_frame_config_t VP9EncoderImpl::SetReferences(bool is_key_pic) {
+  // kRefBufIdx, kUpdBufIdx need to be updated to support longer GOFs.
+  RTC_DCHECK_LE(gof_.num_frames_in_gof, 4);
+
+  vpx_svc_ref_frame_config_t ref_config;
+  memset(&ref_config, 0, sizeof(ref_config));
+
+  const size_t num_temporal_refs = std::max(1, num_temporal_layers_ - 1);
+  const bool is_inter_layer_pred_allowed =
+      inter_layer_pred_ == InterLayerPredMode::kOn ||
+      (inter_layer_pred_ == InterLayerPredMode::kOnKeyPic && is_key_pic);
+  int last_updated_buf_idx = 0;
+
+  for (size_t sl_idx = 0; sl_idx < num_spatial_layers_; ++sl_idx) {
+    const size_t gof_idx = pics_since_key_ % gof_.num_frames_in_gof;
+
+    if (!is_key_pic) {
+      ref_config.lst_fb_idx[sl_idx] =
+          sl_idx * num_temporal_refs + kRefBufIdx[gof_idx];
+      ref_config.reference_last[sl_idx] = 1;
+    }
+
+    if (is_inter_layer_pred_allowed && sl_idx > 0) {
+      ref_config.gld_fb_idx[sl_idx] = last_updated_buf_idx;
+      ref_config.reference_golden[sl_idx] = 1;
+    }
+
+    if (gof_.temporal_idx[gof_idx] <= num_temporal_layers_ - 1) {
+      last_updated_buf_idx = sl_idx * num_temporal_refs + kUpdBufIdx[gof_idx];
+      ref_config.update_buffer_slot[sl_idx] = 1 << last_updated_buf_idx;
+    } else if (is_inter_layer_pred_allowed) {
+      last_updated_buf_idx = 7;
+      ref_config.update_buffer_slot[sl_idx] = 1 << last_updated_buf_idx;
+    }
+  }
+
+  return ref_config;
 }
 
 int VP9EncoderImpl::GetEncodedLayerFrame(const vpx_codec_cx_pkt* pkt) {

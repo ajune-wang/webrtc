@@ -774,6 +774,14 @@ int VP9EncoderImpl::Encode(const VideoFrame& input_image,
 
   if (webrtc::field_trial::IsEnabled("WebRTC-Vp9RefCtrl")) {
     vpx_svc_ref_frame_config_t ref_config = SetReferences(force_key_frame_);
+
+    if (VideoCodecMode::kScreensharing == codec_.mode) {
+      for (uint8_t sl_idx = 0; sl_idx < num_active_spatial_layers_; ++sl_idx) {
+        ref_config.duration[sl_idx] = static_cast<int64_t>(
+            90000 / framerate_controller_[sl_idx].GetTargetRate());
+      }
+    }
+
     vpx_codec_control(encoder_, VP9E_SET_SVC_REF_FRAME_CONFIG, &ref_config);
   }
 

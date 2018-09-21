@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8616462e_a0417943",
+        "filename": "audio/test/low_bandwidth_audio_test.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 7896
+      },
+      "writtenOn": "2018-09-21T14:31:45Z",
+      "side": 1,
+      "message": "should this be number-3 rather than string-3?",
+      "range": {
+        "startLine": 279,
+        "startChar": 29,
+        "endLine": 279,
+        "endChar": 30
+      },
+      "revId": "dd0a382bf18594c6e0759701e73d57df9147c14d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

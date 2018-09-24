@@ -46,16 +46,6 @@ class HttpServer {
   // Due to sigslot issues, we can't destroy some streams at an arbitrary time.
   sigslot::signal3<HttpServer*, int, StreamInterface*> SignalConnectionClosed;
 
-  // This signal occurs when the HTTP request headers have been received, but
-  // before the request body is written to the request document.  By default,
-  // the request document is a MemoryStream.  By handling this signal, the
-  // document can be overridden, in which case the third signal argument should
-  // be set to true.  In the case where the request body should be ignored,
-  // the document can be set to null.  Note that the transaction object is still
-  // owened by the HttpServer at this point.
-  sigslot::signal3<HttpServer*, HttpServerTransaction*, bool*>
-      SignalHttpRequestHeader;
-
   // An HTTP request has been made, and is available in the transaction object.
   // Populate the transaction's response, and then return the object via the
   // Respond method.  Note that during this time, ownership of the transaction
@@ -63,10 +53,6 @@ class HttpServer {
   // respond must be called on the server's active thread.
   sigslot::signal2<HttpServer*, HttpServerTransaction*> SignalHttpRequest;
   void Respond(HttpServerTransaction* transaction);
-
-  // If you want to know when a request completes, listen to this event.
-  sigslot::signal3<HttpServer*, HttpServerTransaction*, int>
-      SignalHttpRequestComplete;
 
   // Stop processing the connection indicated by connection_id.
   // Unless force is true, the server will complete sending a response that is
@@ -99,7 +85,7 @@ class HttpServer {
     HttpServer* server_;
     HttpBase base_;
     HttpServerTransaction* current_;
-    bool signalling_, close_;
+    bool close_;
   };
 
   Connection* Find(int connection_id);

@@ -268,6 +268,7 @@ class MessageQueue {
     return msgq_.size() + dmsgq_.size() + (fPeekKeep_ ? 1u : 0u);
   }
 
+  // TODO(nisse): Almost unused, delete.
   // Internally posts a message which causes the doomed object to be deleted
   template <class T>
   void Dispose(T* doomed) {

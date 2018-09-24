@@ -55,10 +55,6 @@ class HttpParser {
   virtual ProcessResult ProcessHeaderComplete(bool chunked,
                                               size_t& data_size,
                                               HttpError* error) = 0;
-  virtual ProcessResult ProcessData(const char* data,
-                                    size_t len,
-                                    size_t& read,
-                                    HttpError* error) = 0;
   virtual void OnComplete(HttpError err) = 0;
 
  private:
@@ -104,9 +100,10 @@ class HttpBase : private HttpParser, public sigslot::has_slots<> {
   HttpBase();
   ~HttpBase() override;
 
+  // TODO(nisse): Unused, delete ?
   void notify(IHttpNotify* notify) { notify_ = notify; }
+  // TODO(nisse): Used by tests only, delete.
   bool attach(StreamInterface* stream);
-  StreamInterface* stream() { return http_stream_; }
   StreamInterface* detach();
   bool isConnected() const;
 
@@ -145,7 +142,6 @@ class HttpBase : private HttpParser, public sigslot::has_slots<> {
   void do_complete(HttpError err = HE_NONE);
 
   void OnHttpStreamEvent(StreamInterface* stream, int events, int error);
-  void OnDocumentEvent(StreamInterface* stream, int events, int error);
 
   // HttpParser Interface
   ProcessResult ProcessLeader(const char* line,
@@ -159,10 +155,6 @@ class HttpBase : private HttpParser, public sigslot::has_slots<> {
   ProcessResult ProcessHeaderComplete(bool chunked,
                                       size_t& data_size,
                                       HttpError* error) override;
-  ProcessResult ProcessData(const char* data,
-                            size_t len,
-                            size_t& read,
-                            HttpError* error) override;
   void OnComplete(HttpError err) override;
 
  private:

@@ -101,18 +101,9 @@ HttpParser::ProcessResult HttpParser::Process(const char* buffer,
       if ((data_size_ != SIZE_UNKNOWN) && (available > data_size_)) {
         available = data_size_;
       }
-      size_t read = 0;
-      ProcessResult result =
-          ProcessData(buffer + *processed, available, read, error);
-      RTC_LOG(LS_VERBOSE) << "Processed data, result: " << result
-                          << " read: " << read << " err: " << error;
-
-      if (PR_CONTINUE != result) {
-        return result;
-      }
-      *processed += read;
+      *processed += available;
       if (data_size_ != SIZE_UNKNOWN) {
-        data_size_ -= read;
+        data_size_ -= available;
       }
     }
   }
@@ -275,10 +266,6 @@ void HttpBase::send(HttpData* data) {
   data_ = data;
   len_ = 0;
   ignore_data_ = chunk_data_ = false;
-
-  if (data_->document) {
-    data_->document->SignalEvent.connect(this, &HttpBase::OnDocumentEvent);
-  }
 
   std::string encoding;
   if (data_->hasHeader(HH_TRANSFER_ENCODING, &encoding) &&
@@ -453,75 +440,9 @@ void HttpBase::flush_data() {
       send_required = queue_headers();
     }
 
-    if (!send_required && data_->document) {
-      // Next, attempt to queue document data.
-
-      const size_t kChunkDigits = 8;
-      size_t offset, reserve;
-      if (chunk_data_) {
-        // Reserve characters at the start for X-byte hex value and \r\n
-        offset = len_ + kChunkDigits + 2;
-        // ... and 2 characters at the end for \r\n
-        reserve = offset + 2;
-      } else {
-        offset = len_;
-        reserve = offset;
-      }
-
-      if (reserve >= sizeof(buffer_)) {
-        send_required = true;
-      } else {
-        size_t read;
-        int error;
-        StreamResult result = data_->document->Read(
-            buffer_ + offset, sizeof(buffer_) - reserve, &read, &error);
-        if (result == SR_SUCCESS) {
-          RTC_DCHECK(reserve + read <= sizeof(buffer_));
-          if (chunk_data_) {
-            // Prepend the chunk length in hex.
-            // Note: sprintfn appends a null terminator, which is why we can't
-            // combine it with the line terminator.
-            sprintfn(buffer_ + len_, kChunkDigits + 1, "%.*x", kChunkDigits,
-                     read);
-            // Add line terminator to the chunk length.
-            memcpy(buffer_ + len_ + kChunkDigits, "\r\n", 2);
-            // Add line terminator to the end of the chunk.
-            memcpy(buffer_ + offset + read, "\r\n", 2);
-          }
-          len_ = reserve + read;
-        } else if (result == SR_BLOCK) {
-          // Nothing to do but flush data to the network.
-          send_required = true;
-        } else if (result == SR_EOS) {
-          if (chunk_data_) {
-            // Append the empty chunk and empty trailers, then turn off
-            // chunking.
-            RTC_DCHECK(len_ + 5 <= sizeof(buffer_));
-            memcpy(buffer_ + len_, "0\r\n\r\n", 5);
-            len_ += 5;
-            chunk_data_ = false;
-          } else if (0 == len_) {
-            // No more data to read, and no more data to write.
-            do_complete();
-            return;
-          }
-          // Although we are done reading data, there is still data which needs
-          // to be flushed to the network.
-          send_required = true;
-        } else {
-          RTC_LOG_F(LS_ERROR) << "Read error: " << error;
-          do_complete(HE_STREAM);
-          return;
-        }
-      }
-    }
-
     if (0 == len_) {
       // No data currently available to send.
-      if (!data_->document) {
-        // If there is no source document, that means we're done.
-        do_complete();
-      }
+      do_complete();
       return;
     }
 
@@ -577,9 +498,6 @@ void HttpBase::do_complete(HttpError err) {
   RTC_DCHECK(mode_ != HM_NONE);
   HttpMode mode = mode_;
   mode_ = HM_NONE;
-  if (data_ && data_->document) {
-    data_->document->SignalEvent.disconnect(this);
-  }
   data_ = nullptr;
   if (notify_) {
     notify_->onHttpComplete(mode, err);
@@ -622,25 +540,6 @@ void HttpBase::OnHttpStreamEvent(StreamInterface* stream,
   }
 }
 
-void HttpBase::OnDocumentEvent(StreamInterface* stream, int events, int error) {
-  RTC_DCHECK(stream == data_->document.get());
-  if ((events & SE_WRITE) && (mode_ == HM_RECV)) {
-    read_and_process_data();
-    return;
-  }
-
-  if ((events & SE_READ) && (mode_ == HM_SEND)) {
-    flush_data();
-    return;
-  }
-
-  if (events & SE_CLOSE) {
-    RTC_LOG_F(LS_ERROR) << "Read error: " << error;
-    do_complete(HE_STREAM);
-    return;
-  }
-}
-
 //
 // HttpParser Implementation
 //
@@ -670,39 +569,10 @@ HttpParser::ProcessResult HttpBase::ProcessHeaderComplete(bool chunked,
     // The request must not be aborted as a result of this callback.
     RTC_DCHECK(nullptr != data_);
   }
-  if ((HE_NONE == *error) && data_->document) {
-    data_->document->SignalEvent.connect(this, &HttpBase::OnDocumentEvent);
-  }
   if (HE_NONE != *error) {
     return PR_COMPLETE;
   }
   return PR_CONTINUE;
-}
-
-HttpParser::ProcessResult HttpBase::ProcessData(const char* data,
-                                                size_t len,
-                                                size_t& read,
-                                                HttpError* error) {
-  if (ignore_data_ || !data_->document) {
-    read = len;
-    return PR_CONTINUE;
-  }
-  int write_error = 0;
-  switch (data_->document->Write(data, len, &read, &write_error)) {
-    case SR_SUCCESS:
-      return PR_CONTINUE;
-    case SR_BLOCK:
-      return PR_BLOCK;
-    case SR_EOS:
-      RTC_LOG_F(LS_ERROR) << "Unexpected EOS";
-      *error = HE_STREAM;
-      return PR_COMPLETE;
-    case SR_ERROR:
-    default:
-      RTC_LOG_F(LS_ERROR) << "Write error: " << write_error;
-      *error = HE_STREAM;
-      return PR_COMPLETE;
-  }
 }
 
 void HttpBase::OnComplete(HttpError err) {

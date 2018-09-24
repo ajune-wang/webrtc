@@ -30,8 +30,6 @@ struct HttpServerMonitor : public sigslot::has_slots<> {
       : transaction(nullptr), server_closed(false), connection_closed(false) {
     server->SignalCloseAllComplete.connect(this, &HttpServerMonitor::OnClosed);
     server->SignalHttpRequest.connect(this, &HttpServerMonitor::OnRequest);
-    server->SignalHttpRequestComplete.connect(
-        this, &HttpServerMonitor::OnRequestComplete);
     server->SignalConnectionClosed.connect(
         this, &HttpServerMonitor::OnConnectionClosed);
   }
@@ -40,10 +38,6 @@ struct HttpServerMonitor : public sigslot::has_slots<> {
     transaction = t;
     transaction->response.set_success();
     transaction->response.setHeader(HH_CONNECTION, "Close");
-  }
-  void OnRequestComplete(HttpServer*, HttpServerTransaction* t, int) {
-    ASSERT_EQ(transaction, t);
-    transaction = nullptr;
   }
   void OnClosed(HttpServer*) { server_closed = true; }
   void OnConnectionClosed(HttpServer*, int, StreamInterface* stream) {

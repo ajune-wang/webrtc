@@ -53,7 +53,7 @@ class ErleEstimator {
 
   class ErleTimeInstantaneous {
    public:
-    ErleTimeInstantaneous(int points_to_accumulate);
+    ErleTimeInstantaneous();
     ~ErleTimeInstantaneous();
     // Update the estimator with a new point, returns true
     // if the instantaneous erle was updated due to having enough
@@ -83,27 +83,47 @@ class ErleEstimator {
     float Y2_acum_;
     float E2_acum_;
     int num_points_;
-    const int points_to_accumulate_;
   };
 
   class ErleFreqInstantaneous {
    public:
-    ErleFreqInstantaneous(int points_to_accumulate);
+    ErleFreqInstantaneous();
     ~ErleFreqInstantaneous();
     // Updates the ERLE for a band with a new block. Returns absl::nullopt
-    // if not enough points were accuulated for doing the estimation.
-    absl::optional<float> Update(float Y2, float E2, size_t band);
+    // if not enough points were accumulated for doing the estimation.
+    absl::optional<float> Update(float X2,
+                                 float Y2,
+                                 float E2,
+                                 size_t band,
+                                 bool* low_render_energy);
     // Reset all the member of the class.
     void Reset();
 
    private:
     std::array<float, kFftLengthBy2Plus1> Y2_acum_;
     std::array<float, kFftLengthBy2Plus1> E2_acum_;
+    std::array<float, kFftLengthBy2Plus1> X2_acum_;
     std::array<int, kFftLengthBy2Plus1> num_points_;
-    const int points_to_accumulate_;
   };
 
  private:
+  void UpdateBands(rtc::ArrayView<const float> X2,
+                   rtc::ArrayView<const float> Y2,
+                   rtc::ArrayView<const float> E2,
+                   size_t start,
+                   size_t stop,
+                   float max_erle,
+                   bool onset_detection);
+  void DecreaseErlePerBandBetweenRenderBursts();
+  void UpdateErlePerFrequency(rtc::ArrayView<const float> X2,
+                              rtc::ArrayView<const float> Y2,
+                              rtc::ArrayView<const float> E2,
+                              bool converged_filter,
+                              bool onset_detection);
+  void UpdateErleTime(rtc::ArrayView<const float> X2,
+                      rtc::ArrayView<const float> Y2,
+                      rtc::ArrayView<const float> E2,
+                      bool converged_filter);
   std::array<float, kFftLengthBy2Plus1> erle_;
   std::array<float, kFftLengthBy2Plus1> erle_onsets_;
   std::array<bool, kFftLengthBy2Plus1> coming_onset_;
@@ -115,6 +135,7 @@ class ErleEstimator {
   const float max_erle_lf_;
   const float max_erle_lf_log2;
   const float max_erle_hf_;
+  const bool adapt_low_render_;
   ErleFreqInstantaneous erle_freq_inst_;
   ErleTimeInstantaneous erle_time_inst_;
   RTC_DISALLOW_COPY_AND_ASSIGN(ErleEstimator);

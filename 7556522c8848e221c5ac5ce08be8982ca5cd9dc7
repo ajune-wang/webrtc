@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "95a0f4b8_11c788a3",
+        "filename": "tools_webrtc/autoroller/unittests/roll_deps_test.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-09-24T14:31:59Z",
+      "side": 1,
+      "message": "I\u0027m surprised we have to this, but our python test environment isn\u0027t the best...",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 50
+      },
+      "revId": "7556522c8848e221c5ac5ce08be8982ca5cd9dc7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

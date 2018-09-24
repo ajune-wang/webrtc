@@ -59,8 +59,6 @@ constexpr int RtpHeaderExtensionMap::kMinId;
 constexpr int RtpHeaderExtensionMap::kMaxId;
 
 RtpHeaderExtensionMap::RtpHeaderExtensionMap() {
-  for (auto& type : types_)
-    type = kInvalidType;
   for (auto& id : ids_)
     id = kInvalidId;
 }
@@ -110,8 +108,6 @@ size_t RtpHeaderExtensionMap::GetTotalLengthInBytes(
 
 int32_t RtpHeaderExtensionMap::Deregister(RTPExtensionType type) {
   if (IsRegistered(type)) {
-    uint8_t id = GetId(type);
-    types_[id] = kInvalidType;
     ids_[type] = kInvalidId;
   }
   return 0;
@@ -129,22 +125,23 @@ bool RtpHeaderExtensionMap::Register(int id,
     return false;
   }
 
-  if (GetType(id) == type) {  // Same type/id pair already registered.
+  RTPExtensionType const registered_type = GetType(id);
+  if (registered_type == type) {  // Same type/id pair already registered.
     RTC_LOG(LS_VERBOSE) << "Reregistering extension uri:'" << uri
                         << "', id:" << id;
     return true;
   }
 
-  if (GetType(id) != kInvalidType) {  // |id| used by another extension type.
+  if (registered_type !=
+      kInvalidType) {  // |id| used by another extension type.
     RTC_LOG(LS_WARNING) << "Failed to register extension uri:'" << uri
                         << "', id:" << id
                         << ". Id already in use by extension type "
-                        << static_cast<int>(GetType(id));
+                        << static_cast<int>(registered_type);
     return false;
   }
   RTC_DCHECK(!IsRegistered(type));
 
-  types_[id] = type;
   // There is a run-time check above id fits into uint8_t.
   ids_[type] = static_cast<uint8_t>(id);
   return true;

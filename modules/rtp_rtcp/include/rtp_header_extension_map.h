@@ -47,7 +47,13 @@ class RtpHeaderExtensionMap {
   RTPExtensionType GetType(int id) const {
     RTC_DCHECK_GE(id, kMinId);
     RTC_DCHECK_LE(id, kMaxId);
-    return types_[id];
+    for (int type = kRtpExtensionNone + 1;
+         type < kRtpExtensionNumberOfExtensions; ++type) {
+      if (ids_[type] == id) {
+        return static_cast<RTPExtensionType>(type);
+      }
+    }
+    return kInvalidType;
   }
   // Return kInvalidId if not found.
   uint8_t GetId(RTPExtensionType type) const {
@@ -70,7 +76,6 @@ class RtpHeaderExtensionMap {
   static constexpr int kMaxId = 14;
   bool Register(int id, RTPExtensionType type, const char* uri);
 
-  RTPExtensionType types_[kMaxId + 1];
   uint8_t ids_[kRtpExtensionNumberOfExtensions];
 };
 

@@ -13,11 +13,11 @@
 #include <vector>
 
 #include "api/array_view.h"
+#include "modules/rtp_rtcp/include/rtp_header_extension_map.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 #include "rtc_base/copyonwritebuffer.h"
 
 namespace webrtc {
-class RtpHeaderExtensionMap;
 class Random;
 
 class RtpPacket {
@@ -114,7 +114,10 @@ class RtpPacket {
 
  private:
   struct ExtensionInfo {
-    ExtensionType type;
+    explicit ExtensionInfo(uint8_t id) : ExtensionInfo(id, 0, 0) {}
+    ExtensionInfo(uint8_t id, uint16_t offset, uint8_t length)
+        : id(id), offset(offset), length(length) {}
+    uint8_t id;
     uint16_t offset;
     uint8_t length;
   };
@@ -123,13 +126,21 @@ class RtpPacket {
   // but does not touch packet own buffer, leaving packet in invalid state.
   bool ParseBuffer(const uint8_t* buffer, size_t size);
 
+  // Returns pointer to extension info for a given id. Returns nullptr if not
+  // found.
+  ExtensionInfo const* FindExtensionInfo(int id) const;
+
+  // Returns reference to extension info for a given id. Creates a new entry
+  // with the specified id if not found.
+  ExtensionInfo& FindOrCreateExtensionInfo(int id);
+
   // Find an extension |type|.
   // Returns view of the raw extension or empty view on failure.
   rtc::ArrayView<const uint8_t> FindExtension(ExtensionType type) const;
 
   // Allocates and returns place to store rtp header extension.
   // Returns empty arrayview on failure.
-  rtc::ArrayView<uint8_t> AllocateRawExtension(int id, size_t length);
+  rtc::ArrayView<uint8_t> AllocateRawExtension(uint8_t id, size_t length);
 
   // Find or allocate an extension |type|. Returns view of size |length|
   // to write raw extension to or an empty view on failure.
@@ -148,7 +159,8 @@ class RtpPacket {
   size_t payload_offset_;  // Match header size with csrcs and extensions.
   size_t payload_size_;
 
-  ExtensionInfo extension_entries_[kMaxExtensionHeaders];
+  ExtensionManager extensions_;
+  std::vector<ExtensionInfo> extension_entries_;
   size_t extensions_size_ = 0;  // Unaligned.
   rtc::CopyOnWriteBuffer buffer_;
 };

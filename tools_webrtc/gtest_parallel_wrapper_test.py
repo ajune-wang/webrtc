@@ -10,18 +10,32 @@
 
 from contextlib import contextmanager
 
+import multiprocessing
 import os
 import tempfile
 import unittest
 
 script = __import__('gtest-parallel-wrapper')  # pylint: disable=invalid-name
-
+GET_WORKERS = script._GetNumberOfWorkers  # pylint: disable=protected-access
 
 @contextmanager
 def TemporaryDirectory():
   tmp_dir = tempfile.mkdtemp()
   yield tmp_dir
   os.rmdir(tmp_dir)
+
+
+class GtestParallelWrapperHelpersTest(unittest.TestCase):
+  def testGetWorkersAsIs(self):
+    self.assertEqual(GET_WORKERS('12'), 12)
+
+  def testGetTwiceWorkers(self):
+    expected = 2 * multiprocessing.cpu_count()
+    self.assertEqual(GET_WORKERS('2x'), expected)
+
+  def testGetHalfWorkers(self):
+    expected = max(multiprocessing.cpu_count() // 2, 1)
+    self.assertEqual(GET_WORKERS('0.5x'), expected)
 
 
 class GtestParallelWrapperTest(unittest.TestCase):
@@ -122,6 +136,24 @@ class GtestParallelWrapperTest(unittest.TestCase):
           '--isolated-script-test-perf-output=SOME_OTHER_DIR',
           '--foo=bar', '--baz'])
       self.assertEqual(result.gtest_parallel_args, expected)
+
+  def testStandardWorkers(self):
+    """ Check integer value is passed as-is."""
+    result = script.ParseArgs(['--workers', '17', 'exec'])
+    expected = self._Expected(['--workers=17', 'exec'])
+    self.assertEqual(result.gtest_parallel_args, expected)
+
+  def testTwoWorkersPerCpuCore(self):
+    result = script.ParseArgs(['--workers', '2x', 'exec'])
+    workers = 2 * multiprocessing.cpu_count()
+    expected = self._Expected(['--workers=%s' % workers, 'exec'])
+    self.assertEqual(result.gtest_parallel_args, expected)
+
+  def testUseHalfTheCpuCores(self):
+    result = script.ParseArgs(['--workers', '0.5x', 'exec'])
+    workers = multiprocessing.cpu_count() // 2
+    expected = self._Expected(['--workers=%s' % workers, 'exec'])
+    self.assertEqual(result.gtest_parallel_args, expected)
 
 
 if __name__ == '__main__':

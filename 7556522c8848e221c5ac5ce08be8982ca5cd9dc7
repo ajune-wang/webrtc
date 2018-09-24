@@ -22,6 +22,30 @@
       "revId": "7556522c8848e221c5ac5ce08be8982ca5cd9dc7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f192bb87_51ee1bed",
+        "filename": "tools_webrtc/autoroller/unittests/roll_deps_test.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2018-09-24T15:08:32Z",
+      "side": 1,
+      "message": "IKR. At least, it\u0027s consistent with the PARENT_DIR setup above and the other places pymock is used.",
+      "parentUuid": "95a0f4b8_11c788a3",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 50
+      },
+      "revId": "7556522c8848e221c5ac5ce08be8982ca5cd9dc7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

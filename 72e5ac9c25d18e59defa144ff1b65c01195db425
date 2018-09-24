@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ab832bd9_12b3cb00",
+        "filename": "modules/rtp_rtcp/include/rtp_header_extension_map.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-09-24T11:49:31Z",
+      "side": 1,
+      "message": "Done.\nI haven\u0027t checked the size, just moved it.",
+      "parentUuid": "13a92938_f3b938cf",
+      "revId": "72e5ac9c25d18e59defa144ff1b65c01195db425",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a51d423_e6be2b0b",
         "filename": "modules/rtp_rtcp/include/rtp_rtcp_defines.h",
         "patchSetId": 2
@@ -65,6 +83,30 @@
     },
     {
       "key": {
+        "uuid": "a1031f1f_2e337500",
+        "filename": "modules/rtp_rtcp/source/rtp_header_extension_map.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-09-24T11:49:31Z",
+      "side": 1,
+      "message": "I think it always makes sense to use const whenever a variable should not be modified :)\nHowever, I agree that in this short function it\u0027s not really needed so I have removed it here.",
+      "parentUuid": "aed6448b_aae3f7c7",
+      "range": {
+        "startLine": 128,
+        "startChar": 19,
+        "endLine": 128,
+        "endChar": 24
+      },
+      "revId": "72e5ac9c25d18e59defa144ff1b65c01195db425",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e9ee99be_e0bdaac9",
         "filename": "modules/rtp_rtcp/source/rtp_packet.cc",
         "patchSetId": 2
@@ -88,6 +130,30 @@
     },
     {
       "key": {
+        "uuid": "66cbd564_885d4bb9",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-09-24T11:49:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e9ee99be_e0bdaac9",
+      "range": {
+        "startLine": 194,
+        "startChar": 64,
+        "endLine": 194,
+        "endChar": 66
+      },
+      "revId": "72e5ac9c25d18e59defa144ff1b65c01195db425",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8fb09d75_db3352a7",
         "filename": "modules/rtp_rtcp/source/rtp_packet.h",
         "patchSetId": 2
@@ -99,6 +165,30 @@
       "writtenOn": "2018-09-24T10:50:06Z",
       "side": 1,
       "message": "may be swap length and offset fields for better alignment",
+      "range": {
+        "startLine": 121,
+        "startChar": 20,
+        "endLine": 122,
+        "endChar": 0
+      },
+      "revId": "72e5ac9c25d18e59defa144ff1b65c01195db425",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "95caf8b5_bc0af9e2",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-09-24T11:49:31Z",
+      "side": 1,
+      "message": "Yes, good idea!",
+      "parentUuid": "8fb09d75_db3352a7",
       "range": {
         "startLine": 121,
         "startChar": 20,
@@ -131,6 +221,30 @@
       "revId": "72e5ac9c25d18e59defa144ff1b65c01195db425",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1f9374d_94ba834e",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-09-24T11:49:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4be11842_b0e27ef2",
+      "range": {
+        "startLine": 131,
+        "startChar": 2,
+        "endLine": 131,
+        "endChar": 22
+      },
+      "revId": "72e5ac9c25d18e59defa144ff1b65c01195db425",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

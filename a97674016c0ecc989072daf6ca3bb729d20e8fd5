@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ccc578cd_8bceb35c",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-09-24T12:17:39Z",
+      "side": 1,
+      "message": "may be \"const T* \" for consistency",
+      "range": {
+        "startLine": 187,
+        "startChar": 2,
+        "endLine": 187,
+        "endChar": 22
+      },
+      "revId": "a97674016c0ecc989072daf6ca3bb729d20e8fd5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

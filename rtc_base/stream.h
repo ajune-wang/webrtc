@@ -170,10 +170,6 @@ class StreamInterface : public MessageHandler {
   // Returns false if the position is not known.
   virtual bool GetPosition(size_t* position) const;
 
-  // Get the byte length of the entire stream.  Returns false if the length
-  // is not known.
-  virtual bool GetSize(size_t* size) const;
-
   // Return the number of Write()-able bytes remaining before end-of-stream.
   // Returns false if not known.
   virtual bool GetWriteRemaining(size_t* size) const;
@@ -284,7 +280,6 @@ class StreamAdapterInterface : public StreamInterface,
 
   bool SetPosition(size_t position) override;
   bool GetPosition(size_t* position) const override;
-  bool GetSize(size_t* size) const override;
   bool GetWriteRemaining(size_t* size) const override;
   bool ReserveSize(size_t size) override;
   bool Flush() override;
@@ -339,7 +334,6 @@ class FileStream : public StreamInterface {
   void Close() override;
   bool SetPosition(size_t position) override;
   bool GetPosition(size_t* position) const override;
-  bool GetSize(size_t* size) const override;
   bool ReserveSize(size_t size) override;
 
   bool Flush() override;
@@ -374,7 +368,7 @@ class MemoryStreamBase : public StreamInterface {
   void Close() override;
   bool SetPosition(size_t position) override;
   bool GetPosition(size_t* position) const override;
-  bool GetSize(size_t* size) const override;
+  bool GetSize(size_t* size) const;
   bool ReserveSize(size_t size) override;
 
   char* GetBuffer() { return buffer_; }

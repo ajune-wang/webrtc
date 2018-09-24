@@ -82,14 +82,11 @@ class MAYBE_FileRotatingStreamTest : public ::testing::Test {
     stream.reset(new FileRotatingStream(dir_path, file_prefix));
     ASSERT_TRUE(stream->Open());
     size_t read = 0;
-    size_t stream_size = 0;
-    EXPECT_TRUE(stream->GetSize(&stream_size));
     std::unique_ptr<uint8_t[]> buffer(new uint8_t[expected_length]);
     EXPECT_EQ(SR_SUCCESS,
               stream->ReadAll(buffer.get(), expected_length, &read, nullptr));
     EXPECT_EQ(0, memcmp(expected_contents, buffer.get(), expected_length));
     EXPECT_EQ(SR_EOS, stream->ReadAll(buffer.get(), 1, nullptr, nullptr));
-    EXPECT_EQ(stream_size, read);
   }
 
   void VerifyFileContents(const char* expected_contents,
@@ -101,9 +98,6 @@ class MAYBE_FileRotatingStreamTest : public ::testing::Test {
     EXPECT_EQ(rtc::SR_SUCCESS,
               stream.ReadAll(buffer.get(), expected_length, nullptr, nullptr));
     EXPECT_EQ(0, memcmp(expected_contents, buffer.get(), expected_length));
-    size_t file_size = 0;
-    EXPECT_TRUE(stream.GetSize(&file_size));
-    EXPECT_EQ(file_size, expected_length);
   }
 
   std::unique_ptr<FileRotatingStream> stream_;
@@ -135,9 +129,10 @@ TEST_F(MAYBE_FileRotatingStreamTest, EmptyWrite) {
   std::string logfile_path = stream_->GetFilePath(0);
   FileStream stream;
   ASSERT_TRUE(stream.Open(logfile_path, "r", nullptr));
-  size_t file_size = 0;
-  EXPECT_TRUE(stream.GetSize(&file_size));
-  EXPECT_EQ(0u, file_size);
+  char buf[1];
+  size_t read_nbytes;
+  int read_error;
+  EXPECT_EQ(SR_EOS, stream.Read(buf, sizeof(buf), &read_nbytes, &read_error));
 }
 
 // Tests that a write operation followed by a read returns the expected data
@@ -248,14 +243,11 @@ class MAYBE_CallSessionFileRotatingStreamTest : public ::testing::Test {
         new CallSessionFileRotatingStream(dir_path));
     ASSERT_TRUE(stream->Open());
     size_t read = 0;
-    size_t stream_size = 0;
-    EXPECT_TRUE(stream->GetSize(&stream_size));
     std::unique_ptr<uint8_t[]> buffer(new uint8_t[expected_length]);
     EXPECT_EQ(SR_SUCCESS,
               stream->ReadAll(buffer.get(), expected_length, &read, nullptr));
     EXPECT_EQ(0, memcmp(expected_contents, buffer.get(), expected_length));
     EXPECT_EQ(SR_EOS, stream->ReadAll(buffer.get(), 1, nullptr, nullptr));
-    EXPECT_EQ(stream_size, read);
   }
 
   std::unique_ptr<CallSessionFileRotatingStream> stream_;

@@ -41,6 +41,7 @@ class FakeAudioCaptureModule : public webrtc::AudioDeviceModule,
   // using a real ADM. The constants correspond to 10ms of mono audio at 44kHz.
   static const size_t kNumberSamples = 440;
   static const size_t kNumberBytesPerSample = sizeof(Sample);
+  static const uint8_t kNumberOfChannels = 7;
 
   // Creates a FakeAudioCaptureModule or returns NULL on failure.
   static rtc::scoped_refptr<FakeAudioCaptureModule> Create();
@@ -207,9 +208,9 @@ class FakeAudioCaptureModule : public webrtc::AudioDeviceModule,
   std::unique_ptr<rtc::Thread> process_thread_;
 
   // Buffer for storing samples received from the webrtc::AudioTransport.
-  char rec_buffer_[kNumberSamples * kNumberBytesPerSample];
+  char rec_buffer_[kNumberSamples * kNumberBytesPerSample * kNumberOfChannels];
   // Buffer for samples to send to the webrtc::AudioTransport.
-  char send_buffer_[kNumberSamples * kNumberBytesPerSample];
+  char send_buffer_[kNumberSamples * kNumberBytesPerSample * kNumberOfChannels];
 
   // Counter of frames received that have samples of high enough amplitude to
   // indicate that the frames are not faked somewhere in the audio pipeline

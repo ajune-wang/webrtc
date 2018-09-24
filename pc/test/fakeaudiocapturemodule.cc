@@ -25,7 +25,6 @@ static const int kHighSampleValue = 10000;
 // Constants here are derived by running VoE using a real ADM.
 // The constants correspond to 10ms of mono audio at 44kHz.
 static const int kTimePerFrameMs = 10;
-static const uint8_t kNumberOfChannels = 1;
 static const int kSamplesPerSecond = 44000;
 static const int kTotalDelayMs = 0;
 static const int kClockDriftMs = 0;

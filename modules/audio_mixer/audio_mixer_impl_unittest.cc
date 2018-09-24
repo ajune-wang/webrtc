@@ -520,6 +520,7 @@ TEST(AudioMixer, AnyRateIsPossibleWithNoLimiter) {
 
         std::vector<MockMixerAudioSource> sources(number_of_sources);
         for (auto& source : sources) {
+          ResetFrame(source.fake_frame());
           mixer->AddSource(&source);
         }
 

@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "13a92938_f3b938cf",
+        "filename": "modules/rtp_rtcp/include/rtp_header_extension_map.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-09-24T10:50:06Z",
+      "side": 1,
+      "message": "because this function is no longer trivial, might be better not to inline it.\n(i.e. move to .cc and check size bots difference: if negligible, feel free to keep the implementation in the header)",
+      "revId": "72e5ac9c25d18e59defa144ff1b65c01195db425",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a51d423_e6be2b0b",
+        "filename": "modules/rtp_rtcp/include/rtp_rtcp_defines.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-09-24T10:50:06Z",
+      "side": 1,
+      "message": "Since you use implicit cast to int, may be note it explicitly here:\nenum RTPExtensionType : int {",
+      "range": {
+        "startLine": 100,
+        "startChar": 21,
+        "endLine": 100,
+        "endChar": 22
+      },
+      "revId": "72e5ac9c25d18e59defa144ff1b65c01195db425",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "aed6448b_aae3f7c7",
+        "filename": "modules/rtp_rtcp/source/rtp_header_extension_map.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-09-24T10:50:06Z",
+      "side": 1,
+      "message": "not need to declare local variables const\n(That case is not listed as one of encouraged: https://google.github.io/styleguide/cppguide.html#Use_of_const )\n\nwith short functions it shouldn\u0027t be hard to spot variable is not modified.",
+      "range": {
+        "startLine": 128,
+        "startChar": 19,
+        "endLine": 128,
+        "endChar": 24
+      },
+      "revId": "72e5ac9c25d18e59defa144ff1b65c01195db425",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e9ee99be_e0bdaac9",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-09-24T10:50:06Z",
+      "side": 1,
+      "message": "convert id to int (or it will be printed as unreadable character)\nor better keep using int as function parameter",
+      "range": {
+        "startLine": 194,
+        "startChar": 64,
+        "endLine": 194,
+        "endChar": 66
+      },
+      "revId": "72e5ac9c25d18e59defa144ff1b65c01195db425",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8fb09d75_db3352a7",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-09-24T10:50:06Z",
+      "side": 1,
+      "message": "may be swap length and offset fields for better alignment",
+      "range": {
+        "startLine": 121,
+        "startChar": 20,
+        "endLine": 122,
+        "endChar": 0
+      },
+      "revId": "72e5ac9c25d18e59defa144ff1b65c01195db425",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4be11842_b0e27ef2",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-09-24T10:50:06Z",
+      "side": 1,
+      "message": "for local consistency (e.g. see previous function) please use \n\"const Type*\" instead if \"Type const*\"",
+      "range": {
+        "startLine": 131,
+        "startChar": 2,
+        "endLine": 131,
+        "endChar": 22
+      },
+      "revId": "72e5ac9c25d18e59defa144ff1b65c01195db425",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "44efbd80_ad579f16",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-09-25T12:18:48Z",
+      "side": 0,
+      "message": "kMaxExtensionHeaders does not have any meaningful interpretation anymore. Is it okay to remove this or should I first mark it as DEPRICATED?",
+      "range": {
+        "startLine": 27,
+        "startChar": 23,
+        "endLine": 27,
+        "endChar": 43
+      },
+      "revId": "17ad64e41f43e2ee5722d74acb35e92a0832b60d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91391a15_8632dc71",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-09-25T12:18:48Z",
+      "side": 0,
+      "message": "Can these be removed? Do I first have to mark them as DEPRICATED?",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 44
+      },
+      "revId": "17ad64e41f43e2ee5722d74acb35e92a0832b60d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

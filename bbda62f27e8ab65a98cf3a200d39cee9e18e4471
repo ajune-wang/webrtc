@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6fb7664f_bbbb8f2a",
+        "filename": "modules/audio_coding/acm2/acm_receiver_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2018-09-25T13:24:20Z",
+      "side": 1,
+      "message": "Why not use an int in the loop so we can skip the rtc::checked_cast?",
+      "range": {
+        "startLine": 414,
+        "startChar": 7,
+        "endLine": 414,
+        "endChar": 13
+      },
+      "revId": "bbda62f27e8ab65a98cf3a200d39cee9e18e4471",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

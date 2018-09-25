@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "db618434_6f163e7b",
+        "filename": "api/test/simulated_network.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2018-09-25T12:37:21Z",
+      "side": 1,
+      "message": "What about CapacityBasedNetworkBehaviorConfig?",
+      "parentUuid": "66150993_934f5add",
+      "revId": "f2fcc7aa9a64640da6c08227ec101ee53aa7fc47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "480fea22_fe06f90a",
         "filename": "api/test/simulated_network.h",
         "patchSetId": 2
@@ -30,6 +48,30 @@
       "writtenOn": "2018-08-26T10:44:28Z",
       "side": 1,
       "message": "Can be removed if DefaultNetworkBehaviorConfig is not renamed.",
+      "range": {
+        "startLine": 76,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 68
+      },
+      "revId": "f2fcc7aa9a64640da6c08227ec101ee53aa7fc47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5d90f35_68ecb62f",
+        "filename": "api/test/simulated_network.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2018-09-25T12:37:21Z",
+      "side": 1,
+      "message": "Yes, if we will keep DefaultNetworkSimulationConfig, we can skip this line, but as I understand we want to rename that class, don\u0027t we?",
+      "parentUuid": "480fea22_fe06f90a",
       "range": {
         "startLine": 76,
         "startChar": 0,

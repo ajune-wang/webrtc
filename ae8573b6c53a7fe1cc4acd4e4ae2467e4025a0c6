@@ -25,6 +25,69 @@
     },
     {
       "key": {
+        "uuid": "419b75d1_2303bfe6",
+        "filename": "modules/rtp_rtcp/include/rtp_header_extension_map.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-09-25T13:05:07Z",
+      "side": 1,
+      "message": "I\u0027m not sure these two constants belong to this class, specially in public section and specially 2nd one that is not used by the class itself.\nI think it is better to keep them in rtp_packet.cc only.\n\nThe main purpose of this class is to convert type \u003c-\u003e id\n\n(GetTotalLengthInBytes seems like leftover too from that point of view. the reason it uses size of one-byte header doesn\u0027t mean it need to expose that size)",
+      "revId": "ae8573b6c53a7fe1cc4acd4e4ae2467e4025a0c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f890e348_963aefdf",
+        "filename": "modules/rtp_rtcp/source/rtp_header_extension_map.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-09-25T13:05:07Z",
+      "side": 1,
+      "message": "is it always One Byte?\nMay be add a comment that GetTotalLengthInBytes silently assumes all passed extensions can be encoded with one-byte headers.",
+      "range": {
+        "startLine": 110,
+        "startChar": 44,
+        "endLine": 110,
+        "endChar": 73
+      },
+      "revId": "ae8573b6c53a7fe1cc4acd4e4ae2467e4025a0c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b637eac_3c434add",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-09-25T13:05:07Z",
+      "side": 1,
+      "message": "nit: align to center, like other fields.",
+      "range": {
+        "startLine": 44,
+        "startChar": 4,
+        "endLine": 44,
+        "endChar": 32
+      },
+      "revId": "ae8573b6c53a7fe1cc4acd4e4ae2467e4025a0c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ca947c31_c2646aa4",
         "filename": "modules/rtp_rtcp/source/rtp_packet.h",
         "patchSetId": 9
@@ -39,6 +102,23 @@
       "revId": "ae8573b6c53a7fe1cc4acd4e4ae2467e4025a0c6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2cf03b1_baf22161",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-09-25T13:05:07Z",
+      "side": 1,
+      "message": "may be be better than surrounding tests and do not EXPECT unrelated fields, validate only the extensions",
+      "revId": "ae8573b6c53a7fe1cc4acd4e4ae2467e4025a0c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

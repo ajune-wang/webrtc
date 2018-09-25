@@ -22,6 +22,30 @@
       "revId": "94a777a364883d278c048cb854e9852411947c7f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ae5c946_6da0aec0",
+        "filename": "tools_webrtc/gtest_parallel_wrapper_test.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2018-09-25T19:57:50Z",
+      "side": 1,
+      "message": "\u003e It seems like the value should be mocked out, why is there this computation in unittests?\n\nI agree that\u0027s more the parsing than the computation which is tested.\nI believe a mock would not add much value (no pun intended). As it is, the test makes pretty clear what is expected, without being brittle.",
+      "parentUuid": "2d63ff39_c30b0b28",
+      "range": {
+        "startLine": 156,
+        "startChar": 18,
+        "endLine": 156,
+        "endChar": 45
+      },
+      "revId": "94a777a364883d278c048cb854e9852411947c7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

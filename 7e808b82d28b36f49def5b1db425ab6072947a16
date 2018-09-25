@@ -121,6 +121,30 @@
     },
     {
       "key": {
+        "uuid": "c759dee7_76247e3f",
+        "filename": "tools_webrtc/gtest_parallel_wrapper_test.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2018-09-25T19:57:50Z",
+      "side": 1,
+      "message": "Done.\nIf you think time was wasted here, I am doubly sorry.\nI just aim for small CLs with a well defined purpose.\n\nThat\u0027s in phase with Google informal guidelines: \"\"\"Make the diff easy to understand: Multiple changes at once make the CL harder to review. When you self-review, look for simple changes that reduce the size of the diff. For example, save significant refactoring or formatting changes for another CL.\"\"\" (https://docs.google.com/document/d/1rM8crFr8LvYnyyMwRixx5BF6xqMk1vVBX5LGrkNpQ1g)\n\nThat being said, if our policy is to clean up the code as we go and pack such clean-ups in the main CL as long as they are reasonably small, I\u0027m fine with that too.",
+      "parentUuid": "2fd6873f_c60dd156",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 6
+      },
+      "revId": "7e808b82d28b36f49def5b1db425ab6072947a16",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5cab3dc7_748adb67",
         "filename": "tools_webrtc/gtest_parallel_wrapper_test.py",
         "patchSetId": 3

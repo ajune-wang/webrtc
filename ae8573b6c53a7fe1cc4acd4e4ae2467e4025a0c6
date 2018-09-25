@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8a19f32c_1ecaa584",
+        "filename": "media/engine/webrtcmediaengine.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-09-25T12:46:32Z",
+      "side": 1,
+      "message": "may be for simplicity do not subtract kMinId.\nyep, id_used[0] would be unused then wasting one slot, but expression\nid_used[extension.id] would look more meaningful",
+      "range": {
+        "startLine": 141,
+        "startChar": 47,
+        "endLine": 142,
+        "endChar": 43
+      },
+      "revId": "ae8573b6c53a7fe1cc4acd4e4ae2467e4025a0c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca947c31_c2646aa4",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-09-25T12:46:32Z",
+      "side": 1,
+      "message": "prefer to avoid extra header dependency when not too hard.\nsince you are updating all users to use RtpExtension::kMinId directly, may do not have public constants in RtpPacket.\n\nIt is better to include api/rtpparameters.h in rtp_packet.cc where constants are used.",
+      "revId": "ae8573b6c53a7fe1cc4acd4e4ae2467e4025a0c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

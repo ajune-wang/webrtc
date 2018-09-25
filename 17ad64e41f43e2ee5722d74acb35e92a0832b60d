@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "fde857c8_d8ef767c",
+        "filename": "api/rtpparameters.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-09-25T12:46:32Z",
+      "side": 0,
+      "message": "add definition of these constants to .cc file to avoid weird linker errors:\nconstexpr int RtpExtension::kMinId;\n(required until c++17 where constants can be inlined)\n\n(e.g. see https://github.com/google/googletest/blob/master/googletest/docs/faq.md#the-compiler-complains-about-undefined-references-to-some-static-const-member-variables-but-i-did-define-them-in-the-class-body-whats-wrong )",
+      "range": {
+        "startLine": 140,
+        "startChar": 0,
+        "endLine": 140,
+        "endChar": 5
+      },
+      "revId": "17ad64e41f43e2ee5722d74acb35e92a0832b60d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "44efbd80_ad579f16",
         "filename": "modules/rtp_rtcp/source/rtp_packet.h",
         "patchSetId": 9
@@ -25,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "57d2efb5_e58ecf18",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-09-25T12:46:32Z",
+      "side": 0,
+      "message": "it is ok to remove it if it is not used anywhere",
+      "parentUuid": "44efbd80_ad579f16",
+      "range": {
+        "startLine": 27,
+        "startChar": 23,
+        "endLine": 27,
+        "endChar": 43
+      },
+      "revId": "17ad64e41f43e2ee5722d74acb35e92a0832b60d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "91391a15_8632dc71",
         "filename": "modules/rtp_rtcp/source/rtp_packet.h",
         "patchSetId": 9
@@ -45,6 +92,30 @@
       "revId": "17ad64e41f43e2ee5722d74acb35e92a0832b60d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25a09e17_f06bdde8",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-09-25T12:46:32Z",
+      "side": 0,
+      "message": "same, if not used, if no bots complain - can just remove them.",
+      "parentUuid": "91391a15_8632dc71",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 44
+      },
+      "revId": "17ad64e41f43e2ee5722d74acb35e92a0832b60d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

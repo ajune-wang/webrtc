@@ -32,8 +32,8 @@
 #include "rtc_base/trace_event.h"
 
 namespace webrtc {
-
 namespace {
+
 constexpr size_t kRedForFecHeaderLength = 1;
 constexpr int64_t kMaxUnretransmittableFrameIntervalMs = 33 * 4;
 
@@ -95,6 +95,19 @@ void AddRtpHeaderExtensions(const RTPVideoHeader& video_header,
     packet->SetExtension<RtpGenericFrameDescriptorExtension>(
         generic_descriptor);
   }
+}
+
+RTPVideoHeader ReduceDescriptor(const RTPVideoHeader& full_descriptor) {
+  RTPVideoHeader minimal = full_descriptor;
+  if (RTPVideoHeaderVP8* vp8 =
+          absl::get_if<RTPVideoHeaderVP8>(&minimal.video_type_header)) {
+    vp8->pictureId = kNoPictureId;
+    vp8->tl0PicIdx = kNoTl0PicIdx;
+    vp8->temporalIdx = kNoTemporalIdx;
+    vp8->keyIdx = kNoKeyIdx;
+  }
+  // TODO(danilchap): Reduce vp9 codec specific descriptor too.
+  return minimal;
 }
 
 }  // namespace
@@ -407,6 +420,12 @@ bool RTPSenderVideo::SendVideo(enum VideoCodecType video_type,
   RTC_DCHECK_GE(last_packet->headers_size(), middle_packet->headers_size());
   limits.last_packet_reduction_len =
       last_packet->headers_size() - middle_packet->headers_size();
+
+  RTPVideoHeader minimal_video_header;
+  if (first_packet->HasExtension<RtpGenericFrameDescriptorExtension>()) {
+    minimal_video_header = ReduceDescriptor(*video_header);
+    video_header = &minimal_video_header;
+  }
 
   std::unique_ptr<RtpPacketizer> packetizer = RtpPacketizer::Create(
       video_type, rtc::MakeArrayView(payload_data, payload_size), limits,

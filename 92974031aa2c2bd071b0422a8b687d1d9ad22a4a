@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "85ef548b_4ed52485",
+        "filename": "common_video/h264/sps_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-09-25T08:46:31Z",
+      "side": 1,
+      "message": "I\u0027d be happy to delete the OptionalSps typedef and all use thereof in a followup cl. But here I use it, for consistency with usage in the rest of this file.",
+      "parentUuid": "14d85247_03042f00",
+      "range": {
+        "startLine": 140,
+        "startChar": 11,
+        "endLine": 140,
+        "endChar": 24
+      },
+      "revId": "92974031aa2c2bd071b0422a8b687d1d9ad22a4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "777d33cb_70f5b874",
         "filename": "common_video/h264/sps_parser.cc",
         "patchSetId": 2
@@ -62,6 +86,24 @@
       "revId": "92974031aa2c2bd071b0422a8b687d1d9ad22a4a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "374f9470_8037f485",
+        "filename": "common_video/h264/sps_parser.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-09-25T08:46:31Z",
+      "side": 1,
+      "message": "I\u0027m afraid I don\u0027t know if and how initial values are used.\n\nI\u0027ll change these to 4, since 0 is not a valid value.",
+      "parentUuid": "27778fc1_e59092dd",
+      "revId": "92974031aa2c2bd071b0422a8b687d1d9ad22a4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

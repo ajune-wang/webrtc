@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "14d85247_03042f00",
+        "filename": "common_video/h264/sps_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-09-25T08:23:37Z",
+      "side": 1,
+      "message": "`absl::nullopt` is probably easier to read.",
+      "range": {
+        "startLine": 140,
+        "startChar": 11,
+        "endLine": 140,
+        "endChar": 24
+      },
+      "revId": "92974031aa2c2bd071b0422a8b687d1d9ad22a4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "777d33cb_70f5b874",
+        "filename": "common_video/h264/sps_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-09-25T08:23:37Z",
+      "side": 1,
+      "message": "Here too.",
+      "range": {
+        "startLine": 151,
+        "startChar": 13,
+        "endLine": 151,
+        "endChar": 26
+      },
+      "revId": "92974031aa2c2bd071b0422a8b687d1d9ad22a4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27778fc1_e59092dd",
+        "filename": "common_video/h264/sps_parser.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-09-25T08:23:37Z",
+      "side": 1,
+      "message": "This is effectively a change of the initial value from 4 to 0 of these two. Does that matter? (And if not, what\u0027s the initial value for?)",
+      "revId": "92974031aa2c2bd071b0422a8b687d1d9ad22a4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

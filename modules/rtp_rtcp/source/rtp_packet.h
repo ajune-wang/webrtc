@@ -24,9 +24,9 @@ class RtpPacket {
  public:
   using ExtensionType = RTPExtensionType;
   using ExtensionManager = RtpHeaderExtensionMap;
-  static constexpr int kMaxExtensionHeaders = 14;
   static constexpr int kMinExtensionId = 1;
-  static constexpr int kMaxExtensionId = 14;
+  static constexpr int kOneByteHeaderExtensionMaxId = 14;
+  static constexpr int kMaxExtensionId = 255;
 
   // |extensions| required for SetExtension/ReserveExtension functions during
   // packet creating and used if available in Parse function.

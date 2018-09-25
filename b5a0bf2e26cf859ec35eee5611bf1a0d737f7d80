@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "07555d43_ead093e0",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-09-25T16:54:43Z",
+      "side": 1,
+      "message": "In terms of overhead this is already a great saving, but how much work do you think it would be to remove the VP8 header entirely when using the generic descriptor?",
+      "revId": "b5a0bf2e26cf859ec35eee5611bf1a0d737f7d80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c445ade2_1c94ae67",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-09-25T16:54:43Z",
+      "side": 1,
+      "message": "add {}",
+      "revId": "b5a0bf2e26cf859ec35eee5611bf1a0d737f7d80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

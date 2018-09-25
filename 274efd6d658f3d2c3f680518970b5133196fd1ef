@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b976efd9_01d28d4b",
+        "filename": "modules/video_coding/codecs/test/videocodec_test_stats_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-09-25T08:46:14Z",
+      "side": 1,
+      "message": "Could we change so that this method takes a single FrameStatistics value instead? Then we could get rid of all the other arguments, and just set sane defaults at the creation of the FrameStatistics.",
+      "range": {
+        "startLine": 34,
+        "startChar": 42,
+        "endLine": 34,
+        "endChar": 50
+      },
+      "revId": "274efd6d658f3d2c3f680518970b5133196fd1ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f82120c_ae5698a3",
+        "filename": "modules/video_coding/codecs/test/videoprocessor.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-09-25T08:46:14Z",
+      "side": 1,
+      "message": "So we would create the FrameStatistics here, and set timestamp, intended spatial layer, etc.",
+      "revId": "274efd6d658f3d2c3f680518970b5133196fd1ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

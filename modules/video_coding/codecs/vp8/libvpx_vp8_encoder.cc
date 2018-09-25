@@ -285,7 +285,6 @@ void LibvpxVp8Encoder::SetStreamState(bool send_stream, int stream_idx) {
 }
 
 void LibvpxVp8Encoder::SetupTemporalLayers(int num_streams,
-                                           int num_temporal_layers,
                                            const VideoCodec& codec) {
   RTC_DCHECK(temporal_layers_.empty());
   for (int i = 0; i < num_streams; ++i) {
@@ -338,7 +337,7 @@ int LibvpxVp8Encoder::InitEncode(const VideoCodec* inst,
                       : inst->VP8().numberOfTemporalLayers;
   RTC_DCHECK_GT(num_temporal_layers, 0);
 
-  SetupTemporalLayers(number_of_streams, num_temporal_layers, *inst);
+  SetupTemporalLayers(number_of_streams, *inst);
 
   number_of_cores_ = number_of_cores;
   timestamp_ = 0;

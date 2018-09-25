@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "576e2fbf_1b3d9a35",
+        "filename": "common_video/h264/sps_parser.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-09-25T07:36:30Z",
+      "side": 0,
+      "message": "There\u0027s a similar pic_init_qp_minus26 value in pps_parser.h, where it would be cleaner to treat the 26 offset as internal to the parsing. But unlike the values here, it looks like parsing pic_init_qp_minus26 includes a range check.",
+      "range": {
+        "startLine": 37,
+        "startChar": 13,
+        "endLine": 37,
+        "endChar": 38
+      },
+      "revId": "8e7533eaff461d4b75ab0a8ac7dab025bf6b06dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

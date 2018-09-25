@@ -377,7 +377,6 @@ void VideoProcessor::FrameEncoded(
   frame_stat->length_bytes = encoded_image._length;
   frame_stat->frame_type = encoded_image._frameType;
   frame_stat->temporal_idx = temporal_idx;
-  frame_stat->spatial_idx = spatial_idx;
   frame_stat->max_nalu_size_bytes = GetMaxNaluSizeBytes(encoded_image, config_);
   frame_stat->qp = encoded_image.qp_;
 

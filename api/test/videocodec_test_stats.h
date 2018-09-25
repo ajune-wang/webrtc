@@ -25,7 +25,9 @@ class VideoCodecTestStats {
  public:
   // Statistics for one processed frame.
   struct FrameStatistics {
-    FrameStatistics(size_t frame_number, size_t rtp_timestamp);
+    FrameStatistics(size_t frame_number,
+                    size_t rtp_timestamp,
+                    size_t spatial_idx);
     FrameStatistics(const FrameStatistics& rhs);
 
     std::string ToString() const;

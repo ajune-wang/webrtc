@@ -37,7 +37,7 @@ FrameStatistics* VideoCodecTestStatsImpl::AddFrame(size_t timestamp,
              rtp_timestamp_to_frame_num_[layer_idx].end());
   const size_t frame_num = layer_stats_[layer_idx].size();
   rtp_timestamp_to_frame_num_[layer_idx][timestamp] = frame_num;
-  layer_stats_[layer_idx].emplace_back(frame_num, timestamp);
+  layer_stats_[layer_idx].emplace_back(frame_num, timestamp, layer_idx);
   return &layer_stats_[layer_idx].back();
 }
 
@@ -188,7 +188,7 @@ VideoStatistics VideoCodecTestStatsImpl::SliceAndCalcVideoStatistic(
   size_t rtp_timestamp_first_frame = 0;
   size_t rtp_timestamp_prev_frame = 0;
 
-  FrameStatistics last_successfully_decoded_frame(0, 0);
+  FrameStatistics last_successfully_decoded_frame(0, 0, 0);
 
   const size_t target_bitrate_kbps =
       CalcLayerTargetBitrateKbps(first_frame_num, last_frame_num, spatial_idx,

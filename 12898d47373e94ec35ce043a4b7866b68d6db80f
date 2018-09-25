@@ -1,0 +1,176 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "92c758da_6b060c46",
+        "filename": "modules/audio_processing/aec3/erle_estimator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-09-25T10:49:28Z",
+      "side": 1,
+      "message": "What about\nadapt_low_render_ -\u003e adapt_on_low_render_\n\nThe current name is a bit misleading without examining it it use as it sounds as if it is the low render that should be adapted.",
+      "range": {
+        "startLine": 45,
+        "startChar": 6,
+        "endLine": 45,
+        "endChar": 23
+      },
+      "revId": "12898d47373e94ec35ce043a4b7866b68d6db80f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f593f6e_e7990a95",
+        "filename": "modules/audio_processing/aec3/erle_estimator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-09-25T10:49:28Z",
+      "side": 1,
+      "message": "Unrelated to this CL, but it would make sense to use another name than \"ret\". This is not really only the return value, but more whether the estimates should be updated.\n\nWhat about something along?\nret -\u003e update_estimates",
+      "range": {
+        "startLine": 68,
+        "startChar": 7,
+        "endLine": 68,
+        "endChar": 10
+      },
+      "revId": "12898d47373e94ec35ce043a4b7866b68d6db80f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3be2dfb_0bfa2615",
+        "filename": "modules/audio_processing/aec3/erle_estimator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-09-25T10:49:28Z",
+      "side": 1,
+      "message": "Nit, parenthesis are not needed:\n(kPointsToAccumulate * kX2BandEnergyThreshold)",
+      "range": {
+        "startLine": 168,
+        "startChar": 25,
+        "endLine": 168,
+        "endChar": 71
+      },
+      "revId": "12898d47373e94ec35ce043a4b7866b68d6db80f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8ee8ecc_2a8c3211",
+        "filename": "modules/audio_processing/aec3/erle_estimator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-09-25T10:49:28Z",
+      "side": 1,
+      "message": "if ((new_erle \u003c erle_band) \u0026\u0026 (low_render_energy)) { -\u003e if (new_erle \u003c erle_band \u0026\u0026 low_render_energy) {",
+      "revId": "12898d47373e94ec35ce043a4b7866b68d6db80f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d094869_a2c20ee0",
+        "filename": "modules/audio_processing/aec3/erle_estimator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-09-25T10:49:28Z",
+      "side": 1,
+      "message": "((onset_detection) \u0026\u0026 (!low_render_energy)) -\u003e (onset_detection \u0026\u0026 !low_render_energy) {",
+      "range": {
+        "startLine": 214,
+        "startChar": 11,
+        "endLine": 215,
+        "endChar": 33
+      },
+      "revId": "12898d47373e94ec35ce043a4b7866b68d6db80f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f95b36d_4ae95285",
+        "filename": "modules/audio_processing/aec3/erle_estimator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-09-25T10:49:28Z",
+      "side": 1,
+      "message": "What this does is to decrease ERLE during silent/low render, right? I think it would be good to name the method so as to more reflect that.\n\nAlso, the name \"Band\" does not match the \"Frequency\" naming which is used in the method name where this method is called.\n\nMy suggestion (stated as a comment to the header file), is to move this code to a separate class.\nIf that is done the PerBand and PerFrequency components in the method names can be removed as the distinguishing between the frequency domain- and time domain- ERLE  will be clear from the class.",
+      "range": {
+        "startLine": 232,
+        "startChar": 20,
+        "endLine": 232,
+        "endChar": 58
+      },
+      "revId": "12898d47373e94ec35ce043a4b7866b68d6db80f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fdd898ce_16de0ef5",
+        "filename": "modules/audio_processing/aec3/erle_estimator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-09-25T10:49:28Z",
+      "side": 1,
+      "message": "Please update the order of the methods in the .cc file to match the order of declaration in the .h file",
+      "range": {
+        "startLine": 301,
+        "startChar": 20,
+        "endLine": 301,
+        "endChar": 26
+      },
+      "revId": "12898d47373e94ec35ce043a4b7866b68d6db80f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "17f6a0d4_6ebd306a",
+        "filename": "modules/audio_processing/aec3/erle_estimator.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-09-25T10:49:28Z",
+      "side": 1,
+      "message": "I think it is really great that the functionality for the ERLE estimation is split into separate methods. However, I would prefer to go all the way in this CL and split the functionality for the ERLE estimation over time and over frequency in separate classes which have different states.\n\nThat would ensure a better encapsulation as well as make the code more readable. Since the lion part of the code separation has already been done in the separation into separate methods, it would be good to go the extra mile and complete the separation.\n\nMy suggestion would be to put the code for the two new classes into two separate files, one for each class.",
+      "revId": "12898d47373e94ec35ce043a4b7866b68d6db80f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

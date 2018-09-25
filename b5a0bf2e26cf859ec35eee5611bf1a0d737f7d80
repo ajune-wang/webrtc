@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ecbb8ff7_9ecec049",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-09-25T17:10:55Z",
+      "side": 1,
+      "message": "Out of scope of this CL.\nusing minimal descriptor still produce valid vp8 rtp stream.\n\nremoving codec-specific descriptor completely require implementing new packetizer. It would be very similar to the Generic one, but without using one byte for the header. shouldn\u0027t be hard.\nit require different negotiation, so likely payload would need to be called something different than \u0027vp8\u0027\nmight be more pitfalls. (e.g. can the stream work ignoring the extension? should it be able to?)",
+      "parentUuid": "07555d43_ead093e0",
+      "revId": "b5a0bf2e26cf859ec35eee5611bf1a0d737f7d80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c445ade2_1c94ae67",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
         "patchSetId": 6
@@ -33,6 +51,24 @@
       "revId": "b5a0bf2e26cf859ec35eee5611bf1a0d737f7d80",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ebf5ddf6_83429323",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-09-25T17:10:55Z",
+      "side": 1,
+      "message": "Done.\n(in rtp_rtcp though it is more common not to use {} around one-line block.\nbut I guess here it is helpful since condition takes more than one line)",
+      "parentUuid": "c445ade2_1c94ae67",
+      "revId": "b5a0bf2e26cf859ec35eee5611bf1a0d737f7d80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

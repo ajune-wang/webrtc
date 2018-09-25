@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "1b051bf2_8fea4d2c",
+        "filename": "common_video/h264/sps_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-09-25T09:05:28Z",
+      "side": 1,
+      "message": "OK, sounds good.",
+      "parentUuid": "85ef548b_4ed52485",
+      "range": {
+        "startLine": 140,
+        "startChar": 11,
+        "endLine": 140,
+        "endChar": 24
+      },
+      "revId": "92974031aa2c2bd071b0422a8b687d1d9ad22a4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "777d33cb_70f5b874",
         "filename": "common_video/h264/sps_parser.cc",
         "patchSetId": 2
@@ -101,6 +125,24 @@
       "side": 1,
       "message": "I\u0027m afraid I don\u0027t know if and how initial values are used.\n\nI\u0027ll change these to 4, since 0 is not a valid value.",
       "parentUuid": "27778fc1_e59092dd",
+      "revId": "92974031aa2c2bd071b0422a8b687d1d9ad22a4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f90913a3_ad1d8bf2",
+        "filename": "common_video/h264/sps_parser.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-09-25T09:05:28Z",
+      "side": 1,
+      "message": "There\u0027s a tool that might be of interest: rtc::MsanUninitialized (https://cs.chromium.org/chromium/src/third_party/webrtc/rtc_base/sanitizer.h?q\u003dMsanUninitialized\u0026l\u003d125). You would use it like this:\n\n  uint32_t log2_max_frame_num \u003d rtc::MsanUninitialized(4);\n\nIn MSan builds, the compiler will scream if you ever use the initial value, just as if you had not initialized the variable; in other builds, you get whatever advantages you usually get by assigning an initial value that you\u0027re almost entirely sure is never used.",
+      "parentUuid": "374f9470_8037f485",
       "revId": "92974031aa2c2bd071b0422a8b687d1d9ad22a4a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

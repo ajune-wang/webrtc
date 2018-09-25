@@ -138,18 +138,20 @@ void DiscardRedundantExtensions(
 
 bool ValidateRtpExtensions(
     const std::vector<webrtc::RtpExtension>& extensions) {
-  bool id_used[14] = {false};
+  bool id_used[1 + webrtc::RtpExtension::kMaxId -
+               webrtc::RtpExtension::kMinId] = {false};
   for (const auto& extension : extensions) {
-    if (extension.id <= 0 || extension.id >= 15) {
+    if (extension.id < webrtc::RtpExtension::kMinId ||
+        extension.id > webrtc::RtpExtension::kMaxId) {
       RTC_LOG(LS_ERROR) << "Bad RTP extension ID: " << extension.ToString();
       return false;
     }
-    if (id_used[extension.id - 1]) {
+    if (id_used[extension.id - webrtc::RtpExtension::kMinId]) {
       RTC_LOG(LS_ERROR) << "Duplicate RTP extension ID: "
                         << extension.ToString();
       return false;
     }
-    id_used[extension.id - 1] = true;
+    id_used[extension.id - webrtc::RtpExtension::kMinId] = true;
   }
   return true;
 }

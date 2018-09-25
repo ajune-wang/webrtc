@@ -13,6 +13,7 @@
 #include <vector>
 
 #include "api/array_view.h"
+#include "api/rtpparameters.h"
 #include "modules/rtp_rtcp/include/rtp_header_extension_map.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 #include "rtc_base/copyonwritebuffer.h"
@@ -24,9 +25,10 @@ class RtpPacket {
  public:
   using ExtensionType = RTPExtensionType;
   using ExtensionManager = RtpHeaderExtensionMap;
-  static constexpr int kMaxExtensionHeaders = 14;
-  static constexpr int kMinExtensionId = 1;
-  static constexpr int kMaxExtensionId = 14;
+  static constexpr int kMinExtensionId = RtpExtension::kMinId;
+  static constexpr int kOneByteHeaderExtensionMaxId =
+      RtpExtension::kOneByteHeaderExtensionMaxId;
+  static constexpr int kMaxExtensionId = RtpExtension::kMaxId;
 
   // |extensions| required for SetExtension/ReserveExtension functions during
   // packet creating and used if available in Parse function.

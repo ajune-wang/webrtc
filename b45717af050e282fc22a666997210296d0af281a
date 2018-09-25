@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b7de4739_b00bd7ca",
+        "filename": "api/test/videocodec_test_stats.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-09-25T13:09:41Z",
+      "side": 1,
+      "message": "Can we now make this const?",
+      "range": {
+        "startLine": 36,
+        "startChar": 4,
+        "endLine": 36,
+        "endChar": 10
+      },
+      "revId": "b45717af050e282fc22a666997210296d0af281a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "419aa06a_d3443387",
+        "filename": "api/test/videocodec_test_stats.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-09-25T13:09:41Z",
+      "side": 1,
+      "message": "And here?",
+      "range": {
+        "startLine": 48,
+        "startChar": 4,
+        "endLine": 48,
+        "endChar": 10
+      },
+      "revId": "b45717af050e282fc22a666997210296d0af281a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

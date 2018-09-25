@@ -134,14 +134,23 @@ absl::optional<SpsParser::SpsState> SpsParser::ParseSpsUpToVui(
     }
   }
   // log2_max_frame_num_minus4: ue(v)
-  RETURN_EMPTY_ON_FAIL(
-      buffer->ReadExponentialGolomb(&sps.log2_max_frame_num_minus4));
+  uint32_t log2_max_frame_num_minus4;
+  if (!buffer->ReadExponentialGolomb(&log2_max_frame_num_minus4) ||
+      log2_max_frame_num_minus4 > 28) {
+    return OptionalSps();
+  }
+  sps.log2_max_frame_num = log2_max_frame_num_minus4 + 4;
+
   // pic_order_cnt_type: ue(v)
   RETURN_EMPTY_ON_FAIL(buffer->ReadExponentialGolomb(&sps.pic_order_cnt_type));
   if (sps.pic_order_cnt_type == 0) {
     // log2_max_pic_order_cnt_lsb_minus4: ue(v)
-    RETURN_EMPTY_ON_FAIL(
-        buffer->ReadExponentialGolomb(&sps.log2_max_pic_order_cnt_lsb_minus4));
+    uint32_t log2_max_pic_order_cnt_lsb_minus4;
+    if (!buffer->ReadExponentialGolomb(&log2_max_pic_order_cnt_lsb_minus4) ||
+        log2_max_pic_order_cnt_lsb_minus4 > 28) {
+      return OptionalSps();
+    }
+    sps.log2_max_pic_order_cnt_lsb = log2_max_pic_order_cnt_lsb_minus4 + 4;
   } else if (sps.pic_order_cnt_type == 1) {
     // delta_pic_order_always_zero_flag: u(1)
     RETURN_EMPTY_ON_FAIL(

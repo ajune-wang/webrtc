@@ -22,6 +22,30 @@
       "revId": "3b7957c59ca059a4c2de3af2424ed5d311c6227f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e900cee1_ac827005",
+        "filename": "modules/audio_coding/test/iSACTest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-09-25T16:53:18Z",
+      "side": 1,
+      "message": "Not really---just consistency with surrounding code, and avoiding a special case.\n\n(I\u0027m guessing if they didn\u0027t have to consider backwards compatibility, the gtest people would drop ~all the macros except EXPECT_THAT and ASSERT_THAT, and rename them to just EXPECT and ASSERT.)",
+      "parentUuid": "2605a57e_3c0d320a",
+      "range": {
+        "startLine": 48,
+        "startChar": 2,
+        "endLine": 48,
+        "endChar": 13
+      },
+      "revId": "3b7957c59ca059a4c2de3af2424ed5d311c6227f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

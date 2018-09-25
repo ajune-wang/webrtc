@@ -164,6 +164,30 @@
       "revId": "7e808b82d28b36f49def5b1db425ab6072947a16",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4d8f594f_4e8d9602",
+        "filename": "tools_webrtc/gtest_parallel_wrapper_test.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2018-09-25T11:25:05Z",
+      "side": 1,
+      "message": "Good catch, I handle this case in the script (returning 1 worker), but it isn\u0027t reflected in this test case.",
+      "parentUuid": "e639904c_8118a81c",
+      "range": {
+        "startLine": 155,
+        "startChar": 45,
+        "endLine": 155,
+        "endChar": 49
+      },
+      "revId": "7e808b82d28b36f49def5b1db425ab6072947a16",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2605a57e_3c0d320a",
+        "filename": "modules/audio_coding/test/iSACTest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2018-09-25T13:49:55Z",
+      "side": 1,
+      "message": "Out of curiousity, is there an advantage of this syntax over EXPECT_EQ?",
+      "range": {
+        "startLine": 48,
+        "startChar": 2,
+        "endLine": 48,
+        "endChar": 13
+      },
+      "revId": "3b7957c59ca059a4c2de3af2424ed5d311c6227f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

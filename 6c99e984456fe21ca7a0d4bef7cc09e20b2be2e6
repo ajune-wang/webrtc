@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d0bf017a_53ee8f12",
+        "filename": "modules/audio_device/audio_device_buffer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2018-09-25T13:44:16Z",
+      "side": 1,
+      "message": "If recording fail to start, diff_samples is 0 \u003d\u003e rate \u003d 0 \u003d\u003e diff is 100%",
+      "revId": "6c99e984456fe21ca7a0d4bef7cc09e20b2be2e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

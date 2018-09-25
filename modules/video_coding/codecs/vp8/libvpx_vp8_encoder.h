@@ -57,9 +57,7 @@ class LibvpxVp8Encoder : public VP8Encoder {
       const TemporalLayers::FrameConfig& references);
 
  private:
-  void SetupTemporalLayers(int num_streams,
-                           int num_temporal_layers,
-                           const VideoCodec& codec);
+  void SetupTemporalLayers(int num_streams, const VideoCodec& codec);
 
   // Set the cpu_speed setting for encoder based on resolution and/or platform.
   int SetCpuSpeed(int width, int height);

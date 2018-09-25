@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2d63ff39_c30b0b28",
+        "filename": "tools_webrtc/gtest_parallel_wrapper_test.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2018-09-25T14:17:16Z",
+      "side": 1,
+      "message": "It seems like the value should be mocked out, why is there this computation in unittests?",
+      "range": {
+        "startLine": 156,
+        "startChar": 18,
+        "endLine": 156,
+        "endChar": 45
+      },
+      "revId": "94a777a364883d278c048cb854e9852411947c7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

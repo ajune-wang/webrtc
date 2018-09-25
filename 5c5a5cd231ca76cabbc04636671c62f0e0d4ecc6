@@ -22,6 +22,30 @@
       "revId": "5c5a5cd231ca76cabbc04636671c62f0e0d4ecc6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c60b5a8d_c5a10b52",
+        "filename": "api/rtpparameters.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-09-25T13:11:30Z",
+      "side": 1,
+      "message": "afraid there is no documentation up-to-date with current state, only code and bugs.webrtc.org/9361 with list of related work.",
+      "parentUuid": "d81cd936_7439ed1d",
+      "range": {
+        "startLine": 289,
+        "startChar": 45,
+        "endLine": 289,
+        "endChar": 46
+      },
+      "revId": "5c5a5cd231ca76cabbc04636671c62f0e0d4ecc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

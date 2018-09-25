@@ -22,6 +22,30 @@
       "revId": "d94476ffafd6ad4d654e9f683a1e33ab068e94ba",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d6ff0a1_13f20c76",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1091,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-09-25T08:42:20Z",
+      "side": 1,
+      "message": "We specifically want to check that the diff fits in an int. However, the entire check is a bit redundant since we\u0027ve already verified the same thing on line 1063-1065.",
+      "parentUuid": "2eff7c63_7bb85fdd",
+      "range": {
+        "startLine": 1091,
+        "startChar": 59,
+        "endLine": 1091,
+        "endChar": 62
+      },
+      "revId": "d94476ffafd6ad4d654e9f683a1e33ab068e94ba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

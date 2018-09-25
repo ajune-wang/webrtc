@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "13eaa255_acde5e87",
+        "filename": "tools_webrtc/gtest-parallel-wrapper.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-09-25T09:17:55Z",
+      "side": 1,
+      "message": "_ParseWorkersOption?",
+      "range": {
+        "startLine": 86,
+        "startChar": 4,
+        "endLine": 86,
+        "endChar": 23
+      },
+      "revId": "8243553a5efcbcbcc6be5f0a04689acc31463d7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f872298_face2bbc",
+        "filename": "tools_webrtc/gtest-parallel-wrapper.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-09-25T09:17:55Z",
+      "side": 1,
+      "message": "Nit: remove spaces at start and end of docstring (or remove it):",
+      "range": {
+        "startLine": 87,
+        "startChar": 2,
+        "endLine": 87,
+        "endChar": 72
+      },
+      "revId": "8243553a5efcbcbcc6be5f0a04689acc31463d7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2fdc4e2f_5b4a6356",
+        "filename": "tools_webrtc/gtest-parallel-wrapper.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-09-25T09:17:55Z",
+      "side": 1,
+      "message": "Nit: punctuation",
+      "range": {
+        "startLine": 93,
+        "startChar": 25,
+        "endLine": 93,
+        "endChar": 58
+      },
+      "revId": "8243553a5efcbcbcc6be5f0a04689acc31463d7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0199f79_cdca2371",
+        "filename": "tools_webrtc/gtest-parallel-wrapper.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-09-25T09:17:55Z",
+      "side": 1,
+      "message": "Nit: Remove empty lines",
+      "range": {
+        "startLine": 160,
+        "startChar": 0,
+        "endLine": 162,
+        "endChar": 3
+      },
+      "revId": "8243553a5efcbcbcc6be5f0a04689acc31463d7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2734c5d6_533591e6",
+        "filename": "tools_webrtc/gtest_parallel_wrapper_test.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-09-25T09:17:55Z",
+      "side": 1,
+      "message": "Don\u0027t do this. Call gtest_parallel_wrapper._GetNumberOfWorkers in the test.",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 76
+      },
+      "revId": "8243553a5efcbcbcc6be5f0a04689acc31463d7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

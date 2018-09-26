@@ -19,6 +19,213 @@
     },
     {
       "key": {
+        "uuid": "cc3424df_99ca4cdc",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/PeerConnectionClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 684,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-09-26T10:48:15Z",
+      "side": 1,
+      "message": "I assume this will be removed from the final patch set?",
+      "range": {
+        "startLine": 652,
+        "startChar": 0,
+        "endLine": 684,
+        "endChar": 5
+      },
+      "revId": "9457adfc88c8936f367bd2204801926b3a963e7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6465a30_0437f8d9",
+        "filename": "sdk/android/api/org/webrtc/PeerConnection.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 527,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-09-26T10:48:15Z",
+      "side": 1,
+      "message": "nit: Please keep order of fields and getters the same.",
+      "range": {
+        "startLine": 527,
+        "startChar": 19,
+        "endLine": 527,
+        "endChar": 33
+      },
+      "revId": "9457adfc88c8936f367bd2204801926b3a963e7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3c56ed0_37a967f1",
+        "filename": "sdk/android/api/org/webrtc/PeerConnection.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 730,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-09-26T10:48:15Z",
+      "side": 1,
+      "message": "Maybe we should support getting multiple certificates?",
+      "range": {
+        "startLine": 730,
+        "startChar": 24,
+        "endLine": 730,
+        "endChar": 38
+      },
+      "revId": "9457adfc88c8936f367bd2204801926b3a963e7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9407caa5_365d9920",
+        "filename": "sdk/android/api/org/webrtc/RTCCertificate.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-09-26T10:48:15Z",
+      "side": 1,
+      "message": "Please add JavaDoc to public classes and methods. (Unless it is truly trivial.)\n\nMaybe rename this class to RtcCertificatePem?",
+      "range": {
+        "startLine": 13,
+        "startChar": 13,
+        "endLine": 13,
+        "endChar": 27
+      },
+      "revId": "9457adfc88c8936f367bd2204801926b3a963e7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3350b311_9ba3803c",
+        "filename": "sdk/android/api/org/webrtc/RTCCertificate.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-09-26T10:48:15Z",
+      "side": 1,
+      "message": "100_000 seems very arbitrary. I would like to remove these helpers.",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 0
+      },
+      "revId": "9457adfc88c8936f367bd2204801926b3a963e7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd43fb98_1af13550",
+        "filename": "sdk/android/api/org/webrtc/RTCCertificate.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-09-26T10:48:15Z",
+      "side": 1,
+      "message": "Maybe it makes sense to have a separate RTCCertificateGenerator class? We might want to have separate generators e.g. for different key types in the future?",
+      "range": {
+        "startLine": 45,
+        "startChar": 31,
+        "endLine": 45,
+        "endChar": 50
+      },
+      "revId": "9457adfc88c8936f367bd2204801926b3a963e7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8b222de_e5ad5e4b",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/PeerConnectionTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 680,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-09-26T10:48:15Z",
+      "side": 1,
+      "message": "Is all of this necessary? It doesn\u0027t seem very relevant for the test. Maybe move to a helper?",
+      "range": {
+        "startLine": 669,
+        "startChar": 0,
+        "endLine": 680,
+        "endChar": 83
+      },
+      "revId": "9457adfc88c8936f367bd2204801926b3a963e7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11bd67e5_fc8176c0",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/PeerConnectionTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 686,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-09-26T10:48:15Z",
+      "side": 1,
+      "message": "Please use Google Truth for assertions. For example:\nassertThat(originalCert.privateKey).isNotEmpty()",
+      "range": {
+        "startLine": 684,
+        "startChar": 0,
+        "endLine": 686,
+        "endChar": 5
+      },
+      "revId": "9457adfc88c8936f367bd2204801926b3a963e7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4182a213_02b31714",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/PeerConnectionTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 707,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-09-26T10:48:15Z",
+      "side": 1,
+      "message": "Please move this test to a separate test file and add tests for other public methods as well.",
+      "range": {
+        "startLine": 707,
+        "startChar": 14,
+        "endLine": 707,
+        "endChar": 37
+      },
+      "revId": "9457adfc88c8936f367bd2204801926b3a963e7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bc8edec9_5829f425",
         "filename": "sdk/android/src/jni/pc/peerconnection.cc",
         "patchSetId": 3
@@ -33,6 +240,52 @@
       "revId": "9457adfc88c8936f367bd2204801926b3a963e7f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2f8d8f40_48611a80",
+        "filename": "sdk/android/src/jni/pc/peerconnection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-09-26T10:48:15Z",
+      "side": 1,
+      "message": "Should we support adding more than one certificate from Java?",
+      "range": {
+        "startLine": 154,
+        "startChar": 0,
+        "endLine": 156,
+        "endChar": 42
+      },
+      "revId": "9457adfc88c8936f367bd2204801926b3a963e7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c690e33_b2a2e772",
+        "filename": "sdk/android/src/jni/pc/peerconnectionfactory.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-09-26T10:48:15Z",
+      "side": 1,
+      "message": "Does it make sense to support having no certificates?",
+      "range": {
+        "startLine": 390,
+        "startChar": 2,
+        "endLine": 390,
+        "endChar": 40
+      },
+      "revId": "9457adfc88c8936f367bd2204801926b3a963e7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

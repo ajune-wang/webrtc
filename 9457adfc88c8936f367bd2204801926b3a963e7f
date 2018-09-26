@@ -286,6 +286,30 @@
       "revId": "9457adfc88c8936f367bd2204801926b3a963e7f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "121fb42b_27cc13b4",
+        "filename": "sdk/android/src/jni/pc/peerconnectionfactory.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-09-26T11:29:39Z",
+      "side": 1,
+      "message": "Per-spec and per-implementation, if no certificate is explicitly passed to the peer connection, the implementation will generate one for you before negotiation mandates we have one.\n\nThis happens here with default parameters:\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/pc/webrtcsessiondescriptionfactory.cc?sq\u003dpackage:chromium\u0026dr\u003dCSs\u0026g\u003d0\u0026l\u003d177\nThe default is ECDSA:\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/rtc_base/sslidentity.h?sq\u003dpackage:chromium\u0026dr\u003dCSs\u0026g\u003d0\u0026l\u003d32",
+      "parentUuid": "9c690e33_b2a2e772",
+      "range": {
+        "startLine": 390,
+        "startChar": 2,
+        "endLine": 390,
+        "endChar": 40
+      },
+      "revId": "9457adfc88c8936f367bd2204801926b3a963e7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

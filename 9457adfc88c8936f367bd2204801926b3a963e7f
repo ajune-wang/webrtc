@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e04c7bc3_297ecacc",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/PeerConnectionClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 653,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-09-26T10:21:45Z",
+      "side": 1,
+      "message": "The spec defines generateCertificate() as an asynchronous operation. It returns a promise, that is either resolved or rejected. https://developer.mozilla.org/en-US/docs/Web/API/RTCPeerConnection/generateCertificate is wrong, it says its returning a certificate, but really it is returning a promise (the example is correct thought, with \".then(callback)\"). In third_party/webrtc there is no such thing as a promise so typically we have callbacks.\n\nThis CL implemented it as a synchronous (blocking) operation. ECDSA certificates are fast to generate (blocking is not a problem), but RSA-1024 less so and not very strong; RSA-2048 which is stronger is really slow to generate. Having an asynchronous generateCertificate() that doesn\u0027t block the Java/UI thread could be a good thing. That said I don\u0027t know if there\u0027s a strong need to do these slow generations, and I don\u0027t mind a blocking version (easier to use here), since ECDSA is like ~milliseconds. But something to consider. (You could have both, add a TODO, or not bother until someone cares about slow gens)",
+      "revId": "9457adfc88c8936f367bd2204801926b3a963e7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc8edec9_5829f425",
+        "filename": "sdk/android/src/jni/pc/peerconnection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-09-26T10:21:45Z",
+      "side": 1,
+      "message": "Fun fact, the spec (and our interfaces) allows multiple certificates. It says which one to use should be based on the handshake, but is not clear about how this is done...\n\n\"Although any given DTLS connection will use only one certificate, this attribute allows the caller to provide multiple certificates that support different algorithms. The final certificate will be selected based on the DTLS handshake, which establishes which certificates are allowed. The RTCPeerConnection implementation selects which of the certificates is used for a given connection; how certificates are selected is outside the scope of this specification.\"\n\nThe current implementation, last I checked, only looks at the first certificate if multiple ones are given though.",
+      "revId": "9457adfc88c8936f367bd2204801926b3a963e7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

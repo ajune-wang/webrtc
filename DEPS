@@ -1420,6 +1420,7 @@ include_rules = [
   "+absl/container/inlined_vector.h",
   "+absl/memory/memory.h",
   "+absl/strings/string_view.h",
+  "+absl/time/clock.h",
   "+absl/types/optional.h",
   "+absl/types/variant.h",
 ]

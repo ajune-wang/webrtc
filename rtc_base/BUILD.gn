@@ -313,8 +313,10 @@ rtc_source_set("timeutils") {
   ]
   deps = [
     ":checks",
+    ":ignore_wundef",
     ":safe_conversions",
     ":stringutils",
+    "//third_party/abseil-cpp/absl/time",
   ]
 }
 
@@ -362,6 +364,12 @@ rtc_source_set("deprecation") {
   ]
 }
 
+rtc_source_set("ignore_wundef") {
+  sources = [
+    "ignore_wundef.h",
+  ]
+}
+
 # The subset of rtc_base approved for use outside of libjingle.
 rtc_source_set("rtc_base_approved_generic") {
   visibility = [
@@ -395,7 +403,9 @@ rtc_source_set("rtc_base_approved_generic") {
     "system:unused",
     "third_party/base64",
   ]
-
+  public_deps = [  # no-presubmit-check TODO(webrtc:8603)
+    ":ignore_wundef",
+  ]
   sources = [
     "bind.h",
     "bitbuffer.cc",
@@ -417,7 +427,6 @@ rtc_source_set("rtc_base_approved_generic") {
     "flags.cc",
     "flags.h",
     "function_view.h",
-    "ignore_wundef.h",
     "location.cc",
     "location.h",
     "message_buffer_reader.h",

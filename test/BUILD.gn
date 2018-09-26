@@ -184,7 +184,7 @@ rtc_source_set("test_support") {
 
   public_configs = [ ":test_main_direct_config" ]
   deps = [
-    "../rtc_base:rtc_base_approved",
+    "../rtc_base:ignore_wundef",
     "//testing/gmock",
     "//testing/gtest",
   ]

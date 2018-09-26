@@ -856,10 +856,14 @@ void VP9EncoderImpl::PopulateCodecSpecific(CodecSpecificInfo* codec_specific,
   vp9_info->inter_layer_predicted =
       first_frame_in_picture ? false : is_inter_layer_pred_allowed;
 
-  const bool is_last_layer =
-      (layer_id.spatial_layer_id + 1 == num_active_spatial_layers_);
+  // Mark all low spatial layer frames as references (not just frames of
+  // activated low spatial layers) if inter-layer prediction is enabled to
+  // guarantee relaying of low spatial layers to receiver of high spatial layer
+  // when picture doesn't have high spatial layer frame.
   vp9_info->non_ref_for_inter_layer_pred =
-      is_last_layer ? true : !is_inter_layer_pred_allowed;
+      is_inter_layer_pred_allowed
+          ? layer_id.spatial_layer_id + 1 == num_spatial_layers_
+          : true;
 
   // Always populate this, so that the packetizer can properly set the marker
   // bit.

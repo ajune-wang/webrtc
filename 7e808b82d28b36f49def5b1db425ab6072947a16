@@ -145,6 +145,30 @@
     },
     {
       "key": {
+        "uuid": "50b9ba9d_a41a06ca",
+        "filename": "tools_webrtc/gtest_parallel_wrapper_test.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-09-26T06:13:16Z",
+      "side": 1,
+      "message": "Yes, cls should be small but a single rename is easier to just squeeze into the current CL.",
+      "parentUuid": "c759dee7_76247e3f",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 6
+      },
+      "revId": "7e808b82d28b36f49def5b1db425ab6072947a16",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5cab3dc7_748adb67",
         "filename": "tools_webrtc/gtest_parallel_wrapper_test.py",
         "patchSetId": 3

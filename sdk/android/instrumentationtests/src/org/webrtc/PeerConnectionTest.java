@@ -11,6 +11,7 @@
 package org.webrtc;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
@@ -661,6 +662,31 @@ public class PeerConnectionTest {
     ObserverExpectations offeringExpectations = new ObserverExpectations("PCTest:offerer");
     PeerConnection offeringPC = factory.createPeerConnection(config, offeringExpectations);
     assertNotNull(offeringPC);
+  }
+
+  @Test
+  @SmallTest
+  public void testCreationWithCertificate() throws Exception {
+    PeerConnectionFactory factory = PeerConnectionFactory.builder().createPeerConnectionFactory();
+    List<PeerConnection.IceServer> iceServers = Arrays.asList(
+        PeerConnection.IceServer.builder("stun:stun.l.google.com:19302").createIceServer());
+    PeerConnection.RTCConfiguration config = new PeerConnection.RTCConfiguration(iceServers);
+
+    // Test certificate.
+    RTCCertificate originalCert = RTCCertificate.generateCertificate();
+    assertNotNull(originalCert.privateKey);
+    assertNotNull(originalCert.certificate);
+    assertNotEquals(originalCert.privateKey, "");
+    assertNotEquals(originalCert.certificate, "");
+    config.certificate = originalCert;
+
+    ObserverExpectations offeringExpectations = new ObserverExpectations("PCTest:offerer");
+    PeerConnection offeringPC = factory.createPeerConnection(config, offeringExpectations);
+    assertNotNull(offeringPC);
+
+    RTCCertificate restoredCert = offeringPC.getCertificate();
+    assertEquals(originalCert.privateKey, restoredCert.privateKey);
+    assertEquals(originalCert.certificate, restoredCert.certificate);
   }
 
   @Test

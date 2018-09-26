@@ -55,7 +55,7 @@ int32_t FakeVP8Encoder::InitEncode(const VideoCodec* config,
                       : config->VP8().numberOfTemporalLayers;
   RTC_DCHECK_GT(num_temporal_layers, 0);
 
-  SetupTemporalLayers(number_of_streams, num_temporal_layers, *config);
+  SetupTemporalLayers(number_of_streams, *config);
 
   return WEBRTC_VIDEO_CODEC_OK;
 }
@@ -67,7 +67,6 @@ int32_t FakeVP8Encoder::Release() {
 }
 
 void FakeVP8Encoder::SetupTemporalLayers(int num_streams,
-                                         int num_temporal_layers,
                                          const VideoCodec& codec) {
   RTC_DCHECK_CALLED_SEQUENTIALLY(&sequence_checker_);
 

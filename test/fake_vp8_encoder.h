@@ -44,9 +44,7 @@ class FakeVP8Encoder : public FakeEncoder, public EncodedImageCallback {
                         const RTPFragmentationHeader* fragments) override;
 
  private:
-  void SetupTemporalLayers(int num_streams,
-                           int num_temporal_layers,
-                           const VideoCodec& codec);
+  void SetupTemporalLayers(int num_streams, const VideoCodec& codec);
   void PopulateCodecSpecific(CodecSpecificInfo* codec_specific,
                              const TemporalLayers::FrameConfig& tl_config,
                              FrameType frame_type,

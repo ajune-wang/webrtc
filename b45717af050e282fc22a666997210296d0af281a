@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "34719e95_00e44e09",
+        "filename": "api/test/videocodec_test_stats.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-09-26T09:54:06Z",
+      "side": 1,
+      "message": "Maybe you can do this?\n\n.h\n--\nFrameStatistics\u0026 operator\u003d(const FrameStatistics\u0026 rhs);\n\n.cc\n--\nVideoCodecTestStats::FrameStatistics::FrameStatistics\u0026 VideoCodecTestStats::FrameStatistics::operator\u003d(const FrameStatistics\u0026 rhs) \u003d default;\n\nIf that doesn\u0027t work, then yeah maybe it\u0027s not worth making these const.",
+      "parentUuid": "7079a6da_3fab14a7",
+      "range": {
+        "startLine": 36,
+        "startChar": 4,
+        "endLine": 36,
+        "endChar": 10
+      },
+      "revId": "b45717af050e282fc22a666997210296d0af281a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "419aa06a_d3443387",
         "filename": "api/test/videocodec_test_stats.h",
         "patchSetId": 5

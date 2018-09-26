@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ecbe93b0_cd8967eb",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 865,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-09-26T11:04:32Z",
+      "side": 1,
+      "message": "Nit: Maybe rewrite as \n!layer_pred_allowed || layer_id.spatial_layer_id + 1 \u003d\u003d num_spatial_layers_",
+      "range": {
+        "startLine": 865,
+        "startChar": 10,
+        "endLine": 865,
+        "endChar": 11
+      },
+      "revId": "d601e52e1dbc5c8eba940a9a67aaecae6e6b526c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

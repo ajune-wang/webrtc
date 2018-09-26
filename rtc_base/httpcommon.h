@@ -146,7 +146,6 @@ struct HttpData {
   typedef HeaderMap::iterator iterator;
 
   HttpVersion version;
-  std::unique_ptr<StreamInterface> document;
 
   HttpData();
 

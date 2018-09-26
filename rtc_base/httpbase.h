@@ -145,7 +145,6 @@ class HttpBase : private HttpParser, public sigslot::has_slots<> {
   void do_complete(HttpError err = HE_NONE);
 
   void OnHttpStreamEvent(StreamInterface* stream, int events, int error);
-  void OnDocumentEvent(StreamInterface* stream, int events, int error);
 
   // HttpParser Interface
   ProcessResult ProcessLeader(const char* line,
@@ -166,9 +165,6 @@ class HttpBase : private HttpParser, public sigslot::has_slots<> {
   void OnComplete(HttpError err) override;
 
  private:
-  class DocumentStream;
-  friend class DocumentStream;
-
   enum { kBufferSize = 32 * 1024 };
 
   HttpMode mode_;

@@ -458,9 +458,6 @@ void HttpData::clear(bool release_document) {
   // Clear headers first, since releasing a document may have far-reaching
   // effects.
   headers_.clear();
-  if (release_document) {
-    document.reset();
-  }
 }
 
 void HttpData::changeHeader(const std::string& name,

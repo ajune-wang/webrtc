@@ -168,9 +168,7 @@ HttpError HttpServer::Connection::onHttpHeaderComplete(bool chunked,
   RTC_DCHECK(current_ != nullptr);
   bool custom_document = false;
   server_->SignalHttpRequestHeader(server_, current_, &custom_document);
-  if (!custom_document) {
-    current_->request.document.reset(new MemoryStream);
-  }
+  RTC_CHECK(!custom_document);
   return HE_NONE;
 }
 
@@ -197,7 +195,6 @@ void HttpServer::Connection::onHttpComplete(HttpMode mode, HttpError err) {
     current_ = nullptr;
     server_->SignalHttpRequest(server_, transaction);
   } else if (mode == HM_SEND) {
-    Thread::Current()->Dispose(current_->response.document.release());
     current_->request.clear(true);
     current_->response.clear(true);
     base_.recv(&current_->request);

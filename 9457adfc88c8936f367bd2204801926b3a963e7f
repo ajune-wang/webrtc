@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "fce14268_6accb71e",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/PeerConnectionClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 653,
+      "author": {
+        "id": 7443
+      },
+      "writtenOn": "2018-09-26T17:00:24Z",
+      "side": 1,
+      "message": "I see your point about matching the spec. The Objective-C version of this feature was also synchronous so perhaps there is work to be done on both. For now, I believe we can live with synchronous until someone wants to refactor it for the slow cases.",
+      "parentUuid": "e04c7bc3_297ecacc",
+      "revId": "9457adfc88c8936f367bd2204801926b3a963e7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cc3424df_99ca4cdc",
         "filename": "examples/androidapp/src/org/appspot/apprtc/PeerConnectionClient.java",
         "patchSetId": 3
@@ -39,6 +57,30 @@
       "revId": "9457adfc88c8936f367bd2204801926b3a963e7f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e763d542_ef6c84ac",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/PeerConnectionClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 684,
+      "author": {
+        "id": 7443
+      },
+      "writtenOn": "2018-09-26T17:00:24Z",
+      "side": 1,
+      "message": "yes, removed",
+      "parentUuid": "cc3424df_99ca4cdc",
+      "range": {
+        "startLine": 652,
+        "startChar": 0,
+        "endLine": 684,
+        "endChar": 5
+      },
+      "revId": "9457adfc88c8936f367bd2204801926b3a963e7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "46715e7e_0608b128",
+        "filename": "sdk/android/api/org/webrtc/PeerConnection.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 527,
+      "author": {
+        "id": 7443
+      },
+      "writtenOn": "2018-09-26T17:00:24Z",
+      "side": 1,
+      "message": "reordered",
+      "parentUuid": "b6465a30_0437f8d9",
+      "range": {
+        "startLine": 527,
+        "startChar": 19,
+        "endLine": 527,
+        "endChar": 33
+      },
+      "revId": "9457adfc88c8936f367bd2204801926b3a963e7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f3c56ed0_37a967f1",
         "filename": "sdk/android/api/org/webrtc/PeerConnection.java",
         "patchSetId": 3
@@ -85,6 +151,30 @@
       "revId": "9457adfc88c8936f367bd2204801926b3a963e7f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bbd06768_f654774e",
+        "filename": "sdk/android/api/org/webrtc/PeerConnection.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 730,
+      "author": {
+        "id": 7443
+      },
+      "writtenOn": "2018-09-26T17:00:24Z",
+      "side": 1,
+      "message": "There is this note in pc/peerconnection.cc:951 which indicates to me that the behavior of multiple certificates is still not yet defined. I can pluralize the getter here to return the entire vector of certificates but no one seems to be using this functionality yet. The Objective-C CL for this feature also uses singular getter/setters.\n\nAdditional notes below about why no multiple cert support.\n\n// Obtain a certificate from RTCConfiguration if any were provided (optional).\nrtc::scoped_refptr\u003crtc::RTCCertificate\u003e certificate;\nif (!configuration.certificates.empty()) {\n  // TODO(hbos,torbjorng): Decide on certificate-selection strategy instead of\n  // just picking the first one. The decision should be made based on the DTLS\n  // handshake. The DTLS negotiations need to know about all certificates.\n  certificate \u003d configuration.certificates[0];\n}",
+      "parentUuid": "f3c56ed0_37a967f1",
+      "range": {
+        "startLine": 730,
+        "startChar": 24,
+        "endLine": 730,
+        "endChar": 38
+      },
+      "revId": "9457adfc88c8936f367bd2204801926b3a963e7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -111,6 +201,30 @@
     },
     {
       "key": {
+        "uuid": "c995a0ba_851412c8",
+        "filename": "sdk/android/api/org/webrtc/RTCCertificate.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 7443
+      },
+      "writtenOn": "2018-09-26T17:00:24Z",
+      "side": 1,
+      "message": "Added. I would vote to keep the name as-is to match Objective-C\u0027s API.",
+      "parentUuid": "9407caa5_365d9920",
+      "range": {
+        "startLine": 13,
+        "startChar": 13,
+        "endLine": 13,
+        "endChar": 27
+      },
+      "revId": "9457adfc88c8936f367bd2204801926b3a963e7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3350b311_9ba3803c",
         "filename": "sdk/android/api/org/webrtc/RTCCertificate.java",
         "patchSetId": 3
@@ -131,6 +245,30 @@
       "revId": "9457adfc88c8936f367bd2204801926b3a963e7f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9a4a4cb_dde83dfa",
+        "filename": "sdk/android/api/org/webrtc/RTCCertificate.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 7443
+      },
+      "writtenOn": "2018-09-26T17:00:24Z",
+      "side": 1,
+      "message": "Changed to match the 30 day default specified in kDefaultCertificateLifetimeInSeconds:\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/rtc_base/sslidentity.h?l\u003d40\n\nI personally think the helpers are a nice convenience. Pointers welcome though on how to make it cleaner.",
+      "parentUuid": "3350b311_9ba3803c",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 0
+      },
+      "revId": "9457adfc88c8936f367bd2204801926b3a963e7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -157,6 +295,30 @@
     },
     {
       "key": {
+        "uuid": "68aa6b4e_f17aa1d1",
+        "filename": "sdk/android/api/org/webrtc/RTCCertificate.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 7443
+      },
+      "writtenOn": "2018-09-26T17:00:24Z",
+      "side": 1,
+      "message": "Maybe in the future. For now, I think keeping it as a static method on the RTCCertificiate class makes things simple and consistent with Objective-C.",
+      "parentUuid": "cd43fb98_1af13550",
+      "range": {
+        "startLine": 45,
+        "startChar": 31,
+        "endLine": 45,
+        "endChar": 50
+      },
+      "revId": "9457adfc88c8936f367bd2204801926b3a963e7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a8b222de_e5ad5e4b",
         "filename": "sdk/android/instrumentationtests/src/org/webrtc/PeerConnectionTest.java",
         "patchSetId": 3
@@ -177,6 +339,30 @@
       "revId": "9457adfc88c8936f367bd2204801926b3a963e7f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d35e5bf5_f3ae8f89",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/PeerConnectionTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 680,
+      "author": {
+        "id": 7443
+      },
+      "writtenOn": "2018-09-26T17:00:24Z",
+      "side": 1,
+      "message": "Trimmed down to only test the gen/set/get cycle of the certificate.",
+      "parentUuid": "a8b222de_e5ad5e4b",
+      "range": {
+        "startLine": 669,
+        "startChar": 0,
+        "endLine": 680,
+        "endChar": 83
+      },
+      "revId": "9457adfc88c8936f367bd2204801926b3a963e7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -203,6 +389,30 @@
     },
     {
       "key": {
+        "uuid": "5744fd78_b02eff8c",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/PeerConnectionTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 686,
+      "author": {
+        "id": 7443
+      },
+      "writtenOn": "2018-09-26T17:00:24Z",
+      "side": 1,
+      "message": "I had trouble importing that here. It\u0027s used in the base tests but not in instrumentationtests. For now I\u0027ve implemented these types of tests with a combination of assertNotNull and assertNotEquals.",
+      "parentUuid": "11bd67e5_fc8176c0",
+      "range": {
+        "startLine": 684,
+        "startChar": 0,
+        "endLine": 686,
+        "endChar": 5
+      },
+      "revId": "9457adfc88c8936f367bd2204801926b3a963e7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4182a213_02b31714",
         "filename": "sdk/android/instrumentationtests/src/org/webrtc/PeerConnectionTest.java",
         "patchSetId": 3
@@ -223,6 +433,30 @@
       "revId": "9457adfc88c8936f367bd2204801926b3a963e7f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d14aa23_835ccaab",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/PeerConnectionTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 707,
+      "author": {
+        "id": 7443
+      },
+      "writtenOn": "2018-09-26T17:00:24Z",
+      "side": 1,
+      "message": "Moved to new RTCCertificateTest.java and created new tests for the constructor and each generateCertificate() variant.",
+      "parentUuid": "4182a213_02b31714",
+      "range": {
+        "startLine": 707,
+        "startChar": 14,
+        "endLine": 707,
+        "endChar": 37
+      },
+      "revId": "9457adfc88c8936f367bd2204801926b3a963e7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -263,6 +497,48 @@
       "revId": "9457adfc88c8936f367bd2204801926b3a963e7f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c79adc3d_ff3d660f",
+        "filename": "sdk/android/src/jni/pc/peerconnection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 7443
+      },
+      "writtenOn": "2018-09-26T17:00:24Z",
+      "side": 1,
+      "message": "Same comment as above.",
+      "parentUuid": "2f8d8f40_48611a80",
+      "range": {
+        "startLine": 154,
+        "startChar": 0,
+        "endLine": 156,
+        "endChar": 42
+      },
+      "revId": "9457adfc88c8936f367bd2204801926b3a963e7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d809aa05_856a5cfd",
+        "filename": "sdk/android/src/jni/pc/peerconnection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 7443
+      },
+      "writtenOn": "2018-09-26T17:00:24Z",
+      "side": 1,
+      "message": "I\u0027m also only targeting a single cert in the patch for that reason. The user of the API is not able to set more than one certificate thinking that they will be used in some intelligent manner. Both Objective-C and this Java implementation try not to \"over promise\" about what we can currently do with the certificates.",
+      "parentUuid": "bc8edec9_5829f425",
+      "revId": "9457adfc88c8936f367bd2204801926b3a963e7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -310,6 +586,30 @@
       "revId": "9457adfc88c8936f367bd2204801926b3a963e7f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2fe53963_3a9a0864",
+        "filename": "sdk/android/src/jni/pc/peerconnectionfactory.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 7443
+      },
+      "writtenOn": "2018-09-26T17:00:24Z",
+      "side": 1,
+      "message": "Correct. It\u0027s also always safe to access certificates[0] on an instantiated config.",
+      "parentUuid": "121fb42b_27cc13b4",
+      "range": {
+        "startLine": 390,
+        "startChar": 2,
+        "endLine": 390,
+        "endChar": 40
+      },
+      "revId": "9457adfc88c8936f367bd2204801926b3a963e7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

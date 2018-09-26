@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "59a43f87_06fd29a3",
+        "filename": "api/rtpparameters.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-09-26T07:07:14Z",
+      "side": 0,
+      "message": "I thought I was safe when I changed to a constexpr. Looking at it a second time, I found that it will work until someone asks for a pointer or reference to these variables.\nI will add the definitions to the .cc-file to avoid problems in any future case.",
+      "parentUuid": "fde857c8_d8ef767c",
+      "range": {
+        "startLine": 140,
+        "startChar": 0,
+        "endLine": 140,
+        "endChar": 5
+      },
+      "revId": "17ad64e41f43e2ee5722d74acb35e92a0832b60d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "44efbd80_ad579f16",
         "filename": "modules/rtp_rtcp/source/rtp_packet.h",
         "patchSetId": 9
@@ -72,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "9c4b83cc_45cce251",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-09-26T07:07:14Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "57d2efb5_e58ecf18",
+      "range": {
+        "startLine": 27,
+        "startChar": 23,
+        "endLine": 27,
+        "endChar": 43
+      },
+      "revId": "17ad64e41f43e2ee5722d74acb35e92a0832b60d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "91391a15_8632dc71",
         "filename": "modules/rtp_rtcp/source/rtp_packet.h",
         "patchSetId": 9
@@ -107,6 +155,30 @@
       "side": 0,
       "message": "same, if not used, if no bots complain - can just remove them.",
       "parentUuid": "91391a15_8632dc71",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 44
+      },
+      "revId": "17ad64e41f43e2ee5722d74acb35e92a0832b60d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cec0550c_c277f188",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-09-26T07:07:14Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "25a09e17_f06bdde8",
       "range": {
         "startLine": 28,
         "startChar": 0,

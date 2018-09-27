@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "969d8e05_dbca2176",
+        "filename": "rtc_tools/compare_videos.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-09-27T08:40:56Z",
+      "side": 1,
+      "message": "nit: Two blank lines between top level definitions.",
+      "revId": "1d0d2309c79641ec253af17d78898b89051d4b83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b67da8d_e6401d19",
+        "filename": "rtc_tools/compare_videos.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-09-27T08:40:56Z",
+      "side": 1,
+      "message": "nit: Internal methods should start with _",
+      "range": {
+        "startLine": 132,
+        "startChar": 4,
+        "endLine": 132,
+        "endChar": 20
+      },
+      "revId": "1d0d2309c79641ec253af17d78898b89051d4b83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6fc97f6c_de8a6995",
+        "filename": "rtc_tools/compare_videos.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-09-27T08:40:56Z",
+      "side": 1,
+      "message": "nit: Should be a single line documentation?",
+      "range": {
+        "startLine": 133,
+        "startChar": 0,
+        "endLine": 134,
+        "endChar": 5
+      },
+      "revId": "1d0d2309c79641ec253af17d78898b89051d4b83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da6fc214_bbfd1975",
+        "filename": "rtc_tools/compare_videos.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-09-27T08:40:56Z",
+      "side": 1,
+      "message": "nit: Internal methods should start with _",
+      "range": {
+        "startLine": 157,
+        "startChar": 4,
+        "endLine": 157,
+        "endChar": 11
+      },
+      "revId": "1d0d2309c79641ec253af17d78898b89051d4b83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "358650ac_d7832390",
+        "filename": "rtc_tools/compare_videos.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-09-27T08:40:56Z",
+      "side": 1,
+      "message": "Should these maybe be configurable flags?",
+      "range": {
+        "startLine": 173,
+        "startChar": 0,
+        "endLine": 174,
+        "endChar": 20
+      },
+      "revId": "1d0d2309c79641ec253af17d78898b89051d4b83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

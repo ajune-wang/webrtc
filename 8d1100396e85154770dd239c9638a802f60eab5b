@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "40b8c610_1d0a88b3",
+        "filename": "api/video/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 6278
+      },
+      "writtenOn": "2018-09-27T23:10:05Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "6bfd0bfd_6edea2e2",
+      "range": {
+        "startLine": 156,
+        "startChar": 5,
+        "endLine": 156,
+        "endChar": 16
+      },
+      "revId": "8d1100396e85154770dd239c9638a802f60eab5b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "98e996be_ff40b887",
         "filename": "examples/BUILD.gn",
         "patchSetId": 4
@@ -71,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "280f44c3_d6f689b0",
+        "filename": "examples/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 490,
+      "author": {
+        "id": 6278
+      },
+      "writtenOn": "2018-09-27T23:10:05Z",
+      "side": 1,
+      "message": "I think we can move it in the next CL when we are ready to make the injection mandatory.",
+      "parentUuid": "d17e87d3_48a05543",
+      "range": {
+        "startLine": 490,
+        "startChar": 15,
+        "endLine": 490,
+        "endChar": 54
+      },
+      "revId": "8d1100396e85154770dd239c9638a802f60eab5b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "61521448_7e3a8312",
         "filename": "modules/video_coding/DEPS",
         "patchSetId": 4
@@ -91,6 +139,30 @@
       "revId": "8d1100396e85154770dd239c9638a802f60eab5b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4db78d20_82e48f9f",
+        "filename": "modules/video_coding/DEPS",
+        "patchSetId": 4
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 6278
+      },
+      "writtenOn": "2018-09-27T23:10:05Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "61521448_7e3a8312",
+      "range": {
+        "startLine": 5,
+        "startChar": 2,
+        "endLine": 5,
+        "endChar": 7
+      },
+      "revId": "8d1100396e85154770dd239c9638a802f60eab5b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -153,6 +225,30 @@
       "side": 1,
       "message": "Ack",
       "parentUuid": "7b9b3d37_ad9ca13b",
+      "range": {
+        "startLine": 120,
+        "startChar": 6,
+        "endLine": 120,
+        "endChar": 10
+      },
+      "revId": "8d1100396e85154770dd239c9638a802f60eab5b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "053687bb_79edd5a6",
+        "filename": "modules/video_coding/video_coding_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 6278
+      },
+      "writtenOn": "2018-09-27T23:10:05Z",
+      "side": 1,
+      "message": "I meant Done, not ack..",
+      "parentUuid": "dbf47f68_7f1461b5",
       "range": {
         "startLine": 120,
         "startChar": 6,

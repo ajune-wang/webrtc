@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba09600e_6127bb19",
+        "filename": "modules/rtp_rtcp/source/rtp_header_extension_map.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-09-27T11:23:59Z",
+      "side": 1,
+      "message": "nit, suggest referring to the bug instead\n// TODO(webrtc:7990)",
+      "range": {
+        "startLine": 102,
+        "startChar": 5,
+        "endLine": 102,
+        "endChar": 15
+      },
+      "revId": "7f6649db8666cea9b220fa34f5239df233b42471",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

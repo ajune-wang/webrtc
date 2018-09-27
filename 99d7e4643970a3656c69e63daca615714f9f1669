@@ -16,6 +16,24 @@
       "revId": "99d7e4643970a3656c69e63daca615714f9f1669",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40149501_9f95574e",
+        "filename": "common_video/h264/sps_parser.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-09-27T09:03:50Z",
+      "side": 1,
+      "message": "Added named constant + comment. And a few tests.",
+      "parentUuid": "f67d4998_dde0935f",
+      "revId": "99d7e4643970a3656c69e63daca615714f9f1669",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

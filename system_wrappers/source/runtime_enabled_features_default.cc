@@ -10,18 +10,12 @@
 
 #include "system_wrappers/include/runtime_enabled_features.h"
 
-#include "rtc_base/flags.h"
-
-namespace flags {
-DEFINE_bool(enable_dual_stream_mode, false, "Enables dual video stream mode.");
-}
-
 namespace webrtc {
 namespace runtime_enabled_features {
 
 bool IsFeatureEnabled(std::string feature_name) {
   if (feature_name == kDualStreamModeFeatureName)
-    return flags::FLAG_enable_dual_stream_mode;
+    return true;
   return false;
 }
 

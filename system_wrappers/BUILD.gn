@@ -137,13 +137,11 @@ rtc_source_set("runtime_enabled_features_api") {
 
 rtc_source_set("runtime_enabled_features_default") {
   visibility = [ "*" ]
-  configs += [ "..:no_global_constructors" ]
   sources = [
     "source/runtime_enabled_features_default.cc",
   ]
   deps = [
     ":runtime_enabled_features_api",
-    "../rtc_base:rtc_base_approved",
   ]
 }
 

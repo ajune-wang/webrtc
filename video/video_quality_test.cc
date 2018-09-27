@@ -604,7 +604,9 @@ void VideoQualityTest::SetupVideo(Transport* send_transport,
       decode_sub_stream = params_.ss[video_idx].selected_stream;
     CreateMatchingVideoReceiveConfigs(
         video_send_configs_[video_idx], recv_transport,
-        params_.call.send_side_bwe, decode_sub_stream, true, kNackRtpHistoryMs);
+        // TODO(nisse): XXX Add suitable decoder factory?
+        params_.call.send_side_bwe, &fake_decoder_factory_, decode_sub_stream,
+        true, kNackRtpHistoryMs);
 
     if (params_.screenshare[video_idx].enabled) {
       // Fill out codec settings.
@@ -750,7 +752,9 @@ void VideoQualityTest::SetupThumbnails(Transport* send_transport,
 
     AddMatchingVideoReceiveConfigs(
         &thumbnail_receive_configs_, thumbnail_send_config, send_transport,
-        params_.call.send_side_bwe, absl::nullopt, false, kNackRtpHistoryMs);
+        // TODO(nisse): XXX Proper decoder factory
+        params_.call.send_side_bwe, &fake_decoder_factory_, absl::nullopt,
+        false, kNackRtpHistoryMs);
   }
   for (size_t i = 0; i < thumbnail_send_configs_.size(); ++i) {
     thumbnail_send_streams_.push_back(receiver_call_->CreateVideoSendStream(
@@ -1076,8 +1080,10 @@ void VideoQualityTest::RunWithAnalyzer(const Params& params) {
           video_capturers_[video_idx].get(), degradation_preference_);
     }
 
+#if 0
     StartEncodedFrameLogs(
         video_receive_streams_[params_.ss[0].selected_stream]);
+#endif
 
     if (params_.audio.enabled) {
       SetupAudio(send_transport.get());
@@ -1290,8 +1296,10 @@ void VideoQualityTest::RunWithRenderers(const Params& params) {
       SetupAudio(send_transport.get());
     }
 
+#if 0
     for (VideoReceiveStream* receive_stream : video_receive_streams_)
       StartEncodedFrameLogs(receive_stream);
+#endif
     Start();
   });
 
@@ -1312,6 +1320,7 @@ void VideoQualityTest::RunWithRenderers(const Params& params) {
   });
 }
 
+#if 0
 void VideoQualityTest::StartEncodedFrameLogs(VideoReceiveStream* stream) {
   if (!params_.logging.encoded_frame_base_path.empty()) {
     rtc::StringBuilder str;
@@ -1322,4 +1331,6 @@ void VideoQualityTest::StartEncodedFrameLogs(VideoReceiveStream* stream) {
                                         100000000);
   }
 }
+#endif
+
 }  // namespace webrtc

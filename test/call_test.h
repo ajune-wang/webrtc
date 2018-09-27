@@ -104,6 +104,7 @@ class CallTest : public ::testing::Test {
       const VideoSendStream::Config& video_send_config,
       Transport* rtcp_send_transport,
       bool send_side_bwe,
+      VideoDecoderFactory* decoder_factory,
       absl::optional<size_t> decode_sub_stream,
       bool receiver_reference_time_report,
       int rtp_history_ms);
@@ -112,6 +113,7 @@ class CallTest : public ::testing::Test {
       const VideoSendStream::Config& video_send_config,
       Transport* rtcp_send_transport,
       bool send_side_bwe,
+      VideoDecoderFactory* decoder_factory,
       absl::optional<size_t> decode_sub_stream,
       bool receiver_reference_time_report,
       int rtp_history_ms);

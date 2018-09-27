@@ -315,20 +315,22 @@ void CallTest::CreateMatchingVideoReceiveConfigs(
     const VideoSendStream::Config& video_send_config,
     Transport* rtcp_send_transport) {
   CreateMatchingVideoReceiveConfigs(video_send_config, rtcp_send_transport,
-                                    true, absl::nullopt, false, 0);
+                                    true, &fake_decoder_factory_, absl::nullopt,
+                                    false, 0);
 }
 
 void CallTest::CreateMatchingVideoReceiveConfigs(
     const VideoSendStream::Config& video_send_config,
     Transport* rtcp_send_transport,
     bool send_side_bwe,
+    VideoDecoderFactory* decoder_factory,
     absl::optional<size_t> decode_sub_stream,
     bool receiver_reference_time_report,
     int rtp_history_ms) {
   AddMatchingVideoReceiveConfigs(
       &video_receive_configs_, video_send_config, rtcp_send_transport,
-      send_side_bwe, decode_sub_stream, receiver_reference_time_report,
-      rtp_history_ms);
+      send_side_bwe, decoder_factory, decode_sub_stream,
+      receiver_reference_time_report, rtp_history_ms);
 }
 
 void CallTest::AddMatchingVideoReceiveConfigs(
@@ -336,6 +338,7 @@ void CallTest::AddMatchingVideoReceiveConfigs(
     const VideoSendStream::Config& video_send_config,
     Transport* rtcp_send_transport,
     bool send_side_bwe,
+    VideoDecoderFactory* decoder_factory,
     absl::optional<size_t> decode_sub_stream,
     bool receiver_reference_time_report,
     int rtp_history_ms) {
@@ -363,14 +366,14 @@ void CallTest::AddMatchingVideoReceiveConfigs(
     video_recv_config.rtp.remote_ssrc = video_send_config.rtp.ssrcs[i];
     VideoReceiveStream::Decoder decoder;
 
+    decoder.payload_type = video_send_config.rtp.payload_type;
+    decoder.video_format = SdpVideoFormat(video_send_config.rtp.payload_name);
     // Force fake decoders on non-selected simulcast streams.
     if (!decode_sub_stream || i == *decode_sub_stream) {
-      decoder = test::CreateMatchingDecoder(video_send_config);
+      decoder.decoder_factory = decoder_factory;
     } else {
-      decoder.payload_type = video_send_config.rtp.payload_type;
-      decoder.video_format = SdpVideoFormat(video_send_config.rtp.payload_name);
+      decoder.decoder_factory = &fake_decoder_factory_;
     }
-    decoder.decoder_factory = &fake_decoder_factory_;
     video_recv_config.decoders.push_back(decoder);
     receive_configs->emplace_back(std::move(video_recv_config));
   }

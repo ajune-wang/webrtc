@@ -75,9 +75,8 @@ class AecState {
 
   // Returns any uncertainty in the ERLE estimate.
   absl::optional<float> ErleUncertainty() const {
-    if (!filter_has_had_time_to_converge_ &&
-        use_uncertainty_until_sufficiently_adapted_) {
-      return uncertainty_before_convergence_;
+    if (!filter_has_had_time_to_converge_) {
+      return 1.f;
     }
     return absl::nullopt;
   }
@@ -170,18 +169,11 @@ class AecState {
   static int instance_count_;
   std::unique_ptr<ApmDataDumper> data_dumper_;
   const EchoCanceller3Config config_;
-  const bool allow_transparent_mode_;
   const bool use_stationary_properties_;
-  const bool enforce_delay_after_realignment_;
   const bool early_filter_usage_activated_;
   const bool use_short_initial_state_;
   const bool convergence_trigger_linear_mode_;
   const bool no_alignment_required_for_linear_mode_;
-  const bool use_uncertainty_until_sufficiently_adapted_;
-  const float uncertainty_before_convergence_;
-  const bool early_entry_to_converged_mode_;
-  const bool early_limiter_deactivation_;
-  const bool reset_erle_after_echo_path_changes_;
   ErlEstimator erl_estimator_;
   ErleEstimator erle_estimator_;
   size_t capture_block_counter_ = 0;

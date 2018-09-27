@@ -20,7 +20,7 @@
 #include "rtc_base/fakeclock.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/refcountedobject.h"
-#include "system_wrappers/include/metrics_default.h"
+#include "system_wrappers/include/metrics.h"
 #include "system_wrappers/include/sleep.h"
 #include "test/encoder_settings.h"
 #include "test/fake_encoder.h"

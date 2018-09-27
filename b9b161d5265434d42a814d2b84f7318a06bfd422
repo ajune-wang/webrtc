@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ed82228f_8b4f6060",
+        "filename": "media/engine/webrtcvideoengine.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-09-27T10:17:11Z",
+      "side": 1,
+      "message": "Can this be removed...",
+      "range": {
+        "startLine": 386,
+        "startChar": 4,
+        "endLine": 389,
+        "endChar": 19
+      },
+      "revId": "b9b161d5265434d42a814d2b84f7318a06bfd422",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1f68763_1f3691b8",
+        "filename": "media/engine/webrtcvideoengine.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-09-27T10:17:11Z",
+      "side": 1,
+      "message": "... since this can be removed?",
+      "range": {
+        "startLine": 417,
+        "startChar": 4,
+        "endLine": 417,
+        "endChar": 35
+      },
+      "revId": "b9b161d5265434d42a814d2b84f7318a06bfd422",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

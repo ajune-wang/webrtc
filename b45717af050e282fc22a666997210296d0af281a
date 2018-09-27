@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "ff1358fa_c16ca52f",
+        "filename": "api/test/videocodec_test_stats.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-09-27T08:15:46Z",
+      "side": 1,
+      "message": "Use const only of it\u0027s OK for the class to not be assignable.",
+      "parentUuid": "65566478_c0d2819f",
+      "range": {
+        "startLine": 36,
+        "startChar": 4,
+        "endLine": 36,
+        "endChar": 10
+      },
+      "revId": "b45717af050e282fc22a666997210296d0af281a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "419aa06a_d3443387",
         "filename": "api/test/videocodec_test_stats.h",
         "patchSetId": 5

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b9cb9ba5_8e41e848",
+        "filename": "rtc_tools/compare_videos.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-09-27T11:48:44Z",
+      "side": 1,
+      "message": "nit: Maybe vmaf_phone_model to make it clear this is related to VMAF.",
+      "range": {
+        "startLine": 45,
+        "startChar": 23,
+        "endLine": 45,
+        "endChar": 34
+      },
+      "revId": "033cdd447bb84632384edfa1dcb32688f703bc39",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

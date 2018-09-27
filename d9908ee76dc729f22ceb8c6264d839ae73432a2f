@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "451027eb_70e349f6",
+        "filename": "test/scenario/call_client.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-09-27T08:56:50Z",
+      "side": 1,
+      "message": "I think DISALLOW_COPY_AND_ASSIGN has 3 advantages\n1. One line instead of 4. This way, the \"\u003d delete\" part also happens at the end (and on a different line), so it\u0027s harder to quickly navigate in the code imo.\n2. Used more frequently in the codebase. (358 vs 49 uses)\n3. Intent is more explicit, so the reader doesn\u0027t have to worry about what happens to the move constructor and move assignment operator.",
+      "parentUuid": "762c3267_f795c62d",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 55
+      },
+      "revId": "d9908ee76dc729f22ceb8c6264d839ae73432a2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bc42e8fa_4d889972",
         "filename": "test/scenario/call_client.h",
         "patchSetId": 18

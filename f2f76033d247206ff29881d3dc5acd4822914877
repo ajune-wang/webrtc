@@ -22,6 +22,30 @@
       "revId": "f2f76033d247206ff29881d3dc5acd4822914877",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5621409f_39688454",
+        "filename": "system_wrappers/source/runtime_enabled_features_default.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-09-27T11:50:20Z",
+      "side": 1,
+      "message": "I think it can be safely removed completely. There\u0027s other end in chromium/third_party/webrtc_overrides",
+      "parentUuid": "00b23977_11ba3fb5",
+      "range": {
+        "startLine": 18,
+        "startChar": 4,
+        "endLine": 18,
+        "endChar": 16
+      },
+      "revId": "f2f76033d247206ff29881d3dc5acd4822914877",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

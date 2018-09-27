@@ -91,25 +91,8 @@ void AecState::HandleEchoPathChange(
   subtractor_output_analyzer_.HandleEchoPathChange();
 }
 
-void AecState::Update(
-    const absl::optional<DelayEstimate>& external_delay,
-    const std::vector<std::array<float, kFftLengthBy2Plus1>>&
-        adaptive_filter_frequency_response,
-    const std::vector<float>& adaptive_filter_impulse_response,
-    const RenderBuffer& render_buffer,
-    const std::array<float, kFftLengthBy2Plus1>& E2_main,
-    const std::array<float, kFftLengthBy2Plus1>& Y2,
-    const SubtractorOutput& subtractor_output,
-    rtc::ArrayView<const float> y) {
-  // Analyze the filter output.
-  subtractor_output_analyzer_.Update(subtractor_output);
-
-  const bool converged_filter = subtractor_output_analyzer_.ConvergedFilter();
-  const bool diverged_filter = subtractor_output_analyzer_.DivergedFilter();
-
-  // Analyze the filter and compute the delays.
-  filter_analyzer_.Update(adaptive_filter_impulse_response,
-                          adaptive_filter_frequency_response, render_buffer);
+void AecState::UpdateDelay(
+    const absl::optional<DelayEstimate>& external_delay) {
   filter_delay_blocks_ = filter_analyzer_.DelayBlocks();
   if (external_delay &&
       (!external_delay_ || external_delay_->delay != external_delay->delay)) {
@@ -128,13 +111,69 @@ void AecState::Update(
   }
 
   external_delay_seen_ = external_delay_seen_ || external_delay;
+}
 
-  const std::vector<float>& x = render_buffer.Block(-filter_delay_blocks_)[0];
+void AecState::DetectTransparentMode(bool active_render_block) {
+  if (filter_analyzer_.Consistent() && filter_delay_blocks_ < 5) {
+    consistent_filter_seen_ = true;
+    active_blocks_since_consistent_filter_estimate_ = 0;
+  } else if (active_render_block) {
+    ++active_blocks_since_consistent_filter_estimate_;
+  }
+
+  bool consistent_filter_estimate_not_seen;
+  if (!consistent_filter_seen_) {
+    consistent_filter_estimate_not_seen =
+        capture_block_counter_ > 5 * kNumBlocksPerSecond;
+  } else {
+    consistent_filter_estimate_not_seen =
+        active_blocks_since_consistent_filter_estimate_ >
+        30 * kNumBlocksPerSecond;
+  }
+
+  // After an amount of active render samples for which an echo should have been
+  // detected in the capture signal if the ERL was not infinite, flag that a
+  // transparent mode should be entered.
+  transparent_mode_ = !config_.ep_strength.bounded_erl && !finite_erl_;
+  transparent_mode_ =
+      transparent_mode_ &&
+      (consistent_filter_estimate_not_seen || !converged_filter_seen_);
+  transparent_mode_ = transparent_mode_ && filter_should_have_converged_;
+
+  data_dumper_->DumpRaw("aec3_consistent_filter_estimate_not_seen",
+                        consistent_filter_estimate_not_seen);
+}
+
+void AecState::Update(
+    const absl::optional<DelayEstimate>& external_delay,
+    const std::vector<std::array<float, kFftLengthBy2Plus1>>&
+        adaptive_filter_frequency_response,
+    const std::vector<float>& adaptive_filter_impulse_response,
+    const RenderBuffer& render_buffer,
+    const std::array<float, kFftLengthBy2Plus1>& E2_main,
+    const std::array<float, kFftLengthBy2Plus1>& Y2,
+    const SubtractorOutput& subtractor_output,
+    rtc::ArrayView<const float> y) {
+  // Analyze the filter output.
+  subtractor_output_analyzer_.Update(subtractor_output);
+
+  const bool converged_filter = subtractor_output_analyzer_.ConvergedFilter();
+  const bool diverged_filter = subtractor_output_analyzer_.DivergedFilter();
+
+  // Analyze the filter and compute the delays.
+
+  filter_analyzer_.Update(adaptive_filter_impulse_response,
+                          adaptive_filter_frequency_response, render_buffer);
+
+  UpdateDelay(external_delay);
+
+  const std::vector<float>& aligned_render_block =
+      render_buffer.Block(-filter_delay_blocks_)[0];
 
   // Update counters.
   ++capture_block_counter_;
   ++blocks_since_reset_;
-  const bool active_render_block = DetectActiveRender(x);
+  const bool active_render_block = DetectActiveRender(aligned_render_block);
   blocks_with_active_render_ += active_render_block ? 1 : 0;
   blocks_with_proper_filter_adaptation_ +=
       active_render_block && !SaturatedCapture() ? 1 : 0;
@@ -147,7 +186,7 @@ void AecState::Update(
     suppression_gain_limiter_.Deactivate();
   }
 
-  if (UseStationaryProperties()) {
+  if (config_.echo_audibility.use_stationary_properties) {
     // Update the echo audibility evaluator.
     echo_audibility_.Update(
         render_buffer, FilterDelayBlocks(), external_delay_seen_,
@@ -168,9 +207,8 @@ void AecState::Update(
   }
 
   // Detect and flag echo saturation.
-  if (config_.ep_strength.echo_can_saturate) {
-    echo_saturation_ = DetectEchoSaturation(x, EchoPathGain());
-  }
+  echo_saturation_ = config_.ep_strength.echo_can_saturate &&
+                     DetectEchoSaturation(aligned_render_block, EchoPathGain());
 
   if (config_.filter.conservative_initial_phase) {
     filter_has_had_time_to_converge_ =
@@ -222,22 +260,7 @@ void AecState::Update(
     finite_erl_ = true;
   }
 
-  if (filter_analyzer_.Consistent() && filter_delay_blocks_ < 5) {
-    consistent_filter_seen_ = true;
-    active_blocks_since_consistent_filter_estimate_ = 0;
-  } else if (active_render_block) {
-    ++active_blocks_since_consistent_filter_estimate_;
-  }
 
-  bool consistent_filter_estimate_not_seen;
-  if (!consistent_filter_seen_) {
-    consistent_filter_estimate_not_seen =
-        capture_block_counter_ > 5 * kNumBlocksPerSecond;
-  } else {
-    consistent_filter_estimate_not_seen =
-        active_blocks_since_consistent_filter_estimate_ >
-        30 * kNumBlocksPerSecond;
-  }
 
   converged_filter_seen_ = converged_filter_seen_ || converged_filter;
 
@@ -248,14 +271,7 @@ void AecState::Update(
     finite_erl_ = false;
   }
 
-  // After an amount of active render samples for which an echo should have been
-  // detected in the capture signal if the ERL was not infinite, flag that a
-  // transparent mode should be entered.
-  transparent_mode_ = !config_.ep_strength.bounded_erl && !finite_erl_;
-  transparent_mode_ =
-      transparent_mode_ &&
-      (consistent_filter_estimate_not_seen || !converged_filter_seen_);
-  transparent_mode_ = transparent_mode_ && filter_should_have_converged_;
+  DetectTransparentMode(active_render_block);
 
   usable_linear_estimate_ = !echo_saturation_;
 
@@ -311,8 +327,6 @@ void AecState::Update(
 
   data_dumper_->DumpRaw("aec3_external_delay_avaliable",
                         external_delay ? 1 : 0);
-  data_dumper_->DumpRaw("aec3_consistent_filter_estimate_not_seen",
-                        consistent_filter_estimate_not_seen);
   data_dumper_->DumpRaw("aec3_filter_should_have_converged",
                         filter_should_have_converged_);
   data_dumper_->DumpRaw("aec3_filter_has_had_time_to_converge",

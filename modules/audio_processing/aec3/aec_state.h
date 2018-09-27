@@ -146,6 +146,10 @@ class AecState {
   // been triggered.
   bool TransitionTriggered() const { return transition_triggered_; }
 
+  void UpdateDelay(const absl::optional<DelayEstimate>& external_delay);
+
+  void DetectTransparentMode(bool active_render_block);
+
   // Updates the aec state.
   void Update(const absl::optional<DelayEstimate>& external_delay,
               const std::vector<std::array<float, kFftLengthBy2Plus1>>&

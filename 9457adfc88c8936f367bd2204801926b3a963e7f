@@ -202,6 +202,30 @@
     },
     {
       "key": {
+        "uuid": "c7482296_0019d28a",
+        "filename": "sdk/android/api/org/webrtc/PeerConnection.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 730,
+      "author": {
+        "id": 7443
+      },
+      "writtenOn": "2018-09-27T12:30:54Z",
+      "side": 1,
+      "message": "I understand your point about deprecating public APIs. However, I think we should offer both getCertificate() and getCertificates(). For now, getCertificate() represents known behavior. Once behavior for multiple certificates is defined we add the plural form.\n\nNo need to deprecate and no need to cause undue overhead in using the API by manipulating an Array when only the first element will ever be used.",
+      "parentUuid": "77226e03_5bf4b8d9",
+      "range": {
+        "startLine": 730,
+        "startChar": 24,
+        "endLine": 730,
+        "endChar": 38
+      },
+      "revId": "9457adfc88c8936f367bd2204801926b3a963e7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9407caa5_365d9920",
         "filename": "sdk/android/api/org/webrtc/RTCCertificate.java",
         "patchSetId": 3
@@ -270,6 +294,30 @@
       "revId": "9457adfc88c8936f367bd2204801926b3a963e7f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31a1e4e0_c90ae76c",
+        "filename": "sdk/android/api/org/webrtc/RTCCertificate.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 7443
+      },
+      "writtenOn": "2018-09-27T12:30:54Z",
+      "side": 1,
+      "message": "done and done",
+      "parentUuid": "19fcbde3_713f3c24",
+      "range": {
+        "startLine": 13,
+        "startChar": 13,
+        "endLine": 13,
+        "endChar": 27
+      },
+      "revId": "9457adfc88c8936f367bd2204801926b3a963e7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -379,6 +427,30 @@
       "side": 1,
       "message": "The problem is that these are a public API so removing them will require deprecation, PSAs etc. and is in general very painful. That is why I would like to get it right the first time.",
       "parentUuid": "68aa6b4e_f17aa1d1",
+      "range": {
+        "startLine": 45,
+        "startChar": 31,
+        "endLine": 45,
+        "endChar": 50
+      },
+      "revId": "9457adfc88c8936f367bd2204801926b3a963e7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "239784ee_967d888b",
+        "filename": "sdk/android/api/org/webrtc/RTCCertificate.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 7443
+      },
+      "writtenOn": "2018-09-27T12:30:54Z",
+      "side": 1,
+      "message": "Someone else will have to weigh in. I don\u0027t see a path to where a dedicated generator class is necessary.",
+      "parentUuid": "b328e1f3_ecb43fa0",
       "range": {
         "startLine": 45,
         "startChar": 31,
@@ -506,6 +578,30 @@
       "revId": "9457adfc88c8936f367bd2204801926b3a963e7f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eef994d2_631ac9ad",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/PeerConnectionTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 686,
+      "author": {
+        "id": 7443
+      },
+      "writtenOn": "2018-09-27T12:30:54Z",
+      "side": 1,
+      "message": "Thanks! Converted.",
+      "parentUuid": "3d97a90f_c063382e",
+      "range": {
+        "startLine": 684,
+        "startChar": 0,
+        "endLine": 686,
+        "endChar": 5
+      },
+      "revId": "9457adfc88c8936f367bd2204801926b3a963e7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -650,6 +746,24 @@
       "side": 1,
       "message": "I would prefer to match the C++ API for future proofing.",
       "parentUuid": "d809aa05_856a5cfd",
+      "revId": "9457adfc88c8936f367bd2204801926b3a963e7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "116815c8_cd5cfa17",
+        "filename": "sdk/android/src/jni/pc/peerconnection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 7443
+      },
+      "writtenOn": "2018-09-27T12:30:54Z",
+      "side": 1,
+      "message": "Comments elsewhere about this. My vote: For now, support singular (because that is the only behavior that is defined. In the future, add a new API for plural once behavior defined. No deprecation needed. And no overhead in API usage for now juggling a single-element array, let alone confusion about multi-cert behavior.",
+      "parentUuid": "e28558f0_c6741648",
       "revId": "9457adfc88c8936f367bd2204801926b3a963e7f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cc09a2cc_6d2c7400",
+        "filename": "modules/congestion_controller/rtp/send_side_congestion_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2018-09-27T12:50:54Z",
+      "side": 1,
+      "message": "typo",
+      "range": {
+        "startLine": 379,
+        "startChar": 35,
+        "endLine": 379,
+        "endChar": 40
+      },
+      "revId": "6a7ffe496edba705dca77da2069cb1568215b881",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

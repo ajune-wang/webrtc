@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "00b23977_11ba3fb5",
+        "filename": "system_wrappers/source/runtime_enabled_features_default.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-09-27T11:45:14Z",
+      "side": 1,
+      "message": "I guess I need to add a meaningful comment here. On the other hand I am thinking if it is possible to completely remove runtime_enabled_features from the codebase if it is not needed.",
+      "range": {
+        "startLine": 18,
+        "startChar": 4,
+        "endLine": 18,
+        "endChar": 16
+      },
+      "revId": "f2f76033d247206ff29881d3dc5acd4822914877",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

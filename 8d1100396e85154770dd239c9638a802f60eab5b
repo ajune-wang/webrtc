@@ -114,6 +114,30 @@
       "revId": "8d1100396e85154770dd239c9638a802f60eab5b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b9b3d37_ad9ca13b",
+        "filename": "modules/video_coding/video_coding_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-09-27T11:05:00Z",
+      "side": 1,
+      "message": "Can we move creation of the factory to the VideoCodingImpl constructor, assigning to a construction-time const? It seems odd to create a through-away factory used only once.\n\nNow, that has the slight disadvantage that we will create it even if it isn\u0027t used, e.g., if the VideoCodingModuleImpl is used for decoding only, but I still think it\u0027s clearer.",
+      "parentUuid": "92d81ac5_59e3d57a",
+      "range": {
+        "startLine": 120,
+        "startChar": 6,
+        "endLine": 120,
+        "endChar": 10
+      },
+      "revId": "8d1100396e85154770dd239c9638a802f60eab5b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

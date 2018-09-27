@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6bfd0bfd_6edea2e2",
+        "filename": "api/video/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-09-27T10:43:59Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 156,
+        "startChar": 5,
+        "endLine": 156,
+        "endChar": 16
+      },
+      "revId": "8d1100396e85154770dd239c9638a802f60eab5b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98e996be_ff40b887",
+        "filename": "examples/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 490,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-09-27T10:43:59Z",
+      "side": 1,
+      "message": "Following up on discussion in https://webrtc-review.googlesource.com/c/src/+/92320/4/api/video/BUILD.gn#184:\n\nNow I see why we would want the builtin factory to actually be in /api:\n/pc is a legacy API folder (https://cs.chromium.org/chromium/src/third_party/webrtc/native-api.md), and we should avoid adding new things there.\n\nIt\u0027s not very nice that apps can use the WebRtcMediaEngineFactory, but I guess we have to live with that for now.",
+      "range": {
+        "startLine": 490,
+        "startChar": 12,
+        "endLine": 490,
+        "endChar": 14
+      },
+      "revId": "8d1100396e85154770dd239c9638a802f60eab5b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d17e87d3_48a05543",
+        "filename": "examples/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 490,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-09-27T10:43:59Z",
+      "side": 1,
+      "message": "I.e., we should move this target to be in api/",
+      "range": {
+        "startLine": 490,
+        "startChar": 15,
+        "endLine": 490,
+        "endChar": 54
+      },
+      "revId": "8d1100396e85154770dd239c9638a802f60eab5b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61521448_7e3a8312",
+        "filename": "modules/video_coding/DEPS",
+        "patchSetId": 4
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-09-27T10:43:59Z",
+      "side": 1,
+      "message": "I think it would be better to put the builtin in either api/ or in modules/video_coding, and then have pc/ depend on modules/video_coding.",
+      "range": {
+        "startLine": 5,
+        "startChar": 2,
+        "endLine": 5,
+        "endChar": 7
+      },
+      "revId": "8d1100396e85154770dd239c9638a802f60eab5b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92d81ac5_59e3d57a",
+        "filename": "modules/video_coding/video_coding_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-09-27T10:43:59Z",
+      "side": 1,
+      "message": "For clarity, write out full type name.",
+      "range": {
+        "startLine": 120,
+        "startChar": 6,
+        "endLine": 120,
+        "endChar": 10
+      },
+      "revId": "8d1100396e85154770dd239c9638a802f60eab5b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

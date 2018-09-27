@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0f8c40c4_879a1dd2",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 778,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-09-27T11:28:31Z",
+      "side": 1,
+      "message": "Do we need to gate it screensharing?",
+      "revId": "0575731c3e235cc878586dc73bdaa14a19e12f34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

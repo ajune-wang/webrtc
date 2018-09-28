@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "dd9b5e34_fb14218a",
+        "filename": "video/video_quality_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-09-28T08:14:56Z",
+      "side": 1,
+      "message": "Sounds reasonable. I\u0027ve now tried it, and unfortunately it doesn\u0027t work. Current test organization hardcodes vp9 as the underlying codec for multiplex. But MultiplexDecoderFactory wants an association \"acn\":\"VP9\" in SdpVideoFormat::params, and there\u0027s nothing setting that, except for MultiplexDecoderFactory unittests.\n\nWhen running video_loopback --codec\u003dmultiplex (which seems to work fine on master), I get warnings\n\n  (multiplexcodecfactory.cc:109): No assicated [sic] codec for multiplex.\n\nfollowed by warnings about using NullVideoDecoder. And no decoded video, naturally.",
+      "parentUuid": "bb2eea4e_9e8b52c2",
+      "range": {
+        "startLine": 162,
+        "startChar": 48,
+        "endLine": 162,
+        "endChar": 66
+      },
+      "revId": "b8ee0fa18c2344b0fcb3987ebb9200e70ccf8455",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "46edc4a5_708f6413",
         "filename": "video/video_quality_test.cc",
         "patchSetId": 3

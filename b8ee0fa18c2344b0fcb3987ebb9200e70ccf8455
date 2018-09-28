@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "93ac9442_cca11c5b",
+        "filename": "video/video_quality_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-09-28T07:43:44Z",
+      "side": 1,
+      "message": "It seems we already have a MultiplexDecoderFactory, see /media/engine/multiplexcodecfactory.h.\n\nThe reason I do it like this is that I want to add wrapping in a FrameDumpingDecoder, in the same way as in CreateVideoEncoder just below, and that doesn\u0027t fit in a reusable factory.",
+      "parentUuid": "4a3b3e7c_4171a08e",
+      "range": {
+        "startLine": 162,
+        "startChar": 48,
+        "endLine": 162,
+        "endChar": 66
+      },
+      "revId": "b8ee0fa18c2344b0fcb3987ebb9200e70ccf8455",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "46edc4a5_708f6413",
         "filename": "video/video_quality_test.cc",
         "patchSetId": 3
@@ -59,6 +83,30 @@
       "writtenOn": "2018-09-28T07:27:58Z",
       "side": 1,
       "message": "Maybe we should DCHECK that these aren\u0027t used as well?",
+      "range": {
+        "startLine": 82,
+        "startChar": 6,
+        "endLine": 82,
+        "endChar": 22
+      },
+      "revId": "b8ee0fa18c2344b0fcb3987ebb9200e70ccf8455",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6b460d1_8a31cf61",
+        "filename": "video/video_receive_stream.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-09-28T07:43:44Z",
+      "side": 1,
+      "message": "This class, and the logic where it is instantiated, is just moved from webrtcvideoengine.cc. I\u0027d prefer to have a plain move in this cl, with no other changes to how it\u0027s used.\n\nAs I understand the comment where it\u0027s used, this should go away when the old cricket::WebRtcVideoDecoderFactory is removed from the PeerConnection api.",
+      "parentUuid": "8c5fcc4c_c84b102e",
       "range": {
         "startLine": 82,
         "startChar": 6,

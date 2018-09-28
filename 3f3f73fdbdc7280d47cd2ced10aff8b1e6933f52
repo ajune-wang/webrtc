@@ -118,6 +118,30 @@
       "revId": "3f3f73fdbdc7280d47cd2ced10aff8b1e6933f52",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ac54097_17cf5d62",
+        "filename": "ENG_REVIEW_OWNERS",
+        "patchSetId": 3
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-09-28T08:58:44Z",
+      "side": 1,
+      "message": "An update on this: https://chromium-review.googlesource.com/c/chromium/tools/depot_tools/+/1188574/5/owners.py#b362.\n\nAfter discussing with dpranke@ it seems there isn\u0027t a clear solution to this problem. The proposal is to add //ENG_REVIEW_OWNERS to WebRTC so when //third_party/OWNERS will be loaded into the OWNERS db it will contain someone from WebRTC that will coordinate with chromium\u0027s eng review owners to ensure that the added dependency was okay.\n\nMy proposal is to add a few people from the core team (e.g. me, phoglund, kwiberg and danilchap) with the mandate of ensuring that third_party dependencies are added only when needed.",
+      "parentUuid": "6b668689_fab0d62b",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 16
+      },
+      "revId": "3f3f73fdbdc7280d47cd2ced10aff8b1e6933f52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

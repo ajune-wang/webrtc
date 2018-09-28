@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "03e91b74_33229fdc",
+        "filename": "rtc_tools/compare_videos.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-09-28T12:33:36Z",
+      "side": 1,
+      "message": "Is it possible to delete this directory in a try .. finally block so it gets deleted even if there is an exception?",
+      "range": {
+        "startLine": 242,
+        "startChar": 4,
+        "endLine": 242,
+        "endChar": 40
+      },
+      "revId": "932d15f055057653a01ff3864cd054288e0c6fd4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

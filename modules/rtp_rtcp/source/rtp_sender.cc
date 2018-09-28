@@ -619,13 +619,16 @@ size_t RTPSender::SendPadData(size_t bytes,
     PacketOptions options;
     // Padding packets are never retransmissions.
     options.is_retransmit = false;
-    bool has_transport_seq_num =
-        UpdateTransportSequenceNumber(&padding_packet, &options.packet_id);
-    padding_packet.SetPadding(padding_bytes_in_packet, &random_);
+    {
+      rtc::CritScope lock(&send_critsect_);
+      bool has_transport_seq_num =
+          UpdateTransportSequenceNumber(&padding_packet, &options.packet_id);
+      padding_packet.SetPadding(padding_bytes_in_packet, &random_);
 
-    if (has_transport_seq_num) {
-      AddPacketToTransportFeedback(options.packet_id, padding_packet,
-                                   pacing_info);
+      if (has_transport_seq_num) {
+        AddPacketToTransportFeedback(options.packet_id, padding_packet,
+                                     pacing_info);
+      }
     }
 
     if (!SendPacketToNetwork(padding_packet, options, pacing_info))
@@ -838,9 +841,12 @@ bool RTPSender::PrepareAndSendPacket(std::unique_ptr<RtpPacketToSend> packet,
   // E.g. RTPSender::TrySendRedundantPayloads calls PrepareAndSendPacket with
   // send_over_rtx = true but is_retransmit = false.
   options.is_retransmit = is_retransmit || send_over_rtx;
-  if (UpdateTransportSequenceNumber(packet_to_send, &options.packet_id)) {
-    AddPacketToTransportFeedback(options.packet_id, *packet_to_send,
-                                 pacing_info);
+  {
+    rtc::CritScope lock(&send_critsect_);
+    if (UpdateTransportSequenceNumber(packet_to_send, &options.packet_id)) {
+      AddPacketToTransportFeedback(options.packet_id, *packet_to_send,
+                                   pacing_info);
+    }
   }
   options.application_data.assign(packet_to_send->application_data().begin(),
                                   packet_to_send->application_data().end());
@@ -971,9 +977,12 @@ bool RTPSender::SendToNetwork(std::unique_ptr<RtpPacketToSend> packet,
 
   PacketOptions options;
   options.is_retransmit = false;
-  if (UpdateTransportSequenceNumber(packet.get(), &options.packet_id)) {
-    AddPacketToTransportFeedback(options.packet_id, *packet.get(),
-                                 PacedPacketInfo());
+  {
+    rtc::CritScope lock(&send_critsect_);
+    if (UpdateTransportSequenceNumber(packet.get(), &options.packet_id)) {
+      AddPacketToTransportFeedback(options.packet_id, *packet.get(),
+                                   PacedPacketInfo());
+    }
   }
   options.application_data.assign(packet->application_data().begin(),
                                   packet->application_data().end());
@@ -1181,10 +1190,9 @@ bool RTPSender::AssignSequenceNumber(RtpPacketToSend* packet) {
 }
 
 bool RTPSender::UpdateTransportSequenceNumber(RtpPacketToSend* packet,
-                                              int* packet_id) const {
+                                              int* packet_id) {
   RTC_DCHECK(packet);
   RTC_DCHECK(packet_id);
-  rtc::CritScope lock(&send_critsect_);
   if (!rtp_header_extension_map_.IsRegistered(TransportSequenceNumber::kId))
     return false;
 

@@ -61,6 +61,11 @@ struct DefaultNetworkSimulationConfig {
   bool allow_reordering = false;
   // The average length of a burst of lost packets.
   int avg_burst_loss_length = -1;
+  // If the network simulator supports multiple configurations, this parameter
+  // specifies the duration in milliseconds during which this config should be
+  // used. Duration <= 0 indicates indefinitely.
+  // When duration has expired, the next config in the list will be activated.
+  int64_t config_durations_ms = 0;
 };
 
 class NetworkSimulationInterface {

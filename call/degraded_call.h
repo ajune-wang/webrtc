@@ -12,6 +12,7 @@
 #define CALL_DEGRADED_CALL_H_
 
 #include <memory>
+#include <vector>
 
 #include "absl/types/optional.h"
 #include "api/call/transport.h"
@@ -24,12 +25,15 @@
 
 namespace webrtc {
 
-class DegradedCall : public Call, private Transport, private PacketReceiver {
+class DegradedCall : public Call,
+                     private Transport,
+                     private PacketReceiver,
+                     private Module {
  public:
   explicit DegradedCall(
       std::unique_ptr<Call> call,
-      absl::optional<DefaultNetworkSimulationConfig> send_config,
-      absl::optional<DefaultNetworkSimulationConfig> receive_config);
+      std::vector<DefaultNetworkSimulationConfig> send_configs,
+      std::vector<DefaultNetworkSimulationConfig> receive_configs);
   ~DegradedCall() override;
 
   // Implements Call.
@@ -90,17 +94,26 @@ class DegradedCall : public Call, private Transport, private PacketReceiver {
                                int64_t packet_time_us) override;
 
  private:
+  // Overrides Module.
+  int64_t TimeUntilNextProcess() override;
+  void Process() override;
+
   Clock* const clock_;
   const std::unique_ptr<Call> call_;
+  const rtc::CriticalSection config_lock_;
 
-  const absl::optional<DefaultNetworkSimulationConfig> send_config_;
+  const std::vector<DefaultNetworkSimulationConfig> send_configs_;
   const std::unique_ptr<ProcessThread> send_process_thread_;
-  SimulatedNetwork* send_simulated_network_;
+  size_t send_config_index_ RTC_GUARDED_BY(config_lock_);
+  int64_t send_config_start_time_ms_ RTC_GUARDED_BY(config_lock_);
+  SimulatedNetwork* send_simulated_network_ RTC_GUARDED_BY(config_lock_);
   std::unique_ptr<FakeNetworkPipe> send_pipe_;
   size_t num_send_streams_;
 
-  const absl::optional<DefaultNetworkSimulationConfig> receive_config_;
-  SimulatedNetwork* receive_simulated_network_;
+  const std::vector<DefaultNetworkSimulationConfig> receive_configs_;
+  size_t receive_config_index_ RTC_GUARDED_BY(config_lock_);
+  int64_t receive_config_start_time_ms_ RTC_GUARDED_BY(config_lock_);
+  SimulatedNetwork* receive_simulated_network_ RTC_GUARDED_BY(config_lock_);
   std::unique_ptr<FakeNetworkPipe> receive_pipe_;
 };
 

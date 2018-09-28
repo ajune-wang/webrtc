@@ -8,6 +8,7 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+#include <algorithm>
 #include <utility>
 
 #include "call/degraded_call.h"
@@ -17,34 +18,38 @@
 namespace webrtc {
 DegradedCall::DegradedCall(
     std::unique_ptr<Call> call,
-    absl::optional<DefaultNetworkSimulationConfig> send_config,
-    absl::optional<DefaultNetworkSimulationConfig> receive_config)
+    std::vector<DefaultNetworkSimulationConfig> send_configs,
+    std::vector<DefaultNetworkSimulationConfig> receive_configs)
     : clock_(Clock::GetRealTimeClock()),
       call_(std::move(call)),
-      send_config_(send_config),
-      send_process_thread_(
-          send_config_ ? ProcessThread::Create("DegradedSendThread") : nullptr),
+      send_configs_(send_configs),
+      send_process_thread_(ProcessThread::Create("DegradedSendThread")),
+      send_config_index_(0),
+      send_config_start_time_ms_(clock_->TimeInMilliseconds()),
+      send_simulated_network_(nullptr),
       num_send_streams_(0),
-      receive_config_(receive_config) {
-  if (receive_config_) {
-    auto network = absl::make_unique<SimulatedNetwork>(*receive_config_);
+      receive_configs_(receive_configs),
+      receive_config_index_(0),
+      receive_config_start_time_ms_(clock_->TimeInMilliseconds()) {
+  if (!receive_configs_.empty()) {
+    auto network = absl::make_unique<SimulatedNetwork>(
+        receive_configs_[receive_config_index_]);
     receive_simulated_network_ = network.get();
     receive_pipe_ =
         absl::make_unique<webrtc::FakeNetworkPipe>(clock_, std::move(network));
     receive_pipe_->SetReceiver(call_->Receiver());
   }
-  if (send_process_thread_) {
-    send_process_thread_->Start();
-  }
+  send_process_thread_->Start();
+  send_process_thread_->RegisterModule(this, RTC_FROM_HERE);
 }
 
 DegradedCall::~DegradedCall() {
   if (send_pipe_) {
     send_process_thread_->DeRegisterModule(send_pipe_.get());
   }
-  if (send_process_thread_) {
-    send_process_thread_->Stop();
-  }
+  send_process_thread_->DeRegisterModule(this);
+
+  send_process_thread_->Stop();
 }
 
 AudioSendStream* DegradedCall::CreateAudioSendStream(
@@ -69,8 +74,12 @@ void DegradedCall::DestroyAudioReceiveStream(
 VideoSendStream* DegradedCall::CreateVideoSendStream(
     VideoSendStream::Config config,
     VideoEncoderConfig encoder_config) {
-  if (send_config_ && !send_pipe_) {
-    auto network = absl::make_unique<SimulatedNetwork>(*send_config_);
+  if (!send_configs_.empty() && !send_pipe_) {
+    rtc::CritScope cs(&config_lock_);
+    send_config_index_ = 0;
+    send_config_start_time_ms_ = clock_->TimeInMilliseconds();
+    auto network =
+        absl::make_unique<SimulatedNetwork>(send_configs_[send_config_index_]);
     send_simulated_network_ = network.get();
     send_pipe_ = absl::make_unique<FakeNetworkPipe>(clock_, std::move(network),
                                                     config.send_transport);
@@ -86,8 +95,12 @@ VideoSendStream* DegradedCall::CreateVideoSendStream(
     VideoSendStream::Config config,
     VideoEncoderConfig encoder_config,
     std::unique_ptr<FecController> fec_controller) {
-  if (send_config_ && !send_pipe_) {
-    auto network = absl::make_unique<SimulatedNetwork>(*send_config_);
+  if (!send_configs_.empty() && !send_pipe_) {
+    rtc::CritScope cs(&config_lock_);
+    send_config_index_ = 0;
+    send_config_start_time_ms_ = clock_->TimeInMilliseconds();
+    auto network =
+        absl::make_unique<SimulatedNetwork>(send_configs_[send_config_index_]);
     send_simulated_network_ = network.get();
     send_pipe_ = absl::make_unique<FakeNetworkPipe>(clock_, std::move(network),
                                                     config.send_transport);
@@ -105,7 +118,9 @@ void DegradedCall::DestroyVideoSendStream(VideoSendStream* send_stream) {
     --num_send_streams_;
     if (num_send_streams_ == 0) {
       send_process_thread_->DeRegisterModule(send_pipe_.get());
+      rtc::CritScope cs(&config_lock_);
       send_pipe_.reset();
+      send_simulated_network_ = nullptr;
     }
   }
 }
@@ -131,7 +146,7 @@ void DegradedCall::DestroyFlexfecReceiveStream(
 }
 
 PacketReceiver* DegradedCall::Receiver() {
-  if (receive_config_) {
+  if (!receive_configs_.empty()) {
     return this;
   }
   return call_->Receiver();
@@ -164,7 +179,7 @@ void DegradedCall::OnTransportOverheadChanged(
 }
 
 void DegradedCall::OnSentPacket(const rtc::SentPacket& sent_packet) {
-  if (send_config_) {
+  if (!send_configs_.empty()) {
     // If we have a degraded send-transport, we have already notified call
     // about the supposed network send time. Discard the actual network send
     // time in order to properly fool the BWE.
@@ -210,6 +225,61 @@ PacketReceiver::DeliveryStatus DegradedCall::DeliverPacket(
   // than anticipated at very low packet rates.
   receive_pipe_->Process();
   return status;
+}
+
+int64_t DegradedCall::TimeUntilNextProcess() {
+  rtc::CritScope cs(&config_lock_);
+  int64_t now_ms = clock_->TimeInMilliseconds();
+  int64_t time_until_next = 1000000;
+
+  if (!send_configs_.empty()) {
+    int64_t duration = send_configs_[send_config_index_].config_durations_ms;
+    if (duration > 0) {
+      time_until_next = std::min(
+          time_until_next, send_config_start_time_ms_ + duration - now_ms);
+    }
+  }
+
+  if (!receive_configs_.empty()) {
+    int64_t duration =
+        receive_configs_[receive_config_index_].config_durations_ms;
+    if (duration > 0) {
+      time_until_next = std::min(
+          time_until_next, receive_config_start_time_ms_ + duration - now_ms);
+    }
+  }
+
+  return std::max(0l, time_until_next);
+}
+
+void DegradedCall::Process() {
+  rtc::CritScope cs(&config_lock_);
+  int64_t now_ms = clock_->TimeInMilliseconds();
+
+  if (!send_configs_.empty()) {
+    int64_t duration = send_configs_[send_config_index_].config_durations_ms;
+    if (duration > 0 && now_ms >= send_config_start_time_ms_ + duration) {
+      send_config_index_ = (send_config_index_ + 1) % send_configs_.size();
+      send_config_start_time_ms_ += duration;
+      if (send_simulated_network_) {
+        send_simulated_network_->SetConfig(send_configs_[send_config_index_]);
+      }
+    }
+  }
+
+  if (!receive_configs_.empty()) {
+    int64_t duration =
+        receive_configs_[receive_config_index_].config_durations_ms;
+    if (duration > 0 && now_ms >= receive_config_start_time_ms_ + duration) {
+      receive_config_index_ =
+          (receive_config_index_ + 1) % receive_configs_.size();
+      receive_config_start_time_ms_ += duration;
+      if (receive_simulated_network_) {
+        receive_simulated_network_->SetConfig(
+            receive_configs_[send_config_index_]);
+      }
+    }
+  }
 }
 
 }  // namespace webrtc

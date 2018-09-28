@@ -79,13 +79,6 @@ class MockGainControl : public GainControl {
   MOCK_CONST_METHOD0(stream_is_saturated, bool());
 };
 
-class MockHighPassFilter : public HighPassFilter {
- public:
-  virtual ~MockHighPassFilter() {}
-  MOCK_METHOD1(Enable, int(bool enable));
-  MOCK_CONST_METHOD0(is_enabled, bool());
-};
-
 class MockLevelEstimator : public LevelEstimator {
  public:
   virtual ~MockLevelEstimator() {}
@@ -153,7 +146,6 @@ class MockAudioProcessing : public testing::NiceMock<AudioProcessing> {
       : echo_cancellation_(new testing::NiceMock<MockEchoCancellation>()),
         echo_control_mobile_(new testing::NiceMock<MockEchoControlMobile>()),
         gain_control_(new testing::NiceMock<MockGainControl>()),
-        high_pass_filter_(new testing::NiceMock<MockHighPassFilter>()),
         level_estimator_(new testing::NiceMock<MockLevelEstimator>()),
         noise_suppression_(new testing::NiceMock<MockNoiseSuppression>()),
         voice_detection_(new testing::NiceMock<MockVoiceDetection>()) {}
@@ -228,9 +220,6 @@ class MockAudioProcessing : public testing::NiceMock<AudioProcessing> {
     return echo_control_mobile_.get();
   }
   virtual MockGainControl* gain_control() const { return gain_control_.get(); }
-  virtual MockHighPassFilter* high_pass_filter() const {
-    return high_pass_filter_.get();
-  }
   virtual MockLevelEstimator* level_estimator() const {
     return level_estimator_.get();
   }
@@ -247,7 +236,6 @@ class MockAudioProcessing : public testing::NiceMock<AudioProcessing> {
   std::unique_ptr<MockEchoCancellation> echo_cancellation_;
   std::unique_ptr<MockEchoControlMobile> echo_control_mobile_;
   std::unique_ptr<MockGainControl> gain_control_;
-  std::unique_ptr<MockHighPassFilter> high_pass_filter_;
   std::unique_ptr<MockLevelEstimator> level_estimator_;
   std::unique_ptr<MockNoiseSuppression> noise_suppression_;
   std::unique_ptr<MockVoiceDetection> voice_detection_;

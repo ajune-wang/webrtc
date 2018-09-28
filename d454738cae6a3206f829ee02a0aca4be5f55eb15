@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "17969af0_a6cf3ad0",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-09-28T08:24:07Z",
+      "side": 1,
+      "message": "peah: I moved this comment from the AudioProcessing::high_pass_filter() declaration.\nIs it still applicable?",
+      "range": {
+        "startLine": 257,
+        "startChar": 0,
+        "endLine": 259,
+        "endChar": 52
+      },
+      "revId": "d454738cae6a3206f829ee02a0aca4be5f55eb15",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

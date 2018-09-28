@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a54104c_9b06ccec",
+        "filename": "media/engine/apm_helpers_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-09-28T08:24:07Z",
+      "side": 0,
+      "message": "solenberg: Is it OK to remove this test?\nIt is functionally covered by ApmTest.AllProcessingDisabledByDefault [1], but perhaps the test also documents what webrtcvoicenegine expects of a default APM.\n\n[1] https://cs.chromium.org/chromium/src/third_party/webrtc/modules/audio_processing/audio_processing_unittest.cc?q\u003dAllProcessingDisabledByDefault\u0026sq\u003dpackage:chromium\u0026g\u003d0\u0026l\u003d1344",
+      "range": {
+        "startLine": 172,
+        "startChar": 21,
+        "endLine": 172,
+        "endChar": 47
+      },
+      "revId": "17f487841941677f5fda07759d70a7fdb6eabfcb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b31f661c_c98ea143",
+        "filename": "modules/audio_processing/audio_processing_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1349,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-09-28T08:24:07Z",
+      "side": 0,
+      "message": "Covered by line 1347.",
+      "range": {
+        "startLine": 1349,
+        "startChar": 0,
+        "endLine": 1349,
+        "endChar": 55
+      },
+      "revId": "17f487841941677f5fda07759d70a7fdb6eabfcb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

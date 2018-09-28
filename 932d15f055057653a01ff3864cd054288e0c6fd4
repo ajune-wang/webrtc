@@ -22,6 +22,30 @@
       "revId": "932d15f055057653a01ff3864cd054288e0c6fd4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f8848b8_412ce61a",
+        "filename": "rtc_tools/compare_videos.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-09-28T13:14:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "03e91b74_33229fdc",
+      "range": {
+        "startLine": 242,
+        "startChar": 4,
+        "endLine": 242,
+        "endChar": 40
+      },
+      "revId": "932d15f055057653a01ff3864cd054288e0c6fd4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

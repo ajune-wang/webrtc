@@ -82,6 +82,16 @@ class TestPacketBuffer : public ::testing::Test,
         << ".";
   }
 
+  void DeleteFrame(uint16_t first_seq_num) {
+    auto frame_it = frames_from_callback_.find(first_seq_num);
+    ASSERT_FALSE(frame_it == frames_from_callback_.end())
+        << "Could not find frame with first sequence number " << first_seq_num
+        << ".";
+    frames_from_callback_.erase(frame_it);
+  }
+
+  void ClearTo(uint16_t seq_num) { packet_buffer_->ClearTo(seq_num); }
+
   static constexpr int kStartSize = 16;
   static constexpr int kMaxSize = 64;
 
@@ -492,6 +502,43 @@ TEST_F(TestPacketBuffer, GetBitstreamOneFrameFullBuffer) {
   EXPECT_EQ(frames_from_callback_[0]->size(), static_cast<size_t>(kStartSize));
   EXPECT_TRUE(frames_from_callback_[0]->GetBitstream(result));
   EXPECT_EQ(memcmp(result, expected, kStartSize), 0);
+}
+
+TEST_F(TestPacketBuffer, InsertPacketAfterOldFrameObjectIsRemoved) {
+  uint16_t kFirstSeqNum = 0;
+  uint32_t kTimestampDelta = 100;
+  uint32_t timestamp = 10000;
+  uint16_t seq_num = kFirstSeqNum;
+  bool half_way = false;
+  bool wrapped_around = false;
+  while (!wrapped_around) {
+    Insert(seq_num++, kKeyFrame, kFirst, kNotLast, 0, nullptr, timestamp);
+    for (int i = 0; i < 5; ++i) {
+      Insert(seq_num++, kKeyFrame, kNotFirst, kNotLast, 0, nullptr, timestamp);
+    }
+    Insert(seq_num++, kKeyFrame, kNotFirst, kLast, 0, nullptr, timestamp);
+    timestamp += kTimestampDelta;
+
+    if (seq_num > 32768)
+      half_way = true;
+    if (half_way && seq_num < 32768)
+      wrapped_around = true;
+  }
+
+  size_t number_of_frames = frames_from_callback_.size();
+  // Delete old frame object while receiving frame with overlapping sequence
+  // numbers.
+  Insert(seq_num++, kKeyFrame, kFirst, kNotLast, 0, nullptr, timestamp);
+  for (int i = 0; i < 5; ++i) {
+    Insert(seq_num++, kKeyFrame, kNotFirst, kNotLast, 0, nullptr, timestamp);
+  }
+  // Delete FrameObject connected to packets that have already been cleared.
+  DeleteFrame(kFirstSeqNum);
+  Insert(seq_num++, kKeyFrame, kNotFirst, kLast, 0, nullptr, timestamp);
+
+  // Regardless of the initial size, the number of frames should be constant
+  // after removing and then adding a new frame object.
+  EXPECT_EQ(number_of_frames, frames_from_callback_.size());
 }
 
 // If |sps_pps_idr_is_keyframe| is true, we require keyframes to contain

@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "bb2eea4e_9e8b52c2",
+        "filename": "video/video_quality_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-09-28T07:53:27Z",
+      "side": 1,
+      "message": "I think a use-once factory could make sense, but that\u0027s better to talk about relating to that change.\n\nMaybe we could use MultiplexDecoderFactory for now, and move to some other design (like this one) when that is done?",
+      "parentUuid": "93ac9442_cca11c5b",
+      "range": {
+        "startLine": 162,
+        "startChar": 48,
+        "endLine": 162,
+        "endChar": 66
+      },
+      "revId": "b8ee0fa18c2344b0fcb3987ebb9200e70ccf8455",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "46edc4a5_708f6413",
         "filename": "video/video_quality_test.cc",
         "patchSetId": 3
@@ -116,6 +140,30 @@
       "revId": "b8ee0fa18c2344b0fcb3987ebb9200e70ccf8455",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d770043_3908d4d3",
+        "filename": "video/video_receive_stream.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-09-28T07:53:27Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b6b460d1_8a31cf61",
+      "range": {
+        "startLine": 82,
+        "startChar": 6,
+        "endLine": 82,
+        "endChar": 22
+      },
+      "revId": "b8ee0fa18c2344b0fcb3987ebb9200e70ccf8455",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

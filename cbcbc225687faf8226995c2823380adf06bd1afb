@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "775dd3d1_3f16dcf3",
+        "filename": "video/video_receive_stream.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-09-28T09:52:19Z",
+      "side": 0,
+      "message": "Do we need those stats? Can we wire that up in some other way?\n\nIt looks like ReceiveStatisticsProxy::OnPreDecode counts the number of received vp8 frames, and records qp values (for vp8 only).\n\nRelated to \n\n    RTC_HISTOGRAM_COUNTS_200(\"WebRTC.Video.Decoded.Vp8.Qp\", *qp);\n\nand\n\n    RTC_HISTOGRAM_PERCENTAGE(\"WebRTC.Video.BadCall.Qp\",",
+      "range": {
+        "startLine": 369,
+        "startChar": 0,
+        "endLine": 369,
+        "endChar": 63
+      },
+      "revId": "cbcbc225687faf8226995c2823380adf06bd1afb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

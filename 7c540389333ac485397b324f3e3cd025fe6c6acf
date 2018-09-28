@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "805e4af1_6a15d94b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-09-28T09:43:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a633506f_84b3ed8b",
+      "range": {
+        "startLine": 10,
+        "startChar": 40,
+        "endLine": 10,
+        "endChar": 41
+      },
+      "revId": "7c540389333ac485397b324f3e3cd025fe6c6acf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1e2380c0_4bd86098",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -95,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "f1336ecf_4e848395",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-09-28T09:43:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1e2380c0_4bd86098",
+      "range": {
+        "startLine": 14,
+        "startChar": 32,
+        "endLine": 14,
+        "endChar": 35
+      },
+      "revId": "7c540389333ac485397b324f3e3cd025fe6c6acf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a131e612_30e3bd0e",
         "filename": "api/transport/network_types.h",
         "patchSetId": 1
@@ -115,6 +163,30 @@
       "revId": "7c540389333ac485397b324f3e3cd025fe6c6acf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f86ebb31_f262b36b",
+        "filename": "api/transport/network_types.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-09-28T09:43:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a131e612_30e3bd0e",
+      "range": {
+        "startLine": 39,
+        "startChar": 5,
+        "endLine": 39,
+        "endChar": 47
+      },
+      "revId": "7c540389333ac485397b324f3e3cd025fe6c6acf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

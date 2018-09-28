@@ -10,8 +10,8 @@
 
 package org.webrtc.audio;
 
-import android.media.AudioManager;
 import android.content.Context;
+import android.media.AudioManager;
 import org.webrtc.JniCommon;
 import org.webrtc.Logging;
 

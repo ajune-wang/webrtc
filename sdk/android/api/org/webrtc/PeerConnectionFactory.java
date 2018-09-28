@@ -372,7 +372,8 @@ public class PeerConnectionFactory {
   }
 
   public VideoTrack createVideoTrack(String id, VideoSource source) {
-    return new VideoTrack(nativeCreateVideoTrack(nativeFactory, id, source.nativeSource));
+    return new VideoTrack(
+        nativeCreateVideoTrack(nativeFactory, id, source.getNativeVideoTrackSource()));
   }
 
   public AudioSource createAudioSource(MediaConstraints constraints) {
@@ -380,7 +381,7 @@ public class PeerConnectionFactory {
   }
 
   public AudioTrack createAudioTrack(String id, AudioSource source) {
-    return new AudioTrack(nativeCreateAudioTrack(nativeFactory, id, source.nativeSource));
+    return new AudioTrack(nativeCreateAudioTrack(nativeFactory, id, source.getNativeAudioSource()));
   }
 
   // Starts recording an AEC dump. Ownership of the file is transfered to the

@@ -25,18 +25,32 @@ public class MediaSource {
     }
   }
 
-  final long nativeSource; // Package-protected for PeerConnectionFactory.
+  private long nativeSource; // Package-protected for PeerConnectionFactory.
 
   public MediaSource(long nativeSource) {
     this.nativeSource = nativeSource;
   }
 
   public State state() {
+    if (nativeSource == 0) {
+      throw new IllegalStateException("MediaSource has been disposed.");
+    }
     return nativeGetState(nativeSource);
   }
 
   public void dispose() {
+    if (nativeSource == 0) {
+      throw new IllegalStateException("MediaSource has been disposed.");
+    }
     JniCommon.nativeReleaseRef(nativeSource);
+    nativeSource = 0;
+  }
+
+  protected long getNativeMediaSource() {
+    if (nativeSource == 0) {
+      throw new IllegalStateException("MediaSource has been disposed.");
+    }
+    return nativeSource;
   }
 
   private static native State nativeGetState(long pointer);

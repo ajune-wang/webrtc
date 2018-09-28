@@ -14,7 +14,7 @@ import javax.annotation.Nullable;
 
 /** Java wrapper for a C++ RtpSenderInterface. */
 public class RtpSender {
-  final long nativeRtpSender;
+  private long nativeRtpSender;
 
   @Nullable private MediaStreamTrack cachedTrack;
   private boolean ownsTrack = true;
@@ -45,7 +45,10 @@ public class RtpSender {
    * @return              true on success and false on failure.
    */
   public boolean setTrack(@Nullable MediaStreamTrack track, boolean takeOwnership) {
-    if (!nativeSetTrack(nativeRtpSender, (track == null) ? 0 : track.nativeTrack)) {
+    if (nativeRtpSender == 0) {
+      throw new IllegalStateException("RtpSender has been disposed.");
+    }
+    if (!nativeSetTrack(nativeRtpSender, (track == null) ? 0 : track.getNativeMediaStreamTrack())) {
       return false;
     }
     if (cachedTrack != null && ownsTrack) {
@@ -62,14 +65,23 @@ public class RtpSender {
   }
 
   public boolean setParameters(RtpParameters parameters) {
+    if (nativeRtpSender == 0) {
+      throw new IllegalStateException("RtpSender has been disposed.");
+    }
     return nativeSetParameters(nativeRtpSender, parameters);
   }
 
   public RtpParameters getParameters() {
+    if (nativeRtpSender == 0) {
+      throw new IllegalStateException("RtpSender has been disposed.");
+    }
     return nativeGetParameters(nativeRtpSender);
   }
 
   public String id() {
+    if (nativeRtpSender == 0) {
+      throw new IllegalStateException("RtpSender has been disposed.");
+    }
     return nativeGetId(nativeRtpSender);
   }
 
@@ -79,10 +91,16 @@ public class RtpSender {
   }
 
   public void setFrameEncryptor(FrameEncryptor frameEncryptor) {
+    if (nativeRtpSender == 0) {
+      throw new IllegalStateException("RtpSender has been disposed.");
+    }
     nativeSetFrameEncryptor(nativeRtpSender, frameEncryptor.getNativeFrameEncryptor());
   }
 
   public void dispose() {
+    if (nativeRtpSender == 0) {
+      throw new IllegalStateException("RtpSender has been disposed.");
+    }
     if (dtmfSender != null) {
       dtmfSender.dispose();
     }
@@ -90,6 +108,14 @@ public class RtpSender {
       cachedTrack.dispose();
     }
     JniCommon.nativeReleaseRef(nativeRtpSender);
+    nativeRtpSender = 0;
+  }
+
+  long getNativeRtpSender() {
+    if (nativeRtpSender == 0) {
+      throw new IllegalStateException("RtpSender has been disposed.");
+    }
+    return nativeRtpSender;
   }
 
   private static native boolean nativeSetTrack(long rtpSender, long nativeTrack);

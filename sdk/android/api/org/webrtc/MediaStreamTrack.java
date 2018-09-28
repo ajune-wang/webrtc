@@ -70,34 +70,60 @@ public class MediaStreamTrack {
     }
   }
 
-  final long nativeTrack;
+  private long nativeTrack;
 
   public MediaStreamTrack(long nativeTrack) {
     this.nativeTrack = nativeTrack;
   }
 
   public String id() {
+    if (nativeTrack == 0) {
+      throw new IllegalStateException("MediaStreamTrack has been disposed.");
+    }
     return nativeGetId(nativeTrack);
   }
 
   public String kind() {
+    if (nativeTrack == 0) {
+      throw new IllegalStateException("MediaStreamTrack has been disposed.");
+    }
     return nativeGetKind(nativeTrack);
   }
 
   public boolean enabled() {
+    if (nativeTrack == 0) {
+      throw new IllegalStateException("MediaStreamTrack has been disposed.");
+    }
     return nativeGetEnabled(nativeTrack);
   }
 
   public boolean setEnabled(boolean enable) {
+    if (nativeTrack == 0) {
+      throw new IllegalStateException("MediaStreamTrack has been disposed.");
+    }
     return nativeSetEnabled(nativeTrack, enable);
   }
 
   public State state() {
+    if (nativeTrack == 0) {
+      throw new IllegalStateException("MediaStreamTrack has been disposed.");
+    }
     return nativeGetState(nativeTrack);
   }
 
   public void dispose() {
+    if (nativeTrack == 0) {
+      throw new IllegalStateException("MediaStreamTrack has been disposed.");
+    }
     JniCommon.nativeReleaseRef(nativeTrack);
+    nativeTrack = 0;
+  }
+
+  long getNativeMediaStreamTrack() {
+    if (nativeTrack == 0) {
+      throw new IllegalStateException("MediaStreamTrack has been disposed.");
+    }
+    return nativeTrack;
   }
 
   private static native String nativeGetId(long track);

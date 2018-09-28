@@ -351,11 +351,6 @@ void FakeVideoReceiveStream::SetStats(
   stats_ = stats;
 }
 
-void FakeVideoReceiveStream::EnableEncodedFrameRecording(rtc::PlatformFile file,
-                                                         size_t byte_limit) {
-  rtc::ClosePlatformFile(file);
-}
-
 void FakeVideoReceiveStream::AddSecondarySink(
     webrtc::RtpPacketSinkInterface* sink) {
   ++num_added_secondary_sinks_;

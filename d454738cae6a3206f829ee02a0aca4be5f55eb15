@@ -46,6 +46,30 @@
       "revId": "d454738cae6a3206f829ee02a0aca4be5f55eb15",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e1afbb8_3e8adeee",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-09-28T12:25:42Z",
+      "side": 1,
+      "message": "Interesting, thank you for the explanation. I have removed the comment.\n\nI\u0027ll make a CL to use the low cut filter whenever it is needed, so that the high_pass_filter flag is just a fancy standard-required effect and not something essential.\nhttps://webrtc-review.googlesource.com/c/src/+/102600",
+      "parentUuid": "20ccf96f_45b9c2d9",
+      "range": {
+        "startLine": 257,
+        "startChar": 0,
+        "endLine": 259,
+        "endChar": 52
+      },
+      "revId": "d454738cae6a3206f829ee02a0aca4be5f55eb15",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

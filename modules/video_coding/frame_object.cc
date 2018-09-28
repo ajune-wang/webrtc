@@ -30,6 +30,7 @@ RtpFrameObject::RtpFrameObject(PacketBuffer* packet_buffer,
       times_nacked_(times_nacked) {
   VCMPacket* first_packet = packet_buffer_->GetPacket(first_seq_num);
   RTC_CHECK(first_packet);
+  timestamp_ = first_packet->timestamp;
 
   // EncodedFrame members
   frame_type_ = first_packet->frameType;
@@ -121,6 +122,10 @@ uint16_t RtpFrameObject::first_seq_num() const {
 
 uint16_t RtpFrameObject::last_seq_num() const {
   return last_seq_num_;
+}
+
+uint32_t RtpFrameObject::timestamp() const {
+  return timestamp_;
 }
 
 int RtpFrameObject::times_nacked() const {

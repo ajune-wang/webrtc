@@ -33,6 +33,7 @@ class RtpFrameObject : public EncodedFrame {
   ~RtpFrameObject();
   uint16_t first_seq_num() const;
   uint16_t last_seq_num() const;
+  uint32_t timestamp() const;
   int times_nacked() const;
   enum FrameType frame_type() const;
   VideoCodecType codec_type() const;
@@ -50,6 +51,7 @@ class RtpFrameObject : public EncodedFrame {
   uint16_t first_seq_num_;
   uint16_t last_seq_num_;
   int64_t received_time_;
+  uint32_t timestamp_;
 
   // Equal to times nacked of the packet with the highet times nacked
   // belonging to this frame.

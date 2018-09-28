@@ -397,16 +397,14 @@ void PacketBuffer::ReturnFrame(RtpFrameObject* frame) {
   rtc::CritScope lock(&crit_);
   size_t index = frame->first_seq_num() % size_;
   size_t end = (frame->last_seq_num() + 1) % size_;
-  uint16_t seq_num = frame->first_seq_num();
+  uint32_t timestamp = frame->timestamp();
   while (index != end) {
-    if (sequence_buffer_[index].seq_num == seq_num) {
+    if (data_buffer_[index].timestamp == timestamp) {
       delete[] data_buffer_[index].dataPtr;
       data_buffer_[index].dataPtr = nullptr;
       sequence_buffer_[index].used = false;
     }
-
     index = (index + 1) % size_;
-    ++seq_num;
   }
 }
 

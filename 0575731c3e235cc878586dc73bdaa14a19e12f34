@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "dd8bf957_46d0d9b6",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 775,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-09-28T13:39:29Z",
+      "side": 1,
+      "message": "Done (in parent branch/CL https://webrtc-review.googlesource.com/c/src/+/93469).",
+      "parentUuid": "ed46aeba_f35bf618",
+      "range": {
+        "startLine": 775,
+        "startChar": 27,
+        "endLine": 775,
+        "endChar": 36
+      },
+      "revId": "0575731c3e235cc878586dc73bdaa14a19e12f34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0f8c40c4_879a1dd2",
         "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
         "patchSetId": 5
@@ -39,6 +63,24 @@
       "revId": "0575731c3e235cc878586dc73bdaa14a19e12f34",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f9a414b_a96b9a28",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 778,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-09-28T13:39:29Z",
+      "side": 1,
+      "message": "Currently this will cause small regressions in normal video perf tests (because actual input frame rate can go above current 30fps cap specified in svc_config.cpp). We should fix these regressions (probably just by raising the cap) first. But not in this CL.",
+      "parentUuid": "0f8c40c4_879a1dd2",
+      "revId": "0575731c3e235cc878586dc73bdaa14a19e12f34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

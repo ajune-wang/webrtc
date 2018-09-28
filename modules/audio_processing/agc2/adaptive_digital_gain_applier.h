@@ -27,6 +27,8 @@ class AdaptiveDigitalGainApplier {
   void Process(float input_level_dbfs,
                float input_noise_level_dbfs,
                const VadWithLevel::LevelAndProbability vad_result,
+               float limiter_audio_level_dbfs,
+               bool estimate_is_confident,
                AudioFrameView<float> float_frame);
 
  private:

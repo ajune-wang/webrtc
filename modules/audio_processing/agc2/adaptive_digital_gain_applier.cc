@@ -52,6 +52,23 @@ float LimitGainByNoise(float target_gain,
   return std::min(target_gain, std::max(noise_headroom_db, 0.f));
 }
 
+float LimitGainByLowConfidence(float target_gain,
+                               float last_gain,
+                               float limiter_audio_level_dbfs,
+                               bool estimate_is_confident) {
+  if (estimate_is_confident ||
+      limiter_audio_level_dbfs <= kLimiterThresholdForAgcGainDbfs) {
+    return target_gain;
+  }
+  const float limiter_level_before_gain = limiter_audio_level_dbfs - last_gain;
+
+  // Compute a new gain so that limiter_level_before_gain + new_gain <=
+  // kLimiterThreshold.
+  const float new_target_gain = std::max(
+      kLimiterThresholdForAgcGainDbfs - limiter_level_before_gain, 0.f);
+  return std::min(new_target_gain, target_gain);
+}
+
 // Computes how the gain should change during this frame.
 // Return the gain difference in db to 'last_gain_db'.
 float ComputeGainChangeThisFrameDb(float target_gain_db,
@@ -76,6 +93,8 @@ void AdaptiveDigitalGainApplier::Process(
     float input_level_dbfs,
     float input_noise_level_dbfs,
     const VadWithLevel::LevelAndProbability vad_result,
+    float limiter_audio_level_dbfs,
+    bool estimate_is_confident,
     AudioFrameView<float> float_frame) {
   calls_since_last_gain_log_++;
   if (calls_since_last_gain_log_ == 100) {
@@ -92,9 +111,10 @@ void AdaptiveDigitalGainApplier::Process(
   RTC_DCHECK_GE(float_frame.num_channels(), 1);
   RTC_DCHECK_GE(float_frame.samples_per_channel(), 1);
 
-  const float target_gain_db =
+  const float target_gain_db = LimitGainByLowConfidence(
       LimitGainByNoise(ComputeGainDb(input_level_dbfs), input_noise_level_dbfs,
-                       apm_data_dumper_);
+                       apm_data_dumper_),
+      last_gain_db_, limiter_audio_level_dbfs, estimate_is_confident);
 
   // Forbid increasing the gain when there is no speech.
   gain_increase_allowed_ =

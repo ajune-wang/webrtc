@@ -29,7 +29,8 @@ AdaptiveAgc::AdaptiveAgc(ApmDataDumper* apm_data_dumper)
 
 AdaptiveAgc::~AdaptiveAgc() = default;
 
-void AdaptiveAgc::Process(AudioFrameView<float> float_frame) {
+void AdaptiveAgc::Process(AudioFrameView<float> float_frame,
+                          float last_audio_level) {
   const VadWithLevel::LevelAndProbability vad_result =
       vad_.AnalyzeFrame(float_frame);
   apm_data_dumper_->DumpRaw("agc2_vad_probability",
@@ -45,9 +46,15 @@ void AdaptiveAgc::Process(AudioFrameView<float> float_frame) {
 
   apm_data_dumper_->DumpRaw("agc2_noise_estimate_dbfs", noise_level_dbfs);
 
+  const float last_audio_level_dbfs =
+      last_audio_level > 0 ? FloatS16ToDbfs(last_audio_level) : -90.f;
+  apm_data_dumper_->DumpRaw("agc2_last_limiter_audio_level",
+                            last_audio_level_dbfs);
+
   // The gain applier applies the gain.
-  gain_applier_.Process(speech_level_dbfs, noise_level_dbfs, vad_result,
-                        float_frame);
+  gain_applier_.Process(
+      speech_level_dbfs, noise_level_dbfs, vad_result, last_audio_level,
+      speech_level_estimator_.LevelEstimationIsConfident(), float_frame);
 }
 
 void AdaptiveAgc::Reset() {

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dcf51c5d_6e3010f6",
+        "filename": "sdk/android/api/org/webrtc/DataChannel.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-09-28T11:55:30Z",
+      "side": 1,
+      "message": "Consider putting this in a method like checkDataChannelExists(). Same for the other files.",
+      "range": {
+        "startLine": 115,
+        "startChar": 0,
+        "endLine": 117,
+        "endChar": 5
+      },
+      "revId": "7d2bbe4eadd4de090a85802328ae87ccdbb86d4c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

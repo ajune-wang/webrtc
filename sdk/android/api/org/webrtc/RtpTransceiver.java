@@ -96,7 +96,7 @@ public class RtpTransceiver {
     }
   }
 
-  private final long nativeRtpTransceiver;
+  private long nativeRtpTransceiver;
   private RtpSender cachedSender;
   private RtpReceiver cachedReceiver;
 
@@ -112,6 +112,7 @@ public class RtpTransceiver {
    * type as well.
    */
   public MediaStreamTrack.MediaType getMediaType() {
+    checkRtpTranceiverExists();
     return nativeGetMediaType(nativeRtpTransceiver);
   }
 
@@ -122,6 +123,7 @@ public class RtpTransceiver {
    * https://w3c.github.io/webrtc-pc/#dom-rtcrtptransceiver-mid
    */
   public String getMid() {
+    checkRtpTranceiverExists();
     return nativeGetMid(nativeRtpTransceiver);
   }
 
@@ -153,6 +155,7 @@ public class RtpTransceiver {
    * https://w3c.github.io/webrtc-pc/#dom-rtcrtptransceiver-stopped
    */
   public boolean isStopped() {
+    checkRtpTranceiverExists();
     return nativeStopped(nativeRtpTransceiver);
   }
 
@@ -162,6 +165,7 @@ public class RtpTransceiver {
    * https://w3c.github.io/webrtc-pc/#dom-rtcrtptransceiver-direction
    */
   public RtpTransceiverDirection getDirection() {
+    checkRtpTranceiverExists();
     return nativeDirection(nativeRtpTransceiver);
   }
 
@@ -172,6 +176,7 @@ public class RtpTransceiver {
    * https://w3c.github.io/webrtc-pc/#dom-rtcrtptransceiver-currentdirection
    */
   public RtpTransceiverDirection getCurrentDirection() {
+    checkRtpTranceiverExists();
     return nativeCurrentDirection(nativeRtpTransceiver);
   }
 
@@ -183,6 +188,7 @@ public class RtpTransceiver {
    * https://w3c.github.io/webrtc-pc/#dom-rtcrtptransceiver-direction
    */
   public void setDirection(RtpTransceiverDirection rtpTransceiverDirection) {
+    checkRtpTranceiverExists();
     nativeSetDirection(nativeRtpTransceiver, rtpTransceiverDirection);
   }
 
@@ -192,14 +198,23 @@ public class RtpTransceiver {
    * https://w3c.github.io/webrtc-pc/#dom-rtcrtptransceiver-stop
    */
   public void stop() {
+    checkRtpTranceiverExists();
     nativeStop(nativeRtpTransceiver);
   }
 
   @CalledByNative
   public void dispose() {
+    checkRtpTranceiverExists();
     cachedSender.dispose();
     cachedReceiver.dispose();
     JniCommon.nativeReleaseRef(nativeRtpTransceiver);
+    nativeRtpTransceiver = 0;
+  }
+
+  private void checkRtpTranceiverExists() {
+    if (nativeRtpTransceiver == 0) {
+      throw new IllegalStateException("RtpTranceiver has been disposed.");
+    }
   }
 
   private static native MediaStreamTrack.MediaType nativeGetMediaType(long rtpTransceiver);

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "bae904e2_710fe71d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-09-28T08:19:08Z",
+      "side": 1,
+      "message": "I think the title is supposed to be short. The message below expands on it.",
+      "parentUuid": "5d4b941e_7b37b5d4",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 66
+      },
+      "revId": "7c540389333ac485397b324f3e3cd025fe6c6acf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a633506f_84b3ed8b",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1

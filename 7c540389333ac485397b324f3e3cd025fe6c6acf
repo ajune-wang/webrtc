@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5d4b941e_7b37b5d4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2018-09-28T07:31:59Z",
+      "side": 1,
+      "message": "\"new\" congestion controller is a bit ambiguous. Task queue based congestion controller is more precise.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 66
+      },
+      "revId": "7c540389333ac485397b324f3e3cd025fe6c6acf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a633506f_84b3ed8b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2018-09-28T07:31:59Z",
+      "side": 1,
+      "message": "included in what?",
+      "range": {
+        "startLine": 10,
+        "startChar": 40,
+        "endLine": 10,
+        "endChar": 41
+      },
+      "revId": "7c540389333ac485397b324f3e3cd025fe6c6acf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e2380c0_4bd86098",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2018-09-28T07:31:59Z",
+      "side": 1,
+      "message": "No \".\"",
+      "range": {
+        "startLine": 14,
+        "startChar": 32,
+        "endLine": 14,
+        "endChar": 35
+      },
+      "revId": "7c540389333ac485397b324f3e3cd025fe6c6acf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a131e612_30e3bd0e",
+        "filename": "api/transport/network_types.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2018-09-28T07:31:59Z",
+      "side": 1,
+      "message": "Think this is clearer (as is could be understood as total send rate excluding feedback overhead):\nThe send rate of traffic for which feedback is not received.",
+      "range": {
+        "startLine": 39,
+        "startChar": 5,
+        "endLine": 39,
+        "endChar": 47
+      },
+      "revId": "7c540389333ac485397b324f3e3cd025fe6c6acf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98be9034_73ef4434",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2018-09-28T07:31:59Z",
+      "side": 1,
+      "message": "Comment removed by: Vadim Shtayura",
+      "range": {
+        "startLine": 326,
+        "startChar": 1,
+        "endLine": 327,
+        "endChar": 58
+      },
+      "revId": "7c540389333ac485397b324f3e3cd025fe6c6acf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

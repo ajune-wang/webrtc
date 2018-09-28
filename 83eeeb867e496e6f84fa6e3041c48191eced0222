@@ -46,6 +46,30 @@
       "revId": "83eeeb867e496e6f84fa6e3041c48191eced0222",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4577c2e3_370fb4bb",
+        "filename": "video/receive_statistics_proxy.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 848,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2018-09-28T12:52:16Z",
+      "side": 1,
+      "message": "Maybe line \"last_codec_type_ \u003d codec_type\" could be moved above the qp check.",
+      "parentUuid": "4e25f78c_12c43e09",
+      "range": {
+        "startLine": 848,
+        "startChar": 2,
+        "endLine": 848,
+        "endChar": 18
+      },
+      "revId": "83eeeb867e496e6f84fa6e3041c48191eced0222",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

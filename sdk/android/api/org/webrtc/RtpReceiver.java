@@ -22,7 +22,7 @@ public class RtpReceiver {
     public void onFirstPacketReceived(MediaStreamTrack.MediaType media_type);
   }
 
-  final long nativeRtpReceiver;
+  private long nativeRtpReceiver;
   private long nativeObserver;
 
   @Nullable private MediaStreamTrack cachedTrack;
@@ -40,28 +40,44 @@ public class RtpReceiver {
   }
 
   public boolean setParameters(@Nullable RtpParameters parameters) {
+    if (nativeRtpReceiver == 0) {
+      throw new IllegalStateException("RtpReceiver has been disposed.");
+    }
     return parameters == null ? false : nativeSetParameters(nativeRtpReceiver, parameters);
   }
 
   public RtpParameters getParameters() {
+    if (nativeRtpReceiver == 0) {
+      throw new IllegalStateException("RtpReceiver has been disposed.");
+    }
     return nativeGetParameters(nativeRtpReceiver);
   }
 
   public String id() {
+    if (nativeRtpReceiver == 0) {
+      throw new IllegalStateException("RtpReceiver has been disposed.");
+    }
     return nativeGetId(nativeRtpReceiver);
   }
 
   @CalledByNative
   public void dispose() {
+    if (nativeRtpReceiver == 0) {
+      throw new IllegalStateException("RtpReceiver has been disposed.");
+    }
     cachedTrack.dispose();
     if (nativeObserver != 0) {
       nativeUnsetObserver(nativeRtpReceiver, nativeObserver);
       nativeObserver = 0;
     }
     JniCommon.nativeReleaseRef(nativeRtpReceiver);
+    nativeRtpReceiver = 0;
   }
 
   public void SetObserver(Observer observer) {
+    if (nativeRtpReceiver == 0) {
+      throw new IllegalStateException("RtpReceiver has been disposed.");
+    }
     // Unset the existing one before setting a new one.
     if (nativeObserver != 0) {
       nativeUnsetObserver(nativeRtpReceiver, nativeObserver);
@@ -70,6 +86,9 @@ public class RtpReceiver {
   }
 
   public void setFrameDecryptor(FrameDecryptor frameDecryptor) {
+    if (nativeRtpReceiver == 0) {
+      throw new IllegalStateException("RtpReceiver has been disposed.");
+    }
     nativeSetFrameDecryptor(nativeRtpReceiver, frameDecryptor.getNativeFrameDecryptor());
   }
 

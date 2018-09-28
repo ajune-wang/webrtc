@@ -155,6 +155,30 @@
     },
     {
       "key": {
+        "uuid": "8bf6786e_61a15216",
+        "filename": "rtc_tools/compare_videos.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-09-28T06:30:06Z",
+      "side": 1,
+      "message": "My bad, done",
+      "parentUuid": "899200f9_630b061f",
+      "range": {
+        "startLine": 133,
+        "startChar": 0,
+        "endLine": 134,
+        "endChar": 5
+      },
+      "revId": "1d0d2309c79641ec253af17d78898b89051d4b83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da6fc214_bbfd1975",
         "filename": "rtc_tools/compare_videos.py",
         "patchSetId": 1

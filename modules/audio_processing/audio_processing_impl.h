@@ -120,8 +120,6 @@ class AudioProcessingImpl : public AudioProcessing {
   EchoCancellation* echo_cancellation() const override;
   EchoControlMobile* echo_control_mobile() const override;
   GainControl* gain_control() const override;
-  // TODO(peah): Deprecate this API call.
-  HighPassFilter* high_pass_filter() const override;
   LevelEstimator* level_estimator() const override;
   NoiseSuppression* noise_suppression() const override;
   VoiceDetection* voice_detection() const override;
@@ -165,9 +163,6 @@ class AudioProcessingImpl : public AudioProcessing {
 
   RuntimeSettingEnqueuer capture_runtime_settings_enqueuer_;
   RuntimeSettingEnqueuer render_runtime_settings_enqueuer_;
-
-  // Submodule interface implementations.
-  std::unique_ptr<HighPassFilter> high_pass_filter_impl_;
 
   // EchoControl factory.
   std::unique_ptr<EchoControlFactory> echo_control_factory_;

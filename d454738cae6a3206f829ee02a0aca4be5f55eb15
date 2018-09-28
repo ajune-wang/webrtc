@@ -22,6 +22,30 @@
       "revId": "d454738cae6a3206f829ee02a0aca4be5f55eb15",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20ccf96f_45b9c2d9",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-09-28T10:49:27Z",
+      "side": 1,
+      "message": "It is correct, but a bit misleading.\n\nTraditionally, this filter is mainly there to avoid electrical noise below 100 Hz and a side-effect is that the DC is removed as well.\n\nFor AEC2+AECM it must be active, since the AEC otherwise fails. The same holds for NS. I\u0027m not sure about the AGC though.\n\nThe HP filter is a bit strange in that it maps to a constraint for a high-pass effect that is in the standard. That means that we must support it as a separate effect.\nHowever, I think we could/should force it to be on if either of AEC2/AECM/NS are active so that the high-pass filter is not off by mistake when those are active. This approach is already in place for AEC3.\n\nMy suggestion is to just skip these two comments as I don\u0027t think they add that much.\nWDYT?",
+      "parentUuid": "17969af0_a6cf3ad0",
+      "range": {
+        "startLine": 257,
+        "startChar": 0,
+        "endLine": 259,
+        "endChar": 52
+      },
+      "revId": "d454738cae6a3206f829ee02a0aca4be5f55eb15",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

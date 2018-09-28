@@ -1720,14 +1720,6 @@ AudioProcessingStats AudioProcessingImpl::GetStatistics(
   return stats;
 }
 
-EchoCancellation* AudioProcessingImpl::echo_cancellation() const {
-  return public_submodules_->echo_cancellation_proxy.get();
-}
-
-EchoControlMobile* AudioProcessingImpl::echo_control_mobile() const {
-  return public_submodules_->echo_control_mobile_proxy.get();
-}
-
 GainControl* AudioProcessingImpl::gain_control() const {
   if (constants_.use_experimental_agc) {
     return public_submodules_->gain_control_for_experimental_agc.get();

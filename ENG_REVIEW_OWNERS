@@ -1,0 +1,10 @@
+# Current list of eng reviewers mostly for the purpose of reviewing
+# addings of top-level and third-party directories.
+
+# People listed in this file will only have to coordinate with chromium's eng
+# review owners to ensure that the added dependency was OK.
+
+danilchap@webrtc.org
+kwiberg@webrtc.org
+mbonadei@webrtc.org
+phoglund@webrtc.org

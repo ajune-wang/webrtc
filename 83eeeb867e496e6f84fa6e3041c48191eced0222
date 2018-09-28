@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dec093be_d1778d4d",
+        "filename": "video/receive_statistics_proxy.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 848,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2018-09-28T12:25:25Z",
+      "side": 1,
+      "message": "Seems like last_codec_type_ was also set for VP9 previously.",
+      "range": {
+        "startLine": 848,
+        "startChar": 2,
+        "endLine": 848,
+        "endChar": 18
+      },
+      "revId": "83eeeb867e496e6f84fa6e3041c48191eced0222",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -22,6 +22,30 @@
       "revId": "7d2bbe4eadd4de090a85802328ae87ccdbb86d4c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35343927_83b4ee5e",
+        "filename": "sdk/android/api/org/webrtc/DataChannel.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-09-28T12:26:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dcf51c5d_6e3010f6",
+      "range": {
+        "startLine": 115,
+        "startChar": 0,
+        "endLine": 117,
+        "endChar": 5
+      },
+      "revId": "7d2bbe4eadd4de090a85802328ae87ccdbb86d4c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

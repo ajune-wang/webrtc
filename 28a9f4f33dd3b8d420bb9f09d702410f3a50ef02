@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0cb31089_de308926",
+        "filename": "sdk/android/api/org/webrtc/RtpTransceiver.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-09-28T12:35:01Z",
+      "side": 1,
+      "message": "Transceiver",
+      "range": {
+        "startLine": 214,
+        "startChar": 23,
+        "endLine": 214,
+        "endChar": 33
+      },
+      "revId": "28a9f4f33dd3b8d420bb9f09d702410f3a50ef02",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae5ad3ab_5a488696",
+        "filename": "sdk/android/api/org/webrtc/RtpTransceiver.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-09-28T12:35:01Z",
+      "side": 1,
+      "message": "Transceiver",
+      "range": {
+        "startLine": 216,
+        "startChar": 42,
+        "endLine": 216,
+        "endChar": 52
+      },
+      "revId": "28a9f4f33dd3b8d420bb9f09d702410f3a50ef02",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

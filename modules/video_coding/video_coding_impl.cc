@@ -13,6 +13,7 @@
 #include <algorithm>
 #include <utility>
 
+#include "api/video/builtin_video_bitrate_allocator_factory.h"
 #include "api/video/video_bitrate_allocator.h"
 #include "common_types.h"  // NOLINT(build/include)
 #include "common_video/libyuv/include/webrtc_libyuv.h"
@@ -116,7 +117,9 @@ class VideoCodingModuleImpl : public VideoCodingModule {
       // asynchronously keep the instance alive until destruction or until a
       // new send codec is registered.
       VideoCodec codec = *sendCodec;
-      rate_allocator_ = VideoCodecInitializer::CreateBitrateAllocator(codec);
+      auto rate_allocator_factory = CreateBuiltinVideoBitrateAllocatorFactory();
+      rate_allocator_ =
+          rate_allocator_factory->CreateVideoBitrateAllocator(codec);
       return sender_.RegisterSendCodec(&codec, numberOfCores, maxPayloadSize);
     }
     return sender_.RegisterSendCodec(sendCodec, numberOfCores, maxPayloadSize);

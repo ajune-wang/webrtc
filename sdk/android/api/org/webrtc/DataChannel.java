@@ -102,7 +102,7 @@ public class DataChannel {
     }
   }
 
-  private final long nativeDataChannel;
+  private long nativeDataChannel;
   private long nativeObserver;
 
   @CalledByNative
@@ -112,6 +112,9 @@ public class DataChannel {
 
   /** Register |observer|, replacing any previously-registered observer. */
   public void registerObserver(Observer observer) {
+    if (nativeDataChannel == 0) {
+      throw new IllegalStateException("DataChannel has been disposed.");
+    }
     if (nativeObserver != 0) {
       nativeUnregisterObserver(nativeObserver);
     }
@@ -120,18 +123,30 @@ public class DataChannel {
 
   /** Unregister the (only) observer. */
   public void unregisterObserver() {
+    if (nativeDataChannel == 0) {
+      throw new IllegalStateException("DataChannel has been disposed.");
+    }
     nativeUnregisterObserver(nativeObserver);
   }
 
   public String label() {
+    if (nativeDataChannel == 0) {
+      throw new IllegalStateException("DataChannel has been disposed.");
+    }
     return nativeLabel();
   }
 
   public int id() {
+    if (nativeDataChannel == 0) {
+      throw new IllegalStateException("DataChannel has been disposed.");
+    }
     return nativeId();
   }
 
   public State state() {
+    if (nativeDataChannel == 0) {
+      throw new IllegalStateException("DataChannel has been disposed.");
+    }
     return nativeState();
   }
 
@@ -141,16 +156,25 @@ public class DataChannel {
    * to the network.
    */
   public long bufferedAmount() {
+    if (nativeDataChannel == 0) {
+      throw new IllegalStateException("DataChannel has been disposed.");
+    }
     return nativeBufferedAmount();
   }
 
   /** Close the channel. */
   public void close() {
+    if (nativeDataChannel == 0) {
+      throw new IllegalStateException("DataChannel has been disposed.");
+    }
     nativeClose();
   }
 
   /** Send |data| to the remote peer; return success. */
   public boolean send(Buffer buffer) {
+    if (nativeDataChannel == 0) {
+      throw new IllegalStateException("DataChannel has been disposed.");
+    }
     // TODO(fischman): this could be cleverer about avoiding copies if the
     // ByteBuffer is direct and/or is backed by an array.
     byte[] data = new byte[buffer.data.remaining()];
@@ -160,7 +184,11 @@ public class DataChannel {
 
   /** Dispose of native resources attached to this channel. */
   public void dispose() {
+    if (nativeDataChannel == 0) {
+      throw new IllegalStateException("DataChannel has been disposed.");
+    }
     JniCommon.nativeReleaseRef(nativeDataChannel);
+    nativeDataChannel = 0;
   }
 
   @CalledByNative

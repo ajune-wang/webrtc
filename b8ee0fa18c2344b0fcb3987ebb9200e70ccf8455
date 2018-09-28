@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "46edc4a5_708f6413",
+        "filename": "video/video_quality_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-09-28T07:11:54Z",
+      "side": 1,
+      "message": "Next step is to add a wrapper to dump out encoded frames here, and delete VideoReceiveStream::EnableEncodedFrameRecording.",
+      "range": {
+        "startLine": 162,
+        "startChar": 0,
+        "endLine": 172,
+        "endChar": 1
+      },
+      "revId": "b8ee0fa18c2344b0fcb3987ebb9200e70ccf8455",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

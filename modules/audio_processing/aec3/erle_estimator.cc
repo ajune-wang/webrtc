@@ -35,12 +35,12 @@ ErleEstimator::ErleEstimator(float min_erle,
       max_erle_hf_(max_erle_hf),
       erle_freq_inst_(kPointsToAccumulate),
       erle_time_inst_(kPointsToAccumulate) {
-  Reset();
+  Reset(true);
 }
 
 ErleEstimator::~ErleEstimator() = default;
 
-void ErleEstimator::Reset() {
+void ErleEstimator::Reset(bool delay_change) {
   erle_time_inst_.Reset();
   erle_.fill(min_erle_);
   erle_onsets_.fill(min_erle_);
@@ -48,6 +48,9 @@ void ErleEstimator::Reset() {
   coming_onset_.fill(true);
   erle_time_domain_log2_ = min_erle_log2_;
   hold_counter_time_domain_ = 0;
+  if (delay_change) {
+    blocks_since_reset_ = 0;
+  }
 }
 
 ErleEstimator::ErleTimeInstantaneous::ErleTimeInstantaneous(
@@ -186,6 +189,10 @@ void ErleEstimator::Update(rtc::ArrayView<const float> render_spectrum,
 
   constexpr int kErleHold = 100;
   constexpr int kBlocksForOnsetDetection = kErleHold + 150;
+
+  if (++blocks_since_reset_ < 2 * kNumBlocksPerSecond) {
+    return;
+  }
 
   auto erle_band_update = [](float erle_band, float new_erle, float alpha_inc,
                              float alpha_dec, float min_erle, float max_erle) {

@@ -1,0 +1,141 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b61b9144_7e5d702a",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-09-29T21:08:46Z",
+      "side": 1,
+      "message": "What if the stream is empty at this point? Was this line perhaps meant to go after the check of eof rather than before it?",
+      "revId": "bdae6af8bfa7e12458e56f8b7c0bad50d0260392",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7937f8ee_00354483",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-09-29T21:08:46Z",
+      "side": 1,
+      "message": "If not for the above comment, I would suggest:\nbyte \u003c 0 || stream.eof()\n(Or !\u003d std::char_traits\u003cchar\u003e::eof() instead of \u003c 0, but maybe that\u0027s unnecessarily arcane?)\nIf the above comment is not misguided, and the order is changed, we probably would still want to check the result of get(), in case something still goes wrong between the check for eof() and the get(), which, if the stream is reading from disk, I think could happen?",
+      "revId": "bdae6af8bfa7e12458e56f8b7c0bad50d0260392",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb3af11a_c698c8d8",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-09-29T21:08:46Z",
+      "side": 1,
+      "message": "It also looks like it is implicitly assumed that the varint is not the last thing in the stream, which I am not sure we intended to assume? Assume the entire stream consists of a single byte such as 0x00, 0x01, or anything that does not have the most significant bit set. You\u0027d expect this to be read correctly, but it looks to me like it would fail, because after the first read, which does *not* indicate another byte to be necessary, eof() would evaluate to true, and this would fire. Or did I miss something?",
+      "revId": "bdae6af8bfa7e12458e56f8b7c0bad50d0260392",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43183180_82978abe",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 480,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-09-29T21:08:46Z",
+      "side": 1,
+      "message": "Maybe (kMaxEventSize + 2 * kMaxVarIntByteLength) or something?\n(This would make it evident that the vector is prepared to hold an event and two varints. Then, maybe a comment could briefly summarize what those upcoming varints will be?)",
+      "range": {
+        "startLine": 480,
+        "startChar": 47,
+        "endLine": 480,
+        "endChar": 49
+      },
+      "revId": "bdae6af8bfa7e12458e56f8b7c0bad50d0260392",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14cc9ed8_6241e4f1",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-09-29T21:08:46Z",
+      "side": 1,
+      "message": "What\u0027s the purpose of this? Is it necessary to do this before invoking eof()? Is it invoked to ensure that the condition that would result in an exception is not met? Or does it have a side-effect which I have missed in the documentation?",
+      "range": {
+        "startLine": 486,
+        "startChar": 0,
+        "endLine": 486,
+        "endChar": 18
+      },
+      "revId": "bdae6af8bfa7e12458e56f8b7c0bad50d0260392",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7d869a4_7fdd6514",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 495,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-09-29T21:08:46Z",
+      "side": 1,
+      "message": "It is mildly confusing that this appears to correspond exactly to |bytes_read|. Maybe use the same name for both?",
+      "range": {
+        "startLine": 495,
+        "startChar": 11,
+        "endLine": 495,
+        "endChar": 24
+      },
+      "revId": "bdae6af8bfa7e12458e56f8b7c0bad50d0260392",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2f176bd_a1e75198",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 514,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-09-29T21:08:46Z",
+      "side": 1,
+      "message": "Is there a minimum too, perhaps?",
+      "revId": "bdae6af8bfa7e12458e56f8b7c0bad50d0260392",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

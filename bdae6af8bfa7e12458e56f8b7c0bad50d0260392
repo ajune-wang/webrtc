@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "e41275cc_1d7dc7d4",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-09-30T18:38:49Z",
+      "side": 1,
+      "message": "ParseVarInt() does not know what had happened with the stream before it ParseVarInt() was called. It might be that someone had already read from it up to its end. There is no DCHECK or comment over the function to indicate that this is not permissible. But I guess calling get() a second time will just return -1 (or equivalent) again, so it probably doesn\u0027t matter? For your consideration whether DCHECK over !eof() at the entrance to the function would make sense.",
+      "parentUuid": "86c7aaeb_f2804b26",
+      "revId": "bdae6af8bfa7e12458e56f8b7c0bad50d0260392",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7937f8ee_00354483",
         "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
         "patchSetId": 1
@@ -69,6 +87,24 @@
       "revId": "bdae6af8bfa7e12458e56f8b7c0bad50d0260392",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03b0637f_a2167076",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-09-30T18:38:49Z",
+      "side": 1,
+      "message": "I should have looked more closely at the documentation of eof(). The beginning suggested that it behaved as I had expected from the name; I now see that this was not true.",
+      "parentUuid": "df942c3c_e46754ad",
+      "revId": "bdae6af8bfa7e12458e56f8b7c0bad50d0260392",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -107,6 +143,24 @@
     },
     {
       "key": {
+        "uuid": "0ab4874d_cbe6d50d",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-09-30T18:38:49Z",
+      "side": 1,
+      "message": "I now see this in the Notes part of the documentation:\n\"For example, if the most recent I/O was a get() which returned the last byte of a file, eof() returns false.\"\nThanks.",
+      "parentUuid": "6c931429_2b50350e",
+      "revId": "bdae6af8bfa7e12458e56f8b7c0bad50d0260392",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "43183180_82978abe",
         "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
         "patchSetId": 1
@@ -142,6 +196,30 @@
       "side": 1,
       "message": "Will add kMaxVarIntByteLength.\n\nThe varints have been there all along. (It\u0027s the field tag + wiretype varint and the length varint.) The difference is that we now include copy those raw fields and parse an EventStream consisting of one Event. Previously we only parsed the Event.",
       "parentUuid": "43183180_82978abe",
+      "range": {
+        "startLine": 480,
+        "startChar": 47,
+        "endLine": 480,
+        "endChar": 49
+      },
+      "revId": "bdae6af8bfa7e12458e56f8b7c0bad50d0260392",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a764e34e_697f57d9",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 480,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-09-30T18:38:49Z",
+      "side": 1,
+      "message": "I was suggesting a comment that explains this more briefly than an examination of the code of the entire function. Your comment of \"event + 2 varints\" prompted this suggestion - I think a summary of the expected contents of the buffer would be more useful to the reader. Either no comment, your comment or my comment would make sense to me, though.",
+      "parentUuid": "22e8a2a8_7643d3eb",
       "range": {
         "startLine": 480,
         "startChar": 47,
@@ -198,6 +276,30 @@
       "revId": "bdae6af8bfa7e12458e56f8b7c0bad50d0260392",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4604a3af_7257fce4",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-09-30T18:38:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "82a05c54_c177a1eb",
+      "range": {
+        "startLine": 486,
+        "startChar": 0,
+        "endLine": 486,
+        "endChar": 18
+      },
+      "revId": "bdae6af8bfa7e12458e56f8b7c0bad50d0260392",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -280,6 +382,24 @@
       "revId": "bdae6af8bfa7e12458e56f8b7c0bad50d0260392",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87454f61_34078b9f",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 514,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-09-30T18:38:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8c29f288_b574a0f3",
+      "revId": "bdae6af8bfa7e12458e56f8b7c0bad50d0260392",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

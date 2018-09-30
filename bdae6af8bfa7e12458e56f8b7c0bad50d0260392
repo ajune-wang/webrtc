@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "86c7aaeb_f2804b26",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-09-30T15:51:11Z",
+      "side": 1,
+      "message": "eof() checks for errors in the last IO operation.\n\nhttps://en.cppreference.com/w/cpp/io/basic_ios/eof",
+      "parentUuid": "b61b9144_7e5d702a",
+      "revId": "bdae6af8bfa7e12458e56f8b7c0bad50d0260392",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7937f8ee_00354483",
         "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2018-09-29T21:08:46Z",
       "side": 1,
       "message": "If not for the above comment, I would suggest:\nbyte \u003c 0 || stream.eof()\n(Or !\u003d std::char_traits\u003cchar\u003e::eof() instead of \u003c 0, but maybe that\u0027s unnecessarily arcane?)\nIf the above comment is not misguided, and the order is changed, we probably would still want to check the result of get(), in case something still goes wrong between the check for eof() and the get(), which, if the stream is reading from disk, I think could happen?",
+      "revId": "bdae6af8bfa7e12458e56f8b7c0bad50d0260392",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df942c3c_e46754ad",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-09-30T15:51:11Z",
+      "side": 1,
+      "message": "We\u0027re DCHECKing byte \u003e\u003d 0 on the line below.",
+      "parentUuid": "7937f8ee_00354483",
       "revId": "bdae6af8bfa7e12458e56f8b7c0bad50d0260392",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "6c931429_2b50350e",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-09-30T15:51:11Z",
+      "side": 1,
+      "message": "See above.",
+      "parentUuid": "eb3af11a_c698c8d8",
+      "revId": "bdae6af8bfa7e12458e56f8b7c0bad50d0260392",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "43183180_82978abe",
         "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
         "patchSetId": 1
@@ -64,6 +118,30 @@
       "writtenOn": "2018-09-29T21:08:46Z",
       "side": 1,
       "message": "Maybe (kMaxEventSize + 2 * kMaxVarIntByteLength) or something?\n(This would make it evident that the vector is prepared to hold an event and two varints. Then, maybe a comment could briefly summarize what those upcoming varints will be?)",
+      "range": {
+        "startLine": 480,
+        "startChar": 47,
+        "endLine": 480,
+        "endChar": 49
+      },
+      "revId": "bdae6af8bfa7e12458e56f8b7c0bad50d0260392",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22e8a2a8_7643d3eb",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 480,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-09-30T15:51:11Z",
+      "side": 1,
+      "message": "Will add kMaxVarIntByteLength.\n\nThe varints have been there all along. (It\u0027s the field tag + wiretype varint and the length varint.) The difference is that we now include copy those raw fields and parse an EventStream consisting of one Event. Previously we only parsed the Event.",
+      "parentUuid": "43183180_82978abe",
       "range": {
         "startLine": 480,
         "startChar": 47,
@@ -99,6 +177,30 @@
     },
     {
       "key": {
+        "uuid": "82a05c54_c177a1eb",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-09-30T15:51:11Z",
+      "side": 1,
+      "message": "It sets the eofbit.",
+      "parentUuid": "14cc9ed8_6241e4f1",
+      "range": {
+        "startLine": 486,
+        "startChar": 0,
+        "endLine": 486,
+        "endChar": 18
+      },
+      "revId": "bdae6af8bfa7e12458e56f8b7c0bad50d0260392",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d7d869a4_7fdd6514",
         "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
         "patchSetId": 1
@@ -122,6 +224,30 @@
     },
     {
       "key": {
+        "uuid": "160e1167_c6326309",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 495,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-09-30T15:51:11Z",
+      "side": 1,
+      "message": "Will do.",
+      "parentUuid": "d7d869a4_7fdd6514",
+      "range": {
+        "startLine": 495,
+        "startChar": 11,
+        "endLine": 495,
+        "endChar": 24
+      },
+      "revId": "bdae6af8bfa7e12458e56f8b7c0bad50d0260392",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e2f176bd_a1e75198",
         "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
         "patchSetId": 1
@@ -133,6 +259,24 @@
       "writtenOn": "2018-09-29T21:08:46Z",
       "side": 1,
       "message": "Is there a minimum too, perhaps?",
+      "revId": "bdae6af8bfa7e12458e56f8b7c0bad50d0260392",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c29f288_b574a0f3",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 514,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-09-30T15:51:11Z",
+      "side": 1,
+      "message": "No, and the max will have to be removed with the new format.",
+      "parentUuid": "e2f176bd_a1e75198",
       "revId": "bdae6af8bfa7e12458e56f8b7c0bad50d0260392",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

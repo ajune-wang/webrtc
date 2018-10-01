@@ -683,7 +683,6 @@ rtc_static_library("rtc_numerics") {
 }
 
 rtc_source_set("rtc_json") {
-  testonly = true
   defines = []
   sources = [
     "json.cc",

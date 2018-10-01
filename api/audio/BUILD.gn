@@ -39,6 +39,10 @@ rtc_source_set("aec3_config") {
     "echo_canceller3_config.cc",
     "echo_canceller3_config.h",
   ]
+  deps = [
+    "../../rtc_base:rtc_base_approved",
+    "../../rtc_base:rtc_json",
+  ]
 }
 
 rtc_source_set("aec3_factory") {

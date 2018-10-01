@@ -12,6 +12,7 @@
 #define API_AUDIO_ECHO_CANCELLER3_CONFIG_H_
 
 #include <stddef.h>  // size_t
+#include <string>
 
 namespace webrtc {
 
@@ -201,7 +202,14 @@ struct EchoCanceller3Config {
     bool enforce_transparent = false;
     bool enforce_empty_higher_bands = false;
   } suppressor;
+
+  // Returns the configuration encoded in JSON.
+  std::string ToString() const;
+
+  // Parses a JSON-encoded string into a config.
+  static EchoCanceller3Config FromJson(const std::string& json_string);
 };
+
 }  // namespace webrtc
 
 #endif  // API_AUDIO_ECHO_CANCELLER3_CONFIG_H_

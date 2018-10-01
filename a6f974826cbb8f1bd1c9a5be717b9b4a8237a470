@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bc43b80f_9e934eaa",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 847,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-10-01T07:58:11Z",
+      "side": 1,
+      "message": "why is it better?\nis current way of locking too slow or cause some other problems?\n\nthere is now more code while holding the look,\nin particular now there is call to external transport_feedback_observer_",
+      "revId": "a6f974826cbb8f1bd1c9a5be717b9b4a8237a470",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

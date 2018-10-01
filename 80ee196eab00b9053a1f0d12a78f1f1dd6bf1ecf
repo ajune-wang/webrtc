@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2961af6c_1032b387",
+        "filename": "modules/video_coding/packet_buffer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-10-01T12:53:22Z",
+      "side": 1,
+      "message": "Unless you object, I\u0027ll keep it as is to align with the rest of the code in this function.",
+      "parentUuid": "c87ffba3_65b43d20",
+      "range": {
+        "startLine": 401,
+        "startChar": 11,
+        "endLine": 401,
+        "endChar": 20
+      },
+      "revId": "80ee196eab00b9053a1f0d12a78f1f1dd6bf1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a418231d_c3859c47",
         "filename": "modules/video_coding/packet_buffer.cc",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "80ee196eab00b9053a1f0d12a78f1f1dd6bf1ecf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1c303f1_15d049b9",
+        "filename": "modules/video_coding/packet_buffer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 404,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-10-01T12:53:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a418231d_c3859c47",
+      "range": {
+        "startLine": 403,
+        "startChar": 0,
+        "endLine": 404,
+        "endChar": 53
+      },
+      "revId": "80ee196eab00b9053a1f0d12a78f1f1dd6bf1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -95,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "76399f20_4946a730",
+        "filename": "modules/video_coding/packet_buffer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-10-01T12:53:22Z",
+      "side": 1,
+      "message": "Then I keep it.",
+      "parentUuid": "0935e4c8_bf11a343",
+      "range": {
+        "startLine": 427,
+        "startChar": 0,
+        "endLine": 428,
+        "endChar": 53
+      },
+      "revId": "80ee196eab00b9053a1f0d12a78f1f1dd6bf1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bb89fd76_6f62025d",
         "filename": "modules/video_coding/video_packet_buffer_unittest.cc",
         "patchSetId": 3
@@ -115,6 +187,30 @@
       "revId": "80ee196eab00b9053a1f0d12a78f1f1dd6bf1ecf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a2cd333_0884c481",
+        "filename": "modules/video_coding/video_packet_buffer_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-10-01T12:53:22Z",
+      "side": 1,
+      "message": "Thanks, that\u0027s better. I wasn\u0027t completely happy with my solution.",
+      "parentUuid": "bb89fd76_6f62025d",
+      "range": {
+        "startLine": 510,
+        "startChar": 0,
+        "endLine": 511,
+        "endChar": 30
+      },
+      "revId": "80ee196eab00b9053a1f0d12a78f1f1dd6bf1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

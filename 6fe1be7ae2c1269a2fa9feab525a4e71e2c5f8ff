@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dec56719_59134db0",
+        "filename": "rtc_tools/compare_videos.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-10-01T09:21:20Z",
+      "side": 1,
+      "message": "nit: This should not actually be necessary because you are using os.path.join",
+      "range": {
+        "startLine": 240,
+        "startChar": 43,
+        "endLine": 240,
+        "endChar": 54
+      },
+      "revId": "6fe1be7ae2c1269a2fa9feab525a4e71e2c5f8ff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

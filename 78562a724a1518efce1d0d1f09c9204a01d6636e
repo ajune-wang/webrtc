@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "edc2d7a8_3919167d",
+        "filename": "modules/video_coding/frame_object.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-10-01T11:03:18Z",
+      "side": 1,
+      "message": "RtpFrameObject inherits EncodedImage, so you can use EncodedImage::Timestamp() to get the timestamp.",
+      "revId": "78562a724a1518efce1d0d1f09c9204a01d6636e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b5cddc7_15c08676",
+        "filename": "modules/video_coding/packet_buffer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-10-01T11:03:18Z",
+      "side": 1,
+      "message": "I think this is a good solution, but check the seq_num also.",
+      "revId": "78562a724a1518efce1d0d1f09c9204a01d6636e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

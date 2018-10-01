@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fd898b6f_f78032e0",
+        "filename": "video/receive_statistics_proxy.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 845,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-01T14:04:28Z",
+      "side": 1,
+      "message": "Now set for all codec types (used to be set for vp8 and vp9 only, since that\u0027s what is supported by QpParser::GetQp, called from vcm::VideoReceiver). That change likely affects (improves?) stats from VideoQualityObserver.",
+      "range": {
+        "startLine": 845,
+        "startChar": 0,
+        "endLine": 845,
+        "endChar": 32
+      },
+      "revId": "fbaf1a2346b56c5d0ddca9fa11567509f47994ce",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

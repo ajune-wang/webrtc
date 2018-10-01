@@ -80,11 +80,7 @@ TEST(AudioCodingModuleTest, TestStereo) {
 }
 
 // Disabled on ios as flaky, see https://crbug.com/webrtc/7057
-#if defined(WEBRTC_ANDROID) || defined(WEBRTC_IOS)
-TEST(AudioCodingModuleTest, DISABLED_TestWebRtcVadDtx) {
-#else
 TEST(AudioCodingModuleTest, TestWebRtcVadDtx) {
-#endif
   webrtc::TestWebRtcVadDtx().Perform();
 }
 

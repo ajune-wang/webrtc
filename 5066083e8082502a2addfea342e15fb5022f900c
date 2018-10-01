@@ -22,6 +22,30 @@
       "revId": "5066083e8082502a2addfea342e15fb5022f900c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34e738d2_b3f5e706",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1237,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-10-01T11:51:39Z",
+      "side": 1,
+      "message": "If the min and max bitrate of the AudioSendStream are reconfigured this would change. Considering that we specifically support that happening, my guess would be that it is used.",
+      "parentUuid": "7dbf6469_8389fbd7",
+      "range": {
+        "startLine": 1237,
+        "startChar": 16,
+        "endLine": 1237,
+        "endChar": 37
+      },
+      "revId": "5066083e8082502a2addfea342e15fb5022f900c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -13,6 +13,9 @@
 
 #include <memory>
 
+#include "api/audio_codecs/audio_decoder_factory.h"
+#include "api/audio_codecs/audio_encoder_factory.h"
+#include "common_audio/vad/include/vad.h"
 #include "common_types.h"  // NOLINT(build/include)
 #include "modules/audio_coding/include/audio_coding_module.h"
 #include "modules/audio_coding/include/audio_coding_module_typedefs.h"
@@ -51,7 +54,9 @@ class TestVadDtx : public ACMTest {
   virtual void Perform() = 0;
 
  protected:
-  void RegisterCodec(CodecInst codec_param);
+  // Returns true iff CN was added.
+  bool RegisterCodec(const SdpAudioFormat& codec_format,
+                     absl::optional<Vad::Aggressiveness> vad_mode);
 
   // Encoding a file and see if the numbers that various packets occur follow
   // the expectation. Saves result to a file.
@@ -72,6 +77,8 @@ class TestVadDtx : public ACMTest {
            bool append,
            const int* expects);
 
+  const rtc::scoped_refptr<AudioEncoderFactory> encoder_factory_;
+  const rtc::scoped_refptr<AudioDecoderFactory> decoder_factory_;
   std::unique_ptr<AudioCodingModule> acm_send_;
   std::unique_ptr<AudioCodingModule> acm_receive_;
   std::unique_ptr<Channel> channel_;
@@ -87,12 +94,9 @@ class TestWebRtcVadDtx final : public TestVadDtx {
   void Perform() override;
 
  private:
-  void RunTestCases();
-  void Test(bool new_outfile);
-  void SetVAD(bool enable_dtx, bool enable_vad, ACMVADMode vad_mode);
+  void RunTestCases(const SdpAudioFormat& codec_format);
+  void Test(bool new_outfile, bool expect_dtx_enabled);
 
-  bool vad_enabled_;
-  bool dtx_enabled_;
   int output_file_num_;
 };
 

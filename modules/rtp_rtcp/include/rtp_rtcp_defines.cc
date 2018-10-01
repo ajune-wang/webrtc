@@ -9,6 +9,7 @@
  */
 
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
+#include "modules/rtp_rtcp/source/rtp_packet.h"
 
 namespace webrtc {
 
@@ -53,5 +54,12 @@ PayloadUnion::~PayloadUnion() = default;
 
 PayloadUnion& PayloadUnion::operator=(const PayloadUnion&) = default;
 PayloadUnion& PayloadUnion::operator=(PayloadUnion&&) = default;
+
+void RtpPacketCounter::AddPacket(const RtpPacket& packet) {
+  ++packets;
+  header_bytes += packet.headers_size();
+  padding_bytes += packet.padding_size();
+  payload_bytes += packet.payload_size();
+}
 
 }  // namespace webrtc

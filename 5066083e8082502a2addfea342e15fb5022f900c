@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7dbf6469_8389fbd7",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1237,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-10-01T10:58:13Z",
+      "side": 1,
+      "message": "can that change during the call?\nif not, it might be better to pass this flag during construction of the RtpRtcp\u0026RtpSender. Then there is no need to take the lock to read it.",
+      "range": {
+        "startLine": 1237,
+        "startChar": 16,
+        "endLine": 1237,
+        "endChar": 37
+      },
+      "revId": "5066083e8082502a2addfea342e15fb5022f900c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

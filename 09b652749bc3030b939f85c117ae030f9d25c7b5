@@ -114,6 +114,29 @@
       "revId": "09b652749bc3030b939f85c117ae030f9d25c7b5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd2ecf7e_5b8085d5",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 543,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-10-01T12:26:52Z",
+      "side": 1,
+      "message": "Should we create a DefaultVideoBitrateAllocator in case factory fails?\nWe could then CHECK here and clean up VideoSender::UpdateEncoderParameters(), which looks like the only place this is object is currently dereferenced.",
+      "range": {
+        "startLine": 541,
+        "startChar": 0,
+        "endLine": 543,
+        "endChar": 3
+      },
+      "revId": "09b652749bc3030b939f85c117ae030f9d25c7b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

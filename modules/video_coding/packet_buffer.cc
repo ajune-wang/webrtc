@@ -398,8 +398,10 @@ void PacketBuffer::ReturnFrame(RtpFrameObject* frame) {
   size_t index = frame->first_seq_num() % size_;
   size_t end = (frame->last_seq_num() + 1) % size_;
   uint16_t seq_num = frame->first_seq_num();
+  uint32_t timestamp = frame->Timestamp();
   while (index != end) {
-    if (sequence_buffer_[index].seq_num == seq_num) {
+    if (sequence_buffer_[index].seq_num == seq_num &&
+        data_buffer_[index].timestamp == timestamp) {
       delete[] data_buffer_[index].dataPtr;
       data_buffer_[index].dataPtr = nullptr;
       sequence_buffer_[index].used = false;
@@ -417,11 +419,13 @@ bool PacketBuffer::GetBitstream(const RtpFrameObject& frame,
   size_t index = frame.first_seq_num() % size_;
   size_t end = (frame.last_seq_num() + 1) % size_;
   uint16_t seq_num = frame.first_seq_num();
+  uint32_t timestamp = frame.Timestamp();
   uint8_t* destination_end = destination + frame.size();
 
   do {
     if (!sequence_buffer_[index].used ||
-        sequence_buffer_[index].seq_num != seq_num) {
+        sequence_buffer_[index].seq_num != seq_num ||
+        data_buffer_[index].timestamp != timestamp) {
       return false;
     }
 

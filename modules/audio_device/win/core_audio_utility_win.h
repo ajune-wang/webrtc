@@ -32,8 +32,8 @@
 namespace webrtc {
 namespace webrtc_win {
 
-static const int64_t kNumMicrosecsPerSec = webrtc::TimeDelta::seconds(1).us();
-static const int64_t kNumMillisecsPerSec = webrtc::TimeDelta::seconds(1).ms();
+constexpr int64_t kNumMicrosecsPerSec = webrtc::TimeDelta::Micros<1>();
+constexpr int64_t kNumMillisecsPerSec = webrtc::TimeDelta::Millis<1>();
 
 // Utility class which registers a thread with MMCSS in the constructor and
 // deregisters MMCSS in the destructor. The task name is given by |task_name|.

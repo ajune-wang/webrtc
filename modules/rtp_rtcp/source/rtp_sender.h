@@ -86,6 +86,8 @@ class RTPSender {
   void SetSendingMediaStatus(bool enabled);
   bool SendingMedia() const;
 
+  void SetAsPartOfAllocation(bool part_of_allocation);
+
   void GetDataCounters(StreamDataCounters* rtp_stats,
                        StreamDataCounters* rtx_stats) const;
 
@@ -277,6 +279,8 @@ class RTPSender {
 
   Transport* transport_;
   bool sending_media_ RTC_GUARDED_BY(send_critsect_);
+
+  bool force_part_of_allocation_;
 
   size_t max_packet_size_;
 

@@ -339,6 +339,9 @@ bool BbrNetworkController::InSlowStart() const {
 }
 
 NetworkControlUpdate BbrNetworkController::OnSentPacket(SentPacket msg) {
+  if (!msg.tracked)
+    return NetworkControlUpdate();
+
   last_sent_packet_ = msg.sequence_number;
 
   if (msg.data_in_flight.IsZero() && sampler_->is_app_limited()) {

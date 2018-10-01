@@ -1466,6 +1466,10 @@ bool WebRtcVideoChannel::SendRtp(const uint8_t* data,
   rtc::CopyOnWriteBuffer packet(data, len, kMaxRtpPacketLen);
   rtc::PacketOptions rtc_options;
   rtc_options.packet_id = options.packet_id;
+  rtc_options.info_signaled_after_sent.included_in_feedback =
+      options.included_in_feedback;
+  rtc_options.info_signaled_after_sent.included_in_allocation =
+      options.included_in_allocation;
   return MediaChannel::SendPacket(&packet, rtc_options);
 }
 

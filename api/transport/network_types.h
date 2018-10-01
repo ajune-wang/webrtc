@@ -89,16 +89,18 @@ struct SentPacket {
   Timestamp send_time = Timestamp::PlusInfinity();
   DataSize size = DataSize::Zero();
   PacedPacketInfo pacing_info;
+  bool account_for = false;
+  bool tracked = false;
   // Transport independent sequence number, any tracked packet should have a
   // sequence number that is unique over the whole call and increasing by 1 for
   // each packet.
   int64_t sequence_number;
-  // Data in flight when the packet was sent, including the packet.
+  // Tracked data in flight when the packet was sent, including the packet if it
+  // is tracked.
   DataSize data_in_flight = DataSize::Zero();
 };
 
 // Transport level feedback
-
 struct RemoteBitrateReport {
   Timestamp receive_time = Timestamp::PlusInfinity();
   DataRate bandwidth = DataRate::Infinity();

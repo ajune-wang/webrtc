@@ -582,19 +582,26 @@ void SendSideCongestionController::SignalNetworkState(NetworkState state) {
 
 void SendSideCongestionController::OnSentPacket(
     const rtc::SentPacket& sent_packet) {
-  // We're not interested in packets without an id, which may be stun packets,
-  // etc, sent on the same transport.
-  if (sent_packet.packet_id == -1)
-    return;
-  transport_feedback_adapter_.OnSentPacket(sent_packet.packet_id,
-                                           sent_packet.send_time_ms);
-  MaybeUpdateOutstandingData();
-  auto packet = transport_feedback_adapter_.GetPacket(sent_packet.packet_id);
-  if (packet.has_value()) {
-    SentPacket msg;
-    msg.size = DataSize::bytes(packet->payload_size);
-    msg.send_time = Timestamp::ms(packet->send_time_ms);
-    msg.sequence_number = packet->long_sequence_number;
+  SentPacket msg;
+  if (sent_packet.info.included_in_feedback) {
+    RTC_DCHECK(sent_packet.packet_id != -1);
+    transport_feedback_adapter_.OnSentPacket(sent_packet.packet_id,
+                                             sent_packet.send_time_ms);
+    MaybeUpdateOutstandingData();
+    auto packet = transport_feedback_adapter_.GetPacket(sent_packet.packet_id);
+    if (packet.has_value()) {
+      msg.size = DataSize::bytes(packet->payload_size);
+      msg.send_time = Timestamp::ms(packet->send_time_ms);
+      msg.tracked = true;
+      msg.sequence_number = packet->long_sequence_number;
+      msg.account_for = true;
+    }
+  } else if (sent_packet.info.included_in_allocation) {
+    msg.size = DataSize::bytes(sent_packet.info.packet_size_bytes);
+    msg.send_time = Timestamp::ms(sent_packet.send_time_ms);
+    msg.account_for = true;
+  }
+  if (msg.account_for) {
     msg.data_in_flight =
         DataSize::bytes(transport_feedback_adapter_.GetOutstandingBytes());
     task_queue_->PostTask([this, msg]() {

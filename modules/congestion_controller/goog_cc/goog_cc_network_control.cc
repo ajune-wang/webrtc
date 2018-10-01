@@ -257,6 +257,9 @@ NetworkControlUpdate GoogCcNetworkController::OnRoundTripTimeUpdate(
 
 NetworkControlUpdate GoogCcNetworkController::OnSentPacket(
     SentPacket sent_packet) {
+  if (!sent_packet.tracked)
+    return NetworkControlUpdate();
+
   alr_detector_->OnBytesSent(sent_packet.size.bytes(),
                              sent_packet.send_time.ms());
   if (initial_state_ == InitialState::kWaitingForEstimate &&

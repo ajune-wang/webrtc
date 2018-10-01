@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "18cd168b_134db114",
+        "filename": "modules/video_coding/video_coding_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-01T06:56:04Z",
+      "side": 1,
+      "message": "|const std::unique_ptr|, since it\u0027s assigned at construction only. (Could be done for |timing_| too).",
+      "range": {
+        "startLine": 221,
+        "startChar": 2,
+        "endLine": 221,
+        "endChar": 47
+      },
+      "revId": "09b652749bc3030b939f85c117ae030f9d25c7b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

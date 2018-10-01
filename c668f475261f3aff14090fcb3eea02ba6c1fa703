@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dc7a0653_56313e31",
+        "filename": "modules/audio_coding/test/Tester.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2018-10-01T13:43:10Z",
+      "side": 1,
+      "message": "If we\u0027re reenabling this test on iOS, we should remove the comment.",
+      "range": {
+        "startLine": 82,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 62
+      },
+      "revId": "c668f475261f3aff14090fcb3eea02ba6c1fa703",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

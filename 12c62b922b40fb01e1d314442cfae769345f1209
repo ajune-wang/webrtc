@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0467e596_e2090372",
+        "filename": "rtc_tools/compare_videos.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-10-01T05:55:54Z",
+      "side": 1,
+      "message": "Hmm. I rs lgtmd the previous review but I should have looked closer. It\u0027s quite strange that yuv_directory is in options since it\u0027s not an option. I assumed there would be a --yuv_directory option, but it\u0027s not wired up.\n\nJust make yuv_directory a normal variable and pass it as a normal arg to _RunFrameAnalyzer (make it default to None).",
+      "range": {
+        "startLine": 231,
+        "startChar": 4,
+        "endLine": 231,
+        "endChar": 32
+      },
+      "revId": "12c62b922b40fb01e1d314442cfae769345f1209",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd3ed695_89fad01d",
+        "filename": "rtc_tools/compare_videos.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-10-01T05:55:54Z",
+      "side": 1,
+      "message": "os.path.sep",
+      "range": {
+        "startLine": 233,
+        "startChar": 52,
+        "endLine": 233,
+        "endChar": 54
+      },
+      "revId": "12c62b922b40fb01e1d314442cfae769345f1209",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8dd528ae_fe3ffb0f",
+        "filename": "rtc_tools/compare_videos.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-10-01T05:55:54Z",
+      "side": 1,
+      "message": "I wonder if it would be cleaner to just separate the normal and VMAF flows here. i.e.\n\nif options.vmaf:\n  yuv_directory \u003d tempfile.mkdtemp() + os.path.sep\n  try:\n    if _RunFrameAnalyzer(options, yuv_directory) !\u003d 0:\n      ...\n      return 1\n    return _RunVmaf(options, yuv_directory)\n  finally:\n    shutil.rmtree(yuv_directory)\nelse:\n  return _RunFrameAnalyzer(options)\n\nWDYT?",
+      "range": {
+        "startLine": 229,
+        "startChar": 2,
+        "endLine": 246,
+        "endChar": 42
+      },
+      "revId": "12c62b922b40fb01e1d314442cfae769345f1209",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

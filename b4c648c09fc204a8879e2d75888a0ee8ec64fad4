@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2083ef9e_d4c94b64",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 775,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-10-01T12:49:29Z",
+      "side": 1,
+      "message": "Might want to cache this so we don\u0027t need to lock and look in the global map every frame.",
+      "range": {
+        "startLine": 775,
+        "startChar": 1,
+        "endLine": 775,
+        "endChar": 60
+      },
+      "revId": "b4c648c09fc204a8879e2d75888a0ee8ec64fad4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

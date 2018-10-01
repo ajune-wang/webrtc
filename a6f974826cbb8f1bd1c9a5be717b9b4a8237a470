@@ -70,6 +70,24 @@
       "revId": "a6f974826cbb8f1bd1c9a5be717b9b4a8237a470",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d2502110_31479bbe",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 847,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-10-01T11:57:44Z",
+      "side": 1,
+      "message": "Thank you, now I understand how it is helpful.",
+      "parentUuid": "0fa942b4_d67a9587",
+      "revId": "a6f974826cbb8f1bd1c9a5be717b9b4a8237a470",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

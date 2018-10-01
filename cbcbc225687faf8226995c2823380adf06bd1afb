@@ -46,6 +46,30 @@
       "revId": "cbcbc225687faf8226995c2823380adf06bd1afb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58601262_38ba4caa",
+        "filename": "video/video_receive_stream.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-10-01T13:00:08Z",
+      "side": 0,
+      "message": "Sure, but these stats should be reported somehow. I wasn\u0027t aware we did not report for non-vp8, that should be fixed. On the send-side report for all major codecs.",
+      "parentUuid": "e42df658_689315d9",
+      "range": {
+        "startLine": 369,
+        "startChar": 0,
+        "endLine": 369,
+        "endChar": 63
+      },
+      "revId": "cbcbc225687faf8226995c2823380adf06bd1afb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

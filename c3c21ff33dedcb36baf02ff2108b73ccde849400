@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "699aaa0a_d96b2a6d",
+        "filename": "video/video_quality_test.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-10-01T13:00:08Z",
+      "side": 1,
+      "message": "Maybe call this first and store the return value. Then write to file and finally return the stored status.\nEspecially with asynchronous decoders it feel unnecessary to wait for the file write before decoding.",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 99,
+        "endChar": 44
+      },
+      "revId": "c3c21ff33dedcb36baf02ff2108b73ccde849400",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ba193d9_d4ac0e83",
+        "filename": "video/video_receive_stream.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-10-01T13:00:08Z",
+      "side": 1,
+      "message": "not used anymore?",
+      "revId": "c3c21ff33dedcb36baf02ff2108b73ccde849400",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

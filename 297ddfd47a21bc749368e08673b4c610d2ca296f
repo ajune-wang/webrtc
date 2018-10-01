@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "96062437_d9f66631",
+        "filename": "api/test/simulated_network.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-10-01T08:22:40Z",
+      "side": 1,
+      "message": "Maybe config_duration_ms? And I guess int would be nice for consistency with the other parameters.\n\nI do wonder though if this really is behavior we want in the config. I can imagine a multitude of ways we could want to switch configs, not only based on a fixed time duration. For instance we might want a slowly increasing rate etc. I\u0027d prefer if the simulation itself was unaware of these durations but rather controlled from the container.",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 34
+      },
+      "revId": "297ddfd47a21bc749368e08673b4c610d2ca296f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "099c10c7_31a33b53",
+        "filename": "call/callfactory.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-10-01T08:22:40Z",
+      "side": 1,
+      "message": "This functionality seems complex enough that it would be nice if it was added to the field trial parser in a reusable way. WDYT?",
+      "revId": "297ddfd47a21bc749368e08673b4c610d2ca296f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

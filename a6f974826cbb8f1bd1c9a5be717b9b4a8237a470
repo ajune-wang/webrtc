@@ -34,6 +34,24 @@
       "revId": "a6f974826cbb8f1bd1c9a5be717b9b4a8237a470",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7dbcf7c0_33c4fee4",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 847,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-10-01T08:26:37Z",
+      "side": 1,
+      "message": "do you have a draft of that CL?\n\"do more while the lock is held\" worries me.",
+      "parentUuid": "fe8fa3be_e45bdb30",
+      "revId": "a6f974826cbb8f1bd1c9a5be717b9b4a8237a470",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

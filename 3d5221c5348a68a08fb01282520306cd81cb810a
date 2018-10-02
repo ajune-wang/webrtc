@@ -46,6 +46,30 @@
       "revId": "3d5221c5348a68a08fb01282520306cd81cb810a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28a98155_f888ef57",
+        "filename": "audio/channel.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 503,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-10-02T10:52:36Z",
+      "side": 1,
+      "message": "There is a TODO not to use it\n(see https://cs.chromium.org/chromium/src/third_party/webrtc/modules/rtp_rtcp/include/rtp_rtcp_defines.h?l\u003d35\nand related http://bugs.webrtc.org/6458)\n\nin code you linked using bogus frequency is not too bad (still bad) because it is used only to calculate time since last seen rtp_timestamp. This time normally very small, so error due to wrong frequency is small too.",
+      "parentUuid": "7bf81815_2aae172b",
+      "range": {
+        "startLine": 503,
+        "startChar": 48,
+        "endLine": 503,
+        "endChar": 73
+      },
+      "revId": "3d5221c5348a68a08fb01282520306cd81cb810a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

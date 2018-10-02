@@ -93,6 +93,30 @@
       "revId": "ed36f74c08aac8ea5258e77a3f69c8566039ee16",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d5764a2_bcee35c2",
+        "filename": "cr-buildbucket.cfg",
+        "patchSetId": 3
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2018-10-02T11:31:40Z",
+      "side": 1,
+      "message": "Oh right, the whole point of this was to choose the right service account. I fixed it now.\n\n  service_account: \"chromium-webrtc-autoroll@webrtc-ci.iam.gserviceaccount.com\"",
+      "parentUuid": "55f1a4f0_96ed4f37",
+      "range": {
+        "startLine": 299,
+        "startChar": 24,
+        "endLine": 299,
+        "endChar": 41
+      },
+      "revId": "ed36f74c08aac8ea5258e77a3f69c8566039ee16",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

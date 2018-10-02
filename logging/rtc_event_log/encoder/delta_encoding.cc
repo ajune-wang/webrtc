@@ -262,23 +262,26 @@ struct FixedLengthEncodingParameters final {
 // fixed numbers of bits.)
 class FixedLengthDeltaEncoder final {
  public:
+  // TODO: !!! Comment
   // See webrtc::EncodeDeltas() for general details.
   // This function must write into |output| a bit pattern that would allow the
   // decoder to determine whether it was produced by FixedLengthDeltaEncoder,
   // and can therefore be decoded by FixedLengthDeltaDecoder, or whether it
   // was produced by a different encoder.
-  static std::string EncodeDeltas(uint64_t base,
-                                  const std::vector<uint64_t>& values);
+  static std::string EncodeDeltas(
+      uint64_t base,
+      const std::vector<absl::optional<uint64_t>>& values);
 
  private:
   // Calculate min/max values of unsigned/signed deltas, given the bit width
   // of all the values in the series.
-  static void CalculateMinAndMaxDeltas(uint64_t base,
-                                       const std::vector<uint64_t>& values,
-                                       uint64_t bit_width,
-                                       uint64_t* max_unsigned_delta,
-                                       int64_t* min_signed_delta,
-                                       int64_t* max_signed_delta);
+  static void CalculateMinAndMaxDeltas(
+      uint64_t base,
+      const std::vector<absl::optional<uint64_t>>& values,
+      uint64_t bit_width,
+      uint64_t* max_unsigned_delta,
+      int64_t* min_signed_delta,
+      int64_t* max_signed_delta);
 
   // No effect outside of unit tests.
   // In unit tests, may lead to forcing signed/unsigned deltas, etc.
@@ -286,6 +289,7 @@ class FixedLengthDeltaEncoder final {
                                     uint64_t delta_width_bits_signed,
                                     uint64_t delta_width_bits_unsigned);
 
+  // TODO: !!!
   // FixedLengthDeltaEncoder objects are to be created by EncodeDeltas() and
   // released by it before it returns. They're mostly a convenient way to
   // avoid having to pass a lot of state between different functions.
@@ -293,7 +297,7 @@ class FixedLengthDeltaEncoder final {
   // |values|, whose lifetime must exceed the lifetime of |this|.
   FixedLengthDeltaEncoder(const FixedLengthEncodingParameters& params,
                           uint64_t base,
-                          const std::vector<uint64_t>& values);
+                          const std::vector<absl::optional<uint64_t>>& values);
 
   // Compute the unsigned representation of a signed value, given a width.
   uint64_t UnsignedRepresentation(int64_t val, uint64_t width) const;
@@ -328,7 +332,7 @@ class FixedLengthDeltaEncoder final {
 
   // The values to be encoded.
   // Note: This is a non-owning reference. See comment above ctor for details.
-  const std::vector<uint64_t>& values_;
+  const std::vector<absl::optional<uint64_t>>& values_;
 
   // Buffer into which encoded values will be written.
   // This is created dynmically as a way to enforce that the rest of the
@@ -342,16 +346,22 @@ class FixedLengthDeltaEncoder final {
 // TODO(eladalon): Reduce the number of passes.
 std::string FixedLengthDeltaEncoder::EncodeDeltas(
     uint64_t base,
-    const std::vector<uint64_t>& values) {
+    const std::vector<absl::optional<uint64_t>>& values) {
   RTC_DCHECK(!values.empty());
 
   FixedLengthEncodingParameters params;
 
-  bool non_decreasing = base <= values[0];
-  uint64_t max_value_including_base = std::max(base, values[0]);
-  for (size_t i = 1; i < values.size(); ++i) {
-    non_decreasing &= (values[i - 1] <= values[i]);
-    max_value_including_base = std::max(max_value_including_base, values[i]);
+  bool non_decreasing = true;
+  uint64_t max_value_including_base = base;
+  uint64_t previous = base;
+  for (size_t i = 0; i < values.size(); ++i) {
+    if (!values[i].has_value()) {
+      continue;
+    }
+    non_decreasing &= (previous <= values[i].value());
+    max_value_including_base =
+        std::max(max_value_including_base, values[i].value());
+    previous = values[i].value();
   }
 
   // If the sequence is non-decreasing, it may be assumed to have width = 64;
@@ -370,7 +380,9 @@ std::string FixedLengthDeltaEncoder::EncodeDeltas(
   // the empty string.
   if (max_unsigned_delta == 0) {
     RTC_DCHECK(std::all_of(values.cbegin(), values.cend(),
-                           [base](uint64_t val) { return val == base; }));
+                           [base](absl::optional<uint64_t> val) {
+                             return !val.has_value() || val.value() == base;
+                           }));
     return std::string();
   }
 
@@ -398,7 +410,7 @@ std::string FixedLengthDeltaEncoder::EncodeDeltas(
 
 void FixedLengthDeltaEncoder::CalculateMinAndMaxDeltas(
     uint64_t base,
-    const std::vector<uint64_t>& values,
+    const std::vector<absl::optional<uint64_t>>& values,
     uint64_t bit_width,
     uint64_t* max_unsigned_delta_out,
     int64_t* min_signed_delta_out,
@@ -408,19 +420,27 @@ void FixedLengthDeltaEncoder::CalculateMinAndMaxDeltas(
   RTC_DCHECK(min_signed_delta_out);
   RTC_DCHECK(max_signed_delta_out);
 
-  uint64_t max_unsigned_delta = UnsignedDelta(base, values[0], bit_width);
-  int64_t min_signed_delta = SignedDelta(base, values[0], bit_width);
-  int64_t max_signed_delta = min_signed_delta;
+  uint64_t max_unsigned_delta = 0;
+  int64_t min_signed_delta = 0;
+  int64_t max_signed_delta = 0;
 
-  for (size_t i = 1; i < values.size(); ++i) {
+  uint64_t previous_value = base;
+  for (size_t i = 0; i < values.size(); ++i) {
+    if (!values[i].has_value()) {
+      continue;
+    }
+
     const uint64_t unsigned_delta =
-        UnsignedDelta(values[i - 1], values[i], bit_width);
+        UnsignedDelta(previous_value, values[i].value(), bit_width);
     max_unsigned_delta = std::max(unsigned_delta, max_unsigned_delta);
 
     const int64_t signed_delta =
-        SignedDelta(values[i - 1], values[i], bit_width);
+        SignedDelta(previous_value, values[i].value(), bit_width);
+
     min_signed_delta = std::min(signed_delta, min_signed_delta);
     max_signed_delta = std::max(signed_delta, max_signed_delta);
+
+    previous_value = values[i].value();
   }
 
   *max_unsigned_delta_out = max_unsigned_delta;
@@ -446,7 +466,7 @@ void FixedLengthDeltaEncoder::ConsiderTestOverrides(
 FixedLengthDeltaEncoder::FixedLengthDeltaEncoder(
     const FixedLengthEncodingParameters& params,
     uint64_t base,
-    const std::vector<uint64_t>& values)
+    const std::vector<absl::optional<uint64_t>>& values)
     : params_(params), base_(base), values_(values) {
   RTC_DCHECK_GE(params_.delta_width_bits, 1);
   RTC_DCHECK_LE(params_.delta_width_bits, 64);
@@ -484,10 +504,15 @@ uint64_t FixedLengthDeltaEncoder::UnsignedRepresentation(int64_t val,
 std::string FixedLengthDeltaEncoder::Encode() {
   EncodeHeader();
 
+  // TODO: !!! Encode existence of values.
+
   uint64_t previous = base_;
-  for (uint64_t value : values_) {
-    EncodeDelta(previous, value);
-    previous = value;
+  for (absl::optional<uint64_t> value : values_) {
+    if (!value.has_value()) {
+      continue;
+    }
+    EncodeDelta(previous, value.value());
+    previous = value.value();
   }
 
   return writer_->GetString();
@@ -599,14 +624,14 @@ class FixedLengthDeltaDecoder final {
   // will fail to decode this input, though.
   static bool IsSuitableDecoderFor(const std::string& input);
 
+  // TODO: !!!
   // Assuming that |input| is the result of fixed-size delta-encoding
   // that took place with the same value to |base| and over |num_of_deltas|
   // original values, this will return the sequence of original values.
   // If an error occurs (can happen if |input| is corrupt), an empty
   // vector will be returned.
-  static std::vector<uint64_t> DecodeDeltas(const std::string& input,
-                                            uint64_t base,
-                                            size_t num_of_deltas);
+  static std::vector<absl::optional<uint64_t>>
+  DecodeDeltas(const std::string& input, uint64_t base, size_t num_of_deltas);
 
  private:
   // Reads the encoding header in |input| and returns a FixedLengthDeltaDecoder
@@ -633,6 +658,7 @@ class FixedLengthDeltaDecoder final {
   static bool ParseWithAllOptionalFields(rtc::BitBuffer* reader,
                                          FixedLengthEncodingParameters* params);
 
+  // TODO: !!!
   // FixedLengthDeltaDecoder objects are to be created by DecodeDeltas() and
   // released by it before it returns. They're mostly a convenient way to
   // avoid having to pass a lot of state between different functions.
@@ -645,7 +671,7 @@ class FixedLengthDeltaDecoder final {
                           size_t num_of_deltas);
 
   // Perform the decoding using the parameters given to the ctor.
-  std::vector<uint64_t> Decode();
+  std::vector<absl::optional<uint64_t>> Decode();
 
   // Attempt to parse a delta from the input reader.
   // Returns true/false for success/failure.
@@ -699,13 +725,13 @@ bool FixedLengthDeltaDecoder::IsSuitableDecoderFor(const std::string& input) {
          encoding_type == EncodingType::kFixedSizeWithAllOptionalFields;
 }
 
-std::vector<uint64_t> FixedLengthDeltaDecoder::DecodeDeltas(
+std::vector<absl::optional<uint64_t>> FixedLengthDeltaDecoder::DecodeDeltas(
     const std::string& input,
     uint64_t base,
     size_t num_of_deltas) {
   auto decoder = FixedLengthDeltaDecoder::Create(input, base, num_of_deltas);
   if (!decoder) {
-    return std::vector<uint64_t>();
+    return std::vector<absl::optional<uint64_t>>();
   }
 
   return decoder->Decode();
@@ -836,17 +862,17 @@ FixedLengthDeltaDecoder::FixedLengthDeltaDecoder(
   RTC_DCHECK(!params.values_optional) << "Not implemented.";
 }
 
-std::vector<uint64_t> FixedLengthDeltaDecoder::Decode() {
-  std::vector<uint64_t> values(num_of_deltas_);
+std::vector<absl::optional<uint64_t>> FixedLengthDeltaDecoder::Decode() {
+  std::vector<absl::optional<uint64_t>> values(num_of_deltas_);
 
   uint64_t previous = base_;
   for (size_t i = 0; i < num_of_deltas_; ++i) {
     uint64_t delta;
     if (!ParseDelta(&delta)) {
-      return std::vector<uint64_t>();
+      return std::vector<absl::optional<uint64_t>>();
     }
     values[i] = ApplyDelta(previous, delta);
-    previous = values[i];
+    previous = values[i].value();
   }
 
   return values;
@@ -937,20 +963,22 @@ uint64_t FixedLengthDeltaDecoder::ApplySignedDelta(uint64_t base,
 
 }  // namespace
 
-std::string EncodeDeltas(uint64_t base, const std::vector<uint64_t>& values) {
+std::string EncodeDeltas(uint64_t base,
+                         const std::vector<absl::optional<uint64_t>>& values) {
   // TODO(eladalon): Support additional encodings.
   return FixedLengthDeltaEncoder::EncodeDeltas(base, values);
 }
 
-std::vector<uint64_t> DecodeDeltas(const std::string& input,
-                                   uint64_t base,
-                                   size_t num_of_deltas) {
+std::vector<absl::optional<uint64_t>> DecodeDeltas(const std::string& input,
+                                                   uint64_t base,
+                                                   size_t num_of_deltas) {
   RTC_DCHECK_GT(num_of_deltas, 0);  // Allows empty vector to indicate error.
 
   // The empty string is a special case indicating that all values were equal
   // to the base.
   if (input.empty()) {
-    std::vector<uint64_t> result(num_of_deltas);
+    std::vector<absl::optional<uint64_t>> result(num_of_deltas);
+    // TODO: !!! Existence?
     std::fill(result.begin(), result.end(), base);
     return result;
   }
@@ -960,7 +988,7 @@ std::vector<uint64_t> DecodeDeltas(const std::string& input,
   }
 
   RTC_LOG(LS_WARNING) << "Could not decode delta-encoded stream.";
-  return std::vector<uint64_t>();
+  return std::vector<absl::optional<uint64_t>>();
 }
 
 void SetFixedLengthEncoderDeltaSignednessForTesting(bool signedness) {

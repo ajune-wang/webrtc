@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "471b57e8_34adf190",
+        "filename": "audio/channel.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 503,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-10-02T10:19:35Z",
+      "side": 1,
+      "message": "that can be very different from actual rtp rate.\nFor Video yes rtp rate is constant in all use cases I\u0027m aware about.\nFor Audio (and, in theory, for Video too) rtp rate vary depending on payload type.\n\ni.e. you can\u0027t use bogus constant, and, actually any constant.",
+      "range": {
+        "startLine": 503,
+        "startChar": 48,
+        "endLine": 503,
+        "endChar": 73
+      },
+      "revId": "3d5221c5348a68a08fb01282520306cd81cb810a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

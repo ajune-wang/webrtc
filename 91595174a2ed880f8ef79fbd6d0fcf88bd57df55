@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "138de7a2_5c0d3cc4",
+        "filename": "rtc_base/strings/json_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-10-02T13:33:55Z",
+      "side": 1,
+      "message": "Suggestion: Remove \"http://\", since the URL can be pasted into a browser even without it.",
+      "range": {
+        "startLine": 91,
+        "startChar": 10,
+        "endLine": 91,
+        "endChar": 17
+      },
+      "revId": "91595174a2ed880f8ef79fbd6d0fcf88bd57df55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

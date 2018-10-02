@@ -25,8 +25,12 @@ class ErlEstimator {
   ErlEstimator();
   ~ErlEstimator();
 
+  // Resets the ERL estimation.
+  void Reset();
+
   // Updates the ERL estimate.
-  void Update(rtc::ArrayView<const float> render_spectrum,
+  void Update(bool converged_filter,
+              rtc::ArrayView<const float> render_spectrum,
               rtc::ArrayView<const float> capture_spectrum);
 
   // Returns the most recent ERL estimate.
@@ -38,7 +42,7 @@ class ErlEstimator {
   std::array<int, kFftLengthBy2Minus1> hold_counters_;
   float erl_time_domain_;
   int hold_counter_time_domain_;
-
+  size_t blocks_since_reset_ = 0;
   RTC_DISALLOW_COPY_AND_ASSIGN(ErlEstimator);
 };
 

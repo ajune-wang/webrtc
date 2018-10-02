@@ -31,7 +31,12 @@ ErlEstimator::ErlEstimator() {
 
 ErlEstimator::~ErlEstimator() = default;
 
-void ErlEstimator::Update(rtc::ArrayView<const float> render_spectrum,
+void ErlEstimator::Reset() {
+  blocks_since_reset_ = 0;
+}
+
+void ErlEstimator::Update(bool converged_filter,
+                          rtc::ArrayView<const float> render_spectrum,
                           rtc::ArrayView<const float> capture_spectrum) {
   RTC_DCHECK_EQ(kFftLengthBy2Plus1, render_spectrum.size());
   RTC_DCHECK_EQ(kFftLengthBy2Plus1, capture_spectrum.size());
@@ -40,6 +45,10 @@ void ErlEstimator::Update(rtc::ArrayView<const float> render_spectrum,
 
   // Corresponds to WGN of power -46 dBFS.
   constexpr float kX2Min = 44015068.0f;
+
+  if (++blocks_since_reset_ < 2 * kNumBlocksPerSecond || !converged_filter) {
+    return;
+  }
 
   // Update the estimates in a maximum statistics manner.
   for (size_t k = 1; k < kFftLengthBy2; ++k) {

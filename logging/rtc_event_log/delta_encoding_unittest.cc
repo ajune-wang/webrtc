@@ -63,53 +63,73 @@ uint64_t RandomWithMaxBitWidth(Random* prng, uint64_t max_width) {
 // that it is equal to the original input.
 // If |encoded_string| is non-null, the encoded result will also be written
 // into it.
-void TestEncodingAndDecoding(uint64_t base,
-                             const std::vector<uint64_t>& values,
-                             std::string* encoded_string = nullptr) {
+void TestEncodingAndDecoding(
+    uint64_t base,
+    const std::vector<absl::optional<uint64_t>>& values,
+    std::string* encoded_string = nullptr) {
   const std::string encoded = EncodeDeltas(base, values);
   if (encoded_string) {
     *encoded_string = encoded;
   }
 
-  const std::vector<uint64_t> decoded =
+  const std::vector<absl::optional<uint64_t>> decoded =
       DecodeDeltas(encoded, base, values.size());
 
   EXPECT_EQ(decoded, values);
 }
 
-std::vector<uint64_t> CreateSequenceByFirstValue(uint64_t first,
-                                                 size_t sequence_length) {
-  std::vector<uint64_t> sequence(sequence_length);
+std::vector<absl::optional<uint64_t>> CreateSequenceByFirstValue(
+    uint64_t first,
+    size_t sequence_length) {
+  std::vector<absl::optional<uint64_t>> sequence(sequence_length);
   std::iota(sequence.begin(), sequence.end(), first);
   return sequence;
 }
 
-std::vector<uint64_t> CreateSequenceByLastValue(uint64_t last,
-                                                size_t num_values) {
+std::vector<absl::optional<uint64_t>> CreateSequenceByLastValue(
+    uint64_t last,
+    size_t num_values) {
   const uint64_t first = last - num_values + 1;
-  std::vector<uint64_t> result(num_values);
+  std::vector<absl::optional<uint64_t>> result(num_values);
   std::iota(result.begin(), result.end(), first);
   return result;
 }
 
 // If |sequence_length| is greater than the number of deltas, the sequence of
 // deltas will wrap around.
-std::vector<uint64_t> CreateSequenceByDeltas(
+std::vector<absl::optional<uint64_t>> CreateSequenceByOptionalDeltas(
     uint64_t first,
-    const std::vector<uint64_t>& deltas,
+    const std::vector<absl::optional<uint64_t>>& deltas,
     size_t sequence_length) {
   RTC_DCHECK_GE(sequence_length, 1);
 
-  std::vector<uint64_t> sequence(sequence_length);
+  std::vector<absl::optional<uint64_t>> sequence(sequence_length);
 
   uint64_t previous = first;
   for (size_t i = 0, next_delta_index = 0; i < sequence.size(); ++i) {
-    sequence[i] = previous + deltas[next_delta_index];
+    if (deltas[next_delta_index].has_value()) {
+      sequence[i] =
+          absl::optional<uint64_t>(previous + deltas[next_delta_index].value());
+      previous = sequence[i].value();
+    }
     next_delta_index = (next_delta_index + 1) % deltas.size();
-    previous = sequence[i];
   }
 
   return sequence;
+}
+
+// If |sequence_length| is greater than the number of deltas, the sequence of
+// deltas will wrap around.
+std::vector<absl::optional<uint64_t>> CreateSequenceByDeltas(
+    uint64_t first,
+    const std::vector<uint64_t>& deltas,
+    size_t sequence_length) {
+  std::vector<absl::optional<uint64_t>> optional_deltas(deltas.size());
+  for (size_t i = 0; i < deltas.size(); ++i) {
+    optional_deltas[i] = absl::optional<uint64_t>(deltas[i]);
+  }
+  return CreateSequenceByOptionalDeltas(first, optional_deltas,
+                                        sequence_length);
 }
 
 // Tests of the delta encoding, parameterized by the number of values
@@ -130,7 +150,7 @@ class DeltaEncodingTest
 
 TEST_P(DeltaEncodingTest, AllValuesEqualToBaseValue) {
   const uint64_t base = 3432;
-  std::vector<uint64_t> values(num_of_values_);
+  std::vector<absl::optional<uint64_t>> values(num_of_values_);
   std::fill(values.begin(), values.end(), base);
   std::string encoded;
   TestEncodingAndDecoding(base, values, &encoded);
@@ -299,12 +319,13 @@ INSTANTIATE_TEST_CASE_P(
 // specific cases, produce large amount of semi-realistic inputs.
 class DeltaEncodingFuzzerLikeTest
     : public ::testing::TestWithParam<
-          std::tuple<DeltaSignedness, uint64_t, uint64_t>> {
+          std::tuple<DeltaSignedness, uint64_t, uint64_t, bool>> {
  public:
   DeltaEncodingFuzzerLikeTest()
       : signedness_(std::get<0>(GetParam())),
         delta_max_bit_width_(std::get<1>(GetParam())),
-        num_of_values_(std::get<2>(GetParam())) {
+        num_of_values_(std::get<2>(GetParam())),
+        optional_values_(std::get<3>(GetParam())) {
     MaybeSetSignedness(signedness_);
   }
 
@@ -313,18 +334,21 @@ class DeltaEncodingFuzzerLikeTest
   const DeltaSignedness signedness_;
   const uint64_t delta_max_bit_width_;
   const uint64_t num_of_values_;
+  const bool optional_values_;
 };
 
 TEST_P(DeltaEncodingFuzzerLikeTest, Test) {
   const uint64_t base = 3432;
 
   Random prng(1983);
-  std::vector<uint64_t> deltas(num_of_values_);
+  std::vector<absl::optional<uint64_t>> deltas(num_of_values_);
   for (size_t i = 0; i < deltas.size(); ++i) {
-    deltas[i] = RandomWithMaxBitWidth(&prng, delta_max_bit_width_);
+    if (!optional_values_ || prng.Rand<bool>()) {
+      deltas[i] = RandomWithMaxBitWidth(&prng, delta_max_bit_width_);
+    }
   }
-
-  const auto values = CreateSequenceByDeltas(base, deltas, num_of_values_);
+  const auto values =
+      CreateSequenceByOptionalDeltas(base, deltas, num_of_values_);
 
   TestEncodingAndDecoding(base, values);
 }
@@ -337,7 +361,8 @@ INSTANTIATE_TEST_CASE_P(
                           DeltaSignedness::kForceUnsigned,
                           DeltaSignedness::kForceSigned),
         ::testing::Values(1, 4, 8, 15, 16, 17, 31, 32, 33, 63, 64),
-        ::testing::Values(1, 2, 100, 10000)));
+        ::testing::Values(1, 2, 100, 10000),
+        ::testing::Bool()));
 
 class DeltaEncodingSpecificEdgeCasesTest : public ::testing::Test {
  public:
@@ -351,7 +376,7 @@ TEST_F(DeltaEncodingSpecificEdgeCasesTest, SignedDeltaWithOnlyTopBitOn) {
   const uint64_t base = 3432;
 
   const uint64_t delta = static_cast<uint64_t>(1) << 63;
-  const std::vector<uint64_t> values = {base + delta};
+  const std::vector<absl::optional<uint64_t>> values = {base + delta};
 
   TestEncodingAndDecoding(base, values);
 }
@@ -361,7 +386,7 @@ TEST_F(DeltaEncodingSpecificEdgeCasesTest, MaximumUnsignedDelta) {
 
   const uint64_t base = (static_cast<uint64_t>(1) << 63) + 0x123;
 
-  const std::vector<uint64_t> values = {base - 1};
+  const std::vector<absl::optional<uint64_t>> values = {base - 1};
 
   TestEncodingAndDecoding(base, values);
 }

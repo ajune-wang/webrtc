@@ -22,6 +22,53 @@
       "revId": "ed36f74c08aac8ea5258e77a3f69c8566039ee16",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84a010b5_36215195",
+        "filename": "cr-buildbucket.cfg",
+        "patchSetId": 3
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2018-10-02T11:23:31Z",
+      "side": 1,
+      "message": "No, it\u0027s actually needed to choose the recipe",
+      "parentUuid": "094035af_70d4c29b",
+      "range": {
+        "startLine": 296,
+        "startChar": 8,
+        "endLine": 297,
+        "endChar": 50
+      },
+      "revId": "ed36f74c08aac8ea5258e77a3f69c8566039ee16",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "55f1a4f0_96ed4f37",
+        "filename": "cr-buildbucket.cfg",
+        "patchSetId": 3
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2018-10-02T11:23:31Z",
+      "side": 1,
+      "message": "I\u0027m not sure about reusing the service account, I\u0027ll need to check",
+      "range": {
+        "startLine": 299,
+        "startChar": 24,
+        "endLine": 299,
+        "endChar": 41
+      },
+      "revId": "ed36f74c08aac8ea5258e77a3f69c8566039ee16",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -272,8 +272,9 @@ TEST_P(CallOperationEndToEndTest, ObserversEncodedFrames) {
 
     CreateSendConfig(1, 0, 0, sender_transport.get());
     CreateMatchingReceiveConfigs(receiver_transport.get());
+#if 0
     GetVideoSendConfig()->post_encode_callback = &post_encode_observer;
-
+#endif
     CreateVideoStreams();
     Start();
 

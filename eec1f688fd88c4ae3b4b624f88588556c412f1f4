@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "810cccfb_f32921a5",
+        "filename": "modules/video_coding/video_coding_impl.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-02T07:58:56Z",
+      "side": 1,
+      "message": "I have a followup cl to delete this.",
+      "range": {
+        "startLine": 133,
+        "startChar": 0,
+        "endLine": 133,
+        "endChar": 39
+      },
+      "revId": "eec1f688fd88c4ae3b4b624f88588556c412f1f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "593de5d6_004ff231",
+        "filename": "video/BUILD.gn",
+        "patchSetId": 8
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-02T07:58:56Z",
+      "side": 1,
+      "message": "Still needed, for the vp8 qp parsing.",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 98,
+        "endChar": 51
+      },
+      "revId": "eec1f688fd88c4ae3b4b624f88588556c412f1f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

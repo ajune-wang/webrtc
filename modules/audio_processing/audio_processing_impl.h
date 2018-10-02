@@ -257,7 +257,7 @@ class AudioProcessingImpl : public AudioProcessing {
   void InitializePreProcessor() RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_render_);
 
   // Empties and handles the respective RuntimeSetting queues.
-  void HandleCaptureRuntimeSettings()
+  void HandleCaptureRuntimeSettings(bool* preamplifier_gain_change)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_capture_);
   void HandleRenderRuntimeSettings() RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_render_);
 

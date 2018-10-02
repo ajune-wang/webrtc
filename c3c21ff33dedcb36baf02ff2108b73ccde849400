@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d90e0eb3_47082cca",
+        "filename": "video/video_quality_test.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-02T06:50:15Z",
+      "side": 1,
+      "message": "Done. (Old code did the write first, since it was hooked onto the *pre*-decode callback).",
+      "parentUuid": "699aaa0a_d96b2a6d",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 99,
+        "endChar": 44
+      },
+      "revId": "c3c21ff33dedcb36baf02ff2108b73ccde849400",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1ba193d9_d4ac0e83",
         "filename": "video/video_receive_stream.h",
         "patchSetId": 6
@@ -39,6 +63,24 @@
       "revId": "c3c21ff33dedcb36baf02ff2108b73ccde849400",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88fc5834_e3b01b2c",
+        "filename": "video/video_receive_stream.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-02T06:50:15Z",
+      "side": 1,
+      "message": "Deleted.",
+      "parentUuid": "1ba193d9_d4ac0e83",
+      "revId": "c3c21ff33dedcb36baf02ff2108b73ccde849400",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

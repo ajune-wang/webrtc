@@ -25,6 +25,7 @@ namespace webrtc {
 class RtpToNtpEstimator {
  public:
   RtpToNtpEstimator();
+  explicit RtpToNtpEstimator(uint32_t rtp_time_hz);
   ~RtpToNtpEstimator();
 
   // RTP and NTP timestamp pair from a RTCP SR report.
@@ -83,6 +84,7 @@ class RtpToNtpEstimator {
   MovingMedianFilter<Parameters> smoothing_filter_;
   bool params_calculated_;
   mutable TimestampUnwrapper unwrapper_;
+  absl::optional<uint32_t> rtp_rate_hz_;
 };
 }  // namespace webrtc
 

@@ -29,6 +29,13 @@ RemoteNtpTimeEstimator::RemoteNtpTimeEstimator(Clock* clock)
       ntp_clocks_offset_estimator_(kClocksOffsetSmoothingWindow),
       last_timing_log_ms_(-1) {}
 
+RemoteNtpTimeEstimator::RemoteNtpTimeEstimator(Clock* clock,
+                                               uint32_t rtp_rate_hz)
+    : clock_(clock),
+      ntp_clocks_offset_estimator_(kClocksOffsetSmoothingWindow),
+      rtp_to_ntp_(rtp_rate_hz),
+      last_timing_log_ms_(-1) {}
+
 RemoteNtpTimeEstimator::~RemoteNtpTimeEstimator() {}
 
 bool RemoteNtpTimeEstimator::UpdateRtcpTimestamp(int64_t rtt,

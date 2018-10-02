@@ -87,6 +87,12 @@ RtpToNtpEstimator::RtpToNtpEstimator()
       smoothing_filter_(kNumSamplesToSmooth),
       params_calculated_(false) {}
 
+RtpToNtpEstimator::RtpToNtpEstimator(uint32_t rtp_rate_hz)
+    : consecutive_invalid_samples_(0),
+      smoothing_filter_(1),  // Disable smoothing if rate is fixed.
+      params_calculated_(false),
+      rtp_rate_hz_(rtp_rate_hz) {}
+
 RtpToNtpEstimator::~RtpToNtpEstimator() {}
 
 void RtpToNtpEstimator::UpdateParameters() {
@@ -100,8 +106,10 @@ void RtpToNtpEstimator::UpdateParameters() {
   int64_t ntp_ms_new = measurements_.front().ntp_time.ToMs();
   int64_t ntp_ms_old = measurements_.back().ntp_time.ToMs();
 
-  if (!CalculateFrequency(ntp_ms_new, timestamp_new, ntp_ms_old, timestamp_old,
-                          &params.frequency_khz)) {
+  if (rtp_rate_hz_) {
+    params.frequency_khz = *rtp_rate_hz_ / 1000.0;
+  } else if (!CalculateFrequency(ntp_ms_new, timestamp_new, ntp_ms_old,
+                                 timestamp_old, &params.frequency_khz)) {
     return;
   }
   params.offset_ms = timestamp_new - params.frequency_khz * ntp_ms_new;
@@ -114,6 +122,10 @@ bool RtpToNtpEstimator::UpdateMeasurements(uint32_t ntp_secs,
                                            uint32_t rtp_timestamp,
                                            bool* new_rtcp_sr) {
   *new_rtcp_sr = false;
+
+  if (rtp_timestamp == 0) {
+    return false;
+  }
 
   int64_t unwrapped_rtp_timestamp = unwrapper_.Unwrap(rtp_timestamp);
 

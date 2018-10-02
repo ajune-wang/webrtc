@@ -28,6 +28,7 @@ class Clock;
 class RemoteNtpTimeEstimator {
  public:
   explicit RemoteNtpTimeEstimator(Clock* clock);
+  RemoteNtpTimeEstimator(Clock* clock, uint32_t rtp_rate_hz);
 
   ~RemoteNtpTimeEstimator();
 

@@ -100,7 +100,7 @@ RtpVideoStreamReceiver::RtpVideoStreamReceiver(
       config_(*config),
       packet_router_(packet_router),
       process_thread_(process_thread),
-      ntp_estimator_(clock_),
+      ntp_estimator_(clock_, kVideoPayloadTypeFrequency),
       rtp_header_extensions_(config_.rtp.extensions),
       rtp_receive_statistics_(rtp_receive_statistics),
       ulpfec_receiver_(UlpfecReceiver::Create(config->rtp.remote_ssrc, this)),

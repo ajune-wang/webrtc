@@ -22,7 +22,7 @@ TEST(WrapAroundTests, OldRtcpWrapped_OldRtpTimestamp) {
   bool new_sr;
   uint32_t ntp_sec = 0;
   uint32_t ntp_frac = 1;
-  uint32_t timestamp = 0;
+  uint32_t timestamp = 1;
   EXPECT_TRUE(
       estimator.UpdateMeasurements(ntp_sec, ntp_frac, timestamp, &new_sr));
   ntp_frac += kOneMsInNtpFrac;
@@ -144,7 +144,7 @@ TEST(WrapAroundTests, GracefullyHandleRtpJump) {
   bool new_sr;
   uint32_t ntp_sec = 0;
   uint32_t ntp_frac = 1;
-  uint32_t timestamp = 0;
+  uint32_t timestamp = 1;
   EXPECT_TRUE(
       estimator.UpdateMeasurements(ntp_sec, ntp_frac, timestamp, &new_sr));
   ntp_frac += kOneMsInNtpFrac;
@@ -277,6 +277,16 @@ TEST(UpdateRtcpMeasurementTests, VerifyParameters) {
   EXPECT_NE(0.0, estimator.params()->offset_ms);
 }
 
+TEST(UpdateRtcpMeasurementTests, FailsForZeroRtpTimestamp) {
+  RtpToNtpEstimator estimator;
+  uint32_t ntp_sec = 0;
+  uint32_t ntp_frac = 1;
+  uint32_t timestamp = 0;
+  bool new_sr;
+  EXPECT_FALSE(
+      estimator.UpdateMeasurements(ntp_sec, ntp_frac, timestamp, &new_sr));
+}
+
 TEST(RtpToNtpTests, FailsForNoParameters) {
   RtpToNtpEstimator estimator;
   uint32_t ntp_sec = 1;
@@ -291,5 +301,4 @@ TEST(RtpToNtpTests, FailsForNoParameters) {
   int64_t timestamp_ms = -1;
   EXPECT_FALSE(estimator.Estimate(timestamp, &timestamp_ms));
 }
-
 };  // namespace webrtc

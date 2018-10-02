@@ -500,7 +500,7 @@ Channel::Channel(ProcessThread* module_process_thread,
       _outputAudioLevel(),
       _timeStamp(0),  // This is just an offset, RTP module will add it's own
                       // random offset
-      ntp_estimator_(Clock::GetRealTimeClock()),
+      ntp_estimator_(Clock::GetRealTimeClock(), kBogusRtpRateForAudioRtcp),
       playout_timestamp_rtp_(0),
       playout_delay_ms_(0),
       send_sequence_number_(0),

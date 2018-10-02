@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8622163d_aa91e015",
+        "filename": "rtc_base/numerics/sample_counter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-10-02T12:42:37Z",
+      "side": 1,
+      "message": "Suggestion: Call it `NumSamples()` instead, since \"count\" could reasonably mean either \"number of samples\" (num_samples_) or \"total count\" (sum_).",
+      "revId": "d7f5592a5e94972c5d9c09e7b461e4f112855f0e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

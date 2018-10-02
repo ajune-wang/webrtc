@@ -50,5 +50,4 @@ EchoCanceller3Config::Suppressor::Tuning::Tuning(MaskingThresholds mask_lf,
       max_dec_factor_lf(max_dec_factor_lf) {}
 EchoCanceller3Config::Suppressor::Tuning::Tuning(
     const EchoCanceller3Config::Suppressor::Tuning& e) = default;
-
 }  // namespace webrtc

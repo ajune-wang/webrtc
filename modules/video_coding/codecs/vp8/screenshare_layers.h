@@ -9,6 +9,7 @@
 #ifndef MODULES_VIDEO_CODING_CODECS_VP8_SCREENSHARE_LAYERS_H_
 #define MODULES_VIDEO_CODING_CODECS_VP8_SCREENSHARE_LAYERS_H_
 
+#include <map>
 #include <vector>
 
 #include "modules/video_coding/codecs/vp8/include/vp8_temporal_layers.h"
@@ -46,12 +47,11 @@ class ScreenshareLayers : public TemporalLayers {
   // Returns true iff the configuration was actually modified.
   bool UpdateConfiguration(Vp8EncoderConfig* cfg) override;
 
-  void PopulateCodecSpecific(bool base_layer_sync,
-                             const TemporalLayers::FrameConfig& tl_config,
-                             CodecSpecificInfoVP8* vp8_info,
-                             uint32_t rtp_timestamp) override;
-
-  void FrameEncoded(uint32_t rtp_timestamp, size_t size, int qp) override;
+  void OnEncodeDone(uint32_t rtp_timestamp,
+                    size_t size_bytes,
+                    bool is_keyframe,
+                    int qp,
+                    CodecSpecificInfoVP8* vp8_info) override;
 
  private:
   enum class TemporalLayerState : int { kDrop, kTl0, kTl1, kTl1Sync };
@@ -71,6 +71,8 @@ class ScreenshareLayers : public TemporalLayers {
   int min_qp_;
   int max_qp_;
   uint32_t max_debt_bytes_;
+
+  std::map<uint32_t, TemporalLayers::FrameConfig> pending_frame_configs_;
 
   // Configured max framerate.
   absl::optional<uint32_t> target_framerate_;

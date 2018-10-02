@@ -19,6 +19,16 @@ namespace test {
 namespace {
 const int kDefaultWidth = 320;
 const int kDefaultHeight = 180;
+
+// Read width and height from the payload of the frame if it is a key frame the
+// same way as the real VP8 decoder.
+void ParseFakeVp8(const unsigned char* data, int* width, int* height) {
+  bool key_frame = data[0] == 0;
+  if (key_frame) {
+    *width = ((data[7] << 8) + data[6]) & 0x3FFF;
+    *height = ((data[9] << 8) + data[8]) & 0x3FFF;
+  }
+}
 }  // namespace
 
 FakeDecoder::FakeDecoder()
@@ -33,10 +43,10 @@ int32_t FakeDecoder::Decode(const EncodedImage& input,
                             bool missing_frames,
                             const CodecSpecificInfo* codec_specific_info,
                             int64_t render_time_ms) {
-  if (input._encodedWidth > 0 && input._encodedHeight > 0) {
-    width_ = input._encodedWidth;
-    height_ = input._encodedHeight;
+  if (input._length < 10) {
+    return WEBRTC_VIDEO_CODEC_ERROR;
   }
+  ParseFakeVp8(input._buffer, &width_, &height_);
 
   VideoFrame frame(I420Buffer::Create(width_, height_),
                    webrtc::kVideoRotation_0,
@@ -44,7 +54,8 @@ int32_t FakeDecoder::Decode(const EncodedImage& input,
   frame.set_timestamp(input.Timestamp());
   frame.set_ntp_time_ms(input.ntp_time_ms_);
 
-  callback_->Decoded(frame);
+  callback_->Decoded(frame, /*decode_time_ms=*/absl::nullopt,
+                     /*qp=*/absl::nullopt);
 
   return WEBRTC_VIDEO_CODEC_OK;
 }

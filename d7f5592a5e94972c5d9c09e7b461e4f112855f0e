@@ -16,6 +16,24 @@
       "revId": "d7f5592a5e94972c5d9c09e7b461e4f112855f0e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e21772b0_cdbad85a",
+        "filename": "rtc_base/numerics/sample_counter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-10-02T14:24:31Z",
+      "side": 1,
+      "message": "Renamed.",
+      "parentUuid": "8622163d_aa91e015",
+      "revId": "d7f5592a5e94972c5d9c09e7b461e4f112855f0e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

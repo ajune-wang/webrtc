@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "75595257_6387b4dc",
+        "filename": "test/fake_decoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-10-02T13:12:24Z",
+      "side": 1,
+      "message": "Maybe use ByteReader\u003cuint16_t\u003e::Read... ?",
+      "range": {
+        "startLine": 29,
+        "startChar": 14,
+        "endLine": 29,
+        "endChar": 40
+      },
+      "revId": "b278e408e2e7e9d7fc0389a829c3113161e7be0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee0402fa_8a07ff9d",
+        "filename": "test/fake_decoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-10-02T13:12:24Z",
+      "side": 1,
+      "message": "How about some constants for the width/height offsets and make it clear here that this is the limit your checking?",
+      "range": {
+        "startLine": 46,
+        "startChar": 22,
+        "endLine": 46,
+        "endChar": 24
+      },
+      "revId": "b278e408e2e7e9d7fc0389a829c3113161e7be0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8518e3bf_438cb80b",
+        "filename": "test/fake_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-10-02T13:12:24Z",
+      "side": 1,
+      "message": "Then we can reuse those constants here :)\nThere\u0027s a ByteWriter too...",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 34
+      },
+      "revId": "b278e408e2e7e9d7fc0389a829c3113161e7be0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "676802e6_d36187a9",
+        "filename": "cr-buildbucket.cfg",
+        "patchSetId": 5
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2018-10-02T12:05:43Z",
+      "side": 1,
+      "message": "vadimsh@: please take a quick look at this and surrounding lines.",
+      "range": {
+        "startLine": 307,
+        "startChar": 24,
+        "endLine": 307,
+        "endChar": 82
+      },
+      "revId": "7c499f2d186cc38f56e948fc975d2b0c2cefc3a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

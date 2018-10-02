@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "6ddc3558_2cd126d5",
+        "filename": "cr-buildbucket.cfg",
+        "patchSetId": 5
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 6878
+      },
+      "writtenOn": "2018-10-02T15:47:03Z",
+      "side": 1,
+      "message": "nit: I think this can be removed to use new \"better\" default URL (https://ci.chromium.org/p/webrtc/builds/b\u003cnum\u003e). Better to be done in a separate CL in case it needs a revert...",
+      "range": {
+        "startLine": 285,
+        "startChar": 4,
+        "endLine": 285,
+        "endChar": 71
+      },
+      "revId": "7c499f2d186cc38f56e948fc975d2b0c2cefc3a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ecd1cc21_2b9e727f",
+        "filename": "cr-buildbucket.cfg",
+        "patchSetId": 5
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 6878
+      },
+      "writtenOn": "2018-10-02T15:47:03Z",
+      "side": 1,
+      "message": "this will have to be defined in https://chrome-internal.googlesource.com/infradata/config/+/master/configs/chromium-swarm/pools.cfg and https://chrome-internal.googlesource.com/infradata/config/+/master/configs/chromium-swarm/bots.cfg\n\nSee https://chrome-internal.googlesource.com/infra/infra_internal/+/master/doc/luci/new_swarming_pool.md\n\nCan reuse pool-luci-webrtc@chromium-swarm.iam.gserviceaccount.com as \"system_service_account\" for consistency with existing pools.",
+      "range": {
+        "startLine": 290,
+        "startChar": 24,
+        "endLine": 290,
+        "endChar": 40
+      },
+      "revId": "7c499f2d186cc38f56e948fc975d2b0c2cefc3a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "676802e6_d36187a9",
         "filename": "cr-buildbucket.cfg",
         "patchSetId": 5
@@ -13,6 +59,30 @@
       "writtenOn": "2018-10-02T12:05:43Z",
       "side": 1,
       "message": "vadimsh@: please take a quick look at this and surrounding lines.",
+      "range": {
+        "startLine": 307,
+        "startChar": 24,
+        "endLine": 307,
+        "endChar": 82
+      },
+      "revId": "7c499f2d186cc38f56e948fc975d2b0c2cefc3a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "172f4de3_6b47bfbf",
+        "filename": "cr-buildbucket.cfg",
+        "patchSetId": 5
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 6878
+      },
+      "writtenOn": "2018-10-02T15:47:03Z",
+      "side": 1,
+      "message": "This will have to be defined in https://chrome-internal.googlesource.com/infradata/config/+/master/configs/luci-token-server/service_accounts.cfg#564 or at least added into existing project-webrtc-ci-task-accounts group (to reuse existing definition).\n\nThen in luci.webrtc.pool config either use \n\n  allowed_service_account: \"chromium-webrtc-autoroll@webrtc-ci.iam.gserviceaccount.com\"\n\nor\n\n  allowed_service_account_group: \"project-webrtc-ci-task-accounts\"\n\ndepending on how it was added to service_accounts.cfg.\n\nluci-token-server@... also needs \"Service Account Token Creator\" role in this account. See https://chrome-internal.googlesource.com/infra/infra_internal/+/master/doc/luci/new_service_account.md for more info.",
+      "parentUuid": "676802e6_d36187a9",
       "range": {
         "startLine": 307,
         "startChar": 24,

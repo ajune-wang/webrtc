@@ -30,7 +30,14 @@
 #include "modules/audio_processing/gain_control_for_experimental_agc.h"
 #include "modules/audio_processing/gain_control_impl.h"
 #include "modules/audio_processing/gain_controller2.h"
+#include "modules/audio_processing/level_estimator_impl.h"
 #include "modules/audio_processing/logging/apm_data_dumper.h"
+#include "modules/audio_processing/low_cut_filter.h"
+#include "modules/audio_processing/noise_suppression_impl.h"
+#include "modules/audio_processing/residual_echo_detector.h"
+#include "modules/audio_processing/transient/transient_suppressor.h"
+#include "modules/audio_processing/voice_detection_impl.h"
+#include "rtc_base/atomicops.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/platform_file.h"
@@ -38,13 +45,6 @@
 #include "rtc_base/system/arch.h"
 #include "rtc_base/timeutils.h"
 #include "rtc_base/trace_event.h"
-#include "modules/audio_processing/level_estimator_impl.h"
-#include "modules/audio_processing/low_cut_filter.h"
-#include "modules/audio_processing/noise_suppression_impl.h"
-#include "modules/audio_processing/residual_echo_detector.h"
-#include "modules/audio_processing/transient/transient_suppressor.h"
-#include "modules/audio_processing/voice_detection_impl.h"
-#include "rtc_base/atomicops.h"
 #include "system_wrappers/include/metrics.h"
 
 #define RETURN_ON_ERR(expr) \
@@ -176,8 +176,7 @@ bool AudioProcessingImpl::ApmSubmoduleStates::Update(
   changed |= (noise_suppressor_enabled != noise_suppressor_enabled_);
   changed |=
       (adaptive_gain_controller_enabled != adaptive_gain_controller_enabled_);
-  changed |=
-      (gain_controller2_enabled != gain_controller2_enabled_);
+  changed |= (gain_controller2_enabled != gain_controller2_enabled_);
   changed |= (pre_amplifier_enabled_ != pre_amplifier_enabled);
   changed |= (echo_controller_enabled != echo_controller_enabled_);
   changed |= (level_estimator_enabled != level_estimator_enabled_);
@@ -884,8 +883,10 @@ int AudioProcessingImpl::ProcessStream(const float* const* src,
   return kNoError;
 }
 
-void AudioProcessingImpl::HandleCaptureRuntimeSettings() {
+void AudioProcessingImpl::HandleCaptureRuntimeSettings(
+    bool* preamplifier_gain_change) {
   RuntimeSetting setting;
+  *preamplifier_gain_change = false;
   while (capture_runtime_settings_.Remove(&setting)) {
     if (aec_dump_) {
       aec_dump_->WriteRuntimeSetting(setting);
@@ -895,6 +896,9 @@ void AudioProcessingImpl::HandleCaptureRuntimeSettings() {
         if (config_.pre_amplifier.enabled) {
           float value;
           setting.GetFloat(&value);
+          if (value != private_submodules_->pre_amplifier->GetGainFactor()) {
+            *preamplifier_gain_change = true;
+          }
           private_submodules_->pre_amplifier->SetGainFactor(value);
         }
         // TODO(bugs.chromium.org/9138): Log setting handling by Aec Dump.
@@ -1185,7 +1189,8 @@ int AudioProcessingImpl::ProcessStream(AudioFrame* frame) {
 }
 
 int AudioProcessingImpl::ProcessCaptureStreamLocked() {
-  HandleCaptureRuntimeSettings();
+  bool preamplifier_gain_change = false;
+  HandleCaptureRuntimeSettings(&preamplifier_gain_change);
 
   // Ensure that not both the AEC and AECM are active at the same time.
   // TODO(peah): Simplify once the public API Enable functions for these
@@ -1280,7 +1285,8 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
     }
 
     private_submodules_->echo_controller->ProcessCapture(
-        capture_buffer, capture_.echo_path_gain_change);
+        capture_buffer,
+        capture_.echo_path_gain_change || preamplifier_gain_change);
   } else {
     RETURN_ON_ERR(public_submodules_->echo_cancellation->ProcessCaptureAudio(
         capture_buffer, stream_delay_ms()));
@@ -1784,7 +1790,6 @@ bool AudioProcessingImpl::UpdateActiveSubmoduleStates() {
       public_submodules_->level_estimator->is_enabled(),
       capture_.transient_suppressor_enabled);
 }
-
 
 void AudioProcessingImpl::InitializeTransient() {
   if (capture_.transient_suppressor_enabled) {

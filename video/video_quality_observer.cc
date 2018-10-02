@@ -105,6 +105,13 @@ void VideoQualityObserver::UpdateHistograms() {
         num_resolution_downgrades_ * 60000 / call_duration_ms);
     log_stream << uma_prefix << ".NumberResolutionDownswitchesPerMinute "
                << num_resolution_downgrades_ * 60000 / call_duration_ms << "\n";
+
+    int total_num_freezes = freezes_durations_.Count();
+    RTC_HISTOGRAM_COUNTS_SPARSE_100(
+        uma_prefix + ".NumberFreezesPerMinute",
+        total_num_freezes * 60000 / call_duration_ms);
+    log_stream << uma_prefix << ".NumberFreezesPerMinute "
+               << total_num_freezes * 60000 / call_duration_ms << "\n";
   }
   RTC_LOG(LS_INFO) << log_stream.str();
 }

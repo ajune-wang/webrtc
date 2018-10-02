@@ -12,6 +12,7 @@
 #define API_AUDIO_ECHO_CANCELLER3_CONFIG_H_
 
 #include <stddef.h>  // size_t
+#include <string>
 
 namespace webrtc {
 
@@ -202,6 +203,7 @@ struct EchoCanceller3Config {
     bool enforce_empty_higher_bands = false;
   } suppressor;
 };
+
 }  // namespace webrtc
 
 #endif  // API_AUDIO_ECHO_CANCELLER3_CONFIG_H_

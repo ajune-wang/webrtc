@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ae7fbcbe_dd0afd24",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-10-02T16:59:42Z",
+      "side": 1,
+      "message": "Actually, you don\u0027t need to touch |limits| at all. The extra size of the counter will be part of the payload size.",
+      "range": {
+        "startLine": 444,
+        "startChar": 0,
+        "endLine": 445,
+        "endChar": 66
+      },
+      "revId": "7c81be790e92d95ffd82eb678a2fe4f1039ddf8c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

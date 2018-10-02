@@ -424,9 +424,25 @@ bool RTPSenderVideo::SendVideo(enum VideoCodecType video_type,
 
   RTPVideoHeader minimized_video_header;
   const RTPVideoHeader* packetize_video_header = video_header;
-  if (first_packet->HasExtension<RtpGenericFrameDescriptorExtension>() &&
-      MinimizeDescriptor(*video_header, &minimized_video_header)) {
-    packetize_video_header = &minimized_video_header;
+  rtc::ArrayView<const uint8_t> generic_descriptor_raw;
+  if (first_packet->HasExtension<RtpGenericFrameDescriptorExtension>()) {
+    generic_descriptor_raw =
+        first_packet->GetRawExtension<RtpGenericFrameDescriptorExtension>();
+
+    if (MinimizeDescriptor(*video_header, &minimized_video_header)) {
+      packetize_video_header = &minimized_video_header;
+    }
+  }
+
+  if (frame_encryptor_) {
+    // We expect to use the generic frame descriptor when encrypting.
+    if (generic_descriptor_raw.empty())
+      return false;
+
+    // Do encryption stuff here with generic_descriptor_raw and payload_data
+    // and then use the result of that in the call to RtpPacketizer::Create.
+    // Note that you will have to increment limits.first_packet_reduction_len
+    // by the number of bytes you add to the start of the payload.
   }
 
   std::unique_ptr<RtpPacketizer> packetizer = RtpPacketizer::Create(

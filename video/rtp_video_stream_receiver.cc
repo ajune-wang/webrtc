@@ -369,6 +369,23 @@ void RtpVideoStreamReceiver::OnReceivedFrame(
       keyframe_request_sender_->RequestKeyFrame();
   }
 
+  if (frame_decryptor_) {
+    // When using encryption we expect the frame to have the generic descriptor.
+    absl::optional<RtpGenericFrameDescriptor> descriptor =
+        frame->GetGenericFrameDescriptor();
+    if (!descriptor)
+      return;
+
+    // The bitstream is the concatenated payload of all packets belonging to the
+    // frame. The bytes you appended in the packetization step will be at the
+    // beginning of the bitstream.
+    rtc::ArrayView<const uint8_t> bitstream(frame->Buffer(), frame->size());
+
+    // Do decryption stuff with descriptor->GetByteRepresentation() and
+    // bitstream. Finally, call frame->SetBitstream() with the decrypted
+    // payload.
+  }
+
   reference_finder_->ManageFrame(std::move(frame));
 }
 

@@ -290,6 +290,7 @@ public class NetworkMonitorAutoDetect extends BroadcastReceiver {
       // Note that getActiveNetwork and getActiveNetworkInfo return null if no default network is
       // currently active.
       if (networkInfo.getType() == ConnectivityManager.TYPE_VPN
+          && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
           && network.equals(connectivityManager.getActiveNetwork())) {
         // If a VPN network is in place, we can find the underlying network type via querying the
         // active network info thanks to

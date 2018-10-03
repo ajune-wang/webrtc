@@ -14,8 +14,11 @@
 #include <string>
 #include <vector>
 
+#include "absl/types/optional.h"
+
 namespace webrtc {
 
+// TODO: !!! Comment
 // Encode |values| as a sequence of deltas following on |base|, and writes it
 // into |output|.
 // If all of the values were equal to the base, an empty string will be
@@ -23,8 +26,10 @@ namespace webrtc {
 // |base| is not guaranteed to be written into |output|, and must therefore
 // be provided separately to the decoder.
 // This function may not fail.
-std::string EncodeDeltas(uint64_t base, const std::vector<uint64_t>& values);
+std::string EncodeDeltas(uint64_t base,
+                         const std::vector<absl::optional<uint64_t>>& values);
 
+// TODO: !!! comment
 // EncodeDeltas() and DecodeDeltas() are inverse operations;
 // invoking DecodeDeltas() over the output of EncodeDeltas(), will return
 // the input originally given to EncodeDeltas().
@@ -32,9 +37,9 @@ std::string EncodeDeltas(uint64_t base, const std::vector<uint64_t>& values);
 // an empty vector can be distinguished as an error. The function may
 // indeed fail, if |input| is not a valid encoding of |num_of_deltas| elements
 // based on |base|.
-std::vector<uint64_t> DecodeDeltas(const std::string& input,
-                                   uint64_t base,
-                                   size_t num_of_deltas);
+std::vector<absl::optional<uint64_t>> DecodeDeltas(const std::string& input,
+                                                   uint64_t base,
+                                                   size_t num_of_deltas);
 
 }  // namespace webrtc
 

@@ -281,6 +281,30 @@
       "revId": "09b652749bc3030b939f85c117ae030f9d25c7b5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f081722c_e9a49025",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 543,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-10-03T16:31:28Z",
+      "side": 1,
+      "message": "The default one will just allocate all bitrate to s0,t0 so it would functionally not be different from setting a nullptr, but it would be nice if we could remove the need for checking for that condition.\nAs long as we log an error it should not be different for the sdk user? The other option would be to CHECK and crash, but that might be a bit harsh.",
+      "parentUuid": "543fb6de_cbe3b668",
+      "range": {
+        "startLine": 541,
+        "startChar": 0,
+        "endLine": 543,
+        "endChar": 3
+      },
+      "revId": "09b652749bc3030b939f85c117ae030f9d25c7b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

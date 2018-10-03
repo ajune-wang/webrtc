@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "06337147_4e7bcbf9",
+        "filename": "BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-10-03T13:30:50Z",
+      "side": 1,
+      "message": "Please add a note saying that client code should not start using these just because it can. E.g.\n\n// Client code SHOULD NOT USE THIS TARGET, but for now it needs to be public because there exists client code that uses it.\n// TODO(bugs.webrtc.org/9808): Move to private visibility as soon as that \nclient code gets updated.",
+      "revId": "c2372fa618c9cda61f4d1c2d3f6c5bb5bb6a0b60",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea118eca_bf6b2d72",
+        "filename": "modules/audio_coding/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-10-03T13:30:50Z",
+      "side": 1,
+      "message": "Same.",
+      "revId": "c2372fa618c9cda61f4d1c2d3f6c5bb5bb6a0b60",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7fee2312_560eb9ff",
+        "filename": "modules/audio_coding/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-10-03T13:30:50Z",
+      "side": 1,
+      "message": "IIRC you can get the same effect with\n\n  visibility +\u003d [\"*\"]",
+      "revId": "c2372fa618c9cda61f4d1c2d3f6c5bb5bb6a0b60",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

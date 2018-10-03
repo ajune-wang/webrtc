@@ -99,5 +99,10 @@ TEST(TestFakeVp8Codec, TestSpatioTemporalLayers333PatternEncoder) {
   fixture->TestSpatioTemporalLayers333PatternEncoder();
 }
 
+TEST(TestFakeVp8Codec, TestDecodeWidthHeightSet) {
+  auto fixture = CreateSpecificSimulcastTestFixture();
+  fixture->TestDecodeWidthHeightSet();
+}
+
 }  // namespace test
 }  // namespace webrtc

@@ -24,7 +24,28 @@
 namespace webrtc {
 namespace test {
 
+namespace {
 const int kKeyframeSizeFactor = 10;
+
+constexpr int kMinPayLoadHeaderLength = 10;
+
+// Write width and height to the payload the same way as the real encoder does.
+// It requires that |payload| has a size of at least kMinPayLoadHeaderLength.
+void WriteFakeVp8(unsigned char* payload,
+                  int width,
+                  int height,
+                  bool key_frame) {
+  payload[0] = key_frame ? 0 : 0x01;
+
+  if (key_frame) {
+    payload[9] = (height & 0x3F00) >> 8;
+    payload[8] = (height & 0x00FF);
+
+    payload[7] = (width & 0x3F00) >> 8;
+    payload[6] = (width & 0x00FF);
+  }
+}
+}  // namespace
 
 FakeEncoder::FakeEncoder(Clock* clock)
     : clock_(clock),
@@ -94,7 +115,7 @@ int32_t FakeEncoder::Encode(const VideoFrame& input_image,
       NextFrame(frame_types, keyframe, num_simulcast_streams, target_bitrate,
                 simulcast_streams, framerate);
   for (uint8_t i = 0; i < frame_info.layers.size(); ++i) {
-    if (frame_info.layers[i].size == 0) {
+    if (frame_info.layers[i].size < kMinPayLoadHeaderLength) {
       // Drop this temporal layer.
       continue;
     }
@@ -105,6 +126,10 @@ int32_t FakeEncoder::Encode(const VideoFrame& input_image,
     std::unique_ptr<uint8_t[]> encoded_buffer(
         new uint8_t[frame_info.layers[i].size]);
     memcpy(encoded_buffer.get(), encoded_buffer_, frame_info.layers[i].size);
+    // Write width and height to the payload the same way as the real encoder
+    // does.
+    WriteFakeVp8(encoded_buffer.get(), simulcast_streams[i].width,
+                 simulcast_streams[i].height, frame_info.keyframe);
     EncodedImage encoded(encoded_buffer.get(), frame_info.layers[i].size,
                          sizeof(encoded_buffer_));
     encoded.SetTimestamp(input_image.timestamp());
@@ -113,6 +138,7 @@ int32_t FakeEncoder::Encode(const VideoFrame& input_image,
         frame_info.keyframe ? kVideoFrameKey : kVideoFrameDelta;
     encoded._encodedWidth = simulcast_streams[i].width;
     encoded._encodedHeight = simulcast_streams[i].height;
+
     encoded.rotation_ = input_image.rotation();
     encoded.content_type_ = (mode == VideoCodecMode::kScreensharing)
                                 ? VideoContentType::SCREENSHARE

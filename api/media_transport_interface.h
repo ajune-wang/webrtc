@@ -25,6 +25,10 @@
 #include "api/rtcerror.h"
 #include "common_types.h"  // NOLINT(build/include)
 
+namespace webrtc {
+class EncodedImage;
+}  // namespace webrtc
+
 namespace rtc {
 class PacketTransportInternal;
 class Thread;

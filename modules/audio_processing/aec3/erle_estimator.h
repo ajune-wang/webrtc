@@ -31,7 +31,7 @@ class ErleEstimator {
   ~ErleEstimator();
 
   // Resets the fullband ERLE estimator and the subbands ERLE estimators.
-  void Reset();
+  void Reset(bool delay_change);
 
   // Updates the ERLE estimates.
   void Update(rtc::ArrayView<const float> render_spectrum,
@@ -68,6 +68,7 @@ class ErleEstimator {
  private:
   FullBandErleEstimator fullband_erle_estimator_;
   SubbandErleEstimator subband_erle_estimator_;
+  size_t blocks_since_reset_ = 0;
 };
 
 }  // namespace webrtc

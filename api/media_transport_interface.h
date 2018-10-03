@@ -23,6 +23,7 @@
 #include <vector>
 
 #include "api/rtcerror.h"
+#include "api/video/video_frame.h"
 #include "common_types.h"  // NOLINT(build/include)
 
 namespace rtc {

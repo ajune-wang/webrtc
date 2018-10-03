@@ -420,6 +420,9 @@ if (!build_with_chromium) {
 }
 
 rtc_source_set("webrtc_common") {
+  # TODO(bugs.webrtc.org/9808): Move to private visibility as soon as
+  # client code gets updated.
+  visibility = [ "*" ]
   sources = [
     "common_types.h",
   ]

@@ -25,7 +25,7 @@ namespace webrtc {
 // |base| is not guaranteed to be written into |output|, and must therefore
 // be provided separately to the decoder.
 // This function may not fail.
-// TODO(eladalon): Split into optional and non-optional variants (efficiency).
+std::string EncodeDeltas(uint64_t base, const std::vector<uint64_t>& values);
 std::string EncodeDeltas(absl::optional<uint64_t> base,
                          const std::vector<absl::optional<uint64_t>>& values);
 
@@ -36,7 +36,9 @@ std::string EncodeDeltas(absl::optional<uint64_t> base,
 // an empty vector can be distinguished as an error. The function may
 // indeed fail, if |input| is not a valid encoding of |num_of_deltas| elements
 // based on |base|.
-// TODO(eladalon): Split into optional and non-optional variants (efficiency).
+std::vector<uint64_t> DecodeDeltas(const std::string& input,
+                                   uint64_t base,
+                                   size_t num_of_deltas);
 std::vector<absl::optional<uint64_t>> DecodeDeltas(
     const std::string& input,
     absl::optional<uint64_t> base,

@@ -63,74 +63,114 @@ uint64_t RandomWithMaxBitWidth(Random* prng, uint64_t max_width) {
 // that it is equal to the original input.
 // If |encoded_string| is non-null, the encoded result will also be written
 // into it.
-void TestEncodingAndDecoding(uint64_t base,
-                             const std::vector<uint64_t>& values,
-                             std::string* encoded_string = nullptr) {
+void TestEncodingAndDecoding(
+    absl::optional<uint64_t> base,
+    const std::vector<absl::optional<uint64_t>>& values,
+    std::string* encoded_string = nullptr) {
   const std::string encoded = EncodeDeltas(base, values);
   if (encoded_string) {
     *encoded_string = encoded;
   }
 
-  const std::vector<uint64_t> decoded =
+  const std::vector<absl::optional<uint64_t>> decoded =
       DecodeDeltas(encoded, base, values.size());
 
   EXPECT_EQ(decoded, values);
 }
 
-std::vector<uint64_t> CreateSequenceByFirstValue(uint64_t first,
-                                                 size_t sequence_length) {
-  std::vector<uint64_t> sequence(sequence_length);
+std::vector<absl::optional<uint64_t>> CreateSequenceByFirstValue(
+    uint64_t first,
+    size_t sequence_length) {
+  std::vector<absl::optional<uint64_t>> sequence(sequence_length);
   std::iota(sequence.begin(), sequence.end(), first);
   return sequence;
 }
 
-std::vector<uint64_t> CreateSequenceByLastValue(uint64_t last,
-                                                size_t num_values) {
+std::vector<absl::optional<uint64_t>> CreateSequenceByLastValue(
+    uint64_t last,
+    size_t num_values) {
   const uint64_t first = last - num_values + 1;
-  std::vector<uint64_t> result(num_values);
+  std::vector<absl::optional<uint64_t>> result(num_values);
   std::iota(result.begin(), result.end(), first);
   return result;
 }
 
 // If |sequence_length| is greater than the number of deltas, the sequence of
 // deltas will wrap around.
-std::vector<uint64_t> CreateSequenceByDeltas(
+std::vector<absl::optional<uint64_t>> CreateSequenceByOptionalDeltas(
     uint64_t first,
-    const std::vector<uint64_t>& deltas,
+    const std::vector<absl::optional<uint64_t>>& deltas,
     size_t sequence_length) {
   RTC_DCHECK_GE(sequence_length, 1);
 
-  std::vector<uint64_t> sequence(sequence_length);
+  std::vector<absl::optional<uint64_t>> sequence(sequence_length);
 
   uint64_t previous = first;
   for (size_t i = 0, next_delta_index = 0; i < sequence.size(); ++i) {
-    sequence[i] = previous + deltas[next_delta_index];
+    if (deltas[next_delta_index].has_value()) {
+      sequence[i] =
+          absl::optional<uint64_t>(previous + deltas[next_delta_index].value());
+      previous = sequence[i].value();
+    }
     next_delta_index = (next_delta_index + 1) % deltas.size();
-    previous = sequence[i];
   }
 
   return sequence;
 }
 
+// If |sequence_length| is greater than the number of deltas, the sequence of
+// deltas will wrap around.
+std::vector<absl::optional<uint64_t>> CreateSequenceByDeltas(
+    uint64_t first,
+    const std::vector<uint64_t>& deltas,
+    size_t sequence_length) {
+  RTC_DCHECK(!deltas.empty());
+  std::vector<absl::optional<uint64_t>> optional_deltas(deltas.size());
+  for (size_t i = 0; i < deltas.size(); ++i) {
+    optional_deltas[i] = absl::optional<uint64_t>(deltas[i]);
+  }
+  return CreateSequenceByOptionalDeltas(first, optional_deltas,
+                                        sequence_length);
+}
+
 // Tests of the delta encoding, parameterized by the number of values
 // in the sequence created by the test.
-class DeltaEncodingTest
-    : public ::testing::TestWithParam<std::tuple<DeltaSignedness, size_t>> {
+class DeltaEncodingTest : public ::testing::TestWithParam<
+                              std::tuple<DeltaSignedness, size_t, bool>> {
  public:
   DeltaEncodingTest()
       : signedness_(std::get<0>(GetParam())),
-        num_of_values_(std::get<1>(GetParam())) {
+        num_of_values_(std::get<1>(GetParam())),
+        optional_values_(std::get<2>(GetParam())) {
     MaybeSetSignedness(signedness_);
   }
+
   ~DeltaEncodingTest() override = default;
 
   const DeltaSignedness signedness_;
   const uint64_t num_of_values_;
+  const bool optional_values_;
 };
 
-TEST_P(DeltaEncodingTest, AllValuesEqualToBaseValue) {
-  const uint64_t base = 3432;
-  std::vector<uint64_t> values(num_of_values_);
+TEST_P(DeltaEncodingTest, AllValuesEqualToExistentBaseValue) {
+  const absl::optional<uint64_t> base(3432);
+  std::vector<absl::optional<uint64_t>> values(num_of_values_);
+  std::fill(values.begin(), values.end(), base);
+  std::string encoded;
+  TestEncodingAndDecoding(base, values, &encoded);
+
+  // Additional requirement - the encoding should be efficient in this
+  // case - the empty string will be used.
+  EXPECT_TRUE(encoded.empty());
+}
+
+TEST_P(DeltaEncodingTest, AllValuesEqualToNonExistentBaseValue) {
+  if (!optional_values_) {
+    return;  // Test irrelevant for this case.
+  }
+
+  const absl::optional<uint64_t> base;
+  std::vector<absl::optional<uint64_t>> values(num_of_values_);
   std::fill(values.begin(), values.end(), base);
   std::string encoded;
   TestEncodingAndDecoding(base, values, &encoded);
@@ -141,40 +181,64 @@ TEST_P(DeltaEncodingTest, AllValuesEqualToBaseValue) {
 }
 
 TEST_P(DeltaEncodingTest, MinDeltaNoWrapAround) {
-  const uint64_t base = 3432;
+  const absl::optional<uint64_t> base(3432);
 
-  const auto values = CreateSequenceByFirstValue(base + 1, num_of_values_);
+  auto values = CreateSequenceByFirstValue(base.value() + 1, num_of_values_);
   ASSERT_GT(values[values.size() - 1], base) << "Sanity; must not wrap around";
+
+  if (optional_values_) {
+    // Arbitrarily make one of the values non-existent, to force
+    // optional-supporting encoding.
+    values[0] = absl::optional<uint64_t>();
+  }
 
   TestEncodingAndDecoding(base, values);
 }
 
 TEST_P(DeltaEncodingTest, BigDeltaNoWrapAround) {
   const uint64_t kBigDelta = 132828;
-  const uint64_t base = 3432;
+  const absl::optional<uint64_t> base(3432);
 
-  const auto values =
-      CreateSequenceByFirstValue(base + kBigDelta, num_of_values_);
+  auto values =
+      CreateSequenceByFirstValue(base.value() + kBigDelta, num_of_values_);
   ASSERT_GT(values[values.size() - 1], base) << "Sanity; must not wrap around";
+
+  if (optional_values_) {
+    // Arbitrarily make one of the values non-existent, to force
+    // optional-supporting encoding.
+    values[0] = absl::optional<uint64_t>();
+  }
 
   TestEncodingAndDecoding(base, values);
 }
 
 TEST_P(DeltaEncodingTest, MaxDeltaNoWrapAround) {
-  const uint64_t base = 3432;
+  const absl::optional<uint64_t> base(3432);
 
-  const auto values = CreateSequenceByLastValue(
-      std::numeric_limits<uint64_t>::max(), num_of_values_);
+  auto values = CreateSequenceByLastValue(std::numeric_limits<uint64_t>::max(),
+                                          num_of_values_);
   ASSERT_GT(values[values.size() - 1], base) << "Sanity; must not wrap around";
+
+  if (optional_values_) {
+    // Arbitrarily make one of the values non-existent, to force
+    // optional-supporting encoding.
+    values[0] = absl::optional<uint64_t>();
+  }
 
   TestEncodingAndDecoding(base, values);
 }
 
 TEST_P(DeltaEncodingTest, MinDeltaWithWrapAround) {
-  const uint64_t base = std::numeric_limits<uint64_t>::max();
+  const absl::optional<uint64_t> base(std::numeric_limits<uint64_t>::max());
 
-  const auto values = CreateSequenceByDeltas(0, {10, 3}, num_of_values_);
+  auto values = CreateSequenceByDeltas(0, {10, 3}, num_of_values_);
   ASSERT_LT(values[values.size() - 1], base) << "Sanity; must wrap around";
+
+  if (optional_values_) {
+    // Arbitrarily make one of the values non-existent, to force
+    // optional-supporting encoding.
+    values[0] = absl::optional<uint64_t>();
+  }
 
   TestEncodingAndDecoding(base, values);
 }
@@ -186,11 +250,19 @@ TEST_P(DeltaEncodingTest, MinDeltaWithWrapAround) {
 #endif
 TEST_P(DeltaEncodingTest, BigDeltaWithWrapAround) {
   const uint64_t kBigDelta = 132828;
-  const uint64_t base = std::numeric_limits<uint64_t>::max() - kBigDelta + 3;
+  const absl::optional<uint64_t> base(std::numeric_limits<uint64_t>::max() -
+                                      kBigDelta + 3);
 
-  const auto values =
-      CreateSequenceByFirstValue(base + kBigDelta, num_of_values_);
-  ASSERT_LT(values[values.size() - 1], base) << "Sanity; must wrap around";
+  auto values =
+      CreateSequenceByFirstValue(base.value() + kBigDelta, num_of_values_);
+  ASSERT_LT(values[values.size() - 1], base.value())
+      << "Sanity; must wrap around";
+
+  if (optional_values_) {
+    // Arbitrarily make one of the values non-existent, to force
+    // optional-supporting encoding.
+    values[0] = absl::optional<uint64_t>();
+  }
 
   TestEncodingAndDecoding(base, values);
 }
@@ -199,25 +271,37 @@ TEST_P(DeltaEncodingTest, BigDeltaWithWrapAround) {
 #endif
 
 TEST_P(DeltaEncodingTest, MaxDeltaWithWrapAround) {
-  const uint64_t base = 3432;
+  const absl::optional<uint64_t> base(3432);
 
-  const auto values = CreateSequenceByLastValue(3, num_of_values_);
+  auto values = CreateSequenceByLastValue(3, num_of_values_);
   ASSERT_LT(values[values.size() - 1], base) << "Sanity; must wrap around";
+
+  if (optional_values_) {
+    // Arbitrarily make one of the values non-existent, to force
+    // optional-supporting encoding.
+    values[0] = absl::optional<uint64_t>();
+  }
 
   TestEncodingAndDecoding(base, values);
 }
 
 // If num_of_values_ == 1, a zero delta will yield an empty string; that's
-// already covered by AllValuesEqualToBaseValue, but it doesn't hurt to test
-// again. For all other cases, we have a new test.
+// already covered by AllValuesEqualToExistentBaseValue, but it doesn't hurt to
+// test again. For all other cases, we have a new test.
 TEST_P(DeltaEncodingTest, ZeroDelta) {
-  const uint64_t base = 3432;
+  const absl::optional<uint64_t> base(3432);
 
   // Arbitrary sequence of deltas with intentional zero deltas, as well as
   // consecutive zeros.
   const std::vector<uint64_t> deltas = {0,      312, 11, 1,  1, 0, 0, 12,
                                         400321, 3,   3,  12, 5, 0, 6};
-  const auto values = CreateSequenceByDeltas(base, deltas, num_of_values_);
+  auto values = CreateSequenceByDeltas(base.value(), deltas, num_of_values_);
+
+  if (optional_values_) {
+    // Arbitrarily make one of the values non-existent, to force
+    // optional-supporting encoding.
+    values[0] = absl::optional<uint64_t>();
+  }
 
   TestEncodingAndDecoding(base, values);
 }
@@ -228,7 +312,8 @@ INSTANTIATE_TEST_CASE_P(
     ::testing::Combine(::testing::Values(DeltaSignedness::kNoOverride,
                                          DeltaSignedness::kForceUnsigned,
                                          DeltaSignedness::kForceSigned),
-                       ::testing::Values(1, 2, 100, 10000)));
+                       ::testing::Values(1, 2, 100, 10000),
+                       ::testing::Bool()));
 
 // Tests over the quality of the compression (as opposed to its correctness).
 // Not to be confused with tests of runtime efficiency.
@@ -271,7 +356,6 @@ TEST_P(DeltaEncodingCompressionQualityTest,
   //    need to be conveyed explicitly in the encoding header.
   const uint64_t bases[] = {0, 0x55, 0xffffffff,
                             std::numeric_limits<uint64_t>::max()};
-
   const size_t kIntendedWrapAroundBaseIndex = arraysize(bases);
 
   std::vector<uint64_t> deltas(num_of_values_);
@@ -344,12 +428,13 @@ INSTANTIATE_TEST_CASE_P(
 // specific cases, produce large amount of semi-realistic inputs.
 class DeltaEncodingFuzzerLikeTest
     : public ::testing::TestWithParam<
-          std::tuple<DeltaSignedness, uint64_t, uint64_t>> {
+          std::tuple<DeltaSignedness, uint64_t, uint64_t, bool>> {
  public:
   DeltaEncodingFuzzerLikeTest()
       : signedness_(std::get<0>(GetParam())),
         delta_max_bit_width_(std::get<1>(GetParam())),
-        num_of_values_(std::get<2>(GetParam())) {
+        num_of_values_(std::get<2>(GetParam())),
+        optional_values_(std::get<3>(GetParam())) {
     MaybeSetSignedness(signedness_);
   }
 
@@ -363,24 +448,27 @@ class DeltaEncodingFuzzerLikeTest
     // to produce unique results.
     return non_zero_base_seed + 2 * static_cast<uint64_t>(signedness_) +
            3 * delta_max_bit_width_ + 5 * delta_max_bit_width_ +
-           7 * num_of_values_;
+           7 * num_of_values_ + 11 * static_cast<uint64_t>(optional_values_);
   }
 
   const DeltaSignedness signedness_;
   const uint64_t delta_max_bit_width_;
   const uint64_t num_of_values_;
+  const bool optional_values_;
 };
 
 TEST_P(DeltaEncodingFuzzerLikeTest, Test) {
-  const uint64_t base = 3432;
+  const absl::optional<uint64_t> base(3432);
 
   Random prng(Seed());
-  std::vector<uint64_t> deltas(num_of_values_);
+  std::vector<absl::optional<uint64_t>> deltas(num_of_values_);
   for (size_t i = 0; i < deltas.size(); ++i) {
-    deltas[i] = RandomWithMaxBitWidth(&prng, delta_max_bit_width_);
+    if (!optional_values_ || prng.Rand<bool>()) {
+      deltas[i] = RandomWithMaxBitWidth(&prng, delta_max_bit_width_);
+    }
   }
-
-  const auto values = CreateSequenceByDeltas(base, deltas, num_of_values_);
+  const auto values =
+      CreateSequenceByOptionalDeltas(base.value(), deltas, num_of_values_);
 
   TestEncodingAndDecoding(base, values);
 }
@@ -393,7 +481,8 @@ INSTANTIATE_TEST_CASE_P(
                           DeltaSignedness::kForceUnsigned,
                           DeltaSignedness::kForceSigned),
         ::testing::Values(1, 4, 8, 15, 16, 17, 31, 32, 33, 63, 64),
-        ::testing::Values(1, 2, 100, 10000)));
+        ::testing::Values(1, 2, 100, 10000),
+        ::testing::Bool()));
 
 class DeltaEncodingSpecificEdgeCasesTest : public ::testing::Test {
  public:
@@ -404,10 +493,10 @@ class DeltaEncodingSpecificEdgeCasesTest : public ::testing::Test {
 TEST_F(DeltaEncodingSpecificEdgeCasesTest, SignedDeltaWithOnlyTopBitOn) {
   MaybeSetSignedness(DeltaSignedness::kForceSigned);
 
-  const uint64_t base = 3432;
+  const absl::optional<uint64_t> base(3432);
 
   const uint64_t delta = static_cast<uint64_t>(1) << 63;
-  const std::vector<uint64_t> values = {base + delta};
+  const std::vector<absl::optional<uint64_t>> values = {base.value() + delta};
 
   TestEncodingAndDecoding(base, values);
 }
@@ -415,9 +504,9 @@ TEST_F(DeltaEncodingSpecificEdgeCasesTest, SignedDeltaWithOnlyTopBitOn) {
 TEST_F(DeltaEncodingSpecificEdgeCasesTest, MaximumUnsignedDelta) {
   MaybeSetSignedness(DeltaSignedness::kForceUnsigned);
 
-  const uint64_t base = (static_cast<uint64_t>(1) << 63) + 0x123;
+  const absl::optional<uint64_t> base((static_cast<uint64_t>(1) << 63) + 0x123);
 
-  const std::vector<uint64_t> values = {base - 1};
+  const std::vector<absl::optional<uint64_t>> values = {base.value() - 1};
 
   TestEncodingAndDecoding(base, values);
 }

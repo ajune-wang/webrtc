@@ -46,6 +46,30 @@
       "revId": "e27eeda1f4a2dd916d33ac5691697de83989559e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad8603d5_e46d088a",
+        "filename": "test/fake_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-10-03T18:53:47Z",
+      "side": 1,
+      "message": "Yes, please add FakeVp8Decoder as well. It makes it easier to follow if we keep Vp8 specific to those classes.\n\nYeah, I\u0027m not terribly fond of the way FakeVp8Encoder inherits from FakeEncoder. If you feel like cleaning things up, I\u0027m all for it. :)",
+      "parentUuid": "9644809c_b1fd678a",
+      "range": {
+        "startLine": 129,
+        "startChar": 0,
+        "endLine": 132,
+        "endChar": 67
+      },
+      "revId": "e27eeda1f4a2dd916d33ac5691697de83989559e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

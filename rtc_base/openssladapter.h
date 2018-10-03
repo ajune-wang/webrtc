@@ -130,7 +130,7 @@ class OpenSSLAdapter : public SSLAdapter, public MessageHandler {
   // This buffer is used if SSL_write fails with SSL_ERROR_WANT_WRITE, which
   // means we need to keep retrying with *the same exact data* until it
   // succeeds. Afterwards it will be cleared.
-  BufferT<uint8_t> pending_data_;
+  Buffer<uint8_t> pending_data_;
   SSL* ssl_;
   // Holds the SSL context, which may be shared if an session cache is provided.
   SSL_CTX* ssl_ctx_;

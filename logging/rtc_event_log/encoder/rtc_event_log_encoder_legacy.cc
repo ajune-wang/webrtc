@@ -661,7 +661,7 @@ std::string RtcEventLogEncoderLegacy::EncodeVideoSendStreamConfig(
 
 std::string RtcEventLogEncoderLegacy::EncodeRtcpPacket(
     int64_t timestamp_us,
-    const rtc::BufferT<uint8_t>& packet,
+    const rtc::Buffer<uint8_t>& packet,
     bool is_incoming) {
   rtclog::Event rtclog_event;
   rtclog_event.set_timestamp_us(timestamp_us);

@@ -30,7 +30,7 @@ class FakeSSLCertificate : public SSLCertificate {
   // SSLCertificate implementation.
   FakeSSLCertificate* GetReference() const override;
   std::string ToPEMString() const override;
-  void ToDER(BufferT<uint8_t>* der_buffer) const override;
+  void ToDER(Buffer<uint8_t>* der_buffer) const override;
   int64_t CertificateExpirationTime() const override;
   bool GetSignatureDigestAlgorithm(std::string* algorithm) const override;
   bool ComputeDigest(const std::string& algorithm,

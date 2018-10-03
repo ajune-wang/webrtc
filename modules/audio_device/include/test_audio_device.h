@@ -40,7 +40,7 @@ class TestAudioDeviceModule : public AudioDeviceModule {
     // Replaces the contents of |buffer| with 10ms of captured audio data
     // (see TestAudioDeviceModule::SamplesPerFrame). Returns true if the
     // capturer can keep producing data, or false when the capture finishes.
-    virtual bool Capture(rtc::BufferT<int16_t>* buffer) = 0;
+    virtual bool Capture(rtc::Buffer<int16_t>* buffer) = 0;
   };
 
   class Renderer {

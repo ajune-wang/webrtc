@@ -52,7 +52,7 @@ class RentACodecTestF : public ::testing::Test {
                        uint32_t expected_timestamp,
                        int expected_payload_type,
                        int expected_send_even_if_empty) {
-    rtc::BufferT<uint8_t> out;
+    rtc::Buffer<uint8_t> out;
     AudioEncoder::EncodedInfo encoded_info;
     encoded_info = encoder_->Encode(timestamp_, kZeroData, &out);
     timestamp_ += kDataLengthSamples;
@@ -124,7 +124,7 @@ TEST(RentACodecTest, ExternalEncoder) {
   EXPECT_EQ(external_encoder, encoder_stack.get());
   const int kPacketSizeSamples = kSampleRateHz / 100;
   int16_t audio[kPacketSizeSamples] = {0};
-  rtc::BufferT<uint8_t> encoded;
+  rtc::Buffer<uint8_t> encoded;
   AudioEncoder::EncodedInfo info;
 
   Marker marker;

@@ -233,7 +233,7 @@ class TestAudioDeviceModuleImpl
   rtc::Event done_capturing_;
 
   std::vector<int16_t> playout_buffer_ RTC_GUARDED_BY(lock_);
-  rtc::BufferT<int16_t> recording_buffer_ RTC_GUARDED_BY(lock_);
+  rtc::Buffer<int16_t> recording_buffer_ RTC_GUARDED_BY(lock_);
 
   std::unique_ptr<rtc::PlatformThread> thread_;
   bool stop_thread_ RTC_GUARDED_BY(lock_);
@@ -260,7 +260,7 @@ class PulsedNoiseCapturerImpl final
 
   int NumChannels() const override { return num_channels_; }
 
-  bool Capture(rtc::BufferT<int16_t>* buffer) override {
+  bool Capture(rtc::Buffer<int16_t>* buffer) override {
     fill_with_zero_ = !fill_with_zero_;
     int16_t max_amplitude;
     {
@@ -317,7 +317,7 @@ class WavFileReader final : public TestAudioDeviceModule::Capturer {
 
   int NumChannels() const override { return num_channels_; }
 
-  bool Capture(rtc::BufferT<int16_t>* buffer) override {
+  bool Capture(rtc::Buffer<int16_t>* buffer) override {
     buffer->SetData(
         TestAudioDeviceModule::SamplesPerFrame(sampling_frequency_in_hz_) *
             num_channels_,

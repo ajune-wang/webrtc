@@ -75,8 +75,8 @@ class AsyncTCPSocketBase : public AsyncPacketSocket {
 
   std::unique_ptr<AsyncSocket> socket_;
   bool listen_;
-  BufferT<uint8_t> inbuf_;
-  BufferT<uint8_t> outbuf_;
+  Buffer<uint8_t> inbuf_;
+  Buffer<uint8_t> outbuf_;
   size_t max_insize_;
   size_t max_outsize_;
 

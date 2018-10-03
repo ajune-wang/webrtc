@@ -47,7 +47,7 @@ class SpsVuiRewriter : private SpsParser {
       const uint8_t* buffer,
       size_t length,
       absl::optional<SpsParser::SpsState>* sps,
-      rtc::BufferT<uint8_t>* destination);
+      rtc::Buffer<uint8_t>* destination);
 };
 
 }  // namespace webrtc

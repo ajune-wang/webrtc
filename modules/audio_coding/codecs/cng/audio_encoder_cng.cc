@@ -87,7 +87,7 @@ int AudioEncoderCng::GetTargetBitrate() const {
 AudioEncoder::EncodedInfo AudioEncoderCng::EncodeImpl(
     uint32_t rtp_timestamp,
     rtc::ArrayView<const int16_t> audio,
-    rtc::BufferT<uint8_t>* encoded) {
+    rtc::Buffer<uint8_t>* encoded) {
   const size_t samples_per_10ms_frame = SamplesPer10msFrame();
   RTC_CHECK_EQ(speech_buffer_.size(),
                rtp_timestamps_.size() * samples_per_10ms_frame);
@@ -204,7 +204,7 @@ void AudioEncoderCng::OnReceivedUplinkBandwidth(
 
 AudioEncoder::EncodedInfo AudioEncoderCng::EncodePassive(
     size_t frames_to_encode,
-    rtc::BufferT<uint8_t>* encoded) {
+    rtc::Buffer<uint8_t>* encoded) {
   bool force_sid = last_frame_active_;
   bool output_produced = false;
   const size_t samples_per_10ms_frame = SamplesPer10msFrame();
@@ -238,7 +238,7 @@ AudioEncoder::EncodedInfo AudioEncoderCng::EncodePassive(
 
 AudioEncoder::EncodedInfo AudioEncoderCng::EncodeActive(
     size_t frames_to_encode,
-    rtc::BufferT<uint8_t>* encoded) {
+    rtc::Buffer<uint8_t>* encoded) {
   const size_t samples_per_10ms_frame = SamplesPer10msFrame();
   AudioEncoder::EncodedInfo info;
   for (size_t i = 0; i < frames_to_encode; ++i) {

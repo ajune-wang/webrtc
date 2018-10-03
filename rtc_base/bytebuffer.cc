@@ -46,7 +46,7 @@ ByteBufferReader::ByteBufferReader(const char* bytes)
   Construct(bytes, strlen(bytes));
 }
 
-ByteBufferReader::ByteBufferReader(const BufferT<uint8_t>& buf)
+ByteBufferReader::ByteBufferReader(const Buffer<uint8_t>& buf)
     : ByteBuffer(ORDER_NETWORK) {
   Construct(buf.data<char>(), buf.size());
 }

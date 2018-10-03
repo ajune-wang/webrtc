@@ -25,7 +25,7 @@ namespace {
 
 class OldStyleEncodedFrame final : public AudioDecoder::EncodedAudioFrame {
  public:
-  OldStyleEncodedFrame(AudioDecoder* decoder, rtc::BufferT<uint8_t>&& payload)
+  OldStyleEncodedFrame(AudioDecoder* decoder, rtc::Buffer<uint8_t>&& payload)
       : decoder_(decoder), payload_(std::move(payload)) {}
 
   size_t Duration() const override {
@@ -46,7 +46,7 @@ class OldStyleEncodedFrame final : public AudioDecoder::EncodedAudioFrame {
 
  private:
   AudioDecoder* const decoder_;
-  const rtc::BufferT<uint8_t> payload_;
+  const rtc::Buffer<uint8_t> payload_;
 };
 
 }  // namespace
@@ -70,7 +70,7 @@ AudioDecoder::ParseResult& AudioDecoder::ParseResult::operator=(
     ParseResult&& b) = default;
 
 std::vector<AudioDecoder::ParseResult> AudioDecoder::ParsePayload(
-    rtc::BufferT<uint8_t>&& payload,
+    rtc::Buffer<uint8_t>&& payload,
     uint32_t timestamp) {
   std::vector<ParseResult> results;
   std::unique_ptr<EncodedAudioFrame> frame(
@@ -132,7 +132,7 @@ size_t AudioDecoder::DecodePlc(size_t num_frames, int16_t* decoded) {
 
 // TODO(bugs.webrtc.org/9676): Remove default impementation.
 void AudioDecoder::GeneratePlc(size_t /*requested_samples_per_channel*/,
-                               rtc::BufferT<int16_t>* /*concealment_audio*/) {
+                               rtc::Buffer<int16_t>* /*concealment_audio*/) {
   return;
 }
 

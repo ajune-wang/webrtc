@@ -85,7 +85,7 @@ std::vector<uint8_t> ParseRbsp(const uint8_t* data, size_t length) {
 
 void WriteRbsp(const uint8_t* bytes,
                size_t length,
-               rtc::BufferT<uint8_t>* destination) {
+               rtc::Buffer<uint8_t>* destination) {
   static const uint8_t kZerosInStartSequence = 2;
   static const uint8_t kEmulationByte = 0x03u;
   size_t num_consecutive_zeros = 0;

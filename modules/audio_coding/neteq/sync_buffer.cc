@@ -36,7 +36,7 @@ void SyncBuffer::PushBack(const AudioMultiVector& append_this) {
   dtmf_index_ -= std::min(dtmf_index_, samples_added);
 }
 
-void SyncBuffer::PushBackInterleaved(const rtc::BufferT<int16_t>& append_this) {
+void SyncBuffer::PushBackInterleaved(const rtc::Buffer<int16_t>& append_this) {
   const size_t size_before_adding = Size();
   AudioMultiVector::PushBackInterleaved(append_this);
   const size_t samples_added_per_channel = Size() - size_before_adding;

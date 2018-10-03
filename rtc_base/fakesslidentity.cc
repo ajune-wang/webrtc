@@ -37,7 +37,7 @@ std::string FakeSSLCertificate::ToPEMString() const {
   return pem_string_;
 }
 
-void FakeSSLCertificate::ToDER(BufferT<uint8_t>* der_buffer) const {
+void FakeSSLCertificate::ToDER(Buffer<uint8_t>* der_buffer) const {
   std::string der_string;
   RTC_CHECK(
       SSLIdentity::PemToDer(kPemTypeCertificate, pem_string_, &der_string));

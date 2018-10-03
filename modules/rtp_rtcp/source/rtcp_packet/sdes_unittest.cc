@@ -29,7 +29,7 @@ const uint8_t kEmailTag = 3;
 TEST(RtcpPacketSdesTest, CreateAndParseWithoutChunks) {
   Sdes sdes;
 
-  rtc::BufferT<uint8_t> packet = sdes.Build();
+  rtc::Buffer<uint8_t> packet = sdes.Build();
   Sdes parsed;
   EXPECT_TRUE(test::ParseSinglePacket(packet, &parsed));
 
@@ -42,7 +42,7 @@ TEST(RtcpPacketSdesTest, CreateAndParseWithOneChunk) {
   Sdes sdes;
   EXPECT_TRUE(sdes.AddCName(kSenderSsrc, kCname));
 
-  rtc::BufferT<uint8_t> packet = sdes.Build();
+  rtc::Buffer<uint8_t> packet = sdes.Build();
   Sdes sdes_parsed;
   EXPECT_TRUE(test::ParseSinglePacket(packet, &sdes_parsed));
   const Sdes& parsed = sdes_parsed;  // Ensure accessors are const.
@@ -61,7 +61,7 @@ TEST(RtcpPacketSdesTest, CreateAndParseWithMultipleChunks) {
   EXPECT_TRUE(sdes.AddCName(kSenderSsrc + 4, "abcde"));
   EXPECT_TRUE(sdes.AddCName(kSenderSsrc + 5, "abcdef"));
 
-  rtc::BufferT<uint8_t> packet = sdes.Build();
+  rtc::Buffer<uint8_t> packet = sdes.Build();
   Sdes parsed;
   EXPECT_TRUE(test::ParseSinglePacket(packet, &parsed));
 
@@ -86,7 +86,7 @@ TEST(RtcpPacketSdesTest, CreateAndParseCnameItemWithEmptyString) {
   Sdes sdes;
   EXPECT_TRUE(sdes.AddCName(kSenderSsrc, ""));
 
-  rtc::BufferT<uint8_t> packet = sdes.Build();
+  rtc::Buffer<uint8_t> packet = sdes.Build();
   Sdes parsed;
   EXPECT_TRUE(test::ParseSinglePacket(packet, &parsed));
 
@@ -221,7 +221,7 @@ TEST(RtcpPacketSdesTest, ParsedSdesCanBeReusedForBuilding) {
   const std::string kBob = "bob@host";
   source.AddCName(kSenderSsrc, kAlice);
 
-  rtc::BufferT<uint8_t> packet1 = source.Build();
+  rtc::Buffer<uint8_t> packet1 = source.Build();
   Sdes middle;
   test::ParseSinglePacket(packet1, &middle);
 
@@ -229,7 +229,7 @@ TEST(RtcpPacketSdesTest, ParsedSdesCanBeReusedForBuilding) {
 
   middle.AddCName(kSenderSsrc + 1, kBob);
 
-  rtc::BufferT<uint8_t> packet2 = middle.Build();
+  rtc::Buffer<uint8_t> packet2 = middle.Build();
   Sdes destination;
   test::ParseSinglePacket(packet2, &destination);
 

@@ -64,7 +64,7 @@ class AudioEncoderIsacT final : public AudioEncoder {
   int GetTargetBitrate() const override;
   EncodedInfo EncodeImpl(uint32_t rtp_timestamp,
                          rtc::ArrayView<const int16_t> audio,
-                         rtc::BufferT<uint8_t>* encoded) override;
+                         rtc::Buffer<uint8_t>* encoded) override;
   void Reset() override;
 
  private:

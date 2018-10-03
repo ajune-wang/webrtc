@@ -47,7 +47,7 @@ class OpenSSLCertificate : public SSLCertificate {
   X509* x509() const { return x509_; }
 
   std::string ToPEMString() const override;
-  void ToDER(BufferT<uint8_t>* der_buffer) const override;
+  void ToDER(Buffer<uint8_t>* der_buffer) const override;
   bool operator==(const OpenSSLCertificate& other) const;
   bool operator!=(const OpenSSLCertificate& other) const;
 

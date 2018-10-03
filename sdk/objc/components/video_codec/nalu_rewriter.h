@@ -32,7 +32,7 @@ namespace webrtc {
 bool H264CMSampleBufferToAnnexBBuffer(
     CMSampleBufferRef avcc_sample_buffer,
     bool is_keyframe,
-    rtc::BufferT<uint8_t>* annexb_buffer,
+    rtc::Buffer<uint8_t>* annexb_buffer,
     std::unique_ptr<RTPFragmentationHeader>* out_header);
 
 // Converts a buffer received from RTP into a sample buffer suitable for the

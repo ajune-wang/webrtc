@@ -56,7 +56,7 @@ class AudioDecoderPlc : public AudioDecoder {
   }
 
   void GeneratePlc(size_t requested_samples_per_channel,
-                   rtc::BufferT<int16_t>* concealment_audio) override {
+                   rtc::Buffer<int16_t>* concealment_audio) override {
     // Must keep a local copy of this since DecodeInternal sets it to false.
     const bool last_was_plc = last_was_plc_;
     SpeechType speech_type;

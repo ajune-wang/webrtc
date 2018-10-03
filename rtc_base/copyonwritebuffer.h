@@ -151,11 +151,11 @@ class CopyOnWriteBuffer {
   void SetData(const T* data, size_t size) {
     RTC_DCHECK(IsConsistent());
     if (!buffer_) {
-      buffer_ = size > 0 ? new RefCountedObject<BufferT<uint8_t>>(data, size)
+      buffer_ = size > 0 ? new RefCountedObject<Buffer<uint8_t>>(data, size)
                          : nullptr;
     } else if (!buffer_->HasOneRef()) {
-      buffer_ = new RefCountedObject<BufferT<uint8_t>>(data, size,
-                                                       buffer_->capacity());
+      buffer_ = new RefCountedObject<Buffer<uint8_t>>(data, size,
+                                                      buffer_->capacity());
     } else {
       buffer_->SetData(data, size);
     }
@@ -185,7 +185,7 @@ class CopyOnWriteBuffer {
   void AppendData(const T* data, size_t size) {
     RTC_DCHECK(IsConsistent());
     if (!buffer_) {
-      buffer_ = new RefCountedObject<BufferT<uint8_t>>(data, size);
+      buffer_ = new RefCountedObject<Buffer<uint8_t>>(data, size);
       RTC_DCHECK(IsConsistent());
       return;
     }
@@ -236,9 +236,9 @@ class CopyOnWriteBuffer {
   // Pre- and postcondition of all methods.
   bool IsConsistent() const { return (!buffer_ || buffer_->capacity() > 0); }
 
-  // buffer_ is either null, or points to an rtc::BufferT<uint8_t> with capacity
+  // buffer_ is either null, or points to an rtc::Buffer<uint8_t> with capacity
   // > 0.
-  scoped_refptr<RefCountedObject<BufferT<uint8_t>>> buffer_;
+  scoped_refptr<RefCountedObject<Buffer<uint8_t>>> buffer_;
 };
 
 }  // namespace rtc

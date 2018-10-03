@@ -61,7 +61,7 @@ std::unique_ptr<SSLCertificateStats> SSLCertificate::GetStats() const {
     return nullptr;
   std::string fingerprint = ssl_fingerprint->GetRfc4572Fingerprint();
 
-  BufferT<uint8_t> der_buffer;
+  Buffer<uint8_t> der_buffer;
   ToDER(&der_buffer);
   std::string der_base64;
   Base64::EncodeFromArray(der_buffer.data(), der_buffer.size(), &der_base64);

@@ -35,7 +35,7 @@ namespace rtc {
 //   }
 //
 // This is flexible, since it doesn't matter how the array is stored (C array,
-// std::vector, rtc::BufferT<uint8_t>, ...), but it's error-prone because the
+// std::vector, rtc::Buffer<uint8_t>, ...), but it's error-prone because the
 // caller has to correctly specify the array length:
 //
 //   Contains17(arr, arraysize(arr));     // C array
@@ -223,8 +223,8 @@ class ArrayView final : public impl::ArrayViewBase<T, Size> {
   // ArrayView<T, N> to ArrayView<T> or ArrayView<const T>,
   // std::vector<T> to ArrayView<T> or ArrayView<const T>,
   // const std::vector<T> to ArrayView<const T>,
-  // rtc::BufferT<uint8_t> to ArrayView<uint8_t> or ArrayView<const uint8_t>,
-  // and const rtc::BufferT<uint8_t> to ArrayView<const uint8_t>.
+  // rtc::Buffer<uint8_t> to ArrayView<uint8_t> or ArrayView<const uint8_t>,
+  // and const rtc::Buffer<uint8_t> to ArrayView<const uint8_t>.
   template <
       typename U,
       typename std::enable_if<Size == impl::kArrayViewVarSize &&

@@ -54,7 +54,7 @@ class AudioChecksum : public AudioSink {
 
  private:
   std::unique_ptr<rtc::MessageDigest> checksum_;
-  rtc::BufferT<uint8_t> checksum_result_;
+  rtc::Buffer<uint8_t> checksum_result_;
   bool finished_;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(AudioChecksum);

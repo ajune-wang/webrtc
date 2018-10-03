@@ -270,7 +270,7 @@ std::string OpenSSLCertificate::ToPEMString() const {
   return ret;
 }
 
-void OpenSSLCertificate::ToDER(BufferT<uint8_t>* der_buffer) const {
+void OpenSSLCertificate::ToDER(Buffer<uint8_t>* der_buffer) const {
   // In case of failure, make sure to leave the buffer empty.
   der_buffer->SetSize(0);
 

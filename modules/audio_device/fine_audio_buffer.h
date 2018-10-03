@@ -81,10 +81,10 @@ class FineAudioBuffer {
   const size_t record_channels_;
   // Storage for output samples from which a consumer can read audio buffers
   // in any size using GetPlayoutData().
-  rtc::BufferT<int16_t> playout_buffer_;
+  rtc::Buffer<int16_t> playout_buffer_;
   // Storage for input samples that are about to be delivered to the WebRTC
   // ADB or remains from the last successful delivery of a 10ms audio buffer.
-  rtc::BufferT<int16_t> record_buffer_;
+  rtc::Buffer<int16_t> record_buffer_;
   // Contains latest delay estimate given to GetPlayoutData().
   int playout_delay_ms_ = 0;
 };

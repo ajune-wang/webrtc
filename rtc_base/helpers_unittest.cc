@@ -81,7 +81,7 @@ TEST_F(RandomTest, TestCreateRandomForTest) {
   std::string random;
   EXPECT_TRUE(CreateRandomData(kRandomDataLength, &random));
   EXPECT_EQ(kRandomDataLength, random.size());
-  BufferT<uint8_t> expected(
+  Buffer<uint8_t> expected(
       "\xbd\x52\x2a\x4b\x97\x93\x2f\x1c"
       "\xc4\x72\xab\xa2\x88\x68\x3e\xcc"
       "\xa3\x8d\xaf\x13\x3b\xbc\x83\xbb"

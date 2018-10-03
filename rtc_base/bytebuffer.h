@@ -134,7 +134,7 @@ class ByteBufferWriterT : public ByteBuffer {
   RTC_DISALLOW_COPY_AND_ASSIGN(ByteBufferWriterT);
 };
 
-class ByteBufferWriter : public ByteBufferWriterT<BufferT<char>> {
+class ByteBufferWriter : public ByteBufferWriterT<Buffer<char>> {
  public:
   // |byte_order| defines order of bytes in the buffer.
   ByteBufferWriter();
@@ -156,7 +156,7 @@ class ByteBufferReader : public ByteBuffer {
   // Initializes buffer from a zero-terminated string.
   explicit ByteBufferReader(const char* bytes);
 
-  explicit ByteBufferReader(const BufferT<uint8_t>& buf);
+  explicit ByteBufferReader(const Buffer<uint8_t>& buf);
 
   explicit ByteBufferReader(const ByteBufferWriter& buf);
 

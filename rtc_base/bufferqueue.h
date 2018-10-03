@@ -50,8 +50,8 @@ class BufferQueue {
   size_t capacity_;
   size_t default_size_;
   CriticalSection crit_;
-  std::deque<BufferT<uint8_t>*> queue_ RTC_GUARDED_BY(crit_);
-  std::vector<BufferT<uint8_t>*> free_list_ RTC_GUARDED_BY(crit_);
+  std::deque<Buffer<uint8_t>*> queue_ RTC_GUARDED_BY(crit_);
+  std::vector<Buffer<uint8_t>*> free_list_ RTC_GUARDED_BY(crit_);
 
   RTC_DISALLOW_COPY_AND_ASSIGN(BufferQueue);
 };

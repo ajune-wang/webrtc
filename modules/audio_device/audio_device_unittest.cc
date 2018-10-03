@@ -202,7 +202,7 @@ class FifoAudioStream : public AudioStream {
     return 0.5 + static_cast<float>(written_elements_ / write_count_);
   }
 
-  using Buffer16 = rtc::BufferT<int16_t>;
+  using Buffer16 = rtc::Buffer<int16_t>;
 
   rtc::CriticalSection lock_;
   rtc::RaceChecker race_checker_;

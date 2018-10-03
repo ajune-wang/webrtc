@@ -16,9 +16,8 @@
 
 namespace webrtc {
 
-LegacyEncodedAudioFrame::LegacyEncodedAudioFrame(
-    AudioDecoder* decoder,
-    rtc::BufferT<uint8_t>&& payload)
+LegacyEncodedAudioFrame::LegacyEncodedAudioFrame(AudioDecoder* decoder,
+                                                 rtc::Buffer<uint8_t>&& payload)
     : decoder_(decoder), payload_(std::move(payload)) {}
 
 LegacyEncodedAudioFrame::~LegacyEncodedAudioFrame() = default;
@@ -43,7 +42,7 @@ LegacyEncodedAudioFrame::Decode(rtc::ArrayView<int16_t> decoded) const {
 
 std::vector<AudioDecoder::ParseResult> LegacyEncodedAudioFrame::SplitBySamples(
     AudioDecoder* decoder,
-    rtc::BufferT<uint8_t>&& payload,
+    rtc::Buffer<uint8_t>&& payload,
     uint32_t timestamp,
     size_t bytes_per_ms,
     uint32_t timestamps_per_ms) {
@@ -74,8 +73,8 @@ std::vector<AudioDecoder::ParseResult> LegacyEncodedAudioFrame::SplitBySamples(
         timestamp_offset += timestamps_per_chunk) {
       split_size_bytes =
           std::min(split_size_bytes, payload.size() - byte_offset);
-      rtc::BufferT<uint8_t> new_payload(payload.data() + byte_offset,
-                                        split_size_bytes);
+      rtc::Buffer<uint8_t> new_payload(payload.data() + byte_offset,
+                                       split_size_bytes);
       std::unique_ptr<LegacyEncodedAudioFrame> frame(
           new LegacyEncodedAudioFrame(decoder, std::move(new_payload)));
       results.emplace_back(timestamp + timestamp_offset, 0, std::move(frame));

@@ -178,7 +178,7 @@ TEST(PulsedNoiseCapturerTest, SetMaxAmplitude) {
   std::unique_ptr<TestAudioDeviceModule::PulsedNoiseCapturer> capturer =
       TestAudioDeviceModule::CreatePulsedNoiseCapturer(
           kAmplitude, /*sampling_frequency_in_hz=*/8000);
-  rtc::BufferT<int16_t> recording_buffer;
+  rtc::Buffer<int16_t> recording_buffer;
 
   // Verify that the capturer doesn't create entries louder than than
   // kAmplitude. Since the pulse generator alternates between writing

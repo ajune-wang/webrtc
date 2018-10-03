@@ -1075,7 +1075,7 @@ bool OpenSSLStreamAdapter::VerifyPeerCertificate() {
     return false;
   }
 
-  BufferT<uint8_t> computed_digest(digest, digest_length);
+  Buffer<uint8_t> computed_digest(digest, digest_length);
   if (computed_digest != peer_certificate_digest_value_) {
     RTC_LOG(LS_WARNING)
         << "Rejected peer certificate due to mismatched digest.";

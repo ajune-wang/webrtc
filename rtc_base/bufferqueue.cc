@@ -20,10 +20,10 @@ BufferQueue::BufferQueue(size_t capacity, size_t default_size)
 BufferQueue::~BufferQueue() {
   CritScope cs(&crit_);
 
-  for (BufferT<uint8_t>* buffer : queue_) {
+  for (Buffer<uint8_t>* buffer : queue_) {
     delete buffer;
   }
-  for (BufferT<uint8_t>* buffer : free_list_) {
+  for (Buffer<uint8_t>* buffer : free_list_) {
     delete buffer;
   }
 }
@@ -48,7 +48,7 @@ bool BufferQueue::ReadFront(void* buffer, size_t bytes, size_t* bytes_read) {
   }
 
   bool was_writable = queue_.size() < capacity_;
-  BufferT<uint8_t>* packet = queue_.front();
+  Buffer<uint8_t>* packet = queue_.front();
   queue_.pop_front();
 
   bytes = std::min(bytes, packet->size());
@@ -72,12 +72,12 @@ bool BufferQueue::WriteBack(const void* buffer,
   }
 
   bool was_readable = !queue_.empty();
-  BufferT<uint8_t>* packet;
+  Buffer<uint8_t>* packet;
   if (!free_list_.empty()) {
     packet = free_list_.back();
     free_list_.pop_back();
   } else {
-    packet = new BufferT<uint8_t>(bytes, default_size_);
+    packet = new Buffer<uint8_t>(bytes, default_size_);
   }
 
   packet->SetData(static_cast<const uint8_t*>(buffer), bytes);

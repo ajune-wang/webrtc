@@ -41,7 +41,7 @@ TEST(RtcpPacketPliTest, Create) {
   pli.SetSenderSsrc(kSenderSsrc);
   pli.SetMediaSsrc(kRemoteSsrc);
 
-  rtc::BufferT<uint8_t> packet = pli.Build();
+  rtc::Buffer<uint8_t> packet = pli.Build();
 
   EXPECT_THAT(make_tuple(packet.data(), packet.size()),
               ElementsAreArray(kPacket));

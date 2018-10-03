@@ -32,8 +32,8 @@ void FuzzAudioEncoder(rtc::ArrayView<const uint8_t> data_view,
     return;
   }
 
-  rtc::BufferT<int16_t> input_aligned(block_size_samples);
-  rtc::BufferT<uint8_t> encoded;
+  rtc::Buffer<int16_t> input_aligned(block_size_samples);
+  rtc::Buffer<uint8_t> encoded;
 
   // Each round in the loop below will need one block of samples + a 32-bit
   // timestamp from the fuzzer input.

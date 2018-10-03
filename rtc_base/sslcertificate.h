@@ -70,7 +70,7 @@ class SSLCertificate {
   virtual std::string ToPEMString() const = 0;
 
   // Provides a DER encoded binary representation of the certificate.
-  virtual void ToDER(BufferT<uint8_t>* der_buffer) const = 0;
+  virtual void ToDER(Buffer<uint8_t>* der_buffer) const = 0;
 
   // Gets the name of the digest algorithm that was used to compute this
   // certificate's signature.

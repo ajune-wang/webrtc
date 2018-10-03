@@ -85,7 +85,7 @@ class RtcpDemuxerTest : public testing::Test {
 // |distinguishing_string| allows different RTCP packets with the same SSRC
 // to be distinguished. How this is set into the actual packet is
 // unimportant, and depends on which RTCP message we choose to use.
-rtc::BufferT<uint8_t> CreateRtcpPacket(
+rtc::Buffer<uint8_t> CreateRtcpPacket(
     uint32_t ssrc,
     const std::string& distinguishing_string = "") {
   rtcp::Bye packet;
@@ -99,7 +99,7 @@ rtc::BufferT<uint8_t> CreateRtcpPacket(
 }
 
 static Matcher<rtc::ArrayView<const uint8_t>> SamePacketAs(
-    const rtc::BufferT<uint8_t>& other) {
+    const rtc::Buffer<uint8_t>& other) {
   return ElementsAreArray(other.cbegin(), other.cend());
 }
 
@@ -184,7 +184,7 @@ TEST_F(RtcpDemuxerTest, PacketsDeliveredInRightOrderToNonBroadcastSink) {
   MockRtcpPacketSink sink;
   AddSsrcSink(ssrc, &sink);
 
-  std::vector<rtc::BufferT<uint8_t>> packets;
+  std::vector<rtc::Buffer<uint8_t>> packets;
   for (size_t i = 0; i < 5; i++) {
     packets.push_back(CreateRtcpPacket(ssrc, std::to_string(i)));
   }
@@ -203,7 +203,7 @@ TEST_F(RtcpDemuxerTest, PacketsDeliveredInRightOrderToBroadcastSink) {
   MockRtcpPacketSink sink;
   AddBroadcastSink(&sink);
 
-  std::vector<rtc::BufferT<uint8_t>> packets;
+  std::vector<rtc::Buffer<uint8_t>> packets;
   for (size_t i = 0; i < 5; i++) {
     constexpr uint32_t ssrc = 101;
     packets.push_back(CreateRtcpPacket(ssrc, std::to_string(i)));
@@ -268,7 +268,7 @@ TEST_F(RtcpDemuxerTest, MultipleRsidsOnSameSink) {
   }
 
   // Set up packets to match those RSIDs/SSRCs.
-  std::vector<rtc::BufferT<uint8_t>> packets;
+  std::vector<rtc::Buffer<uint8_t>> packets;
   for (size_t i = 0; i < arraysize(rsids); i++) {
     packets.push_back(CreateRtcpPacket(ssrcs[i]));
   }

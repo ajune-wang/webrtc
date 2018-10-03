@@ -28,14 +28,14 @@ DEFINE_bool(help, false, "Print help message");
 constexpr size_t kRtpDumpHeaderLength = 8;
 
 // Returns the next packet or an empty buffer if end of file was encountered.
-rtc::BufferT<uint8_t> ReadNextPacket(FILE* file) {
+rtc::Buffer<uint8_t> ReadNextPacket(FILE* file) {
   // Read the rtpdump header for the next packet.
-  rtc::BufferT<uint8_t> buffer;
+  rtc::Buffer<uint8_t> buffer;
   buffer.SetData(kRtpDumpHeaderLength, [&](rtc::ArrayView<uint8_t> x) {
     return fread(x.data(), 1, x.size(), file);
   });
   if (buffer.size() != kRtpDumpHeaderLength) {
-    return rtc::BufferT<uint8_t>();
+    return rtc::Buffer<uint8_t>();
   }
 
   // Get length field. This is the total length for this packet written to file,
@@ -54,7 +54,7 @@ rtc::BufferT<uint8_t> ReadNextPacket(FILE* file) {
 }
 
 struct PacketAndTime {
-  rtc::BufferT<uint8_t> packet;
+  rtc::Buffer<uint8_t> packet;
   int time;
 };
 

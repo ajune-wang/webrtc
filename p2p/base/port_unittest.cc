@@ -133,7 +133,7 @@ class TestPort : public Port {
 
   // The last StunMessage that was sent on this Port.
   // TODO(?): Make these const; requires changes to SendXXXXResponse.
-  rtc::BufferT<uint8_t>* last_stun_buf() { return last_stun_buf_.get(); }
+  rtc::Buffer<uint8_t>* last_stun_buf() { return last_stun_buf_.get(); }
   IceMessage* last_stun_msg() { return last_stun_msg_.get(); }
   int last_stun_error_code() {
     int code = 0;
@@ -191,7 +191,7 @@ class TestPort : public Port {
     if (!payload) {
       IceMessage* msg = new IceMessage;
       auto* buf =
-          new rtc::BufferT<uint8_t>(static_cast<const char*>(data), size);
+          new rtc::Buffer<uint8_t>(static_cast<const char*>(data), size);
       ByteBufferReader read_buf(*buf);
       if (!msg->Read(&read_buf)) {
         delete msg;
@@ -219,7 +219,7 @@ class TestPort : public Port {
                     const rtc::SentPacket& sent_packet) {
     PortInterface::SignalSentPacket(sent_packet);
   }
-  std::unique_ptr<rtc::BufferT<uint8_t>> last_stun_buf_;
+  std::unique_ptr<rtc::Buffer<uint8_t>> last_stun_buf_;
   std::unique_ptr<IceMessage> last_stun_msg_;
   int type_preference_ = 0;
 };

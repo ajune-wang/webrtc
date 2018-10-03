@@ -47,7 +47,7 @@ TEST(RtcpCompoundPacketTest, AppendPacket) {
   compound.Append(&rr);
   compound.Append(&fir);
 
-  rtc::BufferT<uint8_t> packet = compound.Build();
+  rtc::Buffer<uint8_t> packet = compound.Build();
   RtcpPacketParser parser;
   parser.Parse(packet.data(), packet.size());
   EXPECT_EQ(1, parser.receiver_report()->num_packets());
@@ -74,7 +74,7 @@ TEST(RtcpCompoundPacketTest, AppendPacketWithOwnAppendedPacket) {
   root.Append(&bye);
   root.Append(&leaf);
 
-  rtc::BufferT<uint8_t> packet = root.Build();
+  rtc::Buffer<uint8_t> packet = root.Build();
   RtcpPacketParser parser;
   parser.Parse(packet.data(), packet.size());
   EXPECT_EQ(1, parser.sender_report()->num_packets());

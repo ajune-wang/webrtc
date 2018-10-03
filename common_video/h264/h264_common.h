@@ -83,7 +83,7 @@ std::vector<uint8_t> ParseRbsp(const uint8_t* data, size_t length);
 // sequence.
 void WriteRbsp(const uint8_t* bytes,
                size_t length,
-               rtc::BufferT<uint8_t>* destination);
+               rtc::Buffer<uint8_t>* destination);
 }  // namespace H264
 }  // namespace webrtc
 

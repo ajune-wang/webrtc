@@ -85,7 +85,7 @@ class AudioDecoder {
   // this call. The decoder is free to swap or move the data from the |payload|
   // buffer. |timestamp| is the input timestamp, in samples, corresponding to
   // the start of the payload.
-  virtual std::vector<ParseResult> ParsePayload(rtc::BufferT<uint8_t>&& payload,
+  virtual std::vector<ParseResult> ParsePayload(rtc::Buffer<uint8_t>&& payload,
                                                 uint32_t timestamp);
 
   // Decodes |encode_len| bytes from |encoded| and writes the result in
@@ -131,7 +131,7 @@ class AudioDecoder {
   // implementations must provide their own, which can be a simple as a no-op.
   // TODO(bugs.webrtc.org/9676): Remove default impementation.
   virtual void GeneratePlc(size_t requested_samples_per_channel,
-                           rtc::BufferT<int16_t>* concealment_audio);
+                           rtc::Buffer<int16_t>* concealment_audio);
 
   // Resets the decoder state (empty buffers etc.).
   virtual void Reset() = 0;

@@ -197,7 +197,7 @@ class OpenSSLStreamAdapter : public SSLStreamAdapter {
   std::unique_ptr<SSLCertChain> peer_cert_chain_;
   bool peer_certificate_verified_ = false;
   // The digest of the certificate that the peer must present.
-  BufferT<uint8_t> peer_certificate_digest_value_;
+  Buffer<uint8_t> peer_certificate_digest_value_;
   std::string peer_certificate_digest_algorithm_;
 
   // The DtlsSrtp ciphers

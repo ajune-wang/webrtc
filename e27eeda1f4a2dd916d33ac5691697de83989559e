@@ -22,6 +22,30 @@
       "revId": "e27eeda1f4a2dd916d33ac5691697de83989559e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9644809c_b1fd678a",
+        "filename": "test/fake_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2018-10-03T17:46:33Z",
+      "side": 1,
+      "message": "I guess I could and maybe should. But there is no FakeVp8Decoder or FakeH264Decoder. \nDo you want me to add a FakeVp8Decoder in that case? \nIt feels like half the FakeVp8 encoder is here since it produce simulcast and half is in the FakeVp8Encoder.",
+      "parentUuid": "989497d8_a06be724",
+      "range": {
+        "startLine": 129,
+        "startChar": 0,
+        "endLine": 132,
+        "endChar": 67
+      },
+      "revId": "e27eeda1f4a2dd916d33ac5691697de83989559e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

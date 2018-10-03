@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7d3549c0_ba213385",
+        "filename": "video/video_quality_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1129,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-10-03T16:35:56Z",
+      "side": 1,
+      "message": "What are we doing instead?",
+      "range": {
+        "startLine": 1126,
+        "startChar": 0,
+        "endLine": 1129,
+        "endChar": 6
+      },
+      "revId": "bc29ce3e2a774517bede1ce2012140e2b7ef36e5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -421,10 +421,6 @@ class Buffer {
 template <typename T>
 using ZeroOnFreeBuffer = Buffer<T, true>;
 
-// For backwards compatibility. TODO: Remove it!
-template <typename T>
-using BufferT = Buffer<T>;
-
 }  // namespace rtc
 
 #endif  // RTC_BASE_BUFFER_H_

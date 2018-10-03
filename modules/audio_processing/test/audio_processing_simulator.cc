@@ -21,6 +21,7 @@
 #include "api/audio/echo_canceller3_factory.h"
 #include "common_audio/include/audio_util.h"
 #include "modules/audio_processing/aec_dump/aec_dump_factory.h"
+#include "modules/audio_processing/echo_control_mobile_impl.h"
 #include "modules/audio_processing/include/audio_processing.h"
 #include "modules/audio_processing/test/fake_recording_device.h"
 #include "rtc_base/checks.h"
@@ -917,6 +918,10 @@ void AudioProcessingSimulator::CreateAudioProcessor() {
   if (settings_.use_agc2) {
     apm_config.gain_controller2.enabled = *settings_.use_agc2;
     apm_config.gain_controller2.fixed_gain_db = settings_.agc2_fixed_gain_db;
+    if (settings_.agc2_use_adaptive_gain) {
+      apm_config.gain_controller2.adaptive_digital_mode =
+          *settings_.agc2_use_adaptive_gain;
+    }
   }
   if (settings_.use_pre_amplifier) {
     apm_config.pre_amplifier.enabled = *settings_.use_pre_amplifier;
@@ -1032,19 +1037,6 @@ void AudioProcessingSimulator::CreateAudioProcessor() {
         AudioProcessing::kNoError,
         ap_->gain_control()->set_mode(
             static_cast<webrtc::GainControl::Mode>(*settings_.agc_mode)));
-  }
-
-  if (settings_.aecm_routing_mode) {
-    RTC_CHECK_EQ(AudioProcessing::kNoError,
-                 ap_->echo_control_mobile()->set_routing_mode(
-                     static_cast<webrtc::EchoControlMobile::RoutingMode>(
-                         *settings_.aecm_routing_mode)));
-  }
-
-  if (settings_.use_aecm_comfort_noise) {
-    RTC_CHECK_EQ(AudioProcessing::kNoError,
-                 ap_->echo_control_mobile()->enable_comfort_noise(
-                     *settings_.use_aecm_comfort_noise));
   }
 
   if (settings_.vad_likelihood) {

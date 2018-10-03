@@ -28,7 +28,7 @@ class ErleEstimator {
   ~ErleEstimator();
 
   // Reset the ERLE estimator.
-  void Reset();
+  void Reset(bool delay_change);
 
   // Updates the ERLE estimate.
   void Update(rtc::ArrayView<const float> render_spectrum,
@@ -117,6 +117,7 @@ class ErleEstimator {
   const float max_erle_hf_;
   ErleFreqInstantaneous erle_freq_inst_;
   ErleTimeInstantaneous erle_time_inst_;
+  size_t blocks_since_reset_ = 0;
   RTC_DISALLOW_COPY_AND_ASSIGN(ErleEstimator);
 };
 

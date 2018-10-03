@@ -195,14 +195,14 @@ class TurnPortTest : public testing::Test,
                         const char* data,
                         size_t size,
                         const rtc::PacketTime& packet_time) {
-    turn_packets_.push_back(rtc::Buffer(data, size));
+    turn_packets_.push_back(rtc::BufferT<uint8_t>(data, size));
   }
   void OnUdpPortComplete(Port* port) { udp_ready_ = true; }
   void OnUdpReadPacket(Connection* conn,
                        const char* data,
                        size_t size,
                        const rtc::PacketTime& packet_time) {
-    udp_packets_.push_back(rtc::Buffer(data, size));
+    udp_packets_.push_back(rtc::BufferT<uint8_t>(data, size));
   }
   void OnSocketReadPacket(rtc::AsyncPacketSocket* socket,
                           const char* data,
@@ -749,8 +749,8 @@ class TurnPortTest : public testing::Test,
   bool udp_ready_;
   bool test_finish_;
   bool turn_refresh_success_ = false;
-  std::vector<rtc::Buffer> turn_packets_;
-  std::vector<rtc::Buffer> udp_packets_;
+  std::vector<rtc::BufferT<uint8_t>> turn_packets_;
+  std::vector<rtc::BufferT<uint8_t>> udp_packets_;
   rtc::PacketOptions options;
   std::unique_ptr<webrtc::TurnCustomizer> turn_customizer_;
 };

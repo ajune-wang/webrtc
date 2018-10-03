@@ -30,7 +30,7 @@ class RtcEventRtcpPacketOutgoing final : public RtcEvent {
 
   std::unique_ptr<RtcEvent> Copy() const override;
 
-  rtc::Buffer packet_;
+  rtc::BufferT<uint8_t> packet_;
 
  private:
   RtcEventRtcpPacketOutgoing(const RtcEventRtcpPacketOutgoing& other);

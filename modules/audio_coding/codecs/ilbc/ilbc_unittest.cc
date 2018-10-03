@@ -23,7 +23,7 @@ TEST(IlbcTest, BadPacket) {
                               // are valid.
   AudioEncoderIlbcImpl encoder(config, 102);
   std::vector<int16_t> samples(encoder.SampleRateHz() / 100, 4711);
-  rtc::Buffer packet;
+  rtc::BufferT<uint8_t> packet;
   int num_10ms_chunks = 0;
   while (packet.size() == 0) {
     encoder.Encode(0, samples, &packet);
@@ -34,7 +34,7 @@ TEST(IlbcTest, BadPacket) {
   // cb_index[2] to 1, giving it a value of 127. For a 20 ms packet, this is
   // too large.
   EXPECT_EQ(38u, packet.size());
-  rtc::Buffer bad_packet(packet.data(), packet.size());
+  rtc::BufferT<uint8_t> bad_packet(packet.data(), packet.size());
   bad_packet[29] |= 0x3f;  // Bits 1-6.
   bad_packet[30] |= 0x80;  // Bit 0.
 
@@ -72,7 +72,7 @@ TEST_P(SplitIlbcTest, NumFrames) {
   AudioDecoderIlbcImpl decoder;
   const size_t frame_length_samples = frame_length_ms_ * 8;
   const auto generate_payload = [](size_t payload_length_bytes) {
-    rtc::Buffer payload(payload_length_bytes);
+    rtc::BufferT<uint8_t> payload(payload_length_bytes);
     // Fill payload with increasing integers {0, 1, 2, ...}.
     for (size_t i = 0; i < payload.size(); ++i) {
       payload[i] = static_cast<uint8_t>(i);
@@ -90,7 +90,7 @@ TEST_P(SplitIlbcTest, NumFrames) {
     EXPECT_EQ(frame_length_samples * frame_num, result.timestamp);
     const LegacyEncodedAudioFrame* frame =
         static_cast<const LegacyEncodedAudioFrame*>(result.frame.get());
-    const rtc::Buffer& payload = frame->payload();
+    const rtc::BufferT<uint8_t>& payload = frame->payload();
     EXPECT_EQ(frame_length_bytes_, payload.size());
     for (size_t i = 0; i < payload.size(); ++i, ++payload_value) {
       EXPECT_EQ(payload_value, payload[i]);
@@ -124,7 +124,7 @@ TEST(IlbcTest, SplitTooLargePayload) {
   AudioDecoderIlbcImpl decoder;
   constexpr size_t kPayloadLengthBytes = 950;
   const auto results =
-      decoder.ParsePayload(rtc::Buffer(kPayloadLengthBytes), 0);
+      decoder.ParsePayload(rtc::BufferT<uint8_t>(kPayloadLengthBytes), 0);
   EXPECT_TRUE(results.empty());
 }
 
@@ -133,7 +133,7 @@ TEST(IlbcTest, SplitUnevenPayload) {
   AudioDecoderIlbcImpl decoder;
   constexpr size_t kPayloadLengthBytes = 39;  // Not an even number of frames.
   const auto results =
-      decoder.ParsePayload(rtc::Buffer(kPayloadLengthBytes), 0);
+      decoder.ParsePayload(rtc::BufferT<uint8_t>(kPayloadLengthBytes), 0);
   EXPECT_TRUE(results.empty());
 }
 

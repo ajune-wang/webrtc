@@ -234,7 +234,8 @@ class CopyOnWriteBuffer {
   // Pre- and postcondition of all methods.
   bool IsConsistent() const { return (!buffer_ || buffer_->capacity() > 0); }
 
-  // buffer_ is either null, or points to an rtc::Buffer with capacity > 0.
+  // buffer_ is either null, or points to an rtc::BufferT<uint8_t> with capacity
+  // > 0.
   scoped_refptr<RefCountedObject<Buffer>> buffer_;
 };
 

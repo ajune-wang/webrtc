@@ -54,12 +54,13 @@ class MockAudioEncoder : public AudioEncoder {
   MOCK_METHOD3(EncodeImpl,
                EncodedInfo(uint32_t timestamp,
                            rtc::ArrayView<const int16_t> audio,
-                           rtc::Buffer* encoded));
+                           rtc::BufferT<uint8_t>* encoded));
 
   class FakeEncoding {
    public:
-    // Creates a functor that will return |info| and adjust the rtc::Buffer
-    // given as input to it, so it is info.encoded_bytes larger.
+    // Creates a functor that will return |info| and adjust the
+    // rtc::BufferT<uint8_t> given as input to it, so it is info.encoded_bytes
+    // larger.
     explicit FakeEncoding(const AudioEncoder::EncodedInfo& info);
 
     // Shorthand version of the constructor above, for when only setting
@@ -68,7 +69,7 @@ class MockAudioEncoder : public AudioEncoder {
 
     AudioEncoder::EncodedInfo operator()(uint32_t timestamp,
                                          rtc::ArrayView<const int16_t> audio,
-                                         rtc::Buffer* encoded);
+                                         rtc::BufferT<uint8_t>* encoded);
 
    private:
     AudioEncoder::EncodedInfo info_;
@@ -93,7 +94,7 @@ class MockAudioEncoder : public AudioEncoder {
 
     AudioEncoder::EncodedInfo operator()(uint32_t timestamp,
                                          rtc::ArrayView<const int16_t> audio,
-                                         rtc::Buffer* encoded);
+                                         rtc::BufferT<uint8_t>* encoded);
 
    private:
     AudioEncoder::EncodedInfo info_;

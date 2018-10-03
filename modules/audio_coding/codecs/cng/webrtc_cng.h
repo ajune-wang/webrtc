@@ -79,7 +79,7 @@ class ComfortNoiseEncoder {
   // ComfortNoiseDecoder::Generate).
   size_t Encode(rtc::ArrayView<const int16_t> speech,
                 bool force_sid,
-                rtc::Buffer* output);
+                rtc::BufferT<uint8_t>* output);
 
  private:
   size_t enc_nrOfCoefs_;

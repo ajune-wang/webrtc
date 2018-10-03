@@ -20,7 +20,7 @@ namespace {
 class OpusFrame : public AudioDecoder::EncodedAudioFrame {
  public:
   OpusFrame(AudioDecoderOpusImpl* decoder,
-            rtc::Buffer&& payload,
+            rtc::BufferT<uint8_t>&& payload,
             bool is_primary_payload)
       : decoder_(decoder),
         payload_(std::move(payload)),
@@ -60,7 +60,7 @@ class OpusFrame : public AudioDecoder::EncodedAudioFrame {
 
  private:
   AudioDecoderOpusImpl* const decoder_;
-  const rtc::Buffer payload_;
+  const rtc::BufferT<uint8_t> payload_;
   const bool is_primary_payload_;
 };
 
@@ -78,7 +78,7 @@ AudioDecoderOpusImpl::~AudioDecoderOpusImpl() {
 }
 
 std::vector<AudioDecoder::ParseResult> AudioDecoderOpusImpl::ParsePayload(
-    rtc::Buffer&& payload,
+    rtc::BufferT<uint8_t>&& payload,
     uint32_t timestamp) {
   std::vector<ParseResult> results;
 
@@ -86,7 +86,7 @@ std::vector<AudioDecoder::ParseResult> AudioDecoderOpusImpl::ParsePayload(
     const int duration =
         PacketDurationRedundant(payload.data(), payload.size());
     RTC_DCHECK_GE(duration, 0);
-    rtc::Buffer payload_copy(payload.data(), payload.size());
+    rtc::BufferT<uint8_t> payload_copy(payload.data(), payload.size());
     std::unique_ptr<EncodedAudioFrame> fec_frame(
         new OpusFrame(this, std::move(payload_copy), false));
     results.emplace_back(timestamp - duration, 1, std::move(fec_frame));

@@ -17,8 +17,8 @@ namespace webrtc {
 namespace rtcp {
 constexpr size_t RtcpPacket::kHeaderLength;
 
-rtc::Buffer RtcpPacket::Build() const {
-  rtc::Buffer packet(BlockLength());
+rtc::BufferT<uint8_t> RtcpPacket::Build() const {
+  rtc::BufferT<uint8_t> packet(BlockLength());
 
   size_t length = 0;
   bool created = Create(packet.data(), &length, packet.capacity(), nullptr);

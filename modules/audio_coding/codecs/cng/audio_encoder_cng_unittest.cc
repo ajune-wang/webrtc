@@ -200,7 +200,7 @@ class AudioEncoderCngTest : public ::testing::Test {
   uint32_t timestamp_;
   int16_t audio_[kMaxNumSamples];
   size_t num_audio_samples_10ms_;
-  rtc::Buffer encoded_;
+  rtc::BufferT<uint8_t> encoded_;
   AudioEncoder::EncodedInfo encoded_info_;
   int sample_rate_hz_;
 

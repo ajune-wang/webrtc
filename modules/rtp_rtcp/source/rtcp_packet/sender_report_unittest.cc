@@ -43,7 +43,7 @@ TEST(RtcpPacketSenderReportTest, CreateWithoutReportBlocks) {
   sr.SetPacketCount(kPacketCount);
   sr.SetOctetCount(kOctetCount);
 
-  rtc::Buffer raw = sr.Build();
+  rtc::BufferT<uint8_t> raw = sr.Build();
   EXPECT_THAT(make_tuple(raw.data(), raw.size()), ElementsAreArray(kPacket));
 }
 
@@ -67,7 +67,7 @@ TEST(RtcpPacketSenderReportTest, CreateAndParseWithOneReportBlock) {
   sr.SetSenderSsrc(kSenderSsrc);
   EXPECT_TRUE(sr.AddReportBlock(rb));
 
-  rtc::Buffer raw = sr.Build();
+  rtc::BufferT<uint8_t> raw = sr.Build();
   SenderReport parsed;
   EXPECT_TRUE(test::ParseSinglePacket(raw, &parsed));
 
@@ -87,7 +87,7 @@ TEST(RtcpPacketSenderReportTest, CreateAndParseWithTwoReportBlocks) {
   EXPECT_TRUE(sr.AddReportBlock(rb1));
   EXPECT_TRUE(sr.AddReportBlock(rb2));
 
-  rtc::Buffer raw = sr.Build();
+  rtc::BufferT<uint8_t> raw = sr.Build();
   SenderReport parsed;
   EXPECT_TRUE(test::ParseSinglePacket(raw, &parsed));
 

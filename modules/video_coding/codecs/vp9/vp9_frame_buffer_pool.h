@@ -62,7 +62,7 @@ class Vp9FrameBufferPool {
 
    private:
     // Data as an easily resizable buffer.
-    rtc::Buffer data_;
+    rtc::BufferT<uint8_t> data_;
   };
 
   // Configures libvpx to, in the specified context, use this memory pool for

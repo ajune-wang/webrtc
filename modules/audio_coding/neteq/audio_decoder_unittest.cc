@@ -120,7 +120,7 @@ class AudioDecoderTest : public ::testing::Test {
   // implementations are gone.
   virtual int EncodeFrame(const int16_t* input,
                           size_t input_len_samples,
-                          rtc::Buffer* output) {
+                          rtc::BufferT<uint8_t>* output) {
     AudioEncoder::EncodedInfo encoded_info;
     const size_t samples_per_10ms = audio_encoder_->SampleRateHz() / 100;
     RTC_CHECK_EQ(samples_per_10ms * audio_encoder_->Num10MsFramesInNextPacket(),
@@ -162,7 +162,7 @@ class AudioDecoderTest : public ::testing::Test {
     ASSERT_GE(channel_diff_tolerance, 0)
         << "Test must define a channel_diff_tolerance >= 0";
     size_t processed_samples = 0u;
-    rtc::Buffer encoded;
+    rtc::BufferT<uint8_t> encoded;
     size_t encoded_bytes = 0u;
     InitEncoder();
     std::vector<int16_t> input;
@@ -210,7 +210,7 @@ class AudioDecoderTest : public ::testing::Test {
     std::unique_ptr<int16_t[]> input(new int16_t[frame_size_]);
     ASSERT_TRUE(
         input_audio_.Read(frame_size_, codec_input_rate_hz_, input.get()));
-    rtc::Buffer encoded;
+    rtc::BufferT<uint8_t> encoded;
     size_t enc_len = EncodeFrame(input.get(), frame_size_, &encoded);
     size_t dec_len;
     AudioDecoder::SpeechType speech_type1, speech_type2;
@@ -241,7 +241,7 @@ class AudioDecoderTest : public ::testing::Test {
     std::unique_ptr<int16_t[]> input(new int16_t[frame_size_]);
     ASSERT_TRUE(
         input_audio_.Read(frame_size_, codec_input_rate_hz_, input.get()));
-    rtc::Buffer encoded;
+    rtc::BufferT<uint8_t> encoded;
     size_t enc_len = EncodeFrame(input.get(), frame_size_, &encoded);
     AudioDecoder::SpeechType speech_type;
     decoder_->Reset();
@@ -330,7 +330,7 @@ class AudioDecoderIlbcTest : public AudioDecoderTest {
     std::unique_ptr<int16_t[]> input(new int16_t[frame_size_]);
     ASSERT_TRUE(
         input_audio_.Read(frame_size_, codec_input_rate_hz_, input.get()));
-    rtc::Buffer encoded;
+    rtc::BufferT<uint8_t> encoded;
     size_t enc_len = EncodeFrame(input.get(), frame_size_, &encoded);
     AudioDecoder::SpeechType speech_type;
     decoder_->Reset();

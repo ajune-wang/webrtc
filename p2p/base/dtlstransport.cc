@@ -238,7 +238,7 @@ bool DtlsTransport::GetSslCipherSuite(int* cipher) {
 bool DtlsTransport::SetRemoteFingerprint(const std::string& digest_alg,
                                          const uint8_t* digest,
                                          size_t digest_len) {
-  rtc::Buffer remote_fingerprint_value(digest, digest_len);
+  rtc::BufferT<uint8_t> remote_fingerprint_value(digest, digest_len);
 
   // Once we have the local certificate, the same remote fingerprint can be set
   // multiple times.

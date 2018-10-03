@@ -54,7 +54,7 @@ void AudioDecoderIlbcImpl::Reset() {
 }
 
 std::vector<AudioDecoder::ParseResult> AudioDecoderIlbcImpl::ParsePayload(
-    rtc::Buffer&& payload,
+    rtc::BufferT<uint8_t>&& payload,
     uint32_t timestamp) {
   std::vector<ParseResult> results;
   size_t bytes_per_frame;
@@ -90,7 +90,8 @@ std::vector<AudioDecoder::ParseResult> AudioDecoderIlbcImpl::ParsePayload(
          byte_offset += bytes_per_frame,
         timestamp_offset += timestamps_per_frame) {
       std::unique_ptr<EncodedAudioFrame> frame(new LegacyEncodedAudioFrame(
-          this, rtc::Buffer(payload.data() + byte_offset, bytes_per_frame)));
+          this, rtc::BufferT<uint8_t>(payload.data() + byte_offset,
+                                      bytes_per_frame)));
       results.emplace_back(timestamp + timestamp_offset, 0, std::move(frame));
     }
   }

@@ -79,7 +79,7 @@ int GetElapsedTimeMicroseconds(int64_t start_ns, int64_t stop_ns) {
 void ExtractI420BufferWithSize(const VideoFrame& image,
                                int width,
                                int height,
-                               rtc::Buffer* buffer) {
+                               rtc::BufferT<uint8_t>* buffer) {
   if (image.width() != width || image.height() != height) {
     EXPECT_DOUBLE_EQ(static_cast<double>(width) / height,
                      static_cast<double>(image.width()) / image.height());

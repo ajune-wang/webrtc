@@ -130,7 +130,7 @@ bool RtcpTransceiver::SendFeedbackPacket(
         ptr->SendRawPacket(raw_packet);
     }
     RtcpTransceiverImpl* ptr;
-    rtc::Buffer raw_packet;
+    rtc::BufferT<uint8_t> raw_packet;
   };
   task_queue_->PostTask(Closure{rtcp_transceiver_.get(), packet.Build()});
   return true;

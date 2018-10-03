@@ -68,7 +68,7 @@ struct Packet {
   uint16_t sequence_number;
   uint8_t payload_type;
   // Datagram excluding RTP header and header extension.
-  rtc::Buffer payload;
+  rtc::BufferT<uint8_t> payload;
   Priority priority;
   std::unique_ptr<TickTimer::Stopwatch> waiting_time;
   std::unique_ptr<AudioDecoder::EncodedAudioFrame> frame;

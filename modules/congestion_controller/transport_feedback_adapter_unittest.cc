@@ -264,7 +264,7 @@ TEST_F(LegacyTransportFeedbackAdapterTest, SendTimeWrapsBothWays) {
     EXPECT_TRUE(feedback->AddReceivedPacket(packets[i].sequence_number,
                                             packets[i].arrival_time_ms * 1000));
 
-    rtc::Buffer raw_packet = feedback->Build();
+    rtc::BufferT<uint8_t> raw_packet = feedback->Build();
     feedback = rtcp::TransportFeedback::ParseFrom(raw_packet.data(),
                                                   raw_packet.size());
 
@@ -357,7 +357,7 @@ TEST_F(LegacyTransportFeedbackAdapterTest, TimestampDeltas) {
   EXPECT_FALSE(feedback->AddReceivedPacket(
       packet_feedback.sequence_number, packet_feedback.arrival_time_ms * 1000));
 
-  rtc::Buffer raw_packet = feedback->Build();
+  rtc::BufferT<uint8_t> raw_packet = feedback->Build();
   feedback =
       rtcp::TransportFeedback::ParseFrom(raw_packet.data(), raw_packet.size());
 

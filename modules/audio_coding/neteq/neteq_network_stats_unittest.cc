@@ -65,7 +65,7 @@ class MockAudioDecoder final : public AudioDecoder {
     const size_t num_channels_;
   };
 
-  std::vector<ParseResult> ParsePayload(rtc::Buffer&& payload,
+  std::vector<ParseResult> ParsePayload(rtc::BufferT<uint8_t>&& payload,
                                         uint32_t timestamp) /* override */ {
     std::vector<ParseResult> results;
     if (fec_enabled_) {

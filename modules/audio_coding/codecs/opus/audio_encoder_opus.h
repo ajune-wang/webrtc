@@ -120,7 +120,7 @@ class AudioEncoderOpusImpl final : public AudioEncoder {
  protected:
   EncodedInfo EncodeImpl(uint32_t rtp_timestamp,
                          rtc::ArrayView<const int16_t> audio,
-                         rtc::Buffer* encoded) override;
+                         rtc::BufferT<uint8_t>* encoded) override;
 
  private:
   class PacketLossFractionSmoother;

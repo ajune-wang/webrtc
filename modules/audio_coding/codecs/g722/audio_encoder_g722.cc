@@ -94,7 +94,7 @@ void AudioEncoderG722Impl::Reset() {
 AudioEncoder::EncodedInfo AudioEncoderG722Impl::EncodeImpl(
     uint32_t rtp_timestamp,
     rtc::ArrayView<const int16_t> audio,
-    rtc::Buffer* encoded) {
+    rtc::BufferT<uint8_t>* encoded) {
   if (num_10ms_frames_buffered_ == 0)
     first_timestamp_in_buffer_ = rtp_timestamp;
 

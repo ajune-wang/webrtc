@@ -32,7 +32,7 @@ class NetEqIsacQualityTest : public NetEqQualityTest {
   void TearDown() override;
   int EncodeBlock(int16_t* in_data,
                   size_t block_size_samples,
-                  rtc::Buffer* payload,
+                  rtc::BufferT<uint8_t>* payload,
                   size_t max_bytes) override;
 
  private:
@@ -72,7 +72,7 @@ void NetEqIsacQualityTest::TearDown() {
 
 int NetEqIsacQualityTest::EncodeBlock(int16_t* in_data,
                                       size_t block_size_samples,
-                                      rtc::Buffer* payload,
+                                      rtc::BufferT<uint8_t>* payload,
                                       size_t max_bytes) {
   // ISAC takes 10 ms for every call.
   const int subblocks = kIsacBlockDurationMs / 10;

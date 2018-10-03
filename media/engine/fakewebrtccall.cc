@@ -84,7 +84,7 @@ void FakeAudioReceiveStream::SetStats(
 
 bool FakeAudioReceiveStream::VerifyLastPacket(const uint8_t* data,
                                               size_t length) const {
-  return last_packet_ == rtc::Buffer(data, length);
+  return last_packet_ == rtc::BufferT<uint8_t>(data, length);
 }
 
 bool FakeAudioReceiveStream::DeliverRtp(const uint8_t* packet,

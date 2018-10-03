@@ -552,7 +552,7 @@ TEST(AudioEncoderOpusTest, UpdateUplinkBandwidthInAudioNetworkAdaptor) {
   states->encoder->EnableAudioNetworkAdaptor("", nullptr);
   std::array<int16_t, 480 * 2> audio;
   audio.fill(0);
-  rtc::Buffer encoded;
+  rtc::BufferT<uint8_t> encoded;
   EXPECT_CALL(*states->mock_bitrate_smoother, GetAverage())
       .WillOnce(Return(50000));
   EXPECT_CALL(*states->mock_audio_network_adaptor, SetUplinkBandwidth(50000));
@@ -583,7 +583,7 @@ TEST(AudioEncoderOpusTest, EncodeAtMinBitrate) {
   auto audio_frames =
       Create10msAudioBlocks(states->encoder, kNumPacketsToEncode * 20);
   ASSERT_TRUE(audio_frames) << "Create10msAudioBlocks failed";
-  rtc::Buffer encoded;
+  rtc::BufferT<uint8_t> encoded;
   uint32_t rtp_timestamp = 12345;  // Just a number not important to this test.
 
   states->encoder->OnReceivedUplinkBandwidth(0, absl::nullopt);
@@ -830,7 +830,7 @@ TEST(AudioEncoderOpusTest, OpusFlagDtxAsNonSpeech) {
 
   // Encode.
   AudioEncoder::EncodedInfo info;
-  rtc::Buffer encoded(500);
+  rtc::BufferT<uint8_t> encoded(500);
   int nonspeech_frames = 0;
   int max_nonspeech_frames = 0;
   int dtx_frames = 0;

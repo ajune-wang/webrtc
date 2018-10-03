@@ -225,17 +225,17 @@ EventGenerator::NewRtcpPacketIncoming() {
   switch (prng_.Rand(0, 1)) {
     case 0: {
       rtcp::SenderReport sender_report = NewSenderReport();
-      rtc::Buffer buffer = sender_report.Build();
+      rtc::BufferT<uint8_t> buffer = sender_report.Build();
       return absl::make_unique<RtcEventRtcpPacketIncoming>(buffer);
     }
     case 1: {
       rtcp::ReceiverReport receiver_report = NewReceiverReport();
-      rtc::Buffer buffer = receiver_report.Build();
+      rtc::BufferT<uint8_t> buffer = receiver_report.Build();
       return absl::make_unique<RtcEventRtcpPacketIncoming>(buffer);
     }
     default:
       RTC_NOTREACHED();
-      rtc::Buffer buffer;
+      rtc::BufferT<uint8_t> buffer;
       return absl::make_unique<RtcEventRtcpPacketIncoming>(buffer);
   }
 }
@@ -246,17 +246,17 @@ EventGenerator::NewRtcpPacketOutgoing() {
   switch (prng_.Rand(0, 1)) {
     case 0: {
       rtcp::SenderReport sender_report = NewSenderReport();
-      rtc::Buffer buffer = sender_report.Build();
+      rtc::BufferT<uint8_t> buffer = sender_report.Build();
       return absl::make_unique<RtcEventRtcpPacketOutgoing>(buffer);
     }
     case 1: {
       rtcp::ReceiverReport receiver_report = NewReceiverReport();
-      rtc::Buffer buffer = receiver_report.Build();
+      rtc::BufferT<uint8_t> buffer = receiver_report.Build();
       return absl::make_unique<RtcEventRtcpPacketOutgoing>(buffer);
     }
     default:
       RTC_NOTREACHED();
-      rtc::Buffer buffer;
+      rtc::BufferT<uint8_t> buffer;
       return absl::make_unique<RtcEventRtcpPacketOutgoing>(buffer);
   }
 }

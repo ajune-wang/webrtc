@@ -81,7 +81,9 @@ std::vector<uint8_t> ParseRbsp(const uint8_t* data, size_t length);
 // Write the given data to the destination buffer, inserting and emulation
 // bytes in order to escape any data the could be interpreted as a start
 // sequence.
-void WriteRbsp(const uint8_t* bytes, size_t length, rtc::Buffer* destination);
+void WriteRbsp(const uint8_t* bytes,
+               size_t length,
+               rtc::BufferT<uint8_t>* destination);
 }  // namespace H264
 }  // namespace webrtc
 

@@ -255,7 +255,7 @@ class RtpRtcpImplTest : public ::testing::Test {
     nack.SetSenderSsrc(sender ? kReceiverSsrc : kSenderSsrc);
     nack.SetMediaSsrc(sender ? kSenderSsrc : kReceiverSsrc);
     nack.SetPacketIds(list, kListLength);
-    rtc::Buffer packet = nack.Build();
+    rtc::BufferT<uint8_t> packet = nack.Build();
     module->impl_->IncomingRtcpPacket(packet.data(), packet.size());
   }
 };

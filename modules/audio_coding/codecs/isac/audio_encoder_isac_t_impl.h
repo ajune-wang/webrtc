@@ -110,7 +110,7 @@ template <typename T>
 AudioEncoder::EncodedInfo AudioEncoderIsacT<T>::EncodeImpl(
     uint32_t rtp_timestamp,
     rtc::ArrayView<const int16_t> audio,
-    rtc::Buffer* encoded) {
+    rtc::BufferT<uint8_t>* encoded) {
   if (!packet_in_progress_) {
     // Starting a new packet; remember the timestamp for later.
     packet_in_progress_ = true;

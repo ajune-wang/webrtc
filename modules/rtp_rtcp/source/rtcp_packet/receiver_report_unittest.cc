@@ -59,7 +59,7 @@ TEST(RtcpPacketReceiverReportTest, ParseWithOneReportBlock) {
 }
 
 TEST(RtcpPacketReceiverReportTest, ParseFailsOnIncorrectSize) {
-  rtc::Buffer damaged_packet(kPacket);
+  rtc::BufferT<uint8_t> damaged_packet(kPacket);
   damaged_packet[0]++;  // Damage the packet: increase count field.
   ReceiverReport rr;
   EXPECT_FALSE(test::ParseSinglePacket(damaged_packet, &rr));
@@ -78,7 +78,7 @@ TEST(RtcpPacketReceiverReportTest, CreateWithOneReportBlock) {
   rb.SetDelayLastSr(kDelayLastSr);
   rr.AddReportBlock(rb);
 
-  rtc::Buffer raw = rr.Build();
+  rtc::BufferT<uint8_t> raw = rr.Build();
 
   EXPECT_THAT(make_tuple(raw.data(), raw.size()), ElementsAreArray(kPacket));
 }
@@ -87,7 +87,7 @@ TEST(RtcpPacketReceiverReportTest, CreateAndParseWithoutReportBlocks) {
   ReceiverReport rr;
   rr.SetSenderSsrc(kSenderSsrc);
 
-  rtc::Buffer raw = rr.Build();
+  rtc::BufferT<uint8_t> raw = rr.Build();
   ReceiverReport parsed;
   EXPECT_TRUE(test::ParseSinglePacket(raw, &parsed));
 
@@ -106,7 +106,7 @@ TEST(RtcpPacketReceiverReportTest, CreateAndParseWithTwoReportBlocks) {
   EXPECT_TRUE(rr.AddReportBlock(rb1));
   EXPECT_TRUE(rr.AddReportBlock(rb2));
 
-  rtc::Buffer raw = rr.Build();
+  rtc::BufferT<uint8_t> raw = rr.Build();
   ReceiverReport parsed;
   EXPECT_TRUE(test::ParseSinglePacket(raw, &parsed));
 

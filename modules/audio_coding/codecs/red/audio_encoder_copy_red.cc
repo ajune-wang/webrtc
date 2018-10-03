@@ -57,7 +57,7 @@ int AudioEncoderCopyRed::GetTargetBitrate() const {
 AudioEncoder::EncodedInfo AudioEncoderCopyRed::EncodeImpl(
     uint32_t rtp_timestamp,
     rtc::ArrayView<const int16_t> audio,
-    rtc::Buffer* encoded) {
+    rtc::BufferT<uint8_t>* encoded) {
   const size_t primary_offset = encoded->size();
   EncodedInfo info = speech_encoder_->Encode(rtp_timestamp, audio, encoded);
 

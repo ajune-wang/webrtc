@@ -147,7 +147,7 @@ class AudioEncoder {
   // postconditions.
   EncodedInfo Encode(uint32_t rtp_timestamp,
                      rtc::ArrayView<const int16_t> audio,
-                     rtc::Buffer* encoded);
+                     rtc::BufferT<uint8_t>* encoded);
 
   // Resets the encoder to its starting state, discarding any input that has
   // been fed to the encoder but not yet emitted in a packet.
@@ -242,7 +242,7 @@ class AudioEncoder {
   // Encode().
   virtual EncodedInfo EncodeImpl(uint32_t rtp_timestamp,
                                  rtc::ArrayView<const int16_t> audio,
-                                 rtc::Buffer* encoded) = 0;
+                                 rtc::BufferT<uint8_t>* encoded) = 0;
 };
 }  // namespace webrtc
 #endif  // API_AUDIO_CODECS_AUDIO_ENCODER_H_

@@ -251,7 +251,7 @@ class AudioCodingModuleImpl final : public AudioCodingModule {
   int UpdateUponReceivingCodec(int index);
 
   rtc::CriticalSection acm_crit_sect_;
-  rtc::Buffer encode_buffer_ RTC_GUARDED_BY(acm_crit_sect_);
+  rtc::BufferT<uint8_t> encode_buffer_ RTC_GUARDED_BY(acm_crit_sect_);
   uint32_t expected_codec_ts_ RTC_GUARDED_BY(acm_crit_sect_);
   uint32_t expected_in_ts_ RTC_GUARDED_BY(acm_crit_sect_);
   acm2::ACMResampler resampler_ RTC_GUARDED_BY(acm_crit_sect_);
@@ -382,7 +382,7 @@ class RawAudioEncoderWrapper final : public AudioEncoder {
   int GetTargetBitrate() const override { return enc_->GetTargetBitrate(); }
   EncodedInfo EncodeImpl(uint32_t rtp_timestamp,
                          rtc::ArrayView<const int16_t> audio,
-                         rtc::Buffer* encoded) override {
+                         rtc::BufferT<uint8_t>* encoded) override {
     return enc_->Encode(rtp_timestamp, audio, encoded);
   }
   void Reset() override { return enc_->Reset(); }

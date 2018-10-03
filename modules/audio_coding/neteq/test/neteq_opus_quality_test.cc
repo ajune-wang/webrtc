@@ -50,7 +50,7 @@ class NetEqOpusQualityTest : public NetEqQualityTest {
   void TearDown() override;
   int EncodeBlock(int16_t* in_data,
                   size_t block_size_samples,
-                  rtc::Buffer* payload,
+                  rtc::BufferT<uint8_t>* payload,
                   size_t max_bytes) override;
 
  private:
@@ -138,7 +138,7 @@ void NetEqOpusQualityTest::TearDown() {
 
 int NetEqOpusQualityTest::EncodeBlock(int16_t* in_data,
                                       size_t block_size_samples,
-                                      rtc::Buffer* payload,
+                                      rtc::BufferT<uint8_t>* payload,
                                       size_t max_bytes) {
   EXPECT_EQ(block_size_samples, sub_block_size_samples_ * sub_packets_);
   int16_t* pointer = in_data;

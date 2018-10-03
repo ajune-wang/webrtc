@@ -37,7 +37,7 @@ static const size_t kHeight = 480;
 // The fake SPS that this generates also always has at least one emulation byte
 // at offset 2, since the first two bytes are always 0, and has a 0x3 as the
 // level_idc, to make sure the parser doesn't eat all 0x3 bytes.
-void GenerateFakeSps(SpsMode mode, rtc::Buffer* out_buffer) {
+void GenerateFakeSps(SpsMode mode, rtc::BufferT<uint8_t>* out_buffer) {
   uint8_t rbsp[kSpsBufferMaxSize] = {0};
   rtc::BitBufferWriter writer(rbsp, kSpsBufferMaxSize);
   // Profile byte.
@@ -146,7 +146,7 @@ void GenerateFakeSps(SpsMode mode, rtc::Buffer* out_buffer) {
 
 void TestSps(SpsMode mode, SpsVuiRewriter::ParseResult expected_parse_result) {
   rtc::LogMessage::LogToDebug(rtc::LS_VERBOSE);
-  rtc::Buffer buffer;
+  rtc::BufferT<uint8_t> buffer;
   GenerateFakeSps(mode, &buffer);
   std::vector<H264::NaluIndex> start_offsets =
       H264::FindNaluIndices(buffer.data(), buffer.size());
@@ -160,7 +160,7 @@ void TestSps(SpsMode mode, SpsVuiRewriter::ParseResult expected_parse_result) {
   index.payload_size -= H264::kNaluTypeSize;
 
   absl::optional<SpsParser::SpsState> sps;
-  rtc::Buffer out_buffer;
+  rtc::BufferT<uint8_t> out_buffer;
   SpsVuiRewriter::ParseResult result =
       SpsVuiRewriter::ParseAndRewriteSps(&buffer[index.payload_start_offset],
                                          index.payload_size, &sps, &out_buffer);

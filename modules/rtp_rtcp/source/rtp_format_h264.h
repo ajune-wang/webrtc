@@ -49,7 +49,7 @@ class RtpPacketizerH264 : public RtpPacketizer {
     ~Fragment();
     const uint8_t* buffer = nullptr;
     size_t length = 0;
-    std::unique_ptr<rtc::Buffer> tmp_buffer;
+    std::unique_ptr<rtc::BufferT<uint8_t>> tmp_buffer;
   };
 
   // A packet unit (H264 packet), to be put into an RTP packet:
@@ -111,7 +111,7 @@ class RtpDepacketizerH264 : public RtpDepacketizer {
 
   size_t offset_;
   size_t length_;
-  std::unique_ptr<rtc::Buffer> modified_buffer_;
+  std::unique_ptr<rtc::BufferT<uint8_t>> modified_buffer_;
 };
 }  // namespace webrtc
 #endif  // MODULES_RTP_RTCP_SOURCE_RTP_FORMAT_H264_H_

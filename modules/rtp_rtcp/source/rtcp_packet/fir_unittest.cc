@@ -50,7 +50,7 @@ TEST(RtcpPacketFirTest, Create) {
   fir.SetSenderSsrc(kSenderSsrc);
   fir.AddRequestTo(kRemoteSsrc, kSeqNr);
 
-  rtc::Buffer packet = fir.Build();
+  rtc::BufferT<uint8_t> packet = fir.Build();
 
   EXPECT_THAT(make_tuple(packet.data(), packet.size()),
               ElementsAreArray(kPacket));
@@ -62,7 +62,7 @@ TEST(RtcpPacketFirTest, TwoFciEntries) {
   fir.AddRequestTo(kRemoteSsrc, kSeqNr);
   fir.AddRequestTo(kRemoteSsrc + 1, kSeqNr + 1);
 
-  rtc::Buffer packet = fir.Build();
+  rtc::BufferT<uint8_t> packet = fir.Build();
   Fir parsed;
   EXPECT_TRUE(test::ParseSinglePacket(packet, &parsed));
 

@@ -26,7 +26,7 @@ MockAudioEncoder::FakeEncoding::FakeEncoding(size_t encoded_bytes) {
 AudioEncoder::EncodedInfo MockAudioEncoder::FakeEncoding::operator()(
     uint32_t timestamp,
     rtc::ArrayView<const int16_t> audio,
-    rtc::Buffer* encoded) {
+    rtc::BufferT<uint8_t>* encoded) {
   encoded->SetSize(encoded->size() + info_.encoded_bytes);
   return info_;
 }
@@ -47,7 +47,7 @@ MockAudioEncoder::CopyEncoding::CopyEncoding(
 AudioEncoder::EncodedInfo MockAudioEncoder::CopyEncoding::operator()(
     uint32_t timestamp,
     rtc::ArrayView<const int16_t> audio,
-    rtc::Buffer* encoded) {
+    rtc::BufferT<uint8_t>* encoded) {
   RTC_CHECK(encoded);
   RTC_CHECK_LE(info_.encoded_bytes, payload_.size());
   encoded->AppendData(payload_.data(), info_.encoded_bytes);

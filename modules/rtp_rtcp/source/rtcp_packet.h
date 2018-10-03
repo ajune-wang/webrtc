@@ -35,13 +35,14 @@ namespace rtcp {
 //  uint8_t packet[kPacketSize];           // with sequence number 56.
 //  fir.Build(packet, &length, kPacketSize);
 //
-//  rtc::Buffer packet = fir.Build();      // Returns a RawPacket holding
+//  rtc::BufferT<uint8_t> packet = fir.Build();      // Returns a RawPacket
+//  holding
 //                                         // the built rtcp packet.
 //
 //  CompoundPacket compound;               // Builds a compound RTCP packet with
 //  compound.Append(&rr);                  // a receiver report, report block
 //  compound.Append(&fir);                 // and fir message.
-//  rtc::Buffer packet = compound.Build();
+//  rtc::BufferT<uint8_t> packet = compound.Build();
 
 class RtcpPacket {
  public:
@@ -56,7 +57,7 @@ class RtcpPacket {
 
   // Convenience method mostly used for test. Creates packet without
   // fragmentation using BlockLength() to allocate big enough buffer.
-  rtc::Buffer Build() const;
+  rtc::BufferT<uint8_t> Build() const;
 
   // Returns true if call to Create succeeded.
   bool Build(size_t max_length, PacketReadyCallback callback) const;

@@ -144,7 +144,7 @@ rtc::CopyOnWriteBuffer CreateSenderReport(uint32_t ssrc, uint32_t rtp_time) {
   webrtc::rtcp::SenderReport sr;
   sr.SetSenderSsrc(ssrc);
   sr.SetRtpTimestamp(rtp_time);
-  rtc::Buffer buffer = sr.Build();
+  rtc::BufferT<uint8_t> buffer = sr.Build();
   // Switch to an efficient way creating CopyOnWriteBuffer from RtcpPacket when
   // there is one. Until then do not worry about extra memcpy in test.
   return rtc::CopyOnWriteBuffer(buffer.data(), buffer.size());

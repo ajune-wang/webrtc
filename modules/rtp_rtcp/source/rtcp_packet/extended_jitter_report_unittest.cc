@@ -26,7 +26,7 @@ constexpr uint32_t kJitter2 = 0x22242628;
 
 TEST(RtcpPacketExtendedJitterReportTest, CreateAndParseWithoutItems) {
   ExtendedJitterReport ij;
-  rtc::Buffer raw = ij.Build();
+  rtc::BufferT<uint8_t> raw = ij.Build();
 
   ExtendedJitterReport parsed;
   EXPECT_TRUE(test::ParseSinglePacket(raw, &parsed));
@@ -37,7 +37,7 @@ TEST(RtcpPacketExtendedJitterReportTest, CreateAndParseWithoutItems) {
 TEST(RtcpPacketExtendedJitterReportTest, CreateAndParseWithOneItem) {
   ExtendedJitterReport ij;
   EXPECT_TRUE(ij.SetJitterValues({kJitter1}));
-  rtc::Buffer raw = ij.Build();
+  rtc::BufferT<uint8_t> raw = ij.Build();
 
   ExtendedJitterReport parsed;
   EXPECT_TRUE(test::ParseSinglePacket(raw, &parsed));
@@ -48,7 +48,7 @@ TEST(RtcpPacketExtendedJitterReportTest, CreateAndParseWithOneItem) {
 TEST(RtcpPacketExtendedJitterReportTest, CreateAndParseWithTwoItems) {
   ExtendedJitterReport ij;
   EXPECT_TRUE(ij.SetJitterValues({kJitter1, kJitter2}));
-  rtc::Buffer raw = ij.Build();
+  rtc::BufferT<uint8_t> raw = ij.Build();
 
   ExtendedJitterReport parsed;
   EXPECT_TRUE(test::ParseSinglePacket(raw, &parsed));
@@ -67,7 +67,7 @@ TEST(RtcpPacketExtendedJitterReportTest, CreateWithTooManyItems) {
 TEST(RtcpPacketExtendedJitterReportTest, ParseFailsWithTooManyItems) {
   ExtendedJitterReport ij;
   ij.SetJitterValues({kJitter1});
-  rtc::Buffer raw = ij.Build();
+  rtc::BufferT<uint8_t> raw = ij.Build();
   raw[0]++;  // Damage packet: increase jitter count by 1.
   ExtendedJitterReport parsed;
   EXPECT_FALSE(test::ParseSinglePacket(raw, &parsed));

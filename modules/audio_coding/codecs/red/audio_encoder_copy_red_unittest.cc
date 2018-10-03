@@ -66,7 +66,7 @@ class AudioEncoderCopyRedTest : public ::testing::Test {
   int16_t audio_[kMaxNumSamples];
   const int sample_rate_hz_;
   size_t num_audio_samples_10ms;
-  rtc::Buffer encoded_;
+  rtc::BufferT<uint8_t> encoded_;
   AudioEncoder::EncodedInfo encoded_info_;
   const int red_payload_type_;
 };

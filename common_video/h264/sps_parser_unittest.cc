@@ -45,7 +45,7 @@ void GenerateFakeSps(uint16_t width,
                      int id,
                      uint32_t log2_max_frame_num_minus4,
                      uint32_t log2_max_pic_order_cnt_lsb_minus4,
-                     rtc::Buffer* out_buffer) {
+                     rtc::BufferT<uint8_t>* out_buffer) {
   uint8_t rbsp[kSpsBufferMaxSize] = {0};
   rtc::BitBufferWriter writer(rbsp, kSpsBufferMaxSize);
   // Profile byte.
@@ -156,7 +156,7 @@ TEST_F(H264SpsParserTest, TestSampleSPSWeirdResolution) {
 }
 
 TEST_F(H264SpsParserTest, TestSyntheticSPSQvgaLandscape) {
-  rtc::Buffer buffer;
+  rtc::BufferT<uint8_t> buffer;
   GenerateFakeSps(320u, 180u, 1, 0, 0, &buffer);
   EXPECT_TRUE(static_cast<bool>(
       sps_ = SpsParser::ParseSps(buffer.data(), buffer.size())));
@@ -166,7 +166,7 @@ TEST_F(H264SpsParserTest, TestSyntheticSPSQvgaLandscape) {
 }
 
 TEST_F(H264SpsParserTest, TestSyntheticSPSWeirdResolution) {
-  rtc::Buffer buffer;
+  rtc::BufferT<uint8_t> buffer;
   GenerateFakeSps(156u, 122u, 2, 0, 0, &buffer);
   EXPECT_TRUE(static_cast<bool>(
       sps_ = SpsParser::ParseSps(buffer.data(), buffer.size())));
@@ -189,7 +189,7 @@ TEST_F(H264SpsParserTest, TestSampleSPSWithScalingLists) {
 }
 
 TEST_F(H264SpsParserTest, TestLog2MaxFrameNumMinus4) {
-  rtc::Buffer buffer;
+  rtc::BufferT<uint8_t> buffer;
   GenerateFakeSps(320u, 180u, 1, 0, 0, &buffer);
   EXPECT_TRUE(static_cast<bool>(
       sps_ = SpsParser::ParseSps(buffer.data(), buffer.size())));
@@ -211,7 +211,7 @@ TEST_F(H264SpsParserTest, TestLog2MaxFrameNumMinus4) {
 }
 
 TEST_F(H264SpsParserTest, TestLog2MaxPicOrderCntMinus4) {
-  rtc::Buffer buffer;
+  rtc::BufferT<uint8_t> buffer;
   GenerateFakeSps(320u, 180u, 1, 0, 0, &buffer);
   EXPECT_TRUE(static_cast<bool>(
       sps_ = SpsParser::ParseSps(buffer.data(), buffer.size())));

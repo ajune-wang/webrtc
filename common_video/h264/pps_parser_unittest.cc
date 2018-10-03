@@ -36,7 +36,7 @@ void WritePps(const PpsParser::PpsState& pps,
               int slice_group_map_type,
               int num_slice_groups,
               int pic_size_in_map_units,
-              rtc::Buffer* out_buffer) {
+              rtc::BufferT<uint8_t>* out_buffer) {
   uint8_t data[kPpsBufferMaxSize] = {0};
   rtc::BitBufferWriter bit_buffer(data, kPpsBufferMaxSize);
 
@@ -191,7 +191,7 @@ class PpsParserTest : public ::testing::Test {
   }
 
   PpsParser::PpsState generated_pps_;
-  rtc::Buffer buffer_;
+  rtc::BufferT<uint8_t> buffer_;
   absl::optional<PpsParser::PpsState> parsed_pps_;
 };
 

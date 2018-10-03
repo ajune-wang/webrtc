@@ -49,7 +49,7 @@ void AudioDecoderG722Impl::Reset() {
 }
 
 std::vector<AudioDecoder::ParseResult> AudioDecoderG722Impl::ParsePayload(
-    rtc::Buffer&& payload,
+    rtc::BufferT<uint8_t>&& payload,
     uint32_t timestamp) {
   return LegacyEncodedAudioFrame::SplitBySamples(this, std::move(payload),
                                                  timestamp, 8, 16);
@@ -126,7 +126,7 @@ void AudioDecoderG722StereoImpl::Reset() {
 }
 
 std::vector<AudioDecoder::ParseResult> AudioDecoderG722StereoImpl::ParsePayload(
-    rtc::Buffer&& payload,
+    rtc::BufferT<uint8_t>&& payload,
     uint32_t timestamp) {
   return LegacyEncodedAudioFrame::SplitBySamples(this, std::move(payload),
                                                  timestamp, 2 * 8, 16);

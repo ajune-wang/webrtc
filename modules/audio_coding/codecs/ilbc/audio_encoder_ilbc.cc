@@ -88,7 +88,7 @@ int AudioEncoderIlbcImpl::GetTargetBitrate() const {
 AudioEncoder::EncodedInfo AudioEncoderIlbcImpl::EncodeImpl(
     uint32_t rtp_timestamp,
     rtc::ArrayView<const int16_t> audio,
-    rtc::Buffer* encoded) {
+    rtc::BufferT<uint8_t>* encoded) {
   // Save timestamp if starting a new packet.
   if (num_10ms_frames_buffered_ == 0)
     first_timestamp_in_buffer_ = rtp_timestamp;

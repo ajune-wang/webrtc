@@ -62,12 +62,12 @@ class AudioEncoderCopyRed final : public AudioEncoder {
  protected:
   EncodedInfo EncodeImpl(uint32_t rtp_timestamp,
                          rtc::ArrayView<const int16_t> audio,
-                         rtc::Buffer* encoded) override;
+                         rtc::BufferT<uint8_t>* encoded) override;
 
  private:
   std::unique_ptr<AudioEncoder> speech_encoder_;
   int red_payload_type_;
-  rtc::Buffer secondary_encoded_;
+  rtc::BufferT<uint8_t> secondary_encoded_;
   EncodedInfoLeaf secondary_info_;
   RTC_DISALLOW_COPY_AND_ASSIGN(AudioEncoderCopyRed);
 };

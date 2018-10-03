@@ -238,7 +238,7 @@ TEST(ArrayViewTest, TestStdVector) {
 }
 
 TEST(ArrayViewTest, TestRtcBuffer) {
-  rtc::Buffer b = "so buffer";
+  rtc::BufferT<uint8_t> b = "so buffer";
   Call<const uint8_t>(b);
   Call<uint8_t>(b);
   // Call<int8_t>(b);  // Compile error, because incompatible types.
@@ -250,7 +250,7 @@ TEST(ArrayViewTest, TestRtcBuffer) {
   EXPECT_EQ(10u, y.size());
   EXPECT_EQ(b.data(), y.data());
   // ArrayView<char> d = b;  // Compile error, because incompatible types.
-  const rtc::Buffer cb = "very const";
+  const rtc::BufferT<uint8_t> cb = "very const";
   Call<const uint8_t>(cb);
   // Call<uint8_t>(cb);  // Compile error, because can't drop const.
   ArrayView<const uint8_t> z = cb;

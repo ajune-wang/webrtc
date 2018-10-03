@@ -127,7 +127,7 @@ class FeedbackTester {
   size_t expected_size_;
   int64_t default_delta_;
   std::unique_ptr<TransportFeedback> feedback_;
-  rtc::Buffer serialized_;
+  rtc::BufferT<uint8_t> serialized_;
 };
 
 TEST(RtcpPacketTest, TransportFeedback_OneBitVector) {
@@ -386,7 +386,7 @@ TEST(RtcpPacketTest, TransportFeedback_Limits) {
   packet->SetBase(0, kMaxBaseTime);
   EXPECT_TRUE(packet->AddReceivedPacket(0, kMaxBaseTime));
   // Serialize and de-serialize (verify 24bit parsing).
-  rtc::Buffer raw_packet = packet->Build();
+  rtc::BufferT<uint8_t> raw_packet = packet->Build();
   packet = TransportFeedback::ParseFrom(raw_packet.data(), raw_packet.size());
   EXPECT_EQ(kMaxBaseTime, packet->GetBaseTimeUs());
 
@@ -413,7 +413,7 @@ TEST(RtcpPacketTest, TransportFeedback_Padding) {
   feedback.SetBase(0, 0);
   EXPECT_TRUE(feedback.AddReceivedPacket(0, 0));
 
-  rtc::Buffer packet = feedback.Build();
+  rtc::BufferT<uint8_t> packet = feedback.Build();
   EXPECT_EQ(kExpectedSizeWords * 4, packet.size());
   ASSERT_GT(kExpectedSizeWords * 4, kExpectedSizeBytes);
   for (size_t i = kExpectedSizeBytes; i < kExpectedSizeWords * 4; ++i)
@@ -456,7 +456,7 @@ TEST(RtcpPacketTest, TransportFeedback_CorrectlySplitsVectorChunks) {
       feedback.AddReceivedPacket(i, i * 1000);
     feedback.AddReceivedPacket(deltas, deltas * 1000 + kLargeTimeDelta);
 
-    rtc::Buffer serialized_packet = feedback.Build();
+    rtc::BufferT<uint8_t> serialized_packet = feedback.Build();
     std::unique_ptr<TransportFeedback> deserialized_packet =
         TransportFeedback::ParseFrom(serialized_packet.data(),
                                      serialized_packet.size());

@@ -312,7 +312,7 @@ TEST(RtpTransportTest, SignalHandledRtpPayloadType) {
   // An rtp packet.
   const rtc::PacketOptions options;
   const int flags = 0;
-  rtc::Buffer rtp_data(kRtpData, kRtpLen);
+  rtc::BufferT<uint8_t> rtp_data(kRtpData, kRtpLen);
   fake_rtp.SendPacket(rtp_data.data<char>(), kRtpLen, options, flags);
   EXPECT_EQ(1, observer.rtp_count());
   EXPECT_EQ(0, observer.rtcp_count());
@@ -335,7 +335,7 @@ TEST(RtpTransportTest, DontSignalUnhandledRtpPayloadType) {
 
   const rtc::PacketOptions options;
   const int flags = 0;
-  rtc::Buffer rtp_data(kRtpData, kRtpLen);
+  rtc::BufferT<uint8_t> rtp_data(kRtpData, kRtpLen);
   fake_rtp.SendPacket(rtp_data.data<char>(), kRtpLen, options, flags);
   EXPECT_EQ(0, observer.rtp_count());
   EXPECT_EQ(0, observer.rtcp_count());

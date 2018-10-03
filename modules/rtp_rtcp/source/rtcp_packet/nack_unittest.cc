@@ -63,7 +63,7 @@ TEST(RtcpPacketNackTest, Create) {
   nack.SetMediaSsrc(kRemoteSsrc);
   nack.SetPacketIds(kList, kListLength);
 
-  rtc::Buffer packet = nack.Build();
+  rtc::BufferT<uint8_t> packet = nack.Build();
 
   EXPECT_THAT(make_tuple(packet.data(), packet.size()),
               ElementsAreArray(kPacket));
@@ -85,7 +85,7 @@ TEST(RtcpPacketNackTest, CreateWrap) {
   nack.SetMediaSsrc(kRemoteSsrc);
   nack.SetPacketIds(kWrapList, kWrapListLength);
 
-  rtc::Buffer packet = nack.Build();
+  rtc::BufferT<uint8_t> packet = nack.Build();
 
   EXPECT_THAT(make_tuple(packet.data(), packet.size()),
               ElementsAreArray(kWrapPacket));
@@ -110,7 +110,7 @@ TEST(RtcpPacketNackTest, BadOrder) {
   nack.SetMediaSsrc(kRemoteSsrc);
   nack.SetPacketIds(kUnorderedList, kUnorderedListLength);
 
-  rtc::Buffer packet = nack.Build();
+  rtc::BufferT<uint8_t> packet = nack.Build();
 
   Nack parsed;
   EXPECT_TRUE(test::ParseSinglePacket(packet, &parsed));

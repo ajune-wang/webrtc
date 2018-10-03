@@ -38,7 +38,7 @@ int64_t RunComplexityTest(const AudioEncoderOpusConfig& config) {
   // Encode.
   const int64_t start_time_ms = rtc::TimeMillis();
   AudioEncoder::EncodedInfo info;
-  rtc::Buffer encoded(500);
+  rtc::BufferT<uint8_t> encoded(500);
   uint32_t rtp_timestamp = 0u;
   for (size_t i = 0; i < 10000; ++i) {
     encoded.Clear();

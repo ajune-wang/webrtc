@@ -25,7 +25,7 @@ namespace {
 
 class OldStyleEncodedFrame final : public AudioDecoder::EncodedAudioFrame {
  public:
-  OldStyleEncodedFrame(AudioDecoder* decoder, rtc::Buffer&& payload)
+  OldStyleEncodedFrame(AudioDecoder* decoder, rtc::BufferT<uint8_t>&& payload)
       : decoder_(decoder), payload_(std::move(payload)) {}
 
   size_t Duration() const override {
@@ -46,7 +46,7 @@ class OldStyleEncodedFrame final : public AudioDecoder::EncodedAudioFrame {
 
  private:
   AudioDecoder* const decoder_;
-  const rtc::Buffer payload_;
+  const rtc::BufferT<uint8_t> payload_;
 };
 
 }  // namespace
@@ -70,7 +70,7 @@ AudioDecoder::ParseResult& AudioDecoder::ParseResult::operator=(
     ParseResult&& b) = default;
 
 std::vector<AudioDecoder::ParseResult> AudioDecoder::ParsePayload(
-    rtc::Buffer&& payload,
+    rtc::BufferT<uint8_t>&& payload,
     uint32_t timestamp) {
   std::vector<ParseResult> results;
   std::unique_ptr<EncodedAudioFrame> frame(

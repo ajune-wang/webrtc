@@ -54,7 +54,7 @@ class NetEqPcm16bQualityTest : public NetEqQualityTest {
 
   int EncodeBlock(int16_t* in_data,
                   size_t block_size_samples,
-                  rtc::Buffer* payload,
+                  rtc::BufferT<uint8_t>* payload,
                   size_t max_bytes) override {
     const size_t kFrameSizeSamples = 480;  // Samples per 10 ms.
     size_t encoded_samples = 0;

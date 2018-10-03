@@ -111,7 +111,7 @@ class VideoProcessor {
 
      private:
       VideoProcessor* const video_processor_;
-      rtc::Buffer buffer_;
+      rtc::BufferT<uint8_t> buffer_;
       webrtc::EncodedImage encoded_image_;
       const webrtc::CodecSpecificInfo codec_specific_info_;
     };
@@ -228,7 +228,7 @@ class VideoProcessor {
   // simulcast_svc_idx -> frame_number.
   std::vector<size_t> last_decoded_frame_num_ RTC_GUARDED_BY(sequence_checker_);
   // simulcast_svc_idx -> buffer.
-  std::vector<rtc::Buffer> decoded_frame_buffer_
+  std::vector<rtc::BufferT<uint8_t>> decoded_frame_buffer_
       RTC_GUARDED_BY(sequence_checker_);
 
   // Time spent in frame encode callback. It is accumulated for layers and

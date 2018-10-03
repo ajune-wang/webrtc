@@ -232,13 +232,13 @@ class DtlsTransport : public DtlsTransportInternal {
   absl::optional<rtc::SSLRole> dtls_role_;
   rtc::SSLProtocolVersion ssl_max_version_;
   rtc::CryptoOptions crypto_options_;
-  rtc::Buffer remote_fingerprint_value_;
+  rtc::BufferT<uint8_t> remote_fingerprint_value_;
   std::string remote_fingerprint_algorithm_;
 
   // Cached DTLS ClientHello packet that was received before we started the
   // DTLS handshake. This could happen if the hello was received before the
   // ice transport became writable, or before a remote fingerprint was received.
-  rtc::Buffer cached_client_hello_;
+  rtc::BufferT<uint8_t> cached_client_hello_;
 
   bool receiving_ = false;
   bool writable_ = false;

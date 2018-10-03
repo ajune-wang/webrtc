@@ -47,7 +47,7 @@ class AudioEncoderPcm : public AudioEncoder {
 
   EncodedInfo EncodeImpl(uint32_t rtp_timestamp,
                          rtc::ArrayView<const int16_t> audio,
-                         rtc::Buffer* encoded) override;
+                         rtc::BufferT<uint8_t>* encoded) override;
 
   virtual size_t EncodeCall(const int16_t* audio,
                             size_t input_len,

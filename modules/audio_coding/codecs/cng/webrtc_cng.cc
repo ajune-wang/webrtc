@@ -237,7 +237,7 @@ void ComfortNoiseEncoder::Reset(int fs, int interval, int quality) {
 
 size_t ComfortNoiseEncoder::Encode(rtc::ArrayView<const int16_t> speech,
                                    bool force_sid,
-                                   rtc::Buffer* output) {
+                                   rtc::BufferT<uint8_t>* output) {
   int16_t arCoefs[WEBRTC_CNG_MAX_LPC_ORDER + 1];
   int32_t corrVector[WEBRTC_CNG_MAX_LPC_ORDER + 1];
   int16_t refCs[WEBRTC_CNG_MAX_LPC_ORDER + 1];

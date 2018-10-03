@@ -334,7 +334,7 @@ void RtpRtcpEndToEndTest::TestRtpStatePreservation(
         // Using this request speeds up this test because then there is no need
         // to wait for a second for periodic Sender Report.
         rtcp::RapidResyncRequest force_send_sr_back_request;
-        rtc::Buffer packet = force_send_sr_back_request.Build();
+        rtc::BufferT<uint8_t> packet = force_send_sr_back_request.Build();
         static_cast<webrtc::test::DirectTransport*>(receive_transport.get())
             ->SendRtcp(packet.data(), packet.size());
       }

@@ -73,7 +73,7 @@ SpsVuiRewriter::ParseResult SpsVuiRewriter::ParseAndRewriteSps(
     const uint8_t* buffer,
     size_t length,
     absl::optional<SpsParser::SpsState>* sps,
-    rtc::Buffer* destination) {
+    rtc::BufferT<uint8_t>* destination) {
   // Create temporary RBSP decoded buffer of the payload (exlcuding the
   // leading nalu type header byte (the SpsParser uses only the payload).
   std::vector<uint8_t> rbsp_buffer = H264::ParseRbsp(buffer, length);
@@ -92,7 +92,7 @@ SpsVuiRewriter::ParseResult SpsVuiRewriter::ParseAndRewriteSps(
 
   // We're going to completely muck up alignment, so we need a BitBuffer to
   // write with.
-  rtc::Buffer out_buffer(length + kMaxVuiSpsIncrease);
+  rtc::BufferT<uint8_t> out_buffer(length + kMaxVuiSpsIncrease);
   rtc::BitBufferWriter sps_writer(out_buffer.data(), out_buffer.size());
 
   // Check how far the SpsParser has read, and copy that data in bulk.

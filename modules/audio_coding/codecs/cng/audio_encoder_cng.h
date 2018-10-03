@@ -55,7 +55,7 @@ class AudioEncoderCng final : public AudioEncoder {
   int GetTargetBitrate() const override;
   EncodedInfo EncodeImpl(uint32_t rtp_timestamp,
                          rtc::ArrayView<const int16_t> audio,
-                         rtc::Buffer* encoded) override;
+                         rtc::BufferT<uint8_t>* encoded) override;
   void Reset() override;
   bool SetFec(bool enable) override;
   bool SetDtx(bool enable) override;
@@ -73,9 +73,9 @@ class AudioEncoderCng final : public AudioEncoder {
 
  private:
   EncodedInfo EncodePassive(size_t frames_to_encode,
-                            rtc::Buffer* encoded);
+                            rtc::BufferT<uint8_t>* encoded);
   EncodedInfo EncodeActive(size_t frames_to_encode,
-                           rtc::Buffer* encoded);
+                           rtc::BufferT<uint8_t>* encoded);
   size_t SamplesPer10msFrame() const;
 
   std::unique_ptr<AudioEncoder> speech_encoder_;

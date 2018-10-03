@@ -48,7 +48,7 @@ template <typename T>
 int EncodePacket(typename T::instance_type* inst,
                  const IsacBandwidthInfo* bi,
                  const int16_t* speech_data,
-                 rtc::Buffer* output) {
+                 rtc::BufferT<uint8_t>* output) {
   output->SetSize(1000);
   for (int duration_ms = 10;; duration_ms += 10) {
     if (bi)
@@ -65,7 +65,7 @@ int EncodePacket(typename T::instance_type* inst,
 
 template <typename T>
 std::vector<int16_t> DecodePacket(typename T::instance_type* inst,
-                                  const rtc::Buffer& encoded) {
+                                  const rtc::BufferT<uint8_t>& encoded) {
   std::vector<int16_t> decoded(kIsacNumberOfSamples);
   int16_t speech_type;
   int nsamples = T::DecodeInternal(inst, encoded.data(), encoded.size(),
@@ -148,7 +148,7 @@ void TestGetSetBandwidthInfo(const int16_t* speech_data,
 
     // 1. Encode 3 * 10 ms or 6 * 10 ms. The separate encoder is given the BW
     // info before each encode call.
-    rtc::Buffer bitstream1, bitstream2;
+    rtc::BufferT<uint8_t> bitstream1, bitstream2;
     int duration1_ms =
         EncodePacket<T>(encdec, nullptr, speech_data, &bitstream1);
     int duration2_ms = EncodePacket<T>(enc, &bi, speech_data, &bitstream2);

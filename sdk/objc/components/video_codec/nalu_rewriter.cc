@@ -32,7 +32,7 @@ const size_t kAvccHeaderByteSize = sizeof(uint32_t);
 bool H264CMSampleBufferToAnnexBBuffer(
     CMSampleBufferRef avcc_sample_buffer,
     bool is_keyframe,
-    rtc::Buffer* annexb_buffer,
+    rtc::BufferT<uint8_t>* annexb_buffer,
     std::unique_ptr<RTPFragmentationHeader>* out_header) {
   RTC_DCHECK(avcc_sample_buffer);
   RTC_DCHECK(out_header);

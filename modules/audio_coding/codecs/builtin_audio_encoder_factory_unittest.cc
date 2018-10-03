@@ -62,7 +62,7 @@ TEST_P(AudioEncoderFactoryTest, CanRunAllSupportedEncoders) {
     encoder->Reset();
     const int num_samples = rtc::checked_cast<int>(
         encoder->SampleRateHz() * encoder->NumChannels() / 100);
-    rtc::Buffer out;
+    rtc::BufferT<uint8_t> out;
     rtc::BufferT<int16_t> audio;
     audio.SetData(num_samples, [](rtc::ArrayView<int16_t> audio) {
       for (size_t i = 0; i != audio.size(); ++i) {

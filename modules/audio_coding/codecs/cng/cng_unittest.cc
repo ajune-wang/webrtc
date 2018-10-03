@@ -54,7 +54,7 @@ void CngTest::SetUp() {
 
 void CngTest::TestCngEncode(int sample_rate_hz, int quality) {
   const size_t num_samples_10ms = rtc::CheckedDivExact(sample_rate_hz, 100);
-  rtc::Buffer sid_data;
+  rtc::BufferT<uint8_t> sid_data;
 
   ComfortNoiseEncoder cng_encoder(sample_rate_hz, kSidNormalIntervalUpdate,
                                   quality);
@@ -87,7 +87,7 @@ TEST_F(CngTest, CngInitFail) {
 
 // Encode Cng with too long input vector.
 TEST_F(CngTest, CngEncodeTooLong) {
-  rtc::Buffer sid_data;
+  rtc::BufferT<uint8_t> sid_data;
 
   // Create encoder.
   ComfortNoiseEncoder cng_encoder(8000, kSidNormalIntervalUpdate,
@@ -122,7 +122,7 @@ TEST_F(CngTest, CngEncode64000) {
 
 // Update SID parameters, for both 9 and 16 parameters.
 TEST_F(CngTest, CngUpdateSid) {
-  rtc::Buffer sid_data;
+  rtc::BufferT<uint8_t> sid_data;
 
   // Create and initialize encoder and decoder.
   ComfortNoiseEncoder cng_encoder(16000, kSidNormalIntervalUpdate,
@@ -153,7 +153,7 @@ TEST_F(CngTest, CngUpdateSid) {
 
 // Update SID parameters, with wrong parameters or without calling decode.
 TEST_F(CngTest, CngUpdateSidErroneous) {
-  rtc::Buffer sid_data;
+  rtc::BufferT<uint8_t> sid_data;
 
   // Encode.
   ComfortNoiseEncoder cng_encoder(16000, kSidNormalIntervalUpdate,
@@ -178,7 +178,7 @@ TEST_F(CngTest, CngUpdateSidErroneous) {
 
 // Test to generate cng data, by forcing SID. Both normal and faulty condition.
 TEST_F(CngTest, CngGenerate) {
-  rtc::Buffer sid_data;
+  rtc::BufferT<uint8_t> sid_data;
   int16_t out_data[640];
 
   // Create and initialize encoder and decoder.
@@ -204,7 +204,7 @@ TEST_F(CngTest, CngGenerate) {
 
 // Test automatic SID.
 TEST_F(CngTest, CngAutoSid) {
-  rtc::Buffer sid_data;
+  rtc::BufferT<uint8_t> sid_data;
 
   // Create and initialize encoder and decoder.
   ComfortNoiseEncoder cng_encoder(16000, kSidNormalIntervalUpdate,
@@ -226,7 +226,7 @@ TEST_F(CngTest, CngAutoSid) {
 
 // Test automatic SID, with very short interval.
 TEST_F(CngTest, CngAutoSidShort) {
-  rtc::Buffer sid_data;
+  rtc::BufferT<uint8_t> sid_data;
 
   // Create and initialize encoder and decoder.
   ComfortNoiseEncoder cng_encoder(16000, kSidShortIntervalUpdate,

@@ -46,7 +46,7 @@ class RtpFormatVp8TestHelper {
   void CheckPayload(const uint8_t* data_ptr);
 
   const RTPVideoHeaderVP8* const hdr_info_;
-  rtc::Buffer payload_;
+  rtc::BufferT<uint8_t> payload_;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(RtpFormatVp8TestHelper);
 };

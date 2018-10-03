@@ -727,13 +727,13 @@ void SocketTest::TcpInternal(const IPAddress& loopback,
   EXPECT_EQ(sender->GetRemoteAddress(), receiver->GetLocalAddress());
 
   // Create test data.
-  rtc::Buffer send_buffer(0, data_size);
-  rtc::Buffer recv_buffer(0, data_size);
+  rtc::BufferT<uint8_t> send_buffer(0, data_size);
+  rtc::BufferT<uint8_t> recv_buffer(0, data_size);
   for (size_t i = 0; i < data_size; ++i) {
     char ch = static_cast<char>(i % 256);
     send_buffer.AppendData(&ch, sizeof(ch));
   }
-  rtc::Buffer recved_data(0, data_size);
+  rtc::BufferT<uint8_t> recved_data(0, data_size);
 
   // Send and receive a bunch of data.
   size_t sent_size = 0;

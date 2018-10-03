@@ -715,7 +715,7 @@ CFStringRef ExtractProfile(webrtc::SdpVideoFormat videoFormat) {
 
   // Convert the sample buffer into a buffer suitable for RTP packetization.
   // TODO(tkchin): Allocate buffers through a pool.
-  std::unique_ptr<rtc::Buffer> buffer(new rtc::Buffer());
+  std::unique_ptr<rtc::BufferT<uint8_t>> buffer(new rtc::BufferT<uint8_t>());
   RTCRtpFragmentationHeader *header;
   {
     std::unique_ptr<webrtc::RTPFragmentationHeader> header_cpp;

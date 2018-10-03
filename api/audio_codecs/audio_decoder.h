@@ -85,7 +85,7 @@ class AudioDecoder {
   // this call. The decoder is free to swap or move the data from the |payload|
   // buffer. |timestamp| is the input timestamp, in samples, corresponding to
   // the start of the payload.
-  virtual std::vector<ParseResult> ParsePayload(rtc::Buffer&& payload,
+  virtual std::vector<ParseResult> ParsePayload(rtc::BufferT<uint8_t>&& payload,
                                                 uint32_t timestamp);
 
   // Decodes |encode_len| bytes from |encoded| and writes the result in

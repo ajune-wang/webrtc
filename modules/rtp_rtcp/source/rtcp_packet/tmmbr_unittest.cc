@@ -36,7 +36,7 @@ TEST(RtcpPacketTmmbrTest, Create) {
   tmmbr.SetSenderSsrc(kSenderSsrc);
   tmmbr.AddTmmbr(TmmbItem(kRemoteSsrc, kBitrateBps, kOverhead));
 
-  rtc::Buffer packet = tmmbr.Build();
+  rtc::BufferT<uint8_t> packet = tmmbr.Build();
 
   EXPECT_THAT(make_tuple(packet.data(), packet.size()),
               ElementsAreArray(kPacket));
@@ -60,7 +60,7 @@ TEST(RtcpPacketTmmbrTest, CreateAndParseWithTwoEntries) {
   tmmbr.AddTmmbr(TmmbItem(kRemoteSsrc, kBitrateBps, kOverhead));
   tmmbr.AddTmmbr(TmmbItem(kRemoteSsrc + 1, 4 * kBitrateBps, kOverhead + 1));
 
-  rtc::Buffer packet = tmmbr.Build();
+  rtc::BufferT<uint8_t> packet = tmmbr.Build();
 
   Tmmbr parsed;
   EXPECT_TRUE(test::ParseSinglePacket(packet, &parsed));

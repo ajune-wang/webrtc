@@ -28,7 +28,7 @@ bool SSLCertificateVerifierWrapper::Verify(
   JNIEnv* jni = AttachCurrentThreadIfNeeded();
 
   // Serialize the der encoding of the cert into a jbyteArray
-  rtc::Buffer cert_der_buffer;
+  rtc::BufferT<uint8_t> cert_der_buffer;
   certificate.ToDER(&cert_der_buffer);
   ScopedJavaLocalRef<jbyteArray> jni_buffer(
       jni, jni->NewByteArray(cert_der_buffer.size()));

@@ -418,19 +418,19 @@ class ChannelTest : public testing::Test, public sigslot::has_slots<> {
   }
   // Methods to send custom data.
   void SendCustomRtp1(uint32_t ssrc, int sequence_number, int pl_type = -1) {
-    rtc::Buffer data = CreateRtpData(ssrc, sequence_number, pl_type);
+    rtc::BufferT<uint8_t> data = CreateRtpData(ssrc, sequence_number, pl_type);
     media_channel1_->SendRtp(data.data(), data.size(), rtc::PacketOptions());
   }
   void SendCustomRtp2(uint32_t ssrc, int sequence_number, int pl_type = -1) {
-    rtc::Buffer data = CreateRtpData(ssrc, sequence_number, pl_type);
+    rtc::BufferT<uint8_t> data = CreateRtpData(ssrc, sequence_number, pl_type);
     media_channel2_->SendRtp(data.data(), data.size(), rtc::PacketOptions());
   }
   void SendCustomRtcp1(uint32_t ssrc) {
-    rtc::Buffer data = CreateRtcpData(ssrc);
+    rtc::BufferT<uint8_t> data = CreateRtcpData(ssrc);
     media_channel1_->SendRtcp(data.data(), data.size());
   }
   void SendCustomRtcp2(uint32_t ssrc) {
-    rtc::Buffer data = CreateRtcpData(ssrc);
+    rtc::BufferT<uint8_t> data = CreateRtcpData(ssrc);
     media_channel2_->SendRtcp(data.data(), data.size());
   }
 
@@ -448,23 +448,25 @@ class ChannelTest : public testing::Test, public sigslot::has_slots<> {
   }
   // Methods to check custom data.
   bool CheckCustomRtp1(uint32_t ssrc, int sequence_number, int pl_type = -1) {
-    rtc::Buffer data = CreateRtpData(ssrc, sequence_number, pl_type);
+    rtc::BufferT<uint8_t> data = CreateRtpData(ssrc, sequence_number, pl_type);
     return media_channel1_->CheckRtp(data.data(), data.size());
   }
   bool CheckCustomRtp2(uint32_t ssrc, int sequence_number, int pl_type = -1) {
-    rtc::Buffer data = CreateRtpData(ssrc, sequence_number, pl_type);
+    rtc::BufferT<uint8_t> data = CreateRtpData(ssrc, sequence_number, pl_type);
     return media_channel2_->CheckRtp(data.data(), data.size());
   }
   bool CheckCustomRtcp1(uint32_t ssrc) {
-    rtc::Buffer data = CreateRtcpData(ssrc);
+    rtc::BufferT<uint8_t> data = CreateRtcpData(ssrc);
     return media_channel1_->CheckRtcp(data.data(), data.size());
   }
   bool CheckCustomRtcp2(uint32_t ssrc) {
-    rtc::Buffer data = CreateRtcpData(ssrc);
+    rtc::BufferT<uint8_t> data = CreateRtcpData(ssrc);
     return media_channel2_->CheckRtcp(data.data(), data.size());
   }
-  rtc::Buffer CreateRtpData(uint32_t ssrc, int sequence_number, int pl_type) {
-    rtc::Buffer data(rtp_packet_.data(), rtp_packet_.size());
+  rtc::BufferT<uint8_t> CreateRtpData(uint32_t ssrc,
+                                      int sequence_number,
+                                      int pl_type) {
+    rtc::BufferT<uint8_t> data(rtp_packet_.data(), rtp_packet_.size());
     // Set SSRC in the rtp packet copy.
     rtc::SetBE32(data.data() + 8, ssrc);
     rtc::SetBE16(data.data() + 2, sequence_number);
@@ -473,8 +475,8 @@ class ChannelTest : public testing::Test, public sigslot::has_slots<> {
     }
     return data;
   }
-  rtc::Buffer CreateRtcpData(uint32_t ssrc) {
-    rtc::Buffer data(rtcp_packet_.data(), rtcp_packet_.size());
+  rtc::BufferT<uint8_t> CreateRtcpData(uint32_t ssrc) {
+    rtc::BufferT<uint8_t> data(rtcp_packet_.data(), rtcp_packet_.size());
     // Set SSRC in the rtcp packet copy.
     rtc::SetBE32(data.data() + 4, ssrc);
     return data;
@@ -1460,8 +1462,8 @@ class ChannelTest : public testing::Test, public sigslot::has_slots<> {
   typename T::Content remote_media_content1_;
   typename T::Content remote_media_content2_;
   // The RTP and RTCP packets to send in the tests.
-  rtc::Buffer rtp_packet_;
-  rtc::Buffer rtcp_packet_;
+  rtc::BufferT<uint8_t> rtp_packet_;
+  rtc::BufferT<uint8_t> rtcp_packet_;
   int rtcp_mux_activated_callbacks1_ = 0;
   int rtcp_mux_activated_callbacks2_ = 0;
   cricket::CandidatePairInterface* last_selected_candidate_pair_;

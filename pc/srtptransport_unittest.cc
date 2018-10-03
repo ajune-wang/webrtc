@@ -111,7 +111,7 @@ class SrtpTransportTest : public testing::Test, public sigslot::has_slots<> {
   void TestSendRecvRtpPacket(const std::string& cipher_suite_name) {
     size_t rtp_len = sizeof(kPcmuFrame);
     size_t packet_size = rtp_len + rtc::rtp_auth_tag_len(cipher_suite_name);
-    rtc::Buffer rtp_packet_buffer(packet_size);
+    rtc::BufferT<uint8_t> rtp_packet_buffer(packet_size);
     char* rtp_packet_data = rtp_packet_buffer.data<char>();
     memcpy(rtp_packet_data, kPcmuFrame, rtp_len);
     // In order to be able to run this test function multiple times we can not
@@ -165,7 +165,7 @@ class SrtpTransportTest : public testing::Test, public sigslot::has_slots<> {
     size_t rtcp_len = sizeof(::kRtcpReport);
     size_t packet_size =
         rtcp_len + 4 + rtc::rtcp_auth_tag_len(cipher_suite_name);
-    rtc::Buffer rtcp_packet_buffer(packet_size);
+    rtc::BufferT<uint8_t> rtcp_packet_buffer(packet_size);
     char* rtcp_packet_data = rtcp_packet_buffer.data<char>();
     memcpy(rtcp_packet_data, ::kRtcpReport, rtcp_len);
 
@@ -241,7 +241,7 @@ class SrtpTransportTest : public testing::Test, public sigslot::has_slots<> {
       const std::vector<int>& encrypted_header_ids) {
     size_t rtp_len = sizeof(kPcmuFrameWithExtensions);
     size_t packet_size = rtp_len + rtc::rtp_auth_tag_len(cs);
-    rtc::Buffer rtp_packet_buffer(packet_size);
+    rtc::BufferT<uint8_t> rtp_packet_buffer(packet_size);
     char* rtp_packet_data = rtp_packet_buffer.data<char>();
     memcpy(rtp_packet_data, kPcmuFrameWithExtensions, rtp_len);
     // In order to be able to run this test function multiple times we can not

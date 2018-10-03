@@ -114,7 +114,7 @@ class FakeAudioReceiveStream final : public webrtc::AudioReceiveStream {
   int received_packets_ = 0;
   webrtc::AudioSinkInterface* sink_ = nullptr;
   float gain_ = 1.0f;
-  rtc::Buffer last_packet_;
+  rtc::BufferT<uint8_t> last_packet_;
   bool started_ = false;
 };
 

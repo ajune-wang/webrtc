@@ -792,7 +792,7 @@ class AcmReRegisterIsacMtTestOldApi : public AudioCodingModuleTestOldApi {
 
   bool CbReceiveImpl() {
     SleepMs(1);
-    rtc::Buffer encoded;
+    rtc::BufferT<uint8_t> encoded;
     AudioEncoder::EncodedInfo info;
     {
       rtc::CritScope lock(&crit_sect_);
@@ -1188,7 +1188,7 @@ class AcmSenderBitExactnessOldApi : public ::testing::Test,
     EXPECT_EQ(audio_checksum_ref, checksum_string);
 
     // Extract and verify the payload checksum.
-    rtc::Buffer checksum_result(payload_checksum_->Size());
+    rtc::BufferT<uint8_t> checksum_result(payload_checksum_->Size());
     payload_checksum_->Finish(checksum_result.data(), checksum_result.size());
     checksum_string =
         rtc::hex_encode(checksum_result.data<char>(), checksum_result.size());
@@ -1775,9 +1775,10 @@ TEST_F(AcmSenderBitExactnessOldApi, External_Pcmu_20ms) {
   EXPECT_CALL(*mock_encoder, EncodeImpl(_, _, _))
       .Times(AtLeast(1))
       .WillRepeatedly(Invoke(
-          &encoder, static_cast<AudioEncoder::EncodedInfo (AudioEncoder::*)(
-                        uint32_t, rtc::ArrayView<const int16_t>, rtc::Buffer*)>(
-                        &AudioEncoderPcmU::Encode)));
+          &encoder,
+          static_cast<AudioEncoder::EncodedInfo (AudioEncoder::*)(
+              uint32_t, rtc::ArrayView<const int16_t>, rtc::BufferT<uint8_t>*)>(
+              &AudioEncoderPcmU::Encode)));
   ASSERT_NO_FATAL_FAILURE(
       SetUpTestExternalEncoder(std::move(mock_encoder), codec_inst.pltype));
   Run("81a9d4c0bb72e9becc43aef124c981e9", "8f9b8750bd80fe26b6cbf6659b89f0f9",

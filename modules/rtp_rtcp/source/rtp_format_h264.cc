@@ -111,7 +111,8 @@ RtpPacketizerH264::RtpPacketizerH264(
 
       absl::optional<SpsParser::SpsState> sps;
 
-      std::unique_ptr<rtc::Buffer> output_buffer(new rtc::Buffer());
+      std::unique_ptr<rtc::BufferT<uint8_t>> output_buffer(
+          new rtc::BufferT<uint8_t>());
       // Add the type header to the output buffer first, so that the rewriter
       // can append modified payload on top of that.
       output_buffer->AppendData(buffer[0]);
@@ -482,7 +483,8 @@ bool RtpDepacketizerH264::ProcessStapAOrSingleNalu(
         // excessive decoder latency.
 
         // Copy any previous data first (likely just the first header).
-        std::unique_ptr<rtc::Buffer> output_buffer(new rtc::Buffer());
+        std::unique_ptr<rtc::BufferT<uint8_t>> output_buffer(
+            new rtc::BufferT<uint8_t>());
         if (start_offset)
           output_buffer->AppendData(payload_data, start_offset);
 
@@ -631,7 +633,7 @@ bool RtpDepacketizerH264::ParseFuaNalu(
           << static_cast<int>(nalu.type);
     }
     uint8_t original_nal_header = fnri | original_nal_type;
-    modified_buffer_.reset(new rtc::Buffer());
+    modified_buffer_.reset(new rtc::BufferT<uint8_t>());
     modified_buffer_->AppendData(payload_data + kNalHeaderSize, length_);
     (*modified_buffer_)[0] = original_nal_header;
   } else {

@@ -122,7 +122,7 @@ class LegacySendSideCongestionControllerTest : public ::testing::Test {
       feedback->SetBase(packet.sequence_number, packet.arrival_time_ms * 1000);
       EXPECT_TRUE(feedback->AddReceivedPacket(packet.sequence_number,
                                               packet.arrival_time_ms * 1000));
-      rtc::Buffer raw_packet = feedback->Build();
+      rtc::BufferT<uint8_t> raw_packet = feedback->Build();
       feedback = rtcp::TransportFeedback::ParseFrom(raw_packet.data(),
                                                     raw_packet.size());
       EXPECT_TRUE(feedback.get() != nullptr);

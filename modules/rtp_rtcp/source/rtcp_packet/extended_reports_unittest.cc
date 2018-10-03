@@ -144,7 +144,7 @@ TEST_F(RtcpPacketExtendedReportsTest, CreateWithoutReportBlocks) {
   ExtendedReports xr;
   xr.SetSenderSsrc(kSenderSsrc);
 
-  rtc::Buffer packet = xr.Build();
+  rtc::BufferT<uint8_t> packet = xr.Build();
 
   EXPECT_THAT(make_tuple(packet.data(), packet.size()),
               ElementsAreArray(kEmptyPacket));
@@ -164,7 +164,7 @@ TEST_F(RtcpPacketExtendedReportsTest, CreateAndParseWithRrtrBlock) {
   ExtendedReports xr;
   xr.SetSenderSsrc(kSenderSsrc);
   xr.SetRrtr(kRrtr);
-  rtc::Buffer packet = xr.Build();
+  rtc::BufferT<uint8_t> packet = xr.Build();
 
   ExtendedReports mparsed;
   EXPECT_TRUE(test::ParseSinglePacket(packet, &mparsed));
@@ -180,7 +180,7 @@ TEST_F(RtcpPacketExtendedReportsTest, CreateAndParseWithDlrrWithOneSubBlock) {
   xr.SetSenderSsrc(kSenderSsrc);
   xr.AddDlrrItem(kTimeInfo);
 
-  rtc::Buffer packet = xr.Build();
+  rtc::BufferT<uint8_t> packet = xr.Build();
 
   ExtendedReports mparsed;
   EXPECT_TRUE(test::ParseSinglePacket(packet, &mparsed));
@@ -198,7 +198,7 @@ TEST_F(RtcpPacketExtendedReportsTest, CreateAndParseWithDlrrWithTwoSubBlocks) {
   xr.AddDlrrItem(kTimeInfo1);
   xr.AddDlrrItem(kTimeInfo2);
 
-  rtc::Buffer packet = xr.Build();
+  rtc::BufferT<uint8_t> packet = xr.Build();
 
   ExtendedReports mparsed;
   EXPECT_TRUE(test::ParseSinglePacket(packet, &mparsed));
@@ -227,7 +227,7 @@ TEST_F(RtcpPacketExtendedReportsTest, CreateAndParseWithVoipMetric) {
   xr.SetSenderSsrc(kSenderSsrc);
   xr.SetVoipMetric(kVoipMetric);
 
-  rtc::Buffer packet = xr.Build();
+  rtc::BufferT<uint8_t> packet = xr.Build();
 
   ExtendedReports mparsed;
   EXPECT_TRUE(test::ParseSinglePacket(packet, &mparsed));
@@ -248,7 +248,7 @@ TEST_F(RtcpPacketExtendedReportsTest, CreateAndParseWithMaximumReportBlocks) {
     xr.AddDlrrItem(Rand<ReceiveTimeInfo>());
   xr.SetVoipMetric(kVoipMetric);
 
-  rtc::Buffer packet = xr.Build();
+  rtc::BufferT<uint8_t> packet = xr.Build();
 
   ExtendedReports mparsed;
   EXPECT_TRUE(test::ParseSinglePacket(packet, &mparsed));

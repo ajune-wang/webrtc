@@ -133,7 +133,7 @@ class RtcpReceiverTest : public ::testing::Test {
   }
 
   void InjectRtcpPacket(const rtcp::RtcpPacket& packet) {
-    rtc::Buffer raw = packet.Build();
+    rtc::BufferT<uint8_t> raw = packet.Build();
     rtcp_receiver_.IncomingPacket(raw.data(), raw.size());
   }
 
@@ -821,7 +821,7 @@ TEST_F(RtcpReceiverTest, InjectExtendedReportsPacketWithUnknownReportBlock) {
   xr.AddDlrrItem(ReceiveTimeInfo(kReceiverMainSsrc, 0x12345, 0x67890));
   xr.SetVoipMetric(metric);
 
-  rtc::Buffer packet = xr.Build();
+  rtc::BufferT<uint8_t> packet = xr.Build();
   // Modify the DLRR block to have an unsupported block type, from 5 to 6.
   ASSERT_EQ(5, packet.data()[20]);
   packet.data()[20] = 6;
@@ -1231,7 +1231,7 @@ TEST_F(RtcpReceiverTest, HandlesInvalidTransportFeedback) {
   rtcp::CompoundPacket compound;
   compound.Append(&packet);
   compound.Append(&remb);
-  rtc::Buffer built_packet = compound.Build();
+  rtc::BufferT<uint8_t> built_packet = compound.Build();
 
   // Modify the TransportFeedback packet so that it is invalid.
   const size_t kStatusCountOffset = 14;

@@ -35,7 +35,7 @@ int AudioEncoder::RtpTimestampRateHz() const {
 AudioEncoder::EncodedInfo AudioEncoder::Encode(
     uint32_t rtp_timestamp,
     rtc::ArrayView<const int16_t> audio,
-    rtc::Buffer* encoded) {
+    rtc::BufferT<uint8_t>* encoded) {
   TRACE_EVENT0("webrtc", "AudioEncoder::Encode");
   RTC_CHECK_EQ(audio.size(),
                static_cast<size_t>(NumChannels() * SampleRateHz() / 100));

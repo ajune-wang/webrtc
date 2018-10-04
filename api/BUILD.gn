@@ -124,6 +124,7 @@ rtc_static_library("libjingle_peerconnection_api") {
     "../rtc_base:rtc_base",
     "../rtc_base:rtc_base_approved",
     "../rtc_base:stringutils",
+    "//common_video:common_video",
   ]
 
   if (is_nacl) {

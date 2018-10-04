@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6c082ef5_071b4025",
+        "filename": "modules/audio_processing/aec3/aec_state.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2018-10-04T11:46:10Z",
+      "side": 1,
+      "message": "Would be nice to clarify what the unit of the return value is. What would 1, 2 or nullopt mean?",
+      "revId": "385f319e1dc5205285fcf368cf2ab0e60cdddc54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "932cf3a2_c2d96597",
+        "filename": "modules/audio_processing/aec3/aec_state.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2018-10-04T11:46:10Z",
+      "side": 1,
+      "message": "We should probably rename this member. It feels strange to have transparent_mode_ in TransparentMode.",
+      "revId": "385f319e1dc5205285fcf368cf2ab0e60cdddc54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d1b30e8_312685d5",
+        "filename": "modules/audio_processing/aec3/aec_state.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2018-10-04T11:46:10Z",
+      "side": 1,
+      "message": "Spelling.",
+      "revId": "385f319e1dc5205285fcf368cf2ab0e60cdddc54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc8afadf_9f8a137b",
+        "filename": "modules/audio_processing/aec3/aec_state.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2018-10-04T11:46:10Z",
+      "side": 1,
+      "message": "Maybe strong_unsaturated_render_blocks_? You decide.",
+      "revId": "385f319e1dc5205285fcf368cf2ab0e60cdddc54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

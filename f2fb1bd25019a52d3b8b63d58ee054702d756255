@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "0be970a0_a4c0b313",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2018-10-04T11:54:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6900433c_2fbe9c0a",
+      "range": {
+        "startLine": 9,
+        "startChar": 1,
+        "endLine": 10,
+        "endChar": 27
+      },
+      "revId": "f2fb1bd25019a52d3b8b63d58ee054702d756255",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3ed7405a_17bf4345",
         "filename": "api/test/simulated_network.h",
         "patchSetId": 5
@@ -62,6 +86,24 @@
       "revId": "f2fb1bd25019a52d3b8b63d58ee054702d756255",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f103f0dd_6d8ff6ab",
+        "filename": "api/test/simulated_network.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2018-10-04T11:54:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3ed7405a_17bf4345",
+      "revId": "f2fb1bd25019a52d3b8b63d58ee054702d756255",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

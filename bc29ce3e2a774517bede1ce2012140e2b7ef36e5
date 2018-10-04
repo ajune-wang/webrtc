@@ -22,6 +22,30 @@
       "revId": "bc29ce3e2a774517bede1ce2012140e2b7ef36e5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3111bdf_75f9eaa2",
+        "filename": "video/video_quality_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1129,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-04T08:13:02Z",
+      "side": 1,
+      "message": "Ah, I didn\u0027t realize this was sent for review. \n\nI think the way do to it is extend and rename FrameDumpingEncoder (or add yet another encoder wrapper) to call into the analyzer, replacing both post_encode callback and pre_encode callback.\n\nThe non-trivial thing is to find a good way to wire that up only from RunWithAnalyzer. We could have a member variable with a pointer to the analyzer (if any), and check that in CreateVideoEncoder. Does that sound reasonable? \n\nWe can then have appropriately named methods on the analyzer, and not implement any callback interfaces or things like \"pre_encode_proxy()\".",
+      "parentUuid": "7d3549c0_ba213385",
+      "range": {
+        "startLine": 1126,
+        "startChar": 0,
+        "endLine": 1129,
+        "endChar": 6
+      },
+      "revId": "bc29ce3e2a774517bede1ce2012140e2b7ef36e5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

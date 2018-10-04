@@ -24,6 +24,7 @@
 
 #include "api/rtcerror.h"
 #include "common_types.h"  // NOLINT(build/include)
+#include "common_video/include/video_frame.h"
 
 namespace rtc {
 class PacketTransportInternal;

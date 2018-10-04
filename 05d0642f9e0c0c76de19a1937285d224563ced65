@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1c69402f_d7a9519a",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-10-04T12:18:06Z",
+      "side": 1,
+      "message": "Yeah, Vp8Encoder is just used as a factory. There\u0027s no reason for it to inherit from VideoEncoder, and there\u0027s no reason for this to inherit from VideoEncoder via it. I\u0027ll a attempt a minor cleanup and see if it sticks :)",
+      "parentUuid": "60adcfb9_cd119584",
+      "range": {
+        "startLine": 32,
+        "startChar": 32,
+        "endLine": 32,
+        "endChar": 42
+      },
+      "revId": "05d0642f9e0c0c76de19a1937285d224563ced65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7c37b6a0_7cfad471",
         "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.h",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "05d0642f9e0c0c76de19a1937285d224563ced65",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "988435b2_ea94e48f",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-10-04T12:18:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c37b6a0_7cfad471",
+      "range": {
+        "startLine": 90,
+        "startChar": 44,
+        "endLine": 90,
+        "endChar": 61
+      },
+      "revId": "05d0642f9e0c0c76de19a1937285d224563ced65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "c0d0fc99_9940475b",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_interface.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-10-04T12:18:06Z",
+      "side": 1,
+      "message": "git cl format wanted it like that?\nchanged to \u003d default instead",
+      "parentUuid": "a883084f_8bbe8003",
+      "range": {
+        "startLine": 21,
+        "startChar": 29,
+        "endLine": 21,
+        "endChar": 31
+      },
+      "revId": "05d0642f9e0c0c76de19a1937285d224563ced65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6406660f_82d040c1",
         "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_interface.h",
         "patchSetId": 1
@@ -91,6 +163,30 @@
       "revId": "05d0642f9e0c0c76de19a1937285d224563ced65",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8fb066e6_a341185f",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-10-04T12:18:06Z",
+      "side": 1,
+      "message": "Sure, I rearranged things to make them more natural. This is just the order they first appear in libvpx_vp8_encoder.cc from top to bottom :)",
+      "parentUuid": "6406660f_82d040c1",
+      "range": {
+        "startLine": 28,
+        "startChar": 26,
+        "endLine": 28,
+        "endChar": 39
+      },
+      "revId": "05d0642f9e0c0c76de19a1937285d224563ced65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "c1deaf8e_926d3d15",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-10-04T12:18:06Z",
+      "side": 1,
+      "message": "Doh, I changed the code and removed vpx_ prefix everywhere. Removed comment.",
+      "parentUuid": "e920c1d7_733a8468",
+      "range": {
+        "startLine": 48,
+        "startChar": 15,
+        "endLine": 48,
+        "endChar": 22
+      },
+      "revId": "05d0642f9e0c0c76de19a1937285d224563ced65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a9fdea1_75f89c1e",
         "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_interface.h",
         "patchSetId": 1
@@ -137,6 +257,30 @@
       "revId": "05d0642f9e0c0c76de19a1937285d224563ced65",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "050983ed_5ba6d184",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-10-04T12:18:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a9fdea1_75f89c1e",
+      "range": {
+        "startLine": 57,
+        "startChar": 26,
+        "endLine": 57,
+        "endChar": 40
+      },
+      "revId": "05d0642f9e0c0c76de19a1937285d224563ced65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "06de25f9_feb3156e",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-10-04T12:18:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "500eb1db_13a8f39f",
+      "range": {
+        "startLine": 61,
+        "startChar": 26,
+        "endLine": 61,
+        "endChar": 39
+      },
+      "revId": "05d0642f9e0c0c76de19a1937285d224563ced65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ae40965c_7bcba833",
         "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_interface.h",
         "patchSetId": 1
@@ -186,6 +354,30 @@
     },
     {
       "key": {
+        "uuid": "942fe74e_6b5fb787",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-10-04T12:18:06Z",
+      "side": 1,
+      "message": "I think that\u0027s doable. I\u0027m changing the name and removing vp8. Keeping it in this directory for now though. Added todo.",
+      "parentUuid": "ae40965c_7bcba833",
+      "range": {
+        "startLine": 68,
+        "startChar": 40,
+        "endLine": 68,
+        "endChar": 44
+      },
+      "revId": "05d0642f9e0c0c76de19a1937285d224563ced65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a282415e_58020dc4",
         "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_interface.h",
         "patchSetId": 1
@@ -206,6 +398,30 @@
       "revId": "05d0642f9e0c0c76de19a1937285d224563ced65",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd9bff8c_4392cc45",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-10-04T12:18:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a282415e_58020dc4",
+      "range": {
+        "startLine": 87,
+        "startChar": 45,
+        "endLine": 87,
+        "endChar": 67
+      },
+      "revId": "05d0642f9e0c0c76de19a1937285d224563ced65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

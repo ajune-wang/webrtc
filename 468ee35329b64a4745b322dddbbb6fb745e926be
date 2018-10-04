@@ -94,6 +94,30 @@
       "revId": "468ee35329b64a4745b322dddbbb6fb745e926be",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "045231cc_b440eae0",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-04T11:27:40Z",
+      "side": 1,
+      "message": "Trying to compile this, I see that a forward declaration isn\u0027t enough, since we have a non-pointer EncodedImage member in MediaTransportEncodedVideoFrame. Not sure how to resolve the dependency cycle, but after some experiments, I think it should work to let \nlibjingle_peerconnection_api depend on common_video (even if non-api dependencies are discourage), and break the dependency cycle by deleting the dependence of common_video on module_api, and delete the corresponding include of module_common_types.h, which appears unused.\n\nIn addition, I get chromium-style compilation warnings on both MediaTransportEncodedAudioFrame and MediaTransportEncodedVideoFrame:\n\n[chromium-style] Complex constructor has an inlined body.\n[chromium-style] Complex class/struct needs an explicit out-of-line destructor.",
+      "parentUuid": "3887fd70_a0a4f957",
+      "range": {
+        "startLine": 26,
+        "startChar": 33,
+        "endLine": 26,
+        "endChar": 34
+      },
+      "revId": "468ee35329b64a4745b322dddbbb6fb745e926be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

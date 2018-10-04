@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8c75b6c3_e3199f9a",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-10-04T08:24:42Z",
+      "side": 1,
+      "message": "When does the receive channel need to send RTP? Should this be a NOT_REACHABLE instead?",
+      "revId": "ba3c001c13c399964b1c99b56795149cec4934a9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

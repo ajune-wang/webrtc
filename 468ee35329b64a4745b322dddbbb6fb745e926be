@@ -70,6 +70,30 @@
       "revId": "468ee35329b64a4745b322dddbbb6fb745e926be",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3887fd70_a0a4f957",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-04T06:43:27Z",
+      "side": 1,
+      "message": "What was the dependency cycle?",
+      "parentUuid": "6a8408e0_3eb766de",
+      "range": {
+        "startLine": 26,
+        "startChar": 33,
+        "endLine": 26,
+        "endChar": 34
+      },
+      "revId": "468ee35329b64a4745b322dddbbb6fb745e926be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "77f2bdd0_7b1358e3",
+        "filename": "video/full_stack_tests.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-10-04T11:07:39Z",
+      "side": 1,
+      "message": "This sounds like an incorrect fixture name. Should we not just keep FullStackTest, or call it ParameterizedFullStackTest?",
+      "range": {
+        "startLine": 112,
+        "startChar": 7,
+        "endLine": 112,
+        "endChar": 28
+      },
+      "revId": "c56f0ce66a1fa7d13cfd28db78189d56df4b0bbd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

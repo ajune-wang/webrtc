@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "150818b8_e591b419",
+        "filename": "modules/audio_processing/aec3/aec_state.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-10-04T13:39:12Z",
+      "side": 1,
+      "message": "Good point! I\u0027ll for now do that in the commenting of the method. In upcoming changes we probably should change the code so that that is more explicit",
+      "parentUuid": "6c082ef5_071b4025",
+      "revId": "385f319e1dc5205285fcf368cf2ab0e60cdddc54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "932cf3a2_c2d96597",
         "filename": "modules/audio_processing/aec3/aec_state.h",
         "patchSetId": 8
@@ -33,6 +51,24 @@
       "revId": "385f319e1dc5205285fcf368cf2ab0e60cdddc54",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad8755b0_6d28f51b",
+        "filename": "modules/audio_processing/aec3/aec_state.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-10-04T13:39:12Z",
+      "side": 1,
+      "message": "Good point. I altered the naming.",
+      "parentUuid": "932cf3a2_c2d96597",
+      "revId": "385f319e1dc5205285fcf368cf2ab0e60cdddc54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "e2d3873c_4c1b2ebc",
+        "filename": "modules/audio_processing/aec3/aec_state.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-10-04T13:39:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1d1b30e8_312685d5",
+      "revId": "385f319e1dc5205285fcf368cf2ab0e60cdddc54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fc8afadf_9f8a137b",
         "filename": "modules/audio_processing/aec3/aec_state.h",
         "patchSetId": 8
@@ -67,6 +121,24 @@
       "revId": "385f319e1dc5205285fcf368cf2ab0e60cdddc54",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c30963bc_b18d4a5b",
+        "filename": "modules/audio_processing/aec3/aec_state.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-10-04T13:39:12Z",
+      "side": 1,
+      "message": "I\u0027d prefer to keep non_saturated (even though I agree it sounds weird) as I think it is more correct (I feel like the un prefix indicates that an explicit action has been taken to cause the samples to be not saturated).\n\nBut we should anyway change this code in an upcoming CL.",
+      "parentUuid": "fc8afadf_9f8a137b",
+      "revId": "385f319e1dc5205285fcf368cf2ab0e60cdddc54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

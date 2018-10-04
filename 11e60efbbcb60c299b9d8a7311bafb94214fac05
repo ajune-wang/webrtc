@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "524268dd_0b9aa3d3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-10-04T17:50:30Z",
+      "side": 1,
+      "message": "Keep the lines under 73 characters (actually 55 for the title, but that can be hard to achieve.) long lines and titles breaks rendering in some tools.\n\n\"Changed FakeVp8Encoder to write dimensions in payload.\" fits in 55 though.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 62
+      },
+      "revId": "11e60efbbcb60c299b9d8a7311bafb94214fac05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

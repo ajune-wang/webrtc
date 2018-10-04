@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "60adcfb9_cd119584",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-10-04T08:36:18Z",
+      "side": 1,
+      "message": "Not related to this CL, but I\u0027m not sure what value this class provides. We generally don\u0027t use the type system to determine what codec type a particular class provides, and if we want to reduce binary size by not bundling SW codecs, we could just instantiate a NullVideoEncoder that inherits directly from webrtc::VideoEncoder. Anyway..",
+      "range": {
+        "startLine": 32,
+        "startChar": 32,
+        "endLine": 32,
+        "endChar": 42
+      },
+      "revId": "05d0642f9e0c0c76de19a1937285d224563ced65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c37b6a0_7cfad471",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-10-04T08:36:18Z",
+      "side": 1,
+      "message": "How about |libvpx_| ?",
+      "range": {
+        "startLine": 90,
+        "startChar": 44,
+        "endLine": 90,
+        "endChar": 61
+      },
+      "revId": "05d0642f9e0c0c76de19a1937285d224563ced65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a883084f_8bbe8003",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_interface.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-10-04T08:36:18Z",
+      "side": 1,
+      "message": "nit: space",
+      "range": {
+        "startLine": 21,
+        "startChar": 29,
+        "endLine": 21,
+        "endChar": 31
+      },
+      "revId": "05d0642f9e0c0c76de19a1937285d224563ced65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6406660f_82d040c1",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-10-04T08:36:18Z",
+      "side": 1,
+      "message": "How about defining this after codec_enc_init?",
+      "range": {
+        "startLine": 28,
+        "startChar": 26,
+        "endLine": 28,
+        "endChar": 39
+      },
+      "revId": "05d0642f9e0c0c76de19a1937285d224563ced65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e920c1d7_733a8468",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-10-04T08:36:18Z",
+      "side": 1,
+      "message": "I don\u0027t see them?",
+      "range": {
+        "startLine": 48,
+        "startChar": 15,
+        "endLine": 48,
+        "endChar": 22
+      },
+      "revId": "05d0642f9e0c0c76de19a1937285d224563ced65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a9fdea1_75f89c1e",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-10-04T08:36:18Z",
+      "side": 1,
+      "message": "I would define this before _multi",
+      "range": {
+        "startLine": 57,
+        "startChar": 26,
+        "endLine": 57,
+        "endChar": 40
+      },
+      "revId": "05d0642f9e0c0c76de19a1937285d224563ced65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "500eb1db_13a8f39f",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-10-04T08:36:18Z",
+      "side": 1,
+      "message": "How about adding newlines between the different families of methods? I.e., one space before the first codec_control, and one newline after the last codec_control.",
+      "range": {
+        "startLine": 61,
+        "startChar": 26,
+        "endLine": 61,
+        "endChar": 39
+      },
+      "revId": "05d0642f9e0c0c76de19a1937285d224563ced65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae40965c_7bcba833",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-10-04T08:36:18Z",
+      "side": 1,
+      "message": "We don\u0027t need to do this now, but is there anything here that would block us from doing the same with VP9 down the line? Preferably reusing the same interface, I\u0027m thinking?",
+      "range": {
+        "startLine": 68,
+        "startChar": 40,
+        "endLine": 68,
+        "endChar": 44
+      },
+      "revId": "05d0642f9e0c0c76de19a1937285d224563ced65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a282415e_58020dc4",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-10-04T08:36:18Z",
+      "side": 1,
+      "message": "How about |CreateEncoder|  or |CreateEncoderImplementation|? Because this will create the real implementation behind the interface, not just the interface itself.",
+      "range": {
+        "startLine": 87,
+        "startChar": 45,
+        "endLine": 87,
+        "endChar": 67
+      },
+      "revId": "05d0642f9e0c0c76de19a1937285d224563ced65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

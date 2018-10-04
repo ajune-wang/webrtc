@@ -105,6 +105,7 @@ rtc_static_library("libjingle_peerconnection_api") {
     ":fec_controller_api",
     ":libjingle_logging_api",
     ":rtc_stats_api",
+    "../common_video:common_video",
     "audio:audio_mixer_api",
     "audio_codecs:audio_codecs_api",
     "transport:bitrate_settings",

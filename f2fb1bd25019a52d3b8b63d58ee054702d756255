@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "86f60b34_9e772026",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-10-04T11:44:08Z",
+      "side": 1,
+      "message": "Add a paragraph explaining why?",
+      "range": {
+        "startLine": 7,
+        "startChar": 1,
+        "endLine": 7,
+        "endChar": 64
+      },
+      "revId": "f2fb1bd25019a52d3b8b63d58ee054702d756255",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6900433c_2fbe9c0a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-10-04T11:44:08Z",
+      "side": 1,
+      "message": "You don\u0027t actually do this.",
+      "range": {
+        "startLine": 9,
+        "startChar": 1,
+        "endLine": 10,
+        "endChar": 27
+      },
+      "revId": "f2fb1bd25019a52d3b8b63d58ee054702d756255",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ed7405a_17bf4345",
+        "filename": "api/test/simulated_network.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-10-04T11:44:08Z",
+      "side": 1,
+      "message": "Alternatively,\n\n  using NetworkSimulationInterface \u003d NetworkBehaviorInterface;\n\nThat way, you don\u0027t risk any problems if e.g. NetworkBehaviorInterface needs to be converted to NetworkSimulationInterface.",
+      "revId": "f2fb1bd25019a52d3b8b63d58ee054702d756255",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

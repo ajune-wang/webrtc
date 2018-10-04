@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef AUDIO_CHANNEL_H_
-#define AUDIO_CHANNEL_H_
+#ifndef AUDIO_CHANNEL_RECEIVE_H_
+#define AUDIO_CHANNEL_RECEIVE_H_
 
 #include <map>
 #include <memory>
@@ -59,7 +59,7 @@ class RtpTransportControllerSendInterface;
 
 struct SenderInfo;
 
-struct CallStatistics {
+struct CallReceiveStatistics {
   unsigned short fractionLost;  // NOLINT
   unsigned int cumulativeLost;
   unsigned int extendedMax;
@@ -74,39 +74,27 @@ struct CallStatistics {
   int64_t capture_start_ntp_time_ms_;
 };
 
-// See section 6.4.2 in http://www.ietf.org/rfc/rfc3550.txt for details.
-struct ReportBlock {
-  uint32_t sender_SSRC;  // SSRC of sender
-  uint32_t source_SSRC;
-  uint8_t fraction_lost;
-  int32_t cumulative_num_packets_lost;
-  uint32_t extended_highest_sequence_number;
-  uint32_t interarrival_jitter;
-  uint32_t last_SR_timestamp;
-  uint32_t delay_since_last_SR;
-};
-
 namespace voe {
 
+class ChannelSend;
 class RtpPacketSenderProxy;
 class TransportFeedbackProxy;
 class TransportSequenceNumberProxy;
-class VoERtcpObserver;
 
 // Helper class to simplify locking scheme for members that are accessed from
 // multiple threads.
 // Example: a member can be set on thread T1 and read by an internal audio
 // thread T2. Accessing the member via this class ensures that we are
 // safe and also avoid TSan v2 warnings.
-class ChannelState {
+class ChannelReceiveState {
  public:
   struct State {
     bool playing = false;
     bool sending = false;
   };
 
-  ChannelState() {}
-  virtual ~ChannelState() {}
+  ChannelReceiveState() {}
+  virtual ~ChannelReceiveState() {}
 
   void Reset() {
     rtc::CritScope lock(&lock_);
@@ -133,34 +121,32 @@ class ChannelState {
   State state_;
 };
 
-class Channel
+class ChannelReceive
     : public RtpData,
       public Transport,
       public AudioPacketizationCallback,  // receive encoded packets from the
                                           // ACM
       public OverheadObserver {
  public:
-  friend class VoERtcpObserver;
-
   enum { KNumSocketThreads = 1 };
   enum { KNumberOfSocketBuffers = 8 };
   // Used for send streams.
-  Channel(rtc::TaskQueue* encoder_queue,
-          ProcessThread* module_process_thread,
-          AudioDeviceModule* audio_device_module,
-          RtcpRttStats* rtcp_rtt_stats,
-          RtcEventLog* rtc_event_log);
+  ChannelReceive(rtc::TaskQueue* encoder_queue,
+                 ProcessThread* module_process_thread,
+                 AudioDeviceModule* audio_device_module,
+                 RtcpRttStats* rtcp_rtt_stats,
+                 RtcEventLog* rtc_event_log);
   // Used for receive streams.
-  Channel(ProcessThread* module_process_thread,
-          AudioDeviceModule* audio_device_module,
-          RtcpRttStats* rtcp_rtt_stats,
-          RtcEventLog* rtc_event_log,
-          uint32_t remote_ssrc,
-          size_t jitter_buffer_max_packets,
-          bool jitter_buffer_fast_playout,
-          rtc::scoped_refptr<AudioDecoderFactory> decoder_factory,
-          absl::optional<AudioCodecPairId> codec_pair_id);
-  virtual ~Channel();
+  ChannelReceive(ProcessThread* module_process_thread,
+                 AudioDeviceModule* audio_device_module,
+                 RtcpRttStats* rtcp_rtt_stats,
+                 RtcEventLog* rtc_event_log,
+                 uint32_t remote_ssrc,
+                 size_t jitter_buffer_max_packets,
+                 bool jitter_buffer_fast_playout,
+                 rtc::scoped_refptr<AudioDecoderFactory> decoder_factory,
+                 absl::optional<AudioCodecPairId> codec_pair_id);
+  virtual ~ChannelReceive();
 
   void SetSink(AudioSinkInterface* sink);
 
@@ -236,8 +222,8 @@ class Channel
   void ResetReceiverCongestionControlObjects();
   void SetRTCPStatus(bool enable);
   int SetRTCP_CNAME(const char cName[256]);
-  int GetRemoteRTCPReportBlocks(std::vector<ReportBlock>* report_blocks);
-  int GetRTPStatistics(CallStatistics& stats);  // NOLINT
+
+  int GetRTPStatistics(CallReceiveStatistics& stats);  // NOLINT
   void SetNACKStatus(bool enable, int maxNumberOfPackets);
 
   // From AudioPacketizationCallback in the ACM
@@ -283,7 +269,7 @@ class Channel
 
   // Associate to a send channel.
   // Used for obtaining RTT for a receive-only channel.
-  void SetAssociatedSendChannel(Channel* channel);
+  void SetAssociatedSendChannel(ChannelSend* channel);
 
   void SetTransportOverhead(size_t transport_overhead_per_packet);
 
@@ -333,7 +319,7 @@ class Channel
   rtc::CriticalSection _callbackCritSect;
   rtc::CriticalSection volume_settings_critsect_;
 
-  ChannelState channel_state_;
+  ChannelReceiveState channel_state_;
 
   RtcEventLog* const event_log_;
 
@@ -395,16 +381,12 @@ class Channel
       RTC_GUARDED_BY(overhead_per_packet_lock_);
   size_t rtp_overhead_per_packet_ RTC_GUARDED_BY(overhead_per_packet_lock_);
   rtc::CriticalSection overhead_per_packet_lock_;
-  // RtcpBandwidthObserver
-  std::unique_ptr<VoERtcpObserver> rtcp_observer_;
   // An associated send channel.
   rtc::CriticalSection assoc_send_channel_lock_;
-  Channel* associated_send_channel_ RTC_GUARDED_BY(assoc_send_channel_lock_);
+  ChannelSend* associated_send_channel_
+      RTC_GUARDED_BY(assoc_send_channel_lock_);
 
   PacketRouter* packet_router_ = nullptr;
-  std::unique_ptr<TransportFeedbackProxy> feedback_observer_proxy_;
-  std::unique_ptr<TransportSequenceNumberProxy> seq_num_allocator_proxy_;
-  std::unique_ptr<RtpPacketSenderProxy> rtp_packet_sender_proxy_;
   std::unique_ptr<RateLimiter> retransmission_rate_limiter_;
 
   rtc::ThreadChecker construction_thread_;
@@ -419,4 +401,4 @@ class Channel
 }  // namespace voe
 }  // namespace webrtc
 
-#endif  // AUDIO_CHANNEL_H_
+#endif  // AUDIO_CHANNEL_RECEIVE_H_

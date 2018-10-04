@@ -56,7 +56,7 @@ std::unique_ptr<voe::ChannelSendProxy> CreateChannelAndProxy(
   internal::AudioState* internal_audio_state =
       static_cast<internal::AudioState*>(audio_state);
   return absl::make_unique<voe::ChannelSendProxy>(
-      absl::make_unique<voe::Channel>(
+      absl::make_unique<voe::ChannelSend>(
           worker_queue, module_process_thread,
           internal_audio_state->audio_device_module(), rtcp_rtt_stats,
           event_log));
@@ -352,7 +352,7 @@ webrtc::AudioSendStream::Stats AudioSendStream::GetStats(
   webrtc::AudioSendStream::Stats stats;
   stats.local_ssrc = config_.rtp.ssrc;
 
-  webrtc::CallStatistics call_stats = channel_proxy_->GetRTCPStatistics();
+  webrtc::CallSendStatistics call_stats = channel_proxy_->GetRTCPStatistics();
   stats.bytes_sent = call_stats.bytesSent;
   stats.packets_sent = call_stats.packetsSent;
   // RTT isn't known until a RTCP report is received. Until then, VoiceEngine

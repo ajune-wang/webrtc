@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4ff76420_515a4bec",
+        "filename": "api/test/simulated_network.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-10-04T10:36:06Z",
+      "side": 1,
+      "message": "Can this be removed now?",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 64
+      },
+      "revId": "2e4f01810954d9f60644847ef6b64b9dfc766512",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

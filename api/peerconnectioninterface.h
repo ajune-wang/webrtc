@@ -176,6 +176,15 @@ class PeerConnectionInterface : public rtc::RefCountInterface {
     kIceGatheringComplete
   };
 
+  enum ConnectionState {
+    kConnectionNew,
+    kConnectionConnecting,
+    kConnectionConnected,
+    kConnectionDisconnected,
+    kConnectionFailed,
+    kConnectionClosed,
+  };
+
   enum IceConnectionState {
     kIceConnectionNew,
     kIceConnectionChecking,

@@ -114,6 +114,10 @@ class FakeIceTransport : public IceTransportInternal {
     return IceTransportState::STATE_CONNECTING;
   }
 
+  webrtc::IceTransportState GetNewState() const override {
+    return webrtc::kIceTransportConnected;
+  }
+
   void SetIceRole(IceRole role) override { role_ = role; }
   IceRole GetIceRole() const override { return role_; }
   void SetIceTiebreaker(uint64_t tiebreaker) override {

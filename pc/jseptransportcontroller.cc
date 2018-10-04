@@ -1122,12 +1122,20 @@ void JsepTransportController::UpdateAggregateStates_n() {
   auto dtls_transports = GetDtlsTransports();
   cricket::IceConnectionState new_connection_state =
       cricket::kIceConnectionConnecting;
+  PeerConnectionInterface::IceConnectionState new_ice_connection_state =
+      PeerConnectionInterface::IceConnectionState::kIceConnectionNew;
+  PeerConnectionInterface::ConnectionState new_combined_state =
+      PeerConnectionInterface::ConnectionState::kConnectionNew;
   cricket::IceGatheringState new_gathering_state = cricket::kIceGatheringNew;
   bool any_failed = false;
   bool all_connected = !dtls_transports.empty();
   bool all_completed = !dtls_transports.empty();
   bool any_gathering = false;
   bool all_done_gathering = !dtls_transports.empty();
+
+  std::map<IceTransportState, int> ice_state_counts;
+  std::map<cricket::DtlsTransportState, int> dtls_state_counts;
+
   for (const auto& dtls : dtls_transports) {
     any_failed = any_failed || dtls->ice_transport()->GetState() ==
                                    cricket::IceTransportState::STATE_FAILED;
@@ -1144,6 +1152,9 @@ void JsepTransportController::UpdateAggregateStates_n() {
     all_done_gathering =
         all_done_gathering && dtls->ice_transport()->gathering_state() ==
                                   cricket::kIceGatheringComplete;
+
+    dtls_state_counts[dtls->dtls_state()]++;
+    ice_state_counts[dtls->ice_transport()->GetNewState()]++;
   }
   if (any_failed) {
     new_connection_state = cricket::kIceConnectionFailed;
@@ -1157,6 +1168,96 @@ void JsepTransportController::UpdateAggregateStates_n() {
     invoker_.AsyncInvoke<void>(RTC_FROM_HERE, signaling_thread_,
                                [this, new_connection_state] {
                                  SignalIceConnectionState(new_connection_state);
+                               });
+  }
+
+  // Compute the current RTCIceConnectionState as described in
+  // https://www.w3.org/TR/webrtc/#dom-rtciceconnectionstate
+  int total_ice_checking =
+      ice_state_counts[IceTransportState::kIceTransportChecking];
+  int total_ice_connected =
+      ice_state_counts[IceTransportState::kIceTransportConnected];
+  int total_ice_completed =
+      ice_state_counts[IceTransportState::kIceTransportCompleted];
+  int total_ice_failed =
+      ice_state_counts[IceTransportState::kIceTransportFailed];
+  int total_ice_disconnected =
+      ice_state_counts[IceTransportState::kIceTransportDisconnected];
+  int total_ice_closed =
+      ice_state_counts[IceTransportState::kIceTransportClosed];
+  int total_ice = dtls_transports.size();
+
+  if (total_ice_failed > 0) {
+    new_ice_connection_state =
+        PeerConnectionInterface::IceConnectionState::kIceConnectionFailed;
+  } else if (total_ice_disconnected > 0) {
+    new_ice_connection_state =
+        PeerConnectionInterface::IceConnectionState::kIceConnectionDisconnected;
+  } else if (total_ice_checking > 0) {
+    new_ice_connection_state =
+        PeerConnectionInterface::IceConnectionState::kIceConnectionChecking;
+  } else if (total_ice_completed + total_ice_closed == total_ice &&
+             total_ice_completed > 0) {
+    new_ice_connection_state =
+        PeerConnectionInterface::IceConnectionState::kIceConnectionCompleted;
+  } else if (total_ice_connected + total_ice_completed + total_ice_closed ==
+                 total_ice &&
+             total_ice_connected > 0) {
+    new_ice_connection_state =
+        PeerConnectionInterface::IceConnectionState::kIceConnectionConnected;
+  } else {
+    new_ice_connection_state =
+        PeerConnectionInterface::IceConnectionState::kIceConnectionNew;
+  }
+
+  if (standards_compliant_connection_state_ != new_ice_connection_state) {
+    standards_compliant_connection_state_ = new_ice_connection_state;
+    invoker_.AsyncInvoke<void>(
+        RTC_FROM_HERE, signaling_thread_, [this, new_ice_connection_state] {
+          SignalStandardsCompliantIceConnectionState(new_ice_connection_state);
+        });
+  }
+
+  // Compute the current RTCPeerConnectionState as described in
+  // https://www.w3.org/TR/webrtc/#dom-rtcpeerconnectionstate
+  int total_connected =
+      total_ice_connected +
+      dtls_state_counts[cricket::DtlsTransportState::DTLS_TRANSPORT_CONNECTED];
+  int total_dtls_connecting =
+      dtls_state_counts[cricket::DtlsTransportState::DTLS_TRANSPORT_CONNECTING];
+  int total_failed =
+      total_ice_failed +
+      dtls_state_counts[cricket::DtlsTransportState::DTLS_TRANSPORT_FAILED];
+  int total_closed =
+      total_ice_closed +
+      dtls_state_counts[cricket::DtlsTransportState::DTLS_TRANSPORT_CLOSED];
+  int total_transports = total_ice * 2;
+
+  if (total_failed > 0) {
+    new_combined_state =
+        PeerConnectionInterface::ConnectionState::kConnectionFailed;
+  } else if (total_ice_disconnected > 0 &&
+             total_dtls_connecting + total_ice_checking == 0) {
+    new_combined_state =
+        PeerConnectionInterface::ConnectionState::kConnectionDisconnected;
+  } else if (total_dtls_connecting + total_ice_checking > 0) {
+    new_combined_state =
+        PeerConnectionInterface::ConnectionState::kConnectionConnecting;
+  } else if (total_connected + total_ice_completed + total_closed ==
+                 total_transports &&
+             total_connected + total_ice_completed > 0) {
+    new_combined_state =
+        PeerConnectionInterface::ConnectionState::kConnectionConnected;
+  } else {
+    new_combined_state =
+        PeerConnectionInterface::ConnectionState::kConnectionNew;
+  }
+
+  if (combined_connection_state_ != new_combined_state) {
+    combined_connection_state_ = new_combined_state;
+    invoker_.AsyncInvoke<void>(RTC_FROM_HERE, signaling_thread_,
+                               [this, new_combined_state] {
+                                 SignalConnectionState(new_combined_state);
                                });
   }
 

@@ -15,6 +15,7 @@
 #include <vector>
 
 #include "api/candidate.h"
+#include "api/transport/enums.h"
 #include "p2p/base/candidatepairinterface.h"
 #include "p2p/base/packettransportinternal.h"
 #include "p2p/base/port.h"
@@ -189,6 +190,7 @@ class IceTransportInternal : public rtc::PacketTransportInternal {
   ~IceTransportInternal() override;
 
   virtual IceTransportState GetState() const = 0;
+  virtual webrtc::IceTransportState GetNewState() const = 0;
 
   virtual int component() const = 0;
 
@@ -259,6 +261,9 @@ class IceTransportInternal : public rtc::PacketTransportInternal {
 
   // Emitted whenever the transport state changed.
   sigslot::signal1<IceTransportInternal*> SignalStateChanged;
+
+  // Emitted whenever the new standards-compliant transport state changed.
+  sigslot::signal1<IceTransportInternal*> SignalNewStateChanged;
 
   // Invoked when the transport is being destroyed.
   sigslot::signal1<IceTransportInternal*> SignalDestroyed;

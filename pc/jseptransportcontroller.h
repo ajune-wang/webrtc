@@ -165,6 +165,11 @@ class JsepTransportController : public sigslot::has_slots<> {
   // Else => connecting
   sigslot::signal1<cricket::IceConnectionState> SignalIceConnectionState;
 
+  sigslot::signal1<PeerConnectionInterface::ConnectionState>
+      SignalConnectionState;
+  sigslot::signal1<PeerConnectionInterface::IceConnectionState>
+      SignalStandardsCompliantIceConnectionState;
+
   // If all transports done gathering => complete,
   // Else if any are gathering => gathering,
   // Else => new
@@ -304,6 +309,11 @@ class JsepTransportController : public sigslot::has_slots<> {
   // Aggregate state for Transports.
   cricket::IceConnectionState ice_connection_state_ =
       cricket::kIceConnectionConnecting;
+  PeerConnectionInterface::IceConnectionState
+      standards_compliant_connection_state_ =
+          PeerConnectionInterface::IceConnectionState::kIceConnectionNew;
+  PeerConnectionInterface::ConnectionState combined_connection_state_ =
+      PeerConnectionInterface::ConnectionState::kConnectionNew;
   cricket::IceGatheringState ice_gathering_state_ = cricket::kIceGatheringNew;
 
   Config config_;

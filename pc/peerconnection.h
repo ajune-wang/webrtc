@@ -15,8 +15,10 @@
 #include <memory>
 #include <set>
 #include <string>
+#include <utility>
 #include <vector>
 
+#include "api/media_transport_interface.h"
 #include "api/peerconnectioninterface.h"
 #include "api/turncustomizer.h"
 #include "pc/iceserverparsing.h"
@@ -262,6 +264,13 @@ class PeerConnection : public PeerConnectionInternal,
     return_histogram_very_quickly_ = true;
   }
   void RequestUsagePatternReportForTesting();
+
+  void SetMediaTransportFactory(
+      std::unique_ptr<MediaTransportFactory> media_transport_factory) override {
+    RTC_CHECK(current_local_description_ == nullptr);
+    RTC_CHECK(current_remote_description == nullptr);
+    media_transport_factory_ = std::move(media_transport_factory);
+  }
 
  protected:
   ~PeerConnection() override;
@@ -1027,6 +1036,11 @@ class PeerConnection : public PeerConnectionInternal,
   std::set<std::string> pending_ice_restarts_;
 
   std::unique_ptr<WebRtcSessionDescriptionFactory> webrtc_session_desc_factory_;
+
+  // Optional media transport for sending / receiving encoded frames.
+  // If available, media transport will be used instead of RTP / SRTP.
+  // This part is experimental.
+  std::unique_ptr<MediaTransportFactory> media_transport_factory_ = nullptr;
 
   // Member variables for caching global options.
   cricket::AudioOptions audio_options_;

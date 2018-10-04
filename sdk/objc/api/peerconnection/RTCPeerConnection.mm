@@ -29,6 +29,7 @@
 #include <memory>
 
 #include "api/jsepicecandidate.h"
+#include "api/media_transport_interface.h"
 #include "rtc_base/checks.h"
 
 NSString * const kRTCPeerConnectionErrorDomain =
@@ -743,6 +744,11 @@ void PeerConnectionDelegateAdapter::OnRemoveTrack(
 
 - (rtc::scoped_refptr<webrtc::PeerConnectionInterface>)nativePeerConnection {
   return _peerConnection;
+}
+
+- (void)setMediaTransportFactory:
+    (std::unique_ptr<webrtc::MediaTransportFactory>)mediaTransportFactory {
+  _peerConnection->SetMediaTransportFactory(std::move(mediaTransportFactory));
 }
 
 @end

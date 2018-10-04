@@ -16,6 +16,29 @@
       "revId": "ba3c001c13c399964b1c99b56795149cec4934a9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6e7e778_495ccda4",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 719,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-04T08:27:08Z",
+      "side": 1,
+      "message": "I\u0027ll fix the msan error by zero-initialization here (and in channel_send.cc). But I think it\u0027s really a but in ModuleRtpRtcpImpl::RTT, which does\n\n  int32_t ret \u003d rtcp_receiver_.RTT(remote_ssrc, rtt, avg_rtt, min_rtt, max_rtt);\n  if (rtt \u0026\u0026 *rtt \u003d\u003d 0) {\n\nThis implicitly requires the caller to zero-initialize the output arguments. It would be cleaner to access *rtt only if ret !\u003d 0. So could be changed to\n\n  if (rtt \u0026\u0026 (ret !\u003d 0 || *rtt \u003d\u003d 0))",
+      "range": {
+        "startLine": 719,
+        "startChar": 0,
+        "endLine": 719,
+        "endChar": 14
+      },
+      "revId": "ba3c001c13c399964b1c99b56795149cec4934a9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -237,6 +237,7 @@ absl::optional<DelayEstimate> RenderDelayControllerImpl::GetDelay(
       soft_reset_counter_ = 0;
     }
   }
+  offset_blocks = 0;
 
   // Log any changes in the skew.
   skew_shift_reporting_counter_ =

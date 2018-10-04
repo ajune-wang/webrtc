@@ -118,6 +118,30 @@
       "revId": "468ee35329b64a4745b322dddbbb6fb745e926be",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44fad059_3323eb68",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-04T15:57:32Z",
+      "side": 1,
+      "message": "+1 I see the same now, when I started using it.\n\nBtw how are you compiling this to test it? (we should probably add unit tests for the interface / mocks).\n\nAnother alternative is to replace the webrtc::EncodedImage with std::unique_ptr\u003cwebrtc::EncodedImage\u003e. unique_ptr allows for incomplete types.",
+      "parentUuid": "045231cc_b440eae0",
+      "range": {
+        "startLine": 26,
+        "startChar": 33,
+        "endLine": 26,
+        "endChar": 34
+      },
+      "revId": "468ee35329b64a4745b322dddbbb6fb745e926be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

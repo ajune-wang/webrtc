@@ -27,7 +27,7 @@ namespace rtc {
 namespace internal {
 
 // (Internal; please don't use outside this file.) Determines if elements of
-// type U are compatible with a BufferT<T>. For most types, we just ignore
+// type U are compatible with a Buffer<T>. For most types, we just ignore
 // top-level const and forbid top-level volatile and require T and U to be
 // otherwise equal, but all byte-sized integers (notably char, int8_t, and
 // uint8_t) are compatible with each other. (Note: We aim to get rid of this
@@ -49,7 +49,7 @@ struct BufferCompat {
 // The type alias "ZeroOnFreeBuffer" below should be used instead of setting
 // "ZeroOnFree" in the template manually to "true".
 template <typename T, bool ZeroOnFree = false>
-class BufferT {
+class Buffer {
   // We want T's destructor and default constructor to be trivial, i.e. perform
   // no action, so that we don't have to touch the memory we allocate and
   // deallocate. And we want T to be trivially copyable, so that we can copy T
@@ -63,17 +63,17 @@ class BufferT {
  public:
   using value_type = T;
 
-  // An empty BufferT.
-  BufferT() : size_(0), capacity_(0), data_(nullptr) {
+  // An empty Buffer.
+  Buffer() : size_(0), capacity_(0), data_(nullptr) {
     RTC_DCHECK(IsConsistent());
   }
 
   // Disable copy construction and copy assignment, since copying a buffer is
   // expensive enough that we want to force the user to be explicit about it.
-  BufferT(const BufferT&) = delete;
-  BufferT& operator=(const BufferT&) = delete;
+  Buffer(const Buffer&) = delete;
+  Buffer& operator=(const Buffer&) = delete;
 
-  BufferT(BufferT&& buf)
+  Buffer(Buffer&& buf)
       : size_(buf.size()),
         capacity_(buf.capacity()),
         data_(std::move(buf.data_)) {
@@ -82,9 +82,9 @@ class BufferT {
   }
 
   // Construct a buffer with the specified number of uninitialized elements.
-  explicit BufferT(size_t size) : BufferT(size, size) {}
+  explicit Buffer(size_t size) : Buffer(size, size) {}
 
-  BufferT(size_t size, size_t capacity)
+  Buffer(size_t size, size_t capacity)
       : size_(size),
         capacity_(std::max(size, capacity)),
         data_(capacity_ > 0 ? new T[capacity_] : nullptr) {
@@ -95,12 +95,12 @@ class BufferT {
   template <typename U,
             typename std::enable_if<
                 internal::BufferCompat<T, U>::value>::type* = nullptr>
-  BufferT(const U* data, size_t size) : BufferT(data, size, size) {}
+  Buffer(const U* data, size_t size) : Buffer(data, size, size) {}
 
   template <typename U,
             typename std::enable_if<
                 internal::BufferCompat<T, U>::value>::type* = nullptr>
-  BufferT(U* data, size_t size, size_t capacity) : BufferT(size, capacity) {
+  Buffer(U* data, size_t size, size_t capacity) : Buffer(size, capacity) {
     static_assert(sizeof(T) == sizeof(U), "");
     std::memcpy(data_.get(), data, size * sizeof(U));
   }
@@ -110,9 +110,9 @@ class BufferT {
             size_t N,
             typename std::enable_if<
                 internal::BufferCompat<T, U>::value>::type* = nullptr>
-  BufferT(U (&array)[N]) : BufferT(array, N) {}
+  Buffer(U (&array)[N]) : Buffer(array, N) {}
 
-  ~BufferT() { MaybeZeroCompleteBuffer(); }
+  ~Buffer() { MaybeZeroCompleteBuffer(); }
 
   // Get a pointer to the data. Just .data() will give you a (const) T*, but if
   // T is a byte-sized integer, you may also use .data<U>() for any other
@@ -148,7 +148,7 @@ class BufferT {
     return capacity_;
   }
 
-  BufferT& operator=(BufferT&& buf) {
+  Buffer& operator=(Buffer&& buf) {
     RTC_DCHECK(IsConsistent());
     RTC_DCHECK(buf.IsConsistent());
     size_ = buf.size_;
@@ -158,7 +158,7 @@ class BufferT {
     return *this;
   }
 
-  bool operator==(const BufferT& buf) const {
+  bool operator==(const Buffer& buf) const {
     RTC_DCHECK(IsConsistent());
     if (size_ != buf.size_) {
       return false;
@@ -175,7 +175,7 @@ class BufferT {
     return true;
   }
 
-  bool operator!=(const BufferT& buf) const { return !(*this == buf); }
+  bool operator!=(const Buffer& buf) const { return !(*this == buf); }
 
   T& operator[](size_t index) {
     RTC_DCHECK_LT(index, size_);
@@ -342,7 +342,7 @@ class BufferT {
   }
 
   // Swaps two buffers. Also works for buffers that have been moved from.
-  friend void swap(BufferT& a, BufferT& b) {
+  friend void swap(Buffer& a, Buffer& b) {
     using std::swap;
     swap(a.size_, b.size_);
     swap(a.capacity_, b.capacity_);
@@ -417,12 +417,13 @@ class BufferT {
   std::unique_ptr<T[]> data_;
 };
 
-// By far the most common sort of buffer.
-using Buffer = BufferT<uint8_t>;
-
 // A buffer that zeros memory before releasing it.
 template <typename T>
-using ZeroOnFreeBuffer = BufferT<T, true>;
+using ZeroOnFreeBuffer = Buffer<T, true>;
+
+// For backwards compatibility. TODO(bugs.webrtc.org/9810): Remove it!
+template <typename T>
+using BufferT = Buffer<T>;
 
 }  // namespace rtc
 

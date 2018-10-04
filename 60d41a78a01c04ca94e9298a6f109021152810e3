@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "40ee6a27_2378bdd6",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/PeerConnectionTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 690,
+      "author": {
+        "id": 7443
+      },
+      "writtenOn": "2018-10-04T16:50:32Z",
+      "side": 1,
+      "message": "Clean-up was requested in one of the previous reviews, so I added it. Removed.",
+      "parentUuid": "1dc38e49_56d99cbc",
+      "range": {
+        "startLine": 688,
+        "startChar": 0,
+        "endLine": 690,
+        "endChar": 16
+      },
+      "revId": "60d41a78a01c04ca94e9298a6f109021152810e3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fd79f247_b0d5bd51",
         "filename": "sdk/android/instrumentationtests/src/org/webrtc/RtcCertificatePemTest.java",
         "patchSetId": 6
@@ -45,6 +69,30 @@
       "revId": "60d41a78a01c04ca94e9298a6f109021152810e3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2041108e_4e75b433",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/RtcCertificatePemTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 7443
+      },
+      "writtenOn": "2018-10-04T16:50:32Z",
+      "side": 1,
+      "message": "removed",
+      "parentUuid": "fd79f247_b0d5bd51",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 0
+      },
+      "revId": "60d41a78a01c04ca94e9298a6f109021152810e3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "cbe75df7_e26148dd",
+        "filename": "sdk/android/src/jni/pc/peerconnection.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 7443
+      },
+      "writtenOn": "2018-10-04T16:50:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b67f2d85_4ced6908",
+      "range": {
+        "startLine": 155,
+        "startChar": 2,
+        "endLine": 155,
+        "endChar": 77
+      },
+      "revId": "60d41a78a01c04ca94e9298a6f109021152810e3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2c3e54e9_b6f89fae",
         "filename": "sdk/android/src/jni/pc/rtccertificate.h",
         "patchSetId": 6
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "41503a63_6284afdb",
+        "filename": "sdk/android/src/jni/pc/rtccertificate.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 7443
+      },
+      "writtenOn": "2018-10-04T16:50:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2c3e54e9_b6f89fae",
+      "range": {
+        "startLine": 2,
+        "startChar": 14,
+        "endLine": 2,
+        "endChar": 18
+      },
+      "revId": "60d41a78a01c04ca94e9298a6f109021152810e3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "09d79bf0_1e5ce92e",
         "filename": "sdk/android/src/jni/pc/rtccertificate.h",
         "patchSetId": 6
@@ -114,6 +210,30 @@
       "revId": "60d41a78a01c04ca94e9298a6f109021152810e3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cbe8f16d_7b3424ff",
+        "filename": "sdk/android/src/jni/pc/rtccertificate.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 7443
+      },
+      "writtenOn": "2018-10-04T16:50:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "09d79bf0_1e5ce92e",
+      "range": {
+        "startLine": 22,
+        "startChar": 40,
+        "endLine": 22,
+        "endChar": 66
+      },
+      "revId": "60d41a78a01c04ca94e9298a6f109021152810e3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

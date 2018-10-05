@@ -22,6 +22,30 @@
       "revId": "862afc1e4ef8b144be4e8d95ece2cfa92628863e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e00429e_573a5c4f",
+        "filename": "test/fuzzers/audio_processing_fuzzer_helper.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5719
+      },
+      "writtenOn": "2018-10-05T17:39:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "512af0cc_1ab5a7a1",
+      "range": {
+        "startLine": 33,
+        "startChar": 39,
+        "endLine": 33,
+        "endChar": 47
+      },
+      "revId": "862afc1e4ef8b144be4e8d95ece2cfa92628863e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

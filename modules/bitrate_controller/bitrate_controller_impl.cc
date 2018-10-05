@@ -281,6 +281,13 @@ bool BitrateControllerImpl::GetNetworkParameters(uint32_t* bitrate,
   return new_bitrate;
 }
 
+void BitrateControllerImpl::UpdateFeedbackRtt(int64_t feedback_rtt_ms) {
+  rtc::CritScope cs(&critsect_);
+  bandwidth_estimation_.UpdateFeedbackRtt(
+      Timestamp::ms(clock_->TimeInMilliseconds()),
+      TimeDelta::ms(feedback_rtt_ms));
+}
+
 bool BitrateControllerImpl::AvailableBandwidth(uint32_t* bandwidth) const {
   rtc::CritScope cs(&critsect_);
   int bitrate;

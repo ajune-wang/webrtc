@@ -59,6 +59,7 @@ class BitrateControllerImpl : public BitrateController {
                             uint8_t* fraction_loss,
                             int64_t* rtt) override;
 
+  void UpdateFeedbackRtt(int64_t feedback_rtt_ms) override;
   void OnDelayBasedBweResult(const DelayBasedBwe::Result& result) override;
 
   int64_t TimeUntilNextProcess() override;

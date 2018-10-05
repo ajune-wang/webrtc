@@ -314,6 +314,10 @@ void SendSideCongestionController::OnSentPacket(
     return;
   transport_feedback_adapter_.OnSentPacket(sent_packet.packet_id,
                                            sent_packet.send_time_ms);
+  if (!first_packet_sent_) {
+    first_packet_sent_ = true;
+    bitrate_controller_->UpdateFeedbackRtt(0);
+  }
   if (in_cwnd_experiment_)
     LimitOutstandingBytes(transport_feedback_adapter_.GetOutstandingBytes());
 }
@@ -381,6 +385,14 @@ void SendSideCongestionController::OnTransportFeedback(
   std::vector<PacketFeedback> feedback_vector = ReceivedPacketFeedbackVector(
       transport_feedback_adapter_.GetTransportFeedbackVector());
   SortPacketFeedbackVector(&feedback_vector);
+  for (PacketFeedback& feedback : feedback_vector) {
+    if (feedback.send_time_ms > 0) {
+      int64_t feedback_rtt_ms =
+          clock_->TimeInMilliseconds() - feedback.send_time_ms;
+      bitrate_controller_->UpdateFeedbackRtt(feedback_rtt_ms);
+      break;
+    }
+  }
 
   bool currently_in_alr =
       pacer_->GetApplicationLimitedRegionStartTime().has_value();

@@ -621,7 +621,9 @@ size_t RTPSender::SendPadData(size_t bytes,
     options.is_retransmit = false;
     bool has_transport_seq_num =
         UpdateTransportSequenceNumber(&padding_packet, &options.packet_id);
-    padding_packet.SetPadding(padding_bytes_in_packet, &random_);
+    Random* random = &random_;
+    padding_packet.SetPaddingSize(padding_bytes_in_packet,
+                                  [random] { return random->Rand<uint8_t>(); });
 
     if (has_transport_seq_num) {
       AddPacketToTransportFeedback(options.packet_id, padding_packet,

@@ -16,9 +16,10 @@
 #include "modules/rtp_rtcp/include/rtp_header_extension_map.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 #include "rtc_base/copyonwritebuffer.h"
+#include "rtc_base/deprecation.h"
+#include "rtc_base/random.h"
 
 namespace webrtc {
-class Random;
 
 class RtpPacket {
  public:
@@ -111,7 +112,19 @@ class RtpPacket {
   uint8_t* SetPayloadSize(size_t size_bytes);
   // Same as SetPayloadSize but doesn't guarantee to keep current payload.
   uint8_t* AllocatePayload(size_t size_bytes);
-  bool SetPadding(uint8_t size_bytes, Random* random);
+  RTC_DEPRECATED
+  bool SetPadding(uint8_t size_bytes, Random* random) {
+    return SetPaddingSize(size_bytes,
+                          [random] { return random->Rand<uint8_t>(); });
+  }
+
+  template <typename ByteGenerator>
+  bool SetPaddingSize(size_t padding_size, const ByteGenerator& random) {
+    rtc::ArrayView<uint8_t> padding = AllocatePadding(padding_size);
+    for (uint8_t& byte : padding)
+      byte = random();
+    return padding_size_ == padding_size;
+  }
 
  private:
   struct ExtensionInfo {
@@ -146,6 +159,11 @@ class RtpPacket {
   // Find or allocate an extension |type|. Returns view of size |length|
   // to write raw extension to or an empty view on failure.
   rtc::ArrayView<uint8_t> AllocateExtension(ExtensionType type, size_t length);
+
+  // Returns buffer to fill with random bytes.
+  // Returns an empty array view on error,
+  // but might return an empty view on success too (when padding_size <= 1)
+  rtc::ArrayView<uint8_t> AllocatePadding(size_t padding_size);
 
   uint8_t* WriteAt(size_t offset) { return buffer_.data() + offset; }
   void WriteAt(size_t offset, uint8_t byte) { buffer_.data()[offset] = byte; }

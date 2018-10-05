@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "00ee4bb1_1f2f051f",
+        "filename": "sdk/android/api/org/webrtc/PeerConnection.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-10-05T08:21:02Z",
+      "side": 1,
+      "message": "I assume this can be left null? If so, mark with @Nullable.",
+      "range": {
+        "startLine": 388,
+        "startChar": 11,
+        "endLine": 388,
+        "endChar": 28
+      },
+      "revId": "fd2c88f01ace496c07d2b1d33caa9fb2ffcf637c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "096807db_35096c3f",
+        "filename": "sdk/android/api/org/webrtc/PeerConnection.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 522,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-10-05T08:21:02Z",
+      "side": 1,
+      "message": "Same, mark with @Nullable",
+      "range": {
+        "startLine": 522,
+        "startChar": 4,
+        "endLine": 522,
+        "endChar": 21
+      },
+      "revId": "fd2c88f01ace496c07d2b1d33caa9fb2ffcf637c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "72bde057_3e6d54cb",
         "filename": "sdk/android/api/org/webrtc/RtcCertificatePem.java",
         "patchSetId": 7
@@ -18,6 +64,52 @@
         "startChar": 0,
         "endLine": 61,
         "endChar": 0
+      },
+      "revId": "fd2c88f01ace496c07d2b1d33caa9fb2ffcf637c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1eb8503_65b89220",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/PeerConnectionTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 686,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-10-05T08:21:02Z",
+      "side": 1,
+      "message": "nit: no need to set null",
+      "range": {
+        "startLine": 686,
+        "startChar": 4,
+        "endLine": 686,
+        "endChar": 22
+      },
+      "revId": "fd2c88f01ace496c07d2b1d33caa9fb2ffcf637c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67b7d4bb_c0b2c191",
+        "filename": "sdk/android/src/jni/pc/peerconnection.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-10-05T08:21:02Z",
+      "side": 1,
+      "message": "Don\u0027t we need to check if the certificate is null?",
+      "range": {
+        "startLine": 154,
+        "startChar": 0,
+        "endLine": 155,
+        "endChar": 62
       },
       "revId": "fd2c88f01ace496c07d2b1d33caa9fb2ffcf637c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

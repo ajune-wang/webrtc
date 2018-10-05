@@ -1022,6 +1022,9 @@ std::vector<absl::optional<uint64_t>> DecodeDeltas(
   return std::vector<absl::optional<uint64_t>>();
 }
 
+std::string EncodeBlobs(const std::vector<std::string>>& blobs);
+const std::vector<std::string>> DecodeBlobs(const std::string& encoded_blobs);
+
 void SetFixedLengthEncoderDeltaSignednessForTesting(bool signedness) {
   g_force_unsigned_for_testing = !signedness;
   g_force_signed_for_testing = signedness;

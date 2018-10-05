@@ -2,6 +2,74 @@
   "comments": [
     {
       "key": {
+        "uuid": "da8bbff8_26931122",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-10-05T23:14:02Z",
+      "side": 1,
+      "message": "final",
+      "revId": "250d361e4c2f432ad977b3f7d7609e1be758d3f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9bfd9b87_1c861f48",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-10-05T23:14:02Z",
+      "side": 1,
+      "message": "final",
+      "revId": "250d361e4c2f432ad977b3f7d7609e1be758d3f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d109b6c5_55c6be55",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 1411,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-10-05T23:14:02Z",
+      "side": 1,
+      "message": "Why is this needed? Shouldn\u0027t the client be using the overload that takes PeerConnectionDependencies?",
+      "revId": "250d361e4c2f432ad977b3f7d7609e1be758d3f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "abfe263c_cd17f9ee",
+        "filename": "pc/peerconnectionfactory.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-10-05T23:14:02Z",
+      "side": 1,
+      "message": "Huh, I wonder why this constructor still exists.",
+      "revId": "250d361e4c2f432ad977b3f7d7609e1be758d3f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "26eac161_e9463b4c",
         "filename": "pc/peerconnectionfactory.cc",
         "patchSetId": 10
@@ -13,6 +81,24 @@
       "writtenOn": "2018-10-05T22:32:58Z",
       "side": 1,
       "message": "Is this somehow easier than modifying the existing ctor to add a media transport component?  The injected network controller factory is similarly new, can we not do the same thing it did?",
+      "revId": "250d361e4c2f432ad977b3f7d7609e1be758d3f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1ddaf6b_697b8bde",
+        "filename": "pc/peerconnectionfactory.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-10-05T23:14:02Z",
+      "side": 1,
+      "message": "I wonder why we even have the other constructor still... PeerConnectionFactoryDependencies should be the source of truth.",
+      "parentUuid": "26eac161_e9463b4c",
       "revId": "250d361e4c2f432ad977b3f7d7609e1be758d3f5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

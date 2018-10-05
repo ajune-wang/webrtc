@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "53415e29_5ad0486f",
+        "filename": "rtc_base/memory/aligned_malloc.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-10-05T06:52:26Z",
+      "side": 1,
+      "message": "I thought it should be:\n\n #include \u003ccstring\u003e\n #include \u003cstdlib.h\u003e\n\nBut `git cl format` complains.",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 18
+      },
+      "revId": "cbc312e6b6bac4d952c0915bf577aedb68e7b384",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

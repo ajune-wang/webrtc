@@ -215,6 +215,7 @@ RtpVideoSender::RtpVideoSender(
                                                  remb_candidate);
   }
 
+  bool generic_descriptor_registered = false;
   for (size_t i = 0; i < rtp_config_.extensions.size(); ++i) {
     const std::string& extension = rtp_config_.extensions[i].uri;
     int id = rtp_config_.extensions[i].id;
@@ -225,7 +226,12 @@ RtpVideoSender::RtpVideoSender(
     for (auto& rtp_rtcp : rtp_modules_) {
       RTC_CHECK(rtp_rtcp->RegisterRtpHeaderExtension(extension, id));
     }
+    generic_descriptor_registered |=
+        extension == RtpExtension::kGenericFrameDescriptorUri;
   }
+  RTC_CHECK(generic_descriptor_registered)
+      << "The generic descriptor was not registered, this is almost certainly "
+         "due to it not being negotiated.";
 
   ConfigureProtection(rtp_config);
   ConfigureSsrcs(rtp_config);

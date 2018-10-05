@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9c44d68d_84841e25",
+        "filename": "rtc_tools/frame_analyzer/frame_analyzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-10-05T12:23:37Z",
+      "side": 1,
+      "message": "nit: Please place in an anonymous namespace\n\nAlso should probably be const char* const to prevent changing the pointer?",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 11
+      },
+      "revId": "cb580c95d2695b5a540633873bc64a9dea3595ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "748f083b_16d598e1",
+        "filename": "rtc_tools/frame_analyzer/frame_analyzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-10-05T12:23:37Z",
+      "side": 1,
+      "message": "nit: Make the method static or place it in an anonymous namespace",
+      "range": {
+        "startLine": 32,
+        "startChar": 12,
+        "endLine": 32,
+        "endChar": 24
+      },
+      "revId": "cb580c95d2695b5a540633873bc64a9dea3595ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

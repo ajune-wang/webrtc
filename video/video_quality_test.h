@@ -23,6 +23,7 @@
 #include "test/call_test.h"
 #include "test/frame_generator.h"
 #include "test/layer_filtering_transport.h"
+#include "video/video_analyzer.h"
 #ifdef WEBRTC_WIN
 #include "modules/audio_device/win/core_audio_utility_win.h"
 #endif
@@ -115,6 +116,9 @@ class VideoQualityTest :
 
   Params params_;
   std::unique_ptr<InjectionComponents> injection_components_;
+
+  // Set non-null when running with analyzer.
+  std::unique_ptr<VideoAnalyzer> analyzer_;
 
   // Note: not same as similarly named member in CallTest. This is the number of
   // separate send streams, the one in CallTest is the number of substreams for

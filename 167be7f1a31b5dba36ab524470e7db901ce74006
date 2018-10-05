@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d2bba1d5_2b9feae6",
+        "filename": "api/units/data_rate.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-10-05T13:29:58Z",
+      "side": 1,
+      "message": "Why not use rtc::SafeClamp here? So that you won\u0027t have to extract the integer representation manually?",
+      "revId": "167be7f1a31b5dba36ab524470e7db901ce74006",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

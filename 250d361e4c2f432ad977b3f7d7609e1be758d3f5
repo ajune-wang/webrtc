@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "26eac161_e9463b4c",
+        "filename": "pc/peerconnectionfactory.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-10-05T22:32:58Z",
+      "side": 1,
+      "message": "Is this somehow easier than modifying the existing ctor to add a media transport component?  The injected network controller factory is similarly new, can we not do the same thing it did?",
+      "revId": "250d361e4c2f432ad977b3f7d7609e1be758d3f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

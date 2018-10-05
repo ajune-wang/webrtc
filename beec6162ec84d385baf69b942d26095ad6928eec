@@ -46,6 +46,30 @@
       "revId": "beec6162ec84d385baf69b942d26095ad6928eec",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "395d38bb_1a908837",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 505,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-10-05T11:53:02Z",
+      "side": 1,
+      "message": "I have no real opinion on this. Did you check the log output to see that it looks OK, together with the extra \\n?",
+      "parentUuid": "12974abf_8cd50faf",
+      "range": {
+        "startLine": 505,
+        "startChar": 43,
+        "endLine": 505,
+        "endChar": 44
+      },
+      "revId": "beec6162ec84d385baf69b942d26095ad6928eec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

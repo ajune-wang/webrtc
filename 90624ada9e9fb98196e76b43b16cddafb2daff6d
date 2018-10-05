@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "0a454849_33429401",
+        "filename": "pc/peerconnection.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-05T17:53:31Z",
+      "side": 1,
+      "message": "it is, isn\u0027t it?\nhttps://webrtc-review.googlesource.com/c/src/+/103860/2/api/peerconnectioninterface.h\n\nbut it\u0027s an abstract method there.\n\nAm I missing your point?",
+      "parentUuid": "b2e56673_2e700de4",
+      "range": {
+        "startLine": 268,
+        "startChar": 31,
+        "endLine": 268,
+        "endChar": 32
+      },
+      "revId": "90624ada9e9fb98196e76b43b16cddafb2daff6d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ef91a2e0_9f0b444e",
         "filename": "pc/peerconnection.h",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "90624ada9e9fb98196e76b43b16cddafb2daff6d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a02e9ad8_7e63b77e",
+        "filename": "pc/peerconnection.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-05T17:53:31Z",
+      "side": 1,
+      "message": "Fair point.",
+      "parentUuid": "ef91a2e0_9f0b444e",
+      "range": {
+        "startLine": 270,
+        "startChar": 0,
+        "endLine": 270,
+        "endChar": 3
+      },
+      "revId": "90624ada9e9fb98196e76b43b16cddafb2daff6d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -16,6 +16,10 @@ namespace rtc {
 class BitrateAllocationStrategy;
 }  // namespace rtc
 
+namespace webrtc {
+class MediaTransportFactory;
+}  // namespace webrtc
+
 NS_ASSUME_NONNULL_BEGIN
 
 /**
@@ -28,6 +32,12 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)setBitrateAllocationStrategy:
         (std::unique_ptr<rtc::BitrateAllocationStrategy>)bitrateAllocationStrategy;
+
+/** Attach media transport to the peer connection. You can only do it before SetLocalDescription is
+ * called. Experimental.
+ */
+- (void)setMediaTransportFactory:
+        (std::unique_ptr<webrtc::MediaTransportFactory>)mediaTransportFactory;
 
 @end
 

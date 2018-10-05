@@ -82,6 +82,7 @@
 #include "api/dtmfsenderinterface.h"
 #include "api/fec_controller.h"
 #include "api/jsep.h"
+#include "api/media_transport_interface.h"
 #include "api/mediastreaminterface.h"
 #include "api/rtcerror.h"
 #include "api/rtceventlogoutput.h"
@@ -1005,6 +1006,14 @@ class PeerConnectionInterface : public rtc::RefCountInterface {
   // use the PeerConnectionObserver interface passed in on construction, and
   // thus the observer object can be safely destroyed.
   virtual void Close() = 0;
+
+  // Experimental API.
+  // Enables a MediaTransport on a given peer connection. This may only be
+  // called before a SetLocal/RemoteDescription is called. Once enabled,
+  // the MediaTransportInterface will be used to send media, as opposed to the
+  // default RTP stack.
+  virtual void SetMediaTransportFactory(
+      std::unique_ptr<MediaTransportFactory> media_transport_factory) = 0;
 
  protected:
   // Dtor protected as objects shouldn't be deleted via this interface.

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b2e56673_2e700de4",
+        "filename": "pc/peerconnection.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-10-05T17:46:25Z",
+      "side": 1,
+      "message": "Should it be included in  PeerConnectionInterface?",
+      "range": {
+        "startLine": 268,
+        "startChar": 31,
+        "endLine": 268,
+        "endChar": 32
+      },
+      "revId": "90624ada9e9fb98196e76b43b16cddafb2daff6d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef91a2e0_9f0b444e",
+        "filename": "pc/peerconnection.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-10-05T17:46:25Z",
+      "side": 1,
+      "message": "RTC_CHECK(media_transport_factory_ \u003d\u003d nullptr);",
+      "range": {
+        "startLine": 270,
+        "startChar": 0,
+        "endLine": 270,
+        "endChar": 3
+      },
+      "revId": "90624ada9e9fb98196e76b43b16cddafb2daff6d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

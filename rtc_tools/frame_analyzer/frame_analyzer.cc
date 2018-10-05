@@ -23,6 +23,16 @@
 #include "rtc_tools/video_file_writer.h"
 #include "test/testsupport/perf_test.h"
 
+#ifdef WIN32
+const char* kPathDelimiter = "\\";
+#else
+const char* kPathDelimiter = "/";
+#endif
+
+std::string JoinFilename(std::string directory, std::string filename) {
+  return directory + kPathDelimiter + filename;
+}
+
 /*
  * A command line tool running PSNR and SSIM on a reference video and a test
  * video. The test video is a record of the reference video which can start at
@@ -147,9 +157,11 @@ int main(int argc, char* argv[]) {
   }
   std::string yuv_directory = parser.GetFlag("yuv_directory");
   if (!yuv_directory.empty()) {
-    webrtc::test::WriteVideoToFile(reordered_video, yuv_directory + "ref.yuv",
+    webrtc::test::WriteVideoToFile(reordered_video,
+                                   JoinFilename(yuv_directory, "ref.yuv"),
                                    /*fps=*/30);
-    webrtc::test::WriteVideoToFile(test_video, yuv_directory + "test.yuv",
+    webrtc::test::WriteVideoToFile(test_video,
+                                   JoinFilename(yuv_directory, "test.yuv"),
                                    /*fps=*/30);
   }
 

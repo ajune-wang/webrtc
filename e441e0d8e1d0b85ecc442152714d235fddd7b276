@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0ea07f7d_f6ba4fb2",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 1012,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-10-05T18:00:45Z",
+      "side": 1,
+      "message": "Nit. s/called/called once/",
+      "range": {
+        "startLine": 1012,
+        "startChar": 0,
+        "endLine": 1012,
+        "endChar": 2
+      },
+      "revId": "e441e0d8e1d0b85ecc442152714d235fddd7b276",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

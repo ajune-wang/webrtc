@@ -22,6 +22,30 @@
       "revId": "beec6162ec84d385baf69b942d26095ad6928eec",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12974abf_8cd50faf",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 505,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-10-05T11:50:05Z",
+      "side": 1,
+      "message": "On the other hand, probably more consistent to have it like this than not having it...",
+      "parentUuid": "41fe0619_63d445f5",
+      "range": {
+        "startLine": 505,
+        "startChar": 43,
+        "endLine": 505,
+        "endChar": 44
+      },
+      "revId": "beec6162ec84d385baf69b942d26095ad6928eec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

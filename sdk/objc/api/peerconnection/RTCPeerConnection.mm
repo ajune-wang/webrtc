@@ -31,6 +31,8 @@
 #include "api/jsepicecandidate.h"
 #include "rtc_base/checks.h"
 
+#include "third_party/webrtc/files/stable/webrtc/api/media_transport_interface.h"
+
 NSString * const kRTCPeerConnectionErrorDomain =
     @"org.webrtc.RTCPeerConnection";
 int const kRTCPeerConnnectionSessionDescriptionError = -1;

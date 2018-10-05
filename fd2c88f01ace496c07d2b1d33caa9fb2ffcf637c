@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "1dd18023_28ae5aa9",
+        "filename": "sdk/android/api/org/webrtc/RtcCertificatePem.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-05T11:09:04Z",
+      "side": 1,
+      "message": "\u003e I like being able to use an object without needing to know what the sensible defaults are. I can take it out though if that\u0027s not a common preference.\n\nI don\u0027t know what we usually do.\n\n\u003e For now, I\u0027ve added a named constant for expires.\n\nThanks!",
+      "parentUuid": "84ecfda6_951f59b4",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 0
+      },
+      "revId": "fd2c88f01ace496c07d2b1d33caa9fb2ffcf637c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b1eb8503_65b89220",
         "filename": "sdk/android/instrumentationtests/src/org/webrtc/PeerConnectionTest.java",
         "patchSetId": 7

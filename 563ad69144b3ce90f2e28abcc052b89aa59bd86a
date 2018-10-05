@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "96b9b5e9_d1c359f9",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 569,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-05T22:20:31Z",
+      "side": 1,
+      "message": "I was thinking about that. That\u0027s why I said \"IF MTF is provided\u0027. I will add extra comment",
+      "parentUuid": "d0e370aa_2aff8650",
+      "revId": "563ad69144b3ce90f2e28abcc052b89aa59bd86a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8680dc66_6b7178ab",
         "filename": "api/peerconnectioninterface.h",
         "patchSetId": 8
@@ -30,6 +48,30 @@
       "writtenOn": "2018-10-05T22:09:42Z",
       "side": 1,
       "message": "You do not need to change this interface. If client is using media_transport_factory, it should use API that takes dependencies.",
+      "range": {
+        "startLine": 1411,
+        "startChar": 76,
+        "endLine": 1411,
+        "endChar": 78
+      },
+      "revId": "563ad69144b3ce90f2e28abcc052b89aa59bd86a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba68b18a_14d064e5",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 1411,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-05T22:20:31Z",
+      "side": 1,
+      "message": "I think we can change the client to use the API with dependencies. Will try it out and send an update after some testing.",
+      "parentUuid": "8680dc66_6b7178ab",
       "range": {
         "startLine": 1411,
         "startChar": 76,

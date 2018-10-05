@@ -70,6 +70,30 @@
       "revId": "cbc312e6b6bac4d952c0915bf577aedb68e7b384",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "79ebed89_879e56c3",
+        "filename": "rtc_base/memory/aligned_malloc.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-10-05T11:02:36Z",
+      "side": 1,
+      "message": "Discussed offline with yvesg@, he is going to clean this up in his task to include only what we use.",
+      "parentUuid": "881e7040_8dcc9681",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 18
+      },
+      "revId": "cbc312e6b6bac4d952c0915bf577aedb68e7b384",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

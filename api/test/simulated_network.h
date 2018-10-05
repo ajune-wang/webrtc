@@ -75,9 +75,6 @@ class NetworkBehaviorInterface {
   virtual ~NetworkBehaviorInterface() = default;
 };
 
-// Deprecated. DO NOT USE. Use NetworkBehaviorInterface instead.
-using NetworkSimulationInterface = NetworkBehaviorInterface;
-
 }  // namespace webrtc
 
 #endif  // API_TEST_SIMULATED_NETWORK_H_

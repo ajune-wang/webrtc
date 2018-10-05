@@ -94,6 +94,30 @@
       "revId": "cbc312e6b6bac4d952c0915bf577aedb68e7b384",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "11d4cbb6_4d6a970b",
+        "filename": "rtc_base/memory/aligned_malloc.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2018-10-05T11:16:34Z",
+      "side": 1,
+      "message": "I cannot think of any compelling reason! The c* versions pull the names into std:: namespace. But:\n * Functions such as memcpy are unlikely to name-clash.\n * They are still available in global namespace anyway.",
+      "parentUuid": "881e7040_8dcc9681",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 18
+      },
+      "revId": "cbc312e6b6bac4d952c0915bf577aedb68e7b384",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

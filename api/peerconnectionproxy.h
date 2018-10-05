@@ -133,6 +133,9 @@ PROXY_METHOD2(bool,
               int64_t);
 PROXY_METHOD0(void, StopRtcEventLog)
 PROXY_METHOD0(void, Close)
+PROXY_METHOD1(void,
+              SetMediaTransportFactory,
+              std::unique_ptr<MediaTransportFactory>);
 END_PROXY_MAP()
 
 }  // namespace webrtc

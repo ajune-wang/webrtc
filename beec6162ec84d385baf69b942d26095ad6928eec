@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "41fe0619_63d445f5",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 505,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-10-05T11:49:22Z",
+      "side": 1,
+      "message": "Maybe I shouldn\u0027t add this... I just saw that the log sometimes doesn\u0027t have the correct \\n, but it may not be this trivial to add...",
+      "range": {
+        "startLine": 505,
+        "startChar": 43,
+        "endLine": 505,
+        "endChar": 44
+      },
+      "revId": "beec6162ec84d385baf69b942d26095ad6928eec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

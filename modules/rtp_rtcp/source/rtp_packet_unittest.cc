@@ -293,11 +293,10 @@ TEST(RtpPacketTest, CreatePurePadding) {
   packet.SetSequenceNumber(kSeqNum);
   packet.SetTimestamp(kTimestamp);
   packet.SetSsrc(kSsrc);
-  Random random(0x123456789);
 
   EXPECT_LT(packet.size(), packet.capacity());
-  EXPECT_FALSE(packet.SetPadding(kPaddingSize + 1, &random));
-  EXPECT_TRUE(packet.SetPadding(kPaddingSize, &random));
+  EXPECT_FALSE(packet.SetPaddingSize(kPaddingSize + 1, [] { return 0; }));
+  EXPECT_TRUE(packet.SetPaddingSize(kPaddingSize, [] { return 0; }));
   EXPECT_EQ(packet.size(), packet.capacity());
 }
 
@@ -309,11 +308,51 @@ TEST(RtpPacketTest, CreateUnalignedPadding) {
   packet.SetTimestamp(kTimestamp);
   packet.SetSsrc(kSsrc);
   packet.SetPayloadSize(kPayloadSize);
-  Random r(0x123456789);
 
   EXPECT_LT(packet.size(), packet.capacity());
-  EXPECT_TRUE(packet.SetPadding(kMaxPaddingSize, &r));
+  EXPECT_TRUE(packet.SetPaddingSize(kMaxPaddingSize, [] { return 0; }));
   EXPECT_EQ(packet.size(), packet.capacity());
+}
+
+TEST(RtpPacketTest, WritesPaddingSizeToLastByte) {
+  const size_t kPaddingSize = 5;
+  RtpPacket packet(nullptr, 12 + 1);
+
+  EXPECT_TRUE(packet.SetPaddingSize(kPaddingSize, [] { return 0; }));
+  EXPECT_EQ(packet.data()[packet.size() - 1], kPaddingSize);
+}
+
+TEST(RtpPacketTest, UsesFunctorToFillPadding) {
+  const size_t kPaddingSize = 5;
+  RtpPacket packet(nullptr, 12 + 1);
+  Random random(0x123456789);
+
+  uint8_t byte_index = 5;
+  EXPECT_TRUE(
+      packet.SetPaddingSize(10, [&byte_index] { return byte_index++; }));
+  EXPECT_EQ(packet.padding_size(), kPaddingSize);
+  // Padding starts where payloads ends.
+  EXPECT_THAT(rtc::MakeArrayView(packet.payload().end(), kPaddingSize - 1),
+              ElementsAre(5, 6, 7, 8));
+}
+
+TEST(RtpPacketTest, CreateOneBytePadding) {
+  size_t kPayloadSize = 123;
+  RtpPacket packet(nullptr, 12 + kPayloadSize + 1);
+  packet.SetPayloadSize(kPayloadSize);
+
+  EXPECT_TRUE(packet.SetPaddingSize(1, [] { return 0; }));
+
+  EXPECT_EQ(packet.size(), 12 + kPayloadSize + 1);
+  EXPECT_EQ(packet.padding_size(), 1u);
+}
+
+TEST(RtpPacketTest, FailsToAddPaddingWithoutCapacity) {
+  size_t kPayloadSize = 123;
+  RtpPacket packet(nullptr, 12 + kPayloadSize);
+  packet.SetPayloadSize(kPayloadSize);
+
+  EXPECT_FALSE(packet.SetPaddingSize(1, [] { return 0; }));
 }
 
 TEST(RtpPacketTest, ParseMinimum) {

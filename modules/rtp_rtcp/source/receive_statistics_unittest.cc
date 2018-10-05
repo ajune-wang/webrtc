@@ -49,8 +49,7 @@ RtpPacketReceived CreateRtpPacket(uint32_t ssrc,
   }
   packet.SetPayloadSize(payload_size);
   if (padding_size > 0) {
-    Random random(17);
-    packet.SetPadding(padding_size, &random);
+    packet.SetPaddingSize(padding_size, [] { return 0; });
   }
   return packet;
 }

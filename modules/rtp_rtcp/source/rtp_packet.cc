@@ -19,7 +19,6 @@
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/numerics/safe_conversions.h"
-#include "rtc_base/random.h"
 
 namespace webrtc {
 namespace {
@@ -268,28 +267,27 @@ uint8_t* RtpPacket::SetPayloadSize(size_t size_bytes) {
   return WriteAt(payload_offset_);
 }
 
-bool RtpPacket::SetPadding(uint8_t size_bytes, Random* random) {
+rtc::ArrayView<uint8_t> RtpPacket::AllocatePadding(size_t padding_bytes) {
   RTC_DCHECK(random);
-  if (payload_offset_ + payload_size_ + size_bytes > capacity()) {
-    RTC_LOG(LS_WARNING) << "Cannot set padding size " << size_bytes << ", only "
+  if (payload_offset_ + payload_size_ + padding_bytes > capacity()) {
+    RTC_LOG(LS_WARNING) << "Cannot set padding size " << padding_bytes
+                        << ", only "
                         << (capacity() - payload_offset_ - payload_size_)
                         << " bytes left in buffer.";
-    return false;
+    return {};
   }
-  padding_size_ = size_bytes;
+  padding_size_ = rtc::dchecked_cast<uint8_t>(padding_bytes);
   buffer_.SetSize(payload_offset_ + payload_size_ + padding_size_);
   if (padding_size_ > 0) {
     size_t padding_offset = payload_offset_ + payload_size_;
     size_t padding_end = padding_offset + padding_size_;
-    for (size_t offset = padding_offset; offset < padding_end - 1; ++offset) {
-      WriteAt(offset, random->Rand<uint8_t>());
-    }
     WriteAt(padding_end - 1, padding_size_);
     WriteAt(0, data()[0] | 0x20);  // Set padding bit.
+    return rtc::MakeArrayView(WriteAt(padding_offset), padding_bytes - 1);
   } else {
     WriteAt(0, data()[0] & ~0x20);  // Clear padding bit.
+    return {};
   }
-  return true;
 }
 
 void RtpPacket::Clear() {

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "72bde057_3e6d54cb",
+        "filename": "sdk/android/api/org/webrtc/RtcCertificatePem.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-05T07:20:18Z",
+      "side": 1,
+      "message": "Are these convenience helpers really needed?\n\nIs the java glue a proper place to define defaults for key type and expire time? If it is, I think the default expire time deserves a named constant, please add.",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 0
+      },
+      "revId": "fd2c88f01ace496c07d2b1d33caa9fb2ffcf637c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

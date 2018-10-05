@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0ba8ee4b_a59f947f",
+        "filename": "test/fake_encoder.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2018-10-05T18:32:50Z",
+      "side": 1,
+      "message": "Why isn\u0027t this one guarded like the other fields? NextFrame() happens to be called concurrently on the same object.\nSee https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d9833 for more.",
+      "revId": "f2a8287cc5bbe982cc008d0550df83533623b780",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

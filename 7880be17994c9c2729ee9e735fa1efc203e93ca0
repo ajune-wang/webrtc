@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "344a049d_e9ca527b",
+        "filename": "rtc_base/memory/aligned_malloc.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2018-10-05T08:17:25Z",
+      "side": 1,
+      "message": "NB: string.h would have been more consistent with the others (stdlib.h and stdint.h),\nand with the fact that we don\u0027t use std::memcpy but memcpy directly.",
+      "revId": "7880be17994c9c2729ee9e735fa1efc203e93ca0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

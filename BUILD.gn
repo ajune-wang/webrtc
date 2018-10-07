@@ -458,6 +458,7 @@ if (rtc_include_tests) {
 
     deps = [
       ":webrtc_common",
+      "api:libjingle_peerconnection_api",
       "api:rtc_api_unittests",
       "api/audio/test:audio_api_unittests",
       "api/audio_codecs/test:audio_codecs_api_unittests",

@@ -36,6 +36,7 @@ rtc_static_library("system_wrappers") {
     "..:webrtc_common",
     "../modules:module_api_public",
     "../rtc_base:checks",
+    "../rtc_base:timeutils",
     "../rtc_base/synchronization:rw_lock_wrapper",
     "../rtc_base/system:arch",
     "//third_party/abseil-cpp/absl/types:optional",

@@ -27,6 +27,7 @@ const uint32_t kEventMaxWaitTimeMs = 200;
 const uint32_t kMinRenderDelayMs = 10;
 const uint32_t kMaxRenderDelayMs = 500;
 const size_t kMaxIncomingFramesBeforeLogged = 100;
+const size_t kHistogramSize = 100;
 
 uint32_t EnsureValidRenderDelay(uint32_t render_delay) {
   return (render_delay < kMinRenderDelayMs || render_delay > kMaxRenderDelayMs)
@@ -36,7 +37,8 @@ uint32_t EnsureValidRenderDelay(uint32_t render_delay) {
 }  // namespace
 
 VideoRenderFrames::VideoRenderFrames(uint32_t render_delay_ms)
-    : render_delay_ms_(EnsureValidRenderDelay(render_delay_ms)) {}
+    : render_delay_ms_(EnsureValidRenderDelay(render_delay_ms)),
+      histogram_(kHistogramSize, 0) {}
 
 VideoRenderFrames::~VideoRenderFrames() {
   frames_dropped_ += incoming_frames_.size();
@@ -44,6 +46,13 @@ VideoRenderFrames::~VideoRenderFrames() {
                             frames_dropped_);
   RTC_LOG(LS_INFO) << "WebRTC.Video.DroppedFrames.RenderQueue "
                    << frames_dropped_;
+  char log_stream_buf[8 * 1024];
+  rtc::SimpleStringBuilder log_stream(log_stream_buf);
+  log_stream << "Render delta histogram: ";
+  for (size_t i = 0; i < kHistogramSize; ++i) {
+    log_stream << i << ":" << histogram_[i] << " ";
+  }
+  RTC_LOG(LS_INFO) << log_stream.str();
 }
 
 int32_t VideoRenderFrames::AddFrame(VideoFrame&& new_frame) {
@@ -94,6 +103,18 @@ absl::optional<VideoFrame> VideoRenderFrames::FrameToRender() {
     }
     render_frame = std::move(incoming_frames_.front());
     incoming_frames_.pop_front();
+  }
+  if (render_frame) {
+    int64_t render_time_ms = rtc::TimeMillis();
+    if (last_frame_returned_time_ms_ != -1) {
+      int64_t render_delta_ms = render_time_ms - last_frame_returned_time_ms_;
+      size_t bucket = render_delta_ms;
+      if (bucket >= kHistogramSize) {
+        bucket = kHistogramSize - 1;
+      }
+      ++histogram_[bucket];
+    }
+    last_frame_returned_time_ms_ = render_time_ms;
   }
   return render_frame;
 }

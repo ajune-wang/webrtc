@@ -14,6 +14,7 @@
 #include <stdint.h>
 
 #include <list>
+#include <vector>
 
 #include "absl/types/optional.h"
 #include "api/video/video_frame.h"
@@ -46,6 +47,8 @@ class VideoRenderFrames {
   const uint32_t render_delay_ms_;
 
   int64_t last_render_time_ms_ = 0;
+  int64_t last_frame_returned_time_ms_ = -1;
+  std::vector<size_t> histogram_;
   size_t frames_dropped_ = 0;
 };
 

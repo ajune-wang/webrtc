@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "45081b26_16d53819",
+        "filename": "media/engine/simulcast.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2018-10-08T08:42:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bb1c0e85_208034e1",
+      "range": {
+        "startLine": 145,
+        "startChar": 22,
+        "endLine": 145,
+        "endChar": 30
+      },
+      "revId": "042dcafd0107c7bd93e0592274bd16565b078a20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dc43ced8_6402dc56",
         "filename": "rtc_base/experiments/norm_simulcast_size_experiment.cc",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "042dcafd0107c7bd93e0592274bd16565b078a20",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "452cbdae_9c5a3c5f",
+        "filename": "rtc_base/experiments/norm_simulcast_size_experiment.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2018-10-08T08:42:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dc43ced8_6402dc56",
+      "range": {
+        "startLine": 20,
+        "startChar": 57,
+        "endLine": 20,
+        "endChar": 61
+      },
+      "revId": "042dcafd0107c7bd93e0592274bd16565b078a20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "cebd99c8_a17dd6ec",
+        "filename": "rtc_base/experiments/norm_simulcast_size_experiment.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2018-10-08T08:42:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b0fc6095_e2b9945d",
+      "range": {
+        "startLine": 17,
+        "startChar": 6,
+        "endLine": 17,
+        "endChar": 10
+      },
+      "revId": "042dcafd0107c7bd93e0592274bd16565b078a20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "85a9c89a_2d824589",
         "filename": "rtc_base/experiments/norm_simulcast_size_experiment.h",
         "patchSetId": 4
@@ -82,6 +154,30 @@
       "writtenOn": "2018-10-08T08:06:56Z",
       "side": 1,
       "message": "Can we remove this from the public interface? Right now it\u0027s only used by the implementation of GetBase2Exponent() and tests, so we could maybe make it an anonymous helper function in the cc?",
+      "range": {
+        "startLine": 20,
+        "startChar": 14,
+        "endLine": 20,
+        "endChar": 23
+      },
+      "revId": "042dcafd0107c7bd93e0592274bd16565b078a20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8ed2e88_df4f0860",
+        "filename": "rtc_base/experiments/norm_simulcast_size_experiment.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2018-10-08T08:42:21Z",
+      "side": 1,
+      "message": "Removed function.",
+      "parentUuid": "85a9c89a_2d824589",
       "range": {
         "startLine": 20,
         "startChar": 14,

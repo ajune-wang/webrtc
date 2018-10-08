@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cd5743cf_ff5fc5ae",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/RtcCertificatePemTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-10-08T13:39:15Z",
+      "side": 1,
+      "message": "Looks like you forgot to load the native library. Please add @BeforeClass method that calls System.loadLibrary(TestConstants.NATIVE_LIBRARY)",
+      "revId": "6f89fe04fe6ed28129447b13296852b8d8a2ee35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

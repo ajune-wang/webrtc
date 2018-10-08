@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "812c6c14_fb9eb1a2",
+        "filename": "pc/srtpsession.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2018-10-08T18:44:40Z",
+      "side": 1,
+      "message": "Prefer if we instead use a counter and also log the counter value. Log every %count.",
+      "range": {
+        "startLine": 145,
+        "startChar": 18,
+        "endLine": 145,
+        "endChar": 47
+      },
+      "revId": "14ca58de0693d8e836cd042d18dc4e33ab840cb3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "560933d2_69c659e1",
+        "filename": "pc/srtptransport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2018-10-08T18:44:40Z",
+      "side": 1,
+      "message": "dito. I would prefer a count and include the count.",
+      "range": {
+        "startLine": 215,
+        "startChar": 18,
+        "endLine": 215,
+        "endChar": 47
+      },
+      "revId": "14ca58de0693d8e836cd042d18dc4e33ab840cb3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

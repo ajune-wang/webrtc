@@ -521,6 +521,7 @@ if (is_android) {
   rtc_static_library("video_jni") {
     sources = []
     deps = [
+      "../../rtc_base:timeutils",
       "../../system_wrappers:field_trial",
     ]
 
@@ -928,6 +929,7 @@ if (is_android) {
       "../../rtc_base:checks",
       "../../rtc_base:rtc_base",
       "../../rtc_base:rtc_base_approved",
+      "../../rtc_base:timeutils",
     ]
   }
 
@@ -1008,6 +1010,7 @@ if (is_android) {
       "../../modules/audio_device:audio_device_buffer",
       "../../rtc_base:checks",
       "../../rtc_base:rtc_base_approved",
+      "../../rtc_base:timeutils",
       "../../system_wrappers:metrics",
       "//third_party/abseil-cpp/absl/types:optional",
     ]
@@ -1060,6 +1063,7 @@ if (is_android) {
       "../../modules/audio_device:audio_device_buffer",
       "../../rtc_base:checks",
       "../../rtc_base:rtc_base_approved",
+      "../../rtc_base:timeutils",
       "//third_party/abseil-cpp/absl/memory",
       "//third_party/abseil-cpp/absl/types:optional",
     ]
@@ -1373,6 +1377,7 @@ if (is_android) {
       ":native_api_video",
       ":opensles_audio_device_module",
       ":video_jni",
+      "../../rtc_base:timeutils",
       "../../system_wrappers:system_wrappers",
       "//api/audio_codecs:builtin_audio_decoder_factory",
       "//api/audio_codecs:builtin_audio_encoder_factory",

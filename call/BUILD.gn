@@ -136,6 +136,7 @@ rtc_source_set("rtp_sender") {
     "../rtc_base:rtc_base",
     "../rtc_base:rtc_base_approved",
     "../rtc_base:rtc_task_queue",
+    "../rtc_base:timeutils",
     "../system_wrappers:field_trial",
     "//third_party/abseil-cpp/absl/memory",
   ]

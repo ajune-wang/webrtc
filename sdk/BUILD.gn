@@ -258,6 +258,7 @@ if (is_ios || is_mac) {
           "../modules/audio_device:audio_device_generic",
           "../rtc_base:checks",
           "../rtc_base:rtc_base",
+          "../rtc_base:timeutils",
           "../rtc_base/system:fallthrough",
           "../system_wrappers:metrics",
         ]
@@ -919,6 +920,7 @@ if (is_ios || is_mac) {
         "../pc:peerconnection",
         "../rtc_base:checks",
         "../rtc_base:rtc_base",
+        "../rtc_base:timeutils",
         "../system_wrappers:field_trial",
         "../system_wrappers:metrics",
         "//third_party/abseil-cpp/absl/memory",
@@ -1585,6 +1587,7 @@ if (is_ios || is_mac) {
         "../modules/video_coding:video_codec_interface",
         "../rtc_base:checks",
         "../rtc_base:rtc_base",
+        "../rtc_base:timeutils",
         "//third_party/abseil-cpp/absl/memory",
       ]
     }
@@ -1644,6 +1647,7 @@ if (is_ios || is_mac) {
         "../modules/video_coding:video_codec_interface",
         "../rtc_base:checks",
         "../rtc_base:rtc_base_approved",
+        "../rtc_base:timeutils",
         "//third_party/libyuv",
       ]
 

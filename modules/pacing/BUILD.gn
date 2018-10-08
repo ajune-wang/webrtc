@@ -36,6 +36,7 @@ rtc_static_library("pacing") {
     "../../logging:rtc_event_pacing",
     "../../rtc_base:checks",
     "../../rtc_base:rtc_base_approved",
+    "../../rtc_base:timeutils",
     "../../rtc_base/experiments:alr_experiment",
     "../../system_wrappers",
     "../../system_wrappers:field_trial",

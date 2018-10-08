@@ -83,7 +83,6 @@ rtc_source_set("rtc_base_approved") {
     ":safe_conversions",
     ":stringutils",
     ":thread_checker",
-    ":timeutils",
   ]
   if (is_mac && !build_with_chromium) {
     public_deps += [ ":rtc_base_approved_objc" ]
@@ -733,6 +732,7 @@ if (is_ios || is_mac) {
     ]
     deps = [
       ":rtc_base_generic",
+      ":timeutils",
     ]
     visibility = [ ":rtc_base" ]
   }
@@ -746,6 +746,7 @@ rtc_static_library("rtc_base_generic") {
   deps = [
     ":checks",
     ":stringutils",
+    ":timeutils",
     "..:webrtc_common",
     "../api:array_view",
     "third_party/base64",
@@ -1032,6 +1033,7 @@ rtc_source_set("rtc_base_tests_utils") {
     ":checks",
     ":rtc_base",
     ":stringutils",
+    ":timeutils",
     "../api/units:time_delta",
     "../test:test_support",
     "system:fallthrough",
@@ -1109,6 +1111,7 @@ if (rtc_include_tests) {
       ":rtc_base",
       ":rtc_base_tests_main",
       ":rtc_base_tests_utils",
+      ":timeutils",
       "../system_wrappers:system_wrappers",
       "../test:fileutils",
       "../test:test_support",
@@ -1186,6 +1189,7 @@ if (rtc_include_tests) {
       ":safe_minmax",
       ":sanitizer",
       ":stringutils",
+      ":timeutils",
       "../api:array_view",
       "../system_wrappers:system_wrappers",
       "../test:fileutils",
@@ -1211,6 +1215,7 @@ if (rtc_include_tests) {
       ":rtc_cancelable_task",
       ":rtc_task_queue",
       ":rtc_task_queue_for_test",
+      ":timeutils",
       "../test:test_support",
     ]
   }
@@ -1326,6 +1331,7 @@ if (rtc_include_tests) {
       ":rtc_base_tests_main",
       ":rtc_base_tests_utils",
       ":stringutils",
+      ":timeutils",
       "../api:array_view",
       "../test:fileutils",
       "../test:test_support",

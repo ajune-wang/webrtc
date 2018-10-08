@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "046fe008_11629dd7",
+        "filename": "pc/srtpsession.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5652
+      },
+      "writtenOn": "2018-10-08T17:20:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "97f9347d_01a3067a",
+      "revId": "4f5d7638f81cee4e80305ee590764449ca69c924",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "956f9181_b811844a",
         "filename": "pc/srtpsession.cc",
         "patchSetId": 2
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "fe7ae60f_308c6b81",
+        "filename": "pc/srtpsession.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5652
+      },
+      "writtenOn": "2018-10-08T17:20:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "956f9181_b811844a",
+      "range": {
+        "startLine": 149,
+        "startChar": 26,
+        "endLine": 149,
+        "endChar": 39
+      },
+      "revId": "4f5d7638f81cee4e80305ee590764449ca69c924",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a59550d_2987534c",
         "filename": "pc/srtptransport.cc",
         "patchSetId": 2
@@ -62,6 +104,30 @@
       "revId": "4f5d7638f81cee4e80305ee590764449ca69c924",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e158b51_0784ef18",
+        "filename": "pc/srtptransport.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 5652
+      },
+      "writtenOn": "2018-10-08T17:20:40Z",
+      "side": 1,
+      "message": "I tried adding a thread checker to this function, compiling chromium with these changes and running some test video calls, and I didn\u0027t get any crashes, so it looks like this function is only called from a single thread.",
+      "parentUuid": "7a59550d_2987534c",
+      "range": {
+        "startLine": 224,
+        "startChar": 6,
+        "endLine": 224,
+        "endChar": 31
+      },
+      "revId": "4f5d7638f81cee4e80305ee590764449ca69c924",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -22,6 +22,30 @@
       "revId": "eb1ecab22493c571765b70fce73639619c082e04",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea53ab5c_7eb4aac0",
+        "filename": "sdk/android/src/jni/pc/peerconnection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 7443
+      },
+      "writtenOn": "2018-10-08T12:19:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "feb934ba_2f6e9c3c",
+      "range": {
+        "startLine": 155,
+        "startChar": 4,
+        "endLine": 155,
+        "endChar": 11
+      },
+      "revId": "eb1ecab22493c571765b70fce73639619c082e04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

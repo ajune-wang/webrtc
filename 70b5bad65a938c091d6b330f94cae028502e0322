@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e00edb1c_74fb781d",
+        "filename": "api/audio/echo_canceller3_json_helpers.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-10-08T12:18:20Z",
+      "side": 1,
+      "message": "It is a little worrying that this code does not fail on malformed configs. Misspelled substructs in the json (e.g. \u0027donw_sampling_factor\u0027) will be silently ignored and replaced by the default value.",
+      "range": {
+        "startLine": 120,
+        "startChar": 24,
+        "endLine": 128,
+        "endChar": 62
+      },
+      "revId": "70b5bad65a938c091d6b330f94cae028502e0322",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

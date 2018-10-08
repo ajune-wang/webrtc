@@ -43,6 +43,7 @@ rtc_static_library("congestion_controller") {
     "../../rtc_base:checks",
     "../../rtc_base:ptr_util",
     "../../rtc_base:rate_limiter",
+    "../../rtc_base:timeutils",
     "../../system_wrappers",
     "../../system_wrappers:field_trial",
     "../bitrate_controller",

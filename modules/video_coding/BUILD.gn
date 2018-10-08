@@ -76,6 +76,7 @@ rtc_static_library("packet") {
 rtc_static_library("video_coding") {
   visibility = [ "*" ]
   deps = [
+    "../../rtc_base:timeutils",
     "../../system_wrappers:field_trial",
     "../../system_wrappers:metrics",
   ]
@@ -271,6 +272,7 @@ rtc_source_set("video_coding_utility") {
     "../../rtc_base:rtc_numerics",
     "../../rtc_base:rtc_task_queue",
     "../../rtc_base:sequenced_task_checker",
+    "../../rtc_base:timeutils",
     "../../rtc_base/experiments:quality_scaling_experiment",
     "../../rtc_base/system:arch",
     "../../system_wrappers",
@@ -303,6 +305,7 @@ rtc_static_library("webrtc_h264") {
     "../../media:rtc_media_base",
     "../../rtc_base:checks",
     "../../rtc_base:rtc_base",
+    "../../rtc_base:timeutils",
     "../../system_wrappers:metrics",
     "//third_party/abseil-cpp/absl/memory",
     "//third_party/libyuv",
@@ -429,6 +432,7 @@ rtc_static_library("webrtc_vp8") {
     "../../rtc_base:checks",
     "../../rtc_base:rtc_base_approved",
     "../../rtc_base:rtc_numerics",
+    "../../rtc_base:timeutils",
     "../../system_wrappers",
     "../../system_wrappers:field_trial",
     "../../system_wrappers:metrics",
@@ -501,6 +505,7 @@ rtc_static_library("webrtc_vp9") {
     "../../media:rtc_vp9_profile",
     "../../rtc_base:checks",
     "../../rtc_base:rtc_base",
+    "../../rtc_base:timeutils",
     "../../system_wrappers",
     "../../system_wrappers:field_trial",
     "../rtp_rtcp:rtp_rtcp_format",
@@ -620,6 +625,7 @@ if (rtc_include_tests) {
       "../../rtc_base:rtc_task_queue",
       "../../rtc_base:rtc_task_queue_for_test",
       "../../rtc_base:sequenced_task_checker",
+      "../../rtc_base:timeutils",
       "../../test:test_support",
       "../../test:video_test_common",
       "../../test:video_test_support",
@@ -745,6 +751,7 @@ if (rtc_include_tests) {
       "../../media:rtc_media_base",
       "../../media:rtc_vp9_profile",
       "../../rtc_base:rtc_base",
+      "../../rtc_base:timeutils",
       "../../test:field_trial",
       "../../test:fileutils",
       "../../test:test_common",
@@ -863,6 +870,7 @@ if (rtc_include_tests) {
       "../../rtc_base:rtc_numerics",
       "../../rtc_base:rtc_task_queue",
       "../../rtc_base:rtc_task_queue_for_test",
+      "../../rtc_base:timeutils",
       "../../system_wrappers",
       "../../system_wrappers:field_trial",
       "../../system_wrappers:metrics",

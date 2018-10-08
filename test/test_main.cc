@@ -18,7 +18,6 @@
 #include "test/field_trial.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
-#include "test/testsupport/fileutils.h"
 #include "test/testsupport/perf_test.h"
 
 #if defined(WEBRTC_WIN)
@@ -86,7 +85,6 @@ int main(int argc, char* argv[]) {
     return 0;
   }
 
-  webrtc::test::SetExecutablePath(argv[0]);
   webrtc::test::ValidateFieldTrialsStringOrDie(FLAG_force_fieldtrials);
   // InitFieldTrialsFromString stores the char*, so the char array must outlive
   // the application.

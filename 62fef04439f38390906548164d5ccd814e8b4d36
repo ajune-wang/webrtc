@@ -22,6 +22,30 @@
       "revId": "62fef04439f38390906548164d5ccd814e8b4d36",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0103a1a4_2bc7642a",
+        "filename": "api/media_transport_interface.cc",
+        "patchSetId": 27
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-08T16:43:30Z",
+      "side": 1,
+      "message": "we use std::move(); in a few places, but we did not need move assignment so far.\n\nI guess we should have the move assignment operator too.\n\n:( If only chromium style didn\u0027t require explicit dtor...",
+      "parentUuid": "e0e9b9a5_214b15f8",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 49
+      },
+      "revId": "62fef04439f38390906548164d5ccd814e8b4d36",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -23,6 +23,7 @@
 #include <vector>
 
 #include "api/rtcerror.h"
+#include "api/video/encoded_image.h"
 #include "common_types.h"  // NOLINT(build/include)
 
 namespace rtc {
@@ -34,7 +35,7 @@ namespace webrtc {
 
 // Represents encoded audio frame in any encoding (type of encoding is opaque).
 // To avoid copying of encoded data use move semantics when passing by value.
-class MediaTransportEncodedAudioFrame {
+class MediaTransportEncodedAudioFrame final {
  public:
   enum class FrameType {
     // Normal audio frame (equivalent to webrtc::kAudioFrameSpeech).
@@ -75,14 +76,13 @@ class MediaTransportEncodedAudioFrame {
       uint8_t payload_type,
 
       // Vector with opaque encoded data.
-      std::vector<uint8_t> encoded_data)
-      : sampling_rate_hz_(sampling_rate_hz),
-        starting_sample_index_(starting_sample_index),
-        samples_per_channel_(samples_per_channel),
-        sequence_number_(sequence_number),
-        frame_type_(frame_type),
-        payload_type_(payload_type),
-        encoded_data_(std::move(encoded_data)) {}
+      std::vector<uint8_t> encoded_data);
+
+  ~MediaTransportEncodedAudioFrame();
+  MediaTransportEncodedAudioFrame(const MediaTransportEncodedAudioFrame&);
+  MediaTransportEncodedAudioFrame& operator=(
+      const MediaTransportEncodedAudioFrame& other);
+  MediaTransportEncodedAudioFrame(MediaTransportEncodedAudioFrame&&);
 
   // Getters.
   int sampling_rate_hz() const { return sampling_rate_hz_; }
@@ -125,16 +125,17 @@ class MediaTransportAudioSinkInterface {
 };
 
 // Represents encoded video frame, along with the codec information.
-class MediaTransportEncodedVideoFrame {
+class MediaTransportEncodedVideoFrame final {
  public:
   MediaTransportEncodedVideoFrame(int64_t frame_id,
                                   std::vector<int64_t> referenced_frame_ids,
                                   VideoCodecType codec_type,
-                                  const webrtc::EncodedImage& encoded_image)
-      : codec_type_(codec_type),
-        encoded_image_(encoded_image),
-        frame_id_(frame_id),
-        referenced_frame_ids_(std::move(referenced_frame_ids)) {}
+                                  const webrtc::EncodedImage& encoded_image);
+  ~MediaTransportEncodedVideoFrame();
+  MediaTransportEncodedVideoFrame(const MediaTransportEncodedVideoFrame&);
+  MediaTransportEncodedVideoFrame& operator=(
+      const MediaTransportEncodedVideoFrame& other);
+  MediaTransportEncodedVideoFrame(MediaTransportEncodedVideoFrame&&);
 
   VideoCodecType codec_type() const { return codec_type_; }
   const webrtc::EncodedImage& encoded_image() const { return encoded_image_; }

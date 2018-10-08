@@ -208,7 +208,6 @@ if (rtc_include_tests) {
     ]
     deps = [
       ":field_trial",
-      ":fileutils",
       ":perf_test",
       "../rtc_base:rtc_base",
       "../system_wrappers:field_trial",

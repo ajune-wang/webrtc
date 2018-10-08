@@ -70,6 +70,8 @@ ANDROID_DEPS_END = r'=== ANDROID_DEPS Generated Code End ==='
 # Location of automically gathered android deps.
 ANDROID_DEPS_PATH = 'src/third_party/android_deps/'
 
+NOTIFY_EMAIL = 'webrtc-trooper@grotations.appspotmail.com'
+
 
 sys.path.append(os.path.join(CHECKOUT_SRC_DIR, 'build'))
 import find_depot_tools
@@ -593,6 +595,7 @@ def _UploadCL(commit_queue_mode):
     - 0: Skip CQ, upload only.
   """
   cmd = ['git', 'cl', 'upload', '--force', '--bypass-hooks']
+  cmd.extend(['--cc', NOTIFY_EMAIL])
   if commit_queue_mode >= 2:
     logging.info('Sending the CL to the CQ...')
     cmd.extend(['--use-commit-queue', '--send-mail'])

@@ -117,6 +117,30 @@
       "revId": "90624ada9e9fb98196e76b43b16cddafb2daff6d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "428f8112_510a1d1f",
+        "filename": "pc/peerconnection.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-08T16:08:00Z",
+      "side": 1,
+      "message": "Obsolete.",
+      "parentUuid": "a02e9ad8_7e63b77e",
+      "range": {
+        "startLine": 270,
+        "startChar": 0,
+        "endLine": 270,
+        "endChar": 3
+      },
+      "revId": "90624ada9e9fb98196e76b43b16cddafb2daff6d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

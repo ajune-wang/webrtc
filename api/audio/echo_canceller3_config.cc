@@ -51,4 +51,9 @@ EchoCanceller3Config::Suppressor::Tuning::Tuning(MaskingThresholds mask_lf,
 EchoCanceller3Config::Suppressor::Tuning::Tuning(
     const EchoCanceller3Config::Suppressor::Tuning& e) = default;
 
+bool EchoCanceller3Config::Validate(EchoCanceller3Config* config) {
+  // TODO(peah): Implement this stub.
+  return true;
+}
+
 }  // namespace webrtc

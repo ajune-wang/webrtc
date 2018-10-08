@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "db66906f_2bffc5de",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 24
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-08T14:17:25Z",
+      "side": 1,
+      "message": "see my emails. It\u0027s a common use case in tests to \u0027send\u0027 a frame and save a copy of the frame in some tracking mechanism (video/audio frame trackers) in order to compare them later. it would be weird to create to frames.",
+      "parentUuid": "77624b56_f4666da0",
+      "revId": "0accc55c32f54dc4044e04409f4a3166727c9cb0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2c1d8e9f_4decb64e",
         "filename": "api/media_transport_interface.h",
         "patchSetId": 24
@@ -30,6 +48,30 @@
       "writtenOn": "2018-10-08T07:50:33Z",
       "side": 1,
       "message": "Why do you need \u003d?",
+      "range": {
+        "startLine": 84,
+        "startChar": 52,
+        "endLine": 85,
+        "endChar": 0
+      },
+      "revId": "0accc55c32f54dc4044e04409f4a3166727c9cb0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0bd9b613_4bd6d3c6",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 24
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-08T14:17:25Z",
+      "side": 1,
+      "message": "because I need copy, I should have copy assignment too. e.g. when you want to place the item in the pair:\n\nthird_party/crosstool/v18/stable/toolchain/bin/../lib/gcc/x86_64-grtev4-linux-gnu/4.9.x-google/../../../../x86_64-grtev4-linux-gnu/include/c++/4.9.x-google/bits/stl_pair.h:171:9: error: object of type \u0027webrtc::MediaTransportEncodedVideoFrame\u0027 cannot be assigned because its copy assignment operator is implicitly deleted\n        second \u003d std::forward\u003csecond_type\u003e(__p.second);\n\n...\nember function \u0027std::pair\u003cunsigned long, webrtc::MediaTransportEncodedVideoFrame\u003e::operator\u003d\u0027 requested here\n          *(__first + __holeIndex) \u003d _GLIBCXX_MOVE(*(__first + __secondChild));",
+      "parentUuid": "2c1d8e9f_4decb64e",
       "range": {
         "startLine": 84,
         "startChar": 52,
@@ -59,6 +101,23 @@
     },
     {
       "key": {
+        "uuid": "c90a1b0e_0ea6fda2",
+        "filename": "pc/peerconnection.h",
+        "patchSetId": 24
+      },
+      "lineNbr": 1032,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-08T14:17:25Z",
+      "side": 1,
+      "message": "done.",
+      "revId": "0accc55c32f54dc4044e04409f4a3166727c9cb0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "644d48b2_7d04dcdb",
         "filename": "sdk/objc/api/peerconnection/RTCPeerConnection.mm",
         "patchSetId": 24
@@ -82,6 +141,30 @@
     },
     {
       "key": {
+        "uuid": "27d3bc73_171dbd3d",
+        "filename": "sdk/objc/api/peerconnection/RTCPeerConnection.mm",
+        "patchSetId": 24
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-08T14:17:25Z",
+      "side": 1,
+      "message": "done.",
+      "parentUuid": "644d48b2_7d04dcdb",
+      "range": {
+        "startLine": 34,
+        "startChar": 14,
+        "endLine": 34,
+        "endChar": 39
+      },
+      "revId": "0accc55c32f54dc4044e04409f4a3166727c9cb0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2ec1b700_a42cdd92",
         "filename": "sdk/objc/api/peerconnection/RTCPeerConnectionFactory.mm",
         "patchSetId": 24
@@ -102,6 +185,30 @@
       "revId": "0accc55c32f54dc4044e04409f4a3166727c9cb0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1862f5b_4c605a99",
+        "filename": "sdk/objc/api/peerconnection/RTCPeerConnectionFactory.mm",
+        "patchSetId": 24
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-08T14:17:25Z",
+      "side": 1,
+      "message": "oops. done.",
+      "parentUuid": "2ec1b700_a42cdd92",
+      "range": {
+        "startLine": 117,
+        "startChar": 38,
+        "endLine": 117,
+        "endChar": 42
+      },
+      "revId": "0accc55c32f54dc4044e04409f4a3166727c9cb0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

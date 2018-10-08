@@ -15,11 +15,17 @@
 #include "rtc_base/criticalsection.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/sslstreamadapter.h"
+#include "rtc_base/timeutils.h"
 #include "system_wrappers/include/metrics.h"
 #include "third_party/libsrtp/include/srtp.h"
 #include "third_party/libsrtp/include/srtp_priv.h"
 
 namespace cricket {
+namespace {
+
+constexpr int kFailureLogThrottleIntervalMs = 5000;
+
+}  // namespace
 
 // One more than the maximum libsrtp error code. Required by
 // RTC_HISTOGRAM_ENUMERATION. Keep this in sync with srtp_error_status_t defined
@@ -138,7 +144,13 @@ bool SrtpSession::UnprotectRtp(void* p, int in_len, int* out_len) {
   *out_len = in_len;
   int err = srtp_unprotect(session_, p, out_len);
   if (err != srtp_err_status_ok) {
-    RTC_LOG(LS_WARNING) << "Failed to unprotect SRTP packet, err=" << err;
+    // Limit the error logging to avoid excessive logs when there are lots of
+    // bad packets.
+    int64_t now_ms = rtc::TimeUTCMillis();
+    if (now_ms - last_failure_log_time_ms_ >= kFailureLogThrottleIntervalMs) {
+      RTC_LOG(LS_WARNING) << "Failed to unprotect SRTP packet, err=" << err;
+      last_failure_log_time_ms_ = now_ms;
+    }
     RTC_HISTOGRAM_ENUMERATION("WebRTC.PeerConnection.SrtpUnprotectError",
                               static_cast<int>(err), kSrtpErrorCodeBoundary);
     return false;

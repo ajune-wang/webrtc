@@ -21,10 +21,17 @@
 #include "rtc_base/copyonwritebuffer.h"
 #include "rtc_base/numerics/safe_conversions.h"
 #include "rtc_base/third_party/base64/base64.h"
+#include "rtc_base/timeutils.h"
 #include "rtc_base/trace_event.h"
 #include "rtc_base/zero_memory.h"
 
 namespace webrtc {
+
+namespace {
+
+constexpr int kFailureLogThrottleIntervalMs = 5000;
+
+}  // namespace
 
 SrtpTransport::SrtpTransport(bool rtcp_mux_enabled)
     : RtpTransport(rtcp_mux_enabled) {}
@@ -207,8 +214,15 @@ void SrtpTransport::OnRtpPacketReceived(rtc::CopyOnWriteBuffer* packet,
     uint32_t ssrc = 0;
     cricket::GetRtpSeqNum(data, len, &seq_num);
     cricket::GetRtpSsrc(data, len, &ssrc);
-    RTC_LOG(LS_ERROR) << "Failed to unprotect RTP packet: size=" << len
-                      << ", seqnum=" << seq_num << ", SSRC=" << ssrc;
+
+    // Limit the error logging to avoid excessive logs when there are lots of
+    // bad packets.
+    int64_t now_ms = rtc::TimeUTCMillis();
+    if (now_ms - last_failure_log_time_ms_ >= kFailureLogThrottleIntervalMs) {
+      RTC_LOG(LS_ERROR) << "Failed to unprotect RTP packet: size=" << len
+                        << ", seqnum=" << seq_num << ", SSRC=" << ssrc;
+      last_failure_log_time_ms_ = now_ms;
+    }
     return;
   }
   packet->SetSize(len);

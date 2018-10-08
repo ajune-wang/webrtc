@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f7d1838d_3121f511",
+        "filename": "sdk/android/src/jni/pc/peerconnection.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-10-08T09:12:25Z",
+      "side": 1,
+      "message": "Can you instead check if j_rtc_certificate is null and add a RTC_CHECK for the certificate returned by FromPEM? I think this would be safer to prevent a case where the client accidentally produces an invalid certificate and gets the default one because of this.",
+      "range": {
+        "startLine": 154,
+        "startChar": 0,
+        "endLine": 159,
+        "endChar": 3
+      },
+      "revId": "9eae6d54359ed078978d143c5947f1649482fa2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

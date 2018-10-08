@@ -14,6 +14,8 @@
 #include <vector>
 
 #include "absl/memory/memory.h"
+#include "api/video_codecs/vp8_temporal_layers.h"
+#include "api/video_codecs/vp8_temporal_layers_factory.h"
 #include "common_video/libyuv/include/webrtc_libyuv.h"
 #include "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.h"
 #include "modules/video_coding/utility/simulcast_rate_allocator.h"
@@ -305,7 +307,7 @@ void LibvpxVp8Encoder::SetupTemporalLayers(const VideoCodec& codec) {
       type = TemporalLayersType::kFixedPattern;
     }
     temporal_layers_.emplace_back(
-        TemporalLayers::CreateTemporalLayers(type, num_temporal_layers));
+        CreateTemporalLayers(type, num_temporal_layers));
     temporal_layers_checkers_.emplace_back(
         TemporalLayersChecker::CreateTemporalLayersChecker(
             type, num_temporal_layers));

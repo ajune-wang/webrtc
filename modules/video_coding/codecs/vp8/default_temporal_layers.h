@@ -18,17 +18,16 @@
 #include <set>
 #include <vector>
 
-#include "modules/video_coding/codecs/vp8/include/temporal_layers_checker.h"
-#include "modules/video_coding/codecs/vp8/include/vp8_temporal_layers.h"
-
 #include "absl/types/optional.h"
+#include "api/video_codecs/vp8_temporal_layers.h"
+#include "modules/video_coding/codecs/vp8/include/temporal_layers_checker.h"
 
 namespace webrtc {
 
 class DefaultTemporalLayers : public TemporalLayers {
  public:
   explicit DefaultTemporalLayers(int number_of_temporal_layers);
-  virtual ~DefaultTemporalLayers() {}
+  ~DefaultTemporalLayers() override;
 
   bool SupportsEncoderFrameDropping() const override;
 
@@ -95,6 +94,8 @@ class DefaultTemporalLayers : public TemporalLayers {
 class DefaultTemporalLayersChecker : public TemporalLayersChecker {
  public:
   explicit DefaultTemporalLayersChecker(int number_of_temporal_layers);
+  ~DefaultTemporalLayersChecker() override;
+
   bool CheckTemporalConfig(
       bool frame_is_keyframe,
       const TemporalLayers::FrameConfig& frame_config) override;

@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "c7521e4d_6f5c3a69",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-08T00:28:59Z",
+      "side": 1,
+      "message": "done.",
+      "parentUuid": "da8bbff8_26931122",
+      "revId": "250d361e4c2f432ad977b3f7d7609e1be758d3f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9bfd9b87_1c861f48",
         "filename": "api/media_transport_interface.h",
         "patchSetId": 10
@@ -33,6 +51,24 @@
       "revId": "250d361e4c2f432ad977b3f7d7609e1be758d3f5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "909eddac_16aab1fe",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-08T00:28:59Z",
+      "side": 1,
+      "message": "done.",
+      "parentUuid": "9bfd9b87_1c861f48",
+      "revId": "250d361e4c2f432ad977b3f7d7609e1be758d3f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "2c8220ff_6760a1a6",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 1411,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-08T00:28:59Z",
+      "side": 1,
+      "message": "for some reason the RTCPeerConnectionFactory wasn\u0027t. I just changed that.",
+      "parentUuid": "d109b6c5_55c6be55",
+      "revId": "250d361e4c2f432ad977b3f7d7609e1be758d3f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "abfe263c_cd17f9ee",
         "filename": "pc/peerconnectionfactory.cc",
         "patchSetId": 10
@@ -64,6 +118,24 @@
       "writtenOn": "2018-10-05T23:14:02Z",
       "side": 1,
       "message": "Huh, I wonder why this constructor still exists.",
+      "revId": "250d361e4c2f432ad977b3f7d7609e1be758d3f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bc4c7f01_878cc4d7",
+        "filename": "pc/peerconnectionfactory.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-08T00:28:59Z",
+      "side": 1,
+      "message": ":-)",
+      "parentUuid": "abfe263c_cd17f9ee",
       "revId": "250d361e4c2f432ad977b3f7d7609e1be758d3f5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
@@ -102,6 +174,24 @@
       "revId": "250d361e4c2f432ad977b3f7d7609e1be758d3f5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a2c14f5_b28fe773",
+        "filename": "pc/peerconnectionfactory.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-08T00:28:59Z",
+      "side": 1,
+      "message": "Yep, per Anton\u0027s comment, I updated RTCPeerConnectionFactory to use the constructor with dependencies (I wonder why it wasn\u0027t using it already).",
+      "parentUuid": "d1ddaf6b_697b8bde",
+      "revId": "250d361e4c2f432ad977b3f7d7609e1be758d3f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -278,6 +278,8 @@ DefaultTemporalLayers::DefaultTemporalLayers(int number_of_temporal_layers)
   }
 }
 
+DefaultTemporalLayers::~DefaultTemporalLayers() = default;
+
 bool DefaultTemporalLayers::SupportsEncoderFrameDropping() const {
   // This class allows the encoder drop frames as it sees fit.
   return true;
@@ -559,6 +561,8 @@ DefaultTemporalLayersChecker::DefaultTemporalLayersChecker(
     temporal_ids_.push_back(temporal_ids_[i++]);
   }
 }
+
+DefaultTemporalLayersChecker::~DefaultTemporalLayersChecker() = default;
 
 bool DefaultTemporalLayersChecker::CheckTemporalConfig(
     bool frame_is_keyframe,

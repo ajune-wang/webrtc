@@ -16,6 +16,24 @@
       "revId": "6f89fe04fe6ed28129447b13296852b8d8a2ee35",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a92342f_9a183ffb",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/RtcCertificatePemTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 7443
+      },
+      "writtenOn": "2018-10-08T15:06:04Z",
+      "side": 1,
+      "message": "Added. Apologies for missing this! I\u0027m rebuilding my environment now because somehow it was missing these tests.",
+      "parentUuid": "cd5743cf_ff5fc5ae",
+      "revId": "6f89fe04fe6ed28129447b13296852b8d8a2ee35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

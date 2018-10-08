@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d8d63bcd_d83c9389",
+        "filename": "api/audio/echo_canceller3_config.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-10-08T14:03:40Z",
+      "side": 1,
+      "message": "Sure! Done.",
+      "parentUuid": "994a9fb1_51d801ab",
+      "range": {
+        "startLine": 18,
+        "startChar": 28,
+        "endLine": 18,
+        "endChar": 42
+      },
+      "revId": "70b5bad65a938c091d6b330f94cae028502e0322",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e00edb1c_74fb781d",
         "filename": "api/audio/echo_canceller3_json_helpers.cc",
         "patchSetId": 6
@@ -92,6 +116,30 @@
       "revId": "70b5bad65a938c091d6b330f94cae028502e0322",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5305d862_217caa11",
+        "filename": "api/audio/echo_canceller3_json_helpers.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-10-08T14:03:40Z",
+      "side": 1,
+      "message": "sgtm! I went with ...._config_json.*",
+      "parentUuid": "96e89ed0_e9e01679",
+      "range": {
+        "startLine": 12,
+        "startChar": 8,
+        "endLine": 12,
+        "endChar": 49
+      },
+      "revId": "70b5bad65a938c091d6b330f94cae028502e0322",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

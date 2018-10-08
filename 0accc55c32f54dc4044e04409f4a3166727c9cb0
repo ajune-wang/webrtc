@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "77624b56_f4666da0",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 24
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-10-08T07:50:33Z",
+      "side": 1,
+      "message": "why do you need copy?",
+      "revId": "0accc55c32f54dc4044e04409f4a3166727c9cb0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c1d8e9f_4decb64e",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 24
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-10-08T07:50:33Z",
+      "side": 1,
+      "message": "Why do you need \u003d?",
+      "range": {
+        "startLine": 84,
+        "startChar": 52,
+        "endLine": 85,
+        "endChar": 0
+      },
+      "revId": "0accc55c32f54dc4044e04409f4a3166727c9cb0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32efd018_55629b8d",
+        "filename": "pc/peerconnection.h",
+        "patchSetId": 24
+      },
+      "lineNbr": 1032,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-10-08T07:50:33Z",
+      "side": 1,
+      "message": "nullptr is default unique_ptr initializer, no need to \u003d nullptr.",
+      "revId": "0accc55c32f54dc4044e04409f4a3166727c9cb0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

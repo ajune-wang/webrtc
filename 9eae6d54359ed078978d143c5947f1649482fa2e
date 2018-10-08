@@ -22,6 +22,30 @@
       "revId": "9eae6d54359ed078978d143c5947f1649482fa2e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2237086_0c548a8b",
+        "filename": "sdk/android/src/jni/pc/peerconnection.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 7443
+      },
+      "writtenOn": "2018-10-08T11:08:35Z",
+      "side": 1,
+      "message": "Ok, I think I understand what you mean and that makes sense. I\u0027ve updated it to match this flow.",
+      "parentUuid": "f7d1838d_3121f511",
+      "range": {
+        "startLine": 154,
+        "startChar": 0,
+        "endLine": 159,
+        "endChar": 3
+      },
+      "revId": "9eae6d54359ed078978d143c5947f1649482fa2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

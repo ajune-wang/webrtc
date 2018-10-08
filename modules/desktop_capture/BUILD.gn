@@ -45,6 +45,7 @@ if (rtc_include_tests) {
     sources = []
     deps = [
       "../../rtc_base:checks",
+      "../../rtc_base:timeutils",
       "//third_party/abseil-cpp/absl/memory",
     ]
     if (rtc_desktop_capture_supported) {
@@ -98,6 +99,7 @@ if (rtc_include_tests) {
       "../..:webrtc_common",
       "../../rtc_base:checks",
       "../../rtc_base:rtc_base_approved",
+      "../../rtc_base:timeutils",
       "../../system_wrappers:cpu_features_api",
       "../../test:test_support",
       "//third_party/abseil-cpp/absl/memory",
@@ -199,6 +201,7 @@ if (is_mac) {
       "../../rtc_base:checks",
       "../../rtc_base:rtc_base",
       "../../rtc_base:rtc_base_approved",
+      "../../rtc_base:timeutils",
       "../../rtc_base/synchronization:rw_lock_wrapper",
       "../../sdk:helpers_objc",
       "//third_party/abseil-cpp/absl/memory",
@@ -374,6 +377,7 @@ rtc_static_library("desktop_capture_generic") {
     "../../api:refcountedbase",
     "../../rtc_base:checks",
     "../../rtc_base:rtc_base",  # TODO(kjellander): Cleanup in bugs.webrtc.org/3806.
+    "../../rtc_base:timeutils",
     "../../rtc_base/synchronization:rw_lock_wrapper",
     "../../rtc_base/system:arch",
     "../../system_wrappers",

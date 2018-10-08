@@ -79,6 +79,7 @@ rtc_static_library("rtc_media_base") {
     "../rtc_base:sanitizer",
     "../rtc_base:sequenced_task_checker",
     "../rtc_base:stringutils",
+    "../rtc_base:timeutils",
   ]
   sources = [
     "base/adaptedvideotracksource.cc",
@@ -238,6 +239,7 @@ rtc_static_library("rtc_audio_video") {
     "../modules/video_coding:video_coding_utility",
     "../rtc_base:audio_format_to_string",
     "../rtc_base:checks",
+    "../rtc_base:timeutils",
     "../rtc_base/third_party/base64",
     "../system_wrappers:field_trial",
     "../system_wrappers:metrics",
@@ -404,6 +406,7 @@ if (rtc_include_tests) {
       "../rtc_base:checks",
       "../rtc_base:rtc_task_queue",
       "../rtc_base:stringutils",
+      "../rtc_base:timeutils",
       "//third_party/abseil-cpp/absl/memory",
     ]
     sources = [

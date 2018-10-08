@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "994a9fb1_51d801ab",
+        "filename": "api/audio/echo_canceller3_config.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-10-08T12:39:24Z",
+      "side": 1,
+      "message": "Not related comment, but this should end with a period. Could you please it add it within this CL?",
+      "range": {
+        "startLine": 18,
+        "startChar": 28,
+        "endLine": 18,
+        "endChar": 42
+      },
+      "revId": "70b5bad65a938c091d6b330f94cae028502e0322",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e00edb1c_74fb781d",
         "filename": "api/audio/echo_canceller3_json_helpers.cc",
         "patchSetId": 6
@@ -22,6 +45,53 @@
       "revId": "70b5bad65a938c091d6b330f94cae028502e0322",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "45d886b5_eb074f2b",
+        "filename": "api/audio/echo_canceller3_json_helpers.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-10-08T12:39:24Z",
+      "side": 1,
+      "message": "That is partly worrying, but can also be considered a feature. It also partly provided back-ward compatibility. \n\nAn option could be to log entries that are not picked up but I think it is fine to have it like this.",
+      "parentUuid": "e00edb1c_74fb781d",
+      "range": {
+        "startLine": 120,
+        "startChar": 24,
+        "endLine": 128,
+        "endChar": 62
+      },
+      "revId": "70b5bad65a938c091d6b330f94cae028502e0322",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "96e89ed0_e9e01679",
+        "filename": "api/audio/echo_canceller3_json_helpers.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-10-08T12:39:24Z",
+      "side": 1,
+      "message": "Since this function  will only deal with Json parsin, I\u0027d prefer to omit the somewhat vague \"helpers\" term from the file names. The helpers suffix does not say that much about what it does.\n\nWhat about any of the alternatives\necho_canceller3_json.* \necho_canceller3_config_serialization.*\necho_canceller3_json_serialization.* \necho_canceller3_config_json.*",
+      "range": {
+        "startLine": 12,
+        "startChar": 8,
+        "endLine": 12,
+        "endChar": 49
+      },
+      "revId": "70b5bad65a938c091d6b330f94cae028502e0322",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

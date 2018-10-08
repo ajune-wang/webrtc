@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "97f9347d_01a3067a",
+        "filename": "pc/srtpsession.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-10-08T16:24:40Z",
+      "side": 1,
+      "message": "since you are using this constant just once, it might be easier to put it where you use it:\nint64_t now_ms \u003d ...\nstatic constexpr int kFailureLogThrottleIntervalMs \u003d 5000\nif (now_ms - last_failure \u003e\u003d kFailureLogThrottleIntervalMs)\n\ne.g. that make it visible that int64_t is slightly better type for the constant.",
+      "revId": "4f5d7638f81cee4e80305ee590764449ca69c924",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "956f9181_b811844a",
+        "filename": "pc/srtpsession.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-10-08T16:24:40Z",
+      "side": 1,
+      "message": "prefer TimeMillis() (monotonic clock) over TimeUTCMillis\nwhen all you need is to measure interval.",
+      "range": {
+        "startLine": 149,
+        "startChar": 26,
+        "endLine": 149,
+        "endChar": 39
+      },
+      "revId": "4f5d7638f81cee4e80305ee590764449ca69c924",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a59550d_2987534c",
+        "filename": "pc/srtptransport.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-10-08T16:24:40Z",
+      "side": 1,
+      "message": "is it thread safe?",
+      "range": {
+        "startLine": 224,
+        "startChar": 6,
+        "endLine": 224,
+        "endChar": 31
+      },
+      "revId": "4f5d7638f81cee4e80305ee590764449ca69c924",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

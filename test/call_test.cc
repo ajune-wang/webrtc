@@ -39,7 +39,7 @@ CallTest::CallTest()
       send_event_log_(RtcEventLog::CreateNull()),
       recv_event_log_(RtcEventLog::CreateNull()),
       sender_call_transport_controller_(nullptr),
-      audio_send_config_(nullptr),
+      audio_send_config_(nullptr, nullptr),
       audio_send_stream_(nullptr),
       bbr_network_controller_factory_(new BbrNetworkControllerFactory()),
       fake_encoder_factory_([this]() {
@@ -259,7 +259,7 @@ void CallTest::CreateAudioAndFecSendConfigs(size_t num_audio_streams,
   RTC_DCHECK_LE(num_audio_streams, 1);
   RTC_DCHECK_LE(num_flexfec_streams, 1);
   if (num_audio_streams > 0) {
-    AudioSendStream::Config audio_send_config(send_transport);
+    AudioSendStream::Config audio_send_config(send_transport, nullptr);
     audio_send_config.rtp.ssrc = kAudioSendSsrc;
     audio_send_config.send_codec_spec = AudioSendStream::Config::SendCodecSpec(
         kAudioSendPayloadType, {"opus", 48000, 2, {{"stereo", "1"}}});

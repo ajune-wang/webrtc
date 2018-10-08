@@ -22,6 +22,7 @@
 #include "api/audio_options.h"
 #include "api/crypto/framedecryptorinterface.h"
 #include "api/crypto/frameencryptorinterface.h"
+#include "api/media_transport_interface.h"
 #include "api/rtcerror.h"
 #include "api/rtpparameters.h"
 #include "api/rtpreceiverinterface.h"
@@ -184,7 +185,8 @@ class MediaChannel : public sigslot::has_slots<> {
   ~MediaChannel() override;
 
   // Sets the abstract interface class for sending RTP/RTCP data.
-  virtual void SetInterface(NetworkInterface* iface);
+  virtual void SetInterface(NetworkInterface* iface,
+                            webrtc::MediaTransportInterface* media_transport);
   // Called when a RTP packet is received.
   virtual void OnPacketReceived(rtc::CopyOnWriteBuffer* packet,
                                 const rtc::PacketTime& packet_time) = 0;
@@ -251,6 +253,10 @@ class MediaChannel : public sigslot::has_slots<> {
     return network_interface_->SetOption(type, opt, option);
   }
 
+  webrtc::MediaTransportInterface* media_transport() {
+    return media_transport_;
+  }
+
  protected:
   virtual rtc::DiffServCodePoint PreferredDscp() const;
 
@@ -284,6 +290,7 @@ class MediaChannel : public sigslot::has_slots<> {
   // of network_interface_ object.
   rtc::CriticalSection network_interface_crit_;
   NetworkInterface* network_interface_;
+  webrtc::MediaTransportInterface* media_transport_;
 };
 
 // The stats information is structured as follows:

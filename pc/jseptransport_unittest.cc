@@ -102,7 +102,7 @@ class JsepTransport2Test : public testing::Test, public sigslot::has_slots<> {
         kTransportName, /*local_certificate=*/nullptr,
         std::move(unencrypted_rtp_transport), std::move(sdes_transport),
         std::move(dtls_srtp_transport), std::move(rtp_dtls_transport),
-        std::move(rtcp_dtls_transport));
+        std::move(rtcp_dtls_transport), nullptr);
 
     signal_rtcp_mux_active_received_ = false;
     jsep_transport->SignalRtcpMuxActive.connect(

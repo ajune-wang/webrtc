@@ -1241,7 +1241,7 @@ class WebRtcVideoChannelBaseTest : public testing::Test {
     channel_->OnReadyToSend(true);
     EXPECT_TRUE(channel_.get() != NULL);
     network_interface_.SetDestination(channel_.get());
-    channel_->SetInterface(&network_interface_);
+    channel_->SetInterface(&network_interface_, nullptr);
     cricket::VideoRecvParameters parameters;
     parameters.codecs = engine_.codecs();
     channel_->SetRecvParameters(parameters);
@@ -4578,14 +4578,14 @@ TEST_F(WebRtcVideoChannelTest, TestSetDscpOptions) {
 
   channel.reset(static_cast<cricket::WebRtcVideoChannel*>(
       engine_.CreateChannel(call_.get(), config, VideoOptions())));
-  channel->SetInterface(network_interface.get());
+  channel->SetInterface(network_interface.get(), nullptr);
   // Default value when DSCP is disabled should be DSCP_DEFAULT.
   EXPECT_EQ(rtc::DSCP_DEFAULT, network_interface->dscp());
 
   config.enable_dscp = true;
   channel.reset(static_cast<cricket::WebRtcVideoChannel*>(
       engine_.CreateChannel(call_.get(), config, VideoOptions())));
-  channel->SetInterface(network_interface.get());
+  channel->SetInterface(network_interface.get(), nullptr);
   EXPECT_EQ(rtc::DSCP_AF41, network_interface->dscp());
 
   // Packets should also self-identify their dscp in PacketOptions.
@@ -4599,7 +4599,7 @@ TEST_F(WebRtcVideoChannelTest, TestSetDscpOptions) {
   config.enable_dscp = false;
   channel.reset(static_cast<cricket::WebRtcVideoChannel*>(
       engine_.CreateChannel(call_.get(), config, VideoOptions())));
-  channel->SetInterface(network_interface.get());
+  channel->SetInterface(network_interface.get(), nullptr);
   EXPECT_EQ(rtc::DSCP_DEFAULT, network_interface->dscp());
 }
 

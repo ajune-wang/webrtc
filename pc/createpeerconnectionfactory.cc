@@ -115,7 +115,8 @@ rtc::scoped_refptr<PeerConnectionFactoryInterface> CreatePeerConnectionFactory(
     std::unique_ptr<VideoEncoderFactory> video_encoder_factory,
     std::unique_ptr<VideoDecoderFactory> video_decoder_factory,
     rtc::scoped_refptr<AudioMixer> audio_mixer,
-    rtc::scoped_refptr<AudioProcessing> audio_processing) {
+    rtc::scoped_refptr<AudioProcessing> audio_processing,
+    webrtc::MediaTransportFactory* media_transport_factory) {
   if (!audio_processing)
     audio_processing = AudioProcessingBuilder().Create();
 
@@ -132,7 +133,8 @@ rtc::scoped_refptr<PeerConnectionFactoryInterface> CreatePeerConnectionFactory(
 
   return CreateModularPeerConnectionFactory(
       network_thread, worker_thread, signaling_thread, std::move(media_engine),
-      std::move(call_factory), std::move(event_log_factory));
+      std::move(call_factory), std::move(event_log_factory),
+      media_transport_factory);
 }
 
 #if defined(USE_BUILTIN_SW_CODECS)

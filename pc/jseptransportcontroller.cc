@@ -133,6 +133,15 @@ RtpTransportInternal* JsepTransportController::GetRtpTransport(
   return jsep_transport->rtp_transport();
 }
 
+MediaTransportInterface* JsepTransportController::GetMediaTransport(
+    const std::string& mid) const {
+  auto jsep_transport = GetJsepTransportForMid(mid);
+  if (!jsep_transport) {
+    return nullptr;
+  }
+  return jsep_transport->media_transport();
+}
+
 cricket::DtlsTransportInternal* JsepTransportController::GetDtlsTransport(
     const std::string& mid) const {
   auto jsep_transport = GetJsepTransportForMid(mid);
@@ -904,9 +913,15 @@ RTCError JsepTransportController::MaybeCreateJsepTransport(
                     "SDES and DTLS-SRTP cannot be enabled at the same time.");
   }
 
-  std::unique_ptr<cricket::DtlsTransportInternal> rtp_dtls_transport =
-      CreateDtlsTransport(content_info.name, /*rtcp =*/false);
+  std::unique_ptr<cricket::DtlsTransportInternal> rtp_dtls_transport;
   std::unique_ptr<cricket::DtlsTransportInternal> rtcp_dtls_transport;
+  std::unique_ptr<RtpTransport> unencrypted_rtp_transport;
+  std::unique_ptr<SrtpTransport> sdes_transport;
+  std::unique_ptr<DtlsSrtpTransport> dtls_srtp_transport;
+  std::unique_ptr<MediaTransportInterface> media_transport;
+
+  rtp_dtls_transport = CreateDtlsTransport(content_info.name, /*rtcp =*/false);
+
   if (config_.rtcp_mux_policy !=
           PeerConnectionInterface::kRtcpMuxPolicyRequire &&
       content_info.type == cricket::MediaProtocolType::kRtp) {
@@ -914,9 +929,26 @@ RTCError JsepTransportController::MaybeCreateJsepTransport(
         CreateDtlsTransport(content_info.name, /*rtcp =*/true);
   }
 
-  std::unique_ptr<RtpTransport> unencrypted_rtp_transport;
-  std::unique_ptr<SrtpTransport> sdes_transport;
-  std::unique_ptr<DtlsSrtpTransport> dtls_srtp_transport;
+  if (config_.media_transport_factory != nullptr) {
+    // TODO(sukhanov): What is the proper way to set is_caller?
+    RTC_CHECK(local_desc_ == nullptr || remote_desc_ == nullptr);
+    RTC_CHECK(local_desc_ != nullptr || remote_desc_ != nullptr);
+
+    const bool is_caller = local_desc_ != nullptr;
+
+    auto media_transport_result =
+        config_.media_transport_factory->CreateMediaTransport(
+            rtp_dtls_transport->ice_transport(), network_thread_, is_caller);
+
+    // TODO(sukhanov): Proper error handling.
+    RTC_CHECK(media_transport_result.ok());
+
+    media_transport = std::move(media_transport_result.value());
+  }
+
+  // TODO(sukhanov): Do not create RTP/RTCP transports if media transport
+  // is provided. It's not clear if should also avoid creating DTLS transport,
+  // but for now DTLS transport is convenient, because it handles ICE.
   if (config_.disable_encryption) {
     unencrypted_rtp_transport = CreateUnencryptedRtpTransport(
         content_info.name, rtp_dtls_transport.get(), rtcp_dtls_transport.get());
@@ -932,7 +964,8 @@ RTCError JsepTransportController::MaybeCreateJsepTransport(
       absl::make_unique<cricket::JsepTransport>(
           content_info.name, certificate_, std::move(unencrypted_rtp_transport),
           std::move(sdes_transport), std::move(dtls_srtp_transport),
-          std::move(rtp_dtls_transport), std::move(rtcp_dtls_transport));
+          std::move(rtp_dtls_transport), std::move(rtcp_dtls_transport),
+          std::move(media_transport));
   jsep_transport->SignalRtcpMuxActive.connect(
       this, &JsepTransportController::UpdateAggregateStates_n);
   SetTransportForMid(content_info.name, jsep_transport.get());

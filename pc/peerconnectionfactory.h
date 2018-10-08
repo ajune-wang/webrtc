@@ -15,6 +15,7 @@
 #include <memory>
 #include <string>
 
+#include "api/media_transport_interface.h"
 #include "api/mediastreaminterface.h"
 #include "api/peerconnectioninterface.h"
 #include "media/sctp/sctptransportinternal.h"
@@ -90,6 +91,10 @@ class PeerConnectionFactory : public PeerConnectionFactoryInterface {
   virtual std::unique_ptr<cricket::SctpTransportInternalFactory>
   CreateSctpTransportInternalFactory();
 
+  MediaTransportFactory* media_transport_factory() {
+    return media_transport_factory_;
+  }
+
   virtual cricket::ChannelManager* channel_manager();
   virtual rtc::Thread* signaling_thread();
   virtual rtc::Thread* worker_thread();
@@ -113,7 +118,8 @@ class PeerConnectionFactory : public PeerConnectionFactoryInterface {
       std::unique_ptr<RtcEventLogFactoryInterface> event_log_factory,
       std::unique_ptr<FecControllerFactoryInterface> fec_controller_factory,
       std::unique_ptr<NetworkControllerFactoryInterface>
-          network_controller_factory);
+          network_controller_factory,
+      MediaTransportFactory* media_transport_factory);
   // Use this implementation for all future use. This structure allows simple
   // management of all new dependencies being added to the
   // PeerConnectionFactory.
@@ -148,6 +154,8 @@ class PeerConnectionFactory : public PeerConnectionFactoryInterface {
       injected_network_controller_factory_;
   std::unique_ptr<NetworkControllerFactoryInterface>
       bbr_network_controller_factory_;
+
+  MediaTransportFactory* media_transport_factory_;
 };
 
 }  // namespace webrtc

@@ -80,6 +80,7 @@
 #include "api/datachannelinterface.h"
 #include "api/fec_controller.h"
 #include "api/jsep.h"
+#include "api/media_transport_interface.h"
 #include "api/mediastreaminterface.h"
 #include "api/rtcerror.h"
 #include "api/rtceventlogoutput.h"
@@ -1153,6 +1154,7 @@ struct PeerConnectionFactoryDependencies final {
   std::unique_ptr<RtcEventLogFactoryInterface> event_log_factory;
   std::unique_ptr<FecControllerFactoryInterface> fec_controller_factory;
   std::unique_ptr<NetworkControllerFactoryInterface> network_controller_factory;
+  webrtc::MediaTransportFactory* media_transport_factory = nullptr;
 };
 
 // PeerConnectionFactoryInterface is the factory interface used for creating
@@ -1398,7 +1400,10 @@ rtc::scoped_refptr<PeerConnectionFactoryInterface> CreatePeerConnectionFactory(
     std::unique_ptr<VideoEncoderFactory> video_encoder_factory,
     std::unique_ptr<VideoDecoderFactory> video_decoder_factory,
     rtc::scoped_refptr<AudioMixer> audio_mixer,
-    rtc::scoped_refptr<AudioProcessing> audio_processing);
+    rtc::scoped_refptr<AudioProcessing> audio_processing,
+    // TODO(sukhanov): Remove default value.
+    // TODO(sukhanov): Unique ptr?
+    webrtc::MediaTransportFactory* media_transport_factory = nullptr);
 
 #if defined(USE_BUILTIN_SW_CODECS)
 // Create a new instance of PeerConnectionFactoryInterface with external audio
@@ -1474,7 +1479,9 @@ CreateModularPeerConnectionFactory(
     rtc::Thread* signaling_thread,
     std::unique_ptr<cricket::MediaEngineInterface> media_engine,
     std::unique_ptr<CallFactoryInterface> call_factory,
-    std::unique_ptr<RtcEventLogFactoryInterface> event_log_factory);
+    std::unique_ptr<RtcEventLogFactoryInterface> event_log_factory,
+    // TODO(sukhanov): Remove default value.
+    webrtc::MediaTransportFactory* media_transport_factory = nullptr);
 
 rtc::scoped_refptr<PeerConnectionFactoryInterface>
 CreateModularPeerConnectionFactory(
@@ -1486,7 +1493,8 @@ CreateModularPeerConnectionFactory(
     std::unique_ptr<RtcEventLogFactoryInterface> event_log_factory,
     std::unique_ptr<FecControllerFactoryInterface> fec_controller_factory,
     std::unique_ptr<NetworkControllerFactoryInterface>
-        network_controller_factory = nullptr);
+        network_controller_factory = nullptr,
+    webrtc::MediaTransportFactory* media_transport_factory = nullptr);
 
 rtc::scoped_refptr<PeerConnectionFactoryInterface>
 CreateModularPeerConnectionFactory(

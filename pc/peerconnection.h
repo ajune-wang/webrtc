@@ -17,6 +17,7 @@
 #include <string>
 #include <vector>
 
+#include "api/media_transport_interface.h"
 #include "api/peerconnectioninterface.h"
 #include "api/turncustomizer.h"
 #include "pc/iceserverparsing.h"
@@ -1031,6 +1032,8 @@ class PeerConnection : public PeerConnectionInternal,
   // Member variables for caching global options.
   cricket::AudioOptions audio_options_;
   cricket::VideoOptions video_options_;
+
+  MediaTransportFactory* media_transport_factory_ = nullptr;
 
   int usage_event_accumulator_ = 0;
   bool return_histogram_very_quickly_ = false;

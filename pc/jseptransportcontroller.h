@@ -18,6 +18,7 @@
 #include <vector>
 
 #include "api/candidate.h"
+#include "api/media_transport_interface.h"
 #include "api/peerconnectioninterface.h"
 #include "logging/rtc_event_log/rtc_event_log.h"
 #include "media/sctp/sctptransportinternal.h"
@@ -79,6 +80,7 @@ class JsepTransportController : public sigslot::has_slots<> {
     Observer* transport_observer = nullptr;
     bool active_reset_srtp_params = false;
     RtcEventLog* event_log = nullptr;
+    MediaTransportFactory* media_transport_factory = 0;
   };
 
   // The ICE related events are signaled on the |signaling_thread|.
@@ -107,6 +109,8 @@ class JsepTransportController : public sigslot::has_slots<> {
       const std::string& mid) const;
   cricket::DtlsTransportInternal* GetRtcpDtlsTransport(
       const std::string& mid) const;
+
+  MediaTransportInterface* GetMediaTransport(const std::string& mid) const;
 
   /*********************
    * ICE-related methods

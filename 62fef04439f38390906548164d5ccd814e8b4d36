@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e0e9b9a5_214b15f8",
+        "filename": "api/media_transport_interface.cc",
+        "patchSetId": 27
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-10-08T16:18:35Z",
+      "side": 1,
+      "message": "Question: should we specify a move assignment operator as well?\n\nIf we do not need to specify the move assignment operator, why do we need to specify the move ctor?",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 49
+      },
+      "revId": "62fef04439f38390906548164d5ccd814e8b4d36",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

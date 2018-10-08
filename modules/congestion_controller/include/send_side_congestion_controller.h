@@ -147,6 +147,7 @@ class SendSideCongestionController
   // pausing the pacer. This can be removed when we move this class
   // over to the task queue.
   bool pacer_paused_;
+  bool first_packet_sent_ = false;
   rtc::CriticalSection bwe_lock_;
   int min_bitrate_bps_ RTC_GUARDED_BY(bwe_lock_);
   std::unique_ptr<DelayBasedBwe> delay_based_bwe_ RTC_GUARDED_BY(bwe_lock_);

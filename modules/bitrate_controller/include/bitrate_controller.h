@@ -86,6 +86,8 @@ class BitrateController : public Module, public RtcpBandwidthObserver {
                              int min_bitrate_bps,
                              int max_bitrate_bps) = 0;
 
+  virtual void UpdateFeedbackRtt(int64_t feedback_rtt_ms);
+
   virtual void OnDelayBasedBweResult(const DelayBasedBwe::Result& result) = 0;
 
   // Gets the available payload bandwidth in bits per second. Note that

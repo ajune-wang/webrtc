@@ -18,6 +18,7 @@
 #include "media/engine/simulcast.h"
 #include "modules/video_coding/utility/simulcast_rate_allocator.h"
 #include "rtc_base/arraysize.h"
+#include "rtc_base/experiments/norm_simulcast_size_experiment.h"
 #include "rtc_base/logging.h"
 #include "system_wrappers/include/field_trial.h"
 
@@ -140,7 +141,12 @@ int FindSimulcastFormatIndex(int width, int height, size_t max_layers) {
 // Simulcast stream width and height must both be dividable by
 // |2 ^ (simulcast_layers - 1)|.
 int NormalizeSimulcastSize(int size, size_t simulcast_layers) {
-  const int base2_exponent = static_cast<int>(simulcast_layers) - 1;
+  int base2_exponent = static_cast<int>(simulcast_layers) - 1;
+  absl::optional<int> exponent =
+      webrtc::NormSimulcastSizeExperiment::GetBase2Exponent();
+  if (exponent && (size > (1 << *exponent))) {
+    base2_exponent = *exponent;
+  }
   return ((size >> base2_exponent) << base2_exponent);
 }
 

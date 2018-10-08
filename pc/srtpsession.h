@@ -122,6 +122,7 @@ class SrtpSession {
   int last_send_seq_num_ = -1;
   bool external_auth_active_ = false;
   bool external_auth_enabled_ = false;
+  int64_t last_failure_log_time_ms_ = 0;
   RTC_DISALLOW_COPY_AND_ASSIGN(SrtpSession);
 };
 

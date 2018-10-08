@@ -1081,7 +1081,6 @@ if (rtc_include_tests) {
       "../system_wrappers:field_trial",
       "../system_wrappers:metrics",
       "../test:field_trial",
-      "../test:fileutils",
       "../test:test_support",
     ]
 

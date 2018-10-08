@@ -16,6 +16,24 @@
       "revId": "f2a8287cc5bbe982cc008d0550df83533623b780",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23104f3a_06f1b9ec",
+        "filename": "test/fake_encoder.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-10-08T07:53:59Z",
+      "side": 1,
+      "message": "That\u0027s an unfortunate mistake.",
+      "parentUuid": "0ba8ee4b_a59f947f",
+      "revId": "f2a8287cc5bbe982cc008d0550df83533623b780",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

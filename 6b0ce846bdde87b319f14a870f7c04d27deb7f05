@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "18812b4e_7d5af911",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-08T14:55:10Z",
+      "side": 1,
+      "message": "you can set an upstream (git branch -u upstream-branch) and then it only shows a diff between your changes and upstream.",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 42
+      },
+      "revId": "6b0ce846bdde87b319f14a870f7c04d27deb7f05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75dc581f_fd240b4b",
+        "filename": "audio/audio_receive_stream.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-08T14:55:10Z",
+      "side": 1,
+      "message": "should we consider having a \u0027transport_name\u0027 on media_transport? e.g. media_transport-\u003eGetName()?",
+      "range": {
+        "startLine": 56,
+        "startChar": 54,
+        "endLine": 56,
+        "endChar": 63
+      },
+      "revId": "6b0ce846bdde87b319f14a870f7c04d27deb7f05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3265d934_a826ba2d",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-08T14:55:10Z",
+      "side": 1,
+      "message": "nit: weird formatting.",
+      "range": {
+        "startLine": 345,
+        "startChar": 67,
+        "endLine": 345,
+        "endChar": 68
+      },
+      "revId": "6b0ce846bdde87b319f14a870f7c04d27deb7f05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70810ead_cc39a6d6",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-08T14:55:10Z",
+      "side": 1,
+      "message": "is it always 48khz? how does RTP pass sampling rate?",
+      "revId": "6b0ce846bdde87b319f14a870f7c04d27deb7f05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed986b33_6d420441",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-08T14:55:10Z",
+      "side": 1,
+      "message": "is it always? isn\u0027t p-time a variable? also, is the default 10ms or 20ms?\nshouldn\u0027t this use payloadSize / (sizeof(sample))?",
+      "range": {
+        "startLine": 357,
+        "startChar": 23,
+        "endLine": 357,
+        "endChar": 26
+      },
+      "revId": "6b0ce846bdde87b319f14a870f7c04d27deb7f05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -68,9 +68,9 @@ struct EchoCanceller3Config {
   } filter;
 
   struct Erle {
-    float min = 1.f;
-    float max_l = 4.f;
-    float max_h = 1.5f;
+    float min = 2.f;
+    float max_l = 4.5f;
+    float max_h = 2.f;
     bool onset_detection = true;
   } erle;
 

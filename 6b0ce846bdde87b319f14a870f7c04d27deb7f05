@@ -71,6 +71,30 @@
     },
     {
       "key": {
+        "uuid": "a7562510_50746504",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-09T09:16:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3265d934_a826ba2d",
+      "range": {
+        "startLine": 345,
+        "startChar": 67,
+        "endLine": 345,
+        "endChar": 68
+      },
+      "revId": "6b0ce846bdde87b319f14a870f7c04d27deb7f05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "70810ead_cc39a6d6",
         "filename": "audio/channel_send.cc",
         "patchSetId": 1
@@ -88,6 +112,24 @@
     },
     {
       "key": {
+        "uuid": "7eb1b456_1e7c68ba",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-09T09:16:47Z",
+      "side": 1,
+      "message": "I think it\u0027s normally the same as payload_type_frequency, negotiated in sdp.",
+      "parentUuid": "70810ead_cc39a6d6",
+      "revId": "6b0ce846bdde87b319f14a870f7c04d27deb7f05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ed986b33_6d420441",
         "filename": "audio/channel_send.cc",
         "patchSetId": 1
@@ -99,6 +141,30 @@
       "writtenOn": "2018-10-08T14:55:10Z",
       "side": 1,
       "message": "is it always? isn\u0027t p-time a variable? also, is the default 10ms or 20ms?\nshouldn\u0027t this use payloadSize / (sizeof(sample))?",
+      "range": {
+        "startLine": 357,
+        "startChar": 23,
+        "endLine": 357,
+        "endChar": 26
+      },
+      "revId": "6b0ce846bdde87b319f14a870f7c04d27deb7f05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9bf6477_bb963c54",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-09T09:16:47Z",
+      "side": 1,
+      "message": "I think 10ms is hardcoded in some ways in the AudioCodingModule, e.g., the methods Add!0MsData (send side) and PlayoutData10Ms (on the receive side). But we have some support for larger frames on the wire, not sure how that works.",
+      "parentUuid": "ed986b33_6d420441",
       "range": {
         "startLine": 357,
         "startChar": 23,

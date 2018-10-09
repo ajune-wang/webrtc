@@ -22,6 +22,57 @@
       "revId": "13be83d144f34f67cd18a77f153cef32f15410a6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "552392f4_c4c853be",
+        "filename": "modules/rtp_rtcp/source/rtcp_packet/pli.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-10-09T14:55:58Z",
+      "side": 1,
+      "message": "1. Perhaps check the field trial in the caller to the constructor, so as to minimize the number of times this string comparison needs to be done? If I am not mistaken, RTCPSender have somewhat extended lifespans, but Pli objects will be created somewhat often.\n2. Is there a guarantee that the field trial will be active on either all sides or none? Or could there be a mismatch, where one side sends LTR-compatible PLI messages, but the other side discards them? If so, perhaps we should negotiate the value of ltr_recovery_experiment_, where the offered value is determined by the initiator of the negotiation according to the field trial, but the other side accepts if it can, regardless of its own field trial value?",
+      "revId": "13be83d144f34f67cd18a77f153cef32f15410a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "483ca064_46c72b6b",
+        "filename": "modules/rtp_rtcp/source/rtcp_packet/pli.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-10-09T14:55:58Z",
+      "side": 1,
+      "message": "If bigger than expected, should it not also be discarded? That is, if it\u0027s 50 bytes, that\u0027s probably indicative of an error.",
+      "revId": "13be83d144f34f67cd18a77f153cef32f15410a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "440df471_4100fee8",
+        "filename": "modules/rtp_rtcp/source/rtcp_packet/pli.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-10-09T14:55:58Z",
+      "side": 1,
+      "message": "If the size is neither the old nor the new size, should we perhaps error?",
+      "revId": "13be83d144f34f67cd18a77f153cef32f15410a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d1d67db8_b571e466",
+        "filename": "api/audio/echo_canceller3_config_json.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-10-09T19:35:26Z",
+      "side": 1,
+      "message": "I think this code will end up in problems if the aec3 root tag is not found. I\u0027d rather prefer if it fails more gracefully and just returns the default config as on line 118 and adds a log line.",
+      "revId": "594b2c6e0a78653d10242eeb9318dda950275509",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

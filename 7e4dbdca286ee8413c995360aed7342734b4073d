@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c868a50b_ddf44a8a",
+        "filename": "modules/audio_processing/agc2/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-10-09T13:57:56Z",
+      "side": 1,
+      "message": "Is this necessary? Not present in source CL and not mentioned in this commit message.",
+      "range": {
+        "startLine": 91,
+        "startChar": 0,
+        "endLine": 91,
+        "endChar": 31
+      },
+      "revId": "7e4dbdca286ee8413c995360aed7342734b4073d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

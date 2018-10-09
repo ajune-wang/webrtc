@@ -8,12 +8,18 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "rtc_base/thread.h"
+// Use nogncheck for dependencies on rtc_base:rtc_base because this file
+// is compiled as part of rtc_base:rtc_base_objc (a dependency of
+// rtc_base:rtc_base) and depending on rtc_base:rtc_base causes a build
+// cycle (an artificial one in this case since it is like this file
+// is compiled as part of rtc_base:rtc_base).
+
+#include "rtc_base/thread.h"  // nogncheck
 
 #import <Foundation/Foundation.h>
 
-#include "rtc_base/platform_thread.h"
-#include "rtc_base/timeutils.h"  // for TimeAfter, TimeUntil
+#include "rtc_base/platform_thread.h"  // nogncheck
+#include "rtc_base/timeutils.h"  // nogncheck
 
 /*
  * This file contains platform-specific implementations for several

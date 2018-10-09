@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "06a48fdc_03c03e03",
+        "filename": "api/video_codecs/vp8_temporal_layers.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-09T10:39:48Z",
+      "side": 1,
+      "message": "Please rephrase for clarity.",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 51
+      },
+      "revId": "e7337295d33322c9e7e5398831566694ec9c90c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19aefec9_7fafe33a",
+        "filename": "api/video_codecs/vp8_temporal_layers.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-09T10:39:48Z",
+      "side": 1,
+      "message": "This is very vague. Would it be more accurate to say that it\u0027s experimental?",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 60
+      },
+      "revId": "e7337295d33322c9e7e5398831566694ec9c90c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0892fa12_fbb0d989",
+        "filename": "api/video_codecs/vp8_temporal_layers.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-09T10:39:48Z",
+      "side": 1,
+      "message": "What does \"predefined\" mean here? It\u0027s an argument to CreateTemporalLayers, but not obviously related to this interface class.",
+      "range": {
+        "startLine": 83,
+        "startChar": 41,
+        "endLine": 83,
+        "endChar": 51
+      },
+      "revId": "e7337295d33322c9e7e5398831566694ec9c90c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a2b5b6f_2f3788cd",
+        "filename": "api/video_codecs/vp8_temporal_layers.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-09T10:39:48Z",
+      "side": 1,
+      "message": "Any good reason for inlining? Otherwise, move to .cc file. \n\nAre the comparison operators used in the production, or just for tests?",
+      "range": {
+        "startLine": 135,
+        "startChar": 0,
+        "endLine": 142,
+        "endChar": 5
+      },
+      "revId": "e7337295d33322c9e7e5398831566694ec9c90c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77739b26_2b3d9355",
+        "filename": "api/video_codecs/vp8_temporal_layers.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-09T10:39:48Z",
+      "side": 1,
+      "message": "Does it have to be an rtp timestamp, or is it merely a frame identifier?",
+      "range": {
+        "startLine": 183,
+        "startChar": 49,
+        "endLine": 183,
+        "endChar": 62
+      },
+      "revId": "e7337295d33322c9e7e5398831566694ec9c90c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cca774dc_a307454e",
+        "filename": "api/video_codecs/vp8_temporal_layers_factory.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-09T10:39:48Z",
+      "side": 1,
+      "message": "It\u0027s a create function, not a factory. And if the created thing is a \"strategy\", maybe that should be part of the class name (Vp8TemporalLayersStrategy gets a bit too unwieldy, though).",
+      "range": {
+        "startLine": 20,
+        "startChar": 3,
+        "endLine": 20,
+        "endChar": 10
+      },
+      "revId": "e7337295d33322c9e7e5398831566694ec9c90c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8cf1aa6a_7faeecea",
+        "filename": "api/video_codecs/vp8_temporal_layers_factory.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-09T10:39:48Z",
+      "side": 1,
+      "message": "Rename to CreateVp8TemporalLayers. And please rename the file to match the name of the thing it is declaring, i.e., create_vp8_temporal_layers.h.",
+      "range": {
+        "startLine": 21,
+        "startChar": 35,
+        "endLine": 21,
+        "endChar": 55
+      },
+      "revId": "e7337295d33322c9e7e5398831566694ec9c90c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

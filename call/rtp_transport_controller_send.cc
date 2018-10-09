@@ -82,17 +82,16 @@ RtpTransportControllerSend::~RtpTransportControllerSend() {
 
 RtpVideoSenderInterface* RtpTransportControllerSend::CreateRtpVideoSender(
     const std::vector<uint32_t>& ssrcs,
-    std::map<uint32_t, RtpState> suspended_ssrcs,
-    const std::map<uint32_t, RtpPayloadState>& states,
     const RtpConfig& rtp_config,
     const RtcpConfig& rtcp_config,
     Transport* send_transport,
     const RtpSenderObservers& observers,
     RtcEventLog* event_log,
     std::unique_ptr<FecController> fec_controller) {
+  rtc::CritScope lock(&state_crit_);
   video_rtp_senders_.push_back(absl::make_unique<RtpVideoSender>(
-      ssrcs, suspended_ssrcs, states, rtp_config, rtcp_config, send_transport,
-      observers,
+      ssrcs, suspended_video_send_ssrcs_, suspended_video_payload_states_,
+      rtp_config, rtcp_config, send_transport, observers,
       // TODO(holmer): Remove this circular dependency by injecting
       // the parts of RtpTransportControllerSendInterface that are really used.
       this, event_log, &retransmission_rate_limiter_,
@@ -110,6 +109,15 @@ void RtpTransportControllerSend::DestroyRtpVideoSender(
     }
   }
   RTC_DCHECK(it != video_rtp_senders_.end());
+  {
+    rtc::CritScope lock(&state_crit_);
+    for (const auto& kv : (*it)->GetRtpStates()) {
+      suspended_video_send_ssrcs_[kv.first] = kv.second;
+    }
+    for (const auto& kv : (*it)->GetRtpPayloadStates()) {
+      suspended_video_payload_states_[kv.first] = kv.second;
+    }
+  }
   video_rtp_senders_.erase(it);
 }
 

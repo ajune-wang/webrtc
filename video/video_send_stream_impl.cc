@@ -215,12 +215,11 @@ VideoSendStreamImpl::VideoSendStreamImpl(
     const VideoSendStream::Config* config,
     int initial_encoder_max_bitrate,
     double initial_encoder_bitrate_priority,
-    std::map<uint32_t, RtpState> suspended_ssrcs,
-    std::map<uint32_t, RtpPayloadState> suspended_payload_states,
     VideoEncoderConfig::ContentType content_type,
     std::unique_ptr<FecController> fec_controller)
     : has_alr_probing_(config->periodic_alr_bandwidth_probing ||
                        GetAlrSettings(content_type)),
+      started_(false),
       stats_proxy_(stats_proxy),
       config_(config),
       worker_queue_(worker_queue),
@@ -240,8 +239,6 @@ VideoSendStreamImpl::VideoSendStreamImpl(
       bandwidth_observer_(transport->GetBandwidthObserver()),
       rtp_video_sender_(
           transport_->CreateRtpVideoSender(config_->rtp.ssrcs,
-                                           suspended_ssrcs,
-                                           suspended_payload_states,
                                            config_->rtp,
                                            config_->rtcp,
                                            config_->send_transport,
@@ -325,8 +322,7 @@ VideoSendStreamImpl::VideoSendStreamImpl(
 
 VideoSendStreamImpl::~VideoSendStreamImpl() {
   RTC_DCHECK_RUN_ON(worker_queue_);
-  RTC_DCHECK(!rtp_video_sender_->IsActive())
-      << "VideoSendStreamImpl::Stop not called";
+  RTC_DCHECK(!started_) << "VideoSendStreamImpl::Stop not called";
   RTC_LOG(LS_INFO) << "~VideoSendStreamInternal: " << config_->ToString();
   transport_->DestroyRtpVideoSender(rtp_video_sender_);
 }
@@ -351,12 +347,18 @@ void VideoSendStreamImpl::UpdateActiveSimulcastLayers(
     const std::vector<bool> active_layers) {
   RTC_DCHECK_RUN_ON(worker_queue_);
   RTC_LOG(LS_INFO) << "VideoSendStream::UpdateActiveSimulcastLayers";
-  bool previously_active = rtp_video_sender_->IsActive();
   rtp_video_sender_->SetActiveModules(active_layers);
-  if (!rtp_video_sender_->IsActive() && previously_active) {
+  bool previously_started = started_;
+  started_ = false;
+  for (size_t i = 0; i < active_layers.size(); ++i) {
+    if (active_layers[i]) {
+      started_ = true;
+    }
+  }
+  if (!started_ && previously_started) {
     // Payload router switched from active to inactive.
     StopVideoSendStream();
-  } else if (rtp_video_sender_->IsActive() && !previously_active) {
+  } else if (started_ && !previously_started) {
     // Payload router switched from inactive to active.
     StartupVideoSendStream();
   }
@@ -365,9 +367,10 @@ void VideoSendStreamImpl::UpdateActiveSimulcastLayers(
 void VideoSendStreamImpl::Start() {
   RTC_DCHECK_RUN_ON(worker_queue_);
   RTC_LOG(LS_INFO) << "VideoSendStream::Start";
-  if (rtp_video_sender_->IsActive())
+  if (started_)
     return;
   TRACE_EVENT_INSTANT0("webrtc", "VideoSendStream::Start");
+  started_ = true;
   rtp_video_sender_->SetActive(true);
   StartupVideoSendStream();
 }
@@ -397,9 +400,10 @@ void VideoSendStreamImpl::StartupVideoSendStream() {
 void VideoSendStreamImpl::Stop() {
   RTC_DCHECK_RUN_ON(worker_queue_);
   RTC_LOG(LS_INFO) << "VideoSendStream::Stop";
-  if (!rtp_video_sender_->IsActive())
+  if (!started_)
     return;
   TRACE_EVENT_INSTANT0("webrtc", "VideoSendStream::Stop");
+  started_ = false;
   rtp_video_sender_->SetActive(false);
   StopVideoSendStream();
 }
@@ -543,7 +547,7 @@ void VideoSendStreamImpl::OnEncoderConfigurationChanged(
   rtp_video_sender_->SetEncodingData(streams[0].width, streams[0].height,
                                      num_temporal_layers);
 
-  if (rtp_video_sender_->IsActive()) {
+  if (started_) {
     // The send stream is started already. Update the allocator with new bitrate
     // limits.
     bitrate_allocator_->AddObserver(
@@ -580,9 +584,10 @@ EncodedImageCallback::Result VideoSendStreamImpl::OnEncodedImage(
       check_encoder_activity_task_->UpdateEncoderActivity();
   }
 
-  EncodedImageCallback::Result result = rtp_video_sender_->OnEncodedImage(
-      encoded_image, codec_specific_info, fragmentation);
+  rtp_video_sender_->OnEncodedImage(encoded_image, codec_specific_info,
+                                    fragmentation);
 
+  // Check if there's a throttled VideoBitrateAllocation that we should tr
   // Check if there's a throttled VideoBitrateAllocation that we should try
   // sending.
   rtc::WeakPtr<VideoSendStreamImpl> send_stream = weak_ptr_;
@@ -595,22 +600,13 @@ EncodedImageCallback::Result VideoSendStreamImpl::OnEncodedImage(
       }
     }
   };
-  if (!worker_queue_->IsCurrent()) {
+  if (worker_queue_->IsCurrent()) {
     worker_queue_->PostTask(update_task);
   } else {
     update_task();
   }
 
-  return result;
-}
-
-std::map<uint32_t, RtpState> VideoSendStreamImpl::GetRtpStates() const {
-  return rtp_video_sender_->GetRtpStates();
-}
-
-std::map<uint32_t, RtpPayloadState> VideoSendStreamImpl::GetRtpPayloadStates()
-    const {
-  return rtp_video_sender_->GetRtpPayloadStates();
+  return Result(Result::OK, 0);
 }
 
 uint32_t VideoSendStreamImpl::OnBitrateUpdated(uint32_t bitrate_bps,
@@ -618,8 +614,7 @@ uint32_t VideoSendStreamImpl::OnBitrateUpdated(uint32_t bitrate_bps,
                                                int64_t rtt,
                                                int64_t probing_interval_ms) {
   RTC_DCHECK_RUN_ON(worker_queue_);
-  RTC_DCHECK(rtp_video_sender_->IsActive())
-      << "VideoSendStream::Start has not been called.";
+  RTC_DCHECK(started_) << "VideoSendStream::Start has not been called.";
 
   rtp_video_sender_->OnBitrateUpdated(bitrate_bps, fraction_loss, rtt,
                                       stats_proxy_->GetSendFrameRate());

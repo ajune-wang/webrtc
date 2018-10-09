@@ -333,12 +333,7 @@ void RtpVideoSender::SetActiveModules(const std::vector<bool> active_modules) {
   }
 }
 
-bool RtpVideoSender::IsActive() {
-  rtc::CritScope lock(&crit_);
-  return active_ && !rtp_modules_.empty();
-}
-
-EncodedImageCallback::Result RtpVideoSender::OnEncodedImage(
+void RtpVideoSender::OnEncodedImage(
     const EncodedImage& encoded_image,
     const CodecSpecificInfo* codec_specific_info,
     const RTPFragmentationHeader* fragmentation) {
@@ -347,7 +342,7 @@ EncodedImageCallback::Result RtpVideoSender::OnEncodedImage(
   rtc::CritScope lock(&crit_);
   RTC_DCHECK(!rtp_modules_.empty());
   if (!active_)
-    return Result(Result::ERROR_SEND_FAILED);
+    return;
 
   shared_frame_id_++;
   size_t stream_index = 0;
@@ -362,26 +357,24 @@ EncodedImageCallback::Result RtpVideoSender::OnEncodedImage(
   RTPVideoHeader rtp_video_header = params_[stream_index].GetRtpVideoHeader(
       encoded_image, codec_specific_info, shared_frame_id_);
 
-  uint32_t frame_id;
   if (!rtp_modules_[stream_index]->Sending()) {
     // The payload router could be active but this module isn't sending.
-    return Result(Result::ERROR_SEND_FAILED);
+    return;
   }
+  uint32_t frame_id;
   bool send_result = rtp_modules_[stream_index]->SendOutgoingData(
       encoded_image._frameType, rtp_config_.payload_type,
       encoded_image.Timestamp(), encoded_image.capture_time_ms_,
       encoded_image._buffer, encoded_image._length, fragmentation,
       &rtp_video_header, &frame_id);
   if (!send_result)
-    return Result(Result::ERROR_SEND_FAILED);
-
-  return Result(Result::OK, frame_id);
+    return;
 }
 
 void RtpVideoSender::OnBitrateAllocationUpdated(
     const VideoBitrateAllocation& bitrate) {
   rtc::CritScope lock(&crit_);
-  if (IsActive()) {
+  if (active_) {
     if (rtp_modules_.size() == 1) {
       // If spatial scalability is enabled, it is covered by a single stream.
       rtp_modules_[0]->SetVideoBitrateAllocation(bitrate);

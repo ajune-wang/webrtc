@@ -30,17 +30,14 @@ namespace webrtc {
 class MockRtpTransportControllerSend
     : public RtpTransportControllerSendInterface {
  public:
-  MOCK_METHOD9(
-      CreateRtpVideoSender,
-      RtpVideoSenderInterface*(const std::vector<uint32_t>&,
-                               std::map<uint32_t, RtpState>,
-                               const std::map<uint32_t, RtpPayloadState>&,
-                               const RtpConfig&,
-                               const RtcpConfig&,
-                               Transport*,
-                               const RtpSenderObservers&,
-                               RtcEventLog*,
-                               std::unique_ptr<FecController>));
+  MOCK_METHOD7(CreateRtpVideoSender,
+               RtpVideoSenderInterface*(const std::vector<uint32_t>&,
+                                        const RtpConfig&,
+                                        const RtcpConfig&,
+                                        Transport*,
+                                        const RtpSenderObservers&,
+                                        RtcEventLog*,
+                                        std::unique_ptr<FecController>));
   MOCK_METHOD1(DestroyRtpVideoSender, void(RtpVideoSenderInterface*));
   MOCK_METHOD0(GetWorkerQueue, rtc::TaskQueue*());
   MOCK_METHOD0(packet_router, PacketRouter*());

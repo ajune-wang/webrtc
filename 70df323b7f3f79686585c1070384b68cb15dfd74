@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c41467da_d77c9b5c",
+        "filename": "p2p/base/port_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-10-09T00:34:13Z",
+      "side": 1,
+      "message": "Could move some initializations to the definition below.",
+      "range": {
+        "startLine": 247,
+        "startChar": 8,
+        "endLine": 247,
+        "endChar": 31
+      },
+      "revId": "70df323b7f3f79686585c1070384b68cb15dfd74",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -31,34 +31,6 @@ rtc_static_library("audio_format_conversion") {
   ]
 }
 
-rtc_static_library("rent_a_codec") {
-  # Client code SHOULD NOT USE THIS TARGET, but for now it needs to be public
-  # because there exists client code that uses it.
-  # TODO(bugs.webrtc.org/9808): Move to private visibility as soon as that
-  # client code gets updated.
-  visibility += [ "*" ]
-
-  sources = [
-    "acm2/acm_codec_database.cc",
-    "acm2/acm_codec_database.h",
-    "acm2/rent_a_codec.cc",
-    "acm2/rent_a_codec.h",
-  ]
-  deps = [
-    ":audio_coding_module_typedefs",
-    ":neteq_decoder_enum",
-    "../..:webrtc_common",
-    "../../api:array_view",
-    "../../api/audio_codecs:audio_codecs_api",
-    "../../rtc_base:checks",
-    "../../rtc_base:protobuf_utils",
-    "../../rtc_base:rtc_base_approved",
-    "../../system_wrappers",
-    "//third_party/abseil-cpp/absl/types:optional",
-  ]
-  defines = audio_codec_defines
-}
-
 rtc_source_set("audio_coding_module_typedefs") {
   sources = [
     "include/audio_coding_module_typedefs.h",
@@ -86,7 +58,6 @@ rtc_static_library("audio_coding") {
   deps = [
     ":audio_coding_module_typedefs",
     ":neteq",
-    ":rent_a_codec",
     "..:module_api",
     "../..:webrtc_common",
     "../../api:array_view",
@@ -1251,8 +1222,6 @@ if (rtc_include_tests) {
     visibility += webrtc_default_visibility
     testonly = true
     public_deps = [
-      ":acm_receive_test",
-      ":acm_send_test",
       ":audio_codec_speed_tests",
       ":audio_decoder_unittests",
       ":audio_decoder_unittests",
@@ -1287,29 +1256,17 @@ if (rtc_include_tests) {
     sources = [
       "test/Channel.cc",
       "test/Channel.h",
-      "test/EncodeDecodeTest.cc",
-      "test/EncodeDecodeTest.h",
       "test/PCMFile.cc",
       "test/PCMFile.h",
-      "test/PacketLossTest.cc",
-      "test/PacketLossTest.h",
       "test/RTPFile.cc",
       "test/RTPFile.h",
-      "test/TestAllCodecs.cc",
-      "test/TestAllCodecs.h",
       "test/TestRedFec.cc",
       "test/TestRedFec.h",
-      "test/TestStereo.cc",
-      "test/TestStereo.h",
       "test/TestVADDTX.cc",
       "test/TestVADDTX.h",
       "test/Tester.cc",
       "test/TwoWayCommunication.cc",
       "test/TwoWayCommunication.h",
-      "test/iSACTest.cc",
-      "test/iSACTest.h",
-      "test/opus_test.cc",
-      "test/opus_test.h",
       "test/target_delay_unittest.cc",
       "test/utility.cc",
       "test/utility.h",
@@ -1382,52 +1339,6 @@ if (rtc_include_tests) {
       # Suppress warnings from the Chromium Clang plugin (bugs.webrtc.org/163).
       suppressed_configs += [ "//build/config/clang:find_bad_constructs" ]
     }
-  }
-
-  rtc_source_set("acm_receive_test") {
-    testonly = true
-    sources = [
-      "acm2/acm_receive_test.cc",
-      "acm2/acm_receive_test.h",
-    ]
-
-    defines = audio_coding_defines
-
-    deps = audio_coding_deps + [
-             "..:module_api",
-             ":audio_coding",
-             ":audio_format_conversion",
-             "../../api/audio_codecs:audio_codecs_api",
-             "../../api/audio_codecs:builtin_audio_decoder_factory",
-             ":neteq_tools",
-             "../../rtc_base:rtc_base_approved",
-             "../../test:test_support",
-             "//testing/gtest",
-           ]
-  }
-
-  rtc_source_set("acm_send_test") {
-    testonly = true
-    sources = [
-      "acm2/acm_send_test.cc",
-      "acm2/acm_send_test.h",
-    ]
-
-    defines = audio_coding_defines
-
-    deps = audio_coding_deps + [
-             "../../api/audio:audio_frame_api",
-             "../../rtc_base:checks",
-             ":audio_coding",
-             ":audio_format_conversion",
-             ":neteq_tools",
-             "../../api/audio_codecs:builtin_audio_decoder_factory",
-             "../../api/audio_codecs:builtin_audio_encoder_factory",
-             "../../api/audio_codecs:audio_codecs_api",
-             "../../rtc_base:rtc_base_approved",
-             "../../test:test_support",
-             "//testing/gtest",
-           ]
   }
 
   audio_decoder_unittests_resources =
@@ -1954,7 +1865,6 @@ if (rtc_include_tests) {
 
     sources = [
       "acm2/acm_receiver_unittest.cc",
-      "acm2/audio_coding_module_unittest.cc",
       "acm2/call_statistics_unittest.cc",
       "audio_network_adaptor/audio_network_adaptor_impl_unittest.cc",
       "audio_network_adaptor/bitrate_controller_unittest.cc",
@@ -1978,7 +1888,6 @@ if (rtc_include_tests) {
       "codecs/isac/main/source/audio_encoder_isac_unittest.cc",
       "codecs/isac/main/source/isac_unittest.cc",
       "codecs/isac/unittest.cc",
-      "codecs/legacy_encoded_audio_frame_unittest.cc",
       "codecs/opus/audio_encoder_opus_unittest.cc",
       "codecs/opus/opus_bandwidth_unittest.cc",
       "codecs/opus/opus_unittest.cc",
@@ -2030,8 +1939,6 @@ if (rtc_include_tests) {
     ]
 
     deps = [
-      ":acm_receive_test",
-      ":acm_send_test",
       ":audio_coding",
       ":audio_coding_module_typedefs",
       ":audio_format_conversion",
@@ -2049,7 +1956,6 @@ if (rtc_include_tests) {
       ":neteq_test_tools",
       ":pcm16b",
       ":red",
-      ":rent_a_codec",
       ":webrtc_opus",
       "..:module_api",
       "../..:webrtc_common",

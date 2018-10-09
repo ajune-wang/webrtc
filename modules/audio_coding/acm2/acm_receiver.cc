@@ -20,7 +20,6 @@
 #include "common_types.h"  // NOLINT(build/include)
 #include "modules/audio_coding/acm2/acm_resampler.h"
 #include "modules/audio_coding/acm2/call_statistics.h"
-#include "modules/audio_coding/acm2/rent_a_codec.h"
 #include "modules/audio_coding/neteq/include/neteq.h"
 #include "modules/include/module_common_types.h"
 #include "rtc_base/checks.h"
@@ -184,59 +183,6 @@ int AcmReceiver::GetAudio(int desired_freq_hz,
 
 void AcmReceiver::SetCodecs(const std::map<int, SdpAudioFormat>& codecs) {
   neteq_->SetCodecs(codecs);
-}
-
-int32_t AcmReceiver::AddCodec(int acm_codec_id,
-                              uint8_t payload_type,
-                              size_t channels,
-                              int /*sample_rate_hz*/,
-                              AudioDecoder* audio_decoder,
-                              const std::string& name) {
-  // TODO(kwiberg): This function has been ignoring the |sample_rate_hz|
-  // argument for a long time. Arguably, it should simply be removed.
-
-  const auto neteq_decoder = [acm_codec_id, channels]() -> NetEqDecoder {
-    if (acm_codec_id == -1)
-      return NetEqDecoder::kDecoderArbitrary;  // External decoder.
-    const absl::optional<RentACodec::CodecId> cid =
-        RentACodec::CodecIdFromIndex(acm_codec_id);
-    RTC_DCHECK(cid) << "Invalid codec index: " << acm_codec_id;
-    const absl::optional<NetEqDecoder> ned =
-        RentACodec::NetEqDecoderFromCodecId(*cid, channels);
-    RTC_DCHECK(ned) << "Invalid codec ID: " << static_cast<int>(*cid);
-    return *ned;
-  }();
-  const absl::optional<SdpAudioFormat> new_format =
-      NetEqDecoderToSdpAudioFormat(neteq_decoder);
-
-  rtc::CritScope lock(&crit_sect_);
-
-  const auto old_format = neteq_->GetDecoderFormat(payload_type);
-  if (old_format && new_format && *old_format == *new_format) {
-    // Re-registering the same codec. Do nothing and return.
-    return 0;
-  }
-
-  if (neteq_->RemovePayloadType(payload_type) != NetEq::kOK) {
-    RTC_LOG(LERROR) << "Cannot remove payload "
-                    << static_cast<int>(payload_type);
-    return -1;
-  }
-
-  int ret_val;
-  if (!audio_decoder) {
-    ret_val = neteq_->RegisterPayloadType(neteq_decoder, name, payload_type);
-  } else {
-    ret_val = neteq_->RegisterExternalDecoder(audio_decoder, neteq_decoder,
-                                              name, payload_type);
-  }
-  if (ret_val != NetEq::kOK) {
-    RTC_LOG(LERROR) << "AcmReceiver::AddCodec " << acm_codec_id
-                    << static_cast<int>(payload_type)
-                    << " channels: " << channels;
-    return -1;
-  }
-  return 0;
 }
 
 bool AcmReceiver::AddCodec(int rtp_payload_type,

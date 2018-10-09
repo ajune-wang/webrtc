@@ -77,80 +77,6 @@ class AudioCodingModule {
   virtual ~AudioCodingModule() = default;
 
   ///////////////////////////////////////////////////////////////////////////
-  //   Utility functions
-  //
-
-  ///////////////////////////////////////////////////////////////////////////
-  // uint8_t NumberOfCodecs()
-  // Returns number of supported codecs.
-  //
-  // Return value:
-  //   number of supported codecs.
-  ///
-  static int NumberOfCodecs();
-
-  ///////////////////////////////////////////////////////////////////////////
-  // int32_t Codec()
-  // Get supported codec with list number.
-  //
-  // Input:
-  //   -list_id             : list number.
-  //
-  // Output:
-  //   -codec              : a structure where the parameters of the codec,
-  //                         given by list number is written to.
-  //
-  // Return value:
-  //   -1 if the list number (list_id) is invalid.
-  //    0 if succeeded.
-  //
-  static int Codec(int list_id, CodecInst* codec);
-
-  ///////////////////////////////////////////////////////////////////////////
-  // int32_t Codec()
-  // Get supported codec with the given codec name, sampling frequency, and
-  // a given number of channels.
-  //
-  // Input:
-  //   -payload_name       : name of the codec.
-  //   -sampling_freq_hz   : sampling frequency of the codec. Note! for RED
-  //                         a sampling frequency of -1 is a valid input.
-  //   -channels           : number of channels ( 1 - mono, 2 - stereo).
-  //
-  // Output:
-  //   -codec              : a structure where the function returns the
-  //                         default parameters of the codec.
-  //
-  // Return value:
-  //   -1 if no codec matches the given parameters.
-  //    0 if succeeded.
-  //
-  static int Codec(const char* payload_name,
-                   CodecInst* codec,
-                   int sampling_freq_hz,
-                   size_t channels);
-
-  ///////////////////////////////////////////////////////////////////////////
-  // int32_t Codec()
-  //
-  // Returns the list number of the given codec name, sampling frequency, and
-  // a given number of channels.
-  //
-  // Input:
-  //   -payload_name        : name of the codec.
-  //   -sampling_freq_hz    : sampling frequency of the codec. Note! for RED
-  //                          a sampling frequency of -1 is a valid input.
-  //   -channels            : number of channels ( 1 - mono, 2 - stereo).
-  //
-  // Return value:
-  //   if the codec is found, the index of the codec in the list,
-  //   -1 if the codec is not found.
-  //
-  static int Codec(const char* payload_name,
-                   int sampling_freq_hz,
-                   size_t channels);
-
-  ///////////////////////////////////////////////////////////////////////////
   //   Sender
   //
 
@@ -306,22 +232,6 @@ class AudioCodingModule {
   // successful.
   virtual bool RegisterReceiveCodec(int rtp_payload_type,
                                     const SdpAudioFormat& audio_format) = 0;
-
-  // Register a decoder; call repeatedly to register multiple decoders. |df| is
-  // a decoder factory that returns an iSAC decoder; it will be called once if
-  // the decoder being registered is iSAC.
-  virtual int RegisterReceiveCodec(
-      const CodecInst& receive_codec,
-      rtc::FunctionView<std::unique_ptr<AudioDecoder>()> isac_factory) = 0;
-
-  // Registers an external decoder. The name is only used to provide information
-  // back to the caller about the decoder. Hence, the name is arbitrary, and may
-  // be empty.
-  virtual int RegisterExternalReceiveCodec(int rtp_payload_type,
-                                           AudioDecoder* external_decoder,
-                                           int sample_rate_hz,
-                                           int num_channels,
-                                           const std::string& name) = 0;
 
   ///////////////////////////////////////////////////////////////////////////
   // int32_t UnregisterReceiveCodec()

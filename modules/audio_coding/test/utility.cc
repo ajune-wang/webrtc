@@ -16,7 +16,6 @@
 #include <string.h>
 
 #include "common_types.h"  // NOLINT(build/include)
-#include "modules/audio_coding/include/audio_coding_module.h"
 #include "test/gtest.h"
 
 #define NUM_CODECS_WITH_FIXED_PAYLOAD_TYPE 13
@@ -95,39 +94,6 @@ void ACMTestTimer::Adjust() {
     n = _min / 60;
     _min -= (n * 60);
     _hour += n;
-  }
-}
-
-int16_t ChooseCodec(CodecInst& codecInst) {
-  PrintCodecs();
-  // AudioCodingModule* tmpACM = AudioCodingModule::Create(0);
-  uint8_t noCodec = AudioCodingModule::NumberOfCodecs();
-  int8_t codecID;
-  bool outOfRange = false;
-  char myStr[15] = "";
-  do {
-    printf("\nChoose a codec [0]: ");
-    EXPECT_TRUE(fgets(myStr, 10, stdin) != NULL);
-    codecID = atoi(myStr);
-    if ((codecID < 0) || (codecID >= noCodec)) {
-      printf("\nOut of range.\n");
-      outOfRange = true;
-    }
-  } while (outOfRange);
-
-  CHECK_ERROR(AudioCodingModule::Codec((uint8_t)codecID, &codecInst));
-  return 0;
-}
-
-void PrintCodecs() {
-  uint8_t noCodec = AudioCodingModule::NumberOfCodecs();
-
-  CodecInst codecInst;
-  printf("No  Name                [Hz]    [bps]\n");
-  for (uint8_t codecCntr = 0; codecCntr < noCodec; codecCntr++) {
-    AudioCodingModule::Codec(codecCntr, &codecInst);
-    printf("%2d- %-18s %5d   %6d\n", codecCntr, codecInst.plname,
-           codecInst.plfreq, codecInst.rate);
   }
 }
 

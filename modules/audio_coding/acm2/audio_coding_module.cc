@@ -14,7 +14,6 @@
 
 #include "modules/audio_coding/acm2/acm_receiver.h"
 #include "modules/audio_coding/acm2/acm_resampler.h"
-#include "modules/audio_coding/acm2/rent_a_codec.h"
 #include "modules/include/module_common_types.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
@@ -84,16 +83,6 @@ class AudioCodingModuleImpl final : public AudioCodingModule {
 
   bool RegisterReceiveCodec(int rtp_payload_type,
                             const SdpAudioFormat& audio_format) override;
-
-  int RegisterReceiveCodec(
-      const CodecInst& receive_codec,
-      rtc::FunctionView<std::unique_ptr<AudioDecoder>()> isac_factory) override;
-
-  int RegisterExternalReceiveCodec(int rtp_payload_type,
-                                   AudioDecoder* external_decoder,
-                                   int sample_rate_hz,
-                                   int num_channels,
-                                   const std::string& name) override;
 
   // Get current received codec.
   int ReceiveCodec(CodecInst* current_codec) const override;
@@ -177,11 +166,6 @@ class AudioCodingModuleImpl final : public AudioCodingModule {
     int first_time_ = true;
     const std::string histogram_name_;
   };
-
-  int RegisterReceiveCodecUnlocked(
-      const CodecInst& codec,
-      rtc::FunctionView<std::unique_ptr<AudioDecoder>()> isac_factory)
-      RTC_EXCLUSIVE_LOCKS_REQUIRED(acm_crit_sect_);
 
   int Add10MsDataInternal(const AudioFrame& audio_frame, InputData* input_data)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(acm_crit_sect_);
@@ -757,83 +741,13 @@ bool AudioCodingModuleImpl::RegisterReceiveCodec(
   rtc::CritScope lock(&acm_crit_sect_);
   RTC_DCHECK(receiver_initialized_);
 
-  if (!acm2::RentACodec::IsPayloadTypeValid(rtp_payload_type)) {
+  if (!(0 <= rtp_payload_type && rtp_payload_type <= 127)) {
     RTC_LOG_F(LS_ERROR) << "Invalid payload-type " << rtp_payload_type
                         << " for decoder.";
     return false;
   }
 
   return receiver_.AddCodec(rtp_payload_type, audio_format);
-}
-
-int AudioCodingModuleImpl::RegisterReceiveCodec(
-    const CodecInst& codec,
-    rtc::FunctionView<std::unique_ptr<AudioDecoder>()> isac_factory) {
-  rtc::CritScope lock(&acm_crit_sect_);
-  return RegisterReceiveCodecUnlocked(codec, isac_factory);
-}
-
-int AudioCodingModuleImpl::RegisterReceiveCodecUnlocked(
-    const CodecInst& codec,
-    rtc::FunctionView<std::unique_ptr<AudioDecoder>()> isac_factory) {
-  RTC_DCHECK(receiver_initialized_);
-  if (codec.channels > 2) {
-    RTC_LOG_F(LS_ERROR) << "Unsupported number of channels: " << codec.channels;
-    return -1;
-  }
-
-  auto codec_id = acm2::RentACodec::CodecIdByParams(codec.plname, codec.plfreq,
-                                                    codec.channels);
-  if (!codec_id) {
-    RTC_LOG_F(LS_ERROR)
-        << "Wrong codec params to be registered as receive codec";
-    return -1;
-  }
-  auto codec_index = acm2::RentACodec::CodecIndexFromId(*codec_id);
-  RTC_CHECK(codec_index) << "Invalid codec ID: " << static_cast<int>(*codec_id);
-
-  // Check if the payload-type is valid.
-  if (!acm2::RentACodec::IsPayloadTypeValid(codec.pltype)) {
-    RTC_LOG_F(LS_ERROR) << "Invalid payload type " << codec.pltype << " for "
-                        << codec.plname;
-    return -1;
-  }
-
-  AudioDecoder* isac_decoder = nullptr;
-  if (STR_CASE_CMP(codec.plname, "isac") == 0) {
-    std::unique_ptr<AudioDecoder>& saved_isac_decoder =
-        codec.plfreq == 16000 ? isac_decoder_16k_ : isac_decoder_32k_;
-    if (!saved_isac_decoder) {
-      saved_isac_decoder = isac_factory();
-    }
-    isac_decoder = saved_isac_decoder.get();
-  }
-  return receiver_.AddCodec(*codec_index, codec.pltype, codec.channels,
-                            codec.plfreq, isac_decoder, codec.plname);
-}
-
-int AudioCodingModuleImpl::RegisterExternalReceiveCodec(
-    int rtp_payload_type,
-    AudioDecoder* external_decoder,
-    int sample_rate_hz,
-    int num_channels,
-    const std::string& name) {
-  rtc::CritScope lock(&acm_crit_sect_);
-  RTC_DCHECK(receiver_initialized_);
-  if (num_channels > 2 || num_channels < 0) {
-    RTC_LOG_F(LS_ERROR) << "Unsupported number of channels: " << num_channels;
-    return -1;
-  }
-
-  // Check if the payload-type is valid.
-  if (!acm2::RentACodec::IsPayloadTypeValid(rtp_payload_type)) {
-    RTC_LOG_F(LS_ERROR) << "Invalid payload-type " << rtp_payload_type
-                        << " for external decoder.";
-    return -1;
-  }
-
-  return receiver_.AddCodec(-1 /* external */, rtp_payload_type, num_channels,
-                            sample_rate_hz, external_decoder, name);
 }
 
 // Get current received codec.
@@ -1018,54 +932,6 @@ AudioCodingModule::Config::~Config() = default;
 
 AudioCodingModule* AudioCodingModule::Create(const Config& config) {
   return new AudioCodingModuleImpl(config);
-}
-
-int AudioCodingModule::NumberOfCodecs() {
-  return static_cast<int>(acm2::RentACodec::NumberOfCodecs());
-}
-
-int AudioCodingModule::Codec(int list_id, CodecInst* codec) {
-  auto codec_id = acm2::RentACodec::CodecIdFromIndex(list_id);
-  if (!codec_id)
-    return -1;
-  auto ci = acm2::RentACodec::CodecInstById(*codec_id);
-  if (!ci)
-    return -1;
-  *codec = *ci;
-  return 0;
-}
-
-int AudioCodingModule::Codec(const char* payload_name,
-                             CodecInst* codec,
-                             int sampling_freq_hz,
-                             size_t channels) {
-  absl::optional<CodecInst> ci = acm2::RentACodec::CodecInstByParams(
-      payload_name, sampling_freq_hz, channels);
-  if (ci) {
-    *codec = *ci;
-    return 0;
-  } else {
-    // We couldn't find a matching codec, so set the parameters to unacceptable
-    // values and return.
-    codec->plname[0] = '\0';
-    codec->pltype = -1;
-    codec->pacsize = 0;
-    codec->rate = 0;
-    codec->plfreq = 0;
-    return -1;
-  }
-}
-
-int AudioCodingModule::Codec(const char* payload_name,
-                             int sampling_freq_hz,
-                             size_t channels) {
-  absl::optional<acm2::RentACodec::CodecId> ci =
-      acm2::RentACodec::CodecIdByParams(payload_name, sampling_freq_hz,
-                                        channels);
-  if (!ci)
-    return -1;
-  absl::optional<int> i = acm2::RentACodec::CodecIndexFromId(*ci);
-  return i ? *i : -1;
 }
 
 }  // namespace webrtc

@@ -81,39 +81,6 @@ class AcmReceiver {
   // Replace the current set of decoders with the specified set.
   void SetCodecs(const std::map<int, SdpAudioFormat>& codecs);
 
-  //
-  // Adds a new codec to the NetEq codec database.
-  //
-  // Input:
-  //   - acm_codec_id        : ACM codec ID; -1 means external decoder.
-  //   - payload_type        : payload type.
-  //   - sample_rate_hz      : sample rate.
-  //   - audio_decoder       : pointer to a decoder object. If it's null, then
-  //                           NetEq will internally create a decoder object
-  //                           based on the value of |acm_codec_id| (which
-  //                           mustn't be -1). Otherwise, NetEq will use the
-  //                           given decoder for the given payload type. NetEq
-  //                           won't take ownership of the decoder; it's up to
-  //                           the caller to delete it when it's no longer
-  //                           needed.
-  //
-  //                           Providing an existing decoder object here is
-  //                           necessary for external decoders, but may also be
-  //                           used for built-in decoders if NetEq doesn't have
-  //                           all the info it needs to construct them properly
-  //                           (e.g. iSAC, where the decoder needs to be paired
-  //                           with an encoder).
-  //
-  // Return value             : 0 if OK.
-  //                           <0 if NetEq returned an error.
-  //
-  int AddCodec(int acm_codec_id,
-               uint8_t payload_type,
-               size_t channels,
-               int sample_rate_hz,
-               AudioDecoder* audio_decoder,
-               const std::string& name);
-
   // Adds a new decoder to the NetEq codec database. Returns true iff
   // successful.
   bool AddCodec(int rtp_payload_type, const SdpAudioFormat& audio_format);

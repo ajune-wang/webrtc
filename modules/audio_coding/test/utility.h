@@ -116,10 +116,6 @@ class CircularBuffer {
 
 }  // namespace test
 
-int16_t ChooseCodec(CodecInst& codecInst);
-
-void PrintCodecs();
-
 bool FixedPayloadTypeCodec(const char* payloadName);
 
 class VADCallback : public ACMVADCallback {

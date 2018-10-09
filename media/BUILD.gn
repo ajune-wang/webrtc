@@ -395,7 +395,6 @@ if (rtc_include_tests) {
       "../api/video:video_frame_i420",
       "../call:video_stream_api",
       "../common_video:common_video",
-      "../modules/audio_coding:rent_a_codec",
       "../modules/audio_processing:audio_processing",
       "../modules/rtp_rtcp:rtp_rtcp_format",
       "../modules/video_coding:video_codec_interface",

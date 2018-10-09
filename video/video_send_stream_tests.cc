@@ -17,7 +17,6 @@
 #include "call/fake_network_pipe.h"
 #include "call/rtp_transport_controller_send.h"
 #include "call/simulated_network.h"
-#include "common_video/include/frame_callback.h"
 #include "modules/rtp_rtcp/include/rtp_header_parser.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp.h"
 #include "modules/rtp_rtcp/source/rtcp_sender.h"
@@ -964,8 +963,7 @@ void VideoSendStreamTest::TestPacketFragmentationSize(VideoFormat format,
 
   // Observer that verifies that the expected number of packets and bytes
   // arrive for each frame size, from start_size to stop_size.
-  class FrameFragmentationTest : public test::SendTest,
-                                 public EncodedFrameObserver {
+  class FrameFragmentationTest : public test::SendTest {
    public:
     FrameFragmentationTest(size_t max_packet_size,
                            size_t start_size,
@@ -1100,7 +1098,8 @@ void VideoSendStreamTest::TestPacketFragmentationSize(VideoFormat format,
         EXPECT_EQ(0, rtcp_sender.SendRTCP(feedback_state, kRtcpRr));
       }
     }
-
+#if 0
+    // TODO(nisse): XXX Implement as part of the ConfigurableFrameSizeEncoder.
     void EncodedFrameCallback(const EncodedFrame& encoded_frame) override {
       rtc::CritScope lock(&mutex_);
       // Increase frame size for next encoded frame, in the context of the
@@ -1110,6 +1109,8 @@ void VideoSendStreamTest::TestPacketFragmentationSize(VideoFormat format,
       }
       encoder_.SetFrameSize(static_cast<size_t>(current_size_frame_));
     }
+#endif
+
     void ModifySenderCallConfig(Call::Config* config) override {
       const int kMinBitrateBps = 30000;
       config->bitrate_config.min_bitrate_bps = kMinBitrateBps;
@@ -1132,8 +1133,9 @@ void VideoSendStreamTest::TestPacketFragmentationSize(VideoFormat format,
 
       send_config->encoder_settings.encoder_factory = &encoder_factory_;
       send_config->rtp.max_packet_size = kMaxPacketSize;
+#if 0
       send_config->post_encode_callback = this;
-
+#endif
       // Make sure there is at least one extension header, to make the RTP
       // header larger than the base length of 12 bytes.
       EXPECT_FALSE(send_config->rtp.extensions.empty());

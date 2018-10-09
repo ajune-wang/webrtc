@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "16ab9348_eacccee4",
+        "filename": "api/video_codecs/vp8_temporal_layers.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-10-09T14:15:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "06a48fdc_03c03e03",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 51
+      },
+      "revId": "e7337295d33322c9e7e5398831566694ec9c90c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "19aefec9_7fafe33a",
         "filename": "api/video_codecs/vp8_temporal_layers.h",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "e7337295d33322c9e7e5398831566694ec9c90c8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2acf3f75_da3a905d",
+        "filename": "api/video_codecs/vp8_temporal_layers.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-10-09T14:15:55Z",
+      "side": 1,
+      "message": "More like, it\u0027s been around forever but we want to kill it when we can. Not sure how close that is though. I\u0027ll just remove this line or now.",
+      "parentUuid": "19aefec9_7fafe33a",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 60
+      },
+      "revId": "e7337295d33322c9e7e5398831566694ec9c90c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "28075731_95f826a1",
+        "filename": "api/video_codecs/vp8_temporal_layers.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-10-09T14:15:55Z",
+      "side": 1,
+      "message": "\"Of predefined size\" is not really accurate anymore at all, removing this.",
+      "parentUuid": "0892fa12_fbb0d989",
+      "range": {
+        "startLine": 83,
+        "startChar": 41,
+        "endLine": 83,
+        "endChar": 51
+      },
+      "revId": "e7337295d33322c9e7e5398831566694ec9c90c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a2b5b6f_2f3788cd",
         "filename": "api/video_codecs/vp8_temporal_layers.h",
         "patchSetId": 5
@@ -91,6 +163,30 @@
       "revId": "e7337295d33322c9e7e5398831566694ec9c90c8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e51a75d8_b9a1a36b",
+        "filename": "api/video_codecs/vp8_temporal_layers.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-10-09T14:15:55Z",
+      "side": 1,
+      "message": "These don\u0027t appear to be used at all anymore. Removing.",
+      "parentUuid": "7a2b5b6f_2f3788cd",
+      "range": {
+        "startLine": 135,
+        "startChar": 0,
+        "endLine": 142,
+        "endChar": 5
+      },
+      "revId": "e7337295d33322c9e7e5398831566694ec9c90c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "7ba8f1c7_934473ed",
+        "filename": "api/video_codecs/vp8_temporal_layers.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-10-09T14:15:55Z",
+      "side": 1,
+      "message": "It has to be a timestamp, it\u0027s used for internal rate control.",
+      "parentUuid": "77739b26_2b3d9355",
+      "range": {
+        "startLine": 183,
+        "startChar": 49,
+        "endLine": 183,
+        "endChar": 62
+      },
+      "revId": "e7337295d33322c9e7e5398831566694ec9c90c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cca774dc_a307454e",
         "filename": "api/video_codecs/vp8_temporal_layers_factory.h",
         "patchSetId": 5
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "e2fee024_88c457df",
+        "filename": "api/video_codecs/vp8_temporal_layers_factory.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-10-09T14:15:55Z",
+      "side": 1,
+      "message": "Right, it was a factor class but that felt unnecessary so made it just a create function.\nI\u0027m not sure about adding more things to the name, the strategy part was not a thought through comment.",
+      "parentUuid": "cca774dc_a307454e",
+      "range": {
+        "startLine": 20,
+        "startChar": 3,
+        "endLine": 20,
+        "endChar": 10
+      },
+      "revId": "e7337295d33322c9e7e5398831566694ec9c90c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8cf1aa6a_7faeecea",
         "filename": "api/video_codecs/vp8_temporal_layers_factory.h",
         "patchSetId": 5
@@ -160,6 +304,30 @@
       "revId": "e7337295d33322c9e7e5398831566694ec9c90c8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6e4b330_408195c9",
+        "filename": "api/video_codecs/vp8_temporal_layers_factory.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-10-09T14:15:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8cf1aa6a_7faeecea",
+      "range": {
+        "startLine": 21,
+        "startChar": 35,
+        "endLine": 21,
+        "endChar": 55
+      },
+      "revId": "e7337295d33322c9e7e5398831566694ec9c90c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

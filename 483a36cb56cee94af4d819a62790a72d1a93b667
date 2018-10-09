@@ -93,6 +93,30 @@
       "revId": "483a36cb56cee94af4d819a62790a72d1a93b667",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f575cc48_977ef5a1",
+        "filename": "rtc_base/system/rtc_export.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-09T09:04:07Z",
+      "side": 1,
+      "message": "\u003e Yes, there will be intermediate breakage. I tried to think to an alternative but I failed.\n\u003e ... \n\u003e It doesn\u0027t matter if I refactor Chromium first or WebRTC first, I will always end up in a situation where __declspec(dllexport)/__declspec(dllimport) should never appear unless Chromium depends on a WebRTC component instead of static libraries.\n\nI might be possible to avoid breakage by creating webrtc targets like\n\n  webrtc_this_is_what_chromium_should_depend_on\n\npossibly several different for chromium render/, chromium remoting/ etc, if they currently depend on different parts of webrtc.\n\nStep 1: Create those temporary webrtc targets\n\nStep 2: Change chromium deps to go via the new targets.\n\nStep 3: Do webrtc changes to export symbols, *and* redirect above targets as appropriate to not break chromium.\n\nStep 4: Change chromium\u0027s dependencies to refer directly to the advertised webrtc component/library.\n\nStep 5: Delete the temporary targets.\n\nMost CS problems can be solved by adding yet another level of indirection... If it\u0027s worth the effort with a complex 5-step process, I don\u0027t know.",
+      "parentUuid": "0d41c318_0282c1fe",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 52
+      },
+      "revId": "483a36cb56cee94af4d819a62790a72d1a93b667",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

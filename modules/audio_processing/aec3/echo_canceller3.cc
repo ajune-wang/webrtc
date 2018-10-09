@@ -62,6 +62,10 @@ bool EnableUnityNonZeroRampupGain() {
   return field_trial::IsEnabled("WebRTC-Aec3EnableUnityNonZeroRampupGain");
 }
 
+bool EnableNewFilterParams() {
+  return !field_trial::IsEnabled("WebRTC-Aec3NewFilterParamsKillSwitch");
+}
+
 // Method for adjusting config parameter dependencies..
 EchoCanceller3Config AdjustConfig(const EchoCanceller3Config& config) {
   EchoCanceller3Config adjusted_cfg = config;
@@ -133,6 +137,13 @@ EchoCanceller3Config AdjustConfig(const EchoCanceller3Config& config) {
       adjusted_cfg.filter.main.leakage_diverged = 0.1f;
     }
     adjusted_cfg.filter.main.error_floor = 0.001f;
+  }
+
+  if (!EnableNewFilterParams()) {
+    adjusted_cfg.filter.main.leakage_diverged = 0.01f;
+    adjusted_cfg.filter.main.error_floor = 0.1f;
+    adjusted_cfg.filter.main.error_ceil = 1E10f;
+    adjusted_cfg.filter.main_initial.error_ceil = 1E10f;
   }
 
   if (EnableUnityInitialRampupGain() &&

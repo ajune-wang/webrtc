@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "0754c3ac_e4d78aa5",
+        "filename": "api/video_codecs/vp8_temporal_layers.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-09T14:30:06Z",
+      "side": 1,
+      "message": "Comment is still not clear to me. I look at default_temporal_layers.{h, cc}, and it seems to not be thread safe and not have any locks. If I got that right, it is not aware of threads at all, and the code using that class needs to take responsibility for any needed synchronization.\n\nSo I\u0027d rather say that Vp8TemporalLayers is *not* threadsafe, and that when using the interface, any needed synchronization is the caller\u0027s responsibility.",
+      "parentUuid": "16ab9348_eacccee4",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 51
+      },
+      "revId": "e7337295d33322c9e7e5398831566694ec9c90c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "19aefec9_7fafe33a",
         "filename": "api/video_codecs/vp8_temporal_layers.h",
         "patchSetId": 5
@@ -178,6 +202,30 @@
       "side": 1,
       "message": "These don\u0027t appear to be used at all anymore. Removing.",
       "parentUuid": "7a2b5b6f_2f3788cd",
+      "range": {
+        "startLine": 135,
+        "startChar": 0,
+        "endLine": 142,
+        "endChar": 5
+      },
+      "revId": "e7337295d33322c9e7e5398831566694ec9c90c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4e35a746_fd1f7907",
+        "filename": "api/video_codecs/vp8_temporal_layers.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-09T14:30:06Z",
+      "side": 1,
+      "message": "Excellent!",
+      "parentUuid": "e51a75d8_b9a1a36b",
       "range": {
         "startLine": 135,
         "startChar": 0,

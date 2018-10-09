@@ -19,6 +19,7 @@
 #include "absl/types/optional.h"
 #include "api/candidate.h"
 #include "api/jsep.h"
+#include "api/media_transport_interface.h"
 #include "p2p/base/dtlstransport.h"
 #include "p2p/base/p2pconstants.h"
 #include "p2p/base/transportinfo.h"
@@ -82,7 +83,8 @@ class JsepTransport : public sigslot::has_slots<> {
       std::unique_ptr<webrtc::SrtpTransport> sdes_transport,
       std::unique_ptr<webrtc::DtlsSrtpTransport> dtls_srtp_transport,
       std::unique_ptr<DtlsTransportInternal> rtp_dtls_transport,
-      std::unique_ptr<DtlsTransportInternal> rtcp_dtls_transport);
+      std::unique_ptr<DtlsTransportInternal> rtcp_dtls_transport,
+      std::unique_ptr<webrtc::MediaTransportInterface> media_transport);
 
   ~JsepTransport() override;
 
@@ -156,6 +158,10 @@ class JsepTransport : public sigslot::has_slots<> {
 
   DtlsTransportInternal* rtcp_dtls_transport() const {
     return rtcp_dtls_transport_.get();
+  }
+
+  webrtc::MediaTransportInterface* media_transport() const {
+    return media_transport_.get();
   }
 
   // This is signaled when RTCP-mux becomes active and
@@ -240,6 +246,8 @@ class JsepTransport : public sigslot::has_slots<> {
   // Cache the encrypted header extension IDs for SDES negoitation.
   absl::optional<std::vector<int>> send_extension_ids_;
   absl::optional<std::vector<int>> recv_extension_ids_;
+
+  std::unique_ptr<webrtc::MediaTransportInterface> media_transport_;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(JsepTransport);
 };

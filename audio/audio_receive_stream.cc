@@ -53,6 +53,7 @@ std::string AudioReceiveStream::Config::ToString() const {
   ss << "{rtp: " << rtp.ToString();
   ss << ", rtcp_send_transport: "
      << (rtcp_send_transport ? "(Transport)" : "null");
+  ss << ", media_transport: " << (media_transport ? "(Transport)" : "null");
   if (!sync_group.empty()) {
     ss << ", sync_group: " << sync_group;
   }
@@ -73,8 +74,8 @@ std::unique_ptr<voe::ChannelReceiveProxy> CreateChannelAndProxy(
   return absl::make_unique<voe::ChannelReceiveProxy>(
       absl::make_unique<voe::ChannelReceive>(
           module_process_thread, internal_audio_state->audio_device_module(),
-          config.rtcp_send_transport, event_log, config.rtp.remote_ssrc,
-          config.jitter_buffer_max_packets,
+          config.media_transport, config.rtcp_send_transport, event_log,
+          config.rtp.remote_ssrc, config.jitter_buffer_max_packets,
           config.jitter_buffer_fast_accelerate, config.decoder_factory,
           config.codec_pair_id, config.frame_decryptor));
 }

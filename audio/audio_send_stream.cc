@@ -49,13 +49,17 @@ void CallEncoder(const std::unique_ptr<voe::ChannelSendProxy>& channel_proxy,
 std::unique_ptr<voe::ChannelSendProxy> CreateChannelAndProxy(
     rtc::TaskQueue* worker_queue,
     ProcessThread* module_process_thread,
+    MediaTransportInterface* media_transport,
     RtcpRttStats* rtcp_rtt_stats,
     RtcEventLog* event_log,
     FrameEncryptorInterface* frame_encryptor) {
   return absl::make_unique<voe::ChannelSendProxy>(
       absl::make_unique<voe::ChannelSend>(worker_queue, module_process_thread,
-                                          rtcp_rtt_stats, event_log,
-                                          frame_encryptor));
+                                          // TODO(sukhanov): Do we need above
+                                          // logic as in RTP, i.e. first time,
+                                          // TimedTransport, etc.
+                                          media_transport, rtcp_rtt_stats,
+                                          event_log, frame_encryptor));
 }
 }  // namespace
 
@@ -104,6 +108,7 @@ AudioSendStream::AudioSendStream(
                       overall_call_lifetime,
                       CreateChannelAndProxy(worker_queue,
                                             module_process_thread,
+                                            config.media_transport,
                                             rtcp_rtt_stats,
                                             event_log,
                                             config.frame_encryptor)) {}
@@ -120,7 +125,8 @@ AudioSendStream::AudioSendStream(
     TimeInterval* overall_call_lifetime,
     std::unique_ptr<voe::ChannelSendProxy> channel_proxy)
     : worker_queue_(worker_queue),
-      config_(Config(nullptr)),
+      config_(Config(/*send_transport=*/nullptr,
+                     /*media_transport=*/nullptr)),
       audio_state_(audio_state),
       channel_proxy_(std::move(channel_proxy)),
       event_log_(event_log),

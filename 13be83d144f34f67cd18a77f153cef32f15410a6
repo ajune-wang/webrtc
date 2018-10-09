@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "201c7fa0_79beb38e",
+        "filename": "modules/rtp_rtcp/source/rtcp_packet/pli.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-10-09T14:54:47Z",
+      "side": 1,
+      "message": "pli is passive structure, prefer to avoid using field_trial inside it.\nbetter to set this flag in control class (e.g. RtcpSender) and pass a simple boolean flag to the structure.",
+      "range": {
+        "startLine": 44,
+        "startChar": 10,
+        "endLine": 44,
+        "endChar": 72
+      },
+      "revId": "13be83d144f34f67cd18a77f153cef32f15410a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

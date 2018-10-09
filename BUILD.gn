@@ -98,6 +98,10 @@ config("common_inherited_config") {
   cflags = []
   ldflags = []
 
+  if (rtc_component_build) {
+    defines = [ "WEBRTC_COMPONENT_BUILD" ]
+  }
+
   if (build_with_mozilla) {
     defines += [ "WEBRTC_MOZILLA_BUILD" ]
   }

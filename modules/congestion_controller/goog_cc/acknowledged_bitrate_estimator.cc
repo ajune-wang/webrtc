@@ -15,6 +15,7 @@
 #include "absl/memory/memory.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 #include "rtc_base/numerics/safe_conversions.h"
+#include "system_wrappers/include/field_trial.h"
 
 namespace webrtc {
 
@@ -41,8 +42,10 @@ void AcknowledgedBitrateEstimator::IncomingPacketFeedbackVector(
   for (const auto& packet : packet_feedback_vector) {
     if (IsInSendTimeHistory(packet)) {
       MaybeExpectFastRateChange(packet.send_time_ms);
-      bitrate_estimator_->Update(packet.arrival_time_ms,
-                                 rtc::dchecked_cast<int>(packet.payload_size));
+      size_t acknowledged_amount = rtc::dchecked_cast<int>(packet.payload_size);
+      if (field_trial::IsEnabled("WebRTC-Bwe-AccountForUnacked"))
+        acknowledged_amount += packet.unacknowledged_data;
+      bitrate_estimator_->Update(packet.arrival_time_ms, acknowledged_amount);
     }
   }
 }
@@ -50,8 +53,7 @@ void AcknowledgedBitrateEstimator::IncomingPacketFeedbackVector(
 absl::optional<uint32_t> AcknowledgedBitrateEstimator::bitrate_bps() const {
   auto estimated_bitrate = bitrate_estimator_->bitrate_bps();
   return estimated_bitrate
-             ? *estimated_bitrate +
-                   allocated_bitrate_without_feedback_bps_.value_or(0)
+             ? *estimated_bitrate + allocated_bitrate_without_feedback_bps_
              : estimated_bitrate;
 }
 
@@ -62,7 +64,11 @@ void AcknowledgedBitrateEstimator::SetAlrEndedTimeMs(
 
 void AcknowledgedBitrateEstimator::SetAllocatedBitrateWithoutFeedback(
     uint32_t bitrate_bps) {
-  allocated_bitrate_without_feedback_bps_.emplace(bitrate_bps);
+  if (!field_trial::IsEnabled("WebRTC-Bwe-AccountForUnacked")) {
+    allocated_bitrate_without_feedback_bps_ = bitrate_bps;
+  } else {
+    allocated_bitrate_without_feedback_bps_ = 0;
+  }
 }
 
 void AcknowledgedBitrateEstimator::MaybeExpectFastRateChange(

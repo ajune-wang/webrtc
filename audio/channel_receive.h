@@ -19,6 +19,7 @@
 #include "api/audio/audio_mixer.h"
 #include "api/call/audio_sink.h"
 #include "api/call/transport.h"
+#include "api/media_transport_interface.h"
 #include "api/rtpreceiverinterface.h"
 #include "audio/audio_level.h"
 #include "call/syncable.h"
@@ -107,6 +108,7 @@ class ChannelReceive : public RtpData {
   // Used for receive streams.
   ChannelReceive(ProcessThread* module_process_thread,
                  AudioDeviceModule* audio_device_module,
+                 MediaTransportInterface* media_transport,
                  Transport* rtcp_send_transport,
                  RtcEventLog* rtc_event_log,
                  uint32_t remote_ssrc,
@@ -256,6 +258,8 @@ class ChannelReceive : public RtpData {
   PacketRouter* packet_router_ = nullptr;
 
   rtc::ThreadChecker construction_thread_;
+
+  MediaTransportInterface* media_transport_ __attribute__((unused));
 
   // E2EE Audio Frame Decryption
   FrameDecryptorInterface* frame_decryptor_ = nullptr;

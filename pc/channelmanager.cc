@@ -156,6 +156,7 @@ VoiceChannel* ChannelManager::CreateVoiceChannel(
     webrtc::Call* call,
     const cricket::MediaConfig& media_config,
     webrtc::RtpTransportInternal* rtp_transport,
+    webrtc::MediaTransportInterface* media_transport,
     rtc::Thread* signaling_thread,
     const std::string& content_name,
     bool srtp_required,
@@ -164,8 +165,8 @@ VoiceChannel* ChannelManager::CreateVoiceChannel(
   if (!worker_thread_->IsCurrent()) {
     return worker_thread_->Invoke<VoiceChannel*>(RTC_FROM_HERE, [&] {
       return CreateVoiceChannel(call, media_config, rtp_transport,
-                                signaling_thread, content_name, srtp_required,
-                                crypto_options, options);
+                                media_transport, signaling_thread, content_name,
+                                srtp_required, crypto_options, options);
     });
   }
 
@@ -184,8 +185,8 @@ VoiceChannel* ChannelManager::CreateVoiceChannel(
 
   auto voice_channel = absl::make_unique<VoiceChannel>(
       worker_thread_, network_thread_, signaling_thread, media_engine_.get(),
-      absl::WrapUnique(media_channel), content_name, srtp_required,
-      crypto_options);
+      absl::WrapUnique(media_channel), media_transport, content_name,
+      srtp_required, crypto_options);
 
   voice_channel->Init_w(rtp_transport);
 
@@ -249,9 +250,10 @@ VideoChannel* ChannelManager::CreateVideoChannel(
     return nullptr;
   }
 
+  // TODO(sukhanov): Propagate media transport to video.
   auto video_channel = absl::make_unique<VideoChannel>(
       worker_thread_, network_thread_, signaling_thread,
-      absl::WrapUnique(media_channel), content_name, srtp_required,
+      absl::WrapUnique(media_channel), nullptr, content_name, srtp_required,
       crypto_options);
   video_channel->Init_w(rtp_transport);
 

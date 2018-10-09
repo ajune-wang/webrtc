@@ -199,6 +199,7 @@ int ChannelReceive::PreferredSampleRate() const {
 ChannelReceive::ChannelReceive(
     ProcessThread* module_process_thread,
     AudioDeviceModule* audio_device_module,
+    MediaTransportInterface* media_transport,
     Transport* rtcp_send_transport,
     RtcEventLog* rtc_event_log,
     uint32_t remote_ssrc,
@@ -222,6 +223,7 @@ ChannelReceive::ChannelReceive(
       _audioDeviceModulePtr(audio_device_module),
       _outputGain(1.0f),
       associated_send_channel_(nullptr),
+      media_transport_(media_transport),
       frame_decryptor_(frame_decryptor) {
   RTC_DCHECK(module_process_thread);
   RTC_DCHECK(audio_device_module);

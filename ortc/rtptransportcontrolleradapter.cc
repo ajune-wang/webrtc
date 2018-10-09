@@ -863,7 +863,7 @@ void RtpTransportControllerAdapter::OnVideoReceiverDestroyed() {
 void RtpTransportControllerAdapter::CreateVoiceChannel() {
   voice_channel_ = channel_manager_->CreateVoiceChannel(
       call_.get(), media_config_, inner_audio_transport_->GetInternal(),
-      signaling_thread_, "audio", false, rtc::CryptoOptions(),
+      nullptr, signaling_thread_, "audio", false, rtc::CryptoOptions(),
       cricket::AudioOptions());
   RTC_DCHECK(voice_channel_);
   voice_channel_->Enable(true);

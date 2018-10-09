@@ -174,6 +174,30 @@
       "revId": "6b0ce846bdde87b319f14a870f7c04d27deb7f05",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6d7c8b8_54349356",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-10-09T09:28:31Z",
+      "side": 1,
+      "message": "To the best of my knowledge, we do audio processing in 10 ms chunks. Audio coding uses some (almost always non-1) positive integer multiple of 10 ms per frame, and to make them work together we buffer things in the obvious way very close to the audio codec (for encoding, in the codec; for decoding, in NetEq).",
+      "parentUuid": "e9bf6477_bb963c54",
+      "range": {
+        "startLine": 357,
+        "startChar": 23,
+        "endLine": 357,
+        "endChar": 26
+      },
+      "revId": "6b0ce846bdde87b319f14a870f7c04d27deb7f05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

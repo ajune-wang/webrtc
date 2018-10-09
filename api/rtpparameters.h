@@ -241,18 +241,6 @@ struct RtpExtension {
   // Return "true" if the given RTP header extension URI may be encrypted.
   static bool IsEncryptionSupported(const std::string& uri);
 
-  // Returns the named header extension if found among all extensions,
-  // nullptr otherwise.
-  static const RtpExtension* FindHeaderExtensionByUri(
-      const std::vector<RtpExtension>& extensions,
-      const std::string& uri);
-
-  // Return a list of RTP header extensions with the non-encrypted extensions
-  // removed if both the encrypted and non-encrypted extension is present for
-  // the same URI.
-  static std::vector<RtpExtension> FilterDuplicateNonEncrypted(
-      const std::vector<RtpExtension>& extensions);
-
   // Header extension for audio levels, as defined in:
   // http://tools.ietf.org/html/draft-ietf-avtext-client-to-mixer-audio-level-03
   static const char kAudioLevelUri[];
@@ -322,6 +310,28 @@ struct RtpExtension {
 
 // TODO(deadbeef): This is missing the "encrypt" flag, which is unimplemented.
 typedef RtpExtension RtpHeaderExtensionParameters;
+
+class RtpHeaderExtensions : public std::vector<RtpExtension> {
+ public:
+  // TODO(wbertc:7990): Add flag to tell if mixed one-two byte headers are
+  // supported.
+
+  static RtpHeaderExtensions create_from_array(
+      const RtpExtension rtp_extensions[],
+      size_t size);
+
+  // Returns the named header extension if found among all extensions,
+  // nullptr otherwise.
+  static const RtpExtension* FindHeaderExtensionByUri(
+      const RtpHeaderExtensions& extensions,
+      const std::string& uri);
+
+  // Return a list of RTP header extensions with the non-encrypted extensions
+  // removed if both the encrypted and non-encrypted extension is present for
+  // the same URI.
+  static RtpHeaderExtensions FilterDuplicateNonEncrypted(
+      const RtpHeaderExtensions& extensions);
+};
 
 struct RtpFecParameters {
   // If unset, a value is chosen by the implementation.
@@ -624,7 +634,7 @@ struct RtpParameters {
 
   std::vector<RtpCodecParameters> codecs;
 
-  std::vector<RtpHeaderExtensionParameters> header_extensions;
+  RtpHeaderExtensions header_extensions;
 
   std::vector<RtpEncodingParameters> encodings;
 

@@ -77,13 +77,13 @@ class WebRtcMediaEngineFactory {
 
 // Verify that extension IDs are within 1-byte extension range and are not
 // overlapping.
-bool ValidateRtpExtensions(const std::vector<webrtc::RtpExtension>& extensions);
+bool ValidateRtpExtensions(const webrtc::RtpHeaderExtensions& extensions);
 
 // Discard any extensions not validated by the 'supported' predicate. Duplicate
 // extensions are removed if 'filter_redundant_extensions' is set, and also any
 // mutually exclusive extensions (see implementation for details) are removed.
-std::vector<webrtc::RtpExtension> FilterRtpExtensions(
-    const std::vector<webrtc::RtpExtension>& extensions,
+webrtc::RtpHeaderExtensions FilterRtpExtensions(
+    const webrtc::RtpHeaderExtensions& extensions,
     bool (*supported)(const std::string&),
     bool filter_redundant_extensions);
 

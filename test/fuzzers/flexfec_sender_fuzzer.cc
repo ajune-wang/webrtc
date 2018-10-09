@@ -24,7 +24,7 @@ constexpr int kFlexfecPayloadType = 123;
 constexpr uint32_t kMediaSsrc = 1234;
 constexpr uint32_t kFlexfecSsrc = 5678;
 const char kNoMid[] = "";
-const std::vector<RtpExtension> kNoRtpHeaderExtensions;
+const RtpHeaderExtensions kNoRtpHeaderExtensions;
 const std::vector<RtpExtensionSize> kNoRtpHeaderExtensionSizes;
 
 }  // namespace

@@ -53,16 +53,16 @@ const int kDefaultRtcpCnameLength = 16;
 template <typename C>
 webrtc::RtpCapabilities ToRtpCapabilitiesWithAsserts(
     const std::vector<C>& cricket_codecs,
-    const cricket::RtpHeaderExtensions& cricket_extensions) {
+    const webrtc::RtpHeaderExtensions& rtp_header_extensions) {
   webrtc::RtpCapabilities capabilities =
-      webrtc::ToRtpCapabilities(cricket_codecs, cricket_extensions);
+      webrtc::ToRtpCapabilities(cricket_codecs, rtp_header_extensions);
   RTC_DCHECK_EQ(capabilities.codecs.size(), cricket_codecs.size());
   for (size_t i = 0; i < capabilities.codecs.size(); ++i) {
     RTC_DCHECK_EQ(capabilities.codecs[i].rtcp_feedback.size(),
                   cricket_codecs[i].feedback_params.params().size());
   }
   RTC_DCHECK_EQ(capabilities.header_extensions.size(),
-                cricket_extensions.size());
+                rtp_header_extensions.size());
   return capabilities;
 }
 
@@ -317,19 +317,21 @@ RtpCapabilities OrtcFactory::GetRtpSenderCapabilities(
   switch (kind) {
     case cricket::MEDIA_TYPE_AUDIO: {
       cricket::AudioCodecs cricket_codecs;
-      cricket::RtpHeaderExtensions cricket_extensions;
+      RtpHeaderExtensions rtp_header_extensions;
       channel_manager_->GetSupportedAudioSendCodecs(&cricket_codecs);
       channel_manager_->GetSupportedAudioRtpHeaderExtensions(
-          &cricket_extensions);
-      return ToRtpCapabilitiesWithAsserts(cricket_codecs, cricket_extensions);
+          &rtp_header_extensions);
+      return ToRtpCapabilitiesWithAsserts(cricket_codecs,
+                                          rtp_header_extensions);
     }
     case cricket::MEDIA_TYPE_VIDEO: {
       cricket::VideoCodecs cricket_codecs;
-      cricket::RtpHeaderExtensions cricket_extensions;
+      RtpHeaderExtensions rtp_header_extensions;
       channel_manager_->GetSupportedVideoCodecs(&cricket_codecs);
       channel_manager_->GetSupportedVideoRtpHeaderExtensions(
-          &cricket_extensions);
-      return ToRtpCapabilitiesWithAsserts(cricket_codecs, cricket_extensions);
+          &rtp_header_extensions);
+      return ToRtpCapabilitiesWithAsserts(cricket_codecs,
+                                          rtp_header_extensions);
     }
     case cricket::MEDIA_TYPE_DATA:
       return RtpCapabilities();
@@ -382,19 +384,21 @@ RtpCapabilities OrtcFactory::GetRtpReceiverCapabilities(
   switch (kind) {
     case cricket::MEDIA_TYPE_AUDIO: {
       cricket::AudioCodecs cricket_codecs;
-      cricket::RtpHeaderExtensions cricket_extensions;
+      RtpHeaderExtensions rtp_header_extensions;
       channel_manager_->GetSupportedAudioReceiveCodecs(&cricket_codecs);
       channel_manager_->GetSupportedAudioRtpHeaderExtensions(
-          &cricket_extensions);
-      return ToRtpCapabilitiesWithAsserts(cricket_codecs, cricket_extensions);
+          &rtp_header_extensions);
+      return ToRtpCapabilitiesWithAsserts(cricket_codecs,
+                                          rtp_header_extensions);
     }
     case cricket::MEDIA_TYPE_VIDEO: {
       cricket::VideoCodecs cricket_codecs;
-      cricket::RtpHeaderExtensions cricket_extensions;
+      RtpHeaderExtensions rtp_header_extensions;
       channel_manager_->GetSupportedVideoCodecs(&cricket_codecs);
       channel_manager_->GetSupportedVideoRtpHeaderExtensions(
-          &cricket_extensions);
-      return ToRtpCapabilitiesWithAsserts(cricket_codecs, cricket_extensions);
+          &rtp_header_extensions);
+      return ToRtpCapabilitiesWithAsserts(cricket_codecs,
+                                          rtp_header_extensions);
     }
     case cricket::MEDIA_TYPE_DATA:
       return RtpCapabilities();

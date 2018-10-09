@@ -70,7 +70,7 @@ static bool ValidPacket(bool rtcp, const rtc::CopyOnWriteBuffer* packet) {
 template <class Codec>
 void RtpParametersFromMediaDescription(
     const MediaContentDescriptionImpl<Codec>* desc,
-    const RtpHeaderExtensions& extensions,
+    const webrtc::RtpHeaderExtensions& extensions,
     RtpParameters<Codec>* params) {
   // TODO(pthatcher): Remove this once we're sure no one will give us
   // a description without codecs. Currently the ORTC implementation is relying
@@ -89,7 +89,7 @@ void RtpParametersFromMediaDescription(
 template <class Codec>
 void RtpSendParametersFromMediaDescription(
     const MediaContentDescriptionImpl<Codec>* desc,
-    const RtpHeaderExtensions& extensions,
+    const webrtc::RtpHeaderExtensions& extensions,
     RtpSendParameters<Codec>* send_params) {
   RtpParametersFromMediaDescription(desc, extensions, send_params);
   send_params->max_bandwidth_bps = desc->bandwidth();
@@ -449,7 +449,7 @@ void BaseChannel::OnRtpPacket(const webrtc::RtpPacketReceived& parsed_packet) {
 }
 
 void BaseChannel::UpdateRtpHeaderExtensionMap(
-    const RtpHeaderExtensions& header_extensions) {
+    const webrtc::RtpHeaderExtensions& header_extensions) {
   RTC_DCHECK(rtp_transport_);
   // Update the header extension map on network thread in case there is data
   // race.
@@ -670,11 +670,11 @@ bool BaseChannel::UpdateRemoteStreams_w(
   return ret;
 }
 
-RtpHeaderExtensions BaseChannel::GetFilteredRtpHeaderExtensions(
-    const RtpHeaderExtensions& extensions) {
+webrtc::RtpHeaderExtensions BaseChannel::GetFilteredRtpHeaderExtensions(
+    const webrtc::RtpHeaderExtensions& extensions) {
   RTC_DCHECK(rtp_transport_);
   if (crypto_options_.enable_encrypted_rtp_header_extensions) {
-    RtpHeaderExtensions filtered;
+    webrtc::RtpHeaderExtensions filtered;
     auto pred = [](const webrtc::RtpExtension& extension) {
       return !extension.encrypt;
     };
@@ -683,7 +683,7 @@ RtpHeaderExtensions BaseChannel::GetFilteredRtpHeaderExtensions(
     return filtered;
   }
 
-  return webrtc::RtpExtension::FilterDuplicateNonEncrypted(extensions);
+  return webrtc::RtpHeaderExtensions::FilterDuplicateNonEncrypted(extensions);
 }
 
 void BaseChannel::OnMessage(rtc::Message* pmsg) {
@@ -794,7 +794,7 @@ bool VoiceChannel::SetLocalContent_w(const MediaContentDescription* content,
 
   const AudioContentDescription* audio = content->as_audio();
 
-  RtpHeaderExtensions rtp_header_extensions =
+  webrtc::RtpHeaderExtensions rtp_header_extensions =
       GetFilteredRtpHeaderExtensions(audio->rtp_header_extensions());
   UpdateRtpHeaderExtensionMap(rtp_header_extensions);
 
@@ -845,7 +845,7 @@ bool VoiceChannel::SetRemoteContent_w(const MediaContentDescription* content,
 
   const AudioContentDescription* audio = content->as_audio();
 
-  RtpHeaderExtensions rtp_header_extensions =
+  webrtc::RtpHeaderExtensions rtp_header_extensions =
       GetFilteredRtpHeaderExtensions(audio->rtp_header_extensions());
 
   AudioSendParameters send_params = last_send_params_;
@@ -929,7 +929,7 @@ bool VideoChannel::SetLocalContent_w(const MediaContentDescription* content,
 
   const VideoContentDescription* video = content->as_video();
 
-  RtpHeaderExtensions rtp_header_extensions =
+  webrtc::RtpHeaderExtensions rtp_header_extensions =
       GetFilteredRtpHeaderExtensions(video->rtp_header_extensions());
   UpdateRtpHeaderExtensionMap(rtp_header_extensions);
 
@@ -980,7 +980,7 @@ bool VideoChannel::SetRemoteContent_w(const MediaContentDescription* content,
 
   const VideoContentDescription* video = content->as_video();
 
-  RtpHeaderExtensions rtp_header_extensions =
+  webrtc::RtpHeaderExtensions rtp_header_extensions =
       GetFilteredRtpHeaderExtensions(video->rtp_header_extensions());
 
   VideoSendParameters send_params = last_send_params_;
@@ -1084,7 +1084,7 @@ bool RtpDataChannel::SetLocalContent_w(const MediaContentDescription* content,
     return false;
   }
 
-  RtpHeaderExtensions rtp_header_extensions =
+  webrtc::RtpHeaderExtensions rtp_header_extensions =
       GetFilteredRtpHeaderExtensions(data->rtp_header_extensions());
 
   DataRecvParameters recv_params = last_recv_params_;
@@ -1143,7 +1143,7 @@ bool RtpDataChannel::SetRemoteContent_w(const MediaContentDescription* content,
     return false;
   }
 
-  RtpHeaderExtensions rtp_header_extensions =
+  webrtc::RtpHeaderExtensions rtp_header_extensions =
       GetFilteredRtpHeaderExtensions(data->rtp_header_extensions());
 
   RTC_LOG(LS_INFO) << "Setting remote data description";

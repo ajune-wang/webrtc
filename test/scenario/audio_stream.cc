@@ -66,8 +66,8 @@ SendAudioStream::SendAudioStream(
 
   if (config.stream.in_bandwidth_estimation) {
     send_config.send_codec_spec->transport_cc_enabled = true;
-    send_config.rtp.extensions = {
-        {RtpExtension::kTransportSequenceNumberUri, 8}};
+    send_config.rtp.extensions.emplace_back(
+        RtpExtension::kTransportSequenceNumberUri, 8);
   }
 
   if (config.stream.rate_allocation_priority) {
@@ -110,8 +110,8 @@ ReceiveAudioStream::ReceiveAudioStream(
   recv_config.rtp.remote_ssrc = send_stream->ssrc_;
   if (config.stream.in_bandwidth_estimation) {
     recv_config.rtp.transport_cc = true;
-    recv_config.rtp.extensions = {
-        {RtpExtension::kTransportSequenceNumberUri, 8}};
+    recv_config.rtp.extensions.emplace_back(
+        RtpExtension::kTransportSequenceNumberUri, 8);
   }
   recv_config.decoder_factory = decoder_factory;
   recv_config.decoder_map = {

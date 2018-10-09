@@ -95,7 +95,7 @@ class RtpTransportInternal : public SrtpTransportInterface,
   //   UpdateRecvEncryptedHeaderExtensionIds,
   //   CacheRtpAbsSendTimeHeaderExtension,
   virtual void UpdateRtpHeaderExtensionMap(
-      const cricket::RtpHeaderExtensions& header_extensions) = 0;
+      const RtpHeaderExtensions& header_extensions) = 0;
 
   virtual bool IsSrtpActive() const = 0;
 

@@ -23,8 +23,8 @@ using webrtc::RtpExtension;
 namespace cricket {
 namespace {
 
-std::vector<RtpExtension> MakeUniqueExtensions() {
-  std::vector<RtpExtension> result;
+webrtc::RtpHeaderExtensions MakeUniqueExtensions() {
+  webrtc::RtpHeaderExtensions result;
   char name[] = "a";
   for (int i = 0; i < 7; ++i) {
     result.push_back(RtpExtension(name, 1 + i));
@@ -35,8 +35,8 @@ std::vector<RtpExtension> MakeUniqueExtensions() {
   return result;
 }
 
-std::vector<RtpExtension> MakeRedundantExtensions() {
-  std::vector<RtpExtension> result;
+webrtc::RtpHeaderExtensions MakeRedundantExtensions() {
+  webrtc::RtpHeaderExtensions result;
   char name[] = "a";
   for (int i = 0; i < 7; ++i) {
     result.push_back(RtpExtension(name, 1 + i));
@@ -54,7 +54,7 @@ bool SupportedExtensions2(const std::string& name) {
   return name != "a" && name != "n";
 }
 
-bool IsSorted(const std::vector<webrtc::RtpExtension>& extensions) {
+bool IsSorted(const webrtc::RtpHeaderExtensions& extensions) {
   const std::string* last = nullptr;
   for (const auto& extension : extensions) {
     if (last && *last > extension.uri) {
@@ -67,49 +67,49 @@ bool IsSorted(const std::vector<webrtc::RtpExtension>& extensions) {
 }  // namespace
 
 TEST(WebRtcMediaEngineTest, ValidateRtpExtensions_EmptyList) {
-  std::vector<RtpExtension> extensions;
+  webrtc::RtpHeaderExtensions extensions;
   EXPECT_TRUE(ValidateRtpExtensions(extensions));
 }
 
 TEST(WebRtcMediaEngineTest, ValidateRtpExtensions_AllGood) {
-  std::vector<RtpExtension> extensions = MakeUniqueExtensions();
+  webrtc::RtpHeaderExtensions extensions = MakeUniqueExtensions();
   EXPECT_TRUE(ValidateRtpExtensions(extensions));
 }
 
 TEST(WebRtcMediaEngineTest, ValidateRtpExtensions_OutOfRangeId_Low) {
-  std::vector<RtpExtension> extensions = MakeUniqueExtensions();
+  webrtc::RtpHeaderExtensions extensions = MakeUniqueExtensions();
   extensions.push_back(RtpExtension("foo", 0));
   EXPECT_FALSE(ValidateRtpExtensions(extensions));
 }
 
 TEST(WebRtcMediaEngineTest, ValidateRtpExtensions_OutOfRangeId_High) {
-  std::vector<RtpExtension> extensions = MakeUniqueExtensions();
+  webrtc::RtpHeaderExtensions extensions = MakeUniqueExtensions();
   extensions.push_back(RtpExtension("foo", 256));
   EXPECT_FALSE(ValidateRtpExtensions(extensions));
 }
 
 TEST(WebRtcMediaEngineTest, ValidateRtpExtensions_OverlappingIds_StartOfSet) {
-  std::vector<RtpExtension> extensions = MakeUniqueExtensions();
+  webrtc::RtpHeaderExtensions extensions = MakeUniqueExtensions();
   extensions.push_back(RtpExtension("foo", 1));
   EXPECT_FALSE(ValidateRtpExtensions(extensions));
 }
 
 TEST(WebRtcMediaEngineTest, ValidateRtpExtensions_OverlappingIds_EndOfSet) {
-  std::vector<RtpExtension> extensions = MakeUniqueExtensions();
+  webrtc::RtpHeaderExtensions extensions = MakeUniqueExtensions();
   extensions.push_back(RtpExtension("foo", 255));
   EXPECT_FALSE(ValidateRtpExtensions(extensions));
 }
 
 TEST(WebRtcMediaEngineTest, FilterRtpExtensions_EmptyList) {
-  std::vector<RtpExtension> extensions;
-  std::vector<webrtc::RtpExtension> filtered =
+  webrtc::RtpHeaderExtensions extensions;
+  webrtc::RtpHeaderExtensions filtered =
       FilterRtpExtensions(extensions, SupportedExtensions1, true);
   EXPECT_EQ(0u, filtered.size());
 }
 
 TEST(WebRtcMediaEngineTest, FilterRtpExtensions_IncludeOnlySupported) {
-  std::vector<RtpExtension> extensions = MakeUniqueExtensions();
-  std::vector<webrtc::RtpExtension> filtered =
+  webrtc::RtpHeaderExtensions extensions = MakeUniqueExtensions();
+  webrtc::RtpHeaderExtensions filtered =
       FilterRtpExtensions(extensions, SupportedExtensions1, false);
   EXPECT_EQ(2u, filtered.size());
   EXPECT_EQ("c", filtered[0].uri);
@@ -117,24 +117,24 @@ TEST(WebRtcMediaEngineTest, FilterRtpExtensions_IncludeOnlySupported) {
 }
 
 TEST(WebRtcMediaEngineTest, FilterRtpExtensions_SortedByName_1) {
-  std::vector<RtpExtension> extensions = MakeUniqueExtensions();
-  std::vector<webrtc::RtpExtension> filtered =
+  webrtc::RtpHeaderExtensions extensions = MakeUniqueExtensions();
+  webrtc::RtpHeaderExtensions filtered =
       FilterRtpExtensions(extensions, SupportedExtensions2, false);
   EXPECT_EQ(12u, filtered.size());
   EXPECT_TRUE(IsSorted(filtered));
 }
 
 TEST(WebRtcMediaEngineTest, FilterRtpExtensions_SortedByName_2) {
-  std::vector<RtpExtension> extensions = MakeUniqueExtensions();
-  std::vector<webrtc::RtpExtension> filtered =
+  webrtc::RtpHeaderExtensions extensions = MakeUniqueExtensions();
+  webrtc::RtpHeaderExtensions filtered =
       FilterRtpExtensions(extensions, SupportedExtensions2, true);
   EXPECT_EQ(12u, filtered.size());
   EXPECT_TRUE(IsSorted(filtered));
 }
 
 TEST(WebRtcMediaEngineTest, FilterRtpExtensions_DontRemoveRedundant) {
-  std::vector<RtpExtension> extensions = MakeRedundantExtensions();
-  std::vector<webrtc::RtpExtension> filtered =
+  webrtc::RtpHeaderExtensions extensions = MakeRedundantExtensions();
+  webrtc::RtpHeaderExtensions filtered =
       FilterRtpExtensions(extensions, SupportedExtensions2, false);
   EXPECT_EQ(12u, filtered.size());
   EXPECT_TRUE(IsSorted(filtered));
@@ -142,8 +142,8 @@ TEST(WebRtcMediaEngineTest, FilterRtpExtensions_DontRemoveRedundant) {
 }
 
 TEST(WebRtcMediaEngineTest, FilterRtpExtensions_RemoveRedundant) {
-  std::vector<RtpExtension> extensions = MakeRedundantExtensions();
-  std::vector<webrtc::RtpExtension> filtered =
+  webrtc::RtpHeaderExtensions extensions = MakeRedundantExtensions();
+  webrtc::RtpHeaderExtensions filtered =
       FilterRtpExtensions(extensions, SupportedExtensions2, true);
   EXPECT_EQ(6u, filtered.size());
   EXPECT_TRUE(IsSorted(filtered));
@@ -151,12 +151,12 @@ TEST(WebRtcMediaEngineTest, FilterRtpExtensions_RemoveRedundant) {
 }
 
 TEST(WebRtcMediaEngineTest, FilterRtpExtensions_RemoveRedundantEncrypted_1) {
-  std::vector<RtpExtension> extensions;
+  webrtc::RtpHeaderExtensions extensions;
   extensions.push_back(webrtc::RtpExtension("b", 1));
   extensions.push_back(webrtc::RtpExtension("b", 2, true));
   extensions.push_back(webrtc::RtpExtension("c", 3));
   extensions.push_back(webrtc::RtpExtension("b", 4));
-  std::vector<webrtc::RtpExtension> filtered =
+  webrtc::RtpHeaderExtensions filtered =
       FilterRtpExtensions(extensions, SupportedExtensions2, true);
   EXPECT_EQ(3u, filtered.size());
   EXPECT_TRUE(IsSorted(filtered));
@@ -167,12 +167,12 @@ TEST(WebRtcMediaEngineTest, FilterRtpExtensions_RemoveRedundantEncrypted_1) {
 }
 
 TEST(WebRtcMediaEngineTest, FilterRtpExtensions_RemoveRedundantEncrypted_2) {
-  std::vector<RtpExtension> extensions;
+  webrtc::RtpHeaderExtensions extensions;
   extensions.push_back(webrtc::RtpExtension("b", 1, true));
   extensions.push_back(webrtc::RtpExtension("b", 2));
   extensions.push_back(webrtc::RtpExtension("c", 3));
   extensions.push_back(webrtc::RtpExtension("b", 4));
-  std::vector<webrtc::RtpExtension> filtered =
+  webrtc::RtpHeaderExtensions filtered =
       FilterRtpExtensions(extensions, SupportedExtensions2, true);
   EXPECT_EQ(3u, filtered.size());
   EXPECT_TRUE(IsSorted(filtered));
@@ -183,7 +183,7 @@ TEST(WebRtcMediaEngineTest, FilterRtpExtensions_RemoveRedundantEncrypted_2) {
 }
 
 TEST(WebRtcMediaEngineTest, FilterRtpExtensions_RemoveRedundantBwe_1) {
-  std::vector<RtpExtension> extensions;
+  webrtc::RtpHeaderExtensions extensions;
   extensions.push_back(
       RtpExtension(RtpExtension::kTransportSequenceNumberUri, 3));
   extensions.push_back(RtpExtension(RtpExtension::kTimestampOffsetUri, 9));
@@ -191,14 +191,14 @@ TEST(WebRtcMediaEngineTest, FilterRtpExtensions_RemoveRedundantBwe_1) {
   extensions.push_back(
       RtpExtension(RtpExtension::kTransportSequenceNumberUri, 1));
   extensions.push_back(RtpExtension(RtpExtension::kTimestampOffsetUri, 14));
-  std::vector<webrtc::RtpExtension> filtered =
+  webrtc::RtpHeaderExtensions filtered =
       FilterRtpExtensions(extensions, SupportedExtensions2, true);
   EXPECT_EQ(1u, filtered.size());
   EXPECT_EQ(RtpExtension::kTransportSequenceNumberUri, filtered[0].uri);
 }
 
 TEST(WebRtcMediaEngineTest, FilterRtpExtensions_RemoveRedundantBweEncrypted_1) {
-  std::vector<RtpExtension> extensions;
+  webrtc::RtpHeaderExtensions extensions;
   extensions.push_back(
       RtpExtension(RtpExtension::kTransportSequenceNumberUri, 3));
   extensions.push_back(
@@ -210,7 +210,7 @@ TEST(WebRtcMediaEngineTest, FilterRtpExtensions_RemoveRedundantBweEncrypted_1) {
   extensions.push_back(
       RtpExtension(RtpExtension::kTransportSequenceNumberUri, 2, true));
   extensions.push_back(RtpExtension(RtpExtension::kTimestampOffsetUri, 14));
-  std::vector<webrtc::RtpExtension> filtered =
+  webrtc::RtpHeaderExtensions filtered =
       FilterRtpExtensions(extensions, SupportedExtensions2, true);
   EXPECT_EQ(2u, filtered.size());
   EXPECT_EQ(RtpExtension::kTransportSequenceNumberUri, filtered[0].uri);
@@ -219,21 +219,21 @@ TEST(WebRtcMediaEngineTest, FilterRtpExtensions_RemoveRedundantBweEncrypted_1) {
 }
 
 TEST(WebRtcMediaEngineTest, FilterRtpExtensions_RemoveRedundantBwe_2) {
-  std::vector<RtpExtension> extensions;
+  webrtc::RtpHeaderExtensions extensions;
   extensions.push_back(RtpExtension(RtpExtension::kTimestampOffsetUri, 1));
   extensions.push_back(RtpExtension(RtpExtension::kAbsSendTimeUri, 14));
   extensions.push_back(RtpExtension(RtpExtension::kTimestampOffsetUri, 7));
-  std::vector<webrtc::RtpExtension> filtered =
+  webrtc::RtpHeaderExtensions filtered =
       FilterRtpExtensions(extensions, SupportedExtensions2, true);
   EXPECT_EQ(1u, filtered.size());
   EXPECT_EQ(RtpExtension::kAbsSendTimeUri, filtered[0].uri);
 }
 
 TEST(WebRtcMediaEngineTest, FilterRtpExtensions_RemoveRedundantBwe_3) {
-  std::vector<RtpExtension> extensions;
+  webrtc::RtpHeaderExtensions extensions;
   extensions.push_back(RtpExtension(RtpExtension::kTimestampOffsetUri, 2));
   extensions.push_back(RtpExtension(RtpExtension::kTimestampOffsetUri, 14));
-  std::vector<webrtc::RtpExtension> filtered =
+  webrtc::RtpHeaderExtensions filtered =
       FilterRtpExtensions(extensions, SupportedExtensions2, true);
   EXPECT_EQ(1u, filtered.size());
   EXPECT_EQ(RtpExtension::kTimestampOffsetUri, filtered[0].uri);

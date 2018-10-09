@@ -78,7 +78,7 @@ void ChannelManager::GetSupportedAudioReceiveCodecs(
 }
 
 void ChannelManager::GetSupportedAudioRtpHeaderExtensions(
-    RtpHeaderExtensions* ext) const {
+    webrtc::RtpHeaderExtensions* ext) const {
   if (!media_engine_) {
     return;
   }
@@ -103,7 +103,7 @@ void ChannelManager::GetSupportedVideoCodecs(
 }
 
 void ChannelManager::GetSupportedVideoRtpHeaderExtensions(
-    RtpHeaderExtensions* ext) const {
+    webrtc::RtpHeaderExtensions* ext) const {
   if (!media_engine_) {
     return;
   }

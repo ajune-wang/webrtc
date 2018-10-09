@@ -241,7 +241,7 @@ absl::optional<uint64_t> ParseVarInt(
   return absl::nullopt;
 }
 
-void GetHeaderExtensions(std::vector<RtpExtension>* header_extensions,
+void GetHeaderExtensions(RtpHeaderExtensions* header_extensions,
                          const RepeatedPtrField<rtclog::RtpHeaderExtension>&
                              proto_header_extensions) {
   header_extensions->clear();

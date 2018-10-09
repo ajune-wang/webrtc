@@ -58,8 +58,8 @@ RTCErrorOr<std::vector<C>> ToCricketCodecs(
     const std::vector<RtpCodecParameters>& codecs);
 
 // Validates that header extension IDs aren't duplicated.
-RTCErrorOr<cricket::RtpHeaderExtensions> ToCricketRtpHeaderExtensions(
-    const std::vector<RtpHeaderExtensionParameters>& extensions);
+RTCErrorOr<RtpHeaderExtensions> ToCricketRtpHeaderExtensions(
+    const RtpHeaderExtensions& extensions);
 
 // SSRCs are allowed to be ommitted. This may be used for receive parameters
 // where SSRCs are unsignaled.
@@ -95,13 +95,12 @@ RtpCodecCapability ToRtpCodecCapability(const C& cricket_codec);
 template <class C>
 RtpCapabilities ToRtpCapabilities(
     const std::vector<C>& cricket_codecs,
-    const cricket::RtpHeaderExtensions& cricket_extensions);
+    const RtpHeaderExtensions& rtp_header_extensions);
 
 template <class C>
-RtpParameters ToRtpParameters(
-    const std::vector<C>& cricket_codecs,
-    const cricket::RtpHeaderExtensions& cricket_extensions,
-    const cricket::StreamParamsVec& stream_params);
+RtpParameters ToRtpParameters(const std::vector<C>& cricket_codecs,
+                              const RtpHeaderExtensions& rtp_header_extensions,
+                              const cricket::StreamParamsVec& stream_params);
 
 }  // namespace webrtc
 

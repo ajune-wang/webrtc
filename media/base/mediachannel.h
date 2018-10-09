@@ -616,7 +616,7 @@ struct RtpParameters {
   virtual ~RtpParameters() = default;
 
   std::vector<Codec> codecs;
-  std::vector<webrtc::RtpExtension> extensions;
+  webrtc::RtpHeaderExtensions extensions;
   // TODO(pthatcher): Add streams.
   RtcpParameters rtcp;
 

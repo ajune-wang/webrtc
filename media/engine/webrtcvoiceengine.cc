@@ -713,7 +713,7 @@ class WebRtcVoiceMediaChannel::WebRtcAudioSendStream
       const std::string track_id,
       const absl::optional<webrtc::AudioSendStream::Config::SendCodecSpec>&
           send_codec_spec,
-      const std::vector<webrtc::RtpExtension>& extensions,
+      const webrtc::RtpHeaderExtensions& extensions,
       int max_send_bitrate_bps,
       const absl::optional<std::string>& audio_network_adaptor_config,
       webrtc::Call* call,
@@ -761,7 +761,7 @@ class WebRtcVoiceMediaChannel::WebRtcAudioSendStream
     ReconfigureAudioSendStream();
   }
 
-  void SetRtpExtensions(const std::vector<webrtc::RtpExtension>& extensions) {
+  void SetRtpExtensions(const webrtc::RtpHeaderExtensions& extensions) {
     RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
     config_.rtp.extensions = extensions;
     rtp_parameters_.header_extensions = extensions;
@@ -1074,7 +1074,7 @@ class WebRtcVoiceMediaChannel::WebRtcAudioReceiveStream {
       bool use_transport_cc,
       bool use_nack,
       const std::vector<std::string>& stream_ids,
-      const std::vector<webrtc::RtpExtension>& extensions,
+      const webrtc::RtpHeaderExtensions& extensions,
       webrtc::Call* call,
       webrtc::Transport* rtcp_send_transport,
       const rtc::scoped_refptr<webrtc::AudioDecoderFactory>& decoder_factory,
@@ -1130,7 +1130,7 @@ class WebRtcVoiceMediaChannel::WebRtcAudioReceiveStream {
   }
 
   void SetRtpExtensionsAndRecreateStream(
-      const std::vector<webrtc::RtpExtension>& extensions) {
+      const webrtc::RtpHeaderExtensions& extensions) {
     RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
     config_.rtp.extensions = extensions;
     RecreateAudioReceiveStream();
@@ -1283,7 +1283,7 @@ bool WebRtcVoiceMediaChannel::SetSendParameters(
   if (!ValidateRtpExtensions(params.extensions)) {
     return false;
   }
-  std::vector<webrtc::RtpExtension> filtered_extensions = FilterRtpExtensions(
+  webrtc::RtpHeaderExtensions filtered_extensions = FilterRtpExtensions(
       params.extensions, webrtc::RtpExtension::IsSupportedForAudio, true);
   if (send_rtp_extensions_ != filtered_extensions) {
     send_rtp_extensions_.swap(filtered_extensions);
@@ -1320,7 +1320,7 @@ bool WebRtcVoiceMediaChannel::SetRecvParameters(
   if (!ValidateRtpExtensions(params.extensions)) {
     return false;
   }
-  std::vector<webrtc::RtpExtension> filtered_extensions = FilterRtpExtensions(
+  webrtc::RtpHeaderExtensions filtered_extensions = FilterRtpExtensions(
       params.extensions, webrtc::RtpExtension::IsSupportedForAudio, false);
   if (recv_rtp_extensions_ != filtered_extensions) {
     recv_rtp_extensions_.swap(filtered_extensions);

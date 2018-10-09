@@ -270,8 +270,8 @@ class BaseChannel : public rtc::MessageHandler,
   // Return a list of RTP header extensions with the non-encrypted extensions
   // removed depending on the current crypto_options_ and only if both the
   // non-encrypted and encrypted extension is present for the same URI.
-  RtpHeaderExtensions GetFilteredRtpHeaderExtensions(
-      const RtpHeaderExtensions& extensions);
+  webrtc::RtpHeaderExtensions GetFilteredRtpHeaderExtensions(
+      const webrtc::RtpHeaderExtensions& extensions);
 
   // From MessageHandler
   void OnMessage(rtc::Message* pmsg) override;
@@ -285,7 +285,7 @@ class BaseChannel : public rtc::MessageHandler,
   void AddHandledPayloadType(int payload_type);
 
   void UpdateRtpHeaderExtensionMap(
-      const RtpHeaderExtensions& header_extensions);
+      const webrtc::RtpHeaderExtensions& header_extensions);
 
   bool RegisterRtpDemuxerSink();
 

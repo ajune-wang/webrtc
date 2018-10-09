@@ -57,14 +57,15 @@ std::string CodecTypeToCodecName(VideoCodecType codec_type) {
   }
   return {};
 }
-std::vector<RtpExtension> GetVideoRtpExtensions(
-    const VideoStreamConfig config) {
-  return {RtpExtension(RtpExtension::kTransportSequenceNumberUri,
-                       kTransportSequenceNumberExtensionId),
-          RtpExtension(RtpExtension::kVideoContentTypeUri,
-                       kVideoContentTypeExtensionId),
-          RtpExtension(RtpExtension::kVideoRotationUri,
-                       kVideoRotationRtpExtensionId)};
+RtpHeaderExtensions GetVideoRtpExtensions(const VideoStreamConfig config) {
+  RtpHeaderExtensions extensions;
+  extensions.emplace_back(RtpExtension::kTransportSequenceNumberUri,
+                          kTransportSequenceNumberExtensionId);
+  extensions.emplace_back(RtpExtension::kVideoContentTypeUri,
+                          kVideoContentTypeExtensionId);
+  extensions.emplace_back(RtpExtension::kVideoRotationUri,
+                          kVideoRotationRtpExtensionId);
+  return extensions;
 }
 
 VideoSendStream::Config CreateVideoSendStreamConfig(VideoStreamConfig config,

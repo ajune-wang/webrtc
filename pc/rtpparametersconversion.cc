@@ -184,11 +184,11 @@ template RTCErrorOr<std::vector<cricket::AudioCodec>> ToCricketCodecs<
 template RTCErrorOr<std::vector<cricket::VideoCodec>> ToCricketCodecs<
     cricket::VideoCodec>(const std::vector<RtpCodecParameters>& codecs);
 
-RTCErrorOr<cricket::RtpHeaderExtensions> ToCricketRtpHeaderExtensions(
-    const std::vector<RtpHeaderExtensionParameters>& extensions) {
-  cricket::RtpHeaderExtensions cricket_extensions;
+RTCErrorOr<RtpHeaderExtensions> ToCricketRtpHeaderExtensions(
+    const RtpHeaderExtensions& extensions) {
+  RtpHeaderExtensions rtp_header_extensions;
   std::set<int> seen_header_extension_ids;
-  for (const RtpHeaderExtensionParameters& extension : extensions) {
+  for (const RtpExtension& extension : extensions) {
     if (extension.id < RtpHeaderExtensionParameters::kMinId ||
         extension.id > RtpHeaderExtensionParameters::kMaxId) {
       char buf[50];
@@ -202,9 +202,9 @@ RTCErrorOr<cricket::RtpHeaderExtensions> ToCricketRtpHeaderExtensions(
       sb << "Duplicate header extension id: " << extension.id;
       LOG_AND_RETURN_ERROR(RTCErrorType::INVALID_PARAMETER, sb.str());
     }
-    cricket_extensions.push_back(extension);
+    rtp_header_extensions.push_back(extension);
   }
-  return std::move(cricket_extensions);
+  return std::move(rtp_header_extensions);
 }
 
 RTCErrorOr<cricket::StreamParamsVec> ToCricketStreamParamsVec(
@@ -391,7 +391,7 @@ template RtpCodecParameters ToRtpCodecParameters<cricket::VideoCodec>(
 template <class C>
 RtpCapabilities ToRtpCapabilities(
     const std::vector<C>& cricket_codecs,
-    const cricket::RtpHeaderExtensions& cricket_extensions) {
+    const RtpHeaderExtensions& rtp_header_extensions) {
   RtpCapabilities capabilities;
   bool have_red = false;
   bool have_ulpfec = false;
@@ -406,9 +406,9 @@ RtpCapabilities ToRtpCapabilities(
     }
     capabilities.codecs.push_back(ToRtpCodecCapability(cricket_codec));
   }
-  for (const RtpExtension& cricket_extension : cricket_extensions) {
-    capabilities.header_extensions.emplace_back(cricket_extension.uri,
-                                                cricket_extension.id);
+  for (const RtpExtension& rtp_extension : rtp_header_extensions) {
+    capabilities.header_extensions.emplace_back(rtp_extension.uri,
+                                                rtp_extension.id);
   }
   if (have_red) {
     capabilities.fec.push_back(FecMechanism::RED);
@@ -424,23 +424,22 @@ RtpCapabilities ToRtpCapabilities(
 
 template RtpCapabilities ToRtpCapabilities<cricket::AudioCodec>(
     const std::vector<cricket::AudioCodec>& cricket_codecs,
-    const cricket::RtpHeaderExtensions& cricket_extensions);
+    const RtpHeaderExtensions& rtp_header_extensions);
 template RtpCapabilities ToRtpCapabilities<cricket::VideoCodec>(
     const std::vector<cricket::VideoCodec>& cricket_codecs,
-    const cricket::RtpHeaderExtensions& cricket_extensions);
+    const RtpHeaderExtensions& rtp_header_extensions);
 
 template <class C>
-RtpParameters ToRtpParameters(
-    const std::vector<C>& cricket_codecs,
-    const cricket::RtpHeaderExtensions& cricket_extensions,
-    const cricket::StreamParamsVec& stream_params) {
+RtpParameters ToRtpParameters(const std::vector<C>& cricket_codecs,
+                              const RtpHeaderExtensions& rtp_header_extensions,
+                              const cricket::StreamParamsVec& stream_params) {
   RtpParameters rtp_parameters;
   for (const C& cricket_codec : cricket_codecs) {
     rtp_parameters.codecs.push_back(ToRtpCodecParameters(cricket_codec));
   }
-  for (const RtpExtension& cricket_extension : cricket_extensions) {
-    rtp_parameters.header_extensions.emplace_back(cricket_extension.uri,
-                                                  cricket_extension.id);
+  for (const RtpExtension& rtp_extension : rtp_header_extensions) {
+    rtp_parameters.header_extensions.emplace_back(rtp_extension.uri,
+                                                  rtp_extension.id);
   }
   rtp_parameters.encodings = ToRtpEncodings(stream_params);
   return rtp_parameters;
@@ -448,11 +447,11 @@ RtpParameters ToRtpParameters(
 
 template RtpParameters ToRtpParameters<cricket::AudioCodec>(
     const std::vector<cricket::AudioCodec>& cricket_codecs,
-    const cricket::RtpHeaderExtensions& cricket_extensions,
+    const RtpHeaderExtensions& rtp_header_extensions,
     const cricket::StreamParamsVec& stream_params);
 template RtpParameters ToRtpParameters<cricket::VideoCodec>(
     const std::vector<cricket::VideoCodec>& cricket_codecs,
-    const cricket::RtpHeaderExtensions& cricket_extensions,
+    const RtpHeaderExtensions& rtp_header_extensions,
     const cricket::StreamParamsVec& stream_params);
 
 }  // namespace webrtc

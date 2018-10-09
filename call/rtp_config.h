@@ -75,7 +75,7 @@ struct RtpConfig {
   size_t max_packet_size = kDefaultMaxPacketSize;
 
   // RTP header extensions to use for this send stream.
-  std::vector<RtpExtension> extensions;
+  RtpHeaderExtensions extensions;
 
   // TODO(nisse): For now, these are fixed, but we'd like to support
   // changing codec without recreating the VideoSendStream. Then these

@@ -32,13 +32,12 @@ namespace webrtc {
 // they should have been detected already by rtpparametersconversion.cc. This
 // only needs to detect conflicts *between* A and B.
 template <typename C1, typename C2>
-static RTCError CheckForIdConflicts(
-    const std::vector<C1>& codecs_a,
-    const cricket::RtpHeaderExtensions& extensions_a,
-    const cricket::StreamParamsVec& streams_a,
-    const std::vector<C2>& codecs_b,
-    const cricket::RtpHeaderExtensions& extensions_b,
-    const cricket::StreamParamsVec& streams_b) {
+static RTCError CheckForIdConflicts(const std::vector<C1>& codecs_a,
+                                    const RtpHeaderExtensions& extensions_a,
+                                    const cricket::StreamParamsVec& streams_a,
+                                    const std::vector<C2>& codecs_b,
+                                    const RtpHeaderExtensions& extensions_b,
+                                    const cricket::StreamParamsVec& streams_b) {
   rtc::StringBuilder oss;
   // Since it's assumed that C1 and C2 are different types, codecs_a and
   // codecs_b should never contain the same payload type, and thus we can just

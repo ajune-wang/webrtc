@@ -162,8 +162,7 @@ class AudioSendStream final : public webrtc::AudioSendStream,
     int transport_sequence_number = 0;
     int mid = 0;
   };
-  static ExtensionIds FindExtensionIds(
-      const std::vector<RtpExtension>& extensions);
+  static ExtensionIds FindExtensionIds(const RtpHeaderExtensions& extensions);
 
   RTC_DISALLOW_IMPLICIT_CONSTRUCTORS(AudioSendStream);
 };

@@ -74,7 +74,7 @@ class FlexfecReceiveStream : public RtpPacketSinkInterface {
     bool transport_cc = false;
 
     // RTP header extensions that have been negotiated for this track.
-    std::vector<RtpExtension> rtp_header_extensions;
+    RtpHeaderExtensions rtp_header_extensions;
   };
 
   virtual Stats GetStats() const = 0;

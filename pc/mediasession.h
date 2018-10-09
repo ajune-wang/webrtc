@@ -19,6 +19,7 @@
 #include <vector>
 
 #include "api/mediatypes.h"
+#include "api/rtpparameters.h"
 #include "media/base/mediaconstants.h"
 #include "media/base/mediaengine.h"  // For DataChannelType
 #include "p2p/base/transportdescriptionfactory.h"
@@ -121,11 +122,13 @@ class MediaSessionDescriptionFactory {
   const AudioCodecs& audio_recv_codecs() const;
   void set_audio_codecs(const AudioCodecs& send_codecs,
                         const AudioCodecs& recv_codecs);
-  void set_audio_rtp_header_extensions(const RtpHeaderExtensions& extensions) {
+  void set_audio_rtp_header_extensions(
+      const webrtc::RtpHeaderExtensions& extensions) {
     audio_rtp_extensions_ = extensions;
   }
-  RtpHeaderExtensions audio_rtp_header_extensions(bool unified_plan) const {
-    RtpHeaderExtensions extensions = audio_rtp_extensions_;
+  webrtc::RtpHeaderExtensions audio_rtp_header_extensions(
+      bool unified_plan) const {
+    webrtc::RtpHeaderExtensions extensions = audio_rtp_extensions_;
     // If we are Unified Plan, also offer the MID header extension.
     if (unified_plan) {
       extensions.push_back(webrtc::RtpExtension(
@@ -135,11 +138,13 @@ class MediaSessionDescriptionFactory {
   }
   const VideoCodecs& video_codecs() const { return video_codecs_; }
   void set_video_codecs(const VideoCodecs& codecs) { video_codecs_ = codecs; }
-  void set_video_rtp_header_extensions(const RtpHeaderExtensions& extensions) {
+  void set_video_rtp_header_extensions(
+      const webrtc::RtpHeaderExtensions& extensions) {
     video_rtp_extensions_ = extensions;
   }
-  RtpHeaderExtensions video_rtp_header_extensions(bool unified_plan) const {
-    RtpHeaderExtensions extensions = video_rtp_extensions_;
+  webrtc::RtpHeaderExtensions video_rtp_header_extensions(
+      bool unified_plan) const {
+    webrtc::RtpHeaderExtensions extensions = video_rtp_extensions_;
     // If we are Unified Plan, also offer the MID header extension.
     if (unified_plan) {
       extensions.push_back(webrtc::RtpExtension(
@@ -179,10 +184,11 @@ class MediaSessionDescriptionFactory {
                           AudioCodecs* audio_codecs,
                           VideoCodecs* video_codecs,
                           DataCodecs* data_codecs) const;
-  void GetRtpHdrExtsToOffer(const MediaSessionOptions& session_options,
-                            const SessionDescription* current_description,
-                            RtpHeaderExtensions* audio_extensions,
-                            RtpHeaderExtensions* video_extensions) const;
+  void GetRtpHdrExtsToOffer(
+      const MediaSessionOptions& session_options,
+      const SessionDescription* current_description,
+      webrtc::RtpHeaderExtensions* audio_extensions,
+      webrtc::RtpHeaderExtensions* video_extensions) const;
   bool AddTransportOffer(const std::string& content_name,
                          const TransportOptions& transport_options,
                          const SessionDescription* current_desc,
@@ -208,7 +214,7 @@ class MediaSessionDescriptionFactory {
       const MediaSessionOptions& session_options,
       const ContentInfo* current_content,
       const SessionDescription* current_description,
-      const RtpHeaderExtensions& audio_rtp_extensions,
+      const webrtc::RtpHeaderExtensions& audio_rtp_extensions,
       const AudioCodecs& audio_codecs,
       StreamParamsVec* current_streams,
       SessionDescription* desc) const;
@@ -218,7 +224,7 @@ class MediaSessionDescriptionFactory {
       const MediaSessionOptions& session_options,
       const ContentInfo* current_content,
       const SessionDescription* current_description,
-      const RtpHeaderExtensions& video_rtp_extensions,
+      const webrtc::RtpHeaderExtensions& video_rtp_extensions,
       const VideoCodecs& video_codecs,
       StreamParamsVec* current_streams,
       SessionDescription* desc) const;
@@ -276,9 +282,9 @@ class MediaSessionDescriptionFactory {
   AudioCodecs audio_sendrecv_codecs_;
   // Union of send and recv.
   AudioCodecs all_audio_codecs_;
-  RtpHeaderExtensions audio_rtp_extensions_;
+  webrtc::RtpHeaderExtensions audio_rtp_extensions_;
   VideoCodecs video_codecs_;
-  RtpHeaderExtensions video_rtp_extensions_;
+  webrtc::RtpHeaderExtensions video_rtp_extensions_;
   DataCodecs data_codecs_;
   bool enable_encrypted_rtp_header_extensions_ = false;
   // TODO(zhihuang): Rename secure_ to sdec_policy_; rename the related getter

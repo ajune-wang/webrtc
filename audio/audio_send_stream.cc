@@ -176,7 +176,7 @@ void AudioSendStream::Reconfigure(
 }
 
 AudioSendStream::ExtensionIds AudioSendStream::FindExtensionIds(
-    const std::vector<RtpExtension>& extensions) {
+    const RtpHeaderExtensions& extensions) {
   ExtensionIds ids;
   for (const auto& extension : extensions) {
     if (extension.uri == RtpExtension::kAudioLevelUri) {

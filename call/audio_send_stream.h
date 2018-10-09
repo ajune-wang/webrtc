@@ -79,7 +79,7 @@ class AudioSendStream {
       std::string mid;
 
       // RTP header extensions used for the sent stream.
-      std::vector<RtpExtension> extensions;
+      RtpHeaderExtensions extensions;
 
       // See NackConfig for description.
       NackConfig nack;

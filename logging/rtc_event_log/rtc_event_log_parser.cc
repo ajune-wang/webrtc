@@ -221,7 +221,7 @@ std::pair<uint64_t, bool> ParseVarInt(std::istream& stream) {
   return std::make_pair(varint, false);
 }
 
-void GetHeaderExtensions(std::vector<RtpExtension>* header_extensions,
+void GetHeaderExtensions(RtpHeaderExtensions* header_extensions,
                          const RepeatedPtrField<rtclog::RtpHeaderExtension>&
                              proto_header_extensions) {
   header_extensions->clear();

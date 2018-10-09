@@ -138,7 +138,7 @@ bool RtpTransport::SendPacket(bool rtcp,
 }
 
 void RtpTransport::UpdateRtpHeaderExtensionMap(
-    const cricket::RtpHeaderExtensions& header_extensions) {
+    const RtpHeaderExtensions& header_extensions) {
   header_extension_map_ = RtpHeaderExtensionMap(header_extensions);
 }
 

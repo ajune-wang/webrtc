@@ -35,7 +35,7 @@ static constexpr int kMaxVbaSizeDifferencePercent = 10;
 static constexpr int64_t kMaxVbaThrottleTimeMs = 500;
 
 bool TransportSeqNumExtensionConfigured(const VideoSendStream::Config& config) {
-  const std::vector<RtpExtension>& extensions = config.rtp.extensions;
+  const RtpHeaderExtensions& extensions = config.rtp.extensions;
   return std::find_if(
              extensions.begin(), extensions.end(), [](const RtpExtension& ext) {
                return ext.uri == RtpExtension::kTransportSequenceNumberUri;

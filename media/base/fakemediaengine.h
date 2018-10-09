@@ -55,10 +55,10 @@ class RtpHelper : public Base {
         transport_overhead_per_packet_(0),
         num_network_route_changes_(0) {}
   virtual ~RtpHelper() = default;
-  const std::vector<RtpExtension>& recv_extensions() {
+  const webrtc::RtpHeaderExtensions& recv_extensions() {
     return recv_extensions_;
   }
-  const std::vector<RtpExtension>& send_extensions() {
+  const webrtc::RtpHeaderExtensions& send_extensions() {
     return send_extensions_;
   }
   bool sending() const { return sending_; }
@@ -252,11 +252,13 @@ class RtpHelper : public Base {
     return true;
   }
   void set_playout(bool playout) { playout_ = playout; }
-  bool SetRecvRtpHeaderExtensions(const std::vector<RtpExtension>& extensions) {
+  bool SetRecvRtpHeaderExtensions(
+      const webrtc::RtpHeaderExtensions& extensions) {
     recv_extensions_ = extensions;
     return true;
   }
-  bool SetSendRtpHeaderExtensions(const std::vector<RtpExtension>& extensions) {
+  bool SetSendRtpHeaderExtensions(
+      const webrtc::RtpHeaderExtensions& extensions) {
     send_extensions_ = extensions;
     return true;
   }
@@ -288,8 +290,8 @@ class RtpHelper : public Base {
  private:
   bool sending_;
   bool playout_;
-  std::vector<RtpExtension> recv_extensions_;
-  std::vector<RtpExtension> send_extensions_;
+  webrtc::RtpHeaderExtensions recv_extensions_;
+  webrtc::RtpHeaderExtensions send_extensions_;
   std::list<std::string> rtp_packets_;
   std::list<std::string> rtcp_packets_;
   std::vector<StreamParams> send_streams_;
@@ -741,7 +743,8 @@ class FakeBaseEngine {
   void set_fail_create_channel(bool fail) { fail_create_channel_ = fail; }
 
   RtpCapabilities GetCapabilities() const { return capabilities_; }
-  void set_rtp_header_extensions(const std::vector<RtpExtension>& extensions) {
+  void set_rtp_header_extensions(
+      const webrtc::RtpHeaderExtensions& extensions) {
     capabilities_.header_extensions = extensions;
   }
 
@@ -893,11 +896,11 @@ class FakeMediaEngine
   }
 
   void SetAudioRtpHeaderExtensions(
-      const std::vector<RtpExtension>& extensions) {
+      const webrtc::RtpHeaderExtensions& extensions) {
     voice().set_rtp_header_extensions(extensions);
   }
   void SetVideoRtpHeaderExtensions(
-      const std::vector<RtpExtension>& extensions) {
+      const webrtc::RtpHeaderExtensions& extensions) {
     video().set_rtp_header_extensions(extensions);
   }
 

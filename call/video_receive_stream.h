@@ -185,7 +185,7 @@ class VideoReceiveStream {
       }
 
       // RTP header extensions used for the received stream.
-      std::vector<RtpExtension> extensions;
+      RtpHeaderExtensions extensions;
     } rtp;
 
     // Transport for outgoing packets (RTCP).

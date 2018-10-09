@@ -72,7 +72,7 @@ class RtpTransportInternalAdapter : public RtpTransportInternal {
   }
 
   void UpdateRtpHeaderExtensionMap(
-      const cricket::RtpHeaderExtensions& header_extensions) override {
+      const webrtc::RtpHeaderExtensions& header_extensions) override {
     transport_->UpdateRtpHeaderExtensionMap(header_extensions);
   }
 

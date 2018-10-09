@@ -45,7 +45,7 @@ webrtc::RTCError ValidateRtpParameters(
 struct RtpCapabilities {
   RtpCapabilities();
   ~RtpCapabilities();
-  std::vector<webrtc::RtpExtension> header_extensions;
+  webrtc::RtpHeaderExtensions header_extensions;
 };
 
 // MediaEngineInterface is an abstraction of a media engine which can be

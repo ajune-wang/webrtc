@@ -612,11 +612,11 @@ bool WebRtcVideoChannel::GetChangedSendParameters(
     changed_params->codec = selected_send_codec;
 
   // Handle RTP header extensions.
-  std::vector<webrtc::RtpExtension> filtered_extensions = FilterRtpExtensions(
+  webrtc::RtpHeaderExtensions filtered_extensions = FilterRtpExtensions(
       params.extensions, webrtc::RtpExtension::IsSupportedForVideo, true);
   if (!send_rtp_extensions_ || (*send_rtp_extensions_ != filtered_extensions)) {
     changed_params->rtp_header_extensions =
-        absl::optional<std::vector<webrtc::RtpExtension>>(filtered_extensions);
+        absl::optional<webrtc::RtpHeaderExtensions>(filtered_extensions);
   }
 
   if (params.mid != send_params_.mid) {
@@ -873,11 +873,11 @@ bool WebRtcVideoChannel::GetChangedRecvParameters(
   }
 
   // Handle RTP header extensions.
-  std::vector<webrtc::RtpExtension> filtered_extensions = FilterRtpExtensions(
+  webrtc::RtpHeaderExtensions filtered_extensions = FilterRtpExtensions(
       params.extensions, webrtc::RtpExtension::IsSupportedForVideo, false);
   if (filtered_extensions != recv_rtp_extensions_) {
     changed_params->rtp_header_extensions =
-        absl::optional<std::vector<webrtc::RtpExtension>>(filtered_extensions);
+        absl::optional<webrtc::RtpHeaderExtensions>(filtered_extensions);
   }
 
   int flexfec_payload_type = mapped_codecs.front().flexfec_payload_type;
@@ -1506,7 +1506,7 @@ WebRtcVideoChannel::WebRtcVideoSendStream::WebRtcVideoSendStream(
     bool enable_cpu_overuse_detection,
     int max_bitrate_bps,
     const absl::optional<VideoCodecSettings>& codec_settings,
-    const absl::optional<std::vector<webrtc::RtpExtension>>& rtp_extensions,
+    const absl::optional<webrtc::RtpHeaderExtensions>& rtp_extensions,
     // TODO(deadbeef): Don't duplicate information between send_params,
     // rtp_extensions, options, etc.
     const VideoSendParameters& send_params)

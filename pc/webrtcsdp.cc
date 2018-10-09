@@ -69,7 +69,6 @@ using cricket::kCodecParamMaxPlaybackRate;
 using cricket::kCodecParamAssociatedPayloadType;
 using cricket::MediaContentDescription;
 using cricket::MediaType;
-using cricket::RtpHeaderExtensions;
 using cricket::MediaProtocolType;
 using cricket::SsrcGroup;
 using cricket::StreamParams;

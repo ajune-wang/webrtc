@@ -858,7 +858,7 @@ int JsepTransportController::GetRtpAbsSendTimeHeaderExtensionId(
           content_info.description);
 
   const webrtc::RtpExtension* send_time_extension =
-      webrtc::RtpExtension::FindHeaderExtensionByUri(
+      webrtc::RtpHeaderExtensions::FindHeaderExtensionByUri(
           content_desc->rtp_header_extensions(),
           webrtc::RtpExtension::kAbsSendTimeUri);
   return send_time_extension ? send_time_extension->id : -1;

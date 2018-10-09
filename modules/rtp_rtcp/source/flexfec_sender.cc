@@ -39,7 +39,7 @@ const int kMsToRtpTimestamp = kVideoPayloadTypeFrequency / 1000;
 constexpr int64_t kPacketLogIntervalMs = 10000;
 
 RtpHeaderExtensionMap RegisterSupportedExtensions(
-    const std::vector<RtpExtension>& rtp_header_extensions) {
+    const RtpHeaderExtensions& rtp_header_extensions) {
   RtpHeaderExtensionMap map;
   for (const auto& extension : rtp_header_extensions) {
     if (extension.uri == TransportSequenceNumber::kUri) {
@@ -67,7 +67,7 @@ FlexfecSender::FlexfecSender(
     uint32_t ssrc,
     uint32_t protected_media_ssrc,
     const std::string& mid,
-    const std::vector<RtpExtension>& rtp_header_extensions,
+    const RtpHeaderExtensions& rtp_header_extensions,
     rtc::ArrayView<const RtpExtensionSize> extension_sizes,
     const RtpState* rtp_state,
     Clock* clock)

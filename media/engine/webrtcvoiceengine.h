@@ -288,12 +288,12 @@ class WebRtcVoiceMediaChannel final : public VoiceMediaChannel,
 
   class WebRtcAudioSendStream;
   std::map<uint32_t, WebRtcAudioSendStream*> send_streams_;
-  std::vector<webrtc::RtpExtension> send_rtp_extensions_;
+  webrtc::RtpHeaderExtensions send_rtp_extensions_;
   std::string mid_;
 
   class WebRtcAudioReceiveStream;
   std::map<uint32_t, WebRtcAudioReceiveStream*> recv_streams_;
-  std::vector<webrtc::RtpExtension> recv_rtp_extensions_;
+  webrtc::RtpHeaderExtensions recv_rtp_extensions_;
 
   absl::optional<webrtc::AudioSendStream::Config::SendCodecSpec>
       send_codec_spec_;

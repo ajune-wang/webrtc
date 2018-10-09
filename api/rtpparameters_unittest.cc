@@ -25,26 +25,28 @@ static const RtpExtension kExtension1Encrypted(kExtensionUri1, 10, true);
 static const RtpExtension kExtension2(kExtensionUri2, 2);
 
 TEST(RtpExtensionTest, FilterDuplicateNonEncrypted) {
-  std::vector<RtpExtension> extensions;
-  std::vector<RtpExtension> filtered;
+  RtpHeaderExtensions extensions;
+  RtpHeaderExtensions filtered;
+  RtpHeaderExtensions expected_filtered_extensions;
+  expected_filtered_extensions.push_back(kExtension1Encrypted);
 
   extensions.push_back(kExtension1);
   extensions.push_back(kExtension1Encrypted);
-  filtered = RtpExtension::FilterDuplicateNonEncrypted(extensions);
+  filtered = RtpHeaderExtensions::FilterDuplicateNonEncrypted(extensions);
   EXPECT_EQ(1u, filtered.size());
-  EXPECT_EQ(std::vector<RtpExtension>{kExtension1Encrypted}, filtered);
+  EXPECT_EQ(expected_filtered_extensions, filtered);
 
   extensions.clear();
   extensions.push_back(kExtension1Encrypted);
   extensions.push_back(kExtension1);
-  filtered = RtpExtension::FilterDuplicateNonEncrypted(extensions);
+  filtered = RtpHeaderExtensions::FilterDuplicateNonEncrypted(extensions);
   EXPECT_EQ(1u, filtered.size());
-  EXPECT_EQ(std::vector<RtpExtension>{kExtension1Encrypted}, filtered);
+  EXPECT_EQ(expected_filtered_extensions, filtered);
 
   extensions.clear();
   extensions.push_back(kExtension1);
   extensions.push_back(kExtension2);
-  filtered = RtpExtension::FilterDuplicateNonEncrypted(extensions);
+  filtered = RtpHeaderExtensions::FilterDuplicateNonEncrypted(extensions);
   EXPECT_EQ(2u, filtered.size());
   EXPECT_EQ(extensions, filtered);
 }

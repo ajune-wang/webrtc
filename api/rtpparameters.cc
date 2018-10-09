@@ -182,8 +182,18 @@ bool RtpExtension::IsEncryptionSupported(const std::string& uri) {
          uri == webrtc::RtpExtension::kMidUri;
 }
 
-const RtpExtension* RtpExtension::FindHeaderExtensionByUri(
-    const std::vector<RtpExtension>& extensions,
+RtpHeaderExtensions RtpHeaderExtensions::create_from_array(
+    const RtpExtension rtp_extensions[],
+    size_t size) {
+  RtpHeaderExtensions extensions;
+  for (size_t i = 0; i < size; ++i) {
+    extensions.emplace_back(rtp_extensions[i]);
+  }
+  return extensions;
+}
+
+const RtpExtension* RtpHeaderExtensions::FindHeaderExtensionByUri(
+    const RtpHeaderExtensions& extensions,
     const std::string& uri) {
   for (const auto& extension : extensions) {
     if (extension.uri == uri) {
@@ -193,9 +203,9 @@ const RtpExtension* RtpExtension::FindHeaderExtensionByUri(
   return nullptr;
 }
 
-std::vector<RtpExtension> RtpExtension::FilterDuplicateNonEncrypted(
-    const std::vector<RtpExtension>& extensions) {
-  std::vector<RtpExtension> filtered;
+RtpHeaderExtensions RtpHeaderExtensions::FilterDuplicateNonEncrypted(
+    const RtpHeaderExtensions& extensions) {
+  RtpHeaderExtensions filtered;
   for (auto extension = extensions.begin(); extension != extensions.end();
        ++extension) {
     if (extension->encrypt) {
@@ -219,4 +229,5 @@ std::vector<RtpExtension> RtpExtension::FilterDuplicateNonEncrypted(
   }
   return filtered;
 }
+
 }  // namespace webrtc

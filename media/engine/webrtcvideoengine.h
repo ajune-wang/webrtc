@@ -199,7 +199,7 @@ class WebRtcVideoChannel : public VideoMediaChannel, public webrtc::Transport {
   struct ChangedSendParameters {
     // These optionals are unset if not changed.
     absl::optional<VideoCodecSettings> codec;
-    absl::optional<std::vector<webrtc::RtpExtension>> rtp_header_extensions;
+    absl::optional<webrtc::RtpHeaderExtensions> rtp_header_extensions;
     absl::optional<std::string> mid;
     absl::optional<int> max_bandwidth_bps;
     absl::optional<bool> conference_mode;
@@ -209,7 +209,7 @@ class WebRtcVideoChannel : public VideoMediaChannel, public webrtc::Transport {
   struct ChangedRecvParameters {
     // These optionals are unset if not changed.
     absl::optional<std::vector<VideoCodecSettings>> codec_settings;
-    absl::optional<std::vector<webrtc::RtpExtension>> rtp_header_extensions;
+    absl::optional<webrtc::RtpHeaderExtensions> rtp_header_extensions;
     // Keep track of the FlexFEC payload type separately from |codec_settings|.
     // This allows us to recreate the FlexfecReceiveStream separately from the
     // VideoReceiveStream when the FlexFEC payload type is changed.
@@ -249,7 +249,7 @@ class WebRtcVideoChannel : public VideoMediaChannel, public webrtc::Transport {
         bool enable_cpu_overuse_detection,
         int max_bitrate_bps,
         const absl::optional<VideoCodecSettings>& codec_settings,
-        const absl::optional<std::vector<webrtc::RtpExtension>>& rtp_extensions,
+        const absl::optional<webrtc::RtpHeaderExtensions>& rtp_extensions,
         const VideoSendParameters& send_params);
     virtual ~WebRtcVideoSendStream();
 
@@ -462,12 +462,12 @@ class WebRtcVideoChannel : public VideoMediaChannel, public webrtc::Transport {
   std::set<uint32_t> receive_ssrcs_ RTC_GUARDED_BY(stream_crit_);
 
   absl::optional<VideoCodecSettings> send_codec_;
-  absl::optional<std::vector<webrtc::RtpExtension>> send_rtp_extensions_;
+  absl::optional<webrtc::RtpHeaderExtensions> send_rtp_extensions_;
 
   webrtc::VideoEncoderFactory* const encoder_factory_;
   webrtc::VideoDecoderFactory* const decoder_factory_;
   std::vector<VideoCodecSettings> recv_codecs_;
-  std::vector<webrtc::RtpExtension> recv_rtp_extensions_;
+  webrtc::RtpHeaderExtensions recv_rtp_extensions_;
   // See reason for keeping track of the FlexFEC payload type separately in
   // comment in WebRtcVideoChannel::ChangedRecvParameters.
   int recv_flexfec_payload_type_;

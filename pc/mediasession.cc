@@ -682,7 +682,7 @@ static bool CreateMediaContentOffer(
     const SecurePolicy& secure_policy,
     const CryptoParamsVec* current_cryptos,
     const std::vector<std::string>& crypto_suites,
-    const RtpHeaderExtensions& rtp_extensions,
+    const webrtc::RtpHeaderExtensions& rtp_extensions,
     StreamParamsVec* current_streams,
     MediaContentDescriptionImpl<C>* offer) {
   offer->AddCodecs(codecs);
@@ -885,9 +885,10 @@ static void MergeCodecs(const std::vector<C>& reference_codecs,
   }
 }
 
-static bool FindByUriAndEncryption(const RtpHeaderExtensions& extensions,
-                                   const webrtc::RtpExtension& ext_to_match,
-                                   webrtc::RtpExtension* found_extension) {
+static bool FindByUriAndEncryption(
+    const webrtc::RtpHeaderExtensions& extensions,
+    const webrtc::RtpExtension& ext_to_match,
+    webrtc::RtpExtension* found_extension) {
   auto it =
       std::find_if(extensions.begin(), extensions.end(),
                    [&ext_to_match](const webrtc::RtpExtension& extension) {
@@ -905,13 +906,13 @@ static bool FindByUriAndEncryption(const RtpHeaderExtensions& extensions,
   return true;
 }
 
-static bool FindByUri(const RtpHeaderExtensions& extensions,
+static bool FindByUri(const webrtc::RtpHeaderExtensions& extensions,
                       const webrtc::RtpExtension& ext_to_match,
                       webrtc::RtpExtension* found_extension) {
   // We assume that all URIs are given in a canonical format.
   const webrtc::RtpExtension* found =
-      webrtc::RtpExtension::FindHeaderExtensionByUri(extensions,
-                                                     ext_to_match.uri);
+      webrtc::RtpHeaderExtensions::FindHeaderExtensionByUri(extensions,
+                                                            ext_to_match.uri);
   if (!found) {
     return false;
   }
@@ -922,7 +923,7 @@ static bool FindByUri(const RtpHeaderExtensions& extensions,
 }
 
 static bool FindByUriWithEncryptionPreference(
-    const RtpHeaderExtensions& extensions,
+    const webrtc::RtpHeaderExtensions& extensions,
     const webrtc::RtpExtension& ext_to_match,
     bool encryption_preference,
     webrtc::RtpExtension* found_extension) {
@@ -956,11 +957,12 @@ static bool FindByUriWithEncryptionPreference(
 // |offered_extensions| is for either audio or video while |regular_extensions|
 // and |encrypted_extensions| are used for both audio and video. There could be
 // overlap between audio extensions and video extensions.
-static void MergeRtpHdrExts(const RtpHeaderExtensions& reference_extensions,
-                            RtpHeaderExtensions* offered_extensions,
-                            RtpHeaderExtensions* regular_extensions,
-                            RtpHeaderExtensions* encrypted_extensions,
-                            UsedRtpHeaderExtensionIds* used_ids) {
+static void MergeRtpHdrExts(
+    const webrtc::RtpHeaderExtensions& reference_extensions,
+    webrtc::RtpHeaderExtensions* offered_extensions,
+    webrtc::RtpHeaderExtensions* regular_extensions,
+    webrtc::RtpHeaderExtensions* encrypted_extensions,
+    UsedRtpHeaderExtensionIds* used_ids) {
   for (auto reference_extension : reference_extensions) {
     if (!FindByUriAndEncryption(*offered_extensions, reference_extension,
                                 nullptr)) {
@@ -988,10 +990,11 @@ static void MergeRtpHdrExts(const RtpHeaderExtensions& reference_extensions,
   }
 }
 
-static void AddEncryptedVersionsOfHdrExts(RtpHeaderExtensions* extensions,
-                                          RtpHeaderExtensions* all_extensions,
-                                          UsedRtpHeaderExtensionIds* used_ids) {
-  RtpHeaderExtensions encrypted_extensions;
+static void AddEncryptedVersionsOfHdrExts(
+    webrtc::RtpHeaderExtensions* extensions,
+    webrtc::RtpHeaderExtensions* all_extensions,
+    UsedRtpHeaderExtensionIds* used_ids) {
+  webrtc::RtpHeaderExtensions encrypted_extensions;
   for (const webrtc::RtpExtension& extension : *extensions) {
     webrtc::RtpExtension existing;
     // Don't add encrypted extensions again that were already included in a
@@ -1020,10 +1023,10 @@ static void AddEncryptedVersionsOfHdrExts(RtpHeaderExtensions* extensions,
 }
 
 static void NegotiateRtpHeaderExtensions(
-    const RtpHeaderExtensions& local_extensions,
-    const RtpHeaderExtensions& offered_extensions,
+    const webrtc::RtpHeaderExtensions& local_extensions,
+    const webrtc::RtpHeaderExtensions& offered_extensions,
     bool enable_encrypted_rtp_header_extensions,
-    RtpHeaderExtensions* negotiated_extenstions) {
+    webrtc::RtpHeaderExtensions* negotiated_extenstions) {
   for (const webrtc::RtpExtension& ours : local_extensions) {
     webrtc::RtpExtension theirs;
     if (FindByUriWithEncryptionPreference(
@@ -1060,7 +1063,7 @@ static bool CreateMediaContentAnswer(
     const std::vector<C>& local_codecs,
     const SecurePolicy& sdes_policy,
     const CryptoParamsVec* current_cryptos,
-    const RtpHeaderExtensions& local_rtp_extenstions,
+    const webrtc::RtpHeaderExtensions& local_rtp_extenstions,
     bool enable_encrypted_rtp_header_extensions,
     StreamParamsVec* current_streams,
     bool bundle_enabled,
@@ -1069,7 +1072,7 @@ static bool CreateMediaContentAnswer(
   NegotiateCodecs(local_codecs, offer->codecs(), &negotiated_codecs);
   answer->AddCodecs(negotiated_codecs);
   answer->set_protocol(offer->protocol());
-  RtpHeaderExtensions negotiated_rtp_extensions;
+  webrtc::RtpHeaderExtensions negotiated_rtp_extensions;
   NegotiateRtpHeaderExtensions(
       local_rtp_extenstions, offer->rtp_header_extensions(),
       enable_encrypted_rtp_header_extensions, &negotiated_rtp_extensions);
@@ -1278,8 +1281,8 @@ SessionDescription* MediaSessionDescriptionFactory::CreateOffer(
   FilterDataCodecs(&offer_data_codecs,
                    session_options.data_channel_type == DCT_SCTP);
 
-  RtpHeaderExtensions audio_rtp_extensions;
-  RtpHeaderExtensions video_rtp_extensions;
+  webrtc::RtpHeaderExtensions audio_rtp_extensions;
+  webrtc::RtpHeaderExtensions video_rtp_extensions;
   GetRtpHdrExtsToOffer(session_options, current_description,
                        &audio_rtp_extensions, &video_rtp_extensions);
 
@@ -1710,13 +1713,13 @@ void MediaSessionDescriptionFactory::GetCodecsForAnswer(
 void MediaSessionDescriptionFactory::GetRtpHdrExtsToOffer(
     const MediaSessionOptions& session_options,
     const SessionDescription* current_description,
-    RtpHeaderExtensions* offer_audio_extensions,
-    RtpHeaderExtensions* offer_video_extensions) const {
+    webrtc::RtpHeaderExtensions* offer_audio_extensions,
+    webrtc::RtpHeaderExtensions* offer_video_extensions) const {
   // All header extensions allocated from the same range to avoid potential
   // issues when using BUNDLE.
   UsedRtpHeaderExtensionIds used_ids;
-  RtpHeaderExtensions all_regular_extensions;
-  RtpHeaderExtensions all_encrypted_extensions;
+  webrtc::RtpHeaderExtensions all_regular_extensions;
+  webrtc::RtpHeaderExtensions all_encrypted_extensions;
   offer_audio_extensions->clear();
   offer_video_extensions->clear();
 
@@ -1829,7 +1832,7 @@ bool MediaSessionDescriptionFactory::AddAudioContentForOffer(
     const MediaSessionOptions& session_options,
     const ContentInfo* current_content,
     const SessionDescription* current_description,
-    const RtpHeaderExtensions& audio_rtp_extensions,
+    const webrtc::RtpHeaderExtensions& audio_rtp_extensions,
     const AudioCodecs& audio_codecs,
     StreamParamsVec* current_streams,
     SessionDescription* desc) const {
@@ -1900,7 +1903,7 @@ bool MediaSessionDescriptionFactory::AddVideoContentForOffer(
     const MediaSessionOptions& session_options,
     const ContentInfo* current_content,
     const SessionDescription* current_description,
-    const RtpHeaderExtensions& video_rtp_extensions,
+    const webrtc::RtpHeaderExtensions& video_rtp_extensions,
     const VideoCodecs& video_codecs,
     StreamParamsVec* current_streams,
     SessionDescription* desc) const {
@@ -2009,7 +2012,7 @@ bool MediaSessionDescriptionFactory::AddDataContentForOffer(
   if (!CreateMediaContentOffer(
           media_description_options.sender_options, session_options,
           data_codecs, sdes_policy, GetCryptos(current_content), crypto_suites,
-          RtpHeaderExtensions(), current_streams, data.get())) {
+          webrtc::RtpHeaderExtensions(), current_streams, data.get())) {
     return false;
   }
 
@@ -2254,8 +2257,9 @@ bool MediaSessionDescriptionFactory::AddDataContentForAnswer(
   if (!CreateMediaContentAnswer(
           offer_data_description, media_description_options, session_options,
           data_codecs, sdes_policy, GetCryptos(current_content),
-          RtpHeaderExtensions(), enable_encrypted_rtp_header_extensions_,
-          current_streams, bundle_enabled, data_answer.get())) {
+          webrtc::RtpHeaderExtensions(),
+          enable_encrypted_rtp_header_extensions_, current_streams,
+          bundle_enabled, data_answer.get())) {
     return false;  // Fails the session setup.
   }
 

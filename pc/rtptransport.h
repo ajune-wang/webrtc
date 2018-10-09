@@ -75,7 +75,7 @@ class RtpTransport : public RtpTransportInternal {
   bool IsSrtpActive() const override { return false; }
 
   void UpdateRtpHeaderExtensionMap(
-      const cricket::RtpHeaderExtensions& header_extensions) override;
+      const RtpHeaderExtensions& header_extensions) override;
 
   bool RegisterRtpDemuxerSink(const RtpDemuxerCriteria& criteria,
                               RtpPacketSinkInterface* sink) override;

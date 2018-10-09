@@ -70,8 +70,7 @@ namespace webrtc {
 
 namespace {
 // TODO(nisse): This really begs for a shared context struct.
-bool UseSendSideBwe(const std::vector<RtpExtension>& extensions,
-                    bool transport_cc) {
+bool UseSendSideBwe(const RtpHeaderExtensions& extensions, bool transport_cc) {
   if (!transport_cc)
     return false;
   for (const auto& extension : extensions) {

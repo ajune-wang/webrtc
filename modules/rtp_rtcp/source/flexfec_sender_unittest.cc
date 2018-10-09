@@ -33,7 +33,7 @@ constexpr int kFlexfecPayloadType = 123;
 constexpr uint32_t kMediaSsrc = 1234;
 constexpr uint32_t kFlexfecSsrc = 5678;
 const char kNoMid[] = "";
-const std::vector<RtpExtension> kNoRtpHeaderExtensions;
+const RtpHeaderExtensions kNoRtpHeaderExtensions;
 const std::vector<RtpExtensionSize> kNoRtpHeaderExtensionSizes;
 // Assume a single protected media SSRC.
 constexpr size_t kFlexfecMaxHeaderSize = 32;
@@ -194,7 +194,7 @@ TEST(FlexfecSenderTest, ProtectTwoFramesWithTwoFecPackets) {
 
 // In the tests, we only consider RTP header extensions that are useful for BWE.
 TEST(FlexfecSenderTest, NoRtpHeaderExtensionsForBweByDefault) {
-  const std::vector<RtpExtension> kRtpHeaderExtensions{};
+  const RtpHeaderExtensions kRtpHeaderExtensions;
   SimulatedClock clock(kInitialSimulatedClockTime);
   FlexfecSender sender(kFlexfecPayloadType, kFlexfecSsrc, kMediaSsrc, kNoMid,
                        kRtpHeaderExtensions, kNoRtpHeaderExtensionSizes,
@@ -207,8 +207,8 @@ TEST(FlexfecSenderTest, NoRtpHeaderExtensionsForBweByDefault) {
 }
 
 TEST(FlexfecSenderTest, RegisterAbsoluteSendTimeRtpHeaderExtension) {
-  const std::vector<RtpExtension> kRtpHeaderExtensions{
-      {RtpExtension::kAbsSendTimeUri, 1}};
+  RtpHeaderExtensions kRtpHeaderExtensions;
+  kRtpHeaderExtensions.emplace_back(RtpExtension::kAbsSendTimeUri, 1);
   SimulatedClock clock(kInitialSimulatedClockTime);
   FlexfecSender sender(kFlexfecPayloadType, kFlexfecSsrc, kMediaSsrc, kNoMid,
                        kRtpHeaderExtensions, kNoRtpHeaderExtensionSizes,
@@ -221,8 +221,8 @@ TEST(FlexfecSenderTest, RegisterAbsoluteSendTimeRtpHeaderExtension) {
 }
 
 TEST(FlexfecSenderTest, RegisterTransmissionOffsetRtpHeaderExtension) {
-  const std::vector<RtpExtension> kRtpHeaderExtensions{
-      {RtpExtension::kTimestampOffsetUri, 1}};
+  RtpHeaderExtensions kRtpHeaderExtensions;
+  kRtpHeaderExtensions.emplace_back(RtpExtension::kTimestampOffsetUri, 1);
   SimulatedClock clock(kInitialSimulatedClockTime);
   FlexfecSender sender(kFlexfecPayloadType, kFlexfecSsrc, kMediaSsrc, kNoMid,
                        kRtpHeaderExtensions, kNoRtpHeaderExtensionSizes,
@@ -235,8 +235,9 @@ TEST(FlexfecSenderTest, RegisterTransmissionOffsetRtpHeaderExtension) {
 }
 
 TEST(FlexfecSenderTest, RegisterTransportSequenceNumberRtpHeaderExtension) {
-  const std::vector<RtpExtension> kRtpHeaderExtensions{
-      {RtpExtension::kTransportSequenceNumberUri, 1}};
+  RtpHeaderExtensions kRtpHeaderExtensions;
+  kRtpHeaderExtensions.emplace_back(RtpExtension::kTransportSequenceNumberUri,
+                                    1);
   SimulatedClock clock(kInitialSimulatedClockTime);
   FlexfecSender sender(kFlexfecPayloadType, kFlexfecSsrc, kMediaSsrc, kNoMid,
                        kRtpHeaderExtensions, kNoRtpHeaderExtensionSizes,
@@ -249,10 +250,11 @@ TEST(FlexfecSenderTest, RegisterTransportSequenceNumberRtpHeaderExtension) {
 }
 
 TEST(FlexfecSenderTest, RegisterAllRtpHeaderExtensionsForBwe) {
-  const std::vector<RtpExtension> kRtpHeaderExtensions{
-      {RtpExtension::kAbsSendTimeUri, 1},
-      {RtpExtension::kTimestampOffsetUri, 2},
-      {RtpExtension::kTransportSequenceNumberUri, 3}};
+  RtpHeaderExtensions kRtpHeaderExtensions;
+  kRtpHeaderExtensions.emplace_back(RtpExtension::kAbsSendTimeUri, 1);
+  kRtpHeaderExtensions.emplace_back(RtpExtension::kTimestampOffsetUri, 2);
+  kRtpHeaderExtensions.emplace_back(RtpExtension::kTransportSequenceNumberUri,
+                                    3);
   SimulatedClock clock(kInitialSimulatedClockTime);
   FlexfecSender sender(kFlexfecPayloadType, kFlexfecSsrc, kMediaSsrc, kNoMid,
                        kRtpHeaderExtensions, kNoRtpHeaderExtensionSizes,
@@ -274,10 +276,11 @@ TEST(FlexfecSenderTest, MaxPacketOverhead) {
 }
 
 TEST(FlexfecSenderTest, MaxPacketOverheadWithExtensions) {
-  const std::vector<RtpExtension> kRtpHeaderExtensions{
-      {RtpExtension::kAbsSendTimeUri, 1},
-      {RtpExtension::kTimestampOffsetUri, 2},
-      {RtpExtension::kTransportSequenceNumberUri, 3}};
+  RtpHeaderExtensions kRtpHeaderExtensions;
+  kRtpHeaderExtensions.emplace_back(RtpExtension::kAbsSendTimeUri, 1);
+  kRtpHeaderExtensions.emplace_back(RtpExtension::kTimestampOffsetUri, 2);
+  kRtpHeaderExtensions.emplace_back(RtpExtension::kTransportSequenceNumberUri,
+                                    3);
   SimulatedClock clock(kInitialSimulatedClockTime);
   const size_t kExtensionHeaderLength = 1;
   const size_t kRtpOneByteHeaderLength = 4;
@@ -295,8 +298,8 @@ TEST(FlexfecSenderTest, MaxPacketOverheadWithExtensions) {
 }
 
 TEST(FlexfecSenderTest, MidIncludedInPacketsWhenSet) {
-  const std::vector<RtpExtension> kRtpHeaderExtensions{
-      {RtpExtension::kMidUri, 1}};
+  RtpHeaderExtensions kRtpHeaderExtensions;
+  kRtpHeaderExtensions.emplace_back(RtpExtension::kMidUri, 1);
   const char kMid[] = "mid";
   SimulatedClock clock(kInitialSimulatedClockTime);
   FlexfecSender sender(kFlexfecPayloadType, kFlexfecSsrc, kMediaSsrc, kMid,

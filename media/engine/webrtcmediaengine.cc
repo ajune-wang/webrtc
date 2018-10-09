@@ -118,7 +118,7 @@ std::unique_ptr<MediaEngineInterface> WebRtcMediaEngineFactory::Create(
 namespace {
 // Remove mutually exclusive extensions with lower priority.
 void DiscardRedundantExtensions(
-    std::vector<webrtc::RtpExtension>* extensions,
+    webrtc::RtpHeaderExtensions* extensions,
     rtc::ArrayView<const char* const> extensions_decreasing_prio) {
   RTC_DCHECK(extensions);
   bool found = false;
@@ -136,8 +136,7 @@ void DiscardRedundantExtensions(
 }
 }  // namespace
 
-bool ValidateRtpExtensions(
-    const std::vector<webrtc::RtpExtension>& extensions) {
+bool ValidateRtpExtensions(const webrtc::RtpHeaderExtensions& extensions) {
   bool id_used[1 + webrtc::RtpExtension::kMaxId] = {false};
   for (const auto& extension : extensions) {
     if (extension.id < webrtc::RtpExtension::kMinId ||
@@ -155,13 +154,13 @@ bool ValidateRtpExtensions(
   return true;
 }
 
-std::vector<webrtc::RtpExtension> FilterRtpExtensions(
-    const std::vector<webrtc::RtpExtension>& extensions,
+webrtc::RtpHeaderExtensions FilterRtpExtensions(
+    const webrtc::RtpHeaderExtensions& extensions,
     bool (*supported)(const std::string&),
     bool filter_redundant_extensions) {
   RTC_DCHECK(ValidateRtpExtensions(extensions));
   RTC_DCHECK(supported);
-  std::vector<webrtc::RtpExtension> result;
+  webrtc::RtpHeaderExtensions result;
 
   // Ignore any extensions that we don't recognize.
   for (const auto& extension : extensions) {

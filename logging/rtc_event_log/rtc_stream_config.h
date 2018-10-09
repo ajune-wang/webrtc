@@ -35,7 +35,7 @@ struct StreamConfig {
   std::string rsid;
 
   bool remb = false;
-  std::vector<RtpExtension> rtp_extensions;
+  RtpHeaderExtensions rtp_extensions;
 
   RtcpMode rtcp_mode = RtcpMode::kReducedSize;
 

@@ -29,7 +29,6 @@ typedef std::vector<AudioCodec> AudioCodecs;
 typedef std::vector<VideoCodec> VideoCodecs;
 typedef std::vector<DataCodec> DataCodecs;
 typedef std::vector<CryptoParams> CryptoParamsVec;
-typedef std::vector<webrtc::RtpExtension> RtpHeaderExtensions;
 
 // RTC4585 RTP/AVPF
 extern const char kMediaProtocolAvpf[];
@@ -107,10 +106,11 @@ class MediaContentDescription {
     cryptos_ = cryptos;
   }
 
-  const RtpHeaderExtensions& rtp_header_extensions() const {
+  const webrtc::RtpHeaderExtensions& rtp_header_extensions() const {
     return rtp_header_extensions_;
   }
-  void set_rtp_header_extensions(const RtpHeaderExtensions& extensions) {
+  void set_rtp_header_extensions(
+      const webrtc::RtpHeaderExtensions& extensions) {
     rtp_header_extensions_ = extensions;
     rtp_header_extensions_set_ = true;
   }
@@ -122,7 +122,6 @@ class MediaContentDescription {
     webrtc::RtpExtension webrtc_extension;
     webrtc_extension.uri = ext.uri;
     webrtc_extension.id = ext.id;
-    rtp_header_extensions_.push_back(webrtc_extension);
     rtp_header_extensions_set_ = true;
   }
   void ClearRtpHeaderExtensions() {
@@ -189,7 +188,7 @@ class MediaContentDescription {
   int bandwidth_ = kAutoBandwidth;
   std::string protocol_;
   std::vector<CryptoParams> cryptos_;
-  std::vector<webrtc::RtpExtension> rtp_header_extensions_;
+  webrtc::RtpHeaderExtensions rtp_header_extensions_;
   bool rtp_header_extensions_set_ = false;
   StreamParamsVec streams_;
   bool conference_mode_ = false;

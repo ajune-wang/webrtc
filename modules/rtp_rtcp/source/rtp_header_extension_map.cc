@@ -63,7 +63,7 @@ RtpHeaderExtensionMap::RtpHeaderExtensionMap()
 }
 
 RtpHeaderExtensionMap::RtpHeaderExtensionMap(
-    rtc::ArrayView<const RtpExtension> extensions)
+    const RtpHeaderExtensions& extensions)
     : RtpHeaderExtensionMap() {
   for (const RtpExtension& extension : extensions)
     RegisterByUri(extension.id, extension.uri);

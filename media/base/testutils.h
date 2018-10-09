@@ -42,6 +42,8 @@ inline std::vector<T> MakeVector(const T a[], size_t s) {
   return std::vector<T>(a, a + s);
 }
 #define MAKE_VECTOR(a) cricket::MakeVector(a, arraysize(a))
+#define MAKE_RTP_EXTENSIONS(a) \
+  webrtc::RtpHeaderExtensions::create_from_array(a, arraysize(a))
 
 struct RtpDumpPacket;
 class RtpDumpWriter;

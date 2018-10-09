@@ -26,7 +26,7 @@ class RtpHeaderExtensionMap {
   static constexpr int kInvalidId = 0;
 
   RtpHeaderExtensionMap();
-  explicit RtpHeaderExtensionMap(rtc::ArrayView<const RtpExtension> extensions);
+  explicit RtpHeaderExtensionMap(const RtpHeaderExtensions& extensions);
 
   template <typename Extension>
   bool Register(int id) {

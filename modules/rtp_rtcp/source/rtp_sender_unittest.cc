@@ -1079,7 +1079,7 @@ TEST_P(RtpSenderTest, SendFlexfecPackets) {
   constexpr uint32_t kMediaSsrc = 1234;
   constexpr uint32_t kFlexfecSsrc = 5678;
   const char kNoMid[] = "";
-  const std::vector<RtpExtension> kNoRtpExtensions;
+  const RtpHeaderExtensions kNoRtpExtensions;
   const std::vector<RtpExtensionSize> kNoRtpExtensionSizes;
   FlexfecSender flexfec_sender(kFlexfecPayloadType, kFlexfecSsrc, kMediaSsrc,
                                kNoMid, kNoRtpExtensions, kNoRtpExtensionSizes,
@@ -1138,7 +1138,7 @@ TEST_P(RtpSenderTest, NoFlexfecForTimingFrames) {
   constexpr uint32_t kMediaSsrc = 1234;
   constexpr uint32_t kFlexfecSsrc = 5678;
   const char kNoMid[] = "";
-  const std::vector<RtpExtension> kNoRtpExtensions;
+  const RtpHeaderExtensions kNoRtpExtensions;
   const std::vector<RtpExtensionSize> kNoRtpExtensionSizes;
 
   FlexfecSender flexfec_sender(kFlexfecPayloadType, kFlexfecSsrc, kMediaSsrc,
@@ -1238,7 +1238,7 @@ TEST_P(RtpSenderTestWithoutPacer, SendFlexfecPackets) {
   constexpr uint32_t kMediaSsrc = 1234;
   constexpr uint32_t kFlexfecSsrc = 5678;
   const char kNoMid[] = "";
-  const std::vector<RtpExtension> kNoRtpExtensions;
+  const RtpHeaderExtensions kNoRtpExtensions;
   const std::vector<RtpExtensionSize> kNoRtpExtensionSizes;
   FlexfecSender flexfec_sender(kFlexfecPayloadType, kFlexfecSsrc, kMediaSsrc,
                                kNoMid, kNoRtpExtensions, kNoRtpExtensionSizes,
@@ -1302,7 +1302,7 @@ TEST_P(RtpSenderTest, FecOverheadRate) {
   constexpr uint32_t kMediaSsrc = 1234;
   constexpr uint32_t kFlexfecSsrc = 5678;
   const char kNoMid[] = "";
-  const std::vector<RtpExtension> kNoRtpExtensions;
+  const RtpHeaderExtensions kNoRtpExtensions;
   const std::vector<RtpExtensionSize> kNoRtpExtensionSizes;
   FlexfecSender flexfec_sender(kFlexfecPayloadType, kFlexfecSsrc, kMediaSsrc,
                                kNoMid, kNoRtpExtensions, kNoRtpExtensionSizes,

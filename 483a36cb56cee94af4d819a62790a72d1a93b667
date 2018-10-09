@@ -117,6 +117,30 @@
       "revId": "483a36cb56cee94af4d819a62790a72d1a93b667",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2388dac_6d79222d",
+        "filename": "rtc_base/system/rtc_export.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-10-09T09:17:18Z",
+      "side": 1,
+      "message": "\u003e I might be possible to avoid breakage by creating webrtc targets like\n\u003e \n\u003e   webrtc_this_is_what_chromium_should_depend_on\n\u003e \n\u003e possibly several different for chromium render/, chromium remoting/ etc, if they currently depend on different parts of webrtc.\n\u003e \n\u003e Step 1: Create those temporary webrtc targets\n\u003e \n\u003e Step 2: Change chromium deps to go via the new targets.\n\u003e \n\u003e Step 3: Do webrtc changes to export symbols, *and* redirect above targets as appropriate to not break chromium.\n\u003e \n\u003e Step 4: Change chromium\u0027s dependencies to refer directly to the advertised webrtc component/library.\n\u003e \n\u003e Step 5: Delete the temporary targets.\n\u003e \n\u003e Most CS problems can be solved by adding yet another level of indirection... If it\u0027s worth the effort with a complex 5-step process, I don\u0027t know.\n\nI am not sure I am following. Aren\u0027t we going to hit the same problem when in step 3 more than one Chromium component will __declspec(dllimport) a symbol but no one will __declspec(dllexport) since we export only when WEBRTC_LIBRARY_IMPL is defined?",
+      "parentUuid": "f575cc48_977ef5a1",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 52
+      },
+      "revId": "483a36cb56cee94af4d819a62790a72d1a93b667",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -8,13 +8,14 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+#include "video/video_stream_encoder.h"
 #include <algorithm>
 #include <limits>
 #include <utility>
-
 #include "api/video/i420_buffer.h"
+#include "api/video_codecs/vp8_temporal_layers.h"
+#include "api/video_codecs/vp8_temporal_layers_factory.h"
 #include "media/base/videoadapter.h"
-#include "modules/video_coding/codecs/vp8/include/vp8_temporal_layers.h"
 #include "modules/video_coding/codecs/vp9/include/vp9_globals.h"
 #include "modules/video_coding/utility/default_video_bitrate_allocator.h"
 #include "rtc_base/fakeclock.h"
@@ -30,7 +31,6 @@
 #include "test/gtest.h"
 #include "test/video_encoder_proxy_factory.h"
 #include "video/send_statistics_proxy.h"
-#include "video/video_stream_encoder.h"
 
 namespace webrtc {
 
@@ -569,9 +569,8 @@ class VideoStreamEncoderTest : public ::testing::Test {
         int num_streams = std::max<int>(1, config->numberOfSimulcastStreams);
         for (int i = 0; i < num_streams; ++i) {
           allocated_temporal_layers_.emplace_back(
-              TemporalLayers::CreateTemporalLayers(
-                  TemporalLayersType::kFixedPattern,
-                  config->VP8().numberOfTemporalLayers));
+              CreateTemporalLayers(TemporalLayersType::kFixedPattern,
+                                   config->VP8().numberOfTemporalLayers));
         }
       }
       if (force_init_encode_failed_)

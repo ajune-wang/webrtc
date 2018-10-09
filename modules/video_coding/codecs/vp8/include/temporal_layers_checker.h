@@ -15,7 +15,7 @@
 
 #include <memory>
 
-#include "modules/video_coding/codecs/vp8/include/vp8_temporal_layers.h"
+#include "api/video_codecs/vp8_temporal_layers.h"
 
 namespace webrtc {
 

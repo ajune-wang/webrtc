@@ -22,6 +22,30 @@
       "revId": "11055f2930752f5ab123fbb5774288333821c912",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3ce462e9_75bdddbd",
+        "filename": "video/video_quality_test.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-10T11:44:28Z",
+      "side": 1,
+      "message": "If it weren\u0027t so much boilerplate in writing an encoder wrapper, I\u0027d be tempted do a separate wrapper class for the two features.",
+      "parentUuid": "d132e968_6503676c",
+      "range": {
+        "startLine": 266,
+        "startChar": 4,
+        "endLine": 266,
+        "endChar": 11
+      },
+      "revId": "11055f2930752f5ab123fbb5774288333821c912",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

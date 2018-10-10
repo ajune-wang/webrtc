@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9c709686_80c4c31e",
+        "filename": "modules/rtp_rtcp/source/rtcp_packet/pli.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-10-10T14:39:18Z",
+      "side": 1,
+      "message": "I agree that normally we should not use default values. But, again, we are prototyping. We want to do as few changes as possible on this stage. For 1-on-1 calls (our target) there are only two places where Pli is processed: RTCP sender and receiver.",
+      "parentUuid": "c2ea205c_7808b700",
+      "revId": "aec093aa3116cd6c3ccc31666d414e7a2a66b866",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ef1178da_e437576f",
         "filename": "modules/rtp_rtcp/source/rtcp_packet/pli.h",
         "patchSetId": 2
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "dafb3384_c4329332",
+        "filename": "modules/rtp_rtcp/source/rtcp_packet/pli.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-10-10T14:39:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ef1178da_e437576f",
+      "revId": "aec093aa3116cd6c3ccc31666d414e7a2a66b866",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "75364c67_abd81d78",
         "filename": "modules/rtp_rtcp/source/rtcp_packet/pli_unittest.cc",
         "patchSetId": 2
@@ -47,6 +83,30 @@
       "writtenOn": "2018-10-10T10:48:30Z",
       "side": 1,
       "message": "Thought - would it perhaps be better to Create() a PLI packet, then Parse() it, and see that the results match? That would remove the dependency on the rest of the RTP structure, that is implicit in kLtrPliPacket.",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 47
+      },
+      "revId": "aec093aa3116cd6c3ccc31666d414e7a2a66b866",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30dc1a21_bc005dc5",
+        "filename": "modules/rtp_rtcp/source/rtcp_packet/pli_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-10-10T14:39:18Z",
+      "side": 1,
+      "message": "I think we want to check here that Create() produces expected bitstream. The fact that Create() and Parse() understand each other doesn\u0027t guarantee this.",
+      "parentUuid": "75364c67_abd81d78",
       "range": {
         "startLine": 73,
         "startChar": 0,
@@ -76,6 +136,24 @@
     },
     {
       "key": {
+        "uuid": "14021b38_4fcbf30f",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-10-10T14:39:18Z",
+      "side": 1,
+      "message": "Right.",
+      "parentUuid": "29d8d18b_3a3d585c",
+      "revId": "aec093aa3116cd6c3ccc31666d414e7a2a66b866",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d73f8cc4_5795416f",
         "filename": "modules/rtp_rtcp/source/rtcp_sender.h",
         "patchSetId": 2
@@ -90,6 +168,24 @@
       "revId": "aec093aa3116cd6c3ccc31666d414e7a2a66b866",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df636003_690d8886",
+        "filename": "modules/rtp_rtcp/source/rtcp_sender.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-10-10T14:39:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d73f8cc4_5795416f",
+      "revId": "aec093aa3116cd6c3ccc31666d414e7a2a66b866",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

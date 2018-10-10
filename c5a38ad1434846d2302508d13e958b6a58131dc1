@@ -16,6 +16,24 @@
       "revId": "c5a38ad1434846d2302508d13e958b6a58131dc1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72ef28b6_b4b952b5",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-10-10T12:02:40Z",
+      "side": 0,
+      "message": "Right, but is it possible to send unencrypted packets? Based on discussions with Danil, it seemed that packets are always encrypted.",
+      "parentUuid": "f2d36161_956d9d1b",
+      "revId": "c5a38ad1434846d2302508d13e958b6a58131dc1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

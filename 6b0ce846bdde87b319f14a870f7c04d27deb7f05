@@ -48,6 +48,53 @@
     },
     {
       "key": {
+        "uuid": "63d613d0_8298d600",
+        "filename": "audio/audio_receive_stream.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-10-10T10:30:07Z",
+      "side": 1,
+      "message": "Yes, that seems like a good idea, or perhaps just a GetTransportType() and return an enum, so that people aren\u0027t encouraged to do string comparisons.",
+      "parentUuid": "75dc581f_fd240b4b",
+      "range": {
+        "startLine": 56,
+        "startChar": 54,
+        "endLine": 56,
+        "endChar": 63
+      },
+      "revId": "6b0ce846bdde87b319f14a870f7c04d27deb7f05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "903d7f3c_16eb7a32",
+        "filename": "audio/channel_receive.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-10-10T10:30:07Z",
+      "side": 1,
+      "message": "This is a bit unclear to me. Why do we add it if it\u0027s unused?",
+      "range": {
+        "startLine": 262,
+        "startChar": 44,
+        "endLine": 262,
+        "endChar": 67
+      },
+      "revId": "6b0ce846bdde87b319f14a870f7c04d27deb7f05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3265d934_a826ba2d",
         "filename": "audio/channel_send.cc",
         "patchSetId": 1
@@ -130,6 +177,24 @@
     },
     {
       "key": {
+        "uuid": "7a4be7aa_9c79fe43",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-10-10T10:30:07Z",
+      "side": 1,
+      "message": "Nisse, let\u0027s figure out how we can get this information. Talk to the audio team",
+      "parentUuid": "7eb1b456_1e7c68ba",
+      "revId": "6b0ce846bdde87b319f14a870f7c04d27deb7f05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ed986b33_6d420441",
         "filename": "audio/channel_send.cc",
         "patchSetId": 1
@@ -194,6 +259,139 @@
         "startChar": 23,
         "endLine": 357,
         "endChar": 26
+      },
+      "revId": "6b0ce846bdde87b319f14a870f7c04d27deb7f05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e577fe38_a41ce540",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-10-10T10:30:07Z",
+      "side": 1,
+      "message": "Peter, this is compressed and each sample is most likely not fixed size.\n\nI think we need to get this right. \n\nKarl, is payloadType used to convey the sample count for RTP? In that case we may have to use that information somehow. Best would be if we could get sample count with each audio frame out of the encoder. Mapping to the payload type should really happen in the RTP layer later.",
+      "parentUuid": "f6d7c8b8_54349356",
+      "range": {
+        "startLine": 357,
+        "startChar": 23,
+        "endLine": 357,
+        "endChar": 26
+      },
+      "revId": "6b0ce846bdde87b319f14a870f7c04d27deb7f05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cff29b51_167508f4",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-10-10T10:30:07Z",
+      "side": 1,
+      "message": "What do you mean with this?",
+      "range": {
+        "startLine": 374,
+        "startChar": 0,
+        "endLine": 374,
+        "endChar": 61
+      },
+      "revId": "6b0ce846bdde87b319f14a870f7c04d27deb7f05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e836ae2_d3c3593a",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-10-10T10:30:07Z",
+      "side": 1,
+      "message": "++send_sequence_number_;",
+      "revId": "6b0ce846bdde87b319f14a870f7c04d27deb7f05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4056a22c_868eaa50",
+        "filename": "pc/jseptransport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-10-10T10:30:07Z",
+      "side": 1,
+      "message": "Anton and Peter (https://webrtc-review.googlesource.com/c/src/+/104400) has a separate CL for this, so let\u0027s leave it out.",
+      "range": {
+        "startLine": 104,
+        "startChar": 0,
+        "endLine": 111,
+        "endChar": 14
+      },
+      "revId": "6b0ce846bdde87b319f14a870f7c04d27deb7f05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f402ec37_6285b5b5",
+        "filename": "pc/jseptransport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-10-10T10:30:07Z",
+      "side": 1,
+      "message": "Let\u0027s leave this out.",
+      "range": {
+        "startLine": 148,
+        "startChar": 0,
+        "endLine": 154,
+        "endChar": 0
+      },
+      "revId": "6b0ce846bdde87b319f14a870f7c04d27deb7f05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60666724_ebfb52c6",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 951,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-10-10T10:30:07Z",
+      "side": 1,
+      "message": "Most likely already done too:\nhttps://webrtc-review.googlesource.com/c/src/+/104400",
+      "range": {
+        "startLine": 918,
+        "startChar": 0,
+        "endLine": 951,
+        "endChar": 70
       },
       "revId": "6b0ce846bdde87b319f14a870f7c04d27deb7f05",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

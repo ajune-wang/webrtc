@@ -65,6 +65,30 @@
     },
     {
       "key": {
+        "uuid": "a7ec8f88_db5c2f38",
+        "filename": "api/video_codecs/create_vp8_temporal_layers.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-10-10T13:16:19Z",
+      "side": 1,
+      "message": "Actually, removing this comment as it does not add anything.",
+      "parentUuid": "ce57603e_ed0ad914",
+      "range": {
+        "startLine": 20,
+        "startChar": 15,
+        "endLine": 20,
+        "endChar": 28
+      },
+      "revId": "4b316b8e0915ba47d5e2f6ca5dd4a8038db80e56",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c1de697e_18afa115",
         "filename": "api/video_codecs/create_vp8_temporal_layers.h",
         "patchSetId": 7
@@ -85,6 +109,30 @@
       "revId": "4b316b8e0915ba47d5e2f6ca5dd4a8038db80e56",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58a629d5_6722c4d9",
+        "filename": "api/video_codecs/create_vp8_temporal_layers.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-10-10T13:16:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c1de697e_18afa115",
+      "range": {
+        "startLine": 21,
+        "startChar": 35,
+        "endLine": 21,
+        "endChar": 55
+      },
+      "revId": "4b316b8e0915ba47d5e2f6ca5dd4a8038db80e56",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -111,6 +159,30 @@
     },
     {
       "key": {
+        "uuid": "740fe1ff_edcb021c",
+        "filename": "api/video_codecs/vp8_temporal_layers.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-10-10T13:16:19Z",
+      "side": 1,
+      "message": "Currently yes. Renamed Vp8TemporalLayersType.",
+      "parentUuid": "4c36930b_d38093d0",
+      "range": {
+        "startLine": 43,
+        "startChar": 11,
+        "endLine": 43,
+        "endChar": 29
+      },
+      "revId": "4b316b8e0915ba47d5e2f6ca5dd4a8038db80e56",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6cf4bdc7_c93bd2d0",
         "filename": "api/video_codecs/vp8_temporal_layers.h",
         "patchSetId": 7
@@ -131,6 +203,30 @@
       "revId": "4b316b8e0915ba47d5e2f6ca5dd4a8038db80e56",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89996ac0_5f53d3f7",
+        "filename": "api/video_codecs/vp8_temporal_layers.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-10-10T13:16:19Z",
+      "side": 1,
+      "message": "That\u0027s going to be a major change as it\u0027s used in many places, including downstream projects. Suggest doing that later if needed.",
+      "parentUuid": "6cf4bdc7_c93bd2d0",
+      "range": {
+        "startLine": 45,
+        "startChar": 7,
+        "endLine": 45,
+        "endChar": 27
+      },
+      "revId": "4b316b8e0915ba47d5e2f6ca5dd4a8038db80e56",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

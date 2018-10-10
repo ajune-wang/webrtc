@@ -20,31 +20,8 @@
  * methods in rtc::Thread.
  */
 
-namespace {
-void InitCocoaMultiThreading() {
-  if ([NSThread isMultiThreaded] == NO) {
-    // The sole purpose of this autorelease pool is to avoid a console
-    // message on Leopard that tells us we're autoreleasing the thread
-    // with no autorelease pool in place.
-    @autoreleasepool {
-      [NSThread detachNewThreadSelector:@selector(class)
-                               toTarget:[NSObject class]
-                             withObject:nil];
-    }
-  }
-
-  RTC_DCHECK([NSThread isMultiThreaded]);
-}
-}
 
 namespace rtc {
-
-ThreadManager::ThreadManager() : main_thread_ref_(CurrentThreadRef()) {
-  pthread_key_create(&key_, nullptr);
-  // This is necessary to alert the cocoa runtime of the fact that
-  // we are running in a multithreaded environment.
-  InitCocoaMultiThreading();
-}
 
 // static
 void* Thread::PreRun(void* pv) {

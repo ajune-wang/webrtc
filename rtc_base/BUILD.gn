@@ -741,6 +741,18 @@ if (is_ios || is_mac) {
   }
 }
 
+rtc_source_set("thread_darwin") {
+  public = [
+    "thread_darwin.h",
+  ]
+  sources = [
+    "thread_darwin2.mm",
+  ]
+  deps = [
+    ":checks",
+  ]
+}
+
 rtc_static_library("rtc_base_generic") {
   cflags = []
   cflags_cc = []
@@ -868,6 +880,10 @@ rtc_static_library("rtc_base_generic") {
     "thread.cc",
     "thread.h",
   ]
+
+  if (is_mac || is_ios) {
+    deps += [ ":thread_darwin" ]
+  }
 
   visibility = [
     ":rtc_base",

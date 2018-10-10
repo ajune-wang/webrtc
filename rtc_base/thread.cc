@@ -33,6 +33,10 @@
 #include "rtc_base/timeutils.h"
 #include "rtc_base/trace_event.h"
 
+#if defined(WEBRTC_MAC)
+#include "rtc_base/thread_darwin.h"
+#endif
+
 namespace rtc {
 
 ThreadManager* ThreadManager::Instance() {
@@ -62,11 +66,14 @@ Thread* Thread::Current() {
 }
 
 #if defined(WEBRTC_POSIX)
-#if !defined(WEBRTC_MAC)
 ThreadManager::ThreadManager() : main_thread_ref_(CurrentThreadRef()) {
   pthread_key_create(&key_, nullptr);
-}
+#if defined(WEBRTC_MAC)
+  // This is necessary to alert the cocoa runtime of the fact that
+  // we are running in a multithreaded environment.
+  InitCocoaMultiThreading();
 #endif
+}
 
 Thread* ThreadManager::CurrentThread() {
   return static_cast<Thread*>(pthread_getspecific(key_));

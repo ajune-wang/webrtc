@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "48222de3_a8eaab85",
+        "filename": "modules/congestion_controller/goog_cc/acknowledged_bitrate_estimator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-10-10T09:05:03Z",
+      "side": 1,
+      "message": "Opposite, as discussed below.",
+      "parentUuid": "84733775_1ccaaccc",
+      "range": {
+        "startLine": 57,
+        "startChar": 9,
+        "endLine": 57,
+        "endChar": 26
+      },
+      "revId": "3e7149ccd8265f55061dbd0330d0e547cbdb7d87",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6f5eb300_ab3015a1",
         "filename": "modules/congestion_controller/goog_cc/acknowledged_bitrate_estimator.cc",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2018-10-10T08:43:45Z",
       "side": 1,
       "message": "I\u0027m confused. I understand account_for_unacknowledged_ as \"we should account for bitrate that isn\u0027t acknowledged by the receiver\", but then this code is taking the bitrate into account if it shouldn\u0027t be taken into account.",
+      "range": {
+        "startLine": 71,
+        "startChar": 7,
+        "endLine": 71,
+        "endChar": 34
+      },
+      "revId": "3e7149ccd8265f55061dbd0330d0e547cbdb7d87",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66fa050b_488b92ae",
+        "filename": "modules/congestion_controller/goog_cc/acknowledged_bitrate_estimator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-10-10T09:05:03Z",
+      "side": 1,
+      "message": "Yeah, I can see that it can be a bit confusing. The thing is that this CL adds another way of accounting for unacknowledged bitrate. With the goal of removing the old way. However, this means that we must avoid using both at the same time. Do you have any suggestion on how to make it clearer? I guess the difference is whether we should account for unacknowledged packets of unacknowledged allocated bitrate.",
+      "parentUuid": "6f5eb300_ab3015a1",
       "range": {
         "startLine": 71,
         "startChar": 7,

@@ -70,6 +70,24 @@
       "revId": "c5a38ad1434846d2302508d13e958b6a58131dc1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31296f7c_2423694f",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-10-10T12:57:52Z",
+      "side": 0,
+      "message": "Code calls srtp_protect that takes just buffer and size\ndidn\u0027t dig deeper\n\nSRTP Spec explicetly note that padding is encrypted too:\nhttps://tools.ietf.org/html/rfc3711#section-3.1\n\"The \"Encrypted Portion\" of an SRTP packet consists of the encryption\n of the RTP payload (including RTP padding when present) of the\n equivalent RTP packet.\"",
+      "parentUuid": "db705bcb_f75e5d67",
+      "revId": "c5a38ad1434846d2302508d13e958b6a58131dc1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

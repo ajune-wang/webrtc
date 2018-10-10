@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2dc479dc_0c32e9ca",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-10-10T12:57:52Z",
+      "side": 1,
+      "message": "WriteAt is a private helper to get a writable pointer at certain offset.\nit triggers a copy if there is more than one reference to the buffer.",
+      "parentUuid": "ae59e1b8_8388f632",
+      "range": {
+        "startLine": 283,
+        "startChar": 11,
+        "endLine": 283,
+        "endChar": 18
+      },
+      "revId": "177731f3ac64fe6a8bced76bbc07aaf625190aa3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fe59399a_c6382cad",
         "filename": "modules/rtp_rtcp/source/rtp_packet.h",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "177731f3ac64fe6a8bced76bbc07aaf625190aa3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "616e9a2e_219f3340",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-10-10T12:57:52Z",
+      "side": 1,
+      "message": "I do not have strong preferences, so to minimize the change will keep SetPadding name.\n\n[reason to use a separate name is no longer there]",
+      "parentUuid": "fe59399a_c6382cad",
+      "range": {
+        "startLine": 120,
+        "startChar": 7,
+        "endLine": 120,
+        "endChar": 21
+      },
+      "revId": "177731f3ac64fe6a8bced76bbc07aaf625190aa3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

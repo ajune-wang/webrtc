@@ -479,6 +479,8 @@ TEST_P(RtpSenderTestWithoutPacer, SendsPacketsWithTransportSequenceNumber) {
   ASSERT_TRUE(packet.GetExtension<TransportSequenceNumber>(&transport_seq_no));
   EXPECT_EQ(kTransportSequenceNumber, transport_seq_no);
   EXPECT_EQ(transport_.last_options_.packet_id, transport_seq_no);
+  EXPECT_TRUE(transport_.last_options_.included_in_feedback);
+  EXPECT_TRUE(transport_.last_options_.included_in_allocation);
 }
 
 TEST_P(RtpSenderTestWithoutPacer, PacketOptionsNoRetransmission) {
@@ -491,6 +493,20 @@ TEST_P(RtpSenderTestWithoutPacer, PacketOptionsNoRetransmission) {
   SendGenericPayload();
 
   EXPECT_FALSE(transport_.last_options_.is_retransmit);
+}
+
+TEST_P(RtpSenderTestWithoutPacer, FeedbackAndAllocationOptionsSet) {
+  SetUpRtpSender(false, false);
+  SendGenericPayload();
+  EXPECT_FALSE(transport_.last_options_.included_in_feedback);
+  EXPECT_FALSE(transport_.last_options_.included_in_allocation);
+  rtp_sender_->SetAsPartOfAllocation(true);
+  SendGenericPayload();
+  EXPECT_FALSE(transport_.last_options_.included_in_feedback);
+  EXPECT_TRUE(transport_.last_options_.included_in_allocation);
+  rtp_sender_->SetAsPartOfAllocation(false);
+  SendGenericPayload();
+  EXPECT_FALSE(transport_.last_options_.included_in_allocation);
 }
 
 TEST_P(RtpSenderTestWithoutPacer, NoAllocationIfNotRegistered) {

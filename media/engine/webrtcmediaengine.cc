@@ -15,6 +15,7 @@
 #include <tuple>
 #include <utility>
 
+#include "api/video/builtin_video_bitrate_allocator_factory.h"
 #include "api/video_codecs/video_decoder_factory.h"
 #include "api/video_codecs/video_encoder_factory.h"
 #include "media/engine/webrtcvoiceengine.h"
@@ -42,11 +43,16 @@ MediaEngineInterface* CreateWebRtcMediaEngine(
     rtc::scoped_refptr<webrtc::AudioProcessing> audio_processing) {
 #ifdef HAVE_WEBRTC_VIDEO
   typedef WebRtcVideoEngine VideoEngine;
+  std::unique_ptr<webrtc::VideoBitrateAllocatorFactory>
+      video_bitrate_allocator_factory =
+          CreateBuiltinVideoBitrateAllocatorFactory();
   std::tuple<std::unique_ptr<WebRtcVideoEncoderFactory>,
-             std::unique_ptr<WebRtcVideoDecoderFactory>>
+             std::unique_ptr<WebRtcVideoDecoderFactory>,
+             std::unique_ptr<webrtc::VideoBitrateAllocatorFactory>>
       video_args(
           (std::unique_ptr<WebRtcVideoEncoderFactory>(video_encoder_factory)),
-          (std::unique_ptr<WebRtcVideoDecoderFactory>(video_decoder_factory)));
+          (std::unique_ptr<WebRtcVideoDecoderFactory>(video_decoder_factory)),
+          (std::move(video_bitrate_allocator_factory)));
 #else
   typedef NullWebRtcVideoEngine VideoEngine;
   std::tuple<> video_args;
@@ -99,10 +105,15 @@ std::unique_ptr<MediaEngineInterface> WebRtcMediaEngineFactory::Create(
     rtc::scoped_refptr<webrtc::AudioProcessing> audio_processing) {
 #ifdef HAVE_WEBRTC_VIDEO
   typedef WebRtcVideoEngine VideoEngine;
+  std::unique_ptr<webrtc::VideoBitrateAllocatorFactory>
+      video_bitrate_allocator_factory =
+          CreateBuiltinVideoBitrateAllocatorFactory();
   std::tuple<std::unique_ptr<webrtc::VideoEncoderFactory>,
-             std::unique_ptr<webrtc::VideoDecoderFactory>>
+             std::unique_ptr<webrtc::VideoDecoderFactory>,
+             std::unique_ptr<webrtc::VideoBitrateAllocatorFactory>>
       video_args(std::move(video_encoder_factory),
-                 std::move(video_decoder_factory));
+                 std::move(video_decoder_factory),
+                 std::move(video_bitrate_allocator_factory));
 #else
   typedef NullWebRtcVideoEngine VideoEngine;
   std::tuple<> video_args;

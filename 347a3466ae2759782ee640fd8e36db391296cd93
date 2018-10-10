@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9f0f5ff6_ebe70c21",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 996,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-10-10T07:39:00Z",
+      "side": 1,
+      "message": "I think it is easier to understand if this value is set once (instead of overwrittenn):\noption.included_in_allocation \u003d force_part_of_allocation_ || has_transport_seq_num;\n\n(while the 2nd flag is still set in if (has_transport_seq_num) clause)\n\n\nOtherwise it is surprising to see that value of \u0027force_...\u0027 can be overwritten.",
+      "range": {
+        "startLine": 996,
+        "startChar": 12,
+        "endLine": 996,
+        "endChar": 34
+      },
+      "revId": "347a3466ae2759782ee640fd8e36db391296cd93",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84201592_8d6a09f9",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-10-10T07:39:00Z",
+      "side": 1,
+      "message": "what is default value?\n(try run msan bot)",
+      "range": {
+        "startLine": 283,
+        "startChar": 7,
+        "endLine": 283,
+        "endChar": 32
+      },
+      "revId": "347a3466ae2759782ee640fd8e36db391296cd93",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f111f30_7da8d9bd",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-10-10T07:39:00Z",
+      "side": 1,
+      "message": "when putting several tests into single one, at least split them with empty lines,\nbut better create several smaller:\nSetsIncludedInFeedbackWhenTransportSequenceNumberExtensionIsRegistered\nSetsIncludedInAllocationWhenTransportSequenceNumberExtensionIsRegistered\nSetsIncludedInAllocationWhenForcedAsPartOfAllocation\nDoesnSetIncludedInAllocationByDefault\n\nhttps://testing.googleblog.com/2014/04/testing-on-toilet-test-behaviors-not.html",
+      "revId": "347a3466ae2759782ee640fd8e36db391296cd93",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

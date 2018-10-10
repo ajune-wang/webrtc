@@ -87,7 +87,7 @@ class DtlsTestClient : public sigslot::has_slots<> {
         this, &DtlsTestClient::OnFakeIceTransportReadPacket);
 
     dtls_transport_.reset(
-        new DtlsTransport(fake_ice_transport_.get(), rtc::CryptoOptions()));
+        new DtlsTransport(fake_ice_transport_.get(), webrtc::CryptoOptions()));
     dtls_transport_->SetSslMaxProtocolVersion(ssl_max_version_);
     // Note: Certificate may be null here if testing passthrough.
     dtls_transport_->SetLocalCertificate(certificate_);

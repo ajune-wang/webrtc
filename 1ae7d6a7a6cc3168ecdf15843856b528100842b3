@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "6f58222e_1056c9d3",
+        "filename": "BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-10-10T09:01:57Z",
+      "side": 1,
+      "message": "Seems like a good idea. I would go with the _EXPORT name, but either one is fine.",
+      "parentUuid": "8506a2bf_c24261eb",
+      "range": {
+        "startLine": 101,
+        "startChar": 6,
+        "endLine": 102,
+        "endChar": 39
+      },
+      "revId": "1ae7d6a7a6cc3168ecdf15843856b528100842b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8ff2f540_ba0d60a8",
         "filename": "webrtc.gni",
         "patchSetId": 1

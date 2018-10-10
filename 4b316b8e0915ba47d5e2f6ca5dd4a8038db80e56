@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f90b6a7b_d2169244",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-10-10T08:22:12Z",
+      "side": 1,
+      "message": "Suggestion:\nMoves VP8 temporal layers interface to api.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 57
+      },
+      "revId": "4b316b8e0915ba47d5e2f6ca5dd4a8038db80e56",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90f1d395_69dbea53",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-10-10T08:22:12Z",
+      "side": 1,
+      "message": "Suggestion:\nAlso renaming it from TemporalLayers to Vp8TemporalLayers to show\nthat it is codec specific.",
+      "revId": "4b316b8e0915ba47d5e2f6ca5dd4a8038db80e56",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce57603e_ed0ad914",
+        "filename": "api/video_codecs/create_vp8_temporal_layers.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-10-10T08:22:12Z",
+      "side": 1,
+      "message": "Vp8TemporalLayers",
+      "range": {
+        "startLine": 20,
+        "startChar": 15,
+        "endLine": 20,
+        "endChar": 28
+      },
+      "revId": "4b316b8e0915ba47d5e2f6ca5dd4a8038db80e56",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1de697e_18afa115",
+        "filename": "api/video_codecs/create_vp8_temporal_layers.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-10-10T08:22:12Z",
+      "side": 1,
+      "message": "CreateVp8TemporalLayers",
+      "range": {
+        "startLine": 21,
+        "startChar": 35,
+        "endLine": 21,
+        "endChar": 55
+      },
+      "revId": "4b316b8e0915ba47d5e2f6ca5dd4a8038db80e56",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c36930b_d38093d0",
+        "filename": "api/video_codecs/vp8_temporal_layers.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-10-10T08:22:12Z",
+      "side": 1,
+      "message": "Is this Vp8 specific?",
+      "range": {
+        "startLine": 43,
+        "startChar": 11,
+        "endLine": 43,
+        "endChar": 29
+      },
+      "revId": "4b316b8e0915ba47d5e2f6ca5dd4a8038db80e56",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6cf4bdc7_c93bd2d0",
+        "filename": "api/video_codecs/vp8_temporal_layers.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-10-10T08:22:12Z",
+      "side": 1,
+      "message": "Is there any way we could avoid leaking this undefined struct declaration?",
+      "range": {
+        "startLine": 45,
+        "startChar": 7,
+        "endLine": 45,
+        "endChar": 27
+      },
+      "revId": "4b316b8e0915ba47d5e2f6ca5dd4a8038db80e56",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

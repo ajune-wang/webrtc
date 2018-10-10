@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "423d668f_c9ed8fc2",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 996,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-10-10T07:57:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9f0f5ff6_ebe70c21",
+      "range": {
+        "startLine": 996,
+        "startChar": 12,
+        "endLine": 996,
+        "endChar": 34
+      },
+      "revId": "347a3466ae2759782ee640fd8e36db391296cd93",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "84201592_8d6a09f9",
         "filename": "modules/rtp_rtcp/source/rtp_sender.h",
         "patchSetId": 3
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "32cb9ce8_10a8afb3",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-10-10T07:57:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "84201592_8d6a09f9",
+      "range": {
+        "startLine": 283,
+        "startChar": 7,
+        "endLine": 283,
+        "endChar": 32
+      },
+      "revId": "347a3466ae2759782ee640fd8e36db391296cd93",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8f111f30_7da8d9bd",
         "filename": "modules/rtp_rtcp/source/rtp_sender_unittest.cc",
         "patchSetId": 3
@@ -62,6 +110,24 @@
       "revId": "347a3466ae2759782ee640fd8e36db391296cd93",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04c955be_a0216461",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-10-10T07:57:40Z",
+      "side": 1,
+      "message": "Sure, personally I prefer fewer unit tests with less repeated code, making it easier to overview and update when the code design changes. Though I also prefer integration tests to unit tests for the same reason. Either way, updated per your suggestion.",
+      "parentUuid": "8f111f30_7da8d9bd",
+      "revId": "347a3466ae2759782ee640fd8e36db391296cd93",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -16,6 +16,24 @@
       "revId": "cd770211be4fec3ac77d917fb5bb0ba89f9c4e33",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a054475c_b95eec42",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-10-10T13:46:22Z",
+      "side": 1,
+      "message": "Yes, it does. I removed things from deps for now (in order to keep the diff small since rtc_base_approved was using public_deps before this CL).\n\nI will get back to it soon.",
+      "parentUuid": "b6335138_5c523a0b",
+      "revId": "cd770211be4fec3ac77d917fb5bb0ba89f9c4e33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

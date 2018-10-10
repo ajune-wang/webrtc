@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dec96f9b_a5ec0492",
+        "filename": "BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-10T08:46:17Z",
+      "side": 1,
+      "message": "Question on naming: \"COMPONENT BUILD\" is a chromium concept, and a bit alien in the webrtc build files. I understands there\u0027s some value in keeping the naming consistent with chromium, but maybe something more explicit like WEBRTC_ENABLE_SYMBOL_VISIBILITY or WEBRTC_ENABLE_SYMBOL_EXPORT (and corresponding gn variable) would improve clarity?",
+      "range": {
+        "startLine": 101,
+        "startChar": 6,
+        "endLine": 102,
+        "endChar": 39
+      },
+      "revId": "1ae7d6a7a6cc3168ecdf15843856b528100842b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ff2f540_ba0d60a8",
+        "filename": "webrtc.gni",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-10T08:46:17Z",
+      "side": 1,
+      "message": "\"expand _to_ code that\" (or some other rephrasing).",
+      "range": {
+        "startLine": 39,
+        "startChar": 4,
+        "endLine": 39,
+        "endChar": 20
+      },
+      "revId": "1ae7d6a7a6cc3168ecdf15843856b528100842b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

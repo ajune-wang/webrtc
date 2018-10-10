@@ -16,6 +16,7 @@
 #include <string>
 #include <vector>
 
+#include "api/video/builtin_video_bitrate_allocator_factory.h"
 #include "call/fake_network_pipe.h"
 #include "call/simulated_network.h"
 #include "logging/rtc_event_log/output/rtc_event_log_output_file.h"
@@ -283,6 +284,8 @@ VideoQualityTest::VideoQualityTest(
           [this](const SdpVideoFormat& format) {
             return this->CreateVideoEncoder(format, analyzer_.get());
           }),
+      video_bitrate_allocator_factory_(
+          CreateBuiltinVideoBitrateAllocatorFactory()),
       receive_logs_(0),
       send_logs_(0),
       injection_components_(std::move(injection_components)) {
@@ -613,6 +616,8 @@ void VideoQualityTest::SetupVideo(Transport* send_transport,
     video_send_configs_[video_idx].encoder_settings.encoder_factory =
         (video_idx == 0) ? &video_encoder_factory_with_analyzer_
                          : &video_encoder_factory_;
+    video_send_configs_[video_idx].encoder_settings.bitrate_allocator_factory =
+        video_bitrate_allocator_factory_.get();
 
     video_send_configs_[video_idx].rtp.payload_name =
         params_.video[video_idx].codec;

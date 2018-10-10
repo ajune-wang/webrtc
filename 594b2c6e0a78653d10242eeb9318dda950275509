@@ -16,6 +16,24 @@
       "revId": "594b2c6e0a78653d10242eeb9318dda950275509",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4bc14b82_dd25bcaf",
+        "filename": "api/audio/echo_canceller3_config_json.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-10-10T07:11:57Z",
+      "side": 1,
+      "message": "Thanks for noting! I updated the code accordingly.",
+      "parentUuid": "d1d67db8_b571e466",
+      "revId": "594b2c6e0a78653d10242eeb9318dda950275509",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

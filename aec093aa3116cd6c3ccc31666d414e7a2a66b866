@@ -1,0 +1,95 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c2ea205c_7808b700",
+        "filename": "modules/rtp_rtcp/source/rtcp_packet/pli.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-10-10T10:48:30Z",
+      "side": 1,
+      "message": "I would suggest removing the default value, so as to increase our confidence that we have not missed any place where |true| should have potentially been passed.",
+      "revId": "aec093aa3116cd6c3ccc31666d414e7a2a66b866",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef1178da_e437576f",
+        "filename": "modules/rtp_rtcp/source/rtcp_packet/pli.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-10-10T10:48:30Z",
+      "side": 1,
+      "message": "Could you make this const?",
+      "revId": "aec093aa3116cd6c3ccc31666d414e7a2a66b866",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75364c67_abd81d78",
+        "filename": "modules/rtp_rtcp/source/rtcp_packet/pli_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-10-10T10:48:30Z",
+      "side": 1,
+      "message": "Thought - would it perhaps be better to Create() a PLI packet, then Parse() it, and see that the results match? That would remove the dependency on the rest of the RTP structure, that is implicit in kLtrPliPacket.",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 47
+      },
+      "revId": "aec093aa3116cd6c3ccc31666d414e7a2a66b866",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29d8d18b_3a3d585c",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-10-10T10:48:30Z",
+      "side": 1,
+      "message": "const?",
+      "revId": "aec093aa3116cd6c3ccc31666d414e7a2a66b866",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d73f8cc4_5795416f",
+        "filename": "modules/rtp_rtcp/source/rtcp_sender.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-10-10T10:48:30Z",
+      "side": 1,
+      "message": "const?",
+      "revId": "aec093aa3116cd6c3ccc31666d414e7a2a66b866",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

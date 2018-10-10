@@ -276,6 +276,8 @@ class RTCPSender {
   std::map<uint32_t, BuilderFunc> builders_;
 
   RTC_DISALLOW_IMPLICIT_CONSTRUCTORS(RTCPSender);
+
+  const bool ltr_recovery_experiment_;
 };
 }  // namespace webrtc
 

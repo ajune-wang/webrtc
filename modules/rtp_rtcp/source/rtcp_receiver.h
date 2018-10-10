@@ -265,6 +265,8 @@ class RTCPReceiver {
 
   size_t num_skipped_packets_;
   int64_t last_skipped_packets_warning_ms_;
+
+  const bool ltr_recovery_experiment_;
 };
 }  // namespace webrtc
 #endif  // MODULES_RTP_RTCP_SOURCE_RTCP_RECEIVER_H_

@@ -42,6 +42,7 @@
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/trace_event.h"
+#include "system_wrappers/include/field_trial.h"
 #include "system_wrappers/include/ntp_time.h"
 
 namespace webrtc {
@@ -150,7 +151,9 @@ RTCPReceiver::RTCPReceiver(
       stats_callback_(nullptr),
       packet_type_counter_observer_(packet_type_counter_observer),
       num_skipped_packets_(0),
-      last_skipped_packets_warning_ms_(clock->TimeInMilliseconds()) {
+      last_skipped_packets_warning_ms_(clock->TimeInMilliseconds()),
+      ltr_recovery_experiment_(
+          webrtc::field_trial::IsEnabled("WebRTC-LtrRecoveryExperiment")) {
   RTC_DCHECK(owner);
 }
 
@@ -786,7 +789,7 @@ void RTCPReceiver::HandleXrTargetBitrate(
 
 void RTCPReceiver::HandlePli(const CommonHeader& rtcp_block,
                              PacketInformation* packet_information) {
-  rtcp::Pli pli;
+  rtcp::Pli pli(ltr_recovery_experiment_);
   if (!pli.Parse(rtcp_block)) {
     ++num_skipped_packets_;
     return;

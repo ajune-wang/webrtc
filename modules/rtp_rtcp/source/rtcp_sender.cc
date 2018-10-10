@@ -40,6 +40,7 @@
 #include "rtc_base/logging.h"
 #include "rtc_base/numerics/safe_conversions.h"
 #include "rtc_base/trace_event.h"
+#include "system_wrappers/include/field_trial.h"
 
 namespace webrtc {
 
@@ -151,7 +152,9 @@ RTCPSender::RTCPSender(
 
       xr_send_receiver_reference_time_enabled_(false),
       packet_type_counter_observer_(packet_type_counter_observer),
-      send_video_bitrate_allocation_(false) {
+      send_video_bitrate_allocation_(false),
+      ltr_recovery_experiment_(
+          webrtc::field_trial::IsEnabled("WebRTC-LtrRecoveryExperiment")) {
   RTC_DCHECK(transport_ != nullptr);
 
   builders_[kRtcpSr] = &RTCPSender::BuildSR;
@@ -451,7 +454,7 @@ std::unique_ptr<rtcp::RtcpPacket> RTCPSender::BuildRR(const RtcpContext& ctx) {
 }
 
 std::unique_ptr<rtcp::RtcpPacket> RTCPSender::BuildPLI(const RtcpContext& ctx) {
-  rtcp::Pli* pli = new rtcp::Pli();
+  rtcp::Pli* pli = new rtcp::Pli(ltr_recovery_experiment_);
   pli->SetSenderSsrc(ssrc_);
   pli->SetMediaSsrc(remote_ssrc_);
 

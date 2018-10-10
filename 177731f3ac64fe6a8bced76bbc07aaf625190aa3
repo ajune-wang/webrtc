@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ae59e1b8_8388f632",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-10-10T11:03:47Z",
+      "side": 1,
+      "message": "WriteAt is to get an owned pointer from the copy-on-write buffer?",
+      "range": {
+        "startLine": 283,
+        "startChar": 11,
+        "endLine": 283,
+        "endChar": 18
+      },
+      "revId": "177731f3ac64fe6a8bced76bbc07aaf625190aa3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe59399a_c6382cad",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-10-10T11:03:47Z",
+      "side": 1,
+      "message": "I prefer SetPadding since this function (unlike SetPaddingSize) doesn\u0027t just reserve the bytes, but actually fills in the content. For your consideration.",
+      "range": {
+        "startLine": 120,
+        "startChar": 7,
+        "endLine": 120,
+        "endChar": 21
+      },
+      "revId": "177731f3ac64fe6a8bced76bbc07aaf625190aa3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

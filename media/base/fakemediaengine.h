@@ -386,7 +386,7 @@ class FakeVoiceMediaChannel : public RtpHelper<VoiceMediaChannel> {
     for (std::vector<AudioCodec>::const_iterator it = send_codecs_.begin();
          it != send_codecs_.end(); ++it) {
       // Find the DTMF telephone event "codec".
-      if (_stricmp(it->name.c_str(), "telephone-event") == 0) {
+      if (rtc::StrCaseCmp(it->name.c_str(), "telephone-event") == 0) {
         return true;
       }
     }

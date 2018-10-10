@@ -626,14 +626,14 @@ void TestStereo::RegisterSendCodec(char side,
   ASSERT_TRUE(my_acm != NULL);
 
   auto encoder_factory = CreateBuiltinAudioEncoderFactory();
-  const int clockrate_hz = STR_CASE_CMP(codec_name, "g722") == 0
+  const int clockrate_hz = rtc::StrCaseCmp(codec_name, "g722") == 0
                                ? sampling_freq_hz / 2
                                : sampling_freq_hz;
   const std::string ptime = rtc::ToString(rtc::CheckedDivExact(
       pack_size, rtc::CheckedDivExact(sampling_freq_hz, 1000)));
   SdpAudioFormat::Parameters params = {{"ptime", ptime}};
   RTC_CHECK(channels == 1 || channels == 2);
-  if (STR_CASE_CMP(codec_name, "opus") == 0) {
+  if (rtc::StrCaseCmp(codec_name, "opus") == 0) {
     if (channels == 2) {
       params["stereo"] = "1";
     }

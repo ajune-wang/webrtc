@@ -36,12 +36,15 @@ cricket::MediaEngineInterface* CreateMediaEngine(
     rtc::scoped_refptr<AudioDecoderFactory> audio_decoder_factory,
     std::unique_ptr<VideoEncoderFactory> video_encoder_factory,
     std::unique_ptr<VideoDecoderFactory> video_decoder_factory,
+    std::unique_ptr<VideoBitrateAllocatorFactory>
+        video_bitrate_allocator_factory,
     rtc::scoped_refptr<AudioMixer> audio_mixer,
     rtc::scoped_refptr<AudioProcessing> audio_processor) {
   return cricket::WebRtcMediaEngineFactory::Create(
              adm, audio_encoder_factory, audio_decoder_factory,
              std::move(video_encoder_factory), std::move(video_decoder_factory),
-             audio_mixer, audio_processor)
+             std::move(video_bitrate_allocator_factory), audio_mixer,
+             audio_processor)
       .release();
 }
 

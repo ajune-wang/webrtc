@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d132e968_6503676c",
+        "filename": "video/video_quality_test.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-10-10T10:43:40Z",
+      "side": 1,
+      "message": "I\u0027m not terribly fond of the construction path for encoder here. Caused me some pause to figure out what actually happens. However since the function is short enough, it\u0027s ok for now.",
+      "range": {
+        "startLine": 266,
+        "startChar": 4,
+        "endLine": 266,
+        "endChar": 11
+      },
+      "revId": "11055f2930752f5ab123fbb5774288333821c912",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

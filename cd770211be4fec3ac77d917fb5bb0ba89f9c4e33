@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b6335138_5c523a0b",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-10-10T13:35:02Z",
+      "side": 1,
+      "message": "There\u0027s a whole bunch of things that\u0027s both in deps and public_deps. Is that necessary? I thought public_deps implied deps?",
+      "revId": "cd770211be4fec3ac77d917fb5bb0ba89f9c4e33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

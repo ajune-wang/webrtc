@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f2d36161_956d9d1b",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-10-10T11:49:41Z",
+      "side": 0,
+      "message": "FYI, the random padding was used in order to make sure the padding packets aren\u0027t more compressible than regular packets, in case the network does some compression for you. I\u0027m not sure if this can lead to problems?",
+      "revId": "c5a38ad1434846d2302508d13e958b6a58131dc1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

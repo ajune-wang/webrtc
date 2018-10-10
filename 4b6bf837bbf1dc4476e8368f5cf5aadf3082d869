@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ea471676_6d28cec9",
+        "filename": "p2p/base/relayport.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-10-10T18:01:45Z",
+      "side": 1,
+      "message": "I kind of prefer them in the header to avoid having to copy \u0026 paste the argument list another time.",
+      "parentUuid": "34da03fe_e98e5458",
+      "range": {
+        "startLine": 39,
+        "startChar": 2,
+        "endLine": 39,
+        "endChar": 8
+      },
+      "revId": "4b6bf837bbf1dc4476e8368f5cf5aadf3082d869",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3b40e956_1221cde5",
         "filename": "p2p/base/relayport.h",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2018-10-10T17:30:29Z",
       "side": 1,
       "message": "include absl/memory/memory.h; same for a few places.",
+      "range": {
+        "startLine": 47,
+        "startChar": 17,
+        "endLine": 47,
+        "endChar": 27
+      },
+      "revId": "4b6bf837bbf1dc4476e8368f5cf5aadf3082d869",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06befe1b_1ac6da5f",
+        "filename": "p2p/base/relayport.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-10-10T18:01:45Z",
+      "side": 1,
+      "message": "I\u0027m not sure how worthwhile that\u0027s going to be if there\u0027s no linter to check for it..",
+      "parentUuid": "3b40e956_1221cde5",
       "range": {
         "startLine": 47,
         "startChar": 17,
@@ -82,6 +130,30 @@
       "writtenOn": "2018-10-10T17:30:29Z",
       "side": 1,
       "message": "no need to move here and below; inclusion of utility can be removed.",
+      "range": {
+        "startLine": 31,
+        "startChar": 14,
+        "endLine": 31,
+        "endChar": 18
+      },
+      "revId": "4b6bf837bbf1dc4476e8368f5cf5aadf3082d869",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df3a6fe9_0983e623",
+        "filename": "p2p/client/turnportfactory.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-10-10T18:01:45Z",
+      "side": 1,
+      "message": "The gcc compiler complains otherwise. It\u0027s a known bug.",
+      "parentUuid": "4130dbfa_c52c92fb",
       "range": {
         "startLine": 31,
         "startChar": 14,

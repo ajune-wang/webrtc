@@ -401,13 +401,13 @@ class BufferT {
   // can mutate the state slightly to help subsequent sanity checks catch bugs.
   void OnMovedFrom() {
 #if RTC_DCHECK_IS_ON
+    // Ensure that *this is always inconsistent, to provoke bugs.
+    size_ = 1;
+    capacity_ = 0;
+#else
     // Make *this consistent and empty. Shouldn't be necessary, but better safe
     // than sorry.
     size_ = 0;
-    capacity_ = 0;
-#else
-    // Ensure that *this is always inconsistent, to provoke bugs.
-    size_ = 1;
     capacity_ = 0;
 #endif
   }

@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "34da03fe_e98e5458",
+        "filename": "p2p/base/relayport.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-10-10T17:30:29Z",
+      "side": 1,
+      "message": "Is there a reason these static methods of the port family need to stay in the header? Maybe we can move them to the cc file.",
+      "range": {
+        "startLine": 39,
+        "startChar": 2,
+        "endLine": 39,
+        "endChar": 8
+      },
+      "revId": "4b6bf837bbf1dc4476e8368f5cf5aadf3082d869",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b40e956_1221cde5",
+        "filename": "p2p/base/relayport.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-10-10T17:30:29Z",
+      "side": 1,
+      "message": "include absl/memory/memory.h; same for a few places.",
+      "range": {
+        "startLine": 47,
+        "startChar": 17,
+        "endLine": 47,
+        "endChar": 27
+      },
+      "revId": "4b6bf837bbf1dc4476e8368f5cf5aadf3082d869",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01897ebf_5a01c06d",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1487,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-10-10T17:30:29Z",
+      "side": 1,
+      "message": "could release here",
+      "range": {
+        "startLine": 1487,
+        "startChar": 31,
+        "endLine": 1487,
+        "endChar": 34
+      },
+      "revId": "4b6bf837bbf1dc4476e8368f5cf5aadf3082d869",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4130dbfa_c52c92fb",
+        "filename": "p2p/client/turnportfactory.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-10-10T17:30:29Z",
+      "side": 1,
+      "message": "no need to move here and below; inclusion of utility can be removed.",
+      "range": {
+        "startLine": 31,
+        "startChar": 14,
+        "endLine": 31,
+        "endChar": 18
+      },
+      "revId": "4b6bf837bbf1dc4476e8368f5cf5aadf3082d869",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

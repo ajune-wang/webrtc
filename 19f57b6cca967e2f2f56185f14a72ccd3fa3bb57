@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b52d97c2_a6b595e0",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 1184,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-10-10T23:18:46Z",
+      "side": 1,
+      "message": "can this be done in line with the definition?",
+      "range": {
+        "startLine": 1184,
+        "startChar": 31,
+        "endLine": 1184,
+        "endChar": 61
+      },
+      "revId": "19f57b6cca967e2f2f56185f14a72ccd3fa3bb57",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34c74b81_3c87520d",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 1213,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-10-10T23:18:46Z",
+      "side": 1,
+      "message": "don\u0027t need the webrtc:: prefix",
+      "range": {
+        "startLine": 1213,
+        "startChar": 4,
+        "endLine": 1213,
+        "endChar": 12
+      },
+      "revId": "19f57b6cca967e2f2f56185f14a72ccd3fa3bb57",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

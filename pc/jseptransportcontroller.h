@@ -18,6 +18,7 @@
 #include <vector>
 
 #include "api/candidate.h"
+#include "api/crypto/cryptooptions.h"
 #include "api/peerconnectioninterface.h"
 #include "logging/rtc_event_log/rtc_event_log.h"
 #include "media/sctp/sctptransportinternal.h"
@@ -32,7 +33,6 @@
 #include "rtc_base/asyncinvoker.h"
 #include "rtc_base/constructormagic.h"
 #include "rtc_base/refcountedobject.h"
-#include "rtc_base/sslstreamadapter.h"
 #include "rtc_base/third_party/sigslot/sigslot.h"
 
 namespace rtc {
@@ -67,7 +67,7 @@ class JsepTransportController : public sigslot::has_slots<> {
     rtc::SSLProtocolVersion ssl_max_version = rtc::SSL_PROTOCOL_DTLS_12;
     // |crypto_options| is used to determine if created DTLS transports
     // negotiate GCM crypto suites or not.
-    rtc::CryptoOptions crypto_options;
+    webrtc::CryptoOptions crypto_options;
     PeerConnectionInterface::BundlePolicy bundle_policy =
         PeerConnectionInterface::kBundlePolicyBalanced;
     PeerConnectionInterface::RtcpMuxPolicy rtcp_mux_policy =

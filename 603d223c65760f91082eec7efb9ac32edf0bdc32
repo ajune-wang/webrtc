@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "49c55d04_e18fb6a2",
+        "filename": "examples/objc/AppRTCMobile/ARDAppClient.m",
+        "patchSetId": 1
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 7223
+      },
+      "writtenOn": "2018-10-10T15:59:23Z",
+      "side": 1,
+      "message": "We must nullify `_adm` here, otherwise it will raise assertion fail when it is destructed at non-main thread.",
+      "revId": "603d223c65760f91082eec7efb9ac32edf0bdc32",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

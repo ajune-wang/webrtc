@@ -33,6 +33,7 @@ rtc_static_library("ortc") {
   deps = [
     "../api:libjingle_peerconnection_api",
     "../api:ortc_api",
+    "../api/video:builtin_video_bitrate_allocator_factory",
     "../api/video_codecs:builtin_video_decoder_factory",
     "../api/video_codecs:builtin_video_encoder_factory",
     "../call:call_interfaces",

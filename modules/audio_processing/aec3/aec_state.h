@@ -46,12 +46,18 @@ class AecState {
   // Returns whether the echo subtractor can be used to determine the residual
   // echo.
   bool UsableLinearEstimate() const {
-    return filter_quality_state_.LinearFilterUsable();
+    if (!use_legacy_filter_quality_) {
+      return filter_quality_state_.LinearFilterUsable();
+    }
+    return legacy_filter_quality_state_.LinearFilterUsable();
   }
 
   // Returns whether the echo subtractor output should be used as output.
   bool UseLinearFilterOutput() const {
-    return filter_quality_state_.LinearFilterUsable();
+    if (!use_legacy_filter_quality_) {
+      return filter_quality_state_.LinearFilterUsable();
+    }
+    return legacy_filter_quality_state_.LinearFilterUsable();
   }
 
   // Returns the estimated echo path gain.
@@ -160,6 +166,7 @@ class AecState {
   static int instance_count_;
   std::unique_ptr<ApmDataDumper> data_dumper_;
   const EchoCanceller3Config config_;
+  const bool enable_erle_resets_at_gain_changes_;
 
   // Class for controlling the transition from the intial state, which in turn
   // controls when the filter parameters for the initial state should be used.
@@ -265,6 +272,35 @@ class AecState {
     void Reset();
 
     // Updates the analysis based on new data.
+    void Update(bool active_render,
+                bool transparent_mode,
+                const absl::optional<DelayEstimate>& external_delay,
+                bool converged_filter);
+
+   private:
+    bool usable_linear_estimate_ = false;
+    size_t num_active_render_blocks_since_reset_ = 0;
+    size_t num_capture_blocks_ = 0;
+    size_t num_active_render_blocks_since_start_ = 0;
+    bool convergence_seen_ = false;
+  } filter_quality_state_;
+
+  // Class containing the legacy functionality for analyzing how well the linear
+  // filter is, and can be expected to perform on the current signals. The
+  // purpose of this is for using to select the echo suppression functionality
+  // as well as the input to the echo suppressor.
+  class LegacyFilteringQualityAnalyzer {
+   public:
+    explicit LegacyFilteringQualityAnalyzer(const EchoCanceller3Config& config);
+
+    // Returns whether the the linear filter is can be used for the echo
+    // canceller output.
+    bool LinearFilterUsable() const { return usable_linear_estimate_; }
+
+    // Resets the state of the analyzer.
+    void Reset();
+
+    // Updates the analysis based on new data.
     void Update(bool saturated_echo,
                 bool active_render,
                 bool saturated_capture,
@@ -284,7 +320,7 @@ class AecState {
     size_t active_non_converged_sequence_size_ = 0;
     bool recent_convergence_during_activity_ = false;
     bool recent_convergence_ = false;
-  } filter_quality_state_;
+  } legacy_filter_quality_state_;
 
   // Class for detecting whether the echo is to be considered to be saturated.
   // The purpose of this is to allow customized behavior in the echo suppressor
@@ -322,7 +358,7 @@ class AecState {
   EchoAudibility echo_audibility_;
   ReverbModelEstimator reverb_model_estimator_;
   SubtractorOutputAnalyzer subtractor_output_analyzer_;
-  bool enable_erle_resets_at_gain_changes_ = true;
+  const bool use_legacy_filter_quality_;
 };
 
 }  // namespace webrtc

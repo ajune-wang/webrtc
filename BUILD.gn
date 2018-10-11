@@ -28,9 +28,7 @@ if (!build_with_chromium) {
   # 'ninja default' and then 'ninja all', the second build should do no work.
   group("default") {
     testonly = true
-    deps = [
-      ":webrtc",
-    ]
+    deps = []
     if (rtc_build_examples) {
       deps += [ "examples" ]
     }
@@ -375,20 +373,7 @@ if (!build_with_chromium) {
     suppressed_configs += [ "//build/config/compiler:thin_archive" ]
     defines = []
 
-    deps = [
-      ":webrtc_common",
-      "api:transport_api",
-      "audio",
-      "call",
-      "common_audio",
-      "common_video",
-      "media",
-      "modules",
-      "modules/video_capture:video_capture_internal_impl",
-      "rtc_base",
-      "sdk",
-      "video",
-    ]
+    deps = []
 
     # Additional factory functions to be exposed.
     # Rational: These factories are small enough (89 KiB / 32+ MiB)
@@ -430,11 +415,10 @@ rtc_source_set("webrtc_common") {
     "common_types.h",
   ]
   deps = [
-    "api:array_view",
-    "api/video:video_bitrate_allocation",
-    "rtc_base:checks",
-    "rtc_base:deprecation",
-    "rtc_base:stringutils",
+    "../api:array_view",
+    "../api/video:video_bitrate_allocation",
+    "../rtc_base:checks",
+    "../rtc_base:deprecation",
   ]
 
   if (!build_with_chromium && is_clang) {
@@ -448,9 +432,7 @@ if (use_libfuzzer || use_drfuzz || use_afl) {
   # webrtc/test/fuzzers/.
   group("webrtc_fuzzers_dummy") {
     testonly = true
-    deps = [
-      "test/fuzzers:webrtc_fuzzer_main",
-    ]
+    deps = []
   }
 }
 
@@ -458,27 +440,7 @@ if (rtc_include_tests) {
   rtc_test("rtc_unittests") {
     testonly = true
 
-    deps = [
-      ":webrtc_common",
-      "api:rtc_api_unittests",
-      "api/audio/test:audio_api_unittests",
-      "api/audio_codecs/test:audio_codecs_api_unittests",
-      "api/video/test:rtc_api_video_unittests",
-      "api/video_codecs/test:video_codecs_api_unittests",
-      "p2p:libstunprober_unittests",
-      "p2p:rtc_p2p_unittests",
-      "rtc_base:rtc_base_approved_unittests",
-      "rtc_base:rtc_base_tests_main",
-      "rtc_base:rtc_base_tests_utils",
-      "rtc_base:rtc_base_unittests",
-      "rtc_base:rtc_json_unittests",
-      "rtc_base:rtc_numerics_unittests",
-      "rtc_base:rtc_task_queue_unittests",
-      "rtc_base:sequenced_task_checker_unittests",
-      "rtc_base:sigslot_unittest",
-      "rtc_base:weak_ptr_unittests",
-      "rtc_base/experiments:experiments_unittests",
-    ]
+    deps = []
 
     if (rtc_enable_protobuf) {
       deps += [ "logging:rtc_event_log_tests" ]
@@ -519,19 +481,7 @@ if (rtc_include_tests) {
 
   rtc_test("video_engine_tests") {
     testonly = true
-    deps = [
-      "audio:audio_tests",
-
-      # TODO(eladalon): call_tests aren't actually video-specific, so we
-      # should move them to a more appropriate test suite.
-      "call:call_tests",
-      "modules/video_capture",
-      "rtc_base:rtc_base_tests_utils",
-      "test:test_common",
-      "test:test_main",
-      "test:video_test_common",
-      "video:video_tests",
-    ]
+    deps = []
     data = video_engine_tests_resources
     if (!build_with_chromium && is_clang) {
       # Suppress warnings from the Chromium Clang plugin (bugs.webrtc.org/163).
@@ -574,16 +524,7 @@ if (rtc_include_tests) {
 
   rtc_test("webrtc_perf_tests") {
     testonly = true
-    deps = [
-      "audio:audio_perf_tests",
-      "call:call_perf_tests",
-      "modules/audio_coding:audio_coding_perf_tests",
-      "modules/audio_processing:audio_processing_perf_tests",
-      "modules/remote_bitrate_estimator:remote_bitrate_estimator_perf_tests",
-      "pc:peerconnection_perf_tests",
-      "test:test_main",
-      "video:video_full_stack_tests",
-    ]
+    deps = []
 
     data = webrtc_perf_tests_resources
     if (is_android) {
@@ -597,9 +538,7 @@ if (rtc_include_tests) {
 
   rtc_test("webrtc_nonparallel_tests") {
     testonly = true
-    deps = [
-      "rtc_base:rtc_base_nonparallel_tests",
-    ]
+    deps = []
     if (is_android) {
       deps += [ "//testing/android/native_test:native_test_support" ]
       shard_timeout = 900
@@ -621,12 +560,7 @@ if (rtc_include_tests) {
         "sdk/android/tests/src/org/webrtc/ScalingSettingsTest.java",
       ]
 
-      deps = [
-        "examples:AppRTCMobile_javalib",
-        "sdk/android:libjingle_peerconnection_java",
-        "//base:base_java_test_support",
-        "//third_party/google-truth:google_truth_java",
-      ]
+      deps = []
     }
   }
 }

@@ -27,14 +27,7 @@ rtc_source_set("call_api") {
     "call/audio_sink.h",
   ]
 
-  deps = [
-    # TODO(kjellander): Add remaining dependencies when webrtc:4243 is done.
-    ":transport_api",
-    "..:webrtc_common",
-    "../rtc_base:rtc_base_approved",
-    "audio:audio_mixer_api",
-    "audio_codecs:audio_codecs_api",
-  ]
+  deps = []
 }
 
 rtc_source_set("callfactory_api") {
@@ -106,26 +99,27 @@ rtc_static_library("libjingle_peerconnection_api") {
     ":fec_controller_api",
     ":libjingle_logging_api",
     ":rtc_stats_api",
+    "../:webrtc_common",
+    "../logging:rtc_event_log_api",
+    "../media:rtc_media_config",
+    "../modules/audio_processing:audio_processing_statistics",
+    "../rtc_base:checks",
+    "../rtc_base:logging",
+    "../rtc_base:macromagic",
+    "../rtc_base:ptr_util",
+    "../rtc_base:refcount",
+    "../rtc_base:rtc_base",
+    "../rtc_base:rtc_base_approved",
+    "../rtc_base:rtc_event",
+    "../rtc_base:stringutils",
+    "../rtc_base:thread_checker",
+    "../third_party/abseil-cpp/absl/types:optional",
     "audio:audio_mixer_api",
     "audio_codecs:audio_codecs_api",
     "transport:bitrate_settings",
     "transport:network_control",
     "video:encoded_image",
     "video:video_frame",
-    "//third_party/abseil-cpp/absl/types:optional",
-
-    # Basically, don't add stuff here. You might break sensitive downstream
-    # targets like pnacl. API should not depend on anything outside of this
-    # file, really. All these should arguably go away in time.
-    "..:webrtc_common",
-    "../logging:rtc_event_log_api",
-    "../media:rtc_media_config",
-    "../modules/audio_processing:audio_processing_statistics",
-    "../rtc_base:checks",
-    "../rtc_base:deprecation",
-    "../rtc_base:rtc_base",
-    "../rtc_base:rtc_base_approved",
-    "../rtc_base:stringutils",
   ]
 
   if (is_nacl) {
@@ -144,10 +138,6 @@ rtc_source_set("video_quality_test_fixture_api") {
     ":fec_controller_api",
     ":libjingle_peerconnection_api",
     ":simulated_network_api",
-    "../call:fake_network",
-    "../call:rtp_interfaces",
-    "../test:test_common",
-    "../test:video_test_common",
     "video_codecs:video_codecs_api",
   ]
   if (!build_with_chromium && is_clang) {
@@ -184,9 +174,8 @@ if (rtc_include_tests) {
     deps = [
       ":fec_controller_api",
       ":video_quality_test_fixture_api",
-      "../rtc_base:ptr_util",
+      "../third_party/abseil-cpp/absl/memory:memory",
       "../video:video_quality_test",
-      "//third_party/abseil-cpp/absl/memory",
     ]
     if (!build_with_chromium && is_clang) {
       # Suppress warnings from the Chromium Clang plugin (bugs.webrtc.org/163).
@@ -225,9 +214,10 @@ rtc_source_set("ortc_api") {
   # libjingle_peerconnection_api.
   deps = [
     ":libjingle_peerconnection_api",
-    "..:webrtc_common",
+    "../:webrtc_common",
+    "../rtc_base:ptr_util",
     "../rtc_base:rtc_base",
-    "//third_party/abseil-cpp/absl/types:optional",
+    "../third_party/abseil-cpp/absl/types:optional",
   ]
   if (!build_with_chromium && is_clang) {
     # Suppress warnings from the Chromium Clang plugin (bugs.webrtc.org/163).
@@ -247,7 +237,8 @@ rtc_source_set("rtc_stats_api") {
 
   deps = [
     "../rtc_base:checks",
-    "../rtc_base:rtc_base_approved",
+    "../rtc_base:ptr_util",
+    "../rtc_base:refcount",
   ]
 }
 
@@ -260,7 +251,7 @@ rtc_source_set("audio_options_api") {
 
   deps = [
     "../rtc_base:stringutils",
-    "//third_party/abseil-cpp/absl/types:optional",
+    "../third_party/abseil-cpp/absl/types:optional",
   ]
 }
 
@@ -279,8 +270,9 @@ rtc_source_set("simulated_network_api") {
   ]
   deps = [
     "../rtc_base:criticalsection",
-    "../rtc_base:rtc_base",
-    "//third_party/abseil-cpp/absl/types:optional",
+    "../rtc_base:macromagic",
+    "../rtc_base:rtc_base_approved",
+    "../third_party/abseil-cpp/absl/types:optional",
   ]
 }
 
@@ -291,7 +283,7 @@ rtc_source_set("fec_controller_api") {
   ]
 
   deps = [
-    "..:webrtc_common",
+    "../:webrtc_common",
     "../modules:module_fec_api",
   ]
 }
@@ -313,7 +305,8 @@ rtc_source_set("refcountedbase") {
     "refcountedbase.h",
   ]
   deps = [
-    "../rtc_base:rtc_base_approved",
+    "../rtc_base:macromagic",
+    "../rtc_base:refcount",
   ]
 }
 
@@ -326,7 +319,7 @@ rtc_source_set("libjingle_peerconnection_test_api") {
 
   deps = [
     ":libjingle_peerconnection_api",
-    "../rtc_base:rtc_base_approved",
+    "../rtc_base:stringutils",
   ]
 }
 
@@ -366,7 +359,7 @@ if (rtc_include_tests) {
         "../modules/audio_coding:neteq_test_factory",
         "../rtc_base:checks",
         "../rtc_base:rtc_base_approved",
-        "//third_party/abseil-cpp/absl/memory",
+        "../third_party/abseil-cpp/absl/memory:memory",
       ]
     }
   }
@@ -389,9 +382,8 @@ if (rtc_include_tests) {
     deps = [
       ":simulcast_test_fixture_api",
       "../modules/video_coding:simulcast_test_fixture_impl",
-      "../rtc_base:rtc_base_approved",
+      "../third_party/abseil-cpp/absl/memory:memory",
       "video_codecs:video_codecs_api",
-      "//third_party/abseil-cpp/absl/memory",
     ]
     if (!build_with_chromium && is_clang) {
       # Suppress warnings from the Chromium Clang plugin (bugs.webrtc.org/163).
@@ -408,7 +400,7 @@ if (rtc_include_tests) {
       "test/videocodec_test_stats.h",
     ]
     deps = [
-      "..:webrtc_common",
+      "../:webrtc_common",
       "../modules/video_coding:video_codec_interface",
       "../rtc_base:stringutils",
       "video_codecs:video_codecs_api",
@@ -424,11 +416,9 @@ if (rtc_include_tests) {
     ]
     deps = [
       ":videocodec_test_fixture_api",
-      "../modules/video_coding:video_codecs_test_framework",
       "../modules/video_coding:videocodec_test_impl",
-      "../rtc_base:rtc_base_approved",
+      "../third_party/abseil-cpp/absl/memory:memory",
       "video_codecs:video_codecs_api",
-      "//third_party/abseil-cpp/absl/memory",
     ]
     if (!build_with_chromium && is_clang) {
       # Suppress warnings from the Chromium Clang plugin (bugs.webrtc.org/163).
@@ -457,11 +447,9 @@ if (rtc_include_tests) {
       "test/fake_frame_encryptor.h",
     ]
     deps = [
-      ":array_view",
       ":libjingle_peerconnection_api",
-      "..:webrtc_common",
       "../rtc_base:checks",
-      "../rtc_base:rtc_base_approved",
+      "../rtc_base:refcount",
     ]
   }
 
@@ -497,8 +485,8 @@ if (rtc_include_tests) {
     ]
 
     deps = [
-      "../api/video:video_bitrate_allocator",
       "../test:test_support",
+      "video:video_bitrate_allocator",
     ]
   }
 
@@ -510,8 +498,8 @@ if (rtc_include_tests) {
     ]
 
     deps = [
-      "../api/video_codecs:video_codecs_api",
       "../test:test_support",
+      "video_codecs:video_codecs_api",
     ]
   }
 
@@ -523,8 +511,8 @@ if (rtc_include_tests) {
     ]
 
     deps = [
-      "../api/video_codecs:video_codecs_api",
       "../test:test_support",
+      "video_codecs:video_codecs_api",
     ]
   }
 
@@ -552,7 +540,6 @@ if (rtc_include_tests) {
       "../rtc_base:rtc_base_approved",
       "../rtc_base:rtc_base_tests_utils",
       "../test:test_support",
-      "units:units_unittests",
     ]
   }
 
@@ -565,7 +552,6 @@ if (rtc_include_tests) {
 
     deps = [
       ":libjingle_peerconnection_api",
-      "../rtc_base:checks",
     ]
   }
 }

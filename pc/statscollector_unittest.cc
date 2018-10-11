@@ -641,8 +641,7 @@ class StatsCollectorTest : public testing::Test {
         rtc::RTCCertificate::Create(
             std::unique_ptr<rtc::SSLIdentity>(local_identity.GetReference())));
     pc->SetLocalCertificate(kTransportName, local_certificate);
-    pc->SetRemoteCertChain(kTransportName,
-                           remote_identity.cert_chain().UniqueCopy());
+    pc->SetRemoteCertChain(kTransportName, remote_identity.cert_chain().Copy());
 
     stats->UpdateStats(PeerConnectionInterface::kStatsOutputLevelStandard);
 

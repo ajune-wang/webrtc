@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f18ce8e0_2e0518c0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-10-11T13:15:07Z",
+      "side": 1,
+      "message": "I guess WebRTC-Aec3SuppressorNearendAveragingKillSwitch should be in this list, too.",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 43
+      },
+      "revId": "48e1d6f94b37513259866f9a5e3f53383117134d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f150b63_5d8363bc",
+        "filename": "test/fuzzers/audio_processing_configs_fuzzer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-10-11T13:15:07Z",
+      "side": 1,
+      "message": "These are \na) duplicates, that\nb) compile to the string \"WebRTC-Aec3BoundedNearendKillSwitchWebRTC-Aec3BoundedNearendKillSwitch\".",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 42
+      },
+      "revId": "48e1d6f94b37513259866f9a5e3f53383117134d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d24ad5d_41fc0149",
+        "filename": "test/fuzzers/audio_processing_configs_fuzzer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-10-11T13:15:07Z",
+      "side": 1,
+      "message": "Seems unused.\nhttps://cs.chromium.org/search/?q\u003dAec3EarlyLinearFilterUsageKillSwitch\u0026ssfr\u003d1\u0026sq\u003dpackage:chromium\u0026type\u003dcs",
+      "range": {
+        "startLine": 32,
+        "startChar": 12,
+        "endLine": 32,
+        "endChar": 48
+      },
+      "revId": "48e1d6f94b37513259866f9a5e3f53383117134d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d462bc6_4435b4b3",
+        "filename": "test/fuzzers/audio_processing_configs_fuzzer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-10-11T13:15:07Z",
+      "side": 1,
+      "message": "Is this misspelled? Seems unused.\nhttps://cs.chromium.org/search/?q\u003dAec3UseStationarityPropertiesKillSwitch\u0026sq\u003dpackage:chromium\u0026type\u003dcs",
+      "range": {
+        "startLine": 59,
+        "startChar": 5,
+        "endLine": 59,
+        "endChar": 51
+      },
+      "revId": "48e1d6f94b37513259866f9a5e3f53383117134d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

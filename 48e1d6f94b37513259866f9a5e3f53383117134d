@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d7840267_8d13a085",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2018-10-11T13:28:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f18ce8e0_2e0518c0",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 43
+      },
+      "revId": "48e1d6f94b37513259866f9a5e3f53383117134d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4f150b63_5d8363bc",
         "filename": "test/fuzzers/audio_processing_configs_fuzzer.cc",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "48e1d6f94b37513259866f9a5e3f53383117134d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46e8db98_ce7a595f",
+        "filename": "test/fuzzers/audio_processing_configs_fuzzer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2018-10-11T13:28:32Z",
+      "side": 1,
+      "message": "Good find, thanks!",
+      "parentUuid": "4f150b63_5d8363bc",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 42
+      },
+      "revId": "48e1d6f94b37513259866f9a5e3f53383117134d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "d9f5bd02_15e5a8ef",
+        "filename": "test/fuzzers/audio_processing_configs_fuzzer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2018-10-11T13:28:32Z",
+      "side": 1,
+      "message": "Removing",
+      "parentUuid": "2d24ad5d_41fc0149",
+      "range": {
+        "startLine": 32,
+        "startChar": 12,
+        "endLine": 32,
+        "endChar": 48
+      },
+      "revId": "48e1d6f94b37513259866f9a5e3f53383117134d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9d462bc6_4435b4b3",
         "filename": "test/fuzzers/audio_processing_configs_fuzzer.cc",
         "patchSetId": 4
@@ -91,6 +163,30 @@
       "revId": "48e1d6f94b37513259866f9a5e3f53383117134d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d86291a6_7d0d0894",
+        "filename": "test/fuzzers/audio_processing_configs_fuzzer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2018-10-11T13:28:32Z",
+      "side": 1,
+      "message": "Just cs.chromium.org that\u0027s not up-to-date.",
+      "parentUuid": "9d462bc6_4435b4b3",
+      "range": {
+        "startLine": 59,
+        "startChar": 5,
+        "endLine": 59,
+        "endChar": 51
+      },
+      "revId": "48e1d6f94b37513259866f9a5e3f53383117134d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

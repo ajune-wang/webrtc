@@ -53,8 +53,6 @@ class VideoSendStreamImpl : public webrtc::BitrateAllocatorObserver,
       const VideoSendStream::Config* config,
       int initial_encoder_max_bitrate,
       double initial_encoder_bitrate_priority,
-      std::map<uint32_t, RtpState> suspended_ssrcs,
-      std::map<uint32_t, RtpPayloadState> suspended_payload_states,
       VideoEncoderConfig::ContentType content_type,
       std::unique_ptr<FecController> fec_controller);
   ~VideoSendStreamImpl() override;
@@ -71,11 +69,6 @@ class VideoSendStreamImpl : public webrtc::BitrateAllocatorObserver,
   void UpdateActiveSimulcastLayers(const std::vector<bool> active_layers);
   void Start();
   void Stop();
-
-  // TODO(holmer): Move these to RtpTransportControllerSend.
-  std::map<uint32_t, RtpState> GetRtpStates() const;
-
-  std::map<uint32_t, RtpPayloadState> GetRtpPayloadStates() const;
 
   absl::optional<float> configured_pacing_factor_;
 
@@ -115,6 +108,8 @@ class VideoSendStreamImpl : public webrtc::BitrateAllocatorObserver,
   void SignalEncoderActive();
 
   const bool has_alr_probing_;
+
+  bool started_;
 
   SendStatisticsProxy* const stats_proxy_;
   const VideoSendStream::Config* const config_;

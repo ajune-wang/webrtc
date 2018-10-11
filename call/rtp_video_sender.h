@@ -57,6 +57,7 @@ class RtpVideoSender : public RtpVideoSenderInterface,
       Transport* send_transport,
       const RtpSenderObservers& observers,
       RtpTransportControllerSendInterface* transport,
+      RtpPacketSender* packet_sender,
       RtcEventLog* event_log,
       RateLimiter* retransmission_limiter,  // move inside RtpTransport
       std::unique_ptr<FecController> fec_controller);
@@ -76,7 +77,6 @@ class RtpVideoSender : public RtpVideoSenderInterface,
   // Sets the sending status of the rtp modules and appropriately sets the
   // payload router to active if any rtp modules are active.
   void SetActiveModules(const std::vector<bool> active_modules) override;
-  bool IsActive() override;
 
   void OnNetworkAvailability(bool network_available) override;
   std::map<uint32_t, RtpState> GetRtpStates() const override;
@@ -91,12 +91,9 @@ class RtpVideoSender : public RtpVideoSenderInterface,
                         uint32_t* sent_nack_rate_bps,
                         uint32_t* sent_fec_rate_bps) override;
 
-  // Implements EncodedImageCallback.
-  // Returns 0 if the packet was routed / sent, -1 otherwise.
-  EncodedImageCallback::Result OnEncodedImage(
-      const EncodedImage& encoded_image,
-      const CodecSpecificInfo* codec_specific_info,
-      const RTPFragmentationHeader* fragmentation) override;
+  void OnEncodedImage(const EncodedImage& encoded_image,
+                      const CodecSpecificInfo* codec_specific_info,
+                      const RTPFragmentationHeader* fragmentation) override;
 
   void OnBitrateAllocationUpdated(
       const VideoBitrateAllocation& bitrate) override;
@@ -121,7 +118,7 @@ class RtpVideoSender : public RtpVideoSenderInterface,
       const std::vector<PacketFeedback>& packet_feedback_vector) override;
 
  private:
-  void UpdateModuleSendingState() RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_);
+  void UpdateModuleSendingState();
   void ConfigureProtection(const RtpConfig& rtp_config);
   void ConfigureSsrcs(const RtpConfig& rtp_config);
   bool FecEnabled() const;

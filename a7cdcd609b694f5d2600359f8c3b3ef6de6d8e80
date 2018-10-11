@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1beb21a5_a7a7d83f",
+        "filename": "api/crypto/cryptooptions.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 6630
+      },
+      "writtenOn": "2018-10-11T23:31:46Z",
+      "side": 1,
+      "message": "suggest renaming this to sframe instead",
+      "range": {
+        "startLine": 68,
+        "startChar": 9,
+        "endLine": 68,
+        "endChar": 14
+      },
+      "revId": "a7cdcd609b694f5d2600359f8c3b3ef6de6d8e80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

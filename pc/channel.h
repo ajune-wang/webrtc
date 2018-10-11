@@ -42,6 +42,7 @@
 
 namespace webrtc {
 class AudioSinkInterface;
+class MediaTransportInterface;
 }  // namespace webrtc
 
 namespace cricket {
@@ -82,9 +83,10 @@ class BaseChannel : public rtc::MessageHandler,
               std::unique_ptr<MediaChannel> media_channel,
               const std::string& content_name,
               bool srtp_required,
-              webrtc::CryptoOptions crypto_options);
+              rtc::CryptoOptions crypto_options);
   virtual ~BaseChannel();
-  void Init_w(webrtc::RtpTransportInternal* rtp_transport);
+  void Init_w(webrtc::RtpTransportInternal* rtp_transport,
+              webrtc::MediaTransportInterface* media_transport);
 
   // Deinit may be called multiple times and is simply ignored if it's already
   // done.
@@ -160,6 +162,11 @@ class BaseChannel : public rtc::MessageHandler,
       return rtp_transport_->rtcp_packet_transport();
     }
     return nullptr;
+  }
+
+  // Returns media transport, can be null if media transport is not available.
+  webrtc::MediaTransportInterface* media_transport() {
+    return media_transport_;
   }
 
   // From RtpTransport - public for testing only
@@ -307,13 +314,18 @@ class BaseChannel : public rtc::MessageHandler,
 
   webrtc::RtpTransportInternal* rtp_transport_ = nullptr;
 
+  // Optional media transport (experimental).
+  // If provided, audio and video will be sent through media_transport instead
+  // of RTP/RTCP. Currently media_transport can co-exist with rtp_transport.
+  webrtc::MediaTransportInterface* media_transport_ = nullptr;
+
   std::vector<std::pair<rtc::Socket::Option, int> > socket_options_;
   std::vector<std::pair<rtc::Socket::Option, int> > rtcp_socket_options_;
   bool writable_ = false;
   bool was_ever_writable_ = false;
   bool has_received_packet_ = false;
   const bool srtp_required_ = true;
-  webrtc::CryptoOptions crypto_options_;
+  rtc::CryptoOptions crypto_options_;
 
   // MediaChannel related members that should be accessed from the worker
   // thread.
@@ -343,7 +355,7 @@ class VoiceChannel : public BaseChannel {
                std::unique_ptr<VoiceMediaChannel> channel,
                const std::string& content_name,
                bool srtp_required,
-               webrtc::CryptoOptions crypto_options);
+               rtc::CryptoOptions crypto_options);
   ~VoiceChannel();
 
   // downcasts a MediaChannel
@@ -383,7 +395,7 @@ class VideoChannel : public BaseChannel {
                std::unique_ptr<VideoMediaChannel> media_channel,
                const std::string& content_name,
                bool srtp_required,
-               webrtc::CryptoOptions crypto_options);
+               rtc::CryptoOptions crypto_options);
   ~VideoChannel();
 
   // downcasts a MediaChannel
@@ -422,7 +434,7 @@ class RtpDataChannel : public BaseChannel {
                  std::unique_ptr<DataMediaChannel> channel,
                  const std::string& content_name,
                  bool srtp_required,
-                 webrtc::CryptoOptions crypto_options);
+                 rtc::CryptoOptions crypto_options);
   ~RtpDataChannel();
   // TODO(zhihuang): Remove this once the RtpTransport can be shared between
   // BaseChannels.

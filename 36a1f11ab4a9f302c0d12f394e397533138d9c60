@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba1d310b_8488a380",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-11T14:25:53Z",
+      "side": 1,
+      "message": "Please be more specific. From an initial look, it seems you are moving responsibility for suspended_video_send_ssrcs_ and suspended_video_payload_states_ from Call to RtpTransportControllerSend. Is that the main change?\n\nI\u0027d prefer to keep video-specific logic out of RtpTransportControllerSend. Would any of this be useful for audio too? Or should we accept it here now, and plan to move it out to RtpMediaTransport when that emerges?",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 47
+      },
+      "revId": "36a1f11ab4a9f302c0d12f394e397533138d9c60",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d66183cd_dc596778",
+        "filename": "call/rtp_transport_controller_send.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-11T14:25:53Z",
+      "side": 1,
+      "message": "Consider deleting these convenience aliases. (See totw/137).",
+      "range": {
+        "startLine": 123,
+        "startChar": 8,
+        "endLine": 123,
+        "endChar": 19
+      },
+      "revId": "36a1f11ab4a9f302c0d12f394e397533138d9c60",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1d25503_92d8ddce",
+        "filename": "call/rtp_transport_controller_send.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-11T14:25:53Z",
+      "side": 1,
+      "message": "Add comment that it (and the below) are indexed by ssrc.\n\nFor consistency, |suspended_video_rtp_states_| would be a better name.",
+      "range": {
+        "startLine": 124,
+        "startChar": 14,
+        "endLine": 124,
+        "endChar": 41
+      },
+      "revId": "36a1f11ab4a9f302c0d12f394e397533138d9c60",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

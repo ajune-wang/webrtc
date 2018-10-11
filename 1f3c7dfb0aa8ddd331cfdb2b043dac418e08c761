@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fdddd818_953e4f82",
+        "filename": "sdk/android/src/jni/pc/media.cc",
+        "patchSetId": 24
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-10-11T12:32:08Z",
+      "side": 1,
+      "message": "Does not exists.",
+      "range": {
+        "startLine": 15,
+        "startChar": 20,
+        "endLine": 15,
+        "endChar": 49
+      },
+      "revId": "1f3c7dfb0aa8ddd331cfdb2b043dac418e08c761",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

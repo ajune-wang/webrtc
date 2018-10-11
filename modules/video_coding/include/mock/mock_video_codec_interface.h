@@ -14,6 +14,8 @@
 #include <string>
 #include <vector>
 
+// TODO(sprang): Remove import of mock_video_encoder when external use is gone.
+#include "api/test/mock_video_encoder.h"
 #include "modules/video_coding/include/video_codec_interface.h"
 #include "test/gmock.h"
 

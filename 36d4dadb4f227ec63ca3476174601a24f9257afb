@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "0a70ba99_3edbce75",
+        "filename": "media/base/rtputils.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2018-10-11T09:50:50Z",
+      "side": 1,
+      "message": "Oh yes fine, I assumed that same file would implies same usage/visibility.\nThat\u0027s nice actually, we\u0027ll be able to use your multi-part CLs to sort out which functions are candidates to belong to the API.",
+      "parentUuid": "8593c8e6_3bb89c8b",
+      "revId": "36d4dadb4f227ec63ca3476174601a24f9257afb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "de4e31db_caf63971",
         "filename": "modules/audio_processing/include/audio_processing.h",
         "patchSetId": 5

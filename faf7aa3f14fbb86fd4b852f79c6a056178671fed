@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4e640509_8cf8a689",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2018-10-11T16:01:12Z",
+      "side": 1,
+      "message": "For some reason no dependency is deemed necessary here!",
+      "revId": "faf7aa3f14fbb86fd4b852f79c6a056178671fed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1271625_161c9809",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2018-10-11T16:01:12Z",
+      "side": 1,
+      "message": "That seems more consistent!",
+      "revId": "faf7aa3f14fbb86fd4b852f79c6a056178671fed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38d33971_72f292ce",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2018-10-11T16:01:12Z",
+      "side": 1,
+      "message": "Is it the right way of referencing sub-targets (since we are already in api/ dir)? \nIf not, that\u0027s another point to fix in gn_check_autofix.py",
+      "revId": "faf7aa3f14fbb86fd4b852f79c6a056178671fed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

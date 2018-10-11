@@ -99,7 +99,11 @@ class AecState {
   bool SaturatedCapture() const { return capture_signal_saturation_; }
 
   // Returns whether the echo signal is saturated.
-  bool SaturatedEcho() const { return saturation_detector_.SaturatedEcho(); }
+  bool SaturatedEcho() const {
+    return !use_legacy_saturation_behavior_
+               ? saturated_echo_
+               : legacy_saturation_detector_.SaturatedEcho();
+  }
 
   // Updates the capture signal saturation.
   void UpdateCaptureSaturation(bool capture_signal_saturation) {
@@ -154,11 +158,11 @@ class AecState {
 
  private:
   void UpdateSuppressorGainLimit(bool render_activity);
-  bool DetectEchoSaturation(rtc::ArrayView<const float> x,
-                            float echo_path_gain);
 
   static int instance_count_;
   std::unique_ptr<ApmDataDumper> data_dumper_;
+  const bool enable_erle_resets_at_gain_changes_;
+  const bool use_legacy_saturation_behavior_;
   const EchoCanceller3Config config_;
 
   // Class for controlling the transition from the intial state, which in turn
@@ -255,7 +259,8 @@ class AecState {
   // suppressor.
   class FilteringQualityAnalyzer {
    public:
-    explicit FilteringQualityAnalyzer(const EchoCanceller3Config& config);
+    FilteringQualityAnalyzer(const EchoCanceller3Config& config,
+                             bool allow_linear_mode_during_saturation);
 
     // Returns whether the the linear filter is can be used for the echo
     // canceller output.
@@ -275,6 +280,7 @@ class AecState {
 
    private:
     const bool conservative_initial_phase_;
+    const bool allow_linear_mode_during_saturation_;
     const float required_blocks_for_convergence_;
     const bool linear_and_stable_echo_path_;
     bool usable_linear_estimate_ = false;
@@ -286,12 +292,12 @@ class AecState {
     bool recent_convergence_ = false;
   } filter_quality_state_;
 
-  // Class for detecting whether the echo is to be considered to be saturated.
-  // The purpose of this is to allow customized behavior in the echo suppressor
-  // for when the echo is saturated.
-  class SaturationDetector {
+  // Legacy class for detecting whether the echo is to be considered to be
+  // saturated. This is kept as a fallback solution to use instead of the class
+  // SaturationDetector,
+  class LegacySaturationDetector {
    public:
-    explicit SaturationDetector(const EchoCanceller3Config& config);
+    explicit LegacySaturationDetector(const EchoCanceller3Config& config);
 
     // Returns whether the echo is to be considered saturated.
     bool SaturatedEcho() const { return saturated_echo_; };
@@ -308,7 +314,7 @@ class AecState {
     const bool echo_can_saturate_;
     size_t not_saturated_sequence_size_;
     bool saturated_echo_ = false;
-  } saturation_detector_;
+  } legacy_saturation_detector_;
 
   ErlEstimator erl_estimator_;
   ErleEstimator erle_estimator_;
@@ -322,7 +328,7 @@ class AecState {
   EchoAudibility echo_audibility_;
   ReverbModelEstimator reverb_model_estimator_;
   SubtractorOutputAnalyzer subtractor_output_analyzer_;
-  bool enable_erle_resets_at_gain_changes_ = true;
+  bool saturated_echo_ = false;
 };
 
 }  // namespace webrtc

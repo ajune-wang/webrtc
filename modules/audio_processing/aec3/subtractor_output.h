@@ -36,6 +36,8 @@ struct SubtractorOutput {
   float e2_main = 0.f;
   float e2_shadow = 0.f;
   float y2 = 0.f;
+  bool s_main_saturation = false;
+  bool s_shadow_saturation = false;
 
   // Reset the struct content.
   void Reset();

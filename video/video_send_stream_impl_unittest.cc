@@ -59,9 +59,9 @@ class MockRtpVideoSender : public RtpVideoSenderInterface {
   MOCK_METHOD2(DeliverRtcp, void(const uint8_t*, size_t));
   MOCK_METHOD1(OnBitrateAllocationUpdated, void(const VideoBitrateAllocation&));
   MOCK_METHOD3(OnEncodedImage,
-               EncodedImageCallback::Result(const EncodedImage&,
-                                            const CodecSpecificInfo*,
-                                            const RTPFragmentationHeader*));
+               void(const EncodedImage&,
+                    const CodecSpecificInfo*,
+                    const RTPFragmentationHeader*));
   MOCK_METHOD1(OnTransportOverheadChanged, void(size_t));
   MOCK_METHOD1(OnOverheadChanged, void(size_t));
   MOCK_METHOD4(OnBitrateUpdated, void(uint32_t, uint8_t, int64_t, int));
@@ -91,7 +91,7 @@ class VideoSendStreamImplTest : public ::testing::Test {
     EXPECT_CALL(transport_controller_, packet_router())
         .WillRepeatedly(Return(&packet_router_));
     EXPECT_CALL(transport_controller_,
-                CreateRtpVideoSender(_, _, _, _, _, _, _, _, _))
+                CreateRtpVideoSender(_, _, _, _, _, _, _))
         .WillRepeatedly(Return(&rtp_video_sender_));
     EXPECT_CALL(rtp_video_sender_, SetActive(_))
         .WillRepeatedly(testing::Invoke(
@@ -108,14 +108,11 @@ class VideoSendStreamImplTest : public ::testing::Test {
       VideoEncoderConfig::ContentType content_type) {
     EXPECT_CALL(bitrate_allocator_, GetStartBitrate(_))
         .WillOnce(Return(123000));
-    std::map<uint32_t, RtpState> suspended_ssrcs;
-    std::map<uint32_t, RtpPayloadState> suspended_payload_states;
     return absl::make_unique<VideoSendStreamImpl>(
         &stats_proxy_, &test_queue_, &call_stats_, &transport_controller_,
         &bitrate_allocator_, &send_delay_stats_, &video_stream_encoder_,
         &event_log_, &config_, initial_encoder_max_bitrate,
-        initial_encoder_bitrate_priority, suspended_ssrcs,
-        suspended_payload_states, content_type,
+        initial_encoder_bitrate_priority, content_type,
         absl::make_unique<FecControllerDefault>(&clock_));
   }
 
@@ -505,12 +502,6 @@ TEST_F(VideoSendStreamImplTest, ForwardsVideoBitrateAllocationAfterTimeout) {
     alloc.SetBitrate(1, 0, 30000);
     alloc.SetBitrate(1, 1, 40000);
 
-    EncodedImage encoded_image;
-    CodecSpecificInfo codec_specific;
-    EXPECT_CALL(rtp_video_sender_, OnEncodedImage(_, _, _))
-        .WillRepeatedly(Return(
-            EncodedImageCallback::Result(EncodedImageCallback::Result::OK)));
-
     // Max time we will throttle similar video bitrate allocations.
     static constexpr int64_t kMaxVbaThrottleTimeMs = 500;
 
@@ -544,6 +535,8 @@ TEST_F(VideoSendStreamImplTest, ForwardsVideoBitrateAllocationAfterTimeout) {
       observer->OnBitrateAllocationUpdated(alloc);
     }
 
+    EncodedImage encoded_image;
+    CodecSpecificInfo codec_specific;
     {
       // Send encoded image, should be a noop.
       EXPECT_CALL(rtp_video_sender_, OnBitrateAllocationUpdated(alloc))

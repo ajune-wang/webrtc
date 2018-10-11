@@ -26,6 +26,7 @@
 #include "modules/utility/include/process_thread.h"
 #include "rtc_base/constructormagic.h"
 #include "rtc_base/networkroute.h"
+#include "rtc_base/sequenced_task_checker.h"
 #include "rtc_base/task_queue.h"
 
 namespace webrtc {
@@ -48,9 +49,6 @@ class RtpTransportControllerSend final
 
   RtpVideoSenderInterface* CreateRtpVideoSender(
       const std::vector<uint32_t>& ssrcs,
-      std::map<uint32_t, RtpState> suspended_ssrcs,
-      const std::map<uint32_t, RtpPayloadState>&
-          states,  // move states into RtpTransportControllerSend
       const RtpConfig& rtp_config,
       const RtcpConfig& rtcp_config,
       Transport* send_transport,
@@ -119,6 +117,15 @@ class RtpTransportControllerSend final
   TargetTransferRateObserver* observer_ RTC_GUARDED_BY(observer_crit_);
   std::unique_ptr<SendSideCongestionControllerInterface> send_side_cc_;
   RateLimiter retransmission_rate_limiter_;
+
+  rtc::CriticalSection state_crit_;
+
+  using RtpStateMap = std::map<uint32_t, RtpState>;
+  RtpStateMap suspended_video_send_ssrcs_ RTC_GUARDED_BY(state_crit_);
+
+  using RtpPayloadStateMap = std::map<uint32_t, RtpPayloadState>;
+  RtpPayloadStateMap suspended_video_payload_states_
+      RTC_GUARDED_BY(state_crit_);
 
   // TODO(perkj): |task_queue_| is supposed to replace |process_thread_|.
   // |task_queue_| is defined last to ensure all pending tasks are cancelled

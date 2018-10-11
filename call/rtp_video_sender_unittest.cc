@@ -79,6 +79,20 @@ RtpSenderObservers CreateObservers(
   return observers;
 }
 
+class MockRtpPacketSender : public RtpPacketSender {
+ public:
+  MockRtpPacketSender() {}
+  virtual ~MockRtpPacketSender() {}
+
+  MOCK_METHOD6(InsertPacket,
+               void(Priority priority,
+                    uint32_t ssrc,
+                    uint16_t sequence_number,
+                    int64_t capture_time_ms,
+                    size_t bytes,
+                    bool retransmission));
+};
+
 class RtpVideoSenderTestFixture {
  public:
   RtpVideoSenderTestFixture(
@@ -106,14 +120,17 @@ class RtpVideoSenderTestFixture {
         CreateObservers(&call_stats_, &encoder_feedback_, &stats_proxy_,
                         &stats_proxy_, &stats_proxy_, &stats_proxy_,
                         &stats_proxy_, &stats_proxy_, &send_delay_stats_),
-        &transport_controller_, &event_log_, &retransmission_rate_limiter_,
+        &transport_controller_, &packet_sender_, &event_log_,
+        &retransmission_rate_limiter_,
         absl::make_unique<FecControllerDefault>(&clock_));
   }
 
   RtpVideoSender* router() { return router_.get(); }
+  NiceMock<MockRtpPacketSender>* packet_sender() { return &packet_sender_; }
 
  private:
   NiceMock<MockTransport> transport_;
+  NiceMock<MockRtpPacketSender> packet_sender_;
   NiceMock<MockCongestionObserver> congestion_observer_;
   NiceMock<MockRtcpIntraFrameObserver> encoder_feedback_;
   SimulatedClock clock_;
@@ -156,24 +173,18 @@ TEST_P(RtpVideoSenderTest, SendOnOneModule) {
   encoded_image._length = 1;
 
   RtpVideoSenderTestFixture test({kSsrc1}, kPayloadType, {});
-  EXPECT_NE(
-      EncodedImageCallback::Result::OK,
-      test.router()->OnEncodedImage(encoded_image, nullptr, nullptr).error);
+  test.router()->OnEncodedImage(encoded_image, nullptr, nullptr);
 
   test.router()->SetActive(true);
-  EXPECT_EQ(
-      EncodedImageCallback::Result::OK,
-      test.router()->OnEncodedImage(encoded_image, nullptr, nullptr).error);
+  EXPECT_CALL(*(test.packet_sender()), InsertPacket(_, _, _, _, _, _));
+  test.router()->OnEncodedImage(encoded_image, nullptr, nullptr);
 
   test.router()->SetActive(false);
-  EXPECT_NE(
-      EncodedImageCallback::Result::OK,
-      test.router()->OnEncodedImage(encoded_image, nullptr, nullptr).error);
+  test.router()->OnEncodedImage(encoded_image, nullptr, nullptr);
 
   test.router()->SetActive(true);
-  EXPECT_EQ(
-      EncodedImageCallback::Result::OK,
-      test.router()->OnEncodedImage(encoded_image, nullptr, nullptr).error);
+  EXPECT_CALL(*(test.packet_sender()), InsertPacket(_, _, _, _, _, _));
+  test.router()->OnEncodedImage(encoded_image, nullptr, nullptr);
 }
 
 TEST_P(RtpVideoSenderTest, SendSimulcastSetActive) {
@@ -192,28 +203,18 @@ TEST_P(RtpVideoSenderTest, SendSimulcastSetActive) {
   codec_info.codecType = kVideoCodecVP8;
 
   test.router()->SetActive(true);
-  EXPECT_EQ(EncodedImageCallback::Result::OK,
-            test.router()
-                ->OnEncodedImage(encoded_image_1, &codec_info, nullptr)
-                .error);
+  EXPECT_CALL(*(test.packet_sender()), InsertPacket(_, _, _, _, _, _));
+  test.router()->OnEncodedImage(encoded_image_1, nullptr, nullptr);
 
   EncodedImage encoded_image_2(encoded_image_1);
   encoded_image_2.SetSpatialIndex(1);
-  EXPECT_EQ(EncodedImageCallback::Result::OK,
-            test.router()
-                ->OnEncodedImage(encoded_image_2, &codec_info, nullptr)
-                .error);
+  EXPECT_CALL(*(test.packet_sender()), InsertPacket(_, _, _, _, _, _));
+  test.router()->OnEncodedImage(encoded_image_2, nullptr, nullptr);
 
   // Inactive.
   test.router()->SetActive(false);
-  EXPECT_NE(EncodedImageCallback::Result::OK,
-            test.router()
-                ->OnEncodedImage(encoded_image_1, &codec_info, nullptr)
-                .error);
-  EXPECT_NE(EncodedImageCallback::Result::OK,
-            test.router()
-                ->OnEncodedImage(encoded_image_2, &codec_info, nullptr)
-                .error);
+  test.router()->OnEncodedImage(encoded_image_1, nullptr, nullptr);
+  test.router()->OnEncodedImage(encoded_image_2, nullptr, nullptr);
 }
 
 // Tests how setting individual rtp modules to active affects the overall
@@ -240,25 +241,17 @@ TEST_P(RtpVideoSenderTest, SendSimulcastSetActiveModules) {
   // active and allow sending data on the active stream.
   std::vector<bool> active_modules({true, false});
   test.router()->SetActiveModules(active_modules);
-  EXPECT_EQ(EncodedImageCallback::Result::OK,
-            test.router()
-                ->OnEncodedImage(encoded_image_1, &codec_info, nullptr)
-                .error);
+  EXPECT_CALL(*(test.packet_sender()), InsertPacket(_, _, _, _, _, _));
+  test.router()->OnEncodedImage(encoded_image_1, nullptr, nullptr);
 
   // Setting both streams to inactive will turn the payload router to
   // inactive.
   active_modules = {false, false};
   test.router()->SetActiveModules(active_modules);
-  // An incoming encoded image will not ask the module to send outgoing data
-  // because the payload router is inactive.
-  EXPECT_NE(EncodedImageCallback::Result::OK,
-            test.router()
-                ->OnEncodedImage(encoded_image_1, &codec_info, nullptr)
-                .error);
-  EXPECT_NE(EncodedImageCallback::Result::OK,
-            test.router()
-                ->OnEncodedImage(encoded_image_1, &codec_info, nullptr)
-                .error);
+  // An incoming encoded image will not ask the module to send outgoing
+  // data because the payload router is inactive.
+  test.router()->OnEncodedImage(encoded_image_1, nullptr, nullptr);
+  test.router()->OnEncodedImage(encoded_image_2, nullptr, nullptr);
 }
 
 TEST_P(RtpVideoSenderTest, CreateWithNoPreviousStates) {

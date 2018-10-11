@@ -58,9 +58,9 @@ PacedSender::PacedSender(const Clock* clock,
       video_blocks_audio_(!field_trial::IsDisabled("WebRTC-Pacer-BlockAudio")),
       last_timestamp_ms_(clock_->TimeInMilliseconds()),
       paused_(false),
-      media_budget_(absl::make_unique<IntervalBudget>(0)),
-      padding_budget_(absl::make_unique<IntervalBudget>(0)),
-      prober_(absl::make_unique<BitrateProber>(event_log)),
+      media_budget_(0),
+      padding_budget_(0),
+      prober_(event_log),
       probing_send_failure_(false),
       estimated_bitrate_bps_(0),
       min_send_bitrate_kbps_(0u),
@@ -69,7 +69,7 @@ PacedSender::PacedSender(const Clock* clock,
       time_last_process_us_(clock->TimeInMicroseconds()),
       last_send_time_us_(clock->TimeInMicroseconds()),
       first_sent_packet_ms_(-1),
-      packets_(clock),
+      packets_(clock->TimeInMicroseconds()),
       packet_counter_(0),
       pacing_factor_(kDefaultPaceMultiplier),
       queue_time_limit(kMaxQueueLengthMs),
@@ -84,7 +84,7 @@ PacedSender::~PacedSender() {}
 
 void PacedSender::CreateProbeCluster(int bitrate_bps) {
   rtc::CritScope cs(&critsect_);
-  prober_->CreateProbeCluster(bitrate_bps, TimeMilliseconds());
+  prober_.CreateProbeCluster(bitrate_bps, TimeMilliseconds());
 }
 
 void PacedSender::Pause() {
@@ -149,7 +149,7 @@ int64_t PacedSender::TimeMilliseconds() const {
 void PacedSender::SetProbingEnabled(bool enabled) {
   rtc::CritScope cs(&critsect_);
   RTC_CHECK_EQ(0, packet_counter_);
-  prober_->SetEnabled(enabled);
+  prober_.SetEnabled(enabled);
 }
 
 void PacedSender::SetEstimatedBitrate(uint32_t bitrate_bps) {
@@ -157,7 +157,7 @@ void PacedSender::SetEstimatedBitrate(uint32_t bitrate_bps) {
     RTC_LOG(LS_ERROR) << "PacedSender is not designed to handle 0 bitrate.";
   rtc::CritScope cs(&critsect_);
   estimated_bitrate_bps_ = bitrate_bps;
-  padding_budget_->set_target_rate_kbps(
+  padding_budget_.set_target_rate_kbps(
       std::min(estimated_bitrate_bps_ / 1000, max_padding_bitrate_kbps_));
   pacing_bitrate_kbps_ =
       std::max(min_send_bitrate_kbps_, estimated_bitrate_bps_ / 1000) *
@@ -173,7 +173,7 @@ void PacedSender::SetSendBitrateLimits(int min_send_bitrate_bps,
       std::max(min_send_bitrate_kbps_, estimated_bitrate_bps_ / 1000) *
       pacing_factor_;
   max_padding_bitrate_kbps_ = padding_bitrate / 1000;
-  padding_budget_->set_target_rate_kbps(
+  padding_budget_.set_target_rate_kbps(
       std::min(estimated_bitrate_bps_ / 1000, max_padding_bitrate_kbps_));
 }
 
@@ -182,7 +182,7 @@ void PacedSender::SetPacingRates(uint32_t pacing_rate_bps,
   rtc::CritScope cs(&critsect_);
   RTC_DCHECK(pacing_rate_bps > 0);
   pacing_bitrate_kbps_ = pacing_rate_bps / 1000;
-  padding_budget_->set_target_rate_kbps(padding_rate_bps / 1000);
+  padding_budget_.set_target_rate_kbps(padding_rate_bps / 1000);
 }
 
 void PacedSender::InsertPacket(RtpPacketSender::Priority priority,
@@ -196,7 +196,7 @@ void PacedSender::InsertPacket(RtpPacketSender::Priority priority,
       << "SetPacingRate must be called before InsertPacket.";
 
   int64_t now_ms = TimeMilliseconds();
-  prober_->OnIncomingPacket(bytes);
+  prober_.OnIncomingPacket(bytes);
 
   if (capture_time_ms < 0)
     capture_time_ms = now_ms;
@@ -254,8 +254,8 @@ int64_t PacedSender::TimeUntilNextProcess() {
   if (paused_)
     return std::max<int64_t>(kPausedProcessIntervalMs - elapsed_time_ms, 0);
 
-  if (prober_->IsProbing()) {
-    int64_t ret = prober_->TimeUntilNextProbe(TimeMilliseconds());
+  if (prober_.IsProbing()) {
+    int64_t ret = prober_.TimeUntilNextProbe(TimeMilliseconds());
     if (ret > 0 || (ret == 0 && !probing_send_failure_))
       return ret;
   }
@@ -264,101 +264,144 @@ int64_t PacedSender::TimeUntilNextProcess() {
 
 void PacedSender::Process() {
   int64_t now_us = clock_->TimeInMicroseconds();
-  rtc::CritScope cs(&critsect_);
-  int64_t elapsed_time_ms = (now_us - time_last_process_us_ + 500) / 1000;
-  time_last_process_us_ = now_us;
-  if (elapsed_time_ms > kMaxElapsedTimeMs) {
-    RTC_LOG(LS_WARNING) << "Elapsed time (" << elapsed_time_ms
-                        << " ms) longer than expected, limiting to "
-                        << kMaxElapsedTimeMs << " ms";
-    elapsed_time_ms = kMaxElapsedTimeMs;
+  if (ShouldSendKeepalive(now_us)) {
+    PacedPacketInfo pacing_info;
+    size_t padding_sent = packet_sender_->TimeToSendPadding(1, pacing_info);
+    OnBytesSent(padding_sent, now_us);
   }
-  if (send_padding_if_silent_ || paused_ || Congested()) {
-    // We send a padding packet every 500 ms to ensure we won't get stuck in
-    // congested state due to no feedback being received.
-    int64_t elapsed_since_last_send_us = now_us - last_send_time_us_;
-    if (elapsed_since_last_send_us >= kCongestedPacketIntervalMs * 1000) {
-      // We can not send padding unless a normal packet has first been sent. If
-      // we do, timestamps get messed up.
-      if (packet_counter_ > 0) {
-        PacedPacketInfo pacing_info;
-        size_t bytes_sent = SendPadding(1, pacing_info);
-        alr_detector_->OnBytesSent(bytes_sent, now_us / 1000);
+  {
+    rtc::CritScope cs(&critsect_);
+    if (paused_)
+      return;
+    int64_t elapsed_time_ms = (now_us - time_last_process_us_ + 500) / 1000;
+    time_last_process_us_ = now_us;
+    if (elapsed_time_ms > kMaxElapsedTimeMs) {
+      RTC_LOG(LS_WARNING) << "Elapsed time (" << elapsed_time_ms
+                          << " ms) longer than expected, limiting to "
+                          << kMaxElapsedTimeMs << " ms";
+      elapsed_time_ms = kMaxElapsedTimeMs;
+    }
+    if (elapsed_time_ms > 0) {
+      uint32_t target_bitrate_kbps = pacing_bitrate_kbps_;
+      size_t queue_size_bytes = packets_.SizeInBytes();
+      if (queue_size_bytes > 0) {
+        // Assuming equal size packets and input/output rate, the average packet
+        // has avg_time_left_ms left to get queue_size_bytes out of the queue,
+        // if time constraint shall be met. Determine bitrate needed for that.
+        packets_.UpdateQueueTime(TimeMilliseconds());
+        if (drain_large_queues_) {
+          int64_t avg_time_left_ms = std::max<int64_t>(
+              1, queue_time_limit - packets_.AverageQueueTimeMs());
+          uint32_t min_bitrate_needed_kbps =
+              static_cast<uint32_t>(queue_size_bytes * 8 / avg_time_left_ms);
+          target_bitrate_kbps =
+              std::min(target_bitrate_kbps, min_bitrate_needed_kbps);
+        }
       }
+      media_budget_.set_target_rate_kbps(target_bitrate_kbps);
+      UpdateBudgetWithElapsedTime(elapsed_time_ms);
     }
   }
-  if (paused_)
-    return;
-
-  if (elapsed_time_ms > 0) {
-    int target_bitrate_kbps = pacing_bitrate_kbps_;
-    size_t queue_size_bytes = packets_.SizeInBytes();
-    if (queue_size_bytes > 0) {
-      // Assuming equal size packets and input/output rate, the average packet
-      // has avg_time_left_ms left to get queue_size_bytes out of the queue, if
-      // time constraint shall be met. Determine bitrate needed for that.
-      packets_.UpdateQueueTime(TimeMilliseconds());
-      if (drain_large_queues_) {
-        int64_t avg_time_left_ms = std::max<int64_t>(
-            1, queue_time_limit - packets_.AverageQueueTimeMs());
-        int min_bitrate_needed_kbps =
-            static_cast<int>(queue_size_bytes * 8 / avg_time_left_ms);
-        if (min_bitrate_needed_kbps > target_bitrate_kbps)
-          target_bitrate_kbps = min_bitrate_needed_kbps;
-      }
-    }
-
-    media_budget_->set_target_rate_kbps(target_bitrate_kbps);
-    UpdateBudgetWithElapsedTime(elapsed_time_ms);
-  }
-
-  bool is_probing = prober_->IsProbing();
-  PacedPacketInfo pacing_info;
-  size_t bytes_sent = 0;
+  bool is_probing;
+  size_t total_bytes_sent = 0;
   size_t recommended_probe_size = 0;
-  if (is_probing) {
-    pacing_info = prober_->CurrentCluster();
-    recommended_probe_size = prober_->RecommendedMinProbeSize();
+  PacedPacketInfo pacing_info;
+  {
+    rtc::CritScope cs(&critsect_);
+    is_probing = prober_.IsProbing();
+    if (is_probing) {
+      pacing_info = prober_.CurrentCluster();
+      recommended_probe_size = prober_.RecommendedMinProbeSize();
+    }
   }
   // The paused state is checked in the loop since SendPacket leaves the
   // critical section allowing the paused state to be changed from other code.
-  while (!packets_.Empty() && !paused_) {
-    // Since we need to release the lock in order to send, we first pop the
-    // element from the priority queue but keep it in storage, so that we can
-    // reinsert it if send fails.
-    const RoundRobinPacketQueue::Packet& packet = packets_.BeginPop();
+  while (true) {
+    const RoundRobinPacketQueue::Packet* packet;
+    bool should_send_packet = false;
+    {
+      rtc::CritScope cs(&critsect_);
+      if (packets_.Empty() || paused_)
+        break;
 
-    if (SendPacket(packet, pacing_info)) {
-      bytes_sent += packet.bytes;
+      // Since we need to release the lock in order to send, we first pop the
+      // element from the priority queue but keep it in storage, so that we can
+      // reinsert it if send fails.
+      packet = &packets_.BeginPop();
+
+      RTC_DCHECK(!paused_);
+      bool part_of_probe =
+          pacing_info.probe_cluster_id != PacedPacketInfo::kNotAProbe;
+      bool budget_empty = media_budget_.bytes_remaining() == 0;
+      bool audio_packet = packet->priority == kHighPriority;
+      bool apply_pacing =
+          !audio_packet || account_for_audio_ || video_blocks_audio_;
+      should_send_packet =
+          !apply_pacing || ((!budget_empty || part_of_probe) && !Congested());
+    }
+    bool success = false;
+    if (should_send_packet) {
+      success = packet_sender_->TimeToSendPacket(
+          packet->ssrc, packet->sequence_number, packet->capture_time_ms,
+          packet->retransmission, pacing_info);
+    }
+    if (success) {
+      rtc::CritScope cs(&critsect_);
+      if (first_sent_packet_ms_ == -1)
+        first_sent_packet_ms_ = TimeMilliseconds();
+      bool audio_packet = packet->priority == kHighPriority;
+      if (!audio_packet || account_for_audio_) {
+        // Update media bytes sent.
+        // TODO(eladalon): TimeToSendPacket() can also return |true| in some
+        // situations where nothing actually ended up being sent to the network,
+        // and we probably don't want to update the budget in such cases.
+        // https://bugs.chromium.org/p/webrtc/issues/detail?id=8052
+        UpdateBudgetWithBytesSent(packet->bytes);
+        last_send_time_us_ = clock_->TimeInMicroseconds();
+      }
+      total_bytes_sent += packet->bytes;
       // Send succeeded, remove it from the queue.
-      packets_.FinalizePop(packet);
-      if (is_probing && bytes_sent > recommended_probe_size)
+      packets_.FinalizePop(*packet);
+      if (is_probing && total_bytes_sent > recommended_probe_size)
         break;
     } else {
+      rtc::CritScope cs(&critsect_);
       // Send failed, put it back into the queue.
-      packets_.CancelPop(packet);
+      packets_.CancelPop(*packet);
       break;
     }
   }
-
-  if (packets_.Empty() && !Congested()) {
-    // We can not send padding unless a normal packet has first been sent. If we
-    // do, timestamps get messed up.
-    if (packet_counter_ > 0) {
-      int padding_needed =
-          static_cast<int>(is_probing ? (recommended_probe_size - bytes_sent)
-                                      : padding_budget_->bytes_remaining());
-      if (padding_needed > 0) {
-        bytes_sent += SendPadding(padding_needed, pacing_info);
+  int padding_needed = 0;
+  {
+    rtc::CritScope cs(&critsect_);
+    if (!paused_ && !Congested()) {
+      // We can not send padding unless a normal packet has first been sent. If
+      // we do, timestamps get messed up.
+      if (packet_counter_ > 0) {
+        padding_needed = static_cast<int>(
+            is_probing ? (recommended_probe_size - total_bytes_sent)
+                       : padding_budget_.bytes_remaining());
       }
     }
   }
-  if (is_probing) {
-    probing_send_failure_ = bytes_sent == 0;
-    if (!probing_send_failure_)
-      prober_->ProbeSent(TimeMilliseconds(), bytes_sent);
+  size_t padding_sent = 0;
+  if (padding_needed)
+    padding_sent =
+        packet_sender_->TimeToSendPadding(padding_needed, pacing_info);
+  {
+    rtc::CritScope cs(&critsect_);
+    if (padding_sent) {
+      UpdateBudgetWithBytesSent(padding_sent);
+      last_send_time_us_ = clock_->TimeInMicroseconds();
+      total_bytes_sent += padding_sent;
+    }
+    if (is_probing) {
+      probing_send_failure_ = total_bytes_sent == 0;
+      if (!probing_send_failure_)
+        prober_.ProbeSent(TimeMilliseconds(), total_bytes_sent);
+    }
+    alr_detector_->OnBytesSent(total_bytes_sent, now_us / 1000);
   }
-  alr_detector_->OnBytesSent(bytes_sent, now_us / 1000);
 }
 
 void PacedSender::ProcessThreadAttached(ProcessThread* process_thread) {
@@ -367,66 +410,16 @@ void PacedSender::ProcessThreadAttached(ProcessThread* process_thread) {
   process_thread_ = process_thread;
 }
 
-bool PacedSender::SendPacket(const RoundRobinPacketQueue::Packet& packet,
-                             const PacedPacketInfo& pacing_info) {
-  RTC_DCHECK(!paused_);
-  bool audio_packet = packet.priority == kHighPriority;
-  bool apply_pacing =
-      !audio_packet || account_for_audio_ || video_blocks_audio_;
-  if (apply_pacing && (Congested() || (media_budget_->bytes_remaining() == 0 &&
-                                       pacing_info.probe_cluster_id ==
-                                           PacedPacketInfo::kNotAProbe))) {
-    return false;
-  }
-
-  critsect_.Leave();
-  const bool success = packet_sender_->TimeToSendPacket(
-      packet.ssrc, packet.sequence_number, packet.capture_time_ms,
-      packet.retransmission, pacing_info);
-  critsect_.Enter();
-
-  if (success) {
-    if (first_sent_packet_ms_ == -1)
-      first_sent_packet_ms_ = TimeMilliseconds();
-    if (!audio_packet || account_for_audio_) {
-      // Update media bytes sent.
-      // TODO(eladalon): TimeToSendPacket() can also return |true| in some
-      // situations where nothing actually ended up being sent to the network,
-      // and we probably don't want to update the budget in such cases.
-      // https://bugs.chromium.org/p/webrtc/issues/detail?id=8052
-      UpdateBudgetWithBytesSent(packet.bytes);
-      last_send_time_us_ = clock_->TimeInMicroseconds();
-    }
-  }
-
-  return success;
-}
-
-size_t PacedSender::SendPadding(size_t padding_needed,
-                                const PacedPacketInfo& pacing_info) {
-  RTC_DCHECK_GT(packet_counter_, 0);
-  critsect_.Leave();
-  size_t bytes_sent =
-      packet_sender_->TimeToSendPadding(padding_needed, pacing_info);
-  critsect_.Enter();
-
-  if (bytes_sent > 0) {
-    UpdateBudgetWithBytesSent(bytes_sent);
-  }
-  last_send_time_us_ = clock_->TimeInMicroseconds();
-  return bytes_sent;
-}
-
 void PacedSender::UpdateBudgetWithElapsedTime(int64_t delta_time_ms) {
   delta_time_ms = std::min(kMaxIntervalTimeMs, delta_time_ms);
-  media_budget_->IncreaseBudget(delta_time_ms);
-  padding_budget_->IncreaseBudget(delta_time_ms);
+  media_budget_.IncreaseBudget(delta_time_ms);
+  padding_budget_.IncreaseBudget(delta_time_ms);
 }
 
 void PacedSender::UpdateBudgetWithBytesSent(size_t bytes_sent) {
   outstanding_bytes_ += bytes_sent;
-  media_budget_->UseBudget(bytes_sent);
-  padding_budget_->UseBudget(bytes_sent);
+  media_budget_.UseBudget(bytes_sent);
+  padding_budget_.UseBudget(bytes_sent);
 }
 
 void PacedSender::SetPacingFactor(float pacing_factor) {
@@ -440,6 +433,29 @@ void PacedSender::SetPacingFactor(float pacing_factor) {
 void PacedSender::SetQueueTimeLimit(int limit_ms) {
   rtc::CritScope cs(&critsect_);
   queue_time_limit = limit_ms;
+}
+
+bool PacedSender::ShouldSendKeepalive(int64_t at_time_us) const {
+  rtc::CritScope cs(&critsect_);
+  // We can not send padding unless a normal packet has first been sent.
+  // If we do, timestamps get messed up.
+  if (packet_counter_ == 0)
+    return false;
+  if (send_padding_if_silent_ || paused_ || Congested()) {
+    // We send a padding packet every 500 ms to ensure we won't get stuck in
+    // congested state due to no feedback being received.
+    int64_t elapsed_since_last_send_us = at_time_us - last_send_time_us_;
+    if (elapsed_since_last_send_us >= kCongestedPacketIntervalMs * 1000)
+      return true;
+  }
+  return false;
+}
+
+void PacedSender::OnBytesSent(size_t bytes_sent, int64_t at_time_us) {
+  rtc::CritScope cs(&critsect_);
+  UpdateBudgetWithBytesSent(bytes_sent);
+  last_send_time_us_ = at_time_us;
+  alr_detector_->OnBytesSent(bytes_sent, at_time_us / 1000);
 }
 
 }  // namespace webrtc

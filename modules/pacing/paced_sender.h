@@ -14,17 +14,17 @@
 #include <memory>
 
 #include "absl/types/optional.h"
+#include "logging/rtc_event_log/rtc_event_log.h"
+#include "modules/pacing/bitrate_prober.h"
+#include "modules/pacing/interval_budget.h"
 #include "modules/pacing/pacer.h"
 #include "modules/pacing/round_robin_packet_queue.h"
 #include "rtc_base/criticalsection.h"
 #include "rtc_base/thread_annotations.h"
+#include "system_wrappers/include/clock.h"
 
 namespace webrtc {
 class AlrDetector;
-class BitrateProber;
-class Clock;
-class RtcEventLog;
-class IntervalBudget;
 
 class PacedSender : public Pacer {
  public:
@@ -138,19 +138,16 @@ class PacedSender : public Pacer {
   void SetQueueTimeLimit(int limit_ms);
 
  private:
+  bool ShouldSendKeepalive(int64_t at_time_us) const;
+  void OnBytesSent(size_t bytes_sent, int64_t at_time_us);
+
   // Updates the number of bytes that can be sent for the next time interval.
   void UpdateBudgetWithElapsedTime(int64_t delta_time_in_ms)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(critsect_);
   void UpdateBudgetWithBytesSent(size_t bytes)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(critsect_);
+  int LargeQueueDrainRate() const RTC_EXCLUSIVE_LOCKS_REQUIRED(critsect_);
 
-  bool SendPacket(const RoundRobinPacketQueue::Packet& packet,
-                  const PacedPacketInfo& cluster_info)
-      RTC_EXCLUSIVE_LOCKS_REQUIRED(critsect_);
-  size_t SendPadding(size_t padding_needed, const PacedPacketInfo& cluster_info)
-      RTC_EXCLUSIVE_LOCKS_REQUIRED(critsect_);
-
-  void OnBytesSent(size_t bytes_sent) RTC_EXCLUSIVE_LOCKS_REQUIRED(critsect_);
   bool Congested() const RTC_EXCLUSIVE_LOCKS_REQUIRED(critsect_);
   int64_t TimeMilliseconds() const RTC_EXCLUSIVE_LOCKS_REQUIRED(critsect_);
 
@@ -169,15 +166,13 @@ class PacedSender : public Pacer {
   bool paused_ RTC_GUARDED_BY(critsect_);
   // This is the media budget, keeping track of how many bits of media
   // we can pace out during the current interval.
-  const std::unique_ptr<IntervalBudget> media_budget_
-      RTC_PT_GUARDED_BY(critsect_);
+  IntervalBudget media_budget_ RTC_GUARDED_BY(critsect_);
   // This is the padding budget, keeping track of how many bits of padding we're
   // allowed to send out during the current interval. This budget will be
   // utilized when there's no media to send.
-  const std::unique_ptr<IntervalBudget> padding_budget_
-      RTC_PT_GUARDED_BY(critsect_);
+  IntervalBudget padding_budget_ RTC_GUARDED_BY(critsect_);
 
-  const std::unique_ptr<BitrateProber> prober_ RTC_PT_GUARDED_BY(critsect_);
+  BitrateProber prober_ RTC_GUARDED_BY(critsect_);
   bool probing_send_failure_ RTC_GUARDED_BY(critsect_);
   // Actual configured bitrates (media_budget_ may temporarily be higher in
   // order to meet pace time constraint).

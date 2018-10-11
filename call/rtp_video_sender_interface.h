@@ -23,8 +23,9 @@ namespace webrtc {
 class VideoBitrateAllocation;
 struct FecProtectionParams;
 
-class RtpVideoSenderInterface : public EncodedImageCallback {
+class RtpVideoSenderInterface {
  public:
+  virtual ~RtpVideoSenderInterface() {}
   virtual void RegisterProcessThread(ProcessThread* module_process_thread) = 0;
   virtual void DeRegisterProcessThread() = 0;
 
@@ -34,11 +35,14 @@ class RtpVideoSenderInterface : public EncodedImageCallback {
   // Sets the sending status of the rtp modules and appropriately sets the
   // RtpVideoSender to active if any rtp modules are active.
   virtual void SetActiveModules(const std::vector<bool> active_modules) = 0;
-  virtual bool IsActive() = 0;
 
   virtual void OnNetworkAvailability(bool network_available) = 0;
   virtual std::map<uint32_t, RtpState> GetRtpStates() const = 0;
   virtual std::map<uint32_t, RtpPayloadState> GetRtpPayloadStates() const = 0;
+
+  virtual void OnEncodedImage(const EncodedImage& encoded_image,
+                              const CodecSpecificInfo* codec_specific_info,
+                              const RTPFragmentationHeader* fragmentation) = 0;
 
   virtual void DeliverRtcp(const uint8_t* packet, size_t length) = 0;
 

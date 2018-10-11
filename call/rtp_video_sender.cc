@@ -45,7 +45,9 @@ std::vector<std::unique_ptr<RtpRtcp>> CreateRtpRtcpModules(
     Transport* send_transport,
     RtcpIntraFrameObserver* intra_frame_callback,
     RtcpBandwidthObserver* bandwidth_callback,
-    RtpTransportControllerSendInterface* transport,
+    TransportFeedbackObserver* transport_feedback_observer,
+    RtpPacketSender* packet_sender,
+    TransportSequenceNumberAllocator* transport_sequence_number_allocator,
     RtcpRttStats* rtt_stats,
     FlexfecSender* flexfec_sender,
     BitrateStatisticsObserver* bitrate_observer,
@@ -64,13 +66,12 @@ std::vector<std::unique_ptr<RtpRtcp>> CreateRtpRtcpModules(
   configuration.outgoing_transport = send_transport;
   configuration.intra_frame_callback = intra_frame_callback;
   configuration.bandwidth_callback = bandwidth_callback;
-  configuration.transport_feedback_callback =
-      transport->transport_feedback_observer();
+  configuration.transport_feedback_callback = transport_feedback_observer;
   configuration.rtt_stats = rtt_stats;
   configuration.rtcp_packet_type_counter_observer = rtcp_type_observer;
-  configuration.paced_sender = transport->packet_sender();
+  configuration.paced_sender = packet_sender;
   configuration.transport_sequence_number_allocator =
-      transport->packet_router();
+      transport_sequence_number_allocator;
   configuration.send_bitrate_observer = bitrate_observer;
   configuration.send_frame_count_observer = frame_count_observer;
   configuration.send_side_delay_observer = send_delay_observer;
@@ -181,6 +182,7 @@ RtpVideoSender::RtpVideoSender(
     Transport* send_transport,
     const RtpSenderObservers& observers,
     RtpTransportControllerSendInterface* transport,
+    RtpPacketSender* packet_sender,
     RtcEventLog* event_log,
     RateLimiter* retransmission_limiter,
     std::unique_ptr<FecController> fec_controller)
@@ -198,7 +200,9 @@ RtpVideoSender::RtpVideoSender(
                                send_transport,
                                observers.intra_frame_callback,
                                transport->GetBandwidthObserver(),
-                               transport,
+                               transport->transport_feedback_observer(),
+                               packet_sender,
+                               transport->packet_router(),
                                observers.rtcp_rtt_stats,
                                flexfec_sender_.get(),
                                observers.bitrate_observer,
@@ -333,12 +337,7 @@ void RtpVideoSender::SetActiveModules(const std::vector<bool> active_modules) {
   }
 }
 
-bool RtpVideoSender::IsActive() {
-  rtc::CritScope lock(&crit_);
-  return active_ && !rtp_modules_.empty();
-}
-
-EncodedImageCallback::Result RtpVideoSender::OnEncodedImage(
+void RtpVideoSender::OnEncodedImage(
     const EncodedImage& encoded_image,
     const CodecSpecificInfo* codec_specific_info,
     const RTPFragmentationHeader* fragmentation) {
@@ -347,7 +346,7 @@ EncodedImageCallback::Result RtpVideoSender::OnEncodedImage(
   rtc::CritScope lock(&crit_);
   RTC_DCHECK(!rtp_modules_.empty());
   if (!active_)
-    return Result(Result::ERROR_SEND_FAILED);
+    return;
 
   shared_frame_id_++;
   size_t stream_index = 0;
@@ -362,26 +361,22 @@ EncodedImageCallback::Result RtpVideoSender::OnEncodedImage(
   RTPVideoHeader rtp_video_header = params_[stream_index].GetRtpVideoHeader(
       encoded_image, codec_specific_info, shared_frame_id_);
 
-  uint32_t frame_id;
   if (!rtp_modules_[stream_index]->Sending()) {
     // The payload router could be active but this module isn't sending.
-    return Result(Result::ERROR_SEND_FAILED);
+    return;
   }
-  bool send_result = rtp_modules_[stream_index]->SendOutgoingData(
+  uint32_t frame_id;
+  rtp_modules_[stream_index]->SendOutgoingData(
       encoded_image._frameType, rtp_config_.payload_type,
       encoded_image.Timestamp(), encoded_image.capture_time_ms_,
       encoded_image._buffer, encoded_image._length, fragmentation,
       &rtp_video_header, &frame_id);
-  if (!send_result)
-    return Result(Result::ERROR_SEND_FAILED);
-
-  return Result(Result::OK, frame_id);
 }
 
 void RtpVideoSender::OnBitrateAllocationUpdated(
     const VideoBitrateAllocation& bitrate) {
   rtc::CritScope lock(&crit_);
-  if (IsActive()) {
+  if (active_) {
     if (rtp_modules_.size() == 1) {
       // If spatial scalability is enabled, it is covered by a single stream.
       rtp_modules_[0]->SetVideoBitrateAllocation(bitrate);

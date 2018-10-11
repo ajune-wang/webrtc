@@ -30,6 +30,10 @@ bool EnableErleResetsAtGainChanges() {
   return !field_trial::IsEnabled("WebRTC-Aec3ResetErleAtGainChangesKillSwitch");
 }
 
+bool EnableLegacySaturationBehavior() {
+  return field_trial::IsEnabled("WebRTC-Aec3NewSaturationBehaviorKillSwitch");
+}
+
 constexpr size_t kBlocksSinceConvergencedFilterInit = 10000;
 constexpr size_t kBlocksSinceConsistentEstimateInit = 10000;
 
@@ -70,12 +74,14 @@ absl::optional<float> AecState::ErleUncertainty() const {
 AecState::AecState(const EchoCanceller3Config& config)
     : data_dumper_(
           new ApmDataDumper(rtc::AtomicOps::Increment(&instance_count_))),
+      enable_erle_resets_at_gain_changes_(EnableErleResetsAtGainChanges()),
+      use_legacy_saturation_behavior_(EnableLegacySaturationBehavior()),
       config_(config),
       initial_state_(config_),
       delay_state_(config_),
       transparent_state_(config_),
-      filter_quality_state_(config_),
-      saturation_detector_(config_),
+      filter_quality_state_(config_, !use_legacy_saturation_behavior_),
+      legacy_saturation_detector_(config_),
       erl_estimator_(2 * kNumBlocksPerSecond),
       erle_estimator_(2 * kNumBlocksPerSecond,
                       config_.erle.min,
@@ -85,8 +91,7 @@ AecState::AecState(const EchoCanceller3Config& config)
       filter_analyzer_(config_),
       echo_audibility_(
           config_.echo_audibility.use_stationarity_properties_at_init),
-      reverb_model_estimator_(config_),
-      enable_erle_resets_at_gain_changes_(EnableErleResetsAtGainChanges()) {}
+      reverb_model_estimator_(config_) {}
 
 AecState::~AecState() = default;
 
@@ -100,7 +105,9 @@ void AecState::HandleEchoPathChange(
     suppression_gain_limiter_.Reset();
     initial_state_.Reset();
     transparent_state_.Reset();
-    saturation_detector_.Reset();
+    if (use_legacy_saturation_behavior_) {
+      legacy_saturation_detector_.Reset();
+    }
     erle_estimator_.Reset(true);
     erl_estimator_.Reset();
     filter_quality_state_.Reset();
@@ -182,8 +189,14 @@ void AecState::Update(
   erl_estimator_.Update(subtractor_output_analyzer_.ConvergedFilter(), X2, Y2);
 
   // Detect and flag echo saturation.
-  saturation_detector_.Update(aligned_render_block, SaturatedCapture(),
-                              EchoPathGain());
+  if (!use_legacy_saturation_behavior_) {
+    saturated_echo_ =
+        SaturatedCapture() && (subtractor_output.s_main_saturation ||
+                               subtractor_output.s_shadow_saturation);
+  } else {
+    legacy_saturation_detector_.Update(aligned_render_block, SaturatedCapture(),
+                                       EchoPathGain());
+  }
 
   // Update the decision on whether to use the initial state parameter set.
   initial_state_.Update(active_render, SaturatedCapture());
@@ -196,11 +209,10 @@ void AecState::Update(
                             active_render, SaturatedCapture());
 
   // Analyze the quality of the filter.
-  filter_quality_state_.Update(saturation_detector_.SaturatedEcho(),
-                               active_render, SaturatedCapture(),
-                               TransparentMode(), external_delay,
-                               subtractor_output_analyzer_.ConvergedFilter(),
-                               subtractor_output_analyzer_.DivergedFilter());
+  filter_quality_state_.Update(
+      SaturatedEcho(), active_render, SaturatedCapture(), TransparentMode(),
+      external_delay, subtractor_output_analyzer_.ConvergedFilter(),
+      subtractor_output_analyzer_.DivergedFilter());
 
   // Update the reverb estimate.
   const bool stationary_block =
@@ -227,8 +239,7 @@ void AecState::Update(
   data_dumper_->DumpRaw("aec3_initial_state",
                         initial_state_.InitialStateActive());
   data_dumper_->DumpRaw("aec3_capture_saturation", SaturatedCapture());
-  data_dumper_->DumpRaw("aec3_echo_saturation",
-                        saturation_detector_.SaturatedEcho());
+  data_dumper_->DumpRaw("aec3_echo_saturation", SaturatedEcho());
   data_dumper_->DumpRaw("aec3_converged_filter",
                         subtractor_output_analyzer_.ConvergedFilter());
   data_dumper_->DumpRaw("aec3_diverged_filter",
@@ -382,8 +393,10 @@ void AecState::TransparentMode::Update(int filter_delay_blocks,
 }
 
 AecState::FilteringQualityAnalyzer::FilteringQualityAnalyzer(
-    const EchoCanceller3Config& config)
+    const EchoCanceller3Config& config,
+    bool allow_linear_mode_during_saturation)
     : conservative_initial_phase_(config.filter.conservative_initial_phase),
+      allow_linear_mode_during_saturation_(allow_linear_mode_during_saturation),
       required_blocks_for_convergence_(
           kNumBlocksPerSecond * (conservative_initial_phase_ ? 1.5f : 0.8f)),
       linear_and_stable_echo_path_(
@@ -449,23 +462,27 @@ void AecState::FilteringQualityAnalyzer::Update(
     usable_linear_estimate_ = false;
   }
 
-  if (saturated_echo || transparent_mode) {
+  if (!allow_linear_mode_during_saturation_ && saturated_echo) {
+    usable_linear_estimate_ = false;
+  }
+
+  if (transparent_mode) {
     usable_linear_estimate_ = false;
   }
 }
 
-AecState::SaturationDetector::SaturationDetector(
+AecState::LegacySaturationDetector::LegacySaturationDetector(
     const EchoCanceller3Config& config)
     : echo_can_saturate_(config.ep_strength.echo_can_saturate),
       not_saturated_sequence_size_(1000) {}
 
-void AecState::SaturationDetector::Reset() {
+void AecState::LegacySaturationDetector::Reset() {
   not_saturated_sequence_size_ = 0;
 }
 
-void AecState::SaturationDetector::Update(rtc::ArrayView<const float> x,
-                                          bool saturated_capture,
-                                          float echo_path_gain) {
+void AecState::LegacySaturationDetector::Update(rtc::ArrayView<const float> x,
+                                                bool saturated_capture,
+                                                float echo_path_gain) {
   if (!echo_can_saturate_) {
     saturated_echo_ = false;
     return;

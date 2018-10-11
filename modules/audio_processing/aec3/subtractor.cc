@@ -56,6 +56,7 @@ void PredictionError(const Aec3Fft& fft,
                      std::array<float, kBlockSize>* e,
                      std::array<float, kBlockSize>* s,
                      bool adaptation_during_saturation,
+                     bool* s_saturation,
                      bool* saturation) {
   std::array<float, kFftLength> tmp;
   fft.Ifft(S, &tmp);
@@ -64,6 +65,7 @@ void PredictionError(const Aec3Fft& fft,
                  [&](float a, float b) { return a - b * kScale; });
 
   *saturation = false;
+  *s_saturation = false;
 
   if (s) {
     for (size_t k = 0; k < s->size(); ++k) {
@@ -71,6 +73,8 @@ void PredictionError(const Aec3Fft& fft,
     }
     auto result = std::minmax_element(s->begin(), s->end());
     *saturation = *result.first <= -32768 || *result.first >= 32767;
+    *s_saturation =
+        *saturation || *result.first <= -3200 || *result.first >= 32000;
   }
   if (!(*saturation)) {
     auto result = std::minmax_element(e->begin(), e->end());
@@ -183,12 +187,14 @@ void Subtractor::Process(const RenderBuffer& render_buffer,
   main_filter_.Filter(render_buffer, &S);
   bool main_saturation = false;
   PredictionError(fft_, S, y, &e_main, &output->s_main,
-                  adaptation_during_saturation_, &main_saturation);
+                  adaptation_during_saturation_, &output->s_main_saturation,
+                  &main_saturation);
 
   shadow_filter_.Filter(render_buffer, &S);
   bool shadow_saturation = false;
   PredictionError(fft_, S, y, &e_shadow, &output->s_shadow,
-                  adaptation_during_saturation_, &shadow_saturation);
+                  adaptation_during_saturation_, &output->s_shadow_saturation,
+                  &shadow_saturation);
 
   // Compute the signal powers in the subtractor output.
   output->UpdatePowers(y);

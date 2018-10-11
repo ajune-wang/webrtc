@@ -13,7 +13,6 @@
 #include <algorithm>
 #include <utility>
 
-#include "absl/memory/memory.h"
 #include "media/base/rtpdataengine.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
@@ -156,16 +155,17 @@ VoiceChannel* ChannelManager::CreateVoiceChannel(
     webrtc::Call* call,
     const cricket::MediaConfig& media_config,
     webrtc::RtpTransportInternal* rtp_transport,
+    webrtc::MediaTransportInterface* media_transport,
     rtc::Thread* signaling_thread,
     const std::string& content_name,
     bool srtp_required,
-    const webrtc::CryptoOptions& crypto_options,
+    const rtc::CryptoOptions& crypto_options,
     const AudioOptions& options) {
   if (!worker_thread_->IsCurrent()) {
     return worker_thread_->Invoke<VoiceChannel*>(RTC_FROM_HERE, [&] {
       return CreateVoiceChannel(call, media_config, rtp_transport,
-                                signaling_thread, content_name, srtp_required,
-                                crypto_options, options);
+                                media_transport, signaling_thread, content_name,
+                                srtp_required, crypto_options, options);
     });
   }
 
@@ -187,7 +187,7 @@ VoiceChannel* ChannelManager::CreateVoiceChannel(
       absl::WrapUnique(media_channel), content_name, srtp_required,
       crypto_options);
 
-  voice_channel->Init_w(rtp_transport);
+  voice_channel->Init_w(rtp_transport, media_transport);
 
   VoiceChannel* voice_channel_ptr = voice_channel.get();
   voice_channels_.push_back(std::move(voice_channel));
@@ -226,7 +226,7 @@ VideoChannel* ChannelManager::CreateVideoChannel(
     rtc::Thread* signaling_thread,
     const std::string& content_name,
     bool srtp_required,
-    const webrtc::CryptoOptions& crypto_options,
+    const rtc::CryptoOptions& crypto_options,
     const VideoOptions& options) {
   if (!worker_thread_->IsCurrent()) {
     return worker_thread_->Invoke<VideoChannel*>(RTC_FROM_HERE, [&] {
@@ -253,7 +253,9 @@ VideoChannel* ChannelManager::CreateVideoChannel(
       worker_thread_, network_thread_, signaling_thread,
       absl::WrapUnique(media_channel), content_name, srtp_required,
       crypto_options);
-  video_channel->Init_w(rtp_transport);
+
+  // TODO(sukhanov): Add media_transport support for video channel.
+  video_channel->Init_w(rtp_transport, /*media_transport=*/nullptr);
 
   VideoChannel* video_channel_ptr = video_channel.get();
   video_channels_.push_back(std::move(video_channel));
@@ -291,7 +293,7 @@ RtpDataChannel* ChannelManager::CreateRtpDataChannel(
     rtc::Thread* signaling_thread,
     const std::string& content_name,
     bool srtp_required,
-    const webrtc::CryptoOptions& crypto_options) {
+    const rtc::CryptoOptions& crypto_options) {
   if (!worker_thread_->IsCurrent()) {
     return worker_thread_->Invoke<RtpDataChannel*>(RTC_FROM_HERE, [&] {
       return CreateRtpDataChannel(media_config, rtp_transport, signaling_thread,

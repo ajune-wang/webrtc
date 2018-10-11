@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "8593c8e6_3bb89c8b",
+        "filename": "media/base/rtputils.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-10-11T09:41:28Z",
+      "side": 1,
+      "message": "I am just following and error approach while building Chromium. It is possible they will be exported in a follow-up CL (this is \"part 1\", from the CL description).\n\nSince things outside of api/ should not be marked as visible if not needed I am following this approach.",
+      "parentUuid": "b163d998_d3759329",
+      "revId": "36d4dadb4f227ec63ca3476174601a24f9257afb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "de4e31db_caf63971",
         "filename": "modules/audio_processing/include/audio_processing.h",
         "patchSetId": 5
@@ -33,6 +51,24 @@
       "revId": "36d4dadb4f227ec63ca3476174601a24f9257afb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "681edc3b_27fc0330",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-10-11T09:41:28Z",
+      "side": 1,
+      "message": "Same as before, I think it will be exported in the second part.",
+      "parentUuid": "de4e31db_caf63971",
+      "revId": "36d4dadb4f227ec63ca3476174601a24f9257afb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

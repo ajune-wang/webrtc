@@ -250,8 +250,8 @@ class ChannelTest : public testing::Test, public sigslot::has_slots<> {
     rtc::Thread* signaling_thread = rtc::Thread::Current();
     auto channel = absl::make_unique<typename T::Channel>(
         worker_thread, network_thread, signaling_thread, engine, std::move(ch),
-        cricket::CN_AUDIO, (flags & DTLS) != 0, rtc::CryptoOptions());
-    channel->Init_w(rtp_transport);
+        cricket::CN_AUDIO, (flags & DTLS) != 0, webrtc::CryptoOptions());
+    channel->Init_w(rtp_transport, /*media_transport=*/nullptr);
     return channel;
   }
 
@@ -1545,8 +1545,8 @@ std::unique_ptr<cricket::VideoChannel> ChannelTest<VideoTraits>::CreateChannel(
   rtc::Thread* signaling_thread = rtc::Thread::Current();
   auto channel = absl::make_unique<cricket::VideoChannel>(
       worker_thread, network_thread, signaling_thread, std::move(ch),
-      cricket::CN_VIDEO, (flags & DTLS) != 0, rtc::CryptoOptions());
-  channel->Init_w(rtp_transport);
+      cricket::CN_VIDEO, (flags & DTLS) != 0, webrtc::CryptoOptions());
+  channel->Init_w(rtp_transport, /*media_transport=*/nullptr);
   return channel;
 }
 
@@ -2164,7 +2164,7 @@ std::unique_ptr<cricket::RtpDataChannel> ChannelTest<DataTraits>::CreateChannel(
   rtc::Thread* signaling_thread = rtc::Thread::Current();
   auto channel = absl::make_unique<cricket::RtpDataChannel>(
       worker_thread, network_thread, signaling_thread, std::move(ch),
-      cricket::CN_DATA, (flags & DTLS) != 0, rtc::CryptoOptions());
+      cricket::CN_DATA, (flags & DTLS) != 0, webrtc::CryptoOptions());
   channel->Init_w(rtp_transport);
   return channel;
 }

@@ -17,7 +17,6 @@
 #include <string>
 #include <vector>
 
-#include "absl/types/optional.h"
 #include "api/call/transport.h"
 #include "api/video/video_frame.h"
 #include "api/video/video_sink_interface.h"
@@ -35,6 +34,7 @@
 #include "rtc_base/networkroute.h"
 #include "rtc_base/thread_annotations.h"
 #include "rtc_base/thread_checker.h"
+#include "third_party/absl/types/optional.h"
 
 namespace webrtc {
 class VideoDecoderFactory;
@@ -153,7 +153,8 @@ class WebRtcVideoChannel : public VideoMediaChannel, public webrtc::Transport {
   void OnReadyToSend(bool ready) override;
   void OnNetworkRouteChanged(const std::string& transport_name,
                              const rtc::NetworkRoute& network_route) override;
-  void SetInterface(NetworkInterface* iface) override;
+  void SetInterface(NetworkInterface* iface,
+                    webrtc::MediaTransportInterface* media_transport) override;
 
   // Implemented for VideoMediaChannelTest.
   bool sending() const { return sending_; }

@@ -14,7 +14,6 @@
 
 #include "pc/channel.h"
 
-#include "absl/memory/memory.h"
 #include "api/call/audio_sink.h"
 #include "media/base/mediaconstants.h"
 #include "media/base/rtputils.h"
@@ -28,6 +27,7 @@
 #include "rtc_base/networkroute.h"
 #include "rtc_base/strings/string_builder.h"
 #include "rtc_base/trace_event.h"
+#include "third_party/absl/memory/memory.h"
 // Adding 'nogncheck' to disable the gn include headers check to support modular
 // WebRTC build targets.
 #include "media/engine/webrtcvoiceengine.h"  // nogncheck
@@ -101,7 +101,7 @@ BaseChannel::BaseChannel(rtc::Thread* worker_thread,
                          std::unique_ptr<MediaChannel> media_channel,
                          const std::string& content_name,
                          bool srtp_required,
-                         webrtc::CryptoOptions crypto_options)
+                         rtc::CryptoOptions crypto_options)
     : worker_thread_(worker_thread),
       network_thread_(network_thread),
       signaling_thread_(signaling_thread),
@@ -155,19 +155,21 @@ void BaseChannel::DisconnectFromRtpTransport() {
   rtp_transport_->SignalSentPacket.disconnect(this);
 }
 
-void BaseChannel::Init_w(webrtc::RtpTransportInternal* rtp_transport) {
+void BaseChannel::Init_w(webrtc::RtpTransportInternal* rtp_transport,
+                         webrtc::MediaTransportInterface* media_transport) {
   RTC_DCHECK_RUN_ON(worker_thread_);
   network_thread_->Invoke<void>(
       RTC_FROM_HERE, [this, rtp_transport] { SetRtpTransport(rtp_transport); });
 
   // Both RTP and RTCP channels should be set, we can call SetInterface on
   // the media channel and it can set network options.
-  media_channel_->SetInterface(this);
+  media_channel_->SetInterface(this, media_transport);
 }
 
 void BaseChannel::Deinit() {
   RTC_DCHECK(worker_thread_->IsCurrent());
-  media_channel_->SetInterface(NULL);
+  media_channel_->SetInterface(/*iface=*/nullptr,
+                               /*media_transport=*/nullptr);
   // Packets arrive on the network thread, processing packets calls virtual
   // functions, so need to stop this process in Deinit that is called in
   // derived classes destructor.
@@ -673,7 +675,7 @@ bool BaseChannel::UpdateRemoteStreams_w(
 RtpHeaderExtensions BaseChannel::GetFilteredRtpHeaderExtensions(
     const RtpHeaderExtensions& extensions) {
   RTC_DCHECK(rtp_transport_);
-  if (crypto_options_.srtp.enable_encrypted_rtp_header_extensions) {
+  if (crypto_options_.enable_encrypted_rtp_header_extensions) {
     RtpHeaderExtensions filtered;
     auto pred = [](const webrtc::RtpExtension& extension) {
       return !extension.encrypt;
@@ -742,7 +744,7 @@ VoiceChannel::VoiceChannel(rtc::Thread* worker_thread,
                            std::unique_ptr<VoiceMediaChannel> media_channel,
                            const std::string& content_name,
                            bool srtp_required,
-                           webrtc::CryptoOptions crypto_options)
+                           rtc::CryptoOptions crypto_options)
     : BaseChannel(worker_thread,
                   network_thread,
                   signaling_thread,
@@ -881,7 +883,7 @@ VideoChannel::VideoChannel(rtc::Thread* worker_thread,
                            std::unique_ptr<VideoMediaChannel> media_channel,
                            const std::string& content_name,
                            bool srtp_required,
-                           webrtc::CryptoOptions crypto_options)
+                           rtc::CryptoOptions crypto_options)
     : BaseChannel(worker_thread,
                   network_thread,
                   signaling_thread,
@@ -1019,7 +1021,7 @@ RtpDataChannel::RtpDataChannel(rtc::Thread* worker_thread,
                                std::unique_ptr<DataMediaChannel> media_channel,
                                const std::string& content_name,
                                bool srtp_required,
-                               webrtc::CryptoOptions crypto_options)
+                               rtc::CryptoOptions crypto_options)
     : BaseChannel(worker_thread,
                   network_thread,
                   signaling_thread,
@@ -1036,7 +1038,8 @@ RtpDataChannel::~RtpDataChannel() {
 }
 
 void RtpDataChannel::Init_w(webrtc::RtpTransportInternal* rtp_transport) {
-  BaseChannel::Init_w(rtp_transport);
+  // TODO(sukhanov): Add media_transport support for data channel.
+  BaseChannel::Init_w(rtp_transport, /*media_transport=*/nullptr);
   media_channel()->SignalDataReceived.connect(this,
                                               &RtpDataChannel::OnDataReceived);
   media_channel()->SignalReadyToSend.connect(

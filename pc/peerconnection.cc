@@ -17,7 +17,6 @@
 #include <utility>
 #include <vector>
 
-#include "absl/memory/memory.h"
 #include "api/jsepicecandidate.h"
 #include "api/jsepsessiondescription.h"
 #include "api/mediastreamproxy.h"
@@ -54,6 +53,7 @@
 #include "system_wrappers/include/clock.h"
 #include "system_wrappers/include/field_trial.h"
 #include "system_wrappers/include/metrics.h"
+#include "third_party/absl/memory/memory.h"
 
 using cricket::ContentInfo;
 using cricket::ContentInfos;
@@ -939,6 +939,18 @@ bool PeerConnection::Initialize(
   config.enable_external_auth = true;
 #endif
   config.active_reset_srtp_params = configuration.active_reset_srtp_params;
+
+  if (configuration.use_media_transport) {
+    if (!factory_->media_transport_factory()) {
+      RTC_DCHECK(false)
+          << "PeerConnecton is initialized with use_media_transport = true, "
+          << "but media transport factory is not set in PeerConnectioFactory";
+      return false;
+    }
+
+    config.media_transport_factory = factory_->media_transport_factory();
+  }
+
   transport_controller_.reset(new JsepTransportController(
       signaling_thread(), network_thread(), port_allocator_.get(),
       async_resolver_factory_.get(), config));
@@ -1027,7 +1039,7 @@ bool PeerConnection::Initialize(
   }
 
   webrtc_session_desc_factory_->set_enable_encrypted_rtp_header_extensions(
-      options.crypto_options.srtp.enable_encrypted_rtp_header_extensions);
+      options.crypto_options.enable_encrypted_rtp_header_extensions);
 
   // Add default audio/video transceivers for Plan B SDP.
   if (!IsUnifiedPlan()) {
@@ -3646,11 +3658,6 @@ void PeerConnection::GetOptionsForOffer(
   session_options->rtcp_cname = rtcp_cname_;
   session_options->crypto_options = factory_->options().crypto_options;
   session_options->is_unified_plan = IsUnifiedPlan();
-  session_options->pooled_ice_credentials =
-      network_thread()->Invoke<std::vector<cricket::IceParameters>>(
-          RTC_FROM_HERE,
-          rtc::Bind(&cricket::PortAllocator::GetPooledIceCredentials,
-                    port_allocator_.get()));
 }
 
 void PeerConnection::GetOptionsForPlanBOffer(
@@ -3911,11 +3918,6 @@ void PeerConnection::GetOptionsForAnswer(
   session_options->rtcp_cname = rtcp_cname_;
   session_options->crypto_options = factory_->options().crypto_options;
   session_options->is_unified_plan = IsUnifiedPlan();
-  session_options->pooled_ice_credentials =
-      network_thread()->Invoke<std::vector<cricket::IceParameters>>(
-          RTC_FROM_HERE,
-          rtc::Bind(&cricket::PortAllocator::GetPooledIceCredentials,
-                    port_allocator_.get()));
 }
 
 void PeerConnection::GetOptionsForPlanBAnswer(
@@ -5512,11 +5514,12 @@ RTCError PeerConnection::CreateChannels(const SessionDescription& desc) {
 // TODO(steveanton): Perhaps this should be managed by the RtpTransceiver.
 cricket::VoiceChannel* PeerConnection::CreateVoiceChannel(
     const std::string& mid) {
-  RtpTransportInternal* rtp_transport =
-      transport_controller_->GetRtpTransport(mid);
-  RTC_DCHECK(rtp_transport);
+  RtpTransportInternal* rtp_transport = GetRtpTransport(mid);
+  MediaTransportInterface* media_transport =
+      transport_controller_->GetMediaTransport(mid);
+
   cricket::VoiceChannel* voice_channel = channel_manager()->CreateVoiceChannel(
-      call_.get(), configuration_.media_config, rtp_transport,
+      call_.get(), configuration_.media_config, rtp_transport, media_transport,
       signaling_thread(), mid, SrtpRequired(),
       factory_->options().crypto_options, audio_options_);
   if (!voice_channel) {
@@ -5534,9 +5537,9 @@ cricket::VoiceChannel* PeerConnection::CreateVoiceChannel(
 // TODO(steveanton): Perhaps this should be managed by the RtpTransceiver.
 cricket::VideoChannel* PeerConnection::CreateVideoChannel(
     const std::string& mid) {
-  RtpTransportInternal* rtp_transport =
-      transport_controller_->GetRtpTransport(mid);
-  RTC_DCHECK(rtp_transport);
+  RtpTransportInternal* rtp_transport = GetRtpTransport(mid);
+
+  // TODO(sukhanov): Propagate media_transport to video channel.
   cricket::VideoChannel* video_channel = channel_manager()->CreateVideoChannel(
       call_.get(), configuration_.media_config, rtp_transport,
       signaling_thread(), mid, SrtpRequired(),
@@ -5571,9 +5574,7 @@ bool PeerConnection::CreateDataChannel(const std::string& mid) {
       channel->OnTransportChannelCreated();
     }
   } else {
-    RtpTransportInternal* rtp_transport =
-        transport_controller_->GetRtpTransport(mid);
-    RTC_DCHECK(rtp_transport);
+    RtpTransportInternal* rtp_transport = GetRtpTransport(mid);
     rtp_data_channel_ = channel_manager()->CreateRtpDataChannel(
         configuration_.media_config, rtp_transport, signaling_thread(), mid,
         SrtpRequired(), factory_->options().crypto_options);

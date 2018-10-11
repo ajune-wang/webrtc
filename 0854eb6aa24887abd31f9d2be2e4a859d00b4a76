@@ -16,6 +16,24 @@
       "revId": "0854eb6aa24887abd31f9d2be2e4a859d00b4a76",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03bb42dc_33a4ed09",
+        "filename": "modules/audio_processing/aec3/echo_canceller3.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-10-11T08:11:18Z",
+      "side": 0,
+      "message": "That is a good point and would make sense. I would, however, prefer to keep it for the time being as it is a good way to quickly introduce an experimental tuning for systems with clock-drift. We should, however, remove it as we are sure there is no need for it.",
+      "parentUuid": "d810e81c_0b776b10",
+      "revId": "0854eb6aa24887abd31f9d2be2e4a859d00b4a76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -105,9 +105,15 @@ void ResidualEchoEstimator::Estimate(
 
   // Estimate the residual echo power.
   if (aec_state.UsableLinearEstimate()) {
-    RTC_DCHECK(!aec_state.SaturatedEcho());
     LinearEstimate(S2_linear, aec_state.Erle(), aec_state.ErleUncertainty(),
                    R2);
+
+    // When there is saturated echo, assume uniform spectral leakage.
+    if (aec_state.SaturatedEcho()) {
+      const float R2_max = *std::max_element(R2->begin(), R2->end());
+      R2->fill(R2_max);
+    }
+
     // Adds the estimated unmodelled echo power to the residual echo power
     // estimate.
     if (echo_reverb_) {

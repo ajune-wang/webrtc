@@ -63,16 +63,6 @@ TEST(AecState, NormalUsage) {
   }
   EXPECT_TRUE(state.UsableLinearEstimate());
 
-  // Verify that linear AEC usability becomes false after an echo path change is
-  // reported
-  output.UpdatePowers(y);
-  state.HandleEchoPathChange(EchoPathVariability(
-      false, EchoPathVariability::DelayAdjustment::kBufferReadjustment, false));
-  state.Update(delay_estimate, converged_filter_frequency_response,
-               impulse_response, *render_delay_buffer->GetRenderBuffer(),
-               E2_main, Y2, output, y);
-  EXPECT_FALSE(state.UsableLinearEstimate());
-
   // Verify that the active render detection works as intended.
   std::fill(x[0].begin(), x[0].end(), 101.f);
   render_delay_buffer->Insert(x);

@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b163d998_d3759329",
+        "filename": "media/base/rtputils.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2018-10-11T09:34:09Z",
+      "side": 1,
+      "message": "Why aren\u0027t the other functions exported?",
+      "revId": "36d4dadb4f227ec63ca3476174601a24f9257afb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de4e31db_caf63971",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2018-10-11T09:34:09Z",
+      "side": 1,
+      "message": "Why isn\u0027t this class exported?",
+      "revId": "36d4dadb4f227ec63ca3476174601a24f9257afb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

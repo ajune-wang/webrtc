@@ -6,6 +6,8 @@
 # in the file PATENTS.  All contributing project authors may
 # be found in the AUTHORS file in the root of the source tree.
 
+# TEST
+
 import("//third_party/protobuf/proto_library.gni")
 import("../webrtc.gni")
 

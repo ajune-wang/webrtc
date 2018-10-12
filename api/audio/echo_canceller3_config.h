@@ -108,9 +108,9 @@ struct EchoCanceller3Config {
     float low_render_limit = 4 * 64.f;
     float normal_render_limit = 64.f;
     float floor_power = 2 * 64.f;
-    float audibility_threshold_lf = 10;
-    float audibility_threshold_mf = 10;
-    float audibility_threshold_hf = 10;
+    float audibility_threshold_lf = 1;
+    float audibility_threshold_mf = 1;
+    float audibility_threshold_hf = 1;
     bool use_stationary_properties = true;
     bool use_stationarity_properties_at_init = false;
   } echo_audibility;

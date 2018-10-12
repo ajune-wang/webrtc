@@ -62,6 +62,10 @@ bool EnableUnityNonZeroRampupGain() {
   return field_trial::IsEnabled("WebRTC-Aec3EnableUnityNonZeroRampupGain");
 }
 
+bool EnableOldEchoPathStrengthParamters() {
+  return field_trial::IsEnabled("WebRTC-Aec3WeakEchoPathStrengthKillSwitch");
+}
+
 // Method for adjusting config parameter dependencies..
 EchoCanceller3Config AdjustConfig(const EchoCanceller3Config& config) {
   EchoCanceller3Config adjusted_cfg = config;
@@ -145,6 +149,12 @@ EchoCanceller3Config AdjustConfig(const EchoCanceller3Config& config) {
       adjusted_cfg.echo_removal_control.gain_rampup.first_non_zero_gain ==
           default_cfg.echo_removal_control.gain_rampup.first_non_zero_gain) {
     adjusted_cfg.echo_removal_control.gain_rampup.first_non_zero_gain = 1.f;
+  }
+
+  if (EnableOldEchoPathStrengthParamters()) {
+    adjusted_cfg.ep_strength.lf = 10.f;
+    adjusted_cfg.ep_strength.mf = 10.f;
+    adjusted_cfg.ep_strength.hf = 10.f;
   }
 
   return adjusted_cfg;

@@ -20,6 +20,7 @@ CryptoOptions::CryptoOptions(const CryptoOptions& other) {
   enable_encrypted_rtp_header_extensions =
       other.enable_encrypted_rtp_header_extensions;
   srtp = other.srtp;
+  frame = other.frame;
 }
 
 CryptoOptions::~CryptoOptions() {}
@@ -47,6 +48,19 @@ std::vector<int> CryptoOptions::GetSupportedDtlsSrtpCryptoSuites() const {
   }
   crypto_suites.push_back(rtc::SRTP_AES128_CM_SHA1_80);
   return crypto_suites;
+}
+
+bool CryptoOptions::operator==(const CryptoOptions& other) const {
+  return srtp.enable_gcm_crypto_suites == other.srtp.enable_gcm_crypto_suites &&
+         srtp.enable_aes128_sha1_32_crypto_cipher ==
+             other.srtp.enable_aes128_sha1_32_crypto_cipher &&
+         srtp.enable_encrypted_rtp_header_extensions ==
+             other.srtp.enable_encrypted_rtp_header_extensions &&
+         frame.require_frame_encryption == other.frame.require_frame_encryption;
+}
+
+bool CryptoOptions::operator!=(const CryptoOptions& other) const {
+  return !(*this == other);
 }
 
 }  // namespace webrtc

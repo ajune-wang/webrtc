@@ -28,6 +28,9 @@ specific_include_rules = {
   "gtest\.h": [
     "+testing/gtest/include/gtest",
   ],
+  "test_support\.mm": [
+    "+testing/coverage_util_ios.h",
+  ],
   ".*congestion_controller_feedback_fuzzer\.cc": [
     "+modules/congestion_controller/include/receive_side_congestion_controller.h",
     "+modules/pacing/packet_router.h",

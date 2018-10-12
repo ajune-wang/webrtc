@@ -79,7 +79,7 @@ class RtpSenderReceiverTest : public testing::Test,
     rtp_transport_ = CreateDtlsSrtpTransport();
 
     voice_channel_ = channel_manager_.CreateVoiceChannel(
-        &fake_call_, cricket::MediaConfig(), rtp_transport_.get(),
+        &fake_call_, cricket::MediaConfig(), rtp_transport_.get(), nullptr,
         rtc::Thread::Current(), cricket::CN_AUDIO, srtp_required,
         webrtc::CryptoOptions(), cricket::AudioOptions());
     video_channel_ = channel_manager_.CreateVideoChannel(

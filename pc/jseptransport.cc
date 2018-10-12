@@ -100,6 +100,16 @@ JsepTransport::JsepTransport(
       rtp_dtls_transport_(std::move(rtp_dtls_transport)),
       rtcp_dtls_transport_(std::move(rtcp_dtls_transport)),
       media_transport_(std::move(media_transport)) {
+  if (media_transport_) {
+    // TODO(sukhanov): Make sure we do not create RTP transports if
+    // media transport is provided.
+    // RTC_DCHECK(!rtp_dtls_transport_);
+    // RTC_DCHECK(!sdes_transport);
+    // RTC_DCHECK(!dtls_srtp_transport);
+    // RTC_DCHECK(!unencrypted_rtp_transport);
+    // return;
+  }
+
   RTC_DCHECK(rtp_dtls_transport_);
   if (unencrypted_rtp_transport) {
     RTC_DCHECK(!sdes_transport);
@@ -134,6 +144,12 @@ webrtc::RTCError JsepTransport::SetLocalJsepTransportDescription(
     return webrtc::RTCError(webrtc::RTCErrorType::INVALID_PARAMETER,
                             "Failed to setup RTCP mux.");
   }
+
+  // TODO(sukhanov): Propagate ICE candidate (and what else?) to
+  // media transport.
+  // if (media_transport_) {
+  //  return webrtc::RTCError::OK();
+  // }
 
   // If doing SDES, setup the SDES crypto parameters.
   if (sdes_transport_) {
@@ -406,8 +422,9 @@ bool JsepTransport::SetRtcpMux(bool enable,
     return false;
   }
 
-  auto transport = rtp_transport();
-  transport->SetRtcpMuxEnabled(rtcp_mux_negotiator_.IsActive());
+  if (rtp_transport()) {
+    rtp_transport()->SetRtcpMuxEnabled(rtcp_mux_negotiator_.IsActive());
+  }
   return ret;
 }
 
@@ -420,14 +437,18 @@ void JsepTransport::ActivateRtcpMux() {
     RTC_DCHECK(!unencrypted_rtp_transport_);
     RTC_DCHECK(!dtls_srtp_transport_);
     sdes_transport_->SetRtcpPacketTransport(nullptr);
-  } else {
+  } else if (dtls_srtp_transport_) {
     RTC_DCHECK(dtls_srtp_transport_);
     RTC_DCHECK(!unencrypted_rtp_transport_);
     RTC_DCHECK(!sdes_transport_);
     dtls_srtp_transport_->SetDtlsTransports(rtp_dtls_transport(),
                                             /*rtcp_dtls_transport=*/nullptr);
   }
-  rtcp_dtls_transport_.reset();
+
+  if (dtls_srtp_transport_) {
+    rtcp_dtls_transport_.reset();
+  }
+
   // Notify the JsepTransportController to update the aggregate states.
   SignalRtcpMuxActive();
 }

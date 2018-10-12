@@ -250,7 +250,8 @@ class ChannelTest : public testing::Test, public sigslot::has_slots<> {
     rtc::Thread* signaling_thread = rtc::Thread::Current();
     auto channel = absl::make_unique<typename T::Channel>(
         worker_thread, network_thread, signaling_thread, engine, std::move(ch),
-        cricket::CN_AUDIO, (flags & DTLS) != 0, webrtc::CryptoOptions());
+        nullptr, cricket::CN_AUDIO, (flags & DTLS) != 0,
+        webrtc::CryptoOptions());
     channel->Init_w(rtp_transport);
     return channel;
   }
@@ -1544,7 +1545,7 @@ std::unique_ptr<cricket::VideoChannel> ChannelTest<VideoTraits>::CreateChannel(
     int flags) {
   rtc::Thread* signaling_thread = rtc::Thread::Current();
   auto channel = absl::make_unique<cricket::VideoChannel>(
-      worker_thread, network_thread, signaling_thread, std::move(ch),
+      worker_thread, network_thread, signaling_thread, std::move(ch), nullptr,
       cricket::CN_VIDEO, (flags & DTLS) != 0, webrtc::CryptoOptions());
   channel->Init_w(rtp_transport);
   return channel;

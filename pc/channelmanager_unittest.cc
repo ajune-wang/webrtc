@@ -63,7 +63,7 @@ class ChannelManagerTest : public testing::Test {
 
   void TestCreateDestroyChannels(webrtc::RtpTransportInternal* rtp_transport) {
     cricket::VoiceChannel* voice_channel = cm_->CreateVoiceChannel(
-        &fake_call_, cricket::MediaConfig(), rtp_transport,
+        &fake_call_, cricket::MediaConfig(), rtp_transport, nullptr,
         rtc::Thread::Current(), cricket::CN_AUDIO, kDefaultSrtpRequired,
         webrtc::CryptoOptions(), AudioOptions());
     EXPECT_TRUE(voice_channel != nullptr);

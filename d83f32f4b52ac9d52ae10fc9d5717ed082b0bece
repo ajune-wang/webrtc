@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "0d3713a7_f228b579",
+        "filename": "media/base/mediachannel.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 8020
+      },
+      "writtenOn": "2018-10-12T17:15:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d44df243_9194492d",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 30
+      },
+      "revId": "d83f32f4b52ac9d52ae10fc9d5717ed082b0bece",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "18002583_deaae2d7",
         "filename": "pc/channel.h",
         "patchSetId": 14
@@ -45,6 +69,30 @@
       "revId": "d83f32f4b52ac9d52ae10fc9d5717ed082b0bece",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c5a8514_53f1118b",
+        "filename": "pc/channel.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 8020
+      },
+      "writtenOn": "2018-10-12T17:15:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "18002583_deaae2d7",
+      "range": {
+        "startLine": 45,
+        "startChar": 6,
+        "endLine": 45,
+        "endChar": 29
+      },
+      "revId": "d83f32f4b52ac9d52ae10fc9d5717ed082b0bece",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "4f09952d_158b84dd",
+        "filename": "pc/channel.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 8020
+      },
+      "writtenOn": "2018-10-12T17:15:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "47056057_b4eec2e0",
+      "range": {
+        "startLine": 319,
+        "startChar": 74,
+        "endLine": 319,
+        "endChar": 76
+      },
+      "revId": "d83f32f4b52ac9d52ae10fc9d5717ed082b0bece",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6e5a897e_2f9aab2f",
         "filename": "pc/channelmanager.h",
         "patchSetId": 14
@@ -91,6 +163,30 @@
       "revId": "d83f32f4b52ac9d52ae10fc9d5717ed082b0bece",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab028448_68861925",
+        "filename": "pc/channelmanager.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 8020
+      },
+      "writtenOn": "2018-10-12T17:15:47Z",
+      "side": 1,
+      "message": "Yes",
+      "parentUuid": "6e5a897e_2f9aab2f",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 35
+      },
+      "revId": "d83f32f4b52ac9d52ae10fc9d5717ed082b0bece",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "47bf18c7_40662350",
+        "filename": "pc/peerconnection.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 918,
+      "author": {
+        "id": 8020
+      },
+      "writtenOn": "2018-10-12T17:15:47Z",
+      "side": 1,
+      "message": "Add \"result can not be nullptr\"",
+      "parentUuid": "22c7f772_684102c0",
+      "range": {
+        "startLine": 918,
+        "startChar": 27,
+        "endLine": 918,
+        "endChar": 46
+      },
+      "revId": "d83f32f4b52ac9d52ae10fc9d5717ed082b0bece",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "56a2d9c2_9b23539e",
         "filename": "pc/peerconnection.h",
         "patchSetId": 14
@@ -137,6 +257,30 @@
       "revId": "d83f32f4b52ac9d52ae10fc9d5717ed082b0bece",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a24fac6_55478eda",
+        "filename": "pc/peerconnection.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 932,
+      "author": {
+        "id": 8020
+      },
+      "writtenOn": "2018-10-12T17:15:47Z",
+      "side": 1,
+      "message": "Yes, getters with DCHECKs. The DCHECKs will change when we move forward and stop creating rtp transport if media transport is used.",
+      "parentUuid": "56a2d9c2_9b23539e",
+      "range": {
+        "startLine": 918,
+        "startChar": 0,
+        "endLine": 932,
+        "endChar": 3
+      },
+      "revId": "d83f32f4b52ac9d52ae10fc9d5717ed082b0bece",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

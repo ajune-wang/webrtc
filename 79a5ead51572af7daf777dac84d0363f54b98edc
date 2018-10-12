@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a5fd916_e5332e96",
+        "filename": "sdk/android/api/org/webrtc/PeerConnectionFactory.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-10-12T08:30:02Z",
+      "side": 1,
+      "message": "Can you copy the documentation from C++ layer as Javadoc for this field?",
+      "range": {
+        "startLine": 127,
+        "startChar": 19,
+        "endLine": 127,
+        "endChar": 41
+      },
+      "revId": "79a5ead51572af7daf777dac84d0363f54b98edc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

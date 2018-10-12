@@ -93,6 +93,30 @@
       "revId": "5a08819fc5c6e1f9db6ede849ac86233db0084a4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0dd1a7a2_85dc9045",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-10-12T15:32:59Z",
+      "side": 1,
+      "message": "Yes, you are right! Maybe add an example here?\nCommon headers are 5 bytes, first and last reductions are both 2 bytes. Separate reductions are 0 because padding is enough to fit 2 bytes. If combined they force a new 4-byte row.",
+      "parentUuid": "193ba581_957a1d6d",
+      "range": {
+        "startLine": 428,
+        "startChar": 43,
+        "endLine": 428,
+        "endChar": 62
+      },
+      "revId": "5a08819fc5c6e1f9db6ede849ac86233db0084a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

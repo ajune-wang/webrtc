@@ -12,6 +12,7 @@
 
 #include "test/ios/test_support.h"
 #include "test/testsupport/perf_test.h"
+#include "testing/coverage_util_ios.h"
 
 #import "sdk/objc/helpers/NSString+StdString.h"
 
@@ -70,6 +71,8 @@ static bool g_save_chartjson_result;
 }
 
 - (void)runTests {
+  coverage_util::ConfigureCoverageReportPath();
+
   int exitStatus = g_test_suite();
 
   if (g_save_chartjson_result) {

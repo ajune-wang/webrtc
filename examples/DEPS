@@ -10,3 +10,9 @@ include_rules = [
   "+sdk/objc",
   "+third_party/libyuv",
 ]
+
+specific_include_rules = {
+  "main\.mm": [
+    "+testing/coverage_util_ios.h",
+  ]
+}

@@ -10,8 +10,11 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#include "testing/coverage_util_ios.h"
 
 int main(int argc, char* argv[]) {
+  coverage_util::ConfigureCoverageReportPath();
+
   @autoreleasepool {
     return UIApplicationMain(argc, argv, nil, nil);
   }

@@ -52,6 +52,7 @@ class Timing;
 
 namespace webrtc {
 class AudioSinkInterface;
+class MediaTransportInterface;
 class VideoFrame;
 }  // namespace webrtc
 
@@ -183,8 +184,14 @@ class MediaChannel : public sigslot::has_slots<> {
   MediaChannel();
   ~MediaChannel() override;
 
-  // Sets the abstract interface class for sending RTP/RTCP data.
-  virtual void SetInterface(NetworkInterface* iface);
+  // Sets the abstract interface class for sending RTP/RTCP data and
+  // interface for media transport (experimental). If media transport is
+  // provided, it should be used instead of RTP/RTCP.
+  // TODO(sukhanov): Currently media transport can co-exist with RTP/RTCP, but
+  // in the future we will refactor code to send all frames with media
+  // transport.
+  virtual void SetInterface(NetworkInterface* iface,
+                            webrtc::MediaTransportInterface* media_transport);
   // Called when a RTP packet is received.
   virtual void OnPacketReceived(rtc::CopyOnWriteBuffer* packet,
                                 const rtc::PacketTime& packet_time) = 0;
@@ -251,6 +258,10 @@ class MediaChannel : public sigslot::has_slots<> {
     return network_interface_->SetOption(type, opt, option);
   }
 
+  webrtc::MediaTransportInterface* media_transport() {
+    return media_transport_;
+  }
+
  protected:
   virtual rtc::DiffServCodePoint PreferredDscp() const;
 
@@ -284,6 +295,7 @@ class MediaChannel : public sigslot::has_slots<> {
   // of network_interface_ object.
   rtc::CriticalSection network_interface_crit_;
   NetworkInterface* network_interface_;
+  webrtc::MediaTransportInterface* media_transport_;
 };
 
 // The stats information is structured as follows:

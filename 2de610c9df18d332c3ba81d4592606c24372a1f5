@@ -46,6 +46,30 @@
       "revId": "2de610c9df18d332c3ba81d4592606c24372a1f5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68d65cac_306be680",
+        "filename": "rtc_base/opensslcertificate.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-10-12T19:39:39Z",
+      "side": 0,
+      "message": "Ack",
+      "parentUuid": "8af0d680_beeda71e",
+      "range": {
+        "startLine": 252,
+        "startChar": 40,
+        "endLine": 252,
+        "endChar": 52
+      },
+      "revId": "2de610c9df18d332c3ba81d4592606c24372a1f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

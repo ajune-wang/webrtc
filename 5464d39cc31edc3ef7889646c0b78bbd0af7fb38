@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "66630927_e6e91f94",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 586,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-10-12T11:05:34Z",
+      "side": 1,
+      "message": "Done. Thanks for catching.",
+      "parentUuid": "a7ef3f45_45da1076",
+      "revId": "5464d39cc31edc3ef7889646c0b78bbd0af7fb38",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f6d2e6b4_2b1e71ab",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
         "patchSetId": 1
@@ -39,6 +57,30 @@
       "revId": "5464d39cc31edc3ef7889646c0b78bbd0af7fb38",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7857618e_11eb3fc0",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 700,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-10-12T11:05:34Z",
+      "side": 1,
+      "message": "The binary encoding of RTCP packets isn\u0027t very readable.  I\u0027ll keep as-is for now.",
+      "parentUuid": "f6d2e6b4_2b1e71ab",
+      "range": {
+        "startLine": 697,
+        "startChar": 0,
+        "endLine": 700,
+        "endChar": 9
+      },
+      "revId": "5464d39cc31edc3ef7889646c0b78bbd0af7fb38",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

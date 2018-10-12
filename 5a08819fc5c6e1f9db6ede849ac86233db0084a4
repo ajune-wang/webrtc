@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "758c9d85_cf824543",
+        "filename": "modules/rtp_rtcp/source/rtp_format.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-10-12T15:15:49Z",
+      "side": 1,
+      "message": "there are tests for payload_size \u003d\u003d 1  and check\nif (payload_len \u003c num_packets_left) above.\nwith num_packets_left \u003e\u003d 2 and payload_len \u003d\u003d 1 it will cause early return",
+      "parentUuid": "b17ebb4e_48261af1",
+      "range": {
+        "startLine": 122,
+        "startChar": 6,
+        "endLine": 122,
+        "endChar": 29
+      },
+      "revId": "5a08819fc5c6e1f9db6ede849ac86233db0084a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "59750ff8_e703a116",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "5a08819fc5c6e1f9db6ede849ac86233db0084a4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "193ba581_957a1d6d",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-10-12T15:15:49Z",
+      "side": 1,
+      "message": "Yep, that where I was wrong, because there is not two, but 4 cases to consider:\nMiddle (common) packet also has extensions, so it is actually\nCeil(c) + Ceil(c + a + b) vs Ceil(c + a) + Ceil(c + b)",
+      "parentUuid": "59750ff8_e703a116",
+      "range": {
+        "startLine": 428,
+        "startChar": 43,
+        "endLine": 428,
+        "endChar": 62
+      },
+      "revId": "5a08819fc5c6e1f9db6ede849ac86233db0084a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

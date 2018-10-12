@@ -69,6 +69,10 @@ class VideoSendStreamPeer {
 };
 }  // namespace test
 
+namespace {
+constexpr int kNackedPacketsAtOnceCount = 3;
+}  // namespace
+
 enum VideoFormat {
   kGeneric,
   kVP8,
@@ -865,15 +869,21 @@ void VideoSendStreamTest::TestNackRetransmission(
       RTPHeader header;
       EXPECT_TRUE(parser_->Parse(packet, length, &header));
 
-      int kRetransmitTarget = 6;
+      // NACK packets two times at some arbitrary points.
+      const int kRetransmitTarget = kNackedPacketsAtOnceCount * 2;
+
+      // Skip padding packets because they will never be retransmitted.
+      if (header.paddingLength + header.headerLength == length) {
+        return SEND_PACKET;
+      }
+
       ++send_count_;
+
+      // NACK packets at arbitrary points.
       if (send_count_ == 5 || send_count_ == 25) {
-        nacked_sequence_numbers_.push_back(
-            static_cast<uint16_t>(header.sequenceNumber - 3));
-        nacked_sequence_numbers_.push_back(
-            static_cast<uint16_t>(header.sequenceNumber - 2));
-        nacked_sequence_numbers_.push_back(
-            static_cast<uint16_t>(header.sequenceNumber - 1));
+        nacked_sequence_numbers_.assign(
+            last_non_padding_sequence_numbers_,
+            last_non_padding_sequence_numbers_ + kNackedPacketsAtOnceCount);
 
         RTCPSender rtcp_sender(false, Clock::GetRealTimeClock(), nullptr,
                                nullptr, nullptr, transport_adapter_.get(),
@@ -891,6 +901,10 @@ void VideoSendStreamTest::TestNackRetransmission(
       }
 
       uint16_t sequence_number = header.sequenceNumber;
+
+      last_non_padding_sequence_numbers_[send_count_ %
+                                         kNackedPacketsAtOnceCount] =
+          sequence_number;
 
       if (header.ssrc == retransmit_ssrc_ &&
           retransmit_ssrc_ != kVideoSendSsrcs[0]) {
@@ -937,6 +951,7 @@ void VideoSendStreamTest::TestNackRetransmission(
     uint32_t retransmit_ssrc_;
     uint8_t retransmit_payload_type_;
     std::vector<uint16_t> nacked_sequence_numbers_;
+    uint16_t last_non_padding_sequence_numbers_[kNackedPacketsAtOnceCount];
   } test(retransmit_ssrc, retransmit_payload_type);
 
   RunBaseTest(&test);

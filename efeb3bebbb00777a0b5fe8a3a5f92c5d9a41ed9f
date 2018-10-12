@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "cbe9d804_1d69e394",
+        "filename": "media/base/mediachannel.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 8020
+      },
+      "writtenOn": "2018-10-12T21:59:45Z",
+      "side": 1,
+      "message": "Done for network_interface and media_transport. For enable_dscp_ keep explicit initialization because it\u0027s different in different constructors.",
+      "parentUuid": "eecf9727_54738bad",
+      "revId": "efeb3bebbb00777a0b5fe8a3a5f92c5d9a41ed9f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b067ad74_a0421cba",
         "filename": "pc/channel.cc",
         "patchSetId": 16
@@ -33,6 +51,24 @@
       "revId": "efeb3bebbb00777a0b5fe8a3a5f92c5d9a41ed9f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1895c1fc_c7943a10",
+        "filename": "pc/channel.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 1041,
+      "author": {
+        "id": 8020
+      },
+      "writtenOn": "2018-10-12T21:59:45Z",
+      "side": 1,
+      "message": "Thanks, removed comment.",
+      "parentUuid": "b067ad74_a0421cba",
+      "revId": "efeb3bebbb00777a0b5fe8a3a5f92c5d9a41ed9f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "23c7d30f_a4dc633d",
+        "filename": "pc/channelmanager_unittest.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 8020
+      },
+      "writtenOn": "2018-10-12T21:59:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "53052ab7_ec4ecba9",
+      "revId": "efeb3bebbb00777a0b5fe8a3a5f92c5d9a41ed9f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6071d1e0_e1cd27da",
         "filename": "pc/peerconnection.h",
         "patchSetId": 16
@@ -67,6 +121,24 @@
       "revId": "efeb3bebbb00777a0b5fe8a3a5f92c5d9a41ed9f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98bb665b_da144cd7",
+        "filename": "pc/peerconnection.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 919,
+      "author": {
+        "id": 8020
+      },
+      "writtenOn": "2018-10-12T21:59:45Z",
+      "side": 1,
+      "message": "DCHECK in GetMediaTransport is not as trivial and did not want to inline it, therefore I added GetRtpTransport for symmetry. As we move forward to refactor code and create either RTP or MediaTransport DCHECKs will change -- it\u0027s another reason to keep them in one place.",
+      "parentUuid": "6071d1e0_e1cd27da",
+      "revId": "efeb3bebbb00777a0b5fe8a3a5f92c5d9a41ed9f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -90,6 +162,30 @@
       "revId": "efeb3bebbb00777a0b5fe8a3a5f92c5d9a41ed9f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27d10968_a20dc487",
+        "filename": "pc/peerconnection.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 927,
+      "author": {
+        "id": 8020
+      },
+      "writtenOn": "2018-10-12T21:59:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "73525837_a155a53e",
+      "range": {
+        "startLine": 927,
+        "startChar": 27,
+        "endLine": 927,
+        "endChar": 42
+      },
+      "revId": "efeb3bebbb00777a0b5fe8a3a5f92c5d9a41ed9f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

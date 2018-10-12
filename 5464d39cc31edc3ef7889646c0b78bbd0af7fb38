@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a7ef3f45_45da1076",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 586,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-10-12T10:59:40Z",
+      "side": 1,
+      "message": "ASSERT_EQ?",
+      "revId": "5464d39cc31edc3ef7889646c0b78bbd0af7fb38",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6d2e6b4_2b1e71ab",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 700,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-10-12T10:59:40Z",
+      "side": 1,
+      "message": "For your consideration - it might be better to compare after transforming into std::string, so that something remotely useful would be printed in case of failure. For example, it might be useful for me to know that the first mismatch was at byte #3, if I had just made some change that I know roughly relates to that part of the packet.\n(Using std::string comparison would also obviate the ASSERT_EQ above.)",
+      "range": {
+        "startLine": 697,
+        "startChar": 0,
+        "endLine": 700,
+        "endChar": 9
+      },
+      "revId": "5464d39cc31edc3ef7889646c0b78bbd0af7fb38",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d66eb8d4_5a0136eb",
+        "filename": "modules/audio_coding/neteq/tools/rtc_event_log_source.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-10-12T16:27:11Z",
+      "side": 1,
+      "message": "Oh, you already added that. The LOG_END event might be missing if the file size limit is reached. I\u0027d prefer handling this case rather than CHECKing.",
+      "parentUuid": "b34467cd_564ee843",
+      "range": {
+        "startLine": 73,
+        "startChar": 35,
+        "endLine": 73,
+        "endChar": 40
+      },
+      "revId": "b240e2c82177817653a9011231a21d23c6d3f83e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "57e79ab0_cac73ddb",
         "filename": "modules/audio_coding/neteq/tools/rtc_event_log_source.cc",
         "patchSetId": 3

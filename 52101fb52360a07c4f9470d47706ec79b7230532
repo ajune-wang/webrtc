@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a0769dd6_0ae6bbe6",
+        "filename": "video/video_send_stream_tests.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-10-12T15:51:30Z",
+      "side": 1,
+      "message": "I\u0027d prefer this to be close to where it\u0027s used. It doesn\u0027t make that much sense outside of that context.",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 44
+      },
+      "revId": "52101fb52360a07c4f9470d47706ec79b7230532",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b379ec57_100eac27",
+        "filename": "video/video_send_stream_tests.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 954,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-10-12T15:51:30Z",
+      "side": 1,
+      "message": "I\u0027d suggest using a std:vector and not care about the memory usage since it\u0027s just a test. to avoid potential issues with raw buffer access in the future. Then just use a slice of that vector in the code above (.end()-kNackedPacketsAtOnceCount-1, .end())",
+      "range": {
+        "startLine": 954,
+        "startChar": 13,
+        "endLine": 954,
+        "endChar": 47
+      },
+      "revId": "52101fb52360a07c4f9470d47706ec79b7230532",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

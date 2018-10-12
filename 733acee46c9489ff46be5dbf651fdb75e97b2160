@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7fb7d7e2_0598c1fd",
+        "filename": "p2p/base/fakedtlstransport.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-10-12T17:47:56Z",
+      "side": 1,
+      "message": "No, the old constructor called GetReference which makes a copy.",
+      "parentUuid": "9c0932cb_4e8e0c70",
+      "range": {
+        "startLine": 183,
+        "startChar": 9,
+        "endLine": 183,
+        "endChar": 21
+      },
+      "revId": "733acee46c9489ff46be5dbf651fdb75e97b2160",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "efeb29d1_1262e191",
         "filename": "rtc_base/opensslcertificate.cc",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2018-10-12T06:43:48Z",
       "side": 1,
       "message": "Comment no action required: This manual ref stuff is horrible. Need to work a more long term solution to this in the future. bssl:UniquePtr seems like a good candidate but we need to keep supporting openssl.",
+      "range": {
+        "startLine": 134,
+        "startChar": 2,
+        "endLine": 134,
+        "endChar": 13
+      },
+      "revId": "733acee46c9489ff46be5dbf651fdb75e97b2160",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e09c2747_b9640a6a",
+        "filename": "rtc_base/opensslcertificate.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-10-12T17:47:56Z",
+      "side": 1,
+      "message": "It\u0027s not too bad, but yeah kind of old school.",
+      "parentUuid": "efeb29d1_1262e191",
       "range": {
         "startLine": 134,
         "startChar": 2,

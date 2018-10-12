@@ -22,6 +22,30 @@
       "revId": "2de610c9df18d332c3ba81d4592606c24372a1f5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8af0d680_beeda71e",
+        "filename": "rtc_base/opensslcertificate.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-10-12T17:47:56Z",
+      "side": 0,
+      "message": "The underlying OpenSSL object is reference counted. The up ref happens in the constructor.\n\nInterestingly OpenSSLIdentity has a similar design but implements it differently. The constructor does not apply up ref but GetReference() does. I think that\u0027s more clear, so I can migrate OpenSSLCertificate to that approach in a follow-up CL.",
+      "parentUuid": "843b4eee_4202e164",
+      "range": {
+        "startLine": 252,
+        "startChar": 40,
+        "endLine": 252,
+        "endChar": 52
+      },
+      "revId": "2de610c9df18d332c3ba81d4592606c24372a1f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

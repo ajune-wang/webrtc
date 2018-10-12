@@ -25,6 +25,52 @@
     },
     {
       "key": {
+        "uuid": "18002583_deaae2d7",
+        "filename": "pc/channel.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-12T14:22:13Z",
+      "side": 1,
+      "message": "per the other Niels\u0027s comment -- if we decide to change forward declaration to include there, we should probably change it here too.",
+      "range": {
+        "startLine": 45,
+        "startChar": 6,
+        "endLine": 45,
+        "endChar": 29
+      },
+      "revId": "d83f32f4b52ac9d52ae10fc9d5717ed082b0bece",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47056057_b4eec2e0",
+        "filename": "pc/channel.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-12T14:22:13Z",
+      "side": 1,
+      "message": "nit: pls add: This feature is not yet implemented / This feature is under implementation / incomplete\n\n(experimental does not imply incomplete :) )",
+      "range": {
+        "startLine": 319,
+        "startChar": 74,
+        "endLine": 319,
+        "endChar": 76
+      },
+      "revId": "d83f32f4b52ac9d52ae10fc9d5717ed082b0bece",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6e5a897e_2f9aab2f",
         "filename": "pc/channelmanager.h",
         "patchSetId": 14
@@ -41,6 +87,29 @@
         "startChar": 0,
         "endLine": 92,
         "endChar": 35
+      },
+      "revId": "d83f32f4b52ac9d52ae10fc9d5717ed082b0bece",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22c7f772_684102c0",
+        "filename": "pc/peerconnection.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 918,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-12T14:22:13Z",
+      "side": 1,
+      "message": "nit: result value will never be null?\n(the way it\u0027s written makes it unclear if you are referring to mid or to return value)",
+      "range": {
+        "startLine": 918,
+        "startChar": 27,
+        "endLine": 918,
+        "endChar": 46
       },
       "revId": "d83f32f4b52ac9d52ae10fc9d5717ed082b0bece",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

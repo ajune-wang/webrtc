@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a186b895_15e59491",
+        "filename": "api/test/loopback_media_transport.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 8020
+      },
+      "writtenOn": "2018-10-12T17:03:03Z",
+      "side": 1,
+      "message": "Do you think it makes sense to implement it as MediaTransportFactory, so it could be used in integration tests with PeerConnection and JSEP transport?",
+      "revId": "504ff2484fca3e574ee49b84760cfb67319fca48",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

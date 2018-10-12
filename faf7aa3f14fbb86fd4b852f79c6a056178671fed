@@ -2,6 +2,98 @@
   "comments": [
     {
       "key": {
+        "uuid": "1cea0f90_8511f2e9",
+        "filename": "BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-10-12T06:45:33Z",
+      "side": 1,
+      "message": "This target should not go through the autofix (if we are going to automate this we will have to exclude it) because it doesn\u0027t have any code at all, it just builds everything into a static library.",
+      "range": {
+        "startLine": 376,
+        "startChar": 4,
+        "endLine": 376,
+        "endChar": 13
+      },
+      "revId": "faf7aa3f14fbb86fd4b852f79c6a056178671fed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8808a728_fecb877b",
+        "filename": "BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-10-12T06:45:33Z",
+      "side": 1,
+      "message": "I am not sure about this. It seems wrong to go one level up because this file lives at the root of the project.",
+      "range": {
+        "startLine": 418,
+        "startChar": 5,
+        "endLine": 418,
+        "endChar": 8
+      },
+      "revId": "faf7aa3f14fbb86fd4b852f79c6a056178671fed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dcee829b_b1a3e03c",
+        "filename": "BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-10-12T06:45:33Z",
+      "side": 1,
+      "message": "After reading the comment it seems we also need this one but as a vision, I would like to make it more clear, like Chromium does with its gn_all build target (https://cs.chromium.org/chromium/src/BUILD.gn?l\u003d47-61\u0026rcl\u003df68c9b2548a5f1a2462146e1efc36165571c055c).\n\nI suggest you re-add the dependency and then open a bug to create a gn_all in WebRTC too).",
+      "range": {
+        "startLine": 431,
+        "startChar": 0,
+        "endLine": 436,
+        "endChar": 3
+      },
+      "revId": "faf7aa3f14fbb86fd4b852f79c6a056178671fed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a7688ed_4e640606",
+        "filename": "BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-10-12T06:45:33Z",
+      "side": 1,
+      "message": "All these should not be auto-fixed (the same explanation used for libwebrtc applies).",
+      "range": {
+        "startLine": 443,
+        "startChar": 4,
+        "endLine": 443,
+        "endChar": 13
+      },
+      "revId": "faf7aa3f14fbb86fd4b852f79c6a056178671fed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4e640509_8cf8a689",
         "filename": "api/BUILD.gn",
         "patchSetId": 1
@@ -16,6 +108,24 @@
       "revId": "faf7aa3f14fbb86fd4b852f79c6a056178671fed",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ac49dd8_e68c078b",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-10-12T06:45:33Z",
+      "side": 1,
+      "message": "It is correct because call/audio_sink.h doesn\u0027t include any WebRTC header, see https://cs.chromium.org/chromium/src/third_party/webrtc/api/call/audio_sink.h.\n\nIt is possible this build target went through a thorough refactoring in the last few months (see the broad name \"call_api\" and the narrow scope \"audio_sink\"), so the old dependencies were needed by other parts of it but they are now useless. :)",
+      "parentUuid": "4e640509_8cf8a689",
+      "revId": "faf7aa3f14fbb86fd4b852f79c6a056178671fed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -36,6 +146,24 @@
     },
     {
       "key": {
+        "uuid": "0fd821bc_beffc734",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-10-12T06:45:33Z",
+      "side": 1,
+      "message": "IIRC this doesn\u0027t work when we build as part of Chromium because in that case we have:\n\n//third_party/webrtc/api/BUILD.gn\n//third_party/abseil-cpp/absl/types:optional\n\nAnd in order to go from //third_party/webrtc/api/ to optional is ../../ and not only ../.\n\nIt is possible that tools_webrtc/gn_check_autofix.py will try to add ../ but I think we can change it and add a special case for third_party code since we have to keep Chromium into account.",
+      "parentUuid": "a1271625_161c9809",
+      "revId": "faf7aa3f14fbb86fd4b852f79c6a056178671fed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "38d33971_72f292ce",
         "filename": "api/BUILD.gn",
         "patchSetId": 1
@@ -47,6 +175,24 @@
       "writtenOn": "2018-10-11T16:01:12Z",
       "side": 1,
       "message": "Is it the right way of referencing sub-targets (since we are already in api/ dir)? \nIf not, that\u0027s another point to fix in gn_check_autofix.py",
+      "revId": "faf7aa3f14fbb86fd4b852f79c6a056178671fed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f44b9afc_246109d7",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-10-12T06:45:33Z",
+      "side": 1,
+      "message": "Mmmh, good point. I don\u0027t know and I think we use both...\n\nThere is a style guide for GN (see [1]) and it says: \"Other deps should always use fully-qualified path names unless relative ones are required for some reason\", so I think the gn_check_autofix.py is doing the right thing, but we can talk about it.\n\n[1] - https://chromium.googlesource.com/chromium/src/tools/gn/+/48062805e19b4697c5fbd926dc649c78b6aaa138/docs/style_guide.md#deps",
+      "parentUuid": "38d33971_72f292ce",
       "revId": "faf7aa3f14fbb86fd4b852f79c6a056178671fed",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

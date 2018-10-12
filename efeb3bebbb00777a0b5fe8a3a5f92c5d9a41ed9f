@@ -1,0 +1,95 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eecf9727_54738bad",
+        "filename": "media/base/mediachannel.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-10-12T21:44:49Z",
+      "side": 1,
+      "message": "optional nit: could just initialize these to false/null in the definition rather than in the constructor.",
+      "revId": "efeb3bebbb00777a0b5fe8a3a5f92c5d9a41ed9f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b067ad74_a0421cba",
+        "filename": "pc/channel.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 1041,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-10-12T21:44:49Z",
+      "side": 1,
+      "message": "An an FYI the RtpDataChannel is different from the SCTP data channels and has been deprecated for a long time. I think the media transport data channel would be injected at a higher level (like where SCTP is).",
+      "revId": "efeb3bebbb00777a0b5fe8a3a5f92c5d9a41ed9f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53052ab7_ec4ecba9",
+        "filename": "pc/channelmanager_unittest.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-10-12T21:44:49Z",
+      "side": 1,
+      "message": "nit: could also do |media_transport_result.MoveValue()|.",
+      "revId": "efeb3bebbb00777a0b5fe8a3a5f92c5d9a41ed9f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6071d1e0_e1cd27da",
+        "filename": "pc/peerconnection.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 919,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-10-12T21:44:49Z",
+      "side": 1,
+      "message": "In my opinion it\u0027s more readable to just inline these methods.",
+      "revId": "efeb3bebbb00777a0b5fe8a3a5f92c5d9a41ed9f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73525837_a155a53e",
+        "filename": "pc/peerconnection.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 927,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-10-12T21:44:49Z",
+      "side": 1,
+      "message": "GetMediaTransport\n\nor even\n\nGetMediaTransportByMid\n\nThis also doesn\u0027t appear to be used?",
+      "range": {
+        "startLine": 927,
+        "startChar": 27,
+        "endLine": 927,
+        "endChar": 42
+      },
+      "revId": "efeb3bebbb00777a0b5fe8a3a5f92c5d9a41ed9f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d44df243_9194492d",
+        "filename": "media/base/mediachannel.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-12T07:31:01Z",
+      "side": 1,
+      "message": "Could you include the file, instead of forward declare? We used to follow chromium\u0027s style guide and prefer forward declares, but current recommendations discourage forward declares.",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 30
+      },
+      "revId": "d83f32f4b52ac9d52ae10fc9d5717ed082b0bece",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e5a897e_2f9aab2f",
+        "filename": "pc/channelmanager.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-12T07:31:01Z",
+      "side": 1,
+      "message": "I take it the changed formatting here is what git cl format wants?",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 35
+      },
+      "revId": "d83f32f4b52ac9d52ae10fc9d5717ed082b0bece",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56a2d9c2_9b23539e",
+        "filename": "pc/peerconnection.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 932,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-12T07:31:01Z",
+      "side": 1,
+      "message": "These two methods are only for the DCHECKs?",
+      "range": {
+        "startLine": 918,
+        "startChar": 0,
+        "endLine": 932,
+        "endChar": 3
+      },
+      "revId": "d83f32f4b52ac9d52ae10fc9d5717ed082b0bece",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

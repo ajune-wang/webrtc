@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b17ebb4e_48261af1",
+        "filename": "modules/rtp_rtcp/source/rtp_format.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-10-12T14:55:14Z",
+      "side": 1,
+      "message": "Theoretically, for the case when payload is 1 byte and does\u0027t fit in one packet, we could get -1 here. Maybe add additional check here?",
+      "range": {
+        "startLine": 122,
+        "startChar": 6,
+        "endLine": 122,
+        "endChar": 29
+      },
+      "revId": "5a08819fc5c6e1f9db6ede849ac86233db0084a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "59750ff8_e703a116",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-10-12T14:55:14Z",
+      "side": 1,
+      "message": "I think because of padding it my actually have less extensions size. Padding just rounds extensions size to divisible by 4 bytes. it\u0027s the same equation as Ceil(a) + Ceil(b) \u003e\u003d Ceil(a+b): combining extensions may only reduce total padding.",
+      "range": {
+        "startLine": 428,
+        "startChar": 43,
+        "endLine": 428,
+        "endChar": 62
+      },
+      "revId": "5a08819fc5c6e1f9db6ede849ac86233db0084a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

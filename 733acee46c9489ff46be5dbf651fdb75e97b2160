@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9c0932cb_4e8e0c70",
+        "filename": "p2p/base/fakedtlstransport.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2018-10-12T06:43:48Z",
+      "side": 1,
+      "message": "Is the code existing today in the repository actually an allocation bug? It appears it would delete the internal remote cert if you let it go out of scope.",
+      "range": {
+        "startLine": 183,
+        "startChar": 9,
+        "endLine": 183,
+        "endChar": 21
+      },
+      "revId": "733acee46c9489ff46be5dbf651fdb75e97b2160",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "efeb29d1_1262e191",
+        "filename": "rtc_base/opensslcertificate.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2018-10-12T06:43:48Z",
+      "side": 1,
+      "message": "Comment no action required: This manual ref stuff is horrible. Need to work a more long term solution to this in the future. bssl:UniquePtr seems like a good candidate but we need to keep supporting openssl.",
+      "range": {
+        "startLine": 134,
+        "startChar": 2,
+        "endLine": 134,
+        "endChar": 13
+      },
+      "revId": "733acee46c9489ff46be5dbf651fdb75e97b2160",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

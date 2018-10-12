@@ -16,6 +16,24 @@
       "revId": "0d8bbc9fe2225f1f66f25d3d5a62cb883aa41ba6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cac985cd_4b73d36d",
+        "filename": "media/engine/webrtcvoiceengine.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1378,
+      "author": {
+        "id": 7621
+      },
+      "writtenOn": "2018-10-12T20:29:44Z",
+      "side": 1,
+      "message": "According to the RFC yes:  https://tools.ietf.org/html/draft-ietf-tsvwg-rtcweb-qos-18#section-5",
+      "parentUuid": "c50468c2_e92a521d",
+      "revId": "0d8bbc9fe2225f1f66f25d3d5a62cb883aa41ba6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

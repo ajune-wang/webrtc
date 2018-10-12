@@ -31,6 +31,8 @@ void SubtractorOutput::Reset() {
   s2_main = 0.f;
   s2_shadow = 0.f;
   y2 = 0.f;
+  s_main_saturation = false;
+  s_shadow_saturation = false;
 }
 
 void SubtractorOutput::UpdatePowers(rtc::ArrayView<const float> y) {

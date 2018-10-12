@@ -1,0 +1,147 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5e6b7f27_e9ab5093",
+        "filename": "api/crypto/cryptooptions.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-10-12T22:03:07Z",
+      "side": 1,
+      "message": "name suggestion: FrameEncryption",
+      "range": {
+        "startLine": 57,
+        "startChar": 9,
+        "endLine": 57,
+        "endChar": 14
+      },
+      "revId": "b70eff65bf2784120a92b6b29e4c0049d83f652e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "deee9db4_231a298a",
+        "filename": "api/crypto/cryptooptions_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-10-12T22:03:07Z",
+      "side": 1,
+      "message": "I don\u0027t think these tests are valuable. They won\u0027t catch someone forgetting to update operator\u003d\u003d when adding a new field.\n\nI think a better option is to do something like RTCConfiguration. It\u0027s not perfect either (won\u0027t catch 100% of errors), but is easier to maintain.",
+      "revId": "b70eff65bf2784120a92b6b29e4c0049d83f652e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c2539a3_ca311466",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-10-12T22:03:07Z",
+      "side": 1,
+      "message": "typo",
+      "range": {
+        "startLine": 435,
+        "startChar": 64,
+        "endLine": 435,
+        "endChar": 71
+      },
+      "revId": "b70eff65bf2784120a92b6b29e4c0049d83f652e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f5493c3_faae6913",
+        "filename": "audio/channel_receive.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-10-12T22:03:07Z",
+      "side": 1,
+      "message": "This is all crypto options not just Frame Encryption options?",
+      "revId": "b70eff65bf2784120a92b6b29e4c0049d83f652e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83e2b787_9c92b91d",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-10-12T22:03:07Z",
+      "side": 1,
+      "message": "suggestion:\n\nChannel::SendData() failed to send audio payload: A frame encryptor is required but one is not set.",
+      "range": {
+        "startLine": 293,
+        "startChar": 27,
+        "endLine": 294,
+        "endChar": 69
+      },
+      "revId": "b70eff65bf2784120a92b6b29e4c0049d83f652e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "965be407_1e17e997",
+        "filename": "call/audio_receive_stream.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-10-12T22:03:07Z",
+      "side": 1,
+      "message": "PeerConnection",
+      "range": {
+        "startLine": 126,
+        "startChar": 11,
+        "endLine": 126,
+        "endChar": 26
+      },
+      "revId": "b70eff65bf2784120a92b6b29e4c0049d83f652e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96c2acc7_382adf89",
+        "filename": "media/base/mediaengine.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-10-12T22:03:07Z",
+      "side": 1,
+      "message": "Why don\u0027t we just put CryptoOptions into MediaConfig?",
+      "revId": "b70eff65bf2784120a92b6b29e4c0049d83f652e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

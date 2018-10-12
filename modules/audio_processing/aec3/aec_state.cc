@@ -163,22 +163,30 @@ void AecState::Update(
     suppression_gain_limiter_.Deactivate();
   }
 
+  std::array<float, kFftLengthBy2Plus1> X2_reverb;
+  render_reverb_.ApplyReverb(
+      render_buffer.GetSpectrumBuffer(), delay_state_.DirectPathFilterDelay(),
+      config_.ep_strength.reverb_based_on_render ? ReverbDecay() : 0.f,
+      X2_reverb);
+
   if (config_.echo_audibility.use_stationary_properties) {
     // Update the echo audibility evaluator.
-    echo_audibility_.Update(
-        render_buffer, delay_state_.DirectPathFilterDelay(),
-        delay_state_.ExternalDelayReported(),
-        config_.ep_strength.reverb_based_on_render ? ReverbDecay() : 0.f);
+    echo_audibility_.Update(render_buffer,
+                            render_reverb_.GetReverbContributionPowerSpectrum(),
+                            delay_state_.DirectPathFilterDelay(),
+                            delay_state_.ExternalDelayReported());
   }
 
   // Update the ERL and ERLE measures.
   if (initial_state_.TransitionTriggered()) {
     erle_estimator_.Reset(false);
   }
-  const auto& X2 = render_buffer.Spectrum(delay_state_.DirectPathFilterDelay());
-  erle_estimator_.Update(X2, Y2, E2_main,
+
+  erle_estimator_.Update(X2_reverb, Y2, E2_main,
                          subtractor_output_analyzer_.ConvergedFilter(),
                          config_.erle.onset_detection);
+
+  const auto& X2 = render_buffer.Spectrum(delay_state_.DirectPathFilterDelay());
   erl_estimator_.Update(subtractor_output_analyzer_.ConvergedFilter(), X2, Y2);
 
   // Detect and flag echo saturation.

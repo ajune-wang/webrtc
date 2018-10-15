@@ -281,6 +281,9 @@ void AudioSendStream::ConfigureStream(
   }
 
   if (stream->sending_) {
+    if (new_config.has_dscp) {
+      stream->transport_->packet_sender()->SetAccountForAudioPackets(false);
+    }
     ReconfigureBitrateObserver(stream, new_config);
   }
   stream->config_ = new_config;
@@ -296,6 +299,7 @@ void AudioSendStream::Start() {
       FindExtensionIds(config_.rtp.extensions).transport_sequence_number != 0 &&
       !webrtc::field_trial::IsEnabled("WebRTC-Audio-ForceNoTWCC");
   if (config_.min_bitrate_bps != -1 && config_.max_bitrate_bps != -1 &&
+      !config_.has_dscp &&
       (has_transport_sequence_number ||
        !webrtc::field_trial::IsEnabled("WebRTC-Audio-SendSideBwe") ||
        webrtc::field_trial::IsEnabled("WebRTC-Audio-ABWENoTWCC"))) {

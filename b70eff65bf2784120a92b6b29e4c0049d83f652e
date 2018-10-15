@@ -189,6 +189,24 @@
       "revId": "b70eff65bf2784120a92b6b29e4c0049d83f652e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "905f6eaf_71e944a4",
+        "filename": "media/base/mediaengine.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-15T07:52:58Z",
+      "side": 1,
+      "message": "MediaConfig is intended for the RTCConfiguration options that are passed down here unchanged. It includes the enable_dscp flag, which seems to belong to low-level transport in a similar way to the frame_encryption flag.\n\nIn case the value of the frame_encryption flag here can differ from the RTCConfiguration value (e.g, different for different streams), it doesn\u0027t belong in MediaConfig.",
+      "parentUuid": "96c2acc7_382adf89",
+      "revId": "b70eff65bf2784120a92b6b29e4c0049d83f652e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

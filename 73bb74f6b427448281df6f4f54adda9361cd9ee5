@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a99d63a3_35227c34",
+        "filename": "modules/congestion_controller/transport_feedback_adapter.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-10-15T13:57:08Z",
+      "side": 1,
+      "message": "Add a comment that this is deprecated and link to the newer code?\nWhat\u0027s the remaining blockers for removing the old code altogether?",
+      "range": {
+        "startLine": 32,
+        "startChar": 6,
+        "endLine": 32,
+        "endChar": 36
+      },
+      "revId": "73bb74f6b427448281df6f4f54adda9361cd9ee5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -16,6 +16,24 @@
       "revId": "504ff2484fca3e574ee49b84760cfb67319fca48",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3951aa80_031b62b9",
+        "filename": "api/test/loopback_media_transport.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-15T08:34:16Z",
+      "side": 1,
+      "message": "Something similar would make definitely sense. Should be easy to wrap a MediaTransportPair in a pair of factories, as long as each factory has CreateMediaTransport invoked only once. For multiple transports, it\u0027s not obvious to me to how to pair them up properly (use some place-holder packet_transport with an id?).\n\nFor this cl, I target tests of AudioReceiveStream/AudioSendStream, and I\u0027d like to keep it as simple as possible.",
+      "parentUuid": "a186b895_15e59491",
+      "revId": "504ff2484fca3e574ee49b84760cfb67319fca48",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

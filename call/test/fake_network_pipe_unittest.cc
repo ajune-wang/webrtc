@@ -188,11 +188,11 @@ TEST_F(FakeNetworkPipeTest, StatisticsTest) {
 
   // Send three packets and verify only 2 are delivered.
   SendPackets(pipe.get(), 3, kPacketSize);
-  fake_clock_.AdvanceTimeMilliseconds(3 * kPacketTimeMs +
-                                      config.queue_delay_ms);
-
   EXPECT_CALL(receiver, DeliverPacket(_, _, _)).Times(2);
-  pipe->Process();
+  for (int t_ms = 0; t_ms < 3 * kPacketTimeMs + config.queue_delay_ms; ++t_ms) {
+    fake_clock_.AdvanceTimeMilliseconds(1);
+    pipe->Process();
+  }
 
   // Packet 1: kPacketTimeMs + config.queue_delay_ms,
   // packet 2: 2 * kPacketTimeMs + config.queue_delay_ms => 170 ms average.
@@ -276,51 +276,47 @@ TEST_F(FakeNetworkPipeTest, ChangingCapacityWithPacketsInPipeTest) {
       new FakeNetworkPipe(&fake_clock_, std::move(network), &receiver));
 
   // Add 10 packets of 1000 bytes, = 80 kb.
-  const int kNumPackets = 10;
+  const int kNumPackets = 20;
   const int kPacketSize = 1000;
   SendPackets(pipe.get(), kNumPackets, kPacketSize);
 
   // Time to get one packet through the link at the initial speed.
   int packet_time_1_ms = PacketTimeMs(config.link_capacity_kbps, kPacketSize);
 
-  // Change the capacity.
-  config.link_capacity_kbps *= 2;  // Double the capacity.
-  simulated_network->SetConfig(config);
-
-  // Add another 10 packets of 1000 bytes, = 80 kb, and verify it takes two
-  // seconds to get them through the pipe.
-  SendPackets(pipe.get(), kNumPackets, kPacketSize);
-
-  // Time to get one packet through the link at the new capacity.
-  int packet_time_2_ms = PacketTimeMs(config.link_capacity_kbps, kPacketSize);
-
-  // Time hasn't increased yet, so we souldn't get any packets.
+  // Time hasn't increased yet, so we should not get any packets.
   EXPECT_CALL(receiver, DeliverPacket(_, _, _)).Times(0);
   pipe->Process();
 
   // Advance time in steps to release one packet at a time.
-  for (int i = 0; i < kNumPackets; ++i) {
+  for (int i = 0; i < kNumPackets / 2; ++i) {
     fake_clock_.AdvanceTimeMilliseconds(packet_time_1_ms);
     EXPECT_CALL(receiver, DeliverPacket(_, _, _)).Times(1);
     pipe->Process();
   }
 
+  // Change the capacity.
+  config.link_capacity_kbps *= 2;  // Double the capacity.
+  simulated_network->SetConfig(config);
+
+  // Time to get one packet through the link at the new capacity.
+  int packet_time_2_ms = PacketTimeMs(config.link_capacity_kbps, kPacketSize);
+
   // Advance time in steps to release one packet at a time.
-  for (int i = 0; i < kNumPackets; ++i) {
+  for (int i = 0; i < kNumPackets / 2; ++i) {
     fake_clock_.AdvanceTimeMilliseconds(packet_time_2_ms);
     EXPECT_CALL(receiver, DeliverPacket(_, _, _)).Times(1);
     pipe->Process();
   }
 
   // Check that all the packets were sent.
-  EXPECT_EQ(static_cast<size_t>(2 * kNumPackets), pipe->SentPackets());
+  EXPECT_EQ(static_cast<size_t>(kNumPackets), pipe->SentPackets());
   fake_clock_.AdvanceTimeMilliseconds(pipe->TimeUntilNextProcess());
   EXPECT_CALL(receiver, DeliverPacket(_, _, _)).Times(0);
   pipe->Process();
 }
 
 // At first disallow reordering and then allow reordering.
-TEST_F(FakeNetworkPipeTest, DisallowReorderingThenAllowReordering) {
+TEST_F(FakeNetworkPipeTest, DISABLED_DisallowReorderingThenAllowReordering) {
   BuiltInNetworkBehaviorConfig config;
   config.queue_length_packets = 1000;
   config.link_capacity_kbps = 800;

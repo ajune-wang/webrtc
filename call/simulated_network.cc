@@ -12,6 +12,7 @@
 
 #include <algorithm>
 #include <cmath>
+#include <cstdio>
 #include <utility>
 
 namespace webrtc {
@@ -65,48 +66,32 @@ bool SimulatedNetwork::EnqueuePacket(PacketInFlightInfo packet) {
     return false;
   }
 
-  // Delay introduced by the link capacity.
-  int64_t capacity_delay_ms = 0;
-  if (config.link_capacity_kbps > 0) {
-    // Using bytes per millisecond to avoid losing precision.
-    const int64_t bytes_per_millisecond = config.link_capacity_kbps / 8;
-    // To round to the closest millisecond we add half a milliseconds worth of
-    // bytes to the delay calculation.
-    capacity_delay_ms = (packet.size + capacity_delay_error_bytes_ +
-                         bytes_per_millisecond / 2) /
-                        bytes_per_millisecond;
-    capacity_delay_error_bytes_ +=
-        packet.size - capacity_delay_ms * bytes_per_millisecond;
-  }
-  int64_t network_start_time_us = packet.send_time_us;
-
-  {
-    rtc::CritScope crit(&config_lock_);
-    if (pause_transmission_until_us_) {
-      network_start_time_us =
-          std::max(network_start_time_us, *pause_transmission_until_us_);
-      pause_transmission_until_us_.reset();
-    }
-  }
-  // Check if there already are packets on the link and change network start
-  // time forward if there is.
-  if (!capacity_link_.empty() &&
-      network_start_time_us < capacity_link_.back().arrival_time_us)
-    network_start_time_us = capacity_link_.back().arrival_time_us;
-
-  int64_t arrival_time_us = network_start_time_us + capacity_delay_ms * 1000;
-  capacity_link_.push({packet, arrival_time_us});
+  if (last_bucket_visit_time_us_ < 0)
+    DequeueDeliverablePackets(packet.send_time_us);
+  bytes_in_queue_ += packet.size;
+  capacity_link_.push({packet, last_bucket_visit_time_us_});
   return true;
 }
 
 absl::optional<int64_t> SimulatedNetwork::NextDeliveryTimeUs() const {
-  if (!delay_link_.empty())
-    return delay_link_.begin()->arrival_time_us;
-  return absl::nullopt;
+  rtc::CritScope crit(&process_lock_);
+  if (next_delivery_time_us_ == -1) {
+    return absl::nullopt;
+  }
+  return absl::make_optional(next_delivery_time_us_);
 }
+
 std::vector<PacketDeliveryInfo> SimulatedNetwork::DequeueDeliverablePackets(
     int64_t receive_time_us) {
   int64_t time_now_us = receive_time_us;
+  std::vector<PacketDeliveryInfo> packets_to_deliver;
+
+  if (time_now_us < next_delivery_time_us_)
+    return packets_to_deliver;
+  next_delivery_time_us_ =
+      (next_delivery_time_us_ > 0 ? next_delivery_time_us_ : time_now_us) +
+      1000;
+
   Config config;
   double prob_loss_bursting;
   double prob_start_bursting;
@@ -118,16 +103,36 @@ std::vector<PacketDeliveryInfo> SimulatedNetwork::DequeueDeliverablePackets(
   }
   {
     rtc::CritScope crit(&process_lock_);
+
+    int64_t time_passed_us = last_bucket_visit_time_us_ >= 0
+                                 ? time_now_us - last_bucket_visit_time_us_
+                                 : 0;
+    last_bucket_visit_time_us_ = time_now_us;
+
+    // Counting bits here instead of bytes for increased precision at very low
+    // bw.
+    bits_pending_drain_ += (time_passed_us * config.link_capacity_kbps / 1000);
+
+    // Pending drain cannot exceed the amount of data in queue as we cannot save
+    // unused capacity for later.
+    if (bits_pending_drain_ > 8 * bytes_in_queue_)
+      bits_pending_drain_ = 8 * bytes_in_queue_;
+
     // Check the capacity link first.
     if (!capacity_link_.empty()) {
-      int64_t last_arrival_time_us =
-          delay_link_.empty() ? -1 : delay_link_.back().arrival_time_us;
       bool needs_sort = false;
       while (!capacity_link_.empty() &&
-             time_now_us >= capacity_link_.front().arrival_time_us) {
+             (static_cast<int64_t>(capacity_link_.front().packet.size * 8) <=
+                  bits_pending_drain_ ||
+              config.link_capacity_kbps <= 0)) {
         // Time to get this packet.
         PacketInfo packet = std::move(capacity_link_.front());
         capacity_link_.pop();
+        packet.arrival_time_us =
+            packet.packet.send_time_us + time_now_us - packet.arrival_time_us;
+
+        bits_pending_drain_ -= 8 * packet.packet.size;
+        bytes_in_queue_ -= packet.packet.size;
 
         // Drop packets at an average rate of |config_.loss_percent| with
         // and average loss burst length of |config_.avg_burst_loss_length|.
@@ -148,13 +153,13 @@ std::vector<PacketDeliveryInfo> SimulatedNetwork::DequeueDeliverablePackets(
         // to make sure all packets are sent in order.
         if (!config.allow_reordering && !delay_link_.empty() &&
             packet.arrival_time_us + arrival_time_jitter_us <
-                last_arrival_time_us) {
+                last_arrival_time_us_) {
           arrival_time_jitter_us =
-              last_arrival_time_us - packet.arrival_time_us;
+              last_arrival_time_us_ - packet.arrival_time_us;
         }
         packet.arrival_time_us += arrival_time_jitter_us;
-        if (packet.arrival_time_us >= last_arrival_time_us) {
-          last_arrival_time_us = packet.arrival_time_us;
+        if (packet.arrival_time_us >= last_arrival_time_us_) {
+          last_arrival_time_us_ = packet.arrival_time_us;
         } else {
           needs_sort = true;
         }
@@ -170,7 +175,6 @@ std::vector<PacketDeliveryInfo> SimulatedNetwork::DequeueDeliverablePackets(
       }
     }
 
-    std::vector<PacketDeliveryInfo> packets_to_deliver;
     // Check the extra delay queue.
     while (!delay_link_.empty() &&
            time_now_us >= delay_link_.front().arrival_time_us) {
@@ -179,6 +183,7 @@ std::vector<PacketDeliveryInfo> SimulatedNetwork::DequeueDeliverablePackets(
           PacketDeliveryInfo(packet_info.packet, packet_info.arrival_time_us));
       delay_link_.pop_front();
     }
+    // printf("%zu\n", packets_to_deliver.size());
     return packets_to_deliver;
   }
 }

@@ -399,6 +399,24 @@
       "revId": "b70eff65bf2784120a92b6b29e4c0049d83f652e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ebe0f57_7f241ab2",
+        "filename": "media/base/mediaengine.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2018-10-15T17:25:15Z",
+      "side": 1,
+      "message": "This is going to be passed down in the PeerConnectionFactory instead of the RTCConfiguration. This allows native applications (including Java and Obj-C) to support more nuanced crypto features we support that we may not want to pollute RTCConfiguration with.\n\nThis has a few advantages:\n1. Allows us to keep RTCConfiguration more scoped to the standard.\n2. Allows us to provide compatibility crypto options we don\u0027t want used for general use.",
+      "parentUuid": "1cef0c0a_7c04e03c",
+      "revId": "b70eff65bf2784120a92b6b29e4c0049d83f652e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

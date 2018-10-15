@@ -60,6 +60,24 @@
     },
     {
       "key": {
+        "uuid": "8d15056b_ab9dc11a",
+        "filename": "api/test/loopback_media_transport.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-10-15T17:27:35Z",
+      "side": 1,
+      "message": "Can be done as a separate change. You can probably make a pair of factories, each factory can only produce one transport, connected to transport from another factory.",
+      "parentUuid": "3951aa80_031b62b9",
+      "revId": "504ff2484fca3e574ee49b84760cfb67319fca48",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f5fa92a7_c1cf1d56",
         "filename": "api/test/loopback_media_transport.h",
         "patchSetId": 1
@@ -94,6 +112,30 @@
       "writtenOn": "2018-10-15T15:40:17Z",
       "side": 1,
       "message": "nit: why not\nMediaTransportInterface* MediaTransportPair::first() { return \u0026pipe_[0]; }\nMediaTransportInterface* MediaTransportPair::second() { return \u0026pipe_[1]; }\n?\nReturning pair causes:\nmedia_transport_pair-\u003eGetTransports().first(); \nwhich is fine, but excessively long / too many nested calls.\n\n(unless there is a use case where we need a pair)",
+      "range": {
+        "startLine": 30,
+        "startChar": 2,
+        "endLine": 30,
+        "endChar": 19
+      },
+      "revId": "504ff2484fca3e574ee49b84760cfb67319fca48",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f4dff97_1ad1a18e",
+        "filename": "api/test/loopback_media_transport.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-10-15T17:27:35Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "8297c22a_ba48bcc5",
       "range": {
         "startLine": 30,
         "startChar": 2,

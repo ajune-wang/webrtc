@@ -95,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "747f4739_34b2fdc3",
+        "filename": "audio/channel_receive.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-15T11:15:28Z",
+      "side": 1,
+      "message": "This was a leftover, now it\u0027s used.",
+      "parentUuid": "903d7f3c_16eb7a32",
+      "range": {
+        "startLine": 262,
+        "startChar": 44,
+        "endLine": 262,
+        "endChar": 67
+      },
+      "revId": "6b0ce846bdde87b319f14a870f7c04d27deb7f05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3265d934_a826ba2d",
         "filename": "audio/channel_send.cc",
         "patchSetId": 1
@@ -313,6 +337,30 @@
     },
     {
       "key": {
+        "uuid": "a15eefe1_8f2245a5",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-15T11:15:28Z",
+      "side": 1,
+      "message": "Anton\u0027s proof-of-concept used a separate member variable, media_transport_send_sequence_number_.",
+      "parentUuid": "cff29b51_167508f4",
+      "range": {
+        "startLine": 374,
+        "startChar": 0,
+        "endLine": 374,
+        "endChar": 61
+      },
+      "revId": "6b0ce846bdde87b319f14a870f7c04d27deb7f05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5e836ae2_d3c3593a",
         "filename": "audio/channel_send.cc",
         "patchSetId": 1
@@ -327,6 +375,24 @@
       "revId": "6b0ce846bdde87b319f14a870f7c04d27deb7f05",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29e74269_2619c315",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-15T11:15:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5e836ae2_d3c3593a",
+      "revId": "6b0ce846bdde87b319f14a870f7c04d27deb7f05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -353,6 +419,30 @@
     },
     {
       "key": {
+        "uuid": "998512f3_cc98a7e6",
+        "filename": "pc/jseptransport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-15T11:15:28Z",
+      "side": 1,
+      "message": "No changes to jseptransport after today\u0027s rebase.",
+      "parentUuid": "4056a22c_868eaa50",
+      "range": {
+        "startLine": 104,
+        "startChar": 0,
+        "endLine": 111,
+        "endChar": 14
+      },
+      "revId": "6b0ce846bdde87b319f14a870f7c04d27deb7f05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f402ec37_6285b5b5",
         "filename": "pc/jseptransport.cc",
         "patchSetId": 1
@@ -376,6 +466,30 @@
     },
     {
       "key": {
+        "uuid": "4a45eb2d_d17087d9",
+        "filename": "pc/jseptransport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-15T11:15:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f402ec37_6285b5b5",
+      "range": {
+        "startLine": 148,
+        "startChar": 0,
+        "endLine": 154,
+        "endChar": 0
+      },
+      "revId": "6b0ce846bdde87b319f14a870f7c04d27deb7f05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "60666724_ebfb52c6",
         "filename": "pc/jseptransportcontroller.cc",
         "patchSetId": 1
@@ -396,6 +510,30 @@
       "revId": "6b0ce846bdde87b319f14a870f7c04d27deb7f05",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d28902b_2a9f5591",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 951,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-15T11:15:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "60666724_ebfb52c6",
+      "range": {
+        "startLine": 918,
+        "startChar": 0,
+        "endLine": 951,
+        "endChar": 70
+      },
+      "revId": "6b0ce846bdde87b319f14a870f7c04d27deb7f05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

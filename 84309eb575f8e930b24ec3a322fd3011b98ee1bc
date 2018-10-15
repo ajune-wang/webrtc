@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "e92d1c29_0d6806d6",
+        "filename": "sdk/android/api/org/webrtc/PeerConnectionFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-15T14:29:40Z",
+      "side": 1,
+      "message": "Created FactoryFactory.",
+      "parentUuid": "76ce0b4d_ded35228",
+      "range": {
+        "startLine": 200,
+        "startChar": 0,
+        "endLine": 204,
+        "endChar": 5
+      },
+      "revId": "84309eb575f8e930b24ec3a322fd3011b98ee1bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a4c0aba4_2b5cca67",
         "filename": "sdk/android/src/jni/pc/peerconnectionfactory.cc",
         "patchSetId": 2
@@ -72,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "2808bb3a_fad63558",
+        "filename": "sdk/android/src/jni/pc/peerconnectionfactory.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-15T14:29:40Z",
+      "side": 1,
+      "message": "oops.",
+      "parentUuid": "a4c0aba4_2b5cca67",
+      "range": {
+        "startLine": 305,
+        "startChar": 47,
+        "endLine": 305,
+        "endChar": 76
+      },
+      "revId": "84309eb575f8e930b24ec3a322fd3011b98ee1bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "94b43b20_2c8d94d4",
         "filename": "sdk/android/src/jni/pc/peerconnectionfactory.cc",
         "patchSetId": 2
@@ -92,6 +140,30 @@
       "revId": "84309eb575f8e930b24ec3a322fd3011b98ee1bc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f6fc9f7_f6941139",
+        "filename": "sdk/android/src/jni/pc/peerconnectionfactory.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-15T14:29:40Z",
+      "side": 1,
+      "message": "Null is expected and allowed, and std::move(nullptr) returns nullptr. Added documentation.",
+      "parentUuid": "94b43b20_2c8d94d4",
+      "range": {
+        "startLine": 311,
+        "startChar": 51,
+        "endLine": 311,
+        "endChar": 74
+      },
+      "revId": "84309eb575f8e930b24ec3a322fd3011b98ee1bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -24,7 +24,10 @@ class AsyncResolverInterface {
 
   // Start address resolve process.
   virtual void Start(const SocketAddress& addr) = 0;
-  // Returns top most resolved address of |family|
+  // Returns true iff the address from |Start| was successfully resolved.
+  // If the address was successfully resolved, sets |addr| to a copy of the
+  // address from |Start| with the IP address set to the top most resolved
+  // address of |family|.
   virtual bool GetResolvedAddress(int family, SocketAddress* addr) const = 0;
   // Returns error from resolver.
   virtual int GetError() const = 0;

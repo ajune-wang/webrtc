@@ -29,10 +29,10 @@ namespace rtcp {
 class TransportFeedback;
 }  // namespace rtcp
 
-class TransportFeedbackAdapter {
+class LegacyTransportFeedbackAdapter {
  public:
-  explicit TransportFeedbackAdapter(const Clock* clock);
-  virtual ~TransportFeedbackAdapter();
+  explicit LegacyTransportFeedbackAdapter(const Clock* clock);
+  virtual ~LegacyTransportFeedbackAdapter();
 
   void RegisterPacketFeedbackObserver(PacketFeedbackObserver* observer);
   void DeRegisterPacketFeedbackObserver(PacketFeedbackObserver* observer);

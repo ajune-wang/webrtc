@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "533e2cc6_2929d52a",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 573,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-15T15:40:17Z",
+      "side": 1,
+      "message": "why do we need this? Shouldn\u0027t we avoid suppressing bad constructors?",
+      "range": {
+        "startLine": 573,
+        "startChar": 20,
+        "endLine": 573,
+        "endChar": 74
+      },
+      "revId": "504ff2484fca3e574ee49b84760cfb67319fca48",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a186b895_15e59491",
         "filename": "api/test/loopback_media_transport.h",
         "patchSetId": 1
@@ -31,6 +54,52 @@
       "side": 1,
       "message": "Something similar would make definitely sense. Should be easy to wrap a MediaTransportPair in a pair of factories, as long as each factory has CreateMediaTransport invoked only once. For multiple transports, it\u0027s not obvious to me to how to pair them up properly (use some place-holder packet_transport with an id?).\n\nFor this cl, I target tests of AudioReceiveStream/AudioSendStream, and I\u0027d like to keep it as simple as possible.",
       "parentUuid": "a186b895_15e59491",
+      "revId": "504ff2484fca3e574ee49b84760cfb67319fca48",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5fa92a7_c1cf1d56",
+        "filename": "api/test/loopback_media_transport.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-15T15:40:17Z",
+      "side": 1,
+      "message": "nit: why not 0 and 1, in order?",
+      "range": {
+        "startLine": 25,
+        "startChar": 43,
+        "endLine": 25,
+        "endChar": 47
+      },
+      "revId": "504ff2484fca3e574ee49b84760cfb67319fca48",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8297c22a_ba48bcc5",
+        "filename": "api/test/loopback_media_transport.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-15T15:40:17Z",
+      "side": 1,
+      "message": "nit: why not\nMediaTransportInterface* MediaTransportPair::first() { return \u0026pipe_[0]; }\nMediaTransportInterface* MediaTransportPair::second() { return \u0026pipe_[1]; }\n?\nReturning pair causes:\nmedia_transport_pair-\u003eGetTransports().first(); \nwhich is fine, but excessively long / too many nested calls.\n\n(unless there is a use case where we need a pair)",
+      "range": {
+        "startLine": 30,
+        "startChar": 2,
+        "endLine": 30,
+        "endChar": 19
+      },
       "revId": "504ff2484fca3e574ee49b84760cfb67319fca48",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

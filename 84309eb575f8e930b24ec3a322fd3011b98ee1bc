@@ -22,6 +22,76 @@
       "revId": "84309eb575f8e930b24ec3a322fd3011b98ee1bc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76ce0b4d_ded35228",
+        "filename": "sdk/android/api/org/webrtc/PeerConnectionFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-10-15T07:43:04Z",
+      "side": 1,
+      "message": "Since MediaTransportFactory is not refcounted, I think it would be best if we followed the same pattern as for FecControllerFactory. i.e. Make MediaTransportFactoryFactory",
+      "parentUuid": "5971746c_e3d4c4e4",
+      "range": {
+        "startLine": 200,
+        "startChar": 0,
+        "endLine": 204,
+        "endChar": 5
+      },
+      "revId": "84309eb575f8e930b24ec3a322fd3011b98ee1bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4c0aba4_2b5cca67",
+        "filename": "sdk/android/src/jni/pc/peerconnectionfactory.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-10-15T07:43:04Z",
+      "side": 1,
+      "message": "You mean native_media_transport_factory",
+      "range": {
+        "startLine": 305,
+        "startChar": 47,
+        "endLine": 305,
+        "endChar": 76
+      },
+      "revId": "84309eb575f8e930b24ec3a322fd3011b98ee1bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94b43b20_2c8d94d4",
+        "filename": "sdk/android/src/jni/pc/peerconnectionfactory.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-10-15T07:43:04Z",
+      "side": 1,
+      "message": "What happens if this is null?",
+      "range": {
+        "startLine": 311,
+        "startChar": 51,
+        "endLine": 311,
+        "endChar": 74
+      },
+      "revId": "84309eb575f8e930b24ec3a322fd3011b98ee1bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -381,6 +381,24 @@
       "revId": "b70eff65bf2784120a92b6b29e4c0049d83f652e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1cef0c0a_7c04e03c",
+        "filename": "media/base/mediaengine.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-10-15T17:21:26Z",
+      "side": 1,
+      "message": "I think the CryptoOptions are (going to be?) part of the RTCConfiguration and apply to the entire PeerConnection. Is that not the case?\n\nOtherwise, being at the MediaChannel level means you can configure different settings per-audio/video, but not per stream (since a MediaChannel can have many streams).",
+      "parentUuid": "bfa46516_ceb620fc",
+      "revId": "b70eff65bf2784120a92b6b29e4c0049d83f652e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

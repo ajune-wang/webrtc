@@ -935,6 +935,7 @@ bool PeerConnection::Initialize(
   config.crypto_options = options.crypto_options;
   config.transport_observer = this;
   config.event_log = event_log_.get();
+  config.media_transport_factory = factory_->media_transport_factory();
 #if defined(ENABLE_EXTERNAL_AUTH)
   config.enable_external_auth = true;
 #endif
@@ -5514,9 +5515,16 @@ cricket::VoiceChannel* PeerConnection::CreateVoiceChannel(
     const std::string& mid) {
   RtpTransportInternal* rtp_transport =
       transport_controller_->GetRtpTransport(mid);
-  RTC_DCHECK(rtp_transport);
+
+  MediaTransportInterface* media_transport =
+      transport_controller_->GetMediaTransport(mid);
+
+  // TODO(sukhanov): Fix DCHECK when we stop creating RTP if media transport
+  // is provided.
+  // RTC_DCHECK(rtp_transport);
+
   cricket::VoiceChannel* voice_channel = channel_manager()->CreateVoiceChannel(
-      call_.get(), configuration_.media_config, rtp_transport,
+      call_.get(), configuration_.media_config, rtp_transport, media_transport,
       signaling_thread(), mid, SrtpRequired(),
       factory_->options().crypto_options, audio_options_);
   if (!voice_channel) {

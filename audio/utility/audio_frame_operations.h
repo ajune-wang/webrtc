@@ -43,16 +43,6 @@ class AudioFrameOperations {
   // buffer size and that |num_channels_| is mono.
   static int MonoToStereo(AudioFrame* frame);
 
-  // Downmixes stereo |src_audio| to mono |dst_audio|. This is an in-place
-  // operation, meaning |src_audio| and |dst_audio| may point to the same
-  // buffer.
-  static void StereoToMono(const int16_t* src_audio,
-                           size_t samples_per_channel,
-                           int16_t* dst_audio);
-
-  // |frame.num_channels_| will be updated. This version checks that
-  // |num_channels_| is stereo.
-  static int StereoToMono(AudioFrame* frame);
 
   // Downmixes 4 channels |src_audio| to stereo |dst_audio|. This is an in-place
   // operation, meaning |src_audio| and |dst_audio| may point to the same
@@ -64,17 +54,6 @@ class AudioFrameOperations {
   // |frame.num_channels_| will be updated. This version checks that
   // |num_channels_| is 4 channels.
   static int QuadToStereo(AudioFrame* frame);
-
-  // Downmixes 4 channels |src_audio| to mono |dst_audio|. This is an in-place
-  // operation, meaning |src_audio| and |dst_audio| may point to the same
-  // buffer.
-  static void QuadToMono(const int16_t* src_audio,
-                         size_t samples_per_channel,
-                         int16_t* dst_audio);
-
-  // |frame.num_channels_| will be updated. This version checks that
-  // |num_channels_| is 4 channels.
-  static int QuadToMono(AudioFrame* frame);
 
   // Downmixes |src_channels| |src_audio| to |dst_channels| |dst_audio|.
   // This is an in-place operation, meaning |src_audio| and |dst_audio|
@@ -91,6 +70,9 @@ class AudioFrameOperations {
   // downmix.  Supported channel combinations are Stereo to Mono, Quad to Mono,
   // and Quad to Stereo.
   static int DownmixChannels(size_t dst_channels, AudioFrame* frame);
+
+  static void UpmixChannels(size_t target_number_of_channels,
+                            AudioFrame* frame);
 
   // Swap the left and right channels of |frame|. Fails silently if |frame| is
   // not stereo.

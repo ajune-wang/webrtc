@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5971746c_e3d4c4e4",
+        "filename": "sdk/android/api/org/webrtc/PeerConnectionFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-15T06:43:52Z",
+      "side": 1,
+      "message": "Please document ownership and any transfer thereof.\n\nAs far as I understand, the C++ code takes ownership, with std::unique_ptr, which means that the java long passed here becomes meaningless after the call?\n\nNot sure if it\u0027s worth the effort, but it might make some sense to wrap the native pointer in a java class that ensures that it can only be injected once. Confusion about ownership in the jni interfaces seems to be a common source of bugs.",
+      "range": {
+        "startLine": 200,
+        "startChar": 0,
+        "endLine": 204,
+        "endChar": 5
+      },
+      "revId": "84309eb575f8e930b24ec3a322fd3011b98ee1bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

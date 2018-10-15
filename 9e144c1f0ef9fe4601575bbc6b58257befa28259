@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c43b76a1_7c11fd54",
+        "filename": "api/test/test_dependency_factory.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2018-10-15T08:15:12Z",
+      "side": 1,
+      "message": "Also missing:\n#include \"rtc_base/checks.h\"          // for FatalLogCall, RTC_DCHECK, RTC_C.",
+      "revId": "9e144c1f0ef9fe4601575bbc6b58257befa28259",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9431b62_52cb8f1c",
+        "filename": "p2p/base/relayport.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2018-10-15T08:15:12Z",
+      "side": 1,
+      "message": "FYI include-what-you-use suggests this (wrongly for RelayEntry removal).\n\n../../p2p/base/relayport.h should add these lines:\n#include \u003cstddef.h\u003e                                // for size_t\n#include \u003cstdint.h\u003e                                // for uint16_t\n#include \"absl/memory/memory.h\"                    // for WrapUnique\n#include \"api/candidate.h\"                         // for Candidate\n#include \"p2p/base/packetsocketfactory.h\"          // for PacketSocketFactory\n#include \"p2p/base/portinterface.h\"                // for ProtocolType, Port...\n#include \"rtc_base/asyncpacketsocket.h\"            // for AsyncPacketSocket\n#include \"rtc_base/network.h\"                      // for Network\n#include \"rtc_base/socket.h\"                       // for Socket::Option\n#include \"rtc_base/socketaddress.h\"                // for SocketAddress\n#include \"rtc_base/third_party/sigslot/sigslot.h\"  // for signal_with_thread...\n#include \"rtc_base/thread.h\"                       // for Thread\n\n../../p2p/base/relayport.h should remove these lines:\n- #include \"p2p/base/stunrequest.h\"  // lines 21-21\n- namespace cricket { class RelayConnection; }  // lines 26-26  \n- namespace cricket { class RelayEntry; }  // lines 25-25           \u003c--- Wrong",
+      "revId": "9e144c1f0ef9fe4601575bbc6b58257befa28259",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

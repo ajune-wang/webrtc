@@ -33,8 +33,8 @@ struct RTC_EXPORT EchoCanceller3Config {
     size_t num_filters = 6;
     size_t api_call_jitter_blocks = 26;
     size_t min_echo_path_delay_blocks = 0;
-    size_t delay_headroom_blocks = 2;
-    size_t hysteresis_limit_1_blocks = 1;
+    size_t delay_headroom_blocks = 1;
+    size_t hysteresis_limit_1_blocks = 0;
     size_t hysteresis_limit_2_blocks = 1;
     size_t skew_hysteresis_blocks = 3;
     size_t fixed_capture_delay_samples = 0;

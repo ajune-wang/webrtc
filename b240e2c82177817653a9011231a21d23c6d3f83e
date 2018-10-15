@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "faace84d_75dcb2e4",
+        "filename": "modules/audio_coding/neteq/tools/rtc_event_log_source.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2018-10-15T07:57:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d66eb8d4_5a0136eb",
+      "range": {
+        "startLine": 73,
+        "startChar": 35,
+        "endLine": 73,
+        "endChar": 40
+      },
+      "revId": "b240e2c82177817653a9011231a21d23c6d3f83e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "57e79ab0_cac73ddb",
         "filename": "modules/audio_coding/neteq/tools/rtc_event_log_source.cc",
         "patchSetId": 3
@@ -69,6 +93,30 @@
       "revId": "b240e2c82177817653a9011231a21d23c6d3f83e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "891d7b2f_86eaa4fc",
+        "filename": "modules/audio_coding/neteq/tools/rtc_event_log_source.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2018-10-15T07:57:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "57e79ab0_cac73ddb",
+      "range": {
+        "startLine": 76,
+        "startChar": 7,
+        "endLine": 76,
+        "endChar": 8
+      },
+      "revId": "b240e2c82177817653a9011231a21d23c6d3f83e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

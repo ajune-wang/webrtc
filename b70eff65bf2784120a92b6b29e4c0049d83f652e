@@ -417,6 +417,24 @@
       "revId": "b70eff65bf2784120a92b6b29e4c0049d83f652e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be2e30bf_d54ee9ec",
+        "filename": "media/base/mediaengine.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-10-15T18:19:32Z",
+      "side": 1,
+      "message": "I don\u0027t think putting the configuration option in RTCConfiguration vs. PeerConnectionFactory::Options really makes a difference for those 2 aspects. The main determining factor is whether applications would want different settings for different PeerConnections from the same factory.\n\nAlso, at this level it is fine to squash PeerConnectionFactory options with PeerConnection options. As such, I\u0027m in favor of putting CryptoOptions inside of MediaConfig.",
+      "parentUuid": "0ebe0f57_7f241ab2",
+      "revId": "b70eff65bf2784120a92b6b29e4c0049d83f652e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

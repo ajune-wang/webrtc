@@ -11,12 +11,9 @@
 #ifndef COMMON_TYPES_H_
 #define COMMON_TYPES_H_
 
-#include <stddef.h>
-#include <string.h>
-#include <string>
-#include <vector>
+#include <cstdint>
+#include <stddef.h>  // For size_t
 
-#include "api/array_view.h"
 // TODO(sprang): Remove this include when all usage includes it directly.
 #include "api/video/video_bitrate_allocation.h"
 #include "rtc_base/checks.h"

@@ -9,8 +9,10 @@
  */
 
 #include "modules/audio_device/include/audio_device_data_observer.h"
-#include "rtc_base/checks.h"
-#include "rtc_base/refcountedobject.h"
+
+#include "modules/audio_device/include/audio_device_defines.h"  // for Audio...
+#include "rtc_base/checks.h"                                    // for Fatal...
+#include "rtc_base/refcountedobject.h"                          // for RefCo...
 
 namespace webrtc {
 

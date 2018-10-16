@@ -12,9 +12,10 @@
 
 #include <string.h>
 
-#include <cmath>
-
+#include "common_types.h"  // NOLINT(build/include)
 #include "modules/rtp_rtcp/source/rtp_packet_to_send.h"
+#include "modules/rtp_rtcp/source/rtp_video_header.h"
+#include "modules/video_coding/codecs/interface/common_constants.h"
 #include "rtc_base/bitbuffer.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"

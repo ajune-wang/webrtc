@@ -10,8 +10,10 @@
 
 #include "modules/audio_processing/aec3/erl_estimator.h"
 
-#include <algorithm>
-#include <numeric>
+#include <algorithm>          // for max, min, for_each, transform
+#include <numeric>            // for accumulate
+
+#include "rtc_base/checks.h"  // for FatalLogCall, RTC_DCHECK_EQ
 
 namespace webrtc {
 

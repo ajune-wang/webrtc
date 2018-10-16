@@ -11,14 +11,16 @@
 #ifndef API_VIDEO_CODECS_VIDEO_ENCODER_CONFIG_H_
 #define API_VIDEO_CODECS_VIDEO_ENCODER_CONFIG_H_
 
-#include <string>
-#include <vector>
+#include <stddef.h>                             // for size_t
+#include <string>                               // for string
+#include <vector>                               // for vector
 
-#include "absl/types/optional.h"
-#include "api/video_codecs/sdp_video_format.h"
-#include "api/video_codecs/video_codec.h"
-#include "rtc_base/refcount.h"
-#include "rtc_base/scoped_ref_ptr.h"
+#include "absl/types/optional.h"                // for optional
+#include "api/video_codecs/sdp_video_format.h"  // for SdpVideoFormat
+#include "api/video_codecs/video_codec.h"       // for VideoCodecH264, Video...
+#include "common_types.h"  // NOLINT(build/include)
+#include "rtc_base/refcount.h"                  // for RefCountInterface
+#include "rtc_base/scoped_ref_ptr.h"            // for scoped_refptr
 
 namespace webrtc {
 

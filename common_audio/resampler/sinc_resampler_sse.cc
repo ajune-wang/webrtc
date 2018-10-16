@@ -11,9 +11,11 @@
 // Modified from the Chromium original:
 // src/media/base/simd/sinc_resampler_sse.cc
 
-#include "common_audio/resampler/sinc_resampler.h"
+#include <stddef.h>                                 // for size_t
+#include <stdint.h>                                 // for uintptr_t
+#include <xmmintrin.h>                              // for _mm_add_ps, _mm_m...
 
-#include <xmmintrin.h>
+#include "common_audio/resampler/sinc_resampler.h"  // for SincResampler::kK...
 
 namespace webrtc {
 

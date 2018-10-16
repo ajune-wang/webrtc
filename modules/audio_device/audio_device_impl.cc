@@ -10,13 +10,14 @@
 
 #include "modules/audio_device/audio_device_impl.h"
 
-#include "modules/audio_device/audio_device_config.h"
-#include "modules/audio_device/audio_device_generic.h"
-#include "rtc_base/checks.h"
-#include "rtc_base/logging.h"
-#include "rtc_base/refcount.h"
-#include "rtc_base/refcountedobject.h"
-#include "system_wrappers/include/metrics.h"
+#include <stddef.h>                                               // for NULL
+
+#include "modules/audio_device/audio_device_generic.h"            // for Aud...
+#include "rtc_base/checks.h"                                      // for Fat...
+#include "rtc_base/logging.h"                                     // for RTC...
+#include "rtc_base/refcountedobject.h"                            // for Ref...
+#include "rtc_base/scoped_ref_ptr.h"                              // for sco...
+#include "system_wrappers/include/metrics.h"                      // for His...
 
 #if defined(_WIN32)
 #if defined(WEBRTC_WINDOWS_CORE_AUDIO_BUILD)
@@ -36,10 +37,10 @@
 #include "modules/audio_device/android/opensles_recorder.h"
 #elif defined(WEBRTC_LINUX)
 #if defined(LINUX_ALSA)
-#include "modules/audio_device/linux/audio_device_alsa_linux.h"
+#include "modules/audio_device/linux/audio_device_alsa_linux.h"   // for Aud...
 #endif
 #if defined(LINUX_PULSE)
-#include "modules/audio_device/linux/audio_device_pulse_linux.h"
+#include "modules/audio_device/linux/audio_device_pulse_linux.h"  // for Aud...
 #endif
 #elif defined(WEBRTC_IOS)
 #include "modules/audio_device/ios/audio_device_ios.h"
@@ -49,8 +50,7 @@
 #if defined(WEBRTC_DUMMY_FILE_DEVICES)
 #include "modules/audio_device/dummy/file_audio_device_factory.h"
 #endif
-#include "modules/audio_device/dummy/audio_device_dummy.h"
-#include "modules/audio_device/dummy/file_audio_device.h"
+#include "modules/audio_device/dummy/audio_device_dummy.h"        // for Aud...
 
 #define CHECKinitialized_() \
   {                         \

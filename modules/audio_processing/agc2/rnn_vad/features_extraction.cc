@@ -10,8 +10,10 @@
 
 #include "modules/audio_processing/agc2/rnn_vad/features_extraction.h"
 
-#include "modules/audio_processing/agc2/rnn_vad/lp_residual.h"
-#include "rtc_base/checks.h"
+#include <array>                                                // for array
+
+#include "modules/audio_processing/agc2/rnn_vad/lp_residual.h"  // for Compu...
+#include "rtc_base/checks.h"                                    // for Fatal...
 
 namespace webrtc {
 namespace rnn_vad {

@@ -10,21 +10,19 @@
 
 #include "modules/audio_processing/aec3/adaptive_fir_filter.h"
 
+#include <xmmintrin.h>                               // for _mm_loadu_ps
+
 // Defines WEBRTC_ARCH_X86_FAMILY, used below.
-#include "rtc_base/system/arch.h"
+#include "rtc_base/system/arch.h"                    // for WEBRTC_ARCH_X86_...
 
 #if defined(WEBRTC_HAS_NEON)
 #include <arm_neon.h>
 #endif
-#if defined(WEBRTC_ARCH_X86_FAMILY)
-#include <emmintrin.h>
-#endif
-#include <algorithm>
-#include <functional>
+#include <algorithm>                                 // for min, copy, fill
+#include <functional>                                // for plus
 
-#include "modules/audio_processing/aec3/fft_data.h"
-#include "rtc_base/checks.h"
-#include "rtc_base/logging.h"
+#include "modules/audio_processing/aec3/fft_data.h"  // for FftData
+#include "rtc_base/checks.h"                         // for FatalLogCall
 
 namespace webrtc {
 

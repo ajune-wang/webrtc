@@ -11,10 +11,12 @@
 #ifndef COMMON_AUDIO_RESAMPLER_PUSH_SINC_RESAMPLER_H_
 #define COMMON_AUDIO_RESAMPLER_PUSH_SINC_RESAMPLER_H_
 
-#include <memory>
+#include <stddef.h>                                 // for size_t
+#include <stdint.h>                                 // for int16_t
+#include <memory>                                   // for unique_ptr
 
-#include "common_audio/resampler/sinc_resampler.h"
-#include "rtc_base/constructormagic.h"
+#include "common_audio/resampler/sinc_resampler.h"  // for SincResampler
+#include "rtc_base/constructormagic.h"              // for RTC_DISALLOW_COPY...
 
 namespace webrtc {
 

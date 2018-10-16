@@ -10,9 +10,11 @@
 
 #include "common_audio/real_fourier.h"
 
-#include "common_audio/real_fourier_ooura.h"
-#include "common_audio/signal_processing/include/signal_processing_library.h"
-#include "rtc_base/checks.h"
+#include <stdint.h>                                          // for uint32_t
+
+#include "common_audio/real_fourier_ooura.h"                 // for RealFour...
+#include "common_audio/signal_processing/include/spl_inl.h"  // for WebRtcSp...
+#include "rtc_base/checks.h"                                 // for FatalLog...
 
 namespace webrtc {
 

@@ -10,11 +10,15 @@
 #ifndef MODULES_RTP_RTCP_SOURCE_RTCP_PACKET_PLI_H_
 #define MODULES_RTP_RTCP_SOURCE_RTCP_PACKET_PLI_H_
 
-#include "modules/rtp_rtcp/source/rtcp_packet/psfb.h"
+#include <stddef.h>                                             // for size_t
+#include <stdint.h>                                             // for uint8_t
+
+#include "modules/rtp_rtcp/source/rtcp_packet.h"                // for RtcpP...
+#include "modules/rtp_rtcp/source/rtcp_packet/common_header.h"  // for Commo...
+#include "modules/rtp_rtcp/source/rtcp_packet/psfb.h"           // for Psfb
 
 namespace webrtc {
 namespace rtcp {
-class CommonHeader;
 // Picture loss indication (PLI) (RFC 4585).
 class Pli : public Psfb {
  public:

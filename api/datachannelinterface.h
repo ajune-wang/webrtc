@@ -14,11 +14,13 @@
 #ifndef API_DATACHANNELINTERFACE_H_
 #define API_DATACHANNELINTERFACE_H_
 
-#include <string>
+#include <stddef.h>                      // for size_t
+#include <stdint.h>                      // for uint64_t, uint16_t, uint32_t
+#include <string>                        // for string, basic_string
 
-#include "rtc_base/checks.h"
-#include "rtc_base/copyonwritebuffer.h"
-#include "rtc_base/refcount.h"
+#include "rtc_base/checks.h"             // for FatalLogCall, RTC_CHECK
+#include "rtc_base/copyonwritebuffer.h"  // for CopyOnWriteBuffer
+#include "rtc_base/refcount.h"           // for RefCountInterface
 
 namespace webrtc {
 

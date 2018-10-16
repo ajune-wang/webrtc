@@ -10,12 +10,16 @@
 #ifndef MODULES_RTP_RTCP_SOURCE_RTP_FORMAT_VIDEO_GENERIC_H_
 #define MODULES_RTP_RTCP_SOURCE_RTP_FORMAT_VIDEO_GENERIC_H_
 
-#include <vector>
+#include <stddef.h>                                      // for size_t
+#include <stdint.h>                                      // for uint8_t
+#include <vector>                                        // for vector, vect...
 
-#include "api/array_view.h"
+#include "api/array_view.h"                              // for ArrayView
 #include "common_types.h"  // NOLINT(build/include)
-#include "modules/rtp_rtcp/source/rtp_format.h"
-#include "rtc_base/constructormagic.h"
+#include "modules/rtp_rtcp/source/rtp_format.h"          // for RtpDepacketizer
+#include "modules/rtp_rtcp/source/rtp_packet_to_send.h"  // for RtpPacketToSend
+#include "modules/rtp_rtcp/source/rtp_video_header.h"    // for RTPVideoHeader
+#include "rtc_base/constructormagic.h"                   // for RTC_DISALLOW...
 
 namespace webrtc {
 namespace RtpFormatVideoGeneric {

@@ -10,6 +10,10 @@
 
 #include "modules/rtp_rtcp/source/dtmf_queue.h"
 
+#include <stddef.h>           // for size_t
+
+#include "rtc_base/checks.h"  // for FatalLogCall, RTC_DCHECK
+
 namespace {
 constexpr size_t kDtmfOutbandMax = 20;
 }

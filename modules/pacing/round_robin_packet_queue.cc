@@ -10,10 +10,12 @@
 
 #include "modules/pacing/round_robin_packet_queue.h"
 
-#include <algorithm>
+#include <algorithm>                        // for max
+#include <cstdint>                          // for int64_t, uint32_t, uint64_t
+#include <utility>                          // for pair
 
-#include "rtc_base/checks.h"
-#include "system_wrappers/include/clock.h"
+#include "rtc_base/checks.h"                // for FatalLogCall, RTC_CHECK
+#include "system_wrappers/include/clock.h"  // for Clock
 
 namespace webrtc {
 

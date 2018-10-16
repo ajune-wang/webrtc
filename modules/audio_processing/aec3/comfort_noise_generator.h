@@ -11,14 +11,15 @@
 #ifndef MODULES_AUDIO_PROCESSING_AEC3_COMFORT_NOISE_GENERATOR_H_
 #define MODULES_AUDIO_PROCESSING_AEC3_COMFORT_NOISE_GENERATOR_H_
 
-#include <array>
-#include <memory>
+#include <stdint.h>                                     // for uint32_t
+#include <array>                                        // for array
+#include <memory>                                       // for unique_ptr
 
-#include "modules/audio_processing/aec3/aec3_common.h"
-#include "modules/audio_processing/aec3/aec_state.h"
-#include "modules/audio_processing/aec3/fft_data.h"
-#include "rtc_base/constructormagic.h"
-#include "rtc_base/system/arch.h"
+#include "modules/audio_processing/aec3/aec3_common.h"  // for kFftLengthBy2...
+#include "modules/audio_processing/aec3/aec_state.h"    // for AecState
+#include "modules/audio_processing/aec3/fft_data.h"     // for FftData
+#include "rtc_base/constructormagic.h"                  // for RTC_DISALLOW_...
+#include "rtc_base/system/arch.h"                       // for WEBRTC_ARCH_X...
 
 namespace webrtc {
 namespace aec3 {

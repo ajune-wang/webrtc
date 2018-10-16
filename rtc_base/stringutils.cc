@@ -10,8 +10,6 @@
 
 #include "rtc_base/stringutils.h"
 
-#include "rtc_base/checks.h"
-
 namespace rtc {
 
 bool memory_check(const void* memory, int c, size_t count) {

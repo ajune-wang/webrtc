@@ -10,7 +10,8 @@
 
 #include "api/units/data_size.h"
 
-#include "rtc_base/strings/string_builder.h"
+#include "api/array_view.h"                   // for ArrayView
+#include "rtc_base/strings/string_builder.h"  // for SimpleStringBuilder
 
 namespace webrtc {
 

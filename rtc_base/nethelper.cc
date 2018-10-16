@@ -10,8 +10,9 @@
 
 #include "rtc_base/nethelper.h"
 
-#include "rtc_base/checks.h"
-#include "rtc_base/ipaddress.h"
+#include <sys/socket.h>       // for AF_INET, AF_INET6
+
+#include "rtc_base/checks.h"  // for FatalLogCall, RTC_NOTREACHED
 
 namespace cricket {
 

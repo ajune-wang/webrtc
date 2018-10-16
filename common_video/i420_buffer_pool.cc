@@ -10,7 +10,9 @@
 
 #include "common_video/include/i420_buffer_pool.h"
 
-#include "rtc_base/checks.h"
+#include <limits>             // for numeric_limits
+
+#include "rtc_base/checks.h"  // for FatalLogCall
 
 namespace webrtc {
 

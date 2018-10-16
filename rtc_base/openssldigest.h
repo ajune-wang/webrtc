@@ -11,10 +11,11 @@
 #ifndef RTC_BASE_OPENSSLDIGEST_H_
 #define RTC_BASE_OPENSSLDIGEST_H_
 
-#include <openssl/base.h>  // for EVP_MD, EVP_MD_CTX
-#include <string>
+#include <openssl/base.h>            // for EVP_MD, EVP_MD_CTX
+#include <stddef.h>                  // for size_t
+#include <string>                    // for string
 
-#include "rtc_base/messagedigest.h"
+#include "rtc_base/messagedigest.h"  // for MessageDigest
 
 namespace rtc {
 

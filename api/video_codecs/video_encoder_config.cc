@@ -9,11 +9,11 @@
  */
 #include "api/video_codecs/video_encoder_config.h"
 
-#include <algorithm>
-#include <string>
+#include <string>                             // for basic_string, string
 
-#include "rtc_base/checks.h"
-#include "rtc_base/strings/string_builder.h"
+#include "api/array_view.h"                   // for ArrayView
+#include "rtc_base/checks.h"                  // for FatalLogCall, RTC_NOTRE...
+#include "rtc_base/strings/string_builder.h"  // for SimpleStringBuilder
 
 namespace webrtc {
 VideoStream::VideoStream()

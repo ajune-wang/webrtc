@@ -10,7 +10,10 @@
 
 #include "rtc_base/strings/audio_format_to_string.h"
 
-#include "rtc_base/strings/string_builder.h"
+#include <utility>                            // for pair
+
+#include "api/array_view.h"                   // for ArrayView
+#include "rtc_base/strings/string_builder.h"  // for SimpleStringBuilder
 
 namespace rtc {
 std::string ToString(const webrtc::SdpAudioFormat& saf) {

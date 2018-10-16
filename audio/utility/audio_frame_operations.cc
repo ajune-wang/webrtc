@@ -10,11 +10,12 @@
 
 #include "audio/utility/audio_frame_operations.h"
 
-#include <string.h>
-#include <algorithm>
+#include <string.h>                              // for memcpy
+#include <algorithm>                             // for copy
+#include <cstdint>                               // for int16_t, int32_t
 
-#include "rtc_base/checks.h"
-#include "rtc_base/numerics/safe_conversions.h"
+#include "rtc_base/checks.h"                     // for FatalLogCall, RTC_DC...
+#include "rtc_base/numerics/safe_conversions.h"  // for saturated_cast
 
 namespace webrtc {
 namespace {

@@ -10,14 +10,13 @@
 
 #include "modules/audio_processing/aec3/suppression_filter.h"
 
-#include <math.h>
-#include <algorithm>
-#include <cstring>
-#include <functional>
-#include <numeric>
+#include <algorithm>                        // for transform, copy, max, for...
+#include <cstring>                          // for size_t
+#include <functional>                       // for plus, multiplies
+#include <iterator>                         // for begin
 
-#include "modules/audio_processing/utility/ooura_fft.h"
-#include "rtc_base/numerics/safe_minmax.h"
+#include "rtc_base/checks.h"                // for FatalLogCall, RTC_DCHECK
+#include "rtc_base/numerics/safe_minmax.h"  // for SafeClamp
 
 namespace webrtc {
 namespace {

@@ -11,18 +11,18 @@
 #ifndef MODULES_AUDIO_PROCESSING_AEC3_ADAPTIVE_FIR_FILTER_H_
 #define MODULES_AUDIO_PROCESSING_AEC3_ADAPTIVE_FIR_FILTER_H_
 
-#include <array>
-#include <memory>
-#include <vector>
+#include <stddef.h>                                            // for size_t
+#include <array>                                               // for array
+#include <vector>                                              // for vector
 
-#include "api/array_view.h"
-#include "modules/audio_processing/aec3/aec3_common.h"
-#include "modules/audio_processing/aec3/aec3_fft.h"
-#include "modules/audio_processing/aec3/fft_data.h"
-#include "modules/audio_processing/aec3/render_buffer.h"
-#include "modules/audio_processing/logging/apm_data_dumper.h"
-#include "rtc_base/constructormagic.h"
-#include "rtc_base/system/arch.h"
+#include "api/array_view.h"                                    // for ArrayView
+#include "modules/audio_processing/aec3/aec3_common.h"         // for kFftLe...
+#include "modules/audio_processing/aec3/aec3_fft.h"            // for Aec3Fft
+#include "modules/audio_processing/aec3/fft_data.h"            // for FftData
+#include "modules/audio_processing/aec3/render_buffer.h"       // for Render...
+#include "modules/audio_processing/logging/apm_data_dumper.h"  // for ApmDat...
+#include "rtc_base/constructormagic.h"                         // for RTC_DI...
+#include "rtc_base/system/arch.h"                              // for WEBRTC...
 
 namespace webrtc {
 namespace aec3 {

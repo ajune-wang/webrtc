@@ -11,14 +11,14 @@
 #ifndef LOGGING_RTC_EVENT_LOG_EVENTS_RTC_EVENT_RTP_PACKET_OUTGOING_H_
 #define LOGGING_RTC_EVENT_LOG_EVENTS_RTC_EVENT_RTP_PACKET_OUTGOING_H_
 
-#include <memory>
+#include <stddef.h>                                      // for size_t
+#include <memory>                                        // for unique_ptr
 
-#include "logging/rtc_event_log/events/rtc_event.h"
-#include "modules/rtp_rtcp/source/rtp_packet.h"
+#include "logging/rtc_event_log/events/rtc_event.h"      // for RtcEvent
+#include "modules/rtp_rtcp/source/rtp_packet.h"          // for RtpPacket
+#include "modules/rtp_rtcp/source/rtp_packet_to_send.h"  // for RtpPacketToSend
 
 namespace webrtc {
-
-class RtpPacketToSend;
 
 class RtcEventRtpPacketOutgoing final : public RtcEvent {
  public:

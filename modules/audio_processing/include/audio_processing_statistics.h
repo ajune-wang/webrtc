@@ -11,8 +11,10 @@
 #ifndef MODULES_AUDIO_PROCESSING_INCLUDE_AUDIO_PROCESSING_STATISTICS_H_
 #define MODULES_AUDIO_PROCESSING_INCLUDE_AUDIO_PROCESSING_STATISTICS_H_
 
-#include "absl/types/optional.h"
-#include "rtc_base/system/rtc_export.h"
+#include <stdint.h>                      // for int32_t
+
+#include "absl/types/optional.h"         // for optional
+#include "rtc_base/system/rtc_export.h"  // for RTC_EXPORT
 
 namespace webrtc {
 // This version of the stats uses Optionals, it will replace the regular

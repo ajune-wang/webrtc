@@ -10,10 +10,13 @@
 
 #include "modules/rtp_rtcp/source/rtp_header_extensions.h"
 
+#include <string.h>
+
 #include "modules/rtp_rtcp/include/rtp_cvo.h"
 #include "modules/rtp_rtcp/source/byte_io.h"
+#include "modules/video_coding/codecs/interface/common_constants.h"
+#include "modules/video_coding/codecs/vp9/include/vp9_globals.h"
 #include "rtc_base/checks.h"
-#include "rtc_base/logging.h"
 
 namespace webrtc {
 // Absolute send time in RTP streams.

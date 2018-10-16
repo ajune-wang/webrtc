@@ -11,9 +11,9 @@
 #ifndef MODULES_AUDIO_CODING_CODECS_PCM16B_PCM16B_COMMON_H_
 #define MODULES_AUDIO_CODING_CODECS_PCM16B_PCM16B_COMMON_H_
 
-#include <vector>
+#include <vector>                           // for vector
 
-#include "api/audio_codecs/audio_decoder_factory.h"
+#include "api/audio_codecs/audio_format.h"  // for AudioCodecSpec
 
 namespace webrtc {
 void Pcm16BAppendSupportedCodecSpecs(std::vector<AudioCodecSpec>* specs);

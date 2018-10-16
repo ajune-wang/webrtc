@@ -10,10 +10,7 @@
 
 #include "modules/audio_coding/audio_network_adaptor/fec_controller_rplr_based.h"
 
-#include <limits>
-#include <utility>
-
-#include "rtc_base/checks.h"
+#include "rtc_base/checks.h"  // for FatalLogCall, RTC_DCHECK
 
 namespace webrtc {
 

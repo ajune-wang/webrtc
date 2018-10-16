@@ -11,11 +11,13 @@
 #ifndef API_VIDEO_VIDEO_BITRATE_ALLOCATION_H_
 #define API_VIDEO_VIDEO_BITRATE_ALLOCATION_H_
 
-#include <limits>
-#include <string>
-#include <vector>
+#include <stddef.h>               // for size_t
+#include <stdint.h>               // for uint32_t
+#include <limits>                 // for numeric_limits
+#include <string>                 // for string
+#include <vector>                 // for vector
 
-#include "absl/types/optional.h"
+#include "absl/types/optional.h"  // for optional
 
 namespace webrtc {
 

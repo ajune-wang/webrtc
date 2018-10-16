@@ -11,18 +11,15 @@
 #ifndef AUDIO_TRANSPORT_FEEDBACK_PACKET_LOSS_TRACKER_H_
 #define AUDIO_TRANSPORT_FEEDBACK_PACKET_LOSS_TRACKER_H_
 
-#include <map>
-#include <vector>
+#include <stddef.h>                                     // for size_t
+#include <stdint.h>                                     // for uint16_t, int...
+#include <map>                                          // for map, map<>::v...
+#include <vector>                                       // for vector
 
-#include "absl/types/optional.h"
+#include "absl/types/optional.h"                        // for optional
+#include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"  // for PacketFeedback
 
 namespace webrtc {
-
-namespace rtcp {
-class TransportFeedback;
-}
-
-struct PacketFeedback;
 
 class TransportFeedbackPacketLossTracker final {
  public:

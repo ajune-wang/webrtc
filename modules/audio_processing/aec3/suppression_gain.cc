@@ -10,17 +10,16 @@
 
 #include "modules/audio_processing/aec3/suppression_gain.h"
 
-#include <math.h>
-#include <algorithm>
-#include <functional>
-#include <numeric>
+#include <math.h>                                              // for sqrtf
+#include <stddef.h>                                            // for size_t
+#include <algorithm>                                           // for min, max
+#include <numeric>                                             // for accumu...
 
-#include "modules/audio_processing/aec3/moving_average.h"
-#include "modules/audio_processing/aec3/vector_math.h"
-#include "modules/audio_processing/logging/apm_data_dumper.h"
-#include "rtc_base/atomicops.h"
-#include "rtc_base/checks.h"
-#include "system_wrappers/include/field_trial.h"
+#include "modules/audio_processing/aec3/moving_average.h"      // for Moving...
+#include "modules/audio_processing/aec3/vector_math.h"         // for Vector...
+#include "modules/audio_processing/logging/apm_data_dumper.h"  // for ApmDat...
+#include "rtc_base/atomicops.h"                                // for AtomicOps
+#include "rtc_base/checks.h"                                   // for FatalL...
 
 namespace webrtc {
 namespace {

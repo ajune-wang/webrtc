@@ -10,12 +10,15 @@
 
 #include "modules/congestion_controller/goog_cc/acknowledged_bitrate_estimator.h"
 
-#include <utility>
+#include <stddef.h>                                     // for size_t
+#include <algorithm>                                    // for is_sorted
+#include <utility>                                      // for move
 
-#include "absl/memory/memory.h"
-#include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
-#include "rtc_base/numerics/safe_conversions.h"
-#include "system_wrappers/include/field_trial.h"
+#include "absl/memory/memory.h"                         // for make_unique
+#include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"  // for PacketFeedback
+#include "rtc_base/checks.h"                            // for FatalLogCall
+#include "rtc_base/numerics/safe_conversions.h"         // for dchecked_cast
+#include "system_wrappers/include/field_trial.h"        // for IsEnabled
 
 namespace webrtc {
 

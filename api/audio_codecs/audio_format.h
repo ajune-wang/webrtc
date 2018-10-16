@@ -11,11 +11,12 @@
 #ifndef API_AUDIO_CODECS_AUDIO_FORMAT_H_
 #define API_AUDIO_CODECS_AUDIO_FORMAT_H_
 
-#include <map>
-#include <string>
+#include <stddef.h>                    // for size_t
+#include <map>                         // for map
+#include <string>                      // for string, basic_string
 
-#include "absl/strings/string_view.h"
-#include "rtc_base/checks.h"
+#include "absl/strings/string_view.h"  // for string_view
+#include "rtc_base/checks.h"           // for FatalLogCall, RTC_DCHECK_GE
 
 namespace webrtc {
 

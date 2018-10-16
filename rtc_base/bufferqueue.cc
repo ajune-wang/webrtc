@@ -10,7 +10,9 @@
 
 #include "rtc_base/bufferqueue.h"
 
-#include <algorithm>
+#include <stdint.h>   // for uint8_t
+#include <string.h>   // for size_t, memcpy
+#include <algorithm>  // for min
 
 namespace rtc {
 

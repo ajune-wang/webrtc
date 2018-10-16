@@ -15,6 +15,7 @@
 #include <limits>
 #include <memory>
 #include <numeric>
+#include <string>
 #include <utility>
 #include <vector>
 
@@ -63,6 +64,16 @@ void ShuffleInPlace(Random* prng, rtc::ArrayView<T> array) {
     std::swap(array[i], array[other]);
   }
 }
+
+absl::optional<int> GetExtensionId(const std::vector<RtpExtension>& extensions,
+                                   const std::string& uri) {
+  for (const auto& extension : extensions) {
+    if (extension.uri == uri)
+      return extension.id;
+  }
+  return absl::nullopt;
+}
+
 }  // namespace
 
 std::unique_ptr<RtcEventAlrState> EventGenerator::NewAlrState() {
@@ -583,10 +594,6 @@ void VerifyLoggedRtpHeader(const RtpPacket& original_header,
   EXPECT_EQ(original_header.SequenceNumber(), logged_header.sequenceNumber);
   EXPECT_EQ(original_header.Timestamp(), logged_header.timestamp);
   EXPECT_EQ(original_header.Ssrc(), logged_header.ssrc);
-  ASSERT_EQ(original_header.Csrcs().size(), logged_header.numCSRCs);
-  for (size_t i = 0; i < logged_header.numCSRCs; i++) {
-    EXPECT_EQ(original_header.Csrcs()[i], logged_header.arrOfCSRCs[i]);
-  }
 
   EXPECT_EQ(original_header.headers_size(), logged_header.headerLength);
 
@@ -722,25 +729,63 @@ void VerifyLoggedStopEvent(int64_t stop_time_us,
   EXPECT_EQ(stop_time_us / 1000, logged_event.log_time_ms());
 }
 
+void VerifyLoggedHeaderExtensions(
+    const std::vector<RtpExtension>& original_extension_map,
+    const std::vector<RtpExtension>& logged_extension_map) {
+  EXPECT_EQ(original_extension_map.size(), logged_extension_map.size());
+  size_t recognized_extensions = 0;
+  for (size_t i = 0; i < kMaxNumExtensions; i++) {
+    auto original_id =
+        GetExtensionId(original_extension_map, kExtensions[i].name);
+    auto logged_id = GetExtensionId(logged_extension_map, kExtensions[i].name);
+    EXPECT_EQ(original_id, logged_id)
+        << "IDs for " << kExtensions[i].name << " doesn't match. Original ID "
+        << original_id.value_or(-1) << ". Parsed ID " << logged_id.value_or(-1)
+        << ".";
+    if (original_id) {
+      recognized_extensions++;
+    }
+  }
+  EXPECT_EQ(recognized_extensions, original_extension_map.size());
+}
+
 void VerifyLoggedAudioRecvConfig(
     const RtcEventAudioReceiveStreamConfig& original_event,
     const LoggedAudioRecvConfig& logged_event) {
   EXPECT_EQ(original_event.timestamp_us_ / 1000, logged_event.log_time_ms());
-  EXPECT_EQ(*original_event.config_, logged_event.config);
+  EXPECT_EQ(original_event.config_->local_ssrc, logged_event.config.local_ssrc);
+  EXPECT_EQ(original_event.config_->remote_ssrc,
+            logged_event.config.remote_ssrc);
+  EXPECT_EQ(original_event.config_->rtx_ssrc, logged_event.config.rtx_ssrc);
+  EXPECT_EQ(original_event.config_->rsid, logged_event.config.rsid);
+  VerifyLoggedHeaderExtensions(original_event.config_->rtp_extensions,
+                               logged_event.config.rtp_extensions);
 }
 
 void VerifyLoggedAudioSendConfig(
     const RtcEventAudioSendStreamConfig& original_event,
     const LoggedAudioSendConfig& logged_event) {
   EXPECT_EQ(original_event.timestamp_us_ / 1000, logged_event.log_time_ms());
-  EXPECT_EQ(*original_event.config_, logged_event.config);
+  EXPECT_EQ(original_event.config_->local_ssrc, logged_event.config.local_ssrc);
+  EXPECT_EQ(original_event.config_->remote_ssrc,
+            logged_event.config.remote_ssrc);
+  EXPECT_EQ(original_event.config_->rtx_ssrc, logged_event.config.rtx_ssrc);
+  EXPECT_EQ(original_event.config_->rsid, logged_event.config.rsid);
+  VerifyLoggedHeaderExtensions(original_event.config_->rtp_extensions,
+                               logged_event.config.rtp_extensions);
 }
 
 void VerifyLoggedVideoRecvConfig(
     const RtcEventVideoReceiveStreamConfig& original_event,
     const LoggedVideoRecvConfig& logged_event) {
   EXPECT_EQ(original_event.timestamp_us_ / 1000, logged_event.log_time_ms());
-  EXPECT_EQ(*original_event.config_, logged_event.config);
+  EXPECT_EQ(original_event.config_->local_ssrc, logged_event.config.local_ssrc);
+  EXPECT_EQ(original_event.config_->remote_ssrc,
+            logged_event.config.remote_ssrc);
+  EXPECT_EQ(original_event.config_->rtx_ssrc, logged_event.config.rtx_ssrc);
+  EXPECT_EQ(original_event.config_->rsid, logged_event.config.rsid);
+  VerifyLoggedHeaderExtensions(original_event.config_->rtp_extensions,
+                               logged_event.config.rtp_extensions);
 }
 
 void VerifyLoggedVideoSendConfig(
@@ -751,7 +796,14 @@ void VerifyLoggedVideoSendConfig(
   // in the same RtcEventVideoSendStreamConfig. Look into whether we should drop
   // backwards compatibility in the parser.
   EXPECT_EQ(logged_event.configs.size(), 1u);
-  EXPECT_EQ(*original_event.config_, logged_event.configs[0]);
+  EXPECT_EQ(original_event.config_->local_ssrc,
+            logged_event.configs[0].local_ssrc);
+  EXPECT_EQ(original_event.config_->remote_ssrc,
+            logged_event.configs[0].remote_ssrc);
+  EXPECT_EQ(original_event.config_->rtx_ssrc, logged_event.configs[0].rtx_ssrc);
+  EXPECT_EQ(original_event.config_->rsid, logged_event.configs[0].rsid);
+  VerifyLoggedHeaderExtensions(original_event.config_->rtp_extensions,
+                               logged_event.configs[0].rtp_extensions);
 }
 
 }  // namespace test

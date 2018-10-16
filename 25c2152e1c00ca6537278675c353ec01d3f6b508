@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9f277c9d_d5556a5d",
+        "filename": "sdk/android/api/org/webrtc/PeerConnection.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-10-16T18:09:24Z",
+      "side": 1,
+      "message": "comment",
+      "revId": "25c2152e1c00ca6537278675c353ec01d3f6b508",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

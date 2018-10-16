@@ -10,16 +10,15 @@
 
 #include "common_audio/wav_file.h"
 
-#include <algorithm>
-#include <cstdio>
-#include <limits>
+#include <errno.h>    // for errno
+#include <algorithm>  // for min
+#include <cstdio>     // for fwrite, fclose, fread
 
-#include "common_audio/include/audio_util.h"
-#include "common_audio/wav_header.h"
-#include "rtc_base/checks.h"
-#include "rtc_base/logging.h"
-#include "rtc_base/numerics/safe_conversions.h"
-#include "rtc_base/system/arch.h"
+#include "common_audio/include/audio_util.h"  // for FloatS16ToS16
+#include "common_audio/wav_header.h"          // for kWavHeaderSize, CheckWa...
+#include "rtc_base/checks.h"                  // for RTC_CHECK_EQ
+#include "rtc_base/logging.h"                 // for RTC_LOG
+#include "rtc_base/system/arch.h"             // for WEBRTC_ARCH_LITTLE_ENDIAN
 
 namespace webrtc {
 

@@ -11,14 +11,16 @@
 #ifndef MODULES_RTP_RTCP_SOURCE_RTCP_PACKET_RECEIVER_REPORT_H_
 #define MODULES_RTP_RTCP_SOURCE_RTCP_PACKET_RECEIVER_REPORT_H_
 
-#include <vector>
+#include <stddef.h>  // for size_t
+#include <stdint.h>  // for uint32_t
+#include <vector>    // for vector
 
-#include "modules/rtp_rtcp/source/rtcp_packet.h"
-#include "modules/rtp_rtcp/source/rtcp_packet/report_block.h"
+#include "modules/rtp_rtcp/source/rtcp_packet.h"                // for RtcpP...
+#include "modules/rtp_rtcp/source/rtcp_packet/common_header.h"  // for Commo...
+#include "modules/rtp_rtcp/source/rtcp_packet/report_block.h"   // for Repor...
 
 namespace webrtc {
 namespace rtcp {
-class CommonHeader;
 
 class ReceiverReport : public RtcpPacket {
  public:

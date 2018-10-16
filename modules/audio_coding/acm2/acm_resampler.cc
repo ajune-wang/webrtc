@@ -10,11 +10,10 @@
 
 #include "modules/audio_coding/acm2/acm_resampler.h"
 
-#include <assert.h>
-#include <string.h>
+#include <assert.h>  // for assert
+#include <string.h>  // for size_t, memcpy
 
-#include "common_audio/resampler/include/resampler.h"
-#include "rtc_base/logging.h"
+#include "rtc_base/logging.h"  // for RTC_LOG
 
 namespace webrtc {
 namespace acm2 {

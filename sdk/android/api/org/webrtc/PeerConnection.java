@@ -462,6 +462,8 @@ public class PeerConnection {
     // every offer/answer negotiation.This is only intended to be a workaround for crbug.com/835958
     public boolean activeResetSrtpParams;
 
+    public boolean useMediaTransport;
+
     // TODO(deadbeef): Instead of duplicating the defaults here, we should do
     // something to pick up the defaults from C++. The Objective-C equivalent
     // of RTCConfiguration does that.
@@ -501,6 +503,7 @@ public class PeerConnection {
       networkPreference = AdapterType.UNKNOWN;
       sdpSemantics = SdpSemantics.PLAN_B;
       activeResetSrtpParams = false;
+      useMediaTransport = false;
     }
 
     @CalledByNative("RTCConfiguration")
@@ -698,6 +701,11 @@ public class PeerConnection {
     @CalledByNative("RTCConfiguration")
     boolean getActiveResetSrtpParams() {
       return activeResetSrtpParams;
+    }
+
+    @CalledByNative("RTCConfiguration")
+    boolean getUseMediaTransport() {
+      return useMediaTransport;
     }
   };
 

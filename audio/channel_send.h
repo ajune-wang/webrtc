@@ -19,6 +19,7 @@
 #include "api/audio/audio_frame.h"
 #include "api/audio_codecs/audio_encoder.h"
 #include "api/call/transport.h"
+#include "api/media_transport_interface.h"
 #include "common_types.h"  // NOLINT(build/include)
 #include "modules/audio_coding/include/audio_coding_module.h"
 #include "modules/audio_processing/rms_level.h"
@@ -118,6 +119,7 @@ class ChannelSend
 
   ChannelSend(rtc::TaskQueue* encoder_queue,
               ProcessThread* module_process_thread,
+              MediaTransportInterface* media_transport,
               RtcpRttStats* rtcp_rtt_stats,
               RtcEventLog* rtc_event_log,
               FrameEncryptorInterface* frame_encryptor);
@@ -247,6 +249,23 @@ class ChannelSend
 
   int GetRtpTimestampRateHz() const;
 
+  int32_t SendRtpAudio(FrameType frameType,
+                       uint8_t payloadType,
+                       uint32_t timeStamp,
+                       const uint8_t* payloadData,
+                       size_t payloadSize,
+                       const RTPFragmentationHeader* fragmentation);
+
+  int32_t SendMediaTransportAudio(FrameType frameType,
+                                  uint8_t payloadType,
+                                  uint32_t timeStamp,
+                                  const uint8_t* payloadData,
+                                  size_t payloadSize,
+                                  const RTPFragmentationHeader* fragmentation);
+
+  // Return media transport or nullptr if using RTP.
+  MediaTransportInterface* media_transport() { return media_transport_; }
+
   // Called on the encoder task queue when a new input audio frame is ready
   // for encoding.
   void ProcessAndEncodeAudioOnTaskQueue(AudioFrame* audio_input);
@@ -295,6 +314,8 @@ class ChannelSend
   rtc::CriticalSection encoder_queue_lock_;
   bool encoder_queue_is_active_ RTC_GUARDED_BY(encoder_queue_lock_) = false;
   rtc::TaskQueue* encoder_queue_ = nullptr;
+
+  MediaTransportInterface* media_transport_;
 
   // E2EE Audio Frame Encryption
   FrameEncryptorInterface* frame_encryptor_ = nullptr;

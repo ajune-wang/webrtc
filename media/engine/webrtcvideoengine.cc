@@ -1423,8 +1423,11 @@ void WebRtcVideoChannel::OnNetworkRouteChanged(
       network_route.packet_overhead);
 }
 
-void WebRtcVideoChannel::SetInterface(NetworkInterface* iface) {
-  MediaChannel::SetInterface(iface);
+// TODO(sukhanov): Propagate media_transport.
+void WebRtcVideoChannel::SetInterface(
+    NetworkInterface* iface,
+    webrtc::MediaTransportInterface* media_transport) {
+  MediaChannel::SetInterface(iface, media_transport);
   // Set the RTP recv/send buffer to a bigger size.
 
   // The group here can be either a positive integer with an explicit size, in

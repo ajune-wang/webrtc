@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "833d670a_111b3935",
+        "filename": "logging/rtc_event_log/rtc_event_log2.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-10-16T12:30:55Z",
+      "side": 0,
+      "message": "1. The maintains compatibility with the old format.\n2. This file has never been used, so it can be modified in any way without breaking existing applications. See also line 1 in the file.",
+      "parentUuid": "ce0a5f5f_62ac8c14",
+      "revId": "1927dfafabc06a7eced67d1d3fd60f2c0c88c152",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9cd7e745_e7952bfc",
         "filename": "logging/rtc_event_log/rtc_event_log2.proto",
         "patchSetId": 1
@@ -39,6 +57,30 @@
       "revId": "1927dfafabc06a7eced67d1d3fd60f2c0c88c152",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ada19f30_214eda46",
+        "filename": "logging/rtc_event_log/rtc_event_log2.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-10-16T12:30:55Z",
+      "side": 0,
+      "message": "See above.",
+      "parentUuid": "9cd7e745_e7952bfc",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 35
+      },
+      "revId": "1927dfafabc06a7eced67d1d3fd60f2c0c88c152",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

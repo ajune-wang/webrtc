@@ -435,6 +435,24 @@
       "revId": "b70eff65bf2784120a92b6b29e4c0049d83f652e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86524c91_f12b1362",
+        "filename": "media/base/mediaengine.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-16T07:53:54Z",
+      "side": 1,
+      "message": "I don\u0027t have the fine details. If this is intended to be configured per PeerConnection, I agree with Steve that it can go into MediaConfig inside RTCConfiguration. Of you do that, please add accessor methods on RTCConfiguration: Applications should *not* access RTCConfiguration::media_config directly.",
+      "parentUuid": "be2e30bf_d54ee9ec",
+      "revId": "b70eff65bf2784120a92b6b29e4c0049d83f652e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

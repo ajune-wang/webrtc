@@ -10,11 +10,11 @@
 
 #include "modules/audio_coding/audio_network_adaptor/fec_controller_plr_based.h"
 
-#include <limits>
-#include <utility>
+#include <string>   // for operator==, basic_s...
+#include <utility>  // for move
 
-#include "rtc_base/checks.h"
-#include "system_wrappers/include/field_trial.h"
+#include "rtc_base/checks.h"                      // for RTC_D...
+#include "system_wrappers/include/field_trial.h"  // for FindFullName
 
 namespace webrtc {
 

@@ -9,14 +9,12 @@
  */
 #include "modules/audio_processing/aec3/echo_path_delay_estimator.h"
 
-#include <algorithm>
-#include <array>
+#include <array>  // for array
 
-#include "api/audio/echo_canceller3_config.h"
-#include "modules/audio_processing/aec3/aec3_common.h"
-#include "modules/audio_processing/logging/apm_data_dumper.h"
-#include "rtc_base/checks.h"
-#include "system_wrappers/include/field_trial.h"
+#include "api/audio/echo_canceller3_config.h"                  // for EchoCa...
+#include "modules/audio_processing/aec3/aec3_common.h"         // for kBlock...
+#include "modules/audio_processing/logging/apm_data_dumper.h"  // for ApmDat...
+#include "rtc_base/checks.h"                                   // for FatalL...
 
 namespace webrtc {
 

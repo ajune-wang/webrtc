@@ -10,10 +10,11 @@
 
 #include "modules/include/module_common_types.h"
 
-#include <string.h>
-#include <utility>
+#include <string.h>  // for memcpy, memset
+#include <cstdint>   // for uint16_t
+#include <utility>   // for swap
 
-#include "rtc_base/numerics/safe_conversions.h"
+#include "rtc_base/numerics/safe_conversions.h"  // for dchecked_cast
 
 namespace webrtc {
 

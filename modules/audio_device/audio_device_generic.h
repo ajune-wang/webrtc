@@ -11,8 +11,11 @@
 #ifndef AUDIO_DEVICE_AUDIO_DEVICE_GENERIC_H_
 #define AUDIO_DEVICE_AUDIO_DEVICE_GENERIC_H_
 
-#include "modules/audio_device/audio_device_buffer.h"
-#include "modules/audio_device/include/audio_device.h"
+#include <stdint.h>  // for int32_t
+
+#include "modules/audio_device/audio_device_buffer.h"           // for Audio...
+#include "modules/audio_device/include/audio_device.h"          // for Audio...
+#include "modules/audio_device/include/audio_device_defines.h"  // for kAdmM...
 
 namespace webrtc {
 

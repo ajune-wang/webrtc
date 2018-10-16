@@ -11,10 +11,11 @@
 #ifndef COMMON_AUDIO_INCLUDE_AUDIO_UTIL_H_
 #define COMMON_AUDIO_INCLUDE_AUDIO_UTIL_H_
 
-#include <algorithm>
-#include <cmath>
-#include <cstring>
-#include <limits>
+#include <stdint.h>   // for int16_t
+#include <algorithm>  // for copy
+#include <cmath>      // for log10, pow
+#include <cstring>    // for size_t
+#include <limits>     // for numeric_limits
 
 #include "rtc_base/checks.h"
 

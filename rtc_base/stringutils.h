@@ -11,15 +11,17 @@
 #ifndef RTC_BASE_STRINGUTILS_H_
 #define RTC_BASE_STRINGUTILS_H_
 
-#include <ctype.h>
-#include <stdarg.h>
-#include <stdio.h>
-#include <string.h>
+#include <ctype.h>    // for tolower
+#include <stdarg.h>   // for va_list, va_end, va_start
+#include <stdio.h>    // for size_t, vsnprintf
+#include <string.h>   // for strcmp, strncmp, memcpy
+#include <strings.h>  // for strcasecmp, strncasecmp
 
 #if defined(WEBRTC_WIN)
 #include <malloc.h>
 #include <wchar.h>
 #include <windows.h>
+
 #define alloca _alloca
 #endif  // WEBRTC_WIN
 
@@ -27,11 +29,11 @@
 #ifdef BSD
 #include <stdlib.h>
 #else  // BSD
-#include <alloca.h>
+#include <alloca.h>  // for alloca
 #endif  // !BSD
 #endif  // WEBRTC_POSIX
 
-#include <string>
+#include <string>  // for string, basic_string
 
 ///////////////////////////////////////////////////////////////////////////////
 // Generic string/memory utilities

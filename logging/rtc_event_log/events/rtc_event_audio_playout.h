@@ -11,9 +11,10 @@
 #ifndef LOGGING_RTC_EVENT_LOG_EVENTS_RTC_EVENT_AUDIO_PLAYOUT_H_
 #define LOGGING_RTC_EVENT_LOG_EVENTS_RTC_EVENT_AUDIO_PLAYOUT_H_
 
-#include <memory>
+#include <stdint.h>  // for uint32_t
+#include <memory>    // for unique_ptr
 
-#include "logging/rtc_event_log/events/rtc_event.h"
+#include "logging/rtc_event_log/events/rtc_event.h"  // for RtcEvent, RtcEve...
 
 namespace webrtc {
 

@@ -34,6 +34,24 @@
       "revId": "7042475f266bfaf006c5f9fb8f73f89828c93dab",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "484c2273_f01cd551",
+        "filename": "sdk/android/src/jni/pc/peerconnectionfactory.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-10-16T14:55:28Z",
+      "side": 1,
+      "message": "I think audio_device_module, jencoder_factory, jdecoder_factory, audio_processor, fec_controller_factory and media_transport_factory can be null. (Though some functionality such as audio might obviously be lost.)",
+      "parentUuid": "c2ab163c_40fa0c0c",
+      "revId": "7042475f266bfaf006c5f9fb8f73f89828c93dab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

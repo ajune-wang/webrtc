@@ -11,15 +11,12 @@
 #ifndef LOGGING_RTC_EVENT_LOG_EVENTS_RTC_EVENT_AUDIO_RECEIVE_STREAM_CONFIG_H_
 #define LOGGING_RTC_EVENT_LOG_EVENTS_RTC_EVENT_AUDIO_RECEIVE_STREAM_CONFIG_H_
 
-#include <memory>
+#include <memory>                                     // for unique_ptr
 
-#include "logging/rtc_event_log/events/rtc_event.h"
+#include "logging/rtc_event_log/events/rtc_event.h"   // for RtcEvent, RtcEv...
+#include "logging/rtc_event_log/rtc_stream_config.h"  // for StreamConfig
 
 namespace webrtc {
-
-namespace rtclog {
-struct StreamConfig;
-}  // namespace rtclog
 
 class RtcEventAudioReceiveStreamConfig final : public RtcEvent {
  public:

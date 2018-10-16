@@ -11,15 +11,14 @@
 #ifndef MODULES_AUDIO_PROCESSING_SPLITTING_FILTER_H_
 #define MODULES_AUDIO_PROCESSING_SPLITTING_FILTER_H_
 
-#include <cstring>
-#include <memory>
-#include <vector>
+#include <cstring>                                            // for memset
+#include <memory>                                             // for unique_ptr
+#include <vector>                                             // for vector
 
-#include "modules/audio_processing/three_band_filter_bank.h"
+#include "common_audio/channel_buffer.h"                      // for IFChann...
+#include "modules/audio_processing/three_band_filter_bank.h"  // for ThreeBa...
 
 namespace webrtc {
-
-class IFChannelBuffer;
 
 struct TwoBandsStates {
   TwoBandsStates() {

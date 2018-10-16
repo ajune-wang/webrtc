@@ -11,14 +11,14 @@
 #ifndef MODULES_AUDIO_PROCESSING_AGC2_SATURATION_PROTECTOR_H_
 #define MODULES_AUDIO_PROCESSING_AGC2_SATURATION_PROTECTOR_H_
 
-#include <array>
+#include <stddef.h>                                            // for size_t
+#include <array>                                               // for array
 
-#include "modules/audio_processing/agc2/agc2_common.h"
-#include "modules/audio_processing/agc2/vad_with_level.h"
+#include "modules/audio_processing/agc2/agc2_common.h"         // for kPeakE...
+#include "modules/audio_processing/agc2/vad_with_level.h"      // for VadWit...
+#include "modules/audio_processing/logging/apm_data_dumper.h"  // for ApmDat...
 
 namespace webrtc {
-
-class ApmDataDumper;
 
 class SaturationProtector {
  public:

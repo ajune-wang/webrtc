@@ -10,18 +10,19 @@
 
 #include "modules/rtp_rtcp/source/rtp_sender_audio.h"
 
-#include <string.h>
+#include <string.h>                                         // for memcpy
+#include <memory>                                           // for unique_ptr
+#include <utility>                                          // for move
 
-#include <memory>
-#include <utility>
-
-#include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
-#include "modules/rtp_rtcp/source/byte_io.h"
-#include "modules/rtp_rtcp/source/rtp_header_extensions.h"
-#include "modules/rtp_rtcp/source/rtp_packet_to_send.h"
-#include "rtc_base/logging.h"
-#include "rtc_base/timeutils.h"
-#include "rtc_base/trace_event.h"
+#include "api/audio_codecs/audio_format.h"                  // for SdpAudioF...
+#include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"      // for PayloadUnion
+#include "modules/rtp_rtcp/source/byte_io.h"                // for ByteWriter
+#include "modules/rtp_rtcp/source/rtp_header_extensions.h"  // for AudioLevel
+#include "modules/rtp_rtcp/source/rtp_packet.h"             // for RtpPacket...
+#include "modules/rtp_rtcp/source/rtp_packet_to_send.h"     // for RtpPacket...
+#include "rtc_base/checks.h"                                // for FatalLogCall
+#include "rtc_base/logging.h"                               // for RTC_LOG
+#include "rtc_base/trace_event.h"                           // for TRACE_EVE...
 
 namespace webrtc {
 

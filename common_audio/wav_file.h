@@ -11,14 +11,15 @@
 #ifndef COMMON_AUDIO_WAV_FILE_H_
 #define COMMON_AUDIO_WAV_FILE_H_
 
+#include <stdio.h>                      // for FILE
 #ifdef __cplusplus
 
-#include <stdint.h>
-#include <cstddef>
-#include <string>
+#include <stdint.h>                     // for int16_t
+#include <cstddef>                      // for size_t
+#include <string>                       // for string
 
-#include "rtc_base/constructormagic.h"
-#include "rtc_base/platform_file.h"
+#include "rtc_base/constructormagic.h"  // for RTC_DISALLOW_COPY_AND_ASSIGN
+#include "rtc_base/platform_file.h"     // for PlatformFile
 
 namespace webrtc {
 

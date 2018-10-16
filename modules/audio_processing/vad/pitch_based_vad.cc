@@ -10,13 +10,12 @@
 
 #include "modules/audio_processing/vad/pitch_based_vad.h"
 
-#include <math.h>
-#include <string.h>
+#include <string.h>                                            // for size_t
 
-#include "modules/audio_processing/vad/common.h"
-#include "modules/audio_processing/vad/noise_gmm_tables.h"
-#include "modules/audio_processing/vad/vad_circular_buffer.h"
-#include "modules/audio_processing/vad/voice_gmm_tables.h"
+#include "modules/audio_processing/vad/common.h"               // for AudioF...
+#include "modules/audio_processing/vad/noise_gmm_tables.h"     // for kNoise...
+#include "modules/audio_processing/vad/vad_circular_buffer.h"  // for VadCir...
+#include "modules/audio_processing/vad/voice_gmm_tables.h"     // for kVoice...
 
 namespace webrtc {
 

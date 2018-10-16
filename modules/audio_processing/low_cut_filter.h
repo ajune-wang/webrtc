@@ -11,14 +11,14 @@
 #ifndef MODULES_AUDIO_PROCESSING_LOW_CUT_FILTER_H_
 #define MODULES_AUDIO_PROCESSING_LOW_CUT_FILTER_H_
 
-#include <memory>
-#include <vector>
+#include <stddef.h>                                 // for size_t
+#include <memory>                                   // for unique_ptr
+#include <vector>                                   // for vector
 
-#include "rtc_base/constructormagic.h"
+#include "modules/audio_processing/audio_buffer.h"  // for AudioBuffer
+#include "rtc_base/constructormagic.h"              // for RTC_DISALLOW_IMPL...
 
 namespace webrtc {
-
-class AudioBuffer;
 
 class LowCutFilter {
  public:
@@ -28,6 +28,7 @@ class LowCutFilter {
 
  private:
   class BiquadFilter;
+
   std::vector<std::unique_ptr<BiquadFilter>> filters_;
   RTC_DISALLOW_IMPLICIT_CONSTRUCTORS(LowCutFilter);
 };

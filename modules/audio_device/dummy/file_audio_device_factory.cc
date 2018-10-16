@@ -10,11 +10,11 @@
 
 #include "modules/audio_device/dummy/file_audio_device_factory.h"
 
-#include <cstdlib>
-#include <cstring>
+#include <stdio.h>                                         // for printf
+#include <cstdlib>                                         // for exit
 
-#include "modules/audio_device/dummy/file_audio_device.h"
-#include "rtc_base/logging.h"
+#include "modules/audio_device/dummy/file_audio_device.h"  // for FileAudioD...
+#include "rtc_base/logging.h"                              // for RTC_LOG
 
 namespace webrtc {
 

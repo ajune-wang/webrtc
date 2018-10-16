@@ -11,10 +11,11 @@
 #ifndef COMMON_AUDIO_REAL_FOURIER_H_
 #define COMMON_AUDIO_REAL_FOURIER_H_
 
-#include <complex>
-#include <memory>
+#include <stddef.h>                          // for size_t
+#include <complex>                           // for complex
+#include <memory>                            // for unique_ptr
 
-#include "rtc_base/memory/aligned_malloc.h"
+#include "rtc_base/memory/aligned_malloc.h"  // for AlignedFreeDeleter
 
 // Uniform interface class for the real DFT and its inverse, for power-of-2
 // input lengths. Also contains helper functions for buffer allocation, taking

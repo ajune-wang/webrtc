@@ -11,13 +11,13 @@
 #ifndef MODULES_AUDIO_CODING_NETEQ_TIMESTAMP_SCALER_H_
 #define MODULES_AUDIO_CODING_NETEQ_TIMESTAMP_SCALER_H_
 
-#include "modules/audio_coding/neteq/packet.h"
-#include "rtc_base/constructormagic.h"
+#include <stdint.h>                                       // for uint32_t
+
+#include "modules/audio_coding/neteq/decoder_database.h"  // for DecoderData...
+#include "modules/audio_coding/neteq/packet.h"            // for Packet, Pac...
+#include "rtc_base/constructormagic.h"                    // for RTC_DISALLO...
 
 namespace webrtc {
-
-// Forward declaration.
-class DecoderDatabase;
 
 // This class scales timestamps for codecs that need timestamp scaling.
 // This is done for codecs where one RTP timestamp does not correspond to

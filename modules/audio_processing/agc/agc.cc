@@ -10,15 +10,13 @@
 
 #include "modules/audio_processing/agc/agc.h"
 
-#include <cmath>
-#include <cstdlib>
+#include <cmath>                                              // for floor
+#include <cstdlib>                                            // for size_t
+#include <vector>                                             // for vector
 
-#include <algorithm>
-#include <vector>
-
-#include "modules/audio_processing/agc/loudness_histogram.h"
-#include "modules/audio_processing/agc/utility.h"
-#include "rtc_base/checks.h"
+#include "modules/audio_processing/agc/loudness_histogram.h"  // for Loudnes...
+#include "modules/audio_processing/agc/utility.h"             // for Dbfs2Lo...
+#include "rtc_base/checks.h"                                  // for FatalLo...
 
 namespace webrtc {
 namespace {

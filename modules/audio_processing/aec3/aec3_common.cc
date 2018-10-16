@@ -10,10 +10,11 @@
 
 #include "modules/audio_processing/aec3/aec3_common.h"
 
-#include "system_wrappers/include/cpu_features_wrapper.h"
+#include <stdint.h>                                        // for uint32_t
 
-#include "rtc_base/checks.h"
-#include "rtc_base/system/arch.h"
+#include "rtc_base/checks.h"                               // for FatalLogCall
+#include "rtc_base/system/arch.h"                          // for WEBRTC_ARC...
+#include "system_wrappers/include/cpu_features_wrapper.h"  // for WebRtc_Get...
 
 namespace webrtc {
 

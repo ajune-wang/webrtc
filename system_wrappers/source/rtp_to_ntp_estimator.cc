@@ -10,9 +10,10 @@
 
 #include "system_wrappers/include/rtp_to_ntp_estimator.h"
 
-#include "rtc_base/checks.h"
-#include "rtc_base/logging.h"
-#include "system_wrappers/include/clock.h"
+#include <stddef.h>            // for size_t
+
+#include "rtc_base/checks.h"   // for FatalLogCall, RTC_DCHECK_NE
+#include "rtc_base/logging.h"  // for RTC_LOG
 
 namespace webrtc {
 namespace {

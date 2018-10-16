@@ -11,12 +11,12 @@
 #ifndef COMMON_VIDEO_VIDEO_RENDER_FRAMES_H_
 #define COMMON_VIDEO_VIDEO_RENDER_FRAMES_H_
 
-#include <stdint.h>
+#include <stddef.h>                 // for size_t
+#include <stdint.h>                 // for uint32_t, int32_t, int64_t
+#include <list>                     // for list
 
-#include <list>
-
-#include "absl/types/optional.h"
-#include "api/video/video_frame.h"
+#include "absl/types/optional.h"    // for optional
+#include "api/video/video_frame.h"  // for VideoFrame
 
 namespace webrtc {
 

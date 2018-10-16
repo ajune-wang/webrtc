@@ -10,14 +10,16 @@
 
 #include "modules/audio_processing/residual_echo_detector.h"
 
-#include <algorithm>
-#include <numeric>
+#include <algorithm>                                           // for fill, min
+#include <numeric>                                             // for inner_...
 
-#include "modules/audio_processing/audio_buffer.h"
-#include "modules/audio_processing/logging/apm_data_dumper.h"
-#include "rtc_base/atomicops.h"
-#include "rtc_base/logging.h"
-#include "system_wrappers/include/metrics.h"
+#include "absl/types/optional.h"                               // for optional
+#include "modules/audio_processing/audio_buffer.h"             // for AudioB...
+#include "modules/audio_processing/logging/apm_data_dumper.h"  // for ApmDat...
+#include "rtc_base/atomicops.h"                                // for AtomicOps
+#include "rtc_base/checks.h"                                   // for FatalL...
+#include "rtc_base/logging.h"                                  // for RTC_LOG_F
+#include "system_wrappers/include/metrics.h"                   // for Histogram
 
 namespace {
 

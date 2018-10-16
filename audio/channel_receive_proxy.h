@@ -11,28 +11,30 @@
 #ifndef AUDIO_CHANNEL_RECEIVE_PROXY_H_
 #define AUDIO_CHANNEL_RECEIVE_PROXY_H_
 
-#include <map>
-#include <memory>
-#include <vector>
+#include <stddef.h>                          // for size_t
+#include <stdint.h>                          // for uint32_t, uint8_t
+#include <map>                               // for map
+#include <memory>                            // for unique_ptr
+#include <vector>                            // for vector
 
-#include "api/audio/audio_mixer.h"
-#include "api/rtpreceiverinterface.h"
-#include "audio/channel_receive.h"
-#include "call/rtp_packet_sink_interface.h"
-#include "rtc_base/constructormagic.h"
-#include "rtc_base/race_checker.h"
-#include "rtc_base/thread_checker.h"
+#include "absl/types/optional.h"             // for optional
+#include "api/audio/audio_frame.h"           // for AudioFrame
+#include "api/audio/audio_mixer.h"           // for AudioMixer, AudioMixer::...
+#include "api/audio_codecs/audio_format.h"   // for SdpAudioFormat
+#include "api/call/audio_sink.h"             // for AudioSinkInterface
+#include "api/rtpreceiverinterface.h"        // for RtpSource
+#include "audio/channel_receive.h"           // for CallReceiveStatistics
+#include "audio/channel_send_proxy.h"        // for ChannelSendProxy
+#include "call/rtp_packet_sink_interface.h"  // for RtpPacketSinkInterface
+#include "call/syncable.h"                   // for Syncable
+#include "common_types.h"  // NOLINT(build/include)
+#include "rtc_base/constructormagic.h"       // for RTC_DISALLOW_COPY_AND_AS...
+#include "rtc_base/race_checker.h"           // for RaceChecker
+#include "rtc_base/thread_checker.h"         // for ThreadChecker
 
 namespace webrtc {
 
-class AudioSinkInterface;
-class PacketRouter;
-class RtpPacketReceived;
-class Transport;
-
 namespace voe {
-
-class ChannelSendProxy;
 
 // This class provides the "view" of a voe::Channel that we need to implement
 // webrtc::AudioReceiveStream. It serves two purposes:

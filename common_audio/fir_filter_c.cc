@@ -10,13 +10,10 @@
 
 #include "common_audio/fir_filter_c.h"
 
-#include <string.h>
+#include <string.h>           // for memcpy, size_t, memmove, memset
+#include <memory>             // for unique_ptr
 
-#include <memory>
-
-#include "common_audio/fir_filter_neon.h"
-#include "common_audio/fir_filter_sse.h"
-#include "rtc_base/checks.h"
+#include "rtc_base/checks.h"  // for FatalLogCall, RTC_DCHECK_GT
 
 namespace webrtc {
 

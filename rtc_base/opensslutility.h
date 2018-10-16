@@ -11,8 +11,9 @@
 #ifndef RTC_BASE_OPENSSLUTILITY_H_
 #define RTC_BASE_OPENSSLUTILITY_H_
 
-#include <openssl/ossl_typ.h>
-#include <string>
+#include <string>          // for string
+
+#include "openssl/base.h"  // for SSL, SSL_CTX
 
 namespace rtc {
 // The openssl namespace holds static helper methods. All methods related

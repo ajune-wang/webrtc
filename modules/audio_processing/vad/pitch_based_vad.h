@@ -11,15 +11,13 @@
 #ifndef MODULES_AUDIO_PROCESSING_VAD_PITCH_BASED_VAD_H_
 #define MODULES_AUDIO_PROCESSING_VAD_PITCH_BASED_VAD_H_
 
-#include <memory>
+#include <memory>                                              // for unique...
 
-#include "modules/audio_processing/vad/common.h"
-#include "modules/audio_processing/vad/gmm.h"
+#include "modules/audio_processing/vad/common.h"               // for AudioF...
+#include "modules/audio_processing/vad/gmm.h"                  // for GmmPar...
+#include "modules/audio_processing/vad/vad_circular_buffer.h"  // for VadCir...
 
 namespace webrtc {
-
-class AudioFrame;
-class VadCircularBuffer;
 
 // Computes the probability of the input audio frame to be active given
 // the corresponding pitch-gain and lag of the frame.

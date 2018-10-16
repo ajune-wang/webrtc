@@ -11,7 +11,10 @@
 #ifndef MODULES_AUDIO_CODING_ACM2_ACM_RESAMPLER_H_
 #define MODULES_AUDIO_CODING_ACM2_ACM_RESAMPLER_H_
 
-#include "common_audio/resampler/include/push_resampler.h"
+#include <stddef.h>                                         // for size_t
+#include <stdint.h>                                         // for int16_t
+
+#include "common_audio/resampler/include/push_resampler.h"  // for PushResam...
 
 namespace webrtc {
 namespace acm2 {

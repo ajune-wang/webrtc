@@ -14,10 +14,9 @@
 #include <memory>
 
 #include "logging/rtc_event_log/events/rtc_event.h"
+#include "modules/audio_coding/audio_network_adaptor/include/audio_network_adaptor_config.h"
 
 namespace webrtc {
-
-struct AudioEncoderRuntimeConfig;
 
 class RtcEventAudioNetworkAdaptation final : public RtcEvent {
  public:

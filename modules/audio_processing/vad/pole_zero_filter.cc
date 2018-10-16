@@ -10,9 +10,8 @@
 
 #include "modules/audio_processing/vad/pole_zero_filter.h"
 
-#include <stdlib.h>
-#include <string.h>
-#include <algorithm>
+#include <string.h>   // for memcpy, memmove
+#include <algorithm>  // for max, min
 
 namespace webrtc {
 

@@ -11,11 +11,13 @@
 #ifndef API_VIDEO_I420_BUFFER_H_
 #define API_VIDEO_I420_BUFFER_H_
 
-#include <memory>
+#include <stdint.h>                          // for uint8_t
+#include <memory>                            // for unique_ptr
 
-#include "api/video/video_frame_buffer.h"
-#include "api/video/video_rotation.h"
-#include "rtc_base/memory/aligned_malloc.h"
+#include "api/video/video_frame_buffer.h"    // for I420BufferInterface, Vid...
+#include "api/video/video_rotation.h"        // for VideoRotation
+#include "rtc_base/memory/aligned_malloc.h"  // for AlignedFreeDeleter
+#include "rtc_base/scoped_ref_ptr.h"         // for scoped_refptr
 
 namespace webrtc {
 

@@ -11,16 +11,17 @@
 #ifndef MODULES_AUDIO_PROCESSING_NOISE_SUPPRESSION_IMPL_H_
 #define MODULES_AUDIO_PROCESSING_NOISE_SUPPRESSION_IMPL_H_
 
-#include <memory>
-#include <vector>
+#include <stddef.h>                                             // for size_t
+#include <memory>                                               // for uniqu...
+#include <vector>                                               // for vector
 
-#include "modules/audio_processing/include/audio_processing.h"
-#include "rtc_base/constructormagic.h"
-#include "rtc_base/criticalsection.h"
+#include "modules/audio_processing/audio_buffer.h"              // for Audio...
+#include "modules/audio_processing/include/audio_processing.h"  // for Noise...
+#include "rtc_base/constructormagic.h"                          // for RTC_D...
+#include "rtc_base/criticalsection.h"                           // for Criti...
+#include "rtc_base/thread_annotations.h"                        // for RTC_G...
 
 namespace webrtc {
-
-class AudioBuffer;
 
 class NoiseSuppressionImpl : public NoiseSuppression {
  public:
@@ -43,6 +44,7 @@ class NoiseSuppressionImpl : public NoiseSuppression {
 
  private:
   class Suppressor;
+
   rtc::CriticalSection* const crit_;
   bool enabled_ RTC_GUARDED_BY(crit_) = false;
   Level level_ RTC_GUARDED_BY(crit_) = kModerate;

@@ -9,20 +9,24 @@
  */
 #include "rtc_base/event_tracer.h"
 
-#include <inttypes.h>
+#include <inttypes.h>                        // for PRIu64
+#include <stdint.h>                          // for uint64_t
+#include <string.h>                          // for strcpy, strlen, memcpy
+#include <string>                            // for string, basic_string<>::...
+#include <vector>                            // for vector
 
-#include <string>
-#include <vector>
-
-#include "rtc_base/atomicops.h"
-#include "rtc_base/checks.h"
-#include "rtc_base/criticalsection.h"
-#include "rtc_base/event.h"
-#include "rtc_base/logging.h"
-#include "rtc_base/platform_thread.h"
-#include "rtc_base/stringutils.h"
-#include "rtc_base/timeutils.h"
-#include "rtc_base/trace_event.h"
+#include "rtc_base/atomicops.h"              // for AtomicOps
+#include "rtc_base/checks.h"                 // for FatalLogCall, RTC_DCHECK
+#include "rtc_base/criticalsection.h"        // for CritScope, CriticalSection
+#include "rtc_base/event.h"                  // for Event
+#include "rtc_base/logging.h"                // for RTC_LOG
+#include "rtc_base/platform_thread.h"        // for PlatformThread, kLowPrio...
+#include "rtc_base/platform_thread_types.h"  // for CurrentThreadId, Platfor...
+#include "rtc_base/stringutils.h"            // for sprintfn
+#include "rtc_base/thread_annotations.h"     // for RTC_GUARDED_BY
+#include "rtc_base/thread_checker.h"         // for ThreadChecker
+#include "rtc_base/timeutils.h"              // for TimeMicros
+#include "rtc_base/trace_event.h"            // for TRACE_VALUE_TYPE_COPY_ST...
 
 // This is a guesstimate that should be enough in most cases.
 static const size_t kEventLoggerArgsStrBufferInitialSize = 256;

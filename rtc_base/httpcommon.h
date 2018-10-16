@@ -11,12 +11,13 @@
 #ifndef RTC_BASE_HTTPCOMMON_H_
 #define RTC_BASE_HTTPCOMMON_H_
 
-#include <string>
+#include <stddef.h>                  // for size_t
+#include <string>                    // for string
+
+#include "rtc_base/cryptstring.h"    // for CryptString
+#include "rtc_base/socketaddress.h"  // for SocketAddress
 
 namespace rtc {
-
-class CryptString;
-class SocketAddress;
 
 //////////////////////////////////////////////////////////////////////
 // Http Authentication

@@ -10,15 +10,15 @@
 
 #include "modules/rtp_rtcp/source/rtp_packet.h"
 
-#include <cstring>
-#include <utility>
+#include <cstdint>                               // for uint8_t, uint16_t
+#include <cstring>                               // for size_t, memset, memmove
+#include <utility>                               // for move
 
-#include "api/rtpparameters.h"
-#include "common_types.h"  // NOLINT(build/include)
-#include "modules/rtp_rtcp/source/byte_io.h"
-#include "rtc_base/checks.h"
-#include "rtc_base/logging.h"
-#include "rtc_base/numerics/safe_conversions.h"
+#include "api/rtpparameters.h"                   // for RtpExtension, RtpExt...
+#include "modules/rtp_rtcp/source/byte_io.h"     // for ByteReader, ByteWriter
+#include "rtc_base/checks.h"                     // for FatalLogCall, RTC_DC...
+#include "rtc_base/logging.h"                    // for RTC_LOG, RTC_DLOG
+#include "rtc_base/numerics/safe_conversions.h"  // for dchecked_cast, IsVal...
 
 namespace webrtc {
 namespace {

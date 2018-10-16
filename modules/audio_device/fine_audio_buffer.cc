@@ -10,10 +10,13 @@
 
 #include "modules/audio_device/fine_audio_buffer.h"
 
-#include "modules/audio_device/audio_device_buffer.h"
-#include "rtc_base/checks.h"
-#include "rtc_base/logging.h"
-#include "rtc_base/numerics/safe_conversions.h"
+#include <cstdint>                                     // for int16_t, int32_t
+#include <cstring>                                     // for size_t, memmove
+
+#include "modules/audio_device/audio_device_buffer.h"  // for AudioDeviceBuffer
+#include "rtc_base/checks.h"                           // for FatalLogCall
+#include "rtc_base/logging.h"                          // for RTC_DLOG
+#include "rtc_base/numerics/safe_conversions.h"        // for dchecked_cast
 
 namespace webrtc {
 

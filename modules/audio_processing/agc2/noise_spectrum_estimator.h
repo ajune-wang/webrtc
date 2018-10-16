@@ -11,12 +11,11 @@
 #ifndef MODULES_AUDIO_PROCESSING_AGC2_NOISE_SPECTRUM_ESTIMATOR_H_
 #define MODULES_AUDIO_PROCESSING_AGC2_NOISE_SPECTRUM_ESTIMATOR_H_
 
-#include "api/array_view.h"
-#include "rtc_base/constructormagic.h"
+#include "api/array_view.h"                                    // for ArrayView
+#include "modules/audio_processing/logging/apm_data_dumper.h"  // for ApmDat...
+#include "rtc_base/constructormagic.h"                         // for RTC_DI...
 
 namespace webrtc {
-
-class ApmDataDumper;
 
 class NoiseSpectrumEstimator {
  public:

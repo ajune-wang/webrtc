@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "e4b4e474_f7817651",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 573,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-16T14:38:29Z",
+      "side": 1,
+      "message": "Anton@ can we remove this? I made sure that the constructors for MediaTransportInterface don\u0027t use bad constructors. Is FakeMEdiaTransport using bad cconstructors? if not - what is? Can we fix it?",
+      "parentUuid": "1b89677d_99028f43",
+      "range": {
+        "startLine": 573,
+        "startChar": 20,
+        "endLine": 573,
+        "endChar": 74
+      },
+      "revId": "504ff2484fca3e574ee49b84760cfb67319fca48",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a186b895_15e59491",
         "filename": "api/test/loopback_media_transport.h",
         "patchSetId": 1

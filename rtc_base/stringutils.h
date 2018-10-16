@@ -64,18 +64,11 @@ template <class CTYPE>
 struct Traits {
   // STL string type
   // typedef XXX string;
-  // Null-terminated string
-  // inline static const CTYPE* empty_str();
 };
 
 ///////////////////////////////////////////////////////////////////////////////
 // String utilities which work with char or wchar_t
 ///////////////////////////////////////////////////////////////////////////////
-
-template <class CTYPE>
-inline const CTYPE* nonnull(const CTYPE* str, const CTYPE* def_str = nullptr) {
-  return str ? str : (def_str ? def_str : Traits<CTYPE>::empty_str());
-}
 
 template <class CTYPE>
 const CTYPE* strchr(const CTYPE* str, const CTYPE* chs) {
@@ -84,16 +77,6 @@ const CTYPE* strchr(const CTYPE* str, const CTYPE* chs) {
       if (str[i] == chs[j]) {
         return str + i;
       }
-    }
-  }
-  return 0;
-}
-
-template <class CTYPE>
-const CTYPE* strchrn(const CTYPE* str, size_t slen, CTYPE ch) {
-  for (size_t i = 0; i < slen && str[i]; ++i) {
-    if (str[i] == ch) {
-      return str + i;
     }
   }
   return 0;
@@ -129,18 +112,6 @@ size_t strcpyn(CTYPE* buffer,
   return srclen;
 }
 
-template <class CTYPE>
-size_t strcatn(CTYPE* buffer,
-               size_t buflen,
-               const CTYPE* source,
-               size_t srclen = SIZE_UNKNOWN) {
-  if (buflen <= 0)
-    return 0;
-
-  size_t bufpos = strlenn(buffer, buflen - 1);
-  return bufpos + strcpyn(buffer + bufpos, buflen - bufpos, source, srclen);
-}
-
 // Some compilers (clang specifically) require vsprintfn be defined before
 // sprintfn.
 template <class CTYPE>
@@ -174,7 +145,6 @@ size_t sprintfn(CTYPE* buffer, size_t buflen, const CTYPE* format, ...) {
 template <>
 struct Traits<char> {
   typedef std::string string;
-  inline static const char* empty_str() { return ""; }
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -186,7 +156,6 @@ struct Traits<char> {
 template <>
 struct Traits<wchar_t> {
   typedef std::wstring string;
-  inline static const wchar_t* empty_str() { return L""; }
 };
 
 #endif  // WEBRTC_WIN

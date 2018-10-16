@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "f9e9e144_259a605f",
+        "filename": "test/scenario/audio_stream.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-10-16T12:38:49Z",
+      "side": 1,
+      "message": "maybe need to add saturated_cast\u003c::google::protobuf::int32\u003e(...)\n\nsince Infinity seems too large for the proto field.",
+      "range": {
+        "startLine": 41,
+        "startChar": 50,
+        "endLine": 41,
+        "endChar": 68
+      },
+      "revId": "18d97da6a9b7ae9b62aae335c81b0891ca830384",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b941a978_f29b540e",
         "filename": "test/scenario/scenario_config.h",
         "patchSetId": 1
@@ -46,6 +69,30 @@
       "revId": "18d97da6a9b7ae9b62aae335c81b0891ca830384",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30925dd0_20fe92db",
+        "filename": "test/scenario/scenario_config.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-10-16T12:38:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2ceac230_a9608545",
+      "range": {
+        "startLine": 136,
+        "startChar": 9,
+        "endLine": 136,
+        "endChar": 26
+      },
+      "revId": "18d97da6a9b7ae9b62aae335c81b0891ca830384",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

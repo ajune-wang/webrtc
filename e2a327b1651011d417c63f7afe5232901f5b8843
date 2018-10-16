@@ -22,6 +22,30 @@
       "revId": "e2a327b1651011d417c63f7afe5232901f5b8843",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8bc0a5c6_0ea2f47d",
+        "filename": "rtc_base/openssladapter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2018-10-16T17:16:18Z",
+      "side": 1,
+      "message": "Yep need to investigate it a bit more.",
+      "parentUuid": "1625ccf1_3aa0a3d8",
+      "range": {
+        "startLine": 430,
+        "startChar": 9,
+        "endLine": 430,
+        "endChar": 13
+      },
+      "revId": "e2a327b1651011d417c63f7afe5232901f5b8843",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

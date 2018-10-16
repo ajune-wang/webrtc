@@ -11,12 +11,12 @@
 #ifndef LOGGING_RTC_EVENT_LOG_RTC_STREAM_CONFIG_H_
 #define LOGGING_RTC_EVENT_LOG_RTC_STREAM_CONFIG_H_
 
-#include <string>
-#include <vector>
+#include <stdint.h>  // for uint32_t
+#include <string>    // for string, basic_string
+#include <vector>    // for vector
 
-#include "api/rtp_headers.h"
-#include "api/rtpparameters.h"
-#include "common_types.h"  // NOLINT(build/include)
+#include "api/rtp_headers.h"    // for RtcpMode, RtcpMode::kReducedSize
+#include "api/rtpparameters.h"  // for RtpExtension
 
 namespace webrtc {
 namespace rtclog {

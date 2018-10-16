@@ -11,24 +11,22 @@
 #ifndef MODULES_PACING_PACKET_ROUTER_H_
 #define MODULES_PACING_PACKET_ROUTER_H_
 
+#include <stddef.h>
+#include <stdint.h>
 #include <list>
 #include <vector>
 
-#include "common_types.h"  // NOLINT(build/include)
+#include "api/transport/network_types.h"
 #include "modules/pacing/paced_sender.h"
 #include "modules/remote_bitrate_estimator/include/remote_bitrate_estimator.h"
+#include "modules/rtp_rtcp/include/rtp_rtcp.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
+#include "modules/rtp_rtcp/source/rtcp_packet/transport_feedback.h"
 #include "rtc_base/constructormagic.h"
 #include "rtc_base/criticalsection.h"
-#include "rtc_base/race_checker.h"
 #include "rtc_base/thread_annotations.h"
 
 namespace webrtc {
-
-class RtpRtcp;
-namespace rtcp {
-class TransportFeedback;
-}  // namespace rtcp
 
 // PacketRouter keeps track of rtp send modules to support the pacer.
 // In addition, it handles feedback messages, which are sent on a send

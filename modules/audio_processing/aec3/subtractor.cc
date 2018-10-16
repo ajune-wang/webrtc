@@ -10,15 +10,15 @@
 
 #include "modules/audio_processing/aec3/subtractor.h"
 
-#include <algorithm>
-#include <numeric>
+#include <algorithm>  // for for_each
+#include <utility>    // for pair
 
-#include "api/array_view.h"
-#include "modules/audio_processing/logging/apm_data_dumper.h"
-#include "rtc_base/checks.h"
-#include "rtc_base/logging.h"
-#include "rtc_base/numerics/safe_minmax.h"
-#include "system_wrappers/include/field_trial.h"
+#include "api/array_view.h"                                    // for ArrayView
+#include "modules/audio_processing/aec3/fft_data.h"            // for FftData
+#include "modules/audio_processing/logging/apm_data_dumper.h"  // for ApmDat...
+#include "rtc_base/checks.h"                                   // for FatalL...
+#include "rtc_base/numerics/safe_minmax.h"                     // for SafeClamp
+#include "system_wrappers/include/field_trial.h"               // for IsEnabled
 
 namespace webrtc {
 

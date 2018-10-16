@@ -10,13 +10,13 @@
 
 #include "modules/audio_processing/echo_cancellation_impl.h"
 
-#include <string.h>
+#include <stdint.h>  // for int16_t
+#include <string.h>  // for size_t
 
-#include "modules/audio_processing/aec/aec_core.h"
-#include "modules/audio_processing/aec/echo_cancellation.h"
-#include "modules/audio_processing/audio_buffer.h"
-#include "rtc_base/checks.h"
-#include "system_wrappers/include/field_trial.h"
+#include "modules/audio_processing/aec/aec_core.h"           // for WebRtcAe...
+#include "modules/audio_processing/aec/echo_cancellation.h"  // for AecMetrics
+#include "modules/audio_processing/audio_buffer.h"           // for AudioBuffer
+#include "rtc_base/checks.h"                                 // for FatalLog...
 
 namespace webrtc {
 

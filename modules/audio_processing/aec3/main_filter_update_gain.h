@@ -11,20 +11,21 @@
 #ifndef MODULES_AUDIO_PROCESSING_AEC3_MAIN_FILTER_UPDATE_GAIN_H_
 #define MODULES_AUDIO_PROCESSING_AEC3_MAIN_FILTER_UPDATE_GAIN_H_
 
+#include <stddef.h>
+#include <array>  // for array
 #include <memory>
-#include <vector>
 
 #include "api/audio/echo_canceller3_config.h"
 #include "modules/audio_processing/aec3/adaptive_fir_filter.h"
 #include "modules/audio_processing/aec3/aec3_common.h"
 #include "modules/audio_processing/aec3/echo_path_variability.h"
+#include "modules/audio_processing/aec3/fft_data.h"
 #include "modules/audio_processing/aec3/render_signal_analyzer.h"
 #include "modules/audio_processing/aec3/subtractor_output.h"
+#include "modules/audio_processing/logging/apm_data_dumper.h"
 #include "rtc_base/constructormagic.h"
 
 namespace webrtc {
-
-class ApmDataDumper;
 
 // Provides functionality for  computing the adaptive gain for the main filter.
 class MainFilterUpdateGain {

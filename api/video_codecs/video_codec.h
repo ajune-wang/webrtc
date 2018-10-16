@@ -11,8 +11,11 @@
 #ifndef API_VIDEO_CODECS_VIDEO_CODEC_H_
 #define API_VIDEO_CODECS_VIDEO_CODEC_H_
 
-#include <string>
+#include <stddef.h>  // for size_t
+#include <stdint.h>  // for uint16_t, uint8_t
+#include <string>    // for string
 
+#include "api/video/video_bitrate_allocation.h"  // for kMaxSimulcastStreams
 #include "common_types.h"  // NOLINT(build/include)
 
 namespace webrtc {

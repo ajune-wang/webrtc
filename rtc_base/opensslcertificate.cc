@@ -10,35 +10,23 @@
 
 #include "rtc_base/opensslcertificate.h"
 
-#include <memory>
-#include <utility>
-#include <vector>
-
 #if defined(WEBRTC_WIN)
 // Must be included first before openssl headers.
 #include "rtc_base/win32.h"  // NOLINT
 #endif                       // WEBRTC_WIN
 
-#include <openssl/bio.h>
-#include <openssl/bn.h>
-#include <openssl/crypto.h>
-#include <openssl/err.h>
-#include <openssl/pem.h>
-#include <openssl/rsa.h>
+#include <openssl/bio.h>  // for BIO_free, BIO_get_mem_data
+#include <openssl/bn.h>   // for BN_free, BN_new, BN_pseudo_rand
+#include <openssl/pem.h>  // for PEM_read_bio_X509, PEM_write_b...
+#include <time.h>         // for time_t
 
-#include "absl/memory/memory.h"
-#include "rtc_base/arraysize.h"
-#include "rtc_base/checks.h"
-#include "rtc_base/helpers.h"
-#include "rtc_base/logging.h"
-#include "rtc_base/numerics/safe_conversions.h"
-#include "rtc_base/openssl.h"
-#include "rtc_base/openssldigest.h"
-#include "rtc_base/opensslidentity.h"
-#include "rtc_base/opensslutility.h"
-#ifndef WEBRTC_EXCLUDE_BUILT_IN_SSL_ROOT_CERTS
-#include "rtc_base/sslroots.h"
-#endif  // WEBRTC_EXCLUDE_BUILT_IN_SSL_ROOT_CERTS
+#include "rtc_base/checks.h"           // for FatalLogCall, FATAL, RTC_DCHECK
+#include "rtc_base/helpers.h"          // for CreateRandomString
+#include "rtc_base/logging.h"          // for RTC_LOG, RTC_DLOG, RTC_DLOG_F
+#include "rtc_base/messagedigest.h"    // for DIGEST_MD5, DIGEST_SHA_1, DIGE...
+#include "rtc_base/openssldigest.h"    // for OpenSSLDigest
+#include "rtc_base/opensslidentity.h"  // for OpenSSLKeyPair
+#include "rtc_base/opensslutility.h"   // for LogSSLErrors
 
 namespace rtc {
 

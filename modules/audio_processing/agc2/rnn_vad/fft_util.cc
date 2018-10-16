@@ -10,9 +10,10 @@
 
 #include "modules/audio_processing/agc2/rnn_vad/fft_util.h"
 
-#include <cmath>
+#include <stddef.h>  // for size_t
+#include <cmath>     // for sin
 
-#include "rtc_base/checks.h"
+#include "rtc_base/checks.h"  // for FatalLogCall, RTC_DCHECK_EQ
 
 namespace webrtc {
 namespace rnn_vad {

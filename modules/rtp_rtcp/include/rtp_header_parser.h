@@ -10,11 +10,13 @@
 #ifndef MODULES_RTP_RTCP_INCLUDE_RTP_HEADER_PARSER_H_
 #define MODULES_RTP_RTCP_INCLUDE_RTP_HEADER_PARSER_H_
 
-#include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
+#include <stddef.h>  // for size_t
+#include <stdint.h>  // for uint8_t
+
+#include "api/rtp_headers.h"                            // for RTPHeader
+#include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"  // for RTPExtensionType
 
 namespace webrtc {
-
-struct RTPHeader;
 
 class RtpHeaderParser {
  public:

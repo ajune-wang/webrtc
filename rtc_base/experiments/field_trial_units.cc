@@ -9,10 +9,11 @@
  */
 #include "rtc_base/experiments/field_trial_units.h"
 
-#include <limits>
-#include <string>
+#include <stdio.h>  // for sscanf
+#include <limits>   // for numeric_limits
+#include <string>   // for operator==, basic_string, string
 
-#include "absl/types/optional.h"
+#include "absl/types/optional.h"  // for optional, nullopt
 
 // Large enough to fit "seconds", the longest supported unit name.
 #define RTC_TRIAL_UNIT_LENGTH_STR "7"

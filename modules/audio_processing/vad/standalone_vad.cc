@@ -10,10 +10,9 @@
 
 #include "modules/audio_processing/vad/standalone_vad.h"
 
-#include <string.h>
+#include <string.h>  // for size_t, memcpy
 
-#include "audio/utility/audio_frame_operations.h"
-#include "rtc_base/checks.h"
+#include "rtc_base/checks.h"  // for FatalLogCall, RTC_DCHECK_EQ
 
 namespace webrtc {
 

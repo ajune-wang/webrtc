@@ -10,13 +10,10 @@
 
 #include "audio/remix_resample.h"
 
-#include "api/audio/audio_frame.h"
-#include "audio/utility/audio_frame_operations.h"
-#include "common_audio/resampler/include/push_resampler.h"
-#include "common_audio/signal_processing/include/signal_processing_library.h"
-#include "common_types.h"  // NOLINT(build/include)
-#include "rtc_base/checks.h"
-#include "rtc_base/logging.h"
+#include "api/audio/audio_frame.h"                          // for AudioFrame
+#include "audio/utility/audio_frame_operations.h"           // for AudioFram...
+#include "common_audio/resampler/include/push_resampler.h"  // for PushResam...
+#include "rtc_base/checks.h"                                // for FatalLogCall
 
 namespace webrtc {
 namespace voe {

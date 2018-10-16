@@ -11,7 +11,6 @@
 #ifndef RTC_BASE_OPENSSLUTILITY_H_
 #define RTC_BASE_OPENSSLUTILITY_H_
 
-#include <openssl/ossl_typ.h>
 #include <string>
 
 namespace rtc {

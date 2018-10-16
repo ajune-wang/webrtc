@@ -10,10 +10,12 @@
 
 #include "rtc_base/criticalsection.h"
 
-#include "rtc_base/atomicops.h"
-#include "rtc_base/checks.h"
-#include "rtc_base/platform_thread_types.h"
-#include "rtc_base/system/unused.h"
+#include <time.h>  // for nanosleep, timespec
+
+#include "rtc_base/atomicops.h"              // for AtomicOps
+#include "rtc_base/checks.h"                 // for FatalLogCall, RTC_DCHECK
+#include "rtc_base/platform_thread_types.h"  // for CurrentThreadRef, IsThre...
+#include "rtc_base/system/unused.h"          // for RTC_UNUSED
 
 // TODO(tommi): Split this file up to per-platform implementation files.
 

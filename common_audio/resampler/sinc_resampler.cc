@@ -87,14 +87,13 @@
 
 #include "common_audio/resampler/sinc_resampler.h"
 
-#include <math.h>
-#include <string.h>
+#include <math.h>    // for cos, sin, M_PI, ceil, fabs
+#include <stdint.h>  // for uintptr_t
+#include <string.h>  // for size_t, memset, memcpy
+#include <limits>    // for numeric_limits
 
-#include <limits>
-
-#include "rtc_base/checks.h"
-#include "rtc_base/system/arch.h"
-#include "system_wrappers/include/cpu_features_wrapper.h"
+#include "rtc_base/checks.h"       // for FatalLogCall, RTC_DCHECK_EQ, RTC_D...
+#include "rtc_base/system/arch.h"  // for WEBRTC_ARCH_X86_FAMILY
 
 namespace webrtc {
 

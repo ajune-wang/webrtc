@@ -11,14 +11,14 @@
 #ifndef MODULES_CONGESTION_CONTROLLER_GOOG_CC_ALR_DETECTOR_H_
 #define MODULES_CONGESTION_CONTROLLER_GOOG_CC_ALR_DETECTOR_H_
 
-#include "absl/types/optional.h"
-#include "common_types.h"  // NOLINT(build/include)
-#include "modules/pacing/interval_budget.h"
-#include "rtc_base/rate_statistics.h"
+#include <stddef.h>  // for size_t
+#include <stdint.h>  // for int64_t
+
+#include "absl/types/optional.h"                  // for optional
+#include "logging/rtc_event_log/rtc_event_log.h"  // for RtcEventLog
+#include "modules/pacing/interval_budget.h"       // for IntervalBudget
 
 namespace webrtc {
-
-class RtcEventLog;
 
 // Application limited region detector is a class that utilizes signals of
 // elapsed time and bytes sent to estimate whether network traffic is

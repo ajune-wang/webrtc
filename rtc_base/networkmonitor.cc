@@ -10,8 +10,11 @@
 
 #include "rtc_base/networkmonitor.h"
 
-#include "rtc_base/checks.h"
-#include "rtc_base/logging.h"
+#include <stdint.h>  // for uint32_t
+
+#include "rtc_base/checks.h"    // for FatalLogCall, RTC_DCHECK
+#include "rtc_base/location.h"  // for RTC_FROM_HERE
+#include "rtc_base/logging.h"   // for RTC_LOG
 
 namespace {
 const uint32_t UPDATE_NETWORKS_MESSAGE = 1;

@@ -13,7 +13,7 @@
 #if defined(WEBRTC_WIN)
 #include <comdef.h>
 #elif defined(WEBRTC_POSIX)
-#include <time.h>
+#include <time.h>  // for nanosleep, timespec
 #else
 #error "Either WEBRTC_WIN or WEBRTC_POSIX needs to be defined."
 #endif
@@ -26,15 +26,17 @@
 
 #include <utility>  // for move
 
-#include "rtc_base/checks.h"
-#include "rtc_base/logging.h"
-#include "rtc_base/nullsocketserver.h"
-#include "rtc_base/stringutils.h"
-#include "rtc_base/timeutils.h"
-#include "rtc_base/trace_event.h"
+#include "rtc_base/checks.h"            // for FatalLogCall, RTC_DCHECK, RTC...
+#include "rtc_base/criticalsection.h"   // for CriticalSection, CritScope
+#include "rtc_base/logging.h"           // for RTC_LOG, RTC_DLOG, RTC_DLOG_I...
+#include "rtc_base/nullsocketserver.h"  // for NullSocketServer
+#include "rtc_base/stringutils.h"       // for sprintfn
+#include "rtc_base/timeutils.h"         // for GetClockForTesting, TimeAfter
+#include "rtc_base/trace_event.h"       // for TRACE_EVENT2, TraceEndOnScope...
 
 #if defined(WEBRTC_MAC)
 #include "rtc_base/system/cocoa_threading.h"
+
 /*
  * These are forward-declarations for methods that are part of the
  * ObjC runtime. They are declared in the private header objc-internal.h.

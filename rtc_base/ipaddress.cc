@@ -9,28 +9,18 @@
  */
 
 #if defined(WEBRTC_POSIX)
-#include <netinet/in.h>
-#include <sys/socket.h>
-#include <sys/types.h>
+#include <netinet/in.h>  // for in6_addr, in_addr, s6_addr, INADDR...
+#include <sys/socket.h>  // for AF_INET6, AF_INET, AF_UNSPEC, sock...
 #ifdef OPENBSD
 #include <netinet/in_systm.h>
 #endif
-#ifndef __native_client__
-#include <netinet/ip.h>
-#endif
-#include <arpa/inet.h>
-#include <netdb.h>
-#include <unistd.h>
+#include <netdb.h>  // for addrinfo
 #endif
 
-#include <stdio.h>
-
-#include "rtc_base/byteorder.h"
-#include "rtc_base/checks.h"
+#include "rtc_base/byteorder.h"  // for NetworkToHost32, HostToNetwork32
 #include "rtc_base/ipaddress.h"
-#include "rtc_base/logging.h"
-#include "rtc_base/nethelpers.h"
-#include "rtc_base/stringutils.h"
+#include "rtc_base/nethelpers.h"   // for inet_pton, inet_ntop
+#include "rtc_base/stringutils.h"  // for ToHex
 
 #if defined(WEBRTC_WIN)
 #include "rtc_base/win32.h"

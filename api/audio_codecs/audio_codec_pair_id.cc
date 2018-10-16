@@ -10,9 +10,10 @@
 
 #include "api/audio_codecs/audio_codec_pair_id.h"
 
-#include <atomic>
+#include <atomic>   // for atomic, memory_order_relaxed
+#include <cstdint>  // for uint64_t
 
-#include "rtc_base/checks.h"
+#include "rtc_base/checks.h"  // for FatalLogCall, RTC_DCHECK_LT
 
 namespace webrtc {
 

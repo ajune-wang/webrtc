@@ -10,11 +10,13 @@
 
 #include "common_video/video_render_frames.h"
 
-#include <utility>
+#include <type_traits>  // for remove_reference<>::type
+#include <utility>      // for move
 
-#include "rtc_base/logging.h"
-#include "rtc_base/timeutils.h"
-#include "system_wrappers/include/metrics.h"
+#include "rtc_base/checks.h"                  // for FatalLogCall
+#include "rtc_base/logging.h"                 // for RTC_LOG
+#include "rtc_base/timeutils.h"               // for TimeMillis
+#include "system_wrappers/include/metrics.h"  // for Histogram, RTC_HISTOGRA...
 
 namespace webrtc {
 namespace {

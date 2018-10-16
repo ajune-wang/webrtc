@@ -11,7 +11,9 @@
 #ifndef RTC_BASE_HELPERS_H_
 #define RTC_BASE_HELPERS_H_
 
-#include <string>
+#include <stddef.h>  // for size_t
+#include <stdint.h>  // for uint32_t, uint64_t
+#include <string>    // for string
 
 namespace rtc {
 

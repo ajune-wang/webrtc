@@ -14,8 +14,9 @@
 #include <dispatch/dispatch.h>
 #endif
 
-#include "rtc_base/sequenced_task_checker.h"
-#include "rtc_base/task_queue.h"
+#include "rtc_base/checks.h"                  // for FatalLogCall, RTC_DCHECK
+#include "rtc_base/sequenced_task_checker.h"  // for SequencedTaskChecker
+#include "rtc_base/task_queue.h"              // for TaskQueue
 
 namespace rtc {
 

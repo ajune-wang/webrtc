@@ -10,8 +10,7 @@
 
 #include "rtc_base/openssldigest.h"
 
-#include "rtc_base/checks.h"
-#include "rtc_base/openssl.h"
+#include "rtc_base/checks.h"  // for FatalLogCall, RTC_DCHECK, RTC_CHECK
 
 namespace rtc {
 

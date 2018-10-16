@@ -10,17 +10,24 @@
 
 #include "modules/audio_coding/include/audio_coding_module.h"
 
-#include <algorithm>
+#include <assert.h>   // for assert
+#include <algorithm>  // for fill
+#include <cstdint>    // for uint32_t
 
-#include "modules/audio_coding/acm2/acm_receiver.h"
-#include "modules/audio_coding/acm2/acm_resampler.h"
-#include "modules/audio_coding/acm2/codec_manager.h"
-#include "modules/audio_coding/acm2/rent_a_codec.h"
-#include "modules/include/module_common_types.h"
-#include "rtc_base/checks.h"
-#include "rtc_base/logging.h"
-#include "rtc_base/numerics/safe_conversions.h"
-#include "system_wrappers/include/metrics.h"
+#include "api/array_view.h"                              // for ArrayView
+#include "modules/audio_coding/acm2/acm_receiver.h"      // for AcmReceiver
+#include "modules/audio_coding/acm2/acm_resampler.h"     // for ACMResampler
+#include "modules/audio_coding/acm2/codec_manager.h"     // for CodecManager
+#include "modules/audio_coding/acm2/rent_a_codec.h"      // for RentACodec
+#include "modules/include/module_common_types.h"         // for RTPFragmenta...
+#include "modules/include/module_common_types_public.h"  // for IsNewerTimes...
+#include "rtc_base/buffer.h"                             // for Buffer
+#include "rtc_base/checks.h"                             // for FatalLogCall
+#include "rtc_base/criticalsection.h"                    // for CritScope
+#include "rtc_base/logging.h"                            // for RTC_LOG, RTC...
+#include "rtc_base/numerics/safe_conversions.h"          // for dchecked_cast
+#include "rtc_base/thread_annotations.h"                 // for RTC_GUARDED_BY
+#include "system_wrappers/include/metrics.h"             // for Histogram
 
 namespace webrtc {
 

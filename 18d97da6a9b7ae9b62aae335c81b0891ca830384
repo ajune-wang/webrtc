@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b941a978_f29b540e",
+        "filename": "test/scenario/scenario_config.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-10-16T11:06:08Z",
+      "side": 1,
+      "message": "why not using audio network adaptation proto directly? because proto may not be available? then how about adding macros #if WEBRTC_ENABLE_PROTOBUF here?",
+      "range": {
+        "startLine": 136,
+        "startChar": 9,
+        "endLine": 136,
+        "endChar": 26
+      },
+      "revId": "18d97da6a9b7ae9b62aae335c81b0891ca830384",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

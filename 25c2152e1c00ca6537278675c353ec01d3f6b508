@@ -34,6 +34,24 @@
       "revId": "25c2152e1c00ca6537278675c353ec01d3f6b508",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac1fd56e_8ea04922",
+        "filename": "sdk/android/api/org/webrtc/PeerConnection.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-10-16T18:32:15Z",
+      "side": 1,
+      "message": "Ideally a Java developer wouldn\u0027t need to go looking through C++ source code to find documentation. So I think copying docs is the least-bad choice here.",
+      "parentUuid": "bf22b006_3963c753",
+      "revId": "25c2152e1c00ca6537278675c353ec01d3f6b508",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

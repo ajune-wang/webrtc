@@ -10,15 +10,15 @@
 
 #include "rtc_base/filerotatingstream.h"
 
-#include <algorithm>
-#include <cstdio>
-#include <string>
+#include <algorithm>  // for max, min, sort
+#include <cstdio>     // for size_t, fprintf, snprintf, stderr
+#include <string>     // for string, basic_string, operator<, ope...
+#include <utility>    // for swap
 
-#include "rtc_base/checks.h"
-#include "rtc_base/fileutils.h"
-#include "rtc_base/logging.h"
-#include "rtc_base/pathutils.h"
-#include "rtc_base/strings/string_builder.h"
+#include "rtc_base/checks.h"     // for RTC_DCHECK_LT, RTC_DCHECK
+#include "rtc_base/fileutils.h"  // for Filesystem, DirectoryIterator
+#include "rtc_base/logging.h"    // for RTC_LOG
+#include "rtc_base/pathutils.h"  // for Pathname
 
 // Note: We use fprintf for logging in the write paths of this stream to avoid
 // infinite loops when logging.

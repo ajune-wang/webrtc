@@ -11,20 +11,21 @@
 #ifndef MODULES_AUDIO_PROCESSING_GAIN_CONTROL_IMPL_H_
 #define MODULES_AUDIO_PROCESSING_GAIN_CONTROL_IMPL_H_
 
-#include <memory>
-#include <vector>
+#include <stddef.h>  // for size_t
+#include <stdint.h>  // for int16_t
+#include <memory>    // for unique...
+#include <vector>    // for vector
 
-#include "modules/audio_processing/include/audio_processing.h"
-#include "modules/audio_processing/render_queue_item_verifier.h"
-#include "rtc_base/constructormagic.h"
-#include "rtc_base/criticalsection.h"
-#include "rtc_base/swap_queue.h"
-#include "rtc_base/thread_annotations.h"
+#include "absl/types/optional.h"                               // for optional
+#include "api/array_view.h"                                    // for ArrayView
+#include "modules/audio_processing/audio_buffer.h"             // for AudioB...
+#include "modules/audio_processing/include/gain_control.h"     // for GainCo...
+#include "modules/audio_processing/logging/apm_data_dumper.h"  // for ApmDat...
+#include "rtc_base/constructormagic.h"                         // for RTC_DI...
+#include "rtc_base/criticalsection.h"                          // for Critic...
+#include "rtc_base/thread_annotations.h"                       // for RTC_GU...
 
 namespace webrtc {
-
-class ApmDataDumper;
-class AudioBuffer;
 
 class GainControlImpl : public GainControl {
  public:

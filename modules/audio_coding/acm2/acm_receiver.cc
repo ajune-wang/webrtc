@@ -10,25 +10,24 @@
 
 #include "modules/audio_coding/acm2/acm_receiver.h"
 
-#include <stdlib.h>  // malloc
+#include <stdlib.h>  // for size_t
+#include <string.h>  // for memcpy
+#include <cstdint>   // for int16_t
+#include <vector>    // for vector
 
-#include <algorithm>  // sort
-#include <vector>
-
-#include "api/audio_codecs/audio_decoder.h"
-#include "common_audio/signal_processing/include/signal_processing_library.h"
-#include "common_types.h"  // NOLINT(build/include)
-#include "modules/audio_coding/acm2/acm_resampler.h"
-#include "modules/audio_coding/acm2/call_statistics.h"
-#include "modules/audio_coding/acm2/rent_a_codec.h"
-#include "modules/audio_coding/neteq/include/neteq.h"
-#include "modules/include/module_common_types.h"
+#include "api/audio_codecs/audio_decoder.h"                 // for AudioDecoder
+#include "common_types.h"                                   // for NetworkSt...
+#include "modules/audio_coding/acm2/acm_resampler.h"        // for ACMResampler
+#include "modules/audio_coding/acm2/call_statistics.h"      // for CallStati...
+#include "modules/audio_coding/acm2/rent_a_codec.h"         // for RentACodec
+#include "modules/audio_coding/neteq/include/neteq.h"       // for NetEq
+#include "modules/audio_coding/neteq/neteq_decoder_enum.h"  // for NetEqDecoder
+#include "modules/include/module_common_types.h"            // for WebRtcRTP...
 #include "rtc_base/checks.h"
-#include "rtc_base/format_macros.h"
-#include "rtc_base/logging.h"
-#include "rtc_base/numerics/safe_conversions.h"
-#include "rtc_base/strings/audio_format_to_string.h"
-#include "system_wrappers/include/clock.h"
+#include "rtc_base/logging.h"                         // for RTC_LOG
+#include "rtc_base/numerics/safe_conversions.h"       // for dchecked_...
+#include "rtc_base/strings/audio_format_to_string.h"  // for ToString
+#include "system_wrappers/include/clock.h"            // for Clock
 
 namespace webrtc {
 

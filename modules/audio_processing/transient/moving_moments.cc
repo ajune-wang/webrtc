@@ -10,9 +10,9 @@
 
 #include "modules/audio_processing/transient/moving_moments.h"
 
-#include <cmath>
+#include <algorithm>  // for max
 
-#include "rtc_base/checks.h"
+#include "rtc_base/checks.h"  // for RTC_DCHECK, RTC_DCHECK_GT
 
 namespace webrtc {
 

@@ -10,18 +10,19 @@
 
 #include "modules/audio_coding/neteq/delay_manager.h"
 
-#include <assert.h>
-#include <math.h>
+#include <assert.h>   // for assert
+#include <stdio.h>    // for sscanf
+#include <stdlib.h>   // for abs
+#include <algorithm>  // for max, min
+#include <numeric>    // for accumulate
+#include <string>     // for string
 
-#include <algorithm>  // max, min
-#include <numeric>
-
-#include "common_audio/signal_processing/include/signal_processing_library.h"
-#include "modules/audio_coding/neteq/delay_peak_detector.h"
-#include "modules/include/module_common_types.h"
-#include "rtc_base/logging.h"
-#include "rtc_base/numerics/safe_conversions.h"
-#include "system_wrappers/include/field_trial.h"
+#include "modules/audio_coding/neteq/delay_peak_detector.h"  // for DelayPea...
+#include "modules/include/module_common_types_public.h"      // for IsNewerS...
+#include "rtc_base/checks.h"                                 // for FatalLog...
+#include "rtc_base/logging.h"                                // for RTC_LOG_F
+#include "rtc_base/numerics/safe_conversions.h"              // for saturate...
+#include "system_wrappers/include/field_trial.h"             // for IsEnabled
 
 namespace {
 

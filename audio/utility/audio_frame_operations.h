@@ -11,9 +11,10 @@
 #ifndef AUDIO_UTILITY_AUDIO_FRAME_OPERATIONS_H_
 #define AUDIO_UTILITY_AUDIO_FRAME_OPERATIONS_H_
 
-#include <stddef.h>
+#include <stddef.h>  // for size_t
+#include <stdint.h>  // for int16_t
 
-#include "api/audio/audio_frame.h"
+#include "api/audio/audio_frame.h"  // for AudioFrame
 
 namespace webrtc {
 

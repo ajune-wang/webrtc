@@ -10,9 +10,11 @@
 
 #include "modules/audio_processing/voice_detection_impl.h"
 
-#include "common_audio/vad/include/webrtc_vad.h"
-#include "modules/audio_processing/audio_buffer.h"
-#include "rtc_base/constructormagic.h"
+#include "api/audio/audio_frame.h"                  // for AudioFrame, Audio...
+#include "common_audio/vad/include/webrtc_vad.h"    // for WebRtcVad_Create
+#include "modules/audio_processing/audio_buffer.h"  // for AudioBuffer
+#include "rtc_base/checks.h"                        // for RTC...
+#include "rtc_base/constructormagic.h"              // for RTC_DISALLOW_COPY...
 
 namespace webrtc {
 class VoiceDetectionImpl::Vad {

@@ -11,12 +11,13 @@
 #ifndef RTC_BASE_OPENSSLADAPTER_H_
 #define RTC_BASE_OPENSSLADAPTER_H_
 
-#include <openssl/ossl_typ.h>
+#include <stddef.h>  // for size_t
+#include <stdint.h>  // for int64_t
+#include <memory>    // for unique_ptr
+#include <string>    // for string
+#include <vector>    // for vector
 
-#include <memory>
-#include <string>
-#include <vector>
-
+#include "openssl/base.h"                  // for SSL, SSL_SESSION, X509_STO...
 #include "rtc_base/asyncsocket.h"          // for AsyncSocket
 #include "rtc_base/buffer.h"               // for Buffer
 #include "rtc_base/messagehandler.h"       // for MessageHandler

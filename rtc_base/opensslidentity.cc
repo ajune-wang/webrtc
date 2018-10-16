@@ -10,30 +10,34 @@
 
 #include "rtc_base/opensslidentity.h"
 
-#include <memory>
-#include <utility>
-#include <vector>
+#include <memory>   // for unique_ptr, operator!=
+#include <utility>  // for move
+#include <vector>   // for vector
 
 #if defined(WEBRTC_WIN)
 // Must be included first before openssl headers.
 #include "rtc_base/win32.h"  // NOLINT
 #endif                       // WEBRTC_WIN
 
-#include <openssl/bio.h>
-#include <openssl/bn.h>
-#include <openssl/crypto.h>
-#include <openssl/err.h>
-#include <openssl/pem.h>
-#include <openssl/rsa.h>
+#include <openssl/bio.h>  // for BIO_free, BIO_get_me...
+#include <openssl/bn.h>   // for BN_free, BN_new, BN_...
+#include <openssl/err.h>  // for ERR_peek_error, ERR_...
+#include <openssl/pem.h>  // for PEM_read_bio_PrivateKey
+#include <openssl/rsa.h>  // for RSA_free, RSA_genera...
+#include <stdint.h>       // for uint32_t
 
-#include "absl/memory/memory.h"
-#include "rtc_base/checks.h"
-#include "rtc_base/helpers.h"
-#include "rtc_base/logging.h"
-#include "rtc_base/numerics/safe_conversions.h"
-#include "rtc_base/openssl.h"
-#include "rtc_base/openssldigest.h"
-#include "rtc_base/opensslutility.h"
+#include "absl/memory/memory.h"                  // for WrapUnique, make_unique
+#include "openssl/base.h"                        // for BIO, EVP_PKEY, BIGNUM
+#include "openssl/ec.h"                          // for OPENSSL_EC_NAMED_CURVE
+#include "openssl/ec_key.h"                      // for EC_KEY_free, EC_KEY_...
+#include "openssl/evp.h"                         // for EVP_PKEY_free, EVP_P...
+#include "openssl/nid.h"                         // for NID_X9_62_prime256v1
+#include "openssl/ssl.h"                         // for SSL_CTX_use_PrivateKey
+#include "openssl/x509.h"                        // for X509_free
+#include "rtc_base/checks.h"                     // for FatalLogCall, RTC_DC...
+#include "rtc_base/logging.h"                    // for RTC_LOG, RTC_LOG_F
+#include "rtc_base/numerics/safe_conversions.h"  // for dchecked_cast
+#include "rtc_base/opensslutility.h"             // for LogSSLErrors
 
 namespace rtc {
 

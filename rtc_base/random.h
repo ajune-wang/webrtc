@@ -11,10 +11,11 @@
 #ifndef RTC_BASE_RANDOM_H_
 #define RTC_BASE_RANDOM_H_
 
-#include <limits>
+#include <stdint.h>  // for uint32_t, int32_t, uint64_t
+#include <limits>    // for numeric_limits
 
-#include "rtc_base/checks.h"
-#include "rtc_base/constructormagic.h"
+#include "rtc_base/checks.h"            // for FatalLogCall, RTC_DCHECK
+#include "rtc_base/constructormagic.h"  // for RTC_DISALLOW_IMPLICIT_CONSTRU...
 
 namespace webrtc {
 

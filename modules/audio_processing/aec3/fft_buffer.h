@@ -11,10 +11,11 @@
 #ifndef MODULES_AUDIO_PROCESSING_AEC3_FFT_BUFFER_H_
 #define MODULES_AUDIO_PROCESSING_AEC3_FFT_BUFFER_H_
 
-#include <vector>
+#include <stddef.h>  // for size_t
+#include <vector>    // for vector
 
-#include "modules/audio_processing/aec3/fft_data.h"
-#include "rtc_base/checks.h"
+#include "modules/audio_processing/aec3/fft_data.h"  // for FftData
+#include "rtc_base/checks.h"                         // for FatalLogCall
 
 namespace webrtc {
 

@@ -10,10 +10,11 @@
 
 #include "modules/rtp_rtcp/source/tmmbr_help.h"
 
-#include <algorithm>
-#include <limits>
+#include <stddef.h>   // for size_t
+#include <algorithm>  // for sort
+#include <limits>     // for numeric_limits
 
-#include "rtc_base/checks.h"
+#include "rtc_base/checks.h"  // for FatalLogCall, RTC_DCHECK, RTC_DCHECK_NE
 
 namespace webrtc {
 std::vector<rtcp::TmmbItem> TMMBRHelp::FindBoundingSet(

@@ -11,10 +11,10 @@
 #ifndef MODULES_AUDIO_PROCESSING_AEC3_DOWNSAMPLED_RENDER_BUFFER_H_
 #define MODULES_AUDIO_PROCESSING_AEC3_DOWNSAMPLED_RENDER_BUFFER_H_
 
-#include <vector>
+#include <stddef.h>  // for size_t
+#include <vector>    // for vector
 
-#include "modules/audio_processing/aec3/aec3_common.h"
-#include "rtc_base/checks.h"
+#include "rtc_base/checks.h"  // for FatalLogCall, RTC_DCHECK_EQ, RTC_DCHECK_GE
 
 namespace webrtc {
 

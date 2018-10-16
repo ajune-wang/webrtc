@@ -11,10 +11,11 @@
 #ifndef SYSTEM_WRAPPERS_INCLUDE_CLOCK_H_
 #define SYSTEM_WRAPPERS_INCLUDE_CLOCK_H_
 
-#include <memory>
+#include <stdint.h>  // for int64_t, uint32_t
+#include <memory>    // for unique_ptr
 
-#include "rtc_base/synchronization/rw_lock_wrapper.h"
-#include "system_wrappers/include/ntp_time.h"
+#include "rtc_base/synchronization/rw_lock_wrapper.h"  // for RWLockWrapper
+#include "system_wrappers/include/ntp_time.h"          // for NtpTime
 
 namespace webrtc {
 

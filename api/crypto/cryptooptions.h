@@ -11,8 +11,7 @@
 #ifndef API_CRYPTO_CRYPTOOPTIONS_H_
 #define API_CRYPTO_CRYPTOOPTIONS_H_
 
-#include <vector>
-#include "absl/types/optional.h"
+#include <vector>  // for vector
 
 namespace webrtc {
 

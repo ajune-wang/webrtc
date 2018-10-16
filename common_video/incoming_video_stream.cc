@@ -10,11 +10,13 @@
 
 #include "common_video/include/incoming_video_stream.h"
 
-#include <memory>
+#include <memory>   // for unique_ptr
+#include <utility>  // for move
 
-#include "common_video/video_render_frames.h"
-#include "rtc_base/timeutils.h"
-#include "rtc_base/trace_event.h"
+#include "absl/types/optional.h"               // for optional
+#include "common_video/video_render_frames.h"  // for VideoRenderFrames
+#include "rtc_base/checks.h"                   // for FatalLogCall, RTC_DCHECK
+#include "rtc_base/trace_event.h"              // for TRACE_EVENT0, TraceEnd...
 
 namespace webrtc {
 namespace {

@@ -10,9 +10,10 @@
 
 #include "modules/audio_processing/aec3/block_framer.h"
 
-#include <algorithm>
+#include <algorithm>  // for copy
 
-#include "rtc_base/checks.h"
+#include "modules/audio_processing/aec3/aec3_common.h"  // for kBlockSize
+#include "rtc_base/checks.h"                            // for FatalLogCall
 
 namespace webrtc {
 

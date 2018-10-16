@@ -11,12 +11,12 @@
 #ifndef MODULES_AUDIO_PROCESSING_AGC2_NOISE_LEVEL_ESTIMATOR_H_
 #define MODULES_AUDIO_PROCESSING_AGC2_NOISE_LEVEL_ESTIMATOR_H_
 
-#include "modules/audio_processing/agc2/signal_classifier.h"
-#include "modules/audio_processing/include/audio_frame_view.h"
-#include "rtc_base/constructormagic.h"
+#include "modules/audio_processing/agc2/signal_classifier.h"    // for Signa...
+#include "modules/audio_processing/include/audio_frame_view.h"  // for Audio...
+#include "modules/audio_processing/logging/apm_data_dumper.h"   // for ApmDa...
+#include "rtc_base/constructormagic.h"                          // for RTC_D...
 
 namespace webrtc {
-class ApmDataDumper;
 
 class NoiseLevelEstimator {
  public:

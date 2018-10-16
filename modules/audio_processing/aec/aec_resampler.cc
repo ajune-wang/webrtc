@@ -14,12 +14,11 @@
 
 #include "modules/audio_processing/aec/aec_resampler.h"
 
-#include <math.h>
-#include <stdlib.h>
-#include <string.h>
+#include <stdlib.h>  // for size_t, free, malloc
+#include <string.h>  // for memset, memcpy
 
-#include "modules/audio_processing/aec/aec_core.h"
-#include "rtc_base/checks.h"
+#include "modules/audio_processing/aec/aec_core.h"  // for FRAME_LEN
+#include "rtc_base/checks.h"                        // for FatalLogCall, RTC...
 
 namespace webrtc {
 

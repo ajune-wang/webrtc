@@ -11,13 +11,14 @@
 #ifndef MODULES_AUDIO_PROCESSING_AEC3_AEC3_FFT_H_
 #define MODULES_AUDIO_PROCESSING_AEC3_AEC3_FFT_H_
 
-#include <array>
+#include <array>  // for array
 
-#include "api/array_view.h"
-#include "modules/audio_processing/aec3/aec3_common.h"
-#include "modules/audio_processing/aec3/fft_data.h"
-#include "modules/audio_processing/utility/ooura_fft.h"
-#include "rtc_base/constructormagic.h"
+#include "api/array_view.h"                              // for ArrayView
+#include "modules/audio_processing/aec3/aec3_common.h"   // for kFftLength
+#include "modules/audio_processing/aec3/fft_data.h"      // for FftData
+#include "modules/audio_processing/utility/ooura_fft.h"  // for OouraFft
+#include "rtc_base/checks.h"                             // for FatalLogCall
+#include "rtc_base/constructormagic.h"                   // for RTC_DISALLOW...
 
 namespace webrtc {
 

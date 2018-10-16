@@ -10,12 +10,13 @@
 
 #include "modules/audio_processing/audio_buffer.h"
 
-#include "common_audio/channel_buffer.h"
-#include "common_audio/include/audio_util.h"
-#include "common_audio/resampler/push_sinc_resampler.h"
-#include "common_audio/signal_processing/include/signal_processing_library.h"
-#include "modules/audio_processing/common.h"
-#include "rtc_base/checks.h"
+#include <string.h>  // for size_t, memcpy
+#include <cstdint>   // for int16_t, int...
+
+#include "common_audio/channel_buffer.h"                 // for IFChannelBuffer
+#include "common_audio/include/audio_util.h"             // for DownmixToMono
+#include "common_audio/resampler/push_sinc_resampler.h"  // for PushSincResa...
+#include "rtc_base/checks.h"                             // for FatalLogCall
 
 namespace webrtc {
 namespace {

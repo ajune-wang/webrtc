@@ -10,10 +10,13 @@
 
 #include "modules/audio_processing/aec3/render_signal_analyzer.h"
 
-#include <math.h>
-#include <algorithm>
+#include <math.h>     // for fabs
+#include <algorithm>  // for max, minmax_element, max_element, min
+#include <utility>    // for pair
+#include <vector>     // for vector
 
-#include "rtc_base/checks.h"
+#include "api/array_view.h"   // for ArrayView
+#include "rtc_base/checks.h"  // for FatalLogCall, RTC_DCHECK, RTC_DCHECK_EQ
 
 namespace webrtc {
 

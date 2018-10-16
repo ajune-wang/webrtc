@@ -11,12 +11,15 @@
 #ifndef MODULES_AUDIO_CODING_CODECS_RED_AUDIO_ENCODER_COPY_RED_H_
 #define MODULES_AUDIO_CODING_CODECS_RED_AUDIO_ENCODER_COPY_RED_H_
 
-#include <memory>
-#include <vector>
+#include <stddef.h>  // for size_t
+#include <stdint.h>  // for int16_t, int64_t, uint32_t
+#include <memory>    // for unique_ptr
 
-#include "api/audio_codecs/audio_encoder.h"
-#include "rtc_base/buffer.h"
-#include "rtc_base/constructormagic.h"
+#include "absl/types/optional.h"             // for optional
+#include "api/array_view.h"                  // for ArrayView
+#include "api/audio_codecs/audio_encoder.h"  // for AudioEncoder, AudioEncod...
+#include "rtc_base/buffer.h"                 // for Buffer
+#include "rtc_base/constructormagic.h"       // for RTC_DISALLOW_COPY_AND_AS...
 
 namespace webrtc {
 

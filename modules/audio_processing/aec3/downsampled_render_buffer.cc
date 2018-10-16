@@ -10,6 +10,8 @@
 
 #include "modules/audio_processing/aec3/downsampled_render_buffer.h"
 
+#include <algorithm>  // for fill
+
 namespace webrtc {
 
 DownsampledRenderBuffer::DownsampledRenderBuffer(size_t downsampled_buffer_size)

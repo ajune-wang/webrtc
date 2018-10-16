@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "8e126b04_91a8d74e",
+        "filename": "sdk/android/api/org/webrtc/MediaTransportFactoryFactoryInterface.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-16T14:35:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9d8e099e_2134ce1e",
+      "range": {
+        "startLine": 16,
+        "startChar": 17,
+        "endLine": 16,
+        "endChar": 54
+      },
+      "revId": "126406953213beef09163893b15c2929eb7694d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "91188e4e_9f050b27",
         "filename": "sdk/android/api/org/webrtc/MediaTransportFactoryFactoryInterface.java",
         "patchSetId": 4
@@ -93,6 +117,30 @@
       "revId": "126406953213beef09163893b15c2929eb7694d9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a886e2f6_20a003d4",
+        "filename": "sdk/android/api/org/webrtc/MediaTransportFactoryFactoryInterface.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-16T14:35:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e91b8b67_c181ef23",
+      "range": {
+        "startLine": 21,
+        "startChar": 14,
+        "endLine": 21,
+        "endChar": 26
+      },
+      "revId": "126406953213beef09163893b15c2929eb7694d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

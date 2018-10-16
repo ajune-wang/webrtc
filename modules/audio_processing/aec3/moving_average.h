@@ -11,9 +11,10 @@
 #ifndef MODULES_AUDIO_PROCESSING_AEC3_MOVING_AVERAGE_H_
 #define MODULES_AUDIO_PROCESSING_AEC3_MOVING_AVERAGE_H_
 
-#include <vector>
+#include <stddef.h>  // for size_t
+#include <vector>    // for vector
 
-#include "api/array_view.h"
+#include "api/array_view.h"  // for ArrayView
 
 namespace webrtc {
 namespace aec3 {

@@ -9,9 +9,12 @@
  */
 
 #include "rtc_base/bitrateallocationstrategy.h"
-#include <algorithm>
-#include <map>
-#include <utility>
+
+#include <algorithm>  // for min, max
+#include <cstddef>    // for size_t, NULL
+#include <cstdint>    // for uint32_t
+#include <map>        // for multimap
+#include <utility>    // for pair, make_pair
 
 namespace rtc {
 

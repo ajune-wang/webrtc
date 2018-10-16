@@ -11,12 +11,16 @@
 #ifndef MODULES_PACING_ROUND_ROBIN_PACKET_QUEUE_H_
 #define MODULES_PACING_ROUND_ROBIN_PACKET_QUEUE_H_
 
-#include <list>
-#include <map>
-#include <queue>
-#include <set>
+#include <stddef.h>  // for size_t
+#include <stdint.h>  // for int64_t, uint...
+#include <list>      // for list<>::iterator
+#include <map>       // for multimap, map
+#include <queue>     // for priority_queue
+#include <set>       // for multiset, mul...
 
-#include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
+#include "absl/types/optional.h"                        // for optional
+#include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"  // for RtpPacketSender
+#include "system_wrappers/include/clock.h"              // for Clock
 
 namespace webrtc {
 

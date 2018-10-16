@@ -10,12 +10,15 @@
 
 #include "modules/rtp_rtcp/include/flexfec_sender.h"
 
-#include <utility>
+#include <string.h>  // for memcpy
+#include <list>      // for list
+#include <utility>   // for move
 
-#include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
-#include "modules/rtp_rtcp/source/forward_error_correction.h"
-#include "modules/rtp_rtcp/source/rtp_header_extensions.h"
-#include "rtc_base/logging.h"
+#include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"         // for RtpState
+#include "modules/rtp_rtcp/source/forward_error_correction.h"  // for Forwar...
+#include "modules/rtp_rtcp/source/rtp_header_extensions.h"     // for Absolu...
+#include "rtc_base/checks.h"                                   // for FatalL...
+#include "rtc_base/logging.h"                                  // for RTC_LOG
 
 namespace webrtc {
 

@@ -46,6 +46,30 @@
       "revId": "b35d7d5ec23aa7939f0adbc409a182d4a5bf3755",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa6be463_d30117e2",
+        "filename": "test/scenario/audio_stream.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-10-16T14:37:34Z",
+      "side": 1,
+      "message": "If you think that is good enough, sure.",
+      "parentUuid": "32532da4_be98d8fd",
+      "range": {
+        "startLine": 43,
+        "startChar": 44,
+        "endLine": 43,
+        "endChar": 51
+      },
+      "revId": "b35d7d5ec23aa7939f0adbc409a182d4a5bf3755",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

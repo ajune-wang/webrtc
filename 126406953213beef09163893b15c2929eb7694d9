@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9d8e099e_2134ce1e",
+        "filename": "sdk/android/api/org/webrtc/MediaTransportFactoryFactoryInterface.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-16T14:19:15Z",
+      "side": 1,
+      "message": "This name is aligned with Fec...\nSee https://webrtc.googlesource.com/src/+/master/sdk/android/api/org/webrtc/FecControllerFactoryFactoryInterface.java\n\nI think we should have one convention :)",
+      "parentUuid": "13d72217_3350f65f",
+      "range": {
+        "startLine": 16,
+        "startChar": 17,
+        "endLine": 16,
+        "endChar": 54
+      },
+      "revId": "126406953213beef09163893b15c2929eb7694d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "91188e4e_9f050b27",
         "filename": "sdk/android/api/org/webrtc/MediaTransportFactoryFactoryInterface.java",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2018-10-16T11:24:06Z",
       "side": 1,
       "message": "nit: I would prefer createNativeMediaTransportFactory for clarity.",
+      "range": {
+        "startLine": 21,
+        "startChar": 14,
+        "endLine": 21,
+        "endChar": 26
+      },
+      "revId": "126406953213beef09163893b15c2929eb7694d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e91b8b67_c181ef23",
+        "filename": "sdk/android/api/org/webrtc/MediaTransportFactoryFactoryInterface.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-16T14:19:15Z",
+      "side": 1,
+      "message": "This is aligned with Fec...",
+      "parentUuid": "91188e4e_9f050b27",
       "range": {
         "startLine": 21,
         "startChar": 14,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "d14bd6d7_d87584a1",
+        "filename": "sdk/android/api/org/webrtc/PeerConnectionFactory.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-16T14:19:15Z",
+      "side": 1,
+      "message": "I put * instead of repeated factory  ;-) Done.",
+      "parentUuid": "80853303_0c5cf0e9",
+      "range": {
+        "startLine": 200,
+        "startChar": 15,
+        "endLine": 200,
+        "endChar": 37
+      },
+      "revId": "126406953213beef09163893b15c2929eb7694d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "62a35589_fa663857",
         "filename": "sdk/android/api/org/webrtc/PeerConnectionFactory.java",
         "patchSetId": 4
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "09695aa9_8d085b2d",
+        "filename": "sdk/android/api/org/webrtc/PeerConnectionFactory.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-16T14:19:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "62a35589_fa663857",
+      "range": {
+        "startLine": 201,
+        "startChar": 19,
+        "endLine": 201,
+        "endChar": 43
+      },
+      "revId": "126406953213beef09163893b15c2929eb7694d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "51a4229c_5d383591",
         "filename": "sdk/android/api/org/webrtc/PeerConnectionFactory.java",
         "patchSetId": 4
@@ -114,6 +210,30 @@
       "revId": "126406953213beef09163893b15c2929eb7694d9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d0d8080_b1851f0f",
+        "filename": "sdk/android/api/org/webrtc/PeerConnectionFactory.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-16T14:19:15Z",
+      "side": 1,
+      "message": "my bad, of course.",
+      "parentUuid": "51a4229c_5d383591",
+      "range": {
+        "startLine": 502,
+        "startChar": 44,
+        "endLine": 502,
+        "endChar": 67
+      },
+      "revId": "126406953213beef09163893b15c2929eb7694d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

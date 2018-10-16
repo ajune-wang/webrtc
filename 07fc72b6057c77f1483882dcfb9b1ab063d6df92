@@ -22,6 +22,30 @@
       "revId": "07fc72b6057c77f1483882dcfb9b1ab063d6df92",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c9c4b9b_dd18093d",
+        "filename": "tools_webrtc/coverage/generate_ios_coverage_command.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 7796
+      },
+      "writtenOn": "2018-10-16T09:43:01Z",
+      "side": 1,
+      "message": "Fixed :)",
+      "parentUuid": "5e8e5478_893f90e2",
+      "range": {
+        "startLine": 10,
+        "startChar": 13,
+        "endLine": 10,
+        "endChar": 15
+      },
+      "revId": "07fc72b6057c77f1483882dcfb9b1ab063d6df92",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

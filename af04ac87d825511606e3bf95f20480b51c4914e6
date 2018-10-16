@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2135a809_485b423a",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 798,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-10-16T14:54:34Z",
+      "side": 1,
+      "message": "s/EXPECT/ASSERT",
+      "revId": "af04ac87d825511606e3bf95f20480b51c4914e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

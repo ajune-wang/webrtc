@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "de566b92_705bd5eb",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-10-16T17:58:54Z",
+      "side": 1,
+      "message": "The header for absl::optional is not included.",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 14
+      },
+      "revId": "b709175b6751791de39b5a39a07f4a87375a67a9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f73f2ecf_a70a5425",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 748,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-10-16T17:58:54Z",
+      "side": 1,
+      "message": "don\u0027t",
+      "range": {
+        "startLine": 748,
+        "startChar": 50,
+        "endLine": 748,
+        "endChar": 57
+      },
+      "revId": "b709175b6751791de39b5a39a07f4a87375a67a9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

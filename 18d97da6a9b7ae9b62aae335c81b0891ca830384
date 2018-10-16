@@ -22,6 +22,30 @@
       "revId": "18d97da6a9b7ae9b62aae335c81b0891ca830384",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ceac230_a9608545",
+        "filename": "test/scenario/scenario_config.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-10-16T12:02:29Z",
+      "side": 1,
+      "message": "I wan\u0027t to avoid creating dependencies between the implementation details and individual tests. This reduces the need to update a lot of tests when doing internal refactoring.",
+      "parentUuid": "b941a978_f29b540e",
+      "range": {
+        "startLine": 136,
+        "startChar": 9,
+        "endLine": 136,
+        "endChar": 26
+      },
+      "revId": "18d97da6a9b7ae9b62aae335c81b0891ca830384",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

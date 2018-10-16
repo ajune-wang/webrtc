@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ca2962d0_09fba24c",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-10-16T10:38:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "147d71fc_aa8e5626",
+      "revId": "6259c7ad8e25b18e47adbb092ffd77439016a30f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "572dd0f3_0feea151",
         "filename": "modules/audio_processing/aec3/aec_state.cc",
         "patchSetId": 14
@@ -30,6 +48,24 @@
       "writtenOn": "2018-10-16T07:20:52Z",
       "side": 1,
       "message": "There has to be a bug here:\nDid you mean || instead of \u0026\u0026 after usable_linear_estimate_?\n\nIf not, there is no point of using convergence_feasible as it will always be true when convergence_possible is true.",
+      "revId": "6259c7ad8e25b18e47adbb092ffd77439016a30f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af0508dc_d45aede2",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 463,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-10-16T10:38:12Z",
+      "side": 1,
+      "message": "As discussed offline, the difference is that convergence_feasible is related to resets, and convergence_possible is tied to startups.\n\nI have, however, made that more explicit now. PTAL",
+      "parentUuid": "572dd0f3_0feea151",
       "revId": "6259c7ad8e25b18e47adbb092ffd77439016a30f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -50,6 +86,24 @@
       "revId": "6259c7ad8e25b18e47adbb092ffd77439016a30f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de1b853a_528f5421",
+        "filename": "modules/audio_processing/aec3/aec_state.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-10-16T10:38:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3301afb2_8151ece4",
+      "revId": "6259c7ad8e25b18e47adbb092ffd77439016a30f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

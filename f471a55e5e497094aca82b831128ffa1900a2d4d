@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a99fc10_ca9b3e03",
+        "filename": "audio/test/media_transport_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-16T14:06:47Z",
+      "side": 1,
+      "message": "Not sure how to actually input and output raw audio frames. Via AudioState and/or AudioDeviceModule?",
+      "range": {
+        "startLine": 86,
+        "startChar": 0,
+        "endLine": 86,
+        "endChar": 38
+      },
+      "revId": "f471a55e5e497094aca82b831128ffa1900a2d4d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

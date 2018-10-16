@@ -9,7 +9,9 @@
  */
 #include "modules/audio_processing/aec3/cascaded_biquad_filter.h"
 
-#include "rtc_base/checks.h"
+#include <algorithm>  // for copy
+
+#include "rtc_base/checks.h"  // for FatalLogCall, RTC_DCHECK, RTC_DCHECK_EQ
 
 namespace webrtc {
 

@@ -8,12 +8,13 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include <limits>
+#include <cstdlib>  // for abs
+#include <limits>   // for numeric_limits
 
-#include "rtc_base/checks.h"
-#include "rtc_base/logging.h"
+#include "rtc_base/checks.h"   // for FatalLogCall, RTC_DCHECK_GE, RTC_DCH...
+#include "rtc_base/logging.h"  // for RTC_LOG
 #include "rtc_base/timestampaligner.h"
-#include "rtc_base/timeutils.h"
+#include "rtc_base/timeutils.h"  // for kNumMicrosecsPerMillisec
 
 namespace rtc {
 

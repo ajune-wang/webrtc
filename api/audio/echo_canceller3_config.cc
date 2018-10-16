@@ -9,10 +9,10 @@
  */
 #include "api/audio/echo_canceller3_config.h"
 
-#include <algorithm>
+#include <algorithm>  // for min
 
-#include "rtc_base/logging.h"
-#include "rtc_base/numerics/safe_minmax.h"
+#include "rtc_base/checks.h"                // for FatalLogCall, RTC_DCHECK
+#include "rtc_base/numerics/safe_minmax.h"  // for SafeClamp
 
 namespace webrtc {
 namespace {

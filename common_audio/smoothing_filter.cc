@@ -10,9 +10,10 @@
 
 #include "common_audio/smoothing_filter.h"
 
-#include <cmath>
+#include <cmath>  // for powf, exp
 
-#include "rtc_base/timeutils.h"
+#include "rtc_base/checks.h"     // for FatalLogCall, RTC_DCHECK, RTC_DCHECK_GE
+#include "rtc_base/timeutils.h"  // for TimeMillis
 
 namespace webrtc {
 

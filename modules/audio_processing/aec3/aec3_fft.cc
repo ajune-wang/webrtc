@@ -10,10 +10,11 @@
 
 #include "modules/audio_processing/aec3/aec3_fft.h"
 
-#include <algorithm>
-#include <functional>
+#include <algorithm>   // for copy, transform, fill
+#include <functional>  // for multiplies
+#include <iterator>    // for begin
 
-#include "rtc_base/checks.h"
+#include "rtc_base/checks.h"  // for FatalLogCall, RTC_NOTREACHED, RTC_DCHEC...
 
 namespace webrtc {
 

@@ -10,13 +10,14 @@
 
 #include "modules/audio_processing/agc2/adaptive_digital_gain_applier.h"
 
-#include <algorithm>
+#include <algorithm>  // for min, max
 
-#include "common_audio/include/audio_util.h"
-#include "modules/audio_processing/agc2/agc2_common.h"
-#include "modules/audio_processing/logging/apm_data_dumper.h"
-#include "rtc_base/numerics/safe_minmax.h"
-#include "system_wrappers/include/metrics.h"
+#include "common_audio/include/audio_util.h"                   // for DbToRatio
+#include "modules/audio_processing/agc2/agc2_common.h"         // for kMaxGa...
+#include "modules/audio_processing/logging/apm_data_dumper.h"  // for ApmDat...
+#include "rtc_base/checks.h"                                   // for FatalL...
+#include "rtc_base/numerics/safe_minmax.h"                     // for SafeClamp
+#include "system_wrappers/include/metrics.h"                   // for Histogram
 
 namespace webrtc {
 namespace {

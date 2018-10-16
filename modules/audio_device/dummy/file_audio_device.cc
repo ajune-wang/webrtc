@@ -9,10 +9,14 @@
  */
 
 #include "modules/audio_device/dummy/file_audio_device.h"
-#include "rtc_base/checks.h"
-#include "rtc_base/logging.h"
-#include "rtc_base/platform_thread.h"
-#include "system_wrappers/include/sleep.h"
+
+#include <string.h>  // for memcpy, memset, strlen
+
+#include "rtc_base/checks.h"                // for FatalLogCall, RTC_DCHECK_EQ
+#include "rtc_base/logging.h"               // for RTC_LOG
+#include "rtc_base/platform_thread.h"       // for PlatformThread, kRealtime...
+#include "rtc_base/timeutils.h"             // for TimeMillis
+#include "system_wrappers/include/sleep.h"  // for SleepMs
 
 namespace webrtc {
 

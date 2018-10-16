@@ -10,10 +10,11 @@
 
 #include "modules/audio_processing/aec3/render_delay_controller_metrics.h"
 
-#include <algorithm>
+#include <algorithm>  // for min
 
-#include "modules/audio_processing/aec3/aec3_common.h"
-#include "system_wrappers/include/metrics.h"
+#include "modules/audio_processing/aec3/aec3_common.h"  // for kNumBlocksPer...
+#include "rtc_base/checks.h"                            // for FatalLogCall
+#include "system_wrappers/include/metrics.h"            // for Histogram
 
 namespace webrtc {
 

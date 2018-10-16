@@ -10,15 +10,17 @@
 
 #include "modules/rtp_rtcp/source/rtp_rtcp_impl.h"
 
-#include <string.h>
+#include <string.h>   // for NULL, size_t
+#include <algorithm>  // for min, max
+#include <cstdint>    // for uint32_t, int64_t
+#include <set>        // for set
+#include <string>     // for string
+#include <utility>    // for move
 
-#include <algorithm>
-#include <set>
-#include <string>
-
-#include "api/rtpparameters.h"
-#include "rtc_base/checks.h"
-#include "rtc_base/logging.h"
+#include "modules/rtp_rtcp/source/rtcp_packet/dlrr.h"  // for ReceiveTimeInfo
+#include "modules/rtp_rtcp/source/rtp_rtcp_config.h"   // for kRtcpMaxNackFi...
+#include "rtc_base/checks.h"                           // for FatalLogCall
+#include "rtc_base/logging.h"                          // for RTC_LOG_F, RTC...
 
 #ifdef _WIN32
 // Disable warning C4355: 'this' : used in base member initializer list.

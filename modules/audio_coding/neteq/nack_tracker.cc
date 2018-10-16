@@ -10,11 +10,12 @@
 
 #include "modules/audio_coding/neteq/nack_tracker.h"
 
-#include <assert.h>  // For assert.
+#include <assert.h>  // for assert
+#include <__tree>    // for __tree_const_iterator<>::__non_const_it...
+#include <cstdint>   // for uint16_t, uint32_t, int64_t
+#include <utility>   // for pair, make_pair
 
-#include <algorithm>  // For std::max.
-
-#include "rtc_base/checks.h"
+#include "rtc_base/checks.h"  // for FatalLogCall, RTC_CHECK_GT, RTC_CHECK_LE
 
 namespace webrtc {
 namespace {

@@ -10,12 +10,17 @@
 
 #include "modules/audio_coding/neteq/decoder_database.h"
 
-#include <utility>  // pair
+#include <stddef.h>     // for NULL
+#include <cstdint>      // for uint8_t
+#include <list>         // for list<>::const_i...
+#include <type_traits>  // for remove_referenc...
+#include <utility>      // for pair, make_pair
 
-#include "api/audio_codecs/audio_decoder.h"
-#include "rtc_base/checks.h"
-#include "rtc_base/logging.h"
-#include "rtc_base/strings/audio_format_to_string.h"
+#include "api/audio_codecs/audio_decoder.h"           // for AudioDecoder
+#include "common_types.h"                             // for STR_CASE_CMP
+#include "rtc_base/checks.h"                          // for FatalLogCall
+#include "rtc_base/logging.h"                         // for RTC_LOG
+#include "rtc_base/strings/audio_format_to_string.h"  // for ToString
 
 namespace webrtc {
 

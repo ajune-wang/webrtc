@@ -10,10 +10,10 @@
 
 #include "modules/audio_processing/agc/loudness_histogram.h"
 
-#include <cmath>
-#include <cstring>
+#include <string.h>  // for memset, NULL
+#include <cmath>     // for floor, log
 
-#include "rtc_base/checks.h"
+#include "rtc_base/checks.h"  // for FatalLogCall, RTC_DCHECK_GT, RTC_DCHECK_LE
 
 namespace webrtc {
 

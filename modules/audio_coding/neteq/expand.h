@@ -11,19 +11,20 @@
 #ifndef MODULES_AUDIO_CODING_NETEQ_EXPAND_H_
 #define MODULES_AUDIO_CODING_NETEQ_EXPAND_H_
 
-#include <assert.h>
-#include <memory>
+#include <assert.h>  // for assert
+#include <stddef.h>  // for size_t
+#include <stdint.h>  // for int16_t
+#include <memory>    // for unique...
 
-#include "modules/audio_coding/neteq/audio_multi_vector.h"
-#include "rtc_base/constructormagic.h"
+#include "modules/audio_coding/neteq/audio_multi_vector.h"     // for AudioM...
+#include "modules/audio_coding/neteq/audio_vector.h"           // for AudioV...
+#include "modules/audio_coding/neteq/background_noise.h"       // for Backgr...
+#include "modules/audio_coding/neteq/random_vector.h"          // for Random...
+#include "modules/audio_coding/neteq/statistics_calculator.h"  // for Statis...
+#include "modules/audio_coding/neteq/sync_buffer.h"            // for SyncBu...
+#include "rtc_base/constructormagic.h"                         // for RTC_DI...
 
 namespace webrtc {
-
-// Forward declarations.
-class BackgroundNoise;
-class RandomVector;
-class StatisticsCalculator;
-class SyncBuffer;
 
 // This class handles extrapolation of audio data from the sync_buffer to
 // produce packet-loss concealment.

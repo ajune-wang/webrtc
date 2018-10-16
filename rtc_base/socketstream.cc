@@ -10,7 +10,8 @@
 
 #include "rtc_base/socketstream.h"
 
-#include "rtc_base/checks.h"
+#include "rtc_base/checks.h"  // for FatalLogCall, RTC_DCHECK
+#include "rtc_base/socket.h"  // for Socket, Socket::CS_CLOSED, Socket::CS_C...
 
 namespace rtc {
 

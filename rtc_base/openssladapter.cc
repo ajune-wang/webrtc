@@ -10,27 +10,26 @@
 
 #include "rtc_base/openssladapter.h"
 
-#if defined(WEBRTC_POSIX)
-#include <unistd.h>
-#endif
+#include <errno.h>         // for EWOULDBLOCK, ENOTCONN
 
-#include <openssl/bio.h>
-#include <openssl/crypto.h>
-#include <openssl/err.h>
-#include <openssl/opensslv.h>
-#include <openssl/rand.h>
-#include <openssl/x509.h>
-#include <openssl/x509v3.h>
+#include <openssl/bio.h>   // for BIO_clear_retry_flags
+#include <openssl/err.h>   // for ERR_get_error, ERR_g...
+#include <openssl/rand.h>  // for RAND_poll
+#include <openssl/x509.h>  // for X509_NAME_oneline
 #include "rtc_base/openssl.h"
 
-#include "absl/memory/memory.h"  // for make_unique
-#include "rtc_base/checks.h"
-#include "rtc_base/logging.h"
-#include "rtc_base/numerics/safe_conversions.h"
-#include "rtc_base/opensslutility.h"
-#include "rtc_base/stringencode.h"
-#include "rtc_base/stringutils.h"
-#include "rtc_base/thread.h"
+#include <string.h>        // for size_t, strlen
+#include <time.h>          // for timeval
+
+#include "absl/memory/memory.h"                  // for make_unique
+#include "rtc_base/checks.h"                     // for FatalLogCall, RTC_DC...
+#include "rtc_base/location.h"                   // for RTC_FROM_HERE
+#include "rtc_base/logging.h"                    // for RTC_LOG, RTC_DLOG
+#include "rtc_base/numerics/safe_conversions.h"  // for checked_cast, dcheck...
+#include "rtc_base/opensslcertificate.h"         // for OpenSSLCertificate
+#include "rtc_base/opensslutility.h"             // for LoadBuiltinSSLRootCe...
+#include "rtc_base/stringencode.h"               // for join
+#include "rtc_base/thread.h"                     // for Thread
 
 #ifndef OPENSSL_IS_BORINGSSL
 

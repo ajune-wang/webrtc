@@ -10,10 +10,11 @@
 
 #include "rtc_base/string_to_number.h"
 
-#include <cerrno>
-#include <cstdlib>
+#include <ctype.h>  // for isdigit
+#include <cerrno>   // for errno
+#include <cstdlib>  // for strtod, strtof, strtold, strtoll, strtoull
 
-#include "rtc_base/checks.h"
+#include "rtc_base/checks.h"  // for FatalLogCall, RTC_DCHECK
 
 namespace rtc {
 namespace string_to_number_internal {

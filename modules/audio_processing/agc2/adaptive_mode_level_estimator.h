@@ -11,11 +11,14 @@
 #ifndef MODULES_AUDIO_PROCESSING_AGC2_ADAPTIVE_MODE_LEVEL_ESTIMATOR_H_
 #define MODULES_AUDIO_PROCESSING_AGC2_ADAPTIVE_MODE_LEVEL_ESTIMATOR_H_
 
-#include "modules/audio_processing/agc2/saturation_protector.h"
-#include "modules/audio_processing/agc2/vad_with_level.h"
+#include <stddef.h>  // for size_t
+
+#include "modules/audio_processing/agc2/agc2_common.h"           // for kFul...
+#include "modules/audio_processing/agc2/saturation_protector.h"  // for Satu...
+#include "modules/audio_processing/agc2/vad_with_level.h"        // for VadW...
+#include "modules/audio_processing/logging/apm_data_dumper.h"    // for ApmD...
 
 namespace webrtc {
-class ApmDataDumper;
 
 class AdaptiveModeLevelEstimator {
  public:

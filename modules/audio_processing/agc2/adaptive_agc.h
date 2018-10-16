@@ -11,16 +11,14 @@
 #ifndef MODULES_AUDIO_PROCESSING_AGC2_ADAPTIVE_AGC_H_
 #define MODULES_AUDIO_PROCESSING_AGC2_ADAPTIVE_AGC_H_
 
-#include <memory>
-
 #include "modules/audio_processing/agc2/adaptive_digital_gain_applier.h"
 #include "modules/audio_processing/agc2/adaptive_mode_level_estimator.h"
 #include "modules/audio_processing/agc2/noise_level_estimator.h"
 #include "modules/audio_processing/agc2/vad_with_level.h"
 #include "modules/audio_processing/include/audio_frame_view.h"
+#include "modules/audio_processing/logging/apm_data_dumper.h"
 
 namespace webrtc {
-class ApmDataDumper;
 
 class AdaptiveAgc {
  public:

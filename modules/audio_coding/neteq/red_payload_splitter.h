@@ -11,13 +11,11 @@
 #ifndef MODULES_AUDIO_CODING_NETEQ_RED_PAYLOAD_SPLITTER_H_
 #define MODULES_AUDIO_CODING_NETEQ_RED_PAYLOAD_SPLITTER_H_
 
-#include "modules/audio_coding/neteq/packet.h"
-#include "rtc_base/constructormagic.h"
+#include "modules/audio_coding/neteq/decoder_database.h"  // for DecoderData...
+#include "modules/audio_coding/neteq/packet.h"            // for PacketList
+#include "rtc_base/constructormagic.h"                    // for RTC_DISALLO...
 
 namespace webrtc {
-
-// Forward declarations.
-class DecoderDatabase;
 
 // This class handles splitting of RED payloads into smaller parts.
 // Codec-specific packet splitting can be performed by

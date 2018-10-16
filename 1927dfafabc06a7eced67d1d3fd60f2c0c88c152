@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ce0a5f5f_62ac8c14",
+        "filename": "logging/rtc_event_log/rtc_event_log2.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-10-16T11:15:03Z",
+      "side": 0,
+      "message": "1. Above this line is a [deprecated \u003d true] line. Could you please explain to me the rationale of doing it differently here and there?\n2. If you were to leave a comment behind about the missing field, a curious developer in the future would find it easier to git-blame for the commit which had remove this line, and see what it was.",
+      "revId": "1927dfafabc06a7eced67d1d3fd60f2c0c88c152",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9cd7e745_e7952bfc",
+        "filename": "logging/rtc_event_log/rtc_event_log2.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-10-16T11:15:03Z",
+      "side": 0,
+      "message": "If #2 could not be repeated, and had to be removed, I wonder why these may be modified?",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 35
+      },
+      "revId": "1927dfafabc06a7eced67d1d3fd60f2c0c88c152",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

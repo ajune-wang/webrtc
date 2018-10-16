@@ -1,0 +1,163 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "84595ae2_c5f7463b",
+        "filename": "logging/rtc_event_log/rtc_event_log2.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-10-16T11:15:03Z",
+      "side": 1,
+      "message": "nit - if \"RTP payload type\" deserves a comment, I think this does, too. What timestamp? RTP? Local clock?",
+      "revId": "c06935978ab129f98a23979a9153e2478c29aa7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4adf4895_a2d26335",
+        "filename": "logging/rtc_event_log/rtc_event_log2.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-10-16T11:15:03Z",
+      "side": 1,
+      "message": "In bytes?",
+      "revId": "c06935978ab129f98a23979a9153e2478c29aa7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d504fe7_cb825b9d",
+        "filename": "logging/rtc_event_log/rtc_event_log2.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-10-16T11:15:03Z",
+      "side": 1,
+      "message": "packet_size_bytes?",
+      "revId": "c06935978ab129f98a23979a9153e2478c29aa7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e58d332c_d3af8e3d",
+        "filename": "logging/rtc_event_log/rtc_event_log2.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-10-16T11:15:03Z",
+      "side": 1,
+      "message": "header_size_bytes?",
+      "revId": "c06935978ab129f98a23979a9153e2478c29aa7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4fe46188_8bde467b",
+        "filename": "logging/rtc_event_log/rtc_event_log2.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-10-16T11:15:03Z",
+      "side": 1,
+      "message": "_bytes?",
+      "revId": "c06935978ab129f98a23979a9153e2478c29aa7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c4503e2_4ddaf9e5",
+        "filename": "logging/rtc_event_log/rtc_event_log2.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-10-16T11:15:03Z",
+      "side": 1,
+      "message": "13-14?",
+      "revId": "c06935978ab129f98a23979a9153e2478c29aa7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5ea00a1_164d337f",
+        "filename": "logging/rtc_event_log/rtc_event_log2.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-10-16T11:15:03Z",
+      "side": 1,
+      "message": "nit: configured.",
+      "range": {
+        "startLine": 297,
+        "startChar": 35,
+        "endLine": 297,
+        "endChar": 45
+      },
+      "revId": "c06935978ab129f98a23979a9153e2478c29aa7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46e4751e_5401231e",
+        "filename": "logging/rtc_event_log/rtc_event_log2.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-10-16T11:15:03Z",
+      "side": 1,
+      "message": "per...?",
+      "revId": "c06935978ab129f98a23979a9153e2478c29aa7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0dc5e3e0_3b813c25",
+        "filename": "logging/rtc_event_log/rtc_event_log2.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-10-16T11:15:03Z",
+      "side": 1,
+      "message": "Any chance we could use expected prevalence to order the values? I am assuming it would be good to have this byte similar to preceding bytes, for compression. So if CELLULAR and WIFI assumed 0 and 1, we\u0027d get better compression than if they assumed 4 and 2.",
+      "revId": "c06935978ab129f98a23979a9153e2478c29aa7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

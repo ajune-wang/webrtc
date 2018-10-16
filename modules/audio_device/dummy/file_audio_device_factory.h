@@ -11,11 +11,9 @@
 #ifndef AUDIO_DEVICE_FILE_AUDIO_DEVICE_FACTORY_H_
 #define AUDIO_DEVICE_FILE_AUDIO_DEVICE_FACTORY_H_
 
-#include "common_types.h"  // NOLINT(build/include)
+#include "modules/audio_device/dummy/file_audio_device.h"  // for FileAudioD...
 
 namespace webrtc {
-
-class FileAudioDevice;
 
 // This class is used by audio_device_impl.cc when WebRTC is compiled with
 // WEBRTC_DUMMY_FILE_DEVICES. The application must include this file and set the

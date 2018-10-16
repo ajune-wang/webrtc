@@ -11,11 +11,11 @@
 #ifndef RTC_BASE_TASK_QUEUE_POSIX_H_
 #define RTC_BASE_TASK_QUEUE_POSIX_H_
 
-#include <pthread.h>
+#include <pthread.h>  // for pthread_key_t
+
+#include "rtc_base/task_queue.h"  // for TaskQueue
 
 namespace rtc {
-
-class TaskQueue;
 
 namespace internal {
 

@@ -11,12 +11,14 @@
 #ifndef SYSTEM_WRAPPERS_INCLUDE_RTP_TO_NTP_ESTIMATOR_H_
 #define SYSTEM_WRAPPERS_INCLUDE_RTP_TO_NTP_ESTIMATOR_H_
 
-#include <list>
+#include <stdint.h>  // for uint32_t
+#include <list>      // for list
 
-#include "absl/types/optional.h"
-#include "modules/include/module_common_types_public.h"
-#include "rtc_base/numerics/moving_median_filter.h"
-#include "system_wrappers/include/ntp_time.h"
+#include "absl/types/optional.h"                         // for optional
+#include "modules/include/module_common_types_public.h"  // for TimestampUnw...
+#include "rtc_base/checks.h"
+#include "rtc_base/numerics/moving_median_filter.h"  // for MovingMedian...
+#include "system_wrappers/include/ntp_time.h"        // for NtpTime
 
 namespace webrtc {
 // Class for converting an RTP timestamp to the NTP domain in milliseconds.

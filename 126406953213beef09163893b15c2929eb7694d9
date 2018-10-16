@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "13d72217_3350f65f",
+        "filename": "sdk/android/api/org/webrtc/MediaTransportFactoryFactoryInterface.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-10-16T11:24:06Z",
+      "side": 1,
+      "message": "nit: MediaTransportFactoryFactory is probably enough, WebRTC classes don\u0027t generally use \"Interface\" extension.",
+      "range": {
+        "startLine": 16,
+        "startChar": 17,
+        "endLine": 16,
+        "endChar": 54
+      },
+      "revId": "126406953213beef09163893b15c2929eb7694d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91188e4e_9f050b27",
+        "filename": "sdk/android/api/org/webrtc/MediaTransportFactoryFactoryInterface.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-10-16T11:24:06Z",
+      "side": 1,
+      "message": "nit: I would prefer createNativeMediaTransportFactory for clarity.",
+      "range": {
+        "startLine": 21,
+        "startChar": 14,
+        "endLine": 21,
+        "endChar": 26
+      },
+      "revId": "126406953213beef09163893b15c2929eb7694d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80853303_0c5cf0e9",
+        "filename": "sdk/android/api/org/webrtc/PeerConnectionFactory.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-10-16T11:24:06Z",
+      "side": 1,
+      "message": "nit: Update comment",
+      "range": {
+        "startLine": 200,
+        "startChar": 15,
+        "endLine": 200,
+        "endChar": 37
+      },
+      "revId": "126406953213beef09163893b15c2929eb7694d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62a35589_fa663857",
+        "filename": "sdk/android/api/org/webrtc/PeerConnectionFactory.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-10-16T11:24:06Z",
+      "side": 1,
+      "message": "nit: setMediaTransportFactoryFactory",
+      "range": {
+        "startLine": 201,
+        "startChar": 19,
+        "endLine": 201,
+        "endChar": 43
+      },
+      "revId": "126406953213beef09163893b15c2929eb7694d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51a4229c_5d383591",
+        "filename": "sdk/android/api/org/webrtc/PeerConnectionFactory.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-10-16T11:24:06Z",
+      "side": 1,
+      "message": "nit: Probably follow the same naming convention as other parameters?",
+      "range": {
+        "startLine": 502,
+        "startChar": 44,
+        "endLine": 502,
+        "endChar": 67
+      },
+      "revId": "126406953213beef09163893b15c2929eb7694d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

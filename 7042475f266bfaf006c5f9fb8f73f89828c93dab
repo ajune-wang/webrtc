@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d8b8c95e_1c4543f0",
+        "filename": "sdk/android/src/jni/pc/peerconnectionfactory.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-10-16T14:37:35Z",
+      "side": 1,
+      "message": "nit: I think this comment actually just adds confusion because there are other parameters that can also be null but are not mentioned. Can you either list all or just remove the comment?",
+      "revId": "7042475f266bfaf006c5f9fb8f73f89828c93dab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

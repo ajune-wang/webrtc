@@ -94,6 +94,30 @@
       "revId": "636c9f983e088dafa0905eba1098e403788a1dfe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6fe97c9e_f1afdcb2",
+        "filename": "rtc_base/bitrateallocationstrategy.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-10-16T15:00:48Z",
+      "side": 1,
+      "message": "$ gn path out/Debug //media/capture:capture_unittests //third_party/webrtc/rtc_base:rtc_base_approved\n//media/capture:capture_unittests --[private]--\u003e\n//media:test_support --[public]--\u003e\n//media/gpu:test_support --[private]--\u003e\n//media/gpu:gpu --[public]--\u003e\n//third_party/webrtc/common_video:common_video --[private]--\u003e\n//third_party/webrtc/api/video:encoded_image --[private]--\u003e\n//third_party/webrtc/rtc_base:rtc_base_approved\n\nIt comes from here: https://cs.chromium.org/chromium/src/media/gpu/BUILD.gn?l\u003d140\u0026rcl\u003da55414af4fda5ae7f62781925783ee6728d0c341.\n\nThese kind of issues will go away with the component build. I will try to fix tomorrow.",
+      "parentUuid": "1ef35320_a53c9933",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 45
+      },
+      "revId": "636c9f983e088dafa0905eba1098e403788a1dfe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

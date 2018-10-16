@@ -9,7 +9,10 @@
  */
 
 #include "call/video_send_stream.h"
-#include "rtc_base/strings/string_builder.h"
+
+#include <utility>  // for pair
+
+#include "rtc_base/strings/string_builder.h"  // for SimpleStringBuilder
 
 namespace webrtc {
 

@@ -10,23 +10,17 @@
 
 #include "modules/pacing/paced_sender.h"
 
-#include <algorithm>
-#include <map>
-#include <queue>
-#include <set>
-#include <utility>
-#include <vector>
+#include <algorithm>  // for max
 
-#include "absl/memory/memory.h"
-#include "modules/congestion_controller/goog_cc/alr_detector.h"
-#include "modules/include/module_common_types.h"
-#include "modules/pacing/bitrate_prober.h"
-#include "modules/pacing/interval_budget.h"
-#include "modules/utility/include/process_thread.h"
-#include "rtc_base/checks.h"
-#include "rtc_base/logging.h"
-#include "system_wrappers/include/clock.h"
-#include "system_wrappers/include/field_trial.h"
+#include "absl/memory/memory.h"                                  // for make...
+#include "modules/congestion_controller/goog_cc/alr_detector.h"  // for AlrD...
+#include "modules/pacing/bitrate_prober.h"                       // for Bitr...
+#include "modules/pacing/interval_budget.h"                      // for Inte...
+#include "modules/utility/include/process_thread.h"              // for Proc...
+#include "rtc_base/checks.h"                                     // for Fata...
+#include "rtc_base/logging.h"                                    // for RTC_LOG
+#include "system_wrappers/include/clock.h"                       // for Clock
+#include "system_wrappers/include/field_trial.h"                 // for IsDi...
 
 namespace {
 // Time limit in milliseconds between packet bursts.

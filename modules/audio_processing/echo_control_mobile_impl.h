@@ -11,18 +11,18 @@
 #ifndef MODULES_AUDIO_PROCESSING_ECHO_CONTROL_MOBILE_IMPL_H_
 #define MODULES_AUDIO_PROCESSING_ECHO_CONTROL_MOBILE_IMPL_H_
 
-#include <memory>
-#include <vector>
+#include <stddef.h>  // for size_t
+#include <stdint.h>  // for int16_t
+#include <memory>    // for unique_ptr
+#include <vector>    // for vector
 
-#include "modules/audio_processing/include/audio_processing.h"
-#include "modules/audio_processing/render_queue_item_verifier.h"
-#include "rtc_base/constructormagic.h"
-#include "rtc_base/criticalsection.h"
-#include "rtc_base/swap_queue.h"
+#include "api/array_view.h"                         // for ArrayView
+#include "modules/audio_processing/audio_buffer.h"  // for AudioBuffer
+#include "rtc_base/constructormagic.h"              // for RTC_DISALLOW_IMPL...
+#include "rtc_base/criticalsection.h"               // for CriticalSection
+#include "rtc_base/thread_annotations.h"            // for RTC_GUARDED_BY
 
 namespace webrtc {
-
-class AudioBuffer;
 
 // The acoustic echo control for mobile (AECM) component is a low complexity
 // robust option intended for use on mobile devices.

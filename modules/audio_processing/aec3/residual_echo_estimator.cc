@@ -11,13 +11,15 @@
 
 #include "modules/audio_processing/aec3/residual_echo_estimator.h"
 
-#include <numeric>
-#include <vector>
+#include <stddef.h>   // for size_t
+#include <algorithm>  // for max
+#include <vector>     // for vector
 
-#include "modules/audio_processing/aec3/reverb_model.h"
-#include "modules/audio_processing/aec3/reverb_model_fallback.h"
-#include "rtc_base/checks.h"
-#include "system_wrappers/include/field_trial.h"
+#include "api/array_view.h"                                       // for Arr...
+#include "modules/audio_processing/aec3/reverb_model.h"           // for Rev...
+#include "modules/audio_processing/aec3/reverb_model_fallback.h"  // for Rev...
+#include "rtc_base/checks.h"                                      // for Fat...
+#include "system_wrappers/include/field_trial.h"                  // for IsE...
 
 namespace webrtc {
 namespace {

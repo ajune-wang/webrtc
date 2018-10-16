@@ -11,8 +11,10 @@
 #ifndef MODULES_AUDIO_PROCESSING_AEC3_RENDER_DELAY_CONTROLLER_METRICS_H_
 #define MODULES_AUDIO_PROCESSING_AEC3_RENDER_DELAY_CONTROLLER_METRICS_H_
 
-#include "absl/types/optional.h"
-#include "rtc_base/constructormagic.h"
+#include <stddef.h>  // for size_t
+
+#include "absl/types/optional.h"        // for optional
+#include "rtc_base/constructormagic.h"  // for RTC_DISALLOW_COPY_AND_ASSIGN
 
 namespace webrtc {
 

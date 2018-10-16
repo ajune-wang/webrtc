@@ -17,13 +17,18 @@ namespace webrtc {
 
 RtcEventRtpPacketIncoming::RtcEventRtpPacketIncoming(
     const RtpPacketReceived& packet)
-    : packet_length_(packet.size()) {
+    : packet_length_(packet.size()),
+      header_length_(packet.headers_size()),
+      padding_length_(packet.padding_size()) {
   header_.CopyHeaderFrom(packet);
 }
 
 RtcEventRtpPacketIncoming::RtcEventRtpPacketIncoming(
     const RtcEventRtpPacketIncoming& other)
-    : RtcEvent(other.timestamp_us_), packet_length_(other.packet_length_) {
+    : RtcEvent(other.timestamp_us_),
+      packet_length_(other.packet_length_),
+      header_length_(other.header_length_),
+      padding_length_(other.padding_length_) {
   header_.CopyHeaderFrom(other.header_);
 }
 

@@ -26,6 +26,7 @@ namespace rtclog {
 class Event;  // Auto-generated from protobuf.
 }  // namespace rtclog
 
+class RtcEventAlrState;
 class RtcEventAudioNetworkAdaptation;
 class RtcEventAudioPlayout;
 class RtcEventAudioReceiveStreamConfig;

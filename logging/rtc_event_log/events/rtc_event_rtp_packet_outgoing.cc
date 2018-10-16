@@ -18,7 +18,10 @@ namespace webrtc {
 RtcEventRtpPacketOutgoing::RtcEventRtpPacketOutgoing(
     const RtpPacketToSend& packet,
     int probe_cluster_id)
-    : packet_length_(packet.size()), probe_cluster_id_(probe_cluster_id) {
+    : packet_length_(packet.size()),
+      header_length_(packet.headers_size()),
+      padding_length_(packet.padding_size()),
+      probe_cluster_id_(probe_cluster_id) {
   header_.CopyHeaderFrom(packet);
 }
 
@@ -26,6 +29,8 @@ RtcEventRtpPacketOutgoing::RtcEventRtpPacketOutgoing(
     const RtcEventRtpPacketOutgoing& other)
     : RtcEvent(other.timestamp_us_),
       packet_length_(other.packet_length_),
+      header_length_(other.header_length_),
+      padding_length_(other.padding_length_),
       probe_cluster_id_(other.probe_cluster_id_) {
   header_.CopyHeaderFrom(other.header_);
 }

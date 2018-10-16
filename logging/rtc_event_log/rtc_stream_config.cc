@@ -20,6 +20,16 @@ StreamConfig::~StreamConfig() {}
 StreamConfig::StreamConfig(const StreamConfig& other) = default;
 
 bool StreamConfig::operator==(const StreamConfig& other) const {
+  printf("This\n");
+  printf("%u, %u, %u\n", local_ssrc, remote_ssrc, rtx_ssrc);
+  printf("%s\n", rsid.c_str());
+  printf("%u, %u\n", remb, rtcp_mode);
+  //    for (size_t i=0; i<rtp_extensions.size(); i++)
+  //        printf(rtp_extensions[i].)
+  printf("Other\n");
+  printf("%u, %u, %u\n", other.local_ssrc, other.remote_ssrc, other.rtx_ssrc);
+  printf("%s\n", other.rsid.c_str());
+  printf("%u, %u\n", other.remb, other.rtcp_mode);
   return local_ssrc == other.local_ssrc && remote_ssrc == other.remote_ssrc &&
          rtx_ssrc == other.rtx_ssrc && rsid == other.rsid &&
          remb == other.remb && rtcp_mode == other.rtcp_mode &&

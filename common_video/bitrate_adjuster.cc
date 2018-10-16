@@ -10,12 +10,11 @@
 
 #include "common_video/include/bitrate_adjuster.h"
 
-#include <algorithm>
-#include <cmath>
+#include <algorithm>             // for max, min
+#include <cmath>                 // for abs
 
-#include "rtc_base/checks.h"
-#include "rtc_base/logging.h"
-#include "rtc_base/timeutils.h"
+#include "rtc_base/logging.h"    // for RTC_LOG
+#include "rtc_base/timeutils.h"  // for TimeMillis
 
 namespace webrtc {
 

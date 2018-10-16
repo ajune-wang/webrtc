@@ -12,10 +12,12 @@
 #ifndef MODULES_RTP_RTCP_SOURCE_RTCP_PACKET_COMPOUND_PACKET_H_
 #define MODULES_RTP_RTCP_SOURCE_RTCP_PACKET_COMPOUND_PACKET_H_
 
-#include <vector>
+#include <stddef.h>                               // for size_t
+#include <stdint.h>                               // for uint8_t
+#include <vector>                                 // for vector
 
-#include "modules/rtp_rtcp/source/rtcp_packet.h"
-#include "rtc_base/constructormagic.h"
+#include "modules/rtp_rtcp/source/rtcp_packet.h"  // for RtcpPacket, RtcpPac...
+#include "rtc_base/constructormagic.h"            // for RTC_DISALLOW_COPY_A...
 
 namespace webrtc {
 namespace rtcp {

@@ -11,19 +11,18 @@
 #ifndef MODULES_AUDIO_DEVICE_AUDIO_DEVICE_IMPL_H_
 #define MODULES_AUDIO_DEVICE_AUDIO_DEVICE_IMPL_H_
 
+#include <stdint.h>                                             // for int32_t
+
+#include "modules/audio_device/audio_device_generic.h"          // for Audio...
+#include "modules/audio_device/include/audio_device_defines.h"  // for kAdmM...
 #if defined(WEBRTC_INCLUDE_INTERNAL_AUDIO_DEVICE)
 
-#include <memory>
+#include <memory>                                               // for uniqu...
 
-#include "modules/audio_device/audio_device_buffer.h"
-#include "modules/audio_device/include/audio_device.h"
-#include "rtc_base/checks.h"
-#include "rtc_base/criticalsection.h"
+#include "modules/audio_device/audio_device_buffer.h"           // for Audio...
+#include "modules/audio_device/include/audio_device.h"          // for Audio...
 
 namespace webrtc {
-
-class AudioDeviceGeneric;
-class AudioManager;
 
 class AudioDeviceModuleImpl : public AudioDeviceModuleForTest {
  public:

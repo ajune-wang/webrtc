@@ -10,19 +10,18 @@
 
 #include "modules/audio_processing/aec3/comfort_noise_generator.h"
 
+#include <math.h>                  // for cosf, sinf, sqrtf
+#include <stddef.h>                // for size_t
+#include <xmmintrin.h>             // for _mm_loadu_ps, _mm_sqrt_ps, _mm_sto...
+#include <algorithm>               // for transform, max
+#include <array>                   // for array, array<>::iterator, array<>:...
+#include <cstdint>                 // for int16_t, uint32_t, int32_t
+#include <functional>              // for multiplies
+#include <numeric>                 // for accumulate
+
+#include "rtc_base/checks.h"       // for FatalLogCall, RTC_DCHECK
 // Defines WEBRTC_ARCH_X86_FAMILY, used below.
-#include "rtc_base/system/arch.h"
-
-#if defined(WEBRTC_ARCH_X86_FAMILY)
-#include <emmintrin.h>
-#endif
-#include <math.h>
-#include <algorithm>
-#include <array>
-#include <functional>
-#include <numeric>
-
-#include "common_audio/signal_processing/include/signal_processing_library.h"
+#include "rtc_base/system/arch.h"  // for WEBRTC_ARCH_X86_FAMILY
 
 namespace webrtc {
 

@@ -8,17 +8,16 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "rtc_base/file.h"
+#include <errno.h>                   // for EINTR, errno
+#include <fcntl.h>                   // for SEEK_SET
+#include <stddef.h>                  // for size_t
+#include <stdint.h>                  // for uint8_t
+#include <unistd.h>                  // for ssize_t, close, lseek, off_t, pread
+#include <limits>                    // for numeric_limits
 
-#include <errno.h>
-#include <fcntl.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <unistd.h>
-
-#include <limits>
-
-#include "rtc_base/checks.h"
+#include "rtc_base/checks.h"         // for FatalLogCall, RTC_DCHECK_LE
+#include "rtc_base/file.h"           // for File
+#include "rtc_base/platform_file.h"  // for kInvalidPlatformFileValue
 
 namespace rtc {
 

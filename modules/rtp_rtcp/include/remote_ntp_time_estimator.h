@@ -11,15 +11,14 @@
 #ifndef MODULES_RTP_RTCP_INCLUDE_REMOTE_NTP_TIME_ESTIMATOR_H_
 #define MODULES_RTP_RTCP_INCLUDE_REMOTE_NTP_TIME_ESTIMATOR_H_
 
-#include <memory>
+#include <stdint.h>                                        // for int64_t
 
-#include "rtc_base/constructormagic.h"
-#include "rtc_base/numerics/moving_median_filter.h"
-#include "system_wrappers/include/rtp_to_ntp_estimator.h"
+#include "rtc_base/constructormagic.h"                     // for RTC_DISALL...
+#include "rtc_base/numerics/moving_median_filter.h"        // for MovingMedi...
+#include "system_wrappers/include/clock.h"                 // for Clock
+#include "system_wrappers/include/rtp_to_ntp_estimator.h"  // for RtpToNtpEs...
 
 namespace webrtc {
-
-class Clock;
 
 // RemoteNtpTimeEstimator can be used to estimate a given RTP timestamp's NTP
 // time in local timebase.

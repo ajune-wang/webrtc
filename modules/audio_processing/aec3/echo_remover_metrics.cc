@@ -10,12 +10,14 @@
 
 #include "modules/audio_processing/aec3/echo_remover_metrics.h"
 
-#include <math.h>
-#include <algorithm>
-#include <numeric>
+#include <math.h>                             // for log10
+#include <stddef.h>                           // for size_t
+#include <algorithm>                          // for max, min
+#include <numeric>                            // for accumulate
 
-#include "rtc_base/numerics/safe_minmax.h"
-#include "system_wrappers/include/metrics.h"
+#include "rtc_base/checks.h"                  // for FatalLogCall, RTC_DCHEC...
+#include "rtc_base/numerics/safe_minmax.h"    // for SafeClamp
+#include "system_wrappers/include/metrics.h"  // for Histogram, RTC_HISTOGRA...
 
 namespace webrtc {
 

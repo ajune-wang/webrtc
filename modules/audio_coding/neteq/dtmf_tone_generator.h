@@ -11,8 +11,11 @@
 #ifndef MODULES_AUDIO_CODING_NETEQ_DTMF_TONE_GENERATOR_H_
 #define MODULES_AUDIO_CODING_NETEQ_DTMF_TONE_GENERATOR_H_
 
-#include "modules/audio_coding/neteq/audio_multi_vector.h"
-#include "rtc_base/constructormagic.h"
+#include <stddef.h>                                         // for size_t
+#include <stdint.h>                                         // for int16_t
+
+#include "modules/audio_coding/neteq/audio_multi_vector.h"  // for AudioMult...
+#include "rtc_base/constructormagic.h"                      // for RTC_DISAL...
 
 namespace webrtc {
 

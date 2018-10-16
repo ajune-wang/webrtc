@@ -11,8 +11,11 @@
 #ifndef AUDIO_REMIX_RESAMPLE_H_
 #define AUDIO_REMIX_RESAMPLE_H_
 
-#include "api/audio/audio_frame.h"
-#include "common_audio/resampler/include/push_resampler.h"
+#include <stddef.h>                                         // for size_t
+#include <stdint.h>                                         // for int16_t
+
+#include "api/audio/audio_frame.h"                          // for AudioFrame
+#include "common_audio/resampler/include/push_resampler.h"  // for PushResam...
 
 namespace webrtc {
 namespace voe {

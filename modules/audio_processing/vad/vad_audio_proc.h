@@ -11,14 +11,14 @@
 #ifndef MODULES_AUDIO_PROCESSING_VAD_VAD_AUDIO_PROC_H_
 #define MODULES_AUDIO_PROCESSING_VAD_VAD_AUDIO_PROC_H_
 
-#include <memory>
+#include <stddef.h>                                         // for size_t
+#include <stdint.h>                                         // for int16_t
+#include <memory>                                           // for unique_ptr
 
-#include "modules/audio_processing/vad/common.h"
+#include "modules/audio_processing/vad/common.h"            // for kSampleRa...
+#include "modules/audio_processing/vad/pole_zero_filter.h"  // for PoleZeroF...
 
 namespace webrtc {
-
-class AudioFrame;
-class PoleZeroFilter;
 
 class VadAudioProc {
  public:

@@ -11,18 +11,14 @@
 #ifndef API_VIDEO_VIDEO_STREAM_ENCODER_OBSERVER_H_
 #define API_VIDEO_VIDEO_STREAM_ENCODER_OBSERVER_H_
 
-#include <vector>
+#include <vector>                                   // for vector
 
-#include "absl/types/optional.h"
-#include "api/video_codecs/video_encoder.h"
-#include "api/video_codecs/video_encoder_config.h"
+#include "absl/types/optional.h"                    // for optional
+#include "api/video/encoded_image.h"                // for EncodedImage
+#include "api/video_codecs/video_encoder.h"         // for CodecSpecificInfo
+#include "api/video_codecs/video_encoder_config.h"  // for VideoEncoderConfig
 
 namespace webrtc {
-
-// TODO(nisse): Used for the OnSendEncodedImage callback below. The callback
-// wants metadata such as size, encode timing, qp, but doesn't need actual
-// encoded data. So use some other type to represent that.
-class EncodedImage;
 
 // Broken out into a base class, with public inheritance below, only to ease
 // unit testing of the internal class OveruseFrameDetector.

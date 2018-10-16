@@ -10,14 +10,18 @@
 #ifndef MODULES_RTP_RTCP_SOURCE_RTP_HEADER_EXTENSIONS_H_
 #define MODULES_RTP_RTCP_SOURCE_RTP_HEADER_EXTENSIONS_H_
 
-#include <stdint.h>
-#include <string>
+#include <stddef.h>                                     // for size_t
+#include <stdint.h>                                     // for uint8_t, uint...
+#include <string>                                       // for string
 
-#include "api/array_view.h"
-#include "api/video/video_content_type.h"
-#include "api/video/video_rotation.h"
-#include "api/video/video_timing.h"
-#include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
+#include "api/array_view.h"                             // for ArrayView
+#include "api/rtp_headers.h"                            // for StringRtpHead...
+#include "api/video/video_content_type.h"               // for VideoContentType
+#include "api/video/video_frame_marking.h"              // for FrameMarking
+#include "api/video/video_rotation.h"                   // for VideoRotation
+#include "api/video/video_timing.h"                     // for VideoSendTiming
+#include "common_types.h"  // NOLINT(build/include)
+#include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"  // for RTPExtensionType
 
 namespace webrtc {
 

@@ -11,15 +11,16 @@
 #ifndef MODULES_AUDIO_PROCESSING_VOICE_DETECTION_IMPL_H_
 #define MODULES_AUDIO_PROCESSING_VOICE_DETECTION_IMPL_H_
 
-#include <memory>
+#include <stddef.h>                                             // for size_t
+#include <memory>                                               // for uniqu...
 
-#include "modules/audio_processing/include/audio_processing.h"
-#include "rtc_base/constructormagic.h"
-#include "rtc_base/criticalsection.h"
+#include "modules/audio_processing/audio_buffer.h"              // for Audio...
+#include "modules/audio_processing/include/audio_processing.h"  // for Voice...
+#include "rtc_base/constructormagic.h"                          // for RTC_D...
+#include "rtc_base/criticalsection.h"                           // for Criti...
+#include "rtc_base/thread_annotations.h"                        // for RTC_G...
 
 namespace webrtc {
-
-class AudioBuffer;
 
 class VoiceDetectionImpl : public VoiceDetection {
  public:
@@ -42,6 +43,7 @@ class VoiceDetectionImpl : public VoiceDetection {
 
  private:
   class Vad;
+
   rtc::CriticalSection* const crit_;
   bool enabled_ RTC_GUARDED_BY(crit_) = false;
   bool stream_has_voice_ RTC_GUARDED_BY(crit_) = false;

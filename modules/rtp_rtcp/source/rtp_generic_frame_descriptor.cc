@@ -10,7 +10,9 @@
 
 #include "modules/rtp_rtcp/source/rtp_generic_frame_descriptor.h"
 
-#include "rtc_base/checks.h"
+#include <cstdint>            // for uint8_t
+
+#include "rtc_base/checks.h"  // for FatalLogCall, RTC_DCHECK, RTC_DCHECK_LT
 
 namespace webrtc {
 

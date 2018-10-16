@@ -11,11 +11,12 @@
 #ifndef LOGGING_RTC_EVENT_LOG_RTC_EVENT_LOG_H_
 #define LOGGING_RTC_EVENT_LOG_RTC_EVENT_LOG_H_
 
-#include <memory>
+#include <stdint.h>                                  // for int64_t
+#include <memory>                                    // for unique_ptr
 
-#include "api/rtceventlogoutput.h"
-#include "logging/rtc_event_log/events/rtc_event.h"
-#include "rtc_base/task_queue.h"
+#include "api/rtceventlogoutput.h"                   // for RtcEventLogOutput
+#include "logging/rtc_event_log/events/rtc_event.h"  // for RtcEvent
+#include "rtc_base/task_queue.h"                     // for TaskQueue
 
 namespace webrtc {
 

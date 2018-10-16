@@ -10,6 +10,10 @@
 
 #include "call/flexfec_receive_stream.h"
 
+#include <cstdint>            // for uint32_t
+
+#include "rtc_base/checks.h"  // for FatalLogCall, RTC_DCHECK
+
 namespace webrtc {
 
 FlexfecReceiveStream::Config::Config(Transport* rtcp_send_transport)

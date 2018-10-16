@@ -11,12 +11,14 @@
 #ifndef MODULES_AUDIO_CODING_NETEQ_PACKET_H_
 #define MODULES_AUDIO_CODING_NETEQ_PACKET_H_
 
-#include <list>
-#include <memory>
+#include <stdint.h>                                 // for uint16_t, uint32_t
+#include <list>                                     // for list
+#include <memory>                                   // for unique_ptr
 
-#include "api/audio_codecs/audio_decoder.h"
-#include "modules/audio_coding/neteq/tick_timer.h"
-#include "rtc_base/buffer.h"
+#include "api/audio_codecs/audio_decoder.h"         // for AudioDecoder
+#include "modules/audio_coding/neteq/tick_timer.h"  // for TickTimer
+#include "rtc_base/buffer.h"                        // for Buffer
+#include "rtc_base/checks.h"                        // for FatalLogCall, RTC...
 
 namespace webrtc {
 

@@ -10,17 +10,15 @@
 
 #include "modules/audio_processing/aec3/reverb_frequency_response.h"
 
-#include <algorithm>
-#include <array>
-#include <cmath>
-#include <memory>
-#include <numeric>
+#include <stddef.h>                                     // for size_t
+#include <algorithm>                                    // for max
+#include <array>                                        // for array
+#include <numeric>                                      // for accumulate
 
-#include "api/array_view.h"
-#include "api/audio/echo_canceller3_config.h"
-#include "modules/audio_processing/aec3/aec3_common.h"
-#include "rtc_base/checks.h"
-#include "system_wrappers/include/field_trial.h"
+#include "api/array_view.h"                             // for ArrayView
+#include "modules/audio_processing/aec3/aec3_common.h"  // for kFftLengthBy2...
+#include "rtc_base/checks.h"                            // for FatalLogCall
+#include "system_wrappers/include/field_trial.h"        // for IsEnabled
 
 namespace webrtc {
 

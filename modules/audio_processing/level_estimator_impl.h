@@ -11,16 +11,16 @@
 #ifndef MODULES_AUDIO_PROCESSING_LEVEL_ESTIMATOR_IMPL_H_
 #define MODULES_AUDIO_PROCESSING_LEVEL_ESTIMATOR_IMPL_H_
 
-#include <memory>
+#include <memory>                                               // for uniqu...
 
-#include "modules/audio_processing/include/audio_processing.h"
-#include "rtc_base/constructormagic.h"
-#include "rtc_base/criticalsection.h"
+#include "modules/audio_processing/audio_buffer.h"              // for Audio...
+#include "modules/audio_processing/include/audio_processing.h"  // for Level...
+#include "modules/audio_processing/rms_level.h"                 // for RmsLevel
+#include "rtc_base/constructormagic.h"                          // for RTC_D...
+#include "rtc_base/criticalsection.h"                           // for Criti...
+#include "rtc_base/thread_annotations.h"                        // for RTC_G...
 
 namespace webrtc {
-
-class AudioBuffer;
-class RmsLevel;
 
 class LevelEstimatorImpl : public LevelEstimator {
  public:

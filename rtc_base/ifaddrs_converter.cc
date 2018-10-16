@@ -10,6 +10,10 @@
 
 #include "rtc_base/ifaddrs_converter.h"
 
+#include <ifaddrs.h>     // for ifaddrs
+#include <netinet/in.h>  // for sockaddr_in, sockaddr_in6
+#include <sys/socket.h>  // for AF_INET, AF_INET6, sockaddr
+
 namespace rtc {
 
 IfAddrsConverter::IfAddrsConverter() {}

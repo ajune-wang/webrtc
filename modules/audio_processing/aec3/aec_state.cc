@@ -10,18 +10,18 @@
 
 #include "modules/audio_processing/aec3/aec_state.h"
 
-#include <math.h>
+#include <math.h>                                              // for fabs
+#include <algorithm>                                           // for max_el...
+#include <numeric>                                             // for inner_...
+#include <vector>                                              // for vector
 
-#include <numeric>
-#include <vector>
-
-#include "absl/types/optional.h"
-#include "api/array_view.h"
-#include "modules/audio_processing/aec3/aec3_common.h"
-#include "modules/audio_processing/logging/apm_data_dumper.h"
-#include "rtc_base/atomicops.h"
-#include "rtc_base/checks.h"
-#include "system_wrappers/include/field_trial.h"
+#include "absl/types/optional.h"                               // for optional
+#include "api/array_view.h"                                    // for ArrayView
+#include "modules/audio_processing/aec3/aec3_common.h"         // for kNumBl...
+#include "modules/audio_processing/logging/apm_data_dumper.h"  // for ApmDat...
+#include "rtc_base/atomicops.h"                                // for AtomicOps
+#include "rtc_base/checks.h"                                   // for FatalL...
+#include "system_wrappers/include/field_trial.h"               // for IsEnabled
 
 namespace webrtc {
 namespace {

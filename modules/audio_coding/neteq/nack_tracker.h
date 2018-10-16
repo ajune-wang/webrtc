@@ -11,12 +11,13 @@
 #ifndef MODULES_AUDIO_CODING_NETEQ_NACK_TRACKER_H_
 #define MODULES_AUDIO_CODING_NETEQ_NACK_TRACKER_H_
 
-#include <map>
-#include <vector>
+#include <stddef.h>                                      // for size_t
+#include <stdint.h>                                      // for uint16_t
+#include <map>                                           // for map, map<>::...
+#include <vector>                                        // for vector
 
-#include "modules/audio_coding/include/audio_coding_module_typedefs.h"
-#include "modules/include/module_common_types.h"
-#include "rtc_base/gtest_prod_util.h"
+#include "modules/include/module_common_types_public.h"  // for IsNewerSeque...
+#include "rtc_base/gtest_prod_util.h"                    // for FRIEND_TEST_...
 
 //
 // The NackTracker class keeps track of the lost packets, an estimate of

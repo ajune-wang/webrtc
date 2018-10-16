@@ -15,12 +15,14 @@
 #ifndef RTC_BASE_SSLCERTIFICATE_H_
 #define RTC_BASE_SSLCERTIFICATE_H_
 
-#include <memory>
-#include <string>
-#include <vector>
+#include <stddef.h>                     // for size_t
+#include <stdint.h>                     // for int64_t
+#include <memory>                       // for unique_ptr
+#include <string>                       // for string, basic_string
+#include <vector>                       // for vector, __vector_base<>::valu...
 
-#include "rtc_base/buffer.h"
-#include "rtc_base/constructormagic.h"
+#include "rtc_base/buffer.h"            // for Buffer
+#include "rtc_base/constructormagic.h"  // for RTC_DISALLOW_COPY_AND_ASSIGN
 
 namespace rtc {
 

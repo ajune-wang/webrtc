@@ -11,15 +11,16 @@
 #ifndef RTC_BASE_RATE_LIMITER_H_
 #define RTC_BASE_RATE_LIMITER_H_
 
-#include <limits>
+#include <stddef.h>                         // for size_t
+#include <stdint.h>                         // for int64_t, uint32_t
 
-#include "rtc_base/constructormagic.h"
-#include "rtc_base/criticalsection.h"
-#include "rtc_base/rate_statistics.h"
+#include "rtc_base/constructormagic.h"      // for RTC_DISALLOW_IMPLICIT_CON...
+#include "rtc_base/criticalsection.h"       // for CriticalSection
+#include "rtc_base/rate_statistics.h"       // for RateStatistics
+#include "rtc_base/thread_annotations.h"    // for RTC_GUARDED_BY
+#include "system_wrappers/include/clock.h"  // for Clock
 
 namespace webrtc {
-
-class Clock;
 
 // Class used to limit a bitrate, making sure the average does not exceed a
 // maximum as measured over a sliding window. This class is thread safe; all

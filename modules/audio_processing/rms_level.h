@@ -11,8 +11,11 @@
 #ifndef MODULES_AUDIO_PROCESSING_RMS_LEVEL_H_
 #define MODULES_AUDIO_PROCESSING_RMS_LEVEL_H_
 
-#include "absl/types/optional.h"
-#include "api/array_view.h"
+#include <stddef.h>               // for size_t
+#include <stdint.h>               // for int16_t
+
+#include "absl/types/optional.h"  // for optional
+#include "api/array_view.h"       // for ArrayView
 
 namespace webrtc {
 

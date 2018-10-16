@@ -10,13 +10,11 @@
 
 #include "modules/audio_processing/aec3/reverb_model.h"
 
-#include <math.h>
+#include <stddef.h>          // for size_t
+#include <algorithm>         // for transform
+#include <functional>        // for plus
 
-#include <algorithm>
-#include <functional>
-
-#include "api/array_view.h"
-#include "modules/audio_processing/aec3/aec3_common.h"
+#include "api/array_view.h"  // for ArrayView
 
 namespace webrtc {
 

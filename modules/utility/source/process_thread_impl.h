@@ -11,16 +11,19 @@
 #ifndef MODULES_UTILITY_SOURCE_PROCESS_THREAD_IMPL_H_
 #define MODULES_UTILITY_SOURCE_PROCESS_THREAD_IMPL_H_
 
-#include <list>
-#include <memory>
-#include <queue>
+#include <stdint.h>                                  // for int64_t
+#include <list>                                      // for list
+#include <memory>                                    // for unique_ptr
+#include <queue>                                     // for queue
 
-#include "modules/utility/include/process_thread.h"
-#include "rtc_base/criticalsection.h"
-#include "rtc_base/location.h"
-#include "rtc_base/platform_thread.h"
-#include "rtc_base/thread_checker.h"
-#include "system_wrappers/include/event_wrapper.h"
+#include "modules/include/module.h"                  // for Module
+#include "modules/utility/include/process_thread.h"  // for ProcessThread
+#include "rtc_base/criticalsection.h"                // for CriticalSection
+#include "rtc_base/location.h"                       // for Location
+#include "rtc_base/platform_thread.h"                // for PlatformThread
+#include "rtc_base/task_queue.h"                     // for QueuedTask
+#include "rtc_base/thread_checker.h"                 // for ThreadChecker
+#include "system_wrappers/include/event_wrapper.h"   // for EventWrapper
 
 namespace webrtc {
 

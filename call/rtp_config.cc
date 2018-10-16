@@ -10,7 +10,10 @@
 
 #include "call/rtp_config.h"
 
-#include "rtc_base/strings/string_builder.h"
+#include <cstdint>                            // for uint32_t
+
+#include "api/array_view.h"                   // for ArrayView
+#include "rtc_base/strings/string_builder.h"  // for SimpleStringBuilder
 
 namespace webrtc {
 

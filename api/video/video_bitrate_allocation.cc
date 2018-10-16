@@ -10,9 +10,12 @@
 
 #include "api/video/video_bitrate_allocation.h"
 
-#include "rtc_base/checks.h"
-#include "rtc_base/numerics/safe_conversions.h"
-#include "rtc_base/strings/string_builder.h"
+#include <cstdint>                               // for uint32_t, int64_t
+
+#include "api/array_view.h"                      // for ArrayView
+#include "rtc_base/checks.h"                     // for FatalLogCall, RTC_CH...
+#include "rtc_base/numerics/safe_conversions.h"  // for dchecked_cast
+#include "rtc_base/strings/string_builder.h"     // for SimpleStringBuilder
 
 namespace webrtc {
 

@@ -11,16 +11,17 @@
 #ifndef RTC_BASE_SOCKETADDRESS_H_
 #define RTC_BASE_SOCKETADDRESS_H_
 
-#include <string>
+#include <netinet/in.h>          // for sockaddr_in
+#include <stddef.h>              // for size_t
+#include <stdint.h>              // for uint32_t, uint16_t
+#include <sys/socket.h>          // for sockaddr_storage
+#include <string>                // for string
 #ifdef UNIT_TEST
 #include <ostream>  // no-presubmit-check TODO(webrtc:8982)
 #endif              // UNIT_TEST
-#include "rtc_base/ipaddress.h"
+#include "rtc_base/ipaddress.h"  // for IPAddress
 
 #undef SetPort
-
-struct sockaddr_in;
-struct sockaddr_storage;
 
 namespace rtc {
 

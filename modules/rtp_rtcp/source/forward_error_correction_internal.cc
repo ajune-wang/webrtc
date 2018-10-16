@@ -10,11 +10,12 @@
 
 #include "modules/rtp_rtcp/source/forward_error_correction_internal.h"
 
-#include <algorithm>
+#include <string.h>   // for size_t
+#include <algorithm>  // for min
 
-#include "modules/rtp_rtcp/source/fec_private_tables_bursty.h"
-#include "modules/rtp_rtcp/source/fec_private_tables_random.h"
-#include "rtc_base/checks.h"
+#include "modules/rtp_rtcp/source/fec_private_tables_bursty.h"  // for kPack...
+#include "modules/rtp_rtcp/source/fec_private_tables_random.h"  // for kPack...
+#include "rtc_base/checks.h"                                    // for Fatal...
 
 namespace {
 // Allow for different modes of protection for packets in UEP case.

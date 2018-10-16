@@ -11,17 +11,18 @@
 #ifndef MODULES_RTP_RTCP_SOURCE_RTCP_PACKET_EXTENDED_REPORTS_H_
 #define MODULES_RTP_RTCP_SOURCE_RTCP_PACKET_EXTENDED_REPORTS_H_
 
-#include <vector>
+#include <stddef.h>  // for size_t
+#include <stdint.h>  // for uint8_t
 
-#include "absl/types/optional.h"
-#include "modules/rtp_rtcp/source/rtcp_packet.h"
-#include "modules/rtp_rtcp/source/rtcp_packet/dlrr.h"
-#include "modules/rtp_rtcp/source/rtcp_packet/rrtr.h"
-#include "modules/rtp_rtcp/source/rtcp_packet/target_bitrate.h"
+#include "absl/types/optional.h"                                 // for opti...
+#include "modules/rtp_rtcp/source/rtcp_packet.h"                 // for Rtcp...
+#include "modules/rtp_rtcp/source/rtcp_packet/common_header.h"   // for Comm...
+#include "modules/rtp_rtcp/source/rtcp_packet/dlrr.h"            // for Dlrr
+#include "modules/rtp_rtcp/source/rtcp_packet/rrtr.h"            // for Rrtr
+#include "modules/rtp_rtcp/source/rtcp_packet/target_bitrate.h"  // for Targ...
 
 namespace webrtc {
 namespace rtcp {
-class CommonHeader;
 
 // From RFC 3611: RTP Control Protocol Extended Reports (RTCP XR).
 class ExtendedReports : public RtcpPacket {

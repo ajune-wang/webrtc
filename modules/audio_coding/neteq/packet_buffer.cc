@@ -14,13 +14,18 @@
 
 #include "modules/audio_coding/neteq/packet_buffer.h"
 
-#include <algorithm>  // find_if()
+#include <algorithm>    // for find_if
+#include <list>         // for __list...
+#include <memory>       // for unique...
+#include <type_traits>  // for remove...
+#include <utility>      // for move
 
-#include "api/audio_codecs/audio_decoder.h"
-#include "modules/audio_coding/neteq/decoder_database.h"
-#include "modules/audio_coding/neteq/statistics_calculator.h"
-#include "modules/audio_coding/neteq/tick_timer.h"
-#include "rtc_base/logging.h"
+#include "api/audio_codecs/audio_decoder.h"                    // for AudioD...
+#include "modules/audio_coding/neteq/decoder_database.h"       // for Decode...
+#include "modules/audio_coding/neteq/statistics_calculator.h"  // for Statis...
+#include "modules/audio_coding/neteq/tick_timer.h"             // for TickTimer
+#include "rtc_base/checks.h"                                   // for FatalL...
+#include "rtc_base/logging.h"                                  // for RTC_LOG
 
 namespace webrtc {
 namespace {

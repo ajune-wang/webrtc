@@ -10,47 +10,34 @@
 
 #include "rtc_base/unixfilesystem.h"
 
-#include <errno.h>
-#include <fcntl.h>
-#include <stdlib.h>
-#include <sys/stat.h>
-#include <unistd.h>
+#include <features.h>  // for __GLIBC__
+#include <sys/stat.h>  // for stat, S_ISDIR
+#include <unistd.h>    // for unlink
+#include <string>      // for string
 
 #if defined(WEBRTC_MAC) && !defined(WEBRTC_IOS)
 #include <CoreServices/CoreServices.h>
 #include <IOKit/IOCFBundle.h>
 #include <sys/statvfs.h>
+
 #include "rtc_base/macutils.h"
 #endif  // WEBRTC_MAC && !defined(WEBRTC_IOS)
 
 #if defined(WEBRTC_POSIX) && !defined(WEBRTC_MAC) || defined(WEBRTC_IOS)
-#include <sys/types.h>
 #if defined(WEBRTC_ANDROID)
 #include <sys/statfs.h>
 #elif !defined(__native_client__)
-#include <sys/statvfs.h>
 #endif  //  !defined(__native_client__)
-#include <limits.h>
-#include <pwd.h>
-#include <stdio.h>
+#include <stdio.h>  // for rename, size_t
 #endif  // WEBRTC_POSIX && !WEBRTC_MAC || WEBRTC_IOS
-
-#if defined(WEBRTC_LINUX) && !defined(WEBRTC_ANDROID)
-#include <ctype.h>
-#include <algorithm>
-#endif
 
 #if defined(__native_client__) && !defined(__GLIBC__)
 #include <sys/syslimits.h>
 #endif
 
-#include "rtc_base/arraysize.h"
-#include "rtc_base/checks.h"
-#include "rtc_base/fileutils.h"
-#include "rtc_base/logging.h"
-#include "rtc_base/pathutils.h"
-#include "rtc_base/stream.h"
-#include "rtc_base/stringutils.h"
+#include "rtc_base/checks.h"     // for RTC_DCHECK
+#include "rtc_base/logging.h"    // for RTC_LOG
+#include "rtc_base/pathutils.h"  // for Pathname
 
 namespace rtc {
 

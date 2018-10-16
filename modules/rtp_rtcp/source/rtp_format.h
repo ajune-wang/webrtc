@@ -11,17 +11,17 @@
 #ifndef MODULES_RTP_RTCP_SOURCE_RTP_FORMAT_H_
 #define MODULES_RTP_RTCP_SOURCE_RTP_FORMAT_H_
 
-#include <memory>
-#include <string>
-#include <vector>
+#include <stdint.h>  // for uint8_t
+#include <memory>    // for unique_ptr
+#include <vector>    // for vector
 
-#include "api/array_view.h"
+#include "api/array_view.h"  // for ArrayView
 #include "common_types.h"  // NOLINT(build/include)
-#include "modules/include/module_common_types.h"
-#include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
-#include "rtc_base/constructormagic.h"
+#include "modules/include/module_common_types.h"       // for RTPFragmenta...
+#include "modules/rtp_rtcp/source/rtp_video_header.h"  // for RTPVideoHeader
 
 namespace webrtc {
+
 class RtpPacketToSend;
 
 class RtpPacketizer {

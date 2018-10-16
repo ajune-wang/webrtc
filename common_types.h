@@ -32,7 +32,7 @@
 
 #if defined(WEBRTC_WIN) || defined(WIN32)
 // Compares two strings without regard to case.
-#define STR_CASE_CMP(s1, s2) ::_stricmp(s1, s2)
+#define STR_CASE_CMP(s1, s2) absl::EqualsIgnoreCase(s1, s2)
 // Compares characters of two strings without regard to case.
 #define STR_NCASE_CMP(s1, s2, n) ::_strnicmp(s1, s2, n)
 #else

@@ -11,9 +11,12 @@
 #ifndef AUDIO_NULL_AUDIO_POLLER_H_
 #define AUDIO_NULL_AUDIO_POLLER_H_
 
-#include "modules/audio_device/include/audio_device_defines.h"
-#include "rtc_base/messagehandler.h"
-#include "rtc_base/thread_checker.h"
+#include <stdint.h>                                             // for int64_t
+
+#include "modules/audio_device/include/audio_device_defines.h"  // for Audio...
+#include "rtc_base/messagehandler.h"                            // for Messa...
+#include "rtc_base/messagequeue.h"                              // for Message
+#include "rtc_base/thread_checker.h"                            // for Threa...
 
 namespace webrtc {
 namespace internal {

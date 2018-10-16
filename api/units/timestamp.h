@@ -15,13 +15,15 @@
 #include <ostream>  // no-presubmit-check TODO(webrtc:8982)
 #endif              // UNIT_TEST
 
-#include <stdint.h>
-#include <limits>
-#include <string>
+#include <math.h>                                // for isnan
+#include <stdint.h>                              // for int64_t
+#include <limits>                                // for numeric_limits
+#include <string>                                // for string
+#include <type_traits>                           // for enable_if, is_floati...
 
-#include "api/units/time_delta.h"
-#include "rtc_base/checks.h"
-#include "rtc_base/numerics/safe_conversions.h"
+#include "api/units/time_delta.h"                // for TimeDelta, kMinusInf...
+#include "rtc_base/checks.h"                     // for FatalLogCall, RTC_DC...
+#include "rtc_base/numerics/safe_conversions.h"  // for dchecked_cast
 
 namespace webrtc {
 namespace timestamp_impl {

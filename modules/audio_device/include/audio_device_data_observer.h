@@ -11,8 +11,11 @@
 #ifndef MODULES_AUDIO_DEVICE_INCLUDE_AUDIO_DEVICE_DATA_OBSERVER_H_
 #define MODULES_AUDIO_DEVICE_INCLUDE_AUDIO_DEVICE_DATA_OBSERVER_H_
 
-#include "modules/audio_device/include/audio_device.h"
-#include "rtc_base/scoped_ref_ptr.h"
+#include <stddef.h>                                     // for size_t
+#include <stdint.h>                                     // for uint32_t, int...
+
+#include "modules/audio_device/include/audio_device.h"  // for AudioDeviceMo...
+#include "rtc_base/scoped_ref_ptr.h"                    // for scoped_refptr
 
 namespace webrtc {
 

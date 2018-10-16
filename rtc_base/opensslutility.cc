@@ -9,32 +9,23 @@
  */
 
 #include "rtc_base/opensslutility.h"
-
-#include <memory>
-
-#if defined(WEBRTC_POSIX)
-#include <unistd.h>
-#endif
-
 #if defined(WEBRTC_WIN)
 // Must be included first before openssl headers.
 #include "rtc_base/win32.h"  // NOLINT
 #endif                       // WEBRTC_WIN
 
-#include <openssl/bio.h>
-#include <openssl/crypto.h>
-#include <openssl/err.h>
-#include <openssl/x509.h>
-#include <openssl/x509v3.h>
+#include <openssl/err.h>                         // for ERR_error_string_n
+#include <openssl/x509.h>                        // for X509_free, X509_STOR...
+#include <openssl/x509v3.h>                      // for X509_check_host
+#include <stddef.h>                              // for size_t
 
-#include "rtc_base/arraysize.h"
-#include "rtc_base/checks.h"
-#include "rtc_base/logging.h"
-#include "rtc_base/numerics/safe_conversions.h"
-#include "rtc_base/openssl.h"
-#include "rtc_base/opensslcertificate.h"
+#include "openssl/ssl.h"                         // for SSL_CTX_get_cert_store
+#include "rtc_base/arraysize.h"                  // for arraysize
+#include "rtc_base/logging.h"                    // for RTC_DLOG, RTC_LOG
+#include "rtc_base/numerics/safe_conversions.h"  // for checked_cast
+#include "rtc_base/opensslcertificate.h"         // for SSL_CTX
 #ifndef WEBRTC_EXCLUDE_BUILT_IN_SSL_ROOT_CERTS
-#include "rtc_base/sslroots.h"
+#include "rtc_base/sslroots.h"                   // for kSSLCertCertificateList
 #endif  // WEBRTC_EXCLUDE_BUILT_IN_SSL_ROOT_CERTS
 
 namespace rtc {

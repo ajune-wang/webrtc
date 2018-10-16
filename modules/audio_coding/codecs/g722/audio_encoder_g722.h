@@ -11,17 +11,19 @@
 #ifndef MODULES_AUDIO_CODING_CODECS_G722_AUDIO_ENCODER_G722_H_
 #define MODULES_AUDIO_CODING_CODECS_G722_AUDIO_ENCODER_G722_H_
 
-#include <memory>
+#include <stddef.h>                                           // for size_t
+#include <stdint.h>                                           // for int16_t
+#include <memory>                                             // for unique_ptr
 
-#include "api/audio_codecs/audio_encoder.h"
-#include "api/audio_codecs/g722/audio_encoder_g722_config.h"
-#include "modules/audio_coding/codecs/g722/g722_interface.h"
-#include "rtc_base/buffer.h"
-#include "rtc_base/constructormagic.h"
+#include "api/array_view.h"                                   // for ArrayView
+#include "api/audio_codecs/audio_encoder.h"                   // for AudioEn...
+#include "api/audio_codecs/g722/audio_encoder_g722_config.h"  // for AudioEn...
+#include "common_types.h"                                     // for CodecInst
+#include "modules/audio_coding/codecs/g722/g722_interface.h"  // for G722Enc...
+#include "rtc_base/buffer.h"                                  // for Buffer
+#include "rtc_base/constructormagic.h"                        // for RTC_DIS...
 
 namespace webrtc {
-
-struct CodecInst;
 
 class AudioEncoderG722Impl final : public AudioEncoder {
  public:

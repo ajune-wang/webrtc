@@ -11,13 +11,13 @@
 #ifndef MODULES_AUDIO_CODING_NETEQ_AUDIO_MULTI_VECTOR_H_
 #define MODULES_AUDIO_CODING_NETEQ_AUDIO_MULTI_VECTOR_H_
 
-#include <string.h>  // Access to size_t.
+#include <stdint.h>                                   // for int16_t
+#include <string.h>                                   // for size_t
+#include <vector>                                     // for vector
 
-#include <vector>
-
-#include "api/array_view.h"
-#include "modules/audio_coding/neteq/audio_vector.h"
-#include "rtc_base/constructormagic.h"
+#include "api/array_view.h"                           // for ArrayView
+#include "modules/audio_coding/neteq/audio_vector.h"  // for AudioVector
+#include "rtc_base/constructormagic.h"                // for RTC_DISALLOW_CO...
 
 namespace webrtc {
 

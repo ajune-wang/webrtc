@@ -11,7 +11,9 @@
 #ifndef MODULES_AUDIO_PROCESSING_AGC2_RNN_VAD_LP_RESIDUAL_H_
 #define MODULES_AUDIO_PROCESSING_AGC2_RNN_VAD_LP_RESIDUAL_H_
 
-#include "api/array_view.h"
+#include <stddef.h>          // for size_t
+
+#include "api/array_view.h"  // for ArrayView
 
 namespace webrtc {
 namespace rnn_vad {

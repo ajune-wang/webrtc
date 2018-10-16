@@ -11,11 +11,14 @@
 #ifndef COMMON_VIDEO_INCLUDE_INCOMING_VIDEO_STREAM_H_
 #define COMMON_VIDEO_INCLUDE_INCOMING_VIDEO_STREAM_H_
 
-#include "api/video/video_sink_interface.h"
-#include "common_video/video_render_frames.h"
-#include "rtc_base/race_checker.h"
-#include "rtc_base/task_queue.h"
-#include "rtc_base/thread_checker.h"
+#include <stdint.h>                            // for int32_t
+
+#include "api/video/video_frame.h"             // for VideoFrame
+#include "api/video/video_sink_interface.h"    // for VideoSinkInterface
+#include "common_video/video_render_frames.h"  // for VideoRenderFrames
+#include "rtc_base/race_checker.h"             // for RaceChecker
+#include "rtc_base/task_queue.h"               // for TaskQueue
+#include "rtc_base/thread_checker.h"           // for ThreadChecker
 
 namespace webrtc {
 

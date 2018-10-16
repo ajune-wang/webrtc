@@ -11,10 +11,11 @@
 #ifndef COMMON_AUDIO_FIR_FILTER_SSE_H_
 #define COMMON_AUDIO_FIR_FILTER_SSE_H_
 
-#include <memory>
+#include <stddef.h>                          // for size_t
+#include <memory>                            // for unique_ptr
 
-#include "common_audio/fir_filter.h"
-#include "rtc_base/memory/aligned_malloc.h"
+#include "common_audio/fir_filter.h"         // for FIRFilter
+#include "rtc_base/memory/aligned_malloc.h"  // for AlignedFreeDeleter
 
 namespace webrtc {
 

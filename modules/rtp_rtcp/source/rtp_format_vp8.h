@@ -25,14 +25,16 @@
 #ifndef MODULES_RTP_RTCP_SOURCE_RTP_FORMAT_VP8_H_
 #define MODULES_RTP_RTCP_SOURCE_RTP_FORMAT_VP8_H_
 
-#include <string>
-#include <vector>
+#include <stddef.h>                                               // for size_t
+#include <cstdint>                                                // for uin...
+#include <vector>                                                 // for vector
 
-#include "absl/container/inlined_vector.h"
-#include "api/array_view.h"
-#include "modules/include/module_common_types.h"
-#include "modules/rtp_rtcp/source/rtp_format.h"
-#include "rtc_base/constructormagic.h"
+#include "absl/container/inlined_vector.h"                        // for Inl...
+#include "api/array_view.h"                                       // for Arr...
+#include "modules/rtp_rtcp/source/rtp_format.h"                   // for Rtp...
+#include "modules/rtp_rtcp/source/rtp_packet_to_send.h"           // for Rtp...
+#include "modules/video_coding/codecs/vp8/include/vp8_globals.h"  // for RTP...
+#include "rtc_base/constructormagic.h"                            // for RTC...
 
 namespace webrtc {
 

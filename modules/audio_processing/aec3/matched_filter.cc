@@ -9,21 +9,23 @@
  */
 #include "modules/audio_processing/aec3/matched_filter.h"
 
+#include <xmmintrin.h>                                         // for _mm_lo...
+
+#include "rtc_base/checks.h"                                   // for FatalL...
 // Defines WEBRTC_ARCH_X86_FAMILY, used below.
-#include "rtc_base/system/arch.h"
+#include "rtc_base/system/arch.h"                              // for WEBRTC...
 
 #if defined(WEBRTC_HAS_NEON)
 #include <arm_neon.h>
 #endif
-#if defined(WEBRTC_ARCH_X86_FAMILY)
-#include <emmintrin.h>
-#endif
-#include <algorithm>
-#include <numeric>
+#include <algorithm>                                           // for fill
+#include <cstddef>                                             // for size_t
+#include <initializer_list>                                    // for initia...
+#include <iterator>                                            // for distance
+#include <numeric>                                             // for inner_...
 
-#include "api/audio/echo_canceller3_config.h"
-#include "modules/audio_processing/logging/apm_data_dumper.h"
-#include "rtc_base/logging.h"
+#include "modules/audio_processing/logging/apm_data_dumper.h"  // for ApmDat...
+#include "rtc_base/logging.h"                                  // for RTC_LOG
 
 namespace webrtc {
 namespace aec3 {

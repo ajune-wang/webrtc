@@ -10,8 +10,10 @@
 
 #include "rtc_base/openssldigest.h"
 
-#include "rtc_base/checks.h"
-#include "rtc_base/openssl.h"
+#include "openssl/base.h"     // for EVP_MD
+#include "openssl/digest.h"   // for EVP_MD_size, EVP_DigestInit_ex, EVP_Dig...
+#include "openssl/nid.h"      // for NID_md5, NID_sha1, NID_sha224, NID_sha256
+#include "rtc_base/checks.h"  // for FatalLogCall, RTC_DCHECK, RTC_CHECK
 
 namespace rtc {
 

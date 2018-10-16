@@ -11,9 +11,10 @@
 #ifndef MODULES_AUDIO_PROCESSING_AEC3_BLOCK_DELAY_BUFFER_H_
 #define MODULES_AUDIO_PROCESSING_AEC3_BLOCK_DELAY_BUFFER_H_
 
-#include <vector>
+#include <stddef.h>                                 // for size_t
+#include <vector>                                   // for vector
 
-#include "modules/audio_processing/audio_buffer.h"
+#include "modules/audio_processing/audio_buffer.h"  // for AudioBuffer
 
 namespace webrtc {
 

@@ -9,10 +9,11 @@
  */
 #include "api/rtpparameters.h"
 
-#include <algorithm>
-#include <string>
+#include <algorithm>                          // for find_if
+#include <string>                             // for operator==, string, bas...
 
-#include "rtc_base/strings/string_builder.h"
+#include "api/array_view.h"                   // for ArrayView
+#include "rtc_base/strings/string_builder.h"  // for SimpleStringBuilder
 
 namespace webrtc {
 

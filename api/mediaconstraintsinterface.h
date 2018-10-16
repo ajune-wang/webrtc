@@ -21,10 +21,12 @@
 #ifndef API_MEDIACONSTRAINTSINTERFACE_H_
 #define API_MEDIACONSTRAINTSINTERFACE_H_
 
-#include <string>
-#include <vector>
+#include <stddef.h>                       // for size_t
+#include <string>                         // for string
+#include <vector>                         // for vector
 
-#include "api/peerconnectioninterface.h"
+#include "api/audio_options.h"            // for AudioOptions
+#include "api/peerconnectioninterface.h"  // for PeerConnectionInterface
 
 namespace webrtc {
 

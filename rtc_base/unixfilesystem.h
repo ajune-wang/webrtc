@@ -11,9 +11,10 @@
 #ifndef RTC_BASE_UNIXFILESYSTEM_H_
 #define RTC_BASE_UNIXFILESYSTEM_H_
 
-#include <sys/types.h>
+#include <stddef.h>              // for size_t
 
-#include "rtc_base/fileutils.h"
+#include "rtc_base/fileutils.h"  // for FilesystemInterface
+#include "rtc_base/pathutils.h"  // for Pathname
 
 namespace rtc {
 

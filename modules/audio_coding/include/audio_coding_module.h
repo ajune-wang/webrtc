@@ -11,28 +11,29 @@
 #ifndef MODULES_AUDIO_CODING_INCLUDE_AUDIO_CODING_MODULE_H_
 #define MODULES_AUDIO_CODING_INCLUDE_AUDIO_CODING_MODULE_H_
 
+#include <stddef.h>
+#include <stdint.h>
+#include <map>
 #include <memory>
 #include <string>
+#include <utility>
 #include <vector>
 
 #include "absl/types/optional.h"
+#include "api/audio/audio_frame.h"
+#include "api/audio_codecs/audio_decoder.h"
 #include "api/audio_codecs/audio_decoder_factory.h"
 #include "api/audio_codecs/audio_encoder.h"
+#include "api/audio_codecs/audio_format.h"
 #include "common_types.h"  // NOLINT(build/include)
 #include "modules/audio_coding/include/audio_coding_module_typedefs.h"
 #include "modules/audio_coding/neteq/include/neteq.h"
+#include "modules/include/module_common_types.h"
 #include "rtc_base/function_view.h"
+#include "rtc_base/scoped_ref_ptr.h"
 #include "system_wrappers/include/clock.h"
 
 namespace webrtc {
-
-// forward declarations
-struct CodecInst;
-struct WebRtcRTPHeader;
-class AudioDecoder;
-class AudioEncoder;
-class AudioFrame;
-class RTPFragmentationHeader;
 
 #define WEBRTC_10MS_PCM_AUDIO 960  // 16 bits super wideband 48 kHz
 

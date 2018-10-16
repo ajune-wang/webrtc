@@ -15,14 +15,15 @@
 #include <ostream>  // no-presubmit-check TODO(webrtc:8982)
 #endif              // UNIT_TEST
 
-#include <stdint.h>
-#include <cmath>
-#include <cstdlib>
-#include <limits>
-#include <string>
+#include <stdint.h>                              // for int64_t, int32_t
+#include <cmath>                                 // for round, isnan
+#include <cstdlib>                               // for abs
+#include <limits>                                // for numeric_limits
+#include <string>                                // for string
+#include <type_traits>                           // for enable_if, is_floati...
 
-#include "rtc_base/checks.h"
-#include "rtc_base/numerics/safe_conversions.h"
+#include "rtc_base/checks.h"                     // for FatalLogCall, RTC_DC...
+#include "rtc_base/numerics/safe_conversions.h"  // for dchecked_cast
 
 namespace webrtc {
 namespace timedelta_impl {

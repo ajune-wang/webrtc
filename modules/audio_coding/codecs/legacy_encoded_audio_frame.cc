@@ -10,9 +10,11 @@
 
 #include "modules/audio_coding/codecs/legacy_encoded_audio_frame.h"
 
-#include <algorithm>
-#include <memory>
-#include <utility>
+#include <algorithm>          // for min
+#include <memory>             // for unique_ptr
+#include <utility>            // for move
+
+#include "rtc_base/checks.h"  // for RTC_DCHECK
 
 namespace webrtc {
 

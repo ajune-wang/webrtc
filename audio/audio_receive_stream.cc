@@ -10,21 +10,27 @@
 
 #include "audio/audio_receive_stream.h"
 
-#include <string>
-#include <utility>
+#include <map>                                              // for operator!=
+#include <string>                                           // for string
+#include <utility>                                          // for move
 
-#include "api/call/audio_sink.h"
-#include "audio/audio_send_stream.h"
-#include "audio/audio_state.h"
-#include "audio/channel_receive_proxy.h"
-#include "audio/conversion.h"
-#include "call/rtp_stream_receiver_controller_interface.h"
-#include "modules/remote_bitrate_estimator/include/remote_bitrate_estimator.h"
-#include "modules/rtp_rtcp/include/rtp_rtcp.h"
-#include "rtc_base/checks.h"
-#include "rtc_base/logging.h"
-#include "rtc_base/strings/string_builder.h"
-#include "rtc_base/timeutils.h"
+#include "absl/memory/memory.h"                             // for make_unique
+#include "api/array_view.h"                                 // for ArrayView
+#include "api/audio_codecs/audio_format.h"                  // for operator==
+#include "api/call/audio_sink.h"                            // for AudioSink...
+#include "api/rtpparameters.h"                              // for RtpExtension
+#include "audio/audio_send_stream.h"                        // for AudioSend...
+#include "audio/audio_state.h"                              // for AudioState
+#include "audio/channel_receive.h"                          // for CallRecei...
+#include "audio/channel_receive_proxy.h"                    // for ChannelRe...
+#include "audio/conversion.h"                               // for Q14ToFloat
+#include "call/rtp_config.h"                                // for NackConfig
+#include "call/rtp_stream_receiver_controller_interface.h"  // for RtpStream...
+#include "common_types.h"  // NOLINT(build/include)
+#include "rtc_base/checks.h"                                // for FatalLogCall
+#include "rtc_base/logging.h"                               // for RTC_LOG
+#include "rtc_base/strings/string_builder.h"                // for SimpleStr...
+#include "rtc_base/timeutils.h"                             // for kNumMilli...
 
 namespace webrtc {
 

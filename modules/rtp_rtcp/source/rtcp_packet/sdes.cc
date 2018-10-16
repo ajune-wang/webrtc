@@ -10,12 +10,13 @@
 
 #include "modules/rtp_rtcp/source/rtcp_packet/sdes.h"
 
-#include <utility>
+#include <string.h>                                             // for size_t
+#include <utility>                                              // for move
 
-#include "modules/rtp_rtcp/source/byte_io.h"
-#include "modules/rtp_rtcp/source/rtcp_packet/common_header.h"
-#include "rtc_base/checks.h"
-#include "rtc_base/logging.h"
+#include "modules/rtp_rtcp/source/byte_io.h"                    // for ByteW...
+#include "modules/rtp_rtcp/source/rtcp_packet/common_header.h"  // for Commo...
+#include "rtc_base/checks.h"                                    // for Fatal...
+#include "rtc_base/logging.h"                                   // for RTC_LOG
 
 namespace webrtc {
 namespace rtcp {

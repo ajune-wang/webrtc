@@ -9,7 +9,11 @@
  */
 
 #include "rtc_base/rate_limiter.h"
-#include "system_wrappers/include/clock.h"
+
+#include <limits>                           // for numeric_limits
+
+#include "absl/types/optional.h"            // for optional
+#include "system_wrappers/include/clock.h"  // for Clock
 
 namespace webrtc {
 

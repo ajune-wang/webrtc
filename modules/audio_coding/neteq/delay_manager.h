@@ -11,19 +11,17 @@
 #ifndef MODULES_AUDIO_CODING_NETEQ_DELAY_MANAGER_H_
 #define MODULES_AUDIO_CODING_NETEQ_DELAY_MANAGER_H_
 
-#include <string.h>  // Provide access to size_t.
+#include <stdint.h>                                          // for uint16_t
+#include <string.h>                                          // for size_t
+#include <memory>                                            // for unique_ptr
+#include <vector>                                            // for vector
 
-#include <memory>
-#include <vector>
-
-#include "absl/types/optional.h"
-#include "modules/audio_coding/neteq/tick_timer.h"
-#include "rtc_base/constructormagic.h"
+#include "absl/types/optional.h"                             // for optional
+#include "modules/audio_coding/neteq/delay_peak_detector.h"  // for DelayPea...
+#include "modules/audio_coding/neteq/tick_timer.h"           // for TickTimer
+#include "rtc_base/constructormagic.h"                       // for RTC_DISA...
 
 namespace webrtc {
-
-// Forward declaration.
-class DelayPeakDetector;
 
 class DelayManager {
  public:

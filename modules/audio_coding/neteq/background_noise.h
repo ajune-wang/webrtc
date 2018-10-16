@@ -11,17 +11,15 @@
 #ifndef MODULES_AUDIO_CODING_NETEQ_BACKGROUND_NOISE_H_
 #define MODULES_AUDIO_CODING_NETEQ_BACKGROUND_NOISE_H_
 
-#include <string.h>  // size_t
-#include <memory>
+#include <stdint.h>                                         // for int16_t
+#include <string.h>                                         // for size_t
+#include <memory>                                           // for unique_ptr
 
-#include "modules/audio_coding/neteq/audio_multi_vector.h"
-#include "modules/audio_coding/neteq/include/neteq.h"
-#include "rtc_base/constructormagic.h"
+#include "modules/audio_coding/neteq/audio_multi_vector.h"  // for AudioMult...
+#include "modules/audio_coding/neteq/post_decode_vad.h"     // for PostDecod...
+#include "rtc_base/constructormagic.h"                      // for RTC_DISAL...
 
 namespace webrtc {
-
-// Forward declarations.
-class PostDecodeVad;
 
 // This class handles estimation of background noise parameters.
 class BackgroundNoise {

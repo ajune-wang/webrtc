@@ -10,10 +10,11 @@
 
 #include "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.h"
 
-#include <algorithm>
-#include <cmath>
+#include <algorithm>          // for max, fill, min
+#include <cmath>              // for cos, log10, sqrt
+#include <cstddef>            // for size_t
 
-#include "rtc_base/checks.h"
+#include "rtc_base/checks.h"  // for FatalLogCall, RTC_DCHECK_EQ, RTC_DCHECK_LE
 
 namespace webrtc {
 namespace rnn_vad {

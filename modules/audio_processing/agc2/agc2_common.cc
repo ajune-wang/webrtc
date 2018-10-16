@@ -10,9 +10,10 @@
 
 #include "modules/audio_processing/agc2/agc2_common.h"
 
-#include <string>
+#include <stdio.h>                                // for sscanf
+#include <string>                                 // for basic_string, string
 
-#include "system_wrappers/include/field_trial.h"
+#include "system_wrappers/include/field_trial.h"  // for FindFullName, IsEna...
 
 namespace webrtc {
 

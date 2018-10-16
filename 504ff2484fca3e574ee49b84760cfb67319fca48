@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1b89677d_99028f43",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 573,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-16T08:43:32Z",
+      "side": 1,
+      "message": "We should avoid this. But it\u0027s not added in this cl, I just move a few targets around in order to group the fake_media_transport and loopback_media_transport targets together, above the rtc_api_unittests target.",
+      "parentUuid": "533e2cc6_2929d52a",
+      "range": {
+        "startLine": 573,
+        "startChar": 20,
+        "endLine": 573,
+        "endChar": 74
+      },
+      "revId": "504ff2484fca3e574ee49b84760cfb67319fca48",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a186b895_15e59491",
         "filename": "api/test/loopback_media_transport.h",
         "patchSetId": 1
@@ -101,6 +125,30 @@
     },
     {
       "key": {
+        "uuid": "caa9dfc7_b49e35c8",
+        "filename": "api/test/loopback_media_transport.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-16T08:43:32Z",
+      "side": 1,
+      "message": "That\u0027s essential in order to cross-connect the two pipe endpoints. pipe_[0] is connected to pipe_[1] and vice versa.",
+      "parentUuid": "f5fa92a7_c1cf1d56",
+      "range": {
+        "startLine": 25,
+        "startChar": 43,
+        "endLine": 25,
+        "endChar": 47
+      },
+      "revId": "504ff2484fca3e574ee49b84760cfb67319fca48",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8297c22a_ba48bcc5",
         "filename": "api/test/loopback_media_transport.h",
         "patchSetId": 1
@@ -145,6 +193,30 @@
       "revId": "504ff2484fca3e574ee49b84760cfb67319fca48",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e1c2283_64a9d9ce",
+        "filename": "api/test/loopback_media_transport.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-16T08:43:32Z",
+      "side": 1,
+      "message": "I used pair to mimic the interface for pipe() and socketpair() syscalls. \n\nThe usecase I see is something like\n\nMediaTransportPair transport_pair;\nauto pipe \u003d transport_pair.GetTransports();\nauto receive_stream \u003d CreateAudioReceiveStream(... pipe.first ...);\nauto send_stream \u003d CreateAudioSendStream( ... pipe.second ...);\n\nBut that gets simpler with the suggested change, so I\u0027ll switch to first and second.\n\n(I also notice that maybe it\u0027s a mistake to produce a bidirectional pipe, a unidirectional pipe with one reading endpoint and one writing endpoint would suffice and maybe be clearer. But we can tweak that later, since I think we may also want to consider narrower stream endpoint-interfaces for MediaTransport itself).",
+      "parentUuid": "2f4dff97_1ad1a18e",
+      "range": {
+        "startLine": 30,
+        "startChar": 2,
+        "endLine": 30,
+        "endChar": 19
+      },
+      "revId": "504ff2484fca3e574ee49b84760cfb67319fca48",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

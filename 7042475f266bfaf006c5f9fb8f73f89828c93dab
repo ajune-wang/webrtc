@@ -16,6 +16,24 @@
       "revId": "7042475f266bfaf006c5f9fb8f73f89828c93dab",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2ab163c_40fa0c0c",
+        "filename": "sdk/android/src/jni/pc/peerconnectionfactory.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-16T14:45:44Z",
+      "side": 1,
+      "message": "Somebody explicitly asked if this can be null (I think Niels) so I documented it. \nI don\u0027t know which other ones can be null (e.g. media_engine cannot, and I think call_factory cannot be null either). Can fec_controller_factory be null (I think this is the only other one that can?\n\nI reworked this comment: \"|media_transport_factory| is optional and nullptr can be provided. \n|fec_controller_factory| is probably also optional. It\u0027s also possible that other arguments are optional.\"",
+      "parentUuid": "d8b8c95e_1c4543f0",
+      "revId": "7042475f266bfaf006c5f9fb8f73f89828c93dab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

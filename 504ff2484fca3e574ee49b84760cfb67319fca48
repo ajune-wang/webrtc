@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "04a0e59e_2ee5415a",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 573,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-16T14:49:04Z",
+      "side": 1,
+      "message": "Note that this suppression applies to the rtc_api_unittests target, and FakeMediaTransport is in a different target.",
+      "parentUuid": "e4b4e474_f7817651",
+      "range": {
+        "startLine": 573,
+        "startChar": 20,
+        "endLine": 573,
+        "endChar": 74
+      },
+      "revId": "504ff2484fca3e574ee49b84760cfb67319fca48",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a186b895_15e59491",
         "filename": "api/test/loopback_media_transport.h",
         "patchSetId": 1

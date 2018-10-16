@@ -10,13 +10,13 @@
 
 #include "common_audio/resampler/include/push_resampler.h"
 
-#include <string.h>
+#include <stdint.h>  // for int16_t
+#include <string.h>  // for size_t, memcpy
 
-#include "absl/container/inlined_vector.h"
-#include "absl/memory/memory.h"
-#include "common_audio/include/audio_util.h"
-#include "common_audio/resampler/include/resampler.h"
-#include "common_audio/resampler/push_sinc_resampler.h"
+#include "absl/container/inlined_vector.h"               // for InlinedVector
+#include "absl/memory/memory.h"                          // for make_unique
+#include "common_audio/include/audio_util.h"             // for Deinterleave
+#include "common_audio/resampler/push_sinc_resampler.h"  // for PushSincResa...
 #include "rtc_base/checks.h"
 
 namespace webrtc {

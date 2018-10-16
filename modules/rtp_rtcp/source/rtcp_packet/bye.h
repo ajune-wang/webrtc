@@ -12,14 +12,16 @@
 #ifndef MODULES_RTP_RTCP_SOURCE_RTCP_PACKET_BYE_H_
 #define MODULES_RTP_RTCP_SOURCE_RTCP_PACKET_BYE_H_
 
-#include <string>
-#include <vector>
+#include <stddef.h>  // for size_t
+#include <stdint.h>  // for uint32_t
+#include <string>    // for string
+#include <vector>    // for vector
 
-#include "modules/rtp_rtcp/source/rtcp_packet.h"
+#include "modules/rtp_rtcp/source/rtcp_packet.h"                // for RtcpP...
+#include "modules/rtp_rtcp/source/rtcp_packet/common_header.h"  // for Commo...
 
 namespace webrtc {
 namespace rtcp {
-class CommonHeader;
 
 class Bye : public RtcpPacket {
  public:

@@ -10,10 +10,9 @@
 
 #include "modules/rtp_rtcp/source/playout_delay_oracle.h"
 
-#include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
-#include "modules/rtp_rtcp/source/rtp_header_extensions.h"
+#include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"      // for RTCPRepor...
+#include "modules/rtp_rtcp/source/rtp_header_extensions.h"  // for PlayoutDe...
 #include "rtc_base/checks.h"
-#include "rtc_base/logging.h"
 
 namespace webrtc {
 

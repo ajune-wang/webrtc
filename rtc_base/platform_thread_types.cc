@@ -10,9 +10,10 @@
 
 #include "rtc_base/platform_thread_types.h"
 
+#include <syscall.h>  // for __NR_gettid
+
 #if defined(WEBRTC_LINUX)
-#include <sys/prctl.h>
-#include <sys/syscall.h>
+#include <sys/prctl.h>  // for prctl, PR_SET_NAME
 #endif
 
 namespace rtc {

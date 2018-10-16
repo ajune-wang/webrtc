@@ -30,7 +30,8 @@
 
 #include "modules/audio_coding/neteq/dtmf_tone_generator.h"
 
-#include "rtc_base/arraysize.h"
+#include "modules/audio_coding/neteq/audio_vector.h"  // for AudioVector
+#include "rtc_base/arraysize.h"                       // for arraysize
 #include "rtc_base/checks.h"
 
 namespace webrtc {

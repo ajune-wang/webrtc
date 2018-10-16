@@ -12,12 +12,12 @@
 
 #if defined(WEBRTC_WIN)
 #include <io.h>
+
 #include "rtc_base/stringutils.h"  // For ToUtf16
 #else
-#include <fcntl.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <unistd.h>
+#include <fcntl.h>     // for open, O_RDWR, O_CREAT, O_RDONLY, O_TRUNC
+#include <sys/stat.h>  // for S_IRUSR, S_IWUSR
+#include <unistd.h>    // for close, unlink
 #endif
 
 namespace rtc {

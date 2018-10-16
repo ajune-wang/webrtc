@@ -11,9 +11,14 @@
 #ifndef MODULES_AUDIO_CODING_CODECS_OPUS_AUDIO_DECODER_OPUS_H_
 #define MODULES_AUDIO_CODING_CODECS_OPUS_AUDIO_DECODER_OPUS_H_
 
-#include "api/audio_codecs/audio_decoder.h"
-#include "modules/audio_coding/codecs/opus/opus_interface.h"
-#include "rtc_base/constructormagic.h"
+#include <stddef.h>  // for size_t
+#include <stdint.h>  // for uint8_t
+#include <vector>    // for vector
+
+#include "api/audio_codecs/audio_decoder.h"                   // for AudioDe...
+#include "modules/audio_coding/codecs/opus/opus_interface.h"  // for OpusDec...
+#include "rtc_base/buffer.h"                                  // for Buffer
+#include "rtc_base/constructormagic.h"                        // for RTC_DIS...
 
 namespace webrtc {
 

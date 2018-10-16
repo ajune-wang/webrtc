@@ -9,8 +9,12 @@
  */
 
 #include "audio/null_audio_poller.h"
-#include "rtc_base/logging.h"
-#include "rtc_base/thread.h"
+
+#include <stddef.h>  // for size_t
+
+#include "rtc_base/checks.h"     // for RTC_DCHECK
+#include "rtc_base/location.h"   // for RTC_FROM_HERE
+#include "rtc_base/thread.h"     // for Thread
 #include "rtc_base/timeutils.h"  // for TimeMillis
 
 namespace webrtc {

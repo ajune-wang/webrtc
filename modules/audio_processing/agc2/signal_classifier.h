@@ -11,19 +11,18 @@
 #ifndef MODULES_AUDIO_PROCESSING_AGC2_SIGNAL_CLASSIFIER_H_
 #define MODULES_AUDIO_PROCESSING_AGC2_SIGNAL_CLASSIFIER_H_
 
+#include <stddef.h>
 #include <memory>
 #include <vector>
 
 #include "api/array_view.h"
 #include "modules/audio_processing/agc2/down_sampler.h"
 #include "modules/audio_processing/agc2/noise_spectrum_estimator.h"
+#include "modules/audio_processing/logging/apm_data_dumper.h"
 #include "modules/audio_processing/utility/ooura_fft.h"
 #include "rtc_base/constructormagic.h"
 
 namespace webrtc {
-
-class ApmDataDumper;
-class AudioBuffer;
 
 class SignalClassifier {
  public:

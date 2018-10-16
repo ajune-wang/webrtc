@@ -11,11 +11,12 @@
 #ifndef MODULES_AUDIO_PROCESSING_TRANSIENT_WPD_NODE_H_
 #define MODULES_AUDIO_PROCESSING_TRANSIENT_WPD_NODE_H_
 
-#include <memory>
+#include <stddef.h>  // for size_t
+#include <memory>    // for unique_ptr
+
+#include "common_audio/fir_filter.h"  // for FIRFilter
 
 namespace webrtc {
-
-class FIRFilter;
 
 // A single node of a Wavelet Packet Decomposition (WPD) tree.
 class WPDNode {

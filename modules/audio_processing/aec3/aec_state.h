@@ -11,9 +11,8 @@
 #ifndef MODULES_AUDIO_PROCESSING_AEC3_AEC_STATE_H_
 #define MODULES_AUDIO_PROCESSING_AEC3_AEC_STATE_H_
 
-#include <math.h>
-
-#include <algorithm>
+#include <stddef.h>
+#include <array>
 #include <memory>
 #include <vector>
 
@@ -32,10 +31,9 @@
 #include "modules/audio_processing/aec3/subtractor_output.h"
 #include "modules/audio_processing/aec3/subtractor_output_analyzer.h"
 #include "modules/audio_processing/aec3/suppression_gain_limiter.h"
+#include "modules/audio_processing/logging/apm_data_dumper.h"
 
 namespace webrtc {
-
-class ApmDataDumper;
 
 // Handles the state and the conditions for the echo removal functionality.
 class AecState {

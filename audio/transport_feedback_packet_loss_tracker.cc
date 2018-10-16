@@ -10,13 +10,14 @@
 
 #include "audio/transport_feedback_packet_loss_tracker.h"
 
-#include <limits>
-#include <utility>
+#include <__tree>    // for __tree_const_...
+#include <iterator>  // for next
+#include <limits>    // for numeric_limits
+#include <utility>   // for pair, make_pair
 
-#include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
-#include "modules/rtp_rtcp/source/rtcp_packet/transport_feedback.h"
+#include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"  // for PacketFeedback
 #include "rtc_base/checks.h"
-#include "rtc_base/numerics/mod_ops.h"
+#include "rtc_base/numerics/mod_ops.h"  // for ForwardDiff
 
 namespace {
 constexpr uint16_t kSeqNumHalf = 0x8000u;

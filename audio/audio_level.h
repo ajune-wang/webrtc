@@ -11,12 +11,14 @@
 #ifndef AUDIO_AUDIO_LEVEL_H_
 #define AUDIO_AUDIO_LEVEL_H_
 
-#include "rtc_base/criticalsection.h"
-#include "rtc_base/thread_annotations.h"
+#include <stdint.h>  // for int16_t
+
+#include "api/audio/audio_frame.h"        // for AudioFrame
+#include "rtc_base/criticalsection.h"     // for CriticalSection
+#include "rtc_base/thread_annotations.h"  // for RTC_GUARDED_BY
 
 namespace webrtc {
 
-class AudioFrame;
 namespace voe {
 
 class AudioLevel {

@@ -12,6 +12,7 @@
 #define LOGGING_RTC_EVENT_LOG_RTC_EVENT_LOG_UNITTEST_HELPER_H_
 
 #include <memory>
+#include <vector>
 
 #include "logging/rtc_event_log/events/rtc_event.h"
 #include "logging/rtc_event_log/events/rtc_event_alr_state.h"
@@ -168,6 +169,10 @@ void VerifyLoggedStartEvent(int64_t start_time_us,
                             const LoggedStartEvent& logged_event);
 void VerifyLoggedStopEvent(int64_t stop_time_us,
                            const LoggedStopEvent& logged_event);
+
+void VerifyLoggedHeaderExtensions(
+    const std::vector<RtpExtension>& original_extension_map,
+    const std::vector<RtpExtension>& logged_extension_map);
 
 void VerifyLoggedAudioRecvConfig(
     const RtcEventAudioReceiveStreamConfig& original_event,

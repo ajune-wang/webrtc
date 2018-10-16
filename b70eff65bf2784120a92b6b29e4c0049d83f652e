@@ -453,6 +453,24 @@
       "revId": "b70eff65bf2784120a92b6b29e4c0049d83f652e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df79e77a_cf13e3fc",
+        "filename": "media/base/mediaengine.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2018-10-16T07:59:57Z",
+      "side": 1,
+      "message": "It is intended to be configured per peer connection but through PeerConnectionFactory::Options instead of directly through the RTCConfiguration. Not sure if that makes much of a difference from an API standpoint.",
+      "parentUuid": "86524c91_f12b1362",
+      "revId": "b70eff65bf2784120a92b6b29e4c0049d83f652e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

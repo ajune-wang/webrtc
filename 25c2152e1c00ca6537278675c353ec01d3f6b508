@@ -52,6 +52,24 @@
       "revId": "25c2152e1c00ca6537278675c353ec01d3f6b508",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70d7d63b_d59d91aa",
+        "filename": "sdk/android/api/org/webrtc/PeerConnection.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-16T18:35:59Z",
+      "side": 1,
+      "message": "Ideally yes, and typically you achieve that by some sort of comment redirect  :-) \nIn reality, the java interfaces are wrappers around c++ classes, and the comments on the wrappers are very sparse or non-existing.\n\nAdded a comment though.",
+      "parentUuid": "ac1fd56e_8ea04922",
+      "revId": "25c2152e1c00ca6537278675c353ec01d3f6b508",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -471,6 +471,24 @@
       "revId": "b70eff65bf2784120a92b6b29e4c0049d83f652e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72f9ddfd_2d1ebac7",
+        "filename": "media/base/mediaengine.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-16T08:21:19Z",
+      "side": 1,
+      "message": "Ok, I\u0027ll defer to you and Steve to agree on something.\n\nI find the mutable settings confusing. We have PeerConnectionFactory::SetOptions, which enables setting certain options differently for each PeerConnection. And then we have PeerConnectionInterface::RTCConfiguration, which similarly allows per PeerConnection settings, but unlike SetOptions, in addition allows *some* post-construction changes using PeerConnectionInterface::SetConfiguration.\n\nI\u0027d wish for a clearer separations between construction-time settings and other more mutable settings.",
+      "parentUuid": "df79e77a_cf13e3fc",
+      "revId": "b70eff65bf2784120a92b6b29e4c0049d83f652e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "147d71fc_aa8e5626",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2018-10-16T07:20:52Z",
+      "side": 1,
+      "message": "suppr ession",
+      "revId": "6259c7ad8e25b18e47adbb092ffd77439016a30f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "572dd0f3_0feea151",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 463,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2018-10-16T07:20:52Z",
+      "side": 1,
+      "message": "There has to be a bug here:\nDid you mean || instead of \u0026\u0026 after usable_linear_estimate_?\n\nIf not, there is no point of using convergence_feasible as it will always be true when convergence_possible is true.",
+      "revId": "6259c7ad8e25b18e47adbb092ffd77439016a30f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3301afb2_8151ece4",
+        "filename": "modules/audio_processing/aec3/aec_state.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2018-10-16T07:20:52Z",
+      "side": 1,
+      "message": "Remove \u0027is\u0027.",
+      "revId": "6259c7ad8e25b18e47adbb092ffd77439016a30f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

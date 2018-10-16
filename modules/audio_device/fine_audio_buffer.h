@@ -11,12 +11,14 @@
 #ifndef MODULES_AUDIO_DEVICE_FINE_AUDIO_BUFFER_H_
 #define MODULES_AUDIO_DEVICE_FINE_AUDIO_BUFFER_H_
 
-#include "api/array_view.h"
-#include "rtc_base/buffer.h"
+#include <stddef.h>  // for size_t
+#include <stdint.h>  // for int16_t
+
+#include "api/array_view.h"                            // for ArrayView
+#include "modules/audio_device/audio_device_buffer.h"  // for AudioDeviceBuffer
+#include "rtc_base/buffer.h"                           // for BufferT
 
 namespace webrtc {
-
-class AudioDeviceBuffer;
 
 // FineAudioBuffer takes an AudioDeviceBuffer (ADB) which deals with 16-bit PCM
 // audio samples corresponding to 10ms of data. It then allows for this data

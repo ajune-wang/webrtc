@@ -11,11 +11,12 @@
 #ifndef MODULES_RTP_RTCP_INCLUDE_RTP_HEADER_EXTENSION_MAP_H_
 #define MODULES_RTP_RTCP_INCLUDE_RTP_HEADER_EXTENSION_MAP_H_
 
-#include <string>
+#include <stdint.h>  // for uint8_t, int32_t
+#include <string>    // for string
 
-#include "api/array_view.h"
-#include "api/rtpparameters.h"
-#include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
+#include "api/array_view.h"                             // for ArrayView
+#include "api/rtpparameters.h"                          // for RtpExtension
+#include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"  // for RTPExtensionType
 #include "rtc_base/checks.h"
 
 namespace webrtc {

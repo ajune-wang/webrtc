@@ -10,12 +10,13 @@
 
 #include "modules/rtp_rtcp/source/rtcp_packet/extended_jitter_report.h"
 
-#include <utility>
+#include <cstdint>  // for uint32_t
+#include <utility>  // for move
 
-#include "modules/rtp_rtcp/source/byte_io.h"
-#include "modules/rtp_rtcp/source/rtcp_packet/common_header.h"
-#include "rtc_base/checks.h"
-#include "rtc_base/logging.h"
+#include "modules/rtp_rtcp/source/byte_io.h"                    // for ByteR...
+#include "modules/rtp_rtcp/source/rtcp_packet/common_header.h"  // for Commo...
+#include "rtc_base/checks.h"                                    // for Fatal...
+#include "rtc_base/logging.h"                                   // for RTC_LOG
 
 namespace webrtc {
 namespace rtcp {

@@ -11,16 +11,15 @@
 #ifndef MODULES_AUDIO_CODING_NETEQ_TIME_STRETCH_H_
 #define MODULES_AUDIO_CODING_NETEQ_TIME_STRETCH_H_
 
-#include <assert.h>
-#include <string.h>  // memset, size_t
+#include <assert.h>  // for assert
+#include <stdint.h>  // for int16_t
+#include <string.h>  // for size_t
 
-#include "modules/audio_coding/neteq/audio_multi_vector.h"
-#include "rtc_base/constructormagic.h"
+#include "modules/audio_coding/neteq/audio_multi_vector.h"  // for AudioMult...
+#include "modules/audio_coding/neteq/background_noise.h"    // for Backgroun...
+#include "rtc_base/constructormagic.h"                      // for RTC_DISAL...
 
 namespace webrtc {
-
-// Forward declarations.
-class BackgroundNoise;
 
 // This is the base class for Accelerate and PreemptiveExpand. This class
 // cannot be instantiated, but must be used through either of the derived

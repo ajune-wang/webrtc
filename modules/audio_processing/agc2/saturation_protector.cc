@@ -10,10 +10,11 @@
 
 #include "modules/audio_processing/agc2/saturation_protector.h"
 
-#include <algorithm>
+#include <algorithm>  // for copy, max
+#include <iterator>   // for revers...
 
-#include "modules/audio_processing/logging/apm_data_dumper.h"
-#include "rtc_base/numerics/safe_minmax.h"
+#include "modules/audio_processing/logging/apm_data_dumper.h"  // for ApmDat...
+#include "rtc_base/numerics/safe_minmax.h"                     // for SafeClamp
 
 namespace webrtc {
 

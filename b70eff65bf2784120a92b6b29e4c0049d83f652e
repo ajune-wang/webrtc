@@ -489,6 +489,24 @@
       "revId": "b70eff65bf2784120a92b6b29e4c0049d83f652e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ebb1433f_209eb2d5",
+        "filename": "media/base/mediaengine.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-10-16T17:13:44Z",
+      "side": 1,
+      "message": "Ok, I didn\u0027t realize MediaConfig was exposed all the way to RTCConfiguration. In that case I don\u0027t suggest adding CryptoOptions to it.\n\nThe configuration situation here is definitely weird. Would be nice to clean it up a bit eventually.",
+      "parentUuid": "72f9ddfd_2d1ebac7",
+      "revId": "b70eff65bf2784120a92b6b29e4c0049d83f652e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

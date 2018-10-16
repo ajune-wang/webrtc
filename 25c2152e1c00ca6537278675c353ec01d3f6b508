@@ -16,6 +16,24 @@
       "revId": "25c2152e1c00ca6537278675c353ec01d3f6b508",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf22b006_3963c753",
+        "filename": "sdk/android/api/org/webrtc/PeerConnection.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-16T18:19:59Z",
+      "side": 1,
+      "message": "what\u0027s the policy on that? is duping comments between .cc and java a good thing(tm)? it feels wrong :)\n\nI see most of the variables don\u0027t have a comment:\n    public boolean disableIpv6;\n    public boolean enableDscp;\n    public boolean enableCpuOveruseDetection;\n    public boolean enableRtpDataChannel;\n    public boolean suspendBelowMinBitrate;\n    @Nullable public Integer screencastMinBitrate;\n    @Nullable public Boolean combinedAudioVideoBwe;\n    @Nullable public Boolean enableDtlsSrtp;",
+      "parentUuid": "9f277c9d_d5556a5d",
+      "revId": "25c2152e1c00ca6537278675c353ec01d3f6b508",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

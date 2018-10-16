@@ -486,6 +486,21 @@ void RtpVideoStreamReceiver::ReceivePacket(const RtpPacketReceived& packet) {
         webrtc_rtp_header.header.markerBit ||
         (generic_descriptor_wire->LastSubFrameInFrame() &&
          generic_descriptor_wire->LastPacketInSubFrame());
+
+    // When encryption is used the VP8 depacketizer will read encrypted data out
+    // of the uncompressed header. This gives us incorrect values for frameType
+    // and width and height.
+    if (frame_decryptor_) {
+      if (generic_descriptor_wire->FirstPacketInSubFrame()) {
+        webrtc_rtp_header.frameType =
+            generic_descriptor_wire->FrameDependenciesDiffs().empty()
+                ? kVideoFrameKey
+                : kVideoFrameDelta;
+      }
+
+      webrtc_rtp_header.video_header().width = 0;
+      webrtc_rtp_header.video_header().height = 0;
+    }
   } else {
     generic_descriptor_wire.reset();
   }
